@@ -538,7 +538,7 @@ const body = `
   <div class="wrap">
     <div class="brk"><h1>Card shops and <span class="hl">where to play</span></h1><span class="ln"></span></div>
     <p class="shops-lede">Where I actually buy, and where you can sit down and play. Real shops around
-      Rochester, New York, run by people who know the hobby. Round here the counter you buy from and the
+      Rochester, New York, run by people who know the hobby. Around here the counter you buy from and the
       table you play at are usually the same building, so both are on one page. Buy local when you can:
       the shop is why the local scene exists.</p>
 ${shopMap(shops)}
@@ -555,8 +555,10 @@ ${cards}
           site on 18 August 2026, reachable only from the hamburger, and this is
           the page whose reader is looking for exactly what they hold. The three
           are the same subject cut three ways, which is the case for linking
-          them and also the reason a reader who finds one wants the others. */ ""}
-    <p class="shops-lede">Not everyone selling cards around here has a shopfront.
+          them and also the reason a reader who finds one wants the others. */ ""}${/* "shopfront" IS BRITISH AND THIS PAGE GETS IT RIGHT 40 LINES LOWER, in
+         "They run a separate singles storefront alongside the main site". Same
+         word on /card-shows.html. */ ""}
+    <p class="shops-lede">Not everyone selling cards around here has a storefront.
       <a href="/vendors.html">Local vendors</a> are the breakers and sellers we buy from without one, and
       <a href="/creators.html">local creators</a> is who else is filming Pokemon in Rochester, Buffalo and
       Syracuse.</p>

@@ -775,7 +775,7 @@ ${(data.watchFor || []).length ? `
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>No date yet</p>
     <h2>Worth <span class="hl">watching for</span></h2>
-    <p class="lede intl-lede">Real shows that run round here but have not announced their next date. Worth a follow so
+    <p class="lede intl-lede">Real shows that run around here but have not announced their next date. Worth a follow so
       you are not the person who finds out on the Monday after.</p>
     <ul class="watch-list">
       ${(data.watchFor || []).map((w) => `<li>
@@ -807,7 +807,7 @@ ${(data.watchFor || []).length ? `
           the vendors, so this is a service rather than a link drop. */ ""}
     <p class="price-note" style="margin-top:var(--s4)">Nothing on for a while? The
       <a href="/shops.html">card shops around Rochester</a> are open the rest of the time and run league nights,
-      <a href="/vendors.html">local vendors</a> are the sellers and breakers without a shopfront, and
+      <a href="/vendors.html">local vendors</a> are the sellers and breakers without a storefront, and
       <a href="/creators.html">local creators</a> is everyone else filming Pokemon up here.</p>
   </div>
 </section>

@@ -600,3 +600,73 @@ export function avifPicture(img, opts) {
     sizes ? ` ${A.sizes}="${sizes}"` : ""
   }>${img}</picture>`;
 }
+
+/**
+ * The artwork inside a GRID TILE'S pack facade, as a <picture>.
+ *
+ * A CSS BACKGROUND CAN NEVER BE LAZY, which is the whole reason this exists.
+ * The pack facade is built from .pack-face halves whose .pack-art carried the
+ * artwork as a background-image in packs.css, and Chrome fetches a background
+ * for any element in the render tree whether or not the reader ever scrolls to
+ * it. Measured on 20 August 2026 with no scroll at all and a 15 second wait,
+ * cache off: /videos.html pulled all SEVEN of its distinct tile files, 279.7KB,
+ * with 4 of its 48 tiles above the fold at 390x844; /playlists.html pulled all
+ * TWELVE, 477.2KB, with 4 of 22 above the fold. A 2.5 second window shows only
+ * two or three of them and reads like the browser is already deferring the
+ * rest. It is not. Wait for the network to go quiet before believing that.
+ *
+ * This is the same move /rarity.html's magnified corners made when they went
+ * from 2,536KB to 388KB on load: the facade stays exactly as it was and the
+ * picture underneath it becomes an element the browser can defer.
+ *
+ * TILE RENDITION ONLY. build-packs.py writes a 400x711 -tile file next to the
+ * 810x1440 master, and a grid tile is never wider than about 220 CSS px, so the
+ * master would be a 4x oversample. The rip page's own hero pack is NOT this
+ * element and is deliberately left as a background: it is above the fold on
+ * every rip page, it is that page's LCP element, and it is preloaded by name.
+ *
+ * EVERY ONE OF THEM IS LAZY, INCLUDING THE ONES IN THE FIRST VIEWPORT, AND
+ * THAT IS THE OPPOSITE OF WHAT THIS WAS FIRST BUILT TO DO. CLAUDE.md records
+ * that a lazy image inside the first screen is a timing bug: the browser
+ * fetches it immediately anyway because it can see it, so the attribute moves
+ * no bytes and costs the preload scanner. Both halves of that are true here.
+ * What it leaves out is that the preload scanner is not always the thing you
+ * want, and a decorative thumbnail is the case where it is not.
+ *
+ * MEASURED BOTH WAYS, 20 August 2026, Slow 4G plus a 4x CPU slowdown at 390x844
+ * DPR 2, cache off, five runs, medians, over HTTP/2 because that is what the
+ * host serves and an HTTP/1.1 preview has a six connection ceiling that flatters
+ * this the wrong way:
+ *
+ *                              /videos.html LCP     /playlists.html FCP and LCP
+ *     backgrounds, as it was        4,112ms                  2,732ms
+ *     first four tiles eager        4,704ms                  3,480ms
+ *     every tile lazy               4,112ms                  2,732ms
+ *
+ * The on-load byte figures for the middle row and the bottom row are IDENTICAL,
+ * to a tenth of a kilobyte, on every page and both viewports. So eager bought
+ * nothing and cost between 588 and 748ms of first paint on a phone. The reason
+ * is that an eager tile is discovered during the HTML parse and spends the
+ * pipe the render-blocking stylesheet and the fonts are still waiting on, while
+ * a lazy one the browser can see is fetched at LAYOUT, which is after them.
+ * That is the same moment the CSS background used to be fetched at, since the
+ * url did not exist until packs.css had parsed, so this keeps the old ordering
+ * and drops the bytes nobody scrolls to.
+ *
+ * THE LCP ELEMENT IS NOT LEFT TO THIS. /videos.html's first tile is that page's
+ * LCP element and its AVIF is named in a <link rel=preload> in the head, which
+ * is why the top and bottom rows above are the same number rather than the
+ * bottom one being worse. A page that makes a tile its LCP element and does NOT
+ * preload it would need one; nothing does today.
+ *
+ * `packs` is the set of set ids that actually have artwork on disk. A set
+ * without one keeps the generated colour design in ui.css and gets NO img at
+ * all: emitting one would be a dead round trip to a file that does not exist.
+ * The caller is what holds that set, so the caller does the check.
+ */
+export function packTileImg(setId) {
+  const base = `/assets/packs/${setId}-garbage-rips-585-booster-pack-tile`;
+  return `<picture><source type="image/avif" srcset="${base}.avif">` +
+    `<img class="pack-img" src="${base}.webp" alt="" width="400" height="711"` +
+    ` loading="lazy" decoding="async"></picture>`;
+}

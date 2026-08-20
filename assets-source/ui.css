@@ -1226,6 +1226,35 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
    until 19 August 2026, a class that has not existed on this site for months;
    the element it meant was `.play`, which is now gone too.) */
 .pack--tile .pack-seal{display:none}
+/* ---------- a tile's artwork is an <img>, so it can be lazy ----------
+   A CSS BACKGROUND CAN NEVER BE LAZY. Every .pack-art on a page fetches its
+   background whether or not the reader scrolls to it, and a grid of tiles is
+   the one place on this site where nearly all of them are off screen.
+   Measured 20 August 2026, no scroll at all, cache off, waiting for the
+   network to go quiet: /videos.html pulled all seven of its distinct tile
+   files, 279.7KB, with FOUR of its 48 tiles above the fold at 390x844.
+
+   So a server-rendered tile now carries a <picture> inside its .pack-art and
+   the class .pack--img with it. packs.css turns the background off for exactly
+   that combination, at (0,4,0) so it cannot lose to the tile rule it overrides,
+   and a tile without the class is untouched: the facade app.js builds in the
+   browser, the rip page's own hero pack, the set-page packshots and the pack
+   packplayer.js mounts on a click are all still backgrounds and all still work.
+
+   NOTHING ABOUT THE FACADE MOVES. The clip-path halves, the foil sheen, the
+   crimped seal, the brand type and the tear are all unchanged, and for a set
+   with artwork packs.css was already switching the sheen and the wordmark off,
+   so there is no new stacking order to get wrong: the picture is the only child
+   .pack-art has ever had.
+
+   position:absolute rather than a plain block, because `picture` is
+   display:contents here (see the rule near the top of this file) EXCEPT inside
+   .pl-thumb, which gives it a box of its own. Pinning the img to .pack-art
+   itself is the one construction that is identical either way, and cover plus
+   centre is exactly what background-size:cover and background-position:center
+   were doing before. */
+.pack-img{position:absolute;inset:0;display:block;
+  width:100%;height:100%;object-fit:cover;object-position:center}
 /* --gold-deep, NOT --sky, AND THAT IS A BUG FIX RATHER THAN A RESTYLE. This
    rule said `background:var(--sky)`, and on the Trubbish palette --sky and
    --mustard are BOTH #70B5D9, so the hover state of the one control on a rip
@@ -1663,6 +1692,15 @@ footer p{font:400 var(--t-sm)/1.6 var(--body);color:var(--chrome-dim);max-width:
 }
 .flower{width:14px;height:14px;fill:var(--ketchup);flex:none}
 .lede{font-size:1.1rem;max-width:38em;color:var(--ink-soft)}
+/* TWO LEDES IN A ROW RENDERED AS ONE BLOCK. .lede sets no margin at all, which
+   is right where a page emits one of them and wrong the moment it emits two:
+   the paragraph break then gets exactly the leading of a line break. Measured
+   over CDP at 390 on a clean build, the gap between adjacent ledes was 0px on
+   /drops.html, /how-many-packs.html, /retailers.html and /buying.html.
+   32 adjacent pairs across 23 pages, including 13 imported set guides. The
+   adjacent-sibling selector means this can only reach a pair that is already
+   wrong, so nothing currently correct moves. */
+.lede + .lede{margin-top:var(--s3)}
 section.tight{padding:48px 0}
 /* sky-tinted band */
 section.band{background:var(--sky-tint);border-top:3px solid var(--sky);border-bottom:3px solid var(--sky)}
@@ -4502,8 +4540,13 @@ inherited from the UA default, so the promotion moves nothing on screen. */
    root absorbs it, so the site's own overflow test passed it: exactly the trap
    build-topps.mjs's header records for .tp-defs.
    min() keeps the two-column behaviour identical everywhere it was already
-   reachable (600px+ of container) and only binds below 300. It is on
-   /sets/*.html and /openings/*.html, 56 pages. */
+   reachable (600px+ of container) and only binds below 300.
+   THE PAGE COUNT IN THIS COMMENT WAS 56 AND IS NOT ANY MORE. The English set
+   guides stopped using .riplist on 20 August 2026, when the twelve dated rows
+   under "On the channel" became .ripcount and .runrows below. It is still on
+   /openings/*.html, on the 13 imported guides in /sets/, whose builder is
+   scripts/build-intl-pages.mjs and is a separate file, and on the playlist
+   pages. Do not delete it, and do not restyle it for one of those families. */
 .riplist{list-style:none;display:grid;gap:2px;margin-top:var(--s4);
   grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));width:100%;min-width:0}
 .riplist li{display:flex;align-items:baseline;gap:var(--s3);justify-content:space-between;
@@ -4512,6 +4555,64 @@ inherited from the UA default, so the promotion moves nothing on screen. */
   min-height:44px;display:inline-flex;align-items:center}
 .riplist a:hover{color:var(--sky-deep);text-decoration:underline}
 .riplist span{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);white-space:nowrap}
+
+/* ---------- how many rips of this set, and the runs they sit in ----------
+   The English set guides only, from scripts/build-set-pages.mjs. Replaced the
+   twelve .riplist rows described above it, which were 1,077px at 390 on the
+   Pitch Black guide and 465px after. The builder's own comment has the argument;
+   these are the four things about the RULES that are easy to get wrong.
+
+   ONE: EVERY ACCENT IN HERE SITS ON --card AND THAT IS LOAD BEARING, not a
+   default. --ketchup-deep and --sky-deep both measure 4.51:1 and 4.50:1 on
+   --card, which clears 4.5:1 by a hundredth; on --paper-3 they measure 3.60:1
+   and fail. That is the exact trap .set-rips, .tiers li and .fk-see were all
+   caught by when the ladder inverted, and this section would have been the
+   fourth: the rows want to look raised, and --paper-3 is the lightest surface
+   there is. It is a --card row on the page ground instead, and the ONE guide
+   where the section lands on a band (journey-together, because the tone
+   alternation puts it there) is still a --card row, so the numbers hold there
+   too. If a later editor wants more lift, take it from the border, not the fill.
+
+   TWO: THE BIG NUMBER IS --ketchup-deep AND NOT --ketchup EVEN THOUGH IT IS
+   44px. The big pink is legal at that size, at 3.45:1 against a 3:1 gate. It is
+   the small pink anyway because .fact .n, the stat tile at the top of this same
+   page printing this same count, is the small pink, and two recitals of one
+   number in two pinks on one page is worse than a rule followed too carefully.
+
+   THREE: .rr-img IS 60x45 WITH THE ATTRIBUTES ON THE ELEMENT. The source files
+   are 360x270 product photographs shared with /playlists.html, so they arrive
+   at 6x and would reflow the row as each one lands without a reserved box.
+   .rr-fall is the set logo standing in for the one playlist in the tree with no
+   product photograph, and it is contain rather than cover because a logo
+   cropped to 4:3 is a piece of a word.
+
+   FOUR: THE ROW IS THE LINK, not the title inside it, so the tap target is the
+   whole 61px row rather than a line of type. That is the same fix .fact-link
+   took for the stat tile, and for the same reason: a thumb. */
+.ripcount{display:flex;align-items:center;gap:var(--s4);text-decoration:none;color:inherit;
+  background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s3) var(--s4);margin-top:var(--s4);max-width:32em}
+.ripcount:hover,.ripcount:focus-visible{border-color:var(--sky-deep)}
+.ripcount b{font:400 2.8rem/1 var(--display);color:var(--ketchup-deep);flex:none}
+.rc-t{font:600 var(--t-sm)/1.45 var(--body);color:var(--ink)}
+.rc-t i{font-style:normal;color:var(--sky-deep)}
+.ripcount:hover .rc-t i,.ripcount:focus-visible .rc-t i{text-decoration:underline}
+.rc-t small{display:block;font:400 var(--t-micro)/1.7 var(--mono);color:var(--ink-2)}
+.run-h{font:400 var(--t-sm)/1.4 var(--body);color:var(--ink-2);margin-top:var(--s5)}
+.runrows{list-style:none;display:grid;gap:var(--s2);margin-top:var(--s2);
+  grid-template-columns:repeat(auto-fit,minmax(min(288px,100%),1fr));width:100%;min-width:0}
+.runrow{display:flex;align-items:center;gap:var(--s3);text-decoration:none;color:inherit;
+  background:var(--card);border:1px solid var(--hair);border-radius:var(--r-sm);
+  padding:8px 12px;min-width:0}
+.runrow:hover,.runrow:focus-visible{border-color:var(--sky-deep)}
+.rr-img{flex:none;width:60px;height:45px;object-fit:cover;border-radius:4px;background:var(--page)}
+.rr-fall{object-fit:contain;background:transparent;padding:2px}
+.rr-x{display:flex;flex-direction:column;gap:2px;min-width:0}
+.rr-k{font:700 var(--t-micro)/1 var(--mono);color:var(--ketchup-deep);
+  letter-spacing:.1em;text-transform:uppercase}
+.rr-t{font:700 var(--t-sm)/1.3 var(--body);color:var(--ink)}
+.runrow:hover .rr-t,.runrow:focus-visible .rr-t{color:var(--sky-deep);text-decoration:underline}
+.rr-m{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
 /* A printing we do not price: same card shape, no button, since there is no
    lightbox detail to open and nothing to click through to. */
 .chase-card.is-flat{cursor:default;background:var(--card);border:1px solid var(--hair);

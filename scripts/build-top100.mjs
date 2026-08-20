@@ -1522,7 +1522,7 @@ ${items.map((i) => row(i, cfg.key)).join("\n")}
 
 <section class="tight">
   <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Showing our working</p>
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Showing our work</p>
     <h2>How this list was <span class="hl">made</span></h2>
     <p class="lede" style="max-width:44em">A hundred prices is a hundred chances to publish something nobody can
       check. Here is exactly where each one came from and how we know the list is not just the first hundred rows

@@ -1166,7 +1166,44 @@ anything that supports AVIF and was not done.
 
 **A CSS background cannot be lazy.** rarity.html's magnified corners were
 backgrounds, so all 13 full-size scans were fetched at first paint whether or
-not anyone scrolled to that row. They are `<img loading="lazy">` now and the
+not anyone scrolled to that row.
+
+**THE PACK TILES WENT THE SAME WAY ON 20 August 2026 AND TAUGHT TWO THINGS THIS
+FILE HAD HALF RIGHT.** A grid tile's artwork is an `<img loading="lazy">` inside
+the same facade now; packs.css takes the background off exactly those tiles with
+a third class, `.pack--<set>.pack--tile.pack--img`, at (0,4,0) so it cannot lose
+a specificity contest, and it is opt IN, so the facade app.js builds in the
+browser and the one `playInTile` mounts on a click keep their backgrounds and
+neither file had to change. /videos.html went 435.2 -> 231.7KB on load at 390
+and /playlists.html 606.8 -> 408.5KB, fully scrolled unchanged.
+
+**THE MEASUREMENT WINDOW IS THE TRAP AND IT ALMOST KILLED THE CHANGE.** An
+off-screen background arrives SECONDS after the load event. A 2.5 second window
+showed two of /videos.html's seven tile files and read exactly like a browser
+that was already deferring the rest, which would have been a "measured and left
+alone" for a win that was really there. Wait for the network to go quiet.
+
+**AND `loading="lazy"` IN THE FIRST VIEWPORT IS NOT ALWAYS THE TIMING BUG THE
+NOTE BELOW SAYS IT IS.** That note is right that the browser fetches such an
+image immediately anyway and that the attribute costs the preload scanner. What
+it does not say is that the preload scanner is sometimes the thing you want to
+lose. Marking the four above-fold tiles eager moved ZERO bytes, to a tenth of a
+kilobyte, on every page and both viewports, and cost 592ms of LCP on
+/videos.html and 748ms of first paint on /playlists.html, measured Slow 4G with
+a 4x CPU slowdown over HTTP/2, five runs, medians. An eager tile is discovered
+during the HTML parse and spends the pipe the render-blocking stylesheet is
+still waiting on; a lazy one the browser can see is fetched at LAYOUT, which is
+after it, and is the same moment the background used to be fetched at. So the
+rule is about what the image IS: the LCP element wants the scanner and a preload
+of its own, a decorative thumbnail does not. Measure it over HTTP/2, because an
+HTTP/1.1 preview has a six connection ceiling that flatters the wrong answer.
+
+**THE RIP PAGES WERE MEASURED AND LEFT WITH NOTHING TO GAIN.** LAUNCH.md
+promised 38.8KB on each of 317 of them. The rail tile sits 930px below the fold
+at 390 and 396px at 1440, both inside Chrome's 1250px lazy threshold on a 4G
+connection, so it is fetched whatever the attribute says, and 248 of the 279
+pages with rails draw every tile in the hero's own set. That family moved by the
+markup and nothing else. They are `<img loading="lazy">` now and the
 page went 2,536KB to 388KB at 390px. If you move a background to an img,
 re-screenshot: doing it here brought the scans into reach of a later rule at
 equal specificity and turned eleven magnified corners into whole shrunken

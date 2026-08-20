@@ -210,8 +210,15 @@ const venueCard = (v) => {
             const u = typeof x === "string" ? x : x.url;
             const what = typeof x === "string" ? "" : x.what || "";
             const read = typeof x === "string" ? "" : x.read || "";
+            // The label is a LIST, so its parts are comma separated, and half
+            // of these what-clauses are full sentences ending in a period.
+            // That produced "shows edits on 17 June 2026., source 1" in 22
+            // aria-labels across this page and its sibling. Trim the stop off
+            // the clause, never off the visible link text below, which is a
+            // sentence and keeps its punctuation.
+            const clause = what.replace(/\.\s*$/, "");
             return u
-              ? `<a href="${esc(u)}" aria-label="${esc(v.name)}${what ? `, ${esc(what)}` : ""}, source ${i + 1}" rel="noopener" target="_blank">${
+              ? `<a href="${esc(u)}" aria-label="${esc(v.name)}${clause ? `, ${esc(clause)}` : ""}, source ${i + 1}" rel="noopener" target="_blank">${
                   esc(what || `Source ${i + 1}`)
                 }</a>${read ? ` <span>read ${esc(longDate(read))}</span>` : ""}`
               : esc(what);

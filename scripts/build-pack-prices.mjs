@@ -962,8 +962,13 @@ ${COLUMNS.map(
 <section class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The Elite Trainer Box</p>
-    <h2>What the <span class="hl">ETB</span> premium looks like</h2>
-    <p class="lede w40">All ${etbSets.length} sets on this page sell an Elite Trainer Box, and in not
+    <h2>What the <span class="hl">ETB</span> premium looks like</h2>${/* IT SAID "All ${etbSets.length} sets on this page", WHICH IS THE SAME
+         WRONG DENOMINATOR THE LONG NOTE ABOVE packWins IS ABOUT. This page
+         carries rows.length sets and etbSets.length of them sell an ETB, so
+         "All 22 sets on this page" told a reader the page held 22 while the
+         title, the description and the stat block all said 28. Both numbers
+         are computed, so the sentence now states the fraction it means. */ ""}
+    <p class="lede w40">${etbSets.length} of the ${rows.length} sets on this page sell an Elite Trainer Box, and in not
       one of them is it the cheapest pack. In ${etbDearest.length} of the ${etbSets.length} it is the priciest thing on the
       row. Measured against the cheapest pack in its own set it runs a median of ${x(etbMedian)}.</p>
     <div class="facts">
@@ -996,8 +1001,12 @@ ${COLUMNS.map(
         set guides with their full prices, but their pack counts are either variable or not in our data, so they are not
         divided here. A per-pack figure over a guessed pack count is worse than no figure.</li>
       <li><strong>Which set to open.</strong> Cheapest is not best and this is not a recommendation. It is a price list.</li>
-    </ul>
-    <p class="price-note">Prices are TCGplayer market prices, pulled by <code>scripts/sync-products.mjs</code> and read
+    </ul>${/* IT NAMED THE SCRIPT. "pulled by scripts/sync-products.mjs" is a path a
+         reader cannot open and does not want: a source line answers WHERE a
+         number came from, and the answer is TCGplayer. Same fix on
+         /games/guess-the-set.html, /eevee-evolutions.html and /base-set.html,
+         which all cited a filename in this repo as if it were a source. */ ""}
+    <p class="price-note">Prices are TCGplayer market prices, read
       ${esc(longDate(checked) || checked || "recently")}. The pack counts are our own per-kind figures for the current
       era, sourced on <a href="/how-many-packs.html">how many packs are in it</a> and applied only to sets from the
       Scarlet &amp; Violet era onward, because they are not what those products held in earlier ones. Every per-pack

@@ -59,7 +59,44 @@ const setName = index.sets || {};
 // One prefix per set; the card's own number and the size complete the url. See
 // sync-cards.mjs for why it is not stored per card.
 const imgBase = index.imgBase || {};
-const thumb = (slug, n) => (imgBase[slug] && n ? `${imgBase[slug]}/${n}/low.webp` : "");
+
+/* -------------------------------------------- the card with no scan -------
+ *
+ * A PER SET PREFIX CANNOT KNOW THAT ONE CARD IN THE SET HAS NO PICTURE, and
+ * that is the hole this closes. Everywhere else on the site a base that TCGdex
+ * does not serve is dropped up front out of data/no-scan.json. card-index.json
+ * stores a prefix per SET and the number per CARD, so there is no per card
+ * image field for a sync to drop, and the url only exists once the two halves
+ * are joined. One of the joins happens HERE and the other happens IN THE
+ * READER'S BROWSER, which is why no build check could see it: the string
+ * never appears in the built tree.
+ *
+ * Today that is exactly one card, Mew, Celebrations 25, a Secret Rare priced at
+ * 61.30, which is a card people search for by name. Its base 404s and the
+ * search rendered it with a live src and no onerror, so the row painted a
+ * broken picture. Found by generating every url the browser would build from
+ * card-index.json and fetching all 10,362 of them.
+ *
+ * SHIP NOTHING WHERE THERE IS NO PICTURE. The row keeps its name, its set, its
+ * rarity and its price and simply has no thumbnail, which is what the rest of
+ * the site already does and is why nothing here needs a placeholder.
+ *
+ * THE FACT IS SERIALISED INTO THE PAGE RATHER THAN WRITTEN BACK INTO
+ * card-index.json, for the reason this file argues at length above RARITY_JS:
+ * rewriting a sync's output from a page builder is undone by the next sync.
+ * Both url constructors read the same set, so they cannot disagree.
+ */
+const noScanBases = new Set(
+  JSON.parse(await readFile(join(ROOT, "data/no-scan.json"), "utf8")).bases || [],
+);
+const noScanKeys = [];
+for (const r of index.cards || []) {
+  const b = imgBase[r[1]];
+  if (b && r[2] && noScanBases.has(`${b}/${r[2]}`)) noScanKeys.push(`${r[1]}/${r[2]}`);
+}
+const noScan = new Set(noScanKeys);
+const thumb = (slug, n) =>
+  imgBase[slug] && n && !noScan.has(`${slug}/${n}`) ? `${imgBase[slug]}/${n}/low.webp` : "";
 const rows = index.cards || [];
 const priced = rows.filter((r) => typeof r[4] === "number");
 const top = priced.slice().sort((a, b) => b[4] - a[4]).slice(0, 60);
@@ -500,6 +537,9 @@ ${footer(priceFooter("Fan made, not official."))}
   // renders rarities with exactly the names and casing the server rendered them
   // in. Edit shared/format.mjs.
   ${RARITY_JS}
+  // Cards in our own sets that TCGdex serves no picture for, as slug/number.
+  // Derived from data/no-scan.json at build time, never hand written.
+  var NOSCAN=${JSON.stringify(Object.fromEntries(noScanKeys.map((k) => [k, 1])))};
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 
@@ -525,6 +565,13 @@ ${footer(priceFooter("Fan made, not official."))}
       // No thumbnail outside our own sets: the corpus carries no image url, and
       // guessing one from the set id gives a broken image on every miss.
       var base=r.slug && DATA.imgBase && DATA.imgBase[r.slug];
+      // Cards in the priced index whose base TCGdex does not serve. See the note
+      // beside noScanKeys in build-cards.mjs: the url is only ever assembled
+      // here, so this is the only place the browser can be told, and dropping
+      // the base is what leaves the row with no img at all rather than a
+      // broken one. The count lives in NOSCAN and is deliberately not written
+      // down in this comment.
+      if(base && NOSCAN[r.slug+'/'+r.n]) base='';
       // Same <picture> the server renders, and for the same reason: TCGdex
       // serves an AVIF off every path it serves a WebP off, 29.7% smaller at
       // low.*. This is avifPicture() from shared/format.mjs restated in the

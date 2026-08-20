@@ -1,5 +1,5 @@
 {
-  "checked": "2026-08-16",
+  "checked": "2026-08-20",
   "source": "TCGdex",
   "sets": {
     "mega-evolution": {
@@ -56,7 +56,7 @@
     },
     "ascended-heroes": {
       "confidence": "confirmed",
-      "note": "A high-pull subset in Japan, which is why both sides are unusually large.",
+      "note": "A special subset in Japan rather than a main expansion, which is why both sides are unusually large.",
       "englishTotal": 295,
       "sourceTotal": 250,
       "sources": [

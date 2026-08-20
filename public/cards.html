@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=7c9a337f">
+<link rel="stylesheet" href="/assets/ui.css?v=b582fc0e">
 <style>
 @media(min-width:1080px){
   .cq-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}
@@ -781,6 +781,9 @@
       .join(" ");
     return Object.prototype.hasOwnProperty.call(RARITY_ALIAS, t) ? RARITY_ALIAS[t] : t;
   }
+  // Cards in our own sets that TCGdex serves no picture for, as slug/number.
+  // Derived from data/no-scan.json at build time, never hand written.
+  var NOSCAN={"celebrations/25":1};
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 
@@ -806,6 +809,13 @@
       // No thumbnail outside our own sets: the corpus carries no image url, and
       // guessing one from the set id gives a broken image on every miss.
       var base=r.slug && DATA.imgBase && DATA.imgBase[r.slug];
+      // Cards in the priced index whose base TCGdex does not serve. See the note
+      // beside noScanKeys in build-cards.mjs: the url is only ever assembled
+      // here, so this is the only place the browser can be told, and dropping
+      // the base is what leaves the row with no img at all rather than a
+      // broken one. The count lives in NOSCAN and is deliberately not written
+      // down in this comment.
+      if(base && NOSCAN[r.slug+'/'+r.n]) base='';
       // Same <picture> the server renders, and for the same reason: TCGdex
       // serves an AVIF off every path it serves a WebP off, 29.7% smaller at
       // low.*. This is avifPicture() from shared/format.mjs restated in the

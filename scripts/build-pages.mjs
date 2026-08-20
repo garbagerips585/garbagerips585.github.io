@@ -42,7 +42,7 @@ import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS, SUBSCRIBE } fro
 import { labelFor } from "../shared/taxonomy.mjs";
 import { raritiesIn, rarityChip, RARITY_CSS } from "../shared/rarity.mjs";
 import { ripPath } from "../shared/paths.mjs";
-import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount, avifPicture } from "../shared/format.mjs";
+import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount, avifPicture, packTileImg } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -104,6 +104,35 @@ const packsOnDisk = new Set(
     .filter((f) => f.endsWith(".webp"))
     .map((f) => f.replace(/-garbage-rips-585-booster-pack\.webp$/, ""))
 );
+
+/**
+ * Which pack a GRID TILE in the two rip rails wears.
+ *
+ * The expression was written out twice, once in "More from <box>" and once in
+ * "More <set>", and it now decides two things rather than one: the wrapper
+ * class AND the artwork file the tile's <img> asks for. Two copies of a rule
+ * that has to agree with itself in four places is how a tile comes to wear one
+ * set's wrapper over another set's picture, so it is one function.
+ *
+ * IT CAN ONLY EVER NAME A SET WITH ARTWORK, which is why the caller can add
+ * .pack--img unconditionally: a multi-set rip falls back to "multi" and an
+ * unknown one to "default", and build-packs.py ships a master for both.
+ *
+ * THE TILES ARE LAZY AND ON THIS PAGE FAMILY THAT SAVES NOTHING, which is
+ * worth writing down because LAUNCH.md said it would save 38.8KB on each of
+ * 317 pages. It does not, and the reason is geometry rather than markup.
+ * Measured 20 August 2026 off each .pack-art's own border box at scroll 0: the
+ * first rail tile sits at y=1774 at 390x844 and y=1296 at 1440x900, which is
+ * 930 and 396 pixels below the fold, and Chrome's lazy threshold on a 4G
+ * connection is 1250. A lazy image that close is fetched immediately. On top of
+ * that, 248 of the 279 rip pages that carry rails draw every tile in the hero's
+ * own set, so the rails cost ONE file whatever happens. They are still images
+ * rather than backgrounds, because the preload scanner can see an image and
+ * because one tile emitter that behaves two ways is how the two renders of this
+ * component drifted before. Do not quote a saving for this family.
+ */
+const tileSet = (r) =>
+  r.sets.length > 1 ? "multi" : packsOnDisk.has(r.sets[0]) ? r.sets[0] : "default";
 
 const setData = new Map(
   JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8")).sets.map((x) => [x.id, x])
@@ -1041,8 +1070,15 @@ ${MENU}
 ${
   showableHits.length
     ? `<section class="band tight hits-band">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Below the fold</p>
+  <div class="wrap">${/* IT SAID "Below the fold", WHICH IS WEB JARGON FOR WHERE A THING SITS,
+         and it was the only section label on the site that named a POSITION
+         instead of a subject. Swept across all 1,483 built pages: every other
+         .sec-label reads as content ("The whole list", "What is actually rare",
+         "Pulled on camera", "In the video games"), and this one read like a
+         note the author left themselves. That is the same failure as the
+         "dearest" leak: a code comment's register turning up in the copy. It
+         shipped on the 38 rip pages that have a card to show. */ ""}
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Out of the wrapper</p>
     <h2>What came out of <span class="hl">this one</span></h2>
     ${/*
       THE LEDE PROMISED PRICES THE BAND DID NOT HAVE.
@@ -1165,9 +1201,9 @@ ${sameBox.length ? `<section class="band tight">
     */ ""}<div class="vid-grid">
       ${sameBox.map((r) => `<article class="vid">
         <a class="vid-shell" href="/${pathFor(r)}" aria-label="${esc(r.label || r.title)}">
-          <span class="pack pack--tile pack--${r.sets.length > 1 ? "multi" : packsOnDisk.has(r.sets[0]) ? r.sets[0] : "default"}" aria-hidden="true">
+          <span class="pack pack--tile pack--${tileSet(r)} pack--img" aria-hidden="true">
             <span class="pack-face pack-l">
-              <span class="pack-art"></span>
+              <span class="pack-art">${packTileImg(tileSet(r))}</span>
               <span class="pack-brand">${esc(r.sets[0] ? labelFor("sets", r.sets[0]) : "GARBAGE RIPS")}<small>${r.sets[0] ? "GARBAGE RIPS 585" : "585"}</small></span>
               <span class="pack-seal"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
             </span>
@@ -1200,9 +1236,9 @@ ${related.length ? `<section class="band tight">
     <div class="vid-grid">
       ${related.map((r) => `<article class="vid">
         <a class="vid-shell" href="/${pathFor(r)}" aria-label="${esc(r.title)}">
-          <span class="pack pack--tile pack--${r.sets.length > 1 ? "multi" : packsOnDisk.has(r.sets[0]) ? r.sets[0] : "default"}" aria-hidden="true">
+          <span class="pack pack--tile pack--${tileSet(r)} pack--img" aria-hidden="true">
             <span class="pack-face pack-l">
-              <span class="pack-art"></span>
+              <span class="pack-art">${packTileImg(tileSet(r))}</span>
               <span class="pack-brand">${esc(r.sets[0] ? labelFor("sets", r.sets[0]) : "GARBAGE RIPS")}<small>${r.sets[0] ? "GARBAGE RIPS 585" : "585"}</small></span>
               <span class="pack-seal"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
             </span>

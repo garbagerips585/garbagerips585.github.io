@@ -530,7 +530,12 @@ ${fmts
               // what the source note at the foot of the page records. Pointing at
               // the sourcing rather than at a specific line is exact for both.
               `The sealed formats named on ${esc(r.name)}'s own site when it was read, one photograph of each.`
-        } The box in a picture is one product of that format and not the one on the shelf in front of you: the
+        }${/* "The box in a picture" was wrong on the shops whose only picture
+              is a loose booster pack or a peg blister: five-below.html captions
+              a single pack with it, and dollar-general.html a mini tin. Say
+              "product", which is true of all eight and is the word the sentence
+              already uses in its next clause. */ ""} The product in a picture
+          is one example of that format and not the one on the shelf in front of you: the
           artwork changes with every set and the shape does not. What each format is supposed to cost is on
           <a href="/msrp.html">the MSRP page</a>.</figcaption>
       </figure>`;
@@ -957,7 +962,7 @@ ${(R.marketplace.why || []).map((w) => `          <li>${esc(w)}</li>`).join("\n"
           figure in the fourth column comes from <a href="/msrp.html">the MSRP page</a>, which prices every
           sealed product from Pokemon's own shop. Prices move daily and differ between two branches of one
           chain, so treat these as worked examples of the division rather than as what any shop charges.
-          Check the sticker in front of you and do the sum yourself.</p>
+          Check the sticker in front of you and do the math yourself.</p>
 ${table()}
 ${gapList()}
       </section>
@@ -1093,11 +1098,21 @@ const readingBlock = (r, rs) => {
 ${rs
   .map(
     (x) => `        <li><b>${esc(x.product)}.</b> ${esc(moneyExact(x.amount))} asked against a suggested
-          ${esc(moneyExact(x.base))} for a ${
+          ${esc(moneyExact(x.base))} for the ${
             // NOT lowercased. It was, to make it read as a noun in the sentence,
             // and it turned "Poke Ball Tin" into "poke ball tin": these labels
             // are product names out of data/msrp.json and half of them contain a
             // proper noun. The label as written is the label /msrp.html prints.
+            //
+            // "THE", NOT "A", AND THAT IS THE SAME FIX build-msrp.mjs ALREADY
+            // MADE for the calculator that prints these same labels. "a" needs
+            // to know which labels take "an" and this one did not: /msrp.html
+            // and three retailer pages shipped "for a Elite Trainer Box" and
+            // meijer.html shipped "for a ex Box". A first-letter test does not
+            // settle it either, because UPC begins with a vowel and takes "a".
+            // "the" is correct in front of every label in the file, so the
+            // question does not arise. Both pages print the same listings out
+            // of the same two research files and now word them the same way.
             esc(x.baseLabel)
           }, so
           ${esc(x.amount.toFixed(2))} &divide; ${esc(x.base.toFixed(2))} = ${esc(

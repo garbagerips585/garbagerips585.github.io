@@ -591,10 +591,14 @@ const CONF_CLASS = {
 };
 
 const SOURCE_WORDS = {
-  scan: "Read off a card scan here, 17 August 2026",
-  "scan-partial": "Half read off a card scan here, half Bulbapedia's, 17 August 2026",
-  bulbapedia: "Bulbapedia, 1st Edition (TCG), read 17 August 2026",
-  data: "public/data/expansions.json in this repo, from api.pokemontcg.io",
+  // DAY-FIRST IS THE BRITISH ORDER AND THESE SHIP. The house format for a
+  // date a reader sees is "August 17, 2026", which is what longDate() writes
+  // everywhere else on this page; only these three hand-typed source words were
+  // the other way round, so one page carried both orders.
+  scan: "Read off a card scan here, August 17, 2026",
+  "scan-partial": "Half read off a card scan here, half Bulbapedia's, August 17, 2026",
+  bulbapedia: "Bulbapedia, 1st Edition (TCG), read August 17, 2026",
+  data: "api.pokemontcg.io, through this site's own expansion list",
   "cross-link": "Covered in full on the pages linked below",
 };
 
@@ -1376,7 +1380,7 @@ ${MENU}
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The four runs</p>
     <h2>Four printings, <span class="hl">two marks</span></h2>
-    <p class="bs-p2">English Base Set came out on ${esc(longDate(baseSet.released) || "9 January 1999")} with
+    <p class="bs-p2">English Base Set came out on ${esc(longDate(baseSet.released) || "January 9, 1999")} with
       ${esc(String(baseSet.printedTotal || 102))} cards in it, and it was printed more than once. These are the
       runs, oldest first, and the market prices them in that order.</p>
     <ul class="bs-runs">

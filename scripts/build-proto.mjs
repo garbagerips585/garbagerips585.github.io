@@ -16,7 +16,7 @@ import { SITE, DOMAIN, STAGING, LIVE } from "../shared/site.mjs";
 import { basename, join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { checkDrift } from "../shared/chrome.mjs";
-import { esc, MONTHS_SHORT as MONTHS, moneyCompact, imgDims, viewCount, avifPicture, longDate, RIP_BANNER } from "../shared/format.mjs";
+import { esc, MONTHS_SHORT as MONTHS, moneyCompact, imgDims, viewCount, avifPicture, packTileImg, longDate, RIP_BANNER } from "../shared/format.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 // The sourcing sentence for a raw card price, and the "which of the two dates
 // in that file is the money's" helper. NOT re-worded here: this page prints the
@@ -1297,10 +1297,44 @@ const fmtDate = (iso) => {
   return `${MONTHS[Number(p[1]) - 1]} ${Number(p[2])}, ${p[0]}`;
 };
 
-/** app.js makePack(), as HTML. The pack is CSS art, so there is no image here. */
+/**
+ * app.js makePack(), as HTML, with the artwork as an <img> so it can be lazy.
+ *
+ * THE FACADE IS UNCHANGED AND THE ARTWORK MOVED. It used to be a background on
+ * .pack-art, painted by packs.css, and a CSS background can never be lazy:
+ * Chrome fetches one for every element in the render tree whether or not the
+ * reader scrolls to it. Measured 20 August 2026 on this page with NO scroll at
+ * all, cache off, waiting for the network to go quiet, all seven distinct tile
+ * files arrived, 279.7KB, and FOUR of the 48 tiles are above the fold at
+ * 390x844. That is the same shape as /rarity.html's magnified corners, which
+ * went 2,536KB to 388KB on load by becoming lazy img elements under the same
+ * facade.
+ *
+ * .pack--img IS WHAT SWITCHES THE BACKGROUND OFF, at (0,4,0) in packs.css, and
+ * it is opt in. The facade app.js builds in the browser carries no img and no
+ * such class, so it keeps its background and did not have to change. That
+ * matters: this function and app.js makePack are the same component written
+ * twice in this codebase, and the one thing they must not do is disagree about
+ * what a tile with no artwork looks like.
+ *
+ * A SET WITH NO MASTER GETS NO IMG. `set` here is app.js's choice rather than
+ * faceSet's, deliberately (see libCard), so it can name a set that has only the
+ * generated colour design. Emitting an img for one would be a round trip to a
+ * file that does not exist.
+ *
+ * EVERY TILE IS LAZY, THE FIRST FOUR INCLUDED, and that was measured rather
+ * than assumed. Marking the four above the fold at 390x844 eager moved the
+ * on-load bytes not at all, to a tenth of a kilobyte, and cost 592ms of LCP on
+ * a Slow 4G phone over HTTP/2, because an eager tile is discovered during the
+ * HTML parse and spends the pipe the render-blocking stylesheet is waiting on.
+ * The full pair of tables is in packTileImg in shared/format.mjs. The one
+ * element that must not be left to the browser here is tile 0, which is this
+ * page's LCP element, and it is not: the head preloads its AVIF by name.
+ */
 function packFacade(setId) {
-  return `<span class="pack pack--${setId} pack--tile" aria-hidden="true"><span class="pack-face pack-l">` +
-    `<span class="pack-art"></span><span class="pack-brand">${esc(labelOf("sets", setId))}<small>GARBAGE RIPS 585</small></span>` +
+  const art = packs.has(setId) ? packTileImg(setId) : "";
+  return `<span class="pack pack--${setId} pack--tile${art ? " pack--img" : ""}" aria-hidden="true"><span class="pack-face pack-l">` +
+    `<span class="pack-art">${art}</span><span class="pack-brand">${esc(labelOf("sets", setId))}<small>GARBAGE RIPS 585</small></span>` +
     `<span class="pack-seal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg></span>` +
     `</span></span>`;
 }
@@ -1504,6 +1538,20 @@ function plTile(p, i) {
       const s = (videoById.get(id)?.sets || [])[0];
       if (s) { setId = s; break; }
     }
+    // THE COVERS' FIRST-ROW RULE DOES NOT APPLY TO THIS BRANCH AND THAT IS
+    // MEASURED, not an oversight. Every one of these 22 cards falls through to
+    // the pack wrapper, so this branch is the whole grid, and its artwork is now
+    // an <img> that can be lazy: with no scroll at all, cache off and the
+    // network left to go quiet, this page pulled all twelve distinct tile files,
+    // 477.2KB of a 606.5KB page, with four of the 22 tiles above the fold at
+    // 390x844. It is 276.9KB across seven now.
+    //
+    // Marking the first row eager the way the covers are moved ZERO of those
+    // bytes and cost 748ms of first paint on a Slow 4G phone over HTTP/2, which
+    // on this page is also its LCP because the largest element is text. A cover
+    // is one 240px picture and the whole point of the card; a pack tile is a
+    // 74px thumbnail on a card whose title is what a reader is scanning for.
+    // The tables are in packTileImg in shared/format.mjs.
     thumb = `<span class="pl-thumb pl-thumb--pack">${packFacade(setId || "default")}</span>`;
   }
   // ON THIS SITE. This used to link to youtube.com/playlist, and so did the

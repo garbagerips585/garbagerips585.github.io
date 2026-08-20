@@ -434,8 +434,9 @@ ${MENU}
       </article>`
         )
         .join("\n      ")}
-    </div>
-    <h3 class="gc-sub">And the bits nobody quotes you</h3>
+    </div>${/* "the bits" is British for "the parts". See the same fix on
+         /rarity.html, /msrp.html, /how-many-packs.html and the trivia page. */ ""}
+    <h3 class="gc-sub">And the parts nobody quotes you</h3>
     <ul class="facts-list">
       ${g.extras.map((e) => `<li><strong>${esc(e.what)}, ${esc(e.cost)}.</strong> ${esc(e.note)}</li>`).join("\n      ")}
     </ul>
@@ -477,7 +478,15 @@ ${MENU}
     <h2>${worth.length} of ${rows.length} cards <span class="hl">clear the fee</span></h2>
     <p class="lede">Every card from our sets where we hold both a raw price and a PSA 10 price, with
       ${moneyRound(psaCo.cheapest)} plus about ${moneyRound(SHIP)} shipping subtracted. This is the upside, not the
-      expectation: it assumes the card comes back a 10, and most do not.</p>
+      expectation: every figure below assumes the card comes back a 10, and nothing here says how likely that
+      is.${/* IT SAID "and most do not", WHICH IS THE PAGE CONTRADICTING ITSELF
+             1,500px LOWER DOWN: "We will not guess at the odds of any
+             particular card coming back a 10, because nobody publishes that."
+             "Most do not" IS that guess, stated as a fact, with no source
+             anywhere in the tree. Same class as a pull rate and the same rule
+             covers it: the sentence's job is to stop the reader reading the
+             column as an expectation, and it does that by naming what the sum
+             assumes rather than by inventing a rate to argue against. */ ""}</p>
 
     <h3 class="gc-sub">Worth it, best first</h3>
     <ol class="gr-list">

@@ -1423,6 +1423,83 @@ for (const v of videos) {
 for (const list of ripsList.values()) {
   list.sort((a, b) => String(b.published).localeCompare(String(a.published)));
 }
+
+// EVERY RUN OF THIS SET, WHICH IS THE FACT THIS PAGE HAD NOWHERE TO PUT.
+//
+// A run is a YouTube playlist every one of whose videos carries the same single
+// set tag. That rule is NOT invented here: scripts/build-playlists.mjs resolves
+// its own setId exactly this way, and a playlist spanning several sets, which
+// today means Hits Only and only Hits Only, is a sibling of no set at all.
+// Mirroring it is the entire point. A count printed beside a link has to be the
+// number the page at the far end of that link prints about itself, and the only
+// way to guarantee that is to compute it the same way from the same file.
+//
+// THREE FIGURES, AND WHERE EACH ONE IS ALLOWED TO COME FROM:
+//   n      resolved videos, NEVER playlists.json's own count. YouTube's figure
+//          counts private and deleted entries that never reach a tile, so it is
+//          the wrong number to put next to a link into this tree. That builder
+//          says so in as many words; this is the second reader of the same file
+//          and it would have been the second place to get it wrong.
+//   sec    the sum of the durations, printed ONLY under the condition the
+//          playlist page itself prints it under: more than one video, and every
+//          one of them timed. A single video run shows no total there, because
+//          it would repeat that video's own chip, so it shows none here.
+//   cover  the sealed product photograph /playlists.html already carries, from
+//          data/playlist-covers.json. One of the 22 has no cover, so a set
+//          without one falls back to the set logo rather than to a hole.
+//
+// Sorted biggest first: the run with the most in it is the one worth offering.
+const PLAYLISTS = JSON.parse(
+  await readFile(join(ROOT, "public/data/playlists.json"), "utf8").catch(() => '{"playlists":[]}'),
+).playlists || [];
+const PL_COVERS = JSON.parse(
+  await readFile(join(ROOT, "data/playlist-covers.json"), "utf8").catch(() => "{}"),
+).covers || {};
+const runsBySet = new Map();
+for (const p of PLAYLISTS) {
+  const vids = (p.videoIds || []).map((id) => videoById.get(id)).filter(Boolean);
+  if (!vids.length) continue;
+  const seen = new Set();
+  for (const v of vids) for (const id of v.sets || []) seen.add(id);
+  if (seen.size !== 1) continue;
+  const setId = [...seen][0];
+  const cover = PL_COVERS[p.id] || null;
+  if (!runsBySet.has(setId)) runsBySet.set(setId, []);
+  runsBySet.get(setId).push({
+    title: p.title,
+    path: p.path,
+    n: vids.length,
+    sec: vids.reduce((a, v) => a + (v.duration || 0), 0),
+    timed: vids.length > 1 && vids.every((v) => v.duration),
+    img: cover && cover.webp ? cover.webp : null,
+    alt: (cover && cover.alt) || "",
+  });
+}
+for (const list of runsBySet.values()) list.sort((a, b) => b.n - a.n || b.sec - a.sec);
+
+// m:ss, copied from build-playlists.mjs so the two pages spell a runtime the
+// same way. It is deliberately not rounded to "3 min": the figure is the sum of
+// the durations printed on the tiles of the page it points at, in the notation
+// those tiles use, so a reader can check it.
+const clockMS = (sec) => (sec ? `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")}` : "");
+
+// The run title with the set name taken off the front, because the heading
+// three lines above it has already said the set name and the guide is not a
+// list of playlists, it is the Pitch Black page. "Pokemon Chaos Rising ETB
+// Opening Series" becomes "ETB Opening Series", which is the half of the title
+// that tells two runs apart. The optional Pokemon prefix is there because Tim
+// names some playlists "Pokemon <set>" and some "<set>", and the trailing
+// channel name is there because he adds it to some and not others.
+// FALLS BACK TO THE WHOLE TITLE rather than to a stub: if the trim leaves fewer
+// than six characters the title did not have the shape this expects and the
+// safe answer is to print what YouTube says.
+const runTitle = (title, setName) => {
+  const t = String(title).replace(/\s*\|\s*Garbage Rips 585\s*$/i, "").trim();
+  const rx = new RegExp(`^(?:Pok[eé]mon\\s+)?${setName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s+`, "i");
+  const cut = t.replace(rx, "").trim();
+  return cut.length >= 6 ? cut : t;
+};
+
 const descriptions = JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}"));
 
 function yearsSince(iso) {
@@ -2573,27 +2650,103 @@ function setPage(s) {
     setValue(s) ? (cls) => valueBand(s, cls) : null,
 
     (() => {
-      // Newest twelve. All of them on a 90-rip set would be a wall, and the link at
-      // the end covers the rest.
+      // A COUNT, THE WAYS IN, AND ONE THING TO PRESS PLAY ON. Redesigned
+      // 20 August 2026 on Tim's own note, looking at this section on Pitch
+      // Black: "right now its just a list of text, looks pretty big and boring,
+      // maybe there is a simpler way we can show how many packs / videos we
+      // ripped, just by showing a number and linking to the playlist page".
+      //
+      // WHAT IT USED TO BE AND WHY HE WAS RIGHT. Twelve tiles, each a label and
+      // a date, of which the newest twelve on a 23 rip set were "Pitch Black
+      // Pack - Pack 9", "Pitch Black ETB 1 - Pack 8", "Pitch Black Pack - Pack
+      // 8" and so on down. Every row on the page differed from its neighbour in
+      // one digit. That is 1,077px at 390, the tallest thing on the guide that
+      // is not the checklist, spent on twelve near identical strings. MEASURED
+      // AFTERWARDS: 465px on Pitch Black, so 612px and roughly two thirds of a
+      // phone screen came back, on 22 guides.
+      //
+      // THE TWO FACTS IN IT THAT ARE WORTH A READER'S TIME ARE THE COUNT AND
+      // THE ROUTE, and the twelve labels were neither.
+      //
+      // THE COUNT WAS ALREADY ON THE PAGE, TWICE. The Quick facts band prints
+      // it as a stat tile linking to /videos.html?set=<id>, and the "See it
+      // opened" band near the foot prints it again in a sentence over the pack
+      // art with a button to the same url. So a third recital of "23 videos"
+      // above twelve rows was the section's whole content, and the thing this
+      // page genuinely could not say anywhere was HOW THE SET GOT OPENED: that
+      // there are three Pitch Black runs, that the ETB marathon is two videos
+      // and 41 seconds, that the Chaos Rising ETB series is 21 videos and 7:36.
+      // The runtime is the reason to press play; a bare count is not, on a
+      // channel of Shorts where 21 videos is under eight minutes.
+      //
+      // ZERO, ONE AND SEVERAL ALL HAD TO WORK, and 16 of the 28 English sets
+      // have no run at all. A set with runs shows them. A set with rips but no
+      // run shows its NEWEST rip, so there is always one thing to play rather
+      // than a number and a link, which would be thin. A set with no rips at
+      // all still returns null and renders no section, exactly as before: the
+      // Quick facts tile already says "None yet" on those six guides, which is
+      // the deliberate empty state, and returning null here also leaves the
+      // band tone alternation on those pages untouched.
       const all = ripsList.get(s.id) || [];
-      const show = all.slice(0, 12);
-      if (!show.length) return null;
+      if (!all.length) return null;
+      const newest = all[0];
+      const runs = runsBySet.get(s.id) || [];
+      const nRuns = ["", "One", "Two", "Three", "Four", "Five", "Six"][runs.length] || String(runs.length);
+      // The logo the hero on this same page already loaded, so the fallback
+      // costs a phone nothing it has not already paid for. Only reached by the
+      // one playlist in the tree with no product photograph.
+      const fallbackImg = hasLogo(s.id)
+        ? `<img class="rr-img rr-fall" src="/assets/logos/${esc(s.id)}-pokemon-tcg-set-logo-sm.webp" width="60" height="45" loading="lazy" decoding="async" alt="">`
+        : `<span class="rr-img rr-fall" aria-hidden="true"></span>`;
+      const rows = runs.length
+        ? runs
+            .map(
+              (r) => `      <li><a class="runrow" href="/${esc(r.path)}">
+        ${
+          r.img
+            ? `<img class="rr-img" src="${esc(r.img)}" width="60" height="45" loading="lazy" decoding="async" alt="${esc(r.alt)}">`
+            : fallbackImg
+        }
+        <span class="rr-x"><span class="rr-t">${esc(runTitle(r.title, s.name))}</span><span class="rr-m">${r.n} video${
+                r.n === 1 ? "" : "s"
+              }${r.timed ? ` &bull; ${clockMS(r.sec)}` : ""}</span></span>
+      </a></li>`,
+            )
+            .join("\n")
+        : `      <li><a class="runrow" href="/${esc(newest.path)}">
+        <span class="rr-x"><span class="rr-k">Newest rip</span><span class="rr-t">${esc(
+          newest.label || newest.siteTitle || newest.title,
+        )}</span><span class="rr-m">${esc(shortDate(newest.published))}${
+            newest.duration ? ` &bull; ${clockMS(newest.duration)}` : ""
+          }</span></span>
+      </a></li>`;
       return (cls) => `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>On the channel</p>
     <h2>Every ${esc(s.name)} <span class="hl">rip</span></h2>
-    <p class="lede w38">${all.length} video${all.length === 1 ? "" : "s"} opening this set${
-        all.length > show.length ? `, newest ${show.length} below` : ""
-      }.</p>
-    <ul class="riplist">
-      ${show
-        .map(
-          (v) => `<li><a href="/${esc(v.path)}">${esc(v.label || v.siteTitle || v.title)}</a>
-        <span>${esc(shortDate(v.published))}</span></li>`,
-        )
-        .join("\n      ")}
+    <a class="ripcount" href="/videos.html?set=${esc(s.id)}">
+      <b>${all.length}</b>
+      <span class="rc-t">rip${all.length === 1 ? "" : "s"} of ${esc(s.name)} <i>on the channel&nbsp;&rarr;</i><small>newest ${esc(shortDate(newest.published))}</small></span>
+    </a>
+    ${/* THE LINE ABOVE THE ROWS EARNS ITS PLACE BY SAYING WHERE THEY PLAY.
+          "Three runs" alone would be a caption for something the reader can
+          already count. What a reader does not know, and what these pages spent
+          months not saying, is that a run plays on this site rather than on
+          YouTube, which is the one thing our playlist page does that YouTube's
+          does not. Kept to one line at 390 on all 22 guides.
+          THE ONE RIP CASE GETS ITS OWN WORDING because "the most recent one"
+          promises a second one. Six guides are at one or two rips. */ ""}<p class="run-h">${
+      runs.length > 1
+        ? `${nRuns} runs of this set, each one plays here in order`
+        : runs.length === 1
+          ? "One run of this set, and it plays here in order"
+          : all.length === 1
+            ? "The only one, and it plays here"
+            : "The most recent one, and it plays here"
+    }</p>
+    <ul class="runrows">
+${rows}
     </ul>
-    ${all.length > show.length ? `<p style="margin-top:var(--s3)"><a class="btn btn-ghost btn-sm" href="/videos.html?set=${esc(s.id)}">All ${all.length} ${esc(s.name)} rips</a></p>` : ""}
   </div>
 </section>`;
     })(),

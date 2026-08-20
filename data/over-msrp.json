@@ -113,29 +113,29 @@
       "id": "chain",
       "name": "Big box and game chains",
       "whatDecides": "One price per product, set by the chain and shown on its own product page, the same across the country. That price is the chain's decision and not Pokemon's, which is why it can sit at the suggested figure on one product and well over it on the next.",
-      "watch": "The multiple is not one number even inside one chain. Two of the four listings above are the same retailer, on two different products, read on the same day, and they are nowhere near the same multiple.",
-      "source": "the four listings above, read on retailers' own product pages 15 August 2026"
+      "watch": "The multiple is not one number even inside one chain. Two of the listings above are the same retailer, on two different products, read on the same day, and they are nowhere near the same multiple.",
+      "source": "the listings above, read on retailers' own product pages August 15, 2026"
     },
     {
       "id": "market",
       "name": "Online marketplaces",
       "whatDecides": "There is no single price at all. Thousands of separate sellers each set their own, so what you see is one stranger's asking price and the next listing down is a different one. TCGplayer, eBay and Whatnot all work this way.",
       "watch": "The price you compare is not the price you pay. TCGplayer's own shipping page says the buyer is charged one flat shipping fee per STORE, so a cart from six sellers pays six times. eBay stacks the same way.",
-      "source": "data/buying.json, which records each venue's costs off that company's own shipping and policy pages"
+      "source": "each venue's own shipping and policy pages, recorded on where to buy"
     },
     {
       "id": "shop",
       "name": "Online card shops",
       "whatDecides": "One company owns the stock, prices it, packs it and answers for it, so there is one price and one place to complain to. Free shipping thresholds are often two thresholds, with sealed product on the higher one.",
       "watch": "A shop's own listed price and its shipping rule have to be added together before comparing it with anything. Two of the shops on this site's buying page run a separate, higher free shipping threshold for an order containing sealed product, and a third runs one high line across everything it sells.",
-      "source": "data/buying.json, read on each company's own policy pages 15 August 2026"
+      "source": "each company's own policy pages, read August 15, 2026"
     },
     {
       "id": "local",
       "name": "Your local shop",
       "whatDecides": "Whatever the owner decides, product by product, and it can move between two visits. There is no listed price to read from here.",
       "watch": "This site holds no prices from any local shop, so it makes no claim about them. The six Rochester shops on our shops page were visited for hours and events, not for a price list. Do the division in the aisle instead.",
-      "source": "data/shops.json holds six shops and no prices, deliberately"
+      "source": "the local shop list, which holds six shops and no prices, deliberately"
     }
   ],
 

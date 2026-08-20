@@ -780,8 +780,11 @@ const body = `
 
   <section class="band rg-sec">
     <div class="wrap">
-      <h2>First: <span class="hl">which corner</span></h2>
-      <p class="rg-p">This is the bit almost every guide online gets wrong, and it is easy to check
+      <h2>First: <span class="hl">which corner</span></h2>${/* "the bit" is British for "the part", and this is the first sentence of
+           the first section a beginner reads. It is not a word a -our/-ise sweep
+           looks for, which is how it survived several. Same fix on
+           /grading.html, /msrp.html, /how-many-packs.html and the trivia page. */ ""}
+      <p class="rg-p">This is the part almost every guide online gets wrong, and it is easy to check
         yourself. The symbol moved from the bottom right to the bottom left in 2017, at Sun and Moon.
         Not at Scarlet and Violet, which is what you will usually be told.</p>
       <div class="era">

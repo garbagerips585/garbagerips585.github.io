@@ -165,7 +165,7 @@
           "what": "eBay Live (livestream selling)",
           "rate": "6% commission on the total amount of the sale, capped at $100 per item, plus 2.9% payment processing plus $0.30 per order",
           "appliesTo": "Purchases made during an eBay Live event, and all case break purchases whenever made",
-          "note": "eBay states this as 8.9% + $0.30, and the 6% cap is reached at $1,667, above which only the 2.9% continues. No insertion fee on Live listings. A promotion through 31 December 2026 drops the per-order fee to $0.10 on orders of $10 or less. Different structure and much lower rate than the same seller's ordinary eBay listings."
+          "note": "eBay states this as 8.9% + $0.30, and the 6% cap is reached at $1,667, above which only the 2.9% continues. No insertion fee on Live listings. A promotion through December 31, 2026 drops the per-order fee to $0.10 on orders of $10 or less. Different structure and much lower rate than the same seller's ordinary eBay listings."
         }
       ],
       "payout": "Sales proceeds show as Processing, then typically become Available 1 to 2 days after the buyer's payment is confirmed. Payouts default to daily and are initiated about 2 days after payment is confirmed; weekly go out Tuesdays, biweekly every second Tuesday, monthly on the first Tuesday. The bank then typically takes another 1 to 3 business days. Express payout to a verified debit card or eligible bank account arrives in about 30 minutes for a flat $2.00. Must be a checking account or a Visa/Mastercard debit card; a savings account or PayPal cannot receive payouts.",
@@ -275,7 +275,7 @@
         {
           "url": "https://help.tcgplayer.com/hc/en-us/articles/201357836-TCGplayer-Fees",
           "read": "2026-08-15",
-          "what": "The full fee table by seller type, the $75 per-product cap, the Direct Fee tiers, what each fee is taken on. Its own change log shows edits on 17 June 2026."
+          "what": "The full fee table by seller type, the $75 per-product cap, the Direct Fee tiers, what each fee is taken on. Its own change log shows edits on June 17, 2026."
         },
         {
           "url": "https://help.tcgplayer.com/hc/en-us/articles/23315007565079-How-to-Understand-Commissions-and-Fees",
@@ -338,27 +338,27 @@
         }
       ],
       "payout": "For most US sellers earnings become available up to 4 hours after the carrier confirms delivery, then a requested payout reaches the bank in 1 to 2 business days. Sellers eligible for Early Payout get earnings the moment a shipping label is generated instead of waiting for delivery. Shipping methods without standard tracking run on fixed clocks instead: USPS First-Class Mail Letter (plain white envelope) is 10 days after label generation, bring-your-own-label is 7 days after the tracking number is entered.",
-      "protection": "Whatnot covers, and does not charge back to the seller: carrier delays after a timely drop-off, packages lost, undelivered or misdelivered by the carrier, and claims it judges to be abusive or fraudulent buyer behavior. It handles chargebacks and payment disputes itself rather than passing them to the seller. The seller is charged back for late or unverified shipment (orders must ship within two business days with valid drop-off evidence such as an in-app scanner photo or a carrier acceptance scan; from 2 March 2026 sellers are responsible for refunds on late US domestic shipments without that confirmation), for failing to fulfill a high-value item, and for refunds arising from policy violations. Coverage is not unlimited: repeated issues cause Whatnot to reassess eligibility and recover refunded amounts across orders.",
+      "protection": "Whatnot covers, and does not charge back to the seller: carrier delays after a timely drop-off, packages lost, undelivered or misdelivered by the carrier, and claims it judges to be abusive or fraudulent buyer behavior. It handles chargebacks and payment disputes itself rather than passing them to the seller. The seller is charged back for late or unverified shipment (orders must ship within two business days with valid drop-off evidence such as an in-app scanner photo or a carrier acceptance scan; from March 2, 2026 sellers are responsible for refunds on late US domestic shipments without that confirmation), for failing to fulfill a high-value item, and for refunds arising from policy violations. Coverage is not unlimited: repeated issues cause Whatnot to reassess eligibility and recover refunded amounts across orders.",
       "sources": [
         {
           "url": "https://help.whatnot.com/hc/en-us/articles/4847069165965-Whatnot-seller-fees",
           "read": "2026-08-15",
-          "what": "Commission by category and region, the $1,500 band, processing fee, what each is taken on. Page stamped updated 11 August 2026."
+          "what": "Commission by category and region, the $1,500 band, processing fee, what each is taken on. Page stamped updated August 11, 2026."
         },
         {
           "url": "https://help.whatnot.com/hc/en-us/articles/360061604191-Understand-the-earnings-payout-timeline",
           "read": "2026-08-15",
-          "what": "When earnings become available by country, Early Payout, and the fixed clocks for untracked methods. Page stamped 12 August 2026."
+          "what": "When earnings become available by country, Early Payout, and the fixed clocks for untracked methods. Page stamped August 12, 2026."
         },
         {
           "url": "https://help.whatnot.com/hc/en-us/articles/8442834600333-Apply-to-sell-on-Whatnot",
           "read": "2026-08-15",
-          "what": "That an application is required, age rules, gated categories. Page stamped 10 August 2026."
+          "what": "That an application is required, age rules, gated categories. Page stamped August 10, 2026."
         },
         {
           "url": "https://help.whatnot.com/hc/en-us/articles/360061195412-Whatnot-Seller-Protection-How-We-Resolve-Order-Issues-Together",
           "read": "2026-08-15",
-          "what": "What Whatnot absorbs and what it recovers from the seller. Page stamped 17 June 2026."
+          "what": "What Whatnot absorbs and what it recovers from the seller. Page stamped June 17, 2026."
         }
       ],
       "note": "help.whatnot.com returns 403 to automated fetching. Every figure here was read in a browser.",
@@ -476,13 +476,13 @@
           "what": "Selling fee",
           "rate": "10%",
           "appliesTo": "The combined amount of the item price and buyer-paid shipping",
-          "note": "Effective 6 January 2025. The flattest structure of any venue here: one percentage, no per-order fee, no tier."
+          "note": "Effective January 6, 2025. The flattest structure of any venue here: one percentage, no per-order fee, no tier."
         },
         {
           "what": "Payment processing fee",
           "rate": "None charged to the seller",
           "appliesTo": null,
-          "note": "The old buyer-side processing fee of $0.50 + 2.9% was removed on 6 January 2025 for new and updated listings."
+          "note": "The old buyer-side processing fee of $0.50 + 2.9% was removed on January 6, 2025 for new and updated listings."
         },
         {
           "what": "Instant Pay",
@@ -578,7 +578,7 @@
       "conditions": [
         "Weekly Auction listings open at $5. Premier Auction listings open at $1,000, and all lots are unreserved.",
         "An unsold auction lot returns to your vault and is eligible for one more auction. If it fails again it goes back to the vault and cannot be relisted for 90 days.",
-        "Weekly Flash listings from the vault must be submitted by 11.59pm PT Wednesday to close that Sunday."
+        "Weekly Flash listings from the vault must be submitted by 11:59pm PT Wednesday to close that Sunday."
       ],
       "sources": [
         {
@@ -604,7 +604,7 @@
         {
           "url": "https://www.fanaticscollect.com/newsroom/pwcc-is-now-fanatics-collect",
           "read": "2026-08-15",
-          "what": "Confirms Fanatics retired the PWCC brand on 15 July 2024 and that all PWCC services, including the vault, auctions and marketplace, are now Fanatics Collect"
+          "what": "Confirms Fanatics retired the PWCC brand on July 15, 2024 and that all PWCC services, including the vault, auctions and marketplace, are now Fanatics Collect"
         },
         {
           "url": "https://support.fanaticscollect.com/en_us/request-a-payout-rkTQCmpxx",
@@ -851,7 +851,7 @@
         {
           "url": "https://www.sportlots.com/g/ui/sellers_guide_page2.tpl",
           "read": "2026-08-15",
-          "what": "The full monthly fee schedule, the $5/$15 discounting rule and its worked example, no listing fees, seller-paid payment processing, the $1.50 buyer minimum value fee, payout method and timing, the 5-day fulfillment rule. Page states it is aligned to the user agreement effective 18 December 2025."
+          "what": "The full monthly fee schedule, the $5/$15 discounting rule and its worked example, no listing fees, seller-paid payment processing, the $1.50 buyer minimum value fee, payout method and timing, the 5-day fulfillment rule. Page states it is aligned to the user agreement effective December 18, 2025."
         },
         {
           "url": "https://www.sportlots.com/guide/guidehelp/sauc.htm",
@@ -877,7 +877,7 @@
       "name": "Goldin",
       "url": "https://goldin.co/faq",
       "type": "Auction house",
-      "format": "Weekly Auction and Elite Auction. The fixed-price Marketplace closed on 20 May 2024.",
+      "format": "Weekly Auction and Elite Auction. The fixed-price Marketplace closed on May 20, 2024.",
       "bestFor": "Graded and authenticated cards and sealed product. The Weekly Auction takes items valued at $100 or greater; the Elite Auction targets $7,500 and up.",
       "status": "partial",
       "access": "Submit through goldin.co/sell for the Weekly Auction, or through a Consignment Director for Elite. Items must be graded or authenticated by an approved company (PSA, Beckett, SGC, CGC certified) with an exception for ungraded factory-encapsulated cards.",

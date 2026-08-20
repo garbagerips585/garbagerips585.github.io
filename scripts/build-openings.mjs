@@ -275,7 +275,11 @@ const shot = (e) => {
              referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
         <figcaption>One example: the <b>${esc(p.name)}</b>. Photo TCGplayer's. ${
           p.perSet
-            ? "Every set sells its own, and the art on the box changes with the set."
+            ? // "the art on the box" for the same reason as the op-note below:
+              // this branch also serves /openings/single-pack.html and
+              // /openings/blister.html, where the thing in the picture is a
+              // wrapper and a peg card and not a box at all.
+              "Every set sells its own, and the artwork changes with the set."
             : "This kind is a general release rather than a set's own product, so the one in the picture is a specific release and the next one looks different."
         }</figcaption>
       </figure>`;
@@ -305,7 +309,7 @@ const cardShot = (e, { eager = false } = {}) => {
   const p = photoFor(e.id);
   if (!p) return `<span class="op-ci op-cn" aria-hidden="true"></span>`;
   return `<img class="op-ci" src="${esc(p.src)}" srcset="${esc(p.src)} 200w, ${esc(p.large)} 1000w"
-            sizes="88px" alt="One example of a ${esc(e.label)}: the ${esc(p.name)}, sealed"${
+            sizes="88px" alt="One example of ${article(e.id)} ${esc(e.label)}: the ${esc(p.name)}, sealed"${
               eager ? "" : ' loading="lazy"'
             } decoding="async" referrerpolicy="no-referrer">`;
 };
@@ -335,9 +339,18 @@ const USUALLY = {
   blister: "A hanging card with one to three packs and a promo, sold on a peg rather than a shelf.",
   "knock-out": "A Knock Out Collection is built around one big ex card: the promo, a playmat or a set of dice depending on the release, and a few packs. They turn up at Target and Walmart more than anywhere else.",
   "collection-box": "A themed box built around a character or a pair of them, with promo cards, sometimes an oversize card, and a few packs. The contents vary more than any other product here.",
-  "japanese-pack": "A Japanese booster pack. Japanese sets are smaller and print differently from the English ones.",
-  "korean-pack": "A Korean booster pack. Korea gets its own print run and its own set numbering, so a Korean card is not just an English card in another language.",
-  "chinese-pack": "A Chinese booster pack. Simplified Chinese sets run on their own schedule and are the hardest of the languages here to find in the US.",
+  // THE THREE IMPORTED PACKS ANSWERED THEIR OWN H1 WITH ITSELF. The lede sits
+  // directly under "What is in a Japanese booster pack?" and read "A Japanese
+  // booster pack." Same on the Korean and the Chinese page. The second sentence
+  // of each was doing all the work and the first was a restatement, which is
+  // the shape a reader reads as an unfinished page. They open with what the
+  // thing IS now, in the same voice as "single-pack" above, and nothing is
+  // claimed about how many cards are in one: no source in this repo states a
+  // per-language pack count, and /how-many-packs.html is where a sourced one
+  // would go if we ever had it.
+  "japanese-pack": "One booster pack out of a Japanese set, bought loose. Japanese sets are smaller and print differently from the English ones.",
+  "korean-pack": "One booster pack out of a Korean set, bought loose. Korea gets its own print run and its own set numbering, so a Korean card is not just an English card in another language.",
+  "chinese-pack": "One booster pack out of a Simplified Chinese set, bought loose. Those sets run on their own schedule and are the hardest of the languages here to find in the US.",
 };
 
 // The question somebody types, which becomes the H1.
@@ -396,6 +409,12 @@ const firstSentence = (t) => {
 // Which product ids take "an". Deliberately a list and not a first-letter
 // test: "UPC" begins with a vowel and takes "a", because it is read out as
 // letters. Thirteen labels is few enough to just be right about.
+//
+// IT WAS ONLY BEING ASKED IN ONE OF THE TWO PLACES THAT NEEDED IT. The index
+// card's alt text hard coded "a" and shipped "One example of a Elite Trainer
+// Box" and "One example of a ex Premium Collection" on /openings/index.html,
+// where nothing but a screen reader ever met it. cardShot calls this now. If a
+// third emitter grows a label in a sentence, call this rather than typing "a".
 const AN = new Set(["etb", "ex-premium", "ex-box"]);
 const article = (id) => (AN.has(id) ? "an" : "a");
 
@@ -722,7 +741,7 @@ function setBandSum(e) {
 }
 
 // THE LEDE'S CAPTION MAKES A CLAIM THE PAGE COULD NOT SHOW: "every set sells
-// its own, and the art on the box changes with the set", printed under ONE
+// its own, and the artwork changes with the set", printed under ONE
 // photograph. The price table below it already lists every set that sells the
 // thing, one row each, so the photo of that row's exact product goes in the row
 // and the sentence becomes checkable instead of asserted.
@@ -1088,8 +1107,15 @@ for (const e of entries) {
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/openings/">Openings</a> / <span>${esc(e.label)}</span></nav>
       <h1>${esc(ask.replace(/\?$/, ""))}<span class="hl">?</span></h1>
       <p class="lede op-lede">${esc(USUALLY[e.id] || `A sealed ${e.label}.`)}</p>
-${shot(e)}
-      <p class="op-note">That is what this kind of box usually holds. It is deliberately not stated per set,
+${shot(e)}${/* "THIS KIND OF BOX" WAS WRONG ON SIX OF THE THIRTEEN PAGES IT PRINTS
+           ON. Seven of these products are boxes and six are not: a single
+           booster pack, a peg blister, a metal tin, a Poke Ball tin and the
+           Japanese, Korean and Chinese packs. /openings/single-pack.html read
+           "One booster pack, bought loose off a shelf or a peg. That is what
+           this kind of box usually holds." One word, and the sentence is true
+           on all thirteen. "Product" is the word the rest of the page and the
+           index already use for the category. */ ""}
+      <p class="op-note">That is what this kind of product usually holds. It is deliberately not stated per set,
         because the contents have changed between releases and we do not have a per set count we can stand
         behind. What we do have is what came out of the ones opened here, counted below, and
         <a href="/how-many-packs.html">how many packs each kind of product holds</a>, which is read off the

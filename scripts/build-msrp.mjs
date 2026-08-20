@@ -1206,7 +1206,12 @@ ${priced.map((r, i) => pricedRow(r, i)).join("\n")}
     <div class="wrap">
       <h2>Work out <span class="hl">your</span> multiple</h2>
       <p class="ms-body">Divide what the shop is asking by the number above. Two times is double retail.
-        Anything under about one and a bit is roughly normal for a shop that has to pay staff and rent.
+        ${/* "one and a bit" is British for "a little over one". It stays a
+             HEDGE and does not become a number: nobody publishes what a normal
+             retail markup on sealed Pokemon product is, so putting a figure
+             here would be this page inventing one two lines above a calculator
+             whose whole point is that every other number on it is sourced. */ ""}Anything a little over one is
+        roughly normal for a shop that has to pay staff and rent.
         The sum is the useful part, because it travels: it works on a product not on this list, and it
         works next year when these figures have moved.</p>
       <div class="ms-calc">

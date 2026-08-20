@@ -90,7 +90,8 @@
       "color": "black",
       "card": "https://assets.tcgdex.net/en/sv/sv08.5/074/high.webp",
       "example": "Eevee, Prismatic Evolutions",
-      "look": "Plain card, matte finish, artwork sitting in a window. The bulk of every pack.",
+      "look": "Plain card, matte finish, artwork sitting in a window. The tier every checklist has most of.",
+      "_look": "IT SAID \"The bulk of every pack\". That is how much of a pack is commons, which is a pack rate in a friendly voice and the last one left on this page: \"you get one or two in most packs\" came off the Reverse holo entry earlier. The site states none in any phrasing. The checklist fact is the one we can source, and this page prints the ladder it belongs to.",
       "chase": false
     },
     {
@@ -199,7 +200,7 @@
         {
           "url": "https://press.pokemon.com/en/releases/Pokemon-Reveals-New-Split-Expansion-Launching-Soon-for-the-Pokemon-Tra",
           "read": "2026-08-15",
-          "for": "The Pokemon Company press release, dated 6 May 2025. Names the rarity and says the cards 'will feature card illustrations in a monochromatic black or white design'. Also the 18 July 2025 release date for both sets."
+          "for": "The Pokemon Company press release, dated May 6, 2025. Names the rarity and says the cards 'will feature card illustrations in a monochromatic black or white design'. Also the July 18, 2025 release date for both sets."
         },
         {
           "url": "https://bulbapedia.bulbagarden.net/wiki/Black_White_rare_card_(TCG)",

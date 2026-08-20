@@ -132,13 +132,13 @@
           "what": "Direct shipping",
           "rate": "$3.99, or FREE on US Direct orders over $50 before taxes and fees",
           "appliesTo": "The whole Direct package, however many cards and however many sellers",
-          "note": "TCGplayer's own wording: your entire order ships for free with TCGplayer Direct, no matter how many cards you buy or how many sellers you buy from with the Direct program. Expedited Direct shipping is currently suspended and carries no published price. THE THRESHOLD MOVES: the article's own change log records it updated on 6 June 2026 and corrected on 8 July 2026."
+          "note": "TCGplayer's own wording: your entire order ships for free with TCGplayer Direct, no matter how many cards you buy or how many sellers you buy from with the Direct program. Expedited Direct shipping is currently suspended and carries no published price. THE THRESHOLD MOVES: the article's own change log records it updated on June 6, 2026 and corrected on July 8, 2026."
         },
         {
           "what": "Marketplace shipping, per seller",
           "rate": "$1.49 minimum on an order under $5 from one seller. At $5 or more the minimum does not apply and the seller's own rate does.",
           "appliesTo": "Each store in your cart, separately",
-          "note": "The widely quoted free shipping over $5 is NOT a platform rule. Crossing $5 only removes TCGplayer's floor. Only Level 4 sellers may set a shipping rate of $0, and those listings carry a visible Free Shipping on Orders Over $5 badge. The minimum itself changed on 26 May 2026 per the page's change log."
+          "note": "The widely quoted free shipping over $5 is NOT a platform rule. Crossing $5 only removes TCGplayer's floor. Only Level 4 sellers may set a shipping rate of $0, and those listings carry a visible Free Shipping on Orders Over $5 badge. The minimum itself changed on May 26, 2026 per the page's change log."
         },
         {
           "what": "Typical Marketplace shipping rate",
@@ -213,7 +213,7 @@
         {
           "url": "https://help.tcgplayer.com/hc/en-us/articles/201996857-Buying-from-TCGplayer-Direct",
           "read": "2026-08-15",
-          "what": "Direct free shipping threshold and the $3.99 charge, who ships and who handles disputes, the $0.40 card floor, the Direct icon and Package #1 cart behavior, the Cart Optimizer. Its change log dates the threshold to 8 July 2026."
+          "what": "Direct free shipping threshold and the $3.99 charge, who ships and who handles disputes, the $0.40 card floor, the Direct icon and Package #1 cart behavior, the Cart Optimizer. Its change log dates the threshold to July 8, 2026."
         },
         {
           "url": "https://help.tcgplayer.com/hc/en-us/articles/201996807-How-is-shipping-applied-to-marketplace-orders",
@@ -223,7 +223,7 @@
         {
           "url": "https://help.tcgplayer.com/hc/en-us/articles/23216633721495-Understanding-Shipping-Rates-in-Different-Situations",
           "read": "2026-08-15",
-          "what": "The $1.49 minimum under $5, what happens at $5 and above, that only Level 4 sellers may set $0, and that shipping is priced off the largest item. Change log dates the minimum to 26 May 2026."
+          "what": "The $1.49 minimum under $5, what happens at $5 and above, that only Level 4 sellers may set $0, and that shipping is priced off the largest item. Change log dates the minimum to May 26, 2026."
         },
         {
           "url": "https://help.tcgplayer.com/hc/en-us/articles/201642073-What-is-TCGplayer-s-Refund-and-Return-policy",
@@ -377,17 +377,17 @@
         "An order disputed with your bank is ineligible for a Whatnot refund, so a chargeback closes the platform route.",
         "Anything transacted off Whatnot is not eligible for a refund at all."
       ],
-      "note": "help.whatnot.com returns 403 to automated fetching. Every figure here was read in a browser. The US buyer shipping page was stamped 1 August 2026 and the Buyer Protection Policy 17 June 2026 when read.",
+      "note": "help.whatnot.com returns 403 to automated fetching. Every figure here was read in a browser. The US buyer shipping page was stamped August 1, 2026 and the Buyer Protection Policy June 17, 2026 when read.",
       "sources": [
         {
           "url": "https://help.whatnot.com/hc/en-us/articles/16369289657741-Shipping-for-buyers-in-the-US",
           "read": "2026-08-15",
-          "what": "The full Ground Advantage rate card, the other USPS options and their prices, Smart Bundling and its same-seller and same-channel limits, seller discounts, delivery times. Page stamped 1 August 2026."
+          "what": "The full Ground Advantage rate card, the other USPS options and their prices, Smart Bundling and its same-seller and same-channel limits, seller discounts, delivery times. Page stamped August 1, 2026."
         },
         {
           "url": "https://help.whatnot.com/hc/en-us/articles/360061194552-Whatnot-Buyer-Protection-Policy",
           "read": "2026-08-15",
-          "what": "What is covered, the general 30-from-purchase or 14-from-delivery deadline, the Trading Card Games 7-day rule, the return-in-same-condition requirement, and the full exclusions list including breaks, chargebacks and off-platform. Page stamped 17 June 2026."
+          "what": "What is covered, the general 30-from-purchase or 14-from-delivery deadline, the Trading Card Games 7-day rule, the return-in-same-condition requirement, and the full exclusions list including breaks, chargebacks and off-platform. Page stamped June 17, 2026."
         }
       ]
     },

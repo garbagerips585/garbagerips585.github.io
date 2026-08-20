@@ -1136,7 +1136,7 @@ const FAQ = [
     "What is an Elite Trainer Box?",
     `An ETB is a cardboard box with a lid holding ${
       ETB.packs ? `${ETB.packs} booster packs` : "booster packs"
-    } plus the bits for looking after cards: sleeves, dice, damage counters and a promo card. ` +
+    } plus the gear for taking care of cards: sleeves, dice, damage counters and a promo card. ` +
       `Suggested price ${moneyExact(ETB.price)}.`,
   ],
   [

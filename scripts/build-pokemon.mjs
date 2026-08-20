@@ -996,8 +996,16 @@ function pokePage(p) {
 <section class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>In the video games</p>
-    <h2>What beats <span class="hl">${esc(p.name)}</span></h2>
-    <p class="lede" style="max-width:44em">Damage taken by a ${esc(types.join(" / "))} Pokemon, computed from the
+    <h2>What beats <span class="hl">${esc(p.name)}</span></h2>${/* "a Electric Pokemon" and "a Ice Pokemon" went out on 90 pages. The
+         article has to follow the FIRST type in the joined string, because a
+         dual type prints "Electric / Fighting" and the reader hears the first
+         word. A first-letter test is safe here and only here: the sixteen video
+         game type names are a closed list with no letter-read acronym in it,
+         unlike the product labels in build-openings.mjs, which need a hand
+         written set because UPC begins with a vowel and takes "a". */ ""}
+    <p class="lede" style="max-width:44em">Damage taken by ${
+      /^[AEIOU]/i.test(types[0] || "") ? "an" : "a"
+    } ${esc(types.join(" / "))} Pokemon, computed from the
       type chart. Everything not listed does normal damage.</p>
     <ul class="dx-eff">${rows}</ul>
     <p class="price-note"><b>This is the video game chart, not the card game.</b> The Pokemon TCG has eleven types and

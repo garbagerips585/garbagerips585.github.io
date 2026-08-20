@@ -180,6 +180,23 @@ for m in masters:
         f"  background-image:image-set(url('{base}-tile.avif') type('image/avif'),"
         f"url('{base}-tile.webp') type('image/webp'));",
         "}",
+        # AND OFF AGAIN WHERE THE TILE CARRIES ITS ARTWORK AS AN <img>.
+        #
+        # A CSS background can never be lazy: Chrome fetches one for any element
+        # in the render tree, scrolled to or not. Measured 20 August 2026 with
+        # NO scroll and the network left to go quiet, cache off, /videos.html
+        # pulled all seven of its distinct tile files, 279.7KB, with four of its
+        # 48 tiles above the fold at 390x844. So the server-rendered tiles put a
+        # <picture> inside .pack-art and add .pack--img, and this rule takes the
+        # background away from exactly those.
+        #
+        # THE THIRD CLASS IS WHAT MAKES IT SAFE RATHER THAN A SPECIFICITY BET.
+        # At (0,4,0) it beats the tile rule directly above it at (0,3,0) and the
+        # per-set rule further up at (0,2,0), whatever order a stylesheet ends up
+        # in. And it is opt IN: a tile with no .pack--img keeps its background,
+        # which is what the facade app.js builds in the browser relies on, so
+        # that file did not have to change and cannot drift from this one.
+        f"{sel}.pack--tile.pack--img .pack-art{{background-image:none}}",
         "",
     ]
 

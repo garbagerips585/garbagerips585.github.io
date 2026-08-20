@@ -1106,7 +1106,7 @@ ${d.tenVsNine.items.map((i) => `          <article class="gc-c"><span class="gc-
       </section>
 
       <section class="gc-sec">
-        <h2>Which companies show their <span class="hl">working</span></h2>
+        <h2>Which companies show their <span class="hl">work</span></h2>
         <p class="gc-in">${esc(d.subgrades.lead)}</p>
         <div class="gc-cards">
 ${d.subgrades.who.map((w) => `          <article class="gc-c"><span class="gc-co">${esc(w.kind || (w.has ? "Subgrades" : "No subgrades"))}</span>

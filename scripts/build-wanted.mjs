@@ -583,10 +583,15 @@ ${hunting.map((c, k) => cardTile(c, { eager: k < EAGER_TILES })).join("\n")}
 ${caught.map((c) => cardTile(c, { hunted: false })).join("\n")}
     </div>
     ${huntRips.length ? `<section class="w-watch">
-      <h2>The packs we are opening <span class="hl">looking for them</span></h2>
+      <h2>The packs we are opening <span class="hl">looking for them</span></h2>${/* IT SAID "of the N sets these cards are printed in", AND huntRips
+           IS NOT THAT SET. It holds only the sets that have a rip, so the cards
+           above are printed across more sets than this number: on the current
+           list, White Flare and Black Bolt print three of the ten wanted cards
+           and neither has been opened on camera, so the page claimed seven when
+           it meant nine. Say what the number counts. */ ""}
       <p class="w-watchlede">${huntRipTotal} rips of the ${
         huntRips.length === 1 ? "set" : `${huntRips.length} sets`
-      } these cards are printed in, newest of each below. No promises about what is in a pack:
+      } we have opened that print these cards, newest of each below. No promises about what is in a pack:
         this is just where the hunt is happening.</p>
       <ul class="w-riplist">
 ${huntRips

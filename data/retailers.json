@@ -154,7 +154,7 @@
       "so it lives here, one entry per retailer name as pack-counts spells it."
     ],
     "GameStop": "the GameStop product page names no third-party seller, and GameStop runs no marketplace for new sealed product",
-    "Target": "both Target product pages were reopened on 17 August 2026 and neither carried the 'Sold and shipped by' line that Target prints on a Target Plus partner listing, which is what marks them as Target's own stock"
+    "Target": "both Target product pages were reopened on August 17, 2026 and neither carried the 'Sold and shipped by' line that Target prints on a Target Plus partner listing, which is what marks them as Target's own stock"
   },
 
   "retailers": [
@@ -164,7 +164,7 @@
       "name": "Barnes & Noble",
       "kind": "Bookshop chain",
       "page": true,
-      "answer": "Yes, in the shops. Barnes & Noble's own collectible card page says your local B&N is the best place to find collectible cards including Pokemon, and tells you to find a store to shop the selection.",
+      "answer": "Yes, in stores. Barnes & Noble's own collectible card page says your local B&N is the best place to find collectible cards including Pokemon, and tells you to find a store to shop the selection.",
       "confirmed": {
         "how": "Read the Collectible Card Games and Trading Cards collection on barnesandnoble.com, which names Pokemon in Barnes & Noble's own copy and points the reader at a shop.",
         "url": "https://www.barnesandnoble.com/collections/toys-games/games/collectible-card-games-1",
@@ -252,7 +252,7 @@
       "name": "Dollar General",
       "kind": "Small-format discount chain",
       "page": true,
-      "answer": "Yes, in the shops. Dollar General has a Pokemon category of its own under Toys & Games, and its Pokemon trading card listings say plainly that the item is not eligible for delivery.",
+      "answer": "Yes, in stores. Dollar General has a Pokemon category of its own under Toys & Games, and its Pokemon trading card listings say plainly that the item is not eligible for delivery.",
       "confirmed": {
         "how": "Read the Pokemon TCG Mini Tin product page on dollargeneral.com, filed under the chain's own Toys & Games then Pokemon category, with a price and a note that it cannot be delivered.",
         "url": "https://www.dollargeneral.com/p/pokemon-trading-card-game-mini-tin-assorted/820650105838",
@@ -347,9 +347,9 @@
       "id": "meijer",
       "slug": "meijer",
       "name": "Meijer",
-      "kind": "Midwest supercentre chain",
+      "kind": "Midwest supercenter chain",
       "page": true,
-      "answer": "Yes, in the shops only. Meijer has a Trading Cards department of its own, and every Pokemon row on it was marked In Store Only when it was read.",
+      "answer": "Yes, in stores only. Meijer has a Trading Cards department of its own, and every Pokemon row on it was marked In Store Only when it was read.",
       "confirmed": {
         "how": "Read Meijer's own Toys, Trading Cards department page, which listed current sealed Pokemon product with prices, pickup times and an In Store Only marker on every Pokemon row.",
         "url": "https://www.meijer.com/shopping/departments/toys/trading-cards.html",
@@ -441,7 +441,7 @@
       "name": "Walmart",
       "kind": "Big-box chain",
       "page": true,
-      "answer": "Yes, and it is the other chain most people mean. Walmart carries its own Pokemon trading card categories, and the cards are a fixture in the toy department of almost every supercentre.",
+      "answer": "Yes, and it is the other chain most people mean. Walmart carries its own Pokemon trading card categories, and the cards are a fixture in the toy department of almost every supercenter.",
       "confirmed": {
         "how": "Searched pokemon elite trainer box on walmart.com and read the results, which carried Walmart's own category links for Pokemon trading cards, Pokemon booster boxes, Pokemon collector tins and all Pokemon cards, over a page of current sealed product.",
         "url": "https://www.walmart.com/search?q=pokemon%20elite%20trainer%20box",
@@ -450,7 +450,7 @@
       "stocks": "The full sealed range. Walmart's own category list on that page names trading cards, collector tins, card binders, booster boxes and trainer boxes as separate groups.",
       "stocksTier": "boxes",
       "alsoFormats": ["Elite Trainer Box", "Booster box", "Collector tin"],
-      "whereInStore": "Walmart files Pokemon cards under Toys, so the toy department, and its own category names for them are Pokemon trading cards and Pokemon booster boxes. Some supercentres also keep a card fixture near electronics or at a checkout lane, which nobody publishes and which is exactly what to ask about.",
+      "whereInStore": "Walmart files Pokemon cards under Toys, so the toy department, and its own category names for them are Pokemon trading cards and Pokemon booster boxes. Some supercenters also keep a card fixture near electronics or at a checkout lane, which nobody publishes and which is exactly what to ask about.",
       "whereSource": "Walmart's own category links on its search results page.",
       "display": "",
       "marketplaceKind": "mixed",

@@ -702,7 +702,7 @@ ${MENU}
         <li>Hit <b>Copy the list</b>, or download the .txt if you would rather keep it.</li>
         <li>In Pokemon TCG Live, open the deck manager, choose <b>Create a Deck</b>, then <b>Import Deck</b>.</li>
         <li>Paste into the import box and confirm. Cards you do not own yet show as missing, and you can
-          craft them or build round them. New to the client? <a href="/tcg-live.html">Start here</a>.</li>
+          craft them or build around them. New to the client? <a href="/tcg-live.html">Start here</a>.</li>
       </ol>
       <p class="dk-asof">The .txt files hold the decklist and absolutely nothing else, no header and no
         credit line, because the importer reads everything you paste and a stray line is how an import

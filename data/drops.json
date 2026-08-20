@@ -184,7 +184,7 @@
       "expires": "2026-08-19",
       "notes": [
         "Monday to Wednesday is a pattern people have noticed, not a schedule Pokemon Center publishes, and nobody has measured this one.",
-        "The trackers say no stock is loaded on the backend for these products, and that claims to the contrary are going round on social media and in other communities. Nothing is confirmed until it is buyable.",
+        "The trackers say no stock is loaded on the backend for these products, and that claims to the contrary are going around on social media and in other communities. Nothing is confirmed until it is buyable.",
         "This row covers the Monday to Wednesday window only. It comes off the page after 19 August rather than sitting here looking current."
       ]
     },
@@ -249,7 +249,7 @@
       "window": { "from": "2026-08-19", "to": "2026-08-19" },
       "expires": "2026-08-19",
       "notes": [
-        "Walmart publishes no restock schedule. The closest thing to evidence is a measurement: Restockd, which watches for products coming back in stock, logged 83 Walmart Pokemon detections in the 90 days to August 12, 2026 and found 87 percent landed between 9pm and midnight Eastern, most often on a Wednesday. Read 15 August 2026.",
+        "Walmart publishes no restock schedule. The closest thing to evidence is a measurement: Restockd, which watches for products coming back in stock, logged 83 Walmart Pokemon detections in the 90 days to August 12, 2026 and found 87 percent landed between 9pm and midnight Eastern, most often on a Wednesday. Read August 15, 2026.",
         "Restockd's own caveat matters: a detection is a product returning to stock, not a count of units, and several detections can belong to one release. So 83 is not 83 separate drops.",
         "That is a record of what happened, not a promise about what will. This row covers Wednesday, so it comes off the page after 19 August."
       ]

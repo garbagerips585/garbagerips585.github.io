@@ -17,7 +17,15 @@
     "  extrapolate those from the Japanese list and they are frequently wrong.",
     "  Japanese sets are not English sets. Do not put a Japanese date on this page.",
     "  When something ships, delete it from here; the page filters past dates out",
-    "  anyway, but the file should not grow forever."
+    "  anyway, but the file should not grow forever.",
+    "  NO PACK ODDS IN A HIGHLIGHT, however Pokemon words it. This file shipped",
+    "  '30 different Pikachu illustrations by 30 illustrators, one guaranteed in",
+    "  every pack' for 30th Celebration, which tells a reader how often one of a",
+    "  30 card chase subset comes out of a pack. The site never states that in any",
+    "  phrasing, and 'guaranteed' is exactly the wording somebody will argue is a",
+    "  contents fact rather than a rate. What a pack HOLDS is fine and stays: the",
+    "  next line, 'Packs are 5 foil cards plus a foil basic Energy', is a count of",
+    "  what is in the wrapper and says nothing about which cards."
   ],
   "checked": "2026-08-12",
   "sets": [
@@ -29,7 +37,7 @@
       "blurb": "The anniversary set, and the first Pokemon TCG expansion to launch worldwide on the same day as Japan. Every single card in it is foil, including the basic Energy.",
       "highlights": [
         "A new rarity, Futuristic rare, debuting on Mewtwo ex and Mew ex",
-        "30 different Pikachu illustrations by 30 illustrators, one guaranteed in every pack",
+        "30 different Pikachu illustrations by 30 illustrators",
         "A 30 card Classic Collection of reprints, numbered outside the main set",
         "Packs are 5 foil cards plus a foil basic Energy"
       ],

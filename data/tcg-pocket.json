@@ -468,7 +468,7 @@
       "recommendation": "ONE SENTENCE, NOT A TABLE, exactly as the Live plan decided. 'A phone from the last several years with 3GB of RAM, running iOS 15 or Android 7 or later, as of July 2026.' The full lists live here for a future editor. The download size is worth naming because it is the useful contrast with Live, which is a much bigger install."
     },
     "history": {
-      "plain": "Released 30 October 2024. It is made by Creatures Inc. and DeNA and published by The Pokemon Company.",
+      "plain": "Released October 30, 2024. It is made by Creatures Inc. and DeNA and published by The Pokemon Company.",
       "dates": [
         { "what": "Soft launch, New Zealand", "when": "2024-09-26", "source": "wikipedia", "confidence": "single-sourced, and not worth putting on the page" },
         { "what": "Worldwide release, iOS and Android", "when": "2024-10-30", "source": "appstore", "confidence": "firm; the App Store releaseDate field agrees with wikipedia" }

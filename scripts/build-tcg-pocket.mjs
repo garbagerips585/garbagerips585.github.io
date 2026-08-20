@@ -553,8 +553,8 @@ const body = `
         <p>Tim learned to play from it. Not from a rulebook and not across a table from somebody sighing at him.
           The app has solo battles against the computer, and in a solo battle you can switch on an auto option and
           let the app take your turns while you watch. Watch enough turns and the game starts to make sense.</p>
-        <p>That works, which is why this page exists. It also comes with a catch big enough that Pokemon spell it
-          out themselves, and that is the next section.</p>
+        <p>That works, which is why this page exists. It also comes with a catch big enough that Pokemon spells it
+          out itself, and that is the next section.</p>
       </section>
 
       <section class="tp-s" id="teaches">

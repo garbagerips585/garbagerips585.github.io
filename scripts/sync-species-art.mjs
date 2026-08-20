@@ -84,6 +84,7 @@ import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/assets/species");
 const BIG_OUT = join(OUT, "lg");
+const SM_OUT = join(OUT, "sm");
 const CACHE = join(ROOT, ".cache/species-art");
 const MANIFEST = join(ROOT, "data/species-art.json");
 const FORCE = process.argv.includes("--force");
@@ -96,12 +97,23 @@ const BOX = 256;
 // The masters are 475x475 and the encoder never upscales, so this is "as big as
 // the source goes" rather than a chosen width. See the note above.
 const BIG = 475;
+// sm IS THE THIRD RENDITION AND THE NOTE ABOVE IS THE REASON IT EXISTS RATHER
+// THAN AN EXCEPTION TO IT. That note refuses a second caller for lg/ and tells
+// the next person to ask whether the drawn box is really over 128, "because most
+// of them are not". /evolution.html is the case it was describing: 340 line
+// headings drawing a portrait in a 48px box, where the 256px file is a 5.3x
+// linear oversample on a page that is already the tallest on the site. 96 is
+// that 48px box doubled, the same 2x rule BOX itself follows. Measured on the
+// 340 portraits that page actually emits: 1.17MB at 96 against 3.49MB at 256,
+// 3.5KB apiece. Over all 1,025 species it is 3.8MB on disk against 11.8MB.
+const SM = 96;
 const CONC = 6;
 
 const exists = (p) => stat(p).then(() => true).catch(() => false);
 
 await mkdir(OUT, { recursive: true });
 await mkdir(BIG_OUT, { recursive: true });
+await mkdir(SM_OUT, { recursive: true });
 await mkdir(CACHE, { recursive: true });
 
 const dex = JSON.parse(await readFile(join(ROOT, "data/pokedex.json"), "utf8")).pokemon;
@@ -111,16 +123,21 @@ console.log(`Official artwork for ${dex.length} species, ${BOX}px and ${BIG}px, 
 // small run, so the whole batch goes through one python process at the end the
 // way sync-dex-art.mjs does. Downloads are pooled at 6, which is what
 // sync-pokedex.mjs settled on against the same project's servers.
-// A SPECIES IS "TODO" IF EITHER RENDITION IS MISSING, not if the 256 one is.
+// A SPECIES IS "TODO" IF ANY RENDITION IS MISSING, not if the 256 one is.
 // Written that way so adding lg/ to a tree that already holds all 1,025 small
 // files does the right thing on a plain re-run: the old condition short
 // circuited on the 256 file and would have produced an empty job list and a
-// manifest claiming nothing was missing.
+// manifest claiming nothing was missing. Adding sm/ hit the SAME trap from the
+// other side, which is why this is a list rather than a second boolean: the
+// tree already held every 256 and every lg file, so a condition naming only
+// those two would have found nothing to do and written a manifest with no sm
+// entry in it, and /evolution.html would have shipped 340 portraits that 404.
 const todo = [];
 for (const p of dex) {
   const have256 = await exists(join(OUT, `${p.id}.webp`));
   const haveBig = await exists(join(BIG_OUT, `${p.id}.webp`));
-  if (!FORCE && have256 && haveBig) continue;
+  const haveSm = await exists(join(SM_OUT, `${p.id}.webp`));
+  if (!FORCE && have256 && haveBig && haveSm) continue;
   todo.push(p);
   if (todo.length >= LIMIT) break;
 }
@@ -137,6 +154,7 @@ await Promise.all(
       const raw = join(CACHE, `${p.id}.png`);
       const dest = join(OUT, `${p.id}.webp`);
       const bigDest = join(BIG_OUT, `${p.id}.webp`);
+      const smDest = join(SM_OUT, `${p.id}.webp`);
       try {
         if (!(await exists(raw))) {
           const r = await fetch(`${ART}${p.id}.png`);
@@ -144,11 +162,12 @@ await Promise.all(
           await writeFile(raw, Buffer.from(await r.arrayBuffer()));
         }
         rawBytes += (await stat(raw)).size;
-        // ONE DOWNLOAD, TWO ENCODES. Both renditions come off the same cached
-        // png, so filling in lg/ for a tree that already has every 256 file
-        // makes no network request at all.
+        // ONE DOWNLOAD, THREE ENCODES. Every rendition comes off the same cached
+        // png, so filling in lg/ or sm/ for a tree that already has every 256
+        // file makes no network request at all.
         if (FORCE || !(await exists(dest))) jobs.push([raw, dest, BOX]);
         if (FORCE || !(await exists(bigDest))) jobs.push([raw, bigDest, BIG]);
+        if (FORCE || !(await exists(smDest))) jobs.push([raw, smDest, SM]);
       } catch (e) {
         failed += 1;
         console.log(`  FAIL ${p.id} ${p.name}: ${e.message}`);
@@ -198,13 +217,15 @@ if (jobs.length) {
 // Read the size of everything HELD, not only what was just written: the builder
 // puts width and height on every tag, so a re-run that fetched nothing still has
 // to produce a complete manifest.
-// readdir is not recursive, so lg/ comes back as a directory entry and is
-// filtered out by the .webp test; it is scanned separately and joined in.
+// readdir is not recursive, so lg/ and sm/ come back as directory entries and
+// are filtered out by the .webp test; each is scanned separately and joined in.
 const held = (await readdir(OUT)).filter((f) => f.endsWith(".webp"));
 const heldBig = (await readdir(BIG_OUT).catch(() => [])).filter((f) => f.endsWith(".webp"));
+const heldSm = (await readdir(SM_OUT).catch(() => [])).filter((f) => f.endsWith(".webp"));
 const need = [
   ...held.map((f) => join(OUT, f)),
   ...heldBig.map((f) => join(BIG_OUT, f)),
+  ...heldSm.map((f) => join(SM_OUT, f)),
 ].filter((p) => !dims[p]);
 if (need.length) {
   // A FILE IT CANNOT READ IS DELETED RATHER THAN SKIPPED, so an interrupted run
@@ -246,6 +267,8 @@ const art = {};
 let outBytes = 0;
 let bigBytes = 0;
 let bigCount = 0;
+let smBytes = 0;
+let smCount = 0;
 let biggest = { id: null, bytes: 0 };
 for (const p of dex) {
   const dest = join(OUT, `${p.id}.webp`);
@@ -255,6 +278,18 @@ for (const p of dex) {
   outBytes += bytes;
   if (bytes > biggest.bytes) biggest = { id: p.id, name: p.name, bytes };
   art[p.id] = { file: `/assets/species/${p.id}.webp`, w: wh[0], h: wh[1] };
+  // THE sm ENTRY IS SET BEFORE THE lg BLOCK AND THAT ORDER IS LOAD BEARING.
+  // The lg block below ends the iteration with a continue when a species has no
+  // master rendition, so anything attached after it is silently dropped for
+  // exactly those species. Writing sm here means a species missing lg still
+  // carries its small portrait, which is what /evolution.html asks for.
+  const smDest = join(SM_OUT, `${p.id}.webp`);
+  const swh = dims[smDest];
+  if (swh) {
+    smBytes += (await stat(smDest)).size;
+    smCount += 1;
+    art[p.id].sm = { file: `/assets/species/sm/${p.id}.webp`, w: swh[0], h: swh[1] };
+  }
   // THE lg ENTRY IS OPTIONAL AND ITS ABSENCE IS THE SIGNAL. build-games.mjs
   // keeps a species out of the silhouette pool when there is no lg file, so an
   // interrupted run costs the game a few species rather than shipping a round
@@ -282,6 +317,9 @@ await writeFile(
         "caller: the silhouette game draws its artwork at 249 CSS px and 256 would be",
         "a 1.95x upscale there. Nothing else should reach for it. An entry without lg",
         "is a species the game leaves out of its pool.",
+        "Each entry may also carry sm, 96px, which is the 48px box /evolution.html",
+        "draws on each of its 340 line headings, doubled. That page shows 340",
+        "portraits at once, so the 256px file would have been 4.4MB of one page.",
         "Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc.",
         "and GAME FREAK inc. This is a fan site. Nothing is sold here and nothing on it",
         "is affiliated with or endorsed by them.",
@@ -295,8 +333,10 @@ await writeFile(
       checked: localDay(),
       box: BOX,
       lgBox: BIG,
+      smBox: SM,
       count: Object.keys(art).length,
       lgCount: bigCount,
+      smCount,
       art,
     },
     null,
@@ -311,6 +351,9 @@ console.log(
 if (rawBytes) console.log(`  ${(rawBytes / 1024 / 1024).toFixed(1)}MB fetched this run`);
 console.log(`  ${(outBytes / 1024 / 1024).toFixed(1)}MB stored at ${BOX}px, ${(outBytes / 1024 / Math.max(1, Object.keys(art).length)).toFixed(1)}KB average`);
 console.log(`  ${(bigBytes / 1024 / 1024).toFixed(1)}MB stored at ${BIG}px for ${bigCount} species, ${(bigBytes / 1024 / Math.max(1, bigCount)).toFixed(1)}KB average`);
+console.log(`  ${(smBytes / 1024 / 1024).toFixed(2)}MB stored at ${SM}px for ${smCount} species, ${(smBytes / 1024 / Math.max(1, smCount)).toFixed(1)}KB average`);
+if (smCount < Object.keys(art).length)
+  console.log(`  ${Object.keys(art).length - smCount} species have no sm file and get NO portrait on /evolution.html`);
 if (bigCount < Object.keys(art).length)
   console.log(`  ${Object.keys(art).length - bigCount} species have no lg file and are OUT of the silhouette pool`);
 if (biggest.id)

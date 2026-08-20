@@ -36,7 +36,8 @@
     "ascended-heroes": {
       "sources": [{ "lang": "ja", "id": "M2a", "name": "MEGAドリームex", "romaji": "Mega Dream ex" }],
       "confidence": "confirmed",
-      "note": "A high-pull subset in Japan, which is why both sides are unusually large."
+      "note": "A special subset in Japan rather than a main expansion, which is why both sides are unusually large.",
+      "_note": "IT SAID \"A high-pull subset\". That is a claim about how often a hit comes out of a pack, in two words, and the site states none in any phrasing. Nothing sourceable publishes one for this subset either. What is checkable is that it is a subset rather than a main expansion, and the card counts on the page show the size."
     },
     "perfect-order": {
       "sources": [{ "lang": "ja", "id": "M3", "name": "ムニキスゼロ", "romaji": "Nihil Zero" }],

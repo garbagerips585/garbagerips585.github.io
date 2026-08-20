@@ -774,8 +774,8 @@ ${
         shows none. The link on the block goes to the publisher's gallery.</p>\n`
     : ""
 }      <p class="fp-note" style="margin-top:var(--s5)"><b>One date worth flagging.</b> Several
-        write-ups give Series 1 a release date of 30 March 2026. The official gallery says
-        <b>20 March 2026</b>, and both the US and UK versions of that page agree. This page follows
+        write-ups give Series 1 a release date of March 30, 2026. The official gallery says
+        <b>March 20, 2026</b>, and both the US and UK versions of that page agree. This page follows
         the publisher.</p>
     </div>
   </section>

@@ -48,7 +48,7 @@
       "id": "first",
       "name": "1st Edition",
       "order": "First run",
-      "when": "From the English release, 9 January 1999",
+      "when": "From the English release, January 9, 1999",
       "stamp": true,
       "shadow": false,
       "look": "A black EDITION 1 stamp under the left edge of the artwork, and no drop shadow around the artwork window.",
@@ -196,7 +196,7 @@
     "title": "The same gap, on three cards",
     "lede": "One card is an anecdote. This is the 1st Edition printing against the Shadowless printing of the same card, on three cards, out of the same price guide read on the same day. The stamp is the only difference between the two printings, so the gap between the columns is what the stamp is worth.",
     "note": "Read the ungraded column and the PSA 10 column as two separate questions. Ungraded has the most sales behind it and is the one a reader holding a loose card is actually in. PSA 10 is the number everybody quotes and rests on the fewest sales, which is why the multiples in it swing much harder from card to card.",
-    "missing": "Shadowless against Unlimited is the comparison this table would rather make, and it can be made on Charizard alone. data/top-graded.json ranks cards by PSA 10 value and stops at rank 400, which is $12,000, so the plain Unlimited printings of Blastoise 2/102 and Mewtwo 10/102 are not in it at all: they are worth far less than that. Venusaur 15/102 is missing from this table for the same kind of reason, from the other end, since the file holds its 1st Edition and 1999-2000 printings but no Shadowless one. Nothing here was filled in from somewhere else to round the set out.",
+    "missing": "Shadowless against Unlimited is the comparison this table would rather make, and it can be made on Charizard alone. The PSA 10 ranking behind the top 100 graded page stops at rank 400, which is $12,000, so the plain Unlimited printings of Blastoise 2/102 and Mewtwo 10/102 are not in it at all: they are worth far less than that. Venusaur 15/102 is missing from this table for the same kind of reason, from the other end, since that ranking holds its 1st Edition and 1999-2000 printings but no Shadowless one. Nothing here was filled in from somewhere else to round the set out.",
     "cards": [
       {
         "card": "Charizard 4/102",
@@ -234,11 +234,11 @@
     ]
   },
   "sources": [
-    "Print run order, the layout changes, the Trainer card copyright tell and the fact that Shadowless was English only: Bulbapedia's 1st Edition (TCG) article, read 17 August 2026. Named in plain text rather than linked, which is how this site credits an outside source.",
-    "The EDITION 1 stamp, the missing expansion symbol and the copyright line: read off TCGdex's own scans of Base Set on 17 August 2026. All 16 Base Set Holofoil scans TCGdex serves carry the stamp, so its Base Set is scanned from a 1st Edition copy, which is where the magnified pictures on this page come from.",
-    "The 1999-2000 copyright line: read off PriceCharting's photograph of that printing on 17 August 2026, where it is legible as 1995, 96, 98 Nintendo, Creatures, GAMEFREAK. 1999-2000 Wizards.",
-    "Release dates and card counts: public/data/expansions.json in this repo, from api.pokemontcg.io.",
-    "Prices: data/top-graded.json, PriceCharting's PSA 10 price guide, crawled 16 August 2026 and re-read from each card's own product page before publication. The sealed pack figure is TCGplayer market price from data/top100.json, read 16 August 2026."
+    "Print run order, the layout changes, the Trainer card copyright tell and the fact that Shadowless was English only: Bulbapedia's 1st Edition (TCG) article, read August 17, 2026. Named in plain text rather than linked, which is how this site credits an outside source.",
+    "The EDITION 1 stamp, the missing expansion symbol and the copyright line: read off TCGdex's own scans of Base Set on August 17, 2026. All 16 Base Set Holofoil scans TCGdex serves carry the stamp, so its Base Set is scanned from a 1st Edition copy, which is where the magnified pictures on this page come from.",
+    "The 1999-2000 copyright line: read off PriceCharting's photograph of that printing on August 17, 2026, where it is legible as 1995, 96, 98 Nintendo, Creatures, GAMEFREAK. 1999-2000 Wizards.",
+    "Release dates and card counts: api.pokemontcg.io, through this site's own expansion list.",
+    "Prices: PriceCharting's PSA 10 price guide, crawled August 16, 2026 and re-read from each card's own product page before publication. The sealed pack figure is TCGplayer market price, read August 16, 2026."
   ],
   "unverified": [
     "That the yellow border is thinner on Shadowless than on Unlimited. It is repeated everywhere and we could not check it: it needs two cards measured in the hand, and a scan is cropped by whoever made it, so measuring a border off one proves nothing.",

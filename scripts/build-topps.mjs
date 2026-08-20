@@ -1337,7 +1337,7 @@ ${psaList.map((c, i) => row(c, i, "psa10")).join("\n")}
 
 <section class="tight">
   <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Showing our working</p>
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Showing our work</p>
     <h2>How these lists were <span class="hl">made</span></h2>
     <div class="tp-defs">
       <div>

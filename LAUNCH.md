@@ -290,24 +290,56 @@ Everything an agent could fix is fixed and deployed. These four need him.
       and leave /drops.html to carry it, rather than to let the front door
       depend on an edit that may not happen.
 
-- [ ] **THE BIGGEST REMAINING SPEED WIN, deliberately not taken on launch eve.**
-      Pack artwork is delivered as CSS backgrounds, and a CSS background can
-      never be lazy. /videos.html carries 48 `.pack-art` elements spanning
-      y=400 to y=8631 and only FOUR are above the fold: about 280KB of pack
-      tiles fetched on load, roughly 200KB of it for tiles thousands of pixels
-      down. Every rip page carries a 38.8KB tile at y=2047 fetched on load, on
-      all 317 of them.
+- [x] **THE BIGGEST REMAINING SPEED WIN. Taken on 20 August 2026, and it was
+      HALF the size this item claimed.** A grid tile's pack artwork is an
+      `<img loading="lazy">` inside the same facade now, and packs.css takes the
+      background off exactly those tiles at `.pack--<set>.pack--tile.pack--img`.
+      Cache off, no scroll, network left to go quiet, gzipped:
 
-      This is the same shape as the largest win in this repo's history, when
-      /rarity.html's magnified corners went from 2,536KB to 388KB by becoming
-      lazy `<img>` elements under the same facade, and the fix is the same move.
+          /videos.html    390x844 DPR2   435.2 -> 231.7KB   20 -> 15 requests
+          /videos.html    1440x900       435.2 -> 312.2KB   20 -> 17 requests
+          /playlists.html 390x844 DPR2   606.8 -> 408.5KB   24 -> 19 requests
 
-      It was measured on 19 August 2026 and NOT done, because it touches the
-      `.pack-face` clip-path machinery, packplayer.js and app.js's client
-      rendered tiles at the same time, and doing that two days before launch
-      while other work was in flight is how a site breaks in a way nobody sees
-      until it is live. Do it in a quiet week, on its own branch, with the
-      before and after measured the same way.
+      Fully scrolled is unchanged to within 1.3KB, which is the markup. It is a
+      deferral, not a saving, exactly as the /rarity.html entry in CLAUDE.md
+      insists about its own numbers.
+
+      **THE RIP PAGES WERE THE HALF THAT WAS WRONG AND THEY GAINED NOTHING.**
+      This item said 38.8KB on each of 317 of them. The tile is real, but it
+      sits at y=1774 at 390 and y=1296 at 1440, which is 930 and 396 pixels
+      below the fold against Chrome's 1250px lazy threshold on a 4G connection,
+      so it is fetched immediately whatever the attribute says. And 248 of the
+      279 rip pages that carry rails draw every tile in the hero's own set, so
+      the rails cost ONE file either way. Measured after the change: 315.1 ->
+      317.4KB, the markup and nothing else. The tiles are images anyway, so the
+      component has one behaviour, but do not quote a saving for that family.
+
+      **THE SECOND THING THIS ITEM DID NOT KNOW is that /playlists.html was the
+      heaviest page in the whole change**: 477.2KB of pack art on a 606.8KB
+      page, twelve distinct tile files, four of 22 tiles above the fold.
+
+      **AND THE MEASUREMENT WINDOW IS THE TRAP.** An off-screen background
+      arrives SECONDS after the load event, so a 2.5 second window catches two
+      or three of the seven and reads exactly like a browser that is already
+      deferring the rest. Wait for the network to go quiet.
+
+      **EVERY TILE IS LAZY, THE ABOVE-FOLD ONES INCLUDED, AND THAT IS THE
+      OPPOSITE OF WHAT THE OBVIOUS RULE SAYS.** Marking the first four eager
+      moved ZERO bytes, to a tenth of a kilobyte, on every page and both
+      viewports, and cost 592ms of LCP on /videos.html and 748ms of first paint
+      on /playlists.html, on Slow 4G with a 4x CPU slowdown over HTTP/2. An
+      eager tile is found by the preload scanner during the HTML parse and
+      spends the pipe the render-blocking stylesheet is still waiting on. The
+      full argument is in `packTileImg` in shared/format.mjs.
+
+      **WHAT WAS DELIBERATELY NOT CONVERTED**, because none of it is on a load
+      path this helps and all of it is risk: the rip page's own hero pack (above
+      the fold, its page's LCP element, preloaded by name), the packshots on the
+      set guides and the imported guides, the 404 pack, the facade
+      `playInTile` mounts in packplayer.js on a click, and the tiles app.js
+      renders in the browser. The last two are why `.pack--img` is opt IN: a
+      tile without it keeps its background, so app.js did not have to change and
+      cannot drift from the server render.
 
 - [ ] **/upcoming.html's product thumbs are soft and that is a quality call,
       not a speed one.** TCGplayer `_200w.jpg` goes into a 152px box, which

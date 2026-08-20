@@ -822,8 +822,20 @@ const OLD = [
 // in a field that reaches the page. The keep list is initialisms and one product
 // name that really is capitalised, so a genuine acronym is never lowercased.
 const KEEP_CAPS = new Set(["TCG", "MSRP", "UPC", "SPC", "ETB", "VSTAR", "VMAX", "PSA", "USD", "NA", "EX", "POP", "DP", "XY"]);
+//
+// AND IT LEFT A STRAY CAPITAL MID SENTENCE. Title-casing every shouted word
+// turned "which are NOT booster packs" into "which are Not booster packs",
+// which reads as a typo rather than as emphasis removed. A shouted word only
+// keeps its capital where a capital belongs: at the start of the field or after
+// a full stop, a question mark, an exclamation mark or a colon. Everywhere else
+// it goes all the way down.
 const deshout = (s) =>
-  String(s).replace(/\b[A-Z]{2,}\b/g, (w) => (KEEP_CAPS.has(w) ? w : w[0] + w.slice(1).toLowerCase()));
+  String(s).replace(/\b[A-Z]{2,}\b/g, (w, i, whole) => {
+    if (KEEP_CAPS.has(w)) return w;
+    const before = whole.slice(0, i).replace(/["'(\[\s]+$/, "");
+    const starts = before === "" || /[.!?:]$/.test(before);
+    return starts ? w[0] + w.slice(1).toLowerCase() : w.toLowerCase();
+  });
 const packNumber = (r) =>
   r.hi === 0
     ? `<span class="hp-zero">None</span>`
@@ -1499,8 +1511,9 @@ ${ETB.map(
 </section>
 
 <section class="tight" id="history">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The historical bit</p>
+  <div class="wrap">${/* "The historical bit" is British for "the historical part". Same fix on
+         /rarity.html, /grading.html, /msrp.html and the trivia page. */ ""}
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The historical part</p>
     <h2>How many cards were in a pack, <span class="hl">by era</span></h2>
     <p class="lede" style="max-width:42em">The single most useful thing on this page if you are holding older sealed
       product, and the one most often got wrong. It did not go from eleven straight to ten. There is a nine-card era
@@ -1569,7 +1582,7 @@ ${OLD.map(
         <h3>The 2025 story that was wrong</h3>
         <p>In July 2025 the fine print on a Mega Evolution booster box was reported as saying packs would contain
           either an Energy card or a code card rather than both, which was read as a card being removed. On
-          1 August 2025 The Pokemon Company said the packaging text was an error and that packs would continue to
+          August 1, 2025 The Pokemon Company said the packaging text was an error and that packs would continue to
           include both.</p>
         <p>It is here rather than left out because printed boxes carrying the incorrect text physically exist, so
           you can read the wrong thing off the product in your own hands. The current official expansion pages still

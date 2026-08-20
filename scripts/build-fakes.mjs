@@ -616,7 +616,7 @@ ${MENU}
 
 <header class="set-hero">
   <div class="wrap">
-    <span class="kicker">Pokemon TCG &bull; Don't get done</span>
+    <span class="kicker">Pokemon TCG &bull; Don't get burned</span>
     <h1>Real or <span class="hl">fake</span>?</h1>
     <p class="lede" style="max-width:36em">${esc(d.intro)}</p>
   </div>

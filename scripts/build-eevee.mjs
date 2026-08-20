@@ -745,9 +745,8 @@ ${valueRows}
             : ""
         }
         <p class="price-note">Card counts come from the TCGdex card database.
-          ${esc(priceNote(pokeIndex || {}))} They are joined to
-          each species by build-pokemon.mjs and read here from its published index so this page and the species
-          pages cannot print different numbers. Prices move daily, so treat these as a ballpark rather than a
+          ${esc(priceNote(pokeIndex || {}))} They come from the same
+          index the species pages print from, so this page and those cannot disagree about one Pokemon. Prices move daily, so treat these as a ballpark rather than a
           quote. Where a card comes as a normal, holo and reverse holo at different prices, the figure is the
           priciest of them.</p>
       </section>

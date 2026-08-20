@@ -406,6 +406,19 @@ function resolve(c) {
 
 const ranked = hall
   .map(resolve)
+  // TWO SORT KEYS, AND THE PAGE HAS TO SAY SO. A card with a graded price is
+  // ranked by it; a card without is ranked by its raw price. That is the right
+  // order, and it looks broken to a stranger, because the RAW price is the
+  // first and largest number on every plaque and the raw column is not sorted:
+  // measured on the built page it runs 175, 14.72, 38.75, 5.99. Twelve of the
+  // 49 have a PSA 10 and are strictly descending on it; the other 37 are
+  // strictly descending on raw underneath them.
+  //
+  // The lede used to say "ranked by what it is worth" and "in value order",
+  // which names neither key. It now states the rule, because the alternative
+  // fixes are worse: sorting on raw alone would put a $175 card above a $906
+  // one, and hiding the raw price would drop the only figure most of these
+  // cards have.
   .sort((a, b) => (b.psa10 || b.raw || 0) - (a.psa10 || a.raw || 0));
 
 // A SUM, and the label has to say so. This was printed as "Best known value",
@@ -667,7 +680,8 @@ const style = `
    The steel is now var(--chrome-dim) (5.45:1) and the date gets an explicit dimmer
    colour instead of a multiplier, because opacity compounds with whatever
    the card tint happens to be and cannot be checked by reading it. */
-.chof-prices dt i{font-style:normal;font-weight:400;color:var(--chrome-dim)}
+.chof-prices dt i{font-style:normal;font-weight:400;color:var(--chrome-dim);
+  text-transform:none;letter-spacing:.02em}
 .chof-prices dt{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;color:var(--chrome-dim);
   text-transform:uppercase}
 .chof-prices dd{font:700 var(--t-m)/1.2 var(--body);color:var(--chrome-ink)}
@@ -735,7 +749,7 @@ const body = `
         phrase is in the search result and the h1 agrees with the link that got
         you here. */ ""}
       <h1>Our best Pokemon <span class="hl">pulls</span></h1>
-      <p>Every card that has come out of a pack on this channel, ranked by what it is worth. Tap a card to see it full size.${derivedFromHits ? " Nothing here was hand picked: this is the whole list of what was pulled on camera, in value order." : ""}</p>
+      <p>Every card that has come out of a pack on this channel, ranked by its PSA 10 price where we have one and by its raw price where we do not. Tap a card to see it full size.${derivedFromHits ? " Nothing here was hand picked: this is the whole list of what was pulled on camera." : ""}</p>
       ${ranked.length ? `<div class="chof-tally">
         <div><b>${ranked.length}</b><span>${derivedFromHits ? "Cards pulled" : "Cards inducted"}</span></div>
         ${totalRaw ? `<div><b>${moneyCompact(totalRaw)}</b><span>All of them raw</span></div>` : ""}

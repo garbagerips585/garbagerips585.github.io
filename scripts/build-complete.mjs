@@ -564,9 +564,17 @@ ${MENU}
     <div class="gc-grid">
       <article class="gc">
         <h3>The commons run</h3>
-        <p class="gc-price">${moneyCompact(rows.reduce((n, r) => n + r.bulk, 0) / rows.length)}<span> average per set</span></p>
-        <p class="gc-note">Every Common and Uncommon in the numbered set. This is the part that falls out of packs by
-          the hundred, so it is nearly free to buy and nearly worthless to sell. A good first target: it is most of the
+        <p class="gc-price">${moneyCompact(rows.reduce((n, r) => n + r.bulk, 0) / rows.length)}<span> average per set</span></p>${/* IT SAID "the part that falls out of packs by the hundred", WHICH IS
+             A PACK RATE IN A FRIENDLY VOICE, on a page whose own sourcing list
+             says "No pull rates, no pack math" in those words 6,000px below.
+             The same shape as the "one or two in most packs" that came off
+             /rarity.html and the "That is most of them" that came off 38 rip
+             pages: no source, and none is possible, because The Pokemon Company
+             publishes none. What the sentence is FOR is the money, and the
+             money is on the page already: bulk is what a marketplace pays
+             nothing for. Say that instead, which is checkable. */ ""}
+        <p class="gc-note">Every Common and Uncommon in the numbered set. This is the bulk, so it is nearly free to
+          buy and nearly worthless to sell. A good first target: it is most of the
           card count and almost none of the money, and it teaches you how a checklist works.</p>
       </article>
       <article class="gc">

@@ -31,7 +31,7 @@ import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 import { slugify } from "../shared/paths.mjs";
-import { esc, longDate, shortDate, viewCount, imgDims, RIP_BANNER } from "../shared/format.mjs";
+import { esc, longDate, shortDate, viewCount, imgDims, packTileImg, RIP_BANNER } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/playlists");
@@ -78,6 +78,18 @@ try {
 const logosOnDisk = new Set(
   (await readdir(join(ROOT, "public/assets/logos")).catch(() => []))
     .map((f) => /^(.+)-pokemon-tcg-set-logo\.webp$/.exec(f)?.[1])
+    .filter(Boolean)
+);
+/* Which sets build-packs.py has actually rendered artwork for. Read off the
+   directory rather than listed here for the same reason logosOnDisk is: a
+   typed list is a list that goes stale the next time a master lands. Matched on
+   the MASTER rendition only, so the -tile and -mid siblings do not each add a
+   bogus id; nothing looks those up, but a set called
+   "pitch-black-garbage-rips-585-booster-pack-tile" sitting in here is the kind
+   of thing that reads as real in a debugger a year from now. */
+const packsOnDisk = new Set(
+  (await readdir(join(ROOT, "public/assets/packs")).catch(() => []))
+    .map((f) => /^(.+)-garbage-rips-585-booster-pack\.webp$/.exec(f)?.[1])
     .filter(Boolean)
 );
 /**
@@ -387,9 +399,29 @@ function faceSet(v) {
   return sets[0] || "default";
 }
 
-const packMarkup = (setId) => `<span class="pack pack--${esc(setId)} pack--tile" aria-hidden="true">
+/**
+ * A pack facade for one tile, with the artwork as an <img> so it can be lazy.
+ *
+ * /playlists.html WAS THE HEAVIEST PAGE THIS CHANGE TOUCHES AND LAUNCH.md NEVER
+ * NAMED IT. Measured 20 August 2026, cache off, NO scroll at all, waiting for
+ * the network to go quiet: all TWELVE distinct tile files arrived, 477.2KB, on
+ * a 606.5KB page, and only FOUR of the 22 tiles are above the fold at 390x844.
+ * A CSS background can never be lazy, so every one of them was fetched for a
+ * reader who never scrolled. /videos.html's 48 tiles are the same shape at
+ * 279.7KB.
+ *
+ * `packsOnDisk` IS THE GUARD AND IT IS NOT DECORATIVE HERE. This helper is
+ * called with whatever faceSet returns, which is the video's own first set
+ * rather than a set anybody checked for artwork, so several sets reaching it
+ * have only the generated colour design in ui.css. Those get the facade and no
+ * img, exactly as before, and no .pack--img either, so packs.css leaves them
+ * alone. That guard is the difference between this and a dead round trip.
+ */
+const packMarkup = (setId) => `<span class="pack pack--${esc(setId)} pack--tile${
+  packsOnDisk.has(setId) ? " pack--img" : ""
+}" aria-hidden="true">
             <span class="pack-face pack-l">
-              <span class="pack-art"></span>
+              <span class="pack-art">${packsOnDisk.has(setId) ? packTileImg(setId) : ""}</span>
               <span class="pack-brand">${esc(setId === "default" ? "GARBAGE RIPS" : labelFor("sets", setId) || "GARBAGE RIPS")}<small>${
                 setId === "default" ? "585" : "GARBAGE RIPS 585"
               }</small></span>

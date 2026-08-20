@@ -54,7 +54,7 @@
       "what": "The Pokemon Company announcement of the Sword & Shield type changes: Fairy dropped, Fairy Pokemon become Psychic, Poison Pokemon become Darkness, Resistance moves from -20 to -30.",
       "url": "https://gonintendo.com/stories/352511-changes-coming-to-the-pokemon-tcg-with-sword-shield",
       "read": "2026-08-15",
-      "note": "FLAG: this is a MIRROR. The article is dated 9 January 2020 and credits Pokemon.com, and the wording matches what the par rulebook says independently, but the original pokemon.com article could not be reached (Cloudflare bot page) and pocketmonsters.net's mirror answered 403. Treat the mirror as tier 2 evidence for a tier 1 claim. The claims it carries are all separately confirmed by the rulebook or by measurement, so nothing on the page needs to rest on it alone."
+      "note": "FLAG: this is a MIRROR. The article is dated January 9, 2020 and credits Pokemon.com, and the wording matches what the par rulebook says independently, but the original pokemon.com article could not be reached (Cloudflare bot page) and pocketmonsters.net's mirror answered 403. Treat the mirror as tier 2 evidence for a tier 1 claim. The claims it carries are all separately confirmed by the rulebook or by measurement, so nothing on the page needs to rest on it alone."
     },
     "bulbapedia_type": {
       "tier": 2,
@@ -216,7 +216,7 @@
         "printedWeakness": "Fire x2",
         "printedResistance": null,
         "inLocalData": "public/data/cards/151.json",
-        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-003, read 2026-08-15"
+        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-003, read August 15, 2026"
       }
     },
     {
@@ -240,7 +240,7 @@
         "printedWeakness": "Water x2",
         "printedResistance": null,
         "inLocalData": "public/data/cards/151.json",
-        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-006, read 2026-08-15"
+        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-006, read August 15, 2026"
       }
     },
     {
@@ -264,7 +264,7 @@
         "printedWeakness": "Lightning x2",
         "printedResistance": null,
         "inLocalData": "public/data/cards/151.json",
-        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-009, read 2026-08-15"
+        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-009, read August 15, 2026"
       }
     },
     {
@@ -288,7 +288,7 @@
         "printedWeakness": "Fighting x2",
         "printedResistance": null,
         "inLocalData": "public/data/cards/151.json",
-        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-025, read 2026-08-15"
+        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-025, read August 15, 2026"
       }
     },
     {
@@ -314,7 +314,7 @@
         "printedWeakness": "Darkness x2",
         "printedResistance": "Fighting -30",
         "inLocalData": "public/data/cards/151.json",
-        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-094, read 2026-08-15",
+        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-094, read August 15, 2026",
         "whyThisOne": "Gengar is a Ghost/Poison Pokemon printed as a PSYCHIC card, which is the cleanest single proof that TCG type is not video game type. It is also one of the few examples that prints both a Weakness and a Resistance, so the corner of the card shows the reader both at once."
       }
     },
@@ -341,7 +341,7 @@
         "printedWeakness": "Psychic x2",
         "printedResistance": null,
         "inLocalData": "public/data/cards/151.json",
-        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-068, read 2026-08-15"
+        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-068, read August 15, 2026"
       }
     },
     {
@@ -367,7 +367,7 @@
         "printedWeakness": "Fighting x2",
         "printedResistance": null,
         "inLocalData": "public/data/cards/151.json",
-        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-089, read 2026-08-15",
+        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-089, read August 15, 2026",
         "whyThisOne": "Muk is a pure Poison Pokemon on a DARKNESS card, and it is a 30 cent common out of a set Tim rips, so a reader can hold the proof. Grimer, Koffing and Weezing in the same set all check out the same way."
       },
       "exampleAlt": {
@@ -380,7 +380,7 @@
         "printedWeakness": "Grass x2",
         "printedResistance": null,
         "inLocalData": "public/data/cards/surging-sparks.json",
-        "verified": "api.tcgdex.net/v2/en/cards/sv08-119, read 2026-08-15",
+        "verified": "api.tcgdex.net/v2/en/cards/sv08-119, read August 15, 2026",
         "whyThisOne": "The other half of the split, on a card people actually chase. Showing Muk and Hydreigon ex side by side proves the per-card point better than any sentence: same type, different printed Weakness."
       }
     },
@@ -407,7 +407,7 @@
         "printedWeakness": "Fire x2",
         "printedResistance": "Grass -30",
         "inLocalData": "public/data/cards/surging-sparks.json",
-        "verified": "api.tcgdex.net/v2/en/cards/sv08-130, read 2026-08-15"
+        "verified": "api.tcgdex.net/v2/en/cards/sv08-130, read August 15, 2026"
       }
     },
     {
@@ -433,7 +433,7 @@
         "printedWeakness": "Fighting x2",
         "printedResistance": null,
         "inLocalData": "public/data/cards/151.json",
-        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-143, read 2026-08-15"
+        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-143, read August 15, 2026"
       }
     },
     {
@@ -462,7 +462,7 @@
         "printedWeakness": null,
         "printedResistance": null,
         "inLocalData": "public/data/cards/151.json",
-        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-149, read 2026-08-15"
+        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-149, read August 15, 2026"
       }
     },
     {
@@ -478,7 +478,7 @@
       "blurbSource": "our wording, informed by rulebook_par",
       "weakness": { "top": "Metal x2", "n": null, "note": "NOT MEASURED. None of the ten sampled sets is old enough to contain a Fairy card, so this file has no count for Fairy. The example card below prints Metal x2 and Darkness -20, and that is stated as what that one card says, nothing more. Either measure a few XY-era sets before publishing a tendency here, or publish no tendency." },
       "resistance": { "top": "Darkness -20", "n": null, "note": "same caveat. Note the -20: this is a pre-Sword-&-Shield card, from back when Resistance was -20 rather than -30, which is a second, unforced demonstration that these values are printed and not fixed." },
-      "history": "Debuted in the Kalos Starter Set (2013). The Pokemon Company announced in January 2020 that Fairy would not be supported from the Sword & Shield series onward, and that Fairy Pokemon would generally be printed as Psychic and Poison Pokemon as Darkness. Sword & Shield released 7 February 2020. Basic Fairy Energy became the first Basic Energy card ever to rotate out of the Standard format.",
+      "history": "Debuted in the Kalos Starter Set (2013). The Pokemon Company announced in January 2020 that Fairy would not be supported from the Sword & Shield series onward, and that Fairy Pokemon would generally be printed as Psychic and Poison Pokemon as Darkness. Sword & Shield released February 7, 2020. Basic Fairy Energy became the first Basic Energy card ever to rotate out of the Standard format.",
       "historySource": "swsh_announcement (mirrored tier 1, see the flag on that source) + bulbapedia_fairy + rulebook_par, which still lists Fairy and notes that no Fairy cards appear in the Scarlet & Violet series while they do exist in older expansions.",
       "stillLegal": "In casual play a Fairy card works exactly as printed. It is not Standard legal. Do NOT write a sentence about tournament legality without checking the current Play Pokemon rotation, which this research did not do.",
       "example": {
@@ -492,7 +492,7 @@
         "printedResistance": "Darkness -20",
         "inLocalData": null,
         "inLocalDataNote": "The ONLY example on this page with no local record. The site tracks 28 sets and the oldest is Rebel Clash (2020), which is after Fairy was retired. The image base is on the same host every other card scan uses and it was fetched and confirmed 200 on all four extensions.",
-        "verified": "api.tcgdex.net/v2/en/cards/xy1-96, read 2026-08-15",
+        "verified": "api.tcgdex.net/v2/en/cards/xy1-96, read August 15, 2026",
         "whyThisOne": "Xerneas is the Pokemon the Fairy type was built around, and this is its card from XY base, the set that introduced the type."
       }
     }

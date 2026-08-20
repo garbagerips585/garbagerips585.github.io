@@ -81,6 +81,44 @@ try {
   /* run: node scripts/build-pokemon.mjs */
 }
 
+/* ------------------------------------------- a portrait on every line -----
+ *
+ * THIS PAGE WAS 94,547px OF NAME BOXES WITH NOTHING TO LOOK AT, measured at
+ * 390x844 in headless Chrome: 112 screens, 340 line cards, and not one picture
+ * anywhere in main. It counted 484 inline SVGs and read as one of the better
+ * illustrated pages on the site, because every one of them is a 30px arrow or
+ * a fork elbow. Those draw the RELATIONSHIP, which is the page's argument, and
+ * none of them draws a POKEMON, which is what a reader is scanning for.
+ *
+ * THE ART WAS ALREADY IN THE TREE AND THIS PAGE WAS THE ONE FAMILY NOT SHOWING
+ * IT. /pokemon/ has drawn the official artwork beside every stage of the same
+ * chains, off the same data, since the species art landed.
+ *
+ * ONE PORTRAIT PER LINE CARD AND NOT ONE PER NODE, which is a weight decision
+ * and a design one. There are 824 nodes and 340 cards: a portrait in every node
+ * is 3.2MB and turns a three stage chain into a strip of pictures competing
+ * with the arrows and the conditions that are the actual content. On the
+ * heading it says one thing, WHOSE LINE THIS IS, which is what the heading
+ * already says in words, and it breaks the wall roughly every 280px.
+ *
+ * NO PORTRAIT WHERE THERE IS NO FILE. A species with no entry in the manifest
+ * gets a heading with no img rather than a frame with nothing in it.
+ */
+const speciesArt = JSON.parse(
+  await readFile(join(ROOT, "data/species-art.json"), "utf8"),
+).art || {};
+let portraits = 0;
+const portrait = (n) => {
+  const a = n && n.id && speciesArt[n.id] && speciesArt[n.id].sm;
+  if (!a) return "";
+  portraits += 1;
+  // 48px drawn, and the file is that box doubled. EVERY ONE OF THESE IS BELOW
+  // THE FOLD: the first card sits far below 844 at 390 behind the hero, the
+  // find box and the forks nav, so lazy is right on all of them and is checked
+  // after the build rather than assumed.
+  return `<img class="ev-sp" src="${esc(a.file)}" width="${a.w}" height="${a.h}" alt="" loading="lazy" decoding="async">`;
+};
+
 // ---------------------------------------------------------------------------
 // THE CARDS, IN NATIONAL DEX ORDER OF THE FIRST STAGE.
 //
@@ -129,7 +167,7 @@ const cardFor = (c) => {
   const gen = c.root.gen || 0;
   return `<article class="ev-card${branches ? " ev-branchy" : ""}" id="line-${esc(c.root.slug)}"
     data-n="${esc(names.join(" ").toLowerCase())}" data-g="${gen}" data-m="${esc([...methods].join(" "))}">
-    <h3 class="ev-h">${esc(names[0])}${names.length > 1 ? ` <span>line</span>` : ""}</h3>
+    <h3 class="ev-h">${portrait(c.root)}${esc(names[0])}${names.length > 1 ? ` <span>line</span>` : ""}</h3>
     ${renderChain(c.root, d, hasPage)}
   </article>`;
 };
@@ -401,6 +439,18 @@ const style = `
 .ev-h{font:400 var(--t-body)/1.2 var(--display);margin-bottom:var(--s3)}
 .ev-h span{font:400 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink-2);vertical-align:middle}
+/* The line's own portrait. INLINE-BLOCK AND NOT A FLEX ITEM, deliberately: the
+   heading is already an inline run of a display face and a mono chip that
+   aligns itself with vertical-align, and turning the h3 into a flex row would
+   make that chip a flex item and drop the single space in front of it. This
+   way the existing two elements lay out exactly as they did.
+   THE display IS NOT OPTIONAL AND IT IS WHY THIS SHIPPED WRONG ONCE. ui.css
+   sets img{display:block} on every image on the site, so a rule here that only
+   set vertical-align left the portrait on its own line above the name and made
+   the heading 67px instead of 48. Measured, not guessed: read the img's own
+   computed display before believing an inline image is inline.
+   The file is 96px for this 48px box, so it is exact at DPR 2. */
+.ev-sp{display:inline-block;width:48px;height:48px;vertical-align:middle;margin-right:8px}
 .ev-still{margin-top:var(--s4)}
 .ev-still ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
 .ev-still li{font:400 var(--t-micro)/1 var(--mono);border:1px solid var(--hair);
@@ -672,7 +722,8 @@ ${cards}
           Pokedex, counted rather than repeated.</p>
       </section>
 
-      <p class="ev-src">Evolution data from PokeAPI (pokeapi.co), read ${esc(longDate(d.checked))}. Item, move,
+      <p class="ev-src">Evolution data and the official artwork on each line from PokeAPI (pokeapi.co), read
+        ${esc(longDate(d.checked))}. Item, move,
         location, form and game names are PokeAPI's own English names. Pokemon and Pokemon names are trademarks of
         Nintendo, Creatures Inc. and GAME FREAK inc. This is a fan site and nothing on it is affiliated with or
         endorsed by them. The arrows and fork marks above are our own drawings.</p>
@@ -691,5 +742,6 @@ await writeFile(join(ROOT, "public/evolution.html"), page);
 console.log(`Wrote public/evolution.html
   ${evolving.length} lines drawn, ${still.length} species that do not evolve
   ${branchCount} lines fork, ${forks.length} listed at the top
+  ${portraits} of ${evolving.length} lines carry a portrait${portraits < evolving.length ? `, ${evolving.length - portraits} have no sm file and correctly show none` : ""}
   ${d.counts.routes} routes from ${shownGameLabels.size} sets of games named on the page, read ${d.checked}
   reconciled against data/pokedex.json: ${d.reconciled.length ? d.reconciled.map((m) => `${m.slug} ${m.from || "(none)"} -> ${m.to || "(none)"}`).join(", ") : "nothing moved"}`);

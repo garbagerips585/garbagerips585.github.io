@@ -256,9 +256,13 @@ ${MENU}
       rows.length
         ? `<ul class="loc-list">
 ${rows.map((o) => card(o, kind)).join("\n")}
-    </ul>
+    </ul>${/* "because we rate them" IS BRITISH AND IT MEANS THE OPPOSITE HERE. In
+         American English "we rate them" reads as "we rank them", and the same
+         paragraph on /creators.html opens "Listed alphabetically, not ranked",
+         so the sentence contradicted itself eleven words later. The claim being
+         made is that nobody paid to be on the list, so say that. */ ""}
     <p class="price-note">${esc(note)} Last updated ${esc(longDate(updated) || "recently")}. No paid placements and no
-      affiliate links on this page: everybody here is listed because we rate them.</p>`
+      affiliate links on this page: everybody here is listed because they are worth your time.</p>`
         : `<div class="fk-golden">
       <p class="fk-golden-h">Nothing here yet</p>
       <h2>This list is being <span class="hl">built</span></h2>
@@ -303,16 +307,22 @@ const V = page({
 });
 
 const C = page({
+  // THE DESCRIPTION AND THE LEDE BOTH NAMED FOUR KINDS OF CREATOR AND THE PAGE
+  // HAS ONE. data/creators.json holds two entries, both Rochester, both channels;
+  // there is no artist and no competitive player on it, and the description is
+  // the copy Google prints. The title keeps the three cities because that is the
+  // search this page is for and the list is meant to grow into it, but neither
+  // line promises a roster the page cannot show. Add the roles back the day the
+  // file has them.
   metaDesc:
-    "Pokemon YouTubers, rippers, collectors and artists in Rochester, Buffalo and Syracuse. Upstate New York " +
-    "creators worth following, with a link to each.",
+    "Pokemon creators worth following in Rochester and around Upstate New York, " +
+    "with a link to each. No paid placements.",
   slug: "creators.html",
   title: "Pokemon Creators in Rochester, Buffalo and Syracuse",
   h1: "Local creators",
   kicker: "Upstate NY • Support your scene",
   lede:
-    "Other people making Pokemon content in Rochester, Buffalo, Syracuse and nearby. Rippers, collectors, " +
-    "artists and players. Go and watch them.",
+    "Other people making Pokemon content in Rochester, Buffalo, Syracuse and nearby. Go watch them.",
   list: creators.creators || [],
   updated: creators.updated,
   kind: "creators",

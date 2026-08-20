@@ -960,8 +960,11 @@ const hub = shell({
       </a>`,
       ).join("\n      ")}
     </div>
-    <h2 style="margin-top:var(--s6)">The two official <span class="hl">apps</span></h2>
-    <p class="lede" style="max-width:46em">Ours are for the twenty minutes in the queue. These two are the real card
+    <h2 style="margin-top:var(--s6)">The two official <span class="hl">apps</span></h2>${/* "in the queue" is British and this page says "line" three other times:
+         "waiting to get to the counter", "nothing lost if the line moves", and
+         /games/garbage-run.html is subtitled "for the restock line". American
+         English only, and the page was already disagreeing with itself. */ ""}
+    <p class="lede" style="max-width:46em">Ours are for the twenty minutes in line. These two are the real card
       game, both free, both from Pokemon, and both tied to the packs on this channel. The code card in every booster
       goes into one of them.</p>
     <div class="g-list">
@@ -1322,8 +1325,8 @@ const setPage = shell({
         )
         .join("\n      ")}
     </ul>
-    <p class="price-note" style="margin-top:var(--s4)">Symbols mirrored from the Pokemon TCG API by
-      scripts/sync-symbols.mjs. Era names, dates and set counts are read from the same expansion list
+    <p class="price-note" style="margin-top:var(--s4)">Symbols mirrored from the Pokemon TCG API.
+      Era names, dates and set counts are read from the same expansion list
       <a href="/expansions.html">/expansions.html</a> is built from, and the card counts are this quiz's own pot.${
         eras.some((e) => !e.from)
           ? " An era with no dates is one the expansion list holds no entry for, so none are printed rather than guessed."
@@ -1459,8 +1462,9 @@ const triviaPage = shell({
         )
         .join("\n      ")}
     </div>
-
-    <h2 style="margin-top:var(--s6)">The categories are the <span class="hl">good</span> bit</h2>
+${/* "the good bit" is British for "the good part", and it is not a word a
+         -our/-ise sweep looks for, which is how it survived three of them. */ ""}
+    <h2 style="margin-top:var(--s6)">The categories are the <span class="hl">good</span> part</h2>
     <p class="lede" style="max-width:44em">Nearly half the bank is the official one word category, because it is the
       one nobody knows and it is frequently ridiculous. These four are real, and two of them are why this channel is
       called what it is.</p>

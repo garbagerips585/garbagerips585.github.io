@@ -638,7 +638,7 @@ ${pileFig()}` : `
             editor, pick the card and the version you want, and it is yours. It is final and not refundable, so
             spend them on what a deck actually needs.</li>
           <li><b>Duplicates are not waste</b>Past the four copies you may hold, extras turn themselves into Trade
-            Credits. A fifth copy is not a dud, it is progress towards the card you want, the opposite of how
+            Credits. A fifth copy is not a dud, it is progress toward the card you want, the opposite of how
             opening cardboard feels. Trainer Points, the other currency, come from quests and leveling up and buy
             packs.</li>
           <li><b>Rarity is cosmetic here</b>The same card exists in several finishes and you pick one. The fancy

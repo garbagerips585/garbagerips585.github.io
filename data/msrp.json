@@ -214,7 +214,7 @@
       "name": "Pokemon Center",
       "url": "https://www.pokemoncenter.com/category/tcg-cards",
       "readOn": "2026-08-17",
-      "what": "The Pokemon Company's own shop, selling its own product. Its price is the manufacturer's suggested retail price, which is what MSRP means, so this is the strongest source on the page and the only one that is the manufacturer rather than somebody reading listings. Its TCG cards category was read in a real browser on 17 August 2026, in two passes: 31 products first, then all ten pages of it for 400 more, none of which repeated a product from the first pass. All 431 are recorded in data/pokemon-center-prices.json with the product path on every figure. The site answers an automated request with a bot-check page rather than a product, so this was read by hand and is not repeated by any script. A shop price can still move, which is why every figure carries the day it was read."
+      "what": "The Pokemon Company's own shop, selling its own product. Its price is the manufacturer's suggested retail price, which is what MSRP means, so this is the strongest source on the page and the only one that is the manufacturer rather than somebody reading listings. Its TCG cards category was read in a real browser on August 17, 2026, in two passes: 31 products first, then all ten pages of it for 400 more, none of which repeated a product from the first pass. All 431 are on file with the product path on every figure. The site answers an automated request with a bot-check page rather than a product, so this was read by hand and is not repeated by any script. A shop price can still move, which is why every figure carries the day it was read."
     },
     "unownarchives": {
       "name": "UnownArchives",
@@ -232,13 +232,13 @@
       "name": "Bill's Archive",
       "url": "https://billsarchive.com/articles/30th-anniversary-english-products-msrp.html",
       "readOn": "2026-08-17",
-      "what": "A product-by-product MSRP list for the English 30th Celebration line, dated 2 July 2026. Covers one set rather than the whole range, so it corroborates the product types that set sells and says nothing about the rest."
+      "what": "A product-by-product MSRP list for the English 30th Celebration line, dated July 2, 2026. Covers one set rather than the whole range, so it corroborates the product types that set sells and says nothing about the rest."
     },
     "wargamer": {
       "name": "Wargamer",
       "url": "https://www.wargamer.com/pokemon-trading-card-game/cards-retail-price",
       "readOn": "2026-08-17",
-      "what": "A guide to buying at retail price, updated 26 March 2026. Gives approximate figures rather than exact ones ('~$49.99', '~$144'), so it is used to corroborate a figure and never to set one. It is the oldest source here, and the Pokemon Center Elite Trainer Box is one place it has since been overtaken."
+      "what": "A guide to buying at retail price, updated March 26, 2026. Gives approximate figures rather than exact ones ('~$49.99', '~$144'), so it is used to corroborate a figure and never to set one. It is the oldest source here, and the Pokemon Center Elite Trainer Box is one place it has since been overtaken."
     }
   },
 
@@ -259,7 +259,7 @@
         { "source": "Bill's Archive", "url": "https://billsarchive.com/articles/30th-anniversary-english-products-msrp.html", "readOn": "2026-08-17" },
         { "source": "Wargamer", "url": "https://www.wargamer.com/pokemon-trading-card-game/cards-retail-price", "readOn": "2026-08-17" }
       ],
-      "note": "The most agreed figure on this page, and the one a shop is most likely to be over on. This row said Pokemon Center does not sell the retail box at all, which the fuller reading disproved: it sells five, and every one is old stock. Four Sun and Moon boxes were $39.99 and the Hidden Fates box $49.99 on 17 August 2026. None of them is a current set, so there is still no store reading to check this figure against and it stays on the references."
+      "note": "The most agreed figure on this page, and the one a shop is most likely to be over on. This row said Pokemon Center does not sell the retail box at all, which the fuller reading disproved: it sells five, and every one is old stock. Four Sun and Moon boxes were $39.99 and the Hidden Fates box $49.99 on August 17, 2026. None of them is a current set, so there is still no store reading to check this figure against and it stays on the references."
     },
     {
       "id": "etb",
@@ -292,7 +292,7 @@
         { "source": "bujusjujus", "url": "https://bujusjujus.com/guides/pokemon-tcg-msrp-reference", "readOn": "2026-08-17" }
       ],
       "disagreesWith": [
-        { "amount": 54.99, "source": "Wargamer", "url": "https://www.wargamer.com/pokemon-trading-card-game/cards-retail-price", "readOn": "2026-08-17", "as": "written 26 March 2026" }
+        { "amount": 54.99, "source": "Wargamer", "url": "https://www.wargamer.com/pokemon-trading-card-game/cards-retail-price", "readOn": "2026-08-17", "as": "written March 26, 2026" }
       ],
       "note": "Thirteen of them at the same figure on one day, from Paldea Evolved in 2023 through to 30th Celebration, so this is as settled as anything on the page. Wargamer had it at $54.99 in March 2026 and it has moved since. Every Sword and Shield era box Pokemon Center still lists is $49.99, which is the older price rather than a bargain, and the two Elite Trainer Box PLUS sets are a bigger product again at $64.99."
     },
@@ -593,7 +593,7 @@
     {
       "id": "spc",
       "label": "Super Premium Collection",
-      "what": "A one off collector box, bigger than a Premium Collection and rarer than a UPC.",
+      "what": "A one-off collector box, bigger than a Premium Collection and rarer than a UPC.",
       "packsFrom": "Super-Premium Collection",
       "price": 79.99,
       "priceKind": "store",
@@ -980,7 +980,7 @@
         { "amount": 119.99, "source": "Wargamer", "url": "https://www.wargamer.com/pokemon-trading-card-game/cards-retail-price", "readOn": "2026-08-17", "as": "the usual UPC" },
         { "amount": 179.99, "source": "Bill's Archive", "url": "https://billsarchive.com/articles/30th-anniversary-english-products-msrp.html", "readOn": "2026-08-17", "as": "the 30th Celebration UPC" }
       ],
-      "note": "A store reading normally settles a row and this one deliberately does not, even now there are two of them. Pokemon's own shop had the Terapagos ex box and the Sword and Shield Charizard box both at $119.99 on 17 August 2026, and the 30th Celebration UPC is $60 more, so the type still has no single price to print. bujusjujus gives the whole line as a range, which is the same answer in different words."
+      "note": "A store reading normally settles a row and this one deliberately does not, even now there are two of them. Pokemon's own shop had the Terapagos ex box and the Sword and Shield Charizard box both at $119.99 on August 17, 2026, and the 30th Celebration UPC is $60 more, so the type still has no single price to print. bujusjujus gives the whole line as a range, which is the same answer in different words."
     },
     {
       "id": "blister",

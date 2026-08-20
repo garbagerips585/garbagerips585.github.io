@@ -397,11 +397,18 @@ ${MENU}
         </figure>
       </div>
       <p style="margin-top:12px">${esc(trubbish.name)} is #${trubbish.id}, a Generation ${trubbish.gen} pure
-        ${esc(cap(trubbish.types[0]))} type, ${m(trubbish).toFixed(1)}m tall and ${kg(trubbish).toFixed(1)}kg.
-        It evolves into ${esc(garbodor.name)}, which triples in height to ${m(garbodor).toFixed(1)}m and puts on
+        ${esc(cap(trubbish.types[0]))} type, ${m(trubbish).toFixed(1)}m tall and ${kg(trubbish).toFixed(1)}kg.${/* TWO FIXES IN ONE SENTENCE. "triples in height" was a word typed over
+             two computed numbers and it does not survive them: 0.6m to 1.9m is
+             3.2x, and the page prints both figures inches away from the claim.
+             The multiple is derived now, so it cannot go stale the next time
+             pokeapi is read. And "easier to get hold of" is British; the stat
+             being described is the capture rate, so the American word is also
+             the exact one. */ ""}
+        It evolves into ${esc(garbodor.name)}, which is ${(m(garbodor) / m(trubbish)).toFixed(1)} times its height at
+        ${m(garbodor).toFixed(1)}m and puts on
         ${(kg(garbodor) - kg(trubbish)).toFixed(1)}kg getting there. ${esc(trubbish.name)} has a capture rate of
         ${trubbish.catch} against ${esc(garbodor.name)}'s ${garbodor.catch}, so the bag is a great deal easier to
-        get hold of than the heap.</p>
+        catch than the heap.</p>
       <p style="margin-top:12px">They are two of the ${n(poison.length)} ${esc(cap("poison"))} type Pokemon in the
         dex, and two of the ${n(purePoison.length)} that are pure ${esc(cap("poison"))} with no second type.
         Calling them Rochester's Pokemon is our claim and nobody else's, but we would like it noted that

@@ -50,8 +50,8 @@ const OUT = join(ROOT, "public/sets");
  * THE ENGLISH SET, SHOWN RATHER THAN NAMED.
  *
  * These pages exist to answer one question: "I watched the Abyss Eye rips, what
- * do I buy in a US shop?" They answered it in words and the words are the weak
- * form of the answer, because the two things a person matches in a shop are
+ * do I buy in a US store?" They answered it in words and the words are the weak
+ * form of the answer, because the two things a person matches in a store are
  * both pictures. The logo is what is printed across the box and the pack. The
  * symbol is what is printed on the card, and it is the only way to check a
  * loose single.
@@ -379,8 +379,12 @@ function twinBand(g, cls) {
   return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Same cards, different name</p>
-    <h2>${esc(g.english)} is <span class="hl">${esc(en.name)}</span></h2>
-    <p class="lede intl-lede">If you have watched these rips and then gone looking for the set in a US shop, this is the
+    <h2>${esc(g.english)} is <span class="hl">${esc(en.name)}</span></h2>${/* "in a US SHOP", not store, went out on all 12 imported set guides. The
+         whole point of the sentence is US retail: Target, Walmart, a card shop
+         counter. "Shop" is the British word for the first two, and this site is
+         written in American English. The hobby term "card shop" is a different
+         word and stays wherever it appears. */ ""}
+    <p class="lede intl-lede">If you have watched these rips and then gone looking for the set in a US store, this is the
       one you want. ${esc(g.english)} is the ${esc(g.langName)} printing behind English ${esc(en.name)}${
         merged ? `, which English built by merging it with ${esc(merged)}` : ""
       }.</p>
@@ -765,7 +769,7 @@ function enChase(g, en, { standalone = false, why = "", nativeBelow = false } = 
     .filter((c) => c.image && !NO_SCAN.has(String(c.image).replace(/\/(low|high)\.(webp|avif|png|jpg)$/, "")))
     .slice(0, 4);
   if (chase.length < 2) return "";
-  return `${standalone ? "" : `    <h3 class="intl-enh">The same cards in English</h3>\n`}    <p class="intl-ensay">The priciest cards in English ${esc(en.name)}, which is the set on the shelf in a US shop.
+  return `${standalone ? "" : `    <h3 class="intl-enh">The same cards in English</h3>\n`}    <p class="intl-ensay">The priciest cards in English ${esc(en.name)}, which is the set on the shelf in a US store.
       These are that set's own cards, numbers and prices${
         // THE PREPOSITION HAS TO FOLLOW THE LAYOUT. This block sits under the
         // native grid in the ordinary case, above the native NAME LIST where
