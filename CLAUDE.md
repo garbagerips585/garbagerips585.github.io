@@ -443,7 +443,12 @@ first VISIBLE control of any kind pointing at the channel:
       /retailers/target.html   y= 6,006 of  6,246
 
 Every one of those was the unlabelled YouTube circle in `.foot-social`, because
-below 560px the bar's own `.sub` is `display:none` and the only other Subscribe
+below 560px the bar's own `.sub` WAS `display:none` at the time of that
+measurement and has not been since 18 August 2026, when it was unhidden; at
+390 today it is a 92px control reading Subscribe. The measurement below still
+stands as the reason the pages changed, but do not quote the mechanism as
+current: assets-source/ui.css records both states, twenty lines apart, and
+three separate sweeps have now repeated the stale half. The only other Subscribe
 is inside the closed hamburger. NO informational page contained a single line of
 copy saying what the channel is. A stranger could read all 10,363px of the Gible
 page without learning there was a channel behind it.
@@ -1163,6 +1168,22 @@ browser resolves the img's WebP and commits to it. Verified from the request log
 
 The other lever named here was a lower WebP quality than 78. It is now moot for
 anything that supports AVIF and was not done.
+
+**/evolution.html GAINED 340 PICTURES AND THE COMMIT THAT DID IT CALLED THAT A
+SAVING. IT IS NOT ONE.** 5b4e3028c says "the 1,025 species portraits gain a 96px
+rendition, 3.98MB against 12.41MB, for /evolution.html's 340 line headings. That
+page drew the 256px file 340 times." The library comparison is true. The
+sentence built on it is false: before that commit the page carried ZERO species
+images, and the commit ADDED 340. Measured at 390x844, cache off: 11 requests on
+load before and after, because every one is lazy, and 351 requests fully
+scrolled where there were 11. The page is 106,483px tall.
+
+So the change is defensible and the framing was not. The right sentence is
+already written in data/species-art.json's own readme, in the conditional: the
+256px file "WOULD HAVE BEEN 4.4MB of one page". Choosing the 96px rendition
+saved 4.4MB against a heavier version of the same new feature; it did not make
+an existing page lighter. QUOTE THE PAIR OR QUOTE NEITHER, which this file says
+five times elsewhere and which that commit did not do for the page it changed.
 
 **A CSS background cannot be lazy.** rarity.html's magnified corners were
 backgrounds, so all 13 full-size scans were fetched at first paint whether or

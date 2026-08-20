@@ -819,7 +819,21 @@ const pricedHits = hits.filter((h) => typeof h.price === "number");
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#192D22">
-<link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+${/* NO PRECONNECT TO i.ytimg.com, AND IT WAS HERE ON ALL 317 OF THESE PAGES
+     UNTIL 20 August 2026. Measured at 390x844 with the network log: a rip page
+     makes ZERO requests to that host, on load AND after a real click on the
+     pack. The player mounts youtube-nocookie.com. The only i.ytimg.com string
+     left outside a noscript block is thumbnailUrl inside the JSON-LD, which a
+     crawler may read and a browser never fetches. So this bought a DNS lookup,
+     a TCP connect and a TLS handshake to a host the page never speaks to,
+     multiplied by 317.
+
+     AND NOTHING REPLACES IT, DELIBERATELY. youtube-nocookie.com is the host the
+     click actually hits, so preconnecting THAT looks like the obvious fix. It
+     is not: it would open a connection to Google on every rip page view whether
+     or not the reader ever presses play. This site chose the nocookie host on
+     purpose, and paying for that handshake up front on 317 pages, for a request
+     most readers never make, hands back the thing that choice was protecting. */ ""}
 ${/* THE PACK IS THIS PAGE'S LCP ELEMENT AND THE PRELOAD SCANNER CANNOT SEE IT.
      Measured on the live site at 390x844 DPR 2, Slow 4G with a 4x CPU
      slowdown: LCP 3652ms, the worst of any page family on the site, and the

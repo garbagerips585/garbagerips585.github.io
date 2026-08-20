@@ -313,7 +313,7 @@
     var img = a.querySelector("img");
     var sk = img && SKIN.exec(img.getAttribute("src") || "");
     var facade = a.querySelector(".pack");
-    var fromClass = facade && /pack--(?!tile\b)([a-z0-9-]+)/.exec(facade.className);
+    var fromClass = facade && /pack--(?!tile\b|img\b)([a-z0-9-]+)/.exec(facade.className);
     var skin = sk ? sk[1] : fromClass ? fromClass[1] : "default";
     var slot = a.parentNode;
     // The .hofx spotlight takes its accessible name from its contents rather
