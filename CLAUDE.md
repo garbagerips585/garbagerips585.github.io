@@ -474,6 +474,40 @@ line still stands for everything else: a source belongs in a source line, never
 as an inline link inside a sentence, because that is how the count gets away
 from you.
 
+/shops.html GAINED TWO LINKS OF THE SAME NON-DISCRETIONARY KIND ON 20 AUGUST
+2026, AND THEY ARE WRITTEN DOWN HERE RATHER THAN ADDED QUIETLY, which is the
+mistake the paragraphs above spend four screens complaining about. The map at
+the top of that page used to be six dots on a plain green field, and its own
+caption admitted the gap: "There are no roads on it because we do not have any
+to draw." Tim asked for a real map. It now draws roads, water and the City of
+Rochester line from OpenStreetMap DATA, fetched once by
+`scripts/sync-shop-map.mjs` into `data/shop-map.json` and rendered into the same
+inline SVG; no tiles, no runtime request to anybody. OSM data is ODbL, which
+grants use ON CONDITION of crediting the contributors and making the licence
+reachable, so the figure's caption carries "Map data from OpenStreetMap
+contributors, licensed ODbL 1.0" with a link on each half.
+
+THAT IS THE PHOTO-CREDIT ARGUMENT WITH THE MEDIUM CHANGED AND NOTHING ELSE. It
+is not a judgement about what a reader needs, which is what every discretionary
+link on this site is; it is the term the data was offered under, exactly like the
+nine CC BY and CC BY-SA deeds on the Garbage Plate page. A page that draws the
+roads and does not link the licence is not making a tidier editorial choice. Both
+sit in the figure's own credit line at the very end of the caption, both are
+aria-labelled as leaving the site, and the page's large tap targets are still
+internal. If the map ever loses its OSM geometry, these two go with it in the
+same edit.
+
+AND THE THING THAT SURVIVED THE CHANGE, because it is the reusable half: NO
+RASTER TILES, from OSM's servers or anybody's. Three reasons, each disqualifying
+on its own. OSM's tile usage policy prohibits systematic downloading. A tile
+served at page load is a request to a third party on every visit, which is the
+same objection that got the ytimg preconnect removed. And a tile is painted in
+somebody else's colours and cannot be repainted in ours, where vector geometry
+can, which is why every stroke on that map is a Trubbish Deep token. Fetching the
+DATA once, by hand, into a committed file is a different act from harvesting
+tiles, and the script that does it is NOT in build-all.mjs for the same reason
+sync-decks.mjs is not.
+
 AND THE SEVENTH EXCEPTION THAT WAS ASKED FOR BY NAME AND STILL NOT MADE, 17
 August 2026. Tim stated the site's commercial purpose plainly: YouTube is the
 primary channel and the goal is subscribers and views. That goal is in genuine
@@ -1004,7 +1038,12 @@ rules held it together and all three were measured rather than assumed:
 - **The words are HTML, not SVG text.** At 390px the figure draws at 0.56, so 16
   units is 9px. The drawing carries numbers only and the labels sit in an
   ordered list beside it at real body sizes. That is /shops.html's hours-chart
-  lesson taken the first time instead of the third.
+  lesson taken the first time instead of the third. **THAT CHART WAS DELETED ON
+  20 AUGUST 2026** on Tim's call, because every shop card already printed its own
+  hours in full and the grid said the same thing a second time in a second shape.
+  The lesson it taught about type sizes in a scaled SVG outlived it, which is why
+  this bullet still names it; the shop map that remains puts its six labels on
+  opaque plates for the same reason.
 - **The first version was a striped MOUNTAIN and had to be rebuilt.** Five bands
   inside one silhouette read as sedimentary rock. A plate is wide and low, and
   the things on it are objects lying on each other: the mound is the SIDES, the

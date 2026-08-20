@@ -50,6 +50,12 @@ function cleanUrl(raw) {
 const shopsDoc = JSON.parse(await readFile(join(ROOT, "data/shops.json"), "utf8"));
 const { shops } = shopsDoc;
 
+// The roads, the water and the city line, written by scripts/sync-shop-map.mjs
+// from the Overpass API and committed. NO NETWORK HAPPENS HERE and none may be
+// added: that script is not in build-all.mjs, same arrangement as sync-decks.mjs
+// and sync-plate-photos.py, and its own header says why.
+const mapDoc = JSON.parse(await readFile(join(ROOT, "data/shop-map.json"), "utf8"));
+
 /**
  * A drawn map of where the shops actually are.
  *
@@ -62,19 +68,45 @@ const { shops } = shopsDoc;
  * the question a list of addresses cannot answer at any length.
  *
  * DRAWN, NOT A MAP TILE, and that is a hard constraint rather than a
- * preference. A tile from any provider is a network request per tile, an
- * attribution requirement, a terms-of-use surface and about 200KB; this is a
- * static site with no keys in it. This is an SVG built from six coordinates,
- * so it costs nothing, needs no attribution beyond the geocoder credit already
- * printed below it, and cannot break when somebody's tile server changes.
+ * preference. A tile from any provider is a network request per tile, a
+ * terms-of-use surface and about 200KB; this is a static site with no keys in
+ * it. This is an SVG, so it costs one HTTP request that was happening anyway
+ * and cannot break when somebody's tile server changes.
  *
- * IT IS A RELATIVE MAP AND IT SAYS SO. There is no coastline, no road and no
- * city outline, because this site has no licensed geometry for any of those and
- * drawing Rochester freehand would be inventing data on a page whose whole
- * point is that the addresses were checked. What IS true is the relative
- * position of six points and the distance between them, so that is all it
- * draws, with a scale bar in miles so the spacing is readable as a distance
- * rather than as a diagram.
+ * THIS COMMENT USED TO SAY "THERE IS NO COASTLINE, NO ROAD AND NO CITY OUTLINE,
+ * BECAUSE THIS SITE HAS NO LICENSED GEOMETRY FOR ANY OF THOSE", and the
+ * figure's own caption admitted the gap out loud: "There are no roads on it
+ * because we do not have any to draw." Tim read that and asked for the obvious
+ * thing: "we should update the image to be an actual maps with the dots showing
+ * where the stores are in the area."
+ *
+ * THE SENTENCE WAS THE SAME SHAPE OF MISTAKE AS THE GARBAGE PLATE PHOTOGRAPHS,
+ * and CLAUDE.md describes that shape in full: a true statement about the
+ * candidates somebody looked at, written as a statement about the subject. What
+ * had been ruled out was TILES, correctly. What had not been looked at was the
+ * DATA those tiles are drawn from, which OpenStreetMap gives away under the
+ * ODbL and which the Overpass API will hand over in four queries. The gap was a
+ * search, not a licence.
+ *
+ * SO THERE ARE ROADS ON IT NOW, and water, and the city line, all of them real
+ * geometry projected through exactly the same arithmetic as the shop dots.
+ * scripts/sync-shop-map.mjs fetches them once into data/shop-map.json and this
+ * builder reads that file offline; the ODbL credit is in the caption with the
+ * licence linked, because that is a condition of use rather than a courtesy.
+ *
+ * STILL NOT TILES, AND THAT PART OF THE OLD ARGUMENT SURVIVES INTACT. A raster
+ * tile is a request to somebody else's server on every page load, from a page
+ * that currently loads zero images; OSM's tile usage policy prohibits
+ * systematically downloading them; and a tile is painted in somebody else's
+ * colours and cannot be repainted in ours, which vector geometry can. Every
+ * stroke below is a site token.
+ *
+ * THE SHOPS ARE STILL THE POINT AND THE MAP IS STILL THE BACKGROUND. Roads are
+ * hairlines of the page ink at low opacity, water is a fill darker than the
+ * land, and the dots and their names sit above all of it on their own plates.
+ * The map has to answer "where are these relative to each other and to me". It
+ * is not a navigation tool and the addresses on the cards below are still the
+ * exact thing to put in a map app.
  *
  * THE PROJECTION IS THE ONE PART THAT COULD BE QUIETLY WRONG. A degree of
  * longitude is shorter than a degree of latitude everywhere except the equator,
@@ -118,6 +150,104 @@ function shopMap(list) {
   // A round number of miles that is between a fifth and a half of the drawing.
   const nice = [1, 2, 5, 10, 20].find((n) => n * k > (W - PAD * 2) * 0.2) || 1;
 
+  // THE CANVAS REACHES FURTHER THAN THE SHOPS DO, so the geometry has to as
+  // well. px/py above are fitted to the six points and then centred, which
+  // leaves 123 units of map either side of the easternmost and westernmost
+  // shop. Inverting the projection at the four edges of the viewBox gives the
+  // ground the drawing actually covers.
+  const lonAt = (x) => x0 + (x - offX) / k / (MI_PER_DEG_LAT * kx);
+  const latAt = (y) => y0 + (H - y - offY) / k / MI_PER_DEG_LAT;
+  const canvas = { west: lonAt(0), east: lonAt(W), north: latAt(0), south: latAt(H) };
+
+  // AND THE DATA FILE HAS TO COVER IT, WHICH IS THE ONE WAY THIS PAIRING CAN GO
+  // QUIETLY WRONG. Add a seventh shop out past Batavia and the canvas grows
+  // west into ground sync-shop-map.mjs never fetched, and the map renders a
+  // clean empty margin that looks like a design decision. Fail instead, and say
+  // which edge and by how far.
+  const b = mapDoc.box;
+  const over = [
+    ["west", b.west - canvas.west], ["east", canvas.east - b.east],
+    ["south", b.south - canvas.south], ["north", canvas.north - b.north],
+  ].filter(([, d]) => d > 0);
+  if (over.length) {
+    throw new Error(
+      `The shop map now reaches outside the geometry in data/shop-map.json: ` +
+        over.map(([side, d]) => `${d.toFixed(4)} degrees past its ${side} edge`).join(", ") +
+        `.\nWiden BOX in scripts/sync-shop-map.mjs and re-run it with --refresh.`
+    );
+  }
+  // A layer that came back empty is a query that stopped matching, not a part
+  // of Rochester that has no roads in it. That happened once already, on the
+  // boundary: Overpass answered 200 with nothing in it and the layer silently
+  // vanished. See the note beside that query.
+  for (const [name, lines] of Object.entries({
+    roads: [...mapDoc.roads.major, ...mapDoc.roads.minor],
+    water: mapDoc.water,
+    waterways: mapDoc.waterways,
+    boundary: mapDoc.boundary,
+  })) {
+    if (!lines.length) {
+      throw new Error(
+        `data/shop-map.json has no ${name} in it. Overpass can answer 200 with an ` +
+          `empty result, so re-run scripts/sync-shop-map.mjs --refresh and check the counts.`
+      );
+    }
+  }
+
+  // ONE <path> PER LAYER, NOT ONE PER WAY, and on this file that is the
+  // difference between a page you can serve and a page you cannot. 311 stitched
+  // road lines as 311 elements is 311 sets of attributes before a coordinate is
+  // written. As five paths with many M subpaths apiece it is five.
+  //
+  // Consecutive points that round to the same tenth of a unit are dropped: RDP
+  // in sync-shop-map.mjs works in miles on the ground and cannot know that two
+  // of its survivors land on the same pixel here.
+  //
+  // RELATIVE LINETOS AFTER THE FIRST POINT, WHICH IS WORTH 21% OF THE PATH DATA
+  // AND CANNOT DRIFT. An absolute point is "413.7 208.4", eleven characters, and
+  // the step from it to the next one is usually under ten units: "3.1 -1.6" is
+  // eight. THE TRAP IN DOING THIS IS ACCUMULATED ROUNDING, and it is a real one
+  // -- a hundred deltas each rounded to a tenth can walk a road several units
+  // off its own end. It is avoided by taking every delta from the last point
+  // ACTUALLY EMITTED rather than from the true position, so the rounding error
+  // is bounded at one tenth of a unit for the whole polyline instead of
+  // compounding. `cur` below is the emitted position and nothing else may be
+  // subtracted from.
+  //
+  // The separators are a comma inside a pair and a space between pairs, which
+  // is the shortest form that cannot be misread. SVG's own grammar would let
+  // "3.1-1.62.4" through, because a minus and a second decimal point both end
+  // the number in front of them, but a path that depends on that is a path
+  // nobody can debug and one renderer away from a straight line across the map.
+  const d = (line, close) => {
+    const parts = [];
+    let cur = null;
+    for (const [lat, lon] of line) {
+      const x = +px(lon).toFixed(1), y = +py(lat).toFixed(1);
+      if (!cur) { cur = [x, y]; continue; }
+      const dx = +(x - cur[0]).toFixed(1), dy = +(y - cur[1]).toFixed(1);
+      if (!dx && !dy) continue;
+      parts.push(`${dx},${dy}`);
+      cur = [cur[0] + dx, cur[1] + dy];
+    }
+    if (!parts.length) return "";
+    const start = line.find(() => true);
+    return `M${+px(start[1]).toFixed(1)},${+py(start[0]).toFixed(1)}l${parts.join(" ")}${close ? "Z" : ""}`;
+  };
+  const layer = (lines, close) => lines.map((l) => d(l, close)).filter(Boolean).join("");
+
+  // THE ORDER IS THE MAP. Water under roads, because a bridge crosses a river
+  // and not the other way round; the city line above both because it is an idea
+  // rather than a thing and has to survive being drawn over a motorway; the
+  // dots above everything.
+  const base = `<g clip-path="url(#shopmap-clip)" fill="none">
+        <path class="sm-water" d="${layer(mapDoc.water, true)}"/>
+        <path class="sm-stream" d="${layer(mapDoc.waterways)}"/>
+        <path class="sm-road" d="${layer(mapDoc.roads.minor)}"/>
+        <path class="sm-road-major" d="${layer(mapDoc.roads.major)}"/>
+        <path class="sm-edge" d="${layer(mapDoc.boundary)}"/>
+      </g>`;
+
   // THE DOTS ARE WHERE THE SHOPS ARE. THE LABELS ARE NOT, AND ONLY THE LABELS
   // MOVE. Just Games and Great Lakes Gaming are five miles apart east to west
   // and within 0.006 degrees of latitude, so at this scale their names sat on
@@ -129,8 +259,32 @@ function shopMap(list) {
   // slot at its own height or within four steps of it, up then down. Six points
   // is not a case that needs anything cleverer, and something cleverer would be
   // harder to check by eye than the map it is drawing.
+  //
+  // EVERY LABEL NOW SITS ON A PLATE OF ITS OWN AND THAT IS NOT DECORATION. Until
+  // the roads went in, a name was cream type on one flat green and the contrast
+  // was whatever `--ink` on `--paper-3` measures, everywhere, always. It now has
+  // a motorway under it some of the time. The lightest thing the map paints is a
+  // major road, cream at 42% over `--paper-3`, which blends to #859280; cream
+  // type on that measures 2.39:1 and fails. The plate is `--page` at 88%, so the
+  // worst ground a label can have is that road seen through it.
+  //
+  // MEASURED RATHER THAN ARGUED, on the real figure at 390x844 and 1440x900,
+  // by hiding every glyph, every dot and the scale bar in the live DOM and
+  // reading the brightest pixel left inside each label's own box: worst case
+  // #2E4537 under Legacy Games at 390 and Just Games at 1440, and the pair is
+  // 7.62:1 at both. It is the same fix, and the same class of bug, as the three
+  // surface-token-where-ink-belongs rules CLAUDE.md lists in ui.css: a colour
+  // that was only correct because of what happened to be behind it.
+  //
+  // TWO TRAPS IN TAKING THAT MEASUREMENT, both of which produced a confident
+  // wrong number first. The plate has rx=5, so the four CORNERS show bare
+  // ground and sampling the whole box reports the ground rather than the plate.
+  // And the outermost row of the rect is ANTIALIASED against what is under it,
+  // which read as 2.94:1 -- a failure that exists only in a pixel no glyph ever
+  // touches. Inset past both before believing the figure.
   const placed = [];
   const LH = 17;
+  const marks = [];
   const dots = pts
     .map((s) => {
       const x = px(s.at[1]), y = py(s.at[0]);
@@ -150,205 +304,93 @@ function shopMap(list) {
         if (!clash) break;
       }
       placed.push({ x: x1, y: ly, w });
-      return `<g>
-        <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/>
+      // The plate is the box the collision test above already reasons about, so
+      // the two cannot disagree about how wide a name is: same x1, same w. It is
+      // drawn in a second pass, after every dot, or a plate could cover the dot
+      // of the shop whose label it is not.
+      marks.push(`<rect class="sm-plate" x="${x1.toFixed(1)}" y="${(ly - 10).toFixed(1)}"
+        width="${w.toFixed(1)}" height="20" rx="5"/>
         <text x="${(left ? x - 13 : x + 13).toFixed(1)}" y="${(ly + 4).toFixed(1)}" text-anchor="${left ? "end" : "start"}"
-          font-size="15" font-weight="700" fill="currentColor" font-family="var(--body)">${esc(s.name)}</text>
-      </g>`;
+          font-size="15" font-weight="700" fill="currentColor" font-family="var(--body)">${esc(s.name)}</text>`);
+      // The dot keeps a ring of the map's own ground under its outline, so it
+      // reads as a dot on a map rather than as a junction of the roads it lands
+      // on. Millennium Games sits on the Jefferson Road interchange and was the
+      // point that showed this was needed.
+      return `<circle class="sm-halo" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="11"/>` +
+        `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/>`;
     })
     .join("");
 
+  // The scale bar gets a plate for the same reason the names do: it used to sit
+  // on flat green and it now sits on whatever runs along the bottom of the
+  // frame, which round here is the Erie Canal and the Thruway.
   const barW = nice * k;
+  const barLabel = `${nice} mile${nice === 1 ? "" : "s"}`;
   return `<figure class="shop-map">
       <svg viewBox="0 0 ${W} ${H}" role="img"
-        aria-label="Relative positions of the ${pts.length} shops listed below. Their addresses are on each card.">
+        aria-label="A map of ${
+          pts.length
+        } card shops around Rochester, New York. Roads, water and the city boundary are drawn from OpenStreetMap data, with each shop marked and named. Their addresses are on each card below.">
+        <defs><clipPath id="shopmap-clip"><rect x="0" y="0" width="${W}" height="${H}" rx="10"/></clipPath></defs>
         <rect x="0" y="0" width="${W}" height="${H}" rx="10" fill="var(--paper-3)"/>
+        ${base}
         ${dots}
+        ${marks.join("")}
         <g transform="translate(${PAD} ${H - 20})">
+          <rect class="sm-plate" x="-10" y="-25" width="${(Math.max(barW, barLabel.length * 8) + 20).toFixed(1)}" height="38" rx="5"/>
           <line x1="0" y1="0" x2="${barW.toFixed(1)}" y2="0" stroke="currentColor" stroke-width="2.5"/>
           <line x1="0" y1="-5" x2="0" y2="5" stroke="currentColor" stroke-width="2.5"/>
           <line x1="${barW.toFixed(1)}" y1="-5" x2="${barW.toFixed(1)}" y2="5" stroke="currentColor" stroke-width="2.5"/>
           <text x="${(barW / 2).toFixed(1)}" y="-9" text-anchor="middle" font-size="13" font-weight="700"
-            fill="currentColor" font-family="var(--mono)">${nice} mile${nice === 1 ? "" : "s"}</text>
+            fill="currentColor" font-family="var(--mono)">${barLabel}</text>
         </g>
       </svg>
-      <figcaption>Where they are relative to each other, drawn from each shop's own street address.
-        North is up and the scale is true in both directions. There are no roads on it because we do not
-        have any to draw: the addresses on the cards below are the exact thing to put in a map app.
-        Positions geocoded from OpenStreetMap.</figcaption>
+      ${/* THE TWO LINKS IN HERE ARE THE ODbL AND ARE NOT DISCRETIONARY, which is
+            the same argument the Garbage Plate photo credits make and CLAUDE.md
+            records in full. OpenStreetMap's data is offered on condition that it
+            is credited and that the licence is reachable; a page that draws the
+            roads and does not link the deed is not making a tidier editorial
+            choice, it is using the data outside the terms it was offered under.
+            They sit in the figure's own credit line, at the end, labelled as
+            leaving the site, exactly like every other outbound link here. */ ""}
+      <figcaption>Where the shops are, and where they are relative to each other. North is up, the scale is
+        true in both directions, and each dot is that shop's own street address rather than a pin dropped
+        near it. The roads, the water and the dashed City of Rochester line are real geometry, drawn from
+        OpenStreetMap's data rather than from anybody's map tiles, so nothing on this page asks another
+        server for anything. It is here to answer how far apart these are; the addresses on the cards below
+        are the exact thing to put in a map app. Map data from
+        <a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank"
+          aria-label="OpenStreetMap contributors, the source of the map data, opens on openstreetmap.org">OpenStreetMap contributors</a>,
+        licensed <a href="https://opendatacommons.org/licenses/odbl/1-0/" rel="noopener" target="_blank"
+          aria-label="The Open Database Licence version 1.0, which this map data is offered under, opens on opendatacommons.org">ODbL 1.0</a>,
+        read ${esc(mapDoc.read)}.</figcaption>
     </figure>`;
 }
 
-/**
- * WHEN THEY ARE OPEN, AS A PICTURE.
- *
- * THE QUESTION THIS PAGE COULD NOT ANSWER. Every card prints its hours as a
- * sentence: "Wed to Sat 11am to 9:30pm, Sun 11am to 6pm, closed Mon and Tue".
- * That is complete and it is correct and it is useless to the reader this page
- * is actually for, who is standing on Ridge Road at seven on a Tuesday evening
- * with a phone in one hand asking one question: who is open right now. Six
- * sentences in six different shapes, scattered down 6,000px of page, is six
- * separate parsing jobs to answer it. The grid answers it by looking: find
- * today's column, look down it, the filled cells are open and the empty ones
- * are shut. LingSter's Monday and Tuesday are the two blank cells on the chart
- * and that is the single most useful fact on this page.
- *
- * IT IS THE SAME SENTENCES, NOT A SECOND SOURCE. The bars are parsed out of the
- * `hours` string that the card below prints verbatim, so the picture and the
- * text cannot disagree: there is nothing for them to disagree about. No new
- * field was added to data/shops.json for this and none should be. If the hours
- * are wrong, they are wrong in one place.
- *
- * THE PARSER THROWS RATHER THAN GUESSES, and that is the whole reason it is
- * safe to draw. A bar in the wrong place is a wasted drive across Rochester,
- * which is exactly the failure this page's own note about league nights is
- * written to avoid, so an hours string it cannot read in full fails the build
- * instead of rendering something plausible. Anything left over after every
- * clause is consumed is an error too, so a trailing "closed holidays" cannot be
- * silently dropped.
- *
- * A SHOP WITH NO HOURS GETS NO BARS, same rule as the map above and for the
- * same reason: Great Lakes Gaming publishes none, so its row says so across the
- * whole width rather than borrowing a neighbour's shape.
- */
-const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const DAY_IX = Object.fromEntries(DAYS.map((d, i) => [d.toLowerCase(), i]));
-
-// noon and midnight are words on these cards, and 9:30pm has a colon in it.
-function parseClock(raw) {
-  const t = raw.trim().toLowerCase();
-  if (t === "noon") return 12;
-  if (t === "midnight") return 24;
-  const m = /^(\d{1,2})(?::(\d{2}))?(am|pm)$/.exec(t);
-  if (!m) return null;
-  let h = +m[1] % 12;
-  if (m[3] === "pm") h += 12;
-  return h + (m[2] ? +m[2] / 60 : 0);
-}
-
-function parseHours(str, who) {
-  const open = Array(7).fill(null);
-  const closed = Array(7).fill(false);
-  for (const clause of str.split(",").map((c) => c.trim())) {
-    let m = /^closed\s+(.+)$/i.exec(clause);
-    if (m) {
-      for (const d of m[1].split(/\s+and\s+|\s*,\s*/)) {
-        const i = DAY_IX[d.trim().toLowerCase()];
-        if (i === undefined) throw new Error(`${who}: cannot read the day "${d}" in "${clause}"`);
-        closed[i] = true;
-      }
-      continue;
-    }
-    m = /^(.+?)\s+(\S+)\s+to\s+(\S+)$/.exec(clause);
-    if (!m) throw new Error(`${who}: cannot read the hours clause "${clause}"`);
-    const [, dayPart, fromRaw, toRaw] = m;
-    const from = parseClock(fromRaw), to = parseClock(toRaw);
-    if (from === null || to === null || to <= from) {
-      throw new Error(`${who}: cannot read the times in "${clause}"`);
-    }
-    let ix = [];
-    const range = /^(\w+)\s+to\s+(\w+)$/.exec(dayPart);
-    const pair = /^(\w+)\s+and\s+(\w+)$/.exec(dayPart);
-    if (range) {
-      const a = DAY_IX[range[1].toLowerCase()], b = DAY_IX[range[2].toLowerCase()];
-      if (a === undefined || b === undefined || b < a) throw new Error(`${who}: cannot read the day range "${dayPart}"`);
-      for (let i = a; i <= b; i++) ix.push(i);
-    } else if (pair) {
-      ix = [DAY_IX[pair[1].toLowerCase()], DAY_IX[pair[2].toLowerCase()]];
-    } else {
-      ix = [DAY_IX[dayPart.trim().toLowerCase()]];
-    }
-    if (ix.some((i) => i === undefined)) throw new Error(`${who}: cannot read the days "${dayPart}"`);
-    for (const i of ix) open[i] = [from, to];
-  }
-  for (let i = 0; i < 7; i++) {
-    if (!open[i] && !closed[i]) {
-      throw new Error(`${who}: "${str}" says nothing about ${DAYS[i]}, so the chart would have to guess`);
-    }
-  }
-  return open;
-}
-
-function hoursChart(list) {
-  const rows = list.map((s) => ({
-    name: s.name,
-    open: s.hours ? parseHours(s.hours, s.name) : null,
-  }));
-  const spans = rows.flatMap((r) => (r.open || []).filter(Boolean));
-  if (!spans.length) return "";
-
-  // The axis is computed from the data and padded by half an hour, so a shop
-  // that starts opening at nine cannot quietly have its bar clipped at the edge
-  // of a hardcoded 10-to-10 scale.
-  const lo = Math.floor(Math.min(...spans.map((s) => s[0])) - 0.5);
-  const hi = Math.ceil(Math.max(...spans.map((s) => s[1])) + 0.5);
-
-  // EVERY NUMBER IN HERE IS SIZED FOR 390px, NOT FOR THIS VIEWBOX. The svg is
-  // width:100% capped at 660, so on the phone this chart is drawn at 0.59 and a
-  // unit is not a pixel. The first version used a 122 unit name column and 13
-  // unit type, which is 72px and 7.7px on a phone: it fitted and it could not be
-  // read. 178 and 17 put "Millennium Games" in the column at 10px, which is the
-  // floor for something a reader has to identify a shop by.
-  const W = 660, LBL = 178, GAP = 4, ROW = 40, HEAD = 26, FOOT = 26;
-  const H = HEAD + rows.length * ROW + FOOT;
-  const colW = (W - LBL - GAP * 6) / 7;
-  const colX = (d) => LBL + d * (colW + GAP);
-  const INSET = 3;
-  const tx = (h) => INSET + ((h - lo) / (hi - lo)) * (colW - INSET * 2);
-
-  const head = DAYS.map((d, i) =>
-    `<text class="sh-day" x="${(colX(i) + colW / 2).toFixed(1)}" y="17">${d}</text>`
-  ).join("");
-
-  const body = rows.map((r, ri) => {
-    const y = HEAD + ri * ROW;
-    const label = `<text class="sh-name" x="0" y="${(y + 25).toFixed(1)}">${esc(r.name)}</text>`;
-    if (!r.open) {
-      return `<g>${label}<rect class="sh-none" x="${colX(0)}" y="${(y + 8).toFixed(1)}"
-        width="${(W - LBL).toFixed(1)}" height="24" rx="5"/>
-        <text class="sh-nonet" x="${(LBL + (W - LBL) / 2).toFixed(1)}" y="${(y + 25).toFixed(1)}">hours not published</text></g>`;
-    }
-    const cells = r.open.map((span, d) => {
-      const x = colX(d);
-      const cell = `<rect class="sh-cell" x="${x.toFixed(1)}" y="${(y + 8).toFixed(1)}" width="${colW.toFixed(1)}" height="24" rx="5"/>`;
-      if (!span) return cell;
-      const x1 = x + tx(span[0]), x2 = x + tx(span[1]);
-      return cell + `<rect class="sh-bar" x="${x1.toFixed(1)}" y="${(y + 12).toFixed(1)}" width="${(x2 - x1).toFixed(1)}" height="16" rx="4"/>`;
-    }).join("");
-    return `<g>${label}${cells}</g>`;
-  }).join("");
-
-  // THE RULER IS A BAR UNDER MONDAY AND THE WORDS ARE IN THE NAME COLUMN, and
-  // both of the two earlier attempts are why. Three hour labels under one 62px
-  // column at 390px is 100 units of type in 62 units of space and came out an
-  // unreadable smear. Two labels anchored to the ends of the same column is 40px
-  // of type in 37px and printed "9am1pm": better, still overlapping, and the
-  // sort of thing that looks fine in the markup and fine at 1440. So the scale
-  // is drawn as a bar with end serifs, which needs no width at all, and the
-  // range is written once in the 178 units of empty label column beside it. The
-  // exact hours are on every card below; this only has to say which way is
-  // morning.
-  const yF = H - 12;
-  const lab = (h) => (h === 12 ? "noon" : h === 24 ? "midnight" : `${((h + 11) % 12) + 1}${h < 12 ? "am" : "pm"}`);
-  const rx1 = colX(0) + tx(lo), rx2 = colX(0) + tx(hi);
-  const ticks =
-    `<text class="sh-tick" style="text-anchor:end" x="${(LBL - 10).toFixed(1)}" y="${(yF + 4).toFixed(1)}">${lab(lo)} to ${lab(hi)}</text>` +
-    `<line class="sh-axis" x1="${rx1.toFixed(1)}" y1="${yF}" x2="${rx2.toFixed(1)}" y2="${yF}"/>` +
-    `<line class="sh-axis" x1="${rx1.toFixed(1)}" y1="${yF - 4}" x2="${rx1.toFixed(1)}" y2="${yF + 4}"/>` +
-    `<line class="sh-axis" x1="${rx2.toFixed(1)}" y1="${yF - 4}" x2="${rx2.toFixed(1)}" y2="${yF + 4}"/>`;
-
-  return `<figure class="shop-hours">
-      <svg viewBox="0 0 ${W} ${H}" role="img"
-        aria-label="Opening hours for all ${rows.length} shops as a grid, one column per day of the week. Each shop's hours are written out in full on its own card below.">
-        ${head}${body}
-        ${ticks}
-      </svg>
-      <figcaption>Who is open when, read off the same opening hours printed on each card below. A bar is the
-        hours that shop is open that day and an empty cell is closed. Every column runs on the same
-        ${lab(lo)} to ${lab(hi)} scale, ruled under Monday, so a bar that reaches further right closes
-        later. Hours change and holidays are not on here, so call before you drive.</figcaption>
-    </figure>`;
-}
+// THE HOURS CHART WAS HERE AND IT IS GONE, 20 August 2026, ON TIM'S CALL:
+// "Remove the time chart below that map image doesn't need it, as each listing
+// for a store lists out its hours of operations and days they are open."
+//
+// It was a seven column Mon-to-Sun grid, one row per shop, drawn from the same
+// `hours` string each card prints verbatim. The argument for it was real and is
+// worth keeping in view rather than deleting silently: it answered "who is open
+// right now" by looking, which six sentences scattered down 6,000px of page
+// cannot. The argument against it is the one that won, and it is simply that it
+// said a second time, in a second shape, something every card already says in
+// full a screen further down, and it charged 170 lines of parser and 3.5KB of
+// page for the repetition.
+//
+// WHAT WENT WITH IT, so nobody hunts for a caller: DAYS, DAY_IX, parseClock and
+// parseHours existed only to feed this chart, and nothing else on this site
+// imports from this file. The `hours` FIELD in data/shops.json stays exactly as
+// it is and is still printed on every card; the chart was a second reader of it,
+// never a second source, so nothing about the data changes.
+//
+// ONE THING THE PARSER WAS DOING THAT NOW NOBODY DOES: it threw on an hours
+// string it could not read in full, which meant a typo in data/shops.json
+// failed the build instead of rendering something plausible. That check is gone
+// with it. The string is now printed and not parsed, so a typo shows up as a
+// typo on the card, which a person reading the page can see.
 
 // The bare host, for the "opens on <host>" half of an outbound aria-label.
 // Falls back to the empty string rather than throwing: a malformed url in the
@@ -510,25 +552,53 @@ const style = `
 .shop-map svg{display:block;width:100%;height:auto;max-width:660px}
 .shop-map figcaption{font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-2);
   margin-top:var(--s2);max-width:52em}
-/* The opening hours grid. Same box as the map so the two read as a pair, and
-   the same currentColor discipline. Font sizes are in the SVG's own 660 unit
-   space, so at 390px on a phone the chart is drawn at 0.59 and a 17 unit shop
-   name renders at 10px. Nothing here is set at a size that does not survive
-   being nearly halved, which is why the chart is capped at 660 and drawn once
-   rather than given a phone layout of its own. Re-measured at 390 after the
-   first pass, where 13 unit type came out at 7.7px and could not be read. */
-.shop-hours{margin:0 0 var(--s5);color:var(--ink)}
-.shop-hours svg{display:block;width:100%;height:auto;max-width:660px}
-.shop-hours figcaption{font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-2);
-  margin-top:var(--s2);max-width:52em}
-.sh-day{font:700 17px var(--mono);fill:var(--ink-2);text-anchor:middle;letter-spacing:.04em}
-.sh-name{font:700 17px var(--body);fill:var(--ink)}
-.sh-cell{fill:var(--paper-3)}
-.sh-bar{fill:var(--gold);stroke:var(--gold-deep);stroke-width:1}
-.sh-none{fill:var(--paper-3)}
-.sh-nonet{font:400 15px var(--mono);fill:var(--ink-2);text-anchor:middle}
-.sh-axis{stroke:var(--ink-2);stroke-width:1;opacity:.5}
-.sh-tick{font:400 14px var(--mono);fill:var(--ink-2);text-anchor:middle}
+.shop-map figcaption a{color:var(--ketchup-deep);font-weight:600}
+.shop-map figcaption a:hover{text-decoration:underline}
+/* THE MAP'S OWN INK, AND EVERY VALUE IS DERIVED FROM A TOKEN BY A STATED MOVE,
+   which is the rule the palette section of CLAUDE.md sets and the reason the
+   derivation is written beside the number rather than in a commit message.
+   Three of them are literal hexes because they are BLENDS of two tokens and CSS
+   cannot state that in a custom property without color-mix, which this
+   stylesheet does not use anywhere yet.
+
+   THE GROUND IS --paper-3 (#405D49), unchanged, and everything else is judged
+   against it. Roads are the page ink at an opacity, so they are the one thing
+   here that is not a new colour at all: a road is a lighter scratch on the land
+   and nothing more. Water is the only hue on the map, because water being blue
+   is the one map convention a reader has without being told, and it is derived
+   from --mustard (#70B5D9) pulled most of the way to --navy-deep (#13231B):
+   35/65 gives #34565E, which is DARKER than the land as well as bluer. That
+   direction matters. Water lighter than land reads as a road, and the first
+   pass of this map had exactly that problem with the Genesee.
+
+   NOTHING HERE COMPETES WITH THE DOTS, WHICH IS THE WHOLE BRIEF. The dot is
+   --gold (#609CBB) inside a 2px cream ring, and it is the lightest, most
+   saturated and only ringed thing in the frame. The brightest the map itself
+   gets is a major road at 42% cream, which is a flat #859280. */
+.sm-water{fill:#34565E;stroke:none}
+.sm-stream{stroke:#467384;stroke-width:1.6;fill:none}
+.sm-road{stroke:currentColor;stroke-width:1.1;opacity:.2}
+.sm-road-major{stroke:currentColor;stroke-width:2.4;opacity:.42}
+/* The city line is an idea and not a thing, so it is dashed and it is the pink,
+   which on this site is the mark that goes nowhere. It is the one place the map
+   uses an accent, and it uses it because a dashed cream line at low opacity is
+   indistinguishable from a minor road at this size, which defeats the point of
+   drawing it. 5 on 4 at 640 units is 3px on and 2.4px off at 390.
+
+   IT WENT IN AT 1.6 AND .62 AND CAME STRAIGHT BACK OUT AT 1.4 AND .46. Look at
+   the drawing rather than the value: Rochester's line is a genuinely jagged
+   thing, full of annexation notches, and at full strength it was the busiest
+   object in the frame, which is exactly backwards for the piece of information
+   here that matters least. It is context, so it whispers. */
+.sm-edge{stroke:var(--ketchup);stroke-width:1.4;stroke-dasharray:5 4;opacity:.46;fill:none}
+/* The plate under each shop name, and under the scale bar. --page at 88%, so a
+   label is legible over a motorway; see the note beside the placement code. */
+.sm-plate{fill:var(--page);opacity:.88}
+/* A disc of the map's own ground behind each dot, so the dot reads as a dot on
+   a map and not as a junction of whatever roads it happens to land on.
+   Millennium Games sits on the Jefferson Road interchange and is the point that
+   made this necessary. */
+.sm-halo{fill:var(--paper-3);opacity:.8}
 .shops-note{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s6);max-width:52em}
 /* The section ornament, from shared/format.mjs, same as /buying.html and
@@ -545,15 +615,16 @@ const body = `
       table you play at are usually the same building, so both are on one page. Buy local when you can:
       the shop is why the local scene exists.</p>
 ${shopMap(shops)}
-${hoursChart(shops)}
     <ul class="shop-list">
 ${cards}
     </ul>
 ${/* THE ONE ORNAMENT ON THIS PAGE, AND THIS IS THE PAGE THE PLATE WAS DRAWN
       FOR. Measured on the built page at 390x844: 7,271px tall, ZERO img tags,
-      and the only two pictures on it are the shop map and the hours chart, both
-      generated SVG, both in the first 894px. Everything after that, 6,377px of
-      it, is six shop entries and a sign off with nothing to look at. It is the
+      and the only two pictures on it were the shop map and the hours chart,
+      both generated SVG, both in the first 894px. The hours chart is gone now
+      and the map is the only picture above the fold, so the page is SHORTER and
+      even less illustrated than that measurement says. Everything below the
+      list is six shop entries and a sign off with nothing to look at. It is the
       least illustrated Rochester page on the site.
 
       HERE RATHER THAN AT THE TOP because the sentence under it is the page
