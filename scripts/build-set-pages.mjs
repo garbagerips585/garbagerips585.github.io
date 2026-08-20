@@ -3326,6 +3326,17 @@ ${APP_JS}
 // behind. NOTE: the 13 non-English guides live in here too and are written by
 // scripts/build-intl-pages.mjs, so that ALWAYS runs after this one. Reverse the
 // order and they are deleted immediately after being built.
+// AND THE COMMENT ABOVE IS NOT A GUARD, WHICH IT LOOKED LIKE FOR MONTHS. It
+// tells you the ordering matters and then trusts you to keep it. An agent ran
+// this builder on its own on 19 August 2026, deleted all 13 non-English guides,
+// and only noticed because it happened to look; a standalone run followed by a
+// commit would have removed 13 live pages with every check still green, since
+// nothing downstream knows those pages were ever meant to exist.
+//
+// So the deletion now reports itself. Listing the folder first costs one readdir
+// and turns a silent wipe into a printed line naming exactly what this run
+// removed and did not put back.
+const before = new Set(await readdir(OUT).catch(() => []));
 await rm(OUT, { recursive: true, force: true });
 await mkdir(OUT, { recursive: true });
 
@@ -3366,3 +3377,18 @@ Wrote ${sets.length} set pages + index to public/sets/
 
 Remember to re-run build-pages.mjs so the sitemap picks these up.
 `);
+
+// What this run deleted and did not put back. On a build-all run the answer is
+// always nothing, because build-intl-pages.mjs writes the non-English guides
+// immediately after. On a standalone run it is those 13 pages, and saying so is
+// the difference between noticing and shipping the deletion.
+const after = new Set(await readdir(OUT));
+const lost = [...before].filter((f) => !after.has(f));
+if (lost.length) {
+  console.log(
+    `  ${lost.length} page(s) were deleted and NOT rewritten by this builder:\n` +
+    `    ${lost.slice(0, 6).join(", ")}${lost.length > 6 ? `, and ${lost.length - 6} more` : ""}\n` +
+    `  They belong to another builder. Run node scripts/build-all.mjs before\n` +
+    `  committing, or public/sets/ ships without them.`
+  );
+}
