@@ -14,7 +14,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE, robots, LIVE, DOMAIN } from "../shared/site.mjs";
-import { priceNote, priceFooter, priceRead } from "../shared/card-prices.mjs";
+import { priceNote, priceFooter, priceRead, chaseByPrice } from "../shared/card-prices.mjs";
 // SUBSCRIBE is imported rather than retyped. The channel URL and its
 // ?sub_confirmation=1 were hard coded here as a literal, which is one place for
 // the ID to be wrong and never noticed; shared/chrome.mjs is where the other
@@ -223,7 +223,10 @@ let LOGO_DIMS = {};
 try {
   LOGO_DIMS = JSON.parse(await readFile(join(ROOT, "data/logo-dims.json"), "utf8"));
 } catch {
-  /* run: python3 scripts/measure-logos.py */
+  /* written by scripts/build-logos.py, which measures as it resizes.
+     There is no measure-logos.py: it was named in five comments and had
+     never been in the tree, which is how five logos came to have no
+     dimensions and therefore no srcset at all. */
 }
 // data/logo-dims.json HOLDS 23 OF THE 28 LOGOS ON DISK, so reading it alone
 // drops Celebrations, Chilling Reign, Crown Zenith, Rebel Clash and Shining
@@ -584,7 +587,14 @@ const desc = (v.blurb || descriptions[v.id] || "")
   // has a raw price; a PSA 10 shows only where we have one worth standing
   // behind. Three is enough to be useful without turning a video page into a
   // price list.
-  const chaseCards = (setData.get(setId)?.chase || []).slice(0, 3).map((c) => ({
+  //
+  // SORTED, BECAUSE sets.json's ORDER IS NOT. That list is only ever repriced in
+  // place and never re-sorted, so slicing three off the front is slicing off
+  // whatever was dearest the day it was built. On Perfect Order that put Mega
+  // Zygarde ex at $120 above Meowth ex at $128 and led the band with a card the
+  // set guide does not call the chase card. See chaseByPrice in
+  // shared/card-prices.mjs.
+  const chaseCards = chaseByPrice(setData.get(setId)?.chase).slice(0, 3).map((c) => ({
     ...c,
     psa10: gradedPrice(setId, c.number),
   }));

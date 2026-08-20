@@ -39,7 +39,10 @@ let LOGO_DIMS = {};
 try {
   LOGO_DIMS = JSON.parse(await readFile(join(ROOT, "data/logo-dims.json"), "utf8"));
 } catch {
-  /* run: python3 scripts/measure-logos.py */
+  /* written by scripts/build-logos.py, which measures as it resizes.
+     There is no measure-logos.py: it was named in five comments and had
+     never been in the tree, which is how five logos came to have no
+     dimensions and therefore no srcset at all. */
 }
 const logoAttrs = (setId) => {
   const d = LOGO_DIMS[`${setId}-pokemon-tcg-set-logo.webp`];
@@ -60,7 +63,8 @@ const logoAttrs = (setId) => {
 // name is already written beside the logo as an <h1> or a .ttl span.
 //
 // Drop artwork named <set-id>.png into assets-source/logos/, run
-// build-logos.py then measure-logos.py, and the logo appears with no edit here.
+// build-logos.py, which writes both the renditions and data/logo-dims.json,
+// and the logo appears with no edit here.
 const logosOnDisk = new Set(
   (await readdir(join(ROOT, "public/assets/logos")).catch(() => []))
     .map((f) => /^(.+)-pokemon-tcg-set-logo\.webp$/.exec(f)?.[1])
@@ -207,14 +211,23 @@ const setCardLogo = (setId, alt, { eager = false } = {}) => {
   // 42 x aspect, capped at the CSS cap. See the note above: this is the box the
   // layout actually paints, not the 110px cap that only the widest logos reach.
   const boxW = d ? Math.min(CARD_MAX_W, Math.round(CARD_H * (d[0] / d[1]))) : CARD_MAX_W;
-  // THE -md CANDIDATE CLOSES THE REMAINDER OF THE BUG THE NOTE ABOVE DESCRIBES.
-  // Declaring the real box stopped six logos over-asking, but the ladder still
-  // jumped 100px straight to 300px, so a DPR 2 phone wanting up to 220px of a
-  // NARROW logo still had to take the master: 151-sm is 132px wide and
-  // black-bolt-sm 160px, both short of 220. -md sits at 150px tall (198px and
-  // 240px wide for those two), which covers it for a third of the master's
-  // bytes. Only emitted when build-logos.py wrote one; a logo whose master is
-  // already under 150 tall has no -md file and keeps the two-candidate ladder.
+  // THE -md CANDIDATE IS FOR DPR 3 AND IT DOES NOTHING AT DPR 2. THAT WAS
+  // MEASURED BOTH WAYS RATHER THAN ARGUED, because the first version of this
+  // comment claimed a DPR 2 win and there is none: the note above already fixed
+  // that half by declaring the real 42 x aspect box, so every -sm here is
+  // wide enough for a DPR 2 phone and the ladder never reaches the master.
+  // /sets/index.html measured 272.3KB against 272.4KB with and without it,
+  // which is the extra srcset text in the gzipped HTML and nothing else.
+  //
+  // At DPR 3 the same box wants up to 330px and the ladder jumped 100px
+  // straight to 300px, so 19 of the 28 logos took the master. Measured over CDP
+  // at 390x844 DPR 3, cache off, gzipped, filenames read off the request log:
+  // /sets/index.html went 601.5 -> 350.6KB on load and 1,045.5 -> 647.2KB fully
+  // scrolled. QUOTE THE PAIR OR QUOTE NEITHER, and quote the DENSITY too: this
+  // is the rare change that is worth 41% to one phone and 0.0% to another.
+  //
+  // Only emitted when build-logos.py wrote one; a logo whose master is already
+  // under 150px tall has no -md file and keeps the two-candidate ladder.
   const hasMd = logoFiles.has(`${setId}-pokemon-tcg-set-logo-md.webp`);
   const cand = d
     ? [

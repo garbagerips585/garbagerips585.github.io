@@ -43,6 +43,11 @@ import {
 import { esc, longDate, MONTHS_LONG } from "../shared/format.mjs";
 
 import { localDay } from "../shared/today.mjs";
+/* CLIENT_DAY_JS is the BROWSER half of the question localDay() answers on this
+   side of the build, and the two are not interchangeable. localDay is a node
+   import: putting its NAME inside the <script> template at the foot of this
+   file shipped a call to a function no page defines. See the note there. */
+import { CLIENT_DAY_JS } from "../shared/drops.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const data = JSON.parse(await readFile(join(ROOT, "data/shows.json"), "utf8"));
 
@@ -791,10 +796,16 @@ ${(data.watchFor || []).length ? `
 ${footer("Show listings are collected by hand and change without notice. Check with the organizer before traveling.")}
 <script>
 (function(){
+${CLIENT_DAY_JS}
   // Belt and braces on dates. The build already dropped past shows, but a deploy
   // can sit for a few days, and a card show calendar that lists yesterday is
   // worse than no calendar at all.
-  var today = localDay();
+  // todayIso(), NOT localDay(): this block is a STRING and every name in it has
+  // to exist in the BROWSER. The 38-script sweep onto shared/today.mjs put a
+  // node import's name in here, so the page threw on its first statement and
+  // took the whole sweep with it -- past shows, empty months and the "next one
+  // up" slab all stayed. todayIso is from CLIENT_DAY_JS above, same local day.
+  var today = todayIso();
   document.querySelectorAll('.show').forEach(function(el){
     if (el.dataset.date < today) el.remove();
   });

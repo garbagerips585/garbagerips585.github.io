@@ -70,7 +70,10 @@ let LOGO_DIMS = {};
 try {
   LOGO_DIMS = JSON.parse(await readFile(join(ROOT, "data/logo-dims.json"), "utf8"));
 } catch {
-  /* run: python3 scripts/measure-logos.py */
+  /* written by scripts/build-logos.py, which measures as it resizes.
+     There is no measure-logos.py: it was named in five comments and had
+     never been in the tree, which is how five logos came to have no
+     dimensions and therefore no srcset at all. */
 }
 const logosOnDisk = new Set(
   (await readdir(join(ROOT, "public/assets/logos")).catch(() => []))

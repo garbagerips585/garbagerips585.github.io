@@ -687,8 +687,18 @@ const style = `
    than a 90px phrase, which is the shape requirement every link on this site
    is held to. min-height 44px for the same reason, and it is only ever reached
    after the prices, so nothing above it moves. */
+/* --sky-deep, NOT --sky, AND THE COMPOSITE ABOVE IS WHY. It is right about the
+   plaque and misses the band: main.chofpage also carries
+   radial-gradient(120% 70% at 50% 0%, rgba(224,162,31,.16), transparent 60%),
+   so the top of the list wears the gold bloom ON TOP of the plaque tint. Read
+   off rendered pixels at 390x844 (glyphs hidden, box screenshotted) rather than
+   composited by hand: cards 1-4 sit on rgb(68,71,34)..rgb(59,69,45) and --sky
+   measures 4.29 / 4.36 / 4.38 / 4.48, all under AA at 14px. Card 5 is 4.56 and
+   desktop is 4.59: that is the bloom fading, not a different colour.
+   --sky-deep #81BEDE measures 4.83 on the worst of the four, and is already the
+   token this site spends on small type (.hof-head a, same size, always has). */
 .chof-see{display:block;margin-top:var(--s3);min-height:44px;
-  font:600 var(--t-sm)/1.35 var(--body);color:var(--sky)}
+  font:600 var(--t-sm)/1.35 var(--body);color:var(--sky-deep)}
 .chof-see span{display:block;font:700 var(--t-micro)/1.5 var(--mono);
   letter-spacing:.06em;text-transform:uppercase;color:var(--chrome-dim)}
 .chof-see:hover,.chof-see:focus-visible{text-decoration:underline}
