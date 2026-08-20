@@ -19,11 +19,34 @@
  * differing files means the deployed tree is the source. Anything else names
  * exactly which pages are stale.
  *
- *   node scripts/check-tree-drift.mjs
+ *   node scripts/check-tree-drift.mjs            asks about HEAD
+ *   node scripts/check-tree-drift.mjs --staged   asks about the commit you are ABOUT to make
  *
- * It asks only about the COMMIT: does HEAD contain the pages HEAD's own source
- * produces. The working tree is never consulted, so the answer is the same on
- * any machine and does not change while somebody is mid-edit.
+ * It asks only about a COMMIT: does that commit contain the pages its own
+ * source produces. The working tree is never consulted, so the answer is the
+ * same on any machine and does not change while somebody is mid-edit.
+ *
+ * --staged EXISTS BECAUSE CHECKING HEAD IS ALWAYS ONE COMMIT TOO LATE, and an
+ * adversarial pass on 20 August 2026 measured the cost: FIVE of that day's ten
+ * commits contained a sentence that was true in the author's working tree and
+ * false in the commit's own bytes. A packplayer.js fix was described in a commit
+ * that did not contain it (another agent had restored the file from HEAD in
+ * between). An alt-text correction was argued for in one commit and actually
+ * shipped 81 minutes later inside an unrelated one. The lilac asset went out in
+ * a data-import commit while the commit that argues for it holds only the
+ * deletion it replaced. Each time the tip eventually became correct, so checking
+ * HEAD said "no drift" and the false claim survived in the log.
+ *
+ * The same mechanism catches the subtler orphan: commit a content-hashed asset
+ * without the pages whose urls embed its hash and nothing 404s, so every gate
+ * passes while returning visitors keep the old file. That happened twice on 20
+ * August -- packplayer.js at 13:59 and ui.css at 15:41 -- and the second one
+ * cost 1,476 pages.
+ *
+ * It builds `git write-tree`, the index exactly as a commit would freeze it, so
+ * it answers "would the commit I am about to write be internally consistent"
+ * rather than "was the last one". Unstaged edits are invisible to it, which is
+ * the point: they are not going in the commit either.
  *
  * BUILDS FROM `git archive HEAD`, NOT FROM THE WORKING TREE, which is the whole
  * point: the working tree always looks right to its own author, because their
@@ -64,9 +87,21 @@ async function filesUnder(dir) {
 
 const hash = (p) => createHash("sha256").update(readFileSync(p)).digest("hex");
 
+const STAGED = process.argv.includes("--staged");
+
+// `git write-tree` freezes the index as a real tree object and prints its sha.
+// It writes an object and touches nothing else -- no commit, no ref, no index
+// change -- so it is safe to run mid-edit. That tree IS what `git commit` would
+// record, which is the only honest thing to build when the question is whether
+// the commit about to be written holds its own output.
+const TREE = STAGED
+  ? execFileSync("git", ["write-tree"], { cwd: ROOT, encoding: "utf8" }).trim()
+  : "HEAD";
+const WHAT = STAGED ? "the staged tree" : "HEAD";
+
 const tmp = mkdtempSync(join(tmpdir(), "tree-drift-"));
 try {
-  const tar = execFileSync("git", ["archive", "HEAD"], { cwd: ROOT, maxBuffer: 1 << 30 });
+  const tar = execFileSync("git", ["archive", TREE], { cwd: ROOT, maxBuffer: 1 << 30 });
   execFileSync("tar", ["-x", "-C", tmp], { input: tar, maxBuffer: 1 << 30 });
 
   // THE BASELINE IS HEAD'S OWN public/, NOT THE WORKING TREE'S. Comparing
@@ -77,11 +112,11 @@ try {
   // property of the commit alone and is the same answer on any machine.
   execFileSync("cp", ["-R", join(tmp, "public"), join(tmp, "__committed")]);
 
-  console.log("building HEAD in a scratch copy...");
+  console.log(`building ${WHAT} in a scratch copy...`);
   try {
     execFileSync("node", ["scripts/build-all.mjs"], { cwd: tmp, stdio: "pipe" });
   } catch (e) {
-    console.error("FAIL  build-all exited non-zero on a clean export of HEAD.");
+    console.error(`FAIL  build-all exited non-zero on a clean export of ${WHAT}.`);
     console.error(String(e.stdout || "").slice(-3000));
     process.exit(1);
   }
@@ -97,11 +132,11 @@ try {
 
   const total = missing.length + extra.length + differ.length;
   if (!total) {
-    console.log(`\nno drift: ${a.length} files, public/ is exactly what HEAD builds.`);
+    console.log(`\nno drift: ${a.length} files, public/ is exactly what ${WHAT} builds.`);
     process.exit(0);
   }
 
-  console.error(`\nDRIFT: ${total} file(s). public/ is not what HEAD builds, so the site is`);
+  console.error(`\nDRIFT: ${total} file(s). public/ is not what ${WHAT} builds, so the site is`);
   console.error("serving pages from source that has since changed. Rebuild and commit public/.");
   const show = (label, list) => {
     if (!list.length) return;
@@ -109,9 +144,9 @@ try {
     for (const f of list.slice(0, 12)) console.error(`    ${f}`);
     if (list.length > 12) console.error(`    ... and ${list.length - 12} more`);
   };
-  show("stale, HEAD builds them differently", differ);
-  show("built by HEAD but not committed", missing);
-  show("committed but HEAD no longer builds them", extra);
+  show(`stale, ${WHAT} builds them differently`, differ);
+  show(`built by ${WHAT} but not committed`, missing);
+  show(`committed but ${WHAT} no longer builds them`, extra);
   process.exit(1);
 } finally {
   rmSync(tmp, { recursive: true, force: true });
