@@ -8,6 +8,25 @@
 // visitor out to youtube.com. Videos missing a set or product tag are marked
 // noindex and kept out of the sitemap, since they are too thin to rank.
 // Tag them (see UNTAGGED.md) and re-run to promote them.
+//
+// EVERY COMMENT INSIDE THE TEMPLATE IS A JS COMMENT, WRITTEN AS
+// ${/* ... */ ""}, AND THAT IS A RULE RATHER THAN A STYLE. Two reasons, and
+// the second is the one that bites.
+//
+// It SHIPS otherwise. Five HTML comments in here were rendering into all 317
+// pages: 4,549 bytes raw and 2,079 gzipped PER PAGE, about 659KB gzipped
+// across the family, of prose no reader can see. This builder does not strip
+// comments the way build-css.mjs strips the stylesheet, so an HTML comment
+// here is a shipped asset. They were converted on 19 August 2026 with every
+// word kept; the built pages were diffed with comments removed and whitespace
+// collapsed and all 317 came out identical, so nothing but the comments moved.
+// The two FOOT_SUB markers are not prose and stay.
+//
+// A BACKTICK IN AN HTML COMMENT HERE CLOSES THE TEMPLATE LITERAL AND FAILS THE
+// BUILD. That has happened twice in this file and to four builders in one
+// night across the repo. Inside ${/* ... */ } the backtick is ordinary comment
+// text and cannot do it, so the form removes the hazard rather than warning
+// about it. The only sequence a JS block comment cannot contain is */.
 
 import { readFile, writeFile, mkdir, rm, readdir } from "node:fs/promises";
 import { readFileSync } from "node:fs";
@@ -28,6 +47,31 @@ import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityL
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 const OUT = join(ROOT, "public/rip");
+
+// THE RARITY MARKS SHIP THEIR OWN PROSE TO EVERY RIP PAGE, and two thirds of
+// the block is the prose. RARITY_CSS is 1,915 bytes and 1,292 of those are the
+// /* */ notes explaining why the marks are drawn as artwork rather than as
+// chrome. Those notes are worth keeping where they are read, in
+// shared/rarity.mjs, and they are worth nothing in a render blocking <style>
+// element on 317 pages.
+//
+// STRIPPED HERE RATHER THAN AT THE SOURCE, on purpose. build-set-pages.mjs,
+// build-intl-pages.mjs and build-start.mjs import the same constant, and this
+// builder does not own what they ship; the same reasoning applies to them and
+// the same one line would do it, but that is their edit to make. Counted off
+// the built tree: 318 pages carry the comment today, 317 of them rip pages.
+//
+// SAFE BECAUSE THE BLOCK HAS NO STRINGS AND NO URLS. A blanket comment strip
+// over arbitrary CSS can eat a content:"/*" or a url() containing the token.
+// Checked: RARITY_CSS has zero content declarations and zero url() calls, and
+// the brace count is 10 open and 10 close before and after. This is the same
+// transform build-css.mjs applies to the main stylesheet and for the same
+// reason, which is that the file is render blocking and 40% of it was prose.
+//
+// MEASURED at 390x844, one page, gzipped, which is how the host serves it:
+// 11,808 -> 11,162 bytes, a 646 byte saving per page and about 205KB across
+// the 317.
+const RARITY_CSS_MIN = RARITY_CSS.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\n{2,}/g, "\n").trim();
 
 // Graded prices, hand-entered first and synced second, with the same
 // ten-sale floor the set guides use. One store, so a card cannot show two
@@ -642,10 +686,54 @@ const desc = (v.blurb || descriptions[v.id] || "")
 // counting them as "we have something to show" was wrong: an audit mutated the
 // data so all 14 hits failed to resolve and got a band of 14 empty cards with
 // the free-text fallback suppressed, which is the worst of both.
-const resolvedHits = hits.filter((h) => !h.unresolved);
-  const sameBox = v.box
-    ? videos.filter((x) => x.box === v.box && x.id !== v.id).slice(0, 6)
-    : [];
+//
+// THAT FIX ONLY WENT ONE WAY AND THE OTHER HALF SHIPPED. `unresolved` was the
+// wrong test in both directions, because an unresolved PROMO can still resolve
+// a scan out of the printings corpus while a resolved card can still have no
+// price. What the band is FOR is showing a card: a scan, a price, or both. So
+// the test is what a row can actually show, and it is the same test on both
+// sides of the branch, which is what stops the panel and the band appearing
+// together. Counted off the built tree on 19 August 2026: 8 rip pages carried
+// BOTH, the free text panel naming the card and then a band 500px below it
+// promising "1 card worth keeping, with what they go for raw" over one blank
+// placeholder reading "No market price", followed by 347px of PriceCharting
+// methodology about prices that were not on the page. About 1,150px of nothing
+// per page, under a heading that says what came out of this one.
+const showableHits = hits.filter((h) => h.img || typeof h.price === "number");
+const pricedHits = hits.filter((h) => typeof h.price === "number");
+  // PACKS OUT OF THE SAME BOX, which is a stronger connection than "same set":
+  // #1 through #10 of one ETB are one sitting, and a viewer who watched pack 3
+  // usually wants pack 4, not another Chaos Rising rip.
+  //
+  // THIS BAND HAD NEVER RENDERED ONCE. It read `v.box`, and no video has ever
+  // carried a `box` field: the sheet writes `label`, which is the name this
+  // rip goes by everywhere else on the site ("Pitch Black ETB 1 - Pack 8" is
+  // what /videos.html, the home page and the playlist pages print as its
+  // title). Verified against the built tree: 0 of 317 pages had the band.
+  //
+  // The box is the label with its pack suffix taken off, so the grouping is
+  // Tim's own naming rather than anything derived. 17 boxes, 48 videos in a
+  // box with at least one sibling.
+  //
+  // ORDERED BY WHAT COMES NEXT, then filled backwards, then printed in pack
+  // order. Six tiles off the front of a nine pack run would show packs 1 to 6
+  // to somebody who just watched pack 9.
+  const boxOf = (x) => {
+    const m = /^(.+?) - Pack \d+$/.exec(x.label || "");
+    return m ? m[1] : null;
+  };
+  const myBox = boxOf(v);
+  const boxMates = myBox ? videos.filter((x) => x.id !== v.id && boxOf(x) === myBox) : [];
+  // OFF THE LABEL, NOT OFF packNumber. The two agree on all 55 videos that have
+  // either today, but the label is what the grouping above is keyed on, so
+  // reading the order from a second field is a way for them to disagree later.
+  const packNo = (x) => Number((/ - Pack (\d+)$/.exec(x.label || "") || [])[1] || 0);
+  const sameBox = [
+    ...boxMates.filter((x) => packNo(x) > packNo(v)).sort((a, b) => packNo(a) - packNo(b)),
+    ...boxMates.filter((x) => packNo(x) < packNo(v)).sort((a, b) => packNo(b) - packNo(a)),
+  ]
+    .slice(0, 6)
+    .sort((a, b) => packNo(a) - packNo(b));
 
   const related = (setId ? bySet.get(setId) || [] : []).filter((x) => x.id !== v.id).slice(0, 6);
 
@@ -703,7 +791,7 @@ const resolvedHits = hits.filter((h) => !h.unresolved);
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#192D22">
 <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
-<!-- THE PACK IS THIS PAGE'S LCP ELEMENT AND THE PRELOAD SCANNER CANNOT SEE IT.
+${/* THE PACK IS THIS PAGE'S LCP ELEMENT AND THE PRELOAD SCANNER CANNOT SEE IT.
      Measured on the live site at 390x844 DPR 2, Slow 4G with a 4x CPU
      slowdown: LCP 3652ms, the worst of any page family on the site, and the
      element is .pack-art, whose artwork is a background-image in packs.css.
@@ -723,11 +811,11 @@ const resolvedHits = hits.filter((h) => !h.unresolved);
      request log rather than assumed.
 
      packSet is never a set without artwork: it resolves to "multi" or
-     "default" otherwise, and both ship a pack. -->
+     "default" otherwise, and both ship a pack. */ ""}
 <link rel="preload" as="image" href="/assets/packs/${packSet}-garbage-rips-585-booster-pack.avif" type="image/avif" fetchpriority="high">
 ${FONTS}
 ${STYLES}
-<style>${RARITY_CSS}</style>
+<style>${RARITY_CSS_MIN}</style>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 <script type="application/ld+json">${JSON.stringify(crumbs)}</script>
 </head>
@@ -743,7 +831,7 @@ ${MENU}
     <div class="rip-grid${v.vertical === false && !(OVERRIDES[v.id] || {}).pillarboxed ? " rip-grid--wide" : ""}">
       <div class="rip-stage">
         <div class="rip-player pack-player${(OVERRIDES[v.id] || {}).pillarboxed ? " rip-player--crop" : v.vertical === false ? " rip-player--wide" : ""}" id="player" data-id="${v.id}" data-title="${esc(title)}">
-          <!-- THIS POSTER IS COMPLETELY COVERED BY THE PACK, AND IT IS IN A
+          ${/* THIS POSTER IS COMPLETELY COVERED BY THE PACK, AND IT IS IN A
                <noscript> BECAUSE loading="lazy" DID NOT STOP IT DOWNLOADING.
                ui.css pins .rip-player .pack to inset:0 at z-index 3 and the
                pack is opaque, which is the whole point of it.
@@ -768,7 +856,7 @@ ${MENU}
                packplayer.js's poster lookup is already null-guarded, so it is
                a no-op now rather than a break. (No backticks in this comment:
                it lives inside a template literal, and quoting the code here
-               closed the string and failed the build once already.) -->
+               closed the string and failed the build once already.) */ ""}
           <noscript>
             <picture>
               <source type="image/webp" srcset="${thumbWebp}">
@@ -795,7 +883,7 @@ ${MENU}
       </div>
       <div>
         <noscript>
-            <!--
+            ${/*
               The pack is a button that mounts the player, so with scripting off
               it is a picture that does nothing and the visitor cannot watch the
               rip at all. This link only exists in that case: it never renders
@@ -805,7 +893,7 @@ ${MENU}
               That rule exists so a tile does not bounce somebody to YouTube
               when the site could have shown them the video itself. Here the
               site cannot, so a dead pack is the only other option.
-            -->
+            */ ""}
             <p class="pack-nojs">The pack needs JavaScript to open.
               <a href="https://www.youtube.com/watch?v=${v.id}" rel="noopener" target="_blank">Watch this rip on YouTube</a>
               instead, or turn scripting on and click the pack.</p>
@@ -825,6 +913,20 @@ ${MENU}
           ${setId ? `<a class="chip" href="/videos.html?set=${setId}">${esc(setLabel)}</a>` : ""}
           ${prodId ? `<a class="chip prod" href="/videos.html?product=${prodId}">${esc(prodLabel)}</a>` : ""}
           ${hasGuide(setId) ? `<a class="chip guide" href="/sets/${setId}.html">Set guide <span aria-hidden="true">&rarr;</span></a>` : ""}
+          ${/*
+            THE BIGGEST CARD THE CHANNEL HAS EVER PULLED SAID NOTHING ON ITS OWN
+            PAGE. `greatest` and `hofRank` are stamped onto the video and the
+            only thing this file did with them was add a "hall" class to <main>,
+            whose single rule in ui.css is a hover shadow on the related tiles,
+            so on a phone the flag rendered nothing at all. Meanwhile the 38
+            pages with NO hit all carry a button to /hall.html and the one page
+            that IS the Hall of Fame did not.
+
+            A CHIP AND NOT THE GOLD BADGE. The gold is semantic and lives in
+            three named places in ui.css; a fourth would have to be added there,
+            and that file is not this builder's to change. A plain chip is the
+            control this page already has room for and it says the true thing.
+          */ ""}${v.greatest ? `<a class="chip" href="/hall.html">Hall of Fame${v.hofRank ? ` #${v.hofRank}` : ""} <span aria-hidden="true">&rarr;</span></a>` : ""}
           ${
             // THE RARITIES COME OUT OF THE HIT FIELD, not out of a second column.
             // Tim writes every hit into one free text cell because a single rip
@@ -840,7 +942,38 @@ ${MENU}
             })()
           }
         </div>
-        <p class="rip-meta">${shortDate(v.published)}${v.views ? " &bull; " + niceViews(v.views) : ""}${v.openingType ? " &bull; " + esc(v.openingType) : ""}</p>
+        ${/*
+          WHAT WAS OPENED, WHICH THE PAGE ABOUT THE OPENING DID NOT SAY.
+          `label` is the sheet's own name for this rip, "Pitch Black ETB 1 -
+          Pack 8": the set, the product, WHICH copy of that product, and which
+          pack out of it. 294 of the 317 videos carry one and build-pages.mjs
+          printed none of them, while /videos.html, the home page, the playlist
+          pages, the set guides and /openings/etb.html all use it as the tile
+          title. So a reader clicked a tile reading "Pitch Black ETB 1 - Pack 8"
+          and landed on a page headed "Trubbish Food | Pitch Black Pack #8" with
+          nothing on it confirming they were in the right place.
+
+          It also settles the pack count, which is the thing this project has
+          got wrong more often than anything else: a chip reading "Booster
+          Bundle" says what the PRODUCT HOLDS, and on "Did this Bundle have ANY
+          hits?!" a reader could not tell whether the video opened all six packs
+          or the sixth one. "Pitch Black Booster Bundle 1, pack 6" says which.
+
+          It REPLACES openingType rather than joining it. Every one of the 58
+          videos with an openingType has a label, and the label already contains
+          the product, so printing both gave "Pitch Black Pack - Pack 9 ...
+          Sleeved Booster Pack", which is the same fact twice.
+
+          The separator inside the label is normalised because "Pitch Black
+          Pack - Pack 8" reading across a bullet is a puzzle. A box name gets a
+          comma ("Pitch Black ETB 1, pack 8") and a name that already ends in
+          Pack takes a number instead, since "Pitch Black Pack, pack 8" says
+          pack twice. Tim's words, site punctuation.
+        */ ""}<p class="rip-meta">${
+          v.label
+            ? esc(v.label.replace(/ - Pack (\d+)$/, (_m, n) => (/Pack$/i.test(v.label.slice(0, -_m.length)) ? ` #${n}` : `, pack ${n}`))) + " &bull; "
+            : ""
+        }${shortDate(v.published)}${v.views ? " &bull; " + niceViews(v.views) : ""}${!v.label && v.openingType ? " &bull; " + esc(v.openingType) : ""}</p>
         ${/*
           THE PARAGRAPH IS A FALLBACK, NOT A HEADING.
           The Hit Card column is free text, and on a 14-pull video it arrives as
@@ -850,10 +983,11 @@ ${MENU}
           their prices and a lightbox, so printing the dump as well says nothing
           the reader is not about to see, badly.
 
-          So it renders only when there is nothing resolved to show it with.
-          One card named in the sheet and no scan for it is exactly the case
-          this paragraph exists for, and it still gets it.
-        */ ""}${v.hitCard && !resolvedHits.length ? `<div class="hit-panel">
+          So it renders only when there is nothing to show it with. One card
+          named in the sheet and no scan and no price for it is exactly the case
+          this paragraph exists for, and it still gets it. showableHits is the
+          same test the band below uses, so the two can never both appear.
+        */ ""}${v.hitCard && !showableHits.length ? `<div class="hit-panel">
           <p class="hit-label">The hit</p>
           <p class="hit-card">${esc(tidy(v.hitCard))}</p>
           ${v.hitRarity ? `<p class="hit-rarity">${esc(rarityLabel(v.hitRarity))}</p>` : ""}
@@ -883,14 +1017,35 @@ ${MENU}
     </div>
   </div>
 ${
-  hits.length
+  showableHits.length
     ? `<section class="band tight hits-band">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Below the fold</p>
     <h2>What came out of <span class="hl">this one</span></h2>
-    <p class="lede" style="max-width:38em">${hits.length} card${hits.length === 1 ? "" : "s"} worth keeping${
-        hits.some((h) => h.psa10) ? ", with what they go for raw and in a PSA 10" : ", with what they go for raw"
-      }.</p>
+    ${/*
+      THE LEDE PROMISED PRICES THE BAND DID NOT HAVE.
+      It said "with what they go for raw" whenever there was a hit at all, and
+      counted every row whether or not that row carried a number. On the Costco
+      UPC rip that read "21 cards worth keeping, with what they go for raw and
+      in a PSA 10" over 14 priced rows, 7 unpriced ones and 2 PSA 10 figures.
+      The count now describes what is on the page: the total is still every
+      card, because every card really was pulled, and the price clause names how
+      many of them the price file actually covers.
+    */ ""}<p class="lede" style="max-width:38em">${hits.length} card${hits.length === 1 ? "" : "s"} worth keeping${(() => {
+        const one = hits.length === 1;
+        if (!pricedHits.length) {
+          return one
+            ? ". It carries no sourced price, so this is what came out rather than what it is worth"
+            : ". None of them carry a sourced price, so this is what came out rather than what it is worth";
+        }
+        const raw =
+          pricedHits.length === hits.length
+            ? one ? ", with what it goes for raw" : ", with what they go for raw"
+            : `, with what ${pricedHits.length} of them go${pricedHits.length === 1 ? "es" : ""} for raw`;
+        const graded = hits.filter((h) => h.psa10).length;
+        const psa = !graded ? "" : graded === hits.length ? " and in a PSA 10" : " and in a PSA 10 where we have one";
+        return raw + psa;
+      })()}.</p>
     <ul class="hitcards" id="hitcards">
       ${hits
         .map(
@@ -911,12 +1066,12 @@ ${
         }
         <div class="hitcard-b">
           <p class="hitcard-n">${esc(h.name)}</p>
-          <!-- A HIT CAN LEGITIMATELY HAVE NO SET. Tim writes the set on most hit
+          ${/* A HIT CAN LEGITIMATELY HAVE NO SET. Tim writes the set on most hit
                lines and leaves it off some, and on a video that opened packs
                from several sets nothing can honestly say which one a card came
                from. esc(undefined) rendered the literal string "undefined" on
                three rip pages. Absent means print nothing, which is what the
-               rest of this file does with missing data. -->
+               rest of this file does with missing data. */ ""}
           ${h.setName ? `<p class="hitcard-s">${esc(h.setName)}${h.n ? ` &bull; #${esc(h.n)}` : ""}</p>` : h.n ? `<p class="hitcard-s">#${esc(h.n)}</p>` : ""}
           ${h.rarity ? `<p class="hitcard-r">${esc(rarityLabel(h.rarity))}</p>` : ""}
           <p class="hitcard-p">${
@@ -929,10 +1084,20 @@ ${
         )
         .join("\n      ")}
     </ul>
-    <p class="price-note">${esc(priceNote(pricesDoc, { lead: "Raw prices" }))}
+    ${/*
+      THE SOURCING NOTE ONLY SHIPS WHERE THERE IS A NUMBER TO SOURCE. It is
+      347px of PriceCharting methodology at 390x844, and it was printing on
+      pages where not one card carried a price: the last thing on the Japanese
+      Cyber Judge rip, with no chase band and no related band under it, was a
+      paragraph explaining how prices nobody had shown were arrived at. Where a
+      price IS shown the note stays exactly as it was, because that is the
+      sentence that makes the number worth trusting.
+    */ ""}${pricedHits.length || hits.some((h) => h.psa10)
+      ? `<p class="price-note">${esc(priceNote(pricesDoc, { lead: "Raw prices" }))}
       PSA 10 prices come from PriceCharting's guide too, read the same day, and only exist for some cards, so the
       line is shown where we have one and left off where we do not. Promos are not in that feed at all: where a promo carries a price it was
-      read by hand from the source named under it, on the date shown, and it does not refresh overnight like the rest. We do not sell cards.</p>
+      read by hand from the source named under it, on the date shown, and it does not refresh overnight like the rest. We do not sell cards.</p>`
+      : ""}
   </div>
 </section>`
     : v.hasHit === false
@@ -940,7 +1105,24 @@ ${
   <div class="wrap">
     <img class="nohits-img" src="/assets/trubbish.webp" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="180" height="180">
     <h2>No hits. Just another <span class="hl">classic</span> garbage rip.</h2>
-    <p class="lede">That is most of them. The good ones only mean anything because of these.</p>
+    ${/*
+      "THAT IS MOST OF THEM" WAS A PULL RATE IN A FRIENDLY VOICE, on 38 pages.
+      Read on a page about one pack that produced nothing, it tells the reader
+      how often a pack produces nothing, which is the one claim this site never
+      makes because The Pokemon Company does not publish odds and a channel's
+      own log is a sample. /luck.html goes out of its way to say so in its first
+      sentence, that it is one person's luck and not the odds, and this line sat
+      on 38 rip pages contradicting it.
+
+      It was not even true of the log it was implicitly quoting. Of the 106 rips
+      marked either way, 68 hit and 38 did not, so "most of them" is the wrong
+      side of the site's own count.
+
+      What replaced it keeps the feeling and gives the frequency question the
+      page it belongs on. That link is also the only thing pointing at
+      /luck.html from this family, and a rip that came up empty is the most
+      natural place on the site to ask how often that happens.
+    */ ""}<p class="lede">The good ones only mean anything because of these. How often a rip comes up empty is <a href="/luck.html">counted on the luck page</a>, not guessed at.</p>
     <p><a class="btn btn-sky btn-sm" href="/hall.html">See the ones that did hit</a></p>
   </div>
 </section>`
@@ -950,13 +1132,29 @@ ${
 ${sameBox.length ? `<section class="band tight">
   <div class="wrap">
     <div class="sec-head">
-      <div><h2>More from <span class="hl">${esc(v.box)}</span></h2></div>
+      <div><h2>More from <span class="hl">${esc(myBox)}</span></h2></div>
     </div>
-    <div class="vid-grid">
-      ${sameBox.map((r) => `<article class="vid"><a class="vid-shell" href="/${pathFor(r)}" aria-label="${esc(r.siteTitle || r.title)}">
-        <span class="pack pack--tile pack--${r.sets.length > 1 ? "multi" : packsOnDisk.has(r.sets[0]) ? r.sets[0] : "default"}" aria-hidden="true">
-          <span class="pack-face pack-l"><span class="pack-art"></span></span></span>
-      </a><h3 class="vid-title"><a href="/${pathFor(r)}">${esc(r.siteTitle || r.title)}</a></h3></article>`).join("\n      ")}
+    ${/*
+      THE TILES ARE NUMBERED, NOT TITLED, and that is the whole point of the
+      band. Under a heading naming one box, "Pack 4" and "Pack 5" put the rip
+      the reader is on in a sequence; six YouTube titles do not, and the "More
+      <set>" band below already lists those. The full name stays on the link
+      for anyone not reading the heading.
+    */ ""}<div class="vid-grid">
+      ${sameBox.map((r) => `<article class="vid">
+        <a class="vid-shell" href="/${pathFor(r)}" aria-label="${esc(r.label || r.title)}">
+          <span class="pack pack--tile pack--${r.sets.length > 1 ? "multi" : packsOnDisk.has(r.sets[0]) ? r.sets[0] : "default"}" aria-hidden="true">
+            <span class="pack-face pack-l">
+              <span class="pack-art"></span>
+              <span class="pack-brand">${esc(r.sets[0] ? labelFor("sets", r.sets[0]) : "GARBAGE RIPS")}<small>${r.sets[0] ? "GARBAGE RIPS 585" : "585"}</small></span>
+              <span class="pack-seal"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            </span>
+          </span>
+          <span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+        </a>
+        <h3 class="vid-title"><a href="/${pathFor(r)}">Pack ${packNo(r)}</a></h3>
+        <p class="vid-meta">${shortDate(r.published)}</p>
+      </article>`).join("\n      ")}
     </div>
   </div>
 </section>` : ""}
@@ -995,7 +1193,7 @@ ${related.length ? `<section class="band tight">
     </div>
   </div>
 </section>` : ""}
-<!-- </main> CLOSES HERE, NOT ABOVE THE THREE BANDS.
+${/* </main> CLOSES HERE, NOT ABOVE THE THREE BANDS.
      It used to close right after the player, which left "What you are chasing",
      "More from <box>" and "More <set>" as direct children of <body>: three
      content sections with their own h2, outside every landmark, on all 311 rip
@@ -1005,7 +1203,7 @@ ${related.length ? `<section class="band tight">
      at all. axe reports it as "All page content should be contained by
      landmarks"; the lived version is that the skip link undersells the page.
      main{padding:var(--s4) 0 var(--s8)} now puts its 64px bottom padding below
-     the last band instead of above the first, which is where it belonged. -->
+     the last band instead of above the first, which is where it belonged. */ ""}
 </main>
 
 ${footer()}
