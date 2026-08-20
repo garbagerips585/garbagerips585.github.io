@@ -16,9 +16,17 @@ brand entity SEO and funneling visitors to the channel and socials.
   mascot's own five colours, sent by Tim: bag green `#2F4F39`, feet green
   `#1F382B`, pink `#E87EA1`, light blue `#70B5D9`, and `#FFFFFF` / `#231F20` for
   the mouth and the outline. Every other value is DERIVED from one of those five
-  by a stated move, in the `F` block of scripts/gen-palette-samples.mjs, which
-  holds the arithmetic and self-checks every pair before it writes. **Do not
-  re-derive a number here or in ui.css; read it from there.**
+  by a stated move, and **the derivation is written beside the token it produced
+  in assets-source/ui.css.** Read it there before changing a value: the comment
+  above `--ink` is the model, giving the anchor (`#A8A090`, sampled from Trubbish's
+  own sprite), the move (+60 on every channel, an OFFSET and deliberately not a
+  white blend), why the alternative was rejected, and what it cost.
+
+  This used to point at the `F` block of scripts/gen-palette-samples.mjs, which
+  generated the palette samples and self-checked every pair. That file and its
+  seven preview pages were deleted on 19 August 2026 once Trubbish Deep had
+  shipped, and the values were confirmed to be in ui.css with their derivations
+  before it went. **Do not re-derive a number: read it from ui.css.**
 
   **THE ACCENT RULE, one sentence because a reader has to be able to feel it:**
   *teal is how you get around, pink is what the site is saying, and a section

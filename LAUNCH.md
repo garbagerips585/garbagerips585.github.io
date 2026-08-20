@@ -181,12 +181,13 @@ already exists.
       and went 2.50:1 to 3.35:1 at its worst (ascended-heroes); nothing else
       about it moved.
 
-      **THE SEVEN PAGES ABOVE ARE NOW STALE SNAPSHOTS** and that is worth one
-      line before somebody opens one to judge a palette. gen-palette-samples.mjs
-      transforms the BUILT home page, and the copies on disk were written before
-      this change, so all seven still show white play discs and "Rip it open"
-      pills on a home page that has neither. Re-run that script if anyone needs
-      to look at one again; nothing else depends on them.
+      **THE SEVEN SAMPLE PAGES AND THEIR GENERATOR ARE DELETED**, 19 August
+      2026, and the contrast numbers above are the part that outlived them.
+      They had already gone stale before they went: the generator transformed
+      the BUILT home page, so every copy on disk still showed white play discs
+      and "Rip it open" pills on a home page that has neither. There is nothing
+      left to re-run and nothing depends on them. The palette itself, and the
+      derivation of every value in it, is in assets-source/ui.css.
 
 - [ ] **Run the build and let it check itself.**
 

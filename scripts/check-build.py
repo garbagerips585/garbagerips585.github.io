@@ -895,6 +895,81 @@ if _labels:
 # The LAST line is a one-line summary on purpose, because four lines is all
 # build-all shows: whatever the tail happens to be, the final line always names
 # the count and the command that prints the full list.
+# ---------------------------------------------------------------------------
+# TIM'S OWN ANSWERS MUST ACTUALLY REACH THE PAGES.
+#
+# data/overrides.json is where the sheet importer records what Tim typed while
+# watching each video, and it ALWAYS wins over the title matcher. But it is not
+# what the site reads: pages are built from public/data/videos.json, and a
+# separate step (retag-videos.mjs --write, or a real sync) copies one into the
+# other. import-sheet.mjs prints an instruction to run it and cannot enforce it.
+#
+# ON 19 AUGUST 2026 THAT STEP WAS SKIPPED AND NOTHING SAID SO. Two videos had
+# their sets typed in, imported correctly, and sat in UNTAGGED.md under "missing
+# the set" while the answer was on disk two files away. Both pages published
+# noindex and stayed out of the sitemap. The import reported success, the build
+# reported success, and check-build passed: every part was working and the chain
+# between two of them was not connected.
+#
+# This is the cheapest possible check for it -- compare the two files -- and it
+# is worth more than it looks, because the failure is invisible from every page
+# and the cost is the one thing LAUNCH.md calls the biggest single lever on the
+# site.
+_ov = _read_json("data/overrides.json")
+_vids = _read_json("public/data/videos.json")
+if _ov and _vids:
+    _by = {v.get("id"): v for v in _vids.get("videos", [])}
+    _stale = []
+    for _vid, _o in _ov.items():
+        _v = _by.get(_vid)
+        if not _v:
+            continue
+        for _field in ("sets", "products"):
+            if _field not in _o:
+                continue
+            if list(_o[_field] or []) != list(_v.get(_field) or []):
+                _stale.append(f"{_vid} {_field}: sheet says {_o[_field]}, the site shows {_v.get(_field)}")
+    if _stale:
+        fail.append(
+            f"{len(_stale)} video(s) have tags in data/overrides.json that never reached "
+            f"public/data/videos.json, so Tim's own answers are not on the pages. "
+            f"Run `node scripts/retag-videos.mjs --write` then rebuild. "
+            + "; ".join(_stale[:3])
+            + (f"; and {len(_stale) - 3} more" if len(_stale) > 3 else "")
+        )
+
+# A NULL SET ID IS A LINK TO A PAGE THAT CANNOT EXIST.
+#
+# A promo pack legitimately has no set, and the pack tally records that as
+# `set: null` so the pack still counts. That null belongs in the tally and
+# never in a TAG array, where it becomes a set whose id is null. Caught once on
+# the way into overrides.json and filtered there; checked here too, because the
+# tally and the tags are written by different code and only one of them was
+# fixed.
+for _label, _doc in (("data/overrides.json", _ov), ("public/data/videos.json", _vids)):
+    if not _doc:
+        continue
+    # overrides.json is keyed BY video id and carries no `id` field; videos.json
+    # is a list and does. Naming the video is the point: a count with no id
+    # sends the reader back to the file to work out which one.
+    _rows = (
+        _doc.items()
+        if _label.endswith("overrides.json")
+        else [(v.get("id", "?"), v) for v in _doc.get("videos", [])]
+    )
+    _bad = []
+    for _vid, _r in _rows:
+        if not isinstance(_r, dict):
+            continue
+        for _field in ("sets", "products"):
+            if any(x is None or x == "" for x in (_r.get(_field) or [])):
+                _bad.append(f"{_vid} {_field}")
+    if _bad:
+        fail.append(
+            f"{_label} has {len(_bad)} empty or null tag(s): {', '.join(_bad[:4])}. "
+            f"A null set id builds a link to a page that cannot exist."
+        )
+
 # One file read by three checks reports its parse failure three times. Deduped
 # in order, so the count is a count of problems rather than of complaints.
 fail = list(dict.fromkeys(fail))
