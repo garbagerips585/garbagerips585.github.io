@@ -23,7 +23,7 @@ import { labelFor } from "../shared/taxonomy.mjs";
 // same figures the set guides and /wanted.html do, out of the same files, so it
 // has to print the same sentence about them or the site has two answers to one
 // question. See shared/card-prices.mjs.
-import { priceNote, priceRead } from "../shared/card-prices.mjs";
+import { priceNote, priceRead, chaseByPrice } from "../shared/card-prices.mjs";
 // The drops band's expiry model. NOT reimplemented here: /drops.html and this
 // page print the same rows, so "is this row still true" is answered in one
 // place for both. See shared/drops.mjs.
@@ -326,12 +326,30 @@ try {
  * survives only where a set has no checklist yet, which is the standing pattern
  * for absent data everywhere else here.
  *
- * THE PSA 10 FIGURE IS NOT TOUCHED. It is a different measurement from a
- * different feed (data/psa10.json), the same one `gradedPrice` above hands the
- * set grid, so the two bands already agree about graded money.
+ * THE PSA 10 FIGURE IS THE SAME SNAPSHOT BUG ONE FEED OVER, and this paragraph
+ * said it was "not touched ... so the two bands already agree about graded
+ * money", which was true only by luck. The shelf's graded number came out of
+ * the same 12 August copy in public/data/wanted.json, NOT out of data/psa10.json
+ * the way gradedPrice hands it to the set grid twenty lines below, so the two
+ * bands on this page agreed only for as long as the copy happened to match.
+ * Three cards on the shelf had gained a figure in the store since the copy was
+ * taken and were still rendering RAW, while /wanted.html and the set guides
+ * printed a PSA 10 for them.
+ *
+ * So the store wins here as well, through the same gradedPrice and gradedStamp
+ * the set grid uses, which applies the same ten-sale floor: Mega Darkrai ex,
+ * Pitch Black #116 has one reading of 8 sales and stays blank on all three
+ * pages. build-wanted.mjs does the identical overlay for /wanted.html.
  */
 for (const c of wanted.cards || []) {
   if (!c.set || !c.number) continue;
+  const g = gradedPrice(c.set, c.number);
+  if (g != null) {
+    const stamp = gradedStamp(c.set, c.number);
+    c.psa10 = g;
+    c.psa10AsOf = stamp.asOf || c.psa10AsOf;
+    c.psa10Source = stamp.source || c.psa10Source;
+  }
   const doc = await cardDoc(c.set);
   const row = cardRow(doc, c.number);
   if (typeof row?.price === "number" && row.price > 0) {
@@ -1037,7 +1055,20 @@ const setsHtml = (
         : `<span class="set-noart" aria-hidden="true"></span>`;
       // What the best card in this set is worth. PSA 10 where we have one,
       // raw otherwise, and nothing at all when we have neither.
-      const top = (s.chase || [])[0];
+      // THE TOP CARD IS THE DEAREST ONE, NOT chase[0]. sets.json's chase list is
+      // only ever REPRICED in place, never re-sorted, so its order is stale the
+      // moment two of its cards swap places. That is how this tile came to read
+      // "Top card $536 PSA 10" for Perfect Order while the set guide, the guide's
+      // own lede and the /sets/ index card all named a different card at $339.
+      // The full argument is beside chaseByPrice in shared/card-prices.mjs.
+      // Scored on the checklist price, which is the same figure this tile
+      // re-reads below, so the card picked and the number printed cannot part.
+      const topDoc = await cardDoc(s.id);
+      const top =
+        chaseByPrice(s.chase, (c) => {
+          const row = cardRow(topDoc, c.number);
+          return typeof row?.price === "number" && row.price > 0 ? row.price : c.price;
+        })[0] || null;
       const topPsa = top ? gradedPrice(s.id, top.number) : null;
       // THE RAW FIGURE IS RE-READ OUT OF THE CHECKLIST IT IS DATED BY, and that
       // is not tidying. sets.json's chase price is a COPY, written by
@@ -1050,7 +1081,8 @@ const setsHtml = (
       // so no tile's figure moves, and the snapshot is still the fallback for a
       // set whose checklist has not landed. This is the same fix, for the same
       // reason, that the Most Wanted shelf above got on 19 August 2026.
-      const topDoc = top ? await cardDoc(s.id) : null;
+      // topDoc is read above, because picking WHICH card is top now scores on
+      // the same checklist this reads the figure out of.
       const topRow = top ? cardRow(topDoc, top.number) : null;
       const topRaw = typeof topRow?.price === "number" && topRow.price > 0 ? topRow.price : top?.price || null;
       const topVal = topPsa || topRaw || null;
@@ -1571,6 +1603,25 @@ try {
     const { live, expired } = splitByExpiry(doc, known, DROPS_TODAY);
     const { picked, skipped } = homeBandRows(doc, live);
 
+    // THE COUNT NAMES THE DESTINATION, SO IT IS COUNTED THE WAY THE DESTINATION
+    // COUNTS ITSELF. The sweep below was added precisely because "All 9 drops"
+    // has to mean the size of the list it points at, and then the server render
+    // was handed `known`, which is every row in the file INCLUDING the ones the
+    // build had already expired. On 19 August 2026 that put "9 drops" and "All 9
+    // drops" on the home page over a /drops.html reading "5 in store, 3 online".
+    // The client sweep hid it from anybody running JavaScript, which is what
+    // made it survive: it subtracts the same row again on read and lands on 8.
+    // With scripts off the front door contradicted the page it linked to.
+    //
+    // build-drops.mjs splits on dropsClock alone, so that is what this counts
+    // on. DROPS_TODAY is deliberately the LATER of that clock and the build day
+    // and it stays the filter for the ROWS SHOWN, because a band claiming a drop
+    // today is the loudest thing the site can get wrong; but using it for the
+    // count would undercount the destination on any day the two clocks differ.
+    // data-dx comes off the same list for the same reason: a date already
+    // subtracted here must not be handed to the sweep to subtract twice.
+    const destLive = splitByExpiry(doc, known, dropsClock(doc, videos)).live;
+
     // The credit, once, at the foot of the band. On /drops.html it repeats on
     // every card, because there a card is the unit somebody screenshots and it
     // travels without the page's lede. Here the BAND is that unit: it is one
@@ -1730,9 +1781,9 @@ ${CLIENT_DAY_JS}
     <details class="wdrop-d">
       <summary class="brk wdrop-sum">
         <h2 id="wdropH">Drops to <span class="hl">watch</span> this week</h2>
-        <span class="wdrop-n" data-dn="${known.length}" data-dx="${esc(
-        known.map((d) => (isPerishable(doc, d) ? dropExpiresOn(doc, d) : "")).filter(Boolean).join(" ")
-      )}">${known.length} drops</span>
+        <span class="wdrop-n" data-dn="${destLive.length}" data-dx="${esc(
+        destLive.map((d) => (isPerishable(doc, d) ? dropExpiresOn(doc, d) : "")).filter(Boolean).join(" ")
+      )}">${destLive.length} drops</span>
         <span class="ln" aria-hidden="true"></span>
         <span class="wdrop-chev" aria-hidden="true"></span>
       </summary>
@@ -1743,7 +1794,7 @@ ${CLIENT_DAY_JS}
         <ul class="wdrop-list">
 ${picked.map(row).join("\n")}
         </ul>
-        <p class="wdrop-more"><a href="/drops.html">All ${known.length} drops &rarr;</a></p>
+        <p class="wdrop-more"><a href="/drops.html">All ${destLive.length} drops &rarr;</a></p>
         <p class="wdrop-src">${credit || "Community restock trackers"}. Not a retailer speaking. Logos are the retailers&rsquo; own trademarks, here to name the shop and nothing more.</p>
       </div>
     </details>

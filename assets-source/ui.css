@@ -589,7 +589,17 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
      lifts toward the CARD colour, so gold is the only warm pixel on it. */
   background-image:radial-gradient(130% 90% at 50% 0%, rgba(47,79,57,.55), transparent 62%)}
 .hof-head{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s4)}
-.hof-head h2{font:400 var(--t-l)/1 var(--display);color:var(--ketchup);flex:none}
+/* --ketchup-deep, NOT --ketchup, AND THE FILL/TEXT SPLIT ABOVE ALREADY SAID SO.
+   --t-l is 32px on a desktop and 22.4px on a phone, and 22.4 at weight 400 is
+   NOT large text: AA wants 4.5 there, not 3. Measured off rendered pixels on the
+   deployed home page at 390x844, glyphs hidden so the background sampled is the
+   real one: --ketchup #E87EA1 reads 4.40 on the worst of the 31 colours the
+   .hof gradient paints behind this heading (rgb(36,62,45)). It passes at 1440
+   and 820 only because 32px clears the large-text bar at 3. --ketchup-deep
+   #EEA0B9 is the documented TEXT half of the pair and measures 5.75 on the same
+   pixel. .foot-tag keeps --ketchup and is right to: it sits on flat --chrome-bg
+   with no bloom over it and measures 5.51. */
+.hof-head h2{font:400 var(--t-l)/1 var(--display);color:var(--ketchup-deep);flex:none}
 .hof-head .sub2{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.09em;color:var(--chrome-dim);
   text-transform:uppercase}
 @media(max-width:560px){.hof-head .sub2{display:none}}

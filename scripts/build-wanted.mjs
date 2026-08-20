@@ -94,14 +94,63 @@ const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), 
  * out of a set whose checklist has not landed). `rawFrom` records which, so the
  * note under the grid can say what it is actually describing.
  *
- * THE PSA 10 FIGURE IS DELIBERATELY LEFT ALONE. It is a different measurement
- * from a different, named, dated feed (pokemonpricetracker.com, in
- * data/psa10.json), it is not what the set guides print, and it never claimed to
- * be. Switching it to the checklist's PriceCharting column would change what is
- * on the page rather than correct it, and would hand four cards a graded price
- * they do not have today. What was wrong there is narrower and is fixed in the
- * note: the source is in the data and the page was dropping it.
+ * THE PSA 10 FIGURE STAYS ON ITS OWN FEED and that half of the paragraph above
+ * is untouched: it is pokemonpricetracker.com, in data/psa10.json, a different
+ * measurement from the raw column, and switching it to the checklist's
+ * PriceCharting column would change what is on the page rather than correct it.
+ *
+ * WHAT WAS WRONG WAS THE SAME SNAPSHOT BUG AS THE RAW COLUMN, ONE FEED OVER.
+ * This paragraph used to add "it is not what the set guides print", and that
+ * was simply false: every set guide prices its chase cards out of
+ * data/psa10.json through gradedPrice(), and so does the home page. This page
+ * was not reading that file at all. It was reading `psa10` out of
+ * public/data/wanted.json, a COPY sync-wanted.mjs took on 12 August, so the six
+ * cards that had a figure then still carry the 11 August reading while the rest
+ * of the site prints the 16 August one, and three cards that gained a figure
+ * since simply showed nothing:
+ *
+ *      Mega Greninja ex, Chaos Rising #116        blank here    $598 on the guide
+ *      Meowth ex, Perfect Order #121              blank here    $339
+ *      Mega Dragonite ex, Ascended Heroes #290    blank here    $1,448
+ *
+ * data/psa10.json's own readme already says what is supposed to happen: "One
+ * store for graded prices across the whole site: the set guides read it for
+ * their chase cards, and the hunt list reads it for the cards being chased."
+ * So read it, with the SAME precedence and the same ten-sale floor every other
+ * builder applies, and keep the wanted-file value only where that store has
+ * nothing. Mega Darkrai ex, Pitch Black #116 stays blank on both: its only
+ * reading is 8 sales, under the floor, and a gate applied on one page and not
+ * another is how this class of bug starts.
  */
+const MIN_SALES = 10; // the same floor the set guides and the home page use
+let psa10Store = {};
+try {
+  psa10Store = JSON.parse(await readFile(join(ROOT, "data/psa10.json"), "utf8"));
+} catch { /* optional: the page falls back to the wanted file's own figures */ }
+const gnum = (v) =>
+  typeof v?.price === "number" ? v.price : typeof v === "number" ? v : null;
+const gradedPrice = (setId, number) => {
+  const k = `${setId}-${String(number).replace(/^0+(?=\d)/, "")}`;
+  const manual = gnum(psa10Store.prices?.[k]) ?? gnum(psa10Store[k]);
+  if (manual) return manual;
+  const a = psa10Store.auto?.[k];
+  if (!a?.psa10) return null;
+  if (a.psa10Sales != null && a.psa10Sales < MIN_SALES) return null;
+  return a.psa10;
+};
+const gradedStamp = (setId, number) => {
+  const k = `${setId}-${String(number).replace(/^0+(?=\d)/, "")}`;
+  const manual = psa10Store.prices?.[k] ?? psa10Store[k];
+  const a = psa10Store.auto?.[k];
+  // A hand-entered price is Tim's own figure and carries no feed name, which is
+  // the same call build-hall.mjs makes. Same shape as build-proto.mjs so the two
+  // pages cannot credit different feeds for one number.
+  return {
+    asOf: manual?.asOf || a?.asOf || null,
+    source: (gnum(manual) != null ? manual?.source : null) || a?.source || null,
+  };
+};
+
 const rarities = new Map();
 const priceStamps = new Map();
 for (const c of cards) {
@@ -128,6 +177,16 @@ for (const c of cards) {
     // TCGdex was read for names and rarities and it moves nightly, and stamping
     // it under a column of dollars claims a freshness the figures do not have.
     c.rawAsOf = priceRead(priceStamps.get(c.set));
+  }
+  // The graded store wins over the snapshot, for the reason argued above. The
+  // date and the feed name move with the figure, so the note under the grid
+  // cannot end up dating a number it is no longer describing.
+  const g = gradedPrice(c.set, c.number);
+  if (g != null) {
+    const stamp = gradedStamp(c.set, c.number);
+    c.psa10 = g;
+    c.psa10AsOf = stamp.asOf || c.psa10AsOf;
+    c.psa10Source = stamp.source || c.psa10Source;
   }
 }
 
