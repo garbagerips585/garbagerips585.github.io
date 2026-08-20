@@ -23,63 +23,24 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#192D22">
 <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
-<!-- THE PACK IS THIS PAGE'S LCP ELEMENT AND THE PRELOAD SCANNER CANNOT SEE IT.
-     Measured on the live site at 390x844 DPR 2, Slow 4G with a 4x CPU
-     slowdown: LCP 3652ms, the worst of any page family on the site, and the
-     element is .pack-art, whose artwork is a background-image in packs.css.
-     A background cannot be a <picture> (the note in CLAUDE.md about the
-     image-set is about exactly this element), so the url only exists once
-     packs.css has arrived AND been parsed: HTML, then the stylesheet, then
-     the 100KB pack. Three serialised round trips before the biggest thing on
-     the page starts downloading, where every <img> on the site gets to start
-     during the HTML parse.
 
-     type="image/avif" is what makes this safe rather than a gamble. A browser
-     that cannot decode AVIF drops the preload on the floor and loads the WebP
-     from packs.css exactly as before, which is the same fallback the
-     image-set() already relies on; a browser that can decode it was going to
-     fetch this precise file anyway, because image-set names AVIF first. So
-     this cannot cause a double download, and that was verified from the
-     request log rather than assumed.
-
-     packSet is never a set without artwork: it resolves to "multi" or
-     "default" otherwise, and both ship a pack. -->
 <link rel="preload" as="image" href="/assets/packs/perfect-order-garbage-rips-585-booster-pack.avif" type="image/avif" fetchpriority="high">
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=9a180904">
+<link rel="stylesheet" href="/assets/ui.css?v=8771d7cb">
 <link rel="stylesheet" href="/assets/packs.css?v=e32b0800">
-<style>
-.rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
+<style>.rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
 .rk svg{width:11px;height:11px;display:block}
-/* THESE MARKS DEPICT PRINTED FOIL, so they are read as artwork rather than as
-   chrome: the whole point of the key is that a silver star and a black star are
-   DIFFERENT RARITIES, and Ultra Rare and Double Rare are both TWO stars, so the
-   colour is the only thing telling them apart. Darkening silver for contrast
-   would collapse the pair it exists to separate.
-   The golds follow the palette instead of carrying their own literals (they
-   were #E0A21F, #F5D142 and #8A6109, the pre-"Black / White / Gold" values), so
-   the site does not end up with two different golds beside each other. */
 .rk-gold svg{fill:var(--gold)}
 .rk-mega svg{fill:var(--mustard);stroke:var(--gold-deep);stroke-width:.8}
-/* SILVER STAYS LIGHT AND GAINS AN EDGE. --chrome-dim on white is 2.43:1 and the
-   #9FB0C0 it replaced was 2.22:1, so this never cleared 1.4.11 on its own. It
-   cannot be solved by darkening (see above), so it is solved the way .rk-mega
-   already solves it: a hairline stroke, at 4.54:1 on white, draws the shape.
-   The star is aria-hidden and rarityChip always prints the rarity's NAME beside
-   it, so the colour was never the only cue for a reader either way. */
 .rk-silver svg{fill:#C6C6C6;stroke:#767676;stroke-width:.8}
 .rk-black svg{fill:var(--navy)}
-/* The ACE SPEC mark is printed pink and this is the one place the site draws
-   it. Left alone, like the pack art: it is a picture of a symbol on a card, not
-   a piece of site chrome. One 11px glyph, always captioned. */
 .rk-pink svg{fill:#D96BA0}
 .rk-fire svg{fill:var(--ketchup);width:10px;height:12px}
 .rk-jp{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.04em;color:var(--chrome-ink);background:var(--band-bg);
   border-radius:3px;padding:3px 5px}
-.chip-rk{display:inline-flex;align-items:center}
-</style>
+.chip-rk{display:inline-flex;align-items:center}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"Only Garbage Rips? 😬 | Perfect Order Pack #3","description":"Opening Pokémon Perfect Order Booster Pack #3 ⚡\n\nPack #1…\nPack #2…\nNow Pack #3.\n\nAre we finally getting lucky… or still pulling garbage?","thumbnailUrl":["https://i.ytimg.com/vi/VYyrgZDkOFY/oardefault.jpg"],"uploadDate":"2026-04-04","embedUrl":"https://www.youtube.com/embed/VYyrgZDkOFY","url":"https://garbagerips585.github.io/rip/only-garbage-rips-perfect-order-pack-3-VYyrgZDkOFY.html","duration":"PT23S","interactionStatistic":{"@type":"InteractionCounter","interactionType":{"@type":"WatchAction"},"userInteractionCount":15},"publisher":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/","logo":{"@type":"ImageObject","url":"https://garbagerips585.github.io/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Every rip","item":"https://garbagerips585.github.io/videos.html"},{"@type":"ListItem","position":3,"name":"Perfect Order","item":"https://garbagerips585.github.io/videos.html?set=perfect-order"},{"@type":"ListItem","position":4,"name":"Only Garbage Rips? 😬 | Perfect Order Pack #3"}]}</script>
 </head>
@@ -112,6 +73,7 @@
   </div>
 </header>
 <nav class="menu" id="menu" aria-label="All sections">
+  <a class="menu-find" href="/search.html">Search the site</a>
   <div class="menu-inner">
     <details class="menu-g" open>
       <summary class="menu-h">The channel<span class="menu-x" aria-hidden="true"></span></summary>
@@ -213,32 +175,7 @@
     <div class="rip-grid">
       <div class="rip-stage">
         <div class="rip-player pack-player" id="player" data-id="VYyrgZDkOFY" data-title="Only Garbage Rips? 😬 | Perfect Order Pack #3">
-          <!-- THIS POSTER IS COMPLETELY COVERED BY THE PACK, AND IT IS IN A
-               <noscript> BECAUSE loading="lazy" DID NOT STOP IT DOWNLOADING.
-               ui.css pins .rip-player .pack to inset:0 at z-index 3 and the
-               pack is opaque, which is the whole point of it.
-
-               It was fetchpriority=high once, raced every rip page to download
-               154.7KB nobody can see, and became the LCP element at 3,036ms on
-               a throttled phone. Demoting it to lazy+low fixed the PRIORITY and
-               not the FETCH: lazy is a heuristic about distance DOWN the page,
-               and this sits at the top of it, so all 313 rip pages still paid
-               for it. Measured over the wire on 16 August 2026: 89-242KB per
-               page, mean about 120KB, 13-18% of a 660KB page. It was also the
-               only image anywhere on the site over the 200KB ceiling, and a
-               disk scan could never say so because it is served by YouTube.
-
-               Verified never visible in any state before this changed: the
-               img rect equalled the pack rect exactly, opacity 1, pack on top;
-               and packplayer.js removes the poster outright when it mounts the
-               iframe, so the tear never reveals it either. <noscript> keeps the
-               fallback the original comment intended, for the one case that
-               cannot remove it, and costs a scripted reader nothing.
-
-               packplayer.js's poster lookup is already null-guarded, so it is
-               a no-op now rather than a break. (No backticks in this comment:
-               it lives inside a template literal, and quoting the code here
-               closed the string and failed the build once already.) -->
+          
           <noscript>
             <picture>
               <source type="image/webp" srcset="https://i.ytimg.com/vi_webp/VYyrgZDkOFY/oardefault.webp">
@@ -265,17 +202,7 @@
       </div>
       <div>
         <noscript>
-            <!--
-              The pack is a button that mounts the player, so with scripting off
-              it is a picture that does nothing and the visitor cannot watch the
-              rip at all. This link only exists in that case: it never renders
-              for anyone whose browser runs the pack.
-
-              It is a deliberate exception to "every click stays on the site".
-              That rule exists so a tile does not bounce somebody to YouTube
-              when the site could have shown them the video itself. Here the
-              site cannot, so a dead pack is the only other option.
-            -->
+            
             <p class="pack-nojs">The pack needs JavaScript to open.
               <a href="https://www.youtube.com/watch?v=VYyrgZDkOFY" rel="noopener" target="_blank">Watch this rip on YouTube</a>
               instead, or turn scripting on and click the pack.</p>
@@ -287,8 +214,9 @@
           <a class="chip prod" href="/videos.html?product=single-pack">Single Pack</a>
           <a class="chip guide" href="/sets/perfect-order.html">Set guide <span aria-hidden="true">&rarr;</span></a>
           
+          
         </div>
-        <p class="rip-meta">Apr 4, 2026 &bull; 15 views</p>
+        <p class="rip-meta">Perfect Order Pack &bull; Apr 4, 2026 &bull; 15 views</p>
         
         <div class="rip-desc">Opening Pokémon Perfect Order Booster Pack #3 ⚡
 
@@ -445,17 +373,7 @@ Are we finally getting lucky… or still pulling garbage?</div>
     </div>
   </div>
 </section>
-<!-- </main> CLOSES HERE, NOT ABOVE THE THREE BANDS.
-     It used to close right after the player, which left "What you are chasing",
-     "More from <box>" and "More <set>" as direct children of <body>: three
-     content sections with their own h2, outside every landmark, on all 311 rip
-     pages. That is not a tidiness point. The skip link targets #main, so a
-     reader who takes it lands in a region that ends before more than half the
-     page, and anyone navigating by landmark finds those sections in no region
-     at all. axe reports it as "All page content should be contained by
-     landmarks"; the lived version is that the skip link undersells the page.
-     main{padding:var(--s4) 0 var(--s8)} now puts its 64px bottom padding below
-     the last band instead of above the first, which is where it belonged. -->
+
 </main>
 
 <footer>
@@ -664,7 +582,7 @@ addEventListener('DOMContentLoaded',function(){
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !lb.hidden) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=a85ffea8" defer></script>
+<script src="/assets/app.js?v=ae4e5a0b" defer></script>
 <script src="/assets/packplayer.js?v=d3834a60" defer></script>
 </body>
 </html>

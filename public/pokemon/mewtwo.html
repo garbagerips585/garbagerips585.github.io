@@ -25,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=9a180904">
+<link rel="stylesheet" href="/assets/ui.css?v=8771d7cb">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -93,6 +93,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
   </div>
 </header>
 <nav class="menu" id="menu" aria-label="All sections">
+  <a class="menu-find" href="/search.html">Search the site</a>
   <div class="menu-inner">
     <details class="menu-g" open>
       <summary class="menu-h">The channel<span class="menu-x" aria-hidden="true"></span></summary>
@@ -193,8 +194,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
   <div class="wrap">
     <span class="kicker">#150 &bull; Psychic &bull; Generation 1, Kanto</span>
     <h1>Mewtwo <span class="hl">cards</span></h1>
-    <p class="lede" style="max-width:34em">Every Mewtwo card we could find, what the ones we price are worth,
-      and everything else worth knowing about Mewtwo.</p>
+    <p class="lede" style="max-width:34em">Every Mewtwo card we could find. The priciest one we price is Team Rocket's Mewtwo ex in Destined Rivals at $519, and the cheapest is $1.25.</p>
   </div>
 </header>
 
@@ -205,41 +205,36 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <img src="/assets/species/150.webp" width="256" height="256" alt="Mewtwo, official artwork" decoding="async" class="dx-art">
       <ul class="facts-list">
         <li><b>The Genetic Pokemon.</b> Mewtwo is #150 in the National Pokedex.</li>
+        <li><b>First English card.</b> Base, January 9, 1999.</li>
         <li><b>Type.</b> Psychic in the video games, which is printed as Psychic on a card. <a href="/types.html">The eleven card types</a>.</li>
         <li><b>Generation 1, Kanto.</b> Flagged Legendary in the Pokedex.</li>
         <li><b>Size.</b> 2.0m (6ft 7in) and 122.0kg (269lb).</li>
-        <li><b>Capture rate 3 of 255.</b> One of the hardest things in the games to catch.</li>
-        <li><b>First English card.</b> Base, January 9, 1999.</li>
+        <li><b>Capture rate 3 of 255.</b> Higher is easier to catch. This is one of the hardest things in the games to catch.</li>
       </ul>
     </div>
     <div class="facts">
       <div class="fact"><div class="n">131</div><div class="l">Printings we can name</div></div>
       <div class="fact"><div class="n">63</div><div class="l">Sets they appear in</div></div>
+      
       <div class="fact"><div class="n">$519</div><div class="l">Priciest one we price</div></div>
-      <div class="fact"><div class="n">$1.25</div><div class="l">Cheapest way in</div></div>
+      <div class="fact"><div class="n">$1.25</div><div class="l">Cheapest one we price</div></div>
       
       <a class="fact fact-link" href="#watch"><div class="n">11</div><div class="l">Rips that mention one <span aria-hidden="true">&darr;</span></div></a>
+      
+      
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
   </div>
 </section>
 
-<section class="tight">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Evolution</p>
-    <h2>Mewtwo does not <span class="hl">evolve</span></h2>
-    <p class="lede" style="max-width:40em">It has no pre-evolution and nothing it becomes, which puts it with the
-      200 other species in the Pokedex that
-      stand alone. <a href="/evolution.html">The evolution chart</a> lists every one of them.</p>
-    <p class="price-note">Evolution line from the National Pokedex, pokeapi.co, read August 13, 2026.</p>
-  </div>
-</section>
 
 <section class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Priciest first</p>
     <h2>Every <span class="hl">Mewtwo</span> we price</h2>
+    
+    <p class="lede" style="max-width:40em">15 of the 131 printings we can name are in sets we hold prices for. Tap a card to see it full size.</p>
     <!-- THE aria-label CARRIES THE SET AND NUMBER, and it has to.
          It was "Enlarge <name>" alone, which on a Pokemon with several
          printings named every button on the page identically: charizard.html
@@ -452,6 +447,17 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
   </div>
 </section>
 
+<section class="tight" id="evolution">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Evolution</p>
+    <h2>Mewtwo does not <span class="hl">evolve</span></h2>
+    <p class="lede" style="max-width:40em">It has no pre-evolution and nothing it becomes, which puts it with the
+      200 other species in the Pokedex that
+      stand alone. <a href="/evolution.html">The evolution chart</a> lists every one of them.</p>
+    <p class="price-note">Evolution line from the National Pokedex, pokeapi.co, read August 13, 2026.</p>
+  </div>
+</section>
+
 <section class="band tight" id="watch">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
@@ -479,7 +485,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Everywhere else</p>
     <h2>Every other <span class="hl">Mewtwo</span> printing we could name</h2>
-    <p class="lede" style="max-width:40em">118 more from sets we do not price, English and Japanese. 82 have a scan and
+    <p class="lede" style="max-width:40em">118 more from sets we do not price, English, Japanese and Chinese. 82 have a scan and
       are pictured below. The other 36 we can name but not show. No price on these: we only quote what we can source.
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
@@ -1385,6 +1391,6 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=a85ffea8" defer></script>
+<script src="/assets/app.js?v=ae4e5a0b" defer></script>
 </body>
 </html>

@@ -25,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=9a180904">
+<link rel="stylesheet" href="/assets/ui.css?v=8771d7cb">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -93,6 +93,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
   </div>
 </header>
 <nav class="menu" id="menu" aria-label="All sections">
+  <a class="menu-find" href="/search.html">Search the site</a>
   <div class="menu-inner">
     <details class="menu-g" open>
       <summary class="menu-h">The channel<span class="menu-x" aria-hidden="true"></span></summary>
@@ -193,8 +194,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
   <div class="wrap">
     <span class="kicker">#350 &bull; Water &bull; Generation 3, Hoenn</span>
     <h1>Milotic <span class="hl">cards</span></h1>
-    <p class="lede" style="max-width:34em">Every Milotic card we could find, what the ones we price are worth,
-      and everything else worth knowing about Milotic.</p>
+    <p class="lede" style="max-width:34em">Every Milotic card we could find. The priciest one we price is Milotic ex in Surging Sparks at $116, and the cheapest is $0.84.</p>
   </div>
 </header>
 
@@ -205,43 +205,36 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <img src="/assets/species/350.webp" width="256" height="256" alt="Milotic, official artwork" decoding="async" class="dx-art">
       <ul class="facts-list">
         <li><b>The Tender Pokemon.</b> Milotic is #350 in the National Pokedex.</li>
+        <li><b>First English card.</b> Hidden Legends, June 1, 2004.</li>
         <li><b>Type.</b> Water in the video games, which is printed as Water on a card. <a href="/types.html">The eleven card types</a>.</li>
         <li><b>Generation 3, Hoenn.</b> One of the 135 species that generation introduced.</li>
         <li><b>Size.</b> 6.2m (20ft 4in) and 162.0kg (357lb).</li>
-        <li><b>Capture rate 60 of 255.</b> Middling, as capture rates go.</li>
-        <li><b>First English card.</b> Hidden Legends, June 1, 2004.</li>
+        <li><b>Capture rate 60 of 255.</b> Higher is easier to catch. This one sits in the middle.</li>
       </ul>
     </div>
     <div class="facts">
       <div class="fact"><div class="n">41</div><div class="l">Printings we can name</div></div>
       <div class="fact"><div class="n">31</div><div class="l">Sets they appear in</div></div>
+      
       <div class="fact"><div class="n">$116</div><div class="l">Priciest one we price</div></div>
-      <div class="fact"><div class="n">$0.84</div><div class="l">Cheapest way in</div></div>
+      <div class="fact"><div class="n">$0.84</div><div class="l">Cheapest one we price</div></div>
       
       <a class="fact fact-link" href="#watch"><div class="n">33</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
+      
+      <a class="fact fact-link" href="#evolution"><div class="n">2</div><div class="l">In the evolution line <span aria-hidden="true">&darr;</span></div></a>
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
   </div>
 </section>
 
-<section class="tight">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Evolution</p>
-    <h2>The <span class="hl">Feebas</span> line</h2>
-    <p class="lede" style="max-width:44em">Feebas, which becomes Milotic. Each one has its own page and its own cards.
-      <a href="/evolution.html">The evolution chart</a> draws every line in the Pokedex.</p>
-    <ul class="dx-evo"><li><a class="dx-stage" href="/pokemon/feebas.html"><img src="/assets/species/349.webp" width="256" height="256" alt="Feebas, official artwork" loading="lazy" decoding="async"><b>Feebas</b><span>#349 &bull; 31 cards</span></a></li><li class="dx-arrow" aria-hidden="true">&rarr;</li><li><span class="dx-stage" aria-current="true"><img src="/assets/species/350.webp" width="256" height="256" alt="Milotic, official artwork" loading="lazy" decoding="async"><b>Milotic</b><span>#350 &bull; 41 cards</span></span></li></ul>
-    <p class="price-note">Evolution line from the National Pokedex, pokeapi.co, read
-      August 13, 2026. What each evolution actually takes differs between
-      generations, so it is not stated here. Card counts are every printing we can name, in every language.</p>
-  </div>
-</section>
 
 <section class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Priciest first</p>
     <h2>Every <span class="hl">Milotic</span> we price</h2>
+    
+    <p class="lede" style="max-width:40em">8 of the 41 printings we can name are in sets we hold prices for. Tap a card to see it full size.</p>
     <!-- THE aria-label CARRIES THE SET AND NUMBER, and it has to.
          It was "Enlarge <name>" alone, which on a Pokemon with several
          printings named every button on the page identically: charizard.html
@@ -367,6 +360,19 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
     <p class="price-note">Prices are pricecharting.com's price guide value for an ungraded copy, read August 16, 2026. A guide value is computed across the sales PriceCharting tracks, which is a wider set of venues than any one marketplace. 2 cards of the 5,181 priced here are not listed by PriceCharting and keep their TCGplayer market price via TCGdex instead. Where a card
       comes as a normal, holo and reverse holo at different prices, the figure is the priciest of them. Prices move
       daily, so treat these as a ballpark. <a href="/cards.html?q=Milotic">Search every card</a>.</p>
+  </div>
+</section>
+
+<section class="tight" id="evolution">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Evolution</p>
+    <h2>The <span class="hl">Feebas</span> line</h2>
+    <p class="lede" style="max-width:44em">Feebas, which becomes Milotic. Each one has its own page and its own cards.
+      <a href="/evolution.html">The evolution chart</a> draws every line in the Pokedex.</p>
+    <ul class="dx-evo"><li><a class="dx-stage" href="/pokemon/feebas.html"><img src="/assets/species/349.webp" width="256" height="256" alt="Feebas, official artwork" loading="lazy" decoding="async"><b>Feebas</b><span>#349 &bull; 31 cards</span></a></li><li class="dx-arrow" aria-hidden="true">&rarr;</li><li><span class="dx-stage" aria-current="true"><img src="/assets/species/350.webp" width="256" height="256" alt="Milotic, official artwork" loading="lazy" decoding="async"><b>Milotic</b><span>#350 &bull; 41 cards</span></span></li></ul>
+    <p class="price-note">Evolution line from the National Pokedex, pokeapi.co, read
+      August 13, 2026. What each evolution actually takes differs between
+      generations, so it is not stated here. Card counts are every printing we can name, in every language.</p>
   </div>
 </section>
 
@@ -769,6 +775,6 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=a85ffea8" defer></script>
+<script src="/assets/app.js?v=ae4e5a0b" defer></script>
 </body>
 </html>

@@ -26,7 +26,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=9a180904">
+<link rel="stylesheet" href="/assets/ui.css?v=8771d7cb">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -94,6 +94,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
   </div>
 </header>
 <nav class="menu" id="menu" aria-label="All sections">
+  <a class="menu-find" href="/search.html">Search the site</a>
   <div class="menu-inner">
     <details class="menu-g" open>
       <summary class="menu-h">The channel<span class="menu-x" aria-hidden="true"></span></summary>
@@ -194,8 +195,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
   <div class="wrap">
     <span class="kicker">#259 &bull; Water and Ground &bull; Generation 3, Hoenn</span>
     <h1>Marshtomp <span class="hl">cards</span></h1>
-    <p class="lede" style="max-width:34em">Every Marshtomp card we could find, what the ones we price are worth,
-      and everything else worth knowing about Marshtomp.</p>
+    <p class="lede" style="max-width:34em">Every Marshtomp card we could find. We hold no price for any of them, so this page names and pictures the printings instead.</p>
   </div>
 </header>
 
@@ -206,16 +206,19 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <img src="/assets/species/259.webp" width="256" height="256" alt="Marshtomp, official artwork" decoding="async" class="dx-art">
       <ul class="facts-list">
         <li><b>The Mud Fish Pokemon.</b> Marshtomp is #259 in the National Pokedex.</li>
+        <li><b>First English card.</b> Ruby &amp; Sapphire, July 1, 2003.</li>
         <li><b>Types.</b> Water and Ground in the video games. A card only ever carries one type, so <a href="/types.html">which one it is printed as</a> depends on the card.</li>
         <li><b>Generation 3, Hoenn.</b> One of the 135 species that generation introduced.</li>
         <li><b>Size.</b> 0.7m (2ft 4in) and 28.0kg (62lb).</li>
-        <li><b>Capture rate 45 of 255.</b> Middling, as capture rates go.</li>
-        <li><b>First English card.</b> Ruby &amp; Sapphire, July 1, 2003.</li>
+        <li><b>Capture rate 45 of 255.</b> Higher is easier to catch. This one sits in the middle.</li>
       </ul>
     </div>
     <div class="facts">
       <div class="fact"><div class="n">16</div><div class="l">Printings we can name</div></div>
       <div class="fact"><div class="n">14</div><div class="l">Sets they appear in</div></div>
+      
+      
+      
       
       
       
@@ -226,7 +229,9 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
   </div>
 </section>
 
-<section class="tight">
+
+
+<section class="tight" id="evolution">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Evolution</p>
     <h2>The <span class="hl">Mudkip</span> line</h2>
@@ -240,12 +245,11 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
 </section>
 
 
-
 <section class="band tight">
   <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Everywhere else</p>
-    <h2>Every other <span class="hl">Marshtomp</span> printing we could name</h2>
-    <p class="lede" style="max-width:40em">16 more from sets we do not price, English and Japanese. 15 have a scan and
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The whole list</p>
+    <h2>Every <span class="hl">Marshtomp</span> printing we could name</h2>
+    <p class="lede" style="max-width:40em">All 16 of them, English and Japanese. 15 have a scan and
       are pictured below. The other 1 we can name but not show. No price on these: we only quote what we can source.
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
@@ -507,6 +511,6 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=a85ffea8" defer></script>
+<script src="/assets/app.js?v=ae4e5a0b" defer></script>
 </body>
 </html>

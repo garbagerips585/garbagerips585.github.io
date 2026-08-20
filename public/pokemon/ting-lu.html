@@ -26,7 +26,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=9a180904">
+<link rel="stylesheet" href="/assets/ui.css?v=8771d7cb">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -94,6 +94,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
   </div>
 </header>
 <nav class="menu" id="menu" aria-label="All sections">
+  <a class="menu-find" href="/search.html">Search the site</a>
   <div class="menu-inner">
     <details class="menu-g" open>
       <summary class="menu-h">The channel<span class="menu-x" aria-hidden="true"></span></summary>
@@ -194,8 +195,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
   <div class="wrap">
     <span class="kicker">#1003 &bull; Dark and Ground &bull; Generation 9, Paldea</span>
     <h1>Ting-Lu <span class="hl">cards</span></h1>
-    <p class="lede" style="max-width:34em">Every Ting-Lu card we could find, what the ones we price are worth,
-      and everything else worth knowing about Ting-Lu.</p>
+    <p class="lede" style="max-width:34em">Every Ting-Lu card we could find. The priciest one we price is Ting-Lu ex in Paldea Evolved at $11.88, and the cheapest is $0.24.</p>
   </div>
 </header>
 
@@ -206,41 +206,36 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <img src="/assets/species/1003.webp" width="256" height="256" alt="Ting-Lu, official artwork" decoding="async" class="dx-art">
       <ul class="facts-list">
         <li><b>The Ruinous Pokemon.</b> Ting-Lu is #1003 in the National Pokedex.</li>
+        <li><b>First English card.</b> Paldea Evolved, June 9, 2023.</li>
         <li><b>Types.</b> Dark and Ground in the video games. A card only ever carries one type, so <a href="/types.html">which one it is printed as</a> depends on the card.</li>
         <li><b>Generation 9, Paldea.</b> Flagged Legendary in the Pokedex.</li>
         <li><b>Size.</b> 2.7m (8ft 10in) and 699.7kg (1543lb).</li>
-        <li><b>Capture rate 6 of 255.</b> One of the hardest things in the games to catch.</li>
-        <li><b>First English card.</b> Paldea Evolved, June 9, 2023.</li>
+        <li><b>Capture rate 6 of 255.</b> Higher is easier to catch. This is one of the hardest things in the games to catch.</li>
       </ul>
     </div>
     <div class="facts">
       <div class="fact"><div class="n">10</div><div class="l">Printings we can name</div></div>
       <div class="fact"><div class="n">7</div><div class="l">Sets they appear in</div></div>
-      <div class="fact"><div class="n">$12</div><div class="l">Priciest one we price</div></div>
-      <div class="fact"><div class="n">$0.24</div><div class="l">Cheapest way in</div></div>
+      
+      <div class="fact"><div class="n">$11.88</div><div class="l">Priciest one we price</div></div>
+      <div class="fact"><div class="n">$0.24</div><div class="l">Cheapest one we price</div></div>
       
       <a class="fact fact-link" href="#watch"><div class="n">8</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
+      
+      
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
   </div>
 </section>
 
-<section class="tight">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Evolution</p>
-    <h2>Ting-Lu does not <span class="hl">evolve</span></h2>
-    <p class="lede" style="max-width:40em">It has no pre-evolution and nothing it becomes, which puts it with the
-      200 other species in the Pokedex that
-      stand alone. <a href="/evolution.html">The evolution chart</a> lists every one of them.</p>
-    <p class="price-note">Evolution line from the National Pokedex, pokeapi.co, read August 13, 2026.</p>
-  </div>
-</section>
 
 <section class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Priciest first</p>
     <h2>Every <span class="hl">Ting-Lu</span> we price</h2>
+    
+    <p class="lede" style="max-width:40em">7 of the 10 printings we can name are in sets we hold prices for. Tap a card to see it full size.</p>
     <!-- THE aria-label CARRIES THE SET AND NUMBER, and it has to.
          It was "Enlarge <name>" alone, which on a Pokemon with several
          printings named every button on the page identically: charizard.html
@@ -357,6 +352,17 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
   </div>
 </section>
 
+<section class="tight" id="evolution">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Evolution</p>
+    <h2>Ting-Lu does not <span class="hl">evolve</span></h2>
+    <p class="lede" style="max-width:40em">It has no pre-evolution and nothing it becomes, which puts it with the
+      200 other species in the Pokedex that
+      stand alone. <a href="/evolution.html">The evolution chart</a> lists every one of them.</p>
+    <p class="price-note">Evolution line from the National Pokedex, pokeapi.co, read August 13, 2026.</p>
+  </div>
+</section>
+
 <section class="band tight" id="watch">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See these packs opened</p>
@@ -383,7 +389,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Everywhere else</p>
     <h2>Every other <span class="hl">Ting-Lu</span> printing we could name</h2>
-    <p class="lede" style="max-width:40em">3 more from sets we do not price, English and Japanese, every one with a scan. No price on these: we only quote what we can source.
+    <p class="lede" style="max-width:40em">3 more from sets we do not price, Japanese, every one with a scan. No price on these: we only quote what we can source.
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
@@ -553,6 +559,6 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=a85ffea8" defer></script>
+<script src="/assets/app.js?v=ae4e5a0b" defer></script>
 </body>
 </html>

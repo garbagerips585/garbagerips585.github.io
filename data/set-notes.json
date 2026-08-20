@@ -9,6 +9,250 @@
     "  funFacts   array of extra lines for the 101 section, in your own words",
     "",
     "The pages already derive their own facts from the card data (counts,",
-    "rarity ladder, chase card). These are for what only you know."
-  ]
+    "rarity ladder, chase card). These are for what only you know.",
+    "",
+    "------------------------------------------------------------ SOURCING RULE",
+    "",
+    "EVERY LINE IN funFacts HAS TO BE TRACEABLE, and this file is the easiest",
+    "place on the site to smuggle in something that merely sounds true. It is",
+    "free prose in a data file: no builder checks it, no sync overwrites it, and",
+    "a reader cannot tell an arithmetic result from a half-remembered claim.",
+    "",
+    "So the lines written here on 19 August 2026 are, with two exceptions,",
+    "COMPUTED FROM FILES IN THIS REPO and re-checkable by running the same sum:",
+    "",
+    "  card counts, rarity counts, categories,   public/data/sets.json",
+    "  release dates, secret-rare counts",
+    "  prices, variants, illustrators,           public/data/cards/<id>.json",
+    "  every 'X is on four cards' claim          (pricecharting.com guide values)",
+    "  PSA 10 figures                            data/psa10.json",
+    "                                            (pokemonpricetracker.com)",
+    "  companion sets filed separately           public/data/expansions.json",
+    "  (Shiny Vault, Galarian Gallery,           (api.pokemontcg.io)",
+    "   Classic Collection)",
+    "",
+    "THERE IS NO SOURCE FIELD HERE, unlike data/base-set.json, where every claim",
+    "carries a `source` the builder prints beside it. funFacts is an array of",
+    "bare strings that build-set-pages.mjs renders through esc() as plain <li>",
+    "text, so a line that quotes a figure has to carry its own source and read",
+    "date INSIDE THE SENTENCE. That is why a few lines below end with a clause",
+    "naming pricecharting.com or pokemonpricetracker.com and the date. Lines that",
+    "only describe the checklist need no such clause: the checklist is printed",
+    "further down the same page and the reader can count it.",
+    "",
+    "PREFER A RATIO TO A DOLLAR FIGURE. 'about eight times the plain copy' stays",
+    "true through a price sync; '$20.08' does not. Where a dollar figure is",
+    "unavoidable, the page's own price note already stamps the feed and the date",
+    "for anything printed in the chase grid, the checklist or the value band.",
+    "",
+    "NEVER STATE OR IMPLY A PULL RATE, in any phrasing, including 'about one in'",
+    "or 'you can expect'. Nothing here counts as odds and nothing here may be",
+    "read as odds. A count of how many KINDS of card exist at a rarity is",
+    "checklist composition and says nothing whatever about what is in a pack.",
+    "",
+    "IF YOU CANNOT SOURCE IT, LEAVE IT OUT. A set with two solid lines beats one",
+    "with five where the fifth is invented.",
+    "",
+    "------------------------------------------------- WHY inPrint AND packPrice",
+    "                                                   ARE STILL EMPTY EVERYWHERE",
+    "",
+    "Both were left blank deliberately on 19 August 2026, not overlooked.",
+    "",
+    "packPrice is 'a person who has actually stood in a shop', and writing one",
+    "here does real damage: it OVERRIDES the live TCGplayer market price the",
+    "builder already prints and relabels the tile 'Single pack, typical'. Nobody",
+    "has stood in a shop for these 28 sets and written the number down, so the",
+    "live figure stays. Fill this in only from a receipt or a shelf.",
+    "",
+    "inPrint has no honest source in this repo. data/pokemon-center-prices.json",
+    "is the closest thing and its own readme says it is a WINDOW onto the",
+    "catalogue rather than the catalogue, so a set missing from it proves",
+    "nothing. Inferring 'out of print' from a high pack price is a guess wearing",
+    "a number. Leave it blank until somebody has a publisher's page saying so."
+  ],
+
+  "151": {
+    "funFacts": [
+      "102 different people and studios drew the 207 cards in this set. The artist's name is printed on every card, bottom left, and following one is the fastest way to find more art you actually like.",
+      "The three Kanto starters and Pikachu all got an Illustration Rare, and those four sit in the chase grid at the top of this page without being the top rarity in the set. Art moves a price as much as rarity does."
+    ]
+  },
+
+  "ascended-heroes": {
+    "funFacts": [
+      "At 295 cards this is the biggest of the 28 English sets on this site. The smallest, Celebrations, is 25.",
+      "50 of those cards are Trainers rather than Pokemon. Trainers are the part of a set new collectors flick past, and they are what actually makes a deck run."
+    ]
+  },
+
+  "black-bolt": {
+    "funFacts": [
+      "Black Bolt has a twin. White Flare came out the same day and is built to the same shape, down to a rarity the two of them share and nothing else on this site has: Black White Rare, two cards apiece.",
+      "69 of the 172 cards are Illustration Rares. Nothing else on this site is close except White Flare at 70; the next highest anywhere is 36.",
+      "Grading does not lift every card by the same amount. Seismitoad, an Illustration Rare, is worth roughly nine times its raw price in a PSA 10, while Zekrom ex, a far pricier Special Illustration Rare, is worth about twice. Raw from pricecharting.com, read August 16, 2026; PSA 10 from pokemonpricetracker.com, read August 11, 2026."
+    ]
+  },
+
+  "celebrations": {
+    "funFacts": [
+      "25 cards makes this the smallest of the 28 English sets on this site, and one pack costs about a third of what buying one of every card costs. Both of those figures are further up this page.",
+      "There is a second Celebrations set that is not in the checklist below. The Classic Collection is 25 reprints of older cards with their own numbering, filed as a separate set by the card database this site reads, so none of it is counted in any total on this page."
+    ]
+  },
+
+  "chaos-rising": {
+    "funFacts": [
+      "Mega Greninja ex is on four different cards here at four different rarities, running from a Double Rare worth a couple of dollars up to the most expensive card in the set. Same Pokemon, same set.",
+      "Four Mega Evolution era sets have landed on exactly the same shape so far: Phantasmal Flames, Perfect Order, Pitch Black and this one each carry 36 secret rares."
+    ]
+  },
+
+  "chilling-reign": {
+    "funFacts": [
+      "Three of the 35 Secret Rares in Chilling Reign are basic Energy cards. Water, Psychic and Fighting, the plainest cards in the game, sitting at the top rarity in the set.",
+      "59 of the 233 cards are Trainers and 6 are Energy, so more than a quarter of the set is not a Pokemon at all."
+    ]
+  },
+
+  "crown-zenith": {
+    "funFacts": [
+      "The Galarian Gallery is not in the checklist below. Those 70 cards, numbered GG01 and up, are filed as a separate set by the card database this site reads, so none of them is counted here and none of their prices are in any total on this page.",
+      "Three of the cards are Radiant Rares. Only one other set on this site has any, Pokemon GO, which also has three."
+    ]
+  },
+
+  "destined-rivals": {
+    "funFacts": [
+      "147 of the 244 cards belong to somebody by name. 83 of those are Team Rocket's, and the rest are Cynthia's, Ethan's, Arven's, Marnie's, Misty's, Steven's or an Emcee's."
+    ]
+  },
+
+  "journey-together": {
+    "funFacts": [
+      "The Illustration Rares punch above their tier here. N's Reshiram and Articuno are each worth roughly twelve times their raw price in a PSA 10, where every Special Illustration Rare in this set sits between three and five. Raw from pricecharting.com, read August 16, 2026; PSA 10 from pokemonpricetracker.com, read August 11, 2026."
+    ]
+  },
+
+  "mega-evolution": {
+    "funFacts": [
+      "This is the set that opened the Mega Evolution era. Everything filed under that series came after it: Phantasmal Flames, Ascended Heroes, Perfect Order, Chaos Rising and Pitch Black."
+    ]
+  },
+
+  "obsidian-flames": {
+    "funFacts": [
+      "Charizard ex is on four different cards in this set at four different rarities. The cheapest is a few dollars and the priciest is the most expensive card here, so \"I pulled a Charizard ex\" answers a lot less than it sounds like.",
+      "Lechonk is on four cards too, and the Illustration Rare one is worth many times the plain ones. Check the number in the corner before you get excited about either."
+    ]
+  },
+
+  "paldea-evolved": {
+    "funFacts": [
+      "The most expensive card in Paldea Evolved is a Magikarp. Not an ex, not a full art Trainer, just an Illustration Rare Magikarp. Art does that.",
+      "36 of the 279 cards are Illustration Rares, more than any set on this site except White Flare and Black Bolt."
+    ]
+  },
+
+  "paldean-fates": {
+    "funFacts": [
+      "Everything numbered 092 to 223 in this set is a shiny. That is 132 of the 245 cards, more than half the checklist below, which is why this set looks so top heavy next to a normal one."
+    ]
+  },
+
+  "paradox-rift": {
+    "funFacts": [
+      "Plusle and Minun both got an Illustration Rare, both drawn by the same artist, and they sit next to each other at 193 and 194 priced within a few dollars of one another. The set kept them together.",
+      "The most expensive card here is an Illustration Rare Groudon, and it is worth more than every Special Illustration Rare in the set."
+    ]
+  },
+
+  "perfect-order": {
+    "funFacts": [
+      "Clefairy is in this set twice: a Common down in the bulk, and an Illustration Rare worth well over ten times as much. The art is different, the number in the corner is different, the name is the same."
+    ]
+  },
+
+  "phantasmal-flames": {
+    "funFacts": [
+      "Mega Charizard X ex is on four cards here, running from under five dollars up to the most expensive card in the set. Add those four together and they come to about four fifths of what buying one of every card in the set would cost."
+    ]
+  },
+
+  "pitch-black": {
+    "funFacts": [
+      "Pitch Black is the newest of the 28 English sets on this site. Prices on a set this young move hard and fast, so treat every figure on this page as a snapshot rather than a settled number."
+    ]
+  },
+
+  "pokemon-go": {
+    "funFacts": [
+      "88 cards is small for a main set of its era. Rebel Clash and Chilling Reign, from either side of it, both run past 200.",
+      "Three of the cards are Radiant Rares. Only one other set on this site has any, Crown Zenith, which also has three."
+    ]
+  },
+
+  "prismatic-evolutions": {
+    "funFacts": [
+      "All eight Eeveelutions have an ex card here, and every one of them exists twice: a Double Rare worth a few dollars, and a Special Illustration Rare worth hundreds. Same Pokemon, same name, same set, and both are in the checklist below.",
+      "32 of the 180 cards are Special Illustration Rares. No other set on this site has more than 22."
+    ]
+  },
+
+  "rebel-clash": {
+    "funFacts": [
+      "The most expensive Common in Rebel Clash is a Magikarp, and only as a reverse holo: the reverse is worth about eight times the plain copy. Same card, same number, same rarity symbol, different foil. Both figures from pricecharting.com, read August 16, 2026.",
+      "That Magikarp sits in the chase grid at the top of this page beside seven Ultra Rares and Secret Rares. A Common almost never does that."
+    ]
+  },
+
+  "scarlet-violet": {
+    "funFacts": [
+      "Six of the eight cards in the chase grid at the top of this page are Illustration Rares of completely ordinary Pokemon: a Drowzee, a Ralts, a Kirlia, a Slowpoke, a Riolu and a Fidough. Not one of them is the top rarity in the set."
+    ]
+  },
+
+  "shining-fates": {
+    "funFacts": [
+      "The Shiny Vault is not in the checklist below. Those 122 cards, numbered SV001 and up, are filed as a separate set by the card database this site reads, so none of them is counted here and none of their prices are in any total on this page.",
+      "Three of the cards are Amazing Rares, and they are the only Amazing Rares in any of the 28 English sets on this site."
+    ]
+  },
+
+  "shrouded-fable": {
+    "funFacts": [
+      "The second most expensive card in Shrouded Fable is a basic Darkness Energy. It is a Hyper Rare printing of the plainest card in the game, and a Metal Energy is not far behind it.",
+      "At 99 cards this is the smallest Scarlet and Violet era set on this site. The next smallest is Black Bolt at 172."
+    ]
+  },
+
+  "stellar-crown": {
+    "funFacts": [
+      "The two most expensive cards in Stellar Crown are a Squirtle and a Bulbasaur, both Illustration Rares, and both are worth more than every Special Illustration Rare in the set. The tier above is not always where the money is."
+    ]
+  },
+
+  "surging-sparks": {
+    "funFacts": [
+      "Latios, an Illustration Rare, is worth roughly eight times its raw price in a PSA 10. This set's Special Illustration Rares sit nearer three. Raw from pricecharting.com, read August 16, 2026; PSA 10 from pokemonpricetracker.com, read August 11, 2026."
+    ]
+  },
+
+  "temporal-forces": {
+    "funFacts": [
+      "The most expensive card in Temporal Forces is a Gastly, and it is an Illustration Rare rather than the top rarity in the set. Every Special Illustration Rare here is worth less than it."
+    ]
+  },
+
+  "twilight-masquerade": {
+    "funFacts": [
+      "Perrin is in this set three times: an Uncommon, an Ultra Rare, and a Special Illustration Rare that is the second most expensive card in the set. Same person, three very different cards."
+    ]
+  },
+
+  "white-flare": {
+    "funFacts": [
+      "White Flare has a twin. Black Bolt came out the same day and is built to the same shape, down to a rarity the two of them share and nothing else on this site has: Black White Rare, two cards apiece.",
+      "70 of the 173 cards are Illustration Rares. Nothing else on this site is close except Black Bolt at 69; the next highest anywhere is 36."
+    ]
+  }
 }
