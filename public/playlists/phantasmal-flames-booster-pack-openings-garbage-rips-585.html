@@ -26,7 +26,8 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=8771d7cb">
 <link rel="stylesheet" href="/assets/packs.css?v=e32b0800">
-<style>.plid{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:var(--s4);max-width:46em}
+<style>.pl-blurb p+p{margin-top:var(--s3)}
+.plid{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:var(--s4);max-width:46em}
 .plid-set,.plid-prod{display:flex;align-items:center;gap:var(--s4);flex:1 1 15em;
 padding:var(--s3) var(--s4);border:1px solid var(--hair);border-radius:var(--r);
 background-color:var(--card);box-shadow:var(--lift);
@@ -170,12 +171,6 @@ font-size:var(--t-sm);line-height:1.5}
         <a href="/">Home</a> / <a href="/playlists.html">Playlists</a> / <span>Phantasmal Flames Booster Pack Openings 🔥 | Garbage Rips 585</span>
       </nav>
       <h1>Phantasmal Flames Booster Pack Openings 🔥 | Garbage Rips 585</h1>
-      <p class="lede" style="max-width:44em">Welcome to the official Phantasmal Flames Booster Pack Opening playlist from Garbage Rips 585 🗑️🔥
-This is where we keep testing our luck with Phantasmal Flames — sleeved boosters, single packs, redemption attempts, and probably some questionable decisions.
-Will Phantasmal Flames deliver heat…
-or will it stay certified garbage?
-If you enjoy Pokémon TCG openings, pack luck experiments, and chaotic garbage plate energy from Rochester, NY (585), this is the series for you.
-New rips added whenever we convince ourselves to try again.</p>
       <div class="plid">
         <a class="plid-set" href="/sets/phantasmal-flames.html">
           <img class="plid-logo" src="/assets/logos/phantasmal-flames-pokemon-tcg-set-logo-sm.webp"
@@ -185,21 +180,9 @@ New rips added whenever we convince ourselves to try again.</p>
         </a>
         
       </div>
-      <!-- THE WALL NEEDED A HEADING AND THIS IS IT. Every tile title in .wall is
-           an h3, and with nothing between it and the page h1 all 21 playlist
-           pages read h1 -> h3. Same defect and same fix as .loc h2 in ui.css
-           and .op-sh in build-openings.mjs, except that the tile heading here
-           CANNOT be promoted instead: .v h3 in ui.css is a tag selector used
-           by every video tile on the site, and ui.css is not this builder's to
-           edit. So the level goes in above the wall rather than under it.
-           The style is inline and copied from .op-sh rather than added to
-           PAGE_CSS because PAGE_CSS is only emitted when the strip is
-           non-empty and this heading is on every playlist page.
-           NOTE FOR THE NEXT EDITOR: this comment is inside a JS template
-           literal. A backtick in here ends the string and the build dies with
-           a syntax error a hundred lines away. That happened writing it. -->
+      <div class="lede pl-blurb" style="max-width:44em"><p>Welcome to the official Phantasmal Flames Booster Pack Opening playlist from Garbage Rips 585 🗑️🔥</p><p>This is where we keep testing our luck with Phantasmal Flames — sleeved boosters, single packs, redemption attempts, and probably some questionable decisions.</p><p>Will Phantasmal Flames deliver heat…<br>or will it stay certified garbage?</p><p>If you enjoy Pokémon TCG openings, pack luck experiments, and chaotic garbage plate energy from Rochester, NY (585), this is the series for you.</p><p>New rips added whenever we convince ourselves to try again.</p></div>
       <h2 style="font:400 var(--t-m)/1.2 var(--display);margin:var(--s5) 0 var(--s3)">In this playlist</h2>
-      <p class="pl-stat">10 videos &bull; newest Jul 29, 2026 &bull; click a pack to rip it open here</p>
+      <p class="pl-stat">10 videos &bull; 4:38 in total &bull; newest Jul 29, 2026 &bull; every one plays here</p>
       <div class="wall">
         <article class="v">
           <a class="art" href="/rip/did-we-get-the-zard-final-pack-3pUiN-8XkEk.html" aria-label="DID WE GET THE ZARD?! 🐉🔥 (Final Pack)">
@@ -215,7 +198,7 @@ New rips added whenever we convince ourselves to try again.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/did-we-get-the-zard-final-pack-3pUiN-8XkEk.html">Phantasmal Flames ex Premium Collection 2 - Pack 8</a></h3>
-          <p>PHANTASMAL FLAMES  •  995 VIEWS</p>
+          <p>995 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/i-found-an-sir-but-not-the-zard-R2VxbNMrlXQ.html" aria-label="I FOUND AN SIR! 💎 (But Not The Zard...)">
@@ -231,7 +214,7 @@ New rips added whenever we convince ourselves to try again.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/i-found-an-sir-but-not-the-zard-R2VxbNMrlXQ.html">Phantasmal Flames ex Premium Collection 2 - Pack 7</a></h3>
-          <p>PHANTASMAL FLAMES  •  1.1K VIEWS</p>
+          <p>1.1K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/phantasmal-flames-pack-11-still-no-charizard-sir-9UfyaoGCEZ8.html" aria-label="Phantasmal Flames Pack #11 🔥 | STILL No Charizard SIR… 😬">
@@ -247,7 +230,7 @@ New rips added whenever we convince ourselves to try again.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/phantasmal-flames-pack-11-still-no-charizard-sir-9UfyaoGCEZ8.html">Phantasmal Flames Pack (May 4, 2026)</a></h3>
-          <p>PHANTASMAL FLAMES  •  496 VIEWS</p>
+          <p>496 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/phantasmal-flames-pack-10-still-no-charizard-4qNvWCkNb9w.html" aria-label="Phantasmal Flames Pack #10 🔥 | STILL No Charizard?! 😬">
@@ -263,7 +246,7 @@ New rips added whenever we convince ourselves to try again.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/phantasmal-flames-pack-10-still-no-charizard-4qNvWCkNb9w.html">Phantasmal Flames Pack (May 2, 2026)</a></h3>
-          <p>PHANTASMAL FLAMES  •  689 VIEWS</p>
+          <p>689 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/phantasmal-flames-pack-9-still-no-charizard-sir-yeX4naszsoo.html" aria-label="Phantasmal Flames Pack #9 🔥 | Still No Charizard SIR… 😬">
@@ -279,7 +262,7 @@ New rips added whenever we convince ourselves to try again.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/phantasmal-flames-pack-9-still-no-charizard-sir-yeX4naszsoo.html">Phantasmal Flames Pack (Apr 29, 2026)</a></h3>
-          <p>PHANTASMAL FLAMES  •  1.2K VIEWS</p>
+          <p>1.2K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/only-garbage-rips-phantasmal-flames-pack-8-KEK0q0PgN_I.html" aria-label="Only Garbage Rips? 😬 | Phantasmal Flames Pack #8">
@@ -295,7 +278,7 @@ New rips added whenever we convince ourselves to try again.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/only-garbage-rips-phantasmal-flames-pack-8-KEK0q0PgN_I.html">Phantasmal Flames Pack (Apr 26, 2026)</a></h3>
-          <p>PHANTASMAL FLAMES  •  1.2K VIEWS</p>
+          <p>1.2K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/only-garbage-rips-phantasmal-flames-pack-7-S_2SHhBqlH8.html" aria-label="Only Garbage Rips? 😬 | Phantasmal Flames Pack #7">
@@ -311,7 +294,7 @@ New rips added whenever we convince ourselves to try again.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/only-garbage-rips-phantasmal-flames-pack-7-S_2SHhBqlH8.html">Phantasmal Flames Pack (Apr 20, 2026)</a></h3>
-          <p>PHANTASMAL FLAMES  •  1.1K VIEWS</p>
+          <p>1.1K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/only-garbage-rips-phantasmal-flames-sleeved-boosters-round-2-RMastm9Bosw.html" aria-label="Only Garbage Rips 😬 | Phantasmal Flames Sleeved Boosters (Round 2)">
@@ -327,7 +310,7 @@ New rips added whenever we convince ourselves to try again.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/only-garbage-rips-phantasmal-flames-sleeved-boosters-round-2-RMastm9Bosw.html">Phantasmal Flames Pack (Feb 20, 2026)</a></h3>
-          <p>PHANTASMAL FLAMES  •  288 VIEWS</p>
+          <p>288 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/only-garbage-rips-phantasmal-flames-sleeved-boosters-Prq7KI6j1Vk.html" aria-label="Only Garbage Rips 😬 | Phantasmal Flames Sleeved Boosters">
@@ -343,7 +326,7 @@ New rips added whenever we convince ourselves to try again.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/only-garbage-rips-phantasmal-flames-sleeved-boosters-Prq7KI6j1Vk.html">Phantasmal Flames Pack (Feb 9, 2026)</a></h3>
-          <p>PHANTASMAL FLAMES  •  507 VIEWS</p>
+          <p>507 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/only-garbage-rips-phantasmal-flames-blister-packs-AXOYuKfoBXU.html" aria-label="Only Garbage Rips 😬 | Phantasmal Flames Blister Packs">
@@ -359,10 +342,12 @@ New rips added whenever we convince ourselves to try again.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/only-garbage-rips-phantasmal-flames-blister-packs-AXOYuKfoBXU.html">Phantasmal Flames Blister</a></h3>
-          <p>PHANTASMAL FLAMES  •  30 VIEWS</p>
+          <p>30 VIEWS</p>
         </article>
       </div>
+
       <p style="margin-top:var(--s5)">
+        <a class="btn btn-ghost btn-sm" href="/sets/phantasmal-flames.html">Phantasmal Flames set guide</a>
         <a class="btn btn-ghost btn-sm" href="/playlists.html">All playlists</a>
         <a class="btn btn-ghost btn-sm" href="/videos.html">Every rip</a>
       </p>

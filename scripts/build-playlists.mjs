@@ -244,20 +244,114 @@ const cleanDesc = (s) => {
   // job is entity SEO it reads as stuffing. The human sentences always come
   // first, so the tail is what is cut.
   t = t.replace(/\n\s*garbage rips 585\s*$/i, "");
-  const lines = t.split(/\n+/);
+  // SPLIT ON ONE NEWLINE, NOT ON A RUN OF THEM. This was `split(/\n+/)` and
+  // rejoined with a single "\n", which DELETED every blank line in the blurb
+  // while the comment below it said this function kept them deliberately
+  // because they are what give the body its paragraphs. The paragraphs were
+  // gone before the page ever saw them. Trailing blanks are popped explicitly
+  // so the tail tests still see a real line.
+  const lines = t.split("\n");
+  const dropTrailingBlanks = () => {
+    while (lines.length && !lines[lines.length - 1].trim()) lines.pop();
+  };
+  dropTrailingBlanks();
   while (lines.length > 1) {
     const last = lines[lines.length - 1].trim();
     // A keyword run: several comma separated fragments, none of them a
     // sentence. Requires 3+ commas and no terminal punctuation, so an ordinary
     // sentence containing a comma is never mistaken for one.
     const commas = (last.match(/,/g) || []).length;
-    if (commas >= 3 && !/[.!?]$/.test(last) && last.length < 400) lines.pop();
-    else break;
+    if (commas >= 3 && !/[.!?]$/.test(last) && last.length < 400) {
+      lines.pop();
+      dropTrailingBlanks();
+    } else break;
   }
   t = lines.join("\n");
 
+  // AND THE TAIL WITH NO COMMAS IN IT, WHICH WAS TWELVE OF THE TWENTY-TWO.
+  // The rule above wants 3+ commas on ONE line. Twelve of these descriptions
+  // put ONE search term per LINE instead, so there is not a comma in the whole
+  // tail and the test never fired: "pokemon perfect order etb" / "perfect order
+  // elite trainer box opening" / ... / "garbage rips 585". The three that DO
+  // use commas are the ones this file already handled, which is why the shape
+  // looked solved. It was half solved.
+  //
+  // It reads worse than the comma form, not better, because .lede is
+  // white-space:normal: the line breaks collapse and the terms run together
+  // into one sentence-shaped wall of repeated words. Measured on the built
+  // pages at 390x844: 219 of the Surging Sparks blurb's 813 characters, and a
+  // full screen of "surging sparks pokemon surging sparks surging sparks
+  // booster pack surging sparks opening" between the h1 and the set logo. On
+  // Hits Only, the biggest playlist on the channel, 253 of 597.
+  //
+  // A keyword line is a short fragment with no terminal punctuation. THE TWO
+  // EXCLUSIONS ARE WHAT MAKE IT SAFE AND BOTH CAME OUT OF TIM'S OWN COPY: an
+  // emoji line ("First Pack Magic", "Pull the Umbreon ex SIR", each with its
+  // own emoji) and a bulleted line ("Pack luck") are also short and also
+  // unpunctuated, and both are real writing that CLOSES a description. Every
+  // human line one of these tails follows ends in . ! ? or a horizontal
+  // ellipsis, so the walk back stops on the first one, and the blank line that
+  // always separates the tail from the copy stops it too.
+  //
+  // THREE LINES MINIMUM, because a one line tail is what the comma rule above
+  // already handles and requiring a RUN means no single unpunctuated closing
+  // line can ever be mistaken for stuffing. The shortest real tail here is six.
+  const keywordLine = (s) => {
+    const v = s.trim();
+    if (!v || v.length > 60) return false;
+    if (/[.!?\u2026:;)]$/.test(v)) return false;
+    if (/\p{Extended_Pictographic}/u.test(v)) return false;
+    if (/[\u2022*|#]/.test(v)) return false;
+    return v.split(/\s+/).length <= 7;
+  };
+  const ls = t.split("\n");
+  let cut = ls.length;
+  while (cut > 1 && keywordLine(ls[cut - 1])) cut -= 1;
+  if (ls.length - cut >= 3) t = ls.slice(0, cut).join("\n");
+
   return t.replace(/[ \t]{2,}/g, " ").replace(/\s+$/, "").replace(/[\s\u2022|,;:-]+$/, "").trim();
 };
+
+/**
+ * The blurb as Tim wrote it, which is not what the page showed until now.
+ *
+ * THE LINE BREAKS WERE THE WRITING AND THE PAGE THREW THEM AWAY. He writes
+ * these in short lines on purpose. Read as he typed it:
+ *
+ *     We're testing:
+ *       Pack luck
+ *       Promo value
+ *       And whether Destined Rivals actually delivers... or is just bulk city
+ *
+ *     If you enjoy Pokemon TCG openings, ...
+ *
+ * One esc()'d string inside one <p class="lede"> with white-space:normal is
+ * what shipped, so every one of those breaks collapsed to a space and the
+ * Destined Rivals page read "...or is just bulk city If you enjoy Pokemon TCG
+ * openings", two sentences welded together with no punctuation between them
+ * because the punctuation WAS the line break. Twelve of the twenty two run
+ * lines like that. Nothing in the markup was wrong; the markup simply could
+ * not express what the source said.
+ *
+ * A blank line opens a paragraph, a single newline is a <br>, which is the
+ * shape of the source and the shape YouTube itself renders. Whitespace-only
+ * lines are dropped rather than emitted as an empty <br>: the pull rates rule
+ * above deletes a bullet and leaves the tab it was indented with behind.
+ */
+const blurbHtml = (t) =>
+  String(t)
+    .split(/\n\s*\n+/)
+    .map((block) =>
+      block
+        .split("\n")
+        .map((l) => l.trim())
+        .filter(Boolean)
+        .map(esc)
+        .join("<br>"),
+    )
+    .filter(Boolean)
+    .map((html) => `<p>${html}</p>`)
+    .join("");
 
 /** First sentence or so, for the meta description.
  *
@@ -302,6 +396,22 @@ const packMarkup = (setId) => `<span class="pack pack--${esc(setId)} pack--tile"
               <span class="pack-seal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
             </span>
           </span>`;
+
+/**
+ * The rules every playlist page needs, as against the strip rules below, which
+ * only 21 of the 22 draw. Same argument for inlining: ui.css is render blocking
+ * on all 426 pages and these serve 22.
+ *
+ * .lede is a div here rather than a p, so its paragraphs need their own gap.
+ * That is the whole of it: the sibling list below reuses .riplist, which is
+ * already in ui.css, already on the 56 /sets/ and /openings/ pages, and is
+ * exactly this shape (a link on the left, a small mono count on the right, a
+ * 44px row on a card). A second stylesheet for the same list would be a second
+ * thing to keep in step with it.
+ */
+const BASE_CSS = `
+.pl-blurb p+p{margin-top:var(--s3)}
+`;
 
 /**
  * The rules the strip needs, inlined here rather than added to
@@ -459,14 +569,41 @@ function labelsFor(vids) {
   );
 }
 
-function tile(v, labels) {
+/**
+ * @param oneSet  true when EVERY video on this page opens the same single set,
+ *                which is 21 of the 22 pages. See below for what it drops.
+ */
+function tile(v, labels, oneSet) {
   const sets = v.sets || [];
+  // THE SET NAME IS THE THIRD TIME THE PAGE SAYS IT AND IT WAS EATING THE ONE
+  // THING ON THIS LINE THE READER CANNOT GET ANYWHERE ELSE.
+  //
+  // .v p is white-space:nowrap with text-overflow:ellipsis, and 173px of mono
+  // micro at 390x844 does not hold "PERFECT ORDER  •  1.2K VIEWS": it holds 184
+  // and cuts the number. Measured across the family before this changed, 179 of
+  // the 259 tiles were truncated and on 9 of the 22 pages it was every tile on
+  // the page. Every one of them lost the view count, never the set name, since
+  // the cut comes off the right.
+  //
+  // On a playlist covering ONE set the name is already in the h1, in the
+  // breadcrumb and on the set logo in the identity strip, so it is the half
+  // with nothing to say. Dropping it leaves "1.2K VIEWS", which fits whole on
+  // every tile at 390. This is the same component /videos.html uses and the
+  // set name is load bearing THERE, in a mixed grid, which is why the rule is
+  // about the page and not about the tile.
+  //
+  // HITS ONLY KEEPS IT, and it is the only page that does. Its 55 videos span
+  // 14 sets, so the name is the most useful word on the line, and 40 of those
+  // tiles still truncate. That is a real cost and it is the right way round:
+  // the page where the set matters keeps the set.
   const meta = [
-    sets.length > 1
-      ? `${String(labelFor("sets", sets[0]) || sets[0]).toUpperCase()} +${sets.length - 1}`
-      : sets.length
-        ? String(labelFor("sets", sets[0]) || sets[0]).toUpperCase()
-        : null,
+    oneSet
+      ? null
+      : sets.length > 1
+        ? `${String(labelFor("sets", sets[0]) || sets[0]).toUpperCase()} +${sets.length - 1}`
+        : sets.length
+          ? String(labelFor("sets", sets[0]) || sets[0]).toUpperCase()
+          : null,
     compactViews(v.views),
   ].filter(Boolean);
   const pull = (v.pulls || [])[0];
@@ -482,29 +619,130 @@ function tile(v, labels) {
         </article>`;
 }
 
+// EVERY RUN RESOLVED BEFORE ANY PAGE IS WRITTEN, because a page has to be able
+// to name its siblings and say how long each of them is, and a count printed on
+// one page has to be the number of tiles the page it points at actually
+// renders. `count` in playlists.json is YouTube's own figure and includes
+// entries that are private or deleted and never reach a tile, so it is not the
+// number to print next to a link into this tree.
+const runs = live
+  .map((p) => {
+    const vids = (p.videoIds || []).map((id) => byId.get(id)).filter(Boolean);
+    const sets = new Set();
+    for (const v of vids) for (const s of v.sets || []) sets.add(s);
+    return { p, slug: slugFor(p), vids, setId: sets.size === 1 ? [...sets][0] : null };
+  })
+  .filter((r) => r.vids.length);
+
+/**
+ * The other runs of the same set.
+ *
+ * WHY THIS IS THE ONE LINK THESE PAGES WERE MISSING. Fourteen of the twenty one
+ * single-set playlists have a sibling and not one of them said so: there are
+ * three Pitch Black runs, three Chaos Rising, three Perfect Order, three
+ * Ascended Heroes and two Journey Together, and somebody who finished the Pitch
+ * Black Single Pack Hunt (one video) was offered "All playlists" and "Every
+ * rip", both of which are the whole library, and nothing in between. The next
+ * thing that reader wants is the ETB marathon of the same set, which is two
+ * taps away through an index for no reason.
+ *
+ * SAME SET, NEVER SAME PRODUCT. The point of the block is that these are the
+ * OTHER ways this set got opened, so the ETB run is exactly what belongs under
+ * the single pack hunt. Playlists spanning more than one set (Hits Only) have
+ * no set to be a sibling of and get nothing.
+ */
+function nearby(run) {
+  if (!run.setId) return "";
+  const setName = labelFor("sets", run.setId);
+  const others = runs.filter((r) => r.setId === run.setId && r.slug !== run.slug);
+  if (!others.length || !setName) return "";
+  const items = others
+    .map(
+      (r) => `        <li><a href="/playlists/${esc(r.slug)}.html">${esc(r.p.title)}</a>` +
+        `<span>${r.vids.length} video${r.vids.length === 1 ? "" : "s"}</span></li>`,
+    )
+    .join("\n");
+  return `      <h2 style="font:400 var(--t-m)/1.2 var(--display);margin:var(--s6) 0 var(--s3)">More ${esc(setName)} on the channel</h2>
+      <ul class="riplist">
+${items}
+      </ul>`;
+}
+
+// THE WALL NEEDED A HEADING AND THIS IS IT. Every tile title in .wall is an h3,
+// and with nothing between it and the page h1 all 21 playlist pages read
+// h1 -> h3. Same defect and same fix as .loc h2 in ui.css and .op-sh in
+// build-openings.mjs, except that the tile heading here CANNOT be promoted
+// instead: .v h3 in ui.css is a tag selector used by every video tile on the
+// site, and ui.css is not this builder's to edit. So the level goes in above
+// the wall rather than under it. The style is inline and copied from .op-sh.
+//
+// THIS NOTE WAS AN HTML COMMENT UNTIL 20 August 2026 AND IT SHIPPED. Nothing in
+// this builder strips comments out of the page it writes, unlike miniCSS above,
+// which strips them out of the stylesheet three lines away. 985 bytes of build
+// note went to a reader on all 22 pages, 21.1KB across the family, explaining a
+// heading nobody can see it above. It is a JS comment now, which is the only
+// kind this file can write for free. Before adding another HTML comment to a
+// page template here, check whether the reader is paying for it.
+const WALL_H2 =
+  '      <h2 style="font:400 var(--t-m)/1.2 var(--display);margin:var(--s5) 0 var(--s3)">In this playlist</h2>';
+
+/**
+ * HOW LONG THE WHOLE RUN IS, WHICH IS THE FACT THESE PAGES WERE MISSING.
+ *
+ * Somebody deciding what to watch next is deciding how much of their evening
+ * this costs, and until now the only answer on the page was a count: "21
+ * videos", which on a channel of vertical Shorts is unreadable as a time. The
+ * real figures are startling and they are the best argument these pages have.
+ * The Perfect Order ETB run is nine videos and 3:12. Hits Only, the biggest
+ * playlist on the channel at 55 entries, is 30:09, which is one sitting.
+ *
+ * WRITTEN IN THE SAME m:ss AS THE CHIP ON EVERY TILE BELOW IT, on purpose, so
+ * the number is not something a reader has to take on trust: it is the sum of
+ * the durations printed on the page's own artwork, in the notation they are
+ * printed in. Rounding it to "3 min" would have been friendlier to read and
+ * would have made it uncheckable. Only shown when every video on the page has
+ * a duration (all 22 do today) and only when there is more than one, since for
+ * a single video it would repeat that video's own chip.
+ *
+ * IT REPLACED "click a pack to rip it open here", which was the one piece of
+ * this template that existed because there was room for it. Every tile below
+ * carries RIP_BANNER, reading CLICK TO RIP THE PACK across the foot of the
+ * artwork, 55 times on the longest page, so the sentence was an instruction
+ * for something already labelled in larger type forty pixels lower. What it
+ * was reaching for is real and is kept in four words: what separates this page
+ * from the same playlist on YouTube is that the videos play HERE.
+ */
+function statLine(vids, newest) {
+  const total = vids.reduce((a, v) => a + (v.duration || 0), 0);
+  const timed = vids.length > 1 && vids.every((v) => v.duration);
+  return `      <p class="pl-stat">${vids.length} video${vids.length === 1 ? "" : "s"}${
+    timed ? ` &bull; ${clock(total)} in total` : ""
+  }${newest ? ` &bull; newest ${esc(shortDate(newest))}` : ""} &bull; every one plays here</p>`;
+}
+
 await rm(OUT, { recursive: true, force: true });
 await mkdir(OUT, { recursive: true });
 
 let written = 0;
 let missing = 0;
+for (const p of live) missing += (p.videoIds || []).length - p.videoIds.map((id) => byId.get(id)).filter(Boolean).length;
 
-for (const p of live) {
-  const slug = slugFor(p);
-  const vids = (p.videoIds || []).map((id) => byId.get(id)).filter(Boolean);
-  missing += (p.videoIds || []).length - vids.length;
-  if (!vids.length) continue;
+for (const run of runs) {
+  const { p, slug, vids } = run;
 
   const desc = cleanDesc(p.description);
   const strip = idStrip(p, vids);
   const url = `${SITE}/playlists/${slug}.html`;
   const newest = vids.map((v) => v.published).filter(Boolean).sort().pop();
-  // THE NEWLINES COME OUT HERE AND NOWHERE ELSE. cleanDesc deliberately keeps
-  // blank lines, because they are what give the blurb its paragraphs in the
-  // body of the page. A meta description is an ATTRIBUTE value, where a newline
-  // is not collapsed and does ship: 19 of these 21 pages had a literal line
-  // break inside <meta name="description">. build-pages.mjs already did this
-  // for the same reason and this file did not. `desc` below is untouched, so
-  // the page still reads in paragraphs.
+  // THE NEWLINES COME OUT HERE AND NOWHERE ELSE. cleanDesc keeps blank lines,
+  // and since 20 August 2026 that is TRUE rather than merely claimed: the line
+  // above this one used to split on a RUN of newlines and rejoin on a single
+  // one, so every paragraph break was deleted three steps before the page could
+  // use it. A meta description is an ATTRIBUTE value, where a newline is not
+  // collapsed and does ship: 19 of these 21 pages had a literal line break
+  // inside <meta name="description">. build-pages.mjs already did this for the
+  // same reason and this file did not. `desc` below is untouched and goes
+  // through blurbHtml, so the page reads in Tim's own paragraphs.
   const metaDesc = clip(
     (desc || `${vids.length} rip${vids.length === 1 ? "" : "s"} from Garbage Rips 585, in the order they were opened.`)
       .replace(/\s+/g, " ")
@@ -564,7 +802,8 @@ for (const p of live) {
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#192D22">
 ${FONTS}
-${STYLES}${strip ? `\n<style>${miniCSS(PAGE_CSS)}</style>` : ""}
+${STYLES}
+<style>${miniCSS(BASE_CSS + (strip ? PAGE_CSS : ""))}</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -579,32 +818,19 @@ ${MENU}
         <a href="/">Home</a> / <a href="/playlists.html">Playlists</a> / <span>${esc(p.title)}</span>
       </nav>
       <h1>${esc(p.title)}</h1>
-      <p class="lede" style="max-width:44em">${
-        desc ? esc(desc) : `${vids.length} rip${vids.length === 1 ? "" : "s"}, in playlist order.`
-      }</p>
 ${strip}
-      <!-- THE WALL NEEDED A HEADING AND THIS IS IT. Every tile title in .wall is
-           an h3, and with nothing between it and the page h1 all 21 playlist
-           pages read h1 -> h3. Same defect and same fix as .loc h2 in ui.css
-           and .op-sh in build-openings.mjs, except that the tile heading here
-           CANNOT be promoted instead: .v h3 in ui.css is a tag selector used
-           by every video tile on the site, and ui.css is not this builder's to
-           edit. So the level goes in above the wall rather than under it.
-           The style is inline and copied from .op-sh rather than added to
-           PAGE_CSS because PAGE_CSS is only emitted when the strip is
-           non-empty and this heading is on every playlist page.
-           NOTE FOR THE NEXT EDITOR: this comment is inside a JS template
-           literal. A backtick in here ends the string and the build dies with
-           a syntax error a hundred lines away. That happened writing it. -->
-      <h2 style="font:400 var(--t-m)/1.2 var(--display);margin:var(--s5) 0 var(--s3)">In this playlist</h2>
-      <p class="pl-stat">${vids.length} video${vids.length === 1 ? "" : "s"}${
-        newest ? ` &bull; newest ${esc(shortDate(newest))}` : ""
-      } &bull; click a pack to rip it open here</p>
+      <div class="lede pl-blurb" style="max-width:44em">${
+        desc ? blurbHtml(desc) : `<p>${vids.length} rip${vids.length === 1 ? "" : "s"}, in playlist order.</p>`
+      }</div>
+${WALL_H2}
+${statLine(vids, newest)}
       <div class="wall">
-${(() => { const labels = labelsFor(vids); return vids.map((v) => tile(v, labels)).join("\n"); })()}
+${(() => { const labels = labelsFor(vids); return vids.map((v) => tile(v, labels, Boolean(run.setId))).join("\n"); })()}
       </div>
+${nearby(run)}
       <p style="margin-top:var(--s5)">
-        <a class="btn btn-ghost btn-sm" href="/playlists.html">All playlists</a>
+        ${run.setId && labelFor("sets", run.setId) ? `<a class="btn btn-ghost btn-sm" href="/sets/${esc(run.setId)}.html">${esc(labelFor("sets", run.setId))} set guide</a>
+        ` : ""}<a class="btn btn-ghost btn-sm" href="/playlists.html">All playlists</a>
         <a class="btn btn-ghost btn-sm" href="/videos.html">Every rip</a>
       </p>
     </div>

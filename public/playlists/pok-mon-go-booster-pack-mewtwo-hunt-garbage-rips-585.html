@@ -26,7 +26,8 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=8771d7cb">
 <link rel="stylesheet" href="/assets/packs.css?v=e32b0800">
-<style>.plid{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:var(--s4);max-width:46em}
+<style>.pl-blurb p+p{margin-top:var(--s3)}
+.plid{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:var(--s4);max-width:46em}
 .plid-set,.plid-prod{display:flex;align-items:center;gap:var(--s4);flex:1 1 15em;
 padding:var(--s3) var(--s4);border:1px solid var(--hair);border-radius:var(--r);
 background-color:var(--card);box-shadow:var(--lift);
@@ -170,18 +171,6 @@ font-size:var(--t-sm);line-height:1.5}
         <a href="/">Home</a> / <a href="/playlists.html">Playlists</a> / <span>Pokémon GO Booster Pack Mewtwo Hunt ⚡ | Garbage Rips 585</span>
       </nav>
       <h1>Pokémon GO Booster Pack Mewtwo Hunt ⚡ | Garbage Rips 585</h1>
-      <p class="lede" style="max-width:44em">Welcome to the Pokémon GO Booster Pack Opening Series from Garbage Rips 585 🗑️⚡
-In this series we rip Pokémon GO booster packs one at a time searching for the New York City Times Square Mewtwo holo.
-Each pack is another chance for hits…
-or another certified garbage rip.
-Follow the full hunt as we see if the NYC Mewtwo actually shows up.
-pokemon go booster pack
-pokemon go tcg opening
-pokemon go mewtwo card
-pokemon go pack opening
-pokemon go series opening
-pokemon tcg opening
-pokemon pack opening series</p>
       <div class="plid">
         <a class="plid-set" href="/sets/pokemon-go.html">
           <img class="plid-logo" src="/assets/logos/pokemon-go-pokemon-tcg-set-logo-sm.webp"
@@ -195,21 +184,9 @@ pokemon pack opening series</p>
           <span>Opened here: the <b>Pokemon GO Booster Pack</b>, one pack.<br><small>Photo: TCGplayer.</small></span>
         </div>
       </div>
-      <!-- THE WALL NEEDED A HEADING AND THIS IS IT. Every tile title in .wall is
-           an h3, and with nothing between it and the page h1 all 21 playlist
-           pages read h1 -> h3. Same defect and same fix as .loc h2 in ui.css
-           and .op-sh in build-openings.mjs, except that the tile heading here
-           CANNOT be promoted instead: .v h3 in ui.css is a tag selector used
-           by every video tile on the site, and ui.css is not this builder's to
-           edit. So the level goes in above the wall rather than under it.
-           The style is inline and copied from .op-sh rather than added to
-           PAGE_CSS because PAGE_CSS is only emitted when the strip is
-           non-empty and this heading is on every playlist page.
-           NOTE FOR THE NEXT EDITOR: this comment is inside a JS template
-           literal. A backtick in here ends the string and the build dies with
-           a syntax error a hundred lines away. That happened writing it. -->
+      <div class="lede pl-blurb" style="max-width:44em"><p>Welcome to the Pokémon GO Booster Pack Opening Series from Garbage Rips 585 🗑️⚡</p><p>In this series we rip Pokémon GO booster packs one at a time searching for the New York City Times Square Mewtwo holo.</p><p>Each pack is another chance for hits…<br>or another certified garbage rip.</p><p>Follow the full hunt as we see if the NYC Mewtwo actually shows up.</p></div>
       <h2 style="font:400 var(--t-m)/1.2 var(--display);margin:var(--s5) 0 var(--s3)">In this playlist</h2>
-      <p class="pl-stat">12 videos &bull; newest Apr 27, 2026 &bull; click a pack to rip it open here</p>
+      <p class="pl-stat">12 videos &bull; 4:15 in total &bull; newest Apr 27, 2026 &bull; every one plays here</p>
       <div class="wall">
         <article class="v">
           <a class="art" href="/rip/pok-mon-go-pack-1-hunting-times-square-mewtwo-Jtqb7ZpQXos.html" aria-label="Pokémon GO Pack #1 😬 | Hunting Times Square Mewtwo">
@@ -225,7 +202,7 @@ pokemon pack opening series</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/pok-mon-go-pack-1-hunting-times-square-mewtwo-Jtqb7ZpQXos.html">Pokémon GO Pack (Mar 12, 2026)</a></h3>
-          <p>POKÉMON GO  •  414 VIEWS</p>
+          <p>414 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/pok-mon-go-booster-pack-2-mewtwo-hunt-continues-SJQCui3NGWw.html" aria-label="Pokémon GO Booster Pack #2 ⚡ | Mewtwo Hunt Continues">
@@ -241,7 +218,7 @@ pokemon pack opening series</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/pok-mon-go-booster-pack-2-mewtwo-hunt-continues-SJQCui3NGWw.html">Pokémon GO Pack (Mar 14, 2026)</a></h3>
-          <p>POKÉMON GO  •  1.6K VIEWS</p>
+          <p>1.6K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/pok-mon-go-booster-pack-3-getting-closer-to-mewtwo-tKOXv-qSYTo.html" aria-label="Pokémon GO Booster Pack #3 ⚡ | Getting Closer to Mewtwo?">
@@ -257,7 +234,7 @@ pokemon pack opening series</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/pok-mon-go-booster-pack-3-getting-closer-to-mewtwo-tKOXv-qSYTo.html">Pokémon GO Pack (Mar 24, 2026)</a></h3>
-          <p>POKÉMON GO  •  335 VIEWS</p>
+          <p>335 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/pok-mon-go-booster-pack-4-is-this-the-mewtwo-pack-yjBNG5dvopc.html" aria-label="Pokémon GO Booster Pack #4 ⚡ | Is This The Mewtwo Pack!?">
@@ -273,7 +250,7 @@ pokemon pack opening series</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/pok-mon-go-booster-pack-4-is-this-the-mewtwo-pack-yjBNG5dvopc.html">Pokémon GO Pack (Mar 26, 2026)</a></h3>
-          <p>POKÉMON GO  •  1.5K VIEWS</p>
+          <p>1.5K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/pok-mon-go-booster-pack-5-we-need-a-hit-wHaIoWhy7XE.html" aria-label="Pokémon GO Booster Pack #5 ⚡ | We Need A Hit… 😬">
@@ -289,7 +266,7 @@ pokemon pack opening series</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/pok-mon-go-booster-pack-5-we-need-a-hit-wHaIoWhy7XE.html">Pokémon GO Pack (Mar 28, 2026)</a></h3>
-          <p>POKÉMON GO  •  1.3K VIEWS</p>
+          <p>1.3K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/pok-mon-go-booster-pack-6-mewtwo-or-ditto-gSygkzEehmU.html" aria-label="Pokémon GO Booster Pack #6 ⚡ | Mewtwo or Ditto?!">
@@ -305,7 +282,7 @@ pokemon pack opening series</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/pok-mon-go-booster-pack-6-mewtwo-or-ditto-gSygkzEehmU.html">Pokémon GO Pack (Apr 1, 2026)</a></h3>
-          <p>POKÉMON GO  •  530 VIEWS</p>
+          <p>530 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/pok-mon-go-booster-pack-7-running-out-of-chances-5BnjVE-BN70.html" aria-label="Pokémon GO Booster Pack #7 ⚡ | Running Out of Chances… 😬">
@@ -321,7 +298,7 @@ pokemon pack opening series</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/pok-mon-go-booster-pack-7-running-out-of-chances-5BnjVE-BN70.html">Pokémon GO Pack (Apr 2, 2026)</a></h3>
-          <p>POKÉMON GO  •  1.1K VIEWS</p>
+          <p>1.1K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/only-garbage-rips-pok-mon-go-pack-8-7culUDeVb5Y.html" aria-label="Only Garbage Rips? 😬 | Pokémon GO Pack #8">
@@ -337,7 +314,7 @@ pokemon pack opening series</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/only-garbage-rips-pok-mon-go-pack-8-7culUDeVb5Y.html">Pokémon GO Pack (Apr 6, 2026)</a></h3>
-          <p>POKÉMON GO  •  1.4K VIEWS</p>
+          <p>1.4K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/only-garbage-rips-pok-mon-go-pack-9-MFBINfOTwZ8.html" aria-label="Only Garbage Rips? 😬 | Pokémon GO Pack #9">
@@ -353,7 +330,7 @@ pokemon pack opening series</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/only-garbage-rips-pok-mon-go-pack-9-MFBINfOTwZ8.html">Pokémon GO Pack (Apr 8, 2026)</a></h3>
-          <p>POKÉMON GO  •  1.1K VIEWS</p>
+          <p>1.1K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/final-pok-mon-go-pack-mewtwo-or-ditto-i9htInhtbCw.html" aria-label="FINAL Pokémon GO Pack ⚡ | Mewtwo or Ditto?! 😬">
@@ -369,7 +346,7 @@ pokemon pack opening series</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/final-pok-mon-go-pack-mewtwo-or-ditto-i9htInhtbCw.html">Pokémon GO Pack (Apr 9, 2026)</a></h3>
-          <p>POKÉMON GO  •  297 VIEWS</p>
+          <p>297 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/pok-mon-go-pack-11-the-hunt-continues--la8PgoBkCw.html" aria-label="Pokémon GO Pack #11 ⚡ | The Hunt Continues… 😬">
@@ -385,7 +362,7 @@ pokemon pack opening series</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/pok-mon-go-pack-11-the-hunt-continues--la8PgoBkCw.html">Pokémon GO Pack (Apr 25, 2026)</a></h3>
-          <p>POKÉMON GO  •  1.2K VIEWS</p>
+          <p>1.2K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/pok-mon-go-pack-12-still-no-ditto-or-mewtwo-QXS1W_L2qbs.html" aria-label="Pokémon GO Pack #12 ⚡ | STILL No Ditto or Mewtwo?! 😬">
@@ -401,10 +378,12 @@ pokemon pack opening series</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/pok-mon-go-pack-12-still-no-ditto-or-mewtwo-QXS1W_L2qbs.html">Pokémon GO Pack (Apr 27, 2026)</a></h3>
-          <p>POKÉMON GO  •  2.6K VIEWS</p>
+          <p>2.6K VIEWS</p>
         </article>
       </div>
+
       <p style="margin-top:var(--s5)">
+        <a class="btn btn-ghost btn-sm" href="/sets/pokemon-go.html">Pokémon GO set guide</a>
         <a class="btn btn-ghost btn-sm" href="/playlists.html">All playlists</a>
         <a class="btn btn-ghost btn-sm" href="/videos.html">Every rip</a>
       </p>

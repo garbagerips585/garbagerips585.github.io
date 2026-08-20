@@ -26,7 +26,8 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=8771d7cb">
 <link rel="stylesheet" href="/assets/packs.css?v=e32b0800">
-<style>.plid{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:var(--s4);max-width:46em}
+<style>.pl-blurb p+p{margin-top:var(--s3)}
+.plid{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:var(--s4);max-width:46em}
 .plid-set,.plid-prod{display:flex;align-items:center;gap:var(--s4);flex:1 1 15em;
 padding:var(--s3) var(--s4);border:1px solid var(--hair);border-radius:var(--r);
 background-color:var(--card);box-shadow:var(--lift);
@@ -170,11 +171,6 @@ font-size:var(--t-sm);line-height:1.5}
         <a href="/">Home</a> / <a href="/playlists.html">Playlists</a> / <span>Pokemon Chaos Rising Pack Opening Series ⚡🔥</span>
       </nav>
       <h1>Pokemon Chaos Rising Pack Opening Series ⚡🔥</h1>
-      <p class="lede" style="max-width:44em">Welcome to the Pokémon Chaos Rising Pack Opening Series ⚡🔥
-We’re opening Chaos Rising booster packs one video at a time hunting for MASSIVE pulls.
-Will Chaos Rising deliver insane hits…
-or complete chaos and Garbage Rips? 😬
-New packs added regularly.</p>
       <div class="plid">
         <a class="plid-set" href="/sets/chaos-rising.html">
           <img class="plid-logo" src="/assets/logos/chaos-rising-pokemon-tcg-set-logo-sm.webp"
@@ -184,21 +180,9 @@ New packs added regularly.</p>
         </a>
         
       </div>
-      <!-- THE WALL NEEDED A HEADING AND THIS IS IT. Every tile title in .wall is
-           an h3, and with nothing between it and the page h1 all 21 playlist
-           pages read h1 -> h3. Same defect and same fix as .loc h2 in ui.css
-           and .op-sh in build-openings.mjs, except that the tile heading here
-           CANNOT be promoted instead: .v h3 in ui.css is a tag selector used
-           by every video tile on the site, and ui.css is not this builder's to
-           edit. So the level goes in above the wall rather than under it.
-           The style is inline and copied from .op-sh rather than added to
-           PAGE_CSS because PAGE_CSS is only emitted when the strip is
-           non-empty and this heading is on every playlist page.
-           NOTE FOR THE NEXT EDITOR: this comment is inside a JS template
-           literal. A backtick in here ends the string and the build dies with
-           a syntax error a hundred lines away. That happened writing it. -->
+      <div class="lede pl-blurb" style="max-width:44em"><p>Welcome to the Pokémon Chaos Rising Pack Opening Series ⚡🔥</p><p>We’re opening Chaos Rising booster packs one video at a time hunting for MASSIVE pulls.</p><p>Will Chaos Rising deliver insane hits…<br>or complete chaos and Garbage Rips? 😬</p><p>New packs added regularly.</p></div>
       <h2 style="font:400 var(--t-m)/1.2 var(--display);margin:var(--s5) 0 var(--s3)">In this playlist</h2>
-      <p class="pl-stat">19 videos &bull; newest Aug 17, 2026 &bull; click a pack to rip it open here</p>
+      <p class="pl-stat">19 videos &bull; 6:26 in total &bull; newest Aug 17, 2026 &bull; every one plays here</p>
       <div class="wall">
         <article class="v">
           <a class="art" href="/rip/pokemon-chaos-rising-launch-day-booster-pack-1-h1vqc-37k_8.html" aria-label="Pokemon Chaos Rising LAUNCH DAY ⚡🔥 | Booster Pack #1">
@@ -214,7 +198,7 @@ New packs added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/pokemon-chaos-rising-launch-day-booster-pack-1-h1vqc-37k_8.html">Pokemon Chaos Rising LAUNCH DAY ⚡🔥 | Booster Pack #1</a></h3>
-          <p>CHAOS RISING  •  1.6K VIEWS</p>
+          <p>1.6K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/chaos-rising-pack-2-back-to-back-hits-JM8wHAH8FEw.html" aria-label="Chaos Rising Pack #2 ⚡🔥 | BACK TO BACK Hits?! 😳">
@@ -230,7 +214,7 @@ New packs added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/chaos-rising-pack-2-back-to-back-hits-JM8wHAH8FEw.html">Chaos Rising Pack #2 ⚡🔥 | BACK TO BACK Hits?! 😳</a></h3>
-          <p>CHAOS RISING  •  1.1K VIEWS</p>
+          <p>1.1K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/chaos-rising-pack-3-3-hits-in-a-row--jstsp3DQNI.html" aria-label="Chaos Rising Pack #3 ⚡🔥 | 3 HITS IN A ROW?! 😳">
@@ -246,7 +230,7 @@ New packs added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/chaos-rising-pack-3-3-hits-in-a-row--jstsp3DQNI.html">Chaos Rising Pack #3 ⚡🔥 | 3 HITS IN A ROW?! 😳</a></h3>
-          <p>CHAOS RISING  •  1.4K VIEWS</p>
+          <p>1.4K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/chaos-rising-pack-4-is-the-bad-luck-curse-starting-cdvEaKdmjeU.html" aria-label="Chaos Rising Pack #4 ⚡🔥 | Is The Bad Luck Curse Starting?! 😳">
@@ -262,7 +246,7 @@ New packs added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/chaos-rising-pack-4-is-the-bad-luck-curse-starting-cdvEaKdmjeU.html">Chaos Rising Pack #4 ⚡🔥 | Is The Bad Luck Curse Starting?! 😳</a></h3>
-          <p>CHAOS RISING  •  1.2K VIEWS</p>
+          <p>1.2K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/chaos-rising-pack-5-can-we-break-the-cold-streak-e6vbNj4YRJI.html" aria-label="Chaos Rising Pack #5 ⚡🔥 | Can We BREAK The Cold Streak?! 😳">
@@ -278,7 +262,7 @@ New packs added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/chaos-rising-pack-5-can-we-break-the-cold-streak-e6vbNj4YRJI.html">Chaos Rising Pack #5 ⚡🔥 | Can We BREAK The Cold Streak?! 😳</a></h3>
-          <p>CHAOS RISING  •  1.7K VIEWS</p>
+          <p>1.7K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/only-garbage-rips-chaos-rising-pack-6-HS0sPhhG3jo.html" aria-label="Only Garbage Rips? 😬 | Chaos Rising Pack #6">
@@ -294,7 +278,7 @@ New packs added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/only-garbage-rips-chaos-rising-pack-6-HS0sPhhG3jo.html">Only Garbage Rips? 😬 | Chaos Rising Pack #6</a></h3>
-          <p>CHAOS RISING  •  1.5K VIEWS</p>
+          <p>1.5K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/only-garbage-rips-chaos-rising-pack-7-a4iR-qPthjY.html" aria-label="Only Garbage Rips? 😭 | Chaos Rising Pack #7">
@@ -310,7 +294,7 @@ New packs added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/only-garbage-rips-chaos-rising-pack-7-a4iR-qPthjY.html">Chaos Rising Pack (Jun 27, 2026)</a></h3>
-          <p>CHAOS RISING  •  349 VIEWS</p>
+          <p>349 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/pokemon-chaos-rising-booster-pack-8-one-pack-magic-HHjdWa5tfXY.html" aria-label="Pokemon Chaos Rising Booster Pack #8 ⚡🔥 | One Pack Magic?!">
@@ -326,7 +310,7 @@ New packs added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/pokemon-chaos-rising-booster-pack-8-one-pack-magic-HHjdWa5tfXY.html">Chaos Rising Pack (Jun 28, 2026)</a></h3>
-          <p>CHAOS RISING  •  14 VIEWS</p>
+          <p>14 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/chaos-rising-pack-9-can-this-single-pack-hit-EifpW6bQhPE.html" aria-label="Chaos Rising Pack #9 😳 | Can This Single Pack Hit?!">
@@ -342,7 +326,7 @@ New packs added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/chaos-rising-pack-9-can-this-single-pack-hit-EifpW6bQhPE.html">Chaos Rising Pack (Jun 29, 2026)</a></h3>
-          <p>CHAOS RISING  •  39 VIEWS</p>
+          <p>39 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/pokemon-chaos-rising-pack-10-is-this-the-one-I14rr28Qduw.html" aria-label="Pokemon Chaos Rising Pack #10 ⚡ | Is This The One?!">
@@ -358,7 +342,7 @@ New packs added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/pokemon-chaos-rising-pack-10-is-this-the-one-I14rr28Qduw.html">Chaos Rising Pack (Jun 30, 2026)</a></h3>
-          <p>CHAOS RISING  •  23 VIEWS</p>
+          <p>23 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/just-one-pack-to-find-a-hit-Ec_2Is8DmI8.html" aria-label="Just ONE Pack to find a HIT... 🎯">
@@ -374,7 +358,7 @@ New packs added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/just-one-pack-to-find-a-hit-Ec_2Is8DmI8.html">Chaos Rising Pack (Jul 1, 2026)</a></h3>
-          <p>CHAOS RISING  •  290 VIEWS</p>
+          <p>290 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/first-pack-magic-ampharos-illustration-rare-RP08BTumj2U.html" aria-label="FIRST PACK MAGIC! ✨ | Ampharos Illustration Rare!">
@@ -390,7 +374,7 @@ New packs added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/first-pack-magic-ampharos-illustration-rare-RP08BTumj2U.html">Chaos Rising ex Premium Collection 1 - Pack 1</a></h3>
-          <p>CHAOS RISING  •  859 VIEWS</p>
+          <p>859 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/back-to-back-hits-mega-greninja-box-pack-2-pRkDVGXWufQ.html" aria-label="BACK-TO-BACK HITS! 😱 | Mega Greninja Box Pack #2">
@@ -406,7 +390,7 @@ New packs added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/back-to-back-hits-mega-greninja-box-pack-2-pRkDVGXWufQ.html">Chaos Rising ex Premium Collection 1 - Pack 2</a></h3>
-          <p>CHAOS RISING  •  922 VIEWS</p>
+          <p>922 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/the-streak-is-over-mega-greninja-box-pack-3-rUOMBBOjrXI.html" aria-label="The Streak is OVER! 😭 | Mega Greninja Box Pack #3">
@@ -422,7 +406,7 @@ New packs added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/the-streak-is-over-mega-greninja-box-pack-3-rUOMBBOjrXI.html">Chaos Rising ex Premium Collection 1 - Pack 3</a></h3>
-          <p>CHAOS RISING  •  987 VIEWS</p>
+          <p>987 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/the-mega-greninja-streak-is-dead-XxYqEIFgWvg.html" aria-label="The Mega Greninja Streak is DEAD 💀">
@@ -438,7 +422,7 @@ New packs added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/the-mega-greninja-streak-is-dead-XxYqEIFgWvg.html">Chaos Rising ex Premium Collection 1 - Pack 4</a></h3>
-          <p>CHAOS RISING  •  682 VIEWS</p>
+          <p>682 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/where-did-the-hits-go-mega-greninja-box-LGGJhVyJwDc.html" aria-label="Where Did the Hits Go?! 😱 Mega Greninja Box">
@@ -454,7 +438,7 @@ New packs added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/where-did-the-hits-go-mega-greninja-box-LGGJhVyJwDc.html">Chaos Rising ex Premium Collection 1 - Pack 5</a></h3>
-          <p>CHAOS RISING  •  591 VIEWS</p>
+          <p>591 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/the-streak-is-broken-mega-floette-ex-019sIQP5PwA.html" aria-label="THE STREAK IS BROKEN! 😱 Mega Floette ex">
@@ -470,7 +454,7 @@ New packs added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/the-streak-is-broken-mega-floette-ex-019sIQP5PwA.html">Chaos Rising ex Premium Collection 1 - Pack 6</a></h3>
-          <p>CHAOS RISING  •  996 VIEWS</p>
+          <p>996 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/the-cutest-pull-ever-chaos-rising-O5WscUY7qZI.html" aria-label="The Cutest Pull Ever?! 🐭✨ Chaos Rising">
@@ -486,7 +470,7 @@ New packs added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/the-cutest-pull-ever-chaos-rising-O5WscUY7qZI.html">Chaos Rising Pack - Pack 12</a></h3>
-          <p>CHAOS RISING  •  729 VIEWS</p>
+          <p>729 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/is-pack-13-actually-cursed-DP8HG31X1rg.html" aria-label="Is Pack #13 Actually CURSED? 💀🌑">
@@ -502,10 +486,16 @@ New packs added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/is-pack-13-actually-cursed-DP8HG31X1rg.html">Chaos Rising Pack - Pack 13</a></h3>
-          <p>CHAOS RISING  •  797 VIEWS</p>
+          <p>797 VIEWS</p>
         </article>
       </div>
+      <h2 style="font:400 var(--t-m)/1.2 var(--display);margin:var(--s6) 0 var(--s3)">More Chaos Rising on the channel</h2>
+      <ul class="riplist">
+        <li><a href="/playlists/pokemon-chaos-rising-etb-opening-series.html">Pokemon Chaos Rising ETB Opening Series ⚡🔥</a><span>21 videos</span></li>
+        <li><a href="/playlists/pokemon-chaos-rising-booster-bundle-opening-series.html">Pokemon Chaos Rising Booster Bundle Opening Series ⚡🔥</a><span>12 videos</span></li>
+      </ul>
       <p style="margin-top:var(--s5)">
+        <a class="btn btn-ghost btn-sm" href="/sets/chaos-rising.html">Chaos Rising set guide</a>
         <a class="btn btn-ghost btn-sm" href="/playlists.html">All playlists</a>
         <a class="btn btn-ghost btn-sm" href="/videos.html">Every rip</a>
       </p>

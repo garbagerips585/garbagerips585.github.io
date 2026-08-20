@@ -26,7 +26,8 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=8771d7cb">
 <link rel="stylesheet" href="/assets/packs.css?v=e32b0800">
-<style>.plid{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:var(--s4);max-width:46em}
+<style>.pl-blurb p+p{margin-top:var(--s3)}
+.plid{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:var(--s4);max-width:46em}
 .plid-set,.plid-prod{display:flex;align-items:center;gap:var(--s4);flex:1 1 15em;
 padding:var(--s3) var(--s4);border:1px solid var(--hair);border-radius:var(--r);
 background-color:var(--card);box-shadow:var(--lift);
@@ -170,12 +171,6 @@ font-size:var(--t-sm);line-height:1.5}
         <a href="/">Home</a> / <a href="/playlists.html">Playlists</a> / <span>Ascended Heroes Booster Pack Opening Series 🔥 | Garbage Rips 585</span>
       </nav>
       <h1>Ascended Heroes Booster Pack Opening Series 🔥 | Garbage Rips 585</h1>
-      <p class="lede" style="max-width:44em">Welcome to the official Ascended Heroes Booster Pack Opening Series from Garbage Rips 585 🗑️🔥
-This is where we rip pack after pack of the all-new Pokémon Ascended Heroes set — testing luck, chasing hits, and seeing if this set is actually heat… or just more garbage.
-Will Ascended Heroes live up to the name?
-Or are we about to learn some hard lessons?
-If you enjoy Pokémon TCG openings, redemption arcs, pack luck experiments, and full garbage plate energy from Rochester, NY (585), this is the playlist to binge.
-New Ascended Heroes rips added regularly.</p>
       <div class="plid">
         <a class="plid-set" href="/sets/ascended-heroes.html">
           <img class="plid-logo" src="/assets/logos/ascended-heroes-pokemon-tcg-set-logo-sm.webp"
@@ -185,21 +180,9 @@ New Ascended Heroes rips added regularly.</p>
         </a>
         
       </div>
-      <!-- THE WALL NEEDED A HEADING AND THIS IS IT. Every tile title in .wall is
-           an h3, and with nothing between it and the page h1 all 21 playlist
-           pages read h1 -> h3. Same defect and same fix as .loc h2 in ui.css
-           and .op-sh in build-openings.mjs, except that the tile heading here
-           CANNOT be promoted instead: .v h3 in ui.css is a tag selector used
-           by every video tile on the site, and ui.css is not this builder's to
-           edit. So the level goes in above the wall rather than under it.
-           The style is inline and copied from .op-sh rather than added to
-           PAGE_CSS because PAGE_CSS is only emitted when the strip is
-           non-empty and this heading is on every playlist page.
-           NOTE FOR THE NEXT EDITOR: this comment is inside a JS template
-           literal. A backtick in here ends the string and the build dies with
-           a syntax error a hundred lines away. That happened writing it. -->
+      <div class="lede pl-blurb" style="max-width:44em"><p>Welcome to the official Ascended Heroes Booster Pack Opening Series from Garbage Rips 585 🗑️🔥</p><p>This is where we rip pack after pack of the all-new Pokémon Ascended Heroes set — testing luck, chasing hits, and seeing if this set is actually heat… or just more garbage.</p><p>Will Ascended Heroes live up to the name?<br>Or are we about to learn some hard lessons?</p><p>If you enjoy Pokémon TCG openings, redemption arcs, pack luck experiments, and full garbage plate energy from Rochester, NY (585), this is the playlist to binge.</p><p>New Ascended Heroes rips added regularly.</p></div>
       <h2 style="font:400 var(--t-m)/1.2 var(--display);margin:var(--s5) 0 var(--s3)">In this playlist</h2>
-      <p class="pl-stat">20 videos &bull; newest Jul 13, 2026 &bull; click a pack to rip it open here</p>
+      <p class="pl-stat">20 videos &bull; 9:19 in total &bull; newest Jul 13, 2026 &bull; every one plays here</p>
       <div class="wall">
         <article class="v">
           <a class="art" href="/rip/only-garbage-rips-mega-emboar-box-2-finale-xqV7AYXoVJs.html" aria-label="Only Garbage Rips? 😬 | Mega Emboar Box #2 FINALE">
@@ -215,7 +198,7 @@ New Ascended Heroes rips added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/only-garbage-rips-mega-emboar-box-2-finale-xqV7AYXoVJs.html">Ascended Heroes ex Premium Collection 2 - Pack 4</a></h3>
-          <p>ASCENDED HEROES  •  628 VIEWS</p>
+          <p>628 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/finally-an-ex-hit-mega-emboar-box-2-nBKJMnw9L2Y.html" aria-label="Finally! An ex Hit! ⚡ | Mega Emboar Box #2">
@@ -231,7 +214,7 @@ New Ascended Heroes rips added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/finally-an-ex-hit-mega-emboar-box-2-nBKJMnw9L2Y.html">Ascended Heroes ex Premium Collection 2 - Pack 3</a></h3>
-          <p>ASCENDED HEROES  •  706 VIEWS</p>
+          <p>706 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/pokemon-ascended-heroes-the-dry-spell-continues-uTGe-WswoVY.html" aria-label="Pokemon Ascended Heroes ⚡ | The Dry Spell Continues...">
@@ -247,7 +230,7 @@ New Ascended Heroes rips added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/pokemon-ascended-heroes-the-dry-spell-continues-uTGe-WswoVY.html">Ascended Heroes ex Premium Collection 2 - Pack 2</a></h3>
-          <p>ASCENDED HEROES  •  723 VIEWS</p>
+          <p>723 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/scorbunny-illustration-rare-mega-meganium-box-2-u9zpVOVsWyg.html" aria-label="SCORBUNNY ILLUSTRATION RARE! 🔥 | Mega Meganium Box #2">
@@ -263,7 +246,7 @@ New Ascended Heroes rips added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/scorbunny-illustration-rare-mega-meganium-box-2-u9zpVOVsWyg.html">Ascended Heroes ex Premium Collection (Jul 9, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  536 VIEWS</p>
+          <p>536 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/pokemon-ascended-heroes-mega-emboar-pack-1-reality-check-WhfY82RrS4w.html" aria-label="Pokemon Ascended Heroes ⚡ | Mega Emboar Pack #1 Reality Check">
@@ -279,7 +262,7 @@ New Ascended Heroes rips added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/pokemon-ascended-heroes-mega-emboar-pack-1-reality-check-WhfY82RrS4w.html">Ascended Heroes ex Premium Collection (Jul 8, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  1K VIEWS</p>
+          <p>1K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/mega-meganium-box-2-where-are-the-hits-blSCuSk5nb0.html" aria-label="Mega Meganium Box #2: Where are the hits?! 🌿">
@@ -295,7 +278,7 @@ New Ascended Heroes rips added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/mega-meganium-box-2-where-are-the-hits-blSCuSk5nb0.html">Ascended Heroes ex Premium Collection (Jul 6, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  495 VIEWS</p>
+          <p>495 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/ascended-heroes-pack-7-still-no-big-hits-A38u-diwmvw.html" aria-label="Ascended Heroes Pack #7 ⚡ | STILL No Big Hits… 😬">
@@ -311,7 +294,7 @@ New Ascended Heroes rips added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/ascended-heroes-pack-7-still-no-big-hits-A38u-diwmvw.html">Ascended Heroes Pack (May 7, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  483 VIEWS</p>
+          <p>483 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/ascended-heroes-pack-6-still-no-big-hits-GroN9k8XsN0.html" aria-label="Ascended Heroes Pack #6 ⚡ | STILL No Big Hits… 😬">
@@ -327,7 +310,7 @@ New Ascended Heroes rips added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/ascended-heroes-pack-6-still-no-big-hits-GroN9k8XsN0.html">Ascended Heroes Pack (Apr 29, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  1.3K VIEWS</p>
+          <p>1.3K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/ascended-heroes-mini-tin-4-we-need-a-hit-rMMOuM8bsqE.html" aria-label="Ascended Heroes Mini Tin #4 ⚡ | We NEED A Hit 😬">
@@ -343,7 +326,7 @@ New Ascended Heroes rips added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/ascended-heroes-mini-tin-4-we-need-a-hit-rMMOuM8bsqE.html">Ascended Heroes Tin (Apr 28, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  1K VIEWS</p>
+          <p>1K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/ascended-heroes-first-partners-deluxe-pin-collection-fZk7D5Wd0Eg.html" aria-label="Ascended Heroes First Partners Deluxe Pin Collection 🌱🔥💧">
@@ -359,7 +342,7 @@ New Ascended Heroes rips added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/ascended-heroes-first-partners-deluxe-pin-collection-fZk7D5Wd0Eg.html">Ascended Heroes Collection Box (Apr 10, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  834 VIEWS</p>
+          <p>834 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/ascended-heroes-sticker-collection-charmander-promo--fOEh7wMmkE.html" aria-label="Ascended Heroes Sticker Collection 😬 | Charmander Promo 🔥">
@@ -375,7 +358,7 @@ New Ascended Heroes rips added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/ascended-heroes-sticker-collection-charmander-promo--fOEh7wMmkE.html">Ascended Heroes Collection Box (Apr 8, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  521 VIEWS</p>
+          <p>521 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/ascended-heroes-tech-sticker-collection-gastly-promo-LlGPrTKqIYg.html" aria-label="Ascended Heroes Tech Sticker Collection 👻 | Gastly Promo">
@@ -391,7 +374,7 @@ New Ascended Heroes rips added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/ascended-heroes-tech-sticker-collection-gastly-promo-LlGPrTKqIYg.html">Ascended Heroes Collection Box (Apr 4, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  778 VIEWS</p>
+          <p>778 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/ascended-heroes-mini-tin-1-whats-inside-LKSHOUDN-i4.html" aria-label="Ascended Heroes Mini Tin #1 ⚡ | What’s Inside?">
@@ -407,7 +390,7 @@ New Ascended Heroes rips added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/ascended-heroes-mini-tin-1-whats-inside-LKSHOUDN-i4.html">Ascended Heroes Tin (Apr 3, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  307 VIEWS</p>
+          <p>307 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/ascended-heroes-2-pack-blister-erikas-tangela-promo-SOQUDUMboVU.html" aria-label="Ascended Heroes 2-Pack Blister 🌿 | Erika’s Tangela Promo">
@@ -423,7 +406,7 @@ New Ascended Heroes rips added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/ascended-heroes-2-pack-blister-erikas-tangela-promo-SOQUDUMboVU.html">Ascended Heroes Blister (Mar 8, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  1.4K VIEWS</p>
+          <p>1.4K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/only-garbage-rips-ascended-heroes-2-pack-blister-8xqvY3OzugE.html" aria-label="Only Garbage Rips? 😬 | Ascended Heroes 2-Pack Blister">
@@ -439,7 +422,7 @@ New Ascended Heroes rips added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/only-garbage-rips-ascended-heroes-2-pack-blister-8xqvY3OzugE.html">Ascended Heroes Blister (Mar 2, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  130 VIEWS</p>
+          <p>130 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/pok-mon-ascended-heroes-booster-pack-5-opening-qdzDD_kM4Uk.html" aria-label="Pokémon Ascended Heroes Booster Pack #5 Opening">
@@ -455,7 +438,7 @@ New Ascended Heroes rips added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/pok-mon-ascended-heroes-booster-pack-5-opening-qdzDD_kM4Uk.html">Ascended Heroes Pack (Feb 25, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  626 VIEWS</p>
+          <p>626 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/ascended-heroes-pack-4-is-this-the-one-n_3lk9V4L64.html" aria-label="Ascended Heroes Pack #4… Is This The One? 😬">
@@ -471,7 +454,7 @@ New Ascended Heroes rips added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/ascended-heroes-pack-4-is-this-the-one-n_3lk9V4L64.html">Ascended Heroes Pack (Feb 23, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  262 VIEWS</p>
+          <p>262 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/ascended-heroes-pack-3-third-times-the-charm-LROQ-vFl4Hs.html" aria-label="Ascended Heroes Pack #3… Third Time’s the Charm? 😬">
@@ -487,7 +470,7 @@ New Ascended Heroes rips added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/ascended-heroes-pack-3-third-times-the-charm-LROQ-vFl4Hs.html">Ascended Heroes Pack (Feb 21, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  252 VIEWS</p>
+          <p>252 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/ascended-heroes-pack-2-any-luck-garbage-rips-vzYuzHFbueo.html" aria-label="Ascended Heroes Pack #2… Any Luck? 😬 | Garbage Rips">
@@ -503,7 +486,7 @@ New Ascended Heroes rips added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/ascended-heroes-pack-2-any-luck-garbage-rips-vzYuzHFbueo.html">Ascended Heroes Pack (Feb 19, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  1.2K VIEWS</p>
+          <p>1.2K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/only-garbage-rips-pok-mon-ascended-heroes-pack-1-3dKWTVbCH3I.html" aria-label="Only Garbage Rips 😬 | Pokémon Ascended Heroes Pack #1">
@@ -519,10 +502,16 @@ New Ascended Heroes rips added regularly.</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/only-garbage-rips-pok-mon-ascended-heroes-pack-1-3dKWTVbCH3I.html">Ascended Heroes Pack (Feb 17, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  779 VIEWS</p>
+          <p>779 VIEWS</p>
         </article>
       </div>
+      <h2 style="font:400 var(--t-m)/1.2 var(--display);margin:var(--s6) 0 var(--s3)">More Ascended Heroes on the channel</h2>
+      <ul class="riplist">
+        <li><a href="/playlists/ascended-heroes-booster-bundle-opening-series.html">Ascended Heroes Booster Bundle Opening Series ⚡</a><span>12 videos</span></li>
+        <li><a href="/playlists/ascended-heroes-elite-trainer-box-pack-series-garbage-rips-5.html">Ascended Heroes Elite Trainer Box Pack Series ⚡ | Garbage Rips 585</a><span>9 videos</span></li>
+      </ul>
       <p style="margin-top:var(--s5)">
+        <a class="btn btn-ghost btn-sm" href="/sets/ascended-heroes.html">Ascended Heroes set guide</a>
         <a class="btn btn-ghost btn-sm" href="/playlists.html">All playlists</a>
         <a class="btn btn-ghost btn-sm" href="/videos.html">Every rip</a>
       </p>

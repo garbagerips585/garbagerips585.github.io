@@ -26,7 +26,8 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=8771d7cb">
 <link rel="stylesheet" href="/assets/packs.css?v=e32b0800">
-<style>.plid{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:var(--s4);max-width:46em}
+<style>.pl-blurb p+p{margin-top:var(--s3)}
+.plid{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:var(--s4);max-width:46em}
 .plid-set,.plid-prod{display:flex;align-items:center;gap:var(--s4);flex:1 1 15em;
 padding:var(--s3) var(--s4);border:1px solid var(--hair);border-radius:var(--r);
 background-color:var(--card);box-shadow:var(--lift);
@@ -170,20 +171,6 @@ font-size:var(--t-sm);line-height:1.5}
         <a href="/">Home</a> / <a href="/playlists.html">Playlists</a> / <span>Perfect Order Booster Bundle Series ⚡(6 Packs Series)</span>
       </nav>
       <h1>Perfect Order Booster Bundle Series ⚡(6 Packs Series)</h1>
-      <p class="lede" style="max-width:44em">Welcome to the Perfect Order Booster Bundle Series ⚡
-We’re opening a full 6-pack booster bundle from the brand new Pokémon Perfect Order set — part of the 30th Anniversary year.
-Each video = one pack.
-6 packs.
-6 chances for hits.
-Will this bundle deliver…
-or be nothing but Garbage Rips?
-pokemon perfect order booster bundle
-perfect order bundle opening
-pokemon pack opening series
-pokemon booster bundle
-pokemon new set opening
-pokemon 30th anniversary
-pokemon tcg opening</p>
       <div class="plid">
         <a class="plid-set" href="/sets/perfect-order.html">
           <img class="plid-logo" src="/assets/logos/perfect-order-pokemon-tcg-set-logo-sm.webp"
@@ -197,21 +184,9 @@ pokemon tcg opening</p>
           <span>Opened here: the <b>Perfect Order Booster Bundle</b>, 6 packs.<br><small>Photo: TCGplayer.</small></span>
         </div>
       </div>
-      <!-- THE WALL NEEDED A HEADING AND THIS IS IT. Every tile title in .wall is
-           an h3, and with nothing between it and the page h1 all 21 playlist
-           pages read h1 -> h3. Same defect and same fix as .loc h2 in ui.css
-           and .op-sh in build-openings.mjs, except that the tile heading here
-           CANNOT be promoted instead: .v h3 in ui.css is a tag selector used
-           by every video tile on the site, and ui.css is not this builder's to
-           edit. So the level goes in above the wall rather than under it.
-           The style is inline and copied from .op-sh rather than added to
-           PAGE_CSS because PAGE_CSS is only emitted when the strip is
-           non-empty and this heading is on every playlist page.
-           NOTE FOR THE NEXT EDITOR: this comment is inside a JS template
-           literal. A backtick in here ends the string and the build dies with
-           a syntax error a hundred lines away. That happened writing it. -->
+      <div class="lede pl-blurb" style="max-width:44em"><p>Welcome to the Perfect Order Booster Bundle Series ⚡</p><p>We’re opening a full 6-pack booster bundle from the brand new Pokémon Perfect Order set — part of the 30th Anniversary year.</p><p>Each video = one pack.<br>6 packs.<br>6 chances for hits.</p><p>Will this bundle deliver…<br>or be nothing but Garbage Rips?</p></div>
       <h2 style="font:400 var(--t-m)/1.2 var(--display);margin:var(--s5) 0 var(--s3)">In this playlist</h2>
-      <p class="pl-stat">12 videos &bull; newest Jun 6, 2026 &bull; click a pack to rip it open here</p>
+      <p class="pl-stat">12 videos &bull; 4:32 in total &bull; newest Jun 6, 2026 &bull; every one plays here</p>
       <div class="wall">
         <article class="v">
           <a class="art" href="/rip/only-garbage-rips-perfect-order-booster-bundle-pack-1-OTKn4mNzQ7I.html" aria-label="Only Garbage Rips? 😬 | Perfect Order Booster Bundle Pack #1">
@@ -227,7 +202,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/only-garbage-rips-perfect-order-booster-bundle-pack-1-OTKn4mNzQ7I.html">Perfect Order Booster Bundle (Apr 10, 2026)</a></h3>
-          <p>PERFECT ORDER  •  1K VIEWS</p>
+          <p>1K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/perfect-order-booster-bundle-pack-2-8Nbj7wLBgrc.html" aria-label="Perfect Order Booster Bundle ⚡ | Pack #2">
@@ -243,7 +218,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/perfect-order-booster-bundle-pack-2-8Nbj7wLBgrc.html">Perfect Order Booster Bundle (Apr 11, 2026)</a></h3>
-          <p>PERFECT ORDER  •  1.3K VIEWS</p>
+          <p>1.3K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/perfect-order-booster-bundle-pack-3-tlOeWpJhJ1E.html" aria-label="Perfect Order Booster Bundle ⚡ | Pack #3">
@@ -259,7 +234,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/perfect-order-booster-bundle-pack-3-tlOeWpJhJ1E.html">Perfect Order Booster Bundle (Apr 13, 2026)</a></h3>
-          <p>PERFECT ORDER  •  1.2K VIEWS</p>
+          <p>1.2K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/perfect-order-booster-bundle-pack-4-6sg185zTjM4.html" aria-label="Perfect Order Booster Bundle ⚡ | Pack #4">
@@ -275,7 +250,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/perfect-order-booster-bundle-pack-4-6sg185zTjM4.html">Perfect Order Booster Bundle (Apr 15, 2026)</a></h3>
-          <p>PERFECT ORDER  •  960 VIEWS</p>
+          <p>960 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/perfect-order-booster-bundle-pack-5-we-need-a-hit-fFbWjWLD1N4.html" aria-label="Perfect Order Booster Bundle ⚡ | Pack #5… We NEED A Hit 😬">
@@ -291,7 +266,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/perfect-order-booster-bundle-pack-5-we-need-a-hit-fFbWjWLD1N4.html">Perfect Order Booster Bundle (Apr 17, 2026)</a></h3>
-          <p>PERFECT ORDER  •  1.3K VIEWS</p>
+          <p>1.3K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/final-perfect-order-booster-bundle-pack-last-pack-magic-7PBrXPgt9kU.html" aria-label="FINAL Perfect Order Booster Bundle Pack ⚡ | Last Pack Magic?! 😬">
@@ -307,7 +282,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/final-perfect-order-booster-bundle-pack-last-pack-magic-7PBrXPgt9kU.html">Perfect Order Booster Bundle (Apr 20, 2026)</a></h3>
-          <p>PERFECT ORDER  •  1K VIEWS</p>
+          <p>1K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/perfect-order-booster-bundle-2-pack-1-first-pack-magic-JPzh3KWw084.html" aria-label="Perfect Order Booster Bundle #2 ⚡ | Pack #1 (First Pack Magic?!)">
@@ -323,7 +298,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/perfect-order-booster-bundle-2-pack-1-first-pack-magic-JPzh3KWw084.html">Perfect Order Booster Bundle (May 31, 2026)</a></h3>
-          <p>PERFECT ORDER  •  777 VIEWS</p>
+          <p>777 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/only-garbage-rips-perfect-order-bundle-2-pack-2-Y6rNMk6_kFs.html" aria-label="Only Garbage Rips? 😬 | Perfect Order Bundle #2 Pack #2">
@@ -339,7 +314,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/only-garbage-rips-perfect-order-bundle-2-pack-2-Y6rNMk6_kFs.html">Perfect Order Booster Bundle (Jun 2, 2026)</a></h3>
-          <p>PERFECT ORDER  •  1.3K VIEWS</p>
+          <p>1.3K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/perfect-order-booster-bundle-2-pack-3-getting-lucky-wtUPdMnZ_S8.html" aria-label="Perfect Order Booster Bundle #2 ⚡ | Pack #3 (Getting Lucky?!)">
@@ -355,7 +330,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/perfect-order-booster-bundle-2-pack-3-getting-lucky-wtUPdMnZ_S8.html">Perfect Order Booster Bundle (Jun 3, 2026)</a></h3>
-          <p>PERFECT ORDER  •  28 VIEWS</p>
+          <p>28 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/perfect-order-booster-bundle-2-pack-4-we-need-a-hit-qUzKnP4zmjM.html" aria-label="Perfect Order Booster Bundle #2 ⚡ | Pack #4 (We NEED A Hit 😬)">
@@ -371,7 +346,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/perfect-order-booster-bundle-2-pack-4-we-need-a-hit-qUzKnP4zmjM.html">Perfect Order Booster Bundle (Jun 5, 2026)</a></h3>
-          <p>PERFECT ORDER  •  1K VIEWS</p>
+          <p>1K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/perfect-order-booster-bundle-2-pack-5-please-save-this-bundl-7qgnakc3__c.html" aria-label="Perfect Order Booster Bundle #2 ⚡ | Pack #5 (PLEASE Save This Bundle 😬)">
@@ -387,7 +362,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/perfect-order-booster-bundle-2-pack-5-please-save-this-bundl-7qgnakc3__c.html">Perfect Order Booster Bundle #2 ⚡ | Pack #5 (PLEASE Save This Bundle 😬)</a></h3>
-          <p>PERFECT ORDER  •  915 VIEWS</p>
+          <p>915 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/final-perfect-order-booster-bundle-2-pack-last-pack-magic-l_vpvsLXG50.html" aria-label="FINAL Perfect Order Booster Bundle #2 Pack ⚡🔥 | Last Pack Magic?! 😳">
@@ -403,10 +378,16 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/final-perfect-order-booster-bundle-2-pack-last-pack-magic-l_vpvsLXG50.html">FINAL Perfect Order Booster Bundle #2 Pack ⚡🔥 | Last Pack Magic?! 😳</a></h3>
-          <p>PERFECT ORDER  •  804 VIEWS</p>
+          <p>804 VIEWS</p>
         </article>
       </div>
+      <h2 style="font:400 var(--t-m)/1.2 var(--display);margin:var(--s6) 0 var(--s3)">More Perfect Order on the channel</h2>
+      <ul class="riplist">
+        <li><a href="/playlists/perfect-order-etb-pack-opening-series.html">Perfect Order ETB Pack Opening Series ⚡</a><span>9 videos</span></li>
+        <li><a href="/playlists/pok-mon-perfect-order-pack-opening-series.html">Pokémon Perfect Order Pack Opening Series ⚡</a><span>18 videos</span></li>
+      </ul>
       <p style="margin-top:var(--s5)">
+        <a class="btn btn-ghost btn-sm" href="/sets/perfect-order.html">Perfect Order set guide</a>
         <a class="btn btn-ghost btn-sm" href="/playlists.html">All playlists</a>
         <a class="btn btn-ghost btn-sm" href="/videos.html">Every rip</a>
       </p>

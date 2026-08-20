@@ -26,7 +26,8 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=8771d7cb">
 <link rel="stylesheet" href="/assets/packs.css?v=e32b0800">
-<style>.plid{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:var(--s4);max-width:46em}
+<style>.pl-blurb p+p{margin-top:var(--s3)}
+.plid{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:var(--s4);max-width:46em}
 .plid-set,.plid-prod{display:flex;align-items:center;gap:var(--s4);flex:1 1 15em;
 padding:var(--s3) var(--s4);border:1px solid var(--hair);border-radius:var(--r);
 background-color:var(--card);box-shadow:var(--lift);
@@ -170,20 +171,6 @@ font-size:var(--t-sm);line-height:1.5}
         <a href="/">Home</a> / <a href="/playlists.html">Playlists</a> / <span>Prismatic Evolutions ETB Pack Opening Series 🌙✨</span>
       </nav>
       <h1>Prismatic Evolutions ETB Pack Opening Series 🌙✨</h1>
-      <p class="lede" style="max-width:44em">Welcome to the Prismatic Evolutions ETB Pack Opening Series ✨
-We’re opening an entire Elite Trainer Box — one pack at a time.
-9 packs.
-9 chances.
-The mission:
-🌙 Pull the Umbreon ex SIR 🌙
-Will this ETB deliver…
-or be straight Garbage Rips?
-pokemon prismatic evolutions etb
-umbreon ex sir
-pokemon umbreon hunt
-prismatic evolutions opening
-pokemon etb opening series
-pokemon eeveelutions opening</p>
       <div class="plid">
         <a class="plid-set" href="/sets/prismatic-evolutions.html">
           <img class="plid-logo" src="/assets/logos/prismatic-evolutions-pokemon-tcg-set-logo-sm.webp"
@@ -197,21 +184,9 @@ pokemon eeveelutions opening</p>
           <span>Opened here: the <b>Prismatic Evolutions Elite Trainer Box</b>, 9 packs plus sleeves and dice.<br><small>Photo: TCGplayer.</small></span>
         </div>
       </div>
-      <!-- THE WALL NEEDED A HEADING AND THIS IS IT. Every tile title in .wall is
-           an h3, and with nothing between it and the page h1 all 21 playlist
-           pages read h1 -> h3. Same defect and same fix as .loc h2 in ui.css
-           and .op-sh in build-openings.mjs, except that the tile heading here
-           CANNOT be promoted instead: .v h3 in ui.css is a tag selector used
-           by every video tile on the site, and ui.css is not this builder's to
-           edit. So the level goes in above the wall rather than under it.
-           The style is inline and copied from .op-sh rather than added to
-           PAGE_CSS because PAGE_CSS is only emitted when the strip is
-           non-empty and this heading is on every playlist page.
-           NOTE FOR THE NEXT EDITOR: this comment is inside a JS template
-           literal. A backtick in here ends the string and the build dies with
-           a syntax error a hundred lines away. That happened writing it. -->
+      <div class="lede pl-blurb" style="max-width:44em"><p>Welcome to the Prismatic Evolutions ETB Pack Opening Series ✨</p><p>We’re opening an entire Elite Trainer Box — one pack at a time.</p><p>9 packs.<br>9 chances.</p><p>The mission:<br>🌙 Pull the Umbreon ex SIR 🌙</p><p>Will this ETB deliver…<br>or be straight Garbage Rips?</p></div>
       <h2 style="font:400 var(--t-m)/1.2 var(--display);margin:var(--s5) 0 var(--s3)">In this playlist</h2>
-      <p class="pl-stat">9 videos &bull; newest May 29, 2026 &bull; click a pack to rip it open here</p>
+      <p class="pl-stat">9 videos &bull; 3:18 in total &bull; newest May 29, 2026 &bull; every one plays here</p>
       <div class="wall">
         <article class="v">
           <a class="art" href="/rip/prismatic-evolutions-etb-pack-1-umbreon-hunt-begins-hCI0HSfly1c.html" aria-label="Prismatic Evolutions ETB ✨ | Pack #1 Umbreon Hunt Begins">
@@ -227,7 +202,7 @@ pokemon eeveelutions opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/prismatic-evolutions-etb-pack-1-umbreon-hunt-begins-hCI0HSfly1c.html">Prismatic Evolutions ETB (May 10, 2026)</a></h3>
-          <p>PRISMATIC EVOLUTIONS  •  1.3K VIEWS</p>
+          <p>1.3K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/only-garbage-rips-prismatic-etb-pack-2-LFpa9K2DA6Q.html" aria-label="Only Garbage Rips? 😬 | Prismatic ETB Pack #2">
@@ -243,7 +218,7 @@ pokemon eeveelutions opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/only-garbage-rips-prismatic-etb-pack-2-LFpa9K2DA6Q.html">Prismatic Evolutions ETB (May 13, 2026)</a></h3>
-          <p>PRISMATIC EVOLUTIONS  •  1K VIEWS</p>
+          <p>1K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/only-garbage-rips-prismatic-etb-pack-3-5FJZOamuxs8.html" aria-label="Only Garbage Rips? 😬 | Prismatic ETB Pack #3">
@@ -259,7 +234,7 @@ pokemon eeveelutions opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/only-garbage-rips-prismatic-etb-pack-3-5FJZOamuxs8.html">Prismatic Evolutions ETB (May 16, 2026)</a></h3>
-          <p>PRISMATIC EVOLUTIONS  •  1K VIEWS</p>
+          <p>1K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/prismatic-evolutions-etb-pack-4-is-this-the-umbreon-pack-VjhleCTxCDA.html" aria-label="Prismatic Evolutions ETB ✨ | Pack #4 Is This The Umbreon Pack?">
@@ -275,7 +250,7 @@ pokemon eeveelutions opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/prismatic-evolutions-etb-pack-4-is-this-the-umbreon-pack-VjhleCTxCDA.html">Prismatic Evolutions ETB (May 18, 2026)</a></h3>
-          <p>PRISMATIC EVOLUTIONS  •  931 VIEWS</p>
+          <p>931 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/only-garbage-rips-prismatic-etb-pack-5-t_okfWNQ4BQ.html" aria-label="Only Garbage Rips? 😬 | Prismatic ETB Pack #5">
@@ -291,7 +266,7 @@ pokemon eeveelutions opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/only-garbage-rips-prismatic-etb-pack-5-t_okfWNQ4BQ.html">Prismatic Evolutions ETB (May 21, 2026)</a></h3>
-          <p>PRISMATIC EVOLUTIONS  •  968 VIEWS</p>
+          <p>968 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/prismatic-evolutions-etb-pack-6-still-no-umbreon-c7J6-dTu4jo.html" aria-label="Prismatic Evolutions ETB ✨ | Pack #6 (STILL No Umbreon 😳)">
@@ -307,7 +282,7 @@ pokemon eeveelutions opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/prismatic-evolutions-etb-pack-6-still-no-umbreon-c7J6-dTu4jo.html">Prismatic Evolutions ETB (May 26, 2026)</a></h3>
-          <p>PRISMATIC EVOLUTIONS  •  1.1K VIEWS</p>
+          <p>1.1K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/prismatic-evolutions-etb-pack-7-running-out-of-chances-Q26NJsmeVko.html" aria-label="Prismatic Evolutions ETB ✨ | Pack #7 (Running Out Of Chances 😳)">
@@ -323,7 +298,7 @@ pokemon eeveelutions opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/prismatic-evolutions-etb-pack-7-running-out-of-chances-Q26NJsmeVko.html">Prismatic Evolutions ETB (May 27, 2026)</a></h3>
-          <p>PRISMATIC EVOLUTIONS  •  937 VIEWS</p>
+          <p>937 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/only-garbage-rips-prismatic-etb-pack-8-2wZwMWDlxP0.html" aria-label="Only Garbage Rips? 😬 | Prismatic ETB Pack #8">
@@ -339,7 +314,7 @@ pokemon eeveelutions opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/only-garbage-rips-prismatic-etb-pack-8-2wZwMWDlxP0.html">Prismatic Evolutions ETB (May 28, 2026)</a></h3>
-          <p>PRISMATIC EVOLUTIONS  •  1K VIEWS</p>
+          <p>1K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/final-prismatic-evolutions-etb-pack-last-pack-magic-CT5t8mKeZUw.html" aria-label="FINAL Prismatic Evolutions ETB Pack ✨ | Last Pack Magic?! 😳">
@@ -355,10 +330,12 @@ pokemon eeveelutions opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/final-prismatic-evolutions-etb-pack-last-pack-magic-CT5t8mKeZUw.html">Prismatic Evolutions ETB (May 29, 2026)</a></h3>
-          <p>PRISMATIC EVOLUTIONS  •  271 VIEWS</p>
+          <p>271 VIEWS</p>
         </article>
       </div>
+
       <p style="margin-top:var(--s5)">
+        <a class="btn btn-ghost btn-sm" href="/sets/prismatic-evolutions.html">Prismatic Evolutions set guide</a>
         <a class="btn btn-ghost btn-sm" href="/playlists.html">All playlists</a>
         <a class="btn btn-ghost btn-sm" href="/videos.html">Every rip</a>
       </p>

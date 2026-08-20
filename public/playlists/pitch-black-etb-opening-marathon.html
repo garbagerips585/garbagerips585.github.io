@@ -26,7 +26,8 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=8771d7cb">
 <link rel="stylesheet" href="/assets/packs.css?v=e32b0800">
-<style>.plid{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:var(--s4);max-width:46em}
+<style>.pl-blurb p+p{margin-top:var(--s3)}
+.plid{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:var(--s4);max-width:46em}
 .plid-set,.plid-prod{display:flex;align-items:center;gap:var(--s4);flex:1 1 15em;
 padding:var(--s3) var(--s4);border:1px solid var(--hair);border-radius:var(--r);
 background-color:var(--card);box-shadow:var(--lift);
@@ -170,7 +171,6 @@ font-size:var(--t-sm);line-height:1.5}
         <a href="/">Home</a> / <a href="/playlists.html">Playlists</a> / <span>Pitch Black ETB Opening Marathon 🛡️💎</span>
       </nav>
       <h1>Pitch Black ETB Opening Marathon 🛡️💎</h1>
-      <p class="lede" style="max-width:44em">The ultimate Elite Trainer Box hunt! 🌑✨ We’re diving into Pitch Black ETBs pack-by-pack to see if these boxes are hoarding the best Illustration Rares in the set. 🤘 Follow the series to see every hit, every dud, and every classic Garbage Rip as we search for that elusive Elite Box magic! 🎸</p>
       <div class="plid">
         <a class="plid-set" href="/sets/pitch-black.html">
           <img class="plid-logo" src="/assets/logos/pitch-black-pokemon-tcg-set-logo-sm.webp"
@@ -184,21 +184,9 @@ font-size:var(--t-sm);line-height:1.5}
           <span>Opened here: the <b>Pitch Black Elite Trainer Box</b>, 9 packs plus sleeves and dice.<br><small>Photo: TCGplayer.</small></span>
         </div>
       </div>
-      <!-- THE WALL NEEDED A HEADING AND THIS IS IT. Every tile title in .wall is
-           an h3, and with nothing between it and the page h1 all 21 playlist
-           pages read h1 -> h3. Same defect and same fix as .loc h2 in ui.css
-           and .op-sh in build-openings.mjs, except that the tile heading here
-           CANNOT be promoted instead: .v h3 in ui.css is a tag selector used
-           by every video tile on the site, and ui.css is not this builder's to
-           edit. So the level goes in above the wall rather than under it.
-           The style is inline and copied from .op-sh rather than added to
-           PAGE_CSS because PAGE_CSS is only emitted when the strip is
-           non-empty and this heading is on every playlist page.
-           NOTE FOR THE NEXT EDITOR: this comment is inside a JS template
-           literal. A backtick in here ends the string and the build dies with
-           a syntax error a hundred lines away. That happened writing it. -->
+      <div class="lede pl-blurb" style="max-width:44em"><p>The ultimate Elite Trainer Box hunt! 🌑✨ We’re diving into Pitch Black ETBs pack-by-pack to see if these boxes are hoarding the best Illustration Rares in the set. 🤘 Follow the series to see every hit, every dud, and every classic Garbage Rip as we search for that elusive Elite Box magic! 🎸</p></div>
       <h2 style="font:400 var(--t-m)/1.2 var(--display);margin:var(--s5) 0 var(--s3)">In this playlist</h2>
-      <p class="pl-stat">2 videos &bull; newest Aug 16, 2026 &bull; click a pack to rip it open here</p>
+      <p class="pl-stat">2 videos &bull; 0:41 in total &bull; newest Aug 16, 2026 &bull; every one plays here</p>
       <div class="wall">
         <article class="v">
           <a class="art" href="/rip/this-etb-is-breaking-me-IQMn3DNCzik.html" aria-label="This ETB is BREAKING me! 🌑💀">
@@ -214,7 +202,7 @@ font-size:var(--t-sm);line-height:1.5}
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/this-etb-is-breaking-me-IQMn3DNCzik.html">Pitch Black ETB 1 - Pack 7</a></h3>
-          <p>PITCH BLACK  •  668 VIEWS</p>
+          <p>668 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/trubbish-food-pitch-black-pack-8-VZtK6rT7ZTI.html" aria-label="Trubbish Food 🗑️🤘 | Pitch Black Pack #8">
@@ -230,10 +218,16 @@ font-size:var(--t-sm);line-height:1.5}
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/trubbish-food-pitch-black-pack-8-VZtK6rT7ZTI.html">Pitch Black ETB 1 - Pack 8</a></h3>
-          <p>PITCH BLACK  •  921 VIEWS</p>
+          <p>921 VIEWS</p>
         </article>
       </div>
+      <h2 style="font:400 var(--t-m)/1.2 var(--display);margin:var(--s6) 0 var(--s3)">More Pitch Black on the channel</h2>
+      <ul class="riplist">
+        <li><a href="/playlists/pitch-black-booster-bundle-series.html">Pitch Black Booster Bundle Series 📦🗑️</a><span>1 video</span></li>
+        <li><a href="/playlists/pitch-black-single-pack-hunt.html">Pitch Black Single Pack Hunt 🌑</a><span>1 video</span></li>
+      </ul>
       <p style="margin-top:var(--s5)">
+        <a class="btn btn-ghost btn-sm" href="/sets/pitch-black.html">Pitch Black set guide</a>
         <a class="btn btn-ghost btn-sm" href="/playlists.html">All playlists</a>
         <a class="btn btn-ghost btn-sm" href="/videos.html">Every rip</a>
       </p>

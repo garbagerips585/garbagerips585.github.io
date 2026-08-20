@@ -26,7 +26,8 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=8771d7cb">
 <link rel="stylesheet" href="/assets/packs.css?v=e32b0800">
-<style>.plid{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:var(--s4);max-width:46em}
+<style>.pl-blurb p+p{margin-top:var(--s3)}
+.plid{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:var(--s4);max-width:46em}
 .plid-set,.plid-prod{display:flex;align-items:center;gap:var(--s4);flex:1 1 15em;
 padding:var(--s3) var(--s4);border:1px solid var(--hair);border-radius:var(--r);
 background-color:var(--card);box-shadow:var(--lift);
@@ -170,17 +171,6 @@ font-size:var(--t-sm);line-height:1.5}
         <a href="/">Home</a> / <a href="/playlists.html">Playlists</a> / <span>Ascended Heroes Booster Bundle Opening Series ⚡</span>
       </nav>
       <h1>Ascended Heroes Booster Bundle Opening Series ⚡</h1>
-      <p class="lede" style="max-width:44em">Welcome to the Ascended Heroes Booster Bundle Opening Series ⚡
-We’re opening a full booster bundle — one pack at a time.
-6 packs.
-6 chances.
-Will this bundle deliver…
-or be straight Garbage Rips?
-pokemon ascended heroes booster bundle
-ascended heroes pack opening series
-pokemon bundle opening
-pokemon pack opening series
-pokemon tcg opening</p>
       <div class="plid">
         <a class="plid-set" href="/sets/ascended-heroes.html">
           <img class="plid-logo" src="/assets/logos/ascended-heroes-pokemon-tcg-set-logo-sm.webp"
@@ -194,21 +184,9 @@ pokemon tcg opening</p>
           <span>Opened here: the <b>Ascended Heroes Booster Bundle</b>, 6 packs.<br><small>Photo: TCGplayer.</small></span>
         </div>
       </div>
-      <!-- THE WALL NEEDED A HEADING AND THIS IS IT. Every tile title in .wall is
-           an h3, and with nothing between it and the page h1 all 21 playlist
-           pages read h1 -> h3. Same defect and same fix as .loc h2 in ui.css
-           and .op-sh in build-openings.mjs, except that the tile heading here
-           CANNOT be promoted instead: .v h3 in ui.css is a tag selector used
-           by every video tile on the site, and ui.css is not this builder's to
-           edit. So the level goes in above the wall rather than under it.
-           The style is inline and copied from .op-sh rather than added to
-           PAGE_CSS because PAGE_CSS is only emitted when the strip is
-           non-empty and this heading is on every playlist page.
-           NOTE FOR THE NEXT EDITOR: this comment is inside a JS template
-           literal. A backtick in here ends the string and the build dies with
-           a syntax error a hundred lines away. That happened writing it. -->
+      <div class="lede pl-blurb" style="max-width:44em"><p>Welcome to the Ascended Heroes Booster Bundle Opening Series ⚡</p><p>We’re opening a full booster bundle — one pack at a time.</p><p>6 packs.<br>6 chances.</p><p>Will this bundle deliver…<br>or be straight Garbage Rips?</p></div>
       <h2 style="font:400 var(--t-m)/1.2 var(--display);margin:var(--s5) 0 var(--s3)">In this playlist</h2>
-      <p class="pl-stat">12 videos &bull; newest Jun 4, 2026 &bull; click a pack to rip it open here</p>
+      <p class="pl-stat">12 videos &bull; 4:03 in total &bull; newest Jun 4, 2026 &bull; every one plays here</p>
       <div class="wall">
         <article class="v">
           <a class="art" href="/rip/ascended-heroes-booster-bundle-pack-1-first-pack-magic-Qf2PmYHL8Xw.html" aria-label="Ascended Heroes Booster Bundle ⚡ | Pack #1 (First Pack Magic?)">
@@ -224,7 +202,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/ascended-heroes-booster-bundle-pack-1-first-pack-magic-Qf2PmYHL8Xw.html">Ascended Heroes Booster Bundle (May 2, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  2K VIEWS</p>
+          <p>2K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/ascended-heroes-booster-bundle-pack-2-any-better-YQ2-iIhbOSY.html" aria-label="Ascended Heroes Booster Bundle ⚡ | Pack #2 Any Better?">
@@ -240,7 +218,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/ascended-heroes-booster-bundle-pack-2-any-better-YQ2-iIhbOSY.html">Ascended Heroes Booster Bundle (May 4, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  981 VIEWS</p>
+          <p>981 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/ascended-heroes-booster-bundle-pack-3-getting-lucky-yet-PvitecaJjAc.html" aria-label="Ascended Heroes Booster Bundle ⚡ | Pack #3 Getting Lucky Yet?">
@@ -256,7 +234,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/ascended-heroes-booster-bundle-pack-3-getting-lucky-yet-PvitecaJjAc.html">Ascended Heroes Booster Bundle (May 6, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  1K VIEWS</p>
+          <p>1K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/ascended-heroes-booster-bundle-pack-4-is-this-the-one-UqZn1J9vVGc.html" aria-label="Ascended Heroes Booster Bundle ⚡ | Pack #4 Is This The One?">
@@ -272,7 +250,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/ascended-heroes-booster-bundle-pack-4-is-this-the-one-UqZn1J9vVGc.html">Ascended Heroes Booster Bundle (May 9, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  155 VIEWS</p>
+          <p>155 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/ascended-heroes-booster-bundle-pack-5-we-need-a-hit-PPEKxxW-s_g.html" aria-label="Ascended Heroes Booster Bundle ⚡ | Pack #5 We NEED A Hit 😬">
@@ -288,7 +266,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/ascended-heroes-booster-bundle-pack-5-we-need-a-hit-PPEKxxW-s_g.html">Ascended Heroes Booster Bundle (May 12, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  1.2K VIEWS</p>
+          <p>1.2K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/final-ascended-heroes-bundle-pack-last-pack-magic-8d2a5b_BmYQ.html" aria-label="FINAL Ascended Heroes Bundle Pack ⚡ | Last Pack Magic?! 😬">
@@ -304,7 +282,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/final-ascended-heroes-bundle-pack-last-pack-magic-8d2a5b_BmYQ.html">Ascended Heroes Booster Bundle (May 15, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  507 VIEWS</p>
+          <p>507 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/ascended-heroes-booster-bundle-2-pack-1-first-pack-magic-W2eIV9tya84.html" aria-label="Ascended Heroes Booster Bundle #2 ⚡ | Pack #1 (First Pack Magic?!)">
@@ -320,7 +298,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/ascended-heroes-booster-bundle-2-pack-1-first-pack-magic-W2eIV9tya84.html">Ascended Heroes Booster Bundle (May 28, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  1.2K VIEWS</p>
+          <p>1.2K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/only-garbage-rips-ascended-heroes-bundle-2-pack-2-xrJFDqGZjOs.html" aria-label="Only Garbage Rips? 😬 | Ascended Heroes Bundle #2 Pack #2">
@@ -336,7 +314,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/only-garbage-rips-ascended-heroes-bundle-2-pack-2-xrJFDqGZjOs.html">Ascended Heroes Booster Bundle (May 29, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  1.1K VIEWS</p>
+          <p>1.1K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/only-garbage-rips-ascended-heroes-bundle-2-pack-3-kcmXPW6_Odo.html" aria-label="Only Garbage Rips? 😬 | Ascended Heroes Bundle #2 Pack #3">
@@ -352,7 +330,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/only-garbage-rips-ascended-heroes-bundle-2-pack-3-kcmXPW6_Odo.html">Ascended Heroes Booster Bundle (May 30, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  1.1K VIEWS</p>
+          <p>1.1K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/ascended-heroes-booster-bundle-2-pack-4-we-need-a-hit-jAkffPVM-JA.html" aria-label="Ascended Heroes Booster Bundle #2 ⚡ | Pack #4 (We NEED A Hit 😬)">
@@ -368,7 +346,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/ascended-heroes-booster-bundle-2-pack-4-we-need-a-hit-jAkffPVM-JA.html">Ascended Heroes Booster Bundle (Jun 1, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  928 VIEWS</p>
+          <p>928 VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/ascended-heroes-booster-bundle-2-pack-5-we-need-a-hit-iPxD2pp1zHo.html" aria-label="Ascended Heroes Booster Bundle #2 ⚡ | Pack #5 (We NEED A Hit 😬)">
@@ -384,7 +362,7 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/ascended-heroes-booster-bundle-2-pack-5-we-need-a-hit-iPxD2pp1zHo.html">Ascended Heroes Booster Bundle (Jun 2, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  1.1K VIEWS</p>
+          <p>1.1K VIEWS</p>
         </article>
         <article class="v">
           <a class="art" href="/rip/final-ascended-heroes-bundle-2-pack-last-pack-magic-vW8lkXEx3Ao.html" aria-label="FINAL Ascended Heroes Bundle #2 Pack ⚡ | Last Pack Magic?! 😳">
@@ -400,10 +378,16 @@ pokemon tcg opening</p>
             <span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>
           </a>
           <h3><a href="/rip/final-ascended-heroes-bundle-2-pack-last-pack-magic-vW8lkXEx3Ao.html">Ascended Heroes Booster Bundle (Jun 4, 2026)</a></h3>
-          <p>ASCENDED HEROES  •  1K VIEWS</p>
+          <p>1K VIEWS</p>
         </article>
       </div>
+      <h2 style="font:400 var(--t-m)/1.2 var(--display);margin:var(--s6) 0 var(--s3)">More Ascended Heroes on the channel</h2>
+      <ul class="riplist">
+        <li><a href="/playlists/ascended-heroes-elite-trainer-box-pack-series-garbage-rips-5.html">Ascended Heroes Elite Trainer Box Pack Series ⚡ | Garbage Rips 585</a><span>9 videos</span></li>
+        <li><a href="/playlists/ascended-heroes-booster-pack-opening-series-garbage-rips-585.html">Ascended Heroes Booster Pack Opening Series 🔥 | Garbage Rips 585</a><span>20 videos</span></li>
+      </ul>
       <p style="margin-top:var(--s5)">
+        <a class="btn btn-ghost btn-sm" href="/sets/ascended-heroes.html">Ascended Heroes set guide</a>
         <a class="btn btn-ghost btn-sm" href="/playlists.html">All playlists</a>
         <a class="btn btn-ghost btn-sm" href="/videos.html">Every rip</a>
       </p>
