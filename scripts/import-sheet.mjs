@@ -120,7 +120,40 @@ const PRODUCT_IDS = {
   "japanese pack": "japanese-pack",
   "korean pack": "korean-pack",
   "chinese pack": "chinese-pack",
+
+  // FROM TIM'S SECOND PASS, 19 August 2026, and the first of these was the
+  // SECOND most common product value in the whole sheet at 16 rows. It went
+  // unrecognised because the map had "ex premium collection" and "ex box" but
+  // not the way he actually writes it, which is both of them at once. Nothing
+  // looked broken: the importer declined to store his answer and the title
+  // matcher's guess stayed, so the pages were tagged and the confirmation was
+  // silently thrown away. That is the exact failure the long comment above the
+  // sets block describes -- the system could not tell "Tim confirmed this" from
+  // "Tim never looked at it" -- reappearing on the product column.
+  "ex premium collection box": "ex-premium",
+  "ex collection box": "ex-premium",
+
+  // A First Partner box is a collection box, which is what the title matcher
+  // already calls it, so this maps onto the existing id rather than earning a
+  // new one. The series number is stripped before the lookup (see below), so
+  // Series 2 and 3 need no lines of their own.
+  "first partner illustration collection": "collection-box",
+  "first partner collection": "collection-box",
+  "first partner box": "collection-box",
 };
+
+/** Tim writes the series on the product, as in "First Partner Illustration
+ * Collection (Series 1)". WHICH SERIES IT IS BELONGS TO THE SET COLUMN AND NOT
+ * TO THE PRODUCT: the product is the same box either way, and keeping the
+ * number here would need a new key for every series that is ever printed. The
+ * trailing "(Series N)" and a trailing bare "#N" are dropped before the lookup,
+ * so the map stays the list of things a box IS. */
+const productKey = (s) =>
+  s.toLowerCase().trim()
+    .replace(/\s*\((?:series|serie)\s*\d+\)\s*$/i, "")
+    .replace(/\s*#\s*\d+\s*$/, "")
+    .replace(/\s+/g, " ")
+    .trim();
 
 // The sheet offers set NAMES because nobody wants to pick "sv3pt5" from a
 // dropdown; the site tags by id. Built from sets.json so a new set needs no
@@ -644,7 +677,21 @@ for (const [n, r] of rows.slice(1).entries()) {
     
   }
 
-  const setIds = setPacks.map((s) => s.set);
+  // `.filter(Boolean)` IS LOAD-BEARING AND THE NULL IT DROPS IS DELIBERATE.
+  //
+  // setPacks deliberately carries `{ set: null }` for a pack that is real but
+  // belongs to no expansion: the promo pack inside a First Partner box, and
+  // anything else the promo/first-partner/illustration-collection test catches.
+  // That null is CORRECT there, because the pack still counts toward how many
+  // packs were opened and there is genuinely no set to name.
+  //
+  // setIds is a different thing wearing the same shape: it is the TAG array
+  // that ends up in data/overrides.json and then in public/data/videos.json.
+  // A null in there is not "no set", it is a set whose id is null, and it
+  // reached the tag list once: video M7NqqhR8V4M, a six-box First Partner rip,
+  // was going to be written as `[null, "phantasmal-flames", "mega-evolution"]`.
+  // Downstream that is a link to a page that cannot exist.
+  const setIds = setPacks.map((s) => s.set).filter(Boolean);
   // Four dropdowns cover the real cases, and More Sets is a comma-separated
   // escape hatch for the rare box that spans more than four.
   // Split every set cell on commas, not just More Sets. Four columns is how a
@@ -791,7 +838,7 @@ for (const [n, r] of rows.slice(1).entries()) {
 
   const opening = get(r, idx.opening);
   if (opening) {
-    const key = opening.toLowerCase();
+    const key = productKey(opening);
     if (!(key in PRODUCT_IDS)) unknownOpening.add(opening);
     else if (PRODUCT_IDS[key]) {
       // Same rule as the sets above: his answer is stored either way, and only

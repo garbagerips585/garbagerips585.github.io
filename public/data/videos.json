@@ -1396,11 +1396,14 @@
       "views": 611,
       "vertical": true,
       "short": true,
-      "sets": [],
+      "sets": [
+        "ascended-heroes"
+      ],
       "products": [
         "ex-premium"
       ],
-      "pulls": []
+      "pulls": [],
+      "label": "Ascended Heroes ex Premium Collection"
     },
     {
       "id": "LvWz0hfaQVE",
@@ -1484,11 +1487,15 @@
       "views": 19,
       "vertical": true,
       "short": true,
-      "sets": [],
+      "sets": [
+        "phantasmal-flames",
+        "mega-evolution"
+      ],
       "products": [
         "collection-box"
       ],
-      "pulls": []
+      "pulls": [],
+      "label": "Phantasmal Flames Collection Box"
     },
     {
       "id": "lrl5v4z317s",
