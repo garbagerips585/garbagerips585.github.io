@@ -708,7 +708,20 @@ ${BAR}
 ${MENU}
 ${body}
 
-${footer()}
+${/* THE SEVEN PRODUCT PHOTOGRAPHS ON THIS PAGE WERE CREDITED NOWHERE. They are
+      hotlinked from tcgplayer-cdn and the page named TCGplayer in no sentence,
+      no caption and no alt text, so on a sweep of all 1,484 built pages this was
+      one of only two in the guides showing licensed product imagery with no
+      source on the page at all. Every sibling that uses the same photographs
+      says so: /upcoming.html ("photos from TCGplayer"), /how-many-packs.html and
+      /most-expensive-sealed.html all carry it.
+
+      It goes in the FOOTER rather than beside the pictures because the row
+      caption is already doing a different and more important job: "Pitch Black
+      shown" says the photograph is ONE set's version of a product kind that
+      spans several, which is the thing a reader could otherwise misread as the
+      product that was actually opened. Do not merge the two lines. */ ""}
+${footer("Sealed product photographs are TCGplayer's. Each one is the set named beneath it, standing for that kind of product.")}
 
 ${APP_JS}
 </body>

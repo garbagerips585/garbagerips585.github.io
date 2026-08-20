@@ -1047,7 +1047,26 @@ ${/* THE .wrap IS LOAD BEARING AND THIS PARAGRAPH SHIPPED WITHOUT IT. Every
       after </main> is deliberate, and .wrap carries both the gutter and the
       1500px cap the rest of the page has. */ ""}
 ${priceDoc ? `<div class="wrap"><p class="price-note">${esc(priceNote(priceDoc, { lead: "The example prices" }))} They are the same figures the set guides and the card search print for those cards.</p></div>` : ""}
-${footer("Card images from the Pokemon TCG API. Every corner shown is a crop of a real card.")}
+${/* THIS FOOTER CREDITED THE WRONG SOURCE AND HAD FOR AS LONG AS THE PAGE HAS
+      BEEN ON TCGdex. It read "Card images from the Pokemon TCG API", and this
+      page makes ZERO requests to images.pokemontcg.io: all 153 image references
+      in the served HTML are assets.tcgdex.net, and data/rarity.json holds 36
+      TCGdex urls and not one pokemontcg.io url. Swept across all 1,484 built
+      pages on 20 August 2026, it was the ONLY page on the site naming an image
+      host it does not load from.
+
+      IT IS A LICENSING LINE, NOT A NICETY, which is why it gets a note rather
+      than a quiet edit. The official imagery here is used on condition its
+      source is credited, so crediting the wrong source is closer to no credit
+      than to a typo, and it lands on the page that leans on the pictures
+      hardest: the whole argument of this page is that you can check every claim
+      against a magnified crop of a real card.
+
+      It is the same shape as the sixth-exception rule in CLAUDE.md, which says
+      that when a page's source changes the link changes in the SAME edit. The
+      pictures moved to TCGdex and the credit did not move with them. If the host
+      changes again, this string changes in that commit. */ ""}
+${footer("Card scans are TCGdex's. Every corner shown is a magnified crop of a real card.")}
 
 ${APP_JS}
 </body>

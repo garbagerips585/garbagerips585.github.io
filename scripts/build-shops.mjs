@@ -350,6 +350,30 @@ function hoursChart(list) {
     </figure>`;
 }
 
+// The bare host, for the "opens on <host>" half of an outbound aria-label.
+// Falls back to the empty string rather than throwing: a malformed url in the
+// data should cost a label, not the build. Same helper, same reasoning, as the
+// one at the top of build-shows.mjs.
+function hostOf(u) {
+  try {
+    return new URL(u).host.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+}
+
+// ALL THIRTEEN OUTBOUND LINKS ON THIS PAGE WERE UNLABELLED, which CLAUDE.md
+// makes the condition of every outbound link on the site, and this page was the
+// worst case of it in the guides: 13 of 13, where the site as a whole had 783 of
+// 877 labelled. Six of the thirteen are the ADDRESS, which is the primary action
+// here -- the page says in as many words that the address is "the exact thing to
+// put in a map app" -- so the least labelled control was the one the page is for.
+// The other seven are the shop's own site and, on one row, its league page.
+//
+// The visible text could not survive being read alone either. Six links read as
+// a bare street address with no shop attached, and "Official league page" named
+// no shop at all. The shop name is in the h2 above and was in no link name, so a
+// screen reader's link list was six addresses and seven domains in no order.
 const cards = shops
   .map((s) => {
     const url = cleanUrl(s.url);
@@ -375,7 +399,7 @@ const cards = shops
             : ""
         }
         ${s.address || s.phone || s.hours ? `<dl class="shop-facts">
-          ${s.address ? `<dt>Where</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.address)}" rel="noopener" target="_blank">${esc(s.address)}</a></dd>` : ""}
+          ${s.address ? `<dt>Where</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.address)}" rel="noopener" target="_blank" aria-label="${esc(s.address)}, where ${esc(s.name)} is, opens on google.com">${esc(s.address)}</a></dd>` : ""}
           ${s.phone ? `<dt>Phone</dt><dd><a href="tel:${esc(s.phone.replace(/[^0-9+]/g, ""))}">${esc(s.phone)}</a></dd>` : ""}
           ${s.hours ? `<dt>Open</dt><dd>${esc(s.hours)}</dd>` : ""}
         </dl>` : ""}
@@ -386,10 +410,10 @@ const cards = shops
           ${s.playWarn ? `<p class="shop-play-warn">${esc(s.playWarn)}</p>` : ""}
         </div>` : ""}
         <p class="shop-links">
-          <a class="shop-link" href="${esc(url)}" rel="noopener" target="_blank">
+          <a class="shop-link" href="${esc(url)}" rel="noopener" target="_blank" aria-label="${esc(host)}, ${esc(s.name)}'s own site, opens on their site">
             ${esc(host)} <span aria-hidden="true">&rarr;</span>
           </a>
-          ${s.leagueUrl ? `<a class="shop-link" href="${esc(s.leagueUrl)}" rel="noopener" target="_blank">Official league page <span aria-hidden="true">&rarr;</span></a>` : ""}
+          ${s.leagueUrl ? `<a class="shop-link" href="${esc(s.leagueUrl)}" rel="noopener" target="_blank" aria-label="Official league page for ${esc(s.name)}, the Play! Pokemon listing, opens on ${esc(hostOf(s.leagueUrl))}">Official league page <span aria-hidden="true">&rarr;</span></a>` : ""}
         </p>
       </li>`;
   })

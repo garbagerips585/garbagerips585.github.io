@@ -436,7 +436,7 @@ ${RARE_COMBOS.map(
     </div>
 
     <p class="price-note" style="margin-top:var(--s5)">Every figure on this page is computed from the National
-      Pokedex as published by <a href="https://pokeapi.co" rel="noopener" target="_blank">pokeapi.co</a>, read
+      Pokedex as published by <a href="https://pokeapi.co" rel="noopener" target="_blank" aria-label="pokeapi.co, the source of every figure and every picture on this page, opens on pokeapi.co">pokeapi.co</a>, read
       ${esc(longDate(dex.checked) || dex.checked)}, covering all ${n(P.length)} species. Counts are over the whole
       Pokedex, not a sample. The Pokedex entry text from the games is copyrighted and is deliberately not reprinted
       here: the categories quoted above are the official one word classifications, and the sentences around them are

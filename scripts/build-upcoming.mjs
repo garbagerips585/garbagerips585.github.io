@@ -73,6 +73,25 @@ try {
 
 const usd = (n) => `$${Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
+// The bare host, for the "opens on <host>" half of an outbound aria-label.
+// Falls back to the empty string rather than throwing: a malformed url in the
+// data should cost a label, not the build. Same helper as build-shows.mjs.
+//
+// ALL SEVENTEEN REAL OUTBOUND LINKS ON THIS PAGE WERE UNLABELLED, which CLAUDE.md
+// makes the condition of every outbound link on the site. The nine picture links
+// above them were already right and are the reason to be careful reading a count
+// here: po-shot carries tabindex="-1" and aria-hidden="true" because it is a
+// DUPLICATE of the product name link beside it, so it is correctly absent from
+// the AX tree rather than an unnamed link. Do not "fix" those by giving them a
+// label; that would put nine duplicate links back into the tab order.
+const hostOf = (u) => {
+  try {
+    return new URL(u).host.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+};
+
 function preorderBand(setName) {
   const e = preorders[setName];
   if (!e?.products?.length && !e?.chase?.length) return "";
@@ -83,7 +102,7 @@ function preorderBand(setName) {
             <img src="${esc(p.thumb)}" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(p.thumb)} referrerpolicy="no-referrer">
           </a>
           <div class="po-body">
-            <h4><a href="${esc(p.url)}" rel="noopener" target="_blank">${esc(p.name)}</a></h4>
+            <h4><a href="${esc(p.url)}" rel="noopener" target="_blank" aria-label="${esc(p.name)}, ${usd(p.price)} preorder, opens on ${esc(hostOf(p.url))}">${esc(p.name)}</a></h4>
             <p class="po-price"><b>${usd(p.price)}</b>${
               p.msrp ? ` <span class="po-msrp">MSRP ${usd(p.msrp)}</span>` : ""
             }</p>
@@ -93,7 +112,7 @@ function preorderBand(setName) {
         </li>`).join("\n");
 
   const cards = e.chase.slice(0, 8).map((c) => `        <li class="poc">
-          <a href="${esc(c.url)}" rel="noopener" target="_blank">
+          <a href="${esc(c.url)}" rel="noopener" target="_blank" aria-label="${esc(c.name)}${c.rarity ? `, ${esc(c.rarity)}` : ""}${c.number ? `, card ${esc(c.number)}` : ""}, opens on ${esc(hostOf(c.url))}">
             <img src="${esc(c.thumb)}" alt="${esc(c.name)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(c.thumb)} referrerpolicy="no-referrer">
             <span class="poc-n">${esc(c.name)}</span>
             <span class="poc-r">${esc(c.rarity || "")}${c.number ? ` &bull; ${esc(c.number)}` : ""}</span>

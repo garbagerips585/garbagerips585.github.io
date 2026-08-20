@@ -75,8 +75,15 @@ const timeRange = (s, e) => [clock(s), clock(e)].filter(Boolean).join(" to ");
 // date has its own listing url, so "CollectorFest Monthly" was still the name of
 // three different links and "Batavia Sports Card, Toys and Collectible Show" of
 // four. The date is exactly what tells them apart and it is already visible on
-// the card, so it belongs in the label too. Measured after: 26 outbound links on
-// the page, 26 distinct accessible names.
+// the card, so it belongs in the label too.
+//
+// THAT MEASUREMENT READ "26 outbound links on the page, 26 distinct accessible
+// names" AND THE FIRST HALF WAS HALF THE PAGE. There were 52, because the venue
+// name on every row is a Google Maps link and this file's notes had not counted
+// it; the 26 that were measured were the 26 that had just been labelled. Re-run
+// on 20 August 2026 over the whole of main: 52 outbound links, 52 with an
+// aria-label, 52 distinct accessible names. Count what the page emits, not what
+// the edit touched.
 const showRef = (s) => {
   const when = longDate(s.date) || s.date || "";
   return when ? `${s.name}, ${when}` : s.name;
@@ -617,6 +624,33 @@ ${MENU}
 `;
 
 /** One event card. */
+// EVERY OUTBOUND LINK ON A SHOW ROW CARRIES AN aria-label, WHICH CLAUDE.md
+// MAKES THE CONDITION OF EVERY OUTBOUND LINK ON THE SITE. The visible wording
+// could not survive being read on its own: computed off the AX tree, "Listing &
+// details" was the accessible name of TWENTY-ONE links on this page, each going
+// to a different show, so a screen reader's link list was twenty-one identical
+// rows. The show's name and date are visible in the card above but were in no
+// link name. Naming the show inside each label fixes the ambiguity and the
+// missing outbound warning in one move, in the house wording
+// ("<what>, opens on <host>"). Keep the visible text short: it is the
+// accessible NAME that has to be unique, and WCAG 2.5.3 is satisfied because
+// the visible words still start the label.
+//
+// THIS NOTE SAID "THE THREE LINKS ON A SHOW ROW ARE THE ONLY OUTBOUND ONES ON
+// THIS PAGE" AND IT WAS WRONG BY ONE, WHICH IS THE WHOLE REASON TO WRITE A COUNT
+// DOWN AND THEN NOT TRUST IT. The show-where paragraph is a FOURTH, four lines
+// above the block it was describing: the venue name is a link to Google Maps on
+// every row, so the page carried 22 more unlabelled outbound links than the note
+// admitted to. It is labelled now, and it is the one on the row a reader most
+// wants, because the whole job of this page is getting somebody to a venue.
+//
+// AND IT WAS AN HTML COMMENT SITTING INSIDE THIS TEMPLATE LITERAL, so it shipped
+// ONCE PER SHOW: 22 copies, 23,393 bytes, 19.5% of the served document and about
+// 1KB gzipped, of prose no reader can see. Measured 20 August 2026: 120,276 ->
+// 96,883 bytes raw, 15,654 -> 14,656 gzipped. build-shows.mjs does not strip
+// HTML comments, so a note that belongs to the BUILDER has to be a line comment
+// out here, or the dollar-brace block-comment-then-empty-string form used lower
+// down this file, and never an HTML comment inside a string that repeats.
 function showCard(s) {
   const flyer = flyerSrc(s);
   const soon = daysAway(s.date);
@@ -632,7 +666,7 @@ function showCard(s) {
           <p class="show-meta">${esc(weekday(s.date))}${
             timeRange(s.start, s.end) ? ` &bull; ${esc(timeRange(s.start, s.end))}` : ""
           }</p>
-          <p class="show-where"><a href="${esc(mapLink(s))}" rel="noopener" target="_blank">${esc(s.venue)}, ${esc(s.city)} NY</a></p>
+          <p class="show-where"><a href="${esc(mapLink(s))}" rel="noopener" target="_blank" aria-label="${esc(s.venue)}, ${esc(s.city)} NY, where ${esc(showRef(s))} is held, opens on ${esc(hostOf(mapLink(s)))}">${esc(s.venue)}, ${esc(s.city)} NY</a></p>
           <div class="show-tags">
             ${s.pokemon ? `<span class="chip pk">Pokemon show</span>` : ""}
             ${soon ? `<span class="chip soon">${esc(soon)}</span>` : ""}
@@ -647,20 +681,6 @@ function showCard(s) {
             </li>`).join("\n            ")}
           </ul>` : ""}
           ${s.warn ? `<p class="show-warn">${esc(s.warn)}</p>` : ""}
-          <!-- THE THREE LINKS ON A SHOW ROW ARE THE ONLY OUTBOUND ONES ON THIS
-               PAGE AND ALL THREE WERE MISSING THE aria-label THAT CLAUDE.md
-               MAKES THE CONDITION OF EVERY OUTBOUND LINK ON THE SITE. The
-               visible wording also could not survive being read on its own:
-               computed off the AX tree, "Listing & details" was the accessible
-               name of TWENTY-ONE links on this page, each going to a different
-               show, so a screen reader's link list was twenty-one identical
-               rows. The show's name and date are visible in the card above but
-               were in no link name. Naming the show inside each label fixes the
-               ambiguity and the missing outbound warning in one move, in the
-               house wording ("<what>, opens on <host>"). Keep the visible text
-               short: it is the accessible NAME that has to be unique, and
-               WCAG 2.5.3 is satisfied because the visible words still start the
-               label. -->
           <p class="show-links">
             ${s.ticketUrl ? `<a class="tickets" href="${esc(s.ticketUrl)}" rel="noopener" target="_blank" aria-label="Get tickets for ${esc(showRef(s))}, opens on ${esc(hostOf(s.ticketUrl))}">Get tickets <span aria-hidden="true">&rarr;</span></a>` : ""}
             ${s.url ? `<a href="${esc(s.url)}" rel="noopener" target="_blank" aria-label="${s.organiserUrl && s.url === s.organiserUrl ? "Official site" : "Listing and details"} for ${esc(showRef(s))}, opens on ${esc(hostOf(s.url))}">${s.organiserUrl && s.url === s.organiserUrl ? "Official site" : "Listing &amp; details"}</a>` : ""}
@@ -687,7 +707,7 @@ const page = head + `
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / Card shows</p>
 ${next ? `
-    <a class="next-show" data-date="${esc(next.date)}" href="${esc(next.url || "#list")}"${next.url ? ' rel="noopener" target="_blank"' : ""}>
+    <a class="next-show" data-date="${esc(next.date)}" href="${esc(next.url || "#list")}"${next.url ? ` rel="noopener" target="_blank" aria-label="Next one up: ${esc(showRef(next))} at ${esc(next.venue)}, ${esc(next.city)}, opens on ${esc(hostOf(next.url))}"` : ""}>
       <span class="next-label">Next one up${daysAway(next.date) ? ` &bull; ${esc(daysAway(next.date))}` : ""}</span>
       <span class="next-name">${esc(next.name)}</span>
       <span class="next-meta">${esc(longDate(next.date) || next.date)}${
@@ -762,7 +782,7 @@ ${(data.watchFor || []).length ? `
         <h3>${esc(w.name)}</h3>
         <p>${esc(w.what)}</p>
         ${w.where ? `<p class="watch-where">${esc(w.where)}</p>` : ""}
-        ${w.url ? `<a class="intl-link" href="${esc(w.url)}" rel="noopener" target="_blank">Keep an eye on it &rarr;</a>` : ""}
+        ${w.url ? `<a class="intl-link" href="${esc(w.url)}" rel="noopener" target="_blank" aria-label="Keep an eye on it: ${esc(w.name)}, opens on ${esc(hostOf(w.url))}">Keep an eye on it &rarr;</a>` : ""}
       </li>`).join("\n      ")}
     </ul>
   </div>
@@ -775,7 +795,7 @@ ${(data.watchFor || []).length ? `
       run a show, or you have a flyer from a local Discord or a shop counter, send it over on any of the socials at the
       bottom of the page and it goes up here. Flyers get shown in full.</p>
     <ul class="facts-list">
-      <li>Dates and times come from public listings, mostly ${(data.sources || []).map((s) => `<a href="${esc(s.url)}" rel="noopener" target="_blank">${esc(s.name)}</a>`).join(" and ")}, read ${esc(longDate(data.checked) || data.checked)}.</li>
+      <li>Dates and times come from public listings, mostly ${(data.sources || []).map((s) => `<a href="${esc(s.url)}" rel="noopener" target="_blank" aria-label="${esc(s.name)}, one of the listings this calendar is read from, opens on ${esc(hostOf(s.url))}">${esc(s.name)}</a>`).join(" and ")}, read ${esc(longDate(data.checked) || data.checked)}.</li>
       <li><strong>Always check the listing before you drive.</strong> Small shows move, sell out of tables, or get called off, and a page like this is a starting point rather than a promise.</li>
       <li>We are not the organizer of any of these and we do not take a cut. It is just a list.</li>
       <li>Shows in the Southern Tier are left off on purpose. They show up in the same feeds but they are closer to Binghamton than to any of these three cities.</li>

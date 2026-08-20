@@ -438,6 +438,24 @@ function sealedDiagram() {
 </figure>`;
 }
 
+// The bare host, for the "opens on <host>" half of an outbound aria-label.
+// Falls back to the empty string rather than throwing: a malformed url in the
+// data should cost a label, not the build. Same helper as build-shows.mjs.
+//
+// ALL FIVE OUTBOUND LINKS ON THIS PAGE WERE UNLABELLED, which CLAUDE.md makes
+// the condition of every outbound link on the site. Two of them also appeared
+// TWICE with the same visible text and no other distinguishing name, once in the
+// "see real photos" block and once in the source line at the foot, so the AX
+// tree carried two pairs of identical link names pointing at the same places for
+// two different reasons. The label says which reason.
+const hostOf = (u) => {
+  try {
+    return new URL(u).host.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+};
+
 const testCard = (t, i) => `      <article class="fk" id="${esc(t.id)}">
         <div class="fk-head">
           <span class="fk-no">${i + 1}</span>
@@ -445,7 +463,7 @@ const testCard = (t, i) => `      <article class="fk" id="${esc(t.id)}">
           <span class="fk-conf ${CONF_CLASS[t.confidence] || "mid"}">${esc(t.confidence)}</span>
         </div>
         ${t.tools ? `<p class="fk-tools">Needs: ${esc(t.tools)}${
-          t.toolLink ? ` &bull; <a href="${esc(t.toolLink.url)}" rel="noopener" target="_blank">${esc(t.toolLink.name)}</a>` : ""
+          t.toolLink ? ` &bull; <a href="${esc(t.toolLink.url)}" rel="noopener" target="_blank" aria-label="${esc(t.toolLink.name)}, a tool for the ${esc(t.name)} test, opens on ${esc(hostOf(t.toolLink.url))}">${esc(t.toolLink.name)}</a>` : ""
         }</p>` : ""}
         <p class="fk-how">${esc(t.how)}</p>
         <div class="fk-vs">
@@ -613,7 +631,7 @@ ${MENU}
       <p class="fk-see-b">${esc(d.seePhotos.body)}</p>
       <ul class="fk-see-list">
         ${d.seePhotos.links.map((l) => `<li>
-          <a href="${esc(l.url)}" rel="noopener" target="_blank">${esc(l.name)} <span aria-hidden="true">&rarr;</span></a>
+          <a href="${esc(l.url)}" rel="noopener" target="_blank" aria-label="${esc(l.name)}: ${esc(l.what)}, opens on ${esc(hostOf(l.url))}">${esc(l.name)} <span aria-hidden="true">&rarr;</span></a>
           <span>${esc(l.what)}</span>
         </li>`).join("\n        ")}
       </ul>
@@ -708,7 +726,7 @@ ${d.sealed ? `
     </ul>
     <p class="price-note">${d.sources.map(esc).join(" ")}${
       (d.sourceLinks || []).length
-        ? " Read it yourself: " + d.sourceLinks.map((l) => `<a href="${esc(l.url)}" rel="noopener" target="_blank">${esc(l.name)}</a>`).join(", ") + "."
+        ? " Read it yourself: " + d.sourceLinks.map((l) => `<a href="${esc(l.url)}" rel="noopener" target="_blank" aria-label="${esc(l.name)}, a source for this page, opens on ${esc(hostOf(l.url))}">${esc(l.name)}</a>`).join(", ") + "."
         : ""
     } Every drawing on this page is a diagram of the property being described, and not one picture here is a
       photograph of a real counterfeit: we do not own one whose history we can vouch for, and an unverified photo of

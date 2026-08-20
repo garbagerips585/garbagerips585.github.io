@@ -160,6 +160,25 @@ const V_KNOWN = new Set([
   "limits", "note", "sources",
 ]);
 
+// The bare host, for the "opens on <host>" half of an outbound aria-label.
+// Falls back to the empty string rather than throwing: a malformed url in the
+// data should cost a label, not the build. Same helper as build-shows.mjs.
+//
+// THE VENUE HEADING WAS THE ONE OUTBOUND LINK ON A CARD WITH NO aria-label,
+// which CLAUDE.md makes the condition of every outbound link on the site, and
+// its every-row-a-source siblings underneath it all had one. It is the link that
+// makes the card checkable: it goes to the venue's own fees page, which is where
+// every figure on the card was read from, so a reader who wants to know whether
+// a fee has moved has nowhere else to go. Naming that inside the label is worth
+// more than the outbound warning on its own.
+const hostOf = (u) => {
+  try {
+    return new URL(u).host.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+};
+
 const venueCard = (v) => {
   for (const k of Object.keys(v)) {
     if (!V_KNOWN.has(k)) throw new Error(`buying.json: venue "${v.id}" has unrendered key "${k}"`);
@@ -169,7 +188,7 @@ const venueCard = (v) => {
   return `      <article class="by-v" id="${esc(v.id)}">
         <div class="by-vh">
           ${brandMark(v.id, v.name)}
-          <h3>${v.url ? `<a href="${esc(v.url)}" rel="noopener" target="_blank">${esc(v.name)}</a>` : esc(v.name)}</h3>
+          <h3>${v.url ? `<a href="${esc(v.url)}" rel="noopener" target="_blank" aria-label="${esc(v.name)}'s own shipping and fees page, where the figures on this card were read, opens on ${esc(hostOf(v.url))}">${esc(v.name)}</a>` : esc(v.name)}</h3>
           <span class="by-st ${st.cls}">${esc(st.label)}</span>
         </div>
         ${v.type || v.format ? `<p class="by-fmt">${[v.type, v.format].filter(Boolean).map(esc).join(". ")}</p>` : ""}

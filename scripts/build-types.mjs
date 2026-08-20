@@ -710,9 +710,18 @@ ${types
                 ${t.weakness && t.weakness.n == null ? UNMEASURED : `${tendency(t, "weakness")}
                 ${tendency(t, "resistance")}`}
               </div>
-              <div class="ty-figs">
-${alt ? "" : cardFig(t.example, 150)}
-              </div>
+${/* NO EMPTY FIGURE COLUMN. .ty-body is a two-column grid (1fr 150px), and this
+      cell used to be emitted unconditionally even on the ONE type that moves its
+      card down into the .ty-split block below, so Darkness reserved a 150px
+      column plus a 16px gap that could never hold anything. Measured 20 August
+      2026 at 1440x900: eleven type cards, ten with a scan in that column and one
+      with a permanently blank one; at 390 the grid collapses to one column and
+      it cost a stray 16px row gap instead. An empty grid cell is invisible in
+      the markup and looks like a missing image in the render, which is why this
+      is a conditional and not a CSS :empty rule. */ ""}
+${alt ? "" : `              <div class="ty-figs">
+${cardFig(t.example, 150)}
+              </div>`}
             </div>
 ${
   alt

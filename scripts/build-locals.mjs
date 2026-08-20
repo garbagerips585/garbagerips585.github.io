@@ -96,18 +96,44 @@ const primaryUrl = (o) => {
   return social ? social[2](o[social[0]]) : o.url || o.links || null;
 };
 
+// The bare host, for the "opens on <host>" half of an outbound aria-label.
+// Falls back to the empty string rather than throwing: a malformed url in the
+// data should cost a label, not the build. Same helper as build-shows.mjs.
+const hostOf = (u) => {
+  try {
+    return new URL(u).host.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+};
+
+// EVERY LINK THIS FUNCTION EMITS IS OUTBOUND AND NONE OF THEM CARRIED THE
+// aria-label CLAUDE.md MAKES THE CONDITION OF ONE. These are the only links in
+// the body of /vendors.html and /creators.html, so both pages were at 0 of their
+// outbound links labelled while the site was at 783 of 877.
+//
+// The visible text is the reason it matters here more than the count suggests.
+// It is a fixed vocabulary -- "YouTube", "Instagram", "TikTok", "Website", "All
+// their links" -- repeated once per person, so on a page of five links the
+// accessible names were "YouTube", "Instagram", "YouTube", "Instagram",
+// "TikTok", and NONE of them said whose. The person's name is in the h2 above
+// and was in no link name. Naming them inside the label fixes the ambiguity and
+// the missing outbound warning together, exactly as build-shows.mjs does on a
+// show row.
 const links = (o) => {
+  const named = (what, url) =>
+    `${esc(o.name ? `${what} for ${o.name}` : what)}, opens on ${esc(hostOf(url))}`;
   const out = SOCIALS.filter(([k]) => o[k]).map(
     ([k, label, url]) =>
-      `<a class="loc-soc" href="${esc(url(o[k]))}" rel="noopener" target="_blank">${label}</a>`,
+      `<a class="loc-soc" href="${esc(url(o[k]))}" rel="noopener" target="_blank" aria-label="${named(label, url(o[k]))}">${label}</a>`,
   );
   // A plain website sits last: it is the least likely to be how somebody in a
   // card community actually finds them.
-  if (o.url) out.push(`<a class="loc-soc" href="${esc(o.url)}" rel="noopener" target="_blank">Website</a>`);
+  if (o.url) out.push(`<a class="loc-soc" href="${esc(o.url)}" rel="noopener" target="_blank" aria-label="${named("Website", o.url)}">Website</a>`);
   // A link-in-bio page (solo.to, linktr.ee) is often the ONLY address a vendor
   // publishes: no site of their own, and their socials change. Labelled as what
   // it is rather than as a website, because it is a hub and not a shop.
-  if (o.links) out.push(`<a class="loc-soc" href="${esc(o.links)}" rel="noopener" target="_blank">All their links</a>`);
+  if (o.links) out.push(`<a class="loc-soc" href="${esc(o.links)}" rel="noopener" target="_blank" aria-label="${named("All their links", o.links)}">All their links</a>`);
   return out.length ? `<p class="loc-socs">${out.join("")}</p>` : "";
 };
 

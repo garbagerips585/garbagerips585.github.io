@@ -1129,7 +1129,7 @@ const whosPage = shell({
 
     <p class="crumbs"><a href="/">Home</a> / <a href="/games/">Games</a> / Who's That Pokemon?</p>
     <p class="price-note" style="margin-top:var(--s5)">Artwork and Pokedex data from
-      <a href="https://pokeapi.co" rel="noopener" target="_blank">pokeapi.co</a>, read
+      <a href="https://pokeapi.co" rel="noopener" target="_blank" aria-label="pokeapi.co, the source of the artwork and the Pokedex data this game is built from, opens on pokeapi.co">pokeapi.co</a>, read
       ${esc(longDate(dex.checked) || dex.checked)}. Pokemon and all Pokemon names are trademarks of
       The Pokemon Company. Fan content, not affiliated.</p>
   </div>
@@ -1486,7 +1486,7 @@ const triviaPage = shell({
     <div id="game"></div>
     <p class="crumbs"><a href="/">Home</a> / <a href="/games/">Games</a> / Trivia</p>
     <p class="price-note" style="margin-top:var(--s5)">${shuffled.length.toLocaleString("en-US")} questions, every one
-      generated from <a href="https://pokeapi.co" rel="noopener" target="_blank">pokeapi.co</a> data read
+      generated from <a href="https://pokeapi.co" rel="noopener" target="_blank" aria-label="pokeapi.co, the source every question here is generated from, opens on pokeapi.co">pokeapi.co</a> data read
       ${esc(longDate(dex.checked) || dex.checked)}. Nothing here was typed from memory, which is why there is no
       question about which Pokemon is best. Fan content, not affiliated with The Pokemon Company.</p>
   </div>

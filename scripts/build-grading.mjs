@@ -45,6 +45,25 @@ import {
 import { esc, longDate, moneyExact, moneyRound, moneyCompact } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+
+// The bare host, for the "opens on <host>" half of an outbound aria-label.
+// Falls back to the empty string rather than throwing: a malformed url in the
+// data should cost a label, not the build. Same helper as build-shows.mjs.
+//
+// ALL FIVE OUTBOUND LINKS ON THIS PAGE WERE UNLABELLED, which CLAUDE.md makes
+// the condition of every outbound link on the site. They are the five graders'
+// own price lists, and they are the links that make the whole page checkable:
+// every fee on it is read off one of them, so a reader who wants to know whether
+// $80 is still $80 has nowhere else to go. The visible text already names the
+// company, so the label only has to add the destination and what is at it.
+const hostOf = (u) => {
+  try {
+    return new URL(u).host.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+};
+
 const g = JSON.parse(await readFile(join(ROOT, "data/grading.json"), "utf8"));
 const psa = JSON.parse(await readFile(join(ROOT, "data/psa10.json"), "utf8"));
 // WHAT EACH COMPANY'S SLAB IS ACTUALLY WORTH, from real sold prices rather
@@ -411,7 +430,7 @@ ${MENU}
               c.id === "psa" ? "" : `<p class="gc-note">${esc(c.note)}</p>`
             }
         <p class="gc-resale"><strong>Resale.</strong> ${esc(c.resale)}</p>
-        <a class="intl-link" href="${esc(c.url)}" rel="noopener" target="_blank">${esc(c.name)} prices &rarr;</a>
+        <a class="intl-link" href="${esc(c.url)}" rel="noopener" target="_blank" aria-label="${esc(c.name)} prices, their own published fee list, opens on ${esc(hostOf(c.url))}">${esc(c.name)} prices &rarr;</a>
       </article>`
         )
         .join("\n      ")}

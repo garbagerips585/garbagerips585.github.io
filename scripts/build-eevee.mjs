@@ -381,9 +381,17 @@ const section = (e) => {
           <div class="ee-th">
             <h3>${esc(e.name)}</h3>
             <span class="ee-no">${esc(dexNo(e.node))}</span>
-            <!-- NO "n answers" BADGE HERE. condsFor already prints that heading
-                 immediately below, so the badge repeated it two lines apart and
-                 read like a stutter. Screenshotted at 390 before removing. -->
+            ${/* NO "n answers" BADGE HERE. condsFor already prints that heading
+                  immediately below, so the badge repeated it two lines apart and
+                  read like a stutter. Screenshotted at 390 before removing.
+
+                  THIS WAS AN HTML COMMENT AND SO IT SHIPPED, once per
+                  Eeveelution: 9 copies, 1,692 bytes of prose no reader can see,
+                  on a page of eight cards. Same bug and same fix as the 22 copies
+                  build-shows.mjs was carrying, found in the same sweep on 20
+                  August 2026. build-eevee.mjs does not strip HTML comments, so a
+                  note about the BUILDER has to take this form inside a template
+                  literal, never an HTML one. */ ""}
           </div>
           <div class="ee-row">
             ${
