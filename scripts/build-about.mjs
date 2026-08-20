@@ -143,7 +143,7 @@ const style = `
 .about-socials a:hover{border-color:var(--ink)}
 .about-socials i{width:11px;height:11px;border-radius:50%;background:var(--pip);flex:none}
 .about-roc{display:flex;align-items:center;gap:var(--s4)}
-.about-roc img{width:74px;flex:none}
+.about-roc img{width:128px;flex:none}
 .about-roc p{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);letter-spacing:.03em;margin:0}
 
 /* THE ONE PICTURE ON THIS PAGE. It sits with the paragraph about the sealed
@@ -264,8 +264,8 @@ ${SOCIALS.map(
         </div>
 
         <div class="about-card about-roc">
-          <img src="/assets/roc-lilac.svg" width="240" height="280" alt="A lilac sprig over the words Rochester, New York and the area code 585" loading="lazy" decoding="async">
-          <p>MADE IN ROCHESTER, NY.<br>LILACS, LAKE EFFECT, AND A PLATE AT 2AM.</p>
+          <img src="/assets/made-in-roc.webp" width="256" height="218" alt="The Garbage Rips 585 badge: a Rochester manhole cover carrying the city's five-petal flower emblem, with Trubbish in the middle and the words MADE IN ROC across the bottom" loading="lazy" decoding="async">
+          <p>LILACS, LAKE EFFECT, AND A PLATE AT 2AM.</p>
         </div>
       </aside>
     </div>
