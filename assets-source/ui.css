@@ -2488,6 +2488,28 @@ footer .soc svg{fill:var(--chrome-ink)}
   margin:var(--s4) var(--s3) var(--s4);border-radius:var(--r-pill);
   background:var(--yt-red);color:var(--on-yt);font:700 var(--t-body)/1 var(--body)}
 .menu-sub:hover{background:var(--yt-red-deep)}
+/* THE MENU'S OWN SEARCH LINE, phone only, 19 August 2026.
+   Tim asked for the magnifier to come out of the phone bar. Search is already
+   in the menu under Cards, but every group ships `open` and app.js strips that
+   below 821px, so on a phone it sits inside a COLLAPSED group: the link has a
+   real rect and a non-null offsetParent, and elementFromPoint at the middle of
+   that rect returns the Cards summary. Removing the icon alone therefore moved
+   search from 1 tap to 3, the middle one being a heading nobody would guess
+   holds it. This is the shortcut that makes it 2.
+   SELECTOR IS `.menu a.menu-find` ON PURPOSE. `.menu a` above declares the ink
+   colour at 0-1-1, and the note under .menu-sub records what happened the last
+   time a menu affordance was written at 0-1-0: specificity is decided before
+   source order, so the plain link colour won and the rule silently did nothing.
+   Scoped to the width where the icon is hidden, so desktop, which still has the
+   magnifier in the bar, does not get the same link twice. */
+@media (max-width:700px){
+  .menu a.menu-find{display:flex;align-items:center;justify-content:center;
+    min-height:48px;margin:var(--s4) var(--gut) 0;border-radius:var(--r-pill);
+    border:2px solid var(--keyline);background:var(--paper);
+    color:var(--chrome-ink);font:700 var(--t-body)/1 var(--body)}
+  .menu a.menu-find:hover{border-color:var(--chrome-ink)}
+}
+@media (min-width:701px){ .menu-find{display:none} }
 /* THE LINE ABOVE NEVER SET THE TEXT COLOUR IT SAYS IT SETS, and the failure is
    pure specificity, not source order. `.menu a` earlier in this file declares
    color:var(--chrome-ink) at 0-1-1; `.menu-sub` is 0-1-0. Specificity is decided
@@ -4323,9 +4345,20 @@ inherited from the UA default, so the promotion moves nothing on screen. */
    min-width:425 block below this one takes over with a 2:3 crop there.
 
    IT IS A CAP RATHER THAN A WIDTH ON PURPOSE, so it can only ever make the
-   trophy smaller than the wrap allows, never wider. Below about 330px the wrap
-   is the narrower of the two and the frame goes back to filling it. That also
-   means a later change to --gut cannot push the banner back under the fold.
+   trophy smaller than the wrap allows, never wider, and a later change to --gut
+   can therefore never push the banner back under the fold. IN PRACTICE IT
+   BINDS AT EVERY PHONE WIDTH AND THAT IS WORTH KNOWING, because it means the
+   artwork is exactly 78vw - 40 below 545 and `sizes` in build-proto.mjs can say
+   so exactly: the wrap only wins when 100vw - 2*--gut drops under 78vw, which
+   with a 16px gutter is 145px, and there is no such device.
+
+   ONE THING GETS SMALLER THAT IS NOT THE PACK, on the narrowest phones only.
+   .pack-hint's font-size is clamp(.5rem, 4.6cqi, .72rem) against .hofx-art as
+   the container, so a narrower art box eventually walks it off the .72rem ceiling:
+   11.52px down to 390, 11.08 at 360 and 9.64 at 320, against 11.52, 11.52 and
+   11.41 before. It stays one row of 44px at all three. That is the clamp doing
+   its job rather than a regression, but it is the one legibility figure this
+   change moves, so it is written down rather than discovered.
 
    WHAT IT COSTS, and it is the one thing here worth arguing with. The pack goes
    318.0x565.3 to 264.2x469.9 at 390, so its AREA drops 31% and it is now

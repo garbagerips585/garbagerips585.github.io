@@ -633,7 +633,16 @@ export const STYLES_NO_PACKS_CSS = `<link rel="stylesheet" href="/assets/ui.css?
  * link is not reachable at it. THE HONEST TEST FOR A LINK INSIDE A CLOSED
  * <details> IS elementFromPoint, NOT offsetParent AND NOT THE RECT.
  *
- * So the route is Menu, Cards, Search the site: 1 tap before this change,
+ * SO THE MENU PINS ITS OWN SEARCH LINE, above the groups and outside every
+ * <details>, which is what `.menu-find` is. Two taps, and the second one is
+ * labelled rather than guessed at.
+ *
+ * Tim asked to take the magnifier out of the phone bar. He did not ask to put
+ * search three taps away behind a group heading nobody would think to open,
+ * and that is what removing it alone did. The line inside Cards STAYS: it is
+ * that group's own contents and this is a shortcut, not a move.
+ *
+ * The route was Menu, Cards, Search the site: 1 tap before this change,
  * 3 after, and the middle one is a group label a reader has to guess holds
  * search. That is the price of the ask and it is Tim's to weigh. If he wants
  * it closer, the cheap fix is a single "Search" line pinned above the groups
@@ -750,6 +759,7 @@ ${BAR_LINKS.map((h) => `      <a href="${h}">${labelFor(h)}</a>`).join("\n")}
  * break-inside: avoid still applies to the whole group.
  */
 export const MENU = `<nav class="menu" id="menu" aria-label="All sections">
+  <a class="menu-find" href="/search.html">Search the site</a>
   <div class="menu-inner">
 ${NAV.map(
   ([title, links]) => `    <details class="menu-g" open>
