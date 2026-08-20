@@ -867,17 +867,32 @@ for (const [n, r] of rows.slice(1).entries()) {
       }
     }
 
-    // WHAT COUNTS AS TIM HAVING SAID HOW MANY PACKS. Either every fragment
-    // carries a number he typed, or the cell names exactly one set, which is his
-    // own stated rule that a blank means one. A multi-set cell with no counts
-    // falls through both and is reported below.
-    packsStated = setPacks.length > 0 && (setPacks.every((s) => s.typed) || setPacks.length === 1);
-    if (setPacks.length > 1 && !packsStated) {
-      quiet.push(
-        `${id}: Sets & Packs names ${setPacks.length} sets and no counts, so how many packs this video ` +
-          `opened is not stated and none is published. Fill Packs of Each Set with one number per set.`
-      );
-    }
+    // WHAT COUNTS AS TIM HAVING SAID HOW MANY PACKS: naming the set says it.
+    //
+    // THIS GATE USED TO REFUSE A MULTI-SET CELL and it was refusing true numbers.
+    // It read "either every fragment carries a number he typed, or the cell
+    // names exactly one set", on the theory that a cell naming three sets might
+    // be listing what a product CONTAINS rather than what the video OPENED. The
+    // First Partner rows were the worry: name the box's three packs, publish
+    // "3 packs" for a video that opened one.
+    //
+    // Tim, 20 August 2026, asked directly: "First partners boxes do come with 3
+    // overall packs, 1 Pack of first partners cards, and then two other sets
+    // come in each box so total of 3 packs per first partners box", and then "I
+    // listed out all 3 packs in each of the first partner videos". So the cell
+    // is a list of what he opened, one line per pack, and the old gate was
+    // discarding his answer on exactly the rows it was written to protect.
+    //
+    // His rule, stated whole: a named set is a pack, a blank count means one,
+    // and Packs of Each Set overrides when a video opens more than one of a set.
+    // That is the same rule the single-set case already relied on -- it was only
+    // ever applied to cells with one name in them.
+    //
+    // The genuine ambiguity this file still refuses is untouched and lives
+    // above: a count that does not line up one-per-set is rejected and reported,
+    // because "3" against two sets could mean three each or three between them.
+    // What is no longer treated as ambiguous is Tim listing three sets.
+    packsStated = setPacks.length > 0;
   }
 
   // `.filter(Boolean)` IS LOAD-BEARING AND THE NULL IT DROPS IS DELIBERATE.
