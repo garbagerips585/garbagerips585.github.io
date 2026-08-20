@@ -174,7 +174,11 @@ function row(c, i) {
   const src = c.pcImg ? c.pcImg.replace(/\/\d+\.jpg$/, "/240.jpg") : null;
   const img = v.imgOk && src
     ? avifPicture(
-        `<img class="tg-scan" src="${esc(src)}" alt="${esc(c.name)}, ${esc(c.set)}"` +
+        // alt="" : .tg-name and .tg-set print this exact string as visible text
+        // immediately below, so an alt here made every one of the 100 rows read
+        // the card name out twice before the price. The no-scan branch keeps
+        // its .sr-only sentence, which says something the page does not show.
+        `<img class="tg-scan" src="${esc(src)}" alt=""` +
           `${imgDims(src)} loading="lazy" decoding="async">`,
       )
     : `<span class="tg-noscan">No scan<span class="sr-only"> available for this card</span></span>`;

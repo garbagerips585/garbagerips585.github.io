@@ -110,6 +110,76 @@ const hasLogo = (setId) => Boolean(setId) && logosOnDisk.has(setId);
  * and `.rip-setlogo` at up to 197px, and both should keep taking the master.
  */
 const SM_H = 100;
+const MD_H = 150;
+
+/**
+ * THE HERO LOGO WAS THE LARGEST RESOURCE ON THIS WHOLE TEMPLATE AND IT HAD NO
+ * `srcset` AT ALL.
+ *
+ * `.logo-big` hardcoded the 300px-tall master. Measured over CDP at 390x844
+ * DPR 2 with the network throttled to a mid-range phone on 4G, on 19 August
+ * 2026: /sets/pitch-black.html painted it into a 241.3 x 66.3 CSS box, so a
+ * DPR 2 screen wanted 483 x 133 device px and was handed 1092 x 300. 51.2KB,
+ * 2.26x oversized in each direction, ABOVE THE FOLD, and the single biggest
+ * request on a 332KB page. Every other logo on the site had been given a
+ * srcset months ago; this one was missed because it is the only logo on the
+ * site that is neither a card tile nor a rail thumbnail.
+ *
+ * Two things fix it and they are independent:
+ *   - a `-md` rendition at 150px tall (build-logos.py), because -sm at 100 and
+ *     the master at 300 straddle the 133 this box actually wants;
+ *   - AVIF in front of the WebP, which is 23-39% smaller on these files.
+ *
+ * `sizes` IS COMPUTED PER LOGO AND IT IS THE SAME ARITHMETIC THE LAYOUT DOES,
+ * which is the lesson `setCardLogo` above already paid for once: one flat
+ * number cannot describe 28 aspect ratios, and over-declaring the box is what
+ * makes a browser skip the small file. ui.css says
+ * `.set-hero img.logo-big{height:clamp(56px,17vw,110px);width:auto}`, so the
+ * WIDTH is the height times this logo's own aspect. 17vw crosses 56px at
+ * 329px of viewport and 110px at 647px, so the clamp is three plain media
+ * conditions rather than a `clamp()` in a sizes attribute, which not every
+ * browser parses there.
+ *
+ * Verified against the real box: pitch-black is 3.64:1, so 17 x 3.64 = 61.9vw,
+ * and 390 x 0.619 = 241.4 against the 241.3 measured off the element.
+ *
+ * THE `<picture>` IS ONLY EMITTED WHEN EVERY CANDIDATE HAS AN AVIF ON DISK.
+ * build-logos.py deliberately does not write an AVIF that came out larger than
+ * its WebP (it loses on eleven of the small renditions), and a <picture> takes
+ * the first source it can decode rather than the smallest file, so a source
+ * listing a rendition that has no AVIF would either 404 or hand a desktop the
+ * phone's file. Reading the directory is the check; there is no manifest to go
+ * stale.
+ */
+const logoFiles = new Set(await readdir(join(ROOT, "public/assets/logos")).catch(() => []));
+function heroLogo(setId) {
+  if (!hasLogo(setId)) return "";
+  const base = `/assets/logos/${setId}-pokemon-tcg-set-logo`;
+  const d = LOGO_DIMS[`${setId}-pokemon-tcg-set-logo.webp`];
+  if (!d) return `<img class="logo-big" src="${base}.webp" alt="" onerror="this.remove()">`;
+  const [mw, mh] = d;
+  const aspect = mw / mh;
+  // The renditions build-logos.py actually wrote for this logo. A master that
+  // was already shorter than a step has no file for it.
+  const cands = [
+    [SM_H, "-sm"], [MD_H, "-md"], [mh, ""],
+  ]
+    .filter(([h, sfx]) => sfx === "" || logoFiles.has(`${setId}-pokemon-tcg-set-logo${sfx}.webp`))
+    .map(([h, sfx]) => ({ w: Math.max(1, Math.round((mw * h) / mh)), sfx }))
+    .filter((c, i, a) => a.findIndex((x) => x.w === c.w) === i);
+  const px = (n) => Math.round(n * 10) / 10;
+  const sizes =
+    `(max-width:329px) ${px(56 * aspect)}px, ` +
+    `(max-width:647px) ${px(17 * aspect)}vw, ${px(110 * aspect)}px`;
+  const srcset = cands.map((c) => `${base}${c.sfx}.webp ${c.w}w`).join(", ");
+  const img =
+    `<img class="logo-big"${logoAttrs(setId)} src="${base}.webp"` +
+    ` srcset="${srcset}" sizes="${sizes}" alt="" onerror="this.remove()">`;
+  const allAvif = cands.every((c) => logoFiles.has(`${setId}-pokemon-tcg-set-logo${c.sfx}.avif`));
+  if (!allAvif) return img;
+  const avifSet = cands.map((c) => `${base}${c.sfx}.avif ${c.w}w`).join(", ");
+  return `<picture><source type="image/avif" srcset="${avifSet}" sizes="${sizes}">${img}</picture>`;
+}
 // `.set-card img{height:42px;width:auto;max-width:110px}` in assets-source/ui.css.
 // Both numbers are read from there; if that rule moves, these move with it.
 const CARD_H = 42, CARD_MAX_W = 110;
@@ -137,9 +207,23 @@ const setCardLogo = (setId, alt, { eager = false } = {}) => {
   // 42 x aspect, capped at the CSS cap. See the note above: this is the box the
   // layout actually paints, not the 110px cap that only the widest logos reach.
   const boxW = d ? Math.min(CARD_MAX_W, Math.round(CARD_H * (d[0] / d[1]))) : CARD_MAX_W;
-  const srcset = d
-    ? ` srcset="${base}-sm.webp ${Math.round((d[0] * SM_H) / d[1])}w, ${base}.webp ${d[0]}w" sizes="${boxW}px"`
-    : "";
+  // THE -md CANDIDATE CLOSES THE REMAINDER OF THE BUG THE NOTE ABOVE DESCRIBES.
+  // Declaring the real box stopped six logos over-asking, but the ladder still
+  // jumped 100px straight to 300px, so a DPR 2 phone wanting up to 220px of a
+  // NARROW logo still had to take the master: 151-sm is 132px wide and
+  // black-bolt-sm 160px, both short of 220. -md sits at 150px tall (198px and
+  // 240px wide for those two), which covers it for a third of the master's
+  // bytes. Only emitted when build-logos.py wrote one; a logo whose master is
+  // already under 150 tall has no -md file and keeps the two-candidate ladder.
+  const hasMd = logoFiles.has(`${setId}-pokemon-tcg-set-logo-md.webp`);
+  const cand = d
+    ? [
+        `${base}-sm.webp ${Math.round((d[0] * SM_H) / d[1])}w`,
+        ...(hasMd ? [`${base}-md.webp ${Math.round((d[0] * MD_H) / d[1])}w`] : []),
+        `${base}.webp ${d[0]}w`,
+      ]
+    : [];
+  const srcset = d ? ` srcset="${cand.join(", ")}" sizes="${boxW}px"` : "";
   return `<img${logoAttrs(setId)} src="${base}${d ? "-sm" : ""}.webp"${srcset} alt="${alt}"${eager ? "" : ` loading="lazy"`} onerror="this.remove()">`;
 };
 
@@ -2029,7 +2113,9 @@ ${MENU}
 // ------------------------------------------------------------------ a set
 function setPage(s) {
   const url = `${SITE}/sets/${s.id}.html`;
-  const logo = `/assets/logos/${s.id}-pokemon-tcg-set-logo.webp`;
+  // The hero logo's url is built inside heroLogo(), which needs the whole
+  // rendition ladder rather than one filename. The lone `const logo` that used
+  // to live here was its only reader.
   const rips = ripsBySet[s.id] || 0;
   const label = labelFor("sets", s.id);
   const desc =
@@ -2170,7 +2256,13 @@ function setPage(s) {
         data-psa10="${esc(psa(c) ? moneyCompact(psa(c)) : "")}"
         data-url="${esc(c.url ? affLink(c.url) : "")}"
         aria-label="Enlarge ${esc(c.name)}">
-        ${avifPicture(`<img src="${c.image}" alt="${esc(c.name)} ${esc(c.number)}, ${esc(rarityLabel(c.rarity) || "card")}" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}
+        ${/* alt="" ON PURPOSE: the button above is aria-labelled "Enlarge <name>"
+              and the .nm / .rr lines below print the name, rarity and number in
+              full, so an alt here made the AX tree read the card out a second
+              time inside a control that had already named it. Chrome does not
+              treat button descendants as presentational, so it really was
+              announced. `onerror` removes the node, so no broken image is ever
+              left nameless. */ ""}${avifPicture(`<img src="${c.image}" alt="" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}
         <div class="nm">${esc(c.name)}</div>
         <div class="rr">${esc(rarityLabel(c.rarity) || "")} &bull; ${esc(c.number)}</div>
         <div class="pr">${moneyCompact(c.price)}</div>
@@ -2642,7 +2734,7 @@ function setPage(s) {
 <header class="set-hero">
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
-    ${hasLogo(s.id) ? `<img class="logo-big"${logoAttrs(s.id)} src="${logo}" alt="" onerror="this.remove()">` : ""}
+    ${heroLogo(s.id)}
     <h1>${esc(s.name)}</h1>
     <p class="lede w34">Everything worth knowing about ${esc(s.name)} in one screen. Card counts, what is actually rare, and what the chase cards are going for.</p>
   </div>

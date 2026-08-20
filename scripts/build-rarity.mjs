@@ -462,7 +462,7 @@ const slangCard = (s) => {
     : s.show === "crop"
       ? `<div class="gloss-fig is-crop">${corner(s.card, "left", s.example)}</div>`
       : `<figure class="gloss-fig">
-            ${cardArt(s.card, 132, s.example, imgDims(s.card))}
+            ${cardArt(s.card, 132, /* alt="" - the caption below repeats this string exactly */ "", imgDims(s.card))}
             <figcaption>${esc(s.example)}</figcaption>
           </figure>`;
   return `        <li${s.card ? "" : ' class="no-fig"'}>
@@ -476,7 +476,7 @@ const slangCard = (s) => {
 const ladderRow = (r, i) => `      <li class="rr${r.chase ? " is-chase" : ""}">
         <div class="rr-n">${i + 1}</div>
         <div class="rr-card">
-          ${cardArt(r.card, 120, r.example, imgDims(r.card))}
+          ${cardArt(r.card, 120, /* alt="" - .rr-eg below prints r.example */ "", imgDims(r.card))}
         </div>
         <div class="rr-body">
           <h3>${esc(r.name)}${r.chase ? ` <span class="rr-chase">worth chasing</span>` : ""}</h3>
@@ -880,15 +880,15 @@ ${(d.offLadder || []).map(offLadderRow).join("\n")}
         the same card.</p>
       <div class="exs">
         <div class="ex1"><b>Pokemon-ex</b><p class="yrs">2003 to 2007, lowercase</p>
-          <figure class="ex-fig">${cardArt("https://assets.tcgdex.net/en/ex/ex6/105/high.webp", 150, "Charizard ex, FireRed &amp; LeafGreen, 2004", ' width="600" height="825"')}<figcaption>Charizard ex, FireRed &amp; LeafGreen, 2004</figcaption></figure>
+          <figure class="ex-fig">${cardArt("https://assets.tcgdex.net/en/ex/ex6/105/high.webp", 150, /* alt="" - the caption below repeats this string exactly */ "", ' width="600" height="825"')}<figcaption>Charizard ex, FireRed &amp; LeafGreen, 2004</figcaption></figure>
           <p>The original. No rule box: the rule is plain italic text along the bottom, and abilities
             are called Poke-POWER or Poke-BODY.</p></div>
         <div class="ex1"><b>Pokemon-EX</b><p class="yrs">2012 to 2016, uppercase</p>
-          <figure class="ex-fig">${cardArt("https://assets.tcgdex.net/en/xy/xy2/11/high.webp", 150, "Charizard EX, Flashfire, 2014", ' width="600" height="825"')}<figcaption>Charizard EX, Flashfire, 2014</figcaption></figure>
+          <figure class="ex-fig">${cardArt("https://assets.tcgdex.net/en/xy/xy2/11/high.webp", 150, /* alt="" - the caption below repeats this string exactly */ "", ' width="600" height="825"')}<figcaption>Charizard EX, Flashfire, 2014</figcaption></figure>
           <p>Black and White through XY. Almost always Basic, whatever the Pokemon's real stage.
             Mega EX ended your turn unless you played a Spirit Link.</p></div>
         <div class="ex1"><b>Pokemon ex</b><p class="yrs">2023 to now, lowercase again</p>
-          <figure class="ex-fig">${cardArt("https://assets.tcgdex.net/en/sv/sv03/125/high.webp", 150, "Charizard ex, Obsidian Flames, 2023", ' width="600" height="825"')}<figcaption>Charizard ex, Obsidian Flames, 2023</figcaption></figure>
+          <figure class="ex-fig">${cardArt("https://assets.tcgdex.net/en/sv/sv03/125/high.webp", 150, /* alt="" - the caption below repeats this string exactly */ "", ' width="600" height="825"')}<figcaption>Charizard ex, Obsidian Flames, 2023</figcaption></figure>
           <p>Current. Has a bordered rule box in the bottom corner where the Pokedex entry would sit.
             That box is the quickest way to tell it from a 2003 one.</p></div>
       </div>
@@ -917,7 +917,7 @@ ${d.gone
           ${
             g.card
               ? `<figure class="gone-fig">
-            ${cardArt(g.card, 132, g.example, imgDims(g.card))}
+            ${cardArt(g.card, 132, /* alt="" - the caption below repeats this string exactly */ "", imgDims(g.card))}
             <figcaption>${esc(g.example)}</figcaption>
           </figure>`
               : ""

@@ -931,7 +931,22 @@ function pokePage(p) {
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       ${sorted
         .map(
@@ -941,7 +956,7 @@ function pokePage(p) {
         data-number="${esc(c.n || "")}" data-price="${esc(moneyCompact(c.price))}"
         data-set="${esc(c.setName)}"
         aria-label="Enlarge ${esc(c.name)}, ${esc(c.setName)}${c.n ? " " + esc(c.n) : ""}">
-        ${c.img ? avifPicture(`<img src="${esc(c.img)}/low.webp" onerror="this.remove()" alt="${esc(c.name)} ${esc(c.n || "")}, ${esc(c.setName)}" loading="lazy"${imgDims(c.img + "/low.webp")}>`) : ""}
+        ${c.img ? avifPicture(`<img src="${esc(c.img)}/low.webp" onerror="this.remove()" alt="" loading="lazy"${imgDims(c.img + "/low.webp")}>`) : ""}
         <div class="nm">${esc(c.name)}</div>
         <div class="rr">${esc(c.setName)} &bull; ${esc(c.n || "")}</div>
         ${rar(c.rarity) ? `<div class="rr">${esc(rar(c.rarity))}</div>` : ""}
@@ -1011,8 +1026,13 @@ function pokePage(p) {
     ${withScan.length ? `<div class="chase-grid">
       ${withScan
         .map(
+          // alt="" for the same reason as the priced grid above: the .nm and
+          // .rr lines directly below are this scan's caption and say the same
+          // words, so an alt here is the card named twice in a row. This tile
+          // is a plain div with no aria-label, so the visible text IS the
+          // accessible text and nothing is lost by not repeating it.
           (c) => `<div class="chase-card is-flat">
-        ${avifPicture(`<img src="${esc(c.g)}/low.webp" onerror="this.remove()" alt="${esc(c.n)} ${esc(c.i)}, ${esc(c.s)}" loading="lazy" decoding="async"${imgDims(c.g + "/low.webp")}>`)}
+        ${avifPicture(`<img src="${esc(c.g)}/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async"${imgDims(c.g + "/low.webp")}>`)}
         <div class="nm">${esc(c.n)}</div>
         <div class="rr">${esc(c.s)} &bull; ${esc(c.i)}</div>
         ${rar(c.r) ? `<div class="rr">${esc(rar(c.r))}</div>` : ""}

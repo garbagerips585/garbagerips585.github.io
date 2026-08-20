@@ -356,8 +356,17 @@ function row(c, i, key) {
   const src = scanSrc(c);
   // A row whose scan 404s says so in words. There is no placeholder card face:
   // a navy placeholder box on this site once read as a real card.
+  // alt="" BECAUSE THE ROW SAYS IT ALREADY. The name and the set print as
+  // visible text two elements below this scan, in .tp-name and .tp-set, and
+  // the alt was the identical string. Read off Accessibility.getFullAXTree,
+  // every one of the 200 rows announced "Number 1." then the image
+  // "Dragonite [Tekno] #149, 2000 Topps Chrome" then the text
+  // "Dragonite [Tekno] #149" "2000 Topps Chrome": the card named twice before
+  // the reader reaches the price, 200 times down the page. The no-scan branch
+  // below keeps its .sr-only sentence, because THAT one says something the
+  // visible text does not.
   const img = src
-    ? `<img class="tp-scan" src="${esc(src)}" alt="${esc(c.name)}, ${esc(c.set)}" loading="lazy" decoding="async">`
+    ? `<img class="tp-scan" src="${esc(src)}" alt="" loading="lazy" decoding="async">`
     : `<span class="tp-noscan">No scan<span class="sr-only"> available for this card</span></span>`;
 
   // The ranked figure is the big one and the other two ride under it. Which one

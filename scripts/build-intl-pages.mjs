@@ -641,7 +641,9 @@ function chaseBand(g, en, cls) {
         data-name="${esc(cardName(c))}" data-rarity="${esc(rarityLabel(c.rarity) || (c.secret ? "Numbered past the set" : ""))}"
         data-number="${esc(c.localId || "")}" data-price=""
         aria-label="Enlarge ${esc(cardName(c))}">
-        ${avifPicture(`<img src="${esc(c.image)}" alt="${esc(cardName(c))} ${esc(c.localId || "")}, ${esc(g.english)}" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}
+        ${/* alt="" : the button is aria-labelled "Enlarge <name>" and the .nm
+              and .rr lines below repeat the name and number, so an alt made a
+              screen reader say the card three times over on one tile. */ ""}${avifPicture(`<img src="${esc(c.image)}" alt="" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}
         <div class="nm">${esc(cardName(c))}</div>
         ${cardSub(c) ? `<div class="ig-native" lang="${esc(g.dataSource?.lang || g.lang)}">${esc(cardSub(c))}</div>` : ""}
         <div class="rr">${esc(rarityLabel(c.rarity) || (c.secret ? "Secret" : kindOf(c) || "Card"))} &bull; ${esc(c.localId || "")}</div>
@@ -773,8 +775,14 @@ function enChase(g, en, { standalone = false, why = "", nativeBelow = false } = 
     <div class="chase-grid intl-enchase">
       ${chase
         .map(
+          // alt="" HERE MATTERS MORE THAN ON THE BUTTONS. This tile is an <a>,
+          // so its accessible name is COMPUTED FROM ITS CONTENTS: the alt was
+          // being concatenated with the .nm/.rr/.pr text into one link name
+          // reading "Bulbasaur 001, English Base Set Bulbasaur Rare • 001
+          // $1.23". Emptying the alt leaves the link named by the words that
+          // are actually on the screen, which is also what WCAG 2.5.3 wants.
           (c) => `<a class="chase-card" href="/sets/${esc(g.equivalent)}.html">
-        ${avifPicture(`<img src="${esc(c.image)}" alt="${esc(c.name)} ${esc(c.number)}, English ${esc(en.name)}" loading="lazy" decoding="async" onerror="this.remove()"${imgDims(c.image)}>`)}
+        ${avifPicture(`<img src="${esc(c.image)}" alt="" loading="lazy" decoding="async" onerror="this.remove()"${imgDims(c.image)}>`)}
         <div class="nm">${esc(c.name)}</div>
         <div class="rr">${esc(rarityLabel(c.rarity) || "")} &bull; ${esc(c.number)}</div>
         <div class="pr">${moneyCompact(c.price)}</div>

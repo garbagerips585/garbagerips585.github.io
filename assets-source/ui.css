@@ -2185,7 +2185,24 @@ footer .soc svg{fill:var(--chrome-ink)}
      build shipped two magnifiers side by side with a 0px input between them and
      nothing errored. Specificity is decided before source order. The same trap
      is live in this file for `.menu a.menu-sub`, a few hundred lines down. */
-  .menu-btn span{display:none}
+  /* HIDDEN FROM THE EYE, NOT FROM THE ACCESSIBILITY TREE, AND THE DIFFERENCE
+     WAS THE WHOLE BUG. This was `display:none`, which takes the label out of
+     the AX tree as well as off the screen. The svg beside it is aria-hidden,
+     so below 560px the button that opens the ENTIRE site navigation computed
+     an accessible name of "" on all 1,483 pages: a screen reader announced it
+     as "button", with nothing else in the bar to reach the nav by. Measured
+     over CDP with Accessibility.getFullAXTree, /index.html, before the fix:
+     390x844 -> name "", 1440x900 -> name "Menu". Same page, same markup, and
+     only the media query between them, which is exactly why reading the
+     markup could never have found it.
+     The sr-only pattern keeps the word in the name and off the screen. It is
+     `position:absolute`, so it also leaves the grid and the 44px icon centres
+     itself exactly as it did under display:none. Do not "simplify" this back
+     to display:none, and do not reach for aria-label instead: the visible
+     label above 560px is the word "Menu", and keeping the real text as the
+     name is what keeps WCAG 2.5.3 Label in Name true at every width. */
+  .menu-btn span{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
   .menu-btn{padding:0;width:44px}
 }
 @media(max-width:400px){

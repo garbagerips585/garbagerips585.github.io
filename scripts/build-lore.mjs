@@ -88,8 +88,14 @@ const portrait = (p, px = 64, eager = false) => {
     missingArt.add(`${p.id} ${p.name}`);
     return `<span class="dexart dexart-none" style="--px:${px}px" role="img" aria-label="No artwork held for ${esc(p.name)}"></span>`;
   }
+  // alt="" AND IT IS SAFE AT EVERY CALL SITE: all three of them wrap this in a
+  // <figure> whose <figcaption> is the Pokemon's name, so the alt was the same
+  // word twice in a row. On /lore.html that was 18 portraits reading e.g.
+  // "Tyranitar" (image) then "Tyranitar" (caption). The dexart-none branch
+  // above keeps its aria-label, because "No artwork held for X" tells a
+  // listener something the caption does not.
   return `<img class="dexart" style="--px:${px}px" src="${esc(a.file)}" width="${a.w}" height="${a.h}"` +
-    ` alt="${esc(p.name)}"${eager ? "" : ` loading="lazy"`} decoding="async">`;
+    ` alt=""${eager ? "" : ` loading="lazy"`} decoding="async">`;
 };
 
 /** A row of portraits with the Pokemon's name under each. */

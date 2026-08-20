@@ -65,6 +65,29 @@ function clock(hhmm) {
 }
 const timeRange = (s, e) => [clock(s), clock(e)].filter(Boolean).join(" to ");
 
+// HOW A SHOW IS NAMED INSIDE A LINK LABEL, AND THE DATE IS NOT DECORATION.
+// Naming the show alone was not enough: the recurring ones run monthly and each
+// date has its own listing url, so "CollectorFest Monthly" was still the name of
+// three different links and "Batavia Sports Card, Toys and Collectible Show" of
+// four. The date is exactly what tells them apart and it is already visible on
+// the card, so it belongs in the label too. Measured after: 26 outbound links on
+// the page, 26 distinct accessible names.
+const showRef = (s) => {
+  const when = longDate(s.date) || s.date || "";
+  return when ? `${s.name}, ${when}` : s.name;
+};
+
+// The bare host, for the "opens on <host>" half of an outbound aria-label.
+// Falls back to the empty string rather than throwing: a malformed url in the
+// data should cost a label, not the build.
+function hostOf(u) {
+  try {
+    return new URL(u).host.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+}
+
 /**
  * Eastern offset for a given date: -04:00 in daylight time, -05:00 in standard.
  * This was hardcoded to -04:00, which is wrong for every show from November on,
@@ -619,10 +642,24 @@ function showCard(s) {
             </li>`).join("\n            ")}
           </ul>` : ""}
           ${s.warn ? `<p class="show-warn">${esc(s.warn)}</p>` : ""}
+          <!-- THE THREE LINKS ON A SHOW ROW ARE THE ONLY OUTBOUND ONES ON THIS
+               PAGE AND ALL THREE WERE MISSING THE aria-label THAT CLAUDE.md
+               MAKES THE CONDITION OF EVERY OUTBOUND LINK ON THE SITE. The
+               visible wording also could not survive being read on its own:
+               computed off the AX tree, "Listing & details" was the accessible
+               name of TWENTY-ONE links on this page, each going to a different
+               show, so a screen reader's link list was twenty-one identical
+               rows. The show's name and date are visible in the card above but
+               were in no link name. Naming the show inside each label fixes the
+               ambiguity and the missing outbound warning in one move, in the
+               house wording ("<what>, opens on <host>"). Keep the visible text
+               short: it is the accessible NAME that has to be unique, and
+               WCAG 2.5.3 is satisfied because the visible words still start the
+               label. -->
           <p class="show-links">
-            ${s.ticketUrl ? `<a class="tickets" href="${esc(s.ticketUrl)}" rel="noopener" target="_blank">Get tickets <span aria-hidden="true">&rarr;</span></a>` : ""}
-            ${s.url ? `<a href="${esc(s.url)}" rel="noopener" target="_blank">${s.organiserUrl && s.url === s.organiserUrl ? "Official site" : "Listing &amp; details"}</a>` : ""}
-            ${s.organiserUrl && s.organiserUrl !== s.url ? `<a href="${esc(s.organiserUrl)}" rel="noopener" target="_blank">${esc(s.organiser || "Organizer")}</a>` : ""}
+            ${s.ticketUrl ? `<a class="tickets" href="${esc(s.ticketUrl)}" rel="noopener" target="_blank" aria-label="Get tickets for ${esc(showRef(s))}, opens on ${esc(hostOf(s.ticketUrl))}">Get tickets <span aria-hidden="true">&rarr;</span></a>` : ""}
+            ${s.url ? `<a href="${esc(s.url)}" rel="noopener" target="_blank" aria-label="${s.organiserUrl && s.url === s.organiserUrl ? "Official site" : "Listing and details"} for ${esc(showRef(s))}, opens on ${esc(hostOf(s.url))}">${s.organiserUrl && s.url === s.organiserUrl ? "Official site" : "Listing &amp; details"}</a>` : ""}
+            ${s.organiserUrl && s.organiserUrl !== s.url ? `<a href="${esc(s.organiserUrl)}" rel="noopener" target="_blank" aria-label="${esc(s.organiser && s.organiser !== s.name ? `${s.organiser}, who run ${showRef(s)}` : `The organizer of ${showRef(s)}`)}, opens on ${esc(hostOf(s.organiserUrl))}">${esc(s.organiser || "Organizer")}</a>` : ""}
           </p>
         </div>
         ${flyer ? `<a class="show-flyer" href="${esc(flyer)}" target="_blank" rel="noopener">

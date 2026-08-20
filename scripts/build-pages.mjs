@@ -888,7 +888,15 @@ ${
         <button class="hitcard-open" type="button" aria-label="See ${esc(h.name)} larger"></button>
         ${
           h.img
-            ? avifPicture(`<img class="hitcard-img" src="${esc(h.img)}" alt="${esc(h.name)}${h.setName ? `, ${esc(h.setName)}` : ""}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(h.img)}>`)
+            // alt="" AND THE HIT IS STILL NAMED THREE WAYS WITHOUT IT: the
+            // hitcard-open button above is aria-labelled "See NAME larger", and
+            // hitcard-n and hitcard-s below print the name and the set as
+            // visible text. The alt was a fourth copy, so every hit on all 317
+            // rip pages announced the card, then the card again, before the
+            // reader reached the price. Same call as the chase grids on the
+            // species and set pages. The is-none branch below is already
+            // aria-hidden for exactly this reason.
+            ? avifPicture(`<img class="hitcard-img" src="${esc(h.img)}" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(h.img)}>`)
             : `<div class="hitcard-img is-none" aria-hidden="true"></div>`
         }
         <div class="hitcard-b">

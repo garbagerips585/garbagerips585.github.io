@@ -172,7 +172,20 @@ export function brandMark(id, label = "") {
     const imgs = real
       .map(
         (m) =>
-          `<img src="${esc(m.file)}" alt="${esc(m.alt)}" width="${m.w}" height="${m.h}" ` +
+          // alt="" AND THE ARGUMENT IS ALREADY MADE FURTHER DOWN THIS FUNCTION.
+          // The no-mark fallback at the bottom is `aria-hidden="true"` because
+          // the shop's name is always printed beside the box; that is true of
+          // the real marks too, and this branch was the only one of the three
+          // that did not act on it. Measured over CDP on the nine pages that
+          // call this: 64 marks, and every single one has the shop's name as
+          // visible text in its own row, so a screen reader heard "Walmart"
+          // (image) then "Walmart" (text) 57 times, and on the other 7 heard
+          // the legal entity instead ("The Pokemon Company" beside a visible
+          // "Pokemon Center"), which is not a second useful fact either.
+          // A caller that ever needs the mark to NAME something rather than
+          // decorate a name should pass its own label in text, the way every
+          // caller here already does.
+          `<img src="${esc(m.file)}" alt="" width="${m.w}" height="${m.h}" ` +
           `loading="lazy" decoding="async">`
       )
       .join("");
@@ -187,7 +200,10 @@ export function brandMark(id, label = "") {
 
   const drawn = DRAWN[id];
   if (drawn) {
-    return `<span class="bmk bmk-d" role="img" aria-label="${esc(drawn[1])}">${GLYPH[drawn[0]]}</span>`;
+    // aria-hidden for the same reason as the two branches either side of it:
+    // this glyph sits in the same row layouts as the image marks and the text
+    // tile, and every one of those rows prints the shop's name in text.
+    return `<span class="bmk bmk-d" aria-hidden="true">${GLYPH[drawn[0]]}</span>`;
   }
 
   // The no-mark box. NOT A HOLE AND NOT A SUBSTITUTE. Same footprint as a real
