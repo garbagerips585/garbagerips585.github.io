@@ -233,6 +233,34 @@ already exists.
       Disallow: / until LIVE is true, and submitting a sitemap while it does
       teaches Google the site is closed.
 
+## 3b. What only Tim can do, from the overnight sweep of 19 to 20 August
+
+Everything an agent could fix is fixed and deployed. These four need him.
+
+- [ ] **211 of 317 rip pages cannot say whether the pack hit**, because `hasHit`
+      is filled on 106 videos in the sheet. "Unknown" and "nothing came out"
+      currently look identical, which is the one place that family is not honest
+      by construction. It is data entry, and it would also take /luck.html from
+      a 33% sample to a complete one.
+
+- [ ] **About 200 playlist tiles read as dates instead of pack numbers**, e.g.
+      "Perfect Order ETB (May 3, 2026)" nine times in a row. Tim's own YouTube
+      titles carry the number, but `shared/riplabel.mjs` records his standing
+      instruction of 18 August not to publish a PARSED pack number, so it prints
+      one only from a typed `Product #` and `Pack #`. Four Chaos Rising videos
+      already have them and render "Chaos Rising ETB 3 - Pack 1" correctly.
+      Filling those two columns converts the rest.
+
+- [ ] **/vendors.html and /creators.html hold three distinct people between
+      them**, and both sit in the primary nav on all 1,478 pages. Toak Pulls is
+      on both. Every other list page on the site states its count up front; these
+      two are the only ones that do not, which reads as the page knowing it is
+      thin. A content-supply problem, not a writing one.
+
+- [ ] **Three playlists hold one or two videos each** and promise a hunt. They
+      are cheap and harmless and they are index padding until there is more in
+      them.
+
 ## 4. Upkeep, and the one item with a date on it
 
 - [ ] **THE DROPS BAND ON THE HOME PAGE COMES OFF ON 24 AUGUST 2026 UNLESS
