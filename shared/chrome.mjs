@@ -119,12 +119,18 @@ export const NAV = [
     //     390   0.0px      560   118.3px      640   190.5px      1440  370.3px
     //
     // Zero. The field is squeezed out of the flex row below about 600px.
-    // `.bar-find`, added the same day by another pass, does put a 44px
-    // magnifier there pointing at this page, so the phone is not stranded any
-    // more. THAT IS AN ICON AND THIS IS A NAME, and the difference is the whole
-    // reason to keep both: the icon is a glyph a reader has to guess at, and
-    // this is a labelled line sitting beside "Card search", which is the only
-    // place the two searches are told apart in words.
+    // `.bar-find`, added the same day by another pass, did put a 44px magnifier
+    // there pointing at this page. THAT IS AN ICON AND THIS IS A NAME, and the
+    // difference was the whole reason to keep both: the icon is a glyph a
+    // reader has to guess at, and this is a labelled line sitting beside "Card
+    // search", which is the only place the two searches are told apart in
+    // words.
+    //
+    // THE ICON IS GONE ON A PHONE SINCE 19 August 2026 (Tim's ask; see the BAR
+    // note below), SO THIS LINE IS NOT A SECOND ROUTE ANY MORE, IT IS THE
+    // ROUTE. Do not remove it, do not rename it to something a reader would not
+    // recognise as search, and do not move it out of the Cards group without
+    // checking that the ui.css rule hiding the magnifier goes at the same time.
     //
     // "Search the site" is the page's own h2, verbatim, so the label and the
     // destination say the same words. It sits under "Card search" rather than
@@ -596,10 +602,43 @@ export const STYLES_NO_PACKS_CSS = `<link rel="stylesheet" href="/assets/ui.css?
  * be dropped. /search.html indexes all 47 nav destinations, 1,025 Pokemon,
  * 5,181 cards, 41 set guides and 316 pack openings, and until today it was in
  * NEITHER the menu nor the footer. It is now reachable three ways: `.bar-find`,
- * a 44px magnifier in this bar at every width; a named "Search the site" line
- * in the Cards group of the menu; and the same line in the footer. Removing any
- * two of those is survivable. Removing all three strands the largest index on
- * the site behind a URL nobody is told about.
+ * a 44px magnifier in this bar; a named "Search the site" line in the Cards
+ * group of the menu; and the same line in the footer. Removing any two of those
+ * is survivable. Removing all three strands the largest index on the site
+ * behind a URL nobody is told about.
+ *
+ * `.bar-find` IS NOT IN THIS BAR ON A PHONE ANY MORE, since 19 August 2026, and
+ * this line used to say "at every width". Tim, reading his own phone: "lets
+ * remove the search icon in the top mobile nav." The markup below is unchanged
+ * and the icon is still emitted, because this one string feeds the bar, the
+ * menu and the footer and a markup edit would have taken it out of a desktop
+ * bar as well; ui.css hides it under max-width:700px alone, with the argument
+ * beside the row arithmetic there.
+ *
+ * SO A PHONE IS DOWN TO TWO OF THE THREE ROUTES AND THAT IS WHY THE MENU LINE
+ * IS NOW LOAD BEARING. The paragraph above says removing any two is survivable,
+ * which is still true, but it is no longer any two: on a phone the menu line
+ * and the footer line are all there is, and the footer one is at the bottom of
+ * the document. If a later pass takes the menu line out of the Cards group,
+ * take the ui.css rule out in the same edit.
+ *
+ * WHAT IT COSTS IS THREE TAPS AND NOT TWO, AND THAT IS WORTH WRITING DOWN
+ * BECAUSE IT IS EASY TO GET WRONG BY READING THE MARKUP. Every <details> below
+ * ships `open`, so a static read of the panel says "Search the site" is on
+ * screen the moment the menu opens. It is not: app.js strips `open` below
+ * 821px, so a phone gets eight collapsed summaries. Measured at 390x844 over
+ * CDP with the panel open, the link's own getBoundingClientRect reports
+ * 24,221 342x44 and offsetParent is non-null, and elementFromPoint at the
+ * middle of that rect returns the "Cards" SUMMARY: the rect is real and the
+ * link is not reachable at it. THE HONEST TEST FOR A LINK INSIDE A CLOSED
+ * <details> IS elementFromPoint, NOT offsetParent AND NOT THE RECT.
+ *
+ * So the route is Menu, Cards, Search the site: 1 tap before this change,
+ * 3 after, and the middle one is a group label a reader has to guess holds
+ * search. That is the price of the ask and it is Tim's to weigh. If he wants
+ * it closer, the cheap fix is a single "Search" line pinned above the groups
+ * in this panel, outside every <details>, which is a menu change nobody asked
+ * for tonight and is deliberately NOT made here.
  *
  * `.bar-find` IS A LINK, NOT A DISCLOSURE. /search.html is a full page of field
  * plus results, so one tap gets a reader somewhere better than a popover would.

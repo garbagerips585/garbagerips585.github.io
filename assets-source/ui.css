@@ -246,6 +246,31 @@
   --yt-red:#EE0000; --yt-red-deep:#C00000; --on-yt:#FFFFFF;
 
   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:72px;
+  /* THE PAGE GUTTER IS A TOKEN OF ITS OWN, and it is not --s3 or --s5 any more
+     even though it still resolves to a step on that scale. Nine rules have to
+     agree about how far in from the bezel content starts: .wrap, .bar-in,
+     .rail-in, .skip, --facet-gutter, and the four declarations each full-bleed
+     rail needs (its negative margin, its inline padding, and its scroll
+     padding). Written out as --s3 in nine places, a gutter change fixes six of
+     them and leaves three 4px wrong, which is not read as "a gutter change went
+     half way", it is read as one rail being broken.
+
+     THE PHONE VALUE WENT 12 -> 16 ON 19 August 2026 and it is Tim's call, on
+     his own phone: "the padding on the home page on mobile, is really tight on
+     the sets section, lets make sure all pages have some room to breathe on
+     each side of the screen on mobile don't want everything going all the way
+     to edge of screen makes it harder to read." Measured at 390 before the
+     change: 12px left and right on every template, uniform and deliberate, so
+     this is a judgement about how much room and never a bug hunt.
+
+     WHAT SETS THE CEILING, because 16 is not a round number picked for looking
+     right. .flat-list is `repeat(auto-fill,minmax(168px,1fr))` at a 10px gap,
+     so two columns need 346px and a 390 phone has 390 - 2 x gutter. At 16 that
+     is 358 and the grid holds two; at 24 it is 342 and the grid drops to ONE
+     column, doubling the height of every list that uses it. The desktop gutter
+     is unchanged at 24: nothing above 700px was complained about and every
+     horizontal pixel here comes out of the content. */
+  --gut:var(--s5);
   --r:10px; --r-pill:999px;
   /* --r-sm WAS USED FIFTEEN TIMES AND DEFINED NOWHERE. An undefined custom
      property makes the whole declaration invalid at computed-value time, so
@@ -333,8 +358,12 @@ main p a:not([class]):not(.crumbs a){
 main p a:not([class]):hover,main p a:not([class]):focus-visible{
   text-decoration-color:currentColor;
 }
-.wrap{max-width:1500px;margin:0 auto;padding:0 var(--s5)}
-@media(max-width:700px){.wrap{padding:0 var(--s3)}}
+/* THE ONE PLACE THE PHONE GUTTER IS SET. Everything that has to line up with
+   the page edge reads --gut, so this block is the whole change and there is no
+   second number to keep in step. 700px is the site's existing phone boundary:
+   .bar-in, .rail-in, .shelf and .mw-shelf all already switch here. */
+@media(max-width:700px){:root{--gut:var(--s4)}}
+.wrap{max-width:1500px;margin:0 auto;padding:0 var(--gut)}
 :focus-visible{outline:3px solid var(--ketchup-deep);outline-offset:2px;
   box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 
@@ -344,8 +373,8 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
    -------------------------------------------------------------------------- */
 .bar{position:sticky;top:0;z-index:60;background:var(--chrome-bg);color:var(--chrome-ink)}
 .bar-in{display:flex;align-items:center;gap:var(--s4);max-width:1500px;margin:0 auto;
-  padding:var(--s2) var(--s5);min-height:var(--bar-h)}
-@media(max-width:700px){.bar-in{padding:var(--s2) var(--s3);gap:var(--s2)}}
+  padding:var(--s2) var(--gut);min-height:var(--bar-h)}
+@media(max-width:700px){.bar-in{gap:var(--s2)}}
 .brand{display:flex;align-items:baseline;gap:var(--s2);flex:none;min-height:44px;
   align-content:center;flex-wrap:wrap}
 .brand b{font:400 1.05rem/1 var(--display);letter-spacing:.01em}
@@ -412,9 +441,11 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
    it only stops the row growing into the page. Keep the two numbers in step
    with .chip's height and this padding if either ever changes. */
 .rail-in{display:flex;gap:var(--s2);overflow-x:auto;scrollbar-width:none;
-  max-width:1500px;margin:0 auto;padding:var(--s3) var(--s5);min-height:68px}
+  max-width:1500px;margin:0 auto;padding:var(--s3) var(--gut);min-height:68px}
 .rail-in::-webkit-scrollbar{display:none}
-@media(max-width:700px){.rail-in{padding:var(--s2) var(--s3);min-height:60px}}
+/* Horizontal is --gut so a chip starts in the same column as the h1 under it;
+   the two VERTICAL numbers are the CLS reservation above and are untouched. */
+@media(max-width:700px){.rail-in{padding:var(--s2) var(--gut);min-height:60px}}
 .chip{flex:none;font:700 var(--t-label)/1 var(--body);letter-spacing:.02em;
   background:var(--card);border:1px solid var(--hair);border-radius:var(--r-pill);
   padding:0 var(--s4);height:44px;display:inline-flex;align-items:center;gap:6px;
@@ -493,8 +524,17 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
    main top 255 / 296px, both identical open and closed, and CLS at 1440x900
    with the cache off is 0.
    -------------------------------------------------------------------------- */
+/* --facet-gutter IS THE ROW'S OWN COPY OF THE PAGE GUTTER and it is a variable
+   rather than a repeated var(--s5) because THREE rules below have to agree with
+   it: the phone scroller bleeds off the right edge by negating it, pads its
+   scrollable end by it, and scroll-pads its snap line to it. Written out three
+   times, a gutter change fixes the padding and leaves the bleed 12px wrong,
+   which reads as a chip clipped by accident. Keep it in step with .wrap.
+   IT IS NOW IN STEP BY CONSTRUCTION rather than by remembering: it takes
+   --gut, the page gutter token, so the phone value follows .wrap on its own. */
 .facet{position:relative;display:flex;align-items:center;gap:var(--s2);
-  max-width:1500px;margin:0 auto;padding:var(--s3) var(--s5);min-height:68px}
+  --facet-gutter:var(--gut);
+  max-width:1500px;margin:0 auto;padding:var(--s3) var(--facet-gutter);min-height:68px}
 /* The slot is a fixed 44px box, not a shrink-wrap, so the row is the same
    height empty, filled, and with the panel open. Same reservation the
    min-height comment above is about, and the same two numbers. */
@@ -544,17 +584,136 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
    never eats width in the common case. */
 .facet-clear{flex:none}
 .facet-clear[hidden]{display:none}
+/* A CHOSEN CHIP SORTS TO THE FRONT OF THE COLLAPSED ROW, and this used to be
+   `b.style.order` written by syncChips in app.js. It is CSS now for one reason:
+   the phone rail below is a real scroller and must NOT reorder, and an inline
+   style is the one thing a media query cannot take back. Same rule, same
+   effect, and the state it keys off (aria-pressed) was already there.
+   Without it you could filter to Temporal Forces, close the panel, and see no
+   evidence anywhere on the page that a filter was on. */
+.facet-box .chip[aria-pressed=true]{order:-1}
+
+/* --------------------------------------------------------------------------
+   THE PHONE RAIL IS A SWIPE RAIL, NOT A COLLAPSED ROW. Tim, 19 August 2026,
+   looking at /videos.html on his own phone: "For the video filters on mobile
+   can we just make the filters slide over to see more filters, instead of the
+   big drop down menus, much easier to just have them slide, I also think you
+   only need the filter by set type on mobile, to keep it more simple. Leave the
+   other filters on desktop."
+
+   So below 700px, and ONLY below 700px:
+     - the set row scrolls sideways under a finger and the "All 35" toggle goes
+     - the product row goes entirely, except for Clear all
+   Above 700px nothing here applies and the panel above is untouched. Measured
+   before and after at 1440x900 and 820x1180: every box on the page identical to
+   the pixel, both rails 69px, libtools 236px, main top 296px.
+
+   WHY THE PANEL WAS RIGHT AND IS STILL RIGHT ON DESKTOP. The block above this
+   one is the argument: a hidden horizontal scroller is unreachable with a
+   vertical mouse wheel, which is the desktop input. A phone has no such
+   problem. A finger IS a horizontal scroll gesture, so the thing that made the
+   scroller a trap on a desktop is exactly the thing a phone already has.
+   -------------------------------------------------------------------------- */
 @media(max-width:700px){
-  .facet{padding:var(--s2) var(--s3);min-height:60px}
+  /* --facet-gutter is inherited from --gut and no longer restated here: the
+     phone value is set once, on :root, beside .wrap. Only the two VERTICAL
+     numbers are a phone decision. */
+  .facet{padding:var(--s2) var(--facet-gutter);min-height:60px}
   /* Flush to the viewport on a phone, which puts the panel's chips in the same
-     column as the row's (both var(--s3) in from the edge) and buys 24px of
+     column as the row's (both var(--gut) in from the edge) and buys 24px of
      width back on a track where a set name is already 172px. */
-  .facet.open .facet-box{left:0;right:0;padding:var(--s3);border-radius:0 0 var(--r) var(--r)}
+  .facet.open .facet-box{left:0;right:0;padding:var(--gut);border-radius:0 0 var(--r) var(--r)}
   /* The toggle is the only control guaranteed to be reachable, so on a phone it
      gives up its word and keeps its number: "All 35" instead of "All 35 sets".
      Measured at 390: the long label left 190px of the 390px row for chips,
      which is one and a bit. The short one leaves 258px. */
   .facet-more .w{display:none}
+
+  /* THE TOGGLE IS GONE AND app.js READS THAT, so this one declaration is also
+     the switch that turns the disclosure off: openFacet() bails when the
+     toggle has no offsetParent, and the arrow keys and the reveal-on-load only
+     run on a rail whose toggle is hidden. One source of truth for "this row is
+     a scroller", and it is the row's own layout rather than a second copy of
+     the 700px breakpoint written in JavaScript. */
+  .facet-more{display:none}
+
+  /* THE ROW IS FULL BLEED AND THE GUTTER MOVES INSIDE IT. The slot is pulled
+     out to both bezels by exactly the gutter it sits in, and the scroller puts
+     that gutter back as its own inline PADDING. Net effect at rest: identical,
+     the first chip still lines up with the h1 below it. In motion: chips
+     dissolve at the true screen edge instead of at a 16px inset, which is what
+     every carousel on a phone does and what makes the cut read as deliberate.
+
+     THE RIGHT EDGE IS THE WHOLE AFFORDANCE. A row that stops at the gutter
+     reads as a row that is finished and nobody swipes it. The clipped chip in
+     Tim's screenshot was an accident of a row that could not scroll; a
+     deliberate partial chip is the standard way of saying the same thing on a
+     row that can. padding-right is what stops the FAR end being jammed against
+     the bezel once you get there.
+
+     THE PADDING HAD TO MOVE, IT WAS NOT TIDINESS. With the gutter on .facet and
+     the fade starting at the scroller's own left edge, the 28px ramp landed on
+     the first 12px of the first CHIP, so arriving at ?set=chaos-rising showed
+     the one chip that was lit with its label half dissolved. Now the ramp is
+     the gutter's width and covers the gutter, so a snapped chip is fully
+     opaque and only its NEIGHBOURS fade. */
+  .facet-slot{margin-inline:calc(var(--facet-gutter) * -1)}
+  .facet-box{overflow-x:auto;overflow-y:hidden;
+    padding-inline:var(--facet-gutter);
+    /* proximity, NOT mandatory. Mandatory snapping on a row whose items run
+       106 to 189px wide fights momentum: a flick that lands between two chips
+       is yanked back, and the last chip can become unreachable because the
+       snap port has nowhere further to align to. Proximity gives the tidy
+       left-aligned rest position without ever overriding where the finger
+       stopped. scroll-padding keeps the snap line on the gutter, so a snapped
+       chip sits in the same column as the h1 rather than against the edge, and
+       it is what the browser also honours when it scrolls a TABBED-to chip
+       into view. */
+    scroll-snap-type:x proximity;scroll-padding-left:var(--facet-gutter);
+    /* Sideways only. Without this a flick that starts on the rail scrolls the
+       page behind it once the rail hits its end, which on a sticky bar reads
+       as the filters swallowing the scroll. */
+    overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    /* Both edges fade, and app.js turns each one off at that end of the
+       travel. A fade that stays lit at the end of a scroller is a lie about
+       there being more, which is the same class of fault as the row that
+       looked finished. The LEFT ramp is the gutter exactly, for the reason in
+       the block above; the right one is the desktop row's 28px, where there is
+       no chip edge to protect. */
+    --fade-l:var(--facet-gutter);--fade-r:28px;
+    -webkit-mask-image:linear-gradient(to right,transparent 0,#000 var(--fade-l),
+      #000 calc(100% - var(--fade-r)),transparent 100%);
+    mask-image:linear-gradient(to right,transparent 0,#000 var(--fade-l),
+      #000 calc(100% - var(--fade-r)),transparent 100%)}
+  .facet-box.at-start{--fade-l:0px}
+  .facet-box.at-end{--fade-r:0px}
+  .facet-box::-webkit-scrollbar{display:none}
+  .facet-box .chip{scroll-snap-align:start}
+  /* NOTHING MOVES UNDER THE FINGER. order:-1 above exists because the desktop
+     row hides 26 of its 35 chips; this row hides none of them, so pulling the
+     chip you just tapped to the front would leave the rail parked at a scroll
+     offset showing a completely different part of the list. */
+  .facet-box .chip[aria-pressed=true]{order:0}
+
+  /* THE PRODUCT ROW IS THE HALF TIM ASKED TO LOSE. Slot and toggle go, so its
+     13 chips are not merely invisible but out of the tab order too: a chip you
+     can focus and cannot see is worse than one you cannot reach.
+     ?product=etb STILL FILTERS. 330 links on 318 built pages carry one, 93 of
+     them ?product=single-pack and 57 ?product=etb, and app.js reads the
+     parameter off the URL rather than off a chip, so every one of those links
+     works on a phone exactly as it does on a desktop. What the
+     phone loses is the chip that would have SAID so, which is why the count
+     line names the product instead: see initLibrary's render(). */
+  .facet[data-facet=products] .facet-slot,
+  .facet[data-facet=products] .facet-more{display:none}
+  /* ...which leaves Clear all as the whole of that row, and Clear all only
+     exists while a filter is on. So the rail goes with it rather than sitting
+     there as an empty 60px band under the sets. :has() is progressive here in
+     the same way it is on .menu-g above: a browser without it gets the band,
+     which is ugly and not broken. */
+  .rail:has(.facet[data-facet=products] .facet-clear[hidden]){display:none}
 }
 
 /* --------------------------------------------------------------------------
@@ -608,11 +767,16 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
 .hof-head a:hover{text-decoration:underline}
 .shelf{display:flex;gap:var(--s4);overflow-x:auto;scroll-snap-type:x mandatory;
   scrollbar-width:none;padding-bottom:var(--s2);
-  /* bleed to the screen edge so the row reads as continuing, not as cut off */
-  margin:0 calc(var(--s5) * -1);padding-inline:var(--s5);scroll-padding-left:var(--s5)}
+  /* bleed to the screen edge so the row reads as continuing, not as cut off.
+     THREE DECLARATIONS AND ALL THREE ARE THE GUTTER. The negative margin is
+     what lets the row run off the bezel, the inline padding is what puts the
+     FIRST card back in the same column as the heading above it, and the scroll
+     padding is what stops a snap eating that padding again. A full-bleed rail
+     with only the first two is the .set-grid bug: it looks correct in the
+     stylesheet and renders flush to x=0. One token now, so the phone override
+     the media query used to carry is gone. */
+  margin:0 calc(var(--gut) * -1);padding-inline:var(--gut);scroll-padding-left:var(--gut)}
 .shelf::-webkit-scrollbar{display:none}
-@media(max-width:700px){.shelf{margin:0 calc(var(--s3) * -1);padding-inline:var(--s3);
-  scroll-padding-left:var(--s3)}}
 .shelf .v{flex:none;width:clamp(146px,42vw,196px);scroll-snap-align:start}
 .shelf .v .art{box-shadow:0 2px 4px rgba(0,0,0,.4), 0 10px 26px rgba(0,0,0,.45),
   0 0 0 1px rgba(255,255,255,.20)}
@@ -659,10 +823,9 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
   min-height:44px;display:inline-flex;align-items:center}
 .mw-shelf{display:flex;gap:var(--s4);overflow-x:auto;scroll-snap-type:x mandatory;
   scrollbar-width:none;padding-bottom:var(--s2);
-  margin:0 calc(var(--s5) * -1);padding-inline:var(--s5);scroll-padding-left:var(--s5)}
+  /* Same three-declaration bleed as .shelf, and see the note there. */
+  margin:0 calc(var(--gut) * -1);padding-inline:var(--gut);scroll-padding-left:var(--gut)}
 .mw-shelf::-webkit-scrollbar{display:none}
-@media(max-width:700px){.mw-shelf{margin:0 calc(var(--s3) * -1);padding-inline:var(--s3);
-  scroll-padding-left:var(--s3)}}
 .mw{flex:none;width:clamp(130px,38vw,168px);scroll-snap-align:start;
   display:flex;flex-direction:column;gap:var(--s1);text-decoration:none;min-width:0}
 /* Real Pokemon card proportions, so the art is never stretched and the row
@@ -1211,7 +1374,9 @@ footer p{font:400 var(--t-sm)/1.6 var(--body);color:var(--chrome-dim);max-width:
    visitors arrive from a YouTube link on a phone, which made most of the site
    unreachable in practice.
    -------------------------------------------------------------------------- */
-.skip{position:absolute;left:var(--s3);top:-100px;z-index:200;
+/* left is the page gutter, so the first thing a keyboard reader ever sees
+   lands in the same column as the wordmark rather than 4px inside it. */
+.skip{position:absolute;left:var(--gut);top:-100px;z-index:200;
   background:var(--mustard);color:var(--on-accent);font:700 var(--t-sm)/1 var(--body);
   padding:var(--s3) var(--s4);border-radius:var(--r-pill);transition:top .12s}
 .skip:focus{top:var(--s3)}
@@ -2116,14 +2281,21 @@ footer .soc svg{fill:var(--chrome-ink)}
 .menu-btn span{font:700 var(--t-sm)/1 var(--body);color:var(--chrome-ink)}
 .menu-btn[aria-expanded="true"] span{color:var(--ink)}
 
-/* THE ROUTE TO SEARCH, AT EVERY WIDTH NOW. This started as the phone-only
-   stand-in for a field that would not fit below 560px. The field is gone at all
-   widths (Tim's call, 18 August 2026 - see the block below and the note in
-   shared/chrome.mjs), so this is the whole of search in the bar and it is
-   `display:flex` unconditionally. It is a LINK to /search.html rather than a JS
-   disclosure, because /search.html is a full page of field plus results and one
-   tap gets you there. It is not the only route: "Search the site" is a named
-   line in the menu's Cards group and in the footer. */
+/* THE ROUTE TO SEARCH ABOVE 700px. This started as the phone-only stand-in for
+   a field that would not fit below 560px. The field is gone at all widths
+   (Tim's call, 18 August 2026 - see the block below and the note in
+   shared/chrome.mjs), so this is the whole of search in the bar. It is a LINK
+   to /search.html rather than a JS disclosure, because /search.html is a full
+   page of field plus results and one tap gets you there. It is not the only
+   route: "Search the site" is a named line in the menu's Cards group and in
+   the footer.
+
+   THIS ENTRY SAID "AT EVERY WIDTH NOW" AND `display:flex` UNCONDITIONALLY, AND
+   BOTH WERE TRUE UNTIL 19 August 2026. It is hidden on a phone now, on Tim's
+   ask; the query and the whole argument are in the max-width:700 block a
+   hundred lines down, beside the row arithmetic they belong to. A reader who
+   finds this rule first would otherwise conclude the icon is on every page on
+   every device, which is what the old wording claimed. */
 .bar-find{flex:none;display:flex;width:44px;height:44px;border-radius:50%;
   align-items:center;justify-content:center;
   background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2)}
@@ -2260,7 +2432,49 @@ footer .soc svg{fill:var(--chrome-ink)}
    tappable, instead of being sliced. min-height on .bar-in keeps the bar
    identical at every width and zoom where the row fits, which was checked at
    320 through 1920 before and after. */
-@media(max-width:355px){
+/* THIS QUERY WAS max-width:355px AND IS NOW max-width:700px, AND THE REASON IS
+   NOT THE ARITHMETIC ABOVE. Tim, 19 August 2026, reading his own phone: "lets
+   remove the search icon in the top mobile nav." Everything above this
+   paragraph is why the magnifier was the RIGHT thing to drop when something had
+   to go at 320; it is kept because it is still the arithmetic of this row and
+   because it is the argument to redo if the icon ever comes back. It is no
+   longer the reason. Do not "restore it at 400px because there is room": the
+   room was never the question.
+
+   IT IS max-width:700 AND NOT max-width:899, which is where the bar's own
+   phone shape actually ends (.nav-links only appears at 900). 700 is this
+   file's phone boundary everywhere else -- .wrap, .bar-in, .rail-in and both
+   shelves all switch there -- and Tim said "mobile", not "anything without nav
+   links". A 768px tablet keeps the icon.
+
+   SEARCH IS STILL REACHABLE ON A PHONE AND THAT IS THE CONDITION OF THE
+   CHANGE. "Search the site" is a named line in the menu panel's Cards group,
+   pointing at the same /search.html, and it is in the footer as well. If a
+   later pass ever takes the menu line out, this rule has to come out with it,
+   because the three routes shared/chrome.mjs describes would then be down to
+   one that only a reader who scrolls to the footer ever sees.
+
+   IT IS THREE TAPS NOW AND IT WAS ONE. Menu, Cards, Search the site. Every
+   menu group is a <details> that ships `open` and app.js closes below 821px,
+   so the link is inside a collapsed group on exactly the widths this rule
+   applies to. Measured over CDP at 390x844 with the panel open: the link
+   reports a 342x44 rect at 24,221 and a non-null offsetParent, and
+   elementFromPoint at the centre of that rect returns the Cards <summary>.
+   Do not read the rect and conclude it is on screen. The full note is in
+   shared/chrome.mjs beside BAR.
+
+   display:none AND NOT A VISUALLY-HIDDEN CLASS, deliberately. The note a few
+   hundred lines up about hiding a label from the eye and not from the
+   accessibility tree is about a LABEL for a control that is still there. This
+   control is gone; announcing a magnifier nobody can see or point at is worse
+   than not announcing it. The row's gap goes with it, so nothing is left
+   holding 8px of dead space: display:none removes a flex item and its gap
+   together, which is why no other rule needs touching to close the hole.
+
+   THE BAR'S HEIGHT DOES NOT MOVE. min-height:var(--bar-h) is 60px and every
+   remaining item in the row is 44px or shorter, so the bar was never sized by
+   the magnifier. Measured at 390 after: .bar 60px, identical to before. */
+@media(max-width:700px){
   .bar-find{display:none}
 }
 .bar-in{flex-wrap:wrap}
@@ -2417,9 +2631,24 @@ footer .soc svg{fill:var(--chrome-ink)}
    is roughly 2,350px off the page for no loss: the rail at the top and the
    section header both already point at /sets/.
    -------------------------------------------------------------------------- */
+/* THIS IS THE RAIL TIM PHOTOGRAPHED, and the bug was ONE MISSING DECLARATION.
+   The bleed and the padding were both here and both correct: margin-inline
+   negates the gutter so the row runs off the bezel, padding-inline puts it
+   back so the first tile lines up with the "Card Pokedex" heading above it.
+   What was missing is scroll-padding-left. With scroll-snap-align:start on
+   every tile and scroll-padding computing to `auto`, the browser snaps tile
+   one's start edge to the SCROLLPORT's start edge, which is the padding box,
+   not the content box: it silently scrolls the rail to scrollLeft:12 on load
+   and eats the padding it was just given. Measured at 390 before the fix, the
+   heading at x=12 and the first tile at x=0, with padding-left computing to
+   12px the whole time. THE STYLESHEET LOOKED RIGHT AND THE PAGE DID NOT.
+   .shelf and .mw-shelf never had it because both declare the third line;
+   this rail was the only one on the site that did not. */
 @media(max-width:820px){
   .set-grid{display:flex;gap:var(--s3);overflow-x:auto;scroll-snap-type:x proximity;
-    -webkit-overflow-scrolling:touch;padding-inline:12px;margin-inline:-12px;
+    -webkit-overflow-scrolling:touch;
+    margin-inline:calc(var(--gut) * -1);padding-inline:var(--gut);
+    scroll-padding-left:var(--gut);
     padding-bottom:var(--s2);grid-template-columns:none}
   .set-grid .set{flex:0 0 auto;width:min(64vw,230px);scroll-snap-align:start}
   /* The ninth onward are reachable from the header link; rendering 23 in a
@@ -4035,6 +4264,89 @@ inherited from the UA default, so the promotion moves nothing on screen. */
   .hofx-art{width:100%;margin:0 auto}
   .hofx-b{align-items:center}
   .hofx-cta{align-self:center}
+}
+
+/* ---------- THE TROPHY HAS TO FIT AN IPHONE'S FIRST SCREEN, 20 August 2026 ---
+   Tim, on his own phone: "lets also make it so when you land on the home page
+   you can see the entire hall of fame video on the screen, and see the click to
+   rip open the pack banner and watch the video right when you land on home page
+   above the fold no scrolling, we can make the video smaller so its fits and
+   tighten up everything else."
+
+   THE TEST IS THE BANNER'S BOTTOM EDGE AND THE NUMBER IS 700, NOT 844. Safari's
+   own chrome eats 100 to 140px of an iPhone 12/13/14's 844, so a bar that clears
+   844 in a headless viewport is still under the reader's thumb on the real
+   device. Read with getBoundingClientRect at 390x844 against the tree as built:
+   860.33 before, 683.28 after.
+
+   THE ARTWORK IS THE LAST LEVER, NOT THE FIRST, and 81.59 of the 177.05px came
+   off the chrome before a pixel came off the pack. The other half of this pass
+   is the max-width:544 block at the end of homeCss in build-proto.mjs, which
+   owns main's padding-top and the drops band and writes the full breakdown, the
+   byte figures and the argument for not moving the band instead; what is here
+   is the two figures this file is responsible for. 24 -> 8 on the band's
+   padding-top, and 60 -> 42 for the whole run from the heading's bottom edge to
+   the top of the artwork.
+
+   THAT 42 IS A FLOOR AND THE MATH IS WORTH KEEPING, because the obvious knobs
+   are the wrong ones. The ribbon is absolutely positioned and HANGS above the
+   frame, so pushing it further up (a bigger negative top) buys the gap above it
+   and spends exactly the same amount on the padding below it. Writing c1 for
+   the clearance under the heading and c2 for the clearance above the artwork:
+
+       gap >= overhang - border + c1        so the ribbon clears the heading
+       padding-top >= tagH - overhang + c2  so the artwork clears the ribbon
+       total = gap + border + padding-top >= c1 + tagH + c2
+
+   The overhang cancels. Only the RIBBON'S OWN HEIGHT is spendable, which is why
+   .hofx-tag loses 4px of vertical padding here and nothing else moves: 8px of
+   clearance top and bottom around a 27px ribbon is 42, and it is 46 with the
+   31px one. Do not "tidy" this by taking the clearances to zero; the ribbon
+   would touch the "All N hits" link's 44px tap target above it.
+
+   THE CAP IS ON THE FRAME, NOT ON THE ARTWORK, so the gold border still hugs
+   the pack. The frame takes 78vw and the artwork is that less var(--s4) either
+   side and the 4px frame, so 304.19 and 264.19 at 390. The two comments above
+   this one both record the same bug in the other direction, a panel wider than
+   the thing inside it, and a max-height on the img would have reproduced it at
+   40px a side.
+
+   IT IS A SHARE RATHER THAN A PIXEL COUNT BECAUSE THE FOLD IS NOT A PIXEL
+   COUNT EITHER. A 306px frame would have held 390 and then sat marooned in a
+   430px Pro Max and a 500px window, which is the same bug again; a share keeps
+   the pack the same proportion of every screen, and a taller phone is also a
+   wider one so the height it needs grows with the height it has. Driven at
+   320x800, 360x800, 375x812, 390x844, 414x896, 430x932, 500x900 and 544x900,
+   the banner's bottom edge lands at 608.58, 641.48, 662.28, 683.28, 716.34,
+   656.48, 738.00 and 789.47, every one of them under its own viewport less 140.
+   430 and up come in lower than the trend rather than higher, because the
+   min-width:425 block below this one takes over with a 2:3 crop there.
+
+   IT IS A CAP RATHER THAN A WIDTH ON PURPOSE, so it can only ever make the
+   trophy smaller than the wrap allows, never wider. Below about 330px the wrap
+   is the narrower of the two and the frame goes back to filling it. That also
+   means a later change to --gut cannot push the banner back under the fold.
+
+   WHAT IT COSTS, and it is the one thing here worth arguing with. The pack goes
+   318.0x565.3 to 264.2x469.9 at 390, so its AREA drops 31% and it is now
+   smaller than the Latest rips slide below it (332x498), which the
+   min-width:425 block under this one treats as the test that keeps the trophy
+   feeling like the trophy. It is also 47.5KB lighter on load at DPR 2, because
+   the box finally asks for a rendition that exists: 264 x 2 is 529 device
+   pixels and the 560w file covers it where 318 x 2 took the 810w one. The
+   sizes note in build-proto.mjs has the request log. The rank
+   is still carried by the 4px gold frame, the ribbon and first position, which
+   is the same resolution the desktop layout reached when all three packs went to
+   one width. THE ALTERNATIVE WAS THE BAND ORDER: moving the DROPS markers below
+   .hof, which CLAUDE.md names as the lever for exactly this request, pays 59px
+   of chrome and would have left the pack at ~307 wide. It was not taken because
+   Tim asked for the drops band above the fold on 17 August in as many words.
+   That is a trade for Tim, not for a stylesheet, so both halves are written down
+   rather than one of them being made quietly. */
+@media(max-width:544px){
+  .hof{padding-top:var(--s2)}
+  .hofx{max-width:78vw;margin-top:18px;padding-top:20px}
+  .hofx-tag{padding:6px 14px}
 }
 
 /* THE TROPHY WAS A 9:16 TILE ON A PAGE OF 2:3 TILES, and that alone is why it
