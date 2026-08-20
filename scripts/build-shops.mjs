@@ -20,7 +20,7 @@ import { SITE } from "../shared/site.mjs";
 // take their <head> by slicing index.html, so their stylesheet links are the
 // home page's. See shared/chrome.mjs beside the two exports.
 import { APP_JS_NO_PACKPLAYER as APP_JS } from "../shared/chrome.mjs";
-import { esc, longDate } from "../shared/format.mjs";
+import { esc, longDate, plateRule, PLATE_CSS } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -531,6 +531,9 @@ const style = `
 .sh-tick{font:400 14px var(--mono);fill:var(--ink-2);text-anchor:middle}
 .shops-note{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s6);max-width:52em}
+/* The section ornament, from shared/format.mjs, same as /buying.html and
+   /selling.html. Not in ui.css: render blocking on 1,483 pages, drawn on five. */
+${PLATE_CSS}
 `;
 
 const body = `
@@ -546,6 +549,22 @@ ${hoursChart(shops)}
     <ul class="shop-list">
 ${cards}
     </ul>
+${/* THE ONE ORNAMENT ON THIS PAGE, AND THIS IS THE PAGE THE PLATE WAS DRAWN
+      FOR. Measured on the built page at 390x844: 7,271px tall, ZERO img tags,
+      and the only two pictures on it are the shop map and the hours chart, both
+      generated SVG, both in the first 894px. Everything after that, 6,377px of
+      it, is six shop entries and a sign off with nothing to look at. It is the
+      least illustrated Rochester page on the site.
+
+      HERE RATHER THAN AT THE TOP because the sentence under it is the page
+      speaking in its own voice: the list of shops ends, and then "NOT SPONSORED
+      AND NOT AFFILIATE LINKS. THESE ARE SHOPS I GO TO." A Rochester dish is the
+      mark for a Rochester page saying that, and it is the same turn
+      /buying.html and /selling.html both make when they end on a local counter.
+
+      NOT UNDER THE h1, which was the obvious spot and is the wrong one: the map
+      is 366px down and an ornament above it would put two marks in the first
+      screen of the page and none in the 6,377px underneath. */ ""}${plateRule()}
     ${shopsDoc.playNote ? `<p class="shops-lede" style="margin-top:var(--s5)">${esc(shopsDoc.playNote)}</p>` : ""}
     <p class="shops-lede">Looking for a one off rather than a weekly night? The
       <a href="/card-shows.html">card show calendar</a> has every show coming up around Rochester, Buffalo

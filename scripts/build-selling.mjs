@@ -59,7 +59,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate } from "../shared/format.mjs";
+import { esc, longDate, plateRule, PLATE_CSS } from "../shared/format.mjs";
 import { brandMark, PROT_MARK, BRAND_CREDIT, BRAND_STYLE } from "../shared/brands.mjs";
 import { localDay } from "../shared/today.mjs";
 
@@ -868,6 +868,9 @@ ${BRAND_STYLE}
      character and at this size one is running about 1.5 of them. */
   .se-list{max-width:1100px}
 }
+/* The section ornament, from shared/format.mjs, exactly as on /buying.html.
+   Not in ui.css: render blocking on 1,483 pages, drawn on five. */
+${PLATE_CSS}
 `;
 
 const page = `<!DOCTYPE html>
@@ -1018,6 +1021,19 @@ ${(safe.defences || []).map((d) => `          <li><b>${esc(d.name)}.</b> ${esc(d
           }</li>`).join("\n")}
         </ol>
       </section>
+
+${/* THE ONE ORNAMENT ON THIS PAGE, and it is the twin of the one on
+      /buying.html rather than a second idea. Measured on the built page at
+      390x844: 37,888px tall, largest picture free run 13,914px, and the tail
+      this sits in is 6,832px.
+
+      The section under it is the page's editorial turn, the argument that the
+      safest sale is a local one made face to face, which is the same
+      destination /buying.html's closing section reaches from the other end. A
+      Rochester dish is the mark for that, and the two pages now make the same
+      turn with the same mark on it.
+
+      ONE. Ten h2s on this page. */ ""}${plateRule()}
 
       <section class="se-grp">
         <h2>The <span class="hl">safest</span> way to sell is the one nobody expects</h2>

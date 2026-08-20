@@ -42,7 +42,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, moneyExact, moneyRound, moneyCompact } from "../shared/format.mjs";
+import { esc, longDate, moneyExact, moneyRound, moneyCompact, plateRule, PLATE_CSS } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -367,6 +367,11 @@ ${STYLES}
    pages and this page is the only user. */
 .gr-net.up{color:var(--ink);font-weight:800}
 .gr-net.down{color:var(--ink-2);font-weight:400}
+${/* The section ornament, from shared/format.mjs so the five pages that draw a
+      Garbage Plate cannot disagree about how it sits. Same argument as the two
+      blocks above and as /buying.html: ui.css is render blocking everywhere and
+      this is on five pages. Written through an expression rather than as a CSS
+      comment because this builder has no miniCSS and its style prose ships. */ ""}${PLATE_CSS}
 </style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
@@ -565,6 +570,23 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
     `
         : ""
     }
+    ${/* THE ONE ORNAMENT ON THIS PAGE, and it is the weakest of the three the
+          plate went on, which is written down here rather than left to be
+          rediscovered. /buying.html and /selling.html both close on a local,
+          in-person argument and a Rochester dish IS that argument. This page
+          closes on caveats, so the mark is doing the plain typographic job
+          instead: a fleuron between the last table and the summary list.
+
+          Measured on the built page at 390x844: 14,199px tall, 35 pictures, and
+          the largest picture free run is the 5,451px tail this sits at the head
+          of. That is the whole case for it. If a later editor thinks it is
+          decoration, they are half right and the fix is to delete this one
+          call, not to touch shared/format.mjs.
+
+          AFTER THE TERNARY, DELIBERATELY. The slab value block above closes a
+          conditional; splicing inside it would make the ornament disappear on
+          any build where slabValue comes back empty, and a rule that sometimes
+          is not there is worse than no rule. */ ""}${plateRule()}
     <h2>Five things worth <span class="hl">knowing</span></h2>
     <ul class="facts-list">
       ${g.rules.map((r) => `<li>${esc(r)}</li>`).join("\n      ")}

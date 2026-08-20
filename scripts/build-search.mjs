@@ -322,7 +322,19 @@ ${MENU}
 </section>
 
 </main>
-${footer()}
+${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
+      no-results state draws is official artwork mirrored from the PokeAPI
+      sprite repository by scripts/sync-species-art.mjs, and this site's licence
+      for that imagery is that its source is named. /lore.html, /evolution.html,
+      /eevee-evolutions.html and all 1,026 Pokemon pages already say it; this
+      page had no such line because until now it had no such picture.
+
+      IN THE FOOTER RATHER THAN BESIDE THE MASCOT because the mascot is
+      client rendered and only some readers ever see it, and a credit that
+      appears only when a search fails is a credit that is usually absent. The
+      extra argument to footer() is the site's own mechanism for this and it is
+      the same call build-lore.mjs makes. It adds a line and takes nothing
+      away: the Collectr link and the Unableplacebo credit are untouched. */ ""}${footer("Pokemon artwork from pokeapi.co.")}
 <script>
 (function(){
   var input=document.getElementById('sq');
@@ -415,7 +427,30 @@ ${footer()}
     html+=group('Pack openings', v.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(v),
       v.total>v.rows.length ? '/videos.html?q='+encodeURIComponent(q) : '');
 
-    out.innerHTML = html || '<p class="cq-head">Nothing matched. Try a Pokemon name, a set name, or a word from a video title.</p>';
+    ${/* THE ONE STATE ON THIS SITE THAT PRINTED ABSENCE WITH NOTHING IN IT.
+          Every other empty state already has a mascot: /videos.html and
+          /playlists.html get one through emptyState() in public/assets/app.js,
+          a rip with no hits gets one from build-pages.mjs, and /404.html has
+          two. Site search had a bare sentence, which is the one place on the
+          site where a reader has definitely just failed at something.
+
+          IT IS GARBODOR AND THAT IS THE ONLY REASON THIS IS NOT TRUBBISH.
+          Trubbish already means "there is nothing in this one" in three places
+          and the meaning is worth keeping single. This search reads 316
+          openings, 5,181 cards, every set guide and 1,025 species, so what it
+          says is "we went through the whole heap", and the heap is the evolved
+          one. It also gives the site's ONLY Garbodor a second page: before
+          this it was on /404.html and nowhere else.
+
+          NO NEW CSS. .empty and .empty-mascot are both already in ui.css,
+          written for app.js's grid states, so this state now looks like the
+          filter-empty state on /videos.html rather than like a new invention.
+
+          THE 256px FILE, NOT THE 512. .empty-mascot clamps to 116px, so a DPR 2
+          phone asks for 232 device pixels and 256 is the smallest rendition
+          that covers it: 15,582 bytes against /assets/garbodor.webp's 28,504
+          for pixels nothing on this page can use. The 96px sm file loses at
+          every DPR this box has, so there is no srcset worth writing. */ ""}out.innerHTML = html || '<div class="empty"><img class="empty-mascot" src="/assets/species/569.webp" alt="" width="256" height="256" loading="lazy" decoding="async" onerror="this.remove()"><p class="big">Nothing matched.</p><p>Try a Pokemon name, a set name, or a word from a video title.</p></div>';
     status.textContent = n ? n.toLocaleString('en-US')+' result'+(n===1?'':'s') : '';
   }
 

@@ -288,7 +288,7 @@
     </div>
     <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank" aria-label="See the whole collection on Collectr, opens on their site">See the whole collection on Collectr &rarr;</a></p>
     <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
-    Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+    Pokemon artwork from pokeapi.co.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
 <script>
@@ -383,7 +383,7 @@
     html+=group('Pack openings', v.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(v),
       v.total>v.rows.length ? '/videos.html?q='+encodeURIComponent(q) : '');
 
-    out.innerHTML = html || '<p class="cq-head">Nothing matched. Try a Pokemon name, a set name, or a word from a video title.</p>';
+    out.innerHTML = html || '<div class="empty"><img class="empty-mascot" src="/assets/species/569.webp" alt="" width="256" height="256" loading="lazy" decoding="async" onerror="this.remove()"><p class="big">Nothing matched.</p><p>Try a Pokemon name, a set name, or a word from a video title.</p></div>';
     status.textContent = n ? n.toLocaleString('en-US')+' result'+(n===1?'':'s') : '';
   }
 

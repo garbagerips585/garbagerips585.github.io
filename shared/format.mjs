@@ -203,6 +203,139 @@ export const RIP_BANNER =
   `<span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>`;
 
 /**
+ * THE GARBAGE PLATE, DRAWN RATHER THAN PHOTOGRAPHED, and the only picture on
+ * this site that is not a card, a pack, a logo or a Pokemon.
+ *
+ * Tim asked for "little Garbage Plates and little Trubbish and Garbador images
+ * to the sites pages ... to add charm and give the site its identity". The
+ * channel is named after this dish, the commissioned banner has one sitting
+ * beside Trubbish, /lore.html opens its mascot section by naming it and
+ * /about.html says the city is "home of the Garbage Plate", and there was no
+ * picture of one anywhere in the tree.
+ *
+ * IT IS AN INLINE SVG AND THAT IS THE WHOLE REASON IT IS AFFORDABLE. A file
+ * would be a request per page and a fixed rendition; this is 1,771 bytes of
+ * markup, it is sharp at any size, and it needs no round trip. The site already
+ * draws 492 evolution chains, a set of rarity symbols and a 5x7 bitmap alphabet,
+ * so the muscle was there.
+ *
+ * WHAT IT ACTUALLY COST, measured on the built pages against the same four
+ * files at HEAD, gzip -9 because that is roughly what the host serves:
+ *
+ *                       raw                     gzipped
+ *     /buying.html    159,771 -> 161,843       40,912 -> 41,649    +737
+ *     /selling.html   135,624 -> 137,696       34,293 -> 35,023    +730
+ *     /grading.html    53,679 ->  55,754       13,602 -> 14,458    +856
+ *     /shops.html      53,819 ->  55,890       14,222 -> 14,907    +685
+ *
+ * So +2,072 raw on every one of them, which is the ornament plus PLATE_CSS,
+ * and between 685 and 856 gzipped. Nothing else on the site moved a byte:
+ * these are the only four pages that call it, and ui.css is untouched.
+ *
+ * THE SHAPE IS THE REAL DISH AND IT WAS TRACED OFF OUR OWN BANNER. Open
+ * public/assets/banner-trubbish.jpg and look at the bottom right corner: a
+ * wide shallow plate seen from just above the table, macaroni salad heaped on
+ * one side, potato on the other, meat hot sauce poured over the top of the
+ * seam, chopped onions on the sauce, a stripe of mustard over the lot, and
+ * some of it on the rim. Five layers, because a Garbage Plate that reads as
+ * one tidy portion is not a Garbage Plate. The banner draws shoestring fries
+ * and this draws chunky home fries, which is the half of the dish the banner
+ * takes a liberty with. It is deliberately not a bin and not a generic dinner.
+ *
+ * THE CHINA IS THE PALETTE AND THE FOOD IS NOT, which is the rule CLAUDE.md
+ * already applies to the eighteen pack skins and the Base Set schematic: a
+ * drawing of a real product keeps its own colours. So the plate itself takes
+ * var(--ink) and moves with any repaint, and the mac, the potato, the sauce
+ * and the mustard are literal and stay food coloured. The fallback in the
+ * var() is there because this string is also readable outside a page.
+ *
+ * aria-hidden BECAUSE IT SAYS NOTHING THE COPY DOES NOT. Every placement sits
+ * beside a heading or a paragraph that already names Rochester or the dish,
+ * so a label here would be read out twice. Same call as .flower and RIP_BANNER.
+ *
+ * NOTHING IN IT MOVES, at any setting, so prefers-reduced-motion has nothing to
+ * honour. Do not give it a hover transform: two of the placements sit inside
+ * running prose where a moving ornament would pull the eye off the sentence.
+ */
+export function plateMark(px = 84) {
+  return (
+    `<svg class="gplate" width="${px}" height="${Math.round(px * 0.58)}" viewBox="0 0 200 116" aria-hidden="true" focusable="false">` +
+    `<g stroke="#231F20" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">` +
+    `<ellipse cx="100" cy="88" rx="92" ry="22" fill="var(--ink,#E4DCCC)"/>` +
+    `<path d="M22 92c-2-20 10-36 32-38 22-2 42 12 44 30 1 8 0 8 0 8z" fill="#F2E9CD"/>` +
+    `<g stroke="#AC9D71" stroke-width="3.4" fill="none">` +
+    `<path d="M30 84a8 8 0 0 1 13-3"/><path d="M48 78a8 8 0 0 1 13-3"/>` +
+    `<path d="M66 84a8 8 0 0 1 13-3"/><path d="M38 68a8 8 0 0 1 13-3"/>` +
+    `<path d="M58 62a8 8 0 0 1 13-3"/><path d="M76 72a8 8 0 0 1 13-3"/></g>` +
+    `<g fill="#DFA93C" stroke-width="3.4">` +
+    `<path d="M98 90l18-6 5 12-18 6z"/><path d="M120 84l20-5 4 13-20 5z"/>` +
+    `<path d="M144 86l18-7 5 12-18 7z"/><path d="M110 72l19-6 5 12-19 6z"/>` +
+    `<path d="M134 68l19-5 4 13-19 5z"/><path d="M156 74l14-7 6 11-14 7z"/></g>` +
+    `<path d="M44 58c-4-14 6-24 18-24 6-12 26-16 36-8 12-10 32-4 34 8 14 0 22 12 16 22 2 10-8 16-16 12-6 8-20 8-26 2-8 8-22 8-28 0-10 6-22 2-26-6z" fill="#7A4526"/>` +
+    `<g fill="#5C3318" stroke="none">` +
+    `<ellipse cx="70" cy="48" rx="7" ry="4.5"/><ellipse cx="126" cy="40" rx="6" ry="4"/>` +
+    `<ellipse cx="100" cy="58" rx="8" ry="4.5"/></g>` +
+    `<g stroke="#F8F3E4" stroke-width="3.4" fill="none">` +
+    `<path d="M78 34a9 5 0 0 1 15 1"/><path d="M108 28a9 5 0 0 1 15 1"/>` +
+    `<path d="M132 50a9 5 0 0 1 14 1"/><path d="M60 60a9 5 0 0 1 14 1"/>` +
+    `<path d="M94 48a9 5 0 0 1 14 1"/></g>` +
+    `<path d="M56 52c12-10 20 6 32-4s22 10 34-2 18 6 24 0" fill="none" stroke="#EFBB25" stroke-width="4.5"/>` +
+    `<path d="M8 88a92 22 0 0 0 184 0" fill="var(--ink,#E4DCCC)"/>` +
+    `<path d="M30 86a70 13 0 0 0 140 0" fill="none" stroke-width="3"/>` +
+    `<path d="M148 98l13-5 4 9-13 5z" fill="#DFA93C" stroke-width="3.4"/>` +
+    `<path d="M40 100a7 7 0 0 1 12-3" stroke="#AC9D71" stroke-width="3.4" fill="none"/>` +
+    `</g></svg>`
+  );
+}
+
+/**
+ * The plate as a SECTION ORNAMENT, which is the form three of the five
+ * placements take: a fleuron centred on a hairline between two topics.
+ *
+ * A fleuron is a typographic device rather than a sticker, and that is the
+ * whole argument for it here. /buying.html is 48,825px tall at 390x844 with
+ * TWO 22px glyphs on it, because the 26 retailer marks on that page are
+ * display:none below 545px, so a phone reader gets 36,525px of unbroken prose
+ * before the first picture. A mascot dropped into the middle of that would
+ * read as pasted on; a rule with a mark on it reads as the page taking a
+ * breath, and it lands on a seam the writing already made.
+ *
+ * ONE PER PAGE. Six of these down a long page is a pattern fill and stops
+ * being charm about four screens in, which is the failure this whole pass was
+ * briefed to avoid.
+ *
+ * THE HAIRLINES ARE PSEUDO ELEMENTS so the ornament is one element in the
+ * markup and cannot be half copied into a page that then styles it itself.
+ *
+ * AND IT IS CAPPED AT 560px AND LEFT ALIGNED, WHICH IS THE FIX FOR THE ONLY
+ * THING THAT LOOKED WRONG WHEN THIS WAS FIRST BUILT, AND THE FIX FOR THE FIRST
+ * FIX. Uncapped it takes the whole band, which is 1,392px at 1440x900, and an
+ * 84px mark in the middle of 1,392px of hairline is a rule with a speck on it
+ * rather than an ornament. Capping it and CENTRING it was worse in a different
+ * way: every heading and every paragraph on all four of these pages is left
+ * aligned, so a centred 560px ornament in a 1,280px band sat 350px right of
+ * the column it was meant to be punctuating. Left aligned it starts on the
+ * same vertical as the h2 under it.
+ *
+ * NOTHING ABOUT THE PHONE MOVED THROUGH ANY OF THAT. The wrap at 390 is
+ * narrower than the cap, so the ornament fills the column exactly as it did.
+ */
+export const plateRule = (px = 84) =>
+  `<div class="plate-rule">${plateMark(px)}</div>`;
+
+/**
+ * The rules plateRule needs, for a page's own style block.
+ *
+ * DELIBERATELY NOT IN ui.css. That file is render blocking on all 1,483 pages
+ * and this ornament is on five, so a shared rule would charge 1,478 pages for
+ * something they never draw. Interpolated per page instead, which is the same
+ * trade build-buying.mjs's miniCSS note already argues for that page's own CSS.
+ */
+export const PLATE_CSS = `.plate-rule{display:flex;align-items:center;gap:var(--s4);max-width:560px;margin:var(--s7) 0 var(--s6)}
+.plate-rule::before,.plate-rule::after{content:"";flex:1;height:2px;border-radius:2px;background:var(--keyline);opacity:.5}
+.plate-rule svg{flex:none;display:block}`;
+
+/**
  * Money, in the two shapes this site actually uses.
  *
  * There were seven copies across the build scripts in two INCOMPATIBLE

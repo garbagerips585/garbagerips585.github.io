@@ -70,7 +70,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate } from "../shared/format.mjs";
+import { esc, longDate, plateRule, PLATE_CSS } from "../shared/format.mjs";
 import { brandMark, PROT_MARK, BRAND_CREDIT, BRAND_STYLE } from "../shared/brands.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -963,6 +963,11 @@ ${BRAND_STYLE}
        The figure captions were capped at 52ch and measured 84. 45ch. */
   .by-list,.by-chain{max-width:1100px}
 }
+/* The section ornament, from shared/format.mjs so the five pages that draw a
+   Garbage Plate cannot disagree about how it sits. It is here rather than in
+   ui.css because ui.css is render blocking on all 1,483 pages and this is on
+   five, which is the same trade miniCSS above is arguing about. */
+${PLATE_CSS}
 `;
 
 const page = `<!DOCTYPE html>
@@ -1146,6 +1151,24 @@ ${(custody.chain || []).map((c) => `          <li><b>${esc(c.who)}</b> ${esc(c.w
         ${custody.cost ? `<p class="by-lede" style="margin-top:var(--s4)"><b>What the short chain costs you.</b> ${esc(custody.cost)}</p>` : ""}
         ${custody.note ? `<p class="by-lede" style="margin-top:var(--s3)">${esc(custody.note)}</p>` : ""}
       </section>` : ""}
+
+${/* THE ONE ORNAMENT ON THIS PAGE, AND IT IS HERE BECAUSE OF WHAT IS UNDER IT
+      RATHER THAN BECAUSE THE PAGE NEEDED BREAKING UP SOMEWHERE.
+
+      Measured on the built page at 390x844: 48,825px tall, and the largest run
+      with no picture in it is 36,525px, from the top to the first thing a phone
+      renders. That is not the page being lazy, it is the 26 retailer marks
+      being display:none below 545px, so a desktop reader gets a mark every few
+      hundred pixels and a phone reader gets two 22px glyphs in 48,825. The tail
+      this sits in is the second largest at 11,171px.
+
+      The section below is the page's closing turn, from "every venue above ends
+      with a package" to a counter in Rochester, and it is the one paragraph on
+      the page that points at /shops.html. A Rochester dish is the mark for
+      that, which is why the ornament is here and not at the arithmetic seam
+      13,000px up, where it would have been decoration on a fee table.
+
+      ONE. Eleven h2s on this page and ten of them get nothing. */ ""}${plateRule()}
 
       <section class="by-grp">
         <h2>The chain with no links in it at <span class="hl">all</span></h2>
