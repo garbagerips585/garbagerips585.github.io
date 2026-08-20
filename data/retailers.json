@@ -127,7 +127,7 @@
   "checked": "2026-08-17",
 
   "askAnEmployee": {
-    "claim": "If you cannot see any, ask anyway. A lot of shops now keep trading cards behind the counter, in a locked case or in the back, and plenty do not put them on the shop floor at all. An empty peg is not the same as no stock, and people walk out of shops that had the thing every day of the week.",
+    "claim": "If you cannot see any, ask anyway. A lot of shops now keep trading cards behind the counter, in a locked case or in the back, and plenty do not put them on the sales floor at all. An empty peg is not the same as no stock, and people walk out of shops that had the thing every day of the week.",
     "why": [
       "The question to ask is specific: do you have any Pokemon cards behind the counter. A staff member who has been asked ten times that morning will answer it in three seconds, and 'do you sell Pokemon cards' gets you pointed at an empty shelf.",
       "This site cannot tell you which chains lock their cards up, because no chain publishes that. What is published, and is on this page where we could read it, is the department each one files the cards under. Where the shelf actually is inside that department moves store to store.",
@@ -236,7 +236,7 @@
       "display": "",
       "marketplaceKind": "none",
       "marketplaceNote": "",
-      "availability": "CVS prints a warning on its own Pokemon page that is worth carrying to the till: prices may vary from online to in store. The figures below are the online ones.",
+      "availability": "CVS prints a warning on its own Pokemon page that is worth carrying to the register: prices may vary from online to in store. The figures below are the online ones.",
       "priceNote": "",
       "sources": [
         {
@@ -328,7 +328,7 @@
       },
       "stocks": "The full range, which is unusual for a chain: sleeved booster packs, three-booster blisters, booster bundles, elite trainer boxes, booster boxes, build and battle boxes, tins, ex boxes, premium collections, battle decks and sleeves and binders. If a sealed format exists, GameStop listed it.",
       "stocksTier": "boxes",
-      "whereInStore": "GameStop files them under Toys & Games, then Trading Cards, and carries Graded Trading Cards as its own separate category. In a shop that size the card fixture is usually within sight of the till, which is also where you have to ask for anything in the locked case.",
+      "whereInStore": "GameStop files them under Toys & Games, then Trading Cards, and carries Graded Trading Cards as its own separate category. In a shop that size the card fixture is usually within sight of the register, which is also where you have to ask for anything in the locked case.",
       "whereSource": "The product page breadcrumb on gamestop.com: Toys & Games, Trading Cards. The Graded Trading Cards and Card Grading Service entries are in their own site navigation.",
       "display": "",
       "marketplaceKind": "none",

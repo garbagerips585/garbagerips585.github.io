@@ -271,6 +271,8 @@ const page = `<!DOCTYPE html>
 <meta property="og:url" content="${SITE}/start.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="${SITE}/assets/og-start.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="${SITE}/assets/og-start.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -360,7 +362,7 @@ ${MENU}
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; No gatekeeping</span>
     <h1>Start <span class="hl">here</span></h1>
-    <p class="lede" style="max-width:36em">Found a box in the loft, got back into it, or just pulled something and
+    <p class="lede" style="max-width:36em">Found a box in the attic, got back into it, or just pulled something and
       have no idea what it is. Six questions in the order they actually come up. Nobody is going to make you feel
       stupid for asking any of them.</p>
   </div>

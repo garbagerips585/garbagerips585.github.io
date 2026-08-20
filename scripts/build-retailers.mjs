@@ -323,7 +323,7 @@ const pathOf = (r) => `/retailers/${r.slug}.html`;
 // palette. It is also what satisfies check-build.py's rule that a page with real
 // body copy carries something visual: every retailer page gets one.
 const AISLE = `<svg class="rt-fig-svg" viewBox="0 0 240 96" width="240" height="96" role="img"
-  aria-label="Two places Pokemon cards sit in a shop: an empty peg on the shop floor, and a locked case behind the counter."
+  aria-label="Two places Pokemon cards sit in a shop: an empty peg on the sales floor, and a locked case behind the counter."
   fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
   <g>
     <path d="M14 20h84M14 44h84M14 68h84"/>
@@ -331,7 +331,7 @@ const AISLE = `<svg class="rt-fig-svg" viewBox="0 0 240 96" width="240" height="
     <rect x="22" y="8" width="12" height="12" rx="1.2"/>
     <rect x="40" y="8" width="12" height="12" rx="1.2"/>
     <text x="56" y="38" font-size="9" stroke="none" fill="currentColor" font-family="monospace">empty</text>
-    <text x="20" y="88" font-size="9" stroke="none" fill="currentColor" font-family="monospace">shop floor</text>
+    <text x="20" y="88" font-size="9" stroke="none" fill="currentColor" font-family="monospace">sales floor</text>
   </g>
   <g>
     <path d="M132 62h96v14h-96z"/>
@@ -765,6 +765,8 @@ const head = ({ title, desc, path, extraLd = [] }) => `<!DOCTYPE html>
 <meta property="og:url" content="${SITE}${path}">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="${SITE}/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="${SITE}/assets/og-image.jpg">
 <link rel="icon" href="/favicon.ico" sizes="any">

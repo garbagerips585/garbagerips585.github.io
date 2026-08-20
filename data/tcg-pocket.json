@@ -904,7 +904,7 @@
         "question": "Free packs without spending anything",
         "pocket": "Two a day, on a twelve-hour timer",
         "pocketSource": "collectingGuide",
-        "live": "Earned by playing, through quests, levelling and currencies rather than on a clock",
+        "live": "Earned by playing, through quests, leveling and currencies rather than on a clock",
         "liveSource": "tcgLiveResearch.howToPlayDigital.currencies",
         "note": "CHECK THE LIVE WORDING against that file before printing. It is a summary of two currencies, not a quoted claim, and it must not read as if Live hands out daily packs."
       },

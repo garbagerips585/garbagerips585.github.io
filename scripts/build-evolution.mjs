@@ -546,6 +546,8 @@ const page = `<!DOCTYPE html>
 <meta property="og:url" content="${SITE}/evolution.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="${SITE}/assets/og-evolution.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="${SITE}/assets/og-evolution.jpg">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -610,7 +612,7 @@ ${stepFig()}
         <p>Most Pokemon evolve the same way in every game, and those lines carry no game tag at all. A tag only
           appears where the answer genuinely <b>changes between games</b>, and then every answer is listed with the
           games it belongs to and none of them is picked as the real one.</p>
-        <p>Feebas is the clearest case. In Ruby and Sapphire it becomes Milotic by levelling up with maximum
+        <p>Feebas is the clearest case. In Ruby and Sapphire it becomes Milotic by leveling up with maximum
           Beauty. In Black and White it becomes Milotic by being traded holding a Prism Scale. Both are true, in
           different games, and any page that gives you one of them has given half its readers the wrong answer.</p>
         <p>A tag names the games our source files that condition under. It is not a claim that the method stops

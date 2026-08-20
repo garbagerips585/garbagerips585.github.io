@@ -703,7 +703,7 @@
       "plain": "Two currencies, and they do different jobs. Trainer Points buy packs and cosmetics. Trade Credits buy specific cards.",
       "trainerPoints": {
         "usedFor": "Booster packs, bundles, deck items, deck cosmetics, and unlocking Battle Pass tiers you did not finish.",
-        "earnedBy": "Completing quests and levelling up.",
+        "earnedBy": "Completing quests and leveling up.",
         "quote": "You can exchange Trainer Points for booster packs, bundles, and deck items. Trainer Points are earned by completing quests and leveling up.",
         "source": "supportCurrencies",
         "read": "2026-08-16"

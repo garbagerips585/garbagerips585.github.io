@@ -598,7 +598,7 @@ ${pileFig()}` : `
             logged in here, and Pokemon says you may have to log in again on the TCG Live site.</li>
           <li><b>If Redeem is not in the app on your phone, use the website</b>It works from any browser on any
             device and does exactly the same job.</li>
-          <li><b>Do not bin the card until the reward has landed</b>Support asks for the code number, the screen
+          <li><b>Do not throw the card away until the reward has landed</b>Support asks for the code number, the screen
             name you redeemed to, and where you tried it, and says a claim without that information may be
             dismissed. If you are filming an opening, that is a floor covered in little cards and no way to prove
             anything about them.</li>
@@ -639,7 +639,7 @@ ${pileFig()}` : `
             spend them on what a deck actually needs.</li>
           <li><b>Duplicates are not waste</b>Past the four copies you may hold, extras turn themselves into Trade
             Credits. A fifth copy is not a dud, it is progress towards the card you want, the opposite of how
-            opening cardboard feels. Trainer Points, the other currency, come from quests and levelling and buy
+            opening cardboard feels. Trainer Points, the other currency, come from quests and leveling up and buy
             packs.</li>
           <li><b>Rarity is cosmetic here</b>The same card exists in several finishes and you pick one. The fancy
             print plays identically, which is the point <a href="/rarity.html">our rarity guide</a> makes about
@@ -849,6 +849,8 @@ const page = `<!DOCTYPE html>
 <meta property="og:url" content="${SITE}/tcg-live.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="${SITE}/assets/og-tcg-live.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="${SITE}/assets/og-tcg-live.jpg">
 <link rel="icon" href="/favicon.ico" sizes="any">

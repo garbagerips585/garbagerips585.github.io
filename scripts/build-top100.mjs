@@ -1129,7 +1129,7 @@ function honestyGuide(cfg, d) {
         also <a href="/topps-card-values.html">a Topps top 100 of its own</a>, raw and PSA 10.</p>
       <p><b>Sealed product was taken out by hand, and here is what went.</b> The crawl behind these figures
         excludes sealed boxes, and ${esc(String(cfg.sealedTotal))} slipped through it anyway.
-        ${esc(String(removed))} of those were dear enough to have made this hundred:
+        ${esc(String(removed))} of those were expensive enough to have made this hundred:
         ${esc(cfg.sealedNames)}. They are boxes and blisters, not cards, and a page
         titled cards should not rank one at number four. Unopened product has its own list, priced by a
         marketplace instead: <a href="/most-expensive-sealed.html">the 100 most expensive sealed Pokemon
@@ -1423,6 +1423,8 @@ for (const cfg of PAGES) {
 <meta property="og:url" content="${url}">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="${SITE}/assets/og-${cfg.og}.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="${SITE}/assets/og-${cfg.og}.jpg">
 <link rel="icon" href="/favicon.ico" sizes="any">

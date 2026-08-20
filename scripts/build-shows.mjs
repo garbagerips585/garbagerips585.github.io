@@ -563,6 +563,8 @@ const head = `<!DOCTYPE html>
 <meta property="og:url" content="${SITE}/card-shows.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="${SITE}/assets/og-card-shows.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="${SITE}/assets/og-card-shows.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -694,7 +696,15 @@ ${g.shows.map(showCard).join("\n")}
   )
   .join("\n")}
     </div>
-    <p class="show-empty" id="showEmpty" hidden>Nothing listed in that area yet. Try another, or send us one.</p>
+    <!-- "or send us one" was here until 19 August 2026, and there was nowhere to
+         send it: the site has no mailto, no contact page and no form. The ask is
+         worth keeping, so it now names the route the rest of the site already
+         uses for exactly this. /rarity.html and /upcoming.html both end "say so
+         on any of the socials and it gets fixed", and /shops.html says "say
+         hello on any of the socials". The footer's four social buttons are that
+         route, and they are on this page too. Match those three if you edit
+         this: one wording for one action. -->
+    <p class="show-empty" id="showEmpty" hidden>No shows listed in that area yet. Try another area, or tell us about one on any of the socials.</p>
   </div>
 </section>
 ${(data.watchFor || []).length ? `
