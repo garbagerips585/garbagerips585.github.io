@@ -779,6 +779,29 @@ const hofHtml = hofPick
             // honest sweep is what turned the new rendition into a saving.
             // At DPR 2 this box asks for 808 and still takes 810w, unchanged.
             //
+            // THE PHONE STOP IS `calc(78vw - 40px)` SINCE 20 AUGUST 2026 and
+            // it is still measured rather than guessed. The fold pass capped
+            // .hofx at 78vw below 545 (see the .hof block in ui.css), so the
+            // art is that less a 4px border and var(--s4) padding either side,
+            // which is the 40. 264.2 at 390, and the number the box actually
+            // measures at every phone width where the cap binds.
+            //
+            // THE OLD "calc(100vw - 64px)" IS NOT JUST STALE, IT IS THE
+            // EXPENSIVE DIRECTION. It claims 326 at 390 against a 264 box, and
+            // 326 x 2 asks for 652 device pixels and takes the 810w file while
+            // 264 x 2 asks for 529 and the 560w one satisfies it. Read off the
+            // request log at 390 DPR 2, chaos-rising: 114,395 bytes of 810w
+            // AVIF -> 64,438 of 560w, which is the whole of that width's
+            // saving. DPR 3 is unchanged and has to be: 264 x 3 is 793 and
+            // 810w is still the smallest candidate that covers it.
+            //
+            // IT UNDER-DECLARES ON PURPOSE BELOW ABOUT 330px AND THAT COSTS
+            // NOTHING. Down there the wrap is narrower than 78vw, so the frame
+            // fills the wrap and the art is 100vw - 2*--gut - 40 instead: 248
+            // at a 320px phone against the 209.6 this declares. Both land on
+            // the same candidate at both DPRs (419 and 496 -> 560w, 629 and
+            // 744 -> 810w), so there is no third stop to write.
+            //
             // AND IT IS SERVED AS AVIF FIRST SINCE 16 AUGUST 2026, which is the
             // only change to this element that a retina screen can feel. 560w
             // moved nothing here at DPR 2 because 808 device pixels still need
@@ -790,7 +813,7 @@ const hofHtml = hofPick
             return fs && packs.has(fs)
               ? avifPicture(`<img src="assets/packs/${fs}-garbage-rips-585-booster-pack.webp"
            srcset="assets/packs/${fs}-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/${fs}-garbage-rips-585-booster-pack-mid.webp 560w, assets/packs/${fs}-garbage-rips-585-booster-pack.webp 810w"
-           sizes="(max-width:544px) calc(100vw - 64px), (max-width:640px) 480px, (max-width:1199px) 464px, (max-width:1399px) 404px, 464px" alt="" fetchpriority="high" decoding="async" width="810" height="1440">`)
+           sizes="(max-width:544px) calc(78vw - 40px), (max-width:640px) 480px, (max-width:1199px) 464px, (max-width:1399px) 404px, 464px" alt="" fetchpriority="high" decoding="async" width="810" height="1440">`)
               : packs.has("default")
                 ? avifPicture(`<img src="assets/packs/default-garbage-rips-585-booster-pack.webp" alt="" fetchpriority="high" decoding="async">`)
                 : `<b>Garbage Rips</b>`;
@@ -1183,7 +1206,7 @@ const wantedNote = bandNote(wantedLedger, {
 const setsNote = bandNote(setsLedger, {
   lead: "Top card prices",
   psaLead: "Where a set's top card is marked PSA 10",
-  trailing: "Each one is the dearest card on that set's own guide, linked from the tile.",
+  trailing: "Each one is the most expensive card on that set's own guide, linked from the tile.",
 });
 for (const [band, led] of [["Most Wanted", wantedLedger], ["Card Pokedex", setsLedger]]) {
   if (led.unsourced.length) {
@@ -2084,6 +2107,10 @@ ${BRAND_STYLE_MIN}
 .hof .shelf{display:none}
 .vcar-slide:not(:first-child){display:none}
 .vcar-bar{display:none}
+/* 4. THE FOLD. Argued in full in note 4 below this template. */
+main{padding-top:0}
+.wdrop{padding:6px 0}
+.wdrop-sum{min-height:44px;row-gap:6px}
 }</style>`;
 /* 3. ONE VIDEO PER BAND ON A PHONE, max-width:544px. LAYOUT ONLY: three
  * display rules, no colour, no spacing, nothing that changes above 544.
@@ -2174,6 +2201,123 @@ ${BRAND_STYLE_MIN}
  * reflow is the fully scrolled one, 814.3 to 717.3KB, 16 image requests to 15.
  *
  * 360x800 DPR 2 is the same page: 345.5 -> 389.9KB on load, 7,639 -> 6,879px.
+ */
+
+/* 4. THE FOLD, 20 August 2026. Tim, looking at the page on his own phone:
+ * "lets also make it so when you land on the home page you can see the entire
+ * hall of fame video on the screen, and see the click to rip open the pack
+ * banner and watch the video right when you land on home page above the fold
+ * no scrolling, we can make the video smaller so its fits and tighten up
+ * everything else."
+ *
+ * THE TARGET IS 700, NOT 844, AND THAT IS WHY THIS LOOKS OVER-TIGHTENED IN A
+ * HEADLESS VIEWPORT. Safari's own chrome takes 100 to 140px of an iPhone's
+ * 844, so a banner that clears 844 in a browser with no chrome is still under
+ * the reader's thumb on the phone Tim is holding. The acceptance test is the
+ * BOTTOM EDGE of .pack-hint on the trophy, read with getBoundingClientRect at
+ * 390x844: 860.33 before, 683.28 after.
+ *
+ * THE ORDER THE PIXELS WERE TAKEN IN IS THE POINT. Shrinking the artwork is
+ * Tim's own suggestion and it is the LAST lever here rather than the first,
+ * because a pack too small to want stops being the thing worth landing on.
+ * Measured at 390x844, top of the document down to the banner's bottom edge:
+ *
+ *      the top bar                   60.00      not touched, not ours
+ *      main's own padding-top     16 ->  0      -16.00
+ *      the drops band             91 -> 59.41   -31.59
+ *      .hof padding-top           24 ->  8      -16.00   in ui.css
+ *      the Greatest Hits heading     44.00      unchanged, see below
+ *      heading bottom to art top  60 -> 42      -18.00   in ui.css
+ *      the pack artwork        565.33 -> 469.88 -95.45   318 -> 264.2 wide
+ *                             --------------------------
+ *      banner bottom           860.33 -> 683.28
+ *
+ * So 81.59 of the 177.05px came off the chrome before a pixel came off the
+ * pack, and the pack is still 68% of the screen's width. The two figures ui.css
+ * owns are argued beside the rules that produce them, in the max-width:544
+ * block under .hofx; the arithmetic that makes 42 a FLOOR rather than a taste
+ * decision is there too.
+ *
+ * THE HEADING ROW IS 44 AND STAYS 44. "Greatest Hits" is 22.4px of type, and
+ * the row is held open by the "All N hits" link's 44px tap target beside it.
+ * That link is the only way onward from a band showing one video on a phone,
+ * which is exactly why the one-video-per-band note above says it must stay, so
+ * the 22px between the type and the target is not spendable.
+ *
+ * THE BAND ORDER WAS THE OTHER LEVER AND IT WAS NOT TAKEN. CLAUDE.md names it
+ * twice ("move the two DROPS markers in index.html below the .hof section",
+ * "the lever is the band ORDER, not the bar") and it would have paid the whole
+ * 59.41px this band still costs AND left the pack near 307 wide instead of 264.
+ * It is not taken because Tim asked for this band above the fold on 17 August,
+ * in as many words, and trading one of his asks for another one quietly is not
+ * a saving. Everything the band must not lose, its lede and its credit line, is
+ * inside the collapsed body and none of it was touched. If Tim would rather
+ * have the bigger pack, that swap is two markers and this paragraph.
+ *
+ * WHAT ACTUALLY COST 31.59px IN THE BAND, AND ONLY 20 OF IT IS PADDING. The
+ * summary WRAPS to two lines at 390 and always has: the heading measures 306.8
+ * and the count chip 50.2, which is 3px more than the wrap gives them. So the
+ * row is 22.4 of heading, a 12px ROW gap, and 15.6 of chip and chevron: 50px of
+ * content held open to 56 by a min-height. The row gap is the free one. At 6px
+ * the content is 44, which is exactly the tap target a <summary> has to keep,
+ * so min-height comes down to meet the content instead of holding the row open
+ * above it. COLUMN gap stays 12: it is what separates the chip from the chevron
+ * on the line they share.
+ *
+ * WHAT IT COSTS ON THE WIRE, one harness, gzipped the way the host serves,
+ * cache off, filenames read off the REQUEST LOG rather than off the markup:
+ *
+ *                       on-load          fully scrolled     trophy pack file
+ *      390x844  DPR 2  495.3 -> 447.8KB  607.9 -> 560.4KB   810w -> 560w avif
+ *      390x844  DPR 3  495.3 -> 496.5KB  766.1 -> 767.3KB   810w -> 810w
+ *      820x1180 DPR 2  461.3 -> 462.5KB  785.7 -> 786.9KB   810w -> 810w
+ *      1440x900 DPR 1  382.0 -> 383.3KB  872.4 -> 873.7KB   560w -> 560w
+ *      1440x900 DPR 2  558.3 -> 559.6KB 1245.2 -> 1246.5KB  810w -> 810w
+ *
+ * THE ONE ROW THAT MOVES IS THE PHONE AT DPR 2 and it moves because `sizes` was
+ * re-measured with the box, not because anything was compressed: 264 x 2 asks
+ * for 529 device pixels and the 560w rendition covers it, where 318 x 2 asked
+ * for 636 and took the 810w file. 114,395 bytes to 64,438 off the request log.
+ * DPR 3 cannot be helped and is not meant to be: 264 x 3 is 793 and 810w is
+ * still the smallest candidate that covers it.
+ *
+ * THE +1.2 TO +1.3KB ON EVERY OTHER ROW IS THIS BLOCK AND THE ui.css ONE, and
+ * it is the whole cost of the change to a reader it cannot help: index.html
+ * 20,213 -> 20,268 bytes gzipped and ui.css 20,512 -> 20,546, so 89 bytes of
+ * text against 47.5KB of image on the row that pays. THE PROSE IS DELIBERATELY
+ * NOT IN THE STYLE BLOCK. The first draft of this note lived inside the
+ * template above and put 2.4KB gzipped of comment into a render-blocking
+ * element on the most visited page on the site, which is precisely what the
+ * HTML comment above HOMECSS in index.html says must not happen.
+ *
+ * DESKTOP AND TABLET ARE UNTOUCHED AND WERE MEASURED TO BE, not assumed. Every
+ * rule added here and in ui.css is inside max-width:544. At 820x1180 and
+ * 1440x900 the banner's bottom edge is 991.00 and 944.98 before and after, the
+ * pack is 464.0x696.0 and 406.7x610.0 before and after, the same file is picked
+ * off the request log, and the document is the same height to the pixel.
+ *
+ * CONTRAST WAS RE-READ OFF RENDERED PIXELS, glyphs hidden, because this moves
+ * the Greatest Hits heading UP the .hof band and that band's radial gradient
+ * blooms from its own top edge. Both figures fall and both clear the 4.5 floor:
+ * .hof-head h2 5.75 -> 5.67 and .hof-head a 6.06 -> 5.87. The band is also
+ * SHORTER, which compresses the gradient, so the heading is now sitting on
+ * rgb(37,63,46), within a point of the strongest the bloom can paint. Nothing
+ * else moved into or out of it: the trophy's own frame is opaque, and
+ * .pack-hint is an opaque fill, so scaling the artwork under it changes no
+ * pixel either of them is measured against.
+ *
+ * THE FOLD AT OTHER PHONE SIZES, driven the same way, because 390 is one phone
+ * and the cap in ui.css is a SHARE rather than a pixel count precisely so the
+ * others come along. Banner bottom, before -> after:
+ *
+ *      320x800    752.89 -> 608.58        414x896    903.00 -> 716.34
+ *      360x800    807.00 -> 641.48        430x932    832.00 -> 656.48
+ *      375x812    833.66 -> 662.28        500x900    937.00 -> 738.00
+ *      390x844    860.33 -> 683.28        544x900   1003.00 -> 789.47
+ *
+ * Every one of them lands under its own viewport less 140px. 430 and up are
+ * shorter than the trend because the 2:3 crop takes over at 425, which is the
+ * min-width:425 block in ui.css and not this pass.
  */
 
 /* The four rules inside the min-width:900 media query, in the order they

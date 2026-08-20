@@ -271,7 +271,7 @@ const etbMedian = median(etbRatios.map((r) => r.x));
 const etbWorst = etbRatios.slice().sort((a, b) => b.x - a.x)[0];
 const etbBest = etbRatios.slice().sort((a, b) => a.x - b.x)[0];
 // Two different claims, and the first draft of this page made the stronger one
-// without checking it. The ETB is NOT the dearest pack in every set: on some it
+// without checking it. The ETB is NOT the most expensive pack in every set: on some it
 // loses to a loose pack or a bundle. It has never once been the cheapest, which
 // is the claim that survives.
 const etbSets = rows.filter((r) => r.kinds["Elite Trainer Box"]);

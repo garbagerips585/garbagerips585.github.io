@@ -51,7 +51,7 @@
 // door.
 //
 // A row carrying a bracketed printing (`[Jumbo]`, `[Poke Ball]`) is REFUSED
-// rather than taken, for the reason that file records at length: the dearest
+// rather than taken, for the reason that file records at length: the most expensive
 // product filed against a collector number is usually not the card.
 //
 // ---------------------------------------------------------------------------

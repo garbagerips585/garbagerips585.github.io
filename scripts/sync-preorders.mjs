@@ -246,7 +246,7 @@ for (const [name, tcgName] of Object.entries(TCG_UPCOMING)) {
   console.log(
     `  ${name.padEnd(30)} ${String(products.length).padStart(2)} products, ${String(chase.length).padStart(2)} chase cards` +
       (setTotal ? `, ${setTotal} card set` : "") +
-      (dearest ? `\n${" ".repeat(34)}dearest: ${dearest.name} $${dearest.price}${dearest.overMsrp ? ` (${dearest.overMsrp}x MSRP)` : ""}` : "")
+      (dearest ? `\n${" ".repeat(34)}most expensive: ${dearest.name} $${dearest.price}${dearest.overMsrp ? ` (${dearest.overMsrp}x MSRP)` : ""}` : "")
   );
 }
 

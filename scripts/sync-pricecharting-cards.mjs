@@ -270,14 +270,14 @@ for (const [setId, consolePath] of Object.entries(CONSOLES)) {
     // ONLY THE THREE STANDARD PRINTINGS COUNT, AND LEAVING THIS OUT PRICED A
     // BULK BULBASAUR AT $40.30.
     //
-    // sync-cards.mjs takes the dearest variant, and on TCGdex that phrase is
+    // sync-cards.mjs takes the most expensive variant, and on TCGdex that phrase is
     // safe because TCGdex only ever carries normal, holofoil and reverse
     // holofoil at a collector number. PriceCharting files far more against the
     // same number: [Stamped] prerelease copies, [Poke Ball] and [Master Ball]
     // pattern holos, [Cosmos Holo], [Prize Pack], [Jumbo], [Professor Program],
     // [GameStop]. Those are DIFFERENT PRODUCTS that happen to share a number.
     //
-    // Taking the dearest of all of them made 151's Bulbasaur $40.30, off a
+    // Taking the most expensive of all of them made 151's Bulbasaur $40.30, off a
     // stamped promo, against $0.55 for the card the checklist is actually about
     // and $0.35 on TCGdex. Every common in every set would have quietly become
     // the price of its scarcest lookalike, and the checklist would have read as
@@ -333,7 +333,7 @@ const doc = {
     "page may describe it as either. Their methodology is published and the",
     "pages link it.",
     "",
-    "WHICH PRINTING. `price` is the dearest variant PriceCharting lists at that",
+    "WHICH PRINTING. `price` is the most expensive variant PriceCharting lists at that",
     "collector number, and `variant` names it, matching the rule sync-cards.mjs",
     "has always used for the checklist row. `all` holds every variant so the",
     "cheapest-way-to-own sums on /complete-a-set.html read one source too.",

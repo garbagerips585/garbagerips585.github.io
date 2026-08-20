@@ -157,7 +157,7 @@ function bestPrice(pricing) {
     if (!v || typeof v !== "object") continue; // skips `unit` and `updated`
     // Cheapest listing is tracked across ALL variants, independently of which
     // variant won on market price: someone completing a set buys whichever
-    // printing is going cheapest, and it is routinely not the dearest one.
+    // printing is going cheapest, and it is routinely not the most expensive one.
     const l = typeof v.lowPrice === "number" && v.lowPrice > 0 ? v.lowPrice : null;
     if (l != null && (low == null || l < low)) low = l;
     const m = typeof v.marketPrice === "number" ? v.marketPrice : null;

@@ -23,7 +23,7 @@
 //     scraped separately in the first place.
 //   - Freshness. TCGdex re-reads TCGplayer daily.
 //   - It is the same measurement. Every one of the 113 disagreements was on a
-//     card with exactly ONE variant, so the gap is not our dearest-variant
+//     card with exactly ONE variant, so the gap is not our most expensive-variant
 //     rule; both feeds report TCGplayer market price, read a day apart. Median
 //     gap 0.56%, p90 1.98%.
 //
@@ -102,7 +102,7 @@ const prettyRarity = (r) =>
 /**
  * A chase list built from the full checklist.
  *
- * Ascended Heroes shipped a ladder topping out at $69.94 while its dearest card
+ * Ascended Heroes shipped a ladder topping out at $69.94 while its most expensive card
  * is $1,118.76: the scraped source carried eight cards and none of the secret
  * rare tier, so the set guide, the /sets/ index and the home page chip all
  * agreed with each other and disagreed with the card data on the same site.

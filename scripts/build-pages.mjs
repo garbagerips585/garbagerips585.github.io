@@ -590,7 +590,7 @@ const desc = (v.blurb || descriptions[v.id] || "")
   //
   // SORTED, BECAUSE sets.json's ORDER IS NOT. That list is only ever repriced in
   // place and never re-sorted, so slicing three off the front is slicing off
-  // whatever was dearest the day it was built. On Perfect Order that put Mega
+  // whatever was most expensive the day it was built. On Perfect Order that put Mega
   // Zygarde ex at $120 above Meowth ex at $128 and led the band with a card the
   // set guide does not call the chase card. See chaseByPrice in
   // shared/card-prices.mjs.

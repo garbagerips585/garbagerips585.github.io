@@ -29,7 +29,12 @@ export function priceRead(doc) {
 }
 
 /**
- * A set's chase list in price order, dearest first.
+ * A set's chase list in price order, most expensive first.
+ *
+ * NOT "most expensive". CLAUDE.md forbids that word in capitals, and it was
+ * reintroduced onto the HOME PAGE on 19 August 2026 from this very comment,
+ * 58 minutes after a sweep had removed it from every page on the site. A
+ * comment is where the register gets copied from, so it has to be right too.
  *
  * NEVER READ chase[0] OUT OF sets.json. That list is written ONCE, by
  * sync-sets.mjs or by reconcile-cards.mjs off the checklist, and after that

@@ -720,8 +720,8 @@ function pokePage(p) {
   // phone. Leading with it moves the money to 0px on all 839.
   //
   // THE SCOPE HAD TO TRAVEL WITH THE CLAIM AND THAT IS THE WHOLE CARE HERE.
-  // `priciest` is the dearest of the printings we hold a PRICE for, not the
-  // dearest printing that exists: the median species has 25 printings and a
+  // `priciest` is the most expensive of the printings we hold a PRICE for, not the
+  // most expensive printing that exists: the median species has 25 printings and a
   // price on far fewer. The old order got that for free, because "market prices
   // for the 7 we hold" was read before "the priciest is". Front-loading it bare
   // would have turned a scoped reading into "the priciest Abomasnow card is
@@ -787,8 +787,8 @@ function pokePage(p) {
   // the page. Nothing moved and no band was reordered to do it.
   //
   // THE SCOPE TRAVELS WITH THE CLAIM, exactly as it does in the description.
-  // "The priciest one we price" is the dearest printing we hold a PRICE for,
-  // never the dearest printing that exists, and the median species here has
+  // "The priciest one we price" is the most expensive printing we hold a PRICE for,
+  // never the most expensive printing that exists, and the median species here has
   // far more printings than prices. Do not shorten that qualifier out.
   //
   // AND THE FIGURES ARE moneyCompact, WHICH IS WHAT THE CARD TILES USE, so the
@@ -1575,7 +1575,7 @@ function indexPage() {
           // rendered "top $0" because their priciest card has no market price
           // yet. A zero reads as "worthless", which is a claim about the card
           // rather than about our data.
-          // NOT price > 0. Magnemite's dearest card is $0.32 and Magneton's is
+          // NOT price > 0. Magnemite's most expensive card is $0.32 and Magneton's is
           // $0.31, and moneyRound turns both into "$0", which reads as
           // worthless rather than as cheap. The guard has to be on what will be
           // PRINTED, not on the underlying number.

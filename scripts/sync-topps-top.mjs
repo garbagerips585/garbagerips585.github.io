@@ -62,7 +62,7 @@
 // ---------------------------------------------------------------------------
 //
 // Tim asked for "top 100 cards raw and graded values". Those are two different
-// orders over one set of rows: the dearest raw Topps card is not the dearest
+// orders over one set of rows: the most expensive raw Topps card is not the most expensive
 // PSA 10 Topps card and they are not close. So this file writes ONE `cards`
 // array, the UNION of both candidate windows, each row carrying a stable
 // `rank` which is its position in that union and nothing else. `rawOrder` and
@@ -323,7 +323,7 @@ const sets = [...bySet.values()]
       printings: Object.fromEntries(
         Object.entries(printings).sort((a, b) => b[1] - a[1]),
       ),
-      // The dearest row in this set by each measure, so the guide's set table
+      // The most expensive row in this set by each measure, so the guide's set table
       // can show what the set's ceiling looks like without a second ranking
       // pass. These are UNVERIFIED figures and the guide must not print one:
       // they are here for the builder to pick the row out of `cards` by id.

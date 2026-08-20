@@ -296,7 +296,7 @@ PACK_NUMBERS = [str(i) for i in range(1, 37)]
 # Every chase card we know about, so Hit Card is a pick rather than a spelling
 # test. Not exhaustive on purpose: the validation is a suggestion, not a rule.
 def _hit_card_list():
-    """Cards worth logging as a hit, dearest first, deduped by name.
+    """Cards worth logging as a hit, most expensive first, deduped by name.
 
     Was the 152 chase cards from sets.json, which is every card we happened to
     show on a set page. The full checklist is now on disk, so this offers the
@@ -1258,7 +1258,7 @@ for dv_formula, cols in [
 
 # Suggestion lists: the dropdown helps, but neither list can ever be complete,
 # so typing something new must not be rejected.
-# HIT CARD HAS NO DROPDOWN, ON PURPOSE. It used to offer the 500 dearest cards
+# HIT CARD HAS NO DROPDOWN, ON PURPOSE. It used to offer the 500 most expensive cards
 # as a non-strict suggestion list, which sounds helpful and is not, for two
 # reasons that both bite in Google Sheets.
 #

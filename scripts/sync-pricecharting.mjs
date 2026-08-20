@@ -135,7 +135,7 @@ if (WANT_CHASE) {
   // TOP N PER SET, not every chase card. All 184 is about 193MB of their
   // bandwidth; the top three per set is 69 cards and covers the ones anybody
   // actually asks about. sets.json already sorts chase by price, so slicing
-  // takes the dearest.
+  // takes the most expensive.
   const N = Number((process.argv.find((a) => a.startsWith("--top=")) || "--top=3").split("=")[1]) || 3;
   for (const s of sets)
     for (const c of (s.chase || []).slice(0, N))

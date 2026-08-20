@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// The 100 dearest raw singles and the 100 dearest sealed products on TCGplayer.
+// The 100 most expensive raw singles and the 100 most expensive sealed products on TCGplayer.
 //
 //   node scripts/sync-top100.mjs            cached if already read today
 //   node scripts/sync-top100.mjs --force    refetch both lists

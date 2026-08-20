@@ -206,7 +206,7 @@ for (const slug of todo) {
     const id = Math.round(Number(p.productId));
     if (!n || !Number.isFinite(id)) continue;
     // A number appears more than once when a card has reverse holo or other
-    // printings. Keep the dearest, which is the printing people mean when they
+    // printings. Keep the most expensive, which is the printing people mean when they
     // click through from a chase card.
     const price = Number(p.marketPrice) || 0;
     if (!dearest.has(n) || dearest.get(n) < price) {

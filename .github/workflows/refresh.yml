@@ -5,8 +5,14 @@
 # price is however old the last manual run was. Deploy is a separate workflow
 # that fires on any push to main, so committing here is what publishes.
 #
-# Runs at 07:10 UTC, which is about 3am in Rochester: after the day's uploads
-# and before anyone is looking.
+# Runs once a day at 9am in Rochester. It is scheduled as TWO crons, 13:00 and
+# 14:00 UTC, and a guard in the job ends the run on whichever one is not 9am
+# Eastern that day, so the time is fixed LOCALLY and a change to the daylight
+# saving rules needs no edit. See the schedule and the guard below.
+#
+# (This said "07:10 UTC, about 3am in Rochester" until 19 August 2026, which was
+# contradicted by the cron twenty lines below it in this same file. DEPLOY.md
+# carried the same stale claim and was corrected without this being noticed.)
 #
 # SECRETS THIS NEEDS  (Settings -> Secrets and variables -> Actions)
 #   YT_API_KEY    YouTube Data API v3, for new uploads

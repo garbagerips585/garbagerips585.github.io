@@ -289,7 +289,7 @@ for (const s of targets) {
     // own mtime rather than pretending it was read today.
     if (Array.isArray(c)) {
       raw = c;
-      readOn = (await stat(cacheFile)).mtime.toISOString().slice(0, 10);
+      readOn = localDay((await stat(cacheFile)).mtime);
     } else {
       raw = c.results;
       readOn = c.fetched;
