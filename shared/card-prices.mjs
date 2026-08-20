@@ -29,6 +29,39 @@ export function priceRead(doc) {
 }
 
 /**
+ * A set's chase list in price order, dearest first.
+ *
+ * NEVER READ chase[0] OUT OF sets.json. That list is written ONCE, by
+ * sync-sets.mjs or by reconcile-cards.mjs off the checklist, and after that
+ * reconcile-cards.mjs only ever REPRICES it in place: it walks the existing
+ * entries and assigns a new price to each, and it never re-sorts. So the ORDER
+ * is a snapshot of what the prices were on the day the list was first built,
+ * and it goes stale silently while every number in it stays correct.
+ *
+ * Measured on 19 August 2026: 20 of the 28 English sets have a tail out of
+ * order, and Perfect Order has its HEAD out of order. chase[0] there is Mega
+ * Zygarde ex #124 at $120.01 while Meowth ex #121 at $127.59 sits second. The
+ * home page tile read "Top card $536 PSA 10", which is #124's graded figure,
+ * while the set guide's lede, its chase grid and its /sets/ index card all said
+ * the chase card is Meowth ex at $128 raw and $339 in a PSA 10. Two renderers,
+ * one fact, two answers.
+ *
+ * build-set-pages.mjs never saw this because it REBUILDS the whole list from
+ * the checklist, sorted by price, before it renders anything. That is the rule
+ * every other reader has to match, so it lives here.
+ *
+ * Pass `priceOf` to score an entry against something better than its own copy
+ * of the price, which is what a builder holding the checklist should do.
+ */
+export function chaseByPrice(chase, priceOf) {
+  const score = (c) => {
+    const p = priceOf ? priceOf(c) : c?.price;
+    return typeof p === "number" && p > 0 ? p : 0;
+  };
+  return (chase || []).slice().sort((a, b) => score(b) - score(a));
+}
+
+/**
  * The sourcing sentence for raw card prices.
  *
  * `doc` is any one of the public/data/cards/<set>.json documents, or an object
