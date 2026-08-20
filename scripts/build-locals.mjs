@@ -87,6 +87,36 @@ const SOCIALS = [
   ["ebay", "eBay", (h) => `https://www.ebay.com/usr/${h}`],
 ];
 
+/* FOUR OF THE SEVEN GET A GLYPH, AND THE OTHER THREE MUST NOT.
+   These two pages carried zero pictures in <main>: 118 words on /creators.html
+   and 177 on /vendors.html, entirely text. The site already draws YouTube,
+   Instagram, TikTok and Facebook marks, as a sprite that is on every page for
+   the footer, so putting them on the matching pills costs no bytes at all for
+   the artwork.
+   Twitch, Whatnot and eBay stay as words, and so do Website and All their
+   links. We do not hold those marks, and CLAUDE.md's rule on exactly this,
+   written when Collectr was linked without one, is that inventing a logo to sit
+   beside four real ones is worse than a named text link. A pill that says a
+   platform's name is not a broken version of a pill with its logo. */
+const GLYPH = { youtube: "yt", instagram: "ig", tiktok: "tt", facebook: "fb" };
+const glyphFor = (k) =>
+  GLYPH[k] ? `<svg class="loc-i" aria-hidden="true"><use href="#i-${GLYPH[k]}"/></svg>` : OUT;
+
+/* AN ARROW LEAVING A BOX IS NOT A LOGO, which is why this one may be drawn and
+   a Whatnot or an eBay mark may not. It means "this goes off the site", it is
+   the same thing the outbound rule already makes every one of these links
+   announce in its aria-label, and it is ours to draw.
+   Inline rather than added to the sprite in shared/chrome.mjs, because the
+   sprite ships on all 1,483 pages and this is wanted on two. Three pills on
+   /vendors.html and none on /creators.html carry it today; /vendors.html would
+   otherwise still have had no picture anywhere in main, which is where this
+   whole pass started. aria-hidden, because the pill's own text and its
+   aria-label already say where it goes. */
+const OUT =
+  `<svg class="loc-i" viewBox="0 0 24 24" aria-hidden="true">` +
+  `<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" ` +
+  `fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
 // The first address this page shows for somebody, in the same order the row
 // renders them: socials first, then a website, then a link-in-bio hub. It is
 // the ListItem target in the schema below, so what a crawler is told about a
@@ -125,15 +155,15 @@ const links = (o) => {
     `${esc(o.name ? `${what} for ${o.name}` : what)}, opens on ${esc(hostOf(url))}`;
   const out = SOCIALS.filter(([k]) => o[k]).map(
     ([k, label, url]) =>
-      `<a class="loc-soc" href="${esc(url(o[k]))}" rel="noopener" target="_blank" aria-label="${named(label, url(o[k]))}">${label}</a>`,
+      `<a class="loc-soc" href="${esc(url(o[k]))}" rel="noopener" target="_blank" aria-label="${named(label, url(o[k]))}">${glyphFor(k)}${label}</a>`,
   );
   // A plain website sits last: it is the least likely to be how somebody in a
   // card community actually finds them.
-  if (o.url) out.push(`<a class="loc-soc" href="${esc(o.url)}" rel="noopener" target="_blank" aria-label="${named("Website", o.url)}">Website</a>`);
+  if (o.url) out.push(`<a class="loc-soc" href="${esc(o.url)}" rel="noopener" target="_blank" aria-label="${named("Website", o.url)}">${OUT}Website</a>`);
   // A link-in-bio page (solo.to, linktr.ee) is often the ONLY address a vendor
   // publishes: no site of their own, and their socials change. Labelled as what
   // it is rather than as a website, because it is a hub and not a shop.
-  if (o.links) out.push(`<a class="loc-soc" href="${esc(o.links)}" rel="noopener" target="_blank" aria-label="${named("All their links", o.links)}">All their links</a>`);
+  if (o.links) out.push(`<a class="loc-soc" href="${esc(o.links)}" rel="noopener" target="_blank" aria-label="${named("All their links", o.links)}">${OUT}All their links</a>`);
   return out.length ? `<p class="loc-socs">${out.join("")}</p>` : "";
 };
 

@@ -1508,6 +1508,8 @@ span.cq-name{color:var(--ink)}
   color:var(--navy);background:var(--paper-3);border-radius:var(--r-pill);
   padding:0 12px;min-height:44px;display:inline-flex;align-items:center}
 .loc-soc:hover{background:var(--mustard);color:var(--on-accent)}
+.loc-soc{gap:7px}
+.loc-i{width:15px;height:15px;flex:none;fill:currentColor;display:block}
 .hitcard-src{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-soft);margin-top:2px}
 .rip-grid--wide{grid-template-columns:1fr}
 .rip-grid--wide .rip-player{max-width:min(100%,900px);margin-inline:auto}
