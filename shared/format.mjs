@@ -202,9 +202,6 @@ export const noValue = (reason, cls = "none") =>
 export const RIP_BANNER =
   `<span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>`;
 
-/** Sleep, for the rate-limited sync scripts. */
-export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
 /**
  * Money, in the two shapes this site actually uses.
  *

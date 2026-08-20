@@ -148,13 +148,6 @@ export const PROT_MARK = {
   "A private cash sale": "counter",
 };
 
-/** Does this venue resolve to anything at all? Used only by the credit line. */
-export const hasMark = (id) => Boolean(MARKS[id] || ALIAS[id] || DRAWN[id] || TILE[id]);
-
-/** How many real company marks a page is actually painting. */
-export const countMarks = (ids) =>
-  new Set(ids.flatMap((id) => (ALIAS[id] || [id])).filter((m) => MARKS[m])).size;
-
 /**
  * One mark box for a venue.
  *

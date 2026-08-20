@@ -262,15 +262,6 @@ export function chainNames(root) {
   return out;
 }
 
-/** How many arrows deep the chain goes. 1 is a two-stage line. */
-export function chainDepth(root) {
-  let d = 0;
-  walkChain(root, (n) => {
-    d = Math.max(d, n.stage);
-  });
-  return d;
-}
-
 // ---------------------------------------------------------------------------
 // EVERY FIELD MUST BE SPOKEN FOR.
 //

@@ -184,11 +184,6 @@ export function raritiesIn(text) {
   return RARITY_KEY.filter((r) => found.has(r.id)).map((r) => r.id);
 }
 
-/** The best single tier in a free text field, for a one badge summary. */
-export function topRarity(text) {
-  return raritiesIn(text)[0] || null;
-}
-
 /**
  * The star row for one tier, drawn.
  *

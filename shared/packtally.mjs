@@ -119,12 +119,6 @@ export const PACKS = {
   unattributed: englishPacks - bySet.reduce((n, s) => n + s.packs, 0),
 };
 
-/**
- * English packs counted for one set, or 0. Used by the set guides, which must
- * not print a figure for a set the channel has never counted packs from.
- */
-export const packsForSet = (id) => bySetMap.get(id) || 0;
-
 // A guard rather than a comment. Every figure above is a sum of positive
 // integers, so a zero here means videos.json arrived empty or lost its `packs`
 // fields, which is exactly the silent failure import-sheet.mjs records having

@@ -266,6 +266,3 @@ export function readDatePhrase(dates) {
   if (y && y2 && y[1] === y2[1]) return `${first.replace(/,\s*\d{4}$/, "")} to ${last}`;
   return `${first} to ${last}`;
 }
-
-/** True when a set of listings was not all read on the same day. */
-export const spansDates = (rows) => new Set((rows || []).map((r) => r.read)).size > 1;
