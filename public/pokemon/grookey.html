@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/grookey.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv06/014/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="014" data-price="$1.21"
         data-set="Twilight Masquerade"
         aria-label="Enlarge Grookey, Twilight Masquerade 014">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/014/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06/014/low.webp" onerror="this.remove()" alt="Grookey 014, Twilight Masquerade" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/014/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06/014/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Grookey</div>
         <div class="rr">Twilight Masquerade &bull; 014</div>
         <div class="rr">Common</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="16" data-price="$0.48"
         data-set="Chilling Reign"
         aria-label="Enlarge Grookey, Chilling Reign 16">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/16/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/16/low.webp" onerror="this.remove()" alt="Grookey 16, Chilling Reign" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/16/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/16/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Grookey</div>
         <div class="rr">Chilling Reign &bull; 16</div>
         <div class="rr">Common</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="11" data-price="$0.30"
         data-set="Shining Fates"
         aria-label="Enlarge Grookey, Shining Fates 11">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4.5/11/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4.5/11/low.webp" onerror="this.remove()" alt="Grookey 11, Shining Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4.5/11/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4.5/11/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Grookey</div>
         <div class="rr">Shining Fates &bull; 11</div>
         <div class="rr">Common</div>
@@ -324,56 +341,56 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/fut2020/3/low.avif"><img src="https://assets.tcgdex.net/en/swsh/fut2020/3/low.webp" onerror="this.remove()" alt="Grookey on the Ball 3, Pokémon Futsal 2020" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/fut2020/3/low.avif"><img src="https://assets.tcgdex.net/en/swsh/fut2020/3/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Grookey on the Ball</div>
         <div class="rr">Pokémon Futsal 2020 &bull; 3</div>
         
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/10/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/10/low.webp" onerror="this.remove()" alt="Grookey 10, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/10/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/10/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Grookey</div>
         <div class="rr">Sword &amp; Shield &bull; 10</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/11/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/11/low.webp" onerror="this.remove()" alt="Grookey 11, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/11/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/11/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Grookey</div>
         <div class="rr">Sword &amp; Shield &bull; 11</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH001/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH001/low.webp" onerror="this.remove()" alt="Grookey SWSH001, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH001/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH001/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Grookey</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH001</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH070/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH070/low.webp" onerror="this.remove()" alt="Grookey SWSH070, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH070/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH070/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Grookey</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH070</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV8a/006/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV8a/006/low.webp" onerror="this.remove()" alt="Grookey 006, テラスタルフェスex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV8a/006/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV8a/006/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Grookey</div>
         <div class="rr">テラスタルフェスex &bull; 006</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6/008/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6/008/low.webp" onerror="this.remove()" alt="Grookey 008, 変幻の仮面" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6/008/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6/008/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Grookey</div>
         <div class="rr">変幻の仮面 &bull; 008</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6K/006/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6K/006/low.webp" onerror="this.remove()" alt="Grookey 006, 漆黒のガイスト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6K/006/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6K/006/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Grookey</div>
         <div class="rr">漆黒のガイスト &bull; 006</div>
         <div class="rr">Common</div>

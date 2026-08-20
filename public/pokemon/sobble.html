@@ -13,6 +13,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/sobble.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -24,7 +26,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -217,7 +219,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <div class="fact"><div class="n">$1</div><div class="l">Priciest one we price</div></div>
       <div class="fact"><div class="n">$0.40</div><div class="l">Cheapest way in</div></div>
       
-      <a class="fact fact-link" href="#watch"><div class="n">8</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
+      <a class="fact fact-link" href="#watch"><div class="n">9</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
@@ -249,7 +251,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/swsh/swsh6/41/high.webp"
@@ -257,7 +274,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="41" data-price="$0.80"
         data-set="Chilling Reign"
         aria-label="Enlarge Sobble, Chilling Reign 41">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/41/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/41/low.webp" onerror="this.remove()" alt="Sobble 41, Chilling Reign" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/41/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/41/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Sobble</div>
         <div class="rr">Chilling Reign &bull; 41</div>
         <div class="rr">Common</div>
@@ -269,7 +286,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="039" data-price="$0.40"
         data-set="Mega Evolution"
         aria-label="Enlarge Sobble, Mega Evolution 039">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/039/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/039/low.webp" onerror="this.remove()" alt="Sobble 039, Mega Evolution" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/039/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/039/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Sobble</div>
         <div class="rr">Mega Evolution &bull; 039</div>
         <div class="rr">Common</div>
@@ -285,18 +302,18 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
 <section class="band tight" id="watch">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See these packs opened</p>
-    <h2>We have filmed <span class="hl">8</span> rips of
+    <h2>We have filmed <span class="hl">9</span> rips of
       the 2 sets that print
       <span class="hl">Sobble</span></h2>
     <p class="lede" style="max-width:40em">Garbage Rips 585 is a Pokemon card pack opening
       channel out of Rochester, New York. We film every pack we open, hit or no hit.</p>
     <ul class="poke-rips">
-      <li><a href="/rip/only-garbage-rips-mega-evolution-pack-3-Pvi54rMlLfQ.html">Only Garbage Rips? 😬 | Mega Evolution Pack #3</a><br><span class="rip-meta">Mega Evolution</span></li>
+      <li><a href="/rip/6-boxes-and-still-no-og-starters-M7NqqhR8V4M.html">6 BOXES... and STILL No OG Starters?! 😭</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/opening-my-first-chilling-reign-pack-J-Gqbe3jPn4.html">Opening My FIRST Chilling Reign Pack 😬</a><br><span class="rip-meta">Chilling Reign</span></li>
+      <li><a href="/rip/only-garbage-rips-mega-evolution-pack-3-Pvi54rMlLfQ.html">Only Garbage Rips? 😬 | Mega Evolution Pack #3</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/only-garbage-rips-mega-evolutions-pack-2-dQaN_4yqS0w.html">Only Garbage Rips? 😬 | Mega Evolutions Pack #2</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/pok-mon-mega-evolution-booster-pack-1-first-pack-hVS0VH-nfVM.html">Pokémon Mega Evolution Booster Pack #1 ⚡ | First Pack</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/only-garbage-rips-raikou-2-pack-blister-cmV6P3ssh2g.html">Only Garbage Rips 😬 | Raikou 2-Pack Blister</a><br><span class="rip-meta">Mega Evolution</span></li>
-      <li><a href="/rip/only-garbage-rips-from-the-mega-kangaskhan-ex-box-l6RPdGNs7uE.html">Only Garbage Rips from the Mega Kangaskhan ex Box</a><br><span class="rip-meta">Mega Evolution</span></li>
     </ul>
     <div class="btn-row" style="margin-top:16px">
       <a class="btn btn-yt" href="/videos.html?set=mega-evolution">Watch every Mega Evolution rip</a>
@@ -313,49 +330,49 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/fut2020/5/low.avif"><img src="https://assets.tcgdex.net/en/swsh/fut2020/5/low.webp" onerror="this.remove()" alt="Sobble on the Ball 5, Pokémon Futsal 2020" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/fut2020/5/low.avif"><img src="https://assets.tcgdex.net/en/swsh/fut2020/5/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sobble on the Ball</div>
         <div class="rr">Pokémon Futsal 2020 &bull; 5</div>
         
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/54/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/54/low.webp" onerror="this.remove()" alt="Sobble 54, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/54/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/54/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sobble</div>
         <div class="rr">Sword &amp; Shield &bull; 54</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/55/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/55/low.webp" onerror="this.remove()" alt="Sobble 55, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/55/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/55/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sobble</div>
         <div class="rr">Sword &amp; Shield &bull; 55</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH003/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH003/low.webp" onerror="this.remove()" alt="Sobble SWSH003, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH003/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH003/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sobble</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH003</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH073/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH073/low.webp" onerror="this.remove()" alt="Sobble SWSH073, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH073/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH073/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sobble</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH073</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/036/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/036/low.webp" onerror="this.remove()" alt="Sobble 036, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/036/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/036/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sobble</div>
         <div class="rr">VMAXクライマックス &bull; 036</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M1S/021/low.avif"><img src="https://assets.tcgdex.net/ja/M/M1S/021/low.webp" onerror="this.remove()" alt="Sobble 021, メガシンフォニア" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M1S/021/low.avif"><img src="https://assets.tcgdex.net/ja/M/M1S/021/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sobble</div>
         <div class="rr">メガシンフォニア &bull; 021</div>
         <div class="rr">Common</div>

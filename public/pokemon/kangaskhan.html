@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/kangaskhan.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -246,7 +248,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me01/182/high.webp"
@@ -254,7 +271,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="182" data-price="$52.21"
         data-set="Mega Evolution"
         aria-label="Enlarge Mega Kangaskhan ex, Mega Evolution 182">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/182/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/182/low.webp" onerror="this.remove()" alt="Mega Kangaskhan ex 182, Mega Evolution" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/182/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/182/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mega Kangaskhan ex</div>
         <div class="rr">Mega Evolution &bull; 182</div>
         <div class="rr">Special Illustration Rare</div>
@@ -266,7 +283,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="204" data-price="$11.99"
         data-set="Destined Rivals"
         aria-label="Enlarge Kangaskhan, Destined Rivals 204">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/204/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/204/low.webp" onerror="this.remove()" alt="Kangaskhan 204, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/204/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/204/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">Destined Rivals &bull; 204</div>
         <div class="rr">Illustration Rare</div>
@@ -278,7 +295,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="190" data-price="$5.60"
         data-set="151"
         aria-label="Enlarge Kangaskhan ex, 151 190">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/190/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/190/low.webp" onerror="this.remove()" alt="Kangaskhan ex 190, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/190/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/190/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Kangaskhan ex</div>
         <div class="rr">151 &bull; 190</div>
         <div class="rr">Ultra Rare</div>
@@ -290,7 +307,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="164" data-price="$5.00"
         data-set="Mega Evolution"
         aria-label="Enlarge Mega Kangaskhan ex, Mega Evolution 164">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/164/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/164/low.webp" onerror="this.remove()" alt="Mega Kangaskhan ex 164, Mega Evolution" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/164/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/164/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mega Kangaskhan ex</div>
         <div class="rr">Mega Evolution &bull; 164</div>
         <div class="rr">Ultra Rare</div>
@@ -302,7 +319,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="104" data-price="$1.92"
         data-set="Mega Evolution"
         aria-label="Enlarge Mega Kangaskhan ex, Mega Evolution 104">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/104/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/104/low.webp" onerror="this.remove()" alt="Mega Kangaskhan ex 104, Mega Evolution" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/104/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/104/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mega Kangaskhan ex</div>
         <div class="rr">Mega Evolution &bull; 104</div>
         <div class="rr">Double Rare</div>
@@ -314,7 +331,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="115" data-price="$1.54"
         data-set="151"
         aria-label="Enlarge Kangaskhan ex, 151 115">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/115/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/115/low.webp" onerror="this.remove()" alt="Kangaskhan ex 115, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/115/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/115/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Kangaskhan ex</div>
         <div class="rr">151 &bull; 115</div>
         <div class="rr">Double Rare</div>
@@ -326,7 +343,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="162" data-price="$1.27"
         data-set="Ascended Heroes"
         aria-label="Enlarge Team Rocket's Kangaskhan ex, Ascended Heroes 162">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/162/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/162/low.webp" onerror="this.remove()" alt="Team Rocket's Kangaskhan ex 162, Ascended Heroes" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/162/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/162/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Kangaskhan ex</div>
         <div class="rr">Ascended Heroes &bull; 162</div>
         <div class="rr">Double Rare</div>
@@ -338,7 +355,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="151" data-price="$0.85"
         data-set="Destined Rivals"
         aria-label="Enlarge Kangaskhan, Destined Rivals 151">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/151/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/151/low.webp" onerror="this.remove()" alt="Kangaskhan 151, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/151/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/151/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">Destined Rivals &bull; 151</div>
         <div class="rr">Common</div>
@@ -350,7 +367,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="165" data-price="$0.61"
         data-set="Obsidian Flames"
         aria-label="Enlarge Kangaskhan, Obsidian Flames 165">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/165/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/165/low.webp" onerror="this.remove()" alt="Kangaskhan 165, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/165/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/165/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">Obsidian Flames &bull; 165</div>
         <div class="rr">Uncommon</div>
@@ -388,301 +405,301 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/88/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/88/low.webp" onerror="this.remove()" alt="Kangaskhan 88, Aquapolis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/88/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/88/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">Aquapolis &bull; 88</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/26/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/26/low.webp" onerror="this.remove()" alt="Kangaskhan 26, Base Set 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/26/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/26/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">Base Set 2 &bull; 26</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/133/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/133/low.webp" onerror="this.remove()" alt="Kangaskhan 133, Darkness Ablaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/133/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/133/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">Darkness Ablaze &bull; 133</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/126/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/126/low.webp" onerror="this.remove()" alt="Kangaskhan 126, Fantastical Parade" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/126/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/126/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">Fantastical Parade &bull; 126</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/127/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/127/low.webp" onerror="this.remove()" alt="Mega Kangaskhan ex 127, Fantastical Parade" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/127/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/127/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mega Kangaskhan ex</div>
         <div class="rr">Fantastical Parade &bull; 127</div>
         <div class="rr">Four Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/189/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/189/low.webp" onerror="this.remove()" alt="Mega Kangaskhan ex 189, Fantastical Parade" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/189/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/189/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mega Kangaskhan ex</div>
         <div class="rr">Fantastical Parade &bull; 189</div>
         <div class="rr">Two Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/202/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/202/low.webp" onerror="this.remove()" alt="Mega Kangaskhan ex 202, Fantastical Parade" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/202/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/202/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mega Kangaskhan ex</div>
         <div class="rr">Fantastical Parade &bull; 202</div>
         <div class="rr">Two Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/75/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/75/low.webp" onerror="this.remove()" alt="Kangaskhan 75, Fates Collide" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/75/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/75/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">Fates Collide &bull; 75</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/6/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/6/low.webp" onerror="this.remove()" alt="Kangaskhan 6, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/6/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/6/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 6</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/103/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/103/low.webp" onerror="this.remove()" alt="Kangaskhan EX 103, Flashfire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/103/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/103/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan EX</div>
         <div class="rr">Flashfire &bull; 103</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/109/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/109/low.webp" onerror="this.remove()" alt="M Kangaskhan EX 109, Flashfire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/109/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/109/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">M Kangaskhan EX</div>
         <div class="rr">Flashfire &bull; 109</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/78/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/78/low.webp" onerror="this.remove()" alt="Kangaskhan EX 78, Flashfire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/78/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/78/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan EX</div>
         <div class="rr">Flashfire &bull; 78</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/79/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/79/low.webp" onerror="this.remove()" alt="M Kangaskhan EX 79, Flashfire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/79/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/79/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">M Kangaskhan EX</div>
         <div class="rr">Flashfire &bull; 79</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/204/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/204/low.webp" onerror="this.remove()" alt="Kangaskhan 204, Fusion Strike" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/204/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/204/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">Fusion Strike &bull; 204</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/203/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/203/low.webp" onerror="this.remove()" alt="Kangaskhan 203, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/203/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/203/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">Genetic Apex &bull; 203</div>
         <div class="rr">Three Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/36/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/36/low.webp" onerror="this.remove()" alt="Blaine's Kangaskhan 36, Gym Heroes" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/36/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/36/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaine's Kangaskhan</div>
         <div class="rr">Gym Heroes &bull; 36</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm115/47/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm115/47/low.webp" onerror="this.remove()" alt="Kangaskhan 47, Hidden Fates" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm115/47/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm115/47/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">Hidden Fates &bull; 47</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/21/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/21/low.webp" onerror="this.remove()" alt="Kangaskhan 21, Jungle" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/21/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/21/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">Jungle &bull; 21</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/5/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/5/low.webp" onerror="this.remove()" alt="Kangaskhan 5, Jungle" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/5/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/5/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">Jungle &bull; 5</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp5/38/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp5/38/low.webp" onerror="this.remove()" alt="Kangaskhan 38, Majestic Dawn" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp5/38/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp5/38/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">Majestic Dawn &bull; 38</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/mep/025/low.avif"><img src="https://assets.tcgdex.net/en/me/mep/025/low.webp" onerror="this.remove()" alt="Mega Kangaskhan ex 025, MEP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/mep/025/low.avif"><img src="https://assets.tcgdex.net/en/me/mep/025/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mega Kangaskhan ex</div>
         <div class="rr">MEP Black Star Promos &bull; 025</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw10/71/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw10/71/low.webp" onerror="this.remove()" alt="Kangaskhan 71, Plasma Blast" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw10/71/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw10/71/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">Plasma Blast &bull; 71</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm1/99/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm1/99/low.webp" onerror="this.remove()" alt="Kangaskhan 99, Sun &amp; Moon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm1/99/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm1/99/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">Sun &amp; Moon &bull; 99</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/055/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/055/low.webp" onerror="this.remove()" alt="Kangaskhan ex 055, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/055/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/055/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan ex</div>
         <div class="rr">SVP Black Star Promos &bull; 055</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/202/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/202/low.webp" onerror="this.remove()" alt="Kangaskhan 202, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/202/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/202/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">SVP Black Star Promos &bull; 202</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH038/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH038/low.webp" onerror="this.remove()" alt="Kangaskhan SWSH038, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH038/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH038/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH038</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12a/107/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12a/107/low.webp" onerror="this.remove()" alt="Kangaskhan 107, TAG TEAM GX タッグオールスターズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12a/107/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12a/107/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">TAG TEAM GX タッグオールスターズ &bull; 107</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/128/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/128/low.webp" onerror="this.remove()" alt="Kangaskhan 128, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/128/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/128/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">Team Up &bull; 128</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss4/36/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss4/36/low.webp" onerror="this.remove()" alt="Kangaskhan 36, Triumphant" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss4/36/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss4/36/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">Triumphant &bull; 36</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm11/163/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm11/163/low.webp" onerror="this.remove()" alt="Kangaskhan 163, Unified Minds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm11/163/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm11/163/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">Unified Minds &bull; 163</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/133/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/133/low.webp" onerror="this.remove()" alt="Kangaskhan 133, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/133/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/133/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 133</div>
         <div class="rr">Three Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM1S/043/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM1S/043/low.webp" onerror="this.remove()" alt="Kangaskhan 043, コレクションサン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM1S/043/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM1S/043/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">コレクションサン &bull; 043</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/074/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/074/low.webp" onerror="this.remove()" alt="Kangaskhan 074, タッグボルト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/074/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/074/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">タッグボルト &bull; 074</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6b/046/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6b/046/low.webp" onerror="this.remove()" alt="Kangaskhan 046, チャンピオンロード" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6b/046/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6b/046/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">チャンピオンロード &bull; 046</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/115/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/115/low.webp" onerror="this.remove()" alt="Kangaskhan 115, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/115/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/115/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">ポケモンカード151 &bull; 115</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/192/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/192/low.webp" onerror="this.remove()" alt="Kangaskhan 192, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/192/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/192/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">ポケモンカード151 &bull; 192</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M1S/051/low.avif"><img src="https://assets.tcgdex.net/ja/M/M1S/051/low.webp" onerror="this.remove()" alt="Kangaskhan 051, メガシンフォニア" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M1S/051/low.avif"><img src="https://assets.tcgdex.net/ja/M/M1S/051/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">メガシンフォニア &bull; 051</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M1S/080/low.avif"><img src="https://assets.tcgdex.net/ja/M/M1S/080/low.webp" onerror="this.remove()" alt="Kangaskhan 080, メガシンフォニア" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M1S/080/low.avif"><img src="https://assets.tcgdex.net/ja/M/M1S/080/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">メガシンフォニア &bull; 080</div>
         <div class="rr">Secret Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M1S/089/low.avif"><img src="https://assets.tcgdex.net/ja/M/M1S/089/low.webp" onerror="this.remove()" alt="Kangaskhan 089, メガシンフォニア" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M1S/089/low.avif"><img src="https://assets.tcgdex.net/ja/M/M1S/089/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">メガシンフォニア &bull; 089</div>
         <div class="rr">Special Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/080/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/080/low.webp" onerror="this.remove()" alt="Kangaskhan 080, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/080/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/080/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">ロケット団の栄光 &bull; 080</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/110/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/110/low.webp" onerror="this.remove()" alt="Kangaskhan 110, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/110/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/110/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">ロケット団の栄光 &bull; 110</div>
         <div class="rr">Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SN/006/low.avif"><img src="https://assets.tcgdex.net/ja/S/SN/006/low.webp" onerror="this.remove()" alt="Kangaskhan 006, 初階牌組100 特別版" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SN/006/low.avif"><img src="https://assets.tcgdex.net/ja/S/SN/006/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">初階牌組100 特別版 &bull; 006</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/090/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/090/low.webp" onerror="this.remove()" alt="Kangaskhan 090, 黒炎の支配者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/090/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/090/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kangaskhan</div>
         <div class="rr">黒炎の支配者 &bull; 090</div>
         <div class="rr">Uncommon</div>

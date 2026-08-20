@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/krookodile.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -216,7 +218,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <div class="fact"><div class="n">$54</div><div class="l">Priciest one we price</div></div>
       <div class="fact"><div class="n">$0.25</div><div class="l">Cheapest way in</div></div>
       
-      <a class="fact fact-link" href="#watch"><div class="n">68</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
+      <a class="fact fact-link" href="#watch"><div class="n">69</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv10.5b/137/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="137" data-price="$53.65"
         data-set="Black Bolt"
         aria-label="Enlarge Krookodile, Black Bolt 137">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/137/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/137/low.webp" onerror="this.remove()" alt="Krookodile 137, Black Bolt" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/137/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/137/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Krookodile</div>
         <div class="rr">Black Bolt &bull; 137</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="055" data-price="$1.12"
         data-set="Chaos Rising"
         aria-label="Enlarge Krookodile ex, Chaos Rising 055">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/055/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/055/low.webp" onerror="this.remove()" alt="Krookodile ex 055, Chaos Rising" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/055/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/055/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Krookodile ex</div>
         <div class="rr">Chaos Rising &bull; 055</div>
         <div class="rr">Double Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="059" data-price="$0.46"
         data-set="Black Bolt"
         aria-label="Enlarge Krookodile, Black Bolt 059">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/059/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/059/low.webp" onerror="this.remove()" alt="Krookodile 059, Black Bolt" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/059/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/059/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Krookodile</div>
         <div class="rr">Black Bolt &bull; 059</div>
         <div class="rr">Uncommon</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="066" data-price="$0.40"
         data-set="Phantasmal Flames"
         aria-label="Enlarge Krookodile, Phantasmal Flames 066">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/066/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/066/low.webp" onerror="this.remove()" alt="Krookodile 066, Phantasmal Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/066/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/066/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Krookodile</div>
         <div class="rr">Phantasmal Flames &bull; 066</div>
         <div class="rr">Uncommon</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="117" data-price="$0.25"
         data-set="Scarlet &amp; Violet"
         aria-label="Enlarge Krookodile, Scarlet &amp; Violet 117">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/117/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/117/low.webp" onerror="this.remove()" alt="Krookodile 117, Scarlet &amp; Violet" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/117/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/117/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Krookodile</div>
         <div class="rr">Scarlet &amp; Violet &bull; 117</div>
         <div class="rr">Uncommon</div>
@@ -320,7 +337,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
 <section class="band tight" id="watch">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See these packs opened</p>
-    <h2>We have filmed <span class="hl">68</span> rips of
+    <h2>We have filmed <span class="hl">69</span> rips of
       the 2 sets that print
       <span class="hl">Krookodile</span></h2>
     <p class="lede" style="max-width:40em">Garbage Rips 585 is a Pokemon card pack opening
@@ -331,7 +348,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <li><a href="/rip/is-pack-13-actually-cursed-DP8HG31X1rg.html">Is Pack #13 Actually CURSED? 💀🌑</a><br><span class="rip-meta">Chaos Rising</span></li>
       <li><a href="/rip/i-found-an-sir-but-not-the-zard-R2VxbNMrlXQ.html">I FOUND AN SIR! 💎 (But Not The Zard...)</a><br><span class="rip-meta">Phantasmal Flames</span></li>
       <li><a href="/rip/the-chaos-rising-struggle-is-real-T2-UqY2ZSOw.html">The Chaos Rising Struggle is REAL 💀</a><br><span class="rip-meta">Chaos Rising</span></li>
-      <li><a href="/rip/final-mega-zygarde-collection-pack-zard-sir-last-pack-magic-urvau7lIwC0.html">FINAL Mega Zygarde Collection Pack 🔥 | Zard SIR?! Last Pack Magic?! 😳</a><br><span class="rip-meta">Phantasmal Flames</span></li>
+      <li><a href="/rip/6-boxes-and-still-no-og-starters-M7NqqhR8V4M.html">6 BOXES... and STILL No OG Starters?! 😭</a><br><span class="rip-meta">Phantasmal Flames</span></li>
     </ul>
     <div class="btn-row" style="margin-top:16px">
       <a class="btn btn-yt" href="/videos.html?set=chaos-rising">Watch every Chaos Rising rip</a>
@@ -348,112 +365,112 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw1/65/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw1/65/low.webp" onerror="this.remove()" alt="Krookodile 65, Black &amp; White" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw1/65/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw1/65/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Krookodile</div>
         <div class="rr">Black &amp; White &bull; 65</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw5/66/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw5/66/low.webp" onerror="this.remove()" alt="Krookodile 66, Dark Explorers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw5/66/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw5/66/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Krookodile</div>
         <div class="rr">Dark Explorers &bull; 66</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/127/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/127/low.webp" onerror="this.remove()" alt="Krookodile 127, Dragons Exalted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/127/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/127/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Krookodile</div>
         <div class="rr">Dragons Exalted &bull; 127</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw2/62/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw2/62/low.webp" onerror="this.remove()" alt="Krookodile 62, Emerging Powers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw2/62/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw2/62/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Krookodile</div>
         <div class="rr">Emerging Powers &bull; 62</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3a/041/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3a/041/low.webp" onerror="this.remove()" alt="Krookodile 041, Extradimensional Crisis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3a/041/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3a/041/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Krookodile</div>
         <div class="rr">Extradimensional Crisis &bull; 041</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/70/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/70/low.webp" onerror="this.remove()" alt="Krookodile 70, Plasma Freeze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/70/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/70/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Krookodile</div>
         <div class="rr">Plasma Freeze &bull; 70</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/113/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/113/low.webp" onerror="this.remove()" alt="Krookodile 113, Silver Tempest" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/113/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/113/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Krookodile</div>
         <div class="rr">Silver Tempest &bull; 113</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm1/85/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm1/85/low.webp" onerror="this.remove()" alt="Krookodile 85, Sun &amp; Moon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm1/85/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm1/85/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Krookodile</div>
         <div class="rr">Sun &amp; Moon &bull; 85</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/116/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/116/low.webp" onerror="this.remove()" alt="Krookodile 116, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/116/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/116/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Krookodile</div>
         <div class="rr">Unbroken Bonds &bull; 116</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/109/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/109/low.webp" onerror="this.remove()" alt="Krookodile 109, Vivid Voltage" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/109/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/109/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Krookodile</div>
         <div class="rr">Vivid Voltage &bull; 109</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy1/71/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy1/71/low.webp" onerror="this.remove()" alt="Krookodile 71, XY" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy1/71/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy1/71/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Krookodile</div>
         <div class="rr">XY &bull; 71</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY25/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY25/low.webp" onerror="this.remove()" alt="Krookodile EX XY25, XY Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY25/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY25/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Krookodile EX</div>
         <div class="rr">XY Black Star Promos &bull; XY25</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM1S/036/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM1S/036/low.webp" onerror="this.remove()" alt="Krookodile 036, コレクションサン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM1S/036/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM1S/036/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Krookodile</div>
         <div class="rr">コレクションサン &bull; 036</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1S/044/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1S/044/low.webp" onerror="this.remove()" alt="Krookodile 044, スカーレットex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1S/044/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1S/044/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Krookodile</div>
         <div class="rr">スカーレットex &bull; 044</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/061/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/061/low.webp" onerror="this.remove()" alt="Krookodile 061, ダブルブレイズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/061/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/061/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Krookodile</div>
         <div class="rr">ダブルブレイズ &bull; 061</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/070/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/070/low.webp" onerror="this.remove()" alt="Krookodile 070, ロストアビス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/070/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/070/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Krookodile</div>
         <div class="rr">ロストアビス &bull; 070</div>
         <div class="rr">Rare</div>

@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/togedemaru.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -216,7 +218,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <div class="fact"><div class="n">$3</div><div class="l">Priciest one we price</div></div>
       <div class="fact"><div class="n">$0.25</div><div class="l">Cheapest way in</div></div>
       
-      <a class="fact fact-link" href="#watch"><div class="n">87</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
+      <a class="fact fact-link" href="#watch"><div class="n">89</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
@@ -246,7 +248,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me02/104/high.webp"
@@ -254,7 +271,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="104" data-price="$3.09"
         data-set="Phantasmal Flames"
         aria-label="Enlarge Togedemaru, Phantasmal Flames 104">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/104/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/104/low.webp" onerror="this.remove()" alt="Togedemaru 104, Phantasmal Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/104/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/104/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Togedemaru</div>
         <div class="rr">Phantasmal Flames &bull; 104</div>
         <div class="rr">Illustration Rare</div>
@@ -266,7 +283,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="149" data-price="$1.38"
         data-set="Ascended Heroes"
         aria-label="Enlarge Togedemaru ex, Ascended Heroes 149">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/149/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/149/low.webp" onerror="this.remove()" alt="Togedemaru ex 149, Ascended Heroes" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/149/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/149/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Togedemaru ex</div>
         <div class="rr">Ascended Heroes &bull; 149</div>
         <div class="rr">Double Rare</div>
@@ -278,7 +295,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="073" data-price="$0.50"
         data-set="Phantasmal Flames"
         aria-label="Enlarge Togedemaru, Phantasmal Flames 073">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/073/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/073/low.webp" onerror="this.remove()" alt="Togedemaru 073, Phantasmal Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/073/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/073/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Togedemaru</div>
         <div class="rr">Phantasmal Flames &bull; 073</div>
         <div class="rr">Common</div>
@@ -290,7 +307,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="054" data-price="$0.29"
         data-set="Stellar Crown"
         aria-label="Enlarge Togedemaru, Stellar Crown 054">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv07/054/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv07/054/low.webp" onerror="this.remove()" alt="Togedemaru 054, Stellar Crown" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv07/054/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv07/054/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Togedemaru</div>
         <div class="rr">Stellar Crown &bull; 054</div>
         <div class="rr">Uncommon</div>
@@ -302,7 +319,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="050" data-price="$0.25"
         data-set="Journey Together"
         aria-label="Enlarge Togedemaru, Journey Together 050">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/050/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/050/low.webp" onerror="this.remove()" alt="Togedemaru 050, Journey Together" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/050/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/050/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Togedemaru</div>
         <div class="rr">Journey Together &bull; 050</div>
         <div class="rr">Common</div>
@@ -314,7 +331,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="151" data-price="$0.25"
         data-set="Obsidian Flames"
         aria-label="Enlarge Togedemaru, Obsidian Flames 151">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/151/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/151/low.webp" onerror="this.remove()" alt="Togedemaru 151, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/151/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/151/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Togedemaru</div>
         <div class="rr">Obsidian Flames &bull; 151</div>
         <div class="rr">Common</div>
@@ -330,18 +347,18 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
 <section class="band tight" id="watch">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See these packs opened</p>
-    <h2>We have filmed <span class="hl">87</span> rips of
+    <h2>We have filmed <span class="hl">89</span> rips of
       the 4 sets that print
       <span class="hl">Togedemaru</span></h2>
     <p class="lede" style="max-width:40em">Garbage Rips 585 is a Pokemon card pack opening
       channel out of Rochester, New York. We film every pack we open, hit or no hit.</p>
     <ul class="poke-rips">
       <li><a href="/rip/only-garbage-rips-mega-emboar-box-2-finale-xqV7AYXoVJs.html">Only Garbage Rips? 😬 | Mega Emboar Box #2 FINALE</a><br><span class="rip-meta">Ascended Heroes</span></li>
-      <li><a href="/rip/final-journey-together-bundle-2-pack-last-pack-magic-CP7sMGF3p3M.html">FINAL Journey Together Bundle #2 Pack ⚡ | Last Pack Magic?! 😳</a><br><span class="rip-meta">Journey Together</span></li>
       <li><a href="/rip/did-we-get-the-zard-final-pack-3pUiN-8XkEk.html">DID WE GET THE ZARD?! 🐉🔥 (Final Pack)</a><br><span class="rip-meta">Phantasmal Flames</span></li>
+      <li><a href="/rip/final-journey-together-bundle-2-pack-last-pack-magic-CP7sMGF3p3M.html">FINAL Journey Together Bundle #2 Pack ⚡ | Last Pack Magic?! 😳</a><br><span class="rip-meta">Journey Together</span></li>
       <li><a href="/rip/opening-my-first-obsidian-flames-pack-RXKBcjWfqhE.html">Opening My FIRST Obsidian Flames Pack 😬</a><br><span class="rip-meta">Obsidian Flames</span></li>
       <li><a href="/rip/finally-an-ex-hit-mega-emboar-box-2-nBKJMnw9L2Y.html">Finally! An ex Hit! ⚡ | Mega Emboar Box #2</a><br><span class="rip-meta">Ascended Heroes</span></li>
-      <li><a href="/rip/journey-together-booster-bundle-2-pack-5-we-need-a-hit-FlMsxjakWcs.html">Journey Together Booster Bundle #2 ⚡ | Pack #5 We NEED A Hit 😬</a><br><span class="rip-meta">Journey Together</span></li>
+      <li><a href="/rip/i-found-an-sir-but-not-the-zard-R2VxbNMrlXQ.html">I FOUND AN SIR! 💎 (But Not The Zard...)</a><br><span class="rip-meta">Phantasmal Flames</span></li>
     </ul>
     <div class="btn-row" style="margin-top:16px">
       <a class="btn btn-yt" href="/videos.html?set=ascended-heroes">Watch every Ascended Heroes rip</a>
@@ -358,105 +375,105 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/47/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/47/low.webp" onerror="this.remove()" alt="Togedemaru 47, Burning Shadows" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/47/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/47/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Togedemaru</div>
         <div class="rr">Burning Shadows &bull; 47</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/067/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/067/low.webp" onerror="this.remove()" alt="Togedemaru 067, Celestial Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/067/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/067/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Togedemaru</div>
         <div class="rr">Celestial Guardians &bull; 067</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/73/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/73/low.webp" onerror="this.remove()" alt="Togedemaru 73, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/73/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/73/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Togedemaru</div>
         <div class="rr">Cosmic Eclipse &bull; 73</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/74/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/74/low.webp" onerror="this.remove()" alt="Togedemaru 74, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/74/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/74/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Togedemaru</div>
         <div class="rr">Cosmic Eclipse &bull; 74</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/048/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/048/low.webp" onerror="this.remove()" alt="Togedemaru 048, Eevee Grove" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/048/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/048/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Togedemaru</div>
         <div class="rr">Eevee Grove &bull; 048</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/187/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/187/low.webp" onerror="this.remove()" alt="Togedemaru 187, Fusion Strike" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/187/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/187/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Togedemaru</div>
         <div class="rr">Fusion Strike &bull; 187</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/127/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/127/low.webp" onerror="this.remove()" alt="Togedemaru 127, Silver Tempest" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/127/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/127/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Togedemaru</div>
         <div class="rr">Silver Tempest &bull; 127</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM09/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM09/low.webp" onerror="this.remove()" alt="Togedemaru SM09, SM Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM09/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM09/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Togedemaru</div>
         <div class="rr">SM Black Star Promos &bull; SM09</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM44/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM44/low.webp" onerror="this.remove()" alt="Togedemaru SM44, SM Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM44/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM44/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Togedemaru</div>
         <div class="rr">SM Black Star Promos &bull; SM44</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm1/53/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm1/53/low.webp" onerror="this.remove()" alt="Togedemaru 53, Sun &amp; Moon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm1/53/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm1/53/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Togedemaru</div>
         <div class="rr">Sun &amp; Moon &bull; 53</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12/028/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12/028/low.webp" onerror="this.remove()" alt="Togedemaru 028, オルタージェネシス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12/028/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12/028/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Togedemaru</div>
         <div class="rr">オルタージェネシス &bull; 028</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM1M/021/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM1M/021/low.webp" onerror="this.remove()" alt="Togedemaru 021, コレクションムーン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM1M/021/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM1M/021/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Togedemaru</div>
         <div class="rr">コレクションムーン &bull; 021</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV7/036/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV7/036/low.webp" onerror="this.remove()" alt="Togedemaru 036, ステラミラクル" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV7/036/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV7/036/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Togedemaru</div>
         <div class="rr">ステラミラクル &bull; 036</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12/069/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12/069/low.webp" onerror="this.remove()" alt="Togedemaru 069, パラダイムトリガー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12/069/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12/069/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Togedemaru</div>
         <div class="rr">パラダイムトリガー &bull; 069</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8/070/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8/070/low.webp" onerror="this.remove()" alt="Togedemaru 070, フュージョンアーツ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8/070/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8/070/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Togedemaru</div>
         <div class="rr">フュージョンアーツ &bull; 070</div>
         <div class="rr">Common</div>

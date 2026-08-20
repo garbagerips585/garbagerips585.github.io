@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/zygarde.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -246,7 +248,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me03/124/high.webp"
@@ -254,7 +271,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="124" data-price="$120"
         data-set="Perfect Order"
         aria-label="Enlarge Mega Zygarde ex, Perfect Order 124">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/124/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/124/low.webp" onerror="this.remove()" alt="Mega Zygarde ex 124, Perfect Order" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/124/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/124/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mega Zygarde ex</div>
         <div class="rr">Perfect Order &bull; 124</div>
         <div class="rr">Mega Hyper Rare</div>
@@ -266,7 +283,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="120" data-price="$56.72"
         data-set="Perfect Order"
         aria-label="Enlarge Mega Zygarde ex, Perfect Order 120">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/120/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/120/low.webp" onerror="this.remove()" alt="Mega Zygarde ex 120, Perfect Order" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/120/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/120/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mega Zygarde ex</div>
         <div class="rr">Perfect Order &bull; 120</div>
         <div class="rr">Special Illustration Rare</div>
@@ -278,7 +295,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="104" data-price="$5.68"
         data-set="Perfect Order"
         aria-label="Enlarge Mega Zygarde ex, Perfect Order 104">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/104/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/104/low.webp" onerror="this.remove()" alt="Mega Zygarde ex 104, Perfect Order" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/104/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/104/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mega Zygarde ex</div>
         <div class="rr">Perfect Order &bull; 104</div>
         <div class="rr">Ultra Rare</div>
@@ -290,7 +307,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="047" data-price="$1.48"
         data-set="Perfect Order"
         aria-label="Enlarge Mega Zygarde ex, Perfect Order 047">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/047/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/047/low.webp" onerror="this.remove()" alt="Mega Zygarde ex 047, Perfect Order" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/047/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/047/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mega Zygarde ex</div>
         <div class="rr">Perfect Order &bull; 047</div>
         <div class="rr">Double Rare</div>
@@ -335,224 +352,224 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/100/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/100/low.webp" onerror="this.remove()" alt="Zygarde 100, Burning Shadows" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/100/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/100/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">Burning Shadows &bull; 100</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3.5/28/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3.5/28/low.webp" onerror="this.remove()" alt="Zygarde 28, Champion's Path" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3.5/28/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3.5/28/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">Champion's Path &bull; 28</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/118/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/118/low.webp" onerror="this.remove()" alt="Zygarde 118, Evolving Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/118/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/118/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">Evolving Skies &bull; 118</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/52/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/52/low.webp" onerror="this.remove()" alt="Zygarde 52, Fates Collide" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/52/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/52/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">Fates Collide &bull; 52</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/53/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/53/low.webp" onerror="this.remove()" alt="Zygarde 53, Fates Collide" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/53/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/53/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">Fates Collide &bull; 53</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/54/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/54/low.webp" onerror="this.remove()" alt="Zygarde EX 54, Fates Collide" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/54/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/54/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde EX</div>
         <div class="rr">Fates Collide &bull; 54</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/54a/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/54a/low.webp" onerror="this.remove()" alt="Zygarde EX 54a, Fates Collide" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/54a/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/54a/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde EX</div>
         <div class="rr">Fates Collide &bull; 54a</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm6/123/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm6/123/low.webp" onerror="this.remove()" alt="Zygarde GX 123, Forbidden Light" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm6/123/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm6/123/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde GX</div>
         <div class="rr">Forbidden Light &bull; 123</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm6/136/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm6/136/low.webp" onerror="this.remove()" alt="Zygarde GX 136, Forbidden Light" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm6/136/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm6/136/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde GX</div>
         <div class="rr">Forbidden Light &bull; 136</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm6/71/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm6/71/low.webp" onerror="this.remove()" alt="Zygarde 71, Forbidden Light" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm6/71/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm6/71/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">Forbidden Light &bull; 71</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm6/72/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm6/72/low.webp" onerror="this.remove()" alt="Zygarde 72, Forbidden Light" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm6/72/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm6/72/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">Forbidden Light &bull; 72</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm6/73/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm6/73/low.webp" onerror="this.remove()" alt="Zygarde GX 73, Forbidden Light" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm6/73/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm6/73/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde GX</div>
         <div class="rr">Forbidden Light &bull; 73</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/057/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/057/low.webp" onerror="this.remove()" alt="Zygarde 057, GXウルトラシャイニー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/057/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/057/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">GXウルトラシャイニー &bull; 057</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/102/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/102/low.webp" onerror="this.remove()" alt="Zygarde 102, GXウルトラシャイニー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/102/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/102/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">GXウルトラシャイニー &bull; 102</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/225/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/225/low.webp" onerror="this.remove()" alt="Zygarde 225, GXウルトラシャイニー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/225/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/225/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">GXウルトラシャイニー &bull; 225</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sma/SV65/low.avif"><img src="https://assets.tcgdex.net/en/sm/sma/SV65/low.webp" onerror="this.remove()" alt="Zygarde-GX SV65, Hidden Fates Shiny Vault" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sma/SV65/low.avif"><img src="https://assets.tcgdex.net/en/sm/sma/SV65/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde-GX</div>
         <div class="rr">Hidden Fates Shiny Vault &bull; SV65</div>
         <div class="rr">Shiny Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/134/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/134/low.webp" onerror="this.remove()" alt="Zygarde 134, Silver Tempest" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/134/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/134/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">Silver Tempest &bull; 134</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM122/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM122/low.webp" onerror="this.remove()" alt="Zygarde GX SM122, SM Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM122/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM122/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde GX</div>
         <div class="rr">SM Black Star Promos &bull; SM122</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM15/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM15/low.webp" onerror="this.remove()" alt="Zygarde SM15, SM Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM15/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM15/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">SM Black Star Promos &bull; SM15</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM48/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM48/low.webp" onerror="this.remove()" alt="Zygarde SM48, SM Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM48/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM48/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">SM Black Star Promos &bull; SM48</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm11/124/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm11/124/low.webp" onerror="this.remove()" alt="Zygarde 124, Unified Minds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm11/124/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm11/124/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">Unified Minds &bull; 124</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/93/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/93/low.webp" onerror="this.remove()" alt="Zygarde 93, Vivid Voltage" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/93/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/93/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">Vivid Voltage &bull; 93</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY129/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY129/low.webp" onerror="this.remove()" alt="Zygarde XY129, XY Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY129/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY129/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">XY Black Star Promos &bull; XY129</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY151/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY151/low.webp" onerror="this.remove()" alt="Zygarde EX XY151, XY Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY151/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY151/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde EX</div>
         <div class="rr">XY Black Star Promos &bull; XY151</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY152/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY152/low.webp" onerror="this.remove()" alt="Zygarde XY152, XY Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY152/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY152/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">XY Black Star Promos &bull; XY152</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6a/036/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6a/036/low.webp" onerror="this.remove()" alt="Zygarde 036, ドラゴンストーム" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6a/036/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6a/036/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">ドラゴンストーム &bull; 036</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12/075/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12/075/low.webp" onerror="this.remove()" alt="Zygarde 075, パラダイムトリガー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12/075/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12/075/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">パラダイムトリガー &bull; 075</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM3N/041/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM3N/041/low.webp" onerror="this.remove()" alt="Zygarde 041, 光を喰らう闇" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM3N/041/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM3N/041/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">光を喰らう闇 &bull; 041</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6/048/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6/048/low.webp" onerror="this.remove()" alt="Zygarde 048, 禁断の光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6/048/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6/048/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">禁断の光 &bull; 048</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6/049/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6/049/low.webp" onerror="this.remove()" alt="Zygarde 049, 禁断の光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6/049/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6/049/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">禁断の光 &bull; 049</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6/050/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6/050/low.webp" onerror="this.remove()" alt="Zygarde 050, 禁断の光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6/050/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6/050/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">禁断の光 &bull; 050</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6/096/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6/096/low.webp" onerror="this.remove()" alt="Zygarde 096, 禁断の光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6/096/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6/096/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zygarde</div>
         <div class="rr">禁断の光 &bull; 096</div>
         <div class="rr">Ultra Rare</div>

@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/corphish.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -216,7 +218,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <div class="fact"><div class="n">$1</div><div class="l">Priciest one we price</div></div>
       <div class="fact"><div class="n">$0.26</div><div class="l">Cheapest way in</div></div>
       
-      <a class="fact fact-link" href="#watch"><div class="n">12</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
+      <a class="fact fact-link" href="#watch"><div class="n">13</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/swsh/swsh12.5/033/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="033" data-price="$0.61"
         data-set="Crown Zenith"
         aria-label="Enlarge Corphish, Crown Zenith 033">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/033/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/033/low.webp" onerror="this.remove()" alt="Corphish 033, Crown Zenith" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/033/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/033/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Corphish</div>
         <div class="rr">Crown Zenith &bull; 033</div>
         <div class="rr">Common</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="033" data-price="$0.40"
         data-set="Mega Evolution"
         aria-label="Enlarge Corphish, Mega Evolution 033">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/033/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/033/low.webp" onerror="this.remove()" alt="Corphish 033, Mega Evolution" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/033/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/033/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Corphish</div>
         <div class="rr">Mega Evolution &bull; 033</div>
         <div class="rr">Common</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="047" data-price="$0.26"
         data-set="Twilight Masquerade"
         aria-label="Enlarge Corphish, Twilight Masquerade 047">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/047/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06/047/low.webp" onerror="this.remove()" alt="Corphish 047, Twilight Masquerade" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/047/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06/047/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Corphish</div>
         <div class="rr">Twilight Masquerade &bull; 047</div>
         <div class="rr">Common</div>
@@ -296,18 +313,18 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
 <section class="band tight" id="watch">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See these packs opened</p>
-    <h2>We have filmed <span class="hl">12</span> rips of
+    <h2>We have filmed <span class="hl">13</span> rips of
       the 3 sets that print
       <span class="hl">Corphish</span></h2>
     <p class="lede" style="max-width:40em">Garbage Rips 585 is a Pokemon card pack opening
       channel out of Rochester, New York. We film every pack we open, hit or no hit.</p>
     <ul class="poke-rips">
-      <li><a href="/rip/only-garbage-rips-mega-evolution-pack-3-Pvi54rMlLfQ.html">Only Garbage Rips? 😬 | Mega Evolution Pack #3</a><br><span class="rip-meta">Mega Evolution</span></li>
+      <li><a href="/rip/6-boxes-and-still-no-og-starters-M7NqqhR8V4M.html">6 BOXES... and STILL No OG Starters?! 😭</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/the-tin-luck-finally-ran-out-2S4poqmGKWE.html">The Tin Luck Finally Ran Out! ❌</a><br><span class="rip-meta">Twilight Masquerade</span></li>
       <li><a href="/rip/pok-mon-crown-zenith-booster-pack-1-first-pack-magic-U91JWMsUHAU.html">Pokémon Crown Zenith Booster Pack #1 👑 | First Pack Magic?</a><br><span class="rip-meta">Crown Zenith</span></li>
-      <li><a href="/rip/only-garbage-rips-mega-evolutions-pack-2-dQaN_4yqS0w.html">Only Garbage Rips? 😬 | Mega Evolutions Pack #2</a><br><span class="rip-meta">Mega Evolution</span></li>
+      <li><a href="/rip/only-garbage-rips-mega-evolution-pack-3-Pvi54rMlLfQ.html">Only Garbage Rips? 😬 | Mega Evolution Pack #3</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/the-poke-ball-tin-luck-finally-ran-out-UpdeUMc-6ys.html">The Poke Ball Tin Luck Finally Ran Out... 😭</a><br><span class="rip-meta">Twilight Masquerade</span></li>
-      <li><a href="/rip/pok-mon-mega-evolution-booster-pack-1-first-pack-hVS0VH-nfVM.html">Pokémon Mega Evolution Booster Pack #1 ⚡ | First Pack</a><br><span class="rip-meta">Mega Evolution</span></li>
+      <li><a href="/rip/only-garbage-rips-mega-evolutions-pack-2-dQaN_4yqS0w.html">Only Garbage Rips? 😬 | Mega Evolutions Pack #2</a><br><span class="rip-meta">Mega Evolution</span></li>
     </ul>
     <div class="btn-row" style="margin-top:16px">
       <a class="btn btn-yt" href="/videos.html?set=mega-evolution">Watch every Mega Evolution rip</a>
@@ -324,133 +341,133 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/38/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/38/low.webp" onerror="this.remove()" alt="Corphish 38, Battle Styles" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/38/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/38/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Corphish</div>
         <div class="rr">Battle Styles &bull; 38</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/032/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/032/low.webp" onerror="this.remove()" alt="Corphish 032, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/032/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/032/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Corphish</div>
         <div class="rr">Brilliant Stars &bull; 032</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/24/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/24/low.webp" onerror="this.remove()" alt="Corphish 24, Crimson Invasion" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/24/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/24/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Corphish</div>
         <div class="rr">Crimson Invasion &bull; 24</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/57/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/57/low.webp" onerror="this.remove()" alt="Corphish 57, Deoxys" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/57/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/57/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Corphish</div>
         <div class="rr">Deoxys &bull; 57</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/52/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/52/low.webp" onerror="this.remove()" alt="Corphish 52, Dragon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/52/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/52/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Corphish</div>
         <div class="rr">Dragon &bull; 52</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/53/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/53/low.webp" onerror="this.remove()" alt="Corphish 53, Dragon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/53/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/53/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Corphish</div>
         <div class="rr">Dragon &bull; 53</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/54/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/54/low.webp" onerror="this.remove()" alt="Corphish 54, Dragon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/54/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/54/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Corphish</div>
         <div class="rr">Dragon &bull; 54</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/62/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/62/low.webp" onerror="this.remove()" alt="Corphish 62, Holon Phantoms" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/62/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/62/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Corphish</div>
         <div class="rr">Holon Phantoms &bull; 62</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/63/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/63/low.webp" onerror="this.remove()" alt="Corphish 63, Holon Phantoms" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/63/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/63/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Corphish</div>
         <div class="rr">Holon Phantoms &bull; 63</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/89/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/89/low.webp" onerror="this.remove()" alt="Corphish 89, Legends Awakened" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/89/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/89/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Corphish</div>
         <div class="rr">Legends Awakened &bull; 89</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy5/42/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy5/42/low.webp" onerror="this.remove()" alt="Corphish 42, Primal Clash" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy5/42/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy5/42/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Corphish</div>
         <div class="rr">Primal Clash &bull; 42</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/100/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/100/low.webp" onerror="this.remove()" alt="Corphish 100, Supreme Victors" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/100/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/100/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Corphish</div>
         <div class="rr">Supreme Victors &bull; 100</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/26/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/26/low.webp" onerror="this.remove()" alt="Team Aqua's Corphish 26, Team Magma vs Team Aqua" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/26/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/26/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Team Aqua's Corphish</div>
         <div class="rr">Team Magma vs Team Aqua &bull; 26</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/50/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/50/low.webp" onerror="this.remove()" alt="Team Aqua's Corphish 50, Team Magma vs Team Aqua" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/50/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/50/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Team Aqua's Corphish</div>
         <div class="rr">Team Magma vs Team Aqua &bull; 50</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/51/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/51/low.webp" onerror="this.remove()" alt="Team Aqua's Corphish 51, Team Magma vs Team Aqua" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/51/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/51/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Team Aqua's Corphish</div>
         <div class="rr">Team Magma vs Team Aqua &bull; 51</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/060/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/060/low.webp" onerror="this.remove()" alt="Corphish 060, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/060/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/060/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Corphish</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 060</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5a/019/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5a/019/low.webp" onerror="this.remove()" alt="Corphish 019, クリムゾンヘイズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5a/019/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5a/019/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Corphish</div>
         <div class="rr">クリムゾンヘイズ &bull; 019</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9/023/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9/023/low.webp" onerror="this.remove()" alt="Corphish 023, スターバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9/023/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9/023/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Corphish</div>
         <div class="rr">スターバース &bull; 023</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4S/013/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4S/013/low.webp" onerror="this.remove()" alt="Corphish 013, 覚醒の勇者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4S/013/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4S/013/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Corphish</div>
         <div class="rr">覚醒の勇者 &bull; 013</div>
         <div class="rr">Common</div>

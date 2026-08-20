@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/houndour.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv03/204/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="204" data-price="$10.65"
         data-set="Obsidian Flames"
         aria-label="Enlarge Houndour, Obsidian Flames 204">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/204/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/204/low.webp" onerror="this.remove()" alt="Houndour 204, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/204/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/204/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Obsidian Flames &bull; 204</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="132" data-price="$0.85"
         data-set="Obsidian Flames"
         aria-label="Enlarge Houndour, Obsidian Flames 132">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/132/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/132/low.webp" onerror="this.remove()" alt="Houndour 132, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/132/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/132/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Obsidian Flames &bull; 132</div>
         <div class="rr">Common</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="037" data-price="$0.50"
         data-set="Destined Rivals"
         aria-label="Enlarge Team Rocket's Houndour, Destined Rivals 037">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/037/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/037/low.webp" onerror="this.remove()" alt="Team Rocket's Houndour 037, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/037/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/037/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Houndour</div>
         <div class="rr">Destined Rivals &bull; 037</div>
         <div class="rr">Common</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="007" data-price="$0.45"
         data-set="Shrouded Fable"
         aria-label="Enlarge Houndour, Shrouded Fable 007">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06.5/007/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06.5/007/low.webp" onerror="this.remove()" alt="Houndour 007, Shrouded Fable" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06.5/007/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06.5/007/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Shrouded Fable &bull; 007</div>
         <div class="rr">Common</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="131" data-price="$0.38"
         data-set="Obsidian Flames"
         aria-label="Enlarge Houndour, Obsidian Flames 131">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/131/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/131/low.webp" onerror="this.remove()" alt="Houndour 131, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/131/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/131/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Obsidian Flames &bull; 131</div>
         <div class="rr">Common</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="062" data-price="$0.30"
         data-set="Prismatic Evolutions"
         aria-label="Enlarge Houndour, Prismatic Evolutions 062">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/062/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/062/low.webp" onerror="this.remove()" alt="Houndour 062, Prismatic Evolutions" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/062/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/062/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Prismatic Evolutions &bull; 062</div>
         <div class="rr">Common</div>
@@ -328,7 +345,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="033" data-price="$0.25"
         data-set="Scarlet &amp; Violet"
         aria-label="Enlarge Houndour, Scarlet &amp; Violet 033">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/033/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/033/low.webp" onerror="this.remove()" alt="Houndour 033, Scarlet &amp; Violet" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/033/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/033/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Scarlet &amp; Violet &bull; 033</div>
         <div class="rr">Common</div>
@@ -372,259 +389,259 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/86/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/86/low.webp" onerror="this.remove()" alt="Houndour 86, Aquapolis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/86/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/86/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Aquapolis &bull; 86</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/87/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/87/low.webp" onerror="this.remove()" alt="Houndour 87, Aquapolis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/87/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/87/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Aquapolis &bull; 87</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/95/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/95/low.webp" onerror="this.remove()" alt="Houndour 95, Battle Styles" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/95/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/95/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Battle Styles &bull; 95</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/59/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/59/low.webp" onerror="this.remove()" alt="Houndour 59, Call of Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/59/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/59/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Call of Legends &bull; 59</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B1a/015/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B1a/015/low.webp" onerror="this.remove()" alt="Houndour 015, Crimson Blaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B1a/015/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B1a/015/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Crimson Blaze &bull; 015</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/58/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/58/low.webp" onerror="this.remove()" alt="Houndour 58, Crimson Invasion" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/58/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/58/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Crimson Invasion &bull; 58</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/59/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/59/low.webp" onerror="this.remove()" alt="Houndour 59, Dragon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/59/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/59/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Dragon &bull; 59</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/74/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/74/low.webp" onerror="this.remove()" alt="Houndour 74, Dragons Exalted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/74/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/74/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Dragons Exalted &bull; 74</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/113/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/113/low.webp" onerror="this.remove()" alt="Houndour 113, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/113/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/113/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Expedition Base Set &bull; 113</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp4/69/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp4/69/low.webp" onerror="this.remove()" alt="Houndour 69, Great Encounters" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp4/69/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp4/69/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Great Encounters &bull; 69</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/103/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/103/low.webp" onerror="this.remove()" alt="Houndour 103, Legends Awakened" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/103/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/103/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Legends Awakened &bull; 103</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/45/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/45/low.webp" onerror="this.remove()" alt="Houndour 45, Lost Thunder" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/45/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/45/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Lost Thunder &bull; 45</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/43/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/43/low.webp" onerror="this.remove()" alt="Houndour 43, Neo Destiny" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/43/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/43/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Neo Destiny &bull; 43</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo2/24/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo2/24/low.webp" onerror="this.remove()" alt="Houndour 24, Neo Discovery" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo2/24/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo2/24/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Neo Discovery &bull; 24</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo2/39/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo2/39/low.webp" onerror="this.remove()" alt="Houndour 39, Neo Discovery" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo2/39/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo2/39/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Neo Discovery &bull; 39</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo2/5/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo2/5/low.webp" onerror="this.remove()" alt="Houndour 5, Neo Discovery" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo2/5/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo2/5/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Neo Discovery &bull; 5</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw10/55/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw10/55/low.webp" onerror="this.remove()" alt="Houndour 55, Plasma Blast" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw10/55/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw10/55/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Plasma Blast &bull; 55</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/66/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/66/low.webp" onerror="this.remove()" alt="Houndour 66, Skyridge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/66/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/66/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Skyridge &bull; 66</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/35/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/35/low.webp" onerror="this.remove()" alt="Team Magma's Houndour 35, Team Magma vs Team Aqua" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/35/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/35/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Team Magma's Houndour</div>
         <div class="rr">Team Magma vs Team Aqua &bull; 35</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/62/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/62/low.webp" onerror="this.remove()" alt="Team Magma's Houndour 62, Team Magma vs Team Aqua" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/62/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/62/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Team Magma's Houndour</div>
         <div class="rr">Team Magma vs Team Aqua &bull; 62</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/63/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/63/low.webp" onerror="this.remove()" alt="Team Magma's Houndour 63, Team Magma vs Team Aqua" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/63/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/63/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Team Magma's Houndour</div>
         <div class="rr">Team Magma vs Team Aqua &bull; 63</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/59/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/59/low.webp" onerror="this.remove()" alt="Houndour 59, Team Rocket Returns" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/59/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/59/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Team Rocket Returns &bull; 59</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/60/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/60/low.webp" onerror="this.remove()" alt="Houndour 60, Team Rocket Returns" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/60/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/60/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Team Rocket Returns &bull; 60</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2a/011/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2a/011/low.webp" onerror="this.remove()" alt="Houndour 011, Triumphant Light" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2a/011/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2a/011/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Triumphant Light &bull; 011</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/53/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/53/low.webp" onerror="this.remove()" alt="Houndour 53, Undaunted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/53/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/53/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Undaunted &bull; 53</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/54/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/54/low.webp" onerror="this.remove()" alt="Houndour 54, Undaunted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/54/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/54/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Undaunted &bull; 54</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/60/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/60/low.webp" onerror="this.remove()" alt="Houndour 60, Unseen Forces" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/60/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/60/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Unseen Forces &bull; 60</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/102/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/102/low.webp" onerror="this.remove()" alt="Houndour 102, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/102/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/102/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">VMAXクライマックス &bull; 102</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/117/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/117/low.webp" onerror="this.remove()" alt="Houndour 117, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/117/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/117/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 117</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6a/007/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6a/007/low.webp" onerror="this.remove()" alt="Houndour 007, ナイトワンダラー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6a/007/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6a/007/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">ナイトワンダラー &bull; 007</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1V/017/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1V/017/low.webp" onerror="this.remove()" alt="Houndour 017, バイオレットex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1V/017/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1V/017/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">バイオレットex &bull; 017</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/016/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/016/low.webp" onerror="this.remove()" alt="Houndour 016, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/016/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/016/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">ロケット団の栄光 &bull; 016</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S5I/044/low.avif"><img src="https://assets.tcgdex.net/ja/S/S5I/044/low.webp" onerror="this.remove()" alt="Houndour 044, 一撃マスター" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S5I/044/low.avif"><img src="https://assets.tcgdex.net/ja/S/S5I/044/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">一撃マスター &bull; 044</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4A/028/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4A/028/low.webp" onerror="this.remove()" alt="Houndour 028, 超次元の暴獣" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4A/028/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4A/028/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">超次元の暴獣 &bull; 028</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8/020/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8/020/low.webp" onerror="this.remove()" alt="Houndour 020, 超爆インパクト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8/020/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8/020/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">超爆インパクト &bull; 020</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/071/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/071/low.webp" onerror="this.remove()" alt="Houndour 071, 黒炎の支配者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/071/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/071/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">黒炎の支配者 &bull; 071</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/115/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/115/low.webp" onerror="this.remove()" alt="Houndour 115, 黒炎の支配者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/115/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/115/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Houndour</div>
         <div class="rr">黒炎の支配者 &bull; 115</div>
         

@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/blaziken.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/swsh/swsh6/201/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="201" data-price="$350"
         data-set="Chilling Reign"
         aria-label="Enlarge Blaziken VMAX, Chilling Reign 201">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/201/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/201/low.webp" onerror="this.remove()" alt="Blaziken VMAX 201, Chilling Reign" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/201/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/201/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Blaziken VMAX</div>
         <div class="rr">Chilling Reign &bull; 201</div>
         <div class="rr">Secret Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="200" data-price="$29.23"
         data-set="Chilling Reign"
         aria-label="Enlarge Blaziken VMAX, Chilling Reign 200">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/200/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/200/low.webp" onerror="this.remove()" alt="Blaziken VMAX 200, Chilling Reign" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/200/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/200/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Blaziken VMAX</div>
         <div class="rr">Chilling Reign &bull; 200</div>
         <div class="rr">Secret Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="161" data-price="$11.99"
         data-set="Chilling Reign"
         aria-label="Enlarge Blaziken V, Chilling Reign 161">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/161/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/161/low.webp" onerror="this.remove()" alt="Blaziken V 161, Chilling Reign" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/161/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/161/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Blaziken V</div>
         <div class="rr">Chilling Reign &bull; 161</div>
         <div class="rr">Ultra Rare</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="192" data-price="$11.88"
         data-set="Destined Rivals"
         aria-label="Enlarge Blaziken, Destined Rivals 192">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/192/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/192/low.webp" onerror="this.remove()" alt="Blaziken 192, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/192/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/192/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">Destined Rivals &bull; 192</div>
         <div class="rr">Illustration Rare</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="21" data-price="$4.80"
         data-set="Chilling Reign"
         aria-label="Enlarge Blaziken VMAX, Chilling Reign 21">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/21/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/21/low.webp" onerror="this.remove()" alt="Blaziken VMAX 21, Chilling Reign" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/21/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/21/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Blaziken VMAX</div>
         <div class="rr">Chilling Reign &bull; 21</div>
         <div class="rr">Holo Rare VMAX</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="024" data-price="$1.99"
         data-set="Journey Together"
         aria-label="Enlarge Blaziken ex, Journey Together 024">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/024/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/024/low.webp" onerror="this.remove()" alt="Blaziken ex 024, Journey Together" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/024/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/024/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Blaziken ex</div>
         <div class="rr">Journey Together &bull; 024</div>
         <div class="rr">Double Rare</div>
@@ -328,7 +345,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="20" data-price="$1.40"
         data-set="Chilling Reign"
         aria-label="Enlarge Blaziken V, Chilling Reign 20">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/20/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/20/low.webp" onerror="this.remove()" alt="Blaziken V 20, Chilling Reign" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/20/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/20/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Blaziken V</div>
         <div class="rr">Chilling Reign &bull; 20</div>
         <div class="rr">Holo Rare V</div>
@@ -340,7 +357,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="042" data-price="$1.06"
         data-set="Destined Rivals"
         aria-label="Enlarge Blaziken, Destined Rivals 042">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/042/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/042/low.webp" onerror="this.remove()" alt="Blaziken 042, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/042/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/042/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">Destined Rivals &bull; 042</div>
         <div class="rr">Rare</div>
@@ -384,217 +401,217 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/153/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/153/low.webp" onerror="this.remove()" alt="Blaziken GX 153, Celestial Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/153/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/153/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken GX</div>
         <div class="rr">Celestial Storm &bull; 153</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/170/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/170/low.webp" onerror="this.remove()" alt="Blaziken GX 170, Celestial Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/170/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/170/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken GX</div>
         <div class="rr">Celestial Storm &bull; 170</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/28/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/28/low.webp" onerror="this.remove()" alt="Blaziken GX 28, Celestial Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/28/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/28/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken GX</div>
         <div class="rr">Celestial Storm &bull; 28</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex14/90/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex14/90/low.webp" onerror="this.remove()" alt="Blaziken ex 90, Crystal Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex14/90/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex14/90/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken ex</div>
         <div class="rr">Crystal Guardians &bull; 90</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw5/17/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw5/17/low.webp" onerror="this.remove()" alt="Blaziken 17, Dark Explorers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw5/17/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw5/17/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">Dark Explorers &bull; 17</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/24/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/24/low.webp" onerror="this.remove()" alt="Blaziken 24, Darkness Ablaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/24/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/24/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">Darkness Ablaze &bull; 24</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex9/1/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex9/1/low.webp" onerror="this.remove()" alt="Blaziken 1, Emerald" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex9/1/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex9/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">Emerald &bull; 1</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy3/14/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy3/14/low.webp" onerror="this.remove()" alt="Blaziken 14, Furious Fists" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy3/14/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy3/14/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">Furious Fists &bull; 14</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp4/1/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp4/1/low.webp" onerror="this.remove()" alt="Blaziken 1, Great Encounters" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp4/1/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp4/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">Great Encounters &bull; 1</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/014/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/014/low.webp" onerror="this.remove()" alt="Blaziken 014, GXウルトラシャイニー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/014/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/014/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">GXウルトラシャイニー &bull; 014</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/20/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/20/low.webp" onerror="this.remove()" alt="Blaziken 20, Holon Phantoms" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/20/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/20/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">Holon Phantoms &bull; 20</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/3/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/3/low.webp" onerror="this.remove()" alt="Blaziken 3, Platinum" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/3/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/3/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">Platinum &bull; 3</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop1/1/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop1/1/low.webp" onerror="this.remove()" alt="Blaziken 1, POP Series 1" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop1/1/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop1/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">POP Series 1 &bull; 1</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex16/5/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex16/5/low.webp" onerror="this.remove()" alt="Blaziken 5, Power Keepers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex16/5/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex16/5/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">Power Keepers &bull; 5</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy5/28/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy5/28/low.webp" onerror="this.remove()" alt="Blaziken 28, Primal Clash" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy5/28/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy5/28/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">Primal Clash &bull; 28</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/15/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/15/low.webp" onerror="this.remove()" alt="Blaziken 15, Ruby &amp; Sapphire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/15/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/15/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">Ruby &amp; Sapphire &bull; 15</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/3/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/3/low.webp" onerror="this.remove()" alt="Blaziken 3, Ruby &amp; Sapphire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/3/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/3/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">Ruby &amp; Sapphire &bull; 3</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/142/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/142/low.webp" onerror="this.remove()" alt="Blaziken FB LV.X 142, Supreme Victors" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/142/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/142/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken FB LV.X</div>
         <div class="rr">Supreme Victors &bull; 142</div>
         <div class="rr">Rare Holo LV.X</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/2/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/2/low.webp" onerror="this.remove()" alt="Blaziken FB 2, Supreme Victors" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/2/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/2/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken FB</div>
         <div class="rr">Supreme Victors &bull; 2</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/89/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/89/low.webp" onerror="this.remove()" alt="Blaziken ex 89, Team Magma vs Team Aqua" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/89/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/89/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken ex</div>
         <div class="rr">Team Magma vs Team Aqua &bull; 89</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/019/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/019/low.webp" onerror="this.remove()" alt="Blaziken 019, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/019/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/019/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">VMAXクライマックス &bull; 019</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/020/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/020/low.webp" onerror="this.remove()" alt="Blaziken 020, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/020/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/020/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">VMAXクライマックス &bull; 020</div>
         <div class="rr">Triple Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/216/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/216/low.webp" onerror="this.remove()" alt="Blaziken 216, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/216/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/216/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">VMAXクライマックス &bull; 216</div>
         <div class="rr">Character Super Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/217/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/217/low.webp" onerror="this.remove()" alt="Blaziken 217, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/217/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/217/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">VMAXクライマックス &bull; 217</div>
         <div class="rr">Character Super Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY54/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY54/low.webp" onerror="this.remove()" alt="Blaziken EX XY54, XY Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY54/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY54/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken EX</div>
         <div class="rr">XY Black Star Promos &bull; XY54</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY86/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY86/low.webp" onerror="this.remove()" alt="M Blaziken EX XY86, XY Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY86/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY86/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">M Blaziken EX</div>
         <div class="rr">XY Black Star Promos &bull; XY86</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6b/013/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6b/013/low.webp" onerror="this.remove()" alt="Blaziken 013, チャンピオンロード" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6b/013/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6b/013/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">チャンピオンロード &bull; 013</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/020/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/020/low.webp" onerror="this.remove()" alt="Blaziken 020, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/020/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/020/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">ロケット団の栄光 &bull; 020</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/101/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/101/low.webp" onerror="this.remove()" alt="Blaziken 101, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/101/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/101/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">ロケット団の栄光 &bull; 101</div>
         <div class="rr">Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7/018/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7/018/low.webp" onerror="this.remove()" alt="Blaziken 018, 裂空のカリスマ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7/018/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7/018/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">裂空のカリスマ &bull; 018</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7/098/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7/098/low.webp" onerror="this.remove()" alt="Blaziken 098, 裂空のカリスマ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7/098/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7/098/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaziken</div>
         <div class="rr">裂空のカリスマ &bull; 098</div>
         <div class="rr">Ultra Rare</div>

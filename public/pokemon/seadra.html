@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/seadra.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv04/031/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="031" data-price="$0.59"
         data-set="Paradox Rift"
         aria-label="Enlarge Seadra, Paradox Rift 031">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/031/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/031/low.webp" onerror="this.remove()" alt="Seadra 031, Paradox Rift" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/031/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/031/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">Paradox Rift &bull; 031</div>
         <div class="rr">Common</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="011" data-price="$0.40"
         data-set="Shrouded Fable"
         aria-label="Enlarge Seadra, Shrouded Fable 011">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06.5/011/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06.5/011/low.webp" onerror="this.remove()" alt="Seadra 011, Shrouded Fable" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06.5/011/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06.5/011/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">Shrouded Fable &bull; 011</div>
         <div class="rr">Common</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="117" data-price="$0.40"
         data-set="151"
         aria-label="Enlarge Seadra, 151 117">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/117/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/117/low.webp" onerror="this.remove()" alt="Seadra 117, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/117/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/117/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">151 &bull; 117</div>
         <div class="rr">Uncommon</div>
@@ -322,196 +339,196 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/58/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/58/low.webp" onerror="this.remove()" alt="Seadra 58, Aquapolis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/58/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/58/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">Aquapolis &bull; 58</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/32/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/32/low.webp" onerror="this.remove()" alt="Seadra 32, Battle Styles" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/32/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/32/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">Battle Styles &bull; 32</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/30/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/30/low.webp" onerror="this.remove()" alt="Seadra 30, Burning Shadows" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/30/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/30/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">Burning Shadows &bull; 30</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/39/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/39/low.webp" onerror="this.remove()" alt="Seadra 39, Dragon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/39/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/39/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">Dragon &bull; 39</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/40/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/40/low.webp" onerror="this.remove()" alt="Seadra 40, Dragon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/40/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/40/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">Dragon &bull; 40</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/22/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/22/low.webp" onerror="this.remove()" alt="Seadra δ 22, Dragon Frontiers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/22/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/22/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra δ</div>
         <div class="rr">Dragon Frontiers &bull; 22</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/37/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/37/low.webp" onerror="this.remove()" alt="Seadra δ 37, Dragon Frontiers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/37/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/37/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra δ</div>
         <div class="rr">Dragon Frontiers &bull; 37</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/209/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/209/low.webp" onerror="this.remove()" alt="Seadra 209, Fantastical Parade" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/209/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/209/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">Fantastical Parade &bull; 209</div>
         <div class="rr">One Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base3/42/low.avif"><img src="https://assets.tcgdex.net/en/base/base3/42/low.webp" onerror="this.remove()" alt="Seadra 42, Fossil" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base3/42/low.avif"><img src="https://assets.tcgdex.net/en/base/base3/42/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">Fossil &bull; 42</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/071/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/071/low.webp" onerror="this.remove()" alt="Seadra 071, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/071/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/071/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">Genetic Apex &bull; 071</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/9/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/9/low.webp" onerror="this.remove()" alt="Misty's Seadra 9, Gym Heroes" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/9/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/9/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Misty's Seadra</div>
         <div class="rr">Gym Heroes &bull; 9</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/52/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/52/low.webp" onerror="this.remove()" alt="Seadra δ 52, Holon Phantoms" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/52/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/52/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra δ</div>
         <div class="rr">Holon Phantoms &bull; 52</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/63/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/63/low.webp" onerror="this.remove()" alt="Seadra 63, Legendary Collection" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/63/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/63/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">Legendary Collection &bull; 63</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/70/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/70/low.webp" onerror="this.remove()" alt="Seadra 70, Legends Awakened" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/70/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/70/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">Legends Awakened &bull; 70</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/036/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/036/low.webp" onerror="this.remove()" alt="Seadra 036, Lost Origin" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/036/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/036/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">Lost Origin &bull; 036</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo1/48/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo1/48/low.webp" onerror="this.remove()" alt="Seadra 48, Neo Genesis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo1/48/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo1/48/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">Neo Genesis &bull; 48</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/19/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/19/low.webp" onerror="this.remove()" alt="Seadra 19, Plasma Freeze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/19/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/19/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">Plasma Freeze &bull; 19</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy5/31/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy5/31/low.webp" onerror="this.remove()" alt="Seadra 31, Primal Clash" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy5/31/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy5/31/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">Primal Clash &bull; 31</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/48/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/48/low.webp" onerror="this.remove()" alt="Seadra 48, Team Rocket Returns" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/48/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/48/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">Team Rocket Returns &bull; 48</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/40/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/40/low.webp" onerror="this.remove()" alt="Seadra 40, Unleashed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/40/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/40/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">Unleashed &bull; 40</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/025/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/025/low.webp" onerror="this.remove()" alt="Seadra 025, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/025/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/025/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">VMAXクライマックス &bull; 025</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/042/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/042/low.webp" onerror="this.remove()" alt="Seadra 042, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/042/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/042/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 042</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6a/013/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6a/013/low.webp" onerror="this.remove()" alt="Seadra 013, ドラゴンストーム" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6a/013/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6a/013/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">ドラゴンストーム &bull; 013</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6a/011/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6a/011/low.webp" onerror="this.remove()" alt="Seadra 011, ナイトワンダラー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6a/011/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6a/011/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">ナイトワンダラー &bull; 011</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/117/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/117/low.webp" onerror="this.remove()" alt="Seadra 117, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/117/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/117/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">ポケモンカード151 &bull; 117</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/023/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/023/low.webp" onerror="this.remove()" alt="Seadra 023, ロストアビス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/023/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/023/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">ロストアビス &bull; 023</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4K/018/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4K/018/low.webp" onerror="this.remove()" alt="Seadra 018, 古代の咆哮" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4K/018/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4K/018/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">古代の咆哮 &bull; 018</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM3H/017/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM3H/017/low.webp" onerror="this.remove()" alt="Seadra 017, 闘う虹を見たか" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM3H/017/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM3H/017/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Seadra</div>
         <div class="rr">闘う虹を見たか &bull; 017</div>
         <div class="rr">Common</div>

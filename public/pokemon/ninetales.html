@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/ninetales.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -216,7 +218,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <div class="fact"><div class="n">$38</div><div class="l">Priciest one we price</div></div>
       <div class="fact"><div class="n">$0.47</div><div class="l">Cheapest way in</div></div>
       
-      <a class="fact fact-link" href="#watch"><div class="n">77</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
+      <a class="fact fact-link" href="#watch"><div class="n">78</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv03/199/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="199" data-price="$37.63"
         data-set="Obsidian Flames"
         aria-label="Enlarge Ninetales, Obsidian Flames 199">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/199/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/199/low.webp" onerror="this.remove()" alt="Ninetales 199, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/199/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/199/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Obsidian Flames &bull; 199</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="177" data-price="$25.43"
         data-set="Rebel Clash"
         aria-label="Enlarge Ninetales V, Rebel Clash 177">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/177/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/177/low.webp" onerror="this.remove()" alt="Ninetales V 177, Rebel Clash" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/177/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/177/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ninetales V</div>
         <div class="rr">Rebel Clash &bull; 177</div>
         <div class="rr">Ultra Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="186" data-price="$14.51"
         data-set="151"
         aria-label="Enlarge Ninetales ex, 151 186">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/186/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/186/low.webp" onerror="this.remove()" alt="Ninetales ex 186, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/186/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/186/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ninetales ex</div>
         <div class="rr">151 &bull; 186</div>
         <div class="rr">Ultra Rare</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="25" data-price="$4.94"
         data-set="Rebel Clash"
         aria-label="Enlarge Ninetales, Rebel Clash 25">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/25/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/25/low.webp" onerror="this.remove()" alt="Ninetales 25, Rebel Clash" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/25/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/25/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Rebel Clash &bull; 25</div>
         <div class="rr">Rare</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="26" data-price="$4.52"
         data-set="Rebel Clash"
         aria-label="Enlarge Ninetales V, Rebel Clash 26">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/26/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/26/low.webp" onerror="this.remove()" alt="Ninetales V 26, Rebel Clash" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/26/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/26/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ninetales V</div>
         <div class="rr">Rebel Clash &bull; 26</div>
         <div class="rr">Holo Rare V</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="038" data-price="$2.00"
         data-set="151"
         aria-label="Enlarge Ninetales ex, 151 038">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/038/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/038/low.webp" onerror="this.remove()" alt="Ninetales ex 038, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/038/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/038/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ninetales ex</div>
         <div class="rr">151 &bull; 038</div>
         <div class="rr">Double Rare</div>
@@ -328,7 +345,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="009" data-price="$1.72"
         data-set="Chaos Rising"
         aria-label="Enlarge Ninetales, Chaos Rising 009">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/009/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/009/low.webp" onerror="this.remove()" alt="Ninetales 009, Chaos Rising" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/009/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/009/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Chaos Rising &bull; 009</div>
         <div class="rr">Uncommon</div>
@@ -340,7 +357,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="017" data-price="$1.49"
         data-set="Surging Sparks"
         aria-label="Enlarge Ninetales, Surging Sparks 017">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/017/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08/017/low.webp" onerror="this.remove()" alt="Ninetales 017, Surging Sparks" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/017/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08/017/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Surging Sparks &bull; 017</div>
         <div class="rr">Uncommon</div>
@@ -352,7 +369,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="020" data-price="$1.04"
         data-set="Mega Evolution"
         aria-label="Enlarge Ninetales, Mega Evolution 020">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/020/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/020/low.webp" onerror="this.remove()" alt="Ninetales 020, Mega Evolution" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/020/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/020/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Mega Evolution &bull; 020</div>
         <div class="rr">Uncommon</div>
@@ -364,7 +381,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="027" data-price="$0.68"
         data-set="Twilight Masquerade"
         aria-label="Enlarge Ninetales, Twilight Masquerade 027">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/027/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06/027/low.webp" onerror="this.remove()" alt="Ninetales 027, Twilight Masquerade" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/027/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06/027/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Twilight Masquerade &bull; 027</div>
         <div class="rr">Common</div>
@@ -376,7 +393,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="029" data-price="$0.47"
         data-set="Obsidian Flames"
         aria-label="Enlarge Ninetales, Obsidian Flames 029">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/029/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/029/low.webp" onerror="this.remove()" alt="Ninetales 029, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/029/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/029/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Obsidian Flames &bull; 029</div>
         <div class="rr">Uncommon</div>
@@ -392,7 +409,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
 <section class="band tight" id="watch">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See these packs opened</p>
-    <h2>We have filmed <span class="hl">77</span> rips of
+    <h2>We have filmed <span class="hl">78</span> rips of
       the 7 sets that print
       <span class="hl">Ninetales</span></h2>
     <p class="lede" style="max-width:40em">Garbage Rips 585 is a Pokemon card pack opening
@@ -400,7 +417,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
     <ul class="poke-rips">
       <li><a href="/rip/i-just-pulled-a-1-000-card-iIgTusrqVtg.html">I Just Pulled a $1,000 Card! 😱🐸</a><br><span class="rip-meta">Chaos Rising</span></li>
       <li><a href="/rip/surging-sparks-or-garbage-rip-RtJn1UOi2S8.html">Surging Sparks... or Garbage Rip? ⚡️😬</a><br><span class="rip-meta">Surging Sparks</span></li>
-      <li><a href="/rip/only-garbage-rips-mega-evolution-pack-3-Pvi54rMlLfQ.html">Only Garbage Rips? 😬 | Mega Evolution Pack #3</a><br><span class="rip-meta">Mega Evolution</span></li>
+      <li><a href="/rip/6-boxes-and-still-no-og-starters-M7NqqhR8V4M.html">6 BOXES... and STILL No OG Starters?! 😭</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/the-tin-luck-finally-ran-out-2S4poqmGKWE.html">The Tin Luck Finally Ran Out! ❌</a><br><span class="rip-meta">Twilight Masquerade</span></li>
       <li><a href="/rip/pok-mon-rebel-clash-booster-pack-2-any-better-nCIpRxwMMBE.html">Pokémon Rebel Clash Booster Pack #2 ⚡ | Any Better?</a><br><span class="rip-meta">Rebel Clash</span></li>
       <li><a href="/rip/opening-my-first-obsidian-flames-pack-RXKBcjWfqhE.html">Opening My FIRST Obsidian Flames Pack 😬</a><br><span class="rip-meta">Obsidian Flames</span></li>
@@ -420,455 +437,455 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/25/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/25/low.webp" onerror="this.remove()" alt="Ninetales 25, Aquapolis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/25/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/25/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Aquapolis &bull; 25</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/12/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/12/low.webp" onerror="this.remove()" alt="Ninetales 12, Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/12/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/12/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Base Set &bull; 12</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/13/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/13/low.webp" onerror="this.remove()" alt="Ninetales 13, Base Set 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/13/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/13/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Base Set 2 &bull; 13</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/28/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/28/low.webp" onerror="this.remove()" alt="Alolan Ninetales 28, Burning Shadows" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/28/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/28/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Ninetales</div>
         <div class="rr">Burning Shadows &bull; 28</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW66/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW66/low.webp" onerror="this.remove()" alt="Ninetales BW66, BW Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW66/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW66/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">BW Black Star Promos &bull; BW66</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/17/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/17/low.webp" onerror="this.remove()" alt="Ninetales 17, Call of Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/17/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/17/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Call of Legends &bull; 17</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/041/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/041/low.webp" onerror="this.remove()" alt="Alolan Ninetales 041, Celestial Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/041/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/041/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Ninetales</div>
         <div class="rr">Celestial Guardians &bull; 041</div>
         <div class="rr">Three Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/145/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/145/low.webp" onerror="this.remove()" alt="Alolan Ninetales 145, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/145/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/145/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Ninetales</div>
         <div class="rr">Cosmic Eclipse &bull; 145</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/8/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/8/low.webp" onerror="this.remove()" alt="Ninetales δ 8, Dragon Frontiers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/8/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/8/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales δ</div>
         <div class="rr">Dragon Frontiers &bull; 8</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/19/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/19/low.webp" onerror="this.remove()" alt="Ninetales 19, Dragons Exalted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/19/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/19/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Dragons Exalted &bull; 19</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex9/38/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex9/38/low.webp" onerror="this.remove()" alt="Ninetales 38, Emerald" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex9/38/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex9/38/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Emerald &bull; 38</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/15/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/15/low.webp" onerror="this.remove()" alt="Ninetales 15, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/15/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/15/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Evolutions &bull; 15</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/16/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/16/low.webp" onerror="this.remove()" alt="Ninetales BREAK 16, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/16/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/16/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales BREAK</div>
         <div class="rr">Evolutions &bull; 16</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/21/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/21/low.webp" onerror="this.remove()" alt="Ninetales 21, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/21/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/21/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Expedition Base Set &bull; 21</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/57/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/57/low.webp" onerror="this.remove()" alt="Ninetales 57, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/57/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/57/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Expedition Base Set &bull; 57</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/029/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/029/low.webp" onerror="this.remove()" alt="Alolan Ninetales ex 029, Fantastical Parade" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/029/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/029/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Ninetales ex</div>
         <div class="rr">Fantastical Parade &bull; 029</div>
         <div class="rr">Four Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/182/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/182/low.webp" onerror="this.remove()" alt="Alolan Ninetales ex 182, Fantastical Parade" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/182/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/182/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Ninetales ex</div>
         <div class="rr">Fantastical Parade &bull; 182</div>
         <div class="rr">Two Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/196/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/196/low.webp" onerror="this.remove()" alt="Alolan Ninetales ex 196, Fantastical Parade" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/196/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/196/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Ninetales ex</div>
         <div class="rr">Fantastical Parade &bull; 196</div>
         <div class="rr">Two Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/30/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/30/low.webp" onerror="this.remove()" alt="Ninetales 30, Fusion Strike" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/30/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/30/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Fusion Strike &bull; 30</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/31/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/31/low.webp" onerror="this.remove()" alt="Ninetales 31, Fusion Strike" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/31/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/31/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Fusion Strike &bull; 31</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/13/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/13/low.webp" onerror="this.remove()" alt="Ninetales EX 13, Generations" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/13/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/13/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales EX</div>
         <div class="rr">Generations &bull; 13</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/038/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/038/low.webp" onerror="this.remove()" alt="Ninetales 038, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/038/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/038/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Genetic Apex &bull; 038</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/132/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/132/low.webp" onerror="this.remove()" alt="Alolan Ninetales GX 132, Guardians Rising" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/132/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/132/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Ninetales GX</div>
         <div class="rr">Guardians Rising &bull; 132</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/150/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/150/low.webp" onerror="this.remove()" alt="Alolan Ninetales GX 150, Guardians Rising" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/150/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/150/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Ninetales GX</div>
         <div class="rr">Guardians Rising &bull; 150</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/22/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/22/low.webp" onerror="this.remove()" alt="Alolan Ninetales GX 22, Guardians Rising" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/22/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/22/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Ninetales GX</div>
         <div class="rr">Guardians Rising &bull; 22</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/089/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/089/low.webp" onerror="this.remove()" alt="Ninetales 089, GXウルトラシャイニー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/089/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/089/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">GXウルトラシャイニー &bull; 089</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/213/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/213/low.webp" onerror="this.remove()" alt="Ninetales 213, GXウルトラシャイニー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/213/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/213/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">GXウルトラシャイニー &bull; 213</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/21/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/21/low.webp" onerror="this.remove()" alt="Blaine's Ninetales 21, Gym Challenge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/21/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/21/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaine's Ninetales</div>
         <div class="rr">Gym Challenge &bull; 21</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/3/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/3/low.webp" onerror="this.remove()" alt="Brock's Ninetales 3, Gym Challenge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/3/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/3/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Brock's Ninetales</div>
         <div class="rr">Gym Challenge &bull; 3</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/7/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/7/low.webp" onerror="this.remove()" alt="Ninetales 7, HeartGold SoulSilver" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/7/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/7/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">HeartGold SoulSilver &bull; 7</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sma/SV53/low.avif"><img src="https://assets.tcgdex.net/en/sm/sma/SV53/low.webp" onerror="this.remove()" alt="Alolan Ninetales-GX SV53, Hidden Fates Shiny Vault" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sma/SV53/low.avif"><img src="https://assets.tcgdex.net/en/sm/sma/SV53/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Ninetales-GX</div>
         <div class="rr">Hidden Fates Shiny Vault &bull; SV53</div>
         <div class="rr">Shiny Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/22/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/22/low.webp" onerror="this.remove()" alt="Ninetales 22, Hidden Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/22/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/22/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Hidden Legends &bull; 22</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/96/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/96/low.webp" onerror="this.remove()" alt="Ninetales ex 96, Hidden Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/96/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/96/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales ex</div>
         <div class="rr">Hidden Legends &bull; 96</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/17/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/17/low.webp" onerror="this.remove()" alt="Ninetales 17, Legendary Collection" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/17/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/17/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Legendary Collection &bull; 17</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/21/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/21/low.webp" onerror="this.remove()" alt="Ninetales 21, Legendary Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/21/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/21/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Legendary Treasures &bull; 21</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/132/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/132/low.webp" onerror="this.remove()" alt="Alolan Ninetales GX 132, Lost Thunder" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/132/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/132/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Ninetales GX</div>
         <div class="rr">Lost Thunder &bull; 132</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/205/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/205/low.webp" onerror="this.remove()" alt="Alolan Ninetales GX 205, Lost Thunder" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/205/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/205/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Ninetales GX</div>
         <div class="rr">Lost Thunder &bull; 205</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/225/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/225/low.webp" onerror="this.remove()" alt="Alolan Ninetales GX 225, Lost Thunder" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/225/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/225/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Ninetales GX</div>
         <div class="rr">Lost Thunder &bull; 225</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp2/32/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp2/32/low.webp" onerror="this.remove()" alt="Ninetales 32, Mysterious Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp2/32/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp2/32/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Mysterious Treasures &bull; 32</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/50/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/50/low.webp" onerror="this.remove()" alt="Light Ninetales 50, Neo Destiny" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/50/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/50/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Light Ninetales</div>
         <div class="rr">Neo Destiny &bull; 50</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/36/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/36/low.webp" onerror="this.remove()" alt="Ninetales 36, Platinum" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/36/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/36/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Platinum &bull; 36</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/ru1/3/low.avif"><img src="https://assets.tcgdex.net/en/pl/ru1/3/low.webp" onerror="this.remove()" alt="Ninetales 3, Pokémon Rumble" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/ru1/3/low.avif"><img src="https://assets.tcgdex.net/en/pl/ru1/3/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Pokémon Rumble &bull; 3</div>
         
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex16/19/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex16/19/low.webp" onerror="this.remove()" alt="Ninetales 19, Power Keepers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex16/19/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex16/19/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Power Keepers &bull; 19</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy5/21/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy5/21/low.webp" onerror="this.remove()" alt="Ninetales 21, Primal Clash" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy5/21/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy5/21/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Primal Clash &bull; 21</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/018/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/018/low.webp" onerror="this.remove()" alt="Ninetales 018, Silver Tempest" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/018/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/018/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Silver Tempest &bull; 018</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM128/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM128/low.webp" onerror="this.remove()" alt="Alolan Ninetales SM128, SM Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM128/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM128/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Ninetales</div>
         <div class="rr">SM Black Star Promos &bull; SM128</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/23/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/23/low.webp" onerror="this.remove()" alt="Ninetales 23, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/23/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/23/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Sword &amp; Shield &bull; 23</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12a/018/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12a/018/low.webp" onerror="this.remove()" alt="Ninetales 018, TAG TEAM GX タッグオールスターズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12a/018/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12a/018/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">TAG TEAM GX タッグオールスターズ &bull; 018</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12a/095/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12a/095/low.webp" onerror="this.remove()" alt="Ninetales 095, TAG TEAM GX タッグオールスターズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12a/095/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12a/095/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">TAG TEAM GX タッグオールスターズ &bull; 095</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/111/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/111/low.webp" onerror="this.remove()" alt="Alolan Ninetales 111, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/111/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/111/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Ninetales</div>
         <div class="rr">Team Up &bull; 111</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/16/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/16/low.webp" onerror="this.remove()" alt="Ninetales 16, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/16/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/16/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Team Up &bull; 16</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/20/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/20/low.webp" onerror="this.remove()" alt="Ninetales 20, Unleashed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/20/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/20/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Unleashed &bull; 20</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/026/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/026/low.webp" onerror="this.remove()" alt="Ninetales 026, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/026/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/026/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 026</div>
         <div class="rr">Three Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12/056/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12/056/low.webp" onerror="this.remove()" alt="Ninetales 056, オルタージェネシス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12/056/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12/056/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">オルタージェネシス &bull; 056</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5a/011/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5a/011/low.webp" onerror="this.remove()" alt="Ninetales 011, クリムゾンヘイズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5a/011/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5a/011/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">クリムゾンヘイズ &bull; 011</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SVLS/002/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SVLS/002/low.webp" onerror="this.remove()" alt="Ninetales 002, スターターセット テラスタイプ：ステラ ソウブレイズex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SVLS/002/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SVLS/002/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">スターターセット テラスタイプ：ステラ ソウブレイズex &bull; 002</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/015/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/015/low.webp" onerror="this.remove()" alt="Ninetales 015, タッグボルト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/015/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/015/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">タッグボルト &bull; 015</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/009/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/009/low.webp" onerror="this.remove()" alt="Ninetales 009, ニンジャスピナー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/009/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/009/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">ニンジャスピナー &bull; 009</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7b/025/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7b/025/low.webp" onerror="this.remove()" alt="Ninetales 025, フェアリーライズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7b/025/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7b/025/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">フェアリーライズ &bull; 025</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7b/053/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7b/053/low.webp" onerror="this.remove()" alt="Ninetales 053, フェアリーライズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7b/053/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7b/053/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">フェアリーライズ &bull; 053</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/038/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/038/low.webp" onerror="this.remove()" alt="Ninetales 038, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/038/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/038/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">ポケモンカード151 &bull; 038</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/188/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/188/low.webp" onerror="this.remove()" alt="Ninetales 188, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/188/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/188/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">ポケモンカード151 &bull; 188</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/014/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/014/low.webp" onerror="this.remove()" alt="Ninetales 014, ロストアビス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/014/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/014/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">ロストアビス &bull; 014</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/015/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/015/low.webp" onerror="this.remove()" alt="Ninetales 015, 黒炎の支配者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/015/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/015/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">黒炎の支配者 &bull; 015</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/110/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/110/low.webp" onerror="this.remove()" alt="Ninetales 110, 黒炎の支配者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/110/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/110/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ninetales</div>
         <div class="rr">黒炎の支配者 &bull; 110</div>
         

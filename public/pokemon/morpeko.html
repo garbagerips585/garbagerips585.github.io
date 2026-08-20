@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/morpeko.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -246,7 +248,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me05/117/high.webp"
@@ -254,7 +271,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="117" data-price="$94.73"
         data-set="Pitch Black"
         aria-label="Enlarge Morpeko ex, Pitch Black 117">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/117/low.avif"><img src="https://assets.tcgdex.net/en/me/me05/117/low.webp" onerror="this.remove()" alt="Morpeko ex 117, Pitch Black" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/117/low.avif"><img src="https://assets.tcgdex.net/en/me/me05/117/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Morpeko ex</div>
         <div class="rr">Pitch Black &bull; 117</div>
         <div class="rr">Special Illustration Rare</div>
@@ -266,7 +283,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="206" data-price="$48.50"
         data-set="Paradox Rift"
         aria-label="Enlarge Morpeko, Paradox Rift 206">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/206/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/206/low.webp" onerror="this.remove()" alt="Morpeko 206, Paradox Rift" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/206/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/206/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">Paradox Rift &bull; 206</div>
         <div class="rr">Illustration Rare</div>
@@ -278,7 +295,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="102" data-price="$7.14"
         data-set="Pitch Black"
         aria-label="Enlarge Morpeko ex, Pitch Black 102">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/102/low.avif"><img src="https://assets.tcgdex.net/en/me/me05/102/low.webp" onerror="this.remove()" alt="Morpeko ex 102, Pitch Black" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/102/low.avif"><img src="https://assets.tcgdex.net/en/me/me05/102/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Morpeko ex</div>
         <div class="rr">Pitch Black &bull; 102</div>
         <div class="rr">Ultra Rare</div>
@@ -290,7 +307,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="38" data-price="$3.74"
         data-set="Shining Fates"
         aria-label="Enlarge Morpeko VMAX, Shining Fates 38">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4.5/38/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4.5/38/low.webp" onerror="this.remove()" alt="Morpeko VMAX 38, Shining Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4.5/38/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4.5/38/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Morpeko VMAX</div>
         <div class="rr">Shining Fates &bull; 38</div>
         <div class="rr">Holo Rare VMAX</div>
@@ -302,7 +319,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="137" data-price="$1.77"
         data-set="Destined Rivals"
         aria-label="Enlarge Marnie's Morpeko, Destined Rivals 137">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/137/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/137/low.webp" onerror="this.remove()" alt="Marnie's Morpeko 137, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/137/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/137/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Marnie's Morpeko</div>
         <div class="rr">Destined Rivals &bull; 137</div>
         <div class="rr">Common</div>
@@ -314,7 +331,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="36" data-price="$1.67"
         data-set="Shining Fates"
         aria-label="Enlarge Morpeko, Shining Fates 36">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4.5/36/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4.5/36/low.webp" onerror="this.remove()" alt="Morpeko 36, Shining Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4.5/36/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4.5/36/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">Shining Fates &bull; 36</div>
         <div class="rr">Common</div>
@@ -326,7 +343,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="121" data-price="$1.62"
         data-set="Paradox Rift"
         aria-label="Enlarge Morpeko, Paradox Rift 121">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/121/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/121/low.webp" onerror="this.remove()" alt="Morpeko 121, Paradox Rift" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/121/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/121/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">Paradox Rift &bull; 121</div>
         <div class="rr">Rare</div>
@@ -338,7 +355,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="73" data-price="$1.61"
         data-set="Rebel Clash"
         aria-label="Enlarge Morpeko, Rebel Clash 73">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/73/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/73/low.webp" onerror="this.remove()" alt="Morpeko 73, Rebel Clash" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/73/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/73/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">Rebel Clash &bull; 73</div>
         <div class="rr">Uncommon</div>
@@ -350,7 +367,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="055" data-price="$1.55"
         data-set="Pitch Black"
         aria-label="Enlarge Morpeko ex, Pitch Black 055">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/055/low.avif"><img src="https://assets.tcgdex.net/en/me/me05/055/low.webp" onerror="this.remove()" alt="Morpeko ex 055, Pitch Black" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/055/low.avif"><img src="https://assets.tcgdex.net/en/me/me05/055/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Morpeko ex</div>
         <div class="rr">Pitch Black &bull; 055</div>
         <div class="rr">Double Rare</div>
@@ -362,7 +379,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="37" data-price="$1.41"
         data-set="Shining Fates"
         aria-label="Enlarge Morpeko V, Shining Fates 37">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4.5/37/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4.5/37/low.webp" onerror="this.remove()" alt="Morpeko V 37, Shining Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4.5/37/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4.5/37/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Morpeko V</div>
         <div class="rr">Shining Fates &bull; 37</div>
         <div class="rr">Holo Rare V</div>
@@ -374,7 +391,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="35" data-price="$1.22"
         data-set="Shining Fates"
         aria-label="Enlarge Morpeko, Shining Fates 35">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4.5/35/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4.5/35/low.webp" onerror="this.remove()" alt="Morpeko 35, Shining Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4.5/35/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4.5/35/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">Shining Fates &bull; 35</div>
         <div class="rr">Common</div>
@@ -386,7 +403,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="072" data-price="$1.19"
         data-set="Twilight Masquerade"
         aria-label="Enlarge Morpeko, Twilight Masquerade 072">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/072/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06/072/low.webp" onerror="this.remove()" alt="Morpeko 072, Twilight Masquerade" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/072/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06/072/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">Twilight Masquerade &bull; 072</div>
         <div class="rr">Uncommon</div>
@@ -430,189 +447,189 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/98/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/98/low.webp" onerror="this.remove()" alt="Morpeko 98, Battle Styles" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/98/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/98/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">Battle Styles &bull; 98</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/095/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/095/low.webp" onerror="this.remove()" alt="Morpeko V 095, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/095/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/095/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko V</div>
         <div class="rr">Brilliant Stars &bull; 095</div>
         <div class="rr">Holo Rare V</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/109/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/109/low.webp" onerror="this.remove()" alt="Morpeko 109, Fusion Strike" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/109/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/109/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">Fusion Strike &bull; 109</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/179/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/179/low.webp" onerror="this.remove()" alt="Morpeko 179, Fusion Strike" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/179/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/179/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">Fusion Strike &bull; 179</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/116/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/116/low.webp" onerror="this.remove()" alt="Morpeko 116, Silver Tempest" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/116/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/116/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">Silver Tempest &bull; 116</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/206/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/206/low.webp" onerror="this.remove()" alt="Marnie's Morpeko 206, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/206/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/206/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Marnie's Morpeko</div>
         <div class="rr">SVP Black Star Promos &bull; 206</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/190/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/190/low.webp" onerror="this.remove()" alt="Morpeko V 190, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/190/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/190/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko V</div>
         <div class="rr">Sword &amp; Shield &bull; 190</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/204/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/204/low.webp" onerror="this.remove()" alt="Morpeko VMAX 204, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/204/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/204/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko VMAX</div>
         <div class="rr">Sword &amp; Shield &bull; 204</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/78/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/78/low.webp" onerror="this.remove()" alt="Morpeko 78, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/78/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/78/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">Sword &amp; Shield &bull; 78</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/79/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/79/low.webp" onerror="this.remove()" alt="Morpeko V 79, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/79/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/79/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko V</div>
         <div class="rr">Sword &amp; Shield &bull; 79</div>
         <div class="rr">Holo Rare V</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/80/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/80/low.webp" onerror="this.remove()" alt="Morpeko VMAX 80, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/80/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/80/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko VMAX</div>
         <div class="rr">Sword &amp; Shield &bull; 80</div>
         <div class="rr">Holo Rare VMAX</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH012/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH012/low.webp" onerror="this.remove()" alt="Morpeko SWSH012, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH012/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH012/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH012</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH031/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH031/low.webp" onerror="this.remove()" alt="Morpeko SWSH031, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH031/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH031/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH031</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH056/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH056/low.webp" onerror="this.remove()" alt="Morpeko V SWSH056, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH056/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH056/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko V</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH056</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH116/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH116/low.webp" onerror="this.remove()" alt="Morpeko SWSH116, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH116/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH116/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH116</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH215/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH215/low.webp" onerror="this.remove()" alt="Morpeko V-UNION SWSH215, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH215/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH215/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko V-UNION</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH215</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH216/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH216/low.webp" onerror="this.remove()" alt="Morpeko V-UNION SWSH216, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH216/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH216/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko V-UNION</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH216</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH217/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH217/low.webp" onerror="this.remove()" alt="Morpeko V-UNION SWSH217, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH217/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH217/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko V-UNION</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH217</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH218/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH218/low.webp" onerror="this.remove()" alt="Morpeko V-UNION SWSH218, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH218/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH218/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko V-UNION</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH218</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/056/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/056/low.webp" onerror="this.remove()" alt="Morpeko 056, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/056/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/056/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">VMAXクライマックス &bull; 056</div>
         <div class="rr">Triple Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/226/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/226/low.webp" onerror="this.remove()" alt="Morpeko 226, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/226/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/226/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">VMAXクライマックス &bull; 226</div>
         <div class="rr">Character Super Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5a/030/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5a/030/low.webp" onerror="this.remove()" alt="Morpeko 030, クリムゾンヘイズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5a/030/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5a/030/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">クリムゾンヘイズ &bull; 030</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV8a/098/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV8a/098/low.webp" onerror="this.remove()" alt="Morpeko 098, テラスタルフェスex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV8a/098/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV8a/098/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">テラスタルフェスex &bull; 098</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12/062/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12/062/low.webp" onerror="this.remove()" alt="Morpeko 062, パラダイムトリガー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12/062/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12/062/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">パラダイムトリガー &bull; 062</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S5I/047/low.avif"><img src="https://assets.tcgdex.net/ja/S/S5I/047/low.webp" onerror="this.remove()" alt="Morpeko 047, 一撃マスター" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S5I/047/low.avif"><img src="https://assets.tcgdex.net/ja/S/S5I/047/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">一撃マスター &bull; 047</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4K/051/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4K/051/low.webp" onerror="this.remove()" alt="Morpeko 051, 古代の咆哮" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4K/051/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4K/051/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">古代の咆哮 &bull; 051</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4K/076/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4K/076/low.webp" onerror="this.remove()" alt="Morpeko 076, 古代の咆哮" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4K/076/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4K/076/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Morpeko</div>
         <div class="rr">古代の咆哮 &bull; 076</div>
         

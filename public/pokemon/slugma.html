@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/slugma.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv10/035/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="035" data-price="$0.53"
         data-set="Destined Rivals"
         aria-label="Enlarge Ethan's Slugma, Destined Rivals 035">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/035/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/035/low.webp" onerror="this.remove()" alt="Ethan's Slugma 035, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/035/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/035/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ethan's Slugma</div>
         <div class="rr">Destined Rivals &bull; 035</div>
         <div class="rr">Common</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="028" data-price="$0.40"
         data-set="Twilight Masquerade"
         aria-label="Enlarge Slugma, Twilight Masquerade 028">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/028/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06/028/low.webp" onerror="this.remove()" alt="Slugma 028, Twilight Masquerade" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/028/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06/028/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Twilight Masquerade &bull; 028</div>
         <div class="rr">Common</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="023" data-price="$0.17"
         data-set="Ascended Heroes"
         aria-label="Enlarge Ethan's Slugma, Ascended Heroes 023">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/023/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/023/low.webp" onerror="this.remove()" alt="Ethan's Slugma 023, Ascended Heroes" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/023/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/023/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ethan's Slugma</div>
         <div class="rr">Ascended Heroes &bull; 023</div>
         <div class="rr">Common</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="028" data-price="$0.15"
         data-set="Temporal Forces"
         aria-label="Enlarge Slugma, Temporal Forces 028">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/028/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/028/low.webp" onerror="this.remove()" alt="Slugma 028, Temporal Forces" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/028/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/028/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Temporal Forces &bull; 028</div>
         <div class="rr">Common</div>
@@ -336,217 +353,217 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/23/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/23/low.webp" onerror="this.remove()" alt="Slugma 23, Celestial Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/23/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/23/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Celestial Storm &bull; 23</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/26/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/26/low.webp" onerror="this.remove()" alt="Slugma 26, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/26/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/26/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Cosmic Eclipse &bull; 26</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/74/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/74/low.webp" onerror="this.remove()" alt="Slugma 74, Deoxys" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/74/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/74/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Deoxys &bull; 74</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/75/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/75/low.webp" onerror="this.remove()" alt="Slugma 75, Deoxys" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/75/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/75/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Deoxys &bull; 75</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/72/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/72/low.webp" onerror="this.remove()" alt="Slugma 72, Dragon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/72/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/72/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Dragon &bull; 72</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/34/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/34/low.webp" onerror="this.remove()" alt="Slugma 34, Fusion Strike" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/34/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/34/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Fusion Strike &bull; 34</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp4/83/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp4/83/low.webp" onerror="this.remove()" alt="Slugma 83, Great Encounters" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp4/83/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp4/83/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Great Encounters &bull; 83</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/010/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/010/low.webp" onerror="this.remove()" alt="Slugma 010, GXウルトラシャイニー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/010/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/010/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">GXウルトラシャイニー &bull; 010</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy0/6/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy0/6/low.webp" onerror="this.remove()" alt="Slugma 6, Kalos Starter Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy0/6/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy0/6/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Kalos Starter Set &bull; 6</div>
         
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/021/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/021/low.webp" onerror="this.remove()" alt="Slugma 021, Lost Origin" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/021/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/021/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Lost Origin &bull; 021</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/43/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/43/low.webp" onerror="this.remove()" alt="Slugma 43, Lost Thunder" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/43/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/43/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Lost Thunder &bull; 43</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/82/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/82/low.webp" onerror="this.remove()" alt="Slugma 82, Neo Destiny" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/82/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/82/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Neo Destiny &bull; 82</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo3/53/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo3/53/low.webp" onerror="this.remove()" alt="Slugma 53, Neo Revelation" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo3/53/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo3/53/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Neo Revelation &bull; 53</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy5/22/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy5/22/low.webp" onerror="this.remove()" alt="Slugma 22, Primal Clash" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy5/22/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy5/22/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Primal Clash &bull; 22</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4a/008/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4a/008/low.webp" onerror="this.remove()" alt="Slugma 008, Secluded Springs" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4a/008/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4a/008/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Secluded Springs &bull; 008</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/98/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/98/low.webp" onerror="this.remove()" alt="Slugma 98, Skyridge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/98/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/98/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Skyridge &bull; 98</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/99/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/99/low.webp" onerror="this.remove()" alt="Slugma 99, Skyridge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/99/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/99/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Skyridge &bull; 99</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/025/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/025/low.webp" onerror="this.remove()" alt="Slugma 025, Space-Time Smackdown" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/025/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/025/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Space-Time Smackdown &bull; 025</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/77/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/77/low.webp" onerror="this.remove()" alt="Slugma 77, Team Rocket Returns" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/77/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/77/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Team Rocket Returns &bull; 77</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/67/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/67/low.webp" onerror="this.remove()" alt="Slugma 67, Undaunted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/67/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/67/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Undaunted &bull; 67</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/73/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/73/low.webp" onerror="this.remove()" alt="Slugma 73, Unseen Forces" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/73/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/73/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Unseen Forces &bull; 73</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/27/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/27/low.webp" onerror="this.remove()" alt="Slugma 27, Vivid Voltage" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/27/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/27/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Vivid Voltage &bull; 27</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/030/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/030/low.webp" onerror="this.remove()" alt="Slugma 030, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/030/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/030/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 030</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy1/20/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy1/20/low.webp" onerror="this.remove()" alt="Slugma 20, XY" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy1/20/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy1/20/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">XY &bull; 20</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5a/012/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5a/012/low.webp" onerror="this.remove()" alt="Slugma 012, クリムゾンヘイズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5a/012/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5a/012/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">クリムゾンヘイズ &bull; 012</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5M/017/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5M/017/low.webp" onerror="this.remove()" alt="Slugma 017, サイバージャッジ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5M/017/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5M/017/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">サイバージャッジ &bull; 017</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6b/009/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6b/009/low.webp" onerror="this.remove()" alt="Slugma 009, チャンピオンロード" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6b/009/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6b/009/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">チャンピオンロード &bull; 009</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11b/004/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11b/004/low.webp" onerror="this.remove()" alt="Slugma 004, ドリームリーグ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11b/004/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11b/004/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">ドリームリーグ &bull; 004</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/015/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/015/low.webp" onerror="this.remove()" alt="Slugma 015, ロストアビス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/015/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/015/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">ロストアビス &bull; 015</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9a/018/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9a/018/low.webp" onerror="this.remove()" alt="Slugma 018, 熱風のアリーナ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9a/018/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9a/018/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">熱風のアリーナ &bull; 018</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7a/011/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7a/011/low.webp" onerror="this.remove()" alt="Slugma 011, 迅雷スパーク" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7a/011/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7a/011/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slugma</div>
         <div class="rr">迅雷スパーク &bull; 011</div>
         <div class="rr">Common</div>

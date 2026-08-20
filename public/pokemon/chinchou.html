@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/chinchou.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv07/048/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="048" data-price="$0.14"
         data-set="Stellar Crown"
         aria-label="Enlarge Chinchou, Stellar Crown 048">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv07/048/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv07/048/low.webp" onerror="this.remove()" alt="Chinchou 048, Stellar Crown" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv07/048/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv07/048/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Stellar Crown &bull; 048</div>
         <div class="rr">Common</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="020" data-price="$0.12"
         data-set="Paldean Fates"
         aria-label="Enlarge Chinchou, Paldean Fates 020">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/020/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/020/low.webp" onerror="this.remove()" alt="Chinchou 020, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/020/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/020/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Paldean Fates &bull; 020</div>
         <div class="rr">Common</div>
@@ -291,224 +308,224 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/70/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/70/low.webp" onerror="this.remove()" alt="Chinchou 70, Aquapolis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/70/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/70/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Aquapolis &bull; 70</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/71/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/71/low.webp" onerror="this.remove()" alt="Chinchou 71, Aquapolis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/71/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/71/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Aquapolis &bull; 71</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/55/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/55/low.webp" onerror="this.remove()" alt="Chinchou 55, Boundaries Crossed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/55/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/55/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Boundaries Crossed &bull; 55</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/49/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/49/low.webp" onerror="this.remove()" alt="Chinchou 49, Celestial Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/49/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/49/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Celestial Storm &bull; 49</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/71/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/71/low.webp" onerror="this.remove()" alt="Chinchou 71, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/71/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/71/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Cosmic Eclipse &bull; 71</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/52/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/52/low.webp" onerror="this.remove()" alt="Chinchou 52, Evolving Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/52/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/52/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Evolving Skies &bull; 52</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/56/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/56/low.webp" onerror="this.remove()" alt="Chinchou 56, Hidden Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/56/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/56/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Hidden Legends &bull; 56</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/57/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/57/low.webp" onerror="this.remove()" alt="Chinchou 57, Hidden Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/57/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/57/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Hidden Legends &bull; 57</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex12/50/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex12/50/low.webp" onerror="this.remove()" alt="Chinchou 50, Legend Maker" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex12/50/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex12/50/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Legend Maker &bull; 50</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/87/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/87/low.webp" onerror="this.remove()" alt="Chinchou 87, Legends Awakened" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/87/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/87/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Legends Awakened &bull; 87</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/88/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/88/low.webp" onerror="this.remove()" alt="Chinchou 88, Legends Awakened" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/88/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/88/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Legends Awakened &bull; 88</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/73/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/73/low.webp" onerror="this.remove()" alt="Chinchou 73, Lost Thunder" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/73/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/73/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Lost Thunder &bull; 73</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo1/55/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo1/55/low.webp" onerror="this.remove()" alt="Chinchou 55, Neo Genesis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo1/55/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo1/55/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Neo Genesis &bull; 55</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo3/42/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo3/42/low.webp" onerror="this.remove()" alt="Chinchou 42, Neo Revelation" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo3/42/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo3/42/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Neo Revelation &bull; 42</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/35/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/35/low.webp" onerror="this.remove()" alt="Chinchou 35, Plasma Freeze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/35/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/35/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Plasma Freeze &bull; 35</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex16/49/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex16/49/low.webp" onerror="this.remove()" alt="Chinchou 49, Power Keepers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex16/49/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex16/49/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Power Keepers &bull; 49</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy5/57/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy5/57/low.webp" onerror="this.remove()" alt="Chinchou 57, Primal Clash" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy5/57/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy5/57/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Primal Clash &bull; 57</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/051/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/051/low.webp" onerror="this.remove()" alt="Chinchou 051, Silver Tempest" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/051/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/051/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Silver Tempest &bull; 051</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm1/49/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm1/49/low.webp" onerror="this.remove()" alt="Chinchou 49, Sun &amp; Moon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm1/49/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm1/49/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Sun &amp; Moon &bull; 49</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/67/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/67/low.webp" onerror="this.remove()" alt="Chinchou 67, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/67/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/67/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Sword &amp; Shield &bull; 67</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/68/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/68/low.webp" onerror="this.remove()" alt="Chinchou 68, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/68/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/68/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Sword &amp; Shield &bull; 68</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/49/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/49/low.webp" onerror="this.remove()" alt="Team Aqua's Chinchou 49, Team Magma vs Team Aqua" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/49/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/49/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Team Aqua's Chinchou</div>
         <div class="rr">Team Magma vs Team Aqua &bull; 49</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/48/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/48/low.webp" onerror="this.remove()" alt="Chinchou 48, Unleashed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/48/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/48/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Unleashed &bull; 48</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/52/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/52/low.webp" onerror="this.remove()" alt="Chinchou 52, Unseen Forces" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/52/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/52/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Unseen Forces &bull; 52</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/064/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/064/low.webp" onerror="this.remove()" alt="Chinchou 064, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/064/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/064/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 064</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12/026/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12/026/low.webp" onerror="this.remove()" alt="Chinchou 026, オルタージェネシス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12/026/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12/026/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">オルタージェネシス &bull; 026</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM1M/017/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM1M/017/low.webp" onerror="this.remove()" alt="Chinchou 017, コレクションムーン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM1M/017/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM1M/017/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">コレクションムーン &bull; 017</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV7/030/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV7/030/low.webp" onerror="this.remove()" alt="Chinchou 030, ステラミラクル" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV7/030/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV7/030/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">ステラミラクル &bull; 030</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6b/023/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6b/023/low.webp" onerror="this.remove()" alt="Chinchou 023, チャンピオンロード" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6b/023/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6b/023/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">チャンピオンロード &bull; 023</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3a/012/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3a/012/low.webp" onerror="this.remove()" alt="Chinchou 012, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3a/012/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3a/012/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">レイジングサーフ &bull; 012</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/035/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/035/low.webp" onerror="this.remove()" alt="Chinchou 035, ロストアビス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/035/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/035/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">ロストアビス &bull; 035</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8/031/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8/031/low.webp" onerror="this.remove()" alt="Chinchou 031, 超爆インパクト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8/031/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8/031/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chinchou</div>
         <div class="rr">超爆インパクト &bull; 031</div>
         <div class="rr">Common</div>

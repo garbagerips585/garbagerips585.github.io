@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/druddigon.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -246,7 +248,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv10.5w/151/high.webp"
@@ -254,7 +271,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="151" data-price="$23.74"
         data-set="White Flare"
         aria-label="Enlarge Druddigon, White Flare 151">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/151/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/151/low.webp" onerror="this.remove()" alt="Druddigon 151, White Flare" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/151/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/151/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Druddigon</div>
         <div class="rr">White Flare &bull; 151</div>
         <div class="rr">Illustration Rare</div>
@@ -266,7 +283,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="115" data-price="$0.72"
         data-set="Journey Together"
         aria-label="Enlarge Druddigon, Journey Together 115">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/115/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/115/low.webp" onerror="this.remove()" alt="Druddigon 115, Journey Together" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/115/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/115/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Druddigon</div>
         <div class="rr">Journey Together &bull; 115</div>
         <div class="rr">Common</div>
@@ -278,7 +295,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="071" data-price="$0.47"
         data-set="White Flare"
         aria-label="Enlarge Druddigon, White Flare 071">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/071/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/071/low.webp" onerror="this.remove()" alt="Druddigon 071, White Flare" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/071/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/071/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Druddigon</div>
         <div class="rr">White Flare &bull; 071</div>
         <div class="rr">Uncommon</div>
@@ -322,112 +339,112 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/113/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/113/low.webp" onerror="this.remove()" alt="Druddigon 113, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/113/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/113/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Druddigon</div>
         <div class="rr">Brilliant Stars &bull; 113</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW80/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW80/low.webp" onerror="this.remove()" alt="Druddigon BW80, BW Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW80/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW80/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Druddigon</div>
         <div class="rr">BW Black Star Promos &bull; BW80</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/dv1/17/low.avif"><img src="https://assets.tcgdex.net/en/bw/dv1/17/low.webp" onerror="this.remove()" alt="Druddigon 17, Dragon Vault" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/dv1/17/low.avif"><img src="https://assets.tcgdex.net/en/bw/dv1/17/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Druddigon</div>
         <div class="rr">Dragon Vault &bull; 17</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/70/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/70/low.webp" onerror="this.remove()" alt="Druddigon 70, Flashfire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/70/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/70/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Druddigon</div>
         <div class="rr">Flashfire &bull; 70</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/106/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/106/low.webp" onerror="this.remove()" alt="Druddigon 106, Legendary Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/106/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/106/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Druddigon</div>
         <div class="rr">Legendary Treasures &bull; 106</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1a/056/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1a/056/low.webp" onerror="this.remove()" alt="Druddigon 056, Mythical Island" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1a/056/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1a/056/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Druddigon</div>
         <div class="rr">Mythical Island &bull; 056</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw3/89/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw3/89/low.webp" onerror="this.remove()" alt="Druddigon 89, Noble Victories" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw3/89/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw3/89/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Druddigon</div>
         <div class="rr">Noble Victories &bull; 89</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw10/70/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw10/70/low.webp" onerror="this.remove()" alt="Druddigon 70, Plasma Blast" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw10/70/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw10/70/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Druddigon</div>
         <div class="rr">Plasma Blast &bull; 70</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw8/94/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw8/94/low.webp" onerror="this.remove()" alt="Druddigon 94, Plasma Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw8/94/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw8/94/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Druddigon</div>
         <div class="rr">Plasma Storm &bull; 94</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy11/83/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy11/83/low.webp" onerror="this.remove()" alt="Druddigon 83, Steam Siege" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy11/83/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy11/83/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Druddigon</div>
         <div class="rr">Steam Siege &bull; 83</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm11/157/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm11/157/low.webp" onerror="this.remove()" alt="Druddigon 157, Unified Minds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm11/157/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm11/157/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Druddigon</div>
         <div class="rr">Unified Minds &bull; 157</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/121/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/121/low.webp" onerror="this.remove()" alt="Druddigon 121, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/121/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/121/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Druddigon</div>
         <div class="rr">VMAXクライマックス &bull; 121</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/209/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/209/low.webp" onerror="this.remove()" alt="Druddigon 209, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/209/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/209/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Druddigon</div>
         <div class="rr">VMAXクライマックス &bull; 209</div>
         <div class="rr">Character Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10b/033/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10b/033/low.webp" onerror="this.remove()" alt="Druddigon 033, スカイレジェンド" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10b/033/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10b/033/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Druddigon</div>
         <div class="rr">スカイレジェンド &bull; 033</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6a/032/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6a/032/low.webp" onerror="this.remove()" alt="Druddigon 032, ドラゴンストーム" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6a/032/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6a/032/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Druddigon</div>
         <div class="rr">ドラゴンストーム &bull; 032</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9/073/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9/073/low.webp" onerror="this.remove()" alt="Druddigon 073, バトルパートナーズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9/073/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9/073/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Druddigon</div>
         <div class="rr">バトルパートナーズ &bull; 073</div>
         <div class="rr">Common</div>

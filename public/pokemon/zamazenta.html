@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/zamazenta.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -246,7 +248,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv10/201/high.webp"
@@ -254,7 +271,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="201" data-price="$5.40"
         data-set="Destined Rivals"
         aria-label="Enlarge Zamazenta, Destined Rivals 201">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/201/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/201/low.webp" onerror="this.remove()" alt="Zamazenta 201, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/201/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/201/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Zamazenta</div>
         <div class="rr">Destined Rivals &bull; 201</div>
         <div class="rr">Illustration Rare</div>
@@ -266,7 +283,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="099" data-price="$2.11"
         data-set="Crown Zenith"
         aria-label="Enlarge Zamazenta VSTAR, Crown Zenith 099">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/099/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/099/low.webp" onerror="this.remove()" alt="Zamazenta VSTAR 099, Crown Zenith" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/099/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/099/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Zamazenta VSTAR</div>
         <div class="rr">Crown Zenith &bull; 099</div>
         <div class="rr">Holo Rare VSTAR</div>
@@ -278,7 +295,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="098" data-price="$1.50"
         data-set="Crown Zenith"
         aria-label="Enlarge Zamazenta V, Crown Zenith 098">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/098/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/098/low.webp" onerror="this.remove()" alt="Zamazenta V 098, Crown Zenith" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/098/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/098/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Zamazenta V</div>
         <div class="rr">Crown Zenith &bull; 098</div>
         <div class="rr">Holo Rare V</div>
@@ -290,7 +307,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="18" data-price="$1.41"
         data-set="Celebrations"
         aria-label="Enlarge Zamazenta V, Celebrations 18">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/18/low.avif"><img src="https://assets.tcgdex.net/en/swsh/cel25/18/low.webp" onerror="this.remove()" alt="Zamazenta V 18, Celebrations" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/18/low.avif"><img src="https://assets.tcgdex.net/en/swsh/cel25/18/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Zamazenta V</div>
         <div class="rr">Celebrations &bull; 18</div>
         <div class="rr">Holo Rare V</div>
@@ -302,7 +319,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="140" data-price="$0.95"
         data-set="Rebel Clash"
         aria-label="Enlarge Zamazenta, Rebel Clash 140">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/140/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/140/low.webp" onerror="this.remove()" alt="Zamazenta 140, Rebel Clash" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/140/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/140/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Zamazenta</div>
         <div class="rr">Rebel Clash &bull; 140</div>
         <div class="rr">Rare</div>
@@ -314,7 +331,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="146" data-price="$0.95"
         data-set="Destined Rivals"
         aria-label="Enlarge Zamazenta, Destined Rivals 146">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/146/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/146/low.webp" onerror="this.remove()" alt="Zamazenta 146, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/146/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/146/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Zamazenta</div>
         <div class="rr">Destined Rivals &bull; 146</div>
         <div class="rr">Rare</div>
@@ -326,7 +343,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="097" data-price="$0.92"
         data-set="Crown Zenith"
         aria-label="Enlarge Zamazenta, Crown Zenith 097">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/097/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/097/low.webp" onerror="this.remove()" alt="Zamazenta 097, Crown Zenith" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/097/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/097/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Zamazenta</div>
         <div class="rr">Crown Zenith &bull; 097</div>
         <div class="rr">Holo Rare</div>
@@ -370,112 +387,112 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/105/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/105/low.webp" onerror="this.remove()" alt="Zamazenta V 105, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/105/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/105/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zamazenta V</div>
         <div class="rr">Brilliant Stars &bull; 105</div>
         <div class="rr">Holo Rare V</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/163/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/163/low.webp" onerror="this.remove()" alt="Zamazenta V 163, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/163/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/163/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zamazenta V</div>
         <div class="rr">Brilliant Stars &bull; 163</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/139/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/139/low.webp" onerror="this.remove()" alt="Zamazenta V 139, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/139/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/139/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zamazenta V</div>
         <div class="rr">Sword &amp; Shield &bull; 139</div>
         <div class="rr">Holo Rare V</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/196/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/196/low.webp" onerror="this.remove()" alt="Zamazenta V 196, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/196/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/196/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zamazenta V</div>
         <div class="rr">Sword &amp; Shield &bull; 196</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/212/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/212/low.webp" onerror="this.remove()" alt="Zamazenta V 212, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/212/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/212/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zamazenta V</div>
         <div class="rr">Sword &amp; Shield &bull; 212</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH019/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH019/low.webp" onerror="this.remove()" alt="Zamazenta V SWSH019, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH019/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH019/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zamazenta V</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH019</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH034/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH034/low.webp" onerror="this.remove()" alt="Zamazenta SWSH034, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH034/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH034/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zamazenta</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH034</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH077/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH077/low.webp" onerror="this.remove()" alt="Zamazenta V SWSH077, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH077/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH077/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zamazenta V</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH077</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/102/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/102/low.webp" onerror="this.remove()" alt="Zamazenta 102, Vivid Voltage" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/102/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/102/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zamazenta</div>
         <div class="rr">Vivid Voltage &bull; 102</div>
         <div class="rr">Amazing Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/118/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/118/low.webp" onerror="this.remove()" alt="Zamazenta 118, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/118/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/118/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zamazenta</div>
         <div class="rr">VMAXクライマックス &bull; 118</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/251/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/251/low.webp" onerror="this.remove()" alt="Zamazenta 251, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/251/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/251/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zamazenta</div>
         <div class="rr">VMAXクライマックス &bull; 251</div>
         <div class="rr">Character Super Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/103/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/103/low.webp" onerror="this.remove()" alt="Zamazenta 103, VSTARユニバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/103/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/103/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zamazenta</div>
         <div class="rr">VSTARユニバース &bull; 103</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/232/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/232/low.webp" onerror="this.remove()" alt="Zamazenta 232, VSTARユニバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/232/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/232/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zamazenta</div>
         <div class="rr">VSTARユニバース &bull; 232</div>
         <div class="rr">Special Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/075/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/075/low.webp" onerror="this.remove()" alt="Zamazenta 075, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/075/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/075/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zamazenta</div>
         <div class="rr">ロケット団の栄光 &bull; 075</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/107/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/107/low.webp" onerror="this.remove()" alt="Zamazenta 107, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/107/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/107/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zamazenta</div>
         <div class="rr">ロケット団の栄光 &bull; 107</div>
         <div class="rr">Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11a/053/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11a/053/low.webp" onerror="this.remove()" alt="Zamazenta 053, 白熱のアルカナ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11a/053/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11a/053/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Zamazenta</div>
         <div class="rr">白熱のアルカナ &bull; 053</div>
         <div class="rr">Rare</div>

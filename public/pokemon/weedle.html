@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/weedle.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me04/001/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="001" data-price="$1.42"
         data-set="Chaos Rising"
         aria-label="Enlarge Weedle, Chaos Rising 001">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/001/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/001/low.webp" onerror="this.remove()" alt="Weedle 001, Chaos Rising" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/001/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/001/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Chaos Rising &bull; 001</div>
         <div class="rr">Common</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="1" data-price="$0.44"
         data-set="Chilling Reign"
         aria-label="Enlarge Weedle, Chilling Reign 1">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/1/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/1/low.webp" onerror="this.remove()" alt="Weedle 1, Chilling Reign" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/1/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/1/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Chilling Reign &bull; 1</div>
         <div class="rr">Common</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="013" data-price="$0.33"
         data-set="151"
         aria-label="Enlarge Weedle, 151 013">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/013/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/013/low.webp" onerror="this.remove()" alt="Weedle 013, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/013/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/013/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">151 &bull; 013</div>
         <div class="rr">Common</div>
@@ -324,217 +341,217 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/69/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/69/low.webp" onerror="this.remove()" alt="Weedle 69, Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/69/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/69/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Base Set &bull; 69</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/100/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/100/low.webp" onerror="this.remove()" alt="Weedle 100, Base Set 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/100/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/100/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Base Set 2 &bull; 100</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3.5/2/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3.5/2/low.webp" onerror="this.remove()" alt="Weedle 2, Champion's Path" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3.5/2/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3.5/2/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Champion's Path &bull; 2</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/1/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/1/low.webp" onerror="this.remove()" alt="Weedle 1, Crimson Invasion" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/1/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Crimson Invasion &bull; 1</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex11/87/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex11/87/low.webp" onerror="this.remove()" alt="Weedle 87, Delta Species" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex11/87/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex11/87/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Delta Species &bull; 87</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/5/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/5/low.webp" onerror="this.remove()" alt="Weedle 5, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/5/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/5/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Evolutions &bull; 5</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/86/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/86/low.webp" onerror="this.remove()" alt="Weedle 86, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/86/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/86/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 86</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/008/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/008/low.webp" onerror="this.remove()" alt="Weedle 008, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/008/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/008/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Genetic Apex &bull; 008</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp4/93/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp4/93/low.webp" onerror="this.remove()" alt="Weedle 93, Great Encounters" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp4/93/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp4/93/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Great Encounters &bull; 93</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/82/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/82/low.webp" onerror="this.remove()" alt="Koga's Weedle 82, Gym Challenge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/82/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/82/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koga's Weedle</div>
         <div class="rr">Gym Challenge &bull; 82</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy0/1/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy0/1/low.webp" onerror="this.remove()" alt="Weedle 1, Kalos Starter Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy0/1/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy0/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Kalos Starter Set &bull; 1</div>
         
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/99/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/99/low.webp" onerror="this.remove()" alt="Weedle 99, Legendary Collection" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/99/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/99/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Legendary Collection &bull; 99</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo2/70/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo2/70/low.webp" onerror="this.remove()" alt="Weedle 70, Neo Discovery" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo2/70/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo2/70/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Neo Discovery &bull; 70</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/1/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/1/low.webp" onerror="this.remove()" alt="Weedle 1, Plasma Freeze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/1/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Plasma Freeze &bull; 1</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy5/1/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy5/1/low.webp" onerror="this.remove()" alt="Weedle 1, Primal Clash" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy5/1/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy5/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Primal Clash &bull; 1</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl2/86/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl2/86/low.webp" onerror="this.remove()" alt="Weedle 86, Rising Rivals" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl2/86/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl2/86/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Rising Rivals &bull; 86</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/001/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/001/low.webp" onerror="this.remove()" alt="Weedle 001, Shining Revelry" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/001/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/001/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Shining Revelry &bull; 001</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/097/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/097/low.webp" onerror="this.remove()" alt="Weedle 097, Shining Revelry" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/097/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/097/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Shining Revelry &bull; 097</div>
         <div class="rr">One Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/114/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/114/low.webp" onerror="this.remove()" alt="Weedle 114, Skyridge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/114/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/114/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Skyridge &bull; 114</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/115/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/115/low.webp" onerror="this.remove()" alt="Weedle 115, Skyridge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/115/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/115/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Skyridge &bull; 115</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/2/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/2/low.webp" onerror="this.remove()" alt="Weedle 2, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/2/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/2/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Team Up &bull; 2</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/3/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/3/low.webp" onerror="this.remove()" alt="Weedle 3, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/3/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/3/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Team Up &bull; 3</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/69/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/69/low.webp" onerror="this.remove()" alt="Weedle 69, Unleashed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/69/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/69/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Unleashed &bull; 69</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/1/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/1/low.webp" onerror="this.remove()" alt="Weedle 1, Vivid Voltage" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/1/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">Vivid Voltage &bull; 1</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/001/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/001/low.webp" onerror="this.remove()" alt="Weedle 001, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/001/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/001/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">VMAXクライマックス &bull; 001</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy1/3/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy1/3/low.webp" onerror="this.remove()" alt="Weedle 3, XY" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy1/3/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy1/3/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">XY &bull; 3</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/002/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/002/low.webp" onerror="this.remove()" alt="Weedle 002, タッグボルト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/002/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/002/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">タッグボルト &bull; 002</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/003/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/003/low.webp" onerror="this.remove()" alt="Weedle 003, タッグボルト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/003/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/003/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">タッグボルト &bull; 003</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/001/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/001/low.webp" onerror="this.remove()" alt="Weedle 001, ニンジャスピナー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/001/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/001/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">ニンジャスピナー &bull; 001</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/013/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/013/low.webp" onerror="this.remove()" alt="Weedle 013, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/013/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/013/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">ポケモンカード151 &bull; 013</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4A/001/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4A/001/low.webp" onerror="this.remove()" alt="Weedle 001, 超次元の暴獣" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4A/001/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4A/001/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weedle</div>
         <div class="rr">超次元の暴獣 &bull; 001</div>
         <div class="rr">Common</div>

@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/pupitar.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/swsh/swsh10.5/038/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="038" data-price="$0.77"
         data-set="Pokémon GO"
         aria-label="Enlarge Pupitar, Pokémon GO 038">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/038/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/038/low.webp" onerror="this.remove()" alt="Pupitar 038, Pokémon GO" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/038/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/038/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Pokémon GO &bull; 038</div>
         <div class="rr">Uncommon</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="095" data-price="$0.70"
         data-set="Destined Rivals"
         aria-label="Enlarge Team Rocket's Pupitar, Destined Rivals 095">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/095/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/095/low.webp" onerror="this.remove()" alt="Team Rocket's Pupitar 095, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/095/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/095/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Pupitar</div>
         <div class="rr">Destined Rivals &bull; 095</div>
         <div class="rr">Common</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="106" data-price="$0.50"
         data-set="Obsidian Flames"
         aria-label="Enlarge Pupitar, Obsidian Flames 106">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/106/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/106/low.webp" onerror="this.remove()" alt="Pupitar 106, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/106/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/106/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Obsidian Flames &bull; 106</div>
         <div class="rr">Uncommon</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="081" data-price="$0.32"
         data-set="Journey Together"
         aria-label="Enlarge Pupitar, Journey Together 081">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/081/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/081/low.webp" onerror="this.remove()" alt="Pupitar 081, Journey Together" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/081/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/081/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Journey Together &bull; 081</div>
         <div class="rr">Common</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="048" data-price="$0.28"
         data-set="Prismatic Evolutions"
         aria-label="Enlarge Pupitar, Prismatic Evolutions 048">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/048/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/048/low.webp" onerror="this.remove()" alt="Pupitar 048, Prismatic Evolutions" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/048/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/048/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Prismatic Evolutions &bull; 048</div>
         <div class="rr">Common</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="111" data-price="$0.25"
         data-set="Paldea Evolved"
         aria-label="Enlarge Pupitar, Paldea Evolved 111">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/111/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/111/low.webp" onerror="this.remove()" alt="Pupitar 111, Paldea Evolved" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/111/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/111/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Paldea Evolved &bull; 111</div>
         <div class="rr">Uncommon</div>
@@ -360,210 +377,210 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/56/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/56/low.webp" onerror="this.remove()" alt="Pupitar 56, Aquapolis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/56/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/56/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Aquapolis &bull; 56</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/75/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/75/low.webp" onerror="this.remove()" alt="Pupitar 75, Celestial Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/75/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/75/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Celestial Storm &bull; 75</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/87/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/87/low.webp" onerror="this.remove()" alt="Pupitar 87, Darkness Ablaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/87/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/87/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Darkness Ablaze &bull; 87</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex11/51/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex11/51/low.webp" onerror="this.remove()" alt="Pupitar δ 51, Delta Species" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex11/51/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex11/51/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar δ</div>
         <div class="rr">Delta Species &bull; 51</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/58/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/58/low.webp" onerror="this.remove()" alt="Pupitar 58, Dragon Frontiers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/58/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/58/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Dragon Frontiers &bull; 58</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/59/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/59/low.webp" onerror="this.remove()" alt="Pupitar δ 59, Dragon Frontiers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/59/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/59/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar δ</div>
         <div class="rr">Dragon Frontiers &bull; 59</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/90/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/90/low.webp" onerror="this.remove()" alt="Pupitar 90, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/90/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/90/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Expedition Base Set &bull; 90</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/42/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/42/low.webp" onerror="this.remove()" alt="Pupitar 42, Fates Collide" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/42/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/42/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Fates Collide &bull; 42</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/116/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/116/low.webp" onerror="this.remove()" alt="Pupitar 116, Lost Thunder" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/116/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/116/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Lost Thunder &bull; 116</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp2/59/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp2/59/low.webp" onerror="this.remove()" alt="Pupitar 59, Mysterious Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp2/59/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp2/59/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Mysterious Treasures &bull; 59</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/38/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/38/low.webp" onerror="this.remove()" alt="Dark Pupitar 38, Neo Destiny" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/38/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/38/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Pupitar</div>
         <div class="rr">Neo Destiny &bull; 38</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo2/45/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo2/45/low.webp" onerror="this.remove()" alt="Pupitar 45, Neo Discovery" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo2/45/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo2/45/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Neo Discovery &bull; 45</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop1/9/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop1/9/low.webp" onerror="this.remove()" alt="Pupitar 9, POP Series 1" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop1/9/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop1/9/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">POP Series 1 &bull; 9</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp7/47/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp7/47/low.webp" onerror="this.remove()" alt="Pupitar 47, Stormfront" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp7/47/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp7/47/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Stormfront &bull; 47</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/120/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/120/low.webp" onerror="this.remove()" alt="Pupitar 120, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/120/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/120/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">SVP Black Star Promos &bull; 120</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/40/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/40/low.webp" onerror="this.remove()" alt="Dark Pupitar 40, Team Rocket Returns" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/40/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/40/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Pupitar</div>
         <div class="rr">Team Rocket Returns &bull; 40</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/41/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/41/low.webp" onerror="this.remove()" alt="Dark Pupitar 41, Team Rocket Returns" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/41/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/41/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Pupitar</div>
         <div class="rr">Team Rocket Returns &bull; 41</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/80/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/80/low.webp" onerror="this.remove()" alt="Pupitar 80, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/80/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/80/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Team Up &bull; 80</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2a/040/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2a/040/low.webp" onerror="this.remove()" alt="Pupitar 040, Triumphant Light" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2a/040/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2a/040/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Triumphant Light &bull; 040</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/38/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/38/low.webp" onerror="this.remove()" alt="Pupitar 38, Unleashed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/38/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/38/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Unleashed &bull; 38</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/39/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/39/low.webp" onerror="this.remove()" alt="Pupitar 39, Unleashed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/39/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/39/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Unleashed &bull; 39</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/70/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/70/low.webp" onerror="this.remove()" alt="Pupitar 70, Unseen Forces" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/70/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/70/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Unseen Forces &bull; 70</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/104/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/104/low.webp" onerror="this.remove()" alt="Pupitar 104, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/104/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/104/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 104</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2D/037/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2D/037/low.webp" onerror="this.remove()" alt="Pupitar 037, クレイバースト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2D/037/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2D/037/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">クレイバースト &bull; 037</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8a/016/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8a/016/low.webp" onerror="this.remove()" alt="Pupitar 016, ダークオーダー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8a/016/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8a/016/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">ダークオーダー &bull; 016</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6b/036/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6b/036/low.webp" onerror="this.remove()" alt="Pupitar 036, チャンピオンロード" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6b/036/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6b/036/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">チャンピオンロード &bull; 036</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9/048/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9/048/low.webp" onerror="this.remove()" alt="Pupitar 048, バトルパートナーズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9/048/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9/048/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">バトルパートナーズ &bull; 048</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/049/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/049/low.webp" onerror="this.remove()" alt="Pupitar 049, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/049/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/049/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">ロケット団の栄光 &bull; 049</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8/055/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8/055/low.webp" onerror="this.remove()" alt="Pupitar 055, 超爆インパクト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8/055/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8/055/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">超爆インパクト &bull; 055</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/056/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/056/low.webp" onerror="this.remove()" alt="Pupitar 056, 黒炎の支配者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/056/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/056/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pupitar</div>
         <div class="rr">黒炎の支配者 &bull; 056</div>
         <div class="rr">Common</div>

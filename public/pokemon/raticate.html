@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/raticate.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv10/202/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="202" data-price="$6.80"
         data-set="Destined Rivals"
         aria-label="Enlarge Team Rocket's Raticate, Destined Rivals 202">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/202/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/202/low.webp" onerror="this.remove()" alt="Team Rocket's Raticate 202, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/202/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/202/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Raticate</div>
         <div class="rr">Destined Rivals &bull; 202</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="099" data-price="$3.00"
         data-set="Perfect Order"
         aria-label="Enlarge Raticate, Perfect Order 099">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/099/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/099/low.webp" onerror="this.remove()" alt="Raticate 099, Perfect Order" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/099/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/099/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">Perfect Order &bull; 099</div>
         <div class="rr">Illustration Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="061" data-price="$1.00"
         data-set="Perfect Order"
         aria-label="Enlarge Raticate, Perfect Order 061">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/061/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/061/low.webp" onerror="this.remove()" alt="Raticate 061, Perfect Order" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/061/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/061/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">Perfect Order &bull; 061</div>
         <div class="rr">Uncommon</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="042" data-price="$0.85"
         data-set="Pokémon GO"
         aria-label="Enlarge Alolan Raticate, Pokémon GO 042">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/042/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/042/low.webp" onerror="this.remove()" alt="Alolan Raticate 042, Pokémon GO" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/042/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/042/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Alolan Raticate</div>
         <div class="rr">Pokémon GO &bull; 042</div>
         <div class="rr">Common</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="020" data-price="$0.34"
         data-set="151"
         aria-label="Enlarge Raticate, 151 020">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/020/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/020/low.webp" onerror="this.remove()" alt="Raticate 020, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/020/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/020/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">151 &bull; 020</div>
         <div class="rr">Uncommon</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="148" data-price="$0.32"
         data-set="Destined Rivals"
         aria-label="Enlarge Team Rocket's Raticate, Destined Rivals 148">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/148/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/148/low.webp" onerror="this.remove()" alt="Team Rocket's Raticate 148, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/148/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/148/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Raticate</div>
         <div class="rr">Destined Rivals &bull; 148</div>
         <div class="rr">Common</div>
@@ -360,224 +377,224 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl4/29/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl4/29/low.webp" onerror="this.remove()" alt="Raticate 29, Arceus" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl4/29/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl4/29/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">Arceus &bull; 29</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/40/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/40/low.webp" onerror="this.remove()" alt="Raticate 40, Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/40/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/40/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">Base Set &bull; 40</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/58/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/58/low.webp" onerror="this.remove()" alt="Raticate 58, Base Set 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/58/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/58/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">Base Set 2 &bull; 58</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/105/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/105/low.webp" onerror="this.remove()" alt="Raticate 105, Boundaries Crossed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/105/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/105/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">Boundaries Crossed &bull; 105</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/88/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/88/low.webp" onerror="this.remove()" alt="Raticate 88, BREAKpoint" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/88/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/88/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">BREAKpoint &bull; 88</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/89/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/89/low.webp" onerror="this.remove()" alt="Raticate BREAK 89, BREAKpoint" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/89/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/89/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate BREAK</div>
         <div class="rr">BREAKpoint &bull; 89</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/82/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/82/low.webp" onerror="this.remove()" alt="Alolan Raticate 82, Burning Shadows" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/82/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/82/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Raticate</div>
         <div class="rr">Burning Shadows &bull; 82</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/107/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/107/low.webp" onerror="this.remove()" alt="Alolan Raticate 107, Celestial Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/107/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/107/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Raticate</div>
         <div class="rr">Celestial Guardians &bull; 107</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/85/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/85/low.webp" onerror="this.remove()" alt="Alolan Raticate GX 85, Celestial Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/85/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/85/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Raticate GX</div>
         <div class="rr">Celestial Storm &bull; 85</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/67/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/67/low.webp" onerror="this.remove()" alt="Raticate 67, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/67/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/67/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">Evolutions &bull; 67</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/48/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/48/low.webp" onerror="this.remove()" alt="Raticate 48, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/48/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/48/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 48</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/190/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/190/low.webp" onerror="this.remove()" alt="Raticate 190, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/190/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/190/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">Genetic Apex &bull; 190</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/53/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/53/low.webp" onerror="this.remove()" alt="Lt. Surge's Raticate 53, Gym Challenge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/53/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/53/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lt. Surge's Raticate</div>
         <div class="rr">Gym Challenge &bull; 53</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/51/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/51/low.webp" onerror="this.remove()" alt="Lt. Surge's Raticate 51, Gym Heroes" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/51/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/51/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lt. Surge's Raticate</div>
         <div class="rr">Gym Heroes &bull; 51</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/61/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/61/low.webp" onerror="this.remove()" alt="Raticate 61, Legendary Collection" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/61/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/61/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">Legendary Collection &bull; 61</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/88/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/88/low.webp" onerror="this.remove()" alt="Raticate 88, Plasma Freeze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/88/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/88/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">Plasma Freeze &bull; 88</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/61/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/61/low.webp" onerror="this.remove()" alt="Raticate 61, Secret Wonders" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/61/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/61/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">Secret Wonders &bull; 61</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/059/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/059/low.webp" onerror="this.remove()" alt="Raticate 059, Shining Revelry" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/059/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/059/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">Shining Revelry &bull; 059</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/89/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/89/low.webp" onerror="this.remove()" alt="Raticate 89, Skyridge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/89/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/89/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">Skyridge &bull; 89</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/si1/6/low.avif"><img src="https://assets.tcgdex.net/en/neo/si1/6/low.webp" onerror="this.remove()" alt="Raticate 6, Southern Islands" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/si1/6/low.avif"><img src="https://assets.tcgdex.net/en/neo/si1/6/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">Southern Islands &bull; 6</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm1/77/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm1/77/low.webp" onerror="this.remove()" alt="Alolan Raticate 77, Sun &amp; Moon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm1/77/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm1/77/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Raticate</div>
         <div class="rr">Sun &amp; Moon &bull; 77</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/78/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/78/low.webp" onerror="this.remove()" alt="Raticate G 78, Supreme Victors" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/78/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/78/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate G</div>
         <div class="rr">Supreme Victors &bull; 78</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/51/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/51/low.webp" onerror="this.remove()" alt="Dark Raticate 51, Team Rocket" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/51/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/51/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Raticate</div>
         <div class="rr">Team Rocket &bull; 51</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/17/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/17/low.webp" onerror="this.remove()" alt="Dark Raticate 17, Team Rocket Returns" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/17/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/17/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Raticate</div>
         <div class="rr">Team Rocket Returns &bull; 17</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/144/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/144/low.webp" onerror="this.remove()" alt="Raticate 144, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/144/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/144/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">Unbroken Bonds &bull; 144</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/34/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/34/low.webp" onerror="this.remove()" alt="Raticate 34, Undaunted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/34/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/34/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">Undaunted &bull; 34</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM1M/036/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM1M/036/low.webp" onerror="this.remove()" alt="Raticate 036, コレクションムーン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM1M/036/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM1M/036/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">コレクションムーン &bull; 036</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9a/040/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9a/040/low.webp" onerror="this.remove()" alt="Raticate 040, ナイトユニゾン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9a/040/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9a/040/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">ナイトユニゾン &bull; 040</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/020/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/020/low.webp" onerror="this.remove()" alt="Raticate 020, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/020/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/020/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">ポケモンカード151 &bull; 020</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/077/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/077/low.webp" onerror="this.remove()" alt="Raticate 077, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/077/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/077/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">ロケット団の栄光 &bull; 077</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/108/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/108/low.webp" onerror="this.remove()" alt="Raticate 108, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/108/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/108/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">ロケット団の栄光 &bull; 108</div>
         <div class="rr">Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM3N/035/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM3N/035/low.webp" onerror="this.remove()" alt="Raticate 035, 光を喰らう闇" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM3N/035/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM3N/035/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Raticate</div>
         <div class="rr">光を喰らう闇 &bull; 035</div>
         <div class="rr">Uncommon</div>

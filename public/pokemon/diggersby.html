@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/diggersby.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me03/065/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="065" data-price="$1.25"
         data-set="Perfect Order"
         aria-label="Enlarge Diggersby, Perfect Order 065">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/065/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/065/low.webp" onerror="this.remove()" alt="Diggersby 065, Perfect Order" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/065/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/065/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Diggersby</div>
         <div class="rr">Perfect Order &bull; 065</div>
         <div class="rr">Uncommon</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="113" data-price="$0.24"
         data-set="Obsidian Flames"
         aria-label="Enlarge Diggersby, Obsidian Flames 113">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/113/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/113/low.webp" onerror="this.remove()" alt="Diggersby 113, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/113/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/113/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Diggersby</div>
         <div class="rr">Obsidian Flames &bull; 113</div>
         <div class="rr">Uncommon</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="147" data-price="$0.24"
         data-set="Rebel Clash"
         aria-label="Enlarge Diggersby, Rebel Clash 147">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/147/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/147/low.webp" onerror="this.remove()" alt="Diggersby 147, Rebel Clash" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/147/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/147/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Diggersby</div>
         <div class="rr">Rebel Clash &bull; 147</div>
         <div class="rr">Rare</div>
@@ -324,84 +341,84 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/88/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/88/low.webp" onerror="this.remove()" alt="Diggersby 88, Crimson Invasion" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/88/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/88/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Diggersby</div>
         <div class="rr">Crimson Invasion &bull; 88</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/96/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/96/low.webp" onerror="this.remove()" alt="Diggersby 96, Darkness Ablaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/96/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/96/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Diggersby</div>
         <div class="rr">Darkness Ablaze &bull; 96</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/140/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/140/low.webp" onerror="this.remove()" alt="Diggersby 140, Fantastical Parade" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/140/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/140/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Diggersby</div>
         <div class="rr">Fantastical Parade &bull; 140</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm6/98/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm6/98/low.webp" onerror="this.remove()" alt="Diggersby 98, Forbidden Light" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm6/98/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm6/98/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Diggersby</div>
         <div class="rr">Forbidden Light &bull; 98</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/215/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/215/low.webp" onerror="this.remove()" alt="Diggersby 215, Fusion Strike" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/215/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/215/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Diggersby</div>
         <div class="rr">Fusion Strike &bull; 215</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy4/88/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy4/88/low.webp" onerror="this.remove()" alt="Diggersby 88, Phantom Forces" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy4/88/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy4/88/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Diggersby</div>
         <div class="rr">Phantom Forces &bull; 88</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy5/90/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy5/90/low.webp" onerror="this.remove()" alt="Diggersby 90, Primal Clash" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy5/90/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy5/90/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Diggersby</div>
         <div class="rr">Primal Clash &bull; 90</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy1/112/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy1/112/low.webp" onerror="this.remove()" alt="Diggersby 112, XY" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy1/112/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy1/112/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Diggersby</div>
         <div class="rr">XY &bull; 112</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8/084/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8/084/low.webp" onerror="this.remove()" alt="Diggersby 084, フュージョンアーツ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8/084/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8/084/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Diggersby</div>
         <div class="rr">フュージョンアーツ &bull; 084</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6/072/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6/072/low.webp" onerror="this.remove()" alt="Diggersby 072, 禁断の光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6/072/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6/072/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Diggersby</div>
         <div class="rr">禁断の光 &bull; 072</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4A/045/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4A/045/low.webp" onerror="this.remove()" alt="Diggersby 045, 超次元の暴獣" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4A/045/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4A/045/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Diggersby</div>
         <div class="rr">超次元の暴獣 &bull; 045</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/060/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/060/low.webp" onerror="this.remove()" alt="Diggersby 060, 黒炎の支配者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/060/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/060/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Diggersby</div>
         <div class="rr">黒炎の支配者 &bull; 060</div>
         <div class="rr">Common</div>

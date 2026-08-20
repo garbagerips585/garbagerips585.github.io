@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/snorunt.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -216,7 +218,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <div class="fact"><div class="n">$10</div><div class="l">Priciest one we price</div></div>
       <div class="fact"><div class="n">$0.23</div><div class="l">Cheapest way in</div></div>
       
-      <a class="fact fact-link" href="#watch"><div class="n">65</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
+      <a class="fact fact-link" href="#watch"><div class="n">66</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv04/188/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="188" data-price="$10.20"
         data-set="Paradox Rift"
         aria-label="Enlarge Snorunt, Paradox Rift 188">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/188/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/188/low.webp" onerror="this.remove()" alt="Snorunt 188, Paradox Rift" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/188/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/188/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Paradox Rift &bull; 188</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="227" data-price="$5.78"
         data-set="Ascended Heroes"
         aria-label="Enlarge Snorunt, Ascended Heroes 227">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/227/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/227/low.webp" onerror="this.remove()" alt="Snorunt 227, Ascended Heroes" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/227/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/227/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Ascended Heroes &bull; 227</div>
         <div class="rr">Illustration Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="051" data-price="$0.64"
         data-set="Twilight Masquerade"
         aria-label="Enlarge Snorunt, Twilight Masquerade 051">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/051/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06/051/low.webp" onerror="this.remove()" alt="Snorunt 051, Twilight Masquerade" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/051/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06/051/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Twilight Masquerade &bull; 051</div>
         <div class="rr">Common</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="35" data-price="$0.60"
         data-set="Chilling Reign"
         aria-label="Enlarge Snorunt, Chilling Reign 35">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/35/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/35/low.webp" onerror="this.remove()" alt="Snorunt 35, Chilling Reign" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/35/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/35/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Chilling Reign &bull; 35</div>
         <div class="rr">Common</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="034" data-price="$0.33"
         data-set="Crown Zenith"
         aria-label="Enlarge Snorunt, Crown Zenith 034">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/034/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/034/low.webp" onerror="this.remove()" alt="Snorunt 034, Crown Zenith" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/034/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/034/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Crown Zenith &bull; 034</div>
         <div class="rr">Common</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="046" data-price="$0.26"
         data-set="Ascended Heroes"
         aria-label="Enlarge Snorunt, Ascended Heroes 046">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/046/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/046/low.webp" onerror="this.remove()" alt="Snorunt 046, Ascended Heroes" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/046/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/046/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Ascended Heroes &bull; 046</div>
         <div class="rr">Common</div>
@@ -328,7 +345,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="037" data-price="$0.23"
         data-set="Paradox Rift"
         aria-label="Enlarge Snorunt, Paradox Rift 037">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/037/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/037/low.webp" onerror="this.remove()" alt="Snorunt 037, Paradox Rift" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/037/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/037/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Paradox Rift &bull; 037</div>
         <div class="rr">Common</div>
@@ -344,7 +361,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
 <section class="band tight" id="watch">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See these packs opened</p>
-    <h2>We have filmed <span class="hl">65</span> rips of
+    <h2>We have filmed <span class="hl">66</span> rips of
       the 5 sets that print
       <span class="hl">Snorunt</span></h2>
     <p class="lede" style="max-width:40em">Garbage Rips 585 is a Pokemon card pack opening
@@ -372,168 +389,168 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl4/75/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl4/75/low.webp" onerror="this.remove()" alt="Snorunt 75, Arceus" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl4/75/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl4/75/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Arceus &bull; 75</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/034/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/034/low.webp" onerror="this.remove()" alt="Snorunt 034, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/034/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/034/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Brilliant Stars &bull; 034</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/47/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/47/low.webp" onerror="this.remove()" alt="Snorunt 47, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/47/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/47/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Cosmic Eclipse &bull; 47</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/44/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/44/low.webp" onerror="this.remove()" alt="Snorunt 44, Dragon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/44/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/44/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Dragon &bull; 44</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex9/64/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex9/64/low.webp" onerror="this.remove()" alt="Snorunt 64, Emerald" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex9/64/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex9/64/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Emerald &bull; 64</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/RC7/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/RC7/low.webp" onerror="this.remove()" alt="Snorunt RC7, Generations" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/RC7/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/RC7/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Generations &bull; RC7</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/31/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/31/low.webp" onerror="this.remove()" alt="Snorunt 31, Guardians Rising" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/31/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/31/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Guardians Rising &bull; 31</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/73/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/73/low.webp" onerror="this.remove()" alt="Snorunt 73, Hidden Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/73/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/73/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Hidden Legends &bull; 73</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp2/100/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp2/100/low.webp" onerror="this.remove()" alt="Snorunt 100, Mysterious Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp2/100/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp2/100/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Mysterious Treasures &bull; 100</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw10/21/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw10/21/low.webp" onerror="this.remove()" alt="Snorunt 21, Plasma Blast" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw10/21/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw10/21/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Plasma Blast &bull; 21</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex16/64/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex16/64/low.webp" onerror="this.remove()" alt="Snorunt 64, Power Keepers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex16/64/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex16/64/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Power Keepers &bull; 64</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/041/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/041/low.webp" onerror="this.remove()" alt="Snorunt 041, Silver Tempest" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/041/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/041/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Silver Tempest &bull; 041</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2a/018/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2a/018/low.webp" onerror="this.remove()" alt="Snorunt 018, Triumphant Light" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2a/018/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2a/018/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Triumphant Light &bull; 018</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm11/37/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm11/37/low.webp" onerror="this.remove()" alt="Snorunt 37, Unified Minds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm11/37/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm11/37/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">Unified Minds &bull; 37</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/034/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/034/low.webp" onerror="this.remove()" alt="Snorunt 034, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/034/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/034/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">VMAXクライマックス &bull; 034</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12/017/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12/017/low.webp" onerror="this.remove()" alt="Snorunt 017, オルタージェネシス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12/017/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12/017/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">オルタージェネシス &bull; 017</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10b/014/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10b/014/low.webp" onerror="this.remove()" alt="Snorunt 014, スカイレジェンド" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10b/014/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10b/014/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">スカイレジェンド &bull; 014</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV8a/037/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV8a/037/low.webp" onerror="this.remove()" alt="Snorunt 037, テラスタルフェスex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV8a/037/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV8a/037/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">テラスタルフェスex &bull; 037</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12/019/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12/019/low.webp" onerror="this.remove()" alt="Snorunt 019, パラダイムトリガー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12/019/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12/019/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">パラダイムトリガー &bull; 019</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3a/005/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3a/005/low.webp" onerror="this.remove()" alt="Snorunt 005, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3a/005/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3a/005/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">レイジングサーフ &bull; 005</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3a/063/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3a/063/low.webp" onerror="this.remove()" alt="Snorunt 063, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3a/063/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3a/063/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">レイジングサーフ &bull; 063</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6/031/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6/031/low.webp" onerror="this.remove()" alt="Snorunt 031, 変幻の仮面" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6/031/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6/031/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">変幻の仮面 &bull; 031</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6H/020/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6H/020/low.webp" onerror="this.remove()" alt="Snorunt 020, 白銀のランス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6H/020/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6H/020/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">白銀のランス &bull; 020</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SK/003/low.avif"><img src="https://assets.tcgdex.net/ja/S/SK/003/low.webp" onerror="this.remove()" alt="Snorunt 003, 頂級訓練家收藏箱 VSTAR" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SK/003/low.avif"><img src="https://assets.tcgdex.net/ja/S/SK/003/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorunt</div>
         <div class="rr">頂級訓練家收藏箱 VSTAR &bull; 003</div>
         

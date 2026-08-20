@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/pidgeotto.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv03/208/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="208" data-price="$11.42"
         data-set="Obsidian Flames"
         aria-label="Enlarge Pidgeotto, Obsidian Flames 208">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/208/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/208/low.webp" onerror="this.remove()" alt="Pidgeotto 208, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/208/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/208/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">Obsidian Flames &bull; 208</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="197" data-price="$6.00"
         data-set="Paldean Fates"
         aria-label="Enlarge Pidgeotto, Paldean Fates 197">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/197/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/197/low.webp" onerror="this.remove()" alt="Pidgeotto 197, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/197/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/197/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">Paldean Fates &bull; 197</div>
         <div class="rr">Shiny Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="017" data-price="$2.59"
         data-set="151"
         aria-label="Enlarge Pidgeotto, 151 017">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/017/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/017/low.webp" onerror="this.remove()" alt="Pidgeotto 017, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/017/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/017/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">151 &bull; 017</div>
         <div class="rr">Common</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="163" data-price="$0.70"
         data-set="Obsidian Flames"
         aria-label="Enlarge Pidgeotto, Obsidian Flames 163">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/163/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/163/low.webp" onerror="this.remove()" alt="Pidgeotto 163, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/163/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/163/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">Obsidian Flames &bull; 163</div>
         <div class="rr">Uncommon</div>
@@ -332,154 +349,154 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/22/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/22/low.webp" onerror="this.remove()" alt="Pidgeotto 22, Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/22/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/22/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">Base Set &bull; 22</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/28/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/28/low.webp" onerror="this.remove()" alt="Pidgeotto 28, Base Set 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/28/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/28/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">Base Set 2 &bull; 28</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/48/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/48/low.webp" onerror="this.remove()" alt="Pidgeotto 48, Call of Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/48/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/48/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">Call of Legends &bull; 48</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/88/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/88/low.webp" onerror="this.remove()" alt="Pidgeotto 88, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/88/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/88/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">Expedition Base Set &bull; 88</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3a/096/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3a/096/low.webp" onerror="this.remove()" alt="Pidgeotto 096, Extradimensional Crisis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3a/096/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3a/096/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">Extradimensional Crisis &bull; 096</div>
         <div class="rr">One Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/45/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/45/low.webp" onerror="this.remove()" alt="Pidgeotto 45, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/45/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/45/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 45</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/76/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/76/low.webp" onerror="this.remove()" alt="Pidgeotto 76, Flashfire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/76/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/76/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">Flashfire &bull; 76</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/187/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/187/low.webp" onerror="this.remove()" alt="Pidgeotto 187, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/187/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/187/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">Genetic Apex &bull; 187</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/27/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/27/low.webp" onerror="this.remove()" alt="Koga's Pidgeotto 27, Gym Challenge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/27/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/27/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koga's Pidgeotto</div>
         <div class="rr">Gym Challenge &bull; 27</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/49/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/49/low.webp" onerror="this.remove()" alt="Pidgeotto δ 49, Holon Phantoms" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/49/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/49/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto δ</div>
         <div class="rr">Holon Phantoms &bull; 49</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/34/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/34/low.webp" onerror="this.remove()" alt="Pidgeotto 34, Legendary Collection" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/34/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/34/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">Legendary Collection &bull; 34</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1a/058/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1a/058/low.webp" onerror="this.remove()" alt="Pidgeotto 058, Mythical Island" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1a/058/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1a/058/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">Mythical Island &bull; 058</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/58/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/58/low.webp" onerror="this.remove()" alt="Pidgeotto 58, Secret Wonders" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/58/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/58/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">Secret Wonders &bull; 58</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12a/104/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12a/104/low.webp" onerror="this.remove()" alt="Pidgeotto 104, TAG TEAM GX タッグオールスターズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12a/104/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12a/104/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">TAG TEAM GX タッグオールスターズ &bull; 104</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/123/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/123/low.webp" onerror="this.remove()" alt="Pidgeotto 123, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/123/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/123/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">Team Up &bull; 123</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss4/47/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss4/47/low.webp" onerror="this.remove()" alt="Pidgeotto 47, Triumphant" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss4/47/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss4/47/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">Triumphant &bull; 47</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/069/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/069/low.webp" onerror="this.remove()" alt="Pidgeotto 069, タッグボルト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/069/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/069/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">タッグボルト &bull; 069</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SVK/008/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SVK/008/low.webp" onerror="this.remove()" alt="Pidgeotto 008, デッキビルドBOX ステラミラクル" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SVK/008/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SVK/008/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">デッキビルドBOX ステラミラクル &bull; 008</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/017/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/017/low.webp" onerror="this.remove()" alt="Pidgeotto 017, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/017/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/017/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">ポケモンカード151 &bull; 017</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/305/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/305/low.webp" onerror="this.remove()" alt="Pidgeotto 305, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/305/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/305/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">レイジングサーフ &bull; 305</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/088/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/088/low.webp" onerror="this.remove()" alt="Pidgeotto 088, 黒炎の支配者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/088/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/088/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">黒炎の支配者 &bull; 088</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/119/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/119/low.webp" onerror="this.remove()" alt="Pidgeotto 119, 黒炎の支配者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/119/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/119/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeotto</div>
         <div class="rr">黒炎の支配者 &bull; 119</div>
         

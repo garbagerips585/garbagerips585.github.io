@@ -867,7 +867,8 @@ footer .soc svg{fill:var(--chrome-ink)}
 @media(max-width:560px){
   .brand b{font-size:.95rem}
   .brand span{display:none}
-  .menu-btn span{display:none}
+  .menu-btn span{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
   .menu-btn{padding:0;width:44px}
 }
 @media(max-width:400px){

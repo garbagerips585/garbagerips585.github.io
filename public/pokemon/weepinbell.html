@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/weepinbell.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv03.5/070/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="070" data-price="$2.00"
         data-set="151"
         aria-label="Enlarge Weepinbell, 151 070">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/070/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/070/low.webp" onerror="this.remove()" alt="Weepinbell 070, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/070/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/070/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Weepinbell</div>
         <div class="rr">151 &bull; 070</div>
         <div class="rr">Common</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="005" data-price="$0.40"
         data-set="Ascended Heroes"
         aria-label="Enlarge Erika's Weepinbell, Ascended Heroes 005">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/005/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/005/low.webp" onerror="this.remove()" alt="Erika's Weepinbell 005, Ascended Heroes" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/005/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/005/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Erika's Weepinbell</div>
         <div class="rr">Ascended Heroes &bull; 005</div>
         <div class="rr">Uncommon</div>
@@ -307,126 +324,126 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/65/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/65/low.webp" onerror="this.remove()" alt="Weepinbell 65, Aquapolis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/65/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/65/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weepinbell</div>
         <div class="rr">Aquapolis &bull; 65</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/64/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/64/low.webp" onerror="this.remove()" alt="Weepinbell 64, Base Set 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/64/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/64/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weepinbell</div>
         <div class="rr">Base Set 2 &bull; 64</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/2/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/2/low.webp" onerror="this.remove()" alt="Weepinbell 2, Battle Styles" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/2/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/2/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weepinbell</div>
         <div class="rr">Battle Styles &bull; 2</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/2/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/2/low.webp" onerror="this.remove()" alt="Weepinbell 2, Celestial Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/2/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/2/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weepinbell</div>
         <div class="rr">Celestial Storm &bull; 2</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/51/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/51/low.webp" onerror="this.remove()" alt="Weepinbell 51, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/51/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/51/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weepinbell</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 51</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy3/2/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy3/2/low.webp" onerror="this.remove()" alt="Weepinbell 2, Furious Fists" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy3/2/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy3/2/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weepinbell</div>
         <div class="rr">Furious Fists &bull; 2</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/019/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/019/low.webp" onerror="this.remove()" alt="Weepinbell 019, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/019/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/019/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weepinbell</div>
         <div class="rr">Genetic Apex &bull; 019</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/2/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/2/low.webp" onerror="this.remove()" alt="Weepinbell 2, Guardians Rising" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/2/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/2/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weepinbell</div>
         <div class="rr">Guardians Rising &bull; 2</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/48/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/48/low.webp" onerror="this.remove()" alt="Erika's Weepinbell 48, Gym Heroes" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/48/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/48/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Erika's Weepinbell</div>
         <div class="rr">Gym Heroes &bull; 48</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/49/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/49/low.webp" onerror="this.remove()" alt="Erika's Weepinbell 49, Gym Heroes" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/49/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/49/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Erika's Weepinbell</div>
         <div class="rr">Gym Heroes &bull; 49</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/48/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/48/low.webp" onerror="this.remove()" alt="Weepinbell 48, Jungle" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/48/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/48/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weepinbell</div>
         <div class="rr">Jungle &bull; 48</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex12/47/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex12/47/low.webp" onerror="this.remove()" alt="Weepinbell 47, Legend Maker" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex12/47/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex12/47/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weepinbell</div>
         <div class="rr">Legend Maker &bull; 47</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/127/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/127/low.webp" onerror="this.remove()" alt="Weepinbell 127, Legends Awakened" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/127/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/127/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weepinbell</div>
         <div class="rr">Legends Awakened &bull; 127</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss4/53/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss4/53/low.webp" onerror="this.remove()" alt="Weepinbell 53, Triumphant" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss4/53/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss4/53/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weepinbell</div>
         <div class="rr">Triumphant &bull; 53</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/14/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/14/low.webp" onerror="this.remove()" alt="Weepinbell 14, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/14/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/14/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weepinbell</div>
         <div class="rr">Unbroken Bonds &bull; 14</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6b/002/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6b/002/low.webp" onerror="this.remove()" alt="Weepinbell 002, チャンピオンロード" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6b/002/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6b/002/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weepinbell</div>
         <div class="rr">チャンピオンロード &bull; 002</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9a/004/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9a/004/low.webp" onerror="this.remove()" alt="Weepinbell 004, ナイトユニゾン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9a/004/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9a/004/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weepinbell</div>
         <div class="rr">ナイトユニゾン &bull; 004</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/070/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/070/low.webp" onerror="this.remove()" alt="Weepinbell 070, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/070/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/070/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Weepinbell</div>
         <div class="rr">ポケモンカード151 &bull; 070</div>
         <div class="rr">Common</div>

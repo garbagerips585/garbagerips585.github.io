@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/karrablast.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv10.5b/094/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="094" data-price="$17.90"
         data-set="Black Bolt"
         aria-label="Enlarge Karrablast, Black Bolt 094">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/094/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/094/low.webp" onerror="this.remove()" alt="Karrablast 094, Black Bolt" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/094/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/094/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Karrablast</div>
         <div class="rr">Black Bolt &bull; 094</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="009" data-price="$0.40"
         data-set="Journey Together"
         aria-label="Enlarge Karrablast, Journey Together 009">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/009/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/009/low.webp" onerror="this.remove()" alt="Karrablast 009, Journey Together" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/009/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/009/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Karrablast</div>
         <div class="rr">Journey Together &bull; 009</div>
         <div class="rr">Common</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="009" data-price="$0.12"
         data-set="Black Bolt"
         aria-label="Enlarge Karrablast, Black Bolt 009">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/009/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/009/low.webp" onerror="this.remove()" alt="Karrablast 009, Black Bolt" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/009/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/009/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Karrablast</div>
         <div class="rr">Black Bolt &bull; 009</div>
         <div class="rr">Common</div>
@@ -324,77 +341,77 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/015/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/015/low.webp" onerror="this.remove()" alt="Karrablast 015, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/015/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/015/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Karrablast</div>
         <div class="rr">Brilliant Stars &bull; 015</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/006/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/006/low.webp" onerror="this.remove()" alt="Karrablast 006, Celestial Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/006/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/006/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Karrablast</div>
         <div class="rr">Celestial Guardians &bull; 006</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/7/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/7/low.webp" onerror="this.remove()" alt="Karrablast 7, Crimson Invasion" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/7/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/7/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Karrablast</div>
         <div class="rr">Crimson Invasion &bull; 7</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw5/9/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw5/9/low.webp" onerror="this.remove()" alt="Karrablast 9, Dark Explorers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw5/9/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw5/9/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Karrablast</div>
         <div class="rr">Dark Explorers &bull; 9</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/8/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/8/low.webp" onerror="this.remove()" alt="Karrablast 8, Darkness Ablaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/8/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/8/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Karrablast</div>
         <div class="rr">Darkness Ablaze &bull; 8</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw3/8/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw3/8/low.webp" onerror="this.remove()" alt="Karrablast 8, Noble Victories" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw3/8/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw3/8/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Karrablast</div>
         <div class="rr">Noble Victories &bull; 8</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy4/8/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy4/8/low.webp" onerror="this.remove()" alt="Karrablast 8, Phantom Forces" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy4/8/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy4/8/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Karrablast</div>
         <div class="rr">Phantom Forces &bull; 8</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw10/6/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw10/6/low.webp" onerror="this.remove()" alt="Karrablast 6, Plasma Blast" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw10/6/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw10/6/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Karrablast</div>
         <div class="rr">Plasma Blast &bull; 6</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm11/12/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm11/12/low.webp" onerror="this.remove()" alt="Karrablast 12, Unified Minds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm11/12/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm11/12/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Karrablast</div>
         <div class="rr">Unified Minds &bull; 12</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9/007/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9/007/low.webp" onerror="this.remove()" alt="Karrablast 007, バトルパートナーズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9/007/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9/007/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Karrablast</div>
         <div class="rr">バトルパートナーズ &bull; 007</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4S/003/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4S/003/low.webp" onerror="this.remove()" alt="Karrablast 003, 覚醒の勇者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4S/003/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4S/003/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Karrablast</div>
         <div class="rr">覚醒の勇者 &bull; 003</div>
         <div class="rr">Common</div>

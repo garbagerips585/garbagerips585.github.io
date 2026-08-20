@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/beldum.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me04/059/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="059" data-price="$1.34"
         data-set="Chaos Rising"
         aria-label="Enlarge Beldum, Chaos Rising 059">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/059/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/059/low.webp" onerror="this.remove()" alt="Beldum 059, Chaos Rising" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/059/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/059/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Chaos Rising &bull; 059</div>
         <div class="rr">Common</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="113" data-price="$0.50"
         data-set="Temporal Forces"
         aria-label="Enlarge Beldum, Temporal Forces 113">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/113/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/113/low.webp" onerror="this.remove()" alt="Beldum 113, Temporal Forces" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/113/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/113/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Temporal Forces &bull; 113</div>
         <div class="rr">Common</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="143" data-price="$0.34"
         data-set="Destined Rivals"
         aria-label="Enlarge Steven's Beldum, Destined Rivals 143">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/143/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/143/low.webp" onerror="this.remove()" alt="Steven's Beldum 143, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/143/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/143/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Steven's Beldum</div>
         <div class="rr">Destined Rivals &bull; 143</div>
         <div class="rr">Common</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="061" data-price="$0.33"
         data-set="Journey Together"
         aria-label="Enlarge Beldum, Journey Together 061">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/061/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/061/low.webp" onerror="this.remove()" alt="Beldum 061, Journey Together" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/061/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/061/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Journey Together &bull; 061</div>
         <div class="rr">Common</div>
@@ -336,210 +353,210 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/47/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/47/low.webp" onerror="this.remove()" alt="Beldum 47, Ancient Origins" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/47/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/47/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Ancient Origins &bull; 47</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/92/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/92/low.webp" onerror="this.remove()" alt="Beldum 92, Celestial Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/92/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/92/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Celestial Storm &bull; 92</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/93/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/93/low.webp" onerror="this.remove()" alt="Beldum 93, Celestial Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/93/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/93/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Celestial Storm &bull; 93</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex11/59/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex11/59/low.webp" onerror="this.remove()" alt="Beldum δ 59, Delta Species" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex11/59/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex11/59/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum δ</div>
         <div class="rr">Delta Species &bull; 59</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/55/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/55/low.webp" onerror="this.remove()" alt="Beldum 55, Deoxys" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/55/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/55/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Deoxys &bull; 55</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/83/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/83/low.webp" onerror="this.remove()" alt="Beldum 83, Guardians Rising" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/83/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/83/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Guardians Rising &bull; 83</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/190/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/190/low.webp" onerror="this.remove()" alt="Beldum 190, GXウルトラシャイニー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/190/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/190/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">GXウルトラシャイニー &bull; 190</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sma/SV30/low.avif"><img src="https://assets.tcgdex.net/en/sm/sma/SV30/low.webp" onerror="this.remove()" alt="Beldum SV30, Hidden Fates Shiny Vault" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sma/SV30/low.avif"><img src="https://assets.tcgdex.net/en/sm/sma/SV30/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Hidden Fates Shiny Vault &bull; SV30</div>
         <div class="rr">Shiny Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/28/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/28/low.webp" onerror="this.remove()" alt="Beldum 28, Hidden Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/28/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/28/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Hidden Legends &bull; 28</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/29/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/29/low.webp" onerror="this.remove()" alt="Beldum 29, Hidden Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/29/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/29/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Hidden Legends &bull; 29</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/54/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/54/low.webp" onerror="this.remove()" alt="Beldum 54, Hidden Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/54/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/54/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Hidden Legends &bull; 54</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/83/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/83/low.webp" onerror="this.remove()" alt="Beldum 83, Legends Awakened" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/83/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/83/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Legends Awakened &bull; 83</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/84/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/84/low.webp" onerror="this.remove()" alt="Beldum 84, Legends Awakened" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/84/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/84/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Legends Awakened &bull; 84</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/np/22/low.avif"><img src="https://assets.tcgdex.net/en/pop/np/22/low.webp" onerror="this.remove()" alt="Beldum 22, Nintendo Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/np/22/low.avif"><img src="https://assets.tcgdex.net/en/pop/np/22/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Nintendo Black Star Promos &bull; 22</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/50/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/50/low.webp" onerror="this.remove()" alt="Beldum 50, Plasma Freeze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/50/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/50/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Plasma Freeze &bull; 50</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex16/45/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex16/45/low.webp" onerror="this.remove()" alt="Beldum 45, Power Keepers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex16/45/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex16/45/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Power Keepers &bull; 45</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/117/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/117/low.webp" onerror="this.remove()" alt="Beldum 117, Silver Tempest" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/117/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/117/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Silver Tempest &bull; 117</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/90/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/90/low.webp" onerror="this.remove()" alt="Beldum 90, Supreme Victors" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/90/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/90/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Supreme Victors &bull; 90</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/207/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/207/low.webp" onerror="this.remove()" alt="Steven's Beldum 207, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/207/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/207/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Steven's Beldum</div>
         <div class="rr">SVP Black Star Promos &bull; 207</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/43/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/43/low.webp" onerror="this.remove()" alt="Beldum 43, Undaunted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/43/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/43/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Undaunted &bull; 43</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/44/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/44/low.webp" onerror="this.remove()" alt="Beldum 44, Unleashed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/44/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/44/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Unleashed &bull; 44</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/116/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/116/low.webp" onerror="this.remove()" alt="Beldum 116, Vivid Voltage" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/116/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/116/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">Vivid Voltage &bull; 116</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM2L/033/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM2L/033/low.webp" onerror="this.remove()" alt="Beldum 033, アローラの月光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM2L/033/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM2L/033/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">アローラの月光 &bull; 033</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5M/046/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5M/046/low.webp" onerror="this.remove()" alt="Beldum 046, サイバージャッジ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5M/046/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5M/046/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">サイバージャッジ &bull; 046</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV8a/106/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV8a/106/low.webp" onerror="this.remove()" alt="Beldum 106, テラスタルフェスex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV8a/106/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV8a/106/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">テラスタルフェスex &bull; 106</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/057/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/057/low.webp" onerror="this.remove()" alt="Beldum 057, ニンジャスピナー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/057/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/057/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">ニンジャスピナー &bull; 057</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9/037/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9/037/low.webp" onerror="this.remove()" alt="Beldum 037, バトルパートナーズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9/037/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9/037/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">バトルパートナーズ &bull; 037</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/073/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/073/low.webp" onerror="this.remove()" alt="Beldum 073, ロストアビス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/073/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/073/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">ロストアビス &bull; 073</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7/052/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7/052/low.webp" onerror="this.remove()" alt="Beldum 052, 裂空のカリスマ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7/052/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7/052/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">裂空のカリスマ &bull; 052</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7/053/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7/053/low.webp" onerror="this.remove()" alt="Beldum 053, 裂空のカリスマ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7/053/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7/053/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beldum</div>
         <div class="rr">裂空のカリスマ &bull; 053</div>
         <div class="rr">Common</div>

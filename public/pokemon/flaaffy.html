@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/flaaffy.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me04/028/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="028" data-price="$1.40"
         data-set="Chaos Rising"
         aria-label="Enlarge Flaaffy, Chaos Rising 028">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/028/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/028/low.webp" onerror="this.remove()" alt="Flaaffy 028, Chaos Rising" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/028/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/028/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">Chaos Rising &bull; 028</div>
         <div class="rr">Common</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="073" data-price="$0.89"
         data-set="Destined Rivals"
         aria-label="Enlarge Team Rocket's Flaaffy, Destined Rivals 073">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/073/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/073/low.webp" onerror="this.remove()" alt="Team Rocket's Flaaffy 073, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/073/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/073/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Flaaffy</div>
         <div class="rr">Destined Rivals &bull; 073</div>
         <div class="rr">Common</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="48" data-price="$0.81"
         data-set="Chilling Reign"
         aria-label="Enlarge Flaaffy, Chilling Reign 48">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/48/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/48/low.webp" onerror="this.remove()" alt="Flaaffy 48, Chilling Reign" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/48/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/48/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">Chilling Reign &bull; 48</div>
         <div class="rr">Uncommon</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="067" data-price="$0.36"
         data-set="Scarlet &amp; Violet"
         aria-label="Enlarge Flaaffy, Scarlet &amp; Violet 067">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/067/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/067/low.webp" onerror="this.remove()" alt="Flaaffy 067, Scarlet &amp; Violet" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/067/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/067/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">Scarlet &amp; Violet &bull; 067</div>
         <div class="rr">Uncommon</div>
@@ -336,245 +353,245 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/47/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/47/low.webp" onerror="this.remove()" alt="Flaaffy 47, Aquapolis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/47/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/47/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">Aquapolis &bull; 47</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/43/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/43/low.webp" onerror="this.remove()" alt="Flaaffy 43, Call of Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/43/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/43/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">Call of Legends &bull; 43</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/56/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/56/low.webp" onerror="this.remove()" alt="Flaaffy 56, Darkness Ablaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/56/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/56/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">Darkness Ablaze &bull; 56</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/27/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/27/low.webp" onerror="this.remove()" alt="Flaaffy 27, Dragon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/27/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/27/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">Dragon &bull; 27</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/30/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/30/low.webp" onerror="this.remove()" alt="Flaaffy δ 30, Dragon Frontiers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/30/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/30/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy δ</div>
         <div class="rr">Dragon Frontiers &bull; 30</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/39/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/39/low.webp" onerror="this.remove()" alt="Flaaffy 39, Dragons Exalted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/39/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/39/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">Dragons Exalted &bull; 39</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/55/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/55/low.webp" onerror="this.remove()" alt="Flaaffy 55, Evolving Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/55/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/55/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">Evolving Skies &bull; 55</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/77/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/77/low.webp" onerror="this.remove()" alt="Flaaffy 77, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/77/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/77/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">Expedition Base Set &bull; 77</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/280/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/280/low.webp" onerror="this.remove()" alt="Flaaffy 280, Fusion Strike" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/280/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/280/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">Fusion Strike &bull; 280</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/42/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/42/low.webp" onerror="this.remove()" alt="Flaaffy 42, HeartGold SoulSilver" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/42/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/42/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">HeartGold SoulSilver &bull; 42</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/77/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/77/low.webp" onerror="this.remove()" alt="Flaaffy 77, Lost Thunder" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/77/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/77/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">Lost Thunder &bull; 77</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/34/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/34/low.webp" onerror="this.remove()" alt="Dark Flaaffy 34, Neo Destiny" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/34/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/34/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Flaaffy</div>
         <div class="rr">Neo Destiny &bull; 34</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo1/34/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo1/34/low.webp" onerror="this.remove()" alt="Flaaffy 34, Neo Genesis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo1/34/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo1/34/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">Neo Genesis &bull; 34</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo3/28/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo3/28/low.webp" onerror="this.remove()" alt="Flaaffy 28, Neo Revelation" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo3/28/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo3/28/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">Neo Revelation &bull; 28</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/48/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/48/low.webp" onerror="this.remove()" alt="Flaaffy 48, Platinum" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/48/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/48/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">Platinum &bull; 48</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop7/7/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop7/7/low.webp" onerror="this.remove()" alt="Flaaffy 7, POP Series 7" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop7/7/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop7/7/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">POP Series 7 &bull; 7</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/50/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/50/low.webp" onerror="this.remove()" alt="Flaaffy 50, Secret Wonders" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/50/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/50/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">Secret Wonders &bull; 50</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy11/39/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy11/39/low.webp" onerror="this.remove()" alt="Flaaffy 39, Steam Siege" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy11/39/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy11/39/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">Steam Siege &bull; 39</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/015/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/015/low.webp" onerror="this.remove()" alt="Flaaffy 015, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/015/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/015/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">SVP Black Star Promos &bull; 015</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/108/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/108/low.webp" onerror="this.remove()" alt="Flaaffy 108, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/108/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/108/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">SVP Black Star Promos &bull; 108</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH122/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH122/low.webp" onerror="this.remove()" alt="Flaaffy SWSH122, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH122/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH122/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH122</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/33/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/33/low.webp" onerror="this.remove()" alt="Dark Flaaffy 33, Team Rocket Returns" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/33/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/33/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Flaaffy</div>
         <div class="rr">Team Rocket Returns &bull; 33</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/42/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/42/low.webp" onerror="this.remove()" alt="Flaaffy 42, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/42/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/42/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">Team Up &bull; 42</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/56/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/56/low.webp" onerror="this.remove()" alt="Flaaffy 56, Unseen Forces" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/56/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/56/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">Unseen Forces &bull; 56</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/052/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/052/low.webp" onerror="this.remove()" alt="Flaaffy 052, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/052/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/052/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">VMAXクライマックス &bull; 052</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/194/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/194/low.webp" onerror="this.remove()" alt="Flaaffy 194, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/194/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/194/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">VMAXクライマックス &bull; 194</div>
         <div class="rr">Character Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SPZ/003/low.avif"><img src="https://assets.tcgdex.net/ja/S/SPZ/003/low.webp" onerror="this.remove()" alt="Flaaffy 003, VSTAR&amp;VMAX 高級牌組 捷拉奧拉" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SPZ/003/low.avif"><img src="https://assets.tcgdex.net/ja/S/SPZ/003/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">VSTAR&amp;VMAX 高級牌組 捷拉奧拉 &bull; 003</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/037/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/037/low.webp" onerror="this.remove()" alt="Flaaffy 037, VSTARユニバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/037/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/037/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">VSTARユニバース &bull; 037</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/068/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/068/low.webp" onerror="this.remove()" alt="Flaaffy 068, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/068/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/068/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 068</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8a/005/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8a/005/low.webp" onerror="this.remove()" alt="Flaaffy 005, ダークオーダー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8a/005/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8a/005/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">ダークオーダー &bull; 005</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/028/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/028/low.webp" onerror="this.remove()" alt="Flaaffy 028, ニンジャスピナー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/028/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/028/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">ニンジャスピナー &bull; 028</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/035/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/035/low.webp" onerror="this.remove()" alt="Flaaffy 035, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/035/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/035/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">ロケット団の栄光 &bull; 035</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6K/019/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6K/019/low.webp" onerror="this.remove()" alt="Flaaffy 019, 漆黒のガイスト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6K/019/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6K/019/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">漆黒のガイスト &bull; 019</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8/035/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8/035/low.webp" onerror="this.remove()" alt="Flaaffy 035, 超爆インパクト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8/035/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8/035/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">超爆インパクト &bull; 035</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SK/006/low.avif"><img src="https://assets.tcgdex.net/ja/S/SK/006/low.webp" onerror="this.remove()" alt="Flaaffy 006, 頂級訓練家收藏箱 VSTAR" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SK/006/low.avif"><img src="https://assets.tcgdex.net/ja/S/SK/006/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Flaaffy</div>
         <div class="rr">頂級訓練家收藏箱 VSTAR &bull; 006</div>
         

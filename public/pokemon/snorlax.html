@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/snorlax.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/swsh/swsh6/224/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="224" data-price="$132"
         data-set="Chilling Reign"
         aria-label="Enlarge Snorlax, Chilling Reign 224">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/224/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/224/low.webp" onerror="this.remove()" alt="Snorlax 224, Chilling Reign" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/224/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/224/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Chilling Reign &bull; 224</div>
         <div class="rr">Secret Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="202" data-price="$58.50"
         data-set="Paldean Fates"
         aria-label="Enlarge Snorlax, Paldean Fates 202">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/202/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/202/low.webp" onerror="this.remove()" alt="Snorlax 202, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/202/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/202/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Paldean Fates &bull; 202</div>
         <div class="rr">Shiny Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="109" data-price="$10.74"
         data-set="Crown Zenith"
         aria-label="Enlarge Snorlax, Crown Zenith 109">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/109/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/109/low.webp" onerror="this.remove()" alt="Snorlax 109, Crown Zenith" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/109/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/109/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Crown Zenith &bull; 109</div>
         <div class="rr">Rare</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="141" data-price="$4.86"
         data-set="Rebel Clash"
         aria-label="Enlarge Snorlax, Rebel Clash 141">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/141/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/141/low.webp" onerror="this.remove()" alt="Snorlax 141, Rebel Clash" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/141/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/141/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Rebel Clash &bull; 141</div>
         <div class="rr">Rare</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="143" data-price="$4.18"
         data-set="151"
         aria-label="Enlarge Snorlax, 151 143">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/143/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/143/low.webp" onerror="this.remove()" alt="Snorlax 143, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/143/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/143/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">151 &bull; 143</div>
         <div class="rr">Uncommon</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="055" data-price="$2.69"
         data-set="Pokémon GO"
         aria-label="Enlarge Snorlax, Pokémon GO 055">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/055/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/055/low.webp" onerror="this.remove()" alt="Snorlax 055, Pokémon GO" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/055/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/055/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Pokémon GO &bull; 055</div>
         <div class="rr">Holo Rare</div>
@@ -328,7 +345,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="076" data-price="$2.45"
         data-set="Prismatic Evolutions"
         aria-label="Enlarge Snorlax ex, Prismatic Evolutions 076">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/076/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/076/low.webp" onerror="this.remove()" alt="Snorlax ex 076, Prismatic Evolutions" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/076/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/076/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Snorlax ex</div>
         <div class="rr">Prismatic Evolutions &bull; 076</div>
         <div class="rr">Double Rare</div>
@@ -340,7 +357,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="144" data-price="$1.99"
         data-set="Surging Sparks"
         aria-label="Enlarge Snorlax, Surging Sparks 144">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/144/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08/144/low.webp" onerror="this.remove()" alt="Snorlax 144, Surging Sparks" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/144/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08/144/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Surging Sparks &bull; 144</div>
         <div class="rr">Common</div>
@@ -352,7 +369,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="063" data-price="$1.62"
         data-set="Perfect Order"
         aria-label="Enlarge Snorlax, Perfect Order 063">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/063/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/063/low.webp" onerror="this.remove()" alt="Snorlax 063, Perfect Order" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/063/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/063/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Perfect Order &bull; 063</div>
         <div class="rr">Common</div>
@@ -364,7 +381,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="117" data-price="$1.40"
         data-set="Journey Together"
         aria-label="Enlarge Hop's Snorlax, Journey Together 117">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/117/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/117/low.webp" onerror="this.remove()" alt="Hop's Snorlax 117, Journey Together" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/117/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/117/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Hop's Snorlax</div>
         <div class="rr">Journey Together &bull; 117</div>
         <div class="rr">Rare</div>
@@ -376,7 +393,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="136" data-price="$0.72"
         data-set="Twilight Masquerade"
         aria-label="Enlarge Snorlax, Twilight Masquerade 136">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/136/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06/136/low.webp" onerror="this.remove()" alt="Snorlax 136, Twilight Masquerade" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/136/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06/136/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Twilight Masquerade &bull; 136</div>
         <div class="rr">Uncommon</div>
@@ -420,399 +437,399 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/30/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/30/low.webp" onerror="this.remove()" alt="Snorlax 30, Base Set 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/30/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/30/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Base Set 2 &bull; 30</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/109/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/109/low.webp" onerror="this.remove()" alt="Snorlax 109, Boundaries Crossed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/109/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/109/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Boundaries Crossed &bull; 109</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy8/118/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy8/118/low.webp" onerror="this.remove()" alt="Snorlax 118, BREAKthrough" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy8/118/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy8/118/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">BREAKthrough &bull; 118</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/33/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/33/low.webp" onerror="this.remove()" alt="Snorlax 33, Call of Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/33/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/33/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Call of Legends &bull; 33</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp1/37/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp1/37/low.webp" onerror="this.remove()" alt="Snorlax 37, Diamond &amp; Pearl" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp1/37/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp1/37/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Diamond &amp; Pearl &bull; 37</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/10/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/10/low.webp" onerror="this.remove()" alt="Snorlax δ 10, Dragon Frontiers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/10/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/10/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax δ</div>
         <div class="rr">Dragon Frontiers &bull; 10</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/057/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/057/low.webp" onerror="this.remove()" alt="Snorlax ex 057, Eevee Grove" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/057/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/057/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax ex</div>
         <div class="rr">Eevee Grove &bull; 057</div>
         <div class="rr">Four Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/084/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/084/low.webp" onerror="this.remove()" alt="Snorlax ex 084, Eevee Grove" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/084/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/084/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax ex</div>
         <div class="rr">Eevee Grove &bull; 084</div>
         <div class="rr">Two Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/091/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/091/low.webp" onerror="this.remove()" alt="Snorlax ex 091, Eevee Grove" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/091/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/091/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax ex</div>
         <div class="rr">Eevee Grove &bull; 091</div>
         <div class="rr">Two Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/77/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/77/low.webp" onerror="this.remove()" alt="Snorlax 77, Fates Collide" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/77/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/77/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Fates Collide &bull; 77</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/15/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/15/low.webp" onerror="this.remove()" alt="Snorlax 15, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/15/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/15/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 15</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/80/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/80/low.webp" onerror="this.remove()" alt="Snorlax 80, Flashfire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/80/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/80/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Flashfire &bull; 80</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/206/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/206/low.webp" onerror="this.remove()" alt="Snorlax 206, Fusion Strike" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/206/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/206/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Fusion Strike &bull; 206</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/58/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/58/low.webp" onerror="this.remove()" alt="Snorlax 58, Generations" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/58/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/58/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Generations &bull; 58</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/211/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/211/low.webp" onerror="this.remove()" alt="Snorlax 211, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/211/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/211/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Genetic Apex &bull; 211</div>
         <div class="rr">Three Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/250/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/250/low.webp" onerror="this.remove()" alt="Snorlax 250, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/250/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/250/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Genetic Apex &bull; 250</div>
         <div class="rr">One Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/33/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/33/low.webp" onerror="this.remove()" alt="Rocket's Snorlax 33, Gym Heroes" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/33/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/33/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rocket's Snorlax</div>
         <div class="rr">Gym Heroes &bull; 33</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm115/50/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm115/50/low.webp" onerror="this.remove()" alt="Snorlax 50, Hidden Fates" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm115/50/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm115/50/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Hidden Fates &bull; 50</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/11/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/11/low.webp" onerror="this.remove()" alt="Snorlax 11, Jungle" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/11/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/11/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Jungle &bull; 11</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/27/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/27/low.webp" onerror="this.remove()" alt="Snorlax 27, Jungle" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/27/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/27/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Jungle &bull; 27</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy0/26/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy0/26/low.webp" onerror="this.remove()" alt="Snorlax 26, Kalos Starter Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy0/26/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy0/26/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Kalos Starter Set &bull; 26</div>
         
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/64/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/64/low.webp" onerror="this.remove()" alt="Snorlax 64, Legendary Collection" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/64/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/64/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Legendary Collection &bull; 64</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/143/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/143/low.webp" onerror="this.remove()" alt="Snorlax 143, Lost Origin" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/143/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/143/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Lost Origin &bull; 143</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw8/101/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw8/101/low.webp" onerror="this.remove()" alt="Snorlax 101, Plasma Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw8/101/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw8/101/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Plasma Storm &bull; 101</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl2/111/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl2/111/low.webp" onerror="this.remove()" alt="Snorlax LV.X 111, Rising Rivals" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl2/111/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl2/111/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax LV.X</div>
         <div class="rr">Rising Rivals &bull; 111</div>
         <div class="rr">Rare Holo LV.X</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl2/33/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl2/33/low.webp" onerror="this.remove()" alt="Snorlax 33, Rising Rivals" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl2/33/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl2/33/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Rising Rivals &bull; 33</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl2/81/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl2/81/low.webp" onerror="this.remove()" alt="Snorlax 81, Rising Rivals" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl2/81/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl2/81/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Rising Rivals &bull; 81</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/100/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/100/low.webp" onerror="this.remove()" alt="Snorlax 100, Skyridge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/100/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/100/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Skyridge &bull; 100</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM05/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM05/low.webp" onerror="this.remove()" alt="Snorlax GX SM05, SM Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM05/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM05/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax GX</div>
         <div class="rr">SM Black Star Promos &bull; SM05</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/051/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/051/low.webp" onerror="this.remove()" alt="Snorlax 051, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/051/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/051/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">SVP Black Star Promos &bull; 051</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/122/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/122/low.webp" onerror="this.remove()" alt="Snorlax 122, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/122/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/122/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">SVP Black Star Promos &bull; 122</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/184/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/184/low.webp" onerror="this.remove()" alt="Hop's Snorlax 184, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/184/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/184/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Hop's Snorlax</div>
         <div class="rr">SVP Black Star Promos &bull; 184</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/140/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/140/low.webp" onerror="this.remove()" alt="Snorlax 140, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/140/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/140/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Sword &amp; Shield &bull; 140</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/141/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/141/low.webp" onerror="this.remove()" alt="Snorlax V 141, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/141/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/141/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax V</div>
         <div class="rr">Sword &amp; Shield &bull; 141</div>
         <div class="rr">Holo Rare V</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/142/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/142/low.webp" onerror="this.remove()" alt="Snorlax VMAX 142, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/142/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/142/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax VMAX</div>
         <div class="rr">Sword &amp; Shield &bull; 142</div>
         <div class="rr">Holo Rare VMAX</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/197/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/197/low.webp" onerror="this.remove()" alt="Snorlax V 197, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/197/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/197/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax V</div>
         <div class="rr">Sword &amp; Shield &bull; 197</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/206/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/206/low.webp" onerror="this.remove()" alt="Snorlax VMAX 206, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/206/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/206/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax VMAX</div>
         <div class="rr">Sword &amp; Shield &bull; 206</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH032/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH032/low.webp" onerror="this.remove()" alt="Snorlax SWSH032, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH032/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH032/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH032</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH068/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH068/low.webp" onerror="this.remove()" alt="Snorlax SWSH068, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH068/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH068/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH068</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH119/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH119/low.webp" onerror="this.remove()" alt="Snorlax SWSH119, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH119/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH119/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH119</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/104/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/104/low.webp" onerror="this.remove()" alt="Rocket's Snorlax ex 104, Team Rocket Returns" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/104/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/104/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rocket's Snorlax ex</div>
         <div class="rr">Team Rocket Returns &bull; 104</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2a/063/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2a/063/low.webp" onerror="this.remove()" alt="Snorlax 063, Triumphant Light" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2a/063/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2a/063/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Triumphant Light &bull; 063</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/158/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/158/low.webp" onerror="this.remove()" alt="Snorlax 158, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/158/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/158/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Unbroken Bonds &bull; 158</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/131/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/131/low.webp" onerror="this.remove()" alt="Snorlax 131, Vivid Voltage" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/131/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/131/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Vivid Voltage &bull; 131</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/126/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/126/low.webp" onerror="this.remove()" alt="Snorlax 126, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/126/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/126/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">VMAXクライマックス &bull; 126</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/basep/49/low.avif"><img src="https://assets.tcgdex.net/en/base/basep/49/low.webp" onerror="this.remove()" alt="Snorlax 49, Wizards Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/basep/49/low.avif"><img src="https://assets.tcgdex.net/en/base/basep/49/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">Wizards Black Star Promos &bull; 49</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY179/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY179/low.webp" onerror="this.remove()" alt="Snorlax XY179, XY Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY179/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY179/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">XY Black Star Promos &bull; XY179</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5a/051/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5a/051/low.webp" onerror="this.remove()" alt="Snorlax 051, クリムゾンヘイズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5a/051/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5a/051/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">クリムゾンヘイズ &bull; 051</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SVLN/010/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SVLN/010/low.webp" onerror="this.remove()" alt="Snorlax 010, スターターセット テラスタイプ：ステラ ニンフィアex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SVLN/010/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SVLN/010/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">スターターセット テラスタイプ：ステラ ニンフィアex &bull; 010</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10a/058/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10a/058/low.webp" onerror="this.remove()" alt="Snorlax 058, ダークファンタズマ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10a/058/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10a/058/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">ダークファンタズマ &bull; 058</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10a/077/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10a/077/low.webp" onerror="this.remove()" alt="Snorlax 077, ダークファンタズマ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10a/077/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10a/077/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">ダークファンタズマ &bull; 077</div>
         <div class="rr">Character Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/076/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/076/low.webp" onerror="this.remove()" alt="Snorlax 076, ダブルブレイズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/076/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/076/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">ダブルブレイズ &bull; 076</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9/075/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9/075/low.webp" onerror="this.remove()" alt="Snorlax 075, バトルパートナーズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9/075/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9/075/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">バトルパートナーズ &bull; 075</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/143/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/143/low.webp" onerror="this.remove()" alt="Snorlax 143, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/143/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/143/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">ポケモンカード151 &bull; 143</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/181/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/181/low.webp" onerror="this.remove()" alt="Snorlax 181, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/181/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/181/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">ポケモンカード151 &bull; 181</div>
         <div class="rr">Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/310/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/310/low.webp" onerror="this.remove()" alt="Snorlax 310, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/310/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/310/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">レイジングサーフ &bull; 310</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SN/008/low.avif"><img src="https://assets.tcgdex.net/ja/S/SN/008/low.webp" onerror="this.remove()" alt="Snorlax 008, 初階牌組100 特別版" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SN/008/low.avif"><img src="https://assets.tcgdex.net/ja/S/SN/008/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Snorlax</div>
         <div class="rr">初階牌組100 特別版 &bull; 008</div>
         

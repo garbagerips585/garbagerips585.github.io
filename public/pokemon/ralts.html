@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/ralts.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -216,7 +218,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <div class="fact"><div class="n">$42</div><div class="l">Priciest one we price</div></div>
       <div class="fact"><div class="n">$0.16</div><div class="l">Cheapest way in</div></div>
       
-      <a class="fact fact-link" href="#watch"><div class="n">64</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
+      <a class="fact fact-link" href="#watch"><div class="n">66</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv01/211/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="211" data-price="$42.00"
         data-set="Scarlet &amp; Violet"
         aria-label="Enlarge Ralts, Scarlet &amp; Violet 211">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/211/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/211/low.webp" onerror="this.remove()" alt="Ralts 211, Scarlet &amp; Violet" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/211/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/211/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Scarlet &amp; Violet &bull; 211</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="153" data-price="$10.35"
         data-set="Paldean Fates"
         aria-label="Enlarge Ralts, Paldean Fates 153">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/153/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/153/low.webp" onerror="this.remove()" alt="Ralts 153, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/153/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/153/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Paldean Fates &bull; 153</div>
         <div class="rr">Shiny Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="058" data-price="$0.87"
         data-set="Mega Evolution"
         aria-label="Enlarge Ralts, Mega Evolution 058">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/058/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/058/low.webp" onerror="this.remove()" alt="Ralts 058, Mega Evolution" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/058/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/058/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Mega Evolution &bull; 058</div>
         <div class="rr">Common</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="59" data-price="$0.40"
         data-set="Chilling Reign"
         aria-label="Enlarge Ralts, Chilling Reign 59">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/59/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/59/low.webp" onerror="this.remove()" alt="Ralts 59, Chilling Reign" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/59/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/59/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Chilling Reign &bull; 59</div>
         <div class="rr">Common</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="027" data-price="$0.25"
         data-set="Paldean Fates"
         aria-label="Enlarge Ralts, Paldean Fates 027">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/027/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/027/low.webp" onerror="this.remove()" alt="Ralts 027, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/027/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/027/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Paldean Fates &bull; 027</div>
         <div class="rr">Common</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="084" data-price="$0.25"
         data-set="Scarlet &amp; Violet"
         aria-label="Enlarge Ralts, Scarlet &amp; Violet 084">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/084/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/084/low.webp" onerror="this.remove()" alt="Ralts 084, Scarlet &amp; Violet" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/084/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/084/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Scarlet &amp; Violet &bull; 084</div>
         <div class="rr">Common</div>
@@ -328,7 +345,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="087" data-price="$0.16"
         data-set="Ascended Heroes"
         aria-label="Enlarge Ralts, Ascended Heroes 087">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/087/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/087/low.webp" onerror="this.remove()" alt="Ralts 087, Ascended Heroes" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/087/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/087/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Ascended Heroes &bull; 087</div>
         <div class="rr">Common</div>
@@ -344,17 +361,17 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
 <section class="band tight" id="watch">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See these packs opened</p>
-    <h2>We have filmed <span class="hl">64</span> rips of
+    <h2>We have filmed <span class="hl">66</span> rips of
       the 3 sets that print
       <span class="hl">Ralts</span></h2>
     <p class="lede" style="max-width:40em">Garbage Rips 585 is a Pokemon card pack opening
       channel out of Rochester, New York. We film every pack we open, hit or no hit.</p>
     <ul class="poke-rips">
       <li><a href="/rip/only-garbage-rips-mega-emboar-box-2-finale-xqV7AYXoVJs.html">Only Garbage Rips? 😬 | Mega Emboar Box #2 FINALE</a><br><span class="rip-meta">Ascended Heroes</span></li>
-      <li><a href="/rip/only-garbage-rips-mega-evolution-pack-3-Pvi54rMlLfQ.html">Only Garbage Rips? 😬 | Mega Evolution Pack #3</a><br><span class="rip-meta">Mega Evolution</span></li>
+      <li><a href="/rip/6-boxes-and-still-no-og-starters-M7NqqhR8V4M.html">6 BOXES... and STILL No OG Starters?! 😭</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/opening-my-first-chilling-reign-pack-J-Gqbe3jPn4.html">Opening My FIRST Chilling Reign Pack 😬</a><br><span class="rip-meta">Chilling Reign</span></li>
       <li><a href="/rip/finally-an-ex-hit-mega-emboar-box-2-nBKJMnw9L2Y.html">Finally! An ex Hit! ⚡ | Mega Emboar Box #2</a><br><span class="rip-meta">Ascended Heroes</span></li>
-      <li><a href="/rip/only-garbage-rips-mega-evolutions-pack-2-dQaN_4yqS0w.html">Only Garbage Rips? 😬 | Mega Evolutions Pack #2</a><br><span class="rip-meta">Mega Evolution</span></li>
+      <li><a href="/rip/only-garbage-rips-mega-evolution-pack-3-Pvi54rMlLfQ.html">Only Garbage Rips? 😬 | Mega Evolution Pack #3</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/last-pack-magic-team-rocket-ultra-rare-pull-gFZ_jiV7DEY.html">LAST PACK MAGIC! 🚀 | Team Rocket Ultra Rare Pull!</a><br><span class="rip-meta">Ascended Heroes</span></li>
     </ul>
     <div class="btn-row" style="margin-top:16px">
@@ -372,301 +389,301 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/52/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/52/low.webp" onerror="this.remove()" alt="Ralts 52, Ancient Origins" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/52/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/52/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Ancient Origins &bull; 52</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/060/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/060/low.webp" onerror="this.remove()" alt="Ralts 060, Astral Radiance" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/060/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/060/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Astral Radiance &bull; 060</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy8/100/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy8/100/low.webp" onerror="this.remove()" alt="Ralts 100, BREAKthrough" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy8/100/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy8/100/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">BREAKthrough &bull; 100</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy8/68/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy8/68/low.webp" onerror="this.remove()" alt="Ralts 68, BREAKthrough" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy8/68/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy8/68/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">BREAKthrough &bull; 68</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/91/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/91/low.webp" onerror="this.remove()" alt="Ralts 91, Burning Shadows" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/91/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/91/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Burning Shadows &bull; 91</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/80/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/80/low.webp" onerror="this.remove()" alt="Ralts 80, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/80/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/80/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Cosmic Eclipse &bull; 80</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex11/81/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex11/81/low.webp" onerror="this.remove()" alt="Ralts 81, Delta Species" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex11/81/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex11/81/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Delta Species &bull; 81</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/60/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/60/low.webp" onerror="this.remove()" alt="Ralts 60, Dragon Frontiers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/60/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/60/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Dragon Frontiers &bull; 60</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/61/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/61/low.webp" onerror="this.remove()" alt="Ralts δ 61, Dragon Frontiers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/61/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/61/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts δ</div>
         <div class="rr">Dragon Frontiers &bull; 61</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/097/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/097/low.webp" onerror="this.remove()" alt="Ralts 097, Eevee Grove" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/097/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/097/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Eevee Grove &bull; 097</div>
         <div class="rr">One Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex9/61/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex9/61/low.webp" onerror="this.remove()" alt="Ralts 61, Emerald" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex9/61/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex9/61/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Emerald &bull; 61</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/063/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/063/low.webp" onerror="this.remove()" alt="Ralts 063, Fantastical Parade" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/063/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/063/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Fantastical Parade &bull; 063</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/130/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/130/low.webp" onerror="this.remove()" alt="Ralts 130, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/130/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/130/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Genetic Apex &bull; 130</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/090/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/090/low.webp" onerror="this.remove()" alt="Ralts 090, GXウルトラシャイニー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/090/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/090/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">GXウルトラシャイニー &bull; 090</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/194/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/194/low.webp" onerror="this.remove()" alt="Ralts 194, GXウルトラシャイニー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/194/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/194/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">GXウルトラシャイニー &bull; 194</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sma/SV34/low.avif"><img src="https://assets.tcgdex.net/en/sm/sma/SV34/low.webp" onerror="this.remove()" alt="Ralts SV34, Hidden Fates Shiny Vault" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sma/SV34/low.avif"><img src="https://assets.tcgdex.net/en/sm/sma/SV34/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Hidden Fates Shiny Vault &bull; SV34</div>
         <div class="rr">Shiny Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/59/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/59/low.webp" onerror="this.remove()" alt="Ralts 59, Legendary Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/59/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/59/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Legendary Treasures &bull; 59</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/RC8/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/RC8/low.webp" onerror="this.remove()" alt="Ralts RC8, Legendary Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/RC8/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/RC8/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Legendary Treasures &bull; RC8</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/139/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/139/low.webp" onerror="this.remove()" alt="Ralts 139, Lost Thunder" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/139/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/139/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Lost Thunder &bull; 139</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw4/55/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw4/55/low.webp" onerror="this.remove()" alt="Ralts 55, Next Destinies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw4/55/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw4/55/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Next Destinies &bull; 55</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw8/59/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw8/59/low.webp" onerror="this.remove()" alt="Ralts 59, Plasma Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw8/59/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw8/59/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Plasma Storm &bull; 59</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/89/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/89/low.webp" onerror="this.remove()" alt="Ralts 89, Platinum" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/89/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/89/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Platinum &bull; 89</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop7/15/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop7/15/low.webp" onerror="this.remove()" alt="Ralts 15, POP Series 7" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop7/15/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop7/15/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">POP Series 7 &bull; 15</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex16/59/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex16/59/low.webp" onerror="this.remove()" alt="Ralts 59, Power Keepers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex16/59/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex16/59/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Power Keepers &bull; 59</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/66/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/66/low.webp" onerror="this.remove()" alt="Ralts 66, Ruby &amp; Sapphire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/66/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/66/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Ruby &amp; Sapphire &bull; 66</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/67/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/67/low.webp" onerror="this.remove()" alt="Ralts 67, Ruby &amp; Sapphire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/67/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/67/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Ruby &amp; Sapphire &bull; 67</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/68/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/68/low.webp" onerror="this.remove()" alt="Ralts 68, Ruby &amp; Sapphire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/68/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/68/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Ruby &amp; Sapphire &bull; 68</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex2/74/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex2/74/low.webp" onerror="this.remove()" alt="Ralts 74, Sandstorm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex2/74/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex2/74/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Sandstorm &bull; 74</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/102/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/102/low.webp" onerror="this.remove()" alt="Ralts 102, Secret Wonders" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/102/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/102/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Secret Wonders &bull; 102</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/067/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/067/low.webp" onerror="this.remove()" alt="Ralts 067, Silver Tempest" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/067/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/067/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Silver Tempest &bull; 067</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/068/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/068/low.webp" onerror="this.remove()" alt="Ralts 068, Space-Time Smackdown" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/068/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/068/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">Space-Time Smackdown &bull; 068</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/061/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/061/low.webp" onerror="this.remove()" alt="Ralts 061, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/061/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/061/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">VMAXクライマックス &bull; 061</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1S/026/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1S/026/low.webp" onerror="this.remove()" alt="Ralts 026, スカーレットex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1S/026/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1S/026/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">スカーレットex &bull; 026</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1S/083/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1S/083/low.webp" onerror="this.remove()" alt="Ralts 083, スカーレットex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1S/083/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1S/083/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">スカーレットex &bull; 083</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11b/025/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11b/025/low.webp" onerror="this.remove()" alt="Ralts 025, ドリームリーグ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11b/025/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11b/025/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">ドリームリーグ &bull; 025</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9a/032/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9a/032/low.webp" onerror="this.remove()" alt="Ralts 032, バトルリージョン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9a/032/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9a/032/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">バトルリージョン &bull; 032</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7b/028/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7b/028/low.webp" onerror="this.remove()" alt="Ralts 028, フェアリーライズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7b/028/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7b/028/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">フェアリーライズ &bull; 028</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M1S/040/low.avif"><img src="https://assets.tcgdex.net/ja/M/M1S/040/low.webp" onerror="this.remove()" alt="Ralts 040, メガシンフォニア" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M1S/040/low.avif"><img src="https://assets.tcgdex.net/ja/M/M1S/040/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">メガシンフォニア &bull; 040</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/080/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/080/low.webp" onerror="this.remove()" alt="Ralts 080, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/080/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/080/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">レイジングサーフ &bull; 080</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/258/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/258/low.webp" onerror="this.remove()" alt="Ralts 258, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/258/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/258/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">レイジングサーフ &bull; 258</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM3N/036/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM3N/036/low.webp" onerror="this.remove()" alt="Ralts 036, 光を喰らう闇" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM3N/036/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM3N/036/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">光を喰らう闇 &bull; 036</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11a/036/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11a/036/low.webp" onerror="this.remove()" alt="Ralts 036, 白熱のアルカナ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11a/036/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11a/036/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">白熱のアルカナ &bull; 036</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6H/033/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6H/033/low.webp" onerror="this.remove()" alt="Ralts 033, 白銀のランス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6H/033/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6H/033/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ralts</div>
         <div class="rr">白銀のランス &bull; 033</div>
         <div class="rr">Common</div>

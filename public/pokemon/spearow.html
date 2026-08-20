@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/spearow.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -216,7 +218,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <div class="fact"><div class="n">$5</div><div class="l">Priciest one we price</div></div>
       <div class="fact"><div class="n">$0.40</div><div class="l">Cheapest way in</div></div>
       
-      <a class="fact fact-link" href="#watch"><div class="n">8</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
+      <a class="fact fact-link" href="#watch"><div class="n">9</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me01/151/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="151" data-price="$4.97"
         data-set="Mega Evolution"
         aria-label="Enlarge Spearow, Mega Evolution 151">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/151/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/151/low.webp" onerror="this.remove()" alt="Spearow 151, Mega Evolution" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/151/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/151/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">Mega Evolution &bull; 151</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="021" data-price="$2.15"
         data-set="151"
         aria-label="Enlarge Spearow, 151 021">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/021/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/021/low.webp" onerror="this.remove()" alt="Spearow 021, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/021/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/021/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">151 &bull; 021</div>
         <div class="rr">Common</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="102" data-price="$0.40"
         data-set="Mega Evolution"
         aria-label="Enlarge Spearow, Mega Evolution 102">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/102/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/102/low.webp" onerror="this.remove()" alt="Spearow 102, Mega Evolution" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/102/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/102/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">Mega Evolution &bull; 102</div>
         <div class="rr">Common</div>
@@ -296,18 +313,18 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
 <section class="band tight" id="watch">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See these packs opened</p>
-    <h2>We have filmed <span class="hl">8</span> rips of
+    <h2>We have filmed <span class="hl">9</span> rips of
       the 2 sets that print
       <span class="hl">Spearow</span></h2>
     <p class="lede" style="max-width:40em">Garbage Rips 585 is a Pokemon card pack opening
       channel out of Rochester, New York. We film every pack we open, hit or no hit.</p>
     <ul class="poke-rips">
-      <li><a href="/rip/only-garbage-rips-mega-evolution-pack-3-Pvi54rMlLfQ.html">Only Garbage Rips? 😬 | Mega Evolution Pack #3</a><br><span class="rip-meta">Mega Evolution</span></li>
+      <li><a href="/rip/6-boxes-and-still-no-og-starters-M7NqqhR8V4M.html">6 BOXES... and STILL No OG Starters?! 😭</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/only-garbage-rips-pok-mon-151-booster-packs-brj3GukGFAE.html">Only Garbage Rips? 😬 | Pokémon 151 Booster Packs</a><br><span class="rip-meta">151</span></li>
+      <li><a href="/rip/only-garbage-rips-mega-evolution-pack-3-Pvi54rMlLfQ.html">Only Garbage Rips? 😬 | Mega Evolution Pack #3</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/only-garbage-rips-mega-evolutions-pack-2-dQaN_4yqS0w.html">Only Garbage Rips? 😬 | Mega Evolutions Pack #2</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/pok-mon-mega-evolution-booster-pack-1-first-pack-hVS0VH-nfVM.html">Pokémon Mega Evolution Booster Pack #1 ⚡ | First Pack</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/only-garbage-rips-raikou-2-pack-blister-cmV6P3ssh2g.html">Only Garbage Rips 😬 | Raikou 2-Pack Blister</a><br><span class="rip-meta">Mega Evolution</span></li>
-      <li><a href="/rip/only-garbage-rips-from-the-mega-kangaskhan-ex-box-l6RPdGNs7uE.html">Only Garbage Rips from the Mega Kangaskhan ex Box</a><br><span class="rip-meta">Mega Evolution</span></li>
     </ul>
     <div class="btn-row" style="margin-top:16px">
       <a class="btn btn-yt" href="/videos.html?set=mega-evolution">Watch every Mega Evolution rip</a>
@@ -324,154 +341,154 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/92/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/92/low.webp" onerror="this.remove()" alt="Spearow 92, Base Set 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/92/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/92/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">Base Set 2 &bull; 92</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/111/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/111/low.webp" onerror="this.remove()" alt="Spearow 111, Battle Styles" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/111/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/111/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">Battle Styles &bull; 111</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex14/61/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex14/61/low.webp" onerror="this.remove()" alt="Spearow 61, Crystal Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex14/61/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex14/61/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">Crystal Guardians &bull; 61</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/130/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/130/low.webp" onerror="this.remove()" alt="Spearow 130, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/130/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/130/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">Expedition Base Set &bull; 130</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/81/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/81/low.webp" onerror="this.remove()" alt="Spearow 81, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/81/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/81/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 81</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/191/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/191/low.webp" onerror="this.remove()" alt="Spearow 191, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/191/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/191/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">Genetic Apex &bull; 191</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/52/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/52/low.webp" onerror="this.remove()" alt="Lt. Surge's Spearow 52, Gym Heroes" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/52/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/52/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lt. Surge's Spearow</div>
         <div class="rr">Gym Heroes &bull; 52</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/83/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/83/low.webp" onerror="this.remove()" alt="Lt. Surge's Spearow 83, Gym Heroes" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/83/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/83/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lt. Surge's Spearow</div>
         <div class="rr">Gym Heroes &bull; 83</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/62/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/62/low.webp" onerror="this.remove()" alt="Spearow 62, Jungle" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/62/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/62/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">Jungle &bull; 62</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/94/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/94/low.webp" onerror="this.remove()" alt="Spearow 94, Legendary Collection" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/94/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/94/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">Legendary Collection &bull; 94</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp5/74/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp5/74/low.webp" onerror="this.remove()" alt="Spearow 74, Majestic Dawn" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp5/74/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp5/74/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">Majestic Dawn &bull; 74</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy4/78/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy4/78/low.webp" onerror="this.remove()" alt="Spearow 78, Phantom Forces" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy4/78/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy4/78/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">Phantom Forces &bull; 78</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy6/65/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy6/65/low.webp" onerror="this.remove()" alt="Spearow 65, Roaring Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy6/65/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy6/65/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">Roaring Skies &bull; 65</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex2/81/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex2/81/low.webp" onerror="this.remove()" alt="Spearow 81, Sandstorm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex2/81/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex2/81/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">Sandstorm &bull; 81</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm1/97/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm1/97/low.webp" onerror="this.remove()" alt="Spearow 97, Sun &amp; Moon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm1/97/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm1/97/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">Sun &amp; Moon &bull; 97</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/145/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/145/low.webp" onerror="this.remove()" alt="Spearow 145, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/145/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/145/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">Unbroken Bonds &bull; 145</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/62/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/62/low.webp" onerror="this.remove()" alt="Spearow 62, Unleashed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/62/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/62/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">Unleashed &bull; 62</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/129/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/129/low.webp" onerror="this.remove()" alt="Spearow 129, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/129/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/129/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 129</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM1M/045/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM1M/045/low.webp" onerror="this.remove()" alt="Spearow 045, コレクションムーン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM1M/045/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM1M/045/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">コレクションムーン &bull; 045</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9b/039/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9b/039/low.webp" onerror="this.remove()" alt="Spearow 039, フルメタルウォール" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9b/039/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9b/039/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">フルメタルウォール &bull; 039</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/021/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/021/low.webp" onerror="this.remove()" alt="Spearow 021, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/021/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/021/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">ポケモンカード151 &bull; 021</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S5I/055/low.avif"><img src="https://assets.tcgdex.net/ja/S/S5I/055/low.webp" onerror="this.remove()" alt="Spearow 055, 一撃マスター" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S5I/055/low.avif"><img src="https://assets.tcgdex.net/ja/S/S5I/055/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spearow</div>
         <div class="rr">一撃マスター &bull; 055</div>
         <div class="rr">Common</div>

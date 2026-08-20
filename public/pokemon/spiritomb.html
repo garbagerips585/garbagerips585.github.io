@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/spiritomb.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -216,7 +218,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <div class="fact"><div class="n">$11</div><div class="l">Priciest one we price</div></div>
       <div class="fact"><div class="n">$0.20</div><div class="l">Cheapest way in</div></div>
       
-      <a class="fact fact-link" href="#watch"><div class="n">49</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
+      <a class="fact fact-link" href="#watch"><div class="n">50</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
@@ -246,7 +248,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me02.5/244/high.webp"
@@ -254,7 +271,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="244" data-price="$11.00"
         data-set="Ascended Heroes"
         aria-label="Enlarge Cynthia's Spiritomb, Ascended Heroes 244">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/244/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/244/low.webp" onerror="this.remove()" alt="Cynthia's Spiritomb 244, Ascended Heroes" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/244/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/244/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Cynthia's Spiritomb</div>
         <div class="rr">Ascended Heroes &bull; 244</div>
         <div class="rr">Illustration Rare</div>
@@ -266,7 +283,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="158" data-price="$5.05"
         data-set="Paldean Fates"
         aria-label="Enlarge Spiritomb, Paldean Fates 158">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/158/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/158/low.webp" onerror="this.remove()" alt="Spiritomb 158, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/158/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/158/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Paldean Fates &bull; 158</div>
         <div class="rr">Shiny Rare</div>
@@ -278,7 +295,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="148" data-price="$3.41"
         data-set="Mega Evolution"
         aria-label="Enlarge Spiritomb, Mega Evolution 148">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/148/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/148/low.webp" onerror="this.remove()" alt="Spiritomb 148, Mega Evolution" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/148/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/148/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Mega Evolution &bull; 148</div>
         <div class="rr">Illustration Rare</div>
@@ -290,7 +307,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="035" data-price="$3.00"
         data-set="Pitch Black"
         aria-label="Enlarge Spiritomb, Pitch Black 035">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/035/low.avif"><img src="https://assets.tcgdex.net/en/me/me05/035/low.webp" onerror="this.remove()" alt="Spiritomb 035, Pitch Black" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/035/low.avif"><img src="https://assets.tcgdex.net/en/me/me05/035/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Pitch Black &bull; 035</div>
         <div class="rr">Rare</div>
@@ -302,7 +319,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="116" data-price="$1.97"
         data-set="Rebel Clash"
         aria-label="Enlarge Spiritomb, Rebel Clash 116">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/116/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/116/low.webp" onerror="this.remove()" alt="Spiritomb 116, Rebel Clash" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/116/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/116/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Rebel Clash &bull; 116</div>
         <div class="rr">Rare</div>
@@ -314,7 +331,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="129" data-price="$0.60"
         data-set="Destined Rivals"
         aria-label="Enlarge Cynthia's Spiritomb, Destined Rivals 129">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/129/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/129/low.webp" onerror="this.remove()" alt="Cynthia's Spiritomb 129, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/129/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/129/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Cynthia's Spiritomb</div>
         <div class="rr">Destined Rivals &bull; 129</div>
         <div class="rr">Uncommon</div>
@@ -326,7 +343,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="087" data-price="$0.40"
         data-set="Mega Evolution"
         aria-label="Enlarge Spiritomb, Mega Evolution 087">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/087/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/087/low.webp" onerror="this.remove()" alt="Spiritomb 087, Mega Evolution" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/087/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/087/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Mega Evolution &bull; 087</div>
         <div class="rr">Uncommon</div>
@@ -338,7 +355,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="103" data-price="$0.35"
         data-set="Chilling Reign"
         aria-label="Enlarge Spiritomb, Chilling Reign 103">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/103/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/103/low.webp" onerror="this.remove()" alt="Spiritomb 103, Chilling Reign" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/103/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/103/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Chilling Reign &bull; 103</div>
         <div class="rr">Rare</div>
@@ -350,7 +367,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="129" data-price="$0.25"
         data-set="Scarlet &amp; Violet"
         aria-label="Enlarge Spiritomb, Scarlet &amp; Violet 129">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/129/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/129/low.webp" onerror="this.remove()" alt="Spiritomb 129, Scarlet &amp; Violet" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/129/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/129/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Scarlet &amp; Violet &bull; 129</div>
         <div class="rr">Uncommon</div>
@@ -362,7 +379,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="133" data-price="$0.25"
         data-set="Ascended Heroes"
         aria-label="Enlarge Cynthia's Spiritomb, Ascended Heroes 133">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/133/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/133/low.webp" onerror="this.remove()" alt="Cynthia's Spiritomb 133, Ascended Heroes" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/133/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/133/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Cynthia's Spiritomb</div>
         <div class="rr">Ascended Heroes &bull; 133</div>
         <div class="rr">Uncommon</div>
@@ -374,7 +391,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="089" data-price="$0.20"
         data-set="Paldea Evolved"
         aria-label="Enlarge Spiritomb, Paldea Evolved 089">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/089/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/089/low.webp" onerror="this.remove()" alt="Spiritomb 089, Paldea Evolved" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/089/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/089/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Paldea Evolved &bull; 089</div>
         <div class="rr">Rare</div>
@@ -390,7 +407,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
 <section class="band tight" id="watch">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See these packs opened</p>
-    <h2>We have filmed <span class="hl">49</span> rips of
+    <h2>We have filmed <span class="hl">50</span> rips of
       the 6 sets that print
       <span class="hl">Spiritomb</span></h2>
     <p class="lede" style="max-width:40em">Garbage Rips 585 is a Pokemon card pack opening
@@ -398,7 +415,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
     <ul class="poke-rips">
       <li><a href="/rip/is-rampardos-ex-a-real-hit-_RuAmy2dGL8.html">Is Rampardos ex a &quot;Real&quot; Hit? 🦖🤔</a><br><span class="rip-meta">Pitch Black</span></li>
       <li><a href="/rip/destined-rivals-pack-12-can-we-top-the-mewtwo-hbUa4l-xono.html">Destined Rivals Pack #12 ⚡ | Can We TOP The Mewtwo?! 😳</a><br><span class="rip-meta">Destined Rivals</span></li>
-      <li><a href="/rip/only-garbage-rips-mega-evolution-pack-3-Pvi54rMlLfQ.html">Only Garbage Rips? 😬 | Mega Evolution Pack #3</a><br><span class="rip-meta">Mega Evolution</span></li>
+      <li><a href="/rip/6-boxes-and-still-no-og-starters-M7NqqhR8V4M.html">6 BOXES... and STILL No OG Starters?! 😭</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/pok-mon-rebel-clash-booster-pack-2-any-better-nCIpRxwMMBE.html">Pokémon Rebel Clash Booster Pack #2 ⚡ | Any Better?</a><br><span class="rip-meta">Rebel Clash</span></li>
       <li><a href="/rip/opening-my-first-chilling-reign-pack-J-Gqbe3jPn4.html">Opening My FIRST Chilling Reign Pack 😬</a><br><span class="rip-meta">Chilling Reign</span></li>
       <li><a href="/rip/only-garbage-rips-paldea-evolved-blister-pack-pokemonshorts-evnMahizn0I.html">Only Garbage Rips 😬 | Paldea Evolved Blister Pack #PokemonShorts #PokemonTCG #PaldeaEvolved</a><br><span class="rip-meta">Paldea Evolved</span></li>
@@ -418,210 +435,210 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl4/32/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl4/32/low.webp" onerror="this.remove()" alt="Spiritomb 32, Arceus" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl4/32/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl4/32/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Arceus &bull; 32</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/089/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/089/low.webp" onerror="this.remove()" alt="Spiritomb 089, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/089/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/089/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Brilliant Stars &bull; 089</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/103/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/103/low.webp" onerror="this.remove()" alt="Spiritomb 103, Fantastical Parade" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/103/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/103/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Fantastical Parade &bull; 103</div>
         <div class="rr">Three Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/87/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/87/low.webp" onerror="this.remove()" alt="Spiritomb 87, Legendary Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/87/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/87/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Legendary Treasures &bull; 87</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/16/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/16/low.webp" onerror="this.remove()" alt="Spiritomb 16, Legends Awakened" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/16/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/16/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Legends Awakened &bull; 16</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/117/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/117/low.webp" onerror="this.remove()" alt="Spiritomb 117, Lost Origin" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/117/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/117/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Lost Origin &bull; 117</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy4/55/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy4/55/low.webp" onerror="this.remove()" alt="Spiritomb 55, Phantom Forces" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy4/55/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy4/55/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Phantom Forces &bull; 55</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/049/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/049/low.webp" onerror="this.remove()" alt="Spiritomb 049, Shining Revelry" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/049/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/049/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Shining Revelry &bull; 049</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/104/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/104/low.webp" onerror="this.remove()" alt="Spiritomb 104, Space-Time Smackdown" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/104/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/104/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Space-Time Smackdown &bull; 104</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/172/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/172/low.webp" onerror="this.remove()" alt="Spiritomb 172, Space-Time Smackdown" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/172/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/172/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Space-Time Smackdown &bull; 172</div>
         <div class="rr">One Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy11/62/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy11/62/low.webp" onerror="this.remove()" alt="Spiritomb 62, Steam Siege" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy11/62/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy11/62/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Steam Siege &bull; 62</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/84/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/84/low.webp" onerror="this.remove()" alt="Spiritomb C 84, Supreme Victors" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/84/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/84/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb C</div>
         <div class="rr">Supreme Victors &bull; 84</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12a/076/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12a/076/low.webp" onerror="this.remove()" alt="Spiritomb 076, TAG TEAM GX タッグオールスターズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12a/076/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12a/076/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">TAG TEAM GX タッグオールスターズ &bull; 076</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/89/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/89/low.webp" onerror="this.remove()" alt="Spiritomb 89, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/89/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/89/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Team Up &bull; 89</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss4/10/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss4/10/low.webp" onerror="this.remove()" alt="Spiritomb 10, Triumphant" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss4/10/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss4/10/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Triumphant &bull; 10</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm5/53/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm5/53/low.webp" onerror="this.remove()" alt="Spiritomb 53, Ultra Prism" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm5/53/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm5/53/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Ultra Prism &bull; 53</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/112/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/112/low.webp" onerror="this.remove()" alt="Spiritomb 112, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/112/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/112/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">Unbroken Bonds &bull; 112</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/107/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/107/low.webp" onerror="this.remove()" alt="Spiritomb 107, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/107/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/107/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">VMAXクライマックス &bull; 107</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/084/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/084/low.webp" onerror="this.remove()" alt="Spiritomb 084, VSTARユニバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/084/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/084/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">VSTARユニバース &bull; 084</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM5M/025/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM5M/025/low.webp" onerror="this.remove()" alt="Spiritomb 025, ウルトラムーン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM5M/025/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM5M/025/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">ウルトラムーン &bull; 025</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2D/028/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2D/028/low.webp" onerror="this.remove()" alt="Spiritomb 028, クレイバースト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2D/028/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2D/028/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">クレイバースト &bull; 028</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9/065/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9/065/low.webp" onerror="this.remove()" alt="Spiritomb 065, スターバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9/065/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9/065/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">スターバース &bull; 065</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8a/024/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8a/024/low.webp" onerror="this.remove()" alt="Spiritomb 024, ダークオーダー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8a/024/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8a/024/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">ダークオーダー &bull; 024</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10a/047/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10a/047/low.webp" onerror="this.remove()" alt="Spiritomb 047, ダークファンタズマ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10a/047/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10a/047/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">ダークファンタズマ &bull; 047</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10a/076/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10a/076/low.webp" onerror="this.remove()" alt="Spiritomb 076, ダークファンタズマ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10a/076/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10a/076/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">ダークファンタズマ &bull; 076</div>
         <div class="rr">Character Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/057/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/057/low.webp" onerror="this.remove()" alt="Spiritomb 057, ダブルブレイズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/057/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/057/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">ダブルブレイズ &bull; 057</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1V/052/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1V/052/low.webp" onerror="this.remove()" alt="Spiritomb 052, バイオレットex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1V/052/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1V/052/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">バイオレットex &bull; 052</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/086/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/086/low.webp" onerror="this.remove()" alt="Spiritomb 086, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/086/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/086/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">レイジングサーフ &bull; 086</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/263/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/263/low.webp" onerror="this.remove()" alt="Spiritomb 263, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/263/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/263/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">レイジングサーフ &bull; 263</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9a/050/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9a/050/low.webp" onerror="this.remove()" alt="Spiritomb 050, 熱風のアリーナ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9a/050/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9a/050/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Spiritomb</div>
         <div class="rr">熱風のアリーナ &bull; 050</div>
         <div class="rr">Uncommon</div>

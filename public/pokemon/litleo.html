@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/litleo.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -216,7 +218,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <div class="fact"><div class="n">$5</div><div class="l">Priciest one we price</div></div>
       <div class="fact"><div class="n">$0.16</div><div class="l">Cheapest way in</div></div>
       
-      <a class="fact fact-link" href="#watch"><div class="n">74</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
+      <a class="fact fact-link" href="#watch"><div class="n">75</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me01/139/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="139" data-price="$5.05"
         data-set="Mega Evolution"
         aria-label="Enlarge Litleo, Mega Evolution 139">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/139/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/139/low.webp" onerror="this.remove()" alt="Litleo 139, Mega Evolution" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/139/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/139/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">Mega Evolution &bull; 139</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="014" data-price="$1.38"
         data-set="Chaos Rising"
         aria-label="Enlarge Litleo, Chaos Rising 014">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/014/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/014/low.webp" onerror="this.remove()" alt="Litleo 014, Chaos Rising" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/014/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/014/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">Chaos Rising &bull; 014</div>
         <div class="rr">Common</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="031" data-price="$0.79"
         data-set="Paldea Evolved"
         aria-label="Enlarge Litleo, Paldea Evolved 031">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/031/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/031/low.webp" onerror="this.remove()" alt="Litleo 031, Paldea Evolved" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/031/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/031/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">Paldea Evolved &bull; 031</div>
         <div class="rr">Common</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="023" data-price="$0.43"
         data-set="Mega Evolution"
         aria-label="Enlarge Litleo, Mega Evolution 023">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/023/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/023/low.webp" onerror="this.remove()" alt="Litleo 023, Mega Evolution" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/023/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/023/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">Mega Evolution &bull; 023</div>
         <div class="rr">Common</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="015" data-price="$0.16"
         data-set="Prismatic Evolutions"
         aria-label="Enlarge Litleo, Prismatic Evolutions 015">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/015/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/015/low.webp" onerror="this.remove()" alt="Litleo 015, Prismatic Evolutions" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/015/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/015/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">Prismatic Evolutions &bull; 015</div>
         <div class="rr">Common</div>
@@ -320,7 +337,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
 <section class="band tight" id="watch">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See these packs opened</p>
-    <h2>We have filmed <span class="hl">74</span> rips of
+    <h2>We have filmed <span class="hl">75</span> rips of
       the 4 sets that print
       <span class="hl">Litleo</span></h2>
     <p class="lede" style="max-width:40em">Garbage Rips 585 is a Pokemon card pack opening
@@ -328,7 +345,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
     <ul class="poke-rips">
       <li><a href="/rip/i-just-pulled-a-1-000-card-iIgTusrqVtg.html">I Just Pulled a $1,000 Card! 😱🐸</a><br><span class="rip-meta">Chaos Rising</span></li>
       <li><a href="/rip/final-prismatic-evolutions-etb-pack-last-pack-magic-CT5t8mKeZUw.html">FINAL Prismatic Evolutions ETB Pack ✨ | Last Pack Magic?! 😳</a><br><span class="rip-meta">Prismatic Evolutions</span></li>
-      <li><a href="/rip/only-garbage-rips-mega-evolution-pack-3-Pvi54rMlLfQ.html">Only Garbage Rips? 😬 | Mega Evolution Pack #3</a><br><span class="rip-meta">Mega Evolution</span></li>
+      <li><a href="/rip/6-boxes-and-still-no-og-starters-M7NqqhR8V4M.html">6 BOXES... and STILL No OG Starters?! 😭</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/only-garbage-rips-paldea-evolved-blister-pack-pokemonshorts-evnMahizn0I.html">Only Garbage Rips 😬 | Paldea Evolved Blister Pack #PokemonShorts #PokemonTCG #PaldeaEvolved</a><br><span class="rip-meta">Paldea Evolved</span></li>
       <li><a href="/rip/is-pack-13-actually-cursed-DP8HG31X1rg.html">Is Pack #13 Actually CURSED? 💀🌑</a><br><span class="rip-meta">Chaos Rising</span></li>
       <li><a href="/rip/only-garbage-rips-prismatic-etb-pack-8-2wZwMWDlxP0.html">Only Garbage Rips? 😬 | Prismatic ETB Pack #8</a><br><span class="rip-meta">Prismatic Evolutions</span></li>
@@ -348,133 +365,133 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/36/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/36/low.webp" onerror="this.remove()" alt="Litleo 36, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/36/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/36/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">Cosmic Eclipse &bull; 36</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/22/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/22/low.webp" onerror="this.remove()" alt="Litleo 22, Evolving Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/22/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/22/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">Evolving Skies &bull; 22</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/020/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/020/low.webp" onerror="this.remove()" alt="Litleo 020, Fantastical Parade" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/020/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/020/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">Fantastical Parade &bull; 020</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/18/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/18/low.webp" onerror="this.remove()" alt="Litleo 18, Flashfire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/18/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/18/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">Flashfire &bull; 18</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/19/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/19/low.webp" onerror="this.remove()" alt="Litleo 19, Flashfire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/19/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/19/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">Flashfire &bull; 19</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm6/18/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm6/18/low.webp" onerror="this.remove()" alt="Litleo 18, Forbidden Light" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm6/18/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm6/18/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">Forbidden Light &bull; 18</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/028/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/028/low.webp" onerror="this.remove()" alt="Litleo 028, Lost Origin" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/028/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/028/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">Lost Origin &bull; 028</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/50/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/50/low.webp" onerror="this.remove()" alt="Litleo 50, Lost Thunder" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/50/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/50/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">Lost Thunder &bull; 50</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy4/11/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy4/11/low.webp" onerror="this.remove()" alt="Litleo 11, Phantom Forces" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy4/11/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy4/11/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">Phantom Forces &bull; 11</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy11/22/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy11/22/low.webp" onerror="this.remove()" alt="Litleo 22, Steam Siege" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy11/22/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy11/22/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">Steam Siege &bull; 22</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12/014/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12/014/low.webp" onerror="this.remove()" alt="Litleo 014, オルタージェネシス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12/014/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12/014/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">オルタージェネシス &bull; 014</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1a/014/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1a/014/low.webp" onerror="this.remove()" alt="Litleo 014, トリプレットビート" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1a/014/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1a/014/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">トリプレットビート &bull; 014</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/014/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/014/low.webp" onerror="this.remove()" alt="Litleo 014, ニンジャスピナー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/014/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/014/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">ニンジャスピナー &bull; 014</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9a/015/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9a/015/low.webp" onerror="this.remove()" alt="Litleo 015, バトルリージョン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9a/015/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9a/015/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">バトルリージョン &bull; 015</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M1S/010/low.avif"><img src="https://assets.tcgdex.net/ja/M/M1S/010/low.webp" onerror="this.remove()" alt="Litleo 010, メガシンフォニア" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M1S/010/low.avif"><img src="https://assets.tcgdex.net/ja/M/M1S/010/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">メガシンフォニア &bull; 010</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M1S/066/low.avif"><img src="https://assets.tcgdex.net/ja/M/M1S/066/low.webp" onerror="this.remove()" alt="Litleo 066, メガシンフォニア" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M1S/066/low.avif"><img src="https://assets.tcgdex.net/ja/M/M1S/066/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">メガシンフォニア &bull; 066</div>
         <div class="rr">Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6H/012/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6H/012/low.webp" onerror="this.remove()" alt="Litleo 012, 白銀のランス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6H/012/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6H/012/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">白銀のランス &bull; 012</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6/015/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6/015/low.webp" onerror="this.remove()" alt="Litleo 015, 禁断の光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6/015/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6/015/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">禁断の光 &bull; 015</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7a/015/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7a/015/low.webp" onerror="this.remove()" alt="Litleo 015, 迅雷スパーク" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7a/015/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7a/015/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Litleo</div>
         <div class="rr">迅雷スパーク &bull; 015</div>
         <div class="rr">Common</div>

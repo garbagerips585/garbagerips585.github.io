@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/regirock.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -216,7 +218,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <div class="fact"><div class="n">$2</div><div class="l">Priciest one we price</div></div>
       <div class="fact"><div class="n">$0.50</div><div class="l">Cheapest way in</div></div>
       
-      <a class="fact fact-link" href="#watch"><div class="n">86</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
+      <a class="fact fact-link" href="#watch"><div class="n">87</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
@@ -246,7 +248,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv10/214/high.webp"
@@ -254,7 +271,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="214" data-price="$1.99"
         data-set="Destined Rivals"
         aria-label="Enlarge Regirock ex, Destined Rivals 214">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/214/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/214/low.webp" onerror="this.remove()" alt="Regirock ex 214, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/214/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/214/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Regirock ex</div>
         <div class="rr">Destined Rivals &bull; 214</div>
         <div class="rr">Ultra Rare</div>
@@ -266,7 +283,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="101" data-price="$1.49"
         data-set="Destined Rivals"
         aria-label="Enlarge Regirock ex, Destined Rivals 101">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/101/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/101/low.webp" onerror="this.remove()" alt="Regirock ex 101, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/101/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/101/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Regirock ex</div>
         <div class="rr">Destined Rivals &bull; 101</div>
         <div class="rr">Double Rare</div>
@@ -278,7 +295,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="107" data-price="$1.49"
         data-set="Ascended Heroes"
         aria-label="Enlarge Regirock ex, Ascended Heroes 107">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/107/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/107/low.webp" onerror="this.remove()" alt="Regirock ex 107, Ascended Heroes" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/107/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/107/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Regirock ex</div>
         <div class="rr">Ascended Heroes &bull; 107</div>
         <div class="rr">Double Rare</div>
@@ -290,7 +307,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="082" data-price="$0.50"
         data-set="Journey Together"
         aria-label="Enlarge Regirock, Journey Together 082">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/082/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/082/low.webp" onerror="this.remove()" alt="Regirock 082, Journey Together" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/082/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/082/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Regirock</div>
         <div class="rr">Journey Together &bull; 082</div>
         <div class="rr">Rare</div>
@@ -306,7 +323,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
 <section class="band tight" id="watch">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See these packs opened</p>
-    <h2>We have filmed <span class="hl">86</span> rips of
+    <h2>We have filmed <span class="hl">87</span> rips of
       the 3 sets that print
       <span class="hl">Regirock</span></h2>
     <p class="lede" style="max-width:40em">Garbage Rips 585 is a Pokemon card pack opening
@@ -334,161 +351,161 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/40/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/40/low.webp" onerror="this.remove()" alt="Regirock 40, Ancient Origins" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/40/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/40/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock</div>
         <div class="rr">Ancient Origins &bull; 40</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/075/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/075/low.webp" onerror="this.remove()" alt="Regirock 075, Astral Radiance" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/075/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/075/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock</div>
         <div class="rr">Astral Radiance &bull; 075</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/80/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/80/low.webp" onerror="this.remove()" alt="Regirock 80, Celestial Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/80/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/80/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock</div>
         <div class="rr">Celestial Storm &bull; 80</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/53/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/53/low.webp" onerror="this.remove()" alt="Regirock 53, Crimson Invasion" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/53/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/53/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock</div>
         <div class="rr">Crimson Invasion &bull; 53</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex9/99/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex9/99/low.webp" onerror="this.remove()" alt="Regirock ex 99, Emerald" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex9/99/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex9/99/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock ex</div>
         <div class="rr">Emerald &bull; 99</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/43/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/43/low.webp" onerror="this.remove()" alt="Regirock EX 43, Fates Collide" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/43/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/43/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock EX</div>
         <div class="rr">Fates Collide &bull; 43</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/43a/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/43a/low.webp" onerror="this.remove()" alt="Regirock EX 43a, Fates Collide" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/43a/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/43a/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock EX</div>
         <div class="rr">Fates Collide &bull; 43a</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/98/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/98/low.webp" onerror="this.remove()" alt="Regirock ex 98, Hidden Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/98/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/98/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock ex</div>
         <div class="rr">Hidden Legends &bull; 98</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/28/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/28/low.webp" onerror="this.remove()" alt="Regirock 28, Holon Phantoms" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/28/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/28/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock</div>
         <div class="rr">Holon Phantoms &bull; 28</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex12/91/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex12/91/low.webp" onerror="this.remove()" alt="Regirock ☆ 91, Legend Maker" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex12/91/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex12/91/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock ☆</div>
         <div class="rr">Legend Maker &bull; 91</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/38/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/38/low.webp" onerror="this.remove()" alt="Regirock 38, Legends Awakened" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/38/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/38/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock</div>
         <div class="rr">Legends Awakened &bull; 38</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM74/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM74/low.webp" onerror="this.remove()" alt="Regirock SM74, SM Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM74/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM74/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock</div>
         <div class="rr">SM Black Star Promos &bull; SM74</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/087/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/087/low.webp" onerror="this.remove()" alt="Regirock 087, Space-Time Smackdown" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/087/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/087/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock</div>
         <div class="rr">Space-Time Smackdown &bull; 087</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/104/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/104/low.webp" onerror="this.remove()" alt="Regirock V 104, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/104/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/104/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock V</div>
         <div class="rr">Sword &amp; Shield &bull; 104</div>
         <div class="rr">Holo Rare V</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/89/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/89/low.webp" onerror="this.remove()" alt="Regirock 89, Vivid Voltage" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/89/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/89/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock</div>
         <div class="rr">Vivid Voltage &bull; 89</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/075/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/075/low.webp" onerror="this.remove()" alt="Regirock 075, VSTARユニバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/075/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/075/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock</div>
         <div class="rr">VSTARユニバース &bull; 075</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY49/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY49/low.webp" onerror="this.remove()" alt="Regirock XY49, XY Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY49/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY49/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock</div>
         <div class="rr">XY Black Star Promos &bull; XY49</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10P/036/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10P/036/low.webp" onerror="this.remove()" alt="Regirock 036, スペースジャグラー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10P/036/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10P/036/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock</div>
         <div class="rr">スペースジャグラー &bull; 036</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9/049/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9/049/low.webp" onerror="this.remove()" alt="Regirock 049, バトルパートナーズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9/049/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9/049/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock</div>
         <div class="rr">バトルパートナーズ &bull; 049</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/055/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/055/low.webp" onerror="this.remove()" alt="Regirock 055, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/055/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/055/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock</div>
         <div class="rr">ロケット団の栄光 &bull; 055</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/115/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/115/low.webp" onerror="this.remove()" alt="Regirock 115, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/115/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/115/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock</div>
         <div class="rr">ロケット団の栄光 &bull; 115</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7/049/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7/049/low.webp" onerror="this.remove()" alt="Regirock 049, 裂空のカリスマ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7/049/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7/049/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock</div>
         <div class="rr">裂空のカリスマ &bull; 049</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4A/025/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4A/025/low.webp" onerror="this.remove()" alt="Regirock 025, 超次元の暴獣" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4A/025/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4A/025/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Regirock</div>
         <div class="rr">超次元の暴獣 &bull; 025</div>
         <div class="rr">Uncommon</div>

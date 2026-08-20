@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/miltank.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -216,7 +218,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <div class="fact"><div class="n">$1</div><div class="l">Priciest one we price</div></div>
       <div class="fact"><div class="n">$0.39</div><div class="l">Cheapest way in</div></div>
       
-      <a class="fact fact-link" href="#watch"><div class="n">23</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
+      <a class="fact fact-link" href="#watch"><div class="n">24</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
@@ -246,7 +248,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv04/147/high.webp"
@@ -254,7 +271,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="147" data-price="$0.99"
         data-set="Paradox Rift"
         aria-label="Enlarge Miltank, Paradox Rift 147">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/147/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/147/low.webp" onerror="this.remove()" alt="Miltank 147, Paradox Rift" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/147/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/147/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">Paradox Rift &bull; 147</div>
         <div class="rr">Common</div>
@@ -266,7 +283,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="106" data-price="$0.70"
         data-set="Mega Evolution"
         aria-label="Enlarge Miltank, Mega Evolution 106">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/106/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/106/low.webp" onerror="this.remove()" alt="Miltank 106, Mega Evolution" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/106/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/106/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">Mega Evolution &bull; 106</div>
         <div class="rr">Common</div>
@@ -278,7 +295,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="081" data-price="$0.39"
         data-set="Prismatic Evolutions"
         aria-label="Enlarge Miltank, Prismatic Evolutions 081">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/081/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/081/low.webp" onerror="this.remove()" alt="Miltank 081, Prismatic Evolutions" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/081/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/081/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">Prismatic Evolutions &bull; 081</div>
         <div class="rr">Common</div>
@@ -294,17 +311,17 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
 <section class="band tight" id="watch">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See these packs opened</p>
-    <h2>We have filmed <span class="hl">23</span> rips of
+    <h2>We have filmed <span class="hl">24</span> rips of
       the 3 sets that print
       <span class="hl">Miltank</span></h2>
     <p class="lede" style="max-width:40em">Garbage Rips 585 is a Pokemon card pack opening
       channel out of Rochester, New York. We film every pack we open, hit or no hit.</p>
     <ul class="poke-rips">
       <li><a href="/rip/final-prismatic-evolutions-etb-pack-last-pack-magic-CT5t8mKeZUw.html">FINAL Prismatic Evolutions ETB Pack ✨ | Last Pack Magic?! 😳</a><br><span class="rip-meta">Prismatic Evolutions</span></li>
-      <li><a href="/rip/only-garbage-rips-mega-evolution-pack-3-Pvi54rMlLfQ.html">Only Garbage Rips? 😬 | Mega Evolution Pack #3</a><br><span class="rip-meta">Mega Evolution</span></li>
+      <li><a href="/rip/6-boxes-and-still-no-og-starters-M7NqqhR8V4M.html">6 BOXES... and STILL No OG Starters?! 😭</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/only-garbage-rips-paradox-rift-pack-4-IuNgQ6IWdVc.html">Only Garbage Rips? 😬 | Paradox Rift Pack #4</a><br><span class="rip-meta">Paradox Rift</span></li>
       <li><a href="/rip/only-garbage-rips-prismatic-etb-pack-8-2wZwMWDlxP0.html">Only Garbage Rips? 😬 | Prismatic ETB Pack #8</a><br><span class="rip-meta">Prismatic Evolutions</span></li>
-      <li><a href="/rip/only-garbage-rips-mega-evolutions-pack-2-dQaN_4yqS0w.html">Only Garbage Rips? 😬 | Mega Evolutions Pack #2</a><br><span class="rip-meta">Mega Evolution</span></li>
+      <li><a href="/rip/only-garbage-rips-mega-evolution-pack-3-Pvi54rMlLfQ.html">Only Garbage Rips? 😬 | Mega Evolution Pack #3</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/only-garbage-rips-paradox-rift-sleeved-booster-f9qJ_M3ot3k.html">Only Garbage Rips 😬 | Paradox Rift Sleeved Booster</a><br><span class="rip-meta">Paradox Rift</span></li>
     </ul>
     <div class="btn-row" style="margin-top:16px">
@@ -322,133 +339,133 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/94/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/94/low.webp" onerror="this.remove()" alt="Miltank 94, Aquapolis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/94/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/94/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">Aquapolis &bull; 94</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/126/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/126/low.webp" onerror="this.remove()" alt="Miltank 126, Astral Radiance" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/126/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/126/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">Astral Radiance &bull; 126</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/78/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/78/low.webp" onerror="this.remove()" alt="Miltank 78, Crimson Invasion" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/78/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/78/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">Crimson Invasion &bull; 78</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/83/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/83/low.webp" onerror="this.remove()" alt="Miltank 83, Flashfire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/83/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/83/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">Flashfire &bull; 83</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/47/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/47/low.webp" onerror="this.remove()" alt="Miltank 47, HeartGold SoulSilver" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/47/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/47/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">HeartGold SoulSilver &bull; 47</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy0/27/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy0/27/low.webp" onerror="this.remove()" alt="Miltank 27, Kalos Starter Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy0/27/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy0/27/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">Kalos Starter Set &bull; 27</div>
         
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/158/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/158/low.webp" onerror="this.remove()" alt="Miltank 158, Lost Thunder" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/158/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/158/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">Lost Thunder &bull; 158</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo1/41/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo1/41/low.webp" onerror="this.remove()" alt="Miltank 41, Neo Genesis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo1/41/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo1/41/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">Neo Genesis &bull; 41</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/93/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/93/low.webp" onerror="this.remove()" alt="Miltank 93, Plasma Freeze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/93/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/93/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">Plasma Freeze &bull; 93</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4a/062/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4a/062/low.webp" onerror="this.remove()" alt="Miltank 062, Secluded Springs" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4a/062/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4a/062/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">Secluded Springs &bull; 062</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/55/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/55/low.webp" onerror="this.remove()" alt="Miltank 55, Secret Wonders" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/55/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/55/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">Secret Wonders &bull; 55</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp7/44/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp7/44/low.webp" onerror="this.remove()" alt="Miltank 44, Stormfront" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp7/44/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp7/44/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">Stormfront &bull; 44</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/42/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/42/low.webp" onerror="this.remove()" alt="Miltank 42, Unseen Forces" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/42/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/42/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">Unseen Forces &bull; 42</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/119/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/119/low.webp" onerror="this.remove()" alt="Miltank 119, VSTARユニバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/119/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/119/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">VSTARユニバース &bull; 119</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/199/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/199/low.webp" onerror="this.remove()" alt="Miltank 199, VSTARユニバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/199/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/199/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">VSTARユニバース &bull; 199</div>
         <div class="rr">Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9a/058/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9a/058/low.webp" onerror="this.remove()" alt="Miltank 058, バトルリージョン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9a/058/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9a/058/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">バトルリージョン &bull; 058</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4M/053/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4M/053/low.webp" onerror="this.remove()" alt="Miltank 053, 未来の一閃" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4M/053/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4M/053/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">未来の一閃 &bull; 053</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4A/041/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4A/041/low.webp" onerror="this.remove()" alt="Miltank 041, 超次元の暴獣" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4A/041/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4A/041/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">超次元の暴獣 &bull; 041</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8/071/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8/071/low.webp" onerror="this.remove()" alt="Miltank 071, 超爆インパクト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8/071/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8/071/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Miltank</div>
         <div class="rr">超爆インパクト &bull; 071</div>
         <div class="rr">Uncommon</div>

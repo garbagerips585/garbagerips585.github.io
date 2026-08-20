@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/charmander.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv03.5/168/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="168" data-price="$89.00"
         data-set="151"
         aria-label="Enlarge Charmander, 151 168">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/168/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/168/low.webp" onerror="this.remove()" alt="Charmander 168, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/168/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/168/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">151 &bull; 168</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="109" data-price="$43.51"
         data-set="Paldean Fates"
         aria-label="Enlarge Charmander, Paldean Fates 109">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/109/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/109/low.webp" onerror="this.remove()" alt="Charmander 109, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/109/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/109/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Paldean Fates &bull; 109</div>
         <div class="rr">Shiny Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="008" data-price="$1.88"
         data-set="Pokémon GO"
         aria-label="Enlarge Charmander, Pokémon GO 008">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/008/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/008/low.webp" onerror="this.remove()" alt="Charmander 008, Pokémon GO" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/008/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/008/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Pokémon GO &bull; 008</div>
         <div class="rr">Common</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="011" data-price="$1.31"
         data-set="Phantasmal Flames"
         aria-label="Enlarge Charmander, Phantasmal Flames 011">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/011/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/011/low.webp" onerror="this.remove()" alt="Charmander 011, Phantasmal Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/011/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/011/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Phantasmal Flames &bull; 011</div>
         <div class="rr">Common</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="020" data-price="$1.25"
         data-set="Ascended Heroes"
         aria-label="Enlarge Charmander, Ascended Heroes 020">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/020/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/020/low.webp" onerror="this.remove()" alt="Charmander 020, Ascended Heroes" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/020/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/020/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Ascended Heroes &bull; 020</div>
         <div class="rr">Common</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="026" data-price="$1.17"
         data-set="Obsidian Flames"
         aria-label="Enlarge Charmander, Obsidian Flames 026">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/026/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/026/low.webp" onerror="this.remove()" alt="Charmander 026, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/026/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/026/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Obsidian Flames &bull; 026</div>
         <div class="rr">Common</div>
@@ -328,7 +345,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="004" data-price="$0.99"
         data-set="151"
         aria-label="Enlarge Charmander, 151 004">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/004/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/004/low.webp" onerror="this.remove()" alt="Charmander 004, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/004/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/004/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">151 &bull; 004</div>
         <div class="rr">Common</div>
@@ -340,7 +357,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="007" data-price="$0.50"
         data-set="Paldean Fates"
         aria-label="Enlarge Charmander, Paldean Fates 007">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/007/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/007/low.webp" onerror="this.remove()" alt="Charmander 007, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/007/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/007/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Paldean Fates &bull; 007</div>
         <div class="rr">Common</div>
@@ -378,364 +395,364 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl4/59/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl4/59/low.webp" onerror="this.remove()" alt="Charmander 59, Arceus" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl4/59/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl4/59/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Arceus &bull; 59</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/46/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/46/low.webp" onerror="this.remove()" alt="Charmander 46, Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/46/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/46/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Base Set &bull; 46</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/69/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/69/low.webp" onerror="this.remove()" alt="Charmander 69, Base Set 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/69/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/69/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Base Set 2 &bull; 69</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/18/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/18/low.webp" onerror="this.remove()" alt="Charmander 18, Boundaries Crossed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/18/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/18/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Boundaries Crossed &bull; 18</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/18/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/18/low.webp" onerror="this.remove()" alt="Charmander 18, Burning Shadows" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/18/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/18/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Burning Shadows &bull; 18</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B1a/011/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B1a/011/low.webp" onerror="this.remove()" alt="Charmander 011, Crimson Blaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B1a/011/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B1a/011/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Crimson Blaze &bull; 011</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex14/48/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex14/48/low.webp" onerror="this.remove()" alt="Charmander 48, Crystal Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex14/48/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex14/48/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Crystal Guardians &bull; 48</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex14/49/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex14/49/low.webp" onerror="this.remove()" alt="Charmander δ 49, Crystal Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex14/49/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex14/49/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander δ</div>
         <div class="rr">Crystal Guardians &bull; 49</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/det1/4/low.avif"><img src="https://assets.tcgdex.net/en/sm/det1/4/low.webp" onerror="this.remove()" alt="Charmander 4, Detective Pikachu" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/det1/4/low.avif"><img src="https://assets.tcgdex.net/en/sm/det1/4/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Detective Pikachu &bull; 4</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/98/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/98/low.webp" onerror="this.remove()" alt="Charmander 98, Dragon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/98/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/98/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Dragon &bull; 98</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/9/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/9/low.webp" onerror="this.remove()" alt="Charmander 9, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/9/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/9/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Evolutions &bull; 9</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/97/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/97/low.webp" onerror="this.remove()" alt="Charmander 97, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/97/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/97/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Expedition Base Set &bull; 97</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/98/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/98/low.webp" onerror="this.remove()" alt="Charmander 98, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/98/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/98/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Expedition Base Set &bull; 98</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/113/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/113/low.webp" onerror="this.remove()" alt="Charmander 113, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/113/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/113/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 113</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/57/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/57/low.webp" onerror="this.remove()" alt="Charmander 57, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/57/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/57/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 57</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/58/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/58/low.webp" onerror="this.remove()" alt="Charmander 58, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/58/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/58/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 58</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/RC3/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/RC3/low.webp" onerror="this.remove()" alt="Charmander RC3, Generations" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/RC3/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/RC3/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Generations &bull; RC3</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/033/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/033/low.webp" onerror="this.remove()" alt="Charmander 033, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/033/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/033/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Genetic Apex &bull; 033</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/230/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/230/low.webp" onerror="this.remove()" alt="Charmander 230, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/230/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/230/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Genetic Apex &bull; 230</div>
         <div class="rr">One Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/166/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/166/low.webp" onerror="this.remove()" alt="Charmander 166, GXウルトラシャイニー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/166/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/166/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">GXウルトラシャイニー &bull; 166</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/60/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/60/low.webp" onerror="this.remove()" alt="Blaine's Charmander 60, Gym Challenge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/60/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/60/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaine's Charmander</div>
         <div class="rr">Gym Challenge &bull; 60</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/61/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/61/low.webp" onerror="this.remove()" alt="Blaine's Charmander 61, Gym Heroes" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/61/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/61/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaine's Charmander</div>
         <div class="rr">Gym Heroes &bull; 61</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm115/7/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm115/7/low.webp" onerror="this.remove()" alt="Charmander 7, Hidden Fates" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm115/7/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm115/7/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Hidden Fates &bull; 7</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sma/SV6/low.avif"><img src="https://assets.tcgdex.net/en/sm/sma/SV6/low.webp" onerror="this.remove()" alt="Charmander SV6, Hidden Fates Shiny Vault" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sma/SV6/low.avif"><img src="https://assets.tcgdex.net/en/sm/sma/SV6/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Hidden Fates Shiny Vault &bull; SV6</div>
         <div class="rr">Shiny Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/70/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/70/low.webp" onerror="this.remove()" alt="Charmander 70, Legendary Collection" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/70/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/70/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Legendary Collection &bull; 70</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/17/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/17/low.webp" onerror="this.remove()" alt="Charmander 17, Legendary Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/17/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/17/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Legendary Treasures &bull; 17</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/mep/038/low.avif"><img src="https://assets.tcgdex.net/en/me/mep/038/low.webp" onerror="this.remove()" alt="Charmander 038, MEP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/mep/038/low.avif"><img src="https://assets.tcgdex.net/en/me/mep/038/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">MEP Black Star Promos &bull; 038</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop5/10/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop5/10/low.webp" onerror="this.remove()" alt="Charmander δ 10, POP Series 5" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop5/10/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop5/10/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander δ</div>
         <div class="rr">POP Series 5 &bull; 10</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex16/48/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex16/48/low.webp" onerror="this.remove()" alt="Charmander 48, Power Keepers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex16/48/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex16/48/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Power Keepers &bull; 48</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/P-A/032/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/P-A/032/low.webp" onerror="this.remove()" alt="Charmander 032, Promos-A" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/P-A/032/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/P-A/032/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Promos-A &bull; 032</div>
         
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/82/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/82/low.webp" onerror="this.remove()" alt="Charmander 82, Secret Wonders" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/82/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/82/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Secret Wonders &bull; 82</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/008/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/008/low.webp" onerror="this.remove()" alt="Charmander 008, Shining Revelry" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/008/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/008/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Shining Revelry &bull; 008</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/099/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/099/low.webp" onerror="this.remove()" alt="Charmander 099, Shining Revelry" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/099/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/099/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Shining Revelry &bull; 099</div>
         <div class="rr">One Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp7/101/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp7/101/low.webp" onerror="this.remove()" alt="Charmander 101, Stormfront" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp7/101/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp7/101/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Stormfront &bull; 101</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/044/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/044/low.webp" onerror="this.remove()" alt="Charmander 044, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/044/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/044/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">SVP Black Star Promos &bull; 044</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/047/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/047/low.webp" onerror="this.remove()" alt="Charmander 047, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/047/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/047/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">SVP Black Star Promos &bull; 047</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH092/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH092/low.webp" onerror="this.remove()" alt="Charmander SWSH092, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH092/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH092/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH092</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH232/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH232/low.webp" onerror="this.remove()" alt="Charmander SWSH232, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH232/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH232/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH232</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/50/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/50/low.webp" onerror="this.remove()" alt="Charmander 50, Team Rocket" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/50/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/50/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Team Rocket &bull; 50</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/11/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/11/low.webp" onerror="this.remove()" alt="Charmander 11, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/11/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/11/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Team Up &bull; 11</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/12/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/12/low.webp" onerror="this.remove()" alt="Charmander 12, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/12/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/12/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Team Up &bull; 12</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/23/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/23/low.webp" onerror="this.remove()" alt="Charmander 23, Vivid Voltage" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/23/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/23/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">Vivid Voltage &bull; 23</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/015/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/015/low.webp" onerror="this.remove()" alt="Charmander 015, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/015/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/015/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">VMAXクライマックス &bull; 015</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/010/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/010/low.webp" onerror="this.remove()" alt="Charmander 010, タッグボルト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/010/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/010/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">タッグボルト &bull; 010</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/011/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/011/low.webp" onerror="this.remove()" alt="Charmander 011, タッグボルト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/011/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/011/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">タッグボルト &bull; 011</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6a/001/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6a/001/low.webp" onerror="this.remove()" alt="Charmander 001, ドラゴンストーム" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6a/001/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6a/001/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">ドラゴンストーム &bull; 001</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/004/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/004/low.webp" onerror="this.remove()" alt="Charmander 004, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/004/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/004/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">ポケモンカード151 &bull; 004</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/168/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/168/low.webp" onerror="this.remove()" alt="Charmander 168, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/168/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/168/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">ポケモンカード151 &bull; 168</div>
         <div class="rr">Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/025/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/025/low.webp" onerror="this.remove()" alt="Charmander 025, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/025/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/025/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">レイジングサーフ &bull; 025</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/210/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/210/low.webp" onerror="this.remove()" alt="Charmander 210, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/210/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/210/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">レイジングサーフ &bull; 210</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM3H/009/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM3H/009/low.webp" onerror="this.remove()" alt="Charmander 009, 闘う虹を見たか" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM3H/009/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM3H/009/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">闘う虹を見たか &bull; 009</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/012/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/012/low.webp" onerror="this.remove()" alt="Charmander 012, 黒炎の支配者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/012/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/012/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charmander</div>
         <div class="rr">黒炎の支配者 &bull; 012</div>
         <div class="rr">Common</div>

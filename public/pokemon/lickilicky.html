@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/lickilicky.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv05/125/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="125" data-price="$0.63"
         data-set="Temporal Forces"
         aria-label="Enlarge Lickilicky, Temporal Forces 125">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/125/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/125/low.webp" onerror="this.remove()" alt="Lickilicky 125, Temporal Forces" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/125/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/125/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Lickilicky</div>
         <div class="rr">Temporal Forces &bull; 125</div>
         <div class="rr">Common</div>
@@ -295,154 +312,154 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/114/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/114/low.webp" onerror="this.remove()" alt="Lickilicky 114, Battle Styles" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/114/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/114/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky</div>
         <div class="rr">Battle Styles &bull; 114</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy3/79/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy3/79/low.webp" onerror="this.remove()" alt="Lickilicky 79, Furious Fists" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy3/79/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy3/79/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky</div>
         <div class="rr">Furious Fists &bull; 79</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/139/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/139/low.webp" onerror="this.remove()" alt="Lickilicky 139, Lost Origin" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/139/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/139/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky</div>
         <div class="rr">Lost Origin &bull; 139</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/33/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/33/low.webp" onerror="this.remove()" alt="Lickilicky 33, Platinum" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/33/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/33/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky</div>
         <div class="rr">Platinum &bull; 33</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4a/058/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4a/058/low.webp" onerror="this.remove()" alt="Lickilicky 058, Secluded Springs" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4a/058/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4a/058/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky</div>
         <div class="rr">Secluded Springs &bull; 058</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/12/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/12/low.webp" onerror="this.remove()" alt="Lickilicky 12, Secret Wonders" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/12/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/12/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky</div>
         <div class="rr">Secret Wonders &bull; 12</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/063/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/063/low.webp" onerror="this.remove()" alt="Lickilicky 063, Shining Revelry" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/063/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/063/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky</div>
         <div class="rr">Shining Revelry &bull; 063</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/125/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/125/low.webp" onerror="this.remove()" alt="Lickilicky ex 125, Space-Time Smackdown" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/125/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/125/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky ex</div>
         <div class="rr">Space-Time Smackdown &bull; 125</div>
         <div class="rr">Four Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/189/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/189/low.webp" onerror="this.remove()" alt="Lickilicky ex 189, Space-Time Smackdown" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/189/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/189/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky ex</div>
         <div class="rr">Space-Time Smackdown &bull; 189</div>
         <div class="rr">Two Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/203/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/203/low.webp" onerror="this.remove()" alt="Lickilicky ex 203, Space-Time Smackdown" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/203/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/203/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky ex</div>
         <div class="rr">Space-Time Smackdown &bull; 203</div>
         <div class="rr">Two Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/30/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/30/low.webp" onerror="this.remove()" alt="Lickilicky C 30, Supreme Victors" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/30/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/30/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky C</div>
         <div class="rr">Supreme Victors &bull; 30</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss4/38/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss4/38/low.webp" onerror="this.remove()" alt="Lickilicky 38, Triumphant" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss4/38/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss4/38/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky</div>
         <div class="rr">Triumphant &bull; 38</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm5/103/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm5/103/low.webp" onerror="this.remove()" alt="Lickilicky 103, Ultra Prism" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm5/103/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm5/103/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky</div>
         <div class="rr">Ultra Prism &bull; 103</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/153/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/153/low.webp" onerror="this.remove()" alt="Lickilicky 153, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/153/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/153/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky</div>
         <div class="rr">Unbroken Bonds &bull; 153</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm11/162/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm11/162/low.webp" onerror="this.remove()" alt="Lickilicky 162, Unified Minds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm11/162/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm11/162/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky</div>
         <div class="rr">Unified Minds &bull; 162</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/239/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/239/low.webp" onerror="this.remove()" alt="Lickilicky ex 239, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/239/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/239/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky ex</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 239</div>
         <div class="rr">Two Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM5S/047/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM5S/047/low.webp" onerror="this.remove()" alt="Lickilicky 047, ウルトラサン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM5S/047/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM5S/047/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky</div>
         <div class="rr">ウルトラサン &bull; 047</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5M/054/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5M/054/low.webp" onerror="this.remove()" alt="Lickilicky 054, サイバージャッジ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5M/054/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5M/054/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky</div>
         <div class="rr">サイバージャッジ &bull; 054</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10b/037/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10b/037/low.webp" onerror="this.remove()" alt="Lickilicky 037, スカイレジェンド" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10b/037/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10b/037/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky</div>
         <div class="rr">スカイレジェンド &bull; 037</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10P/053/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10P/053/low.webp" onerror="this.remove()" alt="Lickilicky 053, スペースジャグラー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10P/053/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10P/053/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky</div>
         <div class="rr">スペースジャグラー &bull; 053</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9a/042/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9a/042/low.webp" onerror="this.remove()" alt="Lickilicky 042, ナイトユニゾン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9a/042/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9a/042/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky</div>
         <div class="rr">ナイトユニゾン &bull; 042</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S5I/058/low.avif"><img src="https://assets.tcgdex.net/ja/S/S5I/058/low.webp" onerror="this.remove()" alt="Lickilicky 058, 一撃マスター" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S5I/058/low.avif"><img src="https://assets.tcgdex.net/ja/S/S5I/058/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lickilicky</div>
         <div class="rr">一撃マスター &bull; 058</div>
         <div class="rr">Uncommon</div>

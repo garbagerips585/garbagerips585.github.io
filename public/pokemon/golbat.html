@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/golbat.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me04/050/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="050" data-price="$1.62"
         data-set="Chaos Rising"
         aria-label="Enlarge Golbat, Chaos Rising 050">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/050/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/050/low.webp" onerror="this.remove()" alt="Golbat 050, Chaos Rising" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/050/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/050/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Chaos Rising &bull; 050</div>
         <div class="rr">Common</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="121" data-price="$0.89"
         data-set="Destined Rivals"
         aria-label="Enlarge Team Rocket's Golbat, Destined Rivals 121">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/121/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/121/low.webp" onerror="this.remove()" alt="Team Rocket's Golbat 121, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/121/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/121/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Golbat</div>
         <div class="rr">Destined Rivals &bull; 121</div>
         <div class="rr">Uncommon</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="042" data-price="$0.64"
         data-set="151"
         aria-label="Enlarge Golbat, 151 042">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/042/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/042/low.webp" onerror="this.remove()" alt="Golbat 042, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/042/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/042/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">151 &bull; 042</div>
         <div class="rr">Uncommon</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="028" data-price="$0.37"
         data-set="Shrouded Fable"
         aria-label="Enlarge Golbat, Shrouded Fable 028">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06.5/028/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06.5/028/low.webp" onerror="this.remove()" alt="Golbat 028, Shrouded Fable" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06.5/028/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06.5/028/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Shrouded Fable &bull; 028</div>
         <div class="rr">Common</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="111" data-price="$0.25"
         data-set="Paradox Rift"
         aria-label="Enlarge Golbat, Paradox Rift 111">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/111/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/111/low.webp" onerror="this.remove()" alt="Golbat 111, Paradox Rift" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/111/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/111/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Paradox Rift &bull; 111</div>
         <div class="rr">Common</div>
@@ -348,231 +365,231 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/90/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/90/low.webp" onerror="this.remove()" alt="Golbat 90, Battle Styles" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/90/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/90/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Battle Styles &bull; 90</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex11/43/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex11/43/low.webp" onerror="this.remove()" alt="Golbat 43, Delta Species" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex11/43/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex11/43/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Delta Species &bull; 43</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/31/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/31/low.webp" onerror="this.remove()" alt="Golbat 31, Deoxys" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/31/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/31/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Deoxys &bull; 31</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base3/34/low.avif"><img src="https://assets.tcgdex.net/en/base/base3/34/low.webp" onerror="this.remove()" alt="Golbat 34, Fossil" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base3/34/low.avif"><img src="https://assets.tcgdex.net/en/base/base3/34/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Fossil &bull; 34</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/31/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/31/low.webp" onerror="this.remove()" alt="Golbat 31, Generations" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/31/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/31/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Generations &bull; 31</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/173/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/173/low.webp" onerror="this.remove()" alt="Golbat 173, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/173/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/173/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Genetic Apex &bull; 173</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/242/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/242/low.webp" onerror="this.remove()" alt="Golbat 242, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/242/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/242/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Genetic Apex &bull; 242</div>
         <div class="rr">One Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/46/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/46/low.webp" onerror="this.remove()" alt="Koga's Golbat 46, Gym Challenge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/46/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/46/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koga's Golbat</div>
         <div class="rr">Gym Challenge &bull; 46</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/39/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/39/low.webp" onerror="this.remove()" alt="Brock's Golbat 39, Gym Heroes" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/39/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/39/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Brock's Golbat</div>
         <div class="rr">Gym Heroes &bull; 39</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/36/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/36/low.webp" onerror="this.remove()" alt="Golbat 36, Hidden Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/36/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/36/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Hidden Legends &bull; 36</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp2/50/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp2/50/low.webp" onerror="this.remove()" alt="Golbat 50, Mysterious Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp2/50/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp2/50/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Mysterious Treasures &bull; 50</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo3/29/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo3/29/low.webp" onerror="this.remove()" alt="Golbat 29, Neo Revelation" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo3/29/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo3/29/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Neo Revelation &bull; 29</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy4/32/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy4/32/low.webp" onerror="this.remove()" alt="Golbat 32, Phantom Forces" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy4/32/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy4/32/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Phantom Forces &bull; 32</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw8/54/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw8/54/low.webp" onerror="this.remove()" alt="Golbat 54, Plasma Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw8/54/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw8/54/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Plasma Storm &bull; 54</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/104/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/104/low.webp" onerror="this.remove()" alt="Golbat 104, Silver Tempest" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/104/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/104/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Silver Tempest &bull; 104</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/60/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/60/low.webp" onerror="this.remove()" alt="Golbat 60, Skyridge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/60/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/60/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Skyridge &bull; 60</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm1/55/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm1/55/low.webp" onerror="this.remove()" alt="Golbat 55, Sun &amp; Moon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm1/55/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm1/55/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Sun &amp; Moon &bull; 55</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/24/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/24/low.webp" onerror="this.remove()" alt="Dark Golbat 24, Team Rocket" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/24/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/24/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Golbat</div>
         <div class="rr">Team Rocket &bull; 24</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/7/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/7/low.webp" onerror="this.remove()" alt="Dark Golbat 7, Team Rocket" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/7/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/7/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Golbat</div>
         <div class="rr">Team Rocket &bull; 7</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/34/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/34/low.webp" onerror="this.remove()" alt="Dark Golbat 34, Team Rocket Returns" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/34/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/34/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Golbat</div>
         <div class="rr">Team Rocket Returns &bull; 34</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2a/049/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2a/049/low.webp" onerror="this.remove()" alt="Golbat 049, Triumphant Light" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2a/049/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2a/049/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Triumphant Light &bull; 049</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/65/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/65/low.webp" onerror="this.remove()" alt="Golbat 65, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/65/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/65/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Unbroken Bonds &bull; 65</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/30/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/30/low.webp" onerror="this.remove()" alt="Golbat 30, Unleashed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/30/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/30/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Unleashed &bull; 30</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/108/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/108/low.webp" onerror="this.remove()" alt="Golbat 108, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/108/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/108/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 108</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM1S/022/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM1S/022/low.webp" onerror="this.remove()" alt="Golbat 022, コレクションサン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM1S/022/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM1S/022/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">コレクションサン &bull; 022</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10a/042/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10a/042/low.webp" onerror="this.remove()" alt="Golbat 042, ダークファンタズマ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10a/042/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10a/042/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">ダークファンタズマ &bull; 042</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6a/028/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6a/028/low.webp" onerror="this.remove()" alt="Golbat 028, ナイトワンダラー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6a/028/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6a/028/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">ナイトワンダラー &bull; 028</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/049/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/049/low.webp" onerror="this.remove()" alt="Golbat 049, ニンジャスピナー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/049/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/049/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">ニンジャスピナー &bull; 049</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9b/017/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9b/017/low.webp" onerror="this.remove()" alt="Golbat 017, フルメタルウォール" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9b/017/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9b/017/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">フルメタルウォール &bull; 017</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/042/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/042/low.webp" onerror="this.remove()" alt="Golbat 042, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/042/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/042/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">ポケモンカード151 &bull; 042</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/065/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/065/low.webp" onerror="this.remove()" alt="Golbat 065, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/065/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/065/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">ロケット団の栄光 &bull; 065</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S5I/039/low.avif"><img src="https://assets.tcgdex.net/ja/S/S5I/039/low.webp" onerror="this.remove()" alt="Golbat 039, 一撃マスター" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S5I/039/low.avif"><img src="https://assets.tcgdex.net/ja/S/S5I/039/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">一撃マスター &bull; 039</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4K/045/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4K/045/low.webp" onerror="this.remove()" alt="Golbat 045, 古代の咆哮" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4K/045/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4K/045/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golbat</div>
         <div class="rr">古代の咆哮 &bull; 045</div>
         <div class="rr">Common</div>

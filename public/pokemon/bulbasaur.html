@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/bulbasaur.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -216,7 +218,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <div class="fact"><div class="n">$100</div><div class="l">Priciest one we price</div></div>
       <div class="fact"><div class="n">$0.95</div><div class="l">Cheapest way in</div></div>
       
-      <a class="fact fact-link" href="#watch"><div class="n">20</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
+      <a class="fact fact-link" href="#watch"><div class="n">21</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv07/143/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="143" data-price="$100"
         data-set="Stellar Crown"
         aria-label="Enlarge Bulbasaur, Stellar Crown 143">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv07/143/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv07/143/low.webp" onerror="this.remove()" alt="Bulbasaur 143, Stellar Crown" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv07/143/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv07/143/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Stellar Crown &bull; 143</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="166" data-price="$74.99"
         data-set="151"
         aria-label="Enlarge Bulbasaur, 151 166">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/166/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/166/low.webp" onerror="this.remove()" alt="Bulbasaur 166, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/166/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/166/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">151 &bull; 166</div>
         <div class="rr">Illustration Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="133" data-price="$21.66"
         data-set="Mega Evolution"
         aria-label="Enlarge Bulbasaur, Mega Evolution 133">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/133/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/133/low.webp" onerror="this.remove()" alt="Bulbasaur 133, Mega Evolution" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/133/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/133/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Mega Evolution &bull; 133</div>
         <div class="rr">Illustration Rare</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="001" data-price="$1.49"
         data-set="Pokémon GO"
         aria-label="Enlarge Bulbasaur, Pokémon GO 001">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/001/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/001/low.webp" onerror="this.remove()" alt="Bulbasaur 001, Pokémon GO" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/001/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/001/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Pokémon GO &bull; 001</div>
         <div class="rr">Common</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="001" data-price="$1.32"
         data-set="151"
         aria-label="Enlarge Bulbasaur, 151 001">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/001/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/001/low.webp" onerror="this.remove()" alt="Bulbasaur 001, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/001/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/001/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">151 &bull; 001</div>
         <div class="rr">Common</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="001" data-price="$0.95"
         data-set="Mega Evolution"
         aria-label="Enlarge Bulbasaur, Mega Evolution 001">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/001/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/001/low.webp" onerror="this.remove()" alt="Bulbasaur 001, Mega Evolution" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/001/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/001/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Mega Evolution &bull; 001</div>
         <div class="rr">Common</div>
@@ -332,17 +349,17 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
 <section class="band tight" id="watch">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See these packs opened</p>
-    <h2>We have filmed <span class="hl">20</span> rips of
+    <h2>We have filmed <span class="hl">21</span> rips of
       the 3 sets that print
       <span class="hl">Bulbasaur</span></h2>
     <p class="lede" style="max-width:40em">Garbage Rips 585 is a Pokemon card pack opening
       channel out of Rochester, New York. We film every pack we open, hit or no hit.</p>
     <ul class="poke-rips">
       <li><a href="/rip/pok-mon-go-pack-12-still-no-ditto-or-mewtwo-QXS1W_L2qbs.html">Pokémon GO Pack #12 ⚡ | STILL No Ditto or Mewtwo?! 😬</a><br><span class="rip-meta">Pokémon GO</span></li>
-      <li><a href="/rip/only-garbage-rips-mega-evolution-pack-3-Pvi54rMlLfQ.html">Only Garbage Rips? 😬 | Mega Evolution Pack #3</a><br><span class="rip-meta">Mega Evolution</span></li>
+      <li><a href="/rip/6-boxes-and-still-no-og-starters-M7NqqhR8V4M.html">6 BOXES... and STILL No OG Starters?! 😭</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/only-garbage-rips-pok-mon-151-booster-packs-brj3GukGFAE.html">Only Garbage Rips? 😬 | Pokémon 151 Booster Packs</a><br><span class="rip-meta">151</span></li>
       <li><a href="/rip/pok-mon-go-pack-11-the-hunt-continues--la8PgoBkCw.html">Pokémon GO Pack #11 ⚡ | The Hunt Continues… 😬</a><br><span class="rip-meta">Pokémon GO</span></li>
-      <li><a href="/rip/only-garbage-rips-mega-evolutions-pack-2-dQaN_4yqS0w.html">Only Garbage Rips? 😬 | Mega Evolutions Pack #2</a><br><span class="rip-meta">Mega Evolution</span></li>
+      <li><a href="/rip/only-garbage-rips-mega-evolution-pack-3-Pvi54rMlLfQ.html">Only Garbage Rips? 😬 | Mega Evolution Pack #3</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/final-pok-mon-go-pack-mewtwo-or-ditto-i9htInhtbCw.html">FINAL Pokémon GO Pack ⚡ | Mewtwo or Ditto?! 😬</a><br><span class="rip-meta">Pokémon GO</span></li>
     </ul>
     <div class="btn-row" style="margin-top:16px">
@@ -360,189 +377,189 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/44/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/44/low.webp" onerror="this.remove()" alt="Bulbasaur 44, Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/44/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/44/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Base Set &bull; 44</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/67/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/67/low.webp" onerror="this.remove()" alt="Bulbasaur 67, Base Set 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/67/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/67/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Base Set 2 &bull; 67</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/210/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/210/low.webp" onerror="this.remove()" alt="Bulbasaur 210, Celestial Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/210/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/210/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Celestial Guardians &bull; 210</div>
         <div class="rr">One Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B1a/001/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B1a/001/low.webp" onerror="this.remove()" alt="Bulbasaur 001, Crimson Blaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B1a/001/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B1a/001/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Crimson Blaze &bull; 001</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex14/45/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex14/45/low.webp" onerror="this.remove()" alt="Bulbasaur 45, Crystal Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex14/45/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex14/45/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Crystal Guardians &bull; 45</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex14/46/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex14/46/low.webp" onerror="this.remove()" alt="Bulbasaur 46, Crystal Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex14/46/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex14/46/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Crystal Guardians &bull; 46</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw5/1/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw5/1/low.webp" onerror="this.remove()" alt="Bulbasaur 1, Dark Explorers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw5/1/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw5/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Dark Explorers &bull; 1</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/det1/1/low.avif"><img src="https://assets.tcgdex.net/en/sm/det1/1/low.webp" onerror="this.remove()" alt="Bulbasaur 1, Detective Pikachu" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/det1/1/low.avif"><img src="https://assets.tcgdex.net/en/sm/det1/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Detective Pikachu &bull; 1</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/94/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/94/low.webp" onerror="this.remove()" alt="Bulbasaur 94, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/94/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/94/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Expedition Base Set &bull; 94</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/95/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/95/low.webp" onerror="this.remove()" alt="Bulbasaur 95, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/95/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/95/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Expedition Base Set &bull; 95</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/54/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/54/low.webp" onerror="this.remove()" alt="Bulbasaur 54, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/54/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/54/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 54</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/55/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/55/low.webp" onerror="this.remove()" alt="Bulbasaur 55, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/55/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/55/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 55</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/001/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/001/low.webp" onerror="this.remove()" alt="Bulbasaur 001, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/001/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/001/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Genetic Apex &bull; 001</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/227/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/227/low.webp" onerror="this.remove()" alt="Bulbasaur 227, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/227/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/227/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Genetic Apex &bull; 227</div>
         <div class="rr">One Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/001/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/001/low.webp" onerror="this.remove()" alt="Bulbasaur 001, GXウルトラシャイニー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/001/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/001/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">GXウルトラシャイニー &bull; 001</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/39/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/39/low.webp" onerror="this.remove()" alt="Erika's Bulbasaur 39, Gym Challenge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/39/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/39/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Erika's Bulbasaur</div>
         <div class="rr">Gym Challenge &bull; 39</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/68/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/68/low.webp" onerror="this.remove()" alt="Bulbasaur 68, Legendary Collection" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/68/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/68/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Legendary Collection &bull; 68</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/mep/037/low.avif"><img src="https://assets.tcgdex.net/en/me/mep/037/low.webp" onerror="this.remove()" alt="Bulbasaur 037, MEP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/mep/037/low.avif"><img src="https://assets.tcgdex.net/en/me/mep/037/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">MEP Black Star Promos &bull; 037</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop2/12/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop2/12/low.webp" onerror="this.remove()" alt="Bulbasaur 12, POP Series 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop2/12/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop2/12/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">POP Series 2 &bull; 12</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/P-A/023/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/P-A/023/low.webp" onerror="this.remove()" alt="Bulbasaur 023, Promos-A" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/P-A/023/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/P-A/023/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Promos-A &bull; 023</div>
         
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/77/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/77/low.webp" onerror="this.remove()" alt="Bulbasaur 77, Secret Wonders" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/77/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/77/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Secret Wonders &bull; 77</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/93/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/93/low.webp" onerror="this.remove()" alt="Bulbasaur 93, Supreme Victors" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/93/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/93/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Supreme Victors &bull; 93</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/046/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/046/low.webp" onerror="this.remove()" alt="Bulbasaur 046, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/046/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/046/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">SVP Black Star Promos &bull; 046</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH231/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH231/low.webp" onerror="this.remove()" alt="Bulbasaur SWSH231, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH231/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH231/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH231</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/39/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/39/low.webp" onerror="this.remove()" alt="Bulbasaur 39, Team Magma vs Team Aqua" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/39/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/39/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">Team Magma vs Team Aqua &bull; 39</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/001/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/001/low.webp" onerror="this.remove()" alt="Bulbasaur 001, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/001/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/001/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">ポケモンカード151 &bull; 001</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/166/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/166/low.webp" onerror="this.remove()" alt="Bulbasaur 166, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/166/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/166/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Bulbasaur</div>
         <div class="rr">ポケモンカード151 &bull; 166</div>
         <div class="rr">Illustration Rare</div>

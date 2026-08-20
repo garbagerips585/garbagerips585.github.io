@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/wooper.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -216,7 +218,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <div class="fact"><div class="n">$13</div><div class="l">Priciest one we price</div></div>
       <div class="fact"><div class="n">$0.33</div><div class="l">Cheapest way in</div></div>
       
-      <a class="fact fact-link" href="#watch"><div class="n">32</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
+      <a class="fact fact-link" href="#watch"><div class="n">33</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv02/221/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="221" data-price="$12.52"
         data-set="Paldea Evolved"
         aria-label="Enlarge Paldean Wooper, Paldea Evolved 221">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/221/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/221/low.webp" onerror="this.remove()" alt="Paldean Wooper 221, Paldea Evolved" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/221/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/221/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Paldean Wooper</div>
         <div class="rr">Paldea Evolved &bull; 221</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="180" data-price="$11.75"
         data-set="Paldean Fates"
         aria-label="Enlarge Paldean Wooper, Paldean Fates 180">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/180/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/180/low.webp" onerror="this.remove()" alt="Paldean Wooper 180, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/180/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/180/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Paldean Wooper</div>
         <div class="rr">Paldean Fates &bull; 180</div>
         <div class="rr">Shiny Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="102" data-price="$4.29"
         data-set="Phantasmal Flames"
         aria-label="Enlarge Paldean Wooper, Phantasmal Flames 102">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/102/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/102/low.webp" onerror="this.remove()" alt="Paldean Wooper 102, Phantasmal Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/102/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/102/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Paldean Wooper</div>
         <div class="rr">Phantasmal Flames &bull; 102</div>
         <div class="rr">Illustration Rare</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="126" data-price="$1.14"
         data-set="Obsidian Flames"
         aria-label="Enlarge Paldean Wooper, Obsidian Flames 126">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/126/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/126/low.webp" onerror="this.remove()" alt="Paldean Wooper 126, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/126/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/126/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Paldean Wooper</div>
         <div class="rr">Obsidian Flames &bull; 126</div>
         <div class="rr">Common</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="093" data-price="$0.99"
         data-set="Journey Together"
         aria-label="Enlarge Paldean Wooper, Journey Together 093">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/093/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/093/low.webp" onerror="this.remove()" alt="Paldean Wooper 093, Journey Together" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/093/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/093/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Paldean Wooper</div>
         <div class="rr">Journey Together &bull; 093</div>
         <div class="rr">Common</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="127" data-price="$0.97"
         data-set="Obsidian Flames"
         aria-label="Enlarge Paldean Wooper, Obsidian Flames 127">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/127/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/127/low.webp" onerror="this.remove()" alt="Paldean Wooper 127, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/127/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/127/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Paldean Wooper</div>
         <div class="rr">Obsidian Flames &bull; 127</div>
         <div class="rr">Common</div>
@@ -328,7 +345,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="129" data-price="$0.51"
         data-set="Paldea Evolved"
         aria-label="Enlarge Paldean Wooper, Paldea Evolved 129">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/129/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/129/low.webp" onerror="this.remove()" alt="Paldean Wooper 129, Paldea Evolved" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/129/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/129/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Paldean Wooper</div>
         <div class="rr">Paldea Evolved &bull; 129</div>
         <div class="rr">Common</div>
@@ -340,7 +357,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="128" data-price="$0.50"
         data-set="Paldea Evolved"
         aria-label="Enlarge Paldean Wooper, Paldea Evolved 128">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/128/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/128/low.webp" onerror="this.remove()" alt="Paldean Wooper 128, Paldea Evolved" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/128/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/128/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Paldean Wooper</div>
         <div class="rr">Paldea Evolved &bull; 128</div>
         <div class="rr">Common</div>
@@ -352,7 +369,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="058" data-price="$0.33"
         data-set="Paldean Fates"
         aria-label="Enlarge Paldean Wooper, Paldean Fates 058">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/058/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/058/low.webp" onerror="this.remove()" alt="Paldean Wooper 058, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/058/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/058/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Paldean Wooper</div>
         <div class="rr">Paldean Fates &bull; 058</div>
         <div class="rr">Common</div>
@@ -368,21 +385,21 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
 <section class="band tight" id="watch">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See these packs opened</p>
-    <h2>We have filmed <span class="hl">32</span> rips of
+    <h2>We have filmed <span class="hl">33</span> rips of
       the 4 sets that print
       <span class="hl">Wooper</span></h2>
     <p class="lede" style="max-width:40em">Garbage Rips 585 is a Pokemon card pack opening
       channel out of Rochester, New York. We film every pack we open, hit or no hit.</p>
     <ul class="poke-rips">
-      <li><a href="/rip/final-journey-together-bundle-2-pack-last-pack-magic-CP7sMGF3p3M.html">FINAL Journey Together Bundle #2 Pack ⚡ | Last Pack Magic?! 😳</a><br><span class="rip-meta">Journey Together</span></li>
       <li><a href="/rip/did-we-get-the-zard-final-pack-3pUiN-8XkEk.html">DID WE GET THE ZARD?! 🐉🔥 (Final Pack)</a><br><span class="rip-meta">Phantasmal Flames</span></li>
+      <li><a href="/rip/final-journey-together-bundle-2-pack-last-pack-magic-CP7sMGF3p3M.html">FINAL Journey Together Bundle #2 Pack ⚡ | Last Pack Magic?! 😳</a><br><span class="rip-meta">Journey Together</span></li>
       <li><a href="/rip/opening-my-first-obsidian-flames-pack-RXKBcjWfqhE.html">Opening My FIRST Obsidian Flames Pack 😬</a><br><span class="rip-meta">Obsidian Flames</span></li>
       <li><a href="/rip/only-garbage-rips-paldea-evolved-blister-pack-pokemonshorts-evnMahizn0I.html">Only Garbage Rips 😬 | Paldea Evolved Blister Pack #PokemonShorts #PokemonTCG #PaldeaEvolved</a><br><span class="rip-meta">Paldea Evolved</span></li>
-      <li><a href="/rip/journey-together-booster-bundle-2-pack-5-we-need-a-hit-FlMsxjakWcs.html">Journey Together Booster Bundle #2 ⚡ | Pack #5 We NEED A Hit 😬</a><br><span class="rip-meta">Journey Together</span></li>
       <li><a href="/rip/i-found-an-sir-but-not-the-zard-R2VxbNMrlXQ.html">I FOUND AN SIR! 💎 (But Not The Zard...)</a><br><span class="rip-meta">Phantasmal Flames</span></li>
+      <li><a href="/rip/journey-together-booster-bundle-2-pack-5-we-need-a-hit-FlMsxjakWcs.html">Journey Together Booster Bundle #2 ⚡ | Pack #5 We NEED A Hit 😬</a><br><span class="rip-meta">Journey Together</span></li>
     </ul>
     <div class="btn-row" style="margin-top:16px">
-      <a class="btn btn-yt" href="/videos.html?set=journey-together">Watch every Journey Together rip</a>
+      <a class="btn btn-yt" href="/videos.html?set=phantasmal-flames">Watch every Phantasmal Flames rip</a>
     </div>
   </div>
 </section>
@@ -396,210 +413,210 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/38/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/38/low.webp" onerror="this.remove()" alt="Wooper 38, Ancient Origins" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/38/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/38/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">Ancient Origins &bull; 38</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/117/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/117/low.webp" onerror="this.remove()" alt="Wooper 117, Aquapolis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/117/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/117/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">Aquapolis &bull; 117</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/66/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/66/low.webp" onerror="this.remove()" alt="Wooper 66, Aquapolis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/66/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/66/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">Aquapolis &bull; 66</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/71/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/71/low.webp" onerror="this.remove()" alt="Wooper δ 71, Dragon Frontiers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/71/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/71/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper δ</div>
         <div class="rr">Dragon Frontiers &bull; 71</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/023/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/023/low.webp" onerror="this.remove()" alt="Wooper 023, GXウルトラシャイニー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/023/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/023/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">GXウルトラシャイニー &bull; 023</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/169/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/169/low.webp" onerror="this.remove()" alt="Wooper 169, GXウルトラシャイニー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/169/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/169/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">GXウルトラシャイニー &bull; 169</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/88/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/88/low.webp" onerror="this.remove()" alt="Wooper 88, HeartGold SoulSilver" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/88/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/88/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">HeartGold SoulSilver &bull; 88</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sma/SV9/low.avif"><img src="https://assets.tcgdex.net/en/sm/sma/SV9/low.webp" onerror="this.remove()" alt="Wooper SV9, Hidden Fates Shiny Vault" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sma/SV9/low.avif"><img src="https://assets.tcgdex.net/en/sm/sma/SV9/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">Hidden Fates Shiny Vault &bull; SV9</div>
         <div class="rr">Shiny Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo2/71/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo2/71/low.webp" onerror="this.remove()" alt="Wooper 71, Neo Discovery" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo2/71/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo2/71/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">Neo Discovery &bull; 71</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo1/82/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo1/82/low.webp" onerror="this.remove()" alt="Wooper 82, Neo Genesis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo1/82/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo1/82/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">Neo Genesis &bull; 82</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/21/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/21/low.webp" onerror="this.remove()" alt="Wooper 21, Plasma Freeze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/21/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/21/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">Plasma Freeze &bull; 21</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4a/100/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4a/100/low.webp" onerror="this.remove()" alt="Paldean Wooper 100, Secluded Springs" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4a/100/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4a/100/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Paldean Wooper</div>
         <div class="rr">Secluded Springs &bull; 100</div>
         <div class="rr">One Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/118/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/118/low.webp" onerror="this.remove()" alt="Wooper 118, Secret Wonders" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/118/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/118/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">Secret Wonders &bull; 118</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/047/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/047/low.webp" onerror="this.remove()" alt="Paldean Wooper 047, Shining Revelry" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/047/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/047/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Paldean Wooper</div>
         <div class="rr">Shining Revelry &bull; 047</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/041/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/041/low.webp" onerror="this.remove()" alt="Paldean Wooper 041, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/041/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/041/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Paldean Wooper</div>
         <div class="rr">SVP Black Star Promos &bull; 041</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/155/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/155/low.webp" onerror="this.remove()" alt="Wooper 155, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/155/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/155/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">SVP Black Star Promos &bull; 155</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/81/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/81/low.webp" onerror="this.remove()" alt="Wooper 81, Team Rocket Returns" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/81/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/81/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">Team Rocket Returns &bull; 81</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/96/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/96/low.webp" onerror="this.remove()" alt="Wooper 96, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/96/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/96/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">Unbroken Bonds &bull; 96</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/79/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/79/low.webp" onerror="this.remove()" alt="Wooper 79, Unseen Forces" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/79/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/79/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">Unseen Forces &bull; 79</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/83/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/83/low.webp" onerror="this.remove()" alt="Wooper 83, Vivid Voltage" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/83/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/83/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">Vivid Voltage &bull; 83</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/051/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/051/low.webp" onerror="this.remove()" alt="Wooper 051, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/051/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/051/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 051</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6a/018/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6a/018/low.webp" onerror="this.remove()" alt="Wooper 018, ドラゴンストーム" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6a/018/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6a/018/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">ドラゴンストーム &bull; 018</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1a/052/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1a/052/low.webp" onerror="this.remove()" alt="Wooper 052, トリプレットビート" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1a/052/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1a/052/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">トリプレットビート &bull; 052</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1a/053/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1a/053/low.webp" onerror="this.remove()" alt="Wooper 053, トリプレットビート" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1a/053/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1a/053/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">トリプレットビート &bull; 053</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1a/085/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1a/085/low.webp" onerror="this.remove()" alt="Wooper 085, トリプレットビート" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1a/085/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1a/085/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">トリプレットビート &bull; 085</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9a/021/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9a/021/low.webp" onerror="this.remove()" alt="Wooper 021, ナイトユニゾン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9a/021/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9a/021/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">ナイトユニゾン &bull; 021</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/116/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/116/low.webp" onerror="this.remove()" alt="Wooper 116, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/116/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/116/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">レイジングサーフ &bull; 116</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/287/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/287/low.webp" onerror="this.remove()" alt="Wooper 287, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/287/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/287/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">レイジングサーフ &bull; 287</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/067/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/067/low.webp" onerror="this.remove()" alt="Wooper 067, 黒炎の支配者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/067/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/067/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">黒炎の支配者 &bull; 067</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/068/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/068/low.webp" onerror="this.remove()" alt="Wooper 068, 黒炎の支配者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/068/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/068/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Wooper</div>
         <div class="rr">黒炎の支配者 &bull; 068</div>
         <div class="rr">Common</div>

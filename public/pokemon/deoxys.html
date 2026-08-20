@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/deoxys.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -246,7 +248,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me04/031/high.webp"
@@ -254,7 +271,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="031" data-price="$0.99"
         data-set="Chaos Rising"
         aria-label="Enlarge Deoxys, Chaos Rising 031">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/031/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/031/low.webp" onerror="this.remove()" alt="Deoxys 031, Chaos Rising" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/031/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/031/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">Chaos Rising &bull; 031</div>
         <div class="rr">Uncommon</div>
@@ -266,7 +283,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="032" data-price="$0.98"
         data-set="Chaos Rising"
         aria-label="Enlarge Deoxys, Chaos Rising 032">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/032/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/032/low.webp" onerror="this.remove()" alt="Deoxys 032, Chaos Rising" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/032/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/032/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">Chaos Rising &bull; 032</div>
         <div class="rr">Uncommon</div>
@@ -278,7 +295,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="034" data-price="$0.87"
         data-set="Chaos Rising"
         aria-label="Enlarge Deoxys, Chaos Rising 034">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/034/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/034/low.webp" onerror="this.remove()" alt="Deoxys 034, Chaos Rising" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/034/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/034/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">Chaos Rising &bull; 034</div>
         <div class="rr">Uncommon</div>
@@ -290,7 +307,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="033" data-price="$0.65"
         data-set="Chaos Rising"
         aria-label="Enlarge Deoxys, Chaos Rising 033">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/033/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/033/low.webp" onerror="this.remove()" alt="Deoxys 033, Chaos Rising" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/033/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/033/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">Chaos Rising &bull; 033</div>
         <div class="rr">Uncommon</div>
@@ -302,7 +319,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="074" data-price="$0.50"
         data-set="Paradox Rift"
         aria-label="Enlarge Deoxys, Paradox Rift 074">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/074/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/074/low.webp" onerror="this.remove()" alt="Deoxys 074, Paradox Rift" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/074/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/074/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">Paradox Rift &bull; 074</div>
         <div class="rr">Rare</div>
@@ -346,315 +363,315 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW82/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW82/low.webp" onerror="this.remove()" alt="Deoxys-EX BW82, BW Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW82/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW82/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys-EX</div>
         <div class="rr">BW Black Star Promos &bull; BW82</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/2/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/2/low.webp" onerror="this.remove()" alt="Deoxys 2, Call of Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/2/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/2/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">Call of Legends &bull; 2</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/SL1/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/SL1/low.webp" onerror="this.remove()" alt="Deoxys SL1, Call of Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/SL1/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/SL1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">Call of Legends &bull; SL1</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/67/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/67/low.webp" onerror="this.remove()" alt="Deoxys 67, Celestial Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/67/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/67/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">Celestial Storm &bull; 67</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/68/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/68/low.webp" onerror="this.remove()" alt="Deoxys 68, Celestial Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/68/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/68/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">Celestial Storm &bull; 68</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/69/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/69/low.webp" onerror="this.remove()" alt="Deoxys 69, Celestial Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/69/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/69/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">Celestial Storm &bull; 69</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/16/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/16/low.webp" onerror="this.remove()" alt="Deoxys 16, Deoxys" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/16/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/16/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">Deoxys &bull; 16</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/17/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/17/low.webp" onerror="this.remove()" alt="Deoxys 17, Deoxys" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/17/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/17/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">Deoxys &bull; 17</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/18/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/18/low.webp" onerror="this.remove()" alt="Deoxys 18, Deoxys" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/18/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/18/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">Deoxys &bull; 18</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/97/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/97/low.webp" onerror="this.remove()" alt="Deoxys ex 97, Deoxys" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/97/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/97/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys ex</div>
         <div class="rr">Deoxys &bull; 97</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/98/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/98/low.webp" onerror="this.remove()" alt="Deoxys ex 98, Deoxys" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/98/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/98/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys ex</div>
         <div class="rr">Deoxys &bull; 98</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/99/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/99/low.webp" onerror="this.remove()" alt="Deoxys ex 99, Deoxys" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/99/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/99/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys ex</div>
         <div class="rr">Deoxys &bull; 99</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex9/2/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex9/2/low.webp" onerror="this.remove()" alt="Deoxys 2, Emerald" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex9/2/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex9/2/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">Emerald &bull; 2</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex9/93/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex9/93/low.webp" onerror="this.remove()" alt="Deoxys ex 93, Emerald" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex9/93/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex9/93/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys ex</div>
         <div class="rr">Emerald &bull; 93</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/120/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/120/low.webp" onerror="this.remove()" alt="Deoxys 120, Fusion Strike" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/120/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/120/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">Fusion Strike &bull; 120</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/3/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/3/low.webp" onerror="this.remove()" alt="Deoxys δ 3, Holon Phantoms" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/3/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/3/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys δ</div>
         <div class="rr">Holon Phantoms &bull; 3</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/4/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/4/low.webp" onerror="this.remove()" alt="Deoxys δ 4, Holon Phantoms" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/4/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/4/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys δ</div>
         <div class="rr">Holon Phantoms &bull; 4</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/5/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/5/low.webp" onerror="this.remove()" alt="Deoxys δ 5, Holon Phantoms" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/5/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/5/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys δ</div>
         <div class="rr">Holon Phantoms &bull; 5</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/6/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/6/low.webp" onerror="this.remove()" alt="Deoxys δ 6, Holon Phantoms" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/6/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/6/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys δ</div>
         <div class="rr">Holon Phantoms &bull; 6</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/1/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/1/low.webp" onerror="this.remove()" alt="Deoxys Normal Forme 1, Legends Awakened" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/1/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys Normal Forme</div>
         <div class="rr">Legends Awakened &bull; 1</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/24/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/24/low.webp" onerror="this.remove()" alt="Deoxys Attack Forme 24, Legends Awakened" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/24/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/24/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys Attack Forme</div>
         <div class="rr">Legends Awakened &bull; 24</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/25/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/25/low.webp" onerror="this.remove()" alt="Deoxys Defense Forme 25, Legends Awakened" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/25/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/25/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys Defense Forme</div>
         <div class="rr">Legends Awakened &bull; 25</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/26/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/26/low.webp" onerror="this.remove()" alt="Deoxys Speed Forme 26, Legends Awakened" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/26/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/26/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys Speed Forme</div>
         <div class="rr">Legends Awakened &bull; 26</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/111/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/111/low.webp" onerror="this.remove()" alt="Deoxys-EX 111, Plasma Freeze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/111/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/111/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys-EX</div>
         <div class="rr">Plasma Freeze &bull; 111</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/53/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/53/low.webp" onerror="this.remove()" alt="Deoxys-EX 53, Plasma Freeze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/53/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/53/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys-EX</div>
         <div class="rr">Plasma Freeze &bull; 53</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop4/17/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop4/17/low.webp" onerror="this.remove()" alt="Deoxys ex 17, POP Series 4" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop4/17/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop4/17/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys ex</div>
         <div class="rr">POP Series 4 &bull; 17</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop4/2/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop4/2/low.webp" onerror="this.remove()" alt="Deoxys δ 2, POP Series 4" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop4/2/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop4/2/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys δ</div>
         <div class="rr">POP Series 4 &bull; 2</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy6/33/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy6/33/low.webp" onerror="this.remove()" alt="Deoxys 33, Roaring Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy6/33/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy6/33/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">Roaring Skies &bull; 33</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM164/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM164/low.webp" onerror="this.remove()" alt="Deoxys SM164, SM Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM164/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM164/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">SM Black Star Promos &bull; SM164</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH170/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH170/low.webp" onerror="this.remove()" alt="Deoxys SWSH170, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH170/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH170/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH170</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH266/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH266/low.webp" onerror="this.remove()" alt="Deoxys V SWSH266, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH266/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH266/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys V</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH266</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH267/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH267/low.webp" onerror="this.remove()" alt="Deoxys VMAX SWSH267, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH267/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH267/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys VMAX</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH267</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH268/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH268/low.webp" onerror="this.remove()" alt="Deoxys VSTAR SWSH268, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH268/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH268/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys VSTAR</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH268</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/060/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/060/low.webp" onerror="this.remove()" alt="Deoxys 060, VSTARユニバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/060/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/060/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">VSTARユニバース &bull; 060</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/185/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/185/low.webp" onerror="this.remove()" alt="Deoxys 185, VSTARユニバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/185/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/185/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">VSTARユニバース &bull; 185</div>
         <div class="rr">Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/222/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/222/low.webp" onerror="this.remove()" alt="Deoxys 222, VSTARユニバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/222/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/222/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">VSTARユニバース &bull; 222</div>
         <div class="rr">Special Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/223/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/223/low.webp" onerror="this.remove()" alt="Deoxys 223, VSTARユニバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/223/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/223/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">VSTARユニバース &bull; 223</div>
         <div class="rr">Special Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/031/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/031/low.webp" onerror="this.remove()" alt="Deoxys 031, ニンジャスピナー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/031/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/031/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">ニンジャスピナー &bull; 031</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/032/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/032/low.webp" onerror="this.remove()" alt="Deoxys 032, ニンジャスピナー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/032/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/032/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">ニンジャスピナー &bull; 032</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/033/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/033/low.webp" onerror="this.remove()" alt="Deoxys 033, ニンジャスピナー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/033/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/033/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">ニンジャスピナー &bull; 033</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/034/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/034/low.webp" onerror="this.remove()" alt="Deoxys 034, ニンジャスピナー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/034/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/034/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">ニンジャスピナー &bull; 034</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8/045/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8/045/low.webp" onerror="this.remove()" alt="Deoxys 045, フュージョンアーツ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8/045/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8/045/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">フュージョンアーツ &bull; 045</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7/042/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7/042/low.webp" onerror="this.remove()" alt="Deoxys 042, 裂空のカリスマ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7/042/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7/042/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">裂空のカリスマ &bull; 042</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7/043/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7/043/low.webp" onerror="this.remove()" alt="Deoxys 043, 裂空のカリスマ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7/043/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7/043/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">裂空のカリスマ &bull; 043</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7/044/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7/044/low.webp" onerror="this.remove()" alt="Deoxys 044, 裂空のカリスマ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7/044/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7/044/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Deoxys</div>
         <div class="rr">裂空のカリスマ &bull; 044</div>
         <div class="rr">Uncommon</div>

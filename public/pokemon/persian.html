@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/persian.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv06.5/078/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="078" data-price="$66.67"
         data-set="Shrouded Fable"
         aria-label="Enlarge Persian, Shrouded Fable 078">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06.5/078/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06.5/078/low.webp" onerror="this.remove()" alt="Persian 078, Shrouded Fable" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06.5/078/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06.5/078/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">Shrouded Fable &bull; 078</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="219" data-price="$5.27"
         data-set="Destined Rivals"
         aria-label="Enlarge Team Rocket's Persian ex, Destined Rivals 219">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/219/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/219/low.webp" onerror="this.remove()" alt="Team Rocket's Persian ex 219, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/219/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/219/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Persian ex</div>
         <div class="rr">Destined Rivals &bull; 219</div>
         <div class="rr">Ultra Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="049" data-price="$1.60"
         data-set="Shrouded Fable"
         aria-label="Enlarge Persian, Shrouded Fable 049">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06.5/049/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06.5/049/low.webp" onerror="this.remove()" alt="Persian 049, Shrouded Fable" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06.5/049/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06.5/049/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">Shrouded Fable &bull; 049</div>
         <div class="rr">Common</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="150" data-price="$1.49"
         data-set="Destined Rivals"
         aria-label="Enlarge Team Rocket's Persian ex, Destined Rivals 150">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/150/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/150/low.webp" onerror="this.remove()" alt="Team Rocket's Persian ex 150, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/150/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/150/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Persian ex</div>
         <div class="rr">Destined Rivals &bull; 150</div>
         <div class="rr">Double Rare</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="053" data-price="$0.45"
         data-set="151"
         aria-label="Enlarge Persian, 151 053">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/053/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/053/low.webp" onerror="this.remove()" alt="Persian 053, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/053/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/053/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">151 &bull; 053</div>
         <div class="rr">Uncommon</div>
@@ -348,350 +365,350 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/62/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/62/low.webp" onerror="this.remove()" alt="Persian 62, Ancient Origins" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/62/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/62/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">Ancient Origins &bull; 62</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/56/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/56/low.webp" onerror="this.remove()" alt="Persian 56, Base Set 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/56/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/56/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">Base Set 2 &bull; 56</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/102/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/102/low.webp" onerror="this.remove()" alt="Persian 102, Burning Shadows" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/102/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/102/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">Burning Shadows &bull; 102</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/109/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/109/low.webp" onerror="this.remove()" alt="Alolan Persian 109, Celestial Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/109/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/109/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Persian</div>
         <div class="rr">Celestial Guardians &bull; 109</div>
         <div class="rr">Three Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/129/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/129/low.webp" onerror="this.remove()" alt="Alolan Persian GX 129, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/129/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/129/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Persian GX</div>
         <div class="rr">Cosmic Eclipse &bull; 129</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/219/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/219/low.webp" onerror="this.remove()" alt="Alolan Persian GX 219, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/219/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/219/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Persian GX</div>
         <div class="rr">Cosmic Eclipse &bull; 219</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/257/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/257/low.webp" onerror="this.remove()" alt="Alolan Persian GX 257, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/257/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/257/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Persian GX</div>
         <div class="rr">Cosmic Eclipse &bull; 257</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex11/50/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex11/50/low.webp" onerror="this.remove()" alt="Persian 50, Delta Species" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex11/50/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex11/50/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">Delta Species &bull; 50</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3a/038/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3a/038/low.webp" onerror="this.remove()" alt="Alolan Persian 038, Extradimensional Crisis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3a/038/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3a/038/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Persian</div>
         <div class="rr">Extradimensional Crisis &bull; 038</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/095/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/095/low.webp" onerror="this.remove()" alt="Alolan Persian 095, Fantastical Parade" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/095/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/095/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Persian</div>
         <div class="rr">Fantastical Parade &bull; 095</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/125/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/125/low.webp" onerror="this.remove()" alt="Persian 125, Fantastical Parade" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/125/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/125/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">Fantastical Parade &bull; 125</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/44/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/44/low.webp" onerror="this.remove()" alt="Persian 44, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/44/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/44/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 44</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/200/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/200/low.webp" onerror="this.remove()" alt="Persian 200, Fusion Strike" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/200/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/200/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">Fusion Strike &bull; 200</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/54/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/54/low.webp" onerror="this.remove()" alt="Persian 54, Generations" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/54/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/54/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">Generations &bull; 54</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/197/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/197/low.webp" onerror="this.remove()" alt="Persian 197, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/197/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/197/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">Genetic Apex &bull; 197</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/8/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/8/low.webp" onerror="this.remove()" alt="Giovanni's Persian 8, Gym Challenge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/8/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/8/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Giovanni's Persian</div>
         <div class="rr">Gym Challenge &bull; 8</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/27/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/27/low.webp" onerror="this.remove()" alt="Persian 27, HeartGold SoulSilver" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/27/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/27/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">HeartGold SoulSilver &bull; 27</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/48/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/48/low.webp" onerror="this.remove()" alt="Persian δ 48, Holon Phantoms" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/48/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/48/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian δ</div>
         <div class="rr">Holon Phantoms &bull; 48</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/42/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/42/low.webp" onerror="this.remove()" alt="Persian 42, Jungle" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/42/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/42/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">Jungle &bull; 42</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/6/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/6/low.webp" onerror="this.remove()" alt="Dark Persian 6, Legendary Collection" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/6/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/6/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Persian</div>
         <div class="rr">Legendary Collection &bull; 6</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/68/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/68/low.webp" onerror="this.remove()" alt="Persian 68, Legends Awakened" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/68/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/68/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">Legends Awakened &bull; 68</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/119/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/119/low.webp" onerror="this.remove()" alt="Alolan Persian 119, Lost Thunder" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/119/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/119/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Persian</div>
         <div class="rr">Lost Thunder &bull; 119</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw4/81/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw4/81/low.webp" onerror="this.remove()" alt="Persian 81, Next Destinies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw4/81/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw4/81/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">Next Destinies &bull; 81</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/42/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/42/low.webp" onerror="this.remove()" alt="Persian 42, Skyridge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/42/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/42/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">Skyridge &bull; 42</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy11/89/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy11/89/low.webp" onerror="this.remove()" alt="Persian 89, Steam Siege" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy11/89/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy11/89/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">Steam Siege &bull; 89</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm1/79/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm1/79/low.webp" onerror="this.remove()" alt="Alolan Persian 79, Sun &amp; Moon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm1/79/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm1/79/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Persian</div>
         <div class="rr">Sun &amp; Moon &bull; 79</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/218/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/218/low.webp" onerror="this.remove()" alt="Team Rocket's Persian ex 218, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/218/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/218/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Persian ex</div>
         <div class="rr">SVP Black Star Promos &bull; 218</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12a/106/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12a/106/low.webp" onerror="this.remove()" alt="Persian 106, TAG TEAM GX タッグオールスターズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12a/106/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12a/106/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">TAG TEAM GX タッグオールスターズ &bull; 106</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/42/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/42/low.webp" onerror="this.remove()" alt="Dark Persian 42, Team Rocket" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/42/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/42/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Persian</div>
         <div class="rr">Team Rocket &bull; 42</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/126/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/126/low.webp" onerror="this.remove()" alt="Persian 126, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/126/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/126/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">Team Up &bull; 126</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/148/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/148/low.webp" onerror="this.remove()" alt="Persian 148, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/148/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/148/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">Unbroken Bonds &bull; 148</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/149/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/149/low.webp" onerror="this.remove()" alt="Persian GX 149, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/149/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/149/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian GX</div>
         <div class="rr">Unbroken Bonds &bull; 149</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/207/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/207/low.webp" onerror="this.remove()" alt="Persian GX 207, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/207/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/207/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian GX</div>
         <div class="rr">Unbroken Bonds &bull; 207</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/227/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/227/low.webp" onerror="this.remove()" alt="Persian GX 227, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/227/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/227/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian GX</div>
         <div class="rr">Unbroken Bonds &bull; 227</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/116/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/116/low.webp" onerror="this.remove()" alt="Rocket's Persian ex 116, Unseen Forces" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/116/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/116/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rocket's Persian ex</div>
         <div class="rr">Unseen Forces &bull; 116</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/basep/17/low.avif"><img src="https://assets.tcgdex.net/en/base/basep/17/low.webp" onerror="this.remove()" alt="Dark Persian 17, Wizards Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/basep/17/low.avif"><img src="https://assets.tcgdex.net/en/base/basep/17/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Persian</div>
         <div class="rr">Wizards Black Star Promos &bull; 17</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM1S/033/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM1S/033/low.webp" onerror="this.remove()" alt="Persian 033, コレクションサン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM1S/033/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM1S/033/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">コレクションサン &bull; 033</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/072/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/072/low.webp" onerror="this.remove()" alt="Persian 072, タッグボルト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/072/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/072/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">タッグボルト &bull; 072</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/068/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/068/low.webp" onerror="this.remove()" alt="Persian 068, ダブルブレイズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/068/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/068/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">ダブルブレイズ &bull; 068</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/069/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/069/low.webp" onerror="this.remove()" alt="Persian 069, ダブルブレイズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/069/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/069/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">ダブルブレイズ &bull; 069</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/104/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/104/low.webp" onerror="this.remove()" alt="Persian 104, ダブルブレイズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/104/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/104/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">ダブルブレイズ &bull; 104</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6a/049/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6a/049/low.webp" onerror="this.remove()" alt="Persian 049, ナイトワンダラー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6a/049/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6a/049/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">ナイトワンダラー &bull; 049</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6a/075/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6a/075/low.webp" onerror="this.remove()" alt="Persian 075, ナイトワンダラー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6a/075/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6a/075/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">ナイトワンダラー &bull; 075</div>
         <div class="rr">Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/053/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/053/low.webp" onerror="this.remove()" alt="Persian 053, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/053/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/053/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">ポケモンカード151 &bull; 053</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11a/040/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11a/040/low.webp" onerror="this.remove()" alt="Persian 040, リミックスバウト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11a/040/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11a/040/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">リミックスバウト &bull; 040</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11a/071/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11a/071/low.webp" onerror="this.remove()" alt="Persian 071, リミックスバウト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11a/071/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11a/071/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">リミックスバウト &bull; 071</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/079/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/079/low.webp" onerror="this.remove()" alt="Persian 079, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/079/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/079/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">ロケット団の栄光 &bull; 079</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/118/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/118/low.webp" onerror="this.remove()" alt="Persian 118, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/118/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/118/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">ロケット団の栄光 &bull; 118</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8/057/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8/057/low.webp" onerror="this.remove()" alt="Persian 057, 超爆インパクト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8/057/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8/057/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">超爆インパクト &bull; 057</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM3H/042/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM3H/042/low.webp" onerror="this.remove()" alt="Persian 042, 闘う虹を見たか" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM3H/042/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM3H/042/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Persian</div>
         <div class="rr">闘う虹を見たか &bull; 042</div>
         <div class="rr">Uncommon</div>

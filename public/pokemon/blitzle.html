@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/blitzle.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv04/195/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="195" data-price="$11.16"
         data-set="Paradox Rift"
         aria-label="Enlarge Blitzle, Paradox Rift 195">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/195/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/195/low.webp" onerror="this.remove()" alt="Blitzle 195, Paradox Rift" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/195/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/195/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">Paradox Rift &bull; 195</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="114" data-price="$10.82"
         data-set="White Flare"
         aria-label="Enlarge Blitzle, White Flare 114">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/114/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/114/low.webp" onerror="this.remove()" alt="Blitzle 114, White Flare" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/114/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/114/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">White Flare &bull; 114</div>
         <div class="rr">Illustration Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="062" data-price="$1.35"
         data-set="Surging Sparks"
         aria-label="Enlarge Blitzle, Surging Sparks 062">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/062/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08/062/low.webp" onerror="this.remove()" alt="Blitzle 062, Surging Sparks" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/062/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08/062/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">Surging Sparks &bull; 062</div>
         <div class="rr">Common</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="062" data-price="$1.00"
         data-set="Paradox Rift"
         aria-label="Enlarge Blitzle, Paradox Rift 062">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/062/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/062/low.webp" onerror="this.remove()" alt="Blitzle 062, Paradox Rift" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/062/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/062/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">Paradox Rift &bull; 062</div>
         <div class="rr">Common</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="031" data-price="$0.25"
         data-set="White Flare"
         aria-label="Enlarge Blitzle, White Flare 031">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/031/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/031/low.webp" onerror="this.remove()" alt="Blitzle 031, White Flare" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/031/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/031/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">White Flare &bull; 031</div>
         <div class="rr">Common</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="50" data-price="$0.25"
         data-set="Chilling Reign"
         aria-label="Enlarge Blitzle, Chilling Reign 50">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/50/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/50/low.webp" onerror="this.remove()" alt="Blitzle 50, Chilling Reign" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/50/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/50/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">Chilling Reign &bull; 50</div>
         <div class="rr">Common</div>
@@ -360,133 +377,133 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw1/40/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw1/40/low.webp" onerror="this.remove()" alt="Blitzle 40, Black &amp; White" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw1/40/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw1/40/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">Black &amp; White &bull; 40</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw1/41/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw1/41/low.webp" onerror="this.remove()" alt="Blitzle 41, Black &amp; White" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw1/41/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw1/41/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">Black &amp; White &bull; 41</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/56/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/56/low.webp" onerror="this.remove()" alt="Blitzle 56, Boundaries Crossed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/56/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/56/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">Boundaries Crossed &bull; 56</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/48/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/48/low.webp" onerror="this.remove()" alt="Blitzle 48, BREAKpoint" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/48/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/48/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">BREAKpoint &bull; 48</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3a/016/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3a/016/low.webp" onerror="this.remove()" alt="Blitzle 016, Extradimensional Crisis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3a/016/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3a/016/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">Extradimensional Crisis &bull; 016</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/105/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/105/low.webp" onerror="this.remove()" alt="Blitzle 105, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/105/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/105/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">Genetic Apex &bull; 105</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/81/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/81/low.webp" onerror="this.remove()" alt="Blitzle 81, Lost Thunder" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/81/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/81/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">Lost Thunder &bull; 81</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw4/47/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw4/47/low.webp" onerror="this.remove()" alt="Blitzle 47, Next Destinies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw4/47/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw4/47/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">Next Destinies &bull; 47</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw3/35/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw3/35/low.webp" onerror="this.remove()" alt="Blitzle 35, Noble Victories" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw3/35/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw3/35/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">Noble Victories &bull; 35</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH173/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH173/low.webp" onerror="this.remove()" alt="Blitzle SWSH173, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH173/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH173/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH173</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12a/045/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12a/045/low.webp" onerror="this.remove()" alt="Blitzle 045, TAG TEAM GX タッグオールスターズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12a/045/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12a/045/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">TAG TEAM GX タッグオールスターズ &bull; 045</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/44/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/44/low.webp" onerror="this.remove()" alt="Blitzle 44, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/44/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/44/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">Team Up &bull; 44</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/53/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/53/low.webp" onerror="this.remove()" alt="Blitzle 53, Vivid Voltage" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/53/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/53/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">Vivid Voltage &bull; 53</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8a/007/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8a/007/low.webp" onerror="this.remove()" alt="Blitzle 007, ダークオーダー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8a/007/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8a/007/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">ダークオーダー &bull; 007</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4M/023/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4M/023/low.webp" onerror="this.remove()" alt="Blitzle 023, 未来の一閃" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4M/023/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4M/023/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">未来の一閃 &bull; 023</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4M/072/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4M/072/low.webp" onerror="this.remove()" alt="Blitzle 072, 未来の一閃" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4M/072/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4M/072/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">未来の一閃 &bull; 072</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6K/021/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6K/021/low.webp" onerror="this.remove()" alt="Blitzle 021, 漆黒のガイスト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6K/021/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6K/021/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">漆黒のガイスト &bull; 021</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV8/038/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV8/038/low.webp" onerror="this.remove()" alt="Blitzle 038, 超電ブレイカー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV8/038/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV8/038/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">超電ブレイカー &bull; 038</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7a/029/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7a/029/low.webp" onerror="this.remove()" alt="Blitzle 029, 迅雷スパーク" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7a/029/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7a/029/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blitzle</div>
         <div class="rr">迅雷スパーク &bull; 029</div>
         <div class="rr">Common</div>

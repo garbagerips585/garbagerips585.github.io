@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/minccino.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv10.5b/152/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="152" data-price="$23.99"
         data-set="Black Bolt"
         aria-label="Enlarge Minccino, Black Bolt 152">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/152/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/152/low.webp" onerror="this.remove()" alt="Minccino 152, Black Bolt" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/152/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/152/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">Black Bolt &bull; 152</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="182" data-price="$22.25"
         data-set="Temporal Forces"
         aria-label="Enlarge Minccino, Temporal Forces 182">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/182/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/182/low.webp" onerror="this.remove()" alt="Minccino 182, Temporal Forces" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/182/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/182/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">Temporal Forces &bull; 182</div>
         <div class="rr">Illustration Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="125" data-price="$1.47"
         data-set="Journey Together"
         aria-label="Enlarge Minccino, Journey Together 125">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/125/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/125/low.webp" onerror="this.remove()" alt="Minccino 125, Journey Together" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/125/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/125/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">Journey Together &bull; 125</div>
         <div class="rr">Common</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="072" data-price="$1.42"
         data-set="Chaos Rising"
         aria-label="Enlarge Minccino, Chaos Rising 072">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/072/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/072/low.webp" onerror="this.remove()" alt="Minccino 072, Chaos Rising" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/072/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/072/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">Chaos Rising &bull; 072</div>
         <div class="rr">Common</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="075" data-price="$1.04"
         data-set="Black Bolt"
         aria-label="Enlarge Minccino, Black Bolt 075">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/075/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/075/low.webp" onerror="this.remove()" alt="Minccino 075, Black Bolt" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/075/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/075/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">Black Bolt &bull; 075</div>
         <div class="rr">Common</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="136" data-price="$0.87"
         data-set="Temporal Forces"
         aria-label="Enlarge Minccino, Temporal Forces 136">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/136/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/136/low.webp" onerror="this.remove()" alt="Minccino 136, Temporal Forces" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/136/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/136/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">Temporal Forces &bull; 136</div>
         <div class="rr">Common</div>
@@ -360,140 +377,140 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw1/88/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw1/88/low.webp" onerror="this.remove()" alt="Minccino 88, Black &amp; White" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw1/88/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw1/88/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">Black &amp; White &bull; 88</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/124/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/124/low.webp" onerror="this.remove()" alt="Minccino 124, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/124/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/124/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">Brilliant Stars &bull; 124</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW13/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW13/low.webp" onerror="this.remove()" alt="Minccino BW13, BW Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW13/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW13/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">BW Black Star Promos &bull; BW13</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/85/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/85/low.webp" onerror="this.remove()" alt="Minccino 85, Crimson Invasion" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/85/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/85/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">Crimson Invasion &bull; 85</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/109/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/109/low.webp" onerror="this.remove()" alt="Minccino 109, Dragons Exalted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/109/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/109/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">Dragons Exalted &bull; 109</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/062/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/062/low.webp" onerror="this.remove()" alt="Minccino 062, Eevee Grove" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/062/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/062/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">Eevee Grove &bull; 062</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw2/84/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw2/84/low.webp" onerror="this.remove()" alt="Minccino 84, Emerging Powers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw2/84/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw2/84/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">Emerging Powers &bull; 84</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/86/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/86/low.webp" onerror="this.remove()" alt="Minccino 86, Fates Collide" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/86/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/86/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">Fates Collide &bull; 86</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/87/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/87/low.webp" onerror="this.remove()" alt="Minccino 87, Fates Collide" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/87/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/87/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">Fates Collide &bull; 87</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/212/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/212/low.webp" onerror="this.remove()" alt="Minccino 212, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/212/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/212/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">Genetic Apex &bull; 212</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/104/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/104/low.webp" onerror="this.remove()" alt="Minccino 104, Legendary Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/104/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/104/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">Legendary Treasures &bull; 104</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/RC18/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/RC18/low.webp" onerror="this.remove()" alt="Minccino RC18, Legendary Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/RC18/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/RC18/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">Legendary Treasures &bull; RC18</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw4/84/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw4/84/low.webp" onerror="this.remove()" alt="Minccino 84, Next Destinies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw4/84/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw4/84/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">Next Destinies &bull; 84</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/145/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/145/low.webp" onerror="this.remove()" alt="Minccino 145, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/145/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/145/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">Sword &amp; Shield &bull; 145</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/146/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/146/low.webp" onerror="this.remove()" alt="Minccino 146, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/146/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/146/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">Sword &amp; Shield &bull; 146</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9/085/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9/085/low.webp" onerror="this.remove()" alt="Minccino 085, スターバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9/085/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9/085/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">スターバース &bull; 085</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/070/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/070/low.webp" onerror="this.remove()" alt="Minccino 070, ニンジャスピナー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/070/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/070/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">ニンジャスピナー &bull; 070</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5K/059/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5K/059/low.webp" onerror="this.remove()" alt="Minccino 059, ワイルドフォース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5K/059/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5K/059/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">ワイルドフォース &bull; 059</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5K/082/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5K/082/low.webp" onerror="this.remove()" alt="Minccino 082, ワイルドフォース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5K/082/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5K/082/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">ワイルドフォース &bull; 082</div>
         <div class="rr">Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4S/042/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4S/042/low.webp" onerror="this.remove()" alt="Minccino 042, 覚醒の勇者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4S/042/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4S/042/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Minccino</div>
         <div class="rr">覚醒の勇者 &bull; 042</div>
         <div class="rr">Common</div>

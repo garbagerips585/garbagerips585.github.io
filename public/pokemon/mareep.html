@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/mareep.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me04/027/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="027" data-price="$1.44"
         data-set="Chaos Rising"
         aria-label="Enlarge Mareep, Chaos Rising 027">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/027/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/027/low.webp" onerror="this.remove()" alt="Mareep 027, Chaos Rising" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/027/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/027/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Chaos Rising &bull; 027</div>
         <div class="rr">Common</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="47" data-price="$0.84"
         data-set="Chilling Reign"
         aria-label="Enlarge Mareep, Chilling Reign 47">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/47/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/47/low.webp" onerror="this.remove()" alt="Mareep 47, Chilling Reign" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/47/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/47/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Chilling Reign &bull; 47</div>
         <div class="rr">Common</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="072" data-price="$0.82"
         data-set="Destined Rivals"
         aria-label="Enlarge Team Rocket's Mareep, Destined Rivals 072">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/072/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/072/low.webp" onerror="this.remove()" alt="Team Rocket's Mareep 072, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/072/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/072/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Mareep</div>
         <div class="rr">Destined Rivals &bull; 072</div>
         <div class="rr">Common</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="066" data-price="$0.22"
         data-set="Scarlet &amp; Violet"
         aria-label="Enlarge Mareep, Scarlet &amp; Violet 066">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/066/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/066/low.webp" onerror="this.remove()" alt="Mareep 066, Scarlet &amp; Violet" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/066/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/066/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Scarlet &amp; Violet &bull; 066</div>
         <div class="rr">Common</div>
@@ -336,238 +353,238 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/93/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/93/low.webp" onerror="this.remove()" alt="Mareep 93, Aquapolis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/93/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/93/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Aquapolis &bull; 93</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/63/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/63/low.webp" onerror="this.remove()" alt="Mareep 63, Call of Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/63/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/63/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Call of Legends &bull; 63</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/55/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/55/low.webp" onerror="this.remove()" alt="Mareep 55, Darkness Ablaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/55/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/55/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Darkness Ablaze &bull; 55</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/64/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/64/low.webp" onerror="this.remove()" alt="Mareep 64, Dragon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/64/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/64/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Dragon &bull; 64</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/54/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/54/low.webp" onerror="this.remove()" alt="Mareep δ 54, Dragon Frontiers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/54/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/54/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep δ</div>
         <div class="rr">Dragon Frontiers &bull; 54</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/38/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/38/low.webp" onerror="this.remove()" alt="Mareep 38, Dragons Exalted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/38/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/38/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Dragons Exalted &bull; 38</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/54/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/54/low.webp" onerror="this.remove()" alt="Mareep 54, Evolving Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/54/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/54/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Evolving Skies &bull; 54</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/119/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/119/low.webp" onerror="this.remove()" alt="Mareep 119, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/119/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/119/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Expedition Base Set &bull; 119</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/73/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/73/low.webp" onerror="this.remove()" alt="Mareep 73, HeartGold SoulSilver" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/73/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/73/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">HeartGold SoulSilver &bull; 73</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/75/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/75/low.webp" onerror="this.remove()" alt="Mareep 75, Lost Thunder" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/75/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/75/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Lost Thunder &bull; 75</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/76/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/76/low.webp" onerror="this.remove()" alt="Mareep 76, Lost Thunder" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/76/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/76/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Lost Thunder &bull; 76</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/75/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/75/low.webp" onerror="this.remove()" alt="Mareep 75, Neo Destiny" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/75/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/75/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Neo Destiny &bull; 75</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo2/58/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo2/58/low.webp" onerror="this.remove()" alt="Mareep 58, Neo Discovery" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo2/58/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo2/58/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Neo Discovery &bull; 58</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo1/65/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo1/65/low.webp" onerror="this.remove()" alt="Mareep 65, Neo Genesis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo1/65/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo1/65/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Neo Genesis &bull; 65</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/82/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/82/low.webp" onerror="this.remove()" alt="Mareep 82, Platinum" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/82/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/82/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Platinum &bull; 82</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop7/14/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop7/14/low.webp" onerror="this.remove()" alt="Mareep 14, POP Series 7" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop7/14/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop7/14/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">POP Series 7 &bull; 14</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/94/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/94/low.webp" onerror="this.remove()" alt="Mareep 94, Secret Wonders" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/94/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/94/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Secret Wonders &bull; 94</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy11/38/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy11/38/low.webp" onerror="this.remove()" alt="Mareep 38, Steam Siege" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy11/38/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy11/38/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Steam Siege &bull; 38</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/107/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/107/low.webp" onerror="this.remove()" alt="Mareep 107, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/107/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/107/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">SVP Black Star Promos &bull; 107</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/67/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/67/low.webp" onerror="this.remove()" alt="Mareep 67, Team Rocket Returns" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/67/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/67/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Team Rocket Returns &bull; 67</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/41/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/41/low.webp" onerror="this.remove()" alt="Mareep 41, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/41/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/41/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Team Up &bull; 41</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/62/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/62/low.webp" onerror="this.remove()" alt="Mareep 62, Unseen Forces" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/62/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/62/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Unseen Forces &bull; 62</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/051/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/051/low.webp" onerror="this.remove()" alt="Mareep 051, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/051/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/051/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">VMAXクライマックス &bull; 051</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SPZ/002/low.avif"><img src="https://assets.tcgdex.net/ja/S/SPZ/002/low.webp" onerror="this.remove()" alt="Mareep 002, VSTAR&amp;VMAX 高級牌組 捷拉奧拉" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SPZ/002/low.avif"><img src="https://assets.tcgdex.net/ja/S/SPZ/002/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">VSTAR&amp;VMAX 高級牌組 捷拉奧拉 &bull; 002</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/036/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/036/low.webp" onerror="this.remove()" alt="Mareep 036, VSTARユニバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/036/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/036/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">VSTARユニバース &bull; 036</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/209/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/209/low.webp" onerror="this.remove()" alt="Mareep 209, VSTARユニバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/209/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/209/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">VSTARユニバース &bull; 209</div>
         <div class="rr">Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/067/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/067/low.webp" onerror="this.remove()" alt="Mareep 067, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/067/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/067/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 067</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8a/004/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8a/004/low.webp" onerror="this.remove()" alt="Mareep 004, ダークオーダー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8a/004/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8a/004/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">ダークオーダー &bull; 004</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/027/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/027/low.webp" onerror="this.remove()" alt="Mareep 027, ニンジャスピナー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/027/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/027/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">ニンジャスピナー &bull; 027</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/034/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/034/low.webp" onerror="this.remove()" alt="Mareep 034, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/034/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/034/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">ロケット団の栄光 &bull; 034</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6K/018/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6K/018/low.webp" onerror="this.remove()" alt="Mareep 018, 漆黒のガイスト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6K/018/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6K/018/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">漆黒のガイスト &bull; 018</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8/033/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8/033/low.webp" onerror="this.remove()" alt="Mareep 033, 超爆インパクト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8/033/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8/033/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">超爆インパクト &bull; 033</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8/034/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8/034/low.webp" onerror="this.remove()" alt="Mareep 034, 超爆インパクト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8/034/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8/034/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">超爆インパクト &bull; 034</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SK/005/low.avif"><img src="https://assets.tcgdex.net/ja/S/SK/005/low.webp" onerror="this.remove()" alt="Mareep 005, 頂級訓練家收藏箱 VSTAR" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SK/005/low.avif"><img src="https://assets.tcgdex.net/ja/S/SK/005/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mareep</div>
         <div class="rr">頂級訓練家收藏箱 VSTAR &bull; 005</div>
         

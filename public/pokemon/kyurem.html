@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/kyurem.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -246,7 +248,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv10.5b/165/high.webp"
@@ -254,7 +271,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="165" data-price="$75.00"
         data-set="Black Bolt"
         aria-label="Enlarge Kyurem ex, Black Bolt 165">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/165/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/165/low.webp" onerror="this.remove()" alt="Kyurem ex 165, Black Bolt" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/165/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/165/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Kyurem ex</div>
         <div class="rr">Black Bolt &bull; 165</div>
         <div class="rr">Special Illustration Rare</div>
@@ -266,7 +283,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="218" data-price="$3.00"
         data-set="Surging Sparks"
         aria-label="Enlarge Black Kyurem ex, Surging Sparks 218">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/218/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08/218/low.webp" onerror="this.remove()" alt="Black Kyurem ex 218, Surging Sparks" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/218/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08/218/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Black Kyurem ex</div>
         <div class="rr">Surging Sparks &bull; 218</div>
         <div class="rr">Ultra Rare</div>
@@ -278,7 +295,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="157" data-price="$2.32"
         data-set="Black Bolt"
         aria-label="Enlarge Kyurem ex, Black Bolt 157">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/157/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/157/low.webp" onerror="this.remove()" alt="Kyurem ex 157, Black Bolt" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/157/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/157/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Kyurem ex</div>
         <div class="rr">Black Bolt &bull; 157</div>
         <div class="rr">Ultra Rare</div>
@@ -290,7 +307,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="047" data-price="$1.50"
         data-set="Shrouded Fable"
         aria-label="Enlarge Kyurem, Shrouded Fable 047">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06.5/047/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06.5/047/low.webp" onerror="this.remove()" alt="Kyurem 047, Shrouded Fable" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06.5/047/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06.5/047/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">Shrouded Fable &bull; 047</div>
         <div class="rr">Uncommon</div>
@@ -302,7 +319,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="028" data-price="$1.25"
         data-set="Black Bolt"
         aria-label="Enlarge Kyurem ex, Black Bolt 028">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/028/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/028/low.webp" onerror="this.remove()" alt="Kyurem ex 028, Black Bolt" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/028/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/028/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Kyurem ex</div>
         <div class="rr">Black Bolt &bull; 028</div>
         <div class="rr">Double Rare</div>
@@ -314,7 +331,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="048" data-price="$1.00"
         data-set="Surging Sparks"
         aria-label="Enlarge Black Kyurem ex, Surging Sparks 048">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/048/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08/048/low.webp" onerror="this.remove()" alt="Black Kyurem ex 048, Surging Sparks" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/048/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08/048/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Black Kyurem ex</div>
         <div class="rr">Surging Sparks &bull; 048</div>
         <div class="rr">Double Rare</div>
@@ -358,378 +375,378 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/25/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/25/low.webp" onerror="this.remove()" alt="Kyurem EX 25, Ancient Origins" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/25/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/25/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem EX</div>
         <div class="rr">Ancient Origins &bull; 25</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/86/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/86/low.webp" onerror="this.remove()" alt="Kyurem EX 86, Ancient Origins" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/86/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/86/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem EX</div>
         <div class="rr">Ancient Origins &bull; 86</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/100/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/100/low.webp" onerror="this.remove()" alt="Black Kyurem 100, Boundaries Crossed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/100/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/100/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Black Kyurem</div>
         <div class="rr">Boundaries Crossed &bull; 100</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/101/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/101/low.webp" onerror="this.remove()" alt="Black Kyurem-EX 101, Boundaries Crossed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/101/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/101/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Black Kyurem-EX</div>
         <div class="rr">Boundaries Crossed &bull; 101</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/102/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/102/low.webp" onerror="this.remove()" alt="White Kyurem 102, Boundaries Crossed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/102/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/102/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">White Kyurem</div>
         <div class="rr">Boundaries Crossed &bull; 102</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/103/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/103/low.webp" onerror="this.remove()" alt="White Kyurem-EX 103, Boundaries Crossed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/103/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/103/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">White Kyurem-EX</div>
         <div class="rr">Boundaries Crossed &bull; 103</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/145/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/145/low.webp" onerror="this.remove()" alt="Black Kyurem-EX 145, Boundaries Crossed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/145/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/145/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Black Kyurem-EX</div>
         <div class="rr">Boundaries Crossed &bull; 145</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/146/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/146/low.webp" onerror="this.remove()" alt="White Kyurem-EX 146, Boundaries Crossed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/146/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/146/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">White Kyurem-EX</div>
         <div class="rr">Boundaries Crossed &bull; 146</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW37/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW37/low.webp" onerror="this.remove()" alt="Kyurem-EX BW37, BW Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW37/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW37/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem-EX</div>
         <div class="rr">BW Black Star Promos &bull; BW37</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW44/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW44/low.webp" onerror="this.remove()" alt="Kyurem BW44, BW Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW44/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW44/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">BW Black Star Promos &bull; BW44</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW58/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW58/low.webp" onerror="this.remove()" alt="Black Kyurem BW58, BW Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW58/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW58/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Black Kyurem</div>
         <div class="rr">BW Black Star Promos &bull; BW58</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW59/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW59/low.webp" onerror="this.remove()" alt="White Kyurem BW59, BW Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW59/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW59/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">White Kyurem</div>
         <div class="rr">BW Black Star Promos &bull; BW59</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW62/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW62/low.webp" onerror="this.remove()" alt="Black Kyurem-EX BW62, BW Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW62/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW62/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Black Kyurem-EX</div>
         <div class="rr">BW Black Star Promos &bull; BW62</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW63/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW63/low.webp" onerror="this.remove()" alt="White Kyurem-EX BW63, BW Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW63/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW63/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">White Kyurem-EX</div>
         <div class="rr">BW Black Star Promos &bull; BW63</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/61/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/61/low.webp" onerror="this.remove()" alt="Black Kyurem 61, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/61/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/61/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Black Kyurem</div>
         <div class="rr">Cosmic Eclipse &bull; 61</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/dv1/21/low.avif"><img src="https://assets.tcgdex.net/en/bw/dv1/21/low.webp" onerror="this.remove()" alt="Kyurem 21, Dragon Vault" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/dv1/21/low.avif"><img src="https://assets.tcgdex.net/en/bw/dv1/21/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">Dragon Vault &bull; 21</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/116/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/116/low.webp" onerror="this.remove()" alt="Kyurem 116, Evolving Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/116/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/116/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">Evolving Skies &bull; 116</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/21/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/21/low.webp" onerror="this.remove()" alt="White Kyurem 21, Fates Collide" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/21/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/21/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">White Kyurem</div>
         <div class="rr">Fates Collide &bull; 21</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/100/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/100/low.webp" onerror="this.remove()" alt="Black Kyurem-EX 100, Legendary Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/100/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/100/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Black Kyurem-EX</div>
         <div class="rr">Legendary Treasures &bull; 100</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/101/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/101/low.webp" onerror="this.remove()" alt="White Kyurem-EX 101, Legendary Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/101/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/101/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">White Kyurem-EX</div>
         <div class="rr">Legendary Treasures &bull; 101</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/43/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/43/low.webp" onerror="this.remove()" alt="Kyurem 43, Legendary Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/43/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/43/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">Legendary Treasures &bull; 43</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/44/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/44/low.webp" onerror="this.remove()" alt="Kyurem-EX 44, Legendary Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/44/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/44/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem-EX</div>
         <div class="rr">Legendary Treasures &bull; 44</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/048/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/048/low.webp" onerror="this.remove()" alt="Kyurem V 048, Lost Origin" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/048/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/048/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem V</div>
         <div class="rr">Lost Origin &bull; 048</div>
         <div class="rr">Holo Rare V</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/049/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/049/low.webp" onerror="this.remove()" alt="Kyurem VMAX 049, Lost Origin" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/049/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/049/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem VMAX</div>
         <div class="rr">Lost Origin &bull; 049</div>
         <div class="rr">Holo Rare VMAX</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/174/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/174/low.webp" onerror="this.remove()" alt="Kyurem V 174, Lost Origin" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/174/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/174/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem V</div>
         <div class="rr">Lost Origin &bull; 174</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/197/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/197/low.webp" onerror="this.remove()" alt="Kyurem VMAX 197, Lost Origin" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/197/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/197/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem VMAX</div>
         <div class="rr">Lost Origin &bull; 197</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/63/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/63/low.webp" onerror="this.remove()" alt="White Kyurem 63, Lost Thunder" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/63/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/63/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">White Kyurem</div>
         <div class="rr">Lost Thunder &bull; 63</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw4/38/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw4/38/low.webp" onerror="this.remove()" alt="Kyurem-EX 38, Next Destinies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw4/38/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw4/38/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem-EX</div>
         <div class="rr">Next Destinies &bull; 38</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw4/96/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw4/96/low.webp" onerror="this.remove()" alt="Kyurem-EX 96, Next Destinies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw4/96/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw4/96/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem-EX</div>
         <div class="rr">Next Destinies &bull; 96</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw3/34/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw3/34/low.webp" onerror="this.remove()" alt="Kyurem 34, Noble Victories" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw3/34/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw3/34/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">Noble Victories &bull; 34</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw10/30/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw10/30/low.webp" onerror="this.remove()" alt="Kyurem-EX 30, Plasma Blast" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw10/30/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw10/30/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem-EX</div>
         <div class="rr">Plasma Blast &bull; 30</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/31/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/31/low.webp" onerror="this.remove()" alt="Kyurem 31, Plasma Freeze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/31/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/31/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">Plasma Freeze &bull; 31</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw8/95/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw8/95/low.webp" onerror="this.remove()" alt="Black Kyurem-EX 95, Plasma Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw8/95/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw8/95/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Black Kyurem-EX</div>
         <div class="rr">Plasma Storm &bull; 95</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw8/96/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw8/96/low.webp" onerror="this.remove()" alt="White Kyurem-EX 96, Plasma Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw8/96/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw8/96/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">White Kyurem-EX</div>
         <div class="rr">Plasma Storm &bull; 96</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM141/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM141/low.webp" onerror="this.remove()" alt="White Kyurem GX SM141, SM Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM141/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM141/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">White Kyurem GX</div>
         <div class="rr">SM Black Star Promos &bull; SM141</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM142/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM142/low.webp" onerror="this.remove()" alt="Kyurem SM142, SM Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM142/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM142/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">SM Black Star Promos &bull; SM142</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12a/035/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12a/035/low.webp" onerror="this.remove()" alt="Kyurem 035, TAG TEAM GX タッグオールスターズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12a/035/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12a/035/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">TAG TEAM GX タッグオールスターズ &bull; 035</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/50/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/50/low.webp" onerror="this.remove()" alt="Kyurem 50, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/50/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/50/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">Unbroken Bonds &bull; 50</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY128/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY128/low.webp" onerror="this.remove()" alt="White Kyurem XY128, XY Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY128/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY128/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">White Kyurem</div>
         <div class="rr">XY Black Star Promos &bull; XY128</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY160/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY160/low.webp" onerror="this.remove()" alt="Black Kyurem XY160, XY Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY160/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY160/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Black Kyurem</div>
         <div class="rr">XY Black Star Promos &bull; XY160</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY80/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY80/low.webp" onerror="this.remove()" alt="Black Kyurem XY80, XY Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY80/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY80/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Black Kyurem</div>
         <div class="rr">XY Black Star Promos &bull; XY80</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY81/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY81/low.webp" onerror="this.remove()" alt="White Kyurem XY81, XY Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY81/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY81/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">White Kyurem</div>
         <div class="rr">XY Black Star Promos &bull; XY81</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12/025/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12/025/low.webp" onerror="this.remove()" alt="Kyurem 025, オルタージェネシス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12/025/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12/025/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">オルタージェネシス &bull; 025</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6a/034/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6a/034/low.webp" onerror="this.remove()" alt="Kyurem 034, ドラゴンストーム" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6a/034/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6a/034/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">ドラゴンストーム &bull; 034</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6a/035/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6a/035/low.webp" onerror="this.remove()" alt="Kyurem 035, ドラゴンストーム" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6a/035/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6a/035/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">ドラゴンストーム &bull; 035</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6a/057/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6a/057/low.webp" onerror="this.remove()" alt="Kyurem 057, ドラゴンストーム" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6a/057/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6a/057/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">ドラゴンストーム &bull; 057</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9a/011/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9a/011/low.webp" onerror="this.remove()" alt="Kyurem 011, ナイトユニゾン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9a/011/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9a/011/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">ナイトユニゾン &bull; 011</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6a/047/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6a/047/low.webp" onerror="this.remove()" alt="Kyurem 047, ナイトワンダラー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6a/047/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6a/047/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">ナイトワンダラー &bull; 047</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/029/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/029/low.webp" onerror="this.remove()" alt="Kyurem 029, ロストアビス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/029/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/029/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">ロストアビス &bull; 029</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/030/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/030/low.webp" onerror="this.remove()" alt="Kyurem 030, ロストアビス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/030/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/030/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">ロストアビス &bull; 030</div>
         <div class="rr">Triple Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/102/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/102/low.webp" onerror="this.remove()" alt="Kyurem 102, ロストアビス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/102/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/102/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">ロストアビス &bull; 102</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/117/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/117/low.webp" onerror="this.remove()" alt="Kyurem 117, ロストアビス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/117/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/117/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">ロストアビス &bull; 117</div>
         <div class="rr">Holo Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S7D/045/low.avif"><img src="https://assets.tcgdex.net/ja/S/S7D/045/low.webp" onerror="this.remove()" alt="Kyurem 045, 摩天パーフェクト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S7D/045/low.avif"><img src="https://assets.tcgdex.net/ja/S/S7D/045/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">摩天パーフェクト &bull; 045</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7a/021/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7a/021/low.webp" onerror="this.remove()" alt="Kyurem 021, 迅雷スパーク" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7a/021/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7a/021/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Kyurem</div>
         <div class="rr">迅雷スパーク &bull; 021</div>
         <div class="rr">Rare</div>

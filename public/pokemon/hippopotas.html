@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/hippopotas.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me03/039/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="039" data-price="$0.57"
         data-set="Perfect Order"
         aria-label="Enlarge Hippopotas, Perfect Order 039">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/039/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/039/low.webp" onerror="this.remove()" alt="Hippopotas 039, Perfect Order" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/039/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/039/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Hippopotas</div>
         <div class="rr">Perfect Order &bull; 039</div>
         <div class="rr">Common</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="105" data-price="$0.40"
         data-set="Destined Rivals"
         aria-label="Enlarge Hippopotas, Destined Rivals 105">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/105/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/105/low.webp" onerror="this.remove()" alt="Hippopotas 105, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/105/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/105/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Hippopotas</div>
         <div class="rr">Destined Rivals &bull; 105</div>
         <div class="rr">Common</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="052" data-price="$0.15"
         data-set="Prismatic Evolutions"
         aria-label="Enlarge Hippopotas, Prismatic Evolutions 052">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/052/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/052/low.webp" onerror="this.remove()" alt="Hippopotas 052, Prismatic Evolutions" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/052/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/052/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Hippopotas</div>
         <div class="rr">Prismatic Evolutions &bull; 052</div>
         <div class="rr">Common</div>
@@ -324,112 +341,112 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/079/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/079/low.webp" onerror="this.remove()" alt="Hippopotas 079, Astral Radiance" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/079/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/079/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Hippopotas</div>
         <div class="rr">Astral Radiance &bull; 079</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy8/83/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy8/83/low.webp" onerror="this.remove()" alt="Hippopotas 83, BREAKthrough" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy8/83/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy8/83/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Hippopotas</div>
         <div class="rr">BREAKthrough &bull; 83</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/93/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/93/low.webp" onerror="this.remove()" alt="Hippopotas 93, Darkness Ablaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/93/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/93/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Hippopotas</div>
         <div class="rr">Darkness Ablaze &bull; 93</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp1/51/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp1/51/low.webp" onerror="this.remove()" alt="Hippopotas 51, Diamond &amp; Pearl" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp1/51/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp1/51/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Hippopotas</div>
         <div class="rr">Diamond &amp; Pearl &bull; 51</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/84/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/84/low.webp" onerror="this.remove()" alt="Hippopotas 84, Evolving Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/84/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/84/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Hippopotas</div>
         <div class="rr">Evolving Skies &bull; 84</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp5/66/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp5/66/low.webp" onerror="this.remove()" alt="Hippopotas 66, Majestic Dawn" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp5/66/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp5/66/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Hippopotas</div>
         <div class="rr">Majestic Dawn &bull; 66</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw4/65/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw4/65/low.webp" onerror="this.remove()" alt="Hippopotas 65, Next Destinies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw4/65/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw4/65/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Hippopotas</div>
         <div class="rr">Next Destinies &bull; 65</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy5/87/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy5/87/low.webp" onerror="this.remove()" alt="Hippopotas 87, Primal Clash" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy5/87/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy5/87/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Hippopotas</div>
         <div class="rr">Primal Clash &bull; 87</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl2/64/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl2/64/low.webp" onerror="this.remove()" alt="Hippopotas 64, Rising Rivals" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl2/64/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl2/64/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Hippopotas</div>
         <div class="rr">Rising Rivals &bull; 64</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/093/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/093/low.webp" onerror="this.remove()" alt="Hippopotas 093, Space-Time Smackdown" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/093/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/093/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Hippopotas</div>
         <div class="rr">Space-Time Smackdown &bull; 093</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/171/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/171/low.webp" onerror="this.remove()" alt="Hippopotas 171, Space-Time Smackdown" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/171/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/171/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Hippopotas</div>
         <div class="rr">Space-Time Smackdown &bull; 171</div>
         <div class="rr">One Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/61/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/61/low.webp" onerror="this.remove()" alt="Hippopotas 61, Supreme Victors" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/61/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/61/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Hippopotas</div>
         <div class="rr">Supreme Victors &bull; 61</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm5/68/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm5/68/low.webp" onerror="this.remove()" alt="Hippopotas 68, Ultra Prism" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm5/68/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm5/68/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Hippopotas</div>
         <div class="rr">Ultra Prism &bull; 68</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM5M/038/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM5M/038/low.webp" onerror="this.remove()" alt="Hippopotas 038, ウルトラムーン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM5M/038/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM5M/038/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Hippopotas</div>
         <div class="rr">ウルトラムーン &bull; 038</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9a/041/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9a/041/low.webp" onerror="this.remove()" alt="Hippopotas 041, バトルリージョン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9a/041/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9a/041/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Hippopotas</div>
         <div class="rr">バトルリージョン &bull; 041</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6H/038/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6H/038/low.webp" onerror="this.remove()" alt="Hippopotas 038, 白銀のランス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6H/038/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6H/038/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Hippopotas</div>
         <div class="rr">白銀のランス &bull; 038</div>
         <div class="rr">Common</div>

@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/koffing.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/swsh/swsh12.5/075/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="075" data-price="$0.87"
         data-set="Crown Zenith"
         aria-label="Enlarge Koffing, Crown Zenith 075">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/075/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/075/low.webp" onerror="this.remove()" alt="Koffing 075, Crown Zenith" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/075/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/075/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Crown Zenith &bull; 075</div>
         <div class="rr">Common</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="94" data-price="$0.59"
         data-set="Chilling Reign"
         aria-label="Enlarge Koffing, Chilling Reign 94">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/94/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/94/low.webp" onerror="this.remove()" alt="Koffing 94, Chilling Reign" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/94/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/94/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Chilling Reign &bull; 94</div>
         <div class="rr">Common</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="41" data-price="$0.57"
         data-set="Shining Fates"
         aria-label="Enlarge Koffing, Shining Fates 41">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4.5/41/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4.5/41/low.webp" onerror="this.remove()" alt="Koffing 41, Shining Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4.5/41/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4.5/41/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Shining Fates &bull; 41</div>
         <div class="rr">Common</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="125" data-price="$0.44"
         data-set="Destined Rivals"
         aria-label="Enlarge Team Rocket's Koffing, Destined Rivals 125">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/125/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/125/low.webp" onerror="this.remove()" alt="Team Rocket's Koffing 125, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/125/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/125/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Koffing</div>
         <div class="rr">Destined Rivals &bull; 125</div>
         <div class="rr">Common</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="091" data-price="$0.40"
         data-set="Journey Together"
         aria-label="Enlarge Koffing, Journey Together 091">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/091/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/091/low.webp" onerror="this.remove()" alt="Koffing 091, Journey Together" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/091/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/091/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Journey Together &bull; 091</div>
         <div class="rr">Common</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="112" data-price="$0.30"
         data-set="Rebel Clash"
         aria-label="Enlarge Koffing, Rebel Clash 112">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/112/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/112/low.webp" onerror="this.remove()" alt="Koffing 112, Rebel Clash" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/112/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/112/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Rebel Clash &bull; 112</div>
         <div class="rr">Common</div>
@@ -328,7 +345,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="109" data-price="$0.29"
         data-set="151"
         aria-label="Enlarge Koffing, 151 109">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/109/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/109/low.webp" onerror="this.remove()" alt="Koffing 109, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/109/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/109/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">151 &bull; 109</div>
         <div class="rr">Common</div>
@@ -372,217 +389,217 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/51/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/51/low.webp" onerror="this.remove()" alt="Koffing 51, Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/51/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/51/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Base Set &bull; 51</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/60/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/60/low.webp" onerror="this.remove()" alt="Koffing 60, Call of Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/60/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/60/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Call of Legends &bull; 60</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/243/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/243/low.webp" onerror="this.remove()" alt="Koffing 243, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/243/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/243/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Cosmic Eclipse &bull; 243</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/76/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/76/low.webp" onerror="this.remove()" alt="Koffing 76, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/76/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/76/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Cosmic Eclipse &bull; 76</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex11/72/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex11/72/low.webp" onerror="this.remove()" alt="Koffing 72, Delta Species" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex11/72/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex11/72/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Delta Species &bull; 72</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/62/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/62/low.webp" onerror="this.remove()" alt="Koffing 62, Deoxys" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/62/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/62/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Deoxys &bull; 62</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/50/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/50/low.webp" onerror="this.remove()" alt="Koffing 50, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/50/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/50/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Evolutions &bull; 50</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/114/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/114/low.webp" onerror="this.remove()" alt="Koffing 114, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/114/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/114/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Expedition Base Set &bull; 114</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/27/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/27/low.webp" onerror="this.remove()" alt="Koffing 27, Fates Collide" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/27/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/27/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Fates Collide &bull; 27</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/176/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/176/low.webp" onerror="this.remove()" alt="Koffing 176, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/176/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/176/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Genetic Apex &bull; 176</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp4/74/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp4/74/low.webp" onerror="this.remove()" alt="Koffing 74, Great Encounters" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp4/74/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp4/74/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Great Encounters &bull; 74</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/48/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/48/low.webp" onerror="this.remove()" alt="Koga's Koffing 48, Gym Challenge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/48/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/48/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koga's Koffing</div>
         <div class="rr">Gym Challenge &bull; 48</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/79/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/79/low.webp" onerror="this.remove()" alt="Koga's Koffing 79, Gym Challenge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/79/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/79/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koga's Koffing</div>
         <div class="rr">Gym Challenge &bull; 79</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/70/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/70/low.webp" onerror="this.remove()" alt="Koffing 70, HeartGold SoulSilver" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/70/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/70/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">HeartGold SoulSilver &bull; 70</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm115/28/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm115/28/low.webp" onerror="this.remove()" alt="Koffing 28, Hidden Fates" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm115/28/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm115/28/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Hidden Fates &bull; 28</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1a/049/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1a/049/low.webp" onerror="this.remove()" alt="Koffing 049, Mythical Island" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1a/049/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1a/049/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Mythical Island &bull; 049</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw8/56/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw8/56/low.webp" onerror="this.remove()" alt="Koffing 56, Plasma Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw8/56/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw8/56/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Plasma Storm &bull; 56</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw8/57/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw8/57/low.webp" onerror="this.remove()" alt="Koffing 57, Plasma Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw8/57/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw8/57/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Plasma Storm &bull; 57</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl2/68/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl2/68/low.webp" onerror="this.remove()" alt="Koffing 68, Rising Rivals" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl2/68/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl2/68/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Rising Rivals &bull; 68</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/54/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/54/low.webp" onerror="this.remove()" alt="Koffing 54, Ruby &amp; Sapphire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/54/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/54/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Ruby &amp; Sapphire &bull; 54</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/58/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/58/low.webp" onerror="this.remove()" alt="Koffing 58, Team Rocket" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/58/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/58/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Team Rocket &bull; 58</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/61/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/61/low.webp" onerror="this.remove()" alt="Koffing 61, Team Rocket Returns" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/61/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/61/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Team Rocket Returns &bull; 61</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/73/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/73/low.webp" onerror="this.remove()" alt="Koffing 73, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/73/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/73/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">Unbroken Bonds &bull; 73</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10b/027/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10b/027/low.webp" onerror="this.remove()" alt="Koffing 027, スカイレジェンド" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10b/027/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10b/027/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">スカイレジェンド &bull; 027</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/034/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/034/low.webp" onerror="this.remove()" alt="Koffing 034, ダブルブレイズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/034/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/034/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">ダブルブレイズ &bull; 034</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11b/021/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11b/021/low.webp" onerror="this.remove()" alt="Koffing 021, ドリームリーグ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11b/021/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11b/021/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">ドリームリーグ &bull; 021</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11b/056/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11b/056/low.webp" onerror="this.remove()" alt="Koffing 056, ドリームリーグ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11b/056/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11b/056/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">ドリームリーグ &bull; 056</div>
         <div class="rr">Character Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9/056/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9/056/low.webp" onerror="this.remove()" alt="Koffing 056, バトルパートナーズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9/056/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9/056/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">バトルパートナーズ &bull; 056</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/109/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/109/low.webp" onerror="this.remove()" alt="Koffing 109, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/109/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/109/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">ポケモンカード151 &bull; 109</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/069/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/069/low.webp" onerror="this.remove()" alt="Koffing 069, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/069/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/069/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">ロケット団の栄光 &bull; 069</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6K/044/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6K/044/low.webp" onerror="this.remove()" alt="Koffing 044, 漆黒のガイスト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6K/044/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6K/044/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Koffing</div>
         <div class="rr">漆黒のガイスト &bull; 044</div>
         <div class="rr">Common</div>

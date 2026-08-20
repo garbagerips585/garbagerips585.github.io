@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/honchkrow.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -216,7 +218,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <div class="fact"><div class="n">$1</div><div class="l">Priciest one we price</div></div>
       <div class="fact"><div class="n">$0.23</div><div class="l">Cheapest way in</div></div>
       
-      <a class="fact fact-link" href="#watch"><div class="n">16</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
+      <a class="fact fact-link" href="#watch"><div class="n">17</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me02.5/127/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="127" data-price="$1.36"
         data-set="Ascended Heroes"
         aria-label="Enlarge Team Rocket's Honchkrow, Ascended Heroes 127">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/127/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/127/low.webp" onerror="this.remove()" alt="Team Rocket's Honchkrow 127, Ascended Heroes" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/127/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/127/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Honchkrow</div>
         <div class="rr">Ascended Heroes &bull; 127</div>
         <div class="rr">Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="058" data-price="$0.60"
         data-set="Phantasmal Flames"
         aria-label="Enlarge Honchkrow, Phantasmal Flames 058">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/058/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/058/low.webp" onerror="this.remove()" alt="Honchkrow 058, Phantasmal Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/058/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/058/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">Phantasmal Flames &bull; 058</div>
         <div class="rr">Uncommon</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="132" data-price="$0.23"
         data-set="Paldea Evolved"
         aria-label="Enlarge Honchkrow, Paldea Evolved 132">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/132/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/132/low.webp" onerror="this.remove()" alt="Honchkrow 132, Paldea Evolved" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/132/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/132/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">Paldea Evolved &bull; 132</div>
         <div class="rr">Uncommon</div>
@@ -296,7 +313,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
 <section class="band tight" id="watch">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See these packs opened</p>
-    <h2>We have filmed <span class="hl">16</span> rips of
+    <h2>We have filmed <span class="hl">17</span> rips of
       the 2 sets that print
       <span class="hl">Honchkrow</span></h2>
     <p class="lede" style="max-width:40em">Garbage Rips 585 is a Pokemon card pack opening
@@ -305,9 +322,9 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <li><a href="/rip/did-we-get-the-zard-final-pack-3pUiN-8XkEk.html">DID WE GET THE ZARD?! 🐉🔥 (Final Pack)</a><br><span class="rip-meta">Phantasmal Flames</span></li>
       <li><a href="/rip/only-garbage-rips-paldea-evolved-blister-pack-pokemonshorts-evnMahizn0I.html">Only Garbage Rips 😬 | Paldea Evolved Blister Pack #PokemonShorts #PokemonTCG #PaldeaEvolved</a><br><span class="rip-meta">Paldea Evolved</span></li>
       <li><a href="/rip/i-found-an-sir-but-not-the-zard-R2VxbNMrlXQ.html">I FOUND AN SIR! 💎 (But Not The Zard...)</a><br><span class="rip-meta">Phantasmal Flames</span></li>
+      <li><a href="/rip/6-boxes-and-still-no-og-starters-M7NqqhR8V4M.html">6 BOXES... and STILL No OG Starters?! 😭</a><br><span class="rip-meta">Phantasmal Flames</span></li>
       <li><a href="/rip/final-mega-zygarde-collection-pack-zard-sir-last-pack-magic-urvau7lIwC0.html">FINAL Mega Zygarde Collection Pack 🔥 | Zard SIR?! Last Pack Magic?! 😳</a><br><span class="rip-meta">Phantasmal Flames</span></li>
       <li><a href="/rip/first-phantasmal-flamespack-in-the-mega-zygarde-collection-p-HGlF3-fpycc.html">First Phantasmal Flames🔥Pack in the Mega Zygarde Collection Pack #7</a><br><span class="rip-meta">Phantasmal Flames</span></li>
-      <li><a href="/rip/final-perfect-order-pack-mega-zygarde-collection-pack-6-sS0fvyss7IM.html">FINAL Perfect Order Pack?! 😳 | Mega Zygarde Collection Pack #6</a><br><span class="rip-meta">Phantasmal Flames</span></li>
     </ul>
     <div class="btn-row" style="margin-top:16px">
       <a class="btn btn-yt" href="/videos.html?set=phantasmal-flames">Watch every Phantasmal Flames rip</a>
@@ -324,210 +341,210 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/94/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/94/low.webp" onerror="this.remove()" alt="Honchkrow 94, Battle Styles" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/94/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/94/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">Battle Styles &bull; 94</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/088/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/088/low.webp" onerror="this.remove()" alt="Honchkrow V 088, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/088/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/088/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow V</div>
         <div class="rr">Brilliant Stars &bull; 088</div>
         <div class="rr">Holo Rare V</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/161/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/161/low.webp" onerror="this.remove()" alt="Honchkrow V 161, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/161/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/161/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow V</div>
         <div class="rr">Brilliant Stars &bull; 161</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/162/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/162/low.webp" onerror="this.remove()" alt="Honchkrow V 162, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/162/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/162/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow V</div>
         <div class="rr">Brilliant Stars &bull; 162</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/73/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/73/low.webp" onerror="this.remove()" alt="Honchkrow 73, Dragons Exalted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/73/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/73/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">Dragons Exalted &bull; 73</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/79/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/79/low.webp" onerror="this.remove()" alt="Honchkrow 79, Guardians Rising" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/79/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/79/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">Guardians Rising &bull; 79</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/115/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/115/low.webp" onerror="this.remove()" alt="Honchkrow 115, Lost Origin" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/115/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/115/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">Lost Origin &bull; 115</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp2/10/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp2/10/low.webp" onerror="this.remove()" alt="Honchkrow 10, Mysterious Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp2/10/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp2/10/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">Mysterious Treasures &bull; 10</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy4/52/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy4/52/low.webp" onerror="this.remove()" alt="Honchkrow 52, Phantom Forces" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy4/52/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy4/52/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">Phantom Forces &bull; 52</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/77/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/77/low.webp" onerror="this.remove()" alt="Honchkrow G 77, Platinum" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/77/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/77/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow G</div>
         <div class="rr">Platinum &bull; 77</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/132/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/132/low.webp" onerror="this.remove()" alt="Honchkrow 132, Secret Wonders" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/132/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/132/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">Secret Wonders &bull; 132</div>
         <div class="rr">Rare Holo LV.X</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/107/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/107/low.webp" onerror="this.remove()" alt="Honchkrow 107, Silver Tempest" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/107/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/107/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">Silver Tempest &bull; 107</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/097/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/097/low.webp" onerror="this.remove()" alt="Honchkrow 097, Space-Time Smackdown" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/097/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/097/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">Space-Time Smackdown &bull; 097</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/29/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/29/low.webp" onerror="this.remove()" alt="Honchkrow 29, Supreme Victors" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/29/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/29/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">Supreme Victors &bull; 29</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm5/72/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm5/72/low.webp" onerror="this.remove()" alt="Honchkrow 72, Ultra Prism" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm5/72/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm5/72/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">Ultra Prism &bull; 72</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/109/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/109/low.webp" onerror="this.remove()" alt="Honchkrow GX 109, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/109/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/109/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow GX</div>
         <div class="rr">Unbroken Bonds &bull; 109</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/202/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/202/low.webp" onerror="this.remove()" alt="Honchkrow GX 202, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/202/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/202/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow GX</div>
         <div class="rr">Unbroken Bonds &bull; 202</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/223/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/223/low.webp" onerror="this.remove()" alt="Honchkrow GX 223, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/223/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/223/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow GX</div>
         <div class="rr">Unbroken Bonds &bull; 223</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/15/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/15/low.webp" onerror="this.remove()" alt="Honchkrow 15, Undaunted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/15/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/15/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">Undaunted &bull; 15</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/16/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/16/low.webp" onerror="this.remove()" alt="Honchkrow 16, Undaunted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/16/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/16/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">Undaunted &bull; 16</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm11/130/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm11/130/low.webp" onerror="this.remove()" alt="Honchkrow 130, Unified Minds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm11/130/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm11/130/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">Unified Minds &bull; 130</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/114/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/114/low.webp" onerror="this.remove()" alt="Honchkrow 114, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/114/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/114/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 114</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM2L/030/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM2L/030/low.webp" onerror="this.remove()" alt="Honchkrow 030, アローラの月光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM2L/030/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM2L/030/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">アローラの月光 &bull; 030</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM5S/026/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM5S/026/low.webp" onerror="this.remove()" alt="Honchkrow 026, ウルトラサン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM5S/026/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM5S/026/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">ウルトラサン &bull; 026</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2P/046/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2P/046/low.webp" onerror="this.remove()" alt="Honchkrow 046, スノーハザード" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2P/046/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2P/046/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">スノーハザード &bull; 046</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10a/045/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10a/045/low.webp" onerror="this.remove()" alt="Honchkrow 045, ダークファンタズマ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10a/045/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10a/045/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">ダークファンタズマ &bull; 045</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/056/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/056/low.webp" onerror="this.remove()" alt="Honchkrow 056, ダブルブレイズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/056/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/056/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">ダブルブレイズ &bull; 056</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/102/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/102/low.webp" onerror="this.remove()" alt="Honchkrow 102, ダブルブレイズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/102/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/102/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">ダブルブレイズ &bull; 102</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S5I/043/low.avif"><img src="https://assets.tcgdex.net/ja/S/S5I/043/low.webp" onerror="this.remove()" alt="Honchkrow 043, 一撃マスター" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S5I/043/low.avif"><img src="https://assets.tcgdex.net/ja/S/S5I/043/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">一撃マスター &bull; 043</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SLD/003/low.avif"><img src="https://assets.tcgdex.net/ja/S/SLD/003/low.webp" onerror="this.remove()" alt="Honchkrow 003, 起始組合VSTAR 達克萊伊" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SLD/003/low.avif"><img src="https://assets.tcgdex.net/ja/S/SLD/003/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Honchkrow</div>
         <div class="rr">起始組合VSTAR 達克萊伊 &bull; 003</div>
         

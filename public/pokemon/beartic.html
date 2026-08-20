@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/beartic.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv10.5b/110/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="110" data-price="$10.37"
         data-set="Black Bolt"
         aria-label="Enlarge Beartic, Black Bolt 110">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/110/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/110/low.webp" onerror="this.remove()" alt="Beartic 110, Black Bolt" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/110/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/110/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Beartic</div>
         <div class="rr">Black Bolt &bull; 110</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="026" data-price="$0.63"
         data-set="Black Bolt"
         aria-label="Enlarge Beartic, Black Bolt 026">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/026/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/026/low.webp" onerror="this.remove()" alt="Beartic 026, Black Bolt" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/026/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/026/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Beartic</div>
         <div class="rr">Black Bolt &bull; 026</div>
         <div class="rr">Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="054" data-price="$0.25"
         data-set="Obsidian Flames"
         aria-label="Enlarge Beartic, Obsidian Flames 054">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/054/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/054/low.webp" onerror="this.remove()" alt="Beartic 054, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/054/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/054/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Beartic</div>
         <div class="rr">Obsidian Flames &bull; 054</div>
         <div class="rr">Uncommon</div>
@@ -319,77 +336,77 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/043/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/043/low.webp" onerror="this.remove()" alt="Beartic 043, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/043/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/043/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beartic</div>
         <div class="rr">Brilliant Stars &bull; 043</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/49/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/49/low.webp" onerror="this.remove()" alt="Beartic 49, Darkness Ablaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/49/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/49/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beartic</div>
         <div class="rr">Darkness Ablaze &bull; 49</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw2/30/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw2/30/low.webp" onerror="this.remove()" alt="Beartic 30, Emerging Powers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw2/30/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw2/30/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beartic</div>
         <div class="rr">Emerging Powers &bull; 30</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw2/31/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw2/31/low.webp" onerror="this.remove()" alt="Beartic 31, Emerging Powers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw2/31/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw2/31/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beartic</div>
         <div class="rr">Emerging Powers &bull; 31</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy3/22/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy3/22/low.webp" onerror="this.remove()" alt="Beartic 22, Furious Fists" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy3/22/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy3/22/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beartic</div>
         <div class="rr">Furious Fists &bull; 22</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/62/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/62/low.webp" onerror="this.remove()" alt="Beartic 62, Lost Thunder" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/62/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/62/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beartic</div>
         <div class="rr">Lost Thunder &bull; 62</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw4/37/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw4/37/low.webp" onerror="this.remove()" alt="Beartic 37, Next Destinies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw4/37/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw4/37/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beartic</div>
         <div class="rr">Next Destinies &bull; 37</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw8/41/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw8/41/low.webp" onerror="this.remove()" alt="Beartic 41, Plasma Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw8/41/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw8/41/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beartic</div>
         <div class="rr">Plasma Storm &bull; 41</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9/033/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9/033/low.webp" onerror="this.remove()" alt="Beartic 033, スターバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9/033/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9/033/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beartic</div>
         <div class="rr">スターバース &bull; 033</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7a/020/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7a/020/low.webp" onerror="this.remove()" alt="Beartic 020, 迅雷スパーク" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7a/020/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7a/020/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beartic</div>
         <div class="rr">迅雷スパーク &bull; 020</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/027/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/027/low.webp" onerror="this.remove()" alt="Beartic 027, 黒炎の支配者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/027/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/027/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Beartic</div>
         <div class="rr">黒炎の支配者 &bull; 027</div>
         <div class="rr">Uncommon</div>

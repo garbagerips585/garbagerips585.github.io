@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/pidgeot.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv03/225/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="225" data-price="$20.07"
         data-set="Obsidian Flames"
         aria-label="Enlarge Pidgeot ex, Obsidian Flames 225">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/225/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/225/low.webp" onerror="this.remove()" alt="Pidgeot ex 225, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/225/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/225/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Pidgeot ex</div>
         <div class="rr">Obsidian Flames &bull; 225</div>
         <div class="rr">Special Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="221" data-price="$3.06"
         data-set="Paldean Fates"
         aria-label="Enlarge Pidgeot ex, Paldean Fates 221">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/221/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/221/low.webp" onerror="this.remove()" alt="Pidgeot ex 221, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/221/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/221/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Pidgeot ex</div>
         <div class="rr">Paldean Fates &bull; 221</div>
         <div class="rr">Shiny Ultra Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="217" data-price="$2.99"
         data-set="Obsidian Flames"
         aria-label="Enlarge Pidgeot ex, Obsidian Flames 217">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/217/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/217/low.webp" onerror="this.remove()" alt="Pidgeot ex 217, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/217/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/217/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Pidgeot ex</div>
         <div class="rr">Obsidian Flames &bull; 217</div>
         <div class="rr">Ultra Rare</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="164" data-price="$1.50"
         data-set="Obsidian Flames"
         aria-label="Enlarge Pidgeot ex, Obsidian Flames 164">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/164/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/164/low.webp" onerror="this.remove()" alt="Pidgeot ex 164, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/164/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/164/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Pidgeot ex</div>
         <div class="rr">Obsidian Flames &bull; 164</div>
         <div class="rr">Double Rare</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="018" data-price="$0.40"
         data-set="151"
         aria-label="Enlarge Pidgeot, 151 018">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/018/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/018/low.webp" onerror="this.remove()" alt="Pidgeot 018, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/018/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/018/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">151 &bull; 018</div>
         <div class="rr">Uncommon</div>
@@ -344,217 +361,217 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/14/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/14/low.webp" onerror="this.remove()" alt="Pidgeot 14, Base Set 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/14/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/14/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">Base Set 2 &bull; 14</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/30/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/30/low.webp" onerror="this.remove()" alt="Pidgeot 30, Call of Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/30/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/30/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">Call of Legends &bull; 30</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/104/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/104/low.webp" onerror="this.remove()" alt="Pidgeot EX 104, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/104/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/104/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot EX</div>
         <div class="rr">Evolutions &bull; 104</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/105/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/105/low.webp" onerror="this.remove()" alt="M Pidgeot EX 105, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/105/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/105/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">M Pidgeot EX</div>
         <div class="rr">Evolutions &bull; 105</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/64/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/64/low.webp" onerror="this.remove()" alt="Pidgeot EX 64, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/64/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/64/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot EX</div>
         <div class="rr">Evolutions &bull; 64</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/65/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/65/low.webp" onerror="this.remove()" alt="M Pidgeot EX 65, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/65/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/65/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">M Pidgeot EX</div>
         <div class="rr">Evolutions &bull; 65</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/23/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/23/low.webp" onerror="this.remove()" alt="Pidgeot 23, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/23/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/23/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">Expedition Base Set &bull; 23</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/59/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/59/low.webp" onerror="this.remove()" alt="Pidgeot 59, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/59/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/59/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">Expedition Base Set &bull; 59</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3a/097/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3a/097/low.webp" onerror="this.remove()" alt="Pidgeot 097, Extradimensional Crisis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3a/097/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3a/097/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">Extradimensional Crisis &bull; 097</div>
         <div class="rr">One Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3a/102/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3a/102/low.webp" onerror="this.remove()" alt="Pidgeot ex 102, Extradimensional Crisis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3a/102/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3a/102/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot ex</div>
         <div class="rr">Extradimensional Crisis &bull; 102</div>
         <div class="rr">Two Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/10/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/10/low.webp" onerror="this.remove()" alt="Pidgeot 10, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/10/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/10/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 10</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/77/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/77/low.webp" onerror="this.remove()" alt="Pidgeot 77, Flashfire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/77/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/77/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">Flashfire &bull; 77</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/188/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/188/low.webp" onerror="this.remove()" alt="Pidgeot 188, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/188/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/188/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">Genetic Apex &bull; 188</div>
         <div class="rr">Three Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/245/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/245/low.webp" onerror="this.remove()" alt="Pidgeot 245, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/245/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/245/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">Genetic Apex &bull; 245</div>
         <div class="rr">One Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/14/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/14/low.webp" onerror="this.remove()" alt="Pidgeot δ 14, Holon Phantoms" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/14/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/14/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot δ</div>
         <div class="rr">Holon Phantoms &bull; 14</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/24/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/24/low.webp" onerror="this.remove()" alt="Pidgeot 24, Jungle" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/24/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/24/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">Jungle &bull; 24</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/8/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/8/low.webp" onerror="this.remove()" alt="Pidgeot 8, Jungle" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/8/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/8/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">Jungle &bull; 8</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/33/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/33/low.webp" onerror="this.remove()" alt="Pidgeot 33, Legendary Collection" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/33/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/33/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">Legendary Collection &bull; 33</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/137/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/137/low.webp" onerror="this.remove()" alt="Pidgeot V 137, Lost Origin" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/137/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/137/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot V</div>
         <div class="rr">Lost Origin &bull; 137</div>
         <div class="rr">Holo Rare V</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/188/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/188/low.webp" onerror="this.remove()" alt="Pidgeot V 188, Lost Origin" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/188/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/188/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot V</div>
         <div class="rr">Lost Origin &bull; 188</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1a/059/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1a/059/low.webp" onerror="this.remove()" alt="Pidgeot ex 059, Mythical Island" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1a/059/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1a/059/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot ex</div>
         <div class="rr">Mythical Island &bull; 059</div>
         <div class="rr">Four Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1a/079/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1a/079/low.webp" onerror="this.remove()" alt="Pidgeot ex 079, Mythical Island" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1a/079/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1a/079/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot ex</div>
         <div class="rr">Mythical Island &bull; 079</div>
         <div class="rr">Two Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop2/2/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop2/2/low.webp" onerror="this.remove()" alt="Pidgeot 2, POP Series 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop2/2/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop2/2/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">POP Series 2 &bull; 2</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/35/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/35/low.webp" onerror="this.remove()" alt="Pidgeot 35, Secret Wonders" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/35/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/35/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">Secret Wonders &bull; 35</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/si1/2/low.avif"><img src="https://assets.tcgdex.net/en/neo/si1/2/low.webp" onerror="this.remove()" alt="Pidgeot 2, Southern Islands" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/si1/2/low.avif"><img src="https://assets.tcgdex.net/en/neo/si1/2/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">Southern Islands &bull; 2</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/124/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/124/low.webp" onerror="this.remove()" alt="Pidgeot 124, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/124/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/124/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">Team Up &bull; 124</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss4/29/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss4/29/low.webp" onerror="this.remove()" alt="Pidgeot 29, Triumphant" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss4/29/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss4/29/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">Triumphant &bull; 29</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/070/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/070/low.webp" onerror="this.remove()" alt="Pidgeot 070, タッグボルト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/070/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/070/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">タッグボルト &bull; 070</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/018/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/018/low.webp" onerror="this.remove()" alt="Pidgeot 018, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/018/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/018/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">ポケモンカード151 &bull; 018</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/082/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/082/low.webp" onerror="this.remove()" alt="Pidgeot 082, ロストアビス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/082/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/082/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">ロストアビス &bull; 082</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/112/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/112/low.webp" onerror="this.remove()" alt="Pidgeot 112, ロストアビス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11/112/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11/112/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pidgeot</div>
         <div class="rr">ロストアビス &bull; 112</div>
         <div class="rr">Ultra Rare</div>

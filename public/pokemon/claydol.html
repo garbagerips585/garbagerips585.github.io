@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/claydol.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me04/092/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="092" data-price="$3.01"
         data-set="Chaos Rising"
         aria-label="Enlarge Claydol, Chaos Rising 092">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/092/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/092/low.webp" onerror="this.remove()" alt="Claydol 092, Chaos Rising" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/092/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/092/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">Chaos Rising &bull; 092</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="047" data-price="$1.32"
         data-set="Chaos Rising"
         aria-label="Enlarge Claydol, Chaos Rising 047">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/047/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/047/low.webp" onerror="this.remove()" alt="Claydol 047, Chaos Rising" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/047/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/047/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">Chaos Rising &bull; 047</div>
         <div class="rr">Uncommon</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="084" data-price="$0.45"
         data-set="Destined Rivals"
         aria-label="Enlarge Steven's Claydol, Destined Rivals 084">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/084/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/084/low.webp" onerror="this.remove()" alt="Steven's Claydol 084, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/084/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/084/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Steven's Claydol</div>
         <div class="rr">Destined Rivals &bull; 084</div>
         <div class="rr">Uncommon</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="095" data-price="$0.25"
         data-set="Obsidian Flames"
         aria-label="Enlarge Claydol, Obsidian Flames 095">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/095/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/095/low.webp" onerror="this.remove()" alt="Claydol 095, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/095/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/095/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">Obsidian Flames &bull; 095</div>
         <div class="rr">Rare</div>
@@ -336,175 +353,175 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/33/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/33/low.webp" onerror="this.remove()" alt="Claydol 33, Ancient Origins" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/33/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/33/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">Ancient Origins &bull; 33</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/58/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/58/low.webp" onerror="this.remove()" alt="Claydol 58, Battle Styles" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/58/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/58/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">Battle Styles &bull; 58</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/059/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/059/low.webp" onerror="this.remove()" alt="Claydol 059, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/059/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/059/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">Brilliant Stars &bull; 059</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/79/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/79/low.webp" onerror="this.remove()" alt="Claydol 79, Celestial Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/79/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/79/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">Celestial Storm &bull; 79</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/5/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/5/low.webp" onerror="this.remove()" alt="Claydol 5, Deoxys" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/5/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/5/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">Deoxys &bull; 5</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/64/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/64/low.webp" onerror="this.remove()" alt="Claydol 64, Dragons Exalted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/64/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/64/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">Dragons Exalted &bull; 64</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex9/24/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex9/24/low.webp" onerror="this.remove()" alt="Claydol 24, Emerald" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex9/24/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex9/24/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">Emerald &bull; 24</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3a/031/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3a/031/low.webp" onerror="this.remove()" alt="Claydol 031, Extradimensional Crisis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3a/031/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3a/031/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">Extradimensional Crisis &bull; 031</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/145/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/145/low.webp" onerror="this.remove()" alt="Claydol 145, Fusion Strike" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/145/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/145/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">Fusion Strike &bull; 145</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp4/15/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp4/15/low.webp" onerror="this.remove()" alt="Claydol 15, Great Encounters" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp4/15/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp4/15/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">Great Encounters &bull; 15</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/2/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/2/low.webp" onerror="this.remove()" alt="Claydol 2, Hidden Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/2/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/2/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">Hidden Legends &bull; 2</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/31/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/31/low.webp" onerror="this.remove()" alt="Claydol 31, Hidden Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/31/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/31/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">Hidden Legends &bull; 31</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/38/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/38/low.webp" onerror="this.remove()" alt="Claydol 38, Holon Phantoms" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/38/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/38/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">Holon Phantoms &bull; 38</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex16/93/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex16/93/low.webp" onerror="this.remove()" alt="Claydol ex 93, Power Keepers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex16/93/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex16/93/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol ex</div>
         <div class="rr">Power Keepers &bull; 93</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/094/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/094/low.webp" onerror="this.remove()" alt="Claydol 094, Silver Tempest" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/094/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/094/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">Silver Tempest &bull; 094</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/22/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/22/low.webp" onerror="this.remove()" alt="Claydol 22, Supreme Victors" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/22/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/22/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">Supreme Victors &bull; 22</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/103/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/103/low.webp" onerror="this.remove()" alt="Claydol 103, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/103/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/103/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">Sword &amp; Shield &bull; 103</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/33/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/33/low.webp" onerror="this.remove()" alt="Team Magma's Claydol 33, Team Magma vs Team Aqua" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/33/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/33/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Team Magma's Claydol</div>
         <div class="rr">Team Magma vs Team Aqua &bull; 33</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/8/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/8/low.webp" onerror="this.remove()" alt="Team Magma's Claydol 8, Team Magma vs Team Aqua" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/8/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/8/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Team Magma's Claydol</div>
         <div class="rr">Team Magma vs Team Aqua &bull; 8</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9/044/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9/044/low.webp" onerror="this.remove()" alt="Claydol 044, スターバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9/044/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9/044/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">スターバース &bull; 044</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/047/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/047/low.webp" onerror="this.remove()" alt="Claydol 047, ニンジャスピナー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/047/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/047/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">ニンジャスピナー &bull; 047</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/090/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/090/low.webp" onerror="this.remove()" alt="Claydol 090, ニンジャスピナー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/090/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/090/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">ニンジャスピナー &bull; 090</div>
         <div class="rr">Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12/048/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12/048/low.webp" onerror="this.remove()" alt="Claydol 048, パラダイムトリガー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12/048/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12/048/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">パラダイムトリガー &bull; 048</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7/048/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7/048/low.webp" onerror="this.remove()" alt="Claydol 048, 裂空のカリスマ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7/048/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7/048/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">裂空のカリスマ &bull; 048</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/050/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/050/low.webp" onerror="this.remove()" alt="Claydol 050, 黒炎の支配者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/050/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/050/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Claydol</div>
         <div class="rr">黒炎の支配者 &bull; 050</div>
         <div class="rr">Rare</div>

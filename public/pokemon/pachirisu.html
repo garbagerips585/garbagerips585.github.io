@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/pachirisu.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -216,7 +218,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <div class="fact"><div class="n">$18</div><div class="l">Priciest one we price</div></div>
       <div class="fact"><div class="n">$0.45</div><div class="l">Cheapest way in</div></div>
       
-      <a class="fact fact-link" href="#watch"><div class="n">7</div><div class="l">Rips of the set they are in <span aria-hidden="true">&darr;</span></div></a>
+      <a class="fact fact-link" href="#watch"><div class="n">8</div><div class="l">Rips of the set they are in <span aria-hidden="true">&darr;</span></div></a>
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
@@ -246,7 +248,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv01/208/high.webp"
@@ -254,7 +271,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="208" data-price="$17.68"
         data-set="Scarlet &amp; Violet"
         aria-label="Enlarge Pachirisu, Scarlet &amp; Violet 208">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/208/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/208/low.webp" onerror="this.remove()" alt="Pachirisu 208, Scarlet &amp; Violet" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/208/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/208/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">Scarlet &amp; Violet &bull; 208</div>
         <div class="rr">Illustration Rare</div>
@@ -266,7 +283,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="138" data-price="$11.00"
         data-set="Paldean Fates"
         aria-label="Enlarge Pachirisu, Paldean Fates 138">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/138/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/138/low.webp" onerror="this.remove()" alt="Pachirisu 138, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/138/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/138/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">Paldean Fates &bull; 138</div>
         <div class="rr">Shiny Rare</div>
@@ -278,7 +295,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="051" data-price="$0.70"
         data-set="Mega Evolution"
         aria-label="Enlarge Pachirisu, Mega Evolution 051">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/051/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/051/low.webp" onerror="this.remove()" alt="Pachirisu 051, Mega Evolution" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/051/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/051/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">Mega Evolution &bull; 051</div>
         <div class="rr">Common</div>
@@ -290,7 +307,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="068" data-price="$0.45"
         data-set="Scarlet &amp; Violet"
         aria-label="Enlarge Pachirisu, Scarlet &amp; Violet 068">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/068/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/068/low.webp" onerror="this.remove()" alt="Pachirisu 068, Scarlet &amp; Violet" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/068/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/068/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">Scarlet &amp; Violet &bull; 068</div>
         <div class="rr">Uncommon</div>
@@ -306,18 +323,18 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
 <section class="band tight" id="watch">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See these packs opened</p>
-    <h2>We have filmed <span class="hl">7</span> rips of
+    <h2>We have filmed <span class="hl">8</span> rips of
       the set that prints
       <span class="hl">Pachirisu</span></h2>
     <p class="lede" style="max-width:40em">Garbage Rips 585 is a Pokemon card pack opening
       channel out of Rochester, New York. We film every pack we open, hit or no hit.</p>
     <ul class="poke-rips">
+      <li><a href="/rip/6-boxes-and-still-no-og-starters-M7NqqhR8V4M.html">6 BOXES... and STILL No OG Starters?! 😭</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/only-garbage-rips-mega-evolution-pack-3-Pvi54rMlLfQ.html">Only Garbage Rips? 😬 | Mega Evolution Pack #3</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/only-garbage-rips-mega-evolutions-pack-2-dQaN_4yqS0w.html">Only Garbage Rips? 😬 | Mega Evolutions Pack #2</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/pok-mon-mega-evolution-booster-pack-1-first-pack-hVS0VH-nfVM.html">Pokémon Mega Evolution Booster Pack #1 ⚡ | First Pack</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/only-garbage-rips-raikou-2-pack-blister-cmV6P3ssh2g.html">Only Garbage Rips 😬 | Raikou 2-Pack Blister</a><br><span class="rip-meta">Mega Evolution</span></li>
       <li><a href="/rip/only-garbage-rips-from-the-mega-kangaskhan-ex-box-l6RPdGNs7uE.html">Only Garbage Rips from the Mega Kangaskhan ex Box</a><br><span class="rip-meta">Mega Evolution</span></li>
-      <li><a href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html">Only Garbage Rips from the Latest Costco Charizard UPC Drop</a><br><span class="rip-meta">Mega Evolution</span></li>
     </ul>
     <div class="btn-row" style="margin-top:16px">
       <a class="btn btn-yt" href="/videos.html?set=mega-evolution">Watch every Mega Evolution rip</a>
@@ -334,210 +351,210 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/49/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/49/low.webp" onerror="this.remove()" alt="Pachirisu 49, Battle Styles" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/49/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/49/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">Battle Styles &bull; 49</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/052/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/052/low.webp" onerror="this.remove()" alt="Pachirisu 052, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/052/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/052/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">Brilliant Stars &bull; 052</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/18/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/18/low.webp" onerror="this.remove()" alt="Pachirisu 18, Call of Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/18/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/18/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">Call of Legends &bull; 18</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp1/35/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp1/35/low.webp" onerror="this.remove()" alt="Pachirisu 35, Diamond &amp; Pearl" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp1/35/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp1/35/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">Diamond &amp; Pearl &bull; 35</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dpp/DP04/low.avif"><img src="https://assets.tcgdex.net/en/dp/dpp/DP04/low.webp" onerror="this.remove()" alt="Pachirisu DP04, DP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dpp/DP04/low.avif"><img src="https://assets.tcgdex.net/en/dp/dpp/DP04/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">DP Black Star Promos &bull; DP04</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp4/5/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp4/5/low.webp" onerror="this.remove()" alt="Pachirisu 5, Great Encounters" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp4/5/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp4/5/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">Great Encounters &bull; 5</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/035/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/035/low.webp" onerror="this.remove()" alt="Pachirisu 035, GXウルトラシャイニー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/035/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/035/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">GXウルトラシャイニー &bull; 035</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/80/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/80/low.webp" onerror="this.remove()" alt="Pachirisu 80, Lost Thunder" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/80/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/80/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">Lost Thunder &bull; 80</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp5/43/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp5/43/low.webp" onerror="this.remove()" alt="Pachirisu 43, Majestic Dawn" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp5/43/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp5/43/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">Majestic Dawn &bull; 43</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy4/25/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy4/25/low.webp" onerror="this.remove()" alt="Pachirisu 25, Phantom Forces" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy4/25/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy4/25/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">Phantom Forces &bull; 25</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/37/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/37/low.webp" onerror="this.remove()" alt="Pachirisu 37, Plasma Freeze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/37/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/37/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">Plasma Freeze &bull; 37</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop6/4/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop6/4/low.webp" onerror="this.remove()" alt="Pachirisu 4, POP Series 6" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop6/4/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop6/4/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">POP Series 6 &bull; 4</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop9/10/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop9/10/low.webp" onerror="this.remove()" alt="Pachirisu 10, POP Series 9" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop9/10/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop9/10/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">POP Series 9 &bull; 10</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/025/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/025/low.webp" onerror="this.remove()" alt="Pachirisu 025, Shining Revelry" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/025/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/025/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">Shining Revelry &bull; 025</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/103/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/103/low.webp" onerror="this.remove()" alt="Pachirisu 103, Shining Revelry" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/103/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/103/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">Shining Revelry &bull; 103</div>
         <div class="rr">One Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/061/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/061/low.webp" onerror="this.remove()" alt="Pachirisu ex 061, Space-Time Smackdown" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/061/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/061/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu ex</div>
         <div class="rr">Space-Time Smackdown &bull; 061</div>
         <div class="rr">Four Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/183/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/183/low.webp" onerror="this.remove()" alt="Pachirisu ex 183, Space-Time Smackdown" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/183/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/183/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu ex</div>
         <div class="rr">Space-Time Smackdown &bull; 183</div>
         <div class="rr">Two Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/198/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/198/low.webp" onerror="this.remove()" alt="Pachirisu ex 198, Space-Time Smackdown" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/198/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/198/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu ex</div>
         <div class="rr">Space-Time Smackdown &bull; 198</div>
         <div class="rr">Two Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/118/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/118/low.webp" onerror="this.remove()" alt="Pachirisu 118, Supreme Victors" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/118/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/118/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">Supreme Victors &bull; 118</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/158/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/158/low.webp" onerror="this.remove()" alt="Pachirisu 158, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/158/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/158/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">SVP Black Star Promos &bull; 158</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm5/49/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm5/49/low.webp" onerror="this.remove()" alt="Pachirisu 49, Ultra Prism" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm5/49/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm5/49/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">Ultra Prism &bull; 49</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/236/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/236/low.webp" onerror="this.remove()" alt="Pachirisu ex 236, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/236/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/236/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu ex</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 236</div>
         <div class="rr">Two Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM5M/021/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM5M/021/low.webp" onerror="this.remove()" alt="Pachirisu 021, ウルトラムーン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM5M/021/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM5M/021/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">ウルトラムーン &bull; 021</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9/040/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9/040/low.webp" onerror="this.remove()" alt="Pachirisu 040, スターバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9/040/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9/040/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">スターバース &bull; 040</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1V/029/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1V/029/low.webp" onerror="this.remove()" alt="Pachirisu 029, バイオレットex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1V/029/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1V/029/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">バイオレットex &bull; 029</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1V/084/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1V/084/low.webp" onerror="this.remove()" alt="Pachirisu 084, バイオレットex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1V/084/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1V/084/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">バイオレットex &bull; 084</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M1S/033/low.avif"><img src="https://assets.tcgdex.net/ja/M/M1S/033/low.webp" onerror="this.remove()" alt="Pachirisu 033, メガシンフォニア" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M1S/033/low.avif"><img src="https://assets.tcgdex.net/ja/M/M1S/033/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">メガシンフォニア &bull; 033</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/062/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/062/low.webp" onerror="this.remove()" alt="Pachirisu 062, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/062/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/062/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">レイジングサーフ &bull; 062</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/243/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/243/low.webp" onerror="this.remove()" alt="Pachirisu 243, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/243/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/243/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">レイジングサーフ &bull; 243</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7a/028/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7a/028/low.webp" onerror="this.remove()" alt="Pachirisu 028, 迅雷スパーク" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM7a/028/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM7a/028/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Pachirisu</div>
         <div class="rr">迅雷スパーク &bull; 028</div>
         <div class="rr">Common</div>

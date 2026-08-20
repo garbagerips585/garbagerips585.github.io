@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/aron.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv06/120/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="120" data-price="$0.50"
         data-set="Twilight Masquerade"
         aria-label="Enlarge Aron, Twilight Masquerade 120">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/120/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06/120/low.webp" onerror="this.remove()" alt="Aron 120, Twilight Masquerade" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/120/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06/120/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Twilight Masquerade &bull; 120</div>
         <div class="rr">Common</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="109" data-price="$0.48"
         data-set="Chilling Reign"
         aria-label="Enlarge Aron, Chilling Reign 109">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/109/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/109/low.webp" onerror="this.remove()" alt="Aron 109, Chilling Reign" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/109/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/109/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Chilling Reign &bull; 109</div>
         <div class="rr">Common</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="087" data-price="$0.41"
         data-set="Crown Zenith"
         aria-label="Enlarge Aron, Crown Zenith 087">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/087/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/087/low.webp" onerror="this.remove()" alt="Aron 087, Crown Zenith" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/087/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/087/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Crown Zenith &bull; 087</div>
         <div class="rr">Common</div>
@@ -324,175 +341,175 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/65/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/65/low.webp" onerror="this.remove()" alt="Aron 65, Crimson Invasion" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/65/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/65/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Crimson Invasion &bull; 65</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex14/44/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex14/44/low.webp" onerror="this.remove()" alt="Aron 44, Crystal Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex14/44/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex14/44/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Crystal Guardians &bull; 44</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/121/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/121/low.webp" onerror="this.remove()" alt="Aron 121, Darkness Ablaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/121/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/121/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Darkness Ablaze &bull; 121</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/78/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/78/low.webp" onerror="this.remove()" alt="Aron 78, Dragons Exalted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/78/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/78/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Dragons Exalted &bull; 78</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3a/048/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3a/048/low.webp" onerror="this.remove()" alt="Aron 048, Extradimensional Crisis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3a/048/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3a/048/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Extradimensional Crisis &bull; 048</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/58/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/58/low.webp" onerror="this.remove()" alt="Aron 58, Holon Phantoms" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/58/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/58/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Holon Phantoms &bull; 58</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex12/48/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex12/48/low.webp" onerror="this.remove()" alt="Aron 48, Legend Maker" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex12/48/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex12/48/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Legend Maker &bull; 48</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp2/71/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp2/71/low.webp" onerror="this.remove()" alt="Aron 71, Mysterious Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp2/71/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp2/71/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Mysterious Treasures &bull; 71</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw10/57/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw10/57/low.webp" onerror="this.remove()" alt="Aron 57, Plasma Blast" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw10/57/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw10/57/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Plasma Blast &bull; 57</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex16/42/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex16/42/low.webp" onerror="this.remove()" alt="Aron 42, Power Keepers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex16/42/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex16/42/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Power Keepers &bull; 42</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl2/57/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl2/57/low.webp" onerror="this.remove()" alt="Aron 57, Rising Rivals" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl2/57/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl2/57/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Rising Rivals &bull; 57</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/25/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/25/low.webp" onerror="this.remove()" alt="Aron 25, Ruby &amp; Sapphire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/25/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/25/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Ruby &amp; Sapphire &bull; 25</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/49/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/49/low.webp" onerror="this.remove()" alt="Aron 49, Ruby &amp; Sapphire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/49/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/49/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Ruby &amp; Sapphire &bull; 49</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/50/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/50/low.webp" onerror="this.remove()" alt="Aron 50, Ruby &amp; Sapphire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/50/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/50/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Ruby &amp; Sapphire &bull; 50</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex2/56/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex2/56/low.webp" onerror="this.remove()" alt="Aron 56, Sandstorm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex2/56/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex2/56/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Sandstorm &bull; 56</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/58/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/58/low.webp" onerror="this.remove()" alt="Team Magma's Aron 58, Team Magma vs Team Aqua" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/58/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/58/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Team Magma's Aron</div>
         <div class="rr">Team Magma vs Team Aqua &bull; 58</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/59/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/59/low.webp" onerror="this.remove()" alt="Team Magma's Aron 59, Team Magma vs Team Aqua" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex4/59/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex4/59/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Team Magma's Aron</div>
         <div class="rr">Team Magma vs Team Aqua &bull; 59</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss4/56/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss4/56/low.webp" onerror="this.remove()" alt="Aron 56, Triumphant" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss4/56/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss4/56/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Triumphant &bull; 56</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/123/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/123/low.webp" onerror="this.remove()" alt="Aron 123, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/123/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/123/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Unbroken Bonds &bull; 123</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/42/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/42/low.webp" onerror="this.remove()" alt="Aron 42, Undaunted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/42/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/42/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">Undaunted &bull; 42</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12/065/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12/065/low.webp" onerror="this.remove()" alt="Aron 065, パラダイムトリガー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12/065/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12/065/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">パラダイムトリガー &bull; 065</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9b/032/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9b/032/low.webp" onerror="this.remove()" alt="Aron 032, フルメタルウォール" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9b/032/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9b/032/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">フルメタルウォール &bull; 032</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6/073/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6/073/low.webp" onerror="this.remove()" alt="Aron 073, 変幻の仮面" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6/073/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6/073/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">変幻の仮面 &bull; 073</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6H/048/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6H/048/low.webp" onerror="this.remove()" alt="Aron 048, 白銀のランス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6H/048/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6H/048/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">白銀のランス &bull; 048</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4S/032/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4S/032/low.webp" onerror="this.remove()" alt="Aron 032, 覚醒の勇者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4S/032/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4S/032/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Aron</div>
         <div class="rr">覚醒の勇者 &bull; 032</div>
         <div class="rr">Common</div>

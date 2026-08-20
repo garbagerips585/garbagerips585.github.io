@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/slowbro.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv04.5/117/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="117" data-price="$17.67"
         data-set="Paldean Fates"
         aria-label="Enlarge Slowbro, Paldean Fates 117">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/117/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/117/low.webp" onerror="this.remove()" alt="Slowbro 117, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/117/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/117/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Paldean Fates &bull; 117</div>
         <div class="rr">Shiny Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="090" data-price="$16.04"
         data-set="Pitch Black"
         aria-label="Enlarge Slowbro, Pitch Black 090">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/090/low.avif"><img src="https://assets.tcgdex.net/en/me/me05/090/low.webp" onerror="this.remove()" alt="Slowbro 090, Pitch Black" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/090/low.avif"><img src="https://assets.tcgdex.net/en/me/me05/090/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Pitch Black &bull; 090</div>
         <div class="rr">Illustration Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="043" data-price="$1.62"
         data-set="Scarlet &amp; Violet"
         aria-label="Enlarge Slowbro, Scarlet &amp; Violet 043">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/043/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/043/low.webp" onerror="this.remove()" alt="Slowbro 043, Scarlet &amp; Violet" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/043/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/043/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Scarlet &amp; Violet &bull; 043</div>
         <div class="rr">Rare</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="030" data-price="$1.55"
         data-set="Pitch Black"
         aria-label="Enlarge Slowbro, Pitch Black 030">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/030/low.avif"><img src="https://assets.tcgdex.net/en/me/me05/030/low.webp" onerror="this.remove()" alt="Slowbro 030, Pitch Black" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/030/low.avif"><img src="https://assets.tcgdex.net/en/me/me05/030/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Pitch Black &bull; 030</div>
         <div class="rr">Uncommon</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="031" data-price="$1.48"
         data-set="Pitch Black"
         aria-label="Enlarge Mega Slowbro ex, Pitch Black 031">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/031/low.avif"><img src="https://assets.tcgdex.net/en/me/me05/031/low.webp" onerror="this.remove()" alt="Mega Slowbro ex 031, Pitch Black" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/031/low.avif"><img src="https://assets.tcgdex.net/en/me/me05/031/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mega Slowbro ex</div>
         <div class="rr">Pitch Black &bull; 031</div>
         <div class="rr">Double Rare</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="020" data-price="$0.99"
         data-set="Pokémon GO"
         aria-label="Enlarge Slowbro, Pokémon GO 020">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/020/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/020/low.webp" onerror="this.remove()" alt="Slowbro 020, Pokémon GO" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/020/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/020/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Pokémon GO &bull; 020</div>
         <div class="rr">Uncommon</div>
@@ -328,7 +345,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="080" data-price="$0.82"
         data-set="151"
         aria-label="Enlarge Slowbro, 151 080">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/080/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/080/low.webp" onerror="this.remove()" alt="Slowbro 080, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/080/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/080/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">151 &bull; 080</div>
         <div class="rr">Uncommon</div>
@@ -372,189 +389,189 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/33/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/33/low.webp" onerror="this.remove()" alt="Slowbro 33, Aquapolis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/33/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/33/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Aquapolis &bull; 33</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/92/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/92/low.webp" onerror="this.remove()" alt="Galarian Slowbro 92, Battle Styles" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/92/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/92/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Galarian Slowbro</div>
         <div class="rr">Battle Styles &bull; 92</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/20/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/20/low.webp" onerror="this.remove()" alt="Slowbro 20, BREAKpoint" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/20/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/20/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">BREAKpoint &bull; 20</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw5/24/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw5/24/low.webp" onerror="this.remove()" alt="Slowbro 24, Dark Explorers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw5/24/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw5/24/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Dark Explorers &bull; 24</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/99/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/99/low.webp" onerror="this.remove()" alt="Galarian Slowbro V 99, Darkness Ablaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/99/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/99/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Galarian Slowbro V</div>
         <div class="rr">Darkness Ablaze &bull; 99</div>
         <div class="rr">Holo Rare V</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/26/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/26/low.webp" onerror="this.remove()" alt="Slowbro EX 26, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/26/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/26/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro EX</div>
         <div class="rr">Evolutions &bull; 26</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/27/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/27/low.webp" onerror="this.remove()" alt="M Slowbro EX 27, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/27/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/27/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">M Slowbro EX</div>
         <div class="rr">Evolutions &bull; 27</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/14/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/14/low.webp" onerror="this.remove()" alt="Slowbro 14, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/14/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/14/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 14</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base3/43/low.avif"><img src="https://assets.tcgdex.net/en/base/base3/43/low.webp" onerror="this.remove()" alt="Slowbro 43, Fossil" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base3/43/low.avif"><img src="https://assets.tcgdex.net/en/base/base3/43/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Fossil &bull; 43</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/119/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/119/low.webp" onerror="this.remove()" alt="Slowbro 119, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/119/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/119/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Genetic Apex &bull; 119</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp4/54/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp4/54/low.webp" onerror="this.remove()" alt="Slowbro 54, Great Encounters" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp4/54/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp4/54/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Great Encounters &bull; 54</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/49/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/49/low.webp" onerror="this.remove()" alt="Slowbro 49, Guardians Rising" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/49/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/49/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Guardians Rising &bull; 49</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/60/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/60/low.webp" onerror="this.remove()" alt="Sabrina's Slowbro 60, Gym Heroes" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/60/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/60/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sabrina's Slowbro</div>
         <div class="rr">Gym Heroes &bull; 60</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/52/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/52/low.webp" onerror="this.remove()" alt="Slowbro 52, HeartGold SoulSilver" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/52/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/52/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">HeartGold SoulSilver &bull; 52</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/8/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/8/low.webp" onerror="this.remove()" alt="Dark Slowbro 8, Legendary Collection" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/8/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/8/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Slowbro</div>
         <div class="rr">Legendary Collection &bull; 8</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/51/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/51/low.webp" onerror="this.remove()" alt="Light Slowbro 51, Neo Destiny" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/51/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/51/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Light Slowbro</div>
         <div class="rr">Neo Destiny &bull; 51</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/12/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/12/low.webp" onerror="this.remove()" alt="Dark Slowbro 12, Team Rocket" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/12/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/12/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Slowbro</div>
         <div class="rr">Team Rocket &bull; 12</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/29/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/29/low.webp" onerror="this.remove()" alt="Dark Slowbro 29, Team Rocket" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/29/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/29/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Slowbro</div>
         <div class="rr">Team Rocket &bull; 29</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/43/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/43/low.webp" onerror="this.remove()" alt="Slowbro 43, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/43/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/43/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Unbroken Bonds &bull; 43</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/38/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/38/low.webp" onerror="this.remove()" alt="Slowbro 38, Undaunted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/38/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/38/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Undaunted &bull; 38</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/13/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/13/low.webp" onerror="this.remove()" alt="Slowbro 13, Unseen Forces" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/13/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/13/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Unseen Forces &bull; 13</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1V/020/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1V/020/low.webp" onerror="this.remove()" alt="Slowbro 020, バイオレットex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1V/020/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1V/020/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">バイオレットex &bull; 020</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9b/012/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9b/012/low.webp" onerror="this.remove()" alt="Slowbro 012, フルメタルウォール" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9b/012/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9b/012/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">フルメタルウォール &bull; 012</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/080/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/080/low.webp" onerror="this.remove()" alt="Slowbro 080, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/080/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/080/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">ポケモンカード151 &bull; 080</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/037/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/037/low.webp" onerror="this.remove()" alt="Slowbro 037, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/037/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/037/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">レイジングサーフ &bull; 037</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/220/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/220/low.webp" onerror="this.remove()" alt="Slowbro 220, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/220/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/220/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">レイジングサーフ &bull; 220</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S5I/041/low.avif"><img src="https://assets.tcgdex.net/ja/S/S5I/041/low.webp" onerror="this.remove()" alt="Slowbro 041, 一撃マスター" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S5I/041/low.avif"><img src="https://assets.tcgdex.net/ja/S/S5I/041/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">一撃マスター &bull; 041</div>
         <div class="rr">Uncommon</div>

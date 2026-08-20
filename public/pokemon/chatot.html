@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/chatot.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -246,7 +248,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv05/181/high.webp"
@@ -254,7 +271,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="181" data-price="$12.10"
         data-set="Temporal Forces"
         aria-label="Enlarge Chatot, Temporal Forces 181">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/181/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/181/low.webp" onerror="this.remove()" alt="Chatot 181, Temporal Forces" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/181/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/181/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">Temporal Forces &bull; 181</div>
         <div class="rr">Illustration Rare</div>
@@ -266,7 +283,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="112" data-price="$0.36"
         data-set="Crown Zenith"
         aria-label="Enlarge Chatot, Crown Zenith 112">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/112/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/112/low.webp" onerror="this.remove()" alt="Chatot 112, Crown Zenith" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/112/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/112/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">Crown Zenith &bull; 112</div>
         <div class="rr">Common</div>
@@ -278,7 +295,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="142" data-price="$0.27"
         data-set="Rebel Clash"
         aria-label="Enlarge Chatot, Rebel Clash 142">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/142/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/142/low.webp" onerror="this.remove()" alt="Chatot 142, Rebel Clash" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/142/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/142/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">Rebel Clash &bull; 142</div>
         <div class="rr">Uncommon</div>
@@ -290,7 +307,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="132" data-price="$0.19"
         data-set="Temporal Forces"
         aria-label="Enlarge Chatot, Temporal Forces 132">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/132/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/132/low.webp" onerror="this.remove()" alt="Chatot 132, Temporal Forces" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/132/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/132/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">Temporal Forces &bull; 132</div>
         <div class="rr">Common</div>
@@ -333,126 +350,126 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/129/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/129/low.webp" onerror="this.remove()" alt="Chatot 129, Astral Radiance" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/129/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/129/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">Astral Radiance &bull; 129</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy8/128/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy8/128/low.webp" onerror="this.remove()" alt="Chatot 128, BREAKthrough" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy8/128/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy8/128/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">BREAKthrough &bull; 128</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw5/85/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw5/85/low.webp" onerror="this.remove()" alt="Chatot 85, Dark Explorers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw5/85/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw5/85/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">Dark Explorers &bull; 85</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp1/74/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp1/74/low.webp" onerror="this.remove()" alt="Chatot 74, Diamond &amp; Pearl" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp1/74/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp1/74/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">Diamond &amp; Pearl &bull; 74</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dpp/DP14/low.avif"><img src="https://assets.tcgdex.net/en/dp/dpp/DP14/low.webp" onerror="this.remove()" alt="Chatot DP14, DP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dpp/DP14/low.avif"><img src="https://assets.tcgdex.net/en/dp/dpp/DP14/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">DP Black Star Promos &bull; DP14</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/060/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/060/low.webp" onerror="this.remove()" alt="Chatot 060, Eevee Grove" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/060/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/060/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">Eevee Grove &bull; 060</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp5/55/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp5/55/low.webp" onerror="this.remove()" alt="Chatot 55, Majestic Dawn" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp5/55/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp5/55/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">Majestic Dawn &bull; 55</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1a/062/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1a/062/low.webp" onerror="this.remove()" alt="Chatot 062, Mythical Island" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1a/062/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1a/062/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">Mythical Island &bull; 062</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw10/77/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw10/77/low.webp" onerror="this.remove()" alt="Chatot 77, Plasma Blast" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw10/77/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw10/77/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">Plasma Blast &bull; 77</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/141/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/141/low.webp" onerror="this.remove()" alt="Chatot 141, Space-Time Smackdown" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/141/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/141/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">Space-Time Smackdown &bull; 141</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/54/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/54/low.webp" onerror="this.remove()" alt="Chatot G 54, Supreme Victors" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/54/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/54/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chatot G</div>
         <div class="rr">Supreme Victors &bull; 54</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/95/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/95/low.webp" onerror="this.remove()" alt="Chatot 95, Supreme Victors" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/95/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/95/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">Supreme Victors &bull; 95</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/162/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/162/low.webp" onerror="this.remove()" alt="Chatot 162, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/162/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/162/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">Unbroken Bonds &bull; 162</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/139/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/139/low.webp" onerror="this.remove()" alt="Chatot 139, Vivid Voltage" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/139/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/139/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">Vivid Voltage &bull; 139</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/078/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/078/low.webp" onerror="this.remove()" alt="Chatot 078, ダブルブレイズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/078/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/078/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">ダブルブレイズ &bull; 078</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5K/058/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5K/058/low.webp" onerror="this.remove()" alt="Chatot 058, ワイルドフォース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5K/058/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5K/058/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">ワイルドフォース &bull; 058</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5K/081/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5K/081/low.webp" onerror="this.remove()" alt="Chatot 081, ワイルドフォース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5K/081/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5K/081/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">ワイルドフォース &bull; 081</div>
         <div class="rr">Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11a/058/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11a/058/low.webp" onerror="this.remove()" alt="Chatot 058, 白熱のアルカナ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11a/058/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11a/058/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Chatot</div>
         <div class="rr">白熱のアルカナ &bull; 058</div>
         <div class="rr">Common</div>

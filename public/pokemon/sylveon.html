@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/sylveon.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv08.5/156/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="156" data-price="$434"
         data-set="Prismatic Evolutions"
         aria-label="Enlarge Sylveon ex, Prismatic Evolutions 156">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/156/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/156/low.webp" onerror="this.remove()" alt="Sylveon ex 156, Prismatic Evolutions" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/156/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/156/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Sylveon ex</div>
         <div class="rr">Prismatic Evolutions &bull; 156</div>
         <div class="rr">Special Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="041" data-price="$3.32"
         data-set="Prismatic Evolutions"
         aria-label="Enlarge Sylveon ex, Prismatic Evolutions 041">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/041/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/041/low.webp" onerror="this.remove()" alt="Sylveon ex 041, Prismatic Evolutions" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/041/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/041/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Sylveon ex</div>
         <div class="rr">Prismatic Evolutions &bull; 041</div>
         <div class="rr">Double Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="086" data-price="$2.25"
         data-set="Surging Sparks"
         aria-label="Enlarge Sylveon ex, Surging Sparks 086">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/086/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08/086/low.webp" onerror="this.remove()" alt="Sylveon ex 086, Surging Sparks" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/086/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08/086/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Sylveon ex</div>
         <div class="rr">Surging Sparks &bull; 086</div>
         <div class="rr">Double Rare</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="040" data-price="$1.81"
         data-set="Prismatic Evolutions"
         aria-label="Enlarge Sylveon, Prismatic Evolutions 040">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/040/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/040/low.webp" onerror="this.remove()" alt="Sylveon 040, Prismatic Evolutions" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/040/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/040/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Sylveon</div>
         <div class="rr">Prismatic Evolutions &bull; 040</div>
         <div class="rr">Rare</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="022" data-price="$1.67"
         data-set="Shrouded Fable"
         aria-label="Enlarge Sylveon, Shrouded Fable 022">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06.5/022/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06.5/022/low.webp" onerror="this.remove()" alt="Sylveon 022, Shrouded Fable" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06.5/022/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06.5/022/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Sylveon</div>
         <div class="rr">Shrouded Fable &bull; 022</div>
         <div class="rr">Uncommon</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="035" data-price="$1.44"
         data-set="Pokémon GO"
         aria-label="Enlarge Sylveon, Pokémon GO 035">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/035/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/035/low.webp" onerror="this.remove()" alt="Sylveon 035, Pokémon GO" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/035/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/035/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Sylveon</div>
         <div class="rr">Pokémon GO &bull; 035</div>
         <div class="rr">Holo Rare</div>
@@ -354,245 +371,245 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/155/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/155/low.webp" onerror="this.remove()" alt="Sylveon 155, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/155/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/155/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon</div>
         <div class="rr">Cosmic Eclipse &bull; 155</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/033/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/033/low.webp" onerror="this.remove()" alt="Sylveon 033, Eevee Grove" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/033/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/033/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon</div>
         <div class="rr">Eevee Grove &bull; 033</div>
         <div class="rr">Three Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/034/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/034/low.webp" onerror="this.remove()" alt="Sylveon ex 034, Eevee Grove" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/034/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/034/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon ex</div>
         <div class="rr">Eevee Grove &bull; 034</div>
         <div class="rr">Four Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/076/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/076/low.webp" onerror="this.remove()" alt="Sylveon 076, Eevee Grove" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/076/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/076/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon</div>
         <div class="rr">Eevee Grove &bull; 076</div>
         <div class="rr">One Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/081/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/081/low.webp" onerror="this.remove()" alt="Sylveon ex 081, Eevee Grove" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/081/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/081/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon ex</div>
         <div class="rr">Eevee Grove &bull; 081</div>
         <div class="rr">Two Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/089/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/089/low.webp" onerror="this.remove()" alt="Sylveon ex 089, Eevee Grove" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/089/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/089/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon ex</div>
         <div class="rr">Eevee Grove &bull; 089</div>
         <div class="rr">Two Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/183/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/183/low.webp" onerror="this.remove()" alt="Sylveon V 183, Evolving Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/183/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/183/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon V</div>
         <div class="rr">Evolving Skies &bull; 183</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/184/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/184/low.webp" onerror="this.remove()" alt="Sylveon V 184, Evolving Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/184/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/184/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon V</div>
         <div class="rr">Evolving Skies &bull; 184</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/211/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/211/low.webp" onerror="this.remove()" alt="Sylveon VMAX 211, Evolving Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/211/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/211/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon VMAX</div>
         <div class="rr">Evolving Skies &bull; 211</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/212/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/212/low.webp" onerror="this.remove()" alt="Sylveon VMAX 212, Evolving Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/212/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/212/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon VMAX</div>
         <div class="rr">Evolving Skies &bull; 212</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/74/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/74/low.webp" onerror="this.remove()" alt="Sylveon V 74, Evolving Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/74/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/74/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon V</div>
         <div class="rr">Evolving Skies &bull; 74</div>
         <div class="rr">Holo Rare V</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/75/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/75/low.webp" onerror="this.remove()" alt="Sylveon VMAX 75, Evolving Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/75/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/75/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon VMAX</div>
         <div class="rr">Evolving Skies &bull; 75</div>
         <div class="rr">Holo Rare VMAX</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/229/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/229/low.webp" onerror="this.remove()" alt="Sylveon ex 229, Fantastical Parade" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B2/229/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B2/229/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon ex</div>
         <div class="rr">Fantastical Parade &bull; 229</div>
         <div class="rr">Two Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm6/87/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm6/87/low.webp" onerror="this.remove()" alt="Sylveon 87, Forbidden Light" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm6/87/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm6/87/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon</div>
         <div class="rr">Forbidden Light &bull; 87</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy3/72/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy3/72/low.webp" onerror="this.remove()" alt="Sylveon 72, Furious Fists" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy3/72/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy3/72/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon</div>
         <div class="rr">Furious Fists &bull; 72</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/RC21/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/RC21/low.webp" onerror="this.remove()" alt="Sylveon EX RC21, Generations" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/RC21/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/RC21/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon EX</div>
         <div class="rr">Generations &bull; RC21</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/RC32/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/RC32/low.webp" onerror="this.remove()" alt="Sylveon EX RC32, Generations" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/RC32/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/RC32/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon EX</div>
         <div class="rr">Generations &bull; RC32</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/140/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/140/low.webp" onerror="this.remove()" alt="Sylveon GX 140, Guardians Rising" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/140/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/140/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon GX</div>
         <div class="rr">Guardians Rising &bull; 140</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/158/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/158/low.webp" onerror="this.remove()" alt="Sylveon GX 158, Guardians Rising" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/158/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/158/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon GX</div>
         <div class="rr">Guardians Rising &bull; 158</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/92/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/92/low.webp" onerror="this.remove()" alt="Sylveon GX 92, Guardians Rising" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/92/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/92/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon GX</div>
         <div class="rr">Guardians Rising &bull; 92</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/238/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/238/low.webp" onerror="this.remove()" alt="Sylveon 238, GXウルトラシャイニー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/238/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/238/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon</div>
         <div class="rr">GXウルトラシャイニー &bull; 238</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sma/SV76/low.avif"><img src="https://assets.tcgdex.net/en/sm/sma/SV76/low.webp" onerror="this.remove()" alt="Sylveon-GX SV76, Hidden Fates Shiny Vault" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sma/SV76/low.avif"><img src="https://assets.tcgdex.net/en/sm/sma/SV76/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon-GX</div>
         <div class="rr">Hidden Fates Shiny Vault &bull; SV76</div>
         <div class="rr">Shiny Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/172/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/172/low.webp" onerror="this.remove()" alt="Sylveon 172, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/172/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/172/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon</div>
         <div class="rr">SVP Black Star Promos &bull; 172</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH134/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH134/low.webp" onerror="this.remove()" alt="Dark Sylveon V SWSH134, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH134/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH134/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Sylveon V</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH134</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH202/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH202/low.webp" onerror="this.remove()" alt="Sylveon V SWSH202, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH202/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH202/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon V</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH202</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH211/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH211/low.webp" onerror="this.remove()" alt="Sylveon SWSH211, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH211/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH211/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH211</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/074/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/074/low.webp" onerror="this.remove()" alt="Sylveon 074, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/074/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/074/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon</div>
         <div class="rr">VMAXクライマックス &bull; 074</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/075/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/075/low.webp" onerror="this.remove()" alt="Sylveon 075, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/075/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/075/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon</div>
         <div class="rr">VMAXクライマックス &bull; 075</div>
         <div class="rr">Triple Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/231/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/231/low.webp" onerror="this.remove()" alt="Sylveon 231, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/231/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/231/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon</div>
         <div class="rr">VMAXクライマックス &bull; 231</div>
         <div class="rr">Character Super Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/232/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/232/low.webp" onerror="this.remove()" alt="Sylveon 232, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/232/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/232/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon</div>
         <div class="rr">VMAXクライマックス &bull; 232</div>
         <div class="rr">Character Super Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY04/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY04/low.webp" onerror="this.remove()" alt="Sylveon XY04, XY Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY04/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY04/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon</div>
         <div class="rr">XY Black Star Promos &bull; XY04</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12/064/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12/064/low.webp" onerror="this.remove()" alt="Sylveon 064, オルタージェネシス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12/064/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12/064/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon</div>
         <div class="rr">オルタージェネシス &bull; 064</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV8a/068/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV8a/068/low.webp" onerror="this.remove()" alt="Sylveon 068, テラスタルフェスex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV8a/068/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV8a/068/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon</div>
         <div class="rr">テラスタルフェスex &bull; 068</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6a/022/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6a/022/low.webp" onerror="this.remove()" alt="Sylveon 022, ナイトワンダラー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6a/022/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6a/022/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon</div>
         <div class="rr">ナイトワンダラー &bull; 022</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6/061/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6/061/low.webp" onerror="this.remove()" alt="Sylveon 061, 禁断の光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6/061/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6/061/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sylveon</div>
         <div class="rr">禁断の光 &bull; 061</div>
         <div class="rr">Uncommon</div>

@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/nidoking.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv10/233/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="233" data-price="$100"
         data-set="Destined Rivals"
         aria-label="Enlarge Team Rocket's Nidoking ex, Destined Rivals 233">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/233/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/233/low.webp" onerror="this.remove()" alt="Team Rocket's Nidoking ex 233, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/233/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/233/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Nidoking ex</div>
         <div class="rr">Destined Rivals &bull; 233</div>
         <div class="rr">Special Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="174" data-price="$18.79"
         data-set="151"
         aria-label="Enlarge Nidoking, 151 174">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/174/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/174/low.webp" onerror="this.remove()" alt="Nidoking 174, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/174/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/174/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">151 &bull; 174</div>
         <div class="rr">Illustration Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="216" data-price="$4.98"
         data-set="Destined Rivals"
         aria-label="Enlarge Team Rocket's Nidoking ex, Destined Rivals 216">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/216/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/216/low.webp" onerror="this.remove()" alt="Team Rocket's Nidoking ex 216, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/216/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/216/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Nidoking ex</div>
         <div class="rr">Destined Rivals &bull; 216</div>
         <div class="rr">Ultra Rare</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="034" data-price="$1.79"
         data-set="151"
         aria-label="Enlarge Nidoking, 151 034">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/034/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/034/low.webp" onerror="this.remove()" alt="Nidoking 034, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/034/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/034/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">151 &bull; 034</div>
         <div class="rr">Rare</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="119" data-price="$1.46"
         data-set="Destined Rivals"
         aria-label="Enlarge Team Rocket's Nidoking ex, Destined Rivals 119">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/119/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/119/low.webp" onerror="this.remove()" alt="Team Rocket's Nidoking ex 119, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/119/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/119/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Nidoking ex</div>
         <div class="rr">Destined Rivals &bull; 119</div>
         <div class="rr">Double Rare</div>
@@ -348,182 +365,182 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/150/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/150/low.webp" onerror="this.remove()" alt="Nidoking 150, Aquapolis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/150/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/150/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">Aquapolis &bull; 150</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/24/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/24/low.webp" onerror="this.remove()" alt="Nidoking 24, Aquapolis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/24/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/24/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">Aquapolis &bull; 24</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/11/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/11/low.webp" onerror="this.remove()" alt="Nidoking 11, Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/11/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/11/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">Base Set &bull; 11</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/11/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/11/low.webp" onerror="this.remove()" alt="Nidoking 11, Base Set 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/11/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/11/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">Base Set 2 &bull; 11</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/6/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/6/low.webp" onerror="this.remove()" alt="Nidoking δ 6, Dragon Frontiers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/6/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/6/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking δ</div>
         <div class="rr">Dragon Frontiers &bull; 6</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/45/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/45/low.webp" onerror="this.remove()" alt="Nidoking 45, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/45/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/45/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">Evolutions &bull; 45</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/46/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/46/low.webp" onerror="this.remove()" alt="Nidoking BREAK 46, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/46/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/46/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking BREAK</div>
         <div class="rr">Evolutions &bull; 46</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/8/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/8/low.webp" onerror="this.remove()" alt="Nidoking 8, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/8/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/8/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 8</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/171/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/171/low.webp" onerror="this.remove()" alt="Nidoking 171, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/171/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/171/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">Genetic Apex &bull; 171</div>
         <div class="rr">Three Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/241/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/241/low.webp" onerror="this.remove()" alt="Nidoking 241, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/241/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/241/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">Genetic Apex &bull; 241</div>
         <div class="rr">One Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/7/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/7/low.webp" onerror="this.remove()" alt="Giovanni's Nidoking 7, Gym Challenge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/7/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/7/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Giovanni's Nidoking</div>
         <div class="rr">Gym Challenge &bull; 7</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/31/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/31/low.webp" onerror="this.remove()" alt="Nidoking 31, Legendary Collection" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/31/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/31/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">Legendary Collection &bull; 31</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/58/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/58/low.webp" onerror="this.remove()" alt="Nidoking 58, Plasma Freeze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/58/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/58/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">Plasma Freeze &bull; 58</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl2/29/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl2/29/low.webp" onerror="this.remove()" alt="Nidoking 29, Rising Rivals" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl2/29/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl2/29/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">Rising Rivals &bull; 29</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/34/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/34/low.webp" onerror="this.remove()" alt="Nidoking 34, Secret Wonders" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/34/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/34/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">Secret Wonders &bull; 34</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy11/45/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy11/45/low.webp" onerror="this.remove()" alt="Nidoking 45, Steam Siege" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy11/45/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy11/45/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">Steam Siege &bull; 45</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/217/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/217/low.webp" onerror="this.remove()" alt="Team Rocket's Nidoking ex 217, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/217/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/217/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Nidoking ex</div>
         <div class="rr">SVP Black Star Promos &bull; 217</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/59/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/59/low.webp" onerror="this.remove()" alt="Nidoking 59, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/59/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/59/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">Team Up &bull; 59</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss4/6/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss4/6/low.webp" onerror="this.remove()" alt="Nidoking 6, Triumphant" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss4/6/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss4/6/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">Triumphant &bull; 6</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/228/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/228/low.webp" onerror="this.remove()" alt="Nidoking 228, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/228/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/228/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 228</div>
         <div class="rr">One Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/044/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/044/low.webp" onerror="this.remove()" alt="Nidoking 044, タッグボルト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/044/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/044/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">タッグボルト &bull; 044</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/034/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/034/low.webp" onerror="this.remove()" alt="Nidoking 034, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/034/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/034/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">ポケモンカード151 &bull; 034</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/174/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/174/low.webp" onerror="this.remove()" alt="Nidoking 174, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/174/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/174/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">ポケモンカード151 &bull; 174</div>
         <div class="rr">Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/063/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/063/low.webp" onerror="this.remove()" alt="Nidoking 063, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/063/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/063/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">ロケット団の栄光 &bull; 063</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/116/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/116/low.webp" onerror="this.remove()" alt="Nidoking 116, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/116/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/116/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">ロケット団の栄光 &bull; 116</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/126/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/126/low.webp" onerror="this.remove()" alt="Nidoking 126, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/126/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/126/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Nidoking</div>
         <div class="rr">ロケット団の栄光 &bull; 126</div>
         <div class="rr">Special Illustration Rare</div>

@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/woobat.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv10.5w/119/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="119" data-price="$13.31"
         data-set="White Flare"
         aria-label="Enlarge Woobat, White Flare 119">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/119/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/119/low.webp" onerror="this.remove()" alt="Woobat 119, White Flare" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/119/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/119/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Woobat</div>
         <div class="rr">White Flare &bull; 119</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="032" data-price="$0.16"
         data-set="Paldean Fates"
         aria-label="Enlarge Woobat, Paldean Fates 032">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/032/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/032/low.webp" onerror="this.remove()" alt="Woobat 032, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/032/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/032/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Woobat</div>
         <div class="rr">Paldean Fates &bull; 032</div>
         <div class="rr">Common</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="036" data-price="$0.14"
         data-set="White Flare"
         aria-label="Enlarge Woobat, White Flare 036">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/036/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/036/low.webp" onerror="this.remove()" alt="Woobat 036, White Flare" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/036/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/036/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Woobat</div>
         <div class="rr">White Flare &bull; 036</div>
         <div class="rr">Common</div>
@@ -303,91 +320,91 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw1/50/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw1/50/low.webp" onerror="this.remove()" alt="Woobat 50, Black &amp; White" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw1/50/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw1/50/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Woobat</div>
         <div class="rr">Black &amp; White &bull; 50</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/70/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/70/low.webp" onerror="this.remove()" alt="Woobat 70, Boundaries Crossed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/70/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/70/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Woobat</div>
         <div class="rr">Boundaries Crossed &bull; 70</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy8/71/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy8/71/low.webp" onerror="this.remove()" alt="Woobat 71, BREAKthrough" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy8/71/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy8/71/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Woobat</div>
         <div class="rr">BREAKthrough &bull; 71</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/87/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/87/low.webp" onerror="this.remove()" alt="Woobat 87, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/87/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/87/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Woobat</div>
         <div class="rr">Cosmic Eclipse &bull; 87</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw5/50/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw5/50/low.webp" onerror="this.remove()" alt="Woobat 50, Dark Explorers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw5/50/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw5/50/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Woobat</div>
         <div class="rr">Dark Explorers &bull; 50</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/029/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/029/low.webp" onerror="this.remove()" alt="Woobat 029, Eevee Grove" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3b/029/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3b/029/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Woobat</div>
         <div class="rr">Eevee Grove &bull; 029</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw2/36/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw2/36/low.webp" onerror="this.remove()" alt="Woobat 36, Emerging Powers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw2/36/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw2/36/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Woobat</div>
         <div class="rr">Emerging Powers &bull; 36</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/68/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/68/low.webp" onerror="this.remove()" alt="Woobat 68, Evolving Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/68/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/68/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Woobat</div>
         <div class="rr">Evolving Skies &bull; 68</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/133/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/133/low.webp" onerror="this.remove()" alt="Woobat 133, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/133/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/133/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Woobat</div>
         <div class="rr">Genetic Apex &bull; 133</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/64/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/64/low.webp" onerror="this.remove()" alt="Woobat 64, Legendary Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/64/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/64/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Woobat</div>
         <div class="rr">Legendary Treasures &bull; 64</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/73/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/73/low.webp" onerror="this.remove()" alt="Woobat 73, Vivid Voltage" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/73/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/73/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Woobat</div>
         <div class="rr">Vivid Voltage &bull; 73</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12/029/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12/029/low.webp" onerror="this.remove()" alt="Woobat 029, オルタージェネシス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12/029/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12/029/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Woobat</div>
         <div class="rr">オルタージェネシス &bull; 029</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4K/028/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4K/028/low.webp" onerror="this.remove()" alt="Woobat 028, 古代の咆哮" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4K/028/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4K/028/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Woobat</div>
         <div class="rr">古代の咆哮 &bull; 028</div>
         <div class="rr">Common</div>

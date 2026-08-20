@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/golduck.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -216,7 +218,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <div class="fact"><div class="n">$1</div><div class="l">Priciest one we price</div></div>
       <div class="fact"><div class="n">$0.32</div><div class="l">Cheapest way in</div></div>
       
-      <a class="fact fact-link" href="#watch"><div class="n">57</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
+      <a class="fact fact-link" href="#watch"><div class="n">58</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv03.5/055/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="055" data-price="$0.70"
         data-set="151"
         aria-label="Enlarge Golduck, 151 055">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/055/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/055/low.webp" onerror="this.remove()" alt="Golduck 055, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/055/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/055/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">151 &bull; 055</div>
         <div class="rr">Uncommon</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="040" data-price="$0.32"
         data-set="Ascended Heroes"
         aria-label="Enlarge Golduck, Ascended Heroes 040">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/040/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/040/low.webp" onerror="this.remove()" alt="Golduck 040, Ascended Heroes" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/040/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/040/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">Ascended Heroes &bull; 040</div>
         <div class="rr">Uncommon</div>
@@ -284,7 +301,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
 <section class="band tight" id="watch">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See these packs opened</p>
-    <h2>We have filmed <span class="hl">57</span> rips of
+    <h2>We have filmed <span class="hl">58</span> rips of
       the 2 sets that print
       <span class="hl">Golduck</span></h2>
     <p class="lede" style="max-width:40em">Garbage Rips 585 is a Pokemon card pack opening
@@ -312,210 +329,210 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/029/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/029/low.webp" onerror="this.remove()" alt="Golduck 029, Astral Radiance" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/029/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/029/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">Astral Radiance &bull; 029</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/34/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/34/low.webp" onerror="this.remove()" alt="Golduck 34, Boundaries Crossed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/34/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/34/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">Boundaries Crossed &bull; 34</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/35/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/35/low.webp" onerror="this.remove()" alt="Golduck 35, Boundaries Crossed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/35/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/35/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">Boundaries Crossed &bull; 35</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/17/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/17/low.webp" onerror="this.remove()" alt="Golduck 17, BREAKpoint" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/17/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/17/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">BREAKpoint &bull; 17</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/18/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/18/low.webp" onerror="this.remove()" alt="Golduck BREAK 18, BREAKpoint" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/18/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/18/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck BREAK</div>
         <div class="rr">BREAKpoint &bull; 18</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/41/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/41/low.webp" onerror="this.remove()" alt="Golduck 41, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/41/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/41/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">Cosmic Eclipse &bull; 41</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/25/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/25/low.webp" onerror="this.remove()" alt="Golduck 25, Evolving Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/25/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/25/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">Evolving Skies &bull; 25</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base3/35/low.avif"><img src="https://assets.tcgdex.net/en/base/base3/35/low.webp" onerror="this.remove()" alt="Golduck 35, Fossil" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base3/35/low.avif"><img src="https://assets.tcgdex.net/en/base/base3/35/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">Fossil &bull; 35</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/058/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/058/low.webp" onerror="this.remove()" alt="Golduck 058, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/058/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/058/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">Genetic Apex &bull; 058</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/12/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/12/low.webp" onerror="this.remove()" alt="Misty's Golduck 12, Gym Challenge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/12/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/12/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Misty's Golduck</div>
         <div class="rr">Gym Challenge &bull; 12</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/30/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/30/low.webp" onerror="this.remove()" alt="Sabrina's Golduck 30, Gym Challenge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/30/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/30/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sabrina's Golduck</div>
         <div class="rr">Gym Challenge &bull; 30</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/43/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/43/low.webp" onerror="this.remove()" alt="Golduck δ 43, Holon Phantoms" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/43/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/43/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck δ</div>
         <div class="rr">Holon Phantoms &bull; 43</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/43/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/43/low.webp" onerror="this.remove()" alt="Golduck 43, Legendary Collection" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/43/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/43/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">Legendary Collection &bull; 43</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/mep/008/low.avif"><img src="https://assets.tcgdex.net/en/me/mep/008/low.webp" onerror="this.remove()" alt="Golduck 008, MEP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/mep/008/low.avif"><img src="https://assets.tcgdex.net/en/me/mep/008/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">MEP Black Star Promos &bull; 008</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/47/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/47/low.webp" onerror="this.remove()" alt="Light Golduck 47, Neo Destiny" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/47/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/47/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Light Golduck</div>
         <div class="rr">Neo Destiny &bull; 47</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/29/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/29/low.webp" onerror="this.remove()" alt="Golduck 29, Platinum" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/29/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/29/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">Platinum &bull; 29</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex2/17/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex2/17/low.webp" onerror="this.remove()" alt="Golduck 17, Sandstorm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex2/17/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex2/17/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">Sandstorm &bull; 17</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4a/094/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4a/094/low.webp" onerror="this.remove()" alt="Golduck 094, Secluded Springs" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4a/094/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4a/094/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">Secluded Springs &bull; 094</div>
         <div class="rr">One Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/28/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/28/low.webp" onerror="this.remove()" alt="Golduck 28, Secret Wonders" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/28/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/28/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">Secret Wonders &bull; 28</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm1/29/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm1/29/low.webp" onerror="this.remove()" alt="Golduck 29, Sun &amp; Moon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm1/29/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm1/29/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">Sun &amp; Moon &bull; 29</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/37/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/37/low.webp" onerror="this.remove()" alt="Dark Golduck 37, Team Rocket" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/37/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/37/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Golduck</div>
         <div class="rr">Team Rocket &bull; 37</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/35/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/35/low.webp" onerror="this.remove()" alt="Dark Golduck 35, Team Rocket Returns" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/35/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/35/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Golduck</div>
         <div class="rr">Team Rocket Returns &bull; 35</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/27/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/27/low.webp" onerror="this.remove()" alt="Golduck 27, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/27/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/27/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">Team Up &bull; 27</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss4/22/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss4/22/low.webp" onerror="this.remove()" alt="Golduck 22, Triumphant" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss4/22/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss4/22/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">Triumphant &bull; 22</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM1S/013/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM1S/013/low.webp" onerror="this.remove()" alt="Golduck 013, コレクションサン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM1S/013/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM1S/013/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">コレクションサン &bull; 013</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10P/017/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10P/017/low.webp" onerror="this.remove()" alt="Golduck 017, スペースジャグラー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10P/017/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10P/017/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">スペースジャグラー &bull; 017</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/025/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/025/low.webp" onerror="this.remove()" alt="Golduck 025, タッグボルト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/025/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/025/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">タッグボルト &bull; 025</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/055/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/055/low.webp" onerror="this.remove()" alt="Golduck 055, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/055/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/055/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">ポケモンカード151 &bull; 055</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11a/018/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11a/018/low.webp" onerror="this.remove()" alt="Golduck 018, リミックスバウト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11a/018/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11a/018/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">リミックスバウト &bull; 018</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6K/010/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6K/010/low.webp" onerror="this.remove()" alt="Golduck 010, 漆黒のガイスト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6K/010/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6K/010/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Golduck</div>
         <div class="rr">漆黒のガイスト &bull; 010</div>
         <div class="rr">Uncommon</div>

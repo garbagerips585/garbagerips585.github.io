@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/charizard.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me02/125/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="125" data-price="$750"
         data-set="Phantasmal Flames"
         aria-label="Enlarge Mega Charizard X ex, Phantasmal Flames 125">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/125/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/125/low.webp" onerror="this.remove()" alt="Mega Charizard X ex 125, Phantasmal Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/125/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/125/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mega Charizard X ex</div>
         <div class="rr">Phantasmal Flames &bull; 125</div>
         <div class="rr">Special Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="199" data-price="$358"
         data-set="151"
         aria-label="Enlarge Charizard ex, 151 199">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/199/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/199/low.webp" onerror="this.remove()" alt="Charizard ex 199, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/199/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/199/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">151 &bull; 199</div>
         <div class="rr">Special Illustration Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="294" data-price="$355"
         data-set="Ascended Heroes"
         aria-label="Enlarge Mega Charizard Y ex, Ascended Heroes 294">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/294/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/294/low.webp" onerror="this.remove()" alt="Mega Charizard Y ex 294, Ascended Heroes" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/294/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/294/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mega Charizard Y ex</div>
         <div class="rr">Ascended Heroes &bull; 294</div>
         <div class="rr">Mega Hyper Rare</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="130" data-price="$308"
         data-set="Phantasmal Flames"
         aria-label="Enlarge Mega Charizard X ex, Phantasmal Flames 130">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/130/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/130/low.webp" onerror="this.remove()" alt="Mega Charizard X ex 130, Phantasmal Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/130/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/130/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mega Charizard X ex</div>
         <div class="rr">Phantasmal Flames &bull; 130</div>
         <div class="rr">Mega Hyper Rare</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="234" data-price="$290"
         data-set="Paldean Fates"
         aria-label="Enlarge Charizard ex, Paldean Fates 234">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/234/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/234/low.webp" onerror="this.remove()" alt="Charizard ex 234, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/234/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/234/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">Paldean Fates &bull; 234</div>
         <div class="rr">Special Illustration Rare</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="223" data-price="$110"
         data-set="Obsidian Flames"
         aria-label="Enlarge Charizard ex, Obsidian Flames 223">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/223/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/223/low.webp" onerror="this.remove()" alt="Charizard ex 223, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/223/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/223/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">Obsidian Flames &bull; 223</div>
         <div class="rr">Special Illustration Rare</div>
@@ -328,7 +345,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="183" data-price="$40.78"
         data-set="151"
         aria-label="Enlarge Charizard ex, 151 183">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/183/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/183/low.webp" onerror="this.remove()" alt="Charizard ex 183, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/183/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/183/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">151 &bull; 183</div>
         <div class="rr">Ultra Rare</div>
@@ -340,7 +357,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="228" data-price="$38.52"
         data-set="Obsidian Flames"
         aria-label="Enlarge Charizard ex, Obsidian Flames 228">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/228/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/228/low.webp" onerror="this.remove()" alt="Charizard ex 228, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/228/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/228/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">Obsidian Flames &bull; 228</div>
         <div class="rr">Hyper Rare</div>
@@ -352,7 +369,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="109" data-price="$28.87"
         data-set="Phantasmal Flames"
         aria-label="Enlarge Mega Charizard X ex, Phantasmal Flames 109">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/109/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/109/low.webp" onerror="this.remove()" alt="Mega Charizard X ex 109, Phantasmal Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/109/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/109/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mega Charizard X ex</div>
         <div class="rr">Phantasmal Flames &bull; 109</div>
         <div class="rr">Ultra Rare</div>
@@ -364,7 +381,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="215" data-price="$20.78"
         data-set="Obsidian Flames"
         aria-label="Enlarge Charizard ex, Obsidian Flames 215">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/215/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/215/low.webp" onerror="this.remove()" alt="Charizard ex 215, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/215/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/215/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">Obsidian Flames &bull; 215</div>
         <div class="rr">Ultra Rare</div>
@@ -376,7 +393,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="011" data-price="$17.28"
         data-set="Pokémon GO"
         aria-label="Enlarge Radiant Charizard, Pokémon GO 011">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/011/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/011/low.webp" onerror="this.remove()" alt="Radiant Charizard 011, Pokémon GO" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/011/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/011/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Radiant Charizard</div>
         <div class="rr">Pokémon GO &bull; 011</div>
         <div class="rr">Radiant Rare</div>
@@ -388,7 +405,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="020" data-price="$11.99"
         data-set="Crown Zenith"
         aria-label="Enlarge Radiant Charizard, Crown Zenith 020">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/020/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/020/low.webp" onerror="this.remove()" alt="Radiant Charizard 020, Crown Zenith" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/020/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/020/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Radiant Charizard</div>
         <div class="rr">Crown Zenith &bull; 020</div>
         <div class="rr">Radiant Rare</div>
@@ -400,7 +417,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="019" data-price="$10.51"
         data-set="Crown Zenith"
         aria-label="Enlarge Charizard VSTAR, Crown Zenith 019">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/019/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/019/low.webp" onerror="this.remove()" alt="Charizard VSTAR 019, Crown Zenith" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/019/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/019/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Charizard VSTAR</div>
         <div class="rr">Crown Zenith &bull; 019</div>
         <div class="rr">Holo Rare VSTAR</div>
@@ -412,7 +429,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="018" data-price="$8.87"
         data-set="Crown Zenith"
         aria-label="Enlarge Charizard V, Crown Zenith 018">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/018/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/018/low.webp" onerror="this.remove()" alt="Charizard V 018, Crown Zenith" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/018/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/018/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Charizard V</div>
         <div class="rr">Crown Zenith &bull; 018</div>
         <div class="rr">Holo Rare V</div>
@@ -424,7 +441,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="022" data-price="$7.74"
         data-set="Ascended Heroes"
         aria-label="Enlarge Mega Charizard Y ex, Ascended Heroes 022">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/022/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/022/low.webp" onerror="this.remove()" alt="Mega Charizard Y ex 022, Ascended Heroes" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/022/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/022/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mega Charizard Y ex</div>
         <div class="rr">Ascended Heroes &bull; 022</div>
         <div class="rr">Double Rare</div>
@@ -436,7 +453,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="006" data-price="$7.52"
         data-set="151"
         aria-label="Enlarge Charizard ex, 151 006">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/006/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/006/low.webp" onerror="this.remove()" alt="Charizard ex 006, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/006/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/006/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">151 &bull; 006</div>
         <div class="rr">Double Rare</div>
@@ -448,7 +465,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="125" data-price="$5.73"
         data-set="Obsidian Flames"
         aria-label="Enlarge Charizard ex, Obsidian Flames 125">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/125/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/125/low.webp" onerror="this.remove()" alt="Charizard ex 125, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/125/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/125/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">Obsidian Flames &bull; 125</div>
         <div class="rr">Double Rare</div>
@@ -460,7 +477,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="010" data-price="$5.00"
         data-set="Pokémon GO"
         aria-label="Enlarge Charizard, Pokémon GO 010">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/010/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/010/low.webp" onerror="this.remove()" alt="Charizard 010, Pokémon GO" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/010/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/010/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Pokémon GO &bull; 010</div>
         <div class="rr">Holo Rare</div>
@@ -472,7 +489,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="054" data-price="$4.86"
         data-set="Paldean Fates"
         aria-label="Enlarge Charizard ex, Paldean Fates 054">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/054/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/054/low.webp" onerror="this.remove()" alt="Charizard ex 054, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/054/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/054/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">Paldean Fates &bull; 054</div>
         <div class="rr">Double Rare</div>
@@ -484,7 +501,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="013" data-price="$4.49"
         data-set="Phantasmal Flames"
         aria-label="Enlarge Mega Charizard X ex, Phantasmal Flames 013">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/013/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/013/low.webp" onerror="this.remove()" alt="Mega Charizard X ex 013, Phantasmal Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/013/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/013/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mega Charizard X ex</div>
         <div class="rr">Phantasmal Flames &bull; 013</div>
         <div class="rr">Double Rare</div>
@@ -527,784 +544,784 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl4/1/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl4/1/low.webp" onerror="this.remove()" alt="Charizard 1, Arceus" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl4/1/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl4/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Arceus &bull; 1</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/4/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/4/low.webp" onerror="this.remove()" alt="Charizard 4, Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/4/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/4/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Base Set &bull; 4</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/4/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/4/low.webp" onerror="this.remove()" alt="Charizard 4, Base Set 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/4/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/4/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Base Set 2 &bull; 4</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/20/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/20/low.webp" onerror="this.remove()" alt="Charizard 20, Boundaries Crossed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/20/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/20/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Boundaries Crossed &bull; 20</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/017/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/017/low.webp" onerror="this.remove()" alt="Charizard V 017, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/017/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/017/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard V</div>
         <div class="rr">Brilliant Stars &bull; 017</div>
         <div class="rr">Holo Rare V</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/018/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/018/low.webp" onerror="this.remove()" alt="Charizard VSTAR 018, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/018/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/018/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard VSTAR</div>
         <div class="rr">Brilliant Stars &bull; 018</div>
         <div class="rr">Holo Rare VSTAR</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/153/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/153/low.webp" onerror="this.remove()" alt="Charizard V 153, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/153/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/153/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard V</div>
         <div class="rr">Brilliant Stars &bull; 153</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/154/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/154/low.webp" onerror="this.remove()" alt="Charizard V 154, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/154/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/154/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard V</div>
         <div class="rr">Brilliant Stars &bull; 154</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/174/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/174/low.webp" onerror="this.remove()" alt="Charizard VSTAR 174, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/174/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/174/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard VSTAR</div>
         <div class="rr">Brilliant Stars &bull; 174</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/150/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/150/low.webp" onerror="this.remove()" alt="Charizard GX 150, Burning Shadows" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/150/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/150/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard GX</div>
         <div class="rr">Burning Shadows &bull; 150</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/20/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/20/low.webp" onerror="this.remove()" alt="Charizard GX 20, Burning Shadows" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/20/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/20/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard GX</div>
         <div class="rr">Burning Shadows &bull; 20</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3.5/74/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3.5/74/low.webp" onerror="this.remove()" alt="Charizard VMAX 74, Champion's Path" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3.5/74/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3.5/74/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard VMAX</div>
         <div class="rr">Champion's Path &bull; 74</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3.5/79/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3.5/79/low.webp" onerror="this.remove()" alt="Charizard V 79, Champion's Path" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3.5/79/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3.5/79/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard V</div>
         <div class="rr">Champion's Path &bull; 79</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/212/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/212/low.webp" onerror="this.remove()" alt="Charizard &amp; Braixen GX 212, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/212/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/212/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard &amp; Braixen GX</div>
         <div class="rr">Cosmic Eclipse &bull; 212</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/22/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/22/low.webp" onerror="this.remove()" alt="Charizard &amp; Braixen GX 22, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/22/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/22/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard &amp; Braixen GX</div>
         <div class="rr">Cosmic Eclipse &bull; 22</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/251/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/251/low.webp" onerror="this.remove()" alt="Charizard &amp; Braixen GX 251, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/251/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/251/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard &amp; Braixen GX</div>
         <div class="rr">Cosmic Eclipse &bull; 251</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B1a/013/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B1a/013/low.webp" onerror="this.remove()" alt="Charizard 013, Crimson Blaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B1a/013/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B1a/013/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Crimson Blaze &bull; 013</div>
         <div class="rr">Three Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B1a/014/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B1a/014/low.webp" onerror="this.remove()" alt="Mega Charizard Y ex 014, Crimson Blaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B1a/014/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B1a/014/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mega Charizard Y ex</div>
         <div class="rr">Crimson Blaze &bull; 014</div>
         <div class="rr">Four Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B1a/077/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B1a/077/low.webp" onerror="this.remove()" alt="Mega Charizard Y ex 077, Crimson Blaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B1a/077/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B1a/077/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mega Charizard Y ex</div>
         <div class="rr">Crimson Blaze &bull; 077</div>
         <div class="rr">Two Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B1a/087/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B1a/087/low.webp" onerror="this.remove()" alt="Mega Charizard Y ex 087, Crimson Blaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B1a/087/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B1a/087/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mega Charizard Y ex</div>
         <div class="rr">Crimson Blaze &bull; 087</div>
         <div class="rr">Three Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B1a/091/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B1a/091/low.webp" onerror="this.remove()" alt="Charizard 091, Crimson Blaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/B1a/091/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/B1a/091/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Crimson Blaze &bull; 091</div>
         <div class="rr">One Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex14/4/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex14/4/low.webp" onerror="this.remove()" alt="Charizard δ 4, Crystal Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex14/4/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex14/4/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard δ</div>
         <div class="rr">Crystal Guardians &bull; 4</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/19/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/19/low.webp" onerror="this.remove()" alt="Charizard V 19, Darkness Ablaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/19/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/19/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard V</div>
         <div class="rr">Darkness Ablaze &bull; 19</div>
         <div class="rr">Holo Rare V</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/20/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/20/low.webp" onerror="this.remove()" alt="Charizard VMAX 20, Darkness Ablaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/20/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/20/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard VMAX</div>
         <div class="rr">Darkness Ablaze &bull; 20</div>
         <div class="rr">Holo Rare VMAX</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/det1/5/low.avif"><img src="https://assets.tcgdex.net/en/sm/det1/5/low.webp" onerror="this.remove()" alt="Charizard 5, Detective Pikachu" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/det1/5/low.avif"><img src="https://assets.tcgdex.net/en/sm/det1/5/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Detective Pikachu &bull; 5</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dpp/DP45/low.avif"><img src="https://assets.tcgdex.net/en/dp/dpp/DP45/low.webp" onerror="this.remove()" alt="Charizard G DP45, DP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dpp/DP45/low.avif"><img src="https://assets.tcgdex.net/en/dp/dpp/DP45/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard G</div>
         <div class="rr">DP Black Star Promos &bull; DP45</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/100/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/100/low.webp" onerror="this.remove()" alt="Charizard 100, Dragon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/100/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/100/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Dragon &bull; 100</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/100/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/100/low.webp" onerror="this.remove()" alt="Charizard ☆ δ 100, Dragon Frontiers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/100/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/100/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard ☆ δ</div>
         <div class="rr">Dragon Frontiers &bull; 100</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/101/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/101/low.webp" onerror="this.remove()" alt="M Charizard EX 101, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/101/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/101/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">M Charizard EX</div>
         <div class="rr">Evolutions &bull; 101</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/11/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/11/low.webp" onerror="this.remove()" alt="Charizard 11, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/11/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/11/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Evolutions &bull; 11</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/12/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/12/low.webp" onerror="this.remove()" alt="Charizard EX 12, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/12/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/12/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard EX</div>
         <div class="rr">Evolutions &bull; 12</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/13/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/13/low.webp" onerror="this.remove()" alt="M Charizard EX 13, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/13/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/13/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">M Charizard EX</div>
         <div class="rr">Evolutions &bull; 13</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/39/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/39/low.webp" onerror="this.remove()" alt="Charizard 39, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/39/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/39/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Expedition Base Set &bull; 39</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/40/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/40/low.webp" onerror="this.remove()" alt="Charizard 40, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/40/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/40/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Expedition Base Set &bull; 40</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/6/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/6/low.webp" onerror="this.remove()" alt="Charizard 6, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/6/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/6/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Expedition Base Set &bull; 6</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/105/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/105/low.webp" onerror="this.remove()" alt="Charizard ex 105, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/105/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/105/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 105</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/100/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/100/low.webp" onerror="this.remove()" alt="Charizard EX 100, Flashfire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/100/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/100/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard EX</div>
         <div class="rr">Flashfire &bull; 100</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/107/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/107/low.webp" onerror="this.remove()" alt="M Charizard EX 107, Flashfire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/107/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/107/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">M Charizard EX</div>
         <div class="rr">Flashfire &bull; 107</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/108/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/108/low.webp" onerror="this.remove()" alt="M Charizard EX 108, Flashfire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/108/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/108/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">M Charizard EX</div>
         <div class="rr">Flashfire &bull; 108</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/11/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/11/low.webp" onerror="this.remove()" alt="Charizard EX 11, Flashfire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/11/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/11/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard EX</div>
         <div class="rr">Flashfire &bull; 11</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/12/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/12/low.webp" onerror="this.remove()" alt="Charizard EX 12, Flashfire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/12/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/12/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard EX</div>
         <div class="rr">Flashfire &bull; 12</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/13/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/13/low.webp" onerror="this.remove()" alt="M Charizard EX 13, Flashfire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/13/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/13/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">M Charizard EX</div>
         <div class="rr">Flashfire &bull; 13</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/69/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/69/low.webp" onerror="this.remove()" alt="M Charizard EX 69, Flashfire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/69/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/69/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">M Charizard EX</div>
         <div class="rr">Flashfire &bull; 69</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/11/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/11/low.webp" onerror="this.remove()" alt="Charizard EX 11, Generations" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/11/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/11/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard EX</div>
         <div class="rr">Generations &bull; 11</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/12/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/12/low.webp" onerror="this.remove()" alt="M Charizard EX 12, Generations" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/12/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/12/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">M Charizard EX</div>
         <div class="rr">Generations &bull; 12</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/RC5/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/RC5/low.webp" onerror="this.remove()" alt="Charizard RC5, Generations" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/RC5/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/RC5/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Generations &bull; RC5</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/035/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/035/low.webp" onerror="this.remove()" alt="Charizard 035, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/035/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/035/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Genetic Apex &bull; 035</div>
         <div class="rr">Three Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/036/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/036/low.webp" onerror="this.remove()" alt="Charizard ex 036, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/036/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/036/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">Genetic Apex &bull; 036</div>
         <div class="rr">Four Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/253/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/253/low.webp" onerror="this.remove()" alt="Charizard ex 253, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/253/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/253/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">Genetic Apex &bull; 253</div>
         <div class="rr">Two Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/280/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/280/low.webp" onerror="this.remove()" alt="Charizard ex 280, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/280/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/280/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">Genetic Apex &bull; 280</div>
         <div class="rr">Three Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/284/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/284/low.webp" onerror="this.remove()" alt="Charizard ex 284, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/284/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/284/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">Genetic Apex &bull; 284</div>
         <div class="rr">Crown</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/209/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/209/low.webp" onerror="this.remove()" alt="Charizard 209, GXウルトラシャイニー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/209/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/209/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">GXウルトラシャイニー &bull; 209</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/2/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/2/low.webp" onerror="this.remove()" alt="Blaine's Charizard 2, Gym Challenge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/2/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/2/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Blaine's Charizard</div>
         <div class="rr">Gym Challenge &bull; 2</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm115/9/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm115/9/low.webp" onerror="this.remove()" alt="Charizard GX 9, Hidden Fates" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm115/9/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm115/9/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard GX</div>
         <div class="rr">Hidden Fates &bull; 9</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sma/SV49/low.avif"><img src="https://assets.tcgdex.net/en/sm/sma/SV49/low.webp" onerror="this.remove()" alt="Charizard-GX SV49, Hidden Fates Shiny Vault" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sma/SV49/low.avif"><img src="https://assets.tcgdex.net/en/sm/sma/SV49/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard-GX</div>
         <div class="rr">Hidden Fates Shiny Vault &bull; SV49</div>
         <div class="rr">Shiny Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/3/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/3/low.webp" onerror="this.remove()" alt="Charizard 3, Legendary Collection" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/3/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/3/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Legendary Collection &bull; 3</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/19/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/19/low.webp" onerror="this.remove()" alt="Charizard 19, Legendary Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/19/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/19/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Legendary Treasures &bull; 19</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/mep/023/low.avif"><img src="https://assets.tcgdex.net/en/me/mep/023/low.webp" onerror="this.remove()" alt="Mega Charizard X ex 023, MEP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/mep/023/low.avif"><img src="https://assets.tcgdex.net/en/me/mep/023/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mega Charizard X ex</div>
         <div class="rr">MEP Black Star Promos &bull; 023</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/mep/029/low.avif"><img src="https://assets.tcgdex.net/en/me/mep/029/low.webp" onerror="this.remove()" alt="Mega Charizard X ex 029, MEP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/mep/029/low.avif"><img src="https://assets.tcgdex.net/en/me/mep/029/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mega Charizard X ex</div>
         <div class="rr">MEP Black Star Promos &bull; 029</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/mep/030/low.avif"><img src="https://assets.tcgdex.net/en/me/mep/030/low.webp" onerror="this.remove()" alt="Mega Charizard Y ex 030, MEP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/mep/030/low.avif"><img src="https://assets.tcgdex.net/en/me/mep/030/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Mega Charizard Y ex</div>
         <div class="rr">MEP Black Star Promos &bull; 030</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/107/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/107/low.webp" onerror="this.remove()" alt="Shining Charizard 107, Neo Destiny" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/107/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/107/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Shining Charizard</div>
         <div class="rr">Neo Destiny &bull; 107</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw8/136/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw8/136/low.webp" onerror="this.remove()" alt="Charizard 136, Plasma Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw8/136/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw8/136/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Plasma Storm &bull; 136</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex16/6/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex16/6/low.webp" onerror="this.remove()" alt="Charizard 6, Power Keepers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex16/6/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex16/6/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Power Keepers &bull; 6</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/3/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/3/low.webp" onerror="this.remove()" alt="Charizard 3, Secret Wonders" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/3/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/3/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Secret Wonders &bull; 3</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/010/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/010/low.webp" onerror="this.remove()" alt="Charizard ex 010, Shining Revelry" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/010/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/010/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">Shining Revelry &bull; 010</div>
         <div class="rr">Four Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/080/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/080/low.webp" onerror="this.remove()" alt="Charizard ex 080, Shining Revelry" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/080/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/080/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">Shining Revelry &bull; 080</div>
         <div class="rr">Two Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/108/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/108/low.webp" onerror="this.remove()" alt="Charizard ex 108, Shining Revelry" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/108/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/108/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">Shining Revelry &bull; 108</div>
         <div class="rr">Two Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/146/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/146/low.webp" onerror="this.remove()" alt="Charizard 146, Skyridge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/146/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/146/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Skyridge &bull; 146</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM158/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM158/low.webp" onerror="this.remove()" alt="Charizard SM158, SM Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM158/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM158/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">SM Black Star Promos &bull; SM158</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM201/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM201/low.webp" onerror="this.remove()" alt="Reshiram &amp; Charizard GX SM201, SM Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM201/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM201/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Reshiram &amp; Charizard GX</div>
         <div class="rr">SM Black Star Promos &bull; SM201</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM211/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM211/low.webp" onerror="this.remove()" alt="Charizard GX SM211, SM Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM211/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM211/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard GX</div>
         <div class="rr">SM Black Star Promos &bull; SM211</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM60/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM60/low.webp" onerror="this.remove()" alt="Charizard GX SM60, SM Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM60/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM60/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard GX</div>
         <div class="rr">SM Black Star Promos &bull; SM60</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp7/103/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp7/103/low.webp" onerror="this.remove()" alt="Charizard 103, Stormfront" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp7/103/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp7/103/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Stormfront &bull; 103</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/143/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/143/low.webp" onerror="this.remove()" alt="Charizard G LV.X 143, Supreme Victors" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/143/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/143/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard G LV.X</div>
         <div class="rr">Supreme Victors &bull; 143</div>
         <div class="rr">Rare Holo LV.X</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/20/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/20/low.webp" onerror="this.remove()" alt="Charizard G 20, Supreme Victors" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl3/20/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl3/20/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard G</div>
         <div class="rr">Supreme Victors &bull; 20</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/056/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/056/low.webp" onerror="this.remove()" alt="Charizard ex 056, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/056/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/056/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">SVP Black Star Promos &bull; 056</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/074/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/074/low.webp" onerror="this.remove()" alt="Charizard ex 074, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/074/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/074/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">SVP Black Star Promos &bull; 074</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/161/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/161/low.webp" onerror="this.remove()" alt="Charizard ex 161, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/161/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/161/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">SVP Black Star Promos &bull; 161</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/196/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/196/low.webp" onerror="this.remove()" alt="Charizard ex 196, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/196/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/196/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard ex</div>
         <div class="rr">SVP Black Star Promos &bull; 196</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH050/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH050/low.webp" onerror="this.remove()" alt="Charizard V SWSH050, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH050/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH050/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard V</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH050</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH066/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH066/low.webp" onerror="this.remove()" alt="Charizard SWSH066, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH066/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH066/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH066</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH133/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH133/low.webp" onerror="this.remove()" alt="Lance's Charizard V SWSH133, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH133/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH133/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lance's Charizard V</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH133</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH260/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH260/low.webp" onerror="this.remove()" alt="Charizard V SWSH260, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH260/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH260/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard V</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH260</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH261/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH261/low.webp" onerror="this.remove()" alt="Charizard VMAX SWSH261, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH261/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH261/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard VMAX</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH261</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH262/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH262/low.webp" onerror="this.remove()" alt="Charizard VSTAR SWSH262, SWSH Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swshp/SWSH262/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swshp/SWSH262/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard VSTAR</div>
         <div class="rr">SWSH Black Star Promos &bull; SWSH262</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/21/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/21/low.webp" onerror="this.remove()" alt="Dark Charizard 21, Team Rocket" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/21/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/21/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Charizard</div>
         <div class="rr">Team Rocket &bull; 21</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/4/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/4/low.webp" onerror="this.remove()" alt="Dark Charizard 4, Team Rocket" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/4/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/4/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Charizard</div>
         <div class="rr">Team Rocket &bull; 4</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/14/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/14/low.webp" onerror="this.remove()" alt="Charizard 14, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/14/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/14/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Team Up &bull; 14</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/194/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/194/low.webp" onerror="this.remove()" alt="Reshiram &amp; Charizard GX 194, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/194/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/194/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Reshiram &amp; Charizard GX</div>
         <div class="rr">Unbroken Bonds &bull; 194</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/20/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/20/low.webp" onerror="this.remove()" alt="Reshiram &amp; Charizard GX 20, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/20/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/20/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Reshiram &amp; Charizard GX</div>
         <div class="rr">Unbroken Bonds &bull; 20</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/217/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/217/low.webp" onerror="this.remove()" alt="Reshiram &amp; Charizard GX 217, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/217/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/217/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Reshiram &amp; Charizard GX</div>
         <div class="rr">Unbroken Bonds &bull; 217</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/25/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/25/low.webp" onerror="this.remove()" alt="Charizard 25, Vivid Voltage" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/25/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/25/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">Vivid Voltage &bull; 25</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/017/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/017/low.webp" onerror="this.remove()" alt="Charizard 017, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/017/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/017/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">VMAXクライマックス &bull; 017</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/187/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/187/low.webp" onerror="this.remove()" alt="Charizard 187, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/187/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/187/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">VMAXクライマックス &bull; 187</div>
         <div class="rr">Character Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/013/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/013/low.webp" onerror="this.remove()" alt="Charizard 013, VSTARユニバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/013/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/013/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">VSTARユニバース &bull; 013</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/014/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/014/low.webp" onerror="this.remove()" alt="Charizard 014, VSTARユニバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/014/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/014/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">VSTARユニバース &bull; 014</div>
         <div class="rr">Triple Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/015/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/015/low.webp" onerror="this.remove()" alt="Charizard 015, VSTARユニバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/015/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/015/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">VSTARユニバース &bull; 015</div>
         <div class="rr">Radiant Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/211/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/211/low.webp" onerror="this.remove()" alt="Charizard 211, VSTARユニバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/211/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/211/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">VSTARユニバース &bull; 211</div>
         <div class="rr">Special Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/212/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/212/low.webp" onerror="this.remove()" alt="Charizard 212, VSTARユニバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/212/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/212/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">VSTARユニバース &bull; 212</div>
         <div class="rr">Special Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY121/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY121/low.webp" onerror="this.remove()" alt="Charizard EX XY121, XY Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY121/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY121/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard EX</div>
         <div class="rr">XY Black Star Promos &bull; XY121</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY17/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY17/low.webp" onerror="this.remove()" alt="Charizard EX XY17, XY Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY17/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY17/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard EX</div>
         <div class="rr">XY Black Star Promos &bull; XY17</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY29/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY29/low.webp" onerror="this.remove()" alt="Charizard EX XY29, XY Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY29/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY29/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard EX</div>
         <div class="rr">XY Black Star Promos &bull; XY29</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/013/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/013/low.webp" onerror="this.remove()" alt="Charizard 013, タッグボルト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/013/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/013/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">タッグボルト &bull; 013</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6a/003/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6a/003/low.webp" onerror="this.remove()" alt="Charizard 003, ドラゴンストーム" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6a/003/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6a/003/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">ドラゴンストーム &bull; 003</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/006/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/006/low.webp" onerror="this.remove()" alt="Charizard 006, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/006/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/006/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">ポケモンカード151 &bull; 006</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/185/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/185/low.webp" onerror="this.remove()" alt="Charizard 185, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/185/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/185/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">ポケモンカード151 &bull; 185</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/201/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/201/low.webp" onerror="this.remove()" alt="Charizard 201, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/201/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/201/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">ポケモンカード151 &bull; 201</div>
         <div class="rr">Special Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11a/008/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11a/008/low.webp" onerror="this.remove()" alt="Charizard 008, リミックスバウト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11a/008/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11a/008/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">リミックスバウト &bull; 008</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11a/067/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11a/067/low.webp" onerror="this.remove()" alt="Charizard 067, リミックスバウト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11a/067/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11a/067/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">リミックスバウト &bull; 067</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11a/068/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11a/068/low.webp" onerror="this.remove()" alt="Charizard 068, リミックスバウト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11a/068/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11a/068/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">リミックスバウト &bull; 068</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM3H/011/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM3H/011/low.webp" onerror="this.remove()" alt="Charizard 011, 闘う虹を見たか" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM3H/011/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM3H/011/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">闘う虹を見たか &bull; 011</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM3H/052/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM3H/052/low.webp" onerror="this.remove()" alt="Charizard 052, 闘う虹を見たか" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM3H/052/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM3H/052/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Charizard</div>
         <div class="rr">闘う虹を見たか &bull; 052</div>
         <div class="rr">Ultra Rare</div>

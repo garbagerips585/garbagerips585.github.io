@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/starmie.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me03/118/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="118" data-price="$42.00"
         data-set="Perfect Order"
         aria-label="Enlarge Mega Starmie ex, Perfect Order 118">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/118/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/118/low.webp" onerror="this.remove()" alt="Mega Starmie ex 118, Perfect Order" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/118/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/118/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mega Starmie ex</div>
         <div class="rr">Perfect Order &bull; 118</div>
         <div class="rr">Special Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="119" data-price="$7.78"
         data-set="Paldean Fates"
         aria-label="Enlarge Starmie, Paldean Fates 119">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/119/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/119/low.webp" onerror="this.remove()" alt="Starmie 119, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/119/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/119/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">Paldean Fates &bull; 119</div>
         <div class="rr">Shiny Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="102" data-price="$6.71"
         data-set="Perfect Order"
         aria-label="Enlarge Mega Starmie ex, Perfect Order 102">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/102/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/102/low.webp" onerror="this.remove()" alt="Mega Starmie ex 102, Perfect Order" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/102/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/102/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mega Starmie ex</div>
         <div class="rr">Perfect Order &bull; 102</div>
         <div class="rr">Ultra Rare</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="021" data-price="$1.65"
         data-set="Perfect Order"
         aria-label="Enlarge Mega Starmie ex, Perfect Order 021">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/021/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/021/low.webp" onerror="this.remove()" alt="Mega Starmie ex 021, Perfect Order" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/021/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/021/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mega Starmie ex</div>
         <div class="rr">Perfect Order &bull; 021</div>
         <div class="rr">Double Rare</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="121" data-price="$1.40"
         data-set="151"
         aria-label="Enlarge Starmie, 151 121">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/121/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/121/low.webp" onerror="this.remove()" alt="Starmie 121, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/121/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/121/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">151 &bull; 121</div>
         <div class="rr">Rare</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="047" data-price="$0.86"
         data-set="Destined Rivals"
         aria-label="Enlarge Misty's Starmie, Destined Rivals 047">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/047/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/047/low.webp" onerror="this.remove()" alt="Misty's Starmie 047, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/047/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/047/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Misty's Starmie</div>
         <div class="rr">Destined Rivals &bull; 047</div>
         <div class="rr">Uncommon</div>
@@ -354,280 +371,280 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/030/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/030/low.webp" onerror="this.remove()" alt="Starmie V 030, Astral Radiance" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/030/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/030/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie V</div>
         <div class="rr">Astral Radiance &bull; 030</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/166/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/166/low.webp" onerror="this.remove()" alt="Starmie V 166, Astral Radiance" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/166/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/166/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie V</div>
         <div class="rr">Astral Radiance &bull; 166</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/64/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/64/low.webp" onerror="this.remove()" alt="Starmie 64, Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/64/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/64/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">Base Set &bull; 64</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/94/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/94/low.webp" onerror="this.remove()" alt="Starmie 94, Base Set 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/94/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/94/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">Base Set 2 &bull; 94</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy8/30/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy8/30/low.webp" onerror="this.remove()" alt="Starmie 30, BREAKthrough" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy8/30/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy8/30/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">BREAKthrough &bull; 30</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/055/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/055/low.webp" onerror="this.remove()" alt="Starmie 055, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/055/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/055/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">Brilliant Stars &bull; 055</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/219/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/219/low.webp" onerror="this.remove()" alt="Starmie 219, Celestial Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/219/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/219/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">Celestial Guardians &bull; 219</div>
         <div class="rr">One Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/233/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/233/low.webp" onerror="this.remove()" alt="Starmie ex 233, Celestial Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/233/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/233/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie ex</div>
         <div class="rr">Celestial Guardians &bull; 233</div>
         <div class="rr">Two Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/16/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/16/low.webp" onerror="this.remove()" alt="Starmie 16, Crimson Invasion" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/16/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/16/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">Crimson Invasion &bull; 16</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex11/15/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex11/15/low.webp" onerror="this.remove()" alt="Starmie δ 15, Delta Species" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex11/15/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex11/15/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie δ</div>
         <div class="rr">Delta Species &bull; 15</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex11/30/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex11/30/low.webp" onerror="this.remove()" alt="Starmie δ 30, Delta Species" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex11/30/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex11/30/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie δ</div>
         <div class="rr">Delta Species &bull; 30</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/48/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/48/low.webp" onerror="this.remove()" alt="Starmie 48, Deoxys" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/48/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/48/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">Deoxys &bull; 48</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/31/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/31/low.webp" onerror="this.remove()" alt="Starmie 31, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/31/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/31/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">Evolutions &bull; 31</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/32/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/32/low.webp" onerror="this.remove()" alt="Starmie BREAK 32, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/32/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/32/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie BREAK</div>
         <div class="rr">Evolutions &bull; 32</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/53/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/53/low.webp" onerror="this.remove()" alt="Starmie 53, Fusion Strike" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh8/53/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh8/53/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">Fusion Strike &bull; 53</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/075/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/075/low.webp" onerror="this.remove()" alt="Starmie 075, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/075/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/075/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">Genetic Apex &bull; 075</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/076/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/076/low.webp" onerror="this.remove()" alt="Starmie ex 076, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/076/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/076/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie ex</div>
         <div class="rr">Genetic Apex &bull; 076</div>
         <div class="rr">Four Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/257/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/257/low.webp" onerror="this.remove()" alt="Starmie ex 257, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/257/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/257/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie ex</div>
         <div class="rr">Genetic Apex &bull; 257</div>
         <div class="rr">Two Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/56/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/56/low.webp" onerror="this.remove()" alt="Misty's Starmie 56, Gym Heroes" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/56/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/56/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Misty's Starmie</div>
         <div class="rr">Gym Heroes &bull; 56</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/53/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/53/low.webp" onerror="this.remove()" alt="Starmie 53, HeartGold SoulSilver" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/53/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/53/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">HeartGold SoulSilver &bull; 53</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm115/14/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm115/14/low.webp" onerror="this.remove()" alt="Starmie GX 14, Hidden Fates" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm115/14/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm115/14/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie GX</div>
         <div class="rr">Hidden Fates &bull; 14</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/49/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/49/low.webp" onerror="this.remove()" alt="Starmie 49, Hidden Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex5/49/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex5/49/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">Hidden Legends &bull; 49</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/71/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/71/low.webp" onerror="this.remove()" alt="Starmie 71, Legends Awakened" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/71/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/71/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">Legends Awakened &bull; 71</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo3/25/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo3/25/low.webp" onerror="this.remove()" alt="Starmie 25, Neo Revelation" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo3/25/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo3/25/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">Neo Revelation &bull; 25</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw4/24/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw4/24/low.webp" onerror="this.remove()" alt="Starmie 24, Next Destinies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw4/24/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw4/24/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">Next Destinies &bull; 24</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/ru1/5/low.avif"><img src="https://assets.tcgdex.net/en/pl/ru1/5/low.webp" onerror="this.remove()" alt="Starmie 5, Pokémon Rumble" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/ru1/5/low.avif"><img src="https://assets.tcgdex.net/en/pl/ru1/5/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">Pokémon Rumble &bull; 5</div>
         
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy5/73/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy5/73/low.webp" onerror="this.remove()" alt="Starmie 73, Primal Clash" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy5/73/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy5/73/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">Primal Clash &bull; 73</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl2/50/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl2/50/low.webp" onerror="this.remove()" alt="Starmie 50, Rising Rivals" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl2/50/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl2/50/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">Rising Rivals &bull; 50</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/30/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/30/low.webp" onerror="this.remove()" alt="Starmie 30, Skyridge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/30/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/30/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">Skyridge &bull; 30</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/44/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/44/low.webp" onerror="this.remove()" alt="Starmie 44, Skyridge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/44/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/44/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">Skyridge &bull; 44</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/65/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/65/low.webp" onerror="this.remove()" alt="Starmie 65, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/65/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/65/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">Team Up &bull; 65</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SPD/003/low.avif"><img src="https://assets.tcgdex.net/ja/S/SPD/003/low.webp" onerror="this.remove()" alt="Starmie 003, VSTAR&amp;VMAX 高級牌組 代歐奇希斯" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SPD/003/low.avif"><img src="https://assets.tcgdex.net/ja/S/SPD/003/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">VSTAR&amp;VMAX 高級牌組 代歐奇希斯 &bull; 003</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy1/34/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy1/34/low.webp" onerror="this.remove()" alt="Starmie 34, XY" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy1/34/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy1/34/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">XY &bull; 34</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/049/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/049/low.webp" onerror="this.remove()" alt="Starmie 049, タッグボルト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/049/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/049/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">タッグボルト &bull; 049</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8/019/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8/019/low.webp" onerror="this.remove()" alt="Starmie 019, フュージョンアーツ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8/019/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8/019/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">フュージョンアーツ &bull; 019</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/121/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/121/low.webp" onerror="this.remove()" alt="Starmie 121, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/121/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/121/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">ポケモンカード151 &bull; 121</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/039/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/039/low.webp" onerror="this.remove()" alt="Starmie 039, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/039/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/039/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">レイジングサーフ &bull; 039</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/222/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/222/low.webp" onerror="this.remove()" alt="Starmie 222, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/222/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/222/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">レイジングサーフ &bull; 222</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9a/024/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9a/024/low.webp" onerror="this.remove()" alt="Starmie 024, 熱風のアリーナ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9a/024/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9a/024/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">熱風のアリーナ &bull; 024</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4S/010/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4S/010/low.webp" onerror="this.remove()" alt="Starmie 010, 覚醒の勇者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4S/010/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4S/010/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Starmie</div>
         <div class="rr">覚醒の勇者 &bull; 010</div>
         <div class="rr">Uncommon</div>

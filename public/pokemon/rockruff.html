@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/rockruff.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/swsh/swsh6/86/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="86" data-price="$0.74"
         data-set="Chilling Reign"
         aria-label="Enlarge Rockruff, Chilling Reign 86">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/86/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/86/low.webp" onerror="this.remove()" alt="Rockruff 86, Chilling Reign" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/86/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/86/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">Chilling Reign &bull; 86</div>
         <div class="rr">Common</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="116" data-price="$0.71"
         data-set="Obsidian Flames"
         aria-label="Enlarge Rockruff, Obsidian Flames 116">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/116/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/116/low.webp" onerror="this.remove()" alt="Rockruff 116, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/116/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/116/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">Obsidian Flames &bull; 116</div>
         <div class="rr">Common</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="073" data-price="$0.62"
         data-set="Crown Zenith"
         aria-label="Enlarge Rockruff, Crown Zenith 073">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/073/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/073/low.webp" onerror="this.remove()" alt="Rockruff 073, Crown Zenith" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/073/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/073/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">Crown Zenith &bull; 073</div>
         <div class="rr">Common</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="116" data-price="$0.40"
         data-set="Paldea Evolved"
         aria-label="Enlarge Rockruff, Paldea Evolved 116">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/116/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/116/low.webp" onerror="this.remove()" alt="Rockruff 116, Paldea Evolved" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/116/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/116/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">Paldea Evolved &bull; 116</div>
         <div class="rr">Common</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="084" data-price="$0.30"
         data-set="Journey Together"
         aria-label="Enlarge Rockruff, Journey Together 084">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/084/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/084/low.webp" onerror="this.remove()" alt="Rockruff 084, Journey Together" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/084/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/084/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">Journey Together &bull; 084</div>
         <div class="rr">Common</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="089" data-price="$0.25"
         data-set="Temporal Forces"
         aria-label="Enlarge Rockruff, Temporal Forces 089">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/089/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/089/low.webp" onerror="this.remove()" alt="Rockruff 089, Temporal Forces" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/089/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/089/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">Temporal Forces &bull; 089</div>
         <div class="rr">Common</div>
@@ -360,182 +377,182 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/098/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/098/low.webp" onerror="this.remove()" alt="Rockruff 098, Celestial Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/098/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/098/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">Celestial Guardians &bull; 098</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/099/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/099/low.webp" onerror="this.remove()" alt="Rockruff 099, Celestial Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/099/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/099/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">Celestial Guardians &bull; 099</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/172/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/172/low.webp" onerror="this.remove()" alt="Rockruff 172, Celestial Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/172/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/172/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">Celestial Guardians &bull; 172</div>
         <div class="rr">One Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3.5/29/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3.5/29/low.webp" onerror="this.remove()" alt="Rockruff 29, Champion's Path" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3.5/29/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3.5/29/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">Champion's Path &bull; 29</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/123/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/123/low.webp" onerror="this.remove()" alt="Rockruff 123, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/123/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/123/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">Cosmic Eclipse &bull; 123</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3a/032/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3a/032/low.webp" onerror="this.remove()" alt="Rockruff 032, Extradimensional Crisis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3a/032/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3a/032/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">Extradimensional Crisis &bull; 032</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm6/75/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm6/75/low.webp" onerror="this.remove()" alt="Rockruff 75, Forbidden Light" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm6/75/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm6/75/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">Forbidden Light &bull; 75</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/73/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/73/low.webp" onerror="this.remove()" alt="Rockruff 73, Guardians Rising" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/73/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/73/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">Guardians Rising &bull; 73</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/059/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/059/low.webp" onerror="this.remove()" alt="Rockruff 059, GXウルトラシャイニー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/059/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/059/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">GXウルトラシャイニー &bull; 059</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/183/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/183/low.webp" onerror="this.remove()" alt="Rockruff 183, GXウルトラシャイニー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/183/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/183/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">GXウルトラシャイニー &bull; 183</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sma/SV23/low.avif"><img src="https://assets.tcgdex.net/en/sm/sma/SV23/low.webp" onerror="this.remove()" alt="Rockruff SV23, Hidden Fates Shiny Vault" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sma/SV23/low.avif"><img src="https://assets.tcgdex.net/en/sm/sma/SV23/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">Hidden Fates Shiny Vault &bull; SV23</div>
         <div class="rr">Shiny Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/109/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/109/low.webp" onerror="this.remove()" alt="Rockruff 109, Lost Origin" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/109/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/109/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">Lost Origin &bull; 109</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM06/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM06/low.webp" onerror="this.remove()" alt="Rockruff SM06, SM Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM06/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM06/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">SM Black Star Promos &bull; SM06</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM120/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM120/low.webp" onerror="this.remove()" alt="Rockruff SM120, SM Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM120/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM120/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">SM Black Star Promos &bull; SM120</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/94/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/94/low.webp" onerror="this.remove()" alt="Rockruff 94, Vivid Voltage" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/94/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/94/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">Vivid Voltage &bull; 94</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/086/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/086/low.webp" onerror="this.remove()" alt="Rockruff 086, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/086/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/086/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">VMAXクライマックス &bull; 086</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/202/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/202/low.webp" onerror="this.remove()" alt="Rockruff 202, VMAXクライマックス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S8b/202/low.avif"><img src="https://assets.tcgdex.net/ja/S/S8b/202/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">VMAXクライマックス &bull; 202</div>
         <div class="rr">Character Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM2L/026/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM2L/026/low.webp" onerror="this.remove()" alt="Rockruff 026, アローラの月光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM2L/026/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM2L/026/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">アローラの月光 &bull; 026</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12/047/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12/047/low.webp" onerror="this.remove()" alt="Rockruff 047, オルタージェネシス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12/047/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12/047/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">オルタージェネシス &bull; 047</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1a/049/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1a/049/low.webp" onerror="this.remove()" alt="Rockruff 049, トリプレットビート" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1a/049/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1a/049/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">トリプレットビート &bull; 049</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9/051/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9/051/low.webp" onerror="this.remove()" alt="Rockruff 051, バトルパートナーズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9/051/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9/051/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">バトルパートナーズ &bull; 051</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12/053/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12/053/low.webp" onerror="this.remove()" alt="Rockruff 053, パラダイムトリガー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12/053/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12/053/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">パラダイムトリガー &bull; 053</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6H/041/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6H/041/low.webp" onerror="this.remove()" alt="Rockruff 041, 白銀のランス" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6H/041/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6H/041/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">白銀のランス &bull; 041</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6/052/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6/052/low.webp" onerror="this.remove()" alt="Rockruff 052, 禁断の光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6/052/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6/052/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">禁断の光 &bull; 052</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SLL/007/low.avif"><img src="https://assets.tcgdex.net/ja/S/SLL/007/low.webp" onerror="this.remove()" alt="Rockruff 007, 起始組合VSTAR 路卡利歐" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SLL/007/low.avif"><img src="https://assets.tcgdex.net/ja/S/SLL/007/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">起始組合VSTAR 路卡利歐 &bull; 007</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/061/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/061/low.webp" onerror="this.remove()" alt="Rockruff 061, 黒炎の支配者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/061/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/061/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rockruff</div>
         <div class="rr">黒炎の支配者 &bull; 061</div>
         <div class="rr">Common</div>

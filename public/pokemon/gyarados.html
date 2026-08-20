@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/gyarados.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv01/225/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="225" data-price="$10.95"
         data-set="Scarlet &amp; Violet"
         aria-label="Enlarge Gyarados ex, Scarlet &amp; Violet 225">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/225/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/225/low.webp" onerror="this.remove()" alt="Gyarados ex 225, Scarlet &amp; Violet" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/225/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/225/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Gyarados ex</div>
         <div class="rr">Scarlet &amp; Violet &bull; 225</div>
         <div class="rr">Ultra Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="40" data-price="$2.85"
         data-set="Rebel Clash"
         aria-label="Enlarge Gyarados, Rebel Clash 40">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/40/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/40/low.webp" onerror="this.remove()" alt="Gyarados 40, Rebel Clash" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/40/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/40/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Rebel Clash &bull; 40</div>
         <div class="rr">Holo Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="045" data-price="$2.09"
         data-set="Scarlet &amp; Violet"
         aria-label="Enlarge Gyarados ex, Scarlet &amp; Violet 045">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/045/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/045/low.webp" onerror="this.remove()" alt="Gyarados ex 045, Scarlet &amp; Violet" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/045/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/045/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Gyarados ex</div>
         <div class="rr">Scarlet &amp; Violet &bull; 045</div>
         <div class="rr">Double Rare</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="049" data-price="$1.98"
         data-set="Destined Rivals"
         aria-label="Enlarge Misty's Gyarados, Destined Rivals 049">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/049/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/049/low.webp" onerror="this.remove()" alt="Misty's Gyarados 049, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/049/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/049/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Misty's Gyarados</div>
         <div class="rr">Destined Rivals &bull; 049</div>
         <div class="rr">Rare</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="043" data-price="$1.75"
         data-set="Paldea Evolved"
         aria-label="Enlarge Gyarados, Paldea Evolved 043">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/043/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/043/low.webp" onerror="this.remove()" alt="Gyarados 043, Paldea Evolved" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/043/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/043/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Paldea Evolved &bull; 043</div>
         <div class="rr">Rare</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="130" data-price="$1.70"
         data-set="151"
         aria-label="Enlarge Gyarados, 151 130">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/130/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/130/low.webp" onerror="this.remove()" alt="Gyarados 130, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/130/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/130/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">151 &bull; 130</div>
         <div class="rr">Rare</div>
@@ -328,7 +345,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="022" data-price="$1.04"
         data-set="Pokémon GO"
         aria-label="Enlarge Gyarados, Pokémon GO 022">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/022/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/022/low.webp" onerror="this.remove()" alt="Gyarados 022, Pokémon GO" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/022/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/022/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Pokémon GO &bull; 022</div>
         <div class="rr">Holo Rare</div>
@@ -372,434 +389,434 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/20/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/20/low.webp" onerror="this.remove()" alt="Gyarados 20, Ancient Origins" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/20/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/20/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Ancient Origins &bull; 20</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/21/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/21/low.webp" onerror="this.remove()" alt="Gyarados 21, Ancient Origins" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/21/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/21/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Ancient Origins &bull; 21</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/6/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/6/low.webp" onerror="this.remove()" alt="Gyarados 6, Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/6/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/6/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Base Set &bull; 6</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/7/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/7/low.webp" onerror="this.remove()" alt="Gyarados 7, Base Set 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/7/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/7/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Base Set 2 &bull; 7</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/114/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/114/low.webp" onerror="this.remove()" alt="Gyarados EX 114, BREAKpoint" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/114/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/114/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados EX</div>
         <div class="rr">BREAKpoint &bull; 114</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/115/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/115/low.webp" onerror="this.remove()" alt="M Gyarados EX 115, BREAKpoint" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/115/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/115/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">M Gyarados EX</div>
         <div class="rr">BREAKpoint &bull; 115</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/123/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/123/low.webp" onerror="this.remove()" alt="Gyarados EX 123, BREAKpoint" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/123/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/123/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados EX</div>
         <div class="rr">BREAKpoint &bull; 123</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/26/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/26/low.webp" onerror="this.remove()" alt="Gyarados EX 26, BREAKpoint" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/26/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/26/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados EX</div>
         <div class="rr">BREAKpoint &bull; 26</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/27/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/27/low.webp" onerror="this.remove()" alt="M Gyarados EX 27, BREAKpoint" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/27/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/27/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">M Gyarados EX</div>
         <div class="rr">BREAKpoint &bull; 27</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/33/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/33/low.webp" onerror="this.remove()" alt="Gyarados 33, Burning Shadows" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/33/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/33/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Burning Shadows &bull; 33</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/7/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/7/low.webp" onerror="this.remove()" alt="Gyarados 7, Call of Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/7/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/7/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Call of Legends &bull; 7</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/101/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/101/low.webp" onerror="this.remove()" alt="Gyarados GX 101, Crimson Invasion" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/101/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/101/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados GX</div>
         <div class="rr">Crimson Invasion &bull; 101</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/112/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/112/low.webp" onerror="this.remove()" alt="Gyarados GX 112, Crimson Invasion" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/112/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/112/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados GX</div>
         <div class="rr">Crimson Invasion &bull; 112</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/18/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/18/low.webp" onerror="this.remove()" alt="Gyarados GX 18, Crimson Invasion" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/18/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/18/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados GX</div>
         <div class="rr">Crimson Invasion &bull; 18</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/8/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/8/low.webp" onerror="this.remove()" alt="Gyarados 8, Deoxys" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex8/8/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex8/8/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Deoxys &bull; 8</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/32/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/32/low.webp" onerror="this.remove()" alt="Gyarados 32, Dragon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/32/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/32/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Dragon &bull; 32</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/24/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/24/low.webp" onerror="this.remove()" alt="Gyarados 24, Dragons Exalted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/24/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/24/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Dragons Exalted &bull; 24</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/34/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/34/low.webp" onerror="this.remove()" alt="Gyarados 34, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/34/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/34/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Evolutions &bull; 34</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/171/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/171/low.webp" onerror="this.remove()" alt="Gyarados V 171, Evolving Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/171/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/171/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados V</div>
         <div class="rr">Evolving Skies &bull; 171</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/207/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/207/low.webp" onerror="this.remove()" alt="Gyarados VMAX 207, Evolving Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/207/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/207/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados VMAX</div>
         <div class="rr">Evolving Skies &bull; 207</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/28/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/28/low.webp" onerror="this.remove()" alt="Gyarados V 28, Evolving Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/28/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/28/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados V</div>
         <div class="rr">Evolving Skies &bull; 28</div>
         <div class="rr">Holo Rare V</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/29/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/29/low.webp" onerror="this.remove()" alt="Gyarados VMAX 29, Evolving Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/29/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/29/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados VMAX</div>
         <div class="rr">Evolving Skies &bull; 29</div>
         <div class="rr">Holo Rare VMAX</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/109/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/109/low.webp" onerror="this.remove()" alt="Gyarados ex 109, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/109/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/109/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados ex</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 109</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/23/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/23/low.webp" onerror="this.remove()" alt="Gyarados 23, Generations" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/23/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/23/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Generations &bull; 23</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/078/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/078/low.webp" onerror="this.remove()" alt="Gyarados 078, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/078/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/078/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Genetic Apex &bull; 078</div>
         <div class="rr">Three Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/233/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/233/low.webp" onerror="this.remove()" alt="Gyarados 233, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/233/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/233/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Genetic Apex &bull; 233</div>
         <div class="rr">One Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/13/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/13/low.webp" onerror="this.remove()" alt="Misty's Gyarados 13, Gym Challenge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/13/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/13/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Misty's Gyarados</div>
         <div class="rr">Gym Challenge &bull; 13</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/5/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/5/low.webp" onerror="this.remove()" alt="Giovanni's Gyarados 5, Gym Challenge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/5/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/5/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Giovanni's Gyarados</div>
         <div class="rr">Gym Challenge &bull; 5</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/123/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/123/low.webp" onerror="this.remove()" alt="Gyarados 123, HeartGold SoulSilver" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/123/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/123/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">HeartGold SoulSilver &bull; 123</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/4/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/4/low.webp" onerror="this.remove()" alt="Gyarados 4, HeartGold SoulSilver" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/4/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/4/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">HeartGold SoulSilver &bull; 4</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm115/16/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm115/16/low.webp" onerror="this.remove()" alt="Gyarados GX 16, Hidden Fates" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm115/16/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm115/16/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados GX</div>
         <div class="rr">Hidden Fates &bull; 16</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/102/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/102/low.webp" onerror="this.remove()" alt="Gyarados ☆ δ 102, Holon Phantoms" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/102/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/102/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados ☆ δ</div>
         <div class="rr">Holon Phantoms &bull; 102</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/8/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/8/low.webp" onerror="this.remove()" alt="Gyarados δ 8, Holon Phantoms" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex13/8/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex13/8/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados δ</div>
         <div class="rr">Holon Phantoms &bull; 8</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/12/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/12/low.webp" onerror="this.remove()" alt="Gyarados 12, Legendary Collection" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/12/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/12/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Legendary Collection &bull; 12</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/31/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/31/low.webp" onerror="this.remove()" alt="Gyarados 31, Legendary Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/31/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/31/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Legendary Treasures &bull; 31</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp2/26/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp2/26/low.webp" onerror="this.remove()" alt="Gyarados 26, Mysterious Treasures" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp2/26/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp2/26/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Mysterious Treasures &bull; 26</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1a/018/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1a/018/low.webp" onerror="this.remove()" alt="Gyarados ex 018, Mythical Island" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1a/018/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1a/018/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados ex</div>
         <div class="rr">Mythical Island &bull; 018</div>
         <div class="rr">Four Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1a/076/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1a/076/low.webp" onerror="this.remove()" alt="Gyarados ex 076, Mythical Island" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1a/076/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1a/076/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados ex</div>
         <div class="rr">Mythical Island &bull; 076</div>
         <div class="rr">Two Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo3/65/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo3/65/low.webp" onerror="this.remove()" alt="Shining Gyarados 65, Neo Revelation" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo3/65/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo3/65/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Shining Gyarados</div>
         <div class="rr">Neo Revelation &bull; 65</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/30/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/30/low.webp" onerror="this.remove()" alt="Gyarados G 30, Platinum" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/30/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/30/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados G</div>
         <div class="rr">Platinum &bull; 30</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/ru1/6/low.avif"><img src="https://assets.tcgdex.net/en/pl/ru1/6/low.webp" onerror="this.remove()" alt="Gyarados 6, Pokémon Rumble" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/ru1/6/low.avif"><img src="https://assets.tcgdex.net/en/pl/ru1/6/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Pokémon Rumble &bull; 6</div>
         
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/11/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/11/low.webp" onerror="this.remove()" alt="Gyarados 11, Skyridge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/11/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/11/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Skyridge &bull; 11</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM212/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM212/low.webp" onerror="this.remove()" alt="Gyarados GX SM212, SM Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/smp/SM212/low.avif"><img src="https://assets.tcgdex.net/en/sm/smp/SM212/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados GX</div>
         <div class="rr">SM Black Star Promos &bull; SM212</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp7/19/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp7/19/low.webp" onerror="this.remove()" alt="Gyarados 19, Stormfront" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp7/19/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp7/19/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Stormfront &bull; 19</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/25/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/25/low.webp" onerror="this.remove()" alt="Dark Gyarados 25, Team Rocket" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/25/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/25/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Gyarados</div>
         <div class="rr">Team Rocket &bull; 25</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/8/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/8/low.webp" onerror="this.remove()" alt="Dark Gyarados 8, Team Rocket" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/8/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/8/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Gyarados</div>
         <div class="rr">Team Rocket &bull; 8</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/36/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/36/low.webp" onerror="this.remove()" alt="Dark Gyarados 36, Team Rocket Returns" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/36/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/36/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Gyarados</div>
         <div class="rr">Team Rocket Returns &bull; 36</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/30/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/30/low.webp" onerror="this.remove()" alt="Gyarados 30, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/30/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/30/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Team Up &bull; 30</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/045/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/045/low.webp" onerror="this.remove()" alt="Gyarados 045, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/045/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/045/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 045</div>
         <div class="rr">Three Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/215/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/215/low.webp" onerror="this.remove()" alt="Gyarados 215, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/215/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/215/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 215</div>
         <div class="rr">One Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/234/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/234/low.webp" onerror="this.remove()" alt="Gyarados ex 234, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/234/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/234/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados ex</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 234</div>
         <div class="rr">Two Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY106/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY106/low.webp" onerror="this.remove()" alt="Gyarados EX XY106, XY Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY106/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY106/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados EX</div>
         <div class="rr">XY Black Star Promos &bull; XY106</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY109/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY109/low.webp" onerror="this.remove()" alt="Gyarados XY109, XY Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY109/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY109/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">XY Black Star Promos &bull; XY109</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY60/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY60/low.webp" onerror="this.remove()" alt="Gyarados XY60, XY Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY60/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY60/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">XY Black Star Promos &bull; XY60</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/028/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/028/low.webp" onerror="this.remove()" alt="Gyarados 028, タッグボルト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9/028/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9/028/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">タッグボルト &bull; 028</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6a/016/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6a/016/low.webp" onerror="this.remove()" alt="Gyarados 016, ドラゴンストーム" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6a/016/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6a/016/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">ドラゴンストーム &bull; 016</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1a/023/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1a/023/low.webp" onerror="this.remove()" alt="Gyarados 023, トリプレットビート" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1a/023/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1a/023/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">トリプレットビート &bull; 023</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/130/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/130/low.webp" onerror="this.remove()" alt="Gyarados 130, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/130/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/130/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">ポケモンカード151 &bull; 130</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM3N/009/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM3N/009/low.webp" onerror="this.remove()" alt="Gyarados 009, 光を喰らう闇" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM3N/009/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM3N/009/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">光を喰らう闇 &bull; 009</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9a/026/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9a/026/low.webp" onerror="this.remove()" alt="Gyarados 026, 熱風のアリーナ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9a/026/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9a/026/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">熱風のアリーナ &bull; 026</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4A/008/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4A/008/low.webp" onerror="this.remove()" alt="Gyarados 008, 超次元の暴獣" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4A/008/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4A/008/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">超次元の暴獣 &bull; 008</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4A/051/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4A/051/low.webp" onerror="this.remove()" alt="Gyarados 051, 超次元の暴獣" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4A/051/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4A/051/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gyarados</div>
         <div class="rr">超次元の暴獣 &bull; 051</div>
         <div class="rr">Ultra Rare</div>

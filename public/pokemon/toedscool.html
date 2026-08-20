@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/toedscool.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv01/201/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="201" data-price="$5.81"
         data-set="Scarlet &amp; Violet"
         aria-label="Enlarge Toedscool, Scarlet &amp; Violet 201">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/201/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/201/low.webp" onerror="this.remove()" alt="Toedscool 201, Scarlet &amp; Violet" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/201/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/201/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Toedscool</div>
         <div class="rr">Scarlet &amp; Violet &bull; 201</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="105" data-price="$2.77"
         data-set="Paldean Fates"
         aria-label="Enlarge Toedscool, Paldean Fates 105">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/105/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/105/low.webp" onerror="this.remove()" alt="Toedscool 105, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/105/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/105/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Toedscool</div>
         <div class="rr">Paldean Fates &bull; 105</div>
         <div class="rr">Shiny Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="088" data-price="$0.66"
         data-set="Journey Together"
         aria-label="Enlarge Toedscool, Journey Together 088">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/088/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/088/low.webp" onerror="this.remove()" alt="Toedscool 088, Journey Together" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/088/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/088/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Toedscool</div>
         <div class="rr">Journey Together &bull; 088</div>
         <div class="rr">Common</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="015" data-price="$0.42"
         data-set="Paradox Rift"
         aria-label="Enlarge Toedscool, Paradox Rift 015">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/015/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/015/low.webp" onerror="this.remove()" alt="Toedscool 015, Paradox Rift" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/015/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/015/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Toedscool</div>
         <div class="rr">Paradox Rift &bull; 015</div>
         <div class="rr">Common</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="017" data-price="$0.40"
         data-set="Stellar Crown"
         aria-label="Enlarge Toedscool, Stellar Crown 017">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv07/017/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv07/017/low.webp" onerror="this.remove()" alt="Toedscool 017, Stellar Crown" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv07/017/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv07/017/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Toedscool</div>
         <div class="rr">Stellar Crown &bull; 017</div>
         <div class="rr">Common</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="024" data-price="$0.25"
         data-set="Scarlet &amp; Violet"
         aria-label="Enlarge Toedscool, Scarlet &amp; Violet 024">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/024/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/024/low.webp" onerror="this.remove()" alt="Toedscool 024, Scarlet &amp; Violet" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/024/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/024/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Toedscool</div>
         <div class="rr">Scarlet &amp; Violet &bull; 024</div>
         <div class="rr">Common</div>
@@ -328,7 +345,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="109" data-price="$0.19"
         data-set="Destined Rivals"
         aria-label="Enlarge Arven's Toedscool, Destined Rivals 109">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/109/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/109/low.webp" onerror="this.remove()" alt="Arven's Toedscool 109, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/109/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/109/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Arven's Toedscool</div>
         <div class="rr">Destined Rivals &bull; 109</div>
         <div class="rr">Common</div>
@@ -340,7 +357,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="118" data-price="$0.19"
         data-set="Obsidian Flames"
         aria-label="Enlarge Toedscool, Obsidian Flames 118">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/118/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/118/low.webp" onerror="this.remove()" alt="Toedscool 118, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/118/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/118/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Toedscool</div>
         <div class="rr">Obsidian Flames &bull; 118</div>
         <div class="rr">Common</div>
@@ -352,7 +369,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="016" data-price="$0.16"
         data-set="Paradox Rift"
         aria-label="Enlarge Toedscool, Paradox Rift 016">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/016/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/016/low.webp" onerror="this.remove()" alt="Toedscool 016, Paradox Rift" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/016/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04/016/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Toedscool</div>
         <div class="rr">Paradox Rift &bull; 016</div>
         <div class="rr">Common</div>
@@ -364,7 +381,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="025" data-price="$0.15"
         data-set="Scarlet &amp; Violet"
         aria-label="Enlarge Toedscool, Scarlet &amp; Violet 025">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/025/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/025/low.webp" onerror="this.remove()" alt="Toedscool 025, Scarlet &amp; Violet" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/025/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/025/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Toedscool</div>
         <div class="rr">Scarlet &amp; Violet &bull; 025</div>
         <div class="rr">Common</div>
@@ -376,7 +393,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="004" data-price="$0.13"
         data-set="Paldean Fates"
         aria-label="Enlarge Toedscool, Paldean Fates 004">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/004/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/004/low.webp" onerror="this.remove()" alt="Toedscool 004, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/004/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/004/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Toedscool</div>
         <div class="rr">Paldean Fates &bull; 004</div>
         <div class="rr">Common</div>
@@ -420,56 +437,56 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1V/009/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1V/009/low.webp" onerror="this.remove()" alt="Toedscool 009, バイオレットex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1V/009/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1V/009/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Toedscool</div>
         <div class="rr">バイオレットex &bull; 009</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1V/010/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1V/010/low.webp" onerror="this.remove()" alt="Toedscool 010, バイオレットex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1V/010/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1V/010/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Toedscool</div>
         <div class="rr">バイオレットex &bull; 010</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1V/080/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1V/080/low.webp" onerror="this.remove()" alt="Toedscool 080, バイオレットex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1V/080/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1V/080/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Toedscool</div>
         <div class="rr">バイオレットex &bull; 080</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/018/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/018/low.webp" onerror="this.remove()" alt="Toedscool 018, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/018/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/018/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Toedscool</div>
         <div class="rr">レイジングサーフ &bull; 018</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/206/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/206/low.webp" onerror="this.remove()" alt="Toedscool 206, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/206/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/206/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Toedscool</div>
         <div class="rr">レイジングサーフ &bull; 206</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4M/006/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4M/006/low.webp" onerror="this.remove()" alt="Toedscool 006, 未来の一閃" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4M/006/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4M/006/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Toedscool</div>
         <div class="rr">未来の一閃 &bull; 006</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4M/007/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4M/007/low.webp" onerror="this.remove()" alt="Toedscool 007, 未来の一閃" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4M/007/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4M/007/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Toedscool</div>
         <div class="rr">未来の一閃 &bull; 007</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9a/047/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9a/047/low.webp" onerror="this.remove()" alt="Toedscool 047, 熱風のアリーナ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9a/047/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9a/047/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Toedscool</div>
         <div class="rr">熱風のアリーナ &bull; 047</div>
         <div class="rr">Common</div>

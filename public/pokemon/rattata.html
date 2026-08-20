@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/rattata.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/swsh/swsh10.5/041/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="041" data-price="$0.75"
         data-set="Pokémon GO"
         aria-label="Enlarge Alolan Rattata, Pokémon GO 041">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/041/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/041/low.webp" onerror="this.remove()" alt="Alolan Rattata 041, Pokémon GO" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/041/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/041/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Alolan Rattata</div>
         <div class="rr">Pokémon GO &bull; 041</div>
         <div class="rr">Common</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="060" data-price="$0.58"
         data-set="Perfect Order"
         aria-label="Enlarge Rattata, Perfect Order 060">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/060/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/060/low.webp" onerror="this.remove()" alt="Rattata 060, Perfect Order" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/060/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/060/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">Perfect Order &bull; 060</div>
         <div class="rr">Common</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="019" data-price="$0.40"
         data-set="151"
         aria-label="Enlarge Rattata, 151 019">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/019/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/019/low.webp" onerror="this.remove()" alt="Rattata 019, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/019/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/019/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">151 &bull; 019</div>
         <div class="rr">Common</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="147" data-price="$0.40"
         data-set="Destined Rivals"
         aria-label="Enlarge Team Rocket's Rattata, Destined Rivals 147">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/147/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/147/low.webp" onerror="this.remove()" alt="Team Rocket's Rattata 147, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/147/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/147/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Rattata</div>
         <div class="rr">Destined Rivals &bull; 147</div>
         <div class="rr">Common</div>
@@ -336,217 +353,217 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl4/73/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl4/73/low.webp" onerror="this.remove()" alt="Rattata 73, Arceus" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl4/73/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl4/73/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">Arceus &bull; 73</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/61/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/61/low.webp" onerror="this.remove()" alt="Rattata 61, Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/61/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/61/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">Base Set &bull; 61</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/89/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/89/low.webp" onerror="this.remove()" alt="Rattata 89, Base Set 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/89/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/89/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">Base Set 2 &bull; 89</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/104/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/104/low.webp" onerror="this.remove()" alt="Rattata 104, Boundaries Crossed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/104/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/104/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">Boundaries Crossed &bull; 104</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/87/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/87/low.webp" onerror="this.remove()" alt="Rattata 87, BREAKpoint" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/87/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/87/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">BREAKpoint &bull; 87</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/81/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/81/low.webp" onerror="this.remove()" alt="Alolan Rattata 81, Burning Shadows" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/81/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/81/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Rattata</div>
         <div class="rr">Burning Shadows &bull; 81</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/106/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/106/low.webp" onerror="this.remove()" alt="Alolan Rattata 106, Celestial Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/106/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/106/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Rattata</div>
         <div class="rr">Celestial Guardians &bull; 106</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/84/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/84/low.webp" onerror="this.remove()" alt="Alolan Rattata 84, Celestial Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/84/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/84/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Rattata</div>
         <div class="rr">Celestial Storm &bull; 84</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/66/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/66/low.webp" onerror="this.remove()" alt="Rattata 66, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/66/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/66/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">Evolutions &bull; 66</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/128/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/128/low.webp" onerror="this.remove()" alt="Rattata 128, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/128/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/128/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">Expedition Base Set &bull; 128</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/77/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/77/low.webp" onerror="this.remove()" alt="Rattata 77, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/77/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/77/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 77</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/189/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/189/low.webp" onerror="this.remove()" alt="Rattata 189, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/189/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/189/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">Genetic Apex &bull; 189</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/85/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/85/low.webp" onerror="this.remove()" alt="Lt. Surge's Rattata 85, Gym Challenge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/85/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/85/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lt. Surge's Rattata</div>
         <div class="rr">Gym Challenge &bull; 85</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/82/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/82/low.webp" onerror="this.remove()" alt="Lt. Surge's Rattata 82, Gym Heroes" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/82/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/82/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Lt. Surge's Rattata</div>
         <div class="rr">Gym Heroes &bull; 82</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/89/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/89/low.webp" onerror="this.remove()" alt="Rattata 89, Legendary Collection" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/89/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/89/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">Legendary Collection &bull; 89</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/87/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/87/low.webp" onerror="this.remove()" alt="Rattata 87, Plasma Freeze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/87/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/87/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">Plasma Freeze &bull; 87</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/ru1/15/low.avif"><img src="https://assets.tcgdex.net/en/pl/ru1/15/low.webp" onerror="this.remove()" alt="Rattata 15, Pokémon Rumble" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/ru1/15/low.avif"><img src="https://assets.tcgdex.net/en/pl/ru1/15/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">Pokémon Rumble &bull; 15</div>
         
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/103/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/103/low.webp" onerror="this.remove()" alt="Rattata 103, Secret Wonders" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/103/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/103/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">Secret Wonders &bull; 103</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/058/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/058/low.webp" onerror="this.remove()" alt="Rattata 058, Shining Revelry" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2b/058/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2b/058/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">Shining Revelry &bull; 058</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/90/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/90/low.webp" onerror="this.remove()" alt="Rattata 90, Skyridge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/90/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/90/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">Skyridge &bull; 90</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm1/76/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm1/76/low.webp" onerror="this.remove()" alt="Alolan Rattata 76, Sun &amp; Moon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm1/76/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm1/76/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Alolan Rattata</div>
         <div class="rr">Sun &amp; Moon &bull; 76</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/66/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/66/low.webp" onerror="this.remove()" alt="Rattata 66, Team Rocket" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/66/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/66/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">Team Rocket &bull; 66</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/71/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/71/low.webp" onerror="this.remove()" alt="Rattata 71, Team Rocket Returns" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/71/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/71/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">Team Rocket Returns &bull; 71</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/72/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/72/low.webp" onerror="this.remove()" alt="Rattata 72, Team Rocket Returns" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/72/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/72/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">Team Rocket Returns &bull; 72</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/143/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/143/low.webp" onerror="this.remove()" alt="Rattata 143, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/143/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/143/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">Unbroken Bonds &bull; 143</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/64/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/64/low.webp" onerror="this.remove()" alt="Rattata 64, Undaunted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/64/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/64/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">Undaunted &bull; 64</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM1M/035/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM1M/035/low.webp" onerror="this.remove()" alt="Rattata 035, コレクションムーン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM1M/035/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM1M/035/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">コレクションムーン &bull; 035</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9a/039/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9a/039/low.webp" onerror="this.remove()" alt="Rattata 039, ナイトユニゾン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9a/039/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9a/039/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">ナイトユニゾン &bull; 039</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/019/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/019/low.webp" onerror="this.remove()" alt="Rattata 019, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/019/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/019/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">ポケモンカード151 &bull; 019</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/076/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/076/low.webp" onerror="this.remove()" alt="Rattata 076, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/076/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/076/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">ロケット団の栄光 &bull; 076</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM3N/034/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM3N/034/low.webp" onerror="this.remove()" alt="Rattata 034, 光を喰らう闇" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM3N/034/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM3N/034/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rattata</div>
         <div class="rr">光を喰らう闇 &bull; 034</div>
         <div class="rr">Common</div>

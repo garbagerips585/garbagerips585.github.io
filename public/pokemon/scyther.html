@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/scyther.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv04.5/095/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="095" data-price="$11.28"
         data-set="Paldean Fates"
         aria-label="Enlarge Scyther, Paldean Fates 095">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/095/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/095/low.webp" onerror="this.remove()" alt="Scyther 095, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/095/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/095/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Paldean Fates &bull; 095</div>
         <div class="rr">Shiny Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="123" data-price="$2.16"
         data-set="151"
         aria-label="Enlarge Scyther, 151 123">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/123/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/123/low.webp" onerror="this.remove()" alt="Scyther 123, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/123/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/123/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">151 &bull; 123</div>
         <div class="rr">Uncommon</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="006" data-price="$1.08"
         data-set="Crown Zenith"
         aria-label="Enlarge Scyther, Crown Zenith 006">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/006/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/006/low.webp" onerror="this.remove()" alt="Scyther 006, Crown Zenith" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/006/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/006/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Crown Zenith &bull; 006</div>
         <div class="rr">Common</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="004" data-price="$0.61"
         data-set="Obsidian Flames"
         aria-label="Enlarge Scyther, Obsidian Flames 004">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/004/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/004/low.webp" onerror="this.remove()" alt="Scyther 004, Obsidian Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/004/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/004/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Obsidian Flames &bull; 004</div>
         <div class="rr">Common</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="4" data-price="$0.50"
         data-set="Rebel Clash"
         aria-label="Enlarge Scyther, Rebel Clash 4">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/4/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/4/low.webp" onerror="this.remove()" alt="Scyther 4, Rebel Clash" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/4/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/4/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Rebel Clash &bull; 4</div>
         <div class="rr">Common</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="001" data-price="$0.40"
         data-set="Temporal Forces"
         aria-label="Enlarge Scyther, Temporal Forces 001">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/001/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/001/low.webp" onerror="this.remove()" alt="Scyther 001, Temporal Forces" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/001/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/001/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Temporal Forces &bull; 001</div>
         <div class="rr">Common</div>
@@ -360,273 +377,273 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/106/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/106/low.webp" onerror="this.remove()" alt="Scyther 106, Aquapolis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/106/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/106/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Aquapolis &bull; 106</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/57/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/57/low.webp" onerror="this.remove()" alt="Scyther 57, Aquapolis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/57/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/57/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Aquapolis &bull; 57</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/004/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/004/low.webp" onerror="this.remove()" alt="Scyther 004, Astral Radiance" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/004/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/004/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Astral Radiance &bull; 004</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/005/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/005/low.webp" onerror="this.remove()" alt="Scyther 005, Astral Radiance" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/005/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/005/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Astral Radiance &bull; 005</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/17/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/17/low.webp" onerror="this.remove()" alt="Scyther 17, Base Set 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/17/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/17/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Base Set 2 &bull; 17</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/7/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/7/low.webp" onerror="this.remove()" alt="Scyther 7, Boundaries Crossed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/7/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/7/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Boundaries Crossed &bull; 7</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/4/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/4/low.webp" onerror="this.remove()" alt="Scyther 4, Celestial Storm" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/4/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/4/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Celestial Storm &bull; 4</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw5/4/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw5/4/low.webp" onerror="this.remove()" alt="Scyther 4, Dark Explorers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw5/4/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw5/4/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Dark Explorers &bull; 4</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/29/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/29/low.webp" onerror="this.remove()" alt="Scyther 29, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/29/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/29/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 29</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/025/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/025/low.webp" onerror="this.remove()" alt="Scyther 025, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/025/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/025/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Genetic Apex &bull; 025</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/161/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/161/low.webp" onerror="this.remove()" alt="Scyther 161, GXウルトラシャイニー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/161/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/161/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">GXウルトラシャイニー &bull; 161</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/13/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/13/low.webp" onerror="this.remove()" alt="Rocket's Scyther 13, Gym Heroes" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/13/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/13/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rocket's Scyther</div>
         <div class="rr">Gym Heroes &bull; 13</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm115/5/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm115/5/low.webp" onerror="this.remove()" alt="Scyther 5, Hidden Fates" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm115/5/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm115/5/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Hidden Fates &bull; 5</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sma/SV1/low.avif"><img src="https://assets.tcgdex.net/en/sm/sma/SV1/low.webp" onerror="this.remove()" alt="Scyther SV1, Hidden Fates Shiny Vault" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sma/SV1/low.avif"><img src="https://assets.tcgdex.net/en/sm/sma/SV1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Hidden Fates Shiny Vault &bull; SV1</div>
         <div class="rr">Shiny Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/10/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/10/low.webp" onerror="this.remove()" alt="Scyther 10, Jungle" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/10/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/10/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Jungle &bull; 10</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/26/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/26/low.webp" onerror="this.remove()" alt="Scyther 26, Jungle" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base2/26/low.avif"><img src="https://assets.tcgdex.net/en/base/base2/26/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Jungle &bull; 26</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/3/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/3/low.webp" onerror="this.remove()" alt="Scyther 3, Lost Thunder" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/3/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/3/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Lost Thunder &bull; 3</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp5/46/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp5/46/low.webp" onerror="this.remove()" alt="Scyther 46, Majestic Dawn" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp5/46/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp5/46/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Majestic Dawn &bull; 46</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/55/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/55/low.webp" onerror="this.remove()" alt="Scyther 55, Neo Destiny" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/55/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/55/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Neo Destiny &bull; 55</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo2/46/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo2/46/low.webp" onerror="this.remove()" alt="Scyther 46, Neo Discovery" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo2/46/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo2/46/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Neo Discovery &bull; 46</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/130/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/130/low.webp" onerror="this.remove()" alt="Scyther 130, Platinum" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/130/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/130/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Platinum &bull; 130</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/102/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/102/low.webp" onerror="this.remove()" alt="Scyther ex 102, Ruby &amp; Sapphire" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/102/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/102/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther ex</div>
         <div class="rr">Ruby &amp; Sapphire &bull; 102</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp7/49/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp7/49/low.webp" onerror="this.remove()" alt="Scyther 49, Stormfront" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp7/49/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp7/49/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Stormfront &bull; 49</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/102/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/102/low.webp" onerror="this.remove()" alt="Rocket's Scyther ex 102, Team Rocket Returns" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/102/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/102/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rocket's Scyther ex</div>
         <div class="rr">Team Rocket Returns &bull; 102</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/36/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/36/low.webp" onerror="this.remove()" alt="Scyther 36, Undaunted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/36/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/36/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Undaunted &bull; 36</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/65/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/65/low.webp" onerror="this.remove()" alt="Scyther 65, Undaunted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/65/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/65/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Undaunted &bull; 65</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/46/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/46/low.webp" onerror="this.remove()" alt="Scyther 46, Unseen Forces" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/46/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/46/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Unseen Forces &bull; 46</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/006/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/006/low.webp" onerror="this.remove()" alt="Scyther 006, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/006/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/006/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 006</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/basep/45/low.avif"><img src="https://assets.tcgdex.net/en/base/basep/45/low.webp" onerror="this.remove()" alt="Scyther 45, Wizards Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/basep/45/low.avif"><img src="https://assets.tcgdex.net/en/base/basep/45/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">Wizards Black Star Promos &bull; 45</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5M/001/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5M/001/low.webp" onerror="this.remove()" alt="Scyther 001, サイバージャッジ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5M/001/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5M/001/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">サイバージャッジ &bull; 001</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6b/004/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6b/004/low.webp" onerror="this.remove()" alt="Scyther 004, チャンピオンロード" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6b/004/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6b/004/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">チャンピオンロード &bull; 004</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9a/004/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9a/004/low.webp" onerror="this.remove()" alt="Scyther 004, バトルリージョン" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9a/004/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9a/004/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">バトルリージョン &bull; 004</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/123/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/123/low.webp" onerror="this.remove()" alt="Scyther 123, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/123/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/123/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">ポケモンカード151 &bull; 123</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/004/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/004/low.webp" onerror="this.remove()" alt="Scyther 004, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/004/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/004/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">レイジングサーフ &bull; 004</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/194/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/194/low.webp" onerror="this.remove()" alt="Scyther 194, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/194/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/194/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">レイジングサーフ &bull; 194</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11a/001/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11a/001/low.webp" onerror="this.remove()" alt="Scyther 001, 白熱のアルカナ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S11a/001/low.avif"><img src="https://assets.tcgdex.net/ja/S/S11a/001/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">白熱のアルカナ &bull; 001</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SLL/001/low.avif"><img src="https://assets.tcgdex.net/ja/S/SLL/001/low.webp" onerror="this.remove()" alt="Scyther 001, 起始組合VSTAR 路卡利歐" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/SLL/001/low.avif"><img src="https://assets.tcgdex.net/ja/S/SLL/001/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">起始組合VSTAR 路卡利歐 &bull; 001</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8/001/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8/001/low.webp" onerror="this.remove()" alt="Scyther 001, 超爆インパクト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8/001/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8/001/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">超爆インパクト &bull; 001</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/004/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/004/low.webp" onerror="this.remove()" alt="Scyther 004, 黒炎の支配者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3/004/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3/004/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Scyther</div>
         <div class="rr">黒炎の支配者 &bull; 004</div>
         <div class="rr">Common</div>

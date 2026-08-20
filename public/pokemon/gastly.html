@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/gastly.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv05/177/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="177" data-price="$92.67"
         data-set="Temporal Forces"
         aria-label="Enlarge Gastly, Temporal Forces 177">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/177/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/177/low.webp" onerror="this.remove()" alt="Gastly 177, Temporal Forces" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/177/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/177/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Temporal Forces &bull; 177</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="048" data-price="$1.59"
         data-set="Perfect Order"
         aria-label="Enlarge Gastly, Perfect Order 048">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/048/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/048/low.webp" onerror="this.remove()" alt="Gastly 048, Perfect Order" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/048/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/048/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Perfect Order &bull; 048</div>
         <div class="rr">Common</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="054" data-price="$1.00"
         data-set="Phantasmal Flames"
         aria-label="Enlarge Gastly, Phantasmal Flames 054">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/054/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/054/low.webp" onerror="this.remove()" alt="Gastly 054, Phantasmal Flames" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/054/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/054/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Phantasmal Flames &bull; 054</div>
         <div class="rr">Common</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="092" data-price="$1.00"
         data-set="151"
         aria-label="Enlarge Gastly, 151 092">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/092/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/092/low.webp" onerror="this.remove()" alt="Gastly 092, 151" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/092/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/092/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">151 &bull; 092</div>
         <div class="rr">Common</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="055" data-price="$0.82"
         data-set="Paldean Fates"
         aria-label="Enlarge Gastly, Paldean Fates 055">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/055/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/055/low.webp" onerror="this.remove()" alt="Gastly 055, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/055/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/055/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Paldean Fates &bull; 055</div>
         <div class="rr">Common</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="55" data-price="$0.75"
         data-set="Chilling Reign"
         aria-label="Enlarge Gastly, Chilling Reign 55">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/55/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/55/low.webp" onerror="this.remove()" alt="Gastly 55, Chilling Reign" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/55/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/55/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Chilling Reign &bull; 55</div>
         <div class="rr">Common</div>
@@ -328,7 +345,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="102" data-price="$0.40"
         data-set="Temporal Forces"
         aria-label="Enlarge Gastly, Temporal Forces 102">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/102/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/102/low.webp" onerror="this.remove()" alt="Gastly 102, Temporal Forces" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/102/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/102/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Temporal Forces &bull; 102</div>
         <div class="rr">Common</div>
@@ -340,7 +357,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="123" data-price="$0.36"
         data-set="Ascended Heroes"
         aria-label="Enlarge Gastly, Ascended Heroes 123">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/123/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/123/low.webp" onerror="this.remove()" alt="Gastly 123, Ascended Heroes" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/123/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/123/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Ascended Heroes &bull; 123</div>
         <div class="rr">Common</div>
@@ -378,273 +395,273 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl4/36/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl4/36/low.webp" onerror="this.remove()" alt="Gastly 36, Arceus" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl4/36/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl4/36/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Arceus &bull; 36</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl4/64/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl4/64/low.webp" onerror="this.remove()" alt="Gastly 64, Arceus" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl4/64/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl4/64/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Arceus &bull; 64</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/50/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/50/low.webp" onerror="this.remove()" alt="Gastly 50, Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/50/low.avif"><img src="https://assets.tcgdex.net/en/base/base1/50/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Base Set &bull; 50</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/75/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/75/low.webp" onerror="this.remove()" alt="Gastly 75, Base Set 2" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base4/75/low.avif"><img src="https://assets.tcgdex.net/en/base/base4/75/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Base Set 2 &bull; 75</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy8/58/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy8/58/low.webp" onerror="this.remove()" alt="Gastly 58, BREAKthrough" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy8/58/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy8/58/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">BREAKthrough &bull; 58</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/220/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/220/low.webp" onerror="this.remove()" alt="Gastly 220, Celestial Guardians" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A3/220/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A3/220/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Celestial Guardians &bull; 220</div>
         <div class="rr">One Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/36/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/36/low.webp" onerror="this.remove()" alt="Gastly 36, Crimson Invasion" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm4/36/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm4/36/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Crimson Invasion &bull; 36</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp1/82/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp1/82/low.webp" onerror="this.remove()" alt="Gastly 82, Diamond &amp; Pearl" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp1/82/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp1/82/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Diamond &amp; Pearl &bull; 82</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/47/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/47/low.webp" onerror="this.remove()" alt="Gastly 47, Evolutions" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/47/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/47/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Evolutions &bull; 47</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/109/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/109/low.webp" onerror="this.remove()" alt="Gastly 109, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/109/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/109/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Expedition Base Set &bull; 109</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/63/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/63/low.webp" onerror="this.remove()" alt="Gastly 63, FireRed &amp; LeafGreen" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/63/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/63/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 63</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base3/33/low.avif"><img src="https://assets.tcgdex.net/en/base/base3/33/low.webp" onerror="this.remove()" alt="Gastly 33, Fossil" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base3/33/low.avif"><img src="https://assets.tcgdex.net/en/base/base3/33/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Fossil &bull; 33</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/33/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/33/low.webp" onerror="this.remove()" alt="Gastly 33, Generations" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/g1/33/low.avif"><img src="https://assets.tcgdex.net/en/xy/g1/33/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Generations &bull; 33</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/120/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/120/low.webp" onerror="this.remove()" alt="Gastly 120, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/120/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/120/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Genetic Apex &bull; 120</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/96/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/96/low.webp" onerror="this.remove()" alt="Sabrina's Gastly 96, Gym Challenge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/96/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/96/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sabrina's Gastly</div>
         <div class="rr">Gym Challenge &bull; 96</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/97/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/97/low.webp" onerror="this.remove()" alt="Sabrina's Gastly 97, Gym Challenge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym2/97/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym2/97/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sabrina's Gastly</div>
         <div class="rr">Gym Challenge &bull; 97</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/93/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/93/low.webp" onerror="this.remove()" alt="Sabrina's Gastly 93, Gym Heroes" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/93/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/93/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sabrina's Gastly</div>
         <div class="rr">Gym Heroes &bull; 93</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex12/52/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex12/52/low.webp" onerror="this.remove()" alt="Gastly 52, Legend Maker" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex12/52/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex12/52/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Legend Maker &bull; 52</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/76/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/76/low.webp" onerror="this.remove()" alt="Gastly 76, Legendary Collection" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/76/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/76/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Legendary Collection &bull; 76</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/064/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/064/low.webp" onerror="this.remove()" alt="Gastly 064, Lost Origin" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh11/064/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh11/064/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Lost Origin &bull; 064</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/65/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/65/low.webp" onerror="this.remove()" alt="Gastly 65, Neo Destiny" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/65/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/65/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Neo Destiny &bull; 65</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/57/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/57/low.webp" onerror="this.remove()" alt="Gastly 57, Skyridge" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/57/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/57/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Skyridge &bull; 57</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp7/62/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp7/62/low.webp" onerror="this.remove()" alt="Gastly 62, Stormfront" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp7/62/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp7/62/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Stormfront &bull; 62</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/83/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/83/low.webp" onerror="this.remove()" alt="Gastly 83, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/83/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/83/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Sword &amp; Shield &bull; 83</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss4/63/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss4/63/low.webp" onerror="this.remove()" alt="Gastly 63, Triumphant" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss4/63/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss4/63/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Triumphant &bull; 63</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2a/031/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2a/031/low.webp" onerror="this.remove()" alt="Gastly 031, Triumphant Light" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2a/031/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2a/031/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Triumphant Light &bull; 031</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/67/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/67/low.webp" onerror="this.remove()" alt="Gastly 67, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/67/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/67/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Unbroken Bonds &bull; 67</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/68/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/68/low.webp" onerror="this.remove()" alt="Gastly 68, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/68/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/68/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">Unbroken Bonds &bull; 68</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/046/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/046/low.webp" onerror="this.remove()" alt="Gastly 046, VSTARユニバース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S12a/046/low.avif"><img src="https://assets.tcgdex.net/ja/S/S12a/046/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">VSTARユニバース &bull; 046</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY132/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY132/low.webp" onerror="this.remove()" alt="Gastly XY132, XY Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xyp/XY132/low.avif"><img src="https://assets.tcgdex.net/en/xy/xyp/XY132/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">XY Black Star Promos &bull; XY132</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10a/021/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10a/021/low.webp" onerror="this.remove()" alt="Gastly 021, ダークファンタズマ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10a/021/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10a/021/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">ダークファンタズマ &bull; 021</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/030/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/030/low.webp" onerror="this.remove()" alt="Gastly 030, ダブルブレイズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/030/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/030/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">ダブルブレイズ &bull; 030</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/031/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/031/low.webp" onerror="this.remove()" alt="Gastly 031, ダブルブレイズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/031/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/031/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">ダブルブレイズ &bull; 031</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/092/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/092/low.webp" onerror="this.remove()" alt="Gastly 092, ポケモンカード151" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/092/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/092/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">ポケモンカード151 &bull; 092</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3a/033/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3a/033/low.webp" onerror="this.remove()" alt="Gastly 033, レイジングサーフ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV3a/033/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV3a/033/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">レイジングサーフ &bull; 033</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5K/045/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5K/045/low.webp" onerror="this.remove()" alt="Gastly 045, ワイルドフォース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5K/045/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5K/045/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">ワイルドフォース &bull; 045</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5K/080/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5K/080/low.webp" onerror="this.remove()" alt="Gastly 080, ワイルドフォース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5K/080/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5K/080/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">ワイルドフォース &bull; 080</div>
         <div class="rr">Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6K/025/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6K/025/low.webp" onerror="this.remove()" alt="Gastly 025, 漆黒のガイスト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6K/025/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6K/025/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">漆黒のガイスト &bull; 025</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4S/020/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4S/020/low.webp" onerror="this.remove()" alt="Gastly 020, 覚醒の勇者" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM4S/020/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM4S/020/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
         <div class="rr">覚醒の勇者 &bull; 020</div>
         <div class="rr">Common</div>

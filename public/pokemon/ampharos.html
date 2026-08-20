@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/ampharos.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me04/090/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="090" data-price="$7.92"
         data-set="Chaos Rising"
         aria-label="Enlarge Ampharos, Chaos Rising 090">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/090/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/090/low.webp" onerror="this.remove()" alt="Ampharos 090, Chaos Rising" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/090/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/090/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">Chaos Rising &bull; 090</div>
         <div class="rr">Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="029" data-price="$1.54"
         data-set="Chaos Rising"
         aria-label="Enlarge Ampharos, Chaos Rising 029">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/029/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/029/low.webp" onerror="this.remove()" alt="Ampharos 029, Chaos Rising" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/029/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/029/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">Chaos Rising &bull; 029</div>
         <div class="rr">Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="074" data-price="$1.08"
         data-set="Destined Rivals"
         aria-label="Enlarge Team Rocket's Ampharos, Destined Rivals 074">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/074/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/074/low.webp" onerror="this.remove()" alt="Team Rocket's Ampharos 074, Destined Rivals" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/074/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/074/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Ampharos</div>
         <div class="rr">Destined Rivals &bull; 074</div>
         <div class="rr">Uncommon</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="49" data-price="$0.38"
         data-set="Chilling Reign"
         aria-label="Enlarge Ampharos, Chilling Reign 49">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/49/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/49/low.webp" onerror="this.remove()" alt="Ampharos 49, Chilling Reign" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/49/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/49/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">Chilling Reign &bull; 49</div>
         <div class="rr">Rare</div>
@@ -330,294 +347,294 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/27/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/27/low.webp" onerror="this.remove()" alt="Ampharos EX 27, Ancient Origins" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/27/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/27/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos EX</div>
         <div class="rr">Ancient Origins &bull; 27</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/28/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/28/low.webp" onerror="this.remove()" alt="M Ampharos EX 28, Ancient Origins" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/28/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/28/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">M Ampharos EX</div>
         <div class="rr">Ancient Origins &bull; 28</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/87/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/87/low.webp" onerror="this.remove()" alt="Ampharos EX 87, Ancient Origins" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/87/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/87/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos EX</div>
         <div class="rr">Ancient Origins &bull; 87</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/88/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/88/low.webp" onerror="this.remove()" alt="M Ampharos EX 88, Ancient Origins" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/88/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/88/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">M Ampharos EX</div>
         <div class="rr">Ancient Origins &bull; 88</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/1/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/1/low.webp" onerror="this.remove()" alt="Ampharos 1, Aquapolis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/1/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">Aquapolis &bull; 1</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW67/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW67/low.webp" onerror="this.remove()" alt="Ampharos BW67, BW Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bwp/BW67/low.avif"><img src="https://assets.tcgdex.net/en/bw/bwp/BW67/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">BW Black Star Promos &bull; BW67</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/23/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/23/low.webp" onerror="this.remove()" alt="Ampharos 23, Call of Legends" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/23/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/23/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">Call of Legends &bull; 23</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/57/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/57/low.webp" onerror="this.remove()" alt="Ampharos 57, Darkness Ablaze" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/57/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/57/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">Darkness Ablaze &bull; 57</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/89/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/89/low.webp" onerror="this.remove()" alt="Ampharos ex 89, Dragon" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex3/89/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex3/89/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos ex</div>
         <div class="rr">Dragon &bull; 89</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/1/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/1/low.webp" onerror="this.remove()" alt="Ampharos δ 1, Dragon Frontiers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex15/1/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex15/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos δ</div>
         <div class="rr">Dragon Frontiers &bull; 1</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/40/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/40/low.webp" onerror="this.remove()" alt="Ampharos 40, Dragons Exalted" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw6/40/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw6/40/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">Dragons Exalted &bull; 40</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/56/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/56/low.webp" onerror="this.remove()" alt="Ampharos 56, Evolving Skies" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/56/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/56/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">Evolving Skies &bull; 56</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/2/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/2/low.webp" onerror="this.remove()" alt="Ampharos 2, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/2/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/2/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">Expedition Base Set &bull; 2</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/34/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/34/low.webp" onerror="this.remove()" alt="Ampharos 34, Expedition Base Set" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard1/34/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard1/34/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">Expedition Base Set &bull; 34</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/105/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/105/low.webp" onerror="this.remove()" alt="Ampharos 105, HeartGold SoulSilver" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/105/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/105/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">HeartGold SoulSilver &bull; 105</div>
         <div class="rr">Rare PRIME</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/14/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/14/low.webp" onerror="this.remove()" alt="Ampharos 14, HeartGold SoulSilver" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/14/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/14/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">HeartGold SoulSilver &bull; 14</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/78/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/78/low.webp" onerror="this.remove()" alt="Ampharos 78, Lost Thunder" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm8/78/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm8/78/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">Lost Thunder &bull; 78</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/1/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/1/low.webp" onerror="this.remove()" alt="Dark Ampharos 1, Neo Destiny" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/1/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Ampharos</div>
         <div class="rr">Neo Destiny &bull; 1</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo1/1/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo1/1/low.webp" onerror="this.remove()" alt="Ampharos 1, Neo Genesis" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo1/1/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo1/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">Neo Genesis &bull; 1</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo3/1/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo3/1/low.webp" onerror="this.remove()" alt="Ampharos 1, Neo Revelation" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo3/1/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo3/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">Neo Revelation &bull; 1</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/1/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/1/low.webp" onerror="this.remove()" alt="Ampharos 1, Platinum" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pl/pl1/1/low.avif"><img src="https://assets.tcgdex.net/en/pl/pl1/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">Platinum &bull; 1</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop7/1/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop7/1/low.webp" onerror="this.remove()" alt="Ampharos 1, POP Series 7" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/pop/pop7/1/low.avif"><img src="https://assets.tcgdex.net/en/pop/pop7/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">POP Series 7 &bull; 1</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/1/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/1/low.webp" onerror="this.remove()" alt="Ampharos 1, Secret Wonders" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp3/1/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp3/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">Secret Wonders &bull; 1</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy11/40/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy11/40/low.webp" onerror="this.remove()" alt="Ampharos 40, Steam Siege" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy11/40/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy11/40/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">Steam Siege &bull; 40</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/016/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/016/low.webp" onerror="this.remove()" alt="Ampharos ex 016, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/016/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/016/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos ex</div>
         <div class="rr">SVP Black Star Promos &bull; 016</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/109/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/109/low.webp" onerror="this.remove()" alt="Ampharos 109, SVP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/svp/109/low.avif"><img src="https://assets.tcgdex.net/en/sv/svp/109/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">SVP Black Star Promos &bull; 109</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/2/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/2/low.webp" onerror="this.remove()" alt="Dark Ampharos 2, Team Rocket Returns" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/2/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/2/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Ampharos</div>
         <div class="rr">Team Rocket Returns &bull; 2</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/163/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/163/low.webp" onerror="this.remove()" alt="Ampharos GX 163, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/163/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/163/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos GX</div>
         <div class="rr">Team Up &bull; 163</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/185/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/185/low.webp" onerror="this.remove()" alt="Ampharos GX 185, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/185/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/185/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos GX</div>
         <div class="rr">Team Up &bull; 185</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/43/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/43/low.webp" onerror="this.remove()" alt="Ampharos GX 43, Team Up" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm9/43/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm9/43/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos GX</div>
         <div class="rr">Team Up &bull; 43</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/1/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/1/low.webp" onerror="this.remove()" alt="Ampharos 1, Unseen Forces" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/1/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/1/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">Unseen Forces &bull; 1</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/171/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/171/low.webp" onerror="this.remove()" alt="Ampharos V 171, Vivid Voltage" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/171/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/171/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos V</div>
         <div class="rr">Vivid Voltage &bull; 171</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/49/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/49/low.webp" onerror="this.remove()" alt="Ampharos V 49, Vivid Voltage" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/49/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/49/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos V</div>
         <div class="rr">Vivid Voltage &bull; 49</div>
         <div class="rr">Holo Rare V</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/069/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/069/low.webp" onerror="this.remove()" alt="Ampharos 069, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/069/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/069/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 069</div>
         <div class="rr">Three Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/172/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/172/low.webp" onerror="this.remove()" alt="Ampharos 172, Wisdom of Sea and Sky" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/172/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/172/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 172</div>
         <div class="rr">One Star</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8a/006/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8a/006/low.webp" onerror="this.remove()" alt="Ampharos 006, ダークオーダー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8a/006/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8a/006/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">ダークオーダー &bull; 006</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8a/053/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8a/053/low.webp" onerror="this.remove()" alt="Ampharos 053, ダークオーダー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8a/053/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8a/053/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">ダークオーダー &bull; 053</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/029/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/029/low.webp" onerror="this.remove()" alt="Ampharos 029, ニンジャスピナー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/029/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/029/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">ニンジャスピナー &bull; 029</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/088/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/088/low.webp" onerror="this.remove()" alt="Ampharos 088, ニンジャスピナー" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/088/low.avif"><img src="https://assets.tcgdex.net/ja/M/M4/088/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">ニンジャスピナー &bull; 088</div>
         <div class="rr">Illustration Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/036/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/036/low.webp" onerror="this.remove()" alt="Ampharos 036, ロケット団の栄光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/036/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/036/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">ロケット団の栄光 &bull; 036</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6K/020/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6K/020/low.webp" onerror="this.remove()" alt="Ampharos 020, 漆黒のガイスト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6K/020/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6K/020/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">漆黒のガイスト &bull; 020</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8/036/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8/036/low.webp" onerror="this.remove()" alt="Ampharos 036, 超爆インパクト" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8/036/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8/036/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ampharos</div>
         <div class="rr">超爆インパクト &bull; 036</div>
         <div class="rr">Rare</div>

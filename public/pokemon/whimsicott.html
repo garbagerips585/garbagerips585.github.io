@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/whimsicott.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-pokemon.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e2a22237">
+<link rel="stylesheet" href="/assets/ui.css?v=27537093">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -248,7 +250,22 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
          Worse, aria-label REPLACES the visible text rather than adding to it,
          so the set and number the button already shows in .rr were thrown away
          for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name). Same strings as the <img alt> right below. -->
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv10.5w/165/high.webp"
@@ -256,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="165" data-price="$26.79"
         data-set="White Flare"
         aria-label="Enlarge Whimsicott ex, White Flare 165">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/165/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/165/low.webp" onerror="this.remove()" alt="Whimsicott ex 165, White Flare" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/165/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/165/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Whimsicott ex</div>
         <div class="rr">White Flare &bull; 165</div>
         <div class="rr">Special Illustration Rare</div>
@@ -268,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="157" data-price="$1.89"
         data-set="White Flare"
         aria-label="Enlarge Whimsicott ex, White Flare 157">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/157/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/157/low.webp" onerror="this.remove()" alt="Whimsicott ex 157, White Flare" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/157/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/157/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Whimsicott ex</div>
         <div class="rr">White Flare &bull; 157</div>
         <div class="rr">Ultra Rare</div>
@@ -280,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="005" data-price="$1.17"
         data-set="White Flare"
         aria-label="Enlarge Whimsicott ex, White Flare 005">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/005/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/005/low.webp" onerror="this.remove()" alt="Whimsicott ex 005, White Flare" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/005/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/005/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Whimsicott ex</div>
         <div class="rr">White Flare &bull; 005</div>
         <div class="rr">Double Rare</div>
@@ -292,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="035" data-price="$0.25"
         data-set="Paldean Fates"
         aria-label="Enlarge Whimsicott, Paldean Fates 035">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/035/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/035/low.webp" onerror="this.remove()" alt="Whimsicott 035, Paldean Fates" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/035/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/035/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">Paldean Fates &bull; 035</div>
         <div class="rr">Uncommon</div>
@@ -304,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="015" data-price="$0.22"
         data-set="Temporal Forces"
         aria-label="Enlarge Whimsicott, Temporal Forces 015">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/015/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/015/low.webp" onerror="this.remove()" alt="Whimsicott 015, Temporal Forces" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/015/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv05/015/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">Temporal Forces &bull; 015</div>
         <div class="rr">Rare</div>
@@ -316,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="008" data-price="$0.16"
         data-set="Prismatic Evolutions"
         aria-label="Enlarge Whimsicott, Prismatic Evolutions 008">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/008/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/008/low.webp" onerror="this.remove()" alt="Whimsicott 008, Prismatic Evolutions" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/008/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/008/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">Prismatic Evolutions &bull; 008</div>
         <div class="rr">Rare</div>
@@ -360,175 +377,175 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/56/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/56/low.webp" onerror="this.remove()" alt="Whimsicott 56, Ancient Origins" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy7/56/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy7/56/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">Ancient Origins &bull; 56</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/15/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/15/low.webp" onerror="this.remove()" alt="Whimsicott 15, Boundaries Crossed" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw7/15/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw7/15/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">Boundaries Crossed &bull; 15</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/064/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/064/low.webp" onerror="this.remove()" alt="Whimsicott V 064, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/064/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/064/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott V</div>
         <div class="rr">Brilliant Stars &bull; 064</div>
         <div class="rr">Holo Rare V</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/065/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/065/low.webp" onerror="this.remove()" alt="Whimsicott VSTAR 065, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/065/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/065/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott VSTAR</div>
         <div class="rr">Brilliant Stars &bull; 065</div>
         <div class="rr">Holo Rare VSTAR</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/160/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/160/low.webp" onerror="this.remove()" alt="Whimsicott V 160, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/160/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/160/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott V</div>
         <div class="rr">Brilliant Stars &bull; 160</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/175/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/175/low.webp" onerror="this.remove()" alt="Whimsicott VSTAR 175, Brilliant Stars" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/175/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/175/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott VSTAR</div>
         <div class="rr">Brilliant Stars &bull; 175</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/148/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/148/low.webp" onerror="this.remove()" alt="Whimsicott 148, Cosmic Eclipse" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/148/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/148/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">Cosmic Eclipse &bull; 148</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw2/11/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw2/11/low.webp" onerror="this.remove()" alt="Whimsicott 11, Emerging Powers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw2/11/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw2/11/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">Emerging Powers &bull; 11</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw2/12/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw2/12/low.webp" onerror="this.remove()" alt="Whimsicott 12, Emerging Powers" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw2/12/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw2/12/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">Emerging Powers &bull; 12</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/71/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/71/low.webp" onerror="this.remove()" alt="Whimsicott 71, Fates Collide" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy10/71/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy10/71/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">Fates Collide &bull; 71</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/028/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/028/low.webp" onerror="this.remove()" alt="Whimsicott 028, Genetic Apex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/028/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/028/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">Genetic Apex &bull; 028</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/91/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/91/low.webp" onerror="this.remove()" alt="Whimsicott 91, Guardians Rising" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/91/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/91/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">Guardians Rising &bull; 91</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/mep/019/low.avif"><img src="https://assets.tcgdex.net/en/me/mep/019/low.webp" onerror="this.remove()" alt="Whimsicott 019, MEP Black Star Promos" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/mep/019/low.avif"><img src="https://assets.tcgdex.net/en/me/mep/019/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">MEP Black Star Promos &bull; 019</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/6/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/6/low.webp" onerror="this.remove()" alt="Whimsicott 6, Sword &amp; Shield" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh1/6/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh1/6/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">Sword &amp; Shield &bull; 6</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12a/098/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12a/098/low.webp" onerror="this.remove()" alt="Whimsicott 098, TAG TEAM GX タッグオールスターズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12a/098/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12a/098/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">TAG TEAM GX タッグオールスターズ &bull; 098</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/140/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/140/low.webp" onerror="this.remove()" alt="Whimsicott GX 140, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/140/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/140/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott GX</div>
         <div class="rr">Unbroken Bonds &bull; 140</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/206/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/206/low.webp" onerror="this.remove()" alt="Whimsicott GX 206, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/206/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/206/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott GX</div>
         <div class="rr">Unbroken Bonds &bull; 206</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/226/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/226/low.webp" onerror="this.remove()" alt="Whimsicott GX 226, Unbroken Bonds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/226/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/226/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott GX</div>
         <div class="rr">Unbroken Bonds &bull; 226</div>
         <div class="rr">Secret Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm11/144/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm11/144/low.webp" onerror="this.remove()" alt="Whimsicott 144, Unified Minds" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm11/144/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm11/144/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">Unified Minds &bull; 144</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/76/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/76/low.webp" onerror="this.remove()" alt="Whimsicott 76, Vivid Voltage" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4/76/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh4/76/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">Vivid Voltage &bull; 76</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM2L/037/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM2L/037/low.webp" onerror="this.remove()" alt="Whimsicott 037, アローラの月光" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM2L/037/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM2L/037/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">アローラの月光 &bull; 037</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/066/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/066/low.webp" onerror="this.remove()" alt="Whimsicott 066, ダブルブレイズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/066/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/066/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">ダブルブレイズ &bull; 066</div>
         <div class="rr">Double Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/103/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/103/low.webp" onerror="this.remove()" alt="Whimsicott 103, ダブルブレイズ" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM10/103/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM10/103/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">ダブルブレイズ &bull; 103</div>
         <div class="rr">Ultra Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV8a/005/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV8a/005/low.webp" onerror="this.remove()" alt="Whimsicott 005, テラスタルフェスex" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV8a/005/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV8a/005/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">テラスタルフェスex &bull; 005</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5K/008/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5K/008/low.webp" onerror="this.remove()" alt="Whimsicott 008, ワイルドフォース" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV5K/008/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV5K/008/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Whimsicott</div>
         <div class="rr">ワイルドフォース &bull; 008</div>
         <div class="rr">Rare</div>
