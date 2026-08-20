@@ -191,6 +191,13 @@
 .wdr-what{font-size:var(--t-sm);line-height:1.35;color:var(--ink-2)}
 .wdr-exp{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2)}
 .wdrop-src{font-size:var(--t-micro);line-height:1.45;color:var(--ink-2);margin-top:var(--s3);max-width:52em}
+/* THE .wdr-ch TRAP ABOVE, FIRING AGAIN. ui.css's .price-note is Space Mono 400,
+   the one weight this page does not already load, so the two sourcing notes
+   fetched a second cut: +11,352 bytes and a request for 1.1KB of prose,
+   measured. Body font instead, which is what .wdrop-src right above uses for
+   the same job. The rest of the component is ui.css's and is untouched.
+   Scoped, because .price-note is not a home-page-only selector. */
+.mwband .price-note,.pokedex .price-note{font-family:var(--body)}
 @media(min-width:545px) and (max-width:899px){
 .vcar .hero{max-width:520px;margin:0 auto;padding:var(--s5)}
 .vcar .hero-art,
@@ -301,6 +308,13 @@
   letter-spacing:.03em;color:var(--chrome-dim)}
 /* --lilac is a TEAL now (it equals --sky). A rarity label is a mark, not a route. */
 .chof-rar{color:var(--plum)}
+/* WHAT THE PICTURE SHOWS. Prose in --body, not the mono the labels above use:
+   those are tags, this is a sentence. Full width on its own row, and the reason
+   that is a fold fix rather than a taste call is written beside plaque() in the
+   builder. This block ships to the browser; that one does not. */
+.chof{flex-wrap:wrap}
+.chof-body{order:1}
+.chof-look{order:2;flex-basis:100%;font:400 var(--t-sm)/1.5 var(--body);color:var(--chrome-dim)}
 .chof-prices{display:flex;gap:var(--s4);margin-top:var(--s3);padding-top:var(--s3);
   border-top:1px dashed rgba(255,255,255,.18)}
 /* opacity:.7 on #9FB0C0 measured 3.32:1 against the lightest card tint on this
@@ -513,6 +527,7 @@
           data-raw="$175"
           data-psa="$906"
           aria-label="Enlarge Mega Greninja ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/122/low.avif 245w, https://assets.tcgdex.net/en/me/me04/122/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me04/122/low.webp" srcset="https://assets.tcgdex.net/en/me/me04/122/low.webp 245w, https://assets.tcgdex.net/en/me/me04/122/high.webp 600w" sizes="120px" alt="Mega Greninja ex Mega Hyper Rare from Pokemon Chaos Rising" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Gold on gold, one tone of it over another, so the whole figure reads as silhouette and shadow instead of color.</p>
         <div class="chof-body">
           <b class="chof-name">Mega Greninja ex</b>
           <span class="chof-set">Chaos Rising &bull; #122</span>
@@ -534,7 +549,8 @@
           data-number="162" data-url="https://www.tcgplayer.com/product/623589"
           data-raw="$14.72"
           data-psa="$185"
-          aria-label="Enlarge Wailord"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/162/low.avif 245w, https://assets.tcgdex.net/en/sv/sv09/162/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/sv/sv09/162/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv09/162/low.webp 245w, https://assets.tcgdex.net/en/sv/sv09/162/high.webp 600w" sizes="120px" alt="Wailord Illustration Rare from Pokemon Journey Together" onerror="this.remove()" width="245" height="337"></picture></button>
+          aria-label="Enlarge Wailord"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/162/low.avif 245w, https://assets.tcgdex.net/en/sv/sv09/162/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/sv/sv09/162/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv09/162/low.webp 245w, https://assets.tcgdex.net/en/sv/sv09/162/high.webp 600w" sizes="120px" alt="Wailord Illustration Rare from Pokemon Journey Together" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Wailord hangs almost still over a reef of pink and orange coral, so big that the little boat on the sunset surface above him looks like a toy.</p>
         <div class="chof-body">
           <b class="chof-name">Wailord</b>
           <span class="chof-set">Journey Together &bull; #162</span>
@@ -557,6 +573,7 @@
           data-raw="$38.75"
           data-psa="$177"
           aria-label="Enlarge Mega Charizard X ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/mep/023/low.avif 245w, https://assets.tcgdex.net/en/me/mep/023/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/mep/023/low.webp" srcset="https://assets.tcgdex.net/en/me/mep/023/low.webp 245w, https://assets.tcgdex.net/en/me/mep/023/high.webp 600w" sizes="120px" alt="Mega Charizard X ex Black Star Promo from Pokemon MEP Black Star Promos" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Mega Charizard X rears up wrapped in blue flame while the katakana for Inferno X blasts across the top in red, over a comic book burst of pink and green.</p>
         <div class="chof-body">
           <b class="chof-name">Mega Charizard X ex</b>
           <span class="chof-set">MEP Black Star Promos &bull; #023</span>
@@ -579,6 +596,7 @@
           data-raw="$5.99"
           data-psa="$103"
           aria-label="Enlarge Noibat"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/169/low.avif 245w, https://assets.tcgdex.net/en/sv/sv09/169/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/sv/sv09/169/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv09/169/low.webp 245w, https://assets.tcgdex.net/en/sv/sv09/169/high.webp 600w" sizes="120px" alt="Noibat Illustration Rare from Pokemon Journey Together" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Noibat perches on a ledge in a glowing crystal cave, holding a piece of pink fruit, with pale blue water running below.</p>
         <div class="chof-body">
           <b class="chof-name">Noibat</b>
           <span class="chof-set">Journey Together &bull; #169</span>
@@ -601,6 +619,7 @@
           data-raw="$12.03"
           data-psa="$99.78"
           aria-label="Enlarge Oricorio ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/mep/024/low.avif 245w, https://assets.tcgdex.net/en/me/mep/024/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/mep/024/low.webp" srcset="https://assets.tcgdex.net/en/me/mep/024/low.webp 245w, https://assets.tcgdex.net/en/me/mep/024/high.webp 600w" sizes="120px" alt="Oricorio ex Black Star Promo from Pokemon MEP Black Star Promos" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Oricorio sweeps its red plumage into a ring of fire, with dark tropical flowers and leaves packed in tight behind it.</p>
         <div class="chof-body">
           <b class="chof-name">Oricorio ex</b>
           <span class="chof-set">MEP Black Star Promos &bull; #024</span>
@@ -623,6 +642,7 @@
           data-raw="$14.57"
           data-psa="$91.00"
           aria-label="Enlarge Marshadow"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/146/low.avif 245w, https://assets.tcgdex.net/en/me/me01/146/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me01/146/low.webp" srcset="https://assets.tcgdex.net/en/me/me01/146/low.webp 245w, https://assets.tcgdex.net/en/me/me01/146/high.webp 600w" sizes="120px" alt="Marshadow Illustration Rare from Pokemon Mega Evolution" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Marshadow stands in the forest shade with its eyes lit red, while a Pikachu big enough to fill the bottom of the card sits right in front of it.</p>
         <div class="chof-body">
           <b class="chof-name">Marshadow</b>
           <span class="chof-set">Mega Evolution &bull; #146</span>
@@ -645,6 +665,7 @@
           data-raw="$2.23"
           data-psa="$75.45"
           aria-label="Enlarge Brock's Scouting"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/179/low.avif 245w, https://assets.tcgdex.net/en/sv/sv09/179/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/sv/sv09/179/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv09/179/low.webp 245w, https://assets.tcgdex.net/en/sv/sv09/179/high.webp 600w" sizes="120px" alt="Brock's Scouting Ultra Rare from Pokemon Journey Together" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Brock plants both hands on his hips and grins with his eyes shut, white fence and green trees behind him under a big blue sky.</p>
         <div class="chof-body">
           <b class="chof-name">Brock's Scouting</b>
           <span class="chof-set">Journey Together &bull; #179</span>
@@ -667,6 +688,7 @@
           data-raw="$7.17"
           data-psa="$53.55"
           aria-label="Enlarge Stufful"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/154/low.avif 245w, https://assets.tcgdex.net/en/me/me01/154/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me01/154/low.webp" srcset="https://assets.tcgdex.net/en/me/me01/154/low.webp 245w, https://assets.tcgdex.net/en/me/me01/154/high.webp 600w" sizes="120px" alt="Stufful Illustration Rare from Pokemon Mega Evolution" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Stufful sits in the middle of a living room it has just wrecked, stuffing and toy blocks still hanging in the sunlight.</p>
         <div class="chof-body">
           <b class="chof-name">Stufful</b>
           <span class="chof-set">Mega Evolution &bull; #154</span>
@@ -689,6 +711,7 @@
           data-raw="$1.99"
           data-psa="$46.50"
           aria-label="Enlarge Blaziken ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/024/low.avif 245w, https://assets.tcgdex.net/en/sv/sv09/024/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/sv/sv09/024/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv09/024/low.webp 245w, https://assets.tcgdex.net/en/sv/sv09/024/high.webp 600w" sizes="120px" alt="Blaziken ex Double Rare from Pokemon Journey Together" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Blaziken lands a strike with a blast going off beside it, rock and fire thrown out across a dusty canyon.</p>
         <div class="chof-body">
           <b class="chof-name">Blaziken ex</b>
           <span class="chof-set">Journey Together &bull; #024</span>
@@ -711,6 +734,7 @@
           data-raw="$2.09"
           data-psa="$31.90"
           aria-label="Enlarge Cyrano"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/230/low.avif 245w, https://assets.tcgdex.net/en/sv/sv08/230/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/sv/sv08/230/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv08/230/low.webp 245w, https://assets.tcgdex.net/en/sv/sv08/230/high.webp 600w" sizes="120px" alt="Cyrano Ultra Rare from Pokemon Surging Sparks" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Cyrano tips the brim of his white fedora and smirks sideways at you, cream suit, red bow tie, green eyes.</p>
         <div class="chof-body">
           <b class="chof-name">Cyrano</b>
           <span class="chof-set">Surging Sparks &bull; #230</span>
@@ -733,6 +757,7 @@
           data-raw="$1.27"
           data-psa="$25.00"
           aria-label="Enlarge Scramble Switch"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/186/low.avif 245w, https://assets.tcgdex.net/en/sv/sv08/186/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/sv/sv08/186/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv08/186/low.webp 245w, https://assets.tcgdex.net/en/sv/sv08/186/high.webp 600w" sizes="120px" alt="Scramble Switch ACE SPEC Rare from Pokemon Surging Sparks" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">No Pokemon at all: just the gadget, a yellow case flipped open with a blue dial and two red arrows chasing each other, floating on hot pink light.</p>
         <div class="chof-body">
           <b class="chof-name">Scramble Switch</b>
           <span class="chof-set">Surging Sparks &bull; #186</span>
@@ -755,6 +780,7 @@
           data-raw="$9.82"
           data-psa=""
           aria-label="Enlarge Feebas"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/198/low.avif 245w, https://assets.tcgdex.net/en/sv/sv08/198/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/sv/sv08/198/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv08/198/low.webp 245w, https://assets.tcgdex.net/en/sv/sv08/198/high.webp 600w" sizes="120px" alt="Feebas Illustration Rare from Pokemon Surging Sparks" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Feebas hangs in green pond water among tall weed stems, lit by whatever daylight makes it down that far.</p>
         <div class="chof-body">
           <b class="chof-name">Feebas</b>
           <span class="chof-set">Surging Sparks &bull; #198</span>
@@ -777,6 +803,7 @@
           data-raw="$8.50"
           data-psa=""
           aria-label="Enlarge Scorbunny"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/225/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/225/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me02.5/225/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/225/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/225/high.webp 600w" sizes="120px" alt="Scorbunny Illustration Rare from Pokemon Ascended Heroes" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Scorbunny throws itself backward into a heap of fall leaves, laughing, with leaves still flying up around it.</p>
         <div class="chof-body">
           <b class="chof-name">Scorbunny</b>
           <span class="chof-set">Ascended Heroes &bull; #225</span>
@@ -799,6 +826,7 @@
           data-raw="$7.92"
           data-psa=""
           aria-label="Enlarge Ampharos"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/090/low.avif 245w, https://assets.tcgdex.net/en/me/me04/090/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me04/090/low.webp" srcset="https://assets.tcgdex.net/en/me/me04/090/low.webp 245w, https://assets.tcgdex.net/en/me/me04/090/high.webp 600w" sizes="120px" alt="Ampharos Illustration Rare from Pokemon Chaos Rising" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Ampharos stands in a flowering meadow at dusk with its tail bulb lit red and a whole flock grazing in the field behind it.</p>
         <div class="chof-body">
           <b class="chof-name">Ampharos</b>
           <span class="chof-set">Chaos Rising &bull; #090</span>
@@ -821,6 +849,7 @@
           data-raw="$6.27"
           data-psa=""
           aria-label="Enlarge Dawn"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/118/low.avif 245w, https://assets.tcgdex.net/en/me/me02/118/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me02/118/low.webp" srcset="https://assets.tcgdex.net/en/me/me02/118/low.webp 245w, https://assets.tcgdex.net/en/me/me02/118/high.webp 600w" sizes="120px" alt="Dawn Ultra Rare from Pokemon Phantasmal Flames" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Dawn strides forward with her fist up and a grin, yellow bag swinging, pink blossom drifting past on a bright spring day.</p>
         <div class="chof-body">
           <b class="chof-name">Dawn</b>
           <span class="chof-set">Phantasmal Flames &bull; #118</span>
@@ -843,6 +872,7 @@
           data-raw="$5.99"
           data-psa=""
           aria-label="Enlarge Chespin"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/087/low.avif 245w, https://assets.tcgdex.net/en/me/me04/087/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me04/087/low.webp" srcset="https://assets.tcgdex.net/en/me/me04/087/low.webp 245w, https://assets.tcgdex.net/en/me/me04/087/high.webp 600w" sizes="120px" alt="Chespin Illustration Rare from Pokemon Chaos Rising" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Chespin stands on a mossy fallen trunk holding a stick like a sword, sunbeams coming down through the trees behind it.</p>
         <div class="chof-body">
           <b class="chof-name">Chespin</b>
           <span class="chof-set">Chaos Rising &bull; #087</span>
@@ -865,6 +895,7 @@
           data-raw="$5.45"
           data-psa=""
           aria-label="Enlarge Mega Gardevoir ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/159/low.avif 245w, https://assets.tcgdex.net/en/me/me01/159/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me01/159/low.webp" srcset="https://assets.tcgdex.net/en/me/me01/159/low.webp 245w, https://assets.tcgdex.net/en/me/me01/159/high.webp 600w" sizes="120px" alt="Mega Gardevoir ex Ultra Rare from Pokemon Mega Evolution" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Mega Gardevoir lifts one arm as ribbons of magenta and yellow whip around her gown, with a second Gardevoir sketched behind her in pink outline.</p>
         <div class="chof-body">
           <b class="chof-name">Mega Gardevoir ex</b>
           <span class="chof-set">Mega Evolution &bull; #159</span>
@@ -887,6 +918,7 @@
           data-raw="$4.99"
           data-psa=""
           aria-label="Enlarge Mega Skarmory ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/106/low.avif 245w, https://assets.tcgdex.net/en/me/me03/106/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me03/106/low.webp" srcset="https://assets.tcgdex.net/en/me/me03/106/low.webp 245w, https://assets.tcgdex.net/en/me/me03/106/high.webp 600w" sizes="120px" alt="Mega Skarmory ex Ultra Rare from Pokemon Perfect Order" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Mega Skarmory spreads gold and blue steel wings over an orange and purple starburst, its own head outlined twice more in the background.</p>
         <div class="chof-body">
           <b class="chof-name">Mega Skarmory ex</b>
           <span class="chof-set">Perfect Order &bull; #106</span>
@@ -909,6 +941,7 @@
           data-raw="$4.97"
           data-psa=""
           aria-label="Enlarge Spearow"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/151/low.avif 245w, https://assets.tcgdex.net/en/me/me01/151/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me01/151/low.webp" srcset="https://assets.tcgdex.net/en/me/me01/151/low.webp 245w, https://assets.tcgdex.net/en/me/me01/151/high.webp 600w" sizes="120px" alt="Spearow Illustration Rare from Pokemon Mega Evolution" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">A whole flock of Spearow mills around in the scrub, the nearest ones so close they run right off the edge of the card.</p>
         <div class="chof-body">
           <b class="chof-name">Spearow</b>
           <span class="chof-set">Mega Evolution &bull; #151</span>
@@ -931,6 +964,7 @@
           data-raw="$4.90"
           data-psa=""
           aria-label="Enlarge Toucannon"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/094/low.avif 245w, https://assets.tcgdex.net/en/me/me05/094/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me05/094/low.webp" srcset="https://assets.tcgdex.net/en/me/me05/094/low.webp 245w, https://assets.tcgdex.net/en/me/me05/094/high.webp 600w" sizes="120px" alt="Toucannon Illustration Rare from Pokemon Pitch Black" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Toucannon banks through a bright jungle beak first, wings out, the whole place drawn as flat cutout shapes in pale green and blue.</p>
         <div class="chof-body">
           <b class="chof-name">Toucannon</b>
           <span class="chof-set">Pitch Black &bull; #094</span>
@@ -953,6 +987,7 @@
           data-raw="$4.00"
           data-psa=""
           aria-label="Enlarge Rampardos ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/100/low.avif 245w, https://assets.tcgdex.net/en/me/me05/100/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me05/100/low.webp" srcset="https://assets.tcgdex.net/en/me/me05/100/low.webp 245w, https://assets.tcgdex.net/en/me/me05/100/high.webp 600w" sizes="120px" alt="Rampardos ex Ultra Rare from Pokemon Pitch Black" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Rampardos throws both arms up and grins straight ahead, framed by an orange sunburst that fills the whole card.</p>
         <div class="chof-body">
           <b class="chof-name">Rampardos ex</b>
           <span class="chof-set">Pitch Black &bull; #100</span>
@@ -975,6 +1010,7 @@
           data-raw="$3.55"
           data-psa=""
           aria-label="Enlarge Rotom"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/197/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/197/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/sv/sv10/197/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/197/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/197/high.webp 600w" sizes="120px" alt="Rotom Illustration Rare from Pokemon Destined Rivals" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Rotom hovers grinning over a workbench buried in gadgets, tools and tangled wire, spoiled for choice.</p>
         <div class="chof-body">
           <b class="chof-name">Rotom</b>
           <span class="chof-set">Destined Rivals &bull; #197</span>
@@ -997,6 +1033,7 @@
           data-raw="$3.29"
           data-psa=""
           aria-label="Enlarge Thievul"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/092/low.avif 245w, https://assets.tcgdex.net/en/me/me05/092/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me05/092/low.webp" srcset="https://assets.tcgdex.net/en/me/me05/092/low.webp 245w, https://assets.tcgdex.net/en/me/me05/092/high.webp 600w" sizes="120px" alt="Thievul Illustration Rare from Pokemon Pitch Black" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Thievul leaps from roof to roof on a teal night with something orange in its mouth and the town's rooftops falling away below.</p>
         <div class="chof-body">
           <b class="chof-name">Thievul</b>
           <span class="chof-set">Pitch Black &bull; #092</span>
@@ -1019,6 +1056,7 @@
           data-raw="$3.23"
           data-psa=""
           aria-label="Enlarge Bastiodon"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/093/low.avif 245w, https://assets.tcgdex.net/en/me/me05/093/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me05/093/low.webp" srcset="https://assets.tcgdex.net/en/me/me05/093/low.webp 245w, https://assets.tcgdex.net/en/me/me05/093/high.webp 600w" sizes="120px" alt="Bastiodon Illustration Rare from Pokemon Pitch Black" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Bastiodon plants itself face on in a red rock canyon, its shield of a head looking like one more slab of the cliff behind it.</p>
         <div class="chof-body">
           <b class="chof-name">Bastiodon</b>
           <span class="chof-set">Pitch Black &bull; #093</span>
@@ -1041,6 +1079,7 @@
           data-raw="$2.63"
           data-psa=""
           aria-label="Enlarge Mega Gengar ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/056/low.avif 245w, https://assets.tcgdex.net/en/me/me02/056/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me02/056/low.webp" srcset="https://assets.tcgdex.net/en/me/me02/056/low.webp 245w, https://assets.tcgdex.net/en/me/me02/056/high.webp 600w" sizes="120px" alt="Mega Gengar ex Double Rare from Pokemon Phantasmal Flames" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Mega Gengar hangs upside down and grins right at you, one eye yellow and one red, over slashes of green and red.</p>
         <div class="chof-body">
           <b class="chof-name">Mega Gengar ex</b>
           <span class="chof-set">Phantasmal Flames &bull; #056</span>
@@ -1063,6 +1102,7 @@
           data-raw="$1.96"
           data-psa=""
           aria-label="Enlarge Mega Scrafty ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/135/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/135/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me02.5/135/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/135/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/135/high.webp 600w" sizes="120px" alt="Mega Scrafty ex Double Rare from Pokemon Ascended Heroes" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Mega Scrafty fills the whole frame with one furious eye and its white hood thrown back, red slashes cutting across everything.</p>
         <div class="chof-body">
           <b class="chof-name">Mega Scrafty ex</b>
           <span class="chof-set">Ascended Heroes &bull; #135</span>
@@ -1085,6 +1125,7 @@
           data-raw="$1.87"
           data-psa=""
           aria-label="Enlarge Mismagius ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/036/low.avif 245w, https://assets.tcgdex.net/en/me/me02/036/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me02/036/low.webp" srcset="https://assets.tcgdex.net/en/me/me02/036/low.webp 245w, https://assets.tcgdex.net/en/me/me02/036/high.webp 600w" sizes="120px" alt="Mismagius ex Double Rare from Pokemon Phantasmal Flames" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Mismagius drifts out of a cloud of pink sparks, its yellow eyes and the red beads at its neck the only solid things in the picture.</p>
         <div class="chof-body">
           <b class="chof-name">Mismagius ex</b>
           <span class="chof-set">Phantasmal Flames &bull; #036</span>
@@ -1107,6 +1148,7 @@
           data-raw="$1.71"
           data-psa=""
           aria-label="Enlarge Mega Excadrill ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/065/low.avif 245w, https://assets.tcgdex.net/en/me/me05/065/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me05/065/low.webp" srcset="https://assets.tcgdex.net/en/me/me05/065/low.webp 245w, https://assets.tcgdex.net/en/me/me05/065/high.webp 600w" sizes="120px" alt="Mega Excadrill ex Double Rare from Pokemon Pitch Black" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Mega Excadrill grits its teeth mid drill, sparks coming off the steel and broken rock tumbling out of the frame.</p>
         <div class="chof-body">
           <b class="chof-name">Mega Excadrill ex</b>
           <span class="chof-set">Pitch Black &bull; #065</span>
@@ -1129,6 +1171,7 @@
           data-raw="$1.68"
           data-psa=""
           aria-label="Enlarge Rampardos ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/045/low.avif 245w, https://assets.tcgdex.net/en/me/me05/045/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me05/045/low.webp" srcset="https://assets.tcgdex.net/en/me/me05/045/low.webp 245w, https://assets.tcgdex.net/en/me/me05/045/high.webp 600w" sizes="120px" alt="Rampardos ex Double Rare from Pokemon Pitch Black" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Rampardos leads with its blue dome of a head and the rock gives way, shards flying out past the edges.</p>
         <div class="chof-body">
           <b class="chof-name">Rampardos ex</b>
           <span class="chof-set">Pitch Black &bull; #045</span>
@@ -1151,6 +1194,7 @@
           data-raw="$1.65"
           data-psa=""
           aria-label="Enlarge Mega Starmie ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/021/low.avif 245w, https://assets.tcgdex.net/en/me/me03/021/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me03/021/low.webp" srcset="https://assets.tcgdex.net/en/me/me03/021/low.webp 245w, https://assets.tcgdex.net/en/me/me03/021/high.webp 600w" sizes="120px" alt="Mega Starmie ex Double Rare from Pokemon Perfect Order" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Mega Starmie turns its red core to the front with gold arms fanned around it, over splashes of hot pink and lime.</p>
         <div class="chof-body">
           <b class="chof-name">Mega Starmie ex</b>
           <span class="chof-set">Perfect Order &bull; #021</span>
@@ -1173,6 +1217,7 @@
           data-raw="$1.65"
           data-psa=""
           aria-label="Enlarge Mega Chandelure ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/038/low.avif 245w, https://assets.tcgdex.net/en/me/me05/038/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me05/038/low.webp" srcset="https://assets.tcgdex.net/en/me/me05/038/low.webp 245w, https://assets.tcgdex.net/en/me/me05/038/high.webp 600w" sizes="120px" alt="Mega Chandelure ex Double Rare from Pokemon Pitch Black" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Mega Chandelure hangs like an actual chandelier, black iron arms curling out from a pale glass orb with blue and pink flame on every one.</p>
         <div class="chof-body">
           <b class="chof-name">Mega Chandelure ex</b>
           <span class="chof-set">Pitch Black &bull; #038</span>
@@ -1195,6 +1240,7 @@
           data-raw="$1.52"
           data-psa=""
           aria-label="Enlarge Mega Floette ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/035/low.avif 245w, https://assets.tcgdex.net/en/me/me04/035/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me04/035/low.webp" srcset="https://assets.tcgdex.net/en/me/me04/035/low.webp 245w, https://assets.tcgdex.net/en/me/me04/035/high.webp 600w" sizes="120px" alt="Mega Floette ex Double Rare from Pokemon Chaos Rising" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Mega Floette stands calmly off to one side while the enormous dark flower beside it fires a beam of white light off the edge of the card.</p>
         <div class="chof-body">
           <b class="chof-name">Mega Floette ex</b>
           <span class="chof-set">Chaos Rising &bull; #035</span>
@@ -1217,6 +1263,7 @@
           data-raw="$1.50"
           data-psa=""
           aria-label="Enlarge Marnie's Grimmsnarl ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/136/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/136/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/sv/sv10/136/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/136/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/136/high.webp 600w" sizes="120px" alt="Marnie's Grimmsnarl ex Double Rare from Pokemon Destined Rivals" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Grimmsnarl grins and winds up a ball of pink light, with Marnie herself watching from a coin sized portrait in the corner.</p>
         <div class="chof-body">
           <b class="chof-name">Marnie's Grimmsnarl ex</b>
           <span class="chof-set">Destined Rivals &bull; #136</span>
@@ -1239,6 +1286,7 @@
           data-raw="$1.47"
           data-psa=""
           aria-label="Enlarge Cinccino ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/073/low.avif 245w, https://assets.tcgdex.net/en/me/me04/073/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me04/073/low.webp" srcset="https://assets.tcgdex.net/en/me/me04/073/low.webp 245w, https://assets.tcgdex.net/en/me/me04/073/high.webp 600w" sizes="120px" alt="Cinccino ex Double Rare from Pokemon Chaos Rising" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Cinccino curls in midair with its white scarf fur spiraling around it and points of light popping off the ends.</p>
         <div class="chof-body">
           <b class="chof-name">Cinccino ex</b>
           <span class="chof-set">Chaos Rising &bull; #073</span>
@@ -1261,6 +1309,7 @@
           data-raw="$1.40"
           data-psa=""
           aria-label="Enlarge Beedrill ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/003/low.avif 245w, https://assets.tcgdex.net/en/me/me04/003/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me04/003/low.webp" srcset="https://assets.tcgdex.net/en/me/me04/003/low.webp 245w, https://assets.tcgdex.net/en/me/me04/003/high.webp 600w" sizes="120px" alt="Beedrill ex Double Rare from Pokemon Chaos Rising" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Beedrill comes in stinger first with gold light streaking off its wings and grass torn up out of the field below.</p>
         <div class="chof-body">
           <b class="chof-name">Beedrill ex</b>
           <span class="chof-set">Chaos Rising &bull; #003</span>
@@ -1283,6 +1332,7 @@
           data-raw="$1.29"
           data-psa=""
           aria-label="Enlarge Mega Lopunny ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/084/low.avif 245w, https://assets.tcgdex.net/en/me/me02/084/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me02/084/low.webp" srcset="https://assets.tcgdex.net/en/me/me02/084/low.webp 245w, https://assets.tcgdex.net/en/me/me02/084/high.webp 600w" sizes="120px" alt="Mega Lopunny ex Double Rare from Pokemon Phantasmal Flames" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Mega Lopunny snaps out a kick with the rocks still in the air around it and pink and orange streaks cutting across the frame.</p>
         <div class="chof-body">
           <b class="chof-name">Mega Lopunny ex</b>
           <span class="chof-set">Phantasmal Flames &bull; #084</span>
@@ -1305,6 +1355,7 @@
           data-raw="$1.23"
           data-psa=""
           aria-label="Enlarge Mega Venusaur ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/003/low.avif 245w, https://assets.tcgdex.net/en/me/me01/003/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me01/003/low.webp" srcset="https://assets.tcgdex.net/en/me/me01/003/low.webp 245w, https://assets.tcgdex.net/en/me/me01/003/high.webp 600w" sizes="120px" alt="Mega Venusaur ex Double Rare from Pokemon Mega Evolution" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Mega Venusaur roars with its jaws wide open, the huge flower on its back leaning forward with it, yellow and blue ribbons flying past.</p>
         <div class="chof-body">
           <b class="chof-name">Mega Venusaur ex</b>
           <span class="chof-set">Mega Evolution &bull; #003</span>
@@ -1327,6 +1378,7 @@
           data-raw="$1.17"
           data-psa=""
           aria-label="Enlarge Cetitan ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/065/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/065/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/sv/sv10/065/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/065/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/065/high.webp 600w" sizes="120px" alt="Cetitan ex Double Rare from Pokemon Destined Rivals" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Cetitan bursts out of a blizzard mouth first, snow spray flying off its white hide in every direction.</p>
         <div class="chof-body">
           <b class="chof-name">Cetitan ex</b>
           <span class="chof-set">Destined Rivals &bull; #065</span>
@@ -1349,6 +1401,7 @@
           data-raw="$1.03"
           data-psa=""
           aria-label="Enlarge Volcanion ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/031/low.avif 245w, https://assets.tcgdex.net/en/sv/sv09/031/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/sv/sv09/031/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv09/031/low.webp 245w, https://assets.tcgdex.net/en/sv/sv09/031/high.webp 600w" sizes="120px" alt="Volcanion ex Double Rare from Pokemon Journey Together" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Volcanion braces as the two vents on its back blow white hot, ringed in loops of fire and orange steam.</p>
         <div class="chof-body">
           <b class="chof-name">Volcanion ex</b>
           <span class="chof-set">Journey Together &bull; #031</span>
@@ -1371,6 +1424,7 @@
           data-raw="$1.00"
           data-psa=""
           aria-label="Enlarge Stunfisk ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/252/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/252/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me02.5/252/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/252/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/252/high.webp 600w" sizes="120px" alt="Stunfisk ex Ultra Rare from Pokemon Ascended Heroes" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Stunfisk lies there flat, face pointed straight at you, on a plain orange sunburst, and that is the whole picture.</p>
         <div class="chof-body">
           <b class="chof-name">Stunfisk ex</b>
           <span class="chof-set">Ascended Heroes &bull; #252</span>
@@ -1393,6 +1447,7 @@
           data-raw="$1.00"
           data-psa=""
           aria-label="Enlarge Rotom ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/029/low.avif 245w, https://assets.tcgdex.net/en/me/me02/029/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me02/029/low.webp" srcset="https://assets.tcgdex.net/en/me/me02/029/low.webp 245w, https://assets.tcgdex.net/en/me/me02/029/high.webp 600w" sizes="120px" alt="Rotom ex Double Rare from Pokemon Phantasmal Flames" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Rotom grins out of a burst of blue lightning that spikes off in every direction against a purple starfield.</p>
         <div class="chof-body">
           <b class="chof-name">Rotom ex</b>
           <span class="chof-set">Phantasmal Flames &bull; #029</span>
@@ -1415,6 +1470,7 @@
           data-raw="$0.94"
           data-psa=""
           aria-label="Enlarge Salazzle ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/016/low.avif 245w, https://assets.tcgdex.net/en/me/me03/016/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me03/016/low.webp" srcset="https://assets.tcgdex.net/en/me/me03/016/low.webp 245w, https://assets.tcgdex.net/en/me/me03/016/high.webp 600w" sizes="120px" alt="Salazzle ex Double Rare from Pokemon Perfect Order" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Salazzle rears back with pink fire curling off both claws over a cracked orange lava field.</p>
         <div class="chof-body">
           <b class="chof-name">Salazzle ex</b>
           <span class="chof-set">Perfect Order &bull; #016</span>
@@ -1437,6 +1493,7 @@
           data-raw="$0.86"
           data-psa=""
           aria-label="Enlarge Tsareena ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04/046/low.avif 245w, https://assets.tcgdex.net/en/sv/sv04/046/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/sv/sv04/046/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv04/046/low.webp 245w, https://assets.tcgdex.net/en/sv/sv04/046/high.webp 600w" sizes="120px" alt="Tsareena ex Double Rare from Pokemon Paradox Rift" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        <p class="chof-look">Tsareena swings a leg over in a shower of pink and green crystal, the whole kick cut like glass.</p>
         <div class="chof-body">
           <b class="chof-name">Tsareena ex</b>
           <span class="chof-set">Paradox Rift &bull; #046</span>

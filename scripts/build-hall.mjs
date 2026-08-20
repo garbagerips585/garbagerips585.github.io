@@ -29,7 +29,44 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 const MIN_SALES = 10; // same floor the set guides use
 
-let { cards: hall } = JSON.parse(await readFile(join(ROOT, "data/hall.json"), "utf8"));
+const hallDoc = JSON.parse(await readFile(join(ROOT, "data/hall.json"), "utf8"));
+let hall = hallDoc.cards;
+
+/* --------------------------------------------------------- what it looks like
+ *
+ * THE ONE THING THIS PAGE COULD NOT SAY. A plaque gives a name, a set, a
+ * number, a rarity and two prices, and every one of those is a LABEL. None of
+ * them is the picture, and the picture is the entire reason a channel about
+ * opening packs exists: these are illustration rares, so the art IS the value.
+ * A reader who has never seen the card, and a reader who cannot see it at all,
+ * both got the same nothing.
+ *
+ * VISIBLE COPY, NOT ALT TEXT, and that is deliberate. A caption under the
+ * identity line helps somebody browsing, somebody searching and somebody
+ * listening, all at once, and it cannot rot silently the way an alt attribute
+ * can because anybody looking at the page can see it is wrong.
+ *
+ * THE SENTENCES LIVE IN data/hall.json, keyed <set-id>-<number>, so they
+ * survive a rebuild and can be edited without touching this file. Each one was
+ * written by opening that card's own scan and looking at it. See the readme
+ * there before adding one.
+ *
+ * THE NAME IS CHECKED, AND THAT IS THE POINT. hall.json stores the card's name
+ * beside the sentence. A hall card is resolved out of data/hits.json, so its
+ * number can change under this map without anybody noticing, and a description
+ * silently moved onto the wrong card is worse than no description at all. When
+ * the names disagree the caption is dropped: absent beats wrong, which is the
+ * standing pattern on every other field here.
+ */
+const artNotes = hallDoc.art || {};
+const artNorm = (x) => String(x || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+function artLook(c) {
+  // A promo carries no set id (see the `!h.set` branch below), so it is keyed
+  // by the MEP Black Star Promos set the rip log resolves it against.
+  const rec = artNotes[`${c.set || "mep"}-${c.number}`];
+  if (!rec || artNorm(rec.name) !== artNorm(c.name)) return null;
+  return rec.look || null;
+}
 
 // FALL BACK TO WHAT WAS ACTUALLY PULLED.
 //
@@ -430,18 +467,51 @@ function plaqueArt(url) {
   return { src: low, extra: ` srcset="${esc(low)} 245w, ${esc(url)} 600w" sizes="120px"` };
 }
 
-// TWO PLAQUES ARE IN THE FIRST SCREEN AND THEY DO NOT GET loading="lazy".
+// ONE PLAQUE IS IN THE FIRST SCREEN AND IT DOES NOT GET loading="lazy".
 // Measured over CDP at 390x844 DPR 2, reading each img's own border box at
-// scroll 0: plaques one and two sit at y=557 and y=746, inside the 844px
-// viewport, and the third does not. `loading="lazy"` is a vertical heuristic, so
-// those two were fetched at first paint anyway; the attribute only cost them the
-// preload scanner, which is the one chance the fetch had to start during the
-// HTML parse rather than after layout. No byte moves onto the load path.
-const EAGER_PLAQUES = 2;
+// scroll 0: plaque one sits at y=557, inside the 844px viewport, and plaque two
+// does not. `loading="lazy"` is a vertical heuristic, so an in-viewport image is
+// fetched at first paint anyway; the attribute only costs it the preload
+// scanner, which is the one chance the fetch had to start during the HTML parse
+// rather than after layout. No byte moves onto the load path.
+//
+// THIS WAS 2 AND THE .chof-look CAPTION IS WHY IT IS NOT. Plaque two's image was
+// at y=746 before every plaque grew a sentence saying what its card looks like;
+// re-measured the same way afterwards it is at 857, genuinely below the fold, so
+// eager on it would have been a preload of an image nobody has scrolled to. The
+// number is measured, never assumed: re-measure it if the plaque changes shape
+// again. y=557 for plaque one is unchanged, because the caption sits UNDER the
+// row rather than above it.
+const EAGER_PLAQUES = 1;
+/*
+ * .chof-look: WHERE THE ART SENTENCE SITS, AND WHY IT IS NOT IN .chof-body.
+ *
+ * The obvious place is under the rarity line, inside the body column. Measured
+ * over CDP at 390x844 DPR 2 it is a 215px column there, which ran the longest
+ * sentences to FIVE lines, grew plaque one by 105px and pushed plaque two's
+ * image from y=746 to y=853, past the fold. Given the whole plaque instead it
+ * is 332px and 3 lines at 390, 419px and 2 lines at 1440, and plaque one still
+ * closes at y=824 inside the 844 viewport. Nothing overflows at either width:
+ * checked the way the note further up demands, an element whose right edge is
+ * past documentElement.clientWidth with no clipping ancestor, not scrollWidth.
+ *
+ * IT IS EMITTED BEFORE .chof-body AND MOVED BY order, on purpose. In the DOM it
+ * follows the art button, so a screen reader hears what the picture shows
+ * immediately after the picture itself rather than after the prices and the
+ * link. .chof-body takes order:1 so the sighted layout still reads name, set,
+ * rarity, prices, and flex-basis:100% is what drops the caption onto its own
+ * row. Removing the wrap collapses it back into the body column and quietly
+ * costs plaque two the fold again.
+ *
+ * WHAT IT DOES NOT SAY: the name, set and number are printed two lines above it
+ * and announced already, so repeating them there would be the duplication the
+ * accessibility pass spent a night removing. No rarity, no odds, no value.
+ */
 function plaque(c, i) {
   const rank = i + 1;
   const top = rank <= 3 ? ` chof-top chof-${rank}` : "";
   const art = plaqueArt(c.image);
+  const look = artLook(c);
   // AVIF in front of the WebP. TCGdex serves the same scan at four extensions
   // off one path and AVIF is 31.7% smaller than WebP at low.*, measured over the
   // 15 urls this page emits (all 30 low+high answer 200 as .avif, checked
@@ -459,6 +529,7 @@ function plaque(c, i) {
           data-raw="${c.raw ? esc(moneyCompact(c.raw)) : ""}"
           data-psa="${c.psa10 ? esc(moneyCompact(c.psa10)) : ""}"
           aria-label="Enlarge ${esc(c.name)}">${img}</button>
+        ${look ? `<p class="chof-look">${esc(look)}</p>` : ""}
         <div class="chof-body">
           <b class="chof-name">${esc(c.name)}</b>
           <span class="chof-set">${[c.setName ? esc(c.setName) : "", c.number ? `#${esc(c.number)}` : ""].filter(Boolean).join(" &bull; ")}</span>
@@ -581,6 +652,13 @@ const style = `
   letter-spacing:.03em;color:var(--chrome-dim)}
 /* --lilac is a TEAL now (it equals --sky). A rarity label is a mark, not a route. */
 .chof-rar{color:var(--plum)}
+/* WHAT THE PICTURE SHOWS. Prose in --body, not the mono the labels above use:
+   those are tags, this is a sentence. Full width on its own row, and the reason
+   that is a fold fix rather than a taste call is written beside plaque() in the
+   builder. This block ships to the browser; that one does not. */
+.chof{flex-wrap:wrap}
+.chof-body{order:1}
+.chof-look{order:2;flex-basis:100%;font:400 var(--t-sm)/1.5 var(--body);color:var(--chrome-dim)}
 .chof-prices{display:flex;gap:var(--s4);margin-top:var(--s3);padding-top:var(--s3);
   border-top:1px dashed rgba(255,255,255,.18)}
 /* opacity:.7 on #9FB0C0 measured 3.32:1 against the lightest card tint on this

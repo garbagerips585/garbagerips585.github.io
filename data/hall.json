@@ -8,7 +8,197 @@
     "time, so one price update moves every page that shows that card.",
     "",
     "This is the opposite of data/wanted.json. Wanted is what Tim is chasing;",
-    "this is what he caught. A card can be in both while he chases a second copy."
+    "this is what he caught. A card can be in both while he chases a second copy.",
+    "",
+    "art: WHAT THE PICTURE ON THE CARD ACTUALLY SHOWS, one sentence each, keyed",
+    "<set-id>-<number>. Every sentence was written by opening that card's own scan",
+    "and looking at it. Nothing here is generated, so nothing here may be added",
+    "without opening the scan either: an invented sentence is a fabricated claim on",
+    "a site whose whole credibility is that its claims are traceable.",
+    "",
+    "A promo has no set id, so it is keyed `mep-` plus its number, the same MEP",
+    "Black Star Promos the rip log resolves it against.",
+    "",
+    "`name` sits beside `look` so the key can never quietly move a description onto",
+    "a different card. build-hall.mjs checks the name and drops the sentence when it",
+    "disagrees, which is the standing pattern here: absent beats wrong.",
+    "",
+    "It says nothing about rarity, print run, odds or value, and it does not repeat",
+    "the name, set or number, all of which are printed beside the card already."
   ],
-  "cards": []
+  "cards": [],
+  "art": {
+    "chaos-rising-122": {
+      "name": "Mega Greninja ex",
+      "look": "Gold on gold, one tone of it over another, so the whole figure reads as silhouette and shadow instead of color."
+    },
+    "journey-together-162": {
+      "name": "Wailord",
+      "look": "Wailord hangs almost still over a reef of pink and orange coral, so big that the little boat on the sunset surface above him looks like a toy."
+    },
+    "mep-023": {
+      "name": "Mega Charizard X ex",
+      "look": "Mega Charizard X rears up wrapped in blue flame while the katakana for Inferno X blasts across the top in red, over a comic book burst of pink and green."
+    },
+    "journey-together-169": {
+      "name": "Noibat",
+      "look": "Noibat perches on a ledge in a glowing crystal cave, holding a piece of pink fruit, with pale blue water running below."
+    },
+    "mep-024": {
+      "name": "Oricorio ex",
+      "look": "Oricorio sweeps its red plumage into a ring of fire, with dark tropical flowers and leaves packed in tight behind it."
+    },
+    "mega-evolution-146": {
+      "name": "Marshadow",
+      "look": "Marshadow stands in the forest shade with its eyes lit red, while a Pikachu big enough to fill the bottom of the card sits right in front of it."
+    },
+    "journey-together-179": {
+      "name": "Brock's Scouting",
+      "look": "Brock plants both hands on his hips and grins with his eyes shut, white fence and green trees behind him under a big blue sky."
+    },
+    "mega-evolution-154": {
+      "name": "Stufful",
+      "look": "Stufful sits in the middle of a living room it has just wrecked, stuffing and toy blocks still hanging in the sunlight."
+    },
+    "journey-together-024": {
+      "name": "Blaziken ex",
+      "look": "Blaziken lands a strike with a blast going off beside it, rock and fire thrown out across a dusty canyon."
+    },
+    "surging-sparks-230": {
+      "name": "Cyrano",
+      "look": "Cyrano tips the brim of his white fedora and smirks sideways at you, cream suit, red bow tie, green eyes."
+    },
+    "surging-sparks-186": {
+      "name": "Scramble Switch",
+      "look": "No Pokemon at all: just the gadget, a yellow case flipped open with a blue dial and two red arrows chasing each other, floating on hot pink light."
+    },
+    "surging-sparks-198": {
+      "name": "Feebas",
+      "look": "Feebas hangs in green pond water among tall weed stems, lit by whatever daylight makes it down that far."
+    },
+    "ascended-heroes-225": {
+      "name": "Scorbunny",
+      "look": "Scorbunny throws itself backward into a heap of fall leaves, laughing, with leaves still flying up around it."
+    },
+    "chaos-rising-090": {
+      "name": "Ampharos",
+      "look": "Ampharos stands in a flowering meadow at dusk with its tail bulb lit red and a whole flock grazing in the field behind it."
+    },
+    "phantasmal-flames-118": {
+      "name": "Dawn",
+      "look": "Dawn strides forward with her fist up and a grin, yellow bag swinging, pink blossom drifting past on a bright spring day."
+    },
+    "chaos-rising-087": {
+      "name": "Chespin",
+      "look": "Chespin stands on a mossy fallen trunk holding a stick like a sword, sunbeams coming down through the trees behind it."
+    },
+    "mega-evolution-159": {
+      "name": "Mega Gardevoir ex",
+      "look": "Mega Gardevoir lifts one arm as ribbons of magenta and yellow whip around her gown, with a second Gardevoir sketched behind her in pink outline."
+    },
+    "perfect-order-106": {
+      "name": "Mega Skarmory ex",
+      "look": "Mega Skarmory spreads gold and blue steel wings over an orange and purple starburst, its own head outlined twice more in the background."
+    },
+    "mega-evolution-151": {
+      "name": "Spearow",
+      "look": "A whole flock of Spearow mills around in the scrub, the nearest ones so close they run right off the edge of the card."
+    },
+    "pitch-black-094": {
+      "name": "Toucannon",
+      "look": "Toucannon banks through a bright jungle beak first, wings out, the whole place drawn as flat cutout shapes in pale green and blue."
+    },
+    "pitch-black-100": {
+      "name": "Rampardos ex",
+      "look": "Rampardos throws both arms up and grins straight ahead, framed by an orange sunburst that fills the whole card."
+    },
+    "destined-rivals-197": {
+      "name": "Rotom",
+      "look": "Rotom hovers grinning over a workbench buried in gadgets, tools and tangled wire, spoiled for choice."
+    },
+    "pitch-black-092": {
+      "name": "Thievul",
+      "look": "Thievul leaps from roof to roof on a teal night with something orange in its mouth and the town's rooftops falling away below."
+    },
+    "pitch-black-093": {
+      "name": "Bastiodon",
+      "look": "Bastiodon plants itself face on in a red rock canyon, its shield of a head looking like one more slab of the cliff behind it."
+    },
+    "phantasmal-flames-056": {
+      "name": "Mega Gengar ex",
+      "look": "Mega Gengar hangs upside down and grins right at you, one eye yellow and one red, over slashes of green and red."
+    },
+    "ascended-heroes-135": {
+      "name": "Mega Scrafty ex",
+      "look": "Mega Scrafty fills the whole frame with one furious eye and its white hood thrown back, red slashes cutting across everything."
+    },
+    "phantasmal-flames-036": {
+      "name": "Mismagius ex",
+      "look": "Mismagius drifts out of a cloud of pink sparks, its yellow eyes and the red beads at its neck the only solid things in the picture."
+    },
+    "pitch-black-065": {
+      "name": "Mega Excadrill ex",
+      "look": "Mega Excadrill grits its teeth mid drill, sparks coming off the steel and broken rock tumbling out of the frame."
+    },
+    "pitch-black-045": {
+      "name": "Rampardos ex",
+      "look": "Rampardos leads with its blue dome of a head and the rock gives way, shards flying out past the edges."
+    },
+    "perfect-order-021": {
+      "name": "Mega Starmie ex",
+      "look": "Mega Starmie turns its red core to the front with gold arms fanned around it, over splashes of hot pink and lime."
+    },
+    "pitch-black-038": {
+      "name": "Mega Chandelure ex",
+      "look": "Mega Chandelure hangs like an actual chandelier, black iron arms curling out from a pale glass orb with blue and pink flame on every one."
+    },
+    "chaos-rising-035": {
+      "name": "Mega Floette ex",
+      "look": "Mega Floette stands calmly off to one side while the enormous dark flower beside it fires a beam of white light off the edge of the card."
+    },
+    "destined-rivals-136": {
+      "name": "Marnie's Grimmsnarl ex",
+      "look": "Grimmsnarl grins and winds up a ball of pink light, with Marnie herself watching from a coin sized portrait in the corner."
+    },
+    "chaos-rising-073": {
+      "name": "Cinccino ex",
+      "look": "Cinccino curls in midair with its white scarf fur spiraling around it and points of light popping off the ends."
+    },
+    "chaos-rising-003": {
+      "name": "Beedrill ex",
+      "look": "Beedrill comes in stinger first with gold light streaking off its wings and grass torn up out of the field below."
+    },
+    "phantasmal-flames-084": {
+      "name": "Mega Lopunny ex",
+      "look": "Mega Lopunny snaps out a kick with the rocks still in the air around it and pink and orange streaks cutting across the frame."
+    },
+    "mega-evolution-003": {
+      "name": "Mega Venusaur ex",
+      "look": "Mega Venusaur roars with its jaws wide open, the huge flower on its back leaning forward with it, yellow and blue ribbons flying past."
+    },
+    "destined-rivals-065": {
+      "name": "Cetitan ex",
+      "look": "Cetitan bursts out of a blizzard mouth first, snow spray flying off its white hide in every direction."
+    },
+    "journey-together-031": {
+      "name": "Volcanion ex",
+      "look": "Volcanion braces as the two vents on its back blow white hot, ringed in loops of fire and orange steam."
+    },
+    "ascended-heroes-252": {
+      "name": "Stunfisk ex",
+      "look": "Stunfisk lies there flat, face pointed straight at you, on a plain orange sunburst, and that is the whole picture."
+    },
+    "phantasmal-flames-029": {
+      "name": "Rotom ex",
+      "look": "Rotom grins out of a burst of blue lightning that spikes off in every direction against a purple starfield."
+    },
+    "perfect-order-016": {
+      "name": "Salazzle ex",
+      "look": "Salazzle rears back with pink fire curling off both claws over a cracked orange lava field."
+    },
+    "paradox-rift-046": {
+      "name": "Tsareena ex",
+      "look": "Tsareena swings a leg over in a shower of pink and green crystal, the whole kick cut like glass."
+    }
+  }
 }
