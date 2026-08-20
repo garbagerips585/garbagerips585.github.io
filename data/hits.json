@@ -36,7 +36,28 @@
     "touched, which put two cards at the top of four pages, or on none. The",
     "answer that reads true is the set it shipped alongside. A promo with no",
     "forSet is named at build time and shown on no set page, rather than",
-    "guessed onto one. It still appears on its rip page and the Hall of Fame."
+    "guessed onto one. It still appears on its rip page and the Hall of Fame.",
+    "",
+    "THIS FILE IS REBUILT PER VIDEO NOW, NOT ADDED TO. scripts/import-sheet.mjs",
+    "could only ever add or update a row, so every mistake its Hit Info parser",
+    "had ever made was permanent and every FIX to that parser made a page worse:",
+    "the corrected name arrived and the wrong one stayed beside it. The Costco",
+    "UPC rip reached 21 cards for 14 real hits and the six-box First Partner rip",
+    "7 for 3, three generations of parser output stacked on one page. A video",
+    "whose Hit Info cell was read is rebuilt from that cell, and every row it",
+    "drops is printed. A row carrying ANY field the parser does not write is",
+    "another source's row: the whole My Hits tab, both promos above, anything",
+    "hand-added. Those are read and never written, because on them an ABSENT",
+    "field is somebody's answer. That is what keeps `set` off the two promos.",
+    "",
+    "printing: what Tim wrote before the colon, kept verbatim beside the card",
+    "rather than glued onto its name. \"First Partner Illustration Collection",
+    "(Series 1) Alola Region Promo : Rowlet, Litten, Popplio\" is three cards",
+    "sharing one promo pack, and prepending the context published three card",
+    "names no catalogue has ever held. Nothing derives anything from this field;",
+    "it is the words he typed to say WHICH Rowlet, and it is here so they are",
+    "not lost. The three resolve to MEP 043, 044 and 045, which data/first-",
+    "partner.json confirms are the Series 1 Alola promos."
   ],
   "source": "workbook My Hits tab",
   "checked": "2026-08-13",
@@ -49,10 +70,58 @@
         "rarity": "Ultra Rare"
       },
       {
+        "card": "Mega Gengar ex",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames",
+        "rarity": "Double Rare"
+      },
+      {
+        "card": "Mega Gardevoir ex",
+        "set": "mega-evolution",
+        "setName": "Mega Evolution",
+        "rarity": "Ultra Rare"
+      },
+      {
+        "card": "Mega Venusaur ex",
+        "set": "mega-evolution",
+        "setName": "Mega Evolution",
+        "rarity": "Double Rare"
+      },
+      {
+        "card": "Marshadow",
+        "set": "mega-evolution",
+        "setName": "Mega Evolution",
+        "rarity": "Illustration Rare"
+      },
+      {
+        "card": "Cetitan ex",
+        "set": "destined-rivals",
+        "setName": "Destined Rivals",
+        "rarity": "Double Rare"
+      },
+      {
+        "card": "Rotom",
+        "set": "destined-rivals",
+        "setName": "Destined Rivals",
+        "rarity": "Illustration Rare"
+      },
+      {
+        "card": "Noibat",
+        "set": "journey-together",
+        "setName": "Journey Together",
+        "rarity": "Illustration Rare"
+      },
+      {
         "card": "Brock's Scouting",
         "set": "journey-together",
         "setName": "Journey Together",
         "rarity": "Ultra Rare"
+      },
+      {
+        "card": "Blaziken ex",
+        "set": "journey-together",
+        "setName": "Journey Together",
+        "rarity": "Double Rare"
       },
       {
         "card": "Scramble Switch",
@@ -93,110 +162,25 @@
         "priceUrl": "https://www.pricecharting.com/game/pokemon-promo/oricorio-ex-24",
         "img": "https://assets.tcgdex.net/en/me/mep/024",
         "forSet": "phantasmal-flames"
-      },
-      {
-        "card": "Phantasmal Falmes Charizard X ex Black Star Promo Card"
-      },
-      {
-        "card": "Trainer Dawn",
-        "set": "phantasmal-flames",
-        "setName": "phantasmal flames",
-        "rarity": "Ultra Rare"
-      },
-      {
-        "card": "Mega Gengar ex",
-        "set": "phantasmal-flames",
-        "setName": "phantasmal flames",
-        "rarity": "Double Rare"
-      },
-      {
-        "card": "Mega Gardevoir ex",
-        "set": "mega-evolution",
-        "setName": "mega evolution",
-        "rarity": "Ultra Rare"
-      },
-      {
-        "card": "Mega Venusaur ex",
-        "set": "mega-evolution",
-        "setName": "mega evolution",
-        "rarity": "Double Rare"
-      },
-      {
-        "card": "Marshadow",
-        "set": "mega-evolution",
-        "setName": "mega evolution",
-        "rarity": "Illustration Rare"
-      },
-      {
-        "card": "Cetitan ex",
-        "set": "destined-rivals",
-        "setName": "destined rivals",
-        "rarity": "Double Rare"
-      },
-      {
-        "card": "Rotom",
-        "set": "destined-rivals",
-        "setName": "destined rivals",
-        "rarity": "Illustration Rare"
-      },
-      {
-        "card": "Noibat",
-        "set": "journey-together",
-        "setName": "journey together",
-        "rarity": "Illustration Rare"
-      },
-      {
-        "card": "Trainer Brock's Scouting",
-        "set": "journey-together",
-        "setName": "journey together",
-        "rarity": "Ultra Rare"
-      },
-      {
-        "card": "Blaziken ex",
-        "set": "journey-together",
-        "setName": "journey together",
-        "rarity": "Double Rare"
-      },
-      {
-        "card": "Trainer Scramble Switch",
-        "set": "surging-sparks",
-        "setName": "surging sparks",
-        "rarity": "ACE SPEC Rare"
-      },
-      {
-        "card": "Trainer Cyrano",
-        "set": "surging-sparks",
-        "setName": "surging sparks",
-        "rarity": "Ultra Rare"
-      },
-      {
-        "card": "Charizard X ex Black Star Promo Card",
-        "set": "phantasmal-flames",
-        "setName": "phantasmal flames"
-      },
-      {
-        "card": "Oricorio ex Black Star Promo Card",
-        "set": "phantasmal-flames",
-        "setName": "phantasmal flames"
       }
     ],
     "TN7_ZsuRQSI": [
       {
         "card": "Stufful",
         "set": "mega-evolution",
-        "setName": "mega evolution",
+        "setName": "Mega Evolution",
         "rarity": "Illustration Rare"
       },
       {
         "card": "Marnie's Grimmsnarl ex",
         "set": "destined-rivals",
-        "setName": "destined rivals",
+        "setName": "Destined Rivals",
         "rarity": "Double Rare"
       },
       {
         "card": "Wailord",
         "set": "journey-together",
-        "setName": "journey together",
+        "setName": "Journey Together",
         "rarity": "Illustration Rare"
       }
     ],
@@ -204,7 +188,7 @@
       {
         "card": "Mega Greninja ex",
         "set": "chaos-rising",
-        "setName": "chaos rising",
+        "setName": "Chaos Rising",
         "rarity": "Hyper Rare"
       }
     ],
@@ -212,7 +196,7 @@
       {
         "card": "Cinccino ex",
         "set": "chaos-rising",
-        "setName": "chaos rising",
+        "setName": "Chaos Rising",
         "rarity": "Double Rare"
       }
     ],
@@ -220,7 +204,7 @@
       {
         "card": "Rampardos ex",
         "set": "pitch-black",
-        "setName": "pitch black",
+        "setName": "Pitch Black",
         "rarity": "Double Rare"
       }
     ],
@@ -228,7 +212,7 @@
       {
         "card": "Bastiodon",
         "set": "pitch-black",
-        "setName": "pitch black",
+        "setName": "Pitch Black",
         "rarity": "Illustration Rare"
       }
     ],
@@ -236,7 +220,7 @@
       {
         "card": "Mega Skarmory ex",
         "set": "perfect-order",
-        "setName": "perfect order",
+        "setName": "Perfect Order",
         "rarity": "Ultra Rare"
       }
     ],
@@ -244,15 +228,15 @@
       {
         "card": "Toucannon",
         "set": "pitch-black",
-        "setName": "pitch black",
+        "setName": "Pitch Black",
         "rarity": "Illustration Rare"
       }
     ],
     "3pUiN-8XkEk": [
       {
-        "card": "Trainer Dawn",
+        "card": "Dawn",
         "set": "phantasmal-flames",
-        "setName": "phantasmal flames",
+        "setName": "Phantasmal Flames",
         "rarity": "Ultra Rare"
       }
     ],
@@ -260,7 +244,7 @@
       {
         "card": "Mega Floette ex",
         "set": "chaos-rising",
-        "setName": "chaos rising",
+        "setName": "Chaos Rising",
         "rarity": "Double Rare"
       }
     ],
@@ -268,15 +252,15 @@
       {
         "card": "Rampardos ex",
         "set": "pitch-black",
-        "setName": "pitch black",
+        "setName": "Pitch Black",
         "rarity": "Ultra Rare"
       }
     ],
     "R2VxbNMrlXQ": [
       {
-        "card": "Trainer Dawn Double Gold Star",
+        "card": "Dawn",
         "set": "phantasmal-flames",
-        "setName": "phantasmal flames",
+        "setName": "Phantasmal Flames",
         "rarity": "Special Illustration Rare"
       }
     ],
@@ -284,7 +268,7 @@
       {
         "card": "Mega Starmie ex",
         "set": "perfect-order",
-        "setName": "perfect order",
+        "setName": "Perfect Order",
         "rarity": "Double Rare"
       }
     ],
@@ -292,7 +276,7 @@
       {
         "card": "Mega Chandelure ex",
         "set": "pitch-black",
-        "setName": "pitch black",
+        "setName": "Pitch Black",
         "rarity": "Double Rare"
       }
     ],
@@ -300,7 +284,7 @@
       {
         "card": "Mega Excadrill ex",
         "set": "pitch-black",
-        "setName": "pitch black",
+        "setName": "Pitch Black",
         "rarity": "Double Rare"
       }
     ],
@@ -308,7 +292,7 @@
       {
         "card": "Salazzle ex",
         "set": "perfect-order",
-        "setName": "perfect order",
+        "setName": "Perfect Order",
         "rarity": "Double Rare"
       }
     ],
@@ -316,7 +300,7 @@
       {
         "card": "Stunfisk ex",
         "set": "ascended-heroes",
-        "setName": "ascended heroes",
+        "setName": "Ascended Heroes",
         "rarity": "Ultra Rare"
       }
     ],
@@ -324,7 +308,7 @@
       {
         "card": "Volcanion ex",
         "set": "journey-together",
-        "setName": "journey together",
+        "setName": "Journey Together",
         "rarity": "Double Rare"
       }
     ],
@@ -332,15 +316,15 @@
       {
         "card": "Rotom ex",
         "set": "phantasmal-flames",
-        "setName": "phantasmal flames",
+        "setName": "Phantasmal Flames",
         "rarity": "Double Rare"
       }
     ],
     "SOCAXif6Mzs": [
       {
-        "card": "Trainer Ruffian",
+        "card": "Ruffian",
         "set": "journey-together",
-        "setName": "journey together",
+        "setName": "Journey Together",
         "rarity": "Ultra Rare"
       }
     ],
@@ -348,7 +332,7 @@
       {
         "card": "Mismagius ex",
         "set": "phantasmal-flames",
-        "setName": "phantasmal flames",
+        "setName": "Phantasmal Flames",
         "rarity": "Double Rare"
       }
     ],
@@ -356,7 +340,7 @@
       {
         "card": "Incineroar ex SR",
         "set": "ja-cyber-judge",
-        "setName": "cyber judge",
+        "setName": "Cyber Judge (JP)",
         "rarity": "Super Rare"
       }
     ],
@@ -364,7 +348,7 @@
       {
         "card": "Mega Lopunny ex",
         "set": "phantasmal-flames",
-        "setName": "phantasmal flames",
+        "setName": "Phantasmal Flames",
         "rarity": "Double Rare"
       }
     ],
@@ -372,7 +356,7 @@
       {
         "card": "Feebas",
         "set": "surging-sparks",
-        "setName": "surging sparks",
+        "setName": "Surging Sparks",
         "rarity": "Illustration Rare"
       }
     ],
@@ -380,7 +364,7 @@
       {
         "card": "Tsareena ex",
         "set": "paradox-rift",
-        "setName": "paradox rift",
+        "setName": "Paradox Rift",
         "rarity": "Double Rare"
       }
     ],
@@ -392,7 +376,7 @@
       {
         "card": "Spearow",
         "set": "mega-evolution",
-        "setName": "mega evolution",
+        "setName": "Mega Evolution",
         "rarity": "Illustration Rare"
       }
     ],
@@ -400,7 +384,7 @@
       {
         "card": "Thievul",
         "set": "pitch-black",
-        "setName": "pitch black",
+        "setName": "Pitch Black",
         "rarity": "Illustration Rare"
       }
     ],
@@ -408,23 +392,23 @@
       {
         "card": "Chespin",
         "set": "chaos-rising",
-        "setName": "chaos rising",
+        "setName": "Chaos Rising",
         "rarity": "Illustration Rare"
       }
     ],
     "X0KK70SjzEM": [
       {
-        "card": "Trainer Sacred Ash",
+        "card": "Sacred Ash",
         "set": "perfect-order",
-        "setName": "perfect order",
+        "setName": "Perfect Order",
         "rarity": "Ultra Rare"
       }
     ],
     "O1hNutypTR8": [
       {
-        "card": "Trainer Lumiose City",
+        "card": "Lumiose City",
         "set": "perfect-order",
-        "setName": "perfect order",
+        "setName": "Perfect Order",
         "rarity": "Ultra Rare"
       }
     ],
@@ -432,7 +416,7 @@
       {
         "card": "Ampharos",
         "set": "chaos-rising",
-        "setName": "chaos rising",
+        "setName": "Chaos Rising",
         "rarity": "Illustration Rare"
       }
     ],
@@ -440,23 +424,23 @@
       {
         "card": "Mega Scrafty ex",
         "set": "ascended-heroes",
-        "setName": "ascended heroes",
+        "setName": "Ascended Heroes",
         "rarity": "Double Rare"
       }
     ],
     "9CpAz0MxnTE": [
       {
-        "card": "Trainer Energy Recycler",
+        "card": "Energy Recycler",
         "set": "perfect-order",
-        "setName": "perfect order",
+        "setName": "Perfect Order",
         "rarity": "Ultra Rare"
       }
     ],
     "gFZ_jiV7DEY": [
       {
-        "card": "Trainer Team Rocket's Transceiver",
+        "card": "Team Rocket's Transceiver",
         "set": "ascended-heroes",
-        "setName": "ascended heroes",
+        "setName": "Ascended Heroes",
         "rarity": "Ultra Rare"
       }
     ],
@@ -464,7 +448,7 @@
       {
         "card": "Scorbunny",
         "set": "ascended-heroes",
-        "setName": "ascended heroes",
+        "setName": "Ascended Heroes",
         "rarity": "Illustration Rare"
       }
     ],
@@ -472,7 +456,7 @@
       {
         "card": "Beedrill ex",
         "set": "chaos-rising",
-        "setName": "chaos rising",
+        "setName": "Chaos Rising",
         "rarity": "Double Rare"
       }
     ],
@@ -480,7 +464,7 @@
       {
         "card": "Mega Scrafty ex",
         "set": "ascended-heroes",
-        "setName": "ascended heroes",
+        "setName": "Ascended Heroes",
         "rarity": "Double Rare"
       }
     ],
@@ -488,31 +472,22 @@
       {
         "card": "Chespin",
         "set": "chaos-rising",
-        "setName": "chaos rising",
+        "setName": "Chaos Rising",
         "rarity": "Illustration Rare"
       }
     ],
     "M7NqqhR8V4M": [
       {
-        "card": "First Partner Illustration Collection (Series 1) Alola Region Promo : Rowlet"
+        "card": "Rowlet",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
       },
       {
-        "card": "First Partner Illustration Collection (Series 1) Alola Region Promo Rowlet"
+        "card": "Litten",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
       },
       {
-        "card": "First Partner Illustration Collection (Series 1) Alola Region Promo Litten"
-      },
-      {
-        "card": "First Partner Illustration Collection (Series 1) Alola Region Promo Popplio"
-      },
-      {
-        "card": "Rowlet"
-      },
-      {
-        "card": "Litten"
-      },
-      {
-        "card": "Popplio"
+        "card": "Popplio",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
       }
     ]
   }

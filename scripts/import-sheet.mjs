@@ -204,6 +204,71 @@ try {
   /* run: node scripts/sync-intl-guides.mjs */
 }
 
+// THE SET NAME A PAGE PRINTS, IN THE CASE THE SET ACTUALLY USES.
+//
+// setIdByName is keyed on a LOWERCASED name because that is what matching a
+// typed cell needs, and the Hit Info parser handed that lowercased key straight
+// through to data/hits.json as the hit's setName. Eleven cards on the Costco
+// UPC rip published captions reading "mega evolution", "journey together",
+// "destined rivals" and "phantasmal flames". The same eleven cards logged on
+// the My Hits tab, which resolves its display name from sets.json, published
+// "Phantasmal Flames" three cards further up the same list.
+//
+// So the id is the join and this map is the only place a display name is read
+// from. sets.json first because a guided set owns its own name, then the wider
+// expansion list, then the non-English guides under the label the sheet uses.
+const setDisplayName = new Map();
+try {
+  const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
+  for (const s of sets) if (!setDisplayName.has(s.id)) setDisplayName.set(s.id, s.name);
+} catch { /* warned about above */ }
+try {
+  const { sets: expansions } = JSON.parse(
+    await readFile(join(ROOT, "public/data/expansions.json"), "utf8")
+  );
+  for (const e of expansions || []) {
+    if (!e?.name) continue;
+    const id = e.slug || e.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    if (id && !setDisplayName.has(id)) setDisplayName.set(id, e.name);
+  }
+} catch { /* optional */ }
+try {
+  const ig = JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8")).sets || {};
+  for (const [id, g] of Object.entries(ig)) {
+    setDisplayName.set(id, `${g.english} (${LANG_TAG[g.lang] || "??"})`);
+  }
+} catch { /* run: node scripts/sync-intl-guides.mjs */ }
+
+// THE SET'S OWN CHECKLIST, LOADED ONLY WHEN A HIT NEEDS PROVING.
+//
+// Used by the Hit Info parser to check a card name against the real cards in
+// the set Tim named, which is the difference between correcting a name and
+// guessing at one. Missing file means no checklist, which means no correction:
+// silence here always leaves the name exactly as he typed it.
+const checklistCache = new Map();
+async function checklistFor(setId) {
+  if (!setId) return null;
+  if (!checklistCache.has(setId)) {
+    let names = null;
+    try {
+      const doc = JSON.parse(await readFile(join(ROOT, `public/data/cards/${setId}.json`), "utf8"));
+      names = new Set((doc.cards || []).map((c) => String(c.name || "").toLowerCase()));
+    } catch { /* an imported or unguided set keeps its checklist elsewhere */ }
+    if (!names) {
+      try {
+        const ig = JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8")).sets || {};
+        const g = ig[setId];
+        if (g) {
+          names = new Set();
+          for (const c of g.cards || []) for (const nm of [c.en, c.native]) if (nm) names.add(String(nm).toLowerCase());
+        }
+      } catch { /* run: node scripts/sync-intl-guides.mjs */ }
+    }
+    checklistCache.set(setId, names && names.size ? names : null);
+  }
+  return checklistCache.get(setId);
+}
+
 const rows = parseCsv(await readFile(csvPath, "utf8"));
 if (!rows.length) { console.error("Empty CSV."); process.exit(1); }
 
@@ -1019,10 +1084,23 @@ for (const [n, r] of rows.slice(1).entries()) {
     // Black Star- Double Rare" with no space, "Single Gold star" lowercase,
     // trailing commas, doubled spaces, and a hit whose rarity IS the star
     // ("Black Star Promo" with no rarity word after it).
+    //
+    // THE KEY WAS HALF WRITTEN OUT AND THE MISSING HALF COST A CARD NAME.
+    // build-sheet.py puts the whole key on the Rarity header of the workbook
+    // Tim fills in, and only four of its eight lines were listed here, so
+    // "Trainer - Dawn - Double Gold Star - Special Illustration Rare" left
+    // "Double Gold Star" in the card name and published "Trainer Dawn Double
+    // Gold Star". These eight are copied from RARITY_HINT in build-sheet.py,
+    // which is the key he is reading off the sheet, not a mapping invented here.
     const STAR_RARITY = {
+      "one big yellow star": "Mega Hyper Rare",
+      "single yellow star": "Mega Hyper Rare",
+      "triple gold star": "Hyper Rare",
+      "double gold star": "Special Illustration Rare",
       "single gold star": "Illustration Rare",
       "double silver star": "Ultra Rare",
       "double black star": "Double Rare",
+      "single black star": "Rare",
       "single pink star": "ACE SPEC Rare",
     };
     // FINISH WORDS ARE NOT PART OF THE CARD NAME. Tim writes "Mega Greninja ex
@@ -1031,6 +1109,11 @@ for (const [n, r] of rows.slice(1).entries()) {
     // Card". Stripped after the rarity is read, never before, so a finish can
     // never be mistaken for one.
     const FINISH = /\b(gold|rainbow|silver|textured|full art|alt art)\s+card\b/i;
+    // The card TYPES, which are what Tim means when he writes a word like
+    // Trainer between the set and the card. Used well below, where the set is
+    // finally known and the set's own checklist can settle whether the word is
+    // part of the name.
+    const TYPE_WORD = /^(trainer|supporter|item|stadium|pok[eé]mon tool|tool|pok[eé]mon|pokemon|energy)$/i;
     const RARITY_WORDS = [
       "Mega Hyper Rare", "Special Illustration Rare", "Illustration Rare",
       "ACE SPEC Rare", "Hyper Rare", "Ultra Rare", "Double Rare", "Super Rare",
@@ -1075,7 +1158,7 @@ for (const [n, r] of rows.slice(1).entries()) {
       // inside a card name (Ho-Oh, Porygon-Z, Jangmo-o) has none, so it lives.
       const parts = frag.split(/\s-\s*|\s*-\s/).map((x) => x.trim()).filter(Boolean);
 
-      let setName = null, rarity = null, star = null, name = null;
+      let setName = null, rarity = null, star = null, name = null, cardType = null;
 
       if (parts.length >= 2) {
         const lows = parts.map((x) => x.toLowerCase());
@@ -1089,13 +1172,36 @@ for (const [n, r] of rows.slice(1).entries()) {
             if (near) { setName = near; si = k; break; }
           }
         }
-        const ri = lows.findIndex((x) => RARITY_WORDS.some((w) => x === w.toLowerCase()));
-        if (ri !== -1) rarity = RARITY_WORDS.find((w) => lows[ri] === w.toLowerCase());
+        // "BLACK STAR PROMO CARD" IS A RARITY WITH A NOUN ON THE END OF IT.
+        //
+        // This test was an exact equality against the rarity list, so Tim's
+        // "Phantasmal Falmes - Charizard X ex - Black Star Promo Card" matched
+        // nothing, the whole trailing part fell into the card name, and two
+        // rips published cards called "Charizard X ex Black Star Promo Card"
+        // and "Oricorio ex Black Star Promo Card". He writes the word Card
+        // after a rarity the way anybody says it out loud. Only a TRAILING
+        // "card" is tolerated, and the match is still an equality against the
+        // closed list, so nothing new can be recognised as a rarity.
+        const deCard = (x) => x.replace(/\s+card$/, "");
+        const ri = lows.findIndex((x) => RARITY_WORDS.some((w) => deCard(x) === w.toLowerCase()));
+        if (ri !== -1) rarity = RARITY_WORDS.find((w) => deCard(lows[ri]) === w.toLowerCase());
         const ki = lows.findIndex((x) => STAR_RARITY[x]);
         if (ki !== -1) star = lows[ki];
-        // What is left, in order, is the card. "Trainer - Dawn" stays joined:
-        // Trainer is part of how he names it and dropping it loses which Dawn.
+        // What is left, in order, is the card.
         name = parts.filter((_, i) => i !== si && i !== ri && i !== ki).join(" ").replace(FINISH, " ").replace(/\s+/g, " ").trim();
+        // "Trainer - Dawn" is a card TYPE and a card. Whether the type word
+        // belongs in the name is decided later, against the set's checklist,
+        // because on most of these rows the set is not in the fragment at all
+        // and only arrives from the video's own tags further down. The shorter
+        // reading is carried alongside the glued one until then.
+        if (parts.length >= 3) {
+          const ti = parts.findIndex((p, i) => i !== si && i !== ri && i !== ki && TYPE_WORD.test(p));
+          if (ti !== -1) {
+            const shorter = parts.filter((_, i) => i !== si && i !== ri && i !== ki && i !== ti)
+              .join(" ").replace(FINISH, " ").replace(/\s+/g, " ").trim();
+            if (shorter) cardType = shorter;
+          }
+        }
       }
 
       if (!name) {
@@ -1122,11 +1228,18 @@ for (const [n, r] of rows.slice(1).entries()) {
       if (fromStar && rarity && fromStar !== rarity) mismatched.push({ frag, star: fromStar, written: rarity });
       const finalRarity = rarity || fromStar || null;
 
+      const setId = setName ? setIdByName.get(setName) : null;
       hits.push({
         card: name,
+        // The same fragment read with the card-type word taken out, settled
+        // against the set's checklist below and deleted either way.
+        ...(cardType && cardType !== name ? { _noType: cardType } : {}),
         ...(listContext ? { printing: listContext } : {}),
         ...(finalRarity ? { rarity: finalRarity } : {}),
-        ...(setName ? { set: setIdByName.get(setName), setName } : {}),
+        // setDisplayName, not the matched key: the key is lowercased so a typed
+        // cell can be looked up, and printing it published eleven captions
+        // reading "mega evolution" on one rip page. See the map's own comment.
+        ...(setId ? { set: setId, setName: setDisplayName.get(setId) || setName } : {}),
       });
     }
 
@@ -1146,7 +1259,38 @@ for (const [n, r] of rows.slice(1).entries()) {
     // it. Those keep no set and simply show no picture, which is the site's
     // standing behaviour for absent data.
     if (setIds.length === 1) {
-      for (const h of hits) if (!h.set) h.set = setIds[0];
+      for (const h of hits) if (!h.set) {
+        h.set = setIds[0];
+        if (!h.setName) h.setName = setDisplayName.get(setIds[0]) || SET_NAME_BY_ID.get(setIds[0]) || null;
+      }
+    }
+    // "TRAINER - DAWN" IS A CARD TYPE AND A CARD, AND THE SET'S OWN CHECKLIST
+    // IS THE ONLY THING ALLOWED TO SAY SO.
+    //
+    // This used to stay glued, on the reasoning that Trainer was part of how
+    // Tim names the card and dropping it would lose which Dawn. It is the other
+    // way round: Phantasmal Flames has exactly one Dawn, it is a Trainer, and
+    // it is called "Dawn". "Trainer Dawn" is in no set's checklist, so it
+    // resolved to no scan, no number and no price, and on the Costco UPC rip it
+    // published four times over beside the same four cards logged correctly off
+    // the My Hits tab. Seven rips carried a name like this.
+    //
+    // NOT A GUESS AND NOT A SPELLING CORRECTION. The word comes out only when
+    // the set is known, that set's checklist does NOT contain the glued name,
+    // and it DOES contain the shorter one. No checklist, or a checklist that
+    // answers either way, leaves his text exactly as he typed it. It runs here
+    // rather than in the fragment loop because most of these rows name no set
+    // at all and take the video's, which is decided three lines above.
+    for (const h of hits) {
+      const shorter = h._noType;
+      delete h._noType;
+      if (!shorter || !h.set) continue;
+      const list = await checklistFor(h.set);
+      if (!list) continue;
+      if (!list.has(String(h.card).toLowerCase()) && list.has(shorter.toLowerCase())) {
+        (counted.hitTyped ||= []).push({ id, was: h.card, now: shorter, set: h.set });
+        h.card = shorter;
+      }
     }
     if (hits.length) m.hits = hits;
     // Into the file the public pages actually read. `video` is what the writer
@@ -1163,14 +1307,23 @@ for (const [n, r] of rows.slice(1).entries()) {
         // That is exactly what shipped to three rip pages. Resolve first, then
         // include the key only if there is something in it.
         ...(h.set ? { set: h.set } : {}),
-        ...(h.set && (h.setName || SET_NAME_BY_ID.get(h.set))
-          ? { setName: h.setName || SET_NAME_BY_ID.get(h.set) }
+        ...(h.set && (setDisplayName.get(h.set) || h.setName || SET_NAME_BY_ID.get(h.set))
+          ? { setName: setDisplayName.get(h.set) || h.setName || SET_NAME_BY_ID.get(h.set) }
           : {}),
         ...(h.rarity ? { rarity: h.rarity } : {}),
+        // THE CONTEXT BEFORE THE COLON WAS PARSED AND THEN THROWN AWAY HERE.
+        //
+        // The colon reader below already refuses to glue "First Partner
+        // Illustration Collection (Series 1) Alola Region Promo" onto the front
+        // of Rowlet, and keeps it as `printing` instead. That field reached
+        // data/manual.json and stopped at this line, so data/hits.json got three
+        // bare Pokemon names and the words Tim typed to say WHICH Rowlet were
+        // dropped on the floor. Kept verbatim; nothing derives anything from it.
+        ...(h.printing ? { printing: h.printing } : {}),
       });
     }
-    if (unparsed.length) (counted.hitUnparsed ||= []).push({ id: m.id || "", unparsed });
-    if (mismatched.length) (counted.hitMismatch ||= []).push({ id: m.id || "", mismatched });
+    if (unparsed.length) (counted.hitUnparsed ||= []).push({ id, unparsed });
+    if (mismatched.length) (counted.hitMismatch ||= []).push({ id, mismatched });
   }
   const rarity = get(r, idx.rarity);
   // The dropdown reads "Special Illustration Rare (2 gold stars)"; the
@@ -1290,15 +1443,110 @@ for (const [n, r] of rows.slice(1).entries()) {
 // MERGED, NOT REPLACED, and keyed on video plus card name exactly as the My
 // Hits merge is, so filling the same card on both tabs converges instead of
 // duplicating, and a card already carrying a scan or a price keeps them.
+//
+// AND IT COULD NEVER RETIRE A ROW IT HAD WRITTEN, WHICH IS THE BUG UNDER ALL
+// THE OTHERS ON THIS PAGE. Add-or-update means every parser mistake this script
+// has ever made is permanent, and every FIX to the parser makes the page worse
+// rather than better: the corrected name is added and the wrong one stays. The
+// Costco UPC rip reached 21 cards for 14 hits and the six-box First Partner rip
+// 7 for 3, all of them three generations of this parser's own output stacked up.
+//
+// So a video whose Hit Info cell was read is now rebuilt from that cell, and a
+// row it no longer produces goes, with three protections that decide it:
+//
+//   1. A row carrying ANY field this parser does not write is another source's
+//      row and is never touched. That is the whole My Hits tab, every hand-kept
+//      promo with its price and its scan, and everything in the readme.
+//   2. A name this parse produces that no existing row has, but which exactly
+//      one existing row's name ENDS WITH on a word boundary, is folded into
+//      that row rather than added beside it. Tim wrote "Charizard X ex" in the
+//      Video Log and "Mega Charizard X ex" on the My Hits tab for the same
+//      card in the same video; an exact match always wins first, so this only
+//      fires where he wrote a shorter form of a name he had already logged.
+//   3. Anything dropped is printed. A retirement is never silent.
+const PARSER_FIELDS = new Set(["card", "set", "setName", "rarity", "printing"]);
 if (logHits.length) {
   let hf = { videos: {} };
   try { hf = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")); } catch { /* first run */ }
   const byVid = { ...(hf.videos || {}) };
   let added = 0, updated = 0;
-  for (const { video, ...card } of logHits) {
-    const prev = (byVid[video] || []).find((c) => c.card === card.card);
-    if (prev) updated++; else added++;
-    byVid[video] = (byVid[video] || []).filter((c) => c.card !== card.card).concat({ ...(prev || {}), ...card });
+  const folded = [], retired = [], deferred = [];
+  const parsedFor = new Map();
+  for (const h of logHits) {
+    if (!parsedFor.has(h.video)) parsedFor.set(h.video, []);
+    parsedFor.get(h.video).push(h);
+  }
+  for (const [video, cards] of parsedFor) {
+    const existing = byVid[video] || [];
+    const kept = [];
+    for (const { video: _v, ...card } of cards) {
+      let prev = existing.find((c) => c.card === card.card);
+      if (!prev) {
+        // ONLY ONTO A ROW ANOTHER SOURCE WROTE. Restricting this to hand-kept
+        // rows is load bearing and it was wrong for one run without it: the
+        // parser's own stale "Trainer Ruffian" swallowed its own corrected
+        // "Ruffian" and the bad name survived the fix that removed it. A row
+        // this parser wrote is its to retire, never something to fold onto.
+        const tail = ` ${card.card.toLowerCase()}`;
+        const near = existing.filter(
+          (c) => String(c.card).toLowerCase().endsWith(tail) &&
+                 Object.keys(c).some((k) => !PARSER_FIELDS.has(k))
+        );
+        if (near.length === 1) {
+          prev = near[0];
+          folded.push(`${video}: "${card.card}" folded into "${prev.card}"`);
+        }
+      }
+      if (prev) updated++; else added++;
+      // A HAND-KEPT ROW IS READ, NOT WRITTEN, and the Costco promos are why.
+      // Those two carry `promo`, `number`, `img`, `forSet` and a pricecharting
+      // price, and they deliberately carry NO set id, because a promo is in no
+      // expansion and resolving it against one puts the wrong Oricorio ex on
+      // the page. Tim's Video Log shorthand for the same two cards names
+      // Phantasmal Flames, which is the product they shipped alongside rather
+      // than the set they are in. A first cut of this filled in fields that
+      // were merely ABSENT, and it promptly wrote that set id onto both promos
+      // and undid the fix the readme in data/hits.json exists to record.
+      //
+      // So on these rows an absent field is somebody's answer, not a gap. The
+      // parse confirms the card is still in the sheet and changes nothing; what
+      // it wanted to write is printed instead, so a real disagreement between
+      // the two tabs is visible rather than resolved by whoever ran last.
+      const hand = prev && Object.keys(prev).some((k) => !PARSER_FIELDS.has(k));
+      let merged;
+      if (hand) {
+        merged = { ...prev };
+        for (const [k, v] of Object.entries(card)) {
+          if (k === "card" || merged[k] === v) continue;
+          deferred.push(`${video} "${prev.card}": sheet says ${k}=${JSON.stringify(v)}, kept ${JSON.stringify(merged[k] ?? null)}`);
+        }
+      } else {
+        merged = { ...(prev || {}), ...card, ...(prev ? { card: prev.card } : {}) };
+      }
+      kept.push(merged);
+    }
+    const landed = new Set(kept.map((c) => c.card));
+    for (const c of existing) {
+      if (landed.has(c.card)) continue;
+      const hand = Object.keys(c).some((k) => !PARSER_FIELDS.has(k));
+      if (hand) { kept.push(c); continue; }
+      retired.push(`${video}: dropped "${c.card}", which this parse no longer produces`);
+    }
+    byVid[video] = kept;
+  }
+  if (deferred.length) {
+    console.log(`\n${deferred.length} field(s) the sheet would have changed on a hand-kept row, left alone:`);
+    for (const d of deferred) console.log("  " + d);
+  }
+  if (folded.length) {
+    console.log(`\n${folded.length} card(s) folded onto a name already logged for the same video:`);
+    for (const f of folded) console.log("  " + f);
+  }
+  if (retired.length) {
+    console.log(`\n${retired.length} stale row(s) retired from data/hits.json. READ THIS LIST.`);
+    console.log("Each one was written by an older run of this parser and is not in the sheet");
+    console.log("today. A row carrying anything this parser does not write is never touched.");
+    for (const r of retired) console.log("  " + r);
   }
   hf.videos = byVid;
   await writeFile(join(ROOT, "data/hits.json"), JSON.stringify(hf, null, 2) + "\n");
@@ -1331,6 +1579,37 @@ ${/* EXACT KEY, NOT A PREFIX TEST. Three real YouTube ids in this file start wit
   Object.keys(manual).filter((k) => k !== "_WARNING").length
 } videos, plus the _WARNING header)
 `);
+
+// THESE THREE WERE COLLECTED AND NEVER PRINTED, WHICH IS THE FAILURE MODE THE
+// SECTION ABOVE EXISTS TO ARGUE AGAINST. A Hit Info fragment this parser cannot
+// read is a card Tim watched himself pull and wrote down, and it was being
+// dropped in total silence: TN7_ZsuRQSI reads "Destined Rivals - Marnie's
+// Grimmsnarl ex , Double Black Star - Double Rare", a comma typed where a dash
+// belonged, so the rarity split off into a fragment with no card in it. The
+// right answer is still to drop it, because there is no honest card name in
+// those four words and inventing one is the thing this file never does. Saying
+// so out loud is the difference between a decision and a leak.
+if (counted.hitUnparsed?.length) {
+  const n = counted.hitUnparsed.reduce((a, x) => a + x.unparsed.length, 0);
+  console.log(`${n} Hit Info fragment(s) had no card name in them. Nothing was written for these:`);
+  for (const { id, unparsed } of counted.hitUnparsed) {
+    for (const u of unparsed) console.log(`  ${id}: "${u}"`);
+  }
+  console.log("Usually a comma typed where a dash belonged, which splits one hit into two.\n");
+}
+if (counted.hitMismatch?.length) {
+  const n = counted.hitMismatch.reduce((a, x) => a + x.mismatched.length, 0);
+  console.log(`${n} hit(s) where the star symbol and the written rarity disagree:`);
+  for (const { id, mismatched } of counted.hitMismatch) {
+    for (const x of mismatched) console.log(`  ${id}: "${x.frag}" reads ${x.star} from the stars, ${x.written} from the words`);
+  }
+  console.log("The written word was kept. One of the two is a slip.\n");
+}
+if (counted.hitTyped?.length) {
+  console.log(`${counted.hitTyped.length} card name(s) had a card TYPE taken off the front:`);
+  for (const x of counted.hitTyped) console.log(`  ${x.id}: "${x.was}" -> "${x.now}"  (${x.set} lists the second and not the first)`);
+  console.log("");
+}
 
 if (unknownSet.size) {
   console.log("Set values I did not recognise (left untagged):");

@@ -60,7 +60,8 @@
       {
         "card": "Mega Greninja ex",
         "rarity": "Hyper Rare",
-        "set": "chaos-rising"
+        "set": "chaos-rising",
+        "setName": "Chaos Rising"
       }
     ],
     "greatest": true,
@@ -142,7 +143,8 @@
       {
         "card": "Cinccino ex",
         "rarity": "Double Rare",
-        "set": "chaos-rising"
+        "set": "chaos-rising",
+        "setName": "Chaos Rising"
       }
     ]
   },
@@ -209,7 +211,8 @@
       {
         "card": "Rampardos ex",
         "rarity": "Double Rare",
-        "set": "pitch-black"
+        "set": "pitch-black",
+        "setName": "Pitch Black"
       }
     ]
   },
@@ -305,7 +308,8 @@
       {
         "card": "Bastiodon",
         "rarity": "Illustration Rare",
-        "set": "pitch-black"
+        "set": "pitch-black",
+        "setName": "Pitch Black"
       }
     ]
   },
@@ -328,7 +332,8 @@
       {
         "card": "Mega Skarmory ex",
         "rarity": "Ultra Rare",
-        "set": "perfect-order"
+        "set": "perfect-order",
+        "setName": "Perfect Order"
       }
     ]
   },
@@ -351,7 +356,8 @@
       {
         "card": "Toucannon",
         "rarity": "Illustration Rare",
-        "set": "pitch-black"
+        "set": "pitch-black",
+        "setName": "Pitch Black"
       }
     ]
   },
@@ -401,9 +407,10 @@
     "hitCard": "Trainer - Dawn - Double Silver Star - Ultra Rare",
     "hits": [
       {
-        "card": "Trainer Dawn",
+        "card": "Dawn",
         "rarity": "Ultra Rare",
-        "set": "phantasmal-flames"
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames"
       }
     ]
   },
@@ -426,7 +433,8 @@
       {
         "card": "Mega Floette ex",
         "rarity": "Double Rare",
-        "set": "chaos-rising"
+        "set": "chaos-rising",
+        "setName": "Chaos Rising"
       }
     ]
   },
@@ -463,7 +471,8 @@
       {
         "card": "Rampardos ex",
         "rarity": "Ultra Rare",
-        "set": "pitch-black"
+        "set": "pitch-black",
+        "setName": "Pitch Black"
       }
     ]
   },
@@ -513,9 +522,10 @@
     "hitCard": "Trainer - Dawn - Double Gold Star - Special Illustration Rare",
     "hits": [
       {
-        "card": "Trainer Dawn Double Gold Star",
+        "card": "Dawn",
         "rarity": "Special Illustration Rare",
-        "set": "phantasmal-flames"
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames"
       }
     ]
   },
@@ -537,7 +547,8 @@
       {
         "card": "Mega Starmie ex",
         "rarity": "Double Rare",
-        "set": "perfect-order"
+        "set": "perfect-order",
+        "setName": "Perfect Order"
       }
     ]
   },
@@ -663,7 +674,8 @@
       {
         "card": "Mega Chandelure ex",
         "rarity": "Double Rare",
-        "set": "pitch-black"
+        "set": "pitch-black",
+        "setName": "Pitch Black"
       }
     ]
   },
@@ -686,7 +698,8 @@
       {
         "card": "Mega Excadrill ex",
         "rarity": "Double Rare",
-        "set": "pitch-black"
+        "set": "pitch-black",
+        "setName": "Pitch Black"
       }
     ]
   },
@@ -709,7 +722,8 @@
       {
         "card": "Salazzle ex",
         "rarity": "Double Rare",
-        "set": "perfect-order"
+        "set": "perfect-order",
+        "setName": "Perfect Order"
       }
     ]
   },
@@ -731,7 +745,8 @@
       {
         "card": "Thievul",
         "rarity": "Illustration Rare",
-        "set": "pitch-black"
+        "set": "pitch-black",
+        "setName": "Pitch Black"
       }
     ]
   },
@@ -783,7 +798,8 @@
       {
         "card": "Chespin",
         "rarity": "Illustration Rare",
-        "set": "chaos-rising"
+        "set": "chaos-rising",
+        "setName": "Chaos Rising"
       }
     ]
   },
@@ -804,9 +820,10 @@
     "hitCard": "Trainer - Sacred Ash - Double Silver Star - Ultra Rare",
     "hits": [
       {
-        "card": "Trainer Sacred Ash",
+        "card": "Sacred Ash",
         "rarity": "Ultra Rare",
-        "set": "perfect-order"
+        "set": "perfect-order",
+        "setName": "Perfect Order"
       }
     ]
   },
@@ -841,9 +858,10 @@
     "hitCard": "Trainer - Lumiose City - Double Silver Star - Ultra Rare",
     "hits": [
       {
-        "card": "Trainer Lumiose City",
+        "card": "Lumiose City",
         "rarity": "Ultra Rare",
-        "set": "perfect-order"
+        "set": "perfect-order",
+        "setName": "Perfect Order"
       }
     ]
   },
@@ -881,7 +899,8 @@
       {
         "card": "Ampharos",
         "rarity": "Illustration Rare",
-        "set": "chaos-rising"
+        "set": "chaos-rising",
+        "setName": "Chaos Rising"
       }
     ]
   },
@@ -904,7 +923,8 @@
       {
         "card": "Mega Scrafty ex",
         "rarity": "Double Rare",
-        "set": "ascended-heroes"
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes"
       }
     ]
   },
@@ -925,9 +945,10 @@
     "hitCard": "Trainer - Energy Recycler - Double Silver Star - Ultra Rare",
     "hits": [
       {
-        "card": "Trainer Energy Recycler",
+        "card": "Energy Recycler",
         "rarity": "Ultra Rare",
-        "set": "perfect-order"
+        "set": "perfect-order",
+        "setName": "Perfect Order"
       }
     ]
   },
@@ -948,9 +969,10 @@
     "hitCard": "Trainer - Team Rocket's Transceiver - Double Silver Star - Ultra Rare",
     "hits": [
       {
-        "card": "Trainer Team Rocket's Transceiver",
+        "card": "Team Rocket's Transceiver",
         "rarity": "Ultra Rare",
-        "set": "ascended-heroes"
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes"
       }
     ]
   },
@@ -1033,7 +1055,8 @@
       {
         "card": "Scorbunny",
         "rarity": "Illustration Rare",
-        "set": "ascended-heroes"
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes"
       }
     ]
   },
@@ -1086,7 +1109,8 @@
       {
         "card": "Beedrill ex",
         "rarity": "Double Rare",
-        "set": "chaos-rising"
+        "set": "chaos-rising",
+        "setName": "Chaos Rising"
       }
     ]
   },
@@ -1109,7 +1133,8 @@
       {
         "card": "Mega Scrafty ex",
         "rarity": "Double Rare",
-        "set": "ascended-heroes"
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes"
       }
     ]
   },
@@ -1162,7 +1187,8 @@
       {
         "card": "Chespin",
         "rarity": "Illustration Rare",
-        "set": "chaos-rising"
+        "set": "chaos-rising",
+        "setName": "Chaos Rising"
       }
     ]
   },
@@ -1324,7 +1350,7 @@
         "card": "Stunfisk ex",
         "rarity": "Ultra Rare",
         "set": "ascended-heroes",
-        "setName": "ascended heroes"
+        "setName": "Ascended Heroes"
       }
     ]
   },
@@ -1348,7 +1374,7 @@
         "card": "Volcanion ex",
         "rarity": "Double Rare",
         "set": "journey-together",
-        "setName": "journey together"
+        "setName": "Journey Together"
       }
     ]
   },
@@ -1360,7 +1386,7 @@
         "card": "Rotom ex",
         "rarity": "Double Rare",
         "set": "phantasmal-flames",
-        "setName": "phantasmal flames"
+        "setName": "Phantasmal Flames"
       }
     ],
     "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets."
@@ -1370,10 +1396,10 @@
     "hitCard": "Journey Together - Trainer - Ruffian - Double Silver Star - Ultra Rare",
     "hits": [
       {
-        "card": "Trainer Ruffian",
+        "card": "Ruffian",
         "rarity": "Ultra Rare",
         "set": "journey-together",
-        "setName": "journey together"
+        "setName": "Journey Together"
       }
     ]
   },
@@ -1385,7 +1411,7 @@
         "card": "Mismagius ex",
         "rarity": "Double Rare",
         "set": "phantasmal-flames",
-        "setName": "phantasmal flames"
+        "setName": "Phantasmal Flames"
       }
     ]
   },
@@ -1397,7 +1423,7 @@
         "card": "Incineroar ex SR",
         "rarity": "Super Rare",
         "set": "ja-cyber-judge",
-        "setName": "cyber judge"
+        "setName": "Cyber Judge (JP)"
       }
     ]
   },
@@ -1412,7 +1438,7 @@
         "card": "Mega Lopunny ex",
         "rarity": "Double Rare",
         "set": "phantasmal-flames",
-        "setName": "phantasmal flames"
+        "setName": "Phantasmal Flames"
       }
     ],
     "playlistToAdd": "Hits"
@@ -1425,7 +1451,7 @@
         "card": "Feebas",
         "rarity": "Illustration Rare",
         "set": "surging-sparks",
-        "setName": "surging sparks"
+        "setName": "Surging Sparks"
       }
     ],
     "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets."
@@ -1445,7 +1471,7 @@
         "card": "Tsareena ex",
         "rarity": "Double Rare",
         "set": "paradox-rift",
-        "setName": "paradox rift"
+        "setName": "Paradox Rift"
       }
     ]
   },
@@ -1462,7 +1488,7 @@
         "card": "Spearow",
         "rarity": "Illustration Rare",
         "set": "mega-evolution",
-        "setName": "mega evolution"
+        "setName": "Mega Evolution"
       }
     ],
     "playlistToAdd": "Hits",
@@ -1474,86 +1500,88 @@
     "hitCard": "Phantasmal Flames - Trainer - Dawn - Double Silver Star - Ultra Rare, Phantasmal Flames - Mega Gengar ex - Double Black Star - Double Rare , Mega Evolution - Mega Gardevoir ex - Double Silver Star - Ultra Rare , Mega Evolution - Mega Venusaur ex - Double Black Star - Double Rare , Mega Evolution - Marshadow - Single Gold Star - Illustration Rare ,  Destined Rivals - Cetitan ex - Double Black Star , Destined Rivals - Rotom - Single Gold Star - Illustration Rare, Journey Together - Noibat - Single Gold Star - Illustration Rare, Journey Together - Trainer - Brock's Scouting - Double Silver Star - Ultra Rare , Journey Together - Blaziken ex - Double Black Star - Double Rare, Surging Sparks - Trainer - Scramble Switch - Single Pink Star -  ACE SPEC Rare , Surging Sparks - Trainer - Cyrano - Double Silver Star - Ultra Rare, Phantasmal Falmes - Charizard X ex - Black Star Promo Card , Phantasmal Flames - Oricorio ex - Black Star Promo Card",
     "hits": [
       {
-        "card": "Trainer Dawn",
+        "card": "Dawn",
         "rarity": "Ultra Rare",
         "set": "phantasmal-flames",
-        "setName": "phantasmal flames"
+        "setName": "Phantasmal Flames"
       },
       {
         "card": "Mega Gengar ex",
         "rarity": "Double Rare",
         "set": "phantasmal-flames",
-        "setName": "phantasmal flames"
+        "setName": "Phantasmal Flames"
       },
       {
         "card": "Mega Gardevoir ex",
         "rarity": "Ultra Rare",
         "set": "mega-evolution",
-        "setName": "mega evolution"
+        "setName": "Mega Evolution"
       },
       {
         "card": "Mega Venusaur ex",
         "rarity": "Double Rare",
         "set": "mega-evolution",
-        "setName": "mega evolution"
+        "setName": "Mega Evolution"
       },
       {
         "card": "Marshadow",
         "rarity": "Illustration Rare",
         "set": "mega-evolution",
-        "setName": "mega evolution"
+        "setName": "Mega Evolution"
       },
       {
         "card": "Cetitan ex",
         "rarity": "Double Rare",
         "set": "destined-rivals",
-        "setName": "destined rivals"
+        "setName": "Destined Rivals"
       },
       {
         "card": "Rotom",
         "rarity": "Illustration Rare",
         "set": "destined-rivals",
-        "setName": "destined rivals"
+        "setName": "Destined Rivals"
       },
       {
         "card": "Noibat",
         "rarity": "Illustration Rare",
         "set": "journey-together",
-        "setName": "journey together"
+        "setName": "Journey Together"
       },
       {
-        "card": "Trainer Brock's Scouting",
+        "card": "Brock's Scouting",
         "rarity": "Ultra Rare",
         "set": "journey-together",
-        "setName": "journey together"
+        "setName": "Journey Together"
       },
       {
         "card": "Blaziken ex",
         "rarity": "Double Rare",
         "set": "journey-together",
-        "setName": "journey together"
+        "setName": "Journey Together"
       },
       {
-        "card": "Trainer Scramble Switch",
+        "card": "Scramble Switch",
         "rarity": "ACE SPEC Rare",
         "set": "surging-sparks",
-        "setName": "surging sparks"
+        "setName": "Surging Sparks"
       },
       {
-        "card": "Trainer Cyrano",
+        "card": "Cyrano",
         "rarity": "Ultra Rare",
         "set": "surging-sparks",
-        "setName": "surging sparks"
+        "setName": "Surging Sparks"
       },
       {
-        "card": "Charizard X ex Black Star Promo Card",
+        "card": "Charizard X ex",
+        "rarity": "Black Star Promo",
         "set": "phantasmal-flames",
-        "setName": "phantasmal flames"
+        "setName": "Phantasmal Flames"
       },
       {
-        "card": "Oricorio ex Black Star Promo Card",
+        "card": "Oricorio ex",
+        "rarity": "Black Star Promo",
         "set": "phantasmal-flames",
-        "setName": "phantasmal flames"
+        "setName": "Phantasmal Flames"
       }
     ],
     "playlistToAdd": "Hits",
@@ -1568,18 +1596,18 @@
         "card": "Stufful",
         "rarity": "Illustration Rare",
         "set": "mega-evolution",
-        "setName": "mega evolution"
+        "setName": "Mega Evolution"
       },
       {
         "card": "Marnie's Grimmsnarl ex",
         "set": "destined-rivals",
-        "setName": "destined rivals"
+        "setName": "Destined Rivals"
       },
       {
         "card": "Wailord",
         "rarity": "Illustration Rare",
         "set": "journey-together",
-        "setName": "journey together"
+        "setName": "Journey Together"
       }
     ],
     "playlistToAdd": "Hits",

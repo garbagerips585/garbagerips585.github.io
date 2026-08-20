@@ -291,29 +291,40 @@ const psaOf = (c) => c.pc?.cols?.psa10?.value ?? null;
 // ---------------------------------------------------------------------------
 //
 // data/hits.json is what the public pages read and it is keyed BY YOUTUBE VIDEO
-// ID, which is the join build-hall.mjs records throwing away on one line. The
-// entries for a First Partner rip carry the printing in the card string, and
-// the importer wrote several overlapping forms of the same three pulls, so this
+// ID, which is the join build-hall.mjs records throwing away on one line. This
 // dedupes to the SET OF PROMO NAMES named on that video rather than counting
 // rows. Hand listing them would go stale the next time Tim opens a box; this
 // grows on its own as more get tagged.
+//
+// THE PRODUCT IS NAMED IN `printing`, NOT IN THE CARD NAME, AND THAT SWAP IS
+// THE WHOLE REASON THIS COMMENT CHANGED. Tim writes one cell, "First Partner
+// Illustration Collection (Series 1) Alola Region Promo : Rowlet, Litten,
+// Popplio". scripts/import-sheet.mjs used to glue the words before the colon
+// onto the front of each card, so this function could look for the product in
+// the card name and find it, and the six-box rip page published three card
+// names no catalogue has ever held plus four more rows that were older
+// versions of the same mistake. The importer keeps that context in `printing`
+// now and the card is called Rowlet. Both are read here: `card` so an older
+// data file still matches, `printing` because that is where it lives today.
+// Without the second, this band silently emptied and the section vanished off
+// a live page with every check still green.
 function timsPulls() {
   const names = new Map(cards.map((c) => [c.name.toLowerCase(), c]));
+  const said = (h) => `${String(h?.card || "")} ${String(h?.printing || "")}`;
   const out = [];
   for (const [vid, list] of Object.entries(hits.videos || {})) {
     if (!Array.isArray(list)) continue;
     const named = new Set();
     let sawProduct = false;
     for (const h of list) {
-      const s = String(h?.card || "");
-      if (/first partner illustration collection/i.test(s)) sawProduct = true;
+      if (/first partner illustration collection/i.test(said(h))) sawProduct = true;
     }
     // ONLY a video already tagged as this product counts. A bare "Rowlet" on
     // some other rip is a different card entirely, and taking it would put
     // somebody else's promo on this page.
     if (!sawProduct) continue;
     for (const h of list) {
-      const s = String(h?.card || "");
+      const s = said(h);
       for (const [lc, card] of names) {
         if (new RegExp(`\\b${lc}\\b`, "i").test(s)) named.add(card.number);
       }
