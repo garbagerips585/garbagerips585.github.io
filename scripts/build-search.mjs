@@ -197,6 +197,10 @@ const PAGES = [
   ["/eevee-evolutions.html", "Eevee evolutions", "All eight Eeveelutions, and exactly what each one needs"],
   ["/video-games.html", "Every Pokemon video game", "Covers, release dates, platforms and Metascores, 1996 to now"],
   ["/creators.html", "Local creators", "Other Rochester card channels worth watching"],
+  // The blurb leads with the trademark date rather than with "the Rochester
+  // dish", because the date is the surprising checkable fact and every other
+  // page about this dish opens with the summary.
+  ["/garbage-plate.html", "Garbage Plate", "The dish this channel is named after, sourced, with a diagram and where to eat one"],
   ["/vendors.html", "Local vendors", "Who sells cards around Rochester"],
   ["/about.html", "About", "Who this is and why"],
 ];

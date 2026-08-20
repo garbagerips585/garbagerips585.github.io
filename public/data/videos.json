@@ -8,7 +8,7 @@
       "path": "rip/the-9th-pack-saved-the-box-h5mje3jbD48.html",
       "published": "2026-08-20",
       "duration": 24,
-      "views": 480,
+      "views": 509,
       "vertical": true,
       "short": true,
       "sets": [
@@ -26,7 +26,7 @@
       "path": "rip/is-rampardos-ex-a-real-hit-_RuAmy2dGL8.html",
       "published": "2026-08-19",
       "duration": 20,
-      "views": 963,
+      "views": 967,
       "vertical": true,
       "short": true,
       "sets": [
@@ -835,7 +835,7 @@
       "path": "rip/the-curse-is-broken-pitch-black-hit-JfHlnrlX6S0.html",
       "published": "2026-07-26",
       "duration": 22,
-      "views": 32,
+      "views": 34,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2215,6 +2215,7 @@
       "hitCard": "First Partner Illustration Collection (Series 1) Alola Region Promo : Rowlet, Litten, Popplio",
       "hasHit": true,
       "packsOpened": 3,
+      "packsStated": true,
       "setPacks": [
         {
           "set": null,
@@ -2238,7 +2239,7 @@
       "boxNumber": 6,
       "packNumber": 3,
       "openingType": "First Partner Illustration Collection (Series 1)",
-      "packs": 1,
+      "packs": 3,
       "label": "Phantasmal Flames Collection Box 6 - Pack 3"
     },
     {
@@ -2399,9 +2400,10 @@
       "pulls": [
         "ultra"
       ],
-      "hitCard": "First Partner Illustration Collection (Series 1) Alola Region Promo : Rowlet, Litten, Popplio  - Phantasmal Flames - Trainer - Punk Helmet - Double Silver Star - Ultra Rare",
+      "hitCard": "First Partner Illustration Collection (Series 1) Alola Region Promo : Rowlet, Litten, Popplio ; Phantasmal Flames - Trainer - Punk Helmet - Double Silver Star - Ultra Rare",
       "hasHit": true,
       "packsOpened": 3,
+      "packsStated": true,
       "setPacks": [
         {
           "set": null,
@@ -2425,7 +2427,7 @@
       "boxNumber": 5,
       "packNumber": 1,
       "openingType": "First Partner Illustration Collection (Series 1)",
-      "packs": 1,
+      "packs": 3,
       "label": "Phantasmal Flames Collection Box 5 - Pack 1"
     },
     {

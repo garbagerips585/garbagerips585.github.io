@@ -63,6 +63,16 @@ const STEPS = [
   "node scripts/build-wanted.mjs",
   "node scripts/build-hall.mjs",
   "node scripts/build-shops.mjs",
+  // Next to build-shops.mjs because it is the same reader: somebody who came
+  // for the Rochester angle. It reads data/garbage-plate.json, which a human
+  // writes and which carries the source for every claim on the page, so it has
+  // no data dependency on any earlier step. Its ordering constraints are the
+  // usual two, plus one it shares with build-shops.mjs: before build-search.mjs,
+  // which walks public/*.html and fails the build on an indexable page missing
+  // from its PAGES list; before build-pages.mjs puts it in the sitemap; and
+  // AFTER build-proto.mjs, because it takes its <head>, bar, menu and footer by
+  // slicing public/index.html, exactly as the four other pages that do that.
+  "node scripts/build-garbage-plate.mjs",
   "node scripts/build-about.mjs",
   "node scripts/build-luck.mjs",
   "node scripts/build-upcoming.mjs",

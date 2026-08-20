@@ -186,7 +186,8 @@ const body = `
         <p>Welcome to Garbage Rips 585, where Pokemon packs get ripped like a late-night
           Garbage Plate after the bars close.</p>
 
-        <p>We are proudly repping Rochester, NY, the 585: home of the Garbage Plate, Wegmans,
+        <p>We are proudly repping Rochester, NY, the 585: home of the
+          <a href="/garbage-plate.html">Garbage Plate</a>, Wegmans,
           weather that cannot make up its mind, and the unofficial Pokemon of the city,
           Garbodor. Around here chaos is a lifestyle and ripping packs is just part of the
           routine.</p>

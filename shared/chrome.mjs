@@ -363,6 +363,20 @@ export const NAV = [
     ["/shops.html", "Card shops"],
     ["/vendors.html", "Local vendors"],
     ["/creators.html", "Local creators"],
+    // THE SIXTH LINK IN THIS GROUP, and the note at the top of NAV is what
+    // makes it safe: eight groups is the measured count that does not scroll
+    // either panel, no group here is larger than eight, and this one was at
+    // five. Added 20 August 2026 on Tim's ask for a page about the dish the
+    // channel is named after.
+    //
+    // "Garbage Plate" AND NOT "The plate" OR "Food". The label is the thing
+    // people type and the thing on the sign, it is the only two words in this
+    // menu that a Rochester reader will recognise instantly, and the page's own
+    // h1 asks "What is a Garbage Plate?" so the label and the destination say
+    // the same words. It sits under the two card-shopping links and above
+    // About, which is reading order: shops and shows are why you came, this is
+    // why the channel is called what it is, and About is who is talking.
+    ["/garbage-plate.html", "Garbage Plate"],
     ["/about.html", "About"],
   ]],
 ];

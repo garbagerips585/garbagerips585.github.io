@@ -577,6 +577,13 @@ ${/* THE ONE ORNAMENT ON THIS PAGE, AND THIS IS THE PAGE THE PLATE WAS DRAWN
           them and also the reason a reader who finds one wants the others. */ ""}${/* "shopfront" IS BRITISH AND THIS PAGE GETS IT RIGHT 40 LINES LOWER, in
          "They run a separate singles storefront alongside the main site". Same
          word on /card-shows.html. */ ""}
+    ${/* THE ORNAMENT ABOVE THIS IS A GARBAGE PLATE AND UNTIL 20 AUGUST 2026 IT
+          POINTED NOWHERE. There is a whole page about the dish now, this page is
+          the one whose reader is already out driving around Rochester, and the
+          mark itself is the natural handle for the link. */ ""}
+    <p class="shops-lede">Making a day of it? A plate is the other thing this city is known for,
+      and <a href="/garbage-plate.html">the Garbage Plate page</a> has the sourced history, a
+      diagram of what is actually on one, and eleven places around here that serve one.</p>
     <p class="shops-lede">Not everyone selling cards around here has a storefront.
       <a href="/vendors.html">Local vendors</a> are the breakers and sellers we buy from without one, and
       <a href="/creators.html">local creators</a> is who else is filming Pokemon in Rochester, Buffalo and
