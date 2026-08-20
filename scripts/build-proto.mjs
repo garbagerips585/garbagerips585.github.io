@@ -18,6 +18,12 @@ import { fileURLToPath } from "node:url";
 import { checkDrift } from "../shared/chrome.mjs";
 import { esc, MONTHS_SHORT as MONTHS, moneyCompact, imgDims, viewCount, avifPicture, longDate, RIP_BANNER } from "../shared/format.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
+// The sourcing sentence for a raw card price, and the "which of the two dates
+// in that file is the money's" helper. NOT re-worded here: this page prints the
+// same figures the set guides and /wanted.html do, out of the same files, so it
+// has to print the same sentence about them or the site has two answers to one
+// question. See shared/card-prices.mjs.
+import { priceNote, priceRead } from "../shared/card-prices.mjs";
 // The drops band's expiry model. NOT reimplemented here: /drops.html and this
 // page print the same rows, so "is this row still true" is answered in one
 // place for both. See shared/drops.mjs.
@@ -116,6 +122,178 @@ const gradedPrice = (setId, number) => {
   if (!a?.psa10 || (a.psa10Sales != null && a.psa10Sales < 10)) return null;
   return a.psa10;
 };
+// WHO SAID SO AND WHEN, for the graded figures. Both are in the data already:
+// every auto row carries `source` (pokemonpricetracker.com today) and `asOf`,
+// and the set guides print that per-card date beside each PSA 10 on the chase
+// grid. The home page printed the number and neither of the two, which is a
+// price on a fan page with no source under it. Same shape as build-set-pages.mjs
+// so the two pages cannot credit different feeds for one figure.
+const gradedStamp = (setId, number) => {
+  const k = `${setId}-${number}`;
+  const m = graded.prices?.[k];
+  return {
+    // A hand-entered price is Tim's own figure and carries no feed name. Named
+    // as such rather than borrowed from the auto row underneath it.
+    source: (typeof m?.price === "number" ? m.source : null) || graded.auto?.[k]?.source || null,
+    asOf: m?.asOf || graded.auto?.[k]?.asOf || null,
+  };
+};
+
+/* -------------------------------------------------- the checklist, once ----
+ *
+ * ONE READER FOR public/data/cards/<set>.json, memoized, because BOTH price
+ * bands on this page join against it: the Most Wanted shelf for its raw figure
+ * (see the long note below) and the Card Pokedex grid for its top card's. Two
+ * readers of one file is how a page ends up printing two dates for one number.
+ *
+ * Card numbers are written "078" in the checklist and "78" in the chase list,
+ * so they are compared stripped of leading zeros. reconcile-cards.mjs already
+ * matches them padding-blind for the same reason; matching on the raw string
+ * here would have silently dropped Shrouded Fable and Pokemon GO out of the
+ * dated set and left two tiles credited to nothing.
+ */
+const _cardDocs = new Map();
+async function cardDoc(setId) {
+  if (!_cardDocs.has(setId)) {
+    let doc = null;
+    try {
+      doc = JSON.parse(await readFile(join(ROOT, `public/data/cards/${setId}.json`), "utf8"));
+    } catch {
+      /* no checklist for this set yet */
+    }
+    _cardDocs.set(setId, doc);
+  }
+  return _cardDocs.get(setId);
+}
+const unpad = (n) => String(n ?? "").replace(/^0+(?=\d)/, "").toLowerCase();
+const cardRow = (doc, number) =>
+  (doc?.cards || []).find((x) => unpad(x.n) === unpad(number)) || null;
+
+/* --------------------------------------------------- what the notes say ----
+ *
+ * THE HOME PAGE PUBLISHED 34 PRICES WITH NO SOURCE AND NO DATE ON EITHER BAND,
+ * on the most visited page on the site, against a rule that says a number that
+ * cannot be traced to a source does not get published. /wanted.html, the set
+ * guides and /complete-a-set.html all carried the credit already; the two bands
+ * that summarise them did not.
+ *
+ * The stamps are ACCUMULATED FROM THE FILES THE TILES WERE ACTUALLY BUILT FROM
+ * rather than typed, which is the whole point: a note whose date is written by
+ * hand into public/index.html is wrong within the week and nobody notices. Five
+ * pages were found naming a retired feed on 19 August 2026 for exactly that
+ * reason. If a band ever stops mixing two feeds, or gains a third, the sentence
+ * changes by itself.
+ */
+function priceLedger() {
+  return {
+    // The merged shape shared/card-prices.mjs's priceNote() reads. `pricedBy`
+    // counts ONLY the cards this band prints, not all 5,181 in the checklists,
+    // because the clause it feeds says "priced here".
+    doc: null,
+    rawSources: new Set(),
+    psaSources: new Set(),
+    psaAsOf: null,
+    psaFrom: null,
+    raw: 0,
+    psa: 0,
+    // A price the band prints that no checklist backs, so the note cannot date
+    // it. Zero today. Counted rather than ignored, because the failure mode
+    // here is a figure quietly falling outside the sentence that sources it.
+    unsourced: [],
+  };
+}
+// A raw figure, taken out of the checklist doc it was priced from, folded into
+// the band's ledger. `src: "tcgdex"` is stamped by sync-cards.mjs on the handful
+// of rows PriceCharting does not list, so the fallback clause counts itself.
+function addRaw(led, doc, row, what = "a card") {
+  if (!doc) {
+    led.unsourced.push(what);
+    return;
+  }
+  led.raw += 1;
+  if (!led.doc) {
+    led.doc = {
+      priceSource: doc.priceSource,
+      pricesChecked: doc.pricesChecked,
+      checked: doc.checked,
+      pricedBy: { pricecharting: 0, tcgdex: 0 },
+    };
+  }
+  // The NEWEST read across the sets the band actually used, not whichever file
+  // was read first: with one set crawled in July and one in August, "first
+  // wins" dates every price on the band to July.
+  const read = priceRead(doc);
+  if (read && read > priceRead(led.doc)) {
+    led.doc.pricesChecked = doc.pricesChecked;
+    led.doc.checked = doc.checked;
+  }
+  if (doc.priceSource) led.rawSources.add(doc.priceSource);
+  if (row?.src === "tcgdex") led.doc.pricedBy.tcgdex += 1;
+  else led.doc.pricedBy.pricecharting += 1;
+}
+// BOTH ENDS OF THE GRADED READ, not just the newest one. data/psa10.json is
+// filled a card at a time as the credits allow, so the 28 tiles in the Pokedex
+// grid carry graded figures read on three different days. "Last checked August
+// 16" over a band whose oldest figure is the 11th claims a freshness five of
+// them do not have, which is the same overclaim as stamping the checklist's
+// date under a column of dollars. One date where they agree, both where they
+// do not, and either way it is the file's own.
+function addPsa(led, stamp) {
+  led.psa += 1;
+  if (stamp.source) led.psaSources.add(stamp.source);
+  if (stamp.asOf) {
+    if (!led.psaAsOf || stamp.asOf > led.psaAsOf) led.psaAsOf = stamp.asOf;
+    if (!led.psaFrom || stamp.asOf < led.psaFrom) led.psaFrom = stamp.asOf;
+  }
+}
+/**
+ * The band's sourcing note, or nothing at all when the band prints no price.
+ *
+ * The raw half is priceNote() verbatim, so this page cannot word it differently
+ * from the set guides it links to. The graded half mirrors the sentence
+ * /wanted.html prints under the same two feeds, in this page's sentence case.
+ * NEITHER IS WRITTEN WHERE THERE IS NOTHING TO SAY: a band with no graded
+ * figure gets no graded sentence rather than a claim about a feed it did not
+ * read.
+ */
+function bandNote(led, { lead, psaLead, trailing = "" }) {
+  const bits = [];
+  if (led.rawSources.size > 1) {
+    // ONE SENTENCE CANNOT CREDIT TWO FEEDS FOR ONE COLUMN, and picking whichever
+    // set was read first would credit one of them for the other's figures. Stop
+    // rather than publish it: today all 28 checklists carry pricecharting.com,
+    // so this only fires if the source swap is ever done half way.
+    console.error(
+      `\nThe home page's price bands read ${led.rawSources.size} different raw price sources ` +
+        `(${[...led.rawSources].join(", ")}). The sourcing note under the band can only name one.\n`
+    );
+    process.exit(1);
+  }
+  if (led.raw) bits.push(esc(priceNote(led.doc, { lead, trailing })));
+  if (led.psa) {
+    const who = led.psaSources.size === 1 ? [...led.psaSources][0] : "graded sales data";
+    const when = !led.psaAsOf
+      ? ""
+      : led.psaFrom && led.psaFrom !== led.psaAsOf
+        ? // "between August 11 and August 16, 2026", not "August 11, 2026 and
+          // August 16, 2026": the year is said once where both ends share it.
+          `, checked between ${
+            led.psaFrom.slice(0, 4) === led.psaAsOf.slice(0, 4)
+              ? longDate(led.psaFrom).replace(/,\s*\d{4}$/, "")
+              : longDate(led.psaFrom)
+          } and ${longDate(led.psaAsOf)}`
+        : `, last checked ${longDate(led.psaAsOf)}`;
+    bits.push(
+      esc(
+        `${psaLead} the figure comes from ${who} instead${when}` +
+          ". That is a separate feed from the raw prices and a different read, so the two are not one measurement."
+      )
+    );
+  }
+  return bits.length ? `    <p class="price-note">${bits.join(" ")}</p>` : "";
+}
+const wantedLedger = priceLedger();
+const setsLedger = priceLedger();
 
 const packs = await dirSet("packs", /-garbage-rips-585-booster-pack\.webp$/);
 
@@ -154,12 +332,17 @@ try {
  */
 for (const c of wanted.cards || []) {
   if (!c.set || !c.number) continue;
-  try {
-    const doc = JSON.parse(await readFile(join(ROOT, `public/data/cards/${c.set}.json`), "utf8"));
-    const row = doc.cards.find((x) => String(x.n) === String(c.number));
-    if (typeof row?.price === "number" && row.price > 0) c.raw = row.price;
-  } catch {
-    /* no checklist for this set yet: keep what the hunt file holds */
+  const doc = await cardDoc(c.set);
+  const row = cardRow(doc, c.number);
+  if (typeof row?.price === "number" && row.price > 0) {
+    c.raw = row.price;
+    // THE FILE THE FIGURE CAME OUT OF, CARRIED WITH THE FIGURE. The note under
+    // the shelf has to date the six cards the shelf shows, not the ten in the
+    // hunt file, so the stamps are folded in where the tiles are built rather
+    // than here. Dating a band off cards it does not print is the same class of
+    // error as dating money off the checklist's `checked`.
+    c.rawDoc = doc;
+    c.rawRow = row;
   }
 }
 
@@ -856,7 +1039,23 @@ const setsHtml = (
       // raw otherwise, and nothing at all when we have neither.
       const top = (s.chase || [])[0];
       const topPsa = top ? gradedPrice(s.id, top.number) : null;
-      const topVal = topPsa || top?.price || null;
+      // THE RAW FIGURE IS RE-READ OUT OF THE CHECKLIST IT IS DATED BY, and that
+      // is not tidying. sets.json's chase price is a COPY, written by
+      // reconcile-cards.mjs out of public/data/cards/<set>.json, and the only
+      // date beside it in that file is `pricesAsOf`, which reconcile fills from
+      // the checklist's `checked` rather than from `pricesChecked`. Crediting a
+      // copied number with the original's read date is a guess about how long
+      // ago the two were in step; reading the number and the date out of the
+      // same file is not. All 28 copies match the checklist to the cent today,
+      // so no tile's figure moves, and the snapshot is still the fallback for a
+      // set whose checklist has not landed. This is the same fix, for the same
+      // reason, that the Most Wanted shelf above got on 19 August 2026.
+      const topDoc = top ? await cardDoc(s.id) : null;
+      const topRow = top ? cardRow(topDoc, top.number) : null;
+      const topRaw = typeof topRow?.price === "number" && topRow.price > 0 ? topRow.price : top?.price || null;
+      const topVal = topPsa || topRaw || null;
+      if (topPsa) addPsa(setsLedger, gradedStamp(s.id, top.number));
+      else if (topRaw) addRaw(setsLedger, topRow ? topDoc : null, topRow, s.id);
       return `        <a class="set" href="/sets/${s.id}.html">
           <span class="set-art">${face}</span>
           <b>${esc(s.name)}</b>
@@ -881,6 +1080,13 @@ const wantedHtml = (wanted.cards || [])
       : c.raw
         ? `RAW ${moneyCompact(c.raw)}`
         : "CHASING";
+    // Source and date for the six tiles this shelf prints, and only those six.
+    // The graded stamps are the hunt file's own, because the graded FIGURE is
+    // too; the raw stamps come from the checklist the raw figure was read out
+    // of a hundred lines above. A card that says CHASING adds nothing to
+    // either, so the note never dates a price the shelf does not show.
+    if (c.psa10) addPsa(wantedLedger, { source: c.psa10Source, asOf: c.psa10AsOf });
+    else if (c.raw) addRaw(wantedLedger, c.rawDoc, c.rawRow, `${c.name} (${c.set})`);
     const inner = `<span class="mw-art">${
       img
         ? avifPicture(`<img src="${esc(img)}" alt="${esc(c.name)} ${esc(c.rarity || "")} from ${esc(c.setName)}" loading="lazy" onerror="this.remove()"${imgDims(img)}>`)
@@ -903,6 +1109,58 @@ const wantedHtml = (wanted.cards || [])
     return `      <a class="mw" href="/sets/${esc(c.set)}.html" aria-label="${esc(c.name)} from ${esc(c.setName)}, see the ${esc(c.setName)} set guide">${inner}</a>`;
   })
   .join("\n");
+
+/* ------------------------------------------------ the two sourcing notes --
+ *
+ * WHY THESE ARE GENERATED AND THE CHROME AROUND THEM IS NOT. public/index.html
+ * is one of the three hand-maintained pages, so the paragraph could have been
+ * typed straight into it in ten seconds. The date is the reason not to: a date
+ * typed into a page is wrong the next time a crawl runs and nobody notices,
+ * which is how five pages came to name a feed the site had stopped reading. So
+ * the wording sits in a marker pair placed by hand ONCE, and everything inside
+ * it, the feed names, the dates and whether there is a graded sentence at all,
+ * is derived from the files the tiles above were built from.
+ *
+ * TWO NOTES, NOT ONE, because they describe two different reads. The shelf's
+ * graded figures were last checked days before the grid's, and one note under
+ * one band cannot honestly date the other. They sit OUTSIDE .mw-shelf and
+ * .set-grid: both are layout containers (a flex scroller and a six-column
+ * grid), and a paragraph dropped inside either becomes a column of it.
+ *
+ * AND THEY DO NOT SHIP ui.css's FONT FOR .price-note, which is the whole of the
+ * .price-note override further down in homeCss. The component is Space Mono at
+ * weight 400 and this page loads only the 700 cut (space-mono-i6WZ3Q.woff2), so
+ * two paragraphs of it fetched space-mono-Xi4EwQ.woff2 as well. Measured on the
+ * built page in headless Chrome with the cache off, against the same page with
+ * both notes stripped out:
+ *
+ *     390x844    585,926 -> 597,278 bytes, 19 -> 20 requests
+ *     1440x900   607,860 -> 619,210 bytes, 15 -> 16 requests
+ *
+ * 1.1KB of prose costing 11.3KB and a request, which is the same shape and the
+ * same file as the .wdr-ch note in homeCss, found the same way. That comment
+ * says CHECK THE WEIGHT BEFORE ADDING A FONT DECLARATION HERE; this is what
+ * checking it found. In the body font both notes are free.
+ */
+const wantedNote = bandNote(wantedLedger, {
+  lead: "Raw prices",
+  psaLead: "Where a card is marked PSA 10",
+  trailing:
+    "They are read out of the same set checklists the set guides print from, so the two cannot disagree about one card.",
+});
+const setsNote = bandNote(setsLedger, {
+  lead: "Top card prices",
+  psaLead: "Where a set's top card is marked PSA 10",
+  trailing: "Each one is the dearest card on that set's own guide, linked from the tile.",
+});
+for (const [band, led] of [["Most Wanted", wantedLedger], ["Card Pokedex", setsLedger]]) {
+  if (led.unsourced.length) {
+    console.log(
+      `\n  ${led.unsourced.length} price(s) on the ${band} band have no checklist behind them, so the ` +
+        `note under it does not date them: ${led.unsourced.join(", ")}`
+    );
+  }
+}
 
 // The imported set guides live in their own file and are listed on the same
 // /sets/ index, so any count of "guides" has to include them.
@@ -1751,6 +2009,13 @@ ${BRAND_STYLE_MIN}
 .wdr-what{font-size:var(--t-sm);line-height:1.35;color:var(--ink-2)}
 .wdr-exp{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2)}
 .wdrop-src{font-size:var(--t-micro);line-height:1.45;color:var(--ink-2);margin-top:var(--s3);max-width:52em}
+/* THE .wdr-ch TRAP ABOVE, FIRING AGAIN. ui.css's .price-note is Space Mono 400,
+   the one weight this page does not already load, so the two sourcing notes
+   fetched a second cut: +11,352 bytes and a request for 1.1KB of prose,
+   measured. Body font instead, which is what .wdrop-src right above uses for
+   the same job. The rest of the component is ui.css's and is untouched.
+   Scoped, because .price-note is not a home-page-only selector. */
+.mwband .price-note,.pokedex .price-note{font-family:var(--body)}
 @media(min-width:545px) and (max-width:899px){
 .vcar .hero{max-width:520px;margin:0 auto;padding:var(--s5)}
 .vcar .hero-art,
@@ -1896,6 +2161,11 @@ const REGIONS = {
   // the <section>, so an empty region is no band rather than an empty frame.
   DROPS: dropsHtml,
   WANTED: wantedHtml,
+  // The sourcing note under each price band. Empty when the band prints no
+  // price at all, which is the same "no frame around nothing" rule DROPS uses:
+  // the markers sit outside the paragraph, so an empty region is no note.
+  WANTEDNOTE: wantedNote,
+  SETSNOTE: setsNote,
   HOF: hallHtml,
   HOFPICK: hofHtml,
   LATEST: latestHtml,

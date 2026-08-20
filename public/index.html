@@ -191,6 +191,13 @@
 .wdr-what{font-size:var(--t-sm);line-height:1.35;color:var(--ink-2)}
 .wdr-exp{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2)}
 .wdrop-src{font-size:var(--t-micro);line-height:1.45;color:var(--ink-2);margin-top:var(--s3);max-width:52em}
+/* THE .wdr-ch TRAP ABOVE, FIRING AGAIN. ui.css's .price-note is Space Mono 400,
+   the one weight this page does not already load, so the two sourcing notes
+   fetched a second cut: +11,352 bytes and a request for 1.1KB of prose,
+   measured. Body font instead, which is what .wdrop-src right above uses for
+   the same job. The rest of the component is ui.css's and is untouched.
+   Scoped, because .price-note is not a home-page-only selector. */
+.mwband .price-note,.pokedex .price-note{font-family:var(--body)}
 @media(min-width:545px) and (max-width:899px){
 .vcar .hero{max-width:520px;margin:0 auto;padding:var(--s5)}
 .vcar .hero-art,
@@ -638,6 +645,12 @@
         <b>Mega Lucario ex</b><p>MEGA EVOLUTION &bull; PSA 10 $410</p></a>
 <!-- WANTED:END -->
     </div>
+<!-- Where the six prices above came from and when. Filled by build-proto.mjs,
+     because a date TYPED here is wrong the next crawl and nobody notices.
+     Outside .mw-shelf: a paragraph inside that flex row becomes a 7th card. -->
+<!-- WANTEDNOTE:START -->
+    <p class="price-note">Raw prices are pricecharting.com's price guide value for an ungraded copy, read August 16, 2026. A guide value is computed across the sales PriceCharting tracks, which is a wider set of venues than any one marketplace. They are read out of the same set checklists the set guides print from, so the two cannot disagree about one card. Where a card is marked PSA 10 the figure comes from pokemonpricetracker.com instead, last checked August 11, 2026. That is a separate feed from the raw prices and a different read, so the two are not one measurement.</p>
+<!-- WANTEDNOTE:END -->
   </div>
 </section>
 
@@ -787,7 +800,7 @@
           <span class="set-rips">1 rip</span>
         </a>
         <a class="set" href="/sets/obsidian-flames.html">
-          <span class="set-art"><span class="set-noart" aria-hidden="true"></span></span>
+          <span class="set-art"><img width="745" height="300" src="assets/logos/obsidian-flames-pokemon-tcg-set-logo-sm.webp" srcset="assets/logos/obsidian-flames-pokemon-tcg-set-logo-sm.webp 248w, assets/logos/obsidian-flames-pokemon-tcg-set-logo.webp 745w" sizes="112px" alt="" loading="lazy" style="--lh:45px"></span>
           <b>Obsidian Flames</b>
           <span class="set-meta">230 cards · Aug 2023</span>
           <span class="set-top">Top card $110</span>
@@ -851,6 +864,12 @@
         </a>
 <!-- SETS101:END -->
     </div>
+<!-- Same for the 28 in the grid. A SECOND note because it dates a second read:
+     Most Wanted's graded prices were checked days before these. Outside
+     .set-grid, or the paragraph becomes a tile. Why in build-proto.mjs. -->
+<!-- SETSNOTE:START -->
+    <p class="price-note">Top card prices are pricecharting.com's price guide value for an ungraded copy, read August 16, 2026. A guide value is computed across the sales PriceCharting tracks, which is a wider set of venues than any one marketplace. Each one is the dearest card on that set's own guide, linked from the tile. Where a set's top card is marked PSA 10 the figure comes from pokemonpricetracker.com instead, checked between August 11 and August 16, 2026. That is a separate feed from the raw prices and a different read, so the two are not one measurement.</p>
+<!-- SETSNOTE:END -->
   </div>
 </section>
 
