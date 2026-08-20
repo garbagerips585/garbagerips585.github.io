@@ -203,28 +203,24 @@ push to main. There is no server build step. See DEPLOY.md.
 Video tiles everywhere link to that video's own page under `public/rip/`,
 never to youtube.com. The embed lives on that page.
 
-The deliberate outbound links are Subscribe, the social icons, every card
-on /playlists.html, and one block of four at the foot of /how-to-play.html.
+The deliberate outbound links are Subscribe, the social icons, and one block
+of four at the foot of /how-to-play.html.
 THAT SENTENCE IS AN UNDERCOUNT AND HAS BEEN FOR MONTHS: see "THE COUNTING WAS
 WRONG THE WHOLE TIME" below for what is actually in the tree, and for the test
 that replaces the count.
-THE THIRD ONE IS AN EXCEPTION THIS FILE DID NOT ADMIT TO
-until 14 August 2026, when it read "the only deliberate outbound links are
-Subscribe and the social icons" while 22 cards on that page sent people to
-YouTube. The rule and the page disagreed and the page was winning quietly.
+THE PLAYLIST CARDS WERE THE THIRD EXCEPTION AND THEY ARE NOT ONE ANY MORE,
+19 August 2026. This file argued the case at length: a playlist is a YouTube
+object, an ordered hand-curated run, and watching it in order was a thing
+YouTube did that this site did not replicate. Against that it noted the site
+holds a page for every video in those playlists, so an on-site playlist view
+was buildable, and "the rule exists because sending people to YouTube is how a
+content hub stops being one". It ended by saying that whoever built the on-site
+version should DELETE the paragraph rather than edit it.
 
-The exception is arguable rather than obviously right, so here is the case
-either way. A playlist is a YouTube object: an ordered, hand-curated run, and
-watching it in order is a thing YouTube does that this site does not
-replicate. The cards are labelled "Watch on YouTube" and carry an aria-label
-saying it opens there, so nobody is tricked. Against that: the site holds a
-page for every video in those playlists, so an on-site playlist view is
-buildable, and the rule exists because sending people to YouTube is how a
-content hub stops being one.
-
-If you build the on-site version, delete this paragraph rather than editing
-it. Until then, do not "fix" the outbound links without deciding that
-question first: they are a known trade, not an oversight.
+It is built. /playlists.html now has 22 internal "Open the playlist" links and
+ZERO outbound ones, each playlist page plays every video in order on the site,
+and it states the run's total runtime, which YouTube's own playlist view does
+not. So the paragraph is gone, as instructed, and this is its headstone.
 
 THE FOURTH EXCEPTION IS /how-to-play.html, added deliberately and argued here
 rather than made quietly, which is the mistake the playlist cards made. That
