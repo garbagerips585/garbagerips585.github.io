@@ -175,6 +175,7 @@ import {
   footer,
 } from "../shared/chrome.mjs";
 import { esc, longDate } from "../shared/format.mjs";
+import { namesProduct } from "../shared/first-partner.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const PATH = "/first-partner-illustration-collection.html";
@@ -308,6 +309,13 @@ const psaOf = (c) => c.pc?.cols?.psa10?.value ?? null;
 // data file still matches, `printing` because that is where it lives today.
 // Without the second, this band silently emptied and the section vanished off
 // a live page with every check still green.
+//
+// THE "IS THIS THE PRODUCT" TEST IS SHARED NOW, not a second copy of the same
+// regex. shared/first-partner.mjs runs the same test in the other direction, to
+// price a rip page's hit row and to let these promos onto /hall.html, and two
+// copies of one match rule is how one of them ends up recognising a row the
+// other does not. Same argument as shared/graded-price.mjs owning the graded
+// chain rather than five builders each holding a copy of it.
 function timsPulls() {
   const names = new Map(cards.map((c) => [c.name.toLowerCase(), c]));
   const said = (h) => `${String(h?.card || "")} ${String(h?.printing || "")}`;
@@ -317,7 +325,7 @@ function timsPulls() {
     const named = new Set();
     let sawProduct = false;
     for (const h of list) {
-      if (/first partner illustration collection/i.test(said(h))) sawProduct = true;
+      if (namesProduct(h)) sawProduct = true;
     }
     // ONLY a video already tagged as this product counts. A bare "Rowlet" on
     // some other rip is a different card entirely, and taking it would put

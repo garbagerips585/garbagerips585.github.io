@@ -24,10 +24,13 @@ import { SITE } from "../shared/site.mjs";
 // home page's. See shared/chrome.mjs beside the two exports.
 import { APP_JS_NO_PACKPLAYER as APP_JS } from "../shared/chrome.mjs";
 import { esc, shortDate, moneyCompact, noValue, rarityLabel, imgDims, cardNumKey, avifPicture } from "../shared/format.mjs";
+import { loadGradedPrices, MIN_SALES } from "../shared/graded-price.mjs";
+import { loadFirstPartner } from "../shared/first-partner.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
-const MIN_SALES = 10; // same floor the set guides use
+// The floor is imported rather than retyped: a gate applied on one page and not
+// another is how this whole class of bug starts. See shared/graded-price.mjs.
 
 const hallDoc = JSON.parse(await readFile(join(ROOT, "data/hall.json"), "utf8"));
 let hall = hallDoc.cards;
@@ -86,10 +89,30 @@ function artLook(c) {
 // tick meaningful: it becomes "promote the best" rather than "make the page
 // work at all".
 let derivedFromHits = false;
+let hitsLedger = null;
+const firstPartner = await loadFirstPartner();
 if (!hall.length) {
   const hits = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
   const seen = new Set();
   const out = [];
+  // EVERY DROP IS LEDGERED AND EVERY LEDGER IS PRINTED AT THE END OF A RUN.
+  // Four things could take a row off this page and three of them did it in
+  // silence, on the one page that promises in its lede to be the whole list.
+  // A page that quietly stops being complete is worse than one that never
+  // claimed to be, and the only thing standing between the two is this run
+  // saying what it did with all 93 rows.
+  const unmatched = [];
+  const unlisted = [];
+  const intlIn = [];
+  const ambiguous = [];
+  let rowsRead = 0;
+  // The other checklist. /sets/ja-*.html, /sets/ko-*.html and /sets/zh-*.html
+  // are all built out of this file; nothing but the English 28 lives under
+  // public/data/cards.
+  let intlGuides = {};
+  try {
+    intlGuides = JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8")).sets || {};
+  } catch { /* optional: the intl rows fall through to the sheet's own words */ }
   // `Object.entries`, NOT `Object.values`, AND THAT ONE WORD IS THE WHOLE
   // "see it pulled" LINK. data/hits.json is keyed BY YOUTUBE VIDEO ID, so every
   // card in this hall already knew which rip it came out of and this loop threw
@@ -101,6 +124,7 @@ if (!hall.length) {
   // resolve against public/data/videos.json, so the join is total.
   for (const [vid, list] of Object.entries(hits)) {
     for (const h of list) {
+      rowsRead++;
       // A PROMO HAS NO SET CHECKLIST, AND THAT IS NOT A REASON TO DROP IT.
       // This used to skip anything without a set, on the reasoning that it
       // could not be priced or pictured. But the rip log carries the price and
@@ -111,7 +135,50 @@ if (!hall.length) {
       // says "this is the whole list of what was pulled on camera", so it was
       // claiming completeness while hiding the top of its own ranking.
       if (!h.set) {
-        if (typeof h.price !== "number" && typeof h.psa10 !== "number") continue;
+        // THE FIRST PARTNER PROMOS BELONG HERE AND THE GATE BELOW WAS KEEPING
+        // THEM OUT, WHICH IS A JUDGEMENT AND IS ARGUED RATHER THAN MADE
+        // QUIETLY. Three of them, Rowlet MEP 043, Litten MEP 044 and Popplio
+        // MEP 045, were pulled on camera twice, on M7NqqhR8V4M and
+        // xNGxOuMpSiw. They carry no set and no price on the hit row, so the
+        // gate below dropped all six rows.
+        //
+        // THE CASE FOR LETTING THEM IN IS THIS PAGE'S OWN LEDE. It says "Every
+        // card that has come out of a pack on this channel" and "Nothing here
+        // was hand picked: this is the whole list of what was pulled on
+        // camera". These came out of a pack on this channel. Worse than the
+        // omission is WHICH cards were omitted: this site publishes a raw price
+        // AND a PSA 10 for all three on
+        // /first-partner-illustration-collection.html, read twice through two
+        // parsers and stamped, so the hall was leaving out cards it prices
+        // elsewhere while claiming to be the whole list. That is the same
+        // failure the comment above records about the two Costco promos.
+        //
+        // THE CASE AGAINST, stated because it is not silly: a promo out of an
+        // illustration collection is not "pulled from a booster pack" in the
+        // sense the page's artwork implies, and Rowlet's $64.99 in a 10 puts it
+        // inside the top fifteen of 74 on a ranking most readers will read as a
+        // ranking of pack pulls. It loses to the lede. The page says "out of a
+        // pack", these came out of a sealed product bought for the cards in it,
+        // and a ranking that quietly drops the entries it finds unrepresentative
+        // is exactly the hand-picking the lede promises it is not doing.
+        //
+        // The prices come from data/first-partner.json through
+        // shared/first-partner.mjs, which enforces that file's own rule about
+        // publishing nothing whose two reads disagreed. See that module for why
+        // the join is on `printing` rather than on the card name.
+        const fp = firstPartner.priceForHit(h);
+        if (typeof h.price !== "number" && typeof h.psa10 !== "number"
+            && !(fp && (fp.price != null || fp.psa10 != null))) continue;
+        // DEDUPE, BECAUSE A PROMO CAN BE PULLED TWICE AND THREE OF THEM WERE.
+        // The set branch below has always deduped on `<set>-<number>` and this
+        // branch had nothing, which cost nothing while the only two rows here
+        // came from one video. Six First Partner rows for three cards would
+        // have put each of them on the page twice, on a page whose count is
+        // printed in its own headline stat. First occurrence wins, same as
+        // below, so the plaque links the first rip the card came out of.
+        const pkey = `promo-${String(h.card).toLowerCase()}-${h.number || fp?.number || ""}`;
+        if (seen.has(pkey)) continue;
+        seen.add(pkey);
         // `_img` WAS HARDCODED null AND THE SCANS EXISTED THE WHOLE TIME.
         // data/hits.json carries an `img` on both promos, pointing at TCGdex's
         // MEP set, and both resolve: mep/023 and mep/024 answer 200 at low,
@@ -123,37 +190,160 @@ if (!hall.length) {
         // set-card branch below uses, so plaqueArt() gives these the 245w
         // thumbnail and the 600w enlargement exactly like every other card.
         out.push({
-          set: null, number: h.number || null, name: h.card,
+          set: null, number: h.number || fp?.number || null, name: h.card,
           _vid: vid,
-          _img: h.img ? `${h.img}/high.webp` : null,
-          _raw: typeof h.price === "number" ? h.price : null,
+          _img: h.img ? `${h.img}/high.webp` : fp?.imgLarge || null,
+          _raw: typeof h.price === "number" ? h.price : fp?.price ?? null,
           _rarity: h.rarity || "Black Star Promo",
-          _psa10: typeof h.psa10 === "number" ? h.psa10 : null,
+          _psa10: typeof h.psa10 === "number" ? h.psa10 : fp?.psa10 ?? null,
           // The rip log stores ONE source, date and url per promo entry and
           // both its numbers came off that one page, so the PSA 10 stamp reads
           // from the same three fields the raw price does.
-          _psa10AsOf: h.priceAsOf || null,
-          _psa10Source: h.priceSource || null,
-          _psa10Url: h.priceUrl || null,
-          _setName: h.setName || "Black Star Promo",
+          _psa10AsOf: h.priceAsOf || fp?.asOf || null,
+          _psa10Source: h.priceSource || fp?.source || null,
+          _psa10Url: h.priceUrl || fp?.url || null,
+          _setName: h.setName || fp?.setName || "Black Star Promo",
         });
         continue;
       }
+      // THE CHECKLIST, AND FOR THREE ROWS IT USED TO BE A SILENT `continue`.
+      //
+      // `catch { continue; }` on a missing public/data/cards/<id>.json meant
+      // EVERY Japanese, Korean and Chinese hit was structurally excluded from
+      // this page, because that directory holds the 28 English sets and nothing
+      // else. It is not a data gap and it never was: it is a builder that could
+      // only read one of the two checklist files this repo ships. Three rows,
+      // Incineroar ex out of Cyber Judge and Goldeen and Manectric out of Abyss
+      // Eye, on a page whose lede says "this is the whole list of what was
+      // pulled on camera" and says it twice.
+      //
+      // public/data/intl-guides.json IS the other checklist and /sets/ja-*.html
+      // has been rendering out of it for weeks. It carries localId, the English
+      // name and the rarity for the sets TCGdex holds card records for, and NO
+      // image and NO price for any of them, which is a real limit and not one
+      // this page has to hide: a plaque with a name, a set and a rarity is the
+      // truth about that card, and the site's standing pattern everywhere else
+      // is that absent data renders as absent.
       let cards = null;
+      let source = "checklist";
       try {
         cards = JSON.parse(await readFile(join(ROOT, `public/data/cards/${h.set}.json`), "utf8")).cards;
-      } catch { continue; }
+      } catch {
+        const g = intlGuides[h.set];
+        // `hasCards` is false and `cards` is empty for the Korean and Chinese
+        // guides and for Cyber Judge, because TCGdex publishes a card COUNT for
+        // those sets and zero card records. An empty list is not a checklist,
+        // so it falls through to the last resort below rather than being
+        // searched and missed.
+        if (g?.cards?.length) {
+          source = "intl";
+          cards = g.cards.map((c) => ({
+            n: c.localId,
+            // THE ENGLISH NAME, because that is what the rip log writes and
+            // what an English-speaking reader is looking at. data/intl-rips
+            // .json's own readme settles this for the guides: "ENGLISH NAMES
+            // LEAD ... The native name is still the verifiable one, so it is
+            // always shown, never dropped." A plaque has one name slot, so it
+            // gets the one the sheet can be joined on.
+            name: c.en || c.native,
+            rarity: c.rarity || null,
+            img: null,
+            price: null,
+          }));
+        }
+      }
       const norm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
+      // NO CHECKLIST IN EITHER FILE IS A DIFFERENT CASE FROM A CARD THAT IS NOT
+      // ON ONE, and they used to share a `continue`. Where the site holds no
+      // list for the set at all there is nothing to fail to match against, so
+      // the row goes in on what the sheet itself says: the card, the set it
+      // names and the rarity. That is Incineroar ex, Cyber Judge, Super Rare.
+      // No number, no scan and no price, all of which render as absent.
+      if (!cards?.length) {
+        const key = `${h.set}-${norm(h.card)}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        unlisted.push({ set: h.set, setName: h.setName || h.set, card: h.card });
+        out.push({
+          set: h.set, number: null, name: h.card,
+          _vid: vid,
+          _img: null,
+          _raw: null,
+          _rarity: h.rarity || null,
+          _setName: h.setName || null,
+        });
+        continue;
+      }
       const same = cards.filter((c) => norm(c.name) === norm(h.card));
       // Where the sheet named a rarity, take the printing that matches: that is
       // the one actually pulled. Same rule build-pages.mjs uses for rip pages,
       // so a card cannot show one number here and another there.
       const want = h.rarity ? norm(h.rarity).slice(0, 8) : null;
-      const m = (want && same.find((c) => norm(c.rarity).includes(want))) || same[0];
-      if (!m) continue;
+      let m = (want && same.find((c) => norm(c.rarity).includes(want))) || same[0];
+      // THE RARITY MATCH DOES NOT SURVIVE THE TRIP TO A JAPANESE SET, AND THE
+      // FALLBACK IS WORSE THAN NO ANSWER THERE. `same[0]` is a safe last resort
+      // on an English checklist because the sheet and TCGdex share a
+      // vocabulary. They do not across languages: the rip log writes Goldeen's
+      // tier as "Art Rare", which is the letter code アートレア printed on the
+      // Japanese wrapper, and TCGdex's English field for the same card says
+      // "Illustration rare". Abyss Eye lists Goldeen TWICE, #012 Common and
+      // #084 Illustration rare, so the prefix test missed and `same[0]` handed
+      // the plaque the COMMON. A bulk Goldeen with an Art Rare's name on it is
+      // the same class of error the graded join two hundred lines below drops a
+      // price rather than commit.
+      //
+      // MAPPING AR ONTO ILLUSTRATION RARE WOULD FIX IT AND IS REFUSED.
+      // shared/rarity.mjs keeps the seven Japanese letter tiers deliberately
+      // SEPARATE from the English ladder and says why in as many words: "SAR
+      // and Special Illustration Rare are close cousins, not the same thing,
+      // and asserting an equivalence the two companies do not publish would be
+      // this site inventing a fact." That rule does not get bent to win a
+      // collector number.
+      //
+      // So an intl row takes a printing ONLY where the name is unique in the
+      // set and nothing contradicts it. Otherwise it falls through to the
+      // branch below and goes in on the sheet's own words, with no number,
+      // which asserts nothing about which of the two printings came out.
+      if (source === "intl" && !(same.length === 1 && (!want || norm(same[0].rarity).includes(want)))) {
+        m = null;
+        ambiguous.push({ set: h.set, card: h.card, rarity: h.rarity || null, printings: same.length });
+      }
+      // A NAME THAT IS NOT ON A CHECKLIST WE HOLD IS A DATA ERROR AND IS SAID
+      // OUT LOUD. This is the one drop that is NOT fixed above, on purpose. We
+      // have the set's full checklist and the card is not on it, so publishing
+      // the row anyway would print a card name no catalogue holds, which is the
+      // exact mistake data/hits.json's own readme records the old importer
+      // making. Today it fires once: the sheet says "Iono's Bellibolt" and
+      // Ascended Heroes lists "Iono's Bellibolt ex". The fix is in the
+      // spreadsheet, not here, because import-sheet.mjs rebuilds this file per
+      // video and would overwrite an edit made to it by hand.
+      if (!m) {
+        // An ENGLISH checklist we hold and a name that is not on it is a data
+        // error and is dropped; see above. An INTL row that could not be
+        // pinned to one printing is not an error about the card, it is the
+        // limit of what two vocabularies can be joined on, so it goes in
+        // unpinned exactly like a set with no checklist at all.
+        if (source !== "intl") {
+          unmatched.push({ set: h.set, card: h.card, rarity: h.rarity || null, source });
+          continue;
+        }
+        const ikey = `${h.set}-${norm(h.card)}`;
+        if (seen.has(ikey)) continue;
+        seen.add(ikey);
+        out.push({
+          set: h.set, number: null, name: h.card,
+          _vid: vid,
+          _img: null,
+          _raw: null,
+          _rarity: h.rarity || null,
+          _setName: h.setName || null,
+        });
+        continue;
+      }
       const key = `${h.set}-${m.n}`;
       if (seen.has(key)) continue;
       seen.add(key);
+      if (source === "intl") intlIn.push({ set: h.set, card: m.name, n: m.n });
       // Carry the card's OWN art, price and rarity from the checklist. resolve()
       // below only knows how to look a card up in the set's `chase` list, which
       // is the dozen or so cards a set page features, and 15 of 15 hits were not
@@ -164,6 +354,11 @@ if (!hall.length) {
         _img: m.img ? `${m.img}/high.webp` : null,
         _raw: typeof m.price === "number" ? m.price : null,
         _rarity: m.rarity || h.rarity || null,
+        // The intl checklist carries no set name of its own that this page can
+        // use, and sets.json is English only, so resolve() would otherwise
+        // print the slug. The sheet's own words are the right label: "Abyss Eye
+        // (JP)" says both which set and which printing.
+        _setName: source === "intl" ? h.setName || null : null,
       });
     }
   }
@@ -171,6 +366,7 @@ if (!hall.length) {
     hall = out;
     derivedFromHits = true;
   }
+  hitsLedger = { rowsRead, inducted: out.length, unmatched, unlisted, intlIn, ambiguous };
 }
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
 
@@ -193,10 +389,11 @@ const ripById = new Map(
     .map((v) => [v.id, v]),
 );
 
-let graded = {};
-try {
-  graded = JSON.parse(await readFile(join(ROOT, "data/psa10.json"), "utf8"));
-} catch { /* optional */ }
+// BOTH GRADED STORES COME OUT OF ONE MODULE NOW, AND THAT IS THE POINT OF THE
+// MODULE. `graded` is data/psa10.json, `pc` is data/graded.json, and this file
+// used to open both by hand alongside four other builders that opened one of
+// them by hand. See shared/graded-price.mjs.
+const { psa10: graded } = await loadGradedPrices();
 
 const setById = new Map(sets.map((s) => [s.id, s]));
 
@@ -212,46 +409,16 @@ const setById = new Map(sets.map((s) => [s.id, s]));
 // data/hits.json, which is exactly this list. It was never wired up here. It is
 // keyed by name and number the way the sheet wrote them, so it is joined on
 // name, set and printing rather than on a set-id key it does not have.
-let pc = { cards: {} };
-try {
-  pc = JSON.parse(await readFile(join(ROOT, "data/graded.json"), "utf8"));
-} catch { /* no graded sample yet; the column falls back to dashes */ }
-
-// Same folding sync-pricecharting.mjs uses, for the same reason: accents have
-// to go before the strip or "Pokemon GO" and "Pokémon GO" never meet.
-const pcNorm = (x) =>
-  String(x || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "");
-const pcNum = (x) => String(x ?? "").replace(/^0+(?=\d)/, "");
-const pcByName = new Map();
-for (const rec of Object.values(pc.cards || {})) {
-  const k = pcNorm(rec.name);
-  if (!pcByName.has(k)) pcByName.set(k, []);
-  pcByName.get(k).push(rec);
-}
-
-/**
- * The graded record for one printing, or null.
- *
- * THE PRINTING HAS TO AGREE AND IT IS NOT AUTOMATIC. sync-pricecharting.mjs
- * only rejects a wrong number when it was given one, and it was run over the
- * hits, which mostly carry no number. Four records came back for a different
- * printing of the right card in the right set: Dawn #129 where ours is #118,
- * Mega Gardevoir ex #178 where ours is #159, Mega Venusaur ex #177 where ours
- * is #003, Cetitan ex #210 where ours is #065. Its own comment records the
- * Dawn one as a known bad match. `matched` carries the product PriceCharting
- * landed on, so the number is checked here and a disagreement is dropped: a
- * dash is honest, a secret rare's price against a bulk rare is not.
- */
-function pricecharting(name, setName, number) {
-  for (const rec of pcByName.get(pcNorm(name)) || []) {
-    if (typeof rec.psa10 !== "number") continue;
-    if (!pcNorm(rec.set).includes(pcNorm(setName))) continue;
-    const got = /#\s*(\d+)/.exec(rec.matched || "");
-    if (!got || pcNum(got[1]) !== pcNum(number)) continue;
-    return rec;
-  }
-  return null;
-}
+//
+// THE JOIN ITSELF NOW LIVES IN shared/graded-price.mjs AND THIS FILE NO LONGER
+// OWNS IT. It was correct here and wrong everywhere else, which is the whole
+// story: the chaser band on 53 rip pages and on /sets/chaos-rising.html printed
+// pokemonpricetracker's $838 for Mega Greninja ex #122 while this page printed
+// PriceCharting's $906 for the same printing. Two renderers, one card, two
+// numbers, which is exactly what the header of this file says cannot happen.
+// Read that module before changing anything below: the number check against
+// `matched` is load bearing and its reasons are listed there.
+const { pc, pricecharting, nearMisses } = await loadGradedPrices();
 
 // TCGplayer product links, keyed by set then collector number.
 //
@@ -434,7 +601,8 @@ const ranked = hall
 // and claimed a pile of raw cards is worth its graded value. Nothing here is
 // graded. So: raw is summed over every card, PSA 10 is summed only over the
 // cards that have one, and the label names the subset.
-const totalRaw = ranked.reduce((n, c) => n + (c.raw || 0), 0);
+const rawCards = ranked.filter((c) => c.raw);
+const totalRaw = rawCards.reduce((n, c) => n + c.raw, 0);
 const gradedCards = ranked.filter((c) => c.psa10);
 const totalGraded = gradedCards.reduce((n, c) => n + c.psa10, 0);
 
@@ -473,11 +641,36 @@ const psaNote = gradedCards.length
  * buy nothing and could drift out of step with the clamp unnoticed.
  */
 const TCGDEX_HIGH = /^(https:\/\/assets\.tcgdex\.net\/.+)\/high\.webp$/;
+// THE OTHER FAMILY OF SCANS THIS PAGE CAN NOW SHOW, and it is on our own disk
+// rather than on TCGdex. The three First Partner promos come out of
+// data/first-partner.json, which stores a 420w and a 245w rendition of each
+// (build-first-partner.mjs writes both). Same split as the TCGdex branch:
+// the small file is the src for a 120px box, the large one is the srcset's top
+// candidate and is what the lightbox enlarges.
+//
+// THE DIMENSIONS COME BACK WITH IT because imgDims() cannot supply them. That
+// function switches on the HOST and knows the four remote card hosts; a path on
+// our own origin falls through to "" and the plaque shipped with no width or
+// height on it, which is a layout shift on the one page whose whole job is
+// showing the cards. The numbers are the ones data/first-partner.json records
+// for these files, measured when they were written.
+const FP_HIGH = /^(\/assets\/first-partner\/mep-\d+)-420\.webp$/;
 function plaqueArt(url) {
   const m = TCGDEX_HIGH.exec(url || "");
-  if (!m) return { src: url, extra: "" };
-  const low = `${m[1]}/low.webp`;
-  return { src: low, extra: ` srcset="${esc(low)} 245w, ${esc(url)} 600w" sizes="120px"` };
+  if (m) {
+    const low = `${m[1]}/low.webp`;
+    return { src: low, extra: ` srcset="${esc(low)} 245w, ${esc(url)} 600w" sizes="120px"`, dims: "" };
+  }
+  const fp = FP_HIGH.exec(url || "");
+  if (fp) {
+    const small = `${fp[1]}.webp`;
+    return {
+      src: small,
+      extra: ` srcset="${esc(small)} 245w, ${esc(url)} 420w" sizes="120px"`,
+      dims: ` width="245" height="342"`,
+    };
+  }
+  return { src: url, extra: "", dims: "" };
 }
 
 // ONE PLAQUE IS IN THE FIRST SCREEN AND IT DOES NOT GET loading="lazy".
@@ -531,17 +724,29 @@ function plaque(c, i) {
   // 2026-08-16). picture{display:contents} in ui.css keeps `.chof-art img` and
   // the 245/337 aspect-ratio rule reaching the <img> exactly as before.
   const img = c.image
-    ? avifPicture(`<img src="${esc(art.src)}"${art.extra} alt="${[esc(c.name), esc(c.rarity || ""), c.setName ? `from Pokemon ${esc(c.setName)}` : ""].filter(Boolean).join(" ")}"${i < EAGER_PLAQUES ? "" : ` loading="lazy"`} onerror="this.remove()"${imgDims(art.src)}>`)
+    ? avifPicture(`<img src="${esc(art.src)}"${art.extra} alt="${[esc(c.name), esc(c.rarity || ""), c.setName ? `from Pokemon ${esc(c.setName)}` : ""].filter(Boolean).join(" ")}"${i < EAGER_PLAQUES ? "" : ` loading="lazy"`} onerror="this.remove()"${art.dims || imgDims(art.src)}>`)
     : `<span class="chof-noart">${esc(c.name)}</span>`;
-  return `      <li class="chof${top}">
-        <span class="chof-rank">${rank}</span>
-        <button class="chof-art" type="button"
-          data-img="${esc(c.image || "")}" data-name="${esc(c.name)}"
+  // A CARD WITH NO SCAN IS NOT A BUTTON, AND UNTIL 21 AUGUST 2026 IT WAS GOING
+  // TO BE. `.chof-noart` had never fired: every plaque came out of an English
+  // checklist and every English checklist has scans. The Japanese rows admitted
+  // on that date do not, because TCGdex publishes no image for any card in
+  // those sets, and they would have rendered as a control aria-labelled
+  // "Enlarge Goldeen" wired to a lightbox with no picture to put in it. That is
+  // the Celebrations Mew fault on /sets/celebrations.html word for word: a
+  // card-shaped hole that announces an action it cannot perform. The named box
+  // stays and the button does not, so nothing offers a tap that does nothing.
+  const frame = c.image
+    ? `<button class="chof-art" type="button"
+          data-img="${esc(c.image)}" data-name="${esc(c.name)}"
           data-set="${esc(c.setName)}" data-rarity="${esc(c.rarity || "")}"
-          data-number="${esc(c.number)}" data-url="${esc(c.url || "")}"
+          data-number="${esc(c.number || "")}" data-url="${esc(c.url || "")}"
           data-raw="${c.raw ? esc(moneyCompact(c.raw)) : ""}"
           data-psa="${c.psa10 ? esc(moneyCompact(c.psa10)) : ""}"
-          aria-label="Enlarge ${esc(c.name)}">${img}</button>
+          aria-label="Enlarge ${esc(c.name)}">${img}</button>`
+    : `<div class="chof-art">${img}</div>`;
+  return `      <li class="chof${top}">
+        <span class="chof-rank">${rank}</span>
+        ${frame}
         ${look ? `<p class="chof-look">${esc(look)}</p>` : ""}
         <div class="chof-body">
           <b class="chof-name">${esc(c.name)}</b>
@@ -752,7 +957,14 @@ const body = `
       <p>Every card that has come out of a pack on this channel, ranked by its PSA 10 price where we have one and by its raw price where we do not. Tap a card to see it full size.${derivedFromHits ? " Nothing here was hand picked: this is the whole list of what was pulled on camera." : ""}</p>
       ${ranked.length ? `<div class="chof-tally">
         <div><b>${ranked.length}</b><span>${derivedFromHits ? "Cards pulled" : "Cards inducted"}</span></div>
-        ${totalRaw ? `<div><b>${moneyCompact(totalRaw)}</b><span>All of them raw</span></div>` : ""}
+        ${/* "ALL OF THEM RAW" HAS TO STOP SAYING "ALL" WHEN IT IS NOT ALL, and
+              that became live the day this page started admitting cards it
+              holds no price for. It is a SUM over the cards that HAVE a raw
+              price, and while every plaque had one the word was exact. The
+              three Japanese and Korean rows do not: nothing on this site prices
+              a non-English printing. Same shape as the PSA 10 tile beside it,
+              which has always named its subset, so the fix is to make the two
+              labels agree rather than to invent a third form of words. */ ""}${totalRaw ? `<div><b>${moneyCompact(totalRaw)}</b><span>${rawCards.length === ranked.length ? "All of them raw" : `Raw on ${rawCards.length} of ${ranked.length}`}</span></div>` : ""}
         ${gradedCards.length ? `<div><b>${moneyCompact(totalGraded)}</b><span>PSA 10 on ${gradedCards.length} of ${ranked.length}</span></div>` : ""}
       </div>` : ""}
     </div>
@@ -899,12 +1111,39 @@ console.log(`Wrote public/hall.html
   with card art    ${ranked.filter((c) => c.image).length}
   rarities         ${[...new Set(ranked.map((c) => c.rarity).filter(Boolean))].sort().join(", ")}
 `);
+// WHAT HAPPENED TO ALL 93 ROWS, because the lede on this page says it is the
+// whole list and nothing was checking that.
+//
+// Eleven rows used to leave without a word: seven on a promo with no price,
+// three on a set whose checklist this builder could not open, one on a card
+// name that is not on the checklist it CAN open. Three of the four were fixed
+// and the fourth is a typo in the spreadsheet, which is not this file's to
+// correct. What is this file's job is saying so on every run, so the next
+// silent drop is loud on the day it appears rather than in the next audit.
+if (hitsLedger) {
+  const l = hitsLedger;
+  console.log(`  from data/hits.json: ${l.rowsRead} row${l.rowsRead === 1 ? "" : "s"} read, ${l.inducted} card${l.inducted === 1 ? "" : "s"} inducted`);
+  for (const x of l.intlIn) {
+    console.log(`  ${x.card} #${x.n} (${x.set}) resolved against public/data/intl-guides.json, so it carries no scan and no price`);
+  }
+  for (const x of l.ambiguous) {
+    console.log(`  ${x.card}${x.rarity ? ` (${x.rarity})` : ""} in ${x.set} went in with no collector number: ${x.printings} printing${x.printings === 1 ? "" : "s"} carry that name on the intl checklist and the Japanese rarity ladder is deliberately not mapped onto the English one, so nothing here can say which was pulled`);
+  }
+  for (const x of l.unlisted) {
+    console.log(`  ${x.card} (${x.setName}) went in on the sheet's own words: this site holds no checklist for that set, so it has no number, no scan and no price`);
+  }
+  for (const x of l.unmatched) {
+    console.log(`  DROPPED ${x.card}${x.rarity ? ` (${x.rarity})` : ""}: not on the ${x.set} checklist. Fix the name in the My Hits tab and re-import; do not edit data/hits.json, which import-sheet.mjs rebuilds per video.`);
+  }
+  if (!l.unmatched.length) console.log(`  every row that named a set resolved to a card on that set's checklist`);
+}
+
 // A graded record that named a different printing is dropped on purpose. Say
 // which ones and why, so a run that drops MORE of them is visible rather than
 // looking like a source that quietly went empty.
 for (const c of ranked) {
   if (c.psa10) continue;
-  const near = (pcByName.get(pcNorm(c.name)) || []).filter((r) => pcNorm(r.set).includes(pcNorm(c.setName)));
+  const near = nearMisses(c.name, c.setName);
   for (const r of near) {
     console.log(`  no PSA 10 for ${c.name} #${c.number} (${c.setName}): graded.json holds "${r.matched}", a different printing`);
   }

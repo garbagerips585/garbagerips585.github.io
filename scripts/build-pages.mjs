@@ -42,6 +42,8 @@ import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS, SUBSCRIBE } fro
 import { labelFor } from "../shared/taxonomy.mjs";
 import { raritiesIn, rarityChip, RARITY_CSS } from "../shared/rarity.mjs";
 import { ripPath } from "../shared/paths.mjs";
+import { loadGradedPrices } from "../shared/graded-price.mjs";
+import { loadFirstPartner } from "../shared/first-partner.mjs";
 import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount, avifPicture, packTileImg } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -166,20 +168,21 @@ for (const s of setData.values()) {
     if (m?.name && m.name !== c.name) c.name = m.name;
   }
 }
-let psa10 = {};
-try {
-  psa10 = JSON.parse(await readFile(join(ROOT, "data/psa10.json"), "utf8"));
-} catch { /* optional */ }
-const MIN_SALES = 10;
-const gradedPrice = (setId, number) => {
-  const k = `${setId}-${number}`;
-  const m = psa10.prices?.[k];
-  const manual = typeof m?.price === "number" ? m.price : typeof m === "number" ? m : null;
-  if (manual) return manual;
-  const a = psa10.auto?.[k];
-  if (!a?.psa10 || (a.psa10Sales != null && a.psa10Sales < MIN_SALES)) return null;
-  return a.psa10;
-};
+// THE PSA 10 CHAIN IS NOT WRITTEN HERE ANY MORE, AND THAT IS THE FIX RATHER
+// THAN A TIDY-UP. This file used to hold a private copy of it that read
+// data/psa10.json and nothing else, so when build-hall.mjs was moved onto
+// PriceCharting on 18 August 2026 ("lets use pricecharting as the main numbers
+// for the entire site") the chaser band below stayed behind: Mega Greninja ex,
+// Chaos Rising #122 printed $838 from pokemonpricetracker.com on 53 of these
+// pages while /hall.html printed PriceCharting's $906 for the same printing.
+//
+// The join is on the card's NAME and its SET's name, not on a set-id key, so
+// both callers below pass those through. See shared/graded-price.mjs for the
+// precedence and for why the printing number is re-checked.
+const gradedFor = await loadGradedPrices();
+const firstPartner = await loadFirstPartner();
+const gradedPrice = (setId, number, name, setName) =>
+  gradedFor.price(setId, number, { name, setName });
 
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
 
@@ -220,11 +223,20 @@ try {
   }
 } catch {}
 const HITS = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
-const psaFor = (setId, n) => {
-  const k = `${setId}-${String(n).replace(/^0+(?=\d)/, "")}`;
-  const e = (psa10.prices && psa10.prices[k]) || (psa10.auto && psa10.auto[k]);
-  return e && typeof e.psa10 === "number" ? e.psa10 : null;
-};
+// THE HIT CARDS TAKE THE SAME CHAIN AS THE CHASER BAND, AND THEY DID NOT.
+//
+// This was a SECOND copy of the lookup inside one file, and a laxer one: it
+// took `prices` or `auto` with no ten-sale floor and stripped leading zeros off
+// the key, so it could answer differently from gradedPrice twelve lines above
+// it about the same card. Every hit card here is also a plaque on /hall.html,
+// which is where the two answers met in public on Mega Greninja ex.
+//
+// It also makes an existing sentence true rather than changing what it says:
+// the sourcing note under this list already reads "PSA 10 prices come from
+// PriceCharting's guide too", which was written about a column that was being
+// filled by pokemonpricetracker.com.
+const psaFor = (setId, n, name, setName) =>
+  gradedFor.price(setId, n, { name, setName });
 const cardCache = new Map();
 async function resolveHits(vid) {
   const out = [];
@@ -246,19 +258,32 @@ async function resolveHits(vid) {
       const norm0 = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
       const pm = list.find((c) => norm0(c.n) === norm0(h.card) && String(c.i) === String(h.number)) ||
                  list.find((c) => norm0(c.n) === norm0(h.card) && /promo/i.test(String(c.s)));
+      // THE FIRST PARTNER PROMOS HAVE A PRICE ON THIS SITE AND THESE ROWS WERE
+      // NOT ASKING FOR IT. data/hits.json names that product in `printing` and
+      // nothing in the build read `printing` as a key, so six rows across
+      // M7NqqhR8V4M and xNGxOuMpSiw printed "No market price" for three cards
+      // /first-partner-illustration-collection.html has published a raw price
+      // AND a PSA 10 for since 19 August 2026. They were 6 of only 7 such rows
+      // in the whole tree. The scan resolved the whole time; only the money was
+      // missing. See shared/first-partner.mjs for why the join is on `printing`
+      // and not on the card name.
+      const fp = firstPartner.priceForHit(h);
       out.push({
-        name: h.card, setName: h.setName, setId: null,
+        name: h.card, setName: h.setName || fp?.setName || null, setId: null,
         rarity: h.rarity || (pm && pm.r) || null,
-        n: h.number || (pm && pm.i) || null,
-        img: pm && pm.g ? `${pm.g}/low.webp` : null,
+        n: h.number || (pm && pm.i) || fp?.number || null,
+        img: pm && pm.g ? `${pm.g}/low.webp` : fp?.img || null,
         // A promo has no price in the nightly feed, so where one is recorded on
         // the hit itself we use it, and carry its source and date so the page
         // can say where it came from rather than implying it is a live figure.
-        price: typeof h.price === "number" ? h.price : null,
-        psa10: typeof h.psa10 === "number" ? h.psa10 : null,
-        priceSource: h.priceSource || null,
-        priceAsOf: h.priceAsOf || null,
-        promo: true, unresolved: !pm,
+        // The hit's own figure still wins: it is what a person wrote down about
+        // the card that came out, and the promo file is the fallback for the
+        // product it covers.
+        price: typeof h.price === "number" ? h.price : fp?.price ?? null,
+        psa10: typeof h.psa10 === "number" ? h.psa10 : fp?.psa10 ?? null,
+        priceSource: h.priceSource || (fp && (fp.price != null || fp.psa10 != null) ? fp.source : null),
+        priceAsOf: h.priceAsOf || (fp && (fp.price != null || fp.psa10 != null) ? fp.asOf : null),
+        promo: true, unresolved: !pm && !fp,
       });
       continue;
     }
@@ -273,7 +298,7 @@ async function resolveHits(vid) {
       n: m ? m.n : null,
       img: m && m.img ? `${m.img}/low.webp` : null,
       price: m && typeof m.price === "number" ? m.price : null,
-      psa10: m ? psaFor(h.set, m.n) : null,
+      psa10: m ? psaFor(h.set, m.n, m.name, setData.get(h.set)?.name || h.setName) : null,
       // A promo, or a card outside the set checklist, will not resolve. Kept
       // and shown by name rather than dropped, because it WAS pulled.
       unresolved: !m,
@@ -669,7 +694,7 @@ const desc = (v.blurb || descriptions[v.id] || "")
   // shared/card-prices.mjs.
   const chaseCards = chaseByPrice(setData.get(setId)?.chase).slice(0, 3).map((c) => ({
     ...c,
-    psa10: gradedPrice(setId, c.number),
+    psa10: gradedPrice(setId, c.number, c.name, setData.get(setId)?.name || setLabel),
   }));
   const chaseBlock = chaseCards.length
     ? `<section class="band tight chasers">

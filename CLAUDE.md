@@ -674,6 +674,40 @@ Two constraints that shape these pages:
   1.00x overall. Celebrations is the outlier at 4.13x and that is real, not a
   bug: 25 cards, nothing expensive to anchor it, so the bulk floor is the total.
 
+  **THE GRADED COLUMN ONLY FINISHED MOVING ON 21 AUGUST 2026, THREE DAYS AFTER
+  THE RAW ONE, AND THE GAP WAS VISIBLE ON 54 PAGES.** The instruction quoted
+  above said "the entire site". `build-hall.mjs` was put on `data/graded.json`
+  that day and NOTHING ELSE WAS, because five builders each held a private copy
+  of a `gradedPrice(setId, number)` helper reading `data/psa10.json` and nothing
+  else. So **Mega Greninja ex, Chaos Rising #122, the channel's headline pull,
+  printed $906 on /hall.html and /grading.html and $838 on 53 rip pages and
+  /sets/chaos-rising.html at the same time.** Measured across the built tree
+  before the fix: of 139 cards printing a PSA 10, two printed two different
+  figures for one printing. It is 0 of 172 now.
+
+  **THE CHAIN IS `shared/graded-price.mjs` AND THERE IS ONE OF IT.** A
+  human-checked `psa10.prices` entry first, because it is a deliberate override;
+  then PriceCharting; then `psa10.auto`, which is pokemonpricetracker.com and
+  keeps its ten-sale floor. THE FALLBACK IS NOT DELETED and must not be: the
+  graded crawl is deliberately scoped to the cards we pulled plus each set's top
+  chase cards, 83 in all, so `auto` is what stands behind everything it does not
+  reach. **Layering is not the same as MOVING**, which is what build-set-pages
+  .mjs's own note had rejected on the grounds that it would strand most rows: no
+  row that had a figure lost one, 30 changed feed and 17 gained a figure they
+  never had. The date, the source name and the sale count come back from the
+  SAME call as the number, so a page cannot credit one feed for another's
+  figure, and where a page prints both it now names BOTH rather than falling
+  back to "a separate graded sales feed".
+
+  **THE PRINTING CHECK INSIDE THAT JOIN IS LOAD BEARING AND IS NOT AN
+  OPTIMISATION.** `sync-pricecharting.mjs` only rejects a wrong number when it
+  was given one, and it was run over `data/hits.json`, which mostly carries
+  none, so four records came back for a DIFFERENT printing of the right card.
+  The join re-reads the number out of `matched` and drops a disagreement rather
+  than printing a secret rare's price against a bulk rare. `data/graded.json`'s
+  own readme says never to backfill an empty `number` from `matched`, for the
+  same reason.
+
   TWO DATES LIVE IN THAT FILE AND THEY ARE NOT INTERCHANGEABLE. `checked` is
   when TCGdex was read for the CHECKLIST and moves nightly; `pricesChecked` is
   when PriceCharting was read for the MONEY. Stamping the first under a column
@@ -1370,6 +1404,27 @@ first gate on this page and it has never been the only one.
   it directly). GitHub Pages cannot execute a function, so that fetch was a
   guaranteed 404 on every grid page and both it and functions/ are deleted.
   Freshness comes from the nightly refresh workflow instead.
+- **`pulls` IS NOT DERIVED FROM THE TITLE AND HAS NOT BEEN FOR A WHILE.**
+  `sync-youtube.mjs:272` is `pulls: manual.pulls ?? pullsFromHitCard(log.hitCard)
+  ?? []`, so a pull tag is a rarity named in the rip log's HIT CARD cell, by a
+  person. /luck.html said "Counted from what the titles say rather than from the
+  rip log" on a live page and build-luck.mjs's own header used the same claim to
+  JUSTIFY a rule; both were corrected 21 August 2026. The rule they justify still
+  stands, because the bias moved rather than went away: a rip whose Hit Card cell
+  is empty produces no tag and would read as a rip that produced nothing, so
+  `hasHit` is still the only column that can carry a denominator.
+- **THAT TALLY COUNTS RIPS, NOT CARDS, AND THE PAGE SAYS SO NOW.**
+  `pullsFromHitCard` ends `[...new Set(ids)]`, so one video contributes at most
+  one tag per rarity: 76 tags across 71 rips against the 93 cards in
+  data/hits.json, and the Costco box alone is 14 cards under 5 tags. The
+  deduplication is right, because the band asks how often a rip produces each
+  kind of card and counting one opening five times would let a single lucky box
+  outweigh a month of them. Both totals are COMPUTED into the sentence, never
+  typed. **`RARITY_ID_TO_PULL` has no entry for a BLACK STAR PROMO**, so a promo
+  can never badge and two of that box's fourteen cards are invisible to it; the
+  three lowest Japanese tiers are absent deliberately, by the same rule that maps
+  `rare` to null. Adding a tier is a feature, not a copy fix: it means a label in
+  shared/taxonomy.mjs, a badge treatment and a retag that moves 318 pages.
 
 ## Which pages have something to watch
 
@@ -1440,6 +1495,55 @@ opening any of its cards actually came out of. `Object.entries` plus a lookup
 in videos.json is the entire fix; the join is total, 18 of 18 hit entries and
 3 of 3 video ids resolve. A card inducted by hand in data/hall.json carries no
 video id and renders no link, which is the standing pattern for absent data.
+
+**THAT PAGE PROMISES COMPLETENESS TWICE AND WAS DROPPING ELEVEN ROWS IN
+SILENCE, FIXED 21 AUGUST 2026.** Its lede says "Every card that has come out of
+a pack on this channel" and "Nothing here was hand picked: this is the whole
+list of what was pulled on camera". It showed 74 plaques out of 93 hit rows and
+three of the four `continue`s that took the rest said nothing at all. **Every
+drop in build-hall.mjs reports now**, one line each, and the run prints how many
+rows it read against how many cards it inducted. It is 80.
+
+  - **THE INTL EXCLUSION WAS THE INTERESTING ONE AND IT WAS NOT A DATA GAP.**
+    `catch { continue; }` on a missing `public/data/cards/<id>.json` meant every
+    Japanese, Korean and Chinese hit was STRUCTURALLY excluded, because that
+    directory holds the 28 English sets and nothing else. The other checklist,
+    `public/data/intl-guides.json`, has been building /sets/ja-*.html for weeks
+    and import-sheet.mjs already reads both. build-hall.mjs reads both now.
+  - **THE JAPANESE RARITY LADDER IS STILL NOT MAPPED ONTO THE ENGLISH ONE**, per
+    shared/rarity.mjs, and that costs two plaques their collector number rather
+    than being bent. The sheet writes Goldeen's tier as "Art Rare" (アートレア on
+    the wrapper) and TCGdex's English field for the same card says "Illustration
+    rare", and Abyss Eye lists Goldeen TWICE, #012 Common and #084 Illustration
+    rare. The old `same[0]` fallback handed the plaque the COMMON. An intl row
+    takes a printing only where the name is unique in the set; otherwise it goes
+    in on the sheet's own words with no number, which asserts nothing.
+  - **A PLAQUE WITH NO SCAN IS NOT A BUTTON.** `.chof-noart` had never fired,
+    because every English checklist has scans and TCGdex publishes none for
+    these sets. It would have shipped a control aria-labelled "Enlarge Goldeen"
+    wired to a lightbox with no picture, which is the Celebrations Mew fault on
+    /sets/celebrations.html word for word.
+  - **THE TALLY LABEL HAD TO STOP SAYING "ALL".** "All of them raw" was a sum
+    over the cards that HAVE a raw price and was exact while every plaque had
+    one. Three do not, so it reads "Raw on 77 of 80", matching the PSA 10 tile
+    beside it, which has always named its subset.
+  - **ONE ROW IS STILL DROPPED AND IT IS A TYPO IN THE SPREADSHEET.** The sheet
+    says "Iono's Bellibolt" and Ascended Heroes lists "Iono's Bellibolt ex". We
+    hold that checklist, so publishing the row anyway would print a card name no
+    catalogue holds. The build says so on every run. **Fix it in the My Hits tab
+    and re-import; do NOT edit data/hits.json**, which import-sheet.mjs rebuilds
+    per video.
+
+**THREE FIRST PARTNER PROMOS ARE ON IT NOW AND THE JOIN THAT PUT THEM THERE IS
+`printing`.** data/hits.json records Rowlet MEP 043, Litten 044 and Popplio 045
+pulled twice, with no set, no number and no price, while
+/first-partner-illustration-collection.html had been publishing a raw price AND
+a PSA 10 for all three since 19 August. Nobody joined the two files, so six rows
+on M7NqqhR8V4M and xNGxOuMpSiw printed "No market price": 6 of only 7 such rows
+in the whole tree, now 1. `shared/first-partner.mjs` owns the join, it is keyed
+on `printing` and NOT on the card name (a bare "Rowlet" on some other rip is a
+different card, and PriceCharting files every English promo in one console), and
+it refuses any figure whose two reads disagreed, which is that file's own rule.
 
 **DO NOT MEASURE THIS WITH `window.innerWidth`.** /pack-prices.html reports
 592 and /expansions.html 488 at a 390px device, and both are correct pages: the

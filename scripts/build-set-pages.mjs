@@ -14,6 +14,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { priceNote, priceFooter, priceRead } from "../shared/card-prices.mjs";
+import { loadGradedPrices } from "../shared/graded-price.mjs";
 // NO packplayer.js, BUT packs.css STAYS. These pages wear a .pack facade as
 // decoration, so the stylesheet is doing real work; the script is not.
 // THE "On the channel" LIST IS PLAIN TEXT LINKS, which is the whole reason this
@@ -360,34 +361,38 @@ const ogCards = new Set(
     .filter(Boolean)
 );
 
-let psa10 = {};
-try {
-  psa10 = JSON.parse(await readFile(join(ROOT, "data/psa10.json"), "utf8")) || {};
-} catch {
-  /* optional */
-}
-// Two sources, and the person always wins. `prices` is what Tim typed through
-// the spreadsheet; `auto` is what sync-prices.mjs fetched and owns. A sync must
-// never overwrite a number he checked himself, so it is read second.
-const gnum = (v) => (typeof v === "number" ? v : typeof v?.price === "number" ? v.price : null);
-// A synced price needs enough sales behind it to mean anything. Volcarona came
-// back at 15x its raw price off six recorded sales, which is an anecdote, not a
-// market. Hand-entered prices skip this test: if Tim typed it, he stands
-// behind it.
-const MIN_SALES = 10;
-const gradedPrice = (setId, number) => {
-  const k = `${setId}-${number}`;
-  const manual = gnum(psa10.prices?.[k]) ?? gnum(psa10[k]);
-  if (manual) return manual;
-  const a = psa10.auto?.[k];
-  if (!a?.psa10) return null;
-  if (a.psa10Sales != null && a.psa10Sales < MIN_SALES) return null;
-  return a.psa10;
-};
-const gradedAsOf = (setId, number) => {
-  const k = `${setId}-${number}`;
-  return psa10.prices?.[k]?.asOf || psa10[k]?.asOf || psa10.auto?.[k]?.asOf || null;
-};
+// THREE SOURCES NOW, AND THE CHAIN IS SHARED RATHER THAN WRITTEN HERE.
+//
+// A person still wins first: `prices` in data/psa10.json is what Tim typed
+// through the spreadsheet and a sync must never overwrite a number he checked
+// himself. PriceCharting (data/graded.json) is second, which is the site's
+// source for every other figure since 18 August 2026. pokemonpricetracker's
+// `auto` is the automated fallback and keeps its ten-sale floor, because
+// Volcarona came back at 15x its raw price off six recorded sales, which is an
+// anecdote and not a market.
+//
+// THE MIDDLE TIER IS NEW HERE AND IT IS WHY THIS BLOCK MOVED. build-hall.mjs
+// gained it on 18 August 2026 and these guides did not, so the chase grid on
+// /sets/chaos-rising.html printed $838 for Mega Greninja ex #122 while
+// /hall.html printed $906 for the same printing off the same instruction.
+//
+// THE OBJECTION THIS FILE ALREADY RECORDS IS ANSWERED RATHER THAN IGNORED. The
+// note under gradedSource below says data/graded.json "covers 83 cards and not
+// the 99 these guides print. Moving the guides onto it would strand most of
+// them." That is true of MOVING and false of LAYERING: `auto` is still behind
+// it, so no row that had a figure loses one, and rows it does reach gain a
+// PriceCharting number with PriceCharting's own date and name carried beside
+// it. The date and the source move WITH the figure, through the same resolver,
+// so a guide can no longer credit one feed for another feed's number.
+//
+// The join is on the card's NAME and its SET's name rather than on a set-id
+// key, because data/graded.json carries neither. Every call site below passes
+// both. See shared/graded-price.mjs.
+const gradedFor = await loadGradedPrices();
+const gradedPrice = (setId, number, name, setName) =>
+  gradedFor.price(setId, number, { name, setName });
+const gradedAsOf = (setId, number, name, setName) =>
+  gradedFor.stamp(setId, number, { name, setName }).asOf;
 
 /**
  * WHO SAID SO ABOUT THE GRADED FIGURES. 14 GUIDES PRINTED 99 OF THEM AND NAMED
@@ -402,28 +407,49 @@ const gradedAsOf = (setId, number) => {
  * "PSA 10 PRICES COME FROM ..." off each card's own psa10Source, and
  * /index.html and /hall.html do the same off data/graded.json.
  *
- * THE NAME AND THE DATE BOTH COME OUT OF data/psa10.json rather than being
- * typed here, for the reason shared/card-prices.mjs exists at all: a feed swap
- * must not be a second chance to leave a page crediting a source it no longer
- * reads. If psa10.json ever carries two sources at once the note says the
- * generic thing rather than crediting one of them for the other's figure.
+ * THE NAME AND THE DATE ARE READ OFF WHOEVER SUPPLIED THE FIGURE rather than
+ * being typed here, for the reason shared/card-prices.mjs exists at all: a feed
+ * swap must not be a second chance to leave a page crediting a source it no
+ * longer reads. Both come back from the same resolver call that produced the
+ * number, so they cannot describe a different reading from the one on the page.
  *
- * IT IS A DIFFERENT FEED FROM THE RAW COLUMN ON PURPOSE and the note says so.
- * PriceCharting is the site's source for graded singles, but its graded crawl
- * (data/graded.json) is deliberately scoped to the cards we have pulled, so it
- * covers 83 cards and not the 99 these guides print. Moving the guides onto it
- * would strand most of them. See the note beside the chase grid.
+ * THE GRADED COLUMN NOW MIXES TWO FEEDS AND THE NOTE SAYS SO WHEN IT DOES.
+ * This paragraph used to end "Moving the guides onto it would strand most of
+ * them", about data/graded.json covering 83 cards against the 99 these guides
+ * print. That is true of MOVING and false of LAYERING, which is what changed on
+ * 21 August 2026: PriceCharting sits in FRONT of pokemonpricetracker rather
+ * than instead of it, so no row that had a figure lost one. Where a guide ends
+ * up printing both feeds gradedWho below returns "a separate graded sales
+ * feed", which is the existing behaviour for a mixed page and is why it exists.
  */
-const gradedSource = (setId, number) => {
-  const k = `${setId}-${number}`;
-  return psa10.prices?.[k]?.source || psa10[k]?.source || psa10.auto?.[k]?.source || null;
-};
+const gradedSource = (setId, number, name, setName) =>
+  gradedFor.stamp(setId, number, { name, setName }).source;
 /** Every chase row on this page that actually renders a graded figure. */
-const gradedRows = (s) => (s.chase || []).filter((c) => gradedPrice(s.id, c.number));
-/** The one name to credit, or the generic phrase where the page mixes feeds. */
+const gradedRows = (s) => (s.chase || []).filter((c) => gradedPrice(s.id, c.number, c.name, s.name));
+/** Every distinct feed credited for a graded figure on this page. */
+const gradedFeeds = (s, rows = gradedRows(s)) => [
+  ...new Set(rows.map((c) => gradedSource(s.id, c.number, c.name, s.name)).filter(Boolean)),
+];
+/**
+ * WHO TO CREDIT, AND SINCE 21 AUGUST 2026 IT CAN BE TWO OF THEM.
+ *
+ * This returned the generic "a separate graded sales feed" for anything that
+ * was not exactly one name, which was right while a mixed page was a
+ * theoretical case. It is not one any more: PriceCharting went in front of
+ * pokemonpricetracker on that date and 14 of these guides now print rows from
+ * both. Naming NEITHER of two known feeds is strictly worse than naming both,
+ * and on the footer line it produced "PSA 10 prices from a separate graded
+ * sales feed", which tells a reader nothing they can check.
+ *
+ * The generic survives for the case it was actually written for: a figure whose
+ * source the data does not record at all. That is a page that genuinely cannot
+ * name its feed, which is a different thing from one that has two.
+ */
 const gradedWho = (s, rows = gradedRows(s)) => {
-  const names = [...new Set(rows.map((c) => gradedSource(s.id, c.number)).filter(Boolean))];
-  return names.length === 1 ? names[0] : "a separate graded sales feed";
+  const names = gradedFeeds(s, rows);
+  if (!names.length) return "a separate graded sales feed";
+  if (names.length === 1) return names[0];
+  return `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
 };
 
 /**
@@ -2202,8 +2228,8 @@ function derivedFacts(s) {
     out.push(
       `The chase card ${comp ? `of the ${s.total} on this checklist ` : ``}is <b>${esc(top.name)}</b>${top.rarity ? ` (${BOOKLET_MARK[topR] ? rarityMark(BOOKLET_MARK[topR]) : ""}${esc(topR)})` : ""}, ` +
       `sitting around <b>${moneyCompact(top.price)}</b> raw` +
-      (gradedPrice(s.id, top.number)
-        ? `, and <b>${moneyCompact(gradedPrice(s.id, top.number))}</b> in a PSA 10.`
+      (gradedPrice(s.id, top.number, top.name, s.name)
+        ? `, and <b>${moneyCompact(gradedPrice(s.id, top.number, top.name, s.name))}</b> in a PSA 10.`
         : `.`) +
       (comp ? ` ${esc(compChaseNote(s, comp))}` : ``)
     );
@@ -2620,7 +2646,7 @@ function setPage(s) {
        */
       const withScan = s.chase.filter((c) => c.image);
       const noScan = s.chase.filter((c) => !c.image);
-      const psa = (c) => gradedPrice(s.id, c.number);
+      const psa = (c) => gradedPrice(s.id, c.number, c.name, s.name);
       return `
     ${withScan.length ? `<div class="chase-grid">
       ${withScan.map((c) => `<button class="chase-card" type="button"
@@ -2645,7 +2671,7 @@ function setPage(s) {
               // longDate, not the raw ISO string the price file stores. Every other date
               // on this page is long form, including the "last updated" line directly
               // under this grid, so a bare 2026-08-12 here read as a different site.
-              gradedAsOf(s.id, c.number) ? `<span> &bull; ${esc(longDate(gradedAsOf(s.id, c.number)))}</span>` : ""
+              gradedAsOf(s.id, c.number, c.name, s.name) ? `<span> &bull; ${esc(longDate(gradedAsOf(s.id, c.number, c.name, s.name)))}</span>` : ""
             }</div>`
           : ""}
       </button>`).join("\n      ")}
@@ -2681,8 +2707,13 @@ function setPage(s) {
       const rows = gradedRows(s);
       if (!rows.length) return "";
       const one = rows.length === 1;
-      const dated = rows.some((c) => gradedAsOf(s.id, c.number));
-      return `<p class="price-note">The PSA 10 ${one ? "figure is" : "figures are"} ${esc(gradedWho(s, rows))}'s graded sales data, a different feed and a different measurement from the guide values above, so the two are not one reading.${
+      const dated = rows.some((c) => gradedAsOf(s.id, c.number, c.name, s.name));
+      // THE POSSESSIVE HAD TO GO WHEN THE COLUMN GAINED A SECOND FEED. It read
+      // "are NAME's graded sales data", which turns into "are a separate graded
+      // sales feed's graded sales data" the moment two feeds are credited, a
+      // sentence that says the same three words twice. "graded sales data from
+      // NAME" carries one name or two without changing shape.
+      return `<p class="price-note">The PSA 10 ${one ? "figure is" : "figures are"} graded sales data from ${esc(gradedWho(s, rows))}, a different measurement from the guide values above and read separately, so the two are not one reading.${
         dated ? ` The date printed beside a graded figure is the day it was read.` : ""
       } A PSA 10 is a card somebody has paid to have graded and sealed at the top grade, so it is not what the same card is worth loose in your hand.</p>`;
     })()}
@@ -2982,8 +3013,17 @@ ${rows}
              ordinary case look annotated. -->
         <p class="mine-n">${h.name}${h.count > 1 ? ` <span class="mine-x">&times;${h.count}</span>` : ""}</p>
         <p class="mine-r">${h.meta}</p>
-        <p class="mine-p">${typeof h.price === "number" ? moneyExact(h.price) : "No price"}${
-            typeof h.psa10 === "number" ? ` <span class="mine-psa">${moneyExact(h.psa10)} in a 10</span>` : ""
+        ${/* moneyCompact, NOT moneyExact, AND THAT IS THE HALL OF FAME'S SHAPE
+              RATHER THAN A TASTE CALL. These tiles and the plaques on
+              /hall.html are the same cards out of the same data/hits.json, and
+              they printed the same card two ways: $175.00 here against $175
+              there for Mega Greninja ex, Chaos Rising #122. shared/format.mjs
+              says which is which and this band is squarely on the compact side
+              of it: a tile in a list, where the cents are noise and the column
+              has to stay narrow. The checklist and the rarity ladder further
+              down keep moneyExact, because those really are rows where the
+              number is the point. */ ""}<p class="mine-p">${typeof h.price === "number" ? moneyCompact(h.price) : "No price"}${
+            typeof h.psa10 === "number" ? ` <span class="mine-psa">${moneyCompact(h.psa10)} in a 10</span>` : ""
           }</p>
         ${h.rips.map((r) => `<a class="mine-w" href="/${esc(r.path)}">Watch the rip &rarr;</a>`).join("\n        ")}
       </li>`
@@ -3111,12 +3151,19 @@ ${rows}
               the one bullet that quotes one gets its own line. Both values are
               read from data/psa10.json rather than written in prose. */ ""}${(() => {
       const top = s.chase?.[0];
-      if (!top || !gradedPrice(s.id, top.number)) return "";
-      const read = gradedAsOf(s.id, top.number);
+      if (!top || !gradedPrice(s.id, top.number, top.name, s.name)) return "";
+      const read = gradedAsOf(s.id, top.number, top.name, s.name);
       return `
-    <p class="price-note">That PSA 10 figure is ${esc(gradedWho(s, [top]))}'s graded sales data${
+    <p class="price-note">That PSA 10 figure is graded sales data from ${esc(gradedWho(s, [top]))}${
       read ? `, read ${esc(longDate(read) || read)}` : ""
-    }. The raw figure beside it is ${esc(s.priceStamps?.priceSource || "pricecharting.com")}'s price guide value for an ungraded copy, which is a different feed and a different measurement.</p>`;
+    }. ${/* "A DIFFERENT FEED" WAS RIGHT WHILE THE GRADED COLUMN WAS
+              pokemonpricetracker's AND IS NOT NOW. Both halves of this sentence
+              name pricecharting.com on most guides since 21 August 2026, and
+              telling a reader they are different companies when they are the
+              same one is worse than saying nothing. The true difference is what
+              is being measured and when it was read, which is what the sentence
+              was always for. Same correction in build-proto.mjs and
+              build-wanted.mjs. */ ""}The raw figure beside it is ${esc(s.priceStamps?.priceSource || "pricecharting.com")}'s price guide value for an ungraded copy, which is a different measurement read on a different day.</p>`;
     })()}
   </div>
 </section>` },
@@ -3478,7 +3525,7 @@ function indexPage() {
         ${setCardLogo(s.id, `${esc(s.name)} logo`, { eager: i < EAGER_SET_CARDS })}
         <span>
           <span class="ttl">${esc(s.name)}</span><br>
-          <span class="meta">${s.total ?? "?"} cards${s.released ? ` &bull; ${s.released.slice(0, 4)}` : ""}${ripsBySet[s.id] ? ` &bull; ${ripsBySet[s.id]} rip${ripsBySet[s.id] === 1 ? "" : "s"}` : ""}${(s.chase || [])[0]?.price ? ` &bull; top ${moneyCompact(s.chase[0].price)}${gradedPrice(s.id, s.chase[0].number) ? ` / ${moneyCompact(gradedPrice(s.id, s.chase[0].number))} PSA 10` : ""}` : ""}</span>
+          <span class="meta">${s.total ?? "?"} cards${s.released ? ` &bull; ${s.released.slice(0, 4)}` : ""}${ripsBySet[s.id] ? ` &bull; ${ripsBySet[s.id]} rip${ripsBySet[s.id] === 1 ? "" : "s"}` : ""}${(s.chase || [])[0]?.price ? ` &bull; top ${moneyCompact(s.chase[0].price)}${gradedPrice(s.id, s.chase[0].number, s.chase[0].name, s.name) ? ` / ${moneyCompact(gradedPrice(s.id, s.chase[0].number, s.chase[0].name, s.name))} PSA 10` : ""}` : ""}</span>
         </span>
       </a>`).join("\n      ")}
     </div>
@@ -3498,12 +3545,12 @@ function indexPage() {
         .filter((d) => d?.pricesChecked || d?.checked)
         .sort((a, b) => String(priceRead(a)).localeCompare(String(priceRead(b))))
         .pop();
-      const graded = priced.filter((s) => gradedPrice(s.id, s.chase[0].number));
+      const graded = priced.filter((s) => gradedPrice(s.id, s.chase[0].number, s.chase[0].name, s.name));
       const who = graded.length
-        ? [...new Set(graded.map((s) => gradedSource(s.id, s.chase[0].number)).filter(Boolean))]
+        ? [...new Set(graded.map((s) => gradedSource(s.id, s.chase[0].number, s.chase[0].name, s.name)).filter(Boolean))]
         : [];
       const gradedRead = graded
-        .map((s) => gradedAsOf(s.id, s.chase[0].number))
+        .map((s) => gradedAsOf(s.id, s.chase[0].number, s.chase[0].name, s.name))
         .filter(Boolean)
         .sort()
         .pop();
@@ -3555,8 +3602,8 @@ ${/* Same incomplete credit as the guides had: this page prints graded figures
 ${footer(priceFooter(`${(() => {
   const who = [...new Set(
     sets
-      .filter((s) => (s.chase || [])[0]?.price && gradedPrice(s.id, s.chase[0].number))
-      .map((s) => gradedSource(s.id, s.chase[0].number))
+      .filter((s) => (s.chase || [])[0]?.price && gradedPrice(s.id, s.chase[0].number, s.chase[0].name, s.name))
+      .map((s) => gradedSource(s.id, s.chase[0].number, s.chase[0].name, s.name))
       .filter(Boolean)
   )];
   return who.length === 1 ? `PSA 10 prices from ${who[0]}. ` : "";

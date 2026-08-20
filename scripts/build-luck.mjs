@@ -10,12 +10,21 @@
 //
 // HONESTY IS THE WHOLE VALUE HERE, so the rules are strict:
 //
-// 1. Only rips Tim has explicitly marked count toward a rate. The `pulls` tags
-//    are derived from video titles, and titles are biased: one that says "NO
-//    HITS" gets no pull tag and would silently read as an untested rip, while
-//    one that says "SIR!!" does. Computing a rate over those would not measure
-//    luck, it would measure how he writes titles. `hasHit` is a deliberate
-//    yes/no from the spreadsheet, so that is the denominator.
+// 1. Only rips Tim has explicitly marked count toward a rate. THE REASON GIVEN
+//    HERE WAS OUT OF DATE AND THE CONCLUSION IS NOT. It read "the `pulls` tags
+//    are derived from video titles, and titles are biased", which stopped being
+//    true when sync-youtube.mjs moved that field onto the rip log:
+//    `pulls: manual.pulls ?? pullsFromHitCard(log.hitCard) ?? []`, at
+//    scripts/sync-youtube.mjs:272, and the comment beside it says so in as many
+//    words. The tags come from the Hit Card cell now, which is a person naming
+//    the cards that came out.
+//
+//    The bias moved rather than went away, which is why `hasHit` is still the
+//    denominator. A rip whose Hit Card cell is EMPTY produces no tag and would
+//    read as a rip that produced nothing, so a rate computed over the tags
+//    would measure how much of the log is filled in. `hasHit` is a deliberate
+//    yes/no about the rip itself, filled in for rips that hit AND for rips that
+//    did not, so it is the only column that can carry a denominator.
 //
 // 2. Every rate carries its sample size, and rates below MIN_SAMPLE are shown
 //    as "not enough yet" rather than as a number. Three rips of a set is an
@@ -145,6 +154,64 @@ const pulls = [...pullCount.entries()].sort((a, b) => b[1] - a[1]);
  * Printed either way, so a run where the choice flips is visible rather than
  * being a band that quietly changed what it is about.
  */
+/* ---------------------------------------------- what the pull tally is NOT
+ *
+ * IT COUNTS RIPS, NOT CARDS, AND THE PAGE HAD NEVER SAID SO. `pullsFromHitCard`
+ * in sync-youtube.mjs ends `[...new Set(ids)]`, so one video contributes AT
+ * MOST ONE tag per rarity however many cards of that rarity came out of it. The
+ * Costco UPC rip is the extreme case and it is not a rare one: fourteen cards
+ * in data/hits.json, five tags here.
+ *
+ * THE DEDUPLICATION IS RIGHT AND THE SILENCE ABOUT IT WAS NOT. This band asks
+ * how often a rip produces each kind of card, which is the question the rest of
+ * the page is about, and counting one opening five times would let a single
+ * lucky box outweigh a month of ordinary ones. A card-by-card count is a
+ * different measure and it already has a page: /hall.html lists every card.
+ * So the tally stays as it is and the note now states the unit, with the two
+ * totals beside it so a reader can see the size of the gap rather than take
+ * the word for it.
+ *
+ * COMPUTED, NEVER TYPED. Both numbers move every time the log is tagged, and a
+ * sentence carrying a hand-written 76 goes quietly wrong on the next import.
+ * data/hits.json is read for the card count for the same reason: it is the
+ * file /hall.html and every rip page count cards out of, so this page cannot
+ * disagree with them about how many there are.
+ *
+ * DEDUPLICATION IS NOT THE ONLY REASON THE TWO TOTALS DIFFER, AND THE OTHER
+ * REASON IS A GAP RATHER THAN A DECISION. `RARITY_ID_TO_PULL` in
+ * sync-youtube.mjs maps nine tiers and has no entry for a BLACK STAR PROMO, so
+ * a promo named in a Hit Card cell produces no tag at all and can never badge:
+ * two of the Costco rip's fourteen cards are promos and neither is in its five.
+ * The three lowest Japanese tiers (`jp-r`, `jp-u`, `jp-c`) are absent too, and
+ * THOSE are deliberate by the same rule that maps `rare` to null, because a
+ * plain Rare is not a pull. The promo is not.
+ *
+ * IT IS NOT FIXED HERE AND THAT IS DELIBERATE. `pulls` is written into
+ * public/data/videos.json by sync-youtube.mjs, and it drives the badge on every
+ * video tile on the site as well as this band, so adding a tier means a new
+ * pull tag, a label in shared/taxonomy.mjs, a badge treatment, and a retag run
+ * that moves 318 pages. That is a feature, not a correction to a sentence, and
+ * doing it inside a prose fix is how the note above came to be describing a
+ * build step that had already moved.
+ */
+const tagCount = videos.reduce((n, v) => n + (v.pulls || []).length, 0);
+const tagRips = videos.filter((v) => (v.pulls || []).length).length;
+let hitRows = 0;
+let widestGap = null;
+try {
+  const hv = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
+  const tagsById = new Map(videos.map((v) => [v.id, (v.pulls || []).length]));
+  for (const [vid, list] of Object.entries(hv)) {
+    if (!Array.isArray(list)) continue;
+    hitRows += list.length;
+    const tags = tagsById.get(vid) || 0;
+    if (!tags) continue;
+    if (!widestGap || list.length - tags > widestGap.cards - widestGap.tags) {
+      widestGap = { vid, cards: list.length, tags };
+    }
+  }
+} catch { /* optional: the note drops the comparison rather than guessing at it */ }
+
 const rarityRips = [...rarityCount.values()].reduce((n, x) => n + x, 0);
 const pullRips = videos.filter((v) => (v.pulls || []).length).length;
 const useRarities = rarities.length > 0 && rarityRips >= pullRips;
@@ -565,8 +632,22 @@ ${table(byProduct, "Product", "/videos.html?product=", true)}
           ? `Counted from the rarity column of the rip log, which is filled in for a different set of rips
       than the hit or no hit column, so this is a separate tally from the hit rates above and the two will
       not line up.`
-          : `Counted from what the titles say rather than from the rip log, so this is a separate tally from
-      the hit rates above and the two will not line up.`
+          : `Counted from the Hit Card cell of the rip log, which is where the cards that came out are
+      written down by hand, so this is a separate tally from the hit rates above and the two will not
+      line up.${
+        // THE UNIT IS THE RIP AND THE PAGE SAYS SO NOW. See the note beside
+        // tagCount above for why the deduplication is deliberate and why the
+        // two totals are printed rather than asserted.
+        hitRows
+          ? ` A rip counts once per rarity however many cards of that rarity came out of it, so these are
+      counts of rips rather than of cards: ${tagCount} tag${tagCount === 1 ? "" : "s"} across ${tagRips} rip${tagRips === 1 ? "" : "s"} against
+      the ${hitRows} cards the log records${
+              widestGap ? `, and the biggest single rip is ${widestGap.cards} cards under ${widestGap.tags} tag${widestGap.tags === 1 ? "" : "s"}` : ""
+            }. That is on purpose: this band is about how often a rip produces each kind of card, and counting
+      one opening five times would let a single lucky box outweigh a month of them. The cards themselves are listed one
+      by one on the <a href="/hall.html">best pulls page</a>.`
+          : ""
+      }`
       } They are totals, not rates: a set
       that gets opened more will show more of everything. A fuller log makes these counts more complete, not more predictive: they say what
       came out of the packs we opened, never what will come out of yours.</p>

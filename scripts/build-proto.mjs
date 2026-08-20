@@ -24,6 +24,7 @@ import { labelFor } from "../shared/taxonomy.mjs";
 // has to print the same sentence about them or the site has two answers to one
 // question. See shared/card-prices.mjs.
 import { priceNote, priceRead, chaseByPrice } from "../shared/card-prices.mjs";
+import { loadGradedPrices } from "../shared/graded-price.mjs";
 // The drops band's expiry model. NOT reimplemented here: /drops.html and this
 // page print the same rows, so "is this row still true" is answered in one
 // place for both. See shared/drops.mjs.
@@ -108,36 +109,24 @@ const dirSet = async (sub, suffix) =>
       .map((f) => f.replace(suffix, ""))
   );
 // Graded prices, so a Pokedex tile can say what the best card in that set is
-// worth. Same precedence and same ten-sale floor as everywhere else.
-let graded = {};
-try {
-  graded = JSON.parse(await readFile(join(ROOT, "data/psa10.json"), "utf8"));
-} catch { /* optional */ }
-const gradedPrice = (setId, number) => {
-  const k = `${setId}-${number}`;
-  const m = graded.prices?.[k];
-  const manual = typeof m?.price === "number" ? m.price : typeof m === "number" ? m : null;
-  if (manual) return manual;
-  const a = graded.auto?.[k];
-  if (!a?.psa10 || (a.psa10Sales != null && a.psa10Sales < 10)) return null;
-  return a.psa10;
-};
-// WHO SAID SO AND WHEN, for the graded figures. Both are in the data already:
-// every auto row carries `source` (pokemonpricetracker.com today) and `asOf`,
-// and the set guides print that per-card date beside each PSA 10 on the chase
-// grid. The home page printed the number and neither of the two, which is a
-// price on a fan page with no source under it. Same shape as build-set-pages.mjs
-// so the two pages cannot credit different feeds for one figure.
-const gradedStamp = (setId, number) => {
-  const k = `${setId}-${number}`;
-  const m = graded.prices?.[k];
-  return {
-    // A hand-entered price is Tim's own figure and carries no feed name. Named
-    // as such rather than borrowed from the auto row underneath it.
-    source: (typeof m?.price === "number" ? m.source : null) || graded.auto?.[k]?.source || null,
-    asOf: m?.asOf || graded.auto?.[k]?.asOf || null,
-  };
-};
+// worth. Same precedence and same ten-sale floor as everywhere else, and since
+// 21 August 2026 that is literally true rather than a claim: the chain lives in
+// shared/graded-price.mjs and this file no longer writes its own. It used to,
+// and so did four other builders, which is how /hall.html came to print $906
+// for Mega Greninja ex #122 while 54 other pages printed $838.
+//
+// WHO SAID SO AND WHEN comes back from the same call as the number, so this
+// page cannot credit one feed for another feed's figure. A hand-entered price
+// is Tim's own and carries no feed name, which is the resolver's own call now
+// rather than a rule three builders each remembered separately.
+//
+// The join needs the card's NAME and its SET's name, because data/graded.json
+// is keyed by neither a set id nor a collector number on its own.
+const gradedFor = await loadGradedPrices();
+const gradedPrice = (setId, number, name, setName) =>
+  gradedFor.price(setId, number, { name, setName });
+const gradedStamp = (setId, number, name, setName) =>
+  gradedFor.stamp(setId, number, { name, setName });
 
 /* -------------------------------------------------- the checklist, once ----
  *
@@ -271,7 +260,19 @@ function bandNote(led, { lead, psaLead, trailing = "" }) {
   }
   if (led.raw) bits.push(esc(priceNote(led.doc, { lead, trailing })));
   if (led.psa) {
-    const who = led.psaSources.size === 1 ? [...led.psaSources][0] : "graded sales data";
+    // NAME BOTH RATHER THAN NEITHER. This fell back to "graded sales data" for
+    // anything that was not exactly one name, which was right while a mixed
+    // band was hypothetical. PriceCharting went in front of pokemonpricetracker
+    // in shared/graded-price.mjs on 21 August 2026 and these bands now print
+    // rows from both, so the fallback started firing and the home page stopped
+    // naming either. The generic is kept for the case it was written for: a
+    // figure whose source the data does not record.
+    const names = [...led.psaSources];
+    const who = !names.length
+      ? "graded sales data"
+      : names.length === 1
+        ? names[0]
+        : `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
     const when = !led.psaAsOf
       ? ""
       : led.psaFrom && led.psaFrom !== led.psaAsOf
@@ -286,7 +287,16 @@ function bandNote(led, { lead, psaLead, trailing = "" }) {
     bits.push(
       esc(
         `${psaLead} the figure comes from ${who} instead${when}` +
-          ". That is a separate feed from the raw prices and a different read, so the two are not one measurement."
+          // NOT "a separate feed from the raw prices". Both halves of this note
+          // can name pricecharting.com now, and telling a reader they are
+          // different companies when they are the same one is worse than
+          // saying nothing. What is still true is that a graded sale and an
+          // ungraded guide value measure different objects and are read off
+          // different files on different days, which is the whole point of the
+          // sentence. Same correction in build-wanted.mjs and
+          // build-set-pages.mjs, made in the same pass so the three cannot
+          // word it three ways.
+          ". A graded price is a different measurement from the raw guide value and is read separately, so the two are not one number."
       )
     );
   }
@@ -337,15 +347,24 @@ try {
  * printed a PSA 10 for them.
  *
  * So the store wins here as well, through the same gradedPrice and gradedStamp
- * the set grid uses, which applies the same ten-sale floor: Mega Darkrai ex,
- * Pitch Black #116 has one reading of 8 sales and stays blank on all three
- * pages. build-wanted.mjs does the identical overlay for /wanted.html.
+ * the set grid uses. build-wanted.mjs does the identical overlay for
+ * /wanted.html.
+ *
+ * THE EXAMPLE THIS PARAGRAPH USED TO END ON WENT OUT OF DATE ON 21 AUGUST 2026
+ * AND THE FLOOR DID NOT MOVE. It read "which applies the same ten-sale floor:
+ * Mega Darkrai ex, Pitch Black #116 has one reading of 8 sales and stays blank
+ * on all three pages". That card prints $2,700 on all three now, because
+ * shared/graded-price.mjs put PriceCharting in FRONT of pokemonpricetracker
+ * and data/graded.json holds a figure for it. The eight sales are still under
+ * the floor and that reading is still discarded; a different feed answered
+ * above it. PriceCharting publishes no sale count, so the floor has nothing to
+ * read on that tier rather than being skipped on it.
  */
 for (const c of wanted.cards || []) {
   if (!c.set || !c.number) continue;
-  const g = gradedPrice(c.set, c.number);
+  const g = gradedPrice(c.set, c.number, c.name, c.setName || setLabel(c.set));
   if (g != null) {
-    const stamp = gradedStamp(c.set, c.number);
+    const stamp = gradedStamp(c.set, c.number, c.name, c.setName || setLabel(c.set));
     c.psa10 = g;
     c.psa10AsOf = stamp.asOf || c.psa10AsOf;
     c.psa10Source = stamp.source || c.psa10Source;
@@ -1093,7 +1112,7 @@ const setsHtml = (
           const row = cardRow(topDoc, c.number);
           return typeof row?.price === "number" && row.price > 0 ? row.price : c.price;
         })[0] || null;
-      const topPsa = top ? gradedPrice(s.id, top.number) : null;
+      const topPsa = top ? gradedPrice(s.id, top.number, top.name, s.name || setLabel(s.id)) : null;
       // THE RAW FIGURE IS RE-READ OUT OF THE CHECKLIST IT IS DATED BY, and that
       // is not tidying. sets.json's chase price is a COPY, written by
       // reconcile-cards.mjs out of public/data/cards/<set>.json, and the only
@@ -1110,7 +1129,7 @@ const setsHtml = (
       const topRow = top ? cardRow(topDoc, top.number) : null;
       const topRaw = typeof topRow?.price === "number" && topRow.price > 0 ? topRow.price : top?.price || null;
       const topVal = topPsa || topRaw || null;
-      if (topPsa) addPsa(setsLedger, gradedStamp(s.id, top.number));
+      if (topPsa) addPsa(setsLedger, gradedStamp(s.id, top.number, top.name, s.name || setLabel(s.id)));
       else if (topRaw) addRaw(setsLedger, topRow ? topDoc : null, topRow, s.id);
       return `        <a class="set" href="/sets/${s.id}.html">
           <span class="set-art">${face}</span>

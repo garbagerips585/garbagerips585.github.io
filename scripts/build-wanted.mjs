@@ -25,6 +25,7 @@ import { esc, shortDate, moneyCompact, imgDims, avifPicture, rarityLabel } from 
 // priceRead(), so this page cannot stamp the checklist's date under a column of
 // dollars. See the long note beside the checklist join below.
 import { priceRead } from "../shared/card-prices.mjs";
+import { loadGradedPrices } from "../shared/graded-price.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -118,38 +119,40 @@ const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), 
  * their chase cards, and the hunt list reads it for the cards being chased."
  * So read it, with the SAME precedence and the same ten-sale floor every other
  * builder applies, and keep the wanted-file value only where that store has
- * nothing. Mega Darkrai ex, Pitch Black #116 stays blank on both: its only
- * reading is 8 sales, under the floor, and a gate applied on one page and not
- * another is how this class of bug starts.
+ * nothing.
+ *
+ * THIS PARAGRAPH USED TO END "Mega Darkrai ex, Pitch Black #116 stays blank on
+ * both: its only reading is 8 sales, under the floor", AND IT STOPPED BEING
+ * TRUE ON 21 AUGUST 2026 WITHOUT THE FLOOR MOVING. That card now prints $2,700
+ * here, on the home page's Most Wanted shelf and on /sets/pitch-black.html,
+ * because shared/graded-price.mjs put PriceCharting in FRONT of
+ * pokemonpricetracker and data/graded.json holds a figure for it. The eight
+ * sales are still under the floor and the tracker's reading is still thrown
+ * away; a different feed answered above it.
+ *
+ * THE HALF OF THAT SENTENCE THAT STILL STANDS is the reason it was written: a
+ * gate applied on one page and not another is how this class of bug starts.
+ * The gate is applied in ONE place now, to one tier, which is why the card
+ * moved on all three pages in the same build rather than on one of them.
+ * PriceCharting publishes no sale count, so there is nothing for the floor to
+ * read on that tier and it is not silently skipped: it does not apply.
  */
-const MIN_SALES = 10; // the same floor the set guides and the home page use
-let psa10Store = {};
-try {
-  psa10Store = JSON.parse(await readFile(join(ROOT, "data/psa10.json"), "utf8"));
-} catch { /* optional: the page falls back to the wanted file's own figures */ }
-const gnum = (v) =>
-  typeof v?.price === "number" ? v.price : typeof v === "number" ? v : null;
-const gradedPrice = (setId, number) => {
-  const k = `${setId}-${String(number).replace(/^0+(?=\d)/, "")}`;
-  const manual = gnum(psa10Store.prices?.[k]) ?? gnum(psa10Store[k]);
-  if (manual) return manual;
-  const a = psa10Store.auto?.[k];
-  if (!a?.psa10) return null;
-  if (a.psa10Sales != null && a.psa10Sales < MIN_SALES) return null;
-  return a.psa10;
-};
-const gradedStamp = (setId, number) => {
-  const k = `${setId}-${String(number).replace(/^0+(?=\d)/, "")}`;
-  const manual = psa10Store.prices?.[k] ?? psa10Store[k];
-  const a = psa10Store.auto?.[k];
-  // A hand-entered price is Tim's own figure and carries no feed name, which is
-  // the same call build-hall.mjs makes. Same shape as build-proto.mjs so the two
-  // pages cannot credit different feeds for one number.
-  return {
-    asOf: manual?.asOf || a?.asOf || null,
-    source: (gnum(manual) != null ? manual?.source : null) || a?.source || null,
-  };
-};
+// THE CHAIN IS SHARED NOW, and the paragraph above is the reason it had to be.
+// This page was reading the graded store "with the SAME precedence and the same
+// ten-sale floor every other builder applies" by writing that precedence out a
+// fourth time, and on 18 August 2026 a fifth copy in build-hall.mjs gained a
+// tier the other four never heard about. Same class of bug as the snapshot one
+// argued above, one level up: not a stale copy of a number, a stale copy of the
+// RULE. shared/graded-price.mjs owns it, holds the ten-sale floor, and hands
+// back the date and the feed name alongside the figure so they cannot part.
+//
+// The join needs the card's name and its set's name; both are on every row of
+// data/wanted.json already.
+const gradedFor = await loadGradedPrices();
+const gradedPrice = (setId, number, name, setName) =>
+  gradedFor.price(setId, number, { name, setName });
+const gradedStamp = (setId, number, name, setName) =>
+  gradedFor.stamp(setId, number, { name, setName });
 
 const rarities = new Map();
 const priceStamps = new Map();
@@ -181,9 +184,9 @@ for (const c of cards) {
   // The graded store wins over the snapshot, for the reason argued above. The
   // date and the feed name move with the figure, so the note under the grid
   // cannot end up dating a number it is no longer describing.
-  const g = gradedPrice(c.set, c.number);
+  const g = gradedPrice(c.set, c.number, c.name, c.setName);
   if (g != null) {
-    const stamp = gradedStamp(c.set, c.number);
+    const stamp = gradedStamp(c.set, c.number, c.name, c.setName);
     c.psa10 = g;
     c.psa10AsOf = stamp.asOf || c.psa10AsOf;
     c.psa10Source = stamp.source || c.psa10Source;
@@ -485,11 +488,21 @@ const asOf = cards.map((c) => c.psa10AsOf).filter(Boolean).sort().pop() || null;
 const anyPsa = cards.some((c) => c.psa10);
 
 // WHO SAID SO, AND THE DATA HAD IT ALL ALONG. Every card with a graded figure
-// carries `psa10Source` (pokemonpricetracker.com today) and the note said only
-// "GRADED SALES DATA", which is a price on a fan page with no source under it.
-// Named where there is one name; where two feeds ever appear the page says the
-// generic thing rather than crediting one of them for the other's figure.
+// carries `psa10Source` and the note said only "GRADED SALES DATA", which is a
+// price on a fan page with no source under it.
+//
+// "WHERE TWO FEEDS EVER APPEAR" STOPPED BEING HYPOTHETICAL ON 21 AUGUST 2026,
+// and the generic fallback this comment used to describe became the WRONG
+// answer the same day. PriceCharting went in front of pokemonpricetracker in
+// shared/graded-price.mjs, so this grid now prints rows from both, and naming
+// NEITHER of two known feeds is strictly worse than naming both. The generic
+// survives only for a figure whose source the data does not record at all.
 const psaSources = [...new Set(cards.filter((c) => c.psa10).map((c) => c.psa10Source).filter(Boolean))];
+const psaWho = !psaSources.length
+  ? "GRADED SALES DATA"
+  : psaSources.length === 1
+    ? psaSources[0]
+    : `${psaSources.slice(0, -1).join(", ")} AND ${psaSources[psaSources.length - 1]}`;
 
 // THE RAW COLUMN HAD A DATE ALL ALONG AND NEVER PRINTED IT. Every card carries
 // `rawAsOf`, and the note under the grid dated only the PSA 10 figures, so half
@@ -618,8 +631,15 @@ ${huntRips
     }${
         anyPsa
           ? `<br>PSA 10 PRICES COME FROM ${
-              esc((psaSources.length === 1 ? psaSources[0] : "GRADED SALES DATA").toUpperCase())
-            }${asOf ? `, LAST CHECKED ${shortDate(asOf).toUpperCase()}` : ""}. THAT IS A SEPARATE FEED FROM THE RAW FIGURES ABOVE AND A DIFFERENT READ, SO THE TWO COLUMNS ARE NOT ONE MEASUREMENT.`
+              esc(psaWho.toUpperCase())
+            }${asOf ? `, LAST CHECKED ${shortDate(asOf).toUpperCase()}` : ""}. ${/* NOT "A SEPARATE FEED FROM THE RAW FIGURES", WHICH STOPPED BEING TRUE
+                 ON 21 AUGUST 2026. Both columns can now name pricecharting.com,
+                 and a sentence telling a reader they are different companies
+                 when they are the same one is worse than saying nothing. What
+                 IS still true, and is the thing the sentence exists to say, is
+                 that a graded sale and an ungraded guide value measure
+                 different objects and are read off different files on
+                 different days. */ ""}A GRADED PRICE IS A DIFFERENT MEASUREMENT FROM THE UNGRADED GUIDE VALUE ABOVE AND IS READ SEPARATELY, SO THE TWO COLUMNS ARE NOT ONE READING.`
           : `<br>PSA 10 PRICES ARE NOT LISTED FOR THESE YET. GRADED SALES COME FROM A SEPARATE FEED AND FROM CHECKING BY HAND.`
       }</p>
   </div>
