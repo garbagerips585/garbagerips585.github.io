@@ -67,13 +67,19 @@ already exists.
 
 ## 2. Content only Tim can supply
 
-- [ ] **Tag the 43 remaining videos.** The biggest single lever on the site. An
+- [ ] **Tag the 17 remaining videos.** The biggest single lever on the site. An
       untagged video is published `noindex` and kept out of the sitemap, so it
-      cannot rank, cannot be filtered, and cannot reach the Hall of Fame. 269 of
-      312 are tagged today. Seven of the 43 carry a pull tag, so they are hits
-      being held back.
+      cannot rank, cannot be filtered, and cannot reach the Hall of Fame. 301 of
+      318 are tagged today.
 
-      `UNTAGGED.md` is regenerated on every build and lists all 43 with the
+      THESE NUMBERS ROT AND THIS FILE IS READ ON LAUNCH DAY. They said "43
+      remaining, 269 of 312" until 20 August 2026, when the real figures were 17
+      and 301 of 318 -- a checklist item three times its actual size, on the page
+      somebody follows when they are least inclined to re-derive it. `UNTAGGED.md`
+      is regenerated on every build and is the number to trust; this line is a
+      snapshot and should be re-read against it rather than quoted.
+
+      `UNTAGGED.md` is regenerated on every build and lists all 17 with the
       playlist each one is already in. Renaming one playlist can tag twenty at
       once, because the sync reads playlist titles.
 
@@ -97,8 +103,8 @@ already exists.
       page ranks by pull tier then views, which is a decent stand-in but not
       Tim's own pick.
 
-- [ ] **Add more Rochester card shops.** Three are listed: Just Games,
-      Millennium Games and LingSter Games. `pokemon card shop rochester ny` is a
+- [ ] **Add more Rochester card shops.** Six are listed: Just Games, Millennium
+      Games, LingSter Games, Legacy Games, WeTheHobby and Great Lakes Gaming. `pokemon card shop rochester ny` is a
       real search with real intent, and that page is the best local-SEO asset on
       the site.
 
