@@ -29,6 +29,15 @@
  * point: the working tree always looks right to its own author, because their
  * uncommitted edits are in it.
  *
+ * SOME DRIFT IS THE CALENDAR AND NOT A MISTAKE. The build stamps today's date
+ * and drops content whose day has passed: perishable rows on the home page's
+ * drops band, past days on /card-shows.html's calendar. So every midnight this
+ * reports one or two files, and it is RIGHT to: the committed pages really are
+ * stale, and the site really would serve a drop that has already happened. The
+ * nightly refresh rebuilds and commits, which clears it. If the only files
+ * named are index.html and card-shows.html and the diff is expiry, that is the
+ * clock. Anything else is source.
+ *
  * Two steps of the build touch the network, fetch-fonts.sh and sync-symbols.mjs,
  * both no-ops once the files are held and neither fails the build without one.
  * The scratch copy has no .cache, so they fetch. If this reports drift ONLY in
