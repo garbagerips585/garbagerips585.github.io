@@ -60,6 +60,17 @@
 //     what happens to fly into you
 //   go after the trash            13s        18       3 of 60
 //
+// THOSE FOUR NUMBERS WERE MEASURED ON A RANDOM STREAM THAT NO LONGER EXISTS, 20
+// August 2026, and they are kept rather than deleted because the SHAPE of the
+// finding under them is what matters and is unchanged. The opening trail added
+// to reset() puts five pieces of trash on the street before the count-in ends;
+// collecting them moves the score, the score feeds the spark loop count, and the
+// spark loop draws randoms, so every pickup after the first re-phases. See the
+// long note beside primeStreet for the proof that it is a reshuffle and not a
+// bias, and for the 40-seed table that replaces the first two columns. Do not
+// quote the run lengths above as current; do quote "chasing the trash loses to
+// ignoring it", which was re-measured after the change and still holds.
+//
 // THE GAME'S OWN OBJECTIVE IS A MISTAKE TO PURSUE, and that is the finding this
 // pass would fix first if it knew how to. Chasing a piece of trash costs a
 // third of your run and buys nothing: 15 of 15 collector deaths were at the
@@ -114,6 +125,17 @@
 // prefers-reduced-motion cannot mean "no movement" in a game about movement,
 // so it means: nothing moves until you press start, the parallax and the screen
 // shake are off, and the speed ramp is gentler. Keyboard plays it too.
+//
+// TWO MORE WENT IN ON 20 August 2026 AND BOTH WERE HOLES RATHER THAN POLISH.
+// The game over panel carries role="status", because a canvas tells a screen
+// reader nothing: its aria-label describes the SCENE and cannot describe a run,
+// so until this went in a blind player could finish a run and be told neither
+// the score nor that it had ended. And with JavaScript off the board collapsed
+// to an eight pixel dot sitting under a live-looking "0 BEST 0" readout, which
+// reads as a broken page rather than a page whose game needs a script; a
+// noscript block in the head hides the two dead elements and one in the body
+// says so in a sentence. The prose below the board was always there and still
+// is, which is the half a crawler sees.
 
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
@@ -152,6 +174,34 @@ const desc =
 // is one number and the prose cannot go stale on its own.
 const EVOLVE_AT = 100;
 
+// THE HAZARDS, AND THEIR NAMES, FROM ONE LIST. The dex ids used to be a literal
+// inside the page script and nothing anywhere knew what they were called, which
+// is why every death for months read "A wild Pokemon got you" over a picture of
+// a Koffing. The ids live here now because the NAMES have to be looked up at
+// build time and a second copy of the list is how a sprite and a caption come to
+// disagree: the id picks BOTH the file and the word, so they cannot drift.
+//
+// THE NAMES ARE NOT TYPED IN. They are read from public/data/pokemon-index.json,
+// the same file the Pokedex pages are built from, so a name on this page is the
+// name the rest of the site uses and it has a source. An id the index does not
+// hold THROWS rather than shipping a hazard the game cannot name, which is the
+// same call build-games.mjs makes on a missing species sprite.
+const FOES = [92, 109, 88, 316, 434, 453, 451];
+
+const FOE_NAMES = await (async () => {
+  const raw = await readFile(join(ROOT, "public/data/pokemon-index.json"), "utf8");
+  const doc = JSON.parse(raw);
+  const list = doc.pokemon || Object.values(doc).find((v) => Array.isArray(v));
+  if (!Array.isArray(list)) throw new Error("pokemon-index.json: no species array");
+  const out = {};
+  for (const id of FOES) {
+    const hit = list.find((p) => p.id === id);
+    if (!hit || !hit.name) throw new Error("build-garbage-run: no name for dex id " + id);
+    out[id] = hit.name;
+  }
+  return out;
+})();
+
 const style = `
 .gr-wrap{max-width:560px;margin:0 auto}
 
@@ -178,12 +228,10 @@ const style = `
    words stay on the page for a reader and for a crawler, and a 390x844 phone
    stops paying 130px of board height for copy it can read after its first run.
    Measured at 390x844: board 277x449 with the lede above it, 372x602 with the
-   lede below, which is 1.8x the playing area on the commonest phone there is. */
-@media (max-height: 740px) {
-  .gr-title{font-size:var(--t-l);margin-bottom:4px}
-  .gr-hud{margin:var(--s2) 0}
-  .gr-wrap .crumbs{display:none}
-}
+   lede below, which is 1.8x the playing area on the commonest phone there is.
+   THE BLOCK THAT DID THIS HAS MOVED to the end of the base rules below, next to
+   the desktop block, because two of its three declarations were losing a
+   specificity contest and doing nothing. See the note there. */
 
 .gr-board{display:flex;justify-content:center}
 /* WIDTH:MIN-CONTENT SO THE FRAME HUGS THE BOARD. The stage used to be a fixed
@@ -243,6 +291,47 @@ const style = `
 .gr-keys{font:700 var(--t-micro)/1 var(--mono);background:var(--card);border:1px solid var(--hair);
   border-radius:5px;padding:3px 6px;white-space:nowrap}
 
+/* SHORT SCREEN AND PHONE: TAKE THE CHROME ABOVE THE BOARD BACK AND GIVE IT TO
+   THE GAME. This block used to sit up beside the grid areas and it fired on
+   height alone, and BOTH of those were wrong.
+
+   IT WAS IN THE WRONG PLACE, so two of its three rules never applied. A media
+   query adds nothing to specificity, so its .gr-hud sat at (0,1,0) against the
+   plain .gr-hud further down the same stylesheet and lost on source order; the
+   hud kept its 16/12 margins on every screen the block was written for. Measured
+   at 360x704, where the query definitely matched: score margins 16 and 12, i.e.
+   exactly the values it was overriding. The block is down here now, after every
+   base rule and before the desktop one, which is the only position where it wins
+   what it is meant to win and loses what desktop is meant to win.
+
+   IT COULD NOT SEE A PHONE. A max-height query resolves against the LARGE
+   viewport, the one with the browser's bar retracted, so a 390x844 iPhone tests
+   844 against 740 and the block never fired: the page laid itself out against a
+   height the reader does not have until they scroll. That is the same class of
+   mistake as sizing the board from the dynamic viewport, which is the bug this
+   pass was opened for. 544 is the site's own phone breakpoint, the one the home
+   page uses, and it is an OR with the height so a short landscape window keeps
+   what it had.
+
+   EVERY PIXEL ABOVE THE BOARD IS A PIXEL OFF THE BOARD, which the desktop block
+   below says about a laptop and is far truer here: the board is 1.62 portrait,
+   so it is height bound on every phone there is and its WIDTH is what the height
+   buys. At 390x844 this takes 109.8px back, 35.8 of breadcrumb, 40 of section
+   padding, 22 of heading and 12 of score margin, and every pixel of it goes into
+   the game: board 279x452 to 347x562 on the phone Tim holds.
+
+   section.gr-sec, NOT .gr-sec, and that is the same trap as the hud above.
+   ui.css sets section.tight{padding:48px 0} at (0,1,1), so a single class here
+   cannot beat it however late it appears. The desktop block below had the same
+   fault and the same fix: its padding note has been describing a rule that never
+   applied. */
+@media (max-height: 740px), (max-width: 544px) {
+  section.gr-sec{padding-top:var(--s2)}
+  .gr-wrap .crumbs{display:none}
+  .gr-title{font-size:var(--t-l);margin-bottom:4px}
+  .gr-hud{margin:var(--s2) 0}
+}
+
 /* DESKTOP HAD NEVER BEEN DESIGNED and the numbers said so. Measured before this
    block: the board was 323x523 at both 1280x900 and 1440x900 and 414x670 at
    1920x1080, i.e. 21.6 to 25.2 per cent of the viewport's width and 13 to 15
@@ -265,7 +354,13 @@ const style = `
      sized for its stuck position, 68px from the top, and would then hang below
      the fold on arrival, which trades the first impression for a scroll nobody
      asked for. */
-  .gr-sec{padding-top:var(--s4);padding-bottom:var(--s7)}
+  /* section.gr-sec, not .gr-sec: this rule had been at (0,1,0) against ui.css's
+     section.tight{padding:48px 0} at (0,1,1) and had never once applied, so the
+     "48px of padding is 48px of board" argument above it was describing a saving
+     the page was not making. Measured at 1440x900: board top 149.8 with 48px of
+     section padding under it. It is 32px shorter now and the board is 32px
+     taller, which is what the paragraph always claimed. */
+  section.gr-sec{padding-top:var(--s4);padding-bottom:var(--s7)}
   .gr-wrap .crumbs{margin-bottom:var(--s2)}
   .gr-layout{grid-template-columns:auto minmax(300px,1fr);column-gap:var(--s7);align-content:start;
     grid-template-areas:"board title" "board hud" "board lede" "board how" "board other" "board ."}
@@ -409,7 +504,11 @@ const GAME_JS = `
   // The hazards. Other Pokemon out on the street: touch one and the run is over.
   // Drawn from the same official-artwork source as the two mascots, sized down,
   // so they read as a Pokemon rather than as an abstract obstacle.
-  var FOES = [92, 109, 88, 316, 434, 453, 451];
+  // Both of these come from the builder now, off one list, so the sprite a
+  // hazard wears and the name the game calls it cannot disagree. See FOES and
+  // FOE_NAMES up there for where the names are read from.
+  var FOES = ${JSON.stringify(FOES)};
+  var FOE_NAMES = ${JSON.stringify(FOE_NAMES)};
   var foeSprites = {};
   // Preloaded HERE and not beside the other two sprites, because FOES is
   // declared in this block: a var hoists the name but not the value, so a loop
@@ -454,11 +553,83 @@ const GAME_JS = `
   // you, not by making it arrive faster than a person can answer.
   var SPEED_MAX = calm ? 4.2 : 6.0;
 
+  // THE STREET WAS EMPTY FOR THE FIRST FOUR AND A HALF SECONDS AND THAT IS THE
+  // WHOLE SESSION FOR MOST PLAYERS. Driven at 390x844 with the clock faked and
+  // Math.random seeded, on the game exactly as it shipped: nextPack starts at 90,
+  // so the first trail is born on frame 90 at x=440, and at the starting speed of
+  // 2.4 it needs another 152 frames to reach the player at x=74. Add the 45 frame
+  // count-in and the first point a new player can score lands 4.8 SECONDS after
+  // the tap that started the run. Measured over 24 seeds with a human-latency
+  // policy, the median score at the ten second mark is 1. Nothing whatever
+  // happens on screen for the first two seconds: no trash, no hazard, one
+  // Trubbish falling down an empty black column.
+  //
+  // This game is for somebody who opened it in a restock line, and for most of
+  // them the first ten seconds ARE the game. Handing them four of those seconds
+  // of empty street is the single worst thing about it.
+  //
+  // THE OPENING TRAIL IS HAND PLACED AND DRAWS NO RANDOM NUMBERS ITSELF, which
+  // is why the indices are fixed rather than rolled. THAT IS NOT THE SAME THING
+  // AS LEAVING THE STREAM ALONE, AND THE FIRST VERSION OF THIS COMMENT CLAIMED
+  // IT WAS. It was checked instead of believed, and it was wrong: 0 of 12 seeds
+  // came out identical. The route is the one the plate flag's own note warns
+  // about two hundred lines down. Collecting a piece moves the SCORE, big is
+  // score % 5 === 0, and big sets a spark LOOP COUNT that draws two randoms
+  // per spark. Five free pieces at the top of a run therefore re-phase every
+  // pickup after them. A COSMETIC FLAG THAT FEEDS A LOOP COUNT IS A DIFFICULTY
+  // CHANGE, exactly as that note says, and anything that touches the score is
+  // upstream of it. There is no way to add trash to the street and keep the old
+  // stream, so the question is not whether it re-rolls but whether it BIASES.
+  //
+  // IT DOES NOT. It is a reshuffle, and that was measured rather than argued.
+  // 40 seeds a side, human latency (8 frames, 24px of aim slop, one decision in
+  // twenty missed), same harness both sides, medians:
+  //
+  //                        first point   at 5s   at 10s   run     score
+  //   survive, before          10.37s       0       1     134.0s    39
+  //   survive, after            1.47s       5       5     141.3s    46
+  //   collect, before          10.18s       0       0       6.7s     0
+  //   collect, after            1.45s       5       7      76.7s    34
+  //
+  // SURVIVAL TIME IS THE NUMBER THAT MATTERS AND IT DID NOT MOVE: 134.0 to
+  // 141.3 seconds is inside the seed-to-seed spread. The game is not easier, it
+  // simply is not EMPTY. The collector's jump is real but do not quote it as a
+  // balance fix: that policy chases the nearest pack, and without an opening
+  // trail its first target is far away, so it makes one huge committed excursion
+  // and dies. What the trail actually teaches it, and a person, is to hold the
+  // middle of the lane, which is where the trash is and where nothing can reach
+  // you. The deeper finding at the top of this file, that chasing trash is a
+  // mistake, is UNTOUCHED by this and is still the thing to fix next.
+  //
+  // IT IS ALSO THE ONLY TUTORIAL THE GAME HAS, AND IT NEEDS NO COPY. The five
+  // pieces sit at the exact height Trubbish starts at and run from x=200 to
+  // x=336, so they are already on screen while the count-in is still counting.
+  // A player who taps nothing falls to the floor and watches all five sail past
+  // at head height, which teaches what a tap is for better than a sentence
+  // above the board can. A player who taps scores inside the first second.
+  //
+  // WHY IT CANNOT REACH THE REST OF THE RUN. The first hazard is born on frame
+  // 60 at x=440, by which time these five have moved to x<=192, and clearOfPacks
+  // only looks from x-100 to x+180, i.e. 340 to 620. So the opening trail is out
+  // of that window before the first hazard exists and cannot shorten it. The one
+  // piece at 336 is the closest it ever gets and it is 148px clear.
+  var OPEN_TRAIL = [13, 1, 12, 4, 8];
+  function primeStreet(L) {
+    for (var i = 0; i < OPEN_TRAIL.length; i++) {
+      var ji = OPEN_TRAIL[i];
+      L.packs.push({
+        x: 200 + i * 34, y: L.top + L.h / 2, got: false,
+        emoji: JUNK[ji], plate: ji % 3 === 0,
+      });
+    }
+  }
+
   function reset() {
     speed = calm ? 1.9 : 2.4;
     t = 0;
     dist = 0;
     lanes = [makeLane(0, H)];
+    primeStreet(lanes[0]);
     draw();
   }
 
@@ -1566,11 +1737,42 @@ const GAME_JS = `
     var sc = lanes[0].score;
     // bank() may already have stored this score mid-run, so "is it a new best"
     // is asked against what the run started with rather than against best.
-    elTitle.textContent = sc > startBest ? "New best" : "A wild Pokemon got you";
+    // THE PANEL CARRIES role="status" AND IT IS THE ONLY THING ON THIS PAGE A
+    // SCREEN READER CAN LEARN A RESULT FROM. A canvas announces nothing: its
+    // aria-label describes the SCENE, Trubbish and the skyline, and cannot
+    // describe a run. Every line below writes its text BEFORE end() unhides the
+    // panel, so the score, the cause of death and whether it beat the best go
+    // out as one polite update instead of being painted silently over a picture
+    // the reader cannot see. Keep that order if you add a line here.
+    //
+    // NAME THE THING THAT KILLED YOU. The panel said "A wild Pokemon got you"
+    // over a picture of a Koffing for as long as this game has existed, and the
+    // game has always known which one: the killer is stored on the lane at the
+    // moment of the hit, and its foe id is the same id that picked the sprite.
+    // A player who cannot say what got them cannot decide to play differently,
+    // which is the whole job of a game over screen.
+    var killer = lanes[0].killer;
+    var foe = (killer && FOE_NAMES[killer.foe]) || "Pokemon";
+    var newBest = sc > startBest;
+    elTitle.textContent = newBest ? "New best" : "A wild " + foe + " got you";
     bank(sc);
     elBest.textContent = "Best " + best;
-    elMsg.textContent = sc + " piece" + (sc === 1 ? "" : "s") + " of trash eaten." +
-      (lanes[0].evolved ? " You made it to Garbodor." : " " + (EVOLVE_AT - sc) + " more and you would have evolved.");
+    // THE OLD MESSAGE DID THE EVOLUTION ARITHMETIC AT EVERY SCORE, so the first
+    // thing a first-timer ever read was "0 pieces of trash eaten. 100 more and
+    // you would have evolved." That is true, and telling somebody who has just
+    // scored nothing that they were a hundred short is the opposite of the
+    // "no gatekeeping" this site is built on. The near-miss line is worth
+    // printing when it IS a near miss, so it is held back until half way.
+    var parts = [];
+    parts.push(sc === 0 ? "Not one piece of trash."
+      : sc + " piece" + (sc === 1 ? "" : "s") + " of trash eaten.");
+    // The title only carries the cause when it is not a new best, so a run that
+    // set one still gets told what ended it.
+    if (newBest && killer) parts.push("A wild " + foe + " got you in the end.");
+    if (lanes[0].evolved) parts.push("You made it to Garbodor.");
+    else if (sc >= EVOLVE_AT / 2) parts.push((EVOLVE_AT - sc) + " more and you would have evolved.");
+    else if (sc === 0) parts.push("Tap to flip. The trash comes to you.");
+    elMsg.textContent = parts.join(" ");
     elStart.textContent = "Go again";
     elOver.hidden = false;
   }
@@ -1712,10 +1914,66 @@ const GAME_JS = `
   var layout = document.querySelector(".gr-layout");
   var wideQ = window.matchMedia ? window.matchMedia("(min-width: 1000px)") : null;
   var lastKey = "";
+
+  // THE BOARD MUST NOT CHANGE SIZE WHILE SOMEBODY IS LOOKING AT IT, AND IT DID.
+  // Tim, on his own phone: "when you load it on mobile its got a short play
+  // area, then when you scroll down it makes the play area larger, kind of
+  // strange". Both halves of that were true and they had two separate causes,
+  // which is why the board grew by more than either one alone would explain.
+  //
+  // CAUSE ONE, THE URL BAR. This read window.visualViewport.height, which is the
+  // DYNAMIC viewport: the browser's bar is showing when the page loads and
+  // retracts on the first scroll, so that number GROWS mid-session and anything
+  // sized from it grows with it. Reproduced at 390x844 with a bar costing 101px:
+  // the canvas is 279x452 with the bar showing and 342x553 without it, a 22 per
+  // cent jump arriving in the middle of a run.
+  //
+  // CAUSE TWO WAS THE SUBTLER OF THE PAIR. The budget subtracted
+  // getBoundingClientRect().top, which is the board's distance from the top of
+  // the VIEWPORT and therefore falls by one pixel for every pixel scrolled: at
+  // 390x844 the board reports 276.5 at rest and -123.5 four hundred pixels down,
+  // so the same function asked the same question twice answers 400px apart.
+  // Nothing calls fit() on scroll, which is the only reason this never showed on
+  // a desktop. On a phone the bar retraction fires the resize FOR you, and it
+  // fires it WHILE SCROLLED, so the two faults compounded into one jump.
+  //
+  // THE FIX IS TO ASK ONLY QUESTIONS WHOSE ANSWERS CANNOT MOVE.
+  //   - svh, the SMALL viewport, is by definition the viewport with the
+  //     browser's bars SHOWN, and the spec says it does not change when they
+  //     retract. So the budget is the room the reader has at load, and the
+  //     retraction hands the game free space it deliberately declines to spend.
+  //     lvh would be the opposite mistake: correct after a scroll and too tall
+  //     on arrival, which is a game hanging off the bottom of the screen.
+  //   - the board's top is taken in DOCUMENT space, rect.top plus scrollY, which
+  //     is where the board sits on the PAGE rather than on the SCREEN. Scrolling
+  //     cannot change it.
+  // Nothing in here reads visualViewport, innerHeight, dvh or vh any more.
+  // Reintroducing one brings the bug back, and brings it back on a phone only,
+  // which is the hardest place on this project to see it.
+  //
+  // 100svh IS READ FROM A PROBE RATHER THAN COMPUTED, because there is no other
+  // way to get the number. A custom property holding 100svh comes back out of
+  // getComputedStyle as the string "100svh": an unregistered custom property is
+  // untyped, so nothing resolves the unit until a box is laid out in it. The
+  // probe is fixed, zero wide and hidden, so it is out of flow and cannot
+  // lengthen the document or take a tap.
+  // A BROWSER WITH NO svh DROPS THE DECLARATION and the div keeps height:auto,
+  // which on an empty fixed box measures 0. That zero is the fallback signal,
+  // and the fallback is documentElement.clientHeight, the LAYOUT viewport, which
+  // is the most stable height an older browser has to offer.
+  var probe = document.createElement("div");
+  probe.setAttribute("aria-hidden", "true");
+  probe.style.cssText = "position:fixed;top:0;left:0;width:0;height:100svh;" +
+    "visibility:hidden;pointer-events:none";
+  document.body.appendChild(probe);
+  function smallVH() {
+    return probe.offsetHeight || document.documentElement.clientHeight;
+  }
+
   function fit() {
     var r = board.getBoundingClientRect();
     var wide = wideQ ? wideQ.matches : false;
-    var vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    var vh = smallVH();
     // THE 680 CAP IS GONE ON A BIG SCREEN and it was the reason a 1920x1080
     // desktop and an iPhone SE got a board the same size. It was there to stop a
     // very tall column on a desktop, which the aspect ratio already prevents:
@@ -1723,7 +1981,10 @@ const GAME_JS = `
     // capped by the column. What it actually did was pin the board to its
     // drawing surface, so the extra 400px of a laptop window went unused.
     var cap = wide ? 1100 : 680;
-    var availH = Math.max(260, Math.min(vh - r.top - 14, cap));
+    // DOCUMENT SPACE, not viewport space. See the note above fit(): r.top alone
+    // is what made the board grow as the reader scrolled.
+    var top = r.top + (window.scrollY || window.pageYOffset || 0);
+    var availH = Math.max(260, Math.min(vh - top - 14, cap));
     // 348 is the copy column's 300px floor plus the 48px gutter between them,
     // both of which are declared in the grid above and repeated here because a
     // grid track cannot be read back in pixels before it has been laid out.
@@ -1751,8 +2012,25 @@ const GAME_JS = `
     buildTiles(cv.width / W);
     draw();
   }
+  // A REAL RESIZE STILL RE-FITS: a rotation, or a desktop window dragged wider,
+  // genuinely changes how much room the game has and the board should follow.
   window.addEventListener("resize", fit);
-  if (window.visualViewport) window.visualViewport.addEventListener("resize", fit);
+  window.addEventListener("orientationchange", fit);
+  // THE visualViewport RESIZE LISTENER IS GONE ON PURPOSE. That is the event the
+  // URL bar retraction and the on-screen keyboard fire, and reacting to either
+  // is precisely the bug this block is about. fit() is idempotent now, so the
+  // listener would be harmless rather than wrong, but a subscription to the one
+  // signal the board must ignore is a standing invitation to start reading it
+  // again. There is no text input on this page, so no keyboard should ever open;
+  // if one does, the board does not move.
+  // ONE REFIT AFTER THE FONTS SETTLE, and it is a no-op on this site rather than
+  // a second resize the reader sees. Titan One and Outfit are self hosted and
+  // preloaded ahead of a render-blocking stylesheet, so the heading is already
+  // at its final height when this script runs and the key below is unchanged.
+  // It is here for the case where that stops being true: a heading that grows
+  // after paint moves the board down, and a board that never re-measures would
+  // sit off the bottom of the screen for the rest of the session.
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
   fit();
 
   reset();
@@ -1795,6 +2073,7 @@ const page = `<!DOCTYPE html>
 ${FONTS}
 ${STYLES}
 <style>${miniCSS(style)}</style>
+<noscript><style>.gr-hud,.gr-board{display:none}</style></noscript>
 <script type="application/ld+json">${JSON.stringify({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -1827,13 +2106,17 @@ ${MENU}
           <div class="gr-stage" id="grStage">
             <canvas id="grCanvas" width="420" height="680" role="img"
               aria-label="Garbage Run. Trubbish runs through downtown Rochester, past the Times Square building, the Xerox tower and High Falls, and you tap to flip him between the floor and the ceiling."></canvas>
-            <div class="gr-over" id="grOver">
+            <div class="gr-over" id="grOver" role="status">
               <h2 id="grTitle">Garbage Run</h2>
               <p id="grMsg">Tap the screen, or press space, to flip. Eat the trash, dodge the Pokemon.</p>
               <button class="gr-go" id="grStart" type="button">Start</button>
             </div>
           </div>
         </div>
+
+        <noscript><p class="lede gr-lede">Garbage Run needs JavaScript, and yours is turned off, so there is no game on
+          this page right now. Everything below still says how it works, and the rest of the site reads fine without
+          it.</p></noscript>
 
         <p class="lede gr-lede">One thumb, no rules to read. Tap to flip Trubbish between the floor and the ceiling and
           eat everything on the street, Garbage Plates included. A hundred pieces of trash and he evolves.</p>

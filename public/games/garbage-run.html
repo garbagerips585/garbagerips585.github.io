@@ -33,11 +33,6 @@
 .gr-lede{grid-area:lede;margin-top:var(--s5)}
 .gr-how{grid-area:how}
 .gr-other{grid-area:other}
-@media (max-height: 740px) {
-  .gr-title{font-size:var(--t-l);margin-bottom:4px}
-  .gr-hud{margin:var(--s2) 0}
-  .gr-wrap .crumbs{display:none}
-}
 .gr-board{display:flex;justify-content:center}
 .gr-stage{position:relative;width:min-content;border:3px solid var(--keyline);border-radius:14px;
   overflow:hidden;box-shadow:var(--hard-lg);background:#101010;user-select:none;
@@ -69,9 +64,15 @@
 .gr-evo figcaption{flex-basis:100%;font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2)}
 .gr-keys{font:700 var(--t-micro)/1 var(--mono);background:var(--card);border:1px solid var(--hair);
   border-radius:5px;padding:3px 6px;white-space:nowrap}
+@media (max-height: 740px), (max-width: 544px) {
+  section.gr-sec{padding-top:var(--s2)}
+  .gr-wrap .crumbs{display:none}
+  .gr-title{font-size:var(--t-l);margin-bottom:4px}
+  .gr-hud{margin:var(--s2) 0}
+}
 @media (min-width: 1000px) {
   .gr-wrap{max-width:1180px}
-  .gr-sec{padding-top:var(--s4);padding-bottom:var(--s7)}
+  section.gr-sec{padding-top:var(--s4);padding-bottom:var(--s7)}
   .gr-wrap .crumbs{margin-bottom:var(--s2)}
   .gr-layout{grid-template-columns:auto minmax(300px,1fr);column-gap:var(--s7);align-content:start;
     grid-template-areas:"board title" "board hud" "board lede" "board how" "board other" "board ."}
@@ -81,6 +82,7 @@
   .gr-how{margin-top:var(--s5)}
 }
 </style>
+<noscript><style>.gr-hud,.gr-board{display:none}</style></noscript>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Games","item":"https://garbagerips585.github.io/games/"},{"@type":"ListItem","position":3,"name":"Garbage Run"}]}</script>
 </head>
 <body>
@@ -224,13 +226,17 @@
           <div class="gr-stage" id="grStage">
             <canvas id="grCanvas" width="420" height="680" role="img"
               aria-label="Garbage Run. Trubbish runs through downtown Rochester, past the Times Square building, the Xerox tower and High Falls, and you tap to flip him between the floor and the ceiling."></canvas>
-            <div class="gr-over" id="grOver">
+            <div class="gr-over" id="grOver" role="status">
               <h2 id="grTitle">Garbage Run</h2>
               <p id="grMsg">Tap the screen, or press space, to flip. Eat the trash, dodge the Pokemon.</p>
               <button class="gr-go" id="grStart" type="button">Start</button>
             </div>
           </div>
         </div>
+
+        <noscript><p class="lede gr-lede">Garbage Run needs JavaScript, and yours is turned off, so there is no game on
+          this page right now. Everything below still says how it works, and the rest of the site reads fine without
+          it.</p></noscript>
 
         <p class="lede gr-lede">One thumb, no rules to read. Tap to flip Trubbish between the floor and the ceiling and
           eat everything on the street, Garbage Plates included. A hundred pieces of trash and he evolves.</p>
@@ -417,7 +423,8 @@
     "👟", "🧦", "📚", "📦", "🪶",
     "🔋", "🥜", "🍭", "🍫", "🥟"
   ];
-  var FOES = [92, 109, 88, 316, 434, 453, 451];
+  var FOES = [92,109,88,316,434,453,451];
+  var FOE_NAMES = {"88":"Grimer","92":"Gastly","109":"Koffing","316":"Gulpin","434":"Stunky","451":"Skorupi","453":"Croagunk"};
   var foeSprites = {};
   for (var fi = 0; fi < FOES.length; fi++) {
     foeSprites[FOES[fi]] = sprite("/assets/foes/" + FOES[fi] + ".webp");
@@ -435,11 +442,22 @@
   var speed = 0, t = 0, dist = 0;
   var frameN = 0;
   var SPEED_MAX = calm ? 4.2 : 6.0;
+  var OPEN_TRAIL = [13, 1, 12, 4, 8];
+  function primeStreet(L) {
+    for (var i = 0; i < OPEN_TRAIL.length; i++) {
+      var ji = OPEN_TRAIL[i];
+      L.packs.push({
+        x: 200 + i * 34, y: L.top + L.h / 2, got: false,
+        emoji: JUNK[ji], plate: ji % 3 === 0,
+      });
+    }
+  }
   function reset() {
     speed = calm ? 1.9 : 2.4;
     t = 0;
     dist = 0;
     lanes = [makeLane(0, H)];
+    primeStreet(lanes[0]);
     draw();
   }
   var lastFlipF = -1;
@@ -1055,11 +1073,20 @@
     cancelAnimationFrame(raf);
     overAt = nowMs();
     var sc = lanes[0].score;
-    elTitle.textContent = sc > startBest ? "New best" : "A wild Pokemon got you";
+    var killer = lanes[0].killer;
+    var foe = (killer && FOE_NAMES[killer.foe]) || "Pokemon";
+    var newBest = sc > startBest;
+    elTitle.textContent = newBest ? "New best" : "A wild " + foe + " got you";
     bank(sc);
     elBest.textContent = "Best " + best;
-    elMsg.textContent = sc + " piece" + (sc === 1 ? "" : "s") + " of trash eaten." +
-      (lanes[0].evolved ? " You made it to Garbodor." : " " + (EVOLVE_AT - sc) + " more and you would have evolved.");
+    var parts = [];
+    parts.push(sc === 0 ? "Not one piece of trash."
+      : sc + " piece" + (sc === 1 ? "" : "s") + " of trash eaten.");
+    if (newBest && killer) parts.push("A wild " + foe + " got you in the end.");
+    if (lanes[0].evolved) parts.push("You made it to Garbodor.");
+    else if (sc >= EVOLVE_AT / 2) parts.push((EVOLVE_AT - sc) + " more and you would have evolved.");
+    else if (sc === 0) parts.push("Tap to flip. The trash comes to you.");
+    elMsg.textContent = parts.join(" ");
     elStart.textContent = "Go again";
     elOver.hidden = false;
   }
@@ -1125,12 +1152,21 @@
   var layout = document.querySelector(".gr-layout");
   var wideQ = window.matchMedia ? window.matchMedia("(min-width: 1000px)") : null;
   var lastKey = "";
+  var probe = document.createElement("div");
+  probe.setAttribute("aria-hidden", "true");
+  probe.style.cssText = "position:fixed;top:0;left:0;width:0;height:100svh;" +
+    "visibility:hidden;pointer-events:none";
+  document.body.appendChild(probe);
+  function smallVH() {
+    return probe.offsetHeight || document.documentElement.clientHeight;
+  }
   function fit() {
     var r = board.getBoundingClientRect();
     var wide = wideQ ? wideQ.matches : false;
-    var vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    var vh = smallVH();
     var cap = wide ? 1100 : 680;
-    var availH = Math.max(260, Math.min(vh - r.top - 14, cap));
+    var top = r.top + (window.scrollY || window.pageYOffset || 0);
+    var availH = Math.max(260, Math.min(vh - top - 14, cap));
     var availW = Math.max(200, wide ? (layout.clientWidth - 348) : r.width);
     var scale = Math.min(availW / W, availH / H);
     var cw = Math.round(W * scale), ch = Math.round(H * scale);
@@ -1147,7 +1183,8 @@
     draw();
   }
   window.addEventListener("resize", fit);
-  if (window.visualViewport) window.visualViewport.addEventListener("resize", fit);
+  window.addEventListener("orientationchange", fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
   fit();
   reset();
 })();</script>
