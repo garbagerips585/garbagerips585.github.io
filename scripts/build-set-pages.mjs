@@ -1853,7 +1853,11 @@ function derivedFacts(s) {
   if (s.printedTotal && s.secretCount) {
     out.push(
       `The set is <b>${s.printedTotal} cards</b> on paper, but there are <b>${s.total}</b> in total. ` +
-      `The extra ${s.secretCount} are secret rares numbered past the printed count.`
+      // Crown Zenith and Shining Fates both have exactly one, and both read
+      // "The extra 1 are secret rares" until 19 August 2026.
+      (s.secretCount === 1
+        ? `The extra one is a secret rare numbered past the printed count.`
+        : `The extra ${s.secretCount} are secret rares numbered past the printed count.`)
     );
   }
   /**
