@@ -104,6 +104,42 @@
 // is the honest version of the claim.
 //
 // ---------------------------------------------------------------------------
+// THE BOX IS SHOWN, WHICH IT WAS NOT WHEN THIS PAGE FIRST SHIPPED
+// ---------------------------------------------------------------------------
+//
+// The first version of this page carried 27 images and every one of them was a
+// card. On a page about a BOXED product that is the one picture a reader most
+// needs, and every other product page on this site shows the box: /msrp.html
+// and /what-to-buy.html both pin a photograph per row through
+// shared/product-photos.mjs. The reader this page was missing is the one stood
+// in a Target holding the thing, trying to work out which series it is.
+//
+// THREE SHOTS, ONE PER SERIES, and they come from the page's primary source
+// rather than a new one: each official gallery leads with a product image and
+// it is the same asset that gallery's own og:image points at.
+// sync-first-partner.mjs mirrors and crops them; its PKG_BASE note carries the
+// argument for the crop and the evidence that 578x325 is the only rendition
+// the publisher has released.
+//
+// NOT THROUGH shared/product-photos.mjs, and the reason is that file's own
+// header: it is keyed by data/msrp.json's `rowId` and every pin resolves to a
+// TCGPLAYER product shot for a row on /msrp.html. This product has no msrp.json
+// row -- the page exists precisely because the site's price machinery does not
+// reach it -- and these are the PUBLISHER'S photographs, not TCGplayer's. A pin
+// there would be a key that maps to nothing joined to a source that file does
+// not serve. They ride with the 27 card scans instead, in the same directory,
+// mirrored on the same terms and credited in the same line.
+//
+// THEY SIT IN THE SERIES BLOCKS rather than in the hero. That is where a
+// shopper comparing a shelf against this page is: three boxes side by side,
+// each above its own date, regions and contents. The hero stays text.
+//
+// IF A SERIES EVER LOSES ITS SHOT the block shows no box and the page says
+// which series and why, the same way it already handles the nine Series 3
+// cards that exist only at the smaller size. No series ever borrows another's
+// box, because the whole job of these three pictures is telling them apart.
+//
+// ---------------------------------------------------------------------------
 // TWO IMAGE SIZES, AND THE PAGE ADMITS IT
 // ---------------------------------------------------------------------------
 //
@@ -133,6 +169,9 @@ const PATH = "/first-partner-illustration-collection.html";
 
 const doc = JSON.parse(await readFile(join(ROOT, "data/first-partner.json"), "utf8"));
 const cards = doc.cards;
+// One product shot per series, keyed by series number. Absent entirely for a
+// series whose shot could not be fetched; see boxShot() and the note it drives.
+const boxes = new Map((doc.packaging || []).map((p) => [p.series, p]));
 
 let hits = { videos: {} };
 try {
@@ -358,10 +397,35 @@ const cardRow = (c) => `<tr>
   <td class="fp-c-p">${priceCell(psaOf(c), c.pc?.cols?.psa10)}</td>
 </tr>`;
 
+/**
+ * One series' packaging, or nothing at all.
+ *
+ * The alt says what it is and which series, because that is the entire reason
+ * the picture is here: three near-identical boxes told apart by the flash
+ * along the foot. It does NOT describe the artwork, which a reader matching a
+ * shelf does not need and a screen reader user cannot act on.
+ *
+ * Lazy is right for all three: the series section is several screens down at
+ * 390x844 and nothing here is in the first viewport. CLAUDE.md's rule is about
+ * images the browser can already see, which these are not.
+ */
+function boxShot(n) {
+  const b = boxes.get(n);
+  if (!b) return "";
+  const avif = b.img.replace(/\.webp$/, ".avif");
+  const alt = `The Pokemon TCG First Partner Illustration Collection Series ${n} box, front of the package`;
+  return `<figure class="fp-box"><picture><source type="image/avif" srcset="${esc(avif)}"><img src="${esc(b.img)}" width="${b.imgWidth}" height="${b.imgHeight}" alt="${esc(alt)}" loading="lazy" decoding="async"></picture></figure>`;
+}
+
+// Named rather than counted, because the note has to say WHICH. Empty when all
+// three are present, which is the case today.
+const boxless = SERIES.filter((s) => !boxes.has(s.n)).map((s) => s.n);
+
 const seriesBlock = (s) => {
   const list = bySeries(s.n);
   const cost = seriesCost.find((x) => x.n === s.n);
   return `<article class="fp-series">
+  ${boxShot(s.n)}
   <h3>Series ${s.n} <span>${esc(longDate(s.date))}</span></h3>
   <p class="fp-regions">${s.regions.map((r) => `<span>${esc(r)}</span>`).join("")}</p>
   <p class="fp-9">Nine promos: ${list.map((c) => esc(c.name)).join(", ")}.</p>
@@ -458,6 +522,12 @@ const style = `
 .fp-series-list{display:flex;flex-direction:column;gap:var(--s5)}
 @media(min-width:900px){.fp-series-list{display:grid;grid-template-columns:repeat(3,1fr)}}
 .fp-series{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5)}
+/* THE BOX. Centred rather than stretched: the source is 300x310 and the
+   publisher has no larger rendition, so max-width caps it at its own pixels and
+   it is never blown up to fill a wider column. The aspect ratio is held by the
+   img's own width and height so the block does not jump as it lazy loads. */
+.fp-box{margin:0 0 var(--s4);text-align:center}
+.fp-box img{display:block;width:100%;max-width:300px;height:auto;margin:0 auto;border-radius:var(--r-sm)}
 .fp-series h3{font:400 var(--t-l)/1.1 var(--display);margin-bottom:var(--s2)}
 .fp-series h3 span{display:block;font:700 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
   letter-spacing:.05em;text-transform:uppercase}
@@ -621,7 +691,17 @@ ${REGIONS.map((r, i) => trio(r, { lazy: i > 0 })).join("\n")}
       <div class="fp-series-list">
 ${SERIES.map(seriesBlock).join("\n")}
       </div>
-      <p class="fp-note" style="margin-top:var(--s5)"><b>One date worth flagging.</b> Several
+${
+  boxless.length
+    ? `      <p class="fp-note" style="margin-top:var(--s5)"><b>${
+        boxless.length === 1 ? `Series ${boxless[0]} has no box picture here.` : `Series ${boxless.join(" and ")} have no box picture here.`
+      }</b> The three product shots on this page are The Pokemon Company's own,
+        taken from the official gallery for each series, and that gallery's image is not
+        currently reachable for ${boxless.length === 1 ? "that series" : "those series"}. Rather than
+        show you another series' box, which would defeat the point of showing one at all, this page
+        shows none. The link on the block goes to the publisher's gallery.</p>\n`
+    : ""
+}      <p class="fp-note" style="margin-top:var(--s5)"><b>One date worth flagging.</b> Several
         write-ups give Series 1 a release date of 30 March 2026. The official gallery says
         <b>20 March 2026</b>, and both the US and UK versions of that page agree. This page follows
         the publisher.</p>
@@ -669,7 +749,7 @@ ${allRaw != null ? `        <li><span>Nine boxes at ${usd(MSRP)}, which is 27 pr
           ? `<p class="fp-note" style="margin-top:var(--s5)"><b>Reading that honestly.</b> Nine boxes at
         ${usd(MSRP)} is ${usd(MSRP * 9)} and gets you all 27 promos only if every box hands you a
         different region's trio, which is not something anyone can promise you and this page will not
-        pretend otherwise. Buying the singles you want is ${allRaw < MSRP * 9 ? "cheaper" : "dearer"}
+        pretend otherwise. Buying the singles you want is ${allRaw < MSRP * 9 ? "cheaper" : "more expensive"}
         and certain. The boxes are worth it if you want the 18 booster packs and the sticker sheets
         as well, and if opening them is the part you enjoy, which on this site it usually is. For the
         same arithmetic on full sets, see <a href="/complete-a-set.html">what it costs to complete a
@@ -711,8 +791,12 @@ ${pulls
           time. Only nine of these cards (MEP 037 to 045) exist in the usual card databases and none
           of them carries a picture there, so for the other eighteen the publisher's own scan is the
           only record there is.</li>
-        <li><b>The artwork.</b> All 27 are illustrated by Saboteri. The scans on this page are
-          pokemon.com's, mirrored here rather than loaded from their servers.</li>
+        <li><b>The artwork and the box photographs.</b> All 27 cards are illustrated by Saboteri.
+          Every picture on this page is The Pokemon Company's, from the same three galleries: the 27
+          card scans, and the ${boxes.size === 3 ? "three" : boxes.size} product ${boxes.size === 1 ? "shot" : "shots"} of the boxes
+          themselves, which are the image each gallery leads with, cropped to the package out of its
+          wider marketing frame and otherwise unaltered. All of them are mirrored onto this site
+          rather than loaded from pokemon.com's servers.</li>
         <li><b>The prices.</b> PriceCharting, read ${esc(longDate(doc.checked))}, twice per figure
           from two different pages and only published where the two readings agreed.
           <a href="${esc(doc.priceSourceUrl)}" rel="nofollow noopener" aria-label="PriceCharting's Pokemon promo price guide, opens on pricecharting.com">PriceCharting's promo price guide</a>.</li>

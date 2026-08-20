@@ -16,7 +16,13 @@
   "",
   "The name+number key is load bearing: PriceCharting files every English",
   "promo in one console with no set code, and SVP collides with MEP on four",
-  "of these numbers. See the header of scripts/sync-first-partner.mjs."
+  "of these numbers. See the header of scripts/sync-first-partner.mjs.",
+  "",
+  "PACKAGING is one product shot per series, the image each official gallery",
+  "leads with, mirrored on the same terms as the card scans and cropped to",
+  "the package out of its 16:9 marketing frame. `crop` records the rectangle",
+  "taken. A series with no obtainable shot gets no entry here at all and the",
+  "page names it rather than borrowing another series' box."
  ],
  "checked": "2026-08-19",
  "priceSource": "PriceCharting",
@@ -914,6 +920,50 @@
     }
    },
    "imgSize": "thumb"
+  }
+ ],
+ "packaging": [
+  {
+   "series": 1,
+   "img": "/assets/first-partner/box-series-1.webp",
+   "imgWidth": 300,
+   "imgHeight": 310,
+   "source": "https://www.pokemon.com/static-assets/content-assets/cms2/img/trading-card-game/series/incrementals/2026/first-partner-illustration-collection/series-1/first-partner-illustration-collection-169-en.png",
+   "gallery": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/first-partner-illustration-collection-series-1",
+   "crop": [
+    140,
+    8,
+    440,
+    318
+   ]
+  },
+  {
+   "series": 2,
+   "img": "/assets/first-partner/box-series-2.webp",
+   "imgWidth": 300,
+   "imgHeight": 310,
+   "source": "https://www.pokemon.com/static-assets/content-assets/cms2/img/trading-card-game/series/incrementals/2026/first-partner-illustration-collection/series-2/first-partner-illustration-collection-169-en.png",
+   "gallery": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/first-partner-illustration-collection-series-2",
+   "crop": [
+    140,
+    8,
+    440,
+    318
+   ]
+  },
+  {
+   "series": 3,
+   "img": "/assets/first-partner/box-series-3.webp",
+   "imgWidth": 300,
+   "imgHeight": 310,
+   "source": "https://www.pokemon.com/static-assets/content-assets/cms2/img/trading-card-game/series/incrementals/2026/first-partner-illustration-collection/series-3/first-partner-illustration-collection-169-en.png",
+   "gallery": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/first-partner-illustration-collection-series-3",
+   "crop": [
+    140,
+    8,
+    440,
+    318
+   ]
   }
  ]
 }

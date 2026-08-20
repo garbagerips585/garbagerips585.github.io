@@ -21,6 +21,12 @@ python3 scripts/check-build.py  # refuses to pass on a broken build
 git add -A && git commit && git push
 ```
 
+**`git add -A` is only safe when you are the only thing writing to the tree.**
+It has committed another writer's half-finished work here: with agents editing
+in parallel, `-A` sweeps up whatever they happen to have on disk at that
+instant, and the result builds fine and is wrong. When anything else is working
+in the repo, stage the files you touched by name instead.
+
 `pages.yml` uploads `public/` and deploys. Nothing else is needed.
 
 `build-all.mjs` runs `check-build.py` as its last step, so a clean run has
@@ -30,8 +36,16 @@ already been checked. Run it again by hand if you edited anything afterwards.
 
 ## The nightly refresh
 
-`.github/workflows/refresh.yml` runs at 07:10 UTC. It re-syncs YouTube and the
-card prices, rebuilds, and commits if anything changed.
+`.github/workflows/refresh.yml` runs once a day at 9am in New York. It re-syncs
+YouTube and the card prices, rebuilds, and commits if anything changed.
+
+**It is scheduled as TWO crons, 13:00 and 14:00 UTC, and that is deliberate.**
+Exactly one of them is 9am Eastern depending on whether daylight saving is in
+force, and the job's first step asks the runner for New York's current hour and
+stops on the wrong one. So the work happens once a day at a fixed LOCAL time,
+and a change to the DST rules needs no edit. The consequence worth knowing:
+the run on the wrong cron ends by failing on purpose, so a red X in the Actions
+tab every day is expected here and is not a signal.
 
 This is the ONLY freshness mechanism. The site used to layer a live RSS feed
 over the committed JSON through a Cloudflare function; GitHub Pages cannot
@@ -102,11 +116,19 @@ which would have had the sitemap and the pages disagreeing about where the site
 lives. `videos.html` and `playlists.html` are in that list now, but the grep is
 what proves it rather than the intention.
 
-**The flip has been rehearsed twice on 14 August 2026, the second time after
-the playlist pages and the whole day's changes landed.** The second run:
-34 of 34 builders, ZERO files anywhere under public/ referencing the staging
-host, 420 sitemap urls all on the real domain including the 21 playlist pages,
-every one resolving to a file, CNAME written and robots.txt open.
+**The flip has been rehearsed three times, and only the last one was against
+the domain actually being bought.** The two runs on 14 August 2026 proved the
+mechanism while `DOMAIN` still read garbagerips585.com. The run on 19 August
+2026 proved the address: taken from `git archive HEAD` rather than from the
+working tree, so a half-written file could not make a failure ambiguous, then
+flipped and fully rebuilt. 63 of 63 builders, check-build exit 0, ZERO files
+anywhere under public/ referencing the staging host, 1,268 sitemap urls all on
+garbagerips.com, `public/CNAME` written, robots.txt open, and the canonical
+correct on all three hand-maintained pages.
+
+The builder count went 34 to 63 and the sitemap 420 to 1,268 between those
+rehearsals, which is the reason to re-run it rather than to trust this
+paragraph.
 
 The first run, earlier the same day, checked two things the second did not:
 no noindex page appears in the sitemap, and every canonical matches its own

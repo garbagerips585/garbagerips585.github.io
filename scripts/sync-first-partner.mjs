@@ -176,6 +176,47 @@ const IMG_BASE = "https://www.pokemon.com/static-assets/content-assets/cms2/img/
 const GALLERY = (s) =>
   `https://www.pokemon.com/us/pokemon-tcg/product-gallery/first-partner-illustration-collection-series-${s}`;
 
+// ---------------------------------------------------------------------------
+// THE PACKAGING SHOT, WHICH THE FIRST PASS OF THIS FILE MISSED ENTIRELY
+// ---------------------------------------------------------------------------
+//
+// This script mirrored 27 CARDS and no PRODUCT. A page about a boxed product
+// that never shows the box fails the reader it is written for: somebody stood
+// in a Target holding one of these, trying to work out which series it is.
+// Every other product page on this site shows the box.
+//
+// Each of the three galleries leads with one, and it is the same asset the
+// page's own og:image points at:
+//
+//   .../first-partner-illustration-collection/series-<n>/
+//       first-partner-illustration-collection-169-en.png     578x325 PNG
+//
+// ALL THREE EXIST AND ALL THREE ARE THE PACKAGE, not key art: the blister
+// with its three booster packs visible through the window, the FIRST PARTNER
+// ILLUSTRATION COLLECTION lockup and the SERIES <n> flash along the foot,
+// which is exactly the strip a shopper reads off a shelf.
+//
+// 578x325 IS THE ONLY RENDITION. `-2x-en`, `-detail-en`, `-product-en` and
+// five other plausible names were probed and every one answered **403**, which
+// on this CDN is what a missing file answers -- the same trap the card sizes
+// hit below and build-topps.mjs records from the other direction. So this is
+// what the publisher has released and nothing here is upscaled.
+//
+// CROPPED TO THE PACKAGE, AND THAT IS THE ONE EDIT MADE TO IT. The 169 asset
+// is a 16:9 marketing frame: the package occupies the middle ~52% and the rest
+// is a rainbow gradient backdrop. Shown whole in a three-up row the box itself
+// would land at about 140px and be useless for matching a shelf. The crop is
+// the publisher's own photograph with its backdrop trimmed -- not a composite,
+// not a resample, nothing added -- and it roughly doubles the pixels on the
+// only part of the frame anybody needs. One rectangle serves all three because
+// the three share one template; it was checked against all three, and it
+// leaves a margin of backdrop on every side rather than cutting to the edge,
+// so a package sitting slightly differently in frame still cannot clip.
+const PKG_BASE =
+  "https://www.pokemon.com/static-assets/content-assets/cms2/img/trading-card-game/" +
+  "series/incrementals/2026/first-partner-illustration-collection";
+const PKG_CROP = [140, 8, 440, 318]; // -> 300x310 of the 578x325 frame
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const norm = (x) => String(x || "").toLowerCase().replace(/[^a-z0-9]/g, "");
 
@@ -247,18 +288,27 @@ async function crawlListing() {
  * larger change than the feature. Quality 78 WebP and 60 AVIF are the numbers
  * build-packs.py settled on and CLAUDE.md records the PSNR work behind them.
  */
-async function encode(png, number) {
-  const out = join(IMGDIR, `mep-${number}`);
+async function encode(png, name, { crop = null } = {}) {
+  const out = join(IMGDIR, name);
   const py = `
 from PIL import Image
 im = Image.open(${JSON.stringify(png)}).convert("RGBA")
+${crop ? `im = im.crop(tuple(${JSON.stringify(crop)}))` : ""}
+print(im.size[0], im.size[1])
 im.save(${JSON.stringify(out)} + ".webp", "WEBP", quality=78, method=6)
 im.save(${JSON.stringify(out)} + ".avif", "AVIF", quality=60)
 `;
   const { execFile } = await import("node:child_process");
-  await new Promise((res, rej) =>
-    execFile("python3", ["-c", py], (e) => (e ? rej(e) : res()))
+  // PIL reports the dimensions it actually wrote rather than this file
+  // asserting them, so a crop that moves cannot leave the JSON claiming a size
+  // the file on disk does not have. Same reason the card loop below takes its
+  // width and height from the size it fetched.
+  const stdout = await new Promise((res, rej) =>
+    execFile("python3", ["-c", py], (e, so) => (e ? rej(e) : res(so)))
   );
+  const [w, h] = stdout.trim().split(/\s+/).map(Number);
+  if (!w || !h) throw new Error(`encode ${name}: no dimensions back from PIL`);
+  return { width: w, height: h };
 }
 
 function judge(listing, product) {
@@ -334,7 +384,7 @@ async function main() {
         // pack art, and the page emits a <picture> with the AVIF in front. The
         // PNG is kept OUT of public/ entirely; the original stays in the cache.
         await writeFile(join(CACHE, `png-${rec.number}.png`), buf);
-        await encode(join(CACHE, `png-${rec.number}.png`), rec.number);
+        await encode(join(CACHE, `png-${rec.number}.png`), `mep-${rec.number}`);
         rec.img = `/assets/first-partner/mep-${rec.number}.webp`;
         rec.imgWidth = w;
         rec.imgHeight = h;
@@ -346,6 +396,37 @@ async function main() {
     }
   }
   console.log(`images: ${big} at 245x342, ${small} at 160x224, ${27 - big - small} missing`);
+
+  // --------------------------------------------------------------- packaging
+  // One per series, mirrored on the same terms as the card scans and cropped
+  // to the package. See the note beside PKG_BASE. A series whose shot cannot be
+  // fetched gets NO entry rather than another series' box, and
+  // build-first-partner.mjs says out loud which one is missing.
+  const packaging = [];
+  for (const n of [1, 2, 3]) {
+    const url = `${PKG_BASE}/series-${n}/first-partner-illustration-collection-169-en.png`;
+    const buf = await cached(url, `pkg-${n}`, { binary: true });
+    // The same body test the card loop makes, and it is doing real work here:
+    // this CDN answers a missing asset with a 403 and a 111 byte body, so a
+    // status check alone would let an error page through as a photograph.
+    if (!(buf && buf.length > 2000 && buf.slice(1, 4).toString() === "PNG")) {
+      console.log(`packaging: series ${n} MISSING (${buf ? `${buf.length} bytes, not a PNG` : "no body"})`);
+      continue;
+    }
+    const png = join(CACHE, `pkg-${n}.png`);
+    await writeFile(png, buf);
+    const { width, height } = await encode(png, `box-series-${n}`, { crop: PKG_CROP });
+    packaging.push({
+      series: n,
+      img: `/assets/first-partner/box-series-${n}.webp`,
+      imgWidth: width,
+      imgHeight: height,
+      source: url,
+      gallery: GALLERY(n),
+      crop: PKG_CROP,
+    });
+  }
+  console.log(`packaging: ${packaging.length} of 3 boxes`);
 
   const agree = out.filter((r) => r.pc?.cols.raw.status === "agree").length;
   const psa = out.filter((r) => r.pc?.cols.psa10.status === "agree").length;
@@ -370,12 +451,19 @@ async function main() {
       "The name+number key is load bearing: PriceCharting files every English",
       "promo in one console with no set code, and SVP collides with MEP on four",
       "of these numbers. See the header of scripts/sync-first-partner.mjs.",
+      "",
+      "PACKAGING is one product shot per series, the image each official gallery",
+      "leads with, mirrored on the same terms as the card scans and cropped to",
+      "the package out of its 16:9 marketing frame. `crop` records the rectangle",
+      "taken. A series with no obtainable shot gets no entry here at all and the",
+      "page names it rather than borrowing another series' box.",
     ],
     checked: new Date().toISOString().slice(0, 10),
     priceSource: "PriceCharting",
     priceSourceUrl: PC + CONSOLE_PATH,
     imageSource: "pokemon.com product galleries",
     cards: out,
+    packaging,
   };
   if (REPORT) {
     console.log(JSON.stringify(doc, null, 1).slice(0, 2000));

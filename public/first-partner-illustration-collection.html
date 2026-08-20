@@ -63,6 +63,12 @@
 .fp-series-list{display:flex;flex-direction:column;gap:var(--s5)}
 @media(min-width:900px){.fp-series-list{display:grid;grid-template-columns:repeat(3,1fr)}}
 .fp-series{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5)}
+/* THE BOX. Centred rather than stretched: the source is 300x310 and the
+   publisher has no larger rendition, so max-width caps it at its own pixels and
+   it is never blown up to fill a wider column. The aspect ratio is held by the
+   img's own width and height so the block does not jump as it lazy loads. */
+.fp-box{margin:0 0 var(--s4);text-align:center}
+.fp-box img{display:block;width:100%;max-width:300px;height:auto;margin:0 auto;border-radius:var(--r-sm)}
 .fp-series h3{font:400 var(--t-l)/1.1 var(--display);margin-bottom:var(--s2)}
 .fp-series h3 span{display:block;font:700 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
   letter-spacing:.05em;text-transform:uppercase}
@@ -379,6 +385,7 @@
         quoting you odds on it is guessing.</p>
       <div class="fp-series-list">
 <article class="fp-series">
+  <figure class="fp-box"><picture><source type="image/avif" srcset="/assets/first-partner/box-series-1.avif"><img src="/assets/first-partner/box-series-1.webp" width="300" height="310" alt="The Pokemon TCG First Partner Illustration Collection Series 1 box, front of the package" loading="lazy" decoding="async"></picture></figure>
   <h3>Series 1 <span>March 20, 2026</span></h3>
   <p class="fp-regions"><span>Kanto</span><span>Sinnoh</span><span>Alola</span></p>
   <p class="fp-9">Nine promos: Bulbasaur, Charmander, Squirtle, Turtwig, Chimchar, Piplup, Rowlet, Litten, Popplio.</p>
@@ -386,6 +393,7 @@
   <p class="fp-src"><a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/first-partner-illustration-collection-series-1" rel="nofollow noopener" aria-label="Series 1 product gallery, opens on pokemon.com">Official gallery on pokemon.com</a></p>
 </article>
 <article class="fp-series">
+  <figure class="fp-box"><picture><source type="image/avif" srcset="/assets/first-partner/box-series-2.avif"><img src="/assets/first-partner/box-series-2.webp" width="300" height="310" alt="The Pokemon TCG First Partner Illustration Collection Series 2 box, front of the package" loading="lazy" decoding="async"></picture></figure>
   <h3>Series 2 <span>June 19, 2026</span></h3>
   <p class="fp-regions"><span>Johto</span><span>Unova</span><span>Galar</span></p>
   <p class="fp-9">Nine promos: Chikorita, Cyndaquil, Totodile, Snivy, Tepig, Oshawott, Grookey, Scorbunny, Sobble.</p>
@@ -393,6 +401,7 @@
   <p class="fp-src"><a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/first-partner-illustration-collection-series-2" rel="nofollow noopener" aria-label="Series 2 product gallery, opens on pokemon.com">Official gallery on pokemon.com</a></p>
 </article>
 <article class="fp-series">
+  <figure class="fp-box"><picture><source type="image/avif" srcset="/assets/first-partner/box-series-3.avif"><img src="/assets/first-partner/box-series-3.webp" width="300" height="310" alt="The Pokemon TCG First Partner Illustration Collection Series 3 box, front of the package" loading="lazy" decoding="async"></picture></figure>
   <h3>Series 3 <span>August 7, 2026</span></h3>
   <p class="fp-regions"><span>Hoenn</span><span>Kalos</span><span>Paldea</span></p>
   <p class="fp-9">Nine promos: Treecko, Torchic, Mudkip, Chespin, Fennekin, Froakie, Sprigatito, Fuecoco, Quaxly.</p>
@@ -611,7 +620,7 @@
       <p class="fp-note" style="margin-top:var(--s5)"><b>Reading that honestly.</b> Nine boxes at
         $14.99 is $134.91 and gets you all 27 promos only if every box hands you a
         different region's trio, which is not something anyone can promise you and this page will not
-        pretend otherwise. Buying the singles you want is dearer
+        pretend otherwise. Buying the singles you want is more expensive
         and certain. The boxes are worth it if you want the 18 booster packs and the sticker sheets
         as well, and if opening them is the part you enjoy, which on this site it usually is. For the
         same arithmetic on full sets, see <a href="/complete-a-set.html">what it costs to complete a
@@ -643,8 +652,12 @@
           time. Only nine of these cards (MEP 037 to 045) exist in the usual card databases and none
           of them carries a picture there, so for the other eighteen the publisher's own scan is the
           only record there is.</li>
-        <li><b>The artwork.</b> All 27 are illustrated by Saboteri. The scans on this page are
-          pokemon.com's, mirrored here rather than loaded from their servers.</li>
+        <li><b>The artwork and the box photographs.</b> All 27 cards are illustrated by Saboteri.
+          Every picture on this page is The Pokemon Company's, from the same three galleries: the 27
+          card scans, and the three product shots of the boxes
+          themselves, which are the image each gallery leads with, cropped to the package out of its
+          wider marketing frame and otherwise unaltered. All of them are mirrored onto this site
+          rather than loaded from pokemon.com's servers.</li>
         <li><b>The prices.</b> PriceCharting, read August 19, 2026, twice per figure
           from two different pages and only published where the two readings agreed.
           <a href="https://www.pricecharting.com/console/pokemon-promo" rel="nofollow noopener" aria-label="PriceCharting's Pokemon promo price guide, opens on pricecharting.com">PriceCharting's promo price guide</a>.</li>
