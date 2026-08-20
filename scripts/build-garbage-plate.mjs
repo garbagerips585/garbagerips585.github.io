@@ -32,14 +32,46 @@
 // tiptoeing around it, and it is careful never to describe another restaurant's
 // dish as a Garbage Plate when that restaurant does not.
 //
-// AND THERE ARE NO PHOTOGRAPHS ON IT, WHICH IS A DESIGN DECISION RATHER THAN A
-// GAP. This repo holds no licensed photograph of a building or of a plate of
-// food, a picture of a restaurant is somebody's copyright, and Street View is
-// licensed in a way a static site with no keys in it cannot meet. So the page
-// is built the way /shops.html is: a drawn figure carries the illustration and
-// the cards never had a photo slot to leave empty. The diagram below is ours,
-// it is unencumbered, and it is the one asset on this subject that does not
-// already exist somewhere, so it gets more care than anything else here.
+// THIS FILE USED TO SAY THERE ARE NO PHOTOGRAPHS ON THIS PAGE AND THAT THE
+// ABSENCE WAS THE DESIGN. It said the repo held no licensed photograph of a
+// building or of a plate, that a picture of a restaurant is somebody's
+// copyright, and that Street View is licensed in a way a static site with no
+// keys can never meet. All three sentences are still true. The conclusion drawn
+// from them was not, and the reason is worth writing down because it is a shape
+// this repo keeps producing: A TRUE STATEMENT ABOUT THE CANDIDATES SOMEBODY
+// LOOKED AT WAS WRITTEN AS A STATEMENT ABOUT THE SUBJECT. What had been looked
+// at was restaurant sites, food blogs and Street View. What had not been looked
+// at was the one place that exists to hold freely licensed pictures. Wikimedia
+// Commons holds eleven photographs of this dish and of the restaurant it comes
+// from, and ten of them are CC BY, CC BY-SA or public domain.
+//
+// SO THERE ARE TEN PHOTOGRAPHS ON IT NOW, added 20 August 2026, and every one
+// of them was verified by loading that file's OWN description page on Commons.
+// The licences, the photographers and the dates live in data/garbage-plate.json
+// beside the sourced facts, in the same shape and for the same reason, and
+// scripts/sync-plate-photos.py re-reads all of it from Commons on every run and
+// refuses to write a file whose licence, author or licence url has moved.
+//
+// THE CREDIT IS NOT OPTIONAL AND IT IS NOT A FOOTNOTE. CC BY and CC BY-SA both
+// require the photographer's name, an indication of the licence and a LINK to
+// that licence, and a credit a reader cannot connect to the picture it belongs
+// to is not a credit. So every photograph on this page is a <figure> whose
+// <figcaption> carries the photographer, the licence name linked to the deed,
+// and a link to the file on Commons, directly under the picture. There was no
+// precedent on this site for that: the retailer marks in shared/brands.mjs are
+// all public domain and are credited in JSON only. This is the precedent, and
+// it is written down in CLAUDE.md rather than left in one builder.
+//
+// NOTHING IS CROPPED, AND THAT IS A LICENCE DECISION. Four of the ten are
+// CC BY-SA, which asks that an ADAPTED work carry the same licence. Resizing
+// and re-encoding for delivery is not an adaptation; cropping is. Where the
+// layout wants a 4:3 shape it gets it with object-fit, which changes what is
+// DISPLAYED and not what is distributed.
+//
+// THE DIAGRAM IS STILL THE ASSET. The photographs show what a plate looks like;
+// only the drawing can be cut open and labelled, it is the one thing on this
+// subject that does not already exist somewhere, and it keeps the top of the
+// anatomy section. The photographs sit under it, not over it.
 
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
@@ -104,6 +136,102 @@ for (const p of places) {
       `An hour nobody can check is how somebody drives to a locked door.`);
   }
 }
+
+/* ---- The photographs ---------------------------------------------------- *
+ *
+ * Ten freely licensed pictures, keyed by `where` in data/garbage-plate.json:
+ * "hero", "anatomy", "history:<the entry's year field>" and
+ * "place:<the restaurant's name>". A key that matches nothing renders nothing
+ * and is caught by the check below rather than silently dropped, because a
+ * photograph that quietly fails to appear looks exactly like a page that was
+ * never given one.
+ */
+const PHOTOS = doc.photos || [];
+const photoAt = (key) => PHOTOS.filter((p) => p.where === key);
+
+// Same discipline as the source-id check above. A `where` naming a history
+// entry or a restaurant that does not exist is a picture nobody will ever see,
+// and the licence work behind it is wasted without anything erroring.
+{
+  const keys = new Set(["hero", "anatomy"]);
+  for (const h of doc.history || []) keys.add(`history:${h.year}`);
+  for (const p of places) keys.add(`place:${p.name}`);
+  for (const ph of PHOTOS) {
+    if (!keys.has(ph.where)) {
+      throw new Error(`garbage-plate.json: photo "${ph.slug}" is placed at "${ph.where}", ` +
+        `which is not a section, a history entry or a restaurant on this page.`);
+    }
+    for (const f of ["slug", "alt", "by", "license", "page", "w", "h", "maxw"]) {
+      if (!ph[f]) throw new Error(`garbage-plate.json: photo "${ph.slug}" has no ${f}.`);
+    }
+    // THE ONE THAT MATTERS. CC BY and CC BY-SA are usable here only WITH a link
+    // to the licence, so a record that names one and cannot link it is not a
+    // licence we can meet. Public domain is the only value allowed to have no
+    // url, and it is the only one whose credit line makes no claim.
+    if (ph.license !== "Public domain" && !ph.licenseUrl) {
+      throw new Error(`garbage-plate.json: photo "${ph.slug}" is "${ph.license}" with no ` +
+        `licenceUrl. Attribution licences require a link to the licence; do not publish it.`);
+    }
+  }
+}
+
+/**
+ * One photograph, as a <picture> inside a <figure> with its credit under it.
+ *
+ * THE RENDITIONS ARE OURS AND BOTH FORMATS ALWAYS EXIST, which is what makes
+ * the <source> safe: sync-plate-photos.py writes the .webp and the .avif of
+ * every width together, and a <source> pointing at a file that is not there
+ * paints a broken image because the browser has committed to it before it finds
+ * out. avifPicture() in shared/format.mjs is not used here because it only
+ * rewrites TCGdex and assets/packs/ urls, and widening its allowlist for one
+ * page would put a second builder's guarantee inside a shared helper.
+ *
+ * EVERY ONE IS LAZY, INCLUDING THE ONE ABOVE THE FOLD, and that is the measured
+ * call rather than the careless one. CLAUDE.md records both halves: a lazy
+ * image the browser can already see is fetched immediately anyway, so the
+ * attribute costs no bytes, and what it costs is the preload scanner, which on
+ * this site's own pages was the thing worth losing. Marking the four above-fold
+ * tiles on /videos.html and /playlists.html eager moved zero bytes and cost
+ * 592ms of LCP and 748ms of first paint. Re-measured on this page before it
+ * shipped; the numbers are in CLAUDE.md's Garbage Plate section.
+ */
+function photoFig(ph, opts) {
+  const o = opts || {};
+  const widths = [400, 800, 1200].filter((w) => w <= Math.min(ph.maxw, ph.w));
+  const base = `/assets/plates/${ph.slug}`;
+  const set = (ext) => widths.map((w) => `${base}-${w}.${ext} ${w}w`).join(", ");
+  const sizes = o.sizes || "100vw";
+  const img =
+    `<img src="${base}-${widths[0]}.webp" srcset="${set("webp")}" sizes="${esc(sizes)}"` +
+    ` width="${ph.w}" height="${ph.h}" loading="lazy" decoding="async"` +
+    ` alt="${esc(ph.alt)}">`;
+  const pic = `<picture><source type="image/avif" srcset="${set("avif")}" sizes="${esc(sizes)}">${img}</picture>`;
+
+  // THE CREDIT LINE. Photographer, licence, link to the licence, link to the
+  // file. Public domain gets no licence link because there is no licence to
+  // link, and it says so in words rather than printing a bare "Public domain"
+  // that reads like a licence name nobody can check.
+  const who = `<a href="${esc(ph.page)}" rel="noopener" target="_blank" aria-label="${esc(
+    ph.by,
+  )}'s photograph on Wikimedia Commons, where its licence is stated, opens on commons.wikimedia.org">${esc(ph.by)}</a>`;
+  const lic =
+    ph.license === "Public domain"
+      ? "released into the public domain"
+      : `<a href="${esc(ph.licenseUrl)}" rel="noopener" target="_blank" aria-label="The ${esc(
+          ph.license,
+        )} licence deed, opens on creativecommons.org">${esc(ph.license)}</a>`;
+  const credit =
+    `<span class="gpph-cr">Photograph by ${who}, ${lic}, via Wikimedia Commons.</span>`;
+
+  return `<figure class="gpph${o.mod ? ` ${o.mod}` : ""}">${pic}
+        <figcaption>${ph.caption ? `${esc(ph.caption)} ` : ""}${credit}</figcaption>
+      </figure>`;
+}
+
+// A run of photographs for one slot, or the empty string. Never renders an
+// empty <figure> or a frame captioned "no photo": the same rule the Topps
+// packaging shots follow, and the same rule this page's hours already follow.
+const photoRun = (key, opts) => photoAt(key).map((p) => photoFig(p, opts)).join("\n      ");
 
 /**
  * THE DIAGRAM. A labelled cutaway of a Garbage Plate, drawn.
@@ -369,6 +497,18 @@ const historyBlocks = (doc.history || [])
           <cite>${esc(h.quoteWho || SRC.get(h.quoteSrc)?.name || "")}</cite></blockquote>`
             : ""
         }
+        ${photoRun(`history:${h.year}`, {
+          // THE PICTURE IS HELD TO 480 INSIDE A 640 CARD AND THAT IS A
+          // SHARPNESS DECISION, not a margin one. The card's inside is 640px at
+          // 1440 and 318 at 390, so a full-width picture on a retina desktop
+          // asks for 1280 device pixels and the widest rendition is 800: a 1.6x
+          // upscale, and two of these four photographs are 1024px originals
+          // from 2007 and 2008 that cannot be re-rendered any bigger. At 480 the
+          // same screen asks for 960 and gets 800, which is 1.2x. It also takes
+          // roughly 80px off every history card that has one.
+          sizes: "(min-width:720px) 480px, calc(100vw - 72px)",
+          mod: "gpph--card",
+        })}
         <p class="gph-src">Source${cites.length === 1 ? "" : "s"}: ${cites
           .map(
             (s) =>
@@ -392,7 +532,18 @@ const placeCards = places
   .map((p, i) => {
     const url = cleanUrl(p.url);
     const menu = p.menuUrl ? cleanUrl(p.menuUrl) : "";
+    // THE PHOTO SITS ABOVE THE HEAD AND THREE OF ELEVEN CARDS HAVE ONE, which
+    // is the case the grid had to survive: `align-items:start` was already set
+    // so a card is as tall as its own content, so a card with a picture is
+    // simply taller than the one beside it rather than pushing a hole into it.
+    // Checked at both widths with the neighbours, not assumed from the CSS.
+    const shot = photoRun(`place:${p.name}`, {
+      // 1 / 2 / 3 columns inside the 1392 wrap, less the card's own padding.
+      sizes: "(min-width:981px) 408px, (min-width:641px) calc(50vw - 76px), calc(100vw - 72px)",
+      mod: "gpph--place",
+    });
     return `      <li class="gpp"${p.origin ? ' data-origin="1"' : ""}>
+        ${shot}
         <div class="gpp-head">
           <p class="gpp-num" aria-hidden="true">${i + 1}</p>
           <h3>${esc(p.name)}</h3>
@@ -559,6 +710,43 @@ const style = `
 .gp-layers h3{margin-bottom:4px}
 .gp-layers p{color:var(--ink-2);font-size:var(--t-sm);line-height:1.6}
 
+/* ---- The photographs and their credits ---------------------------------- */
+/* ONE SHAPE FOR ALL TEN, and the credit is part of it rather than a thing bolted
+   under some of them. CC BY and CC BY-SA both require the photographer's name,
+   the licence and a link to the licence, so the figcaption is not decoration
+   and must not be dropped to save a line. There was no precedent on this site
+   for a visible image credit, because the retailer marks are all public domain;
+   this is it, and CLAUDE.md records it. */
+.gpph{margin:0;display:block}
+/* aspect-ratio comes off the width and height attributes, so the box is
+   reserved before the picture arrives and nothing under it moves. The paper
+   fill is what fills that box in the meantime: a transparent one flashes the
+   page green through a photograph-shaped hole. */
+.gpph img{display:block;width:100%;height:auto;border-radius:var(--r-sm);
+  background:var(--paper)}
+.gpph figcaption{font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-2);margin-top:8px}
+/* The credit runs on from the caption rather than sitting on its own line: it
+   is the same sentence about the same picture, and a second block under a small
+   photograph reads as chrome. Teal, like every other link on the page. */
+.gpph-cr a{color:var(--gold-deep);font-weight:600}
+.gpph-cr a:hover{text-decoration:underline}
+/* The hero. Capped at 720 rather than filling the 1392 wrap, because a plate of
+   food at 1392 across is a banner and this is an illustration in an article. */
+.gpph--hero{max-width:720px;margin:var(--s5) 0 var(--s6)}
+/* The pair under the diagram: side by side where there is room, stacked where
+   there is not, and never wider than the prose column beside them. */
+.gp-shots{display:grid;gap:var(--s4);max-width:52em;margin:0 0 var(--s6)}
+@media(min-width:700px){.gp-shots{grid-template-columns:1fr 1fr}}
+.gpph--card{margin:var(--s4) 0 0;max-width:480px}
+/* THE ONLY CROP ON THE PAGE, AND IT IS A DISPLAY CROP. The three restaurant
+   cards sit in one grid and their photographs are 3801x2474, 3024x3276 and
+   3445x2772, so left at their own shapes they would put three different card
+   heights in one row. object-fit does the framing in the browser; the file that
+   ships is the whole frame, which is what keeps the CC BY-SA files out of
+   "adapted work" territory. See the header of this builder. */
+.gpph--place{margin:0 0 var(--s2)}
+.gpph--place img{aspect-ratio:4/3;object-fit:cover}
+
 /* ---- The history ------------------------------------------------------- */
 .gp-hist{list-style:none;display:grid;gap:var(--s5);max-width:52em}
 .gph{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
@@ -665,6 +853,8 @@ const body = `
       could not source something, it is not here, and there is a list further down of exactly what that
       means.</p>
 
+    ${photoRun("hero", { sizes: "(min-width:800px) 720px, calc(100vw - 32px)", mod: "gpph--hero" })}
+
     <h2>What is actually <span class="hl">on one</span></h2>
     <p class="gp-sub">${esc(doc.anatomy?.intro || "")}</p>
     <figure class="gp-fig">
@@ -674,10 +864,17 @@ const body = `
 ${layerList}
         </ol>
       </div>
-      <figcaption>Drawn here rather than photographed, so it can be cut open and labelled. The order is
-        bottom to top and it matters: the sauce goes over everything, which is what makes it a plate and
-        not a tray of sides. ${esc(doc.anatomy?.srcNote || "")}</figcaption>
+      <figcaption>Drawn rather than photographed, because a drawing can be cut open and labelled and a
+        photograph cannot. The order is bottom to top and it matters: the sauce goes over everything,
+        which is what makes it a plate and not a tray of sides. ${esc(doc.anatomy?.srcNote || "")}</figcaption>
     </figure>
+
+    <div class="gp-shots">
+      ${photoRun("anatomy", {
+        // Two up above 700px inside a 52em column, one up below it.
+        sizes: "(min-width:700px) 340px, calc(100vw - 32px)",
+      })}
+    </div>
 
     <h2>Where it <span class="hl">came from</span></h2>
     <p class="gp-sub">Told in the order it happened, with the source for every claim on the claim itself.
@@ -721,6 +918,25 @@ ${leftOut}
     <p class="gp-sub">All of them were read on ${esc(longDate(doc.read) || doc.read)}.</p>
     <ul class="gp-gaps">
 ${sourceList}
+    </ul>
+
+    <h3 style="margin-top:var(--s6)">Where the photographs came from</h3>
+    <p class="gp-sub">${esc(doc.photoNote || "")}</p>
+    <ul class="gp-gaps">
+${
+  // `placeNote` FIRST, and it is printed rather than kept in the data as a
+  // comment for maintainers. Two of the pictures are attached to a restaurant
+  // on the strength of what the PHOTOGRAPHER wrote about their own file, and
+  // one of those files is titled with a dish name the restaurant's own menu
+  // does not use. On a page whose entire pitch is that its claims are
+  // checkable, the working behind "this photograph is of that restaurant"
+  // belongs on the page like every other source line. An unrendered field is
+  // also how a data file quietly fills with notes nobody reads.
+  PHOTOS.filter((x) => x.placeNote)
+    .map((x) => `      <li>${esc(x.placeNote)}</li>`)
+    .concat((doc.photosRejected || []).map((g) => `      <li>${esc(g)}</li>`))
+    .join("\n")
+}
     </ul>
 
     <p class="gp-sub" style="margin-top:var(--s6)">Hungry for the other local pages? The

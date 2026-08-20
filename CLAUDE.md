@@ -428,9 +428,10 @@ argument HERE. The rule is the test plus the shape, not a tally.
 
 /garbage-plate.html IS THE NEXT THING TO APPLY THAT TEST TO, and it is argued
 here rather than added quietly, which is what the four paragraphs above are
-about. It carries 48 outbound anchors to 36 distinct urls, added 20 August 2026,
-and it is the densest non-list page on the site for them. They are three kinds
-and each passes the test on its own:
+about. It carried 48 outbound anchors to 36 distinct urls when it was added on
+20 August 2026 and it carries 67 to 48 the same day, and it is the densest
+non-list page on the site for them. They are FOUR kinds and each passes the test
+on its own:
 
   - ELEVEN RESTAURANTS' OWN SITES AND MENUS. Same shape and same argument as
     /shops.html, which this page's list is modelled on: a page whose job is to
@@ -443,14 +444,33 @@ and each passes the test on its own:
     is the same shape, and this page's whole pitch is that the existing writing
     about this dish asserts things and does not source them. A history nobody
     can check is worth less than a shorter one they can.
+  - NINETEEN IMAGE CREDITS, TWO UNDER EACH OF THE TEN PHOTOGRAPHS, added the
+    same day and argued HERE rather than added quietly, which is what the four
+    paragraphs above are about. TEN go to commons.wikimedia.org and NINE to
+    creativecommons.org, three distinct deeds between them. THIS ONE IS NOT
+    DISCRETIONARY AND THAT IS WHY IT IS A FOURTH KIND RATHER THAN A THIRD
+    HELPING OF THE SECOND. Every other link on this site is a judgement about
+    what a reader needs; nine of these ten pictures are CC BY or CC BY-SA and
+    those licences are granted ON CONDITION of naming the photographer and
+    LINKING the licence. A page that prints the photograph and not the link is
+    not making a tidier editorial choice, it is using the picture outside the
+    terms it was offered under. The tenth is public domain and its credit
+    carries the photographer link and no licence link, because there is no
+    licence to link to.
   - NOTHING ELSE. No affiliate code, no directory, no aggregator.
 
-THE SHAPE IS MET AND WAS MEASURED, not asserted: all 48 carry an aria-label
-saying they leave the site, they sit at the end of a card or at the end of a
-line of prose rather than mid explanation, and the page's own large tap targets
-are internal. The one thing to hold the line on if this page grows: a source
-belongs in a source line, never as an inline link inside a sentence, because
-that is how the count gets away from you.
+THE SHAPE IS MET AND WAS MEASURED, not asserted: all 67 carry an aria-label
+saying they leave the site, and the page's own large tap targets are internal.
+THE IMAGE CREDITS ARE THE ONE PLACE THIS PAGE PUTS A LINK INSIDE A SENTENCE, and
+the line below says never to do that, so read the exception rather than the
+count. That rule is about a SOURCE being cited from inside explanatory prose,
+which is how a page grows links nobody planned. A credit line is not explanatory
+prose: it is the picture's own source line, sitting under the picture, and the
+photographer's name and the licence name ARE the two things it exists to say.
+Linking anything else from inside it would be the thing the rule forbids. The
+line still stands for everything else: a source belongs in a source line, never
+as an inline link inside a sentence, because that is how the count gets away
+from you.
 
 AND THE SEVENTH EXCEPTION THAT WAS ASKED FOR BY NAME AND STILL NOT MADE, 17
 August 2026. Tim stated the site's commercial purpose plainly: YouTube is the
@@ -1002,22 +1022,146 @@ including one that does not exist and one whose own site is now a placeholder.
 originator and holds the mark, which is a matter of record, and the rest are
 alphabetical.
 
-**THERE ARE NO PHOTOGRAPHS ON IT AND THAT IS DESIGN, NOT AN UNFINISHED STATE.**
-This repo holds no licensed photograph of a building or of a plate, a picture of
-a restaurant is somebody's copyright, and Street View is licensed in a way a
-static site with no keys cannot meet. The page is built the way /shops.html is:
-the drawn figure carries the illustration and the cards never had a photo slot
-to leave empty. Tim photographs things for a living and lives there, so his own
-photographs are the honest way to fill this in, and the card layout has room for
-one the day it exists. **Do not solve this by hotlinking.**
+**THIS SECTION SAID "THERE ARE NO PHOTOGRAPHS ON IT AND THAT IS DESIGN, NOT AN
+UNFINISHED STATE" AND THE SENTENCE UNDER IT WAS THE MISTAKE.** It read: "This
+repo holds no licensed photograph of a building or of a plate, a picture of a
+restaurant is somebody's copyright, and Street View is licensed in a way a
+static site with no keys cannot meet." Every clause of that is TRUE. The
+conclusion was not, and the shape of the error is the one this whole file is
+about: **a true statement about the candidates somebody looked at was written as
+a statement about the subject.** Restaurant sites, blogs and Street View had
+been checked. Wikimedia Commons had not. It holds eleven photographs of this
+dish and of the restaurant it comes from and **ten of them are CC BY, CC BY-SA
+or public domain.** The gap was a search, not a licence. If you find a page on
+this site whose absence of something is defended in this register, check whether
+the defence names what was LOOKED AT or what EXISTS.
 
-**Measured on the built page, 20 August 2026:** 3,955 words in `<main>`, one h1,
-five h2, ZERO `<img>`, two inline SVGs, 18,506px tall at 390x844 and 9,563px at
-1440x900, scrollX 0 and nothing hanging off the right edge at either width.
-Contrast swept over all 306 text-bearing elements against the ground actually
-painted under each: **0 AA failures at both widths.** The document is 89,918
-bytes raw and 24,375 gzipped, and because the page holds no images at all its
-on-load and fully-scrolled transfer are the same number.
+**THERE ARE TEN PHOTOGRAPHS ON IT NOW, 20 August 2026, AND EVERY ONE WAS
+VERIFIED BY LOADING THAT FILE'S OWN DESCRIPTION PAGE ON COMMONS.** A search
+result claiming a licence is not a licence. They are: four by Paul Lowry (CC BY
+4.0, 28 June 2025: the plate, two plates on a tray, the exterior, the counter),
+two by BanjoZebra (CC BY 4.0, 2024: dogTown's plate and The Red Fern's Compost
+Plate), two by Eugene Peretz (CC BY-SA 2.0, 20 October 2007: a plate with beans,
+and the "Established 1918" wall sign), one by Doug Kerr (CC BY-SA 2.0, 6
+December 2008: the terminal building from West Main Street) and one public
+domain (May 2005, the mark printed round the rim of the plate).
+`scripts/sync-plate-photos.py` fetches and encodes them and **re-reads the
+licence, the author and the licence url from Commons on every run and refuses to
+write anything that has moved.** It is NOT in build-all.mjs, same arrangement
+and same reason as sync-decks.mjs. Masters cache under `.cache/plate-photos/`
+and are not committed; the 42 renditions in `public/assets/plates/` are,
+1.85MB on disk in the two formats.
+
+**THE VISIBLE CREDIT IS A PRECEDENT THIS SET, because the site had none.** The
+retailer marks in shared/brands.mjs are all public domain and are credited in
+JSON only, which is fine for those and not fine for an attribution licence. CC
+BY and CC BY-SA require the photographer's name, the licence, and a LINK to that
+licence, and a credit a reader cannot connect to the picture is not a credit.
+**So every photograph is a `<figure>` whose `<figcaption>` carries the caption,
+then "Photograph by NAME, LICENCE, via Wikimedia Commons", with NAME linking to
+the file on Commons and LICENCE linking to the deed.** `photoFig` in the
+builder. The builder THROWS on a photo record that names an attribution licence
+with no `licenseUrl`, and on a `where` key that matches no section, history
+entry or restaurant, because a picture that quietly fails to render looks
+exactly like a card that was never given one. **If another page gains a
+non-public-domain image, copy this shape.**
+
+**NOTHING IS CROPPED AND THAT IS A LICENCE DECISION, NOT A TASTE ONE.** Four of
+the ten are ShareAlike, which asks that an ADAPTED work carry the same licence.
+Resizing and re-encoding for delivery is not an adaptation (CC 4.0 says so; 2.0
+and 3.0 grant "modifications as are technically necessary to exercise the rights
+in other media and formats"). Cropping is. The three restaurant-card frames want
+4:3 out of three different shapes and get it with `object-fit:cover`, which
+changes what is DISPLAYED and not what is distributed.
+
+**THE RESTAURANT ATTRIBUTIONS CAME OUT OF THE FILES THEMSELVES AND WERE
+CORROBORATED, NOT GUESSED.** `Junkyard Plate.jpg` and `Compost Plate.jpg` both
+name their restaurant in their own Commons description ("from Dogtown in
+Rochester, New York", "at The Red Fern in Rochester, New York"), and both files
+carry a camera position that reverse-geocodes to that address: 43.1439/-77.5898
+is Monroe Avenue in Swillburg, 43.1498/-77.5864 is 284 Oxford Street. **The
+photographer's TITLE is not the restaurant's menu, though**, and that is the
+trap: dogTown's own menu carries a Junkyard Dog and a section of plates and no
+"Junkyard Plate", so the page shows the photograph on their card and does NOT
+print that as their name for the dish. `placeNote` in the data records both
+halves.
+
+**EVERY ONE IS `loading="lazy"`, INCLUDING THE HERO, AND THAT WAS MEASURED
+RATHER THAN COPIED FROM THE NOTE UNDER "Card images".** Slow 4G, 4x CPU, over
+HTTP/2 against a local TLS server (an HTTP/1.1 preview's six-connection ceiling
+flatters the wrong answer), medians, against the same tree with the hero lazy
+and with it eager under `fetchpriority="high"` plus an `imagesrcset` preload in
+the head:
+
+      390x844  DPR 2, 5 runs   FCP 2,484 -> 3,148ms    LCP 2,484 -> 3,148ms
+      1440x900 DPR 1, 3 runs   FCP 2,504 -> 3,060ms    LCP 2,504 -> 5,716ms
+
+So eager costs 664ms of first paint on a phone and 556ms on a desktop, and on
+the desktop it costs **3.2 SECONDS of LCP**, because making the picture eager is
+what makes the picture the LCP ELEMENT: it has to finish arriving before the
+metric stops. **Lazy, the LCP element is `P.gp-lede`, a paragraph, in every run
+at both widths.** That is the reason that file's "the LCP element wants the
+scanner and a preload of its own" exception does not apply here, and it is worth
+knowing before somebody re-derives it from the markup: the hero photograph is
+never the largest paint on this page unless you make it one.
+
+**Measured on the built page, 20 August 2026, before -> after the photographs.**
+The before column is what this entry used to carry, re-measured with the same
+harness against the same tree so the pair is comparable: gzipped, cache off,
+request bytes read off the network, fully scrolled means every lazy image
+reached. **QUOTE THE PAIR OR QUOTE NEITHER.**
+
+                        on-load            fully scrolled     page height
+      390  DPR 2   137.6 ->  208.0KB   137.6 ->  695.7KB   18,596 -> 23,278px
+      390  DPR 3   132.9 ->  262.9KB   132.9 ->  750.7KB   18,596 -> 23,278px
+      1440 DPR 1   132.9 ->  258.7KB   132.9 ->  611.2KB    9,533 -> 14,223px
+      1440 DPR 2   132.9 ->  398.1KB   132.9 ->  750.7KB    9,533 -> 14,224px
+
+The document itself is **89,918 -> 108,366 bytes raw and 24,371 -> 28,590
+gzipped**, so 4.2KB of the phone's 70.4KB is markup and the rest is one
+photograph. **ONE picture is on the load path at 390** (the hero, at y=638 of
+844, so it is genuinely in the first screen) and three at 1440, where the
+anatomy pair falls inside Chrome's lazy window. Requests 11 -> 12 on load and
+11 -> 21 fully scrolled. **The old entry's "its on-load and fully-scrolled
+transfer are the same number" is the sentence that has stopped being true**, and
+that is the cost of this change stated honestly: nothing was made lighter, a
+page that had no pictures now has ten.
+
+Still true at both widths after: one h1, scrollX 0, **zero elements hanging off
+the right edge with no clipping ancestor**, all ten images decode with
+`naturalWidth > 0`, and **0 AA contrast failures** over the captions, the credit
+lines and the prose around them, measured against the ground actually painted
+under each. No text is set over a photograph anywhere on this page, which is why
+that last one is cheap to keep true.
+
+**`maxw` IN THE DATA IS A PLACEMENT CAP AND IT IS LOAD BEARING.** The hero is
+drawn into a 720px cap so a retina desktop asks for 1440 and needs the 1200w
+file; nothing else on the page is drawn wider than 408 CSS px, where 800w
+answers DPR 2 exactly. Without the cap the 1200w exterior, **206KB of AVIF
+because brickwork does not compress**, was the candidate a DPR 3 phone picked
+for a 318px card frame. The history photograph is separately held to 480px
+inside its 640px card, because two of those four are 1024px originals from 2007
+and 2008 that cannot be rendered any bigger: at 640 a retina screen asks for
+1280 against an 800w file, at 480 it asks for 960. It also took about 1,000px
+off the page at 1440.
+
+**EXIF ORIENTATION IS APPLIED AND ONE FILE NEEDED IT.** `Garbage Plates, Nick
+Tahou Hots 2025.jpg` is stored 4080x3060 with an orientation tag of 6, so
+Commons reports it as 3060x4080 and Pillow opens it on its side. Resizing
+without `ImageOps.exif_transpose` ships a photograph rotated a quarter turn with
+correct `width` and `height` attributes on it, and nothing in the build can see
+that. It was caught by comparing Pillow's size against the API's, not by looking
+at the picture.
+
+**EIGHT OF THE ELEVEN RESTAURANTS STILL HAVE NO PHOTOGRAPH** and no free one of
+them exists. Tim photographs things for a living and lives there, so his own
+pictures are still the answer: add one to `photos` in the data with `where` set
+to `place:<the name on the card>` and it renders. **Do not solve this by
+hotlinking, and do not solve it from a restaurant's own site or social feed** —
+that is the photographer's copyright whatever it is a picture of, and being good
+publicity for the subject is not a licence from the person who took it.
+`photosRejected` in the data records the one Commons file that was verified,
+fetched, looked at and left out anyway.
 
 ## Video data
 - `public/data/videos.json` is the whole catalogue, `playlists.json` the
@@ -1454,6 +1598,24 @@ fold" of a TWO COLUMN grid whose second row starts at y=822, build-eevee.mjs sai
 the same of its own two-column grid, and build-games.mjs said its first card sits
 "about 250px down" when it is 460. MEASURE THE FOLD BY READING EACH IMG'S OWN
 BORDER BOX AT SCROLL 0. Counting rows by eye is what produced all three.
+
+**AN IMAGE THIS SITE DID NOT MAKE AND DOES NOT OWN NEEDS A VISIBLE CREDIT, AND
+THE SHAPE IS SET.** Everything above this line is about card scans, pack art and
+species portraits, none of which carry a per-image credit: the scans are
+identified by the card they show and the artwork is commissioned or is the
+publisher's. Two families are not like that. The retailer marks in
+shared/brands.mjs are all PUBLIC DOMAIN on Commons and are credited in
+data/brand-marks.json only, which is enough for a public-domain file. The ten
+photographs on /garbage-plate.html are CC BY, CC BY-SA and one public domain,
+and an attribution licence is granted ON CONDITION of naming the photographer
+and LINKING the licence, so a credit in a JSON file nobody reads does not meet
+it. `photoFig` in build-garbage-plate.mjs is the pattern: a `<figure>` whose
+`<figcaption>` reads "Photograph by NAME, LICENCE, via Wikimedia Commons", NAME
+linking to the file and LICENCE linking to the deed, directly under the picture.
+**Copy that shape rather than inventing a second one**, and read the licence on
+the file's OWN description page before publishing anything: a search result
+claiming a licence is not a licence, and neither is a restaurant being pleased
+about the picture.
 
 ## Video display rules (these were measured, do not "fix" them)
 - Thumbnails come from `i.ytimg.com/vi_webp/<id>/oardefault.webp`, falling
