@@ -370,16 +370,33 @@ await writeFile(join(ROOT, "data/descriptions.json"), JSON.stringify(description
 // nothing for.
 //
 // packsStated IS THE GUARD AND IT IS NOT DECORATION. import-sheet.mjs sets it
-// only where a person actually said how many: every set in the cell carries a
-// typed number, or the cell names exactly one set, which is Tim's own rule that
-// a blank means one. It is deliberately NOT set where a cell names several sets
-// and no counts, because summing that cell counts the packs the BOX HOLDS
-// rather than the packs the VIDEO OPENED. M7NqqhR8V4M is the live example: its
-// cell names the three packs inside a First Partner box, the video opens Box #6
-// and states Pack # 3, and an unguarded sum would publish 3. That is the
-// PRODUCT_TO_PACKS prefill failure described above arriving by a different road,
-// which is why the guard is a flag from the importer rather than a test written
-// here on the shape of the data.
+// where a person actually said how many, and the definition of "said" changed on
+// 20 August 2026 -- so read the importer, not this paragraph, for the current
+// rule. It is a flag from the importer rather than a test written here on the
+// shape of the data, which is the part that has not changed and is the point.
+//
+// WHAT THIS COMMENT USED TO SAY, AND WHY IT IS WRONG NOW, because it named a
+// video as proof and the video no longer behaves that way. It read: "It is
+// deliberately NOT set where a cell names several sets and no counts, because
+// summing that cell counts the packs the BOX HOLDS rather than the packs the
+// VIDEO OPENED. M7NqqhR8V4M is the live example: its cell names the three packs
+// inside a First Partner box, the video opens Box #6 and states Pack # 3, and an
+// unguarded sum would publish 3."
+//
+// M7NqqhR8V4M now publishes 3, correctly. Tim was asked directly and answered:
+// "First partners boxes do come with 3 overall packs, 1 Pack of first partners
+// cards, and then two other sets come in each box so total of 3 packs per first
+// partners box", and "I listed out all 3 packs in each of the first partner
+// videos". The cell is a list of what he OPENED. The old reasoning was a
+// plausible story about what a multi-set cell might mean, written as a
+// statement about what this one did mean, and it was refusing his answer on
+// exactly the rows it was built to protect.
+//
+// It is left here rather than deleted because a paragraph asserting the guard
+// prevents the number the tree now publishes is the paragraph a future agent
+// quotes as grounds to revert a correct figure. The ambiguity the importer still
+// refuses is a count that does not line up one-per-set -- "3" against two sets --
+// which is a different thing from Tim naming three sets.
 //
 // The Pack # rule is kept UNDERNEATH rather than replaced. It still covers the
 // 100-odd rows where Tim has typed a pack number and not yet touched the new
