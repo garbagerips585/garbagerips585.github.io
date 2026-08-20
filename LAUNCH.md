@@ -262,6 +262,32 @@ already exists.
       and leave /drops.html to carry it, rather than to let the front door
       depend on an edit that may not happen.
 
+- [ ] **THE BIGGEST REMAINING SPEED WIN, deliberately not taken on launch eve.**
+      Pack artwork is delivered as CSS backgrounds, and a CSS background can
+      never be lazy. /videos.html carries 48 `.pack-art` elements spanning
+      y=400 to y=8631 and only FOUR are above the fold: about 280KB of pack
+      tiles fetched on load, roughly 200KB of it for tiles thousands of pixels
+      down. Every rip page carries a 38.8KB tile at y=2047 fetched on load, on
+      all 317 of them.
+
+      This is the same shape as the largest win in this repo's history, when
+      /rarity.html's magnified corners went from 2,536KB to 388KB by becoming
+      lazy `<img>` elements under the same facade, and the fix is the same move.
+
+      It was measured on 19 August 2026 and NOT done, because it touches the
+      `.pack-face` clip-path machinery, packplayer.js and app.js's client
+      rendered tiles at the same time, and doing that two days before launch
+      while other work was in flight is how a site breaks in a way nobody sees
+      until it is live. Do it in a quiet week, on its own branch, with the
+      before and after measured the same way.
+
+- [ ] **/upcoming.html's product thumbs are soft and that is a quality call,
+      not a speed one.** TCGplayer `_200w.jpg` goes into a 152px box, which
+      needs 304 at DPR 2. The full rendition is 14.0x the bytes, +1,448KB
+      across 17 images on a page that loads in 205KB today. `_400w.jpg` is the
+      honest middle at +218KB, still a 64% heavier page. Sharpness against
+      weight, on a page whose job is telling you what is coming.
+
 - [ ] Blog posts for search traffic: set reviews, "is this box worth it",
       the Rochester local angle. Each embeds a video.
 - [ ] Monthly price refresh, so the set guides and the Card Hall of Fame do not
