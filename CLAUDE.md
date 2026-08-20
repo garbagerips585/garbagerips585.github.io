@@ -444,17 +444,19 @@ on its own:
     is the same shape, and this page's whole pitch is that the existing writing
     about this dish asserts things and does not source them. A history nobody
     can check is worth less than a shorter one they can.
-  - NINETEEN IMAGE CREDITS, TWO UNDER EACH OF THE TEN PHOTOGRAPHS, added the
-    same day and argued HERE rather than added quietly, which is what the four
-    paragraphs above are about. TEN go to commons.wikimedia.org and NINE to
-    creativecommons.org, two distinct deeds between them. THIS ONE IS NOT
+  - TWENTY-ONE IMAGE CREDITS, TWO UNDER EACH OF THE ELEVEN PHOTOGRAPHS (was
+    nineteen under ten until Bill Gray's was added on 20 August 2026), argued
+    HERE rather than added quietly, which is what the four paragraphs above are
+    about. ELEVEN go to commons.wikimedia.org and TEN to creativecommons.org,
+    THREE distinct deeds between them since the eleventh is the page's first
+    CC BY-SA 3.0. THIS ONE IS NOT
     DISCRETIONARY AND THAT IS WHY IT IS A FOURTH KIND RATHER THAN A THIRD
     HELPING OF THE SECOND. Every other link on this site is a judgement about
-    what a reader needs; nine of these ten pictures are CC BY or CC BY-SA and
+    what a reader needs; ten of these eleven pictures are CC BY or CC BY-SA and
     those licenses are granted ON CONDITION of naming the photographer and
     LINKING the license. A page that prints the photograph and not the link is
     not making a tidier editorial choice, it is using the picture outside the
-    terms it was offered under. The tenth is public domain and its credit
+    terms it was offered under. The eleventh is public domain and its credit
     carries the photographer link and no license link, because there is no
     license to link to.
   - NOTHING ELSE. No affiliate code, no directory, no aggregator.
@@ -1045,12 +1047,19 @@ Plate), two by Eugene Peretz (CC BY-SA 2.0, 20 October 2007: a plate with beans,
 and the "Established 1918" wall sign), one by Doug Kerr (CC BY-SA 2.0, 6
 December 2008: the terminal building from West Main Street) and one public
 domain (May 2005, the mark printed round the rim of the plate).
+**AN ELEVENTH WAS ADDED THE SAME DAY and it is the first restaurant on this
+page that is not Nick Tahou's, dogTown or The Red Fern:** DanielPenfield's
+`File:Bill Gray's flagship location.jpg`, **CC BY-SA 3.0**, 19 June 2011, the
+Henrietta shop from its own car park. It is also the first CC BY-SA **3.0** file
+here, which cost nothing: `photoFig` reads the license name and url off the
+record and the guard compares them to Commons, so a new license value needs no
+code. See the correction at the foot of this section for how it was missed.
 `scripts/sync-plate-photos.py` fetches and encodes them and **re-reads the
 license, the author and the license url from Commons on every run and refuses to
 write anything that has moved.** It is NOT in build-all.mjs, same arrangement
 and same reason as sync-decks.mjs. Masters cache under `.cache/plate-photos/`
-and are not committed; the 42 renditions in `public/assets/plates/` are,
-1.85MB on disk in the two formats.
+and are not committed; the 46 renditions in `public/assets/plates/` are,
+1.97MB on disk in the two formats.
 
 **THE VISIBLE CREDIT IS A PRECEDENT THIS SET, because the site had none.** The
 retailer marks in shared/brands.mjs are all public domain and are credited in
@@ -1066,13 +1075,13 @@ entry or restaurant, because a picture that quietly fails to render looks
 exactly like a card that was never given one. **If another page gains a
 non-public-domain image, copy this shape.**
 
-**NOTHING IS CROPPED AND THAT IS A LICENCE DECISION, NOT A TASTE ONE.** Four of
-the ten are ShareAlike, which asks that an ADAPTED work carry the same license.
-Resizing and re-encoding for delivery is not an adaptation (CC 4.0 says so; 2.0
-and 3.0 grant "modifications as are technically necessary to exercise the rights
-in other media and formats"). Cropping is. The three restaurant-card frames want
-4:3 out of three different shapes and get it with `object-fit:cover`, which
-changes what is DISPLAYED and not what is distributed.
+**NOTHING IS CROPPED AND THAT IS A LICENCE DECISION, NOT A TASTE ONE.** Five of
+the eleven are ShareAlike, which asks that an ADAPTED work carry the same
+license. Resizing and re-encoding for delivery is not an adaptation (CC 4.0 says
+so; 2.0 and 3.0 grant "modifications as are technically necessary to exercise
+the rights in other media and formats"). Cropping is. The four restaurant-card
+frames want 4:3 out of four different shapes and get it with `object-fit:cover`,
+which changes what is DISPLAYED and not what is distributed.
 
 **THE RESTAURANT ATTRIBUTIONS CAME OUT OF THE FILES THEMSELVES AND WERE
 CORROBORATED, NOT GUESSED.** `Junkyard Plate.jpg` and `Compost Plate.jpg` both
@@ -1139,11 +1148,37 @@ that is the cost of this change stated honestly: nothing was made lighter, a
 page that had no pictures now has ten.
 
 Still true at both widths after: one h1, scrollX 0, **zero elements hanging off
-the right edge with no clipping ancestor**, all ten images decode with
+the right edge with no clipping ancestor**, all eleven images decode with
 `naturalWidth > 0`, and **0 AA contrast failures** over the captions, the credit
 lines and the prose around them, measured against the ground actually painted
 under each. No text is set over a photograph anywhere on this page, which is why
 that last one is cheap to keep true.
+
+**AND THE ELEVENTH PHOTOGRAPH'S OWN PAIR, measured 20 August 2026 with ONE
+harness over BOTH trees so the two columns are comparable to each other and NOT
+to the table above.** The before column here is this same tree with the Bill
+Gray's record removed and its four renditions deleted, not the numbers printed
+above, which were taken against an older tree and no longer reproduce (that
+tree's page was 23,278px at 390 and this one is 24,461px before the change).
+**QUOTE THIS PAIR OR THE ONE ABOVE, NEVER ONE COLUMN FROM EACH.** Gzipped,
+cache off, bytes read off the network, fully scrolled means every lazy image
+reached:
+
+                        on-load            fully scrolled     page height
+      390  DPR 2   209.0 ->  210.7KB   715.8 ->  758.9KB   24,461 -> 26,325px
+      390  DPR 3   259.2 ->  260.9KB   766.0 ->  809.2KB   24,461 -> 26,325px
+      1440 DPR 1   255.0 ->  256.7KB   626.5 ->  669.7KB   14,926 -> 15,534px
+      1440 DPR 2   394.4 ->  396.1KB   766.0 ->  809.2KB   14,926 -> 15,534px
+
+**THE LOAD PATH MOVED BY 1.7KB AT EVERY WIDTH AND THAT IS THE WHOLE POINT.** The
+document goes 113,051 -> 118,520 bytes raw, so 1.7KB is the gzipped markup of
+one more `<figure>`, and the picture itself costs nothing until somebody scrolls
+to it: requests on load are 12/11/13/13, unchanged, and the card is far enough
+down that no width pulls it early. Fully scrolled it is **+43.2KB at every
+width**, which is the 800w AVIF at 41.3KB plus its markup, and it is 800w even
+at DPR 1 because the card frame declares 408px and the 400w candidate is four
+pixels short of it. That is the same choice the other three place photographs
+make and is why `maxw` is 800 here rather than 1200.
 
 **`maxw` IN THE DATA IS A PLACEMENT CAP AND IT IS LOAD BEARING.** The hero is
 drawn into a 720px cap so a retina desktop asks for 1440 and needs the 1200w
@@ -1164,15 +1199,58 @@ correct `width` and `height` attributes on it, and nothing in the build can see
 that. It was caught by comparing Pillow's size against the API's, not by looking
 at the picture.
 
-**EIGHT OF THE ELEVEN RESTAURANTS STILL HAVE NO PHOTOGRAPH** and no free one of
-them exists. Tim photographs things for a living and lives there, so his own
-pictures are still the answer: add one to `photos` in the data with `where` set
+**THAT PARAGRAPH SAID "EIGHT OF THE ELEVEN RESTAURANTS STILL HAVE NO
+PHOTOGRAPH AND NO FREE ONE OF THEM EXISTS", AND THE SECOND HALF WAS THE SAME
+MISTAKE THIS SECTION ALREADY CONFESSES TO ONE PARAGRAPH ABOVE.** It is now
+SEVEN of the eleven, corrected 20 August 2026. `File:Bill Gray's flagship
+location.jpg`, **CC BY-SA 3.0, DanielPenfield, 19 June 2011**, is a clean
+storefront photograph of a Bill Gray's and had been sitting on Commons the
+whole time. The first sweep searched Commons for the DISH and for Nick Tahou
+Hots and did not search it for the other ten BUSINESSES BY NAME. So the file
+that fixed the "eight" was in the same repository that had already fixed the
+"none", found by the same kind of query nobody had run yet, and the sentence
+claiming none exists was again **a report on what was looked at, written as a
+statement about what is out there.** That is twice on one page. Assume it is
+still true of the seven.
+
+**THE SEVEN ARE Chili Hots, Empire Hots, Fairport Hots, Henrietta Hots,
+Jeremiah's Tavern, Rohrbach and Steve T. Hots, AND THE SECOND SWEEP IS WRITTEN
+DOWN IN `photosRejected` SO NOBODY PAYS FOR IT TWICE.** Commons was swept four
+ways (title, `insource:` over every file description, the seven local
+categories, and a 1,500m GEOSEARCH around all eight addresses) and holds exactly
+two files naming any of them, both Bill Gray's. Openverse, which is Flickr and
+Commons together, was swept across forty queries filtered to CC BY, CC BY-SA,
+CC0 and public domain: six of the seven return **nothing free at all**, and what
+exists of them on Flickr is uniformly NonCommercial or NoDerivatives.
+
+**MAPILLARY LOOKS LIKE THE ANSWER TO THIS AND IS NOT, and the reasoning is in
+`photosRejected` because it will be proposed again.** Street-level imagery is
+exactly the right shape, coverage is real (70 frames past Bill Gray's, 50 past
+Fairport Hots), and it is widely described as CC BY-SA 4.0. **Their own terms do
+not support publishing a specific frame.** Section 3 of mapillary.com/terms,
+read 20 August 2026, grants CC BY-SA "**unless we indicate otherwise**", names
+CC BY-NC-SA as a live alternative and states **no version number anywhere**;
+there is no per-image license to check that carve-out against, because the
+viewer page is a 2.7KB script shell naming neither photographer nor license and
+the graph API answers `Tried accessing nonexisting field (license)`. Their
+developer clause then wants a re-hosted image credited by **displaying the
+MAPILLARY LOGO** rather than by naming the photographer, which is not a CC BY-SA
+credit and is an additional restriction CC BY-SA 4.0 forbids. **A license you
+cannot read off the image is not a license you can print under it.**
+
+Tim photographs things for a living and lives there, so his own pictures are
+still the answer for the seven: add one to `photos` in the data with `where` set
 to `place:<the name on the card>` and it renders. **Do not solve this by
 hotlinking, and do not solve it from a restaurant's own site or social feed** —
 that is the photographer's copyright whatever it is a picture of, and being good
 publicity for the subject is not a license from the person who took it.
-`photosRejected` in the data records the one Commons file that was verified,
-fetched, looked at and left out anyway.
+`photosRejected` records the four files that were verified, fetched, looked at
+and left out anyway, and two of those four are the reason to read it: a Rohrbach
+photograph that is correctly licensed but is an **interior door with twelve-year
+-old opening hours painted on the glass**, on the page whose one hard rule is
+that hours come from the business, and a second Rohrbach that is correctly
+licensed and is **the wrong one of their two buildings**. A free license is the
+first gate on this page and it has never been the only one.
 
 ## Video data
 - `public/data/videos.json` is the whole catalogue, `playlists.json` the
@@ -1616,7 +1694,7 @@ species portraits, none of which carry a per-image credit: the scans are
 identified by the card they show and the artwork is commissioned or is the
 publisher's. Two families are not like that. The retailer marks in
 shared/brands.mjs are all PUBLIC DOMAIN on Commons and are credited in
-data/brand-marks.json only, which is enough for a public-domain file. The ten
+data/brand-marks.json only, which is enough for a public-domain file. The eleven
 photographs on /garbage-plate.html are CC BY, CC BY-SA and one public domain,
 and an attribution license is granted ON CONDITION of naming the photographer
 and LINKING the license, so a credit in a JSON file nobody reads does not meet
