@@ -1262,20 +1262,87 @@ Commons together, was swept across forty queries filtered to CC BY, CC BY-SA,
 CC0 and public domain: six of the seven return **nothing free at all**, and what
 exists of them on Flickr is uniformly NonCommercial or NoDerivatives.
 
-**MAPILLARY LOOKS LIKE THE ANSWER TO THIS AND IS NOT, and the reasoning is in
-`photosRejected` because it will be proposed again.** Street-level imagery is
-exactly the right shape, coverage is real (70 frames past Bill Gray's, 50 past
-Fairport Hots), and it is widely described as CC BY-SA 4.0. **Their own terms do
-not support publishing a specific frame.** Section 3 of mapillary.com/terms,
-read 20 August 2026, grants CC BY-SA "**unless we indicate otherwise**", names
-CC BY-NC-SA as a live alternative and states **no version number anywhere**;
-there is no per-image license to check that carve-out against, because the
-viewer page is a 2.7KB script shell naming neither photographer nor license and
-the graph API answers `Tried accessing nonexisting field (license)`. Their
-developer clause then wants a re-hosted image credited by **displaying the
-MAPILLARY LOGO** rather than by naming the photographer, which is not a CC BY-SA
-credit and is an additional restriction CC BY-SA 4.0 forbids. **A license you
-cannot read off the image is not a license you can print under it.**
+**A THIRD SWEEP ON 20 AUGUST 2026 TOOK THE TWO ROUTES NEITHER OF THE FIRST TWO
+HAD, AND THEY CAME BACK EMPTY AS WELL. It is still seven.**
+- **Wikidata `P18`.** Only three of the eleven have a Wikidata item at all
+  (Nick Tahou Hots, Bill Gray's, Rohrbach), and a geographic query for
+  businesses within 25km of Rochester returns 19 items and none of the other
+  eight. Rohrbach's P18 is `File:RohrbachBeer1.JPG`, **public domain**, User:
+  Brian Stiehler, 17 September 2010, a file nobody here had seen. It is
+  correctly licensed and it is **the wrong building**, and that was settled off
+  the PHOTOGRAPH rather than off its caption: hanging beside Rohrbach's own
+  banner is a second sign reading DEEP DISCOUNT STORAGE, **127 RAILROAD ST**.
+  This page's Rohrbach card is the Buffalo Road brewpub, 14.5km away, so this is
+  the second Railroad Street photograph rejected here for the same reason.
+- **KartaView**, the other open street-level library and the one that needs no
+  token. It does hold Rochester: 101 frames within 300m of downtown. **The
+  nearest frame to any of the seven is 312m** (Chili Hots), then 415m
+  (Jeremiah's Tavern), and the other five have none inside 600m.
+
+Commons and Openverse were re-run at the same time against fresh geocodes for
+all seven, with `insource:` queries on each street NUMBER as well as each name
+and a geosearch at 120m, 600m, 1,500m and 10km. **Not one geotagged Commons file
+sits within 130m of any of the seven**; the closest is a school 132m from
+Fairport Hots.
+
+**THE FLICKR SWEEPS HAD A HOLE IN THEM AND CLOSING IT IS THE REUSABLE HALF OF
+THIS.** Flickr filters by numeric license code and the first two sweeps passed
+`4,5,7,8,9,10`. **That set omits 11 and 12, which are CC BY 4.0 and CC BY-SA
+4.0**, so every earlier "nothing free exists" was measured through a filter that
+could not see two free licenses. Re-run with `4,5,7,8,9,10,11,12` across all
+seven names, all seven street names and a 1km geographic search around all seven
+addresses: still empty. The negative holds and now holds for the right reason.
+**If you sweep Flickr again, pass 11 and 12.**
+
+**AND THE SHARPER NEGATIVE, which is worth more than "nothing exists".**
+Photographs of these places DO exist and are not free, read off each result's own
+license field: **Henrietta Hots by drpep, 2024, All Rights Reserved**, and about
+nine Rohrbachs by pearwood, every one **CC BY-NC-ND**. Three prolific
+free-license photographers of this region were cleared one at a time (Warren
+LeMay, Random Retail, and Paul Lowry, who is already four of this page's eleven
+pictures), and the complete upload lists of Commons' two most systematic Monroe
+County contributors were dumped and searched: **4,529 files by DanielPenfield
+and 5,000 by Andre Carrotflower, zero hits.** This is no longer an absence of
+searching. **TWO THINGS ARE STILL GENUINELY UNCHECKED and both are named in
+`photosRejected`:** Mapillary, for want of a token, and PICRYL, which answered
+403 from behind Cloudflare all day.
+
+**THIS FILE REJECTED MAPILLARY ON THE LICENSE AND HALF OF THAT REASONING WAS
+WRONG. Corrected 20 August 2026, and the corrected version is in
+`photosRejected` too, because it will be proposed again.** The sentence that had
+to go is "states **no version number anywhere**". That is true of
+mapillary.com/terms and it is FALSE about Mapillary. `mapillary.com/osm`, under
+the heading "Rights for OpenStreetMap", says in as many words "Mapillary images
+are available under an open license (CC BY-SA)" and links
+`creativecommons.org/licenses/by-sa/4.0/`; and **Commons' own
+`Template:Mapillary`, the template a Commons upload of a Mapillary frame is
+built from, hardcodes `{{cc-by-sa-4.0}}` and credits the photographer's
+USERNAME** linked to their Mapillary profile, not a logo. Both read on 20 August
+2026, the template off its own wikitext rather than off its documentation. So
+the default license is CC BY-SA 4.0, it carries a version, and a page states it.
+**That was a report on ONE page written as a statement about the source, which
+is the third time this page has produced that exact shape of error.**
+
+**WHAT SURVIVES THE CORRECTION, checked this time rather than assumed.** Section
+3 does grant CC BY-SA "unless we indicate otherwise" and does name CC BY-NC-SA,
+and Mapillary's own API documentation lists every field an Image carries
+(`creator`, `captured_at`, `geometry`, the `thumb_*` urls and so on) with **no
+`license` field among them**, so the carve-out has nothing per-image to be
+checked against. That is a gap in what the API publishes, not a gap in anybody's
+search. Section 11 then says an image served from your own servers must be
+attributed "by visibly displaying the **Mapillary logo** and linking back to the
+Mapillary homepage or corresponding Mapillary image page", which is a condition
+ON TOP OF naming the photographer rather than instead of it.
+
+**AND THE THING THAT ACTUALLY STOPS IT IS NOT A LICENSE ARGUMENT AT ALL: THERE
+IS NO API TOKEN.** Every `mapillary.com` address answers a generic Meta error
+page from this repo's network, `graph.mapillary.com` answers "Invalid OAuth 2.0
+Access Token" and `tiles.mapillary.com` answers 403, so there is no frame, no
+photographer's username and no image page to be had. **The coverage figures this
+entry used to quote (70 frames past Bill Gray's, 50 past Fairport Hots) could
+NOT be re-measured on 20 August 2026 and must not be quoted as current.** A
+token is free at mapillary.com/developer; put one in `.env` and this becomes a
+real lead again instead of an argument.
 
 Tim photographs things for a living and lives there, so his own pictures are
 still the answer for the seven: add one to `photos` in the data with `where` set
