@@ -123,6 +123,36 @@ const PRODUCT_IDS = {
   "korean pack": "korean-pack",
   "chinese pack": "chinese-pack",
 
+  // FROM TIM'S THIRD PASS, 20 August 2026, and the same failure as the two
+  // blocks above wearing a different set of words. His first Japanese rows say
+  // "Japanese Single Booster Pack": the map held "japanese pack" and the
+  // English "single booster pack" separately and neither matched the two of
+  // them written together, so the row was reported as unrecognised and his
+  // product answer was not stored.
+  //
+  // NOTHING LOOKED WRONG ON THE SITE, which is why this is worth a comment
+  // rather than a one-line fix. The title matcher had already guessed
+  // japanese-pack from the word "Japanese" in the title and guessed RIGHT, so
+  // the page was tagged correctly and the only casualty was the difference
+  // between "Tim confirmed this" and "a rule guessed it". That is the exact
+  // failure the ex-premium block above describes, and it is now the third time
+  // it has happened on this column.
+  //
+  // The Korean and Chinese forms are added at the same time. Neither appears in
+  // the sheet today; both are one Collector Fest away from appearing, and the
+  // cost of a key that is never read is nothing.
+  "japanese single booster pack": "japanese-pack",
+  "korean single booster pack": "korean-pack",
+  "chinese single booster pack": "chinese-pack",
+  "japanese sleeved booster pack": "japanese-pack",
+  // NO "japanese booster box" KEY, DELIBERATELY. shared/taxonomy.mjs has
+  // japanese-pack, korean-pack and chinese-pack and no boxed equivalent, so the
+  // only id available is the language-blind booster-box. Mapping onto it would
+  // silently file a Japanese box as an English one, and inventing a
+  // japanese-box id here would name a tag with no label, no filter entry and no
+  // /openings/ page. When a Japanese box is actually opened, add the id to
+  // taxonomy.mjs first and this key second.
+
   // FROM TIM'S SECOND PASS, 19 August 2026, and the first of these was the
   // SECOND most common product value in the whole sheet at 16 rows. It went
   // unrecognised because the map had "ex premium collection" and "ex box" but
@@ -540,6 +570,21 @@ const idx = {
   // same way Hit Info is: split on commas, match each fragment against the real
   // set list, take the number off the end.
   setsPacks: firstCol("Sets & Packs", "Sets and Packs"),
+  // HOW MANY PACKS OF EACH SET THE VIDEO OPENED. Sits immediately right of
+  // Sets & Packs and holds one number per set named there, in the same order,
+  // commas between them. Blank means one of each.
+  //
+  // Tim, 20 August 2026, asking for it: a column "for how many packs of that
+  // set are in the video. Blank means one." He hit it on his first Japanese
+  // row, tuX1t8p29Ik, which opened Abyss Eye packs #9 and #10 in one video:
+  // two packs of one set, with no Pack # that can hold both.
+  //
+  // IT DOES NOT REPLACE THE NUMBER INSIDE THE Sets & Packs CELL. That form
+  // ("Phantasmal Flames 6, Mega Evolution 4") already worked and is still read,
+  // and where the two disagree the in-cell number wins, because it is written
+  // against the set name it counts and cannot come adrift of it. See applyCount
+  // below for why that matters and what is reported instead of guessed.
+  packsPerSet: firstCol("Packs of Each Set", "Packs Per Set", "How Many Packs"),
   // WHICH ONE OF THESE, AND WHICH PACK OUT OF IT. Both new, both optional, and
   // both go through firstCol for the reason the two comments below give: col()
   // is an exact match, and every column in this file that was ever renamed
@@ -710,6 +755,22 @@ for (const [n, r] of rows.slice(1).entries()) {
   // "Pitch Black" alone plainly means one pack of it; a fragment with a number
   // and no recognisable set is reported rather than guessed at.
   const setPacks = [];
+  // DID A PERSON STATE HOW MANY PACKS THIS VIDEO OPENED, or is the number below
+  // just the length of a list of set names? Those look identical once they are
+  // both integers, and telling them apart is the whole reason this flag exists.
+  //
+  // The distinction is the one this project has got wrong more than any other.
+  // A Sets & Packs cell reading "Ascended Heroes" names ONE set and means one
+  // pack, which is Tim's own rule for a blank count. A cell reading "First
+  // Partner Illustration Collection (Series 1), Phantasmal Flames, Mega
+  // Evolution" names the three packs a First Partner BOX HOLDS, and the video
+  // it sits on, M7NqqhR8V4M, opens Box #6 and states Pack # 3. Summing the
+  // fragments there yields 3 packs for a video that opened one, which is the
+  // PRODUCT_TO_PACKS prefill disaster arriving by a new road.
+  //
+  // So a multi-set cell with no counts is NOT an answer, it is reported and
+  // nothing is published for it. See the packsOpened write further down.
+  let packsStated = false;
   const spRaw = get(r, idx.setsPacks);
   if (spRaw) {
     const NAMES = [...setIdByName.keys()].sort((a, b) => b.length - a.length);
@@ -730,18 +791,93 @@ for (const [n, r] of rows.slice(1).entries()) {
         // else unrecognised is still reported rather than silently counted.
         const num = /(\d{1,3})\s*$/.exec(frag);
         if (/promo|first partner|illustration collection/i.test(frag)) {
-          setPacks.push({ set: null, name: frag.replace(/\s*\d+\s*$/, "").trim(), packs: num ? Number(num[1]) : 1 });
+          setPacks.push({ set: null, name: frag.replace(/\s*\d+\s*$/, "").trim(), packs: num ? Number(num[1]) : 1, typed: !!num });
         } else {
           unknownSet.add(frag);
         }
         continue;
       }
       const num = /(\d{1,3})\s*$/.exec(frag);
-      setPacks.push({ set: setIdByName.get(hit), name: hit, packs: num ? Number(num[1]) : 1 });
+      setPacks.push({ set: setIdByName.get(hit), name: hit, packs: num ? Number(num[1]) : 1, typed: !!num });
     }
     // Held in locals: `m` is declared further down, and these blocks run
     // during the set/override work that happens before it exists.
-    
+
+    // ------------------------------------------------------------------
+    // THE Packs of Each Set COLUMN, applied over the fragments just parsed.
+    // ------------------------------------------------------------------
+    //
+    // One number per set named in Sets & Packs, same order, commas between.
+    // Blank means one of each. It is free text on purpose: no dropdown can
+    // offer "2" against one set and "6, 4, 4" against another.
+    //
+    // FOUR SHAPES ARE ACCEPTED AND EVERY OTHER SHAPE IS REPORTED, NOT GUESSED.
+    // A count that lands on the wrong set is worse than no count, because it is
+    // silently wrong on a page that adds it up, so the only spreading rule here
+    // is position and it must line up exactly.
+    //
+    //   blank                    -> leave the fragments as they are
+    //   one number, one set      -> that set opened that many packs
+    //   N numbers, N sets        -> positional, left to right
+    //   anything else            -> reported, fragments left as they are
+    //
+    // ONE NUMBER AGAINST SEVERAL SETS IS THE SHAPE THAT IS REFUSED, and it is
+    // worth naming because it is the one a person would most expect to work.
+    // "3" beside "Phantasmal Flames, Mega Evolution" could mean three of each,
+    // three between them, or three of the first; there is no reading that is
+    // obviously right, so it is handed back rather than resolved.
+    const perSetRaw = get(r, idx.packsPerSet);
+    if (perSetRaw) {
+      const parts = String(perSetRaw).split(",").map((x) => x.trim()).filter(Boolean);
+      const nums = parts.map((p) => {
+        const mm = p.match(/\d+(?:\.\d+)?/);
+        return mm ? Math.round(Number(mm[0])) : NaN;
+      });
+      const bad = nums.some((n) => !Number.isFinite(n) || n <= 0);
+      if (bad) {
+        // 0 IS NOT AN ANSWER AND NEITHER IS A WORD. Same rule as Product # and
+        // Pack #: this column exists to be added up, so a value that counts as
+        // nothing is worth a line rather than a silent skip.
+        quiet.push(`${id}: Packs of Each Set "${perSetRaw}" is not a list of counts I can use, so it was ignored.`);
+      } else if (nums.length !== setPacks.length && !(nums.length === 1 && setPacks.length === 1)) {
+        quiet.push(
+          `${id}: Packs of Each Set has ${nums.length} number(s) but Sets & Packs names ${setPacks.length} set(s). ` +
+            `Write one count per set in the same order, or leave it blank for one of each.`
+        );
+      } else {
+        for (let k = 0; k < setPacks.length; k++) {
+          // THE NUMBER WRITTEN INSIDE THE CELL WINS A DISAGREEMENT. "Abyss Eye
+          // 2" carries its count against the name it counts and cannot come
+          // adrift of it; a column entry is held in place only by its position,
+          // and a set inserted in the middle of Sets & Packs shifts every count
+          // after it by one without changing a character of this column. So the
+          // attached form is treated as the more reliable of the two and the
+          // disagreement is reported rather than resolved quietly.
+          if (setPacks[k].typed && setPacks[k].packs !== nums[k]) {
+            quiet.push(
+              `${id}: "${setPacks[k].name}" says ${setPacks[k].packs} pack(s) inside Sets & Packs but ` +
+                `${nums[k]} in Packs of Each Set. Kept ${setPacks[k].packs}; delete one of the two.`
+            );
+            continue;
+          }
+          setPacks[k].packs = nums[k];
+          setPacks[k].typed = true;
+        }
+        counted.packsPerSet = (counted.packsPerSet || 0) + 1;
+      }
+    }
+
+    // WHAT COUNTS AS TIM HAVING SAID HOW MANY PACKS. Either every fragment
+    // carries a number he typed, or the cell names exactly one set, which is his
+    // own stated rule that a blank means one. A multi-set cell with no counts
+    // falls through both and is reported below.
+    packsStated = setPacks.length > 0 && (setPacks.every((s) => s.typed) || setPacks.length === 1);
+    if (setPacks.length > 1 && !packsStated) {
+      quiet.push(
+        `${id}: Sets & Packs names ${setPacks.length} sets and no counts, so how many packs this video ` +
+          `opened is not stated and none is published. Fill Packs of Each Set with one number per set.`
+      );
+    }
   }
 
   // `.filter(Boolean)` IS LOAD-BEARING AND THE NULL IT DROPS IS DELIBERATE.
@@ -920,6 +1056,16 @@ for (const [n, r] of rows.slice(1).entries()) {
   if (setPacks.length) {
     m.setPacks = setPacks;
     m.packsOpened = setPacks.reduce((n, s) => n + s.packs, 0);
+    // THE FLAG IS WHAT MAKES packsOpened SAFE TO PUBLISH, and without it that
+    // number must not leave this file. packsOpened has existed here for a while
+    // and nothing downstream ever read it, so its being wrong on a multi-set row
+    // has never cost anything. sync-youtube.mjs reads it now, and the only thing
+    // standing between "3 sets are named" and "3 packs were opened" on
+    // /luck.html is this boolean.
+    if (packsStated) {
+      m.packsStated = true;
+      counted.packsStated = (counted.packsStated || 0) + 1;
+    }
   }
   // KEEP THE RAW CELL, ALWAYS, EVEN WHEN THE PARSE SUCCEEDED. Tim: "keep all my
   // info in there forever as its real data from me watching the videos its
@@ -929,6 +1075,17 @@ for (const [n, r] of rows.slice(1).entries()) {
   // good. This is also what build-sheet.py hands back, so the column round
   // trips instead of emptying itself on the next rebuild.
   if (spRaw) m.setsPacks = String(spRaw).trim();
+  // AND THE RAW COUNT CELL WITH IT, for exactly the reason above and for one
+  // more: build-sheet.py restores this column from here, so a cell that is
+  // imported and not stored is a cell that comes back EMPTY on the next
+  // rebuild. That has already happened once on Sets & Packs, where 39 rows of
+  // his typing were one rebuild away from vanishing, and the fix was this line
+  // in its other half. Stored even when the parse was refused and reported,
+  // because a value this file could not use is still a value he typed.
+  {
+    const ppsRaw = get(r, idx.packsPerSet);
+    if (ppsRaw) m.packsPerSet = String(ppsRaw).trim();
+  }
   // TAKE THE PRODUCT PHRASE APART. "Pitch Black ETB #3" yields the set, the
   // product type and the product number; a bare "ETB" still yields just the
   // type, so an older sheet keeps working.
@@ -1604,6 +1761,7 @@ Read ${rows.length - 1} rows from ${csvPath}
   opening types      ${counted.opening}${counted.retired ? `\n  overrides retired  ${counted.retired}  (the sheet now agrees with the matcher)` : ""}
   box numbers        ${counted.boxNumber || 0}
   pack numbers       ${counted.packNumber || 0}
+  packs opened       ${counted.packsStated || 0} stated${counted.packsPerSet ? `, ${counted.packsPerSet} from the Packs of Each Set column` : ""}
   has-hit answered   ${counted.hit}
   hit cards named    ${counted.card}
   hall of fame       ${counted.greatest}

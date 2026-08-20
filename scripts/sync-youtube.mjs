@@ -278,6 +278,14 @@ const videos = uploads
       ...(log.hitRarity ? { hitRarity: log.hitRarity } : {}),
       ...(log.hasHit != null ? { hasHit: log.hasHit } : {}),
       ...(log.packs ? { packs: log.packs } : {}),
+      // HOW MANY PACKS OF EACH SET, carried through so the pack total below can
+      // use it. packsStated is set by import-sheet.mjs only where the sheet
+      // actually says how many packs were opened; packsOpened without it is the
+      // number of set names in a cell wearing the costume of a pack count, and
+      // the block at the bottom of this file will not publish one.
+      ...(log.packsOpened ? { packsOpened: log.packsOpened } : {}),
+      ...(log.packsStated ? { packsStated: true } : {}),
+      ...(log.setPacks ? { setPacks: log.setPacks } : {}),
       // WHICH ONE OF THESE, AND WHICH PACK OUT OF IT. Both spread like `packs`
       // above, so a video with neither carries neither KEY, not a null and not
       // a zero. Every reader is written as "show it if it is there", and the
@@ -349,22 +357,92 @@ await writeFile(join(ROOT, "data/descriptions.json"), JSON.stringify(description
 //
 // WHEN THE FILLED SHEET ARRIVES this block should be deleted, not edited. Every
 // row will carry a typed Packs figure and the guessing problem goes with it.
+// 20 August 2026: THE SHEET NOW STATES A COUNT ON SOME ROWS, so there is a
+// third case above the two this block was written for, and it goes FIRST.
+//
+// Tim asked for a column beside Sets & Packs saying how many packs of that set
+// the video opened, blank meaning one, because his first Japanese row opened
+// two packs of one set: tuX1t8p29Ik, Abyss Eye packs #9 and #10, one video.
+// The Pack # rule below cannot express that. It publishes 1 for every row with
+// a pack number and nothing at all for a row without one, and tuX1t8p29Ik has
+// no Pack # precisely BECAUSE two numbers do not fit in that cell. So the video
+// that motivated the whole column was the one video the old rule published
+// nothing for.
+//
+// packsStated IS THE GUARD AND IT IS NOT DECORATION. import-sheet.mjs sets it
+// only where a person actually said how many: every set in the cell carries a
+// typed number, or the cell names exactly one set, which is Tim's own rule that
+// a blank means one. It is deliberately NOT set where a cell names several sets
+// and no counts, because summing that cell counts the packs the BOX HOLDS
+// rather than the packs the VIDEO OPENED. M7NqqhR8V4M is the live example: its
+// cell names the three packs inside a First Partner box, the video opens Box #6
+// and states Pack # 3, and an unguarded sum would publish 3. That is the
+// PRODUCT_TO_PACKS prefill failure described above arriving by a different road,
+// which is why the guard is a flag from the importer rather than a test written
+// here on the shape of the data.
+//
+// The Pack # rule is kept UNDERNEATH rather than replaced. It still covers the
+// 100-odd rows where Tim has typed a pack number and not yet touched the new
+// column, and where both speak they agree: a single-set cell with a blank count
+// is one pack, which is what the Pack # rule already published.
+let fromSheet = 0;
 let stated = 0;
 let dropped = 0;
 for (const v of videos) {
+  if (v.packsStated && v.packsOpened > 0) { v.packs = v.packsOpened; fromSheet++; continue; }
   if (v.packNumber) { v.packs = 1; stated++; continue; }
   if (v.packs != null) { delete v.packs; dropped++; }
 }
-console.log(`  packs: ${stated} from a typed Pack #, ${dropped} unconfirmed count(s) withheld until the sheet is filled in`);
+console.log(
+  `  packs: ${fromSheet} counted from Sets & Packs, ${stated} from a typed Pack #, ` +
+    `${dropped} unconfirmed count(s) withheld until the sheet is filled in`
+);
 
 await mkdir(join(ROOT, "public/data"), { recursive: true });
 await writeFile(
   join(ROOT, "public/data/videos.json"),
   JSON.stringify({ channelId: CHANNEL_ID, syncedAt: localDay(), videos }, null, 0) + "\n"
 );
+// CARRY `path` FORWARD ACROSS A SYNC, BECAUSE THE FIRST BUILD AFTER ONE IS
+// OTHERWISE BROKEN AND ONLY THE FIRST.
+//
+// build-playlists.mjs adds a path to every playlist that gets a page, and
+// build-set-pages.mjs reads it to link the "runs of this set" rows. This
+// writer does not know about paths, so it replaced the file with 22 playlists
+// that had none, and build-all runs build-set-pages 42 builders BEFORE
+// build-playlists puts them back. Every run row on every set guide came out as
+// href="/undefined".
+//
+// IT HEALS ITSELF ON THE NEXT BUILD, which is what makes it worth a comment
+// rather than a one-line fix. Once build-playlists has run, the file has paths
+// again and a second build-all is clean, so the failure only exists in builds
+// that follow a sync -- exactly the builds nobody runs twice, and exactly the
+// state a nightly refresh publishes from. check-build.py caught it as a broken
+// link on public/sets/ascended-heroes.html, 20 August 2026.
+//
+// A path is DERIVED from the playlist title by build-playlists.mjs, so it is
+// not this script's to compute: recomputing it here would be a second copy of a
+// slug rule, which is how two builders come to disagree about a URL. Reading
+// the previous value and handing it back keeps one author and closes the hole.
+// A playlist YouTube has just added has no previous value and gets no path,
+// which is correct -- it has no page yet either, and the reader below skips it.
+const prevPlaylistPaths = new Map();
+try {
+  const prev = JSON.parse(await readFile(join(ROOT, "public/data/playlists.json"), "utf8"));
+  for (const p of prev.playlists || []) if (p.id && p.path) prevPlaylistPaths.set(p.id, p.path);
+} catch {}
 await writeFile(
   join(ROOT, "public/data/playlists.json"),
-  JSON.stringify({ syncedAt: localDay(), playlists }, null, 0) + "\n"
+  JSON.stringify(
+    {
+      syncedAt: localDay(),
+      playlists: playlists.map((p) =>
+        prevPlaylistPaths.has(p.id) ? { ...p, path: prevPlaylistPaths.get(p.id) } : p
+      ),
+    },
+    null,
+    0
+  ) + "\n"
 );
 
 const untaggedSet = videos.filter((v) => !v.sets.length).length;

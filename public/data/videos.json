@@ -1,14 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
-  "syncedAt": "2026-08-19",
+  "syncedAt": "2026-08-20",
   "videos": [
+    {
+      "id": "h5mje3jbD48",
+      "title": "The 9th Pack SAVED the Box! 🐋😱",
+      "path": "rip/the-9th-pack-saved-the-box-h5mje3jbD48.html",
+      "published": "2026-08-20",
+      "duration": 24,
+      "views": 480,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "pitch-black"
+      ],
+      "products": [
+        "etb"
+      ],
+      "pulls": [],
+      "label": "Pitch Black ETB"
+    },
     {
       "id": "_RuAmy2dGL8",
       "title": "Is Rampardos ex a \"Real\" Hit? 🦖🤔",
       "path": "rip/is-rampardos-ex-a-real-hit-_RuAmy2dGL8.html",
       "published": "2026-08-19",
       "duration": 20,
-      "views": 671,
+      "views": 963,
       "vertical": true,
       "short": true,
       "sets": [
@@ -19,6 +37,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "packNumber": 9,
       "openingType": "Sleeved Booster Pack",
       "packs": 1,
@@ -30,7 +58,7 @@
       "path": "rip/i-just-pulled-a-1-000-card-iIgTusrqVtg.html",
       "published": "2026-08-18",
       "duration": 28,
-      "views": 1141,
+      "views": 1162,
       "vertical": true,
       "short": true,
       "sets": [
@@ -44,6 +72,16 @@
       ],
       "hitCard": "Mega Greninja ex - Hyper Rare - Gold Card",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 3,
       "packNumber": 3,
       "greatest": true,
@@ -58,7 +96,7 @@
       "path": "rip/is-pack-13-actually-cursed-DP8HG31X1rg.html",
       "published": "2026-08-17",
       "duration": 20,
-      "views": 797,
+      "views": 801,
       "vertical": true,
       "short": true,
       "sets": [
@@ -69,6 +107,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "packNumber": 13,
       "openingType": "Single Booster Pack",
       "packs": 1,
@@ -80,7 +128,7 @@
       "path": "rip/trubbish-food-pitch-black-pack-8-VZtK6rT7ZTI.html",
       "published": "2026-08-16",
       "duration": 21,
-      "views": 921,
+      "views": 919,
       "vertical": true,
       "short": true,
       "sets": [
@@ -91,6 +139,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 8,
       "openingType": "ETB",
@@ -103,7 +161,7 @@
       "path": "rip/8-packs-and-no-hits-E5Wz7X1VMeY.html",
       "published": "2026-08-15",
       "duration": 19,
-      "views": 792,
+      "views": 793,
       "vertical": true,
       "short": true,
       "sets": [
@@ -114,6 +172,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "packNumber": 8,
       "openingType": "Sleeved Booster Pack",
       "packs": 1,
@@ -125,7 +193,7 @@
       "path": "rip/the-chaos-rising-struggle-is-real-T2-UqY2ZSOw.html",
       "published": "2026-08-14",
       "duration": 21,
-      "views": 1011,
+      "views": 1012,
       "vertical": true,
       "short": true,
       "sets": [
@@ -136,6 +204,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 3,
       "packNumber": 2,
       "openingType": "ETB",
@@ -148,7 +226,7 @@
       "path": "rip/the-cutest-pull-ever-chaos-rising-O5WscUY7qZI.html",
       "published": "2026-08-13",
       "duration": 20,
-      "views": 729,
+      "views": 730,
       "vertical": true,
       "short": true,
       "sets": [
@@ -162,6 +240,16 @@
       ],
       "hitCard": "Cinccino ex - Double Black Star - Double Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "packNumber": 12,
       "openingType": "Single Booster Pack",
       "packs": 1,
@@ -173,7 +261,7 @@
       "path": "rip/this-etb-is-breaking-me-IQMn3DNCzik.html",
       "published": "2026-08-12",
       "duration": 20,
-      "views": 668,
+      "views": 669,
       "vertical": true,
       "short": true,
       "sets": [
@@ -184,6 +272,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 7,
       "openingType": "ETB",
@@ -196,7 +294,7 @@
       "path": "rip/pitch-black-is-savage-today-2XdMKde79M8.html",
       "published": "2026-08-11",
       "duration": 18,
-      "views": 15,
+      "views": 16,
       "vertical": true,
       "short": true,
       "sets": [
@@ -207,6 +305,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "packNumber": 7,
       "openingType": "Single Booster Pack",
       "packs": 1,
@@ -218,7 +326,7 @@
       "path": "rip/chaos-rising-etb-3-the-first-pack-reality-RZInASE6x1c.html",
       "published": "2026-08-10",
       "duration": 21,
-      "views": 1117,
+      "views": 1118,
       "vertical": true,
       "short": true,
       "sets": [
@@ -229,6 +337,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 3,
       "packNumber": 1,
       "openingType": "ETB",
@@ -241,7 +359,7 @@
       "path": "rip/the-most-disappointing-hit-pitch-black-oSPbl9reyIM.html",
       "published": "2026-08-09",
       "duration": 22,
-      "views": 686,
+      "views": 687,
       "vertical": true,
       "short": true,
       "sets": [
@@ -255,6 +373,16 @@
       ],
       "hitCard": "Rampardos ex - Double Black Star - Double Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 6,
       "openingType": "ETB",
@@ -267,7 +395,7 @@
       "path": "rip/did-this-bundle-have-any-hits-inTMqcQmFhM.html",
       "published": "2026-08-08",
       "duration": 23,
-      "views": 951,
+      "views": 952,
       "vertical": true,
       "short": true,
       "sets": [
@@ -278,6 +406,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 6,
       "openingType": "Booster Bundle",
@@ -290,7 +428,7 @@
       "path": "rip/pitch-black-is-savage-today-b8CfpcK7-h0.html",
       "published": "2026-08-07",
       "duration": 18,
-      "views": 650,
+      "views": 653,
       "vertical": true,
       "short": true,
       "sets": [
@@ -301,6 +439,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "packNumber": 6,
       "openingType": "Single Booster Pack",
       "packs": 1,
@@ -312,7 +460,7 @@
       "path": "rip/the-box-ends-with-a-garbage-rip-aa9jzXRFtrg.html",
       "published": "2026-08-06",
       "duration": 23,
-      "views": 759,
+      "views": 762,
       "vertical": true,
       "short": true,
       "sets": [
@@ -323,6 +471,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 8,
       "openingType": "ex Premium Collection Box",
@@ -335,7 +493,7 @@
       "path": "rip/where-did-the-hits-go-pitch-black-etb-znsnYB6boh4.html",
       "published": "2026-08-05",
       "duration": 22,
-      "views": 773,
+      "views": 774,
       "vertical": true,
       "short": true,
       "sets": [
@@ -346,6 +504,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 5,
       "openingType": "ETB",
@@ -358,7 +526,7 @@
       "path": "rip/the-pitch-black-curse-is-real-16jOkWyE1Cs.html",
       "published": "2026-08-04",
       "duration": 21,
-      "views": 829,
+      "views": 830,
       "vertical": true,
       "short": true,
       "sets": [
@@ -369,6 +537,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 5,
       "openingType": "Booster Bundle",
@@ -381,7 +559,7 @@
       "path": "rip/gold-star-in-a-single-pack-bastion-ir-LmdyCAqDodM.html",
       "published": "2026-08-03",
       "duration": 21,
-      "views": 656,
+      "views": 657,
       "vertical": true,
       "short": true,
       "sets": [
@@ -395,6 +573,16 @@
       ],
       "hitCard": "Bastiodon - Single Gold Star - Illustration Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "packNumber": 5,
       "openingType": "Single Booster Pack",
       "packs": 1,
@@ -406,7 +594,7 @@
       "path": "rip/mega-skarmory-ex-double-rare-pull-k6p_6HEntYw.html",
       "published": "2026-08-02",
       "duration": 22,
-      "views": 880,
+      "views": 882,
       "vertical": true,
       "short": true,
       "sets": [
@@ -420,6 +608,16 @@
       ],
       "hitCard": "Mega Skarmory ex - Double Silver Star - Ultra Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 7,
       "openingType": "ex Premium Collection Box",
@@ -432,7 +630,7 @@
       "path": "rip/toucannon-illustration-rare-pitch-black-etb-ndzNjhARITQ.html",
       "published": "2026-08-01",
       "duration": 24,
-      "views": 893,
+      "views": 895,
       "vertical": true,
       "short": true,
       "sets": [
@@ -446,6 +644,16 @@
       ],
       "hitCard": "Toucannon - Single Gold Star - Illustration Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 4,
       "openingType": "ETB",
@@ -458,7 +666,7 @@
       "path": "rip/is-the-pitch-black-bundle-a-dud-now-fY-u0pxphVo.html",
       "published": "2026-07-31",
       "duration": 22,
-      "views": 767,
+      "views": 768,
       "vertical": true,
       "short": true,
       "sets": [
@@ -469,6 +677,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 4,
       "openingType": "Booster Bundle",
@@ -481,7 +699,7 @@
       "path": "rip/where-is-the-mega-darkrai-sir-76ziDoR2YJg.html",
       "published": "2026-07-30",
       "duration": 18,
-      "views": 842,
+      "views": 843,
       "vertical": true,
       "short": true,
       "sets": [
@@ -492,6 +710,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "packNumber": 4,
       "openingType": "Single Booster Pack",
       "packs": 1,
@@ -503,7 +731,7 @@
       "path": "rip/did-we-get-the-zard-final-pack-3pUiN-8XkEk.html",
       "published": "2026-07-29",
       "duration": 29,
-      "views": 995,
+      "views": 996,
       "vertical": true,
       "short": true,
       "sets": [
@@ -517,6 +745,16 @@
       ],
       "hitCard": "Trainer - Dawn - Double Silver Star - Ultra Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "phantasmal-flames",
+          "name": "phantasmal flames",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 2,
       "packNumber": 8,
       "openingType": "ex Premium Collection Box",
@@ -529,7 +767,7 @@
       "path": "rip/the-streak-is-broken-mega-floette-ex-019sIQP5PwA.html",
       "published": "2026-07-28",
       "duration": 25,
-      "views": 996,
+      "views": 997,
       "vertical": true,
       "short": true,
       "sets": [
@@ -543,6 +781,16 @@
       ],
       "hitCard": "Mega Floette ex - Double Black Star - Double Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 6,
       "openingType": "ex Premium Collection Box",
@@ -555,7 +803,7 @@
       "path": "rip/chaos-rising-lived-up-to-its-name-3dAQ-PS0fpU.html",
       "published": "2026-07-27",
       "duration": 20,
-      "views": 857,
+      "views": 858,
       "vertical": true,
       "short": true,
       "sets": [
@@ -566,6 +814,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "packNumber": 2,
       "openingType": "Mini Tin",
       "packs": 1,
@@ -577,7 +835,7 @@
       "path": "rip/the-curse-is-broken-pitch-black-hit-JfHlnrlX6S0.html",
       "published": "2026-07-26",
       "duration": 22,
-      "views": 31,
+      "views": 32,
       "vertical": true,
       "short": true,
       "sets": [
@@ -591,6 +849,16 @@
       ],
       "hitCard": "Rampardos ex - Double Silver Star - Ultra Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 3,
       "openingType": "Booster Bundle",
@@ -603,7 +871,7 @@
       "path": "rip/0-hits-left-in-the-etb-vTy3MKGN73k.html",
       "published": "2026-07-25",
       "duration": 19,
-      "views": 896,
+      "views": 897,
       "vertical": true,
       "short": true,
       "sets": [
@@ -614,6 +882,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 3,
       "openingType": "ETB",
@@ -626,7 +904,7 @@
       "path": "rip/only-garbage-rips-pitch-black-pack-3-1_ivvCs7Gp4.html",
       "published": "2026-07-24",
       "duration": 19,
-      "views": 641,
+      "views": 642,
       "vertical": true,
       "short": true,
       "sets": [
@@ -637,6 +915,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "packNumber": 3,
       "openingType": "Single Booster Pack",
       "packs": 1,
@@ -648,7 +936,7 @@
       "path": "rip/i-found-an-sir-but-not-the-zard-R2VxbNMrlXQ.html",
       "published": "2026-07-23",
       "duration": 27,
-      "views": 1126,
+      "views": 1127,
       "vertical": true,
       "short": true,
       "sets": [
@@ -662,6 +950,16 @@
       ],
       "hitCard": "Trainer - Dawn - Double Gold Star - Special Illustration Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "phantasmal-flames",
+          "name": "phantasmal flames",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 2,
       "packNumber": 7,
       "openingType": "ex Premium Collection Box",
@@ -674,7 +972,7 @@
       "path": "rip/this-mini-tin-is-glowing-mega-starmie-ex-m41IeIUpqRI.html",
       "published": "2026-07-22",
       "duration": 20,
-      "views": 692,
+      "views": 693,
       "vertical": true,
       "short": true,
       "sets": [
@@ -688,6 +986,16 @@
       ],
       "hitCard": "Mega Starmie ex - Double Black Star - Double Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "packNumber": 1,
       "openingType": "Mini Tin",
       "packs": 1,
@@ -699,7 +1007,7 @@
       "path": "rip/where-did-the-hits-go-mega-greninja-box-LGGJhVyJwDc.html",
       "published": "2026-07-22",
       "duration": 20,
-      "views": 591,
+      "views": 592,
       "vertical": true,
       "short": true,
       "sets": [
@@ -710,6 +1018,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 5,
       "openingType": "ex Premium Collection Box",
@@ -722,7 +1040,7 @@
       "path": "rip/only-garbage-rips-pitch-black-pack-2-SQ-_tTDutFA.html",
       "published": "2026-07-21",
       "duration": 19,
-      "views": 653,
+      "views": 654,
       "vertical": true,
       "short": true,
       "sets": [
@@ -733,6 +1051,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "packNumber": 2,
       "openingType": "Sleeved Booster Pack",
       "packs": 1,
@@ -744,7 +1072,7 @@
       "path": "rip/from-first-pack-magic-to-this-405aRLjbdmM.html",
       "published": "2026-07-21",
       "duration": 21,
-      "views": 645,
+      "views": 646,
       "vertical": true,
       "short": true,
       "sets": [
@@ -755,6 +1083,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 2,
       "openingType": "ETB",
@@ -767,7 +1105,7 @@
       "path": "rip/the-magic-is-officially-dead-pitch-black-yrfwnJKXRgo.html",
       "published": "2026-07-21",
       "duration": 20,
-      "views": 721,
+      "views": 722,
       "vertical": true,
       "short": true,
       "sets": [
@@ -778,6 +1116,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 2,
       "openingType": "Booster Bundle",
@@ -790,7 +1138,7 @@
       "path": "rip/perfect-order-luck-ran-out-92-pjMEGpDI.html",
       "published": "2026-07-20",
       "duration": 22,
-      "views": 819,
+      "views": 820,
       "vertical": true,
       "short": true,
       "sets": [
@@ -801,6 +1149,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 2,
       "packNumber": 6,
       "openingType": "ex Premium Collection Box",
@@ -813,7 +1171,7 @@
       "path": "rip/the-tin-luck-finally-ran-out-2S4poqmGKWE.html",
       "published": "2026-07-19",
       "duration": 20,
-      "views": 688,
+      "views": 689,
       "vertical": true,
       "short": true,
       "sets": [
@@ -824,6 +1182,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "twilight-masquerade",
+          "name": "twilight masquerade",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "packNumber": 3,
       "openingType": "Poke Ball Tin",
       "packs": 1,
@@ -835,7 +1203,7 @@
       "path": "rip/the-mega-greninja-streak-is-dead-XxYqEIFgWvg.html",
       "published": "2026-07-19",
       "duration": 21,
-      "views": 682,
+      "views": 683,
       "vertical": true,
       "short": true,
       "sets": [
@@ -846,6 +1214,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 4,
       "openingType": "ex Premium Collection Box",
@@ -858,7 +1236,7 @@
       "path": "rip/i-found-first-pack-magic-pitch-black-etb-q1WTwiauv3w.html",
       "published": "2026-07-18",
       "duration": 23,
-      "views": 861,
+      "views": 862,
       "vertical": true,
       "short": true,
       "sets": [
@@ -872,6 +1250,16 @@
       ],
       "hitCard": "Mega Chandelure ex - Double Black Star - Double Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 1,
       "openingType": "ETB",
@@ -884,7 +1272,7 @@
       "path": "rip/i-cant-stop-hitting-pitch-black-booster-bundle-EtFK6nFW6IQ.html",
       "published": "2026-07-18",
       "duration": 22,
-      "views": 831,
+      "views": 832,
       "vertical": true,
       "short": true,
       "sets": [
@@ -898,6 +1286,16 @@
       ],
       "hitCard": "Mega Excadrill ex - Double Black Star - Double Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 1,
       "openingType": "Booster Bundle",
@@ -910,7 +1308,7 @@
       "path": "rip/a-hit-is-a-hit-mega-zygarde-box-2-pack-5-z9fpigSEZ3Y.html",
       "published": "2026-07-17",
       "duration": 19,
-      "views": 765,
+      "views": 766,
       "vertical": true,
       "short": true,
       "sets": [
@@ -924,6 +1322,16 @@
       ],
       "hitCard": "Salazzle ex - Double Black Star - Double Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 2,
       "packNumber": 5,
       "openingType": "ex Premium Collection Box",
@@ -936,7 +1344,7 @@
       "path": "rip/thievul-ir-pitch-black-first-pack-magic-GTC45Mri_gc.html",
       "published": "2026-07-17",
       "duration": 23,
-      "views": 626,
+      "views": 627,
       "vertical": true,
       "short": true,
       "sets": [
@@ -950,6 +1358,16 @@
       ],
       "hitCard": "Thievul - Single Gold Star - Illustration Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "packNumber": 1,
       "openingType": "Single Booster Pack",
       "packs": 1,
@@ -961,7 +1379,7 @@
       "path": "rip/surging-sparks-or-garbage-rip-RtJn1UOi2S8.html",
       "published": "2026-07-16",
       "duration": 21,
-      "views": 773,
+      "views": 774,
       "vertical": true,
       "short": true,
       "sets": [
@@ -972,6 +1390,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "surging-sparks",
+          "name": "surging sparks",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "packNumber": 2,
       "openingType": "Poke Ball Tin",
       "packs": 1,
@@ -983,7 +1411,7 @@
       "path": "rip/the-streak-is-over-mega-greninja-box-pack-3-rUOMBBOjrXI.html",
       "published": "2026-07-16",
       "duration": 21,
-      "views": 987,
+      "views": 988,
       "vertical": true,
       "short": true,
       "sets": [
@@ -994,6 +1422,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 3,
       "openingType": "ex Premium Collection Box",
@@ -1006,7 +1444,7 @@
       "path": "rip/back-to-back-hits-mega-greninja-box-pack-2-pRkDVGXWufQ.html",
       "published": "2026-07-15",
       "duration": 22,
-      "views": 922,
+      "views": 923,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1020,6 +1458,16 @@
       ],
       "hitCard": "Chespin - Single Gold Star - Illustration Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 2,
       "openingType": "ex Premium Collection Box",
@@ -1032,7 +1480,7 @@
       "path": "rip/another-hit-mega-zygarde-box-2-pack-4-X0KK70SjzEM.html",
       "published": "2026-07-15",
       "duration": 22,
-      "views": 773,
+      "views": 774,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1046,6 +1494,16 @@
       ],
       "hitCard": "Trainer - Sacred Ash - Double Silver Star - Ultra Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 2,
       "packNumber": 4,
       "openingType": "ex Premium Collection Box",
@@ -1058,7 +1516,7 @@
       "path": "rip/only-garbage-rips-mega-zygarde-pack-3-STMGjXcUAm4.html",
       "published": "2026-07-14",
       "duration": 20,
-      "views": 807,
+      "views": 809,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1069,6 +1527,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 2,
       "packNumber": 3,
       "openingType": "ex Premium Collection Box",
@@ -1081,7 +1549,7 @@
       "path": "rip/first-pack-magic-lumiose-city-ultra-rare-O1hNutypTR8.html",
       "published": "2026-07-14",
       "duration": 23,
-      "views": 781,
+      "views": 782,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1095,6 +1563,16 @@
       ],
       "hitCard": "Trainer - Lumiose City - Double Silver Star - Ultra Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "packNumber": 1,
       "openingType": "Poke Ball Tin",
       "packs": 1,
@@ -1106,7 +1584,7 @@
       "path": "rip/only-garbage-rips-mega-emboar-box-2-finale-xqV7AYXoVJs.html",
       "published": "2026-07-13",
       "duration": 20,
-      "views": 628,
+      "views": 629,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1117,6 +1595,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 2,
       "packNumber": 4,
       "openingType": "ex Box",
@@ -1129,7 +1617,7 @@
       "path": "rip/first-pack-magic-ampharos-illustration-rare-RP08BTumj2U.html",
       "published": "2026-07-13",
       "duration": 24,
-      "views": 859,
+      "views": 860,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1143,6 +1631,16 @@
       ],
       "hitCard": "Ampharos - Single Gold Star - Illustration Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 1,
       "packNumber": 1,
       "openingType": "ex Premium Collection Box",
@@ -1155,7 +1653,7 @@
       "path": "rip/finally-an-ex-hit-mega-emboar-box-2-nBKJMnw9L2Y.html",
       "published": "2026-07-12",
       "duration": 22,
-      "views": 706,
+      "views": 707,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1169,6 +1667,16 @@
       ],
       "hitCard": "Mega Scrafty ex - Double Black Star - Double Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 2,
       "packNumber": 3,
       "openingType": "ex Box",
@@ -1181,7 +1689,7 @@
       "path": "rip/ultra-rare-trainer-pull-mega-zygarde-box-2-pack-2-9CpAz0MxnTE.html",
       "published": "2026-07-12",
       "duration": 21,
-      "views": 714,
+      "views": 715,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1195,6 +1703,16 @@
       ],
       "hitCard": "Trainer - Energy Recycler - Double Silver Star - Ultra Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 2,
       "packNumber": 2,
       "openingType": "ex Premium Collection Box",
@@ -1207,7 +1725,7 @@
       "path": "rip/last-pack-magic-team-rocket-ultra-rare-pull-gFZ_jiV7DEY.html",
       "published": "2026-07-11",
       "duration": 25,
-      "views": 1646,
+      "views": 1647,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1221,6 +1739,16 @@
       ],
       "hitCard": "Trainer - Team Rocket's Transceiver - Double Silver Star - Ultra Rare",
       "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 2,
       "packNumber": 4,
       "openingType": "ex Box",
@@ -1233,7 +1761,7 @@
       "path": "rip/only-garbage-rips-mega-zygarde-box-2-pack-1-DTBxGFtTOc8.html",
       "published": "2026-07-11",
       "duration": 20,
-      "views": 843,
+      "views": 844,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1244,6 +1772,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 2,
       "packNumber": 1,
       "openingType": "ex Premium Collection Box",
@@ -1256,7 +1794,7 @@
       "path": "rip/pokemon-ascended-heroes-the-dry-spell-continues-uTGe-WswoVY.html",
       "published": "2026-07-10",
       "duration": 20,
-      "views": 723,
+      "views": 724,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1267,6 +1805,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 2,
       "packNumber": 2,
       "openingType": "ex Box",
@@ -1279,7 +1827,7 @@
       "path": "rip/the-final-verdict-was-this-etb-a-dud-xGmQaLcx-c8.html",
       "published": "2026-07-10",
       "duration": 23,
-      "views": 783,
+      "views": 785,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1290,6 +1838,16 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
       "boxNumber": 2,
       "packNumber": 9,
       "openingType": "ETB",
@@ -1302,7 +1860,7 @@
       "path": "rip/only-garbage-rips-chaos-rising-etb-2-pack-8-iV0h672wrGA.html",
       "published": "2026-07-09",
       "duration": 22,
-      "views": 754,
+      "views": 755,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1312,7 +1870,22 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Chaos Rising ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 2,
+      "packNumber": 8,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB 2 - Pack 8"
     },
     {
       "id": "u9zpVOVsWyg",
@@ -1320,7 +1893,7 @@
       "path": "rip/scorbunny-illustration-rare-mega-meganium-box-2-u9zpVOVsWyg.html",
       "published": "2026-07-09",
       "duration": 24,
-      "views": 536,
+      "views": 537,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1329,9 +1902,26 @@
       "products": [
         "ex-premium"
       ],
-      "pulls": [],
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Scorbunny - Single Gold Star - Illustration Rare",
       "hasHit": true,
-      "label": "Ascended Heroes ex Premium Collection"
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 2,
+      "packNumber": 3,
+      "openingType": "ex Box",
+      "packs": 1,
+      "label": "Ascended Heroes ex Premium Collection 2 - Pack 3"
     },
     {
       "id": "MCe_0kpYnwE",
@@ -1339,7 +1929,7 @@
       "path": "rip/pack-7-is-this-etb-a-dud-MCe_0kpYnwE.html",
       "published": "2026-07-08",
       "duration": 20,
-      "views": 775,
+      "views": 776,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1349,7 +1939,22 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Chaos Rising ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 2,
+      "packNumber": 7,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB 2 - Pack 7"
     },
     {
       "id": "WhfY82RrS4w",
@@ -1357,7 +1962,7 @@
       "path": "rip/pokemon-ascended-heroes-mega-emboar-pack-1-reality-check-WhfY82RrS4w.html",
       "published": "2026-07-08",
       "duration": 21,
-      "views": 1023,
+      "views": 1024,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1367,7 +1972,22 @@
         "ex-premium"
       ],
       "pulls": [],
-      "label": "Ascended Heroes ex Premium Collection"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 2,
+      "packNumber": 1,
+      "openingType": "ex Box",
+      "packs": 1,
+      "label": "Ascended Heroes ex Premium Collection 2 - Pack 1"
     },
     {
       "id": "x3gI4dEKNMs",
@@ -1375,7 +1995,7 @@
       "path": "rip/only-garbage-rips-chaos-rising-etb-2-pack-6-x3gI4dEKNMs.html",
       "published": "2026-07-07",
       "duration": 21,
-      "views": 735,
+      "views": 736,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1384,8 +2004,26 @@
       "products": [
         "etb"
       ],
-      "pulls": [],
-      "label": "Chaos Rising ETB"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Beedrill ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 2,
+      "packNumber": 6,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB 2 - Pack 6"
     },
     {
       "id": "Nqu1vGtbAME",
@@ -1393,7 +2031,7 @@
       "path": "rip/mega-meganium-ex-box-2-pack-2-we-got-one-Nqu1vGtbAME.html",
       "published": "2026-07-07",
       "duration": 23,
-      "views": 611,
+      "views": 612,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1402,8 +2040,26 @@
       "products": [
         "ex-premium"
       ],
-      "pulls": [],
-      "label": "Ascended Heroes ex Premium Collection"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Mega Scrafty ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 2,
+      "packNumber": 2,
+      "openingType": "ex Box",
+      "packs": 1,
+      "label": "Ascended Heroes ex Premium Collection 2 - Pack 2"
     },
     {
       "id": "LvWz0hfaQVE",
@@ -1411,7 +2067,7 @@
       "path": "rip/the-hit-streak-is-over-chaos-rising-etb-2-LvWz0hfaQVE.html",
       "published": "2026-07-06",
       "duration": 22,
-      "views": 760,
+      "views": 761,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1421,7 +2077,22 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Chaos Rising ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 2,
+      "packNumber": 5,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB 2 - Pack 5"
     },
     {
       "id": "blSCuSk5nb0",
@@ -1429,7 +2100,7 @@
       "path": "rip/mega-meganium-box-2-where-are-the-hits-blSCuSk5nb0.html",
       "published": "2026-07-06",
       "duration": 20,
-      "views": 495,
+      "views": 496,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1439,7 +2110,22 @@
         "ex-premium"
       ],
       "pulls": [],
-      "label": "Ascended Heroes ex Premium Collection"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 2,
+      "packNumber": 1,
+      "openingType": "ex Box",
+      "packs": 1,
+      "label": "Ascended Heroes ex Premium Collection 2 - Pack 1"
     },
     {
       "id": "rlJDEb0q1d0",
@@ -1447,7 +2133,7 @@
       "path": "rip/i-pulled-this-card-again-chaos-rising-etb-2-rlJDEb0q1d0.html",
       "published": "2026-07-05",
       "duration": 23,
-      "views": 1109,
+      "views": 1110,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1456,9 +2142,26 @@
       "products": [
         "etb"
       ],
-      "pulls": [],
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Chespin - Single Gold Star - Illustration Rare",
       "hasHit": true,
-      "label": "Chaos Rising ETB"
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 2,
+      "packNumber": 4,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB 2 - Pack 4"
     },
     {
       "id": "UpdeUMc-6ys",
@@ -1466,7 +2169,7 @@
       "path": "rip/the-poke-ball-tin-luck-finally-ran-out-UpdeUMc-6ys.html",
       "published": "2026-07-05",
       "duration": 23,
-      "views": 812,
+      "views": 814,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1476,7 +2179,21 @@
         "poke-ball-tin"
       ],
       "pulls": [],
-      "label": "Twilight Masquerade Poke Ball Tin"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "twilight-masquerade",
+          "name": "twilight masquerade",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 3,
+      "openingType": "Poke Ball Tin",
+      "packs": 1,
+      "label": "Twilight Masquerade Poke Ball Tin - Pack 3"
     },
     {
       "id": "M7NqqhR8V4M",
@@ -1484,7 +2201,7 @@
       "path": "rip/6-boxes-and-still-no-og-starters-M7NqqhR8V4M.html",
       "published": "2026-07-04",
       "duration": 44,
-      "views": 19,
+      "views": 20,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1495,7 +2212,34 @@
         "collection-box"
       ],
       "pulls": [],
-      "label": "Phantasmal Flames Collection Box"
+      "hitCard": "First Partner Illustration Collection (Series 1) Alola Region Promo : Rowlet, Litten, Popplio",
+      "hasHit": true,
+      "packsOpened": 3,
+      "setPacks": [
+        {
+          "set": null,
+          "name": "First Partner Illustration Collection (Series 1)",
+          "packs": 1,
+          "typed": false
+        },
+        {
+          "set": "phantasmal-flames",
+          "name": "phantasmal flames",
+          "packs": 1,
+          "typed": false
+        },
+        {
+          "set": "mega-evolution",
+          "name": "mega evolution",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 6,
+      "packNumber": 3,
+      "openingType": "First Partner Illustration Collection (Series 1)",
+      "packs": 1,
+      "label": "Phantasmal Flames Collection Box 6 - Pack 3"
     },
     {
       "id": "lrl5v4z317s",
@@ -1512,8 +2256,25 @@
       "products": [
         "poke-ball-tin"
       ],
-      "pulls": [],
-      "label": "Surging Sparks Poke Ball Tin"
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Shiinotic - Single Gold Star - Illustration Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "surging-sparks",
+          "name": "surging sparks",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 2,
+      "openingType": "Poke Ball Tin",
+      "packs": 1,
+      "label": "Surging Sparks Poke Ball Tin - Pack 2"
     },
     {
       "id": "EJ0AKqX2a_Q",
@@ -1530,8 +2291,25 @@
       "products": [
         "poke-ball-tin"
       ],
-      "pulls": [],
-      "label": "Perfect Order Poke Ball Tin"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Salazzle ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 1,
+      "openingType": "Poke Ball Tin",
+      "packs": 1,
+      "label": "Perfect Order Poke Ball Tin - Pack 1"
     },
     {
       "id": "msETNgFSWD0",
@@ -1548,8 +2326,26 @@
       "products": [
         "etb"
       ],
-      "pulls": [],
-      "label": "Chaos Rising ETB"
+      "pulls": [
+        "ultra"
+      ],
+      "hitCard": "Mega Floette ex - Double Silver Star - Ultra Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 2,
+      "packNumber": 3,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB 2 - Pack 3"
     },
     {
       "id": "Wwc1wVyI6CQ",
@@ -1567,7 +2363,22 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Chaos Rising ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 2,
+      "packNumber": 3,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB 2 - Pack 3"
     },
     {
       "id": "xNGxOuMpSiw",
@@ -1578,11 +2389,44 @@
       "views": 848,
       "vertical": true,
       "short": true,
-      "sets": [],
+      "sets": [
+        "phantasmal-flames",
+        "mega-evolution"
+      ],
       "products": [
         "collection-box"
       ],
-      "pulls": []
+      "pulls": [
+        "ultra"
+      ],
+      "hitCard": "First Partner Illustration Collection (Series 1) Alola Region Promo : Rowlet, Litten, Popplio  - Phantasmal Flames - Trainer - Punk Helmet - Double Silver Star - Ultra Rare",
+      "hasHit": true,
+      "packsOpened": 3,
+      "setPacks": [
+        {
+          "set": null,
+          "name": "First Partner Illustration Collection (Series 1)",
+          "packs": 1,
+          "typed": false
+        },
+        {
+          "set": "phantasmal-flames",
+          "name": "phantasmal flames",
+          "packs": 1,
+          "typed": false
+        },
+        {
+          "set": "mega-evolution",
+          "name": "mega evolution",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 5,
+      "packNumber": 1,
+      "openingType": "First Partner Illustration Collection (Series 1)",
+      "packs": 1,
+      "label": "Phantasmal Flames Collection Box 5 - Pack 1"
     },
     {
       "id": "CbwSuTI8QKU",
@@ -1600,7 +2444,22 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Chaos Rising ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 2,
+      "packNumber": 1,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB 2 - Pack 1"
     },
     {
       "id": "Ec_2Is8DmI8",
@@ -1618,7 +2477,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Chaos Rising Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 11,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Chaos Rising Pack - Pack 11"
     },
     {
       "id": "gLlqJvSuAek",
@@ -1636,7 +2509,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Perfect Order Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 10,
+      "openingType": "Sleeved Booster Pack",
+      "packs": 1,
+      "label": "Perfect Order Pack - Pack 10"
     },
     {
       "id": "I14rr28Qduw",
@@ -1654,7 +2541,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Chaos Rising Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 10,
+      "openingType": "Sleeved Booster Pack",
+      "packs": 1,
+      "label": "Chaos Rising Pack - Pack 10"
     },
     {
       "id": "NdXTKzUodpQ",
@@ -1672,7 +2573,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Perfect Order Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 9,
+      "openingType": "Sleeved Booster Pack",
+      "packs": 1,
+      "label": "Perfect Order Pack - Pack 9"
     },
     {
       "id": "EifpW6bQhPE",
@@ -1689,8 +2604,25 @@
       "products": [
         "single-pack"
       ],
-      "pulls": [],
-      "label": "Chaos Rising Pack"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Mega Dragalge ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 9,
+      "openingType": "Sleeved Booster Pack",
+      "packs": 1,
+      "label": "Chaos Rising Pack - Pack 9"
     },
     {
       "id": "6bMl7VF_ov0",
@@ -1707,8 +2639,25 @@
       "products": [
         "single-pack"
       ],
-      "pulls": [],
-      "label": "Perfect Order Pack"
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Dedenne - Single Gold Star - Illustration Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 8,
+      "openingType": "Sleeved Booster Pack",
+      "packs": 1,
+      "label": "Perfect Order Pack - Pack 8"
     },
     {
       "id": "HHjdWa5tfXY",
@@ -1725,8 +2674,25 @@
       "products": [
         "single-pack"
       ],
-      "pulls": [],
-      "label": "Chaos Rising Pack"
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Xerneas - Single Gold Star - Illustration Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 8,
+      "openingType": "Sleeved Booster Pack",
+      "packs": 1,
+      "label": "Chaos Rising Pack - Pack 8"
     },
     {
       "id": "JRMvkxmqFhQ",
@@ -1744,7 +2710,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Perfect Order Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 7,
+      "openingType": "Sleeved Booster Pack",
+      "packs": 1,
+      "label": "Perfect Order Pack - Pack 7"
     },
     {
       "id": "a4iR-qPthjY",
@@ -1762,7 +2742,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Chaos Rising Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 7,
+      "openingType": "Sleeved Booster Pack",
+      "packs": 1,
+      "label": "Chaos Rising Pack - Pack 7"
     },
     {
       "id": "cz75wI3fz7k",
@@ -1780,7 +2774,22 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Chaos Rising ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 1,
+      "packNumber": 9,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB 1 - Pack 9"
     },
     {
       "id": "czBVJAWDB8U",
@@ -1798,8 +2807,22 @@
         "ex-premium"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Ascended Heroes ex Premium Collection"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 1,
+      "packNumber": 4,
+      "openingType": "ex Box",
+      "packs": 1,
+      "label": "Ascended Heroes ex Premium Collection 1 - Pack 4"
     },
     {
       "id": "w3dQBhumsug",
@@ -1816,9 +2839,26 @@
       "products": [
         "ex-premium"
       ],
-      "pulls": [],
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Larry's Dudunsparce ex - Double Black Star - Double Rare",
       "hasHit": true,
-      "label": "Ascended Heroes ex Premium Collection"
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 1,
+      "packNumber": 3,
+      "openingType": "ex Box",
+      "packs": 1,
+      "label": "Ascended Heroes ex Premium Collection 1 - Pack 3"
     },
     {
       "id": "7nGg08wavGM",
@@ -1836,8 +2876,22 @@
         "ex-premium"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Ascended Heroes ex Premium Collection"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 1,
+      "packNumber": 4,
+      "openingType": "ex Box",
+      "packs": 1,
+      "label": "Ascended Heroes ex Premium Collection 1 - Pack 4"
     },
     {
       "id": "na2bRZxxTHU",
@@ -1855,8 +2909,22 @@
         "ex-premium"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Ascended Heroes ex Premium Collection"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 1,
+      "packNumber": 3,
+      "openingType": "ex Box",
+      "packs": 1,
+      "label": "Ascended Heroes ex Premium Collection 1 - Pack 3"
     },
     {
       "id": "Mhz1-_ppwJA",
@@ -1873,8 +2941,26 @@
       "products": [
         "etb"
       ],
-      "pulls": [],
-      "label": "Chaos Rising ETB"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Krookodile ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 1,
+      "packNumber": 8,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB 1 - Pack 8"
     },
     {
       "id": "dqC9lAiWeaE",
@@ -1892,7 +2978,22 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Chaos Rising ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 1,
+      "packNumber": 7,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB 1 - Pack 7"
     },
     {
       "id": "n4iGQVPBtfE",
@@ -1909,9 +3010,26 @@
       "products": [
         "ex-premium"
       ],
-      "pulls": [],
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Larry's Dudunsparce ex - Double Black Star - Double Rare",
       "hasHit": true,
-      "label": "Ascended Heroes ex Premium Collection"
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 1,
+      "packNumber": 2,
+      "openingType": "ex Box",
+      "packs": 1,
+      "label": "Ascended Heroes ex Premium Collection 1 - Pack 2"
     },
     {
       "id": "r4WG2IWWyKc",
@@ -1929,8 +3047,22 @@
         "ex-premium"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Ascended Heroes ex Premium Collection"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 1,
+      "packNumber": 1,
+      "openingType": "ex Box",
+      "packs": 1,
+      "label": "Ascended Heroes ex Premium Collection 1 - Pack 1"
     },
     {
       "id": "zhE5GzB2Dns",
@@ -1948,8 +3080,22 @@
         "ex-premium"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Ascended Heroes ex Premium Collection"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 1,
+      "packNumber": 2,
+      "openingType": "ex Box",
+      "packs": 1,
+      "label": "Ascended Heroes ex Premium Collection 1 - Pack 2"
     },
     {
       "id": "qKiLbaLhdp8",
@@ -1966,9 +3112,26 @@
       "products": [
         "ex-premium"
       ],
-      "pulls": [],
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Slurpuff - Single Gold Star - Illustration Rare",
       "hasHit": true,
-      "label": "Ascended Heroes ex Premium Collection"
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 1,
+      "packNumber": 1,
+      "openingType": "ex Box",
+      "packs": 1,
+      "label": "Ascended Heroes ex Premium Collection 1 - Pack 1"
     },
     {
       "id": "QKYrh9l8BYA",
@@ -1985,8 +3148,26 @@
       "products": [
         "etb"
       ],
-      "pulls": [],
-      "label": "Chaos Rising ETB"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Mega Greninja ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 1,
+      "packNumber": 6,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB 1 - Pack 6"
     },
     {
       "id": "_Bu9zCfLI4c",
@@ -2004,7 +3185,22 @@
         "ex-premium"
       ],
       "pulls": [],
-      "label": "Ascended Heroes ex Premium Collection"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 2,
+      "packNumber": 4,
+      "openingType": "ex Box",
+      "packs": 1,
+      "label": "Ascended Heroes ex Premium Collection 2 - Pack 4"
     },
     {
       "id": "vqp2qrq1hls",
@@ -2022,7 +3218,22 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Chaos Rising ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 1,
+      "packNumber": 5,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB 1 - Pack 5"
     },
     {
       "id": "hOBpKIl2lX4",
@@ -2039,8 +3250,26 @@
       "products": [
         "ex-premium"
       ],
-      "pulls": [],
-      "label": "Ascended Heroes ex Premium Collection"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Mega Hawlucha ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 2,
+      "packNumber": 3,
+      "openingType": "ex Box",
+      "packs": 1,
+      "label": "Ascended Heroes ex Premium Collection 2 - Pack 3"
     },
     {
       "id": "4gBo585VhEI",
@@ -2057,8 +3286,26 @@
       "products": [
         "etb"
       ],
-      "pulls": [],
-      "label": "Chaos Rising ETB"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Cobalion ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 1,
+      "packNumber": 4,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB 1 - Pack 4"
     },
     {
       "id": "9DPytuABTf8",
@@ -2066,7 +3313,7 @@
       "path": "rip/only-garbage-rips-mega-meganium-ex-pack-2-9DPytuABTf8.html",
       "published": "2026-06-18",
       "duration": 19,
-      "views": 945,
+      "views": 946,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2076,7 +3323,22 @@
         "ex-premium"
       ],
       "pulls": [],
-      "label": "Ascended Heroes ex Premium Collection"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 2,
+      "packNumber": 2,
+      "openingType": "ex Box",
+      "packs": 1,
+      "label": "Ascended Heroes ex Premium Collection 2 - Pack 2"
     },
     {
       "id": "goGNPoBWQ-g",
@@ -2094,7 +3356,22 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Chaos Rising ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 1,
+      "packNumber": 3,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB 1 - Pack 3"
     },
     {
       "id": "Fgj5afnnXVk",
@@ -2112,7 +3389,22 @@
         "ex-premium"
       ],
       "pulls": [],
-      "label": "Ascended Heroes ex Premium Collection"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 2,
+      "packNumber": 1,
+      "openingType": "ex Box",
+      "packs": 1,
+      "label": "Ascended Heroes ex Premium Collection 2 - Pack 1"
     },
     {
       "id": "u7xNNfIBEjg",
@@ -2130,7 +3422,22 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Chaos Rising ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 1,
+      "packNumber": 2,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB 1 - Pack 2"
     },
     {
       "id": "bpm7cSVXNiM",
@@ -2147,8 +3454,26 @@
       "products": [
         "etb"
       ],
-      "pulls": [],
-      "label": "Chaos Rising ETB"
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Chespin - Single Gold Star - Illustration Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 1,
+      "packNumber": 1,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB 1 - Pack 1"
     },
     {
       "id": "urvau7lIwC0",
@@ -2166,8 +3491,21 @@
         "ex-premium"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Phantasmal Flames ex Premium Collection"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "phantasmal-flames",
+          "name": "phantasmal flames",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 8,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Phantasmal Flames ex Premium Collection - Pack 8"
     },
     {
       "id": "tuX1t8p29Ik",
@@ -2185,6 +3523,19 @@
         "japanese-pack"
       ],
       "pulls": [],
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ja-abyss-eye",
+          "name": "abyss eye",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "openingType": "Japanese Single Booster Pack",
+      "packs": 1,
       "label": "Abyss Eye (JP) Pack"
     },
     {
@@ -2204,7 +3555,6 @@
         "ex-premium"
       ],
       "pulls": [],
-      "hasHit": true,
       "label": "Phantasmal Flames ex Premium Collection"
     },
     {
@@ -2283,7 +3633,7 @@
       "path": "rip/japanese-abyss-eye-packs-5-6-we-need-a-hit-0vpWimyqJIE.html",
       "published": "2026-06-12",
       "duration": 26,
-      "views": 1006,
+      "views": 1007,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5010,7 +6360,7 @@
       "path": "rip/ascended-heroes-etb-final-pack-final-pack-magic-O-vFg-5cx8E.html",
       "published": "2026-03-27",
       "duration": 21,
-      "views": 1043,
+      "views": 1044,
       "vertical": true,
       "short": true,
       "sets": [
@@ -6027,7 +7377,7 @@
       "path": "rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html",
       "published": "2026-02-01",
       "duration": 416,
-      "views": 89,
+      "views": 90,
       "vertical": false,
       "short": false,
       "sets": [

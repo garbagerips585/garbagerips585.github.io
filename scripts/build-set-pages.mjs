@@ -1459,6 +1459,20 @@ const runsBySet = new Map();
 for (const p of PLAYLISTS) {
   const vids = (p.videoIds || []).map((id) => videoById.get(id)).filter(Boolean);
   if (!vids.length) continue;
+  // NO PATH MEANS NO PAGE TO LINK TO, SO THERE IS NOTHING TO OFFER.
+  //
+  // build-playlists.mjs sets path only on the playlists that get a page, and
+  // sync-youtube.mjs writes a freshly discovered playlist with none. Without
+  // this test that playlist renders href="/undefined": a link to a page that
+  // cannot exist, on every set guide it touches. It is not hypothetical -- it
+  // shipped through a whole build on 20 August 2026 and check-build.py failed
+  // it on public/sets/ascended-heroes.html.
+  //
+  // Skipping is the right answer rather than falling back to the set's video
+  // list, because this section's promise is "these runs play in order" and a
+  // filtered grid is not a run. A set whose only playlist is skipped falls to
+  // the newest-rip row below, which is the same shape as a set with no runs.
+  if (!p.path) continue;
   const seen = new Set();
   for (const v of vids) for (const id of v.sets || []) seen.add(id);
   if (seen.size !== 1) continue;

@@ -32,10 +32,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "Sleeved Booster Pack",
     "packNumber": 9,
@@ -46,10 +48,12 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Chaos Rising",
     "openingType": "ETB",
     "boxNumber": 3,
@@ -72,10 +76,12 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Chaos Rising",
     "openingType": "Single Booster Pack",
     "packNumber": 13,
@@ -86,10 +92,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "ETB",
     "boxNumber": 1,
@@ -101,10 +109,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "Sleeved Booster Pack",
     "packNumber": 8,
@@ -115,10 +125,12 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Chaos Rising",
     "openingType": "ETB",
     "boxNumber": 3,
@@ -130,10 +142,12 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Chaos Rising",
     "openingType": "Single Booster Pack",
     "packNumber": 12,
@@ -153,10 +167,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "ETB",
     "boxNumber": 1,
@@ -168,10 +184,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "Single Booster Pack",
     "packNumber": 7,
@@ -182,10 +200,12 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Chaos Rising",
     "openingType": "ETB",
     "boxNumber": 3,
@@ -197,10 +217,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "ETB",
     "boxNumber": 1,
@@ -221,10 +243,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "Booster Bundle",
     "boxNumber": 1,
@@ -236,10 +260,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "Single Booster Pack",
     "packNumber": 6,
@@ -250,10 +276,12 @@
       {
         "set": "perfect-order",
         "name": "perfect order",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Perfect Order",
     "openingType": "ex Premium Collection Box",
     "boxNumber": 1,
@@ -265,10 +293,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "ETB",
     "boxNumber": 1,
@@ -280,10 +310,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "Booster Bundle",
     "boxNumber": 1,
@@ -295,10 +327,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "Single Booster Pack",
     "packNumber": 5,
@@ -318,10 +352,12 @@
       {
         "set": "perfect-order",
         "name": "perfect order",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Perfect Order",
     "openingType": "ex Premium Collection Box",
     "boxNumber": 1,
@@ -342,10 +378,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "ETB",
     "boxNumber": 1,
@@ -366,10 +404,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "Booster Bundle",
     "boxNumber": 1,
@@ -381,10 +421,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "Single Booster Pack",
     "packNumber": 4,
@@ -395,10 +437,12 @@
       {
         "set": "phantasmal-flames",
         "name": "phantasmal flames",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Phantasmal Flames",
     "openingType": "ex Premium Collection Box",
     "boxNumber": 2,
@@ -419,10 +463,12 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Chaos Rising",
     "openingType": "ex Premium Collection Box",
     "boxNumber": 1,
@@ -443,10 +489,12 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Chaos Rising",
     "openingType": "Mini Tin",
     "packNumber": 2,
@@ -457,10 +505,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "Booster Bundle",
     "boxNumber": 1,
@@ -481,10 +531,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "ETB",
     "boxNumber": 1,
@@ -496,10 +548,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "Single Booster Pack",
     "packNumber": 3,
@@ -510,10 +564,12 @@
       {
         "set": "phantasmal-flames",
         "name": "phantasmal flames",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Phantasmal Flames",
     "openingType": "ex Premium Collection Box",
     "boxNumber": 2,
@@ -534,10 +590,12 @@
       {
         "set": "perfect-order",
         "name": "perfect order",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Perfect Order",
     "openingType": "Mini Tin",
     "packNumber": 1,
@@ -557,10 +615,12 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Chaos Rising",
     "openingType": "ex Premium Collection Box",
     "boxNumber": 1,
@@ -572,10 +632,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "Sleeved Booster Pack",
     "packNumber": 2,
@@ -586,10 +648,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "ETB",
     "boxNumber": 1,
@@ -601,10 +665,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "Booster Bundle",
     "boxNumber": 1,
@@ -616,10 +682,12 @@
       {
         "set": "perfect-order",
         "name": "perfect order",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Perfect Order",
     "openingType": "ex Premium Collection Box",
     "boxNumber": 2,
@@ -631,10 +699,12 @@
       {
         "set": "twilight-masquerade",
         "name": "twilight masquerade",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Twilight Masquerade",
     "openingType": "Poke Ball Tin",
     "packNumber": 3,
@@ -645,10 +715,12 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Chaos Rising",
     "openingType": "ex Premium Collection Box",
     "boxNumber": 1,
@@ -660,10 +732,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "ETB",
     "boxNumber": 1,
@@ -684,10 +758,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "Booster Bundle",
     "boxNumber": 1,
@@ -708,10 +784,12 @@
       {
         "set": "perfect-order",
         "name": "perfect order",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Perfect Order",
     "openingType": "ex Premium Collection Box",
     "boxNumber": 2,
@@ -732,10 +810,12 @@
       {
         "set": "pitch-black",
         "name": "pitch black",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Pitch Black",
     "openingType": "Single Booster Pack",
     "packNumber": 1,
@@ -755,10 +835,12 @@
       {
         "set": "surging-sparks",
         "name": "surging sparks",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Surging Sparks",
     "openingType": "Poke Ball Tin",
     "packNumber": 2,
@@ -769,10 +851,12 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Chaos Rising",
     "openingType": "ex Premium Collection Box",
     "boxNumber": 1,
@@ -784,10 +868,12 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Chaos Rising",
     "openingType": "ex Premium Collection Box",
     "boxNumber": 1,
@@ -808,10 +894,12 @@
       {
         "set": "perfect-order",
         "name": "perfect order",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Perfect Order",
     "openingType": "ex Premium Collection Box",
     "boxNumber": 2,
@@ -832,10 +920,12 @@
       {
         "set": "perfect-order",
         "name": "perfect order",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Perfect Order",
     "openingType": "ex Premium Collection Box",
     "boxNumber": 2,
@@ -847,10 +937,12 @@
       {
         "set": "perfect-order",
         "name": "perfect order",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Perfect Order",
     "openingType": "Poke Ball Tin",
     "packNumber": 1,
@@ -870,10 +962,12 @@
       {
         "set": "ascended-heroes",
         "name": "ascended heroes",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Ascended Heroes",
     "openingType": "ex Box",
     "boxNumber": 2,
@@ -885,10 +979,12 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Chaos Rising",
     "openingType": "ex Premium Collection Box",
     "boxNumber": 1,
@@ -909,10 +1005,12 @@
       {
         "set": "ascended-heroes",
         "name": "ascended heroes",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Ascended Heroes",
     "openingType": "ex Box",
     "boxNumber": 2,
@@ -933,10 +1031,12 @@
       {
         "set": "perfect-order",
         "name": "perfect order",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Perfect Order",
     "openingType": "ex Premium Collection Box",
     "boxNumber": 2,
@@ -957,10 +1057,12 @@
       {
         "set": "ascended-heroes",
         "name": "ascended heroes",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Ascended Heroes",
     "openingType": "ex Box",
     "boxNumber": 2,
@@ -981,10 +1083,12 @@
       {
         "set": "perfect-order",
         "name": "perfect order",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Perfect Order",
     "openingType": "ex Premium Collection Box",
     "boxNumber": 2,
@@ -996,10 +1100,12 @@
       {
         "set": "ascended-heroes",
         "name": "ascended heroes",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Ascended Heroes",
     "openingType": "ex Box",
     "boxNumber": 2,
@@ -1011,10 +1117,12 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Chaos Rising",
     "openingType": "ETB",
     "boxNumber": 2,
@@ -1026,10 +1134,12 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Chaos Rising",
     "openingType": "ETB",
     "boxNumber": 2,
@@ -1041,10 +1151,12 @@
       {
         "set": "ascended-heroes",
         "name": "ascended heroes",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Ascended Heroes",
     "openingType": "ex Box",
     "boxNumber": 2,
@@ -1065,10 +1177,12 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Chaos Rising",
     "openingType": "ETB",
     "boxNumber": 2,
@@ -1080,10 +1194,12 @@
       {
         "set": "ascended-heroes",
         "name": "ascended heroes",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Ascended Heroes",
     "openingType": "ex Box",
     "boxNumber": 2,
@@ -1095,10 +1211,12 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Chaos Rising",
     "openingType": "ETB",
     "boxNumber": 2,
@@ -1119,10 +1237,12 @@
       {
         "set": "ascended-heroes",
         "name": "ascended heroes",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Ascended Heroes",
     "openingType": "ex Box",
     "boxNumber": 2,
@@ -1143,10 +1263,12 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Chaos Rising",
     "openingType": "ETB",
     "boxNumber": 2,
@@ -1158,10 +1280,12 @@
       {
         "set": "ascended-heroes",
         "name": "ascended heroes",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Ascended Heroes",
     "openingType": "ex Box",
     "boxNumber": 2,
@@ -1173,10 +1297,12 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Chaos Rising",
     "openingType": "ETB",
     "boxNumber": 2,
@@ -1197,10 +1323,12 @@
       {
         "set": "twilight-masquerade",
         "name": "twilight masquerade",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 1,
+    "packsStated": true,
     "setsPacks": "Twilight Masquerade",
     "openingType": "Poke Ball Tin",
     "packNumber": 3,
@@ -1211,17 +1339,20 @@
       {
         "set": null,
         "name": "First Partner Illustration Collection (Series 1)",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       },
       {
         "set": "phantasmal-flames",
         "name": "phantasmal flames",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       },
       {
         "set": "mega-evolution",
         "name": "mega evolution",
-        "packs": 1
+        "packs": 1,
+        "typed": false
       }
     ],
     "packsOpened": 3,
@@ -1246,35 +1377,792 @@
       }
     ]
   },
+  "lrl5v4z317s": {
+    "setPacks": [
+      {
+        "set": "surging-sparks",
+        "name": "surging sparks",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Surging Sparks",
+    "openingType": "Poke Ball Tin",
+    "packNumber": 2,
+    "hasHit": true,
+    "hitCard": "Shiinotic - Single Gold Star - Illustration Rare",
+    "hits": [
+      {
+        "card": "Shiinotic",
+        "rarity": "Illustration Rare",
+        "set": "surging-sparks",
+        "setName": "Surging Sparks"
+      }
+    ]
+  },
+  "EJ0AKqX2a_Q": {
+    "setPacks": [
+      {
+        "set": "perfect-order",
+        "name": "perfect order",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Perfect Order",
+    "openingType": "Poke Ball Tin",
+    "packNumber": 1,
+    "hasHit": true,
+    "hitCard": "Salazzle ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Salazzle ex",
+        "rarity": "Double Rare",
+        "set": "perfect-order",
+        "setName": "Perfect Order"
+      }
+    ]
+  },
+  "msETNgFSWD0": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ETB",
+    "boxNumber": 2,
+    "packNumber": 3,
+    "hasHit": true,
+    "hitCard": "Mega Floette ex - Double Silver Star - Ultra Rare",
+    "hits": [
+      {
+        "card": "Mega Floette ex",
+        "rarity": "Ultra Rare",
+        "set": "chaos-rising",
+        "setName": "Chaos Rising"
+      }
+    ]
+  },
+  "Wwc1wVyI6CQ": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ETB",
+    "boxNumber": 2,
+    "packNumber": 3,
+    "hasHit": false
+  },
+  "xNGxOuMpSiw": {
+    "setPacks": [
+      {
+        "set": null,
+        "name": "First Partner Illustration Collection (Series 1)",
+        "packs": 1,
+        "typed": false
+      },
+      {
+        "set": "phantasmal-flames",
+        "name": "phantasmal flames",
+        "packs": 1,
+        "typed": false
+      },
+      {
+        "set": "mega-evolution",
+        "name": "mega evolution",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 3,
+    "setsPacks": "First Partner Illustration Collection (Series 1) , Phantasmal Flames, Mega Evolution",
+    "openingType": "First Partner Illustration Collection (Series 1)",
+    "boxNumber": 5,
+    "packNumber": 1,
+    "hasHit": true,
+    "hitCard": "First Partner Illustration Collection (Series 1) Alola Region Promo : Rowlet, Litten, Popplio  - Phantasmal Flames - Trainer - Punk Helmet - Double Silver Star - Ultra Rare",
+    "hits": [
+      {
+        "card": "Rowlet",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
+      },
+      {
+        "card": "Litten",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
+      },
+      {
+        "card": "Popplio Trainer Punk Helmet",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo",
+        "rarity": "Ultra Rare",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames"
+      }
+    ]
+  },
+  "CbwSuTI8QKU": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ETB",
+    "boxNumber": 2,
+    "packNumber": 1,
+    "hasHit": false
+  },
+  "Ec_2Is8DmI8": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "Single Booster Pack",
+    "packNumber": 11,
+    "hasHit": false
+  },
+  "gLlqJvSuAek": {
+    "setPacks": [
+      {
+        "set": "perfect-order",
+        "name": "perfect order",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Perfect Order",
+    "openingType": "Sleeved Booster Pack",
+    "packNumber": 10,
+    "hasHit": false
+  },
+  "I14rr28Qduw": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "Sleeved Booster Pack",
+    "packNumber": 10,
+    "hasHit": false
+  },
+  "NdXTKzUodpQ": {
+    "setPacks": [
+      {
+        "set": "perfect-order",
+        "name": "perfect order",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Perfect Order",
+    "openingType": "Sleeved Booster Pack",
+    "packNumber": 9,
+    "hasHit": false
+  },
+  "EifpW6bQhPE": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "Sleeved Booster Pack",
+    "packNumber": 9,
+    "hasHit": true,
+    "hitCard": "Mega Dragalge ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Mega Dragalge ex",
+        "rarity": "Double Rare",
+        "set": "chaos-rising",
+        "setName": "Chaos Rising"
+      }
+    ]
+  },
+  "6bMl7VF_ov0": {
+    "setPacks": [
+      {
+        "set": "perfect-order",
+        "name": "perfect order",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Perfect Order",
+    "openingType": "Sleeved Booster Pack",
+    "packNumber": 8,
+    "hasHit": true,
+    "hitCard": "Dedenne - Single Gold Star - Illustration Rare",
+    "hits": [
+      {
+        "card": "Dedenne",
+        "rarity": "Illustration Rare",
+        "set": "perfect-order",
+        "setName": "Perfect Order"
+      }
+    ]
+  },
+  "HHjdWa5tfXY": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "Sleeved Booster Pack",
+    "packNumber": 8,
+    "hasHit": true,
+    "hitCard": "Xerneas - Single Gold Star - Illustration Rare",
+    "hits": [
+      {
+        "card": "Xerneas",
+        "rarity": "Illustration Rare",
+        "set": "chaos-rising",
+        "setName": "Chaos Rising"
+      }
+    ]
+  },
+  "JRMvkxmqFhQ": {
+    "setPacks": [
+      {
+        "set": "perfect-order",
+        "name": "perfect order",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Perfect Order",
+    "openingType": "Sleeved Booster Pack",
+    "packNumber": 7,
+    "hasHit": false
+  },
+  "a4iR-qPthjY": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "Sleeved Booster Pack",
+    "packNumber": 7,
+    "hasHit": false
+  },
+  "cz75wI3fz7k": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ETB",
+    "boxNumber": 1,
+    "packNumber": 9,
+    "hasHit": false
+  },
   "czBVJAWDB8U": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ex Box",
+    "boxNumber": 1,
+    "packNumber": 4,
+    "hasHit": false
   },
   "w3dQBhumsug": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ex Box",
+    "boxNumber": 1,
+    "packNumber": 3,
+    "hasHit": true,
+    "hitCard": "Larry's Dudunsparce ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Larry's Dudunsparce ex",
+        "rarity": "Double Rare",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes"
+      }
+    ]
   },
   "7nGg08wavGM": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ex Box",
+    "boxNumber": 1,
+    "packNumber": 4,
+    "hasHit": false
   },
   "na2bRZxxTHU": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ex Box",
+    "boxNumber": 1,
+    "packNumber": 3,
+    "hasHit": false
+  },
+  "Mhz1-_ppwJA": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ETB",
+    "boxNumber": 1,
+    "packNumber": 8,
+    "hasHit": true,
+    "hitCard": "Krookodile ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Krookodile ex",
+        "rarity": "Double Rare",
+        "set": "chaos-rising",
+        "setName": "Chaos Rising"
+      }
+    ]
+  },
+  "dqC9lAiWeaE": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ETB",
+    "boxNumber": 1,
+    "packNumber": 7,
+    "hasHit": false
   },
   "n4iGQVPBtfE": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ex Box",
+    "boxNumber": 1,
+    "packNumber": 2,
+    "hasHit": true,
+    "hitCard": "Larry's Dudunsparce ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Larry's Dudunsparce ex",
+        "rarity": "Double Rare",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes"
+      }
+    ]
   },
   "r4WG2IWWyKc": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ex Box",
+    "boxNumber": 1,
+    "packNumber": 1,
+    "hasHit": false
   },
   "zhE5GzB2Dns": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ex Box",
+    "boxNumber": 1,
+    "packNumber": 2,
+    "hasHit": false
   },
   "qKiLbaLhdp8": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ex Box",
+    "boxNumber": 1,
+    "packNumber": 1,
+    "hasHit": true,
+    "hitCard": "Slurpuff - Single Gold Star - Illustration Rare",
+    "hits": [
+      {
+        "card": "Slurpuff",
+        "rarity": "Illustration Rare",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes"
+      }
+    ]
+  },
+  "QKYrh9l8BYA": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ETB",
+    "boxNumber": 1,
+    "packNumber": 6,
+    "hasHit": true,
+    "hitCard": "Mega Greninja ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Mega Greninja ex",
+        "rarity": "Double Rare",
+        "set": "chaos-rising",
+        "setName": "Chaos Rising"
+      }
+    ]
+  },
+  "_Bu9zCfLI4c": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ex Box",
+    "boxNumber": 2,
+    "packNumber": 4,
+    "hasHit": false
+  },
+  "vqp2qrq1hls": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ETB",
+    "boxNumber": 1,
+    "packNumber": 5,
+    "hasHit": false
+  },
+  "hOBpKIl2lX4": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ex Box",
+    "boxNumber": 2,
+    "packNumber": 3,
+    "hasHit": true,
+    "hitCard": "Mega Hawlucha ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Mega Hawlucha ex",
+        "rarity": "Double Rare",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes"
+      }
+    ]
+  },
+  "4gBo585VhEI": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ETB",
+    "boxNumber": 1,
+    "packNumber": 4,
+    "hasHit": true,
+    "hitCard": "Cobalion ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Cobalion ex",
+        "rarity": "Double Rare",
+        "set": "chaos-rising",
+        "setName": "Chaos Rising"
+      }
+    ]
+  },
+  "9DPytuABTf8": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ex Box",
+    "boxNumber": 2,
+    "packNumber": 2,
+    "hasHit": false
+  },
+  "goGNPoBWQ-g": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ETB",
+    "boxNumber": 1,
+    "packNumber": 3,
+    "hasHit": false
+  },
+  "Fgj5afnnXVk": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ex Box",
+    "boxNumber": 2,
+    "packNumber": 1,
+    "hasHit": false
+  },
+  "u7xNNfIBEjg": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ETB",
+    "boxNumber": 1,
+    "packNumber": 2,
+    "hasHit": false
+  },
+  "bpm7cSVXNiM": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ETB",
+    "boxNumber": 1,
+    "packNumber": 1,
+    "hasHit": true,
+    "hitCard": "Chespin - Single Gold Star - Illustration Rare",
+    "hits": [
+      {
+        "card": "Chespin",
+        "rarity": "Illustration Rare",
+        "set": "chaos-rising",
+        "setName": "Chaos Rising"
+      }
+    ]
   },
   "urvau7lIwC0": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "phantasmal-flames",
+        "name": "phantasmal flames",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Phantasmal Flames",
+    "openingType": "ex Premium Collection Box",
+    "packNumber": 8,
+    "hasHit": false
   },
-  "HGlF3-fpycc": {
-    "hasHit": true
+  "tuX1t8p29Ik": {
+    "setPacks": [
+      {
+        "set": "ja-abyss-eye",
+        "name": "abyss eye",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Abyss Eye",
+    "openingType": "Japanese Single Booster Pack",
+    "hasHit": false
   },
   "CT5t8mKeZUw": {
     "hasHit": true
