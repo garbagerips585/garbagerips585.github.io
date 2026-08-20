@@ -54,7 +54,7 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/ui.css?v=9a180904">
+<link rel="stylesheet" href="/assets/ui.css?v=d319bce9">
 <link rel="stylesheet" href="/assets/packs.css?v=e32b0800">
 </head>
 <body>
@@ -217,14 +217,33 @@
   </div>
 </div>
 
-<!-- THE FILTER RAILS ARE NOT SCROLLERS ANY MORE. They were .rail-in, a
-     one-line horizontal scroller with the scrollbar switched off, and the set
-     rail measured 5,178px of chips inside a track that never exceeds 1,500px,
-     so 26 of the 35 sets sat off the right edge with no scrollbar, arrow or
-     fade to say so. A mouse with a vertical wheel could not reach them at all.
-     The row is still one chip tall; the button at the end of it opens the rest
-     as a panel. The full reasoning and the numbers at all five widths are in
-     assets-source/ui.css under FACETS. app.js owns the open/close behaviour. -->
+<!-- THE FILTER RAILS ARE TWO DIFFERENT CONTROLS BUILT OUT OF ONE SET OF
+     BUTTONS, and which one you get is a media query rather than markup.
+
+     ABOVE 700px: a collapsed one-chip-tall row with a button at the end that
+     opens the rest as a panel. They were .rail-in, a one-line horizontal
+     scroller with the scrollbar switched off, and the set rail measured
+     5,178px of chips inside a track that never exceeds 1,500px, so 26 of the
+     35 sets sat off the right edge with no scrollbar, arrow or fade to say so.
+     A mouse with a vertical wheel could not reach them at all.
+
+     BELOW 700px: a real swipe rail. Tim, 19 August 2026, on his own phone:
+     "can we just make the filters slide over to see more filters, instead of
+     the big drop down menus ... I also think you only need the filter by set
+     type on mobile". So the toggle goes, the row scrolls under a finger and
+     bleeds off the right edge, and the whole PRODUCT row goes with it except
+     for Clear all. A finger is a horizontal scroll gesture, which is the one
+     thing a desktop mouse does not have, so the scroller that was a trap up
+     there is the simplest thing down here.
+
+     ?product= STILL FILTERS ON A PHONE. 330 links on 318 built pages carry one,
+     app.js reads it off the URL rather than off a chip, and the count line
+     names it because no chip is there to. Do not "clean up" the product markup
+     below: it is what desktop renders and what those links land on.
+
+     The full reasoning and the numbers at all five widths are in
+     assets-source/ui.css under FACETS. app.js owns the open/close behaviour,
+     the rail's edge fades, its arrow keys and the scroll-to-the-chosen-chip. -->
 <div class="rail">
   <div class="facet" data-facet="sets">
     <div class="facet-slot">
@@ -442,7 +461,7 @@
   </div>
 </footer>
 
-<script src="/assets/app.js?v=a85ffea8" defer></script>
+<script src="/assets/app.js?v=ae4e5a0b" defer></script>
 <script src="/assets/packplayer.js?v=d3834a60" defer></script>
 </body>
 </html>

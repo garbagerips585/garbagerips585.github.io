@@ -570,8 +570,37 @@
     // so update the count, the Load more button and the chips but leave the
     // tiles alone. Used once, on the first load of a server-rendered grid. See
     // the note at the bottom of initLibrary.
+    /**
+     * The live filters that have no chip on screen to explain themselves.
+     *
+     * THE PRODUCT FILTER STILL WORKS ON A PHONE AND THE PHONE CANNOT SHOW IT.
+     * ui.css hides the product row below 700px because Tim asked for the set
+     * filter alone there, but ?product= is linked 330 times across 318 of the
+     * built pages (93 of them ?product=single-pack, 57 ?product=etb) and readUrl
+     * takes it off the URL rather than off a chip, so every one of those links
+     * still lands on the right list. What it loses is the chip that would have lit up
+     * to say WHY the list is 56 rips instead of 317, which is exactly the fault
+     * `pull` had and the line below was written to fix. So the count line names
+     * the product when, and only when, the chips are not on screen to do it.
+     *
+     * Asked of the LAYOUT, not of a matchMedia copy of the breakpoint, for the
+     * same reason isSwipeRail is: ui.css owns the 700px and nothing else should
+     * hold a second copy of it. Called at the top of render, before any of that
+     * function's writes, so the offsetParent read lands on a clean layout.
+     */
+    function unlabelledProducts() {
+      if (!state.products.length) return "";
+      var f = document.querySelector('.facet[data-facet="products"]');
+      var slot = f && f.querySelector(".facet-slot");
+      // No row at all is the same case as a hidden one, and saying it twice is
+      // cheaper than a silently short list.
+      if (slot && slot.offsetParent !== null) return "";
+      return state.products.map(function (k) { return labelOf("products", k); }).join(" or ");
+    }
+
     function render(keepPage, keepDom) {
       if (!keepPage) shown = PAGE;
+      var prodNote = unlabelledProducts();
       var out = all.filter(matches).sort(SORTS[state.sort] || SORTS.new);
       if (!keepDom) {
       grid.textContent = "";
@@ -621,9 +650,21 @@
         // can see why they are looking at 22 rips instead of 316. `pull` has no
         // chip here: it is only ever arrived at from the home page's gold "Hits
         // only" link, and without this line the grid is a silently short list.
-        c.innerHTML = "<b>" + out.length + "</b> of " + all.length + " rips" +
+        // On a phone the PRODUCT has no chip either; see unlabelledProducts.
+        //
+        // BUILT AS NODES RATHER THAN AS innerHTML, and that is not tidying: a
+        // set label can carry an ampersand ("Scarlet & Violet") and a product
+        // label comes through labelOf's title-case fallback for anything the
+        // map misses, so the one string on this line that is not a literal is
+        // the one string that should never be parsed as markup.
+        c.textContent = "";
+        c.appendChild(el("b", null, String(out.length)));
+        c.appendChild(document.createTextNode(
+          " of " + all.length + " rips" +
           (state.pull ? " with a graded pull" : "") +
-          (out.length > shown ? " &bull; showing " + shown : "");
+          (prodNote ? " • " + prodNote : "") +
+          (out.length > shown ? " • showing " + shown : "")
+        ));
       }
       syncChips();
       writeUrl();
@@ -634,14 +675,20 @@
         var g = b.dataset.group, v = b.dataset.value;
         var on = state[g].indexOf(v) > -1;
         b.setAttribute("aria-pressed", String(on));
-        // ORDER, NOT SORT. The collapsed facet row is one chip tall and shows
-        // the first two to nine of them depending on width, so a filter chosen
-        // from the panel would vanish the moment the panel closed and the page
-        // would carry a live filter with nothing on screen saying so. Flex
-        // order pulls the pressed ones to the front of the row without
-        // touching the DOM, so nothing loses focus mid-click and the panel's
-        // by-count order is intact underneath.
-        b.style.order = on ? "-1" : "";
+        // ORDER, NOT SORT, AND IT IS IN ui.css NOW rather than here. The
+        // collapsed facet row is one chip tall and shows the first two to nine
+        // of them depending on width, so a filter chosen from the panel would
+        // vanish the moment the panel closed and the page would carry a live
+        // filter with nothing on screen saying so. Flex order pulls the pressed
+        // ones to the front without touching the DOM, so nothing loses focus
+        // mid-click and the panel's by-count order is intact underneath.
+        //
+        // It moved because the phone rail must NOT do this: it is a real
+        // scroller that hides nothing, so reordering under the finger would
+        // leave the rail parked on a different part of the list than the one
+        // you were just looking at. `.facet-box .chip[aria-pressed=true]` says
+        // the same thing off the attribute set on the line above, and a media
+        // query can take it back. An inline style is the one thing it cannot.
       });
       var n = state.sets.length + state.products.length + (state.pull ? 1 : 0);
       var clear = document.getElementById("libClear");
@@ -681,6 +728,27 @@
 
     /* ---------------------------------------------------------- facets ---- */
 
+    /**
+     * Is this facet the phone's SWIPE RAIL rather than the desktop's collapsed
+     * row plus panel?
+     *
+     * ONE SOURCE OF TRUTH, AND IT IS THE STYLESHEET. ui.css hides .facet-more
+     * below 700px, so an absent toggle IS the swipe rail: there is no panel to
+     * open and every chip is reachable by dragging. Asking the layout means the
+     * breakpoint is written once, in the file that owns it. A second copy here
+     * as matchMedia("(max-width:700px)") is the kind of duplicate that survives
+     * the next time somebody moves the breakpoint and then disagrees with it.
+     *
+     * offsetParent is null for a display:none element and for nothing else that
+     * can happen to this button (it is not fixed, and its ancestors are not
+     * display:contents). Read before any write in the callers, so it never
+     * forces a layout that was not going to happen anyway.
+     */
+    function isSwipeRail(f) {
+      var btn = f && f.querySelector(".facet-more");
+      return !!btn && btn.offsetParent === null;
+    }
+
     // THE PANEL IS THE SAME CHIPS, MOVED, NOT A SECOND COPY OF THEM. Opening
     // adds .open to the .facet, which is the whole of the state: ui.css takes
     // the one-line .facet-box out of flow, wraps it and gives it a card. So
@@ -697,6 +765,12 @@
         f.dataset.byFocus = "";
       }
       function open(f, byFocus) {
+        // A SWIPE RAIL HAS NO PANEL, and this is the guard that stops one
+        // appearing anyway. The toggle is display:none on a phone so it cannot
+        // be clicked, but the focusin handler below opens on a focus-visible
+        // chip, and a keyboard tabbing into the rail would otherwise rip the
+        // scroller out of flow and drop it over the grid as a card.
+        if (isSwipeRail(f)) return;
         facets.forEach(function (o) { if (o !== f) close(o); });
         f.classList.add("open");
         var btn = f.querySelector(".facet-more");
@@ -755,9 +829,169 @@
       });
     }
 
+    /* ------------------------------------------------------ swipe rails ---- */
+
+    // Re-run the edge fades. Held in a list rather than called through the DOM
+    // so render() never has to touch geometry: the chips are built once and
+    // never change width after that, so the only things that can move a fade
+    // are a scroll and a resize, and both have their own listener below.
+    var railSyncs = [];
+
+    /**
+     * Scroll a rail the smallest distance that puts one chip fully inside it.
+     *
+     * THE BROWSER DOES NOT DO THIS AND THAT IS THE WHOLE REASON IT EXISTS.
+     * Focusing an element scrolls it into view with "nearest" semantics, and
+     * nearest treats a PARTIALLY visible element as near enough. Measured at
+     * 390 by tabbing the rail: 16 of the 35 chips took focus while hanging off
+     * the right edge of the port, in a strict alternation, because every second
+     * chip happened to straddle it. A focus ring you cannot see is worse than a
+     * chip you cannot reach, so the rail moves itself.
+     *
+     * IT MUST LAND ON A SNAP POSITION AND THE FIRST VERSION DID NOT, which is
+     * the second bug and the more interesting one. The obvious implementation
+     * moves by exactly the overhang, which is the smallest move that works and
+     * is what "nearest" would have done properly. The rail is
+     * `scroll-snap-type:x proximity`, so the snap engine re-runs after any
+     * programmatic scroll, finds the position it was just moved off, and puts
+     * it back: the chip flicks into view and out again in the same frame. Same
+     * measurement as above, run again after the fix: 16 chips became 7, in a
+     * pattern that looked like a different bug and was the same one half
+     * solved. Every position this function can produce is now a snap position
+     * (a chip start-aligned to the scroll-padding line), so the engine agrees
+     * with it and nothing is undone.
+     *
+     * The cost is that tabbing rightwards pages rather than nudges: a chip
+     * hanging off the right edge comes all the way to the left. That is the
+     * price of the snap, it is what a snapping carousel does everywhere else,
+     * and it is only paid when the chip was not already fully visible.
+     *
+     * The port is the padding box, not the border box, so a chip comes to rest
+     * one gutter in from the bezel — the same line scroll-padding puts a
+     * snapped chip on, and the same line the h1 below starts at.
+     */
+    function bringIntoRail(box, chip) {
+      var cs = getComputedStyle(box);
+      var br = box.getBoundingClientRect(), r = chip.getBoundingClientRect();
+      var lo = br.left + box.clientLeft + (parseFloat(cs.paddingLeft) || 0);
+      var hi = br.left + box.clientLeft + box.clientWidth - (parseFloat(cs.paddingRight) || 0);
+      if (r.left >= lo - 0.5 && r.right <= hi + 0.5) return;
+      box.scrollLeft += r.left - lo;
+    }
+
+    /**
+     * The phone's filter row, as a scroller you actually swipe.
+     *
+     * ui.css does the scrolling. This does the three things CSS cannot:
+     *
+     * 1. THE FADES TELL THE TRUTH AT BOTH ENDS. A permanent right-hand fade on
+     *    a scroller that has reached its end promises more chips and there are
+     *    none, which is the same lie as the row that looked finished when it
+     *    was not. at-start / at-end turn the near fade off, so the picture and
+     *    the scroll position always agree.
+     *
+     * 2. ARROW KEYS WALK THE ROW. Tab already reaches every chip and the
+     *    browser scrolls the focused one into the port for free, so this is not
+     *    the only way in; it is the way somebody who has landed on a chip
+     *    expects to reach the next one without tabbing through 35 of them.
+     *    Left and right only, never up and down: those still scroll the page,
+     *    which is what a reader half way down the grid wants.
+     *
+     * 3. THE CHOSEN CHIP IS SHOWN ON ARRIVAL. /videos.html?set=chaos-rising is
+     *    linked from 283 places and its chip is 12th in the row, ~1,500px off
+     *    the right edge of a 390px screen. Without this the page reads as
+     *    "53 of 317" over a rail where nothing is lit, and the reader has no
+     *    way to know which filter to tap to undo. The desktop row solves the
+     *    same problem with order:-1; this row must not reorder (see ui.css), so
+     *    it scrolls instead.
+     */
+    function initSwipeRails() {
+      [].slice.call(document.querySelectorAll(".facet[data-facet]")).forEach(function (f) {
+        var box = f.querySelector(".facet-box");
+        if (!box) return;
+
+        var frame = 0;
+        function sync() {
+          frame = 0;
+          var max = box.scrollWidth - box.clientWidth;
+          // A row that does not scroll is at both ends at once, which switches
+          // both fades off. That is right: the desktop row is not this rail and
+          // keeps its own single-sided mask from the rule ui.css declares
+          // outside the media query.
+          var atStart = box.scrollLeft <= 1, atEnd = box.scrollLeft >= max - 1;
+          box.classList.toggle("at-start", atStart);
+          box.classList.toggle("at-end", atEnd);
+        }
+        // rAF-coalesced: a momentum flick fires scroll every frame and there is
+        // no point reading the same geometry twice inside one.
+        box.addEventListener("scroll", function () {
+          if (!frame) frame = requestAnimationFrame(sync);
+        }, { passive: true });
+        window.addEventListener("resize", function () {
+          if (!frame) frame = requestAnimationFrame(sync);
+        });
+        railSyncs.push(sync);
+
+        // ONE PLACE FOR "the focused chip must be on screen", because there are
+        // four ways to focus one: Tab, shift-Tab, the arrow keys below, and the
+        // browser restoring focus after a back button. Hanging it off focusin
+        // covers all four with one rule instead of four call sites, three of
+        // which would be remembered and one of which would not.
+        box.addEventListener("focusin", function (e) {
+          if (!isSwipeRail(f)) return;
+          var chip = e.target.closest && e.target.closest(".chip");
+          if (chip) bringIntoRail(box, chip);
+        });
+
+        box.addEventListener("keydown", function (e) {
+          if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+          if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+          // Desktop is a collapsed row plus a panel and its arrow keys are the
+          // browser's. Nothing here changes above 700px.
+          if (!isSwipeRail(f)) return;
+          var chips = [].slice.call(box.querySelectorAll(".chip"));
+          var i = chips.indexOf(document.activeElement);
+          if (i < 0) return;
+          var j = i + (e.key === "ArrowRight" ? 1 : -1);
+          if (j < 0 || j >= chips.length) return;
+          // preventDefault only once there is somewhere to go, so the arrow at
+          // either end of the row still does whatever the browser would do.
+          e.preventDefault();
+          // The focusin handler above is what brings it on screen.
+          chips[j].focus();
+        });
+      });
+    }
+
+    /**
+     * Scroll a rail to the filter that is already on. See point 3 above.
+     *
+     * NOT scrollIntoView. This rail is position:sticky under a sticky bar, so
+     * scrollIntoView would decide the chip needs the PAGE moved to reach it and
+     * scroll the reader past the h1 to a chip that was on screen the whole
+     * time. Setting scrollLeft on the box moves the box and nothing else.
+     */
+    function revealChosenChips() {
+      [].slice.call(document.querySelectorAll(".facet[data-facet]")).forEach(function (f) {
+        if (!isSwipeRail(f)) return;
+        var box = f.querySelector(".facet-box");
+        if (!box || box.scrollWidth <= box.clientWidth + 1) return;
+        var on = box.querySelector('.chip[aria-pressed="true"]');
+        if (!on) return;
+        // Land it where the SNAP would, which is one gutter in from the box's
+        // border edge, not on it: the rail is full bleed and that gutter is its
+        // own padding-left. Read off the computed style rather than written
+        // here, so the number cannot drift from the one ui.css is using.
+        var pad = parseFloat(getComputedStyle(box).paddingLeft) || 0;
+        box.scrollLeft += on.getBoundingClientRect().left
+          - box.getBoundingClientRect().left - box.clientLeft - pad;
+      });
+    }
+
     readUrl();
     parsed = parseQuery(state.q);
     initFacets();
+    initSwipeRails();
 
     var search = document.getElementById("libSearch");
     var sortSel = document.getElementById("libSort");
@@ -887,6 +1121,11 @@
       buildChips("sets", "setChips");
       buildChips("products", "productChips");
       render(keepDom, keepDom);
+      // AFTER the chips exist and after render has pressed the ones the URL
+      // asked for, because both of these read where a chip is and there were no
+      // chips until three lines ago.
+      revealChosenChips();
+      railSyncs.forEach(function (fn) { fn(); });
     }).catch(function () {
       grid.textContent = "";
       grid.appendChild(emptyState("Could not load the library", "The channel still works: youtube.com/@GarbageRips585"));
