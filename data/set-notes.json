@@ -80,23 +80,40 @@
     "is the closest thing and its own readme says it is a WINDOW onto the",
     "catalogue rather than the catalogue, so a set missing from it proves",
     "nothing. Inferring 'out of print' from a high pack price is a guess wearing",
-    "a number. Leave it blank until somebody has a publisher's page saying so."
+    "a number. Leave it blank until somebody has a publisher's page saying so.",
+    "",
+    "A NOTE THAT DESCRIBES THE CHASE GRID CAN GO STALE WITHOUT ANYONE TOUCHING IT,",
+    "and one did within a day of being written. sets.json carries a stored `chase`",
+    "array, and build-set-pages.mjs THROWS IT AWAY and rebuilds the grid from the",
+    "checklist sorted by price. So a note written by reading the stored array",
+    "described a grid the page does not render: the Scarlet & Violet note named six",
+    "Illustration Rares including a Fidough, and the grid renders five and no",
+    "Fidough. The same stale-order bug put the wrong chase card on the home page's",
+    "Perfect Order tile on 19 August 2026.",
+    "",
+    "So: if a note names specific cards in the grid, COMPUTE the grid the way the",
+    "builder does, top eight by price out of public/data/cards/<id>.json, and",
+    "re-check it whenever prices are synced. Better still, write the fact so a",
+    "price move cannot falsify it. `every Special Illustration Rare sits between",
+    "three and five` was false at both ends the day after it was written; the six",
+    "of them span 2.96x to 5.30x. Ratios and counts age better than orderings.",
+    "",
+    "AND DO NOT TYPE A READ DATE. Three notes carried `read August 11, 2026`",
+    "copied across, which is true only of Black Bolt; Journey Together and Surging",
+    "Sparks are both the 12th. The date lives in the data next to the figure."
   ],
-
   "151": {
     "funFacts": [
       "102 different people and studios drew the 207 cards in this set. The artist's name is printed on every card, bottom left, and following one is the fastest way to find more art you actually like.",
       "The three Kanto starters and Pikachu all got an Illustration Rare, and those four sit in the chase grid at the top of this page without being the top rarity in the set. Art moves a price as much as rarity does."
     ]
   },
-
   "ascended-heroes": {
     "funFacts": [
       "At 295 cards this is the biggest of the 28 English sets on this site. The smallest, Celebrations, is 25.",
       "50 of those cards are Trainers rather than Pokemon. Trainers are the part of a set new collectors flick past, and they are what actually makes a deck run."
     ]
   },
-
   "black-bolt": {
     "funFacts": [
       "Black Bolt has a twin. White Flare came out the same day and is built to the same shape, down to a rarity the two of them share and nothing else on this site has: Black White Rare, two cards apiece.",
@@ -104,160 +121,135 @@
       "Grading does not lift every card by the same amount. Seismitoad, an Illustration Rare, is worth roughly nine times its raw price in a PSA 10, while Zekrom ex, a far pricier Special Illustration Rare, is worth about twice. Raw from pricecharting.com, read August 16, 2026; PSA 10 from pokemonpricetracker.com, read August 11, 2026."
     ]
   },
-
   "celebrations": {
     "funFacts": [
       "25 cards makes this the smallest of the 28 English sets on this site, and one pack costs about a third of what buying one of every card costs. Both of those figures are further up this page."
     ]
   },
-
   "chaos-rising": {
     "funFacts": [
       "Mega Greninja ex is on four different cards here at four different rarities, running from a Double Rare worth a couple of dollars up to the most expensive card in the set. Same Pokemon, same set.",
       "Four Mega Evolution era sets have landed on exactly the same shape so far: Phantasmal Flames, Perfect Order, Pitch Black and this one each carry 36 secret rares."
     ]
   },
-
   "chilling-reign": {
     "funFacts": [
       "Three of the 35 Secret Rares in Chilling Reign are basic Energy cards. Water, Psychic and Fighting, the plainest cards in the game, sitting at the top rarity in the set.",
       "59 of the 233 cards are Trainers and 6 are Energy, so more than a quarter of the set is not a Pokemon at all."
     ]
   },
-
   "crown-zenith": {
     "funFacts": [
       "Three of the cards are Radiant Rares. Only one other set on this site has any, Pokemon GO, which also has three."
     ]
   },
-
   "destined-rivals": {
     "funFacts": [
       "147 of the 244 cards belong to somebody by name. 83 of those are Team Rocket's, and the rest are Cynthia's, Ethan's, Arven's, Marnie's, Misty's, Steven's or an Emcee's."
     ]
   },
-
   "journey-together": {
     "funFacts": [
-      "The Illustration Rares punch above their tier here. N's Reshiram and Articuno are each worth roughly twelve times their raw price in a PSA 10, where every Special Illustration Rare in this set sits between three and five. Raw from pricecharting.com, read August 16, 2026; PSA 10 from pokemonpricetracker.com, read August 11, 2026."
+      "The Illustration Rares punch above their tier here. N's Reshiram and Articuno are each worth roughly twelve times their raw price in a PSA 10, where every Special Illustration Rare in this set sits between three and five. Raw from pricecharting.com, read August 16, 2026; PSA 10 from pokemonpricetracker.com, read August 12, 2026."
     ]
   },
-
   "mega-evolution": {
     "funFacts": [
       "This is the set that opened the Mega Evolution era. Everything filed under that series came after it: Phantasmal Flames, Ascended Heroes, Perfect Order, Chaos Rising and Pitch Black."
     ]
   },
-
   "obsidian-flames": {
     "funFacts": [
       "Charizard ex is on four different cards in this set at four different rarities. The cheapest is a few dollars and the priciest is the most expensive card here, so \"I pulled a Charizard ex\" answers a lot less than it sounds like.",
       "Lechonk is on four cards too, and the Illustration Rare one is worth many times the plain ones. Check the number in the corner before you get excited about either."
     ]
   },
-
   "paldea-evolved": {
     "funFacts": [
       "The most expensive card in Paldea Evolved is a Magikarp. Not an ex, not a full art Trainer, just an Illustration Rare Magikarp. Art does that.",
       "36 of the 279 cards are Illustration Rares, more than any set on this site except White Flare and Black Bolt."
     ]
   },
-
   "paldean-fates": {
     "funFacts": [
       "Everything numbered 092 to 223 in this set is a shiny. That is 132 of the 245 cards, more than half the checklist below, which is why this set looks so top heavy next to a normal one."
     ]
   },
-
   "paradox-rift": {
     "funFacts": [
       "Plusle and Minun both got an Illustration Rare, both drawn by the same artist, and they sit next to each other at 193 and 194 priced within a few dollars of one another. The set kept them together.",
       "The most expensive card here is an Illustration Rare Groudon, and it is worth more than every Special Illustration Rare in the set."
     ]
   },
-
   "perfect-order": {
     "funFacts": [
       "Clefairy is in this set twice: a Common down in the bulk, and an Illustration Rare worth well over ten times as much. The art is different, the number in the corner is different, the name is the same."
     ]
   },
-
   "phantasmal-flames": {
     "funFacts": [
       "Mega Charizard X ex is on four cards here, running from under five dollars up to the most expensive card in the set. Add those four together and they come to about four fifths of what buying one of every card in the set would cost."
     ]
   },
-
   "pitch-black": {
     "funFacts": [
       "Pitch Black is the newest of the 28 English sets on this site. Prices on a set this young move hard and fast, so treat every figure on this page as a snapshot rather than a settled number."
     ]
   },
-
   "pokemon-go": {
     "funFacts": [
-      "88 cards is small for a main set of its era. Rebel Clash and Chilling Reign, from either side of it, both run past 200.",
+      "88 cards is small for a main set of its era. Rebel Clash and Chilling Reign, the two sets before it with guides here, both run past 200.",
       "Three of the cards are Radiant Rares. Only one other set on this site has any, Crown Zenith, which also has three."
     ]
   },
-
   "prismatic-evolutions": {
     "funFacts": [
       "All eight Eeveelutions have an ex card here, and every one of them exists twice: a Double Rare worth a few dollars, and a Special Illustration Rare worth hundreds. Same Pokemon, same name, same set, and both are in the checklist below.",
       "32 of the 180 cards are Special Illustration Rares. No other set on this site has more than 22."
     ]
   },
-
   "rebel-clash": {
     "funFacts": [
       "The most expensive Common in Rebel Clash is a Magikarp, and only as a reverse holo: the reverse is worth about eight times the plain copy. Same card, same number, same rarity symbol, different foil. Both figures from pricecharting.com, read August 16, 2026.",
       "That Magikarp sits in the chase grid at the top of this page beside seven Ultra Rares and Secret Rares. A Common almost never does that."
     ]
   },
-
   "scarlet-violet": {
     "funFacts": [
-      "Six of the eight cards in the chase grid at the top of this page are Illustration Rares of completely ordinary Pokemon: a Drowzee, a Ralts, a Kirlia, a Slowpoke, a Riolu and a Fidough. Not one of them is the top rarity in the set."
+      "Five of the eight cards in the chase grid at the top of this page are Illustration Rares of completely ordinary Pokemon: a Drowzee, a Ralts, a Slowpoke, a Kirlia and a Riolu. Not one of them is the top rarity in the set."
     ]
   },
-
   "shining-fates": {
     "funFacts": [
       "Three of the cards are Amazing Rares, and they are the only Amazing Rares in any of the 28 English sets on this site."
     ]
   },
-
   "shrouded-fable": {
     "funFacts": [
       "The second most expensive card in Shrouded Fable is a basic Darkness Energy. It is a Hyper Rare printing of the plainest card in the game, and a Metal Energy is not far behind it.",
       "At 99 cards this is the smallest Scarlet and Violet era set on this site. The next smallest is Black Bolt at 172."
     ]
   },
-
   "stellar-crown": {
     "funFacts": [
       "The two most expensive cards in Stellar Crown are a Squirtle and a Bulbasaur, both Illustration Rares, and both are worth more than every Special Illustration Rare in the set. The tier above is not always where the money is."
     ]
   },
-
   "surging-sparks": {
     "funFacts": [
-      "Latios, an Illustration Rare, is worth roughly eight times its raw price in a PSA 10. This set's Special Illustration Rares sit nearer three. Raw from pricecharting.com, read August 16, 2026; PSA 10 from pokemonpricetracker.com, read August 11, 2026."
+      "Latios, an Illustration Rare, is worth roughly eight times its raw price in a PSA 10. This set's Special Illustration Rares sit nearer three. Raw from pricecharting.com, read August 16, 2026; PSA 10 from pokemonpricetracker.com, read August 12, 2026."
     ]
   },
-
   "temporal-forces": {
     "funFacts": [
       "The most expensive card in Temporal Forces is a Gastly, and it is an Illustration Rare rather than the top rarity in the set. Every Special Illustration Rare here is worth less than it."
     ]
   },
-
   "twilight-masquerade": {
     "funFacts": [
       "Perrin is in this set three times: an Uncommon, an Ultra Rare, and a Special Illustration Rare that is the second most expensive card in the set. Same person, three very different cards."
     ]
   },
-
   "white-flare": {
     "funFacts": [
       "White Flare has a twin. Black Bolt came out the same day and is built to the same shape, down to a rarity the two of them share and nothing else on this site has: Black White Rare, two cards apiece.",
