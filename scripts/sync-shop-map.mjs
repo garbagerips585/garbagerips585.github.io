@@ -453,7 +453,14 @@ const doc = {
     roads: "highway = motorway, trunk, primary or secondary",
     water: `natural = water, ways and multipolygon relations, over ${MIN_WATER} square miles`,
     waterways: "waterway = river or canal",
-    boundary: "boundary = administrative, admin_level 8, name Rochester",
+    boundary:
+      // THE QUERY ACTUALLY RUN, not the obvious one. admin_level 8 named
+      // "Rochester" is what this field used to say and it is what returns
+      // HTTP 200 with zero elements -- the exact failure the builder now
+      // throws on. Handing the next reader the query that draws nothing,
+      // in the field that exists so they do not have to reverse it out of
+      // the polylines, is worse than not documenting it at all.
+      "boundary = administrative, admin_level 7, name City of Rochester",
   },
   counts: {
     osmWays: raw.roads.elements.length + raw.water.elements.length +

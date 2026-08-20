@@ -667,8 +667,15 @@ const MANUAL_WARNING = [
 // `manual` is built fresh every run, so a field that no longer has a column
 // simply vanishes -- and on 20 August 2026 the Product # column was retired at
 // Tim's request, on the reasoning that a box number can be worked out later
-// from the data. It cannot: of the 73 rows that carried one, only NINE restate
-// it in their own title or description. The other 64 exist nowhere else.
+// from the data. It mostly cannot: of the 73 rows that carried one, TWENTY
+// restate it somewhere else and 53 do not.
+//
+// THAT NUMBER WAS FIRST REPORTED AS NINE and the mistake is instructive. The
+// check looked for a literal "Box #N" -- on a sheet whose commonest opening type
+// is an ETB. Widening it to the product words this project actually uses (etb,
+// bundle, tin, upc, chest, collection) finds 16 in titles, and the YouTube
+// description carries 4 more. The design conclusion survives at 53; the figure
+// did not, and a figure quoted as the reason for a mechanism has to be right.
 //
 // So the previous file is read first and named fields are carried forward for
 // any row the sheet no longer answers. This is a floor, not a merge: anything
@@ -1163,7 +1170,24 @@ for (const [n, r] of rows.slice(1).entries()) {
     ["packNumber", idx.packNo, "Pack #"],
   ]) {
     const raw = get(r, i);
-    if (!raw) continue;
+    if (!raw) {
+      // A RETIRED COLUMN RESTORES ITS VALUE HERE, where the column itself would
+      // have filled it, so the key lands in its usual position in `m`.
+      //
+      // Two earlier placements were wrong in different ways. Inside the
+      // Object.keys(m).length guard further down, a row survived only if the
+      // sheet still said something ELSE about it -- probed with a sheet whose
+      // box-number rows had every other cell blank, every one lost its value
+      // silently. Moved after that guard, it worked and churned the file:
+      // assigning the key separately appended it, rewriting 146 lines of
+      // manual.json on every import purely by moving boxNumber to the end of
+      // each object.
+      if (CARRY_FORWARD.includes(key) && priorManual[id] && priorManual[id][key] != null) {
+        m[key] = priorManual[id][key];
+        counted.carried = (counted.carried || 0) + 1;
+      }
+      continue;
+    }
     const n = num(raw);
     if (n > 0) { m[key] = n; counted[key] = (counted[key] || 0) + 1; }
     else quiet.push(`${id}: ${what} "${raw}" is not a number I can count, so it was skipped.`);
@@ -1630,13 +1654,6 @@ for (const [n, r] of rows.slice(1).entries()) {
   // it is nearly always a mistake worth seeing.
   if (Object.keys(m).length) {
     if (seenRow.has(id)) quiet.push(`${id}: two rows for the same video (rows ${seenRow.get(id)} and ${rowNo}). Merged, later row wins per column.`);
-    for (const key of CARRY_FORWARD) {
-      const prev = priorManual[id];
-      if (m[key] == null && prev && prev[key] != null) {
-        m[key] = prev[key];
-        counted.carried = (counted.carried || 0) + 1;
-      }
-    }
     manual[id] = { ...(manual[id] || {}), ...m };
   }
   if (!seenRow.has(id)) seenRow.set(id, rowNo);

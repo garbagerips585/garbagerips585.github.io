@@ -362,7 +362,7 @@ function shopMap(list) {
         <a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank"
           aria-label="OpenStreetMap contributors, the source of the map data, opens on openstreetmap.org">OpenStreetMap contributors</a>,
         licensed <a href="https://opendatacommons.org/licenses/odbl/1-0/" rel="noopener" target="_blank"
-          aria-label="The Open Database Licence version 1.0, which this map data is offered under, opens on opendatacommons.org">ODbL 1.0</a>,
+          aria-label="The Open Database License version 1.0, which this map data is offered under, opens on opendatacommons.org">ODbL 1.0</a>,
         read ${esc(mapDoc.read)}.</figcaption>
     </figure>`;
 }
