@@ -131,6 +131,37 @@ const { sets: enSets, rarityOrder } = JSON.parse(await readFile(join(ROOT, "publ
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
 
 const enById = new Map(enSets.map((s) => [s.id, s]));
+
+/* ------------------------------------------- who priced the English chase --
+ *
+ * THESE TWELVE PAGES CREDITED THE WRONG FEED FOR FOUR MONTHS' WORTH OF DOLLARS,
+ * found 19 August 2026. The English chase band's note read "English <set> card
+ * scans from TCGdex, TCGplayer market prices, read August 16, 2026" while every
+ * figure in it is PriceCharting's ungraded price guide value: Gastly #177 on
+ * /sets/ja-cyber-judge.html is $92.67, which is exactly what
+ * public/data/cards/temporal-forces.json holds under priceSource
+ * pricecharting.com. The date was right the whole time; only the name was
+ * wrong, which is the version of this bug nobody catches by looking.
+ *
+ * IT IS READ FROM THE CARD FILE AND NOT FROM sets.json, and that is the point
+ * of doing it at all rather than typing "PriceCharting" here. sets.json still
+ * carries priceSource "TCGdex" on every record, written by
+ * scripts/reconcile-cards.mjs, which is a second stale stamp sitting one field
+ * away from the prices this band prints. public/data/cards/<id>.json is the
+ * file shared/card-prices.mjs calls the one source for a card price, so it is
+ * the one to ask. A set with no card file falls back to the site-wide default
+ * that module already uses.
+ */
+const enPriceDocs = new Map();
+for (const s of enSets) {
+  try {
+    const doc = JSON.parse(await readFile(join(ROOT, `public/data/cards/${s.id}.json`), "utf8"));
+    enPriceDocs.set(s.id, { priceSource: doc.priceSource, pricesChecked: doc.pricesChecked, checked: doc.checked });
+  } catch {
+    /* no checklist for this set; the caller falls back */
+  }
+}
+
 const ripsBySet = {};
 for (const v of videos) for (const s of v.sets || []) (ripsBySet[s] ||= []).push(v);
 
@@ -751,8 +782,15 @@ function enChase(g, en, { standalone = false, why = "", nativeBelow = false } = 
         )
         .join("\n      ")}
     </div>
-    <p class="price-note">English ${esc(en.name)} card scans from TCGdex, TCGplayer market prices${
-      longDate(en.pricesAsOf || en.chasePricesAsOf) ? `, read ${esc(longDate(en.pricesAsOf || en.chasePricesAsOf))}` : ""
+    <p class="price-note">English ${esc(en.name)} card scans from TCGdex, ${
+      esc(enPriceDocs.get(en.id)?.priceSource || "pricecharting.com")
+    } price guide values for an ungraded copy${
+      // The card file's own price date first, because that is the day the money
+      // was read; the set record's stamp is the fallback and says the same
+      // thing today. Both beat the checklist date, which is a different read.
+      longDate(enPriceDocs.get(en.id)?.pricesChecked || en.pricesAsOf || en.chasePricesAsOf)
+        ? `, read ${esc(longDate(enPriceDocs.get(en.id)?.pricesChecked || en.pricesAsOf || en.chasePricesAsOf))}`
+        : ""
     }. Every one of them links through to the ${esc(en.name)} guide, which prices the whole checklist.</p>
 `;
 }

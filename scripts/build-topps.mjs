@@ -421,6 +421,21 @@ const psaTop = psaList[0];
 const rawFloor = rawList[rawList.length - 1];
 const psaFloor = psaList[psaList.length - 1];
 
+// WHERE THE GRADED NUMBER ONE SITS ON THE RAW LIST, COUNTED RATHER THAN
+// ASSERTED. The lede said "which does not make the top 100 raw at all" as
+// FIXED PROSE inside an otherwise derived sentence, and on 19 August 2026 it
+// was flatly false: Lapras [Sparkle] #131 is the top PSA 10 at $45,388 AND
+// sits at number 24 on the raw hundred on the same page, at $1,113. A reader
+// scrolling nine thousand characters down met the row the lede told them was
+// not there. The point the sentence is making (the two lists are different
+// lists, not one list reordered) survives either way, and it is a stronger
+// point when the number is real: a card can be 24th raw and 1st graded.
+const psaTopRawIndex = rawList.findIndex((c) => c.rank === psaTop.rank);
+const psaTopRawPlace =
+  psaTopRawIndex === -1
+    ? `which does not make the top ${rawList.length} raw at all`
+    : `which sits at number ${psaTopRawIndex + 1} on the raw ${rawList.length}`;
+
 // How many of each list came out of the Chrome bucket. Chrome dominates both
 // and the page says so with a figure rather than an impression.
 const chromeIn = (list) => list.filter((c) => c.console === "/console/pokemon-2000-topps-chrome").length;
@@ -1201,8 +1216,8 @@ ${MENU}
     <h1>Topps Pokemon card values: <span class="hl">two</span> top 100s</h1>
     <p class="lede" style="max-width:42em">The same ${d.scanned.products.toLocaleString("en-US")} Topps cards
       ranked twice, because raw and graded do not give the same answer and it is not close. The most valuable loose
-      Topps card is ${esc(rawTop.name)}; the highest PSA 10 value is ${esc(psaTop.name)}, which does not make the
-      top ${rawList.length} raw at all. Both read on ${esc(read)}.</p>
+      Topps card is ${esc(rawTop.name)}; the highest PSA 10 value is ${esc(psaTop.name)}, ${psaTopRawPlace}. Both
+      read on ${esc(read)}.</p>
   </div>
 </header>
 

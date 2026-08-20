@@ -125,6 +125,44 @@ try {
 } catch {
   /* no hunt list yet: the band renders empty and the section hides itself */
 }
+
+/* --------------------------- the hunt list's raw price, from the checklist --
+ *
+ * THE HOME PAGE CONTRADICTED ITSELF ABOUT ONE CARD, found 19 August 2026. Most
+ * Wanted read "Mega Darkrai ex, PITCH BLACK, RAW $233" and the Card Pokedex
+ * grid nine hundred pixels below read "Pitch Black, Top card $249". They are
+ * the same card, Pitch Black #116, on the same page.
+ *
+ * public/data/wanted.json is a SNAPSHOT of the card prices taken by
+ * sync-wanted.mjs on 12 August, when the site's raw prices were TCGplayer's
+ * market price via TCGdex. The whole site moved to PriceCharting's ungraded
+ * guide on 18 August in one file (sync-cards.mjs), which is why nothing else
+ * had to change; a snapshot cannot be corrected by a swap it never sees, so
+ * this band kept serving the retired feed's numbers with no way to tell.
+ *
+ * So read the figure out of public/data/cards/<set>.json, which is the file
+ * shared/card-prices.mjs calls the one source for a card price and the file the
+ * set grid on this very page is already priced from. build-wanted.mjs does the
+ * identical join for /wanted.html, beside a longer note; the two builders read
+ * the same file so they cannot answer differently. The wanted file's own number
+ * survives only where a set has no checklist yet, which is the standing pattern
+ * for absent data everywhere else here.
+ *
+ * THE PSA 10 FIGURE IS NOT TOUCHED. It is a different measurement from a
+ * different feed (data/psa10.json), the same one `gradedPrice` above hands the
+ * set grid, so the two bands already agree about graded money.
+ */
+for (const c of wanted.cards || []) {
+  if (!c.set || !c.number) continue;
+  try {
+    const doc = JSON.parse(await readFile(join(ROOT, `public/data/cards/${c.set}.json`), "utf8"));
+    const row = doc.cards.find((x) => String(x.n) === String(c.number));
+    if (typeof row?.price === "number" && row.price > 0) c.raw = row.price;
+  } catch {
+    /* no checklist for this set yet: keep what the hunt file holds */
+  }
+}
+
 const logos = await dirSet("logos", /-pokemon-tcg-set-logo\.webp$/);
 
 /* ------------------------------------------------------------- formatting - */
@@ -210,12 +248,45 @@ function faceSet(v) {
 // clock is behind the build can only ever see what the server already rendered.
 // Same idea as the date sweep in build-shows.mjs, which is the only reason
 // /card-shows.html survives a frozen deploy.
-const BUILT = new Date().toISOString().slice(0, 10);
+//
+// LOCAL MIDNIGHT, NOT UTC, AND shared/drops.mjs ALREADY SAYS WHY IN CAPITALS.
+// The note beside CLIENT_DAY_JS ends "Do not simplify this to
+// toISOString().slice(0,10)", and this line was exactly that, four hours a
+// night, five in winter, in the owner's own timezone. Found on the evening of
+// 19 August 2026, at 8:20pm in Rochester, with the build stamping 2026-08-20:
+//
+//   - DROPS_TODAY takes the LATER of the drops clock and this stamp, so the
+//     band had already deleted the Walmart row reading "Wednesday 19 August,
+//     from 9pm Eastern". The drop was forty minutes away and the front door had
+//     stopped mentioning it. The client sweep cannot put it back: that sweep
+//     only ever REMOVES rows, and the row was not in the HTML at all.
+//   - Every `ago` chip aged by a day: a rip published 17 August rendered
+//     "3 DAYS AGO" on the 19th.
+//   - data-built is the FLOOR the browser pass is not allowed to go below, so
+//     the one mechanism that exists to correct a stale date was pinned to the
+//     wrong one.
+//
+// Hand rolled from the local date parts, the same three lines todayIso() ships
+// to the browser, so the server and the reader answer the same question.
+const localDay = (dt) => {
+  const m = dt.getMonth() + 1, d = dt.getDate();
+  return `${dt.getFullYear()}-${m < 10 ? "0" : ""}${m}-${d < 10 ? "0" : ""}${d}`;
+};
+const BUILT = localDay(new Date());
 
 /** "TODAY", "3 DAYS AGO", "2 WEEKS AGO". Short enough for a corner chip. */
 function ago(iso) {
   if (!iso) return "";
-  const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+  // WHOLE DAYS BETWEEN TWO LOCAL MIDNIGHTS, for the reason above. `new
+  // Date("2026-08-17")` is midnight UTC, which is 8pm on the 16th in Rochester,
+  // so subtracting it from Date.now() answered a question about a different
+  // pair of days. Both ends are pinned to local midnight now, so the answer is
+  // the one a reader would give looking at a calendar.
+  const [y, m, d] = String(iso).slice(0, 10).split("-").map(Number);
+  if (!y || !m || !d) return "";
+  const then = new Date(y, m - 1, d).getTime();
+  const now = new Date();
+  const days = Math.floor((new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() - then) / 86400000);
   if (days <= 0) return "TODAY";
   if (days === 1) return "YESTERDAY";
   if (days < 7) return `${days} DAYS AGO`;

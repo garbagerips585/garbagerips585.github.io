@@ -22,6 +22,9 @@ import { SITE } from "../shared/site.mjs";
 // home page's. See shared/chrome.mjs beside the two exports.
 import { APP_JS_NO_PACKPLAYER as APP_JS } from "../shared/chrome.mjs";
 import { esc, shortDate, moneyCompact, imgDims, avifPicture, rarityLabel } from "../shared/format.mjs";
+// priceRead(), so this page cannot stamp the checklist's date under a column of
+// dollars. See the long note beside the checklist join below.
+import { priceRead } from "../shared/card-prices.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -38,7 +41,7 @@ const { cards, updated } = JSON.parse(
 );
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
 
-/* --------------------------------------------- rarity, from the checklist --
+/* ------------------------------------ rarity AND price, from the checklist --
  *
  * THE CHECKLIST WINS, because it is what the other four pages print.
  *
@@ -61,23 +64,79 @@ const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), 
  * (the newest sets ship a wanted card before their checklist lands). Cased
  * through rarityLabel for the usual reason, which is that TCGdex ships
  * "Special illustration rare" and the rest of the site writes Title Case.
+ *
+ * ------------------------------------------------------ AND SO DOES THE PRICE
+ *
+ * THE SAME ARGUMENT APPLIES WORD FOR WORD TO THE MONEY, and it took until 19
+ * August 2026 to notice, by which point this page was printing a sentence that
+ * was flatly false: "THEY ARE THE SAME FIGURES THE SET GUIDES AND THE
+ * CHECKLISTS PRINT". They were not. All ten of them disagreed.
+ *
+ *      Mega Darkrai ex, Pitch Black #116     $233 here    $249.22 on the guide
+ *      Mega Dragonite ex, Ascended Heroes    $705 here    $670
+ *      Mega Charizard X ex, Phantasmal F.    $716 here    $750
+ *
+ * public/data/wanted.json was last written by sync-wanted.mjs on 12 August,
+ * when the site's raw card prices were TCGplayer's market price via TCGdex. The
+ * whole site moved to PriceCharting's ungraded price guide on 18 August, in one
+ * place (sync-cards.mjs), which is exactly why nine other builders did not have
+ * to change. This one did, because it reads a SNAPSHOT of those prices taken on
+ * a different day rather than reading the file itself, and a snapshot cannot be
+ * corrected by a source swap it never sees.
+ *
+ * IT WAS WORST ON THE HOME PAGE, where both bands are visible at once: the Most
+ * Wanted shelf said Mega Darkrai ex RAW $233 and the Card Pokedex grid nine
+ * hundred pixels below said Pitch Black, Top card $249. Same card, same page,
+ * two prices, no source line on either.
+ *
+ * So the raw figure is read out of the same file the rarity is, and the wanted
+ * file's own number is kept only where the checklist has no row (a card wanted
+ * out of a set whose checklist has not landed). `rawFrom` records which, so the
+ * note under the grid can say what it is actually describing.
+ *
+ * THE PSA 10 FIGURE IS DELIBERATELY LEFT ALONE. It is a different measurement
+ * from a different, named, dated feed (pokemonpricetracker.com, in
+ * data/psa10.json), it is not what the set guides print, and it never claimed to
+ * be. Switching it to the checklist's PriceCharting column would change what is
+ * on the page rather than correct it, and would hand four cards a graded price
+ * they do not have today. What was wrong there is narrower and is fixed in the
+ * note: the source is in the data and the page was dropping it.
  */
 const rarities = new Map();
+const priceStamps = new Map();
 for (const c of cards) {
   if (!c.set || !c.number) continue;
   if (!rarities.has(c.set)) {
     try {
-      rarities.set(
-        c.set,
-        JSON.parse(await readFile(join(ROOT, `public/data/cards/${c.set}.json`), "utf8")).cards
-      );
+      const doc = JSON.parse(await readFile(join(ROOT, `public/data/cards/${c.set}.json`), "utf8"));
+      rarities.set(c.set, doc.cards);
+      priceStamps.set(c.set, {
+        priceSource: doc.priceSource,
+        pricesChecked: doc.pricesChecked,
+        checked: doc.checked,
+      });
     } catch {
       rarities.set(c.set, null);
     }
   }
   const m = (rarities.get(c.set) || []).find((x) => String(x.n) === String(c.number));
   c.rarity = rarityLabel(m?.rarity || c.rarity) || null;
+  if (typeof m?.price === "number" && m.price > 0) {
+    c.raw = m.price;
+    c.rawFrom = "checklist";
+    // priceRead(), not the checklist's own `checked`: that one is the day
+    // TCGdex was read for names and rarities and it moves nightly, and stamping
+    // it under a column of dollars claims a freshness the figures do not have.
+    c.rawAsOf = priceRead(priceStamps.get(c.set));
+  }
 }
+
+// The stamps the note prints, taken from whichever set files the page actually
+// used. One source across all ten today; if that ever stops being true the note
+// says so rather than picking one and hoping.
+const usedStamps = [...priceStamps.values()].filter(Boolean);
+const rawSources = [...new Set(usedStamps.map((s) => s.priceSource).filter(Boolean))];
+const anyChecklistPrice = cards.some((c) => c.rawFrom === "checklist");
 
 const hunting = cards.filter((c) => !c.got);
 const caught = cards.filter((c) => c.got);
@@ -355,6 +414,13 @@ function cardTile(c, { hunted = true, eager = false } = {}) {
 const asOf = cards.map((c) => c.psa10AsOf).filter(Boolean).sort().pop() || null;
 const anyPsa = cards.some((c) => c.psa10);
 
+// WHO SAID SO, AND THE DATA HAD IT ALL ALONG. Every card with a graded figure
+// carries `psa10Source` (pokemonpricetracker.com today) and the note said only
+// "GRADED SALES DATA", which is a price on a fan page with no source under it.
+// Named where there is one name; where two feeds ever appear the page says the
+// generic thing rather than crediting one of them for the other's figure.
+const psaSources = [...new Set(cards.filter((c) => c.psa10).map((c) => c.psa10Source).filter(Boolean))];
+
 // THE RAW COLUMN HAD A DATE ALL ALONG AND NEVER PRINTED IT. Every card carries
 // `rawAsOf`, and the note under the grid dated only the PSA 10 figures, so half
 // the page looked timeless and half did not. Newest read, same reason as above.
@@ -462,15 +528,23 @@ ${huntRips
   .join("\n")}
       </ul>
     </section>` : ""}
-    <p class="price-note">RAW PRICES ARE TCGPLAYER MARKET VALUES READ THROUGH TCGDEX${
-      rawAsOf ? `, LAST CHECKED ${shortDate(rawAsOf).toUpperCase()}` : ""
-    }. THEY ARE THE SAME FIGURES THE SET GUIDES AND THE CHECKLISTS PRINT, AND THEY MOVE ON THEIR OWN.${
+    <p class="price-note">RAW PRICES ARE ${
+      esc((rawSources.length === 1 ? rawSources[0] : "PRICECHARTING.COM").toUpperCase())
+    }'S PRICE GUIDE VALUE FOR AN UNGRADED COPY${
+      rawAsOf ? `, READ ${shortDate(rawAsOf).toUpperCase()}` : ""
+    }.${
+      anyChecklistPrice
+        ? ` THEY ARE READ OUT OF THE SAME SET CHECKLIST THE SET GUIDES AND THE CARD SEARCH PRINT FROM, SO THE THREE CANNOT DISAGREE ABOUT ONE CARD. THEY MOVE ON THEIR OWN.`
+        : ` THEY MOVE ON THEIR OWN.`
+    }${
       anyUnpriced
-        ? ` A SET THIS NEW SOMETIMES HAS NO MARKET PRICE YET, AND WE SHOW NOTHING RATHER THAN A ZERO.`
+        ? ` A SET THIS NEW SOMETIMES HAS NO PRICE YET, AND WE SHOW NOTHING RATHER THAN A ZERO.`
         : ""
     }${
         anyPsa
-          ? `<br>PSA 10 PRICES COME FROM GRADED SALES DATA${asOf ? `, LAST CHECKED ${shortDate(asOf).toUpperCase()}` : ""}, AND ARE NOT PART OF THE TCGPLAYER FEED.`
+          ? `<br>PSA 10 PRICES COME FROM ${
+              esc((psaSources.length === 1 ? psaSources[0] : "GRADED SALES DATA").toUpperCase())
+            }${asOf ? `, LAST CHECKED ${shortDate(asOf).toUpperCase()}` : ""}. THAT IS A SEPARATE FEED FROM THE RAW FIGURES ABOVE AND A DIFFERENT READ, SO THE TWO COLUMNS ARE NOT ONE MEASUREMENT.`
           : `<br>PSA 10 PRICES ARE NOT LISTED FOR THESE YET. GRADED SALES COME FROM A SEPARATE FEED AND FROM CHECKING BY HAND.`
       }</p>
   </div>

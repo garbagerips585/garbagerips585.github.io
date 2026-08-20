@@ -176,9 +176,19 @@ const n = (v) => v.toLocaleString("en-US");
 // the price note below carry the price date, which is the one a reader is
 // actually judging a number against.
 const newest = [index.checked, printings.checked].filter(Boolean).sort().pop();
+// AND IT NAMED THE WRONG FEED UNTIL 19 AUGUST 2026. This sentence said
+// "TCGplayer market price" while the price note twelve inches down the same
+// page said "pricecharting.com's price guide value for an ungraded copy", which
+// is what the numbers actually are. That is the ten-chances-to-miss-one failure
+// shared/card-prices.mjs was written for, and it landed in the worst place it
+// could: the meta and og descriptions are the copy Google shows, so the wrong
+// source was the version most people read. The source name comes from the same
+// default that module uses rather than being typed twice.
+const priceSourceName = index.priceSource || "PriceCharting";
 const desc =
   `Search ${printings.total.toLocaleString("en-US")} Pokemon card printings across ${printings.sets} sets by name, ` +
-  `with rarity and current TCGplayer market price. Updated ${longDate(newest) || newest}.`;
+  `with rarity and ${priceSourceName}'s current price guide value for an ungraded copy. ` +
+  `Updated ${longDate(newest) || newest}.`;
 
 // DESKTOP LAYOUT, and it lives here rather than in assets-source/ui.css on
 // purpose: it is the only page that wants these rules, and ui.css is already

@@ -93,7 +93,10 @@ function listedFloor(c) {
 }
 
 const rows = [];
-let checked = null;
+// NO SEPARATE `checked` HERE ANY MORE. It held the checklist's date and the two
+// sentences that used it were both about money, which is what put two different
+// dates on one page's prices. Everything this page says about a figure now goes
+// through `priceDoc` and priceRead(); see the comment in the hero.
 let priceDoc = null;
 
 for (const f of (await readdir(join(ROOT, "public/data/cards"))).sort()) {
@@ -101,7 +104,6 @@ for (const f of (await readdir(join(ROOT, "public/data/cards"))).sort()) {
   const doc = JSON.parse(await readFile(join(ROOT, "public/data/cards", f), "utf8"));
   const set = meta.get(doc.set);
   if (!set) continue;
-  checked = checked || doc.checked;
   // THE PRICE STAMPS ARE COLLECTED ACROSS EVERY SET, not taken from whichever
   // file happened to be read first. This page sums 28 checklists into one
   // total, so its sourcing line has to describe all 28: the read date is one
@@ -505,13 +507,28 @@ ${MENU}
          "live prices". Neither is true: the totals are computed from a price
          file with a read date on it, which is stamped at the bottom of the page
          and can be two days behind a build. Say the date instead of implying
-         a feed we do not run. -->
-    <span class="kicker">Pokemon TCG &bull; Priced ${esc(longDate(checked) || "recently")}</span>
+         a feed we do not run.
+
+         AND IT SAID THE WRONG DATE, IN THE WRONG WORDS, UNTIL 19 AUGUST 2026,
+         which is the exact trap shared/card-prices.mjs was written to close.
+         The stamp named "checked" is the day TCGdex was read for the CHECKLIST;
+         the one named "pricesChecked" is the day PriceCharting was read for the
+         MONEY. Both of these sentences are about money and both were stamped
+         with the checklist's date, so the top of the page said "Priced August
+         12" over totals whose own note at the foot said "read August 16". Two
+         dates for one set of numbers on one page, and the reader has no way to
+         tell which is the freshness of the figure they are judging. priceRead()
+         exists so a builder cannot reach for the wrong one by habit; use it.
+         The words moved with the date for the same reason: these are
+         PriceCharting guide values, not a marketplace's market prices, and the
+         note at the foot has drawn that distinction in the site's own wording
+         since the swap. -->
+    <span class="kicker">Pokemon TCG &bull; Priced ${esc(longDate(priceRead(priceDoc)) || "recently")}</span>
     <h1>What does it cost to <span class="hl">complete</span> a set?</h1>
     <p class="lede w38">Every set we cover, costed three ways, from the commons run to the full
-      master set. Every figure is added up from market prices read on
-      ${esc(longDate(checked) || "the date at the bottom of this page")}, not a number somebody typed into an
-      article two years ago, and they get read again each night.</p>
+      master set. Every figure is added up from price guide values read on
+      ${esc(longDate(priceRead(priceDoc)) || "the date at the bottom of this page")}, not a number somebody typed
+      into an article two years ago, and they get read again each night.</p>
   </div>
 </header>
 

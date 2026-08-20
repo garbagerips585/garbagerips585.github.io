@@ -781,9 +781,20 @@ ${all
           <li><b>The artwork.</b> Official artwork from the PokeAPI sprite repository, mirrored to this site at
             ${artDoc?.box || 256}px and served from here rather than hotlinked, read
             ${esc(longDate(artDoc?.checked) || artDoc?.checked || "an unrecorded date")}.</li>
-          <li><b>The cards.</b> The TCGdex card database for the printing and set counts, TCGplayer market prices
-            via TCGdex for the money, read
-            ${esc(longDate(pokeIndex?.checked) || pokeIndex?.checked || "an unrecorded date")}.</li>
+          ${/* THE MONEY MOVED AND THIS LINE DID NOT, until 19 August 2026. It
+                credited "TCGplayer market prices via TCGdex" and dated them
+                with the CHECKLIST stamp, while the price note higher up the
+                same page, which comes from shared/card-prices.mjs, said
+                "pricecharting.com's price guide value for an ungraded copy,
+                read August 16". One page, one column of dollars, two different
+                sources and two different dates. That module's own header names
+                this exact failure: the 18 August source swap was ten separate
+                chances to leave a page crediting a feed it no longer reads.
+                The checklist half of the sentence is still true and still
+                TCGdex's, so the two are split rather than merged. */ ""}
+          <li><b>The cards.</b> The TCGdex card database for the printing and set counts, read
+            ${esc(longDate(pokeIndex?.checked) || pokeIndex?.checked || "an unrecorded date")}.
+            ${esc(priceNote(pokeIndex || {}, { lead: "The prices" }))}</li>
         </ul>
         <p class="ee-src">The framing paragraphs are ours and say nothing the conditions above them do not.
           Pokemon and Pokemon names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc. This is a fan
