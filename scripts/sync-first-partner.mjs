@@ -79,20 +79,34 @@
 // this site does not make a reader's browser fetch somebody else's origin.
 // The page credits pokemon.com by name for them.
 //
-// TWO SIZES EXIST AND ONLY ONE OF THEM IS COMPLETE. The gallery links a
-// 160x224 thumbnail (.../cards/site_search/MEP/MEP_EN_<n>.png) for all 27, and
-// a 245x342 render (.../cards/web/MEP/MEP_EN_<n>.png) for 037 to 054 only.
-// 055 to 063, the whole of Series 3, answer **403** on the larger path.
+// THREE PATHS EXIST AND THE BIGGEST ONE IS COMPLETE. Measured 19 August 2026,
+// all 27 cards, status AND body size AND the PNG's own IHDR dimensions:
 //
-// **403 IS NOT 404 AND IT IS NOT PROOF OF ABSENCE**, which is the trap
-// build-topps.mjs records from the other direction: PriceCharting's CDN
-// answers 403 for a card it holds no scan of, so an agent there shipped a
-// stand-in that 403ed. Here the 403 was retried with a browser user agent and
-// a Referer from the Series 3 gallery, on a separate pass, and answered 403
-// every time. So Series 3 is recorded as thumbnail-only rather than as
-// broken, the file says which size each card got, and the page says out loud
-// that nine cards are shown smaller because that is all the publisher has
-// released. Nothing is upscaled to hide it.
+//   .../cards/full/MEP/MEP_EN_<n>.png          420x585   200 on ALL 27
+//   .../cards/web/MEP/MEP_EN_<n>.png           245x342   200 on 037-054, 403 on 055-063
+//   .../cards/site_search/MEP/MEP_EN_<n>.png   160x224   200 on all 27
+//
+// `high_res` and `detail` answer 403 on all 27, so `full` is the largest
+// rendition the publisher has released.
+//
+// **THIS FILE USED TO CLAIM SERIES 3 WAS THUMBNAIL-ONLY AND THAT WAS WRONG.**
+// It read the 403 on `web` as a fact about the CARDS when it is a fact about
+// ONE PATH: the nine Series 3 cards are refused on `web` and served on `full`,
+// at 420x585, from a url the gallery HTML links directly. The sync had simply
+// never tried `full`. Nine cards shipped at 160x224 for it, and the page
+// printed a sentence about the publisher that was not true. **A 403 ON ONE
+// PATH IS NOT PROOF OF ABSENCE ANYWHERE** -- which is the same trap
+// build-topps.mjs records from the other direction -- and the fix is to probe
+// every path before writing a claim about what a publisher holds, not to
+// retry the one path harder.
+//
+// TWO RENDITIONS SHIP, 245w AND 420w, and that is a measurement rather than a
+// preference. The panorama strip renders each card at 121 CSS px at 390 and
+// 227 at 1440, so a retina desktop needs 454 device px and a phone needs 242.
+// One file cannot serve both: 245w alone leaves the desktop upscaled (which is
+// what it was, on all 27, before this), and 420w alone charges every phone
+// +882KB across the 27 for pixels it cannot show. So both are written and the
+// `<source>` carries a `w` ladder. Nothing is upscaled at any width.
 
 import { mkdir, readFile, writeFile, stat } from "node:fs/promises";
 import { createHash } from "node:crypto";
@@ -100,6 +114,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parsePage, productColumns, columnChange, CONSOLE_HEADERS } from "../shared/pricecharting.mjs";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache/pricecharting-promo");
 const IMGDIR = join(ROOT, "public/assets/first-partner");
@@ -288,12 +303,13 @@ async function crawlListing() {
  * larger change than the feature. Quality 78 WebP and 60 AVIF are the numbers
  * build-packs.py settled on and CLAUDE.md records the PSNR work behind them.
  */
-async function encode(png, name, { crop = null } = {}) {
+async function encode(png, name, { crop = null, resize = null } = {}) {
   const out = join(IMGDIR, name);
   const py = `
 from PIL import Image
 im = Image.open(${JSON.stringify(png)}).convert("RGBA")
 ${crop ? `im = im.crop(tuple(${JSON.stringify(crop)}))` : ""}
+${resize ? `im = im.resize(tuple(${JSON.stringify(resize)}), Image.LANCZOS)` : ""}
 print(im.size[0], im.size[1])
 im.save(${JSON.stringify(out)} + ".webp", "WEBP", quality=78, method=6)
 im.save(${JSON.stringify(out)} + ".avif", "AVIF", quality=60)
@@ -367,35 +383,38 @@ async function main() {
 
   // ------------------------------------------------------------------ images
   await mkdir(IMGDIR, { recursive: true });
-  let big = 0;
-  let small = 0;
+  let done = 0;
   for (const rec of out) {
     const n = Number(rec.number);
-    for (const [kind, w, h] of [["web", 245, 342], ["site_search", 160, 224]]) {
-      const url = `${IMG_BASE}/${kind}/MEP/MEP_EN_${n}.png`;
-      const buf = await cached(url, `img-${kind}-${n}`, { binary: true });
-      // A real image body, not a 200 on an error page. Same test
-      // sync-topps-images.mjs applies: only a genuine PNG sets the field.
-      if (buf && buf.length > 2000 && buf.slice(1, 4).toString() === "PNG") {
-        // THE PNG IS NOT WHAT SHIPS. pokemon.com serves these as PNG and the 27
-        // of them are 4.1MB, which is the same mistake /rarity.html made with a
-        // 1.1MB Scrydex PNG: "THE LESSON IS THE HOST, NOT THE CARD". They are
-        // re-encoded to WebP and AVIF, the pair build-packs.py writes for the
-        // pack art, and the page emits a <picture> with the AVIF in front. The
-        // PNG is kept OUT of public/ entirely; the original stays in the cache.
-        await writeFile(join(CACHE, `png-${rec.number}.png`), buf);
-        await encode(join(CACHE, `png-${rec.number}.png`), `mep-${rec.number}`);
-        rec.img = `/assets/first-partner/mep-${rec.number}.webp`;
-        rec.imgWidth = w;
-        rec.imgHeight = h;
-        rec.imgSize = kind === "web" ? "web" : "thumb";
-        if (kind === "web") big += 1;
-        else small += 1;
-        break;
-      }
-    }
+    const url = `${IMG_BASE}/full/MEP/MEP_EN_${n}.png`;
+    const buf = await cached(url, `img-full-${n}`, { binary: true });
+    // A real image body, not a 200 on an error page. Same test
+    // sync-topps-images.mjs applies: only a genuine PNG sets the field.
+    if (!(buf && buf.length > 2000 && buf.slice(1, 4).toString() === "PNG")) continue;
+    // THE PNG IS NOT WHAT SHIPS. pokemon.com serves these as PNG and the 27
+    // of them are 11.9MB, which is the same mistake /rarity.html made with a
+    // 1.1MB Scrydex PNG: "THE LESSON IS THE HOST, NOT THE CARD". They are
+    // re-encoded to WebP and AVIF, the pair build-packs.py writes for the
+    // pack art, and the page emits a <picture> with the AVIF in front. The
+    // PNG is kept OUT of public/ entirely; the original stays in the cache.
+    await writeFile(join(CACHE, `png-${rec.number}.png`), buf);
+    const src = join(CACHE, `png-${rec.number}.png`);
+    // TWO RENDITIONS, AND THE SMALL ONE IS STILL THE `src`. See the header:
+    // 245w satisfies the strip on a phone and on a DPR 1 desktop, 420w is the
+    // only one that satisfies it at 1440 DPR 2. A single file cannot do both
+    // without either softening the desktop or charging the phone 882KB it has
+    // no use for, so the ladder is what ships and the browser picks.
+    const small = await encode(src, `mep-${rec.number}`, { resize: [245, 342] });
+    const large = await encode(src, `mep-${rec.number}-420`);
+    rec.img = `/assets/first-partner/mep-${rec.number}.webp`;
+    rec.imgWidth = small.width;
+    rec.imgHeight = small.height;
+    rec.imgLarge = `/assets/first-partner/mep-${rec.number}-420.webp`;
+    rec.imgLargeWidth = large.width;
+    rec.imgLargeHeight = large.height;
+    done += 1;
   }
-  console.log(`images: ${big} at 245x342, ${small} at 160x224, ${27 - big - small} missing`);
+  console.log(`images: ${done} of 27 at 245x342 + 420x585, ${27 - done} missing`);
 
   // --------------------------------------------------------------- packaging
   // One per series, mirrored on the same terms as the card scans and cropped
@@ -458,7 +477,7 @@ async function main() {
       "taken. A series with no obtainable shot gets no entry here at all and the",
       "page names it rather than borrowing another series' box.",
     ],
-    checked: new Date().toISOString().slice(0, 10),
+    checked: localDay(),
     priceSource: "PriceCharting",
     priceSourceUrl: PC + CONSOLE_PATH,
     imageSource: "pokemon.com product galleries",

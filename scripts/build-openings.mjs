@@ -621,9 +621,7 @@ async function setBand(e) {
   for (const r of e.setRows) {
     const logo = r.logoSet ? await setLogoTag(r.logoSet) : "";
     const inner =
-      `<span class="op-sw">${
-        logo || `<span class="op-sx" aria-hidden="true"></span>`
-      }</span>
+      `${logo ? `<span class="op-sw">${logo}</span>` : ""}
           <span class="op-sm">
             <b>${esc(r.name)}</b>${
               r.enName
@@ -638,7 +636,7 @@ async function setBand(e) {
             r.packs ? `<span>${count(r.packs, "pack")}</span>` : ""
           }</span>`;
     rows.push(
-      `        <li class="op-sr">${
+      `        <li class="op-sr${logo ? "" : " op-sr-nologo"}">${
         setPages.has(r.sid)
           ? `<a href="/sets/${esc(r.sid)}.html">
           ${inner}
@@ -873,8 +871,20 @@ const STYLE = `
 .op-sw{display:flex;align-items:center;justify-content:center;width:${LOGO_BOX_W}px;height:${LOGO_BOX_H}px;
   background:#fff;border:1px solid var(--hair);border-radius:5px;flex:none}
 .op-sl{width:100%;height:100%;object-fit:contain;display:block}
-.op-sx{display:block;width:100%;height:100%;border-radius:4px;
-  background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
+/* NO PLATE AT ALL WHEN THERE IS NO LOGO, and this replaced an .op-sx that
+   painted a 45 degree hatch into the empty box. Tim, 19 August 2026: "I don't
+   want any blank or any coming soon images". A hatch is a picture of a missing
+   picture: it draws the eye to a hole and tells a reader something is still
+   loading or still to come, when the truth is that the art does not exist.
+   It rendered in exactly ONE row on the whole site, Gem Pack Vol. 2 (CN) on
+   /openings/chinese-pack.html, whose own caption already says "No English
+   release, and no logo art anywhere we can reach - so the row said the true
+   thing in words and drew the false one beside it.
+   The row loses the column rather than keeping an empty one, because an empty
+   plate reads as a failed image just as much as a hatched one does. It is the
+   only row in its list, so nothing is left misaligned; if a list ever mixes
+   the two, a logo-less row starting flush left is still the honest shape. */
+.op-sr-nologo>a,.op-sr-nologo>div{grid-template-columns:minmax(0,1fr) auto}
 .op-sm{min-width:0}
 .op-sm b{display:block;font-weight:700;font-size:var(--t-sm);line-height:1.3}
 .op-se{display:block;font:400 var(--t-micro)/1.35 var(--mono);color:var(--ink-2);margin-top:2px}
@@ -895,6 +905,7 @@ const STYLE = `
 @media(max-width:560px){
   .op-sr>a,.op-sr>div{grid-template-columns:88px minmax(0,1fr);gap:var(--s2) var(--s3)}
   .op-sw{width:88px;height:34px;grid-row:span 2;align-self:start}
+  .op-sr-nologo>a,.op-sr-nologo>div{grid-template-columns:minmax(0,1fr)}
   .op-sn{text-align:left}
   .op-sn b{font-size:var(--t-sm)}
   .op-sn span{display:inline;margin-left:.4em}

@@ -135,18 +135,30 @@
 // each above its own date, regions and contents. The hero stays text.
 //
 // IF A SERIES EVER LOSES ITS SHOT the block shows no box and the page says
-// which series and why, the same way it already handles the nine Series 3
-// cards that exist only at the smaller size. No series ever borrows another's
-// box, because the whole job of these three pictures is telling them apart.
+// which series and why. No series ever borrows another's box, because the
+// whole job of these three pictures is telling them apart.
 //
 // ---------------------------------------------------------------------------
-// TWO IMAGE SIZES, AND THE PAGE ADMITS IT
+// TWO RENDITIONS, ONE SIZE ON THE PAGE
 // ---------------------------------------------------------------------------
 //
-// pokemon.com publishes 245x342 renders for MEP 037-054 and only 160x224
-// thumbnails for 055-063, the whole of Series 3, which answer 403 on the larger
-// path on every attempt. So Series 3's strip is visibly softer. The page says
-// which nine and why rather than upscaling them to hide it.
+// ALL 27 ARE 420x585. THIS COMMENT SAID THE OPPOSITE UNTIL 19 AUGUST 2026 AND
+// SO DID THE PAGE. It claimed pokemon.com published a full-size render for MEP
+// 037-054 and only a 160x224 thumbnail for 055-063, and that the larger file
+// was "refused on every attempt". That was a fact about ONE PATH, not about the
+// cards: `cards/web/` is refused for those nine, `cards/full/` is not, and all
+// 27 answer 200 there at 420x585. See sync-first-partner.mjs's header for the
+// measurement. Nine cards shipped at 160x224 for it.
+//
+// The sync writes 245w and 420w of each. `scan()` emits both as a `w` ladder
+// and every caller declares its own `sizes`, so the phone keeps taking the 245
+// and only the panorama strip above 900px reaches the 420. Do not drop the
+// ladder to "simplify": 245w alone re-softens the strip at 1440 DPR 2, which is
+// what it looked like before, and 420w alone costs a phone 882KB it cannot use.
+//
+// `thumbs` below is derived from the data and is 0, so the paragraph that
+// admits a size difference no longer prints. It stays because a future card
+// could still come in short.
 
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
@@ -345,7 +357,13 @@ const allRaw = total(cards, rawOf);
 const psaHave = cards.filter((c) => psaOf(c) != null).length;
 const psaRefused = cards.filter((c) => c.pc?.cols?.psa10?.status === "disagree").length;
 const psaNone = cards.filter((c) => c.pc?.cols?.psa10?.status === "none").length;
-const thumbs = cards.filter((c) => c.imgSize === "thumb").length;
+// HOW MANY CARDS ARE SMALLER THAN THE BIGGEST ONE, asked of the data rather
+// than hard-coded to a series. It is 0 today, because all 27 now mirror at
+// 420x585 off pokemon.com's `full` path, so the paragraph it guards does not
+// print at all. It is kept, and kept derived, so that a card that ever does
+// come in short says so on the page by itself.
+const maxImgW = Math.max(0, ...cards.map((c) => c.imgLargeWidth || 0));
+const thumbs = cards.filter((c) => c.img && (c.imgLargeWidth || 0) < maxImgW).length;
 
 // ---------------------------------------------------------------------------
 //                                                                     markup
@@ -365,20 +383,59 @@ const thumbs = cards.filter((c) => c.imgSize === "thumb").length;
  * `lazy` is false for everything in the first screen. CLAUDE.md: a lazy image
  * the browser can already see is fetched immediately anyway, and what the
  * attribute costs there is the preload scanner.
+ *
+ * `sizes` IS REQUIRED AND THERE IS NO DEFAULT, because the sync now writes two
+ * renditions (245w and 420w) and the browser's own default of `100vw` would
+ * hand the 420 to every one of these boxes, including the 40px one in the
+ * scroller. Each caller declares the box it actually renders, measured off the
+ * page rather than read off the CSS:
+ *
+ *   .fp-strip-img   121 at 390, 288 at 899 (one column, wrap/3),
+ *                   227 at 1440 (two columns from the 900px breakpoint)
+ *   .fp-scroll img  40
+ *   .fp-pull-cards  72
+ *
+ * So only the panorama strip can reach the 420, and only above 900 or on a
+ * large phone: at 390 DPR 2 it asks for 242 and takes the 245. That is the
+ * whole reason for the ladder and it is checked in verify() below.
  */
-function scan(c, { lazy = true, cls = "" } = {}) {
+function scan(c, { lazy = true, cls = "", sizes }) {
   if (!c.img) return `<span class="fp-noimg" aria-hidden="true"></span>`;
-  const avif = c.img.replace(/\.webp$/, ".avif");
+  if (!sizes) throw new Error(`scan(${c.number}): sizes is required`);
+  const set = (ext) =>
+    `${esc(c.img.replace(/\.webp$/, ext))} ${c.imgWidth}w, ${esc(c.imgLarge.replace(/\.webp$/, ext))} ${c.imgLargeWidth}w`;
   const alt = `${c.name} promo card number ${c.number} from the First Partner Illustration Collection Series ${c.series}, ${c.region} region, illustrated by ${c.illustrator}`;
-  return `<picture><source type="image/avif" srcset="${esc(avif)}"><img${cls ? ` class="${cls}"` : ""} src="${esc(c.img)}" width="${c.imgWidth}" height="${c.imgHeight}" alt="${esc(alt)}"${lazy ? ` loading="lazy"` : ""} decoding="async"></picture>`;
+  return `<picture><source type="image/avif" sizes="${esc(sizes)}" srcset="${set(".avif")}"><img${cls ? ` class="${cls}"` : ""} src="${esc(c.img)}" sizes="${esc(sizes)}" srcset="${set(".webp")}" width="${c.imgWidth}" height="${c.imgHeight}" alt="${esc(alt)}"${lazy ? ` loading="lazy"` : ""} decoding="async"></picture>`;
 }
+
+/**
+ * The panorama strip's box: one third of the wrap, one sixth above 900.
+ * Measured off the page: 121 at 390, 227 at 1440, 201 at 1280.
+ *
+ * **EVERY CALLER DECLARES THIS, INCLUDING THE 40px ONE, AND THAT IS THE WHOLE
+ * POINT.** This page shows all 27 cards THREE TIMES -- the panorama strip, the
+ * 40px thumbnail in the price table, and the 72px pull cards -- and giving each
+ * element its own honest `sizes` made them resolve to DIFFERENT candidates at
+ * 1440 DPR 2: the strip took the 420 and the table took the 245, so the page
+ * fetched BOTH of every card. Measured from the request log: 2,733.7KB fully
+ * scrolled against 1,121.3KB, three individually correct declarations and one
+ * 1.6MB regression.
+ *
+ * This is the trap CLAUDE.md records under "AND THE OBVIOUS FIX MADE A RETINA
+ * DESKTOP WORSE BEFORE IT MADE IT BETTER", and the fix there is the fix here:
+ * THE SMALLER ELEMENT DECLARES THE LARGER ONE'S BOX, so it can only ever be
+ * handed a file that has already been fetched. Over-declaring a 40px box costs
+ * nothing, because nothing on this page is ever the only user of a card.
+ * Read every element's `currentSrc` off the DOM before changing this.
+ */
+const STRIP_SIZES = "(max-width:899px) 31vw, 232px";
 
 /** One region's three cards edge to edge, which is the panorama. */
 function trio(region, { lazy = true } = {}) {
   const list = byRegion(region);
   const s = list[0].series;
   return `<figure class="fp-trio">
-  <div class="fp-strip">${list.map((c) => scan(c, { lazy, cls: "fp-strip-img" })).join("")}</div>
+  <div class="fp-strip">${list.map((c) => scan(c, { lazy, cls: "fp-strip-img", sizes: STRIP_SIZES })).join("")}</div>
   <figcaption><b>${esc(region)}</b> <span>${list.map((c) => esc(c.name)).join(", ")} &bull; Series ${s}</span></figcaption>
 </figure>`;
 }
@@ -391,8 +448,8 @@ const priceCell = (v, col) => {
 };
 
 const cardRow = (c) => `<tr>
-  <td class="fp-c-img">${scan(c)}</td>
-  <td class="fp-c-id"><b>${esc(c.name)}</b><span>MEP ${esc(c.number)} &bull; ${esc(c.region)} &bull; Series ${c.series}</span></td>
+  <td class="fp-c-img">${scan(c, { sizes: STRIP_SIZES })}</td>
+  <th scope="row" class="fp-c-id"><b>${esc(c.name)}</b><span>MEP ${esc(c.number)} &bull; ${esc(c.region)} &bull; Series ${c.series}</span></th>
   <td class="fp-c-p">${priceCell(rawOf(c), c.pc?.cols?.raw)}</td>
   <td class="fp-c-p">${priceCell(psaOf(c), c.pc?.cols?.psa10)}</td>
 </tr>`;
@@ -544,11 +601,17 @@ const style = `
 .fp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--hair);
   border-radius:var(--r);background:var(--card)}
 .fp-table{width:100%;border-collapse:collapse;min-width:0}
-.fp-table th{text-align:left;font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.05em;
+/* SCOPED TO thead ON PURPOSE. The card-name cell is a th scope="row" now, so
+   that the two price columns announce which card they belong to, and a bare
+   .fp-table th selector would have set the card's own name in uppercase nowrap
+   mono at --ink-2 and shifted it off the row's baseline. The row header wants
+   the td treatment, which is what the rule under it gives it. */
+.fp-table thead th{text-align:left;font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.05em;
   text-transform:uppercase;color:var(--ink-2);padding:var(--s3);border-bottom:1px solid var(--hair);
   white-space:nowrap}
-.fp-table td{padding:var(--s3);border-bottom:1px solid var(--hair);vertical-align:middle}
-.fp-table tr:last-child td{border-bottom:0}
+.fp-table td,.fp-table tbody th{padding:var(--s3);border-bottom:1px solid var(--hair);
+  vertical-align:middle;text-align:left;font-weight:400}
+.fp-table tr:last-child td,.fp-table tr:last-child th{border-bottom:0}
 .fp-c-img{width:64px}
 .fp-c-img img{display:block;width:56px;height:auto;border-radius:3px}
 .fp-c-id b{display:block;font:700 var(--t-body)/1.3 var(--body);color:var(--ink)}
@@ -669,11 +732,9 @@ ${REGIONS.map((r, i) => trio(r, { lazy: i > 0 })).join("\n")}
       </div>
       ${
         thumbs
-          ? `<p class="fp-note" style="margin-top:var(--s5)">The last ${thumbs} cards, all of Series 3,
-        are shown smaller and softer than the rest. That is not a mistake on this page: pokemon.com
-        publishes a full-size render for MEP 037 to 054 and only a small thumbnail for 055 to 063,
-        and the larger file is refused on every attempt. They are shown at the size the publisher has
-        released rather than blown up to match.</p>`
+          ? `<p class="fp-note" style="margin-top:var(--s5)">${thumbs} of the 27 are shown smaller than
+        the rest, because that is the largest render we can reach for them. Nothing here is blown up
+        to match.</p>`
           : ""
       }
     </div>
@@ -715,9 +776,21 @@ ${
         twice from two different pages of theirs and only printed when the two readings agree. Raw is
         an ungraded card; PSA 10 is a perfect graded one. ${psaHave} of the 27 have a PSA 10 figure
         so far${psaNone ? `, and ${psaNone} have none at all because Series 3 has only been out since ${esc(longDate("2026-08-07"))} and nothing has come back from grading yet` : ""}${psaRefused ? `. One card's two readings disagreed and its PSA 10 is held back rather than published` : ""}.</p>
-      <div class="fp-scroll">
+      <!-- THE ONLY DATA TABLE ON THE SITE THAT HAD NONE OF THE SCROLLABLE-TABLE
+           TREATMENT, and the pattern was already settled in build-complete.mjs,
+           build-expansions.mjs, build-luck.mjs, build-openings.mjs and
+           build-how-many-packs.mjs before this page was written. It was a bare
+           <div class="fp-scroll"> holding a <table> with four scope-less <th>s
+           and no caption, so a screen reader met 27 rows of four unlabelled
+           cells and could not reach the box by keyboard to scroll it either.
+           Brought into line rather than given a new shape of its own:
+           tabindex+role+aria-label on the box, an .sr-only <caption>, scope on
+           every header, and the card name promoted to a ROW header so the two
+           money columns announce which card they belong to. -->
+      <div class="fp-scroll" tabindex="0" role="region" aria-label="All 27 First Partner promos with prices, scrollable table">
         <table class="fp-table">
-          <thead><tr><th><span class="sr-only">Card art</span></th><th>Card</th><th style="text-align:right">Raw</th><th style="text-align:right">PSA 10</th></tr></thead>
+          <caption class="sr-only">Every First Partner Illustration Collection promo, with its raw and PSA 10 price</caption>
+          <thead><tr><th scope="col"><span class="sr-only">Card art</span></th><th scope="col">Card</th><th scope="col" style="text-align:right">Raw</th><th scope="col" style="text-align:right">PSA 10</th></tr></thead>
           <tbody>
 ${cards.map(cardRow).join("\n")}
           </tbody>
@@ -771,7 +844,7 @@ ${pulls
     (p) => `      <div class="fp-pull">
         <p class="fp-note"><b>${esc(p.cards.map((c) => c.name).join(", "))}</b> &bull;
           ${esc(p.cards[0].region)} trio${p.published ? `, ${esc(longDate(String(p.published).slice(0, 10)))}` : ""}</p>
-        <div class="fp-pull-cards">${p.cards.map((c) => scan(c)).join("")}</div>
+        <div class="fp-pull-cards">${p.cards.map((c) => scan(c, { sizes: STRIP_SIZES })).join("")}</div>
         ${p.path ? `<p class="fp-note"><a href="${esc(p.path)}">Watch the rip</a></p>` : ""}
       </div>`
   )
@@ -871,7 +944,10 @@ const html = `<!DOCTYPE html>
 <meta property="og:description" content="All 27 promos with prices, what is in the box, and the panorama artwork shown rather than described.">
 <meta property="og:url" content="${SITE}${PATH}">
 <meta property="og:image" content="${SITE}/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${SITE}/assets/og-image.jpg">
 ${FONTS}
 ${STYLES_NO_PACKS_CSS}
 <style>${style}</style>
