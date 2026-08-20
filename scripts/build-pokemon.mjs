@@ -728,16 +728,87 @@ function pokePage(p) {
   // $2.94", which is a claim this data cannot support. So the qualifier is IN
   // the clause, in the page's own words: the fact tile beside it already reads
   // "Priciest one we price". Do not shorten it back out.
-  const priciestClause = p.priciest
-    ? `The priciest ${p.name} card we price is ` +
-      (p.priciest.name === p.name
-        ? // Same string twice reads as a typo: "the priciest Abomasnow card we
-          // price is Abomasnow in Paldean Fates". A base-form printing is named
-          // by its set instead.
-          `the ${p.priciest.setName} one`
-        : `${p.priciest.name} in ${p.priciest.setName}`) +
-      ` at ${moneyExact(p.priciest.price)}.`
+  // WHICH PRINTING THE PRICIEST ONE IS, named once and used twice: by the
+  // description below and by the hero lede. It was written out in the
+  // description alone, and the lede that now repeats the claim has to make it
+  // in the same words, or the page and the snippet disagree about the same
+  // card.
+  const priciestWho = p.priciest
+    ? p.priciest.name === p.name
+      ? // Same string twice reads as a typo: "the priciest Abomasnow card we
+        // price is Abomasnow in Paldean Fates". A base-form printing is named
+        // by its set instead.
+        //
+        // AND A SET WHOSE NAME IS A NUMBER CANNOT TAKE THAT SHAPE. Pokemon's
+        // 2023 set is officially called 151, so "the 151 one" is what this
+        // printed on 46 pages, and it reads as a card number rather than as a
+        // set. It had been going out in those pages' meta descriptions for as
+        // long as the clause has existed. Any set name opening with a digit
+        // gets the preposition instead: "the one from 151".
+        /^\d/.test(String(p.priciest.setName))
+        ? `the one from ${p.priciest.setName}`
+        : `the ${p.priciest.setName} one`
+      : `${p.priciest.name} in ${p.priciest.setName}`
     : "";
+  const priciestClause = p.priciest
+    ? `The priciest ${p.name} card we price is ${priciestWho} at ${moneyExact(p.priciest.price)}.`
+    : "";
+
+  // ==========================================================================
+  // THE LEDE ANSWERS THE QUESTION THE READER ARRIVED WITH, AND UNTIL
+  // 19 AUGUST 2026 IT ANSWERED NOTHING.
+  // ==========================================================================
+  //
+  // It read, on all 1,025 pages, with only the name changing:
+  //
+  //   "Every X card we could find, what the ones we price are worth, and
+  //    everything else worth knowing about X."
+  //
+  // Three things wrong with that, and the third is the one that matters.
+  //
+  // 1. "everything else worth knowing about X" is a slot with nothing in it.
+  //    A sentence that says nothing on one page is a blemish; the same
+  //    sentence on 1,025 pages is a house style.
+  // 2. "what the ones we price are worth" is a promise 58 of these pages
+  //    cannot keep. Those species have no card at all in a set we hold prices
+  //    for, so the page went on to show no price anywhere, having opened by
+  //    offering one.
+  // 3. The money was 1.4 SCREENS DOWN. Measured on /pokemon/charizard.html at
+  //    390x844: the "Priciest one we price" tile sits at y=1,198 against an
+  //    844px fold, behind the sprite and six lines of video game trivia
+  //    (genus, types, generation, size, capture rate, first card). Meanwhile
+  //    the META DESCRIPTION for the same page already leads with the figure,
+  //    deliberately and for a measured reason, three paragraphs above here. So
+  //    a reader searching "how much is my Charizard worth" got the answer in
+  //    Google's snippet and then had to scroll past a wall of Pokedex data to
+  //    see it again on the page that earned the click.
+  //
+  // The lede carries it now, at y=221, which is the first line of body copy on
+  // the page. Nothing moved and no band was reordered to do it.
+  //
+  // THE SCOPE TRAVELS WITH THE CLAIM, exactly as it does in the description.
+  // "The priciest one we price" is the dearest printing we hold a PRICE for,
+  // never the dearest printing that exists, and the median species here has
+  // far more printings than prices. Do not shorten that qualifier out.
+  //
+  // AND THE FIGURES ARE moneyCompact, WHICH IS WHAT THE CARD TILES USE, so the
+  // lede cannot print a different number from the card it is describing. See
+  // the note on the facts strip below for what the other rounding cost.
+  const heroLede = p.priciest
+    ? `Every ${esc(p.name)} card we could find. The priciest one we price is ${esc(priciestWho)} at ` +
+      `${moneyCompact(p.priciest.price)}` +
+      (p.cheapest && p.cheapest !== p.priciest ? `, and the cheapest is ${moneyCompact(p.cheapest.price)}` : "") +
+      `.`
+    : // THE ABSENCE IS PRINTED RATHER THAN PAPERED OVER, which is the standing
+      // pattern on this site. These 58 pages drop the two money tiles from the
+      // facts strip silently, so a reader had no way to tell a species we hold
+      // no price for from a page that had lost its prices. Now it says so.
+      // Kept to the same four lines the priced version runs to at 390. The
+      // first draft said the same thing in 190 characters and took five,
+      // pushing the rest of the page down to explain an absence.
+      `Every ${esc(p.name)} card we could find. We hold no price for any of them, so this page names and ` +
+      `pictures the printings instead.`;
+
   const desc = p.priciest
     ? // The species name is already in the clause above, twice on most pages, so
       // the second sentence drops it. That is 55px of a line Google cuts, spent
@@ -772,8 +843,22 @@ function pokePage(p) {
   // OUR OWN SENTENCES, NOT THE POKEDEX ENTRY. The flavour text in the games is
   // copyrighted and data/pokedex.json deliberately does not store it. These are
   // written from the structured fields, the same discipline /lore.html keeps.
+  //
+  // THE ORDER IS THE CARD FACT FIRST OF THE SIX, AND IT USED TO BE LAST.
+  // Five of these are video game data and one of them is about a card. This
+  // list is the first thing under the sprite on a page whose reader arrived
+  // asking what their card is worth, and "First English card" sat sixth, at
+  // y=1,018 at 390x844, below the fold on every one of the 1,025. It is second
+  // now, at y=655, which is on the first screen. The genus line keeps the top
+  // slot because it is the "yes, this is the right Pokemon" confirmation and it
+  // is one line; everything after these two is the games rather than the cards.
+  // Costs nothing: the same six strings in a different order.
   const facts = [];
   if (p.genus) facts.push(`<b>The ${esc(p.genus)} Pokemon.</b> ${esc(p.name)} is #${p.id} in the National Pokedex.`);
+  if (p.first)
+    facts.push(
+      `<b>First English card.</b> ${esc(p.first.name)}, ${esc(longDate(p.first.released) || p.first.released)}.`,
+    );
   // ONLY A SINGLE-TYPE POKEMON GETS THE CARD-TYPE SENTENCE, and this is not
   // caution, it is what the measurement in data/types.json actually covers. That
   // file's method says in as many words: "for every card whose Pokemon has
@@ -799,18 +884,20 @@ function pokePage(p) {
             : `One of the ${n(DEX.filter((d) => d.gen === p.gen).length)} species that generation introduced.`),
   );
   facts.push(`<b>Size.</b> ${height(p)} and ${weight(p)}.`);
+  // THE SCALE RUNS THE WAY NOBODY GUESSES, so the line says which way. This
+  // read "Capture rate 45 of 255. Middling, as capture rates go", and a reader
+  // who does not already know the games cannot tell from that whether 45 of 255
+  // is a hard catch or an easy one. The three verdicts were doing the work of a
+  // legend and none of them stated the direction. Six words fix it, on the one
+  // line of this list a beginner could not follow.
   facts.push(
-    `<b>Capture rate ${p.catch} of 255.</b> ` +
+    `<b>Capture rate ${p.catch} of 255.</b> Higher is easier to catch. ` +
       (p.catch <= 10
-        ? "One of the hardest things in the games to catch."
+        ? "This is one of the hardest things in the games to catch."
         : p.catch >= 190
-          ? "About as easy to catch as the games get."
-          : "Middling, as capture rates go."),
+          ? "This is about as easy to catch as the games get."
+          : "This one sits in the middle."),
   );
-  if (p.first)
-    facts.push(
-      `<b>First English card.</b> ${esc(p.first.name)}, ${esc(longDate(p.first.released) || p.first.released)}.`,
-    );
 
   /* ----------------------------------------------------------- evolution */
   const evoBand = (() => {
@@ -923,6 +1010,36 @@ function pokePage(p) {
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Priciest first</p>
     <h2>Every <span class="hl">${esc(p.name)}</span> we price</h2>
+    ${/* THIS BAND WAS THE ONLY ONE ON THE PAGE WITH NO LEDE, AND IT IS THE BAND
+          THE PAGE IS FOR. Evolution, the rips, everywhere else and the type
+          table all opened with a sentence saying what the reader was looking
+          at. The priced grid went straight from a four word heading into a wall
+          of card scans, and the two things a reader needed from it were both
+          missing.
+
+          THE FIRST IS THE SCOPE. "Every Charizard we price" is 20 tiles on a
+          page whose own facts strip says 165 printings, so without a sentence
+          the heading reads as a claim that there are 20 Charizards. The
+          subtraction is exactly the one the everywhere-else band below depends
+          on, and it was only ever stated down there.
+
+          THE SECOND IS THAT THESE TILES OPEN. Every one is a button that puts
+          the high resolution scan in a lightbox, and nothing on the page said
+          so: the affordance was reachable by keyboard and announced to a screen
+          reader through the aria-label below, and invisible to everybody else.
+          The wording is /hall.html's, verbatim, because it is the same lightbox
+          and two spellings of one instruction is worse than either.
+
+          AND IT IS A JS COMMENT RATHER THAN AN HTML ONE, WHICH IS NOT A STYLE
+          CHOICE HERE. This file has no minifier: an HTML comment written in
+          this template is served to every reader. The first draft of this note
+          shipped 1.1KB of English to each of the 967 pages that build this
+          band, which is around half a kilobyte gzipped apiece and roughly
+          480KB across the family, to explain a one sentence lede. The block
+          below it is the same shape and predates this note; it is left alone
+          rather than swept, because moving it is a diff nobody asked for on
+          launch eve, but do not add a third. */ ""}
+    <p class="lede" style="max-width:40em">${n(sorted.length)} of the ${n(p.prints.length)} printings we can name ${sorted.length === 1 ? "is in a set" : "are in sets"} we hold prices for. Tap a card to see it full size.</p>
     <!-- THE aria-label CARRIES THE SET AND NUMBER, and it has to.
          It was "Enlarge <name>" alone, which on a Pokemon with several
          printings named every button on the page identically: charizard.html
@@ -1008,19 +1125,60 @@ function pokePage(p) {
         .filter(Boolean)
         .join(" &bull; ");
 
+    // THE LANGUAGES ARE COUNTED, NOT ASSERTED. This sentence said "English and
+    // Japanese" on all 1,025 pages. It is right on 896 of them and short on the
+    // other 129, which also carry a Chinese printing: the tile labels it
+    // honestly and the sentence introducing them did not. Same three names the
+    // tag above uses, so the two cannot drift.
+    const langs = new Set(extra.map((c) => (c.l === "en" ? "English" : c.l === "ja" ? "Japanese" : "Chinese")));
+    const langWords = ["English", "Japanese", "Chinese"].filter((w) => langs.has(w));
+    const inLangs = langWords.length > 1
+      ? `${langWords.slice(0, -1).join(", ")} and ${langWords[langWords.length - 1]}`
+      : langWords[0] || "";
+
+    // ==========================================================================
+    // "EVERY OTHER" ONLY PARSES WHEN THERE IS SOMETHING TO BE OTHER THAN, AND ON
+    // 58 PAGES THERE IS NOT.
+    // ==========================================================================
+    //
+    // The note above this block already states the rule, in these words: "Every
+    // other Charizard printing" is defined by subtraction, so it only parses
+    // once the reader has seen what it is other THAN. What it did not do was
+    // guard for the case where the priced band it subtracts from was never
+    // built. 58 species have no card at all in a set we hold prices for, so on
+    // those pages this is the FIRST and ONLY card band, and it opened by calling
+    // itself the leftovers of a section that is not on the page.
+    //
+    // Arceus is the one that shows how bad it reads: 48 printings, 16 sets, 37
+    // of them pictured, a genuinely substantial page, introducing itself as "48
+    // MORE from sets we do not price". More than what? Wynaut, Giratina,
+    // Overqwil, Kommo-o and 54 others do the same.
+    //
+    // So the heading drops "other" and the count drops "more" when there is no
+    // band above. Nothing else changes and no figure moves.
+    const isOnly = !sorted.length;
+    // AND THE REASON IS NOT REPEATED THREE TIMES. On these pages the hero lede
+    // has already said that nothing here is in a set we hold prices for, and
+    // the sentence immediately after this one says "No price on these: we only
+    // quote what we can source". A third telling in between was a paragraph
+    // apologising rather than a paragraph introducing, so this half just counts
+    // them.
+    const from = isOnly
+      ? `All ${n(extra.length)} of them, ${inLangs}`
+      : `${n(extra.length)} more from sets we do not price, ${inLangs}`;
     const count = !noScan.length
-      ? `${n(extra.length)} more from sets we do not price, English and Japanese, every one with a scan.`
+      ? `${from}, every one with a scan.`
       : !withScan.length
-        ? `${n(extra.length)} more from sets we do not price, English and Japanese. No scan for any of them, so this
+        ? `${from}. No scan for any of them, so this
       is a list of names rather than a wall of cards.`
-        : `${n(extra.length)} more from sets we do not price, English and Japanese. ${n(withScan.length)} have a scan and
+        : `${from}. ${n(withScan.length)} have a scan and
       are pictured below. The other ${n(noScan.length)} we can name but not show.`;
 
     return `
 <section class="band tight">
   <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Everywhere else</p>
-    <h2>Every other <span class="hl">${esc(p.name)}</span> printing we could name</h2>
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>${isOnly ? "The whole list" : "Everywhere else"}</p>
+    <h2>Every ${isOnly ? "" : "other "}<span class="hl">${esc(p.name)}</span> printing we could name</h2>
     <p class="lede" style="max-width:40em">${count} No price on these: we only quote what we can source.
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     ${withScan.length ? `<div class="chase-grid">
@@ -1177,8 +1335,7 @@ function pokePage(p) {
   <div class="wrap">
     <span class="kicker">#${p.id} &bull; ${esc(list(types))} &bull; Generation ${p.gen}${REGION[p.gen] ? `, ${REGION[p.gen]}` : ""}</span>
     <h1>${esc(p.name)} <span class="hl">cards</span></h1>
-    <p class="lede" style="max-width:34em">Every ${esc(p.name)} card we could find, what the ones we price are worth,
-      and everything else worth knowing about ${esc(p.name)}.</p>
+    <p class="lede" style="max-width:34em">${heroLede}</p>
   </div>
 </header>
 
@@ -1194,10 +1351,38 @@ function pokePage(p) {
     <div class="facts">
       <div class="fact"><div class="n">${n(p.prints.length)}</div><div class="l">Printing${p.prints.length === 1 ? "" : "s"} we can name</div></div>
       <div class="fact"><div class="n">${n(p.sets.size)}</div><div class="l">Set${p.sets.size === 1 ? "" : "s"} they appear in</div></div>
-      ${p.priciest ? `<div class="fact"><div class="n">${moneyRound(p.priciest.price)}</div><div class="l">Priciest one we price</div></div>` : ""}
-      ${p.cheapest ? `<div class="fact"><div class="n">${moneyExact(p.cheapest.price)}</div><div class="l">Cheapest way in</div></div>` : ""}
+      ${/* BOTH FIGURES ARE moneyCompact, AND THAT IS A BUG FIX RATHER THAN A
+             TIDY-UP. This tile took moneyRound and the card tile it summarises
+             takes moneyCompact, so 922 of the 967 priced pages printed the SAME
+             card's price twice, in two roundings, about a thousand pixels
+             apart. Most of those are cosmetic ($14 up here, $14.19 down there),
+             but 87 of them overstate the sourced figure by more than 30% and on
+             a dozen the headline is exactly DOUBLE: /pokemon/aron.html led with
+             "$1 Priciest one we price" over a card scan reading $0.50. A
+             rounding that rounds a claim UP is not a rounding, and this site
+             does not publish a number it cannot point at. moneyCompact is
+             already the site's card price format, it agrees with the tile by
+             construction, and it is width neutral here: its longest possible
+             output is $99.99 at 6 characters and the family already renders
+             $1,085 in this slot.
+
+             AND THE SECOND LABEL WAS A WIDER CLAIM THAN THE DATA, which is the
+             same fault in words rather than in arithmetic. It read "Cheapest
+             way in", which tells a reader this is the cheapest way to own the
+             species. It is not: it is the cheapest of the printings we hold a
+             price for, and the median species here has several times as many
+             printings as prices. "Cheapest one we price" carries the scope the
+             tile beside it already carries, and reads as its pair. */ ""}
+      ${p.priciest ? `<div class="fact"><div class="n">${moneyCompact(p.priciest.price)}</div><div class="l">Priciest one we price</div></div>` : ""}
+      ${p.cheapest ? `<div class="fact"><div class="n">${moneyCompact(p.cheapest.price)}</div><div class="l">Cheapest one we price</div></div>` : ""}
       ${/* THE ONLY MARK ABOVE THE FOLD-ISH THAT SAYS THERE IS A CHANNEL.
-             The facts row lands around y=1,900 at 390x844; the watch band, even
+             THE NUMBER IN THIS COMMENT WAS WRONG AND CLAUDE.md ALREADY NAMES
+             THIS FILE FOR THE HABIT. It said the facts row lands "around
+             y=1,900 at 390x844"; read off the element's own border box at
+             scroll 0 on /pokemon/charizard.html it lands at y=1,096, and this
+             tile, the last of the five, at y=1,300. Both are still below an
+             844px fold, so the point the comment was making survives; the
+             figure it made it with did not. The watch band, even
              after moving up, is thousands of pixels below it. This tile is what
              carries the fact that far up the page, and it points at the band on
              THIS page rather than at the library, so one tap shows the rows, the
@@ -1394,11 +1579,20 @@ function indexPage() {
           // $0.31, and moneyRound turns both into "$0", which reads as
           // worthless rather than as cheap. The guard has to be on what will be
           // PRINTED, not on the underlying number.
+          //
+          // THE TWO BRANCHES UNDER IT ARE GONE, BECAUSE moneyCompact IS THEM.
+          // A hand rolled "cents under a dollar, whole dollars over it" is
+          // moneyCompact with the threshold in the wrong place, and the wrong
+          // place cost the same overstatement the facts strip was carrying: the
+          // index said "top $2" over a card the page it links to prices at
+          // $1.50. One tap apart, one number, two answers. moneyCompact keeps
+          // cents right up to $100 and only rounds above it, so this tile now
+          // agrees with the species page, with the card scan on it, and with
+          // every other price on the site. Width is unchanged: top $99.99 is
+          // the longest it can print and the band already carries top $1,004.
           !p.priciest.price
             ? `<span class="poke-pr poke-pr--none">no price yet</span>`
-            : p.priciest.price < 1
-              ? `<span class="poke-pr">top ${moneyExact(p.priciest.price)}</span>`
-              : `<span class="poke-pr">top ${moneyRound(p.priciest.price)}</span>`
+            : `<span class="poke-pr">top ${moneyCompact(p.priciest.price)}</span>`
         }
       </a>`,
         )
