@@ -76,7 +76,20 @@ DATA = ROOT / "data" / "garbage-plate.json"
 CACHE = ROOT / ".cache" / "plate-photos"
 OUT = ROOT / "public" / "assets" / "plates"
 
-UA = "garbagerips585-plate-photos/1.0 (https://garbagerips585.github.io/; tim.patenaude@gmail.com)"
+# THE CONTACT URL FOLLOWS THE FLIP, read out of shared/site.mjs rather than
+# duplicated here. A hardcoded host means that the day LIVE goes true this
+# script keeps introducing itself with an address the site no longer serves.
+def _site_url() -> str:
+    src = (ROOT / "shared" / "site.mjs").read_text()
+    live = re.search(r"export const LIVE\s*=\s*(true|false)", src)
+    dom = re.search(r'export const DOMAIN\s*=\s*"([^"]+)"', src)
+    stg = re.search(r'export const STAGING\s*=\s*"([^"]+)"', src)
+    if not (live and dom and stg):
+        raise SystemExit("shared/site.mjs no longer exposes LIVE/DOMAIN/STAGING")
+    return dom.group(1) if live.group(1) == "true" else stg.group(1)
+
+
+UA = f"garbagerips585-plate-photos/1.0 ({_site_url()}/; tim.patenaude@gmail.com)"
 API = "https://commons.wikimedia.org/w/api.php"
 
 # THE THREE WIDTHS, AND WHY THEY ARE THESE THREE. The widest box any of these

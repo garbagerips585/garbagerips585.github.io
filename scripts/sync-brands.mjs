@@ -68,6 +68,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { localDay } from "../shared/today.mjs";
+import { SITE } from "../shared/site.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/assets/brands");
 const CACHE = join(ROOT, ".cache/brands");
@@ -76,7 +77,11 @@ const FORCE = process.argv.includes("--force");
 
 // Commons asks for a real user agent with a way to reach whoever is running the
 // script. An anonymous fetcher gets rate limited, and rightly.
-const UA = "garbagerips585-build/1.0 (https://garbagerips585.github.io/; tim.patenaude@gmail.com)";
+// THE CONTACT URL FOLLOWS THE FLIP. It was hardcoded, so the day LIVE goes
+// true this script would keep introducing itself with a host the site no
+// longer serves -- and a UA that names an unreachable address is worse than
+// no UA at all to the operators whose policies ask for one.
+const UA = `garbagerips585-build/1.0 (${SITE}/; tim.patenaude@gmail.com)`;
 
 /**
  * id -> [Commons file title, what the mark actually says].

@@ -180,7 +180,12 @@ finding out on the day.
 
 Push, wait for the Actions run to go green, then in the repo:
 **Settings → Pages → Custom domain**, enter the domain, save, and tick
-**Enforce HTTPS** once the certificate is issued (it can take an hour).
+**Enforce HTTPS** once the certificate is issued. GitHub's own documentation gives
+no time figure for this -- it says only that "the process may take some time", and
+that if it has not finished several minutes after you clicked Save, you should
+click Remove next to the custom domain and re-add it. This line used to say "it can
+take an hour", which was not from GitHub and is the kind of number that turns into
+an hour of waiting for something that has actually failed.
 
 ### 6. Search Console
 

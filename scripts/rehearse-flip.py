@@ -40,6 +40,22 @@ def run(cmd, cwd, **kw):
     return subprocess.run(cmd, cwd=cwd, shell=isinstance(cmd, str), **kw)
 
 
+# BOTH OF THESE ARE READ INSIDE main() AND MUST BE DEFINED ABOVE IT. They sat
+# below it and resolved only because a module global is looked up at call time,
+# so importing this file -- or moving sys.exit(main()) up by one line -- raised
+# NameError AFTER a full 65-builder build had already run.
+host_staging = "github.io"
+
+# Everything that is not text. The staging-host scan reads every other file in
+# the deploy root, which is the point: it used to allow-list four suffixes and
+# never opened the 29 .js/.css/.svg/.webmanifest files the site actually ships.
+BINARY_SUFFIXES = {
+    ".png", ".jpg", ".jpeg", ".webp", ".avif", ".gif", ".ico",
+    ".woff", ".woff2", ".ttf", ".otf", ".eot",
+    ".mp4", ".webm", ".mp3", ".pdf", ".zip", ".gz",
+}
+
+
 def main() -> int:
     tmp = pathlib.Path(tempfile.mkdtemp(prefix="flip-rehearsal-"))
     try:
@@ -136,10 +152,15 @@ def main() -> int:
         # green build.
         sm_paths = {path_of(u) for u in locs}
         leaks, mismatched, staging = [], [], []
+        og_bad, noindex_now, missing_from_sitemap = [], [], []
         for f in root.rglob("*"):
             if not f.is_file():
                 continue
-            if f.suffix not in (".html", ".xml", ".txt", ".json"):
+            # EVERY SHIPPED TEXT FILE, NOT FOUR SUFFIXES. This used to skip
+            # .js, .css, .svg and .webmanifest -- 29 files in the deploy root it
+            # never opened. They are clean today, but the day somebody writes the
+            # host into app.js this script goes green and the site is wrong.
+            if f.suffix.lower() in BINARY_SUFFIXES:
                 continue
             t = f.read_text(errors="ignore")
             if host_staging in t:
@@ -154,6 +175,21 @@ def main() -> int:
             m = re.search(r'<link rel="canonical" href="([^"]+)"', t)
             if m and path_of(m.group(1)) != rel:
                 mismatched.append((rel, path_of(m.group(1))))
+            # og:url IS WHAT EVERY SOCIAL PREVIEW READS and it was never checked.
+            # A canonical on the new domain beside an og:url on the old one is
+            # exactly the shape this script exists to catch, and it passed.
+            og = re.search(r'<meta[^>]+property=["\']og:url["\'][^>]+content=["\']([^"\']+)', t)
+            if og and path_of(og.group(1)) != rel:
+                og_bad.append((rel, path_of(og.group(1))))
+            # A noindex page that QUIETLY STOPS BEING NOINDEX passes the leak
+            # check below, because that check only asks whether a noindex page is
+            # in the sitemap. Count them so the before/after can be compared.
+            if re.search(r'<meta[^>]+name=["\']robots["\'][^>]+noindex', t, re.I):
+                noindex_now.append(rel)
+            if rel not in sm_paths and not re.search(
+                r'<meta[^>]+name=["\']robots["\'][^>]+noindex', t, re.I
+            ) and rel != "/404.html":
+                missing_from_sitemap.append(rel)
 
         if staging:
             fails.append(f"{len(staging)} files still name the staging host, first {staging[0]}")
@@ -170,6 +206,23 @@ def main() -> int:
             )
         else:
             print("  canonicals     every one matches its own path")
+        if og_bad:
+            fails.append(
+                f"{len(og_bad)} og:url values disagree with their own path, "
+                f"first {og_bad[0][0]} -> {og_bad[0][1]}"
+            )
+        else:
+            print("  og:url         every one matches its own path")
+        # THE SITEMAP WAS ONLY EVER CHECKED IN ONE DIRECTION -- every loc resolves
+        # to a file -- so a builder that silently stopped EMITTING rows passed.
+        if missing_from_sitemap:
+            fails.append(
+                f"{len(missing_from_sitemap)} indexable pages are not in the sitemap, "
+                f"first {missing_from_sitemap[0]}"
+            )
+        else:
+            print(f"  sitemap both   every indexable page is in it ({len(locs)})")
+        print(f"  noindex kept   {len(noindex_now)} pages carry it after the flip")
 
         if strays:
             fails.append(
@@ -189,7 +242,6 @@ def main() -> int:
         shutil.rmtree(tmp, ignore_errors=True)
 
 
-host_staging = "github.io"
 
 if __name__ == "__main__":
     sys.exit(main())

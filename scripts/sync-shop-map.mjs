@@ -43,6 +43,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { existsSync } from "node:fs";
+import { SITE } from "../shared/site.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache/shop-map");
@@ -51,7 +52,14 @@ const REFRESH = process.argv.includes("--refresh");
 const ENDPOINT = "https://overpass-api.de/api/interpreter";
 // Overpass asks that a script identify itself so an operator can tell a bug
 // from an attack. This is a handful of requests run by hand, not a crawler.
-const UA = "garbagerips585-shop-map/1.0 (https://garbagerips585.com/shops.html)";
+// THE CONTACT URL FOLLOWS THE FLIP. It was hardcoded, so the day LIVE goes
+// true this script would keep introducing itself with a host the site no
+// longer serves -- and a UA that names an unreachable address is worse than
+// no UA at all to the operators whose policies ask for one.
+// This one also named garbagerips585.com, which after the flip is a REDIRECT
+// domain with no /shops.html of its own -- so OSM's operators would have been
+// pointed at a 301 that drops the path.
+const UA = `garbagerips585-shop-map/1.0 (${SITE}/shops.html; tim.patenaude@gmail.com)`;
 
 // THE BOX IS THE DRAWING, PLUS A MARGIN, AND THE BUILDER CHECKS IT.
 //
