@@ -1389,11 +1389,17 @@ WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
   page that is still 84% pack art. The marks are `loading="lazy"` so they queue
   behind the artwork rather than in front of it.
 
-  IT IS ABOVE GREATEST HITS AND THAT COST WAS MEASURED, NOT WAVED AT. At 390x844
-  the band is 630px and puts the "Greatest Hits" heading at 802px, so the
-  heading is still above the fold and the trophy artwork mostly is not. **802 of
-  844 IS THE NUMBER TO WATCH, not the kilobytes: 42px of margin is all that is
-  left, and a fourth row or a taller mark box spends it.** At 1440x900 the band
+  IT IS ABOVE GREATEST HITS AND THAT COST WAS MEASURED, NOT WAVED AT. **THE
+  "802 of 844" THIS PARAGRAPH WATCHED IS GONE, because the band has been a
+  COLLAPSED DISCLOSURE since then and was tightened again on 20 August 2026: it
+  is 59.41px at 390 now, one summary row of 44 with 6px of padding either side
+  and its 3px rule, and it puts the "Greatest Hits" heading at 127.41. The rows,
+  the lede and the credit line all still exist, inside the closed body, so
+  nothing this paragraph says must not be lost has been. The number that
+  replaces 802 is the trophy banner's bottom edge and it is 700, not 844: see
+  the trophy bullet below.** The band's own height is no longer the constraint,
+  but a fourth row or a taller mark box still spends the OPEN state's height and
+  the reasoning below stands. At 1440x900 the band
   is 288px, three columns, and Greatest Hits still shows three packs. The case
   for the position is that the Greatest Hits band alone is 1,656px tall on a
   phone, so anything under it is two screens down and nobody lands on the page
@@ -1484,21 +1490,49 @@ WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
 - The trophy's duration chip and its banner both sit INSIDE `.hofx-art`, so
   playInTile takes them away with the artwork they describe. THE FOLD IS WHAT
   THE BANNER COSTS AND IT WAS MEASURED RATHER THAN WAVED AT, because the disc
-  sat at the CENTRE of the artwork and the banner sits at its foot. With the
-  drops band up, the trophy's bar runs:
+  sat at the CENTRE of the artwork and the banner sits at its foot.
 
-        320x800    722.8 to 766.8    whole bar above the fold
-        390x844    830.5 to 874.5    top 13.5px above it, clock ends at 824.5
-        768x900    947.0 to 991.0    below it, clock ends at 941.0
-       1440x900    901.0 to 945.0    below it, clock ends at 895.0
+  **THE WHOLE BAR IS ABOVE THE FOLD ON A PHONE SINCE 20 August 2026, AND THE
+  NUMBER TO BEAT IS 700 RATHER THAN 844.** Tim, on his own phone: "lets also
+  make it so when you land on the home page you can see the entire hall of fame
+  video on the screen, and see the click to rip open the pack banner and watch
+  the video right when you land on home page above the fold no scrolling, we can
+  make the video smaller so its fits and tighten up everything else." Safari's
+  own chrome takes 100 to 140px of an iPhone's 844, so clearing 844 in a
+  headless viewport is not clearing the fold on the phone he is holding. Bottom
+  edge of `.pack-hint` on the trophy, read with getBoundingClientRect, before ->
+  after:
 
-  So on a 390 phone and a 320 phone the reader sees it without scrolling, and
-  on the two wider screens the DURATION CHIP is the mark that says "this is a
-  video" above the fold, which is the job it was added for on 16 August 2026.
-  All four clear the fold once the drops band expires, which it does at the end
-  of its own week. If somebody wants the bar higher, the lever is the band
-  ORDER, not the bar: moving the two DROPS markers below `.hof` is the move
-  this file already describes.
+        320x800    752.89 ->  608.58        414x896    903.00 ->  716.34
+        360x800    807.00 ->  641.48        430x932    832.00 ->  656.48
+        375x812    833.66 ->  662.28        500x900    937.00 ->  738.00
+        390x844    860.33 ->  683.28        544x900   1003.00 ->  789.47
+        820x1180   991.00 ->  991.00       1440x900    944.98 ->  944.98
+
+  **81.59 OF THE 177.05px AT 390 CAME OFF THE CHROME BEFORE A PIXEL CAME OFF THE
+  PACK**, which is the order that matters: 16 from main's padding-top, 31.59
+  from the drops band, 16 from `.hof`'s padding-top, 18 from the run between the
+  Greatest Hits heading and the artwork, and only then 95.45 from the pack
+  itself, which goes 318.0x565.3 to 264.2x469.9. Every rule is inside
+  `max-width:544`, so 820 and 1440 are identical to the pixel and to the byte.
+  The full breakdown, the wire figures and the contrast re-read are in note 4 at
+  the end of `homeCss` in build-proto.mjs and in the `max-width:544` block under
+  `.hofx` in ui.css.
+
+  **THE PACK IS NOW SMALLER THAN THE LATEST RIPS SLIDE UNDER IT** (264x470
+  against 332x498, 31% less area), which is the comparison the `min-width:425`
+  block in ui.css uses as its test. Rank is carried by the gold frame, the
+  ribbon and first position instead, which is the same resolution the desktop
+  layout reached when all three packs went to one width. **THE OTHER LEVER WAS
+  THE BAND ORDER AND IT WAS DELIBERATELY NOT TAKEN.** Moving the two DROPS
+  markers below `.hof` pays the band's whole 59.41px AND would leave the pack
+  near 307 wide, but Tim asked for that band above the fold on 17 August in as
+  many words, so it is a trade for him rather than for a stylesheet. If he wants
+  the bigger pack, that swap is two markers and one paragraph.
+
+  On the two wider screens the DURATION CHIP is still the mark that says "this
+  is a video" above the fold, which is the job it was added for on 16 August
+  2026.
 - EVERY RELATIVE DATE ON THE PAGE IS RECOMPUTED IN THE BROWSER. `ago()` in
   build-proto.mjs runs on the build clock and its answer is then frozen into a
   static file, so a deploy that stops moving turns "TODAY" into a lie in the

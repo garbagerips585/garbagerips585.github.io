@@ -795,12 +795,13 @@ const hofHtml = hofPick
             // saving. DPR 3 is unchanged and has to be: 264 x 3 is 793 and
             // 810w is still the smallest candidate that covers it.
             //
-            // IT UNDER-DECLARES ON PURPOSE BELOW ABOUT 330px AND THAT COSTS
-            // NOTHING. Down there the wrap is narrower than 78vw, so the frame
-            // fills the wrap and the art is 100vw - 2*--gut - 40 instead: 248
-            // at a 320px phone against the 209.6 this declares. Both land on
-            // the same candidate at both DPRs (419 and 496 -> 560w, 629 and
-            // 744 -> 810w), so there is no third stop to write.
+            // IT IS EXACT AT EVERY PHONE WIDTH, WHICH IS A PROPERTY OF THE
+            // CAP RATHER THAN LUCK. The cap can only lose to the wrap when
+            // 100vw - 2*--gut drops under 78vw, which with a 16px gutter is
+            // 145px, so there is no device on which this declaration is a
+            // guess. Read off the DOM: 209.6 at 320, 240.8 at 360, 264.2 at
+            // 390, 282.9 at 414, 295.4 at 430, 384.3 at 544, every one of them
+            // the number calc gives. So there is no second phone stop to write.
             //
             // AND IT IS SERVED AS AVIF FIRST SINCE 16 AUGUST 2026, which is the
             // only change to this element that a retina screen can feel. 560w
