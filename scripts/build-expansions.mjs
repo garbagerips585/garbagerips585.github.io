@@ -685,7 +685,10 @@ const html = `<!DOCTYPE html>
 <meta property="og:description" content="All ${sets.length} English Pokemon TCG expansions, ${firstYear} to ${lastYear}, with release dates and card counts.">
 <meta property="og:url" content="${SITE}/expansions.html">
 <meta property="og:image" content="${SITE}/assets/og-expansions.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${SITE}/assets/og-expansions.jpg">
 ${FONTS}
 ${
   remoteSymbols

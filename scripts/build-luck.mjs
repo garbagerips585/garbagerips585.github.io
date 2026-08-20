@@ -689,7 +689,10 @@ ${judged.length ? "" : '<meta name="robots" content="noindex,follow">\n'}<link r
 <meta property="og:description" content="Hit rates observed across ${judged.length} real pack openings, by set and by product.">
 <meta property="og:url" content="${SITE}/luck.html">
 <meta property="og:image" content="${SITE}/assets/og-luck.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${SITE}/assets/og-luck.jpg">
 ${FONTS}
 ${STYLES}
 <style>${miniCSS(style)}</style>

@@ -510,6 +510,8 @@ const page = `<!DOCTYPE html>
 <meta property="og:url" content="${SITE}/fake-cards.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="${SITE}/assets/og-fake-cards.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="${SITE}/assets/og-fake-cards.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">

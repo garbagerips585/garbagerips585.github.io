@@ -1759,12 +1759,22 @@ const GAME_JS = `
 })();
 `;
 
+// NO " | Garbage Rips 585" IN <title>, for the reason CLAUDE.md records under
+// "Page titles carry no suffix". Measured in headless Chrome, canvas
+// measureText at 20px Arial, which is what Google's desktop result draws:
+// with the suffix 675.6px against the ~580px cut, without it 497.0px.
+// CLAUDE.md keeps the suffix on "most game pages" because it renders in full
+// there. On this one it does not, which is the condition that sentence names.
+// The suffix is 178.6px and it was never being drawn, so it cost the tail of
+// the title it sat behind and returned nothing. og:site_name carries the brand
+// beside the result, and og:title below has always been the bare title, so
+// dropping it also stops <title> and og:title disagreeing.
 const page = `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Garbage Run: a One Thumb Game for the Restock Line | Garbage Rips 585</title>
+<title>Garbage Run: a One Thumb Game for the Restock Line</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/games/garbage-run.html">
 <meta property="og:title" content="Garbage Run">
@@ -1773,6 +1783,8 @@ const page = `<!DOCTYPE html>
 <meta property="og:url" content="${SITE}/games/garbage-run.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="${SITE}/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="${SITE}/assets/og-image.jpg">
 <link rel="icon" href="/favicon.ico" sizes="any">

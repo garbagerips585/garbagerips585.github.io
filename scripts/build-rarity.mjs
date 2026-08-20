@@ -1013,7 +1013,10 @@ const html = `<!DOCTYPE html>
 <meta property="og:description" content="The corner of the card, magnified. Every rarity from Common to Mega Hyper Rare.">
 <meta property="og:url" content="${SITE}/rarity.html">
 <meta property="og:image" content="${SITE}/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${SITE}/assets/og-image.jpg">
 ${FONTS}
 ${STYLES}
 <style>${style}</style>

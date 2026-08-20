@@ -615,12 +615,20 @@ const style = `
 }
 `;
 
+// NO " | Garbage Rips 585" IN <title>, for the reason CLAUDE.md records under
+// "Page titles carry no suffix". Measured in headless Chrome, canvas
+// measureText at 20px Arial, which is what Google's desktop result draws:
+// with the suffix 616.7px against the ~580px cut, without it 438.1px.
+// The suffix is 178.6px and it was never being drawn, so it cost the tail of
+// the title it sat behind and returned nothing. og:site_name carries the brand
+// beside the result, and og:title below has always been the bare title, so
+// dropping it also stops <title> and og:title disagreeing.
 const page = `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>All 8 Eevee Evolutions and How to Get Each One | Garbage Rips 585</title>
+<title>All 8 Eevee Evolutions and How to Get Each One</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/eevee-evolutions.html">
 <meta property="og:title" content="How do you get every Eeveelution?">
@@ -629,6 +637,8 @@ const page = `<!DOCTYPE html>
 <meta property="og:url" content="${SITE}/eevee-evolutions.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="${SITE}/assets/og-eevee.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="${SITE}/assets/og-eevee.jpg">
 <link rel="icon" href="/favicon.ico" sizes="any">
