@@ -202,6 +202,100 @@ const FOE_NAMES = await (async () => {
   return out;
 })();
 
+// ---- THE TITLE SCREEN'S ALPHABET, 5x7, DRAWN AS RECTANGLES ------------------
+//
+// WHY THERE IS A FONT IN A PAGE BUILDER AT ALL. Tim asked for "a really cool 8
+// bit looking title screen ... like an old school computer game title screen",
+// and the one thing that makes a screen read as 8-bit is the LETTERING. The
+// obvious way to get it is a pixel web font, and that is the wrong trade on
+// this page: this site already ships three faces (Titan One, Outfit, Space
+// Mono), the page is opened on mobile data by somebody standing in a restock
+// line, and a fourth file would be a real download for one screen that is
+// looked at for two seconds. A woff2 pixel face is 8-20KB.
+//
+// This table is 40 glyphs at 7 characters each, 280 characters of base-32, plus
+// the 40-character key. It costs under 400 bytes raw and close to nothing
+// gzipped, because it is one long run of a 32-symbol alphabet, which is exactly
+// what a compressor eats. Measured on the built page: the whole title screen,
+// alphabet, the drawing code and the prose here together, is +1.7KB gzipped:
+// the page goes 53,958 -> 59,463 raw and 16,042 -> 17,785 gzipped, measured
+// with gzip -9. No new request of any kind: no font file, no image, no asset.
+//
+// THE SOURCE STAYS BINARY AND THE PAGE GETS BASE-32. Each glyph is seven rows
+// of five characters here, so a person can read the letter shapes in this file
+// and edit one by eye; the build turns each row into a number 0-31 and writes
+// it as a single base-32 digit, so the page ships "ehhvhhh" for A rather than
+// seven integers. Runtime decode is parseInt(row, 32).
+//
+// ONLY THE CHARACTERS THE SCREEN ACTUALLY NEEDS. A-Z for the lettering, 0-9
+// because the high score is a number and 585 is in the brand, and space, comma,
+// period and hyphen because Tim's line is "Garbage Run - Rochester, NY -
+// Garbage Rips 585". There are no lowercase glyphs: an arcade title screen is
+// upper case, so every string drawn is upper-cased at the call.
+const GLYPHS = {
+  " ": ["00000", "00000", "00000", "00000", "00000", "00000", "00000"],
+  A: ["01110", "10001", "10001", "11111", "10001", "10001", "10001"],
+  B: ["11110", "10001", "10001", "11110", "10001", "10001", "11110"],
+  C: ["01110", "10001", "10000", "10000", "10000", "10001", "01110"],
+  D: ["11110", "10001", "10001", "10001", "10001", "10001", "11110"],
+  E: ["11111", "10000", "10000", "11110", "10000", "10000", "11111"],
+  F: ["11111", "10000", "10000", "11110", "10000", "10000", "10000"],
+  G: ["01110", "10001", "10000", "10111", "10001", "10001", "01111"],
+  H: ["10001", "10001", "10001", "11111", "10001", "10001", "10001"],
+  I: ["11111", "00100", "00100", "00100", "00100", "00100", "11111"],
+  J: ["00111", "00010", "00010", "00010", "00010", "10010", "01100"],
+  K: ["10001", "10010", "10100", "11000", "10100", "10010", "10001"],
+  L: ["10000", "10000", "10000", "10000", "10000", "10000", "11111"],
+  M: ["10001", "11011", "10101", "10101", "10001", "10001", "10001"],
+  N: ["10001", "11001", "11001", "10101", "10011", "10011", "10001"],
+  // N is the one glyph with a doubled diagonal step: at 5 wide a single-pixel
+  // diagonal from row 1 to row 5 leaves a visible gap at both ends, and the
+  // doubled version is what every 5x7 ROM font of the period actually drew.
+  O: ["01110", "10001", "10001", "10001", "10001", "10001", "01110"],
+  P: ["11110", "10001", "10001", "11110", "10000", "10000", "10000"],
+  Q: ["01110", "10001", "10001", "10001", "10101", "10010", "01101"],
+  R: ["11110", "10001", "10001", "11110", "10100", "10010", "10001"],
+  S: ["01111", "10000", "10000", "01110", "00001", "00001", "11110"],
+  T: ["11111", "00100", "00100", "00100", "00100", "00100", "00100"],
+  U: ["10001", "10001", "10001", "10001", "10001", "10001", "01110"],
+  V: ["10001", "10001", "10001", "10001", "10001", "01010", "00100"],
+  W: ["10001", "10001", "10001", "10101", "10101", "11011", "10001"],
+  X: ["10001", "10001", "01010", "00100", "01010", "10001", "10001"],
+  Y: ["10001", "10001", "01010", "00100", "00100", "00100", "00100"],
+  Z: ["11111", "00001", "00010", "00100", "01000", "10000", "11111"],
+  0: ["01110", "10001", "10011", "10101", "11001", "10001", "01110"],
+  1: ["00100", "01100", "00100", "00100", "00100", "00100", "01110"],
+  2: ["01110", "10001", "00001", "00110", "01000", "10000", "11111"],
+  3: ["11111", "00010", "00100", "00110", "00001", "10001", "01110"],
+  4: ["00010", "00110", "01010", "10010", "11111", "00010", "00010"],
+  5: ["11111", "10000", "11110", "00001", "00001", "10001", "01110"],
+  6: ["00110", "01000", "10000", "11110", "10001", "10001", "01110"],
+  7: ["11111", "00001", "00010", "00100", "01000", "01000", "01000"],
+  8: ["01110", "10001", "10001", "01110", "10001", "10001", "01110"],
+  9: ["01110", "10001", "10001", "01111", "00001", "00010", "01100"],
+  ",": ["00000", "00000", "00000", "00000", "00110", "00100", "01000"],
+  "-": ["00000", "00000", "00000", "01110", "00000", "00000", "00000"],
+  ".": ["00000", "00000", "00000", "00000", "00000", "01100", "01100"],
+};
+
+// A GLYPH THAT IS NOT 7 ROWS OF 5 THROWS HERE rather than drawing a letter one
+// pixel out of line on every phone. The runtime decoder trusts the width, so a
+// six-character row would silently shift the rest of that letter's column.
+const FONT_KEYS = Object.keys(GLYPHS);
+for (const k of FONT_KEYS) {
+  const rows = GLYPHS[k];
+  if (rows.length !== 7) throw new Error("build-garbage-run: glyph " + k + " is not 7 rows");
+  for (const r of rows) {
+    if (!/^[01]{5}$/.test(r)) throw new Error("build-garbage-run: glyph " + k + " has a bad row " + r);
+  }
+}
+// Both strings come off the SAME key array, so the index of a character in one
+// is the index of its rows in the other and they cannot fall out of step.
+const FONT_K = FONT_KEYS.join("");
+const FONT_R = FONT_KEYS
+  .map((k) => GLYPHS[k].map((r) => parseInt(r, 2).toString(32)).join(""))
+  .join("");
+
 const style = `
 .gr-wrap{max-width:560px;margin:0 auto}
 
@@ -266,6 +360,37 @@ const style = `
      --gold and 10.28:1 on the --mustard the button takes on hover. */
   background:var(--gold);color:var(--on-accent);font:700 var(--t-m)/1 var(--body);cursor:pointer}
 .gr-go:hover{background:var(--mustard);border-color:var(--mustard);color:var(--on-accent)}
+
+/* ---- ATTRACT MODE: THE PANEL GETS OUT OF THE WAY OF THE SCREEN -------------
+   The title screen is DRAWN ON THE CANVAS, at the game's own resolution, in the
+   game's own pixels. That is the whole reason it reads as an old title screen
+   rather than as a web page with blocky type on it: it is the same surface, the
+   same scale and the same paint as the game behind it.
+   So in this one state the HTML panel keeps its job and gives up its looks. It
+   still holds the h2, the instructions and the Start button, because a canvas
+   tells a screen reader NOTHING and the drawn letters are not text: an
+   assistive reader gets the title and the rules from the DOM exactly as before,
+   they are just not painted twice.
+   THE BUTTON BECOMES THE SCREEN. inset:0 makes it the whole board, so the tap
+   that started the game before starts it now, in one tap, anywhere, and it is
+   still a real focusable <button> with an accessible name of "Start". font-size
+   0 and color transparent hide the label without taking it out of the
+   accessibility tree, which is why this is not display:none and not a
+   background-image.
+   A TRANSPARENT BUTTON STILL HAS TO SHOW ITS FOCUS. It has no fill and no
+   border here, so the site's normal focus ring would have nothing to sit on;
+   the outline is drawn INSIDE the board with a negative offset, over the drawn
+   screen, and the color is the light blue the prompt on the canvas uses.
+   This block is layout and state only. The panel is unchanged for the game over
+   and the paused states, which are prose that has to be read rather than a
+   screen to be looked at. */
+.gr-over.gr-attract{background:transparent;padding:0;gap:0}
+.gr-over.gr-attract h2,.gr-over.gr-attract p{position:absolute;width:1px;height:1px;margin:-1px;
+  padding:0;border:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.gr-over.gr-attract .gr-go{position:absolute;inset:0;width:100%;height:100%;min-height:0;padding:0;
+  border:0;border-radius:0;background:transparent;color:transparent;font-size:0;line-height:0}
+.gr-over.gr-attract .gr-go:hover{background:transparent;border-color:transparent;color:transparent}
+.gr-over.gr-attract .gr-go:focus-visible{outline:3px solid #70B5D9;outline-offset:-9px}
 .gr-how{margin-top:var(--s5);color:var(--ink-2);font-size:var(--t-sm);line-height:1.6;max-width:44em}
 .gr-how b{color:var(--ink)}
 
@@ -425,7 +550,17 @@ const GAME_JS = `
 (function () {
   "use strict";
   var cv = document.getElementById("grCanvas");
-  if (!cv || !cv.getContext) return;
+  // THE PANEL SHIPS IN ATTRACT MODE IN THE MARKUP, so that a browser painting
+  // before this inline script runs never shows the plain card for a frame. That
+  // makes the class a promise this script has to keep: on the one path where it
+  // gives up, a canvas it cannot get a context from, the class comes straight
+  // back off and the ordinary panel with its visible Start button is what the
+  // reader gets.
+  if (!cv || !cv.getContext) {
+    var dead = document.getElementById("grOver");
+    if (dead) dead.classList.remove("gr-attract");
+    return;
+  }
   var ctx = cv.getContext("2d");
   // THE WORLD IS 420x680 AND THAT IS NOT THE CANVAS ANY MORE. It used to be
   // both, which is why the game rendered soft on every phone ever tested: the
@@ -630,7 +765,7 @@ const GAME_JS = `
     dist = 0;
     lanes = [makeLane(0, H)];
     primeStreet(lanes[0]);
-    draw();
+    paint();
   }
 
   // TWO FINGERS AT ONCE USED TO BE NO FLIP AT ALL, and it was found by driving
@@ -993,6 +1128,19 @@ const GAME_JS = `
     gold: "#E8B93A", goldDim: "rgba(232,185,58,.11)",
     ink: "#F5F4F0", inkDim: "rgba(245,244,240,.55)",
     onGold: "#111111", scrim: "rgba(10,10,10,.55)",
+    // THE TITLE SCREEN'S OWN FOUR COLORS, AND ONLY FOUR. The scene under it is
+    // painted in the game's older gold-and-mono set; the title screen is painted
+    // in Trubbish Deep, the site's palette, because it is the first thing on the
+    // page a reader looks at and it is the site talking rather than the game.
+    // titlePink is the same #E87EA1 as .hl in the h1 directly above the board,
+    // so the word RUN is pink on the canvas for exactly the reason it is pink in
+    // the heading. titleBlue is the light blue, on the prompt, because teal is
+    // how you get around and pressing start is how you get in. titleShade is the
+    // bag green and it is the letters' extrude, which is the one thing that
+    // stops big pixel type reading as flat blocky text.
+    titleScrim: "rgba(8,14,10,.92)", titleScrimLow: "rgba(8,14,10,.2)",
+    titlePink: "#E87EA1", titleBlue: "#70B5D9", titleShade: "#2F4F39",
+    titleDim: "rgba(236,228,212,.5)",
   };
 
   // ---- downtown Rochester ---------------------------------------------
@@ -1518,6 +1666,17 @@ const GAME_JS = `
     ctx.fillRect(-20, L.top + L.h - 17, W + 40, 1.5);
     ctx.fillRect(-20, L.top + 15.5, W + 40, 1.5);
 
+    // THE ATTRACT SCREEN GETS THE CITY AND NOTHING ELSE. Everything from here
+    // down is the RUN: the hazards, the trash, Trubbish himself, the confetti
+    // and the score readout in the corner. Under a title screen they are not a
+    // backdrop, they are litter: the primed street put a ghost Trubbish and a
+    // row of hazard rings behind the logo, and the corner readout showed a live
+    // "100 to evolve" over a game nobody had started. Stopping here leaves the
+    // sky, downtown, High Falls and the two rows that kill you, which is a place
+    // rather than a paused game, and it is the reason the scrim can be light
+    // enough to see it at all.
+    if (titleUp) { ctx.restore(); return; }
+
     for (var a = 0; a < L.obs.length; a++) {
       var o = L.obs[a];
       var oy = o.onFloor ? L.top + L.h - o.h : L.top;
@@ -1643,6 +1802,232 @@ const GAME_JS = `
     for (var i = 0; i < lanes.length; i++) drawLane(lanes[i], i);
   }
 
+  // ---- THE TITLE SCREEN -------------------------------------------------
+  //
+  // IT IS DRAWN ON THE CANVAS THE GAME ALREADY HAS, and that is the whole
+  // trick. The overlay that used to carry it was an h2, a paragraph and a
+  // button in the site's own type on the site's own card: correct, and a web
+  // page pretending. A title screen is the machine's first screen. Drawing it
+  // here means it is at the game's resolution, in the game's pixels, over the
+  // game's own city, and it looks like a cartridge booting rather than like
+  // markup.
+  //
+  // EVERY PIXEL IS A fillRect AT AN INTEGER SIZE IN DEVICE SPACE. The world
+  // transform maps 420x680 onto whatever the board measured, which is almost
+  // never a whole number of device pixels per world unit, so a 5x7 letter drawn
+  // in world units would land on half pixels and come out soft and unevenly
+  // spaced: exactly the "blocky text" failure this is trying not to be. So the
+  // transform is reset to identity for the length of this function and the
+  // whole screen is laid out in the canvas's REAL pixels, with the pixel size
+  // derived from the board's width. Every coordinate below is an integer.
+  // imageSmoothingEnabled goes off for the same reason, for the mascot.
+  //
+  // THE SIZES COME OFF THE WIDTH, so the screen is the same picture at 320 and
+  // at 1440 and crisp at both. The board's aspect ratio is fixed at 420:680, so
+  // the height follows from the width and the layout below cannot overflow: the
+  // centre block measures 0.53 of the height at every size.
+  var FONT_K = ${JSON.stringify(FONT_K)};
+  var FONT_R = ${JSON.stringify(FONT_R)};
+  var GW = 5, GH = 7, GADV = 6;
+
+  function textW(s, u) { return s.length ? (s.length * GADV - 1) * u : 0; }
+
+  // Left-anchored, because the high score row is two colors on one line and a
+  // centered-only helper cannot place the second half.
+  function pxAt(s, x, y, u, col) {
+    ctx.fillStyle = col;
+    for (var i = 0; i < s.length; i++) {
+      var gi = FONT_K.indexOf(s.charAt(i));
+      if (gi < 0) continue;
+      var gx = x + i * GADV * u;
+      for (var r = 0; r < GH; r++) {
+        var bits = parseInt(FONT_R.charAt(gi * GH + r), 32);
+        if (!bits) continue;
+        for (var c = 0; c < GW; c++) {
+          if (bits & (16 >> c)) ctx.fillRect(gx + c * u, y + r * u, u, u);
+        }
+      }
+    }
+  }
+  function pxMid(s, cx, y, u, col) {
+    pxAt(s, Math.round(cx - textW(s, u) / 2), y, u, col);
+  }
+  // THE EXTRUDE IS WHAT STOPS BIG PIXEL TYPE READING AS FLAT BLOCKS. One copy
+  // of the word offset by exactly one pixel down and right, in the bag green,
+  // under the real one. A period title logo is never a single flat fill and a
+  // single flat fill is the thing that reads as clip art.
+  function pxLogo(s, cx, y, u, col) {
+    pxMid(s, cx + u, y + u, u, C.titleShade);
+    pxMid(s, cx, y, u, col);
+  }
+
+  // THE MASCOT IS THE GAME'S OWN SPRITE, PUT THROUGH A 32x32 GRID. Trubbish is
+  // a 512px illustration, and dropping that on a screen made of 5x7 letters is
+  // the mismatch that makes a retro screen look like a mock-up: smooth artwork
+  // next to hard pixels. Drawing it small into an offscreen canvas and blowing
+  // that back up with smoothing off turns the sprite the game already loaded
+  // into real pixel art, off the same file, so it cannot describe a different
+  // Trubbish from the one you are about to play as. Built once and cached.
+  var mascotTile = null;
+  function mascot() {
+    if (mascotTile) return mascotTile;
+    if (!SP_TRUB.ready) return null;
+    var off = document.createElement("canvas");
+    off.width = 32; off.height = 32;
+    var oc = off.getContext("2d");
+    if (!oc) return null;
+    oc.drawImage(SP_TRUB.img, 0, 0, 32, 32);
+    mascotTile = off;
+    return off;
+  }
+
+  function pad5(n) {
+    var s = String(n);
+    while (s.length < 5) s = "0" + s;
+    return s;
+  }
+
+  // TAP ON A PHONE, PRESS START ON A KEYBOARD. Read off the pointer rather than
+  // off the width, because a touch laptop at 1440 is still a tap and a 400px
+  // desktop window is still a keyboard.
+  var coarse = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+  var PROMPT = coarse ? "TAP TO START" : "PRESS START";
+
+  function drawTitle() {
+    var pw = cv.width, ph = cv.height;
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.imageSmoothingEnabled = false;
+    // THE SCRIM IS A GRADIENT AND NOT A FLAT WASH, and that is the difference
+    // between a title screen and a black rectangle with type on it. Flat at the
+    // opacity the logo needs, downtown vanished completely and the bottom third
+    // of the screen was dead space; flat at the opacity downtown needs, the
+    // logo sat in a haze. Heavy at the top where the lettering is, thin at the
+    // bottom where the skyline and High Falls are, so the game's own city is
+    // the art on its own title screen.
+    var sg = ctx.createLinearGradient(0, 0, 0, ph);
+    // The stops are the SKYLINE'S OWN GEOMETRY and not a taste: downtown's
+    // tallest roof sits about two thirds of the way down the board and its base
+    // is at the street, so the scrim is flat and heavy over the top 55 per cent,
+    // where the lettering is, and has fallen to a fifth by the time it reaches
+    // the buildings. Measured against a running game at 390x844: the skyline
+    // under this reads at the same weight it does mid-run.
+    sg.addColorStop(0, C.titleScrim);
+    sg.addColorStop(0.55, C.titleScrim);
+    sg.addColorStop(0.92, C.titleScrimLow);
+    sg.addColorStop(1, C.titleScrimLow);
+    ctx.fillStyle = sg;
+    ctx.fillRect(0, 0, pw, ph);
+
+    var u = Math.max(2, Math.round(pw / 190));
+    var U = Math.max(u + 2, Math.floor(pw * 0.78 / (7 * GADV - 1)));
+    var m = Math.max(u + 1, Math.round(u * 1.6));
+    var f = Math.max(1, u - 1);
+    var mk = Math.max(2, Math.round(ph * 0.17 / 32));
+    var mh = 32 * mk;
+    var cx = Math.round(pw / 2);
+
+    // THE STATUS ROW AT THE TOP AND THE LICENSE LINE AT THE BOTTOM ARE THE TWO
+    // CONVENTIONS THAT DATE A SCREEN. Neither is decoration: the top row is the
+    // number the player is here to beat, shown the way the machine would show
+    // it, and the bottom line is the honest one this site has to carry anyway.
+    var topY = Math.round(ph * 0.045);
+    var hs = "HI-SCORE", hv = pad5(best);
+    var hx = Math.round(cx - textW(hs + " " + hv, u) / 2);
+    pxAt(hs, hx, topY, u, C.titleDim);
+    pxAt(hv, hx + (hs.length + 1) * GADV * u, topY, u, C.ink);
+
+    var footY = ph - Math.round(ph * 0.045) - GH * f;
+    pxMid("FAN GAME - NOT AFFILIATED", cx, footY, f, C.titleDim);
+
+    // The center block, measured then centered in what the two pinned rows left.
+    var blockH = (GH + 1) * U + 2 * U + (GH + 1) * U + 6 * u + mh + 6 * u +
+      GH * u + 3 * u + GH * u + 10 * u + GH * m;
+    var lo = topY + GH * u + Math.round(ph * 0.04);
+    var hi = footY - Math.round(ph * 0.035);
+    var y = Math.max(lo, lo + Math.round((hi - lo - blockH) / 2));
+
+    pxLogo("GARBAGE", cx, y, U, C.ink);
+    y += (GH + 1) * U + 2 * U;
+    pxLogo("RUN", cx, y, U, C.titlePink);
+    y += (GH + 1) * U + 6 * u;
+
+    var mt = mascot();
+    if (mt) ctx.drawImage(mt, Math.round(cx - mh / 2), y, mh, mh);
+    y += mh + 6 * u;
+
+    pxMid("ROCHESTER, NY", cx, y, u, C.titleBlue);
+    y += GH * u + 3 * u;
+    pxMid("GARBAGE RIPS 585", cx, y, u, C.titleDim);
+    y += GH * u + 10 * u;
+
+    // UNDER prefers-reduced-motion THE PROMPT IS SIMPLY ON. blinkOn is pinned
+    // true and no timer is ever started, so this screen has zero animating
+    // elements under reduce, which is the rule the rest of the site keeps. The
+    // words still say what to do, which is the part that was load bearing.
+    if (blinkOn) pxMid(PROMPT, cx, y, m, C.ink);
+
+    // SCANLINES, STATIC, AT THE DEVICE'S OWN PITCH. A dark line every other
+    // pixel row of the title's own grid. It is the cheapest thing on this
+    // screen that says CRT, it never moves, and it is drawn last so it lies
+    // over the mascot and the type the way a shadow mask would.
+    ctx.fillStyle = "rgba(0,0,0,.3)";
+    var lh = Math.max(1, Math.round(u / 2));
+    for (var sy = 0; sy < ph; sy += u * 2) ctx.fillRect(0, sy, pw, lh);
+
+    ctx.restore();
+  }
+
+  // ---- ATTRACT MODE, AND WHAT PAINTS WHILE NOTHING IS RUNNING -------------
+  // paint() is what every idle repaint goes through: the board is drawn, and if
+  // the title is up the screen goes over it. fit() and reset() both call it, so
+  // a resize, a rotation and a late font all keep the title screen rather than
+  // wiping it back to a bare street.
+  var titleUp = false, blinkOn = true, blinkT = 0;
+  function paint() {
+    draw();
+    if (titleUp) drawTitle();
+  }
+  function stopBlink() {
+    if (blinkT) { clearInterval(blinkT); blinkT = 0; }
+  }
+  function showTitle() {
+    titleUp = true;
+    blinkOn = true;
+    elOver.classList.add("gr-attract");
+    stopBlink();
+    // 520ms on, 520ms off. Nothing else on the screen moves, so this is one
+    // repaint of a static picture just under twice a second, and the picture is
+    // the pre-rendered skyline tiles plus about 900 fillRects.
+    //
+    // THERE IS NO document.hidden GUARD IN HERE AND THAT IS DELIBERATE. One was
+    // written, to save the repaint while the tab is in the background, and it
+    // leaves the prompt STUCK IN WHATEVER PHASE IT WAS IN: come back to the tab
+    // on an off beat and the title screen has no "press start" on it at all,
+    // which is a screen that looks broken to save a paint the browser was
+    // already throttling to once a second. The toggle is unconditional and the
+    // phase is always recoverable.
+    if (!calm) {
+      blinkT = setInterval(function () {
+        if (!titleUp) return;
+        blinkOn = !blinkOn;
+        paint();
+      }, 520);
+    }
+    paint();
+  }
+  function hideTitle() {
+    if (!titleUp) return;
+    titleUp = false;
+    stopBlink();
+    elOver.classList.remove("gr-attract");
+  }
+  // THE SPRITE MAY LAND AFTER THE FIRST PAINT and a title screen with a hole in
+  // it where the mascot goes is worse than one without a mascot. The screen is
+  // repainted the moment the file decodes, which under reduce is the only
+  // repaint this screen ever gets.
+  SP_TRUB.img.addEventListener("load", function () { if (titleUp) paint(); });
+
   function tick() {
     if (!running) return;
     frameN += 1;
@@ -1732,6 +2117,7 @@ const GAME_JS = `
 
   function end() {
     running = false;
+    hideTitle();
     cancelAnimationFrame(raf);
     overAt = nowMs();
     var sc = lanes[0].score;
@@ -1781,6 +2167,7 @@ const GAME_JS = `
   function start() {
     paused = false;
     startBest = best;
+    hideTitle();
     reset();
     countIn = calm ? 0 : 45;
     acc = 0; last = 0;
@@ -2010,7 +2397,7 @@ const GAME_JS = `
     // The skyline and the plate are pre-rendered at the device's own pixels, so
     // they are rebuilt here and only here, for the same reason the transform is.
     buildTiles(cv.width / W);
-    draw();
+    paint();
   }
   // A REAL RESIZE STILL RE-FITS: a rotation, or a desktop window dragged wider,
   // genuinely changes how much room the game has and the board should follow.
@@ -2034,6 +2421,10 @@ const GAME_JS = `
   fit();
 
   reset();
+  // THE ATTRACT SCREEN IS THE LAST THING SET UP, after the board has a size and
+  // the street has been primed, so the first thing painted is the finished
+  // picture rather than a title over an empty canvas.
+  showTitle();
 })();
 `;
 
@@ -2106,7 +2497,7 @@ ${MENU}
           <div class="gr-stage" id="grStage">
             <canvas id="grCanvas" width="420" height="680" role="img"
               aria-label="Garbage Run. Trubbish runs through downtown Rochester, past the Times Square building, the Xerox tower and High Falls, and you tap to flip him between the floor and the ceiling."></canvas>
-            <div class="gr-over" id="grOver" role="status">
+            <div class="gr-over gr-attract" id="grOver" role="status">
               <h2 id="grTitle">Garbage Run</h2>
               <p id="grMsg">Tap the screen, or press space, to flip. Eat the trash, dodge the Pokemon.</p>
               <button class="gr-go" id="grStart" type="button">Start</button>

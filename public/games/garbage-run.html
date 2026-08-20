@@ -52,6 +52,13 @@
 .gr-go{min-height:52px;padding:0 var(--s5);border:3px solid var(--gold);border-radius:999px;
   background:var(--gold);color:var(--on-accent);font:700 var(--t-m)/1 var(--body);cursor:pointer}
 .gr-go:hover{background:var(--mustard);border-color:var(--mustard);color:var(--on-accent)}
+.gr-over.gr-attract{background:transparent;padding:0;gap:0}
+.gr-over.gr-attract h2,.gr-over.gr-attract p{position:absolute;width:1px;height:1px;margin:-1px;
+  padding:0;border:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.gr-over.gr-attract .gr-go{position:absolute;inset:0;width:100%;height:100%;min-height:0;padding:0;
+  border:0;border-radius:0;background:transparent;color:transparent;font-size:0;line-height:0}
+.gr-over.gr-attract .gr-go:hover{background:transparent;border-color:transparent;color:transparent}
+.gr-over.gr-attract .gr-go:focus-visible{outline:3px solid #70B5D9;outline-offset:-9px}
 .gr-how{margin-top:var(--s5);color:var(--ink-2);font-size:var(--t-sm);line-height:1.6;max-width:44em}
 .gr-how b{color:var(--ink)}
 .gr-evo{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center;justify-content:flex-start;
@@ -226,7 +233,7 @@
           <div class="gr-stage" id="grStage">
             <canvas id="grCanvas" width="420" height="680" role="img"
               aria-label="Garbage Run. Trubbish runs through downtown Rochester, past the Times Square building, the Xerox tower and High Falls, and you tap to flip him between the floor and the ceiling."></canvas>
-            <div class="gr-over" id="grOver" role="status">
+            <div class="gr-over gr-attract" id="grOver" role="status">
               <h2 id="grTitle">Garbage Run</h2>
               <p id="grMsg">Tap the screen, or press space, to flip. Eat the trash, dodge the Pokemon.</p>
               <button class="gr-go" id="grStart" type="button">Start</button>
@@ -380,7 +387,11 @@
 <script>(function () {
   "use strict";
   var cv = document.getElementById("grCanvas");
-  if (!cv || !cv.getContext) return;
+  if (!cv || !cv.getContext) {
+    var dead = document.getElementById("grOver");
+    if (dead) dead.classList.remove("gr-attract");
+    return;
+  }
   var ctx = cv.getContext("2d");
   var W = 420, H = 680;
   var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -458,7 +469,7 @@
     dist = 0;
     lanes = [makeLane(0, H)];
     primeStreet(lanes[0]);
-    draw();
+    paint();
   }
   var lastFlipF = -1;
   function flip(i) {
@@ -612,6 +623,9 @@
     gold: "#E8B93A", goldDim: "rgba(232,185,58,.11)",
     ink: "#F5F4F0", inkDim: "rgba(245,244,240,.55)",
     onGold: "#111111", scrim: "rgba(10,10,10,.55)",
+    titleScrim: "rgba(8,14,10,.92)", titleScrimLow: "rgba(8,14,10,.2)",
+    titlePink: "#E87EA1", titleBlue: "#70B5D9", titleShade: "#2F4F39",
+    titleDim: "rgba(236,228,212,.5)",
   };
   var FAR_W = 840, FAR_H = 250, NEAR_W = 630, NEAR_H = 130;
   var SKY_TOP = "#242424";
@@ -928,6 +942,7 @@
     ctx.fillStyle = C.bandEdge;
     ctx.fillRect(-20, L.top + L.h - 17, W + 40, 1.5);
     ctx.fillRect(-20, L.top + 15.5, W + 40, 1.5);
+    if (titleUp) { ctx.restore(); return; }
     for (var a = 0; a < L.obs.length; a++) {
       var o = L.obs[a];
       var oy = o.onFloor ? L.top + L.h - o.h : L.top;
@@ -1021,6 +1036,128 @@
     ctx.clearRect(0, 0, W, H);
     for (var i = 0; i < lanes.length; i++) drawLane(lanes[i], i);
   }
+  var FONT_K = "0123456789 ABCDEFGHIJKLMNOPQRSTUVWXYZ,-.";
+  var FONT_R = "ehjlphe4c4444eeh168gvv2461he26aiv22vgu11he68guhhev124888ehhehheehhf12c0000000ehhvhhhuhhuhhuehgggheuhhhhhuvgguggvvggugggehgnhhfhhhvhhhv44444v72222ichikokihggggggvhrllhhhhppljjhehhhhheuhhugggehhhliduhhukihfgge11uv444444hhhhhhehhhhha4hhhllrhhha4ahhhha4444v1248gv0000648000e00000000cc";
+  var GW = 5, GH = 7, GADV = 6;
+  function textW(s, u) { return s.length ? (s.length * GADV - 1) * u : 0; }
+  function pxAt(s, x, y, u, col) {
+    ctx.fillStyle = col;
+    for (var i = 0; i < s.length; i++) {
+      var gi = FONT_K.indexOf(s.charAt(i));
+      if (gi < 0) continue;
+      var gx = x + i * GADV * u;
+      for (var r = 0; r < GH; r++) {
+        var bits = parseInt(FONT_R.charAt(gi * GH + r), 32);
+        if (!bits) continue;
+        for (var c = 0; c < GW; c++) {
+          if (bits & (16 >> c)) ctx.fillRect(gx + c * u, y + r * u, u, u);
+        }
+      }
+    }
+  }
+  function pxMid(s, cx, y, u, col) {
+    pxAt(s, Math.round(cx - textW(s, u) / 2), y, u, col);
+  }
+  function pxLogo(s, cx, y, u, col) {
+    pxMid(s, cx + u, y + u, u, C.titleShade);
+    pxMid(s, cx, y, u, col);
+  }
+  var mascotTile = null;
+  function mascot() {
+    if (mascotTile) return mascotTile;
+    if (!SP_TRUB.ready) return null;
+    var off = document.createElement("canvas");
+    off.width = 32; off.height = 32;
+    var oc = off.getContext("2d");
+    if (!oc) return null;
+    oc.drawImage(SP_TRUB.img, 0, 0, 32, 32);
+    mascotTile = off;
+    return off;
+  }
+  function pad5(n) {
+    var s = String(n);
+    while (s.length < 5) s = "0" + s;
+    return s;
+  }
+  var coarse = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+  var PROMPT = coarse ? "TAP TO START" : "PRESS START";
+  function drawTitle() {
+    var pw = cv.width, ph = cv.height;
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.imageSmoothingEnabled = false;
+    var sg = ctx.createLinearGradient(0, 0, 0, ph);
+    sg.addColorStop(0, C.titleScrim);
+    sg.addColorStop(0.55, C.titleScrim);
+    sg.addColorStop(0.92, C.titleScrimLow);
+    sg.addColorStop(1, C.titleScrimLow);
+    ctx.fillStyle = sg;
+    ctx.fillRect(0, 0, pw, ph);
+    var u = Math.max(2, Math.round(pw / 190));
+    var U = Math.max(u + 2, Math.floor(pw * 0.78 / (7 * GADV - 1)));
+    var m = Math.max(u + 1, Math.round(u * 1.6));
+    var f = Math.max(1, u - 1);
+    var mk = Math.max(2, Math.round(ph * 0.17 / 32));
+    var mh = 32 * mk;
+    var cx = Math.round(pw / 2);
+    var topY = Math.round(ph * 0.045);
+    var hs = "HI-SCORE", hv = pad5(best);
+    var hx = Math.round(cx - textW(hs + " " + hv, u) / 2);
+    pxAt(hs, hx, topY, u, C.titleDim);
+    pxAt(hv, hx + (hs.length + 1) * GADV * u, topY, u, C.ink);
+    var footY = ph - Math.round(ph * 0.045) - GH * f;
+    pxMid("FAN GAME - NOT AFFILIATED", cx, footY, f, C.titleDim);
+    var blockH = (GH + 1) * U + 2 * U + (GH + 1) * U + 6 * u + mh + 6 * u +
+      GH * u + 3 * u + GH * u + 10 * u + GH * m;
+    var lo = topY + GH * u + Math.round(ph * 0.04);
+    var hi = footY - Math.round(ph * 0.035);
+    var y = Math.max(lo, lo + Math.round((hi - lo - blockH) / 2));
+    pxLogo("GARBAGE", cx, y, U, C.ink);
+    y += (GH + 1) * U + 2 * U;
+    pxLogo("RUN", cx, y, U, C.titlePink);
+    y += (GH + 1) * U + 6 * u;
+    var mt = mascot();
+    if (mt) ctx.drawImage(mt, Math.round(cx - mh / 2), y, mh, mh);
+    y += mh + 6 * u;
+    pxMid("ROCHESTER, NY", cx, y, u, C.titleBlue);
+    y += GH * u + 3 * u;
+    pxMid("GARBAGE RIPS 585", cx, y, u, C.titleDim);
+    y += GH * u + 10 * u;
+    if (blinkOn) pxMid(PROMPT, cx, y, m, C.ink);
+    ctx.fillStyle = "rgba(0,0,0,.3)";
+    var lh = Math.max(1, Math.round(u / 2));
+    for (var sy = 0; sy < ph; sy += u * 2) ctx.fillRect(0, sy, pw, lh);
+    ctx.restore();
+  }
+  var titleUp = false, blinkOn = true, blinkT = 0;
+  function paint() {
+    draw();
+    if (titleUp) drawTitle();
+  }
+  function stopBlink() {
+    if (blinkT) { clearInterval(blinkT); blinkT = 0; }
+  }
+  function showTitle() {
+    titleUp = true;
+    blinkOn = true;
+    elOver.classList.add("gr-attract");
+    stopBlink();
+    if (!calm) {
+      blinkT = setInterval(function () {
+        if (!titleUp) return;
+        blinkOn = !blinkOn;
+        paint();
+      }, 520);
+    }
+    paint();
+  }
+  function hideTitle() {
+    if (!titleUp) return;
+    titleUp = false;
+    stopBlink();
+    elOver.classList.remove("gr-attract");
+  }
+  SP_TRUB.img.addEventListener("load", function () { if (titleUp) paint(); });
   function tick() {
     if (!running) return;
     frameN += 1;
@@ -1070,6 +1207,7 @@
   function goReady() { return nowMs() - overAt >= GO_LOCK; }
   function end() {
     running = false;
+    hideTitle();
     cancelAnimationFrame(raf);
     overAt = nowMs();
     var sc = lanes[0].score;
@@ -1094,6 +1232,7 @@
   function start() {
     paused = false;
     startBest = best;
+    hideTitle();
     reset();
     countIn = calm ? 0 : 45;
     acc = 0; last = 0;
@@ -1180,13 +1319,14 @@
     cv.height = Math.round(ch * dpr);
     ctx.setTransform(cv.width / W, 0, 0, cv.height / H, 0, 0);
     buildTiles(cv.width / W);
-    draw();
+    paint();
   }
   window.addEventListener("resize", fit);
   window.addEventListener("orientationchange", fit);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
   fit();
   reset();
+  showTitle();
 })();</script>
 <script src="/assets/app.js?v=ae4e5a0b" defer></script>
 </body>
