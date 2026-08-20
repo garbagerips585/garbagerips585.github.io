@@ -25,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=084844aa">
-<link rel="stylesheet" href="/assets/games.css?v=812ffdf4">
+<link rel="stylesheet" href="/assets/games.css?v=15befa74">
 <style>
 /* THE MODE BUTTONS HAD NO PRESSED STATE AND HAVE NEVER HAD ONE.
    ui.css styles .chip[aria-pressed=true] in three places and .btn in none, so
@@ -254,12 +254,13 @@
 
 <section class="tight">
   <div class="wrap">
-    <div id="game"></div>
+    <div id="game" class="g-quiz"></div>
     <p class="crumbs"><a href="/">Home</a> / <a href="/games/">Games</a> / Trivia</p>
     <p class="price-note" style="margin-top:var(--s5)">1,400 questions, every one
-      generated from <a href="https://pokeapi.co" rel="noopener" target="_blank" aria-label="pokeapi.co, the source every question here is generated from, opens on pokeapi.co">pokeapi.co</a> data read
-      August 13, 2026. Nothing here was typed from memory, which is why there is no
-      question about which Pokemon is best. Fan content, not affiliated with The Pokemon Company.</p>
+      generated from <a href="https://pokeapi.co" rel="noopener" target="_blank" aria-label="pokeapi.co, the source of the artwork and of every question here, opens on pokeapi.co">pokeapi.co</a> data read
+      August 13, 2026, and the official artwork mirrored from the same place. Nothing here
+      was typed from memory, which is why there is no question about which Pokemon is best. Pokemon and all Pokemon
+      names are trademarks of The Pokemon Company. Fan content, not affiliated with The Pokemon Company.</p>
   </div>
 </section>
 
@@ -447,17 +448,37 @@
 <script src="/assets/games.js?v=40f59b03" defer></script>
 <script>
 (function(){
+  var ART='/assets/species/';
   var qs=[];
+  function art(id){return ART+id+'.webp';}
+  function portrait(id,alt){
+    return '<img src="'+art(id)+'" alt="'+alt+'" width="256" height="256" decoding="async">';
+  }
   function build(){
     var r=GR.pick(qs);
     var opts=GR.shuffle([{label:r[1],ok:1},{label:r[2]},{label:r[3]},{label:r[4]}]);
     var answer=0;
     for(var i=0;i<opts.length;i++) if(opts[i].ok) answer=i;
-    return {stage:'<p class="gq-q">'+r[0]+'</p>',choices:opts,answer:answer,note:r[5]||''};
+    var ask=r[6]||0, tell=r[7]||0;
+    /* aria-hidden: a mark that says a picture is coming. A screen reader being
+       told there is a question mark here helps nobody. */
+    var slot=ask?portrait(ask,'')
+                :'<span class="gq-pending" aria-hidden="true">?</span>';
+    var q={
+      stage:'<div class="gq-art" data-art>'+slot+'</div><p class="gq-q">'+r[0]+'</p>',
+      choices:opts,answer:answer,note:r[5]||'',
+      _art:art(ask||tell)
+    };
+    if(tell) q.reveal=function(stage){
+      var box=stage.querySelector('[data-art]');
+      if(box) box.innerHTML=portrait(tell,r[1]);
+    };
+    return q;
   }
   fetch('/data/games/trivia.json').then(function(r){return r.json();}).then(function(d){
     qs=d.q;
-    GR.Quiz({key:'gr.trivia',mount:document.getElementById('game'),next:build});
+    GR.Quiz({key:'gr.trivia',mount:document.getElementById('game'),next:build,
+      preload:function(q){return q._art;}});
   }).catch(function(){
     document.getElementById('game').innerHTML='<p class="price-note">Could not load the questions. Check your connection and reload.</p>';
   });

@@ -154,15 +154,23 @@ await writeFile(join(DATA, "dex.json"), JSON.stringify({ checked: dex.checked, p
 // the reveal reveals nothing, and nothing errors. Checked here rather than in
 // the browser, and it throws rather than warning, because a game that is broken
 // one round in a thousand is a game nobody can report.
-const missingArt = whos
-  .map(([id]) => id)
-  .filter((id) => !existsSync(join(ROOT, `public/assets/species/lg/${id}.webp`)));
-if (missingArt.length)
-  throw new Error(
-    `${missingArt.length} of ${whos.length} species have no public/assets/species/lg/<id>.webp ` +
-      `(${missingArt.slice(0, 8).join(", ")}${missingArt.length > 8 ? ", ..." : ""}). ` +
-      `Run: node scripts/sync-species-art.mjs`
-  );
+//
+// THE 256px RENDITION IS NOW UNDER THE SAME RULE, because pokemon-trivia.html
+// draws one of those every round for the same reason and with the same silent
+// failure. Two renditions, one loop, one error: a miss in either is fixed by
+// running the same sync, and finding out about the second one on a later build
+// would just be this check written twice.
+const ART_DIRS = ["lg", ""];
+for (const rend of ART_DIRS) {
+  const dir = rend ? `public/assets/species/${rend}` : "public/assets/species";
+  const missingArt = whos.map(([id]) => id).filter((id) => !existsSync(join(ROOT, `${dir}/${id}.webp`)));
+  if (missingArt.length)
+    throw new Error(
+      `${missingArt.length} of ${whos.length} species have no ${dir}/<id>.webp ` +
+        `(${missingArt.slice(0, 8).join(", ")}${missingArt.length > 8 ? ", ..." : ""}). ` +
+        `Run: node scripts/sync-species-art.mjs`
+    );
+}
 
 // ---------------------------------------------------------------------------
 // Guess the Set: real card scans out of the corpus.
@@ -334,8 +342,31 @@ await writeFile(
 
 // ---------------------------------------------------------------------------
 // Trivia. Generated, never typed. Each row is
-//   [question, correct, wrong1, wrong2, wrong3, note]
+//   [question, correct, wrong1, wrong2, wrong3, note, askArt, tellArt]
 // and `note` is what makes it worth getting wrong.
+//
+// THE LAST TWO ARE DEX IDS AND THEY ARE NOT INTERCHANGEABLE. 0 means no picture.
+//   askArt  a portrait drawn WITH the question, from the first frame.
+//   tellArt a portrait drawn ONLY once the answer is in.
+// Which slot a category uses is decided by one test and nothing else: IS THE
+// POKEMON IN THE PICTURE THE THING BEING ASKED FOR? If it is, the portrait is
+// the answer and it can only go in tellArt; if the question already names it,
+// the portrait is the question drawn instead of spelled, and it goes in askArt.
+//
+//   type       askArt   "What type is Braixen?" already says Braixen.
+//   evolution  askArt   "Which Pokemon evolves into Jumpluff?" names Jumpluff;
+//                       the answer is Skiploom, a different Pokemon.
+//   genus      tellArt  the answer IS the Pokemon.
+//   legendary  tellArt  the four Pokemon are the four CHOICES, so a portrait
+//                       with the question would be the answer, in a picture.
+//   weight     tellArt  same shape as legendary. This one was proposed as an
+//                       askArt category and it cannot be: "Which of these is
+//                       the heaviest?" names nobody, and the four candidates
+//                       are the buttons.
+//
+// So every question carries exactly one portrait, which is what keeps the
+// per-question fetch at one image, and 56.0% of the bank does not fetch it
+// until the player has already committed to an answer.
 // ---------------------------------------------------------------------------
 const cap = (s) => String(s).charAt(0).toUpperCase() + String(s).slice(1);
 /*
@@ -400,6 +431,9 @@ const push = (cat, row) => {
 const named = pokemon.filter((p) => p.genus);
 const allNames = pokemon.map((p) => p.name);
 const allTypes = [...new Set(pokemon.flatMap((p) => p.types))];
+/** Name to National Pokedex number. evolvesFrom is stored as a NAME, so this is
+ *  what lets the evolution note print the ANSWER's own number. */
+const idByName = new Map(pokemon.map((p) => [p.name, p.id]));
 
 // 1. Genus. The single best category: the answers are official, they are short,
 // and they are frequently absurd. Trubbish is the Trash Bag Pokemon.
@@ -418,7 +452,7 @@ for (const p of named) {
 for (const p of named) {
   const wrong = sample(named.map((x) => x.name), 3, byGenus.get(p.genus));
   if (!wrong) continue;
-  push("genus", [`Which Pokemon is the ${p.genus} Pokemon?`, p.name, ...wrong, `#${p.id}, introduced in Generation ${p.gen}.`]);
+  push("genus", [`Which Pokemon is the ${p.genus} Pokemon?`, p.name, ...wrong, `#${p.id}, introduced in Generation ${p.gen}.`, 0, p.id]);
 }
 
 // 2. Type. Single typed only: a dual type has two right answers unless the
@@ -427,7 +461,7 @@ for (const p of named) {
 for (const p of pokemon.filter((x) => x.types.length === 1)) {
   const wrong = sample(allTypes, 3, p.types);
   if (!wrong) continue;
-  push("type", [`What type is ${p.name}?`, cap(p.types[0]), ...wrong.map(cap), `${p.name} is pure ${cap(p.types[0])}.`]);
+  push("type", [`What type is ${p.name}?`, cap(p.types[0]), ...wrong.map(cap), `${p.name} is pure ${cap(p.types[0])}.`, p.id, 0]);
 }
 
 // 3. Evolution, asked backwards. "What does X evolve into" has more than one
@@ -435,16 +469,32 @@ for (const p of pokemon.filter((x) => x.types.length === 1)) {
 for (const p of pokemon.filter((x) => x.evolvesFrom)) {
   const wrong = sample(allNames, 3, [p.name, p.evolvesFrom]);
   if (!wrong) continue;
-  push("evolution", [`Which Pokemon evolves into ${p.name}?`, p.evolvesFrom, ...wrong, `${p.evolvesFrom} is #${p.id - 1 > 0 ? "" : ""}${p.id}'s pre-evolution.`]);
+  // THE NOTE USED TO PRINT THE WRONG POKEMON'S NUMBER, and it did it through a
+  // ternary whose two branches were both the empty string:
+  //     p.evolvesFrom + " is #" + (p.id - 1 > 0 ? "" : "") + p.id + "'s pre-evolution."
+  // which read "Skiploom is #189's pre-evolution." #189 is Jumpluff, the
+  // Pokemon the question had ALREADY named, so the one number on screen
+  // belonged to the half of the pair the player did not have to work out, and
+  // the answer they had just been given went unnumbered. A pre-evolution is
+  // also not reliably id - 1, which is what the dead ternary was reaching for:
+  // Pikachu is #25 and Pichu is #172. Looked up by name instead.
+  const fromId = idByName.get(p.evolvesFrom);
+  const note = fromId
+    ? `${p.evolvesFrom} is #${fromId}. It evolves into ${p.name}, #${p.id}.`
+    : `${p.evolvesFrom} evolves into ${p.name}, #${p.id}.`;
+  push("evolution", [`Which Pokemon evolves into ${p.name}?`, p.evolvesFrom, ...wrong, note, p.id, 0]);
 }
 
 // 4. Legendary. One real legendary against three ordinary Pokemon.
-const legends = pokemon.filter((p) => p.legendary).map((p) => p.name);
+// Iterated over the POKEMON rather than over their names, which is the only
+// change here: the portrait needs the id and mapping the names back would be
+// throwing it away and looking it up again.
+const legends = pokemon.filter((p) => p.legendary);
 const ordinary = pokemon.filter((p) => !p.legendary && !p.mythical).map((p) => p.name);
-for (const name of legends) {
-  const wrong = sample(ordinary, 3, [name]);
+for (const p of legends) {
+  const wrong = sample(ordinary, 3, [p.name]);
   if (!wrong) continue;
-  push("legendary", [`Which of these is a Legendary Pokemon?`, name, ...wrong, `${name} is flagged Legendary in the National Pokedex.`]);
+  push("legendary", [`Which of these is a Legendary Pokemon?`, p.name, ...wrong, `${p.name} is flagged Legendary in the National Pokedex.`, 0, p.id]);
 }
 
 // 5. Which is heavier. Four real Pokemon, pick the heaviest, with a wide enough
@@ -462,6 +512,8 @@ for (let i = 0; i < 220; i++) {
     sorted[2].name,
     sorted[3].name,
     `${sorted[0].name} weighs ${(sorted[0].wHg / 10).toFixed(1)}kg.`,
+    0,
+    sorted[0].id,
   ]);
 }
 
@@ -1487,27 +1539,83 @@ ${/* "the good bit" is British for "the good part", and it is not a word a
 </section>`,
   body: `<section class="tight">
   <div class="wrap">
-    <div id="game"></div>
+    <div id="game" class="g-quiz"></div>
     <p class="crumbs"><a href="/">Home</a> / <a href="/games/">Games</a> / Trivia</p>
     <p class="price-note" style="margin-top:var(--s5)">${shuffled.length.toLocaleString("en-US")} questions, every one
-      generated from <a href="https://pokeapi.co" rel="noopener" target="_blank" aria-label="pokeapi.co, the source every question here is generated from, opens on pokeapi.co">pokeapi.co</a> data read
-      ${esc(longDate(dex.checked) || dex.checked)}. Nothing here was typed from memory, which is why there is no
-      question about which Pokemon is best. Fan content, not affiliated with The Pokemon Company.</p>
+      generated from <a href="https://pokeapi.co" rel="noopener" target="_blank" aria-label="pokeapi.co, the source of the artwork and of every question here, opens on pokeapi.co">pokeapi.co</a> data read
+      ${esc(longDate(dex.checked) || dex.checked)}, and the official artwork mirrored from the same place. Nothing here
+      was typed from memory, which is why there is no question about which Pokemon is best. Pokemon and all Pokemon
+      names are trademarks of The Pokemon Company. Fan content, not affiliated with The Pokemon Company.</p>
   </div>
 </section>`,
+  // THE PORTRAIT SLOT IS ALWAYS IN THE MARKUP, EMPTY OR NOT, and that is the
+  // whole no-layout-shift story. .gq-stage keeps the fixed square box it always
+  // had, and inside it row 1 takes whatever the question text does not, so the
+  // question sits in the same place whether a picture is there yet or not. The
+  // 56.0% of the bank whose portrait IS the answer draws nothing in that row
+  // until the answer is in, and the reveal fills a box that was already there.
+  //
+  // WHY /assets/species/ AND NOT /assets/species/sm/. Measured at 390x844: the
+  // stage's inner box is 249px and the tallest question in the bank is 84px, so
+  // the portrait is drawn at 128px. The sm rendition is 96px, a 2.7x upscale at
+  // DPR 2 and 4x at DPR 3, which is a blur where the picture is the point. The
+  // 256px file is 1:1 at DPR 2 and a 1.5x upscale at DPR 3, which is the same
+  // trade /pokemon/ makes for the same portrait at the same drawn size. The lg
+  // rendition Who's That Pokemon uses is 475px and 19.6KB median against
+  // 11.9KB, and it is right there because that game draws it at 249px.
+  //
+  // ALT TEXT IS THE TRAP HERE, AND THE TWO SLOTS WANT OPPOSITE ANSWERS.
+  //
+  // A tellArt portrait is new information. It is the first time a player has
+  // been shown what the thing they just named looks like, so it is named:
+  // alt is the correct answer's own label, taken from the row rather than
+  // parsed back out of anything.
+  //
+  // An askArt portrait is alt="", which is deliberate and is NOT laziness.
+  // The Pokemon in that picture is named in the question sitting directly under
+  // it, so a name in alt is a duplicate announcement of a word the screen
+  // reader is about to read anyway, and the picture carries nothing a
+  // non-sighted player can act on: seeing Braixen does not tell you its type.
+  // WCAG treats an image that duplicates adjacent text as decorative, and
+  // alt="" takes it out of the accessibility tree completely, which is also the
+  // one form of this that CANNOT leak: there is no string to get wrong.
+  //
+  // The tellArt slot holds no img at all before the reveal, for the same
+  // reason. An alt="" image sitting there would be harmless, but a later editor
+  // filling it in early is a bug that only a screen reader can see.
   extraJs: `<script>
 (function(){
+  var ART='/assets/species/';
   var qs=[];
+  function art(id){return ART+id+'.webp';}
+  function portrait(id,alt){
+    return '<img src="'+art(id)+'" alt="'+alt+'" width="256" height="256" decoding="async">';
+  }
   function build(){
     var r=GR.pick(qs);
     var opts=GR.shuffle([{label:r[1],ok:1},{label:r[2]},{label:r[3]},{label:r[4]}]);
     var answer=0;
     for(var i=0;i<opts.length;i++) if(opts[i].ok) answer=i;
-    return {stage:'<p class="gq-q">'+r[0]+'</p>',choices:opts,answer:answer,note:r[5]||''};
+    var ask=r[6]||0, tell=r[7]||0;
+    /* aria-hidden: a mark that says a picture is coming. A screen reader being
+       told there is a question mark here helps nobody. */
+    var slot=ask?portrait(ask,'')
+                :'<span class="gq-pending" aria-hidden="true">?</span>';
+    var q={
+      stage:'<div class="gq-art" data-art>'+slot+'</div><p class="gq-q">'+r[0]+'</p>',
+      choices:opts,answer:answer,note:r[5]||'',
+      _art:art(ask||tell)
+    };
+    if(tell) q.reveal=function(stage){
+      var box=stage.querySelector('[data-art]');
+      if(box) box.innerHTML=portrait(tell,r[1]);
+    };
+    return q;
   }
   fetch('/data/games/trivia.json').then(function(r){return r.json();}).then(function(d){
     qs=d.q;
-    GR.Quiz({key:'gr.trivia',mount:document.getElementById('game'),next:build});
+    GR.Quiz({key:'gr.trivia',mount:document.getElementById('game'),next:build,
+      preload:function(q){return q._art;}});
   }).catch(function(){
     document.getElementById('game').innerHTML='<p class="price-note">Could not load the questions. Check your connection and reload.</p>';
   });

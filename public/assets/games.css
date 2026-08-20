@@ -172,14 +172,80 @@
   max-height: min(41svh, 400px);
 }
 
-/* Trivia has no picture, so the question itself is the stage. It still uses the
-   same square box, because the answer buttons must not move between a game with
-   art and a game without it. */
+/* Trivia. It used to have no picture at all and the question WAS the stage; it
+   now draws a species portrait every round, in the same square box, because the
+   answer buttons must not move between a game with art and one without it.
+
+   THE PICTURE ROW IS 1fr AND THE QUESTION IS auto, which is backwards from the
+   obvious way round and is the whole no-shift argument. The text takes the
+   height it needs and the portrait takes what is left, so a long question can
+   never be clipped by .gq-stage's overflow:hidden, and the 56.0% of questions
+   whose portrait does not appear until the answer is in still have the box
+   reserved from the first frame. Measured on the whole shipped bank at 320x568:
+   inner box 148px, longest question 88px at the size set further down, so the
+   portrait gets 52px there and 92px on the median and never pushes out a word.
+   Nothing below the stage moves either: aspect-ratio and max-height are untouched.
+
+   place-self, NOT align-self, AND BOTH HALVES WERE BUGS THAT SHIPPED IN TESTING.
+   .gq-stage is place-items:center, so a grid item is sized by its CONTENT.
+   Without the vertical stretch .gq-art had no definite height, the picture's
+   max-height:100% resolved to none and it drew 249px tall in a 157px row, and
+   overflow:hidden cut the top and bottom off the Pokemon. Without the
+   horizontal one it sized to its in-flow content, which is nothing once the
+   picture is positioned: 0px wide, indistinguishable from a broken image.
+   min-height:0 is the usual grid companion, or the item refuses to shrink. */
+.gq-art {
+  place-self: stretch;
+  min-height: 0;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+/* 128px IS THE SIZE THIS RENDITION IS CUT FOR. /assets/species/ is 256px, 1:1
+   at a 128px box on a DPR 2 phone, and the same pairing /pokemon/ already ships
+   beside its h1. Uncapped, the portrait grew with the row: 213px on a one line
+   question against 157px on a four line one, so it changed size question to
+   question and the large end was a 1.7x upscale. The 475px lg rendition carries
+   a bigger box and Who's That Pokemon pays for it, because there the picture IS
+   the question; here it is 19.6KB against 11.9KB median every round, on a game
+   whose brief is a venue's wifi.
+
+   ABSOLUTE, BECAUSE A PERCENTAGE max-height DOES NOT RESOLVE AGAINST A STRETCHED
+   GRID ROW. max-height:min(100%,128px) in flow looked right at 390x844, where
+   the 128px branch binds and hid the fault; at 320x568 the row drops to 48px on
+   a long question, the 100% branch has to bind and resolves to none, and the
+   question was painted ON TOP OF THE POKEMON. Out of flow the percentages
+   resolve against .gq-art's padding box, whose used height is the grid row and
+   is definite at every width. inset:0 with margin:auto is the centring. */
+.gq-art img {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  max-width: 128px;
+  max-height: 128px;
+  object-fit: contain;
+  display: block;
+}
+/* The mark that holds the slot open on a question whose portrait IS the answer.
+   aria-hidden in the markup, so this is only ever seen. */
+.gq-pending {
+  font: 400 var(--t-xl) / 1 var(--display);
+  color: var(--ink);
+  opacity: .22;
+}
 .gq-q {
   font: 400 var(--t-l) / 1.25 var(--display);
   color: var(--ink);
   text-align: center;
   text-wrap: balance;
+}
+/* The trivia stage only. Guess the Set and Who's That Pokemon put a single
+   image in the box and want it centred, which is what .gq-stage already does. */
+.g-quiz .gq-stage {
+  grid-template-rows: 1fr auto;
+  gap: var(--s2);
 }
 
 .gq-say {
@@ -192,10 +258,20 @@
 .gq-say.is-right { color: var(--teal); }
 .gq-say.is-wrong { color: var(--ketchup-deep); }
 
-/* Answers: 2x2, thumb sized, at the bottom. */
+/* Answers: 2x2, thumb sized, at the bottom.
+
+   minmax(0, 1fr), NOT 1fr, AND THE DIFFERENCE WAS VISIBLE ON GUESS THE SET.
+   A bare 1fr is minmax(auto, 1fr), so a column cannot go under its content's
+   min-content width, which for a run of text is its longest WORD. Set names are
+   long single words. Measured at 320x568 across 40 questions: the two columns
+   came out 128px and 157px, a 29px spread, on "Gym Challenge" against "Pitch
+   Black", and the wider one then wrapped its neighbour to an extra line. Two
+   answers of equal standing were being drawn at different sizes because of how
+   long one of the words in them was. minmax(0,...) lets both columns take
+   exactly half and the text wrap inside them. */
 .gq-choices {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--s2);
 }
 .gq-btn {
@@ -353,6 +429,17 @@
   .g-hero h1 { font-size: var(--t-m); }
   .gq-stage { max-height: min(30svh, 260px); padding: var(--s2); }
   .g-cards .gq-stage { max-height: min(40svh, 300px); }
+  /* THE QUESTION WAS THE SAME 22.4px ON A 148px BOX AS ON A 249px ONE, and the
+     stage is the only element on the page that does not get to scroll. Measured
+     against the whole shipped bank at 320x568: at var(--t-l) the longest
+     question is 140px tall inside a 148px box, so the trivia had EIGHT pixels
+     of headroom before this pass ever put a picture in it. It was already one
+     longer question away from clipping a word. At var(--t-m) the same question
+     is 88px and the median is 56px, which is what buys the portrait its room.
+     .gq-pending follows it down: a 2.75rem question mark in a 148px box reads
+     as a graphic rather than as a placeholder. */
+  .g-quiz .gq-q { font-size: var(--t-m); }
+  .g-quiz .gq-pending { font-size: var(--t-l); }
   .gq-bar { margin-bottom: var(--s2); }
   .gq-stat { padding: 5px 10px; }
   .gq-say { min-height: 2em; margin: var(--s2) 0; }
