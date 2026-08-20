@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=27537093">
+<link rel="stylesheet" href="/assets/ui.css?v=9a180904">
 
 <style>.show-map{margin:var(--s5) 0 0;color:var(--ink)}
 .show-map svg{display:block;width:100%;height:auto;max-width:660px}
@@ -1574,10 +1574,22 @@ max-width:44em}
 </footer>
 <script>
 (function(){
+
+  function isIsoDay(s) { return /^\d{4}-\d{2}-\d{2}$/.test(s || ""); }
+  function todayIso() {
+    var n = new Date();
+    var m = n.getMonth() + 1, d = n.getDate();
+    return n.getFullYear() + "-" + (m < 10 ? "0" : "") + m + "-" + (d < 10 ? "0" : "") + d;
+  }
   // Belt and braces on dates. The build already dropped past shows, but a deploy
   // can sit for a few days, and a card show calendar that lists yesterday is
   // worse than no calendar at all.
-  var today = localDay();
+  // todayIso(), NOT localDay(): this block is a STRING and every name in it has
+  // to exist in the BROWSER. The 38-script sweep onto shared/today.mjs put a
+  // node import's name in here, so the page threw on its first statement and
+  // took the whole sweep with it -- past shows, empty months and the "next one
+  // up" slab all stayed. todayIso is from CLIENT_DAY_JS above, same local day.
+  var today = todayIso();
   document.querySelectorAll('.show').forEach(function(el){
     if (el.dataset.date < today) el.remove();
   });

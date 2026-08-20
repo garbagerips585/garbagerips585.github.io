@@ -134,7 +134,7 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
   border-bottom:2px solid var(--gold);overflow-x:clip;
   background-image:radial-gradient(130% 90% at 50% 0%, rgba(47,79,57,.55), transparent 62%)}
 .hof-head{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s4)}
-.hof-head h2{font:400 var(--t-l)/1 var(--display);color:var(--ketchup);flex:none}
+.hof-head h2{font:400 var(--t-l)/1 var(--display);color:var(--ketchup-deep);flex:none}
 .hof-head .sub2{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.09em;color:var(--chrome-dim);
   text-transform:uppercase}
 @media(max-width:560px){.hof-head .sub2{display:none}}
