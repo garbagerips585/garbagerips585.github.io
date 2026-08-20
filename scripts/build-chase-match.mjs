@@ -291,7 +291,7 @@
 // Grade 9 and a PSA 10 column and /top-graded.html is built on the second.
 //
 // EVERY LANGUAGE, ON PURPOSE, inherited from the list rather than decided here:
-// PriceCharting's Pokemon catalogue is not split by language and roughly half of
+// PriceCharting's Pokemon catalog is not split by language and roughly half of
 // the top 100 is Japanese. The argument is in build-top100.mjs's header. It
 // reads differently in a game than on a list page and it reads BETTER: a player
 // who has never seen a Japanese promo is exactly who this pool is fun for.
@@ -366,20 +366,40 @@
 // target: the board would rather run off a very short screen than hand somebody
 // a 30px tap target.
 //
-// IT BINDS IN EXACTLY ONE CASE AND THE NUMBERS ARE MEASURED. At 320x568, which
-// is a 2016 iPhone SE and the tightest thing this site tests, the 12 pair board
-// needs six rows of 61.5px plus gaps, 394px, and there are 351 between the top
-// of the grid and the bottom of the screen once the site bar, the heading, the
-// score row and the payout line have had theirs. So it is 43px too tall and
-// that tier scrolls there. 6 and 8 pairs both fit at 320x568, and all three fit
-// at 390x844 and at 1440x900.
+// IT BINDS IN EXACTLY ONE CASE AND THE NUMBERS ARE MEASURED. Re-measured in
+// headless Chrome at DPR 2 on 20 August 2026, reading getBoundingClientRect off
+// the built page after clicking each tier. At 320x568, which is a 2016 iPhone
+// SE and the tightest thing this site tests, the grid starts at y=221.13 and
+// the 12 pair board needs six rows of 61.5px plus gaps: its bottom lands at
+// 614.84 against a 568 viewport, 46.84px over, and that tier scrolls there.
+// 6 and 8 pairs end at 481.94, 86.06px clear. All three fit at 390x844 (110 to
+// 133px clear) and at 1440x900 (109 to 111px clear).
+//
+// THAT WAS 43px AND THE TIER BUTTONS PAID THE OTHER FOUR. .cm-tier shipped at
+// min-height:40px, four pixels under the same 44px this file spends a section
+// defending, so the buttons that choose the board missed the floor the board
+// keeps. Raising them to 44 is a WCAG 2.5.5 fix on a control that is on screen
+// and tappable at every size, and it costs four pixels of hud height on the one
+// tier at the one size that already scrolled. That is the right way round.
 //
 // THE FIX WOULD BE A 38px CARD AND IT IS NOT TAKEN. 38 clears the AA criterion
 // three times over and fails the AAA one, and trading a WCAG success criterion
-// for 43 pixels on one tier of one four-inch phone is the wrong way round. The
-// other levers were measured and do nothing: the RESERVE below the board can
-// come down from 108 to 84 and the card stays 44, because at that size the
-// floor is what binds and not the space.
+// for 47 pixels on one tier of one four-inch phone is the wrong way round.
+//
+// THE OTHER THREE LEVERS WERE MEASURED AND NONE OF THEM CLOSES IT ALONE.
+//   - THE RESERVE, 108 to 84: the card stays 44, because at that size the floor
+//     is what binds and not the space. Saves 24 of 47.
+//   - THE 6x4 SHAPE, which shapeFor already returns above 1000px, dropped to
+//     320: four rows of 61.46 plus gaps is 260.8, ending at 481.9, so with the
+//     108 reserve it is still 21.9px over. It is also 1px too WIDE -- six 44px
+//     cards and five 5px gaps are 289 in a 288px board -- so it trades a
+//     vertical overflow for a horizontal one, which is the worse of the two.
+//   - BOTH TOGETHER fit, and by 2px. A layout that clears its screen by two
+//     pixels is not a fix, it is a coin flip on the next font metric, and it
+//     costs the shape rule, the measured reserve and a 1px sideways clip to
+//     buy it. Left alone deliberately.
+// So the 12 pair tier scrolls at 320x568 and nowhere else. If you want it, the
+// honest lever is hiding that tier below some width, which nobody has asked for.
 //
 // NOT COLOUR ALONE. A matched card is framed AND dimmed AND relabelled, and the
 // payout line says "Matched, 3 of 8" in words. 1.4.1 is a Level A criterion and
@@ -588,7 +608,14 @@ const style = `
    three numbers into one 390px row and wrapped both. flex-basis is the whole
    fix and it needs no media query. */
 .cm-tiers{flex-basis:100%;display:flex;flex-wrap:wrap;gap:6px;margin:0 0 var(--s2);padding:0;list-style:none}
-.cm-tier{min-height:40px;padding:0 var(--s3);border:2px solid var(--keyline);border-radius:var(--r-pill);
+/* 44, NOT THE 40 THAT WAS HERE. This file commits to WCAG 2.5.5's 44px in
+   fit(), argues it at length in the header, and would rather run the board off
+   a short screen than shrink a card below it -- and then set the three buttons
+   that CHOOSE the board four pixels under the same floor. Measured at 390x844
+   DPR 2 before the change: 78.98-86.27 x 40.0. The tier row is its own flex
+   line (see .cm-tiers above), so the four pixels cost the hud four pixels of
+   height and nothing else re-flows. */
+.cm-tier{min-height:44px;padding:0 var(--s3);border:2px solid var(--keyline);border-radius:var(--r-pill);
   background:var(--card);color:var(--ink);font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
   text-transform:uppercase;cursor:pointer}
 .cm-tier[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--on-accent)}
@@ -940,8 +967,10 @@ const GAME_JS = `
   // round repeats badly: after ten rounds a given card has still only a 57%
   // chance of having turned up, so somebody who plays a whole queue keeps
   // meeting the same Charizards and never meets the rest. This walks a shuffled
-  // hundred and reshuffles at the end of it, so thirteen default rounds is
-  // every card in the pool, once.
+  // hundred and reshuffles at the end of it, so ceil(100 / pairs) rounds is
+  // every card in the pool: 17 on 6 pairs, 13 on 8, 9 on 12. The prose used to
+  // say "thirteen rounds" flat, which is only true on the default tier -- it is
+  // computed from TIERS now.
   var order = [], cursor = 0;
 
   function shuffle(a) {
@@ -1099,7 +1128,17 @@ const GAME_JS = `
     var byH = ((availH - (rowCount - 1) * gap) / rowCount) * (63 / 88);
     // 44 IS WCAG 2.5.5's ENHANCED TARGET SIZE AND IT IS A FLOOR, NOT A TARGET.
     // The board would rather run off a very short screen than hand somebody a
-    // 30px tap target. On the sizes this site tests it never binds.
+    // 30px tap target.
+    //
+    // IT BINDS, AND THIS LINE SAID IT NEVER DID. "On the sizes this site tests
+    // it never binds" stood here while the header of this same file spent a
+    // paragraph on the one size where it does, which is the shape of false
+    // comment this repo keeps getting caught by: a reader who trusts it stops
+    // measuring. It binds at 320x568 on the 12 pair tier, where byH solves to
+    // about 26px and this Math.max is the sole reason the board overflows.
+    // The numbers, the levers that were tried and the reason a 38px card is
+    // NOT the fix are all in the TARGET SIZE section of the header. 6 and 8
+    // pairs clear 320x568 with room; all three clear 390x844 and 1440x900.
     // 118 IS A DESIGN LIMIT RATHER THAN A LAYOUT ONE. A desktop has room to draw
     // these at 200px and should not: a board you scan with your neck is worse
     // than one you take in with your eyes, and the pictures are a 220px master,
@@ -1372,8 +1411,15 @@ ${MENU}
           ${/* THE BIG NUMBER NEEDED A NAME. It shipped as a bare "0" beside
                "0 OF 8" and "NO BEST YET", and looking at the rendered phone
                screenshot it is not possible to tell which of the two counters
-               it is. Garbage Run gets away with an unlabelled number because
-               everybody knows what a score is; "moves" is not that word. */ ""}
+               it is.
+               THE SECOND HALF OF THIS NOTE WAS WRONG AND HAS BEEN REMOVED. It
+               read "Garbage Run gets away with an unlabelled number because
+               everybody knows what a score is", which excused the identical
+               defect one page over on a distinction that does not hold: that
+               numeral is not a score, it is pieces of trash eaten, and the
+               evolution the whole game is played for is measured against it.
+               build-garbage-run.mjs labels it "trash" now. If you find a third
+               bare numeral, label it rather than arguing for it. */ ""}
           <div class="cm-stat">moves</div>
           <div class="cm-stat" id="cmPairs">0 of ${DEFAULT_PAIRS} pairs</div>
           <div class="cm-stat" id="cmBest">No best yet</div>
@@ -1428,8 +1474,10 @@ ${MENU}
           <b>Keyboard plays it.</b> <span class="cm-keys">Tab</span> walks the board, the
           <span class="cm-keys">arrow keys</span> jump around it, and <span class="cm-keys">Enter</span> or
           <span class="cm-keys">space</span> turns a card over.<br>
-          <b>Play thirteen rounds and you have seen all ${POOL_SIZE}.</b> The deck is walked in a shuffled order rather
-          than drawn fresh every time, so the same cards do not keep coming back before the rest have had a turn.<br>
+          <b>Play the deck out and you have seen all ${POOL_SIZE}.</b> That is
+          ${TIERS.map((t) => `${Math.ceil(POOL_SIZE / t.pairs)} rounds on ${t.pairs} pairs`).join(", ")}. The deck is
+          walked in a shuffled order rather than drawn fresh every time, so the same cards do not keep coming back
+          before the rest have had a turn.<br>
           <b>Nothing is saved anywhere but your own phone.</b> Your best move count lives in this browser and goes away
           if you clear it.</p>
 
@@ -1444,7 +1492,7 @@ ${MENU}
           <p class="price-note">Prices are PriceCharting's ungraded price guide value, read ${esc(readOn)}. That is a
             price guide figure for a loose ungraded copy, computed from completed sales: it is not an auction result,
             not a live listing and not a marketplace's market price. Card images are PriceCharting's. The ranking spans
-            every language, because their Pokemon catalogue is not split by one and roughly half of the top
+            every language, because their Pokemon catalog is not split by one and roughly half of the top
             ${POOL_SIZE} is Japanese. Pokemon and all Pokemon names are trademarks of The Pokemon Company. This is fan
             content.</p>
         </div>

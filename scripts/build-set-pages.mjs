@@ -28,7 +28,7 @@ import { BAR, MENU, SPRITE, SKIP, STYLES, footer, FONTS,
 import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
 import { parseHits, rarityLabelOf, rarityMark, RARITY_CSS } from "../shared/rarity.mjs";
 import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, RARITY_ORDER, cardNumKey, imgDims, avifPicture, plural, count } from "../shared/format.mjs";
-import { ripLabel } from "../shared/riplabel.mjs";
+import { ripLabel, ownLineProduct } from "../shared/riplabel.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -1737,11 +1737,49 @@ for (const v of videos) for (const s of v.sets || []) ripsBySet[s] = (ripsBySet[
 // because every hand-kept product list in this project has gone stale at least
 // once. Where such a row states a pack count and the video opened only one set,
 // that count is used, so a video opening three loose packs counts three.
+//
+// AND A BOX THAT IS NOT THIS SET'S BOX IS NOT COUNTED HERE AT ALL. The heading
+// on this block is "What we have opened OF THIS SET", so every row is a claim
+// that the sealed product it names was this set's sealed product. That is true
+// of an ETB, a bundle, an ex Premium Collection and a loose pack. It is not
+// true of a First Partner Illustration Collection, which holds one promo pack
+// plus TWO ASSORTED boosters: this site's own First Partner guide says "The two
+// boosters are assorted rather than a named set: Tim's Series 1 box held one
+// Phantasmal Flames and one Mega Evolution pack."
+//
+// WHAT THAT SHIPPED AS: the two First Partner rips are tagged with the sets
+// whose packs were INSIDE them, phantasmal-flames and mega-evolution, and the
+// highest box number on them is 6. So this loop credited SIX Collection Boxes
+// to Phantasmal Flames and the same six again to Mega Evolution: twelve boxes
+// published off six real ones, on two guides, each telling a reader that the
+// channel had been through six boxes of THAT set. Six boxes of the First
+// Partner line yielded six First Partner promo packs, six Phantasmal Flames
+// PACKS and six Mega Evolution PACKS, and not one box of either set.
+//
+// THE HONEST NUMBER IS NO NUMBER, and it is worth saying why the alternatives
+// were rejected rather than just dropping the row. Counting the box as a box of
+// this set is the bug. Counting it as a fraction of a box invents a unit
+// nobody sells. Counting it as loose packs is the closest to true but files
+// six packs that came out of a box under a row headed by a product that is
+// bought loose, and the pack count is not recorded for the four boxes that were
+// never filmed anyway. What is left is the rule this whole band already runs
+// on, stated in the price note on the page: "Anything we have not written a
+// number against is not counted here, so these are a floor rather than a
+// total." A cross-line box is one more thing this band does not count, and the
+// page already tells the reader it is reading a floor. The rips themselves are
+// not hidden: both still appear in this set's rip list and rip count above,
+// where the claim being made is only that the set turned up in the video.
+//
+// SAME QUESTION, SAME ANSWER, ONE PLACE. ownLineProduct() is shared/riplabel
+// .mjs's list of products that are nobody's set's, and it is the same call the
+// tile label makes to keep a set name off the front of one. A second copy of
+// that list here is a second thing to go stale.
 const LOOSE_PACK = /-pack$/;
 const openedBySet = new Map();
 for (const v of videos) {
   const prod = (v.products || [])[0];
   if (!prod) continue;
+  if (ownLineProduct(v)) continue;
   for (const sid of v.sets || []) {
     if (!openedBySet.has(sid)) openedBySet.set(sid, new Map());
     const per = openedBySet.get(sid);

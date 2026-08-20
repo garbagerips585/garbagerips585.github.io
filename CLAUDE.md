@@ -224,7 +224,7 @@ not. So the paragraph is gone, as instructed, and this is its headstone.
 
 THE FOURTH EXCEPTION IS /how-to-play.html, added deliberately and argued here
 rather than made quietly, which is the mistake the playlist cards made. That
-page teaches the rules of the card game, and it ends with one labelled block of
+page teaches the rules of the card game, and it ends with one labeled block of
 four links to Pokemon's own sites: the Learn to Play hub, the Quick Start Rules
 PDF, Pokemon TCG Live, and the full 44 page rulebook PDF.
 
@@ -248,13 +248,13 @@ argument. Both are guides to a free official app, and a page that tells you to
 download something and then refuses to say where is useless.
 
 The shape is again the mitigation. /tcg-pocket.html carries ONE outbound link,
-Pokemon's own site, in one labelled block at the very end. /tcg-live.html carries
+Pokemon's own site, in one labeled block at the very end. /tcg-live.html carries
 TWO in its end block, the official TCG Live page and the redemption site, and
 that page takes one further liberty which was argued rather than made quietly:
 THE REDEMPTION LINK ALSO APPEARS INLINE, in the redeeming section. It is not a
 "learn more" link, it is step one of a four step instruction, and burying it 900
 words below where the reader is standing costs them more than the outbound rule
-gains us. It is labelled and aria-labelled as leaving the site exactly like every
+gains us. It is labeled and aria-labeled as leaving the site exactly like every
 other one. If a later editor disagrees, the fix is to drop the inline copy and
 name the domain in plain text there, not to spread more of them through the page.
 
@@ -323,8 +323,8 @@ INTERNAL: it goes to that card's set guide, then its Pokemon page, then site
 search. Re-measured on /most-valuable-cards.html on 18 August 2026, after the
 source change: 106 internal links inside <main> against the 100 outbound ones,
 204 against 108 counting the chrome, and the
-outbound one is 123.7 x 44.0 at 390x844 against a whole-row internal target. The outbound link is a small labelled control at the end of
-a row, aria-labelled as leaving the site like every other exception.
+outbound one is 123.7 x 44.0 at 390x844 against a whole-row internal target. The outbound link is a small labeled control at the end of
+a row, aria-labeled as leaving the site like every other exception.
 
 NOTE THE CONTRAST WITH THE PARAGRAPH BELOW, which is still correct and still
 the default. /decks.html and /top-100-playable.html ALSO lean on an outside
@@ -414,7 +414,7 @@ argued above: the decklist is already on the page.
 
 THE SHAPE REQUIREMENT SURVIVES AND IT IS THE PART THAT ACTUALLY MATTERS.
 Outbound links sit at the end of a row or the end of a page, never mid
-explanation; they are small labelled controls next to large internal ones; and
+explanation; they are small labeled controls next to large internal ones; and
 every one carries an aria-label saying it leaves the site. That is checkable,
 it does not go stale, and it is what a reader experiences. THE FOOTER LINK
 FAILED BOTH HALVES OF IT until this edit: no aria-label, and an 18px line of
@@ -447,16 +447,16 @@ on its own:
   - NINETEEN IMAGE CREDITS, TWO UNDER EACH OF THE TEN PHOTOGRAPHS, added the
     same day and argued HERE rather than added quietly, which is what the four
     paragraphs above are about. TEN go to commons.wikimedia.org and NINE to
-    creativecommons.org, three distinct deeds between them. THIS ONE IS NOT
+    creativecommons.org, two distinct deeds between them. THIS ONE IS NOT
     DISCRETIONARY AND THAT IS WHY IT IS A FOURTH KIND RATHER THAN A THIRD
     HELPING OF THE SECOND. Every other link on this site is a judgement about
     what a reader needs; nine of these ten pictures are CC BY or CC BY-SA and
-    those licences are granted ON CONDITION of naming the photographer and
-    LINKING the licence. A page that prints the photograph and not the link is
+    those licenses are granted ON CONDITION of naming the photographer and
+    LINKING the license. A page that prints the photograph and not the link is
     not making a tidier editorial choice, it is using the picture outside the
     terms it was offered under. The tenth is public domain and its credit
-    carries the photographer link and no licence link, because there is no
-    licence to link to.
+    carries the photographer link and no license link, because there is no
+    license to link to.
   - NOTHING ELSE. No affiliate code, no directory, no aggregator.
 
 THE SHAPE IS MET AND WAS MEASURED, not asserted: all 67 carry an aria-label
@@ -466,7 +466,7 @@ the line below says never to do that, so read the exception rather than the
 count. That rule is about a SOURCE being cited from inside explanatory prose,
 which is how a page grows links nobody planned. A credit line is not explanatory
 prose: it is the picture's own source line, sitting under the picture, and the
-photographer's name and the licence name ARE the two things it exists to say.
+photographer's name and the license name ARE the two things it exists to say.
 Linking anything else from inside it would be the thing the rule forbids. The
 line still stands for everything else: a source belongs in a source line, never
 as an inline link inside a sentence, because that is how the count gets away
@@ -488,7 +488,7 @@ first VISIBLE control of any kind pointing at the channel:
       /base-set.html           y=19,629 of 19,914
       /retailers/target.html   y= 6,006 of  6,246
 
-Every one of those was the unlabelled YouTube circle in `.foot-social`, because
+Every one of those was the unlabeled YouTube circle in `.foot-social`, because
 below 560px the bar's own `.sub` WAS `display:none` at the time of that
 measurement and has not been since 18 August 2026, when it was unhidden; at
 390 today it is a 92px control reading Subscribe. The measurement below still
@@ -761,7 +761,7 @@ against somebody else's server and a scheduled build must not depend on a step
 that is not scheduled.
 
 **WHAT THESE CARDS ARE, because it is the whole page and it is easy to get
-wrong.** Topps printed Pokemon TRADING cards under licence: anime and film
+wrong.** Topps printed Pokemon TRADING cards under license: anime and film
 stills on card stock, no HP, no attacks, nothing to play with. They are not
 Pokemon TCG cards. Bulbapedia states it in one line and /topps.html quotes it
 rather than paraphrasing. PriceCharting files and prices them under Pokemon
@@ -801,7 +801,7 @@ exactly and no check was invented to make them; those print no count at all.
 to publish wrongly here. 2000 Topps Chrome is 604 rows and 151 numbered cards,
 because the plain card and its Sparkle, Tekno and Spectra parallels are four
 products against one collector number. 151 x 4 = 604 exactly. Both numbers are
-computed and both are labelled as what they are, and neither is a print-run
+computed and both are labeled as what they are, and neither is a print-run
 fact: nothing sourceable publishes one, so the page states none.
 
 **TWO RANKING COLUMNS, WHICH NO OTHER FILE ON THIS SITE HAS.** /most-valuable
@@ -866,7 +866,7 @@ deliberately NOT recorded, and data/topps-sets.json says so, so there is nothing
 in the tree to emit by accident. No print run totals, because nothing sourceable
 publishes one and "not many were printed" is exactly the shape of claim this
 site does not make. No named licensing counterparty: who Topps signed the
-Pokemon licence with is not stated by any source we reached, so the page says
+Pokemon license with is not stated by any source we reached, so the page says
 the cards were licensed and stops. And no outbound link on a price row, which is
 the open call recorded in the sixth exception above.
 
@@ -968,7 +968,7 @@ it. The channel is named after the dish and the site had no page about it.
 exists elsewhere is listicles and a half-remembered origin story repeated from
 page to page with no source on any of it. So every factual claim here carries
 the source it came from and the day it was read, the page prints its `sources`
-list in full at the foot, and it prints `notSourced` as well: six things that get
+list in full at the foot, and it prints `notSourced` as well: five things that get
 repeated about this dish and could not be sourced, said out loud rather than
 dropped quietly. Saying what you do not know is itself a reason to trust the
 rest, and it stops the next editor re-researching the same six dead ends.
@@ -990,7 +990,7 @@ read them, that is the claim to settle, and it is the only one on the page left
 open.
 
 **THE DIAGRAM IS THE ASSET AND IT IS OURS.** `plateDiagram()` in the builder: a
-labelled drawing of a plate, a bigger relative of `plateMark()` in
+labeled drawing of a plate, a bigger relative of `plateMark()` in
 shared/format.mjs, sharing its china (`var(--ink)`) and its six food colours so
 the site reads as one hand. It is the one thing on this subject that does not
 already exist somewhere, so it is the thing most likely to earn a link. Three
@@ -1032,13 +1032,13 @@ about: **a true statement about the candidates somebody looked at was written as
 a statement about the subject.** Restaurant sites, blogs and Street View had
 been checked. Wikimedia Commons had not. It holds eleven photographs of this
 dish and of the restaurant it comes from and **ten of them are CC BY, CC BY-SA
-or public domain.** The gap was a search, not a licence. If you find a page on
+or public domain.** The gap was a search, not a license. If you find a page on
 this site whose absence of something is defended in this register, check whether
 the defence names what was LOOKED AT or what EXISTS.
 
 **THERE ARE TEN PHOTOGRAPHS ON IT NOW, 20 August 2026, AND EVERY ONE WAS
 VERIFIED BY LOADING THAT FILE'S OWN DESCRIPTION PAGE ON COMMONS.** A search
-result claiming a licence is not a licence. They are: four by Paul Lowry (CC BY
+result claiming a license is not a license. They are: four by Paul Lowry (CC BY
 4.0, 28 June 2025: the plate, two plates on a tray, the exterior, the counter),
 two by BanjoZebra (CC BY 4.0, 2024: dogTown's plate and The Red Fern's Compost
 Plate), two by Eugene Peretz (CC BY-SA 2.0, 20 October 2007: a plate with beans,
@@ -1046,7 +1046,7 @@ and the "Established 1918" wall sign), one by Doug Kerr (CC BY-SA 2.0, 6
 December 2008: the terminal building from West Main Street) and one public
 domain (May 2005, the mark printed round the rim of the plate).
 `scripts/sync-plate-photos.py` fetches and encodes them and **re-reads the
-licence, the author and the licence url from Commons on every run and refuses to
+license, the author and the license url from Commons on every run and refuses to
 write anything that has moved.** It is NOT in build-all.mjs, same arrangement
 and same reason as sync-decks.mjs. Masters cache under `.cache/plate-photos/`
 and are not committed; the 42 renditions in `public/assets/plates/` are,
@@ -1054,20 +1054,20 @@ and are not committed; the 42 renditions in `public/assets/plates/` are,
 
 **THE VISIBLE CREDIT IS A PRECEDENT THIS SET, because the site had none.** The
 retailer marks in shared/brands.mjs are all public domain and are credited in
-JSON only, which is fine for those and not fine for an attribution licence. CC
-BY and CC BY-SA require the photographer's name, the licence, and a LINK to that
-licence, and a credit a reader cannot connect to the picture is not a credit.
+JSON only, which is fine for those and not fine for an attribution license. CC
+BY and CC BY-SA require the photographer's name, the license, and a LINK to that
+license, and a credit a reader cannot connect to the picture is not a credit.
 **So every photograph is a `<figure>` whose `<figcaption>` carries the caption,
 then "Photograph by NAME, LICENCE, via Wikimedia Commons", with NAME linking to
 the file on Commons and LICENCE linking to the deed.** `photoFig` in the
-builder. The builder THROWS on a photo record that names an attribution licence
+builder. The builder THROWS on a photo record that names an attribution license
 with no `licenseUrl`, and on a `where` key that matches no section, history
 entry or restaurant, because a picture that quietly fails to render looks
 exactly like a card that was never given one. **If another page gains a
 non-public-domain image, copy this shape.**
 
 **NOTHING IS CROPPED AND THAT IS A LICENCE DECISION, NOT A TASTE ONE.** Four of
-the ten are ShareAlike, which asks that an ADAPTED work carry the same licence.
+the ten are ShareAlike, which asks that an ADAPTED work carry the same license.
 Resizing and re-encoding for delivery is not an adaptation (CC 4.0 says so; 2.0
 and 3.0 grant "modifications as are technically necessary to exercise the rights
 in other media and formats"). Cropping is. The three restaurant-card frames want
@@ -1079,12 +1079,23 @@ CORROBORATED, NOT GUESSED.** `Junkyard Plate.jpg` and `Compost Plate.jpg` both
 name their restaurant in their own Commons description ("from Dogtown in
 Rochester, New York", "at The Red Fern in Rochester, New York"), and both files
 carry a camera position that reverse-geocodes to that address: 43.1439/-77.5898
-is Monroe Avenue in Swillburg, 43.1498/-77.5864 is 284 Oxford Street. **The
-photographer's TITLE is not the restaurant's menu, though**, and that is the
-trap: dogTown's own menu carries a Junkyard Dog and a section of plates and no
-"Junkyard Plate", so the page shows the photograph on their card and does NOT
-print that as their name for the dish. `placeNote` in the data records both
-halves.
+is Monroe Avenue in Swillburg, 43.1498/-77.5864 is 283 Oxford Street.
+
+**THIS PARAGRAPH USED TO END WITH A TRAP THAT WAS ITSELF THE TRAP, corrected 20
+August 2026.** It read: "dogTown's own menu carries a Junkyard Dog and a section
+of plates and no 'Junkyard Plate', so the page shows the photograph on their card
+and does NOT print that as their name for the dish." That is false. Fetching
+dogtownhots.com/meaty-menu/ returns section headings **Junkyard Plates** and
+**Junkyard Dog Plates**; the full list is Specialty Dogs, More Dog Stuff,
+Sandwiches, Toppings, Pup Plates, Junkyard Plates, Bowls, Sides, Junkyard Dog
+Plates. The photographer's title was right and the page was contradicting a
+correct attribution in print, on the strength of a menu nobody opened.
+
+The precision that IS true and is what the page now says: the words are a SECTION
+heading, not an item. dogTown's individual plates are Dog Plate, Cheeseburger
+Plate, Split Plate, Sausage Plate and halves -- no single line reads "Junkyard
+Plate". So dogTown's collective name for the dish is Junkyard Plates, and no dish
+on their menu is called one. `placeNote` in the data records both halves.
 
 **EVERY ONE IS `loading="lazy"`, INCLUDING THE HERO, AND THAT WAS MEASURED
 RATHER THAN COPIED FROM THE NOTE UNDER "Card images".** Slow 4G, 4x CPU, over
@@ -1159,7 +1170,7 @@ pictures are still the answer: add one to `photos` in the data with `where` set
 to `place:<the name on the card>` and it renders. **Do not solve this by
 hotlinking, and do not solve it from a restaurant's own site or social feed** —
 that is the photographer's copyright whatever it is a picture of, and being good
-publicity for the subject is not a licence from the person who took it.
+publicity for the subject is not a license from the person who took it.
 `photosRejected` in the data records the one Commons file that was verified,
 fetched, looked at and left out anyway.
 
@@ -1607,14 +1618,14 @@ publisher's. Two families are not like that. The retailer marks in
 shared/brands.mjs are all PUBLIC DOMAIN on Commons and are credited in
 data/brand-marks.json only, which is enough for a public-domain file. The ten
 photographs on /garbage-plate.html are CC BY, CC BY-SA and one public domain,
-and an attribution licence is granted ON CONDITION of naming the photographer
-and LINKING the licence, so a credit in a JSON file nobody reads does not meet
+and an attribution license is granted ON CONDITION of naming the photographer
+and LINKING the license, so a credit in a JSON file nobody reads does not meet
 it. `photoFig` in build-garbage-plate.mjs is the pattern: a `<figure>` whose
 `<figcaption>` reads "Photograph by NAME, LICENCE, via Wikimedia Commons", NAME
 linking to the file and LICENCE linking to the deed, directly under the picture.
-**Copy that shape rather than inventing a second one**, and read the licence on
+**Copy that shape rather than inventing a second one**, and read the license on
 the file's OWN description page before publishing anything: a search result
-claiming a licence is not a licence, and neither is a restaurant being pleased
+claiming a license is not a license, and neither is a restaurant being pleased
 about the picture.
 
 ## Video display rules (these were measured, do not "fix" them)

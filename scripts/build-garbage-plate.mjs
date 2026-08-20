@@ -47,29 +47,29 @@
 //
 // SO THERE ARE TEN PHOTOGRAPHS ON IT NOW, added 20 August 2026, and every one
 // of them was verified by loading that file's OWN description page on Commons.
-// The licences, the photographers and the dates live in data/garbage-plate.json
+// The licenses, the photographers and the dates live in data/garbage-plate.json
 // beside the sourced facts, in the same shape and for the same reason, and
 // scripts/sync-plate-photos.py re-reads all of it from Commons on every run and
-// refuses to write a file whose licence, author or licence url has moved.
+// refuses to write a file whose license, author or license url has moved.
 //
 // THE CREDIT IS NOT OPTIONAL AND IT IS NOT A FOOTNOTE. CC BY and CC BY-SA both
-// require the photographer's name, an indication of the licence and a LINK to
-// that licence, and a credit a reader cannot connect to the picture it belongs
+// require the photographer's name, an indication of the license and a LINK to
+// that license, and a credit a reader cannot connect to the picture it belongs
 // to is not a credit. So every photograph on this page is a <figure> whose
-// <figcaption> carries the photographer, the licence name linked to the deed,
+// <figcaption> carries the photographer, the license name linked to the deed,
 // and a link to the file on Commons, directly under the picture. There was no
 // precedent on this site for that: the retailer marks in shared/brands.mjs are
 // all public domain and are credited in JSON only. This is the precedent, and
 // it is written down in CLAUDE.md rather than left in one builder.
 //
-// NOTHING IS CROPPED, AND THAT IS A LICENCE DECISION. Four of the ten are
-// CC BY-SA, which asks that an ADAPTED work carry the same licence. Resizing
+// NOTHING IS CROPPED, AND THAT IS A LICENSE DECISION. Four of the ten are
+// CC BY-SA, which asks that an ADAPTED work carry the same license. Resizing
 // and re-encoding for delivery is not an adaptation; cropping is. Where the
 // layout wants a 4:3 shape it gets it with object-fit, which changes what is
 // DISPLAYED and not what is distributed.
 //
 // THE DIAGRAM IS STILL THE ASSET. The photographs show what a plate looks like;
-// only the drawing can be cut open and labelled, it is the one thing on this
+// only the drawing can be cut open and labeled, it is the one thing on this
 // subject that does not already exist somewhere, and it keeps the top of the
 // anatomy section. The photographs sit under it, not over it.
 
@@ -151,7 +151,7 @@ const photoAt = (key) => PHOTOS.filter((p) => p.where === key);
 
 // Same discipline as the source-id check above. A `where` naming a history
 // entry or a restaurant that does not exist is a picture nobody will ever see,
-// and the licence work behind it is wasted without anything erroring.
+// and the license work behind it is wasted without anything erroring.
 {
   const keys = new Set(["hero", "anatomy"]);
   for (const h of doc.history || []) keys.add(`history:${h.year}`);
@@ -165,12 +165,12 @@ const photoAt = (key) => PHOTOS.filter((p) => p.where === key);
       if (!ph[f]) throw new Error(`garbage-plate.json: photo "${ph.slug}" has no ${f}.`);
     }
     // THE ONE THAT MATTERS. CC BY and CC BY-SA are usable here only WITH a link
-    // to the licence, so a record that names one and cannot link it is not a
-    // licence we can meet. Public domain is the only value allowed to have no
+    // to the license, so a record that names one and cannot link it is not a
+    // license we can meet. Public domain is the only value allowed to have no
     // url, and it is the only one whose credit line makes no claim.
     if (ph.license !== "Public domain" && !ph.licenseUrl) {
       throw new Error(`garbage-plate.json: photo "${ph.slug}" is "${ph.license}" with no ` +
-        `licenceUrl. Attribution licences require a link to the licence; do not publish it.`);
+        `licenseUrl. Attribution licenses require a link to the license; do not publish it.`);
     }
   }
 }
@@ -207,19 +207,19 @@ function photoFig(ph, opts) {
     ` alt="${esc(ph.alt)}">`;
   const pic = `<picture><source type="image/avif" srcset="${set("avif")}" sizes="${esc(sizes)}">${img}</picture>`;
 
-  // THE CREDIT LINE. Photographer, licence, link to the licence, link to the
-  // file. Public domain gets no licence link because there is no licence to
+  // THE CREDIT LINE. Photographer, license, link to the license, link to the
+  // file. Public domain gets no license link because there is no license to
   // link, and it says so in words rather than printing a bare "Public domain"
-  // that reads like a licence name nobody can check.
+  // that reads like a license name nobody can check.
   const who = `<a href="${esc(ph.page)}" rel="noopener" target="_blank" aria-label="${esc(
     ph.by,
-  )}'s photograph on Wikimedia Commons, where its licence is stated, opens on commons.wikimedia.org">${esc(ph.by)}</a>`;
+  )}'s photograph on Wikimedia Commons, where its license is stated, opens on commons.wikimedia.org">${esc(ph.by)}</a>`;
   const lic =
     ph.license === "Public domain"
       ? "released into the public domain"
       : `<a href="${esc(ph.licenseUrl)}" rel="noopener" target="_blank" aria-label="The ${esc(
           ph.license,
-        )} licence deed, opens on creativecommons.org">${esc(ph.license)}</a>`;
+        )} license deed, opens on creativecommons.org">${esc(ph.license)}</a>`;
   const credit =
     `<span class="gpph-cr">Photograph by ${who}, ${lic}, via Wikimedia Commons.</span>`;
 
@@ -234,7 +234,7 @@ function photoFig(ph, opts) {
 const photoRun = (key, opts) => photoAt(key).map((p) => photoFig(p, opts)).join("\n      ");
 
 /**
- * THE DIAGRAM. A labelled cutaway of a Garbage Plate, drawn.
+ * THE DIAGRAM. A labeled cutaway of a Garbage Plate, drawn.
  *
  * THIS IS THE ONE THING ON THE PAGE THAT DOES NOT ALREADY EXIST SOMEWHERE ELSE,
  * so it gets the care. Every other fact here can in principle be found on some
@@ -446,8 +446,11 @@ function plateDiagram() {
 
       ${/* Bread and butter BESIDE the plate rather than on it, which is both
            how it arrives and the only place on this drawing with room for it.
-           Two slices, because the 1918 dish was two pieces of Italian bread and
-           butter and it still is. */ ""}
+           Two slices, because Alex Tahou's account of the original hots and
+           potatoes has two pieces of Italian bread and butter on it, and it
+           still arrives that way. NO DATE ON THAT: the page says twice that
+           the dish's own start date is not documented, so nothing here may
+           quietly attach 1918 to the food. 1918 is the SHOP. */ ""}
       <g class="gpd-bread">
         <path d="${slice}" transform="translate(418 476) scale(1.16)"/>
         <path d="${slice}" transform="translate(482 460) scale(1.16)"/>
@@ -552,16 +555,27 @@ const placeCards = places
         ${p.plateName ? `<p class="gpp-dish">Calls it: <b>${esc(p.plateName)}</b>${p.platePrice ? ` &bull; ${esc(p.platePrice)}` : ""}</p>` : ""}
         ${p.blurb ? `<p class="gpp-blurb">${esc(p.blurb)}</p>` : ""}
         <dl class="gpp-facts">
+          ${/* THE ADDRESS AND THE PHONE ARE THE CARD'S TWO REAL ACTIONS, so they
+               carry .gpp-tap and are built to the 44px floor. The two links at
+               the foot of the card were built to it and these were not, which
+               is backwards: the most likely thing a reader does with a
+               restaurant card on a phone is tap the number. See the CSS. */ ""}
           ${
             p.address
-              ? `<dt>Where</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+              ? `<dt class="gpp-tap">Where</dt><dd class="gpp-tap"><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
                   p.address,
                 )}" rel="noopener" target="_blank" aria-label="${esc(p.address)}, where ${esc(
                   p.name,
                 )} is, opens on google.com">${esc(p.address)}</a></dd>`
               : ""
           }
-          ${p.phone ? `<dt>Phone</dt><dd><a href="tel:${esc(p.phone.replace(/[^0-9+]/g, ""))}">${esc(p.phone)}</a></dd>` : ""}
+          ${
+            p.phone
+              ? `<dt class="gpp-tap">Phone</dt><dd class="gpp-tap"><a href="tel:${esc(
+                  p.phone.replace(/[^0-9+]/g, ""),
+                )}" aria-label="Call ${esc(p.name)} on ${esc(p.phone)}">${esc(p.phone)}</a></dd>`
+              : ""
+          }
           ${
             p.hours
               ? `<dt>Open</dt><dd>${esc(p.hours)}<span class="gpp-checked">confirmed on their own site, ${esc(
@@ -713,7 +727,7 @@ const style = `
 /* ---- The photographs and their credits ---------------------------------- */
 /* ONE SHAPE FOR ALL TEN, and the credit is part of it rather than a thing bolted
    under some of them. CC BY and CC BY-SA both require the photographer's name,
-   the licence and a link to the licence, so the figcaption is not decoration
+   the license and a link to the license, so the figcaption is not decoration
    and must not be dropped to save a line. There was no precedent on this site
    for a visible image credit, because the retailer marks are all public domain;
    this is it, and CLAUDE.md records it. */
@@ -801,6 +815,23 @@ const style = `
 .gpp-facts dd{line-height:1.5}
 .gpp-facts a{color:var(--gold-deep);font-weight:600}
 .gpp-facts a:hover{text-decoration:underline}
+/* THE ADDRESS AND THE PHONE WERE 18px TALL AND THE TWO BUTTONS UNDER THEM WERE
+   44. Measured on Nick Tahou Hots' card at 390x844 DPR 2: "garbageplate.com"
+   132.4x44.0 and "Order form" 87.0x44.0, both built to the floor, against the
+   address at 235.4x18.0 and the phone at 90.9x18.0, both under it. That is the
+   wrong way round on a page whose whole job is "go eat one": the number is the
+   likeliest tap on the card and it was the hardest thing on it to hit.
+   ONLY THESE TWO. 55 links inside <main> were under 44px at 390 before this and
+   39 still are, which is the right answer and not a shortfall: 19 of them are
+   photo credits in a figcaption and the rest are source lines and list links,
+   all small labeled controls sitting beside large ones, which CLAUDE.md argues
+   at length. Padding every small link on a page would be cargo cult. These two
+   are different because they are the card's primary actions, not citations.
+   dt IS RAISED TO MATCH so the label does not sit at the top of a 44px row with
+   its value floating in the middle of it. The Open row keeps its natural height
+   because its value is prose and not a control. */
+.gpp-facts dt.gpp-tap,.gpp-facts dd.gpp-tap{display:flex;align-items:center;min-height:44px}
+.gpp-facts dd.gpp-tap a{display:inline-flex;align-items:center;min-height:44px}
 .gpp-checked{display:block;font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2)}
 /* The unconfirmed hour is LOUD on purpose. The cost of a quiet blank here is
    somebody driving across Rochester to a locked door, which is the same reason
@@ -864,7 +895,7 @@ const body = `
 ${layerList}
         </ol>
       </div>
-      <figcaption>Drawn rather than photographed, because a drawing can be cut open and labelled and a
+      <figcaption>Drawn rather than photographed, because a drawing can be cut open and labeled and a
         photograph cannot. The order is bottom to top and it matters: the sauce goes over everything,
         which is what makes it a plate and not a tray of sides. ${esc(doc.anatomy?.srcNote || "")}</figcaption>
     </figure>
@@ -971,6 +1002,29 @@ const footer = home.slice(home.lastIndexOf("<footer"), home.indexOf("</footer>")
 // summarising the page, which is the one real CTR idea CLAUDE.md records and
 // has never had a page small enough to try it on. The trademark dates are the
 // most surprising true thing here and they are checkable, which is the pitch.
+//
+// THE SOCIAL TAGS ARE SWAPPED TOO, AND THEY WERE THE BUG. This head is SLICED
+// OUT OF public/index.html, so every tag not named below arrives holding the
+// HOME PAGE's copy. Title, description, canonical, og:url and og:title were
+// named; og:description, twitter:title and twitter:description were not. The
+// page therefore shipped with a good description of itself in <meta
+// name="description"> and then handed every social card, every chat unfurl and
+// every preview the home page's "Pokemon card pack openings fueled by plate
+// grease" boilerplate instead. Nothing errors, nothing renders wrong, and the
+// only way to see it is to look at the head or to paste the url somewhere.
+//
+// SO THE DESCRIPTION IS WRITTEN ONCE AND SPENT THREE TIMES, which is the shape
+// that cannot drift. 85 of the site's 96 measured pages already mirror their
+// own description into og:description because their builders compose a head
+// rather than slicing one; the handful that slice this one are the exceptions,
+// and /shops.html, /wanted.html, /about.html and /hall.html still are. If you
+// touch one of those, this is the fix.
+const DESC =
+  `GARBAGE PLATE has been a federal trademark since 18 August 1992, which is why everywhere else ` +
+  `in Rochester sells a trash plate. A sourced history of the dish, a labeled diagram of what is ` +
+  `on one, and ${places.length} places around Rochester, NY that serve it.`;
+const OG_TITLE = `What Is a Garbage Plate? Rochester's Dish, Explained`;
+
 const swapped = head
   .replace(
     /<title>[\s\S]*?<\/title>/,
@@ -978,14 +1032,30 @@ const swapped = head
   )
   .replace(
     /<meta name="description"[^>]*>/,
-    `<meta name="description" content="GARBAGE PLATE has been a federal trademark since 18 August 1992, which is why everywhere else in Rochester sells a trash plate. A sourced history of the dish, a labelled diagram of what is on one, and ${places.length} places around Rochester, NY that serve it.">`,
+    `<meta name="description" content="${esc(DESC)}">`,
   )
   .replace(/<link rel="canonical"[^>]*>/, `<link rel="canonical" href="${SITE}/garbage-plate.html">`)
-  .replace(/(<meta property="og:url" content=")[^"]*/, `$1${SITE}/garbage-plate.html`)
-  .replace(
-    /(<meta property="og:title" content=")[^"]*/,
-    `$1What Is a Garbage Plate? Rochester's Dish, Explained`,
-  );
+  .replace(/(<meta property="og:url" content=")[^"]*/, (m, p1) => `${p1}${SITE}/garbage-plate.html`)
+  .replace(/(<meta property="og:title" content=")[^"]*/, (m, p1) => p1 + esc(OG_TITLE))
+  .replace(/(<meta property="og:description" content=")[^"]*/, (m, p1) => p1 + esc(DESC))
+  .replace(/(<meta name="twitter:title" content=")[^"]*/, (m, p1) => p1 + esc(OG_TITLE))
+  .replace(/(<meta name="twitter:description" content=")[^"]*/, (m, p1) => p1 + esc(DESC));
+
+// A regex that matched nothing here is a tag still carrying the home page's
+// copy, and it is invisible on the rendered page. Fail the build instead.
+for (const [what, re] of [
+  ["og:description", /<meta property="og:description" content="GARBAGE PLATE/],
+  ["twitter:title", /<meta name="twitter:title" content="What Is a Garbage Plate/],
+  ["twitter:description", /<meta name="twitter:description" content="GARBAGE PLATE/],
+  ["og:title", /<meta property="og:title" content="What Is a Garbage Plate/],
+]) {
+  if (!re.test(swapped)) {
+    throw new Error(
+      `build-garbage-plate: ${what} was not swapped, so this page would share as the home page. ` +
+        `The tag's shape in public/index.html has changed.`,
+    );
+  }
+}
 
 const html = `<!DOCTYPE html>
 <html lang="en">
@@ -1012,7 +1082,7 @@ await writeFile(join(ROOT, "public/garbage-plate.html"), html);
 
 console.log(
   `Wrote public/garbage-plate.html  (${(doc.history || []).length} sourced history entries, ` +
-    `${(doc.anatomy?.layers || []).length} labelled layers, ${places.length} place${
+    `${(doc.anatomy?.layers || []).length} labeled layers, ${places.length} place${
       places.length === 1 ? "" : "s"
     })`,
 );

@@ -43,7 +43,7 @@
   "",
   "THERE ARE PHOTOGRAPHS NOW, AND THE PARAGRAPH THAT USED TO SIT HERE IS WORTH",
   "reading before you write another one like it. It said: \"This site has no",
-  "licence for a photograph of a building or of a plate of food. A picture of a",
+  "license for a photograph of a building or of a plate of food. A picture of a",
   "restaurant is somebody's copyright, and Street View imagery is licensed in a",
   "way a static site with no keys in it cannot meet.\" Every sentence of that is",
   "still true. The CONCLUSION was not, and the failure is the one this file",
@@ -55,27 +55,27 @@
   "",
   "SO `photos` BELOW HOLDS TEN, added 20 August 2026, and every one was verified",
   "by loading that file's OWN description page on Commons rather than trusting a",
-  "search result that claimed a licence. The photographer, the licence, the",
-  "licence url, the file page and the date it was read sit beside every one, in",
+  "search result that claimed a license. The photographer, the license, the",
+  "license url, the file page and the date it was read sit beside every one, in",
   "the same shape as `sources`, and scripts/sync-plate-photos.py re-reads all of",
-  "it from Commons on every run and refuses to write anything whose licence,",
-  "author or licence url has moved since. `photosRejected` says what was checked",
+  "it from Commons on every run and refuses to write anything whose license,",
+  "author or license url has moved since. `photosRejected` says what was checked",
   "and left out, and why, exactly as `checkedAndLeftOut` does for restaurants.",
   "",
   "CREDIT IS A CONDITION OF THE LICENCE AND IT IS PRINTED UNDER THE PICTURE.",
-  "CC BY and CC BY-SA both require the photographer's name, the licence and a",
-  "LINK to that licence. A photo record naming an attribution licence with no",
+  "CC BY and CC BY-SA both require the photographer's name, the license and a",
+  "LINK to that license. A photo record naming an attribution license with no",
   "`licenseUrl` fails the build rather than rendering, because a credit we",
-  "cannot complete is a licence we cannot meet.",
+  "cannot complete is a license we cannot meet.",
   "",
   "NOTHING IS CROPPED. Resizing and re-encoding for delivery is not an adapted",
-  "work under any of these licences; cropping is, and four of the ten are",
+  "work under any of these licenses; cropping is, and four of the ten are",
   "ShareAlike. Where the layout wants a 4:3 shape it gets it with object-fit,",
   "which changes what is displayed and not what is distributed.",
   "",
   "TIM'S OWN PHOTOGRAPHS ARE STILL THE BEST ANSWER for the eight restaurants",
   "that have none. He photographs things for a living and lives here, and a",
-  "picture of Chili Hots or Fairport Hots does not exist under a free licence",
+  "picture of Chili Hots or Fairport Hots does not exist under a free license",
   "anywhere. The schema and the card layout take one the day it exists: add it",
   "to `photos` with `where` set to \"place:<the name on the card>\"."
  ],
@@ -128,7 +128,15 @@
    "name": "13WHAM, \"Rochester Red Wings to become the Rochester Plates to honor the Garbage Plate\", 4 July 2017",
    "url": "https://13wham.com/news/local/rochester-red-wings-to-become-the-rochester-plates-to-honor-the-garbage-plate",
    "read": "2026-08-20",
-   "note": "Local television on the night the city's baseball team renamed itself after the dish."
+   "note": "Local television on the ANNOUNCEMENT: it is dated 4 July 2017, five weeks before the game, so it is the source for the plan and for Dan Mason's words and not for the game having happened."
+  },
+  {
+   "id": "ny1-plates",
+   "kind": "news",
+   "name": "Spectrum News NY1, \"Red Wings serve up history as Rochester Plates\", 10 August 2017",
+   "url": "https://ny1.com/nyc/queens/news/2017/08/10/rochester-red-wings-garbage-plates",
+   "read": "2026-08-20",
+   "note": "Filed at 11:26pm on the night of the game itself, which is what makes it the source for the game having actually been played rather than only announced."
   },
   {
    "id": "visit-roc",
@@ -137,6 +145,14 @@
    "url": "https://www.visitrochester.com/blog/post/rochester-garbage-plate/",
    "read": "2026-08-20",
    "note": "Monroe County's own tourism board. Useful for what a plate is generally understood to be around here, and for which restaurants it names."
+  },
+  {
+   "id": "dogtown-menu",
+   "kind": "primary",
+   "name": "dogTown Hots, its own menu",
+   "url": "https://dogtownhots.com/meaty-menu/",
+   "read": "2026-08-20",
+   "note": "The Monroe Avenue shop listing its own plates, under two headings that both say Junkyard: Junkyard Plates and Junkyard Dog Plates. It is the only business on this page that files the dish under that word."
   },
   {
    "id": "steve-t",
@@ -216,10 +232,11 @@
   {
    "year": "Ever since",
    "head": "Which is why everybody else sells a trash plate",
-   "body": "One restaurant owns the name, so every other kitchen in Rochester serving the same idea calls it something else. Trash plate, Rochester plate, junkyard plate, sloppy plate, and at the vegan place, a compost plate. The dish is nobody's property and the two words are, which is the whole reason the menus around here read like a thesaurus. Alex Tahou put the position plainly in 2024.",
+   "body": "One restaurant owns the name, so every other kitchen in Rochester serving the same idea calls it something else. Trash plate, Rochester plate, sloppy plate, junkyard plate at dogTown, and at the vegan place, a compost plate. The dish is nobody's property and the two words are, which is the whole reason the menus around here read like a thesaurus. Alex Tahou put the position plainly in 2024.",
    "src": [
     "tasting-table",
-    "uspto"
+    "uspto",
+    "dogtown-menu"
    ],
    "quote": "We're trademarked, and we're still the only garbage plate",
    "quoteSrc": "tasting-table",
@@ -228,9 +245,10 @@
   {
    "year": "2017",
    "head": "The baseball team renamed itself after it",
-   "body": "For one home game on 10 August 2017 the Rochester Red Wings played as the Rochester Plates, in caps and jerseys with a Garbage Plate on them. Their general manager Dan Mason told 13WHAM why, and it is as good a one line summary of the dish's standing in this city as anybody has managed.",
+   "body": "For one home game on 10 August 2017 the Rochester Red Wings played as the Rochester Plates, in caps and jerseys with a Garbage Plate on them. 13WHAM carried the announcement five weeks out and Spectrum News NY1 filed from the ballpark on the night, which is how this page knows the game was played and not just planned. Their general manager Dan Mason told 13WHAM why, and it is as good a one line summary of the dish's standing in this city as anybody has managed.",
    "src": [
-    "wham-plates"
+    "wham-plates",
+    "ny1-plates"
    ],
    "quote": "There is nothing more Rochester than the Garbage Plate. There isn't another food item that Rochesterians are more proud of or that is more celebrated in our city than the Garbage Plate and we can't wait to take the field as the Plates!",
    "quoteSrc": "wham-plates",
@@ -242,8 +260,7 @@
   "THAT THE PLATE IS 100 YEARS OLD. 13WHAM's 2017 story says the Garbage Plate marked its 100th anniversary that year, which would put it at 1917, while the restaurant dates ITSELF to 1918 and the dish was called something else for most of a century. An anniversary of the shop is not an anniversary of the dish and this page does not merge them.",
   "THE HOT SAUCE RECIPE, AND WHERE IT CAME FROM. Several retellings say the meat sauce came from a Mexican friend's family recipe. Every version of that traces back to the same handful of articles rather than to the family, none of the sources reachable here states it first hand, and a recipe's origin is exactly the kind of claim that hardens by repetition. Left out.",
   "CALORIE COUNTS. Numbers between 1,000 and 3,000 are quoted all over the internet for a plate. No restaurant publishes one, the plate is built to order out of four possible sides and ten possible meats, so there is no single dish to count, and this site does not print a number it cannot source.",
-  "EATER'S 2017 FEATURE AND THE DEMOCRAT AND CHRONICLE'S 2020 PIECE. Both are cited by Wikipedia as the source for several of the claims above and neither could be fetched on 20 August 2026, so nothing on this page rests on either. If a later editor can read them, the founder question in the history above is the thing to settle.",
-  "WHAT EIGHT OF THE ELEVEN RESTAURANTS LOOK LIKE. Three of them are on this page in freely licensed photographs and the other eight are not, because no free photograph of them exists that could be found on 20 August 2026. A picture on a restaurant's own site, on a review site or in a search result is the photographer's copyright whatever it is a picture of, and being good publicity for the subject is not a licence from the person who took it. So those eight cards carry no picture rather than a borrowed one."
+  "EATER'S 2017 FEATURE AND THE DEMOCRAT AND CHRONICLE'S 2020 PIECE. Both are cited by Wikipedia as the source for several of the claims above and neither could be fetched on 20 August 2026, so nothing on this page rests on either. If a later editor can read them, the founder question in the history above is the thing to settle."
  ],
  "anatomy": {
   "intro": "There is no fixed recipe, which is the first thing to understand about it. A plate is assembled to order out of a short list of parts, and the list below is Nick Tahou Hots' own: every item on it is a box you tick on the order form the restaurant publishes for phone and fax orders.",
@@ -252,7 +269,7 @@
    {
     "n": 1,
     "name": "Two sides, on the bottom",
-    "what": "Macaroni salad, home fries, french fries or baked beans. Those four are the whole list on Nick Tahou Hots' order form and you tick the ones you want. Two is the number, and three separate Rochester kitchens say so in writing: Steve T. Hots & Potatoes prints \"Choice of 2 with plates\", and Bill Gray's describes its plates as served over 2 side orders. Macaroni salad and home fries is the pair most people mean when they say a plate.",
+    "what": "Macaroni salad, home fries, french fries or baked beans. Those four are the whole list on Nick Tahou Hots' order form and you tick the ones you want. Two is the number, and two Rochester kitchens say so in writing: Steve T. Hots & Potatoes prints \"Choice of 2 with plates\", and Bill Gray's describes its plates as served over 2 side orders. Macaroni salad and home fries is the pair most people mean when they say a plate.",
     "src": [
      "nt-order",
      "steve-t",
@@ -297,10 +314,11 @@
    {
     "n": 6,
     "name": "Bread and butter, on the side",
-    "what": "Italian bread, buttered. It was on the dish in the 1918 version, back when it was hots and potatoes, and it is still how a plate arrives.",
+    "what": "Italian bread, buttered. Steve T. Hots & Potatoes says its plates are \"Served with Italian Bread or Rolls\", and Visit Rochester says a plate is usually served with a side of buttered bread. Alex Tahou's account of the original hots and potatoes has two pieces of Italian bread and butter on it as well, so this is the part of the dish that never changed.",
     "src": [
      "tasting-table",
-     "visit-roc"
+     "visit-roc",
+     "steve-t"
     ]
    }
   ]
@@ -313,7 +331,7 @@
    "name": "Nick Tahou Hots",
    "area": "West Main Street, downtown",
    "plateName": "Garbage Plate",
-   "blurb": "Where it comes from and the only kitchen on earth entitled to those two words. It is in the old Buffalo, Rochester & Pittsburgh railway terminal, a block from Frontier Field, and it has been on this street since 1918.",
+   "blurb": "Where it comes from and the only kitchen on earth entitled to those two words. It is in the old Buffalo, Rochester & Pittsburgh railroad terminal, a block from Frontier Field, and it has been on this street since 1918.",
    "address": "320 W. Main St., Rochester, NY 14608",
    "phone": "585-436-0184",
    "hoursUnknown": "Their own site publishes none, and it has not been updated since 2021.",
@@ -338,9 +356,9 @@
   {
    "name": "Chili Hots",
    "area": "Chili Avenue",
-   "plateName": "Cheeseburger Plate and nine more",
+   "plateName": "Cheeseburger Plate and twelve more",
    "platePrice": "$10.00 to $18.50",
-   "blurb": "The most complete priced plate menu anybody in this city publishes: thirteen of them, from a $10 Jr Plate up to a Shaved Steak Plate, plus a half plate and a split plate for anyone who has been sensibly warned.",
+   "blurb": "The most complete priced plate menu anybody in this city publishes: thirteen of them, from a $10 Jr Plate up to an $18.50 Shaved Steak Plate, counting a meatless plate, a half plate and a split plate for anyone who has been sensibly warned.",
    "address": "3774 Chili Ave, Rochester, NY 14624",
    "phone": "(585) 534-8649",
    "hours": "Mon to Sat 11am to 10pm, Sun noon to 10pm",
@@ -357,7 +375,8 @@
    "phone": "585-271-6620",
    "hoursUnknown": "Their own site reads \"Open 11AM to 10:45pm Daily Closed Sundays\", which cannot be both, so this page will not pick one for you.",
    "url": "https://dogtownhots.com/",
-   "menuUrl": "https://dogtownhots.com/meaty-menu/"
+   "menuUrl": "https://dogtownhots.com/meaty-menu/",
+   "note": "Their own menu files the dish under two headings that both say Junkyard: Junkyard Plates and Junkyard Dog Plates. The individual plates on those lists are named for the meat, and they publish no prices."
   },
   {
    "name": "Empire Hots",
@@ -416,7 +435,7 @@
    "name": "The Red Fern",
    "area": "Oxford Street, Park Avenue",
    "plateName": "Compost Plate",
-   "blurb": "A hundred percent vegan restaurant whose own site calls the Compost Plate their healthy version of Rochester's infamous Garbage Plate. It is the best named plate in the city and the only one on this list you could feed to anybody.",
+   "blurb": "A hundred percent vegan restaurant whose own site calls the Compost Plate their healthy version of Rochester's infamous Garbage Plate. It is the best named plate in the city, and the only one on this list where the whole kitchen is vegan rather than one line of the menu.",
    "address": "283 Oxford Street, Rochester, NY 14607",
    "phone": "585-563-7633",
    "hours": "Tue to Thu 11am to 9pm, Fri and Sat 11am to 9:30pm, closed Sun and Mon",
@@ -444,7 +463,7 @@
    "area": "Lyell Avenue",
    "plateName": "Hots and Potatoes, and twelve more",
    "platePrice": "$11.50 to $16.50",
-   "blurb": "The other Tahou counter, and the one still selling the dish under its 1918 name: Hots and Potatoes, $15.00. Open until 3:30am on a Friday, which is the hour this whole dish was invented for.",
+   "blurb": "The other Tahou counter, and the one still selling the dish under its original name: Hots and Potatoes, $15.00. Open until 3:30am on a Friday, which is the hour this whole dish was invented for.",
    "address": "2260 Lyell Ave, Rochester, NY 14606",
    "phone": "585-429-6388",
    "hours": "Sun to Thu 10am to midnight, Fri and Sat 10am to 3:30am",
@@ -456,7 +475,7 @@
  ],
  "checkedAndLeftOut": [
   "Schaller's. Their own menu was read in full on 20 August 2026 and the word plate does not appear on it once: the headings are burgers and sandwiches, extras, drinks and souvenirs. Blogs and directories say they serve a plate. Their menu does not, and a listicle is not evidence a kitchen still makes something.",
-  "Mark's Texas Hots. markstexashots.com does not resolve at all, so there is no business-owned source for an address, an hour or a menu. Every listing for it is a directory repeating another directory. Somebody should ring them.",
+  "Mark's Texas Hots. markstexashots.com does not resolve at all, so there is no business-owned source for an address, an hour or a menu. Every listing for it is a directory repeating another directory. Somebody should call them.",
   "Sticky Lips BBQ. Their own site has been reduced to a placeholder reading that it will be available soon, and the page that used to hold the Sticky Icky Plate redirects to it. That is exactly the shape of a closure and this page will not send anybody there on a guess.",
   "Tom Wahl's. Their homepage names no plate, and their menu is served from an ordering platform that returned nothing readable. The Junker plate is widely reported by other people and by nobody at Tom Wahl's.",
   "John's Tex Mex. Their menu page answered 403, so nothing about it could be confirmed from the business.",
@@ -514,7 +533,7 @@
    "w": 3060,
    "h": 4080,
    "where": "anatomy",
-   "alt": "Two Garbage Plates side by side on a red cafeteria tray. The plate at the back carries split red hot dogs under the meat sauce; the one at the front carries pale white hots. Both sit on the same home fries and macaroni salad. A slice of Italian bread on its own plate and a cup of water stand beside them.",
+   "alt": "Two Garbage Plates on a red cafeteria tray, one behind the other. The plate at the back carries split red hot dogs under the meat sauce; the one at the front carries pale white hots. Both sit on the same home fries and macaroni salad. A slice of Italian bread on its own plate and a cup of water stand beside them.",
    "caption": "Two plates on one tray, which is the quickest way to see that the meat is a choice and not part of the recipe: red hots at the back, white hots at the front, everything underneath them the same."
   },
   {
@@ -550,8 +569,8 @@
    "w": 1024,
    "h": 768,
    "where": "history:1963 and 1968",
-   "alt": "Looking east along West Main Street in Rochester on an overcast day. On the left stands a long red brick building with steep gables and tall arched windows, a hanging sign on it reading NICK TAHOU. A green railway bridge crosses the road ahead and downtown towers stand behind it.",
-   "caption": "The building from the street in 2008. The brick block on the left is the old passenger terminal the restaurant moved into, gables and arched windows and all, and the railway bridge beyond it is the rest of the reason it is there."
+   "alt": "Looking east along West Main Street in Rochester on an overcast day. On the left stands a long red brick building with steep gables and tall arched windows, a hanging sign on it reading NICK TAHOU. A green railroad bridge crosses the road ahead and downtown towers stand behind it.",
+   "caption": "The building from the street in 2008. The brick block on the left is the old passenger terminal the restaurant moved into, gables and arched windows and all, and the railroad bridge beyond it is the rest of the reason it is there."
   },
   {
    "slug": "nick-tahou-counter-2025",
@@ -587,7 +606,7 @@
    "h": 963,
    "where": "history:1991 to 1992",
    "alt": "A Garbage Plate held on somebody's lap outdoors on grass. The plate's blue rim reads NICK TAHOU HOTS along the top and, along the bottom, HOME OF THE GARBAGE PLATE. On it are a split red hot dog, home fries, macaroni salad, meat sauce, chopped onion and a heavy pour of ketchup.",
-   "caption": "The mark, printed round the rim of the plate it belongs to, in May 2005. The photographer released this one into the public domain, so it is the only picture on this page that carries no conditions at all."
+   "caption": "The mark, printed around the rim of the plate it belongs to, in May 2005. The photographer released this one into the public domain, so it is the only picture on this page that carries no conditions at all."
   },
   {
    "slug": "nick-tahou-exterior-2025",
@@ -604,7 +623,7 @@
    "w": 3801,
    "h": 2474,
    "where": "place:Nick Tahou Hots",
-   "alt": "The corner of Nick Tahou Hots' red brick building. A hand-painted board high on the wall carries a Coca-Cola logo and reads NICK TAHOU, PARKING IN REAR OF BUILDING, with a green arrow. Below it a boarded-up window carries a LOTTO sign. A Rochester Heritage Trail marker stands at the kerb on the left.",
+   "alt": "The corner of Nick Tahou Hots' red brick building. A hand-painted board high on the wall carries a Coca-Cola logo and reads NICK TAHOU, PARKING IN REAR OF BUILDING, with a green arrow. Below it a boarded-up window carries a LOTTO sign. A Rochester Heritage Trail marker stands at the curb on the left.",
    "caption": "320 West Main Street, June 2025."
   },
   {
@@ -624,7 +643,7 @@
    "where": "place:dogTown Hots",
    "alt": "A plate on a mosaic table top: two split red hot dogs lying on chunky home fries and macaroni salad, covered with crumbled brown meat sauce, a scatter of diced raw onion and a zigzag of yellow mustard.",
    "caption": "A plate from dogTown, 9 April 2024.",
-   "placeNote": "The photographer's own description names the restaurant, which is why this is on this card: \"Junkyard Plate with hot dogs, macaroni salad, home fries, meat sauce, diced onions, and mustard, from Dogtown in Rochester, New York\", and the file's camera position, 43.1439 by -77.5898, is Monroe Avenue at that address. The TITLE is the photographer's and not dogTown's: their own menu carries a Junkyard Dog and a list of plates, and no Junkyard Plate, so this page does not print that as their name for it."
+   "placeNote": "The photographer's own description names the restaurant, which is why this is on this card: \"Junkyard Plate with hot dogs, macaroni salad, home fries, meat sauce, diced onions, and mustard, from Dogtown in Rochester, New York\", and the file's camera position, 43.1439 by -77.5898, is Monroe Avenue at that address. The photographer's title matches the menu: dogTown files the dish under Junkyard Plates, and a second section under Junkyard Dog Plates, read on their own site on 20 August 2026. The individual items under those headings are a Dog Plate, a Cheeseburger Plate, a Split Plate and a Sausage Plate, so the word is the section and not the dish name printed on any one line."
   },
   {
    "slug": "red-fern-compost-plate-2024",
@@ -646,9 +665,10 @@
    "placeNote": "The photographer's own description names the restaurant: \"Compost Plate at The Red Fern in Rochester, New York\", and the file's camera position, 43.1498 by -77.5864, is Oxford Street at that address."
   }
  ],
- "photoNote": "Every photograph on this page is somebody else's work under a free licence, checked on that file's own page on Wikimedia Commons on 20 August 2026 and re-checked from Commons on every run of scripts/sync-plate-photos.py. Nothing here is hotlinked, cropped or taken from a restaurant, a review site or a search result. The photographer, the licence and a link to the licence are printed under every picture.",
+ "photoNote": "Every photograph on this page is somebody else's work under a free license, checked on that file's own page on Wikimedia Commons on 20 August 2026 and re-checked from Commons on every run of scripts/sync-plate-photos.py. Nothing here is hotlinked, cropped or taken from a restaurant, a review site or a search result. The photographer, the license and a link to the license are printed under every picture.",
  "photosRejected": [
-  "File:Rochester Garbage Plate.jpg, CC BY-SA 3.0, Douglas.flowe, 27 November 2013. The licence is fine and the file was fetched and looked at. It is a dim phone photograph of a takeaway carton and its own description names no restaurant, only \"Variation on garbage plate with salt potatoes and bacon\", so there is no card it belongs on and nothing it shows that a brighter picture on this page does not. Left out on the picture rather than on the licence.",
-  "EVERY IMAGE SEARCH RESULT, EVERY RESTAURANT'S OWN SITE AND SOCIAL FEED, EVERY REVIEW SITE, AND STREET VIEW. None of them state a licence a static site can meet, and being flattering to a restaurant is not a licence from the person who took the photograph. If you want a picture of a place on this list that has none, the two honest routes are to shoot it yourself or to write to the photographer and get it in writing."
+  "WHAT EIGHT OF THE ELEVEN RESTAURANTS LOOK LIKE. Three of them are on this page in freely licensed photographs and the other eight are not, because no free photograph of any of those eight could be found on 20 August 2026. Those cards carry no picture rather than a borrowed one.",
+  "File:Rochester Garbage Plate.jpg, CC BY-SA 3.0, Douglas.flowe, 27 November 2013. The license is fine and the file was fetched and looked at. It is a dim phone photograph of a takeout carton and its own description names no restaurant, only \"Variation on garbage plate with salt potatoes and bacon\", so there is no card it belongs on and nothing it shows that a brighter picture on this page does not. Left out on the picture rather than on the license.",
+  "EVERY IMAGE SEARCH RESULT, EVERY RESTAURANT'S OWN SITE AND SOCIAL FEED, EVERY REVIEW SITE, AND STREET VIEW. None of them state a license a static site can meet, and being flattering to a restaurant is not a license from the person who took the photograph. If you want a picture of a place on this list that has none, the two honest routes are to shoot it yourself or to write to the photographer and get it in writing."
  ]
 }

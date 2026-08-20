@@ -989,7 +989,14 @@ const HUB_CSS = `
 const hub = shell({
   slug: "",
   title: "Pokemon Games to Play in Line | Garbage Rips 585",
-  desc: `Quick Pokemon games for your phone: name the silhouette, guess the set from a card scan, or take on ${shuffled.length.toLocaleString("en-US")} trivia questions. No sign up, no app.`,
+  // NAME ALL FIVE, IN THE ORDER THE PAGE LEADS WITH THEM. This listed three of
+  // five for as long as the hub had five: Garbage Run and Chase Match, the two
+  // cards at the top of the page, were both missing from the copy Google shows.
+  // Same failure as "The four pictures above" below -- a sentence written when
+  // the count was three and never recounted. Kept to ~175 characters, which is
+  // long-normal for this site (median 141, longest 270) and short enough that
+  // the arcade run and the memory board both land ahead of the cut.
+  desc: `Quick Pokemon games for your phone: a Trubbish arcade run, a memory board dealt from the 100 most valuable cards, silhouettes, card scans, and ${shuffled.length.toLocaleString("en-US")} trivia questions. No sign up, no app.`,
   h1: `Games for the <span class="hl">wait</span>`,
   kicker: "585 &bull; Something to do in line",
   lede:

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Screenshot the four browser games, for the cards on /games/.
+// Screenshot the five browser games, for the cards on /games/.
 //
 //   node .claude/server.js                    (in another shell, port 4585)
 //   node scripts/sync-game-shots.mjs          capture anything not held yet
@@ -9,7 +9,7 @@
 // check-build.py named outright: 305 words and nothing visual in <main>, and
 // the `games` section sitting at 0.0 in the image-density table. Every other
 // page here illustrates itself with a card scan, a set logo or a drawn figure,
-// and the hub had nothing to borrow: the four games are <canvas> and live DOM,
+// and the hub had nothing to borrow: the five games are <canvas> and live DOM,
 // so there is no artwork file anywhere in the tree that is a picture of them.
 // The honest picture of a game you can play in a browser is a picture of it
 // being played, so this drives the real pages and takes one.
@@ -22,7 +22,7 @@
 //
 // DETERMINISTIC ON PURPOSE. Every one of these games picks its question with
 // Math.random, so a plain recapture would produce a different Pokemon, a
-// different card and a different question every run, and rewrite four binaries
+// different card and a different question every run, and rewrite five binaries
 // for no reason. A seeded mulberry32 is installed over Math.random BEFORE any
 // page script runs, so --force is reproducible and a re-run leaves the tree
 // clean unless the game itself changed. Same reasoning as the seeded generator
@@ -53,6 +53,43 @@
 // a fresh one, so this is not in build-all.mjs: it needs a running server and a
 // browser, and a builder that silently needs Chrome is worse than a manual step
 // somebody has to remember.
+//
+// "IF THE GAMES CHANGE" INCLUDES "IF THE SITE'S COLORS CHANGE", and that is
+// the way it has actually gone wrong. Trubbish Deep landed 18-19 August 2026
+// and repainted every page; nothing in these games changed, so nobody reran
+// this, and the hub went on saying the pictures were screenshots of these pages
+// while two of them showed the old near-white ground. It was fixed in halves:
+// three were recaptured on the 20th under a commit that said "the two game
+// thumbnails that had stopped being true", and it was four, not two. The other
+// two -- whos-that-pokemon and guess-the-set -- were still #FAFBF8 on a page
+// that now paints #1F382B.
+//
+// SO THERE IS A CHEAP CHECK, and it is worth more than any of the asserts below
+// because it is the failure the asserts cannot see: a structurally perfect
+// screenshot of last month's palette passes every one of them. Count how much
+// of each shipped file is painted in the CURRENT --page:
+//
+//   python3 -c "from PIL import Image;import glob,os
+//   [print(os.path.basename(f), sum(1 for p in Image.open(f).convert('RGB').getdata() if p==(0x1F,0x37,0x2B))) for f in sorted(glob.glob('public/assets/games/*-screenshot.webp'))]"
+//
+// TWO THINGS ABOUT THAT LITERAL, both found by getting it wrong first.
+//
+// IT IS #1F372B AND ui.css SAYS #1F382B. One point of green, and it is the webp
+// encoder, not a palette drift -- quality 76 does not round-trip a flat field
+// exactly. Compare with a tolerance or read the number back off a shot you have
+// just taken; do not paste --page in and expect a match.
+//
+// AND IT IS ONLY MEANINGFUL FOR THREE OF THE FIVE, which is why this is not the
+// one-liner it wants to be. The quiz shots clip .gq-stage plus .gq-choices and
+// their right-hand edge is page ground the whole way down, so guess-the-set,
+// whos-that-pokemon and pokemon-trivia each hold tens of thousands of those
+// pixels and a near-white reading is a pre-repaint file, full stop. The other
+// two do not frame any: chase-match clips the board and the payout line, whose
+// right edge is the tile ground (#415E49), and it holds page ground only in the
+// 8,941 pixels of the .cm-say strip; garbage-run clips .gr-stage, which is the
+// canvas alone, and holds FIVE page-ground pixels in 236,360. Those two have to
+// be checked by opening them. Do this after any palette move, not just after a
+// game move -- a palette move is the one that leaves no other trace.
 
 import { execFileSync, spawn } from "node:child_process";
 import { existsSync, mkdtempSync, readFileSync, statSync, writeFileSync } from "node:fs";
@@ -100,7 +137,7 @@ const SHOTS = [
     // wordmark, ROCHESTER, NY, and Trubbish sitting on a Garbage Plate -- so it
     // now says more about this game than a frame of autopilot wobble does.
     //
-    // IT IS ALSO THE ONLY REPRODUCIBLE SHOT OF THE FOUR, where the old one was
+    // IT IS ALSO THE ONLY REPRODUCIBLE SHOT OF THE FIVE, where the old one was
     // explicitly the opposite: no autopilot, no retries, no seeded spawn that
     // still lands on a different frame. The single moving part is the blinking
     // prompt, and prefers-reduced-motion pins it ON by the game's own rule in
@@ -243,7 +280,7 @@ const SHOTS = [
 
 // ---------------------------------------------------------------------------
 // A very small CDP client. There is no puppeteer in this tree and adding one
-// for four screenshots would be a 300MB dependency for a script nobody runs in
+// for five screenshots would be a 300MB dependency for a script nobody runs in
 // CI. Node 24 ships a global WebSocket, which is all this needs.
 // ---------------------------------------------------------------------------
 async function launchChrome(port) {
@@ -441,7 +478,7 @@ if (wanted.length) {
 // sync-symbols.mjs do it, so a run that captured nothing still writes a
 // complete and correct file.
 const out = { _readme: [
-  "Screenshots of the four browser games, for the cards on /games/.",
+  "Screenshots of the " + SHOTS.length + " browser games, for the cards on /games/.",
   "Written by scripts/sync-game-shots.mjs. Do not hand-edit: `w` and `h` are the",
   "decoded size of the file and the builder emits them as width/height.",
   "Rerun the script after any change to a game or these go stale, which nothing",

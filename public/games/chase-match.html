@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=883d61b2">
+<link rel="stylesheet" href="/assets/ui.css?v=8ca5ed5c">
 <style>.cm-wrap{max-width:620px;margin:0 auto}
 .cm-title{margin-bottom:var(--s2)}
 .cm-board{min-width:0}
@@ -32,7 +32,7 @@
 .cm-moves{font:400 var(--t-xl)/1 var(--display);color:var(--ink);font-variant-numeric:tabular-nums}
 .cm-stat{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
 .cm-tiers{flex-basis:100%;display:flex;flex-wrap:wrap;gap:6px;margin:0 0 var(--s2);padding:0;list-style:none}
-.cm-tier{min-height:40px;padding:0 var(--s3);border:2px solid var(--keyline);border-radius:var(--r-pill);
+.cm-tier{min-height:44px;padding:0 var(--s3);border:2px solid var(--keyline);border-radius:var(--r-pill);
   background:var(--card);color:var(--ink);font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
   text-transform:uppercase;cursor:pointer}
 .cm-tier[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--on-accent)}
@@ -344,8 +344,10 @@
           <b>Keyboard plays it.</b> <span class="cm-keys">Tab</span> walks the board, the
           <span class="cm-keys">arrow keys</span> jump around it, and <span class="cm-keys">Enter</span> or
           <span class="cm-keys">space</span> turns a card over.<br>
-          <b>Play thirteen rounds and you have seen all 100.</b> The deck is walked in a shuffled order rather
-          than drawn fresh every time, so the same cards do not keep coming back before the rest have had a turn.<br>
+          <b>Play the deck out and you have seen all 100.</b> That is
+          17 rounds on 6 pairs, 13 rounds on 8 pairs, 9 rounds on 12 pairs. The deck is
+          walked in a shuffled order rather than drawn fresh every time, so the same cards do not keep coming back
+          before the rest have had a turn.<br>
           <b>Nothing is saved anywhere but your own phone.</b> Your best move count lives in this browser and goes away
           if you clear it.</p>
 
@@ -360,7 +362,7 @@
           <p class="price-note">Prices are PriceCharting's ungraded price guide value, read August 16, 2026. That is a
             price guide figure for a loose ungraded copy, computed from completed sales: it is not an auction result,
             not a live listing and not a marketplace's market price. Card images are PriceCharting's. The ranking spans
-            every language, because their Pokemon catalogue is not split by one and roughly half of the top
+            every language, because their Pokemon catalog is not split by one and roughly half of the top
             100 is Japanese. Pokemon and all Pokemon names are trademarks of The Pokemon Company. This is fan
             content.</p>
         </div>
@@ -452,6 +454,9 @@
       </div>
     </nav>
     <!--FOOT_SUB:START-->
+    
+    <img class="foot-mark" src="/assets/made-in-roc.webp" width="256" height="218"
+      alt="The Garbage Rips 585 badge: a Rochester manhole cover carrying the city's flower emblem, with Trubbish in the middle and the words MADE IN ROC across the bottom" loading="lazy" decoding="async">
     <p class="foot-tag">Grab a fork. Let's rip.</p>
     <a class="btn btn-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
       aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe on YouTube</a>

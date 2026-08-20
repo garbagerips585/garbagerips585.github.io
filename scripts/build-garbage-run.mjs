@@ -33,9 +33,16 @@
 // whoever is not holding it, and both thumbs land in the same place. Removed
 // rather than left in as a feature nobody would use twice.
 //
-// THE MASCOTS ARE THE REAL SPRITES, the same two files the 404 page and the
-// no-hits panel already use, because Tim asked for the actual Trubbish rather
-// than a green blob standing in for one. Both are loaded from /assets/ so the
+// THE MASCOTS ARE THE REAL SPRITES, because Tim asked for the actual Trubbish
+// rather than a green blob standing in for one.
+//
+// IT IS ONE SHARED FILE, NOT TWO, and this line said two until 20 August 2026.
+// /assets/trubbish.webp is the sprite the 404 page and the no-hits panel
+// already use; /assets/garbodor.webp appears NOWHERE else in the tree -- grep
+// it and this game is the only hit. The figcaption on the evolution figure
+// carried the same wrong claim and has been narrowed to the Trubbish. If you
+// ever put Garbodor on another page, widen both together.
+// Both are loaded from /assets/ so the
 // canvas is never tainted by a third-party host and the game keeps working
 // offline once the page is cached.
 //
@@ -347,7 +354,7 @@ const style = `
 .gr-hud{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:baseline;justify-content:flex-start;
   margin:var(--s4) 0 var(--s3)}
 .gr-score{font:400 var(--t-xl)/1 var(--display);color:var(--ink);font-variant-numeric:tabular-nums}
-.gr-best{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.gr-best,.gr-stat{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
 .gr-over{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:var(--s3);background:rgba(10,10,10,.88);color:var(--chrome-ink);text-align:center;padding:var(--s4)}
 .gr-over[hidden]{display:none}
@@ -2869,6 +2876,20 @@ ${MENU}
 
         <div class="gr-hud">
           <div class="gr-score" id="grScore">0</div>
+          ${/* THE BIG NUMBER NEEDED A NAME HERE TOO. This shipped as a bare 28px
+               "0" beside "BEST 0" with no visible label and no accessible name.
+               Chase Match's identical numeral was labelled today and the note
+               there excused this one -- "everybody knows what a score is" -- and
+               that note has been corrected, because the excuse does not survive
+               the game's own wording. What this counts is not an abstract
+               score: it is PIECES OF TRASH, the game over panel says "N pieces
+               of trash eaten", the hub blurb says "A hundred pieces of trash and
+               he evolves", and EVOLVE_AT is read against this exact number. So
+               the label is "trash", which is the word the rest of the page uses,
+               rather than "score", which would name it no better than the bare
+               numeral did. .gr-stat is .gr-best's declaration under a name that
+               is not a lie about what it holds. */ ""}
+          <div class="gr-stat">trash</div>
           <div class="gr-best" id="grBest">Best 0</div>
         </div>
 
@@ -2923,7 +2944,7 @@ ${MENU}
             <img src="/assets/garbodor.webp" width="512" height="512" alt="Garbodor, what Trubbish becomes"
               loading="lazy" decoding="async">
             <figcaption>What ${EVOLVE_AT} pieces of trash buys you. Both are the sprites the game draws on the
-              canvas, the same two files the 404 page uses.</figcaption>
+              canvas, and the Trubbish is the same file the 404 page uses.</figcaption>
           </figure>
         </div>
 
