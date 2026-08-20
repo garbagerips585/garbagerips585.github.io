@@ -49,6 +49,20 @@ const norm = (n) => String(n ?? "").replace(/^0+(?=\d)/, "").toLowerCase();
 const truth = new Map(); // "set|number" -> price
 const art = new Map(); // "set|number" -> TCGdex image base
 const bySet = new Map(); // slug -> every card, for building a chase list
+// THE CARD DATA AND THE MONEY ARE READ ON DIFFERENT DAYS FROM DIFFERENT PLACES,
+// and this file used to collapse them. `checked` is when TCGdex was read for the
+// CARD LIST. The prices come from PriceCharting and carry their own
+// `pricesChecked`, several days apart in practice: 2026-08-12 against
+// 2026-08-16 as this was written.
+//
+// Stamping the checklist's date and the literal string "TCGdex" onto sets.json's
+// PRICE fields meant every set claimed its money came from a feed the site
+// stopped using on 18 August 2026, dated to an event that was not the reading of
+// that money. Nothing rendered it, so nothing caught it, and the home page's
+// price grid was one join away from publishing it.
+//
+// Per set, out of the file the prices are actually in, so it cannot drift again.
+const priceMeta = new Map(); // slug -> { source, asOf }
 let checked = null;
 for (const f of await readdir(join(ROOT, "public/data/cards"))) {
   if (!f.endsWith(".json")) continue;
@@ -56,6 +70,7 @@ for (const f of await readdir(join(ROOT, "public/data/cards"))) {
   // The NEWEST of the per-set dates, not whichever file readdir returned first.
   if (doc.checked && (!checked || doc.checked > checked)) checked = doc.checked;
   bySet.set(doc.set, doc.cards);
+  priceMeta.set(doc.set, { source: doc.priceSource, asOf: doc.pricesChecked });
   for (const c of doc.cards) {
     const k = `${doc.set}|${norm(c.n)}`;
     if (typeof c.price === "number") truth.set(k, c.price);
@@ -117,18 +132,31 @@ const orphans = [];
 
 // ------------------------------------------------------------- sets.json
 
+/** Credit a set's money to the feed it came from, on the day THAT was read.
+ *  Falls back to the checklist date only when a set has no price file at all,
+ *  and says which feed it means rather than naming the card-data one. */
+function stampPrices(s) {
+  const m = priceMeta.get(s.id) || {};
+  s.pricesAsOf = m.asOf || checked;
+  s.priceSource = m.source || "unknown";
+}
+
 const setsPath = join(ROOT, "public/data/sets.json");
 const setsDoc = JSON.parse(await readFile(setsPath, "utf8"));
 for (const s of setsDoc.sets || []) {
-  let touched = 0;
+  // UNCONDITIONALLY, not only when something else about the set changed. These
+  // two fields describe the price file, which is read every run, so they are
+  // never "unchanged" in a way that justifies leaving an old value behind. The
+  // first version of this stamped only inside the two conditional branches, which
+  // is why running it changed nothing at all: 28 sets kept a "TCGdex" label from
+  // a run months of price feeds ago, and the fix looked like it had worked.
+  stampPrices(s);
   // An empty chase list means the page renders "no market prices yet" or falls
   // back to a partial scrape. We have the whole checklist now.
   if (!(s.chase || []).length) {
     const built = chaseFromCards(s.id);
     if (built.length) {
       s.chase = built;
-      s.pricesAsOf = checked;
-      s.priceSource = "TCGdex";
       s.pricedCount = (bySet.get(s.id) || []).filter((c) => typeof c.price === "number").length;
       builtChase++;
       console.log(`  ${s.id.padEnd(21)} built a chase list from the checklist, top ${built[0].name} $${built[0].price}`);
@@ -149,7 +177,6 @@ for (const s of setsDoc.sets || []) {
         c.image = thumb;
         c.imageLarge = large;
         artChanged++;
-        touched++;
       }
     }
     if (c.rarity) c.rarity = prettyRarity(c.rarity);
@@ -158,7 +185,6 @@ for (const s of setsDoc.sets || []) {
       continue;
     }
     c.price = p;
-    touched++;
     changed++;
   }
   if (s.rarities) {
@@ -169,14 +195,7 @@ for (const s of setsDoc.sets || []) {
       if (nice !== r) renamed = true;
       fixed[nice] = (fixed[nice] || 0) + n;
     }
-    if (renamed) {
-      s.rarities = fixed;
-      touched++;
-    }
-  }
-  if (touched) {
-    s.pricesAsOf = checked;
-    s.priceSource = "TCGdex";
+    if (renamed) s.rarities = fixed;
   }
 }
 await writeFile(setsPath, JSON.stringify(setsDoc, null, 2) + "\n");
