@@ -21,7 +21,24 @@ already exists.
       private repos, Pages, and Actions minutes well past what the nightly
       refresh uses. Nothing here needs a paid plan.
 
-- [ ] **Domain: garbagerips.com.** Every canonical, the sitemap and the Open
+- [x] **Domain: garbagerips.com. BOUGHT 20 August 2026, along with
+      garbagerips585.com.** Both at GoDaddy, one year each.
+
+      **Nothing is needed at the registrar to keep working, and the site is NOT
+      to go live on either yet.** Tim, 20 August: "I don't want to take the
+      website live on those pages yet ... once everything is perfect then we
+      flip the switch". The repo is already in exactly that state: LIVE is
+      false, no CNAME file exists, robots.txt is closed, and every canonical
+      points at the github.io address.
+
+      Two things to know when the day comes, both written up in DEPLOY.md:
+      the four A records can be set at GoDaddy EARLY, because DNS takes up to
+      24 hours and cannot put the site live on its own; and the SETTINGS →
+      PAGES custom domain is the actual switch and belongs last. The 585 domain
+      is a 301 redirect set at GoDaddy, not a second address, because GitHub
+      Pages serves exactly one custom domain per site.
+
+- [ ] ~~**Domain: garbagerips.com.**~~ Every canonical, the sitemap and the Open
       Graph tags switch to it from one flag, so nothing resolves until it
       exists. Buy it anywhere. Point the apex at GitHub's four A records and
       `www` at `garbagerips585.github.io`; the records are in DEPLOY.md.

@@ -61,8 +61,42 @@ Everything below happens in one commit. Do not do it in pieces.
 
 ### 1. Buy the domain
 
-`garbagerips.com`. It is set in `shared/site.mjs` as `DOMAIN`; if you buy a
-different one, change it there first and nowhere else.
+**BOUGHT, 20 August 2026. BOTH OF THEM.** `garbagerips.com` and
+`garbagerips585.com`, one year each at GoDaddy.
+
+`garbagerips.com` is the one, and it is already what `shared/site.mjs` has in
+`DOMAIN`. The channel keeps the 585 and so does the wordmark; only the address
+is shorter, because an address is heard and retyped and a brand is not.
+
+**GITHUB PAGES SERVES EXACTLY ONE CUSTOM DOMAIN PER SITE, so garbagerips585.com
+cannot be a second address for it.** Pointing both at the same Pages site does
+not work: the one named in the repo's Pages settings is served and the other
+gets a 404. Two live addresses would be the wrong thing anyway, because two
+indexed copies of one site compete with each other, which is the whole reason
+robots.txt is closed while staging.
+
+So the 585 domain is a REDIRECT, set at GoDaddy and not here: Domain →
+Forwarding → forward `garbagerips585.com` and `www.garbagerips585.com` to
+`https://garbagerips.com`, permanent (301), forward with masking OFF. Masking
+keeps the old address in the bar and serves the site in a frame, which hides the
+real domain from search engines and from anyone trying to share a link. Nothing
+in this repo needs to know about it.
+
+### 1b. What to do at the registrar BEFORE launch day, and what not to
+
+**DNS is the slow part and setting it early costs nothing.** The four A records
+below can go in as soon as you like; they take up to 24 hours to propagate and
+they CANNOT put the site live on their own. Until the domain is named in the
+repo's Pages settings, GitHub does not know it exists and answers a 404 to
+anyone who types it. Nobody knows the domain yet, so that 404 is seen by nobody,
+and doing it early means launch day is a settings change rather than a wait.
+
+**DO NOT set the custom domain in Settings → Pages yet.** That is the switch.
+It is instant, it is the last step, and it belongs in the sequence at section 5
+below, AFTER the flip is built and pushed.
+
+**Do not set up email forwarding, parking, or a GoDaddy website builder trial on
+either domain.** A parking page on the apex will fight the A records.
 
 ### 2. Point DNS at GitHub
 
