@@ -460,20 +460,20 @@ rows = [
     # actually in front of him.
     ("Packs from several sets", "A tin with two packs, or a box with ten packs from four sets, "
                                 "belongs to every set it contains. Name them all in Sets & Packs, "
-                                "commas between them, the set the video is really about first. "
-                                "Then say how many packs of each in Packs of Each Set, one number "
-                                "per set in the same order: Sets & Packs 'Journey Together, Pitch "
-                                "Black' with Packs of Each Set '6, 6' is a UPC reading 12 packs "
-                                "that still knows six of them were Journey Together. That is what "
-                                "makes a per-set pack count possible.", None),
+                                "commas between them, the set the video is really about first, and "
+                                "put the count next to the set it counts: 'First Partner "
+                                "Illustration Collection (Series 1) - 1 Pack, Phantasmal Flames - 1 "
+                                "Pack, Mega Evolution - 1 Pack'. The count belongs beside the name "
+                                "because that is the only place it cannot come adrift when you "
+                                "insert a set into the middle of the list later.", None),
     (None, None, None),
-    ("How many packs", "Packs of Each Set is HOW MANY, Pack # is WHICH ONE, and they answer "
-                       "different questions. A video opening pack 3 of a nine-pack ETB is Pack # 3 "
-                       "with Packs of Each Set left blank, because it opened one pack. Blank means "
-                       "one, so nearly every row stays empty: you only type here when a video "
-                       "opened more than one pack, like the Abyss Eye video that ripped packs 9 "
-                       "and 10 back to back. That one is a 2. Neither column is ever how many "
-                       "packs the box holds.", None),
+    ("How many packs", "The count in Sets & Packs is HOW MANY, Pack # is WHICH ONE, and they "
+                       "answer different questions. A video opening pack 3 of a nine-pack ETB is "
+                       "Pack # 3, and its Sets & Packs cell just names the set, because it opened "
+                       "one pack. Leaving the count off means one, so most rows never need it: you "
+                       "only write '- 2 Pack' when a video opened two of the same set, like the "
+                       "Abyss Eye video that ripped packs 9 and 10 back to back. Neither number is "
+                       "ever how many packs the box holds.", None),
     (None, None, None),
     ("Which one, and which pack",
                   "Box # is which one of that product you are opening, counting your own openings "
@@ -718,7 +718,6 @@ COLUMNS = [
     # So it is a column again, right beside the product it counts. "3" here
     # means the third Chaos Rising ETB, and it is the number the set guides
     # print as "3 Elite Trainer Boxes".
-    ("Product #", 10, "input"),
     ("Pack #", 8, "input"),
     ("Hit", 7, "input"),
     ("Hit Info", 54, "input"),
@@ -740,7 +739,6 @@ COLUMNS = [
     # PRODUCT_TO_PACKS, which is how many packs a product CONTAINS. This one is
     # how many the VIDEO OPENED, it is prefilled with nothing, and the importer
     # only publishes a total where a person has actually written one.
-    ("Packs of Each Set", 18, "input"),
     ("Greatest Hits", 14, "hof"),
     ("Greatest Hits Rank", 18, "hof"),
     ("Playlist To Add", 18, "input"),
@@ -839,24 +837,6 @@ HEAD_NOTES = {
         "\n"
         "We can rework this column once the single-set rows are done."
     ),
-    "Packs of Each Set": (
-        "HOW MANY PACKS OF THAT SET THIS VIDEO OPENED. Blank means one, so\n"
-        "nearly every row stays empty and you only touch this when a video\n"
-        "opened more than one pack of the same set.\n"
-        "\n"
-        "   (blank)   one pack, the normal case\n"
-        "   2         two packs of the one set named next door\n"
-        "   6, 4, 4   Sets & Packs names three sets, in that same order\n"
-        "\n"
-        "ONE NUMBER PER SET, IN THE SAME ORDER AS Sets & Packs. If the counts\n"
-        "and the sets do not line up the import says so and changes nothing,\n"
-        "rather than guessing which set the number belonged to.\n"
-        "\n"
-        "This is NOT how many packs the box holds, and it is not Pack #.\n"
-        "Pack # is WHICH pack. This is HOW MANY. A video opening pack 3 of an\n"
-        "ETB is Pack # 3 and blank here, because it opened one pack."
-    ),
-
     "Packs": (
         "HOW MANY PACKS OF THE SET IN THE Set COLUMN you opened in THIS video.\n"
         "Not how many the box holds. If you opened one pack out of a Chaos\n"
@@ -1176,21 +1156,12 @@ for r, v in enumerate(ordered, start=2):
     # prefills NOTHING into these columns, so anything present is an answer.
     if man.get("openingType"):
         wv.cell(r, COL["Product"], man["openingType"]).font = BODY
-    if man.get("boxNumber"):
-        wv.cell(r, COL["Product #"], man["boxNumber"]).font = BODY
     # EVERY COLUMN HE TYPES IS HANDED BACK. Tim found cells emptied between
     # rebuilds: Sets & Packs was being imported and never restored, so 39 rows
     # of his work would have vanished on the next build. A column the sheet asks
     # for and does not return is a trap, and this is the last one.
     if man.get("setsPacks"):
         wv.cell(r, COL["Sets & Packs"], man["setsPacks"]).font = BODY
-    # RESTORED AS THE RAW STRING HE TYPED, not as the parsed counts. "6, 4, 4"
-    # comes back as "6, 4, 4". Rebuilding it from setPacks would hand back a
-    # tidied version of his cell, and on a row the importer REFUSED to parse it
-    # would hand back nothing at all, which is the emptying-a-column trap the
-    # comment above was written about.
-    if man.get("packsPerSet"):
-        wv.cell(r, COL["Packs of Each Set"], man["packsPerSet"]).font = BODY
     if man.get("packNumber"):
         wv.cell(r, COL["Pack #"], man["packNumber"]).font = BODY
     if man.get("hasHit") is not None:

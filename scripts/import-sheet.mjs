@@ -662,6 +662,26 @@ const MANUAL_WARNING = [
   "244 and nothing about the file would look wrong.",
 ];
 
+// WHAT THE SHEET STOPS ASKING FOR, THE SHEET MUST NOT ERASE.
+//
+// `manual` is built fresh every run, so a field that no longer has a column
+// simply vanishes -- and on 20 August 2026 the Product # column was retired at
+// Tim's request, on the reasoning that a box number can be worked out later
+// from the data. It cannot: of the 73 rows that carried one, only NINE restate
+// it in their own title or description. The other 64 exist nowhere else.
+//
+// So the previous file is read first and named fields are carried forward for
+// any row the sheet no longer answers. This is a floor, not a merge: anything
+// the sheet DOES say still wins outright, and a value only survives while its
+// video does.
+let priorManual = {};
+try {
+  priorManual = JSON.parse(await readFile(join(ROOT, "data/manual.json"), "utf8"));
+} catch {
+  priorManual = {};
+}
+const CARRY_FORWARD = ["boxNumber"];
+
 const manual = { _WARNING: MANUAL_WARNING };
 const unknownOpening = new Set();
 let counted = { set: 0, multiSet: 0, opening: 0, hit: 0, card: 0, greatest: 0, affiliate: 0, copy: 0, hidden: 0 };
@@ -777,9 +797,36 @@ for (const [n, r] of rows.slice(1).entries()) {
     for (const piece of String(spRaw).split(",")) {
       const frag = piece.replace(/\s+/g, " ").trim();
       if (!frag) continue;
-      const low = frag.toLowerCase();
+      // TIM'S FORMAT, 20 AUGUST 2026: "<Set Name> - <N> Pack", commas between sets.
+      // "First Partner Illustration Collection (Series 1) - 1 Pack , Phantasmal
+      // Flames - 1 Pack , Mega Evolution - 1 Pack". The count travels with the
+      // name it counts, which is why the separate Packs of Each Set column is
+      // gone: a positional list of numbers comes adrift the moment a set is
+      // inserted mid-list, and this cannot.
+      //
+      // THE SUFFIX IS TRIED BEFORE THE NAME MATCH and the bare trailing number
+      // is kept underneath it, because 103 rows were typed under the older
+      // "Abyss Eye 2" form and re-typing them is not a migration anybody asked
+      // for. A dash-N-Pack suffix wins where both could read.
+      let body = frag;
+      let packs = 1;
+      let typed = false;
+      const suffix = /\s*[-\u2013\u2014]\s*(\d{1,3})\s*packs?\s*$/i.exec(body);
+      if (suffix) {
+        packs = Number(suffix[1]);
+        typed = true;
+        body = body.slice(0, suffix.index).trim();
+      } else {
+        const bare = /(\d{1,3})\s*$/.exec(body);
+        if (bare) {
+          packs = Number(bare[1]);
+          typed = true;
+          body = body.replace(/\s*\d+\s*$/, "").trim();
+        }
+      }
+      const low = body.toLowerCase();
       let hit = NAMES.find((n) => low.startsWith(n)) || NAMES.find((n) => low.includes(n));
-      if (!hit) hit = nearestSet(frag.replace(/\s*\d+\s*$/, ""), NAMES);
+      if (!hit) hit = nearestSet(body, NAMES);
       if (!hit) {
         // A PACK THAT IS NOT A NUMBERED SET IS STILL A PACK. The First Partner
         // Illustration Collection holds a promo pack alongside two set packs,
@@ -789,109 +836,38 @@ for (const [n, r] of rows.slice(1).entries()) {
         // Counted toward packsOpened and named, but given NO set id, because it
         // genuinely has none: a promo is not a card in an expansion. Anything
         // else unrecognised is still reported rather than silently counted.
-        const num = /(\d{1,3})\s*$/.exec(frag);
-        if (/promo|first partner|illustration collection/i.test(frag)) {
-          setPacks.push({ set: null, name: frag.replace(/\s*\d+\s*$/, "").trim(), packs: num ? Number(num[1]) : 1, typed: !!num });
+        if (/promo|first partner|illustration collection/i.test(body)) {
+          setPacks.push({ set: null, name: body, packs, typed });
         } else {
           unknownSet.add(frag);
         }
         continue;
       }
-      const num = /(\d{1,3})\s*$/.exec(frag);
-      setPacks.push({ set: setIdByName.get(hit), name: hit, packs: num ? Number(num[1]) : 1, typed: !!num });
+      setPacks.push({ set: setIdByName.get(hit), name: hit, packs, typed });
     }
     // Held in locals: `m` is declared further down, and these blocks run
     // during the set/override work that happens before it exists.
-
-    // ------------------------------------------------------------------
-    // THE Packs of Each Set COLUMN, applied over the fragments just parsed.
-    // ------------------------------------------------------------------
+    // THE Packs of Each Set COLUMN IS GONE, 20 August 2026, on Tim's ask: the
+    // count now travels inside Sets & Packs beside the name it counts. That
+    // column existed for eight hours and was never filled in on a single row,
+    // so nothing typed was lost retiring it -- and the positional form it used
+    // ("6, 4, 4" against three sets, same order) was always the fragile half of
+    // the design, because inserting a set mid-list silently reassigns every
+    // number after it. A suffix cannot come adrift from its own name.
     //
-    // One number per set named in Sets & Packs, same order, commas between.
-    // Blank means one of each. It is free text on purpose: no dropdown can
-    // offer "2" against one set and "6, 4, 4" against another.
+    // What was refused then is still refused now and it is the same rule: a
+    // count that does not line up one-per-set. It just cannot arise in this
+    // shape, because there is no longer a second list to line up against.
     //
-    // FOUR SHAPES ARE ACCEPTED AND EVERY OTHER SHAPE IS REPORTED, NOT GUESSED.
-    // A count that lands on the wrong set is worse than no count, because it is
-    // silently wrong on a page that adds it up, so the only spreading rule here
-    // is position and it must line up exactly.
-    //
-    //   blank                    -> leave the fragments as they are
-    //   one number, one set      -> that set opened that many packs
-    //   N numbers, N sets        -> positional, left to right
-    //   anything else            -> reported, fragments left as they are
-    //
-    // ONE NUMBER AGAINST SEVERAL SETS IS THE SHAPE THAT IS REFUSED, and it is
-    // worth naming because it is the one a person would most expect to work.
-    // "3" beside "Phantasmal Flames, Mega Evolution" could mean three of each,
-    // three between them, or three of the first; there is no reading that is
-    // obviously right, so it is handed back rather than resolved.
-    const perSetRaw = get(r, idx.packsPerSet);
-    if (perSetRaw) {
-      const parts = String(perSetRaw).split(",").map((x) => x.trim()).filter(Boolean);
-      const nums = parts.map((p) => {
-        const mm = p.match(/\d+(?:\.\d+)?/);
-        return mm ? Math.round(Number(mm[0])) : NaN;
-      });
-      const bad = nums.some((n) => !Number.isFinite(n) || n <= 0);
-      if (bad) {
-        // 0 IS NOT AN ANSWER AND NEITHER IS A WORD. Same rule as Product # and
-        // Pack #: this column exists to be added up, so a value that counts as
-        // nothing is worth a line rather than a silent skip.
-        quiet.push(`${id}: Packs of Each Set "${perSetRaw}" is not a list of counts I can use, so it was ignored.`);
-      } else if (nums.length !== setPacks.length && !(nums.length === 1 && setPacks.length === 1)) {
-        quiet.push(
-          `${id}: Packs of Each Set has ${nums.length} number(s) but Sets & Packs names ${setPacks.length} set(s). ` +
-            `Write one count per set in the same order, or leave it blank for one of each.`
-        );
-      } else {
-        for (let k = 0; k < setPacks.length; k++) {
-          // THE NUMBER WRITTEN INSIDE THE CELL WINS A DISAGREEMENT. "Abyss Eye
-          // 2" carries its count against the name it counts and cannot come
-          // adrift of it; a column entry is held in place only by its position,
-          // and a set inserted in the middle of Sets & Packs shifts every count
-          // after it by one without changing a character of this column. So the
-          // attached form is treated as the more reliable of the two and the
-          // disagreement is reported rather than resolved quietly.
-          if (setPacks[k].typed && setPacks[k].packs !== nums[k]) {
-            quiet.push(
-              `${id}: "${setPacks[k].name}" says ${setPacks[k].packs} pack(s) inside Sets & Packs but ` +
-                `${nums[k]} in Packs of Each Set. Kept ${setPacks[k].packs}; delete one of the two.`
-            );
-            continue;
-          }
-          setPacks[k].packs = nums[k];
-          setPacks[k].typed = true;
-        }
-        counted.packsPerSet = (counted.packsPerSet || 0) + 1;
-      }
-    }
-
     // WHAT COUNTS AS TIM HAVING SAID HOW MANY PACKS: naming the set says it.
-    //
-    // THIS GATE USED TO REFUSE A MULTI-SET CELL and it was refusing true numbers.
-    // It read "either every fragment carries a number he typed, or the cell
-    // names exactly one set", on the theory that a cell naming three sets might
-    // be listing what a product CONTAINS rather than what the video OPENED. The
-    // First Partner rows were the worry: name the box's three packs, publish
-    // "3 packs" for a video that opened one.
-    //
-    // Tim, 20 August 2026, asked directly: "First partners boxes do come with 3
-    // overall packs, 1 Pack of first partners cards, and then two other sets
-    // come in each box so total of 3 packs per first partners box", and then "I
-    // listed out all 3 packs in each of the first partner videos". So the cell
-    // is a list of what he opened, one line per pack, and the old gate was
-    // discarding his answer on exactly the rows it was written to protect.
-    //
-    // His rule, stated whole: a named set is a pack, a blank count means one,
-    // and Packs of Each Set overrides when a video opens more than one of a set.
-    // That is the same rule the single-set case already relied on -- it was only
-    // ever applied to cells with one name in them.
-    //
-    // The genuine ambiguity this file still refuses is untouched and lives
-    // above: a count that does not line up one-per-set is rejected and reported,
-    // because "3" against two sets could mean three each or three between them.
-    // What is no longer treated as ambiguous is Tim listing three sets.
+    // A named set is a pack, a blank count means one, and a "- N Pack" suffix
+    // says otherwise. This gate used to refuse any multi-set cell, on the theory
+    // that three names might be listing what a PRODUCT CONTAINS rather than what
+    // the video OPENED -- and it was refusing true numbers on exactly the First
+    // Partner rows it was written to protect. Tim, 20 August 2026: "First
+    // partners boxes do come with 3 overall packs ... total of 3 packs per first
+    // partners box", and "I listed out all 3 packs in each of the first partner
+    // videos". The cell is a list of what he opened.
     packsStated = setPacks.length > 0;
   }
 
@@ -1654,6 +1630,13 @@ for (const [n, r] of rows.slice(1).entries()) {
   // it is nearly always a mistake worth seeing.
   if (Object.keys(m).length) {
     if (seenRow.has(id)) quiet.push(`${id}: two rows for the same video (rows ${seenRow.get(id)} and ${rowNo}). Merged, later row wins per column.`);
+    for (const key of CARRY_FORWARD) {
+      const prev = priorManual[id];
+      if (m[key] == null && prev && prev[key] != null) {
+        m[key] = prev[key];
+        counted.carried = (counted.carried || 0) + 1;
+      }
+    }
     manual[id] = { ...(manual[id] || {}), ...m };
   }
   if (!seenRow.has(id)) seenRow.set(id, rowNo);
