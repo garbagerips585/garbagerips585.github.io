@@ -13,7 +13,7 @@ import { readFile, writeFile, mkdir, rm, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { priceNote, priceFooter } from "../shared/card-prices.mjs";
+import { priceNote, priceFooter, priceRead } from "../shared/card-prices.mjs";
 // NO packplayer.js, BUT packs.css STAYS. These pages wear a .pack facade as
 // decoration, so the stylesheet is doing real work; the script is not.
 // THE "On the channel" LIST IS PLAIN TEXT LINKS, which is the whole reason this
@@ -387,6 +387,43 @@ const gradedPrice = (setId, number) => {
 const gradedAsOf = (setId, number) => {
   const k = `${setId}-${number}`;
   return psa10.prices?.[k]?.asOf || psa10[k]?.asOf || psa10.auto?.[k]?.asOf || null;
+};
+
+/**
+ * WHO SAID SO ABOUT THE GRADED FIGURES. 14 GUIDES PRINTED 99 OF THEM AND NAMED
+ * NOBODY.
+ *
+ * The only sourcing sentence anywhere near them is the one under the chase
+ * grid, and that sentence credits pricecharting.com for the UNGRADED price. So
+ * a reader met "PSA 10 $2,200" sitting directly above a line naming a feed that
+ * publishes a different number for that card, and the honest reading of the
+ * page was that PriceCharting had said $2,200. It had not. Every other page on
+ * this site that publishes a graded price names its feed: /wanted.html prints
+ * "PSA 10 PRICES COME FROM ..." off each card's own psa10Source, and
+ * /index.html and /hall.html do the same off data/graded.json.
+ *
+ * THE NAME AND THE DATE BOTH COME OUT OF data/psa10.json rather than being
+ * typed here, for the reason shared/card-prices.mjs exists at all: a feed swap
+ * must not be a second chance to leave a page crediting a source it no longer
+ * reads. If psa10.json ever carries two sources at once the note says the
+ * generic thing rather than crediting one of them for the other's figure.
+ *
+ * IT IS A DIFFERENT FEED FROM THE RAW COLUMN ON PURPOSE and the note says so.
+ * PriceCharting is the site's source for graded singles, but its graded crawl
+ * (data/graded.json) is deliberately scoped to the cards we have pulled, so it
+ * covers 83 cards and not the 99 these guides print. Moving the guides onto it
+ * would strand most of them. See the note beside the chase grid.
+ */
+const gradedSource = (setId, number) => {
+  const k = `${setId}-${number}`;
+  return psa10.prices?.[k]?.source || psa10[k]?.source || psa10.auto?.[k]?.source || null;
+};
+/** Every chase row on this page that actually renders a graded figure. */
+const gradedRows = (s) => (s.chase || []).filter((c) => gradedPrice(s.id, c.number));
+/** The one name to credit, or the generic phrase where the page mixes feeds. */
+const gradedWho = (s, rows = gradedRows(s)) => {
+  const names = [...new Set(rows.map((c) => gradedSource(s.id, c.number)).filter(Boolean))];
+  return names.length === 1 ? names[0] : "a separate graded sales feed";
 };
 
 /**
@@ -2131,10 +2168,21 @@ function setPage(s) {
   // to live here was its only reader.
   const rips = ripsBySet[s.id] || 0;
   const label = labelFor("sets", s.id);
+  const top = s.chase?.[0];
+  // THE ONE CLICKABLE FACT WAS BEHIND THE CUT, AND ON 28 GUIDES IT WAS NOT
+  // THERE AT ALL. Every description said "the top chase cards with current
+  // guide values" and named none of them, so 28 results in a search page read
+  // as the same sentence with the set name swapped. The card and its price now
+  // sit in the SECOND sentence, ahead of the ~920px cut, which is the CTR idea
+  // CLAUDE.md records against the Pokemon pages, applied to the pages where it
+  // is one line rather than an 844-page rewrite. The figure is the same
+  // checklist value the page prints and sources under the chase grid.
   const desc =
     `${s.name} Pokemon TCG set guide: ${s.total || "?"} cards, released ` +
-    `${longDate(s.released) || "recently"}, full rarity breakdown` +
-    (s.chase?.length ? `, and the top chase cards with current guide values.` : `.`);
+    `${longDate(s.released) || "recently"}.` +
+    (top && typeof top.price === "number" ? ` The priciest card is ${top.name} at ${moneyCompact(top.price)}.` : ``) +
+    ` Full rarity breakdown, every card priced` +
+    (s.chase?.length ? `, and the cards worth chasing.` : `.`);
 
   // Keyed through rarityLabel, so a set whose counts came from the API rather
   // than from a checklist sorts by the same names the rest of the page prints.
@@ -2302,6 +2350,18 @@ function setPage(s) {
       noScan.length === 1 ? `${esc(noScan[0].name)} ${esc(noScan[0].number)}` : `${noScan.length} of these`
     }, so ${noScan.length === 1 ? "it is" : "they are"} named and priced here rather than shown as an empty card.</p>` : ""}
     <p class="price-note">${esc(priceNote(s.priceStamps || { pricesChecked: s.pricesAsOf || s.chasePricesAsOf }))} These are the same eight rows the checklist further down prints, sorted by price, so the two agree by construction. Singles move fast, so treat them as a ballpark rather than a quote.${affOn ? ` ${esc(aff.tcgplayer.disclosure)}` : ""}</p>
+    ${/* THE GRADED FIGURES GET THEIR OWN SENTENCE, BECAUSE THE ONE ABOVE IS NOT
+          ABOUT THEM. It credits PriceCharting for an UNGRADED price, and a
+          PSA 10 figure standing over it read as PriceCharting's too. The name
+          and each date are read out of data/psa10.json, never typed here. */ ""}${(() => {
+      const rows = gradedRows(s);
+      if (!rows.length) return "";
+      const one = rows.length === 1;
+      const dated = rows.some((c) => gradedAsOf(s.id, c.number));
+      return `<p class="price-note">The PSA 10 ${one ? "figure is" : "figures are"} ${esc(gradedWho(s, rows))}'s graded sales data, a different feed and a different measurement from the guide values above, so the two are not one reading.${
+        dated ? ` The date printed beside a graded figure is the day it was read.` : ""
+      } A PSA 10 is a card somebody has paid to have graded and sealed at the top grade, so it is not what the same card is worth loose in your hand.</p>`;
+    })()}
     `;
     })() : `
     <div class="no-prices">
@@ -2645,7 +2705,19 @@ function setPage(s) {
     <ul class="facts-list">
       ${derivedFacts(s).map((f) => `<li>${f}</li>`).join("\n      ")}
       ${(s.notes?.funFacts || []).map((f) => `<li>${esc(f)}</li>`).join("\n      ")}
-    </ul>
+    </ul>${/* The chase-card fact prints a PSA 10 figure, and this band is a long
+              way from the sourcing sentence under the chase grid. A graded
+              number has to carry its feed and its date wherever it lands, so
+              the one bullet that quotes one gets its own line. Both values are
+              read from data/psa10.json rather than written in prose. */ ""}${(() => {
+      const top = s.chase?.[0];
+      if (!top || !gradedPrice(s.id, top.number)) return "";
+      const read = gradedAsOf(s.id, top.number);
+      return `
+    <p class="price-note">That PSA 10 figure is ${esc(gradedWho(s, [top]))}'s graded sales data${
+      read ? `, read ${esc(longDate(read) || read)}` : ""
+    }. The raw figure beside it is ${esc(s.priceStamps?.priceSource || "pricecharting.com")}'s price guide value for an ungraded copy, which is a different feed and a different measurement.</p>`;
+    })()}
   </div>
 </section>` },
 
@@ -2749,7 +2821,39 @@ function setPage(s) {
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
     ${heroLogo(s.id)}
     <h1>${esc(s.name)}</h1>
-    <p class="lede w34">Everything worth knowing about ${esc(s.name)} in one screen. Card counts, what is actually rare, and what the chase cards are going for.</p>
+    ${/* THIS SENTENCE WAS THE SAME ON ALL 28 ENGLISH GUIDES WITH THE NAME
+          SWAPPED, and at 390x844 it held 231px of the only screen most readers
+          see: hero logo, set name, and four lines that told a stranger nothing
+          they could not read off the h1 above it. A sentence that says nothing
+          costs 28 times.
+
+          WHAT IT SAYS NOW IS THE ONE THING THAT DIFFERS PER SET: the year, the
+          size, and the name of the card at the top of the money. Somebody who
+          has just pulled something wants to know whether it is the card, and
+          somebody comparing two guides now learns something different from
+          each. NO DOLLAR FIGURE GOES IN HERE deliberately: the first sourcing
+          sentence on the page is under the chase grid, 1,178px down, and a
+          price above it would be a number with no source in reach. The name is
+          not a number.
+
+          s.chase has already been rebuilt from the checklist and sorted by
+          price further up this file, which is why chase[0] can be trusted here
+          when CLAUDE.md says it cannot be trusted out of sets.json. */ ""}<p class="lede w34">${(() => {
+      // Year off the ISO string rather than through Date(), which shifts a
+      // date-only value across a year boundary in a westward timezone.
+      const yr = /^(\d{4})/.exec(String(s.released || ""))?.[1];
+      const opener =
+        yr && s.total ? `A ${yr} set, ${s.total} cards.`
+        : yr ? `A ${yr} set.`
+        : s.total ? `${s.total} cards.`
+        : "";
+      const body =
+        `What is in ${esc(s.name)}, what is actually rare in it, and what ` +
+        (top
+          ? `the cards worth chasing are going for. ${esc(top.name)} leads them at the moment.`
+          : `each card will be worth once prices land.`);
+      return opener ? `${opener} ${body}` : body;
+    })()}</p>
   </div>
 </header>
 
@@ -2773,7 +2877,12 @@ function setPage(s) {
       }</div></div>
       ${rips
         ? `<a class="fact fact-link" href="/videos.html?set=${s.id}"><div class="n">${rips}</div><div class="l">Rip${rips === 1 ? "" : "s"} on this channel <span aria-hidden="true">&rarr;</span></div></a>`
-        : `<div class="fact"><div class="n">-</div><div class="l">Rips on this channel</div></div>`}
+        : `${/* A BARE HYPHEN IN THE BIG NUMBER SLOT READS AS MISSING DATA, NOT
+                 AS ZERO, and it is the only tile on the page that is not a
+                 fact. Eight guides wear it. "None yet" says the true thing,
+                 which is that we have not opened this set on camera, and it
+                 takes the release tile's own font-size override because it is a
+                 word in a slot sized for two digits. */ ""}<div class="fact"><div class="n" style="font-size:1.15rem">None yet</div><div class="l">Rips on this channel</div></div>`}
       <div class="fact wide"><div class="n" style="font-size:1.15rem">${longDate(s.released) || "Unknown"}</div><div class="l">Release date${s.released ? ` &bull; ${yearsSince(s.released)}` : ""}</div></div>
     </div>
 ${(() => {
@@ -2827,7 +2936,11 @@ ${body}
 </div>
 
 </main>
-${footer(priceFooter("Prices are estimates and move constantly."))}
+${/* The stock credit names TCGdex for the card data and PriceCharting for the
+      money, and on the 14 guides that also publish graded figures that is an
+      incomplete credit rather than a wrong one. The graded feed is named here
+      too, from the data, and only on the pages that actually print one. */ ""}
+${footer(priceFooter(`${gradedRows(s).length ? `PSA 10 prices from ${gradedWho(s)}. ` : ""}Prices are estimates and move constantly.`))}
 <script>
 (function(){
   var lb=document.getElementById('lb'), img=document.getElementById('lbImg');
@@ -2939,6 +3052,40 @@ function indexPage() {
         </span>
       </a>`).join("\n      ")}
     </div>
+    ${/* THIS PAGE PUBLISHED 28 RAW PRICES AND 21 PSA 10 FIGURES AND SOURCED
+          NEITHER. It was not in the count of guides that print a graded number
+          without naming a feed, because it is the index rather than a guide,
+          and its only credit was the footer's "Card prices from PriceCharting",
+          which is true of the raw half and not of the graded half.
+
+          The stamps are read off the same per-set price documents the guides
+          print from, newest read wins, so this line cannot claim a freshness
+          the figures behind it do not have. */ ""}${(() => {
+      const priced = sets.filter((s) => (s.chase || [])[0]?.price);
+      if (!priced.length) return "";
+      const newest = priced
+        .map((s) => s.priceStamps)
+        .filter((d) => d?.pricesChecked || d?.checked)
+        .sort((a, b) => String(priceRead(a)).localeCompare(String(priceRead(b))))
+        .pop();
+      const graded = priced.filter((s) => gradedPrice(s.id, s.chase[0].number));
+      const who = graded.length
+        ? [...new Set(graded.map((s) => gradedSource(s.id, s.chase[0].number)).filter(Boolean))]
+        : [];
+      const gradedRead = graded
+        .map((s) => gradedAsOf(s.id, s.chase[0].number))
+        .filter(Boolean)
+        .sort()
+        .pop();
+      return `
+    <p class="price-note">Top is the priciest card in that set. ${esc(priceNote(newest || {}))}${
+      graded.length
+        ? ` The PSA 10 figures beside ${graded.length === 1 ? "one of them" : `${graded.length} of them`} are ${esc(
+            who.length === 1 ? who[0] : "a separate graded sales feed"
+          )}'s graded sales data${gradedRead ? `, read ${esc(longDate(gradedRead) || gradedRead)}` : ""}, a different feed and a different measurement. A row with no PSA 10 figure has no graded reading we are willing to publish yet, which is not the same as a card nobody grades.`
+        : ""
+    }</p>`;
+    })()}
   </div>
 </section>
 ${Object.keys(intlGuides).length ? `
@@ -2973,7 +3120,17 @@ ${Object.keys(intlGuides).length ? `
 </section>` : ""}
 
 </main>
-${footer(priceFooter("Prices are estimates and move constantly."))}
+${/* Same incomplete credit as the guides had: this page prints graded figures
+      too, so the feed behind them is named here as well, from the data. */ ""}
+${footer(priceFooter(`${(() => {
+  const who = [...new Set(
+    sets
+      .filter((s) => (s.chase || [])[0]?.price && gradedPrice(s.id, s.chase[0].number))
+      .map((s) => gradedSource(s.id, s.chase[0].number))
+      .filter(Boolean)
+  )];
+  return who.length === 1 ? `PSA 10 prices from ${who[0]}. ` : "";
+})()}Prices are estimates and move constantly.`))}
 ${APP_JS}
 </body>
 </html>
