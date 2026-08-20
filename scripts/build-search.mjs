@@ -133,6 +133,11 @@ const PAGES = [
   // could build is how the careful title gets undone one blurb at a time.
   ["/top-graded.html", "Highest PSA 10 values", "The 100 highest PSA 10 price guide values in Pokemon, ranked across 793 sets with the source on every row"],
 ["/games/garbage-run.html", "Garbage Run", "A one thumb arcade game for the restock line, solo or two players on one phone"],
+// THE BLURB NAMES THE DECK, NOT THE GENRE. "A memory game" is a thing a
+// thousand pages are; what nobody else has is a concentration board dealt from
+// the hundred most valuable ungraded cards in Pokemon, which is also the one
+// fact that tells a searcher whether they want this page or /most-valuable-cards.html.
+["/games/chase-match.html", "Chase Match", "A memory game played with the 100 most valuable ungraded Pokemon cards: flip two, match the card, see what it is worth"],
 ["/openings/", "Sealed products", "What is in an ETB, a bundle, a blister, and every one we opened"],
 ["/will-it-grade.html", "Will it grade?", "Centering tolerances, the flaws that cost grades, and how to check a card at home"],
 ["/selling.html", "Where to sell", "eBay, TCGplayer, Whatnot and more: fees, payouts and who protects a seller"],

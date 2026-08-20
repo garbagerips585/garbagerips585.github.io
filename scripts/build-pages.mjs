@@ -1620,6 +1620,10 @@ const urls = [
   // drift.
   // The arcade game. Monthly: it does not change unless the game does.
   { loc: `${SITE}/games/garbage-run.html`, freq: "monthly", pri: "0.7" },
+  // The memory game. Monthly like the arcade one: the board is generated in the
+  // browser, so the only thing that changes the PAGE is the game changing or
+  // data/top-raw.json being re-crawled.
+  { loc: `${SITE}/games/chase-match.html`, freq: "monthly", pri: "0.7" },
   ...openingPages,
   { loc: `${SITE}/selling.html`, freq: "weekly", pri: "0.9" },
   // Where to buy, and what each venue costs a buyer. Weekly for the same

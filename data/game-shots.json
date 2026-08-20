@@ -13,7 +13,14 @@
       "w": 380,
       "h": 622,
       "bytes": 14242,
-      "shows": "The Garbage Run title screen: GARBAGE RUN in blocky 8-bit capitals above ROCHESTER, NY and GARBAGE RIPS 585, with Trubbish sitting on a Garbage Plate and TAP TO START underneath"
+      "shows": "The Garbage Run title screen: GARBAGE RUN in blocky 8-bit capitals, Trubbish sitting on a Garbage Plate, and ROCHESTER, NY over GARBAGE RIPS 585 with PRESS START underneath"
+    },
+    "chase-match": {
+      "file": "chase-match-screenshot.webp",
+      "w": 380,
+      "h": 584,
+      "bytes": 25688,
+      "shows": "A Chase Match board mid-round: a four by four grid where twelve cards are face down showing the drawn back, a green field with a circular Garbage Plate emblem and 585 beneath it, and four are turned up as two matched pairs of real Pokemon card scans, over a line giving the rank, name, set and raw price of the last card found"
     },
     "whos-that-pokemon": {
       "file": "whos-that-pokemon-screenshot.webp",
@@ -34,7 +41,7 @@
       "w": 380,
       "h": 534,
       "bytes": 6952,
-      "shows": "Pokemon Trivia mid-round: a question in large type, with four answers to choose from underneath"
+      "shows": "Pokemon Trivia mid-round: artwork of the Pokemon being asked about, the question in large type underneath, and four answers to choose from below that"
     }
   }
 }

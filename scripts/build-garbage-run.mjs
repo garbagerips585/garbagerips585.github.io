@@ -2927,8 +2927,9 @@ ${MENU}
           </figure>
         </div>
 
-        <p class="gr-how gr-other"><a href="/games/">The other games</a> are quicker: a set guesser, a silhouette round and
-          a trivia run. This one is for a longer wait.</p>
+        <p class="gr-how gr-other"><a href="/games/">The other games</a> are quicker: a memory board dealt from the
+          hundred most valuable cards in Pokemon, a set guesser, a silhouette round and a trivia run. This one is for a
+          longer wait.</p>
       </div>
     </div>
   </section>

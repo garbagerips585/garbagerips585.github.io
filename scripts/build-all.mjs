@@ -318,6 +318,12 @@ const STEPS = [
   // does not change unless a generation ships. Run it by hand when it does.
   "node scripts/build-games.mjs",
 "node scripts/build-garbage-run.mjs",
+  // The memory game, built from data/top-raw.json rather than from the pokedex,
+  // so it has no ordering constraint on sync-pokedex.mjs the way the two above
+  // do. It sits here because it is a /games/ page and it throws rather than
+  // warns if that file has lost an image or a verified price, which is the same
+  // arrangement build-games.mjs has with the species artwork.
+  "node scripts/build-chase-match.mjs",
   // BEFORE build-lore.mjs, which is the only page that paints these. Same two
   // properties as every other sync step in this list: idempotent, and it never
   // fails the build. A dex id it does not hold is drawn as the site's no-art

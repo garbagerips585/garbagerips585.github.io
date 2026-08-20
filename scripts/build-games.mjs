@@ -927,11 +927,18 @@ function dexRow(ids) {
 // change is that the screen is a picture above four answer buttons, so that is
 // what it says. sync-game-shots.mjs asserts that much before it keeps a file.
 const CARDS = [
-  // FIRST ON PURPOSE. The other three are quizzes, which are things you finish.
-  // This hub is called "Games for the wait" and the longest wait wants the game
-  // you can keep playing and hand to somebody else.
+  // FIRST ON PURPOSE. Three of the other four are quizzes, which are things you
+  // finish. This hub is called "Games for the wait" and the longest wait wants
+  // the game you can keep playing and hand to somebody else.
   ["garbage-run.html", "Arcade", "Garbage Run", "One thumb, no rules to read. Flip Trubbish between the floor and the ceiling and eat everything on the street. A hundred pieces of trash and he evolves.",
     "garbage-run"],
+  // SECOND, ABOVE THE QUIZZES, FOR THE SAME REASON GARBAGE RUN IS FIRST: it is
+  // a game rather than a test, so it is the other one somebody can start
+  // without deciding whether they know enough to enjoy it. It is also the only
+  // one on this hub whose pool is a page the site already publishes, which is
+  // the sentence the blurb spends its length on.
+  ["chase-match.html", "Memory", "Chase Match", "Cards face down, tap two, keep the pairs. The deck is the 100 most valuable ungraded cards in Pokemon, so every match is a card you will probably never hold.",
+    "chase-match"],
   ["whos-that-pokemon.html", "Silhouettes", "Who's That Pokemon?", `Name the shape. All ${whos.length.toLocaleString("en-US")} of them, or just the original 151.`,
     "whos-that-pokemon"],
   ["guess-the-set.html", "Card scans", "Guess the Set", `A real card, four sets, one right answer. ${setNames.length} sets in the pot.`,
@@ -1036,10 +1043,22 @@ const hub = shell({
       </a>
     </div>
     <p class="price-note" style="margin-top:var(--s5)">${
-      Object.keys(gameShots).length
-        ? `The four pictures above are screenshots of these games running in a browser at phone width, taken from these
-      pages, not mock ups. The question in each one is whatever came up. `
-        : ""
+      /* THE COUNT IS COUNTED. This read "The four pictures above" and a fifth
+         game went in under it, which is exactly the kind of sentence this
+         file's own alt-text rule exists to stop: true on the day it was written
+         and quietly false afterwards. It also no longer says "the question in
+         each one", because one of these games does not ask a question. */
+      Object.keys(gameShots).length === 1
+        ? `The picture above is a screenshot of that game running in a browser at phone width, taken from its own
+      page, not a mock up. What is on the screen is whatever came up. `
+        : Object.keys(gameShots).length
+          ? `The ${
+              ["", "one", "two", "three", "four", "five", "six", "seven", "eight"][
+                Object.keys(gameShots).length
+              ] || Object.keys(gameShots).length
+            } pictures above are screenshots of these games running in a browser at phone width, taken from these
+      pages, not mock ups. What is on each screen is whatever came up. `
+          : ""
     }${
       appShots.live && appShots.pocket
         ? `The two app icons are from each app's own App Store listing. `

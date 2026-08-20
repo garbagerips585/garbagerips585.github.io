@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pokemon Card Memory Game: the 100 Biggest Chase Cards</title>
+<meta name="description" content="A memory game played with the 100 most valuable ungraded Pokemon cards. Flip two, match the card, and find out what you just paired up.">
+<link rel="canonical" href="https://garbagerips585.github.io/games/chase-match.html">
+<meta property="og:title" content="Chase Match">
+<meta property="og:description" content="A memory game played with the 100 most valuable ungraded Pokemon cards. Flip two, match the card, and find out what you just paired up.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garbagerips585.github.io/games/chase-match.html">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:image" content="https://garbagerips585.github.io/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-image.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#192D22">
+<link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=883d61b2">
+<style>.cm-wrap{max-width:620px;margin:0 auto}
+.cm-title{margin-bottom:var(--s2)}
+.cm-board{min-width:0}
+.cm-hud{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:baseline;margin:var(--s4) 0 var(--s3)}
+.cm-moves{font:400 var(--t-xl)/1 var(--display);color:var(--ink);font-variant-numeric:tabular-nums}
+.cm-stat{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.cm-tiers{flex-basis:100%;display:flex;flex-wrap:wrap;gap:6px;margin:0 0 var(--s2);padding:0;list-style:none}
+.cm-tier{min-height:40px;padding:0 var(--s3);border:2px solid var(--keyline);border-radius:var(--r-pill);
+  background:var(--card);color:var(--ink);font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
+  text-transform:uppercase;cursor:pointer}
+.cm-tier[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--on-accent)}
+.cm-tier:hover{border-color:var(--mustard)}
+.cm-tier[aria-pressed="true"]:hover{background:var(--mustard);border-color:var(--mustard)}
+.cm-board{position:relative;display:flex;justify-content:center}
+.cm-grid{--cm-cw:78px;--cm-gap:7px;--cm-cols:4;
+  display:grid;grid-template-columns:repeat(var(--cm-cols),var(--cm-cw));
+  gap:var(--cm-gap);margin:0;padding:0;list-style:none;justify-content:center}
+.cm-cell{display:block;min-width:0}
+.cm-card{display:block;width:100%;aspect-ratio:63/88;padding:0;border:0;background:none;
+  cursor:pointer;border-radius:8px;font-size:var(--cm-cw,78px);
+  touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+  user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;
+  perspective:640px}
+.cm-card:focus-visible{outline:3px solid var(--sky-deep);outline-offset:3px}
+.cm-inner{position:relative;display:block;width:100%;height:100%;
+  transform-style:preserve-3d;-webkit-transform-style:preserve-3d;
+  transition:transform 320ms cubic-bezier(.2,.7,.3,1)}
+.cm-card.is-up .cm-inner,.cm-card.is-done .cm-inner{transform:rotateY(180deg)}
+.cm-face{position:absolute;inset:0;border-radius:7px;overflow:hidden;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.cm-back{background:var(--paper-3);padding:7.5%;color:var(--ink-soft)}
+.cm-back::before{content:"";position:absolute;inset:7.5%;border-radius:4px;
+  background:
+    repeating-linear-gradient(135deg,rgba(25,45,34,.30) 0 4px,rgba(25,45,34,0) 4px 9px),
+    repeating-linear-gradient(45deg,rgba(25,45,34,.18) 0 4px,rgba(25,45,34,0) 4px 9px),
+    radial-gradient(circle at 50% 44%,#37593F 0 34%,#2A4834 34% 68%,#24402F 68% 100%);
+  box-shadow:inset 0 0 0 1.5px rgba(228,220,204,.22)}
+.cm-mark{position:absolute;left:50%;top:42%;width:46%;height:auto;aspect-ratio:1;
+  transform:translate(-50%,-50%);display:block}
+.cm-back::after{content:"585";position:absolute;left:0;right:0;bottom:10%;
+  text-align:center;font:700 .14em/1 var(--mono);letter-spacing:.18em;text-indent:.18em;
+  color:var(--ink-soft);opacity:.7}
+.cm-front{transform:rotateY(180deg);background:var(--navy-deep);
+  box-shadow:inset 0 0 0 1.5px rgba(228,220,204,.28)}
+.cm-front img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.cm-card.is-up .cm-front{box-shadow:inset 0 0 0 3px var(--sky-deep)}
+.cm-card.is-done{cursor:default}
+.cm-card.is-done .cm-front{background:var(--paper);box-shadow:inset 0 0 0 2px var(--keyline)}
+.cm-card.is-done .cm-front img{opacity:.6}
+.cm-card--still{width:96px;--cm-cw:96px;flex:none;cursor:default;perspective:none}
+.cm-say{min-height:3.4em;margin:var(--s3) 0 0;font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
+.cm-say b{color:var(--ink)}
+.cm-say .cm-price{color:var(--ketchup-deep);font-weight:700;font-variant-numeric:tabular-nums}
+.cm-say .cm-rank{display:inline-block;margin-right:6px;padding:2px 7px;border-radius:var(--r-pill);
+  background:var(--chip-gold-bg);color:var(--ink);font:700 var(--t-micro)/1.4 var(--mono)}
+.cm-over{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:var(--s3);padding:var(--s4);border-radius:var(--r);
+  background:rgba(16,28,21,.95);color:var(--chrome-ink);text-align:center;overflow:auto;
+  animation:cm-in .22s ease-out}
+.cm-over[hidden]{display:none}
+.cm-over:focus{outline:none}
+.cm-over:focus-visible{outline:3px solid var(--sky-deep);outline-offset:-4px}
+@keyframes cm-in{from{opacity:0}to{opacity:1}}
+.cm-over h2{color:var(--chrome-ink);font:400 var(--t-l)/1.05 var(--display);margin:0}
+.cm-over p{color:var(--foot-ink);font-size:var(--t-sm);line-height:1.5;margin:0;max-width:26em}
+.cm-total{font:400 var(--t-xl)/1 var(--display);color:var(--ketchup-deep);font-variant-numeric:tabular-nums}
+.cm-list{list-style:none;margin:0;padding:0;width:100%;max-width:28em;
+  display:flex;flex-direction:column;gap:3px;overflow:auto}
+.cm-list li{display:flex;gap:var(--s3);align-items:baseline;justify-content:space-between;
+  font:400 var(--t-micro)/1.5 var(--mono);color:var(--chrome-dim);text-align:left}
+.cm-list b{color:var(--chrome-ink);font-weight:700}
+.cm-list span{flex:none;color:var(--ketchup-deep);font-weight:700}
+.cm-go{min-height:48px;padding:0 var(--s5);border:3px solid var(--gold);border-radius:var(--r-pill);
+  background:var(--gold);color:var(--on-accent);font:700 var(--t-m)/1 var(--body);cursor:pointer}
+.cm-go:hover{background:var(--mustard);border-color:var(--mustard)}
+.cm-over a{color:var(--sky-deep)}
+.cm-lede{margin-top:var(--s5)}
+.cm-how{margin-top:var(--s5);color:var(--ink-2);font-size:var(--t-sm);line-height:1.6;max-width:44em}
+.cm-how b{color:var(--ink)}
+.cm-keys{font:700 var(--t-micro)/1 var(--mono);background:var(--card);border:1px solid var(--hair);
+  border-radius:5px;padding:3px 6px;white-space:nowrap}
+.cm-fig{display:flex;flex-wrap:wrap;gap:var(--s4);align-items:center;margin-top:var(--s4);
+  padding:var(--s3) var(--s4);background:var(--card);border:2px solid var(--ink);border-radius:var(--r)}
+.cm-fig figcaption{flex:1;min-width:14em;font:400 var(--t-micro)/1.6 var(--mono);color:var(--ink-2)}
+.cm-fig figcaption b{color:var(--ink);font-family:var(--body)}
+@media (prefers-reduced-motion: reduce) {
+  .cm-card{perspective:none}
+  .cm-inner{transform-style:flat;-webkit-transform-style:flat}
+  .cm-card.is-up .cm-inner,.cm-card.is-done .cm-inner{transform:none}
+  .cm-face{backface-visibility:visible;-webkit-backface-visibility:visible}
+  .cm-front{transform:none;visibility:hidden}
+  .cm-card.is-up .cm-front,.cm-card.is-done .cm-front{visibility:visible}
+}
+@media (max-height: 740px), (max-width: 544px) {
+  section.cm-sec{padding-top:var(--s2)}
+  .cm-wrap .crumbs{display:none}
+  .cm-title{font-size:var(--t-l);margin-bottom:4px}
+  .cm-hud{margin:var(--s2) 0 var(--s2)}
+  .cm-moves{font-size:var(--t-l)}
+}
+@media (min-width: 1000px) {
+  .cm-wrap{max-width:1180px}
+  .cm-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,420px);
+    grid-template-areas:"title title" "play copy" "other other";
+    column-gap:var(--s7);align-items:start}
+  .cm-title{grid-area:title}
+  .cm-play{grid-area:play}
+  .cm-copy{grid-area:copy}
+  .cm-other{grid-area:other}
+  .cm-copy .cm-lede{margin-top:0}
+  .cm-tiers{flex-basis:auto;margin-bottom:0}
+}
+</style>
+<noscript><style>.cm-hud,.cm-board,.cm-say{display:none}</style></noscript>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Games","item":"https://garbagerips585.github.io/games/"},{"@type":"ListItem","position":3,"name":"Chase Match"}]}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.5a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.4V8.6l5.8 3.4z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.6 2.6 0 1 1-2.2-2.6V9.4a5.9 5.9 0 1 0 5.3 5.9V8.7a7 7 0 0 0 4.1 1.3V6.9a3.9 3.9 0 0 1-4.1-3.9z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></symbol>
+</svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="cm-mark" viewBox="0 0 64 64">
+    <circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="2.4" opacity=".9"/>
+    <circle cx="32" cy="32" r="24.5" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".45"/>
+    <path d="M13 39c-2.6-7.4 2.4-13.4 8.4-13.4 1.6-6.4 10.6-9 15.6-4.4 6.4-4.4 14.6-.6 14.6 5.2 5.4 1.2 6.4 7.4 1.6 10.6z" fill="currentColor" opacity=".92"/>
+    <path d="M17 33.5c5-4.2 8.4 2 13.6-2 5.2-4 9.4 3.8 14.6-1.2" fill="none" stroke="#EFBB25" stroke-width="2.6" stroke-linecap="round"/>
+    <ellipse cx="32" cy="42.5" rx="20" ry="5.6" fill="currentColor"/>
+    <path d="M12 42.5a20 5.6 0 0 0 40 0" fill="currentColor"/>
+    <path d="M18 43a14 3 0 0 0 28 0" fill="none" stroke="#1F382B" stroke-width="1.8" opacity=".55"/>
+  </symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <a class="bar-find" href="/search.html" aria-label="Search cards, sets, guides and rips"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/videos.html">Rips</a>
+      <a href="/cards.html">Card search</a>
+      <a href="/sets/">Set guides</a>
+      <a href="/start.html">Start here</a>
+      <a href="/card-shows.html">Card shows</a>
+    </nav>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <span>Menu</span>
+    </button>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
+      aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube."><span>Subscribe</span></a>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="All sections">
+  <a class="menu-find" href="/search.html">Search the site</a>
+  <div class="menu-inner">
+    <details class="menu-g" open>
+      <summary class="menu-h">The channel<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/videos.html">Rips</a></li>
+        <li><a href="/playlists.html">Playlists</a></li>
+        <li><a href="/hall.html">Best pulls</a></li>
+        <li><a href="/wanted.html">Most wanted</a></li>
+        <li><a href="/luck.html">Rip results</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Cards<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/cards.html">Card search</a></li>
+        <li><a href="/search.html">Search the site</a></li>
+        <li><a href="/pokemon/">By Pokemon</a></li>
+        <li><a href="/what-set.html">What set is it</a></li>
+        <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/types.html">Card types</a></li>
+        <li><a href="/base-set.html">Base Set prints</a></li>
+        <li><a href="/fake-cards.html">Fakes</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Sets<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/sets/">Set guides</a></li>
+        <li><a href="/expansions.html">All English sets</a></li>
+        <li><a href="/upcoming.html">Coming next</a></li>
+        <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/topps.html">Topps cards</a></li>
+        <li><a href="/first-partner-illustration-collection.html">First Partners</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Prices<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/msrp.html">MSRP check</a></li>
+        <li><a href="/pack-prices.html">Pack prices</a></li>
+        <li><a href="/how-many-packs.html">Packs per box</a></li>
+        <li><a href="/openings/">Sealed products</a></li>
+        <li><a href="/most-valuable-cards.html">Raw top 100</a></li>
+        <li><a href="/most-expensive-sealed.html">Sealed top 100</a></li>
+        <li><a href="/top-graded.html">PSA 10 top 100</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Buy, sell, grade<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/start.html">Start here</a></li>
+        <li><a href="/what-to-buy.html">Beginner buys</a></li>
+        <li><a href="/buying.html">Where to buy</a></li>
+        <li><a href="/retailers.html">Chain stores</a></li>
+        <li><a href="/drops.html">Restocks</a></li>
+        <li><a href="/selling.html">Where to sell</a></li>
+        <li><a href="/will-it-grade.html">Will it grade</a></li>
+        <li><a href="/grading.html">Grading cost</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Playing<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/how-to-play.html">How to play</a></li>
+        <li><a href="/tcg-live.html">Code cards</a></li>
+        <li><a href="/tcg-pocket.html">TCG Pocket app</a></li>
+        <li><a href="/decks.html">Deck builds</a></li>
+        <li><a href="/top-100-playable.html">Most played</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Just for fun<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
+        <li><a href="/lore.html">Pokemon lore</a></li>
+        <li><a href="/evolution.html">Evolution chart</a></li>
+        <li><a href="/eevee-evolutions.html">Eevee evolutions</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Rochester, NY<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/card-shows.html">Card shows</a></li>
+        <li><a href="/shops.html">Card shops</a></li>
+        <li><a href="/vendors.html">Local vendors</a></li>
+        <li><a href="/creators.html">Local creators</a></li>
+        <li><a href="/garbage-plate.html">Garbage Plate</a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </details>
+  </div>
+  <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
+    aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe on YouTube</a>
+</nav>
+<main id="main">
+  <section class="tight cm-sec">
+    <div class="wrap cm-wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/games/">Games</a> / <span>Chase Match</span></nav>
+
+      <div class="cm-layout">
+        <h1 class="cm-title">Chase <span class="hl">Match</span></h1>
+
+        <div class="cm-play">
+        <div class="cm-hud">
+          <ul class="cm-tiers">
+            <li><button class="cm-tier" type="button" data-tier="s" aria-pressed="false">6 pairs</button></li>
+            <li><button class="cm-tier" type="button" data-tier="m" aria-pressed="true">8 pairs</button></li>
+            <li><button class="cm-tier" type="button" data-tier="l" aria-pressed="false">12 pairs</button></li>
+          </ul>
+          <div class="cm-moves" id="cmMoves">0</div>
+          
+          <div class="cm-stat">moves</div>
+          <div class="cm-stat" id="cmPairs">0 of 8 pairs</div>
+          <div class="cm-stat" id="cmBest">No best yet</div>
+        </div>
+
+        <div class="cm-board" id="cmBoard">
+          <ul class="cm-grid" id="cmGrid" role="list" aria-label="Board"></ul>
+          <div class="cm-over" id="cmOver" role="dialog" aria-labelledby="cmOverTitle"
+            aria-describedby="cmOverSub" tabindex="-1" hidden>
+            <h2 id="cmOverTitle">Cleared</h2>
+            <p id="cmOverSub"></p>
+            <div class="cm-total" id="cmTotal"></div>
+            <p>of raw cardboard, matched.</p>
+            <ul class="cm-list" id="cmOverList"></ul>
+            <button class="cm-go" id="cmAgain" type="button">Deal again</button>
+            <p><a href="/most-valuable-cards.html">See all 100 of them, ranked</a></p>
+          </div>
+        </div>
+
+        <p class="cm-say" id="cmSay"></p>
+        
+        <p class="sr-only" id="cmLive" role="status" aria-live="polite"></p>
+        </div>
+
+        <div class="cm-copy">
+        <noscript><p class="lede cm-lede">Chase Match needs JavaScript, and yours is turned off, so there is no board on
+          this page right now. Everything below still says how it works, and the rest of the site reads fine without
+          it.</p></noscript>
+
+        <p class="lede cm-lede">Cards face down, tap two, keep the ones that match. The twist is the deck: every card in
+          it is one of the 100 most valuable ungraded Pokemon cards there are, from a $585,600 Illustrator
+          Pikachu down to a $2,225 hundredth place. Most of them you will never see in a shop.</p>
+
+        <div class="cm-how">
+          <p><b>How it works.</b> Tap a card to turn it over, then tap a second one. A pair stays up and pays out in the
+          line under the board: what the card is, what set it came from, where it ranks and what a raw copy of it is
+          worth. A miss turns back over 0.9 seconds after it lands, and you never have to
+          wait for that: tapping a third card snaps the pair straight back. Put the phone away mid-round and the timer
+          stops with it, because the line moves.<br>
+          <b>Your score is moves, not seconds.</b> One move is one pair turned over, so a perfect 8 pair
+          round is 8 moves. There is deliberately no clock. This is a game for the twenty minutes you
+          spend in a restock line, and a best score you can only beat by nobody talking to you is not worth chasing.<br>
+          <b>There is a real par to beat.</b> A 2013 paper in the American Mathematical Monthly works out how long this
+          game takes when it is played perfectly by somebody who forgets nothing:
+          9.2 moves on 6 pairs, 12.4 moves on 8 pairs, 18.9 moves on 12 pairs. The same paper is why
+          a bad round stings: you blindly turn over a matching pair less than once a game, at any board size, so there
+          is almost no luck in this to blame.<br>
+          <b>Keyboard plays it.</b> <span class="cm-keys">Tab</span> walks the board, the
+          <span class="cm-keys">arrow keys</span> jump around it, and <span class="cm-keys">Enter</span> or
+          <span class="cm-keys">space</span> turns a card over.<br>
+          <b>Play thirteen rounds and you have seen all 100.</b> The deck is walked in a shuffled order rather
+          than drawn fresh every time, so the same cards do not keep coming back before the rest have had a turn.<br>
+          <b>Nothing is saved anywhere but your own phone.</b> Your best move count lives in this browser and goes away
+          if you clear it.</p>
+
+          <figure class="cm-fig">
+            <span class="cm-card cm-card--still" aria-hidden="true"><span class="cm-inner"><span class="cm-face cm-back"><svg class="cm-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><use href="#cm-mark"></use></svg></span></span></span>
+            <figcaption><b>That back is ours, not Pokemon's.</b> The real one is Nintendo's artwork, and the same card
+              back repeated twenty-four times as a game texture is decoration rather than the documentation this site
+              publishes card scans as. So the deck is ours: the Garbage Plate on a green field, drawn the same way the
+              plate on the buying and selling pages is drawn. The faces are the real cards.</figcaption>
+          </figure>
+
+          <p class="price-note">Prices are PriceCharting's ungraded price guide value, read August 16, 2026. That is a
+            price guide figure for a loose ungraded copy, computed from completed sales: it is not an auction result,
+            not a live listing and not a marketplace's market price. Card images are PriceCharting's. The ranking spans
+            every language, because their Pokemon catalogue is not split by one and roughly half of the top
+            100 is Japanese. Pokemon and all Pokemon names are trademarks of The Pokemon Company. This is fan
+            content.</p>
+        </div>
+        </div>
+
+        <p class="cm-how cm-other"><a href="/games/">The other games</a> are a silhouette round, a set guesser, a trivia
+          run and an arcade game. <a href="/most-valuable-cards.html">The list this deck comes from</a> has all
+          100 with the source on every row.</p>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <nav class="foot-nav" aria-label="Footer">
+      <div class="foot-col">
+        <p class="foot-h">The channel</p>
+        <a href="/videos.html">Rips</a>
+        <a href="/playlists.html">Playlists</a>
+        <a href="/hall.html">Best pulls</a>
+        <a href="/wanted.html">Most wanted</a>
+        <a href="/luck.html">Rip results</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Cards</p>
+        <a href="/cards.html">Card search</a>
+        <a href="/search.html">Search the site</a>
+        <a href="/pokemon/">By Pokemon</a>
+        <a href="/what-set.html">What set is it</a>
+        <a href="/rarity.html">Rarity guide</a>
+        <a href="/types.html">Card types</a>
+        <a href="/base-set.html">Base Set prints</a>
+        <a href="/fake-cards.html">Fakes</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Sets</p>
+        <a href="/sets/">Set guides</a>
+        <a href="/expansions.html">All English sets</a>
+        <a href="/upcoming.html">Coming next</a>
+        <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/topps.html">Topps cards</a>
+        <a href="/first-partner-illustration-collection.html">First Partners</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Prices</p>
+        <a href="/msrp.html">MSRP check</a>
+        <a href="/pack-prices.html">Pack prices</a>
+        <a href="/how-many-packs.html">Packs per box</a>
+        <a href="/openings/">Sealed products</a>
+        <a href="/most-valuable-cards.html">Raw top 100</a>
+        <a href="/most-expensive-sealed.html">Sealed top 100</a>
+        <a href="/top-graded.html">PSA 10 top 100</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Buy, sell, grade</p>
+        <a href="/start.html">Start here</a>
+        <a href="/what-to-buy.html">Beginner buys</a>
+        <a href="/buying.html">Where to buy</a>
+        <a href="/retailers.html">Chain stores</a>
+        <a href="/drops.html">Restocks</a>
+        <a href="/selling.html">Where to sell</a>
+        <a href="/will-it-grade.html">Will it grade</a>
+        <a href="/grading.html">Grading cost</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Playing</p>
+        <a href="/how-to-play.html">How to play</a>
+        <a href="/tcg-live.html">Code cards</a>
+        <a href="/tcg-pocket.html">TCG Pocket app</a>
+        <a href="/decks.html">Deck builds</a>
+        <a href="/top-100-playable.html">Most played</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Just for fun</p>
+        <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
+        <a href="/lore.html">Pokemon lore</a>
+        <a href="/evolution.html">Evolution chart</a>
+        <a href="/eevee-evolutions.html">Eevee evolutions</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Rochester, NY</p>
+        <a href="/card-shows.html">Card shows</a>
+        <a href="/shops.html">Card shops</a>
+        <a href="/vendors.html">Local vendors</a>
+        <a href="/creators.html">Local creators</a>
+        <a href="/garbage-plate.html">Garbage Plate</a>
+        <a href="/about.html">About</a>
+      </div>
+    </nav>
+    <!--FOOT_SUB:START-->
+    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    <a class="btn btn-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
+      aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe on YouTube</a>
+    <p>A new rip most days. Every pack we open goes up, hit or no hit.</p>
+    <!--FOOT_SUB:END-->
+    <div class="foot-social">
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+    </div>
+    <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank" aria-label="See the whole collection on Collectr, opens on their site">See the whole collection on Collectr &rarr;</a></p>
+    <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
+    Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+  </div>
+</footer>
+<script type="application/json" id="cmConf">{"tiers":[["s",6,9.2],["m",8,12.4],["l",12,18.9]],"flip":320,"hold":900,"prefix":"https://storage.googleapis.com/images.pricecharting.com/","rend":"/240.jpg"}</script>
+<script type="application/json" id="cmPool">[["Illustrator Pikachu","Japanese Promo",585600,"enkogkctw4a4cc4b"],["No. 1 Trainer: Champion Road Mega Battle","Japanese Promo",103700,"ljtggkbzgleocszo"],["Master's Scroll [Holo] #55/L-P","Japanese Promo",57355,"3389a61cc33823580cc2913c5d51c3726bc770793df7dd39e304f14add947371"],["Mew Ex #3/SV-P","Chinese Promo",14800,"fykyefr47nppncle"],["Beta Chansey #1995","25th Anniversary Creatures Deck",11939,"fbh6o7rnbjrhh5gf"],["Rayquaza [Gold Star] #107","Deoxys",10669,"7bxilsmsywql2lf4"],["Victory Ring [Spring Battle Road]","Japanese Promo",9702,"beb9e6ff7e4432b8a91e8315c226c8aeb2e330495570099d6ad4e7af7be990fe"],["Dragonite [Tekno] #149","2000 Topps Chrome",8765,"naaklnczsacixzos"],["Charizard [Sparkle] #6","2000 Topps Chrome",8600,"z6ptwskei6c44oyx"],["Voltorb [Cosmos Professor Program] #100","Scarlet & Violet 151",8500,"qunmfq5sv6k6y7s2"],["Mew Ex [Ultra Ball League] #151","Scarlet & Violet 151",7760,"qo3yqygxkmtqirsy"],["Spikey-Eared Pichu [Televi-Kun Winner]","Japanese Promo",7500,"40893e095554c649cc354db0e34da039c08dbec893bb4f44a93f8c2b45b81380"],["Spikey-Eared Pichu [2nd Grade Winner]","Japanese Promo",7499,"h2cijxy7salok2z5"],["Pikachu [Xime]","Art Academy",7000,"091c47e7fd290c2feafb80cea59562e3cdc2b25d068825fd0a082a3cc69c4905"],["Pikachu 20th Anniversary Festa #279/XY-P","Japanese Promo",6416,"wvulrwkgfps34roz"],["Espeon [Daisuki Club] #53/L-P","Japanese Promo",6415,"qhu7ebcjwtsl2fjr"],["Tropical Wind [Tropical Mega Battle]","Japanese Promo",6369,"rvh4hkljcalbztgw"],["Charizard #89","Japanese Mysterious Mountains",6286,"4a0aa7d0e0a1e2238df935c9b0d1e8f3cbcbe9457ae14e0ea21b918c9ddaa5bf"],["Rayquaza [1st Edition] #67","Japanese Clash of the Blue Sky",6261,"g3jbkqamojlknnsc"],["Umbreon [Gold Star] #17","POP Series 5",6182,"18a487e2ef2a60bb7342532094af9d7656a6a2d1797bc10b848b37a64e6a5eb3"],["Snorlax [Tekno] #143","2000 Topps Chrome",6000,"neqhdtu35aehrwis"],["Kecleon [Scarlett]","Art Academy",6000,"43ac5a2fe3027353d133472ee8084d4d19700a2664f398f1fbe525bfc0159a38"],["Mew Ex [Play] #7","Japanese Player's Club",5994,"e6fd64b3c90a6b0ee866f2a5198bec9d189d4618e45dce7397da9ffc400b1881"],["Umbreon [Gym Promo] #140/XY-P","Japanese Promo",5900,"5dkz6soaebtr6fb6"],["Illusion's Zorua [Pokemon Fan] #L-P","Japanese Promo",5798,"yy6wqulrkf55qioj"],["Poncho-Wearing Pikachu #207/XY-P","Japanese Promo",5750,"7366fb520378e5670162355b26cddd4f24a096157734ba1a6a8f21d658e71066"],["Charizard [No Rarity] #6","Japanese Expansion Pack",5602,"e2c34ac1fcfd9b41918a4d36a2a664982fc3982dd77a98a4c516de9d3b152405"],["Charizard [1st Edition] #4","Base Set",5500,"gmkd37jg7haprczl"],["Articuno [Tekno] #144","2000 Topps Chrome",5500,"am4zatpfp3v7324q"],["Charizard #146","Skyridge",5399,"bd96c0864982e5728f6865cb53b48cef4ff034eae52a496e594c40eca129a79a"],["Deoxys [Stadium Challenge] #16","Deoxys",5250,"n7glwqp5scaglxzo"],["Espeon [Gold Star] #16","POP Series 5",5183,"2ed0a8e8f070e2c9860e57a9d52d0f9627aa59aef90670f9b8b8f856a2231f30"],["Shining Magikarp [600 Fan Club] #129","Japanese Awakening Legends",5176,"5def5d3d0a664f3d40259278821dad124ec0aa890ef16d693e7252fa75cca162"],["Mimikyu #289/SM-P","Japanese Promo",4789,"r6lwxt4acnirw7gn"],["Mario Pikachu #294/XY-P","Japanese Promo",4683,"r6adn2pfxnwkbvt3"],["Pretend Team Skull Pikachu #13/SM-P","Japanese Promo",4674,"2k47cume32rrtjdp"],["Pikachu [Mega Tokyo's] #204/XY-P","Japanese Promo",4650,"uqitx6ji3q74xc62"],["University Magikarp [Tamamushi University Prize] #129","Japanese Promo",4644,"7c7341642d1bcaa012c7a9627c0fd2834bfc114dc88b34cbe605d3445f979e10"],["Charizard EX #276/XY-P","Japanese Promo",4619,"p22bb5gqqo55e2za"],["Poncho-Wearing Pikachu Charizard #208/XY-P","Japanese Promo",4309,"c39f90a8a30698f6e4b4a0da19c4c4472907a17bec6ff1e370bc693e31ebbd2a"],["Vaporeon [Tekno] #134","2000 Topps Chrome",4269,"corrq4p7au676ia42a5z"],["Charizard [1st Edition] #89","Japanese Mysterious Mountains",4250,"2f227237ac7e8b406d237c73920f29aa3387707cf30f7813cd7d53727a900a62"],["Poncho-Wearing Pikachu #231/XY-P","Japanese Promo",4243,"87a17da914156f967b710ce2ae8c8e50e7776054df68ba48828a351dbb9b28ac"],["Chespin [Gabi]","Art Academy",4200,"83c50a433425c8dcb82d469baad146c27c37d8ebe6617ebe1d1d6ece22dd8f1a"],["Lugia [1st Edition] #90","Japanese Wind from the Sea",4185,"corripocpp4xrwppglcs"],["Mew [Phanpy]","Art Academy",4174,"4359d072bc25c687f607d02607ae759368e27d18aa48338a5b90004f94dbd35f"],["Pikachu #288/SM-P","Japanese Promo",4144,"7f5a73ae1b86028a880208648facf9697fe87fda82d1fffb73f58a959ff40257"],["Gengar [Masaki] #94","Japanese Vending",4138,"84a375511f45b3e38b02f04078766e9fa523ba927ab6697bb9b23a0120b5f618"],["Eevee [500 Pt. Fan Club] #133","Japanese Promo",4027,"a700f1b2422e164621739b29fbfff8145ef018926190ef31093801178ed87e7c"],["Lugia","2000 Topps Movie First Appearance",3980,"320565db713edacd2293f96ef32ba5af3e37c7d411d99f1b2a7e69d95db9dd81"],["Charizard [Gold Star] #52","Japanese Offense and Defense of the Furthest Ends",3971,"pyj6rlhijndyh4y7"],["Charizard [Gold Star] #100","Dragon Frontiers",3836,"67ae70399e65038aeb665991d9e1fc289c5304aebc69eaf1c071ec5b1ec293bc"],["Luigi Pikachu #296/XY-P","Japanese Promo",3827,"e68ebe63748bb02dfd0f4e70777547b7d99c1857b77014aed4c369d226942da8"],["Mega Charizard Y ex #766","Japanese Start Deck 100 Battle Collection",3799,"u56mkvs524mihbnz"],["Charizard [For Position Only] #39","Expedition",3786,"bb38f82a92cee21adc3e2a1b4d1f80a6c75e06cb3751c6aa78b7354d46bfb2db"],["Mudkip [Gold Star 1st Edition] #33","Japanese Rocket Gang Strikes Back",3774,"i35lvonebw6bs4yy"],["Pretend Gyarados Pikachu #151/XY-P","Japanese Promo",3736,"pmao4pzdelrqetcr"],["Shining Magikarp [1st Edition Double Holo Error] #66","Neo Revelation",3700,"ijv6jd6bv27hudyv"],["Gengar #47","Japanese Web",3659,"41b2190799efb89e0d2c272886daf569f53d2763e562ad8ddeaeb663cb42ef01"],["Magikarp [Tekno] #129","2000 Topps Chrome",3606,"tn3dtj3fsh6tz4c6"],["Gyarados [Tekno] #130","2000 Topps Chrome",3549,"corrdts7xiv7rk6t3thp"],["Pikachu [Gold Star] #104","Holon Phantoms",3520,"3874eafb1668ec96a5359d803d6fc3203c2918234f39e679591cd20837f17cc1"],["Shining Gyarados [1st Edition Double Holo Error] #65","Neo Revelation",3450,"5jzyccsmxgbixl4e"],["Lillie #397/SM-P","Japanese Promo",3400,"z5vct4ap3wjuqzhq"],["Gengar [Sparkle] #94","2000 Topps Chrome",3200,"cb73522e0b55b474453837dc57222c4be15c66cf409a63b3bb3a687ac3ffc319"],["Mario Pikachu #293/XY-P","Japanese Promo",3163,"b288bb77eccf273692d77434eefe976389557756b7c346438890cb34ba6a5af0"],["Mudkip [Gold Star] #107","Team Rocket Returns",3050,"4aef126edd35b1d4bf31e559df058bad0020b1f176d802e0812b9667ce0ab007"],["Gengar [Tekno] #94","2000 Topps Chrome",3031,"mxy4tkpxdegh7kag"],["Illusion's Zorua [Chosen Prize] #L-P","Japanese Promo",3000,"kbikwhi45owlrblt"],["Manhole [For Position Only]","Expedition",3000,"8e1629917e1d48221d36ba708e9fbf72299e877e57dd10f7583790a9aa6ab9fd"],["Lugia #149","Aquapolis",3000,"a0f2bb0216dc9e3c2ec08e57a8698598990dfe82e36ba76e8b90f2006fabd5a6"],["Krabby [Tekno] #98","2000 Topps Chrome",2999,"ref8de14e1696ad95b845b0a980b3103a15549fe9b8e69533fb469ede90c39d2c79"],["Muk [Tekno] #89","2000 Topps Chrome",2999,"ref2c09eafdf0c21261181ce1f3623d0b1fa5d8e38e7cf6a6d9e9f0e2f646bf5c71"],["Riolu [Staff] #91","Platinum",2900,"usyzyrkzk53zw4gv"],["Torchic [Gold Star] #108","Team Rocket Returns",2825,"6d4a6b5d570d1c6a1351b811e6c0855f7b045c5d88cbb409db10936bbc86fe56"],["Pretend Magikarp Pikachu #150/XY-P","Japanese Promo",2802,"fdkzzledxhji57go"],["Gengar #H9","Skyridge",2750,"ae47d25aebf825d85762e4ad6084d52851500691a85a884bf84804a89535ba97"],["Budew [Premier Ball League Judge] #4","Prismatic Evolutions",2713,"t2aj35o4es7otzwu"],["Victini Ex [Winner] #114/SV-P","Chinese Promo",2650,"ngzin5hlmk464bnv"],["Clefable [For Position Only] #41","Expedition",2601,"e37303ab03deee6311ab6f233e551e72dff63a0d53563638a3c86573d104c0b1"],["Rayquaza #67","Japanese Clash of the Blue Sky",2591,"corrf5myrpmjjmai73td"],["Shining Mewtwo [1st Edition] #109","Neo Destiny",2525,"ed5b56578c2f5ee881b97e741d0a3cabab075e139c13369cfe58ea8a97d765a1"],["Poncho-Wearing Pikachu #230/XY-P","Japanese Promo",2515,"d07744feeaf363aef9168c3afd00b1d2cc5c401018c383a0c7d4235a8099693c"],["Treecko [Gold Star] #109","Team Rocket Returns",2502,"24e37b0d9a0ffe9cac76a1b5a07dfd75009649d173a4501d0bca9beb798ec265"],["Raikou #64/L-P","Japanese Promo",2500,"u7wt3prguwzyceya"],["Dugtrio [For Position Only] #44","Expedition",2500,"3a528e8dd0f38a13ccb13569205db9d1431cf14fb45b017525fa7df78189202f"],["Rayquaza VMAX #83","Japanese Blue Sky Stream",2450,"ofbt6h4m3eonw64c"],["Erika #1998","25th Anniversary Creatures Deck",2450,"260bee200bd806ba85fe9665fd17709e437b3e81d70f8bb5184d39834de50f43"],["Acerola #56","Japanese Facing a New Trial",2397,"97d8976921f10ce3ad539a59cdc98a3f8a93ec25c74a591b475fcf728b2e67a3"],["Charizard [Gold Star 1st Edition] #52","Japanese Offense and Defense of the Furthest Ends",2376,"e5xq3g6ou4zeoyrm"],["Hypno [Sparkle] #97","2000 Topps Chrome",2375,"corrtm45tqnysssxrdbu"],["Gengar [1st Edition] #47","Japanese Web",2345,"9e3da0d361545bc80a61f1db56e5a815c93471446ad508de3939ee113bc912c5"],["Mew [Battle Festa] #XY-P","Japanese Promo",2315,"a72abd244aae3311e500e52b143c44f2f229b3ef8c5f6fc3df5a0f0298d6ccd2"],["Voltorb [Professor Program] #100","Scarlet & Violet 151",2300,"2kjty7ld2q4s2wq4"],["Tropical Wind #DP05","Promo",2297,"5a76523fd26bb43e8b220859f1859b6f352d25348585efa7fe8ea3d63451ae1e"],["Vaporeon [Gold Star] #22","Japanese Promo",2285,"3hvkao6msfi2yfv7"],["Poncho-Wearing Pikachu #274/XY-P","Japanese Promo",2240,"2d32de20445a9a53b88d1d3d87327c9f874effcd16a0ba2c37daef66a89e8f1e"],["Charizard [Reverse Holo] #3","Legendary Collection",2240,"pjdq4sbshwrx7hhn"],["Charizard [Reverse Holo] #146","Skyridge",2228,"08c913d69317c09271dd55e39f1291598b7146e963646b6921531a70e3c210b4"],["Umbreon VMAX #215","Evolving Skies",2225,"tbzk7g5d36blsr7e"]]</script>
+<script>(function () {
+  "use strict";
+  var board = document.getElementById("cmBoard");
+  var gridEl = document.getElementById("cmGrid");
+  var conf = null, POOL = null;
+  try { conf = JSON.parse(document.getElementById("cmConf").textContent); } catch (e) { conf = null; }
+  try { POOL = JSON.parse(document.getElementById("cmPool").textContent); } catch (e) { POOL = null; }
+  if (!board || !gridEl || !conf || !POOL || !POOL.length) return;
+  var TIERS = conf.tiers;
+  var FLIP = conf.flip;
+  var HOLD = conf.hold;
+  var IMG = conf.prefix;
+  var REND = conf.rend;
+  var movesEl = document.getElementById("cmMoves");
+  var pairsEl = document.getElementById("cmPairs");
+  var bestEl = document.getElementById("cmBest");
+  var sayEl = document.getElementById("cmSay");
+  var liveEl = document.getElementById("cmLive");
+  var overEl = document.getElementById("cmOver");
+  var overTitle = document.getElementById("cmOverTitle");
+  var overSub = document.getElementById("cmOverSub");
+  var overTotal = document.getElementById("cmTotal");
+  var overList = document.getElementById("cmOverList");
+  var againBtn = document.getElementById("cmAgain");
+  var tierBtns = [].slice.call(document.querySelectorAll(".cm-tier"));
+  var tier = TIERS[1][0], pairs = TIERS[1][1], parMoves = TIERS[1][2];
+  var cards = [];      // one entry per tile on the board
+  var up = [];         // the tiles face up and unresolved
+  var moves = 0, found = 0;
+  var foundRows = [];  // pool indexes matched this round, in the order found
+  var cols = 4, rowCount = 4;
+  var holdT = 0, holdLeft = 0, holdFrom = 0;
+  function startHold() {
+    holdLeft = FLIP + HOLD;
+    holdFrom = Date.now();
+    holdT = setTimeout(fireHold, holdLeft);
+  }
+  function fireHold() {
+    holdT = 0;
+    turnDown(up);
+    up = [];
+    relabel();
+  }
+  function cancelHold() {
+    if (!holdT) return false;
+    clearTimeout(holdT);
+    holdT = 0;
+    return true;
+  }
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+      if (holdT) {
+        holdLeft = Math.max(0, holdLeft - (Date.now() - holdFrom));
+        clearTimeout(holdT);
+        holdT = -1;
+      }
+    } else if (holdT === -1) {
+      holdFrom = Date.now();
+      holdT = setTimeout(fireHold, holdLeft);
+    }
+  });
+  var order = [], cursor = 0;
+  function shuffle(a) {
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+  function deal(n) {
+    var out = [];
+    while (out.length < n) {
+      if (cursor >= order.length) {
+        order = shuffle(POOL.map(function (row, i) { return i; }));
+        cursor = 0;
+      }
+      var idx = order[cursor++];
+      if (out.indexOf(idx) === -1) out.push(idx);
+    }
+    return out;
+  }
+  function readBest() {
+    try { return parseInt(localStorage.getItem("gr.chase." + tier), 10) || 0; } catch (e) { return 0; }
+  }
+  function writeBest(v) {
+    try { localStorage.setItem("gr.chase." + tier, String(v)); } catch (e) { /* nothing to do */ }
+  }
+  function money(n) { return "$" + Math.round(n).toLocaleString("en-US"); }
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+  function say(markup) { sayEl.innerHTML = markup; }
+  function announce(words) { liveEl.textContent = words; }
+  function payout(idx, tail) {
+    var row = POOL[idx];
+    return '<span class="cm-rank">#' + (idx + 1) + "</span> <b>" + esc(row[0]) + "</b>, " + esc(row[1]) +
+      '. <span class="cm-price">' + money(row[2]) + "</span> raw." + (tail ? " " + esc(tail) : "");
+  }
+  function shapeFor(n, wide) {
+    if (n === 12) return wide ? [4, 3] : [3, 4];
+    if (n === 24) return wide ? [6, 4] : [4, 6];
+    return [4, Math.ceil(n / 4)];
+  }
+  function build() {
+    var n = pairs * 2;
+    var picks = deal(pairs);
+    var deck = shuffle(picks.concat(picks));
+    var shape = shapeFor(n, window.innerWidth >= 1000);
+    cols = shape[0]; rowCount = shape[1];
+    cancelHold();
+    cards = []; up = []; moves = 0; found = 0; foundRows = [];
+    overEl.hidden = true;
+    gridEl.innerHTML = "";
+    gridEl.style.setProperty("--cm-cols", String(cols));
+    for (var i = 0; i < n; i++) {
+      var li = document.createElement("li");
+      li.className = "cm-cell";
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "cm-card";
+      btn.setAttribute("data-i", String(i));
+      btn.innerHTML =
+        '<span class="cm-inner">' +
+          '<span class="cm-face cm-back"><svg class="cm-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><use href="#cm-mark"></use></svg></span>' +
+          '<span class="cm-face cm-front"><img src="" alt="" decoding="async"></span>' +
+        "</span>";
+      btn.querySelector("img").src = IMG + POOL[deck[i]][3] + REND;
+      li.appendChild(btn);
+      gridEl.appendChild(li);
+      cards.push({ el: btn, idx: deck[i], done: false, up: false });
+    }
+    relabel();
+    gridEl.setAttribute("aria-label", "Board, " + n + " cards, " + pairs + " pairs to find");
+    movesEl.textContent = "0";
+    pairsEl.textContent = "0 of " + pairs + " pairs";
+    paintBest();
+    say("Tap any card to start. " + pairs + " pairs, dealt from the " + POOL.length +
+      " most valuable ungraded cards in Pokemon.");
+    announce("");
+    fit(true);
+  }
+  function paintBest() {
+    var b = readBest();
+    bestEl.textContent = b ? "Best " + b : "No best yet";
+  }
+  var probe = document.createElement("div");
+  probe.setAttribute("aria-hidden", "true");
+  probe.style.cssText = "position:fixed;top:0;left:0;width:0;height:100svh;visibility:hidden;pointer-events:none";
+  document.body.appendChild(probe);
+  function smallVH() { return probe.offsetHeight || document.documentElement.clientHeight; }
+  var lastFit = "";
+  function fit(force) {
+    if (!cards.length) return;
+    if (force) lastFit = "";
+    var gap = window.innerWidth < 380 ? 5 : 7;
+    var r = board.getBoundingClientRect();
+    var top = r.top + (window.scrollY || window.pageYOffset || 0);
+    var availH = Math.max(160, smallVH() - top - 108);
+    var availW = Math.max(160, r.width);
+    var byW = (availW - (cols - 1) * gap) / cols;
+    var byH = ((availH - (rowCount - 1) * gap) / rowCount) * (63 / 88);
+    var cw = Math.max(44, Math.min(118, Math.floor(Math.min(byW, byH))));
+    var key = cw + "/" + gap + "/" + cols;
+    if (key === lastFit) return;
+    lastFit = key;
+    gridEl.style.setProperty("--cm-cw", cw + "px");
+    gridEl.style.setProperty("--cm-gap", gap + "px");
+  }
+  window.addEventListener("resize", function () { fit(true); });
+  window.addEventListener("orientationchange", function () { fit(true); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fit(true); });
+  function label(card, i) {
+    var where = "Card " + (i + 1) + " of " + cards.length;
+    if (card.done) return where + ", " + POOL[card.idx][0] + ", matched";
+    if (card.up) return where + ", " + POOL[card.idx][0] + ", face up";
+    return where + ", face down";
+  }
+  function relabel() {
+    for (var i = 0; i < cards.length; i++) {
+      cards[i].el.setAttribute("aria-label", label(cards[i], i));
+      if (cards[i].done) cards[i].el.setAttribute("aria-disabled", "true");
+      else cards[i].el.removeAttribute("aria-disabled");
+    }
+  }
+  function turnDown(list) {
+    for (var i = 0; i < list.length; i++) {
+      list[i].up = false;
+      list[i].el.classList.remove("is-up");
+    }
+  }
+  function flip(i) {
+    var card = cards[i];
+    if (!card || card.done || card.up || found === pairs) return;
+    if (cancelHold()) { turnDown(up); up = []; }
+    card.up = true;
+    card.el.classList.add("is-up");
+    up.push(card);
+    relabel();
+    if (up.length < 2) {
+      say(payout(card.idx, ""));
+      return;
+    }
+    moves += 1;
+    movesEl.textContent = String(moves);
+    var first = POOL[up[0].idx][0], second = POOL[up[1].idx][0];
+    if (up[0].idx === up[1].idx) {
+      var idx = card.idx;
+      found += 1;
+      foundRows.push(idx);
+      for (var k = 0; k < up.length; k++) {
+        up[k].done = true;
+        up[k].up = false;
+        up[k].el.classList.remove("is-up");
+        up[k].el.classList.add("is-done");
+      }
+      up = [];
+      pairsEl.textContent = found + " of " + pairs + " pairs";
+      relabel();
+      say(payout(idx, "Matched, " + found + " of " + pairs + "."));
+      announce(first + ". Match, " + found + " of " + pairs + " pairs found.");
+      if (found === pairs) win();
+      return;
+    }
+    say(payout(card.idx, "No match."));
+    announce(first + " and " + second + ". No match.");
+    startHold();
+  }
+  function win() {
+    var best = readBest();
+    var record = !best || moves < best;
+    if (record) { writeBest(moves); paintBest(); }
+    var total = 0, html = "";
+    for (var i = 0; i < foundRows.length; i++) {
+      var row = POOL[foundRows[i]];
+      total += row[2];
+      html += "<li><b>" + esc(row[0]) + "</b><span>" + money(row[2]) + "</span></li>";
+    }
+    overTitle.textContent = record ? "New best: " + moves + " moves" : "Cleared in " + moves + " moves";
+    overSub.textContent = "A perfect memory, played perfectly, averages " + parMoves +
+      " moves on " + pairs + " pairs. The floor is " + pairs + "." +
+      (record || !best ? "" : " Your best is " + best + ".");
+    overTotal.textContent = money(total);
+    overList.innerHTML = html;
+    overEl.hidden = false;
+    overEl.focus();
+    announce("Board cleared in " + moves + " moves. " + money(total) + " of raw cardboard matched.");
+  }
+  gridEl.addEventListener("click", function (e) {
+    var btn = e.target.closest ? e.target.closest(".cm-card") : null;
+    if (!btn) return;
+    flip(parseInt(btn.getAttribute("data-i"), 10));
+  });
+  gridEl.addEventListener("keydown", function (e) {
+    var btn = e.target.closest ? e.target.closest(".cm-card") : null;
+    if (!btn) return;
+    var i = parseInt(btn.getAttribute("data-i"), 10);
+    var row = Math.floor(i / cols);
+    var to = -1;
+    if (e.key === "ArrowRight") to = i + 1;
+    else if (e.key === "ArrowLeft") to = i - 1;
+    else if (e.key === "ArrowDown") to = i + cols;
+    else if (e.key === "ArrowUp") to = i - cols;
+    else if (e.key === "Home") to = row * cols;
+    else if (e.key === "End") to = Math.min(cards.length - 1, row * cols + cols - 1);
+    else return;
+    e.preventDefault();
+    if (to >= 0 && to < cards.length) cards[to].el.focus();
+  });
+  againBtn.addEventListener("click", function () {
+    build();
+    if (cards.length) cards[0].el.focus();
+  });
+  for (var b = 0; b < tierBtns.length; b++) {
+    tierBtns[b].addEventListener("click", function (e) {
+      var id = e.currentTarget.getAttribute("data-tier");
+      setTier(id);
+      try { localStorage.setItem("gr.chase.tier", id); } catch (err) { /* nothing to do */ }
+      build();
+    });
+  }
+  function setTier(id) {
+    for (var t = 0; t < TIERS.length; t++) {
+      if (TIERS[t][0] === id) { tier = id; pairs = TIERS[t][1]; parMoves = TIERS[t][2]; }
+    }
+    for (var q = 0; q < tierBtns.length; q++) {
+      tierBtns[q].setAttribute("aria-pressed", tierBtns[q].getAttribute("data-tier") === tier ? "true" : "false");
+    }
+  }
+  var saved = null;
+  try { saved = localStorage.getItem("gr.chase.tier"); } catch (e) { saved = null; }
+  setTier(saved || "m");
+  order = shuffle(POOL.map(function (row, i) { return i; }));
+  build();
+})();</script>
+<script src="/assets/app.js?v=ae4e5a0b" defer></script>
+</body>
+</html>

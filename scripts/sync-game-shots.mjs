@@ -131,6 +131,78 @@ const SHOTS = [
     },
   },
   {
+    key: "chase-match",
+    page: "/games/chase-match.html",
+    file: "chase-match-screenshot.webp",
+    // The board and the line under it. The line is half the game: it is where a
+    // match tells you what you just paired up and what a raw copy of it costs,
+    // and a shot of the grid alone would be a shot of a memory game rather than
+    // a shot of THIS one.
+    clip: [".cm-board", ".cm-say"],
+    // A MID-ROUND BOARD, NOT A FRESH DEAL AND NOT A WIN PANEL. A fresh deal is
+    // sixteen identical rectangles, which says nothing about the game and
+    // everything about the back; the win panel covers the board entirely. Two
+    // matched pairs is the state that holds all four things a reader needs: the
+    // drawn back, a real card face, what a match looks like, and the payout.
+    //
+    // IT IS DETERMINISTIC WITHOUT DEPENDING ON THE SEED. The seeded Math.random
+    // makes the DEAL reproducible, but which tile index holds which card is not
+    // something this file should have to know, so ready() reads the pairs off
+    // the images the board actually rendered and clicks two of them. That
+    // survives a change to the shuffle, to the pool and to the tier order,
+    // which a hardcoded pair of indexes would not.
+    // WRITTEN OFF THE PIXELS, NOT OFF THE MARKUP, which is the rule this file's
+    // header sets and which the Garbage Run entry above records getting wrong
+    // in the other direction. The first draft said "the drawn Garbage Rips
+    // back", and the back does not carry those words: opening the capture, it
+    // is a green field with a circular plate emblem and 585 under it. What the
+    // description does NOT do is name the two cards that came up, because that
+    // is true of this seed and nothing else.
+    // IT SAID "IN GOLD FRAMES" AND THE FRAME IS NOT GOLD, which is CLAUDE.md's
+    // token-name trap arriving in a caption: a matched card was edged in
+    // var(--gold), and --gold on this site resolves to #609CBB, a teal. The
+    // treatment has since changed again and the description was rewritten off
+    // the capture a second time. It does not claim the matched pair looks
+    // dimmed either, because in this shot it does not: the rule is there and
+    // both cards that came up are saturated enough to shrug it off.
+    shows:
+      "A Chase Match board mid-round: a four by four grid where twelve cards are face down showing the drawn back, a green field with a circular Garbage Plate emblem and 585 beneath it, and four are turned up as two matched pairs of real Pokemon card scans, over a line giving the rank, name, set and raw price of the last card found",
+    assert: `(function(){var b=document.querySelectorAll('#cmGrid .cm-card');` +
+      `if(b.length!==16)return 'expected 16 cards, got '+b.length;` +
+      `var done=document.querySelectorAll('#cmGrid .cm-card.is-done');` +
+      `if(done.length!==4)return 'expected 4 matched cards, got '+done.length;` +
+      `for(var i=0;i<done.length;i++){var m=done[i].querySelector('img');` +
+      `if(!m||!m.naturalWidth)return 'a matched card scan did not decode';}` +
+      `if(document.querySelectorAll('#cmGrid .cm-card.is-up').length)return 'a card was still mid-flip';` +
+      `var s=document.getElementById('cmSay');` +
+      `if(!s||!/\\$/.test(s.textContent))return 'the payout line has no price in it';` +
+      `if(!document.getElementById('cmOver').hidden)return 'the win panel is showing';return '';})()`,
+    async ready(run) {
+      // Wait for every scan in the round to decode. A card whose picture has
+      // not arrived photographs as an empty navy rectangle, which is a true
+      // picture of a slow connection and a false picture of the game.
+      for (let i = 0; i < 60; i++) {
+        const ready = await run.eval(
+          `[].slice.call(document.querySelectorAll('#cmGrid img')).every(function(m){return m.complete&&m.naturalWidth;})`
+        );
+        if (ready) break;
+        await run.wait(250);
+      }
+      // Find two pairs off the rendered board and match them. Same src is the
+      // same card, which is what a pair IS here.
+      await run.eval(
+        `(function(){var b=[].slice.call(document.querySelectorAll('#cmGrid .cm-card'));` +
+          `var seen={},pairs=[];` +
+          `for(var i=0;i<b.length;i++){var s=b[i].querySelector('img').src;` +
+          `if(seen[s]!==undefined)pairs.push([seen[s],i]);else seen[s]=i;}` +
+          `for(var p=0;p<2&&p<pairs.length;p++){b[pairs[p][0]].click();b[pairs[p][1]].click();}` +
+          `return pairs.length;})()`
+      );
+      // Longer than the 320ms flip, so nothing is caught mid-turn.
+      await run.wait(900);
+    },
+  },
+  {
     key: "whos-that-pokemon",
     page: "/games/whos-that-pokemon.html",
     file: "whos-that-pokemon-screenshot.webp",
