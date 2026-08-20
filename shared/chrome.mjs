@@ -912,6 +912,17 @@ ${links.map(([href, label]) => `        <a href="${href}">${label}</a>`).join("\
  * it was the one block NOT guarded, and it is the one that drifted.
  */
 export const FOOT_SUB = `<!--FOOT_SUB:START-->
+    ${/* THE BADGE LIVES IN FOOT_SUB AND THAT IS NOT WHERE IT BELONGS SEMANTICALLY.
+          It is a brand mark and this constant is the Subscribe block. It is here
+          because this is the only guarded region between the footer nav and
+          .foot-social, and sync-chrome.mjs copies exactly that span into the
+          eight hand-maintained pages. Put the mark outside it and those eight
+          pages silently do not get it -- which is the drift this file's own
+          header calls out as having already happened once to the footer nav.
+          If a FOOT_MARK block is ever split out, add it to BLOCKS in
+          sync-chrome.mjs in the same commit or it will not travel. */ ""}
+    <img class="foot-mark" src="/assets/made-in-roc.webp" width="256" height="218"
+      alt="The Garbage Rips 585 badge: a Rochester manhole cover carrying the city's flower emblem, with Trubbish in the middle and the words MADE IN ROC across the bottom" loading="lazy" decoding="async">
     <p class="foot-tag">Grab a fork. Let's rip.</p>
     <a class="btn btn-sub" href="${SUBSCRIBE}" rel="noopener" target="_blank"
       aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe on YouTube</a>

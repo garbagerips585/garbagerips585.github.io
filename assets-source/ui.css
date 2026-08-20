@@ -1053,10 +1053,10 @@ main{padding:var(--s4) 0 var(--s8)}
   border:1px solid rgba(255,255,255,.18);font:700 var(--t-sm)/1 var(--body)}
 .socials a:hover{background:rgba(255,255,255,.16)}
 .socials i{width:12px;height:12px;border-radius:50%;background:var(--pip);flex:none}
-.roc{display:flex;align-items:center;gap:var(--s4);margin-top:var(--s6);
-  padding-top:var(--s5);border-top:1px solid rgba(255,255,255,.15)}
-.roc img{width:128px;flex:none}
-.roc p{margin:0;font:700 var(--t-micro)/1.6 var(--mono);letter-spacing:.03em;color:var(--chrome-dim)}
+/* The 585 band's mark moved into the footer on 20 August 2026, on Tim's ask, so
+   it sits on all 1,486 pages instead of two. The band it came from is gone and
+   .roc went with it -- the copy beside it went too, by the same ask. */
+.foot-mark{display:block;width:88px;height:auto;margin:0 auto var(--s4)}
 footer{padding:var(--s6) 0;text-align:center}
 footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spacing:.03em}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}

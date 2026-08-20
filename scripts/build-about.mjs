@@ -142,9 +142,6 @@ const style = `
   border:1px solid var(--hair);font:600 var(--t-sm)/1 var(--body)}
 .about-socials a:hover{border-color:var(--ink)}
 .about-socials i{width:11px;height:11px;border-radius:50%;background:var(--pip);flex:none}
-.about-roc{display:flex;align-items:center;gap:var(--s4)}
-.about-roc img{width:128px;flex:none}
-.about-roc p{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);letter-spacing:.03em;margin:0}
 
 /* THE ONE PICTURE ON THIS PAGE. It sits with the paragraph about the sealed
    wrapper because that paragraph describes an object, and the object exists:
@@ -261,11 +258,6 @@ ${SOCIALS.map(
     }"></i>${label}</a>`
 ).join("\n")}
           </div>
-        </div>
-
-        <div class="about-card about-roc">
-          <img src="/assets/made-in-roc.webp" width="256" height="218" alt="The Garbage Rips 585 badge: a Rochester manhole cover carrying the city's five-petal flower emblem, with Trubbish in the middle and the words MADE IN ROC across the bottom" loading="lazy" decoding="async">
-          <p>LILACS, LAKE EFFECT, AND A PLATE AT 2AM.</p>
         </div>
       </aside>
     </div>
