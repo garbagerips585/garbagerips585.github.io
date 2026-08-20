@@ -8,7 +8,7 @@
       "path": "rip/the-9th-pack-saved-the-box-h5mje3jbD48.html",
       "published": "2026-08-20",
       "duration": 24,
-      "views": 611,
+      "views": 649,
       "vertical": true,
       "short": true,
       "sets": [
@@ -26,7 +26,7 @@
       "path": "rip/is-rampardos-ex-a-real-hit-_RuAmy2dGL8.html",
       "published": "2026-08-19",
       "duration": 20,
-      "views": 967,
+      "views": 968,
       "vertical": true,
       "short": true,
       "sets": [
@@ -48,7 +48,7 @@
         }
       ],
       "packNumber": 9,
-      "openingType": "Sleeved Booster Pack",
+      "openingType": "Single Booster Pack",
       "packs": 1,
       "label": "Pitch Black Pack - Pack 9"
     },
@@ -183,7 +183,7 @@
         }
       ],
       "packNumber": 8,
-      "openingType": "Sleeved Booster Pack",
+      "openingType": "Single Booster Pack",
       "packs": 1,
       "label": "Pitch Black Pack - Pack 8"
     },
@@ -1062,7 +1062,7 @@
         }
       ],
       "packNumber": 2,
-      "openingType": "Sleeved Booster Pack",
+      "openingType": "Single Booster Pack",
       "packs": 1,
       "label": "Pitch Black Pack - Pack 2"
     },
@@ -2221,19 +2221,19 @@
           "set": null,
           "name": "First Partner Illustration Collection (Series 1)",
           "packs": 1,
-          "typed": false
+          "typed": true
         },
         {
           "set": "phantasmal-flames",
           "name": "phantasmal flames",
           "packs": 1,
-          "typed": false
+          "typed": true
         },
         {
           "set": "mega-evolution",
           "name": "mega evolution",
           "packs": 1,
-          "typed": false
+          "typed": true
         }
       ],
       "boxNumber": 6,
@@ -2409,19 +2409,19 @@
           "set": null,
           "name": "First Partner Illustration Collection (Series 1)",
           "packs": 1,
-          "typed": false
+          "typed": true
         },
         {
           "set": "phantasmal-flames",
           "name": "phantasmal flames",
           "packs": 1,
-          "typed": false
+          "typed": true
         },
         {
           "set": "mega-evolution",
           "name": "mega evolution",
           "packs": 1,
-          "typed": false
+          "typed": true
         }
       ],
       "boxNumber": 5,
@@ -2523,7 +2523,7 @@
         }
       ],
       "packNumber": 10,
-      "openingType": "Sleeved Booster Pack",
+      "openingType": "Single Booster Pack",
       "packs": 1,
       "label": "Perfect Order Pack - Pack 10"
     },
@@ -2555,7 +2555,7 @@
         }
       ],
       "packNumber": 10,
-      "openingType": "Sleeved Booster Pack",
+      "openingType": "Single Booster Pack",
       "packs": 1,
       "label": "Chaos Rising Pack - Pack 10"
     },
@@ -2587,7 +2587,7 @@
         }
       ],
       "packNumber": 9,
-      "openingType": "Sleeved Booster Pack",
+      "openingType": "Single Booster Pack",
       "packs": 1,
       "label": "Perfect Order Pack - Pack 9"
     },
@@ -2622,7 +2622,7 @@
         }
       ],
       "packNumber": 9,
-      "openingType": "Sleeved Booster Pack",
+      "openingType": "Single Booster Pack",
       "packs": 1,
       "label": "Chaos Rising Pack - Pack 9"
     },
@@ -2657,7 +2657,7 @@
         }
       ],
       "packNumber": 8,
-      "openingType": "Sleeved Booster Pack",
+      "openingType": "Single Booster Pack",
       "packs": 1,
       "label": "Perfect Order Pack - Pack 8"
     },
@@ -2692,7 +2692,7 @@
         }
       ],
       "packNumber": 8,
-      "openingType": "Sleeved Booster Pack",
+      "openingType": "Single Booster Pack",
       "packs": 1,
       "label": "Chaos Rising Pack - Pack 8"
     },
@@ -2724,7 +2724,7 @@
         }
       ],
       "packNumber": 7,
-      "openingType": "Sleeved Booster Pack",
+      "openingType": "Single Booster Pack",
       "packs": 1,
       "label": "Perfect Order Pack - Pack 7"
     },
@@ -2756,7 +2756,7 @@
         }
       ],
       "packNumber": 7,
-      "openingType": "Sleeved Booster Pack",
+      "openingType": "Single Booster Pack",
       "packs": 1,
       "label": "Chaos Rising Pack - Pack 7"
     },
@@ -3526,18 +3526,18 @@
       ],
       "pulls": [],
       "hasHit": false,
-      "packsOpened": 1,
+      "packsOpened": 2,
       "packsStated": true,
       "setPacks": [
         {
           "set": "ja-abyss-eye",
           "name": "abyss eye",
-          "packs": 1,
-          "typed": false
+          "packs": 2,
+          "typed": true
         }
       ],
       "openingType": "Japanese Single Booster Pack",
-      "packs": 1,
+      "packs": 2,
       "label": "Abyss Eye (JP) Pack"
     },
     {
@@ -3550,14 +3550,27 @@
       "vertical": true,
       "short": true,
       "sets": [
-        "phantasmal-flames",
-        "perfect-order"
+        "phantasmal-flames"
       ],
       "products": [
         "ex-premium"
       ],
       "pulls": [],
-      "label": "Phantasmal Flames ex Premium Collection"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "phantasmal-flames",
+          "name": "phantasmal flames",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 7,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Phantasmal Flames ex Premium Collection - Pack 7"
     },
     {
       "id": "R4TUGTf0Eb4",
@@ -3575,7 +3588,21 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Chaos Rising Booster Bundle"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 6,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Chaos Rising Booster Bundle - Pack 6"
     },
     {
       "id": "sS0fvyss7IM",
@@ -3587,14 +3614,30 @@
       "vertical": true,
       "short": true,
       "sets": [
-        "phantasmal-flames",
         "perfect-order"
       ],
       "products": [
         "ex-premium"
       ],
-      "pulls": [],
-      "label": "Phantasmal Flames ex Premium Collection"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Mega Clefable ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 6,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Perfect Order ex Premium Collection - Pack 6"
     },
     {
       "id": "_3gRDHTv1lQ",
@@ -3605,11 +3648,31 @@
       "views": 929,
       "vertical": true,
       "short": true,
-      "sets": [],
+      "sets": [
+        "perfect-order"
+      ],
       "products": [
         "ex-premium"
       ],
-      "pulls": []
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Mega Skarmory ex - Dobule Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 5,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Perfect Order ex Premium Collection - Pack 5"
     },
     {
       "id": "XjM6y2L7v1c",
@@ -3626,7 +3689,23 @@
       "products": [
         "japanese-pack"
       ],
-      "pulls": [],
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Goldeen - AR - Art Rare",
+      "hasHit": true,
+      "packsOpened": 2,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ja-abyss-eye",
+          "name": "abyss eye",
+          "packs": 2,
+          "typed": true
+        }
+      ],
+      "openingType": "Japanese Single Booster Pack",
+      "packs": 2,
       "label": "Abyss Eye (JP) Pack"
     },
     {
@@ -3644,7 +3723,23 @@
       "products": [
         "japanese-pack"
       ],
-      "pulls": [],
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Manectric - AR - Art Rare",
+      "hasHit": true,
+      "packsOpened": 2,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ja-abyss-eye",
+          "name": "abyss eye",
+          "packs": 2,
+          "typed": true
+        }
+      ],
+      "openingType": "Japanese Single Booster Pack",
+      "packs": 2,
       "label": "Abyss Eye (JP) Pack"
     },
     {
@@ -3662,8 +3757,25 @@
       "products": [
         "bundle"
       ],
-      "pulls": [],
-      "label": "Chaos Rising Booster Bundle"
+      "pulls": [
+        "ultra"
+      ],
+      "hitCard": "Mega Greninja ex - Double Silver Star - Ultra Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 5,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Chaos Rising Booster Bundle - Pack 5"
     },
     {
       "id": "xCDigA8yq1Y",
@@ -3681,7 +3793,21 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Chaos Rising Booster Bundle"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 4,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Chaos Rising Booster Bundle - Pack 4"
     },
     {
       "id": "lcxUwIjlqZY",
@@ -3692,11 +3818,31 @@
       "views": 1296,
       "vertical": true,
       "short": true,
-      "sets": [],
+      "sets": [
+        "perfect-order"
+      ],
       "products": [
         "ex-premium"
       ],
-      "pulls": []
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Meowth ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 4,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Perfect Order ex Premium Collection - Pack 4"
     },
     {
       "id": "0pRHwsEwo3g",
@@ -3707,11 +3853,28 @@
       "views": 959,
       "vertical": true,
       "short": true,
-      "sets": [],
+      "sets": [
+        "perfect-order"
+      ],
       "products": [
         "ex-premium"
       ],
-      "pulls": []
+      "pulls": [],
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 3,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Perfect Order ex Premium Collection - Pack 3"
     },
     {
       "id": "EKTgIGCiET4",
@@ -3729,6 +3892,19 @@
         "japanese-pack"
       ],
       "pulls": [],
+      "hasHit": false,
+      "packsOpened": 2,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ja-abyss-eye",
+          "name": "abyss eye",
+          "packs": 2,
+          "typed": true
+        }
+      ],
+      "openingType": "Japanese Single Booster Pack",
+      "packs": 2,
       "label": "Abyss Eye (JP) Pack"
     },
     {
@@ -3747,6 +3923,19 @@
         "japanese-pack"
       ],
       "pulls": [],
+      "hasHit": false,
+      "packsOpened": 2,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ja-abyss-eye",
+          "name": "abyss eye",
+          "packs": 2,
+          "typed": true
+        }
+      ],
+      "openingType": "Japanese Single Booster Pack",
+      "packs": 2,
       "label": "Abyss Eye (JP) Pack"
     },
     {
@@ -3765,7 +3954,21 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Chaos Rising Booster Bundle"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 3,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Chaos Rising Booster Bundle - Pack 3"
     },
     {
       "id": "1Kd_E966_4k",
@@ -3783,7 +3986,21 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Chaos Rising Booster Bundle"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 2,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Chaos Rising Booster Bundle - Pack 2"
     },
     {
       "id": "RLYq43B1KX0",
@@ -3794,11 +4011,28 @@
       "views": 1071,
       "vertical": true,
       "short": true,
-      "sets": [],
+      "sets": [
+        "perfect-order"
+      ],
       "products": [
         "ex-premium"
       ],
-      "pulls": []
+      "pulls": [],
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 2,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Perfect Order ex Premium Collection - Pack 2"
     },
     {
       "id": "BiBdyozoD_Q",
@@ -3815,8 +4049,25 @@
       "products": [
         "bundle"
       ],
-      "pulls": [],
-      "label": "Chaos Rising Booster Bundle"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Mega Pyroar ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 1,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Chaos Rising Booster Bundle - Pack 1"
     },
     {
       "id": "POLXPV2ZpXA",
@@ -3827,11 +4078,28 @@
       "views": 897,
       "vertical": true,
       "short": true,
-      "sets": [],
+      "sets": [
+        "perfect-order"
+      ],
       "products": [
         "ex-premium"
       ],
-      "pulls": []
+      "pulls": [],
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 1,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Perfect Order ex Premium Collection - Pack 1"
     },
     {
       "id": "7qgnakc3__c",
@@ -3849,7 +4117,21 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Perfect Order Booster Bundle"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 5,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Perfect Order Booster Bundle - Pack 5"
     },
     {
       "id": "l_vpvsLXG50",
@@ -3866,8 +4148,25 @@
       "products": [
         "bundle"
       ],
-      "pulls": [],
-      "label": "Perfect Order Booster Bundle"
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Doublade - Single Gold Star - Illustration Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 6,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Perfect Order Booster Bundle - Pack 6"
     },
     {
       "id": "23RED_g8uOE",
@@ -3885,7 +4184,21 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Chaos Rising Booster Bundle"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 6,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Chaos Rising Booster Bundle - Pack 6"
     },
     {
       "id": "qUzKnP4zmjM",
@@ -3902,8 +4215,25 @@
       "products": [
         "bundle"
       ],
-      "pulls": [],
-      "label": "Perfect Order Booster Bundle"
+      "pulls": [
+        "ultra"
+      ],
+      "hitCard": "Decidueye ex - Double Silver Star - Ultra Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 4,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Perfect Order Booster Bundle - Pack 4"
     },
     {
       "id": "vW8lkXEx3Ao",
@@ -3920,8 +4250,25 @@
       "products": [
         "bundle"
       ],
-      "pulls": [],
-      "label": "Ascended Heroes Booster Bundle"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Iono's Bellibolt - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 6,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Ascended Heroes Booster Bundle - Pack 6"
     },
     {
       "id": "16GEn7wSyuk",
@@ -3938,8 +4285,25 @@
       "products": [
         "bundle"
       ],
-      "pulls": [],
-      "label": "Chaos Rising Booster Bundle"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Mega Floette ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 5,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Chaos Rising Booster Bundle - Pack 5"
     },
     {
       "id": "i_YeXB489EY",
@@ -3957,7 +4321,21 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Chaos Rising Booster Bundle"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 4,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Chaos Rising Booster Bundle - Pack 4"
     },
     {
       "id": "wtUPdMnZ_S8",
@@ -3974,8 +4352,25 @@
       "products": [
         "bundle"
       ],
-      "pulls": [],
-      "label": "Perfect Order Booster Bundle"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Decidueye ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 3,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Perfect Order Booster Bundle - Pack 3"
     },
     {
       "id": "Y6rNMk6_kFs",
@@ -3992,8 +4387,25 @@
       "products": [
         "bundle"
       ],
-      "pulls": [],
-      "label": "Perfect Order Booster Bundle"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Mega Zygarde ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 2,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Perfect Order Booster Bundle - Pack 2"
     },
     {
       "id": "iPxD2pp1zHo",
@@ -4011,7 +4423,21 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Ascended Heroes Booster Bundle"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 5,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Ascended Heroes Booster Bundle - Pack 5"
     },
     {
       "id": "jAkffPVM-JA",
@@ -4028,8 +4454,25 @@
       "products": [
         "bundle"
       ],
-      "pulls": [],
-      "label": "Ascended Heroes Booster Bundle"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Mega Eelektross ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 4,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Ascended Heroes Booster Bundle - Pack 4"
     },
     {
       "id": "c-5u5X8BT_Y",
@@ -4046,8 +4489,25 @@
       "products": [
         "bundle"
       ],
-      "pulls": [],
-      "label": "Chaos Rising Booster Bundle"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Beedrill ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 3,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Chaos Rising Booster Bundle - Pack 3"
     },
     {
       "id": "JPzh3KWw084",
@@ -4065,7 +4525,21 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Perfect Order Booster Bundle"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 1,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Perfect Order Booster Bundle - Pack 1"
     },
     {
       "id": "xJyZLladJ0Q",
@@ -4083,7 +4557,21 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Chaos Rising Booster Bundle"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 2,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Chaos Rising Booster Bundle - Pack 2"
     },
     {
       "id": "APS_RnpORC8",
@@ -4101,7 +4589,21 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Chaos Rising Booster Bundle"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 1,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Chaos Rising Booster Bundle - Pack 1"
     },
     {
       "id": "kcmXPW6_Odo",
@@ -4119,7 +4621,21 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Ascended Heroes Booster Bundle"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 3,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Ascended Heroes Booster Bundle - Pack 3"
     },
     {
       "id": "xrJFDqGZjOs",
@@ -4137,7 +4653,21 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Ascended Heroes Booster Bundle"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 2,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Ascended Heroes Booster Bundle - Pack 2"
     },
     {
       "id": "CT5t8mKeZUw",
@@ -4155,8 +4685,21 @@
         "etb"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Prismatic Evolutions ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "prismatic-evolutions",
+          "name": "prismatic evolutions",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 9,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Prismatic Evolutions ETB - Pack 9"
     },
     {
       "id": "W2eIV9tya84",
@@ -4173,8 +4716,25 @@
       "products": [
         "bundle"
       ],
-      "pulls": [],
-      "label": "Ascended Heroes Booster Bundle"
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Vikavolt - Single Gold Star - Illustration Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 1,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Ascended Heroes Booster Bundle - Pack 1"
     },
     {
       "id": "2wZwMWDlxP0",
@@ -4192,8 +4752,21 @@
         "etb"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Prismatic Evolutions ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "prismatic-evolutions",
+          "name": "prismatic evolutions",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 8,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Prismatic Evolutions ETB - Pack 8"
     },
     {
       "id": "hbUa4l-xono",
@@ -4210,9 +4783,25 @@
       "products": [
         "single-pack"
       ],
-      "pulls": [],
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Team Rocket's Raticate - Single Gold Star - Illustration Rare",
       "hasHit": true,
-      "label": "Destined Rivals Pack"
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "destined-rivals",
+          "name": "destined rivals",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 12,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Destined Rivals Pack - Pack 12"
     },
     {
       "id": "Q26NJsmeVko",
@@ -4229,9 +4818,25 @@
       "products": [
         "etb"
       ],
-      "pulls": [],
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Tyranitar ex - Double Black Star - Double Rare",
       "hasHit": true,
-      "label": "Prismatic Evolutions ETB"
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "prismatic-evolutions",
+          "name": "prismatic evolutions",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 7,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Prismatic Evolutions ETB - Pack 7"
     },
     {
       "id": "c7J6-dTu4jo",
@@ -4249,8 +4854,21 @@
         "etb"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Prismatic Evolutions ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "prismatic-evolutions",
+          "name": "prismatic evolutions",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 6,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Prismatic Evolutions ETB - Pack 6"
     },
     {
       "id": "dFIdg1ZRxDM",

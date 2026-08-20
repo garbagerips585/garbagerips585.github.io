@@ -872,8 +872,7 @@
   },
   "HGlF3-fpycc": {
     "sets": [
-      "phantasmal-flames",
-      "perfect-order"
+      "phantasmal-flames"
     ],
     "products": [
       "ex-premium"
@@ -889,7 +888,6 @@
   },
   "sS0fvyss7IM": {
     "sets": [
-      "phantasmal-flames",
       "perfect-order"
     ],
     "products": [
@@ -899,6 +897,9 @@
   "_3gRDHTv1lQ": {
     "products": [
       "ex-premium"
+    ],
+    "sets": [
+      "perfect-order"
     ]
   },
   "XjM6y2L7v1c": {
@@ -936,11 +937,17 @@
   "lcxUwIjlqZY": {
     "products": [
       "ex-premium"
+    ],
+    "sets": [
+      "perfect-order"
     ]
   },
   "0pRHwsEwo3g": {
     "products": [
       "ex-premium"
+    ],
+    "sets": [
+      "perfect-order"
     ]
   },
   "EKTgIGCiET4": {
@@ -978,6 +985,9 @@
   "RLYq43B1KX0": {
     "products": [
       "ex-premium"
+    ],
+    "sets": [
+      "perfect-order"
     ]
   },
   "BiBdyozoD_Q": {
@@ -991,6 +1001,9 @@
   "POLXPV2ZpXA": {
     "products": [
       "ex-premium"
+    ],
+    "sets": [
+      "perfect-order"
     ]
   },
   "7qgnakc3__c": {
