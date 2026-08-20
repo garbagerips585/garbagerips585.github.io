@@ -426,6 +426,32 @@ DO NOT REPLACE THE NUMBER WITH A BIGGER NUMBER. If you add an outbound link,
 apply the test above, meet the shape, and if the answer is arguable write the
 argument HERE. The rule is the test plus the shape, not a tally.
 
+/garbage-plate.html IS THE NEXT THING TO APPLY THAT TEST TO, and it is argued
+here rather than added quietly, which is what the four paragraphs above are
+about. It carries 48 outbound anchors to 36 distinct urls, added 20 August 2026,
+and it is the densest non-list page on the site for them. They are three kinds
+and each passes the test on its own:
+
+  - ELEVEN RESTAURANTS' OWN SITES AND MENUS. Same shape and same argument as
+    /shops.html, which this page's list is modelled on: a page whose job is to
+    send you to dinner is useless without the menu and the address. Each card's
+    address goes to a map, exactly as a shop card's does.
+  - NINE SOURCES, once each in a source line under the claim they support, and
+    again in a list at the foot. THIS IS THE SIXTH EXCEPTION'S OWN ARGUMENT
+    MOVED FROM A PRICE TO A DATE. That exception says a figure is only worth
+    publishing if a reader can check whether it still holds; a historical claim
+    is the same shape, and this page's whole pitch is that the existing writing
+    about this dish asserts things and does not source them. A history nobody
+    can check is worth less than a shorter one they can.
+  - NOTHING ELSE. No affiliate code, no directory, no aggregator.
+
+THE SHAPE IS MET AND WAS MEASURED, not asserted: all 48 carry an aria-label
+saying they leave the site, they sit at the end of a card or at the end of a
+line of prose rather than mid explanation, and the page's own large tap targets
+are internal. The one thing to hold the line on if this page grows: a source
+belongs in a source line, never as an inline link inside a sentence, because
+that is how the count gets away from you.
+
 AND THE SEVENTH EXCEPTION THAT WAS ASKED FOR BY NAME AND STILL NOT MADE, 17
 August 2026. Tim stated the site's commercial purpose plainly: YouTube is the
 primary channel and the goal is subscribers and views. That goal is in genuine
@@ -904,6 +930,94 @@ ONE RULE WAS FOUND BY LOSING TO IT: ui.css sets `.set-hero .wrap` to
 written, was correct, and silently never rendered. If a layout in a page-level
 block does nothing, check what ui.css already says about that element with a
 longer selector before rewriting the markup.
+
+## The Garbage Plate page
+
+`/garbage-plate.html`, added 20 August 2026 on Tim's ask, built by
+`scripts/build-garbage-plate.mjs` from `data/garbage-plate.json`. One builder,
+one data file, no sync step and no network: everything on the page was read by a
+human and written into the JSON with the source and the read date beside it.
+
+**WHY IT EXISTS, in Tim's words:** "I think there is really some good SEO juice
+to be had with a dedicated Garbage Plate informational page built out, not a ton
+of great places to get good garbage plate info". Same instinct that produced the
+First Partner guide: he spotted thin coverage and asked for the page that fills
+it. The channel is named after the dish and the site had no page about it.
+
+**THE LEVER IS TRACEABILITY, NOT KEYWORDS,** and that is the whole design. What
+exists elsewhere is listicles and a half-remembered origin story repeated from
+page to page with no source on any of it. So every factual claim here carries
+the source it came from and the day it was read, the page prints its `sources`
+list in full at the foot, and it prints `notSourced` as well: six things that get
+repeated about this dish and could not be sourced, said out loud rather than
+dropped quietly. Saying what you do not know is itself a reason to trust the
+rest, and it stops the next editor re-researching the same six dead ends.
+
+**TWO OF THE SOURCES ARE PRIMARY AND THEY CARRY THE PAGE.** The USPTO's TSDR
+record for serial 74189085 is the trademark file itself, which settles dates the
+food writing keeps getting slightly wrong: filed 29 July 1991, registered
+18 August 1992, registration 1,708,448, still live. And Nick Tahou Hots'
+printable fax order form is the business listing every component of its own
+plate as boxes you tick, which is where the diagram's six layers come from.
+**Do not replace either with a secondary retelling.**
+
+**THE FOUNDER IS GENUINELY DISPUTED AND THE PAGE SAYS SO** rather than picking a
+winner. Nick Tahou Hots' own site quotes Wikipedia saying Nick Tahou founded it;
+Wikipedia's article today says Alexander Tahou founded it and named it for his
+son Nick. Eater's 2017 feature and the Democrat and Chronicle's 2020 piece are
+cited by Wikipedia for this and neither could be fetched. If a later editor can
+read them, that is the claim to settle, and it is the only one on the page left
+open.
+
+**THE DIAGRAM IS THE ASSET AND IT IS OURS.** `plateDiagram()` in the builder: a
+labelled drawing of a plate, a bigger relative of `plateMark()` in
+shared/format.mjs, sharing its china (`var(--ink)`) and its six food colours so
+the site reads as one hand. It is the one thing on this subject that does not
+already exist somewhere, so it is the thing most likely to earn a link. Three
+rules held it together and all three were measured rather than assumed:
+- **The colour carries none of the meaning.** Every layer is numbered in a
+  high-contrast disc and every layer has its own TEXTURE as well as its own
+  fill: elbow curls, chunk outlines, specks, square flecks, a zigzag. Verified
+  by rendering the whole page under a greyscale filter; all six still read.
+- **The words are HTML, not SVG text.** At 390px the figure draws at 0.56, so 16
+  units is 9px. The drawing carries numbers only and the labels sit in an
+  ordered list beside it at real body sizes. That is /shops.html's hours-chart
+  lesson taken the first time instead of the third.
+- **The first version was a striped MOUNTAIN and had to be rebuilt.** Five bands
+  inside one silhouette read as sedimentary rock. A plate is wide and low, and
+  the things on it are objects lying on each other: the mound is the SIDES, the
+  meat is drawn on top and allowed to overhang the outline, the sauce is a
+  poured shape with its own hem and its own drips.
+
+**THE RESTAURANT LIST FOLLOWS data/shops.json'S POLICY ALMOST EXACTLY** and the
+one rule that matters most is the same: **hours are not published unless the
+BUSINESS states them about ITSELF.** Eight of the eleven do; the other three
+carry a line saying plainly that they are not confirmed and why, because a quiet
+blank reads as "no hours" and the cost of being wrong is somebody driving across
+Rochester to a locked door. Yelp, Google, TripAdvisor and the directories are
+not evidence and are not used once. `checkedAndLeftOut` records six places that
+appear on other people's lists and could not be confirmed from the business,
+including one that does not exist and one whose own site is now a placeholder.
+**It is a list and not a ranking:** Nick Tahou Hots is first because it is the
+originator and holds the mark, which is a matter of record, and the rest are
+alphabetical.
+
+**THERE ARE NO PHOTOGRAPHS ON IT AND THAT IS DESIGN, NOT AN UNFINISHED STATE.**
+This repo holds no licensed photograph of a building or of a plate, a picture of
+a restaurant is somebody's copyright, and Street View is licensed in a way a
+static site with no keys cannot meet. The page is built the way /shops.html is:
+the drawn figure carries the illustration and the cards never had a photo slot
+to leave empty. Tim photographs things for a living and lives there, so his own
+photographs are the honest way to fill this in, and the card layout has room for
+one the day it exists. **Do not solve this by hotlinking.**
+
+**Measured on the built page, 20 August 2026:** 3,955 words in `<main>`, one h1,
+five h2, ZERO `<img>`, two inline SVGs, 18,506px tall at 390x844 and 9,563px at
+1440x900, scrollX 0 and nothing hanging off the right edge at either width.
+Contrast swept over all 306 text-bearing elements against the ground actually
+painted under each: **0 AA failures at both widths.** The document is 89,918
+bytes raw and 24,375 gzipped, and because the page holds no images at all its
+on-load and fully-scrolled transfer are the same number.
 
 ## Video data
 - `public/data/videos.json` is the whole catalogue, `playlists.json` the
