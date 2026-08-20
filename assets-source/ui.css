@@ -418,11 +418,9 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
    before the menu existed it was the only route off this page, and now the
    menu carries All rips, which is where searching happens. */
 @media(max-width:480px){
-  /* The auto margin that pushed the right-hand controls over used to live on a
-     search icon button. That button was removed from the markup entirely, so
-     the margin has to be declared here or the row packs left with 52px of dead
-     space on the right. */
-  .menu-btn{margin-left:auto}
+  /* THE AUTO MARGIN THAT USED TO LIVE HERE MOVED TO max-width:899, and the
+     reason is that this block was only ever half the fix. See the note beside
+     it, further down this file. */
 }
 
 /* Filter rail. Sticks under the bar so the whole catalogue stays one tap away
@@ -2387,6 +2385,35 @@ footer .soc svg{fill:var(--chrome-ink)}
     overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
   .menu-btn{padding:0;width:44px}
 }
+
+/* WHAT PUSHES THE RIGHT-HAND CONTROLS RIGHT, AT EVERY WIDTH WHERE .nav-links
+   IS NOT THERE TO DO IT.
+
+   At 900 and up the nav carries margin-left:auto and everything after it in
+   the row goes right with it. Below 900 .nav-links is display:none, so nothing
+   pushed, and the whole row packed to the left: measured at 820x1024 the last
+   control ended at x=468 in an 820px bar, leaving a 352px empty stripe. Same
+   at 700, 768 and 899.
+
+   THIS BUG WAS ALREADY FIXED ONCE, AT THE WRONG SCOPE. The margin was declared
+   inside @media(max-width:480px), and that block's own comment says it is there
+   so the row does not pack "left with 52px of dead space on the right". Exactly
+   this bug, found on a phone, fixed only for phones, and invisible from 481 to
+   899 for as long as nobody opened the site on a tablet.
+
+   .menu-btn rather than .bar-find, deliberately: the search icon sits BEFORE
+   .nav-links in the markup, so at 900+ it stays over on the left beside the
+   brand. Putting the margin on the menu button reproduces that same grouping
+   below 900 instead of inventing a second one.
+
+   Declared after every other .menu-btn rule in this file. None of them sets a
+   margin, so it would win at line 425 too, but this file has three recorded
+   bugs where a later single-class rule beat an earlier one, and the cheapest
+   way not to be the fourth is to be last. */
+@media(max-width:899px){
+  .menu-btn{margin-left:auto}
+}
+
 @media(max-width:400px){
   .brand b{font-size:.82rem}
 }

@@ -26,7 +26,7 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <!-- No preconnect to images.pokemontcg.io: every set symbol on this page is
      mirrored locally by scripts/sync-symbols.mjs and served from this origin. -->
-<link rel="stylesheet" href="/assets/ui.css?v=8771d7cb">
+<link rel="stylesheet" href="/assets/ui.css?v=7c9a337f">
 <style>.xp{padding:var(--s7) 0 var(--s5)}
 .xp-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:40em;margin-bottom:var(--s5)}
 .xp-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3);margin-bottom:var(--s5)}
@@ -2251,7 +2251,13 @@ gap:var(--s6);align-items:start}
 // data blob, so the copy can never disagree with what is on screen.
 document.getElementById("copyAll")?.addEventListener("click", async (e) => {
   const btn = e.currentTarget;
-  const clean = (el) => (el?.textContent || "").replace(/\s+/g, " ").trim();
+  // Visible text only. The reasoning is in the builder, above the html template.
+  const clean = (el) => {
+    if (!el) return "";
+    const n = el.cloneNode(true);
+    if (n.querySelectorAll) for (const sr of n.querySelectorAll(".sr-only")) sr.remove();
+    return (n.textContent || "").replace(/\s+/g, " ").trim();
+  };
   const lines = ["Era\tSet\tType\tReleased\tCards\tOur rips"];
   for (const sec of document.querySelectorAll(".xp-era")) {
     const era = clean(sec.querySelector("h2")?.firstChild);

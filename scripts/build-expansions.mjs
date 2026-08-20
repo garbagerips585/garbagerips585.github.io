@@ -717,7 +717,13 @@ ${eras.map(eraTable).join("\n\n")}
 // data blob, so the copy can never disagree with what is on screen.
 document.getElementById("copyAll")?.addEventListener("click", async (e) => {
   const btn = e.currentTarget;
-  const clean = (el) => (el?.textContent || "").replace(/\\s+/g, " ").trim();
+  // Visible text only. The reasoning is in the builder, above the html template.
+  const clean = (el) => {
+    if (!el) return "";
+    const n = el.cloneNode(true);
+    if (n.querySelectorAll) for (const sr of n.querySelectorAll(".sr-only")) sr.remove();
+    return (n.textContent || "").replace(/\\s+/g, " ").trim();
+  };
   const lines = ["Era\\tSet\\tType\\tReleased\\tCards\\tOur rips"];
   for (const sec of document.querySelectorAll(".xp-era")) {
     const era = clean(sec.querySelector("h2")?.firstChild);
@@ -769,6 +775,35 @@ document.getElementById("copyAll")?.addEventListener("click", async (e) => {
 });
 </script>`;
 
+/* WHY THE COPY BUTTON'S `clean()` STRIPS .sr-only BEFORE READING TEXT.
+   Kept out here rather than inside the <script> template below, because a
+   comment in that template is bytes on the page: this one is 1,091 raw and 487
+   gzipped, on a document that gzips to 17KB. That is the same trade the
+   build-shows.mjs note got wrong, where a comment inside a row template shipped
+   once per row and cost 19.5% of the served page.
+
+   noValue() in shared/format.mjs builds an empty cell out of TWO spans: an
+   aria-hidden em dash for the eye, and an .sr-only word for a screen reader.
+   textContent concatenates both. So the 152 sets with no rips returned
+   "\u2014None", the `rips === "\u2014"` test never matched a bare em dash, and
+   the sentinel was pasted verbatim into a spreadsheet column that otherwise
+   holds "2 rips" or nothing at all.
+
+   STRIPPING IN clean() RATHER THAN SPECIAL-CASING THE RIPS CELL, because the
+   Cards cell is built the same way: its sr-only half reads ", plus 36 secret
+   cards numbered past the printed total". That one does not leak today only
+   because the extraction prefers data-cards, which all 174 rows currently
+   carry. A row that ever lacked it would paste that sentence into a numeric
+   column.
+
+   clean() takes a Node and not always an Element: the era heading is read as
+   h2.firstChild, a text node, which has no querySelectorAll. Hence the guard
+   rather than an unconditional call.
+
+   Checked before fixing: build-decks.mjs is the only other builder with a copy
+   button, its page has no .sr-only at all and it copies a <pre> verbatim, and
+   the five other noValue() callers only ever WRITE textContent. This is the
+   only instance of the shape in the tree. */
 const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
