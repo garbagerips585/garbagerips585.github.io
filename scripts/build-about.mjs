@@ -263,7 +263,7 @@ ${SOCIALS.map(
         </div>
 
         <div class="about-card about-roc">
-          <img src="/assets/roc-badge.svg" width="240" height="280" alt="ROC 585 Rochester New York badge">
+          <img src="/assets/roc-lilac.svg" width="240" height="280" alt="A lilac sprig over the words Rochester, New York and the area code 585" loading="lazy" decoding="async">
           <p>MADE IN ROCHESTER, NY.<br>LILACS, LAKE EFFECT, AND A PLATE AT 2AM.</p>
         </div>
       </aside>

@@ -8,3 +8,7 @@ Thumbs.db
 .env.*
 !.env.example
 .cache/
+
+# import-sheet.mjs writes this as a temp and deletes it; a crashed run leaves
+# a 0-byte file behind, and it was staged once already.
+.sheet-import.csv
