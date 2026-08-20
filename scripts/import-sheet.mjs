@@ -1320,10 +1320,22 @@ for (const [n, r] of rows.slice(1).entries()) {
     // finally known and the set's own checklist can settle whether the word is
     // part of the name.
     const TYPE_WORD = /^(trainer|supporter|item|stadium|pok[eé]mon tool|tool|pok[eé]mon|pokemon|energy)$/i;
+    // DERIVED FROM RARITY_KEY, NOT TYPED OUT BESIDE IT.
+    //
+    // This was a hand-written list and it had drifted: RARITY_KEY carries the
+    // Japanese rarities and this did not, so "Goldeen - AR - Art Rare" found no
+    // rarity at all, the letter code matched, and the leftover published a card
+    // called "Goldeen Art Rare". Two rows shipped that way. A second copy of a
+    // vocabulary is a second thing to forget to update, and shared/rarity.mjs is
+    // the one the site renders from.
+    //
+    // The three extras below are not in RARITY_KEY because they are not chip
+    // rarities -- Tim writes them and they must still be recognised here.
     const RARITY_WORDS = [
-      "Mega Hyper Rare", "Special Illustration Rare", "Illustration Rare",
-      "ACE SPEC Rare", "Hyper Rare", "Ultra Rare", "Double Rare", "Super Rare",
-      "Shiny Rare", "Secret Rare", "Black Star Promo", "Rare",
+      ...new Set([
+        ...RARITY_KEY.map((r) => r.label).filter(Boolean),
+        "Shiny Rare", "Secret Rare", "Black Star Promo",
+      ]),
     ].sort((a, b) => b.length - a.length);
     const SET_NAMES = [...setIdByName.keys()].sort((a, b) => b.length - a.length);
     const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -1416,8 +1428,49 @@ for (const [n, r] of rows.slice(1).entries()) {
           // lowercased one: "SR" is a rarity mark and "Sr" is a name suffix.
           const ci = parts.findIndex((x) => Object.hasOwn(CODE_RARITY, x));
           if (ci !== -1) code = parts[ci];
+          // THE SYMBOL SLOT IS POSITIONAL WHEN THE SHAPE LEAVES NO DOUBT, and
+          // without this an unrecognised symbol becomes part of the card's name.
+          //
+          // Tim writes "Card - Symbol - Rarity". Every symbol he uses is matched
+          // by name against STAR_RARITY or by letter against CODE_RARITY, so a
+          // symbol that is neither -- a typo, or an abbreviation the tables do
+          // not carry -- is simply left over, and the leftovers are the name.
+          // Three rows shipped that way in the 20 August import:
+          //
+          //   "Mega Skarmory ex - Dobule Black Star - Double Rare"  -> a card
+          //     called "Mega Skarmory ex Dobule Black Star", on 2 pages
+          //   "Goldeen - AR - Art Rare"      -> "Goldeen Art Rare"
+          //   "Manectric - AR - Art Rare"    -> "Manectric Art Rare"
+          //
+          // "Dobule" is his typo for Double and "AR" is the standard Japanese
+          // abbreviation for Art Rare; neither is in a table and neither should
+          // have to be. When the LAST part is a rarity we recognise, nothing
+          // matched the symbol tables, and there are three or more parts, the
+          // part immediately before the rarity is the symbol by position. It is
+          // dropped from the name and REPORTED, so an unreadable symbol costs a
+          // line in the run rather than a card that does not exist.
+          //
+          // AND IT MUST LEAVE A CARD BEHIND. The first version of this rule
+          // dropped the part before the rarity unconditionally, which is right
+          // for "Card - Symbol - Rarity" and catastrophic for "Set - Card -
+          // Rarity": on "Phantasmal Falmes - Charizard X ex - Black Star Promo
+          // Card" it deleted the card and published the set name as one. So it
+          // only fires when something is still left to be the card.
+          let symIdx = -1;
+          if (ki === -1 && ci === -1 && ri === parts.length - 1 && parts.length >= 3) {
+            symIdx = ri - 1;
+            const leftover = parts.filter((_, i) => i !== si && i !== ri && i !== symIdx);
+            if (symIdx !== si && leftover.length) {
+              quiet.push(
+                `${id}: "${parts[symIdx]}" sits where the star symbol goes and matches no symbol I know, ` +
+                  `so it was kept out of the card name. Card read as "${parts.filter((_, i) => i !== si && i !== ri && i !== symIdx).join(" ")}".`
+              );
+            } else {
+              symIdx = -1;
+            }
+          }
           // What is left, in order, is the card.
-          name = parts.filter((_, i) => i !== si && i !== ri && i !== ki && i !== ci).join(" ").replace(FINISH, " ").replace(/\s+/g, " ").trim();
+          name = parts.filter((_, i) => i !== si && i !== ri && i !== ki && i !== ci && i !== symIdx).join(" ").replace(FINISH, " ").replace(/\s+/g, " ").trim();
           // "Trainer - Dawn" is a card TYPE and a card. Whether the type word
           // belongs in the name is decided later, against the set's checklist,
           // because on most of these rows the set is not in the fragment at all

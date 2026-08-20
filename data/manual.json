@@ -2244,7 +2244,7 @@
     "hitCard": "Mega Skarmory ex - Dobule Black Star - Double Rare",
     "hits": [
       {
-        "card": "Mega Skarmory ex Dobule Black Star",
+        "card": "Mega Skarmory ex",
         "rarity": "Double Rare",
         "set": "perfect-order",
         "setName": "Perfect Order"
@@ -2268,7 +2268,7 @@
     "hitCard": "Goldeen - AR - Art Rare",
     "hits": [
       {
-        "card": "Goldeen Art Rare",
+        "card": "Goldeen",
         "rarity": "Art Rare",
         "set": "ja-abyss-eye",
         "setName": "Abyss Eye (JP)"
@@ -2292,7 +2292,7 @@
     "hitCard": "Manectric - AR - Art Rare",
     "hits": [
       {
-        "card": "Manectric Art Rare",
+        "card": "Manectric",
         "rarity": "Art Rare",
         "set": "ja-abyss-eye",
         "setName": "Abyss Eye (JP)"
