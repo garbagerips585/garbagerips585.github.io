@@ -288,6 +288,35 @@ already exists.
       honest middle at +218KB, still a 64% heavier page. Sharpness against
       weight, on a page whose job is telling you what is coming.
 
+- [ ] **ONE PRICE FEED FOR GRADED CARDS, WHICH THE SITE CURRENTLY HAS TWO OF.**
+      Mega Greninja ex reads $906 on /hall.html and $838 on its set guide. Both
+      are sourced and dated: the hall moved to PriceCharting on 18 August and
+      nothing else did. Every page now names whose figure it is printing, so
+      the gap is legible rather than contradictory, but it is still two answers
+      to one question.
+
+      **Do not fix it by picking a feed.** `data/graded.json` is deliberately
+      scoped to cards Tim has actually pulled, 83 records, because a
+      PriceCharting product page is about 1MB and crawling their index would be
+      4.4GB. The guides need 99 figures across 28 sets, so switching them to
+      PriceCharting would strand most of them: a worse inconsistency than the
+      one it fixes.
+
+      The fix is coverage, and it is small. Extend `sync-pricecharting.mjs`'s
+      scope from "cards we pulled" to "cards we pulled PLUS each guide's eight
+      chase rows": about 99 more product pages, roughly 99MB, three orders of
+      magnitude inside the budget that script's own comment rejects. Then
+      PriceCharting covers the hall and the guides alike, the site's stated
+      policy of PriceCharting for raw and graded singles holds for the first
+      time, and `data/psa10.json` becomes the fallback for what the crawl
+      misses rather than the primary source.
+
+      **The two feeds are not far apart, which is why this is upkeep and not a
+      launch blocker.** Measured across all 39 cards both price above the
+      ten-sale floor the guides apply: median disagreement 2.3%, 35 of 39
+      within 10%, worst 16.2%. The four largest gaps in the whole overlap sit
+      BELOW the floor and never render, one of them on a single recorded sale.
+
 - [ ] Blog posts for search traffic: set reviews, "is this box worth it",
       the Rochester local angle. Each embeds a video.
 - [ ] Monthly price refresh, so the set guides and the Card Hall of Fame do not
