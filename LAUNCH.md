@@ -233,7 +233,34 @@ already exists.
       Disallow: / until LIVE is true, and submitting a sitemap while it does
       teaches Google the site is closed.
 
-## 4. Soon after launch
+## 4. Upkeep, and the one item with a date on it
+
+- [ ] **THE DROPS BAND ON THE HOME PAGE COMES OFF ON 24 AUGUST 2026 UNLESS
+      data/drops.json IS REFRESHED.** This is the only thing on the site with a
+      fixed expiry, and it lands three days after launch.
+
+      `data/drops.json` was compiled 17 August for the week ending 23 August.
+      Launch day, 21 August, is inside that window, so the front door is correct
+      on the day. From the 24th the home page's sweep removes the whole band
+      rather than showing a passed week, and /drops.html bands itself as stale
+      and switches its heading to the past tense. **Both behaviours are correct
+      and neither is a bug**: a restock page showing last week is worse than no
+      restock page, because it sends somebody to a shop for nothing. Nothing
+      breaks, nothing looks broken, and the front door just quietly has one
+      section fewer.
+
+      The fix is a weekly hand edit: re-read the restock trackers, update
+      `weekOf`, `weekEnds`, `compiled`, `source.read` and the rows, rebuild.
+      data/drops.json's own `_readme` is long and worth re-reading before the
+      first refresh, particularly the rule about keeping the hedges the original
+      post was written in.
+
+      **Nothing reminds you.** The nightly refresh syncs YouTube and prices; it
+      cannot read a private community's week-ahead post, and the file explains
+      at length why no part of this can be automated. If a weekly edit is not
+      realistic, the honest alternative is to drop the band from the home page
+      and leave /drops.html to carry it, rather than to let the front door
+      depend on an edit that may not happen.
 
 - [ ] Blog posts for search traffic: set reviews, "is this box worth it",
       the Rochester local angle. Each embeds a video.
