@@ -22,6 +22,36 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 fail = []
+
+
+# A PAGE THAT VANISHED BETWEEN THE GLOB AND THE READ IS NOT A BROKEN SITE.
+#
+# Every read below walks a list built by globbing public/. When something else
+# is writing the tree at the same time -- an agent mid-rebuild, an interrupted
+# build -- a file can be listed and then gone a moment later, and the bare
+# open() ended the whole run with `FileNotFoundError: public/pokemon/
+# chingling.html` and a stack trace. That is non-zero, so it does stop a
+# publish, but it reads as "the site is broken" when the truth is "read it
+# again". Six agents rebuilding this tree in one night hit it repeatedly.
+#
+# Same treatment as _read_json below, and for the same reason: every other
+# failure in this file names the file and the fix, so these do too. It is
+# still recorded as a failure rather than skipped, because a file that is
+# genuinely missing from a finished build IS a broken site.
+def _read_page(path):
+    """Page source, or "" with the reason already recorded in `fail`."""
+    try:
+        return open(path, encoding="utf-8").read()
+    except FileNotFoundError:
+        fail.append(
+            f"{path} was listed and then could not be read. If something is "
+            f"writing the tree right now, re-run this; if not, a builder "
+            f"deleted a page it had already emitted."
+        )
+        return ""
+    except Exception as e:
+        fail.append(f"{path} could not be read ({e}).")
+        return ""
 note = print
 
 
@@ -121,34 +151,38 @@ for _f in _srcs:
 #
 # (The palette work itself, and the generators behind it, were deleted on
 # 19 August 2026 once Trubbish Deep shipped.) Anything that genuinely is a page
-# of the site should be built by build-all, so the right way to use this set is
-# to leave it empty and move the file instead.
-# AND IT IS NOT EMPTY ANY MORE, 18 August 2026, for the six palette samples.
-# They are the one case the paragraph above cannot answer, because "move the
-# file" is exactly what they cannot do: scripts/gen-palette-samples.mjs writes
-# six copies of the home page so TIM CAN OPEN THEM ON HIS PHONE, and a phone
-# cannot open a file off assets-source/ on a laptop. They must sit in the
-# deploy root to be reachable at a url, which is argued in that file's header
-# and bought with four guards (noindex, no canonical, not in the sitemap,
-# nothing links to them).
+# of the site should be built by build-all, so the right way to keep this check
+# honest is to leave nothing in public/ that build-all does not write.
 #
-# They are written by a gen- script that build-all deliberately never runs, so
-# EVERY builder edit reports all six as stale and fails this check on a tree
-# that is completely correct. That happened on the Trubbish repaint: 62 of 62
-# builders ok, one problem, and the problem was six throwaway files.
+# THERE WAS AN EXEMPTION SET HERE AND IT IS GONE WITH THE FILES IT NAMED. Six,
+# then seven, palette sample pages had to sit in the deploy root because Tim
+# needed to open them ON HIS PHONE to pick a palette, and a phone cannot open a
+# file off assets-source/ on a laptop. They were written by a gen- script that
+# build-all deliberately never runs, so every builder edit reported all seven as
+# stale and failed this check on a tree that was completely correct: 62 of 62
+# builders ok, one problem, and the problem was seven throwaway files. The
+# comment that stood here said "DELETE THIS SET WITH THE FILES", and the files
+# went on 19 August 2026, so it has.
 #
-# THE ALTERNATIVE WAS WORSE. Re-running the generator to refresh their mtimes
-# would rewrite the six pages Tim is using as a reference, and touching them to
-# silence a verifier is the "edit the expectation until it passes" move this
-# repo warns about everywhere else.
-#
-# DELETE THIS SET WITH THE FILES. LAUNCH.md already schedules that, and the
-# comment above is right that the set should be empty: it is empty again the
-# moment the six previews go.
-_NOT_BUILT = set(glob.glob("public/preview-*.html"))
-_pages = [p for p in glob.glob("public/**/*.html", recursive=True) if p not in _NOT_BUILT]
-_behind = [(os.path.getmtime(_f), _f) for _f in _pages
-           if os.path.getmtime(_f) < _newest_src_t - 2]
+# If a page ever needs to live in public/ without being built again, prefer
+# giving it a builder over reviving this set. An exemption is a promise that
+# something is fine, and it goes on being made long after it stops being true.
+_pages = glob.glob("public/**/*.html", recursive=True)
+def _mtime_or_none(_f):
+    try:
+        return os.path.getmtime(_f)
+    except FileNotFoundError:
+        return None
+
+
+# One stat per file rather than two, and a page that vanishes between the glob
+# and the stat is skipped instead of ending the run in a stack trace. With
+# several agents rebuilding this tree at once that stopped being hypothetical.
+# Skipping is safe HERE because a page that is genuinely gone is caught twice
+# further down, as a broken link and as a sitemap entry pointing at nothing;
+# this check is only ever about mtimes.
+_behind = [(_t, _f) for _t, _f in ((_mtime_or_none(_f), _f) for _f in _pages)
+           if _t is not None and _t < _newest_src_t - 2]
 if _behind and _newest_src:
     _behind.sort()
     _mins = int((_newest_src_t - _behind[0][0]) / 60)
@@ -183,7 +217,7 @@ for _t in _broken[:8]:
 missing = {}
 links = 0
 for f in pages:
-    html = open(f, encoding="utf-8").read()
+    html = _read_page(f)
     # RELATIVE HREFS WERE A BLIND SPOT AND TWO 404s WALKED THROUGH IT. This
     # pattern was anchored to a leading slash, so every site-absolute link was
     # checked and anything relative was invisible. A builder started rendering
@@ -223,7 +257,7 @@ for url, srcs in list(missing.items())[:10]:
 # 3. Share cards are content="https://..." absolutes, so the link check above
 #    never saw them. A missing one is an empty preview on every share.
 for f in pages:
-    html = open(f, encoding="utf-8").read()
+    html = _read_page(f)
     for m in re.finditer(r'content="https://[^"]*/assets/(og-[\w.-]+\.jpg)', html):
         if not os.path.exists(os.path.join("public/assets", m.group(1))):
             fail.append(f"missing share card assets/{m.group(1)}  <- {f}")
@@ -250,7 +284,7 @@ else:
             break
     # A page cannot both be in the sitemap and tell crawlers to go away.
     for f in pages:
-        if re.search(r'name="robots"[^>]*noindex', open(f, encoding="utf-8").read()):
+        if re.search(r'name="robots"[^>]*noindex', _read_page(f)):
             u = "/" + os.path.relpath(f, "public")
             if u in locs:
                 fail.append(f"noindex page is in the sitemap: {u}")
@@ -328,7 +362,7 @@ bad = 0
 for f in pages:
     for block in re.findall(
         r'<script type="application/ld\+json">(.*?)</script>',
-        open(f, encoding="utf-8").read(), re.S):
+        _read_page(f), re.S):
         try:
             doc = json.loads(block)
         except Exception:
@@ -473,7 +507,7 @@ def _hash_of(rel):
 
 _bare, _wrong, _missing_asset = [], [], []
 for _f in pages:
-    _html = open(_f, encoding="utf-8").read()
+    _html = _read_page(_f)
     for _m in _ASSET_RE.finditer(_html):
         _rel, _stamp = _m.group(1), _m.group(3)
         _want = _hash_of(_rel)
@@ -994,7 +1028,7 @@ fail = list(dict.fromkeys(fail))
 # ordinary inside JSON-LD and inside the data blocks these pages carry.
 _bad = []
 for _f in sorted(glob.glob("public/**/*.html", recursive=True)):
-    _s = open(_f, encoding="utf-8").read()
+    _s = _read_page(_f)
     _t = _re.sub(r"(?s)<(script|style)\b.*?</\1>", " ", _s)
     _t = _re.sub(r"(?s)<[^>]+>", " ", _t)
     for _m in _re.finditer(r"(?<![\w-])(NaN|undefined)(?![\w-])", _t):
@@ -1139,7 +1173,7 @@ def _figures(_h):
 
 _cov = {}
 for _f in sorted(glob.glob("public/**/*.html", recursive=True)):
-    _s = open(_f, encoding="utf-8").read()
+    _s = _read_page(_f)
     _m = _re.search(r"(?s)<main\b.*?</main>", _s)
     if not _m:
         continue
@@ -1168,6 +1202,16 @@ if _cov:
         note(f"    {_sec:<12} {_i * 1000 / max(1, _w):>7.1f}   {_paren:<28}"
              f"{_g:>6} figures on {_p} of {_n} pages")
 
+
+# DEDUPE AGAIN, HERE, BECAUSE THE EARLIER ONE CANNOT SEE THE LAST THIRD OF THIS
+# FILE. There is a `fail = list(dict.fromkeys(fail))` further up, added so that
+# one file read by three checks reports its problem once. It sits at the point
+# it was written and every check added after it slipped past: a page that could
+# not be read was reported three times, once from before that line and twice
+# from after. Deduping at the point of PRINTING is the version that cannot go
+# stale as more checks are appended, so the count stays a count of problems
+# rather than of complaints.
+fail = list(dict.fromkeys(fail))
 
 if fail:
     print(f"\n{len(fail)} problem(s):", file=sys.stderr)
