@@ -492,6 +492,117 @@ try {
 }
 
 /**
+ * THE SET THAT COMES OUT OF THIS SET'S PACKS AND IS NOT ON THIS SET'S PAGE.
+ *
+ * Three guides were answering a different question from the one a reader asks.
+ * Shining Fates is 73 cards here and the page named Skyla at $11.35 as the
+ * chase card, in the hero lede, in the meta description, at the top of the
+ * chase grid and again in Quick facts. All four are true of the 73 cards this
+ * site holds. None of them describes the product: the Shiny Vault is 122 more
+ * cards out of the same packs, and it is the reason anyone opens Shining Fates
+ * at all. Crown Zenith and Celebrations have the same shape.
+ *
+ * data/set-notes.json used to carry the correction as a hand written fun fact,
+ * which put it in the LAST band of the page, under every claim it qualifies.
+ * A reader who has read "the chase card is Skyla" three times by then has
+ * already decided. So it is emitted from data now, beside each claim, and the
+ * fun facts that said it were removed rather than left to say it twice.
+ *
+ * NO PRICES. See the WHY NO PRICES block in data/companion-sets.json: this
+ * repo holds not one figure for these 217 cards, so the pages name what is
+ * missing and why, and print no number for it.
+ */
+let companions = {};
+try {
+  companions = JSON.parse(await readFile(join(ROOT, "data/companion-sets.json"), "utf8")).sets || {};
+} catch {
+  /* optional, but see the check below: an unreadable file is not a silent one */
+}
+{
+  // THE COUNT IS RE-CHECKED AGAINST expansions.json ON EVERY BUILD, the same
+  // contract checkSetMap keeps in shared/decks.mjs and for the same reason.
+  // These pages print "122 cards" inside the sentence that says the 122 are
+  // not counted, so a stale count makes the correction itself a wrong number,
+  // and nothing about the page would look broken.
+  let expansions = [];
+  try {
+    expansions = JSON.parse(
+      await readFile(join(ROOT, "public/data/expansions.json"), "utf8")
+    ).sets || [];
+  } catch {
+    /* run: node scripts/sync-expansions.mjs */
+  }
+  const byApi = new Map(expansions.map((x) => [x.apiId, x]));
+  const bad = [];
+  for (const [setId, c] of Object.entries(companions)) {
+    if (!sets.some((s) => s.id === setId)) {
+      bad.push(`${setId} is not a set in public/data/sets.json`);
+      continue;
+    }
+    const e = byApi.get(c.apiId);
+    if (!e) {
+      bad.push(`${setId}: ${c.apiId} is not in public/data/expansions.json`);
+      continue;
+    }
+    if (e.total !== c.cards) {
+      bad.push(`${setId}: companion-sets.json says ${c.cards} cards, expansions.json says ${e.total}`);
+    }
+    // "none of them is counted here" has to stay TRUE. It is only true while
+    // the parent's own checklist is the parent's own total.
+    const doc = checklists[setId];
+    const own = sets.find((s) => s.id === setId);
+    if (doc?.cards?.length && own?.total && doc.cards.length !== own.total) {
+      bad.push(
+        `${setId}: the checklist holds ${doc.cards.length} cards where sets.json says ${own.total}, ` +
+          `so the page cannot claim the companion is absent from it`
+      );
+    }
+    if (c.priced) {
+      bad.push(
+        `${setId}: priced is true, but nothing in this build reads a companion price. ` +
+          `See the WHY NO PRICES block in data/companion-sets.json before wiring one up.`
+      );
+    }
+  }
+  if (bad.length) {
+    throw new Error(
+      "data/companion-sets.json disagrees with the data it is checked against, and every " +
+        "line it writes is a correction, so a wrong one is worse than none:\n  " +
+        bad.join("\n  ")
+    );
+  }
+}
+const companionOf = (setId) => companions[setId] || null;
+
+/**
+ * THE SAME CORRECTION, IN FIVE PLACES, WRITTEN ONCE.
+ *
+ * The wrong belief is not formed in one spot, so it cannot be undone in one
+ * spot: the lede promises the chase cards, the meta description names one in
+ * search results before the page is even opened, the chase grid shows eight,
+ * the value band sums a checklist, and Quick facts names the chase card again.
+ * Each of the five gets the shortest true clause that fits it, and all five
+ * come out of these helpers so they cannot drift apart into five slightly
+ * different claims about the same 122 cards.
+ *
+ * WHAT EACH CLAUSE MAY SAY IS BOUNDED BY WHAT THIS REPO HOLDS. The count, the
+ * release date and "filed as a separate set" are public/data/expansions.json.
+ * The numbering and the rarity shape are public/data/printings. There is no
+ * price for any of it anywhere in the tree, so no clause names a figure, and
+ * the ones that qualify a figure say which cards that figure covers instead.
+ */
+const compClause = (c) => `${c.cards} more cards this page does not cover`;
+const compChaseNote = (s, c) =>
+  `The ${c.cards} cards of ${c.fullName} are not on it, and this site holds no price for any of them, ` +
+  `so there is no honest way for this page to tell you whether one of those beats it.`;
+const compBand = (s, c) => `<p class="lede comp"><b>There is a second ${esc(s.name)} set and it is not on this page.</b>
+      ${esc(c.name[0].toUpperCase() + c.name.slice(1))} is ${c.cards} cards numbered ${esc(c.numbering)},
+      released the same day: ${esc(c.what)}. The card databases this site reads file it as a set of its
+      own, so none of it is in the chase cards, on the checklist, or in any total anywhere on this page,
+      and we hold no price for a single one of those ${c.cards} cards. Everything below is the
+      ${s.total} card checklist, which is not the whole of what carries the ${esc(s.name)} symbol.</p>`;
+
+/**
  * EVERY RARITY THIS BUILD CAN PRINT HAS A RUNG, OR THERE IS NO BUILD.
  *
  * The ladder sort below used to give an unknown name index 99. That is not a
@@ -760,12 +871,26 @@ function valueChart(v) {
 function valueBand(s, cls) {
   const v = setValue(s);
   if (!v) return "";
+  // "Buy one copy of EVERY CARD" is the strongest claim on the page and it is
+  // a sum, so it cannot be hedged in the note underneath and left alone in the
+  // sentence. Where a companion set exists, "every card" is not what was
+  // summed, and the phrase names the checklist instead. The figure itself does
+  // not move: nothing here has ever counted those cards, which is the point.
+  const comp = companionOf(s.id);
   const some = v.counted === v.total ? "every card" : `each of the ${v.counted} cards that has a price`;
+  // WHICH CARDS, IN THE SENTENCE, NOT ONLY IN THE NOTE UNDER IT. The obvious
+  // edit was to swap "every card" for "every card on the 73 card checklist",
+  // and it produced "one copy of every card on the 73 card checklist in
+  // Shining Fates", which is the qualifier fighting the "in <set>" that was
+  // already there. Naming the set once, as the checklist's owner, fixes both.
+  const opening = comp
+    ? `Buy one copy of each of the ${v.total} cards on this guide's ${esc(s.name)} checklist at its guide value and you would spend`
+    : `Buy one copy of ${some} in ${esc(s.name)} at its guide value and you would spend`;
   return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Where the value sits</p>
     <h2>Where the <span class="hl">money</span> is</h2>
-    <p class="lede w42">Buy one copy of ${some} in ${esc(s.name)} at its guide value and you would spend
+    <p class="lede w42">${opening}
       ${moneyExact(v.sum)}. ${
         v.half === 1
           ? `More than half of that is a single card.`
@@ -775,7 +900,9 @@ function valueBand(s, cls) {
       }.</p>
     ${valueChart(v)}
     <div class="facts">
-      <div class="fact"><div class="n">${moneyCompact(v.sum)}</div><div class="l">One of every card</div></div>
+      ${/* THE TILE LABEL IS A CLAIM TOO, and it is the one a reader photographs.
+            "One of every card" is false on the three guides with a companion
+            set, in four words, directly under a dollar figure. */ ""}<div class="fact"><div class="n">${moneyCompact(v.sum)}</div><div class="l">One of every card${comp ? " listed" : ""}</div></div>
       <div class="fact"><div class="n">${v.half}</div><div class="l">${plural(
         v.half,
         "Card"
@@ -786,7 +913,9 @@ function valueBand(s, cls) {
     <p class="lede sv-say">In plain terms: a handful of cards carry the set and everything else is bulk. That is normal,
       it is true of nearly every modern set, and it is worth knowing before you buy a box hoping to "get your money
       back".</p>
-    <p class="price-note">Added up from the ${v.counted} prices in the checklist below.
+    <p class="price-note">Added up from the ${v.counted} prices in the checklist below.${
+      comp ? ` It does not include ${esc(comp.fullName)}, which is ${comp.cards} more cards filed as a separate set and unpriced anywhere in this site's data, so the real cost of one of everything with a ${esc(s.name)} symbol on it is higher than this and we cannot say by how much.` : ""
+    }
       ${esc(priceNote(v.priceStamps || {}))} This is what buying one of each card would cost. It is not what a booster
       box is worth, and it is not the chance of pulling anything: nobody outside The Pokemon Company has pull rates, so
       you will not find any on this site.</p>
@@ -1916,12 +2045,18 @@ function derivedFacts(s) {
   if (s.chase?.length) {
     const top = s.chase[0];
     const topR = rarityLabel(top.rarity);
+    // "THE CHASE CARD IS SKYLA" WAS THE SHARPEST WRONG SENTENCE ON THE SITE,
+    // because it is the one a reader repeats. It is not false, it is answering
+    // about a checklist while the reader is asking about a product, and the
+    // fix is to say which of the two out loud rather than to drop the fact.
+    const comp = companionOf(s.id);
     out.push(
-      `The chase card is <b>${esc(top.name)}</b>${top.rarity ? ` (${BOOKLET_MARK[topR] ? rarityMark(BOOKLET_MARK[topR]) : ""}${esc(topR)})` : ""}, ` +
+      `The chase card ${comp ? `of the ${s.total} on this checklist ` : ``}is <b>${esc(top.name)}</b>${top.rarity ? ` (${BOOKLET_MARK[topR] ? rarityMark(BOOKLET_MARK[topR]) : ""}${esc(topR)})` : ""}, ` +
       `sitting around <b>${moneyCompact(top.price)}</b> raw` +
       (gradedPrice(s.id, top.number)
         ? `, and <b>${moneyCompact(gradedPrice(s.id, top.number))}</b> in a PSA 10.`
-        : `.`)
+        : `.`) +
+      (comp ? ` ${esc(compChaseNote(s, comp))}` : ``)
     );
   }
   const rips = ripsBySet[s.id];
@@ -1947,7 +2082,21 @@ const PAGE_CSS = `
 .band-sky .rar-pr{color:var(--ink)}
 /* The plain-English read of the value band. Same size as a lede, set apart so
    it does not read as a third paragraph of numbers. */
-.sv-say{max-width:42em;margin-top:var(--s5);border-left:4px solid var(--gold);
+/* .comp IS THE COMPANION SET NOTE, on the three guides that have one, and it
+   SHARES this selector rather than declaring the same six properties again.
+   It wants exactly the .sv-say treatment: that rule was in the 39 page contrast
+   pass on 18 August 2026 and cleared it, it paints no ground of its own so it
+   sits on whatever band it lands in, and a note whose whole job is to be
+   believed should not look like an ad. The border is var(--gold), which
+   resolves to a teal, and it is the only color either class carries.
+   A SECOND BLOCK WOULD HAVE COST 25 PAGES 118 BYTES OF DEAD CSS. This <style>
+   is inlined on all 28 guides and only three of them ever emit a .comp, so a
+   duplicate rule ships to the other 25 to style nothing. The shared selector is
+   six bytes. Measured on the first build, which is how it was caught.
+   No emphasis color on the b inside it: this paragraph is the one element here
+   that can land on either the page green or a card, so a small accent tuned for
+   one of them is the .set-rips bug again. Bold carries it. */
+.sv-say,.comp{max-width:42em;margin-top:var(--s5);border-left:4px solid var(--gold);
   padding-left:var(--s4);font-size:var(--t-body)}
 /* Cost per pack. Sits directly under the total price it is derived from. */
 .prod-per{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
@@ -2181,10 +2330,21 @@ function setPage(s) {
   // CLAUDE.md records against the Pokemon pages, applied to the pages where it
   // is one line rather than an 844-page rewrite. The figure is the same
   // checklist value the page prints and sources under the chase grid.
+  // THE DESCRIPTION IS THE FIRST PLACE THE WRONG CLAIM LANDS, and on three
+  // guides it landed before the page was ever opened. "The priciest card is
+  // Skyla at $11.35" is the sentence a reader sees in a search result, and it
+  // is the sentence they carry into the shop. Where a companion set exists,
+  // the count and the price both say WHICH cards they describe, in the same
+  // breath, because there is no room in a description for a second sentence.
+  const comp = companionOf(s.id);
   const desc =
     `${s.name} Pokemon TCG set guide: ${s.total || "?"} cards, released ` +
     `${longDate(s.released) || "recently"}.` +
-    (top && typeof top.price === "number" ? ` The priciest card is ${top.name} at ${moneyCompact(top.price)}.` : ``) +
+    (top && typeof top.price === "number"
+      ? comp
+        ? ` The priciest of those ${s.total} is ${top.name} at ${moneyCompact(top.price)}; ${comp.fullName} is a separate ${comp.cards} cards we hold no prices for.`
+        : ` The priciest card is ${top.name} at ${moneyCompact(top.price)}.`
+      : ``) +
     ` Full rarity breakdown, every card priced` +
     (s.chase?.length ? `, and the cards worth chasing.` : `.`);
 
@@ -2353,7 +2513,13 @@ function setPage(s) {
     <p class="mine-note">The card database has no scan for ${
       noScan.length === 1 ? `${esc(noScan[0].name)} ${esc(noScan[0].number)}` : `${noScan.length} of these`
     }, so ${noScan.length === 1 ? "it is" : "they are"} named and priced here rather than shown as an empty card.</p>` : ""}
-    <p class="price-note">${esc(priceNote(s.priceStamps || { pricesChecked: s.pricesAsOf || s.chasePricesAsOf }))} These are the same eight rows the checklist further down prints, sorted by price, so the two agree by construction. Singles move fast, so treat them as a ballpark rather than a quote.${affOn ? ` ${esc(aff.tcgplayer.disclosure)}` : ""}</p>
+    <p class="price-note">${esc(priceNote(s.priceStamps || { pricesChecked: s.pricesAsOf || s.chasePricesAsOf }))} These are the same eight rows the checklist further down prints, sorted by price, so the two agree by construction.${/* "SORTED BY PRICE" IS ONLY REASSURING IF THE READER KNOWS WHAT WAS SORTED.
+          On the three guides with a companion set these eight are the top of a
+          checklist, not the top of a set, and the band above the grid has
+          already said so. This is the one clause that keeps the sentence true
+          where somebody has scrolled straight to the pictures. */ ""}${
+      comp ? ` Sorted out of the ${s.total} on that checklist: ${esc(comp.fullName)} is a separate ${comp.cards} cards and none of them can be here, because this site holds no price for any of them.` : ""
+    } Singles move fast, so treat them as a ballpark rather than a quote.${affOn ? ` ${esc(aff.tcgplayer.disclosure)}` : ""}</p>
     ${/* THE GRADED FIGURES GET THEIR OWN SENTENCE, BECAUSE THE ONE ABOVE IS NOT
           ABOUT THEM. It credits PriceCharting for an UNGRADED price, and a
           PSA 10 figure standing over it read as PriceCharting's too. The name
@@ -2846,15 +3012,22 @@ function setPage(s) {
       // Year off the ISO string rather than through Date(), which shifts a
       // date-only value across a year boundary in a westward timezone.
       const yr = /^(\d{4})/.exec(String(s.released || ""))?.[1];
+      // "A 2021 set, 73 cards" is the first number on the page and on three
+      // guides it was the count of a checklist rather than of a set. The
+      // companion clause is short on purpose: the lede's job is to stop a
+      // reader believing 73 is the whole story, and the band under the fact
+      // tiles is where the rest of it is said.
       const opener =
-        yr && s.total ? `A ${yr} set, ${s.total} cards.`
+        yr && s.total ? `A ${yr} set, ${s.total} cards${comp ? `, plus ${compClause(comp)}` : ""}.`
         : yr ? `A ${yr} set.`
-        : s.total ? `${s.total} cards.`
+        : s.total ? `${s.total} cards${comp ? `, plus ${compClause(comp)}` : ""}.`
         : "";
       const body =
         `What is in ${esc(s.name)}, what is actually rare in it, and what ` +
         (top
-          ? `the cards worth chasing are going for. ${esc(top.name)} leads them at the moment.`
+          ? comp
+            ? `the cards worth chasing are going for. ${esc(top.name)} leads those ${s.total}, and ${esc(comp.name)} is not priced here.`
+            : `the cards worth chasing are going for. ${esc(top.name)} leads them at the moment.`
           : `each card will be worth once prices land.`);
       return opener ? `${opener} ${body}` : body;
     })()}</p>
@@ -2888,7 +3061,15 @@ function setPage(s) {
                  takes the release tile's own font-size override because it is a
                  word in a slot sized for two digits. */ ""}<div class="fact"><div class="n" style="font-size:1.15rem">None yet</div><div class="l">Rips on this channel</div></div>`}
       <div class="fact wide"><div class="n" style="font-size:1.15rem">${longDate(s.released) || "Unknown"}</div><div class="l">Release date${s.released ? ` &bull; ${yearsSince(s.released)}` : ""}</div></div>
-    </div>
+    </div>${/* DIRECTLY UNDER THE COUNT IT CORRECTS, AND ABOVE THE CHASE GRID.
+          The "Cards total" tile two lines up is the number a reader takes away,
+          and on three guides it is the size of a checklist rather than of a
+          set. Below the chase grid is after the damage, and inside Quick facts
+          is where this already lived and was missed.
+          THE NEWLINE IS INSIDE THE TERNARY. Written the obvious way, with the
+          interpolation on its own indented line, the 25 guides with no
+          companion each gained a line of trailing spaces. */ ""}${
+      comp ? `\n    ${compBand(s, comp)}` : ""}
 ${(() => {
   // The pack price was waiting on a human and did not need to be. Every one of
   // the 23 sets already carries a live TCGplayer "Single Pack" market price

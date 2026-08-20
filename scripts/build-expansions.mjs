@@ -55,6 +55,61 @@ const { videos: allVideos } = JSON.parse(
 const ripsBySet = {};
 for (const v of allVideos) for (const sid of v.sets || []) ripsBySet[sid] = (ripsBySet[sid] || 0) + 1;
 
+/* --------------------------------------------------------- the companion sets
+ *
+ * THREE ROWS ON THIS TABLE ARE NOT SETS YOU CAN BUY, and until 19 August 2026
+ * nothing on the page said so. Shining Fates Shiny Vault, Crown Zenith Galarian
+ * Gallery and Celebrations: Classic Collection each sit directly under their
+ * parent, sharing its release date, with a card count, no rips and no link, so
+ * they read as two separate products released on the same day.
+ *
+ * The guides had the matching half of this bug and it was the worse half: they
+ * priced the parent's checklist and never mentioned the companion, so
+ * /sets/shining-fates.html called an $11.35 Skyla the set's chase card. The
+ * fix there is in build-set-pages.mjs. This is the same fact in the other place
+ * a reader meets these names, and it comes out of the same file so the two
+ * cannot end up describing the relationship differently.
+ *
+ * KEYED BY apiId, NOT BY NAME. data/companion-sets.json is keyed by our set
+ * slug, because that is what a guide has; this page has neither a slug nor a
+ * guide for most of its 174 rows, and it does have an apiId for every one.
+ */
+let companionByApiId = new Map();
+try {
+  const doc = JSON.parse(await readFile(join(ROOT, "data/companion-sets.json"), "utf8"));
+  const byApiId = new Map(sets.map((s) => [s.apiId, s]));
+  // The three with a guide, keyed by our slug there because that is what a
+  // guide has, and re-keyed by apiId here because that is what a row has.
+  for (const [parentSlug, c] of Object.entries(doc.sets || {})) {
+    const parent = sets.find((x) => x.slug === parentSlug);
+    companionByApiId.set(c.apiId, { parentName: parent?.name, parentSlug, parentPresent: Boolean(parent) });
+  }
+  // ALL EIGHT OR NONE. Tagging three subset rows and leaving five identical
+  // ones bare teaches a reader the wrong thing about the five, and it teaches
+  // it more firmly than saying nothing did: an Astral Radiance Trainer Gallery
+  // row with no tag, two rows under a Galarian Gallery row that has one, reads
+  // as a set that stands alone rather than as one nobody got round to.
+  for (const [apiId, c] of Object.entries(doc.noGuide || {})) {
+    const parent = byApiId.get(c.parentApiId);
+    companionByApiId.set(apiId, { parentName: parent?.name, parentSlug: null, parentPresent: Boolean(parent) });
+  }
+  const bad = [];
+  for (const [apiId, c] of companionByApiId) {
+    if (!byApiId.has(apiId)) bad.push(`${apiId} is not a row in public/data/expansions.json`);
+    if (!c.parentPresent) bad.push(`${apiId}: its parent is not a row on this page, so the tag would name nothing`);
+  }
+  if (bad.length) {
+    throw new Error(
+      "data/companion-sets.json does not line up with public/data/expansions.json, and every " +
+        "line it writes says which set a row belongs to, so a wrong one is worse than none:\n  " +
+        bad.join("\n  ")
+    );
+  }
+} catch (err) {
+  if (err instanceof SyntaxError || /does not line up/.test(err.message)) throw err;
+  /* file absent: every row renders exactly as it did before it existed */
+}
+
 /* ---------------------------------------------------- the single-rip shortcut
  *
  * WHERE A SET HAS EXACTLY ONE RIP, THE CELL LINKS THE RIP.
@@ -294,13 +349,28 @@ function eraTable(e) {
       const name = s.slug
         ? `<a href="/sets/${s.slug}.html">${esc(s.name)}</a>`
         : esc(s.name);
+      const comp = companionByApiId.get(s.apiId);
       return `        <tr${s.slug ? ' class="mine"' : ""}>
           <th scope="row">
-            <span class="xp-name">${
+            ${/* THE NAME IS WRAPPED IN ITS OWN SPAN so that the copy button can
+                  take it without the pills beside it. It used to read the cell
+                  and strip a trailing "promo" with an expression, which worked
+                  only while "promo" was the one thing that could follow a name.
+                  A second pill would have pasted a sentence into the Set column
+                  of somebody's spreadsheet, which is a bug you find a week
+                  later in a file you no longer have. */ ""}<span class="xp-name${comp ? " xp-name-sub" : ""}">${
               s.symbol
                 ? symbolImg(s)
                 : `<span class="xp-nosym" aria-hidden="true"></span>`
-            }${name}${s.promo ? ` <span class="xp-tag">promo</span>` : ""}</span>
+            }<span class="xp-n">${name}</span>${s.promo ? ` <span class="xp-tag">promo</span>` : ""}${
+              comp
+                ? ` <span class="xp-sub">part of ${
+                    comp.parentSlug
+                      ? `<a href="/sets/${esc(comp.parentSlug)}.html">${esc(comp.parentName)}</a>`
+                      : esc(comp.parentName)
+                  }</span>`
+                : ""
+            }</span>
           </th>
           <td class="xp-date"><time datetime="${esc(s.released || "")}">${shortDate(s.released)}</time></td>
           ${/* data-cards CARRIES THE PLAIN NUMBER FOR THE COPY BUTTON. That
@@ -482,6 +552,37 @@ const style = `
 .xp-tag{font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
   color:var(--ink);background:var(--paper-3);border:1px solid var(--hair);
   border-radius:var(--r-pill);padding:3px 6px}
+/* THE COMPANION POINTER. Three rows on this table are a subset of the row
+   above them and nothing said so, so they read as two products released the
+   same day. It wraps to its own line rather than pushing the name, because the
+   name is the column and this is a footnote to it: .xp-name is a flex row and
+   flex-basis:100% on this child is what puts it underneath without touching
+   the 171 rows that do not have one.
+   THE LINK IS THE SMALL TEAL, not the pink .xp-rips uses two rules down. This
+   is 9px, which is exactly the case --gold-deep exists for, and it is a route
+   to another page rather than a mark that goes nowhere. */
+.xp-sub{flex-basis:100%;font:700 9px/1.3 var(--mono);letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-2)}
+.xp-sub a{color:var(--gold-deep);text-decoration:underline;text-underline-offset:2px}
+/* THE WRAP IS ON A SECOND CLASS, NOT ON .xp-name, and that is not fussiness.
+   .xp-name is a nowrap flex row today, so its content width is part of what
+   sets this table's minimum width at 390. Letting all 174 of them wrap could
+   make the table narrower and relay every column on a phone, to fix three rows.
+   This class is emitted only on the three that carry an .xp-sub. */
+.xp-name-sub{flex-wrap:wrap;row-gap:3px}
+/* KEEP THE NAME BESIDE THE SYMBOL. The moment .xp-name-sub above is allowed to
+   wrap, the two longest of the eight, "Celebrations: Classic Collection" and
+   "Astral Radiance Trainer Gallery", go over the width left in the cell and
+   wrap WHOLE, leaving the 20px set symbol alone on the line above them and
+   reading as a layout fault.
+   THE BASIS IS 0, NOT auto, and that is the whole rule. At auto the item asks
+   for its own content width first and still wraps as a block; at 0 it takes
+   what is left of the row and wraps its own text inside it, which is what the
+   four long names on this table did before any of this and what the 166 rows
+   around them still do. min-width:0 is the other half: a flex item will not
+   shrink below its longest word without it. Measured at 390 against HEAD's own
+   build of this page: same two names, same two lines each. */
+.xp-name-sub .xp-n{flex:1 1 0;min-width:0}
 .xp-date{white-space:nowrap;color:var(--ink-2);font-variant-numeric:tabular-nums}
 .xp-cards{font-variant-numeric:tabular-nums;white-space:nowrap}
 .xp-cards .sec{color:var(--ink-2);font-size:var(--t-micro)}
@@ -622,15 +723,17 @@ document.getElementById("copyAll")?.addEventListener("click", async (e) => {
     const era = clean(sec.querySelector("h2")?.firstChild);
     for (const tr of sec.querySelectorAll("tbody tr")) {
       const tag = tr.querySelector(".xp-tag");
-      // Read the name without the promo pill, which sits inside the same cell
-      // and would otherwise paste as part of the set's name.
-      const name = clean(tr.querySelector(".xp-name a")) ||
-        clean(tr.querySelector(".xp-name")).replace(/\\s*promo$/i, "");
+      const sub = tr.querySelector(".xp-sub");
+      // Read the name out of its own span, which holds the set name and
+      // nothing else. This used to read the whole cell and strip a trailing
+      // "promo", which was fine while that was the only pill that could follow
+      // a name and wrong the moment a second one existed.
+      const name = clean(tr.querySelector(".xp-n")) || clean(tr.querySelector(".xp-name"));
       const rips = clean(tr.querySelector(".xp-rips"));
       lines.push([
         era,
         name,
-        tag ? "Promo" : "Expansion",
+        tag ? "Promo" : sub ? "Subset" : "Expansion",
         clean(tr.querySelector(".xp-date")),
         tr.querySelector(".xp-cards")?.dataset.cards || clean(tr.querySelector(".xp-cards")),
         rips === "\\u2014" ? "" : rips,

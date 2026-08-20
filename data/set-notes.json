@@ -27,9 +27,21 @@
     "  every 'X is on four cards' claim          (pricecharting.com guide values)",
     "  PSA 10 figures                            data/psa10.json",
     "                                            (pokemonpricetracker.com)",
-    "  companion sets filed separately           public/data/expansions.json",
-    "  (Shiny Vault, Galarian Gallery,           (api.pokemontcg.io)",
-    "   Classic Collection)",
+    "",
+    "COMPANION SETS ARE NO LONGER WRITTEN HERE, and that is a placement fix",
+    "rather than a sourcing one. Three lines used to live in funFacts saying the",
+    "Shiny Vault, the Galarian Gallery and the Classic Collection are filed",
+    "separately and counted nowhere on the page. Every word of that was true and",
+    "it was in the WRONG BAND: funFacts renders in the last section of the",
+    "guide, under the hero lede, the chase grid and the value band, so a reader",
+    "met 'the chase card is Skyla at $11.35' three times before reaching the",
+    "sentence explaining which cards that figure describes.",
+    "",
+    "They moved to data/companion-sets.json on 19 August 2026, where",
+    "build-set-pages.mjs emits the same fact beside each of those five claims",
+    "and fails the build if the card count drifts from expansions.json. Do not",
+    "write one back in here: the page would then say it twice, in two wordings,",
+    "and only one of them is checked.",
     "",
     "THERE IS NO SOURCE FIELD HERE, unlike data/base-set.json, where every claim",
     "carries a `source` the builder prints beside it. funFacts is an array of",
@@ -95,8 +107,7 @@
 
   "celebrations": {
     "funFacts": [
-      "25 cards makes this the smallest of the 28 English sets on this site, and one pack costs about a third of what buying one of every card costs. Both of those figures are further up this page.",
-      "There is a second Celebrations set that is not in the checklist below. The Classic Collection is 25 reprints of older cards with their own numbering, filed as a separate set by the card database this site reads, so none of it is counted in any total on this page."
+      "25 cards makes this the smallest of the 28 English sets on this site, and one pack costs about a third of what buying one of every card costs. Both of those figures are further up this page."
     ]
   },
 
@@ -116,7 +127,6 @@
 
   "crown-zenith": {
     "funFacts": [
-      "The Galarian Gallery is not in the checklist below. Those 70 cards, numbered GG01 and up, are filed as a separate set by the card database this site reads, so none of them is counted here and none of their prices are in any total on this page.",
       "Three of the cards are Radiant Rares. Only one other set on this site has any, Pokemon GO, which also has three."
     ]
   },
@@ -213,7 +223,6 @@
 
   "shining-fates": {
     "funFacts": [
-      "The Shiny Vault is not in the checklist below. Those 122 cards, numbered SV001 and up, are filed as a separate set by the card database this site reads, so none of them is counted here and none of their prices are in any total on this page.",
       "Three of the cards are Amazing Rares, and they are the only Amazing Rares in any of the 28 English sets on this site."
     ]
   },

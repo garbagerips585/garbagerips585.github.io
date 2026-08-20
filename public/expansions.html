@@ -73,6 +73,11 @@ text-underline-offset:3px;text-decoration-thickness:2px}
 .xp-tag{font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
 color:var(--ink);background:var(--paper-3);border:1px solid var(--hair);
 border-radius:var(--r-pill);padding:3px 6px}
+.xp-sub{flex-basis:100%;font:700 9px/1.3 var(--mono);letter-spacing:.06em;
+text-transform:uppercase;color:var(--ink-2)}
+.xp-sub a{color:var(--gold-deep);text-decoration:underline;text-underline-offset:2px}
+.xp-name-sub{flex-wrap:wrap;row-gap:3px}
+.xp-name-sub .xp-n{flex:1 1 0;min-width:0}
 .xp-date{white-space:nowrap;color:var(--ink-2);font-variant-numeric:tabular-nums}
 .xp-cards{font-variant-numeric:tabular-nums;white-space:nowrap}
 .xp-cards .sec{color:var(--ink-2);font-size:var(--t-micro)}
@@ -315,7 +320,7 @@ gap:var(--s6);align-items:start}
         <tbody>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/base1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="25" loading="lazy" decoding="async">Base</span>
+            <span class="xp-name"><img src="/assets/symbols/base1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="25" loading="lazy" decoding="async"><span class="xp-n">Base</span></span>
           </th>
           <td class="xp-date"><time datetime="1999-01-09">Jan 9, 1999</time></td>
           <td class="xp-cards" data-cards="102">102</td>
@@ -323,7 +328,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/base2-pokemon-tcg-set-symbol.webp" alt="" width="48" height="31" loading="lazy" decoding="async">Jungle</span>
+            <span class="xp-name"><img src="/assets/symbols/base2-pokemon-tcg-set-symbol.webp" alt="" width="48" height="31" loading="lazy" decoding="async"><span class="xp-n">Jungle</span></span>
           </th>
           <td class="xp-date"><time datetime="1999-06-16">Jun 16, 1999</time></td>
           <td class="xp-cards" data-cards="64">64</td>
@@ -331,7 +336,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/basep-pokemon-tcg-set-symbol.webp" alt="" width="48" height="44" loading="lazy" decoding="async">Wizards Black Star Promos <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/basep-pokemon-tcg-set-symbol.webp" alt="" width="48" height="44" loading="lazy" decoding="async"><span class="xp-n">Wizards Black Star Promos</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="1999-07-01">Jul 1, 1999</time></td>
           <td class="xp-cards" data-cards="53">53</td>
@@ -339,7 +344,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/base3-pokemon-tcg-set-symbol.webp" alt="" width="48" height="38" loading="lazy" decoding="async">Fossil</span>
+            <span class="xp-name"><img src="/assets/symbols/base3-pokemon-tcg-set-symbol.webp" alt="" width="48" height="38" loading="lazy" decoding="async"><span class="xp-n">Fossil</span></span>
           </th>
           <td class="xp-date"><time datetime="1999-10-10">Oct 10, 1999</time></td>
           <td class="xp-cards" data-cards="62">62</td>
@@ -347,7 +352,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/base4-pokemon-tcg-set-symbol.webp" alt="" width="46" height="48" loading="lazy" decoding="async">Base Set 2</span>
+            <span class="xp-name"><img src="/assets/symbols/base4-pokemon-tcg-set-symbol.webp" alt="" width="46" height="48" loading="lazy" decoding="async"><span class="xp-n">Base Set 2</span></span>
           </th>
           <td class="xp-date"><time datetime="2000-02-24">Feb 24, 2000</time></td>
           <td class="xp-cards" data-cards="130">130</td>
@@ -355,7 +360,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/base5-pokemon-tcg-set-symbol.webp" alt="" width="48" height="38" loading="lazy" decoding="async">Team Rocket</span>
+            <span class="xp-name"><img src="/assets/symbols/base5-pokemon-tcg-set-symbol.webp" alt="" width="48" height="38" loading="lazy" decoding="async"><span class="xp-n">Team Rocket</span></span>
           </th>
           <td class="xp-date"><time datetime="2000-04-24">Apr 24, 2000</time></td>
           <td class="xp-cards" data-cards="83">82 <span class="sec">+1</span><span class="sr-only">, plus 1 secret card numbered past the printed total</span></td>
@@ -396,7 +401,7 @@ gap:var(--s6);align-items:start}
         <tbody>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/gym1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="29" loading="lazy" decoding="async">Gym Heroes</span>
+            <span class="xp-name"><img src="/assets/symbols/gym1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="29" loading="lazy" decoding="async"><span class="xp-n">Gym Heroes</span></span>
           </th>
           <td class="xp-date"><time datetime="2000-08-14">Aug 14, 2000</time></td>
           <td class="xp-cards" data-cards="132">132</td>
@@ -404,7 +409,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/gym2-pokemon-tcg-set-symbol.webp" alt="" width="48" height="29" loading="lazy" decoding="async">Gym Challenge</span>
+            <span class="xp-name"><img src="/assets/symbols/gym2-pokemon-tcg-set-symbol.webp" alt="" width="48" height="29" loading="lazy" decoding="async"><span class="xp-n">Gym Challenge</span></span>
           </th>
           <td class="xp-date"><time datetime="2000-10-16">Oct 16, 2000</time></td>
           <td class="xp-cards" data-cards="132">132</td>
@@ -445,7 +450,7 @@ gap:var(--s6);align-items:start}
         <tbody>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/neo1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="40" loading="lazy" decoding="async">Neo Genesis</span>
+            <span class="xp-name"><img src="/assets/symbols/neo1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="40" loading="lazy" decoding="async"><span class="xp-n">Neo Genesis</span></span>
           </th>
           <td class="xp-date"><time datetime="2000-12-16">Dec 16, 2000</time></td>
           <td class="xp-cards" data-cards="111">111</td>
@@ -453,7 +458,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/neo2-pokemon-tcg-set-symbol.webp" alt="" width="48" height="34" loading="lazy" decoding="async">Neo Discovery</span>
+            <span class="xp-name"><img src="/assets/symbols/neo2-pokemon-tcg-set-symbol.webp" alt="" width="48" height="34" loading="lazy" decoding="async"><span class="xp-n">Neo Discovery</span></span>
           </th>
           <td class="xp-date"><time datetime="2001-06-01">Jun 1, 2001</time></td>
           <td class="xp-cards" data-cards="75">75</td>
@@ -461,7 +466,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/neo3-pokemon-tcg-set-symbol.webp" alt="" width="48" height="31" loading="lazy" decoding="async">Neo Revelation</span>
+            <span class="xp-name"><img src="/assets/symbols/neo3-pokemon-tcg-set-symbol.webp" alt="" width="48" height="31" loading="lazy" decoding="async"><span class="xp-n">Neo Revelation</span></span>
           </th>
           <td class="xp-date"><time datetime="2001-09-21">Sep 21, 2001</time></td>
           <td class="xp-cards" data-cards="66">64 <span class="sec">+2</span><span class="sr-only">, plus 2 secret cards numbered past the printed total</span></td>
@@ -469,7 +474,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/neo4-pokemon-tcg-set-symbol.webp" alt="" width="48" height="33" loading="lazy" decoding="async">Neo Destiny</span>
+            <span class="xp-name"><img src="/assets/symbols/neo4-pokemon-tcg-set-symbol.webp" alt="" width="48" height="33" loading="lazy" decoding="async"><span class="xp-n">Neo Destiny</span></span>
           </th>
           <td class="xp-date"><time datetime="2002-02-28">Feb 28, 2002</time></td>
           <td class="xp-cards" data-cards="113">105 <span class="sec">+8</span><span class="sr-only">, plus 8 secret cards numbered past the printed total</span></td>
@@ -510,7 +515,7 @@ gap:var(--s6);align-items:start}
         <tbody>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/si1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="37" loading="lazy" decoding="async">Southern Islands</span>
+            <span class="xp-name"><img src="/assets/symbols/si1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="37" loading="lazy" decoding="async"><span class="xp-n">Southern Islands</span></span>
           </th>
           <td class="xp-date"><time datetime="2001-07-31">Jul 31, 2001</time></td>
           <td class="xp-cards" data-cards="18">18</td>
@@ -518,7 +523,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/base6-pokemon-tcg-set-symbol.webp" alt="" width="27" height="48" loading="lazy" decoding="async">Legendary Collection</span>
+            <span class="xp-name"><img src="/assets/symbols/base6-pokemon-tcg-set-symbol.webp" alt="" width="27" height="48" loading="lazy" decoding="async"><span class="xp-n">Legendary Collection</span></span>
           </th>
           <td class="xp-date"><time datetime="2002-05-24">May 24, 2002</time></td>
           <td class="xp-cards" data-cards="110">110</td>
@@ -526,7 +531,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/bp-pokemon-tcg-set-symbol.webp" alt="" width="47" height="48" loading="lazy" decoding="async">Best of Game <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/bp-pokemon-tcg-set-symbol.webp" alt="" width="47" height="48" loading="lazy" decoding="async"><span class="xp-n">Best of Game</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2002-12-01">Dec 1, 2002</time></td>
           <td class="xp-cards" data-cards="9">9</td>
@@ -534,7 +539,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/ru1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Pokémon Rumble</span>
+            <span class="xp-name"><img src="/assets/symbols/ru1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Pokémon Rumble</span></span>
           </th>
           <td class="xp-date"><time datetime="2009-12-02">Dec 2, 2009</time></td>
           <td class="xp-cards" data-cards="16">16</td>
@@ -542,7 +547,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/mcd11-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">McDonald's Collection 2011 <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/mcd11-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">McDonald's Collection 2011</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2011-06-17">Jun 17, 2011</time></td>
           <td class="xp-cards" data-cards="12">12</td>
@@ -550,7 +555,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/mcd12-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">McDonald's Collection 2012 <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/mcd12-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">McDonald's Collection 2012</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2012-06-15">Jun 15, 2012</time></td>
           <td class="xp-cards" data-cards="12">12</td>
@@ -558,7 +563,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/mcd14-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">McDonald's Collection 2014 <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/mcd14-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">McDonald's Collection 2014</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2014-05-23">May 23, 2014</time></td>
           <td class="xp-cards" data-cards="12">12</td>
@@ -566,7 +571,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/mcd15-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">McDonald's Collection 2015 <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/mcd15-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">McDonald's Collection 2015</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2015-11-27">Nov 27, 2015</time></td>
           <td class="xp-cards" data-cards="12">12</td>
@@ -574,7 +579,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/mcd16-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">McDonald's Collection 2016 <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/mcd16-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">McDonald's Collection 2016</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2016-08-19">Aug 19, 2016</time></td>
           <td class="xp-cards" data-cards="12">12</td>
@@ -582,7 +587,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/mcd17-pokemon-tcg-set-symbol.webp" alt="" width="30" height="30" loading="lazy" decoding="async">McDonald's Collection 2017 <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/mcd17-pokemon-tcg-set-symbol.webp" alt="" width="30" height="30" loading="lazy" decoding="async"><span class="xp-n">McDonald's Collection 2017</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2017-11-07">Nov 7, 2017</time></td>
           <td class="xp-cards" data-cards="12">12</td>
@@ -590,7 +595,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/mcd18-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">McDonald's Collection 2018 <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/mcd18-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">McDonald's Collection 2018</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2018-10-16">Oct 16, 2018</time></td>
           <td class="xp-cards" data-cards="12">12</td>
@@ -598,7 +603,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/mcd19-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async">McDonald's Collection 2019 <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/mcd19-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><span class="xp-n">McDonald's Collection 2019</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2019-10-15">Oct 15, 2019</time></td>
           <td class="xp-cards" data-cards="12">12</td>
@@ -606,7 +611,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/fut20-pokemon-tcg-set-symbol.webp" alt="" width="31" height="31" loading="lazy" decoding="async">Pokémon Futsal Collection</span>
+            <span class="xp-name"><img src="/assets/symbols/fut20-pokemon-tcg-set-symbol.webp" alt="" width="31" height="31" loading="lazy" decoding="async"><span class="xp-n">Pokémon Futsal Collection</span></span>
           </th>
           <td class="xp-date"><time datetime="2020-09-11">Sep 11, 2020</time></td>
           <td class="xp-cards" data-cards="5">5</td>
@@ -614,7 +619,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/mcd21-pokemon-tcg-set-symbol.webp" alt="" width="48" height="32" loading="lazy" decoding="async">McDonald's Collection 2021 <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/mcd21-pokemon-tcg-set-symbol.webp" alt="" width="48" height="32" loading="lazy" decoding="async"><span class="xp-n">McDonald's Collection 2021</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2021-02-09">Feb 9, 2021</time></td>
           <td class="xp-cards" data-cards="25">25</td>
@@ -622,7 +627,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/mcd22-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">McDonald's Collection 2022 <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/mcd22-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">McDonald's Collection 2022</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2022-08-03">Aug 3, 2022</time></td>
           <td class="xp-cards" data-cards="15">15</td>
@@ -663,7 +668,7 @@ gap:var(--s6);align-items:start}
         <tbody>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/ecard1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Expedition Base Set</span>
+            <span class="xp-name"><img src="/assets/symbols/ecard1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Expedition Base Set</span></span>
           </th>
           <td class="xp-date"><time datetime="2002-09-15">Sep 15, 2002</time></td>
           <td class="xp-cards" data-cards="165">165</td>
@@ -671,7 +676,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/ecard2-pokemon-tcg-set-symbol.webp" alt="" width="38" height="48" loading="lazy" decoding="async">Aquapolis</span>
+            <span class="xp-name"><img src="/assets/symbols/ecard2-pokemon-tcg-set-symbol.webp" alt="" width="38" height="48" loading="lazy" decoding="async"><span class="xp-n">Aquapolis</span></span>
           </th>
           <td class="xp-date"><time datetime="2003-01-15">Jan 15, 2003</time></td>
           <td class="xp-cards" data-cards="182">147 <span class="sec">+35</span><span class="sr-only">, plus 35 secret cards numbered past the printed total</span></td>
@@ -679,7 +684,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/ecard3-pokemon-tcg-set-symbol.webp" alt="" width="48" height="37" loading="lazy" decoding="async">Skyridge</span>
+            <span class="xp-name"><img src="/assets/symbols/ecard3-pokemon-tcg-set-symbol.webp" alt="" width="48" height="37" loading="lazy" decoding="async"><span class="xp-n">Skyridge</span></span>
           </th>
           <td class="xp-date"><time datetime="2003-05-12">May 12, 2003</time></td>
           <td class="xp-cards" data-cards="182">144 <span class="sec">+38</span><span class="sr-only">, plus 38 secret cards numbered past the printed total</span></td>
@@ -720,7 +725,7 @@ gap:var(--s6);align-items:start}
         <tbody>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/ex1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Ruby &amp; Sapphire</span>
+            <span class="xp-name"><img src="/assets/symbols/ex1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Ruby &amp; Sapphire</span></span>
           </th>
           <td class="xp-date"><time datetime="2003-07-01">Jul 1, 2003</time></td>
           <td class="xp-cards" data-cards="109">109</td>
@@ -728,7 +733,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/ex2-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Sandstorm</span>
+            <span class="xp-name"><img src="/assets/symbols/ex2-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Sandstorm</span></span>
           </th>
           <td class="xp-date"><time datetime="2003-09-18">Sep 18, 2003</time></td>
           <td class="xp-cards" data-cards="100">100</td>
@@ -736,7 +741,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/ex3-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Dragon</span>
+            <span class="xp-name"><img src="/assets/symbols/ex3-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Dragon</span></span>
           </th>
           <td class="xp-date"><time datetime="2003-11-24">Nov 24, 2003</time></td>
           <td class="xp-cards" data-cards="100">97 <span class="sec">+3</span><span class="sr-only">, plus 3 secret cards numbered past the printed total</span></td>
@@ -744,7 +749,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/ex4-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Team Magma vs Team Aqua</span>
+            <span class="xp-name"><img src="/assets/symbols/ex4-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Team Magma vs Team Aqua</span></span>
           </th>
           <td class="xp-date"><time datetime="2004-03-01">Mar 1, 2004</time></td>
           <td class="xp-cards" data-cards="97">95 <span class="sec">+2</span><span class="sr-only">, plus 2 secret cards numbered past the printed total</span></td>
@@ -752,7 +757,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/tk1a-pokemon-tcg-set-symbol.webp" alt="" width="48" height="32" loading="lazy" decoding="async">EX Trainer Kit Latias <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/tk1a-pokemon-tcg-set-symbol.webp" alt="" width="48" height="32" loading="lazy" decoding="async"><span class="xp-n">EX Trainer Kit Latias</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2004-06-01">Jun 1, 2004</time></td>
           <td class="xp-cards" data-cards="10">10</td>
@@ -760,7 +765,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/tk1b-pokemon-tcg-set-symbol.webp" alt="" width="48" height="32" loading="lazy" decoding="async">EX Trainer Kit Latios <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/tk1b-pokemon-tcg-set-symbol.webp" alt="" width="48" height="32" loading="lazy" decoding="async"><span class="xp-n">EX Trainer Kit Latios</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2004-06-01">Jun 1, 2004</time></td>
           <td class="xp-cards" data-cards="10">10</td>
@@ -768,7 +773,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/ex5-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Hidden Legends</span>
+            <span class="xp-name"><img src="/assets/symbols/ex5-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Hidden Legends</span></span>
           </th>
           <td class="xp-date"><time datetime="2004-06-01">Jun 1, 2004</time></td>
           <td class="xp-cards" data-cards="102">101 <span class="sec">+1</span><span class="sr-only">, plus 1 secret card numbered past the printed total</span></td>
@@ -776,7 +781,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/ex6-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">FireRed &amp; LeafGreen</span>
+            <span class="xp-name"><img src="/assets/symbols/ex6-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">FireRed &amp; LeafGreen</span></span>
           </th>
           <td class="xp-date"><time datetime="2004-09-01">Sep 1, 2004</time></td>
           <td class="xp-cards" data-cards="116">112 <span class="sec">+4</span><span class="sr-only">, plus 4 secret cards numbered past the printed total</span></td>
@@ -784,7 +789,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/ex7-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Team Rocket Returns</span>
+            <span class="xp-name"><img src="/assets/symbols/ex7-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Team Rocket Returns</span></span>
           </th>
           <td class="xp-date"><time datetime="2004-11-01">Nov 1, 2004</time></td>
           <td class="xp-cards" data-cards="111">109 <span class="sec">+2</span><span class="sr-only">, plus 2 secret cards numbered past the printed total</span></td>
@@ -792,7 +797,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/ex8-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Deoxys</span>
+            <span class="xp-name"><img src="/assets/symbols/ex8-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Deoxys</span></span>
           </th>
           <td class="xp-date"><time datetime="2005-02-01">Feb 1, 2005</time></td>
           <td class="xp-cards" data-cards="108">107 <span class="sec">+1</span><span class="sr-only">, plus 1 secret card numbered past the printed total</span></td>
@@ -800,7 +805,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/ex9-pokemon-tcg-set-symbol.webp" alt="" width="48" height="36" loading="lazy" decoding="async">Emerald</span>
+            <span class="xp-name"><img src="/assets/symbols/ex9-pokemon-tcg-set-symbol.webp" alt="" width="48" height="36" loading="lazy" decoding="async"><span class="xp-n">Emerald</span></span>
           </th>
           <td class="xp-date"><time datetime="2005-05-01">May 1, 2005</time></td>
           <td class="xp-cards" data-cards="107">106 <span class="sec">+1</span><span class="sr-only">, plus 1 secret card numbered past the printed total</span></td>
@@ -808,7 +813,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/ex10-pokemon-tcg-set-symbol.webp" alt="" width="48" height="43" loading="lazy" decoding="async">Unseen Forces</span>
+            <span class="xp-name"><img src="/assets/symbols/ex10-pokemon-tcg-set-symbol.webp" alt="" width="48" height="43" loading="lazy" decoding="async"><span class="xp-n">Unseen Forces</span></span>
           </th>
           <td class="xp-date"><time datetime="2005-08-01">Aug 1, 2005</time></td>
           <td class="xp-cards" data-cards="145">115 <span class="sec">+30</span><span class="sr-only">, plus 30 secret cards numbered past the printed total</span></td>
@@ -816,7 +821,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/ex11-pokemon-tcg-set-symbol.webp" alt="" width="48" height="41" loading="lazy" decoding="async">Delta Species</span>
+            <span class="xp-name"><img src="/assets/symbols/ex11-pokemon-tcg-set-symbol.webp" alt="" width="48" height="41" loading="lazy" decoding="async"><span class="xp-n">Delta Species</span></span>
           </th>
           <td class="xp-date"><time datetime="2005-10-31">Oct 31, 2005</time></td>
           <td class="xp-cards" data-cards="114">113 <span class="sec">+1</span><span class="sr-only">, plus 1 secret card numbered past the printed total</span></td>
@@ -824,7 +829,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/ex12-pokemon-tcg-set-symbol.webp" alt="" width="45" height="48" loading="lazy" decoding="async">Legend Maker</span>
+            <span class="xp-name"><img src="/assets/symbols/ex12-pokemon-tcg-set-symbol.webp" alt="" width="45" height="48" loading="lazy" decoding="async"><span class="xp-n">Legend Maker</span></span>
           </th>
           <td class="xp-date"><time datetime="2006-02-01">Feb 1, 2006</time></td>
           <td class="xp-cards" data-cards="93">92 <span class="sec">+1</span><span class="sr-only">, plus 1 secret card numbered past the printed total</span></td>
@@ -832,7 +837,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/tk2b-pokemon-tcg-set-symbol.webp" alt="" width="36" height="48" loading="lazy" decoding="async">EX Trainer Kit 2 Minun <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/tk2b-pokemon-tcg-set-symbol.webp" alt="" width="36" height="48" loading="lazy" decoding="async"><span class="xp-n">EX Trainer Kit 2 Minun</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2006-03-01">Mar 1, 2006</time></td>
           <td class="xp-cards" data-cards="12">12</td>
@@ -840,7 +845,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/tk2a-pokemon-tcg-set-symbol.webp" alt="" width="33" height="48" loading="lazy" decoding="async">EX Trainer Kit 2 Plusle <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/tk2a-pokemon-tcg-set-symbol.webp" alt="" width="33" height="48" loading="lazy" decoding="async"><span class="xp-n">EX Trainer Kit 2 Plusle</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2006-03-01">Mar 1, 2006</time></td>
           <td class="xp-cards" data-cards="12">12</td>
@@ -848,7 +853,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/ex13-pokemon-tcg-set-symbol.webp" alt="" width="48" height="44" loading="lazy" decoding="async">Holon Phantoms</span>
+            <span class="xp-name"><img src="/assets/symbols/ex13-pokemon-tcg-set-symbol.webp" alt="" width="48" height="44" loading="lazy" decoding="async"><span class="xp-n">Holon Phantoms</span></span>
           </th>
           <td class="xp-date"><time datetime="2006-05-01">May 1, 2006</time></td>
           <td class="xp-cards" data-cards="111">110 <span class="sec">+1</span><span class="sr-only">, plus 1 secret card numbered past the printed total</span></td>
@@ -856,7 +861,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/ex14-pokemon-tcg-set-symbol.webp" alt="" width="28" height="48" loading="lazy" decoding="async">Crystal Guardians</span>
+            <span class="xp-name"><img src="/assets/symbols/ex14-pokemon-tcg-set-symbol.webp" alt="" width="28" height="48" loading="lazy" decoding="async"><span class="xp-n">Crystal Guardians</span></span>
           </th>
           <td class="xp-date"><time datetime="2006-08-01">Aug 1, 2006</time></td>
           <td class="xp-cards" data-cards="100">100</td>
@@ -864,7 +869,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/ex15-pokemon-tcg-set-symbol.webp" alt="" width="48" height="45" loading="lazy" decoding="async">Dragon Frontiers</span>
+            <span class="xp-name"><img src="/assets/symbols/ex15-pokemon-tcg-set-symbol.webp" alt="" width="48" height="45" loading="lazy" decoding="async"><span class="xp-n">Dragon Frontiers</span></span>
           </th>
           <td class="xp-date"><time datetime="2006-11-01">Nov 1, 2006</time></td>
           <td class="xp-cards" data-cards="101">101</td>
@@ -872,7 +877,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/ex16-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Power Keepers</span>
+            <span class="xp-name"><img src="/assets/symbols/ex16-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Power Keepers</span></span>
           </th>
           <td class="xp-date"><time datetime="2007-02-02">Feb 2, 2007</time></td>
           <td class="xp-cards" data-cards="108">108</td>
@@ -913,7 +918,7 @@ gap:var(--s6);align-items:start}
         <tbody>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/np-pokemon-tcg-set-symbol.webp" alt="" width="48" height="44" loading="lazy" decoding="async">Nintendo Black Star Promos <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/np-pokemon-tcg-set-symbol.webp" alt="" width="48" height="44" loading="lazy" decoding="async"><span class="xp-n">Nintendo Black Star Promos</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2003-10-01">Oct 1, 2003</time></td>
           <td class="xp-cards" data-cards="40">40</td>
@@ -954,7 +959,7 @@ gap:var(--s6);align-items:start}
         <tbody>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/pop1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="32" loading="lazy" decoding="async">POP Series 1 <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/pop1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="32" loading="lazy" decoding="async"><span class="xp-n">POP Series 1</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2004-09-01">Sep 1, 2004</time></td>
           <td class="xp-cards" data-cards="17">17</td>
@@ -962,7 +967,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/pop2-pokemon-tcg-set-symbol.webp" alt="" width="48" height="31" loading="lazy" decoding="async">POP Series 2 <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/pop2-pokemon-tcg-set-symbol.webp" alt="" width="48" height="31" loading="lazy" decoding="async"><span class="xp-n">POP Series 2</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2005-08-01">Aug 1, 2005</time></td>
           <td class="xp-cards" data-cards="17">17</td>
@@ -970,7 +975,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/pop3-pokemon-tcg-set-symbol.webp" alt="" width="48" height="31" loading="lazy" decoding="async">POP Series 3 <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/pop3-pokemon-tcg-set-symbol.webp" alt="" width="48" height="31" loading="lazy" decoding="async"><span class="xp-n">POP Series 3</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2006-04-01">Apr 1, 2006</time></td>
           <td class="xp-cards" data-cards="17">17</td>
@@ -978,7 +983,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/pop4-pokemon-tcg-set-symbol.webp" alt="" width="48" height="29" loading="lazy" decoding="async">POP Series 4 <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/pop4-pokemon-tcg-set-symbol.webp" alt="" width="48" height="29" loading="lazy" decoding="async"><span class="xp-n">POP Series 4</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2006-08-01">Aug 1, 2006</time></td>
           <td class="xp-cards" data-cards="17">17</td>
@@ -986,7 +991,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/pop5-pokemon-tcg-set-symbol.webp" alt="" width="48" height="31" loading="lazy" decoding="async">POP Series 5 <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/pop5-pokemon-tcg-set-symbol.webp" alt="" width="48" height="31" loading="lazy" decoding="async"><span class="xp-n">POP Series 5</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2007-03-01">Mar 1, 2007</time></td>
           <td class="xp-cards" data-cards="17">17</td>
@@ -994,7 +999,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/pop6-pokemon-tcg-set-symbol.webp" alt="" width="48" height="29" loading="lazy" decoding="async">POP Series 6 <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/pop6-pokemon-tcg-set-symbol.webp" alt="" width="48" height="29" loading="lazy" decoding="async"><span class="xp-n">POP Series 6</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2007-09-01">Sep 1, 2007</time></td>
           <td class="xp-cards" data-cards="17">17</td>
@@ -1002,7 +1007,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/pop7-pokemon-tcg-set-symbol.webp" alt="" width="48" height="30" loading="lazy" decoding="async">POP Series 7 <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/pop7-pokemon-tcg-set-symbol.webp" alt="" width="48" height="30" loading="lazy" decoding="async"><span class="xp-n">POP Series 7</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2008-03-01">Mar 1, 2008</time></td>
           <td class="xp-cards" data-cards="17">17</td>
@@ -1010,7 +1015,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/pop8-pokemon-tcg-set-symbol.webp" alt="" width="48" height="29" loading="lazy" decoding="async">POP Series 8 <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/pop8-pokemon-tcg-set-symbol.webp" alt="" width="48" height="29" loading="lazy" decoding="async"><span class="xp-n">POP Series 8</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2008-09-01">Sep 1, 2008</time></td>
           <td class="xp-cards" data-cards="17">17</td>
@@ -1018,7 +1023,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/pop9-pokemon-tcg-set-symbol.webp" alt="" width="48" height="29" loading="lazy" decoding="async">POP Series 9 <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/pop9-pokemon-tcg-set-symbol.webp" alt="" width="48" height="29" loading="lazy" decoding="async"><span class="xp-n">POP Series 9</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2009-03-01">Mar 1, 2009</time></td>
           <td class="xp-cards" data-cards="17">17</td>
@@ -1059,7 +1064,7 @@ gap:var(--s6);align-items:start}
         <tbody>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/dp1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="46" loading="lazy" decoding="async">Diamond &amp; Pearl</span>
+            <span class="xp-name"><img src="/assets/symbols/dp1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="46" loading="lazy" decoding="async"><span class="xp-n">Diamond &amp; Pearl</span></span>
           </th>
           <td class="xp-date"><time datetime="2007-05-01">May 1, 2007</time></td>
           <td class="xp-cards" data-cards="130">130</td>
@@ -1067,7 +1072,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/dpp-pokemon-tcg-set-symbol.webp" alt="" width="48" height="44" loading="lazy" decoding="async">DP Black Star Promos <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/dpp-pokemon-tcg-set-symbol.webp" alt="" width="48" height="44" loading="lazy" decoding="async"><span class="xp-n">DP Black Star Promos</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2007-05-01">May 1, 2007</time></td>
           <td class="xp-cards" data-cards="56">56</td>
@@ -1075,7 +1080,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/dp2-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Mysterious Treasures</span>
+            <span class="xp-name"><img src="/assets/symbols/dp2-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Mysterious Treasures</span></span>
           </th>
           <td class="xp-date"><time datetime="2007-08-01">Aug 1, 2007</time></td>
           <td class="xp-cards" data-cards="124">123 <span class="sec">+1</span><span class="sr-only">, plus 1 secret card numbered past the printed total</span></td>
@@ -1083,7 +1088,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/dp3-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Secret Wonders</span>
+            <span class="xp-name"><img src="/assets/symbols/dp3-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Secret Wonders</span></span>
           </th>
           <td class="xp-date"><time datetime="2007-11-01">Nov 1, 2007</time></td>
           <td class="xp-cards" data-cards="132">132</td>
@@ -1091,7 +1096,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/dp4-pokemon-tcg-set-symbol.webp" alt="" width="48" height="42" loading="lazy" decoding="async">Great Encounters</span>
+            <span class="xp-name"><img src="/assets/symbols/dp4-pokemon-tcg-set-symbol.webp" alt="" width="48" height="42" loading="lazy" decoding="async"><span class="xp-n">Great Encounters</span></span>
           </th>
           <td class="xp-date"><time datetime="2008-02-01">Feb 1, 2008</time></td>
           <td class="xp-cards" data-cards="106">106</td>
@@ -1099,7 +1104,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/dp5-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Majestic Dawn</span>
+            <span class="xp-name"><img src="/assets/symbols/dp5-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Majestic Dawn</span></span>
           </th>
           <td class="xp-date"><time datetime="2008-05-01">May 1, 2008</time></td>
           <td class="xp-cards" data-cards="100">100</td>
@@ -1107,7 +1112,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/dp6-pokemon-tcg-set-symbol.webp" alt="" width="48" height="42" loading="lazy" decoding="async">Legends Awakened</span>
+            <span class="xp-name"><img src="/assets/symbols/dp6-pokemon-tcg-set-symbol.webp" alt="" width="48" height="42" loading="lazy" decoding="async"><span class="xp-n">Legends Awakened</span></span>
           </th>
           <td class="xp-date"><time datetime="2008-08-01">Aug 1, 2008</time></td>
           <td class="xp-cards" data-cards="146">146</td>
@@ -1115,7 +1120,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/dp7-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Stormfront</span>
+            <span class="xp-name"><img src="/assets/symbols/dp7-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Stormfront</span></span>
           </th>
           <td class="xp-date"><time datetime="2008-11-01">Nov 1, 2008</time></td>
           <td class="xp-cards" data-cards="106">100 <span class="sec">+6</span><span class="sr-only">, plus 6 secret cards numbered past the printed total</span></td>
@@ -1156,7 +1161,7 @@ gap:var(--s6);align-items:start}
         <tbody>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/pl1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="47" loading="lazy" decoding="async">Platinum</span>
+            <span class="xp-name"><img src="/assets/symbols/pl1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="47" loading="lazy" decoding="async"><span class="xp-n">Platinum</span></span>
           </th>
           <td class="xp-date"><time datetime="2009-02-11">Feb 11, 2009</time></td>
           <td class="xp-cards" data-cards="133">127 <span class="sec">+6</span><span class="sr-only">, plus 6 secret cards numbered past the printed total</span></td>
@@ -1164,7 +1169,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/pl2-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Rising Rivals</span>
+            <span class="xp-name"><img src="/assets/symbols/pl2-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Rising Rivals</span></span>
           </th>
           <td class="xp-date"><time datetime="2009-05-16">May 16, 2009</time></td>
           <td class="xp-cards" data-cards="120">111 <span class="sec">+9</span><span class="sr-only">, plus 9 secret cards numbered past the printed total</span></td>
@@ -1172,7 +1177,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/pl3-pokemon-tcg-set-symbol.webp" alt="" width="48" height="45" loading="lazy" decoding="async">Supreme Victors</span>
+            <span class="xp-name"><img src="/assets/symbols/pl3-pokemon-tcg-set-symbol.webp" alt="" width="48" height="45" loading="lazy" decoding="async"><span class="xp-n">Supreme Victors</span></span>
           </th>
           <td class="xp-date"><time datetime="2009-08-19">Aug 19, 2009</time></td>
           <td class="xp-cards" data-cards="153">147 <span class="sec">+6</span><span class="sr-only">, plus 6 secret cards numbered past the printed total</span></td>
@@ -1180,7 +1185,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/pl4-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Arceus</span>
+            <span class="xp-name"><img src="/assets/symbols/pl4-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Arceus</span></span>
           </th>
           <td class="xp-date"><time datetime="2009-11-04">Nov 4, 2009</time></td>
           <td class="xp-cards" data-cards="111">99 <span class="sec">+12</span><span class="sr-only">, plus 12 secret cards numbered past the printed total</span></td>
@@ -1221,7 +1226,7 @@ gap:var(--s6);align-items:start}
         <tbody>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/hgss1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">HeartGold &amp; SoulSilver</span>
+            <span class="xp-name"><img src="/assets/symbols/hgss1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">HeartGold &amp; SoulSilver</span></span>
           </th>
           <td class="xp-date"><time datetime="2010-02-10">Feb 10, 2010</time></td>
           <td class="xp-cards" data-cards="124">123 <span class="sec">+1</span><span class="sr-only">, plus 1 secret card numbered past the printed total</span></td>
@@ -1229,7 +1234,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/hsp-pokemon-tcg-set-symbol.webp" alt="" width="48" height="44" loading="lazy" decoding="async">HGSS Black Star Promos <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/hsp-pokemon-tcg-set-symbol.webp" alt="" width="48" height="44" loading="lazy" decoding="async"><span class="xp-n">HGSS Black Star Promos</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2010-02-10">Feb 10, 2010</time></td>
           <td class="xp-cards" data-cards="25">25</td>
@@ -1237,7 +1242,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/hgss2-pokemon-tcg-set-symbol.webp" alt="" width="48" height="45" loading="lazy" decoding="async">HS—Unleashed</span>
+            <span class="xp-name"><img src="/assets/symbols/hgss2-pokemon-tcg-set-symbol.webp" alt="" width="48" height="45" loading="lazy" decoding="async"><span class="xp-n">HS—Unleashed</span></span>
           </th>
           <td class="xp-date"><time datetime="2010-05-12">May 12, 2010</time></td>
           <td class="xp-cards" data-cards="96">95 <span class="sec">+1</span><span class="sr-only">, plus 1 secret card numbered past the printed total</span></td>
@@ -1245,7 +1250,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/hgss3-pokemon-tcg-set-symbol.webp" alt="" width="44" height="48" loading="lazy" decoding="async">HS—Undaunted</span>
+            <span class="xp-name"><img src="/assets/symbols/hgss3-pokemon-tcg-set-symbol.webp" alt="" width="44" height="48" loading="lazy" decoding="async"><span class="xp-n">HS—Undaunted</span></span>
           </th>
           <td class="xp-date"><time datetime="2010-08-18">Aug 18, 2010</time></td>
           <td class="xp-cards" data-cards="91">90 <span class="sec">+1</span><span class="sr-only">, plus 1 secret card numbered past the printed total</span></td>
@@ -1253,7 +1258,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/hgss4-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">HS—Triumphant</span>
+            <span class="xp-name"><img src="/assets/symbols/hgss4-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">HS—Triumphant</span></span>
           </th>
           <td class="xp-date"><time datetime="2010-11-03">Nov 3, 2010</time></td>
           <td class="xp-cards" data-cards="103">102 <span class="sec">+1</span><span class="sr-only">, plus 1 secret card numbered past the printed total</span></td>
@@ -1261,7 +1266,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/col1-pokemon-tcg-set-symbol.webp" alt="" width="27" height="48" loading="lazy" decoding="async">Call of Legends</span>
+            <span class="xp-name"><img src="/assets/symbols/col1-pokemon-tcg-set-symbol.webp" alt="" width="27" height="48" loading="lazy" decoding="async"><span class="xp-n">Call of Legends</span></span>
           </th>
           <td class="xp-date"><time datetime="2011-02-09">Feb 9, 2011</time></td>
           <td class="xp-cards" data-cards="106">95 <span class="sec">+11</span><span class="sr-only">, plus 11 secret cards numbered past the printed total</span></td>
@@ -1302,7 +1307,7 @@ gap:var(--s6);align-items:start}
         <tbody>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/bwp-pokemon-tcg-set-symbol.webp" alt="" width="48" height="44" loading="lazy" decoding="async">BW Black Star Promos <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/bwp-pokemon-tcg-set-symbol.webp" alt="" width="48" height="44" loading="lazy" decoding="async"><span class="xp-n">BW Black Star Promos</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2011-03-01">Mar 1, 2011</time></td>
           <td class="xp-cards" data-cards="101">101</td>
@@ -1310,7 +1315,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/bw1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Black &amp; White</span>
+            <span class="xp-name"><img src="/assets/symbols/bw1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Black &amp; White</span></span>
           </th>
           <td class="xp-date"><time datetime="2011-04-25">Apr 25, 2011</time></td>
           <td class="xp-cards" data-cards="115">114 <span class="sec">+1</span><span class="sr-only">, plus 1 secret card numbered past the printed total</span></td>
@@ -1318,7 +1323,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/bw2-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Emerging Powers</span>
+            <span class="xp-name"><img src="/assets/symbols/bw2-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Emerging Powers</span></span>
           </th>
           <td class="xp-date"><time datetime="2011-08-31">Aug 31, 2011</time></td>
           <td class="xp-cards" data-cards="98">98</td>
@@ -1326,7 +1331,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/bw3-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Noble Victories</span>
+            <span class="xp-name"><img src="/assets/symbols/bw3-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Noble Victories</span></span>
           </th>
           <td class="xp-date"><time datetime="2011-11-16">Nov 16, 2011</time></td>
           <td class="xp-cards" data-cards="102">101 <span class="sec">+1</span><span class="sr-only">, plus 1 secret card numbered past the printed total</span></td>
@@ -1334,7 +1339,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/bw4-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Next Destinies</span>
+            <span class="xp-name"><img src="/assets/symbols/bw4-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Next Destinies</span></span>
           </th>
           <td class="xp-date"><time datetime="2012-02-08">Feb 8, 2012</time></td>
           <td class="xp-cards" data-cards="103">99 <span class="sec">+4</span><span class="sr-only">, plus 4 secret cards numbered past the printed total</span></td>
@@ -1342,7 +1347,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/bw5-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Dark Explorers</span>
+            <span class="xp-name"><img src="/assets/symbols/bw5-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Dark Explorers</span></span>
           </th>
           <td class="xp-date"><time datetime="2012-05-09">May 9, 2012</time></td>
           <td class="xp-cards" data-cards="111">108 <span class="sec">+3</span><span class="sr-only">, plus 3 secret cards numbered past the printed total</span></td>
@@ -1350,7 +1355,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/bw6-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Dragons Exalted</span>
+            <span class="xp-name"><img src="/assets/symbols/bw6-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Dragons Exalted</span></span>
           </th>
           <td class="xp-date"><time datetime="2012-08-15">Aug 15, 2012</time></td>
           <td class="xp-cards" data-cards="128">124 <span class="sec">+4</span><span class="sr-only">, plus 4 secret cards numbered past the printed total</span></td>
@@ -1358,7 +1363,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/dv1-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async">Dragon Vault</span>
+            <span class="xp-name"><img src="/assets/symbols/dv1-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><span class="xp-n">Dragon Vault</span></span>
           </th>
           <td class="xp-date"><time datetime="2012-10-05">Oct 5, 2012</time></td>
           <td class="xp-cards" data-cards="21">20 <span class="sec">+1</span><span class="sr-only">, plus 1 secret card numbered past the printed total</span></td>
@@ -1366,7 +1371,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/bw7-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Boundaries Crossed</span>
+            <span class="xp-name"><img src="/assets/symbols/bw7-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Boundaries Crossed</span></span>
           </th>
           <td class="xp-date"><time datetime="2012-11-07">Nov 7, 2012</time></td>
           <td class="xp-cards" data-cards="153">149 <span class="sec">+4</span><span class="sr-only">, plus 4 secret cards numbered past the printed total</span></td>
@@ -1374,7 +1379,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/bw8-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Plasma Storm</span>
+            <span class="xp-name"><img src="/assets/symbols/bw8-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Plasma Storm</span></span>
           </th>
           <td class="xp-date"><time datetime="2013-02-06">Feb 6, 2013</time></td>
           <td class="xp-cards" data-cards="138">135 <span class="sec">+3</span><span class="sr-only">, plus 3 secret cards numbered past the printed total</span></td>
@@ -1382,7 +1387,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/bw9-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Plasma Freeze</span>
+            <span class="xp-name"><img src="/assets/symbols/bw9-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Plasma Freeze</span></span>
           </th>
           <td class="xp-date"><time datetime="2013-05-08">May 8, 2013</time></td>
           <td class="xp-cards" data-cards="122">116 <span class="sec">+6</span><span class="sr-only">, plus 6 secret cards numbered past the printed total</span></td>
@@ -1390,7 +1395,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/bw10-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Plasma Blast</span>
+            <span class="xp-name"><img src="/assets/symbols/bw10-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Plasma Blast</span></span>
           </th>
           <td class="xp-date"><time datetime="2013-08-14">Aug 14, 2013</time></td>
           <td class="xp-cards" data-cards="105">101 <span class="sec">+4</span><span class="sr-only">, plus 4 secret cards numbered past the printed total</span></td>
@@ -1398,7 +1403,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/bw11-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Legendary Treasures</span>
+            <span class="xp-name"><img src="/assets/symbols/bw11-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Legendary Treasures</span></span>
           </th>
           <td class="xp-date"><time datetime="2013-11-06">Nov 6, 2013</time></td>
           <td class="xp-cards" data-cards="140">113 <span class="sec">+27</span><span class="sr-only">, plus 27 secret cards numbered past the printed total</span></td>
@@ -1439,7 +1444,7 @@ gap:var(--s6);align-items:start}
         <tbody>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/xyp-pokemon-tcg-set-symbol.webp" alt="" width="48" height="44" loading="lazy" decoding="async">XY Black Star Promos <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/xyp-pokemon-tcg-set-symbol.webp" alt="" width="48" height="44" loading="lazy" decoding="async"><span class="xp-n">XY Black Star Promos</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2013-10-12">Oct 12, 2013</time></td>
           <td class="xp-cards" data-cards="216">211 <span class="sec">+5</span><span class="sr-only">, plus 5 secret cards numbered past the printed total</span></td>
@@ -1447,7 +1452,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/xy0-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Kalos Starter Set</span>
+            <span class="xp-name"><img src="/assets/symbols/xy0-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Kalos Starter Set</span></span>
           </th>
           <td class="xp-date"><time datetime="2013-11-08">Nov 8, 2013</time></td>
           <td class="xp-cards" data-cards="39">39</td>
@@ -1455,7 +1460,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/xy1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">XY</span>
+            <span class="xp-name"><img src="/assets/symbols/xy1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">XY</span></span>
           </th>
           <td class="xp-date"><time datetime="2014-02-05">Feb 5, 2014</time></td>
           <td class="xp-cards" data-cards="146">146</td>
@@ -1463,7 +1468,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/xy2-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Flashfire</span>
+            <span class="xp-name"><img src="/assets/symbols/xy2-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Flashfire</span></span>
           </th>
           <td class="xp-date"><time datetime="2014-05-07">May 7, 2014</time></td>
           <td class="xp-cards" data-cards="110">106 <span class="sec">+4</span><span class="sr-only">, plus 4 secret cards numbered past the printed total</span></td>
@@ -1471,7 +1476,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/xy3-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Furious Fists</span>
+            <span class="xp-name"><img src="/assets/symbols/xy3-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Furious Fists</span></span>
           </th>
           <td class="xp-date"><time datetime="2014-08-13">Aug 13, 2014</time></td>
           <td class="xp-cards" data-cards="114">111 <span class="sec">+3</span><span class="sr-only">, plus 3 secret cards numbered past the printed total</span></td>
@@ -1479,7 +1484,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/xy4-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Phantom Forces</span>
+            <span class="xp-name"><img src="/assets/symbols/xy4-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Phantom Forces</span></span>
           </th>
           <td class="xp-date"><time datetime="2014-11-05">Nov 5, 2014</time></td>
           <td class="xp-cards" data-cards="124">119 <span class="sec">+5</span><span class="sr-only">, plus 5 secret cards numbered past the printed total</span></td>
@@ -1487,7 +1492,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/xy5-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Primal Clash</span>
+            <span class="xp-name"><img src="/assets/symbols/xy5-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Primal Clash</span></span>
           </th>
           <td class="xp-date"><time datetime="2015-02-04">Feb 4, 2015</time></td>
           <td class="xp-cards" data-cards="164">160 <span class="sec">+4</span><span class="sr-only">, plus 4 secret cards numbered past the printed total</span></td>
@@ -1495,7 +1500,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/dc1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Double Crisis</span>
+            <span class="xp-name"><img src="/assets/symbols/dc1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Double Crisis</span></span>
           </th>
           <td class="xp-date"><time datetime="2015-03-25">Mar 25, 2015</time></td>
           <td class="xp-cards" data-cards="34">34</td>
@@ -1503,7 +1508,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/xy6-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Roaring Skies</span>
+            <span class="xp-name"><img src="/assets/symbols/xy6-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Roaring Skies</span></span>
           </th>
           <td class="xp-date"><time datetime="2015-05-06">May 6, 2015</time></td>
           <td class="xp-cards" data-cards="112">108 <span class="sec">+4</span><span class="sr-only">, plus 4 secret cards numbered past the printed total</span></td>
@@ -1511,7 +1516,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/xy7-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Ancient Origins</span>
+            <span class="xp-name"><img src="/assets/symbols/xy7-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Ancient Origins</span></span>
           </th>
           <td class="xp-date"><time datetime="2015-08-12">Aug 12, 2015</time></td>
           <td class="xp-cards" data-cards="100">98 <span class="sec">+2</span><span class="sr-only">, plus 2 secret cards numbered past the printed total</span></td>
@@ -1519,7 +1524,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/xy8-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">BREAKthrough</span>
+            <span class="xp-name"><img src="/assets/symbols/xy8-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">BREAKthrough</span></span>
           </th>
           <td class="xp-date"><time datetime="2015-11-04">Nov 4, 2015</time></td>
           <td class="xp-cards" data-cards="165">162 <span class="sec">+3</span><span class="sr-only">, plus 3 secret cards numbered past the printed total</span></td>
@@ -1527,7 +1532,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/xy9-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">BREAKpoint</span>
+            <span class="xp-name"><img src="/assets/symbols/xy9-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">BREAKpoint</span></span>
           </th>
           <td class="xp-date"><time datetime="2016-02-03">Feb 3, 2016</time></td>
           <td class="xp-cards" data-cards="126">122 <span class="sec">+4</span><span class="sr-only">, plus 4 secret cards numbered past the printed total</span></td>
@@ -1535,7 +1540,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/g1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Generations</span>
+            <span class="xp-name"><img src="/assets/symbols/g1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Generations</span></span>
           </th>
           <td class="xp-date"><time datetime="2016-02-22">Feb 22, 2016</time></td>
           <td class="xp-cards" data-cards="117">83 <span class="sec">+34</span><span class="sr-only">, plus 34 secret cards numbered past the printed total</span></td>
@@ -1543,7 +1548,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/xy10-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Fates Collide</span>
+            <span class="xp-name"><img src="/assets/symbols/xy10-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Fates Collide</span></span>
           </th>
           <td class="xp-date"><time datetime="2016-05-02">May 2, 2016</time></td>
           <td class="xp-cards" data-cards="129">124 <span class="sec">+5</span><span class="sr-only">, plus 5 secret cards numbered past the printed total</span></td>
@@ -1551,7 +1556,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/xy11-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Steam Siege</span>
+            <span class="xp-name"><img src="/assets/symbols/xy11-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Steam Siege</span></span>
           </th>
           <td class="xp-date"><time datetime="2016-08-03">Aug 3, 2016</time></td>
           <td class="xp-cards" data-cards="116">114 <span class="sec">+2</span><span class="sr-only">, plus 2 secret cards numbered past the printed total</span></td>
@@ -1559,7 +1564,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/xy12-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Evolutions</span>
+            <span class="xp-name"><img src="/assets/symbols/xy12-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Evolutions</span></span>
           </th>
           <td class="xp-date"><time datetime="2016-11-02">Nov 2, 2016</time></td>
           <td class="xp-cards" data-cards="113">108 <span class="sec">+5</span><span class="sr-only">, plus 5 secret cards numbered past the printed total</span></td>
@@ -1600,7 +1605,7 @@ gap:var(--s6);align-items:start}
         <tbody>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/smp-pokemon-tcg-set-symbol.webp" alt="" width="48" height="44" loading="lazy" decoding="async">SM Black Star Promos <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/smp-pokemon-tcg-set-symbol.webp" alt="" width="48" height="44" loading="lazy" decoding="async"><span class="xp-n">SM Black Star Promos</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2017-02-03">Feb 3, 2017</time></td>
           <td class="xp-cards" data-cards="250">248 <span class="sec">+2</span><span class="sr-only">, plus 2 secret cards numbered past the printed total</span></td>
@@ -1608,7 +1613,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sm1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Sun &amp; Moon</span>
+            <span class="xp-name"><img src="/assets/symbols/sm1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Sun &amp; Moon</span></span>
           </th>
           <td class="xp-date"><time datetime="2017-02-03">Feb 3, 2017</time></td>
           <td class="xp-cards" data-cards="173">149 <span class="sec">+24</span><span class="sr-only">, plus 24 secret cards numbered past the printed total</span></td>
@@ -1616,7 +1621,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sm2-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async">Guardians Rising</span>
+            <span class="xp-name"><img src="/assets/symbols/sm2-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><span class="xp-n">Guardians Rising</span></span>
           </th>
           <td class="xp-date"><time datetime="2017-05-05">May 5, 2017</time></td>
           <td class="xp-cards" data-cards="180">145 <span class="sec">+35</span><span class="sr-only">, plus 35 secret cards numbered past the printed total</span></td>
@@ -1624,7 +1629,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sm3-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async">Burning Shadows</span>
+            <span class="xp-name"><img src="/assets/symbols/sm3-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><span class="xp-n">Burning Shadows</span></span>
           </th>
           <td class="xp-date"><time datetime="2017-08-05">Aug 5, 2017</time></td>
           <td class="xp-cards" data-cards="177">147 <span class="sec">+30</span><span class="sr-only">, plus 30 secret cards numbered past the printed total</span></td>
@@ -1632,7 +1637,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sm35-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async">Shining Legends</span>
+            <span class="xp-name"><img src="/assets/symbols/sm35-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><span class="xp-n">Shining Legends</span></span>
           </th>
           <td class="xp-date"><time datetime="2017-10-06">Oct 6, 2017</time></td>
           <td class="xp-cards" data-cards="81">73 <span class="sec">+8</span><span class="sr-only">, plus 8 secret cards numbered past the printed total</span></td>
@@ -1640,7 +1645,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sm4-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async">Crimson Invasion</span>
+            <span class="xp-name"><img src="/assets/symbols/sm4-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><span class="xp-n">Crimson Invasion</span></span>
           </th>
           <td class="xp-date"><time datetime="2017-11-03">Nov 3, 2017</time></td>
           <td class="xp-cards" data-cards="126">111 <span class="sec">+15</span><span class="sr-only">, plus 15 secret cards numbered past the printed total</span></td>
@@ -1648,7 +1653,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sm5-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Ultra Prism</span>
+            <span class="xp-name"><img src="/assets/symbols/sm5-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Ultra Prism</span></span>
           </th>
           <td class="xp-date"><time datetime="2018-02-02">Feb 2, 2018</time></td>
           <td class="xp-cards" data-cards="178">156 <span class="sec">+22</span><span class="sr-only">, plus 22 secret cards numbered past the printed total</span></td>
@@ -1656,7 +1661,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sm6-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async">Forbidden Light</span>
+            <span class="xp-name"><img src="/assets/symbols/sm6-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><span class="xp-n">Forbidden Light</span></span>
           </th>
           <td class="xp-date"><time datetime="2018-05-04">May 4, 2018</time></td>
           <td class="xp-cards" data-cards="150">131 <span class="sec">+19</span><span class="sr-only">, plus 19 secret cards numbered past the printed total</span></td>
@@ -1664,7 +1669,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sm7-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async">Celestial Storm</span>
+            <span class="xp-name"><img src="/assets/symbols/sm7-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><span class="xp-n">Celestial Storm</span></span>
           </th>
           <td class="xp-date"><time datetime="2018-08-03">Aug 3, 2018</time></td>
           <td class="xp-cards" data-cards="187">168 <span class="sec">+19</span><span class="sr-only">, plus 19 secret cards numbered past the printed total</span></td>
@@ -1672,7 +1677,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sm75-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Dragon Majesty</span>
+            <span class="xp-name"><img src="/assets/symbols/sm75-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Dragon Majesty</span></span>
           </th>
           <td class="xp-date"><time datetime="2018-09-07">Sep 7, 2018</time></td>
           <td class="xp-cards" data-cards="80">70 <span class="sec">+10</span><span class="sr-only">, plus 10 secret cards numbered past the printed total</span></td>
@@ -1680,7 +1685,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sm8-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async">Lost Thunder</span>
+            <span class="xp-name"><img src="/assets/symbols/sm8-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><span class="xp-n">Lost Thunder</span></span>
           </th>
           <td class="xp-date"><time datetime="2018-11-02">Nov 2, 2018</time></td>
           <td class="xp-cards" data-cards="240">214 <span class="sec">+26</span><span class="sr-only">, plus 26 secret cards numbered past the printed total</span></td>
@@ -1688,7 +1693,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sm9-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Team Up</span>
+            <span class="xp-name"><img src="/assets/symbols/sm9-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Team Up</span></span>
           </th>
           <td class="xp-date"><time datetime="2019-02-01">Feb 1, 2019</time></td>
           <td class="xp-cards" data-cards="198">181 <span class="sec">+17</span><span class="sr-only">, plus 17 secret cards numbered past the printed total</span></td>
@@ -1696,7 +1701,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/det1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Detective Pikachu</span>
+            <span class="xp-name"><img src="/assets/symbols/det1-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Detective Pikachu</span></span>
           </th>
           <td class="xp-date"><time datetime="2019-04-05">Apr 5, 2019</time></td>
           <td class="xp-cards" data-cards="18">18</td>
@@ -1704,7 +1709,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sm10-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async">Unbroken Bonds</span>
+            <span class="xp-name"><img src="/assets/symbols/sm10-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><span class="xp-n">Unbroken Bonds</span></span>
           </th>
           <td class="xp-date"><time datetime="2019-05-03">May 3, 2019</time></td>
           <td class="xp-cards" data-cards="234">214 <span class="sec">+20</span><span class="sr-only">, plus 20 secret cards numbered past the printed total</span></td>
@@ -1712,7 +1717,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sm11-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Unified Minds</span>
+            <span class="xp-name"><img src="/assets/symbols/sm11-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Unified Minds</span></span>
           </th>
           <td class="xp-date"><time datetime="2019-08-02">Aug 2, 2019</time></td>
           <td class="xp-cards" data-cards="260">236 <span class="sec">+24</span><span class="sr-only">, plus 24 secret cards numbered past the printed total</span></td>
@@ -1720,7 +1725,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sm115-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async">Hidden Fates</span>
+            <span class="xp-name"><img src="/assets/symbols/sm115-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><span class="xp-n">Hidden Fates</span></span>
           </th>
           <td class="xp-date"><time datetime="2019-08-23">Aug 23, 2019</time></td>
           <td class="xp-cards" data-cards="69">68 <span class="sec">+1</span><span class="sr-only">, plus 1 secret card numbered past the printed total</span></td>
@@ -1728,7 +1733,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sma-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Hidden Fates Shiny Vault</span>
+            <span class="xp-name xp-name-sub"><img src="/assets/symbols/sma-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Hidden Fates Shiny Vault</span> <span class="xp-sub">part of Hidden Fates</span></span>
           </th>
           <td class="xp-date"><time datetime="2019-08-23">Aug 23, 2019</time></td>
           <td class="xp-cards" data-cards="94">94</td>
@@ -1736,7 +1741,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sm12-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async">Cosmic Eclipse</span>
+            <span class="xp-name"><img src="/assets/symbols/sm12-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><span class="xp-n">Cosmic Eclipse</span></span>
           </th>
           <td class="xp-date"><time datetime="2019-11-01">Nov 1, 2019</time></td>
           <td class="xp-cards" data-cards="272">236 <span class="sec">+36</span><span class="sr-only">, plus 36 secret cards numbered past the printed total</span></td>
@@ -1777,7 +1782,7 @@ gap:var(--s6);align-items:start}
         <tbody>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swshp-pokemon-tcg-set-symbol.webp" alt="" width="48" height="44" loading="lazy" decoding="async">SWSH Black Star Promos <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/swshp-pokemon-tcg-set-symbol.webp" alt="" width="48" height="44" loading="lazy" decoding="async"><span class="xp-n">SWSH Black Star Promos</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2019-11-15">Nov 15, 2019</time></td>
           <td class="xp-cards" data-cards="307">307 <span class="sec">3 unlisted</span><span class="sr-only">, of which 3 are numbered but not yet in the Pokemon TCG API's card list, because this set is still open</span></td>
@@ -1785,7 +1790,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh1-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Sword &amp; Shield</span>
+            <span class="xp-name"><img src="/assets/symbols/swsh1-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Sword &amp; Shield</span></span>
           </th>
           <td class="xp-date"><time datetime="2020-02-07">Feb 7, 2020</time></td>
           <td class="xp-cards" data-cards="216">202 <span class="sec">+14</span><span class="sr-only">, plus 14 secret cards numbered past the printed total</span></td>
@@ -1793,7 +1798,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh2-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><a href="/sets/rebel-clash.html">Rebel Clash</a></span>
+            <span class="xp-name"><img src="/assets/symbols/swsh2-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/rebel-clash.html">Rebel Clash</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2020-05-01">May 1, 2020</time></td>
           <td class="xp-cards" data-cards="209">192 <span class="sec">+17</span><span class="sr-only">, plus 17 secret cards numbered past the printed total</span></td>
@@ -1801,7 +1806,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh3-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Darkness Ablaze</span>
+            <span class="xp-name"><img src="/assets/symbols/swsh3-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Darkness Ablaze</span></span>
           </th>
           <td class="xp-date"><time datetime="2020-08-14">Aug 14, 2020</time></td>
           <td class="xp-cards" data-cards="201">189 <span class="sec">+12</span><span class="sr-only">, plus 12 secret cards numbered past the printed total</span></td>
@@ -1809,7 +1814,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh35-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Champion's Path</span>
+            <span class="xp-name"><img src="/assets/symbols/swsh35-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Champion's Path</span></span>
           </th>
           <td class="xp-date"><time datetime="2020-09-25">Sep 25, 2020</time></td>
           <td class="xp-cards" data-cards="80">73 <span class="sec">+7</span><span class="sr-only">, plus 7 secret cards numbered past the printed total</span></td>
@@ -1817,7 +1822,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh4-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Vivid Voltage</span>
+            <span class="xp-name"><img src="/assets/symbols/swsh4-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Vivid Voltage</span></span>
           </th>
           <td class="xp-date"><time datetime="2020-11-13">Nov 13, 2020</time></td>
           <td class="xp-cards" data-cards="203">185 <span class="sec">+18</span><span class="sr-only">, plus 18 secret cards numbered past the printed total</span></td>
@@ -1825,7 +1830,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh45-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><a href="/sets/shining-fates.html">Shining Fates</a></span>
+            <span class="xp-name"><img src="/assets/symbols/swsh45-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/shining-fates.html">Shining Fates</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2021-02-19">Feb 19, 2021</time></td>
           <td class="xp-cards" data-cards="73">72 <span class="sec">+1</span><span class="sr-only">, plus 1 secret card numbered past the printed total</span></td>
@@ -1833,7 +1838,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh45sv-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Shining Fates Shiny Vault</span>
+            <span class="xp-name xp-name-sub"><img src="/assets/symbols/swsh45sv-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Shining Fates Shiny Vault</span> <span class="xp-sub">part of <a href="/sets/shining-fates.html">Shining Fates</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2021-02-19">Feb 19, 2021</time></td>
           <td class="xp-cards" data-cards="122">122</td>
@@ -1841,7 +1846,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh5-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Battle Styles</span>
+            <span class="xp-name"><img src="/assets/symbols/swsh5-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Battle Styles</span></span>
           </th>
           <td class="xp-date"><time datetime="2021-03-19">Mar 19, 2021</time></td>
           <td class="xp-cards" data-cards="183">163 <span class="sec">+20</span><span class="sr-only">, plus 20 secret cards numbered past the printed total</span></td>
@@ -1849,7 +1854,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh6-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><a href="/sets/chilling-reign.html">Chilling Reign</a></span>
+            <span class="xp-name"><img src="/assets/symbols/swsh6-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/chilling-reign.html">Chilling Reign</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2021-06-18">Jun 18, 2021</time></td>
           <td class="xp-cards" data-cards="233">198 <span class="sec">+35</span><span class="sr-only">, plus 35 secret cards numbered past the printed total</span></td>
@@ -1857,7 +1862,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh7-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Evolving Skies</span>
+            <span class="xp-name"><img src="/assets/symbols/swsh7-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Evolving Skies</span></span>
           </th>
           <td class="xp-date"><time datetime="2021-08-27">Aug 27, 2021</time></td>
           <td class="xp-cards" data-cards="237">203 <span class="sec">+34</span><span class="sr-only">, plus 34 secret cards numbered past the printed total</span></td>
@@ -1865,7 +1870,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/cel25-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><a href="/sets/celebrations.html">Celebrations</a></span>
+            <span class="xp-name"><img src="/assets/symbols/cel25-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/celebrations.html">Celebrations</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2021-10-08">Oct 8, 2021</time></td>
           <td class="xp-cards" data-cards="25">25</td>
@@ -1873,7 +1878,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/cel25c-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Celebrations: Classic Collection</span>
+            <span class="xp-name xp-name-sub"><img src="/assets/symbols/cel25c-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Celebrations: Classic Collection</span> <span class="xp-sub">part of <a href="/sets/celebrations.html">Celebrations</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2021-10-08">Oct 8, 2021</time></td>
           <td class="xp-cards" data-cards="25">25</td>
@@ -1881,7 +1886,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh8-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Fusion Strike</span>
+            <span class="xp-name"><img src="/assets/symbols/swsh8-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Fusion Strike</span></span>
           </th>
           <td class="xp-date"><time datetime="2021-11-12">Nov 12, 2021</time></td>
           <td class="xp-cards" data-cards="284">264 <span class="sec">+20</span><span class="sr-only">, plus 20 secret cards numbered past the printed total</span></td>
@@ -1889,7 +1894,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh9-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Brilliant Stars</span>
+            <span class="xp-name"><img src="/assets/symbols/swsh9-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Brilliant Stars</span></span>
           </th>
           <td class="xp-date"><time datetime="2022-02-25">Feb 25, 2022</time></td>
           <td class="xp-cards" data-cards="186">172 <span class="sec">+14</span><span class="sr-only">, plus 14 secret cards numbered past the printed total</span></td>
@@ -1897,7 +1902,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh9tg-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Brilliant Stars Trainer Gallery</span>
+            <span class="xp-name xp-name-sub"><img src="/assets/symbols/swsh9tg-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Brilliant Stars Trainer Gallery</span> <span class="xp-sub">part of Brilliant Stars</span></span>
           </th>
           <td class="xp-date"><time datetime="2022-02-25">Feb 25, 2022</time></td>
           <td class="xp-cards" data-cards="30">30</td>
@@ -1905,7 +1910,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh10-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Astral Radiance</span>
+            <span class="xp-name"><img src="/assets/symbols/swsh10-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Astral Radiance</span></span>
           </th>
           <td class="xp-date"><time datetime="2022-05-27">May 27, 2022</time></td>
           <td class="xp-cards" data-cards="216">189 <span class="sec">+27</span><span class="sr-only">, plus 27 secret cards numbered past the printed total</span></td>
@@ -1913,7 +1918,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh10tg-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Astral Radiance Trainer Gallery</span>
+            <span class="xp-name xp-name-sub"><img src="/assets/symbols/swsh10tg-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Astral Radiance Trainer Gallery</span> <span class="xp-sub">part of Astral Radiance</span></span>
           </th>
           <td class="xp-date"><time datetime="2022-05-27">May 27, 2022</time></td>
           <td class="xp-cards" data-cards="30">30</td>
@@ -1921,7 +1926,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/pgo-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><a href="/sets/pokemon-go.html">Pokémon GO</a></span>
+            <span class="xp-name"><img src="/assets/symbols/pgo-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/pokemon-go.html">Pokémon GO</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2022-07-01">Jul 1, 2022</time></td>
           <td class="xp-cards" data-cards="88">78 <span class="sec">+10</span><span class="sr-only">, plus 10 secret cards numbered past the printed total</span></td>
@@ -1929,7 +1934,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh11-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Lost Origin</span>
+            <span class="xp-name"><img src="/assets/symbols/swsh11-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Lost Origin</span></span>
           </th>
           <td class="xp-date"><time datetime="2022-09-09">Sep 9, 2022</time></td>
           <td class="xp-cards" data-cards="217">196 <span class="sec">+21</span><span class="sr-only">, plus 21 secret cards numbered past the printed total</span></td>
@@ -1937,7 +1942,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh11tg-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Lost Origin Trainer Gallery</span>
+            <span class="xp-name xp-name-sub"><img src="/assets/symbols/swsh11tg-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Lost Origin Trainer Gallery</span> <span class="xp-sub">part of Lost Origin</span></span>
           </th>
           <td class="xp-date"><time datetime="2022-09-09">Sep 9, 2022</time></td>
           <td class="xp-cards" data-cards="30">30</td>
@@ -1945,7 +1950,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh12-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Silver Tempest</span>
+            <span class="xp-name"><img src="/assets/symbols/swsh12-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Silver Tempest</span></span>
           </th>
           <td class="xp-date"><time datetime="2022-11-11">Nov 11, 2022</time></td>
           <td class="xp-cards" data-cards="215">195 <span class="sec">+20</span><span class="sr-only">, plus 20 secret cards numbered past the printed total</span></td>
@@ -1953,7 +1958,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh12tg-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Silver Tempest Trainer Gallery</span>
+            <span class="xp-name xp-name-sub"><img src="/assets/symbols/swsh12tg-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Silver Tempest Trainer Gallery</span> <span class="xp-sub">part of Silver Tempest</span></span>
           </th>
           <td class="xp-date"><time datetime="2022-11-11">Nov 11, 2022</time></td>
           <td class="xp-cards" data-cards="30">30</td>
@@ -1961,7 +1966,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh12pt5-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><a href="/sets/crown-zenith.html">Crown Zenith</a></span>
+            <span class="xp-name"><img src="/assets/symbols/swsh12pt5-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/crown-zenith.html">Crown Zenith</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2023-01-20">Jan 20, 2023</time></td>
           <td class="xp-cards" data-cards="160">159 <span class="sec">+1</span><span class="sr-only">, plus 1 secret card numbered past the printed total</span></td>
@@ -1969,7 +1974,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh12pt5gg-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async">Crown Zenith Galarian Gallery</span>
+            <span class="xp-name xp-name-sub"><img src="/assets/symbols/swsh12pt5gg-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><span class="xp-n">Crown Zenith Galarian Gallery</span> <span class="xp-sub">part of <a href="/sets/crown-zenith.html">Crown Zenith</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2023-01-20">Jan 20, 2023</time></td>
           <td class="xp-cards" data-cards="70">70</td>
@@ -2010,7 +2015,7 @@ gap:var(--s6);align-items:start}
         <tbody>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/svp-pokemon-tcg-set-symbol.webp" alt="" width="48" height="44" loading="lazy" decoding="async">Scarlet &amp; Violet Black Star Promos <span class="xp-tag">promo</span></span>
+            <span class="xp-name"><img src="/assets/symbols/svp-pokemon-tcg-set-symbol.webp" alt="" width="48" height="44" loading="lazy" decoding="async"><span class="xp-n">Scarlet &amp; Violet Black Star Promos</span> <span class="xp-tag">promo</span></span>
           </th>
           <td class="xp-date"><time datetime="2023-01-01">Jan 1, 2023</time></td>
           <td class="xp-cards" data-cards="215">215 <span class="sec">19 unlisted</span><span class="sr-only">, of which 19 are numbered but not yet in the Pokemon TCG API's card list, because this set is still open</span></td>
@@ -2018,7 +2023,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sv1-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><a href="/sets/scarlet-violet.html">Scarlet &amp; Violet</a></span>
+            <span class="xp-name"><img src="/assets/symbols/sv1-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/scarlet-violet.html">Scarlet &amp; Violet</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2023-03-31">Mar 31, 2023</time></td>
           <td class="xp-cards" data-cards="258">198 <span class="sec">+60</span><span class="sr-only">, plus 60 secret cards numbered past the printed total</span></td>
@@ -2026,7 +2031,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr>
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sve-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async">Scarlet &amp; Violet Energies</span>
+            <span class="xp-name"><img src="/assets/symbols/sve-pokemon-tcg-set-symbol.webp" alt="" width="48" height="48" loading="lazy" decoding="async"><span class="xp-n">Scarlet &amp; Violet Energies</span></span>
           </th>
           <td class="xp-date"><time datetime="2023-03-31">Mar 31, 2023</time></td>
           <td class="xp-cards" data-cards="8">8</td>
@@ -2034,7 +2039,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sv2-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><a href="/sets/paldea-evolved.html">Paldea Evolved</a></span>
+            <span class="xp-name"><img src="/assets/symbols/sv2-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/paldea-evolved.html">Paldea Evolved</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2023-06-09">Jun 9, 2023</time></td>
           <td class="xp-cards" data-cards="279">193 <span class="sec">+86</span><span class="sr-only">, plus 86 secret cards numbered past the printed total</span></td>
@@ -2042,7 +2047,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sv3-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><a href="/sets/obsidian-flames.html">Obsidian Flames</a></span>
+            <span class="xp-name"><img src="/assets/symbols/sv3-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/obsidian-flames.html">Obsidian Flames</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2023-08-11">Aug 11, 2023</time></td>
           <td class="xp-cards" data-cards="230">197 <span class="sec">+33</span><span class="sr-only">, plus 33 secret cards numbered past the printed total</span></td>
@@ -2050,7 +2055,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sv3pt5-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><a href="/sets/151.html">151</a></span>
+            <span class="xp-name"><img src="/assets/symbols/sv3pt5-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/151.html">151</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2023-09-22">Sep 22, 2023</time></td>
           <td class="xp-cards" data-cards="207">165 <span class="sec">+42</span><span class="sr-only">, plus 42 secret cards numbered past the printed total</span></td>
@@ -2058,7 +2063,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sv4-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><a href="/sets/paradox-rift.html">Paradox Rift</a></span>
+            <span class="xp-name"><img src="/assets/symbols/sv4-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/paradox-rift.html">Paradox Rift</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2023-11-03">Nov 3, 2023</time></td>
           <td class="xp-cards" data-cards="266">182 <span class="sec">+84</span><span class="sr-only">, plus 84 secret cards numbered past the printed total</span></td>
@@ -2066,7 +2071,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sv4pt5-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><a href="/sets/paldean-fates.html">Paldean Fates</a></span>
+            <span class="xp-name"><img src="/assets/symbols/sv4pt5-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/paldean-fates.html">Paldean Fates</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2024-01-26">Jan 26, 2024</time></td>
           <td class="xp-cards" data-cards="245">91 <span class="sec">+154</span><span class="sr-only">, plus 154 secret cards numbered past the printed total</span></td>
@@ -2074,7 +2079,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sv5-pokemon-tcg-set-symbol.webp" alt="" width="47" height="47" loading="lazy" decoding="async"><a href="/sets/temporal-forces.html">Temporal Forces</a></span>
+            <span class="xp-name"><img src="/assets/symbols/sv5-pokemon-tcg-set-symbol.webp" alt="" width="47" height="47" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/temporal-forces.html">Temporal Forces</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2024-03-22">Mar 22, 2024</time></td>
           <td class="xp-cards" data-cards="218">162 <span class="sec">+56</span><span class="sr-only">, plus 56 secret cards numbered past the printed total</span></td>
@@ -2082,7 +2087,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sv6-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><a href="/sets/twilight-masquerade.html">Twilight Masquerade</a></span>
+            <span class="xp-name"><img src="/assets/symbols/sv6-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/twilight-masquerade.html">Twilight Masquerade</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2024-05-24">May 24, 2024</time></td>
           <td class="xp-cards" data-cards="226">167 <span class="sec">+59</span><span class="sr-only">, plus 59 secret cards numbered past the printed total</span></td>
@@ -2090,7 +2095,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sv6pt5-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><a href="/sets/shrouded-fable.html">Shrouded Fable</a></span>
+            <span class="xp-name"><img src="/assets/symbols/sv6pt5-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/shrouded-fable.html">Shrouded Fable</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2024-08-02">Aug 2, 2024</time></td>
           <td class="xp-cards" data-cards="99">64 <span class="sec">+35</span><span class="sr-only">, plus 35 secret cards numbered past the printed total</span></td>
@@ -2098,7 +2103,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sv7-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><a href="/sets/stellar-crown.html">Stellar Crown</a></span>
+            <span class="xp-name"><img src="/assets/symbols/sv7-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/stellar-crown.html">Stellar Crown</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2024-09-13">Sep 13, 2024</time></td>
           <td class="xp-cards" data-cards="175">142 <span class="sec">+33</span><span class="sr-only">, plus 33 secret cards numbered past the printed total</span></td>
@@ -2106,7 +2111,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sv8-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><a href="/sets/surging-sparks.html">Surging Sparks</a></span>
+            <span class="xp-name"><img src="/assets/symbols/sv8-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/surging-sparks.html">Surging Sparks</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2024-11-08">Nov 8, 2024</time></td>
           <td class="xp-cards" data-cards="252">191 <span class="sec">+61</span><span class="sr-only">, plus 61 secret cards numbered past the printed total</span></td>
@@ -2114,7 +2119,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sv8pt5-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><a href="/sets/prismatic-evolutions.html">Prismatic Evolutions</a></span>
+            <span class="xp-name"><img src="/assets/symbols/sv8pt5-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/prismatic-evolutions.html">Prismatic Evolutions</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2025-01-17">Jan 17, 2025</time></td>
           <td class="xp-cards" data-cards="180">131 <span class="sec">+49</span><span class="sr-only">, plus 49 secret cards numbered past the printed total</span></td>
@@ -2122,7 +2127,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sv9-pokemon-tcg-set-symbol.webp" alt="" width="40" height="23" loading="lazy" decoding="async"><a href="/sets/journey-together.html">Journey Together</a></span>
+            <span class="xp-name"><img src="/assets/symbols/sv9-pokemon-tcg-set-symbol.webp" alt="" width="40" height="23" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/journey-together.html">Journey Together</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2025-03-28">Mar 28, 2025</time></td>
           <td class="xp-cards" data-cards="190">159 <span class="sec">+31</span><span class="sr-only">, plus 31 secret cards numbered past the printed total</span></td>
@@ -2130,7 +2135,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/sv10-pokemon-tcg-set-symbol.webp" alt="" width="40" height="23" loading="lazy" decoding="async"><a href="/sets/destined-rivals.html">Destined Rivals</a></span>
+            <span class="xp-name"><img src="/assets/symbols/sv10-pokemon-tcg-set-symbol.webp" alt="" width="40" height="23" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/destined-rivals.html">Destined Rivals</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2025-05-30">May 30, 2025</time></td>
           <td class="xp-cards" data-cards="244">182 <span class="sec">+62</span><span class="sr-only">, plus 62 secret cards numbered past the printed total</span></td>
@@ -2138,7 +2143,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/zsv10pt5-pokemon-tcg-set-symbol.webp" alt="" width="38" height="23" loading="lazy" decoding="async"><a href="/sets/black-bolt.html">Black Bolt</a></span>
+            <span class="xp-name"><img src="/assets/symbols/zsv10pt5-pokemon-tcg-set-symbol.webp" alt="" width="38" height="23" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/black-bolt.html">Black Bolt</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2025-07-18">Jul 18, 2025</time></td>
           <td class="xp-cards" data-cards="172">86 <span class="sec">+86</span><span class="sr-only">, plus 86 secret cards numbered past the printed total</span></td>
@@ -2146,7 +2151,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/rsv10pt5-pokemon-tcg-set-symbol.webp" alt="" width="38" height="23" loading="lazy" decoding="async"><a href="/sets/white-flare.html">White Flare</a></span>
+            <span class="xp-name"><img src="/assets/symbols/rsv10pt5-pokemon-tcg-set-symbol.webp" alt="" width="38" height="23" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/white-flare.html">White Flare</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2025-07-18">Jul 18, 2025</time></td>
           <td class="xp-cards" data-cards="173">86 <span class="sec">+87</span><span class="sr-only">, plus 87 secret cards numbered past the printed total</span></td>
@@ -2187,7 +2192,7 @@ gap:var(--s6);align-items:start}
         <tbody>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/me1-pokemon-tcg-set-symbol.webp" alt="" width="38" height="23" loading="lazy" decoding="async"><a href="/sets/mega-evolution.html">Mega Evolution</a></span>
+            <span class="xp-name"><img src="/assets/symbols/me1-pokemon-tcg-set-symbol.webp" alt="" width="38" height="23" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/mega-evolution.html">Mega Evolution</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2025-09-26">Sep 26, 2025</time></td>
           <td class="xp-cards" data-cards="188">132 <span class="sec">+56</span><span class="sr-only">, plus 56 secret cards numbered past the printed total</span></td>
@@ -2195,7 +2200,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/me2-pokemon-tcg-set-symbol.webp" alt="" width="25" height="15" loading="lazy" decoding="async"><a href="/sets/phantasmal-flames.html">Phantasmal Flames</a></span>
+            <span class="xp-name"><img src="/assets/symbols/me2-pokemon-tcg-set-symbol.webp" alt="" width="25" height="15" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/phantasmal-flames.html">Phantasmal Flames</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2025-11-14">Nov 14, 2025</time></td>
           <td class="xp-cards" data-cards="130">94 <span class="sec">+36</span><span class="sr-only">, plus 36 secret cards numbered past the printed total</span></td>
@@ -2203,7 +2208,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/me2pt5-pokemon-tcg-set-symbol.webp" alt="" width="36" height="21" loading="lazy" decoding="async"><a href="/sets/ascended-heroes.html">Ascended Heroes</a></span>
+            <span class="xp-name"><img src="/assets/symbols/me2pt5-pokemon-tcg-set-symbol.webp" alt="" width="36" height="21" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/ascended-heroes.html">Ascended Heroes</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2026-01-30">Jan 30, 2026</time></td>
           <td class="xp-cards" data-cards="295">217 <span class="sec">+78</span><span class="sr-only">, plus 78 secret cards numbered past the printed total</span></td>
@@ -2211,7 +2216,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/me3-pokemon-tcg-set-symbol.webp" alt="" width="36" height="21" loading="lazy" decoding="async"><a href="/sets/perfect-order.html">Perfect Order</a></span>
+            <span class="xp-name"><img src="/assets/symbols/me3-pokemon-tcg-set-symbol.webp" alt="" width="36" height="21" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/perfect-order.html">Perfect Order</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2026-03-27">Mar 27, 2026</time></td>
           <td class="xp-cards" data-cards="124">88 <span class="sec">+36</span><span class="sr-only">, plus 36 secret cards numbered past the printed total</span></td>
@@ -2219,7 +2224,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/me4-pokemon-tcg-set-symbol.webp" alt="" width="36" height="21" loading="lazy" decoding="async"><a href="/sets/chaos-rising.html">Chaos Rising</a></span>
+            <span class="xp-name"><img src="/assets/symbols/me4-pokemon-tcg-set-symbol.webp" alt="" width="36" height="21" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/chaos-rising.html">Chaos Rising</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2026-05-22">May 22, 2026</time></td>
           <td class="xp-cards" data-cards="122">86 <span class="sec">+36</span><span class="sr-only">, plus 36 secret cards numbered past the printed total</span></td>
@@ -2227,7 +2232,7 @@ gap:var(--s6);align-items:start}
         </tr>
         <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/me5-pokemon-tcg-set-symbol.webp" alt="" width="38" height="21" loading="lazy" decoding="async"><a href="/sets/pitch-black.html">Pitch Black</a></span>
+            <span class="xp-name"><img src="/assets/symbols/me5-pokemon-tcg-set-symbol.webp" alt="" width="38" height="21" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/pitch-black.html">Pitch Black</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2026-07-17">Jul 17, 2026</time></td>
           <td class="xp-cards" data-cards="120">84 <span class="sec">+36</span><span class="sr-only">, plus 36 secret cards numbered past the printed total</span></td>
@@ -2252,15 +2257,17 @@ document.getElementById("copyAll")?.addEventListener("click", async (e) => {
     const era = clean(sec.querySelector("h2")?.firstChild);
     for (const tr of sec.querySelectorAll("tbody tr")) {
       const tag = tr.querySelector(".xp-tag");
-      // Read the name without the promo pill, which sits inside the same cell
-      // and would otherwise paste as part of the set's name.
-      const name = clean(tr.querySelector(".xp-name a")) ||
-        clean(tr.querySelector(".xp-name")).replace(/\s*promo$/i, "");
+      const sub = tr.querySelector(".xp-sub");
+      // Read the name out of its own span, which holds the set name and
+      // nothing else. This used to read the whole cell and strip a trailing
+      // "promo", which was fine while that was the only pill that could follow
+      // a name and wrong the moment a second one existed.
+      const name = clean(tr.querySelector(".xp-n")) || clean(tr.querySelector(".xp-name"));
       const rips = clean(tr.querySelector(".xp-rips"));
       lines.push([
         era,
         name,
-        tag ? "Promo" : "Expansion",
+        tag ? "Promo" : sub ? "Subset" : "Expansion",
         clean(tr.querySelector(".xp-date")),
         tr.querySelector(".xp-cards")?.dataset.cards || clean(tr.querySelector(".xp-cards")),
         rips === "\u2014" ? "" : rips,
