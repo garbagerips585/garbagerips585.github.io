@@ -25,6 +25,7 @@ import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const API = "https://www.pokemonpricetracker.com/api/v2";
 
@@ -199,7 +200,7 @@ doc.prices = doc.prices || {};
 doc.auto = doc.auto || {};
 const auto = {};
 
-const today = new Date().toISOString().slice(0, 10);
+const today = localDay();
 // Skip what we already have, or --limit re-buys the same cards every run: on
 // the free tier day two would spend 74 of 90 credits re-pricing the 37 cards
 // day one fetched, and advance eight.

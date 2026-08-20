@@ -18,6 +18,7 @@ import { deriveTags, isShort, parseDuration } from "../shared/taxonomy.mjs";
 import { raritiesIn } from "../shared/rarity.mjs";
 import { ripPath } from "../shared/paths.mjs";
 
+import { localDay } from "../shared/today.mjs";
 const CHANNEL_ID = "UCnpEGJ2G_0af1YRyW2euIZQ";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const API = "https://www.googleapis.com/youtube/v3";
@@ -359,11 +360,11 @@ console.log(`  packs: ${stated} from a typed Pack #, ${dropped} unconfirmed coun
 await mkdir(join(ROOT, "public/data"), { recursive: true });
 await writeFile(
   join(ROOT, "public/data/videos.json"),
-  JSON.stringify({ channelId: CHANNEL_ID, syncedAt: new Date().toISOString().slice(0, 10), videos }, null, 0) + "\n"
+  JSON.stringify({ channelId: CHANNEL_ID, syncedAt: localDay(), videos }, null, 0) + "\n"
 );
 await writeFile(
   join(ROOT, "public/data/playlists.json"),
-  JSON.stringify({ syncedAt: new Date().toISOString().slice(0, 10), playlists }, null, 0) + "\n"
+  JSON.stringify({ syncedAt: localDay(), playlists }, null, 0) + "\n"
 );
 
 const untaggedSet = videos.filter((v) => !v.sets.length).length;

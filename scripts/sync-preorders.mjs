@@ -30,6 +30,7 @@ import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache", "tcg-preorders");
 
@@ -151,7 +152,7 @@ const msrpFind = (setName, productSlug) =>
   msrpStems.find((m) => m.set === setName && productSlug.startsWith(m.stem))?.msrp ?? null;
 
 await mkdir(CACHE, { recursive: true });
-const today = new Date().toISOString().slice(0, 10);
+const today = localDay();
 
 let doc = { checked: null, source: "TCGplayer preorder listings", sets: {} };
 if (existsSync(join(ROOT, "public/data/preorders.json"))) {

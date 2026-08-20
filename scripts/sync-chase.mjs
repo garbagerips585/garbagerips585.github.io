@@ -55,6 +55,7 @@ import { fileURLToPath } from "node:url";
 import { TCG_SET } from "../shared/tcgplayer.mjs";
 import { cardNumKey } from "../shared/format.mjs";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CARDS = join(ROOT, "public/data/cards");
 
@@ -174,7 +175,7 @@ console.log(
     "\n"
 );
 
-const today = new Date().toISOString().slice(0, 10);
+const today = localDay();
 let touched = 0;
 const missing = [];
 

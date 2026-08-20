@@ -101,6 +101,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { CONSOLE_HEADERS, parsePage, text, unent } from "../shared/pricecharting.mjs";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CONSOLE_CACHE = join(ROOT, ".cache/pricecharting-console");
 const SEALED_CACHE = join(ROOT, ".cache/pricecharting-topps-sealed");
@@ -444,7 +445,7 @@ const out = {
   ],
   source: "pricecharting.com",
   tcgSource: "assets.tcgdex.net",
-  verified: new Date().toISOString().slice(0, 10),
+  verified: localDay(),
   rendition: "240.jpg",
   hero,
   compare: { topps: compare, tcg: tcgCheck.ok ? TCG_COMPARE : null },

@@ -58,6 +58,7 @@ import { createHash } from "node:crypto";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache/decks");
 const OUT = join(ROOT, "data/decks.json");
@@ -352,7 +353,7 @@ const out = {
     "which is what Limitless's own Copy to Clipboard button writes and what",
     "Pokemon TCG Live's deck importer takes. Nothing reformats it.",
   ],
-  checked: new Date().toISOString().slice(0, 10),
+  checked: localDay(),
   source: {
     name: "Limitless TCG",
     what: "online tournaments played in Pokemon TCG Live on Limitless's play platform",

@@ -49,6 +49,7 @@ import { gunzipSync } from "node:zlib";
 // back identical, so moving the parser did not move a number.
 import { productColumns } from "../shared/pricecharting.mjs";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache/pricecharting-product");
 const UA = "GarbageRips585/1.0 (fan site; youtube.com/@GarbageRips585)";
@@ -144,7 +145,7 @@ d.verify = {
   // Stamped against the crawl this verified. build-top-graded.mjs compares
   // these, so a re-crawl cannot silently inherit an old verification.
   for: d.checked,
-  ran: new Date().toISOString().slice(0, 10),
+  ran: localDay(),
   method: "re-read the PSA 10 column from each product page, mapping columns by <th> label",
   tolerance: 0.15,
   checked: results.length,

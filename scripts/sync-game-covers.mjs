@@ -69,6 +69,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const RAW = join(ROOT, ".cache", "bulbagarden", "covers");
 const OUT = join(ROOT, "public", "assets", "game-covers");
@@ -314,7 +315,7 @@ const manifest = {
     "The artwork belongs to Nintendo, Game Freak, Creatures and The Pokemon Company.",
     "Bulbagarden Archives is the host it was read from, not the owner.",
   ],
-  syncedAt: new Date().toISOString().slice(0, 10),
+  syncedAt: localDay(),
   box: BOX,
   quality: { avif: Q_AVIF, webp: Q_WEBP },
   covers,

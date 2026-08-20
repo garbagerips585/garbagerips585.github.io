@@ -54,6 +54,7 @@ import { readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const PUBLIC = join(ROOT, "public");
 const OUT = join(ROOT, "data/no-scan.json");
@@ -168,7 +169,7 @@ if (DRY) {
   const next = new Set([...known, ...dead]);
   if (RECHECK) for (const b of revived) next.delete(b);
   doc.bases = [...next].sort();
-  doc.basesChecked = new Date().toISOString().slice(0, 10);
+  doc.basesChecked = localDay();
   await writeFile(OUT, JSON.stringify(doc, null, 1) + "\n");
   console.log(`\ndata/no-scan.json: ${known.size} -> ${doc.bases.length} bases`);
 }

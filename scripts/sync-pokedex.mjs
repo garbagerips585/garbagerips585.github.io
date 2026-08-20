@@ -34,6 +34,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache", "pokeapi");
 const UA = "GarbageRips585/1.0 (fan site; youtube.com/@GarbageRips585)";
@@ -200,7 +201,7 @@ await writeFile(
       ],
       source: "pokeapi.co",
       license: "PokeAPI data is free to use; Pokemon and Pokemon names are trademarks of The Pokemon Company.",
-      checked: new Date().toISOString().slice(0, 10),
+      checked: localDay(),
       count: dex.length,
       pokemon: dex,
     },

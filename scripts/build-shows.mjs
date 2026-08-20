@@ -42,10 +42,11 @@ import {
 } from "../shared/chrome.mjs";
 import { esc, longDate, MONTHS_LONG } from "../shared/format.mjs";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const data = JSON.parse(await readFile(join(ROOT, "data/shows.json"), "utf8"));
 
-const TODAY = new Date().toISOString().slice(0, 10);
+const TODAY = localDay();
 
 const REGIONS = [
   { id: "all", label: "All" },
@@ -756,7 +757,7 @@ ${footer("Show listings are collected by hand and change without notice. Check w
   // Belt and braces on dates. The build already dropped past shows, but a deploy
   // can sit for a few days, and a card show calendar that lists yesterday is
   // worse than no calendar at all.
-  var today = new Date().toISOString().slice(0,10);
+  var today = localDay();
   document.querySelectorAll('.show').forEach(function(el){
     if (el.dataset.date < today) el.remove();
   });

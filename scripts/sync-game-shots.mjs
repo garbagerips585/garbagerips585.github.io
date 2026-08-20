@@ -61,6 +61,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public", "assets", "games");
 const MANIFEST = join(ROOT, "data", "game-shots.json");
@@ -399,7 +400,7 @@ const out = { _readme: [
   "decoded size of the file and the builder emits them as width/height.",
   "Rerun the script after any change to a game or these go stale, which nothing",
   "else in the build can detect for you.",
-], checked: new Date().toISOString().slice(0, 10), shots: {} };
+], checked: localDay(), shots: {} };
 let missing = 0;
 for (const shot of SHOTS) {
   const path = join(OUT, shot.file);

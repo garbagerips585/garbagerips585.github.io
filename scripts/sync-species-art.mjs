@@ -80,6 +80,7 @@ import { execFileSync } from "node:child_process";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/assets/species");
 const BIG_OUT = join(OUT, "lg");
@@ -291,7 +292,7 @@ await writeFile(
       ],
       source: "PokeAPI/sprites, official-artwork",
       sourceUrl: "https://github.com/PokeAPI/sprites",
-      checked: new Date().toISOString().slice(0, 10),
+      checked: localDay(),
       box: BOX,
       lgBox: BIG,
       count: Object.keys(art).length,

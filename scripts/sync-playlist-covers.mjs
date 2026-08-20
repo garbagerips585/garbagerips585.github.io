@@ -107,6 +107,7 @@ import { fileURLToPath } from "node:url";
 import { deriveTags, labelFor } from "../shared/taxonomy.mjs";
 import { PRODUCT_PHOTOS } from "../shared/product-photos.mjs";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CHECK = process.argv.includes("--check");
 
@@ -410,7 +411,7 @@ const manifest = {
     "whose photograph it is. Drawn into public/assets/playlist-covers/ by " +
     "scripts/build-playlist-covers.py. Product photographs are TCGplayer's, set logos are " +
     "The Pokemon Company's, and /playlists.html credits both.",
-  syncedAt: new Date().toISOString().slice(0, 10),
+  syncedAt: localDay(),
   source: "TCGplayer, via public/data/products.json",
   size: { w: COVER_W, h: COVER_H },
   covers,

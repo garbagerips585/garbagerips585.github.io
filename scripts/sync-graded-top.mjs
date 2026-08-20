@@ -80,6 +80,7 @@ import { gunzipSync } from "node:zlib";
 // and Grade 8 there, and only a second read through a different parser sees it.
 import { CONSOLE_HEADERS, parsePage, text, unent } from "../shared/pricecharting.mjs";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache/pricecharting-console");
 const UA = "GarbageRips585/1.0 (fan site; youtube.com/@GarbageRips585)";
@@ -215,7 +216,7 @@ await writeFile(
       source: "pricecharting.com",
       sourceMethodology: "https://www.pricecharting.com/page/methodology",
       measurement: "PriceCharting PSA 10 price guide value",
-      checked: new Date().toISOString().slice(0, 10),
+      checked: localDay(),
       scanned: {
         consoles: list.length,
         consolesSkipped: skipped,

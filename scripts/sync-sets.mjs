@@ -18,6 +18,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { rarityLabel, RARITY_ORDER, cardNumKey } from "../shared/format.mjs";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache", "ptcg");
 const API = "https://api.pokemontcg.io/v2";
@@ -400,7 +401,7 @@ if (_prevSets.length) {
 await mkdir(join(ROOT, "public/data"), { recursive: true });
 await writeFile(
   join(ROOT, "public/data/sets.json"),
-  JSON.stringify({ syncedAt: new Date().toISOString().slice(0, 10), rarityOrder: RARITY_ORDER, sets }, null, 0) + "\n"
+  JSON.stringify({ syncedAt: localDay(), rarityOrder: RARITY_ORDER, sets }, null, 0) + "\n"
 );
 
 const noPrices = sets.filter((s) => !s.pricedCount).map((s) => s.id);

@@ -1203,6 +1203,43 @@ if _cov:
              f"{_g:>6} figures on {_p} of {_n} pages")
 
 
+# A DATE THE SITE SAYS IT READ SOMETHING ON CANNOT BE IN THE FUTURE.
+#
+# Thirty-eight scripts computed "today" as `new Date().toISOString().slice(0,10)`,
+# which is UTC. West of Greenwich that is already tomorrow for the last hours of
+# every evening, so a sync run after 8pm Eastern stamped TOMORROW onto the file
+# it wrote. On 19 August 2026 data/first-partner.json carried
+# `checked: 2026-08-20` and the guide published "PRICES READ AUGUST 20, 2026"
+# the day before that date existed. On a site whose whole claim is that a number
+# is traceable to a source AND A DATE, a date in the future is not a typo.
+#
+# Only the "when did we read this" fields are checked. Release dates, show dates
+# and the drops window are all legitimately in the future and are not touched.
+import datetime as _dt
+_TODAY = _dt.date.today().isoformat()
+_STAMPS = ("checked", "syncedAt", "compiled", "read", "readOn", "priceRead", "verified", "ran")
+_future = []
+for _p in sorted(glob.glob("data/*.json") + glob.glob("public/data/*.json")):
+    _doc = _read_json(_p)
+    if not isinstance(_doc, dict):
+        continue
+    for _k in _STAMPS:
+        _v = _doc.get(_k)
+        if isinstance(_v, str) and _re.match(r"^\d{4}-\d{2}-\d{2}$", _v) and _v > _TODAY:
+            _future.append(f"{_p} {_k}={_v}")
+    _src = _doc.get("source")
+    if isinstance(_src, dict):
+        _v = _src.get("read")
+        if isinstance(_v, str) and _re.match(r"^\d{4}-\d{2}-\d{2}$", _v) and _v > _TODAY:
+            _future.append(f"{_p} source.read={_v}")
+if _future:
+    fail.append(
+        f"{len(_future)} file(s) claim to have been read in the future, so a page "
+        f"publishes a date that has not happened: {', '.join(_future[:4])}. "
+        f"The cause is `new Date().toISOString()` where local time was meant; "
+        f"use localDay() from shared/today.mjs."
+    )
+
 # DEDUPE AGAIN, HERE, BECAUSE THE EARLIER ONE CANNOT SEE THE LAST THIRD OF THIS
 # FILE. There is a `fail = list(dict.fromkeys(fail))` further up, added so that
 # one file read by three checks reports its problem once. It sits at the point

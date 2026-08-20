@@ -35,6 +35,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const UA = "GarbageRips585/1.0 (fan site; youtube.com/@GarbageRips585)";
 const WANT_CHASE = process.argv.includes("--chase");
@@ -224,7 +225,7 @@ await writeFile(
         "the two disagree.",
       ],
       source: "pricecharting.com",
-      checked: new Date().toISOString().slice(0, 10),
+      checked: localDay(),
       cards: out,
     },
     null,

@@ -22,6 +22,7 @@ import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache", "ptcg", "all-sets.json");
 
@@ -143,7 +144,7 @@ if (unchecked.length) {
 for (const s of sets) if (s.symbol && known[s.apiId] === false) s.symbol = null;
 
 const out = {
-  syncedAt: new Date().toISOString().slice(0, 10),
+  syncedAt: localDay(),
   source: "https://api.pokemontcg.io",
   seriesOrder,
   sets,

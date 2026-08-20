@@ -67,6 +67,7 @@ import { mkdir, readFile, writeFile, stat } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/assets/brands");
 const CACHE = join(ROOT, ".cache/brands");
@@ -328,7 +329,7 @@ if (needFetch) {
   try { info = JSON.parse(await readFile(infoCache, "utf8")); } catch { /* none */ }
 }
 
-const manifest = { _readme: [], checked: new Date().toISOString().slice(0, 10), source: "Wikimedia Commons", marks: {} };
+const manifest = { _readme: [], checked: localDay(), source: "Wikimedia Commons", marks: {} };
 manifest._readme = [
   "Written by scripts/sync-brands.mjs. Do not hand-edit.",
   "Company marks used to identify the companies /buying.html and /selling.html describe.",

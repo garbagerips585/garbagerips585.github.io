@@ -43,6 +43,7 @@ import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache", "tcgdex");
 const OUTDIR = join(ROOT, "public/data/cards");
@@ -59,7 +60,7 @@ const ROTATE = process.argv.includes("--rotate");
 const DAY = Math.floor(Date.now() / 86400000);
 const SLICES = 4;
 
-const TODAY = new Date().toISOString().slice(0, 10);
+const TODAY = localDay();
 
 /**
  * The date on a set file is a claim about when its PRICES were read.

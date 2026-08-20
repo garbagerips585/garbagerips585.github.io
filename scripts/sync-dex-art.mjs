@@ -58,6 +58,7 @@ import { execFileSync } from "node:child_process";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/assets/dex");
 const CACHE = join(ROOT, ".cache/dex-art");
@@ -115,7 +116,7 @@ const manifest = {
     "Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.",
     "This is a fan site. Nothing is sold here and nothing on it is affiliated with or endorsed by them.",
   ],
-  checked: new Date().toISOString().slice(0, 10),
+  checked: localDay(),
   source: "PokeAPI/sprites, official-artwork",
   art: {},
 };

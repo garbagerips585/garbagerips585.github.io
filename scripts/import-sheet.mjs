@@ -19,6 +19,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { deriveTags } from "../shared/taxonomy.mjs";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 let csvPath = process.argv[2];
 
@@ -406,7 +407,7 @@ if (col("Card") !== -1 && col("Raw NM USD") !== -1) {
       {
         ...existing,
         source: "My Hits tab",
-        checked: new Date().toISOString().slice(0, 10),
+        checked: localDay(),
         videos: byVideo,
       },
       null,

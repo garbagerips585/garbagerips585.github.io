@@ -60,7 +60,9 @@
      }
     }
    },
-   "imgSize": "web"
+   "imgLarge": "/assets/first-partner/mep-037-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "038",
@@ -93,7 +95,9 @@
      }
     }
    },
-   "imgSize": "web"
+   "imgLarge": "/assets/first-partner/mep-038-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "039",
@@ -126,7 +130,9 @@
      }
     }
    },
-   "imgSize": "web"
+   "imgLarge": "/assets/first-partner/mep-039-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "040",
@@ -159,7 +165,9 @@
      }
     }
    },
-   "imgSize": "web"
+   "imgLarge": "/assets/first-partner/mep-040-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "041",
@@ -192,7 +200,9 @@
      }
     }
    },
-   "imgSize": "web"
+   "imgLarge": "/assets/first-partner/mep-041-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "042",
@@ -225,7 +235,9 @@
      }
     }
    },
-   "imgSize": "web"
+   "imgLarge": "/assets/first-partner/mep-042-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "043",
@@ -258,7 +270,9 @@
      }
     }
    },
-   "imgSize": "web"
+   "imgLarge": "/assets/first-partner/mep-043-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "044",
@@ -291,7 +305,9 @@
      }
     }
    },
-   "imgSize": "web"
+   "imgLarge": "/assets/first-partner/mep-044-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "045",
@@ -324,7 +340,9 @@
      }
     }
    },
-   "imgSize": "web"
+   "imgLarge": "/assets/first-partner/mep-045-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "046",
@@ -357,7 +375,9 @@
      }
     }
    },
-   "imgSize": "web"
+   "imgLarge": "/assets/first-partner/mep-046-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "047",
@@ -390,7 +410,9 @@
      }
     }
    },
-   "imgSize": "web"
+   "imgLarge": "/assets/first-partner/mep-047-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "048",
@@ -423,7 +445,9 @@
      }
     }
    },
-   "imgSize": "web"
+   "imgLarge": "/assets/first-partner/mep-048-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "049",
@@ -456,7 +480,9 @@
      }
     }
    },
-   "imgSize": "web"
+   "imgLarge": "/assets/first-partner/mep-049-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "050",
@@ -489,7 +515,9 @@
      }
     }
    },
-   "imgSize": "web"
+   "imgLarge": "/assets/first-partner/mep-050-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "051",
@@ -522,7 +550,9 @@
      }
     }
    },
-   "imgSize": "web"
+   "imgLarge": "/assets/first-partner/mep-051-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "052",
@@ -555,7 +585,9 @@
      }
     }
    },
-   "imgSize": "web"
+   "imgLarge": "/assets/first-partner/mep-052-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "053",
@@ -589,7 +621,9 @@
      }
     }
    },
-   "imgSize": "web"
+   "imgLarge": "/assets/first-partner/mep-053-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "054",
@@ -622,7 +656,9 @@
      }
     }
    },
-   "imgSize": "web"
+   "imgLarge": "/assets/first-partner/mep-054-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "055",
@@ -634,8 +670,8 @@
    "illustrator": "Saboteri",
    "gallery": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/first-partner-illustration-collection-series-3",
    "img": "/assets/first-partner/mep-055.webp",
-   "imgWidth": 160,
-   "imgHeight": 224,
+   "imgWidth": 245,
+   "imgHeight": 342,
    "pc": {
     "url": "https://www.pricecharting.com/game/pokemon-promo/treecko-55",
     "title": "Treecko #55",
@@ -655,7 +691,9 @@
      }
     }
    },
-   "imgSize": "thumb"
+   "imgLarge": "/assets/first-partner/mep-055-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "056",
@@ -667,8 +705,8 @@
    "illustrator": "Saboteri",
    "gallery": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/first-partner-illustration-collection-series-3",
    "img": "/assets/first-partner/mep-056.webp",
-   "imgWidth": 160,
-   "imgHeight": 224,
+   "imgWidth": 245,
+   "imgHeight": 342,
    "pc": {
     "url": "https://www.pricecharting.com/game/pokemon-promo/torchic-56",
     "title": "Torchic #56",
@@ -688,7 +726,9 @@
      }
     }
    },
-   "imgSize": "thumb"
+   "imgLarge": "/assets/first-partner/mep-056-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "057",
@@ -700,8 +740,8 @@
    "illustrator": "Saboteri",
    "gallery": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/first-partner-illustration-collection-series-3",
    "img": "/assets/first-partner/mep-057.webp",
-   "imgWidth": 160,
-   "imgHeight": 224,
+   "imgWidth": 245,
+   "imgHeight": 342,
    "pc": {
     "url": "https://www.pricecharting.com/game/pokemon-promo/mudkip-57",
     "title": "Mudkip #57",
@@ -721,7 +761,9 @@
      }
     }
    },
-   "imgSize": "thumb"
+   "imgLarge": "/assets/first-partner/mep-057-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "058",
@@ -733,8 +775,8 @@
    "illustrator": "Saboteri",
    "gallery": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/first-partner-illustration-collection-series-3",
    "img": "/assets/first-partner/mep-058.webp",
-   "imgWidth": 160,
-   "imgHeight": 224,
+   "imgWidth": 245,
+   "imgHeight": 342,
    "pc": {
     "url": "https://www.pricecharting.com/game/pokemon-promo/chespin-58",
     "title": "Chespin #58",
@@ -754,7 +796,9 @@
      }
     }
    },
-   "imgSize": "thumb"
+   "imgLarge": "/assets/first-partner/mep-058-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "059",
@@ -766,8 +810,8 @@
    "illustrator": "Saboteri",
    "gallery": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/first-partner-illustration-collection-series-3",
    "img": "/assets/first-partner/mep-059.webp",
-   "imgWidth": 160,
-   "imgHeight": 224,
+   "imgWidth": 245,
+   "imgHeight": 342,
    "pc": {
     "url": "https://www.pricecharting.com/game/pokemon-promo/fennekin-59",
     "title": "Fennekin #59",
@@ -787,7 +831,9 @@
      }
     }
    },
-   "imgSize": "thumb"
+   "imgLarge": "/assets/first-partner/mep-059-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "060",
@@ -799,8 +845,8 @@
    "illustrator": "Saboteri",
    "gallery": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/first-partner-illustration-collection-series-3",
    "img": "/assets/first-partner/mep-060.webp",
-   "imgWidth": 160,
-   "imgHeight": 224,
+   "imgWidth": 245,
+   "imgHeight": 342,
    "pc": {
     "url": "https://www.pricecharting.com/game/pokemon-promo/froakie-60",
     "title": "Froakie #60",
@@ -820,7 +866,9 @@
      }
     }
    },
-   "imgSize": "thumb"
+   "imgLarge": "/assets/first-partner/mep-060-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "061",
@@ -832,8 +880,8 @@
    "illustrator": "Saboteri",
    "gallery": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/first-partner-illustration-collection-series-3",
    "img": "/assets/first-partner/mep-061.webp",
-   "imgWidth": 160,
-   "imgHeight": 224,
+   "imgWidth": 245,
+   "imgHeight": 342,
    "pc": {
     "url": "https://www.pricecharting.com/game/pokemon-promo/sprigatito-61",
     "title": "Sprigatito #61",
@@ -853,7 +901,9 @@
      }
     }
    },
-   "imgSize": "thumb"
+   "imgLarge": "/assets/first-partner/mep-061-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "062",
@@ -865,8 +915,8 @@
    "illustrator": "Saboteri",
    "gallery": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/first-partner-illustration-collection-series-3",
    "img": "/assets/first-partner/mep-062.webp",
-   "imgWidth": 160,
-   "imgHeight": 224,
+   "imgWidth": 245,
+   "imgHeight": 342,
    "pc": {
     "url": "https://www.pricecharting.com/game/pokemon-promo/fuecoco-62",
     "title": "Fuecoco #62",
@@ -886,7 +936,9 @@
      }
     }
    },
-   "imgSize": "thumb"
+   "imgLarge": "/assets/first-partner/mep-062-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   },
   {
    "number": "063",
@@ -898,8 +950,8 @@
    "illustrator": "Saboteri",
    "gallery": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/first-partner-illustration-collection-series-3",
    "img": "/assets/first-partner/mep-063.webp",
-   "imgWidth": 160,
-   "imgHeight": 224,
+   "imgWidth": 245,
+   "imgHeight": 342,
    "pc": {
     "url": "https://www.pricecharting.com/game/pokemon-promo/quaxly-63",
     "title": "Quaxly #63",
@@ -919,7 +971,9 @@
      }
     }
    },
-   "imgSize": "thumb"
+   "imgLarge": "/assets/first-partner/mep-063-420.webp",
+   "imgLargeWidth": 420,
+   "imgLargeHeight": 585
   }
  ],
  "packaging": [

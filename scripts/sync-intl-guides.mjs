@@ -39,6 +39,7 @@ import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache", "tcgdex");
 const OUT = join(ROOT, "public/data/intl-guides.json");
@@ -428,7 +429,7 @@ for (const [id, e] of entries) {
 }
 
 const doc = {
-  checked: new Date().toISOString().slice(0, 10),
+  checked: localDay(),
   source: map.source || "TCGdex + PokeAPI",
   sets: guides,
 };

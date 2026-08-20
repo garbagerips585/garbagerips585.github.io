@@ -160,6 +160,7 @@ import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const RAW = join(ROOT, ".cache", "tcgdex", "thumbs");
 const OUT = join(ROOT, "public", "assets", "cards");
@@ -529,7 +530,7 @@ await writeFile(
         "without checking. A card that is missing keeps its remote TCGdex url and",
         "the page looks exactly like it did before this file grew a second half.",
       ],
-      syncedAt: new Date().toISOString().slice(0, 10),
+      syncedAt: localDay(),
       box: BOX,
       quality: QUALITY,
       source: "assets.tcgdex.net low.webp",

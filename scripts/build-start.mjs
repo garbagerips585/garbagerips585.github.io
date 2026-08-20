@@ -38,6 +38,7 @@ import {
 import { esc } from "../shared/format.mjs";
 import { RARITY_CSS, rarityChip } from "../shared/rarity.mjs";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 // Live counts, so the page never claims a number the site has outgrown.
@@ -80,7 +81,7 @@ const cardIndex = JSON.parse(await readFile(join(ROOT, "public/data/card-index.j
 let shows = 0;
 try {
   const s = JSON.parse(await readFile(join(ROOT, "data/shows.json"), "utf8"));
-  const today = new Date().toISOString().slice(0, 10);
+  const today = localDay();
   shows = (s.shows || []).filter((x) => x.date >= today).length;
 } catch {
   /* optional */

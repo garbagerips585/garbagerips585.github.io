@@ -36,6 +36,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { CARD_SETS } from "../shared/taxonomy.mjs";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache", "yt-stats.json");
 const FETCH = process.argv.includes("--fetch");
@@ -82,7 +83,7 @@ if (FETCH || !Object.keys(stats).length) {
     }
   }
   await mkdir(dirname(CACHE), { recursive: true });
-  await writeFile(CACHE, JSON.stringify({ ...stats, _checked: new Date().toISOString().slice(0, 10) }, null, 2));
+  await writeFile(CACHE, JSON.stringify({ ...stats, _checked: localDay() }, null, 2));
   console.log(`Fetched statistics for ${Object.keys(stats).length - 1} videos\n`);
 }
 

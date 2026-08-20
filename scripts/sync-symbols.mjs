@@ -66,6 +66,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const RAW = join(ROOT, ".cache", "ptcg", "symbols");
 const OUT = join(ROOT, "public", "assets", "symbols");
@@ -262,7 +263,7 @@ const manifest = {
     "",
     "The file lives at public/assets/symbols/<id>-pokemon-tcg-set-symbol.webp.",
   ],
-  syncedAt: new Date().toISOString().slice(0, 10),
+  syncedAt: localDay(),
   box: BOX,
   symbols: dims,
 };

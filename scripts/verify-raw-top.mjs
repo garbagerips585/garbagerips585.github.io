@@ -61,6 +61,7 @@ import { fileURLToPath } from "node:url";
 import { gunzipSync } from "node:zlib";
 import { productColumns, columnChange } from "../shared/pricecharting.mjs";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 // The same cache directory verify-graded-top.mjs uses, keyed by a sha1 of the
 // url, so the 70 cards that are in both the raw and the graded top lists cost
@@ -212,7 +213,7 @@ d.verify = {
   // Stamped against the crawl this verified. shared/graded-gate.mjs compares
   // these, so a re-sync cannot silently inherit an old verification.
   for: d.checked,
-  ran: new Date().toISOString().slice(0, 10),
+  ran: localDay(),
   method:
     "re-read the Ungraded, Grade 9 and PSA 10 columns from each product page, mapping columns by <th> label",
   tolerance: TOLERANCE,

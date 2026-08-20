@@ -168,6 +168,7 @@ import { fileURLToPath } from "node:url";
 // run that checks every other image rather than by a reader getting a 403.
 import { caseStandIn, standInIndex } from "../shared/case-standin.mjs";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache", "tcg-top100");
 const OUT = join(ROOT, "data/top100.json");
@@ -730,7 +731,7 @@ const LISTS = [
   { key: "sealed", productType: "Sealed Products", wantCard: false, label: "sealed products" },
 ];
 
-const today = new Date().toISOString().slice(0, 10);
+const today = localDay();
 await mkdir(CACHE, { recursive: true });
 
 let doc = {};

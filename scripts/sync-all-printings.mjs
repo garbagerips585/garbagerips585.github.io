@@ -43,6 +43,7 @@ import { fileURLToPath } from "node:url";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 
+import { localDay } from "../shared/today.mjs";
 const run = promisify(execFile);
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const REPO = join(ROOT, ".cache/cards-database");
@@ -317,7 +318,7 @@ for (const c of cards) {
 await rm(OUT, { recursive: true, force: true });
 await mkdir(OUT, { recursive: true });
 
-const manifest = { checked: new Date().toISOString().slice(0, 10), total: cards.length, shards: {} };
+const manifest = { checked: localDay(), total: cards.length, shards: {} };
 let bytes = 0;
 for (const [k, list] of [...shards].sort()) {
   list.sort((a, b) => a.n.localeCompare(b.n) || a.s.localeCompare(b.s));

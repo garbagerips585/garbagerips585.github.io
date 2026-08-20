@@ -27,6 +27,7 @@ import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache", "tcgdex");
 const FORCE = process.argv.includes("--force");
@@ -61,7 +62,7 @@ const map = JSON.parse(await readFile(join(ROOT, "data/intl-map.json"), "utf8"))
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
 const bySlug = new Map(sets.map((s) => [s.id, s]));
 
-const out = { checked: new Date().toISOString().slice(0, 10), source: "TCGdex", sets: {} };
+const out = { checked: localDay(), source: "TCGdex", sets: {} };
 const warnings = [];
 
 for (const [slug, entry] of Object.entries(map.sets || {})) {

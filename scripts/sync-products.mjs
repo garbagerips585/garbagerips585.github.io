@@ -38,6 +38,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { TCG_SET } from "../shared/tcgplayer.mjs";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache", "tcg-products");
 
@@ -266,7 +267,7 @@ doc.sets ||= {};
 
 await mkdir(CACHE, { recursive: true });
 
-const today = new Date().toISOString().slice(0, 10);
+const today = localDay();
 const targets = sets.filter((s) => (only.length ? only.includes(s.id) : true));
 
 let fetched = 0;

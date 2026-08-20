@@ -102,6 +102,7 @@ import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache", "tcg-extra");
 const OUT = join(ROOT, "data", "extra-products.json");
@@ -554,7 +555,7 @@ await writeFile(
         "Images are hotlinked from TCGplayer's CDN, not copied here, the same as",
         "public/data/products.json.",
       ],
-      checked: new Date().toISOString().slice(0, 10),
+      checked: localDay(),
       source: "TCGplayer",
       products,
     },

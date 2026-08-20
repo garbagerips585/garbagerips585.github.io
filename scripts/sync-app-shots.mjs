@@ -56,6 +56,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public", "assets", "apps");
 const MANIFEST = join(ROOT, "data", "app-shots.json");
@@ -288,7 +289,7 @@ await writeFile(
         "",
         "Files live at public/assets/apps/.",
       ],
-      syncedAt: new Date().toISOString().slice(0, 10),
+      syncedAt: localDay(),
       shotBox: SHOT_W,
       iconBox: ICON_W,
       source: "https://itunes.apple.com/lookup (App Store listing artwork)",
