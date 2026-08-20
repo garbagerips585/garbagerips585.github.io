@@ -3372,6 +3372,19 @@ footer .soc svg{fill:var(--chrome-ink)}
      what produced seven 187px tracks for four tiles and left the stat row
      stopping at x772 above a bar running to x1416. */
   .fact:last-child:nth-child(4n + 1){grid-column:1 / -1}
+  /* AND THE SAME RAGGED ROW WITH TWO TILES IN IT, 19 August 2026. The rule
+     above only catches a row of ONE, because it asks for :last-child. The
+     Pokemon pages grew a sixth tile that day, a jump link to the evolution
+     band that moved down the page, so the last row became TWO tiles sitting in
+     the left half of a four-column grid with the right half empty. Same height,
+     same species of raggedness this block exists to fix.
+     Two tiles at span 2 fill the row exactly. A row of THREE is deliberately
+     left alone: at span 4/3 the tiles would stop matching the widths of the
+     rows above them, which is a worse mismatch than an empty quarter.
+     `:nth-last-child(2)` on a 4n+1 tile is "second from the end AND first in
+     its row", which is the only way a row of exactly two can start. */
+  .fact:nth-child(4n + 1):nth-last-child(2),
+  .fact:nth-child(4n + 1):nth-last-child(2) + .fact{grid-column:span 2}
 }
 
 /* ==========================================================================

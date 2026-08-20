@@ -900,12 +900,17 @@ function pokePage(p) {
   );
 
   /* ----------------------------------------------------------- evolution */
+  // Hoisted out of the band's own closure because the facts strip above needs
+  // the count for its jump tile. See famSize's use up there and the ordering
+  // note beside the band list at the bottom of this function.
+  const famStages = p.family;
+  const famSize = famStages.reduce((a, s) => a + s.length, 0);
   const evoBand = (() => {
-    const stages = p.family;
-    const size = stages.reduce((a, s) => a + s.length, 0);
+    const stages = famStages;
+    const size = famSize;
     if (size < 2) {
       return `
-<section class="tight">
+<section class="tight" id="evolution">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Evolution</p>
     <h2>${esc(p.name)} does not <span class="hl">evolve</span></h2>
@@ -949,7 +954,7 @@ function pokePage(p) {
      * next link rather than a nudge. Nothing else gets it. */
     const eeveeLine = stages.some((row) => row.some((m) => m.id === 133));
     return `
-<section class="tight">
+<section class="tight" id="evolution">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Evolution</p>
     <h2>The <span class="hl">${esc(stages[0].map((m) => m.name).join(" / "))}</span> line</h2>
@@ -1221,13 +1226,23 @@ function pokePage(p) {
    *
    * The one band on this page whose job is the channel rather than the cards.
    *
-   * IT MOVED UP, from dead last to directly after the priced band, and the
+   * IT MOVED UP, from dead last to just under the priced band, and the
    * placement is the larger half of this change. As the last section it sat at
    * y=27,195 on charizard.html and at y=10,078-equivalent on a page that had no
    * band at all: correct content nobody reaches. After the priced grid is where
    * the page has just delivered what the reader came for (the cards and what
    * they cost) and before the long tail of untranslated printings and the video
    * game type table, neither of which is why anybody arrived.
+   *
+   * "DIRECTLY AFTER" IS WHAT THAT SENTENCE SAID UNTIL 19 AUGUST 2026 AND IT IS
+   * NOT TRUE ANY MORE: the evolution band was moved below the priced grid that
+   * day and now sits between the two. The argument above survives the change
+   * unhurt, because what it asks for is a position after the page has paid off
+   * and before the untranslated tail, and 645px of evolution does not move this
+   * band out of it. What it cost is written beside the band list at the bottom
+   * of this function. The word was corrected rather than the order, because a
+   * comment that claims an adjacency the file no longer has is the kind of note
+   * that gets quoted back as a reason not to touch something.
    *
    * IT IS TEXT, NOT TILES, AND THAT IS DELIBERATE. See the note beside the
    * chrome imports at the top of this file: these pages ship without
@@ -1394,13 +1409,110 @@ function pokePage(p) {
         : p.setRips.rips.length
           ? `<a class="fact fact-link" href="#watch"><div class="n">${n(p.setRips.total)}</div><div class="l">${p.setRips.total === 1 ? "Rip" : "Rips"} of the ${p.setRips.slugs && p.setRips.slugs.length === 1 ? "set" : "sets"} they are in <span aria-hidden="true">&darr;</span></div></a>`
           : ""}
+      ${/* THE JUMP THAT PAYS FOR MOVING EVOLUTION DOWN, and it is emitted in
+             exactly the case that moved it: a species with a line of two or
+             more, on a page that has a priced band to sit above it. On the 59
+             pages with no priced band evolution is still the first thing under
+             the facts, so a link pointing at it from directly above would be
+             telling a reader to jump 200px.
+
+             IT IS FREE AT 390px AND THAT WAS THE REASON FOR THE SHAPE. .facts
+             is two columns on a phone, so the five tiles a priced page carries
+             leave the fifth alone on row three; the sixth fills the hole beside
+             it and the strip's height does not change. Measured: the facts
+             section is 1,180px on charizard with the tile and without it.
+
+             ON DESKTOP IT DOES COST SOMETHING AND IT IS NOT A REGRESSION IN
+             HEIGHT EITHER. At 700px+ the grid is four columns, and ui.css's
+             .fact:last-child:nth-child(4n+1) rule spans a lone fifth tile
+             across the row. A sixth tile means neither the fifth nor the sixth
+             matches that selector, so row two is two tiles in the left half
+             rather than one stretched across. Same two rows, same height. The
+             rule stays correct for every page that has no jump tile. */ ""}
+      ${sorted.length && famSize > 1
+        ? `<a class="fact fact-link" href="#evolution"><div class="n">${famSize}</div><div class="l">In the evolution line <span aria-hidden="true">&darr;</span></div></a>`
+        : ""}
     </div>
     ${p.art ? `<p class="price-note">Artwork and Pokedex data from pokeapi.co, read ${esc(longDate(dexDoc.checked) || dexDoc.checked)}.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>` : ""}
   </div>
 </section>
-${evoBand}
+${/* THE MONEY BAND CAME UP PAST EVOLUTION, 19 AUGUST 2026, AND THE HONEST
+      VERSION OF WHAT THAT BOUGHT IS SMALLER THAN THE ASK SOUNDED.
+
+      Measured on the built tree at 390x844 DPR 2, every figure read off the
+      element's own border box at scroll 0, before -> after:
+
+                        first priced scan     evolution band top
+        charizard         2,421 -> 1,776       1,544 -> 5,401
+        abra              2,372 -> 1,728       1,523 -> 2,624
+        mewtwo            2,075 -> 1,755       1,550 -> 4,709
+        arceus            no priced band       1,342 -> 1,342 (unmoved)
+
+      The card grid arrives 645px earlier on a species with a line and 320px
+      earlier on one without, which is exactly the evolution band's own height,
+      because that is the only thing that moved. 2.9 screens becomes 2.1.
+
+      IT IS STILL NOT ABOVE THE FOLD AND NO ORDERING OF THESE FIVE BANDS CAN PUT
+      IT THERE. The hero is 288px and the facts section under it is another
+      1,180, so the first band of any kind starts at y=1,544 on an 844px screen
+      whatever it is. Anybody asked for the grid above the fold is being asked
+      for a facts-section change, not a band swap, and that is a separate job.
+
+      WHAT IS ALREADY ABOVE THE FOLD IS THE ANSWER ITSELF, IN WORDS, and this
+      was checked by screenshot rather than assumed. The hero lede reads "The
+      priciest one we price is Mega Charizard X ex in Phantasmal Flames at $750,
+      and the cheapest is $4.49" at y=470 on charizard, on the first screen. A
+      reader searching how much their Charizard is worth is answered on landing.
+      What this change moved up is the PICTURES and the per-printing prices.
+
+      IT COST BETWEEN NOTHING AND FIVE AND A HALF KILOBYTES, and the interesting
+      part is what the bytes are now spent ON. A lazy image inside Chrome's
+      fetch window is not lazy, so what loads with the page is whatever sits in
+      the first ~1,250px under the fold. Before, that was the evolution band's
+      chain portraits; after, it is the top of the card grid. Read off the
+      request log at 390x844 DPR 2, gzipped, cache off, on load with no scroll:
+
+        charizard   183,179 -> 188,676 B   3 chain portraits out (Charmander
+                                           13.3KB, Charmeleon 14.4KB), 2 card
+                                           scans in (11.6KB, 21.6KB)
+        abra        176,296 -> 179,302 B   2 portraits out, 4 card scans in
+        mewtwo      177,075 -> 177,259 B   same three files both sides
+        arceus      169,226 -> 169,666 B   identical page both sides
+
+      The mewtwo and arceus rows are the calibration: those two pages did not
+      change, so their +184 and +440 is what TCGdex's own transfer varies by
+      between runs. Anything under about 500 bytes here is noise.
+
+      LCP DID NOT MOVE. The LCP element is the hero lede paragraph before and
+      after, on all four pages. Interleaved A/B, four runs a side, medians:
+      charizard 88 -> 84ms, arceus 112 -> 108ms. Runs taken in blocks rather
+      than interleaved showed a consistent +20ms on the after side INCLUDING on
+      arceus, whose bytes are identical, which is the whole reason to interleave.
+
+      NOTHING IN THE FIRST VIEWPORT IS LAZY AND NOTHING BELOW IT IS EAGER, on
+      any of the four, before or after. The only image in the first 844px is the
+      species portrait, and it never was lazy.
+
+      EVOLUTION MOVES DOWN, IT DOES NOT GO AWAY. It keeps its own band, its
+      inline chain, its card counts and its link to /evolution.html, and it
+      gained an id plus a jump tile in the facts strip so it is one tap from the
+      top of the page. The tile is only emitted where the band actually moved,
+      which is why it is conditional on a priced band existing.
+
+      THE 58 PAGES WITH NO PRICED CARD ARE UNTOUCHED. pricedBand is an empty
+      string there, so the order below is still evolution first, and their hero
+      lede already says in as many words that we hold no price for any of them.
+      Re-rendered and diffed pixel for pixel on arceus over the first four
+      screens: identical. The page is 30 bytes bigger and all of it is the id
+      and the whitespace this comment's siblings leave behind.
+
+      SWEPT ACROSS THE FAMILY rather than trusted from four samples: 967 pages
+      put the priced band above evolution, 58 keep evolution first, 787 carry
+      the jump tile, every page has exactly one id="evolution", and every jump
+      link sits above the target it points at. */ ""}
 ${pricedBand}
+${evoBand}
 ${watchBand}
 ${elsewhereBand}
 ${effBand}
