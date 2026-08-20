@@ -91,76 +91,43 @@ const SHOTS = [
     // The canvas alone. Everything outside it is site chrome, and the score
     // readout above it is the page, not the game.
     clip: ".gr-stage",
-    // THIS ONE BROKE THE RULE THE HEADER OF THIS FILE SETS OUT, and the
-    // recapture on 17 August 2026 proved it. It read "Trubbish MID-AIR on a
-    // dark street, a curve of trash ahead of him, ANOTHER POKEMON PERCHED ON
-    // THE EDGE OF THE LANE", and the new capture has Trubbish on the floor with
-    // no second Pokemon anywhere on screen. Both of those were true of one
-    // frame of one run and neither survives a rerun, which is exactly the drift
-    // the three quiz shots below are written to avoid.
+    // A TITLE SCREEN USED TO BE THE WRONG PICTURE AND NOW IT IS THE RIGHT ONE,
+    // which is a change in the game and not a change of mind. The rule that
+    // stood here read "A SCREENSHOT OF THE TITLE CARD WOULD HAVE BEEN A LIE BY
+    // OMISSION, so this one plays the game", and it was right about the card it
+    // was written against: a start button on a black rectangle tells a visitor
+    // nothing. On 20 August 2026 the title became a drawn 8-bit card -- the
+    // wordmark, ROCHESTER, NY, and Trubbish sitting on a Garbage Plate -- so it
+    // now says more about this game than a frame of autopilot wobble does.
     //
-    // It is the hardest of the four to describe honestly, because unlike them it
-    // has no fixed furniture: the assert guarantees the run is ALIVE and the
-    // score is at least 8, and that is all that is guaranteed. So the alt says
-    // only that, plus the two things the canvas always draws.
+    // IT IS ALSO THE ONLY REPRODUCIBLE SHOT OF THE FOUR, where the old one was
+    // explicitly the opposite: no autopilot, no retries, no seeded spawn that
+    // still lands on a different frame. The single moving part is the blinking
+    // prompt, and prefers-reduced-motion pins it ON by the game's own rule in
+    // drawTitle, so the shutter cannot land on a dark frame.
+    media: [{ name: "prefers-reduced-motion", value: "reduce" }],
+    // I WROTE "TAP TO START" HERE AND THE CAPTURE SAYS "PRESS START". The game
+    // picks its wording off (pointer:coarse), and Emulation's mobile:true sets
+    // the metrics, not the pointer media feature -- so a shot that is 390px wide
+    // and mobile in every other respect still reads as a mouse. Corrected off
+    // the pixels rather than off the reasoning, which is the only way alt text
+    // for a screenshot can be checked at all.
     shows:
-      "Garbage Run part way through a run: Trubbish on a dark street with trash laid out ahead of him, the score in the corner and the count of what is left before he evolves",
-    assert: `(function(){if(!document.getElementById('grOver').hasAttribute('hidden'))return 'the run ended';` +
-      `var s=+document.getElementById('grScore').textContent;` +
-      `return s>=${8}?'':('score only reached '+s);})()`,
-    // A SCREENSHOT OF THE TITLE CARD WOULD HAVE BEEN A LIE BY OMISSION, so this
-    // one plays the game. Starting it and waiting is not enough: Trubbish parks
-    // on the floor when nobody taps, trash only ever spawns in the middle
-    // band, and the first attempt at this produced a black rectangle with a
-    // score of 0. So an autopilot taps on a fixed 180ms cadence, which is the
-    // "hold the midline" bot the game's own comments describe, and it is timed
-    // in the page rather than over CDP because a round trip per tap jitters
-    // enough to change the answer. Measured across 120/150/180/220/260ms: only
-    // 180 scored at all.
-    //
-    // THE ONLY SHOT HERE THAT IS NOT REPRODUCIBLE. Seeding Math.random fixes
-    // what spawns but not when a frame lands, so this file differs a little on
-    // every recapture. That is why the assert checks the SCORE and that the run
-    // is still alive rather than checking pixels, and why it retries: a run that
-    // died early is a bad picture, not a broken build.
-    // WAITING A FIXED 15s WAS NOT ENOUGH and the failure is instructive: the
-    // autopilot is not playing, it is wobbling, so what it collects in a given
-    // fifteen seconds is luck. Four runs at the same seed scored 16, 11, 3 and
-    // 4. So it plays until the score is worth photographing instead of until
-    // the clock says so, and gives up if Trubbish dies first, which is a retry
-    // rather than a failure.
-    retries: 4,
+      "The Garbage Run title screen: GARBAGE RUN in blocky 8-bit capitals, Trubbish sitting on a Garbage Plate, and ROCHESTER, NY over GARBAGE RIPS 585 with PRESS START underneath",
+    // grOver is NOT a game-over panel, which cost a run to find out: it is one
+    // overlay reused for both ends of the game, and on the title it carries the
+    // class gr-attract. So "is it hidden" answers nothing here -- it is visible
+    // in exactly the state this shot wants. gr-attract is the discriminator.
+    assert: `(function(){var o=document.getElementById('grOver');` +
+      `if(!o||!/\\bgr-attract\\b/.test(o.className))return 'the title screen is not showing';` +
+      `if(+document.getElementById('grScore').textContent!==0)return 'the run had already started';` +
+      `var c=document.querySelector('.gr-stage canvas');` +
+      `if(!c||!c.width)return 'the board has no size';return '';})()`,
     async ready(run) {
-      await run.click("#grStart");
-      await run.eval(
-        `window.__autopilot=setInterval(function(){document.getElementById('grStage')` +
-          `.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true}));},180)`
-      );
-      let score = 0;
-      for (let i = 0; i < 80 && score < 9; i++) {
-        await run.wait(500);
-        const state = await run.eval(
-          `JSON.stringify({s:+document.getElementById('grScore').textContent,` +
-            `over:!document.getElementById('grOver').hasAttribute('hidden')})`
-        );
-        const { s, over } = JSON.parse(state);
-        if (over) break;
-        score = s;
-      }
-      // KEEP TAPPING THROUGH THE SHUTTER, which reverses what this did before
-      // and the reason is what the old rule produced. It read "stop tapping
-      // before the capture so Trubbish is not caught mid-kick", and stopping is
-      // exactly how he ends up parked in the bottom corner: nothing tapping
-      // means gravity, and gravity in this game means the floor. The recapture
-      // on 17 August 2026 came out as a black rectangle with a 26px Trubbish in
-      // one corner, which at the 143px the hub draws it is a picture of nothing.
-      //
-      // Mid-kick is not the failure the old comment thought it was. The game is
-      // one mechanic, flipping between the floor and the ceiling, so a frame
-      // with Trubbish off the ground is the frame that shows what the game IS.
-      // The 90ms settle is still there to let the current frame finish drawing.
-      await run.wait(90);
-      await run.eval("clearInterval(window.__autopilot)");
+      // Nothing to drive. The canvas sizes itself off the viewport before it
+      // paints, so this waits for the card to be on screen rather than for a
+      // clock; capturing earlier photographs a wrong-sized card.
+      await run.wait(800);
     },
   },
   {
@@ -190,7 +157,11 @@ const SHOTS = [
     page: "/games/pokemon-trivia.html",
     file: "pokemon-trivia-screenshot.webp",
     clip: [".gq-stage", ".gq-choices"],
-    shows: "Pokemon Trivia mid-round: a question in large type, with four answers to choose from underneath",
+    // The picture is the point of this shot now. Before 20 August 2026 the round
+    // was type set alone and the alt said so; the game draws the species it is
+    // asking about, so a description with no picture in it now under-describes
+    // the shot for exactly the reader who depends on the description.
+    shows: "Pokemon Trivia mid-round: artwork of the Pokemon being asked about, the question in large type underneath, and four answers to choose from below that",
     assert: `(function(){var q=document.querySelector('.gq-q');` +
       `if(!q||!q.textContent.trim())return 'no question rendered';` +
       `var n=document.querySelectorAll('.gq-choices button').length;` +
@@ -306,6 +277,9 @@ if (wanted.length) {
           deviceScaleFactor: VIEW.dpr,
           mobile: true,
         });
+        // Per-shot media emulation. Only the title-screen shot uses it, and it
+        // uses it to remove the one moving part from an otherwise fixed picture.
+        if (shot.media) await tab.send("Emulation.setEmulatedMedia", { features: shot.media });
         await tab.send("Page.addScriptToEvaluateOnNewDocument", { source: SEEDER });
         await tab.send("Page.navigate", { url: ORIGIN + shot.page });
         for (let i = 0; i < 80 && !tab.events.includes("Page.loadEventFired"); i++) {

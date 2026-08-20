@@ -1861,24 +1861,378 @@ const GAME_JS = `
     pxMid(s, cx, y, u, col);
   }
 
-  // THE MASCOT IS THE GAME'S OWN SPRITE, PUT THROUGH A 32x32 GRID. Trubbish is
+  // THE MASCOT IS THE GAME'S OWN SPRITE, PUT THROUGH A 32 WIDE GRID. Trubbish is
   // a 512px illustration, and dropping that on a screen made of 5x7 letters is
   // the mismatch that makes a retro screen look like a mock-up: smooth artwork
   // next to hard pixels. Drawing it small into an offscreen canvas and blowing
   // that back up with smoothing off turns the sprite the game already loaded
   // into real pixel art, off the same file, so it cannot describe a different
   // Trubbish from the one you are about to play as. Built once and cached.
+  //
+  // THE TILE IS 32x29 AND NOT 32x32 SINCE HE SAT DOWN. Three rows out of
+  // thirty-two is the squash that turns a sprite resting on a plate into a
+  // sprite with weight on a plate, and the SQUASH HAPPENS ON THE WAY DOWN, in
+  // the resample from 512, rather than on the way back up. Squashing on the way
+  // up would ask for 29 rows of output from 32 rows of tile, so five of the
+  // mascot's pixels would come out a different height from the other
+  // twenty-four, on a screen whose whole argument is one pixel size. This way
+  // every cell is exactly mk square and the only thing that changed is how much
+  // of Trubbish went into it. He is a squat blob to start with, so it reads as
+  // him settling rather than as a distortion.
+  var MASC_H = 29;
   var mascotTile = null;
   function mascot() {
     if (mascotTile) return mascotTile;
     if (!SP_TRUB.ready) return null;
     var off = document.createElement("canvas");
-    off.width = 32; off.height = 32;
+    off.width = 32; off.height = MASC_H;
     var oc = off.getContext("2d");
     if (!oc) return null;
-    oc.drawImage(SP_TRUB.img, 0, 0, 32, 32);
+    oc.drawImage(SP_TRUB.img, 0, 0, 32, MASC_H);
     mascotTile = off;
     return off;
+  }
+
+  // ---- THE GARBAGE PLATE HE IS SITTING ON --------------------------------
+  //
+  // Tim, on the title screen that shipped an hour before this: "can we make the
+  // trubbish mascot sitting on a big Garbage Plate, then it will be perfect".
+  // The channel is named after the dish and the reference is the channel's own
+  // commissioned banner, public/assets/banner-trubbish.jpg, which already has
+  // this exact picture in it: Trubbish on a Rochester street with a plate beside
+  // him. The only change is that he is ON it here.
+  //
+  // IT IS THE SAME DISH THE GAME ALREADY DRAWS, IN THE SAME NINE COLOURS.
+  // plateTile() up in the world paints a Garbage Plate at 34x26 as a collectible,
+  // and its comment records both the recipe and the palette that survived being
+  // shrunk to that: a pale plate with a WIDE rim so it cannot read as a bowl,
+  // home fries on one side and macaroni salad on the other, meat hot sauce
+  // ladled over the seam, one mustard streak, white specks of raw onion. Not one
+  // colour below is new. The one thing that is not one of the nine is the
+  // shadow the mascot casts on his dinner, and that is a wash at 30 per cent
+  // black rather than a colour, the same move the scanlines over the whole
+  // screen already make. The two drawings are the same object at two sizes,
+  // which is the point: the plate you sit on is the plate you chase.
+  //
+  // WHAT IS DIFFERENT IS THE PITCH, AND IT IS THE ONLY THING THAT COULD MAKE
+  // THIS LOOK PASTED ON. plateTile is ellipses and beziers because it is a world
+  // object and the world is drawn in curves. This one shares a screen with a 5x7
+  // bitmap alphabet, so there is no curve anywhere below: every mark is a
+  // fillRect one cell of u across, u being the same unit the ROCHESTER, NY line
+  // under the dish is drawn at. The ovals are rasterised a row at a time into
+  // whole cells and the staircase on their edges is the drawing rather than an
+  // artifact of it.
+  //
+  // THE MUSTARD IS THE ONE YELLOW ON THIS SCREEN AND IT IS NOT THE GOLD.
+  // #F2C734 is plateTile's own mustard, and plateTile argues for it: without the
+  // mustard and the onion the middle of the dish is one brown shape and the
+  // whole thing is a pebble on a saucer. The Hall of Fame gold never appears
+  // here, and a real dish keeping its own colours is the same exemption the site
+  // gives the Base Set schematic and the eighteen pack skins.
+
+  // One row of a pixel ellipse, in whole cells. Rows where the ellipse is
+  // narrower than a cell are dropped rather than rounded to nothing, so the
+  // shape ends on a flat cap instead of fraying to single pixels.
+  function ovalHalf(dy, rx, ry) {
+    var t = 1 - (dy * dy) / (ry * ry);
+    return t <= 0 ? 0 : Math.max(1, Math.round(rx * Math.sqrt(t)));
+  }
+  // ox, oy are device pixels; cx, cy, rx, ry are cells. from/to clip rows.
+  function pxOval(ox, oy, u, cx, cy, rx, ry, col, from, to) {
+    ctx.fillStyle = col;
+    var a = from === undefined ? -ry : from;
+    var b = to === undefined ? ry : to;
+    for (var dy = a; dy <= b; dy++) {
+      var hw = ovalHalf(dy, rx, ry);
+      if (!hw) continue;
+      ctx.fillRect(ox + (cx - hw) * u, oy + (cy + dy) * u, hw * 2 * u, u);
+    }
+  }
+  // A table of marks laid ON a mound and CLIPPED TO THAT MOUND'S OWN RASTERISED
+  // ROWS, so a fry cannot hang off the side of the pile it is meant to be in.
+  // Each row is [x as a fraction of rx, y as a fraction of ry, length as a
+  // fraction of rx] and every mark is one cell tall. THE TABLES ARE FIXED AND
+  // NOT RANDOM:
+  // this screen repaints just under twice a second for the blinking prompt, and
+  // a scatter reboiled on every repaint is a shimmer nobody asked for.
+  // side, when given, keeps the marks on one half of the shape, which is how the
+  // split bed gets macaroni shadows on its left and fry edges on its right off
+  // one oval. A mark that STARTS outside the shape is dropped rather than pulled
+  // back to the edge: clamping it stacked every stray mark against the rim in a
+  // line, which is a seam and not a texture.
+  function pxMarks(ox, oy, u, cx, cy, rx, ry, tab, col, side) {
+    ctx.fillStyle = col;
+    for (var i = 0; i < tab.length; i++) {
+      var dy = Math.round(tab[i][1] * ry);
+      var hw = ovalHalf(dy, rx, ry);
+      if (!hw) continue;
+      var x0 = cx + Math.round(tab[i][0] * rx);
+      var len = Math.max(1, Math.round(tab[i][2] * rx));
+      var lft = side > 0 ? cx : cx - hw;
+      var rgt = side < 0 ? cx : cx + hw;
+      if (x0 < lft || x0 >= rgt) continue;
+      if (x0 + len > rgt) len = rgt - x0;
+      if (len < 1) continue;
+      ctx.fillRect(ox + x0 * u, oy + (cy + dy) * u, len * u, u);
+    }
+  }
+
+  // Left half, right half, one oval. The bed under the two heaps is drawn this
+  // way so the seam between macaroni and home fries runs straight down the
+  // middle of the dish instead of being an accident of where two circles met.
+  function pxOvalSplit(ox, oy, u, cx, cy, rx, ry, colL, colR) {
+    for (var dy = -ry; dy <= ry; dy++) {
+      var hw = ovalHalf(dy, rx, ry);
+      if (!hw) continue;
+      var sm = cx + SEAM[(dy + 200) % SEAM.length];
+      ctx.fillStyle = colL;
+      ctx.fillRect(ox + (cx - hw) * u, oy + (cy + dy) * u, (sm - cx + hw) * u, u);
+      ctx.fillStyle = colR;
+      ctx.fillRect(ox + sm * u, oy + (cy + dy) * u, (cx + hw - sm) * u, u);
+    }
+  }
+
+  // THE MARKS ARE GENERATED ONCE FROM A FIXED SEED RATHER THAN HAND TYPED. A
+  // convincing heap of home fries wants forty sticks in it and forty hand typed
+  // triples is a table nobody can read, let alone tune. The generator is a plain
+  // linear congruential one with a constant seed, so the pile is the same pile
+  // on every load, in every browser and on every repaint. That last one is the
+  // point rather than tidiness: this screen repaints just under twice a second
+  // for the blinking prompt, and a scatter reboiled on each repaint is a
+  // shimmer nobody asked for. Built once, at parse time, into four arrays.
+  function marks(n, seed, spread, lo, hi) {
+    var out = [], s = seed >>> 0, i, a, b, c;
+    for (i = 0; i < n; i++) {
+      s = (s * 1664525 + 1013904223) >>> 0; a = (s >>> 8) / 16777216;
+      s = (s * 1664525 + 1013904223) >>> 0; b = (s >>> 8) / 16777216;
+      s = (s * 1664525 + 1013904223) >>> 0; c = (s >>> 8) / 16777216;
+      out.push([(a * 2 - 1) * spread, (b * 2 - 1) * spread, lo + c * (hi - lo)]);
+    }
+    return out;
+  }
+  // Home fries are a GOLDEN MASS WITH THE EDGES BETWEEN THE STICKS DRAWN DARK,
+  // and that is the way round that reads. The first attempt had it the other
+  // way, a browned mass with gold sticks laid over it, and the pile came out the
+  // same value as the meat sauce next to it, so the right half of the dish read
+  // as more sauce. The second had the dark runs at two thirds of the heap's
+  // width and they read as wood grain. They are 2 to 5 cells now: short, many,
+  // and jumbled, which is what a pile of cut potato looks like from across a
+  // diner. Macaroni is the pale mass with the shadows BETWEEN the elbows and a
+  // few highlights on top of them, because a scoop of it at this size is texture
+  // rather than shape.
+  var FRIES = marks(46, 20250820, 0.86, 0.10, 0.30);
+  var MAC = marks(44, 585585, 0.88, 0.05, 0.13);
+  var MACD = marks(24, 30303, 0.84, 0.05, 0.11);
+  var MAC2 = marks(30, 1971, 0.86, 0.05, 0.11);
+  var CHUNK = marks(26, 4242, 0.82, 0.06, 0.16);
+  // These four are placed by hand because there are few of them and where they
+  // land is the whole of their job. The mustard is one drizzle stepped across
+  // the sauce, drawn as runs rather than as a stroked curve for the same reason
+  // nothing else here is a curve.
+  var MUSTARD = [
+    [-.80, .26, .28], [-.56, .06, .26], [-.32, -.12, .26], [-.08, -.22, .26],
+    [.16, -.14, .26], [.40, .04, .26], [.62, .22, .24]
+  ];
+  var ONION = [
+    [-.66, -.30, .10], [-.30, -.54, .09], [.08, -.46, .10], [.42, -.24, .09],
+    [-.48, .18, .10], [.24, .30, .09], [-.10, .10, .10], [.62, .12, .09]
+  ];
+  var DRIPS = [
+    [-.68, .40, .05], [-.44, .66, .04], [-.14, .80, .05],
+    [.16, .78, .04], [.44, .62, .05], [.66, .38, .04]
+  ];
+  var SAUCE = [
+    [-.78, .30, .22], [-.40, -.62, .26], [.06, .58, .24],
+    [.52, -.52, .24], [.84, .18, .20], [-.06, -.30, .30]
+  ];
+  // THE SEAM BETWEEN THE TWO HALVES IS NOT A STRAIGHT LINE, and it read as one
+  // when it was: a dead vertical edge down the middle of the dish that said
+  // "two shapes" rather than "one plate". One cell of wobble per row, off a
+  // fixed table, is enough to make it a boundary between two foods.
+  var SEAM = [0, 1, -1, 1, 0, -1, 2, 0, -1, 1, 0, -2, 1, 0, -1, 1, 2, -1, 0, 1];
+  // Where the pile squeezes out AROUND AND OVER him. Ten lobes across his own
+  // half width, each with its own row so the contact line is not flat, and all
+  // of them ABOVE his bottom edge rather than under it: a lobe drawn under him
+  // lands on food the same colour as itself and is invisible, which is what the
+  // version before this one did. Biting into his silhouette is the whole job.
+  var SPILL = [
+    [-1.00, -1], [-.80, -4], [-.60, -2], [-.40, -5], [-.20, -2],
+    [.02, -4], [.24, -1], [.46, -4], [.68, -2], [.90, -3], [1.02, 0]
+  ];
+
+  // EVERY NUMBER IN THE DISH COMES OFF ONE INPUT, the plate's width in cells, so
+  // it is the same picture at 320 and at 1440 and crisp at both. The proportions
+  // are read off the banner art.
+  //
+  // THE SHAPE OF THE HEAP IS THE WHOLE OF THE "SITTING ON IT" PROBLEM AND IT
+  // TOOK FOUR GOES. What does NOT work, in order: one mound centred under him,
+  // which puts its crown behind him so nothing rises at his sides and he reads
+  // as standing BEHIND a plate on a table; and a wide two bump heap filling the
+  // well, which is a plateau, so he reads as standing on a table again, this
+  // time a stripey one.
+  //
+  // A dome under him does not work either, and the reason is worth writing down
+  // because it is not obvious: he is a ROUND BLOB and a dome is round, so the
+  // two only ever meet at a point. Widen the dome until it clears him and it is
+  // a plateau again; sink him into it until it closes over him and two thirds of
+  // him is under dinner.
+  //
+  // WHAT WORKS IS A CRATER. Three shapes: a wide low SKIRT spreading out toward
+  // the rim so the mass visibly widens on the way down; a broad shallow CROWN he
+  // sits down onto; and TWO BUMPS, one either side, whose tops sit OUTSIDE his
+  // silhouette and stand a good way ABOVE where his bottom edge lands. Food
+  // higher than his seat on both sides of him, dipping in the middle where his
+  // weight is, is the thing the eye reads as sitting. The sauce then crosses the
+  // dip, closing over his bottom edge and running down the front of the heap
+  // where it can actually be seen. Every shape is split down a wobbling seam,
+  // macaroni salad to the left and home fries to the right, the way the banner
+  // has them, so the two halves carry through the whole dish.
+  function plateGeom(pw) {
+    var ry = Math.max(4, Math.round(pw * 0.200));
+    var th = Math.max(1, Math.round(pw * 0.036));
+    var kry = Math.max(3, Math.round(ry * 0.68));
+    var kdy = Math.max(1, Math.round(ry * 0.55));
+    var up = kdy + kry;
+    return {
+      w: pw,
+      rx: pw >> 1,
+      ry: ry,
+      th: th,
+      wrx: Math.max(3, (pw >> 1) - Math.max(2, Math.round(pw * 0.120))),
+      wry: Math.max(2, ry - Math.max(1, Math.round(ry * 0.42))),
+      // the skirt, the wide low base the rest of the heap sits in
+      brx: Math.max(4, Math.round(pw * 0.375)),
+      bry: Math.max(2, Math.round(ry * 0.55)),
+      bdy: Math.max(1, Math.round(ry * 0.12)),
+      // the crown, broad and shallow, which is what he sits down onto
+      crx: Math.max(4, Math.round(pw * 0.330)),
+      cry: Math.max(2, Math.round(ry * 0.55)),
+      cdy: Math.max(1, Math.round(ry * 0.45)),
+      // the two bumps either side of him, which are the ones that read
+      krx: Math.max(3, Math.round(pw * 0.130)),
+      kry: kry,
+      kdx: Math.max(3, Math.round(pw * 0.210)),
+      kdy: kdy,
+      // the sauce, poured across the dip and over his bottom edge
+      srx: Math.max(4, Math.round(pw * 0.300)),
+      sry: Math.max(2, Math.round(ry * 0.26)),
+      sdy: Math.max(2, Math.round(ry * 0.53)),
+      up: up,
+      h: up + ry + th,
+      // WHERE THE MASCOT'S BOTTOM EDGE LANDS, measured down from the crown of
+      // the dome. Deep enough that the dome's shoulders and the sauce close over
+      // his lower edge, shallow enough that he is a Trubbish sitting down rather
+      // than a head on a dinner plate.
+      seat: Math.max(2, Math.round(ry * 0.55))
+    };
+  }
+
+  function platePx(ox, oy, u, G) {
+    var cx = G.rx, cy = G.up, d, dy, dx, hw;
+
+    // THE PLATE. Its underside first, one whole plate offset down by its own
+    // thickness, so what stays showing is the crescent of the edge and the dish
+    // has a side to it. Then the top face, then a shallower well inside a WIDE
+    // rim: the rim is the thing that stops a pale disc under a dark mass reading
+    // as a bowl of soup, which is the failure plateTile's own comment warns
+    // about and the first version of that one actually shipped.
+    pxOval(ox, oy, u, cx, cy + G.th, G.rx, G.ry, "#9C9584");
+    pxOval(ox, oy, u, cx, cy, G.rx, G.ry, "#F7F3E7");
+    pxOval(ox, oy, u, cx, cy, G.wrx, G.wry, "#E2DBC6");
+
+    // THE HEAP: the shadow it throws into the well, then the skirt, then the
+    // dome. Macaroni salad left, home fries right, both times, so the seam runs
+    // through the whole dish instead of the two layers disagreeing about where
+    // the middle is.
+    pxOval(ox, oy, u, cx, cy - G.bdy + 2, G.brx + 1, G.bry, "#9C9584");
+    pxOvalSplit(ox, oy, u, cx, cy - G.bdy, G.brx, G.bry, "#F0E5BE", "#D3A15C");
+    pxOvalSplit(ox, oy, u, cx, cy - G.cdy, G.crx, G.cry, "#F0E5BE", "#D3A15C");
+    pxOval(ox, oy, u, cx - G.kdx, cy - G.kdy, G.krx, G.kry, "#F0E5BE");
+    pxOval(ox, oy, u, cx + G.kdx, cy - G.kdy, G.krx, G.kry, "#D3A15C");
+    pxMarks(ox, oy, u, cx, cy - G.bdy, G.brx, G.bry, MAC, "#E2DBC6", -1);
+    pxMarks(ox, oy, u, cx, cy - G.bdy, G.brx, G.bry, MACD, "#9C9584", -1);
+    pxMarks(ox, oy, u, cx, cy - G.bdy, G.brx, G.bry, MAC2, "#FDFBF4", -1);
+    pxMarks(ox, oy, u, cx, cy - G.bdy, G.brx, G.bry, FRIES, "#A55E2C", 1);
+    pxMarks(ox, oy, u, cx, cy - G.cdy, G.crx, G.cry, MAC, "#E2DBC6", -1);
+    pxMarks(ox, oy, u, cx, cy - G.cdy, G.crx, G.cry, MACD, "#9C9584", -1);
+    pxMarks(ox, oy, u, cx, cy - G.cdy, G.crx, G.cry, MAC2, "#FDFBF4", -1);
+    pxMarks(ox, oy, u, cx, cy - G.cdy, G.crx, G.cry, FRIES, "#A55E2C", 1);
+    pxMarks(ox, oy, u, cx - G.kdx, cy - G.kdy, G.krx, G.kry, MAC, "#E2DBC6");
+    pxMarks(ox, oy, u, cx - G.kdx, cy - G.kdy, G.krx, G.kry, MAC2, "#FDFBF4");
+    pxMarks(ox, oy, u, cx + G.kdx, cy - G.kdy, G.krx, G.kry, FRIES, "#A55E2C");
+
+    // MEAT HOT SAUCE, LADLED OVER THE SEAM AND OVER BOTH HALVES, because that is
+    // the layer that makes a Garbage Plate one dish instead of two sides. It is
+    // the warm mid brown plateTile settled on rather than the near black it
+    // started as: a truly dark mass reads as a hole punched in the plate. Then
+    // it runs off the dome onto the skirt, which is four rectangles and is most
+    // of what says this was poured rather than arranged.
+    pxOval(ox, oy, u, cx, cy - G.sdy, G.srx, G.sry, "#71401D");
+    // A clean ellipse of sauce is a lens sitting on the food. Six lobes around
+    // its edge and it is a ladleful that landed where it landed.
+    for (d = 0; d < SAUCE.length; d++) {
+      pxOval(ox, oy, u,
+        cx + Math.round(SAUCE[d][0] * G.srx),
+        cy - G.sdy + Math.round(SAUCE[d][1] * G.sry),
+        Math.max(2, Math.round(SAUCE[d][2] * G.srx)),
+        Math.max(2, Math.round(SAUCE[d][2] * G.srx * 0.62)), "#71401D");
+    }
+    ctx.fillStyle = "#71401D";
+    for (d = 0; d < DRIPS.length; d++) {
+      dy = Math.round(DRIPS[d][1] * G.sry);
+      hw = ovalHalf(dy, G.srx, G.sry);
+      if (!hw) continue;
+      dx = Math.round(DRIPS[d][0] * G.srx);
+      if (dx < -hw || dx > hw) continue;
+      ctx.fillRect(
+        ox + (cx + dx) * u, oy + (cy - G.sdy + dy) * u,
+        Math.max(1, Math.round(DRIPS[d][2] * G.srx)) * u,
+        Math.max(2, Math.round(G.sry * 1.45)) * u
+      );
+    }
+    pxMarks(ox, oy, u, cx, cy - G.sdy, G.srx, G.sry, CHUNK, "#A55E2C");
+
+    // MUSTARD AND RAW ONION. THESE TWO ARE WHY IT IS FOOD, which is plateTile's
+    // own sentence and it is just as true at this size: they are the only bright
+    // marks on a pile of browns and creams, and without them the middle of the
+    // dish is one shape.
+    pxMarks(ox, oy, u, cx, cy - G.sdy, G.srx, G.sry, MUSTARD, "#F2C734");
+    pxMarks(ox, oy, u, cx, cy - G.sdy, G.srx, G.sry, ONION, "#FDFBF4");
+  }
+
+  // THE PILE SQUEEZES OUT AROUND HIM, and this is the part that stops the whole
+  // thing reading as a sprite parked in front of a drawing of dinner. It runs
+  // AFTER the mascot: eight small lobes of food drawn back OVER his bottom edge,
+  // macaroni under his left, home fries under his right and sauce under the
+  // middle, each sitting on its own row so the contact line is not flat. Overlap
+  // is what sells weight, and a straight bar of it read as a shelf, which is
+  // what the version before this one drew.
+  function plateSpill(ox, oy, u, G, halfCells) {
+    var cx = G.rx, lr = Math.max(2, Math.round(halfCells * 0.17));
+    halfCells = Math.min(halfCells, G.crx);
+    for (var i = 0; i < SPILL.length; i++) {
+      var lx = cx + Math.round(SPILL[i][0] * halfCells);
+      var ly = G.seat + SPILL[i][1];
+      var col = SPILL[i][0] < -0.28 ? "#F0E5BE"
+        : SPILL[i][0] > 0.28 ? "#D3A15C" : "#71401D";
+      pxOval(ox, oy, u, lx, ly, lr, Math.max(2, Math.round(lr * 0.62)), col);
+    }
+  }
+
+  // HE HAS TO CAST ONE OR HE IS NOT STANDING ON ANYTHING. Drawn after the food
+  // and before the mascot, so it is a shadow ON the dinner rather than a mark on
+  // top of him. It is an OVAL and not a bar: a full width bar of shadow under
+  // him read as a shelf he was standing behind, which is how the version before
+  // this one failed.
+  function plateShade(ox, oy, u, G, halfCells) {
+    ctx.fillStyle = "rgba(0,0,0,.30)";
+    var rx = Math.max(3, Math.round(Math.min(halfCells, G.crx) * 0.96));
+    var ry = Math.max(2, Math.round(rx * 0.20));
+    for (var dy = -ry; dy <= ry; dy++) {
+      var hw = ovalHalf(dy, rx, ry);
+      if (!hw) continue;
+      ctx.fillRect(ox + (G.rx - hw) * u, oy + (G.seat + dy) * u, hw * 2 * u, u);
+    }
   }
 
   function pad5(n) {
@@ -1924,7 +2278,7 @@ const GAME_JS = `
     var m = Math.max(u + 1, Math.round(u * 1.6));
     var f = Math.max(1, u - 1);
     var mk = Math.max(2, Math.round(ph * 0.17 / 32));
-    var mh = 32 * mk;
+    var mW = 32 * mk, mH = MASC_H * mk;
     var cx = Math.round(pw / 2);
 
     // THE STATUS ROW AT THE TOP AND THE LICENSE LINE AT THE BOTTOM ARE THE TWO
@@ -1941,10 +2295,26 @@ const GAME_JS = `
     pxMid("FAN GAME - NOT AFFILIATED", cx, footY, f, C.titleDim);
 
     // The center block, measured then centered in what the two pinned rows left.
-    var blockH = (GH + 1) * U + 2 * U + (GH + 1) * U + 6 * u + mh + 6 * u +
+    var blockH = (GH + 1) * U + 2 * U + (GH + 1) * U + 6 * u + mH + 6 * u +
       GH * u + 3 * u + GH * u + 10 * u + GH * m;
     var lo = topY + GH * u + Math.round(ph * 0.04);
     var hi = footY - Math.round(ph * 0.035);
+
+    // THE PLATE IS SIZED LAST, OUT OF WHAT IS LEFT, AND THAT IS THE FOLD RULE
+    // RATHER THAN A DETAIL. Tim asked for a BIG plate, so it wants to be half
+    // again the mascot's width, which is what makes him look sat on it instead
+    // of standing behind a saucer. But only the part of the dish BELOW his seat
+    // costs the layout anything, and on a short screen there may not be room for
+    // all of it, so the loop below shrinks the plate two cells at a time until
+    // what hangs below him fits the gap the two pinned rows left AND the whole
+    // dish fits the width. A smaller dinner is a fair trade; PRESS START falling
+    // off the bottom of the screen is not.
+    var G = plateGeom(Math.max(20, Math.round(mW * 2.1 / u)));
+    while (G.w > 20 &&
+      ((G.h - G.seat) * u > hi - lo - blockH || (G.w + 2) * u > pw)) {
+      G = plateGeom(G.w - 2);
+    }
+    blockH += (G.h - G.seat) * u;
     var y = Math.max(lo, lo + Math.round((hi - lo - blockH) / 2));
 
     pxLogo("GARBAGE", cx, y, U, C.ink);
@@ -1952,9 +2322,18 @@ const GAME_JS = `
     pxLogo("RUN", cx, y, U, C.titlePink);
     y += (GH + 1) * U + 6 * u;
 
+    // PLATE, THEN MASCOT, THEN THE FOOD THAT SPILLS BACK OVER HIM. The order is
+    // the whole illusion: drawn under him the dish is a dish he is standing on,
+    // and the last two rows of base coming back over his bottom edge are what
+    // make it a dish he is sitting IN.
+    var px0 = Math.round(cx - (G.w * u) / 2);
+    var py0 = y + mH - G.seat * u;
+    platePx(px0, py0, u, G);
+    plateShade(px0, py0, u, G, Math.round(mW / (2 * u)));
     var mt = mascot();
-    if (mt) ctx.drawImage(mt, Math.round(cx - mh / 2), y, mh, mh);
-    y += mh + 6 * u;
+    if (mt) ctx.drawImage(mt, Math.round(cx - mW / 2), y, mW, mH);
+    plateSpill(px0, py0, u, G, Math.round(mW / (2 * u)));
+    y = py0 + G.h * u + 6 * u;
 
     pxMid("ROCHESTER, NY", cx, y, u, C.titleBlue);
     y += GH * u + 3 * u;

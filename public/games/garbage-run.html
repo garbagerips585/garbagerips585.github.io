@@ -1062,17 +1062,193 @@
     pxMid(s, cx + u, y + u, u, C.titleShade);
     pxMid(s, cx, y, u, col);
   }
+  var MASC_H = 29;
   var mascotTile = null;
   function mascot() {
     if (mascotTile) return mascotTile;
     if (!SP_TRUB.ready) return null;
     var off = document.createElement("canvas");
-    off.width = 32; off.height = 32;
+    off.width = 32; off.height = MASC_H;
     var oc = off.getContext("2d");
     if (!oc) return null;
-    oc.drawImage(SP_TRUB.img, 0, 0, 32, 32);
+    oc.drawImage(SP_TRUB.img, 0, 0, 32, MASC_H);
     mascotTile = off;
     return off;
+  }
+  function ovalHalf(dy, rx, ry) {
+    var t = 1 - (dy * dy) / (ry * ry);
+    return t <= 0 ? 0 : Math.max(1, Math.round(rx * Math.sqrt(t)));
+  }
+  function pxOval(ox, oy, u, cx, cy, rx, ry, col, from, to) {
+    ctx.fillStyle = col;
+    var a = from === undefined ? -ry : from;
+    var b = to === undefined ? ry : to;
+    for (var dy = a; dy <= b; dy++) {
+      var hw = ovalHalf(dy, rx, ry);
+      if (!hw) continue;
+      ctx.fillRect(ox + (cx - hw) * u, oy + (cy + dy) * u, hw * 2 * u, u);
+    }
+  }
+  function pxMarks(ox, oy, u, cx, cy, rx, ry, tab, col, side) {
+    ctx.fillStyle = col;
+    for (var i = 0; i < tab.length; i++) {
+      var dy = Math.round(tab[i][1] * ry);
+      var hw = ovalHalf(dy, rx, ry);
+      if (!hw) continue;
+      var x0 = cx + Math.round(tab[i][0] * rx);
+      var len = Math.max(1, Math.round(tab[i][2] * rx));
+      var lft = side > 0 ? cx : cx - hw;
+      var rgt = side < 0 ? cx : cx + hw;
+      if (x0 < lft || x0 >= rgt) continue;
+      if (x0 + len > rgt) len = rgt - x0;
+      if (len < 1) continue;
+      ctx.fillRect(ox + x0 * u, oy + (cy + dy) * u, len * u, u);
+    }
+  }
+  function pxOvalSplit(ox, oy, u, cx, cy, rx, ry, colL, colR) {
+    for (var dy = -ry; dy <= ry; dy++) {
+      var hw = ovalHalf(dy, rx, ry);
+      if (!hw) continue;
+      var sm = cx + SEAM[(dy + 200) % SEAM.length];
+      ctx.fillStyle = colL;
+      ctx.fillRect(ox + (cx - hw) * u, oy + (cy + dy) * u, (sm - cx + hw) * u, u);
+      ctx.fillStyle = colR;
+      ctx.fillRect(ox + sm * u, oy + (cy + dy) * u, (cx + hw - sm) * u, u);
+    }
+  }
+  function marks(n, seed, spread, lo, hi) {
+    var out = [], s = seed >>> 0, i, a, b, c;
+    for (i = 0; i < n; i++) {
+      s = (s * 1664525 + 1013904223) >>> 0; a = (s >>> 8) / 16777216;
+      s = (s * 1664525 + 1013904223) >>> 0; b = (s >>> 8) / 16777216;
+      s = (s * 1664525 + 1013904223) >>> 0; c = (s >>> 8) / 16777216;
+      out.push([(a * 2 - 1) * spread, (b * 2 - 1) * spread, lo + c * (hi - lo)]);
+    }
+    return out;
+  }
+  var FRIES = marks(46, 20250820, 0.86, 0.10, 0.30);
+  var MAC = marks(44, 585585, 0.88, 0.05, 0.13);
+  var MACD = marks(24, 30303, 0.84, 0.05, 0.11);
+  var MAC2 = marks(30, 1971, 0.86, 0.05, 0.11);
+  var CHUNK = marks(26, 4242, 0.82, 0.06, 0.16);
+  var MUSTARD = [
+    [-.80, .26, .28], [-.56, .06, .26], [-.32, -.12, .26], [-.08, -.22, .26],
+    [.16, -.14, .26], [.40, .04, .26], [.62, .22, .24]
+  ];
+  var ONION = [
+    [-.66, -.30, .10], [-.30, -.54, .09], [.08, -.46, .10], [.42, -.24, .09],
+    [-.48, .18, .10], [.24, .30, .09], [-.10, .10, .10], [.62, .12, .09]
+  ];
+  var DRIPS = [
+    [-.68, .40, .05], [-.44, .66, .04], [-.14, .80, .05],
+    [.16, .78, .04], [.44, .62, .05], [.66, .38, .04]
+  ];
+  var SAUCE = [
+    [-.78, .30, .22], [-.40, -.62, .26], [.06, .58, .24],
+    [.52, -.52, .24], [.84, .18, .20], [-.06, -.30, .30]
+  ];
+  var SEAM = [0, 1, -1, 1, 0, -1, 2, 0, -1, 1, 0, -2, 1, 0, -1, 1, 2, -1, 0, 1];
+  var SPILL = [
+    [-1.00, -1], [-.80, -4], [-.60, -2], [-.40, -5], [-.20, -2],
+    [.02, -4], [.24, -1], [.46, -4], [.68, -2], [.90, -3], [1.02, 0]
+  ];
+  function plateGeom(pw) {
+    var ry = Math.max(4, Math.round(pw * 0.200));
+    var th = Math.max(1, Math.round(pw * 0.036));
+    var kry = Math.max(3, Math.round(ry * 0.68));
+    var kdy = Math.max(1, Math.round(ry * 0.55));
+    var up = kdy + kry;
+    return {
+      w: pw,
+      rx: pw >> 1,
+      ry: ry,
+      th: th,
+      wrx: Math.max(3, (pw >> 1) - Math.max(2, Math.round(pw * 0.120))),
+      wry: Math.max(2, ry - Math.max(1, Math.round(ry * 0.42))),
+      brx: Math.max(4, Math.round(pw * 0.375)),
+      bry: Math.max(2, Math.round(ry * 0.55)),
+      bdy: Math.max(1, Math.round(ry * 0.12)),
+      crx: Math.max(4, Math.round(pw * 0.330)),
+      cry: Math.max(2, Math.round(ry * 0.55)),
+      cdy: Math.max(1, Math.round(ry * 0.45)),
+      krx: Math.max(3, Math.round(pw * 0.130)),
+      kry: kry,
+      kdx: Math.max(3, Math.round(pw * 0.210)),
+      kdy: kdy,
+      srx: Math.max(4, Math.round(pw * 0.300)),
+      sry: Math.max(2, Math.round(ry * 0.26)),
+      sdy: Math.max(2, Math.round(ry * 0.53)),
+      up: up,
+      h: up + ry + th,
+      seat: Math.max(2, Math.round(ry * 0.55))
+    };
+  }
+  function platePx(ox, oy, u, G) {
+    var cx = G.rx, cy = G.up, d, dy, dx, hw;
+    pxOval(ox, oy, u, cx, cy + G.th, G.rx, G.ry, "#9C9584");
+    pxOval(ox, oy, u, cx, cy, G.rx, G.ry, "#F7F3E7");
+    pxOval(ox, oy, u, cx, cy, G.wrx, G.wry, "#E2DBC6");
+    pxOval(ox, oy, u, cx, cy - G.bdy + 2, G.brx + 1, G.bry, "#9C9584");
+    pxOvalSplit(ox, oy, u, cx, cy - G.bdy, G.brx, G.bry, "#F0E5BE", "#D3A15C");
+    pxOvalSplit(ox, oy, u, cx, cy - G.cdy, G.crx, G.cry, "#F0E5BE", "#D3A15C");
+    pxOval(ox, oy, u, cx - G.kdx, cy - G.kdy, G.krx, G.kry, "#F0E5BE");
+    pxOval(ox, oy, u, cx + G.kdx, cy - G.kdy, G.krx, G.kry, "#D3A15C");
+    pxMarks(ox, oy, u, cx, cy - G.bdy, G.brx, G.bry, MAC, "#E2DBC6", -1);
+    pxMarks(ox, oy, u, cx, cy - G.bdy, G.brx, G.bry, MACD, "#9C9584", -1);
+    pxMarks(ox, oy, u, cx, cy - G.bdy, G.brx, G.bry, MAC2, "#FDFBF4", -1);
+    pxMarks(ox, oy, u, cx, cy - G.bdy, G.brx, G.bry, FRIES, "#A55E2C", 1);
+    pxMarks(ox, oy, u, cx, cy - G.cdy, G.crx, G.cry, MAC, "#E2DBC6", -1);
+    pxMarks(ox, oy, u, cx, cy - G.cdy, G.crx, G.cry, MACD, "#9C9584", -1);
+    pxMarks(ox, oy, u, cx, cy - G.cdy, G.crx, G.cry, MAC2, "#FDFBF4", -1);
+    pxMarks(ox, oy, u, cx, cy - G.cdy, G.crx, G.cry, FRIES, "#A55E2C", 1);
+    pxMarks(ox, oy, u, cx - G.kdx, cy - G.kdy, G.krx, G.kry, MAC, "#E2DBC6");
+    pxMarks(ox, oy, u, cx - G.kdx, cy - G.kdy, G.krx, G.kry, MAC2, "#FDFBF4");
+    pxMarks(ox, oy, u, cx + G.kdx, cy - G.kdy, G.krx, G.kry, FRIES, "#A55E2C");
+    pxOval(ox, oy, u, cx, cy - G.sdy, G.srx, G.sry, "#71401D");
+    for (d = 0; d < SAUCE.length; d++) {
+      pxOval(ox, oy, u,
+        cx + Math.round(SAUCE[d][0] * G.srx),
+        cy - G.sdy + Math.round(SAUCE[d][1] * G.sry),
+        Math.max(2, Math.round(SAUCE[d][2] * G.srx)),
+        Math.max(2, Math.round(SAUCE[d][2] * G.srx * 0.62)), "#71401D");
+    }
+    ctx.fillStyle = "#71401D";
+    for (d = 0; d < DRIPS.length; d++) {
+      dy = Math.round(DRIPS[d][1] * G.sry);
+      hw = ovalHalf(dy, G.srx, G.sry);
+      if (!hw) continue;
+      dx = Math.round(DRIPS[d][0] * G.srx);
+      if (dx < -hw || dx > hw) continue;
+      ctx.fillRect(
+        ox + (cx + dx) * u, oy + (cy - G.sdy + dy) * u,
+        Math.max(1, Math.round(DRIPS[d][2] * G.srx)) * u,
+        Math.max(2, Math.round(G.sry * 1.45)) * u
+      );
+    }
+    pxMarks(ox, oy, u, cx, cy - G.sdy, G.srx, G.sry, CHUNK, "#A55E2C");
+    pxMarks(ox, oy, u, cx, cy - G.sdy, G.srx, G.sry, MUSTARD, "#F2C734");
+    pxMarks(ox, oy, u, cx, cy - G.sdy, G.srx, G.sry, ONION, "#FDFBF4");
+  }
+  function plateSpill(ox, oy, u, G, halfCells) {
+    var cx = G.rx, lr = Math.max(2, Math.round(halfCells * 0.17));
+    halfCells = Math.min(halfCells, G.crx);
+    for (var i = 0; i < SPILL.length; i++) {
+      var lx = cx + Math.round(SPILL[i][0] * halfCells);
+      var ly = G.seat + SPILL[i][1];
+      var col = SPILL[i][0] < -0.28 ? "#F0E5BE"
+        : SPILL[i][0] > 0.28 ? "#D3A15C" : "#71401D";
+      pxOval(ox, oy, u, lx, ly, lr, Math.max(2, Math.round(lr * 0.62)), col);
+    }
+  }
+  function plateShade(ox, oy, u, G, halfCells) {
+    ctx.fillStyle = "rgba(0,0,0,.30)";
+    var rx = Math.max(3, Math.round(Math.min(halfCells, G.crx) * 0.96));
+    var ry = Math.max(2, Math.round(rx * 0.20));
+    for (var dy = -ry; dy <= ry; dy++) {
+      var hw = ovalHalf(dy, rx, ry);
+      if (!hw) continue;
+      ctx.fillRect(ox + (G.rx - hw) * u, oy + (G.seat + dy) * u, hw * 2 * u, u);
+    }
   }
   function pad5(n) {
     var s = String(n);
@@ -1098,7 +1274,7 @@
     var m = Math.max(u + 1, Math.round(u * 1.6));
     var f = Math.max(1, u - 1);
     var mk = Math.max(2, Math.round(ph * 0.17 / 32));
-    var mh = 32 * mk;
+    var mW = 32 * mk, mH = MASC_H * mk;
     var cx = Math.round(pw / 2);
     var topY = Math.round(ph * 0.045);
     var hs = "HI-SCORE", hv = pad5(best);
@@ -1107,18 +1283,29 @@
     pxAt(hv, hx + (hs.length + 1) * GADV * u, topY, u, C.ink);
     var footY = ph - Math.round(ph * 0.045) - GH * f;
     pxMid("FAN GAME - NOT AFFILIATED", cx, footY, f, C.titleDim);
-    var blockH = (GH + 1) * U + 2 * U + (GH + 1) * U + 6 * u + mh + 6 * u +
+    var blockH = (GH + 1) * U + 2 * U + (GH + 1) * U + 6 * u + mH + 6 * u +
       GH * u + 3 * u + GH * u + 10 * u + GH * m;
     var lo = topY + GH * u + Math.round(ph * 0.04);
     var hi = footY - Math.round(ph * 0.035);
+    var G = plateGeom(Math.max(20, Math.round(mW * 2.1 / u)));
+    while (G.w > 20 &&
+      ((G.h - G.seat) * u > hi - lo - blockH || (G.w + 2) * u > pw)) {
+      G = plateGeom(G.w - 2);
+    }
+    blockH += (G.h - G.seat) * u;
     var y = Math.max(lo, lo + Math.round((hi - lo - blockH) / 2));
     pxLogo("GARBAGE", cx, y, U, C.ink);
     y += (GH + 1) * U + 2 * U;
     pxLogo("RUN", cx, y, U, C.titlePink);
     y += (GH + 1) * U + 6 * u;
+    var px0 = Math.round(cx - (G.w * u) / 2);
+    var py0 = y + mH - G.seat * u;
+    platePx(px0, py0, u, G);
+    plateShade(px0, py0, u, G, Math.round(mW / (2 * u)));
     var mt = mascot();
-    if (mt) ctx.drawImage(mt, Math.round(cx - mh / 2), y, mh, mh);
-    y += mh + 6 * u;
+    if (mt) ctx.drawImage(mt, Math.round(cx - mW / 2), y, mW, mH);
+    plateSpill(px0, py0, u, G, Math.round(mW / (2 * u)));
+    y = py0 + G.h * u + 6 * u;
     pxMid("ROCHESTER, NY", cx, y, u, C.titleBlue);
     y += GH * u + 3 * u;
     pxMid("GARBAGE RIPS 585", cx, y, u, C.titleDim);

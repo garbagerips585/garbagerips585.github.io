@@ -6,14 +6,14 @@
     "Rerun the script after any change to a game or these go stale, which nothing",
     "else in the build can detect for you."
   ],
-  "checked": "2026-08-17",
+  "checked": "2026-08-20",
   "shots": {
     "garbage-run": {
       "file": "garbage-run-screenshot.webp",
       "w": 380,
       "h": 622,
-      "bytes": 3670,
-      "shows": "Garbage Run part way through a run: Trubbish on a dark street with trash laid out ahead of him, the score in the corner and the count of what is left before he evolves"
+      "bytes": 14242,
+      "shows": "The Garbage Run title screen: GARBAGE RUN in blocky 8-bit capitals above ROCHESTER, NY and GARBAGE RIPS 585, with Trubbish sitting on a Garbage Plate and TAP TO START underneath"
     },
     "whos-that-pokemon": {
       "file": "whos-that-pokemon-screenshot.webp",
@@ -32,8 +32,8 @@
     "pokemon-trivia": {
       "file": "pokemon-trivia-screenshot.webp",
       "w": 380,
-      "h": 522,
-      "bytes": 4982,
+      "h": 534,
+      "bytes": 6952,
       "shows": "Pokemon Trivia mid-round: a question in large type, with four answers to choose from underneath"
     }
   }
