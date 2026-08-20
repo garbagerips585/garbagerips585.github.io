@@ -170,7 +170,13 @@ const body = `
 <main id="main" class="about-page">
   <div class="wrap">
     <div class="brk"><h1>About</h1><span class="ln"></span>
-      <a href="${SUBSCRIBE}">Subscribe &rarr;</a></div>
+      ${/* THE ONLY SUBSCRIBE CONTROL ON THE SITE WITHOUT THE STANDARD LABEL.
+            shared/chrome.mjs puts the same sentence on all four of the others,
+            the bar pill, the menu pill, the footer button and the one on every
+            rip page, and this fifth one is written here rather than imported
+            so it was missed. Same words on purpose: a reader listening to the
+            page should not be told two different things about one control. */ ""}<a href="${SUBSCRIBE}"
+        aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe &rarr;</a></div>
     <p class="about-lede">Garbage Rips 585 is one guy in Rochester, New York opening Pokemon
       cards on camera. This site is every rip ever filmed, plus a guide to every set they
       came out of.</p>

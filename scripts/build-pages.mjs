@@ -987,10 +987,32 @@ ${MENU}
           named in the sheet and no scan and no price for it is exactly the case
           this paragraph exists for, and it still gets it. showableHits is the
           same test the band below uses, so the two can never both appear.
+
+          IT PRINTS THE PARSE WHERE THERE IS ONE, AND THE CELL ONLY WHERE THERE
+          IS NOT. Until 20 August 2026 it always printed the cell, and on the
+          one page in the tree that reaches this branch the cell is
+          "Cyber Judge - Incineroar ex - SR - Super Rare": a reader was shown
+          spreadsheet syntax, dashes and all, on the only page on the site that
+          did that. data/hits.json already holds that same cell read out into a
+          card, a set and a rarity, so the parse is strictly more of what the
+          paragraph is for and none of the punctuation.
+
+          THE CELL IS STILL THE FLOOR AND THAT IS THE WHOLE POINT OF IT. A
+          fragment the parser did not understand produces no hit, and those
+          pages fall through to Tim's own words exactly as before, which is the
+          promise import-sheet.mjs makes when it keeps the raw string: nothing
+          he types can be lost by a rule that failed to read it.
         */ ""}${v.hitCard && !showableHits.length ? `<div class="hit-panel">
           <p class="hit-label">The hit</p>
-          <p class="hit-card">${esc(tidy(v.hitCard))}</p>
-          ${v.hitRarity ? `<p class="hit-rarity">${esc(rarityLabel(v.hitRarity))}</p>` : ""}
+          <p class="hit-card">${esc(hits.length ? hits.map((h) => h.name).join(", ") : tidy(v.hitCard))}</p>
+          ${(() => {
+            // The sheet's own Hit Rarity column first, because it is a column he
+            // filled rather than a sentence something read. Where it is blank and
+            // every parsed hit agrees on one tier, that tier says the same thing.
+            const tiers = [...new Set(hits.map((h) => h.rarity).filter(Boolean))];
+            const r = v.hitRarity || (hits.length && tiers.length === 1 ? tiers[0] : null);
+            return r ? `<p class="hit-rarity">${esc(rarityLabel(r))}</p>` : "";
+          })()}
         </div>` : v.hasHit === false ? `<p class="hit-none">No hit in this one. Certified Garbage Rip.</p>` : ""}
         ${desc ? `<div class="rip-desc">${esc(desc)}</div>` : ""}
         <div class="rip-nav">

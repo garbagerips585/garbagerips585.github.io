@@ -24,7 +24,13 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#111111">
-<link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+<!-- No preconnect to i.ytimg.com. Same finding and same fix as playlists.html:
+     every tile here is a drawn booster pack, not a YouTube poster frame, and
+     zero requests reach that host. Verified off the request log, not the
+     markup, because the tiles are built in the browser. Removing it here also
+     removes it from about, hall, shops and wanted, which clone this <head>.
+     The 317 rip pages keep theirs and must: build-pages.mjs emits it beside a
+     real i.ytimg.com poster frame on each one. -->
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>

@@ -767,8 +767,16 @@ const priceTable = (e) => {
           <caption>${esc(cap)}</caption>
           <thead><tr><th scope="col">Set</th><th scope="col">Market</th><th scope="col">Lowest</th><th scope="col">Listings</th></tr></thead>
           <tbody>
-${e.prices.map((r) => `            <tr><th scope="row"><span class="op-ps">${priceShot(r)}${
-    r.url ? `<a href="${esc(r.url)}" rel="noopener" target="_blank">${esc(r.name)}</a>` : esc(r.name)
+${/* THE ROW LINK'S ACCESSIBLE NAME WAS THE SET AND NOTHING ELSE.
+      122 of these across the six tables read "Celebrations" or "151": a list
+      of links that says nothing about what is being bought or that it leaves
+      the site, which is the shape half of the outbound rule. The label adds
+      the product and the host, in the site's own ", opens on <host>" wording.
+      r.product is the full TCGplayer product name and falls back to the set
+      exactly as the picture's alt does eight lines up. */ ""}${e.prices.map((r) => `            <tr><th scope="row"><span class="op-ps">${priceShot(r)}${
+    r.url
+      ? `<a href="${esc(r.url)}" rel="noopener" target="_blank" aria-label="${esc(r.product || `${r.name} ${e.label}`)}, opens on tcgplayer.com">${esc(r.name)}</a>`
+      : esc(r.name)
   }</span></th><td>${esc(moneyExact(r.market))}</td><td>${
     typeof r.low === "number" ? esc(moneyExact(r.low)) : "<span class=\"op-no\">not listed</span>"
   }</td><td>${typeof r.listings === "number" ? r.listings : `<span class="op-no">not listed</span>`}</td></tr>`).join("\n")}

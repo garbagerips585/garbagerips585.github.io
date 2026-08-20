@@ -18,6 +18,7 @@ import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { deriveTags } from "../shared/taxonomy.mjs";
+import { RARITY_KEY } from "../shared/rarity.mjs";
 
 import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -1103,6 +1104,39 @@ for (const [n, r] of rows.slice(1).entries()) {
       "single black star": "Rare",
       "single pink star": "ACE SPEC Rare",
     };
+    // A JAPANESE CARD PRINTS A LETTER CODE WHERE AN ENGLISH ONE PRINTS STARS,
+    // AND THE CODE WAS ENDING UP IN THE CARD NAME.
+    //
+    // Tim's row for the Cyber Judge rip reads "Cyber Judge - Incineroar ex - SR
+    // - Super Rare". That is his documented format exactly, Set - Card - the
+    // mark on the card - Rarity, with the third field filled the way a Japanese
+    // card fills it: SR is printed on the card itself, where a Scarlet & Violet
+    // card would carry two silver stars. STAR_RARITY reads the star
+    // descriptions and knew nothing about the letters, so "SR" was left over as
+    // part of the name and published as the card "Incineroar ex SR".
+    //
+    // On /sets/ja-cyber-judge.html that rendered as "Incineroar ex SR" followed
+    // by the SR badge and the words Super Rare, so the page said SR three
+    // times, once of them inside the card's name.
+    //
+    // READ OFF THE SITE'S OWN KEY, NOT A LIST INVENTED HERE. shared/rarity.mjs
+    // holds the seven Japanese and Korean tiers, transcribed from photographs of
+    // a Japanese and a Korean wrapper, and it is the same file that draws the
+    // badge on the page. Importing it means this parser and that badge cannot
+    // disagree about what SR means.
+    //
+    // MULTI-LETTER CODES ONLY, which is the same restriction shared/rarity.mjs
+    // puts on its own patterns and for the same reason it writes down there: R,
+    // U and C are single capitals that turn up inside ordinary card names. The
+    // match is against a WHOLE delimited field and is case sensitive, so it can
+    // only ever fire where Tim wrote the code in its own slot.
+    //
+    // IT CROSS-CHECKS EXACTLY LIKE THE STAR DOES. The code fills a rarity that
+    // was not written out, and where both are present and disagree it is
+    // reported rather than silently preferred. Both readings are his.
+    const CODE_RARITY = Object.fromEntries(
+      RARITY_KEY.filter((r) => r.jp && r.code && r.code.length > 1).map((r) => [r.code, r.label]),
+    );
     // FINISH WORDS ARE NOT PART OF THE CARD NAME. Tim writes "Mega Greninja ex
     // - Hyper Rare - Gold Card": the gold is how the card looks, not what it is
     // called, and leaving it in produced the card name "Mega Greninja ex Gold
@@ -1158,7 +1192,7 @@ for (const [n, r] of rows.slice(1).entries()) {
       // inside a card name (Ho-Oh, Porygon-Z, Jangmo-o) has none, so it lives.
       const parts = frag.split(/\s-\s*|\s*-\s/).map((x) => x.trim()).filter(Boolean);
 
-      let setName = null, rarity = null, star = null, name = null, cardType = null;
+      let setName = null, rarity = null, star = null, code = null, name = null, cardType = null;
 
       if (parts.length >= 2) {
         const lows = parts.map((x) => x.toLowerCase());
@@ -1187,17 +1221,21 @@ for (const [n, r] of rows.slice(1).entries()) {
         if (ri !== -1) rarity = RARITY_WORDS.find((w) => deCard(lows[ri]) === w.toLowerCase());
         const ki = lows.findIndex((x) => STAR_RARITY[x]);
         if (ki !== -1) star = lows[ki];
+        // The letter code, matched against the RAW part rather than the
+        // lowercased one: "SR" is a rarity mark and "Sr" is a name suffix.
+        const ci = parts.findIndex((x) => Object.hasOwn(CODE_RARITY, x));
+        if (ci !== -1) code = parts[ci];
         // What is left, in order, is the card.
-        name = parts.filter((_, i) => i !== si && i !== ri && i !== ki).join(" ").replace(FINISH, " ").replace(/\s+/g, " ").trim();
+        name = parts.filter((_, i) => i !== si && i !== ri && i !== ki && i !== ci).join(" ").replace(FINISH, " ").replace(/\s+/g, " ").trim();
         // "Trainer - Dawn" is a card TYPE and a card. Whether the type word
         // belongs in the name is decided later, against the set's checklist,
         // because on most of these rows the set is not in the fragment at all
         // and only arrives from the video's own tags further down. The shorter
         // reading is carried alongside the glued one until then.
         if (parts.length >= 3) {
-          const ti = parts.findIndex((p, i) => i !== si && i !== ri && i !== ki && TYPE_WORD.test(p));
+          const ti = parts.findIndex((p, i) => i !== si && i !== ri && i !== ki && i !== ci && TYPE_WORD.test(p));
           if (ti !== -1) {
-            const shorter = parts.filter((_, i) => i !== si && i !== ri && i !== ki && i !== ti)
+            const shorter = parts.filter((_, i) => i !== si && i !== ri && i !== ki && i !== ci && i !== ti)
               .join(" ").replace(FINISH, " ").replace(/\s+/g, " ").trim();
             if (shorter) cardType = shorter;
           }
@@ -1224,7 +1262,9 @@ for (const [n, r] of rows.slice(1).entries()) {
 
       // The star wins nothing alone, but it FILLS a missing rarity and FLAGS a
       // disagreement. Neither is a guess: both readings are his.
-      const fromStar = star ? STAR_RARITY[star] : null;
+      // The letter code is the Japanese and Korean half of the same mark and is
+      // treated identically, so a fragment can carry a mark in either notation.
+      const fromStar = star ? STAR_RARITY[star] : code ? CODE_RARITY[code] : null;
       if (fromStar && rarity && fromStar !== rarity) mismatched.push({ frag, star: fromStar, written: rarity });
       const finalRarity = rarity || fromStar || null;
 

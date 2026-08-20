@@ -24,7 +24,13 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#111111">
-<link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+<!-- No preconnect to i.ytimg.com. Same finding and same fix as playlists.html:
+     every tile here is a drawn booster pack, not a YouTube poster frame, and
+     zero requests reach that host. Verified off the request log, not the
+     markup, because the tiles are built in the browser. Removing it here also
+     removes it from about, hall, shops and wanted, which clone this <head>.
+     The 317 rip pages keep theirs and must: build-pages.mjs emits it beside a
+     real i.ytimg.com poster frame on each one. -->
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
@@ -680,7 +686,7 @@ main{padding-top:0}
           data-raw="$20.50"
           data-psa="$84.50"
           aria-label="Enlarge Dawn"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/129/low.avif 245w, https://assets.tcgdex.net/en/me/me02/129/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me02/129/low.webp" srcset="https://assets.tcgdex.net/en/me/me02/129/low.webp 245w, https://assets.tcgdex.net/en/me/me02/129/high.webp 600w" sizes="120px" alt="Dawn Special Illustration Rare from Pokemon Phantasmal Flames" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
-        
+        <p class="chof-look">Dawn walks her red bicycle up a mountain path, grinning under her white beanie, with a lake, a village and green peaks opening out behind her.</p>
         <div class="chof-body">
           <b class="chof-name">Dawn</b>
           <span class="chof-set">Phantasmal Flames &bull; #129</span>
@@ -1117,7 +1123,7 @@ main{padding-top:0}
           data-raw="$2.75"
           data-psa=""
           aria-label="Enlarge Energy Recycler"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/108/low.avif 245w, https://assets.tcgdex.net/en/me/me03/108/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me03/108/low.webp" srcset="https://assets.tcgdex.net/en/me/me03/108/low.webp 245w, https://assets.tcgdex.net/en/me/me03/108/high.webp 600w" sizes="120px" alt="Energy Recycler Ultra Rare from Pokemon Perfect Order" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
-        
+        <p class="chof-look">No Pokemon at all: five energy symbols, grass, fire, fighting, water and lightning, glowing like planets on looping white orbits over a green field.</p>
         <div class="chof-body">
           <b class="chof-name">Energy Recycler</b>
           <span class="chof-set">Perfect Order &bull; #108</span>
@@ -1163,7 +1169,7 @@ main{padding-top:0}
           data-raw="$2.58"
           data-psa=""
           aria-label="Enlarge Lumiose City"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/111/low.avif 245w, https://assets.tcgdex.net/en/me/me03/111/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me03/111/low.webp" srcset="https://assets.tcgdex.net/en/me/me03/111/low.webp 245w, https://assets.tcgdex.net/en/me/me03/111/high.webp 600w" sizes="120px" alt="Lumiose City Ultra Rare from Pokemon Perfect Order" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
-        
+        <p class="chof-look">A Bunnelby stands alone on a wide empty boulevard of pale apartment blocks that runs straight down to the tower at the end of it.</p>
         <div class="chof-body">
           <b class="chof-name">Lumiose City</b>
           <span class="chof-set">Perfect Order &bull; #111</span>
@@ -1186,7 +1192,7 @@ main{padding-top:0}
           data-raw="$2.00"
           data-psa=""
           aria-label="Enlarge Sacred Ash"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/115/low.avif 245w, https://assets.tcgdex.net/en/me/me03/115/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me03/115/low.webp" srcset="https://assets.tcgdex.net/en/me/me03/115/low.webp 245w, https://assets.tcgdex.net/en/me/me03/115/high.webp 600w" sizes="120px" alt="Sacred Ash Ultra Rare from Pokemon Perfect Order" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
-        
+        <p class="chof-look">No Pokemon at all: a tan drawstring pouch with green beads on its cords, tipped over and spilling a mound of pale glittering ash.</p>
         <div class="chof-body">
           <b class="chof-name">Sacred Ash</b>
           <span class="chof-set">Perfect Order &bull; #115</span>
@@ -1255,7 +1261,7 @@ main{padding-top:0}
           data-raw="$1.78"
           data-psa=""
           aria-label="Enlarge Team Rocket's Transceiver"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/263/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/263/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/me/me02.5/263/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/263/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/263/high.webp 600w" sizes="120px" alt="Team Rocket's Transceiver Ultra Rare from Pokemon Ascended Heroes" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
-        
+        <p class="chof-look">No Pokemon at all: a black and blue walkie-talkie with a red R on its face and a stub aerial, lit up over a wall of hot pink circuitry.</p>
         <div class="chof-body">
           <b class="chof-name">Team Rocket's Transceiver</b>
           <span class="chof-set">Ascended Heroes &bull; #263</span>
@@ -1531,7 +1537,7 @@ main{padding-top:0}
           data-raw="$1.10"
           data-psa=""
           aria-label="Enlarge Ruffian"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/181/low.avif 245w, https://assets.tcgdex.net/en/sv/sv09/181/high.avif 600w" sizes="120px"><img src="https://assets.tcgdex.net/en/sv/sv09/181/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv09/181/low.webp 245w, https://assets.tcgdex.net/en/sv/sv09/181/high.webp 600w" sizes="120px" alt="Ruffian Ultra Rare from Pokemon Journey Together" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
-        
+        <p class="chof-look">A grinning man in a yellow cap and a gold chain holds one hand out open, standing against a rusted corrugated wall with a scrapyard behind him.</p>
         <div class="chof-body">
           <b class="chof-name">Ruffian</b>
           <span class="chof-set">Journey Together &bull; #181</span>

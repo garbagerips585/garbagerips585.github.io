@@ -460,8 +460,19 @@ function cardTile(c, { hunted = true, eager = false } = {}) {
         <span class="wc-prices">${prices(c)}</span>`;
   // Only a real TCGplayer link makes the tile a link; otherwise it is a card,
   // not a dead anchor.
+  //
+  // THE LABEL IS THE OUTBOUND CONVENTION AND IT ALSO FLATTENS THE NAME. Nine
+  // of these tiles left the site with no aria-label, which is the checkable
+  // half of the outbound rule. Their accessible name was the whole tile read
+  // in order, "Hunting Mega Darkrai ex Pitch Black #116 Special Illustration
+  // Rare Raw $249", because the name of a link is every text node inside it
+  // and this one wraps six. The label replaces that with the card, the set and
+  // the host, in the site's own wording. The prices stay visible and stay out
+  // of the name on purpose: they move nightly and the label would then be a
+  // figure read aloud with no date on it.
   return c.url
-    ? `      <a class="wc" href="${esc(c.url)}" rel="nofollow noopener" target="_blank">${inner}
+    ? `      <a class="wc" href="${esc(c.url)}" rel="nofollow noopener" target="_blank"
+        aria-label="${esc(c.name)} from ${esc(c.setName)}, opens on tcgplayer.com">${inner}
       </a>`
     : `      <div class="wc">${inner}
       </div>`;

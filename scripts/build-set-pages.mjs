@@ -1927,7 +1927,27 @@ function productBand(s, cls) {
                sizes="88px" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(p.thumb)} referrerpolicy="no-referrer">`}
         </a>
         <div class="prod-body">
-          <h3><a href="${esc(affLink(p.url))}" rel="noopener" target="_blank">${esc(productLabel(p, s.released).kind)}</a></h3>
+          ${/* THE SHAPE REQUIREMENT, which this row met in every respect except
+                the label. "Every outbound link carries an aria-label saying it
+                leaves the site" is the half of the outbound rule that is
+                checkable, and 184 links across the 42 guides did not.
+
+                IT IS ALSO THE WORST ACCESSIBLE NAME ON THE PAGE, which is why
+                this one is worth more than the convention. The name was
+                "Single Pack": read out of a list of links it says nothing
+                about which set, and one guide carries up to seven of these
+                differing only in that word. The label names the product, the
+                set and the host.
+
+                THE PICTURE ABOVE STAYS UNLABELLED and that is not an
+                oversight. It is the same href with aria-hidden and
+                tabindex="-1", one target split in two for the eye, so a label
+                there would announce the row twice. 192 links in the built tree
+                are that pattern and none of them may gain one.
+
+                ", opens on <host>" IS THE SITE'S WORDING, 381 uses against 100
+                of the older "(opens TCGplayer)" on the preorder pages. */ ""}<h3><a href="${esc(affLink(p.url))}" rel="noopener" target="_blank"
+            aria-label="${esc(productLabel(p, s.released).kind)} for ${esc(s.name)}, opens on tcgplayer.com">${esc(productLabel(p, s.released).kind)}</a></h3>
           <p class="prod-what">${esc(productLabel(p, s.released).blurb)}</p>
           <p class="prod-price"><b>${priceUSD(p.market)}</b> <span>market</span></p>
           ${(() => {
@@ -2507,7 +2527,12 @@ function setPage(s) {
         <b>${esc(c.name)}</b>
         <span>${esc(rarityLabel(c.rarity) || "")} &bull; ${esc(c.number)}</span>
         <span class="flat-pr">${moneyCompact(c.price)}${psa(c) ? ` &bull; PSA 10 ${moneyCompact(psa(c))}` : ""}</span>
-        ${c.url ? `<a href="${esc(affLink(c.url))}" rel="nofollow noopener" target="_blank">Check current price</a>` : ""}
+        ${/* "Check current price" names no card, and there can be several of
+              these rows on one guide. It fires once in the whole tree today,
+              on Celebrations' Mew 25, which is that set's own chase card, so
+              the least useful accessible name on the page belongs to its most
+              important row. */ ""}${c.url ? `<a href="${esc(affLink(c.url))}" rel="nofollow noopener" target="_blank"
+          aria-label="Check the current price of ${esc(c.name)} ${esc(c.number)}, opens on tcgplayer.com">Check current price</a>` : ""}
       </li>`).join("\n      ")}
     </ul>
     <p class="mine-note">The card database has no scan for ${
@@ -3041,17 +3066,32 @@ function setPage(s) {
     <div class="facts">
       <div class="fact"><div class="n">${s.total ?? "?"}</div><div class="l">Cards total</div></div>
       <div class="fact"><div class="n">${s.printedTotal ?? "?"}</div><div class="l">In the printed set</div></div>
-      ${/* A SIXTH INSTANCE OF THE STAT-TILE PLURAL BUG, found by sweeping all
-            1,480 built pages for a lone "1" against a plural label rather than
-            by fixing the five that were reported. Crown Zenith and Shining Fates
-            both have exactly one secret rare, so both read "1 / Secret rares".
-            Zero keeps the plural, which is why this is not `secretCount === 1`
-            inverted: plural() gets that right and a hand-written ternary is how
-            the other five happened. */ ""}<div class="fact"><div class="n">${
+      ${/* THE TILE SAID "Secret rares" AND IT HAS NEVER COUNTED THEM.
+            sync-sets.mjs computes secretCount as total minus printedTotal, so
+            what it holds is "cards numbered past the printed checklist". On 27
+            of the 28 guides nobody notices. On Celebrations the tile read
+            "0 Secret rares" eight lines above a rarity ladder reading
+            "Secret Rare 1 $61.30", and above a chase line naming Mew (Secret
+            Rare) at $61.30: the set's 25th card really is a Secret Rare and it
+            really is numbered 25 of 25, which is the one case where the two
+            questions give different answers.
+
+            THE NUMBER WAS RIGHT AND THE LABEL WAS THE LIE, so the label moved.
+            Counting the rarity ladder instead would have been much worse: the
+            22 Scarlet & Violet guides have ZERO cards whose rarity is spelled
+            "Secret Rare" (theirs are Illustration, Special Illustration and
+            Hyper Rare) while carrying 31 to 154 cards numbered past the
+            printed total, so Pitch Black would have gone from 36 to 0.
+
+            "Numbered past the set" is not invented here: build-intl-pages.mjs
+            has printed exactly that on the imported guides since they were
+            built, off a secretCount of its own. This is the English half
+            catching up with it.
+
+            plural() goes with it. It was here for the stat-tile plural bug, and
+            the new label has no plural to get wrong. */ ""}<div class="fact"><div class="n">${
         s.secretCount ?? "?"
-      }</div><div class="l">Secret ${
-        typeof s.secretCount === "number" ? plural(s.secretCount, "rare") : "rares"
-      }</div></div>
+      }</div><div class="l">Numbered past the set</div></div>
       ${rips
         ? `<a class="fact fact-link" href="/videos.html?set=${s.id}"><div class="n">${rips}</div><div class="l">Rip${rips === 1 ? "" : "s"} on this channel <span aria-hidden="true">&rarr;</span></div></a>`
         : `${/* A BARE HYPHEN IN THE BIG NUMBER SLOT READS AS MISSING DATA, NOT

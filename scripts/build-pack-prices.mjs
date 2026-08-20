@@ -249,6 +249,23 @@ const packWins = rows.filter(
   (r) => r.best.kind === "Single Pack" && Object.keys(r.kinds).length > 1,
 );
 const boxWins = rows.filter((r) => r.best.kind !== "Single Pack" && r.kinds["Single Pack"]);
+// THE DENOMINATOR FOR BOTH OF THOSE, AND IT IS NOT rows.length.
+//
+// packWins and boxWins are the two halves of one population: sets that sell a
+// pack loose AND sell it inside something bigger, so the comparison exists at
+// all. Six of the sets on this page sell only one of the two and can neither
+// win nor lose. Divided by rows.length the arithmetic does not close: the
+// FAQPage schema and the "Where buying one pack is the cheap way" lede both
+// read "13 of the 28 sets" beside "a box or bundle is cheaper in 9", and 13
+// plus 9 is 22. The figcaption under the chart 300px away read "13 of the 22",
+// which is the same 13 over the right denominator.
+//
+// THE SCHEMA IS THE HALF THAT MATTERED. It is the copy a search engine reads,
+// and it was the one making the impossible claim.
+//
+// boxVsLoose() below re-derives this split from the chart's own rows and THROWS
+// if it disagrees with these two, so this cannot drift from the picture.
+const bothWays = packWins.length + boxWins.length;
 // Sets where a booster box exists in our data AND its pack count is known.
 const withBox = rows.filter((r) => r.kinds["Booster Box"]);
 const noBox = rows.filter((r) => !r.kinds["Booster Box"]);
@@ -552,8 +569,8 @@ const ld = [
             // set here and its cheapest pack is bought loose. A guard that stops
             // the page saying something is worth nothing if the schema block
             // says it anyway, and this one is the copy Google quotes.
-            `Not reliably. A single pack bought on its own is the cheapest pack in ${packWins.length} of the ${rows.length} sets ` +
-            `priced here, and a box or bundle is cheaper in ${boxWins.length}. It has to be checked set by set rather than assumed` +
+            `Not reliably. A single pack bought on its own is the cheapest pack in ${packWins.length} of the ${bothWays} sets ` +
+            `here that sell a pack both ways, and a box or bundle is cheaper in ${boxWins.length}. It has to be checked set by set rather than assumed` +
             `${endsClause ? `: ${endsClause}` : ""}.`,
         },
       },
@@ -922,7 +939,7 @@ ${COLUMNS.map(
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The pack that wins</p>
     <h2>Where buying <span class="hl">one pack</span> is the cheap way</h2>
-    <p class="lede w40">${packWins.length} of these ${rows.length} sets sell a pack more cheaply on its
+    <p class="lede w40">${packWins.length} of the ${bothWays} sets here that sell a pack both ways sell it more cheaply on its
       own than inside anything bigger, which is the opposite of how sealed product is usually described. We do not hold a
       record of which sets are still being printed, so we are not going to tell you why. The figures are what they are on
       ${esc(longDate(checked) || checked || "the date at the bottom of this page")}, and the multiple in each line is what

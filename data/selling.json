@@ -1039,7 +1039,7 @@
         {
           "url": "/card-shows.html",
           "read": "2026-08-12",
-          "what": "23 upcoming shows across the Rochester, Buffalo and Syracuse regions, each with the listing url it was read from. Rendered on the card shows page.",
+          "what": "Every upcoming show across the Rochester, Buffalo and Syracuse regions, each with the listing url it was read from. Rendered on the card shows page.",
           "from": "data/shows.json"
         }
       ],

@@ -310,10 +310,28 @@ export function parseHits(text, setsByName) {
     // A segment is only discarded when it is a rarity AND NOTHING ELSE. A tier
     // name with anything else attached, "Charizard ex", "Mega Charizard X ex",
     // is a card.
+    // THE LETTER CODES ARE A MARK, NOT A NAME, AND THIS DROPPED ONLY THE STARS.
+    // A Japanese or Korean card prints SR where a Scarlet & Violet card prints
+    // two silver stars, so Tim fills the same slot with it: "Cyber Judge -
+    // Incineroar ex - SR - Super Rare" is his format exactly. The star
+    // descriptions are caught by the /star|holo|promo/ test above and the
+    // spelled-out tiers by RARITY_ONLY, and the letters were caught by neither,
+    // so /sets/ja-cyber-judge.html published the card "Incineroar ex SR" and
+    // then printed the SR badge and the words Super Rare beside it: the same
+    // mark three times, once inside the card's own name.
+    //
+    // MULTI-LETTER ONLY AND CASE SENSITIVE, matched against the RAW segment
+    // rather than the normalised one, which is the same restriction PATTERNS
+    // above puts on the same seven codes and for the reason written there: R, U
+    // and C are single capitals that occur inside ordinary card names, and "Sr"
+    // is a name suffix. A whole delimited segment spelled SAR, SR, AR or RR is
+    // a rarity mark and cannot be a card.
+    const CODE_ONLY = new Set(RARITY_KEY.filter((r) => r.code && r.code.length > 1).map((r) => r.code));
     const RARITY_ONLY = new Set(RARITY_KEY.map((r) => norm(r.label)));
     const middle = parts.slice(1).filter((p) => {
       const n = norm(p);
       if (!n) return false;
+      if (CODE_ONLY.has(p)) return false;
       if (/\bstar\b|\bholo\b|\bpromo\b/.test(n)) return false;
       if (RARITY_ONLY.has(n)) return false;
       return true;

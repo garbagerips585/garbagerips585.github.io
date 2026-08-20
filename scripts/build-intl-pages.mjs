@@ -942,7 +942,7 @@ function sourceBand(g, cls) {
   <div class="wrap">
     <h2>Where this <span class="hl">came from</span></h2>
     <ul class="facts-list">
-      <li>Set details, checklist and rarities from <a href="https://tcgdex.dev/" rel="noopener" target="_blank">TCGdex</a>, read ${esc(longDate(guides.checked) || guides.checked)}.</li>
+      <li>Set details, checklist and rarities from <a href="https://tcgdex.dev/" rel="noopener" target="_blank" aria-label="TCGdex, the card database this checklist came from, opens on tcgdex.dev">TCGdex</a>, read ${esc(longDate(guides.checked) || guides.checked)}.</li>
       ${/* "on this page", not "below": this band is the LAST section, so it was
             pointing at a checklist that sits above it. */ ""}
       ${g.dataSource?.borrowed ? `<li><strong>The checklist on this page is the ${esc(g.dataSource.langName)} one.</strong> ${
@@ -953,7 +953,7 @@ function sourceBand(g, cls) {
           ? ` Its own entry claims ${g.declaredCount} cards against ${g.cardCount.total} in the ${esc(g.dataSource.langName)} set; that figure has no cards behind it to check, so the verifiable number is the one shown above.`
           : ""}</li>` : ""}
       ${g.nameNote ? `<li><strong>On the name.</strong> ${esc(g.nameNote)}</li>` : ""}
-      <li>Pokemon card names in English via the National Pokedex number, through <a href="https://pokeapi.co" rel="noopener" target="_blank">PokeAPI</a>.</li>
+      <li>Pokemon card names in English via the National Pokedex number, through <a href="https://pokeapi.co" rel="noopener" target="_blank" aria-label="PokeAPI, the source of the English card names, opens on pokeapi.co">PokeAPI</a>.</li>
       <li>This is a fan page. Nothing here is sold by us and none of it is official.</li>
     </ul>
   </div>

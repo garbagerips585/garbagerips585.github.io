@@ -61,6 +61,7 @@ import {
 } from "../shared/chrome.mjs";
 import { esc, longDate } from "../shared/format.mjs";
 import { brandMark, PROT_MARK, BRAND_CREDIT, BRAND_STYLE } from "../shared/brands.mjs";
+import { localDay } from "../shared/today.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const money = JSON.parse(await readFile(join(ROOT, "data/selling.json"), "utf8"));
@@ -72,7 +73,19 @@ try {
   shops = (JSON.parse(await readFile(join(ROOT, "data/shops.json"), "utf8")).shops || []).length;
 } catch { /* the in-person section drops its count rather than guessing */ }
 try {
-  shows = (JSON.parse(await readFile(join(ROOT, "data/shows.json"), "utf8")).shows || []).length;
+  // THE WHOLE ARRAY IS NOT THE NUMBER THIS PAGE MEANS, and it printed "23
+  // upcoming shows" twice, in the body and in a source line's aria-label, while
+  // /card-shows.html rendered 22 and its own meta description said 22. The file
+  // holds every show that was read; the page beside it drops the ones whose day
+  // has passed. So this said "upcoming" over a count that included a show that
+  // had already happened, and it drifts further every time a date rolls by.
+  //
+  // SAME FILTER AS THE PAGE IT LINKS TO, `date >= today` off shared/today.mjs.
+  // build-shows.mjs uses it to build the list and build-start.mjs already used
+  // it for the same sentence; this file was the one restating a length.
+  const today = localDay();
+  shows = (JSON.parse(await readFile(join(ROOT, "data/shows.json"), "utf8")).shows || [])
+    .filter((s) => s.date >= today).length;
 } catch { /* same */ }
 
 const venues = money.venues || [];

@@ -39,7 +39,12 @@
      what the page says about itself. -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Every Rip","description":"Every Pokemon pack rip from Garbage Rips 585, filterable by card set and by product: single packs, booster bundles, ETBs, UPCs, ex boxes and booster boxes.","url":"https://garbagerips585.github.io/videos.html","isPartOf":{"@type":"WebSite","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/"},"about":{"@type":"Thing","name":"Pokemon Trading Card Game pack openings"},"publisher":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/","logo":{"@type":"ImageObject","url":"https://garbagerips585.github.io/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Every Rip","item":"https://garbagerips585.github.io/videos.html"}]}</script>
-<link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+<!-- No preconnect to i.ytimg.com here any more. playlists.html's comment named
+     this page as the one that still needed it and that went stale: every tile
+     here is a drawn booster pack now, server rendered below and client rendered
+     by app.js, which deleted thumbUrl() when the pack art went in. Zero requests
+     reach that host, read off the request log rather than the markup because
+     half this grid is built in the browser. See the head of index.html. -->
 <!-- THE PACK ART FOR THE FIRST TILES, GENERATED WITH THE GRID ITSELF.
      This is the only marked region on the site that sits in a <head>, and it
      is here rather than typed out because the packs it names are the first

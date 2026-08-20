@@ -75,6 +75,28 @@ import { gradedGate } from "../shared/graded-gate.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const d = JSON.parse(await readFile(join(ROOT, "data/top-graded.json"), "utf8"));
 
+/**
+ * How many sets the 89,910 products actually came out of, which is NOT
+ * `scanned.consoles`.
+ *
+ * sync-graded-top.mjs sets `consoles` to the length of the sitemap enumeration,
+ * 793, and records separately in `consolesSkipped` the ones it refused to read
+ * because their column headers were not the expected six. One is skipped today,
+ * /console/pokemon-mini, whose table is Loose / CIB / New: it is a games console
+ * rather than a card set and it contributed no product to the crawl.
+ *
+ * So this page said "89,910 Pokemon cards across 793 sets" and put "793" in a
+ * stat tile labelled "Sets searched", while /most-valuable-cards.html said 792
+ * over the same 89,910 products off the same crawl. That page is right, and it
+ * is right by construction: sync-raw-top.mjs counts consoles it actually parsed
+ * rather than consoles it listed, so its number is the one the products can be
+ * divided by.
+ *
+ * DERIVED HERE RATHER THAN TYPED, off this file's own record of the skip, so
+ * the day a second console changes its columns both figures move together.
+ */
+const consolesRead = d.scanned.consoles - (d.scanned.consolesSkipped?.length || 0);
+
 // ---------------------------------------------------------------------------
 // GATES. All hard failures rather than warnings, because every one of them is a
 // way this page could publish a number nobody can stand behind. They live in
@@ -404,12 +426,12 @@ ${MENU}
       <div class="fact"><div class="n">${moneyCompact(top?.psa10)}</div><div class="l">Top of the list</div></div>
       <div class="fact"><div class="n">${moneyCompact(floor?.psa10)}</div><div class="l">Number ${rows.length}</div></div>
       <div class="fact"><div class="n">${d.scanned.products.toLocaleString("en-US")}</div><div class="l">Cards ranked</div></div>
-      <div class="fact"><div class="n">${d.scanned.consoles}</div><div class="l">Sets searched</div></div>
+      <div class="fact"><div class="n">${consolesRead}</div><div class="l">Sets searched</div></div>
     </div>
 
     <p class="lede" style="max-width:44em;margin-top:20px">Ranked out of
       <b>${d.scanned.products.toLocaleString("en-US")}</b> Pokemon cards across
-      <b>${d.scanned.consoles}</b> sets, of which
+      <b>${consolesRead}</b> sets, of which
       <b>${d.scanned.productsWithPsa10.toLocaleString("en-US")}</b> had a PSA 10 value at all. Each row was
       read twice, once from the set listing and once from the card's own page, and
       <b>${d.verify.agree}</b> of ${d.verify.checked} checked agreed.${excNote} Paths below are all on pricecharting.com.</p>

@@ -24,7 +24,13 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#111111">
-<link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+<!-- No preconnect to i.ytimg.com. Same finding and same fix as playlists.html:
+     every tile here is a drawn booster pack, not a YouTube poster frame, and
+     zero requests reach that host. Verified off the request log, not the
+     markup, because the tiles are built in the browser. Removing it here also
+     removes it from about, hall, shops and wanted, which clone this <head>.
+     The 317 rip pages keep theirs and must: build-pages.mjs emits it beside a
+     real i.ytimg.com poster frame on each one. -->
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
@@ -429,21 +435,24 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
     <p class="w-lede">The cards I am actually chasing right now. Every pack opened on this
       channel is opened hoping for one of these. Tap a card to see it on TCGplayer.</p>
     <div class="w-grid">
-      <a class="wc" href="https://www.tcgplayer.com/product/704873" rel="nofollow noopener" target="_blank">
+      <a class="wc" href="https://www.tcgplayer.com/product/704873" rel="nofollow noopener" target="_blank"
+        aria-label="Mega Darkrai ex from Pitch Black, opens on tcgplayer.com">
         <span class="wc-art"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/116/low.avif 245w, /assets/cards/pitch-black-116-mega-darkrai-ex-pokemon-card-310.avif 310w, /assets/cards/pitch-black-116-mega-darkrai-ex-pokemon-card-420.avif 420w, https://assets.tcgdex.net/en/me/me05/116/high.avif 600w" sizes="(max-width:760px) calc((100vw - 88px) / 2), (max-width:1080px) calc((100vw - 158px) / 3), (max-width:1499px) calc((100vw - 200px) / 4), 325px"><img src="https://assets.tcgdex.net/en/me/me05/116/low.webp" srcset="https://assets.tcgdex.net/en/me/me05/116/low.webp 245w, /assets/cards/pitch-black-116-mega-darkrai-ex-pokemon-card-310.webp 310w, /assets/cards/pitch-black-116-mega-darkrai-ex-pokemon-card-420.webp 420w, https://assets.tcgdex.net/en/me/me05/116/high.webp 600w" sizes="(max-width:760px) calc((100vw - 88px) / 2), (max-width:1080px) calc((100vw - 158px) / 3), (max-width:1499px) calc((100vw - 200px) / 4), 325px" alt="Mega Darkrai ex Special Illustration Rare from Pokemon Pitch Black" onerror="this.remove()" width="245" height="337"></picture><span class="wc-flag">Hunting</span></span>
         <b class="wc-name">Mega Darkrai ex</b>
         <span class="wc-meta">Pitch Black &bull; #116</span>
         <span class="wc-rar">Special Illustration Rare</span>
         <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$249</span></div></span>
       </a>
-      <a class="wc" href="https://www.tcgplayer.com/product/693517" rel="nofollow noopener" target="_blank">
+      <a class="wc" href="https://www.tcgplayer.com/product/693517" rel="nofollow noopener" target="_blank"
+        aria-label="Mega Greninja ex from Chaos Rising, opens on tcgplayer.com">
         <span class="wc-art"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/116/low.avif 245w, /assets/cards/chaos-rising-116-mega-greninja-ex-pokemon-card-310.avif 310w, /assets/cards/chaos-rising-116-mega-greninja-ex-pokemon-card-420.avif 420w, https://assets.tcgdex.net/en/me/me04/116/high.avif 600w" sizes="(max-width:760px) calc((100vw - 88px) / 2), (max-width:1080px) calc((100vw - 158px) / 3), (max-width:1499px) calc((100vw - 200px) / 4), 325px"><img src="https://assets.tcgdex.net/en/me/me04/116/low.webp" srcset="https://assets.tcgdex.net/en/me/me04/116/low.webp 245w, /assets/cards/chaos-rising-116-mega-greninja-ex-pokemon-card-310.webp 310w, /assets/cards/chaos-rising-116-mega-greninja-ex-pokemon-card-420.webp 420w, https://assets.tcgdex.net/en/me/me04/116/high.webp 600w" sizes="(max-width:760px) calc((100vw - 88px) / 2), (max-width:1080px) calc((100vw - 158px) / 3), (max-width:1499px) calc((100vw - 200px) / 4), 325px" alt="Mega Greninja ex Special Illustration Rare from Pokemon Chaos Rising" onerror="this.remove()" width="245" height="337"></picture><span class="wc-flag">Hunting</span></span>
         <b class="wc-name">Mega Greninja ex</b>
         <span class="wc-meta">Chaos Rising &bull; #116</span>
         <span class="wc-rar">Special Illustration Rare</span>
         <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$208</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$598</span></div></span>
       </a>
-      <a class="wc" href="https://www.tcgplayer.com/product/684342" rel="nofollow noopener" target="_blank">
+      <a class="wc" href="https://www.tcgplayer.com/product/684342" rel="nofollow noopener" target="_blank"
+        aria-label="Meowth ex from Perfect Order, opens on tcgplayer.com">
         <span class="wc-art"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/121/low.avif 245w, /assets/cards/perfect-order-121-meowth-ex-pokemon-card-310.avif 310w, /assets/cards/perfect-order-121-meowth-ex-pokemon-card-420.avif 420w, https://assets.tcgdex.net/en/me/me03/121/high.avif 600w" sizes="(max-width:760px) calc((100vw - 88px) / 2), (max-width:1080px) calc((100vw - 158px) / 3), (max-width:1499px) calc((100vw - 200px) / 4), 325px"><img src="https://assets.tcgdex.net/en/me/me03/121/low.webp" srcset="https://assets.tcgdex.net/en/me/me03/121/low.webp 245w, /assets/cards/perfect-order-121-meowth-ex-pokemon-card-310.webp 310w, /assets/cards/perfect-order-121-meowth-ex-pokemon-card-420.webp 420w, https://assets.tcgdex.net/en/me/me03/121/high.webp 600w" sizes="(max-width:760px) calc((100vw - 88px) / 2), (max-width:1080px) calc((100vw - 158px) / 3), (max-width:1499px) calc((100vw - 200px) / 4), 325px" alt="Meowth ex Special Illustration Rare from Pokemon Perfect Order" onerror="this.remove()" width="245" height="337"></picture><span class="wc-flag">Hunting</span></span>
         <b class="wc-name">Meowth ex</b>
         <span class="wc-meta">Perfect Order &bull; #121</span>
@@ -457,42 +466,48 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
         <span class="wc-rar">Special Illustration Rare</span>
         <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$670</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$1,448</span></div></span>
       </div>
-      <a class="wc" href="https://www.tcgplayer.com/product/662184" rel="nofollow noopener" target="_blank">
+      <a class="wc" href="https://www.tcgplayer.com/product/662184" rel="nofollow noopener" target="_blank"
+        aria-label="Mega Charizard X ex from Phantasmal Flames, opens on tcgplayer.com">
         <span class="wc-art"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/125/low.avif 245w, /assets/cards/phantasmal-flames-125-mega-charizard-x-ex-pokemon-card-310.avif 310w, /assets/cards/phantasmal-flames-125-mega-charizard-x-ex-pokemon-card-420.avif 420w, https://assets.tcgdex.net/en/me/me02/125/high.avif 600w" sizes="(max-width:760px) calc((100vw - 88px) / 2), (max-width:1080px) calc((100vw - 158px) / 3), (max-width:1499px) calc((100vw - 200px) / 4), 325px"><img src="https://assets.tcgdex.net/en/me/me02/125/low.webp" srcset="https://assets.tcgdex.net/en/me/me02/125/low.webp 245w, /assets/cards/phantasmal-flames-125-mega-charizard-x-ex-pokemon-card-310.webp 310w, /assets/cards/phantasmal-flames-125-mega-charizard-x-ex-pokemon-card-420.webp 420w, https://assets.tcgdex.net/en/me/me02/125/high.webp 600w" sizes="(max-width:760px) calc((100vw - 88px) / 2), (max-width:1080px) calc((100vw - 158px) / 3), (max-width:1499px) calc((100vw - 200px) / 4), 325px" alt="Mega Charizard X ex Special Illustration Rare from Pokemon Phantasmal Flames" loading="lazy" onerror="this.remove()" width="245" height="337"></picture><span class="wc-flag">Hunting</span></span>
         <b class="wc-name">Mega Charizard X ex</b>
         <span class="wc-meta">Phantasmal Flames &bull; #125</span>
         <span class="wc-rar">Special Illustration Rare</span>
         <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$750</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$1,962</span></div></span>
       </a>
-      <a class="wc" href="https://www.tcgplayer.com/product/654518" rel="nofollow noopener" target="_blank">
+      <a class="wc" href="https://www.tcgplayer.com/product/654518" rel="nofollow noopener" target="_blank"
+        aria-label="Mega Lucario ex from Mega Evolution, opens on tcgplayer.com">
         <span class="wc-art"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/179/low.avif 245w, /assets/cards/mega-evolution-179-mega-lucario-ex-pokemon-card-310.avif 310w, /assets/cards/mega-evolution-179-mega-lucario-ex-pokemon-card-420.avif 420w, https://assets.tcgdex.net/en/me/me01/179/high.avif 600w" sizes="(max-width:760px) calc((100vw - 88px) / 2), (max-width:1080px) calc((100vw - 158px) / 3), (max-width:1499px) calc((100vw - 200px) / 4), 325px"><img src="https://assets.tcgdex.net/en/me/me01/179/low.webp" srcset="https://assets.tcgdex.net/en/me/me01/179/low.webp 245w, /assets/cards/mega-evolution-179-mega-lucario-ex-pokemon-card-310.webp 310w, /assets/cards/mega-evolution-179-mega-lucario-ex-pokemon-card-420.webp 420w, https://assets.tcgdex.net/en/me/me01/179/high.webp 600w" sizes="(max-width:760px) calc((100vw - 88px) / 2), (max-width:1080px) calc((100vw - 158px) / 3), (max-width:1499px) calc((100vw - 200px) / 4), 325px" alt="Mega Lucario ex Special Illustration Rare from Pokemon Mega Evolution" loading="lazy" onerror="this.remove()" width="245" height="337"></picture><span class="wc-flag">Hunting</span></span>
         <b class="wc-name">Mega Lucario ex</b>
         <span class="wc-meta">Mega Evolution &bull; #179</span>
         <span class="wc-rar">Special Illustration Rare</span>
         <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$203</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$410</span></div></span>
       </a>
-      <a class="wc" href="https://www.tcgplayer.com/product/644350" rel="nofollow noopener" target="_blank">
+      <a class="wc" href="https://www.tcgplayer.com/product/644350" rel="nofollow noopener" target="_blank"
+        aria-label="Victini from White Flare, opens on tcgplayer.com">
         <span class="wc-art"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/172/low.avif 245w, /assets/cards/white-flare-172-victini-pokemon-card-310.avif 310w, /assets/cards/white-flare-172-victini-pokemon-card-420.avif 420w, https://assets.tcgdex.net/en/sv/sv10.5w/172/high.avif 600w" sizes="(max-width:760px) calc((100vw - 88px) / 2), (max-width:1080px) calc((100vw - 158px) / 3), (max-width:1499px) calc((100vw - 200px) / 4), 325px"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/172/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/172/low.webp 245w, /assets/cards/white-flare-172-victini-pokemon-card-310.webp 310w, /assets/cards/white-flare-172-victini-pokemon-card-420.webp 420w, https://assets.tcgdex.net/en/sv/sv10.5w/172/high.webp 600w" sizes="(max-width:760px) calc((100vw - 88px) / 2), (max-width:1080px) calc((100vw - 158px) / 3), (max-width:1499px) calc((100vw - 200px) / 4), 325px" alt="Victini Black White Rare from Pokemon White Flare" loading="lazy" onerror="this.remove()" width="245" height="337"></picture><span class="wc-flag">Hunting</span></span>
         <b class="wc-name">Victini</b>
         <span class="wc-meta">White Flare &bull; #172</span>
         <span class="wc-rar">Black White Rare</span>
         <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$551</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$1,378</span></div></span>
       </a>
-      <a class="wc" href="https://www.tcgplayer.com/product/642283" rel="nofollow noopener" target="_blank">
+      <a class="wc" href="https://www.tcgplayer.com/product/642283" rel="nofollow noopener" target="_blank"
+        aria-label="Reshiram ex from White Flare, opens on tcgplayer.com">
         <span class="wc-art"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/166/low.avif 245w, /assets/cards/white-flare-166-reshiram-ex-pokemon-card-310.avif 310w, /assets/cards/white-flare-166-reshiram-ex-pokemon-card-420.avif 420w, https://assets.tcgdex.net/en/sv/sv10.5w/166/high.avif 600w" sizes="(max-width:760px) calc((100vw - 88px) / 2), (max-width:1080px) calc((100vw - 158px) / 3), (max-width:1499px) calc((100vw - 200px) / 4), 325px"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/166/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/166/low.webp 245w, /assets/cards/white-flare-166-reshiram-ex-pokemon-card-310.webp 310w, /assets/cards/white-flare-166-reshiram-ex-pokemon-card-420.webp 420w, https://assets.tcgdex.net/en/sv/sv10.5w/166/high.webp 600w" sizes="(max-width:760px) calc((100vw - 88px) / 2), (max-width:1080px) calc((100vw - 158px) / 3), (max-width:1499px) calc((100vw - 200px) / 4), 325px" alt="Reshiram ex Special Illustration Rare from Pokemon White Flare" loading="lazy" onerror="this.remove()" width="245" height="337"></picture><span class="wc-flag">Hunting</span></span>
         <b class="wc-name">Reshiram ex</b>
         <span class="wc-meta">White Flare &bull; #166</span>
         <span class="wc-rar">Special Illustration Rare</span>
         <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$199</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$480</span></div></span>
       </a>
-      <a class="wc" href="https://www.tcgplayer.com/product/642558" rel="nofollow noopener" target="_blank">
+      <a class="wc" href="https://www.tcgplayer.com/product/642558" rel="nofollow noopener" target="_blank"
+        aria-label="Seismitoad from Black Bolt, opens on tcgplayer.com">
         <span class="wc-art"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/105/low.avif 245w, /assets/cards/black-bolt-105-seismitoad-pokemon-card-310.avif 310w, /assets/cards/black-bolt-105-seismitoad-pokemon-card-420.avif 420w, https://assets.tcgdex.net/en/sv/sv10.5b/105/high.avif 600w" sizes="(max-width:760px) calc((100vw - 88px) / 2), (max-width:1080px) calc((100vw - 158px) / 3), (max-width:1499px) calc((100vw - 200px) / 4), 325px"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/105/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/105/low.webp 245w, /assets/cards/black-bolt-105-seismitoad-pokemon-card-310.webp 310w, /assets/cards/black-bolt-105-seismitoad-pokemon-card-420.webp 420w, https://assets.tcgdex.net/en/sv/sv10.5b/105/high.webp 600w" sizes="(max-width:760px) calc((100vw - 88px) / 2), (max-width:1080px) calc((100vw - 158px) / 3), (max-width:1499px) calc((100vw - 200px) / 4), 325px" alt="Seismitoad Illustration Rare from Pokemon Black Bolt" loading="lazy" onerror="this.remove()" width="245" height="337"></picture><span class="wc-flag">Hunting</span></span>
         <b class="wc-name">Seismitoad</b>
         <span class="wc-meta">Black Bolt &bull; #105</span>
         <span class="wc-rar">Illustration Rare</span>
         <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$226</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$2,109</span></div></span>
       </a>
-      <a class="wc" href="https://www.tcgplayer.com/product/633031" rel="nofollow noopener" target="_blank">
+      <a class="wc" href="https://www.tcgplayer.com/product/633031" rel="nofollow noopener" target="_blank"
+        aria-label="Team Rocket's Mewtwo ex from Destined Rivals, opens on tcgplayer.com">
         <span class="wc-art"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/231/low.avif 245w, /assets/cards/destined-rivals-231-team-rocket-s-mewtwo-ex-pokemon-card-310.avif 310w, /assets/cards/destined-rivals-231-team-rocket-s-mewtwo-ex-pokemon-card-420.avif 420w, https://assets.tcgdex.net/en/sv/sv10/231/high.avif 600w" sizes="(max-width:760px) calc((100vw - 88px) / 2), (max-width:1080px) calc((100vw - 158px) / 3), (max-width:1499px) calc((100vw - 200px) / 4), 325px"><img src="https://assets.tcgdex.net/en/sv/sv10/231/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/231/low.webp 245w, /assets/cards/destined-rivals-231-team-rocket-s-mewtwo-ex-pokemon-card-310.webp 310w, /assets/cards/destined-rivals-231-team-rocket-s-mewtwo-ex-pokemon-card-420.webp 420w, https://assets.tcgdex.net/en/sv/sv10/231/high.webp 600w" sizes="(max-width:760px) calc((100vw - 88px) / 2), (max-width:1080px) calc((100vw - 158px) / 3), (max-width:1499px) calc((100vw - 200px) / 4), 325px" alt="Team Rocket's Mewtwo ex Special Illustration Rare from Pokemon Destined Rivals" loading="lazy" onerror="this.remove()" width="245" height="337"></picture><span class="wc-flag">Hunting</span></span>
         <b class="wc-name">Team Rocket's Mewtwo ex</b>
         <span class="wc-meta">Destined Rivals &bull; #231</span>
