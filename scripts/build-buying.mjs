@@ -70,7 +70,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, plateRule, PLATE_CSS } from "../shared/format.mjs";
+import { esc, longDate, plateRule, PLATE_CSS, sentenceStart } from "../shared/format.mjs";
 import { brandMark, PROT_MARK, BRAND_CREDIT, BRAND_STYLE } from "../shared/brands.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -128,9 +128,25 @@ const STATUS = {
   unverified: { label: "Costs unverified", cls: "unv" },
 };
 
+/* ALL 31 OF THESE LINES PRINTED A CAPITAL LETTER MID SENTENCE, and on some of
+   them the preposition was wrong as well. This was "on" followed by appliesTo,
+   and every appliesTo in data/buying.json is a sentence-cased phrase, so the
+   page read "on The whole Direct package", "on Each store in your cart,
+   separately" and, worst of the set, "on Optional, US only, monthly billing,
+   cancel any time", which is not a thing a fee can be charged ON at any
+   capitalisation. Measured on the built page: 31 of 31.
+
+   Lowercasing the first letter is the fix this site has already got wrong once
+   (see baseLabel in build-retailers.mjs) and it would not have helped the
+   "Optional" row anyway. So the value stops being the object of a preposition
+   and becomes its own sentence behind a bolded label, which is the shape
+   build-selling.mjs uses for its protection and conditions lines. sentenceStart
+   raises a leading lowercase letter and never lowers a capital: one value in
+   data/selling.json opens lowercase and 96 do not, and the direction that is
+   safe is the one that cannot destroy a proper noun. */
 const costRow = (f) => `        <li>
           <b>${esc(f.what)}</b> ${esc(f.rate)}
-          ${f.appliesTo ? `<span class="by-on">on ${esc(f.appliesTo)}</span>` : ""}
+          ${f.appliesTo ? `<span class="by-on"><b>Applies to.</b> ${esc(sentenceStart(f.appliesTo))}</span>` : ""}
           ${f.note ? `<span class="by-nt">${esc(f.note)}</span>` : ""}
         </li>`;
 
@@ -784,6 +800,10 @@ ${BRAND_STYLE}
    which is the only reason a colour-only cue is acceptable here at all. */
 .by-fees li:first-child{border-left-color:var(--ketchup)}
 .by-on,.by-nt{display:block;color:var(--ink-2);font-size:var(--t-micro);margin-top:2px}
+/* The "Applies to." label on .by-on. Ink rather than --ink-2 so the label and
+   the researched sentence after it read as two things, which is the whole
+   reason the value stopped being spliced after the word "on". */
+.by-on b{color:var(--ink)}
 .by-p ul{margin:var(--s2) 0 0 var(--s4);font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
 .by-lbl{font-size:var(--t-sm);margin-top:var(--s3)}
 /* "COVERS." AGAINST "DOES NOT COVER." was green text against --ketchup-deep,

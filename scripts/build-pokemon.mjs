@@ -1395,9 +1395,47 @@ function pokePage(p) {
              species. It is not: it is the cheapest of the printings we hold a
              price for, and the median species here has several times as many
              printings as prices. "Cheapest one we price" carries the scope the
-             tile beside it already carries, and reads as its pair. */ ""}
-      ${p.priciest ? `<div class="fact"><div class="n">${moneyCompact(p.priciest.price)}</div><div class="l">Priciest one we price</div></div>` : ""}
-      ${p.cheapest ? `<div class="fact"><div class="n">${moneyCompact(p.cheapest.price)}</div><div class="l">Cheapest one we price</div></div>` : ""}
+             tile beside it already carries, and reads as its pair.
+
+             TWO TILES SIDE BY SIDE PRINTING THE IDENTICAL NUMBER, ON 104 OF THE 967
+             PRICED PAGES. /pokemon/amaura.html read "$0.55 PRICIEST ONE WE PRICE"
+             beside "$0.55 CHEAPEST ONE WE PRICE", which is a duplicate render as
+             far as a reader is concerned, and the fact that the prose below it
+             explains the scope honestly ("1 of the 6 printings we can name is in
+             a set we hold prices for") does not help: nobody reads the
+             explanation of a thing that looks broken, they just stop trusting the
+             numbers.
+
+             MEASURED BEFORE THE FIX, on the built tree: 104 pages, and they split
+             two ways. 102 hold exactly ONE priced printing, so priciest and
+             cheapest are literally the same card read twice. The other TWO,
+             comfey and suicune, hold two priced printings that happen to cost the
+             same, so the pair is two different cards agreeing. Both look
+             identical on screen and both collapse, but they must not collapse
+             into the same SENTENCE, because "the only one we price" is false on
+             comfey and "all 2" is false on amaura. The label carries the
+             difference and the count comes off the array, so neither can go
+             stale. After: 0 pages print the same number twice.
+
+             The pair stays wherever the two figures actually differ, which is the
+             863 pages the tiles were built for.
+
+             THE INDENTATION IS BYTE EXACT ON THE 863 PAGES THAT DID NOT MOVE and
+             that is worth a line of comment: the first draft put this comment on
+             its own ${} line, which added ONE BLANK LINE to all 1,025 pages in
+             the family and turned a 104 page fix into a 1,025 page diff. A
+             whitespace change nobody can see is still a page somebody has to
+             review. */ ""}
+      ${
+        p.priciest && p.cheapest && p.priciest.price === p.cheapest.price
+          ? `<div class="fact"><div class="n">${moneyCompact(p.priciest.price)}</div><div class="l">${
+              p.priced.length === 1
+                ? "The only one we price"
+                : `All ${n(p.priced.length)} we price, same price`
+            }</div></div>`
+          : `${p.priciest ? `<div class="fact"><div class="n">${moneyCompact(p.priciest.price)}</div><div class="l">Priciest one we price</div></div>` : ""}
+      ${p.cheapest ? `<div class="fact"><div class="n">${moneyCompact(p.cheapest.price)}</div><div class="l">Cheapest one we price</div></div>` : ""}`
+      }
       ${/* THE ONLY MARK ABOVE THE FOLD-ISH THAT SAYS THERE IS A CHANNEL.
              THE NUMBER IN THIS COMMENT WAS WRONG AND CLAUDE.md ALREADY NAMES
              THIS FILE FOR THE HABIT. It said the facts row lands "around

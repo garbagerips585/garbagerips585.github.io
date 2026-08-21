@@ -175,6 +175,22 @@ const links = (o) => {
 // already uses an h2 for the same slot, so the two states now agree as well.
 // Visually identical: `.loc h2` in assets-source/ui.css carries the same font
 // shorthand `.loc h3` did, so the size does not come from the UA default.
+/* A ROW WITH NO BLURB IS THE STATE THAT SHIPPED AND NOTHING ON THE PAGE SAID SO.
+   Elliot Does Pokemon carries a name, an area and the two words "Pokemon
+   content", and `.loc-socs` is `margin-top:auto`, so at 1440 the card stretched
+   to its neighbour's height and left a hollow band where a description would go.
+   A reader cannot tell that from a card that failed to render.
+
+   This is /retailers.html's Staples row, one page along: that page prints, in
+   its own words, "This is the reason Staples is a row here and not a page of its
+   own", rather than leaving a thin entry to be read as a broken one. Say what is
+   missing and whose fault it is. The links are still the point of the row and
+   they are still checked, so the sentence has to make clear that the GAP IS
+   OURS: nothing here is a judgement about the person on the card. */
+const NO_WRITE_UP =
+  `<p class="loc-nowrite">We have not written this one up yet. The links are theirs and they work; ` +
+  `the description is the part we owe them.</p>`;
+
 const card = (o, kind) => `      <li class="loc">
         <div class="loc-h">
           <h2>${esc(o.name)}</h2>
@@ -182,14 +198,116 @@ const card = (o, kind) => `      <li class="loc">
         </div>
         ${o.area ? `<p class="loc-area">${esc(o.area)}</p>` : ""}
         ${o.does || o.sells ? `<p class="loc-does">${esc(o.does || o.sells)}</p>` : ""}
-        ${o.blurb ? `<p class="loc-blurb">${esc(o.blurb)}</p>` : ""}
+        ${o.blurb ? `<p class="loc-blurb">${esc(o.blurb)}</p>` : NO_WRITE_UP}
         ${o.shows ? `<p class="loc-shows">Usually at: ${esc(o.shows)}</p>` : ""}
         ${links(o)}
       </li>`;
 
+/* THE ZERO-ROW EMPTY STATE WAS BUILT AND THE ONE-THIN-ROW STATE WAS NOT, AND
+   ONE-THIN-ROW IS WHAT SHIPPED. A page with nothing on it says "Nothing here
+   yet / This list is being built" and reads as a deliberate, honest state. A
+   page with two cards, one of which is a name and two words, says nothing at
+   all: it looks like a finished list of two, or like a page where something
+   failed to load. /creators.html had 118 words in <main>, the thinnest
+   non-utility page on the site, and not one of them admitted it.
+
+   THE MODEL IS /retailers.html AND IT IS NAMED HERE ON PURPOSE. That page has a
+   row it cannot make a page out of, and instead of hiding the fact it prints
+   "This is the reason Staples is a row here and not a page of its own." A
+   reader who is told why a thing is short trusts the short thing. A reader who
+   is not told assumes the site is broken.
+
+   EVERY NUMBER IN IT IS COUNTED, NEVER WRITTEN. "Two creators" and "one of them"
+   come off the array, so this paragraph cannot go stale the way a hand-typed
+   count does, and the band switches itself off the moment the list clears the
+   bar.
+
+   THE BAR IS FOUR ENTRIES AND NO GAPS, and it is written as a test rather than
+   as a promise in a comment, which is the shape earnsPage() takes in
+   build-retailers.mjs. Four is an editorial floor and not a layout fact: below
+   it, a "local scene" list is a handful of people somebody happened to know
+   rather than a survey, and saying so is cheaper than pretending otherwise. A
+   row with no `blurb` counts as a gap however many rows there are. NOTHING HERE
+   INVENTS AN ENTRY TO CLEAR THE BAR: the whole file exists to refuse that. */
+const earlyNote = (rows, noun) => {
+  const thin = rows.filter((o) => !o.blurb).length;
+  if (rows.length >= 4 && !thin) return "";
+  const n = rows.length;
+  const nWord = ["no", "one", "two", "three"][n] || String(n);
+  const isAre = n === 1 ? "is" : "are";
+  const nounWord = n === 1 ? noun.replace(/s$/, "") : noun;
+  const gap = thin
+    ? ` ${thin === n ? (n === 1 ? "It has" : "None of them has") : `${["", "One", "Two", "Three"][thin] || thin} of them ${thin === 1 ? "has" : "have"}`} no write-up yet, which is our gap and not theirs.`
+    : "";
+  return `    <div class="fk-golden">
+      <p class="fk-golden-h">Early days</p>
+      <h2>This list is still <span class="hl">short</span></h2>
+      <p>${esc(nWord.replace(/^./, (c) => c.toUpperCase()))} ${esc(nounWord)} ${esc(isAre)} on this page.${esc(gap)}
+        That is what we can actually point you at today rather than what we would like the page to look like, and
+        it stays that way until somebody real goes on it.</p>
+      <p style="margin-top:12px"><a class="btn btn-yt btn-sm" href="https://www.youtube.com/@GarbageRips585">Tell us who we are missing</a></p>
+    </div>`;
+};
+
+/* TWO GUARDS, BECAUSE THIS PAGE'S COPY HAS NOW DRIFTED AHEAD OF ITS DATA THREE
+   SEPARATE TIMES and every one of them was caught by a person reading the page
+   rather than by the build. The lede named four kinds of creator against one;
+   it named three cities against one; and /vendors.html's lede claimed a vouch
+   the rows do not carry. All three are the same shape: a sentence about what
+   the list is FOR, standing where a sentence about what it HOLDS belongs.
+
+   These are the smallest checks that would have caught the last two, and they
+   are deliberately narrow. They read the copy this file writes and compare it
+   to the rows this file was handed, and they THROW, because the alternative is
+   a comment saying "keep these in step", which is what was there. They do not
+   police prose in general and must not grow into that: `empty` and `note` are
+   exempt on purpose, since both are plainly asks rather than descriptions
+   ("anywhere in Upstate New York close enough to count belongs here"). */
+const CITY_WORDS = ["Rochester", "Buffalo", "Syracuse"];
+
+const checkCities = (text, rows, where) => {
+  const areas = rows.map((o) => String(o.area || "")).join(" | ");
+  for (const city of CITY_WORDS) {
+    if (!text.includes(city)) continue;
+    if (areas.includes(city)) continue;
+    throw new Error(
+      `build-locals: ${where} names ${city} and no entry's "area" does.\n` +
+        `  Areas on the page: ${areas || "(none)"}\n` +
+        `  A lede describes the list in front of the reader. Name the cities the rows are in,\n` +
+        `  or add somebody from ${city}. Do NOT widen the sentence to cover a city the page\n` +
+        `  does not: that is what "Rochester, Buffalo, Syracuse and nearby" was doing over two\n` +
+        `  Rochester entries. The invitation to the wider region belongs in "empty" and "note".`
+    );
+  }
+};
+
+const VOUCH_CLAIMS = /\b(we (actually )?buy from|handed money to|bought from|we have bought)\b/i;
+
+const checkVouch = (text, rows, where) => {
+  if (!VOUCH_CLAIMS.test(text)) return;
+  if (rows.some((o) => o.vouched)) return;
+  throw new Error(
+    `build-locals: ${where} says this site buys from the people on it, and no entry is marked "vouched".\n` +
+      `  "vouched" is the one editorial signal these pages have and it means Tim actually bought\n` +
+      `  from them. A page that claims it in prose and renders it on no card is claiming it twice\n` +
+      `  as loudly as the chip would and backing it with nothing. Set "vouched" where it is true,\n` +
+      `  or say something the page can show.`
+  );
+};
+
 function page({ metaDesc, slug, title, h1, kicker, lede, list, kind, empty, note, updated }) {
   // Alphabetical, always. See the header note on why this is not a ranking.
   const rows = [...list].sort((a, b) => String(a.name).localeCompare(String(b.name)));
+
+  // Only when there IS a list. An empty page's lede is its whole pitch and the
+  // rows it is measured against do not exist yet.
+  if (rows.length) {
+    checkCities(lede, rows, `the lede on /${slug}`);
+    checkCities(metaDesc || "", rows, `the meta description on /${slug}`);
+    checkVouch(lede, rows, `the lede on /${slug}`);
+    checkVouch(kicker, rows, `the kicker on /${slug}`);
+    checkVouch(metaDesc || "", rows, `the meta description on /${slug}`);
+  }
   const ld = [
     {
       "@context": "https://schema.org",
@@ -291,6 +409,7 @@ ${rows.map((o) => card(o, kind)).join("\n")}
          paragraph on /creators.html opens "Listed alphabetically, not ranked",
          so the sentence contradicted itself eleven words later. The claim being
          made is that nobody paid to be on the list, so say that. */ ""}
+${earlyNote(rows, kind)}
     <p class="price-note">${esc(note)} Last updated ${esc(longDate(updated) || "recently")}. No paid placements and no
       affiliate links on this page: everybody here is listed because they are worth your time.</p>`
         : `<div class="fk-golden">
@@ -315,18 +434,30 @@ ${APP_JS}
 
 const V = page({
   metaDesc:
-    "Card shops, breakers and sellers around Rochester NY that we actually buy from, with what each one is " +
-    "good for and a link to find them.",
+    "Pokemon card sellers around Rochester NY worth knowing, what each one carries, and a link to " +
+    "find them. No paid placements.",
   slug: "vendors.html",
   title: "Pokemon Card Vendors in Rochester, NY | Garbage Rips 585",
   h1: "Local vendors",
   // A literal bullet, not &bull;. The kicker goes through esc() like every
   // other value here, so an HTML entity written in the source comes out as the
   // visible text "&BULL;" on the page.
-  kicker: "585 • People we buy from",
-  lede:
-    "Sellers around Rochester worth knowing: the ones at the shows, the ones with a table every month, " +
-    "the ones we have actually handed money to.",
+  /* WAS "585 • People we buy from", which is the vouch claim a third time, in
+     the largest chip on the page, over two rows that carry no "vouched". The
+     kicker goes through checkVouch() with the lede and the meta description
+     now, so it cannot come back without the flag coming back with it. */
+  kicker: "585 • Sellers worth knowing",
+  /* THREE CLAUSES AGAINST TWO VENDORS, AND ONE OF THE THREE WAS NOT TRUE. It
+     read "the ones at the shows, the ones with a table every month, the ones we
+     have actually handed money to", which promises a survey; the page holds two
+     entries. The third clause is the worse half: "handed money to" IS the
+     `vouched` flag, the one editorial signal this file has, and NEITHER row
+     carries it, so the lede was announcing a chip the page never renders.
+     checkVouch() below now stops the build on that sentence rather than leaving
+     it to be re-read by eye. The metaDesc lost the same claim in the same edit,
+     and it was the more expensive of the two because it is the copy Google
+     prints. */
+  lede: "Sellers around Rochester worth knowing: who they are, what they carry, and where to find them.",
   list: vendors.vendors || [],
   updated: vendors.updated,
   kind: "vendors",
@@ -351,8 +482,19 @@ const C = page({
   title: "Pokemon Creators in Rochester, Buffalo and Syracuse",
   h1: "Local creators",
   kicker: "Upstate NY • Support your scene",
-  lede:
-    "Other people making Pokemon content in Rochester, Buffalo, Syracuse and nearby. Go watch them.",
+  /* THE LEDE NAMED THREE CITIES AND THE PAGE COVERS ONE. It read "Other people
+     making Pokemon content in Rochester, Buffalo, Syracuse and nearby", against
+     two entries whose `area` is "Rochester" both times. That is the same fault
+     the comment above this one describes and fixed for the ROLES, one line
+     later, in the same paragraph: a true statement about what the page is FOR,
+     written as a statement about what it HOLDS. The city list is now what the
+     rows actually say, and checkCities() below stops the build if that stops
+     being true. The invitation to the rest of Upstate New York survives, in the
+     `empty` copy and in the note under the list, where it is plainly an ask.
+     THE TITLE KEEPS THE THREE CITIES and that was already argued above: a title
+     is the search this page is for. A lede is a description of the page in front
+     of the reader, which is why the two are allowed to differ. */
+  lede: "Other people around Rochester making Pokemon content. Go watch them.",
   list: creators.creators || [],
   updated: creators.updated,
   kind: "creators",

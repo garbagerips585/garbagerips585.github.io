@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=8ca5ed5c">
+<link rel="stylesheet" href="/assets/ui.css?v=13927e47">
 <style>.rt-lede{max-width:46em}
 .rt-key{border:3px solid var(--keyline);border-radius:12px;background:var(--band-bg);color:var(--chrome-ink);
 padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
@@ -62,7 +62,7 @@ text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
 .rt-th{display:flex;align-items:center;min-height:44px;color:inherit}
 .rt-url{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
 overflow-wrap:anywhere;word-break:break-all;max-width:280px}
-.rt-cap{caption-side:top;text-align:left;padding:12px 14px;font-size:var(--t-sm);
+.rt-tcap{margin:0 0 var(--s2);font-size:var(--t-sm);
 line-height:1.5;color:var(--ink-2);max-width:56ch}
 .rt-gaps{margin-top:var(--s4);border-left:4px solid var(--gold);padding-left:var(--s3);max-width:46em}
 .rt-gaps h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:var(--s2)}
@@ -101,6 +101,10 @@ overflow-wrap:anywhere}
 .rt-list{margin:var(--s4) 0 0 var(--s4);max-width:46em;line-height:1.55;overflow-wrap:anywhere}
 .rt-list li{margin-bottom:var(--s3)}
 .rt-list b{color:var(--ink)}
+.rt-chk{display:inline-flex;align-items:center;min-height:44px;gap:6px;
+color:var(--gold-deep);text-decoration:underline;text-underline-offset:3px;font-weight:700}
+.rt-chk::after{content:"\2197";text-decoration:none;font-weight:400}
+.rt-once{margin-top:var(--s4)}
 .rt-a,.rt-c dd{overflow-wrap:anywhere}
 .rt-note{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);max-width:46em;margin-top:var(--s3);
 overflow-wrap:anywhere}
@@ -274,7 +278,7 @@ gap:var(--s4) var(--s5);align-items:start}
       </div>
       <h1>Does Meijer sell <span class="hl">Pokemon cards</span>?</h1>
       <p class="lede rt-lede">Yes, in stores only. Meijer has a Trading Cards department of its own, and every Pokemon row on it was marked In Store Only when it was read.</p>
-      <p class="rt-src">Confirmed on August 17, 2026 by reading it on Meijer's own website: Read Meijer's own Toys, Trading Cards department page, which listed current sealed Pokemon product with prices, pickup times and an In Store Only marker on every Pokemon row. https://www.meijer.com/shopping/departments/toys/trading-cards.html</p>
+      <p class="rt-src">Confirmed on August 17, 2026 by reading it on Meijer's own website: Read Meijer's own Toys, Trading Cards department page, which listed current sealed Pokemon product with prices, pickup times and an In Store Only marker on every Pokemon row. <a class="rt-chk" href="https://www.meijer.com/shopping/departments/toys/trading-cards.html" rel="noopener" target="_blank" aria-label="The Meijer page this was read on, opens on meijer.com">Open the page on meijer.com</a></p>
 
       <section class="rt-grp">
         <h2>What they <span class="hl">stock</span></h2>
@@ -306,7 +310,7 @@ gap:var(--s4) var(--s5);align-items:start}
       <section class="rt-grp">
         <h2>Where in the <span class="hl">shop</span> to look</h2>
         <p class="rt-note">Meijer files them under Toys, then Trading Cards &amp; Collectibles, so the toy department rather than the magazine run at the front.</p>
-        <p class="rt-src">Read from The department path on their own site: /shopping/departments/toys/trading-cards.html and /shopping/departments/toys/trading-cards-collectibles.html.</p>
+        <p class="rt-src"><b>Where that was read.</b> The department path on their own site: /shopping/departments/toys/trading-cards.html and /shopping/departments/toys/trading-cards-collectibles.html.</p>
       </section>
 
       <div class="rt-key">
@@ -345,13 +349,14 @@ gap:var(--s4) var(--s5);align-items:start}
           can open and check. It is an example of the division rather than a score for the shop, and it will
           not be current for long. The suggested figures come from <a href="/msrp.html">the MSRP page</a>,
           which prices sealed product from Pokemon's own shop.</p>
+      <p class="rt-note rt-once">Sold by the shop itself: meijer.com sells its own stock and runs no marketplace, and the row is marked In Store Only at a Meijer store. Every figure below was read on Meijer's own Toys, Trading Cards department page, which lists the price against the product, one listing at a time.</p>
       <ul class="rt-list">
         <li><b>2025 Pokemon Trading Card Games Poke Ball Tins.</b> $19.99 asked against a suggested
           $14.99 for the Poke Ball Tin, so
-          19.99 &divide; 14.99 = 1.33. Sold by the shop itself: meijer.com sells its own stock and runs no marketplace, and the row is marked In Store Only at a Meijer store. Read on Meijer's own Toys, Trading Cards department page, which lists the price against the product, August 17, 2026, at https://www.meijer.com/shopping/departments/toys/trading-cards.html</li>
+          19.99 &divide; 14.99 = 1.33. Read August 17, 2026. <a class="rt-chk" href="https://www.meijer.com/shopping/departments/toys/trading-cards.html" rel="noopener" target="_blank" aria-label="2025 Pokemon Trading Card Games Poke Ball Tins listing, opens on meijer.com">Open the listing on meijer.com</a></li>
         <li><b>Pokemon Trading Card Games Mega Kangaskhan Ex Box.</b> $26.99 asked against a suggested
           $21.99 for the ex Box, so
-          26.99 &divide; 21.99 = 1.23. Sold by the shop itself: meijer.com sells its own stock and runs no marketplace, and the row is marked In Store Only at a Meijer store. Read on Meijer's own Toys, Trading Cards department page, which lists the price against the product, August 17, 2026, at https://www.meijer.com/shopping/departments/toys/trading-cards.html</li>
+          26.99 &divide; 21.99 = 1.23. Read August 17, 2026. <a class="rt-chk" href="https://www.meijer.com/shopping/departments/toys/trading-cards.html" rel="noopener" target="_blank" aria-label="Pokemon Trading Card Games Mega Kangaskhan Ex Box listing, opens on meijer.com">Open the listing on meijer.com</a></li>
       </ul>
         <figure class="rt-fig">
           <ul class="bch bch-2">
@@ -396,7 +401,7 @@ gap:var(--s4) var(--s5);align-items:start}
         </div>
       </section>
 
-      <p class="rt-src" style="margin-top:var(--s6)">The Pokemon products and their prices, the In Store Only marker on every one, and the pickup within three hours line: https://www.meijer.com/shopping/departments/toys/trading-cards.html, read August 17, 2026. Nothing here came from a comparison site, and no price is printed without saying who was
+      <p class="rt-src" style="margin-top:var(--s6)">The Pokemon products and their prices, the In Store Only marker on every one, and the pickup within three hours line, read August 17, 2026. <a class="rt-chk" href="https://www.meijer.com/shopping/departments/toys/trading-cards.html" rel="noopener" target="_blank" aria-label="Meijer source 1, opens on meijer.com">Open the page on meijer.com</a> Nothing here came from a comparison site, and no price is printed without saying who was
         selling. Prices and shop layouts move, so check before you rely on any of it.</p>
       <p class="rt-src">Company names and logos on this page are the trademarks of their owners and are used to identify the companies described. Nothing here is sponsored, affiliated or endorsed. Marks are mirrored from Wikimedia Commons, where each carries a public domain copyright tag; the venues with no mark have their name set in this site's own typeface instead.</p>
     </div>

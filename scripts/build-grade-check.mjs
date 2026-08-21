@@ -88,11 +88,23 @@ const cell = (v) =>
 // NOTHING focusable inside one to tab to. build-expansions.mjs worked this out
 // and wrote it down; this page shipped without it anyway, which is the whole
 // value of an audit that reads other files.
-const table = (rows, cap) => `      <div class="gc-tw" tabindex="0" role="region" aria-label="${esc(
+/* THE CAPTION USED TO BE THE ONE THING ON THIS PAGE A PHONE COULD NOT READ, and
+   the note under .gc-tw below already recorded the symptom ("NOTE HOW MUCH
+   WIDER THE TOLERA") without fixing the cause. A <caption> is laid out at its
+   TABLE's width, and .gc-t is min-width:640px inside a 352px .gc-tw scroller, so
+   288px of the line sat off screen at 390x844 and the reader had to drag the
+   table sideways to finish a heading. The scroll cues that note added tell you
+   there is more table to the right; they do not put the title back on screen.
+   Out of the scroller, then, exactly as
+   /first-partner-illustration-collection.html does it and as build-openings.mjs
+   now does: the visible line is a <p> that wraps to the viewport and the
+   <caption> stays .sr-only so the table keeps its accessible name. */
+const table = (rows, cap) => `      <p class="gc-tcap">${cap}</p>
+      <div class="gc-tw" tabindex="0" role="region" aria-label="${esc(
   String(cap).replace(/<[^>]+>/g, "")
 )}, scrollable table">
         <table class="gc-t">
-          <caption>${cap}</caption>
+          <caption class="sr-only">${cap}</caption>
           <thead><tr><th scope="col">Grade</th>${CO.map((c) => `<th scope="col">${CO_NAME[c]}</th>`).join("")}</tr></thead>
           <tbody>
 ${rows.map((r) => `            <tr><th scope="row">${esc(r.grade)}</th>${CO.map((c) => cell(r[c])).join("")}</tr>`).join("\n")}
@@ -799,8 +811,12 @@ const style = `
   background-size:44px 100%,44px 100%,15px 100%,15px 100%;
   background-attachment:local,local,scroll,scroll}
 .gc-t{border-collapse:collapse;width:100%;min-width:640px;font-size:var(--t-sm)}
-.gc-t caption{caption-side:top;text-align:left;padding:var(--s3) var(--s4);font:700 var(--t-label)/1.3 var(--body);
-  letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);border-bottom:2px solid var(--hair)}
+/* The table's title, outside the scroller. See the note on table() above for
+   why it is not a <caption> any more. Same type as the old one, so the only
+   thing a wide screen sees change is that the line sits above the box's border
+   rather than inside it. */
+.gc-tcap{margin:var(--s4) 0 var(--s2);font:700 var(--t-label)/1.35 var(--body);
+  letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);max-width:56ch}
 .gc-t th,.gc-t td{padding:10px var(--s3);text-align:left;border-bottom:1px solid var(--hair);vertical-align:top}
 .gc-t thead th{font:700 var(--t-label)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   background:var(--band-bg);color:var(--chrome-ink);border-bottom:none}

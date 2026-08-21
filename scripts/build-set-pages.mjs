@@ -30,6 +30,7 @@ import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
 import { parseHits, rarityLabelOf, rarityMark, RARITY_CSS } from "../shared/rarity.mjs";
 import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, RARITY_ORDER, cardNumKey, imgDims, avifPicture, plural, count } from "../shared/format.mjs";
 import { ripLabel, ownLineProduct } from "../shared/riplabel.mjs";
+import { daysSince } from "../shared/today.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -1544,7 +1545,11 @@ const descriptions = JSON.parse(await readFile(join(ROOT, "data/descriptions.jso
 
 function yearsSince(iso) {
   if (!iso) return null;
-  const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+  // LOCAL DAYS. This was `Date.now() - new Date(iso)`, an absolute instant
+  // minus a UTC-midnight parse, so every set guide aged a week at 8pm Eastern:
+  // Pitch Black read "4 weeks ago" at 19:44 and "5 weeks ago" at 20:04 on the
+  // same evening. See shared/today.mjs.
+  const days = daysSince(iso) ?? 0;
   if (days < 0) return "not out yet";
   if (days < 1) return "today";
   if (days < 14) return `${days} day${days === 1 ? "" : "s"} ago`;

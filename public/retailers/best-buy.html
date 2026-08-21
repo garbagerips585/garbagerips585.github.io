@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=8ca5ed5c">
+<link rel="stylesheet" href="/assets/ui.css?v=13927e47">
 <style>.rt-lede{max-width:46em}
 .rt-key{border:3px solid var(--keyline);border-radius:12px;background:var(--band-bg);color:var(--chrome-ink);
 padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
@@ -62,7 +62,7 @@ text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
 .rt-th{display:flex;align-items:center;min-height:44px;color:inherit}
 .rt-url{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
 overflow-wrap:anywhere;word-break:break-all;max-width:280px}
-.rt-cap{caption-side:top;text-align:left;padding:12px 14px;font-size:var(--t-sm);
+.rt-tcap{margin:0 0 var(--s2);font-size:var(--t-sm);
 line-height:1.5;color:var(--ink-2);max-width:56ch}
 .rt-gaps{margin-top:var(--s4);border-left:4px solid var(--gold);padding-left:var(--s3);max-width:46em}
 .rt-gaps h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:var(--s2)}
@@ -101,6 +101,10 @@ overflow-wrap:anywhere}
 .rt-list{margin:var(--s4) 0 0 var(--s4);max-width:46em;line-height:1.55;overflow-wrap:anywhere}
 .rt-list li{margin-bottom:var(--s3)}
 .rt-list b{color:var(--ink)}
+.rt-chk{display:inline-flex;align-items:center;min-height:44px;gap:6px;
+color:var(--gold-deep);text-decoration:underline;text-underline-offset:3px;font-weight:700}
+.rt-chk::after{content:"\2197";text-decoration:none;font-weight:400}
+.rt-once{margin-top:var(--s4)}
 .rt-a,.rt-c dd{overflow-wrap:anywhere}
 .rt-note{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);max-width:46em;margin-top:var(--s3);
 overflow-wrap:anywhere}
@@ -274,7 +278,7 @@ gap:var(--s4) var(--s5);align-items:start}
       </div>
       <h1>Does Best Buy sell <span class="hl">Pokemon cards</span>?</h1>
       <p class="lede rt-lede">Yes. Best Buy's own search returns current sealed Pokemon trading card product in a Trading Cards category, and their site also carries a Trading Card Accessories category alongside it.</p>
-      <p class="rt-src">Confirmed on August 17, 2026 by reading it on Best Buy's own website: Searched pokemon trading card game on bestbuy.com and read the results, which listed current sealed Pokemon TCG product under a Trading Cards category with Pokemon as a brand filter. https://www.bestbuy.com/site/searchpage.jsp?st=pokemon+trading+card+game</p>
+      <p class="rt-src">Confirmed on August 17, 2026 by reading it on Best Buy's own website: Searched pokemon trading card game on bestbuy.com and read the results, which listed current sealed Pokemon TCG product under a Trading Cards category with Pokemon as a brand filter. <a class="rt-chk" href="https://www.bestbuy.com/site/searchpage.jsp?st=pokemon+trading+card+game" rel="noopener" target="_blank" aria-label="The Best Buy page this was read on, opens on bestbuy.com">Open the page on bestbuy.com</a></p>
 
       <section class="rt-grp">
         <h2>What they <span class="hl">stock</span></h2>
@@ -306,7 +310,7 @@ gap:var(--s4) var(--s5);align-items:start}
       <section class="rt-grp">
         <h2>Where in the <span class="hl">shop</span> to look</h2>
         <p class="rt-note">Best Buy files them under Trading Cards, with a separate Trading Card Accessories category. There is no aisle to give here: Best Buy does not publish one and the trading card fixture is a recent addition that is not in the same place in every shop.</p>
-        <p class="rt-src">Read from The category and filter names on Best Buy's own search results page.</p>
+        <p class="rt-src"><b>Where that was read.</b> The category and filter names on Best Buy's own search results page.</p>
       </section>
 
       <div class="rt-key">
@@ -376,7 +380,7 @@ gap:var(--s4) var(--s5);align-items:start}
         </div>
       </section>
 
-      <p class="rt-src" style="margin-top:var(--s6)">Sealed Pokemon TCG product in a Trading Cards category, the Pokemon brand filter, the Pack, Box, Collection, Tin, Deck and Kit filters, the Sold &amp; shipped by Best Buy filter, and the High demand product notice: https://www.bestbuy.com/site/searchpage.jsp?st=pokemon+trading+card+game, read August 17, 2026. Nothing here came from a comparison site, and no price is printed without saying who was
+      <p class="rt-src" style="margin-top:var(--s6)">Sealed Pokemon TCG product in a Trading Cards category, the Pokemon brand filter, the Pack, Box, Collection, Tin, Deck and Kit filters, the Sold &amp; shipped by Best Buy filter, and the High demand product notice, read August 17, 2026. <a class="rt-chk" href="https://www.bestbuy.com/site/searchpage.jsp?st=pokemon+trading+card+game" rel="noopener" target="_blank" aria-label="Best Buy source 1, opens on bestbuy.com">Open the page on bestbuy.com</a> Nothing here came from a comparison site, and no price is printed without saying who was
         selling. Prices and shop layouts move, so check before you rely on any of it.</p>
       <p class="rt-src">Company names and logos on this page are the trademarks of their owners and are used to identify the companies described. Nothing here is sponsored, affiliated or endorsed. Marks are mirrored from Wikimedia Commons, where each carries a public domain copyright tag; the venues with no mark have their name set in this site's own typeface instead.</p>
     </div>

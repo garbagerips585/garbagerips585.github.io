@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=8ca5ed5c">
+<link rel="stylesheet" href="/assets/ui.css?v=13927e47">
 <style>.rt-lede{max-width:46em}
 .rt-key{border:3px solid var(--keyline);border-radius:12px;background:var(--band-bg);color:var(--chrome-ink);
 padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
@@ -62,7 +62,7 @@ text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
 .rt-th{display:flex;align-items:center;min-height:44px;color:inherit}
 .rt-url{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
 overflow-wrap:anywhere;word-break:break-all;max-width:280px}
-.rt-cap{caption-side:top;text-align:left;padding:12px 14px;font-size:var(--t-sm);
+.rt-tcap{margin:0 0 var(--s2);font-size:var(--t-sm);
 line-height:1.5;color:var(--ink-2);max-width:56ch}
 .rt-gaps{margin-top:var(--s4);border-left:4px solid var(--gold);padding-left:var(--s3);max-width:46em}
 .rt-gaps h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:var(--s2)}
@@ -101,6 +101,10 @@ overflow-wrap:anywhere}
 .rt-list{margin:var(--s4) 0 0 var(--s4);max-width:46em;line-height:1.55;overflow-wrap:anywhere}
 .rt-list li{margin-bottom:var(--s3)}
 .rt-list b{color:var(--ink)}
+.rt-chk{display:inline-flex;align-items:center;min-height:44px;gap:6px;
+color:var(--gold-deep);text-decoration:underline;text-underline-offset:3px;font-weight:700}
+.rt-chk::after{content:"\2197";text-decoration:none;font-weight:400}
+.rt-once{margin-top:var(--s4)}
 .rt-a,.rt-c dd{overflow-wrap:anywhere}
 .rt-note{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);max-width:46em;margin-top:var(--s3);
 overflow-wrap:anywhere}
@@ -137,7 +141,7 @@ gap:var(--s4) var(--s5);align-items:start}
 .rt-list li{break-inside:avoid}
 }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Which stores sell cards","item":"https://garbagerips585.github.io/retailers.html"},{"@type":"ListItem","position":3,"name":"Dollar General"}]}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does Dollar General sell Pokemon cards?","acceptedAnswer":{"@type":"Answer","text":"Yes, in stores. Dollar General has a Pokemon category of its own under Toys & Games, and its Pokemon trading card listings say plainly that the item is not eligible for delivery."}},{"@type":"Question","name":"What Pokemon cards does Dollar General sell?","acceptedAnswer":{"@type":"Answer","text":"Small sealed only, so packs, blisters and tins rather than boxes. Small sealed and repackaged formats: single packs, mini tins, three-booster tins, Poke Ball tins, a mini portfolio with a booster in it. Nothing box sized appeared on their site."}},{"@type":"Question","name":"Where in Dollar General are the Pokemon cards?","acceptedAnswer":{"@type":"Answer","text":"Dollar General files Pokemon under Toys & Games, so the toy aisle. Their stores are small enough that this is usually one short run of shelving. Layouts differ from shop to shop, and a lot of chains now keep cards behind the counter or in a locked case, so ask a member of staff even if the shelf is empty."}},{"@type":"Question","name":"Does Dollar General sell Pokemon cards over MSRP?","acceptedAnswer":{"@type":"Answer","text":"On the listing we read August 17, 2026, the Pokemon Trading Card Game Mini Tin, Assorted was $12.00 on August 17, 2026 against a suggested $9.99, which is 1.2 times it. Each of those is a reading on the day named rather than a standing price, and prices move."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does Dollar General sell Pokemon cards?","acceptedAnswer":{"@type":"Answer","text":"Yes, in stores. Dollar General has a Pokemon category of its own under Toys & Games, and its Pokemon trading card listings say plainly that the item is not eligible for delivery."}},{"@type":"Question","name":"What Pokemon cards does Dollar General sell?","acceptedAnswer":{"@type":"Answer","text":"Small sealed only, so packs, blisters and tins rather than boxes. Packs, tins and repackaged formats: single packs, mini tins, three-booster tins, Poke Ball tins, a mini portfolio with a booster in it. Nothing box sized appeared on their site."}},{"@type":"Question","name":"Where in Dollar General are the Pokemon cards?","acceptedAnswer":{"@type":"Answer","text":"Dollar General files Pokemon under Toys & Games, so the toy aisle. Their stores are small enough that this is usually one short run of shelving. Layouts differ from shop to shop, and a lot of chains now keep cards behind the counter or in a locked case, so ask a member of staff even if the shelf is empty."}},{"@type":"Question","name":"Does Dollar General sell Pokemon cards over MSRP?","acceptedAnswer":{"@type":"Answer","text":"On the listing we read August 17, 2026, the Pokemon Trading Card Game Mini Tin, Assorted was $12.00 on August 17, 2026 against a suggested $9.99, which is 1.2 times it. Each of those is a reading on the day named rather than a standing price, and prices move."}}]}</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -274,11 +278,11 @@ gap:var(--s4) var(--s5);align-items:start}
       </div>
       <h1>Does Dollar General sell <span class="hl">Pokemon cards</span>?</h1>
       <p class="lede rt-lede">Yes, in stores. Dollar General has a Pokemon category of its own under Toys &amp; Games, and its Pokemon trading card listings say plainly that the item is not eligible for delivery.</p>
-      <p class="rt-src">Confirmed on August 17, 2026 by reading it on Dollar General's own website: Read the Pokemon TCG Mini Tin product page on dollargeneral.com, filed under the chain's own Toys &amp; Games then Pokemon category, with a price and a note that it cannot be delivered. https://www.dollargeneral.com/p/pokemon-trading-card-game-mini-tin-assorted/820650105838</p>
+      <p class="rt-src">Confirmed on August 17, 2026 by reading it on Dollar General's own website: Read the Pokemon TCG Mini Tin product page on dollargeneral.com, filed under the chain's own Toys &amp; Games then Pokemon category, with a price and a note that it cannot be delivered. <a class="rt-chk" href="https://www.dollargeneral.com/p/pokemon-trading-card-game-mini-tin-assorted/820650105838" rel="noopener" target="_blank" aria-label="The Dollar General page this was read on, opens on dollargeneral.com">Open the page on dollargeneral.com</a></p>
 
       <section class="rt-grp">
         <h2>What they <span class="hl">stock</span></h2>
-        <p class="rt-note"><b>Small sealed only, so packs, blisters and tins rather than boxes.</b> Small sealed and repackaged formats: single packs, mini tins, three-booster tins, Poke Ball tins, a mini portfolio with a booster in it. Nothing box sized appeared on their site.</p>
+        <p class="rt-note"><b>Small sealed only, so packs, blisters and tins rather than boxes.</b> Packs, tins and repackaged formats: single packs, mini tins, three-booster tins, Poke Ball tins, a mini portfolio with a booster in it. Nothing box sized appeared on their site.</p>
       <figure class="rt-fig rt-fmt">
         <ul class="rt-fmts">
           <li>
@@ -299,7 +303,7 @@ gap:var(--s4) var(--s5);align-items:start}
       <section class="rt-grp">
         <h2>Where in the <span class="hl">shop</span> to look</h2>
         <p class="rt-note">Dollar General files Pokemon under Toys &amp; Games, so the toy aisle. Their stores are small enough that this is usually one short run of shelving.</p>
-        <p class="rt-src">Read from The breadcrumb on their own category page: Dollar General, Toys &amp; Games, Pokemon.</p>
+        <p class="rt-src"><b>Where that was read.</b> The breadcrumb on their own category page: Dollar General, Toys &amp; Games, Pokemon.</p>
       </section>
 
       <div class="rt-key">
@@ -338,10 +342,11 @@ gap:var(--s4) var(--s5);align-items:start}
           can open and check. It is an example of the division rather than a score for the shop, and it will
           not be current for long. The suggested figures come from <a href="/msrp.html">the MSRP page</a>,
           which prices sealed product from Pokemon's own shop.</p>
+      <p class="rt-note rt-once">Sold by the shop itself: dollargeneral.com sells its own stock and runs no marketplace, and the product page names no other seller. Every figure below was read on the product page.</p>
       <ul class="rt-list">
         <li><b>Pokemon Trading Card Game Mini Tin, Assorted.</b> $12.00 asked against a suggested
           $9.99 for the Mini tin, so
-          12.00 &divide; 9.99 = 1.2. Sold by the shop itself: dollargeneral.com sells its own stock and runs no marketplace, and the product page names no other seller. Read on the product page, August 17, 2026, at https://www.dollargeneral.com/p/pokemon-trading-card-game-mini-tin-assorted/820650105838</li>
+          12.00 &divide; 9.99 = 1.2. Read August 17, 2026. <a class="rt-chk" href="https://www.dollargeneral.com/p/pokemon-trading-card-game-mini-tin-assorted/820650105838" rel="noopener" target="_blank" aria-label="Pokemon Trading Card Game Mini Tin, Assorted listing, opens on dollargeneral.com">Open the listing on dollargeneral.com</a></li>
       </ul>
         <figure class="rt-fig">
           <ul class="bch bch-2">
@@ -381,7 +386,7 @@ gap:var(--s4) var(--s5);align-items:start}
         </div>
       </section>
 
-      <p class="rt-src" style="margin-top:var(--s6)">The mini tin, its price, and the not eligible for delivery line: https://www.dollargeneral.com/p/pokemon-trading-card-game-mini-tin-assorted/820650105838, read August 17, 2026. The Toys &amp; Games then Pokemon breadcrumb, and that the delivery-eligible and in-stock filters return no results: https://www.dollargeneral.com/c/toys/pokemon, read August 17, 2026. Nothing here came from a comparison site, and no price is printed without saying who was
+      <p class="rt-src" style="margin-top:var(--s6)">The mini tin, its price, and the not eligible for delivery line, read August 17, 2026. <a class="rt-chk" href="https://www.dollargeneral.com/p/pokemon-trading-card-game-mini-tin-assorted/820650105838" rel="noopener" target="_blank" aria-label="Dollar General source 1, opens on dollargeneral.com">Open the page on dollargeneral.com</a> The Toys &amp; Games then Pokemon breadcrumb, and that the delivery-eligible and in-stock filters return no results, read August 17, 2026. <a class="rt-chk" href="https://www.dollargeneral.com/c/toys/pokemon" rel="noopener" target="_blank" aria-label="Dollar General source 2, opens on dollargeneral.com">Open the page on dollargeneral.com</a> Nothing here came from a comparison site, and no price is printed without saying who was
         selling. Prices and shop layouts move, so check before you rely on any of it.</p>
       <p class="rt-src">Company names and logos on this page are the trademarks of their owners and are used to identify the companies described. Nothing here is sponsored, affiliated or endorsed. Marks are mirrored from Wikimedia Commons, where each carries a public domain copyright tag; the venues with no mark have their name set in this site's own typeface instead.</p>
     </div>

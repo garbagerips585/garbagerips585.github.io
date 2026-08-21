@@ -170,7 +170,7 @@
         "url": "https://www.barnesandnoble.com/collections/toys-games/games/collectible-card-games-1",
         "read": "2026-08-17"
       },
-      "stocks": "Not establishable from the website, because the online collectible card list is not the shelf. All 37 items in that collection on the day it was read were Disney Lorcana, sports card boxes and Marvel Champions, with no Pokemon product among them, while the same page's own copy names Pokemon as something to come into a shop for.",
+      "stocks": "The online collectible card list is not the shelf. All 37 items in that collection on the day it was read were Disney Lorcana, sports card boxes and Marvel Champions, with no Pokemon product among them, while the same page's own copy names Pokemon as something to come into a shop for.",
       "stocksTier": "unknown",
       "whereInStore": "Barnes & Noble files collectible cards under Toys & Games, then Games, then Collectible Card Games, so the games and toys section rather than the book floor.",
       "whereSource": "The breadcrumb on that collection page: Home, Toys & Games, Games, Collectible Card Games.",
@@ -229,7 +229,7 @@
         "url": "https://www.cvs.com/shop/brand-shop/p/pokemon",
         "read": "2026-08-17"
       },
-      "stocks": "Small sealed only, on the day it was read: a mini tin, a Poke Ball tin with three packs and a coin, and a battle deck. No elite trainer box, booster bundle or booster box appeared. Treat CVS as somewhere you find a tin, not somewhere you find a box.",
+      "stocks": "On the day it was read that meant a mini tin, a Poke Ball tin with three packs and a coin, and a battle deck. No elite trainer box, booster bundle or booster box appeared. Treat CVS as somewhere you find a tin, not somewhere you find a box.",
       "stocksTier": "small",
       "whereInStore": "CVS files Pokemon under Household, then Toys & Books, and again under Baby & Kids, then Gifts & Toys, so the toy aisle rather than anywhere near the pharmacy counter.",
       "whereSource": "The category paths CVS's own site puts its Pokemon products under: /shop/household/toys-books/ and /shop/baby-kids/gifts-toys/.",
@@ -258,7 +258,7 @@
         "url": "https://www.dollargeneral.com/p/pokemon-trading-card-game-mini-tin-assorted/820650105838",
         "read": "2026-08-17"
       },
-      "stocks": "Small sealed and repackaged formats: single packs, mini tins, three-booster tins, Poke Ball tins, a mini portfolio with a booster in it. Nothing box sized appeared on their site.",
+      "stocks": "Packs, tins and repackaged formats: single packs, mini tins, three-booster tins, Poke Ball tins, a mini portfolio with a booster in it. Nothing box sized appeared on their site.",
       "stocksTier": "small",
       "whereInStore": "Dollar General files Pokemon under Toys & Games, so the toy aisle. Their stores are small enough that this is usually one short run of shelving.",
       "whereSource": "The breadcrumb on their own category page: Dollar General, Toys & Games, Pokemon.",
@@ -384,7 +384,7 @@
         "url": "https://www.staples.com/pokemon+trading+cards/directory_pokemon+trading+cards",
         "read": "2026-08-17"
       },
-      "stocks": "Repackaged assortments only. A 40 card pack at $9.89 and a 10 card pack at $4.39, both from a third-party packager, sitting beside the same packager's baseball, basketball and football packs.",
+      "stocks": "A 40 card pack at $9.89 and a 10 card pack at $4.39, both from a third-party packager, sitting beside the same packager's baseball, basketball and football packs.",
       "stocksTier": "repack",
       "whereInStore": "Not establishable. Staples publishes no department for these beyond the search that found them.",
       "whereSource": "",

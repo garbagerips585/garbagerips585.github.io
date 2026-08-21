@@ -390,10 +390,25 @@ const priceRow = (x) => {
 // omitted is indistinguishable from a retailer we never looked at.
 const noPrice = retailers.filter((r) => !readingsFor(r.id).length);
 
-const table = () => `      <div class="cc-scroll" tabindex="0" role="region"
+/* THE 56ch CAP BELOW FIXED THE DESKTOP HALF OF THIS AND LEFT THE PHONE HALF
+   BROKEN, which is worth knowing before somebody reaches for a smaller number.
+   56ch measures 514px at --t-sm, and the .cc-scroll box is 352px at 390x844, so
+   162px of the line sat off the right edge: "...with the suggested figur" and
+   then a cut. A cap cannot fix it at any value, because a <caption> is laid out
+   at its TABLE's width and .rt-table is min-width:920px; the cap only ever
+   chooses how much of an off-screen box gets used.
+   So the visible line moves OUT of the scroller, where it wraps to the
+   viewport, and the <caption> stays as .sr-only so the table keeps its
+   accessible name. Same fix, same day, in build-openings.mjs and
+   build-grade-check.mjs, and the shape is
+   /first-partner-illustration-collection.html's, which is the only data table
+   on the site that never had this. */
+const table = () => `      <p class="rt-tcap">Every price this site has read on a physical retailer's own site, with the
+        suggested figure beside it. Ordered by shop name.</p>
+      <div class="cc-scroll" tabindex="0" role="region"
         aria-label="Prices read at physical retailers, scrollable">
         <table class="cc-table rt-table">
-          <caption class="rt-cap">Every price this site has read on a physical retailer's own site, with the
+          <caption class="sr-only">Every price this site has read on a physical retailer's own site, with the
             suggested figure beside it. Ordered by shop name.</caption>
           <thead>
             <tr>
@@ -548,6 +563,64 @@ const TIER = {
   unknown: "Not establishable from their website",
 };
 
+/* FOUR ENTRIES SAID THEIR OWN TIER TWICE IN A ROW, and it reads as a stutter
+   because it IS one: the chip is generated from `stocksTier` and the sentence
+   after it was written by hand by somebody who could not see the chip.
+
+       CVS       "Small sealed only, so packs, blisters and tins rather than
+                  boxes. SMALL SEALED ONLY, on the day it was read: a mini tin..."
+       B&N       "Not establishable from their website. NOT ESTABLISHABLE FROM
+                  THE WEBSITE, because the online collectible card list is..."
+       Staples   "Repackaged assortments rather than product published by
+                  Pokemon. REPACKAGED ASSORTMENTS ONLY. A 40 card pack at..."
+       Dollar G  "Small sealed only, so packs... SMALL SEALED and repackaged
+                  formats: single packs..."
+
+   Fixed in data/retailers.json, not here, because the duplication is in the
+   researched sentence and a builder that strips words off researched prose is a
+   builder that will one day strip the wrong ones. Not one fact moved: each edit
+   deletes a restatement of the chip above it and nothing else.
+
+   THE GUARD IS THE POINT, because this will be written again the next time
+   somebody adds a shop: they will be looking at the JSON, where the chip is a
+   two-letter tier key, and the sentence that reads correctly in the file is the
+   one that repeats on the page. It throws rather than warns, for the reason
+   checkMapping() in build-topps.mjs throws: a warning in a 65-builder run is a
+   line nobody reads.
+
+   THE THRESHOLD IS TWO CONTENT WORDS and it is a floor rather than a judgement.
+   Articles and "so" are dropped before comparing, since "from THEIR website"
+   and "from THE website" are the same words being said twice. Two is low enough
+   to have caught all four and high enough that a genuine shared opening
+   ("The full sealed range" on Target and Walmart, against a chip that also
+   starts "The bigger") never trips it: those measure 0 because the chip's own
+   first content word is "bigger". */
+const TIER_STOP = new Set(["the", "their", "its", "a", "an", "so", "of"]);
+const contentWords = (s) =>
+  String(s || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9 ]+/g, " ")
+    .split(/\s+/)
+    .filter((w) => w && !TIER_STOP.has(w));
+
+for (const r of retailers) {
+  if (!r.stocks) continue;
+  const label = contentWords(TIER[r.stocksTier] || TIER.unknown);
+  const prose = contentWords(r.stocks);
+  let shared = 0;
+  while (shared < label.length && shared < prose.length && label[shared] === prose[shared]) shared++;
+  if (shared >= 2) {
+    throw new Error(
+      `build-retailers: "${r.name}" prints its stock tier twice in a row.\n` +
+        `  The chip says: ${TIER[r.stocksTier] || TIER.unknown}.\n` +
+        `  "stocks" then opens: ${String(r.stocks).slice(0, 80)}...\n` +
+        `  The first ${shared} words are the same, so the page reads as a stutter. The chip is\n` +
+        `  generated and the sentence is yours: start the sentence AFTER the restatement, in\n` +
+        `  data/retailers.json. Do not widen this check to make a sentence pass.`
+    );
+  }
+}
+
 // ---------------------------------------------------------------- the styles
 //
 // Comments out of the shipped page, argument kept here. Same trade build-css.mjs
@@ -626,7 +699,7 @@ const STYLE = `
    the same fault build-buying.mjs found on .by-src, one element along. 56ch is
    the number that file measured as landing on about 80 real characters at this
    size, so it is reused rather than guessed at again. */
-.rt-cap{caption-side:top;text-align:left;padding:12px 14px;font-size:var(--t-sm);
+.rt-tcap{margin:0 0 var(--s2);font-size:var(--t-sm);
   line-height:1.5;color:var(--ink-2);max-width:56ch}
 .rt-gaps{margin-top:var(--s4);border-left:4px solid var(--gold);padding-left:var(--s3);max-width:46em}
 .rt-gaps h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:var(--s2)}
@@ -703,6 +776,27 @@ const STYLE = `
 .rt-list{margin:var(--s4) 0 0 var(--s4);max-width:46em;line-height:1.55;overflow-wrap:anywhere}
 .rt-list li{margin-bottom:var(--s3)}
 .rt-list b{color:var(--ink)}
+/* THE OVERFLOW NOTE ABOVE IS STILL LOAD BEARING and it is no longer the whole
+   story: the addresses are LINKS now (see srcLink) and a link's visible text is
+   "Open the listing on gamestop.com", which breaks at its spaces like any other
+   phrase. overflow-wrap:anywhere stays anyway, because the research files can
+   still carry a long unbroken string in a note and the cost of keeping it is
+   nothing.
+   44px OF HEIGHT, WHICH IS THE SHAPE HALF OF THE OUTBOUND RULE. This is the
+   only outbound control on the page and it sits at the end of a row whose whole
+   text is internal reading; the footer's Collectr link failed exactly this test
+   as an 18px line beside four 44px buttons, and that is written down in
+   CLAUDE.md. inline-flex rather than block so it stays in the flow of the
+   sentence it ends.
+   --gold-deep AND NOT --gold, because this is small type. Read CLAUDE.md's
+   accent rule rather than the token name: every token spelling "gold" is a
+   TEAL, teal is every route, and #81BEDE is the one that clears 4.5:1 at body
+   sizes where #609CBB does not. */
+.rt-chk{display:inline-flex;align-items:center;min-height:44px;gap:6px;
+  color:var(--gold-deep);text-decoration:underline;text-underline-offset:3px;font-weight:700}
+.rt-chk::after{content:"\\2197";text-decoration:none;font-weight:400}
+/* The sentence every reading on the page shared, said once above them. */
+.rt-once{margin-top:var(--s4)}
 .rt-a,.rt-c dd{overflow-wrap:anywhere}
 .rt-note{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);max-width:46em;margin-top:var(--s3);
   overflow-wrap:anywhere}
@@ -838,7 +932,21 @@ const dirCard = (r) => {
             }</dd>
           </dl>
           ${r.page ? `<a class="rt-more" href="${pathOf(r)}">Does ${esc(r.name)} sell Pokemon cards?</a>` : ""}
-          <p class="rt-src">Confirmed by reading ${esc(r.confirmed.url)} on ${esc(longDate(r.confirmed.read))}.</p>
+          ${/* THE SAME ADDRESS THIS CARD'S OWN PAGE NOW LINKS. It was printed bare
+                 here and linked there, which is precisely the inconsistency
+                 CLAUDE.md complains about between /top-graded.html and
+                 /most-valuable-cards.html: one source, two treatments, decided in
+                 two places. Both are the same labelled control now. The "Where it
+                 was read" COLUMN in the table above is deliberately still plain
+                 text and has its own argument beside .rt-url. */ ""}<p class="rt-src">Confirmed by reading their own site on ${esc(longDate(r.confirmed.read))}. ${
+            hostOf(r.confirmed.url)
+              ? `<a class="rt-chk" href="${esc(r.confirmed.url)}" rel="noopener" target="_blank" aria-label="The ${esc(
+                  r.name
+                )} page this was read on, opens on ${esc(hostOf(r.confirmed.url))}">Open the page on ${esc(
+                  hostOf(r.confirmed.url)
+                )}</a>`
+              : ""
+          }</p>
         </article>`;
 };
 
@@ -977,7 +1085,13 @@ ${(R.couldNotRead || [])
   .map(
     (c) => `          <li><b>${esc(c.name)}.</b> ${esc(cnrLabel[c.kind] || "")}. ${esc(c.why)} Checked ${esc(
       longDate(c.read)
-    )} at ${esc(c.url)}</li>`
+    )}. ${
+      hostOf(c.url)
+        ? `<a class="rt-chk" href="${esc(c.url)}" rel="noopener" target="_blank" aria-label="The ${esc(
+            c.name
+          )} search this was checked on, opens on ${esc(hostOf(c.url))}">Open the page on ${esc(hostOf(c.url))}</a>`
+        : ""
+    }</li>`
   )
   .join("\n")}
         </ul>
@@ -1088,13 +1202,97 @@ const faq = (r, rs) => {
   };
 };
 
+// The bare host, for the "opens on <host>" half of an outbound aria-label.
+// Falls back to the empty string rather than throwing: a malformed url in the
+// research should cost a label, not the build. Same helper, same wording, as
+// build-shows.mjs and build-locals.mjs.
+// A FUNCTION DECLARATION, NOT A const ARROW, and that is load bearing rather
+// than style: this file's page builders run at module top level and dirCard()
+// above calls it, so a const here is in the temporal dead zone at the moment it
+// is needed and the build dies with "Cannot access 'hostOf' before
+// initialization". A declaration hoists.
+function hostOf(u) {
+  try {
+    return new URL(u).host.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+}
+
+/* THIRTY-FIVE BARE URLS WERE PRINTED IN BODY COPY ACROSS THESE NINE PAGES AND
+   NONE OF THEM WAS A LINK. Seven on gamestop, five on target, four each on cvs,
+   meijer, five-below and dollar-general, three on walmart, two each on best-buy
+   and barnes-and-noble. The worst of them is 130 characters and wrapped across
+   three lines of a sentence at 390px, so the thing a reader most wants to do
+   with a price citation, open it, was the one thing the page would not let them
+   do, while the citation itself was the widest object in the paragraph.
+
+   THE OUTBOUND TEST IN CLAUDE.md, APPLIED HONESTLY: "does the READER need the
+   destination, or does the SOURCE deserve a credit?" This is the sixth
+   exception's own argument and not a new one. Every one of these rows is a
+   PRICE READ ON A DATE, and that file says in as many words that a figure like
+   that is only worth publishing if a reader can check whether it still holds.
+   The address was already printed in full, so nothing is being disclosed that
+   was not; what changes is that it is now tappable instead of being 130
+   characters of unwrapped text.
+
+   THE SHAPE IS THE MITIGATION, exactly as for the row links on
+   /most-valuable-cards.html. It is a small labelled control at the END of the
+   row, after the whole reading, never mid sentence; every large tap target on
+   these pages is internal (the breadcrumb, the MSRP page, the format cards,
+   the other retailers); and each carries an aria-label saying it leaves the
+   site, in the site's own ", opens on <host>" wording.
+
+   THE ARGUMENT IS ALSO WRITTEN IN CLAUDE.md, in the same edit, because that
+   file spends four paragraphs on what happens when an arguable link is added
+   quietly in one builder instead.
+
+   NOT LINKED, AND DELIBERATELY: the "Where it was read" column on
+   /retailers.html prints the same addresses as plain text, and the note beside
+   .rt-url below argues its own case about column width. That is a table cell
+   rather than body copy and it was left alone. */
+const srcLink = (x) => {
+  const host = hostOf(x.url);
+  if (!host) return "";
+  return `<a class="rt-chk" href="${esc(x.url)}" rel="noopener" target="_blank" aria-label="${esc(
+    x.product
+  )} listing, opens on ${esc(host)}">Open the listing on ${esc(host)}</a>`;
+};
+
 const readingBlock = (r, rs) => {
   if (!rs.length) {
     return `      <p class="rt-note">${esc(
       r.priceNote || `This site holds no price reading from ${r.name}, and an empty cell is the honest answer rather than a borrowed number.`
     )} The suggested figures to measure any price against are on <a href="/msrp.html">the MSRP page</a>.</p>`;
   }
-  return `      <ul class="rt-list">
+  /* THE SAME 43 WORDS, FIVE TIMES IN A ROW ON /retailers/gamestop.html. Every
+     row printed its own "Sold by the shop itself: the GameStop product page
+     names no third-party seller, and GameStop runs no marketplace for new
+     sealed product. Read on the product page", and all five readings carry the
+     SAME seller, the same sellerHow and the same `on`. Checked across the whole
+     merged corpus rather than assumed: all seven retailers with readings have
+     exactly ONE seller/sellerHow/on triple each (cvs 2 rows, gamestop 5,
+     meijer 2, target 2, three more with 1), so hoisting it loses nothing on any
+     page the site has today.
+     It is hoisted only when it IS identical. A retailer whose rows ever
+     disagree keeps the sentence per row, because the alternative is a page that
+     says "sold by the shop itself" over a marketplace listing. */
+  const same = (f) => rs.every((x) => f(x) === f(rs[0]));
+  const oneSeller = same((x) => `${x.seller}|${x.sellerHow}`);
+  const oneOn = same((x) => x.on);
+  const sellerLine = (x) =>
+    `Sold by ${x.seller === "first-party" ? "the shop itself" : "a marketplace seller"}: ${esc(x.sellerHow)}.`;
+
+  return `${oneSeller || oneOn ? `      <p class="rt-note rt-once">${
+    oneSeller ? sellerLine(rs[0]) : ""
+  }${oneSeller && oneOn ? " " : ""}${
+    oneOn
+      ? `Every figure below was read on ${esc(rs[0].on)}${
+          rs.length > 1 ? `, one listing at a time` : ""
+        }.`
+      : ""
+  }</p>
+` : ""}      <ul class="rt-list">
 ${rs
   .map(
     (x) => `        <li><b>${esc(x.product)}.</b> ${esc(moneyExact(x.amount))} asked against a suggested
@@ -1117,9 +1315,9 @@ ${rs
           }, so
           ${esc(x.amount.toFixed(2))} &divide; ${esc(x.base.toFixed(2))} = ${esc(
             multStr(x.amount / x.base)
-          )}. Sold by ${
-            x.seller === "first-party" ? "the shop itself" : "a marketplace seller"
-          }: ${esc(x.sellerHow)}. Read on ${esc(x.on)}, ${esc(longDate(x.read))}, at ${esc(x.url)}</li>`
+          )}.${oneSeller ? "" : ` ${sellerLine(x)}`} Read${
+            oneOn ? "" : ` on ${esc(x.on)}`
+          } ${esc(longDate(x.read))}. ${srcLink(x)}</li>`
   )
   .join("\n")}
       </ul>
@@ -1152,9 +1350,19 @@ ${MENU}
       </div>
       <h1>Does ${esc(r.name)} sell <span class="hl">Pokemon cards</span>?</h1>
       <p class="lede rt-lede">${esc(r.answer)}</p>
-      <p class="rt-src">Confirmed on ${esc(longDate(r.confirmed.read))} by reading it on ${esc(
+      ${/* The tenth bare url on these pages, and the only one outside the price
+             list. Same treatment and same argument as srcLink above: it is a
+             source line, the address is the whole point of it, and a labelled
+             control at the end of the line beats 90 characters of unwrapped
+             text in the middle of one. */ ""}<p class="rt-src">Confirmed on ${esc(longDate(r.confirmed.read))} by reading it on ${esc(
         r.name
-      )}'s own website: ${esc(r.confirmed.how)} ${esc(r.confirmed.url)}</p>
+      )}'s own website: ${esc(r.confirmed.how)} <a class="rt-chk" href="${esc(
+        r.confirmed.url
+      )}" rel="noopener" target="_blank" aria-label="The ${esc(
+        r.name
+      )} page this was read on, opens on ${esc(hostOf(r.confirmed.url))}">Open the page on ${esc(
+        hostOf(r.confirmed.url)
+      )}</a></p>
 
       <section class="rt-grp">
         <h2>What they <span class="hl">stock</span></h2>
@@ -1165,7 +1373,31 @@ ${formatStrip(r, fmts)}
 ${r.whereInStore ? `      <section class="rt-grp">
         <h2>Where in the <span class="hl">shop</span> to look</h2>
         <p class="rt-note">${esc(r.whereInStore)}</p>
-        <p class="rt-src">Read from ${esc(r.whereSource)}</p>
+        ${/* A CAPITAL LETTER IN THE MIDDLE OF A SENTENCE, ON EIGHT OF THE NINE
+              RETAILER PAGES. This read "Read from" followed by whereSource
+              interpolated straight in, and every
+              whereSource in data/retailers.json is written as a SENTENCE
+              because that is what it is: "The category paths CVS's own site
+              puts its Pokemon products under: ...", "The breadcrumb on their
+              own product pages: Target, Toys & Games, Trading Cards." Spliced
+              after "Read from" they printed "Read from The category paths ..."
+              on cvs, target, meijer, five-below, dollar-general, gamestop,
+              best-buy and barnes-and-noble. Only walmart read right, and only
+              because its value happens to start with a proper noun.
+
+              LOWERCASING THE FIRST LETTER IS THE WRONG FIX AND THIS FILE
+              ALREADY SAYS SO one function down, where baseLabel is deliberately
+              NOT lowercased because half of those labels contain a proper noun.
+              The same is true here: walmart's starts with "Walmart's" and
+              dollar-general's with "The breadcrumb on their own category page:
+              Dollar General, ..." A first-letter test cannot tell those apart.
+
+              So the value stops being spliced into somebody else's sentence and
+              becomes its own, behind a bolded label, which is the shape
+              build-selling.mjs uses for exactly this: a bolded "If it goes
+              wrong." followed by the venue's own protection sentence. The label
+              ends in a full stop, the data starts a new sentence, and whatever
+              it starts with is correct. */ ""}<p class="rt-src"><b>Where that was read.</b> ${esc(r.whereSource)}</p>
       </section>` : ""}
 
       <div class="rt-key">
@@ -1213,8 +1445,27 @@ ${siblings(r)
         </div>
       </section>
 
-      <p class="rt-src" style="margin-top:var(--s6)">${(r.sources || [])
-        .map((s) => `${esc(s.what)}: ${esc(s.url)}, read ${esc(longDate(s.read))}.`)
+      ${/* THE PAGE-FOOT SOURCE LINE, which held the LAST bare url on these nine
+             pages: 14 of them across the family, one to three per page, sitting
+             between a colon and a comma in the middle of a sentence. Same
+             treatment as srcLink and the confirmed line above, and the same
+             argument. The read date moves in front of the link so the sentence
+             still ends on the control rather than on a date. */ ""}<p class="rt-src" style="margin-top:var(--s6)">${(r.sources || [])
+        .map(
+          (s, i) =>
+            `${esc(s.what)}, read ${esc(longDate(s.read))}. ${
+              hostOf(s.url)
+                ? `<a class="rt-chk" href="${esc(s.url)}" rel="noopener" target="_blank" aria-label="${esc(
+                    /* SHORT, NOT THE WHOLE CLAUSE. `what` runs to 180 characters
+                       on Target's second source, and an accessible name that long
+                       is read out in full before the reader learns where the link
+                       goes. Same shape build-selling.mjs settled on for its own
+                       numbered source links. */
+                    `${r.name} source ${i + 1}`
+                  )}, opens on ${esc(hostOf(s.url))}">Open the page on ${esc(hostOf(s.url))}</a>`
+                : ""
+            }`
+        )
         .join(" ")} Nothing here came from a comparison site, and no price is printed without saying who was
         selling. Prices and shop layouts move, so check before you rely on any of it.</p>
       <p class="rt-src">${BRAND_CREDIT}</p>

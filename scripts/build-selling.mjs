@@ -59,7 +59,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, plateRule, PLATE_CSS } from "../shared/format.mjs";
+import { esc, longDate, plateRule, PLATE_CSS, sentenceStart } from "../shared/format.mjs";
 import { brandMark, PROT_MARK, BRAND_CREDIT, BRAND_STYLE } from "../shared/brands.mjs";
 import { localDay } from "../shared/today.mjs";
 
@@ -122,9 +122,20 @@ const STATUS = {
   structural: { label: "No platform fee", cls: "ok" },
 };
 
+/* 65 OF THESE 66 LINES PRINTED A CAPITAL LETTER MID SENTENCE. Same fault, same
+   fix and the same day as costRow in build-buying.mjs: this was "on" followed by
+   appliesTo, and appliesTo is a sentence-cased phrase in data/selling.json, so
+   the page read "on Each order, where an order is any number of items bought by
+   the same buyer" and 64 more like it. The value is its own sentence now, behind
+   a bolded label, which is the shape the protection and conditions lines further
+   down this same file already use.
+   THE ONE ROW THAT WAS RIGHT IS WHY sentenceStart EXISTS: Mercari's Buyer
+   Protection fee reads "the item price and buyer-paid shipping", lowercase,
+   while its 65 siblings are capitalised. Raising a lowercase letter is safe;
+   lowering a capital is not, because half of these open on a proper noun. */
 const feeRow = (f) => `        <li>
           <b>${esc(f.what)}</b> ${esc(f.rate)}
-          ${f.appliesTo ? `<span class="se-on">on ${esc(f.appliesTo)}</span>` : ""}
+          ${f.appliesTo ? `<span class="se-on"><b>Applies to.</b> ${esc(sentenceStart(f.appliesTo))}</span>` : ""}
           ${f.note ? `<span class="se-nt">${esc(f.note)}</span>` : ""}
         </li>`;
 
@@ -759,6 +770,8 @@ ${BRAND_STYLE}
 .se-fees{list-style:none;margin:var(--s3) 0 0;padding:0;display:flex;flex-direction:column;gap:var(--s2)}
 .se-fees li{font-size:var(--t-sm);line-height:1.45;padding-left:var(--s3);border-left:3px solid var(--gold)}
 .se-on,.se-nt{display:block;color:var(--ink-2);font-size:var(--t-micro);margin-top:2px}
+/* The "Applies to." label on .se-on, matching .by-on b on /buying.html. */
+.se-on b{color:var(--ink)}
 .se-p ul{margin:var(--s2) 0 0 var(--s4);font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
 .se-lbl{font-size:var(--t-sm);margin-top:var(--s3)}
 /* "COVERS." AGAINST "DOES NOT COVER." was green text against --ketchup-deep,

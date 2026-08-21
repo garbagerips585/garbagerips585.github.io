@@ -16,7 +16,7 @@ import { SITE, DOMAIN, STAGING, LIVE } from "../shared/site.mjs";
 import { basename, join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { checkDrift } from "../shared/chrome.mjs";
-import { esc, MONTHS_SHORT as MONTHS, moneyCompact, imgDims, viewCount, avifPicture, packTileImg, longDate, RIP_BANNER } from "../shared/format.mjs";
+import { esc, MONTHS_SHORT as MONTHS, moneyCompact, imgDims, viewCount, avifPicture, packTileImg, longDate, noWidowEmoji, RIP_BANNER } from "../shared/format.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 // The sourcing sentence for a raw card price, and the "which of the two dates
 // in that file is the money's" helper. NOT re-worded here: this page prints the
@@ -39,6 +39,7 @@ import {
 // features. BRAND_STYLE_MIN rather than BRAND_STYLE because this band can only
 // ever draw one company mark per row; see the note on it in shared/brands.mjs.
 import { brandMark, BRAND_STYLE_MIN } from "../shared/brands.mjs";
+import { daysSince } from "../shared/today.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 // The live home page and the prototype share one design and one generator, so
@@ -546,7 +547,13 @@ const agoTag = (iso, cls) =>
  */
 function newestLabel(iso) {
   if (!iso) return "Latest Rip";
-  const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+  // LOCAL DAYS, NOT AN INSTANT MINUS A UTC MIDNIGHT. This read
+  // `Date.now() - new Date(iso)`, which crosses a whole number at UTC midnight
+  // -- 8pm here -- so the badge on a video uploaded today flipped to
+  // "Yesterday's Rip" every evening. daysSince reduces both sides to a local
+  // calendar date first. See shared/today.mjs.
+  const days = daysSince(iso);
+  if (days == null) return "Latest Rip";
   if (days <= 0) return "Today's Rip";
   if (days === 1) return "Yesterday's Rip";
   return "Latest Rip";
@@ -1584,7 +1591,17 @@ function plTile(p, i) {
   // playlist with no path has no page and renders as a card, not a dead link.
   const body =
     thumb +
-    `<span class="pl-body"><b class="pl-title">${esc(p.title)}</b>` +
+    `<span class="pl-body"><b class="pl-title">${
+      /* A LONE EMOJI ON ITS OWN LINE, on two of the first three cards at 390px.
+         "Pitch Black ETB Opening Marathon 🛡️💎" broke between the two emoji and
+         put "💎" on line two by itself, inside a .pl-title that is
+         -webkit-line-clamp:2, so a widow does not just look wrong, it spends
+         half the card's title. The emoji are Tim's own titles and none of them
+         is dropped: noWidowEmoji binds the run to the word before it.
+         THE aria-label BELOW STILL TAKES THE PLAIN TITLE. It is text, not
+         markup, and a span in it would be read out. */
+      noWidowEmoji(esc(p.title))
+    }</b>` +
     `<span class="pl-count">${p.count}${p.count === 1 ? " video" : " videos"}</span>` +
     (p.path ? `<span class="pl-out">Open the playlist</span>` : "") +
     `</span>`;

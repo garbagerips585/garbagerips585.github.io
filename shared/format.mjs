@@ -151,6 +151,66 @@ export const plural = (n, one, many) => (Number(n) === 1 ? one : many ?? `${one}
 export const count = (n, one, many) => `${n} ${plural(n, one, many)}`;
 
 /**
+ * Keep a trailing emoji from landing on a line of its own.
+ *
+ * TIM'S PLAYLIST TITLES END IN EMOJI AND THE EMOJI ARE HIS, so the fix is never
+ * to drop one. "Pitch Black ETB Opening Marathon 🛡️💎" wrapped at 390px into
+ * "...Marathon 🛡️" and then a second line holding "💎" and nothing else, on two
+ * of the first three cards on /playlists.html. There is a line break
+ * OPPORTUNITY between two adjacent emoji as well as at the space before them,
+ * so a run of two can split from its title AND from itself.
+ *
+ * This binds every emoji run to the word in front of it with a non-breaking
+ * space and makes the run itself unbreakable. The cost is that the last word
+ * travels with the emoji, which is the standard widow fix and is what you want:
+ * "Marathon 🛡️💎" moving down together reads as a title, "💎" alone reads as a
+ * rendering fault.
+ *
+ * TAKES AND RETURNS ESCAPED HTML, and does NOT escape for you. It runs over
+ * text that has already been through esc(), so `&amp;` and `&#39;` are just
+ * characters in a word to it; escaping again here would double-encode them.
+ * Give it esc(title) and put the result somewhere that takes markup. NEVER give
+ * the result to an aria-label or a <title>, which are text and would print the
+ * span.
+ */
+const EMOJI_RUN = /(\S+)\s+((?:\p{Extended_Pictographic}|️|‍|[\u{1F3FB}-\u{1F3FF}])+)/gu;
+
+export const noWidowEmoji = (escaped) =>
+  String(escaped ?? "").replace(
+    EMOJI_RUN,
+    (_, word, run) => `<span class="nowid">${word}&nbsp;${run}</span>`
+  );
+
+/**
+ * A researched string, made safe to START a sentence.
+ *
+ * THE DIRECTION IS THE WHOLE POINT AND IT IS ONE WAY ONLY. Every page on this
+ * site splices values out of the research JSON into prose, and those values are
+ * written by whoever read the source, so half of them are sentence-cased and half
+ * are not. Two pages tried to fix that by LOWERCASING a leading capital and both
+ * were wrong: build-retailers.mjs records that lowercasing a product label turned
+ * "Poke Ball Tin" into "poke ball tin", and the retailer sources this was written
+ * for include "Walmart's own category links" and "Dollar General, Toys & Games,
+ * Pokemon". A first-letter test cannot tell a sentence capital from a proper
+ * noun, so nothing here may ever remove one.
+ *
+ * Raising a leading LOWERCASE letter is safe in the other direction, because a
+ * lowercase first letter is never a proper noun. So the rule is: put the value
+ * where a sentence begins (after a bolded label that ends in a full stop, which
+ * is build-selling.mjs's shape) and call this. Never splice it mid sentence and
+ * never lowercase it.
+ *
+ * Deliberately leaves anything that is not an ASCII lowercase letter alone: a
+ * value opening with a digit, a dollar sign or a quotation mark is already
+ * correct and "capitalising" it is a no-op the caller should not have to think
+ * about.
+ */
+export const sentenceStart = (s) => {
+  const v = String(s ?? "");
+  return /^[a-z]/.test(v) ? v[0].toUpperCase() + v.slice(1) : v;
+};
+
+/**
  * The site's "this cell has no value" placeholder.
  *
  * A bare em dash is fine to LOOK at and useless to LISTEN to. VoiceOver and NVDA

@@ -31,7 +31,7 @@ import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 import { slugify } from "../shared/paths.mjs";
-import { esc, longDate, shortDate, viewCount, imgDims, packTileImg, RIP_BANNER } from "../shared/format.mjs";
+import { esc, longDate, shortDate, viewCount, imgDims, packTileImg, noWidowEmoji, RIP_BANNER } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/playlists");
@@ -849,7 +849,11 @@ ${MENU}
       <nav class="crumbs" aria-label="Breadcrumb">
         <a href="/">Home</a> / <a href="/playlists.html">Playlists</a> / <span>${esc(p.title)}</span>
       </nav>
-      <h1>${esc(p.title)}</h1>
+      ${/* Same widow as the card on /playlists.html, and worse here: the h1 is
+           display type, so a trailing emoji alone on a line is a whole line of
+           Titan One holding one glyph. noWidowEmoji binds the run to the word
+           in front of it and drops nothing. The breadcrumb above keeps the
+           plain title, because a crumb is one line and never wraps to two. */ ""}<h1>${noWidowEmoji(esc(p.title))}</h1>
 ${strip}
       <div class="lede pl-blurb" style="max-width:44em">${
         desc ? blurbHtml(desc) : `<p>${vids.length} rip${vids.length === 1 ? "" : "s"}, in playlist order.</p>`

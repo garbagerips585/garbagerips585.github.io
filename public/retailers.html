@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=8ca5ed5c">
+<link rel="stylesheet" href="/assets/ui.css?v=13927e47">
 <style>.rt-lede{max-width:46em}
 .rt-key{border:3px solid var(--keyline);border-radius:12px;background:var(--band-bg);color:var(--chrome-ink);
 padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
@@ -62,7 +62,7 @@ text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
 .rt-th{display:flex;align-items:center;min-height:44px;color:inherit}
 .rt-url{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
 overflow-wrap:anywhere;word-break:break-all;max-width:280px}
-.rt-cap{caption-side:top;text-align:left;padding:12px 14px;font-size:var(--t-sm);
+.rt-tcap{margin:0 0 var(--s2);font-size:var(--t-sm);
 line-height:1.5;color:var(--ink-2);max-width:56ch}
 .rt-gaps{margin-top:var(--s4);border-left:4px solid var(--gold);padding-left:var(--s3);max-width:46em}
 .rt-gaps h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:var(--s2)}
@@ -101,6 +101,10 @@ overflow-wrap:anywhere}
 .rt-list{margin:var(--s4) 0 0 var(--s4);max-width:46em;line-height:1.55;overflow-wrap:anywhere}
 .rt-list li{margin-bottom:var(--s3)}
 .rt-list b{color:var(--ink)}
+.rt-chk{display:inline-flex;align-items:center;min-height:44px;gap:6px;
+color:var(--gold-deep);text-decoration:underline;text-underline-offset:3px;font-weight:700}
+.rt-chk::after{content:"\2197";text-decoration:none;font-weight:400}
+.rt-once{margin-top:var(--s4)}
 .rt-a,.rt-c dd{overflow-wrap:anywhere}
 .rt-note{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);max-width:46em;margin-top:var(--s3);
 overflow-wrap:anywhere}
@@ -334,14 +338,14 @@ gap:var(--s4) var(--s5);align-items:start}
           <p class="rt-a">Yes, in stores. Barnes &amp; Noble's own collectible card page says your local B&amp;N is the best place to find collectible cards including Pokemon, and tells you to find a store to shop the selection.</p>
           <dl>
             <dt>What they stock</dt>
-            <dd>Not establishable from their website. Not establishable from the website, because the online collectible card list is not the shelf. All 37 items in that collection on the day it was read were Disney Lorcana, sports card boxes and Marvel Champions, with no Pokemon product among them, while the same page's own copy names Pokemon as something to come into a shop for.</dd>
+            <dd>Not establishable from their website. The online collectible card list is not the shelf. All 37 items in that collection on the day it was read were Disney Lorcana, sports card boxes and Marvel Champions, with no Pokemon product among them, while the same page's own copy names Pokemon as something to come into a shop for.</dd>
             <dt>Where to look</dt><dd>Barnes &amp; Noble files collectible cards under Toys &amp; Games, then Games, then Collectible Card Games, so the games and toys section rather than the book floor.</dd>
             
             <dt>Prices we have read</dt>
             <dd>We hold no price reading from Barnes &amp; Noble. No Pokemon trading card product appeared in their online collectible card collection on the day it was read, so there was no listed figure to record.</dd>
           </dl>
           <a class="rt-more" href="/retailers/barnes-and-noble.html">Does Barnes &amp; Noble sell Pokemon cards?</a>
-          <p class="rt-src">Confirmed by reading https://www.barnesandnoble.com/collections/toys-games/games/collectible-card-games-1 on August 17, 2026.</p>
+          <p class="rt-src">Confirmed by reading their own site on August 17, 2026. <a class="rt-chk" href="https://www.barnesandnoble.com/collections/toys-games/games/collectible-card-games-1" rel="noopener" target="_blank" aria-label="The Barnes &amp; Noble page this was read on, opens on barnesandnoble.com">Open the page on barnesandnoble.com</a></p>
         </article>
         <article class="rt-c" id="bestbuy">
           <div class="rt-ch">
@@ -359,7 +363,7 @@ gap:var(--s4) var(--s5);align-items:start}
             <dd>We hold no price reading from Best Buy. The prices on their search results were well above the suggested figure, and we could not establish from that page whether the seller was Best Buy or a marketplace partner, so nothing was recorded rather than a number attributed to the wrong company.</dd>
           </dl>
           <a class="rt-more" href="/retailers/best-buy.html">Does Best Buy sell Pokemon cards?</a>
-          <p class="rt-src">Confirmed by reading https://www.bestbuy.com/site/searchpage.jsp?st=pokemon+trading+card+game on August 17, 2026.</p>
+          <p class="rt-src">Confirmed by reading their own site on August 17, 2026. <a class="rt-chk" href="https://www.bestbuy.com/site/searchpage.jsp?st=pokemon+trading+card+game" rel="noopener" target="_blank" aria-label="The Best Buy page this was read on, opens on bestbuy.com">Open the page on bestbuy.com</a></p>
         </article>
         <article class="rt-c" id="cvs">
           <div class="rt-ch">
@@ -370,14 +374,14 @@ gap:var(--s4) var(--s5);align-items:start}
           <p class="rt-a">Yes, and CVS says so itself. Their Pokemon page answers the question in as many words: CVS sells a variety of Pokemon products in stores and online.</p>
           <dl>
             <dt>What they stock</dt>
-            <dd>Small sealed only, so packs, blisters and tins rather than boxes. Small sealed only, on the day it was read: a mini tin, a Poke Ball tin with three packs and a coin, and a battle deck. No elite trainer box, booster bundle or booster box appeared. Treat CVS as somewhere you find a tin, not somewhere you find a box.</dd>
+            <dd>Small sealed only, so packs, blisters and tins rather than boxes. On the day it was read that meant a mini tin, a Poke Ball tin with three packs and a coin, and a battle deck. No elite trainer box, booster bundle or booster box appeared. Treat CVS as somewhere you find a tin, not somewhere you find a box.</dd>
             <dt>Where to look</dt><dd>CVS files Pokemon under Household, then Toys &amp; Books, and again under Baby &amp; Kids, then Gifts &amp; Toys, so the toy aisle rather than anywhere near the pharmacy counter.</dd>
             
             <dt>Prices we have read</dt>
             <dd>2 listings, 1.3x, 1.45x of the suggested figure, read August 17, 2026. In the table below, each with its own date.</dd>
           </dl>
           <a class="rt-more" href="/retailers/cvs.html">Does CVS sell Pokemon cards?</a>
-          <p class="rt-src">Confirmed by reading https://www.cvs.com/shop/brand-shop/p/pokemon on August 17, 2026.</p>
+          <p class="rt-src">Confirmed by reading their own site on August 17, 2026. <a class="rt-chk" href="https://www.cvs.com/shop/brand-shop/p/pokemon" rel="noopener" target="_blank" aria-label="The CVS page this was read on, opens on cvs.com">Open the page on cvs.com</a></p>
         </article>
         <article class="rt-c" id="dollargeneral">
           <div class="rt-ch">
@@ -388,14 +392,14 @@ gap:var(--s4) var(--s5);align-items:start}
           <p class="rt-a">Yes, in stores. Dollar General has a Pokemon category of its own under Toys &amp; Games, and its Pokemon trading card listings say plainly that the item is not eligible for delivery.</p>
           <dl>
             <dt>What they stock</dt>
-            <dd>Small sealed only, so packs, blisters and tins rather than boxes. Small sealed and repackaged formats: single packs, mini tins, three-booster tins, Poke Ball tins, a mini portfolio with a booster in it. Nothing box sized appeared on their site.</dd>
+            <dd>Small sealed only, so packs, blisters and tins rather than boxes. Packs, tins and repackaged formats: single packs, mini tins, three-booster tins, Poke Ball tins, a mini portfolio with a booster in it. Nothing box sized appeared on their site.</dd>
             <dt>Where to look</dt><dd>Dollar General files Pokemon under Toys &amp; Games, so the toy aisle. Their stores are small enough that this is usually one short run of shelving.</dd>
             
             <dt>Prices we have read</dt>
             <dd>1 listing, 1.2x of the suggested figure, read August 17, 2026. In the table below, each with its own date.</dd>
           </dl>
           <a class="rt-more" href="/retailers/dollar-general.html">Does Dollar General sell Pokemon cards?</a>
-          <p class="rt-src">Confirmed by reading https://www.dollargeneral.com/p/pokemon-trading-card-game-mini-tin-assorted/820650105838 on August 17, 2026.</p>
+          <p class="rt-src">Confirmed by reading their own site on August 17, 2026. <a class="rt-chk" href="https://www.dollargeneral.com/p/pokemon-trading-card-game-mini-tin-assorted/820650105838" rel="noopener" target="_blank" aria-label="The Dollar General page this was read on, opens on dollargeneral.com">Open the page on dollargeneral.com</a></p>
         </article>
         <article class="rt-c" id="fivebelow">
           <div class="rt-ch">
@@ -413,7 +417,7 @@ gap:var(--s4) var(--s5);align-items:start}
             <dd>1 listing, 1.34x of the suggested figure, read August 17, 2026. In the table below, each with its own date.</dd>
           </dl>
           <a class="rt-more" href="/retailers/five-below.html">Does Five Below sell Pokemon cards?</a>
-          <p class="rt-src">Confirmed by reading https://www.fivebelow.com/products/pokmon-trading-card-game-scarlet-violet-destined-rivals-booster-expansion-pack-9179259 on August 17, 2026.</p>
+          <p class="rt-src">Confirmed by reading their own site on August 17, 2026. <a class="rt-chk" href="https://www.fivebelow.com/products/pokmon-trading-card-game-scarlet-violet-destined-rivals-booster-expansion-pack-9179259" rel="noopener" target="_blank" aria-label="The Five Below page this was read on, opens on fivebelow.com">Open the page on fivebelow.com</a></p>
         </article>
         <article class="rt-c" id="gamestop">
           <div class="rt-ch">
@@ -431,7 +435,7 @@ gap:var(--s4) var(--s5);align-items:start}
             <dd>5 listings, 2.22x, 1.86x, 1x, 2x, 1.86x of the suggested figure, read August 15 to August 17, 2026. In the table below, each with its own date.</dd>
           </dl>
           <a class="rt-more" href="/retailers/gamestop.html">Does GameStop sell Pokemon cards?</a>
-          <p class="rt-src">Confirmed by reading https://www.gamestop.com/search/?q=pokemon+trading+cards on August 17, 2026.</p>
+          <p class="rt-src">Confirmed by reading their own site on August 17, 2026. <a class="rt-chk" href="https://www.gamestop.com/search/?q=pokemon+trading+cards" rel="noopener" target="_blank" aria-label="The GameStop page this was read on, opens on gamestop.com">Open the page on gamestop.com</a></p>
         </article>
         <article class="rt-c" id="meijer">
           <div class="rt-ch">
@@ -449,7 +453,7 @@ gap:var(--s4) var(--s5);align-items:start}
             <dd>2 listings, 1.33x, 1.23x of the suggested figure, read August 17, 2026. In the table below, each with its own date.</dd>
           </dl>
           <a class="rt-more" href="/retailers/meijer.html">Does Meijer sell Pokemon cards?</a>
-          <p class="rt-src">Confirmed by reading https://www.meijer.com/shopping/departments/toys/trading-cards.html on August 17, 2026.</p>
+          <p class="rt-src">Confirmed by reading their own site on August 17, 2026. <a class="rt-chk" href="https://www.meijer.com/shopping/departments/toys/trading-cards.html" rel="noopener" target="_blank" aria-label="The Meijer page this was read on, opens on meijer.com">Open the page on meijer.com</a></p>
         </article>
         <article class="rt-c" id="staples">
           <div class="rt-ch">
@@ -460,14 +464,14 @@ gap:var(--s4) var(--s5);align-items:start}
           <p class="rt-a">Yes, but not the sealed product you are probably picturing. The two Pokemon lines on staples.com are repackaged card assortments from an outside packager rather than anything published by Pokemon.</p>
           <dl>
             <dt>What they stock</dt>
-            <dd>Repackaged assortments rather than product published by Pokemon. Repackaged assortments only. A 40 card pack at $9.89 and a 10 card pack at $4.39, both from a third-party packager, sitting beside the same packager's baseball, basketball and football packs.</dd>
+            <dd>Repackaged assortments rather than product published by Pokemon. A 40 card pack at $9.89 and a 10 card pack at $4.39, both from a third-party packager, sitting beside the same packager's baseball, basketball and football packs.</dd>
             <dt>Where to look</dt><dd>Not establishable. Staples publishes no department for these beyond the search that found them.</dd>
             
             <dt>Prices we have read</dt>
             <dd>No comparison is possible and that is the finding rather than a gap. A repackaged assortment has no suggested retail price to divide by, because Pokemon did not publish one for a product it did not make. This is the reason Staples is a row here and not a page of its own.</dd>
           </dl>
           
-          <p class="rt-src">Confirmed by reading https://www.staples.com/pokemon+trading+cards/directory_pokemon+trading+cards on August 17, 2026.</p>
+          <p class="rt-src">Confirmed by reading their own site on August 17, 2026. <a class="rt-chk" href="https://www.staples.com/pokemon+trading+cards/directory_pokemon+trading+cards" rel="noopener" target="_blank" aria-label="The Staples page this was read on, opens on staples.com">Open the page on staples.com</a></p>
         </article>
         <article class="rt-c" id="target">
           <div class="rt-ch">
@@ -485,7 +489,7 @@ gap:var(--s4) var(--s5);align-items:start}
             <dd>2 listings, 1.07x, 1.2x of the suggested figure, read August 15, 2026. In the table below, each with its own date.</dd>
           </dl>
           <a class="rt-more" href="/retailers/target.html">Does Target sell Pokemon cards?</a>
-          <p class="rt-src">Confirmed by reading https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-chaos-rising-three-booster-blister/-/A-95298174 on August 17, 2026.</p>
+          <p class="rt-src">Confirmed by reading their own site on August 17, 2026. <a class="rt-chk" href="https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-chaos-rising-three-booster-blister/-/A-95298174" rel="noopener" target="_blank" aria-label="The Target page this was read on, opens on target.com">Open the page on target.com</a></p>
         </article>
         <article class="rt-c" id="walmart">
           <div class="rt-ch">
@@ -503,7 +507,7 @@ gap:var(--s4) var(--s5);align-items:start}
             <dd>We hold no first-party price reading from Walmart. Every listing on the search read was a marketplace seller or could not be attributed, and a marketplace price is evidence about resale rather than about Walmart, so nothing is recorded. Walmart publishes no trading card carve-out in its return policy, unlike Target and Best Buy, so its standard return policy governs.</dd>
           </dl>
           <a class="rt-more" href="/retailers/walmart.html">Does Walmart sell Pokemon cards?</a>
-          <p class="rt-src">Confirmed by reading https://www.walmart.com/search?q=pokemon%20elite%20trainer%20box on August 17, 2026.</p>
+          <p class="rt-src">Confirmed by reading their own site on August 17, 2026. <a class="rt-chk" href="https://www.walmart.com/search?q=pokemon%20elite%20trainer%20box" rel="noopener" target="_blank" aria-label="The Walmart page this was read on, opens on walmart.com">Open the page on walmart.com</a></p>
         </article>
         </div>
       </section>
@@ -525,10 +529,12 @@ gap:var(--s4) var(--s5);align-items:start}
           sealed product from Pokemon's own shop. Prices move daily and differ between two branches of one
           chain, so treat these as worked examples of the division rather than as what any shop charges.
           Check the sticker in front of you and do the math yourself.</p>
+      <p class="rt-tcap">Every price this site has read on a physical retailer's own site, with the
+        suggested figure beside it. Ordered by shop name.</p>
       <div class="cc-scroll" tabindex="0" role="region"
         aria-label="Prices read at physical retailers, scrollable">
         <table class="cc-table rt-table">
-          <caption class="rt-cap">Every price this site has read on a physical retailer's own site, with the
+          <caption class="sr-only">Every price this site has read on a physical retailer's own site, with the
             suggested figure beside it. Ordered by shop name.</caption>
           <thead>
             <tr>
@@ -693,14 +699,14 @@ gap:var(--s4) var(--s5);align-items:start}
           a web server. Where a chain served a bot challenge we recorded that and moved on rather than trying to
           get around it, which is a rule this site keeps everywhere.</p>
         <ul class="rt-list">
-          <li><b>Walgreens.</b> Their site would not let us read it. walgreens.com served a Challenge Validation page to the browser instead of the shop. No attempt was made to get around it. Checked August 17, 2026 at https://www.walgreens.com/search/results.jsp?Ntt=pokemon+trading+cards</li>
-          <li><b>Ace Hardware.</b> Their site would not let us read it. acehardware.com served a security verification page saying it protects against malicious bots. No attempt was made to get around it. Checked August 17, 2026 at https://www.acehardware.com/search?query=pokemon%20cards</li>
-          <li><b>Lowe's.</b> Their site would not let us read it. lowes.com served a bot protection page instead of any search results. Checked August 17, 2026 at https://www.lowes.com/search?searchTerm=pokemon%20trading%20cards</li>
-          <li><b>Costco.</b> Their site would not let us read it. The Costco search page loaded but never filled in: every result slot still read Loading after repeated reads, so nothing could be confirmed either way. Checked August 17, 2026 at https://www.costco.com/CatalogSearch?keyword=pokemon+trading+cards</li>
-          <li><b>Sam's Club.</b> We read it and found no Pokemon cards on the day. The site read fine. Two searches, one for Pokemon and one for elite trainer boxes, returned Pokemon snacks, plush, backpacks, books and video games, and no Pokemon trading card product at all. Checked August 17, 2026 at https://www.samsclub.com/s/pokemon%20elite%20trainer%20box</li>
-          <li><b>Dollar Tree.</b> We read it and found no Pokemon cards on the day. A search for Pokemon on dollartree.com landed on an Action Figures category with no items in it and no Pokemon product anywhere in the result. Checked August 17, 2026 at https://www.dollartree.com/searchresults?Ntt=pokemon</li>
-          <li><b>Macy's.</b> We read it and found no Pokemon cards on the day. Macy's has a page titled Pokemon Cards and it contains no Pokemon cards: 48 results of video games, an art set, apparel, a Yu-Gi-Oh collection and books. Checked August 17, 2026 at https://www.macys.com/shop/featured/pokemon-cards</li>
-          <li><b>Dick's Sporting Goods.</b> Their site would not let us read it. The search url answered with their own This page is not available error, so nothing could be read. Checked August 17, 2026 at https://www.dickssportinggoods.com/search?searchTerm=pokemon%20trading%20cards</li>
+          <li><b>Walgreens.</b> Their site would not let us read it. walgreens.com served a Challenge Validation page to the browser instead of the shop. No attempt was made to get around it. Checked August 17, 2026. <a class="rt-chk" href="https://www.walgreens.com/search/results.jsp?Ntt=pokemon+trading+cards" rel="noopener" target="_blank" aria-label="The Walgreens search this was checked on, opens on walgreens.com">Open the page on walgreens.com</a></li>
+          <li><b>Ace Hardware.</b> Their site would not let us read it. acehardware.com served a security verification page saying it protects against malicious bots. No attempt was made to get around it. Checked August 17, 2026. <a class="rt-chk" href="https://www.acehardware.com/search?query=pokemon%20cards" rel="noopener" target="_blank" aria-label="The Ace Hardware search this was checked on, opens on acehardware.com">Open the page on acehardware.com</a></li>
+          <li><b>Lowe's.</b> Their site would not let us read it. lowes.com served a bot protection page instead of any search results. Checked August 17, 2026. <a class="rt-chk" href="https://www.lowes.com/search?searchTerm=pokemon%20trading%20cards" rel="noopener" target="_blank" aria-label="The Lowe's search this was checked on, opens on lowes.com">Open the page on lowes.com</a></li>
+          <li><b>Costco.</b> Their site would not let us read it. The Costco search page loaded but never filled in: every result slot still read Loading after repeated reads, so nothing could be confirmed either way. Checked August 17, 2026. <a class="rt-chk" href="https://www.costco.com/CatalogSearch?keyword=pokemon+trading+cards" rel="noopener" target="_blank" aria-label="The Costco search this was checked on, opens on costco.com">Open the page on costco.com</a></li>
+          <li><b>Sam's Club.</b> We read it and found no Pokemon cards on the day. The site read fine. Two searches, one for Pokemon and one for elite trainer boxes, returned Pokemon snacks, plush, backpacks, books and video games, and no Pokemon trading card product at all. Checked August 17, 2026. <a class="rt-chk" href="https://www.samsclub.com/s/pokemon%20elite%20trainer%20box" rel="noopener" target="_blank" aria-label="The Sam's Club search this was checked on, opens on samsclub.com">Open the page on samsclub.com</a></li>
+          <li><b>Dollar Tree.</b> We read it and found no Pokemon cards on the day. A search for Pokemon on dollartree.com landed on an Action Figures category with no items in it and no Pokemon product anywhere in the result. Checked August 17, 2026. <a class="rt-chk" href="https://www.dollartree.com/searchresults?Ntt=pokemon" rel="noopener" target="_blank" aria-label="The Dollar Tree search this was checked on, opens on dollartree.com">Open the page on dollartree.com</a></li>
+          <li><b>Macy's.</b> We read it and found no Pokemon cards on the day. Macy's has a page titled Pokemon Cards and it contains no Pokemon cards: 48 results of video games, an art set, apparel, a Yu-Gi-Oh collection and books. Checked August 17, 2026. <a class="rt-chk" href="https://www.macys.com/shop/featured/pokemon-cards" rel="noopener" target="_blank" aria-label="The Macy's search this was checked on, opens on macys.com">Open the page on macys.com</a></li>
+          <li><b>Dick's Sporting Goods.</b> Their site would not let us read it. The search url answered with their own This page is not available error, so nothing could be read. Checked August 17, 2026. <a class="rt-chk" href="https://www.dickssportinggoods.com/search?searchTerm=pokemon%20trading%20cards" rel="noopener" target="_blank" aria-label="The Dick's Sporting Goods search this was checked on, opens on dickssportinggoods.com">Open the page on dickssportinggoods.com</a></li>
         </ul>
       </section>
 

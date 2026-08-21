@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=8ca5ed5c">
+<link rel="stylesheet" href="/assets/ui.css?v=13927e47">
 <style>.rt-lede{max-width:46em}
 .rt-key{border:3px solid var(--keyline);border-radius:12px;background:var(--band-bg);color:var(--chrome-ink);
 padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
@@ -62,7 +62,7 @@ text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
 .rt-th{display:flex;align-items:center;min-height:44px;color:inherit}
 .rt-url{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
 overflow-wrap:anywhere;word-break:break-all;max-width:280px}
-.rt-cap{caption-side:top;text-align:left;padding:12px 14px;font-size:var(--t-sm);
+.rt-tcap{margin:0 0 var(--s2);font-size:var(--t-sm);
 line-height:1.5;color:var(--ink-2);max-width:56ch}
 .rt-gaps{margin-top:var(--s4);border-left:4px solid var(--gold);padding-left:var(--s3);max-width:46em}
 .rt-gaps h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:var(--s2)}
@@ -101,6 +101,10 @@ overflow-wrap:anywhere}
 .rt-list{margin:var(--s4) 0 0 var(--s4);max-width:46em;line-height:1.55;overflow-wrap:anywhere}
 .rt-list li{margin-bottom:var(--s3)}
 .rt-list b{color:var(--ink)}
+.rt-chk{display:inline-flex;align-items:center;min-height:44px;gap:6px;
+color:var(--gold-deep);text-decoration:underline;text-underline-offset:3px;font-weight:700}
+.rt-chk::after{content:"\2197";text-decoration:none;font-weight:400}
+.rt-once{margin-top:var(--s4)}
 .rt-a,.rt-c dd{overflow-wrap:anywhere}
 .rt-note{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);max-width:46em;margin-top:var(--s3);
 overflow-wrap:anywhere}
@@ -274,7 +278,7 @@ gap:var(--s4) var(--s5);align-items:start}
       </div>
       <h1>Does Target sell <span class="hl">Pokemon cards</span>?</h1>
       <p class="lede rt-lede">Yes, and it is one of the two chains most people mean when they ask. Target files Pokemon under its own Toys &amp; Games, Trading Cards department, and stocks the full sealed range.</p>
-      <p class="rt-src">Confirmed on August 17, 2026 by reading it on Target's own website: Opened two Target product pages for current Pokemon sealed product, both under the Target, Toys &amp; Games, Trading Cards breadcrumb, and read the price on each. https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-chaos-rising-three-booster-blister/-/A-95298174</p>
+      <p class="rt-src">Confirmed on August 17, 2026 by reading it on Target's own website: Opened two Target product pages for current Pokemon sealed product, both under the Target, Toys &amp; Games, Trading Cards breadcrumb, and read the price on each. <a class="rt-chk" href="https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-chaos-rising-three-booster-blister/-/A-95298174" rel="noopener" target="_blank" aria-label="The Target page this was read on, opens on target.com">Open the page on target.com</a></p>
 
       <section class="rt-grp">
         <h2>What they <span class="hl">stock</span></h2>
@@ -306,7 +310,7 @@ gap:var(--s4) var(--s5);align-items:start}
       <section class="rt-grp">
         <h2>Where in the <span class="hl">shop</span> to look</h2>
         <p class="rt-note">Target files them under Toys &amp; Games, then Trading Cards, so the toy department. Target does publish an aisle label on a product page once you have picked a store, so if you want the aisle rather than the department, set your store on their own product page and read it there. It differs store to store, which is why there is no number here.</p>
-        <p class="rt-src">Read from The breadcrumb on their own product pages: Target, Toys &amp; Games, Trading Cards.</p>
+        <p class="rt-src"><b>Where that was read.</b> The breadcrumb on their own product pages: Target, Toys &amp; Games, Trading Cards.</p>
       </section>
 
       <div class="rt-key">
@@ -345,13 +349,14 @@ gap:var(--s4) var(--s5);align-items:start}
           can open and check. It is an example of the division rather than a score for the shop, and it will
           not be current for long. The suggested figures come from <a href="/msrp.html">the MSRP page</a>,
           which prices sealed product from Pokemon's own shop.</p>
+      <p class="rt-note rt-once">Sold by the shop itself: both Target product pages were reopened on August 17, 2026 and neither carried the 'Sold and shipped by' line that Target prints on a Target Plus partner listing, which is what marks them as Target's own stock. Every figure below was read on the product page, one listing at a time.</p>
       <ul class="rt-list">
         <li><b>Mega Evolution Chaos Rising Three-Booster Blister.</b> $14.99 asked against a suggested
           $13.99 for the Three-pack blister, so
-          14.99 &divide; 13.99 = 1.07. Sold by the shop itself: both Target product pages were reopened on August 17, 2026 and neither carried the 'Sold and shipped by' line that Target prints on a Target Plus partner listing, which is what marks them as Target's own stock. Read on the product page, August 15, 2026, at https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-chaos-rising-three-booster-blister/-/A-95298174</li>
+          14.99 &divide; 13.99 = 1.07. Read August 15, 2026. <a class="rt-chk" href="https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-chaos-rising-three-booster-blister/-/A-95298174" rel="noopener" target="_blank" aria-label="Mega Evolution Chaos Rising Three-Booster Blister listing, opens on target.com">Open the listing on target.com</a></li>
         <li><b>Mega Evolution—Pitch Black Elite Trainer Box.</b> $59.99 asked against a suggested
           $49.99 for the Elite Trainer Box, so
-          59.99 &divide; 49.99 = 1.2. Sold by the shop itself: both Target product pages were reopened on August 17, 2026 and neither carried the 'Sold and shipped by' line that Target prints on a Target Plus partner listing, which is what marks them as Target's own stock. Read on the product page, August 15, 2026, at https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-pitch-black-elite-trainer-box/-/A-1011483406</li>
+          59.99 &divide; 49.99 = 1.2. Read August 15, 2026. <a class="rt-chk" href="https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-pitch-black-elite-trainer-box/-/A-1011483406" rel="noopener" target="_blank" aria-label="Mega Evolution—Pitch Black Elite Trainer Box listing, opens on target.com">Open the listing on target.com</a></li>
       </ul>
         <figure class="rt-fig">
           <ul class="bch bch-2">
@@ -401,7 +406,7 @@ gap:var(--s4) var(--s5);align-items:start}
         </div>
       </section>
 
-      <p class="rt-src" style="margin-top:var(--s6)">The Chaos Rising three-booster blister at $14.99, the Toys &amp; Games then Trading Cards breadcrumb, and the absence of any Sold and shipped by line, which is what marks it as Target's own: https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-chaos-rising-three-booster-blister/-/A-95298174, read August 17, 2026. An online-only elite trainer box two-pack at $189.99, read to see how far the same search runs above the chain's own single-box price: https://www.target.com/p/pokemon-tcg-chaos-rising-elite-trainer-box-2-pack/-/A-1012774663, read August 17, 2026. Nothing here came from a comparison site, and no price is printed without saying who was
+      <p class="rt-src" style="margin-top:var(--s6)">The Chaos Rising three-booster blister at $14.99, the Toys &amp; Games then Trading Cards breadcrumb, and the absence of any Sold and shipped by line, which is what marks it as Target's own, read August 17, 2026. <a class="rt-chk" href="https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-chaos-rising-three-booster-blister/-/A-95298174" rel="noopener" target="_blank" aria-label="Target source 1, opens on target.com">Open the page on target.com</a> An online-only elite trainer box two-pack at $189.99, read to see how far the same search runs above the chain's own single-box price, read August 17, 2026. <a class="rt-chk" href="https://www.target.com/p/pokemon-tcg-chaos-rising-elite-trainer-box-2-pack/-/A-1012774663" rel="noopener" target="_blank" aria-label="Target source 2, opens on target.com">Open the page on target.com</a> Nothing here came from a comparison site, and no price is printed without saying who was
         selling. Prices and shop layouts move, so check before you rely on any of it.</p>
       <p class="rt-src">Company names and logos on this page are the trademarks of their owners and are used to identify the companies described. Nothing here is sponsored, affiliated or endorsed. Marks are mirrored from Wikimedia Commons, where each carries a public domain copyright tag; the venues with no mark have their name set in this site's own typeface instead.</p>
     </div>

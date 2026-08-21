@@ -781,9 +781,24 @@ const priceTable = (e) => {
   const cap = `What ${article(e.id)} ${e.label} costs, by set. TCGplayer market price, read ${longDate(prod.checked)}`;
   // Same reasoning as build-expansions.mjs: a 520px table in a 360px box with
   // no focusable content is unreachable without a mouse.
-  return `      <div class="op-tw" tabindex="0" role="region" aria-label="${esc(cap)}, scrollable table">
+  /* THE CAPTION WRAPPED TO THE TABLE, NOT TO THE PHONE, AND 168px OF IT SAT OFF
+     SCREEN. A <caption> is laid out at its TABLE's width, and .op-t carries
+     min-width:520px inside a 352px .op-tw scroller, so at 390x844 the first
+     line read "WHAT AN ELITE TRAINER BOX COSTS, BY SET. TCGPLAY" with a hard
+     cut and the last line held nothing but "READ AUGUST 16, 2026". Measured:
+     caption 520 wide, box 352, 168 hidden on all six product pages. It was
+     reachable only by dragging the table sideways, which is a thing nobody does
+     to read a heading.
+     The fix is the one /first-partner-illustration-collection.html already
+     uses and the only table on the site that never had this: the VISIBLE line
+     moves OUT of the scroller, where it wraps to the viewport, and the <caption>
+     stays as .sr-only so the table keeps its accessible name. Do not shorten
+     the text instead: it names the source and the read date, which is the whole
+     reason the figures are quotable. */
+  return `      <p class="op-tcap">${esc(cap)}</p>
+      <div class="op-tw" tabindex="0" role="region" aria-label="${esc(cap)}, scrollable table">
         <table class="op-t">
-          <caption>${esc(cap)}</caption>
+          <caption class="sr-only">${esc(cap)}</caption>
           <thead><tr><th scope="col">Set</th><th scope="col">Market</th><th scope="col">Lowest</th><th scope="col">Listings</th></tr></thead>
           <tbody>
 ${/* THE ROW LINK'S ACCESSIBLE NAME WAS THE SET AND NOTHING ELSE.
@@ -853,7 +868,7 @@ const STYLE = `
    background-COLOR, not the shorthand, which would reset background-image and
    wipe all four layers. */
 .op-tw{overflow-x:auto;border:3px solid var(--keyline);border-radius:12px;box-shadow:var(--hard-lg);
-  background-color:var(--card);margin:var(--s4) 0;
+  background-color:var(--card);margin:0 0 var(--s4);
   background-image:
     linear-gradient(to right,var(--card) 40%,rgba(255,255,255,0)),
     linear-gradient(to left,var(--card) 40%,rgba(255,255,255,0)),
@@ -867,8 +882,15 @@ const STYLE = `
   background-size:44px 100%,44px 100%,15px 100%,15px 100%;
   background-attachment:local,local,scroll,scroll}
 .op-t{border-collapse:collapse;width:100%;min-width:520px;font-size:var(--t-sm)}
-.op-t caption{caption-side:top;text-align:left;padding:var(--s3) var(--s4);font:700 var(--t-label)/1.3 var(--body);
-  letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);border-bottom:2px solid var(--hair)}
+/* THE TABLE'S TITLE, OUTSIDE THE SCROLLER. It was a <caption> until 20 August
+   2026 and a caption is sized by its TABLE, so 168px of it hung past the right
+   edge of the 352px box on a phone. Same type as the old caption, so nothing
+   about the page reads differently at 1440 where the table always fit; the only
+   change a wide screen sees is that the line now sits above the box's border
+   rather than inside it. max-width is the measure, so the line breaks on the
+   reader's screen and not on the table's width. */
+.op-tcap{margin:var(--s4) 0 var(--s2);font:700 var(--t-label)/1.35 var(--body);
+  letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);max-width:56ch}
 .op-t th,.op-t td{padding:10px var(--s3);text-align:left;border-bottom:1px solid var(--hair)}
 .op-t thead th{font:700 var(--t-label)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   background:var(--band-bg);color:var(--chrome-ink);border-bottom:none}

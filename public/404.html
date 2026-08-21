@@ -14,7 +14,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=8ca5ed5c">
+<link rel="stylesheet" href="/assets/ui.css?v=13927e47">
 <link rel="stylesheet" href="/assets/packs.css?v=bb70e5eb">
 <style>
 /* The pack is torn open and there is nothing in it, which is the one joke this
@@ -43,7 +43,23 @@
 .e404-mascot{width:clamp(104px,29vw,136px);height:auto;margin-bottom:-2%;
   transform:rotate(4deg);position:relative;z-index:2;
   filter:drop-shadow(0 8px 14px rgba(17,17,17,.26))}
-@media(max-width:360px){.e404-mascot{display:none}}
+/* THIS WAS `@media(max-width:360px){.e404-mascot{display:none}}` AND HIDING HIM
+   TURNED THE JOKE INTO A BROKEN IMAGE. The pack is deliberately the LEFT half of
+   a torn one: .pack-l clips it at about 53%, which is why the rule above pulls
+   the box back 38% to sit the mascot in the gap. Take the mascot away and all
+   that is left is a booster pack ending in a clean vertical line through "Poke"
+   and "TRADING C", with 38% of its own box empty beside it. At 390 that reads as
+   a pack coming open with Trubbish looking into it. At 320 it reads as a
+   photograph that failed to finish loading, on the one page whose whole job is
+   to reassure somebody that nothing is broken.
+
+   THE ROOM WAS ALWAYS THERE, and that is the part that makes this a deletion
+   rather than a redesign. Measured at 320x900: .e404-in is 288px wide and both
+   clamps are already on their floors at that width, so the pair draws
+   148 - (148 x .38) + 104 = 195.8px of art, 68% of the box, against 209.8 of 358
+   at 390. Nothing overflowed and nothing ever would have. Re-measured after:
+   scrollX 0 and no element past the right edge at 320, 360 and 390. */
+
 .e404-pack .pack{cursor:default}
 .e404 h1{font:400 clamp(2.2rem,9vw,3.6rem)/1 var(--display);margin-bottom:var(--s3)}
 .e404 p{color:var(--ink-2);font-size:var(--t-lede);margin-bottom:var(--s5)}

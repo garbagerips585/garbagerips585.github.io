@@ -508,6 +508,43 @@ DATA once, by hand, into a committed file is a different act from harvesting
 tiles, and the script that does it is NOT in build-all.mjs for the same reason
 sync-decks.mjs is not.
 
+THE TEN RETAILER PAGES GAINED 53 OUTBOUND LINKS ON 20 AUGUST 2026 AND NOT ONE
+NEW DESTINATION, which is the only reason this one is short. It is argued here
+rather than added quietly in one builder, which is what the paragraphs above
+spend four screens complaining about.
+
+WHAT THE PAGES DID BEFORE: they PRINTED the address, in full, as visible text,
+in the middle of a sentence. 35 of them across /retailers/*.html and 31 more on
+/retailers.html. The worst was 130 characters and wrapped across three lines of
+a price citation at 390px, so the widest object in the paragraph was also the
+one thing a reader could not act on. Every one of the 53 links now on those
+pages points at a url that was already on the same page in plain text. Nothing
+was researched, nothing was added, and no host appears that did not appear
+before: the retailers' own sites, plus the eight chains under "shops we could
+not read" whose search pages are the evidence for that claim.
+
+THE TEST, APPLIED: does the READER need the destination? Yes, and it is the
+sixth exception's own argument rather than a new one. Every row is a PRICE READ
+ON A DATE, or a claim about what a chain stocks read on a date, and this file
+already says a figure like that is only worth publishing if a reader can check
+whether it still holds. Printing the address and refusing to link it does not
+make the page more restrained, it makes the check harder for no gain.
+
+THE SHAPE IS MET AND WAS MEASURED. All 53 are `.rt-chk`: a 44px labelled control
+reading "Open the listing on gamestop.com" at the END of a row or of a source
+line, never mid explanation, each with an aria-label ending ", opens on <host>",
+`rel="noopener"` and `target="_blank"`. Checked on the built tree: 53 of 53
+carry all four. The large tap targets on those pages are still internal, and
+the pages measure 0 elements past the right edge and scrollX 0 at 320, 390 and
+1440.
+
+THE ONE PLACE THAT STAYED PLAIN TEXT IS THE "Where it was read" COLUMN on
+/retailers.html, 13 addresses, and that is deliberate: it is a table cell rather
+than body copy, `.rt-url` in build-retailers.mjs argues its own case about
+column width, and the same address is a link on that shop's own page one click
+away. If a later editor wants that column linked too, that is a real argument;
+make it here first.
+
 AND THE SEVENTH EXCEPTION THAT WAS ASKED FOR BY NAME AND STILL NOT MADE, 17
 August 2026. Tim stated the site's commercial purpose plainly: YouTube is the
 primary channel and the goal is subscribers and views. That goal is in genuine
