@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=a2712aae">
+<link rel="stylesheet" href="/assets/ui.css?v=c2b99ea6">
 <style>.rt-lede{max-width:46em}
 .rt-key{border:3px solid var(--keyline);border-radius:12px;background:var(--band-bg);color:var(--chrome-ink);
 padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
@@ -139,6 +139,17 @@ gap:var(--s4) var(--s5);align-items:start}
 .rt-cards{grid-template-columns:repeat(3,1fr);align-items:start}
 .rt-list{columns:2;column-gap:var(--s6);max-width:1100px}
 .rt-list li{break-inside:avoid}
+}
+@media(min-width:1000px){
+.rt-shop{max-width:calc(1152px + var(--gut) * 2)}
+.rt-shop > :is(.crumbs,.rt-ch,h1,.rt-lede,.rt-src),
+.rt-shop .rt-grp > :is(h2,p,.rt-sib){margin-left:calc((100% - 460px) / 2)}
+.rt-shop .rt-key{display:grid;grid-template-columns:minmax(0,50ch) minmax(0,1fr);
+gap:0 var(--s5);align-items:start}
+.rt-shop .rt-key > h2{grid-column:1/-1}
+.rt-shop .rt-key > p{grid-column:1}
+.rt-shop .rt-key > .rt-fig-svg{grid-column:2;grid-row:2/span 2;
+align-self:center;justify-self:center;margin-top:0;width:100%;max-width:460px}
 }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Which stores sell cards","item":"https://garbagerips585.github.io/retailers.html"}]}</script>
 </head>
@@ -826,6 +837,6 @@ gap:var(--s4) var(--s5);align-items:start}
     Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=2a20b951" defer></script>
+<script src="/assets/app.js?v=7d21299e" defer></script>
 </body>
 </html>

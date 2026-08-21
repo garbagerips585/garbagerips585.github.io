@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=a2712aae">
+<link rel="stylesheet" href="/assets/ui.css?v=c2b99ea6">
 <style>.ms-lede{max-width:46em}
 .ms-warn{max-width:46em;margin:0 0 var(--s3);padding:var(--s3) var(--s4);
 border:3px solid var(--keyline);border-radius:var(--r);background:var(--paper-3);
@@ -131,6 +131,11 @@ max-width:46em}
 .ms-list{grid-template-columns:repeat(2,minmax(0,1fr))}
 .ov-bands,.ov-kinds{grid-template-columns:repeat(2,minmax(0,1fr))}
 .ov-list{max-width:33em}
+}
+@media(min-width:1000px){
+.ms-page .wrap{max-width:calc(1152px + var(--gut) * 2)}
+.ms-page .wrap > :is(.crumbs,.sec-label,h1,h2,h3,.ms-lede,.ms-warn,.ms-body,
+.ms-calc,.ms-fig,.ms-src,.ov-list){margin-left:calc((100% - 782px) / 2)}
 }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Sealed product prices"}]}</script>
 </head>
@@ -259,7 +264,7 @@ max-width:46em}
   <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
     aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe on YouTube</a>
 </nav>
-<main id="main">
+<main id="main" class="ms-page">
 
   <section class="tight">
     <div class="wrap">
@@ -1250,7 +1255,7 @@ max-width:46em}
     Product photos are TCGplayer's, used to identify the products written about here. Every price is a dated reading from the source named on its row, and a suggested price is not one any shop has to keep.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=2a20b951" defer></script>
+<script src="/assets/app.js?v=7d21299e" defer></script>
 <script>
 (function(){
   var sel=document.getElementById('msProd'), ask=document.getElementById('msAsk'),

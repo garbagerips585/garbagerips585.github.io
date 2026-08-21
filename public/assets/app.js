@@ -377,6 +377,63 @@
     return d;
   }
 
+  /**
+   * The mascot lands. Takes an `.empty` ALREADY IN THE DOCUMENT that carries an
+   * `.empty-mascot`. Rules, timings and the argument: ui.css, by `.empty-mascot`.
+   *
+   * COMMENTS ARE NOT FREE IN THIS FILE. ui.css is stripped of them on the way
+   * to public/; this file ships to 1,486 pages exactly as written, so the
+   * reasoning lives there and the pointers live here.
+   *
+   * `reduced` first, and it is the whole safety mechanism: ui.css's blanket
+   * rule kills the transition and NOT the opacity:0 that arming adds.
+   */
+  function landMascot(box) {
+    if (!box || reduced) return;
+    if (!box.querySelector(".empty-mascot")) return;
+    box.classList.add("is-armed");
+    // Failsafe: strips the hidden state at its SOURCE, like the hit cards.
+    // rAF does not run in a background tab, which is the case this is for.
+    var fail = setTimeout(function () {
+      box.classList.remove("is-armed");
+      box.classList.add("is-in");
+    }, 2000);
+    // Two frames, so the armed state is resolved before the change out of it.
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        box.classList.add("is-in");
+        clearTimeout(fail);
+      });
+    });
+  }
+
+  /**
+   * The search miss on /search.html is the one empty state this file does not
+   * build: build-search.mjs writes that panel from its own inline script. One
+   * observer on that one panel beats a second copy of the mechanic in a builder.
+   *
+   * A miss followed by a miss is the same state arriving twice, so only a
+   * mascot that was not already on screen lands.
+   */
+  function initSearchMascot() {
+    var out = document.getElementById("sqOut");
+    if (!out || reduced || !window.MutationObserver) return;
+    new MutationObserver(function (recs) {
+      recs.forEach(function (r) {
+        var had = false, i;
+        for (i = 0; i < r.removedNodes.length; i++) {
+          var rn = r.removedNodes[i];
+          if (rn.nodeType === 1 && rn.querySelector && rn.querySelector(".empty-mascot")) had = true;
+        }
+        if (had) return;
+        for (i = 0; i < r.addedNodes.length; i++) {
+          var an = r.addedNodes[i];
+          if (an.nodeType === 1 && an.classList && an.classList.contains("empty")) landMascot(an);
+        }
+      });
+    }).observe(out, { childList: true });
+  }
+
   /* -------------------------------------------------------- library page */
 
   function initLibrary() {
@@ -598,19 +655,73 @@
       return state.products.map(function (k) { return labelOf("products", k); }).join(" or ");
     }
 
-    function render(keepPage, keepDom) {
+    /**
+     * Lay the tiles out. Same construction as the hit-card reveal on a rip
+     * page; rules, timings and the argument are in ui.css, above `.more`.
+     * `reduced` first, for the reason written beside landMascot.
+     */
+    var armFail = 0;
+    function armGrid() {
+      if (reduced) return;
+      var tiles = grid.querySelectorAll(".v");
+      if (!tiles.length) return;
+      grid.classList.add("is-armed");
+      // Failsafe: strips the hidden state at its SOURCE. rAF does not run in a
+      // background tab, which is the case this is for.
+      armFail = setTimeout(function () {
+        grid.classList.remove("is-armed");
+        for (var i = 0; i < tiles.length; i++) tiles[i].classList.add("is-in");
+      }, 2000);
+      // Two frames, so the armed state is resolved before the change out of it.
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          for (var i = 0; i < tiles.length; i++) tiles[i].classList.add("is-in");
+          clearTimeout(armFail);
+        });
+      });
+    }
+
+    // `animate` IS "THE READER JUST APPLIED A FILTER" and it is the only thing
+    // that lays the tiles out rather than swapping them. Passed by the chip
+    // taps, the sort, Clear all and the two query-clearing controls, and by
+    // NOTHING ELSE: not the first render (a page load, not an act, filtered or
+    // not, which is what keeps this off FCP), not "Load 48 more", and not the
+    // per-keystroke path, where a 50ms debounce would restart the cascade nine
+    // times over "charizard". Argued in full in ui.css, above `.more`.
+    function render(keepPage, keepDom, animate) {
       if (!keepPage) shown = PAGE;
       var prodNote = unlabelledProducts();
       var out = all.filter(matches).sort(SORTS[state.sort] || SORTS.new);
       if (!keepDom) {
+      // Already on screen? A second letter that still matches nothing rebuilds
+      // the same empty state, and re-landing on every keystroke is a flinch.
+      var wasEmpty = !!grid.querySelector(".empty-mascot");
+      // ALWAYS OFF BEFORE IT CAN GO BACK ON, and not as tidying: a leftover
+      // .is-armed would hand "Load 48 more"'s 96 tiles opacity:0 with nothing
+      // coming to add .is-in. An empty grid is worse than no animation. The
+      // pending failsafe goes too, or it fires against the next grid.
+      clearTimeout(armFail);
+      grid.classList.remove("is-armed");
       grid.textContent = "";
       if (!out.length) {
-        grid.appendChild(emptyState("Nothing in that pile", "Try clearing a filter. Even the bulk has something in it.", true));
+        var box = emptyState("Nothing in that pile", "Try clearing a filter. Even the bulk has something in it.", true);
+        grid.appendChild(box);
+        if (!wasEmpty) landMascot(box);
       } else {
         var frag = document.createDocumentFragment();
         var prefer = state.sets.length === 1 ? state.sets[0] : null;
-        out.slice(0, shown).forEach(function (v) { frag.appendChild(makeCard(v, { preferSet: prefer })); });
+        var arm = !!animate && !reduced;
+        out.slice(0, shown).forEach(function (v, i) {
+          var card = makeCard(v, { preferSet: prefer });
+          // CAPPED AT 14, bounding the tail at 260 + 14 x 26 = 624ms however
+          // many came back. NOT the 442ms this was approved as; that figure is
+          // the prototype's eight-tile grid, where the cap never bound. Working
+          // in ui.css. Written only where it will be read.
+          if (arm) card.style.setProperty("--i", i < 14 ? i : 14);
+          frag.appendChild(card);
+        });
         grid.appendChild(frag);
+        if (arm) armGrid();
       }
       }
       var more = document.getElementById("libMore");
@@ -731,7 +842,8 @@
         b.addEventListener("click", function () {
           var i = state[group].indexOf(k);
           if (i > -1) state[group].splice(i, 1); else state[group].push(k);
-          render();
+          // The tap this whole animation exists for.
+          render(false, false, true);
         });
         box.appendChild(b);
       });
@@ -1020,13 +1132,16 @@
     // Once they pick one, it is theirs and nothing changes it underneath them.
     var sortIsMine = state.sort !== "new" && state.sort !== "relevance";
 
-    function applyQuery(raw, immediate) {
+    // `animate` is a separate question from `immediate` and the two do not
+    // line up: `immediate` writes the value back into the box, `animate` means
+    // the reader acted rather than typed. Clear all has one and not the other.
+    function applyQuery(raw, immediate, animate) {
       state.q = String(raw).trim();
       parsed = parseQuery(state.q);
       if (!sortIsMine) state.sort = state.q ? "relevance" : "new";
       if (sortSel) sortSel.value = state.sort;
       if (clearQ) clearQ.hidden = !state.q;
-      render();
+      render(false, false, animate);
       if (immediate && search) search.value = state.q;
     }
 
@@ -1050,14 +1165,14 @@
         if (e.key === "Escape" && search.value) {
           e.preventDefault();
           clearTimeout(t);
-          applyQuery("", true);
+          applyQuery("", true, true);
         }
       });
     }
     if (clearQ) {
       clearQ.hidden = !state.q;
       clearQ.addEventListener("click", function () {
-        applyQuery("", true);
+        applyQuery("", true, true);
         if (search) search.focus();
       });
     }
@@ -1084,7 +1199,7 @@
       sortSel.addEventListener("change", function () {
         state.sort = sortSel.value;
         sortIsMine = true;
-        render();
+        render(false, false, true);
       });
     }
     var moreBtn = document.getElementById("libMore");
@@ -1103,7 +1218,7 @@
         // clear button all reset with it. Setting state.q directly left the
         // parsed query behind and the grid stayed filtered by a search the
         // box no longer showed.
-        applyQuery("");
+        applyQuery("", false, true);
       });
     }
 
@@ -1467,6 +1582,7 @@
     initNav();
     initLibrary();
     initPlaylists();
+    initSearchMascot();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();

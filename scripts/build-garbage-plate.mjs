@@ -1039,7 +1039,28 @@ ${historyBlocks}
 ${gaps}
     </ul>
 
-${plateRule()}
+${/* THIS PAGE HAS ITS ONE ORNAMENT AND IT IS NOT GETTING A SECOND, and this is
+      written down because the obvious next idea has now been proposed once and
+      the arithmetic behind it does not survive being measured.
+
+      THE PROPOSAL was two more rules, one before "Places we checked and left
+      off" and one before "Every source on this page", to break the
+      bibliography tail into three. format.mjs says ONE PER PAGE in as many
+      words, and this page already spends it here; /buying.html is 48,825px at
+      390 with exactly one, so length has never bought a second.
+
+      AND THE GEOMETRY DOES NOT SUPPORT IT EITHER, WHICH IS THE HALF WORTH
+      KEEPING. Driven at 390x844 DPR 2, y of every heading and every picture:
+      the last photograph ends at 17,090 and the page ends at 29,764, so the
+      picture-free tail is 12,674px. The two proposed seams are at 19,052 and
+      19,960. They are 908px APART. Putting both there would stack two
+      ornaments inside one screen near the TOP of the tail and leave 9,804px of
+      sources underneath with nothing in it, which is not breaking 12,674 into
+      three, it is breaking 1,962 into two and leaving the problem.
+
+      SO THE TAIL IS A REAL FINDING AND A PLATE RULE IS NOT ITS FIX. If it is
+      worth solving, the lever is the sources list itself rather than a second
+      copy of this mark. */ ""}${plateRule()}
 
     <h2>Where to <span class="hl">eat one</span></h2>
     <p class="gp-sub">${esc(doc.listNote || "")}</p>

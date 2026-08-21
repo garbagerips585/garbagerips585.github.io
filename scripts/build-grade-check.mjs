@@ -801,9 +801,691 @@ ${rows}
       </figure>`;
 };
 
+// ============================================================================
+// THE DEFECT DIAGRAMS, and this is the largest thing this page was missing.
+//
+// A visual QA pass measured the picture-free run through <main> and found
+// 13,589px of it at 390, 72% of the page, running from the end of the spread
+// figure to the bottom. The whole of it is a page ABOUT PHYSICAL DAMAGE TO A
+// CARD with no picture of any damage in it: nine to eleven named defects, two
+// sentences of prose each, illustrated by nothing. "A rounded indentation from
+// the printing process" is a correct definition and it is not a thing you can
+// hold your card next to.
+//
+// THE IDIOM IS /fake-cards.html's AND IT WAS COPIED RATHER THAN INVENTED.
+// scripts/build-fakes.mjs ships nine of these for exactly this job and the
+// shape of them is: an inline <svg role="img"> with a viewBox and a one
+// SENTENCE aria-label, no binary asset, no request, all the ink set from
+// CLASSES rather than from fill=/stroke= presentation attributes because a
+// custom property in a presentation attribute is not reliable across browsers.
+// Two things were changed on the way over and both are this page rather than
+// that one:
+//
+//   - THE CARD IS PAINTED IN THE PAGE'S OWN GREEN, NOT IN CREAM. /fake-cards
+//     draws a card as #F1EDD2 stock with #22384F ink on it, because half its
+//     figures are about what ink does on paper. This page already draws a card,
+//     twice, in centeringDiagram() and miniCard(), and it draws it as .ct-card:
+//     fill var(--card), stroke var(--keyline). A third card in a different
+//     colour on the same page would read as a different object. So these reuse
+//     .ct-card and .ct-win outright, with the stroke weights turned down for
+//     the smaller size exactly as .lad-svg turns down .ct-band's opacity.
+//   - NO TEXT SITS ON A DRAWN SHAPE. /fake-cards needed .fk-cap-in because a
+//     light label landed on its pale blue art window at 1.06:1, and the same
+//     trap is one <circle> away on any figure like this. Every label here is
+//     drawn on the FIGURE GROUND, which is the page: these figures are not in a
+//     panel, so the ground is var(--page) #1F382B and nothing else.
+//
+// WHAT GROUND EVERY MARK IS ON, measured, because that is the one thing about a
+// figure that cannot be checked by looking at the source:
+//
+//     on var(--page) #1F382B   --ink-2 #D4CCBC  7.92:1   every neutral label
+//                              --ketchup-deep   6.23:1   every defect label
+//     on var(--card) #2F4F39   --ink #E4DCCC    6.70:1   exposed cardboard
+//                              --ketchup-deep   4.51:1   every defect mark
+//                              --sky-deep       4.54:1   foil
+//                              --keyline        3.02:1   the card's own outline
+//
+// so every label clears AA as small text and every mark clears the 3:1
+// graphical gate with room. The card body itself is 1.38:1 on the page and is
+// carried entirely by its keyline, which is what .ct-card has always done here.
+//
+// PINK IS THE DAMAGE AND THAT IS THE ACCENT RULE RATHER THAN A PREFERENCE.
+// CLAUDE.md: teal is how you get around, pink is what the site is saying. A
+// defect mark goes nowhere, so it is pink. Nothing in these figures is teal
+// except foil, which is a description of a material and not an accent.
+//
+// DRAWN, NOT PHOTOGRAPHED, and that is the third time this file says it.
+// centeringDiagram() and ladder() both argue it: a photograph of a real damaged
+// card would be a claim about that card's grade, we hold no such photograph we
+// are allowed to publish, and every photograph of a graded card on the internet
+// belongs to somebody. A diagram makes no claim about any object.
+//
+// THE MARKS ARE EXAGGERATED AND EVERY FIGURE THAT EXAGGERATES SAYS SO, in its
+// own note line and in its aria-label, the same way registrationDiagram() in
+// build-fakes.mjs does. A real print line is a hair. Drawn at a hair it is one
+// device pixel and it is not there at all.
+//
+// NOTHING HERE ANIMATES. They are static drawings, so prefers-reduced-motion
+// has nothing to gate.
+//
+// TYPE SIZE IS THE CONSTRAINT THAT SET THE VIEWBOX, not the other way round.
+// The figure box is 240px on a wide screen and up to 260px on a phone. At a
+// 180 unit viewBox that is 1.33px a unit, so an 8 unit label renders 10.7px and
+// a 7 unit note renders 9.3px, which is the floor this file already records
+// beside .sp-svg. DO NOT WIDEN THE VIEWBOX WITHOUT RE-CHECKING THAT: at 240
+// units the same 8 unit label renders 8px and the figures quietly stop being
+// readable on the device most of the traffic is on. SVG text neither wraps nor
+// clips, so every line below was counted: Space Mono advances 0.6em, so at 8
+// units a character is 4.8 units and 37 characters is the widest line that fits
+// the 180 unit box. Re-count if you reword one.
+// ----------------------------------------------------------------------------
+
+// A card, at the size these figures draw one. rx is 3 rather than .ct-card's 9
+// because the corner radius is a real proportion of a real card and these cards
+// are a third of the size the big diagram's is.
+const gdCard = (x, y, w, h) =>
+  `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3" class="ct-card"/>`;
+
+// The art window, the same .ct-win the centering diagram fills. Inset by a
+// tenth of the width, which is roughly where a Pokemon card's border ends.
+const gdWin = (x, y, w, h) =>
+  `<rect x="${x + w * 0.1}" y="${y + h * 0.09}" width="${w * 0.8}" height="${h * 0.46}" rx="2" class="ct-win"/>`;
+
+// The text box under the art, drawn as two faint rules. It is here so that the
+// print line figure has something to cross: the whole tell is that a plate line
+// ignores what is printed under it.
+const gdText = (x, y, w, h) => {
+  const ty = y + h * 0.62;
+  return `<g class="gd-hair"><path d="M${x + w * 0.12} ${ty} H${x + w * 0.88}"/><path d="M${x + w * 0.12} ${
+    ty + h * 0.08
+  } H${x + w * 0.7}"/><path d="M${x + w * 0.12} ${ty + h * 0.16} H${x + w * 0.82}"/></g>`;
+};
+
+// Deterministic noise, the same LCG build-fakes.mjs uses for its rosette. A
+// Math.random() here would give a different page on every build and make the
+// built tree differ from itself, which check-tree-drift.mjs would report as a
+// change nobody made.
+const gdRnd = (seed) => {
+  let s = seed;
+  return () => ((s = (s * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff);
+};
+
+const gdFig = (id, vb, label, body) =>
+  `<figure class="gd-fig">
+            <svg viewBox="0 0 180 ${vb}" class="gd-svg" role="img" aria-label="${esc(label)}">${body}
+            </svg>
+          </figure>`;
+
+/* 1. CHIPPING ON THE EDGES, which the hobby calls whitening.
+   Two whole cards, clean beside chipped, because chipping is a thing you find
+   by comparing an edge to an edge you trust. The chips are var(--ink), which is
+   the site's off-white and is also literally the subject: PSA's own definition,
+   quoted in the headline above this list, says the contrast is between the
+   coloured border and the lighter cardboard underneath the thin layer of ink.
+   They are clipped to the card outline so a chip cannot float off the edge into
+   the page, which is what happened on the first build of this. */
+function gdChipping() {
+  // ONE <path> OF 44 CHIPS, NOT 44 <rect>s, AND EVERY NUMBER IS AN INTEGER.
+  // This was the heaviest figure on the page by a factor of three, 4,645 bytes
+  // raw against a 1,300 byte median, because it emitted sixty `<rect x="12.4"
+  // y="83.7" width="2.1" height="3.4" rx="0.5"/>`. The picture is identical as
+  // a single path of `Mx yhVvHZ` subpaths and the tenths were never visible: at
+  // 240px a tenth of a viewBox unit is a seventh of a device pixel. Count is 44
+  // rather than 60 for the same reason, and it still reads as a wrecked border;
+  // check the screenshot rather than the number if you change it.
+  const chips = (x, y, w, h, seed) => {
+    const r = gdRnd(seed);
+    let d = "";
+    const put = (cx, cy, cw, ch) =>
+      (d += `M${Math.round(cx)} ${Math.round(cy)}h${Math.round(cw)}v${Math.round(ch)}h-${Math.round(cw)}Z`);
+    for (let i = 0; i < 9; i++) {
+      put(x + 1 + r() * (w - 4), y, 2 + r() * 3, 1 + r() * 2);
+      put(x + 1 + r() * (w - 4), y + h - (1 + r() * 2), 2 + r() * 3, 1 + r() * 2);
+    }
+    for (let i = 0; i < 11; i++) {
+      put(x, y + 2 + r() * (h - 6), 1 + r() * 2, 2 + r() * 3);
+      put(x + w - (1 + r() * 2), y + 2 + r() * (h - 6), 1 + r() * 2, 2 + r() * 3);
+    }
+    // The corners take the worst of it, which is where a grader looks first.
+    for (const [cx, cy] of [[x, y], [x + w - 4, y], [x, y + h - 4], [x + w - 4, y + h - 4]]) put(cx, cy, 4, 4);
+    return `<path d="${d}"/>`;
+  };
+  const B = { x: 100, y: 20, w: 62, h: 84 };
+  return gdFig(
+    "chip",
+    130,
+    "Two cards side by side. The left one has a clean unbroken border. The right one has ragged white flecks of bare cardboard all along its edges and at all four corners, worst at the corners.",
+    `
+              <text x="47" y="12" class="gd-l">CLEAN</text>
+              <text x="131" y="12" class="gd-bad">CHIPPED</text>
+              ${gdCard(16, 20, 62, 84)}${gdWin(16, 20, 62, 84)}
+              ${gdCard(B.x, B.y, B.w, B.h)}${gdWin(B.x, B.y, B.w, B.h)}
+              <clipPath id="gdChip"><rect x="${B.x}" y="${B.y}" width="${B.w}" height="${B.h}" rx="3"/></clipPath>
+              <g class="gd-white" clip-path="url(#gdChip)">${chips(B.x, B.y, B.w, B.h, 17)}</g>
+              <text x="90" y="120" class="gd-n">white is the cardboard under the ink</text>`
+  );
+}
+
+/* 2. PRINT LINE.
+   One card, and the whole diagnosis is a property of the LINE rather than of
+   the card: it is dead straight, it runs off both edges, and it does not care
+   what is printed underneath it. That last part is why the card is drawn with
+   an art window and a text box at all. The bottom note is the test a reader can
+   actually apply, and it is the contrast with the scratch three figures down:
+   a scratch starts and stops, a plate line cannot. */
+function gdPrintLine() {
+  return gdFig(
+    "pl",
+    124,
+    "A card with one perfectly straight line running from the top edge to the bottom edge, passing through the artwork, the border and the text box without stopping or bending.",
+    `
+              ${gdCard(14, 14, 66, 92)}${gdWin(14, 14, 66, 92)}${gdText(14, 14, 66, 92)}
+              <path d="M45 14 V106" class="gd-mark"/>
+              <path d="M45 58 H90" class="gd-lead"/>
+              <text x="94" y="34" class="gd-la">dead straight</text>
+              <text x="94" y="45" class="gd-la">and off both</text>
+              <text x="94" y="56" class="gd-la">edges</text>
+              <text x="94" y="74" class="gd-la">it crosses the</text>
+              <text x="94" y="85" class="gd-la">art, the border</text>
+              <text x="94" y="96" class="gd-la">and the text</text>
+              <text x="90" y="118" class="gd-n">a scratch stops somewhere. this cannot</text>`
+  );
+}
+
+/* 3. METALLIC PRINT LINES, the flaw only foil gets.
+   THE DIAGRAM IS THE TEST, not the flaw. Beckett and SGC both publish a
+   tolerance for these at every level, which is the finding in the prose; what
+   the prose cannot do is tell you how to see one, and the answer is that you
+   cannot, flat on, under a ceiling light. You tilt it. So the figure is the same
+   card twice, flat and tilted, and the lines are absent from the first. Drawing
+   both states is the only way to show a change of angle without animating
+   anything. */
+function gdMetallic() {
+  const foil = (x, y, w, h, lit) => {
+    let o = "";
+    for (let i = 1; i < 7; i++) {
+      const lx = x + (w * i) / 7;
+      o += `<path d="M${lx.toFixed(1)} ${y} V${y + h}"${lit ? "" : ' opacity=".08"'}/>`;
+    }
+    return `<g class="gd-foil">${o}</g>`;
+  };
+  const A = { x: 16, y: 22, w: 58, h: 78 };
+  return gdFig(
+    "met",
+    126,
+    "The same foil card twice. Seen flat on, the foil panel looks clean. Seen tilted to a light, a set of fine parallel lines appears across the foil.",
+    `
+              <text x="45" y="13" class="gd-l">FLAT ON</text>
+              <text x="134" y="13" class="gd-bad">TILTED</text>
+              ${gdCard(A.x, A.y, A.w, A.h)}
+              <rect x="${A.x + 6}" y="${A.y + 7}" width="${A.w - 12}" height="${A.h * 0.5}" rx="2" class="ct-win"/>
+              ${/* THE FLAT PANEL'S LINES ARE AT .08 AND WERE AT .14, which was
+                    visible enough on a screenshot to undercut the whole figure:
+                    the message is that you cannot see these flat on, so a panel
+                    that shows them faintly is arguing against its own label.
+                    They are not deleted, because the lines ARE on the card
+                    either way and drawing nothing would say they appear when
+                    you tilt it, which is not what happens. */ ""}
+              ${foil(A.x + 6, A.y + 7, A.w - 12, A.h * 0.5, false)}
+              <g transform="translate(112,0) skewX(-9)">
+                ${gdCard(0, 22, 58, 78)}
+                <rect x="6" y="29" width="46" height="39" rx="2" class="ct-win"/>
+                ${foil(6, 29, 46, 39, true)}
+              </g>
+              <text x="90" y="120" class="gd-n">exaggerated. a real one is a hair</text>`
+  );
+}
+
+/* 4. ROLLER MARK.
+   "A rounded indentation from the printing process" is TAG's whole definition
+   and it is a sentence about a SHAPE, which is the one thing a drawing is for.
+   The figure is a profile, because the difference between this and the two
+   defects it gets confused with is entirely in the profile: a roller mark is
+   broad, shallow and rounded, a crease is a sharp fold, a dent is local. The
+   card beside it is what the same thing looks like from the front, which is how
+   the reader will actually meet it. */
+function gdRoller() {
+  return gdFig(
+    "rm",
+    118,
+    "A card with a broad shallow oval depression across it, and beside it the same card seen edge on, showing a wide rounded dip in the surface with no break in it.",
+    `
+              <text x="42" y="12" class="gd-l">FROM THE FRONT</text>
+              <text x="132" y="12" class="gd-l">EDGE ON</text>
+              ${gdCard(12, 18, 58, 78)}${gdWin(12, 18, 58, 78)}
+              <ellipse cx="41" cy="60" rx="21" ry="9" class="gd-mark"/>
+              <ellipse cx="41" cy="60" rx="13" ry="5" class="gd-mark" opacity=".75"/>
+              ${/* THE PROFILE IS A CLOSED BAND AND THE FIRST BUILD OF IT WAS NOT.
+                    It was written as one curved top edge closed back along a
+                    STRAIGHT bottom, so the dip crossed the bottom line and the
+                    shape self-intersected: it rendered as a flat bar with a
+                    wave passing through it, which is a picture of nothing.
+                    Both surfaces follow the dip now, which is also the true
+                    thing, because a roller compresses the card rather than
+                    scooping the front off it. The dashed rule is the flat the
+                    dip is measured against; without it the dip reads as a bend
+                    in the whole card. */ ""}
+              <path d="M88 42 H176" class="gd-ref"/>
+              <path d="M88 46 C108 46 114 58 132 58 C150 58 156 46 176 46 L176 53 C156 53 150 65 132 65 C114 65 108 53 88 53 Z" class="ct-card"/>
+              <path d="M88 46 C108 46 114 58 132 58 C150 58 156 46 176 46" class="gd-mark"/>
+              <text x="132" y="82" class="gd-n">wide, rounded,</text>
+              <text x="132" y="92" class="gd-n">nothing broken</text>
+              <text x="90" y="112" class="gd-n">a dish, not a fold and not a pit</text>`
+  );
+}
+
+/* 5. ROLLER DAMAGE FROM THE PACK, and this is the most useful figure of the
+   set because it is the only one that answers a question rather than defining a
+   word. CGC's tell, which is in the prose above it: packaging roller damage
+   shows on BOTH faces, a pinched layer from manufacturing shows only on the
+   holo side. So the figure is four card faces in two rows, and reading DOWN a
+   column is the test.
+   THE TWO INDENTATIONS ARE SYMMETRIC ABOUT THE CARD'S CENTRE LINE ON PURPOSE.
+   A mark that is off centre appears mirrored when you turn the card over, which
+   is true and is a second thing to explain in a figure whose entire message is
+   "turn the card over". Symmetric, the mirroring is a no-op and the picture is
+   honest either way. The crease figure below does mirror, and says so, because
+   there the mirroring is the interesting part. */
+function gdPackRoller() {
+  // A TROUGH RATHER THAN A LINE, and the difference matters two figures after
+  // the print line: drawn as a single crisp stroke these were the same mark as
+  // a plate line, on a page whose whole job is telling those apart. A wide soft
+  // stroke under a narrow solid one reads as a channel pressed into the card.
+  const bars = (x, y, w, h) => {
+    const one = (cx) =>
+      `<path d="M${cx} ${y + 5} V${y + h - 5}" stroke-width="4" opacity=".3"/><path d="M${cx} ${y + 5} V${
+        y + h - 5
+      }" stroke-width="1.2"/>`;
+    return `<g class="gd-mark">${one(x + w * 0.3)}${one(x + w * 0.7)}</g>`;
+  };
+  return gdFig(
+    "pr",
+    212,
+    "Four card faces in two rows. In the top row both the front and the back carry the same pair of vertical indentations, which is roller damage from the pack. In the bottom row only the front carries them and the back is clean, which is a pinch from manufacturing.",
+    `
+              <text x="46" y="12" class="gd-l">FRONT</text>
+              <text x="134" y="12" class="gd-l">BACK</text>
+              ${gdCard(18, 18, 56, 76)}${gdWin(18, 18, 56, 76)}${bars(18, 18, 56, 76)}
+              ${gdCard(106, 18, 56, 76)}${bars(106, 18, 56, 76)}
+              <text x="90" y="108" class="gd-bad">BOTH FACES: FROM THE PACK</text>
+              ${gdCard(18, 120, 56, 76)}${gdWin(18, 120, 56, 76)}${bars(18, 120, 56, 76)}
+              ${gdCard(106, 120, 56, 76)}
+              <text x="90" y="210" class="gd-l">FRONT ONLY: FROM THE PRESS</text>`
+  );
+}
+
+/* 6. PRINT SNOW, PRINT DOTS AND FISH EYES.
+   Three named things in one sentence of prose, and a reader holding a card with
+   one of them cannot tell from that sentence which of the three they have. So
+   all three are drawn on one card and labelled, which is the only figure here
+   whose job is to SEPARATE things rather than to define one. */
+function gdPrintSnow() {
+  // Same trim as the chipping figure: 26 specks rather than 34, one decimal on
+  // the radius because a speck IS a fraction of a unit, integers on the
+  // positions because a tenth of a unit is a seventh of a device pixel here.
+  const r = gdRnd(29);
+  let snow = "";
+  for (let i = 0; i < 26; i++) {
+    snow += `<circle cx="${Math.round(20 + r() * 26)}" cy="${Math.round(24 + r() * 20)}" r="${(
+      0.6 + r() * 0.8
+    ).toFixed(1)}"/>`;
+  }
+  return gdFig(
+    "ps",
+    124,
+    "One card carrying all three print marks: a haze of tiny white specks near the top, three separate round white dots below it, and two circular spots with a pale ring and a darker center.",
+    `
+              ${gdCard(10, 14, 62, 88)}${gdWin(10, 14, 62, 88)}
+              <g class="gd-white">${snow}</g>
+              <g class="gd-white"><circle cx="26" cy="60" r="2.2"/><circle cx="40" cy="68" r="2"/><circle cx="52" cy="58" r="1.8"/></g>
+              ${/* A FISH EYE IS A RING WITH A DISCOLORED MIDDLE and the first
+                    build drew only the ring, so the label named a thing that
+                    was not in the picture. The middle is a wash of the same
+                    off-white the snow and the dots use, at .4, which is what
+                    "discolored" looks like against a printed ground. */ ""}
+              <g class="gd-white" opacity=".6"><circle cx="28" cy="84" r="3.4"/><circle cx="46" cy="90" r="2.7"/></g>
+              <g class="gd-mark"><circle cx="28" cy="84" r="4.4"/><circle cx="46" cy="90" r="3.6"/></g>
+              <path d="M46 30 H84" class="gd-lead"/>
+              <path d="M56 62 H84" class="gd-lead"/>
+              <path d="M52 86 H84" class="gd-lead"/>
+              <text x="87" y="27" class="gd-la">print snow</text>
+              <text x="87" y="37" class="gd-lb">a haze of specks</text>
+              <text x="87" y="59" class="gd-la">print dots</text>
+              <text x="87" y="69" class="gd-lb">separate and round</text>
+              <text x="87" y="83" class="gd-la">fish eyes</text>
+              <text x="87" y="93" class="gd-lb">a ring with a</text>
+              <text x="87" y="102" class="gd-lb">discolored middle</text>
+              <text x="90" y="118" class="gd-n">PSA files all three as a print defect</text>`
+  );
+}
+
+/* 7. WRINKLE VERSUS CREASE, and the prose is already making the right
+   distinction: a wrinkle shows on one side, a crease is usually visible on
+   both, and PSA says a crease can drop a card up to five grades. That is a
+   FRONT AND BACK test, so the figure is a column per defect and a row per face,
+   and reading down a column is the whole thing.
+   THE CREASE IS MIRRORED ON THE BACK because that is what happens when you turn
+   a card over, and a figure that drew it in the same place would be teaching a
+   reader to reject a real crease as "the wrong side". The note line says so. */
+function gdWrinkle() {
+  return gdFig(
+    "wc",
+    180,
+    "Two columns, each showing the front and then the back of one card. The wrinkle column has soft ripples on the front and a clean back. The crease column has one hard line on the front and the same line, mirrored, on the back.",
+    `
+              <text x="44" y="12" class="gd-bad">WRINKLE</text>
+              <text x="136" y="12" class="gd-bad">CREASE</text>
+              ${gdCard(22, 18, 44, 60)}
+              <g class="gd-soft"><path d="M28 40 Q38 32 44 40 Q50 48 60 40"/><path d="M28 47 Q38 39 44 47 Q50 55 60 47"/><path d="M28 54 Q38 46 44 54 Q50 62 60 54"/></g>
+              ${gdCard(22, 96, 44, 60)}
+              ${gdCard(114, 18, 44, 60)}
+              <path d="M120 28 L152 68" class="gd-mark"/>
+              ${gdCard(114, 96, 44, 60)}
+              <path d="M152 106 L120 146" class="gd-mark"/>
+              <text x="44" y="88" class="gd-n">front</text>
+              <text x="136" y="88" class="gd-n">front</text>
+              <text x="44" y="166" class="gd-n">back: clean</text>
+              <text x="136" y="166" class="gd-n">back: there too</text>
+              <text x="90" y="178" class="gd-n">on the back it appears mirrored</text>`
+  );
+}
+
+/* 8. NOTCHING.
+   PSA's definition names the rubber band, so the band is drawn: the notches are
+   where it sat, which is the thing that makes them findable. The card is drawn
+   with the bites cut OUT of its outline rather than painted on top of it,
+   because that is the difference between this and the first figure in the list
+   and the note line says it in six words. Chipping takes ink off an edge that
+   is still there. A notch takes the edge. */
+function gdNotching() {
+  // The bites are page-coloured arcs sitting on the card's own edge, so the
+  // outline still reads as the outline. The figure ground is var(--page) and
+  // nothing else, which is why this works and why it would not work inside a
+  // panel: see the note at the top of this block.
+  const biteL = (x, y) => `<path d="M${x} ${y} A4.5 4.5 0 0 1 ${x} ${y + 9} Z" class="gd-bite"/>`;
+  const biteR = (x, y) => `<path d="M${x} ${y} A4.5 4.5 0 0 0 ${x} ${y + 9} Z" class="gd-bite"/>`;
+  // THE FIRST BUILD OF THIS FIGURE PAINTED OUT OF ITS OWN BOX, TWICE, and it is
+  // the trap the note at the top of this block already names: SVG text neither
+  // wraps nor clips, so a label that outgrows its slot paints straight over the
+  // next one and nothing errors. "A BAND SAT HERE" and "THE EDGE, CLOSE UP" ran
+  // into each other at the top, and the four-line annotation ran off the right
+  // edge of the 180 unit box entirely. Both were only visible on a screenshot.
+  // Every line here is counted at 0.6em: at 8 units a character is 4.8 units, at
+  // 7 units it is 4.2, and the widest line below is 38 characters at 7 units,
+  // which is 160 of the 180.
+  return gdFig(
+    "nt",
+    140,
+    "A card with a rubber band lying across it and a bite taken out of the card edge at each of the two places the band crosses it. Beside it the edge is magnified, showing the notches as missing edge rather than as white marks on an edge that is still there.",
+    `
+              <text x="43" y="12" class="gd-l">WHERE IT SAT</text>
+              <text x="115" y="12" class="gd-l">CLOSE UP</text>
+              ${gdCard(12, 18, 62, 88)}${gdWin(12, 18, 62, 88)}
+              <g class="gd-band"><path d="M2 48 H84"/><path d="M2 60 H84"/></g>
+              ${biteL(12, 44)}${biteL(12, 56)}${biteR(74, 44)}${biteR(74, 56)}
+              <rect x="104" y="22" width="22" height="80" rx="1" class="ct-card"/>
+              <path d="M104 38 A8 8 0 0 1 104 54 Z" class="gd-bite"/>
+              <path d="M104 62 A8 8 0 0 1 104 78 Z" class="gd-bite"/>
+              <text x="132" y="50" class="gd-la">the edge</text>
+              <text x="132" y="60" class="gd-la">itself is</text>
+              <text x="132" y="70" class="gd-la">gone</text>
+              <text x="90" y="120" class="gd-n">a band leaves them where it crossed</text>
+              <text x="90" y="132" class="gd-n">chipping takes ink. a notch takes edge</text>`
+  );
+}
+
+/* 9. PIT, DENT AND SCRATCH.
+   TAG defines all three in one sentence and they are three different shapes, so
+   the figure separates them the way the print marks figure does. The note is
+   the reusable half: two of the three are DEPTH, which you find by tilting the
+   card until the light rakes across it, and one is a LINE, which you find by
+   looking straight at it. */
+function gdPitDent() {
+  return gdFig(
+    "pd",
+    126,
+    "One card carrying all three surface marks: a small round well near the top, a soft oval depression in the middle, and a straight line and a curved line near the bottom.",
+    `
+              ${gdCard(10, 14, 62, 88)}${gdWin(10, 14, 62, 88)}
+              ${/* THE PIT'S WELL WAS A DARK DISC AND IT MEASURED 1.60:1 ON THE
+                    CARD, which is to say the label read "a round well" beside a
+                    picture of a ring. A dark fill cannot work here: the card is
+                    already dark, which is a thing /fake-cards.html never has to
+                    deal with because its cards are cream. Two concentric rings
+                    at full strength read as a crater and measure 4.51:1. */ ""}
+              <circle cx="26" cy="32" r="3.4" class="gd-mark"/><circle cx="26" cy="32" r="1.5" class="gd-mark" stroke-width="1"/>
+              <ellipse cx="42" cy="60" rx="12" ry="7" class="gd-mark"/>
+              <path d="M34 60 A12 7 0 0 0 50 64" class="gd-mark" opacity=".75"/>
+              ${/* THE TWO SCRATCHES CROSSED IN THE FIRST BUILD and read as one
+                    X-shaped mark rather than as "straight or curved", which is
+                    what the label beside them claims. Separated. */ ""}
+              <g class="gd-mark"><path d="M18 78 L44 88"/><path d="M22 98 Q40 90 60 96"/></g>
+              <path d="M30 32 H84" class="gd-lead"/>
+              <path d="M54 60 H84" class="gd-lead"/>
+              <path d="M60 92 H84" class="gd-lead"/>
+              <text x="87" y="29" class="gd-la">pit</text>
+              <text x="87" y="39" class="gd-lb">a round well</text>
+              <text x="87" y="57" class="gd-la">dent</text>
+              <text x="87" y="67" class="gd-lb">a soft depression</text>
+              <text x="87" y="89" class="gd-la">scratch</text>
+              <text x="87" y="99" class="gd-lb">straight or curved</text>
+              <text x="90" y="120" class="gd-n">two are depth. one is a line</text>`
+  );
+}
+
+/* 10. DIAMOND CUT.
+   The only defect on the list that is a property of the card's OUTLINE rather
+   than of anything printed on it.
+
+   THE FIRST BUILD OF THIS FIGURE FAILED THE ONLY TEST THAT MATTERS and it was
+   thrown away rather than nudged. It drew a dashed true rectangle with the card
+   laid over it out of square, and on the screenshot the card covered the
+   reference almost completely, so what survived was a picture of a card lying
+   at an ANGLE. A rotated card is not a diamond cut. A diamond cut is a card
+   whose corners are not right angles, which no amount of rotating produces, and
+   a reader who took that picture to their own card would have gone looking for
+   the wrong thing.
+
+   WHAT REPLACED IT IS THE TEST RATHER THAN THE DEFINITION. You find this at
+   home by laying a straight edge, usually another card, along one side. Square,
+   and it lies flat against it. Diamond cut, and a wedge of light opens up. So
+   the figure is two cards against the same dashed straight edge, and the wedge
+   is drawn. THE SKEW IS EXAGGERATED at roughly four degrees against the one
+   that actually gets a card knocked down, which the aria-label says, because at
+   one degree the wedge is a device pixel. */
+function gdDiamond() {
+  return gdFig(
+    "dc",
+    134,
+    "Two cards each laid against a dashed straight edge. The square one sits flush along the whole length of it. The diamond cut one touches at the bottom and leans away at the top, leaving a wedge of daylight between the card and the straight edge. The lean is exaggerated to be visible.",
+    `
+              ${/* THE STRAIGHT EDGE IS DRAWN LAST AND ON THE RIGHT, and both
+                    halves of that were fixed after looking at a screenshot. On
+                    the left of the card and drawn first it was painted over by
+                    the card on the square side and by the wedge on the cut
+                    side, so the one line the note calls out by name was the one
+                    thing not visible in the figure. Drawn last it sits on top
+                    of both, which is also the true picture: the straight edge
+                    is a second card laid ON the first. */ ""}
+              <text x="44" y="13" class="gd-l">SQUARE</text>
+              <text x="137" y="13" class="gd-bad">DIAMOND CUT</text>
+              ${gdCard(14, 22, 60, 84)}${gdWin(14, 22, 60, 84)}
+              <path d="M104 22 L164 22 L170 106 L110 106 Z" class="ct-card"/>
+              <path d="M110 30 L158 30 L161 70 L113 70 Z" class="ct-win"/>
+              <path d="M164 22 L170 22 L170 106 Z" class="gd-gap"/>
+              <path d="M164 22 L170 106" class="gd-mark"/>
+              <path d="M74 18 V110" class="gd-ref"/>
+              <path d="M170 18 V110" class="gd-ref"/>
+              <text x="90" y="126" class="gd-n">dashed = another card's straight edge</text>`
+  );
+}
+
+/* 11. HOLO BLEED.
+   The only entry on the list where the two companies named disagree about
+   whether the thing exists, which is the prose's finding and is not drawable.
+   What IS drawable is the thing itself, and it is a containment question: foil
+   where the design puts it, against foil in the border and the text box where
+   the design does not. Teal is the foil here and that is a description of a
+   material rather than an accent; nothing in these figures routes anywhere. */
+function gdHoloBleed() {
+  // BLEED IS A CONTAINMENT FAULT AND THE FIRST BUILD DREW A FLOOD. The whole of
+  // the second card was hatched, which is a picture of a FULL ART card, a thing
+  // Pokemon prints on purpose and which nobody should send in worried. What
+  // makes it bleed is that the foil is somewhere the design does not put it, in
+  // patches, escaping past the edge of the window. So the second card's hatch
+  // is clipped to the window PLUS one irregular spill over the border and the
+  // text box, and the first card's is clipped to the window and nothing else.
+  // ONE <pattern>, NOT FIFTY-FOUR <path>s, AND THE FIRST BUILD WAS THE SECOND.
+  // Foil was drawn as a loop emitting an individual diagonal every 5 units into
+  // each of the two cards, which is 54 elements and made this the second
+  // heaviest figure on the page at 3,246 bytes raw. A pattern is the same
+  // picture in one definition and two fills.
+  //
+  // IT ALSO FIXED AN OVERFLOW THAT WAS NOT VISIBLE AND WAS STILL REAL. A
+  // clip-path hides paint; it does not shrink geometry, and
+  // getBoundingClientRect reports geometry. The loop's last strokes ran up to
+  // 90px past the right edge of their own <svg>, so an overflow sweep at 320
+  // reported TEN elements painting off the page on a page whose scrollWidth was
+  // exactly 320 and where nothing was visible outside anything. A pattern fill
+  // has the bounding box of the shape it fills and cannot do that at all.
+  const hatch = (d) => `<path d="${d}" fill="url(#gdFoil)"/>`;
+  return gdFig(
+    "hb",
+    126,
+    "Two cards. On the first the foil is contained inside the artwork window, which is where the design puts it. On the second the same foil escapes past the window in a ragged patch, out over the border and across the text box, where the design puts none.",
+    `
+              ${/* THE TILE'S LINE IS AT 2.5 AND NOT AT 0, and the class is
+                    .gd-foil rather than a stroke= attribute. A stroke at x=0 is
+                    half outside its own tile and patterns do not wrap paint, so
+                    every diagonal renders at half width. And a custom property
+                    in a presentation attribute is not reliable across browsers,
+                    which is build-fakes.mjs's rule and is why every mark in
+                    these figures takes its paint from a rule. */ ""}
+              <defs><pattern id="gdFoil" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                <path d="M2.5 0 V5" class="gd-foil" opacity=".85"/>
+              </pattern></defs>
+              <text x="45" y="12" class="gd-l">AS PRINTED</text>
+              <text x="134" y="12" class="gd-bad">HOLO BLEED</text>
+              ${gdCard(16, 20, 58, 82)}${gdWin(16, 20, 58, 82)}${gdText(16, 20, 58, 82)}
+              ${hatch("M21.8 27.4 H68.2 V65.1 H21.8 Z")}
+              ${gdCard(106, 20, 58, 82)}${gdWin(106, 20, 58, 82)}${gdText(106, 20, 58, 82)}
+              ${/* TWO <path>s AND NOT TWO SUBPATHS OF ONE, and the difference
+                    was a hole in the middle of the figure. The window rect and
+                    the spill blob overlap, they wind in opposite directions,
+                    and under the default nonzero fill rule the overlap CANCELS:
+                    the built page showed foil above the window and below it and
+                    bare card exactly where the two met, which is the one place
+                    the foil has to be. Separate elements each fill on their
+                    own. It costs about thirty bytes. */ ""}
+              ${hatch("M111.8 27.4 H158.2 V65.1 H111.8 Z")}
+              ${hatch("M110 44 Q107 66 120 78 Q142 90 154 74 Q163 60 156 48 Q140 40 128 46 Z")}
+              <text x="90" y="120" class="gd-n">PSA notes it. CGC says it is not a thing</text>`
+  );
+}
+
+// THE MAP IS KEYED ON THE DEFECT'S OWN NAME AND THE BUILD FAILS IF A KEY STOPS
+// MATCHING. That is the discipline centeringDiagram() and the subgrade figure
+// already hold this file to: a picture that has drifted from the sentence it
+// illustrates is worse than no picture, and an index would go quietly wrong the
+// first time somebody reorders data/grade-check.json. An item with NO diagram
+// is allowed and is reported on the build line; a diagram with no item throws.
+const GD = {
+  "Chipping on the edges": gdChipping,
+  "Print line": gdPrintLine,
+  "Metallic print lines, and why foil is its own problem": gdMetallic,
+  "Roller mark": gdRoller,
+  "Roller damage from the pack": gdPackRoller,
+  "Print snow, print dots and fish eyes": gdPrintSnow,
+  "Wrinkle versus crease": gdWrinkle,
+  Notching: gdNotching,
+  "Pit, dent and scratch": gdPitDent,
+  "Diamond cut": gdDiamond,
+  "Holo bleed, where the company you pick changes the answer": gdHoloBleed,
+};
+{
+  const names = new Set(d.defects.items.map((i) => i.name));
+  const orphans = Object.keys(GD).filter((k) => !names.has(k));
+  if (orphans.length) {
+    throw new Error(
+      `build-grade-check: ${orphans.length} defect diagram(s) no longer match any entry in ` +
+        `data/grade-check.json defects.items: ${JSON.stringify(orphans)}. The drawing and the two ` +
+        `sentences beside it are one thing. Rename the key AND check the picture still illustrates ` +
+        `what the copy now says; do not ship a diagram pointing at a defect the page stopped naming.`
+    );
+  }
+  const undrawn = d.defects.items.filter((i) => !GD[i.name]).map((i) => i.name);
+  if (undrawn.length) console.log(`  build-grade-check: ${undrawn.length} defect(s) with no diagram: ${undrawn.join("; ")}`);
+}
+
 const desc =
   "Will your Pokemon card grade a 10? Centering tolerances from PSA, CGC, Beckett, SGC and TAG, the flaws that cost grades, and how to check a card at home.";
 
+// ---------------------------------------------------------------------------
+// STYLE_GD: WHY THE DEFECT DIAGRAM RULES IN THE BLOCK BELOW CARRY NO COMMENTS.
+//
+// This is the note that used to live inside the <style> block, and moving it
+// here is not tidying. The comment forty lines above `ladder()` says it: a
+// page-level <style> ships to the browser VERBATIM, nothing strips comments out
+// of it the way build-css.mjs strips them out of ui.css, so prose written in
+// there is render-blocking page weight on the one page that carries it. That
+// note even records the price the last time somebody did it, +634 bytes gzipped
+// on this page, and this pass wrote 4KB of CSS prose anyway before measuring.
+// Measured on the built page: moving these words out of the <style> and into
+// here took 3,984 bytes off the raw HTML. Write the reasoning in JS.
+//
+// THE RULES THEMSELVES ARE IN THE BUILDER AND NOT IN ui.css, deliberately.
+// ui.css is one render-blocking request on 1,486 pages and exactly one page on
+// this site draws a chipped edge, so 26 declarations there would be paid for by
+// 1,485 pages that will never use one.
+//
+// LAYOUT. .gd-row is figure beside prose, stacking to figure-first under 700px,
+// which is .ct-wrap's rule on this same page and for the reason written there:
+// on a phone "above" is the only version of "beside" there is. 240px is not a
+// taste decision, it is what sets the rendered type size; the viewBox note above
+// gdCard() has the arithmetic and you have to re-read it before changing this.
+// Every <svg> carries a viewBox and its box is pinned, so the height comes off
+// the intrinsic ratio before paint: measured CLS is 0.000 with 0 layout-shift
+// entries at 390 and at 1440, and this must not be the thing that changes that.
+//
+// THE CARD IS .ct-card AND .ct-win, the same two the centering diagram and the
+// ladder draw, so a card is ONE object on this page rather than three. Only the
+// stroke weights are overridden: at 4 and 2 in a 180 unit box they render 5.3px
+// and 2.7px, which is a picture frame round a postage stamp. Same move and same
+// reason as .lad-svg turning .ct-band's opacity up for the small size.
+//
+// PINK IS THE DAMAGE, which is CLAUDE.md's accent rule and not a preference: a
+// defect mark goes nowhere, and pink is every mark that goes nowhere.
+// --ketchup-deep rather than --ketchup, because on var(--card) the two measure
+// 4.51:1 and 3.45:1 and the second only just clears the graphical gate. --ink is
+// the exposed cardboard, which is the subject rather than a colour choice.
+// --sky-deep is foil, a material rather than an accent.
+//
+// EVERY MARK CLEARS THE 3:1 GRAPHICAL GATE ON THE GROUND IT IS ACTUALLY PAINTED
+// ON, MEASURED, WITH ONE DELIBERATE EXCEPTION. Three did not, and all three were
+// found by measuring rather than by reading, because an INLINE opacity attribute
+// is invisible to a pass that reads class names: the roller mark's inner ellipse
+// and the dent's crescent sat at .7, which is 2.99:1 on var(--card) and misses
+// by one hundredth, and the fish eye's discolored middle sat at .4, which is
+// 2.41:1. They are .75, .75 and .6 now: 3.21:1, 3.21:1 and 3.53:1. THE EXCEPTION
+// IS THE PACK ROLLER'S HALO, the 4-unit stroke at .3 that makes its two
+// indentations read as troughs pressed into the card rather than as lines drawn
+// on it. It is 1.61:1 and it stays, because the mark it sits behind is a
+// 1.2-unit line at 4.51:1 and the gate asks for the parts needed to UNDERSTAND
+// the graphic. Raising it would swallow the line it exists to sit behind.
+//
+// .gd-gap IS .8 AND NOT .7 FOR A REASON ONLY A MEASUREMENT SHOWS. The wedge in
+// the diamond cut figure is painted on var(--page), where .7 is 3.82:1 and
+// clears the gate. But it lies inside the BOUNDING BOX of a card whose real
+// outline is a leaning quadrilateral, so any check asking "which card is this
+// inside" resolves it against var(--card), where .7 is 2.99:1. At .8 it is
+// 4.51:1 on the page and 3.26:1 on the card, so the answer is the same whichever
+// ground you decide it is on and there is nothing left to argue about.
+//
+// .gd-bite IS THE PAGE COLOUR because a notch is the EDGE being gone, so it is
+// cut out of the card in the ground's own colour rather than painted on top of
+// it. That works because these figures sit on the page and nowhere else: dropped
+// into a .gc-key panel that fill would be a light hole in a dark box.
+// ---------------------------------------------------------------------------
 const style = `
 .gc-lede{max-width:46em}
 .gc-sec{margin-top:var(--s6)}
@@ -1009,6 +1691,33 @@ const style = `
 .gc-def dt{font-weight:700;margin-top:var(--s4);line-height:1.3}
 .gc-def dd{margin:var(--s2) 0 0;color:var(--ink-2);font-size:var(--t-sm);line-height:1.55}
 .gc-aka{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.06em}
+/* Defect diagrams. EVERY WORD OF THE REASONING IS IN THE JS, in the block above
+   gdCard() and in the one above STYLE_GD. Do not write prose in here. */
+.gd-row{display:flex;gap:var(--s5);align-items:flex-start;margin-top:var(--s2)}
+.gd-fig{flex:none;width:240px;margin:0}
+.gd-p{margin:0;min-width:0}
+.gd-svg{display:block;width:100%;height:auto}
+@media(max-width:700px){
+  .gd-row{flex-direction:column;gap:var(--s3)}
+  .gd-fig{width:100%;max-width:260px;align-self:center}
+}
+.gd-svg .ct-card{stroke-width:2}
+.gd-svg .ct-win{stroke-width:1}
+.gd-l{fill:var(--ink-2);font:700 8px/1 var(--mono);letter-spacing:.05em;text-anchor:middle}
+.gd-bad{fill:var(--ketchup-deep);font:700 8px/1 var(--mono);letter-spacing:.05em;text-anchor:middle}
+.gd-n{fill:var(--ink-2);font:400 7px/1 var(--mono);text-anchor:middle}
+.gd-la{fill:var(--ink);font:700 7px/1 var(--mono)}
+.gd-lb{fill:var(--ink-2);font:400 7px/1 var(--mono)}
+.gd-mark{fill:none;stroke:var(--ketchup-deep);stroke-width:1.6;stroke-linecap:round}
+.gd-soft{fill:none;stroke:var(--ketchup-deep);stroke-width:1.2;opacity:.8;stroke-linecap:round}
+.gd-white{fill:var(--ink)}
+.gd-foil{fill:none;stroke:var(--sky-deep);stroke-width:1}
+.gd-hair{fill:none;stroke:var(--ink-2);stroke-width:1;opacity:.7;stroke-linecap:round}
+.gd-band{fill:none;stroke:var(--ink-2);stroke-width:1.2;opacity:.8}
+.gd-lead{fill:none;stroke:var(--ink-2);stroke-width:.8;stroke-dasharray:2 2}
+.gd-ref{fill:none;stroke:var(--ink-2);stroke-width:1;stroke-dasharray:4 3}
+.gd-gap{fill:var(--ketchup-deep);opacity:.8}
+.gd-bite{fill:var(--page);stroke:var(--keyline);stroke-width:1.2}
 .gc-unv{border:3px dashed var(--hair);border-radius:12px;padding:var(--s4);background:var(--card)}
 .gc-foot{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.6;max-width:46em}
 
@@ -1170,8 +1879,23 @@ ${d.subgrades.who.map((w) => `          <article class="gc-c"><span class="gc-co
           <p>${esc(d.defects.headline.body)}${src(d.defects.headline.source, "PSA on chipping")}</p>
         </div>
         <dl class="gc-def">
-${d.defects.items.map((i) => `          <dt>${esc(i.name)}${i.aka ? ` <span class="gc-aka">the hobby calls it ${esc(i.aka)}</span>` : ""}</dt>
-          <dd>${esc(i.what)} <span class="gc-aka">${esc(i.co)}</span></dd>`).join("\n")}
+${d.defects.items
+  .map((i) => {
+    const body = `${esc(i.what)} <span class="gc-aka">${esc(i.co)}</span>`;
+    // THE FIGURE GOES INSIDE THE <dd>, BESIDE THE DEFINITION IT DRAWS, which is
+    // the same call .ct-wrap makes further up this page: a picture above the
+    // paragraph or below it is a picture the reader has to hold in their head,
+    // and the whole value here is glancing left mid-sentence. A <figure> is
+    // valid inside a <dd> and the <dd> is still the caption, which is why none
+    // of these carry a <figcaption>: the definition IS the caption and printing
+    // it twice would be the same two sentences twice.
+    const fig = GD[i.name] ? GD[i.name]() : "";
+    return `          <dt>${esc(i.name)}${i.aka ? ` <span class="gc-aka">the hobby calls it ${esc(i.aka)}</span>` : ""}</dt>
+          <dd>${fig ? `<div class="gd-row">${fig}
+            <p class="gd-p">${body}</p>
+          </div>` : body}</dd>`;
+  })
+  .join("\n")}
         </dl>
       </section>
 

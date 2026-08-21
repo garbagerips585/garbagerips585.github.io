@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=a2712aae">
+<link rel="stylesheet" href="/assets/ui.css?v=c2b99ea6">
 <style>
 .bs-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:42em}
 .bs-sec{padding:var(--s6) 0}
@@ -318,6 +318,120 @@
 .bs-lede,.bs-p2,.bs-out li{max-width:var(--measure)}
 }
 
+/* ==========================================================================
+   AND THREE BLOCKS THEN HELD A MEASURE-WIDE COLUMN INSIDE A BAND-WIDE BOX,
+   fixed 21 August 2026. The rule above decides how wide a LINE is. It does not
+   decide where the line sits, and on this page that left five bordered cards
+   and two lists painting under half of their own boxes. Measured at 1440x900,
+   box against the rightmost PAINTED pixel inside it, which is the test that
+   matters because a box spanning the band and inking a third of it is the same
+   defect one level down:
+
+       article.bs-t   x5   box 24..1416   ink to 627..661   slack 755-789
+       ul.facts-list       box 24..1416   ink to 552        slack 864
+       ul.bs-out           box 24..1416   ink to 526        slack 890
+
+   THE PAGE AROUND THEM IS NOT LIKE THAT and was measured before anything moved,
+   which is why this is three rules and not a page-wide centring: div.bs-steps
+   inks to 1,389 of 1,416, ul.bs-traps to 1,394, div.facts to 1,364 and
+   ul.ms-list to 1,397. Those bands are full. So is every bs-fig, which is a
+   620px drawing in a 620px box. This page is composed nearly everywhere and
+   these blocks are the exception, so they get the treatment and nothing else
+   does. CLAUDE.md's home page precedent is the model: the answer to an empty
+   half is layout, never a mark parked in the margin.
+
+   .bs-t GETS THE COMPANION RATHER THAN A CENTRE, because it already had one and
+   was stacking it. Each card is a place to look, a description of the mark, a
+   WHY IT WORKS note and a BUT note. The two notes are commentary ON the
+   description, they are the same length as it, and they were sitting under it
+   in the same 612px column with 780px of card to the right of them. Beside it
+   is where they belong and they carry real content, which is the test.
+   The tracks are two measures, so neither column can run long, and
+   space-between opens the 1,342px of card interior to hold both: 612 + 118 +
+   612. .bs-src spans the foot because a source line under one column would read
+   as sourcing that column alone.
+   THE ROW MATH IS THE AUTO PLACEMENT and it is worth knowing before editing
+   the markup: head spans, .bs-where takes row 2 left, the description row 3
+   left, .bs-why lands row 3 right beside it, .bs-caveat row 4 right, and the
+   source spans row 5. One of the five cards has no .bs-caveat and simply ends a
+   row earlier. If a card ever gains a second description paragraph it will push
+   the notes down with it, which is correct, but look at it.
+
+   THE TWO LISTS TAKE TWO COLUMNS AT 1200, which is not a new idea on this site:
+   build-set-pages.mjs, build-complete.mjs and build-pack-prices.mjs all do
+   exactly this to .facts-list at exactly this breakpoint, with the same
+   max-width:none on the item, and their own note says the measure then lands
+   near 86 characters, which is accepted. .bs-out is the same shape, a short
+   list of long sentences, so it takes the same rule and drops its 612px cap
+   with it. Both are near the foot of a 14,589px page where nothing else is
+   competing for the width.
+   ========================================================================== */
+@media(min-width:1000px){
+  .bs-t{display:grid;grid-template-columns:repeat(2,minmax(0,var(--measure)));
+    column-gap:var(--s6);justify-content:space-between;align-items:start}
+  .bs-t > .bs-t-head{grid-column:1/-1}
+  .bs-t > :is(.bs-where,p:not([class])){grid-column:1}
+  .bs-t > :is(.bs-why,.bs-caveat){grid-column:2}
+  .bs-t > .bs-src{grid-column:1/-1}
+}
+@media(min-width:1200px){
+  .facts-list,.bs-out{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:11px var(--s6);align-items:start}
+  .facts-list li,.bs-out li{max-width:none}
+}
+
+/* ==========================================================================
+   AND THE READING COLUMN ITSELF SAT ON THE LEFT EDGE OF EVERY BAND, which is
+   the last of it and the part the block-by-block measurement above nearly
+   hid. Comparing a box to the ink inside it finds a wide box painting a third
+   of itself; it says nothing at all about a NARROW box parked at x=24 with 770
+   empty pixels beside it, and on this page that was most of the reading matter:
+   19 .bs-p2 paragraphs ending at 636, four bs-fig drawings at 644, three
+   .bs-foot notes at 574 and the section labels at 456, every one of them
+   against the left rail of a 1,392px wrap. Both shapes read the same to a
+   reader and both are the same defect. Measured at 1440x900, 21 August 2026.
+
+   THIS IS THE /how-to-play.html TREATMENT AND NOT THE /tcg-pocket.html ONE, and
+   the difference is that this page has bands that genuinely fill their width.
+   Measured, ink right edge against a wrap ending at 1,416: div.bs-steps 1,389,
+   ul.bs-traps 1,394, div.facts 1,364, and after the rule above ul.facts-list
+   1,396, ul.bs-out 1,415 and the five article.bs-t cards 1,245 to 1,271.
+   Capping the whole wrap to a measure would have shrunk all of those. So the
+   wrap keeps a band, those keep it, and only the reading column moves.
+
+   ONE SHARED LEFT EDGE, WHICH IS WHY THIS IS A margin AND NOT
+   margin-inline:auto ON EACH BLOCK. The column holds 17px body copy, an 11px
+   mono section label, a Space Mono footnote at its own 50em and two price grids
+   at 820, so a per-element auto centre gives each of them a different left edge
+   and the column reads as ragged. One indent computed from the band puts them
+   all on 366px.
+   660 IS THE COLUMN AND IT IS THE DRAWINGS THAT SET IT: .bs-fig-wide is 620px
+   and .bs-p2 is var(--measure) at 612, so 660 holds the widest of them with the
+   figure's own border. .bs-prices and .bs-cmp are 844 and deliberately so, and
+   they overhang to the RIGHT, which costs nothing: an overhang on the closed
+   side of a column is invisible, an overhang on the left edge is the ragged
+   rail this rule exists to remove.
+
+   .fk-golden IS CAPPED AS WELL AS INDENTED, and it is the only box here that
+   is. It is a slab of prose, one heading and one paragraph, and it was 1,392px
+   wide with ink stopping at 545. Nothing goes beside it: the drawing under it
+   is the three print runs side by side, which is a wide object in its own
+   right and is the next thing the reader looks at. So it becomes a callout the
+   width of the column it opens rather than a band it cannot fill.
+
+   THE HERO IS UNTOUCHED BY THE INDENT ON PURPOSE. .set-hero .wrap is a centred
+   flex column in ui.css, so its kicker, h1 and lede are already centred on the
+   band and an indent would push them off it. It takes the band cap and nothing
+   else.
+   ========================================================================== */
+@media(min-width:1000px){
+  .bs-page .wrap{max-width:calc(1152px + var(--gut) * 2)}
+  .bs-page .wrap > :is(.crumbs,.sec-label,h2,.bs-p2,.bs-foot,.bs-fig,
+    .bs-prices,.bs-cmp,.bs-cr,.bs-shots,.fk-golden){
+    margin-left:calc((100% - 660px) / 2)}
+  .bs-page .wrap > .fk-golden{max-width:660px}
+}
+
 /* THE TWO LISTS THAT ARE NOT PROSE AND STILL HAD TO BE CAPPED, and neither is
    covered by the rule above because neither is a paragraph.
 
@@ -479,7 +593,7 @@
   <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
     aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe on YouTube</a>
 </nav>
-<main id="main">
+<main id="main" class="bs-page">
 
 <header class="set-hero">
   <div class="wrap">
@@ -1212,6 +1326,6 @@
     Print run checks are properties of the printed card. Not an authentication service.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=2a20b951" defer></script>
+<script src="/assets/app.js?v=7d21299e" defer></script>
 </body>
 </html>

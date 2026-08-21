@@ -588,6 +588,74 @@ const style = `
 .hp-s > p{max-width:var(--measure)}
 .hp-go li{max-width:var(--measure)}
 }
+
+/* ==========================================================================
+   AND THE BLOCK ABOVE IS HALF A DECISION, FIXED 21 August 2026. It settled how
+   WIDE a line is and said nothing about WHERE the column sits, so this page put
+   a 612px column of prose and a run of 748px blocks against the left edge of a
+   1,392px wrap and painted the rest green. Measured at 1440x900 before this:
+   47 prose blocks, average right edge 789px, so 651px of the viewport empty,
+   and 62 of the 84 inked horizontal bands with nothing past 60% of the width,
+   down 7,509px of page.
+
+   THE ANSWER IS LAYOUT AND NOT DECORATION, which is the precedent CLAUDE.md
+   sets for the home page: at 1440 that page showed two videos in its first
+   3,307px with 872px of empty band either side of every carousel card, and the
+   fix was more cards and a derived column, never a mark parked in the margin.
+
+   THIS PAGE IS NOT /tcg-pocket.html AND WAS NOT TREATED LIKE IT. That page is
+   a single column of reading matter with nothing beside it, so its whole wrap
+   is capped and centred. THIS one already owns bands that genuinely want the
+   width and are correct as they are. Capping the wrap to the reading measure
+   would have shrunk the things on the page that were already doing the right
+   thing. So the wrap keeps a band, the bands keep it, and only the READING
+   COLUMN moves.
+
+   TWO OF THE THREE CANDIDATE BANDS EARNED IT AND THE THIRD DID NOT, and the
+   test was the rightmost PAINTED PIXEL rather than the box, because a box that
+   spans the band and paints two thirds of it is the same defect one level
+   down. Measured at 1440 in the 1,152px band, ink right edge against a band
+   ending at 1,296:
+
+       .hp-cards   three card-type boxes    ink to 1,266    fills it
+       .hp-wins    three ways to win        ink to 1,273    fills it
+       .hp-anat    annotated card + labels  ink to   976    320px short
+
+   So .hp-anat comes into the reading column instead. Its labels are the six
+   marks on the card and this file's own note above already records that they
+   measure 31 characters at their longest, so the 1fr column beside the fixed
+   300px card was never carrying anything: at 748 it is 432px and the longest
+   of them still lands inside it. It gains the column's left edge, which is
+   what it was drifting away from.
+
+   THE BAND IS 1,152px, which is this wrap's own width in a 1200px window and
+   the number the retailer pages take for the same job on the same day. The
+   three bands lose 240px of it: .hp-cards goes to three 374px boxes, .hp-anat
+   keeps its fixed 300px card and gives its labels 836px, which this file's own
+   note above says measure 31 characters at their longest, so there is nothing
+   there to squeeze.
+
+   ONE SHARED LEFT EDGE, WHICH IS WHY THIS IS A margin AND NOT
+   margin-inline:auto ON EACH BLOCK. The reading column holds an h1 in the
+   display face, 17px body copy, 15.2px callouts and an 11px mono source note,
+   so a per-element auto centre gives every one of them a DIFFERENT left edge
+   and the result reads as ragged rather than as a column. One indent computed
+   from the band puts all of them on 322px.
+   748 IS THE WIDEST THING IN THE COLUMN and is measured, not picked: it is the
+   44em that .hp-steps, .hp-fig, .hp-call, .hp-tbl-w, .hp-shout, .hp-go and
+   .hp-out all still carry, resolved at 17px. Indenting on the 612px prose
+   instead would have pushed those seven blocks 68px back out to the left of
+   the h2s above them, which is the ragged edge this rule exists to avoid.
+
+   min-width:1000 like everything above it, so 320, 390 and 768 are unchanged.
+   ========================================================================== */
+@media(min-width:1000px){
+.hp-wrap{max-width:calc(1152px + var(--gut) * 2)}
+.hp-wrap > :is(.crumbs,h1,.hp-lede,.hp-jump,.hp-out,.hp-src),
+.hp-s > :is(h2,p,.hp-steps,.hp-fig,.hp-call,.hp-tbl-w,.hp-shout,.hp-go,.hp-anat){
+  margin-left:calc((100% - 748px) / 2)}
+.hp-s > .hp-anat{max-width:748px}
+}
 `;
 
 const body = `
@@ -981,7 +1049,7 @@ ${BAR}
 ${MENU}
 <main id="main">
   <section class="tight">
-    <div class="wrap">
+    <div class="wrap hp-wrap">
 ${body}
     </div>
   </section>

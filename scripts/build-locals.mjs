@@ -239,9 +239,87 @@ const earlyNote = (rows, noun) => {
   const gap = thin
     ? ` ${thin === n ? (n === 1 ? "It has" : "None of them has") : `${["", "One", "Two", "Three"][thin] || thin} of them ${thin === 1 ? "has" : "have"}`} no write-up yet, which is our gap and not theirs.`
     : "";
-  return `    <div class="fk-golden">
-      <p class="fk-golden-h">Early days</p>
-      <h2>This list is still <span class="hl">short</span></h2>
+  /* IT IS AN .empty BOX NOW AND NOT A .fk-golden ONE, 21 August 2026, AND THE
+     MASCOT IS THE REASON RATHER THAN THE DECORATION.
+
+     TRUBBISH MEANS "THERE IS NOTHING IN THIS ONE" ON THIS SITE and he means it
+     in three other places already: /404.html, the no-hits band on the rip
+     pages, and the filtered-to-empty state /videos.html gets from emptyState()
+     in public/assets/app.js. The heading this band prints is "This list is
+     still short". That is the sentence he exists to illustrate, so this is a
+     placement rather than a fourth invention of the same idea.
+
+     GARBODOR WOULD BE WRONG HERE AND THE DISTINCTION IS WORTH KEEPING SINGLE.
+     He is on /search.html's no-match and nowhere else, and what he says there
+     is "we went through the whole heap": 316 openings, 5,181 cards, 1,025
+     species. Nothing was searched here. The list is short.
+
+     NO NEW CSS, WHICH IS THE WHOLE REASON THE CONTAINER CHANGED. .empty and
+     .empty-mascot are both already in ui.css, written for app.js's grid states
+     and reused verbatim by /search.html, so this band now looks like the
+     site's other empty states instead of like a new one. It also FIXES A
+     LAYOUT FAULT for free: .fk-golden took the whole 1,392px band at 1440
+     while its paragraph capped at 504px, so the copy sat hard left with about
+     890px of empty green beside it. .empty centres its own contents, so the
+     mark, the heading and the paragraph land in the middle of the band the way
+     /search.html's do.
+
+     NO INLINE CENTERING HERE ANY MORE, AND THE REASON IS WORTH KEEPING.
+     This box used to carry two inline margin-inline:auto declarations working
+     around a fault /search.html has too: .empty is text-align:center, so the
+     mark and the heading center, but a paragraph inside it sat hard left of the
+     box it was supposedly centered in. Measured on /search.html's no-match at
+     1440x900: mascot 0, p.big -95, p -365.
+
+     The first diagnosis of that was wrong in a way that mattered. There is no
+     margin-left:0 anywhere in ui.css. The cause is
+     main :is(p,dd,blockquote,figcaption){max-width:var(--measure)} inside
+     @media(min-width:1000px), and a capped block with default inline margins
+     sits flush left while text-align:center only centers the line INSIDE that
+     narrower block. --measure is 36em and em is the ELEMENT'S OWN, which is why
+     the two lines were off by different amounts and read like two separate
+     bugs: p.big is 32px so 36em is 1152 and the slack is 190; p is 17px so 36em
+     is 612 and the slack is 730. One rule, two numbers.
+
+     ui.css now carries .empty p{margin-inline:auto}, +8 bytes gzipped, which
+     fixes every .empty on the site at once, so a workaround sitting on top of a
+     real fix would be dead weight that reads like it is load-bearing. Verified
+     by stripping the inline styles from the live document and re-measuring:
+     nothing moved at 1440 or at 390.
+
+     THE BUTTON'S margin KEPT ITS 12px AND LOST ONLY THE auto. It was written as
+     the shorthand margin:12px auto 0, so it looks like a third workaround and
+     is not: delete the whole declaration and the button rises 12px at BOTH
+     widths. Only the inline axis was ever redundant.
+
+     THE HEADING KEEPS ITS TAG AND TAKES THE .big CLASS. /search.html writes a
+     paragraph there because app.js builds that node in the browser; this is a
+     real section heading on a static page and dropping it to a <p> would
+     silence the only h2 in main. ui.css carries no bare h2 rule, and .empty
+     .big sets font, colour, display and margin itself, so h2.big renders
+     exactly as p.big does.
+
+     THE "Early days" KICKER WENT WITH THE CONTAINER RATHER THAN BEING CARRIED
+     OVER. .fk-golden-h is --gold, which resolves to a TEAL, and CLAUDE.md's
+     accent rule is that teal is how you get around: it is every link and every
+     button, never a label that goes nowhere. It survives inside .fk-golden as
+     that component's own exception, on the near-black --band-bg. Moving it onto
+     the --card green of an .empty box would be a new teal on a new ground with
+     no route behind it, which is the rule breaking rather than a colour choice.
+     The dashed border and the mascot say "this state is deliberate" without it.
+
+     THE 256px FILE, NOT THE 512, AND THE ARGUMENT IS build-search.mjs's.
+     .empty-mascot clamps to clamp(88px,22vw,116px), so the box is 88 at 390 and
+     116 at 1440: a DPR 3 phone asks for 264 device pixels and 256 is the
+     smallest rendition on disk that covers it. /assets/species/568.webp is
+     9,056 bytes against /assets/trubbish.webp's 25,678 for pixels no box on
+     this page can use, and the 96px sm/568.webp loses at every DPR either
+     placement has. There is no srcset worth writing, so there is none, which
+     also means the rung cannot disagree with the box. */
+  return `    <div class="empty">
+      <img class="empty-mascot" src="/assets/species/568.webp" alt=""
+           width="256" height="256" loading="lazy" decoding="async" onerror="this.remove()">
+      <h2 class="big">This list is still <span class="hl">short</span></h2>
       <p>${esc(nWord.replace(/^./, (c) => c.toUpperCase()))} ${esc(nounWord)} ${esc(isAre)} on this page.${esc(gap)}
         That is what we can actually point you at today rather than what we would like the page to look like, and
         it stays that way until somebody real goes on it.</p>

@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=a2712aae">
+<link rel="stylesheet" href="/assets/ui.css?v=c2b99ea6">
 <style>
 .gc-lede{max-width:46em}
 .gc-sec{margin-top:var(--s6)}
@@ -230,6 +230,33 @@
 .gc-def dt{font-weight:700;margin-top:var(--s4);line-height:1.3}
 .gc-def dd{margin:var(--s2) 0 0;color:var(--ink-2);font-size:var(--t-sm);line-height:1.55}
 .gc-aka{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.06em}
+/* Defect diagrams. EVERY WORD OF THE REASONING IS IN THE JS, in the block above
+   gdCard() and in the one above STYLE_GD. Do not write prose in here. */
+.gd-row{display:flex;gap:var(--s5);align-items:flex-start;margin-top:var(--s2)}
+.gd-fig{flex:none;width:240px;margin:0}
+.gd-p{margin:0;min-width:0}
+.gd-svg{display:block;width:100%;height:auto}
+@media(max-width:700px){
+  .gd-row{flex-direction:column;gap:var(--s3)}
+  .gd-fig{width:100%;max-width:260px;align-self:center}
+}
+.gd-svg .ct-card{stroke-width:2}
+.gd-svg .ct-win{stroke-width:1}
+.gd-l{fill:var(--ink-2);font:700 8px/1 var(--mono);letter-spacing:.05em;text-anchor:middle}
+.gd-bad{fill:var(--ketchup-deep);font:700 8px/1 var(--mono);letter-spacing:.05em;text-anchor:middle}
+.gd-n{fill:var(--ink-2);font:400 7px/1 var(--mono);text-anchor:middle}
+.gd-la{fill:var(--ink);font:700 7px/1 var(--mono)}
+.gd-lb{fill:var(--ink-2);font:400 7px/1 var(--mono)}
+.gd-mark{fill:none;stroke:var(--ketchup-deep);stroke-width:1.6;stroke-linecap:round}
+.gd-soft{fill:none;stroke:var(--ketchup-deep);stroke-width:1.2;opacity:.8;stroke-linecap:round}
+.gd-white{fill:var(--ink)}
+.gd-foil{fill:none;stroke:var(--sky-deep);stroke-width:1}
+.gd-hair{fill:none;stroke:var(--ink-2);stroke-width:1;opacity:.7;stroke-linecap:round}
+.gd-band{fill:none;stroke:var(--ink-2);stroke-width:1.2;opacity:.8}
+.gd-lead{fill:none;stroke:var(--ink-2);stroke-width:.8;stroke-dasharray:2 2}
+.gd-ref{fill:none;stroke:var(--ink-2);stroke-width:1;stroke-dasharray:4 3}
+.gd-gap{fill:var(--ketchup-deep);opacity:.8}
+.gd-bite{fill:var(--page);stroke:var(--keyline);stroke-width:1.2}
 .gc-unv{border:3px dashed var(--hair);border-radius:12px;padding:var(--s4);background:var(--card)}
 .gc-foot{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.6;max-width:46em}
 
@@ -715,27 +742,216 @@
         </div>
         <dl class="gc-def">
           <dt>Chipping on the edges <span class="gc-aka">the hobby calls it whitening</span></dt>
-          <dd>Beckett is the one that grades it in steps you can check yourself: at 9 it allows unobtrusive specks of chipping on the borders, at 8 specks visible to the naked eye, and at 9.5 and above the edges must be virtually flawless. So visible white on an edge is roughly an 8 ceiling. <span class="gc-aka">Beckett</span></dd>
+          <dd><div class="gd-row"><figure class="gd-fig">
+            <svg viewBox="0 0 180 130" class="gd-svg" role="img" aria-label="Two cards side by side. The left one has a clean unbroken border. The right one has ragged white flecks of bare cardboard all along its edges and at all four corners, worst at the corners.">
+              <text x="47" y="12" class="gd-l">CLEAN</text>
+              <text x="131" y="12" class="gd-bad">CHIPPED</text>
+              <rect x="16" y="20" width="62" height="84" rx="3" class="ct-card"/><rect x="22.2" y="27.56" width="49.6" height="38.64" rx="2" class="ct-win"/>
+              <rect x="100" y="20" width="62" height="84" rx="3" class="ct-card"/><rect x="106.2" y="27.56" width="49.6" height="38.64" rx="2" class="ct-win"/>
+              <clipPath id="gdChip"><rect x="100" y="20" width="62" height="84" rx="3"/></clipPath>
+              <g class="gd-white" clip-path="url(#gdChip)"><path d="M144 20h4v1h-4ZM104 101h3v2h-3ZM145 20h2v3h-2ZM115 101h3v1h-3ZM143 20h3v2h-3ZM110 102h4v1h-4ZM123 20h5v2h-5ZM104 102h4v3h-4ZM146 20h5v2h-5ZM143 102h3v3h-3ZM137 20h4v2h-4ZM119 101h2v2h-2ZM124 20h3v2h-3ZM149 102h4v1h-4ZM114 20h4v2h-4ZM107 103h2v3h-2ZM156 20h3v1h-3ZM126 102h2v2h-2ZM100 30h2v3h-2ZM159 93h3v3h-3ZM100 93h2v5h-2ZM161 99h2v4h-2ZM100 28h2v5h-2ZM160 45h2v2h-2ZM100 98h2v4h-2ZM160 50h2v3h-2ZM100 54h3v4h-3ZM159 68h1v5h-1ZM100 72h2v2h-2ZM159 58h2v3h-2ZM100 23h3v2h-3ZM160 73h3v5h-3ZM100 67h2v5h-2ZM160 52h2v3h-2ZM100 64h1v2h-1ZM160 78h2v5h-2ZM100 45h1v4h-1ZM160 32h2v3h-2ZM100 84h3v2h-3ZM159 64h3v4h-3ZM100 20h4v4h-4ZM158 20h4v4h-4ZM100 100h4v4h-4ZM158 100h4v4h-4Z"/></g>
+              <text x="90" y="120" class="gd-n">white is the cardboard under the ink</text>
+            </svg>
+          </figure>
+            <p class="gd-p">Beckett is the one that grades it in steps you can check yourself: at 9 it allows unobtrusive specks of chipping on the borders, at 8 specks visible to the naked eye, and at 9.5 and above the edges must be virtually flawless. So visible white on an edge is roughly an 8 ceiling. <span class="gc-aka">Beckett</span></p>
+          </div></dd>
           <dt>Print line</dt>
-          <dd>A straight line from the printing process, caused by a scratch on the printing plate holding ink that never reaches the card. Not damage, not your fault, and it still costs the grade. <span class="gc-aka">TAG</span></dd>
+          <dd><div class="gd-row"><figure class="gd-fig">
+            <svg viewBox="0 0 180 124" class="gd-svg" role="img" aria-label="A card with one perfectly straight line running from the top edge to the bottom edge, passing through the artwork, the border and the text box without stopping or bending.">
+              <rect x="14" y="14" width="66" height="92" rx="3" class="ct-card"/><rect x="20.6" y="22.28" width="52.800000000000004" height="42.32" rx="2" class="ct-win"/><g class="gd-hair"><path d="M21.92 71.03999999999999 H72.08"/><path d="M21.92 78.39999999999999 H60.199999999999996"/><path d="M21.92 85.75999999999999 H68.12"/></g>
+              <path d="M45 14 V106" class="gd-mark"/>
+              <path d="M45 58 H90" class="gd-lead"/>
+              <text x="94" y="34" class="gd-la">dead straight</text>
+              <text x="94" y="45" class="gd-la">and off both</text>
+              <text x="94" y="56" class="gd-la">edges</text>
+              <text x="94" y="74" class="gd-la">it crosses the</text>
+              <text x="94" y="85" class="gd-la">art, the border</text>
+              <text x="94" y="96" class="gd-la">and the text</text>
+              <text x="90" y="118" class="gd-n">a scratch stops somewhere. this cannot</text>
+            </svg>
+          </figure>
+            <p class="gd-p">A straight line from the printing process, caused by a scratch on the printing plate holding ink that never reaches the card. Not damage, not your fault, and it still costs the grade. <span class="gc-aka">TAG</span></p>
+          </div></dd>
           <dt>Metallic print lines, and why foil is its own problem</dt>
-          <dd>No company will tell you foil scratches more easily than plain card stock. What they do is grade a foil-only flaw separately at every single level. Beckett names metallic print lines the whole way down its surface scale: none at all at Pristine, one faint unobtrusive line allowed at Mint 9, a few by Near Mint 7. SGC uses its own term, refractor lines, and allows a minor one at Mint 9 and none at Pristine. So the flaw that only foil gets has its own published tolerance, which is the practical version of the thing nobody states outright. <span class="gc-aka">Beckett and SGC</span></dd>
+          <dd><div class="gd-row"><figure class="gd-fig">
+            <svg viewBox="0 0 180 126" class="gd-svg" role="img" aria-label="The same foil card twice. Seen flat on, the foil panel looks clean. Seen tilted to a light, a set of fine parallel lines appears across the foil.">
+              <text x="45" y="13" class="gd-l">FLAT ON</text>
+              <text x="134" y="13" class="gd-bad">TILTED</text>
+              <rect x="16" y="22" width="58" height="78" rx="3" class="ct-card"/>
+              <rect x="22" y="29" width="46" height="39" rx="2" class="ct-win"/>
+              
+              <g class="gd-foil"><path d="M28.6 29 V68" opacity=".08"/><path d="M35.1 29 V68" opacity=".08"/><path d="M41.7 29 V68" opacity=".08"/><path d="M48.3 29 V68" opacity=".08"/><path d="M54.9 29 V68" opacity=".08"/><path d="M61.4 29 V68" opacity=".08"/></g>
+              <g transform="translate(112,0) skewX(-9)">
+                <rect x="0" y="22" width="58" height="78" rx="3" class="ct-card"/>
+                <rect x="6" y="29" width="46" height="39" rx="2" class="ct-win"/>
+                <g class="gd-foil"><path d="M12.6 29 V68"/><path d="M19.1 29 V68"/><path d="M25.7 29 V68"/><path d="M32.3 29 V68"/><path d="M38.9 29 V68"/><path d="M45.4 29 V68"/></g>
+              </g>
+              <text x="90" y="120" class="gd-n">exaggerated. a real one is a hair</text>
+            </svg>
+          </figure>
+            <p class="gd-p">No company will tell you foil scratches more easily than plain card stock. What they do is grade a foil-only flaw separately at every single level. Beckett names metallic print lines the whole way down its surface scale: none at all at Pristine, one faint unobtrusive line allowed at Mint 9, a few by Near Mint 7. SGC uses its own term, refractor lines, and allows a minor one at Mint 9 and none at Pristine. So the flaw that only foil gets has its own published tolerance, which is the practical version of the thing nobody states outright. <span class="gc-aka">Beckett and SGC</span></p>
+          </div></dd>
           <dt>Roller mark</dt>
-          <dd>A rounded indentation from the printing process. <span class="gc-aka">TAG</span></dd>
+          <dd><div class="gd-row"><figure class="gd-fig">
+            <svg viewBox="0 0 180 118" class="gd-svg" role="img" aria-label="A card with a broad shallow oval depression across it, and beside it the same card seen edge on, showing a wide rounded dip in the surface with no break in it.">
+              <text x="42" y="12" class="gd-l">FROM THE FRONT</text>
+              <text x="132" y="12" class="gd-l">EDGE ON</text>
+              <rect x="12" y="18" width="58" height="78" rx="3" class="ct-card"/><rect x="17.8" y="25.02" width="46.400000000000006" height="35.88" rx="2" class="ct-win"/>
+              <ellipse cx="41" cy="60" rx="21" ry="9" class="gd-mark"/>
+              <ellipse cx="41" cy="60" rx="13" ry="5" class="gd-mark" opacity=".75"/>
+              
+              <path d="M88 42 H176" class="gd-ref"/>
+              <path d="M88 46 C108 46 114 58 132 58 C150 58 156 46 176 46 L176 53 C156 53 150 65 132 65 C114 65 108 53 88 53 Z" class="ct-card"/>
+              <path d="M88 46 C108 46 114 58 132 58 C150 58 156 46 176 46" class="gd-mark"/>
+              <text x="132" y="82" class="gd-n">wide, rounded,</text>
+              <text x="132" y="92" class="gd-n">nothing broken</text>
+              <text x="90" y="112" class="gd-n">a dish, not a fold and not a pit</text>
+            </svg>
+          </figure>
+            <p class="gd-p">A rounded indentation from the printing process. <span class="gc-aka">TAG</span></p>
+          </div></dd>
           <dt>Roller damage from the pack</dt>
-          <dd>This is the one rippers actually hit. CGC gives the tell: packaging roller damage shows as two vertical indentations on BOTH faces of the card, while a pinched layer from manufacturing shows only on the holo side. Check the back before you blame yourself. <span class="gc-aka">CGC</span></dd>
+          <dd><div class="gd-row"><figure class="gd-fig">
+            <svg viewBox="0 0 180 212" class="gd-svg" role="img" aria-label="Four card faces in two rows. In the top row both the front and the back carry the same pair of vertical indentations, which is roller damage from the pack. In the bottom row only the front carries them and the back is clean, which is a pinch from manufacturing.">
+              <text x="46" y="12" class="gd-l">FRONT</text>
+              <text x="134" y="12" class="gd-l">BACK</text>
+              <rect x="18" y="18" width="56" height="76" rx="3" class="ct-card"/><rect x="23.6" y="24.84" width="44.800000000000004" height="34.96" rx="2" class="ct-win"/><g class="gd-mark"><path d="M34.8 23 V89" stroke-width="4" opacity=".3"/><path d="M34.8 23 V89" stroke-width="1.2"/><path d="M57.199999999999996 23 V89" stroke-width="4" opacity=".3"/><path d="M57.199999999999996 23 V89" stroke-width="1.2"/></g>
+              <rect x="106" y="18" width="56" height="76" rx="3" class="ct-card"/><g class="gd-mark"><path d="M122.8 23 V89" stroke-width="4" opacity=".3"/><path d="M122.8 23 V89" stroke-width="1.2"/><path d="M145.2 23 V89" stroke-width="4" opacity=".3"/><path d="M145.2 23 V89" stroke-width="1.2"/></g>
+              <text x="90" y="108" class="gd-bad">BOTH FACES: FROM THE PACK</text>
+              <rect x="18" y="120" width="56" height="76" rx="3" class="ct-card"/><rect x="23.6" y="126.84" width="44.800000000000004" height="34.96" rx="2" class="ct-win"/><g class="gd-mark"><path d="M34.8 125 V191" stroke-width="4" opacity=".3"/><path d="M34.8 125 V191" stroke-width="1.2"/><path d="M57.199999999999996 125 V191" stroke-width="4" opacity=".3"/><path d="M57.199999999999996 125 V191" stroke-width="1.2"/></g>
+              <rect x="106" y="120" width="56" height="76" rx="3" class="ct-card"/>
+              <text x="90" y="210" class="gd-l">FRONT ONLY: FROM THE PRESS</text>
+            </svg>
+          </figure>
+            <p class="gd-p">This is the one rippers actually hit. CGC gives the tell: packaging roller damage shows as two vertical indentations on BOTH faces of the card, while a pinched layer from manufacturing shows only on the holo side. Check the back before you blame yourself. <span class="gc-aka">CGC</span></p>
+          </div></dd>
           <dt>Print snow, print dots and fish eyes</dt>
-          <dd>White patches, dots and circular discolored spots left by the printing process. PSA files all of these under its PD qualifier. <span class="gc-aka">PSA and TAG</span></dd>
+          <dd><div class="gd-row"><figure class="gd-fig">
+            <svg viewBox="0 0 180 124" class="gd-svg" role="img" aria-label="One card carrying all three print marks: a haze of tiny white specks near the top, three separate round white dots below it, and two circular spots with a pale ring and a darker center.">
+              <rect x="10" y="14" width="62" height="88" rx="3" class="ct-card"/><rect x="16.2" y="21.92" width="49.6" height="40.480000000000004" rx="2" class="ct-win"/>
+              <g class="gd-white"><circle cx="43" cy="39" r="1.0"/><circle cx="40" cy="27" r="0.8"/><circle cx="23" cy="43" r="1.4"/><circle cx="34" cy="41" r="0.6"/><circle cx="35" cy="42" r="1.0"/><circle cx="34" cy="29" r="1.0"/><circle cx="21" cy="30" r="0.9"/><circle cx="32" cy="34" r="1.1"/><circle cx="38" cy="33" r="0.8"/><circle cx="25" cy="39" r="0.8"/><circle cx="32" cy="39" r="0.9"/><circle cx="42" cy="26" r="1.4"/><circle cx="35" cy="38" r="1.1"/><circle cx="39" cy="32" r="1.1"/><circle cx="39" cy="40" r="0.7"/><circle cx="34" cy="33" r="1.0"/><circle cx="44" cy="41" r="0.7"/><circle cx="37" cy="36" r="0.7"/><circle cx="27" cy="29" r="0.9"/><circle cx="46" cy="33" r="0.9"/><circle cx="42" cy="43" r="1.1"/><circle cx="39" cy="26" r="0.9"/><circle cx="35" cy="29" r="1.3"/><circle cx="22" cy="31" r="1.0"/><circle cx="33" cy="27" r="1.1"/><circle cx="39" cy="31" r="1.2"/></g>
+              <g class="gd-white"><circle cx="26" cy="60" r="2.2"/><circle cx="40" cy="68" r="2"/><circle cx="52" cy="58" r="1.8"/></g>
+              
+              <g class="gd-white" opacity=".6"><circle cx="28" cy="84" r="3.4"/><circle cx="46" cy="90" r="2.7"/></g>
+              <g class="gd-mark"><circle cx="28" cy="84" r="4.4"/><circle cx="46" cy="90" r="3.6"/></g>
+              <path d="M46 30 H84" class="gd-lead"/>
+              <path d="M56 62 H84" class="gd-lead"/>
+              <path d="M52 86 H84" class="gd-lead"/>
+              <text x="87" y="27" class="gd-la">print snow</text>
+              <text x="87" y="37" class="gd-lb">a haze of specks</text>
+              <text x="87" y="59" class="gd-la">print dots</text>
+              <text x="87" y="69" class="gd-lb">separate and round</text>
+              <text x="87" y="83" class="gd-la">fish eyes</text>
+              <text x="87" y="93" class="gd-lb">a ring with a</text>
+              <text x="87" y="102" class="gd-lb">discolored middle</text>
+              <text x="90" y="118" class="gd-n">PSA files all three as a print defect</text>
+            </svg>
+          </figure>
+            <p class="gd-p">White patches, dots and circular discolored spots left by the printing process. PSA files all of these under its PD qualifier. <span class="gc-aka">PSA and TAG</span></p>
+          </div></dd>
           <dt>Wrinkle versus crease</dt>
-          <dd>The distinction is worth knowing because it decides how bad the news is. A wrinkle shows on one side only. A crease is usually visible on both. PSA puts a number on the crease: it can drop a card one to five grades. <span class="gc-aka">TAG and PSA</span></dd>
+          <dd><div class="gd-row"><figure class="gd-fig">
+            <svg viewBox="0 0 180 180" class="gd-svg" role="img" aria-label="Two columns, each showing the front and then the back of one card. The wrinkle column has soft ripples on the front and a clean back. The crease column has one hard line on the front and the same line, mirrored, on the back.">
+              <text x="44" y="12" class="gd-bad">WRINKLE</text>
+              <text x="136" y="12" class="gd-bad">CREASE</text>
+              <rect x="22" y="18" width="44" height="60" rx="3" class="ct-card"/>
+              <g class="gd-soft"><path d="M28 40 Q38 32 44 40 Q50 48 60 40"/><path d="M28 47 Q38 39 44 47 Q50 55 60 47"/><path d="M28 54 Q38 46 44 54 Q50 62 60 54"/></g>
+              <rect x="22" y="96" width="44" height="60" rx="3" class="ct-card"/>
+              <rect x="114" y="18" width="44" height="60" rx="3" class="ct-card"/>
+              <path d="M120 28 L152 68" class="gd-mark"/>
+              <rect x="114" y="96" width="44" height="60" rx="3" class="ct-card"/>
+              <path d="M152 106 L120 146" class="gd-mark"/>
+              <text x="44" y="88" class="gd-n">front</text>
+              <text x="136" y="88" class="gd-n">front</text>
+              <text x="44" y="166" class="gd-n">back: clean</text>
+              <text x="136" y="166" class="gd-n">back: there too</text>
+              <text x="90" y="178" class="gd-n">on the back it appears mirrored</text>
+            </svg>
+          </figure>
+            <p class="gd-p">The distinction is worth knowing because it decides how bad the news is. A wrinkle shows on one side only. A crease is usually visible on both. PSA puts a number on the crease: it can drop a card one to five grades. <span class="gc-aka">TAG and PSA</span></p>
+          </div></dd>
           <dt>Notching</dt>
-          <dd>Indentations along an edge, sometimes from a rubber band. <span class="gc-aka">PSA</span></dd>
+          <dd><div class="gd-row"><figure class="gd-fig">
+            <svg viewBox="0 0 180 140" class="gd-svg" role="img" aria-label="A card with a rubber band lying across it and a bite taken out of the card edge at each of the two places the band crosses it. Beside it the edge is magnified, showing the notches as missing edge rather than as white marks on an edge that is still there.">
+              <text x="43" y="12" class="gd-l">WHERE IT SAT</text>
+              <text x="115" y="12" class="gd-l">CLOSE UP</text>
+              <rect x="12" y="18" width="62" height="88" rx="3" class="ct-card"/><rect x="18.2" y="25.92" width="49.6" height="40.480000000000004" rx="2" class="ct-win"/>
+              <g class="gd-band"><path d="M2 48 H84"/><path d="M2 60 H84"/></g>
+              <path d="M12 44 A4.5 4.5 0 0 1 12 53 Z" class="gd-bite"/><path d="M12 56 A4.5 4.5 0 0 1 12 65 Z" class="gd-bite"/><path d="M74 44 A4.5 4.5 0 0 0 74 53 Z" class="gd-bite"/><path d="M74 56 A4.5 4.5 0 0 0 74 65 Z" class="gd-bite"/>
+              <rect x="104" y="22" width="22" height="80" rx="1" class="ct-card"/>
+              <path d="M104 38 A8 8 0 0 1 104 54 Z" class="gd-bite"/>
+              <path d="M104 62 A8 8 0 0 1 104 78 Z" class="gd-bite"/>
+              <text x="132" y="50" class="gd-la">the edge</text>
+              <text x="132" y="60" class="gd-la">itself is</text>
+              <text x="132" y="70" class="gd-la">gone</text>
+              <text x="90" y="120" class="gd-n">a band leaves them where it crossed</text>
+              <text x="90" y="132" class="gd-n">chipping takes ink. a notch takes edge</text>
+            </svg>
+          </figure>
+            <p class="gd-p">Indentations along an edge, sometimes from a rubber band. <span class="gc-aka">PSA</span></p>
+          </div></dd>
           <dt>Pit, dent and scratch</dt>
-          <dd>A pit is a circular surface mark, a dent is a depression in the surface, a scratch takes the appearance of straight or curved lines. <span class="gc-aka">TAG</span></dd>
+          <dd><div class="gd-row"><figure class="gd-fig">
+            <svg viewBox="0 0 180 126" class="gd-svg" role="img" aria-label="One card carrying all three surface marks: a small round well near the top, a soft oval depression in the middle, and a straight line and a curved line near the bottom.">
+              <rect x="10" y="14" width="62" height="88" rx="3" class="ct-card"/><rect x="16.2" y="21.92" width="49.6" height="40.480000000000004" rx="2" class="ct-win"/>
+              
+              <circle cx="26" cy="32" r="3.4" class="gd-mark"/><circle cx="26" cy="32" r="1.5" class="gd-mark" stroke-width="1"/>
+              <ellipse cx="42" cy="60" rx="12" ry="7" class="gd-mark"/>
+              <path d="M34 60 A12 7 0 0 0 50 64" class="gd-mark" opacity=".75"/>
+              
+              <g class="gd-mark"><path d="M18 78 L44 88"/><path d="M22 98 Q40 90 60 96"/></g>
+              <path d="M30 32 H84" class="gd-lead"/>
+              <path d="M54 60 H84" class="gd-lead"/>
+              <path d="M60 92 H84" class="gd-lead"/>
+              <text x="87" y="29" class="gd-la">pit</text>
+              <text x="87" y="39" class="gd-lb">a round well</text>
+              <text x="87" y="57" class="gd-la">dent</text>
+              <text x="87" y="67" class="gd-lb">a soft depression</text>
+              <text x="87" y="89" class="gd-la">scratch</text>
+              <text x="87" y="99" class="gd-lb">straight or curved</text>
+              <text x="90" y="120" class="gd-n">two are depth. one is a line</text>
+            </svg>
+          </figure>
+            <p class="gd-p">A pit is a circular surface mark, a dent is a depression in the surface, a scratch takes the appearance of straight or curved lines. <span class="gc-aka">TAG</span></p>
+          </div></dd>
           <dt>Diamond cut</dt>
-          <dd>A skewed factory cut, so the card is not a true rectangle. Named by all five majors and allowed progressively further down every scale. <span class="gc-aka">all five</span></dd>
+          <dd><div class="gd-row"><figure class="gd-fig">
+            <svg viewBox="0 0 180 134" class="gd-svg" role="img" aria-label="Two cards each laid against a dashed straight edge. The square one sits flush along the whole length of it. The diamond cut one touches at the bottom and leans away at the top, leaving a wedge of daylight between the card and the straight edge. The lean is exaggerated to be visible.">
+              
+              <text x="44" y="13" class="gd-l">SQUARE</text>
+              <text x="137" y="13" class="gd-bad">DIAMOND CUT</text>
+              <rect x="14" y="22" width="60" height="84" rx="3" class="ct-card"/><rect x="20" y="29.56" width="48" height="38.64" rx="2" class="ct-win"/>
+              <path d="M104 22 L164 22 L170 106 L110 106 Z" class="ct-card"/>
+              <path d="M110 30 L158 30 L161 70 L113 70 Z" class="ct-win"/>
+              <path d="M164 22 L170 22 L170 106 Z" class="gd-gap"/>
+              <path d="M164 22 L170 106" class="gd-mark"/>
+              <path d="M74 18 V110" class="gd-ref"/>
+              <path d="M170 18 V110" class="gd-ref"/>
+              <text x="90" y="126" class="gd-n">dashed = another card's straight edge</text>
+            </svg>
+          </figure>
+            <p class="gd-p">A skewed factory cut, so the card is not a true rectangle. Named by all five majors and allowed progressively further down every scale. <span class="gc-aka">all five</span></p>
+          </div></dd>
           <dt>Holo bleed, where the company you pick changes the answer</dt>
-          <dd>Holofoil showing through areas the manufacturer did not intend. PSA recognizes it and treats it as a print quality matter rather than an authenticity one. CGC states outright that it does not recognize so called holo bleeds. This is the clearest case on the page of the same card getting two different readings depending on where you send it. <span class="gc-aka">PSA and CGC disagree</span></dd>
+          <dd><div class="gd-row"><figure class="gd-fig">
+            <svg viewBox="0 0 180 126" class="gd-svg" role="img" aria-label="Two cards. On the first the foil is contained inside the artwork window, which is where the design puts it. On the second the same foil escapes past the window in a ragged patch, out over the border and across the text box, where the design puts none.">
+              
+              <defs><pattern id="gdFoil" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                <path d="M2.5 0 V5" class="gd-foil" opacity=".85"/>
+              </pattern></defs>
+              <text x="45" y="12" class="gd-l">AS PRINTED</text>
+              <text x="134" y="12" class="gd-bad">HOLO BLEED</text>
+              <rect x="16" y="20" width="58" height="82" rx="3" class="ct-card"/><rect x="21.8" y="27.38" width="46.400000000000006" height="37.72" rx="2" class="ct-win"/><g class="gd-hair"><path d="M22.96 70.84 H67.03999999999999"/><path d="M22.96 77.4 H56.599999999999994"/><path d="M22.96 83.96000000000001 H63.559999999999995"/></g>
+              <path d="M21.8 27.4 H68.2 V65.1 H21.8 Z" fill="url(#gdFoil)"/>
+              <rect x="106" y="20" width="58" height="82" rx="3" class="ct-card"/><rect x="111.8" y="27.38" width="46.400000000000006" height="37.72" rx="2" class="ct-win"/><g class="gd-hair"><path d="M112.96 70.84 H157.04"/><path d="M112.96 77.4 H146.6"/><path d="M112.96 83.96000000000001 H153.56"/></g>
+              
+              <path d="M111.8 27.4 H158.2 V65.1 H111.8 Z" fill="url(#gdFoil)"/>
+              <path d="M110 44 Q107 66 120 78 Q142 90 154 74 Q163 60 156 48 Q140 40 128 46 Z" fill="url(#gdFoil)"/>
+              <text x="90" y="120" class="gd-n">PSA notes it. CGC says it is not a thing</text>
+            </svg>
+          </figure>
+            <p class="gd-p">Holofoil showing through areas the manufacturer did not intend. PSA recognizes it and treats it as a print quality matter rather than an authenticity one. CGC states outright that it does not recognize so called holo bleeds. This is the clearest case on the page of the same card getting two different readings depending on where you send it. <span class="gc-aka">PSA and CGC disagree</span></p>
+          </div></dd>
         </dl>
       </section>
 
@@ -929,6 +1145,6 @@
     Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=2a20b951" defer></script>
+<script src="/assets/app.js?v=7d21299e" defer></script>
 </body>
 </html>

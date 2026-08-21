@@ -49,7 +49,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate } from "../shared/format.mjs";
+import { esc, longDate, plateRule, PLATE_CSS } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dex = JSON.parse(await readFile(join(ROOT, "data/pokedex.json"), "utf8"));
@@ -423,6 +423,7 @@ ${STYLES}
 .lore-scale svg{width:100%;height:auto;max-width:420px;display:block}
 .lore-scale figcaption{font:400 var(--t-micro)/1.5 var(--body);color:inherit;opacity:.72;margin-top:6px}
 ${LORE_ANIM_CSS}
+${PLATE_CSS}
 </style>
 <script type="application/ld+json">${JSON.stringify({
   "@context": "https://schema.org",
@@ -499,6 +500,32 @@ ${MENU}
       <p class="price-note" style="margin-top:12px">Source: ${esc(SRC)}. The Garbage Plate is a registered trademark
         of Nick Tahou Hots.</p>
     </div>
+
+${/* THE SEAM THIS PAGE ALREADY MADE, AND THE ONE PLACE ON IT WITH NEITHER A
+      PICTURE NOR A MARK. Everything above this line is Rochester: the two
+      mascots, the height chart, the paragraph that ends "we named a channel
+      after a plate of garbage, entirely independently", and a source line
+      naming the trademark. Everything below it is the National Pokedex, and the
+      city is never mentioned again. The plate closes the half of the page it
+      belongs to.
+
+      IT IS NOT DECORATION IN THIS SPOT, WHICH IS THE TEST. format.mjs asks
+      that the ornament land on a seam the writing already made and beside copy
+      that already names Rochester or the dish, so a reader gets a fleuron
+      rather than a sticker and a screen reader gets nothing said twice. The
+      sentence directly above it names the dish in as many words.
+
+      ONE PER PAGE, AND THIS PAGE HAD NONE. That rule is format.mjs's and it is
+      the reason there is exactly one here rather than a second at the "One of a
+      kind" heading below, which is a change of subject inside the Pokedex half
+      rather than a change of half. Measured at 390x844 DPR 2 before this went
+      in, this seam had 854px between the height chart and the first fact
+      portrait with nothing in it.
+
+      NOTHING MOVES AND NOTHING MAY BE MADE TO. This one sits directly under
+      running prose and a moving ornament would pull the eye off the sentence,
+      which is the reason format.mjs gives for refusing it a hover transform on
+      any of its placements. */ ""}${plateRule()}
 
     <h2>Did you <span class="hl">know</span></h2>
     <div class="lore-list" style="margin-top:var(--s4)">

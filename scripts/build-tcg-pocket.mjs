@@ -521,7 +521,42 @@ ${COMPARE_CSS}
    test reads this site's span-and-a layout rows as prose and rescaled a bar
    chart. The ul's own 44em stays, so the list box does not move, only its
    text. Measured, 1440x900, 16 August 2026. */
+/* THE MEASURE BLOCK ABOVE CAPPED THE COLUMN AND LEFT IT PARKED ON THE LEFT
+   EDGE, which is the other half of the same decision and was not made until
+   21 August 2026. Measured at 1440x900 before this rule: 41 prose blocks with
+   an average right edge of 652px, so 788px of the 1440 viewport, 55% of it,
+   was empty green down the whole 7,892px page, and 72 of 99 horizontal bands
+   held nothing past 60% of the width. An entire eight thousand pixel page
+   rendered in the left half of the window.
+
+   THE ANSWER IS LAYOUT AND NOT DECORATION, which is the precedent CLAUDE.md
+   sets for the home page: at 1440 that page showed two videos in its first
+   3,307px with 872px of empty band either side of every carousel card, and the
+   fix was more cards and a derived column, never a mark parked in the margin.
+
+   CENTRING IS THE HONEST FIX HERE SPECIFICALLY BECAUSE THERE IS NOTHING TO PUT
+   BESIDE THE TEXT. Every figure on this page is already as wide as the column
+   and landscape in shape: the two board diagrams are 300 units across in a 300
+   unit viewBox, the app strip is three portrait phone captures that this file
+   argues have to be read as one row, and the comparison table is the widest
+   object on the page. Floating any of them into a margin would make them
+   smaller, which is the opposite of the fix. Compare the retailer pages, where
+   there IS a real companion and it gets one.
+
+   THE COLUMN IS THE WIDEST OBJECT ON THE PAGE AND NOT A PICKED NUMBER, which
+   is the mistake the home page trophy column made: a SHARE is not a SIZE and
+   two picked numbers there gave three sizes of pack. 782px is .cmp-w at its
+   own 46em, measured at 1440; everything else is 44em / 748px and the prose is
+   var(--measure) / 612px, so the table fills the column exactly and nothing
+   else has to move. Plus the wrap's own two gutters, because .wrap is
+   border-box and the padding is inside the max-width.
+
+   min-width:1000 for the same reason as every rule above it, so 320, 390 and
+   768 are byte-identical. Between 1000 and 1078 this is NARROWER than the wrap
+   was and that is deliberate: the page is then the same picture at every
+   desktop width instead of growing a gutter as the window opens. */
 @media(min-width:1000px){
+.tp-wrap{max-width:calc(782px + var(--gut) * 2)}
 .tp-lede,.tp-src{max-width:var(--measure)}
 .tp-s > p{max-width:var(--measure)}
 .tp-go li{max-width:var(--measure)}
@@ -809,7 +844,7 @@ ${BAR}
 ${MENU}
 <main id="main">
   <section class="tight">
-    <div class="wrap">
+    <div class="wrap tp-wrap">
 ${body}
     </div>
   </section>

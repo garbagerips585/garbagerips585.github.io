@@ -48,7 +48,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate } from "../shared/format.mjs";
+import { esc, longDate, plateMark } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/games");
@@ -948,6 +948,47 @@ const CARDS = [
 ];
 
 /**
+ * THE PLATE CARD'S TWO LAYOUT RULES, ARGUED HERE RATHER THAN IN THE CSS
+ * STRING, BECAUSE THIS BLOCK IS STRIPPED AND THAT STRING IS NOT.
+ *
+ * extraCss is interpolated raw into a render-blocking inline <style> on this
+ * page, with no equivalent of build-css.mjs's comment strip behind it, so
+ * prose written between these braces SHIPS. The first draft of these two
+ * rules carried 24 lines of reasoning and cost 1,644 bytes gzipped on a page
+ * whose whole document is 6,231; the rules themselves are a fraction of that.
+ * Write the argument here and leave a pointer there.
+ *
+ * WHY IT SPANS THE ROW. .g-list is repeat(auto-fit,minmax(240px,1fr)) and the
+ * wrap caps at five columns, so a sixth ITEM changes the last row at every
+ * width. Measured in headless Chrome, rows of this grid, five tiles vs six:
+ *
+ *       390, 500     1,1,1,1,1  ->  1,1,1,1,1,1     same
+ *       768          2,2,1      ->  2,2,2           fixed
+ *       900, 1024    3,2        ->  3,3             fixed
+ *       1200, 1280   4,1        ->  4,2             better
+ *       1366+        5          ->  5,1             WORSE
+ *
+ * At 1366 and above, 1440 included, a plain sixth tile landed alone on a
+ * second row with FOUR empty tracks beside it: a 1,100px hole to close a
+ * 352px one, at the width this site tests desktop at. A card spanning 1 / -1
+ * cannot be orphaned by arithmetic and cannot orphan the games above it, so
+ * it is the only version that is not worse somewhere. The fifth game still
+ * sits beside a gap at 768; the fix for that, if anybody wants one, is a
+ * sixth GAME rather than a non-game squaring the arithmetic.
+ *
+ * WHY THE TWO COLUMN VERSION IS min-width:560. The four game cards keep
+ * .g-card.has-shot's min(46%,190px) column at every width because a game
+ * screenshot is TALL, 0.61 to 0.73 wide-to-tall, so it fills that column at
+ * 390. The plate mark is 200x116. The same template at 390 gave it a 161px
+ * column it filled 40px of and squeezed the copy into 170px: a 460px card
+ * with most of its left half empty. Below 560 it stacks the way .g-icon does
+ * on the two app cards under it. Screenshotted before it was believed.
+ *
+ * NO .g-shot FRAME ON IT. That border and --page fill mean "this is a
+ * screenshot of the thing", and this is the site's own drawing.
+ */
+
+/**
  * Styles for the hub's pictures only. Inline, per the note on `extraCss`.
  *
  * THE SHOTS KEEP THEIR OWN SHAPE rather than being cropped to a common box.
@@ -984,7 +1025,19 @@ const HUB_CSS = `
 .g-card.has-shot .g-tag{justify-self:start}
 .g-icon{display:block;margin:0 0 12px}
 .g-icon img{display:block;width:56px;height:56px;border-radius:13px;
-  border:1px solid var(--hair);background:var(--card)}`;
+  border:1px solid var(--hair);background:var(--card)}
+/* The plate card. Spans the row so it can never be orphaned and can never
+   orphan the games; two columns only above 560. Both are measured and the
+   working is in the block above HUB_CSS, which is stripped from the page. */
+.g-plate{grid-column:1/-1}
+.g-mark{display:block;line-height:0;margin:0 0 12px}
+@media(min-width:560px){
+  .g-plate{display:grid;grid-template-columns:min(46%,190px) 1fr;
+    column-gap:var(--s4);align-items:center}
+  .g-plate>.g-mark{grid-column:1;grid-row:1 / span 3;justify-self:center;margin:0}
+  .g-plate>.g-tag,.g-plate>h2,.g-plate>p{grid-column:2}
+  .g-plate>.g-tag{justify-self:start}
+}`;
 
 const hub = shell({
   slug: "",
@@ -1025,6 +1078,62 @@ const hub = shell({
         <p>${esc(blurb)}</p>
       </a>`,
       ).join("\n      ")}
+      ${/* THE SIXTH TILE IS NOT A GAME AND IT SAYS SO IN ITS OWN CHIP.
+
+            WHAT IT MEANS HERE, in one sentence, because a mark that cannot be
+            said in one is decoration: this is the thing all of it is named
+            after. Five games sit under a heading that says "Games for the
+            wait" on a site called Garbage Rips, and until now nothing on this
+            hub pointed at the dish. The plate is the one mark on this site
+            whose own territory that is, so it says something rather than
+            filling a hole.
+
+            IT IS plateMark() AND NOT plateRule(). The rule is a fleuron with
+            hairlines through it and format.mjs allows ONE of those per page,
+            which is a budget this tile has no business spending: a tile is not
+            a section break. The bare mark carries no hairlines and no such
+            rule, and it is the same drawing, so the site still reads as one
+            hand. Sized to the .g-icon box's neighbourhood and given .g-icon's
+            own spacing INLINE rather than a new class, since HUB_CSS has
+            nothing this needs and one declaration is cheaper than a rule.
+
+            NOTHING MOVES ON IT. format.mjs forbids this mark a hover
+            transform, and the four game cards beside it do get one under
+            prefers-reduced-motion:no-preference, so this tile is deliberately
+            the one that stays still.
+
+            IT SPANS THE ROW AND THE FIRST VERSION DID NOT, WHICH IS THE
+            MEASUREMENT WORTH KEEPING. This was written as a plain sixth tile
+            to fill the 352px hole the fifth game leaves beside it at 768.
+            Driven in headless Chrome, rows of this grid, five tiles against
+            six:
+
+                  390, 500     1,1,1,1,1     ->  1,1,1,1,1,1     same
+                  768          2,2,1         ->  2,2,2           fixed
+                  900, 1024    3,2           ->  3,3             fixed
+                  1200, 1280   4,1           ->  4,2             better
+                  1366+        5             ->  5,1             WORSE
+
+            .g-list is repeat(auto-fit,minmax(240px,1fr)) and the wrap caps at
+            five columns, so at 1366 and above, 1440 included, the sixth tile
+            landed alone on a second row with FOUR empty tracks beside it: a
+            1,100px hole to close a 352px one, in the width this site tests
+            desktop at. Screenshotted before it was believed.
+
+            SO THE HOLE AT 768 IS NOT CLOSED BY THIS CARD AND IS NOT PRETENDED
+            TO BE. A spanning card cannot be orphaned and cannot orphan the
+            games above it, at any width, which is the only version of this
+            tile that is not worse somewhere. The fifth game still sits beside
+            a gap at 768; that is a five-item grid and the fix for it, if
+            anybody wants one, is a sixth GAME. Adding a non-game to square the
+            arithmetic is what this comment is a headstone for. */ ""}<a class="g-card g-plate" href="/garbage-plate.html">
+        <span class="g-mark">${plateMark(132)}</span>
+        <span class="g-tag">Rochester</span>
+        <h2>The Garbage Plate</h2>
+        <p>Not a game. This is the thing the channel is named after: a Rochester dish with a federal trademark, a
+          founder its own sources disagree about, and eleven places to eat one. Every claim on that page carries the
+          source it came from and the day it was read.</p>
+      </a>
     </div>
     <h2 style="margin-top:var(--s6)">The two official <span class="hl">apps</span></h2>${/* "in the queue" is British and this page says "line" three other times:
          "waiting to get to the counter", "nothing lost if the line moves", and

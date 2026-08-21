@@ -1097,6 +1097,12 @@ ${APP_JS}
 
 await mkdir(OUT, { recursive: true });
 
+// Pages that render no picture at all and therefore carry the Trubbish empty
+// state instead of a bare "no price table" line. See the block beside
+// `pictureless` below; the run prints this so a second one cannot appear
+// quietly.
+const picturelessPages = [];
+
 // ---------------------------------------------------------------- per product
 for (const e of entries) {
   const path = `/openings/${e.id}.html`;
@@ -1117,6 +1123,41 @@ for (const e of entries) {
           nSets ? `, across ${nSets} set${nSets === 1 ? "" : "s"}` : ""
         }.`
   ).slice(0, 158);
+
+  /* THE THREE THINGS THAT CAN PUT A PICTURE ON ONE OF THESE PAGES ARE BUILT
+     FIRST, SO THE PAGE CAN BE ASKED WHETHER IT HAS ONE.
+
+     WHY IT IS ASKED RATHER THAN HARDCODED. /openings/chinese-pack.html is the
+     only one of the fourteen with NO picture at all in main: no product
+     photograph, because photoFor() holds no pin for it and shot() returns
+     nothing; no set logo, because its one set has no logo art anywhere we can
+     reach; and no price table, because it is not a kind we track prices for.
+     Measured in headless Chrome at 390x844 DPR 2, visible elements 24px or
+     larger inside main, on the seven pages with no price table:
+
+           chinese-pack    0        korean-pack     4
+           knock-out       3        poke-ball-tin   4
+           upc             5        japanese-pack   8
+           ex-premium      7
+
+     So the state this mascot belongs to is not "no prices", which is seven
+     pages, it is "no prices AND nothing to look at", which is one. Writing
+     e.id === "chinese-pack" would have got today right and said nothing about
+     why, and it would go stale silently in both directions: the day somebody
+     pins a photograph for this product the mascot should leave, and if another
+     product loses its art it should arrive. The test reads the built strings,
+     so it cannot drift from what the page actually renders.
+
+     THE COUNT IS PRINTED AT THE END OF THE RUN rather than asserted, because a
+     second page qualifying is a real editorial event and not a build failure.
+     If it ever reads more than one, look at the page before shipping it: the
+     mascot earns his place by being the only thing in an empty room, and eleven
+     identical Trubbishes is the repetition this whole pass exists to avoid. */
+  const shotHtml = shot(e);
+  const setBandHtml = await setBand(e);
+  const priceTableHtml = priceTable(e);
+  const pictureless = ![shotHtml, setBandHtml, priceTableHtml].some((h) => h.includes("<img"));
+  if (pictureless) picturelessPages.push(path);
 
   const page =
     // No " | Garbage Rips 585": measured 17 August 2026 at 20px Arial, all 14 of
@@ -1139,7 +1180,7 @@ for (const e of entries) {
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/openings/">Openings</a> / <span>${esc(e.label)}</span></nav>
       <h1>${esc(ask.replace(/\?$/, ""))}<span class="hl">?</span></h1>
       <p class="lede op-lede">${esc(USUALLY[e.id] || `A sealed ${e.label}.`)}</p>
-${shot(e)}${/* "THIS KIND OF BOX" WAS WRONG ON SIX OF THE THIRTEEN PAGES IT PRINTS
+${shotHtml}${/* "THIS KIND OF BOX" WAS WRONG ON SIX OF THE THIRTEEN PAGES IT PRINTS
            ON. Seven of these products are boxes and six are not: a single
            booster pack, a peg blister, a metal tin, a Poke Ball tin and the
            Japanese, Korean and Chinese packs. /openings/single-pack.html read
@@ -1173,15 +1214,24 @@ ${shot(e)}${/* "THIS KIND OF BOX" WAS WRONG ON SIX OF THE THIRTEEN PAGES IT PRIN
            swap is semantic only and the page renders to the pixel as before.
            Verified by screenshot rather than assumed. -->
       <h2 class="op-sh">Which sets we opened these from</h2>
-${await setBand(e)}
-${priceTable(e)}
+${setBandHtml}
+${priceTableHtml}
 ${e.prices.length
         ? `      <p class="op-note">Prices are TCGplayer market and lowest listing, read ${esc(longDate(prod.checked))},
         the same figures the rest of this site quotes. They move. <a href="/pack-prices.html">Pack prices</a>
         works out what that comes to per pack, and <a href="/msrp.html">what it should cost</a> has the
         retail figure to measure any of it against. Each photograph is TCGplayer's, and it is that row's own
         product rather than a stand-in, which is why the art is different in every one of them.</p>`
-        : `      <p class="op-note">No price table here: this product is not one of the kinds we track prices for,
+        : pictureless
+          ? `      <div class="empty">
+        <img class="empty-mascot" src="/assets/species/568.webp" alt=""
+             width="256" height="256" loading="lazy" decoding="async" onerror="this.remove()">
+        <p class="big">No price table here.</p>
+        <p>This product is not one of the kinds we track prices for, so there is nothing sourced to show.
+        <a href="/pack-prices.html">Pack prices</a> covers the ones we do,
+        and <a href="/msrp.html">what it should cost</a> has the retail figure for the kinds it could source.</p>
+      </div>`
+          : `      <p class="op-note">No price table here: this product is not one of the kinds we track prices for,
         so there is nothing sourced to show. <a href="/pack-prices.html">Pack prices</a> covers the ones we do,
         and <a href="/msrp.html">what it should cost</a> has the retail figure for the kinds it could source.</p>`}
     </div>
@@ -1363,4 +1413,11 @@ await writeFile(join(OUT, "index.html"), idx);
 
 console.log(`Wrote public/openings/ with ${entries.length + 1} pages
   ${entries.length} product types, ${totalRips} openings, ${totalPacks} packs counted
-  ${entries.filter((e) => e.prices.length).length} have a price table`);
+  ${entries.filter((e) => e.prices.length).length} have a price table
+  ${
+    picturelessPages.length
+      ? `${picturelessPages.length} page${
+          picturelessPages.length === 1 ? "" : "s"
+        } render no picture and take the Trubbish empty state: ${picturelessPages.join(", ")}`
+      : "every page renders at least one picture, so no page takes the Trubbish empty state"
+  }`);

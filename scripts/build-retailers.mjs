@@ -862,6 +862,101 @@ ${BRAND_STYLE}
   .rt-list{columns:2;column-gap:var(--s6);max-width:1100px}
   .rt-list li{break-inside:avoid}
 }
+
+/* ==========================================================================
+   THE SHOP PAGES WERE CAPPED AND THEN LEFT ON THE LEFT EDGE, 21 August 2026.
+   The block above is only half a decision: it set how WIDE a line of type is
+   and said nothing about WHERE the column sits, so every one of these nine
+   pages put a 459px column of prose against the left edge of a 1,392px wrap
+   and painted the other two thirds green. Measured at 1440x900 before this,
+   on /retailers/best-buy.html: 17 prose blocks, average right edge 479px, so
+   961px of the viewport empty, and 46 of 99 horizontal bands with nothing past
+   60% of the width. /retailers/barnes-and-noble.html measured 491 and 45.
+
+   THE ANSWER IS LAYOUT AND NOT DECORATION, which is the precedent CLAUDE.md
+   sets for the home page: at 1440 that page showed two videos in its first
+   3,307px with 872px of empty band either side of every carousel card, and the
+   fix was more cards and a derived column, never a mark parked in the margin.
+   A mark in a measure-line margin is wallpaper by definition.
+
+   THESE PAGES GET THE OTHER FIX, because unlike /tcg-pocket.html they already
+   own a companion and were wasting it. THREE THINGS, in the order they matter.
+
+   ONE, THE BAND. 1152px is not a picked number: it is this wrap's own width in
+   a 1200px window, which is the figure the .rt-cards comment above already
+   reasons about, and it is what .rt-fig needs to keep THREE format tiles beside
+   its 380px caption (380 + 24 gap + 3 x 220 + 2 x 12 tile gaps + 32 padding +
+   6 border = 1,126). Measured after: tiles land on 229px, which is the width
+   they were at the full wrap, so the band that was already composed did not
+   move.
+
+   TWO, THE READING COLUMN IS CENTRED IN THAT BAND rather than parked at its
+   left edge. ONE SHARED LEFT EDGE, WHICH IS WHY THIS IS A margin AND NOT
+   margin-inline:auto ON EACH BLOCK. These blocks are 11px mono, 15.2px body
+   and a display h1, so a per-element auto centre gives every one of them a
+   DIFFERENT left edge and the column reads as ragged rather than as a column.
+   One indent computed from the band and one number puts them all on 466px.
+   460 is the 50ch prose cap resolved at .rt-note's own 15.2px, measured, not
+   the 50ch token, which resolves against each element's own font and is the
+   trap the .rt-gaps comment above already had to write down once.
+
+   THREE, THE SLABS STAY THE FULL BAND AND KEEP THEIR OWN INTERNAL ALIGNMENT.
+   .rt-fig already did this and nobody has ever read it as broken: a bordered
+   panel is a distinct object, and prose set inside one does not have to line
+   up with prose set on the page. .rt-list keeps its two columns for the same
+   reason.
+
+   50ch IS UNTOUCHED. The comment above says in as many words not to correct it
+   up, and this pass is about where the column sits, not how wide a line is.
+
+   All min-width:1000, so 320, 390 and 768 are byte-identical, and all of it is
+   scoped to .rt-shop so /retailers.html, which is a table and a card grid and
+   fills its wrap already, renders exactly what it rendered before.
+   ========================================================================== */
+@media(min-width:1000px){
+  .rt-shop{max-width:calc(1152px + var(--gut) * 2)}
+  .rt-shop > :is(.crumbs,.rt-ch,h1,.rt-lede,.rt-src),
+  .rt-shop .rt-grp > :is(h2,p,.rt-sib){margin-left:calc((100% - 460px) / 2)}
+
+  /* THE DIAGRAM WAS ALREADY DRAWN, ALREADY RELEVANT AND RENDERING AT 240px IN
+     A 1,392px PANEL, with the paragraph it illustrates stopping at 609px and
+     nothing at all in the 783px to the right of it. It is the one place on
+     these pages where there is something real to put beside the text, so it
+     goes there rather than the column being centred: the prose keeps the panel
+     track it already had and the picture takes the gutter it was leaving empty.
+
+     THE TRACKS ARE THE PANEL'S OWN ARITHMETIC. The band is 1,152, less a 3px
+     border either side and var(--s5) of padding either side, is 1,098 of inner
+     width. .rt-key p is 50ch at the panel's inherited 17px, which measures
+     558px, so the first track is that and the gutter is the remaining 516 less
+     the 24px gap.
+
+     460px IS THE CAP AND IT IS THE LABELS THAT SET IT, not the space. The
+     drawing is 240 units wide and its three labels are 9 units, so they land on
+     14.25px at 380 and 17.25px at 460, against 15.2px body copy beside them.
+     Filling the whole 516 track would put 19px mono labels next to 15.2px prose
+     and the schematic would read as the loudest thing in the panel. It is
+     centred in its track instead of stretched, and the stroke scales with it,
+     1.6 units becoming 3.1px. If the drawing ever gains a fourth label,
+     re-screenshot before widening this. */
+  .rt-shop .rt-key{display:grid;grid-template-columns:minmax(0,50ch) minmax(0,1fr);
+    gap:0 var(--s5);align-items:start}
+  .rt-shop .rt-key > h2{grid-column:1/-1}
+  .rt-shop .rt-key > p{grid-column:1}
+  /* span 2 AND NOT 2/-1, AND THE WRONG ONE OF THOSE SHIPPED FOR ONE BUILD.
+     -1 counts back from the last line of the EXPLICIT row grid, and this grid
+     declares COLUMNS only, so its explicit row grid is a single line and 2/-1
+     resolves to 2/1, which a browser normalises to row 1. The drawing then took
+     row 1 column 2, pushed the h2 out of the row it had spanned, and the panel
+     rendered the schematic ABOVE its own heading. It is caught by looking at
+     the panel and by nothing else: no error, no overflow, and the measurements
+     all improve either way.
+     span 2 IS THE TWO PARAGRAPHS of the block a few hundred lines below, which
+     is a literal with exactly one h2 and exactly two p in it. If a third
+     paragraph is ever added there, this number moves with it. */
+  .rt-shop .rt-key > .rt-fig-svg{grid-column:2;grid-row:2/span 2;
+    align-self:center;justify-self:center;margin-top:0;width:100%;max-width:460px}
+}
 `;
 
 const head = ({ title, desc, path, extraLd = [] }) => `<!DOCTYPE html>
@@ -1356,7 +1451,7 @@ ${BAR}
 ${MENU}
 <main id="main">
   <section class="tight">
-    <div class="wrap">
+    <div class="wrap rt-shop">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> /
         <a href="/retailers.html">Which stores sell cards</a> / <span>${esc(r.name)}</span></nav>
       <div class="rt-ch">

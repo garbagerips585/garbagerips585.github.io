@@ -1152,6 +1152,49 @@ const STYLE = `
   .ov-bands,.ov-kinds{grid-template-columns:repeat(2,minmax(0,1fr))}
   .ov-list{max-width:33em}
 }
+
+/* ==========================================================================
+   AND EVERY ONE OF THOSE CAPS PUT ITS COLUMN ON THE LEFT RAIL, fixed
+   21 August 2026. The block above is careful about how wide a LINE is and says
+   nothing about where the line SITS, so this page ran three bands that fill
+   1,392px and, between them, a reading column that stopped between 456 and 806
+   and left up to 960px of empty green beside it, down a 20,870px page.
+   Measured at 1440x900, box right edge in a wrap ending at 1,416:
+
+       p.lede.ms-lede    601      p.ms-warn      523      p.sec-label   456
+       p/div.ms-body     806      div.ms-calc    806      ul.ms-src     806
+       figure.ms-fig     585      ul.ov-list     585
+
+   against ul.ms-list inking to 1,397, ol.ov-bands to 1,263 and ul.ov-kinds to
+   1,259. The bands were right and the column was homeless.
+
+   THIS IS THE /base-set.html AND /how-to-play.html TREATMENT, not the
+   /tcg-pocket.html one, and the three bands above are the whole reason: capping
+   this wrap to a measure would shrink the only parts of the page that were
+   already filling it. So the wrap takes a band, the bands keep it, and only the
+   reading column moves. CLAUDE.md's home page precedent is the model, and its
+   sentence about the top of a page reading as a different site from the bottom
+   is the one the .ms-list comment above is already quoting.
+
+   ONE SHARED LEFT EDGE, WHICH IS WHY THIS IS A margin AND NOT
+   margin-inline:auto ON EACH BLOCK. The column holds a display h1, 17px body,
+   15.2px notes, an 11px mono section label and a bordered figure, so a
+   per-element auto centre gives each of them a different left edge and the
+   column reads as ragged. One indent computed from the band puts them all on
+   305px. 782px is 46em resolved at 17px, which is .ms-body's own cap and the
+   widest ink on the page outside the bands.
+
+   NOTHING ABOVE THIS BLOCK IS TOUCHED, AND TWO THINGS IN IT ARE LOAD BEARING.
+   .ov-list STAYS ONE COLUMN: the comment above says four listings side by side
+   would read as a comparison of four shops, which is the one thing that band is
+   not, and it is still one column here, just no longer against the left rail.
+   The 33em cap stays for the same reason its own comment gives.
+   ========================================================================== */
+@media(min-width:1000px){
+  .ms-page .wrap{max-width:calc(1152px + var(--gut) * 2)}
+  .ms-page .wrap > :is(.crumbs,.sec-label,h1,h2,h3,.ms-lede,.ms-warn,.ms-body,
+    .ms-calc,.ms-fig,.ms-src,.ov-list){margin-left:calc((100% - 782px) / 2)}
+}
 `;
 
 // COMMENTS OUT OF THE SHIPPED PAGE, ARGUMENT KEPT IN THIS FILE. Same trade
@@ -1217,7 +1260,7 @@ ${SPRITE}
 ${SKIP}
 ${BAR}
 ${MENU}
-<main id="main">
+<main id="main" class="ms-page">
 
   <section class="tight">
     <div class="wrap">

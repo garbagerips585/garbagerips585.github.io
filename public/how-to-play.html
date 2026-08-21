@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=a2712aae">
+<link rel="stylesheet" href="/assets/ui.css?v=c2b99ea6">
 <style>.hp-lede{max-width:44em}
 .hp-s{margin-top:var(--s6);scroll-margin-top:var(--s5)}
 .hp-s > p{max-width:44em;line-height:1.6}
@@ -130,6 +130,13 @@ margin-top:var(--s6);max-width:44em}
 .hp-lede,.hp-src{max-width:var(--measure)}
 .hp-s > p{max-width:var(--measure)}
 .hp-go li{max-width:var(--measure)}
+}
+@media(min-width:1000px){
+.hp-wrap{max-width:calc(1152px + var(--gut) * 2)}
+.hp-wrap > :is(.crumbs,h1,.hp-lede,.hp-jump,.hp-out,.hp-src),
+.hp-s > :is(h2,p,.hp-steps,.hp-fig,.hp-call,.hp-tbl-w,.hp-shout,.hp-go,.hp-anat){
+margin-left:calc((100% - 748px) / 2)}
+.hp-s > .hp-anat{max-width:748px}
 }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"How to play"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What even is the Pokemon card game?","acceptedAnswer":{"@type":"Answer","text":"Two players each bring a 60 card deck, put Pokemon down on the table, attach Energy to them, and attack each other's Pokemon until one player has taken all six of their Prize cards."}},{"@type":"Question","name":"How do you set up a game of Pokemon cards?","acceptedAnswer":{"@type":"Answer","text":"Flip a coin and the winner chooses who goes first. Shuffle, draw seven, put a Basic Pokemon face down in the Active spot and up to five more on the Bench, then count the top six cards of your deck aside as your Prize cards. Both players turn everything face up and start."}},{"@type":"Question","name":"What happens on a turn?","acceptedAnswer":{"@type":"Answer","text":"Draw a card. Then do as much or as little as you like: attach one Energy, play Trainer cards, put Basics on your Bench, evolve, retreat, use Abilities. Then attack, and your turn is over."}},{"@type":"Question","name":"How do you win a game of Pokemon cards?","acceptedAnswer":{"@type":"Answer","text":"Three ways. Take all six of your own Prize cards, leave your opponent with no Pokemon in play, or have them unable to draw a card at the start of their turn."}},{"@type":"Question","name":"Do I need to build a deck to play?","acceptedAnswer":{"@type":"Answer","text":"No. A preconstructed deck is a legal 60 card deck out of the box. Two people need two decks, or one Battle Academy box."}}]}</script>
@@ -261,7 +268,7 @@ margin-top:var(--s6);max-width:44em}
 </nav>
 <main id="main">
   <section class="tight">
-    <div class="wrap">
+    <div class="wrap hp-wrap">
 
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>How to play</span></nav>
       <h1>How do you actually <span class="hl">play</span>?</h1>
@@ -659,6 +666,6 @@ margin-top:var(--s6);max-width:44em}
     Rules from the official Pokemon Trading Card Game rulebook. Card scan from TCGdex.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=2a20b951" defer></script>
+<script src="/assets/app.js?v=7d21299e" defer></script>
 </body>
 </html>

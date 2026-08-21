@@ -1027,6 +1027,72 @@ main{padding:var(--s4) 0 var(--s8)}
   line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.64em}
 .v p{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.03em;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- the filtered grid arrives ----------
+   Tapping a set chip on /videos.html rebuilds this whole grid synchronously
+   (render() does grid.textContent = "" and appends a fragment), so the highest
+   frequency interaction on the site swaps one wall of packs for another with no
+   feedback at all. This lays the new tiles out instead: 26ms of stagger per
+   tile, capped at index 14, 260ms each.
+
+   **THE APPROVED FIGURE FOR THIS WAS "the last tile lands at 442ms" AND THAT
+   NUMBER CANNOT COME OUT OF THIS MECHANISM.** 442 is 260 + 7 x 26, and 7 is the
+   last index of the EIGHT tile grid the prototype was drawn on, so the cap was
+   never once exercised in the thing that got approved. The real library renders
+   48, the cap always binds, and the last tile lands at 260 + 14 x 26 = 624ms.
+
+   IT WAS LEFT AT 14 ANYWAY, because the tail is the part nobody sees. Measured
+   on the built page, the last tile actually inside the viewport at scroll 0:
+
+        390x844 DPR2   2 cols   index  3   lands at 338ms
+        768x1024       3 cols   index  5   lands at 390ms
+        1280x800       5 cols   index  4   lands at 364ms
+        1440x900       6 cols   index 11   lands at 546ms
+
+   so the cap is never reached by anything on screen at any width, every visible
+   tile gets its own step, and what 624 buys over 442 is only that the tiles
+   below the fold do not all land at once mid-scroll. If a shorter tail is
+   wanted, the number to change is the 14 in app.js and it changes nothing a
+   reader sees until the grid is scrolled during the first 600ms.
+
+   SAME CONSTRUCTION AS .hitcards.is-armed BELOW, and read that block's comment
+   for the two rules it records: transitions on a class toggle rather than
+   @keyframes, because an animation naming keyframes that do not exist silently
+   never runs and this repo has shipped that twice; and VISIBLE BY DEFAULT, hidden
+   only once JS has confirmed it will reveal, with a 2s failsafe in app.js that
+   REMOVES .is-armed rather than adding .is-in, so the failsafe does not itself
+   depend on the animation.
+
+   THE ONLY DIFFERENCE IS THE TRIGGER AND IT IS WHAT KEEPS THIS OFF THE LOAD
+   PATH. app.js arms this on a filter the READER applied and on nothing else:
+   `var keepDom = prerendered > 0 && !filtered` means an unfiltered first load
+   never rebuilds the server-rendered grid at all, and the first render of a
+   filtered URL is a page load rather than an interaction and is not armed
+   either. So no first paint on any page can be delayed by this, and opacity and
+   transform shift no layout, so CLS is untouched. Verified by driving both
+   paths: 0.000 either way.
+
+   TYPING IS DELIBERATELY NOT A TRIGGER. The library search box debounces at
+   50ms, so "charizard" is nine rebuilds, and a 442ms cascade restarted every
+   50ms is 48 tiles caught mid-fade rather than an animation. app.js arms on the
+   discrete acts (a chip, the sort, Clear all, clearing the query) and leaves
+   the per-keystroke path alone, where the count line is already the feedback.
+
+   .is-armed IS REMOVED ON EVERY REBUILD BEFORE IT IS RE-ADDED, in app.js, and
+   that is not tidying: "Load 48 more" rebuilds the grid without arming, and a
+   stale .is-armed would give those 96 tiles opacity:0 with nothing left to add
+   .is-in to them. An empty grid is a worse failure than no animation. */
+.wall.is-armed .v{opacity:0;transform:translateY(10px);
+  transition:opacity .26s cubic-bezier(.2,.7,.3,1), transform .26s cubic-bezier(.2,.7,.3,1);
+  transition-delay:calc(var(--i, 0) * 26ms)}
+.wall.is-armed .v.is-in{opacity:1;transform:none}
+/* app.js returns before arming under reduced motion, so this should be
+   unreachable. It is here anyway because `reduced` is read ONCE at load, so a
+   reader who turns the preference on mid-visit would otherwise arm a grid whose
+   transitions the blanket rule has already killed, which is opacity:0 forever. */
+@media(prefers-reduced-motion:reduce){
+  .wall.is-armed .v{opacity:1;transform:none;transition:none}
+}
 .more{grid-column:1/-1;display:flex;justify-content:center;margin-top:var(--s5)}
 /* BOTH ELEMENTS, because /videos.html's "Load 48 more" is a <button> now and
    the two have to be indistinguishable. It was an <a href="#"> with a click
@@ -1150,6 +1216,35 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
   border:1px dashed var(--hair);border-radius:var(--r);padding:var(--s7) var(--s5)}
 .empty .big{font:400 var(--t-l)/1.15 var(--display);color:var(--ink);display:block;
   margin-bottom:var(--s2)}
+/* CENTERED TEXT IN A BOX THE TEXT IS NOT CENTERED IN, and it looked like broken
+   alignment rather than an empty state. `.empty` is text-align:center, but the
+   measure block near the bottom of this file caps `main :is(p,...)` at
+   `--measure`, 36em, above 1000px. A capped block with no auto margin sits
+   FLUSH LEFT in the box it was supposed to be centered in, and text-align only
+   centers the line inside that narrower block, so the whole thing lands left of
+   center by half the slack.
+
+   36em IS THE ELEMENT'S OWN em, WHICH IS WHY THE TWO LINES WERE OFF BY
+   DIFFERENT AMOUNTS and why this reads as two bugs rather than one. Measured on
+   /search.html at 1440, box center 720, content box 1342 wide:
+
+        p.big   36em of 32px display type = 1152px wide, center 625,  95px left
+        p       36em of 17px body type    =  612px wide, center 355, 365px left
+
+   Same on /videos.html. `margin-inline` and not `margin`, because `.big` sets a
+   margin-bottom and the second paragraph on two of these pages sets a
+   margin-top; only the inline axis is wrong here.
+
+   IT DOES NOTHING BELOW 1000px, which is the check that matters for a rule
+   added to a file this size: the measure cap is inside @media(min-width:1000px),
+   so at 390 both paragraphs are already the full 300px of the content box and
+   `auto` on a full-width block computes to 0. Measured before and after at 390:
+   every child of `.empty` centered at 195, unmoved, CLS 0.0000.
+
+   The `.big` in this box is an h2 on /vendors.html and /creators.html and a p
+   elsewhere. Headings are not in the measure block's :is() list, so the h2 form
+   was never capped and never off center; `p` alone covers every case. */
+.empty p{margin-inline:auto}
 
 /* Screen-reader-only, for labels that would otherwise be missing. */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
@@ -2378,6 +2473,42 @@ footer .soc svg{fill:var(--chrome-ink)}
    404's so the two read at the same scale. */
 .empty-mascot{width:clamp(88px,22vw,116px);height:auto;display:block;margin:0 auto var(--s3);
   filter:drop-shadow(0 6px 12px rgba(17,17,17,.2))}
+
+/* ---------- the mascot lands ----------
+   Every one of these states is a reader who has just failed at something, and
+   right now the mascot is simply THERE the instant the failure is. This drops
+   him the last 9px with a 3 degree tilt taken out, 280ms, once per mount.
+
+   ONLY THE PICTURE MOVES. The two paragraphs under it are the answer to
+   "why is this empty", they are the LCP candidate in a box this short, and CLS
+   is 0.000 across the tree. A transform on an img with width and height
+   attributes shifts nothing, so this keeps it that way.
+
+   IT REACHES THE STATES THAT ARE MOUNTED BY SCRIPT AFTER A FAILURE, WHICH IS
+   FEWER THAN THE FIVE IT WAS DRAWN FOR, and the count is worth writing down
+   because the other three look like they should be here. app.js's
+   filtered-to-nothing grid and build-search.mjs's search miss are both
+   `.empty > .empty-mascot` written into the page after the reader acted, and
+   both are armed. THE RIP PAGE'S NO-HITS BLOCK IS `.nohits-img` and /404.html's
+   is `.e404-mascot`: different elements, and both are SERVER RENDERED and
+   already painted, so arming either would mean hiding a picture the reader can
+   see in order to fade it back in, and on /404.html that is the first screen.
+   /playlists.html has no filter and cannot empty itself. If a page grows a new
+   empty state, it inherits this by using `.empty` with an `.empty-mascot` in it
+   and calling app.js's landMascot on the node once it is in the document.
+
+   Armed by the same JS that writes the state, so nothing is ever stuck
+   invisible if the class never lands, and the transition is INSIDE the armed
+   rule so dropping .is-armed restores the picture outright. */
+.empty.is-armed .empty-mascot{opacity:0;transform:translateY(-9px) rotate(-3deg);
+  transition:opacity .28s cubic-bezier(.2,.7,.3,1), transform .28s cubic-bezier(.2,.7,.3,1)}
+.empty.is-armed.is-in .empty-mascot{opacity:1;transform:none}
+/* Unreachable while app.js returns before arming, and kept for the case app.js
+   cannot see: `reduced` is read once at load, so the preference can be turned
+   on after this page armed itself. */
+@media(prefers-reduced-motion:reduce){
+  .empty.is-armed .empty-mascot{opacity:1;transform:none;transition:none}
+}
 
 /* Search field furniture. The native type=search clear affordance is WebKit
    only and invisible on Android and Firefox, so the X is ours. */

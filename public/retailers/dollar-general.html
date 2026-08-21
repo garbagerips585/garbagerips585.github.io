@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=a2712aae">
+<link rel="stylesheet" href="/assets/ui.css?v=c2b99ea6">
 <style>.rt-lede{max-width:46em}
 .rt-key{border:3px solid var(--keyline);border-radius:12px;background:var(--band-bg);color:var(--chrome-ink);
 padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
@@ -139,6 +139,17 @@ gap:var(--s4) var(--s5);align-items:start}
 .rt-cards{grid-template-columns:repeat(3,1fr);align-items:start}
 .rt-list{columns:2;column-gap:var(--s6);max-width:1100px}
 .rt-list li{break-inside:avoid}
+}
+@media(min-width:1000px){
+.rt-shop{max-width:calc(1152px + var(--gut) * 2)}
+.rt-shop > :is(.crumbs,.rt-ch,h1,.rt-lede,.rt-src),
+.rt-shop .rt-grp > :is(h2,p,.rt-sib){margin-left:calc((100% - 460px) / 2)}
+.rt-shop .rt-key{display:grid;grid-template-columns:minmax(0,50ch) minmax(0,1fr);
+gap:0 var(--s5);align-items:start}
+.rt-shop .rt-key > h2{grid-column:1/-1}
+.rt-shop .rt-key > p{grid-column:1}
+.rt-shop .rt-key > .rt-fig-svg{grid-column:2;grid-row:2/span 2;
+align-self:center;justify-self:center;margin-top:0;width:100%;max-width:460px}
 }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Which stores sell cards","item":"https://garbagerips585.github.io/retailers.html"},{"@type":"ListItem","position":3,"name":"Dollar General"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does Dollar General sell Pokemon cards?","acceptedAnswer":{"@type":"Answer","text":"Yes, in stores. Dollar General has a Pokemon category of its own under Toys & Games, and its Pokemon trading card listings say plainly that the item is not eligible for delivery."}},{"@type":"Question","name":"What Pokemon cards does Dollar General sell?","acceptedAnswer":{"@type":"Answer","text":"Small sealed only, so packs, blisters and tins rather than boxes. Packs, tins and repackaged formats: single packs, mini tins, three-booster tins, Poke Ball tins, a mini portfolio with a booster in it. Nothing box sized appeared on their site."}},{"@type":"Question","name":"Where in Dollar General are the Pokemon cards?","acceptedAnswer":{"@type":"Answer","text":"Dollar General files Pokemon under Toys & Games, so the toy aisle. Their stores are small enough that this is usually one short run of shelving. Layouts differ from shop to shop, and a lot of chains now keep cards behind the counter or in a locked case, so ask a member of staff even if the shelf is empty."}},{"@type":"Question","name":"Does Dollar General sell Pokemon cards over MSRP?","acceptedAnswer":{"@type":"Answer","text":"On the listing we read August 17, 2026, the Pokemon Trading Card Game Mini Tin, Assorted was $12.00 on August 17, 2026 against a suggested $9.99, which is 1.2 times it. Each of those is a reading on the day named rather than a standing price, and prices move."}}]}</script>
@@ -270,7 +281,7 @@ gap:var(--s4) var(--s5);align-items:start}
 </nav>
 <main id="main">
   <section class="tight">
-    <div class="wrap">
+    <div class="wrap rt-shop">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> /
         <a href="/retailers.html">Which stores sell cards</a> / <span>Dollar General</span></nav>
       <div class="rt-ch">
@@ -490,6 +501,6 @@ gap:var(--s4) var(--s5);align-items:start}
     Product photos are TCGplayer's, used to identify the sealed formats written about here. Each one is a photograph of the format rather than of the box on a shelf near you.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=2a20b951" defer></script>
+<script src="/assets/app.js?v=7d21299e" defer></script>
 </body>
 </html>
