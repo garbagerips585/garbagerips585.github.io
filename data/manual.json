@@ -84,11 +84,11 @@
     "boxNumber": 3,
     "packNumber": 3,
     "hasHit": true,
-    "hitCard": "Mega Greninja ex - Hyper Rare - Gold Card",
+    "hitCard": "Mega Greninja ex -Mega Yellow Star - Mega Hyper Rare",
     "hits": [
       {
         "card": "Mega Greninja ex",
-        "rarity": "Hyper Rare",
+        "rarity": "Mega Hyper Rare",
         "set": "chaos-rising",
         "setName": "Chaos Rising"
       }
@@ -1387,19 +1387,19 @@
     "boxNumber": 6,
     "packNumber": 3,
     "hasHit": true,
-    "hitCard": "First Partner Illustration Collection (Series 1) Alola Region Promo : Rowlet, Litten, Popplio",
+    "hitCard": "First Partner Illustration Collection (Series 1) Alola Region Promos : Rowlet, Litten, Popplio",
     "hits": [
       {
         "card": "Rowlet",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
       },
       {
         "card": "Litten",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
       },
       {
         "card": "Popplio",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
       }
     ]
   },
@@ -1524,19 +1524,19 @@
     "boxNumber": 5,
     "packNumber": 1,
     "hasHit": true,
-    "hitCard": "First Partner Illustration Collection (Series 1) Alola Region Promo : Rowlet, Litten, Popplio ; Phantasmal Flames - Trainer - Punk Helmet - Double Silver Star - Ultra Rare",
+    "hitCard": "First Partner Illustration Collection (Series 1) Alola Region Promos : Rowlet, Litten, Popplio ; Phantasmal Flames - Trainer - Punk Helmet - Double Silver Star - Ultra Rare",
     "hits": [
       {
         "card": "Rowlet",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
       },
       {
         "card": "Litten",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
       },
       {
         "card": "Popplio",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
       },
       {
         "card": "Punk Helmet",
@@ -3456,7 +3456,7 @@
     "openingType": "Booster Bundle",
     "packNumber": 6,
     "hasHit": true,
-    "hitCard": "Larry's Staraptor - Singe Gold Star - Illustration Rare",
+    "hitCard": "Larry's Staraptor - Single Gold Star - Illustration Rare",
     "hits": [
       {
         "card": "Larry's Staraptor",
@@ -4097,7 +4097,7 @@
     "openingType": "Single Booster Pack",
     "packNumber": 6,
     "hasHit": true,
-    "hitCard": "Terapagos ex - Doule Black Star - Double Rare",
+    "hitCard": "Terapagos ex - Double Black Star - Double Rare",
     "hits": [
       {
         "card": "Terapagos ex",
@@ -4121,7 +4121,7 @@
     "setsPacks": "Ascended Heroes - 2 Packs",
     "openingType": "Mini Tin",
     "hasHit": true,
-    "hitCard": "Terapagos ex - Doule Black Star - Double Rare",
+    "hitCard": "Terapagos ex - Double Black Star - Double Rare",
     "hits": [
       {
         "card": "Terapagos ex",
@@ -4175,10 +4175,11 @@
     "setsPacks": "Destined Rivals - 1 Pack, Mega Evolution - 1 Pack",
     "openingType": "Mini Tin",
     "hasHit": true,
-    "hitCard": "Destined Rivals - Marnie's Grimmsnarl ex , Double Black Star - Double Rare",
+    "hitCard": "Destined Rivals - Marnie's Grimmsnarl ex - Double Black Star - Double Rare",
     "hits": [
       {
         "card": "Marnie's Grimmsnarl ex",
+        "rarity": "Double Rare",
         "set": "destined-rivals",
         "setName": "Destined Rivals"
       }
@@ -4208,11 +4209,654 @@
       }
     ]
   },
-  "GLM2VLIWZGo": {
-    "hasHit": true
+  "sdZx0lmq2mQ": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 2,
+        "typed": true
+      }
+    ],
+    "packsOpened": 2,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes - 2 Packs",
+    "openingType": "Mini Tin",
+    "hasHit": true,
+    "hitCard": "Mega Froslass ex - Pink and Green Star - Mega Attack Rare",
+    "hits": [
+      {
+        "card": "Mega Froslass ex Pink and Green Star Mega Attack Rare",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes"
+      }
+    ]
   },
-  "F9mAQqKd6r8": {
-    "hasHit": true
+  "KEK0q0PgN_I": {
+    "setPacks": [
+      {
+        "set": "phantasmal-flames",
+        "name": "phantasmal flames",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Phantasmal Flames",
+    "openingType": "Single Booster Pack",
+    "packNumber": 8,
+    "hasHit": true,
+    "hitCard": "Mega Lopunny ex - Double Silver Star - Ultra Rare",
+    "hits": [
+      {
+        "card": "Mega Lopunny ex",
+        "rarity": "Ultra Rare",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames"
+      }
+    ]
+  },
+  "wBIeB-63sKw": {
+    "setPacks": [
+      {
+        "set": "prismatic-evolutions",
+        "name": "prismatic evolutions",
+        "packs": 2,
+        "typed": true
+      }
+    ],
+    "packsOpened": 2,
+    "packsStated": true,
+    "setsPacks": "Prismatic Evolutions - 2 Packs",
+    "openingType": "Mini Tin",
+    "hasHit": true,
+    "hitCard": "Lugia ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Lugia ex",
+        "rarity": "Double Rare",
+        "set": "prismatic-evolutions",
+        "setName": "Prismatic Evolutions"
+      }
+    ]
+  },
+  "-la8PgoBkCw": {
+    "setPacks": [
+      {
+        "set": "pokemon-go",
+        "name": "pokémon go",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Pokémon GO",
+    "openingType": "Single Booster Pack",
+    "packNumber": 11,
+    "hasHit": false
+  },
+  "XjFoToaom6k": {
+    "setPacks": [
+      {
+        "set": "black-bolt",
+        "name": "black bolt",
+        "packs": 2,
+        "typed": true
+      },
+      {
+        "set": "white-flare",
+        "name": "white flare",
+        "packs": 2,
+        "typed": true
+      }
+    ],
+    "packsOpened": 4,
+    "packsStated": true,
+    "setsPacks": "Black Bolt - 2 Packs, White Flare - 2 Packs",
+    "openingType": "Victini Illustration Collection",
+    "hasHit": true,
+    "hitCard": "Victini - Scarlet & Violet Black Star Promo , Black Bolt - Servine - Single Gold Star - Illustration Rare, Black Bolt - Musharna - Single Gold Star - Illustration Rare, Black Bolt - Excadrill ex - Double Black Star - Double Rare, White Flare - Mienshao - Single Gold Star - Illustartion Rare",
+    "hits": [
+      {
+        "card": "Victini",
+        "set": "scarlet-violet-black-star-promos",
+        "setName": "Scarlet & Violet Black Star Promos"
+      },
+      {
+        "card": "Servine",
+        "rarity": "Illustration Rare",
+        "set": "black-bolt",
+        "setName": "Black Bolt"
+      },
+      {
+        "card": "Musharna",
+        "rarity": "Illustration Rare",
+        "set": "black-bolt",
+        "setName": "Black Bolt"
+      },
+      {
+        "card": "Excadrill ex",
+        "rarity": "Double Rare",
+        "set": "black-bolt",
+        "setName": "Black Bolt"
+      },
+      {
+        "card": "Mienshao Illustartion Rare",
+        "rarity": "Illustration Rare",
+        "set": "white-flare",
+        "setName": "White Flare"
+      }
+    ]
+  },
+  "LGzHC-k4vh0": {
+    "setPacks": [
+      {
+        "set": "journey-together",
+        "name": "journey together",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Journey Together",
+    "openingType": "Booster Bundle",
+    "packNumber": 6,
+    "hasHit": true,
+    "hitCard": "Lillie's Clefairy ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Lillie's Clefairy ex",
+        "rarity": "Double Rare",
+        "set": "journey-together",
+        "setName": "Journey Together"
+      }
+    ]
+  },
+  "8SX0B-7WM8A": {
+    "setPacks": [
+      {
+        "set": "prismatic-evolutions",
+        "name": "prismatic evolutions",
+        "packs": 3,
+        "typed": true
+      }
+    ],
+    "packsOpened": 3,
+    "packsStated": true,
+    "setsPacks": "Prismatic Evolutions - 3 Packs",
+    "openingType": "Poster Collection",
+    "hasHit": true,
+    "hitCard": "Teal Mask Ogerpon ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Teal Mask Ogerpon ex",
+        "rarity": "Double Rare",
+        "set": "prismatic-evolutions",
+        "setName": "Prismatic Evolutions"
+      }
+    ]
+  },
+  "J0Gy0iIz3ok": {
+    "setPacks": [
+      {
+        "set": "black-bolt",
+        "name": "black bolt",
+        "packs": 1,
+        "typed": true
+      },
+      {
+        "set": "white-flare",
+        "name": "white flare",
+        "packs": 1,
+        "typed": true
+      }
+    ],
+    "packsOpened": 2,
+    "packsStated": true,
+    "setsPacks": "Black Bolt - 1 Pack, White Flare - 1 Pack",
+    "openingType": "Mini Tin",
+    "hasHit": true,
+    "hitCard": "Black Bolt - Excadrill ex - Double Silver Star - Ultra Rare",
+    "hits": [
+      {
+        "card": "Excadrill ex",
+        "rarity": "Ultra Rare",
+        "set": "black-bolt",
+        "setName": "Black Bolt"
+      }
+    ]
+  },
+  "HbSOpODafEw": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 2,
+        "typed": true
+      }
+    ],
+    "packsOpened": 2,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes - 2 Packs",
+    "openingType": "Mini Tin",
+    "hasHit": true,
+    "hitCard": "Stunfisk ex - Double Silver Star - Ultra Rare",
+    "hits": [
+      {
+        "card": "Stunfisk ex",
+        "rarity": "Ultra Rare",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes"
+      }
+    ]
+  },
+  "NzWUDxXwnPI": {
+    "setPacks": [
+      {
+        "set": "ja-nihil-zero",
+        "name": "nihil zero",
+        "packs": 4,
+        "typed": true
+      }
+    ],
+    "packsOpened": 4,
+    "packsStated": true,
+    "setsPacks": "Nihil Zero - 4 Packs",
+    "openingType": "Japanese Single Booster Pack",
+    "hasHit": true,
+    "hitCard": "Raticate - AR - Art Rare, Aurorus - AR - Art Rare",
+    "hits": [
+      {
+        "card": "Raticate",
+        "rarity": "Art Rare",
+        "set": "ja-nihil-zero",
+        "setName": "Nihil Zero (JP)"
+      },
+      {
+        "card": "Aurorus",
+        "rarity": "Art Rare",
+        "set": "ja-nihil-zero",
+        "setName": "Nihil Zero (JP)"
+      }
+    ]
+  },
+  "53yMHXauDnA": {
+    "setPacks": [
+      {
+        "set": "journey-together",
+        "name": "journey together",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Journey Together",
+    "openingType": "Booster Bundle",
+    "packNumber": 5,
+    "hasHit": false
+  },
+  "dQaN_4yqS0w": {
+    "setPacks": [
+      {
+        "set": "mega-evolution",
+        "name": "mega evolution",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Mega Evolution",
+    "openingType": "Single Booster Pack",
+    "packNumber": 2,
+    "hasHit": true,
+    "hitCard": "Trainer - Acerola's Mischief - Double Siliver Star - Ultra Rare",
+    "hits": [
+      {
+        "card": "Acerola's Mischief",
+        "rarity": "Ultra Rare",
+        "set": "mega-evolution",
+        "setName": "Mega Evolution"
+      }
+    ]
+  },
+  "7PBrXPgt9kU": {
+    "setPacks": [
+      {
+        "set": "perfect-order",
+        "name": "perfect order",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Perfect Order",
+    "openingType": "Booster Bundle",
+    "packNumber": 6,
+    "hasHit": true,
+    "hitCard": "Mega Starmie ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Mega Starmie ex",
+        "rarity": "Double Rare",
+        "set": "perfect-order",
+        "setName": "Perfect Order"
+      }
+    ]
+  },
+  "S_2SHhBqlH8": {
+    "setPacks": [
+      {
+        "set": "phantasmal-flames",
+        "name": "phantasmal flames",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Phantasmal Flames",
+    "openingType": "Single Booster Pack",
+    "packNumber": 7,
+    "hasHit": true,
+    "hitCard": "Nymble - Single Gold Star - Illustration Rare",
+    "hits": [
+      {
+        "card": "Nymble",
+        "rarity": "Illustration Rare",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames"
+      }
+    ]
+  },
+  "cg0H0ipfB90": {
+    "setPacks": [
+      {
+        "set": "silver-tempest",
+        "name": "silver tempest",
+        "packs": 1,
+        "typed": true
+      },
+      {
+        "set": "lost-origin",
+        "name": "lost origin",
+        "packs": 1,
+        "typed": true
+      }
+    ],
+    "packsOpened": 2,
+    "packsStated": true,
+    "setsPacks": "Silver Tempest - 1 Pack , Lost Origin -1 Pack",
+    "openingType": "2 Pack Blister",
+    "hasHit": true,
+    "hitCard": "Silver Tempest - Corviknight V -  Trainer Gallery, Silver Tempest - Reshiram V , Lost Origin - Galarian Perrserker V",
+    "hits": [
+      {
+        "card": "Corviknight V Trainer Gallery",
+        "set": "silver-tempest",
+        "setName": "Silver Tempest"
+      },
+      {
+        "card": "Reshiram V",
+        "set": "silver-tempest",
+        "setName": "Silver Tempest"
+      },
+      {
+        "card": "Galarian Perrserker V",
+        "set": "lost-origin",
+        "setName": "Lost Origin"
+      }
+    ]
+  },
+  "hVS0VH-nfVM": {
+    "setPacks": [
+      {
+        "set": "mega-evolution",
+        "name": "mega evolution",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Mega Evolution",
+    "openingType": "Single Booster Pack",
+    "packNumber": 1,
+    "hasHit": false
+  },
+  "U91JWMsUHAU": {
+    "setPacks": [
+      {
+        "set": "crown-zenith",
+        "name": "crown zenith",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Crown Zenith",
+    "openingType": "Single Booster Pack",
+    "packNumber": 1,
+    "hasHit": true,
+    "hitCard": "Paras - Galarian Gallery",
+    "hits": [
+      {
+        "card": "Paras Galarian Gallery",
+        "set": "crown-zenith",
+        "setName": "Crown Zenith"
+      }
+    ]
+  },
+  "VP1UXW3MrGU": {
+    "setPacks": [
+      {
+        "set": "journey-together",
+        "name": "journey together",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Journey Together",
+    "openingType": "Booster Bundle",
+    "packNumber": 4,
+    "hasHit": true,
+    "hitCard": "Iono's Bellibolt ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Iono's Bellibolt ex",
+        "rarity": "Double Rare",
+        "set": "journey-together",
+        "setName": "Journey Together"
+      }
+    ]
+  },
+  "JjTm-bYLhGE": {
+    "setPacks": [
+      {
+        "set": null,
+        "name": "First Partner Illustration Collection (Series 1)",
+        "packs": 1,
+        "typed": true
+      },
+      {
+        "set": "phantasmal-flames",
+        "name": "phantasmal flames",
+        "packs": 1,
+        "typed": true
+      },
+      {
+        "set": "mega-evolution",
+        "name": "mega evolution",
+        "packs": 1,
+        "typed": true
+      }
+    ],
+    "packsOpened": 3,
+    "packsStated": true,
+    "setsPacks": "First Partner Illustration Collection (Series 1) - 1 Pack , Phantasmal Flames - 1 Pack, Mega Evolution - 1 Pack",
+    "openingType": "First Partner Illustration Collection (Series 1)",
+    "hasHit": true,
+    "hitCard": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos: Turtwig, Chimchar, Piplup , Phantasmal Flames - Mismagius ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Turtwig",
+        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos"
+      },
+      {
+        "card": "Chimchar",
+        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos"
+      },
+      {
+        "card": "Piplup",
+        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos"
+      },
+      {
+        "card": "Mismagius ex",
+        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos",
+        "rarity": "Double Rare",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames"
+      }
+    ]
+  },
+  "fFbWjWLD1N4": {
+    "setPacks": [
+      {
+        "set": "perfect-order",
+        "name": "perfect order",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Perfect Order",
+    "openingType": "Booster Bundle",
+    "packNumber": 5,
+    "hasHit": false
+  },
+  "39Rh6NJPK9M": {
+    "setPacks": [
+      {
+        "set": "journey-together",
+        "name": "journey together",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Journey Together",
+    "openingType": "Booster Bundle",
+    "packNumber": 3,
+    "hasHit": false
+  },
+  "K5RKQlNhvl8": {
+    "setPacks": [
+      {
+        "set": "ja-mega-brave",
+        "name": "mega brave",
+        "packs": 5,
+        "typed": true
+      }
+    ],
+    "packsOpened": 5,
+    "packsStated": true,
+    "setsPacks": "Mega Brave - 5 Packs",
+    "openingType": "Japanese Single Booster Pack",
+    "hasHit": true,
+    "hitCard": "Spearow - AR - Art Rare",
+    "hits": [
+      {
+        "card": "Spearow",
+        "rarity": "Art Rare",
+        "set": "ja-mega-brave",
+        "setName": "Mega Brave (JP)"
+      }
+    ]
+  },
+  "6sg185zTjM4": {
+    "setPacks": [
+      {
+        "set": "perfect-order",
+        "name": "perfect order",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Perfect Order",
+    "openingType": "Booster Bundle",
+    "packNumber": 4,
+    "hasHit": true,
+    "hitCard": "Decidueye ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Decidueye ex",
+        "rarity": "Double Rare",
+        "set": "perfect-order",
+        "setName": "Perfect Order"
+      }
+    ]
+  },
+  "J-Gqbe3jPn4": {
+    "setPacks": [
+      {
+        "set": "chilling-reign",
+        "name": "chilling reign",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chilling Reign",
+    "openingType": "Single Booster Pack",
+    "packNumber": 1,
+    "hasHit": true,
+    "hitCard": "Gold Fighting Energy - Secret Rare",
+    "hits": [
+      {
+        "card": "Gold Fighting Energy",
+        "rarity": "Secret Rare",
+        "set": "chilling-reign",
+        "setName": "Chilling Reign"
+      }
+    ]
+  },
+  "yMTuhasZsZ4": {
+    "setPacks": [
+      {
+        "set": "journey-together",
+        "name": "journey together",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Journey Together",
+    "openingType": "Booster Bundle",
+    "packNumber": 2,
+    "hasHit": true,
+    "hitCard": "Volcanion ex - Double Gold Star - Special Illustration Rare",
+    "hits": [
+      {
+        "card": "Volcanion ex",
+        "rarity": "Special Illustration Rare",
+        "set": "journey-together",
+        "setName": "Journey Together"
+      }
+    ]
   },
   "3dKWTVbCH3I": {
     "hasHit": true,
@@ -4350,7 +4994,7 @@
   "l6RPdGNs7uE": {
     "openingType": "ex Box",
     "hasHit": true,
-    "hitCard": "Mega Kangaskhan ex - Black Star Promo , Mega Evolution - Spearow - Single Gold Star - Illustration Rare,",
+    "hitCard": "Mega Kangaskhan ex - Black Star Promo, Mega Evolution - Spearow - Single Gold Star - Illustration Rare",
     "hits": [
       {
         "card": "Mega Kangaskhan ex",

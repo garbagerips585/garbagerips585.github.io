@@ -180,6 +180,23 @@ const PRODUCT_IDS = {
   // The Series 2 form is added at the same time, on the same reasoning as the
   // Korean and Chinese single-pack keys: it does not appear in the sheet today,
   // and a key that is never read costs nothing.
+  // FROM TIM'S FIFTH PASS, 21 August 2026, and the same shape as the First
+  // Partner block below it: he answers this column with the PRODUCT'S RETAIL
+  // NAME rather than a kind of box. All three were reported unrecognised, which
+  // is the dropped dropdown working -- it did not guess, it said so.
+  //
+  // "2 pack blister" is the plain kind and there is already a blister id.
+  //
+  // The two Collections are collection-box for the reason the First Partner
+  // note gives: there is no illustration-collection or poster-collection id in
+  // shared/taxonomy.mjs and no /openings/ page for one, and a key naming a
+  // missing id captions the filter rail with a raw string and links to a page
+  // that is not built. Both are a themed box holding packs and promos, which is
+  // what collection-box already means on this site.
+  "2 pack blister": "blister",
+  "poster collection": "collection-box",
+  "victini illustration collection": "collection-box",
+  "illustration collection": "collection-box",
   "first partner illustration collection (series 1)": "collection-box",
   "first partner illustration collection (series 2)": "collection-box",
   "first partner illustration collection": "collection-box",
@@ -1304,6 +1321,15 @@ for (const [n, r] of rows.slice(1).entries()) {
     const STAR_RARITY = {
       "one big yellow star": "Mega Hyper Rare",
       "single yellow star": "Mega Hyper Rare",
+      // THE THIRD NAME FOR THE SAME ONE STAR, and it is Tim's, 21 August 2026.
+      // The two above were written from the set booklet's own wording; he types
+      // the RARITY into the symbol slot instead -- "Mega Greninja ex - Mega
+      // Yellow Star - Mega Hyper Rare". Nothing is ambiguous about it: there is
+      // exactly one yellow star on the ladder and it is this one. This is a
+      // synonym for a real symbol, NOT typo tolerance -- "Doule Black Star" and
+      // "Double Siliver Star" are still reported rather than guessed at, because
+      // a misspelling is a cell to fix and a synonym is a vocabulary to widen.
+      "mega yellow star": "Mega Hyper Rare",
       "triple gold star": "Hyper Rare",
       "double gold star": "Special Illustration Rare",
       "single gold star": "Illustration Rare",

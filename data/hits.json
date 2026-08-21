@@ -199,7 +199,7 @@
         "card": "Mega Greninja ex",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Hyper Rare"
+        "rarity": "Mega Hyper Rare"
       }
     ],
     "O5WscUY7qZI": [
@@ -489,15 +489,15 @@
     "M7NqqhR8V4M": [
       {
         "card": "Rowlet",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
       },
       {
         "card": "Litten",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
       },
       {
         "card": "Popplio",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
       }
     ],
     "lrl5v4z317s": [
@@ -527,15 +527,15 @@
     "xNGxOuMpSiw": [
       {
         "card": "Rowlet",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
       },
       {
         "card": "Litten",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
       },
       {
         "card": "Popplio",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
       },
       {
         "card": "Punk Helmet",
@@ -1016,7 +1016,8 @@
       {
         "card": "Marnie's Grimmsnarl ex",
         "set": "destined-rivals",
-        "setName": "Destined Rivals"
+        "setName": "Destined Rivals",
+        "rarity": "Double Rare"
       }
     ],
     "QXS1W_L2qbs": [
@@ -1024,6 +1025,215 @@
         "card": "Bidoof PEELABLE DITTO 059/078 Reverse Holo",
         "set": "pokemon-go",
         "setName": "Pokémon GO"
+      }
+    ],
+    "sdZx0lmq2mQ": [
+      {
+        "card": "Mega Froslass ex Pink and Green Star Mega Attack Rare",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes"
+      }
+    ],
+    "KEK0q0PgN_I": [
+      {
+        "card": "Mega Lopunny ex",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames",
+        "rarity": "Ultra Rare"
+      }
+    ],
+    "wBIeB-63sKw": [
+      {
+        "card": "Lugia ex",
+        "set": "prismatic-evolutions",
+        "setName": "Prismatic Evolutions",
+        "rarity": "Double Rare"
+      }
+    ],
+    "XjFoToaom6k": [
+      {
+        "card": "Victini",
+        "set": "scarlet-violet-black-star-promos",
+        "setName": "Scarlet & Violet Black Star Promos"
+      },
+      {
+        "card": "Servine",
+        "set": "black-bolt",
+        "setName": "Black Bolt",
+        "rarity": "Illustration Rare"
+      },
+      {
+        "card": "Musharna",
+        "set": "black-bolt",
+        "setName": "Black Bolt",
+        "rarity": "Illustration Rare"
+      },
+      {
+        "card": "Excadrill ex",
+        "set": "black-bolt",
+        "setName": "Black Bolt",
+        "rarity": "Double Rare"
+      },
+      {
+        "card": "Mienshao Illustartion Rare",
+        "set": "white-flare",
+        "setName": "White Flare",
+        "rarity": "Illustration Rare"
+      }
+    ],
+    "LGzHC-k4vh0": [
+      {
+        "card": "Lillie's Clefairy ex",
+        "set": "journey-together",
+        "setName": "Journey Together",
+        "rarity": "Double Rare"
+      }
+    ],
+    "8SX0B-7WM8A": [
+      {
+        "card": "Teal Mask Ogerpon ex",
+        "set": "prismatic-evolutions",
+        "setName": "Prismatic Evolutions",
+        "rarity": "Double Rare"
+      }
+    ],
+    "J0Gy0iIz3ok": [
+      {
+        "card": "Excadrill ex",
+        "set": "black-bolt",
+        "setName": "Black Bolt",
+        "rarity": "Ultra Rare"
+      }
+    ],
+    "HbSOpODafEw": [
+      {
+        "card": "Stunfisk ex",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes",
+        "rarity": "Ultra Rare"
+      }
+    ],
+    "NzWUDxXwnPI": [
+      {
+        "card": "Raticate",
+        "set": "ja-nihil-zero",
+        "setName": "Nihil Zero (JP)",
+        "rarity": "Art Rare"
+      },
+      {
+        "card": "Aurorus",
+        "set": "ja-nihil-zero",
+        "setName": "Nihil Zero (JP)",
+        "rarity": "Art Rare"
+      }
+    ],
+    "dQaN_4yqS0w": [
+      {
+        "card": "Acerola's Mischief",
+        "set": "mega-evolution",
+        "setName": "Mega Evolution",
+        "rarity": "Ultra Rare"
+      }
+    ],
+    "7PBrXPgt9kU": [
+      {
+        "card": "Mega Starmie ex",
+        "set": "perfect-order",
+        "setName": "Perfect Order",
+        "rarity": "Double Rare"
+      }
+    ],
+    "S_2SHhBqlH8": [
+      {
+        "card": "Nymble",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames",
+        "rarity": "Illustration Rare"
+      }
+    ],
+    "cg0H0ipfB90": [
+      {
+        "card": "Corviknight V Trainer Gallery",
+        "set": "silver-tempest",
+        "setName": "Silver Tempest"
+      },
+      {
+        "card": "Reshiram V",
+        "set": "silver-tempest",
+        "setName": "Silver Tempest"
+      },
+      {
+        "card": "Galarian Perrserker V",
+        "set": "lost-origin",
+        "setName": "Lost Origin"
+      }
+    ],
+    "U91JWMsUHAU": [
+      {
+        "card": "Paras Galarian Gallery",
+        "set": "crown-zenith",
+        "setName": "Crown Zenith"
+      }
+    ],
+    "VP1UXW3MrGU": [
+      {
+        "card": "Iono's Bellibolt ex",
+        "set": "journey-together",
+        "setName": "Journey Together",
+        "rarity": "Double Rare"
+      }
+    ],
+    "JjTm-bYLhGE": [
+      {
+        "card": "Turtwig",
+        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos"
+      },
+      {
+        "card": "Chimchar",
+        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos"
+      },
+      {
+        "card": "Piplup",
+        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos"
+      },
+      {
+        "card": "Mismagius ex",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames",
+        "rarity": "Double Rare",
+        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos"
+      }
+    ],
+    "K5RKQlNhvl8": [
+      {
+        "card": "Spearow",
+        "set": "ja-mega-brave",
+        "setName": "Mega Brave (JP)",
+        "rarity": "Art Rare"
+      }
+    ],
+    "6sg185zTjM4": [
+      {
+        "card": "Decidueye ex",
+        "set": "perfect-order",
+        "setName": "Perfect Order",
+        "rarity": "Double Rare"
+      }
+    ],
+    "J-Gqbe3jPn4": [
+      {
+        "card": "Gold Fighting Energy",
+        "set": "chilling-reign",
+        "setName": "Chilling Reign",
+        "rarity": "Secret Rare"
+      }
+    ],
+    "yMTuhasZsZ4": [
+      {
+        "card": "Volcanion ex",
+        "set": "journey-together",
+        "setName": "Journey Together",
+        "rarity": "Special Illustration Rare"
       }
     ]
   }
