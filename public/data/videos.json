@@ -1,14 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
-  "syncedAt": "2026-08-20",
+  "syncedAt": "2026-08-21",
   "videos": [
+    {
+      "id": "lRT8jgjO2HM",
+      "title": "The Greninja Luck Ran Out... 💀",
+      "path": "rip/the-greninja-luck-ran-out-lRT8jgjO2HM.html",
+      "published": "2026-08-21",
+      "duration": 21,
+      "views": 205,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "chaos-rising"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Chaos Rising Pack"
+    },
     {
       "id": "h5mje3jbD48",
       "title": "The 9th Pack SAVED the Box! 🐋😱",
       "path": "rip/the-9th-pack-saved-the-box-h5mje3jbD48.html",
       "published": "2026-08-20",
       "duration": 24,
-      "views": 649,
+      "views": 812,
       "vertical": true,
       "short": true,
       "sets": [
@@ -17,8 +35,25 @@
       "products": [
         "etb"
       ],
-      "pulls": [],
-      "label": "Pitch Black ETB"
+      "pulls": [
+        "ultra"
+      ],
+      "hitCard": "Wailord ex - Double Silver Star - Ultra Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 9,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Pitch Black ETB - Pack 9"
     },
     {
       "id": "_RuAmy2dGL8",
@@ -26,7 +61,7 @@
       "path": "rip/is-rampardos-ex-a-real-hit-_RuAmy2dGL8.html",
       "published": "2026-08-19",
       "duration": 20,
-      "views": 968,
+      "views": 1003,
       "vertical": true,
       "short": true,
       "sets": [
@@ -58,7 +93,7 @@
       "path": "rip/i-just-pulled-a-1-000-card-iIgTusrqVtg.html",
       "published": "2026-08-18",
       "duration": 28,
-      "views": 1164,
+      "views": 1177,
       "vertical": true,
       "short": true,
       "sets": [
@@ -128,7 +163,7 @@
       "path": "rip/trubbish-food-pitch-black-pack-8-VZtK6rT7ZTI.html",
       "published": "2026-08-16",
       "duration": 21,
-      "views": 919,
+      "views": 920,
       "vertical": true,
       "short": true,
       "sets": [
@@ -261,7 +296,7 @@
       "path": "rip/this-etb-is-breaking-me-IQMn3DNCzik.html",
       "published": "2026-08-12",
       "duration": 20,
-      "views": 669,
+      "views": 670,
       "vertical": true,
       "short": true,
       "sets": [
@@ -630,7 +665,7 @@
       "path": "rip/toucannon-illustration-rare-pitch-black-etb-ndzNjhARITQ.html",
       "published": "2026-08-01",
       "duration": 24,
-      "views": 895,
+      "views": 897,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3546,7 +3581,7 @@
       "path": "rip/first-phantasmal-flamespack-in-the-mega-zygarde-collection-p-HGlF3-fpycc.html",
       "published": "2026-06-15",
       "duration": 20,
-      "views": 936,
+      "views": 937,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3578,7 +3613,7 @@
       "path": "rip/final-chaos-rising-booster-bundle-2-pack-last-pack-magic-R4TUGTf0Eb4.html",
       "published": "2026-06-14",
       "duration": 17,
-      "views": 886,
+      "views": 887,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3610,7 +3645,7 @@
       "path": "rip/final-perfect-order-pack-mega-zygarde-collection-pack-6-sS0fvyss7IM.html",
       "published": "2026-06-14",
       "duration": 22,
-      "views": 1111,
+      "views": 1112,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3645,7 +3680,7 @@
       "path": "rip/mega-zygarde-ex-premium-collection-pack-5-we-need-a-hit-_3gRDHTv1lQ.html",
       "published": "2026-06-13",
       "duration": 23,
-      "views": 929,
+      "views": 930,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3657,7 +3692,7 @@
       "pulls": [
         "double-rare"
       ],
-      "hitCard": "Mega Skarmory ex - Dobule Black Star - Double Rare",
+      "hitCard": "Mega Skarmory ex - Double Black Star - Double Rare",
       "hasHit": true,
       "packsOpened": 1,
       "packsStated": true,
@@ -3680,7 +3715,7 @@
       "path": "rip/japanese-abyss-eye-packs-7-8-back-to-back-hits-XjM6y2L7v1c.html",
       "published": "2026-06-13",
       "duration": 27,
-      "views": 937,
+      "views": 938,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3714,7 +3749,7 @@
       "path": "rip/japanese-abyss-eye-packs-5-6-we-need-a-hit-0vpWimyqJIE.html",
       "published": "2026-06-12",
       "duration": 26,
-      "views": 1007,
+      "views": 1008,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3748,7 +3783,7 @@
       "path": "rip/chaos-rising-booster-bundle-2-pack-5-please-save-this-bundle-udV4EBssAj0.html",
       "published": "2026-06-12",
       "duration": 20,
-      "views": 1089,
+      "views": 1090,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3783,7 +3818,7 @@
       "path": "rip/chaos-rising-booster-bundle-2-pack-4-luck-running-out-xCDigA8yq1Y.html",
       "published": "2026-06-11",
       "duration": 17,
-      "views": 1228,
+      "views": 1229,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3815,7 +3850,7 @@
       "path": "rip/mega-zygarde-ex-premium-collection-pack-4-we-need-a-hit-lcxUwIjlqZY.html",
       "published": "2026-06-11",
       "duration": 21,
-      "views": 1296,
+      "views": 1297,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3850,7 +3885,7 @@
       "path": "rip/mega-zygarde-ex-premium-collection-pack-3-getting-lucky-0pRHwsEwo3g.html",
       "published": "2026-06-10",
       "duration": 19,
-      "views": 959,
+      "views": 960,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3882,7 +3917,7 @@
       "path": "rip/japanese-abyss-eye-packs-3-4-still-no-hits-EKTgIGCiET4.html",
       "published": "2026-06-10",
       "duration": 23,
-      "views": 1001,
+      "views": 1002,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3913,7 +3948,7 @@
       "path": "rip/only-garbage-rips-japanese-abyss-eye-packs--eQ-tG_cj_0.html",
       "published": "2026-06-09",
       "duration": 22,
-      "views": 1174,
+      "views": 1175,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3944,7 +3979,7 @@
       "path": "rip/only-garbage-rips-chaos-rising-bundle-2-pack-3--5rVYfdxRJw.html",
       "published": "2026-06-09",
       "duration": 17,
-      "views": 899,
+      "views": 900,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3976,7 +4011,7 @@
       "path": "rip/chaos-rising-booster-bundle-2-pack-2-back-to-back-hits-1Kd_E966_4k.html",
       "published": "2026-06-08",
       "duration": 17,
-      "views": 1510,
+      "views": 1511,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4008,7 +4043,7 @@
       "path": "rip/mega-zygarde-ex-premium-collection-pack-2-back-to-back-hits-RLYq43B1KX0.html",
       "published": "2026-06-08",
       "duration": 18,
-      "views": 1071,
+      "views": 1072,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4040,7 +4075,7 @@
       "path": "rip/chaos-rising-booster-bundle-2-pack-1-first-pack-magic-BiBdyozoD_Q.html",
       "published": "2026-06-07",
       "duration": 18,
-      "views": 739,
+      "views": 741,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4075,7 +4110,7 @@
       "path": "rip/mega-zygarde-ex-premium-collection-pack-1-first-pack-magic-POLXPV2ZpXA.html",
       "published": "2026-06-07",
       "duration": 19,
-      "views": 897,
+      "views": 898,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4107,7 +4142,7 @@
       "path": "rip/perfect-order-booster-bundle-2-pack-5-please-save-this-bundl-7qgnakc3__c.html",
       "published": "2026-06-06",
       "duration": 18,
-      "views": 915,
+      "views": 916,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4139,7 +4174,7 @@
       "path": "rip/final-perfect-order-booster-bundle-2-pack-last-pack-magic-l_vpvsLXG50.html",
       "published": "2026-06-06",
       "duration": 26,
-      "views": 804,
+      "views": 805,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4174,7 +4209,7 @@
       "path": "rip/final-chaos-rising-booster-bundle-pack-last-pack-magic-23RED_g8uOE.html",
       "published": "2026-06-05",
       "duration": 19,
-      "views": 15,
+      "views": 16,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4206,7 +4241,7 @@
       "path": "rip/perfect-order-booster-bundle-2-pack-4-we-need-a-hit-qUzKnP4zmjM.html",
       "published": "2026-06-05",
       "duration": 23,
-      "views": 1018,
+      "views": 1019,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4241,7 +4276,7 @@
       "path": "rip/final-ascended-heroes-bundle-2-pack-last-pack-magic-vW8lkXEx3Ao.html",
       "published": "2026-06-04",
       "duration": 22,
-      "views": 1013,
+      "views": 1014,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4253,7 +4288,7 @@
       "pulls": [
         "double-rare"
       ],
-      "hitCard": "Iono's Bellibolt - Double Black Star - Double Rare",
+      "hitCard": "Iono's Bellibolt ex - Double Black Star - Double Rare",
       "hasHit": true,
       "packsOpened": 1,
       "packsStated": true,
@@ -4276,7 +4311,7 @@
       "path": "rip/chaos-rising-booster-bundle-pack-5-we-need-a-hit-16GEn7wSyuk.html",
       "published": "2026-06-04",
       "duration": 22,
-      "views": 946,
+      "views": 947,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4311,7 +4346,7 @@
       "path": "rip/chaos-rising-booster-bundle-pack-4-is-the-luck-running-out-i_YeXB489EY.html",
       "published": "2026-06-03",
       "duration": 17,
-      "views": 905,
+      "views": 906,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4343,7 +4378,7 @@
       "path": "rip/perfect-order-booster-bundle-2-pack-3-getting-lucky-wtUPdMnZ_S8.html",
       "published": "2026-06-03",
       "duration": 20,
-      "views": 28,
+      "views": 29,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4378,7 +4413,7 @@
       "path": "rip/only-garbage-rips-perfect-order-bundle-2-pack-2-Y6rNMk6_kFs.html",
       "published": "2026-06-02",
       "duration": 20,
-      "views": 1253,
+      "views": 1254,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4413,7 +4448,7 @@
       "path": "rip/ascended-heroes-booster-bundle-2-pack-5-we-need-a-hit-iPxD2pp1zHo.html",
       "published": "2026-06-02",
       "duration": 17,
-      "views": 1111,
+      "views": 1112,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4445,7 +4480,7 @@
       "path": "rip/ascended-heroes-booster-bundle-2-pack-4-we-need-a-hit-jAkffPVM-JA.html",
       "published": "2026-06-01",
       "duration": 19,
-      "views": 928,
+      "views": 929,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4480,7 +4515,7 @@
       "path": "rip/only-garbage-rips-chaos-rising-bundle-pack-3-c-5u5X8BT_Y.html",
       "published": "2026-06-01",
       "duration": 18,
-      "views": 1831,
+      "views": 1832,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4515,7 +4550,7 @@
       "path": "rip/perfect-order-booster-bundle-2-pack-1-first-pack-magic-JPzh3KWw084.html",
       "published": "2026-05-31",
       "duration": 18,
-      "views": 777,
+      "views": 778,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4547,7 +4582,7 @@
       "path": "rip/only-garbage-rips-chaos-rising-bundle-pack-2-xJyZLladJ0Q.html",
       "published": "2026-05-31",
       "duration": 16,
-      "views": 1002,
+      "views": 1003,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4579,7 +4614,7 @@
       "path": "rip/chaos-rising-booster-bundle-pack-1-first-pack-magic-again-APS_RnpORC8.html",
       "published": "2026-05-30",
       "duration": 18,
-      "views": 1135,
+      "views": 1136,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4611,7 +4646,7 @@
       "path": "rip/only-garbage-rips-ascended-heroes-bundle-2-pack-3-kcmXPW6_Odo.html",
       "published": "2026-05-30",
       "duration": 17,
-      "views": 1110,
+      "views": 1111,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4643,7 +4678,7 @@
       "path": "rip/only-garbage-rips-ascended-heroes-bundle-2-pack-2-xrJFDqGZjOs.html",
       "published": "2026-05-29",
       "duration": 17,
-      "views": 1146,
+      "views": 1147,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4675,7 +4710,7 @@
       "path": "rip/final-prismatic-evolutions-etb-pack-last-pack-magic-CT5t8mKeZUw.html",
       "published": "2026-05-29",
       "duration": 20,
-      "views": 271,
+      "views": 272,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4707,7 +4742,7 @@
       "path": "rip/ascended-heroes-booster-bundle-2-pack-1-first-pack-magic-W2eIV9tya84.html",
       "published": "2026-05-28",
       "duration": 19,
-      "views": 1152,
+      "views": 1153,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4742,7 +4777,7 @@
       "path": "rip/only-garbage-rips-prismatic-etb-pack-8-2wZwMWDlxP0.html",
       "published": "2026-05-28",
       "duration": 21,
-      "views": 1014,
+      "views": 1015,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4774,7 +4809,7 @@
       "path": "rip/destined-rivals-pack-12-can-we-top-the-mewtwo-hbUa4l-xono.html",
       "published": "2026-05-27",
       "duration": 22,
-      "views": 1862,
+      "views": 1863,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4809,7 +4844,7 @@
       "path": "rip/prismatic-evolutions-etb-pack-7-running-out-of-chances-Q26NJsmeVko.html",
       "published": "2026-05-27",
       "duration": 23,
-      "views": 937,
+      "views": 938,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4844,7 +4879,7 @@
       "path": "rip/prismatic-evolutions-etb-pack-6-still-no-umbreon-c7J6-dTu4jo.html",
       "published": "2026-05-26",
       "duration": 21,
-      "views": 1099,
+      "views": 1100,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4886,7 +4921,21 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Perfect Order ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 9,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Perfect Order ETB - Pack 9"
     },
     {
       "id": "CP7sMGF3p3M",
@@ -4903,8 +4952,25 @@
       "products": [
         "bundle"
       ],
-      "pulls": [],
-      "label": "Journey Together Booster Bundle"
+      "pulls": [
+        "ultra"
+      ],
+      "hitCard": "Trainer - Brock's Scouting - Double Silver Star - Ultra Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "journey-together",
+          "name": "journey together",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 6,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Journey Together Booster Bundle - Pack 6"
     },
     {
       "id": "25YT9cNRpqk",
@@ -4921,9 +4987,25 @@
       "products": [
         "single-pack"
       ],
-      "pulls": [],
+      "pulls": [
+        "ultra"
+      ],
+      "hitCard": "Ethan's Ho-Oh ex - Double Silver Star - Ultra Rare",
       "hasHit": true,
-      "label": "Destined Rivals Pack"
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "destined-rivals",
+          "name": "destined rivals",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 11,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Destined Rivals Pack - Pack 11"
     },
     {
       "id": "e6vbNj4YRJI",
@@ -4941,7 +5023,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Chaos Rising Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 5,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Chaos Rising Pack - Pack 5"
     },
     {
       "id": "HS0sPhhG3jo",
@@ -4958,8 +5054,25 @@
       "products": [
         "single-pack"
       ],
-      "pulls": [],
-      "label": "Chaos Rising Pack"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Cobalion ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 6,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Chaos Rising Pack - Pack 6"
     },
     {
       "id": "-jstsp3DQNI",
@@ -4977,7 +5090,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Chaos Rising Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 3,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Chaos Rising Pack - Pack 3"
     },
     {
       "id": "cdvEaKdmjeU",
@@ -4995,7 +5122,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Chaos Rising Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 4,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Chaos Rising Pack - Pack 4"
     },
     {
       "id": "h1vqc-37k_8",
@@ -5012,8 +5153,25 @@
       "products": [
         "single-pack"
       ],
-      "pulls": [],
-      "label": "Chaos Rising Pack"
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Watchog - Single Gold Star - Illustration Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 1,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Chaos Rising Pack - Pack 1"
     },
     {
       "id": "JM8wHAH8FEw",
@@ -5030,8 +5188,25 @@
       "products": [
         "single-pack"
       ],
-      "pulls": [],
-      "label": "Chaos Rising Pack"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Mega Pyroar ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 2,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Chaos Rising Pack - Pack 2"
     },
     {
       "id": "t_okfWNQ4BQ",
@@ -5048,9 +5223,25 @@
       "products": [
         "etb"
       ],
-      "pulls": [],
+      "pulls": [
+        "ultra"
+      ],
+      "hitCard": "Trainer - Friends In Paldea - Double Silver Star - Ultra Rare",
       "hasHit": true,
-      "label": "Prismatic Evolutions ETB"
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "prismatic-evolutions",
+          "name": "prismatic evolutions",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 5,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Prismatic Evolutions ETB - Pack 5"
     },
     {
       "id": "1dkor9FBy7s",
@@ -5068,7 +5259,21 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Perfect Order ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 8,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Perfect Order ETB - Pack 8"
     },
     {
       "id": "FlMsxjakWcs",
@@ -5086,7 +5291,21 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Journey Together Booster Bundle"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "journey-together",
+          "name": "journey together",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 5,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Journey Together Booster Bundle - Pack 5"
     },
     {
       "id": "1zqH_hRYFvo",
@@ -5103,9 +5322,25 @@
       "products": [
         "single-pack"
       ],
-      "pulls": [],
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Crustle - Single Gold Star - Illustration Rare",
       "hasHit": true,
-      "label": "Destined Rivals Pack"
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "destined-rivals",
+          "name": "destined rivals",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 10,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Destined Rivals Pack - Pack 10"
     },
     {
       "id": "yJujjKbIVFg",
@@ -5122,7 +5357,23 @@
       "products": [
         "japanese-pack"
       ],
-      "pulls": [],
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Crabominable - AR - Art Rare",
+      "hasHit": true,
+      "packsOpened": 5,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ja-stellar-miracle",
+          "name": "stellar miracle",
+          "packs": 5,
+          "typed": true
+        }
+      ],
+      "openingType": "Japanese Single Booster Pack",
+      "packs": 5,
       "label": "Stellar Miracle (JP) Pack"
     },
     {
@@ -5140,8 +5391,25 @@
       "products": [
         "etb"
       ],
-      "pulls": [],
-      "label": "Perfect Order ETB"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Meowth ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 7,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Perfect Order ETB - Pack 7"
     },
     {
       "id": "lo_VtHulsWc",
@@ -5159,8 +5427,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Destined Rivals Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "destined-rivals",
+          "name": "destined rivals",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 9,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Destined Rivals Pack - Pack 9"
     },
     {
       "id": "VjhleCTxCDA",
@@ -5177,9 +5458,26 @@
       "products": [
         "etb"
       ],
-      "pulls": [],
+      "pulls": [
+        "gold"
+      ],
+      "hitCard": "Walking Wake ex - Triple Gold Star - Hyper Rare",
       "hasHit": true,
-      "label": "Prismatic Evolutions ETB"
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "prismatic-evolutions",
+          "name": "prismatic evolutions",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 4,
+      "greatest": true,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Prismatic Evolutions ETB - Pack 4"
     },
     {
       "id": "uIAcSD4quE8",
@@ -5197,7 +5495,21 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Perfect Order ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 6,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Perfect Order ETB - Pack 6"
     },
     {
       "id": "76YEF7mdqvk",
@@ -5214,8 +5526,25 @@
       "products": [
         "bundle"
       ],
-      "pulls": [],
-      "label": "Journey Together Booster Bundle"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Mamoswine ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "journey-together",
+          "name": "journey together",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 4,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Journey Together Booster Bundle - Pack 4"
     },
     {
       "id": "5FJZOamuxs8",
@@ -5233,8 +5562,21 @@
         "etb"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Prismatic Evolutions ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "prismatic-evolutions",
+          "name": "prismatic evolutions",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 3,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Prismatic Evolutions ETB - Pack 3"
     },
     {
       "id": "auKzs0g2LL8",
@@ -5251,7 +5593,24 @@
       "products": [
         "japanese-pack"
       ],
-      "pulls": [],
+      "pulls": [
+        "super",
+        "double-rare"
+      ],
+      "hitCard": "Mega Abomasnow ex - RR - Double Rare , Trainer - Rare Candy - SR - Full Art",
+      "hasHit": true,
+      "packsOpened": 5,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ja-mega-symphonia",
+          "name": "mega symphonia",
+          "packs": 5,
+          "typed": true
+        }
+      ],
+      "openingType": "Japanese Single Booster Pack",
+      "packs": 5,
       "label": "Mega Symphonia (JP) Pack"
     },
     {
@@ -5269,8 +5628,25 @@
       "products": [
         "bundle"
       ],
-      "pulls": [],
-      "label": "Ascended Heroes Booster Bundle"
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Larry's Staraptor - Singe Gold Star - Illustration Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 6,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Ascended Heroes Booster Bundle - Pack 6"
     },
     {
       "id": "484NOQA1r8Q",
@@ -5288,8 +5664,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Destined Rivals Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "destined-rivals",
+          "name": "destined rivals",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 8,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Destined Rivals Pack - Pack 8"
     },
     {
       "id": "2OFpV33VzpU",
@@ -5307,7 +5696,21 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Perfect Order ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 5,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Perfect Order ETB - Pack 5"
     },
     {
       "id": "uGRqBM2AOag",
@@ -5324,8 +5727,25 @@
       "products": [
         "bundle"
       ],
-      "pulls": [],
-      "label": "Journey Together Booster Bundle"
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Swinub - Single Gold Star - Illustration Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "journey-together",
+          "name": "journey together",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 3,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Journey Together Booster Bundle - Pack 3"
     },
     {
       "id": "LFpa9K2DA6Q",
@@ -5342,9 +5762,25 @@
       "products": [
         "etb"
       ],
-      "pulls": [],
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Cornerstone Mask Ogerpon ex - Double Black Star - Double Rare",
       "hasHit": true,
-      "label": "Prismatic Evolutions ETB"
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "prismatic-evolutions",
+          "name": "prismatic evolutions",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 2,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Prismatic Evolutions ETB - Pack 2"
     },
     {
       "id": "bh8OGK_jE2Y",
@@ -5361,7 +5797,23 @@
       "products": [
         "japanese-pack"
       ],
-      "pulls": [],
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Meditite - AR - Art Rare ,  Raboot - AR - Art Rare",
+      "hasHit": true,
+      "packsOpened": 5,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ja-stellar-miracle",
+          "name": "stellar miracle",
+          "packs": 5,
+          "typed": true
+        }
+      ],
+      "openingType": "Japanese Single Booster Pack",
+      "packs": 5,
       "label": "Stellar Miracle (JP) Pack"
     },
     {
@@ -5380,7 +5832,21 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Ascended Heroes Booster Bundle"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 5,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Ascended Heroes Booster Bundle - Pack 5"
     },
     {
       "id": "gq4wUMrTrB0",
@@ -5397,9 +5863,25 @@
       "products": [
         "single-pack"
       ],
-      "pulls": [],
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Team Rocket's Crobat ex - Double Black Star - Double Rare",
       "hasHit": true,
-      "label": "Destined Rivals Pack"
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "destined-rivals",
+          "name": "destined rivals",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 7,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Destined Rivals Pack - Pack 7"
     },
     {
       "id": "uyiszkVXiUQ",
@@ -5416,8 +5898,25 @@
       "products": [
         "etb"
       ],
-      "pulls": [],
-      "label": "Perfect Order ETB"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Mega Clefable ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 4,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Perfect Order ETB - Pack 4"
     },
     {
       "id": "OMpbKBu38rk",
@@ -5435,6 +5934,19 @@
         "japanese-pack"
       ],
       "pulls": [],
+      "hasHit": false,
+      "packsOpened": 5,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ja-mega-symphonia",
+          "name": "mega symphonia",
+          "packs": 5,
+          "typed": true
+        }
+      ],
+      "openingType": "Japanese Single Booster Pack",
+      "packs": 5,
       "label": "Mega Symphonia (JP) Pack"
     },
     {
@@ -5453,7 +5965,21 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Journey Together Booster Bundle"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "journey-together",
+          "name": "journey together",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 2,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Journey Together Booster Bundle - Pack 2"
     },
     {
       "id": "GK_IadR7G1g",
@@ -5470,9 +5996,26 @@
       "products": [
         "single-pack"
       ],
-      "pulls": [],
+      "pulls": [
+        "gold"
+      ],
+      "hitCard": "Team Rocket’s Mewtwo ex - Triple Gold Star - Hyper Rare",
       "hasHit": true,
-      "label": "Destined Rivals Pack"
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "destined-rivals",
+          "name": "destined rivals",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 6,
+      "greatest": true,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Destined Rivals Pack - Pack 6"
     },
     {
       "id": "hCI0HSfly1c",
@@ -5490,8 +6033,21 @@
         "etb"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Prismatic Evolutions ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "prismatic-evolutions",
+          "name": "prismatic evolutions",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 1,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Prismatic Evolutions ETB - Pack 1"
     },
     {
       "id": "UqZn1J9vVGc",
@@ -5509,7 +6065,21 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Ascended Heroes Booster Bundle"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 4,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Ascended Heroes Booster Bundle - Pack 4"
     },
     {
       "id": "DMJYnQE8shY",
@@ -5526,8 +6096,25 @@
       "products": [
         "etb"
       ],
-      "pulls": [],
-      "label": "Perfect Order ETB"
+      "pulls": [
+        "ultra"
+      ],
+      "hitCard": "Mega Clefable ex - Double Silver Star - Ultra Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 3,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Perfect Order ETB - Pack 3"
     },
     {
       "id": "C4IPzbJZlHw",
@@ -5545,7 +6132,21 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Journey Together Booster Bundle"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "journey-together",
+          "name": "journey together",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 1,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Journey Together Booster Bundle - Pack 1"
     },
     {
       "id": "d0ux4nsMixw",
@@ -5562,8 +6163,25 @@
       "products": [
         "single-pack"
       ],
-      "pulls": [],
-      "label": "Perfect Order Pack"
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Probopass - Single Gold Star - Illustration Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 6,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Perfect Order Pack - Pack 6"
     },
     {
       "id": "Z0s6mRdT_QE",
@@ -5581,7 +6199,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Destined Rivals Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "destined-rivals",
+          "name": "destined rivals",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 5,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Destined Rivals Pack - Pack 5"
     },
     {
       "id": "A38u-diwmvw",
@@ -5599,7 +6231,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Ascended Heroes Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 7,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Ascended Heroes Pack - Pack 7"
     },
     {
       "id": "PvitecaJjAc",
@@ -5616,8 +6262,25 @@
       "products": [
         "bundle"
       ],
-      "pulls": [],
-      "label": "Ascended Heroes Booster Bundle"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Larry's Dudunsparce ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 3,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Ascended Heroes Booster Bundle - Pack 3"
     },
     {
       "id": "Q09fPPjWf8A",
@@ -5635,7 +6298,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Destined Rivals Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "destined-rivals",
+          "name": "destined rivals",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 4,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Destined Rivals Pack - Pack 4"
     },
     {
       "id": "3gpbmrouFEw",
@@ -5653,7 +6330,21 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Perfect Order ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 2,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Perfect Order ETB - Pack 2"
     },
     {
       "id": "YQ2-iIhbOSY",
@@ -5671,7 +6362,21 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Ascended Heroes Booster Bundle"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 2,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Ascended Heroes Booster Bundle - Pack 2"
     },
     {
       "id": "9UfyaoGCEZ8",
@@ -5689,8 +6394,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Phantasmal Flames Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "phantasmal-flames",
+          "name": "phantasmal flames",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 11,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Phantasmal Flames Pack - Pack 11"
     },
     {
       "id": "Vbqy14CESN4",
@@ -5708,7 +6426,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Destined Rivals Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "destined-rivals",
+          "name": "destined rivals",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 3,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Destined Rivals Pack - Pack 3"
     },
     {
       "id": "oAdG2xms9Ko",
@@ -5725,8 +6457,25 @@
       "products": [
         "etb"
       ],
-      "pulls": [],
-      "label": "Perfect Order ETB"
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Aurorus - Single Gold Star - Illustration Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 1,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Perfect Order ETB - Pack 1"
     },
     {
       "id": "Qf2PmYHL8Xw",
@@ -5744,7 +6493,21 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Ascended Heroes Booster Bundle"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 1,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Ascended Heroes Booster Bundle - Pack 1"
     },
     {
       "id": "4qNvWCkNb9w",
@@ -5762,8 +6525,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Phantasmal Flames Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "phantasmal-flames",
+          "name": "phantasmal flames",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 10,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Phantasmal Flames Pack - Pack 10"
     },
     {
       "id": "Pvi54rMlLfQ",
@@ -5781,7 +6557,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Mega Evolution Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "mega-evolution",
+          "name": "mega evolution",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 3,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Mega Evolution Pack - Pack 3"
     },
     {
       "id": "tTxItGrPfUw",
@@ -5798,8 +6588,25 @@
       "products": [
         "single-pack"
       ],
-      "pulls": [],
-      "label": "Perfect Order Pack"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Mega Starmie ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "perfect-order",
+          "name": "perfect order",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 5,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Perfect Order Pack - Pack 5"
     },
     {
       "id": "6cwLQGIVpKU",
@@ -5817,7 +6624,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Destined Rivals Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "destined-rivals",
+          "name": "destined rivals",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 2,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Destined Rivals Pack - Pack 2"
     },
     {
       "id": "RXKBcjWfqhE",
@@ -5835,8 +6656,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Obsidian Flames Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "obsidian-flames",
+          "name": "obsidian flames",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 1,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Obsidian Flames Pack - Pack 1"
     },
     {
       "id": "yeX4naszsoo",
@@ -5854,8 +6688,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Phantasmal Flames Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "phantasmal-flames",
+          "name": "phantasmal flames",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 9,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Phantasmal Flames Pack - Pack 9"
     },
     {
       "id": "GroN9k8XsN0",
@@ -5872,8 +6719,25 @@
       "products": [
         "single-pack"
       ],
-      "pulls": [],
-      "label": "Ascended Heroes Pack"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Terapagos ex - Doule Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 6,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Ascended Heroes Pack - Pack 6"
     },
     {
       "id": "rMMOuM8bsqE",
@@ -5890,7 +6754,23 @@
       "products": [
         "tin"
       ],
-      "pulls": [],
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Terapagos ex - Doule Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 2,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 2,
+          "typed": true
+        }
+      ],
+      "openingType": "Mini Tin",
+      "packs": 2,
       "label": "Ascended Heroes Tin"
     },
     {
@@ -5908,7 +6788,23 @@
       "products": [
         "japanese-pack"
       ],
-      "pulls": [],
+      "pulls": [
+        "super"
+      ],
+      "hitCard": "Trainer - Poké Pad - SR - Full Art",
+      "hasHit": true,
+      "packsOpened": 4,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ja-nihil-zero",
+          "name": "nihil zero",
+          "packs": 4,
+          "typed": true
+        }
+      ],
+      "openingType": "Japanese Single Booster Pack",
+      "packs": 4,
       "label": "Nihil Zero (JP) Pack"
     },
     {
@@ -5920,11 +6816,37 @@
       "views": 924,
       "vertical": true,
       "short": true,
-      "sets": [],
+      "sets": [
+        "destined-rivals",
+        "mega-evolution"
+      ],
       "products": [
         "tin"
       ],
-      "pulls": []
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Destined Rivals - Marnie's Grimmsnarl ex , Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 2,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "destined-rivals",
+          "name": "destined rivals",
+          "packs": 1,
+          "typed": true
+        },
+        {
+          "set": "mega-evolution",
+          "name": "mega evolution",
+          "packs": 1,
+          "typed": true
+        }
+      ],
+      "openingType": "Mini Tin",
+      "packs": 2,
+      "label": "Destined Rivals Tin"
     },
     {
       "id": "QXS1W_L2qbs",
@@ -5932,7 +6854,7 @@
       "path": "rip/pok-mon-go-pack-12-still-no-ditto-or-mewtwo-QXS1W_L2qbs.html",
       "published": "2026-04-27",
       "duration": 23,
-      "views": 2611,
+      "views": 2614,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5942,7 +6864,22 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Pokémon GO Pack"
+      "hitCard": "Bidoof PEELABLE DITTO 059/078 Reverse Holo",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pokemon-go",
+          "name": "pokémon go",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 12,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Pokémon GO Pack - Pack 12"
     },
     {
       "id": "sdZx0lmq2mQ",
@@ -7861,7 +8798,7 @@
       "path": "rip/only-garbage-rips-paldea-evolved-blister-pack-pokemonshorts-evnMahizn0I.html",
       "published": "2026-02-07",
       "duration": 26,
-      "views": 2452,
+      "views": 2453,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7985,7 +8922,7 @@
       "pulls": [
         "ir"
       ],
-      "hitCard": "Mega Kangakhan ex - Black Star Promo , Mega Evolution - Spearow - Single Gold Star - Illustration Rare,",
+      "hitCard": "Mega Kangaskhan ex - Black Star Promo , Mega Evolution - Spearow - Single Gold Star - Illustration Rare,",
       "hasHit": true,
       "openingType": "ex Box",
       "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets.",
@@ -8016,7 +8953,7 @@
         "double-rare",
         "charizard"
       ],
-      "hitCard": "Phantasmal Flames - Trainer - Dawn - Double Silver Star - Ultra Rare, Phantasmal Flames - Mega Gengar ex - Double Black Star - Double Rare , Mega Evolution - Mega Gardevoir ex - Double Silver Star - Ultra Rare , Mega Evolution - Mega Venusaur ex - Double Black Star - Double Rare , Mega Evolution - Marshadow - Single Gold Star - Illustration Rare ,  Destined Rivals - Cetitan ex - Double Black Star , Destined Rivals - Rotom - Single Gold Star - Illustration Rare, Journey Together - Noibat - Single Gold Star - Illustration Rare, Journey Together - Trainer - Brock's Scouting - Double Silver Star - Ultra Rare , Journey Together - Blaziken ex - Double Black Star - Double Rare, Surging Sparks - Trainer - Scramble Switch - Single Pink Star -  ACE SPEC Rare , Surging Sparks - Trainer - Cyrano - Double Silver Star - Ultra Rare, Phantasmal Falmes - Charizard X ex - Black Star Promo Card , Phantasmal Flames - Oricorio ex - Black Star Promo Card",
+      "hitCard": "Phantasmal Flames - Trainer - Dawn - Double Silver Star - Ultra Rare, Phantasmal Flames - Mega Gengar ex - Double Black Star - Double Rare , Mega Evolution - Mega Gardevoir ex - Double Silver Star - Ultra Rare , Mega Evolution - Mega Venusaur ex - Double Black Star - Double Rare , Mega Evolution - Marshadow - Single Gold Star - Illustration Rare ,  Destined Rivals - Cetitan ex - Double Black Star , Destined Rivals - Rotom - Single Gold Star - Illustration Rare, Journey Together - Noibat - Single Gold Star - Illustration Rare, Journey Together - Trainer - Brock's Scouting - Double Silver Star - Ultra Rare , Journey Together - Blaziken ex - Double Black Star - Double Rare, Surging Sparks - Trainer - Scramble Switch - Single Pink Star -  ACE SPEC Rare , Surging Sparks - Trainer - Cyrano - Double Silver Star - Ultra Rare, Mega Charizard X UPC Promo - Mega Charizard X ex - Black Star Promo Card , Mega Charizard X UPC Promo - Oricorio ex - Black Star Promo Card",
       "hasHit": true,
       "openingType": "UPC",
       "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets.",
@@ -8043,7 +8980,7 @@
         "ir",
         "double-rare"
       ],
-      "hitCard": "Mega Evolution - Stufful - Single Gold star - Illustration Rare , Destined Rivals - Marnie's Grimmsnarl ex , Double Black Star - Double Rare , Journey Together - Wailord - Single Gold Star - Illustration Rare",
+      "hitCard": "Mega Evolution - Stufful - Single Gold Star - Illustration Rare , Destined Rivals - Marnie's Grimmsnarl ex , Double Black Star - Double Rare , Journey Together - Wailord - Single Gold Star - Illustration Rare",
       "hasHit": true,
       "openingType": "Collector Chest",
       "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets.",

@@ -146,6 +146,14 @@
         "rarity": "Ultra Rare"
       },
       {
+        "card": "Mega Charizard X UPC Promo",
+        "rarity": "Black Star Promo"
+      },
+      {
+        "card": "Mega Charizard X UPC Promo",
+        "rarity": "Black Star Promo"
+      },
+      {
         "card": "Mega Charizard X ex",
         "setName": "MEP Black Star Promos",
         "number": "023",
@@ -380,7 +388,7 @@
     ],
     "l6RPdGNs7uE": [
       {
-        "card": "Mega Kangakhan ex",
+        "card": "Mega Kangaskhan ex",
         "rarity": "Black Star Promo"
       },
       {
@@ -706,7 +714,7 @@
     ],
     "vW8lkXEx3Ao": [
       {
-        "card": "Iono's Bellibolt",
+        "card": "Iono's Bellibolt ex",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
         "rarity": "Double Rare"
@@ -774,6 +782,256 @@
         "set": "prismatic-evolutions",
         "setName": "Prismatic Evolutions",
         "rarity": "Double Rare"
+      }
+    ],
+    "h5mje3jbD48": [
+      {
+        "card": "Wailord ex",
+        "set": "pitch-black",
+        "setName": "Pitch Black",
+        "rarity": "Ultra Rare"
+      }
+    ],
+    "CP7sMGF3p3M": [
+      {
+        "card": "Brock's Scouting",
+        "set": "journey-together",
+        "setName": "Journey Together",
+        "rarity": "Ultra Rare"
+      }
+    ],
+    "25YT9cNRpqk": [
+      {
+        "card": "Ethan's Ho-Oh ex",
+        "set": "destined-rivals",
+        "setName": "Destined Rivals",
+        "rarity": "Ultra Rare"
+      }
+    ],
+    "HS0sPhhG3jo": [
+      {
+        "card": "Cobalion ex",
+        "set": "chaos-rising",
+        "setName": "Chaos Rising",
+        "rarity": "Double Rare"
+      }
+    ],
+    "h1vqc-37k_8": [
+      {
+        "card": "Watchog",
+        "set": "chaos-rising",
+        "setName": "Chaos Rising",
+        "rarity": "Illustration Rare"
+      }
+    ],
+    "JM8wHAH8FEw": [
+      {
+        "card": "Mega Pyroar ex",
+        "set": "chaos-rising",
+        "setName": "Chaos Rising",
+        "rarity": "Double Rare"
+      }
+    ],
+    "t_okfWNQ4BQ": [
+      {
+        "card": "Friends In Paldea",
+        "set": "prismatic-evolutions",
+        "setName": "Prismatic Evolutions",
+        "rarity": "Ultra Rare"
+      }
+    ],
+    "1zqH_hRYFvo": [
+      {
+        "card": "Crustle",
+        "set": "destined-rivals",
+        "setName": "Destined Rivals",
+        "rarity": "Illustration Rare"
+      }
+    ],
+    "yJujjKbIVFg": [
+      {
+        "card": "Crabominable",
+        "set": "ja-stellar-miracle",
+        "setName": "Stellar Miracle (JP)",
+        "rarity": "Art Rare"
+      }
+    ],
+    "vZT6BI7EcQM": [
+      {
+        "card": "Meowth ex",
+        "set": "perfect-order",
+        "setName": "Perfect Order",
+        "rarity": "Double Rare"
+      }
+    ],
+    "VjhleCTxCDA": [
+      {
+        "card": "Walking Wake ex",
+        "set": "prismatic-evolutions",
+        "setName": "Prismatic Evolutions",
+        "rarity": "Hyper Rare"
+      }
+    ],
+    "76YEF7mdqvk": [
+      {
+        "card": "Mamoswine ex",
+        "set": "journey-together",
+        "setName": "Journey Together",
+        "rarity": "Double Rare"
+      }
+    ],
+    "auKzs0g2LL8": [
+      {
+        "card": "Mega Abomasnow ex",
+        "set": "ja-mega-symphonia",
+        "setName": "Mega Symphonia (JP)",
+        "rarity": "Double Rare"
+      },
+      {
+        "card": "Trainer Rare Candy Full Art",
+        "set": "ja-mega-symphonia",
+        "setName": "Mega Symphonia (JP)",
+        "rarity": "Super Rare"
+      }
+    ],
+    "8d2a5b_BmYQ": [
+      {
+        "card": "Larry's Staraptor",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes",
+        "rarity": "Illustration Rare"
+      }
+    ],
+    "uGRqBM2AOag": [
+      {
+        "card": "Swinub",
+        "set": "journey-together",
+        "setName": "Journey Together",
+        "rarity": "Illustration Rare"
+      }
+    ],
+    "LFpa9K2DA6Q": [
+      {
+        "card": "Cornerstone Mask Ogerpon ex",
+        "set": "prismatic-evolutions",
+        "setName": "Prismatic Evolutions",
+        "rarity": "Double Rare"
+      }
+    ],
+    "bh8OGK_jE2Y": [
+      {
+        "card": "Meditite",
+        "set": "ja-stellar-miracle",
+        "setName": "Stellar Miracle (JP)",
+        "rarity": "Art Rare"
+      },
+      {
+        "card": "Raboot",
+        "set": "ja-stellar-miracle",
+        "setName": "Stellar Miracle (JP)",
+        "rarity": "Art Rare"
+      }
+    ],
+    "gq4wUMrTrB0": [
+      {
+        "card": "Team Rocket's Crobat ex",
+        "set": "destined-rivals",
+        "setName": "Destined Rivals",
+        "rarity": "Double Rare"
+      }
+    ],
+    "uyiszkVXiUQ": [
+      {
+        "card": "Mega Clefable ex",
+        "set": "perfect-order",
+        "setName": "Perfect Order",
+        "rarity": "Double Rare"
+      }
+    ],
+    "GK_IadR7G1g": [
+      {
+        "card": "Team Rocket’s Mewtwo ex",
+        "set": "destined-rivals",
+        "setName": "Destined Rivals",
+        "rarity": "Hyper Rare"
+      }
+    ],
+    "DMJYnQE8shY": [
+      {
+        "card": "Mega Clefable ex",
+        "set": "perfect-order",
+        "setName": "Perfect Order",
+        "rarity": "Ultra Rare"
+      }
+    ],
+    "d0ux4nsMixw": [
+      {
+        "card": "Probopass",
+        "set": "perfect-order",
+        "setName": "Perfect Order",
+        "rarity": "Illustration Rare"
+      }
+    ],
+    "PvitecaJjAc": [
+      {
+        "card": "Larry's Dudunsparce ex",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes",
+        "rarity": "Double Rare"
+      }
+    ],
+    "oAdG2xms9Ko": [
+      {
+        "card": "Aurorus",
+        "set": "perfect-order",
+        "setName": "Perfect Order",
+        "rarity": "Illustration Rare"
+      }
+    ],
+    "tTxItGrPfUw": [
+      {
+        "card": "Mega Starmie ex",
+        "set": "perfect-order",
+        "setName": "Perfect Order",
+        "rarity": "Double Rare"
+      }
+    ],
+    "GroN9k8XsN0": [
+      {
+        "card": "Terapagos ex",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes",
+        "rarity": "Double Rare"
+      }
+    ],
+    "rMMOuM8bsqE": [
+      {
+        "card": "Terapagos ex",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes",
+        "rarity": "Double Rare"
+      }
+    ],
+    "EPqUqzrAc30": [
+      {
+        "card": "Trainer Poké Pad Full Art",
+        "set": "ja-nihil-zero",
+        "setName": "Nihil Zero (JP)",
+        "rarity": "Super Rare"
+      }
+    ],
+    "vHvWDOPoxjo": [
+      {
+        "card": "Marnie's Grimmsnarl ex",
+        "set": "destined-rivals",
+        "setName": "Destined Rivals"
+      }
+    ],
+    "QXS1W_L2qbs": [
+      {
+        "card": "Bidoof PEELABLE DITTO 059/078 Reverse Holo",
+        "set": "pokemon-go",
+        "setName": "Pokémon GO"
       }
     ]
   }

@@ -1649,6 +1649,10 @@
   "vHvWDOPoxjo": {
     "products": [
       "tin"
+    ],
+    "sets": [
+      "destined-rivals",
+      "mega-evolution"
     ]
   },
   "QXS1W_L2qbs": {
@@ -2513,6 +2517,14 @@
     ],
     "products": [
       "single-pack"
+    ]
+  },
+  "h5mje3jbD48": {
+    "sets": [
+      "pitch-black"
+    ],
+    "products": [
+      "etb"
     ]
   }
 }
