@@ -88,6 +88,47 @@ function artLook(c) {
 // A hand-picked list still wins outright the moment one exists, which keeps the
 // tick meaningful: it becomes "promote the best" rather than "make the page
 // work at all".
+/**
+ * WHICH PRINTING AN INTL HIT IS. THE ARGUMENT LIVES IN build-pages.mjs.
+ *
+ * This is the second copy of one rule and that is deliberate rather than
+ * careless: these two files already carry a written contract that they move
+ * together about exactly this decision (see the paragraph above the call site
+ * below, and the matching one in resolveHits), because the failure mode is a
+ * plaque and a rip page naming different printings of one card, which looks
+ * fine on both pages. The full argument, the counted scope, and the illustrator
+ * cross-check that confirmed the three cards it resolves are written ONCE, in
+ * pickIntlPrinting in scripts/build-pages.mjs. Read it there before changing
+ * either copy, and change both in the same edit.
+ *
+ * The short version: exact tier on the SAME ladder wins; failing that, drop
+ * every printing that states a DIFFERENT tier; take what is left only if it is
+ * alone and its own tier is unstated. `same[0]` is never reached, so a
+ * Japanese tier is never mapped onto an English one to win a number.
+ *
+ * `want` arrives already normalised. Returns the printing, or null.
+ */
+// The bases TCGdex does not have. See the note beside `img` in the intl
+// checklist mapping below for why this page reads it now and what it drops.
+let NO_SCAN = new Set();
+try {
+  NO_SCAN = new Set(JSON.parse(await readFile(join(ROOT, "data/no-scan.json"), "utf8")).bases || []);
+} catch {
+  /* optional: a missing base then renders as an img that removes itself */
+}
+
+const rNorm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
+function pickIntlPrinting(same, want) {
+  if (!same.length) return null;
+  if (!want) return same.length === 1 ? same[0] : null;
+  const exact = same.filter((c) => rNorm(c.rarity) === want);
+  if (exact.length === 1) return exact[0];
+  if (exact.length > 1) return null;
+  const unstated = same.filter((c) => !c.rarity);
+  const stated = same.filter((c) => c.rarity);
+  return unstated.length === 1 && stated.length ? unstated[0] : null;
+}
+
 let derivedFromHits = false;
 let hitsLedger = null;
 const firstPartner = await loadFirstPartner();
@@ -247,7 +288,41 @@ if (!hall.length) {
             // gets the one the sheet can be joined on.
             name: c.en || c.native,
             rarity: c.rarity || null,
-            img: null,
+            // `img: null` WAS A LITERAL AND IT WAS WRONG ON SIX OF THE THIRTEEN
+            // GUIDES. The comment above this block says those guides carry "NO
+            // image and NO price for any of them", and it read as a measured
+            // fact because the price half is one. The image half was a fact
+            // about the seven that were being looked at: hasImages is false on
+            // ja-abyss-eye, ja-ninja-spinner, ja-nihil-zero, ja-mega-symphonia
+            // and ja-mega-brave, and ja-cyber-judge and zh-gem-pack-2 carry no
+            // card list at all, which is exactly the seven. On the other six it
+            // is true and COMPLETE: ja-stellar-miracle 135 of 135, ja-violet-ex
+            // 108 of 108, ko-clay-burst 99 of 99, ko-crimson-haze 96 of 96,
+            // ko-mask-of-change 101 of 101, ko-battle-partners 132 of 132.
+            //
+            // So .chof-noart, which this page's own note says "had never fired",
+            // is now the branch for a set with no scans rather than for every
+            // intl plaque there is.
+            //
+            // A BASE, NOT A URL, because the emitter below appends the
+            // rendition: `image` in that file ends in /low.webp and this page
+            // asks for /high.webp. Same cut build-pages.mjs makes, and the two
+            // files must agree here for the same reason they must agree about
+            // the printing.
+            //
+            // AND IT IS CHECKED AGAINST data/no-scan.json, because nothing on
+            // the intl path had ever checked it: sync-intl-guides.mjs does not
+            // apply that file the way sync-cards.mjs applies it to the English
+            // 28. Dropping the IMAGE and not the card is the point -- the
+            // plaque keeps its number and falls to .chof-noart, so a scan
+            // TCGdex withdraws looks exactly like a card that never had one
+            // instead of a dead round trip behind an onerror. Same five lines
+            // build-intl-pages.mjs already runs over the intl chase cards, and
+            // build-pages.mjs now runs over the same checklist.
+            img: (function () {
+              const b = c.image ? String(c.image).replace(/\/(low|high)\.(webp|avif|png|jpg)$/, "") : null;
+              return b && !NO_SCAN.has(b) ? b : null;
+            })(),
             price: null,
           }));
         }
@@ -310,13 +385,48 @@ if (!hall.length) {
       // this site inventing a fact." That rule does not get bent to win a
       // collector number.
       //
-      // So an intl row takes a printing ONLY where the name is unique in the
-      // set and nothing contradicts it. Otherwise it falls through to the
-      // branch below and goes in on the sheet's own words, with no number,
-      // which asserts nothing about which of the two printings came out.
-      if (source === "intl" && !(same.length === 1 && (!want || norm(same[0].rarity).includes(want)))) {
-        m = null;
-        ambiguous.push({ set: h.set, card: h.card, rarity: h.rarity || null, printings: same.length });
+      // So an intl row takes a printing ONLY where nothing can contradict it.
+      // Otherwise it falls through to the branch below and goes in on the
+      // sheet's own words, with no number, which asserts nothing about which of
+      // the two printings came out.
+      //
+      // ====================================================================
+      // THAT TEST WAS "the name is unique in the set" AND IT WAS TOO BLUNT BY
+      // EXACTLY ONE CASE, WHICH IS THE ONE THIS SITE HAD A PICTURE FOR.
+      // ====================================================================
+      //
+      // Changed 2026-08-21 IN STEP WITH build-pages.mjs, which is the contract
+      // the paragraph above this one exists to enforce. The rule and the whole
+      // argument for it are written out once, in pickIntlPrinting in that file;
+      // this is the same three branches and it must stay the same three, or a
+      // plaque and a rip page start naming different printings of one card.
+      //
+      // 1. The tier is stated and it is the log's word. One vocabulary.
+      // 2. Nothing states the log's tier: drop every printing that states a
+      //    DIFFERENT one. This is where Goldeen stops. Both of its printings
+      //    state a tier, neither is "Art Rare", nothing survives, no number.
+      // 3. Take a survivor only when it is ALONE and its own tier is unstated.
+      //
+      // WHAT IT WINS is Stellar Miracle, where TCGdex states the four lowest
+      // Japanese tiers and leaves 36 of 135 unfiled: Crabominable is #024
+      // "Uncommon" and #107 unfiled, the log says Art Rare, and Uncommon and
+      // Art Rare are two different tiers on the SAME Japanese ladder (jp-u and
+      // jp-ar in shared/rarity.mjs). #024 is not the card, so #107 is the only
+      // one left. No English tier is consulted and nothing is mapped onto
+      // anything: the refusal above stands exactly as written.
+      //
+      // WHAT IT ALSO WINS, and this one is not about Japanese at all, is Mega
+      // Abomasnow ex: Mega Symphonia prints it at #018 "Double rare" and #076
+      // "Secret Rare", the log says Double Rare, and the old test refused it
+      // for having two printings when one of them matches the log exactly.
+      if (source === "intl") {
+        const nm = pickIntlPrinting(same, want);
+        if (!nm) {
+          m = null;
+          ambiguous.push({ set: h.set, card: h.card, rarity: h.rarity || null, printings: same.length });
+        } else {
+          m = nm;
+        }
       }
       // A NAME THAT IS NOT ON A CHECKLIST WE HOLD IS A DATA ERROR AND IS SAID
       // OUT LOUD. This is the one drop that is NOT fixed above, on purpose. We
@@ -353,7 +463,11 @@ if (!hall.length) {
       const key = `${h.set}-${m.n}`;
       if (seen.has(key)) continue;
       seen.add(key);
-      if (source === "intl") intlIn.push({ set: h.set, card: m.name, n: m.n });
+      // `art` IS CARRIED SO THE LEDGER LINE CANNOT GO STALE. It used to end "so it
+// carries no scan and no price", which was a true sentence about every intl
+// plaque on the day it was written and became false for three of them the
+// moment this builder started reading the intl checklist's own image field.
+if (source === "intl") intlIn.push({ set: h.set, card: m.name, n: m.n, art: Boolean(m.img) });
       // Carry the card's OWN art, price and rarity from the checklist. resolve()
       // below only knows how to look a card up in the set's `chase` list, which
       // is the dozen or so cards a set page features, and 15 of 15 hits were not
@@ -1236,10 +1350,18 @@ if (hitsLedger) {
   const l = hitsLedger;
   console.log(`  from data/hits.json: ${l.rowsRead} row${l.rowsRead === 1 ? "" : "s"} read, ${l.inducted} card${l.inducted === 1 ? "" : "s"} inducted`);
   for (const x of l.intlIn) {
-    console.log(`  ${x.card} #${x.n} (${x.set}) resolved against public/data/intl-guides.json, so it carries no scan and no price`);
+    console.log(`  ${x.card} #${x.n} (${x.set}) resolved against public/data/intl-guides.json, ${x.art ? "with that checklist's own scan" : "which holds no scan for that set"}, and no price either way`);
   }
   for (const x of l.ambiguous) {
-    console.log(`  ${x.card}${x.rarity ? ` (${x.rarity})` : ""} in ${x.set} went in with no collector number: ${x.printings} printing${x.printings === 1 ? "" : "s"} carry that name on the intl checklist and the Japanese rarity ladder is deliberately not mapped onto the English one, so nothing here can say which was pulled`);
+    // TWO REASONS WORE ONE SENTENCE AND ONLY ONE OF THEM WAS ABOUT RARITY. A
+    // row with ZERO printings is not a card the ladder cannot separate, it is a
+    // card name the checklist does not hold, and telling the reader of this log
+    // that the Japanese rarity ladder is the reason sends them to fix the wrong
+    // thing. Trainer Rare Candy and Trainer Poke Pad are both that case.
+    console.log(
+      x.printings === 0
+        ? `  ${x.card}${x.rarity ? ` (${x.rarity})` : ""} in ${x.set} went in with no collector number: no printing on that intl checklist carries that name, so there is nothing to pin it to`
+        : `  ${x.card}${x.rarity ? ` (${x.rarity})` : ""} in ${x.set} went in with no collector number: ${x.printings} printings carry that name on the intl checklist, each states a tier and none of them is the one the log wrote, and the Japanese rarity ladder is deliberately not mapped onto the English one, so nothing here can say which was pulled`);
   }
   for (const x of l.unlisted) {
     console.log(`  ${x.card} (${x.setName}) went in on the sheet's own words: this site holds no checklist for that set, so it has no number, no scan and no price`);

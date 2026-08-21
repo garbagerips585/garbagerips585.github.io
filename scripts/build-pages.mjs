@@ -237,6 +237,199 @@ const HITS = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).vi
 // filled by pokemonpricetracker.com.
 const psaFor = (setId, n, name, setName) =>
   gradedFor.price(setId, n, { name, setName });
+
+// ===========================================================================
+// THE SECOND CHECKLIST. THE NOTE BELOW resolveHits SAID READING IT "BUYS THIS
+// FILE NOTHING" AND THAT WAS TRUE OF FIVE SETS AND FALSE OF A SIXTH.
+// ===========================================================================
+//
+// public/data/intl-guides.json is the Japanese, Korean and Chinese half of the
+// card data, and build-hall.mjs has read it since 21 August 2026. This file was
+// deliberately NOT given the same reader, on the recorded grounds that those
+// guides carry "no image and no price for any set in them", so an intl hit
+// resolved against them would still fail showableHits and still render as text.
+//
+// THAT IS A PER-SET FACT AND IT WAS WRITTEN DOWN AS A PER-FILE ONE. Counted out
+// of the file itself on 2026-08-21: hasImages is FALSE on ja-abyss-eye,
+// ja-ninja-spinner, ja-nihil-zero, ja-mega-symphonia and ja-mega-brave, and
+// ja-cyber-judge and zh-gem-pack-2 carry no card list at all -- which is the
+// seven sets the note was looking at. It is TRUE on six others, and every one
+// of them is complete rather than partial: ja-stellar-miracle 135 of 135,
+// ja-violet-ex 108 of 108, ko-clay-burst 99 of 99, ko-crimson-haze 96 of 96,
+// ko-mask-of-change 101 of 101 and ko-battle-partners 132 of 132. 671 scans the
+// build could already see and never asked for.
+//
+// Three of them are logged hits: Crabominable on yJujjKbIVFg and Meditite and
+// Raboot on bh8OGK_jE2Y, all out of Stellar Miracle.
+//
+// THE PRICE HALF OF THAT NOTE IS STILL TRUE and nothing here changes it. An
+// intl row carries a scan and no money, which is what a reader gets: the hit
+// band's own test is "a scan OR a price", so a scan alone is enough to show the
+// card and the price line reads "No market price", exactly as it does for a
+// promo.
+let INTL_SETS = {};
+try {
+  INTL_SETS = JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8")).sets || {};
+} catch {
+  /* run: node scripts/sync-intl-guides.mjs */
+}
+
+// THE SCANS THIS BUILDER NOW EMITS ARE THE FIRST ON A PATH THAT CHECKED
+// NOTHING, SO IT CHECKS data/no-scan.json.
+//
+// An English scan reaches this file through sync-cards.mjs, which applies that
+// file per card, for the reason build-cards.mjs argues at length: a page
+// builder rewriting a sync's output is undone by the next sync. The intl half
+// has no such step -- sync-intl-guides.mjs does not read no-scan.json -- so a
+// scan TCGdex withdraws would keep being requested, and `onerror` would hide
+// the hole. That is the exact failure no-scan.json's own readme was written
+// about: "the picture silently vanished and the site paid for a dead round
+// trip to find out."
+//
+// Filtering here rather than in the sync is the lesser of the two evils and is
+// deliberately the narrower one: it drops an IMAGE, never a card, so the row
+// still resolves, still prints its collector number and still renders the
+// .hitcard-img.is-none placeholder. A withdrawn scan therefore looks exactly
+// like a card that never had one, which is what makes it visible.
+//
+// FIVE LINES COPIED FROM build-intl-pages.mjs, which does this to the intl
+// chase cards already and explains why in the same words. If a third caller
+// wants it, that is the moment it becomes a shared helper rather than now.
+//
+// sweep-scans.mjs is the other half and it needs nothing: its input is every
+// assets.tcgdex.net card base in the built tree, and these are four-segment
+// card bases in the HTML now, so the next run tests them like any other.
+let NO_SCAN = new Set();
+try {
+  NO_SCAN = new Set(JSON.parse(await readFile(join(ROOT, "data/no-scan.json"), "utf8")).bases || []);
+} catch {
+  /* optional: a missing base then renders as an img that removes itself */
+}
+
+// One intl checklist in the SAME SHAPE as an English one out of
+// public/data/cards/, so the matching below is one code path and not two.
+//
+// `image` in that file is a whole url ending in /low.webp, while every other
+// caller in this builder holds a BASE and appends the rendition itself, so it
+// is cut back to the base here. That keeps three things working for free that
+// would each otherwise need a special case: avifPicture finds the .webp and the
+// assets.tcgdex.net host and wraps it, imgDims reads 245x337 off the same host,
+// and the lightbox's low.webp -> high.webp swap lands on a file that exists.
+//
+// THE ENGLISH NAME IS THE KEY, because that is what the rip log writes. Same
+// call build-hall.mjs makes and for the reason data/intl-rips.json's readme
+// settles for the guides: the native name is the verifiable one and is never
+// dropped, but a hit has one name slot and it gets the one the sheet joins on.
+const intlChecklist = (setId) => {
+  const g = INTL_SETS[setId];
+  if (!g || !g.cards || !g.cards.length) return null;
+  return g.cards.map((c) => {
+    const base = c.image ? String(c.image).replace(/\/(low|high)\.(webp|avif|png|jpg)$/, "") : null;
+    return {
+      n: c.localId,
+      name: c.en || c.native,
+      rarity: c.rarity || null,
+      img: base && !NO_SCAN.has(base) ? base : null,
+      price: null,
+    };
+  });
+};
+
+/**
+ * WHICH PRINTING AN INTL HIT IS, AND WHY THIS IS NOT THE ENGLISH RULE.
+ *
+ * ==========================================================================
+ * `same[0]` IS BANNED HERE AND THAT BAN IS OLDER THAN THIS FUNCTION.
+ * ==========================================================================
+ *
+ * On an English checklist the sheet and TCGdex share a vocabulary, so a miss
+ * on the tier is a wording difference and `same[0]` is a safe last resort. They
+ * do not share one across languages, and build-hall.mjs has the scar: Abyss Eye
+ * prints Goldeen at #012 Common and #084 Illustration rare, the log writes the
+ * tier as "Art Rare" because that is アートレア off the wrapper, and `same[0]`
+ * handed the plaque the COMMON. So an intl row has always taken a printing only
+ * where nothing could contradict it.
+ *
+ * MAPPING AR ONTO ILLUSTRATION RARE WOULD RESOLVE GOLDEEN AND IS STILL REFUSED.
+ * shared/rarity.mjs keeps the seven Japanese letter tiers separate from the
+ * English ladder and says why in as many words: "SAR and Special Illustration
+ * Rare are close cousins, not the same thing, and asserting an equivalence the
+ * two companies do not publish would be this site inventing a fact." Nothing
+ * below bends it. Goldeen still goes in with no number.
+ *
+ * ==========================================================================
+ * WHAT IS NEW IS A CASE WHERE ELIMINATION IS TOTAL, AND IT NEEDS NO MAPPING.
+ * ==========================================================================
+ *
+ * Stellar Miracle prints Crabominable twice: #024, which TCGdex files as
+ * "Uncommon", and #107, which TCGdex leaves UNFILED. The log says Art Rare.
+ * Uncommon and Art Rare are both tiers on the JAPANESE ladder -- they are
+ * jp-u and jp-ar in shared/rarity.mjs, アンコモン and アートレア on the same
+ * wrapper -- and they are different tiers. So #024 is not the card the log
+ * describes, and #107 is the only printing left. That argument is made entirely
+ * inside one vocabulary and asserts nothing about the English one.
+ *
+ * THE THIRD BRANCH IS THE ONE THAT MAKES IT SAFE. A survivor is taken only when
+ * it is ALONE and its own tier is unstated. Terapagos ex has FOUR printings in
+ * that set, three of them unstated, and this refuses it rather than choosing.
+ *
+ * SCOPE, COUNTED RATHER THAN REASONED, 2026-08-21. The unstated-survivor branch
+ * can only fire in a set where TCGdex declines to name the tier at all. Across
+ * the thirteen guides in intl-guides.json today that is ja-stellar-miracle
+ * (36 of 135 unstated), ja-violet-ex (30 of 108), ko-clay-burst (28 of 99),
+ * ko-crimson-haze (33 of 96), ko-battle-partners (32 of 132) and
+ * ko-mask-of-change (3 of 101). Abyss Eye, Nihil Zero, Mega Symphonia and Mega
+ * Brave state EVERY rarity they hold, so on those four the branch is dead and
+ * Goldeen, Manectric, Raticate, Aurorus and Spearow all still refuse.
+ *
+ * ==========================================================================
+ * INDEPENDENTLY CONFIRMED BEFORE IT SHIPPED, AND THE CHECK IS REPEATABLE.
+ * ==========================================================================
+ *
+ * Elimination says which printing is LEFT; it does not say what the picture is.
+ * So the three were also identified positively, by ILLUSTRATOR, against the
+ * English counterpart set this repo already holds a full priced checklist for.
+ * intl-guides.json records ja-stellar-miracle's `equivalent` as stellar-crown
+ * at confidence "confirmed", and they are the same set: TCGdex SV7 and sv07.
+ *
+ *     JA SV7  #107 Crabominable  Mitsuhiro Arita  ->  EN sv07 #149  Illustration rare
+ *     JA SV7  #111 Meditite      Yuriko Akase     ->  EN sv07 #153  Illustration rare
+ *     JA SV7  #106 Raboot        rika             ->  EN sv07 #147  Illustration rare
+ *     JA SV7  #024 Crabominable  nagimiso         ->  EN sv07 #042  Uncommon
+ *     JA SV7  #017 Raboot        aspara           ->  EN sv07 #027  Common
+ *
+ * Every one of the six is a UNIQUE (name, illustrator) pair on both sides, and
+ * the English tier separates the two printings of each card exactly the way the
+ * log's word does. TCGdex's English field for アートレア is "Illustration rare",
+ * which is CLAUDE.md's own reading of the same disagreement on Goldeen.
+ *
+ * THAT JOIN IS NOT THE MECHANISM AND IS DELIBERATELY NOT IN THE CODE. Wiring it
+ * in would put the English ladder back inside the answer for a Japanese card,
+ * which is the one thing shared/rarity.mjs asks nobody to do. It is written here
+ * so the next person can re-run it in four lines rather than take it on trust:
+ * the illustrators are in public/data/intl-guides.json and in the `ill` field of
+ * public/data/cards/stellar-crown.json, both already on disk.
+ *
+ * Returns the printing, or null, which the caller renders as absent.
+ */
+const norm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
+function pickIntlPrinting(same, want) {
+  if (!same.length) return null;
+  // No tier written down is no evidence, so a repeated name cannot be settled.
+  if (!want) return same.length === 1 ? same[0] : null;
+  // 1. The tier is stated and it is the log's. One vocabulary, exact word.
+  const exact = same.filter((c) => norm(c.rarity) === want);
+  if (exact.length === 1) return exact[0];
+  if (exact.length > 1) return null;
+  // 2. Nothing states the log's tier. Drop everything that states a DIFFERENT
+  //    one and see what is left. This is where Goldeen stops: both of its
+  //    printings state a tier, neither is Art Rare, so nothing survives.
+  const unstated = same.filter((c) => !c.rarity);
+  const stated = same.filter((c) => c.rarity);
+  // 3. Alone, and unstated. Two survivors is a choice and this does not make it.
+  return unstated.length === 1 && stated.length ? unstated[0] : null;
+}
+
 const cardCache = new Map();
 async function resolveHits(vid) {
   const out = [];
@@ -287,8 +480,18 @@ async function resolveHits(vid) {
       });
       continue;
     }
-    const cards = cardCache.get(h.set);
-    const norm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
+    // THE ENGLISH CHECKLIST FIRST, THEN THE INTL ONE, AND NEVER BOTH. Nothing
+    // is in public/data/cards/ AND in intl-guides.json: the first holds the 28
+    // English sets and the second holds the thirteen it does not. The English
+    // one wins where it exists so no English page can start reading a different
+    // file, and `intl` below is what tells the rest of this function which
+    // vocabulary it is holding.
+    //
+    // `norm` used to be redeclared here, byte for byte identical to the one at
+    // module scope. Removed rather than shadowed.
+    const english = cardCache.get(h.set);
+    const cards = english || intlChecklist(h.set);
+    const intl = !english && Boolean(cards);
     const same = cards ? cards.filter((c) => norm(c.name) === norm(h.card)) : [];
     // EXACT TIER FIRST. THE EIGHT CHARACTER PREFIX IS A FALLBACK NOW, NOT THE
     // RULE, AND ONE CARD ON THIS SITE ONLY EVER RESOLVED BECAUSE IT WAS.
@@ -311,19 +514,35 @@ async function resolveHits(vid) {
     // the card is not printed at, so a row that reaches the fallback for the
     // wrong reason cannot ship.
     const want = h.rarity ? norm(h.rarity) : null;
-    const m = (want && same.find((c) => norm(c.rarity) === want)) ||
-              (want && same.find((c) => norm(c.rarity).includes(want.slice(0, 8)))) ||
-              same[0] || null;
+    // TWO RULES, ONE PER VOCABULARY, AND THE INTL ONE IS THE STRICTER OF THEM.
+    // pickIntlPrinting never reaches `same[0]`; see its own comment for the
+    // whole argument and for why Goldeen still gets no number.
+    const m = intl
+      ? pickIntlPrinting(same, want)
+      : (want && same.find((c) => norm(c.rarity) === want)) ||
+        (want && same.find((c) => norm(c.rarity).includes(want.slice(0, 8)))) ||
+        same[0] || null;
     out.push({
       name: h.card, setName: h.setName, setId: h.set,
       rarity: (m && m.rarity) || h.rarity || null,
       n: m ? m.n : null,
       img: m && m.img ? `${m.img}/low.webp` : null,
       price: m && typeof m.price === "number" ? m.price : null,
-      psa10: m ? psaFor(h.set, m.n, m.name, setData.get(h.set)?.name || h.setName) : null,
+      // NO GRADED LOOKUP ON AN INTL ROW. shared/graded-price.mjs is keyed on an
+      // English set id and a PriceCharting console, and neither exists for a
+      // Japanese or Korean set, so asking is at best a miss and at worst a hit
+      // on an English printing that shares the collector number.
+      psa10: m && !intl ? psaFor(h.set, m.n, m.name, setData.get(h.set)?.name || h.setName) : null,
       // A promo, or a card outside the set checklist, will not resolve. Kept
       // and shown by name rather than dropped, because it WAS pulled.
       unresolved: !m,
+      // Which checklist answered, for the report at the foot of this run. An
+      // intl row that resolved and still has nothing to show is a different
+      // fact from a set this site holds no list for, and the two used to print
+      // the same sentence.
+      intl,
+      listed: Boolean(cards),
+      printings: same.length,
     });
   }
   // ORDER BY RAW, NOT BY WHICHEVER NUMBER IS BIGGER. Sorting on psa10 || price
@@ -572,30 +791,43 @@ for (const vid of Object.keys(HITS)) HITS_RESOLVED.set(vid, await resolveHits(vi
 // nothing, on a page whose lede promises the whole list -- and every drop there
 // reports now. This is the sibling file and it had the same gap.
 //
-// THE REPORT IS THE FIX HERE AND THE OTHER HALF WAS MEASURED AND NOT DONE.
-// build-hall.mjs's other move was to read public/data/intl-guides.json as a
-// second checklist, which is what got the Japanese and Korean plaques onto that
-// page. It buys this file NOTHING and the reason is in that file's own note:
-// those guides carry a localId, an English name and a rarity, and **no image
-// and no price for any set in them**. So an intl hit resolved against them
-// still has neither, still fails `showableHits`, and still renders as text --
-// the same eight pages, byte for byte. Adding the reader would put a second
-// checklist into a builder that cannot act on it, and would hand the rarity
-// slot to TCGdex's English word for a Japanese tier, which shared/rarity.mjs
-// refuses and build-hall.mjs gives up a collector number rather than bend.
+// THE OTHER HALF WAS "MEASURED AND NOT DONE" AND THE MEASUREMENT WAS WRONG.
+// This paragraph used to say that reading public/data/intl-guides.json, which
+// build-hall.mjs does, "buys this file NOTHING", because those guides carry
+// "no image and no price for any set in them". The price half is true. The
+// image half was a fact about seven of the thirteen guides, written down as a
+// fact about the file: six of them carry a complete set of scans, 671 in all.
+// Three logged cards were rendering as text with a live TCGdex url sitting in a
+// checklist this builder had been told not to open. It opens it now; the
+// argument, the counts and the per-set breakdown are at intlChecklist above.
+//
+// The rest of that paragraph still stands and is honoured rather than reversed:
+// the rarity slot is NOT handed to TCGdex's English word for a Japanese tier,
+// pickIntlPrinting refuses a printing it cannot separate, and Goldeen still
+// goes in with no collector number.
 const unshowable = [];
 for (const [vid, list] of HITS_RESOLVED) {
   for (const h of list) {
     if (h.img || typeof h.price === "number") continue;
     unshowable.push(
+      // FIVE REASONS NOW, NOT FOUR, AND THE ONE THAT SPLIT WAS DOING THE MOST
+      // WORK. "no English checklist for that set" was printed for every intl
+      // hit, which was true and stopped being the whole story once this builder
+      // started reading intl-guides.json: an intl set can now have a checklist,
+      // hold the card, and still separate no printing, and that is a different
+      // thing to go and fix from a set the site holds no list for at all.
       `${vid}: "${h.name}"${h.setName ? ` (${h.setName})` : ""} -- ` +
         (h.promo
           ? "a promo that matched no entry in public/data/printings/ and carries no price of its own"
-          : h.setId && !cardCache.get(h.setId)
-            ? "no English checklist for that set, so there is no scan and no price to show"
-            : h.unresolved
+          : !h.listed
+            ? "this site holds no checklist for that set, in public/data/cards/ or in public/data/intl-guides.json, so there is no scan and no price to show"
+            : h.printings === 0
               ? "that name is not on the checklist we hold for that set"
-              : "the checklist holds it and carries no scan and no price")
+              : h.unresolved && h.intl
+                ? `${h.printings} printings on that intl checklist carry that name and the tier written in the log separates none of them, so nothing here can say which was pulled`
+                : h.unresolved
+                  ? "that name is not on the checklist we hold for that set"
+                  : "the checklist holds it and carries no scan and no price")
     );
   }
 }
