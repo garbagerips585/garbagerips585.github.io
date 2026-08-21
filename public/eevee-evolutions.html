@@ -25,25 +25,14 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=c2b99ea6">
-<style>
-/* THE CHAIN. A COLUMN ON A PHONE and a row from 720px, and that is not a
-   preference: at 390px the content box measures about 326px, and three name
-   boxes plus two arrows do not fit across it at any legible size. Laid out as a
-   row it either pushes the document sideways or shrinks the names to 10px.
-   Vertical, every box is full width and the condition sits beside the arrow. */
-.ev-line{display:flex;flex-direction:column;align-items:stretch;gap:0}
+<style>.ev-line{display:flex;flex-direction:column;align-items:stretch;gap:0}
 .ev-node{display:flex;align-items:baseline;gap:8px;padding:9px 12px;border:2px solid var(--keyline);
-  border-radius:9px;background:var(--paper);color:inherit;text-decoration:none;min-height:44px;
-  box-sizing:border-box}
+border-radius:9px;background:var(--paper);color:inherit;text-decoration:none;min-height:44px;
+box-sizing:border-box}
 a.ev-node{background:var(--chip-gold-bg)}
 a.ev-node:hover{background:var(--mustard);color:var(--on-accent)}
 .ev-nm{font:700 var(--t-body)/1.3 var(--body)}
 .ev-no{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
-/* The step: the drawn arrow and the condition it carries. ONE symbol in a
-   SQUARE box, turned a quarter turn by CSS on a phone, so the layout box is
-   identical in both directions and nothing jumps when the breakpoint flips.
-   Two separate symbols would have been a second element on every one of the
-   500-odd steps on the chart page. */
 .ev-step{display:flex;align-items:center;gap:10px;padding:4px 0 4px 6px}
 .ev-ar{width:30px;height:30px;flex:0 0 30px;fill:var(--gold);transform:rotate(90deg)}
 .ev-cond{font-size:var(--t-sm);line-height:1.45;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px}
@@ -51,56 +40,35 @@ a.ev-node:hover{background:var(--mustard);color:var(--on-accent)}
 .ev-cond span{color:var(--ink-2)}
 .ev-plus{color:var(--gold-deep) !important;font-weight:700}
 .ev-form{display:block;flex:1 0 100%;font:700 var(--t-micro)/1.4 var(--mono);
-  letter-spacing:.04em;text-transform:uppercase;color:var(--ink) !important}
+letter-spacing:.04em;text-transform:uppercase;color:var(--ink) !important}
 .ev-games{display:flex;flex-wrap:wrap;gap:4px;flex:1 0 100%;margin-top:2px}
 .ev-games span{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2) !important;
-  border:1px solid var(--hair);border-radius:var(--r-pill);padding:4px 8px}
+border:1px solid var(--hair);border-radius:var(--r-pill);padding:4px 8px}
 .ev-inc{flex:1 0 100%;font-size:var(--t-micro);line-height:1.5;color:var(--ink-2) !important;margin-top:2px}
-/* A step whose only content is the note about where it came from. The note is
-   already .ev-inc, so this only stops the flex row collapsing it to nothing. */
 .ev-cond-note{display:block}
-/* MORE THAN ONE ANSWER. This is the block both pages really exist for, so it is
-   fenced rather than run on: a reader has to see at a glance that the answer
-   depends on which game they are holding. */
 .ev-multi{border-left:4px solid var(--gold);padding-left:10px;margin:2px 0}
 .ev-multi-h{display:block;font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;
-  text-transform:uppercase;color:var(--ink);margin-bottom:4px}
+text-transform:uppercase;color:var(--ink);margin-bottom:4px}
 .ev-cond-alt + .ev-cond-alt{margin-top:6px;padding-top:6px;border-top:1px solid var(--hair)}
-/* THE FORK. One drawn elbow per arm rather than one shared trunk: a trunk has
-   to know the height of the arms it spans, which CSS cannot tell an SVG, and
-   eight stacked elbows read as a fan on their own. */
 .ev-arms{list-style:none;margin:0;padding:0}
 .ev-arm{display:grid;grid-template-columns:24px minmax(0,1fr);gap:6px;align-items:start;margin-top:4px}
 .ev-fk{width:22px;height:34px;fill:var(--gold);color:var(--gold);margin-top:-4px}
 .ev-armbody{min-width:0}
 .ev-armbody .ev-line{margin-top:4px}
-/* VIEWPORT AND NOT CONTAINER, ON PURPOSE, AND THIS BLOCK IS NOT STRIPPED SO
-   the argument is kept short. A chain sits in a card 302 to 1354px wide across
-   the two pages that draw one, so a container query is the right SHAPE here.
-   It was written and measured on both, at every width: it changes nothing,
-   because a row chain that runs out of width staircases, and the threshold
-   that DOES change something costs 6,036px of scroll. The numbers are beside
-   the .ev-list breakpoint in scripts/build-evolution.mjs. */
 @media(min-width:720px){
-  .ev-line{flex-direction:row;align-items:center;flex-wrap:wrap;gap:2px}
-  .ev-ar{transform:none}
-  .ev-step{padding:4px 6px;max-width:22em}
-  .ev-arm{grid-template-columns:28px minmax(0,1fr)}
+.ev-line{flex-direction:row;align-items:center;flex-wrap:wrap;gap:2px}
+.ev-ar{transform:none}
+.ev-step{padding:4px 6px;max-width:22em}
+.ev-arm{grid-template-columns:28px minmax(0,1fr)}
 }
-
 .ee-lede{max-width:46em}
 .ee-fan{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
-  box-shadow:var(--hard-lg);padding:var(--s4);margin:var(--s5) 0}
-/* THE PICTURE GRID. auto-fill with a 140px floor, so a 390px phone gets two
-   columns of about 157px and a desktop gets as many as fit. NOT a flex row:
-   the failure this page has already had once is a flex row that would not wrap,
-   which pushed the document to 964px against a 390px viewport. A grid cannot
-   do that, because a track that does not fit becomes a new row. */
+box-shadow:var(--hard-lg);padding:var(--s4);margin:var(--s5) 0}
 .ee-glance{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:var(--s2);
-  margin:var(--s4) 0 0;padding:0;list-style:none}
+margin:var(--s4) 0 0;padding:0;list-style:none}
 .ee-gt{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:2px;
-  min-height:44px;padding:var(--s3) var(--s2);border:1px solid var(--hair);border-radius:10px;
-  background:var(--card);color:inherit;text-decoration:none;text-align:center}
+min-height:44px;padding:var(--s3) var(--s2);border:1px solid var(--hair);border-radius:10px;
+background:var(--card);color:inherit;text-decoration:none;text-align:center}
 .ee-gt img{width:88px;height:88px;object-fit:contain;max-width:100%}
 .ee-gt b{font:700 var(--t-sm)/1.2 var(--body)}
 .ee-gt span{font:400 var(--t-micro)/1.2 var(--mono);color:var(--ink-2)}
@@ -108,82 +76,51 @@ a.ev-node:hover{background:var(--mustard);color:var(--on-accent)}
 .ee-gt:hover span{color:var(--on-accent)}
 .ee-list{display:flex;flex-direction:column;gap:var(--s4);margin-top:var(--s4)}
 .ee-t{border:2px solid var(--hair);border-radius:12px;background:var(--card);padding:var(--s4);
-  scroll-margin-top:var(--s5)}
+scroll-margin-top:var(--s5)}
 .ee-th{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2);margin-bottom:var(--s3)}
 .ee-th h3{font:400 var(--t-m)/1.15 var(--display)}
 .ee-no{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
-/* THE PORTRAIT BESIDE THE CONDITION, and both halves wrap. flex-wrap plus
-   min-width:0 on the body is the pair that keeps this off the phone's right
-   edge; the body's flex-basis is 260px, so below about 400px of content box it
-   drops under the picture instead of squeezing beside it. */
 .ee-row{display:flex;flex-wrap:wrap;gap:var(--s4);align-items:flex-start}
 .ee-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--paper-2);
-  border:1px solid var(--hair);border-radius:var(--r);padding:4px}
+border:1px solid var(--hair);border-radius:var(--r);padding:4px}
 .ee-body{flex:1 1 260px;min-width:0}
 .ee-lab{font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;
-  color:var(--ink-2);margin-bottom:4px}
+color:var(--ink-2);margin-bottom:4px}
 .ee-tags{display:flex;flex-wrap:wrap;gap:5px;margin:var(--s3) 0 0;padding:0;list-style:none}
 .ee-tags li{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;
-  border:1px solid var(--hair);border-radius:var(--r-pill);padding:6px 9px;color:var(--ink-2)}
+border:1px solid var(--hair);border-radius:var(--r-pill);padding:6px 9px;color:var(--ink-2)}
 .ee-say{font-size:var(--t-sm);line-height:1.55;max-width:44em;margin-top:var(--s3)}
 .ee-facts{margin-top:var(--s3)}
 .ee-facts li{max-width:44em}
-/* THE LINKS IN A FACT WERE INVISIBLE. .facts-list has no rule for a nested <a>,
-   so "The eleven card types" and "Every Umbreon card, priced" rendered in body
-   ink with no underline and read as ordinary sentence text. Screenshotted at
-   390 before believing it. Nine fact lists on this page carry two links each,
-   which is eighteen links a reader could not see. Underlined here rather than
-   in ui.css, which another pass is rewriting. */
 .ee-facts a{text-decoration:underline;text-underline-offset:2px}
-/* THE VALUE LIST. Rows rather than a table: four columns of numbers inside a
-   326px content box is either a horizontal scroller or 9px type, and the third
-   line here wraps to its own full-width row instead. */
 .ee-val{display:flex;flex-direction:column;gap:var(--s2);margin:var(--s4) 0 0;padding:0;list-style:none}
 .ee-val li{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3);padding:6px 12px;
-  border:1px solid var(--hair);border-radius:var(--r);background:var(--card)}
+border:1px solid var(--hair);border-radius:var(--r);background:var(--card)}
 .ee-val img{width:48px;height:48px;object-fit:contain;flex:none}
 .ee-vn{flex:1 1 7em;min-width:0;display:inline-flex;align-items:center;min-height:44px;
-  font:700 var(--t-body)/1.3 var(--body);color:inherit}
+font:700 var(--t-body)/1.3 var(--body);color:inherit}
 .ee-vp{font:400 var(--t-m)/1 var(--display);color:var(--ink)}
 .ee-vm{flex:1 0 100%;font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
 .ee-note{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
-  box-shadow:var(--hard-lg);padding:var(--s4);margin:var(--s5) 0}
+box-shadow:var(--hard-lg);padding:var(--s4);margin:var(--s5) 0}
 .ee-note p{font-size:var(--t-sm);line-height:1.55;max-width:46em}
 .ee-note p + p{margin-top:var(--s3)}
 .ee-links{display:flex;flex-wrap:wrap;gap:6px;margin:var(--s3) 0 0;padding:0;list-style:none}
 .ee-links a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;
-  border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
-  text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
+border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
+text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
 .ee-links a:hover{border-color:var(--ink);background:var(--mustard);color:var(--on-accent)}
 .ee-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s4);line-height:1.6;max-width:46em}
-/* The source list carries .ee-src on the <ul> ITSELF, so a descendant selector
-   for it would never match. This is the rule that spaces its rows. */
 .ee-src li{margin-top:8px}
-/* DESKTOP READING MEASURE, the same block build-evolution.mjs and
-   build-types.mjs both end with. --measure is ui.css's own cap and it has to be
-   named on every loose paragraph class, because nothing else reaches them:
-   .ee-facts li was running to 95 real characters at 1440, measured with a
-   canvas against the actual face rather than guessed from ems, because its 44em
-   cap is 669px at that element's 15.2px. */
 @media(min-width:1000px){
-  .ee-lede,.ee-src,.ee-note p,.ee-say,.ee-facts li,.ev-p{max-width:var(--measure)}
-  /* AND THE VALUE ROWS STOP GROWING. Left at full width a 1,392px row put the
-     name at the far left and the price at the far right with 1,100px of nothing
-     between them, which is a row you have to track across rather than read. */
-  .ee-val{max-width:38em}
+.ee-lede,.ee-src,.ee-note p,.ee-say,.ee-facts li,.ev-p{max-width:var(--measure)}
+.ee-val{max-width:38em}
 }
-/* THE CARD BECOMES TWO COLUMNS AT 1100, and it is the failure ui.css already
-   documents for the home page and build-evolution.mjs for the chart: a column
-   of prose in a 1,392px band leaves 550px of empty card beside it, measured at
-   1440. The condition and its paragraph go left, the facts go right, and the
-   nine cards roughly halve in height. 1100 rather than 1000 because the facts
-   need about 480px before they start wrapping every line. */
 @media(min-width:1100px){
-  .ee-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-    gap:var(--s4) var(--s5);align-items:start}
-  .ee-facts{margin-top:0}
-}
-</style>
+.ee-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+gap:var(--s4) var(--s5);align-items:start}
+.ee-facts{margin-top:0}
+}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Evolution chart","item":"https://garbagerips585.github.io/evolution.html"},{"@type":"ListItem","position":3,"name":"Eevee evolutions"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"The eight Eevee evolutions","itemListElement":[{"@type":"ListItem","position":1,"name":"Vaporeon","url":"https://garbagerips585.github.io/pokemon/vaporeon.html"},{"@type":"ListItem","position":2,"name":"Jolteon","url":"https://garbagerips585.github.io/pokemon/jolteon.html"},{"@type":"ListItem","position":3,"name":"Flareon","url":"https://garbagerips585.github.io/pokemon/flareon.html"},{"@type":"ListItem","position":4,"name":"Espeon","url":"https://garbagerips585.github.io/pokemon/espeon.html"},{"@type":"ListItem","position":5,"name":"Umbreon","url":"https://garbagerips585.github.io/pokemon/umbreon.html"},{"@type":"ListItem","position":6,"name":"Leafeon","url":"https://garbagerips585.github.io/pokemon/leafeon.html"},{"@type":"ListItem","position":7,"name":"Glaceon","url":"https://garbagerips585.github.io/pokemon/glaceon.html"},{"@type":"ListItem","position":8,"name":"Sylveon","url":"https://garbagerips585.github.io/pokemon/sylveon.html"}]}</script>
 </head>

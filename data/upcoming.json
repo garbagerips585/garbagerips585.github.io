@@ -1,7 +1,8 @@
 {
   "_readme": [
-    "Upcoming English-language Pokemon TCG releases. Hand maintained: there is no",
-    "API for things that have not happened yet.",
+    "Upcoming English-language Pokemon TCG releases, plus a separately labeled",
+    "Japanese calendar. Hand maintained: there is no API for things that have not",
+    "happened yet.",
     "",
     "confidence is one of:",
     "  confirmed  an official date from The Pokemon Company or Pokemon Center",
@@ -9,13 +10,29 @@
     "  expected   a product lineup that matches every previous set in the series",
     "             but which TPCi has not announced. Retailer preorder pages often",
     "             list these; they are templated from the last set, not sourced.",
+    "There are three of them and there are deliberately not four. A product that",
+    "has been SHOWN in official artwork but given no date and no price of its own",
+    "is not any of the three, and the answer is a sentence in productNote saying",
+    "exactly that, not a fourth badge: data/drops.json's own readme says it uses",
+    "'the same three words as data/upcoming.json', so a fourth word here quietly",
+    "makes that file wrong. Leave such a product's confidence unset, which is this",
+    "file's existing way of saying 'as well known as the set it is in'.",
     "",
     "RULES FOR EDITING THIS FILE",
     "  Never add a set that has not been officially named. Several AI-written card",
     "  sites invent them, and one of them called Chaos Rising 'Rising Chaos'.",
     "  Never publish a card count that TPCi has not announced. Set trackers",
     "  extrapolate those from the Japanese list and they are frequently wrong.",
-    "  Japanese sets are not English sets. Do not put a Japanese date on this page.",
+    "  WHEN AN OFFICIAL PAGE AND A NEWS SITE DISAGREE ON A NUMBER, the official",
+    "  one wins and the other is not printed beside it as an alternative.",
+    "  pokemon.com says Delta Reign has 'more than 20 Trainer cards' and PokeBeach",
+    "  says 'more than a dozen'. This file prints more than 20 and does not mention",
+    "  the dozen at all, because printing both reads as a range nobody stated.",
+    "  A NEWS SITE'S ANALYSIS IS NOT A FACT AND DOES NOT GO IN A HIGHLIGHT.",
+    "  PokeBeach works out which Japanese sets Delta Reign is probably built from,",
+    "  and hedges every sentence of it with 'should'. None of it is on the page.",
+    "  What a source SAW (a product render, an announced date) is reportable; what",
+    "  a source RECKONS is not, however well reasoned.",
     "  When something ships, delete it from here; the page filters past dates out",
     "  anyway, but the file should not grow forever.",
     "  NO PACK ODDS IN A HIGHLIGHT, however Pokemon words it. This file shipped",
@@ -25,9 +42,30 @@
     "  phrasing, and 'guaranteed' is exactly the wording somebody will argue is a",
     "  contents fact rather than a rate. What a pack HOLDS is fine and stays: the",
     "  next line, 'Packs are 5 foil cards plus a foil basic Energy', is a count of",
-    "  what is in the wrapper and says nothing about which cards."
+    "  what is in the wrapper and says nothing about which cards. pokemon.com's own",
+    "  showcase still words it the forbidden way, and so does PokeGuardian, so the",
+    "  wording will be offered back to this file every time somebody re-reads a",
+    "  source. Keep the stripped form.",
+    "",
+    "  JAPANESE SETS ARE NOT ENGLISH SETS, and a reader must never be able to",
+    "  mistake one date for the other. THAT is what this rule protects, so the rule",
+    "  is about WHERE a Japanese date goes and not about whether it may be here at",
+    "  all. It used to read 'Do not put a Japanese date on this page', and it was",
+    "  rewritten rather than deleted on 21 August 2026 when Tim asked for the",
+    "  Japanese calendar, because he collects Japanese cards and they land months",
+    "  before the English ones. A rule that is quietly dropped is how the next pass",
+    "  reintroduces the bug it was written to prevent.",
+    "  So: NEVER put a Japanese date in `sets` or `products`. Those two are the",
+    "  ENGLISH lists, an English reader reads every date in them as an English date,",
+    "  and one Japanese row mixed in is exactly the confusion this rule exists to",
+    "  stop. Japanese releases go in `japan.releases` and nowhere else. The builder",
+    "  renders that as its own section, under its own heading, with its own lede",
+    "  saying in plain words that these are Japan-only dates and are not the English",
+    "  release. If you ever find yourself wanting one Japanese row in the English",
+    "  list because it is 'related', that is the bug, and the answer is a sentence",
+    "  in the English entry's blurb naming the Japanese set, not a row."
   ],
-  "checked": "2026-08-12",
+  "checked": "2026-08-21",
   "sets": [
     {
       "name": "30th Celebration",
@@ -45,15 +83,16 @@
         { "name": "Elite Trainer Box", "date": "2026-09-16", "packs": 9, "price": "$49.99", "note": "Full art Nidorina promo" },
         { "name": "Pokemon Center Elite Trainer Box", "date": "2026-09-16", "packs": 11, "note": "Pokemon Center exclusive, two Nidorina promos" },
         { "name": "ex Box, Sylveon ex and Greninja ex", "date": "2026-09-16", "packs": 4, "price": "$21.99" },
-        { "name": "Poster Collection", "date": "2026-09-16", "packs": 3, "price": "$14.99", "note": "Articuno, Zapdos and Moltres full arts plus a 160 card wall poster" },
-        { "name": "Tech Sticker Collection", "date": "2026-09-16", "packs": 3, "price": "$14.99" },
-        { "name": "Knock Out Collection", "date": "2026-09-16", "packs": 2, "price": "$9.99" },
+        { "name": "Poster Collection", "date": "2026-09-16", "packs": 3, "price": "$14.99", "note": "Articuno, Zapdos and Moltres foil promos, plus a wall poster showing over 160 cards" },
+        { "name": "Tech Sticker Collection", "date": "2026-09-16", "packs": 3, "price": "$14.99", "note": "An Alolan Exeggutor or Lucario foil promo and a sticker sheet" },
+        { "name": "Knock Out Collection", "date": "2026-09-16", "packs": 2, "price": "$9.99", "note": "A foil Eevee and a plastic coin" },
+        { "name": "2 Pack Blister", "date": "2026-09-16", "packs": 2, "note": "A foil Eevee and a plastic coin, the same contents the Knock Out Collection lists. They are two separate products and the showcase describes them the same way." },
         { "name": "Booster Bundle", "date": "2026-10-02", "packs": 6 },
-        { "name": "Binder Collection", "date": "2026-10-02", "packs": 5 },
-        { "name": "Mini Tins", "date": "2026-10-02", "packs": 2, "note": "10 artworks, day and night variants" },
+        { "name": "Binder Collection", "date": "2026-10-02", "packs": 5, "note": "A nine pocket binder in the anniversary design" },
+        { "name": "Mini Tins", "date": "2026-10-02", "packs": 2, "note": "Ten art cards that together make two pictures, one day and one night" },
         { "name": "Battle Deck, Espeon ex and Umbreon ex", "date": "2026-10-30", "price": "$19.99", "note": "All foil 60 card decks" },
         { "name": "Ultra Premium Collection, Day and Night", "date": "2026-11-06", "packs": 29, "price": "$179.99", "note": "Plus one Classic Collection pack" },
-        { "name": "Ditto Premium Collection", "date": "2026-11-06", "packs": 8 },
+        { "name": "Ditto Premium Collection", "date": "2026-11-06", "packs": 8, "note": "A Ditto foil promo and an acrylic display" },
         { "name": "Figure Collection, Mew and Mewtwo", "date": "2026-11-06", "packs": 5, "price": "$29.99" },
         { "name": "ex Tin, Sylveon ex or Greninja ex", "date": "2026-12-04", "packs": 4, "price": "$21.99", "confidence": "expected" }
       ],
@@ -68,23 +107,29 @@
       "code": "ME06",
       "date": "2026-11-06",
       "confidence": "confirmed",
-      "blurb": "The next Mega Evolution set, teased by The Pokemon Company in June. Mega Rayquaza ex comes back to the TCG, with Hoenn flavor running through it.",
+      "blurb": "The sixth English Mega Evolution set, headlined by Mega Rayquaza ex coming back to the card game. The Pokemon Company has published the whole card breakdown for this one, which is unusual this far out, and it comes with a new kind of Stadium card that only does anything as a pair.",
       "highlights": [
-        "Mega Rayquaza ex returns, as a Double Rare",
-        "Paired Stadium cards: one artwork split across two Stadiums played together",
-        "Mega Golisopod ex, Mega Golurk ex and Mega Malamar ex appear in the Japanese set it comes from"
+        "Over 135 cards, more than 20 of them Trainer cards, and over 35 cards with special illustrations",
+        "Four new Mega Evolution Pokemon ex: Mega Rayquaza ex, Mega Golurk ex, Mega Malamar ex and Mega Golisopod ex",
+        "Split Stadium cards with Legendary in the name. Both halves carry the same name and you need both to play it, so a deck can hold two complete ones at most",
+        "The rest of the breakdown is PokeBeach's rather than The Pokemon Company's: three of those Legendary Stadiums, six Pokemon ex, 14 illustration rares, 17 ultra rares and six special illustration rares",
+        "Prereleases run 24 October to 1 November, going by PokeBeach"
       ],
       "products": [
-        { "name": "Elite Trainer Box", "confidence": "expected" },
-        { "name": "Booster Box", "confidence": "expected" },
-        { "name": "Booster Bundle", "confidence": "expected" },
-        { "name": "Build and Battle Box", "confidence": "expected" },
-        { "name": "3 Pack Blister", "confidence": "expected" }
+        { "name": "Booster Box", "note": "Four pack wraps: Mega Rayquaza, Mega Golisopod, Mega Golurk and Mega Malamar" },
+        { "name": "Booster Bundle" },
+        { "name": "Elite Trainer Box", "note": "The box promo is the Kyogre illustration rare from Japan's Storm Emeralda, cut from the English set and moved here" },
+        { "name": "Pokemon Center Elite Trainer Box", "note": "Pokemon Center exclusive. A stamped version of the Kyogre promo has been shown as well" },
+        { "name": "Build and Battle Box" },
+        { "name": "Seel Blister" },
+        { "name": "Spritzee Checklane Blister" },
+        { "name": "Premium Checklane Blister, Ampharos or Delphox" },
+        { "name": "Target Checklane Blister, Xerneas and Deoxys or Keldeo and Delibird", "note": "Target exclusive" }
       ],
-      "productNote": "No product lineup has been announced. These are what every Mega Evolution set has had so far, which is a fair guess and not a fact.",
+      "productNote": "Every product here has been shown in official artwork, published by PokeBeach on 20 August 2026, so this is a real lineup rather than a guess at one. The Pokemon Company has still not put out a product page for the set, which is why not one of these carries a price or a date of its own here: none has been announced. If a shop quotes you a price for one, that is the shop's number and not a retail price.",
       "sources": [
-        "https://www.pokeguardian.com/3231721_pokemon-tcg-mega-evolution-delta-reign-teased-november-release",
-        "https://bulbapedia.bulbagarden.net/wiki/Delta_Reign_(TCG)"
+        "https://www.pokemon.com/uk/news/the-pokemon-tcg-mega-evolution-delta-reign-expansion-arrives-november-6-2026",
+        "https://www.pokebeach.com/2026/08/delta-reign-tcg-set-officially-revealed-for-november-full-product-lineup"
       ]
     }
   ],
@@ -124,5 +169,76 @@
       "blurb": "The replacement for the Trainer's Toolkit. A foil Meowth ex, 39 tournament ready Trainer cards, dividers and one Pitch Black pack.",
       "sources": ["https://icv2.com/articles/news/view/63081/build-new-decks-pokemon-tcg-deck-crafters-collection"]
     }
-  ]
+  ],
+  "japan": {
+    "_note": [
+      "JAPAN ONLY. Every date in here is a Japanese release date and none of them",
+      "is the English one. Read the Japanese rule in _readme above before adding",
+      "anything: the whole reason this list is a separate key, rendered as a",
+      "separate labeled section, is so that no reader can take one of these dates",
+      "for an English street date.",
+      "Same three confidence words as everything else. These are dates The Pokemon",
+      "Company has announced in Japan, read through PokeBeach, which is the same",
+      "standing this file already gives the PokeBeach-sourced rows in `products`.",
+      "Prices are in yen and are written with a yen sign so they cannot be read as",
+      "dollars. There is no dollar conversion here on purpose: it would be a rate",
+      "on the day somebody typed it and wrong by the time anybody read it.",
+      "WHAT WAS DELIBERATELY LEFT OUT. Storm Emeralda and the three MEGA Starter",
+      "Set ex Decks both came out on 31 July 2026 and are already out, so they are",
+      "not upcoming and are not here; Storm Emeralda is named in Delta Reign's own",
+      "entry instead, which is where an English reader has a reason to care about",
+      "it. Taiwan, Hong Kong and Korean dates were looked at and dropped: this is a",
+      "Japanese calendar because that is what Tim asked for and what he buys, and a",
+      "section called Japan that quietly holds three other regions is the same",
+      "class of mistake as a Japanese date in the English list."
+    ],
+    "checked": "2026-08-21",
+    "releases": [
+      {
+        "name": "30th Celebration",
+        "date": "2026-09-16",
+        "confidence": "confirmed",
+        "blurb": "The one date on this list that is not early. 30th Celebration launches worldwide on the same day, so Japan and the English release are both 16 September.",
+        "sources": ["https://www.pokebeach.com/2026/05/aura-seeker-japanese-tcg-set-to-release-in-november"]
+      },
+      {
+        "name": "30th Celebration Premium Deck Set, Espeon and Umbreon",
+        "date": "2026-09-16",
+        "confidence": "confirmed",
+        "price": "¥6,200",
+        "blurb": "Two 60 card decks, built around a special illustration rare Espeon ex or Umbreon ex. Illustration rares of Zeraora and Victini are in there too.",
+        "sources": ["https://www.pokebeach.com/2026/06/30th-celebration-japan-championships"]
+      },
+      {
+        "name": "30th Celebration Futuristic Box",
+        "date": "2026-09-16",
+        "confidence": "confirmed",
+        "price": "¥27,500",
+        "blurb": "Japan only, and the expensive one. Two Pikachu ex Futuristic rare promos, one day themed and one night themed, with a pile of premium accessories.",
+        "sources": ["https://www.pokebeach.com/2026/06/30th-celebration-japan-championships"]
+      },
+      {
+        "name": "Nine 30th Celebration Card Sets",
+        "date": "2026-10-16",
+        "confidence": "confirmed",
+        "blurb": "The 27 starter Pokemon promos that English speakers got in the First Partner Collections, split across nine card sets.",
+        "sources": ["https://www.pokebeach.com/2026/05/mega-gengar-ex-mega-dragonite-ex-and-mega-feraligatr-ex-special-deck-set-to-release-in-japan"]
+      },
+      {
+        "name": "Special Deck Set, Mega Feraligatr ex, Mega Dragonite ex and Mega Gengar ex",
+        "date": "2026-11-13",
+        "confidence": "confirmed",
+        "price": "¥5,500",
+        "blurb": "Three decks in one box. English collectors already have alternate art Mega Feraligatr ex and Mega Gengar ex from the Ascended Heroes box and the Mega Moonlight tins.",
+        "sources": ["https://www.pokebeach.com/2026/05/mega-gengar-ex-mega-dragonite-ex-and-mega-feraligatr-ex-special-deck-set-to-release-in-japan"]
+      },
+      {
+        "name": "Aura Seeker",
+        "date": "2026-11-27",
+        "confidence": "confirmed",
+        "blurb": "Starring Mega Lucario Z ex. No English set has been named for it, and this page will not guess one: Japanese sets do not map one to one onto English ones, which Delta Reign above is the current proof of.",
+        "sources": ["https://www.pokebeach.com/2026/05/aura-seeker-japanese-tcg-set-to-release-in-november"]
+      }
+    ]
+  }
 }

@@ -23,6 +23,23 @@
 //
 // Anything already released drops off automatically, so the page cannot sit
 // there advertising last month as upcoming.
+//
+// THE JAPANESE SECTION IS A THIRD LIST AND IT IS DELIBERATELY NOT MIXED IN.
+// data/upcoming.json's _readme used to say, flatly, "Japanese sets are not
+// English sets. Do not put a Japanese date on this page." Tim asked for the
+// Japanese calendar on 21 August 2026 because he collects Japanese cards and
+// they land months ahead of the English ones, so the rule was REWRITTEN rather
+// than dropped, and it is worth reading there before touching this file.
+//
+// The purpose behind it survives intact: a reader must never be able to take a
+// Japanese date for an English street date. What that purpose actually forbids
+// is MIXING, not mentioning. So `japan.releases` renders under its own heading,
+// after both English lists, behind its own lede saying what these dates are,
+// and EVERY card in it carries a "Japan only" flag of its own. The flag is the
+// part that matters and is not decoration: the heading and the lede only work
+// for somebody who arrived at the top of the section, and a card gets read on
+// its own the moment anybody screenshots one or lands on it from a search
+// result. Do not "tidy" the flag away because the heading already says it.
 
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
@@ -153,8 +170,19 @@ const future = (d) => !d || d >= TODAY;
 const sets = (doc.sets || []).filter((s) => future(s.date)).sort((a, b) => String(a.date).localeCompare(String(b.date)));
 const extras = (doc.products || []).filter((p) => future(p.date)).sort((a, b) => String(a.date).localeCompare(String(b.date)));
 
+// Japanese releases, held apart from the two English lists on purpose. Same
+// `future` filter, so Storm Emeralda and the MEGA Starter Set ex Decks (both
+// 31 July 2026) fall off exactly as an English entry would.
+const japan = doc.japan || {};
+const jpSets = (japan.releases || [])
+  .filter((r) => future(r.date))
+  .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+
 const dropped =
-  (doc.sets || []).length - sets.length + ((doc.products || []).length - extras.length);
+  (doc.sets || []).length -
+  sets.length +
+  ((doc.products || []).length - extras.length) +
+  ((japan.releases || []).length - jpSets.length);
 
 const badge = (c) =>
   ({
@@ -237,6 +265,25 @@ const extraCard = (p) => `      <li class="up-extra" data-date="${esc(p.date || 
           .join(" &bull; ")}</p>
       </li>`;
 
+// A Japanese release. Same card as extraCard, plus the flag and the badge.
+//
+// THE FLAG IS ON THE CARD AND NOT ONLY ON THE SECTION, for the reason argued in
+// the header: a heading is read once and a card is read wherever it is found.
+// It comes FIRST in the date line, before the date itself, so the qualifier is
+// read before the thing it qualifies rather than after it.
+//
+// Prices are printed exactly as the data holds them, in yen with a yen sign,
+// and no conversion is done. A dollar figure here would be a rate on the day
+// somebody typed it, frozen into a static file, on a page whose entire job is
+// not printing numbers that quietly stop being true.
+const japanCard = (r) => `      <li class="up-extra up-jp" data-date="${esc(r.date || "")}">
+        <p class="up-when"><span class="up-jp-flag">Japan only</span>
+          <b>${longDate(r.date)}</b> <span class="up-cd">${countdown(r.date)}</span></p>
+        <h3>${esc(r.name)}</h3>
+        <p class="up-blurb">${esc(r.blurb)}</p>
+        ${r.price ? `<p class="up-meta">${esc(r.price)}</p>` : ""}
+      </li>`;
+
 const style = `
 .up{padding:var(--s7) 0 var(--s5)}
 .up-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:42em;margin-bottom:var(--s5)}
@@ -289,6 +336,52 @@ const style = `
   padding:var(--s5);box-shadow:var(--lift)}
 .up-extra h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:var(--s2)}
 .up-extra .up-blurb{font-size:var(--t-sm);margin-bottom:var(--s2)}
+
+/* The Japanese calendar. Its own section, its own lede, and a flag on every
+   card; the header of this file argues why the card-level flag is not redundant
+   with the heading sitting above it.
+
+   PINK, NOT TEAL, AND THAT IS THE ACCENT RULE RATHER THAN TASTE. Teal is how
+   you get around this site and pink is what the site is SAYING, so a flag that
+   goes nowhere is pink, exactly like the NEW and #1 HIT flags. It is the SMALL
+   pink, --ketchup-deep, because this chip is var(--t-micro) and nowhere near
+   the 24px at which #E87EA1's 3.45:1 would be allowed to stand. ui.css has
+   already measured the pair beside its own token: --ketchup-deep is 6.25:1 on
+   --page, so the chip clears AA on the well it sits in, and --page inside a
+   --card is the documented inset rather than a lighter surface.
+
+   .up-when goes flex here because the line now carries three things. It was a
+   plain block with two, and at 390 the flag and the date collided in the same
+   way .up-key's label and badge did before that rule was written. */
+/* WIDER TRACKS THAN .up-extras, AND THE REASON IS THE NAMES RATHER THAN THE
+   COUNT. The English extras are called things like "Mini Portfolio" and
+   "Ascended Heroes Tin" and sit happily in a 266px card. A Japanese product is
+   named after everything in it: "Special Deck Set, Mega Feraligatr ex, Mega
+   Dragonite ex and Mega Gengar ex" took FOUR display lines of heading in a
+   266px track at 1440, measured, which is a heading taller than some of the
+   blurbs under it.
+
+   min(400px,100%) AND NOT A BARE 400px. minmax(400px,1fr) makes the track floor
+   400 even when the wrap is 342 at 390, so the grid hangs off the right edge on
+   the narrowest phone. The min() clamps the floor to the space that exists.
+
+   IT ALSO HAPPENS TO FILL EVENLY TODAY AND THAT IS A COINCIDENCE, NOT THE
+   POINT. 1,392px of content at a 16px gap gives three tracks, and there are six
+   Japanese releases, so it lands 3x2 with no hole. A seventh entry makes the
+   last row ragged again, exactly like every other grid on this site. Do not
+   re-tune this number to keep the last row full: that is fitting the layout to
+   whatever the data happens to hold this week. */
+.up-jp-grid{grid-template-columns:repeat(auto-fill,minmax(min(400px,100%),1fr))}
+.up-jp-lede{color:var(--ink-2);max-width:46em;margin-bottom:var(--s4)}
+.up-jp .up-when{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+.up-jp-flag{flex:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;
+  text-transform:uppercase;padding:4px 8px;border-radius:var(--r-pill);
+  background:var(--page);color:var(--ketchup-deep);border:1px solid var(--ketchup-deep)}
+/* Mono at var(--t-micro), so it is the .up-foot case and NOT the .up-lede one:
+   it is deliberately absent from the measure block at the foot of this file.
+   Read that block's comment before "fixing" this width. */
+.up-jp-src{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
+  margin-top:var(--s4);max-width:56em}
 
 /* Live preorder prices, product photos and revealed cards. */
 .po-wrap{margin-top:var(--s4);border-top:1px solid var(--hair);padding-top:var(--s4)}
@@ -361,7 +454,7 @@ const style = `
    the foot of build-rarity.mjs, .rg-foot, was left alone for the same reason.
    Measured, 1440x900, 16 August 2026. */
 @media(min-width:1000px){
-.up-lede,.up-blurb{max-width:var(--measure)}
+.up-lede,.up-blurb,.up-jp-lede{max-width:var(--measure)}
 }
 `;
 
@@ -387,7 +480,20 @@ const emptyState = `      <div class="up-none" id="upNone"${sets.length || extra
           something.</p>
         <p>In the meantime: <a href="/sets/">the set guides</a> cover what is already out,
           <a href="/drops.html">drops</a> is where stock is expected to turn up, and
-          <a href="/pack-prices.html">pack prices</a> is what a pack costs before anyone marks it up.</p>
+          <a href="/pack-prices.html">pack prices</a> is what a pack costs before anyone marks it up.</p>${
+          // THIS BOX IS ABOUT THE ENGLISH LISTS AND SAYS SO. It is shown when
+          // the two English arrays are both empty, and the Japanese list is
+          // neither of those, so it can quite correctly appear above a Japanese
+          // section that still has entries on it. Without this line that reads
+          // as a contradiction: a heading saying nothing is on the calendar,
+          // directly above a calendar. It is not a contradiction, it is the
+          // page being precise about which calendar it means, so it says which.
+          jpSets.length
+            ? `
+        <p>Japan is a separate calendar and it is <a href="#upJapanBand">still filling</a>: those
+          dates are Japanese releases, not English ones.</p>`
+            : ""
+        }
       </div>`;
 
 const body = `
@@ -432,12 +538,39 @@ ${extras.map(extraCard).join("\n")}
       : ""
   }
 
+  ${
+    jpSets.length
+      ? `<section class="band tight" id="upJapanBand">
+    <div class="wrap">
+      <h2>Out in <span class="hl">Japan first</span></h2>
+      <p class="up-jp-lede">Japan gets most of this months before we do, and we collect the Japanese
+        cards too, so here is Japan's own calendar. <b>Every date in this section is a Japanese
+        release date.</b> None of them is the English street date, and a Japanese set is not simply
+        the English set early: Delta Reign above is being built out of more than one Japanese
+        release, so the two calendars do not line up card for card either. The English dates are the
+        two sections above this one.</p>
+      <ul class="up-extras up-jp-grid" id="upJapan">
+${jpSets.map(japanCard).join("\n")}
+      </ul>
+      <p class="up-jp-src">JAPANESE DATES AND PRICES REPORTED BY POKEBEACH, READ ${esc(
+        longDate(japan.checked || doc.checked).toUpperCase()
+      )}. PRICES ARE IN YEN AND ARE NOT CONVERTED: A DOLLAR FIGURE HERE WOULD BE THE EXCHANGE RATE ON
+        THE DAY IT WAS TYPED, FROZEN INTO THE PAGE.</p>
+    </div>
+  </section>`
+      : ""
+  }
+
   <section class="tight">
     <div class="wrap">
       <p class="up-foot">CHECKED ${esc(longDate(doc.checked).toUpperCase())}. NOTHING BEYOND THE SETS
         ABOVE HAS BEEN ANNOUNCED: NO ENGLISH SET AFTER THEM HAS BEEN NAMED OR DATED, SO THIS PAGE
         DOES NOT LIST ONE. JAPANESE SETS OFTEN COME OUT MONTHS EARLIER AND ARE NOT THE SAME RELEASE,
-        SO THEY ARE NOT ON HERE EITHER. DATES SLIP. IF YOU SPOT ONE THAT HAS CHANGED, SAY SO ON ANY
+        SO THEY ${
+          jpSets.length
+            ? "GET THEIR OWN SECTION ABOVE AND ARE NEVER MIXED INTO THE ENGLISH LISTS"
+            : "ARE NOT ON HERE EITHER"
+        }. DATES SLIP. IF YOU SPOT ONE THAT HAS CHANGED, SAY SO ON ANY
         OF THE SOCIALS AND IT GETS FIXED.</p>
     </div>
   </section>
@@ -566,8 +699,16 @@ ${footer(`Release dates checked ${longDate(doc.checked)}. Dates come from The Po
   }
 
   var dated = 0, out = 0;
-  [list, document.getElementById("upExtras")].forEach(function (box) {
+  // THE JAPANESE BOX IS SWEPT LIKE THE OTHER TWO AND COUNTED LIKE NEITHER.
+  // Its countdowns and its already-out marking have to be redone on the
+  // reader's clock for exactly the same reason the English ones do. But dated
+  // and out feed the empty state, and that box speaks about the ENGLISH lists
+  // in its own words: counting Japanese rows into the tally would hold "nothing
+  // on the calendar" back until Japan had run dry too, which is a different
+  // claim from the one the box actually makes.
+  [list, document.getElementById("upExtras"), document.getElementById("upJapan")].forEach(function (box, i) {
     if (!box) return;
+    var counts = i < 2;
     var past = [];
     [].slice.call(box.querySelectorAll("[data-date]")).forEach(function (card) {
       var iso = card.getAttribute("data-date");
@@ -578,12 +719,12 @@ ${footer(`Release dates checked ${longDate(doc.checked)}. Dates come from The Po
       // all, silently, on a page that looked fine because the server render is
       // meant to look fine.
       if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(iso)) return;
-      dated++;
+      if (counts) dated++;
       var days = Math.round((localDay(iso) - t0) / 86400000);
       var cd = card.querySelector(".up-cd");
       if (cd) cd.textContent = countdown(days);
       if (days > 0) return;
-      out++;
+      if (counts) out++;
       // Marked, and moved to the end of its own list. Leaving it in date order
       // at the top puts the one thing that is not coming next in the position
       // reserved for what is.
@@ -610,6 +751,7 @@ await writeFile(join(ROOT, "public/upcoming.html"), html);
 
 console.log(`Wrote public/upcoming.html
   ${sets.length} upcoming set(s), ${extras.length} other product(s)
+  ${jpSets.length} Japanese release(s), in their own labeled section
   ${dropped} entr(y/ies) already released and filtered out
   next up: ${nextUp ? `${nextUp.name}, ${longDate(nextUp.date)} (${countdown(nextUp.date)})` : "nothing"}`);
 if (!sets.length && !extras.length) {

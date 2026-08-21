@@ -370,11 +370,24 @@ const ld = [
 // The page was 377,322 / 42,582 before this pass, so it gives back 2,243
 // gzipped bytes and the two rules below are free.
 //
-// IT STRIPS THIS BLOCK AND NOT EVO_CSS, which is imported from
-// shared/evolution.mjs and is also emitted here. That file is shared with the
-// species pages and this pass does not own it; stripping it at emit time would
-// work and would save more, but it would claim a saving on somebody else's
-// code. If a later pass wants it, the change is miniCSS(EVO_CSS + style).
+// IT NOW STRIPS EVO_CSS TOO, which is what the previous note here asked a
+// later pass to do. EVO_CSS is imported from shared/evolution.mjs and emitted
+// into this page's style block, and it was shipping its six comment blocks to
+// every reader of the only two pages that carry it.
+//
+// STRIPPED AT EMIT, NOT AT EXPORT, and that is the whole design of it. Those
+// comments are the argument for why the chain turns where it turns; they
+// belong in the source file where somebody editing the chain will read them.
+// Making shared/evolution.mjs export a pre-stripped string would delete them
+// from the only place they are useful in order to save bytes in a place this
+// line already saves them.
+//
+// SAFE ON THIS INPUT, CHECKED RATHER THAN ASSUMED. The regex below is a
+// comment stripper, not a CSS parser, so it would eat a "/*" that appeared
+// inside a quoted value. EVO_CSS has no content: declarations at all and
+// neither string in either block contains one, so there is nothing for it to
+// get wrong here. Anything added later that puts CSS syntax inside a quoted
+// string has to be checked against this line.
 const miniCSS = (css) =>
   css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/[ \t]*\n[ \t\n]*/g, "\n").trim();
 
@@ -754,7 +767,7 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
-<style>${EVO_CSS}${miniCSS(style)}</style>
+<style>${miniCSS(EVO_CSS + style)}</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>

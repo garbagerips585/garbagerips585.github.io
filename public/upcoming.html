@@ -78,6 +78,52 @@
 .up-extra h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:var(--s2)}
 .up-extra .up-blurb{font-size:var(--t-sm);margin-bottom:var(--s2)}
 
+/* The Japanese calendar. Its own section, its own lede, and a flag on every
+   card; the header of this file argues why the card-level flag is not redundant
+   with the heading sitting above it.
+
+   PINK, NOT TEAL, AND THAT IS THE ACCENT RULE RATHER THAN TASTE. Teal is how
+   you get around this site and pink is what the site is SAYING, so a flag that
+   goes nowhere is pink, exactly like the NEW and #1 HIT flags. It is the SMALL
+   pink, --ketchup-deep, because this chip is var(--t-micro) and nowhere near
+   the 24px at which #E87EA1's 3.45:1 would be allowed to stand. ui.css has
+   already measured the pair beside its own token: --ketchup-deep is 6.25:1 on
+   --page, so the chip clears AA on the well it sits in, and --page inside a
+   --card is the documented inset rather than a lighter surface.
+
+   .up-when goes flex here because the line now carries three things. It was a
+   plain block with two, and at 390 the flag and the date collided in the same
+   way .up-key's label and badge did before that rule was written. */
+/* WIDER TRACKS THAN .up-extras, AND THE REASON IS THE NAMES RATHER THAN THE
+   COUNT. The English extras are called things like "Mini Portfolio" and
+   "Ascended Heroes Tin" and sit happily in a 266px card. A Japanese product is
+   named after everything in it: "Special Deck Set, Mega Feraligatr ex, Mega
+   Dragonite ex and Mega Gengar ex" took FOUR display lines of heading in a
+   266px track at 1440, measured, which is a heading taller than some of the
+   blurbs under it.
+
+   min(400px,100%) AND NOT A BARE 400px. minmax(400px,1fr) makes the track floor
+   400 even when the wrap is 342 at 390, so the grid hangs off the right edge on
+   the narrowest phone. The min() clamps the floor to the space that exists.
+
+   IT ALSO HAPPENS TO FILL EVENLY TODAY AND THAT IS A COINCIDENCE, NOT THE
+   POINT. 1,392px of content at a 16px gap gives three tracks, and there are six
+   Japanese releases, so it lands 3x2 with no hole. A seventh entry makes the
+   last row ragged again, exactly like every other grid on this site. Do not
+   re-tune this number to keep the last row full: that is fitting the layout to
+   whatever the data happens to hold this week. */
+.up-jp-grid{grid-template-columns:repeat(auto-fill,minmax(min(400px,100%),1fr))}
+.up-jp-lede{color:var(--ink-2);max-width:46em;margin-bottom:var(--s4)}
+.up-jp .up-when{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+.up-jp-flag{flex:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;
+  text-transform:uppercase;padding:4px 8px;border-radius:var(--r-pill);
+  background:var(--page);color:var(--ketchup-deep);border:1px solid var(--ketchup-deep)}
+/* Mono at var(--t-micro), so it is the .up-foot case and NOT the .up-lede one:
+   it is deliberately absent from the measure block at the foot of this file.
+   Read that block's comment before "fixing" this width. */
+.up-jp-src{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
+  margin-top:var(--s4);max-width:56em}
+
 /* Live preorder prices, product photos and revealed cards. */
 .po-wrap{margin-top:var(--s4);border-top:1px solid var(--hair);padding-top:var(--s4)}
 .po-count{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);letter-spacing:.04em;
@@ -149,7 +195,7 @@
    the foot of build-rarity.mjs, .rg-foot, was left alone for the same reason.
    Measured, 1440x900, 16 August 2026. */
 @media(min-width:1000px){
-.up-lede,.up-blurb{max-width:var(--measure)}
+.up-lede,.up-blurb,.up-jp-lede{max-width:var(--measure)}
 }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Coming next"}]}</script>
@@ -294,7 +340,7 @@
         <span><span class="up-tag exp">Not announced</span> what the last set had, not an announcement</span>
       </div>
 
-      <div class="up-list" id="upList" data-today="2026-08-20">
+      <div class="up-list" id="upList" data-today="2026-08-21">
       <article class="up-set" data-date="2026-09-16">
         <div class="up-head">
           <div>
@@ -475,7 +521,7 @@
         <p class="po-src">Preorder prices and photos from TCGplayer, read August 16, 2026. Not affiliate links.</p>
       </div>
         <details class="up-products" open>
-          <summary>What you can buy <span>14</span></summary>
+          <summary>What you can buy <span>15</span></summary>
           <ul>
           <li>
             <span class="up-p">Elite Trainer Box</span>
@@ -498,19 +544,25 @@
           <li>
             <span class="up-p">Poster Collection</span>
             <span class="up-meta">3 packs &bull; $14.99 &bull; September 16, 2026</span>
-            <span class="up-note">Articuno, Zapdos and Moltres full arts plus a 160 card wall poster</span>
+            <span class="up-note">Articuno, Zapdos and Moltres foil promos, plus a wall poster showing over 160 cards</span>
             
           </li>
           <li>
             <span class="up-p">Tech Sticker Collection</span>
             <span class="up-meta">3 packs &bull; $14.99 &bull; September 16, 2026</span>
-            
+            <span class="up-note">An Alolan Exeggutor or Lucario foil promo and a sticker sheet</span>
             
           </li>
           <li>
             <span class="up-p">Knock Out Collection</span>
             <span class="up-meta">2 packs &bull; $9.99 &bull; September 16, 2026</span>
+            <span class="up-note">A foil Eevee and a plastic coin</span>
             
+          </li>
+          <li>
+            <span class="up-p">2 Pack Blister</span>
+            <span class="up-meta">2 packs &bull; September 16, 2026</span>
+            <span class="up-note">A foil Eevee and a plastic coin, the same contents the Knock Out Collection lists. They are two separate products and the showcase describes them the same way.</span>
             
           </li>
           <li>
@@ -522,13 +574,13 @@
           <li>
             <span class="up-p">Binder Collection</span>
             <span class="up-meta">5 packs &bull; October 2, 2026</span>
-            
+            <span class="up-note">A nine pocket binder in the anniversary design</span>
             
           </li>
           <li>
             <span class="up-p">Mini Tins</span>
             <span class="up-meta">2 packs &bull; October 2, 2026</span>
-            <span class="up-note">10 artworks, day and night variants</span>
+            <span class="up-note">Ten art cards that together make two pictures, one day and one night</span>
             
           </li>
           <li>
@@ -546,7 +598,7 @@
           <li>
             <span class="up-p">Ditto Premium Collection</span>
             <span class="up-meta">8 packs &bull; November 6, 2026</span>
-            
+            <span class="up-note">A Ditto foil promo and an acrylic display</span>
             
           </li>
           <li>
@@ -574,44 +626,68 @@
           </div>
           <span class="up-tag ok">Confirmed date</span>
         </div>
-        <p class="up-blurb">The next Mega Evolution set, teased by The Pokemon Company in June. Mega Rayquaza ex comes back to the TCG, with Hoenn flavor running through it.</p>
-        <ul class="up-hi"><li>Mega Rayquaza ex returns, as a Double Rare</li><li>Paired Stadium cards: one artwork split across two Stadiums played together</li><li>Mega Golisopod ex, Mega Golurk ex and Mega Malamar ex appear in the Japanese set it comes from</li></ul>
+        <p class="up-blurb">The sixth English Mega Evolution set, headlined by Mega Rayquaza ex coming back to the card game. The Pokemon Company has published the whole card breakdown for this one, which is unusual this far out, and it comes with a new kind of Stadium card that only does anything as a pair.</p>
+        <ul class="up-hi"><li>Over 135 cards, more than 20 of them Trainer cards, and over 35 cards with special illustrations</li><li>Four new Mega Evolution Pokemon ex: Mega Rayquaza ex, Mega Golurk ex, Mega Malamar ex and Mega Golisopod ex</li><li>Split Stadium cards with Legendary in the name. Both halves carry the same name and you need both to play it, so a deck can hold two complete ones at most</li><li>The rest of the breakdown is PokeBeach's rather than The Pokemon Company's: three of those Legendary Stadiums, six Pokemon ex, 14 illustration rares, 17 ultra rares and six special illustration rares</li><li>Prereleases run 24 October to 1 November, going by PokeBeach</li></ul>
         
         <details class="up-products">
-          <summary>What you can buy <span>5</span></summary>
+          <summary>What you can buy <span>9</span></summary>
           <ul>
-          <li>
-            <span class="up-p">Elite Trainer Box</span>
-            <span class="up-meta"></span>
-            
-            <span class="up-tag exp sm">Not announced</span>
-          </li>
           <li>
             <span class="up-p">Booster Box</span>
             <span class="up-meta"></span>
+            <span class="up-note">Four pack wraps: Mega Rayquaza, Mega Golisopod, Mega Golurk and Mega Malamar</span>
             
-            <span class="up-tag exp sm">Not announced</span>
           </li>
           <li>
             <span class="up-p">Booster Bundle</span>
             <span class="up-meta"></span>
             
-            <span class="up-tag exp sm">Not announced</span>
+            
+          </li>
+          <li>
+            <span class="up-p">Elite Trainer Box</span>
+            <span class="up-meta"></span>
+            <span class="up-note">The box promo is the Kyogre illustration rare from Japan's Storm Emeralda, cut from the English set and moved here</span>
+            
+          </li>
+          <li>
+            <span class="up-p">Pokemon Center Elite Trainer Box</span>
+            <span class="up-meta"></span>
+            <span class="up-note">Pokemon Center exclusive. A stamped version of the Kyogre promo has been shown as well</span>
+            
           </li>
           <li>
             <span class="up-p">Build and Battle Box</span>
             <span class="up-meta"></span>
             
-            <span class="up-tag exp sm">Not announced</span>
+            
           </li>
           <li>
-            <span class="up-p">3 Pack Blister</span>
+            <span class="up-p">Seel Blister</span>
             <span class="up-meta"></span>
             
-            <span class="up-tag exp sm">Not announced</span>
+            
+          </li>
+          <li>
+            <span class="up-p">Spritzee Checklane Blister</span>
+            <span class="up-meta"></span>
+            
+            
+          </li>
+          <li>
+            <span class="up-p">Premium Checklane Blister, Ampharos or Delphox</span>
+            <span class="up-meta"></span>
+            
+            
+          </li>
+          <li>
+            <span class="up-p">Target Checklane Blister, Xerneas and Deoxys or Keldeo and Delibird</span>
+            <span class="up-meta"></span>
+            <span class="up-note">Target exclusive</span>
+            
           </li>
           </ul>
-          <p class="up-warn">No product lineup has been announced. These are what every Mega Evolution set has had so far, which is a fair guess and not a fact.</p>
+          <p class="up-warn">Every product here has been shown in official artwork, published by PokeBeach on 20 August 2026, so this is a real lineup rather than a guess at one. The Pokemon Company has still not put out a product page for the set, which is why not one of these carries a price or a date of its own here: none has been announced. If a shop quotes you a price for one, that is the shop's number and not a retail price.</p>
           
         </details>
       </article>
@@ -625,6 +701,8 @@
         <p>In the meantime: <a href="/sets/">the set guides</a> cover what is already out,
           <a href="/drops.html">drops</a> is where stock is expected to turn up, and
           <a href="/pack-prices.html">pack prices</a> is what a pack costs before anyone marks it up.</p>
+        <p>Japan is a separate calendar and it is <a href="#upJapanBand">still filling</a>: those
+          dates are Japanese releases, not English ones.</p>
       </div>
     </div>
   </section>
@@ -636,7 +714,7 @@
         full expansions but are worth knowing about.</p>
       <ul class="up-extras" id="upExtras">
       <li class="up-extra" data-date="2026-08-28">
-        <p class="up-when"><b>August 28, 2026</b> <span class="up-cd">in 8 days</span></p>
+        <p class="up-when"><b>August 28, 2026</b> <span class="up-cd">in 7 days</span></p>
         <h3>Ascended Heroes Tin</h3>
         <p class="up-blurb">Mega Meganium ex, Mega Emboar ex or Mega Feraligatr ex, with four Ascended Heroes packs.</p>
         <p class="up-meta">4 packs</p>
@@ -663,12 +741,70 @@
     </div>
   </section>
 
+  <section class="band tight" id="upJapanBand">
+    <div class="wrap">
+      <h2>Out in <span class="hl">Japan first</span></h2>
+      <p class="up-jp-lede">Japan gets most of this months before we do, and we collect the Japanese
+        cards too, so here is Japan's own calendar. <b>Every date in this section is a Japanese
+        release date.</b> None of them is the English street date, and a Japanese set is not simply
+        the English set early: Delta Reign above is being built out of more than one Japanese
+        release, so the two calendars do not line up card for card either. The English dates are the
+        two sections above this one.</p>
+      <ul class="up-extras up-jp-grid" id="upJapan">
+      <li class="up-extra up-jp" data-date="2026-09-16">
+        <p class="up-when"><span class="up-jp-flag">Japan only</span>
+          <b>September 16, 2026</b> <span class="up-cd">in 4 weeks</span></p>
+        <h3>30th Celebration</h3>
+        <p class="up-blurb">The one date on this list that is not early. 30th Celebration launches worldwide on the same day, so Japan and the English release are both 16 September.</p>
+        
+      </li>
+      <li class="up-extra up-jp" data-date="2026-09-16">
+        <p class="up-when"><span class="up-jp-flag">Japan only</span>
+          <b>September 16, 2026</b> <span class="up-cd">in 4 weeks</span></p>
+        <h3>30th Celebration Premium Deck Set, Espeon and Umbreon</h3>
+        <p class="up-blurb">Two 60 card decks, built around a special illustration rare Espeon ex or Umbreon ex. Illustration rares of Zeraora and Victini are in there too.</p>
+        <p class="up-meta">¥6,200</p>
+      </li>
+      <li class="up-extra up-jp" data-date="2026-09-16">
+        <p class="up-when"><span class="up-jp-flag">Japan only</span>
+          <b>September 16, 2026</b> <span class="up-cd">in 4 weeks</span></p>
+        <h3>30th Celebration Futuristic Box</h3>
+        <p class="up-blurb">Japan only, and the expensive one. Two Pikachu ex Futuristic rare promos, one day themed and one night themed, with a pile of premium accessories.</p>
+        <p class="up-meta">¥27,500</p>
+      </li>
+      <li class="up-extra up-jp" data-date="2026-10-16">
+        <p class="up-when"><span class="up-jp-flag">Japan only</span>
+          <b>October 16, 2026</b> <span class="up-cd">in 8 weeks</span></p>
+        <h3>Nine 30th Celebration Card Sets</h3>
+        <p class="up-blurb">The 27 starter Pokemon promos that English speakers got in the First Partner Collections, split across nine card sets.</p>
+        
+      </li>
+      <li class="up-extra up-jp" data-date="2026-11-13">
+        <p class="up-when"><span class="up-jp-flag">Japan only</span>
+          <b>November 13, 2026</b> <span class="up-cd">in 3 months</span></p>
+        <h3>Special Deck Set, Mega Feraligatr ex, Mega Dragonite ex and Mega Gengar ex</h3>
+        <p class="up-blurb">Three decks in one box. English collectors already have alternate art Mega Feraligatr ex and Mega Gengar ex from the Ascended Heroes box and the Mega Moonlight tins.</p>
+        <p class="up-meta">¥5,500</p>
+      </li>
+      <li class="up-extra up-jp" data-date="2026-11-27">
+        <p class="up-when"><span class="up-jp-flag">Japan only</span>
+          <b>November 27, 2026</b> <span class="up-cd">in 3 months</span></p>
+        <h3>Aura Seeker</h3>
+        <p class="up-blurb">Starring Mega Lucario Z ex. No English set has been named for it, and this page will not guess one: Japanese sets do not map one to one onto English ones, which Delta Reign above is the current proof of.</p>
+        
+      </li>
+      </ul>
+      <p class="up-jp-src">JAPANESE DATES AND PRICES REPORTED BY POKEBEACH, READ AUGUST 21, 2026. PRICES ARE IN YEN AND ARE NOT CONVERTED: A DOLLAR FIGURE HERE WOULD BE THE EXCHANGE RATE ON
+        THE DAY IT WAS TYPED, FROZEN INTO THE PAGE.</p>
+    </div>
+  </section>
+
   <section class="tight">
     <div class="wrap">
-      <p class="up-foot">CHECKED AUGUST 12, 2026. NOTHING BEYOND THE SETS
+      <p class="up-foot">CHECKED AUGUST 21, 2026. NOTHING BEYOND THE SETS
         ABOVE HAS BEEN ANNOUNCED: NO ENGLISH SET AFTER THEM HAS BEEN NAMED OR DATED, SO THIS PAGE
         DOES NOT LIST ONE. JAPANESE SETS OFTEN COME OUT MONTHS EARLIER AND ARE NOT THE SAME RELEASE,
-        SO THEY ARE NOT ON HERE EITHER. DATES SLIP. IF YOU SPOT ONE THAT HAS CHANGED, SAY SO ON ANY
+        SO THEY GET THEIR OWN SECTION ABOVE AND ARE NEVER MIXED INTO THE ENGLISH LISTS. DATES SLIP. IF YOU SPOT ONE THAT HAS CHANGED, SAY SO ON ANY
         OF THE SOCIALS AND IT GETS FIXED.</p>
     </div>
   </section>
@@ -769,7 +905,7 @@
     </div>
     <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank" aria-label="See the whole collection on Collectr, opens on their site">See the whole collection on Collectr &rarr;</a></p>
     <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
-    Release dates checked August 12, 2026. Dates come from The Pokemon Company unless marked otherwise.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+    Release dates checked August 21, 2026. Dates come from The Pokemon Company unless marked otherwise.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
 <script>
@@ -826,8 +962,16 @@
   }
 
   var dated = 0, out = 0;
-  [list, document.getElementById("upExtras")].forEach(function (box) {
+  // THE JAPANESE BOX IS SWEPT LIKE THE OTHER TWO AND COUNTED LIKE NEITHER.
+  // Its countdowns and its already-out marking have to be redone on the
+  // reader's clock for exactly the same reason the English ones do. But dated
+  // and out feed the empty state, and that box speaks about the ENGLISH lists
+  // in its own words: counting Japanese rows into the tally would hold "nothing
+  // on the calendar" back until Japan had run dry too, which is a different
+  // claim from the one the box actually makes.
+  [list, document.getElementById("upExtras"), document.getElementById("upJapan")].forEach(function (box, i) {
     if (!box) return;
+    var counts = i < 2;
     var past = [];
     [].slice.call(box.querySelectorAll("[data-date]")).forEach(function (card) {
       var iso = card.getAttribute("data-date");
@@ -838,12 +982,12 @@
       // all, silently, on a page that looked fine because the server render is
       // meant to look fine.
       if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return;
-      dated++;
+      if (counts) dated++;
       var days = Math.round((localDay(iso) - t0) / 86400000);
       var cd = card.querySelector(".up-cd");
       if (cd) cd.textContent = countdown(days);
       if (days > 0) return;
-      out++;
+      if (counts) out++;
       // Marked, and moved to the end of its own list. Leaving it in date order
       // at the top puts the one thing that is not coming next in the position
       // reserved for what is.

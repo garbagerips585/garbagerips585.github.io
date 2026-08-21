@@ -525,6 +525,30 @@ const ld = [
   },
 ];
 
+/* THE PAGE'S CSS, WITH ITS COMMENTS STRIPPED ON THE WAY OUT.
+ *
+ * The same four-line helper twenty-two other builders on this site carry,
+ * copied rather than shared because that is how the other twenty-two do it and
+ * one file inventing a different arrangement is worse than the duplication.
+ *
+ * THIS BUILDER HAD NO STRIP AT ALL, which is why it is worth a note. It emits
+ * two style blocks -- EVO_CSS from shared/evolution.mjs and the one below --
+ * and until now both shipped raw, comments and indentation and all, to every
+ * reader of this page. That was never a decision; the helper simply was never
+ * added here. /evolution.html carried half the same fault and its note asked a
+ * later pass to finish the job on both.
+ *
+ * STRIPPED AT EMIT, NOT AT EXPORT. EVO_CSS's comments explain why the chain
+ * turns where it turns and belong in the file somebody edits, not in the two
+ * pages that happen to render it.
+ *
+ * It is a comment stripper and not a CSS parser, so a "/*" inside a quoted
+ * value would defeat it. Checked on both blocks: EVO_CSS has no content:
+ * declarations, and this file's only content: is align-content:flex-start.
+ */
+const miniCSS = (css) =>
+  css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/[ \t]*\n[ \t\n]*/g, "\n").trim();
+
 const style = `
 .ee-lede{max-width:46em}
 .ee-fan{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
@@ -656,7 +680,7 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
-<style>${EVO_CSS}${style}</style>
+<style>${miniCSS(EVO_CSS + style)}</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
