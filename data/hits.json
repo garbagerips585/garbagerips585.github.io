@@ -1402,10 +1402,9 @@
     ],
     "5BnjVE-BN70": [
       {
-        "card": "Radiant",
+        "card": "Radiant Charizard Radiant Rare",
         "set": "pokemon-go",
-        "setName": "Pokémon GO",
-        "rarity": "Charizard"
+        "setName": "Pokémon GO"
       }
     ],
     "_ccErXVzURs": [
@@ -1421,6 +1420,78 @@
         "card": "Mewtwo V",
         "set": "pokemon-go",
         "setName": "Pokémon GO"
+      }
+    ],
+    "C4mvo_Justc": [
+      {
+        "card": "Turtwig",
+        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos"
+      },
+      {
+        "card": "Chimchar",
+        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos"
+      },
+      {
+        "card": "Piplup",
+        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos"
+      }
+    ],
+    "qlu2os83uos": [
+      {
+        "card": "Premium Power Pro",
+        "set": "mega-evolution",
+        "setName": "Mega Evolution",
+        "rarity": "Ultra Rare"
+      }
+    ],
+    "mDDuc-YDvbw": [
+      {
+        "card": "Mega Clefable ex",
+        "set": "perfect-order",
+        "setName": "Perfect Order",
+        "rarity": "Ultra Rare"
+      }
+    ],
+    "JVrd7EVB2_8": [
+      {
+        "card": "Rowlet",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
+      },
+      {
+        "card": "Litten",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
+      },
+      {
+        "card": "Popplio",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
+      },
+      {
+        "card": "Dewgong",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames",
+        "rarity": "Illustration Rare"
+      }
+    ],
+    "yjBNG5dvopc": [
+      {
+        "card": "Melmetal V",
+        "set": "pokemon-go",
+        "setName": "Pokémon GO"
+      }
+    ],
+    "tKOXv-qSYTo": [
+      {
+        "card": "ite V",
+        "set": "dragon",
+        "setName": "Dragon"
+      }
+    ],
+    "IcQFu0SaoH4": [
+      {
+        "card": "Drakloak",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes",
+        "rarity": "Illustration Rare"
       }
     ]
   }

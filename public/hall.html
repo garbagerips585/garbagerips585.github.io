@@ -264,11 +264,11 @@ main{padding-top:0}
 @media(max-width:620px){.chof-list{gap:var(--s4)}
 .chof-list{grid-template-columns:repeat(1,1fr)}}
 @media(min-width:621px) and (max-width:1080px){
-.chof-list{grid-template-columns:repeat(2,1fr)}}
+.chof-list{grid-template-columns:repeat(2,1fr)}
+.chof-list>li:nth-last-child(-n+1){grid-column:span 2}}
 @media(min-width:1081px){
-.chof-list{grid-template-columns:repeat(6,1fr)}
-.chof-list>li{grid-column:span 2}
-.chof-list>li:nth-last-child(-n+2){grid-column:span 3}}
+.chof-list{grid-template-columns:repeat(3,1fr)}
+.chof-list>li:nth-last-child(-n+1){grid-column:span 3}}
 .chof{position:relative;display:flex;gap:var(--s4);align-items:flex-start;
   background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);
   border-radius:14px;padding:var(--s4);transition:border-color .15s,transform .15s}
@@ -542,11 +542,11 @@ main{padding-top:0}
       
       <h1>Our best Pokemon <span class="hl">pulls</span></h1>
       
-      <p>The cards that have come out of a pack on this channel, ranked by their PSA 10 price where we have one and by their raw price where we do not. Tap a card to see it full size. Nothing here was hand picked, and it is one plaque per printing: the rip log records 183 cards, 32 of them a printing already on this page, pulled again, and 11 carrying a name no catalog we hold can match, which leaves the 140 below.</p>
+      <p>The cards that have come out of a pack on this channel, ranked by their PSA 10 price where we have one and by their raw price where we do not. Tap a card to see it full size. Nothing here was hand picked, and it is one plaque per printing: the rip log records 195 cards, 39 of them a printing already on this page, pulled again, and 11 carrying a name no catalog we hold can match, which leaves the 145 below.</p>
       <div class="chof-tally">
-        <div><b>140</b><span>Printings of 183 pulls</span></div>
-        <div><b>$741</b><span>Raw on 122 of 140</span></div>
-        <div><b>$2,727</b><span>PSA 10 on 21 of 140</span></div>
+        <div><b>145</b><span>Printings of 195 pulls</span></div>
+        <div><b>$755</b><span>Raw on 126 of 145</span></div>
+        <div><b>$2,727</b><span>PSA 10 on 21 of 145</span></div>
       </div>
     </div>
 
@@ -1313,6 +1313,29 @@ main{padding-top:0}
       <li class="chof">
         <span class="chof-rank">34</span>
         <button class="chof-art" type="button"
+          data-img="https://assets.tcgdex.net/en/me/me02.5/248/high.webp" data-name="Drakloak"
+          data-set="Ascended Heroes" data-rarity="Illustration Rare"
+          data-number="248" data-url="https://www.tcgplayer.com/product/676060"
+          data-raw="$5.95"
+          data-psa=""
+          aria-label="Enlarge Drakloak"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/248/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/248/low.webp" alt="Drakloak Illustration Rare from Pokemon Ascended Heroes" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        
+        <div class="chof-body">
+          <b class="chof-name">Drakloak</b>
+          <span class="chof-set">Ascended Heroes &bull; #248</span>
+          <span class="chof-rar">Illustration Rare</span>
+          <dl class="chof-prices">
+            <div><dt>Raw NM</dt><dd>$5.95</dd></div>
+            <div class="psa"><dt>PSA 10</dt><dd><span class="none" aria-hidden="true">&mdash;</span><span class="sr-only">No PSA 10 price for this printing</span></dd></div>
+          </dl>
+          
+          
+          <a class="chof-see" href="/rip/ascended-heroes-etb-pack-5-halfway-through-the-box-IcQFu0SaoH4.html"><span>See it pulled</span>Ascended Heroes ETB Pack #5 ⚡ | Halfway Through The Box</a>
+        </div>
+      </li>
+      <li class="chof">
+        <span class="chof-rank">35</span>
+        <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/103/high.webp" data-name="Mega Clefable ex"
           data-set="Perfect Order" data-rarity="Ultra Rare"
           data-number="103" data-url="https://www.tcgplayer.com/product/684384"
@@ -1334,7 +1357,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">35</span>
+        <span class="chof-rank">36</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/swsh/swsh10.5/030/high.webp" data-name="Mewtwo V"
           data-set="Pokémon GO" data-rarity="Holo Rare V"
@@ -1357,7 +1380,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">36</span>
+        <span class="chof-rank">37</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me05/097/high.webp" data-name="Wailord ex"
           data-set="Pitch Black" data-rarity="Ultra Rare"
@@ -1380,7 +1403,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">37</span>
+        <span class="chof-rank">38</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me01/159/high.webp" data-name="Mega Gardevoir ex"
           data-set="Mega Evolution" data-rarity="Ultra Rare"
@@ -1403,7 +1426,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">38</span>
+        <span class="chof-rank">39</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/093/high.webp" data-name="Dedenne"
           data-set="Perfect Order" data-rarity="Illustration Rare"
@@ -1426,7 +1449,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">39</span>
+        <span class="chof-rank">40</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10/209/high.webp" data-name="Ethan's Ho-Oh ex"
           data-set="Destined Rivals" data-rarity="Ultra Rare"
@@ -1449,7 +1472,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">40</span>
+        <span class="chof-rank">41</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/106/high.webp" data-name="Mega Skarmory ex"
           data-set="Perfect Order" data-rarity="Ultra Rare"
@@ -1472,7 +1495,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">41</span>
+        <span class="chof-rank">42</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me01/151/high.webp" data-name="Spearow"
           data-set="Mega Evolution" data-rarity="Illustration Rare"
@@ -1495,7 +1518,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">42</span>
+        <span class="chof-rank">43</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/152/high.webp" data-name="Mega Dragonite ex"
           data-set="Ascended Heroes" data-rarity="Double Rare"
@@ -1518,7 +1541,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">43</span>
+        <span class="chof-rank">44</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me05/094/high.webp" data-name="Toucannon"
           data-set="Pitch Black" data-rarity="Illustration Rare"
@@ -1541,7 +1564,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">44</span>
+        <span class="chof-rank">45</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/249/high.webp" data-name="Larry's Staraptor"
           data-set="Ascended Heroes" data-rarity="Illustration Rare"
@@ -1564,7 +1587,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">45</span>
+        <span class="chof-rank">46</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/101/high.webp" data-name="Mega Floette ex"
           data-set="Chaos Rising" data-rarity="Ultra Rare"
@@ -1587,7 +1610,30 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">46</span>
+        <span class="chof-rank">47</span>
+        <button class="chof-art" type="button"
+          data-img="https://assets.tcgdex.net/en/me/me02/097/high.webp" data-name="Dewgong"
+          data-set="Phantasmal Flames" data-rarity="Illustration Rare"
+          data-number="097" data-url="https://www.tcgplayer.com/product/662152"
+          data-raw="$4.05"
+          data-psa=""
+          aria-label="Enlarge Dewgong"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/097/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/097/low.webp" alt="Dewgong Illustration Rare from Pokemon Phantasmal Flames" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        
+        <div class="chof-body">
+          <b class="chof-name">Dewgong</b>
+          <span class="chof-set">Phantasmal Flames &bull; #097</span>
+          <span class="chof-rar">Illustration Rare</span>
+          <dl class="chof-prices">
+            <div><dt>Raw NM</dt><dd>$4.05</dd></div>
+            <div class="psa"><dt>PSA 10</dt><dd><span class="none" aria-hidden="true">&mdash;</span><span class="sr-only">No PSA 10 price for this printing</span></dd></div>
+          </dl>
+          
+          
+          <a class="chof-see" href="/rip/opening-pok-mon-first-partner-illustration-collection-series-JVrd7EVB2_8.html"><span>See it pulled</span>Opening Pokémon First Partner Illustration Collection Series 1 Box #1 🎨</a>
+        </div>
+      </li>
+      <li class="chof">
+        <span class="chof-rank">48</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me05/100/high.webp" data-name="Rampardos ex"
           data-set="Pitch Black" data-rarity="Ultra Rare"
@@ -1610,7 +1656,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">47</span>
+        <span class="chof-rank">49</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08/194/high.webp" data-name="Shiinotic"
           data-set="Surging Sparks" data-rarity="Illustration Rare"
@@ -1633,7 +1679,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">48</span>
+        <span class="chof-rank">50</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/092/high.webp" data-name="Aurorus"
           data-set="Perfect Order" data-rarity="Illustration Rare"
@@ -1656,7 +1702,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">49</span>
+        <span class="chof-rank">51</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10/197/high.webp" data-name="Rotom"
           data-set="Destined Rivals" data-rarity="Illustration Rare"
@@ -1679,7 +1725,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">50</span>
+        <span class="chof-rank">52</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me05/092/high.webp" data-name="Thievul"
           data-set="Pitch Black" data-rarity="Illustration Rare"
@@ -1702,7 +1748,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">51</span>
+        <span class="chof-rank">53</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me05/093/high.webp" data-name="Bastiodon"
           data-set="Pitch Black" data-rarity="Illustration Rare"
@@ -1725,7 +1771,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">52</span>
+        <span class="chof-rank">54</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv09/165/high.webp" data-name="Swinub"
           data-set="Journey Together" data-rarity="Illustration Rare"
@@ -1748,7 +1794,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">53</span>
+        <span class="chof-rank">55</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/230/high.webp" data-name="Vikavolt"
           data-set="Ascended Heroes" data-rarity="Illustration Rare"
@@ -1771,7 +1817,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">54</span>
+        <span class="chof-rank">56</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08.5/012/high.webp" data-name="Teal Mask Ogerpon ex"
           data-set="Prismatic Evolutions" data-rarity="Double Rare"
@@ -1794,7 +1840,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">55</span>
+        <span class="chof-rank">57</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10/186/high.webp" data-name="Crustle"
           data-set="Destined Rivals" data-rarity="Illustration Rare"
@@ -1817,7 +1863,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">56</span>
+        <span class="chof-rank">58</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/swsh/swsh2/36/high.webp" data-name="Cinderace VMAX"
           data-set="Rebel Clash" data-rarity="Holo Rare VMAX"
@@ -1840,7 +1886,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">57</span>
+        <span class="chof-rank">59</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/098/high.webp" data-name="Doublade"
           data-set="Perfect Order" data-rarity="Illustration Rare"
@@ -1863,7 +1909,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">58</span>
+        <span class="chof-rank">60</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/115/high.webp" data-name="Mega Lopunny ex"
           data-set="Phantasmal Flames" data-rarity="Ultra Rare"
@@ -1886,7 +1932,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">59</span>
+        <span class="chof-rank">61</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/108/high.webp" data-name="Energy Recycler"
           data-set="Perfect Order" data-rarity="Ultra Rare"
@@ -1909,7 +1955,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">60</span>
+        <span class="chof-rank">62</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/056/high.webp" data-name="Mega Gengar ex"
           data-set="Phantasmal Flames" data-rarity="Double Rare"
@@ -1932,7 +1978,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">61</span>
+        <span class="chof-rank">63</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/111/high.webp" data-name="Lumiose City"
           data-set="Perfect Order" data-rarity="Ultra Rare"
@@ -1955,7 +2001,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">62</span>
+        <span class="chof-rank">64</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/097/high.webp" data-name="Watchog"
           data-set="Chaos Rising" data-rarity="Illustration Rare"
@@ -1978,7 +2024,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">63</span>
+        <span class="chof-rank">65</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/096/high.webp" data-name="Nymble"
           data-set="Phantasmal Flames" data-rarity="Illustration Rare"
@@ -2001,7 +2047,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">64</span>
+        <span class="chof-rank">66</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me01/165/high.webp" data-name="Acerola's Mischief"
           data-set="Mega Evolution" data-rarity="Ultra Rare"
@@ -2024,7 +2070,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">65</span>
+        <span class="chof-rank">67</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/100/high.webp" data-name="Decidueye ex"
           data-set="Perfect Order" data-rarity="Ultra Rare"
@@ -2047,7 +2093,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">66</span>
+        <span class="chof-rank">68</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/062/high.webp" data-name="Meowth ex"
           data-set="Perfect Order" data-rarity="Double Rare"
@@ -2070,7 +2116,30 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">67</span>
+        <span class="chof-rank">69</span>
+        <button class="chof-art" type="button"
+          data-img="https://assets.tcgdex.net/en/me/me01/174/high.webp" data-name="Premium Power Pro"
+          data-set="Mega Evolution" data-rarity="Ultra Rare"
+          data-number="174" data-url="https://www.tcgplayer.com/product/654513"
+          data-raw="$2.25"
+          data-psa=""
+          aria-label="Enlarge Premium Power Pro"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/174/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/174/low.webp" alt="Premium Power Pro Ultra Rare from Pokemon Mega Evolution" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        
+        <div class="chof-body">
+          <b class="chof-name">Premium Power Pro</b>
+          <span class="chof-set">Mega Evolution &bull; #174</span>
+          <span class="chof-rar">Ultra Rare</span>
+          <dl class="chof-prices">
+            <div><dt>Raw NM</dt><dd>$2.25</dd></div>
+            <div class="psa"><dt>PSA 10</dt><dd><span class="none" aria-hidden="true">&mdash;</span><span class="sr-only">No PSA 10 price for this printing</span></dd></div>
+          </dl>
+          
+          
+          <a class="chof-see" href="/rip/pok-mon-2-pack-blister-vileplume-evolution-promos-qlu2os83uos.html"><span>See it pulled</span>Pokémon 2-Pack Blister 🌸 | Vileplume Evolution Promos</a>
+        </div>
+      </li>
+      <li class="chof">
+        <span class="chof-rank">70</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv09/056/high.webp" data-name="Lillie's Clefairy ex"
           data-set="Journey Together" data-rarity="Double Rare"
@@ -2093,7 +2162,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">68</span>
+        <span class="chof-rank">71</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/115/high.webp" data-name="Sacred Ash"
           data-set="Perfect Order" data-rarity="Ultra Rare"
@@ -2116,7 +2185,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">69</span>
+        <span class="chof-rank">72</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/114/high.webp" data-name="Empoleon ex"
           data-set="Phantasmal Flames" data-rarity="Ultra Rare"
@@ -2139,7 +2208,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">70</span>
+        <span class="chof-rank">73</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv09/098/high.webp" data-name="N's Zoroark ex"
           data-set="Journey Together" data-rarity="Double Rare"
@@ -2162,7 +2231,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">71</span>
+        <span class="chof-rank">74</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08.5/082/high.webp" data-name="Lugia ex"
           data-set="Prismatic Evolutions" data-rarity="Double Rare"
@@ -2185,7 +2254,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">72</span>
+        <span class="chof-rank">75</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/160/high.webp" data-name="Dragapult ex"
           data-set="Ascended Heroes" data-rarity="Double Rare"
@@ -2208,7 +2277,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">73</span>
+        <span class="chof-rank">76</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/135/high.webp" data-name="Mega Scrafty ex"
           data-set="Ascended Heroes" data-rarity="Double Rare"
@@ -2231,7 +2300,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">74</span>
+        <span class="chof-rank">77</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/022/high.webp" data-name="Mega Greninja ex"
           data-set="Chaos Rising" data-rarity="Double Rare"
@@ -2254,7 +2323,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">75</span>
+        <span class="chof-rank">78</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/036/high.webp" data-name="Mismagius ex"
           data-set="Phantasmal Flames" data-rarity="Double Rare"
@@ -2277,7 +2346,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">76</span>
+        <span class="chof-rank">79</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/116/high.webp" data-name="Mega Hawlucha ex"
           data-set="Ascended Heroes" data-rarity="Double Rare"
@@ -2300,7 +2369,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">77</span>
+        <span class="chof-rank">80</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/263/high.webp" data-name="Team Rocket's Transceiver"
           data-set="Ascended Heroes" data-rarity="Ultra Rare"
@@ -2323,7 +2392,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">78</span>
+        <span class="chof-rank">81</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/061/high.webp" data-name="Mega Eelektross ex"
           data-set="Ascended Heroes" data-rarity="Double Rare"
@@ -2346,7 +2415,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">79</span>
+        <span class="chof-rank">82</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me05/065/high.webp" data-name="Mega Excadrill ex"
           data-set="Pitch Black" data-rarity="Double Rare"
@@ -2369,7 +2438,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">80</span>
+        <span class="chof-rank">83</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/164/high.webp" data-name="Larry's Dudunsparce ex"
           data-set="Ascended Heroes" data-rarity="Double Rare"
@@ -2392,7 +2461,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">81</span>
+        <span class="chof-rank">84</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/012/high.webp" data-name="Decidueye ex"
           data-set="Perfect Order" data-rarity="Double Rare"
@@ -2415,7 +2484,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">82</span>
+        <span class="chof-rank">85</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me05/045/high.webp" data-name="Rampardos ex"
           data-set="Pitch Black" data-rarity="Double Rare"
@@ -2438,7 +2507,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">83</span>
+        <span class="chof-rank">86</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/021/high.webp" data-name="Mega Starmie ex"
           data-set="Perfect Order" data-rarity="Double Rare"
@@ -2461,7 +2530,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">84</span>
+        <span class="chof-rank">87</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me05/038/high.webp" data-name="Mega Chandelure ex"
           data-set="Pitch Black" data-rarity="Double Rare"
@@ -2484,7 +2553,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">85</span>
+        <span class="chof-rank">88</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/035/high.webp" data-name="Mega Floette ex"
           data-set="Chaos Rising" data-rarity="Double Rare"
@@ -2507,7 +2576,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">86</span>
+        <span class="chof-rank">89</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10/136/high.webp" data-name="Marnie's Grimmsnarl ex"
           data-set="Destined Rivals" data-rarity="Double Rare"
@@ -2530,7 +2599,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">87</span>
+        <span class="chof-rank">90</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/254/high.webp" data-name="Anthea &amp; Concordia"
           data-set="Ascended Heroes" data-rarity="Ultra Rare"
@@ -2553,7 +2622,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">88</span>
+        <span class="chof-rank">91</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/047/high.webp" data-name="Mega Zygarde ex"
           data-set="Perfect Order" data-rarity="Double Rare"
@@ -2576,7 +2645,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">89</span>
+        <span class="chof-rank">92</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/073/high.webp" data-name="Cinccino ex"
           data-set="Chaos Rising" data-rarity="Double Rare"
@@ -2599,7 +2668,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">90</span>
+        <span class="chof-rank">93</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/003/high.webp" data-name="Beedrill ex"
           data-set="Chaos Rising" data-rarity="Double Rare"
@@ -2622,7 +2691,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">91</span>
+        <span class="chof-rank">94</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/096/high.webp" data-name="Probopass"
           data-set="Perfect Order" data-rarity="Illustration Rare"
@@ -2645,7 +2714,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">92</span>
+        <span class="chof-rank">95</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08.5/064/high.webp" data-name="Tyranitar ex"
           data-set="Prismatic Evolutions" data-rarity="Double Rare"
@@ -2668,7 +2737,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">93</span>
+        <span class="chof-rank">96</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv09/053/high.webp" data-name="Iono's Bellibolt ex"
           data-set="Journey Together" data-rarity="Double Rare"
@@ -2691,7 +2760,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">94</span>
+        <span class="chof-rank">97</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/084/high.webp" data-name="Mega Lopunny ex"
           data-set="Phantasmal Flames" data-rarity="Double Rare"
@@ -2714,7 +2783,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">95</span>
+        <span class="chof-rank">98</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10.5b/046/high.webp" data-name="Excadrill ex"
           data-set="Black Bolt" data-rarity="Double Rare"
@@ -2737,7 +2806,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">96</span>
+        <span class="chof-rank">99</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08.5/137/high.webp" data-name="Friends in Paldea"
           data-set="Prismatic Evolutions" data-rarity="Ultra Rare"
@@ -2760,7 +2829,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">97</span>
+        <span class="chof-rank">100</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/258/high.webp" data-name="Cheren"
           data-set="Ascended Heroes" data-rarity="Ultra Rare"
@@ -2783,7 +2852,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">98</span>
+        <span class="chof-rank">101</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me01/003/high.webp" data-name="Mega Venusaur ex"
           data-set="Mega Evolution" data-rarity="Double Rare"
@@ -2806,7 +2875,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">99</span>
+        <span class="chof-rank">102</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/022/high.webp" data-name="Lapras ex"
           data-set="Perfect Order" data-rarity="Double Rare"
@@ -2829,7 +2898,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">100</span>
+        <span class="chof-rank">103</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10/065/high.webp" data-name="Cetitan ex"
           data-set="Destined Rivals" data-rarity="Double Rare"
@@ -2852,7 +2921,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">101</span>
+        <span class="chof-rank">104</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/064/high.webp" data-name="Cobalion ex"
           data-set="Chaos Rising" data-rarity="Double Rare"
@@ -2875,7 +2944,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">102</span>
+        <span class="chof-rank">105</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/065/high.webp" data-name="Mega Dragalge ex"
           data-set="Chaos Rising" data-rarity="Double Rare"
@@ -2898,7 +2967,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">103</span>
+        <span class="chof-rank">106</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/055/high.webp" data-name="Krookodile ex"
           data-set="Chaos Rising" data-rarity="Double Rare"
@@ -2921,7 +2990,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">104</span>
+        <span class="chof-rank">107</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv06/141/high.webp" data-name="Bloodmoon Ursaluna ex"
           data-set="Twilight Masquerade" data-rarity="Double Rare"
@@ -2944,7 +3013,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">105</span>
+        <span class="chof-rank">108</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv09/079/high.webp" data-name="Mamoswine ex"
           data-set="Journey Together" data-rarity="Double Rare"
@@ -2967,7 +3036,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">106</span>
+        <span class="chof-rank">109</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv09/181/high.webp" data-name="Ruffian"
           data-set="Journey Together" data-rarity="Ultra Rare"
@@ -2990,7 +3059,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">107</span>
+        <span class="chof-rank">110</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/055/high.webp" data-name="Mega Skarmory ex"
           data-set="Perfect Order" data-rarity="Double Rare"
@@ -3013,7 +3082,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">108</span>
+        <span class="chof-rank">111</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10/122/high.webp" data-name="Team Rocket's Crobat ex"
           data-set="Destined Rivals" data-rarity="Double Rare"
@@ -3036,7 +3105,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">109</span>
+        <span class="chof-rank">112</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv09/031/high.webp" data-name="Volcanion ex"
           data-set="Journey Together" data-rarity="Double Rare"
@@ -3059,7 +3128,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">110</span>
+        <span class="chof-rank">113</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/121/high.webp" data-name="Punk Helmet"
           data-set="Phantasmal Flames" data-rarity="Ultra Rare"
@@ -3082,7 +3151,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">111</span>
+        <span class="chof-rank">114</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10.5b/160/high.webp" data-name="Excadrill ex"
           data-set="Black Bolt" data-rarity="Ultra Rare"
@@ -3105,7 +3174,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">112</span>
+        <span class="chof-rank">115</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/252/high.webp" data-name="Stunfisk ex"
           data-set="Ascended Heroes" data-rarity="Ultra Rare"
@@ -3128,7 +3197,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">113</span>
+        <span class="chof-rank">116</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/029/high.webp" data-name="Rotom ex"
           data-set="Phantasmal Flames" data-rarity="Double Rare"
@@ -3151,7 +3220,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">114</span>
+        <span class="chof-rank">117</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/031/high.webp" data-name="Mega Clefable ex"
           data-set="Perfect Order" data-rarity="Double Rare"
@@ -3174,7 +3243,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">115</span>
+        <span class="chof-rank">118</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/015/high.webp" data-name="Mega Pyroar ex"
           data-set="Chaos Rising" data-rarity="Double Rare"
@@ -3197,7 +3266,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">116</span>
+        <span class="chof-rank">119</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08.5/058/high.webp" data-name="Cornerstone Mask Ogerpon ex"
           data-set="Prismatic Evolutions" data-rarity="Double Rare"
@@ -3220,7 +3289,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">117</span>
+        <span class="chof-rank">120</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/179/high.webp" data-name="Terapagos ex"
           data-set="Ascended Heroes" data-rarity="Double Rare"
@@ -3243,7 +3312,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">118</span>
+        <span class="chof-rank">121</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/070/high.webp" data-name="Iono's Bellibolt ex"
           data-set="Ascended Heroes" data-rarity="Double Rare"
@@ -3266,7 +3335,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">119</span>
+        <span class="chof-rank">122</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08/091/high.webp" data-name="Palossand ex"
           data-set="Surging Sparks" data-rarity="Double Rare"
@@ -3289,7 +3358,30 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">120</span>
+        <span class="chof-rank">123</span>
+        <button class="chof-art" type="button"
+          data-img="https://assets.tcgdex.net/en/swsh/swsh10.5/047/high.webp" data-name="Melmetal V"
+          data-set="Pokémon GO" data-rarity="Holo Rare V"
+          data-number="047" data-url="https://www.tcgplayer.com/product/277019"
+          data-raw="$0.97"
+          data-psa=""
+          aria-label="Enlarge Melmetal V"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/047/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/047/low.webp" alt="Melmetal V Holo Rare V from Pokemon Pokémon GO" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button>
+        
+        <div class="chof-body">
+          <b class="chof-name">Melmetal V</b>
+          <span class="chof-set">Pokémon GO &bull; #047</span>
+          <span class="chof-rar">Holo Rare V</span>
+          <dl class="chof-prices">
+            <div><dt>Raw NM</dt><dd>$0.97</dd></div>
+            <div class="psa"><dt>PSA 10</dt><dd><span class="none" aria-hidden="true">&mdash;</span><span class="sr-only">No PSA 10 price for this printing</span></dd></div>
+          </dl>
+          
+          
+          <a class="chof-see" href="/rip/pok-mon-go-booster-pack-4-is-this-the-mewtwo-pack-yjBNG5dvopc.html"><span>See it pulled</span>Pokémon GO Booster Pack #4 ⚡ | Is This The Mewtwo Pack!?</a>
+        </div>
+      </li>
+      <li class="chof">
+        <span class="chof-rank">124</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/016/high.webp" data-name="Salazzle ex"
           data-set="Perfect Order" data-rarity="Double Rare"
@@ -3312,7 +3404,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">121</span>
+        <span class="chof-rank">125</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv04/046/high.webp" data-name="Tsareena ex"
           data-set="Paradox Rift" data-rarity="Double Rare"
@@ -3335,7 +3427,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">122</span>
+        <span class="chof-rank">126</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv04/050/high.webp" data-name="Golisopod ex"
           data-set="Paradox Rift" data-rarity="Double Rare"
@@ -3358,7 +3450,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">123</span>
+        <span class="chof-rank">127</span>
         <div class="chof-art"><span class="chof-noart">Incineroar ex</span></div>
         
         <div class="chof-body">
@@ -3375,7 +3467,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">124</span>
+        <span class="chof-rank">128</span>
         <div class="chof-art"><span class="chof-noart">Goldeen</span></div>
         
         <div class="chof-body">
@@ -3392,7 +3484,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">125</span>
+        <span class="chof-rank">129</span>
         <div class="chof-art"><span class="chof-noart">Manectric</span></div>
         
         <div class="chof-body">
@@ -3409,7 +3501,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">126</span>
+        <span class="chof-rank">130</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/ja/SV/SV7/107/high.webp" data-name="Crabominable"
           data-set="Stellar Miracle (JP)" data-rarity="Art Rare"
@@ -3432,7 +3524,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">127</span>
+        <span class="chof-rank">131</span>
         <div class="chof-art"><span class="chof-noart">Mega Abomasnow ex</span></div>
         
         <div class="chof-body">
@@ -3449,7 +3541,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">128</span>
+        <span class="chof-rank">132</span>
         <div class="chof-art"><span class="chof-noart">Trainer Rare Candy</span></div>
         
         <div class="chof-body">
@@ -3466,7 +3558,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">129</span>
+        <span class="chof-rank">133</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/ja/SV/SV7/111/high.webp" data-name="Meditite"
           data-set="Stellar Miracle (JP)" data-rarity="Art Rare"
@@ -3489,7 +3581,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">130</span>
+        <span class="chof-rank">134</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/ja/SV/SV7/106/high.webp" data-name="Raboot"
           data-set="Stellar Miracle (JP)" data-rarity="Art Rare"
@@ -3512,7 +3604,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">131</span>
+        <span class="chof-rank">135</span>
         <div class="chof-art"><span class="chof-noart">Trainer Poké Pad</span></div>
         
         <div class="chof-body">
@@ -3529,7 +3621,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">132</span>
+        <span class="chof-rank">136</span>
         <div class="chof-art"><span class="chof-noart">Victini</span></div>
         
         <div class="chof-body">
@@ -3546,7 +3638,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">133</span>
+        <span class="chof-rank">137</span>
         <div class="chof-art"><span class="chof-noart">Raticate</span></div>
         
         <div class="chof-body">
@@ -3563,7 +3655,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">134</span>
+        <span class="chof-rank">138</span>
         <div class="chof-art"><span class="chof-noart">Aurorus</span></div>
         
         <div class="chof-body">
@@ -3580,7 +3672,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">135</span>
+        <span class="chof-rank">139</span>
         <div class="chof-art"><span class="chof-noart">Corviknight V Trainer Gallery</span></div>
         
         <div class="chof-body">
@@ -3597,7 +3689,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">136</span>
+        <span class="chof-rank">140</span>
         <div class="chof-art"><span class="chof-noart">Reshiram V</span></div>
         
         <div class="chof-body">
@@ -3614,7 +3706,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">137</span>
+        <span class="chof-rank">141</span>
         <div class="chof-art"><span class="chof-noart">Galarian Perrserker V</span></div>
         
         <div class="chof-body">
@@ -3631,7 +3723,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">138</span>
+        <span class="chof-rank">142</span>
         <div class="chof-art"><span class="chof-noart">Spearow</span></div>
         
         <div class="chof-body">
@@ -3648,7 +3740,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">139</span>
+        <span class="chof-rank">143</span>
         <div class="chof-art"><span class="chof-noart">Alolan Vulpix V</span></div>
         
         <div class="chof-body">
@@ -3665,7 +3757,7 @@ main{padding-top:0}
         </div>
       </li>
       <li class="chof">
-        <span class="chof-rank">140</span>
+        <span class="chof-rank">144</span>
         <div class="chof-art"><span class="chof-noart">Frogadier</span></div>
         
         <div class="chof-body">
@@ -3679,6 +3771,23 @@ main{padding-top:0}
           
           
           <a class="chof-see" href="/rip/japanese-ninja-spinner-packs-greninja-hunt-begins-_ccErXVzURs.html"><span>See it pulled</span>Japanese Ninja Spinner Packs 🇯🇵🥷 | Greninja Hunt Begins</a>
+        </div>
+      </li>
+      <li class="chof">
+        <span class="chof-rank">145</span>
+        <div class="chof-art"><span class="chof-noart">ite V</span></div>
+        
+        <div class="chof-body">
+          <b class="chof-name">ite V</b>
+          <span class="chof-set">Dragon</span>
+          
+          <dl class="chof-prices">
+            <div><dt>Raw NM</dt><dd><span class="none" aria-hidden="true">&mdash;</span><span class="sr-only">Not recorded</span></dd></div>
+            <div class="psa"><dt>PSA 10</dt><dd><span class="none" aria-hidden="true">&mdash;</span><span class="sr-only">No PSA 10 price for this printing</span></dd></div>
+          </dl>
+          
+          
+          <a class="chof-see" href="/rip/pok-mon-go-booster-pack-3-getting-closer-to-mewtwo-tKOXv-qSYTo.html"><span>See it pulled</span>Pokémon GO Booster Pack #3 ⚡ | Getting Closer to Mewtwo?</a>
         </div>
       </li>
     </ol>

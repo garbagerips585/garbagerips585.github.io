@@ -4704,7 +4704,7 @@
     "setsPacks": "First Partner Illustration Collection (Series 1) - 1 Pack , Phantasmal Flames - 1 Pack, Mega Evolution - 1 Pack",
     "openingType": "First Partner Illustration Collection (Series 1)",
     "hasHit": true,
-    "hitCard": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos: Turtwig, Chimchar, Piplup , Phantasmal Flames - Mismagius ex - Double Black Star - Double Rare",
+    "hitCard": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos: Turtwig, Chimchar, Piplup ; Phantasmal Flames - Mismagius ex - Double Black Star - Double Rare",
     "hits": [
       {
         "card": "Turtwig",
@@ -4720,7 +4720,6 @@
       },
       {
         "card": "Mismagius ex",
-        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos",
         "rarity": "Double Rare",
         "set": "phantasmal-flames",
         "setName": "Phantasmal Flames"
@@ -5463,11 +5462,10 @@
     "openingType": "Single Booster Pack",
     "packNumber": 7,
     "hasHit": true,
-    "hitCard": "Radiant Charizard",
+    "hitCard": "Radiant Charizard - Radiant Rare",
     "hits": [
       {
-        "card": "Radiant",
-        "rarity": "Charizard",
+        "card": "Radiant Charizard Radiant Rare",
         "set": "pokemon-go",
         "setName": "Pokémon GO"
       }
@@ -5535,6 +5533,385 @@
     "setsPacks": "Perfect Order",
     "openingType": "Single Booster Pack",
     "packNumber": 2,
+    "hasHit": false
+  },
+  "PnbibBm1E64": {
+    "setPacks": [
+      {
+        "set": "ko-clay-burst",
+        "name": "clay burst",
+        "packs": 2,
+        "typed": true
+      }
+    ],
+    "packsOpened": 2,
+    "packsStated": true,
+    "setsPacks": "Clay Burst - 2 Packs",
+    "openingType": "Korean Single Booster Pack",
+    "hasHit": false
+  },
+  "C4mvo_Justc": {
+    "setPacks": [
+      {
+        "set": null,
+        "name": "First Partner Illustration Collection (Series 1)",
+        "packs": 1,
+        "typed": true
+      },
+      {
+        "set": "phantasmal-flames",
+        "name": "phantasmal flames",
+        "packs": 1,
+        "typed": true
+      },
+      {
+        "set": "mega-evolution",
+        "name": "mega evolution",
+        "packs": 1,
+        "typed": true
+      }
+    ],
+    "packsOpened": 3,
+    "packsStated": true,
+    "setsPacks": "First Partner Illustration Collection (Series 1) - 1 Pack , Phantasmal Flames - 1 Pack, Mega Evolution - 1 Pack",
+    "openingType": "First Partner Illustration Collection (Series 1)",
+    "packNumber": 2,
+    "hasHit": true,
+    "hitCard": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos: Turtwig, Chimchar, Piplup",
+    "hits": [
+      {
+        "card": "Turtwig",
+        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos"
+      },
+      {
+        "card": "Chimchar",
+        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos"
+      },
+      {
+        "card": "Piplup",
+        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos"
+      }
+    ]
+  },
+  "qlu2os83uos": {
+    "setPacks": [
+      {
+        "set": "phantasmal-flames",
+        "name": "phantasmal flames",
+        "packs": 1,
+        "typed": true
+      },
+      {
+        "set": "mega-evolution",
+        "name": "mega evolution",
+        "packs": 1,
+        "typed": true
+      }
+    ],
+    "packsOpened": 2,
+    "packsStated": true,
+    "setsPacks": "Phantasmal Flames -1 Pack ; Mega Evolution- 1 Pack",
+    "openingType": "2 Pack Blister",
+    "hasHit": true,
+    "hitCard": "Mega Evolution- Trainer - Premium Power Pro - Double Silver Star - Ultra Rare",
+    "hits": [
+      {
+        "card": "Premium Power Pro",
+        "rarity": "Ultra Rare",
+        "set": "mega-evolution",
+        "setName": "Mega Evolution"
+      }
+    ]
+  },
+  "mDDuc-YDvbw": {
+    "setPacks": [
+      {
+        "set": "perfect-order",
+        "name": "perfect order",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Perfect Order",
+    "openingType": "Single Booster Pack",
+    "packNumber": 1,
+    "hasHit": true,
+    "hitCard": "Mega Clefable ex - Double Silver Star - Ultra Rare",
+    "hits": [
+      {
+        "card": "Mega Clefable ex",
+        "rarity": "Ultra Rare",
+        "set": "perfect-order",
+        "setName": "Perfect Order"
+      }
+    ]
+  },
+  "JVrd7EVB2_8": {
+    "setPacks": [
+      {
+        "set": null,
+        "name": "First Partner Illustration Collection (Series 1)",
+        "packs": 1,
+        "typed": true
+      },
+      {
+        "set": "phantasmal-flames",
+        "name": "phantasmal flames",
+        "packs": 1,
+        "typed": true
+      },
+      {
+        "set": "mega-evolution",
+        "name": "mega evolution",
+        "packs": 1,
+        "typed": true
+      }
+    ],
+    "packsOpened": 3,
+    "packsStated": true,
+    "setsPacks": "First Partner Illustration Collection (Series 1) - 1 Pack , Phantasmal Flames - 1 Pack, Mega Evolution - 1 Pack",
+    "openingType": "First Partner Illustration Collection (Series 1)",
+    "packNumber": 1,
+    "hasHit": true,
+    "hitCard": "First Partner Illustration Collection (Series 1) Alola Region Promos : Rowlet, Litten, Popplio ; Phantasmal Flames - Dewgong - Single Gold Star - Illustration Rare",
+    "hits": [
+      {
+        "card": "Rowlet",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
+      },
+      {
+        "card": "Litten",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
+      },
+      {
+        "card": "Popplio",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
+      },
+      {
+        "card": "Dewgong",
+        "rarity": "Illustration Rare",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames"
+      }
+    ]
+  },
+  "wHaIoWhy7XE": {
+    "setPacks": [
+      {
+        "set": "pokemon-go",
+        "name": "pokémon go",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Pokémon GO",
+    "openingType": "Single Booster Pack",
+    "packNumber": 5,
+    "hasHit": false
+  },
+  "O-vFg-5cx8E": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ETB",
+    "packNumber": 9,
+    "hasHit": false
+  },
+  "yjBNG5dvopc": {
+    "setPacks": [
+      {
+        "set": "pokemon-go",
+        "name": "pokémon go",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Pokémon GO",
+    "openingType": "Single Booster Pack",
+    "packNumber": 4,
+    "hasHit": true,
+    "hitCard": "Melmetal V",
+    "hits": [
+      {
+        "card": "Melmetal V",
+        "set": "pokemon-go",
+        "setName": "Pokémon GO"
+      }
+    ]
+  },
+  "9J16fnroBBM": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ETB",
+    "packNumber": 8,
+    "hasHit": false
+  },
+  "tKOXv-qSYTo": {
+    "setPacks": [
+      {
+        "set": "pokemon-go",
+        "name": "pokémon go",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Pokémon GO",
+    "openingType": "Single Booster Pack",
+    "packNumber": 3,
+    "hasHit": true,
+    "hitCard": "Dragonite V",
+    "hits": [
+      {
+        "card": "ite V",
+        "set": "dragon",
+        "setName": "Dragon"
+      }
+    ]
+  },
+  "h-KAo8SScL8": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ETB",
+    "packNumber": 7,
+    "hasHit": false
+  },
+  "lByjKSw3s-U": {
+    "setPacks": [
+      {
+        "set": "temporal-forces",
+        "name": "temporal forces",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Temporal Forces",
+    "openingType": "Single Booster Pack",
+    "packNumber": 2,
+    "hasHit": false
+  },
+  "3WxpO0osReg": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ETB",
+    "packNumber": 6,
+    "hasHit": false
+  },
+  "mxwjJ0oXyUQ": {
+    "setPacks": [
+      {
+        "set": "temporal-forces",
+        "name": "temporal forces",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Temporal Forces",
+    "openingType": "Single Booster Pack",
+    "packNumber": 1,
+    "hasHit": false
+  },
+  "IcQFu0SaoH4": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ETB",
+    "packNumber": 5,
+    "hasHit": true,
+    "hitCard": "Drakloak - Single Gold Star - Illustration Rare",
+    "hits": [
+      {
+        "card": "Drakloak",
+        "rarity": "Illustration Rare",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes"
+      }
+    ]
+  },
+  "W-aWk5zDYlw": {
+    "setPacks": [
+      {
+        "set": "shining-fates",
+        "name": "shining fates",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Shining Fates",
+    "openingType": "Single Booster Pack",
+    "packNumber": 2,
+    "hasHit": false
+  },
+  "juzo0HheF1U": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ETB",
+    "packNumber": 4,
     "hasHit": false
   },
   "3dKWTVbCH3I": {
