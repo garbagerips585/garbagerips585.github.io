@@ -290,8 +290,30 @@ async function resolveHits(vid) {
     const cards = cardCache.get(h.set);
     const norm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
     const same = cards ? cards.filter((c) => norm(c.name) === norm(h.card)) : [];
-    const want = h.rarity ? norm(h.rarity).slice(0, 8) : null;
-    const m = (want && same.find((c) => norm(c.rarity).includes(want))) || same[0] || null;
+    // EXACT TIER FIRST. THE EIGHT CHARACTER PREFIX IS A FALLBACK NOW, NOT THE
+    // RULE, AND ONE CARD ON THIS SITE ONLY EVER RESOLVED BECAUSE IT WAS.
+    //
+    // This was `norm(h.rarity).slice(0, 8)` matched with `.includes()`, which
+    // is a substring test on a truncated word. "hyperrar" is a substring of
+    // "megahyperrare", so the log's Mega Greninja ex, written down as a Hyper
+    // Rare, landed on Chaos Rising #122 Mega Hyper Rare -- the right card, by
+    // luck. The set carries no Hyper Rare at all, so there was nothing else for
+    // it to hit. On a set that prints BOTH tiers the same test files a Hyper
+    // Rare pull as a Mega Hyper Rare, silently, and the same eight characters
+    // cannot tell "Illustration rare" from "Special illustration rare" either
+    // once a set prints both under one name.
+    //
+    // THE PREFIX IS KEPT RATHER THAN DELETED, and that is deliberate. Removing
+    // it turns every tier the sheet words differently from TCGdex into `same[0]`
+    // -- a silently MISSING answer swapped for a silently wrong one, which is no
+    // better. Exact wins where it can, the loose test only runs where exact
+    // found nothing, and check-build.py now fails the build on a written tier
+    // the card is not printed at, so a row that reaches the fallback for the
+    // wrong reason cannot ship.
+    const want = h.rarity ? norm(h.rarity) : null;
+    const m = (want && same.find((c) => norm(c.rarity) === want)) ||
+              (want && same.find((c) => norm(c.rarity).includes(want.slice(0, 8)))) ||
+              same[0] || null;
     out.push({
       name: h.card, setName: h.setName, setId: h.set,
       rarity: (m && m.rarity) || h.rarity || null,
@@ -537,6 +559,46 @@ for (const v of videos) {
 const bySet = new Map();
 const HITS_RESOLVED = new Map();
 for (const vid of Object.keys(HITS)) HITS_RESOLVED.set(vid, await resolveHits(vid));
+
+// A LOGGED CARD THAT REACHES NO CARD BAND IS REPORTED, ONE LINE EACH.
+//
+// The hit band renders a card the reader can SEE: `showableHits` needs a scan
+// or a price, and a row with neither is dropped out of the band and falls back
+// to the free-text panel. That behaviour is right and is argued at length where
+// the filter is defined. What was missing is that it happened in SILENCE, on
+// the same file that decides whether 319 rip pages show their pull at all.
+// build-hall.mjs took exactly this lesson on 21 August 2026 -- it had been
+// dropping eleven rows of the same file with three `continue`s that said
+// nothing, on a page whose lede promises the whole list -- and every drop there
+// reports now. This is the sibling file and it had the same gap.
+//
+// THE REPORT IS THE FIX HERE AND THE OTHER HALF WAS MEASURED AND NOT DONE.
+// build-hall.mjs's other move was to read public/data/intl-guides.json as a
+// second checklist, which is what got the Japanese and Korean plaques onto that
+// page. It buys this file NOTHING and the reason is in that file's own note:
+// those guides carry a localId, an English name and a rarity, and **no image
+// and no price for any set in them**. So an intl hit resolved against them
+// still has neither, still fails `showableHits`, and still renders as text --
+// the same eight pages, byte for byte. Adding the reader would put a second
+// checklist into a builder that cannot act on it, and would hand the rarity
+// slot to TCGdex's English word for a Japanese tier, which shared/rarity.mjs
+// refuses and build-hall.mjs gives up a collector number rather than bend.
+const unshowable = [];
+for (const [vid, list] of HITS_RESOLVED) {
+  for (const h of list) {
+    if (h.img || typeof h.price === "number") continue;
+    unshowable.push(
+      `${vid}: "${h.name}"${h.setName ? ` (${h.setName})` : ""} -- ` +
+        (h.promo
+          ? "a promo that matched no entry in public/data/printings/ and carries no price of its own"
+          : h.setId && !cardCache.get(h.setId)
+            ? "no English checklist for that set, so there is no scan and no price to show"
+            : h.unresolved
+              ? "that name is not on the checklist we hold for that set"
+              : "the checklist holds it and carries no scan and no price")
+    );
+  }
+}
 
 for (const v of tagged) {
   for (const s of v.sets) {
@@ -1781,3 +1843,15 @@ Wrote public/sitemap.xml with ${urls.length} urls
   leaves the site, but marked noindex so they are not thin pages in search
   (see UNTAGGED.md; tag them and re-run this)
 `);
+
+{
+  let logged = 0;
+  for (const list of HITS_RESOLVED.values()) logged += list.length;
+  console.log(
+    `  ${logged - unshowable.length} of ${logged} logged card(s) reached a hit-card band with a scan or a price`
+  );
+  if (unshowable.length) {
+    console.log(`  ${unshowable.length} did not, and render as text in "The hit" panel instead:`);
+    for (const s of unshowable) console.log("    " + s);
+  }
+}

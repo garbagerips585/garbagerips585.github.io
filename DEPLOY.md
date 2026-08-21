@@ -128,12 +128,28 @@ That single flag moves every canonical, `og:url`, sitemap entry and JSON-LD url
 onto the real domain, turns `robots.txt` from `Disallow: /` into `Allow: /`, and
 writes `public/CNAME`.
 
-**`public/CNAME` is generated, not hand-written.** GitHub Pages deployed from an
-Actions workflow reads the custom domain from a CNAME file inside the uploaded
-artifact, and `pages.yml` uploads `public/` only. Without it the custom domain
-setting is dropped on the next deploy and the site silently reverts to the
-github.io host. It is written by `build-proto.mjs` when `LIVE` is true and
-deleted when it is false, so it cannot drift from the flag.
+**`public/CNAME` is generated, not hand-written.** It is written by
+`build-proto.mjs` when `LIVE` is true and deleted when it is false, so it cannot
+drift from the flag. Never type it in by hand: a `CNAME` that outlives a
+`LIVE = false` build is a file claiming an address the rest of the tree does not
+canonicalise to.
+
+**But it is NOT the switch, and this file used to say it was.** The claim here
+was that an Actions-deployed Pages site reads the custom domain out of the
+uploaded artifact, and that without the file the setting is dropped on the next
+deploy. GitHub documents the opposite for exactly this publishing source: *"If
+you are publishing from a custom GitHub Actions workflow, no `CNAME` file is
+created, and any existing `CNAME` file is ignored and is not required."*
+(docs.github.com, *Managing a custom domain for your GitHub Pages site*, checked
+21 August 2026.) `pages.yml` publishes with `actions/deploy-pages@v4`, so **the
+custom domain lives in Settings -> Pages and nowhere else.**
+
+Keeping the generated file is still right — it is a record of intent that moves
+with the flag, and GitHub ignores it rather than objecting to it. What was
+expensive was the belief: if the domain does not answer on the day, this file is
+the wrong place to look, and the warning above would have sent somebody there
+first. The ordered sequence is LAUNCH-DAY.md, where setting the domain in
+Settings is its own numbered step with its own proof.
 
 ### 4. Prove the flip landed
 

@@ -344,15 +344,35 @@ const STEPS = [
   "python3 scripts/check-build.py",
 ];
 
+// EXIT 2 FROM check-build.py IS NOT A BUILD FAILURE, AND SAYING IT IS WAS ITS
+// OWN BUG. That script grew two severities on 21 August 2026: 1 for a broken
+// build, 2 for a wrong answer in the hand-filled workbook -- pages complete and
+// publishable, the log simply wrong about a card. See the note at the foot of
+// check-build.py for why, and .github/workflows/refresh.yml for the nightly's
+// half of it.
+//
+// This loop knew nothing about that, so one mistyped rarity in one spreadsheet
+// cell printed "64 of 65 builders ok" and "Something did not build. Fix it
+// before publishing: a half-built site ships stale canonicals on the pages that
+// failed." Every word of that was false -- all 65 steps ran, nothing was
+// half-built, no canonical was stale -- and it is the worst kind of false,
+// because it is the message a person would stop and act on. A warning that
+// cries wolf on a known-good tree is how a real one gets ignored later.
+//
+// So exit 2 is counted separately, named for what it is, and does not change
+// the exit code of this script.
 let failed = 0;
+let workbook = 0;
 for (const step of STEPS) {
   const [bin, ...args] = step.split(" ");
   try {
     execFileSync(bin, args, { cwd: ROOT, stdio: ["ignore", "ignore", "pipe"] });
     console.log(`  ok    ${step}`);
   } catch (e) {
-    failed += 1;
-    console.log(`  FAIL  ${step}`);
+    const isWorkbook = step.endsWith("check-build.py") && e.status === 2;
+    if (isWorkbook) workbook += 1;
+    else failed += 1;
+    console.log(`  ${isWorkbook ? "SHEET" : "FAIL "} ${step}`);
     console.log(String(e.stderr || e.message).trim().split("\n").slice(-4).map((l) => `        ${l}`).join("\n"));
   }
 }
@@ -361,5 +381,10 @@ if (failed) {
   console.log("Something did not build. Fix it before publishing: a half-built\n" +
               "site ships stale canonicals on the pages that failed.");
   process.exit(1);
+}
+if (workbook) {
+  console.log("The build is complete and publishable. check-build.py found a wrong\n" +
+              "answer in Garbage-Rips-585-Video-Log.xlsx -- see its report above. Fix\n" +
+              "the cell and re-run scripts/import-sheet.mjs; nothing here needs redoing.");
 }
 console.log("Now run: python3 scripts/check-build.py");

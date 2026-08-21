@@ -446,6 +446,83 @@ const BASE_CSS = `
 `;
 
 /**
+ * THE TILES ARE NOT MIS-SIZED AND THE MEASUREMENT SAYS SO. THE WALL IS.
+ *
+ * This came off a QA list as "playlist tiles mis-sized at desktop". Measured
+ * first, headless Chrome over CDP at DPR 1, a playlist page beside /videos.html
+ * on the same tree:
+ *
+ *       viewport   /videos.html (48 tiles)   a playlist page   verdict
+ *          390          2 cols, 169.00            169.00       identical
+ *          640          2 cols, 294.00            294.00       identical
+ *          768          3 cols, 229.33            229.33       identical
+ *         1080          4 cols, 246.00            246.00       identical
+ *         1440          6 cols, 218.66           218.66        identical
+ *         1920          6 cols, 228.66           228.66        identical
+ *
+ * So a playlist tile is the site's own .wall tile to the pixel at every width,
+ * and NOTHING HERE CHANGES A TILE SIZE ON A PAGE THAT HAS ENOUGH TILES.
+ *
+ * WHAT IS ACTUALLY WRONG IS THE TRACK COUNT ON A SHORT PLAYLIST. .wall declares
+ * six columns at 1301 and up whatever it holds, and six of these 22 pages hold
+ * one, two, three or five videos. The single-video Pitch Black hunt at 1440 is
+ * one 218.66px tile with 1,173.34px of uninked band beside it, 84.3% of the
+ * row, under a full width heading and above a full width sibling list. That is
+ * the picture the flag was reacting to, and it is a wall sized for tiles that
+ * do not exist rather than a tile sized wrong.
+ *
+ * TWO NUMBERS, BOTH MEASURED, NEITHER PICKED:
+ *
+ * - THE COLUMN COUNT NEVER EXCEEDS THE TILE COUNT. The step comes from .wall's
+ *   own ladder in assets-source/ui.css, which is 2 up to 640, 3 to 820, 4 to
+ *   1080, 5 to 1300 and 6 above it, so the first viewport at which the wall can
+ *   ask for more columns than this page has tiles is the entry below. IF THAT
+ *   LADDER MOVES IN ui.css THIS TABLE HAS TO MOVE WITH IT, which is the one
+ *   coupling in this rule and is why it is written out rather than inlined.
+ *
+ * - THE TRACK STOPS AT 400px BECAUSE THE ARTWORK DOES. All 258 pack tile images
+ *   across these pages are width="400" and there is no larger rung: the tile is
+ *   a single 400x711 file with an AVIF twin, not a ladder. 400 CSS px is 1:1 at
+ *   DPR 1 and the first width at which the tile would be upscaled, so it is the
+ *   ceiling the asset sets rather than a number anybody liked the look of.
+ *   Without it a three video page at 1440 would draw 453.33px tiles and upscale
+ *   every one of them by 13%.
+ *
+ * DESKTOP ONLY, ON PURPOSE. Every rule below is min-width, and the narrowest is
+ * 641, so 320 and 390 render exactly the bytes they rendered before. A single
+ * tile does sit in a two column wall on a phone, 181px of dead track at 390,
+ * and that is left alone: it is the same shape the last row of any three video
+ * playlist already has there, and the flag was about desktop.
+ *
+ * align-items IS LEFT ALONE AND THAT IS A DECISION. A .v is not a box: ui.css
+ * gives it no border and no background, the artwork carries its own
+ * aspect-ratio, and the caption under it is one or two lines. Ragged bottoms
+ * are the shipped pattern on every wall on this site and stretch would only
+ * stretch the gap under the shortest caption. The two grids in this pass that
+ * DO stretch, .chof-list and .lore-list, are both grids of bordered cards.
+ *
+ * CLS: the tile height is derived from its column by aspect-ratio, so a wider
+ * track is a taller box that is still reserved before the image lands. Measured
+ * 0 before and after at 390, 768 and 1440.
+ */
+const WALL_MAX_TILE = 400;
+const WALL_LADDER = [
+  { cols: 3, from: 641 },
+  { cols: 4, from: 821 },
+  { cols: 5, from: 1081 },
+  { cols: 6, from: 1301 },
+];
+
+const wallCss = (n) => {
+  const step = WALL_LADDER.find((b) => b.cols > n);
+  if (!step) return "";
+  const cap = n * WALL_MAX_TILE + (n - 1) * 16;
+  return `
+@media(min-width:${step.from}px){.wall{grid-template-columns:repeat(${n},1fr);max-width:${cap}px}}
+`;
+};
+
+/**
  * The rules the strip needs, inlined here rather than added to
  * assets-source/ui.css, which is render blocking on all 426 pages and would be
  * carrying them for the twenty-one that use them. Same pattern as
@@ -838,7 +915,7 @@ for (const run of runs) {
 <meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
-<style>${miniCSS(BASE_CSS + (strip ? PAGE_CSS : ""))}</style>
+<style>${miniCSS(BASE_CSS + wallCss(vids.length) + (strip ? PAGE_CSS : ""))}</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>

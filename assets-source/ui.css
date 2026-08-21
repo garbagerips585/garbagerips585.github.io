@@ -1968,10 +1968,73 @@ footer .soc svg{fill:var(--chrome-ink)}
    tiles are 2:3 because a real 9:16 tile is 1.78x tall and makes a wall of
    skinny rectangles. The player opens out to 9:16 on click so there are no bars.
    ========================================================================== */
-.vid-grid{display:grid;gap:22px;grid-template-columns:repeat(6,1fr)}
-@media(max-width:1100px){.vid-grid{grid-template-columns:repeat(4,1fr)}}
-@media(max-width:760px){.vid-grid{grid-template-columns:repeat(3,1fr);gap:14px}}
-@media(max-width:520px){.vid-grid{grid-template-columns:repeat(2,1fr)}}
+/* THE COLUMN COUNT WAS FIXED AND 81 OF THE 288 RIP RAILS DO NOT HOLD SIX.
+   `repeat(6,1fr)` declares six tracks whether or not there are six tiles, so a
+   "More from <box>" band with one video left 1,178px of a 1,392px band empty at
+   1440 under a heading that ran the full width. Counted off the built tree, and
+   the dead width is (6 - n) tracks plus their gaps at 1440:
+
+        tiles   pages   dead at 1440
+            1      18      1,178px   85% of the band
+            2      12        943px   68%
+            3       4        707px   51%
+            4       5        471px   34%
+            5      42        236px   17%
+            6     207          0px
+
+   THE TRACK IS THE SAME WIDTH IT ALWAYS WAS AND THAT IS THE POINT. The max is
+   the six-across width written out as arithmetic, `(100% - 5 gaps) / 6`, which
+   is exactly what `1fr` resolved to when the row was full, so a six-tile rail
+   is unchanged to the pixel: 213.656px tracks at 1440 before and after, same
+   tile heights, same row count, CLS 0. `auto-fit` then collapses the tracks
+   nothing is in, and their gutters with them, so a two-tile rail is two tiles
+   and one gap rather than two tiles and four empty columns.
+
+   MIN IS 0 RATHER THAN A PIXEL FLOOR because the repetition count has to come
+   off the MAX to land on six: with a definite max, Chrome fits
+   floor((W + gap) / (track + gap)) = 6 exactly, at every width in the range,
+   which is what keeps this fluid instead of pinning a breakpoint. `.vid` is
+   already `min-width:0`, so nothing can push a track past its share.
+
+   WHY THE FEW TILES ARE CENTRED, AND WHY THE HEADING GOES WITH THEM. Left
+   aligned, `auto-fit` changes nothing a reader can see: the hole moves nowhere.
+   Centred alone it is WORSE, and that was screenshotted before it was believed
+   -- one tile marooned in the middle of the band with the heading still hard
+   left reads as a broken row, where the same tile jammed against the left edge
+   at least sits under the words naming it. So the heading centres with it and
+   the pair reads as one deliberate block.
+
+   A RAIL WHOSE HEAD CARRIES A BUTTON IS LEFT EXACTLY AS IT WAS, AND THAT IS 25
+   OF THE 81. The "More <set>" band ends its head with a "See all ->" pill, so
+   its head is a full-width bar with something at each end; centring a short row
+   under a bar like that misaligns it with BOTH ends, and centring the head
+   itself would shove the button into the middle of the band. Counted off the
+   built tree by whether the sec-head before the grid holds a .btn:
+
+        tiles   with a button   without
+            1        10            8
+            2         6            6
+            3         4            0
+            4         5            0
+            5         0           42
+            6       263          121
+
+   so the centred half is 56 rails and the untouched half is 25. THE COUNT
+   CORRECTS AN EARLIER READING OF THIS SAME TREE that had the second rail at 6
+   of 6 on all 177 pages carrying one: that counted the FIRST grid on each page
+   as the box rail, and a page with only one grid can be either. Count the head,
+   not the position. `justify-content:normal` and not `start`, because normal is
+   what a grid has when nothing sets it and this is a revert rather than a new
+   alignment. It is a no-op on a full rail either way: six tracks fill 1,392px
+   to the pixel, measured lead 0 and trail 0 with centring on. */
+.vid-grid{--vg-n:6;--vg-gap:22px;display:grid;gap:var(--vg-gap);
+  grid-template-columns:repeat(auto-fit,minmax(0,calc((100% - (var(--vg-n) - 1)*var(--vg-gap))/var(--vg-n))));
+  justify-content:center}
+.sec-head:has(.btn)+.vid-grid{justify-content:normal}
+.sec-head:not(:has(.btn)):has(+.vid-grid>.vid:nth-child(-n+5):last-child){justify-content:center;text-align:center}
+@media(max-width:1100px){.vid-grid{--vg-n:4}}
+@media(max-width:760px){.vid-grid{--vg-n:3;--vg-gap:14px}}
+@media(max-width:520px){.vid-grid{--vg-n:2}}
 .vid{display:flex;flex-direction:column;gap:9px;min-width:0}
 .vid-title{font-size:.88rem;font-weight:600;line-height:1.32;color:var(--ink);
   display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -2154,6 +2217,27 @@ footer .soc svg{fill:var(--chrome-ink)}
   padding:13px 16px;font-size:.95rem;box-shadow:0 4px 0 var(--trubbish);
 }
 .facts-list b{font-family:var(--display);font-weight:400;color:var(--ketchup-deep)}
+/* A LINK IN A FACT WAS INK ON INK, WHICH IS A LINK THAT DOES NOT EXIST. This
+   block styled `li` and `b` and never `a`, so the two cardshows.io sources in
+   the first fact on /card-shows.html computed to rgb(228,220,204) -- EXACTLY
+   `--ink`, exactly their own parent's colour -- with text-decoration-line:none
+   and font-weight:400. Nothing separated them from the sentence they sit in.
+   Measured over all 58 links in that page's <main>: 49 teal, 2 pink, 5 other
+   treatments, and these 2 indistinguishable from their parent. They are real
+   outbound anchors with rel/target and a full "opens on cardshows.io"
+   aria-label, so a screen reader got them and a sighted reader could not.
+
+   TEAL BECAUSE CLAUDE.md'S ACCENT RULE SAYS EVERY ROUTE IS TEAL, and
+   `--sky-deep` is the small-type teal the other 49 on that page already use.
+   4.50:1 on `--paper-2`, the li's own ground, which is the same figure the
+   pink it replaces measured there (4.51) -- this swap costs no contrast.
+
+   UNDERLINED BECAUSE THESE SIT MID-SENTENCE. Colour alone is what failed here,
+   and the `.price-note` link three lines further down that page is underlined
+   for exactly this reason: a link inside running prose needs a mark that
+   survives the reader not being able to tell two greens apart. A link at the
+   END of a row (`.shop-link`, `.intl-link`) does not, and none is added. */
+.facts-list a{color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px}
 /* watch-this-set callout */
 .set-watch{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin-top:20px}
 @media(min-width:760px){.set-watch{grid-template-columns:180px 1fr}}

@@ -184,15 +184,25 @@ the stylesheet is render blocking on every page and most of it is prose.
 THREE WERE STALE, corrected 21 August 2026.** The tree is 1,486 pages now, and
 the built stylesheet has grown past 20KB gzipped without anybody noticing,
 because the number that would have shown it was written down once and never
-re-taken. Measured today, gzipped, which is how the host serves it:
+re-taken. Measured gzipped, which is how the host serves it. **RE-TAKEN AT HEAD
+ON 21 AUGUST 2026, and the four numbers that were here were already wrong**, which
+is the third time this entry has been stale and the reason the command below is
+written out rather than the answer:
 
-      assets-source/ui.css    336,753 raw    113,442 gzipped
-      public/assets/ui.css    106,368 raw     20,768 gzipped
+      assets-source/ui.css    356,351 raw    121,062 gzipped
+      public/assets/ui.css    107,150 raw     21,041 gzipped
 
-so the strip is an 81.7% cut gzipped, not 59%, and **the file a reader actually
-waits for is 20,768 bytes and not 17,400.** Traced through git on the built
-copy, it has moved every day this week: 20,106 on 19 August, 20,468 later the
-same day, 20,741 / 20,770 / 20,744 / 20,768 across 20 August.
+so the strip is an 82.6% cut gzipped, not 59%, and **the file a reader actually
+waits for is 21,041 bytes and not 17,400.** Traced through git on the built
+copy, it has moved every day: 20,106 on 19 August, 20,468 later the same day,
+20,741 / 20,770 / 20,744 / 20,768 across 20 August, 21,041 at HEAD on 21 August.
+
+**TAKE IT FROM HEAD, NOT FROM THE WORKING TREE, WHEN ANYTHING ELSE IS EDITING.**
+`assets-source/ui.css` is the file agents touch most, so a measurement made while
+one is mid-edit is a measurement of a file that has never shipped. The two
+answers were 21,041 and 21,153 within the same minute on 21 August. `git show
+HEAD:public/assets/ui.css | gzip -9c | wc -c` is the version that cannot move
+under you.
 
 **RE-TAKE IT RATHER THAN QUOTING IT**, because the number above will be wrong
 again within days and this file has now been wrong about it twice. One line,
@@ -382,9 +392,13 @@ one, but make it here first, in this file, in the same edit. Do not add one
 quietly to the foot of a page: that is precisely how the playlist cards became
 an exception this file did not admit to for months.
 
-THE COUNTING WAS WRONG THE WHOLE TIME AND THE NUMBER IS NOT SIX. Measured on
-18 August 2026 across every built page, socials and youtube.com excluded:
-1,473 of the site's 1,478 pages carry a non-social outbound link. The rule and
+THE COUNTING WAS WRONG THE WHOLE TIME AND THE NUMBER IS NOT SIX. Re-measured at
+HEAD on 21 August 2026 across every built page, socials and youtube.com
+excluded: **1,482 of the site's 1,487 built HTML files** carry a non-social
+outbound link -- that is the 1,486 pages counted everywhere else in this file,
+plus 404.html. (It said "1,473 of 1,478" from the 18 August pass; the five pages
+that carry none are the same five -- index, about, videos, hall and playlists --
+and only the totals moved.) The rule and
 the tree have disagreed for months, in the same way and for the same reason as
 the playlist cards, and this file has been the one telling the story about how
 bad that is.
@@ -392,9 +406,12 @@ bad that is.
 WHAT IS ACTUALLY OUT THERE, by host, so the next person can check the claim
 instead of trusting it:
 
-- app.getcollectr.com, 1,471 pages. THE FOOTER. (Seven pages do not carry it:
-  index, about, videos, hall, playlists, shops and wanted all pass their own
-  footer extra and take a variant. That was not deliberate, it is just how the
+- app.getcollectr.com, 1,479 pages. THE FOOTER. (EIGHT pages do not carry it,
+  not seven: index, about, videos, hall, playlists, shops, wanted and
+  garbage-plate all pass their own footer extra and take a variant.
+  garbage-plate.html joined that list after this entry was written and nobody
+  re-derived it, which is what a hand-typed list of exceptions does.
+  That was not deliberate, it is just how the
   helper is called, and it means the home page is one of the few pages where
   the claim in the heading above is literally true.) This is the big one and it was
   never an "exception" in anybody's head because it is chrome rather than
@@ -2084,8 +2101,9 @@ HTTP/1.1 preview has a six connection ceiling that flatters the wrong answer.
 **THE RIP PAGES WERE MEASURED AND LEFT WITH NOTHING TO GAIN.** LAUNCH.md
 promised 38.8KB on each of 317 of them. The rail tile sits 930px below the fold
 at 390 and 396px at 1440, both inside Chrome's 1250px lazy threshold on a 4G
-connection, so it is fetched whatever the attribute says, and 248 of the 279
-pages with rails draw every tile in the hero's own set. That family moved by the
+connection, so it is fetched whatever the attribute says, and 256 of the 288
+pages with rails draw every tile in the hero's own set (it said "248 of the 279"
+until 21 August 2026; the ratio held, the totals moved). That family moved by the
 markup and nothing else. They are `<img loading="lazy">` now and the
 page went 2,536KB to 388KB at 390px. If you move a background to an img,
 re-screenshot: doing it here brought the scans into reach of a later rule at
@@ -2398,7 +2416,21 @@ WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
   swaps only the art box, because replacing the whole card lost the title, the
   set and the view count.
 - **ONE CONTROL ON EVERY VIDEO ARTWORK ON THE SITE, AND IT IS THE RIP PAGE'S
-  OWN BANNER.** Since 19 August 2026 every pack, everywhere, carries
+  OWN BANNER -- EXCEPT ON THE RIP PAGE RAILS, WHERE A DISC SURVIVED THE CHANGE
+  AND THIS FILE DID NOT KNOW IT.** This entry read "every pack, everywhere" until
+  21 August 2026. Counted at HEAD that day: **288 of the 319 rip pages carry
+  2,588 `.vid-play` discs** on the "More from &lt;box&gt;" and "More &lt;set&gt;"
+  rail tiles, emitted by `scripts/build-pages.mjs` (two call sites, around lines
+  1312 and 1347). Those tiles are real `pack pack--tile pack--img` wrappers with a
+  play disc laid over them and no `.pack-hint` at all. The class is
+  `.vid-play`, not `.play`, which is why "`<span class="play">` is GONE from the
+  tree" below is literally true and still leaves the disc on the site: an audit
+  that greps for the old name finds nothing and reports success. The contrast
+  argument against the disc -- 1.00:1 at its worst point, up to 48% of its
+  perimeter under 3:1 -- applies to these 2,588 exactly as it applied to the ones
+  that were replaced, because it is the same white disc on the same nineteen
+  wrappers. Deciding what to do about them is open; claiming they do not exist is
+  not. Everywhere else, since 19 August 2026, every pack carries
   `.pack-hint` reading CLICK TO RIP THE PACK across the foot of the artwork:
   the carousel slide, the Hall of Fame trophy, the 22 playlist pages, and
   /videos.html both server-rendered AND client-rendered, as well as the rip page
@@ -2644,9 +2676,26 @@ Codex .claude/launch.json. .claude/ is gitignored, so it never deploys.
 Git repo, main branch, pushed to garbagerips585/garbagerips585.github.io.
 `pages.yml` publishes public/ on every push. Going live is one flag: set LIVE
 in shared/site.mjs and run build-all.mjs, which moves every canonical and the
-sitemap onto the real domain and generates public/CNAME. Full walkthrough and
-the post-flip checks in DEPLOY.md, which also records that the flip has been
-rehearsed on a throwaway copy of the tree.
+sitemap onto the real domain and generates public/CNAME. Background and the
+post-flip checks in DEPLOY.md; **the ordered thing to follow on the day is
+LAUNCH-DAY.md**, which is the DNS, the flip and the GitHub settings as one
+sequence with a proof after every step. `python3 scripts/rehearse-flip.py`
+rehearses the whole flip from `git archive HEAD` in a scratch tree and must exit
+0 before the day.
+
+**`public/CNAME` IS NOT THE SWITCH, and all three docs now say so.** DEPLOY.md
+used to claim an Actions-deployed Pages site "reads the custom domain from a
+CNAME file inside the uploaded artifact" and that "without it the custom domain
+setting is dropped on the next deploy". GitHub documents the opposite for
+exactly this publishing source: "If you are publishing from a custom GitHub
+Actions workflow, no `CNAME` file is created, and any existing `CNAME` file is
+ignored and is not required." (docs.github.com, Managing a custom domain for
+your GitHub Pages site, checked 21 August 2026.) This repo publishes with
+`actions/deploy-pages@v4`, so the custom domain lives in Settings -> Pages and
+nowhere else. Generating the file is harmless and worth keeping as a record of
+intent. DEPLOY.md was corrected the same day and LAUNCH-DAY.md step 8 is where
+the domain actually gets set; believing the old version costs an hour of looking
+in the wrong place if the domain does not answer on launch day.
 
 ## TODO (rough priority)
 1. Greatest Hits playlist. The band ranks by pull tier then views as a

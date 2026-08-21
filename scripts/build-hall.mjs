@@ -278,8 +278,18 @@ if (!hall.length) {
       // Where the sheet named a rarity, take the printing that matches: that is
       // the one actually pulled. Same rule build-pages.mjs uses for rip pages,
       // so a card cannot show one number here and another there.
-      const want = h.rarity ? norm(h.rarity).slice(0, 8) : null;
-      let m = (want && same.find((c) => norm(c.rarity).includes(want))) || same[0];
+      //
+      // EXACT TIER FIRST, PREFIX ONLY AS A FALLBACK, changed in step with
+      // build-pages.mjs and for the reason written out in full there: the
+      // eight-character `includes` test cannot tell "Hyper Rare" from "Mega
+      // Hyper Rare", and this page's own #1 plaque is the card that proved it.
+      // The two files must move together or the plaque and the rip page start
+      // naming different printings of one card, which is the fault the comment
+      // above this one was written to prevent.
+      const want = h.rarity ? norm(h.rarity) : null;
+      let m = (want && same.find((c) => norm(c.rarity) === want)) ||
+              (want && same.find((c) => norm(c.rarity).includes(want.slice(0, 8)))) ||
+              same[0];
       // THE RARITY MATCH DOES NOT SURVIVE THE TRIP TO A JAPANESE SET, AND THE
       // FALLBACK IS WORSE THAN NO ANSWER THERE. `same[0]` is a safe last resort
       // on an English checklist because the sheet and TCGdex share a
@@ -827,6 +837,54 @@ function plaque(c, i) {
       </li>`;
 }
 
+/**
+ * A GRID THAT CANNOT ORPHAN, WRITTEN IN THE ONLY PLACE THAT KNOWS THE COUNT.
+ *
+ * Measured before this went in, headless Chrome over CDP, DPR 1, the plaque
+ * count 103: the last row held ONE plaque at every width above 620 and the
+ * band beside it was dead track.
+ *
+ *       viewport   columns   last row   dead track
+ *          621         2          1        298.50px
+ *          768         2          1        368.00px
+ *         1080         2          1        524.00px
+ *         1081         3          1        699.34px
+ *         1440         3          1        938.67px   67.4% of the row
+ *         1920         3          1        978.67px
+ *
+ * The rightmost PAINTED pixel is what makes that a defect rather than a wide
+ * box: plaque 103 inks to 477.33 at 1440 and the grid box ends at 1416, so the
+ * 938.67px is genuinely uninked and not a card quietly filling its track. Rows
+ * 1 to 34 ink to the full 1416 and are left exactly as they are.
+ *
+ * 103 IS PRIME, so there is no column count above 1 that divides it and the
+ * "step down to a divisor" answer /lore.html takes is not available here. The
+ * remainder gets the row instead: with r plaques left over in a c wide grid,
+ * declare lcm(c, r) tracks, span a normal plaque lcm/c of them and the last r
+ * plaques lcm/r each. At r = 1 that is exactly grid-column:1/-1.
+ *
+ * IT IS A NO-OP ON EVERY FULL ROW AND THAT IS ARITHMETIC, NOT LUCK. With N
+ * tracks, gap g and a span of s = N/c, an item measures
+ *   s*(W - (N-1)g)/N + (s-1)g  =  (W - (c-1)g)/c
+ * which is the width a plain repeat(c,1fr) gives. So 320, 390 and every row
+ * but the last are unchanged to the pixel. Verified after: identical.
+ *
+ * DO NOT PIN IT TO 103. The Hall grows with every rip, and a rule keyed to
+ * today's count rots the next time a card is flagged. The count comes from
+ * ranked.length below, so the emitted CSS follows the data.
+ */
+const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+const evenBand = (sel, n, c) => {
+  const r = n % c;
+  if (r === 0 || n <= c) return `${sel}{grid-template-columns:repeat(${c},1fr)}`;
+  const N = (c * r) / gcd(c, r);
+  return `${sel}{grid-template-columns:repeat(${N},1fr)}\n` +
+    // span 1 is what a track already does, so it is only worth its bytes when
+    // the lcm actually multiplied the track count.
+    (N === c ? "" : `${sel}>li{grid-column:span ${N / c}}\n`) +
+    `${sel}>li:nth-last-child(-n+${r}){grid-column:span ${N / r}}`;
+};
+
 const style = `
 /* --------------------------------------------------------------------------
    Card Hall of Fame. Dark, because a hall of fame is a lit room with the
@@ -856,10 +914,16 @@ const style = `
 .chof-tally span{font:700 var(--t-micro)/1.6 var(--mono);letter-spacing:.08em;color:var(--chrome-dim);
   text-transform:uppercase}
 
-.chof-list{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5) var(--s4);
-  counter-reset:chof}
-@media(max-width:1080px){.chof-list{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:620px){.chof-list{grid-template-columns:1fr;gap:var(--s4)}}
+/* Generated from the plaque count: see evenBand in scripts/build-hall.mjs.
+   The bands are mutually exclusive because the spans are keyed to a column
+   count and one leaking out of its band invents an implicit column. */
+.chof-list{list-style:none;display:grid;gap:var(--s5) var(--s4);counter-reset:chof}
+@media(max-width:620px){.chof-list{gap:var(--s4)}
+${evenBand(".chof-list", ranked.length, 1)}}
+@media(min-width:621px) and (max-width:1080px){
+${evenBand(".chof-list", ranked.length, 2)}}
+@media(min-width:1081px){
+${evenBand(".chof-list", ranked.length, 3)}}
 .chof{position:relative;display:flex;gap:var(--s4);align-items:flex-start;
   background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);
   border-radius:14px;padding:var(--s4);transition:border-color .15s,transform .15s}

@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=c2b99ea6">
+<link rel="stylesheet" href="/assets/ui.css?v=582ae61a">
 <style>
 .gc-lede{max-width:46em}
 .gc-sec{margin-top:var(--s6)}
@@ -79,7 +79,13 @@
 .ct-wrap{display:flex;gap:var(--s5);align-items:flex-start;margin-bottom:var(--s4)}
 .ct-txt{margin-bottom:0 !important}
 @media(max-width:700px){.ct-wrap{flex-direction:column;gap:var(--s4)}}
-.ct-fig{flex:none;width:210px;margin:0}
+/* 280 RATHER THAN 210, WHICH IS THE PHONE'S OWN CAP, for the reason written out
+   above .gd-fig: this viewBox is 212 units wide, so the 10-unit dimension
+   labels drew at 9.91 CSS px on a desktop against 13.21 on a phone. Setting the
+   desktop width to the phone cap is the whole fix -- both are 13.21px now and
+   the two cannot drift apart, since neither is a number the other does not
+   have. Clears the 12px floor with room, which .gd-fig at 310 does not. */
+.ct-fig{flex:none;width:280px;margin:0}
 @media(max-width:700px){.ct-fig{width:100%;max-width:280px;align-self:center}}
 .ct-svg{width:100%;height:auto;display:block;overflow:visible}
 .ct-card{fill:var(--card);stroke:var(--keyline);stroke-width:4}
@@ -233,12 +239,26 @@
 /* Defect diagrams. EVERY WORD OF THE REASONING IS IN THE JS, in the block above
    gdCard() and in the one above STYLE_GD. Do not write prose in here. */
 .gd-row{display:flex;gap:var(--s5);align-items:flex-start;margin-top:var(--s2)}
-.gd-fig{flex:none;width:240px;margin:0}
+/* 310, NOT 240, AND THE PHONE CAP MOVES WITH IT. The viewBox is 180 units wide
+   and the whole drawing scales to the box, so the smallest label (7 units) was
+   rendering at 7 x 240/180 = 9.33 CSS px on a desktop against 10.11 on a phone:
+   the desktop drew the picture 20px NARROWER than the phone did, so every drawn
+   word shrank with it, and 9.33px was the smallest type measured anywhere on
+   this site. 310/180 puts that label at 12.06px and the 8-unit ones at 13.78.
+   The floor is the one build-shops.mjs argues for its map and it is the same
+   argument: --t-micro (11px) is what this figure's own caption is set in, and
+   nothing drawn ON a picture may be smaller than the prose explaining it, so
+   the floor is the next token up, --t-label at 12px. The two widths are equal
+   now, so the inversion cannot come back by one of them being edited alone.
+   MEASURED WITH getBoundingClientRect AND WITH font-size x the real
+   viewBox-to-viewport scale, which agree. getComputedStyle on SVG text reports
+   USER UNITS: it reads 7 at every width and always will. */
+.gd-fig{flex:none;width:310px;margin:0}
 .gd-p{margin:0;min-width:0}
 .gd-svg{display:block;width:100%;height:auto}
 @media(max-width:700px){
   .gd-row{flex-direction:column;gap:var(--s3)}
-  .gd-fig{width:100%;max-width:260px;align-self:center}
+  .gd-fig{width:100%;max-width:310px;align-self:center}
 }
 .gd-svg .ct-card{stroke-width:2}
 .gd-svg .ct-win{stroke-width:1}
@@ -286,6 +306,33 @@
 @media(min-width:1000px){
 .gc-lede,.gc-foot{max-width:var(--measure)}
 .gc-sec > p.gc-in,.gc-in,.gc-key p:not(.gc-note){max-width:var(--measure)}
+/* AND THE ONE dd THAT IS NOT PROSE HAS TO BE LET OUT OF THE MEASURE, WHICH IS
+   A DEFECT THE WIDER .gd-fig ABOVE MADE VISIBLE RATHER THAN ONE IT INVENTED.
+   ui.css caps main :is(p,dd,blockquote,figcaption) at var(--measure), which
+   is 36em of this dd's own var(--t-sm): 504px. A dd holding a .gd-row is not a
+   line of text, it is a PICTURE BESIDE a line of text, so the figure was being
+   taken out of the paragraph's reading measure rather than sitting next to it,
+   and the paragraph got whatever was left:
+
+        .gd-fig    .gd-p at 1440   chars a line
+          240px        240px           35.3      before the fix above
+          310px        170px           25.0      after it, and worse
+          310px        504px           61.3      with this rule
+
+   which is the same shape of defect as the games hub blurbs and was found the
+   same way, by measuring the thing next to the thing that changed. 25 is
+   unreadable and 35 was already poor, on a 1,440px screen with 888px of empty
+   band to the right of it. The cap is now the measure PLUS the figure, so the
+   prose gets its own 504px whatever the drawing does and the two numbers can
+   never be taken out of each other again.
+
+   :has(.gd-row) SCOPES IT TO THE ELEVEN dds THAT HOLD A DIAGRAM. The other
+   dds in this list are prose and keep the shared cap. Specificity is (0,2,1)
+   against ui.css's (0,0,2), so it wins on weight and not merely on order.
+   min-width:1000 for the same reason as everything else in this block: below
+   it the row is 720px wide and the paragraph already had 386px and 56.8
+   characters, and at 700 the row stacks entirely. */
+.gc-def dd:has(.gd-row){max-width:calc(var(--measure) + 310px + var(--s5))}
 }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Will it grade"}]}</script>

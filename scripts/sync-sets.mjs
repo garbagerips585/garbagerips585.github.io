@@ -18,6 +18,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { rarityLabel, RARITY_ORDER, cardNumKey } from "../shared/format.mjs";
 
+import { SITE } from "../shared/site.mjs";
 import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache", "ptcg");
@@ -76,12 +77,23 @@ const SET_MAP = {
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// THE CONTACT URL FOLLOWS THE FLIP, AND IT IS THE SAME BUG shared/site.mjs WAS
+// WRITTEN TO DELETE, POINTING THE OTHER WAY. This header used to name the real
+// domain as a literal. That domain is bought but NOT YET SERVING -- the site is
+// on the staging host until LIVE flips in shared/site.mjs -- so every request
+// this script made introduced itself to an operator with an address that does
+// not resolve, which is worse to them than sending no UA at all. Hardcoding the
+// staging host instead would simply break on the day of the flip.
+// Derived from SITE, so it is correct in both states and needs no launch step.
+// scripts/sync-shop-map.mjs carries the same construction and the same reason.
+const UA = `garbagerips585-sets/1.0 (${SITE}/expansions.html; tim.patenaude@gmail.com)`;
+
 async function apiGet(path, { tries = 6 } = {}) {
   let last = "";
   for (let i = 0; i < tries; i++) {
     try {
       const res = await fetch(`${API}/${path}`, {
-        headers: { "User-Agent": "garbagerips.com/1.0" },
+        headers: { "User-Agent": UA },
       });
       if (res.ok) return res.json();
       last = `HTTP ${res.status}`;

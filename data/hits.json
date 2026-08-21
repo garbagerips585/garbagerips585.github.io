@@ -146,14 +146,6 @@
         "rarity": "Ultra Rare"
       },
       {
-        "card": "Mega Charizard X UPC Promo",
-        "rarity": "Black Star Promo"
-      },
-      {
-        "card": "Mega Charizard X UPC Promo",
-        "rarity": "Black Star Promo"
-      },
-      {
         "card": "Mega Charizard X ex",
         "setName": "MEP Black Star Promos",
         "number": "023",
@@ -888,7 +880,7 @@
         "rarity": "Double Rare"
       },
       {
-        "card": "Trainer Rare Candy Full Art",
+        "card": "Trainer Rare Candy",
         "set": "ja-mega-symphonia",
         "setName": "Mega Symphonia (JP)",
         "rarity": "Super Rare"
@@ -1014,7 +1006,7 @@
     ],
     "EPqUqzrAc30": [
       {
-        "card": "Trainer Poké Pad Full Art",
+        "card": "Trainer Poké Pad",
         "set": "ja-nihil-zero",
         "setName": "Nihil Zero (JP)",
         "rarity": "Super Rare"

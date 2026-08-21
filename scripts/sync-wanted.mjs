@@ -16,6 +16,7 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { SITE } from "../shared/site.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache", "ptcg");
@@ -38,14 +39,32 @@ const SET_MAP = {
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // Same honest agent string the other syncs send.
-const UA = "GarbageRips585/1.0 (fan site; youtube.com/@GarbageRips585)";
+// ONE IDENTITY FOR THE FILE, AND IT FOLLOWS THE FLIP.
+//
+// This file used to introduce itself two different ways: this const, which named
+// the YouTube channel, and a second literal header on the apiGet fetch below
+// that named the site's future domain directly. That domain is bought but NOT
+// YET SERVING -- everything is on the staging host until LIVE flips in
+// shared/site.mjs -- so those requests handed an operator an address that does
+// not resolve, which is worse to them than sending no header at all.
+//
+// It is the same bug shared/site.mjs was written to delete, pointing the other
+// way, so the answer is the same: derive it, and it is right in both states with
+// no launch step to forget. Hardcoding the staging host would just break on the
+// day instead. scripts/sync-shop-map.mjs carries the same construction and the
+// same argument.
+//
+// The channel is kept alongside the site URL rather than dropped -- it is the
+// thing an operator can actually look at to see this is a fan project, and it
+// resolves today.
+const UA = `garbagerips585-wanted/1.0 (${SITE}/wanted.html; youtube.com/@GarbageRips585)`;
 
 async function apiGet(path, { tries = 6 } = {}) {
   let last = "";
   for (let i = 0; i < tries; i++) {
     try {
       const res = await fetch(`${API}/${path}`, {
-        headers: { "User-Agent": "garbagerips.com/1.0" },
+        headers: { "User-Agent": UA },
       });
       if (res.ok) return res.json();
       last = `HTTP ${res.status}`;

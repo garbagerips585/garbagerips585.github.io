@@ -986,6 +986,74 @@ const CARDS = [
  *
  * NO .g-shot FRAME ON IT. That border and --page fill mean "this is a
  * screenshot of the thing", and this is the site's own drawing.
+ *
+ *
+ * THE FIVE GAME CARDS BESIDE IT WERE NEVER RE-MEASURED AND THE DESKTOP WAS THE
+ * WORST CASE ON THE PAGE. The commit that added the plate tile to this grid
+ * touched .g-list and did not look at what .g-card.has-shot does inside a track
+ * that the same grid makes NARROWER as the viewport gets WIDER. Measured in
+ * headless Chrome, the "Garbage Run" blurb (152 characters), characters a line
+ * computed from the element's own font through canvas:
+ *
+ *              card    text col   chars/line   lines   card height
+ *       390    350px     144px       21.2        8        277px
+ *       768    352px     145px       21.3        8        277px
+ *      1000    307px     120px       17.7        9        339px
+ *      1366    251px      90px       13.3       13        420px
+ *      1440    266px      98px       14.5       11        379px
+ *      1920    278px     105px       15.4       11        379px
+ *
+ * At 1366 that paragraph reads two or three words to a line and the card grows
+ * 143px TALLER than the same card on a phone to hold it. THE PHONE IS THE BEST
+ * CASE AND THE DESKTOP IS THE WORST, on a page whose whole premise is the
+ * phone. The cause is arithmetic rather than a bad number: .g-list wraps to
+ * FIVE 251px tracks at 1366, the picture column is min(46%,190px) of a 197px
+ * content box, and 90px is what is left. No value of that 46% fixes it -- at
+ * 38% the text column is 106px and 15.6 characters, which is the same defect
+ * with a smaller picture.
+ *
+ * SO THE CARD DECIDES ITS OWN LAYOUT FROM ITS OWN WIDTH, which is what a
+ * container query is for and what a media query cannot do here: the viewport
+ * does not predict the card, because 390 gives it 350px and 1366 gives it 251.
+ * The card is the container and the query styles its CHILDREN, since an element
+ * cannot be matched by its own container query; below 280px of content box the
+ * three text rows and the picture all take `grid-column:1 / -1` and the two
+ * declared tracks simply go unused.
+ *
+ * 280 IS THE THRESHOLD BECAUSE IT IS THE ONLY GAP IN THE MEASURED RANGE. The
+ * content box is the card less 24px of padding and 3px of border either side:
+ * 296 at 390, 298 at 768, then 253 at 1000 and 197 to 224 above it. Anything
+ * from 254 to 295 splits the two groups; 280 sits in the middle of that band so
+ * neither edge is one rounding away from flipping.
+ *
+ * THE PHONE KEEPS THE TWO COLUMN CARD AND THAT IS THE POINT OF THE THRESHOLD,
+ * not an accident of it. The note under HUB_CSS records why: full-width shots
+ * took this hub from 2,996px to 6,383px at 390x844, six screens to choose
+ * between four games, for somebody standing in a queue. That cost is a PHONE
+ * cost and it does not transfer, because on a desktop the five cards are side
+ * by side and a taller card costs the page one row rather than five.
+ *
+ * THE STACKED SHOT KEEPS THE 190px CAP THE TWO COLUMN VERSION ALREADY HAD, and
+ * that was measured rather than assumed. Without it the picture takes the whole
+ * content box and stops being a thumbnail: 253px wide and 411 tall at 1000,
+ * which is a 639px card. min(46%,190px) already says 190 is as big as this
+ * screenshot is ever meant to be drawn, so the stacked version says the same
+ * thing. It costs nothing a reader can read and buys back most of the height:
+ *
+ *              chars/line     card height          .g-list height
+ *              uncapped/capped  uncapped/capped   uncapped/capped
+ *       900       32.3 / 32.3      585 / 537        1,308 / 1,213
+ *      1000       37.2 / 37.2      639 / 537        1,436 / 1,234
+ *      1366       28.9 / 28.9      568 / 557          780 /   769
+ *      1440       31.1 / 31.1      572 / 537          784 /   749
+ *      1920       32.9 / 32.9      592 / 537          749 /   749
+ *
+ * WHAT IT STILL COSTS, stated rather than buried: the grid is TALLER than the
+ * squeezed version at every width that stacks, most at 1000 where three 307px
+ * tracks make the worst-shaped card on the page (804px of .g-list before, 1,234
+ * after). That is the trade, and it is the right way round: 17.7 characters a
+ * line is not a paragraph anybody reads, and 1000 is a tablet rather than the
+ * phone in a queue this hub is built for.
  */
 
 /**
@@ -1012,7 +1080,8 @@ const HUB_CSS = `
 .g-shot{display:block;margin:0;border:2px solid var(--ink);border-radius:10px;
   overflow:hidden;background:var(--page);line-height:0}
 .g-shot img{display:block;width:100%;height:auto}
-.g-card.has-shot{display:grid;grid-template-columns:min(46%,190px) 1fr;
+.g-card.has-shot{container-type:inline-size;
+  display:grid;grid-template-columns:min(46%,190px) 1fr;
   column-gap:var(--s4);align-items:start}
 /* The shot sits beside all three text rows. Named lines would be tidier, but
    a span survives a fourth line being added to the card and a fixed 1 / 4
@@ -1023,6 +1092,14 @@ const HUB_CSS = `
    text column and stopped reading as a pill. It is inline-block everywhere
    else on the site and this puts it back. */
 .g-card.has-shot .g-tag{justify-self:start}
+/* THE TWO COLUMN CARD STACKS WHEN THE CARD IS TOO NARROW TO BE ONE, and the
+   whole argument is in the block above HUB_CSS, which is stripped from the
+   page. Short version: the desktop was the WORST case and the phone the best,
+   which is backwards. 13.3 characters a line at 1366 against 21.2 at 390. */
+@container (max-width:280px){
+  .g-card.has-shot .g-shot{grid-column:1 / -1;grid-row:auto;margin-bottom:12px;max-width:190px}
+  .g-card.has-shot .g-tag,.g-card.has-shot h2,.g-card.has-shot p{grid-column:1 / -1}
+}
 .g-icon{display:block;margin:0 0 12px}
 .g-icon img{display:block;width:56px;height:56px;border-radius:13px;
   border:1px solid var(--hair);background:var(--card)}

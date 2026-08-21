@@ -314,6 +314,81 @@ const LORE_ANIM_CSS = `
 .lore-scale.is-armed.is-in .lore-bar{transform:none}
 @media(prefers-reduced-motion:reduce){.lore-scale.is-armed .lore-bar{transform:none}}`;
 
+/**
+ * THE TWO FACT GRIDS STOP LEAVING A HOLE IN THEIR LAST ROW.
+ *
+ * .lore-list is repeat(auto-fit, minmax(260px,1fr)) in public/assets/games.css,
+ * which is shared with /games/ and is not this pass's file, so the fix is a
+ * page-level override in the <style> block below. That block is emitted AFTER
+ * the games.css link, and [data-cards] adds the specificity, so it wins twice
+ * over without games.css moving.
+ *
+ * MEASURED FIRST, headless Chrome over CDP at DPR 1, the two lists at 8 and 6
+ * cards. Dead track is the uninked band the last row leaves; the rightmost
+ * PAINTED pixel is the card's own border box, so a short row inking to 828 in
+ * a 1392 box is genuinely 563.20px of nothing:
+ *
+ *       viewport   cols   rows      dead track     list
+ *          900      3     3,3,2       289.34px     the 8 (Did you know)
+ *         1080      3     3,3,2       349.34px     the 8
+ *         1440      5     5,3         563.20px     the 8
+ *         1200      4     4,2         322.00px     the 6 (One of a kind)
+ *         1440      5     5,1         889.60px     the 6, one card alone
+ *
+ * THE COLUMN COUNT STEPS DOWN TO A DIVISOR RATHER THAN THE LAST ROW WIDENING,
+ * and that is the opposite of the call /hall.html makes 200 lines into
+ * build-hall.mjs. The reason is the card: a plaque is a 120px scan beside a
+ * body and reads at any width, so widening the tail is free there. A .lore card
+ * is a paragraph of prose in a 2px box, and closing the 889.60px hole above by
+ * letting one card span the row would draw a 1,392px fact card, which is worse
+ * than the hole it fills. Six cards over three columns is 2 x 3 with nothing
+ * left over and no card wider than 453px.
+ *
+ * ALIGN-ITEMS STAYS AT STRETCH, deliberately. Every .lore is a filled box with
+ * its own 2px border, and four boxes ending at four different heights in one
+ * row reads as breakage rather than as masonry. Stretch is what makes a row a
+ * row here. The empty space that leaves inside a short card is the reason the
+ * column count comes DOWN: fewer, wider columns is fewer lines of difference
+ * between the tallest card in a row and the shortest.
+ *
+ * THE BREAKPOINTS ARE DERIVED, NOT PICKED, and picking them is how this goes
+ * wrong by exactly one gutter. .wrap is the viewport less 40px below 704 and
+ * less 48px from 704 up, capped at 1452: measured by stepping the viewport 4px
+ * at a time from 320 to 1600 and reading the box, not read off the stylesheet.
+ * So the width at which c columns of 260px and 16px gaps first fit is
+ * c*260 + (c-1)*16 plus whichever gutter applies at that size. That gives 576,
+ * 860, 1136 and 1412, and those four are exactly where the shipped auto-fit
+ * grid was measured to step. Five columns is the ceiling: six would want a
+ * 1,640px wrap and the wrap stops at 1,452.
+ */
+const LORE_MIN = 260;
+const LORE_GAP = 16;
+const wrapNeeds = (cols) => {
+  const need = cols * LORE_MIN + (cols - 1) * LORE_GAP;
+  return need + (need + 40 >= 704 ? 48 : 40);
+};
+const LORE_STEPS = [1, 2, 3, 4, 5].map((c) => ({ c, at: wrapNeeds(c) }));
+
+/** The largest divisor of n that is no bigger than c: the column count that row cannot orphan. */
+const fitCols = (n, c) => {
+  for (let k = Math.min(c, n); k >= 1; k--) if (n % k === 0) return k;
+  return 1;
+};
+
+const loreGridCss = (n) => {
+  const out = [];
+  let last = 0;
+  for (const { c, at } of LORE_STEPS) {
+    const eff = fitCols(n, c);
+    if (eff === last) continue;
+    last = eff;
+    out.push(at <= 320
+      ? `.lore-list[data-cards="${n}"]{grid-template-columns:repeat(${eff},1fr)}`
+      : `@media(min-width:${at}px){.lore-list[data-cards="${n}"]{grid-template-columns:repeat(${eff},1fr)}}`);
+  }
+  return out.join("\n");
+};
+
 const LORE_ANIM_JS = `<script>
 (function(){
   var fig=document.querySelector('.lore-scale');
@@ -422,6 +497,10 @@ ${STYLES}
 .lore-scale{flex:1 1 260px;min-width:0;align-self:flex-end}
 .lore-scale svg{width:100%;height:auto;max-width:420px;display:block}
 .lore-scale figcaption{font:400 var(--t-micro)/1.5 var(--body);color:inherit;opacity:.72;margin-top:6px}
+
+/* One column ladder per list, generated from its own card count so no row is
+   left holding a hole: see loreGridCss in scripts/build-lore.mjs. */
+${[...new Set([FACTS.length, RARE_COMBOS.length])].map(loreGridCss).join("\n")}
 ${LORE_ANIM_CSS}
 ${PLATE_CSS}
 </style>
@@ -528,13 +607,18 @@ ${/* THE SEAM THIS PAGE ALREADY MADE, AND THE ONE PLACE ON IT WITH NEITHER A
       any of its placements. */ ""}${plateRule()}
 
     <h2>Did you <span class="hl">know</span></h2>
-    <div class="lore-list" style="margin-top:var(--s4)">
+    ${/* data-cards IS THE HOOK THE GRID RULES ARE KEYED TO, and it is written
+          from the same array that fills the list so the two cannot drift: the
+          column count is only allowed to be a divisor of this number, which is
+          what stops the last row leaving a hole. See loreGridCss above.
+          THE COMMENT SITS ON THE SAME LINE AS THE DIV ON PURPOSE: on its own
+          line it renders as four spaces and a newline into the shipped page. */ ""}<div class="lore-list" data-cards="${FACTS.length}" style="margin-top:var(--s4)">
 ${FACTS.map(([h, b, who]) => factCard(h, b, who)).join("\n")}
     </div>
 
     <h2 style="margin-top:var(--s7)">One of a <span class="hl">kind</span></h2>
     <p class="lede" style="max-width:40em">Type pairings so rare that the whole dex holds two or three of them.</p>
-    <div class="lore-list" style="margin-top:var(--s4)">
+    <div class="lore-list" data-cards="${RARE_COMBOS.length}" style="margin-top:var(--s4)">
 ${RARE_COMBOS.map(
   ([k, v]) => `      <div class="lore">
         <h3>${esc(k.split("/").map(cap).join(" / "))}</h3>

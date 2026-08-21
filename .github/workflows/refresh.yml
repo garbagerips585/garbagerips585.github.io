@@ -203,10 +203,24 @@ jobs:
 
       # Cheap guards. A nightly job that commits unattended should not be able
       # to publish a broken site quietly.
+      # EXIT 2 IS A WRONG CELL IN THE WORKBOOK AND IT MUST NOT STOP THIS JOB.
+      # check-build.py exits 1 for a broken build and 2 for a workbook answer
+      # that needs a human -- pages complete and publishable, the log simply
+      # wrong about a card. The "Commit if anything changed" step comes after
+      # this one, so treating 2 as fatal would let one mistyped rarity halt
+      # every nightly commit: new uploads, sealed prices, PSA figures, all of
+      # it. pages.yml would not deploy either, because its workflow_run trigger
+      # requires conclusion == success. This site has already lost twelve days
+      # of publishing to a freeze nobody could see. The message still prints in
+      # full above, and on every local build, so it stays loud while it waits.
       - name: Check the build
         run: |
           node scripts/sync-chrome.mjs --check
-          python3 scripts/check-build.py
+          python3 scripts/check-build.py || {
+            code=$?
+            if [ "$code" -ne 2 ]; then exit "$code"; fi
+            echo "::warning::check-build.py exit 2: the workbook needs a fix (see above). Continuing, because the build itself is sound."
+          }
 
       - name: Commit if anything changed
         run: |

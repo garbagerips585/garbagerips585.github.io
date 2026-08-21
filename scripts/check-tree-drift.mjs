@@ -116,9 +116,46 @@ try {
   try {
     execFileSync("node", ["scripts/build-all.mjs"], { cwd: tmp, stdio: "pipe" });
   } catch (e) {
-    console.error(`FAIL  build-all exited non-zero on a clean export of ${WHAT}.`);
-    console.error(String(e.stdout || "").slice(-3000));
-    process.exit(1);
+    // A FAILING check-build.py IS NOT A REASON THIS QUESTION CANNOT BE ANSWERED,
+    // AND TREATING IT AS ONE MAKES THIS SCRIPT UNRUNNABLE FOR AS LONG AS ONE
+    // SPREADSHEET CELL IS WRONG.
+    //
+    // Every other step in build-all WRITES into public/, so one of them failing
+    // leaves a half-built tree and the comparison below would report the gap as
+    // drift, which is a different fault wearing this one's name. check-build.py
+    // is the exception and it is the exception BY CONSTRUCTION: it runs LAST,
+    // it opens files and never writes one, so a run where it is the only
+    // failing step has still produced the complete tree this script exists to
+    // hash. That became load bearing the day check-build.py started failing on a
+    // hit whose written rarity tier the card is not printed at: a real gate on
+    // real data, on a row only the sheet's owner can correct, and it would
+    // otherwise have taken the launch week's last verification step down with
+    // it until he did.
+    //
+    // THAT PARTICULAR CASE NOW EXITS 2 RATHER THAN 1, and this block does not
+    // key on that. check-build.py grew two severities the same afternoon --
+    // 1 for a broken build, 2 for a wrong answer in the workbook -- so the
+    // nightly could keep committing through a mistyped rarity. This script
+    // tolerates BOTH, because its reason has nothing to do with how bad the
+    // problem is: a step that runs last and writes nothing cannot leave a
+    // half-built tree, whichever code it exits with. Keying on the severity
+    // would make this script's correctness depend on a number chosen for CI's
+    // benefit, which is a coupling worth not having.
+    //
+    // The distinction is made on the step NAME, not on the exit code, so any
+    // builder failing still stops this dead.
+    const log = String(e.stdout || "");
+    const failed = [...log.matchAll(/^ {2}FAIL {2}(.+)$/gm)].map((m) => m[1].trim());
+    const onlyTheGate = failed.length > 0 && failed.every((s) => s === "python3 scripts/check-build.py");
+    if (!onlyTheGate) {
+      console.error(`FAIL  build-all exited non-zero on a clean export of ${WHAT}.`);
+      console.error(log.slice(-3000));
+      process.exit(1);
+    }
+    console.log("  note: check-build.py failed on this tree and every builder ran.");
+    console.log("  It writes nothing and runs last, so the tree below is complete and the");
+    console.log("  drift question is still answerable. Its own report:");
+    for (const line of log.split("\n").slice(-8)) console.log("    " + line);
   }
 
   const built = join(tmp, "public");

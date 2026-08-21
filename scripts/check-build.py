@@ -22,6 +22,10 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 fail = []
+# A wrong answer in the hand-filled workbook. Reported as loudly as `fail`,
+# but exits 2 rather than 1 so it cannot halt the nightly. Full argument is
+# beside the printing block at the foot of this file.
+sheet_fail = []
 
 
 # A PAGE THAT VANISHED BETWEEN THE GLOB AND THE READ IS NOT A BROKEN SITE.
@@ -1240,6 +1244,89 @@ if _future:
         f"use localDay() from shared/today.mjs."
     )
 
+# ---------------------------------------------------------------------------
+# A HIT'S WRITTEN TIER MUST BE A TIER THAT CARD IS ACTUALLY PRINTED AT.
+#
+# THE FAULT THIS EXISTS FOR, and it is the class rather than the instance.
+# data/hits.json carries two answers about one card and nothing compared them.
+# The tier Tim TYPED is what /rarity.html files the card under and what
+# /luck.html labels it; the tier of the printing build-pages.mjs and
+# build-hall.mjs RESOLVE is what the rip page and the plaque print. Where the
+# two disagree, four pages disagree with each other, every builder exits 0 and
+# every other check here passes. The owner looked at his own pages for months
+# and did not see it.
+#
+# THE ROW IT CATCHES TODAY IS THE MOST LOAD BEARING ROW IN THE SHEET. Row 4
+# writes Mega Greninja ex as a Hyper Rare. Chaos Rising prints FOUR Mega
+# Greninja ex -- #022 Double rare, #100 Ultra Rare, #116 Special illustration
+# rare and #122 Mega Hyper Rare -- and NONE of them is a Hyper Rare. The set
+# has exactly one Mega Hyper Rare card in it, this one, and zero Hyper Rares.
+# It reached the right printing BY ACCIDENT: the resolver matched on the first
+# eight normalised characters and "hyperrar" is a substring of
+# "megahyperrare". So /hall.html #1, /about.html's "biggest pull" and 53 rip
+# pages say Mega Hyper Rare while /rarity.html credits the channel's best card
+# to the Hyper Rare row and leaves the Mega Hyper Rare row reading as though
+# nobody has ever pulled one.
+#
+# WHY THE TEST IS "A TIER THIS CARD HAS" AND NOT "THE TIER IT RESOLVED TO".
+# Comparing against whatever the resolver picked would pass any row the
+# resolver got wrong, which is the accident above. The set's own checklist is
+# the fact: if no printing of that name in that set carries the typed tier,
+# the typed tier is wrong no matter what anything resolved to. It is also the
+# check that survives the resolver being tightened, which it has been.
+#
+# ENGLISH CHECKLISTS ONLY, and that is a real limit rather than an oversight.
+# public/data/cards/ holds the 28 English sets; the Japanese and Korean guides
+# live in public/data/intl-guides.json and are DELIBERATELY not mapped onto the
+# English ladder -- shared/rarity.mjs keeps the seven letter tiers separate and
+# says why, and build-hall.mjs refuses to bend that rule to win a collector
+# number. "Art Rare" against TCGdex's "Illustration rare" for the same Goldeen
+# is two vocabularies, not a mistake, so an intl row would fail this check for
+# being correct. A promo carries no set and has no checklist to be on.
+#
+# IT FAILS THE BUILD RATHER THAN WARNING. The run already printed a warning
+# about a different row in this same cell and the wrong card shipped to a live
+# page anyway; a line in a log is not a gate.
+_hits_doc = _read_json("data/hits.json") if os.path.exists("data/hits.json") else None
+_tier_bad = []
+if isinstance(_hits_doc, dict):
+    _norm_r = lambda x: _re.sub(r"[^a-z0-9]", "", str(x or "").lower())
+    _set_cards = {}
+
+    def _cards_for(_sid):
+        if _sid not in _set_cards:
+            _p = f"public/data/cards/{_sid}.json"
+            _doc = _read_json(_p) if os.path.exists(_p) else None
+            _set_cards[_sid] = (_doc or {}).get("cards") or None
+        return _set_cards[_sid]
+
+    for _vid, _list in sorted((_hits_doc.get("videos") or {}).items()):
+        for _h in _list or []:
+            _sid, _rar = _h.get("set"), _h.get("rarity")
+            if not _sid or not _rar or _h.get("promo"):
+                continue
+            _cards = _cards_for(_sid)
+            if not _cards:
+                continue  # intl guide or unguided set; see above
+            _same = [_c for _c in _cards if _norm_r(_c.get("name")) == _norm_r(_h.get("card"))]
+            if not _same:
+                continue  # a name no checklist holds is build-hall.mjs's report, not this one
+            _tiers = sorted({str(_c.get("rarity") or "?") for _c in _same})
+            if _norm_r(_rar) not in {_norm_r(_t) for _t in _tiers}:
+                _tier_bad.append(
+                    f'{_vid}: the log calls "{_h.get("card")}" a {_rar}, but {_sid} prints it '
+                    f'only as {", ".join(_tiers)}'
+                )
+if _tier_bad:
+    sheet_fail.append(
+        f"{len(_tier_bad)} hit(s) carry a rarity tier the card is not printed at in the set "
+        f"named beside it, so /rarity.html and /luck.html file the card under one tier while "
+        f"/hall.html and the rip page print another: " + "; ".join(_tier_bad[:4])
+        + (f" ...and {len(_tier_bad) - 4} more" if len(_tier_bad) > 4 else "")
+        + ". Fix the Hit Info cell in the workbook and re-run scripts/import-sheet.mjs; "
+          "do NOT edit data/hits.json, which that script rebuilds per video."
+    )
+
 # DEDUPE AGAIN, HERE, BECAUSE THE EARLIER ONE CANNOT SEE THE LAST THIRD OF THIS
 # FILE. There is a `fail = list(dict.fromkeys(fail))` further up, added so that
 # one file read by three checks reports its problem once. It sits at the point
@@ -1250,6 +1337,37 @@ if _future:
 # rather than of complaints.
 fail = list(dict.fromkeys(fail))
 
+# TWO SEVERITIES, AND THE SECOND ONE EXISTS SO A TYPO CANNOT FREEZE THE NIGHTLY.
+#
+# `fail` is a broken BUILD: a page that did not generate, a lightbox that lost
+# its source, a tag table that parsed to nothing. Nobody should publish over
+# one, and the nightly must stop rather than commit it.
+#
+# `sheet_fail` is a wrong ANSWER in the hand-filled workbook. It is just as real
+# and it is reported just as loudly, but it differs in the one way that matters
+# to CI: no automated run can fix it, and the pages it produces are complete and
+# publishable -- they simply say something the log got wrong.
+#
+# .github/workflows/refresh.yml runs check-build.py and stops the job on a
+# non-zero exit, and its "Commit if anything changed" step comes AFTER. So with
+# one severity, a single mistyped rarity in one spreadsheet cell would silently
+# halt every nightly commit -- new uploads, prices, PSA figures, all of it --
+# and pages.yml would not deploy either, because its workflow_run trigger
+# requires conclusion == success. This site has already lost twelve days of
+# publishing to a freeze nobody could see, and CLAUDE.md records it.
+#
+# So: exit 1 for a broken build, exit 2 for a workbook that needs a human, and
+# the nightly tolerates 2 while still printing it. A wrong cell stays loud on
+# every local build and in every CI log, and it stops nothing that can still run.
+sheet_fail = list(dict.fromkeys(sheet_fail))
+
+if sheet_fail:
+    print(f"\n{len(sheet_fail)} workbook problem(s) -- the build is fine, the log is wrong:", file=sys.stderr)
+    for f in sheet_fail:
+        print("  " + f, file=sys.stderr)
+    print("Fix the cell in Garbage-Rips-585-Video-Log.xlsx and re-run "
+          "scripts/import-sheet.mjs.", file=sys.stderr)
+
 if fail:
     print(f"\n{len(fail)} problem(s):", file=sys.stderr)
     for f in fail:
@@ -1257,5 +1375,7 @@ if fail:
     print(f"{len(fail)} problem(s) found by scripts/check-build.py. "
           f"Run: python3 scripts/check-build.py", file=sys.stderr)
     sys.exit(1)
+if sheet_fail:
+    sys.exit(2)
 print("\nall checks pass")
 

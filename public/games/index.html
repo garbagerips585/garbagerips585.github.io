@@ -24,13 +24,14 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=c2b99ea6">
+<link rel="stylesheet" href="/assets/ui.css?v=582ae61a">
 <link rel="stylesheet" href="/assets/games.css?v=15befa74">
 <style>
 .g-shot{display:block;margin:0;border:2px solid var(--ink);border-radius:10px;
   overflow:hidden;background:var(--page);line-height:0}
 .g-shot img{display:block;width:100%;height:auto}
-.g-card.has-shot{display:grid;grid-template-columns:min(46%,190px) 1fr;
+.g-card.has-shot{container-type:inline-size;
+  display:grid;grid-template-columns:min(46%,190px) 1fr;
   column-gap:var(--s4);align-items:start}
 /* The shot sits beside all three text rows. Named lines would be tidier, but
    a span survives a fourth line being added to the card and a fixed 1 / 4
@@ -41,6 +42,14 @@
    text column and stopped reading as a pill. It is inline-block everywhere
    else on the site and this puts it back. */
 .g-card.has-shot .g-tag{justify-self:start}
+/* THE TWO COLUMN CARD STACKS WHEN THE CARD IS TOO NARROW TO BE ONE, and the
+   whole argument is in the block above HUB_CSS, which is stripped from the
+   page. Short version: the desktop was the WORST case and the phone the best,
+   which is backwards. 13.3 characters a line at 1366 against 21.2 at 390. */
+@container (max-width:280px){
+  .g-card.has-shot .g-shot{grid-column:1 / -1;grid-row:auto;margin-bottom:12px;max-width:190px}
+  .g-card.has-shot .g-tag,.g-card.has-shot h2,.g-card.has-shot p{grid-column:1 / -1}
+}
 .g-icon{display:block;margin:0 0 12px}
 .g-icon img{display:block;width:56px;height:56px;border-radius:13px;
   border:1px solid var(--hair);background:var(--card)}

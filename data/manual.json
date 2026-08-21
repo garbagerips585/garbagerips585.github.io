@@ -3434,7 +3434,7 @@
         "setName": "Mega Symphonia (JP)"
       },
       {
-        "card": "Trainer Rare Candy Full Art",
+        "card": "Trainer Rare Candy",
         "rarity": "Super Rare",
         "set": "ja-mega-symphonia",
         "setName": "Mega Symphonia (JP)"
@@ -4148,7 +4148,7 @@
     "hitCard": "Trainer - Poké Pad - SR - Full Art",
     "hits": [
       {
-        "card": "Trainer Poké Pad Full Art",
+        "card": "Trainer Poké Pad",
         "rarity": "Super Rare",
         "set": "ja-nihil-zero",
         "setName": "Nihil Zero (JP)"
@@ -4444,11 +4444,11 @@
         "setName": "Surging Sparks"
       },
       {
-        "card": "Mega Charizard X UPC Promo",
+        "card": "Mega Charizard X ex",
         "rarity": "Black Star Promo"
       },
       {
-        "card": "Mega Charizard X UPC Promo",
+        "card": "Oricorio ex",
         "rarity": "Black Star Promo"
       }
     ],

@@ -63,7 +63,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, shortDate, moneyExact, imgDims, productSrcsetAttr, plural, count } from "../shared/format.mjs";
+import { esc, longDate, shortDate, moneyExact, imgDims, productSrcsetAttr, plural, count, noWidowEmoji } from "../shared/format.mjs";
 import { PRODUCT_TYPES, CARD_SETS } from "../shared/taxonomy.mjs";
 import { ripLabel } from "../shared/riplabel.mjs";
 
@@ -647,6 +647,201 @@ const setPages = new Set(
     .map((f) => f.slice(0, -5))
 );
 
+// ------------------------------------------------------ the runs of this kind
+//
+// A VISUAL QA PASS ASKED FOR THUMBNAILS ON THE RIP LIST ABOVE. THEY ARE THE
+// WRONG PICTURE AND THE ARITHMETIC IS WHAT SAYS SO, 21 August 2026.
+//
+// THE PREMISE WAS "every other list of rips on this site shows the video's
+// thumbnail", AND NO LIST ON THIS SITE SHOWS THE VIDEO'S THUMBNAIL. The only
+// i.ytimg.com string in the tree is the poster behind the pack on a rip page
+// and the VideoObject schema beside it (see build-pages.mjs). Every LIST shows
+// PACK WRAPPER ART, which is keyed to the SET and not to the video, and
+// ui.css says beside .art-none, in as many words, that the YouTube poster frame
+// is never used because it is usually the pulled card and spoils the video
+// before you press play. That rule is site wide and this page does not get to
+// break it.
+//
+// SO THE THUMBNAIL ON OFFER IS THE SET'S WRAPPER, AND ON THESE PAGES IT
+// REPEATS. Counted off videos.json with tileSet()'s own rule from
+// build-pages.mjs, rips against DISTINCT wrapper files:
+//
+//       single-pack   93 rips  15 files    etb          57 rips   5 files
+//       bundle        54 rips   5 files    ex-premium   48 rips   6 files
+//       japanese-pack 15 rips   1 file     collection-box 13 rips 4 files
+//
+// So /openings/etb.html would draw twenty-one identical Chaos Rising wrappers
+// in one column, and /openings/japanese-pack.html fifteen identical copies of
+// the generic default wrapper. That is the "eleven identical Trubbishes" the
+// pictureless block below refuses, at five times the scale. build-pages.mjs hit
+// the same wall in "More from BOX" and its answer is written there: the tiles
+// are NUMBERED, not titled, because a band about one box in sequence is the one
+// place where an identical wrapper on every tile is the point. A hub page about
+// a KIND across fifteen sets is the opposite of that.
+//
+// AND IT WOULD COST TWO RENDER BLOCKING REQUESTS THIS FILE DELIBERATELY DROPPED.
+// The wrappers are CSS backgrounds, so a wrapper tile needs packs.css back, and
+// a tile that does not play in place needs packplayer.js: about 11.9KB gzipped
+// on all fourteen pages, which is the note at the top of this file read
+// backwards.
+//
+// WHAT THE REVIEWER ACTUALLY SAW IS REAL, AND TIM NAMED IT FIRST. Looking at
+// twelve rows of this same shape on /sets/pitch-black.html on 20 August: "right
+// now its just a list of text, looks pretty big and boring". The rip list here
+// is that at scale, 57 rows differing in one digit on the ETB page and 93 on
+// single packs, and the fix that shipped for it is .ripcount and .runrows in
+// build-set-pages.mjs: a route with a picture on it, above the list.
+//
+// THE OPENINGS PAGES NEVER GOT THAT FIX, AND THE JOIN IT NEEDS ALREADY EXISTS.
+// build-set-pages.mjs asks which playlists are a run OF ONE SET. The same file
+// answers which are a run OF ONE PRODUCT, which nobody had asked, and 5 of the
+// 22 playlists are an ETB run, 4 a bundle run, 4 a single pack run and 1 a
+// blister run: 51 of the 57 ETB rips and 48 of the 54 bundle rips sit inside
+// one. The picture is data/playlist-covers.json, the sealed product photograph
+// /playlists.html and 22 set guides already draw at this same 60x45.
+//
+// THE LIST STAYS. On a set guide the count was already on the page twice, so
+// twelve rows could go. Here the list of every opening of a kind IS the thing
+// this page has that nobody else does (see the header of this file), so the
+// band is ADDED ABOVE IT and nothing is removed.
+//
+// FOUR PAGES GAIN IT AND TEN DO NOT, WHICH IS THE POINT OF ASKING RATHER THAN
+// DECIDING BY LENGTH. ex Premium Collections are the third longest list here
+// and every playlist touching them is mixed, so that page has no run and gets
+// no band. /openings/chinese-pack.html has one rip and no run, so the Trubbish
+// empty state below is untouched; runBand is in the pictureless test anyway, so
+// the day a pictureless page gains a run the mascot leaves on its own.
+//
+// EVERY RULE BELOW IS build-set-pages.mjs's, mirrored deliberately: n is
+// RESOLVED videos and never the playlist's own count, which includes private
+// and deleted entries; sec is printed only where the playlist page itself
+// prints it, more than one video and every one timed; no path means no page to
+// link to, which shipped as href="/undefined" once already.
+const PLAYLISTS =
+  JSON.parse(
+    await readFile(join(ROOT, "public/data/playlists.json"), "utf8").catch(() => '{"playlists":[]}')
+  ).playlists || [];
+const PL_COVERS =
+  JSON.parse(await readFile(join(ROOT, "data/playlist-covers.json"), "utf8").catch(() => "{}"))
+    .covers || {};
+const videoById = new Map(videos.map((v) => [v.id, v]));
+
+const runsByKind = new Map();
+for (const p of PLAYLISTS) {
+  if (!p.path) continue;
+  const vids = (p.videoIds || []).map((id) => videoById.get(id)).filter(Boolean);
+  if (!vids.length) continue;
+  const kinds = new Set();
+  for (const v of vids) for (const k of v.products || []) kinds.add(k);
+  if (kinds.size !== 1) continue;
+  const sets = new Set();
+  for (const v of vids) for (const s of v.sets || []) sets.add(s);
+  const one = sets.size === 1 ? [...sets][0] : null;
+  const cover = PL_COVERS[p.id] || null;
+  const kind = [...kinds][0];
+  if (!runsByKind.has(kind)) runsByKind.set(kind, []);
+  runsByKind.get(kind).push({
+    title: p.title,
+    path: p.path,
+    n: vids.length,
+    ids: new Set(vids.map((v) => v.id)),
+    sec: vids.reduce((a, v) => a + (v.duration || 0), 0),
+    timed: vids.length > 1 && vids.every((v) => v.duration),
+    img: cover && cover.webp ? cover.webp : null,
+    // cover.alt IS DELIBERATELY NOT READ. See the alt="" note in runBand.
+    // The English set whose logo stands in when a run has no cover photograph,
+    // which is one run in the tree today. It is the same substitution the set
+    // band above makes for a Japanese or Korean row, and on these pages it is
+    // free: the set band has already fetched that exact -sm.webp url.
+    logoSet: one ? (INTL[one] ? INTL[one].equivalent : one) : null,
+  });
+}
+for (const list of runsByKind.values()) list.sort((a, b) => b.n - a.n || b.sec - a.sec);
+
+// m:ss, copied from build-set-pages.mjs and build-playlists.mjs so all three
+// spell a runtime the same way. Deliberately not rounded to "8 min": it is the
+// sum of the chips printed on the page it points at, in those chips' notation,
+// so a reader can check it.
+const clockMS = (sec) => (sec ? `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")}` : "");
+
+// THE BRAND TAIL COMES OFF, THE SET NAME DOES NOT, AND THAT SPLIT IS THE POINT.
+//
+// Eight of Tim's playlist titles end "| Garbage Rips 585", and this site's own
+// rule is that no page title carries that suffix (see the head() comment in the
+// per-product loop, and build-set-pages.mjs's runTitle, whose regex this is).
+// Three ETB runs would otherwise read "...Pack Series | Garbage Rips 585" on a
+// page whose masthead says Garbage Rips 585 two inches above them.
+//
+// runTitle ALSO strips the SET name, and copying that here would be wrong. On a
+// set guide every run is the same set, so the set is the repeated word and the
+// product is what varies; on a product page it is exactly the other way round,
+// and "ETB Opening Series" five times over says nothing. Same inversion the
+// one-rip-per-kind list on the index already documents: whichever half the
+// heading has already said is the half that goes.
+//
+// THE EMOJI STAY. They are Tim's, /playlists.html and the 22 set guides print
+// them, and noWidowEmoji is the shared fix for the one thing they do wrong,
+// which is stranding a lone diamond on a line of its own in a 288px row.
+const runTitle = (t) => String(t).replace(/\s*\|\s*Garbage Rips 585\s*$/i, "").trim();
+
+/**
+ * The runs of one kind of product, or "" where there are none.
+ *
+ * ONE LINK PER ROW wrapping the picture and both lines of text, the same rule
+ * .op-sr and .op-c on this page already follow: two links to one destination in
+ * one row is two tab stops and two announcements of the same thing.
+ *
+ * THE HEADER LINE IS COUNTED, NEVER TYPED. It says how many of the openings
+ * listed under it are inside a run, because on the ETB page that is 51 of 57
+ * and on the blister page it is 2 of 13, and a line reading "one run of these,
+ * and it plays here in order" over a thirteen row list implies the run is the
+ * list. Same discipline as setBandSum above, for the same reason.
+ *
+ * NO .ripcount HERE, and that is the one thing this band does NOT copy from the
+ * set guides. The count is already on this page as the first .op-f tile, and the
+ * set guide's own comment is that a third recital of a number the page prints
+ * twice was that section's whole content.
+ */
+function runBand(e) {
+  const runs = runsByKind.get(e.id) || [];
+  if (!runs.length) return "";
+  const inRun = e.vids.filter((v) => runs.some((r) => r.ids.has(v.id))).length;
+  const rows = runs
+    .map((r) => {
+      // alt="" AND NOT THE COVER'S OWN ALT, WHICH IS WHERE THIS PARTS COMPANY
+      // WITH build-set-pages.mjs. That file writes the cover's alt into the
+      // row; this page has already argued the opposite case for the logo in
+      // setBand above, and the argument is the same one: the picture sits
+      // inside a link whose visible text names the destination, so an alt makes
+      // a screen reader read "Sealed Pitch Black Elite Trainer Box" and then
+      // "Pitch Black ETB Opening Marathon" as one accessible name. The blister
+      // page is the sharpest case, where the cover /playlists.html resolved is
+      // a booster pack photograph: describing it would put a product the row is
+      // not about into the link's name.
+      const pic = r.img
+        ? `<img class="rr-img" src="${esc(r.img)}" width="60" height="45" loading="lazy" decoding="async" alt="">`
+        : r.logoSet && logosOnDisk.has(r.logoSet)
+          ? `<img class="rr-img rr-fall" src="/assets/logos/${esc(r.logoSet)}-pokemon-tcg-set-logo-sm.webp" width="60" height="45" loading="lazy" decoding="async" alt="">`
+          : `<span class="rr-img rr-fall" aria-hidden="true"></span>`;
+      return `        <li><a class="runrow" href="/${esc(r.path)}">
+          ${pic}
+          <span class="rr-x"><span class="rr-t">${noWidowEmoji(esc(runTitle(r.title)))}</span><span class="rr-m">${count(
+            r.n,
+            "video"
+          )}${r.timed ? ` &bull; ${clockMS(r.sec)}` : ""}</span></span>
+        </a></li>`;
+    })
+    .join("\n");
+  return `      <p class="run-h">${
+    inRun === e.vids.length ? "All" : inRun
+  } of the ${count(e.vids.length, "opening")} below sit in ${
+    runs.length === 1 ? "a run" : `${count(runs.length, "run")}`
+  }, and a run plays here in order rather than on YouTube.</p>
+      <ul class="runrows">
+${rows}
+      </ul>`;
+}
+
 /**
  * The band that answers "which sets, and how many of each".
  *
@@ -1185,7 +1380,14 @@ for (const e of entries) {
   const shotHtml = shot(e);
   const setBandHtml = await setBand(e);
   const priceTableHtml = priceTable(e);
-  const pictureless = ![shotHtml, setBandHtml, priceTableHtml].some((h) => h.includes("<img"));
+  // runBandHtml IS IN THIS TEST DELIBERATELY. It renders no picture on any page
+  // that qualifies today, so it changes nothing now; it is here so that the day
+  // a pictureless product gains a run with a cover on it, the mascot leaves by
+  // itself rather than sitting in a room that is no longer empty.
+  const runBandHtml = runBand(e);
+  const pictureless = ![shotHtml, setBandHtml, priceTableHtml, runBandHtml].some((h) =>
+    h.includes("<img")
+  );
   if (pictureless) picturelessPages.push(path);
 
   const page =
@@ -1274,7 +1476,12 @@ ${e.prices.length
         e.packs ? `, ${count(e.packs, "pack")} counted` : ""
       }. Each one plays on its own page.${
         e.packs && !FOREIGN_PACKS.has(e.id) ? codeLine(e.packs) : ""
-      }</p>
+      }</p>${/* NOT A BARE ${runBandHtml} ON ITS OWN LINE. Ten of the fourteen
+             pages have no run, and an empty interpolation there left each of
+             them a blank line: one byte a page for nothing, on a file whose
+             own header counts the bytes a build note costs a reader. */ ""}${
+        runBandHtml ? `\n${runBandHtml}` : ""
+      }
       <ul class="riplist">
 ${e.vids
   .slice()
@@ -1443,6 +1650,12 @@ await writeFile(join(OUT, "index.html"), idx);
 console.log(`Wrote public/openings/ with ${entries.length + 1} pages
   ${entries.length} product types, ${totalRips} openings, ${totalPacks} packs counted
   ${entries.filter((e) => e.prices.length).length} have a price table
+  ${entries.filter((e) => runsByKind.has(e.id)).length} carry a run band: ${
+    entries
+      .filter((e) => runsByKind.has(e.id))
+      .map((e) => `${e.id} ${runsByKind.get(e.id).length}`)
+      .join(", ") || "none"
+  }
   ${
     picturelessPages.length
       ? `${picturelessPages.length} page${

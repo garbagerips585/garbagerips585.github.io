@@ -490,6 +490,30 @@ function showMap() {
   // from the numbers this figure shipped with at 14 units: 9/14, 18/14, 4/14.
   // That is what lets one renderer draw both variants without either of them
   // getting a hand-tuned box that the collision test above does not know about.
+  // THE DOTS ARE RESERVED AGAINST AS WELL AS THE LABELS, AND THIS MAP HAD ONE
+  // OF THESE TOO. /shops.html's placer had the same hole and it was worse there
+  // -- its Great Lakes Gaming plate sat on the Just Games marker itself, 14.4 x
+  // 3.5 CSS px at 1440 -- so this figure was reported clean and was not. THE
+  // DIFFERENCE IS WHICH CIRCLE YOU MEASURE AGAINST, and it is worth writing
+  // down because a first pass here measured the wrong one and got zero:
+  //
+  //       plate over the DOT      0 at every width, both before and after
+  //       plate over the HALO     "Depew . 1", 13.2 x 0.4 CSS px at 545,
+  //                               17.2 x 0.5 at 768 and 1440, now 0
+  //
+  // THE HALO IS THE THING TO RESERVE, r + 4 AND NOT r. It is a ring of the map's
+  // own ground painted under the marker so a dot reads as a dot rather than as a
+  // junction of the roads it lands on, which is the whole reason it exists; a
+  // plate lying over it undoes that and is a fault whether or not it has reached
+  // the coloured circle in the middle yet. A label starts at x +/- (r + 8), so
+  // its own halo is 4 units clear and every dot can go in one list.
+  //
+  // MEASURED AT 320, 390, 544, 545, 768 AND 1440 ON BOTH MAPS, before against
+  // after, off getBoundingClientRect on the rendered SVG rather than off these
+  // user units: 2 overlaps before (one per map), 0 after, with 0 plate-on-plate,
+  // 0 label-on-label and 0 marks outside the frame throughout. One label moves
+  // on each map and nothing else in either file changes.
+  const haloes = sorted.map((p) => ({ x: px(p.at[1]), y: py(p.at[0]), r: R(p.n) + 4 }));
   const place = (font, textOf, charW, padW) => {
     const lh = Math.round((font * 18) / 14);
     const placed = [];
@@ -503,9 +527,12 @@ function showMap() {
       for (let step = 0; step < 15; step++) {
         const off = step === 0 ? 0 : (step % 2 ? -1 : 1) * Math.ceil(step / 2) * lh;
         ly = y + off;
-        const clash = placed.some(
-          (q) => Math.abs(q.y - ly) < lh && x1 < q.x + q.w && q.x < x1 + w
-        );
+        // The plate's real top and bottom, matching what mark() draws below:
+        // ly - font*0.643, font*1.286 high. The label test keeps its lh proxy.
+        const y0 = ly - font * 0.643, y1 = y0 + font * 1.286;
+        const clash =
+          placed.some((q) => Math.abs(q.y - ly) < lh && x1 < q.x + q.w && q.x < x1 + w) ||
+          haloes.some((d) => x1 < d.x + d.r && d.x - d.r < x1 + w && y0 < d.y + d.r && d.y - d.r < y1);
         if (!clash) break;
       }
       placed.push({ x: x1, y: ly, w });
@@ -827,7 +854,15 @@ const PAGE_CSS = `/* The map of where the shows are. Same box and the same curre
    more of the map. So the figure shrinks to the map. */
 .show-map figcaption{font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-2);
   margin-top:var(--s2);max-width:52em}
-.show-map figcaption a{color:var(--ketchup-deep);font-weight:600}
+/* THE ODbL CREDIT WAS THE ONLY PINK LINK ON A PAGE OF 58, AND THE OTHER 49
+   WERE ALREADY TEAL. CLAUDE.md's accent rule is that teal is every route and
+   pink is every mark that goes nowhere, so this page was breaking it twice in
+   one document and agreeing with itself nowhere. The rule won; the full
+   argument, and the contrast numbers that say the swap costs nothing (4.51 ->
+   4.50 on the card, 6.25 -> 6.24 on the page), is beside .shop-link in
+   build-shops.mjs, which had the same three rules and 21 of 25 links in them.
+   Same caption, same credit, same pair: if that one changes, change this. */
+.show-map figcaption a{color:var(--sky-deep);font-weight:600}
 .show-map figcaption a:hover{text-decoration:underline}
 .map-bg{fill:var(--paper-3)}
 /* THE MAP'S OWN INK, AND IT IS THE SAME PALETTE AS .shop-map ON /shops.html,

@@ -335,6 +335,35 @@ function shopMap(list) {
   // numbers this figure shipped with at 15 units: 10/15, 20/15, 4/15. That is
   // what lets one renderer draw both variants without either of them getting a
   // hand-tuned box the collision test does not know about.
+  //
+  // IT RESERVED SPACE AGAINST LABELS AND NEVER AGAINST THE DOTS, WHICH ARE THE
+  // ONE THING ON THIS FIGURE THAT CANNOT MOVE. The block above says so in as
+  // many words -- "nudging a DOT to fix that would make the picture wrong" --
+  // and then the search below only ever asked whether a slot was free of other
+  // LABELS. So the Great Lakes Gaming plate took a slot whose top right corner
+  // was sitting on the Just Games marker. Measured on the built page against the
+  // r=7 dot: 11.0 x 2.7 CSS px of overlap at 545 and 14.4 x 3.5 at 768 and 1440;
+  // against the r=11 halo, 17.4 x 5.8 and 22.7 x 7.6. 0 plate-on-plate and 0
+  // label-on-label at any width, so the placer's own test was working and was
+  // simply blind to half the drawing.
+  //
+  // /card-shows.html HAD ONE OF THESE AS WELL AND WAS REPORTED CLEAN, so its
+  // placer gets the same guard rather than a comment saying it does not need
+  // one. Its "Depew . 1" plate was lying over a halo by 17.2 x 0.5 CSS px at
+  // 1440. It reads as zero if you only test the coloured circle, which is what
+  // a first pass here did, and it is exactly the same bug as this one caught a
+  // few pixels earlier. Both are 0 at 320, 390, 544, 545, 768 and 1440 now.
+  //
+  // THE RADIUS IS 11 AND THAT IS THE HALO, NOT THE DOT. The visible mark is r=7
+  // with a 2-unit stroke, so its ink stops at 8; the halo is a ring of the map's
+  // own ground painted under it at r=11 so the dot reads as a dot rather than as
+  // a junction of the roads it lands on. A plate covering that ring undoes the
+  // thing the ring is for, so the reservation is the halo's box and not the
+  // dot's -- and reserving only the dot is what made the sister map read clean.
+  // It costs a 2-unit margin and no more: a label starts at x +/- 13, so its OWN
+  // halo is 2 units clear of it and every dot can go in one list.
+  const DOT_R = 11;
+  const dotPts = sorted.map((s) => ({ x: px(s.at[1]), y: py(s.at[0]) }));
   const place = (font, textOf, charW, padW) => {
     const lh = Math.round((font * 17) / 15);
     const placed = [];
@@ -351,9 +380,13 @@ function shopMap(list) {
         // 0, -1, +1, -2, +2 ... so a label prefers to stay where its dot is.
         const off = step === 0 ? 0 : (step % 2 ? -1 : 1) * Math.ceil(step / 2) * lh;
         ly = y + off;
-        const clash = placed.some(
-          (q) => Math.abs(q.y - ly) < lh && x1 < q.x + q.w && q.x < x1 + w
-        );
+        // The plate's REAL top and bottom, not the lh proxy the label test uses:
+        // mark() draws it at ly - font*0.667, font*1.333 high, and the dot test
+        // has to reason about the box that is actually painted.
+        const y0 = ly - font * 0.667, y1 = y0 + font * 1.333;
+        const clash =
+          placed.some((q) => Math.abs(q.y - ly) < lh && x1 < q.x + q.w && q.x < x1 + w) ||
+          dotPts.some((d) => x1 < d.x + DOT_R && d.x - DOT_R < x1 + w && y0 < d.y + DOT_R && d.y - DOT_R < y1);
         if (!clash) break;
       }
       placed.push({ x: x1, y: ly, w });
@@ -638,9 +671,32 @@ const style = `
 /* The auto margin moved off .shop-link and onto the wrapper. Left on the link
    itself it stopped pushing anything anywhere once the links were wrapped in a
    <p>, and the cards lost their aligned bottom row. */
+/* EVERY LINK ON THIS PAGE IS TEAL NOW, AND THE RULE WON RATHER THAN THE
+   EXCEPTION. CLAUDE.md's accent rule is one sentence: teal is how you get
+   around, pink is what the site is saying. These three rules painted 21 of this
+   page's 25 links --ketchup-deep -- every shop address, every phone number,
+   every shop's own site, and both halves of the ODbL credit -- so the mark that
+   means "this goes nowhere" was on the things that go somewhere. /card-shows
+   .html did the same to 2 of its 58 and left the other 49 teal IN THE SAME
+   DOCUMENT, which is what settles it: there is no exception being argued here,
+   there is one page disagreeing with itself and another agreeing with it 4% of
+   the time. Neither file carried a word of reasoning for the pink; all four
+   rules were a literal color:var(--ketchup-deep) and nothing else.
+
+   AND IT COSTS NO CONTRAST, which was the one thing that could have made the
+   pink worth defending. Read off the built pages against the ground actually
+   painted under each: on --card, where every shop card's links sit, the small
+   pink is 4.51:1 and the small teal --sky-deep is 4.50:1; on --page, where
+   the caption credit sits, 6.25 against 6.24. The two accents are a hundredth
+   of a ratio apart at these sizes, so this is a semantic fix with no legibility
+   trade in either direction. The 0.01 loss is the site's documented worst pair
+   (CLAUDE.md: "the small teal at 4.50:1, deliberate") and not a new low.
+
+   --sky-deep AND NOT --mustard, which is the same teal one step darker
+   (#70B5D9) and measures 4.05:1 on the card. Small type takes the light one. */
 .shop-links{margin-top:auto;padding-top:var(--s3);display:flex;flex-wrap:wrap;gap:var(--s4)}
 .shop-link{font:700 var(--t-sm)/1 var(--body);
-  color:var(--ketchup-deep);min-height:44px;display:inline-flex;align-items:center}
+  color:var(--sky-deep);min-height:44px;display:inline-flex;align-items:center}
 .shop-link:hover{text-decoration:underline}
 
 /* Address, phone and hours. A definition list because that is what it is, and
@@ -650,7 +706,7 @@ const style = `
 .shop-facts dt{font:700 var(--t-micro)/1.6 var(--mono);letter-spacing:.05em;
   text-transform:uppercase;color:var(--ink-2)}
 .shop-facts dd{line-height:1.5}
-.shop-facts a{color:var(--ketchup-deep);font-weight:600}
+.shop-facts a{color:var(--sky-deep);font-weight:600}
 .shop-facts a:hover{text-decoration:underline}
 
 /* What you can actually turn up and play. */
@@ -727,7 +783,12 @@ const style = `
 }
 .shop-map figcaption{font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-2);
   margin-top:var(--s2);max-width:52em}
-.shop-map figcaption a{color:var(--ketchup-deep);font-weight:600}
+/* The ODbL credit's two links, teal for the reason argued above .shop-link.
+   These are the pair /card-shows.html also painted pink, and that page's other
+   49 links were already teal, so the two figures agree with each other now as
+   well as with the rest of the site. If one of these two rules changes, change
+   both: the maps are a pair and so are their captions. */
+.shop-map figcaption a{color:var(--sky-deep);font-weight:600}
 .shop-map figcaption a:hover{text-decoration:underline}
 /* THE MAP'S OWN INK, AND EVERY VALUE IS DERIVED FROM A TOKEN BY A STATED MOVE,
    which is the rule the palette section of CLAUDE.md sets and the reason the

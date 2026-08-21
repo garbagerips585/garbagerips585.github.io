@@ -772,10 +772,23 @@ try {
   live = Object.fromEntries(videos.map((v) => [v.id, v]));
 } catch { /* no catalogue yet */ }
 const newOverride = [];
+// WHICH VIDEOS THE SHEET ACTUALLY ANSWERED THIS RUN, per field.
+//
+// An override that no filled cell backs is invisible to every rule this file
+// has. The two branches below write an override only where a cell was filled
+// and retire one only where a cell was filled, so a field left blank is
+// untouched forever -- correct as a rule ("blank means not answered"), and it
+// leaves whatever an OLDER run of this importer wrote pinned permanently.
+// These two sets are what the sweep after the row loop needs to tell "the
+// sheet said this" from "nobody has said anything since some earlier build".
+const answered = { sets: new Set(), products: new Set() };
 // Things that used to happen in silence. Each one is a row whose meaning
 // changed or vanished between the cell and the JSON, and every one of them was
 // found by round-tripping a filled-in sheet rather than by reading the code.
 const quiet = [];
+// A set the row's own Hit Info names that the row's own set answer leaves out.
+// Filled by the Hit Info parser below; reported at the end.
+const hitSetGap = [];
 const seenRow = new Map();
 
 for (const [n, r] of rows.slice(1).entries()) {
@@ -1032,6 +1045,7 @@ for (const [n, r] of rows.slice(1).entries()) {
     // just pad a list whose whole value is being short enough to read.
     if (auto.sets.length) note("sets", [], auto.sets);
     overrides[id] = { ...(overrides[id] || {}), sets: [] };
+    answered.sets.add(id);
     counted.notASet = (counted.notASet || 0) + 1;
   } else if (setIds.length) {
     // TIM'S ANSWER IS RECORDED WHETHER OR NOT THE MATCHER AGREES WITH IT.
@@ -1053,6 +1067,7 @@ for (const [n, r] of rows.slice(1).entries()) {
     // of that list is being short enough to read.
     if (!sameTags(setIds, auto.sets)) note("sets", setIds, auto.sets);
     overrides[id] = { ...(overrides[id] || {}), sets: setIds };
+    answered.sets.add(id);
     counted.set++;
     if (setIds.length > 1) counted.multiSet++;
   }
@@ -1066,6 +1081,7 @@ for (const [n, r] of rows.slice(1).entries()) {
       // a disagreement is worth a line in the list he reads afterwards.
       if (!sameTags([PRODUCT_IDS[key]], auto.products)) note("products", [PRODUCT_IDS[key]], auto.products);
       overrides[id] = { ...(overrides[id] || {}), products: [PRODUCT_IDS[key]] };
+      answered.products.add(id);
       counted.opening++;
     }
   }
@@ -1335,6 +1351,29 @@ for (const [n, r] of rows.slice(1).entries()) {
     // Card". Stripped after the rarity is read, never before, so a finish can
     // never be mistaken for one.
     const FINISH = /\b(gold|rainbow|silver|textured|full art|alt art)\s+card\b/i;
+    // AND A FINISH IS STILL A FINISH WHEN HE DOES NOT WRITE "CARD" AFTER IT.
+    //
+    // The pattern above only fires on a finish word FOLLOWED BY the literal
+    // word "card", because that is the shape it was written for ("- Gold
+    // Card"). Tim also writes the finish on its own, in its own delimited
+    // field, and two rows shipped a card name with the finish glued into it:
+    //
+    //   "Trainer - Rare Candy - SR - Full Art"  -> "Trainer Rare Candy Full Art"
+    //   "Trainer - Poke Pad - SR - Full Art"    -> "Trainer Poke Pad Full Art"
+    //
+    // Both are live on /hall.html today, plaques #100 and #103, and neither
+    // card is in a checklist this site holds, so nothing downstream can correct
+    // the name. A finish is how the card LOOKS; it is never part of what the
+    // card is called.
+    //
+    // A WHOLE FIELD ONLY, which is the same restriction CODE_RARITY puts on the
+    // letter codes and for the same reason: the field is a slot Tim typed a
+    // delimiter around, so matching it can never eat a word out of the middle
+    // of a name. "Alt Art Charizard" as one field is untouched. The optional
+    // trailing "card" is here so "- Gold Card" is caught by this test as well
+    // as by the one above, and the vocabulary is the SAME six words, not a
+    // second list to keep in step.
+    const FINISH_FIELD = /^(gold|rainbow|silver|textured|full art|alt art)(\s+card)?$/i;
     // The card TYPES, which are what Tim means when he writes a word like
     // Trainer between the set and the card. Used well below, where the set is
     // finally known and the set's own checklist can settle whether the word is
@@ -1448,6 +1487,12 @@ for (const [n, r] of rows.slice(1).entries()) {
           // lowercased one: "SR" is a rarity mark and "Sr" is a name suffix.
           const ci = parts.findIndex((x) => Object.hasOwn(CODE_RARITY, x));
           if (ci !== -1) code = parts[ci];
+          // The finish field, if he gave one a slot of its own. Read AFTER the
+          // set, the rarity, the star and the code so a field that is one of
+          // those keeps that job: this only ever takes a field nothing else
+          // wanted. See FINISH_FIELD above for why a whole field and not a
+          // word inside one.
+          const fi = lows.findIndex((x, i) => i !== si && i !== ri && i !== ki && i !== ci && FINISH_FIELD.test(x));
           // THE SYMBOL SLOT IS POSITIONAL WHEN THE SHAPE LEAVES NO DOUBT, and
           // without this an unrecognised symbol becomes part of the card's name.
           //
@@ -1476,30 +1521,84 @@ for (const [n, r] of rows.slice(1).entries()) {
           // Rarity": on "Phantasmal Falmes - Charizard X ex - Black Star Promo
           // Card" it deleted the card and published the set name as one. So it
           // only fires when something is still left to be the card.
-          let symIdx = -1;
+          //
+          // AND "SOMETHING IS LEFT BEHIND" WAS NOT A STRONG ENOUGH TEST. The
+          // leftover it protects can be the SET SLOT rather than the card, and
+          // when it is, this rule deletes the card and publishes the prefix.
+          // Two of Tim's Costco UPC segments are exactly that shape:
+          //
+          //   "Mega Charizard X UPC Promo - Mega Charizard X ex - Black Star Promo Card"
+          //   "Mega Charizard X UPC Promo - Oricorio ex        - Black Star Promo Card"
+          //
+          // The prefix is a PRODUCT name, so it matches no set, `si` stays -1,
+          // the middle field is dropped as a symbol and the leftover prefix
+          // becomes the card. Both segments produced one card called "Mega
+          // Charizard X UPC Promo" with no set, no number, no price and no
+          // scan: the only 2 of 117 hit-card slots on the whole site with no
+          // art, both on one page, which then showed 16 slots for a 14-card
+          // cell because the two REAL promos resolve correctly off the My Hits
+          // tab. It warned on both and shipped both anyway, which is the whole
+          // argument for deciding rather than reporting.
+          //
+          // SO ASK WHETHER THE CANDIDATE IS SHAPED LIKE A SYMBOL, and read the
+          // shape off the two tables that already exist rather than inventing a
+          // third list. Every key in STAR_RARITY ends in the word "star"; every
+          // key in CODE_RARITY is two or more capital letters and nothing else.
+          // That is what a typo can still satisfy -- "Dobule Black Star",
+          // "Singe Gold Star", "Doule Black Star" all end in "star", and an
+          // abbreviation the table does not carry is still all capitals -- and
+          // it is what a card name never satisfies.
+          //
+          // WHEN IT IS NOT A SYMBOL, THE SHAPE IS "Set - Card - Rarity" WITH A
+          // SET WE DO NOT RECOGNISE. That is the only other thing three fields
+          // ending in a rarity can be, so the FIRST field goes rather than the
+          // second, the card survives, and the unrecognised set is reported.
+          // Restricted to exactly three fields: with four or more there is no
+          // shape left that settles it, so nothing is dropped and the run says
+          // so.
+          const looksLikeSymbol = (s) => /\bstars?$/i.test(s) || /^[A-Z]{2,4}$/.test(s);
+          let symIdx = -1, orphanSetIdx = -1;
           if (ki === -1 && ci === -1 && ri === parts.length - 1 && parts.length >= 3) {
-            symIdx = ri - 1;
-            const leftover = parts.filter((_, i) => i !== si && i !== ri && i !== symIdx);
-            if (symIdx !== si && leftover.length) {
+            const cand = ri - 1;
+            const leftover = parts.filter((_, i) => i !== si && i !== ri && i !== cand && i !== fi);
+            const readAs = (drop) => parts.filter((_, i) => i !== si && i !== ri && i !== fi && i !== drop).join(" ");
+            if (cand === si || !leftover.length) {
+              /* "Phantasmal Falmes - Charizard X ex - Black Star Promo Card": the
+                 set took the first field and the card is all that is left, so
+                 there is no symbol here to drop. */
+            } else if (looksLikeSymbol(parts[cand])) {
+              symIdx = cand;
               quiet.push(
                 `${id}: "${parts[symIdx]}" sits where the star symbol goes and matches no symbol I know, ` +
-                  `so it was kept out of the card name. Card read as "${parts.filter((_, i) => i !== si && i !== ri && i !== symIdx).join(" ")}".`
+                  `so it was kept out of the card name. Card read as "${readAs(symIdx)}".`
+              );
+            } else if (si === -1 && parts.length === 3) {
+              orphanSetIdx = 0;
+              quiet.push(
+                `${id}: "${parts[0]}" sits where the set goes and matches no set I know, and ` +
+                  `"${parts[1]}" is not shaped like a star symbol or a letter code, so it was read as ` +
+                  `the CARD rather than dropped. Card read as "${readAs(orphanSetIdx)}", with no set. ` +
+                  `Put the set name in the first field to give it one.`
               );
             } else {
-              symIdx = -1;
+              quiet.push(
+                `${id}: "${parts[cand]}" sits where the star symbol goes, matches no symbol I know and ` +
+                  `is not shaped like one, so nothing was dropped and it is part of the card name. ` +
+                  `Card read as "${parts.filter((_, i) => i !== si && i !== ri && i !== fi).join(" ")}".`
+              );
             }
           }
           // What is left, in order, is the card.
-          name = parts.filter((_, i) => i !== si && i !== ri && i !== ki && i !== ci && i !== symIdx).join(" ").replace(FINISH, " ").replace(/\s+/g, " ").trim();
+          name = parts.filter((_, i) => i !== si && i !== ri && i !== ki && i !== ci && i !== fi && i !== symIdx && i !== orphanSetIdx).join(" ").replace(FINISH, " ").replace(/\s+/g, " ").trim();
           // "Trainer - Dawn" is a card TYPE and a card. Whether the type word
           // belongs in the name is decided later, against the set's checklist,
           // because on most of these rows the set is not in the fragment at all
           // and only arrives from the video's own tags further down. The shorter
           // reading is carried alongside the glued one until then.
           if (parts.length >= 3) {
-            const ti = parts.findIndex((p, i) => i !== si && i !== ri && i !== ki && i !== ci && TYPE_WORD.test(p));
+            const ti = parts.findIndex((p, i) => i !== si && i !== ri && i !== ki && i !== ci && i !== fi && i !== symIdx && i !== orphanSetIdx && TYPE_WORD.test(p));
             if (ti !== -1) {
-              const shorter = parts.filter((_, i) => i !== si && i !== ri && i !== ki && i !== ci && i !== ti)
+              const shorter = parts.filter((_, i) => i !== si && i !== ri && i !== ki && i !== ci && i !== fi && i !== symIdx && i !== orphanSetIdx && i !== ti)
                 .join(" ").replace(FINISH, " ").replace(/\s+/g, " ").trim();
               if (shorter) cardType = shorter;
             }
@@ -1595,6 +1694,33 @@ for (const [n, r] of rows.slice(1).entries()) {
       if (!list.has(String(h.card).toLowerCase()) && list.has(shorter.toLowerCase())) {
         (counted.hitTyped ||= []).push({ id, was: h.card, now: shorter, set: h.set });
         h.card = shorter;
+      }
+    }
+    // A SET THE ROW'S OWN HIT INFO NAMES THAT THE ROW'S OWN SET ANSWER LEAVES
+    // OUT, which is one cell of this sheet contradicting another.
+    //
+    // It is not a hypothetical. The Costco UPC row names five sets across its
+    // Hit Info -- Noibat, Brock's Scouting and Blaziken ex are all Journey
+    // Together -- and its Sets & Packs cell is EMPTY, so nothing here writes a
+    // set answer and the video keeps a FOUR-set override an older run wrote.
+    // Journey Together is missing from the rip page's set links while three of
+    // its cards sit in the hit band above them, and the override wins forever
+    // because the cell that would retire it was never filled.
+    //
+    // COMPARED AGAINST WHAT THE VIDEO WILL ACTUALLY PUBLISH, not against the
+    // cell: where the cell is blank the override is the answer, and the whole
+    // point is to see the contradiction the override is causing. A set that
+    // came from the video's own single-set fallback cannot disagree with
+    // itself, so this can only fire on a row that names a set explicitly.
+    const answerSets = new Set(setIds.length || notASet ? setIds : (overrides[id]?.sets || []));
+    if (answerSets.size) {
+      const missing = [...new Set(hits.map((h) => h.set).filter((s) => s && !answerSets.has(s)))];
+      if (missing.length) {
+        hitSetGap.push(
+          `${id} (row ${rowNo}): Hit Info names ${missing.join(", ")}, which the set answer ` +
+            `[${[...answerSets].join(", ")}] does not include` +
+            (setIds.length ? "" : ", and Sets & Packs is EMPTY so that answer is an old override rather than a cell")
+        );
       }
     }
     if (hits.length) m.hits = hits;
@@ -1856,6 +1982,90 @@ if (logHits.length) {
   hf.videos = byVid;
   await writeFile(join(ROOT, "data/hits.json"), JSON.stringify(hf, null, 2) + "\n");
   console.log(`\nWrote data/hits.json  ${added} card(s) added, ${updated} updated, from the Video Log's Hit Info`);
+}
+
+// AN OVERRIDE NO FILLED CELL BACKS IS A PIN NOTHING CAN EVER REACH, AND UNTIL
+// NOW NOTHING LOOKED FOR ONE.
+//
+// The two branches up in the row loop are careful in both directions: a filled
+// cell writes an override where it disagrees with the matcher and RETIRES one
+// where it agrees, so the sheet is authoritative both ways. Neither branch runs
+// on a BLANK cell, deliberately -- blank is the sheet's word for "nobody has
+// said yet" and it must not delete an answer. The gap that leaves is the whole
+// of this block: an override written by some earlier run, on a row whose cell
+// was never filled, is untouched by every import from then on. It wins over
+// shared/taxonomy.mjs permanently, and no fix to a tag rule can reach that
+// video again. Measured on the sheet as it stands: 210 override fields that no
+// filled cell backs, across rows 205 to 319.
+//
+// THE 204 THAT AGREE WITH THE MATCHER ARE RETIRED, and that is a no-op on what
+// the site publishes today: `deriveTags` returns the same answer the override
+// was holding, so videos.json does not move. PROVEN RATHER THAN REASONED --
+// `node scripts/retag-videos.mjs` reports "0 video(s) would change of 319"
+// against the retired file, which is the pipeline's OWN precedence (title and
+// description, then playlist titles filling gaps, then this file) rather than
+// this block's arithmetic. Re-run it if you change this test. What changes
+// is the future -- those videos are back under the tag rules, so the next fix
+// to shared/taxonomy.mjs reaches them instead of stopping at a frozen copy of
+// what the matcher believed months ago. That is the exact failure the comment
+// beside `note()` spends nine lines describing, arriving by a second route.
+//
+// AN EMPTY ARRAY IS EXEMPT FROM ALL OF THIS AND THAT EXEMPTION IS LOAD BEARING.
+// It is not a guess that happens to match, it is a person asserting an absence,
+// and it is the one answer a matcher can never reproduce as an answer. Two
+// separate things break if it is retired. build-sheet.py reads
+// `overrides[id].sets == []` and nothing else to decide whether to hand the
+// cell back reading "Not a set (sealed/other)" or blank, and blank is the
+// sheet's word for "nobody has said yet", so an answered question comes back
+// unanswered -- the exact bug the notASet branch above was written to fix.
+// And retag-videos.mjs fills an EMPTY derived list from the video's PLAYLIST
+// titles before this file is consulted, so an empty override is the only thing
+// standing between "there is no set here" and a set inherited from a playlist
+// name. Everything retired below holds a non-empty list the matcher reproduces
+// on its own, where that gap filler never runs.
+//
+// THE ONES THAT DISAGREE ARE REPORTED AND NOT TOUCHED, because this cannot tell
+// a hand correction somebody meant from a prefill frozen before a tag rule was
+// fixed, and guessing either way is worse than saying so. Six today, and one of
+// them is the Costco UPC row, whose four-set answer is what hides Journey
+// Together from a video whose own Hit Info names three cards out of it. Fill
+// the cell and the row loop settles it in either direction.
+const unbackedRetired = [];
+const unbackedKept = [];
+for (const [vid, o] of Object.entries(overrides)) {
+  for (const field of ["sets", "products"]) {
+    if (!o || !(field in o) || answered[field].has(vid)) continue;
+    const held = o[field];
+    if (!Array.isArray(held) || !held.length) continue;   // an assertion of absence, see above
+    const auto = deriveTags({ title: live[vid]?.title || "", description: descriptions[vid] || "" });
+    if (sameTags(held, auto[field])) {
+      delete o[field];
+      if (!Object.keys(o).length) delete overrides[vid];
+      unbackedRetired.push(`${vid}  ${field}: ${JSON.stringify(held)}, which the tag rules work out on their own`);
+    } else {
+      unbackedKept.push(`${vid}  ${field}: ${JSON.stringify(held)}, the tag rules say ${JSON.stringify(auto[field])}`);
+    }
+  }
+}
+if (unbackedRetired.length) {
+  console.log(`\n${unbackedRetired.length} override(s) retired because no filled cell backs them and the tag`);
+  console.log("rules already produce the same answer. Nothing the site publishes changes; those");
+  console.log("videos are simply back under shared/taxonomy.mjs instead of pinned to a copy of it.");
+  for (const s of unbackedRetired.slice(0, 20)) console.log("  " + s);
+  if (unbackedRetired.length > 20) console.log(`  ...and ${unbackedRetired.length - 20} more`);
+}
+if (unbackedKept.length) {
+  console.log(`\n${unbackedKept.length} override(s) DISAGREE with the tag rules and no filled cell backs them.`);
+  console.log("READ THIS LIST. Each is either a correction somebody meant or a guess frozen before");
+  console.log("a tag rule was fixed, and nothing here can tell those apart. Answer the cell in the");
+  console.log("workbook and re-import: a filled cell settles it in either direction.");
+  for (const s of unbackedKept) console.log("  " + s);
+}
+if (hitSetGap.length) {
+  console.log(`\n${hitSetGap.length} row(s) name a set in Hit Info that the same row's set answer leaves out.`);
+  console.log("The cards join to that set's guide and the rip page does not link it, so the two");
+  console.log("halves of one row disagree about which packs came open.");
+  for (const s of hitSetGap) console.log("  " + s);
 }
 
 await mkdir(join(ROOT, "data"), { recursive: true });
