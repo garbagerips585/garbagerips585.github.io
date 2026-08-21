@@ -9,9 +9,11 @@
 // refresh moves this page without anyone re-importing the spreadsheet, and one
 // card can never show two different numbers on two different pages.
 //
-// Ranked by PSA 10 where there is one, and by raw near mint otherwise, because
-// a graded price is the better measure of what a card is worth and most cards
-// have no graded price at all.
+// Ranked by RAW near mint price, top to bottom, because that is the figure
+// nearly every card here has and the only one the whole page can be compared
+// on. A PSA 10 is still printed on every plaque that has one, and the tile at
+// the top names the best of them and links to it. The full argument, including
+// the one this replaced, is beside the .sort() below.
 
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
@@ -108,6 +110,111 @@ try {
   NO_SCAN = new Set(JSON.parse(await readFile(join(ROOT, "data/no-scan.json"), "utf8")).bases || []);
 } catch {
   /* optional: a missing base then renders as an img that removes itself */
+}
+
+/* ==========================================================================
+ * THE SECOND PLACE A JAPANESE SCAN LIVES, AND THIS PAGE HAD NEVER ASKED IT.
+ * ==========================================================================
+ *
+ * public/data/intl-guides.json is the checklist an intl plaque resolves
+ * against, and its `image` field is null for every card in six of its
+ * thirteen guides. The note beside the intl mapping below records that
+ * correctly and treats it as the end of the story: "a set with no scans".
+ *
+ * IT IS NOT THE END OF THE STORY FOR THREE OF THE SIX. public/data/printings
+ * /*.json is a different sync's output (sync-all-printings.mjs, 39,707
+ * printings across 370 sets, 29,934 of them with an image) and it holds the
+ * SAME sets with their scans. Counted on disk, 2026-08-21:
+ *
+ *       set                intl-guides scans   printings corpus scans
+ *       メガシンフォニア        0 of 92               92 of 92
+ *       ニンジャスピナー        0 of 120             120 of 120
+ *       サイバージャッジ        no card list         100 of 100
+ *       アビスアイ              0 of 118               0 of 118
+ *       ムニキスゼロ            0 of 117               0 of 117
+ *       メガブレイブ            0 of 92                0 of 92
+ *
+ * So 312 scans were reachable from this builder and never asked for, which is
+ * the same shape as the `img: null` literal that hid 671 of them until
+ * 21 August 2026. The bottom three are a real TCGdex gap and stay absent.
+ *
+ * ==========================================================================
+ * THIS LOOKS UP A PICTURE. IT DOES NOT PICK A PRINTING, AND THAT IS THE WHOLE
+ * REASON IT IS SAFE TO PUT IN THIS FILE.
+ * ==========================================================================
+ *
+ * shared/intl-printing.mjs owns which printing an intl hit is, and this file
+ * and build-pages.mjs must never disagree about that. Nothing here touches
+ * it: it is called ONLY after pickIntlPrinting has already chosen a printing,
+ * and it is keyed on that printing's own (set, collector number). A card the
+ * rule refuses still gets no number and no scan. Frogadier in ニンジャスピナー
+ * is the case that proves it: the corpus holds scans for BOTH #021 and #087,
+ * the rule cannot separate them, and this returns nothing rather than
+ * choosing a picture the page cannot name.
+ *
+ * TWO FIELDS ARE CROSS-CHECKED BEFORE THE URL IS TAKEN, because (set, number)
+ * being a primary key in both files is an assumption rather than a promise,
+ * and a scan silently moved onto the wrong card is worse than no scan. The
+ * corpus record has to agree with the guide on the NATIVE CARD NAME and on
+ * the RARITY. Both files are TCGdex output, so agreement is cheap where the
+ * row is genuinely the same row and impossible where it is not. Verified on
+ * the one card this fires for today: guide ja-mega-symphonia #018 is
+ * メガユキノオーex "Double rare"; corpus メガシンフォニア #018 is
+ * メガユキノオーex "Double rare" at assets.tcgdex.net/ja/M/M1S/018, whose
+ * low/high webp and avif all answer 200 (27,672 / 146,992 / 18,327 / 92,706
+ * bytes, checked 2026-08-21).
+ *
+ * THE CORPUS STORES THE TRANSLATED NAME WHERE IT HAS ONE AND THE NATIVE NAME
+ * WHERE IT DOES NOT (`u` is 1 for untranslated, `p` carries the native name
+ * when `n` is a translation), and it is SHARDED BY THE FIRST LETTER OF `n`.
+ * That is why both shards are tried: this card is filed under "0" because its
+ * name is untranslated Japanese, and a lookup that only tried the English
+ * name's shard would have found nothing and reported "no scan for that set".
+ *
+ * IT STAYS IN THIS FILE RATHER THAN MOVING INTO shared/intl-printing.mjs.
+ * That module is a pure function about a rule, argued at length as one; this
+ * reads two files off disk to answer a different question. build-pages.mjs
+ * has the identical gap on the identical rows and would want the identical
+ * three lines, but that file is not this pass's to edit.
+ */
+const shardCache = new Map();
+async function shard(name) {
+  const c = String(name || "").trim()[0]?.toLowerCase() ?? "0";
+  const key = /[a-z]/.test(c) ? c : "0";
+  if (!shardCache.has(key)) {
+    try {
+      shardCache.set(key, JSON.parse(await readFile(join(ROOT, `public/data/printings/${key}.json`), "utf8")));
+    } catch { shardCache.set(key, []); }
+  }
+  return shardCache.get(key);
+}
+const scanNorm = (x) => String(x || "").toLowerCase().replace(/[^a-z0-9぀-ヿ一-鿿가-힯]/g, "");
+/**
+ * @param {string} setNative the guide's own native set name, which is the
+ *        name the printings corpus files that set under.
+ * @param {{localId:string, native:?string, rarity:?string}} card the printing
+ *        ALREADY chosen by shared/intl-printing.mjs. Never a candidate.
+ * @returns {Promise<?string>} the TCGdex image base, or null.
+ */
+async function corpusScan(setNative, card) {
+  if (!setNative || !card?.localId) return null;
+  for (const nm of [card.en, card.native]) {
+    if (!nm) continue;
+    for (const rec of await shard(nm)) {
+      if (rec.s !== setNative || String(rec.i) !== String(card.localId)) continue;
+      // The two cross-checks. A disagreement means these are not the same row
+      // and the answer is nothing, per this builder's standing rule.
+      if (scanNorm(rec.r) !== scanNorm(card.rarity)) continue;
+      const native = rec.u ? rec.n : rec.p;
+      if (card.native && native && scanNorm(native) !== scanNorm(card.native)) continue;
+      const base = rec.g ? String(rec.g).replace(/\/(low|high)\.(webp|avif|png|jpg)$/, "") : null;
+      // data/no-scan.json applies here exactly as it applies to the guide's
+      // own image field: a base TCGdex has withdrawn renders as a dead round
+      // trip behind an onerror, which is what that file exists to prevent.
+      return base && !NO_SCAN.has(base) ? base : null;
+    }
+  }
+  return null;
 }
 
 let derivedFromHits = false;
@@ -278,10 +385,14 @@ if (!hall.length) {
       // is that absent data renders as absent.
       let cards = null;
       let source = "checklist";
+      // HOISTED OUT OF THE catch SO THE SCAN BACKFILL CAN REACH IT. The guide
+      // record carries the NATIVE SET NAME, which is the key the printings
+      // corpus files this set under: see corpusScan at the top of this file.
+      let guide = null;
       try {
         cards = JSON.parse(await readFile(join(ROOT, `public/data/cards/${h.set}.json`), "utf8")).cards;
       } catch {
-        const g = intlGuides[h.set];
+        const g = (guide = intlGuides[h.set]);
         // `hasCards` is false and `cards` is empty for the Korean and Chinese
         // guides and for Cyber Judge, because TCGdex publishes a card COUNT for
         // those sets and zero card records. An empty list is not a checklist,
@@ -298,6 +409,14 @@ if (!hall.length) {
             // always shown, never dropped." A plaque has one name slot, so it
             // gets the one the sheet can be joined on.
             name: c.en || c.native,
+            // BOTH NAMES AND THE RAW localId ARE CARRIED THROUGH, and they are
+            // not decoration: corpusScan needs the localId to find the row, the
+            // native name to prove it is the same row, and BOTH names because
+            // the corpus is sharded by whichever of the two it filed the card
+            // under. Nothing else reads them.
+            localId: c.localId,
+            native: c.native || null,
+            en: c.en || null,
             rarity: c.rarity || null,
             // `img: null` WAS A LITERAL AND IT WAS WRONG ON SIX OF THE THIRTEEN
             // GUIDES. The comment above this block says those guides carry "NO
@@ -314,6 +433,14 @@ if (!hall.length) {
             // So .chof-noart, which this page's own note says "had never fired",
             // is now the branch for a set with no scans rather than for every
             // intl plaque there is.
+            //
+            // AND "hasImages IS FALSE" IS A FACT ABOUT THIS FILE, NOT ABOUT
+            // TCGdex. Three of the five sets named above publish a full set of
+            // scans in public/data/printings/*.json, which is a different
+            // sync's output; corpusScan at the top of this builder picks them
+            // up AFTER the printing is settled, so this field staying null is
+            // no longer the end of the question. The three that are a genuine
+            // upstream gap are ja-abyss-eye, ja-nihil-zero and ja-mega-brave.
             //
             // A BASE, NOT A URL, because the emitter below appends the
             // rendition: `image` in that file ends in /low.webp and this page
@@ -474,11 +601,20 @@ if (!hall.length) {
       const key = `${h.set}-${m.n}`;
       if (seen.has(key)) { repeats++; continue; }
       seen.add(key);
+      // THE SCAN THE GUIDE DOES NOT HAVE AND THE PRINTINGS CORPUS DOES. Only
+      // ever asked AFTER the printing is settled, and only when the guide has
+      // no image of its own, so it can never change which card a plaque names.
+      // The whole argument is beside corpusScan at the top of this file.
+      const backfill = source === "intl" && !m.img ? await corpusScan(guide?.native, m) : null;
       // `art` IS CARRIED SO THE LEDGER LINE CANNOT GO STALE. It used to end "so it
 // carries no scan and no price", which was a true sentence about every intl
 // plaque on the day it was written and became false for three of them the
 // moment this builder started reading the intl checklist's own image field.
-if (source === "intl") intlIn.push({ set: h.set, card: m.name, n: m.n, art: Boolean(m.img) });
+// It names WHICH file answered now, because "with a scan" stopped being one
+// fact the moment there were two places a scan could come from, and a run that
+// silently stops reaching the corpus should not read the same as one that never
+// needed it.
+if (source === "intl") intlIn.push({ set: h.set, card: m.name, n: m.n, art: m.img ? "guide" : backfill ? "corpus" : null });
       // Carry the card's OWN art, price and rarity from the checklist. resolve()
       // below only knows how to look a card up in the set's `chase` list, which
       // is the dozen or so cards a set page features, and 15 of 15 hits were not
@@ -486,7 +622,10 @@ if (source === "intl") intlIn.push({ set: h.set, card: m.name, n: m.n, art: Bool
       out.push({
         set: h.set, number: m.n, name: m.name,
         _vid: vid,
-        _img: m.img ? `${m.img}/high.webp` : null,
+        // THE GUIDE'S OWN SCAN FIRST, THEN THE CORPUS. Same precedence every
+        // other chain in this file uses: the file this row was resolved out of
+        // wins, and the second source stands behind it rather than over it.
+        _img: (m.img || backfill) ? `${m.img || backfill}/high.webp` : null,
         _raw: typeof m.price === "number" ? m.price : null,
         _rarity: m.rarity || h.rarity || null,
         // The intl checklist carries no set name of its own that this page can
@@ -708,20 +847,74 @@ function resolve(c) {
 
 const ranked = hall
   .map(resolve)
-  // TWO SORT KEYS, AND THE PAGE HAS TO SAY SO. A card with a graded price is
-  // ranked by it; a card without is ranked by its raw price. That is the right
-  // order, and it looks broken to a stranger, because the RAW price is the
-  // first and largest number on every plaque and the raw column is not sorted:
-  // measured on the built page it runs 175, 14.72, 38.75, 5.99. Twelve of the
-  // 49 have a PSA 10 and are strictly descending on it; the other 37 are
-  // strictly descending on raw underneath them.
-  //
-  // The lede used to say "ranked by what it is worth" and "in value order",
-  // which names neither key. It now states the rule, because the alternative
-  // fixes are worse: sorting on raw alone would put a $175 card above a $906
-  // one, and hiding the raw price would drop the only figure most of these
-  // cards have.
-  .sort((a, b) => (b.psa10 || b.raw || 0) - (a.psa10 || a.raw || 0));
+  /* ======================================================================
+   * ONE SORT KEY, AND IT IS RAW. Tim, 2026-08-21: "make sure they are all
+   * ranked by their RAW value."
+   * ======================================================================
+   *
+   * THE COMMENT THAT STOOD HERE ARGUED THE OTHER WAY AND IS ANSWERED RATHER
+   * THAN DELETED, because half of it was right and that half is why this
+   * page needs the three changes below rather than only a new comparator.
+   *
+   * What it said: a card with a graded price is ranked by it and a card
+   * without is ranked by raw, "that is the right order, and it looks broken
+   * to a stranger", because the raw price is the first and largest number on
+   * every plaque and the raw column then runs 175, 14.72, 38.75, 5.99 down
+   * the page. Its objection to raw-only ranking was that it "would put a
+   * $175 card above a $906 one".
+   *
+   * WHY THE OBJECTION LOSES, and it is a counting argument rather than a
+   * taste one. Measured on the built page at HEAD before this change: 145
+   * plaques, 126 carry a raw price and 21 carry a PSA 10. So the old key was
+   * ranking the whole page on a figure 14% of it has, and the other 86% were
+   * being ordered by a DIFFERENT measure and interleaved with them. Two
+   * measures in one column is not a ranking, it is two rankings stacked, and
+   * the stranger reading 175, 14.76, 58.00, 14.72 is not misreading the page:
+   * they are correctly reading the only column that is on every row.
+   *
+   * "$175 above $906" IS ALSO NOT A COMPARISON THE PAGE WAS ENTITLED TO
+   * MAKE. $906 is what Mega Greninja ex #122 sells for AFTER a grading fee,
+   * a two month wait and a 10 nobody has been given yet: nothing on this page
+   * is graded, which is the exact argument the tally tiles thirty lines below
+   * already make in their own comment ("a pile of raw cards is worth its
+   * graded value" is the claim they refuse to make). Ranking on a price
+   * conditional on an event that has not happened, against prices that are
+   * not, is comparing a hypothetical with a market.
+   *
+   * AND THE SITE HAD ALREADY MADE THIS CALL EVERYWHERE ELSE. The hit band on
+   * every rip page sorts the same cards out of the same data/hits.json, and
+   * build-pages.mjs's resolveHits ends on
+   *
+   *     return out.sort((a, b) => (b.price ?? b.psa10 ?? 0) - (a.price ?? a.psa10 ?? 0));
+   *
+   * under a comment headed "ORDER BY RAW, NOT BY WHICHEVER NUMBER IS BIGGER"
+   * that makes this argument in almost these words and names the same fault:
+   * "Oricorio ex at $12.03 raw sat above Marshadow at $14.95 because its PSA
+   * 10 was $99.78". So /hall.html was the last page on the site still doing
+   * it, and a plaque and that card's own rip page have been disagreeing about
+   * which of two cards is the better pull. THE COMPARATOR BELOW IS THAT LINE,
+   * deliberately the same shape, so the two cannot drift apart again.
+   *
+   * THE psa10 FALLBACK IS DEAD TODAY AND IS KEPT ANYWAY. 0 of 145 plaques
+   * carry a PSA 10 without a raw price, so it never fires; it exists so that
+   * a card whose only figure is a graded one is ranked on the figure it has
+   * instead of being dumped in the unpriced tail, and because build-pages.mjs
+   * carries it and this comparator is supposed to be that one.
+   *
+   * THE NAME TIEBREAK IS NOT DECORATION. 19 plaques carry no price at all and
+   * every one of them keys 0. Without it their order is whatever
+   * Object.entries(hits.json) happened to yield, which changes when a video
+   * is re-imported and makes a diff of this page unreadable.
+   *
+   * WHAT THIS COSTS, AND THE THREE THINGS THAT PAY FOR IT are all in this
+   * file: the lede states the key (see below), the PSA 10 tile now names the
+   * best graded card and links to its plaque, because raw order no longer
+   * floats it to the top, and every plaque that has a PSA 10 keeps printing
+   * it. Nothing was hidden to make the column sort.
+   */
+  .sort((a, b) =>
+    (b.raw ?? b.psa10 ?? 0) - (a.raw ?? a.psa10 ?? 0) ||
+    String(a.name).localeCompare(String(b.name)));
 
 // A SUM, and the label has to say so. This was printed as "Best known value",
 // which reads as the best single card, next to a table whose priciest card is
@@ -740,6 +933,142 @@ const rawCards = ranked.filter((c) => c.raw);
 const totalRaw = rawCards.reduce((n, c) => n + c.raw, 0);
 const gradedCards = ranked.filter((c) => c.psa10);
 const totalGraded = gradedCards.reduce((n, c) => n + c.psa10, 0);
+
+/* ==========================================================================
+ * A PLAQUE NEEDS AN ADDRESS BEFORE ANYTHING CAN POINT AT IT.
+ * ==========================================================================
+ *
+ * NOT `#1`, `#2`, `#3`. The obvious id is the rank, and the rank is the one
+ * thing on this page guaranteed to move: it changed for 145 plaques the day
+ * the comparator above changed, and it moves again every time a price feed
+ * refreshes. An anchor keyed to it would be a link that silently starts
+ * landing on a different card, which is the cross-page fault this site keeps
+ * having, aimed at itself.
+ *
+ * SO IT IS THE PRINTING, which is what a plaque IS: one per `<set>-<number>`
+ * is the dedupe rule the whole builder is written around, so the same key
+ * makes the same address every run and survives a re-rank. A card with no
+ * number falls back to its name, and the counter catches the collision that
+ * leaves (three plaques share a name today, two Mega Greninja ex and two
+ * Mega Gardevoir ex at different numbers, and those all HAVE numbers).
+ *
+ * AN ADDRESS IS COMPUTED FOR EVERY PLAQUE AND EMITTED ONLY WHERE SOMETHING
+ * LINKS TO IT, WHICH IS ONE. Emitting all 145 was the first version and it
+ * cost 4,305 bytes raw and 990 GZIPPED, measured on the built page, to publish
+ * 144 anchors nothing on the site points at and no reader can discover. This
+ * page is 38KB gzipped and a kilobyte of it is 2.6%. The generator stays
+ * whole, collision counter included, so the day a second link wants an address
+ * it is one word in plaque() and not a new mechanism.
+ */
+const idSlug = (x) => String(x || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+const idTaken = new Map();
+for (const c of ranked) {
+  const stem = `card-${idSlug(c.set || "promo")}-${idSlug(c.number || c.name)}`;
+  const n = (idTaken.get(stem) || 0) + 1;
+  idTaken.set(stem, n);
+  c.domId = n === 1 ? stem : `${stem}-${n}`;
+}
+
+/* ==========================================================================
+ * THE BEST GRADED CARD IS NO LONGER AT THE TOP, SO THE PAGE HAS TO SAY WHERE
+ * IT IS. THIS IS THE HALF OF THE OLD SORT COMMENT THAT WAS RIGHT.
+ * ==========================================================================
+ *
+ * Ranking on raw is Tim's call and the argument for it is beside the sort.
+ * What that call genuinely costs is the one thing the old key bought: it
+ * floated the channel's headline pull, Mega Greninja ex #122 at $906 in a
+ * PSA 10, to plaque one, where nobody could miss it. Under raw order it
+ * lands wherever $175 lands, and 124 of the 145 plaques print no PSA 10 at
+ * all, so a reader scrolling for the biggest number on the site would have to
+ * read every row to find it.
+ *
+ * WHY A LINE OF COPY AND A FLAG ON THE PLAQUE, and not the other three
+ * candidates:
+ *
+ *   - A SECOND ORDER (a graded section above the raw list) reintroduces the
+ *     exact fault the sort comment describes: two rankings stacked, and the
+ *     rank medallion counting 1..145 through both of them.
+ *   - SORT CONTROLS would need JavaScript, a default to argue about, and a
+ *     shareable url this page does not have. `.chof-list` is also emitted
+ *     with a grid whose last-row spans are computed from ranked.length (see
+ *     evenBand), so a client-side re-sort has to keep that in step or orphan
+ *     the last row. That is a real feature and it is not this change.
+ *   - A FLAG ALONE, with no line at the top, is only found by scrolling,
+ *     which is the problem rather than the fix.
+ *
+ * So: ONE SENTENCE where the reader already is, in the head block under the
+ * tally, carrying the figure and a link; and a MARK on the plaque itself so
+ * that arriving there explains itself and so that somebody who scrolls past
+ * the sentence still meets the card. The sentence is computed, never typed,
+ * and it names the rank it is sending you to, so a reader can tell before
+ * tapping that the page has not hidden anything.
+ *
+ * IT IS NOT GOLD. Gold on this site means "the biggest card the channel has
+ * ever pulled" and Tim confined it to three places written as literal hexes
+ * (see CLAUDE.md): the HALL OF FAME HIT badge, the trophy frame, and this
+ * page's rank medallion. A fourth gold thing would spend the one semantic
+ * colour the palette has on a second meaning. The flag is the SMALL PINK
+ * instead, which is already what a PSA 10 figure is painted in in
+ * `.chof-prices .psa dd`, so the mark and the number it points at are the same
+ * colour. --ketchup-deep and not --ketchup: 11px mono is nowhere near WCAG's
+ * large-text line and #E87EA1 measures 3.45:1, which is the whole reason `.hl`
+ * exists.
+ *
+ * THE LINK IS --sky-deep AND NOT --sky, for the reason the `.chof-see` note at
+ * the foot of the style block gives: main.chofpage carries a gold radial bloom
+ * at 50% 0%, and this sentence sits nearer the centre of it than anything else
+ * on the page. --sky was measured UNDER AA on the first four plaques, which
+ * have less bloom over them than this line does. Underlined as well as
+ * coloured, because it is one link inside a run of prose and colour alone is
+ * the failure WCAG 1.4.1 names.
+ *
+ * ==========================================================================
+ * MEASURED OFF RENDERED PIXELS, headless Chrome over CDP, 2026-08-21.
+ * ==========================================================================
+ *
+ * Glyphs hidden, the element's own box screenshotted and averaged. Compositing
+ * the background-color chain by hand gives the wrong answer here and CLAUDE.md
+ * says why: the bloom is a background-IMAGE over a TRANSPARENT
+ * background-color, so a walk up the ancestors cannot see it at all.
+ *
+ *       390 DPR 3    .chof-best 7.71:1   .chof-best a 5.90:1   .chof-flag 4.94:1
+ *      1440 DPR 2    .chof-best 7.55:1   .chof-best a 5.46:1   .chof-flag 5.20:1
+ *
+ * CLS 0 at both widths, scrolled end to end so every lazy plaque image lands.
+ *
+ * THE FIRST READING OF THE LINK WAS 4.24:1 AND WAS A HARNESS FAULT, written
+ * down because the next person measuring an inline link on this site will hit
+ * it. At 390 the link WRAPS, so getBoundingClientRect returns the UNION of
+ * both line boxes, and that union also covers this paragraph's own near-white
+ * text. Hiding only the link's own glyphs left those in the sample and
+ * averaged them into the "ground", making it 45% lighter than it is. Hide the
+ * block container too, or sample one client rect rather than the union.
+ *
+ * THE THREE PARAGRAPHS ABOVE ARE HERE RATHER THAN BESIDE THE RULES THEY
+ * DESCRIBE BECAUSE THIS PAGE'S <style> SHIPS ITS COMMENTS. Only
+ * assets-source/ui.css is stripped by build-css.mjs; the block at the foot of
+ * this file is emitted into the HTML verbatim, comments and all, which is what
+ * the `.chof-look` note means by "this block ships to the browser; that one
+ * does not". So the CSS keeps the measured numbers, which are worth their
+ * bytes to whoever reads the built page, and the argument lives here, which
+ * costs nothing.
+ */
+const bestGraded = gradedCards.reduce((best, c) => (!best || c.psa10 > best.psa10 ? c : best), null);
+const bestGradedRank = bestGraded ? ranked.indexOf(bestGraded) + 1 : 0;
+// TWO SENTENCES, because the interesting one stops being true the day the best
+// graded card is also the best raw one. Claiming "the biggest number is not at
+// the top" while it sits at plaque one would be the page contradicting itself
+// in its own first screen, and that is not a hypothetical: the two are one
+// place apart today. Same rule as `scopeSentence` below, which falls back to
+// saying less rather than saying something the arithmetic no longer supports.
+const bestGradedLine = !bestGraded ? "" : (() => {
+  const link = `<a href="#${esc(bestGraded.domId)}">${esc(bestGraded.name)}</a>`;
+  const from = bestGraded.setName ? ` out of ${esc(bestGraded.setName)}` : "";
+  const money = moneyCompact(bestGraded.psa10);
+  return bestGradedRank === 1
+    ? `<p class="chof-best">The best graded card here is the best raw one too: ${link}${from}, ${money} in a PSA 10.</p>`
+    : `<p class="chof-best">The biggest number on this page is not at the top of it. The best graded card is ${link}${from}, ${money} in a PSA 10, and raw order puts it at ${bestGradedRank}.</p>`;
+})();
 
 /* ------------------------------------------------ what this page ACTUALLY is
  *
@@ -983,11 +1312,25 @@ function plaque(c, i) {
           data-psa="${c.psa10 ? esc(moneyCompact(c.psa10)) : ""}"
           aria-label="Enlarge ${esc(c.name)}">${img}</button>`
     : `<div class="chof-art">${img}</div>`;
-  return `      <li class="chof${top}">
+  // THE ADDRESS, ON THE ONE PLAQUE SOMETHING LINKS TO. It is the printing
+  // rather than the rank: see the idSlug block above for why an anchor keyed to
+  // `rank` would rot on the next price refresh, and for what emitting all 145
+  // of them measured.
+  const addr = c === bestGraded ? ` id="${esc(c.domId)}"` : "";
+  return `      <li class="chof${top}"${addr}>
         <span class="chof-rank">${rank}</span>
         ${frame}
         ${look ? `<p class="chof-look">${esc(look)}</p>` : ""}
         <div class="chof-body">
+          ${/* THE FLAG THE LINE AT THE TOP IS POINTING AT. It is emitted ABOVE
+                the name so a screen reader hears why this plaque is special
+                before it hears which card it is, and so the sighted reader who
+                followed the anchor lands on the explanation rather than having
+                to look for the pink number four lines down. One per page by
+                construction: `bestGraded` is a single object out of `ranked`
+                and this is an identity test, so a tie on the figure cannot
+                flag two plaques. */ ""}
+          ${c === bestGraded ? `<span class="chof-flag">Best PSA 10 on this page</span>` : ""}
           <b class="chof-name">${esc(c.name)}</b>
           <span class="chof-set">${[c.setName ? esc(c.setName) : "", c.number ? `#${esc(c.number)}` : ""].filter(Boolean).join(" &bull; ")}</span>
           ${c.rarity ? `<span class="chof-rar">${esc(c.rarity)}</span>` : ""}
@@ -1094,6 +1437,11 @@ const style = `
 .chof-tally b{display:block;font:400 1.5rem/1 var(--display);color:var(--ketchup-deep)}
 .chof-tally span{font:700 var(--t-micro)/1.6 var(--mono);letter-spacing:.08em;color:var(--chrome-dim);
   text-transform:uppercase}
+/* Where the best graded card is: --sky-deep, not --sky, because the bloom.
+   7.71:1 / 5.90:1 at 390 DPR 3, 7.55:1 / 5.46:1 at 1440 DPR 2, off rendered
+   pixels. The argument and the harness note are beside bestGradedLine. */
+.chof-best{margin-top:var(--s4);font:400 var(--t-sm)/1.6 var(--body);color:var(--foot-ink)}
+.chof-best a{color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px}
 
 /* Generated from the plaque count: see evenBand in scripts/build-hall.mjs.
    The bands are mutually exclusive because the spans are keyed to a column
@@ -1163,6 +1511,11 @@ ${evenBand(".chof-list", ranked.length, 3)}}
   letter-spacing:.03em;color:var(--chrome-dim)}
 /* --lilac is a TEAL now (it equals --sky). A rarity label is a mark, not a route. */
 .chof-rar{color:var(--plum)}
+/* The one flagged plaque. SMALL pink, not gold: see plaque() in the builder.
+   4.94:1 at 390 DPR 3, 5.20:1 at 1440 DPR 2, off rendered pixels, on the worst
+   ground it can land on (the podium gold tint under the page bloom). */
+.chof-flag{display:block;margin-bottom:var(--s2);font:700 var(--t-micro)/1.5 var(--mono);
+  letter-spacing:.06em;text-transform:uppercase;color:var(--ketchup-deep)}
 /* WHAT THE PICTURE SHOWS. Prose in --body, not the mono the labels above use:
    those are tags, this is a sentence. Full width on its own row, and the reason
    that is a fold fix rather than a taste call is written beside plaque() in the
@@ -1253,7 +1606,18 @@ const body = `
             Do not put a completeness promise back in this opening clause: it
             would then be making a claim the sentence after it has to walk
             back. */ ""}
-      <p>The cards that have come out of a pack on this channel, ranked by their PSA 10 price where we have one and by their raw price where we do not. Tap a card to see it full size.${scopeSentence}</p>
+      ${/* THE LEDE NAMES THE KEY, WHICH IS THE SAME OBLIGATION IT HAD BEFORE
+            AND A DIFFERENT KEY. It used to read "ranked by their PSA 10 price
+            where we have one and by their raw price where we do not", which
+            was an honest description of a two-key sort. There is one key now,
+            so this says so in one clause instead of two, and says which
+            number on the plaque it is: "raw" is a word, "Raw NM" is the
+            label the reader is about to see 145 times, and a lede that names
+            the key without naming the column has not actually told anybody
+            anything. Do not soften it back to "by what it is worth": that
+            phrasing names no key at all and is what this page carried for
+            months while its own column looked unsorted. */ ""}
+      <p>The cards that have come out of a pack on this channel, ranked on the Raw NM price every plaque prints first, highest to lowest. Tap a card to see it full size.${scopeSentence}</p>
       ${ranked.length ? `<div class="chof-tally">
         <div><b>${ranked.length}</b><span>${tallyLabel}</span></div>
         ${/* "ALL OF THEM RAW" HAS TO STOP SAYING "ALL" WHEN IT IS NOT ALL, and
@@ -1266,6 +1630,14 @@ const body = `
               labels agree rather than to invent a third form of words. */ ""}${totalRaw ? `<div><b>${moneyCompact(totalRaw)}</b><span>${rawCards.length === ranked.length ? "All of them raw" : `Raw on ${rawCards.length} of ${ranked.length}`}</span></div>` : ""}
         ${gradedCards.length ? `<div><b>${moneyCompact(totalGraded)}</b><span>PSA 10 on ${gradedCards.length} of ${ranked.length}</span></div>` : ""}
       </div>` : ""}
+      ${/* WHERE THE BIGGEST GRADED NUMBER WENT. Computed above, never typed;
+            the full argument for a line of copy rather than a second sort
+            order is beside `bestGraded`. It sits AFTER the tally because the
+            tile immediately above it is the one that says "PSA 10 on 21 of
+            145", so the sentence reads as that tile's footnote, which is what
+            it is. It renders nothing at all when no plaque carries a graded
+            price, which is the standing pattern on this page for absent
+            data. */ ""}${bestGradedLine}
     </div>
 
     ${ranked.length
@@ -1275,7 +1647,14 @@ ${ranked.map(plaque).join("\n")}
       : `<p class="chof-empty">No cards inducted yet. Flag a card as <b>Card Hall of Fame</b> on the
          Chase Cards tab of the video log and it appears here, ranked automatically.</p>`}
 
-    <p class="chof-note">RANKED BY PSA 10 WHERE THERE IS ONE, AND BY RAW NEAR MINT OTHERWISE.
+    ${/* THE METHOD NOTE AND THE LEDE HAVE TO NAME THE SAME KEY. This said
+          "RANKED BY PSA 10 WHERE THERE IS ONE, AND BY RAW NEAR MINT
+          OTHERWISE" and would have been the last sentence on the page still
+          describing the old comparator, which is exactly how a page comes to
+          contradict itself. It carries the extra fact the lede has no room
+          for: the graded figure is printed but is not the key. */ ""}
+    <p class="chof-note">RANKED ON RAW NEAR MINT, HIGHEST TO LOWEST. A PSA 10 IS PRINTED WHEREVER WE
+      HAVE ONE AND IS NOT WHAT THE ORDER IS BUILT ON: NOTHING HERE IS GRADED.
       A DASH MEANS NO PRICE WE ARE WILLING TO STAND BEHIND YET, NOT A CARD WORTH NOTHING.
       RAW NEAR MINT IS PRICECHARTING'S UNGRADED PRICE GUIDE VALUE, THE SAME FIGURE EVERY SET GUIDE
       AND THE CARD SEARCH PRINT FOR THESE CARDS.${psaNote}</p>
@@ -1374,7 +1753,10 @@ const swapped = head
   .replace(/<title>[\s\S]*?<\/title>/, `<title>Card Hall of Fame: Our Best Pokemon Pulls | Garbage Rips 585</title>`)
   .replace(
     /<meta name="description"[^>]*>/,
-    `<meta name="description" content="The best Pokemon cards ever pulled on Garbage Rips 585, ranked by value, with raw near mint and PSA 10 market prices.">`
+    // "RANKED BY VALUE" NAMED NO KEY, which is the same fault the lede had.
+    // The description is the one line a stranger reads before deciding to
+    // click, so it says which of the two prices the order is built on.
+    `<meta name="description" content="The best Pokemon cards ever pulled on Garbage Rips 585, ranked on raw near mint price, with PSA 10 market values where we have them.">`
   )
   .replace(/<link rel="canonical"[^>]*>/, `<link rel="canonical" href="${SITE}/hall.html">`)
   .replace(/(<meta property="og:image" content="[^"]*\/assets\/)og-image\.jpg/, `$1og-hall.jpg`)
@@ -1407,7 +1789,8 @@ console.log(`Wrote public/hall.html
   cards inducted   ${ranked.length}
   with PSA 10      ${ranked.filter((c) => c.psa10).length}${psaSources.length ? `  (${psaSources.join(", ")})` : ""}
   with a raw price ${ranked.filter((c) => c.raw).length}
-  with card art    ${ranked.filter((c) => c.image).length}
+  with card art    ${ranked.filter((c) => c.image).length}${hitsLedger?.intlIn.filter((x) => x.art === "corpus").length ? `  (${hitsLedger.intlIn.filter((x) => x.art === "corpus").length} of them out of public/data/printings, which the intl checklist has no scan for)` : ""}
+  ranked on        raw near mint, ${ranked.filter((c) => c.raw).length} of ${ranked.length} carry one${bestGraded ? `; best PSA 10 is ${bestGraded.name} at ${moneyCompact(bestGraded.psa10)}, plaque ${bestGradedRank}` : ""}
   rarities         ${[...new Set(ranked.map((c) => c.rarity).filter(Boolean))].sort().join(", ")}
 `);
 // WHAT HAPPENED TO EVERY ROW, because the lede on this page describes its own
@@ -1436,7 +1819,11 @@ if (hitsLedger) {
     console.log(`  LEDGER DOES NOT RECONCILE: ${l.rowsRead} read against ${l.inducted} + ${l.repeats} + ${l.unmatched.length} + ${l.unplaceable.length}. The lede has fallen back to naming only what is on the page.`);
   }
   for (const x of l.intlIn) {
-    console.log(`  ${x.card} #${x.n} (${x.set}) resolved against public/data/intl-guides.json, ${x.art ? "with that checklist's own scan" : "which holds no scan for that set"}, and no price either way`);
+    const art =
+      x.art === "guide" ? "with that checklist's own scan"
+      : x.art === "corpus" ? "which holds no scan for that set, so the scan came from public/data/printings"
+      : "and neither that checklist nor public/data/printings holds a scan for that set";
+    console.log(`  ${x.card} #${x.n} (${x.set}) resolved against public/data/intl-guides.json, ${art}, and no price either way`);
   }
   for (const x of l.ambiguous) {
     // TWO REASONS WORE ONE SENTENCE AND ONLY ONE OF THEM WAS ABOUT RARITY. A
