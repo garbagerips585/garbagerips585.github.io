@@ -236,6 +236,77 @@ breaks silently.
 Host is GitHub Pages: .github/workflows/pages.yml uploads public/ on every
 push to main. There is no server build step. See DEPLOY.md.
 
+**THE SAME STRIP NOW HAPPENS TO EVERY INLINE `<style>` BLOCK, IN
+`stamp-assets.mjs`, AND IT RUNS LAST SO IT CATCHES EVERY PAGE HOWEVER IT WAS
+PRODUCED.** 21 August 2026. Twenty-two builders already carried a private regex
+copy of this trade for their own page CSS and the rest carried none, so the
+pages that lost most were the ones no builder edit could reach: `build-pokemon
+.mjs` has no `miniCSS` at all and owns 1,026 pages, and about, shops, wanted,
+hall and garbage-plate take their `<head>` by SLICING index.html, so all five
+shipped build-proto.mjs's `homeCss` comments verbatim, 5,289 raw bytes of prose
+about a band none of them render. Measured across all 1,487 built files and
+1,488 blocks: **2,694,105 raw bytes of comments, 1,325.1KB gzipped, 8.07% of
+ALL the HTML this site serves**; 1,237 B/page on /pokemon/ (11.05% of the
+document), 1,706 on the root pages, 7,089 on /base-set.html alone. It uses
+build-css.mjs's `strip()`, tokenizer and `lintComments()` and all, never a
+regex, for the reason that function's own header gives.
+
+**IT WAS ASKED FOR AS AN LCP FIX AND ON A COLD LOAD IT IS NOT ONE. THIS IS THE
+PART WORTH KEEPING.** The case was that the LCP element on the Pokemon pages,
+the set guides and the root guides is a paragraph of TEXT, so LCP equals FCP and
+document bytes are the gate. The first half is true and was re-confirmed: LCP is
+`P.lede` on all three families and LCP == FCP to the millisecond. The second
+half is false. At 390x844 on Slow 3G with 4x CPU, medians of 9, /base-set.html's
+document arrives **468ms earlier** (1,289 -> 821ms) and **LCP does not move**
+(2,456 -> 2,500ms, inside a noise floor of 0-8ms taken by running the same tree
+against itself).
+
+**THE PAINT IS GATED BY ui.css ALONE AND NOW THERE IS A NUMBER ON IT.** The
+waterfall: the preload scanner finds the stylesheet in the first KB of the head
+and `/assets/ui.css`, 21,209 bytes gzipped, lands at **2,338ms, which is
+1,226ms after the document has finished**. The inline block IS render blocking
+but rides in with the document, so it is never the LAST render-blocking thing
+and shrinking it cannot move first paint. **"A kilobyte here is worth more than
+a kilobyte anywhere else on the site" is measured now rather than asserted, and
+ui.css is where the next real paint win is.** Do not go looking for one in page
+CSS again.
+
+**AND THE WIN IS ON THE SECOND PAGE OF THE VISIT, which is the condition nobody
+measured and is the common one:** a reader who arrived on the home page, and a
+crawler walking 1,487 urls. The assets are content-hashed and immutable, which
+is exactly what the `?v=` stamp exists for, so on page two the document is the
+ONLY thing on the critical path and the bytes convert almost 1:1 into paint.
+Warm cache, after /index.html, LCP before -> after:
+
+      Slow 3G   /base-set.html            744 -> 632ms    -112ms, -15%
+      Slow 3G   /pokemon/charizard.html   604 -> 560ms     -44ms,  -7%
+      Slow 3G   /sets/151.html            564 -> 564ms       0ms   (0-byte control)
+      Slow 4G   /base-set.html            276 -> 248ms     -28ms, -10%
+      Slow 4G   /sets/151.html            236 -> 236ms       0ms   (0-byte control)
+
+**QUOTE THE COLD ROW WITH THE WARM ONE OR QUOTE NEITHER.** A page-weight change
+on this site buys nothing on a first visit and real milliseconds on every visit
+after it, and reporting either half alone is how the next pass gets talked into
+the wrong optimisation.
+
+**NOTHING RENDERS DIFFERENTLY AND THAT WAS MEASURED.** 121 pages across every
+family at 390 and 1440, 244,066 elements, each compared on 108 computed
+properties plus its box plus `::before` and `::after`: 236 of 242 page-width
+runs byte-identical, and all six that were not reproduce when a tree is compared
+AGAINST ITSELF. **CSSOM rule counts, counted recursively so a media block's
+children count too: 306,582 -> 306,582, zero mismatches.** That is the check
+that proves a stripper took comments and not rules, and it is the one to repeat
+if anybody touches this again. **Three pages are nondeterministic under a
+computed-style diff and it is not a bug:** /lore.html's SVG bars are mid
+animation, /games/pokemon-trivia.html and /games/guess-the-set.html pick a
+random question, and `.pack-hint` carries a running transition on the playlist
+pages. Establish a same-tree noise floor before believing a diff on any of them.
+
+**getComputedStyle RESOLVES url() TO AN ABSOLUTE URL, so two trees served from
+two ports differ on every `background-image` and a naive diff reports hundreds
+of false changes.** Normalise the origin out before hashing. That cost the first
+pass an hour of chasing `.pack-art`.
+
 ## Every click stays on the site
 Video tiles everywhere link to that video's own page under `public/rip/`,
 never to youtube.com. The embed lives on that page.

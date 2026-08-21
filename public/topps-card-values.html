@@ -27,25 +27,13 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=582ae61a">
-<style>
-/* These two pages' own block rather than ui.css. ui.css is render blocking on
-   every page on the site and these rules are used by two of them. */
-
-/* THE PRICE ROW IS A GRID, NOT A TABLE, the same shape /top-graded.html uses
-   and for the same reason: one card per row with four facts, where a real
-   <table> would force three price columns that are empty on most rows and
-   unreadable at 390px. Rank and scan are fixed columns; everything else is one
-   flexible column that wraps inside itself. */
-.tp-list{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid var(--hair)}
+<style>.tp-list{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid var(--hair)}
 .tp-row{display:grid;grid-template-columns:2.4em 64px 1fr;gap:12px;align-items:start;
   padding:14px 0;border-bottom:1px solid var(--hair)}
 .tp-rank{font-family:var(--mono);font-size:15px;font-weight:700;
   color:var(--ink-2);text-align:right;padding-top:2px;font-variant-numeric:tabular-nums}
 .tp-art{width:64px;height:90px;display:flex;align-items:center;justify-content:center;
   background:var(--paper-3);border:1px solid var(--hair);border-radius:3px;overflow:hidden}
-/* Fixed box, object-fit, and NO width/height on the img. These scans are a
-   fixed 240 HIGH and a variable width, so a declared width is wrong for most of
-   them. Same treatment tcgplayer-cdn already gets in shared/format.mjs. */
 .tp-scan{max-width:100%;max-height:100%;width:auto;height:auto;display:block}
 .tp-noscan{font-family:var(--mono);font-size:10px;color:var(--ink-2);
   text-align:center;line-height:1.3;padding:4px}
@@ -55,31 +43,17 @@
 .tp-prices{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:7px;align-items:baseline}
 .tp-lead b{font-size:19px;font-variant-numeric:tabular-nums}
 .tp-other{color:var(--ink-2);font-size:var(--t-sm);font-variant-numeric:tabular-nums}
-/* The unit label. Small, muted, and never the same weight as the figure: the
-   number is the fact and the grade is the caption. */
 .tp-t{font-family:var(--mono);font-size:10px;text-transform:uppercase;
   letter-spacing:.04em;color:var(--ink-2)}
 .tp-na{color:var(--ink-2)}
-/* THE PROVENANCE LINE. Plain text, never a link, which is the call
-   /top-graded.html makes and the one this page follows; the argument and the
-   open question behind it are in this file's header. The path is enough to find
-   the record and it is per row rather than per page, because that is what makes
-   an individual figure checkable. word-break because the longest of these runs
-   past a phone's width. */
 .tp-src{display:block;margin-top:6px;font-family:var(--mono);
   font-size:11px;line-height:1.45;color:var(--ink-2);word-break:break-word}
-
 @media (min-width:560px){
   .tp-row{grid-template-columns:3em 84px 1fr;gap:16px;padding:16px 0}
   .tp-art{width:84px;height:118px}
   .tp-rank{font-size:17px}
   .tp-name{font-size:18px}
 }
-/* Desktop puts the prices in their own column instead of under the name, so the
-   eye can run down the ranked figures without the set names in the way. Grid
-   AREAS rather than reordered markup, so the DOM order is untouched: name, set,
-   prices, source is the right reading order on a phone and the right order for
-   a screen reader at every width, and only the painting changes. */
 @media (min-width:900px){
   .tp-row{grid-template-columns:3em 100px 1fr;align-items:center}
   .tp-art{width:100px;height:140px}
@@ -93,32 +67,7 @@
     flex-direction:column;align-items:flex-end;gap:2px;text-align:right}
   .tp-lead b{font-size:22px}
 }
-
-/* ---------------------------------------------------------------------------
-   THE GUIDE PAGE. */
-
-/* One release per card. NOT a table: the widest thing on a release is a
-   sentence of breakdown, and a table would either clip it or set five columns
-   of ragged text at 390px. */
 .tp-sets{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:10px}
-/* 700 AND NOT 820, BECAUSE 820 PUT AN iPAD ON THE PHONE LAYOUT. An iPad in
-   portrait is 768 CSS px, under the old 820, so a tablet showed all eleven set
-   cards as 720px-wide boxes with the pack art marooned in the middle of them.
-   700 is measured: the wrap is 660px inside a 700px viewport, which is two
-   325px cards and the 10px gap, and at 390 the wrap is 350px where one column
-   is still the only fit. Measured at 768, one column to two: 4,127px to 3,246,
-   a 21% shorter run of sets.
-   STILL A FIXED PAIR AND NOT auto-fit, for two separate reasons and either one
-   would be enough. First, this rule is the only column rule on the grid, so it
-   governs 1440 as well as 768; an auto-fit floor low enough to give two columns
-   in a 660px wrap computes FOUR in the 1,392px wrap of a 1440 window, which
-   would re-decide a desktop layout nobody asked to change. Second, the SECOND
-   .tp-sets on this page holds exactly one card, the Europe-only set under "And
-   one that never came to the States", and auto-fit collapses its empty track
-   and stretches that lone card to the full width. It is the same kind of card
-   as the eleven above it and it has to be the same size as them, which a fixed
-   pair gives for free. (auto-fill would also keep the track, but it would still
-   lose the desktop count, so the fixed pair is the answer to both.) */
 @media (min-width:700px){.tp-sets{grid-template-columns:1fr 1fr}}
 .tp-set-card{background:var(--card);border:1px solid var(--hair);border-radius:var(--r-sm);
   padding:14px 16px}
@@ -127,47 +76,21 @@
   letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);margin-top:4px}
 .tp-set-card p{margin:8px 0 0;font-size:var(--t-sm);color:var(--ink-2);line-height:1.5}
 .tp-count{font-weight:700;color:var(--ink)}
-/* The chip that says a set was Europe only, or that it is the last one. Same
-   weight as the date line above it: it is a label, not a headline. */
 .tp-chip{display:inline-block;font-family:var(--mono);font-size:var(--t-micro);
   letter-spacing:.04em;text-transform:uppercase;background:var(--chip-gold-bg);
   color:var(--ink);border-radius:var(--r-pill);padding:2px 8px;margin-top:8px}
-/* Where PriceCharting files this set's cards. Small, monospaced, and it wraps:
-   one release can be six buckets. */
 .tp-buckets{margin:10px 0 0;padding:0;list-style:none;font-family:var(--mono);
   font-size:var(--t-micro);color:var(--ink-2);line-height:1.6}
 .tp-buckets li{word-break:break-word}
-
-/* The explainer grids: printings, card types, and the tells. One shape for all
-   three because they are the same object, a short name and a paragraph. */
 .tp-defs{display:grid;gap:10px;margin-top:var(--s4)}
 @media (min-width:760px){.tp-defs{grid-template-columns:1fr 1fr}}
-/* min-width:0 IS LOAD BEARING AND IT WAS MISSING. A grid item's default minimum
-   is its MIN-CONTENT width, so one unbreakable string inside a card widens the
-   whole track and then the whole page. Measured at 390x844 before this line:
-   documentElement.scrollWidth 434 against a clientWidth of 390, caused by the
-   45 character methodology url in the <code> below, which at 0.85em min-contents
-   to 387.7px inside a 366px wrap. Every heading and paragraph in the section
-   inherited the blown track and measured 391.8 wide.
-   THE PAGE STILL DID NOT SCROLL SIDEWAYS, which is why this needed looking for
-   rather than reporting itself: scrollTo(400,0) left scrollX at 0 both before
-   and after. scrollWidth alone is not proof of a horizontal scroll and is not
-   treated as such anywhere on this site, but 44px of content hanging off the
-   right edge is a real fault whether or not the document scrolls to meet it. */
 .tp-defs>div{background:var(--card);border:1px solid var(--hair);border-radius:var(--r-sm);
   padding:12px 14px;min-width:0}
 .tp-defs h3{margin:0 0 4px;font-size:var(--t-body);font-family:var(--body);font-weight:700}
 .tp-defs p{margin:0;font-size:var(--t-sm);color:var(--ink-2);line-height:1.5}
-/* break-all rather than break-word, the same rule .t100-src code keeps: a url
-   has no spaces to break at, so break-word finds nowhere to go and leaves the
-   string whole. */
 .tp-defs code{font-family:var(--mono);font-size:.85em;word-break:break-all}
 .tp-defs .tp-cite{display:block;margin-top:6px;font-family:var(--mono);font-size:var(--t-micro);
   color:var(--ink-2);word-break:break-word}
-
-/* The five-row teaser on the guide page. A list, not the full table: the point
-   is to show what the ceiling looks like and send the reader to the page that
-   holds the working. */
 .tp-peek{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:6px}
 .tp-peek li{display:flex;gap:10px;align-items:baseline;background:var(--card);
   border:1px solid var(--hair);border-radius:var(--r-sm);padding:9px 12px}
@@ -176,67 +99,24 @@
 .tp-peek .w{flex:1;min-width:0;font-weight:600;line-height:1.3}
 .tp-peek .w small{display:block;font-weight:400;font-size:var(--t-label);color:var(--ink-2)}
 .tp-peek .m{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700}
-
-/* ---------------------------------------------------------------------------
-   THE PICTURES. The guide page had none at all until 18 August 2026.
-
-   EVERY FRAME IS A FIXED BOX AND THE PICTURE IS CENTRED INSIDE IT. PriceCharting
-   serves these files at a fixed 240 HIGH and a VARIABLE width, which is why
-   imgDims() in shared/format.mjs correctly returns "" for this host and why
-   nothing here carries width or height: a declared width would be wrong for most
-   of them, by up to a third. A box the stylesheet owns is what keeps CLS at 0
-   without the markup claiming pixel sizes it does not know. Measured 0.000 at
-   390x844 and 1440x900 with all 32 pictures forced to load. */
 .tp-frame{display:flex;align-items:center;justify-content:center;overflow:hidden;
   background:var(--paper-3);border:1px solid var(--hair);border-radius:3px}
 .tp-frame img{max-width:100%;max-height:100%;width:auto;height:auto;display:block}
-/* The caption under a picture. It names the exact card or product in VISIBLE
-   text, not only in the alt, which is the rule shared/product-photos.mjs sets
-   out: a photograph with no visible name is quietly claiming to be a category. */
 .tp-cap{display:block;margin-top:5px;font-family:var(--mono);font-size:var(--t-micro);
   line-height:1.4;color:var(--ink-2)}
 .tp-cap b{color:var(--ink);font-weight:700}
-
-/* THE HERO CARD IS THE ONE PICTURE ON THIS PAGE THAT IS NOT LAZY, on purpose.
-   loading="lazy" is a VERTICAL heuristic and nothing else, so on a phone, where
-   this sits inside the first screen, it buys nothing and delays the only thing
-   the page opens with. 13.2KB. */
-/* CENTRED AND STACKED AT EVERY WIDTH, which is not what this was first written
-   as. ui.css sets .set-hero .wrap to display:flex, flex-direction:column,
-   align-items:center and text-align:center at specificity 0,2,0, so a
-   .tp-hero-grid rule here at 0,1,0 lost silently and the desktop
-   two-column hero simply never rendered: the markup was right, the rule was
-   right, and it was not applying. It could have been won with a longer selector
-   and was not, because a card centred under centred copy is the hero every other
-   guide on this site has and there was no reason for this one to be different.
-   The caption gets a measure of its own so it does not set to the card's width. */
 .tp-hero-fig{margin:18px auto 0;width:min(100%,320px)}
 .tp-hero-fig .tp-frame{width:150px;height:210px;margin:0 auto}
 @media (min-width:820px){
   .tp-hero-fig{margin:22px auto 0;width:min(100%,420px)}
   .tp-hero-fig .tp-frame{width:200px;height:280px}
 }
-
-/* One card and, where there is one, one packaging photograph per RELEASE. Two
-   small frames in a row at the top of the set card, so the pictures read as
-   belonging to the set named under them and the paragraph still runs the full
-   width of the card. */
 .tp-set-pics{display:flex;gap:10px;margin:12px 0 2px}
 .tp-pic{margin:0;width:82px;flex:none}
 .tp-pic .tp-frame{width:82px;height:115px}
-
-/* The five-row summaries. Same fixed frame as a full row on the values page,
-   one size down: these are a teaser for a list of 100, not the list. */
 .tp-peek li{align-items:center}
 .tp-peek .p{flex:none}
 .tp-peek .p .tp-frame{width:44px;height:62px}
-
-/* THE SIDE BY SIDE, and it is the one place on this page where a picture is not
-   an illustration but the argument itself. Two frames, same box, same Pokemon,
-   same year: prose can say "one has HP and an attack and the other has a screen
-   still" all day and a reader still has to see it. aspect-ratio rather than a
-   height, because these two hosts serve different intrinsic sizes and the frame
-   has to be the same shape on both sides for the comparison to be fair. */
 .tp-vs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:var(--s4);max-width:44em}
 @media (min-width:560px){.tp-vs{gap:24px}}
 .tp-vs figure{margin:0;min-width:0}
@@ -244,13 +124,7 @@
 .tp-vs figcaption{margin-top:9px;font-size:var(--t-sm);line-height:1.45;color:var(--ink-2)}
 .tp-vs figcaption b{display:block;color:var(--ink);font-family:var(--mono);
   font-size:var(--t-micro);letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
-
-/* ui.css draws .fk-golden full bleed inside the wrap, which is right for the
-   two or three sentences most pages put in one. These hold several paragraphs,
-   and at 1440 that ran the text to about 700px inside a 1392px black box.
-   Capped to a measure instead, exactly as build-top100.mjs caps its own. */
-.fk-golden{max-width:58em}
-</style>
+.fk-golden{max-width:58em}</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>

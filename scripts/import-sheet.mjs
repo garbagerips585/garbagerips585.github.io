@@ -1667,13 +1667,43 @@ for (const [n, r] of rows.slice(1).entries()) {
         }
 
         if (!name) {
+          // THE NO-DASH FALLBACK, AND IT MUST MATCH ON WORD BOUNDARIES.
+          //
+          // This used to ask `low.includes(s2)` for every set name. "Dragon" is
+          // a real set, so a cell reading "Dragonite V" matched it, the removal
+          // below took the first six characters out of the CARD, and
+          // /hall.html published a plaque reading "ite V - Dragon". It was live
+          // for a day and read as a truncated workbook cell, which is exactly
+          // what it was not: row 267 says "Dragonite V" and is correct.
+          //
+          // A substring test on a vocabulary this file already holds is a
+          // standing trap, not a one-off -- "Dragon" inside Dragonite is the
+          // instance that surfaced, and every short set name is another. So the
+          // three lookups below are boundary-anchored, and LONGEST FIRST, so a
+          // fragment naming "Mega Evolution" cannot be claimed by "Evolution".
+          //
+          // \b is wrong at the ends here: several set names carry punctuation
+          // ("Scarlet & Violet", "First Partner Illustration Collection
+          // (Series 1)"), and \b after ")" never fires. The lookarounds below
+          // ask for a non-word character or a string edge instead, which is the
+          // same intent and survives the punctuation.
           const low = frag.toLowerCase();
-          setName = SET_NAMES.find((s2) => low.includes(s2)) || null;
-          rarity = RARITY_WORDS.find((w) => low.includes(w.toLowerCase())) || null;
-          star = Object.keys(STAR_RARITY).find((k) => low.includes(k)) || null;
+          const bounded = (needle) => {
+            const re = new RegExp(`(?:^|[^a-z0-9])${esc(needle.toLowerCase())}(?=$|[^a-z0-9])`, "i");
+            return re.test(low);
+          };
+          const longestFirst = (list) => [...list].sort((a, b) => b.length - a.length);
+          setName = longestFirst(SET_NAMES).find(bounded) || null;
+          rarity = longestFirst(RARITY_WORDS).find((w) => bounded(w)) || null;
+          star = longestFirst(Object.keys(STAR_RARITY)).find(bounded) || null;
           let rest = frag;
           for (const piece of [setName, rarity, star]) {
-            if (piece) rest = rest.replace(new RegExp(esc(piece), "i"), " ");
+            if (piece) {
+              rest = rest.replace(
+                new RegExp(`(^|[^a-z0-9])${esc(piece)}(?=$|[^a-z0-9])`, "i"),
+                "$1 ",
+              );
+            }
           }
           name = rest.replace(/\s+/g, " ").trim();
         }

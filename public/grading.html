@@ -32,34 +32,14 @@
 .faq-list h3{font:600 var(--t-sm)/1.4 var(--body);color:var(--ink);margin:var(--s5) 0 6px}
 .faq-list p{color:var(--ink-2);line-height:1.6;margin-bottom:var(--s3)}
 .faq-list p:last-child{margin-bottom:0}
-/* The card in each verdict row. In this page's own block rather than ui.css:
-   this page is the only user and ui.css is render blocking on all 426 pages.
-   It rides INSIDE .gr-name rather than as a new grid column, because .gr's
-   template and its 560px rearrangement are tuned in ui.css and a fifth column
-   would have to be re-tuned in two places to gain nothing. */
 .gr-name{display:flex;align-items:center;gap:8px;min-width:0}
 .gr-shot{flex:none;width:32px;height:auto;display:block;border-radius:3px;
   background:var(--paper-3);border:1px solid var(--hair)}
-
-/* PROFIT AND LOSS SEPARATE BY WEIGHT AND LUMINANCE, NOT BY HUE. ui.css paints
-   .gr-net.up a #3B6130 green and .gr-net.down var(--ketchup-deep), which is
-   #6E5000 since the site repainted to one accent hue. Two problems with that
-   after the repaint: the two are 1.05:1 apart in luminance, so the pair was
-   carried almost entirely by hue with only the plus and minus signs behind it,
-   and the LOSS was wearing the brand's own gold, which reads as approval on the
-   one page whose whole job is telling you when not to spend the money.
-   So the gain is --ink at 800 and the loss is --ink-2 at 400: 17.4:1 against
-   6.8:1 on white, a 2.78:1 step between them, plus a weight difference you can
-   see across the room, plus the sign that was already there. No hue at all, and
-   the accent is no longer attached to the answer that means no.
-   Overridden in this page's own block: ui.css is render blocking on all 426
-   pages and this page is the only user. */
 .gr-net.up{color:var(--ink);font-weight:800}
 .gr-net.down{color:var(--ink-2);font-weight:400}
 .plate-rule{display:flex;align-items:center;gap:var(--s4);max-width:560px;margin:var(--s7) 0 var(--s6)}
 .plate-rule::before,.plate-rule::after{content:"";flex:1;height:2px;border-radius:2px;background:var(--keyline);opacity:.5}
-.plate-rule svg{flex:none;display:block}
-</style>
+.plate-rule svg{flex:none;display:block}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Grading"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","@id":"https://garbagerips585.github.io/grading.html#faq","mainEntity":[{"@type":"Question","name":"How much does it cost to grade a Pokemon card?","acceptedAnswer":{"@type":"Answer","text":"PSA's cheapest active tier is $80 per card as of August 13, 2026, after it paused its Value and Value Bulk tiers in June 2026. The cheapest of the five is SGC at about $15. Add roughly $15 a card for shipping and insurance."}},{"@type":"Question","name":"Is it worth grading my Pokemon card?","acceptedAnswer":{"@type":"Answer","text":"Only if the gap between the raw price and the PSA 10 price is bigger than the fee, and only if the card is genuinely mint. Of 108 cards we hold both prices for, 91 would clear PSA's current fee and 17 would not. Those figures are all for a 10, and a 9 is worth far less, so treat them as the best case."}}]}</script>
 </head>

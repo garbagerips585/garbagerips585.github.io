@@ -26,21 +26,9 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=582ae61a">
 <link rel="stylesheet" href="/assets/games.css?v=15befa74">
-<style>
-/* THE MODE BUTTONS HAD NO PRESSED STATE AND HAVE NEVER HAD ONE.
-   ui.css styles .chip[aria-pressed=true] in three places and .btn in none, so
-   Who's That Pokemon has shipped since it was written with two identical
-   looking buttons, "The original 151" and "All 1,025", and no way to see which
-   pool you were playing. Screen readers got it right the whole time, which is
-   why it was easy to miss: the state was announced and never drawn.
-   Guess the Set's new Any era / Same era pair is the same control, so this is
-   fixed for both rather than added for one.
-   Scoped to .btn-row so it cannot reach a .btn anywhere else on the site if
-   these rules ever move out of a page's own head. */
-.btn-row .btn[aria-pressed="true"]{background:var(--gold);border-color:var(--ink);
+<style>.btn-row .btn[aria-pressed="true"]{background:var(--gold);border-color:var(--ink);
   color:var(--on-accent);box-shadow:0 3px 0 var(--ink)}
 .btn-row .btn[aria-pressed="false"]{background:var(--card);color:var(--ink-2)}
-
 .tq-grid{display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
   width:100%;min-width:0;margin-top:var(--s4)}
 .tq-card{padding:var(--s4);background:var(--card);border:2px solid var(--ink);border-radius:var(--r)}
@@ -48,33 +36,15 @@
   color:var(--ink-2);margin-bottom:6px}
 .tq-card p{font:400 var(--t-body)/1.5 var(--body);color:var(--ink)}
 .tq-eg{display:block;margin-top:8px;font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2)}
-
-/* THE FIGURES CARRY THEIR OWN CAPTION AND THE CAPTION IS THE SOURCE. Every
-   drawing in these blocks is generated from a file in this repo, so the caption
-   says which one. A picture on this site that cannot name where its numbers came
-   from is the thing check-build.py's density table is trying to get rid of, and
-   adding an unsourced one to fix the count would be worse than the empty page. */
 .tq-fig{margin:var(--s4) 0 0;padding:var(--s4);background:var(--paper-2,#2F4F39);
   border:2px solid var(--ink);border-radius:var(--r)}
 .tq-fig svg{display:block;width:100%;height:auto;max-width:520px;margin:0 auto}
-/* THE INK OF THE TWO GENERATED DIAGRAMS INSIDE .tq-fig. They are inline SVG, so
-   a fill= attribute cannot hold a custom property reliably and the ink lives
-   here instead. The ground is .tq-fig's own background, var(--paper-2): --ink
-   measures 8.03:1 on it, which clears 4.5:1 for the labels and 3:1 for the
-   outlines. FALLBACK VALUES: the two above were #F7F2DE, a cream sampled from
-   the old palette, and a fallback is exactly where a repaint fails silently,
-   because it only shows up if the token is ever missing. Keep them in step with
-   --paper-2 whenever the palette moves. */
 .tq-d{fill:none;stroke:var(--ink)}
 .tq-df{fill:var(--ink)}
 .tq-dt{fill:var(--ink);font-family:ui-monospace,monospace;font-weight:700}
 .tq-don{stroke:var(--on-accent)}
 .tq-fig figcaption{margin-top:var(--s3);font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
   text-align:center}
-
-/* The era table. A LIST, not a table element: every row is symbol, name, years,
-   counts, and on a 390px phone the years and the counts have to drop under the
-   name rather than squeeze a fourth column to nothing. */
 .tq-eras{display:grid;gap:8px;margin-top:var(--s4);list-style:none;padding:0}
 .tq-era{display:grid;grid-template-columns:34px 1fr auto;gap:var(--s3);align-items:center;
   padding:8px 10px;background:var(--card);border:1px solid var(--hair);border-radius:10px}
@@ -86,11 +56,6 @@
 .tq-era span{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
 .tq-era em{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);font-style:normal;
   text-align:right;white-space:nowrap}
-
-/* Pokemon with their official category. The artwork is the mirrored 128px file
-   /lore.html already ships, not the 475px PokeAPI png the game itself pulls: at
-   72px on a phone the big one is a 6x oversample of a picture nobody is playing
-   with. */
 .tq-dex{display:grid;gap:var(--s3);grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
   margin-top:var(--s4);list-style:none;padding:0}
 .tq-dexi{display:flex;gap:var(--s3);align-items:center;padding:8px 10px;background:var(--card);
@@ -98,24 +63,17 @@
 .tq-dexi img{width:56px;height:56px;object-fit:contain;flex:none}
 .tq-dexi b{display:block;font:700 var(--t-sm)/1.2 var(--body);color:var(--ink)}
 .tq-dexi span{display:block;font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
-
 .tq-links{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s4);padding:0;list-style:none}
 .tq-links a{display:inline-block;padding:9px 14px;background:var(--card);border:2px solid var(--ink);
   border-radius:var(--r-pill);box-shadow:0 3px 0 var(--ink);text-decoration:none;color:var(--ink);
   font:700 var(--t-sm)/1.2 var(--body)}
 .tq-links a:hover{background:var(--mustard);color:var(--on-accent)}
-
-/* The one file drawn twice. The FIRST of the pair carries the filter, which is
-   the same brightness(0) games.css puts on the live game, written here rather
-   than reused from .gq-sil because that class is the game's and this figure is
-   not the game. */
 .tq-silpair{display:flex;gap:var(--s5);align-items:flex-end;justify-content:center}
 .tq-silpair span{display:block;text-align:center}
 .tq-silpair img{display:block;width:112px;height:112px;object-fit:contain}
 .tq-silpair span:first-child img{filter:brightness(0)}
 .tq-silpair b{display:block;margin-top:6px;font:700 var(--t-micro)/1.4 var(--mono);
-  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
-</style>
+  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Games","item":"https://garbagerips585.github.io/games/"},{"@type":"ListItem","position":3,"name":"Guess the Set"}]}</script>
 </head>
 <body>

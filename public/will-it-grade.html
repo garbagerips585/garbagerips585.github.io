@@ -25,34 +25,14 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=582ae61a">
-<style>
-.gc-lede{max-width:46em}
+<style>.gc-lede{max-width:46em}
 .gc-sec{margin-top:var(--s6)}
 .gc-sec > p.gc-in{color:var(--ink-2);max-width:44em;line-height:1.55;margin-bottom:var(--s4)}
-/* The four column tables are 640px wide inside a 360px box on a phone, so 280px
-   of every one of them is off screen. Measured at 390x844: .gc-tw clientWidth
-   360, scrollWidth 640. At 320x568 it is 350px hidden. The page said nothing
-   about it: the right edge was a hard cut at the container border and even the
-   caption was truncated mid-word ("NOTE HOW MUCH WIDER THE TOLERA").
-
-   This is ui.css's "there is more to the right" trick, the same four layers it
-   already gives .cc-scroll, .xp-scroll and .luck-scroll. The two COVER layers
-   are background-attachment:local so they ride with the content; the two SHADOW
-   layers are scroll so they stay pinned to the box. At scroll 0 the cover hides
-   the shadow, and scrolling slides it away to reveal one. It switches itself off
-   when the table fits, so nothing shows at 1440.
-
-   background-COLOR, not the background shorthand: the shorthand resets
-   background-image and would silently wipe all four layers. That is the exact
-   trap ui.css records for the two builders that hit it before this one. */
 .gc-tw{overflow-x:auto;border:3px solid var(--keyline);border-radius:12px;box-shadow:var(--hard-lg);
   background-color:var(--card);margin-bottom:var(--s4);
   background-image:
     linear-gradient(to right,var(--card) 40%,rgba(255,255,255,0)),
     linear-gradient(to left,var(--card) 40%,rgba(255,255,255,0)),
-    /* WAS rgba(17,17,17,.30): a near-black shadow, which is the "there is more
-       to the right" cue and which is invisible on a dark card. Same geometry,
-       opaque black, so the cue survives the repaint. */
     radial-gradient(farthest-side at 0 50%,rgba(0,0,0,.55),rgba(0,0,0,0)),
     radial-gradient(farthest-side at 100% 50%,rgba(0,0,0,.55),rgba(0,0,0,0));
   background-position:left center,right center,left center,right center;
@@ -60,10 +40,6 @@
   background-size:44px 100%,44px 100%,15px 100%,15px 100%;
   background-attachment:local,local,scroll,scroll}
 .gc-t{border-collapse:collapse;width:100%;min-width:640px;font-size:var(--t-sm)}
-/* The table's title, outside the scroller. See the note on table() above for
-   why it is not a <caption> any more. Same type as the old one, so the only
-   thing a wide screen sees change is that the line sits above the box's border
-   rather than inside it. */
 .gc-tcap{margin:var(--s4) 0 var(--s2);font:700 var(--t-label)/1.35 var(--body);
   letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);max-width:56ch}
 .gc-t th,.gc-t td{padding:10px var(--s3);text-align:left;border-bottom:1px solid var(--hair);vertical-align:top}
@@ -72,48 +48,22 @@
 .gc-t tbody th{font-weight:700;white-space:nowrap}
 .gc-t tbody tr:first-child{background:var(--sky-tint)}
 .gc-none span{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);opacity:.7}
-/* The centering diagram beside the sentence it draws. The picture is useless
-   above the paragraph and useless below it; the whole value is that a reader
-   stuck on "60/40" can glance left mid-sentence. Under 700px it stacks, diagram
-   first, because on a phone "above" is the only version of "beside" there is. */
 .ct-wrap{display:flex;gap:var(--s5);align-items:flex-start;margin-bottom:var(--s4)}
 .ct-txt{margin-bottom:0 !important}
 @media(max-width:700px){.ct-wrap{flex-direction:column;gap:var(--s4)}}
-/* 280 RATHER THAN 210, WHICH IS THE PHONE'S OWN CAP, for the reason written out
-   above .gd-fig: this viewBox is 212 units wide, so the 10-unit dimension
-   labels drew at 9.91 CSS px on a desktop against 13.21 on a phone. Setting the
-   desktop width to the phone cap is the whole fix -- both are 13.21px now and
-   the two cannot drift apart, since neither is a number the other does not
-   have. Clears the 12px floor with room, which .gd-fig at 310 does not. */
 .ct-fig{flex:none;width:280px;margin:0}
 @media(max-width:700px){.ct-fig{width:100%;max-width:280px;align-self:center}}
 .ct-svg{width:100%;height:auto;display:block;overflow:visible}
 .ct-card{fill:var(--card);stroke:var(--keyline);stroke-width:4}
-/* The two border strips, which are the measurement. Faint enough that the card
-   still reads as a card, strong enough that the wider one is obvious. */
 .ct-band{fill:var(--ketchup);opacity:.15}
-/* The window is filled, not outlined, so the two BORDERS either side of it read
-   as the measured thing. An outlined window makes the reader compare two lines
-   instead of two gaps, which is the wrong comparison. */
 .ct-win{fill:var(--navy);opacity:.14;stroke:var(--navy);stroke-width:2;stroke-opacity:.5}
 .ct-dim{stroke:var(--ketchup);stroke-width:2}
 .ct-lab{fill:var(--ketchup-deep);font:700 10px/1 var(--mono);text-anchor:middle}
 .ct-in{fill:var(--ink-2);font:400 11px/1 var(--body);text-anchor:middle}
 .ct-fig figcaption{font-size:var(--t-sm);line-height:1.5;color:var(--ink-2);margin-top:var(--s3)}
 .ct-fig figcaption b{font-family:var(--mono);color:var(--ketchup-deep)}
-/* THE FRONT AND BACK LADDER. Three columns, grade then two cards, so the front
-   and the back of one grade are on one line: the whole point is the comparison
-   ACROSS a row, and any layout that stacks them loses it. The card width is
-   clamped rather than fixed because at 390 the row has about 350px to spend on
-   a label and two cards, and at 1280 the same grid would leave two postage
-   stamps in a 1,232px band. */
 .lad{margin:var(--s5) 0;border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4)}
-/* THE LABEL COLUMN IS CAPPED AND THE GRID HUGS THE LEFT. As minmax(0,1fr) it
-   ate every spare pixel: at 1280 the grade names sat in a 1,000px column with
-   the eight cards pushed against the right edge of the panel, half a metre from
-   the label they belong to. The comparison is ACROSS a row, so the row has to
-   stay short however wide the page gets. */
 .lad-grid{display:grid;grid-template-columns:minmax(104px,220px) auto auto;
   gap:var(--s3) var(--s5);align-items:center;justify-items:center;justify-content:start}
 .lad-h{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
@@ -121,57 +71,30 @@
 .lad-c{display:block;text-align:center}
 .lad-c b{display:block;margin-top:6px;font:700 var(--t-micro)/1 var(--mono);color:var(--ketchup-deep)}
 .lad-svg{display:block;width:clamp(56px,17vw,104px);height:auto}
-/* Phone tracks: see the note above ladder() for the arithmetic. */
 @media(max-width:700px){
   .lad-grid{grid-template-columns:minmax(88px,220px) auto auto;column-gap:var(--s3)}
 }
-/* Desktop puts the caption beside the cards rather than under them. The grid is
-   a fixed ~430px however wide the page is, so stacked it left roughly 800px of
-   empty panel at 1280 with the explanation below the fold of the figure. */
 @media(min-width:1000px){
   .lad-svg{width:104px}
   .lad{display:flex;gap:var(--s6);align-items:flex-start}
   .lad figcaption{margin-top:0;flex:1;min-width:0}
 }
-/* THE BAND AND WINDOW OPACITIES ARE NOT THE BIG DIAGRAM'S AND THAT IS MEASURED.
-   Inherited unchanged (band .15, window .14) the two tones are within one
-   percent of each other, and at a quarter of the size that is one grey block
-   with a faint seam: the second build of this figure was eight cards nobody
-   could tell apart. The big diagram gets away with it at 210px wide with
-   dimension lines and numbers inside it. This one is 56 to 104px with nothing
-   in it but the shape, so the strip has to carry the whole reading. */
 .lad-svg .ct-band{opacity:.5}
 .lad-svg .ct-win{opacity:.09}
 .lad figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);margin-top:var(--s4);max-width:52ch}
-/* THE SPREAD FIGURE, and it is on the page background rather than inside a
-   panel, so its tokens are the page ones and not the chrome ones .sg uses.
-   Getting that backwards paints --chrome-ink, which is #F5F4F0, onto near
-   white. Read which background a figure lands on before picking a token.
-
-   TYPE IS 9 VIEWBOX UNITS. The figure box is 312px at 390x844 against a 300
-   unit box, so 9 lands at about 9.4 rendered pixels, which is the floor. Do not
-   go below it here: the row labels are the only way to tell a front row from a
-   back one. */
 .sp{margin:var(--s5) 0;border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4)}
 .sp-svg{display:block;width:100%;max-width:560px;height:auto}
 .sp-g{font:700 9px var(--mono);fill:var(--ink)}
 .sp-f{font:400 9px var(--mono);fill:var(--ink-2)}
-/* 9 and not 8. At 8 these two headings rendered 8.7px on a phone, under the
-   floor, and they are the only thing saying which way the axis runs. */
 .sp-h{font:700 9px var(--mono);fill:var(--ink-2)}
 .sp-a{font:700 9px var(--mono);fill:var(--ink-2)}
 .sp-p{font:700 9px var(--mono);fill:var(--ketchup-deep)}
 .sp-t{stroke:var(--ink);stroke-width:1;opacity:.12}
-/* The row rule runs the full axis whether or not anything is on it, so a row
-   with nothing published is visibly a row with nothing on it rather than a gap
-   in the figure. */
 .sp-r{stroke:var(--hair);stroke-width:1}
 .sp-d{fill:var(--ink)}
 .sp figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);margin-top:var(--s4);max-width:52ch}
 .sp figcaption b{color:var(--ink)}
-/* Caption beside the drawing on desktop, the same move .lad and .sg make and
-   for the same reason: the svg is capped at 560px however wide the page gets. */
 @media(min-width:1000px){
   .sp{display:flex;gap:var(--s6);align-items:flex-start}
   .sp-svg{flex:0 0 auto;width:560px}
@@ -198,14 +121,6 @@
 .gc-ex li{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:baseline;font-size:var(--t-sm);
   padding:10px var(--s3);background:rgba(255,255,255,.07);border-radius:8px}
 .gc-ex b{font:700 var(--t-m)/1 var(--body);color:var(--mustard)}
-/* THE SUBGRADE FIGURE, and every colour in here is a chrome token because it is
-   the only drawing on this site that sits INSIDE a filled dark panel. .gc-key is
-   background:var(--band-bg), and --navy resolves to #111111. So do --ketchup,
-   --keyline and --ink. Reaching for any of the four the other figures on this
-   page use, or for --ink-2 at #5B5B5B, paints a mark that is either invisible or
-   nearly so, and nothing errors. The argument is carried by three SHAPES, a
-   filled dot, a dashed rule and a solid rule, so the figure still reads with
-   every fill in this block set to one value. */
 .sg{margin:var(--s4) 0 0}
 .sg-svg{display:block;width:100%;max-width:520px;height:auto}
 .sg-base{stroke:var(--chrome-dim);stroke-width:1;opacity:.6}
@@ -213,18 +128,11 @@
 .sg-ax{fill:var(--chrome-dim);font:700 10px/1 var(--mono);text-anchor:middle}
 .sg-key{fill:var(--chrome-dim);font:400 10px/1 var(--mono)}
 .sg-dot{fill:var(--chrome-ink)}
-/* The lowest component is a RING rather than a brighter dot. It is the one mark
-   the heading above the panel is about, it has to survive a reader who cannot
-   tell two greys apart, and a ring reads as "this one" at 4px where a tint does
-   not. */
 .sg-worst{fill:none;stroke:var(--chrome-ink);stroke-width:2}
 .sg-mean{stroke:var(--chrome-dim);stroke-width:1.5;stroke-dasharray:5 3}
 .sg-final{stroke:var(--mustard);stroke-width:2.5}
 .sg-num{fill:var(--mustard);font:700 12px/1 var(--mono);text-anchor:middle}
 .sg figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--foot-ink);margin-top:var(--s3);max-width:52ch}
-/* Same move as .lad below: the drawing is a fixed 520px however wide the page
-   gets, so stacked it leaves most of the panel empty with the explanation under
-   the fold of the figure. */
 @media(min-width:1000px){
   .sg{display:flex;gap:var(--s6);align-items:flex-start}
   .sg-svg{flex:0 0 auto;width:520px}
@@ -236,23 +144,7 @@
 .gc-def dt{font-weight:700;margin-top:var(--s4);line-height:1.3}
 .gc-def dd{margin:var(--s2) 0 0;color:var(--ink-2);font-size:var(--t-sm);line-height:1.55}
 .gc-aka{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.06em}
-/* Defect diagrams. EVERY WORD OF THE REASONING IS IN THE JS, in the block above
-   gdCard() and in the one above STYLE_GD. Do not write prose in here. */
 .gd-row{display:flex;gap:var(--s5);align-items:flex-start;margin-top:var(--s2)}
-/* 310, NOT 240, AND THE PHONE CAP MOVES WITH IT. The viewBox is 180 units wide
-   and the whole drawing scales to the box, so the smallest label (7 units) was
-   rendering at 7 x 240/180 = 9.33 CSS px on a desktop against 10.11 on a phone:
-   the desktop drew the picture 20px NARROWER than the phone did, so every drawn
-   word shrank with it, and 9.33px was the smallest type measured anywhere on
-   this site. 310/180 puts that label at 12.06px and the 8-unit ones at 13.78.
-   The floor is the one build-shops.mjs argues for its map and it is the same
-   argument: --t-micro (11px) is what this figure's own caption is set in, and
-   nothing drawn ON a picture may be smaller than the prose explaining it, so
-   the floor is the next token up, --t-label at 12px. The two widths are equal
-   now, so the inversion cannot come back by one of them being edited alone.
-   MEASURED WITH getBoundingClientRect AND WITH font-size x the real
-   viewBox-to-viewport scale, which agree. getComputedStyle on SVG text reports
-   USER UNITS: it reads 7 at every width and always will. */
 .gd-fig{flex:none;width:310px;margin:0}
 .gd-p{margin:0;min-width:0}
 .gd-svg{display:block;width:100%;height:auto}
@@ -279,62 +171,11 @@
 .gd-bite{fill:var(--page);stroke:var(--keyline);stroke-width:1.2}
 .gc-unv{border:3px dashed var(--hair);border-radius:12px;padding:var(--s4);background:var(--card)}
 .gc-foot{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.6;max-width:46em}
-
-/* DESKTOP READING MEASURE. The caps above were written in em as if 1em were
-   one character. It is not: these faces run 2.31 to 2.47 characters per em, so
-   44 to 46em bought 105 to 108 real characters a line at 1440. ui.css already
-   caps main prose at var(--measure) and these rules only outranked it by
-   landing after the stylesheet. All min-width:1000, ui.css's own desktop
-   breakpoint, so the phone and the tablet range keep exactly the rules
-   they had.
-
-   IT IS .gc-key p AND NOT .gc-key li, AND THAT IS THE WHOLE CARE IN THIS
-   BLOCK. The 44em above covers both, but .gc-ex li is a display:flex row of a
-   subgrade line and its total, not a sentence, and .gc-ex sits inside .gc-key.
-   A cap on the li would have rescaled those rows. Paragraphs only; the lists
-   here were read and left alone.
-
-   AND :not(.gc-note) IS THE SECOND HALF OF THAT CARE, CAUGHT BY MEASURING
-   AFTERWARDS RATHER THAN BY READING THE SELECTOR. .gc-note is a p, it sits
-   inside .gc-key, and it is the only Space Mono block on the page. Mono runs
-   about 1.77 characters per em against Outfit's 2.31, so its 44em box was
-   already only about 70 real characters and the shared cap took it to 57,
-   which is too narrow rather than too wide. Same reason .rg-foot in
-   build-rarity.mjs and .up-foot in build-upcoming.mjs are not capped and
-   ui.css keeps .price-note on its own 52em: a mono block does not join the
-   shared number. A pass that only reads class names will re-add it. */
 @media(min-width:1000px){
 .gc-lede,.gc-foot{max-width:var(--measure)}
 .gc-sec > p.gc-in,.gc-in,.gc-key p:not(.gc-note){max-width:var(--measure)}
-/* AND THE ONE dd THAT IS NOT PROSE HAS TO BE LET OUT OF THE MEASURE, WHICH IS
-   A DEFECT THE WIDER .gd-fig ABOVE MADE VISIBLE RATHER THAN ONE IT INVENTED.
-   ui.css caps main :is(p,dd,blockquote,figcaption) at var(--measure), which
-   is 36em of this dd's own var(--t-sm): 504px. A dd holding a .gd-row is not a
-   line of text, it is a PICTURE BESIDE a line of text, so the figure was being
-   taken out of the paragraph's reading measure rather than sitting next to it,
-   and the paragraph got whatever was left:
-
-        .gd-fig    .gd-p at 1440   chars a line
-          240px        240px           35.3      before the fix above
-          310px        170px           25.0      after it, and worse
-          310px        504px           61.3      with this rule
-
-   which is the same shape of defect as the games hub blurbs and was found the
-   same way, by measuring the thing next to the thing that changed. 25 is
-   unreadable and 35 was already poor, on a 1,440px screen with 888px of empty
-   band to the right of it. The cap is now the measure PLUS the figure, so the
-   prose gets its own 504px whatever the drawing does and the two numbers can
-   never be taken out of each other again.
-
-   :has(.gd-row) SCOPES IT TO THE ELEVEN dds THAT HOLD A DIAGRAM. The other
-   dds in this list are prose and keep the shared cap. Specificity is (0,2,1)
-   against ui.css's (0,0,2), so it wins on weight and not merely on order.
-   min-width:1000 for the same reason as everything else in this block: below
-   it the row is 720px wide and the paragraph already had 386px and 56.8
-   characters, and at 700 the row stacks entirely. */
 .gc-def dd:has(.gd-row){max-width:calc(var(--measure) + 310px + var(--s5))}
-}
-</style>
+}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Will it grade"}]}</script>
 </head>
 <body>

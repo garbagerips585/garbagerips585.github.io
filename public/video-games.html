@@ -25,90 +25,30 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=582ae61a">
-<style>
-/* ---------------------------------------------------------------------------
-   This page carries its own rules rather than adding to assets-source/ui.css,
-   which is what every recent guide builder here does. Everything is prefixed
-   vg- so nothing can collide with a component the shared stylesheet owns.
-   Tokens (--gold, --ink, --paper-2, --s4, --mono and the rest) come from
-   ui.css's :root and are not redefined.
-   --------------------------------------------------------------------------- */
-
-/* THE RAIL IS NOT OPTIONAL. This page is around thirteen thousand pixels tall
-   on a phone, so a reader who lands two thirds of the way down has no way back
-   to a generation without a scroll of several seconds. It sticks under the
-   site bar, which is itself sticky at 60px, and --bar-h is the single source of
-   that number so a taller touch target in the bar cannot tuck the rail under
-   it. At 390px the chips scroll sideways INSIDE the rail, which is the one
-   horizontal scroll on this page and it holds ten links rather than 160
-   pictures. */
-.vg-rail{position:sticky;top:var(--bar-h);z-index:40;background:var(--paper-2);
+<style>.vg-rail{position:sticky;top:var(--bar-h);z-index:40;background:var(--paper-2);
   border-bottom:2px solid var(--keyline);margin-bottom:var(--s5)}
 .vg-rail-in{display:flex;gap:var(--s2);overflow-x:auto;overflow-y:hidden;
   scrollbar-width:thin;padding:var(--s2) var(--s4);max-width:var(--wrap);margin:0 auto;
   -webkit-overflow-scrolling:touch}
-/* min-height 44, not 40. WCAG 2.5.5 asks for 44x44 and the paragraph above is
-   the argument for why these are primary controls rather than decoration: on a
-   thirteen-thousand-pixel page this rail is the only way back to a generation.
-   40px cleared 2.5.8's 24px AA floor already; 44 is the AAA target, taken
-   because a one-handed reader thumbing down this page hits these first.
-   Spacing is unaffected -- .vg-rail-in sets gap:var(--s2), which is 8px, and
-   this row scrolls rather than wraps, so there is one axis to keep clear and
-   the gap is not derived from the chip height. Re-measured: 44px tall, 8px apart.
-
-   IT MAKES THE STICKY RAIL 4px TALLER AND THAT NUMBER IS SPENT SOMEWHERE ELSE.
-   .vg-era below reserves calc(var(--bar-h) + 64px) of scroll-margin so an
-   anchor jump does not park a heading underneath the rail. The rail is
-   44 + 2*var(--s2) + 2px of border = 62px, against 58px before, so the 64px
-   reserve still covers it with 2px to spare instead of 6. Verified by jumping
-   to an era anchor and reading the heading's top against the rail's bottom.
-   If this chip ever grows again, that 64 has to grow with it. */
 .vg-rail a{flex:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;
   text-transform:uppercase;padding:10px 12px;min-height:44px;display:flex;align-items:center;
   border:2px solid var(--keyline);border-radius:var(--r-pill);color:var(--ink);
   text-decoration:none;background:var(--paper-2);white-space:nowrap}
 .vg-rail a:hover,.vg-rail a:focus-visible{background:var(--mustard);color:var(--on-accent)}
-
 .vg-era{border-top:3px solid var(--keyline);padding-top:var(--s4);margin:var(--s7) 0 var(--s4);
   scroll-margin-top:calc(var(--bar-h) + 64px)}
 .vg-era h2{font:400 var(--t-l)/1.1 var(--display)}
 .vg-era p{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink-2);margin-top:6px}
-
 .vg-list{list-style:none;margin:0;padding:0;position:relative}
-/* The gold rail down the left gutter with a dot per row. It is what makes this
-   read as a timeline rather than as a list, and it is the reason the row has a
-   left pad it would not otherwise need. */
 .vg-list::before{content:"";position:absolute;left:7px;top:0;bottom:0;width:2px;
   background:var(--gold);opacity:.5}
 .vg-row{position:relative;padding-left:28px;margin-bottom:var(--s4)}
 .vg-dot{position:absolute;left:1px;top:26px;width:14px;height:14px;border-radius:50%;
   background:var(--mustard);border:2px solid var(--keyline)}
-
 .vg-row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 var(--s3);align-items:start}
-/* NO GRID PLACEMENT ON THE DOT, and that omission is the whole rule. An
-   absolutely positioned grid child that names a grid area takes THAT AREA as
-   its containing block rather than the row's padding box, so left:1px measured
-   from the start of column 1 put the dot at x=41 instead of x=13: directly
-   under the cover, painted over by it, invisible. The gold rail was there and
-   the dots were not, which looks like a design choice. */
 .vg-art{grid-column:1;grid-row:1}
-/* min-width:0 IS LOAD BEARING ON EVERY ONE OF THESE. A grid item defaults to
-   min-width:auto, which means it refuses to shrink below its widest unbreakable
-   child, and this page has plenty: a chip reading "Original Johto Pokedex: 251
-   entries" is 271px wide inside a 184px column at 390px. Measured over CDP at
-   390x844: without these the document scrollWidth was 551 against a viewport of
-   390, and the chips were the whole of it. Sideways scroll on a phone is the
-   one layout bug a reader cannot work around. */
 .vg-body{grid-column:2;grid-row:1;min-width:0}
-
-/* THE BOX IS A SQUARE AND THE ART IS CONTAINED INSIDE IT, NEVER CROPPED.
-   The 191 mirrored files run 0.617 to 2.081 in aspect ratio in era-shaped
-   families, so a Switch keycase renders 74x120 in here, a DS case 120x107 and
-   an N64 box 120x84. Scrolling the page shows the hardware changing shape,
-   which is a real thing the page gets for free and which cropping would throw
-   away. object-fit:contain on a fixed square is the same decision .prod-shot
-   and the mirrored set symbols already made. */
 .vg-art{position:relative;width:var(--vg-box,120px);height:var(--vg-box,120px);
   display:grid;place-items:center;background:var(--paper-3);border:2px solid var(--keyline);
   border-radius:var(--r-sm);overflow:hidden}
@@ -118,7 +58,6 @@
 .vg-kind{position:absolute;left:0;bottom:0;font:700 9px/1 var(--mono);letter-spacing:.08em;
   text-transform:uppercase;background:var(--keyline);color:var(--on-accent);padding:4px 5px;
   border-top-right-radius:5px}
-
 .vg-title{font:600 var(--t-body)/1.25 var(--body);margin:0 0 4px}
 .vg-when{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin-bottom:2px}
 .vg-date{font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em}
@@ -127,51 +66,23 @@
 .vg-undated{color:var(--ink-2);font-style:normal}
 .vg-plat{font:400 var(--t-sm)/1.35 var(--body);color:var(--ink-2)}
 .vg-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;min-width:0}
-/* The chip text WRAPS. A nowrap chip is the prettier default and it is what
-   put 161px of sideways scroll on this page, because the dex chips and the
-   per-version score chips carry real sentences: "Original Johto Pokedex: 251
-   entries" and "Mystery Dungeon Explorers Of Time 71 Metascore". Two lines
-   inside a chip is fine; a page that slides under your thumb is not. */
 .vg-chips>*{font:700 var(--t-micro)/1.35 var(--mono);letter-spacing:.04em;padding:6px 8px;
   border-radius:var(--r-sm);border:2px solid var(--keyline);max-width:100%;overflow-wrap:anywhere}
 .vg-ms{background:var(--chip-gold-bg)}
 .vg-ms b{font-weight:700}
-/* THE SCORE CHIP IS NOT COLOUR CODED AND THAT IS DELIBERATE. A green, yellow
-   and red scale would be the only place on this site using hue to encode a
-   value, in a palette whose entire claim is that the artwork is the only
-   colour on the page. */
 .vg-ms i{font-style:normal;font-weight:400;color:var(--gold-deep);text-transform:uppercase}
 .vg-no{background:var(--paper-3);color:var(--ink-2);font-weight:400}
 .vg-dex{background:var(--paper-2);font-weight:400}
 .vg-dex i{font-style:normal;color:var(--gold-deep)}
 .vg-tcg{background:var(--keyline);color:var(--on-accent)}
 .vg-dead{background:var(--paper-2);color:var(--ink-2);font-weight:400;border-style:dashed}
-
-/* Native details, so a row expands with no script at all and keeps working
-   with JS off. 79 rows was already too many for a generated page each; 160 is
-   emphatically too many, and thin pages are what build-pages.mjs already
-   guards against.
-
-   IT SPANS THE WHOLE ROW AND IT HAS TO. This lived inside .vg-body, the second
-   grid column, which is about 206px wide at 390px. Take the card padding, the
-   gold border, and a 120px paired cover floated inside it and the definition
-   list was left with roughly 60px for two columns: the values rendered ONE
-   CHARACTER PER LINE, a vertical ladder spelling out A-u-s-t-r-a-l-i-a. It
-   looked like a font bug and it was a containing block that had run out of
-   room. Nothing errors when a grid column collapses. */
 .vg-more{grid-column:1/-1;grid-row:2;margin-top:10px;min-width:0}
 .vg-more summary{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
   cursor:pointer;display:inline-flex;align-items:center;min-height:40px;color:var(--ink-2)}
 .vg-more summary:hover{color:var(--ink)}
 .vg-detail{border-left:3px solid var(--gold);padding:var(--s3);margin-top:6px;background:var(--paper-2);
   border-radius:var(--r-sm)}
-/* The paired cover STACKS on a phone and only floats once there is room for
-   it beside the text. Floating it at 390px is what started the collapse
-   described above: a grid container establishes its own formatting context, so
-   it shrinks away from a float rather than flowing under it. */
 .vg-detail .is-pair{margin:0 0 var(--s3) 0}
-/* Label above value on a phone. Two columns need about 320px before the value
-   column is worth having, and this list carries whole sentences. */
 .vg-detail dl{display:grid;grid-template-columns:minmax(0,1fr);gap:2px var(--s3);
   font-size:var(--t-sm)}
 .vg-detail dd{margin-bottom:8px}
@@ -188,19 +99,12 @@
 .vg-cite{margin-top:var(--s3);font:400 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);
   display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .vg-cite a{color:var(--ink)}
-
 .vg-sum{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s3);margin:var(--s5) 0}
 .vg-sum div{border:3px solid var(--keyline);border-radius:var(--r);padding:var(--s3);
   background:var(--paper-2);box-shadow:var(--hard-lg)}
 .vg-sum b{display:block;font:400 clamp(1.5rem,7vw,2.25rem)/1 var(--display)}
 .vg-sum span{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink-2)}
-
-/* Everything below is min-width, so nothing a phone renders is changed by it.
-   THE ANSWER TO A WIDE SCREEN IS MORE CARDS, NOT A WIDER CARD, which is the
-   lesson the home page learned the expensive way: a fixed 520px column centred
-   in a 1392px wrap used 37% of the width and made the top of that page read as
-   a different site from the bottom. */
 @media(min-width:700px){
   :root{--vg-box:150px}
   .vg-sum{grid-template-columns:repeat(4,1fr)}
@@ -210,9 +114,6 @@
 }
 @media(min-width:900px){
   :root{--vg-box:160px}
-  /* Two columns, so the rail down the left gutter would have to be drawn twice
-     and would line up with nothing. It is dropped and the era headers carry the
-     structure instead. */
   .vg-list{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);align-items:start}
   .vg-list::before{display:none}
   .vg-row{margin-bottom:0;padding-left:0;border:2px solid var(--keyline);border-radius:var(--r);
@@ -224,8 +125,7 @@
 }
 @media(prefers-reduced-motion:no-preference){
   .vg-rail a{transition:background .15s ease}
-}
-</style>
+}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Every Pokemon video game","item":"https://garbagerips585.github.io/video-games.html"}]}</script>
 </head>
 <body>

@@ -25,22 +25,12 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=582ae61a">
-<style>
-.tl-lede{max-width:44em}
+<style>.tl-lede{max-width:44em}
 .tl-chk{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);margin-top:var(--s3)}
 .tl-s{margin-top:var(--s6);scroll-margin-top:var(--s5)}
 .tl-s > p{max-width:44em;line-height:1.6}
 .tl-s > p + p{margin-top:var(--s3)}
 .tl-jump{display:flex;flex-wrap:wrap;gap:8px;margin:var(--s5) 0 0}
-/* min-height 44, not 40. WCAG 2.5.5 asks for 44x44 and these chips are the
-   page's primary navigation on a phone: they are the only way to reach a
-   section without scrolling the whole article. Measured 40px before this, so
-   they already cleared 2.5.8's 24px AA floor -- this is the AAA target, taken
-   because a one-handed reader thumbing down the page hits these first.
-   THE GAP IS UNTOUCHED AND HAS TO STAY THAT WAY: the parent sets gap:8px,
-   which is row AND column gap, so growing the box does not close the 8px
-   between two chips or between two wrapped rows. Re-measured after: 44px tall,
-   still 8px apart in both axes. */
 .tl-jump a{display:inline-flex;align-items:center;min-height:44px;padding:0 var(--s3);
   border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
   text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
@@ -76,25 +66,11 @@
 .ow-x{stroke:var(--ketchup);stroke-width:2.4;stroke-linecap:round}
 .ow marker path{fill:var(--ink)}
 .ow-k{font:400 5px var(--mono);fill:var(--ink-2)}
-/* THE PILE FIGURE. Type is 9 and 10 viewBox units because the box measures
-   366px against a 300 unit viewBox at 390x844, so those land at 11 and 12
-   rendered pixels on a phone. The sizes in .ow-b above are 5 and 6 units, which
-   is 6 and 7 rendered pixels, and that is under the readable floor; it is
-   recorded here rather than changed because raising them overruns the 82 unit
-   boxes those sub-labels sit in and that diagram's layout is argued in place.
-
-   THE LIMIT IS A DASHED VERTICAL RULE AND THE PILES ARE FILLED HORIZONTAL BARS,
-   which is the whole reason this reads with no colour at all. --gold is a real
-   hue today, but --ink, --navy, --ketchup and --keyline are all #111111, so a
-   figure separating "the ceiling" from "the pile" by fill alone would be one
-   black shape. Orientation and dash do the work; the gold is a bonus. */
 .pl{width:100%;height:auto;display:block;background:var(--paper-2);border-radius:8px;padding:6px 0}
 .pl-n{font:700 9px var(--mono);fill:var(--ink)}
 .pl-v{font:700 9px var(--mono);fill:var(--ink)}
 .pl-cap{font:700 9px var(--mono);fill:var(--gold-deep);letter-spacing:.04em}
 .pl-lim{stroke:var(--gold-deep);stroke-width:2;stroke-dasharray:5 3}
-/* The track runs the full width to the limit, so the empty part of every row is
-   the argument: it is how much room is left, drawn. */
 .pl-t{fill:var(--paper-3)}
 .pl-b{fill:var(--ink)}
 .tl-out{border:3px dashed var(--keyline);border-radius:12px;background:var(--card);padding:var(--s4);
@@ -106,44 +82,22 @@
 .tl-out a{font-weight:700}
 .tl-out .tl-off{display:inline-block;font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);margin-left:6px}
 .tl-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.6;max-width:46em}
-
 .ap-id{display:flex;gap:var(--s3);align-items:center;margin:var(--s4) 0 0;max-width:44em}
 .ap-id img{flex:none;width:56px;height:56px;border-radius:13px;display:block;
   border:1px solid var(--hair);background:var(--card)}
 .ap-id span{font-size:var(--t-sm);line-height:1.5;color:var(--ink-2);min-width:0}
 .ap-id b{display:block;color:var(--ink);font-weight:700}
 .ap-strip{margin:var(--s4) 0 0;max-width:44em}
-/* Three columns at every width. The shots are portrait phone captures, so a
-   stack would run a third of a page tall on the device this site is built for
-   first, and the point of a strip is that you take all three in at once. */
 .ap-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;max-width:420px}
 .ap-row img{width:100%;height:auto;display:block;border:1px solid var(--hair);
   border-radius:8px;background:var(--card)}
 .ap-strip figcaption{margin-top:var(--s2);font-size:var(--t-micro);color:var(--ink-2);line-height:1.5;
   max-width:44em}
-
-/* .cmp is min-width:34em, which is 374px at the 11px the max-width:640 rule
-   below drops it to, so on a phone it does not fit and scrolls. Measured on
-   /tcg-live.html: clientWidth 360, scrollWidth 374 at 390x844 and 84px hidden
-   at 320x568. Small, but the third column is the whole point of a comparison
-   table and there was nothing on the page saying it was there.
-   Same four layer affordance as ui.css's .cc-scroll: covers ride the content,
-   shadows stay on the box, so it disappears the moment the table fits.
-   background-COLOR, not the shorthand, which resets background-image. */
-/* --navy WAS #111111 AND IS AN INK NOW. It used to be the same value as --ink,
-   --keyline and --chrome-bg all at once, which is how one token came to be a
-   3px FRAME, a dark PANEL FILL and an INK in the same stylesheet without
-   anybody noticing. On a dark ground those three want opposite values, so each
-   usage moved to the token that names its job: a frame is --keyline, a panel is
-   --band-bg, and --navy stays an ink. See CLAUDE.md, "Palette". */
 .cmp-w{overflow-x:auto;margin-top:var(--s4);border:3px solid var(--keyline);border-radius:12px;
   background-color:var(--card);box-shadow:var(--hard-lg);max-width:46em;
   background-image:
     linear-gradient(to right,var(--card) 40%,rgba(255,255,255,0)),
     linear-gradient(to left,var(--card) 40%,rgba(255,255,255,0)),
-    /* WAS rgba(17,17,17,.30): a near-black shadow, which is the "there is more
-       to the right" cue and which is invisible on a dark card. Same geometry,
-       opaque black, so the cue survives the repaint. */
     radial-gradient(farthest-side at 0 50%,rgba(0,0,0,.55),rgba(0,0,0,0)),
     radial-gradient(farthest-side at 100% 50%,rgba(0,0,0,.55),rgba(0,0,0,0));
   background-position:left center,right center,left center,right center;
@@ -157,61 +111,6 @@
 .cmp tbody th{font-weight:700;width:11em}
 .cmp tr:last-child td,.cmp tr:last-child th{border-bottom:0}
 @media(max-width:640px){.cmp{font-size:var(--t-micro)}.cmp th,.cmp td{padding:8px 8px}}
-
-
-/* DESKTOP READING MEASURE, AND THIS PAGE WAS THE WORST ON THE SITE FOR IT.
-   The 44em caps above were written as if 1em were one character. It is not:
-   Outfit at 17px runs about 2.47 characters per em, so 44em is a 748px box and
-   it measured 105 real characters a line at 1440, with 71% of every line on
-   the page over 90. ui.css already caps main prose at var(--measure) and these
-   rules only outranked it by landing after the stylesheet, so this block is
-   letting the site-wide decision through rather than making a new one.
-   All min-width:1000, ui.css's own desktop breakpoint, so the phone and the
-   tablet range keep exactly the rules they had.
-
-   .tl-go li IS CAPPED AND IT WAS READ FIRST. It is a display-block b label
-   followed by a sentence, which is prose with a bullet, not a layout row. See
-   the measure block in ui.css for why there is no general li rule and why
-   every list has to be looked at one at a time: a tag-based test reads this
-   site's span-and-a layout rows as prose and rescaled a bar chart.
-   The ul's own 44em stays, so the list box does not move, only its text.
-   Measured, 1440x900, 16 August 2026. */
-/* AND CAPPING THE COLUMN LEFT IT PARKED ON THE LEFT EDGE, which is the other
-   half of the same decision and was not made until 21 August 2026. Measured at
-   1440x900 before this rule: 57 prose blocks with an average right edge of
-   648px, so 792px of the 1440 viewport, 55% of it, was empty green down the
-   whole 9,080px page, and 69 of 99 horizontal bands held nothing past 60% of
-   the width. This page and /tcg-pocket.html were the two worst on the site
-   for it: an entire nine thousand pixel page rendered in the left half of the
-   window.
-
-   THE ANSWER IS LAYOUT AND NOT DECORATION, which is the precedent CLAUDE.md
-   sets for the home page: at 1440 that page showed two videos in its first
-   3,307px with 872px of empty band either side of every carousel card, and the
-   fix was more cards and a derived column, never a mark parked in the margin.
-
-   CENTRING IS THE HONEST FIX HERE SPECIFICALLY BECAUSE THERE IS NOTHING TO PUT
-   BESIDE THE TEXT. Every picture on this page is already the width of the
-   column and landscape in shape: both diagrams are drawn to a wide viewBox,
-   the app strip is three portrait phone captures that have to be read as one
-   row, and the two widest objects are the comparison table and .tl-two, which
-   is itself already a two column layout. Floating any of them into a margin
-   would make them smaller, which is the opposite of the fix. Compare the
-   retailer pages, where there IS a real companion and it gets one.
-
-   THE COLUMN IS THE WIDEST OBJECT ON THE PAGE AND NOT A PICKED NUMBER, which
-   is the mistake the home page trophy column made: a SHARE is not a SIZE and
-   two picked numbers there gave three sizes of pack. 782px is .cmp-w and
-   .tl-two at their own 46em, measured at 1440; everything else is 44em / 748px
-   and the prose is var(--measure) / 612px, so the two widest objects fill the
-   column exactly and nothing else has to move. Plus the wrap's own two
-   gutters, because .wrap is border-box and the padding is inside the
-   max-width.
-
-   min-width:1000 for the same reason as every rule above it, so 320, 390 and
-   768 are byte-identical. Between 1000 and 1078 this is NARROWER than the wrap
-   was and that is deliberate: the page is then the same picture at every
-   desktop width instead of growing a gutter as the window opens. */
 @media(min-width:1000px){
 .tl-wrap{max-width:calc(782px + var(--gut) * 2)}
 .tl-lede,.tl-src{max-width:var(--measure)}

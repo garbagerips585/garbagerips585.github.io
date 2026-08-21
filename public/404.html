@@ -16,57 +16,20 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=582ae61a">
 <link rel="stylesheet" href="/assets/packs.css?v=bb70e5eb">
-<style>
-/* The pack is torn open and there is nothing in it, which is the one joke this
-   page is uniquely placed to make on a channel about opening packs. */
-.e404{min-height:64vh;display:grid;place-items:center;text-align:center;padding:var(--s7) 0 var(--s8)}
+<style>.e404{min-height:64vh;display:grid;place-items:center;text-align:center;padding:var(--s7) 0 var(--s8)}
 .e404-in{max-width:36em}
-/* The pack art comes from the site's own .pack component rather than a bare
-   <img>. Two reasons: pack--multi paints the wrapper over a navy fill with
-   background-size:cover, so the photo's baked-in light backdrop is cropped away
-   instead of showing as a gray rectangle; and rendering only the .pack-l half
-   reuses the jagged tear edge every rip page already uses, so the torn pack
-   here is literally the same tear, not a second hand-drawn approximation. */
 .e404-art{--pw:clamp(148px,40vw,186px);
   display:flex;align-items:flex-end;justify-content:center;
   margin:0 auto var(--s5);width:max-content;max-width:100%}
-/* .pack-l clips the art at about 53% of the box, so the right 47% of .e404-pack
-   is empty space. Without pulling it back the mascot stands 47px clear of a
-   pack it is supposed to be leaning on, and the two read as separate stickers.
-   Tied to --pw so it holds at every size in the clamp. */
 .e404-pack{width:var(--pw);aspect-ratio:2/3;margin-right:calc(var(--pw) * -.38);
   position:relative;transform:rotate(-5deg);
   filter:drop-shadow(0 12px 20px rgba(21,38,58,.28))}
-/* He is looking at the empty pack, which is the whole gag, so he sits beside it
-   rather than above the heading. Overlapped slightly and pulled down so the two
-   read as one piece of art instead of two stickers side by side. */
 .e404-mascot{width:clamp(104px,29vw,136px);height:auto;margin-bottom:-2%;
   transform:rotate(4deg);position:relative;z-index:2;
   filter:drop-shadow(0 8px 14px rgba(17,17,17,.26))}
-/* THIS WAS `@media(max-width:360px){.e404-mascot{display:none}}` AND HIDING HIM
-   TURNED THE JOKE INTO A BROKEN IMAGE. The pack is deliberately the LEFT half of
-   a torn one: .pack-l clips it at about 53%, which is why the rule above pulls
-   the box back 38% to sit the mascot in the gap. Take the mascot away and all
-   that is left is a booster pack ending in a clean vertical line through "Poke"
-   and "TRADING C", with 38% of its own box empty beside it. At 390 that reads as
-   a pack coming open with Trubbish looking into it. At 320 it reads as a
-   photograph that failed to finish loading, on the one page whose whole job is
-   to reassure somebody that nothing is broken.
-
-   THE ROOM WAS ALWAYS THERE, and that is the part that makes this a deletion
-   rather than a redesign. Measured at 320x900: .e404-in is 288px wide and both
-   clamps are already on their floors at that width, so the pair draws
-   148 - (148 x .38) + 104 = 195.8px of art, 68% of the box, against 209.8 of 358
-   at 390. Nothing overflowed and nothing ever would have. Re-measured after:
-   scrollX 0 and no element past the right edge at 320, 360 and 390. */
-
 .e404-pack .pack{cursor:default}
 .e404 h1{font:400 clamp(2.2rem,9vw,3.6rem)/1 var(--display);margin-bottom:var(--s3)}
 .e404 p{color:var(--ink-2);font-size:var(--t-lede);margin-bottom:var(--s5)}
-/* Was --plum on --lilac-pale over an rgba(78,47,72) hairline: a purple chip on
-   a site whose palette is black, white and gold, and after the repaint a grey
-   one at 1.08:1 against the page. Ink on --paper-3 with the standard hairline
-   is the palette's chip, and it is the same one .xp-tag and .bmk use. */
 .e404-code{display:inline-block;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.14em;
   color:var(--ink);background:var(--paper-3);border:1px solid var(--hair);
   padding:7px var(--s3);border-radius:var(--r-pill);margin-bottom:var(--s4)}
@@ -75,8 +38,7 @@
   border:2px solid var(--ink);border-radius:var(--r-pill);background:var(--card);
   font:700 var(--t-body)/1 var(--body);box-shadow:var(--lift)}
 .e404-links a:first-child{background:var(--mustard);color:var(--on-accent)}
-.e404-links a:hover{transform:translateY(-2px)}
-</style>
+.e404-links a:hover{transform:translateY(-2px)}</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>

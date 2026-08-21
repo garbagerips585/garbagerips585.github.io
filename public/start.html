@@ -26,92 +26,29 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=582ae61a">
 
-<style>
-.rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
+<style>.rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
 .rk svg{width:11px;height:11px;display:block}
-/* THESE MARKS DEPICT PRINTED FOIL, so they are read as artwork rather than as
-   chrome: the whole point of the key is that a silver star and a black star are
-   DIFFERENT RARITIES, and Ultra Rare and Double Rare are both TWO stars, so the
-   colour is the only thing telling them apart. Darkening silver for contrast
-   would collapse the pair it exists to separate.
-   The golds follow the palette instead of carrying their own literals (they
-   were #E0A21F, #F5D142 and #8A6109, the pre-"Black / White / Gold" values), so
-   the site does not end up with two different golds beside each other. */
 .rk-gold svg{fill:var(--gold)}
 .rk-mega svg{fill:var(--mustard);stroke:var(--gold-deep);stroke-width:.8}
-/* SILVER STAYS LIGHT AND GAINS AN EDGE. --chrome-dim on white is 2.43:1 and the
-   #9FB0C0 it replaced was 2.22:1, so this never cleared 1.4.11 on its own. It
-   cannot be solved by darkening (see above), so it is solved the way .rk-mega
-   already solves it: a hairline stroke, at 4.54:1 on white, draws the shape.
-   The star is aria-hidden and rarityChip always prints the rarity's NAME beside
-   it, so the colour was never the only cue for a reader either way. */
 .rk-silver svg{fill:#C6C6C6;stroke:#767676;stroke-width:.8}
 .rk-black svg{fill:var(--navy)}
-/* The ACE SPEC mark is printed pink and this is the one place the site draws
-   it. Left alone, like the pack art: it is a picture of a symbol on a card, not
-   a piece of site chrome. One 11px glyph, always captioned. */
 .rk-pink svg{fill:#D96BA0}
 .rk-fire svg{fill:var(--ketchup);width:10px;height:12px}
 .rk-jp{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.04em;color:var(--chrome-ink);background:var(--band-bg);
   border-radius:3px;padding:3px 5px}
-/* .chip-rk wrapping: see the note above RARITY_CSS. */
 .chip-rk{display:inline-flex;align-items:center;
   flex:0 1 auto;min-width:0;white-space:normal;
   height:auto;min-height:44px;padding-block:6px}
-
 .st-fig{margin:var(--s4) 0 0}
 .st-ladder{display:flex;flex-wrap:wrap;gap:var(--s2)}
 .st-fig figcaption{margin-top:var(--s3);font:400 var(--t-micro)/1.55 var(--body);
   color:var(--ink-2);max-width:40em}
-
-/* DESKTOP READING MEASURE. 40em was written as if 1em were one character. It
-   is not: Outfit at 11px runs about 2.31 characters per em, so that 440px box
-   measured 91 real characters a line at 1440. ui.css already caps every
-   figcaption in main at var(--measure) and this rule only outranked it by
-   landing after the stylesheet. min-width:1000 is ui.css's own desktop
-   breakpoint, so the phone and the tablet range keep exactly the rule they
-   had. Only the caption is capped: .st-ladder above it is a flex row of
-   rarity chips and its width is layout, not prose. */
 @media(min-width:1000px){
 .st-fig figcaption{max-width:var(--measure)}
 }
-
-/* THE LADDER SET THE WIDTH OF EVERY CARD ON THIS PAGE AT 320, and only at 320.
-   ui.css gives .st grid-template-columns:auto 1fr, and a 1fr track carries an
-   implicit min-width:auto, so it can never be narrower than its own
-   min-content. Here that is the widest rarity chip, "Special Illustration
-   Rare", one nowrap chip 205.1px wide against the 190px the column gets at 320.
-   Measured on the real page: all four step cards rendered 311.1px wide inside a
-   296px list, 3.1px past the right edge of the viewport, so every card showed
-   its left border and rounded corner and had its right one cut off. It is
-   invisible from the markup and from 360px up, which is why it survived.
-
-   THE CHIP IS STILL 205.1px AND THAT IS THE DELIBERATE HALF. A companion rule
-   letting it wrap was written, measured and removed: .chip is flex:none with a
-   fixed height:44px, so white-space:normal on it is inert, and the rules that
-   would make it work (flex:0 1 auto, height:auto, its own vertical padding)
-   restyle a shared control on one page to save 15px. What minmax(0,1fr) buys
-   is that the overflow now lands in the card's own 24px of right padding
-   instead of past the edge of the screen: the chip ends at 298.1 with the
-   card's border at 308, so nothing is clipped and nothing scrolls sideways.
-   Screenshotted at 320 unzoomed, the ladder reads correctly.
-
-   Bounded at 359 so nothing a normally sized phone renders can move. Card
-   widths re-measured after at 320, 360, 390, 414, 768 and 1440: 296 / 336 /
-   366 / 390 / 720 / 1392, and only the 320 figure moved (from 311.1). */
 @media(max-width:359px){
 .st{grid-template-columns:auto minmax(0,1fr)}
 }
-
-/* THE THREE ENTRY-PRICE RIPS. See startRips above for which three and why.
-   TEAL for the title because teal is how you get around, and --sky-deep rather
-   than --sky because the type is small: 4.50:1 on --card #2F4F39 where --sky
-   is 4.05:1 and fails. The kind above it is --ink-2 at 5.73:1, a caption and
-   not a route, so the two accents never land on each other.
-   NOT .riplist, which ui.css gives white-space:nowrap on its caption: that is
-   right for "18 Aug 2026 &bull; 3 packs" on a set guide and wrong for a whole
-   video title, which measured 505px wide and hung 204px off a 390px viewport
-   the one time it was tried on /openings/index.html. */
 .st-rips{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s2);
   max-width:44em}
 .st-rips li{background:var(--card);border:1px solid var(--hair);
@@ -120,8 +57,7 @@
   color:var(--sky-deep)}
 .st-rips a:hover,.st-rips a:focus-visible{text-decoration:underline}
 .st-rips a span{display:block;font:700 var(--t-micro)/1.5 var(--mono);
-  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
-</style>
+  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Start here"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is it even real?","acceptedAnswer":{"@type":"Answer","text":"Do this before anything else, because every other question depends on the answer. Eight physical checks, how much each one actually proves, and the two that are worth doing first."}},{"@type":"Question","name":"What am I actually looking at?","acceptedAnswer":{"@type":"Answer","text":"Rarity symbols, what the little marks in the corner mean, and why two cards of the same Pokemon can be worth a dollar and a thousand dollars. Then the set itself: 28 English guides with full checklists, plus 13 imported ones."}},{"@type":"Question","name":"What is it worth?","acceptedAnswer":{"@type":"Answer","text":"Search 39,707 printings across 370 sets by name. 5,181 of them carry a current market price, which is nearly every card in the 28 sets we cover. Or browse by Pokemon if you are chasing one in particular."}},{"@type":"Question","name":"Should I get it graded?","acceptedAnswer":{"@type":"Answer","text":"Usually no, and the math says why. What the five companies charge, what the wait is, and the subtraction on real cards: raw price, graded price, fee, what is left."}},{"@type":"Question","name":"What should I open?","acceptedAnswer":{"@type":"Answer","text":"Nobody publishes real pull rates, so the honest answer is what actually came out of the packs we have opened, counted from our own rip log. Plus what is coming next and what it is going for on preorder."}},{"@type":"Question","name":"Where do I buy, and who do I buy from?","acceptedAnswer":{"@type":"Answer","text":"Local shops around Rochester with what each is good for and where you can sit down and play, plus 22 card shows coming up around Rochester, Buffalo and Syracuse. Online, the answer is a different one: what each venue costs once shipping and buyer fees are counted, and what recourse you have when a card arrives wrong."}}]}</script>
 </head>

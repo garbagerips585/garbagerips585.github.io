@@ -25,23 +25,16 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=582ae61a">
-<style>
-.fp{padding:var(--s7) 0 var(--s5)}
+<style>.fp{padding:var(--s7) 0 var(--s5)}
 .fp-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:44em;margin-bottom:var(--s5)}
 .fp-why{background:var(--paper);border:1px solid var(--hair);border-left:4px solid var(--sky-deep);
   border-radius:var(--r);padding:var(--s4);margin-bottom:var(--s6);color:var(--ink-2);max-width:44em}
 .fp-why b{color:var(--ink)}
-
-/* The quick answers. A definition list because that is what it is, and because
-   it is the block most likely to be lifted into a search result. */
 .fp-quick{display:flex;flex-direction:column;gap:var(--s4);margin:0 0 var(--s6)}
 .fp-quick div{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s4)}
 .fp-quick dt{font:700 var(--t-m)/1.3 var(--body);color:var(--ink);margin-bottom:6px}
 .fp-quick dd{color:var(--ink-2);line-height:1.55}
 @media(min-width:760px){.fp-quick{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}}
-
-/* THE PRICE BLOCK IS THE SPINE. Two figures, labelled by what kind of number
-   each one is, with the multiple between them. */
 .fp-price{display:flex;flex-direction:column;gap:var(--s4)}
 @media(min-width:700px){.fp-price{flex-direction:row;align-items:stretch}}
 .fp-p{flex:1;background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);min-width:0}
@@ -51,8 +44,6 @@
 .fp-p p{color:var(--ink-2);line-height:1.55;margin:0}
 .fp-mult{flex:none;display:flex;align-items:center;justify-content:center;
   font:700 var(--t-l)/1 var(--mono);color:var(--ink-2);padding:var(--s2) 0}
-
-/* THE PANORAMA. Zero gap is the whole point: any gutter breaks the picture. */
 .fp-trios{display:flex;flex-direction:column;gap:var(--s5)}
 .fp-trio{margin:0}
 .fp-strip{display:flex;gap:0;border:1px solid var(--hair);border-radius:var(--r-sm);
@@ -62,14 +53,9 @@
 .fp-trio figcaption span{display:block;font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
   letter-spacing:.03em;text-transform:uppercase;margin-top:2px}
 @media(min-width:900px){.fp-trios{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5)}}
-
 .fp-series-list{display:flex;flex-direction:column;gap:var(--s5)}
 @media(min-width:900px){.fp-series-list{display:grid;grid-template-columns:repeat(3,1fr)}}
 .fp-series{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5)}
-/* THE BOX. Centred rather than stretched: the source is 300x310 and the
-   publisher has no larger rendition, so max-width caps it at its own pixels and
-   it is never blown up to fill a wider column. The aspect ratio is held by the
-   img's own width and height so the block does not jump as it lazy loads. */
 .fp-box{margin:0 0 var(--s4);text-align:center}
 .fp-box img{display:block;width:100%;max-width:300px;height:auto;margin:0 auto;border-radius:var(--r-sm)}
 .fp-series h3{font:400 var(--t-l)/1.1 var(--display);margin-bottom:var(--s2)}
@@ -82,17 +68,9 @@
 .fp-9,.fp-cost{color:var(--ink-2);line-height:1.55;margin-bottom:var(--s3)}
 .fp-cost b{color:var(--ketchup-deep)}
 .fp-src{margin:0;font-size:var(--t-sm)}
-
-/* The 27. A real table: four columns, and it scrolls inside its own box rather
-   than widening the page. Same cc-scroll pattern /pack-prices.html uses. */
 .fp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--hair);
   border-radius:var(--r);background:var(--card)}
 .fp-table{width:100%;border-collapse:collapse;min-width:0}
-/* SCOPED TO thead ON PURPOSE. The card-name cell is a th scope="row" now, so
-   that the two price columns announce which card they belong to, and a bare
-   .fp-table th selector would have set the card's own name in uppercase nowrap
-   mono at --ink-2 and shifted it off the row's baseline. The row header wants
-   the td treatment, which is what the rule under it gives it. */
 .fp-table thead th{text-align:left;font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.05em;
   text-transform:uppercase;color:var(--ink-2);padding:var(--s3);border-bottom:1px solid var(--hair);
   white-space:nowrap}
@@ -109,24 +87,20 @@
 .fp-nil{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.03em}
 .fp-noimg{display:block;width:56px;height:78px;border-radius:3px;background:var(--paper);
   border:1px dashed var(--hair)}
-
 .fp-totals{display:flex;flex-direction:column;gap:var(--s3);margin:var(--s5) 0 0}
 .fp-totals li{display:flex;justify-content:space-between;gap:var(--s4);align-items:baseline;
   background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s3) var(--s4)}
 .fp-totals span{color:var(--ink-2);min-width:0}
 .fp-totals b{font:700 var(--t-m)/1 var(--mono);color:var(--ketchup-deep);white-space:nowrap}
-
 .fp-pull{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5)}
 .fp-pull-cards{display:flex;gap:var(--s2);margin:var(--s3) 0}
 .fp-pull-cards img{display:block;width:72px;height:auto;border-radius:3px}
-
 .fp-note{color:var(--ink-2);line-height:1.6;max-width:44em}
 .fp-note b{color:var(--ink)}
 .fp-sources{color:var(--ink-2);line-height:1.7;max-width:44em}
 .fp-sources li{margin-bottom:var(--s2)}
 .fp-foot{font:700 var(--t-micro)/1.7 var(--mono);letter-spacing:.04em;color:var(--ink-2);
-  text-transform:uppercase;max-width:52em}
-</style>
+  text-transform:uppercase;max-width:52em}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"First Partner Illustration Collection"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is in a First Partner Illustration Collection box?","acceptedAnswer":{"@type":"Answer","text":"One promo pack holding three of the nine promos in that series, two Pokemon TCG booster packs and a sticker sheet. That is The Pokemon Company's own contents list, word for word. The two boosters are assorted rather than a named set: Tim's Series 1 box held one Phantasmal Flames and one Mega Evolution pack."}},{"@type":"Question","name":"How much does it cost?","acceptedAnswer":{"@type":"Answer","text":"$14.99 at Pokemon Center, which is the manufacturer's own shop, and $17.99 on Best Buy and Target shelves, which is a retailer listed price rather than an MSRP. That is 1.2x the suggested price, which is normal rather than a rip-off."}},{"@type":"Question","name":"How many cards are in the whole set?","acceptedAnswer":{"@type":"Answer","text":"Twenty-seven promos, nine per series, numbered MEP 037 to MEP 063. All 27 are illustrated by Saboteri."}},{"@type":"Question","name":"Which regions are in which series?","acceptedAnswer":{"@type":"Answer","text":"Series 1 is Kanto, Sinnoh, Alola; Series 2 is Johto, Unova, Galar; Series 3 is Hoenn, Kalos, Paldea."}},{"@type":"Question","name":"Do the three cards really join into one picture?","acceptedAnswer":{"@type":"Answer","text":"Yes. Each region's three promos are one continuous illustration split across three cards, and you can see it on this page: the strips above lay the official scans edge to edge and the artwork runs straight through."}},{"@type":"Question","name":"Is it worth buying?","acceptedAnswer":{"@type":"Answer","text":"Depends what you want. All 27 as loose singles run about $347.57, and nine boxes at $14.99 is $134.91 for the same 27 cards plus 18 booster packs and nine sticker sheets. Singles are cheaper per card if you only want one region's trio; boxes are better value if you want the boosters too."}}]}</script>
 </head>

@@ -25,8 +25,7 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=582ae61a">
-<style>
-.dk-lede b{color:var(--ink)}
+<style>.dk-lede b{color:var(--ink)}
 .dk-fmt{border:2px solid var(--keyline);border-radius:var(--r);background:var(--card);
   padding:var(--s4);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
 .dk-fmt h2{font-size:var(--t-m);margin:0 0 var(--s2)}
@@ -34,57 +33,19 @@
 .dk-fmt dt{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.04em;
   text-transform:uppercase;color:var(--ink-2)}
 .dk-fmt dd{margin:0 0 var(--s3);font-size:var(--t-sm);max-width:46em}
-/* MEASURED IN REAL CHARACTERS, NOT IN ch. At 1440 the wrap is 1,392px and the
-   prose here was unconstrained: .dk-prov ran 136 characters a line at 11px and
-   the numbered steps ran 155 at 14px. The caps were set by measuring rendered
-   line boxes and dividing real text length by real line count. "ch" would have
-   been the wrong unit: it is the advance width of a "0", about 1.43 average
-   characters in Outfit, so a 75ch rule buys a 107 character line.
-
-   MEASURED AFTER, at 1440: 93 to 108 on the 11px notes, which is the same 46em
-   the site already uses for a source note elsewhere, and the same trade
-   /top-100-playable.html records. At 390 the same rules measure 67 to 73 and
-   nothing below 1000px moves, because the wrap is already narrower than the
-   cap there. */
 .dk-p{max-width:38em}
 .dk-mark{display:inline-block;font-family:var(--mono);font-weight:700;
   background:var(--chip-gold-bg);border:1px solid var(--gold-deep);color:var(--gold-deep);
   border-radius:var(--r-sm);padding:1px 7px;margin-right:4px}
 .dk-asof{font-size:var(--t-micro);color:var(--ink-2);margin:var(--s3) 0 0;line-height:1.6;max-width:46em}
-
-/* THE SCATTER. Same card as .dk-fmt and .dk, which is what this page already
-   uses for a block of its own.
-   NOTHING IS CARRIED BY COLOUR AND NOTHING IS CARRIED BY SIZE. Eighteen
-   identical dots in one value on the page's own paper, one rule at an even
-   record, and the two named points are told apart by the word beside them and
-   by nothing else. --ink, --navy, --ketchup and --keyline are all #111111 in
-   ui.css today; this figure reads the same if the rest of the palette follows
-   them.
-   THE SVG SCALES AND THE TEXT INSIDE IT SCALES WITH IT, which is why the label
-   sizes are checked in the builder rather than trusted: at 390px the viewBox is
-   about 1.06 device pixels per unit, so an 8 unit label renders at roughly 8.5
-   CSS pixels, and anything smaller than that stops being readable on a phone. */
 .dk-fig{border:2px solid var(--keyline);border-radius:var(--r);background:var(--card);
   padding:var(--s4);margin:var(--s4) 0 var(--s5);box-shadow:var(--hard-lg);max-width:46em}
 .sc-svg{display:block;width:100%;height:auto;overflow:visible}
 .sc-d{fill:var(--ink)}
 .sc-ax{stroke:var(--ink);stroke-width:1}
-/* Dashed, so the even-record rule is not mistaken for an axis, and standing in
-   the deep gold rather than the ink for the same reason. It reads as a rule
-   either way at this weight if the hue goes. */
 .sc-50{stroke:var(--gold-deep);stroke-width:1.5;stroke-dasharray:4 3}
 .sc-a{fill:var(--ink-2);font:400 9px var(--mono)}
 .sc-ring{fill:none;stroke:var(--ink);stroke-width:1.5}
-/* THE KEY IS HTML AND NOT SVG, which is the whole point of it. See the note
-   over mark() in the builder: three drafts put the deck names inside the
-   drawing and each one landed on a dot. Out here the names wrap, set at the
-   page's own size, and cannot collide with anything. The two swatches are drawn
-   in CSS from a border and a radius, so the key needs no artwork either. */
-/* THE SWATCH IS TAKEN OUT OF THE FLOW, not laid beside the text in a flex row.
-   As a flex row the bold lead-in was its own flex item, so "Most played." got a
-   column of its own and broke over two lines with the rest of the sentence
-   beside it, which reads as a two column table that has gone wrong. Screenshot
-   again, markup again correct. One indented paragraph per item instead. */
 .sc-key{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s2)}
 .sc-key li{position:relative;padding-left:22px;font-size:var(--t-sm);
   line-height:1.5;color:var(--ink-2)}
@@ -94,7 +55,6 @@
 .dk-fig figcaption{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--hair);
   font-size:var(--t-sm);line-height:1.55;color:var(--ink-2)}
 .dk-fig figcaption b{color:var(--ink);font-weight:700}
-
 .dk-steps{counter-reset:dkstep;list-style:none;padding:0;margin:var(--s4) 0 0}
 .dk-steps li{counter-increment:dkstep;position:relative;padding-left:2.2em;margin-bottom:var(--s3);max-width:46em;
   font-size:var(--t-sm);line-height:1.65}
@@ -102,7 +62,6 @@
   width:1.6em;height:1.6em;display:grid;place-items:center;border-radius:50%;
   background:var(--chrome-bg);color:var(--chrome-ink);font-family:var(--mono);
   font-size:var(--t-micro);font-weight:700}
-
 .dk-jump{margin:var(--s4) 0 var(--s5)}
 .dk-jump ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:var(--s2)}
 .dk-jump a{display:flex;gap:6px;align-items:baseline;text-decoration:none;color:var(--ink);
@@ -111,8 +70,6 @@
 .dk-jump a:hover,.dk-jump a:focus{background:var(--mustard);color:var(--on-accent)}
 .dk-jump b{color:var(--gold-deep);font-family:var(--mono)}
 .dk-jump span{font-size:var(--t-micro);color:var(--ink-2)}
-/* The anchor target sits under the sticky bar without this. Same offset the
-   bar's own height token declares, so a taller bar cannot desync it. */
 .dk{scroll-margin-top:calc(var(--bar-h) + var(--s3))}
 .dk{border:2px solid var(--keyline);border-radius:var(--r);background:var(--card);
   padding:var(--s4);margin:0 0 var(--s5);box-shadow:var(--hard-lg)}
@@ -122,24 +79,12 @@
 .dk-title h3{margin:0;font-size:var(--t-m);line-height:1.2}
 .dk-share{margin:var(--s1) 0 0;font-size:var(--t-sm);color:var(--ink-2)}
 .dk-share b{color:var(--ink)}
-/* WAS var(--hair), an 18% alpha, which is 1.58:1 on the card and was 1.50:1
-   on the light palette too: this separator has never been legible. It is a
-   character in a line of running text, not a border, so it takes an ink. */
 .dk-sep{color:var(--ink-2)}
 .dk-win{white-space:nowrap}
-/* FOUR EQUAL COLUMNS, NOT A WRAPPING FLEX ROW. At a fixed 88px the four scans
-   measured 376px against 354px of usable width inside the card at 390, so the
-   fourth wrapped onto its own line and the deck's key cards read as "three
-   cards, and one afterthought". A grid divides whatever width there is by four,
-   so the row is always four across and the art scales instead of wrapping.
-   max-width stops them ballooning on a wide desktop where the card is roomy. */
 .dk-faces{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2);
   margin:var(--s3) 0 0;max-width:480px}
-/* The scans are 245x337 intrinsic; width/height stay on the tag for the aspect
-   ratio and the box is what decides the transfer, not the file. */
 .dk-card{width:100%;height:auto;border-radius:var(--r-sm);display:block}
 .dk-prov{font-size:var(--t-micro);color:var(--ink-2);margin:var(--s3) 0 0;line-height:1.6;max-width:46em}
-
 .dk-cols{display:grid;grid-template-columns:1fr;gap:var(--s4);margin:var(--s4) 0 0}
 .dk-col h4{margin:0 0 var(--s2);font-size:var(--t-label);font-family:var(--mono);
   text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2);
@@ -152,7 +97,6 @@
 .dk-nolink{display:block;color:var(--ink)}
 .dk-q{font-family:var(--mono);font-weight:700;color:var(--gold-deep);margin-right:2px}
 .dk-set{font-family:var(--mono);font-size:var(--t-micro);color:var(--ink-2);white-space:nowrap}
-
 .dk-raw{margin:var(--s4) 0 0;border-top:1px solid var(--hair);padding-top:var(--s3)}
 .dk-raw summary{font-size:var(--t-sm);cursor:pointer;font-weight:600}
 .dk-pre{font-family:var(--mono);font-size:var(--t-micro);line-height:1.55;
@@ -164,7 +108,6 @@
   text-decoration:none;display:inline-block}
 .dk-copy{background:var(--mustard);color:var(--on-accent)}
 .dk-dl{background:var(--card);color:var(--ink)}
-
 .dk-more{display:grid;grid-template-columns:1fr;gap:var(--s3);margin:var(--s4) 0 0;
   list-style:none;padding:0}
 .dk-more a{display:block;border:2px solid var(--keyline);border-radius:var(--r);
@@ -175,7 +118,6 @@
   margin-top:2px}
 .dk-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.7;
   max-width:46em}
-
 @media(min-width:700px){
   .dk-fmt dl{grid-template-columns:auto 1fr}
   .dk-fmt dt{text-align:right;padding-top:2px}
@@ -184,8 +126,7 @@
   }
 @media(min-width:1000px){
   .dk-more{grid-template-columns:repeat(4,1fr)}
-  }
-</style>
+  }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Pokemon deck builds you can download","description":"The 18 most played Pokemon decks in Standard, each with a free decklist you can download and paste straight into Pokemon TCG Live. Usage measured over 357 tournament decklists.","image":["https://garbagerips585.github.io/assets/og-decks.jpg"],"datePublished":"2026-08-16","dateModified":"2026-08-16","author":{"@type":"Organization","name":"Garbage Rips 585"},"publisher":{"@type":"Organization","name":"Garbage Rips 585","logo":{"@type":"ImageObject","url":"https://garbagerips585.github.io/assets/logo-square.jpg"}},"mainEntityOfPage":"https://garbagerips585.github.io/decks.html"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Deck builds","item":"https://garbagerips585.github.io/decks.html"}]}</script>
 </head>

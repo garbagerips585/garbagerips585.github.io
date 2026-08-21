@@ -94,19 +94,12 @@
 -->
 <!-- HOMECSS:START -->
 <style>.hofx-art .play{opacity:.95}
-/* The heading is ui.css's own .brk, the same object "Latest rips" and "Card
-   Pokedex" use further down the page, so the band arrives in the page's own
-   grammar rather than inventing a fifth heading treatment above the fold. It
-   also costs nothing: heading, rule, link, right aligned, already written. The
-   week label went into the lede instead, which is where a reader looking for
-   "is this current" reads next anyway. */
 .wdrop{border-bottom:3px solid var(--keyline);background:var(--paper-2);padding:var(--s4) 0}
 .wdrop-d{margin:0}
 .wdrop-sum{min-height:56px;margin:0;cursor:pointer;list-style:none;-webkit-tap-highlight-color:transparent}
 .wdrop-sum::-webkit-details-marker{display:none}
 .wdrop-sum::marker{content:""}
 .wdrop-n{flex:none;font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);letter-spacing:.04em;text-transform:uppercase}
-/* --chev-bleed: see the note above homeCss. */
 .wdrop-chev{flex:none;width:11px;height:11px;--chev-bleed:calc((11px * 1.41421356 - 11px) / 2);
   margin:0 var(--chev-bleed) 5px 0;border-right:3px solid var(--ketchup-deep);border-bottom:3px solid var(--ketchup-deep);transform:rotate(45deg)}
 .wdrop-d[open] .wdrop-chev{margin:5px var(--chev-bleed) 0 0;transform:rotate(-135deg)}
@@ -120,77 +113,18 @@
 .wdr{border-left:3px solid var(--keyline);padding-left:var(--s3);min-width:0}
 .wdr-top{display:flex;align-items:center;flex-wrap:wrap;gap:var(--s2)}
 .wdr-top b{font:700 var(--t-label)/1.1 var(--body);letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
-/* THE RETAILER MARK. shared/brands.mjs's box, the same one /drops.html draws in
-   its retailer chip, so the band and the page it links to are visibly one
-   feature rather than two takes on the same list. */
-
 .bmk{flex:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;
   height:34px;min-width:56px;max-width:124px;padding:4px 9px;box-sizing:border-box;
-  /* THE PLATE STAYS LIGHT AND THAT IS THE WHOLE POINT OF IT.
-     The comment at the top of this file predicted this exact failure: these are
-     third-party marks drawn as dark ink on transparent, with no light variant
-     in the file, and it said "both pages are light, so this is fine today".
-     The 18 August 2026 repaint made every page dark, --paper-2 went from
-     #FFFFFF to #2F4F39, the token NAME did not change so nothing flagged it,
-     and 21 logos across 14 pages dropped to between 1.68:1 and 2.30:1 at their
-     STRONGEST pixel. The Pokemon Company's mark rendered near-black on green.
-     A brand mark is somebody else's artwork and we do not get to recolour it,
-     so the plate it sits on has to stay the colour it was drawn for. This is
-     now a literal rather than a token, because the whole bug was a token whose
-     value moved out from under content that could not move with it. */
   background:#FFFFFF;border:1px solid var(--hair);border-radius:var(--r-sm)}
-/* ONE MARK IS DRAWN THE OTHER WAY ROUND. target.svg fills with #FFF and nothing
-   else, so it is the single mark in the set that would vanish on the white
-   plate the other twenty need. Checked by reading every fill in every file
-   rather than by eye: tcgplayer is five saturated colours, costco is blue, red
-   and white, pokemon-center is #231916 with a white counter, and all three read
-   on white. Only target is white-on-transparent. Its plate stays dark, which is
-   also what Target's own brand guidance asks for. */
 .bmk-onDark{background:var(--chrome-bg)}
 .bmk img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
-/* THE SITE'S OWN NO-ART HATCH, the same 45 degree one .set-noart uses for a set
-   with no logo and .op-cn uses for a product with no publishable photograph.
-   Reusing it rather than inventing a treatment is the point: a reader who has
-   seen it on /sets/ already knows it means "there is no picture of this", so
-   eight name tiles read as a stated absence instead of as eight bugs. */
 .bmk-n{background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8px 16px)}
 .bmk-n b{font:700 var(--t-micro)/1.15 var(--mono);letter-spacing:.01em;color:var(--ink);
   text-align:center;overflow-wrap:anywhere;background:var(--paper-2);
   box-shadow:0 0 0 3px var(--paper-2);border-radius:2px}
-
-/* A SHORTER BOX THAN THE 34px ONE THE LONG PAGES USE, and it is the only thing
-   about the mark this band changes. A drops card on /drops.html is 3px of
-   keyline around 200px of prose and the chip is its heading; a band row here is
-   four lines of text against a hairline, at a third of the width on a desktop,
-   and 34px of logo is then the tallest thing in the row. 26px keeps the mark
-   the second thing the eye lands on rather than the first, which is the correct
-   order for a row that is somebody's guess about a shop.
-
-   THE WIDTH CAP IS WHAT KEEPS THE CONFIDENCE CHIP WHERE IT IS. At 390 the row
-   has 326px to spend. 96px of mark leaves the retailer name beside it and puts
-   the channel and the chip together on the second line, directly under the
-   logo, at the size they already were. A 124px cap pushes the name onto its own
-   line and strands the chip two lines below the mark it is hedging. */
 .wdr .bmk{height:26px;min-width:44px;max-width:96px;padding:3px 7px;gap:8px}
-/* THE NAME TILE IS THE ONE THING ALLOWED TO BE TALLER, because it holds words
-   rather than a drawing and 26px of fixed height clips the second line of one
-   silently. No retailer in data/drops.json needs it today, every one of the six
-   resolves to a mirrored mark; this is here so that adding a seventh that
-   Commons has nothing for costs the band a slightly uneven row instead of half
-   a word. Clipping is the failure mode that looks intentional. */
 .wdr .bmk-n{height:auto;min-height:26px}
-/* 700, NOT 400, AND IT IS WORTH 9.4KB ABOVE THE FOLD. Every other Space Mono on
-   this page is bold, so a single 400 declaration here fetched a second weight
-   file, space-mono-Xi4EwQ.woff2, that nothing else on the home page wanted:
-   9.4KB and one request, seven times the whole band's 1.3KB of markup. Caught
-   by diffing the request log against the same page with the band stripped out,
-   which is the only way it shows up: the markup, the CSS and the rendering all
-   look correct. The channel reads as secondary through colour instead, which
-   costs nothing. CHECK THE WEIGHT BEFORE ADDING A FONT DECLARATION HERE. */
 .wdr-ch{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
-/* The confidence rung, in the hatch /drops.html gives its weakest tier. Every
-   row that reaches this band is 'expected' or weaker, so one treatment is
-   honest here; the four-rung ladder stays on the page that explains it. */
 .wdr-cf{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink);
   padding:3px 7px;border-radius:5px;border:1.5px dashed var(--ink-2);
   background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
@@ -198,12 +132,6 @@
 .wdr-what{font-size:var(--t-sm);line-height:1.35;color:var(--ink-2)}
 .wdr-exp{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2)}
 .wdrop-src{font-size:var(--t-micro);line-height:1.45;color:var(--ink-2);margin-top:var(--s3);max-width:52em}
-/* THE .wdr-ch TRAP ABOVE, FIRING AGAIN. ui.css's .price-note is Space Mono 400,
-   the one weight this page does not already load, so the two sourcing notes
-   fetched a second cut: +11,352 bytes and a request for 1.1KB of prose,
-   measured. Body font instead, which is what .wdrop-src right above uses for
-   the same job. The rest of the component is ui.css's and is untouched.
-   Scoped, because .price-note is not a home-page-only selector. */
 .mwband .price-note,.pokedex .price-note{font-family:var(--body)}
 @media(min-width:545px) and (max-width:899px){
 .vcar .hero{max-width:520px;margin:0 auto;padding:var(--s5)}
@@ -222,14 +150,12 @@
 .hof .shelf{display:none}
 .vcar-slide:not(:first-child){display:none}
 .vcar-bar{display:none}
-/* 4. THE FOLD. Argued in full in note 4 below this template. */
 main{padding-top:0}
 .wdrop{padding:6px 0}
 .wdrop-sum{min-height:44px;row-gap:6px}
 }</style>
 <!-- HOMECSS:END -->
-<style>
-.wanted{padding:var(--s7) 0 var(--s8)}
+<style>.wanted{padding:var(--s7) 0 var(--s8)}
 .w-lede{color:var(--ink-2);max-width:46em;margin-bottom:var(--s5)}
 .w-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4)}
 @media(max-width:1080px){.w-grid{grid-template-columns:repeat(3,1fr)}}
@@ -238,8 +164,6 @@ main{padding-top:0}
   background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s3);box-shadow:var(--lift);transition:transform .14s,border-color .14s}
 a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
-/* The card art keeps the real 245:342 proportion of a Pokemon card, so it is
-   never stretched, and reserves its height before the image loads. */
 .wc-art{position:relative;display:block;aspect-ratio:245/342;border-radius:6px;
   overflow:hidden;background:var(--paper-3);margin-bottom:var(--s2)}
 .wc-art img{width:100%;height:100%;object-fit:contain}
@@ -248,9 +172,6 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
 .wc-flag{position:absolute;left:0;bottom:10px;z-index:2;
   font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;
   background:var(--ketchup-deep);color:var(--on-accent);padding:5px 7px;border-radius:0 4px 4px 0}
-/* WAS #2F7A4A, which is two points off the new card green #2F4F39: the GOT IT
-   flag would have vanished into the card it sits on. Want is pink and got is
-   teal now, which is the site's own pair and needs no third hue. */
 .wc-flag.wc-got{background:var(--sky-deep)}
 .wc-name{font:600 var(--t-sm)/1.3 var(--body)}
 .wc-meta{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.03em}
@@ -265,18 +186,6 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
 .pr-psa .pr-v{color:var(--gold-deep)}
 .price-note{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s6);max-width:52em}
-
-/* WHERE THE HUNT IS ACTUALLY HAPPENING. See huntRips for what picks these.
-   NOT .riplist: ui.css gives its caption white-space:nowrap, which is right for
-   a set guide's "18 Aug 2026 &bull; 3 packs" and wrong the moment a caption is
-   a set name plus a count on a 390px phone. Measured elsewhere on this site, a
-   nowrap caption in that list ran 505px and hung 204px off the viewport with
-   the document refusing to scroll to it, which the overflow test passes.
-   TEAL for the title because teal is how you get around, --sky-deep and not
-   --sky because the type is small: 4.50:1 on --card #2F4F39 against --sky's
-   4.05:1, which fails. The set-and-count line above it is --ink-2 at 5.73:1, a
-   caption and not a route. 44px minimum on the anchor, and it is the whole
-   two-line row rather than the title's text run. */
 .w-watch{margin-top:var(--s7)}
 .w-watch h2{font:400 var(--t-l)/1.15 var(--display);margin-bottom:var(--s3)}
 .w-watchlede{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
@@ -288,8 +197,7 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
   color:var(--sky-deep)}
 .w-riplist a:hover,.w-riplist a:focus-visible{text-decoration:underline}
 .w-riplist a span{display:block;font:700 var(--t-micro)/1.5 var(--mono);
-  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);white-space:normal}
-</style>
+  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);white-space:normal}</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>

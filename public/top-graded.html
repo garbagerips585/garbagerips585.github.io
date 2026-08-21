@@ -27,24 +27,13 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=582ae61a">
-<style>
-/* This page's own block rather than ui.css: ui.css is render blocking on all
-   427 pages and this is the only page with a ranked graded-price list. */
-
-/* THE ROW IS A GRID, NOT A TABLE. It is one card per row with four facts, and
-   a real <table> would force the three prices into three columns that are
-   empty for most rows and unreadable at 390px. The rank and the scan are fixed
-   columns; everything else is one flexible column that wraps inside itself. */
-.tg-list{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid var(--hair)}
+<style>.tg-list{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid var(--hair)}
 .tg-row{display:grid;grid-template-columns:2.4em 64px 1fr;gap:12px;align-items:start;
   padding:14px 0;border-bottom:1px solid var(--hair)}
 .tg-rank{font-family:"Space Mono",ui-monospace,monospace;font-size:15px;font-weight:700;
   color:var(--ink-2);text-align:right;padding-top:2px;font-variant-numeric:tabular-nums}
 .tg-art{width:64px;height:90px;display:flex;align-items:center;justify-content:center;
   background:var(--paper-3);border:1px solid var(--hair);border-radius:3px;overflow:hidden}
-/* Fixed box, object-fit, and NO width/height on the img. These scans are a
-   fixed 240 HIGH and a variable 169-174 WIDE, so a declared width is wrong for
-   most of them by up to 3%. Same treatment tcgplayer-cdn already gets. */
 .tg-scan{max-width:100%;max-height:100%;width:auto;height:auto;display:block}
 .tg-noscan{font-family:"Space Mono",ui-monospace,monospace;font-size:10px;
   color:var(--ink-2);text-align:center;line-height:1.3;padding:4px}
@@ -54,48 +43,17 @@
 .tg-prices{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:7px;align-items:baseline}
 .tg-psa b{font-size:19px;font-variant-numeric:tabular-nums}
 .tg-other{color:var(--ink-2);font-size:14px;font-variant-numeric:tabular-nums}
-/* The unit label. Small, muted, and never the same weight as the figure: the
-   number is the fact and the tier is the caption. */
 .tg-t{font-family:"Space Mono",ui-monospace,monospace;font-size:10px;
   text-transform:uppercase;letter-spacing:.04em;color:var(--ink-2)}
 .tg-na{color:var(--ink-2)}
-/* THE PROVENANCE LINE. Plain text, never a link: every click stays on the site
-   and 100 outbound links would be the largest exception on it by a factor of
-   twenty-five. The path is enough to find the record, and it is per row rather
-   than per page because that is what makes an individual figure checkable.
-   MEASURED IN REAL CHARACTERS, not in ch units: a ch is the advance width of a
-   "0", about 1.43 average characters in this face, so it measures nothing
-   useful here and is used nowhere in this file. Counted over the published 100:
-   the median source path is 51 characters and the longest is 98, the Japanese
-   Offense and Defense of the Furthest Ends Charizard Gold Star. With the read
-   date appended that worst case is 116 characters, which is why this rule sets
-   word-break rather than trusting it to fit. Checked at 390x844 DPR 2: it wraps
-   to three lines and the page's scrollWidth is still exactly 390, so nothing
-   here pushes the document sideways. */
 .tg-src{display:block;margin-top:6px;font-family:"Space Mono",ui-monospace,monospace;
   font-size:11px;line-height:1.45;color:var(--ink-2);word-break:break-word}
-
 @media (min-width:560px){
   .tg-row{grid-template-columns:3em 84px 1fr;gap:16px;padding:16px 0}
   .tg-art{width:84px;height:118px}
   .tg-rank{font-size:17px}
   .tg-name{font-size:18px}
 }
-/* Desktop puts the prices in their own column instead of under the name, so the
-   eye can run down the PSA 10 figures without the set names in the way. Right
-   aligned and tabular so the digits line up as a column of money.
-
-   THE SPLIT IS A NESTED GRID ON .tg-body, NOT A FOURTH COLUMN ON .tg-row, and
-   the first attempt was the fourth column. That was wrong twice over: the row
-   emits only three children, so column four was never filled and simply held
-   210px of empty page against the right edge, and grid-column:4 on .tg-prices
-   did nothing at all because .tg-prices is a child of .tg-body and not a grid
-   item of .tg-row. The prices looked right-aligned only because they were
-   right-aligned INSIDE column three.
-
-   Grid AREAS rather than reordered markup, so the DOM order is untouched:
-   name, set, prices, source is the right reading order on a phone and the right
-   order for a screen reader at every width, and only the painting changes. */
 @media (min-width:900px){
   .tg-row{grid-template-columns:3em 100px 1fr;align-items:center}
   .tg-art{width:100px;height:140px}
@@ -108,8 +66,7 @@
   .tg-prices{grid-area:prices;margin-top:0;align-self:center;
     flex-direction:column;align-items:flex-end;gap:2px;text-align:right}
   .tg-psa b{font-size:22px}
-}
-</style>
+}</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>

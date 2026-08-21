@@ -25,23 +25,18 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=582ae61a">
-<style>
-.up{padding:var(--s7) 0 var(--s5)}
+<style>.up{padding:var(--s7) 0 var(--s5)}
 .up-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:42em;margin-bottom:var(--s5)}
-/* Each key item is its own flex row. Left inline, the label wrapped underneath
-   its own badge and the two overlapped at 375px. */
 .up-key{display:flex;flex-direction:column;gap:10px;margin-bottom:var(--s6)}
 .up-key > span{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
   font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.04em}
 @media(min-width:900px){.up-key{flex-direction:row;flex-wrap:wrap;gap:var(--s4)}}
-
 .up-tag{flex:none;align-self:flex-start;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;
   text-transform:uppercase;padding:6px 9px;border-radius:var(--r-pill);white-space:nowrap}
 .up-tag.ok{background:var(--mustard);color:var(--on-accent);border:1px solid var(--gold-deep)}
 .up-tag.win{background:var(--lilac-pale);color:var(--plum);border:1px solid rgba(245,197,213,.35)}
 .up-tag.exp{background:var(--page);color:var(--ink-2);border:1px dashed var(--ink-2)}
 .up-tag.sm{padding:3px 7px;margin-left:6px;text-transform:none}
-
 .up-list{display:flex;flex-direction:column;gap:var(--s5)}
 .up-set{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s5);box-shadow:var(--lift)}
@@ -58,7 +53,6 @@
 .up-hi li{display:flex;gap:var(--s3);align-items:flex-start;color:var(--ink-2);font-size:var(--t-sm)}
 .up-hi li::before{content:"";flex:none;width:8px;height:8px;margin-top:.5em;border-radius:2px;
   background:var(--mustard);border:1px solid var(--gold-deep);transform:rotate(45deg)}
-
 .up-products{margin-top:var(--s4);border-top:1px solid var(--hair);padding-top:var(--s3)}
 .up-products summary{cursor:pointer;font:700 var(--t-sm)/1 var(--body);min-height:44px;
   display:flex;align-items:center;gap:8px}
@@ -71,65 +65,22 @@
 .up-note{display:block;font-size:var(--t-sm);color:var(--ink-2);margin-top:2px}
 .up-warn{font:700 var(--t-micro)/1.7 var(--mono);color:var(--plum);background:var(--lilac-pale);
   border-radius:calc(var(--r) - 6px);padding:var(--s3);margin-top:var(--s3)}
-
 .up-extras{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--s4)}
 .up-extra{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s5);box-shadow:var(--lift)}
 .up-extra h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:var(--s2)}
 .up-extra .up-blurb{font-size:var(--t-sm);margin-bottom:var(--s2)}
-
-/* The Japanese calendar. Its own section, its own lede, and a flag on every
-   card; the header of this file argues why the card-level flag is not redundant
-   with the heading sitting above it.
-
-   PINK, NOT TEAL, AND THAT IS THE ACCENT RULE RATHER THAN TASTE. Teal is how
-   you get around this site and pink is what the site is SAYING, so a flag that
-   goes nowhere is pink, exactly like the NEW and #1 HIT flags. It is the SMALL
-   pink, --ketchup-deep, because this chip is var(--t-micro) and nowhere near
-   the 24px at which #E87EA1's 3.45:1 would be allowed to stand. ui.css has
-   already measured the pair beside its own token: --ketchup-deep is 6.25:1 on
-   --page, so the chip clears AA on the well it sits in, and --page inside a
-   --card is the documented inset rather than a lighter surface.
-
-   .up-when goes flex here because the line now carries three things. It was a
-   plain block with two, and at 390 the flag and the date collided in the same
-   way .up-key's label and badge did before that rule was written. */
-/* WIDER TRACKS THAN .up-extras, AND THE REASON IS THE NAMES RATHER THAN THE
-   COUNT. The English extras are called things like "Mini Portfolio" and
-   "Ascended Heroes Tin" and sit happily in a 266px card. A Japanese product is
-   named after everything in it: "Special Deck Set, Mega Feraligatr ex, Mega
-   Dragonite ex and Mega Gengar ex" took FOUR display lines of heading in a
-   266px track at 1440, measured, which is a heading taller than some of the
-   blurbs under it.
-
-   min(400px,100%) AND NOT A BARE 400px. minmax(400px,1fr) makes the track floor
-   400 even when the wrap is 342 at 390, so the grid hangs off the right edge on
-   the narrowest phone. The min() clamps the floor to the space that exists.
-
-   IT ALSO HAPPENS TO FILL EVENLY TODAY AND THAT IS A COINCIDENCE, NOT THE
-   POINT. 1,392px of content at a 16px gap gives three tracks, and there are six
-   Japanese releases, so it lands 3x2 with no hole. A seventh entry makes the
-   last row ragged again, exactly like every other grid on this site. Do not
-   re-tune this number to keep the last row full: that is fitting the layout to
-   whatever the data happens to hold this week. */
 .up-jp-grid{grid-template-columns:repeat(auto-fill,minmax(min(400px,100%),1fr))}
 .up-jp-lede{color:var(--ink-2);max-width:46em;margin-bottom:var(--s4)}
 .up-jp .up-when{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
 .up-jp-flag{flex:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;
   text-transform:uppercase;padding:4px 8px;border-radius:var(--r-pill);
   background:var(--page);color:var(--ketchup-deep);border:1px solid var(--ketchup-deep)}
-/* Mono at var(--t-micro), so it is the .up-foot case and NOT the .up-lede one:
-   it is deliberately absent from the measure block at the foot of this file.
-   Read that block's comment before "fixing" this width. */
 .up-jp-src{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
   margin-top:var(--s4);max-width:56em}
-
-/* Live preorder prices, product photos and revealed cards. */
 .po-wrap{margin-top:var(--s4);border-top:1px solid var(--hair);padding-top:var(--s4)}
 .po-count{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);letter-spacing:.04em;
   text-transform:uppercase;margin-bottom:var(--s3)}
-/* The point of the whole band. Loud on purpose: it is the one number that
-   changes whether somebody should preorder. */
 .po-warn{background:var(--lilac-pale);border:1px solid rgba(245,197,213,.35);border-radius:var(--r);
   padding:var(--s4);color:var(--plum);font-size:var(--t-sm);line-height:1.6;margin-bottom:var(--s4)}
 .po-h{font:400 var(--t-m)/1.2 var(--display);margin:var(--s4) 0 var(--s3)}
@@ -149,55 +100,26 @@
 .po-over{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ketchup-deep);letter-spacing:.04em;
   text-transform:uppercase}
 .po-sellers{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
-
 .poc-grid{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:var(--s3)}
 .poc a{display:flex;flex-direction:column;gap:4px}
 .poc img{width:100%;height:auto;border-radius:6px;display:block;background:var(--page)}
 .poc-n{font:700 var(--t-sm)/1.25 var(--body)}
 .poc-r{font:700 9px/1.3 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2)}
 .po-note,.po-src{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);margin-top:var(--s3)}
-
 .up-foot{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
-
-/* Already out, worked out in the browser rather than at build time. The card
-   stays on the page because it is still information, but it stops standing in
-   the queue of things that have not happened: it moves to the end of its list
-   and the countdown is replaced by what is now true. No transition on any of
-   this, deliberately: the whole site honours prefers-reduced-motion, and a card
-   silently in a different place on load needs no animation to explain it. */
 .up-cd.out{color:var(--plum);background:var(--lilac-pale);border:1px solid rgba(245,197,213,.35);
   border-radius:var(--r-pill);padding:2px 8px}
 .up-set.is-out,.up-extra.is-out{border-style:dashed}
-
-/* The page with nothing on it. It was an h1, a lede, a legend and a void. */
 .up-none{background:var(--card);border:1px dashed var(--ink-2);border-radius:var(--r);
   padding:var(--s5);max-width:46em}
 .up-none h2{font:400 var(--t-l)/1.1 var(--display);margin-bottom:var(--s3)}
 .up-none p{color:var(--ink-2);line-height:1.6}
 .up-none p + p{margin-top:var(--s3)}
 .up-none a{text-decoration:underline}
-
-/* DESKTOP READING MEASURE. The caps above were written in em as if 1em were
-   one character. It is not: Outfit runs 2.31 to 2.47 characters per em here,
-   so 42 to 46em bought .up-lede 92 and .up-blurb 95 real characters a line at
-   1440. ui.css already caps main prose at var(--measure) and these rules only
-   outranked it by landing after the stylesheet. All min-width:1000, ui.css's
-   own desktop breakpoint, so the phone and the tablet range keep exactly the
-   rules they had.
-
-   .up-foot IS DELIBERATELY NOT IN HERE AND ITS 56em IS NOT THE SAME MISTAKE.
-   It is Space Mono at 11px, and mono runs about 1.77 characters per em rather
-   than Outfit's 2.31, so its 616px box measures 87 to 89 real characters and
-   not one line over 90. Capping it to 36em would take it to about 57 and make
-   it worse. Same reason ui.css keeps .price-note on its own 52em: the font is
-   what decides how many characters an em width buys. The identical block at
-   the foot of build-rarity.mjs, .rg-foot, was left alone for the same reason.
-   Measured, 1440x900, 16 August 2026. */
 @media(min-width:1000px){
 .up-lede,.up-blurb,.up-jp-lede{max-width:var(--measure)}
-}
-</style>
+}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Coming next"}]}</script>
 </head>
 <body>

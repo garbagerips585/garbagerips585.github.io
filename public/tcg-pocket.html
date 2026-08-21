@@ -25,31 +25,16 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=582ae61a">
-<style>
-.tp-lede{max-width:44em}
+<style>.tp-lede{max-width:44em}
 .tp-chk{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);margin-top:var(--s3)}
 .tp-s{margin-top:var(--s6);scroll-margin-top:var(--s5)}
 .tp-s > p{max-width:44em;line-height:1.6}
 .tp-s > p + p{margin-top:var(--s3)}
 .tp-jump{display:flex;flex-wrap:wrap;gap:8px;margin:var(--s5) 0 0}
-/* min-height 44, not 40. WCAG 2.5.5 asks for 44x44 and these chips are the
-   page's primary navigation on a phone: they are the only way to reach a
-   section without scrolling the whole article. Measured 40px before this, so
-   they already cleared 2.5.8's 24px AA floor -- this is the AAA target, taken
-   because a one-handed reader thumbing down the page hits these first.
-   THE GAP IS UNTOUCHED AND HAS TO STAY THAT WAY: the parent sets gap:8px,
-   which is row AND column gap, so growing the box does not close the 8px
-   between two chips or between two wrapped rows. Re-measured after: 44px tall,
-   still 8px apart in both axes. */
 .tp-jump a{display:inline-flex;align-items:center;min-height:44px;padding:0 var(--s3);
   border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
   text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
 .tp-jump a:hover{border-color:var(--ink);background:var(--mustard);color:var(--on-accent)}
-/* THE SLAB, and --navy is no longer allowed to be one. It was frame, fill and
-   ink at once and got away with it while all three were #111111; the 18 August
-   2026 token split made it an INK, so this rule painted #EEF1EF and wrote
-   --chrome-ink #F7F8F7 on it at 1.06:1. --band-bg is where the fill job went:
-   --chrome-ink is 13.70:1 on it, --foot-ink 10.05:1. Frame is --keyline. */
 .tp-shout{border:3px solid var(--keyline);border-radius:12px;background:var(--band-bg);color:var(--chrome-ink);
   padding:var(--s4) var(--s5);margin:var(--s4) 0;box-shadow:var(--hard-lg);max-width:44em}
 .tp-shout p{font:400 var(--t-m)/1.3 var(--display);color:var(--chrome-ink)}
@@ -61,15 +46,6 @@
 .tp-diff li{border-left-color:var(--ketchup)}
 .tp-steps{counter-reset:tp;list-style:none;margin:var(--s4) 0 0;padding:0;max-width:44em}
 .tp-steps li{counter-increment:tp;position:relative;padding-left:38px;margin-bottom:var(--s3);line-height:1.55}
-/* THE STEP NUMBER IS A CHIP ON THE PAGE, not a slab, so it does not follow
-   .tp-shout above. It was background:var(--band-bg) with color:var(--chrome-ink),
-   a black disc with white on it until --navy became an INK on 18 August 2026:
-   after that, near-white on near-white, 1.06:1, no number. --band-bg is right
-   for the slab and wrong here, because a 26px disc of it is 1.29:1 against
-   --page and has no body. Nothing dark separates from this page, so the chip
-   takes the accent: disc 4.20:1 on the page, numeral 5.41:1 on the disc. Same
-   answer as .hp-steps li::before on /how-to-play.html, deliberately, because
-   the two pages are read as a pair. */
 .tp-steps li::before{content:counter(tp);position:absolute;left:0;top:0;width:26px;height:26px;
   display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--gold);
   color:var(--on-accent);font:700 var(--t-micro)/1 var(--mono)}
@@ -78,15 +54,6 @@
 .tb{width:100%;height:auto;display:block;background:var(--paper-2);border-radius:8px;padding:6px 0}
 .tb-s rect{fill:var(--card);stroke:var(--ink);stroke-width:1}
 .tb-s text{font:700 4.6px var(--mono);fill:var(--ink-2);letter-spacing:.03em}
-/* THE TWO FILLED SLOTS TAKE INK MEANT FOR AN ACCENT, WHICH IS NOT --ink. Same
-   pair, same fix and same numbers as .bd-a / .bd-p in build-how-to-play.mjs,
-   which draws the same board: both labels were written when --mustard and
-   --gold were yellows and the page's ink was #111111. Both are teals now
-   (#70B5D9 and #609CBB) and --ink is #EEF1EF, so ACTIVE was 1.99:1 and Prizes
-   was a dark brown #2A2005 surviving at 5.33 by luck rather than by rule.
-   var(--on-accent) is the token for this job: 7.22:1 on --mustard, 5.41:1 on
-   --gold, and it moves with the palette. Both are ~5px type in a 300 unit box,
-   so the 4.5:1 gate is the one that applies. */
 .tb-a rect{fill:var(--mustard);stroke-width:1.6}
 .tb-a text{fill:var(--on-accent)}
 .tb-p rect{fill:var(--gold);stroke-width:1.6}
@@ -95,26 +62,9 @@
 .tb-h{font:700 6px var(--mono);fill:var(--ink);letter-spacing:.1em}
 .tb-div{stroke:var(--ink);stroke-width:1;stroke-dasharray:4 3;opacity:.5}
 .tb-k{font:400 5px var(--mono);fill:var(--ink-2)}
-/* THE FIRST FORTNIGHT. Type is 9 viewBox units in a 300 unit box, which the
-   figure renders at about 366px on a 390px phone, so those land near 11 real
-   pixels. The board diagram above runs 5 and 6 units, which is 6 and 7, and
-   that is under the readable floor; noted here rather than changed because its
-   boxes are sized to the labels already in them.
-
-   THE MARKS ARE 1.4 UNITS WIDE AND 7 APART at the current numbers. Thinner and
-   the comb greys out into a solid bar at phone scale, which would say
-   "available all the time" instead of "arrives on a clock". If the timer or the
-   unlock ever changes, re-screenshot: this spacing is a consequence of 28 marks
-   across 188 units and nothing enforces it. */
 .ff{width:100%;height:auto;display:block;background:var(--paper-2);border-radius:8px;padding:6px 0}
 .ff-n{font:700 9px var(--mono);fill:var(--ink)}
 .ff-ax{font:700 9px var(--mono);fill:var(--gold-deep);letter-spacing:.04em}
-/* The rail behind each row's marks, and it is MEANT to be almost invisible:
-   1.25:1 against the figure's own --paper-2. CHECKED RATHER THAN FIXED on
-   18 August 2026, because a 1.25 looks like exactly the kind of thing this
-   repaint was hunting. It measured 1.24:1 before the palette moved, when the
-   pair was #E6E4DD on #FFFFFF, so the relationship is unchanged and this is a
-   ground, not a mark. What carries the row is .ff-m, --ink at 8.03:1. */
 .ff-t{fill:var(--paper-3)}
 .ff-m{stroke:var(--ink);stroke-width:1.4}
 .ff-lock{font:400 8px var(--mono);fill:var(--ink-2);letter-spacing:.1em;text-transform:uppercase}
@@ -129,44 +79,22 @@
 .tp-out a{font-weight:700}
 .tp-out .tp-off{display:inline-block;font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);margin-left:6px}
 .tp-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.6;max-width:46em}
-
 .ap-id{display:flex;gap:var(--s3);align-items:center;margin:var(--s4) 0 0;max-width:44em}
 .ap-id img{flex:none;width:56px;height:56px;border-radius:13px;display:block;
   border:1px solid var(--hair);background:var(--card)}
 .ap-id span{font-size:var(--t-sm);line-height:1.5;color:var(--ink-2);min-width:0}
 .ap-id b{display:block;color:var(--ink);font-weight:700}
 .ap-strip{margin:var(--s4) 0 0;max-width:44em}
-/* Three columns at every width. The shots are portrait phone captures, so a
-   stack would run a third of a page tall on the device this site is built for
-   first, and the point of a strip is that you take all three in at once. */
 .ap-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;max-width:420px}
 .ap-row img{width:100%;height:auto;display:block;border:1px solid var(--hair);
   border-radius:8px;background:var(--card)}
 .ap-strip figcaption{margin-top:var(--s2);font-size:var(--t-micro);color:var(--ink-2);line-height:1.5;
   max-width:44em}
-
-/* .cmp is min-width:34em, which is 374px at the 11px the max-width:640 rule
-   below drops it to, so on a phone it does not fit and scrolls. Measured on
-   /tcg-live.html: clientWidth 360, scrollWidth 374 at 390x844 and 84px hidden
-   at 320x568. Small, but the third column is the whole point of a comparison
-   table and there was nothing on the page saying it was there.
-   Same four layer affordance as ui.css's .cc-scroll: covers ride the content,
-   shadows stay on the box, so it disappears the moment the table fits.
-   background-COLOR, not the shorthand, which resets background-image. */
-/* --navy WAS #111111 AND IS AN INK NOW. It used to be the same value as --ink,
-   --keyline and --chrome-bg all at once, which is how one token came to be a
-   3px FRAME, a dark PANEL FILL and an INK in the same stylesheet without
-   anybody noticing. On a dark ground those three want opposite values, so each
-   usage moved to the token that names its job: a frame is --keyline, a panel is
-   --band-bg, and --navy stays an ink. See CLAUDE.md, "Palette". */
 .cmp-w{overflow-x:auto;margin-top:var(--s4);border:3px solid var(--keyline);border-radius:12px;
   background-color:var(--card);box-shadow:var(--hard-lg);max-width:46em;
   background-image:
     linear-gradient(to right,var(--card) 40%,rgba(255,255,255,0)),
     linear-gradient(to left,var(--card) 40%,rgba(255,255,255,0)),
-    /* WAS rgba(17,17,17,.30): a near-black shadow, which is the "there is more
-       to the right" cue and which is invisible on a dark card. Same geometry,
-       opaque black, so the cue survives the repaint. */
     radial-gradient(farthest-side at 0 50%,rgba(0,0,0,.55),rgba(0,0,0,0)),
     radial-gradient(farthest-side at 100% 50%,rgba(0,0,0,.55),rgba(0,0,0,0));
   background-position:left center,right center,left center,right center;
@@ -180,58 +108,6 @@
 .cmp tbody th{font-weight:700;width:11em}
 .cmp tr:last-child td,.cmp tr:last-child th{border-bottom:0}
 @media(max-width:640px){.cmp{font-size:var(--t-micro)}.cmp th,.cmp td{padding:8px 8px}}
-
-
-/* DESKTOP READING MEASURE. The 44em caps above were written as if 1em were one
-   character. It is not: Outfit at 17px runs about 2.47 characters per em, so
-   44em is a 748px box and it measured 108 real characters a line at 1440, with
-   75% of every line on the page over 90, the highest share on the site.
-   ui.css already caps main prose at var(--measure) and these rules only
-   outranked it by landing after the stylesheet, so this block is letting the
-   site-wide decision through rather than making a new one. All min-width:1000,
-   ui.css's own desktop breakpoint, so the phone and the tablet range keep
-   exactly the rules they had.
-
-   .tp-go li IS CAPPED AND IT WAS READ FIRST. It is a display-block b label
-   followed by a sentence, which is prose with a bullet, not a layout row. See
-   the measure block in ui.css for why there is no general li rule: a tag-based
-   test reads this site's span-and-a layout rows as prose and rescaled a bar
-   chart. The ul's own 44em stays, so the list box does not move, only its
-   text. Measured, 1440x900, 16 August 2026. */
-/* THE MEASURE BLOCK ABOVE CAPPED THE COLUMN AND LEFT IT PARKED ON THE LEFT
-   EDGE, which is the other half of the same decision and was not made until
-   21 August 2026. Measured at 1440x900 before this rule: 41 prose blocks with
-   an average right edge of 652px, so 788px of the 1440 viewport, 55% of it,
-   was empty green down the whole 7,892px page, and 72 of 99 horizontal bands
-   held nothing past 60% of the width. An entire eight thousand pixel page
-   rendered in the left half of the window.
-
-   THE ANSWER IS LAYOUT AND NOT DECORATION, which is the precedent CLAUDE.md
-   sets for the home page: at 1440 that page showed two videos in its first
-   3,307px with 872px of empty band either side of every carousel card, and the
-   fix was more cards and a derived column, never a mark parked in the margin.
-
-   CENTRING IS THE HONEST FIX HERE SPECIFICALLY BECAUSE THERE IS NOTHING TO PUT
-   BESIDE THE TEXT. Every figure on this page is already as wide as the column
-   and landscape in shape: the two board diagrams are 300 units across in a 300
-   unit viewBox, the app strip is three portrait phone captures that this file
-   argues have to be read as one row, and the comparison table is the widest
-   object on the page. Floating any of them into a margin would make them
-   smaller, which is the opposite of the fix. Compare the retailer pages, where
-   there IS a real companion and it gets one.
-
-   THE COLUMN IS THE WIDEST OBJECT ON THE PAGE AND NOT A PICKED NUMBER, which
-   is the mistake the home page trophy column made: a SHARE is not a SIZE and
-   two picked numbers there gave three sizes of pack. 782px is .cmp-w at its
-   own 46em, measured at 1440; everything else is 44em / 748px and the prose is
-   var(--measure) / 612px, so the table fills the column exactly and nothing
-   else has to move. Plus the wrap's own two gutters, because .wrap is
-   border-box and the padding is inside the max-width.
-
-   min-width:1000 for the same reason as every rule above it, so 320, 390 and
-   768 are byte-identical. Between 1000 and 1078 this is NARROWER than the wrap
-   was and that is deliberate: the page is then the same picture at every
-   desktop width instead of growing a gutter as the window opens. */
 @media(min-width:1000px){
 .tp-wrap{max-width:calc(782px + var(--gut) * 2)}
 .tp-lede,.tp-src{max-width:var(--measure)}

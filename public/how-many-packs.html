@@ -25,14 +25,7 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=582ae61a">
-<style>
-.hp-lede{max-width:44em}
-/* --band-bg FOR THE FILL AND --keyline FOR THE FRAME, and this line used to
-   name --navy for both. --navy is an INK now (#EEF1EF), so the same rule
-   painted a near-white slab and then wrote --chrome-ink #F7F8F7 on it: 1.06:1,
-   an invisible panel that nothing errored on. --band-bg #192D22 is the dark
-   slab this box has always been and --chrome-ink reads 13.70:1 on it. A frame
-   is a keyline rather than an ink, hence the border. */
+<style>.hp-lede{max-width:44em}
 .hp-key{border:3px solid var(--keyline);border-radius:12px;background:var(--band-bg);color:var(--chrome-ink);
   padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
 .hp-key h2{color:var(--chrome-ink);margin-bottom:var(--s3)}
@@ -40,62 +33,17 @@
 .hp-key li{margin-bottom:var(--s3)}
 .hp-key b{color:var(--mustard)}
 .hp-key a{color:var(--mustard)}
-/* The code card line sits INSIDE the dark box, so it needs its own colour: the
-   box sets --chrome-ink on itself and the list gets --foot-ink, and a bare <p>
-   would inherit the brighter one and read as another heading. THE TWO HEXES
-   THAT USED TO BE WRITTEN HERE, #F4F1E2 and #DDE6EC, WERE BOTH STALE: those
-   tokens are #F7F8F7 and #D1D8D3 today, 13.70:1 and 10.05:1 on --band-bg. The
-   token names are the durable half, so they are what the comment names now.
-   Separated by a hairline
-   rather than a margin so it is clearly an aside to the four points above it. */
 .hp-code{color:var(--foot-ink);line-height:1.6;max-width:44em;font-size:var(--t-sm);
   margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid rgba(244,241,226,.22)}
-
-/* The illustrated list. One column on a phone, because the whole point is the
-   pack number and the picture sitting on one line where they can be compared
-   down the page rather than across it. */
-/* align-items:start, or grid stretches every card to the height of the tallest
-   one in its row. On a two-column desktop layout that put 700px of empty box
-   under the booster box card, which sits next to the Ultra-Premium Collection
-   and its five named products. */
 .hp-list{list-style:none;margin:var(--s5) 0 0;padding:0;display:grid;
   grid-template-columns:repeat(2,1fr);gap:var(--s4);align-items:start}
-/* THIS 900 IS CORRECT AND IT IS THE ONE THAT LOOKS WRONG. .hp-two lower down
-   moved to 700 on 20 August 2026 so an iPad in portrait stops getting the phone
-   layout, and this grid deliberately did not follow it. The cards carry a photo
-   AND a long labelled body, 535 to 1,465 characters, and .hp-card lays the
-   photo out as a flex row beside that text: narrow the card and the text column
-   loses width twice over, once to the grid and again to the photo it sits next
-   to. Measured at 768, forcing two columns: 9,241px to 9,675, so the band gets
-   TALLER and the reader gets a narrower measure for it.
-   Twenty-three cards also pair badly. The row is as tall as its tallest card
-   and these run 318px to 688px, so half of every row is white.
-   The 1000 rule is where this earns two columns: the wrap is 976px there and a
-   column is 480px, which is the width these cards were drawn for. */
 @media(max-width:900px){.hp-list{grid-template-columns:1fr}}
 .hp-card{display:flex;gap:var(--s4);align-items:flex-start;background:var(--card);
   border:3px solid var(--keyline);border-radius:12px;padding:var(--s4);box-shadow:var(--hard-lg)}
-/* Product photography arrives on a white background, so the tile is white
-   rather than the page ground. Same reasoning as .prod-shot on the set guides,
-   and the same 88px box, because sizes="88px" is measured against it.
-   IT SAID "rather than the page cream" AND THE PAGE IS NOT CREAM ANY MORE, but
-   the #fff below is right for the SAME reason it always was and did not move
-   with the palette. These are cut-out product shots on white. Painting the
-   plate --card would not darken the photograph, it would draw a dark green
-   frame around a white rectangle, which is the one outcome worse than a white
-   tile on a dark page. The white is the photograph's own background continued
-   to the edge of the box. */
 .hp-shot{flex:none;width:88px;margin:0}
 .hp-shot img{width:88px;height:88px;object-fit:contain;display:block;background:#fff;
   border:1px solid var(--hair);border-radius:6px}
 .hp-shot figcaption{font:400 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);margin-top:4px}
-/* The row with no photograph. Same 88x88 footprint as .hp-shot so the
-   headings stay on one line down the column, and the same 45 degree hatch
-   .set-noart uses on /sets/ for a set with no logo, which is this site's
-   existing way of saying "there is no art for this, on purpose". A plain empty
-   box at this size reads as an image that failed to load, which is the one
-   thing it must not look like: every one of its neighbours is a real
-   photograph now, so it is the only box on the page that is not one. */
 .hp-noshot{flex:none;width:88px;height:88px;display:grid;place-items:center;
   border:1px solid var(--hair);border-radius:6px;
   background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8px 16px)}
@@ -121,52 +69,14 @@
 .hp-src a{display:inline-block;max-width:100%}
 .hp-src a span{display:block;color:var(--ink-soft);text-decoration:none}
 .hp-read{color:var(--ink-soft)}
-
-/* The at-a-glance table. Four columns and it still needs a scroll container at
-   390px: the product names alone are long enough that shrinking to fit wraps
-   them to four lines each. It borrows .cc-table wholesale, which already has
-   the sticky first column and the edge shadows that say there is more to the
-   right. 560px rather than the 660px default, because four columns of short
-   values do fit in less. */
 .hp-table{min-width:560px}
 .cc-table.hp-table thead th{white-space:normal}
 .hp-table td.num b{font:400 var(--t-m)/1 var(--display);color:var(--ketchup-deep)}
 .hp-tvar,.hp-tsell{display:block;font:400 var(--t-micro)/1.3 var(--mono);color:var(--ink-soft);font-weight:400}
 .hp-none{color:var(--ink-soft);font:400 var(--t-micro)/1.3 var(--mono)}
-
-/* The drawn timeline above the history list.
-   IT USED TO SAY "EVERY COLOUR IN THE FIGURE IS A LITERAL, WHICH IS
-   DELIBERATE", and the reason was real: --ketchup and --navy were both
-   #111111, so a chart written against the tokens drew a black shape on a black
-   shape and nothing errored. THE FIGURE CARRIES NO COLOUR AT ALL NOW. Every
-   mark in the svg is a class and the classes are below, which keeps that
-   guarantee (two named tokens cannot collide the way two aliases of #111111
-   did) and survives the next palette move without a hand edit. The trap the
-   old comment was really about is narrower than it sounded: var() in a
-   presentation ATTRIBUTE paints nothing, but a fill: or stroke: declaration in
-   a stylesheet honours it perfectly well.
-
-   MEASURED ON THE .hp-fig GROUND, --card #2F4F39, after the move to
-   "Trubbish Deep": the step line, the axis, the year ticks and the annotation
-   leader are --ink at 8.03:1, the y numbers 8.03:1 and the small grey type
-   5.86:1, all past what they need. The shaded era is --chip-gold-bg at 1.38:1
-   and is meant to be that quiet; see the note on the dip in eraChart.
-   The grid rungs are 1.44:1, the same whisper they were at 1.35:1 on the white
-   card, and every rung prints its own number in the gutter.
-   max-width is 520px to match the drawn figures on /base-set.html. */
-/* max-width ON THE FIGURE, not just on the svg, and the first version had only
-   the second. The svg caps at 520 and centres, so inside an uncapped figure a
-   desktop drew a 520px chart marooned in the middle of a 1,180px white box
-   with the caption starting at the far left of it, which is the same "fixed cap
-   inside a full-width wrap" fault ui.css's home page block exists to fix. 620
-   is what .bs-fig-wide already uses for the drawn figures on /base-set.html. */
 .hp-fig{margin:var(--s5) 0 0;background:var(--card);border:1px solid var(--hair);
   border-radius:10px;padding:var(--s4) var(--s4) var(--s3);max-width:620px}
 .hp-fig svg{display:block;width:100%;height:auto;max-width:520px;margin-inline:auto}
-/* 10 AND 11 UNITS, NOT 9. The svg is 360 units wide and renders at about 326px
-   inside the wrap on a 390px phone, so a unit is ~0.9px: 9 units would land at
-   8.2 rendered pixels, which is under the line where a label stops being
-   readable on a phone. These land at 9.0 and 9.9. */
 .hp-fig text{font-family:var(--mono)}
 .hp-fnum{font-size:13px;font-weight:700;fill:var(--ink)}
 .hp-ftick{font-size:11px;font-weight:400;fill:var(--ink-2)}
@@ -178,35 +88,15 @@
 .hp-fdip{fill:var(--chip-gold-bg)}
 .hp-fig figcaption{font-size:var(--t-sm);color:var(--ink-2);line-height:1.5;
   margin-top:var(--s3);max-width:46em}
-
-/* History. A definition-list shape rather than a table: every row here is a
-   number, a window of time and a paragraph, and the paragraph is the load
-   bearing half. */
 .hp-eras{list-style:none;margin:var(--s5) 0 0;padding:0;max-width:52em}
 .hp-eras li{border-left:4px solid var(--gold);padding:0 0 0 var(--s4);margin-bottom:var(--s5)}
 .hp-eh{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px}
-/* --ketchup-deep, not --ketchup. --t-l is 22.4px at 390 and the weight is
-   400, so WCAG's large-text threshold (24px, or 18.66px bold) is NOT met and
-   the gate is 4.5. The big pink is 3.45:1 there. Same call as .hl. */
 .hp-eh b{font:400 var(--t-l)/1 var(--display);color:var(--ketchup-deep)}
 .hp-eh strong{font:400 var(--t-m)/1.2 var(--display);font-weight:400}
 .hp-ew{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
 .hp-eras p{font-size:var(--t-sm);line-height:1.6}
 .hp-tr{display:inline-block;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
   text-transform:uppercase;padding:5px 8px;border-radius:5px;border:1px solid var(--hair);color:var(--ink-2)}
-/* THE THREE RUNGS READ AS A LADDER, BY WEIGHT, AND NO LONGER BY HUE.
-   They used to be a green pill, a mustard pill and a white one, and all three
-   were wrong after the site repainted to one accent. The green was the only
-   green left anywhere and read as a leftover rather than as a decision. Mustard
-   is the site's HIGHLIGHT, so the MIDDLE rung was the loudest chip in the list
-   and pulled the eye past the top one. And .low was --card on a --card
-   background, 1.00:1, carried entirely by a 1px dashed hairline: the bottom of
-   a confidence ladder was invisible.
-   So the ladder now descends by fill weight, which a ladder should: solid ink,
-   then a filled tint, then an outline. That is legible with no colour vision at
-   all, which is the right property for a scale, and it needs no colour outside
-   the palette. If the confirmed state ever wants to be green again, it should
-   be green everywhere it appears on the site and argued once, not here. */
 .hp-tr.ok{background:var(--ink);color:var(--paper-2);border-color:var(--ink)}
 .hp-tr.mid{background:var(--paper-3);color:var(--ink);border-color:var(--ink-2)}
 .hp-tr.low{background:var(--card);color:var(--ink-2);border-style:dashed;border-color:var(--ink-2)}
@@ -215,18 +105,6 @@
 .hp-cite a{display:inline-block}
 .hp-cite a span{display:block;color:var(--ink-soft);text-decoration:none}
 .hp-two{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4);margin-top:var(--s5)}
-/* 700 AND NOT 820, BECAUSE 820 PUT AN iPAD ON THE PHONE LAYOUT. 768 is an iPad
-   in portrait and it is under 820, so a tablet got the phone's single column
-   with both boxes stretched across the full 720px wrap. The wrap is 660px
-   inside a 700px viewport, which is two 322px boxes and a 16px gap, and 350px
-   at 390 where one column is still the only fit.
-   THESE TWO BELONG SIDE BY SIDE and that is the actual argument: one box is the
-   2025 story that turned out to be wrong and the other is what could not be
-   sourced, so they are a PAIR of caveats and read as one when they are level.
-   Stacked, the second reads as a footnote to the first. They are short, 555 and
-   664 characters, so the pairing costs no height and saves some: 442px to 373
-   at 768. NOT auto-fit, because the base repeat(2,1fr) IS the desktop rule here
-   and an auto-fit floor low enough for two at 720 gives four at 1440. */
 @media(max-width:700px){.hp-two{grid-template-columns:1fr}}
 .hp-box{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4)}
@@ -236,7 +114,6 @@
 .hp-gap{border-left:4px solid var(--ketchup);padding-left:var(--s4);margin-top:var(--s5);
   max-width:48em;font-size:var(--t-sm);line-height:1.6;color:var(--ink-2)}
 .hp-gap b{color:var(--ink)}
-
 .faq-sec{padding:var(--s6) 0}
 .faq-sec h2{font:400 var(--t-l)/1.15 var(--display);margin-bottom:var(--s2)}
 .faq-sec .faq-intro{color:var(--ink-2);max-width:44em;margin-bottom:var(--s3)}

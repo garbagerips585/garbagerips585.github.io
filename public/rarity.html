@@ -25,48 +25,21 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=582ae61a">
-<style>
-.rg{padding:var(--s7) 0 var(--s5)}
+<style>.rg{padding:var(--s7) 0 var(--s5)}
 .rg-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:42em;margin-bottom:var(--s5)}
 .rg h2{font:400 var(--t-l)/1.15 var(--display);margin-bottom:var(--s3)}
 .rg-sec{padding:var(--s6) 0}
 .rg-sec h2{font:400 var(--t-l)/1.15 var(--display);margin-bottom:var(--s3)}
 .rg-p{color:var(--ink-2);max-width:46em;margin-bottom:var(--s4)}
-
-/* The magnified corner. A background image pinned to the corner the symbol is
-   actually printed in, so it is the real card rather than a drawing of one.
-
-   CAPPED AT THE SOURCE WIDTH ON PURPOSE. The scan is 600px wide and is painted
-   at 600px (see SRC_W in this script), so a box any wider than that would just
-   add empty card either side of the corner, and a box that stretched the scan to
-   fill itself would be the upscale this cap exists to stop. 320px shows a bit
-   over half the card's width, which is the whole bottom-left group and then
-   some, at every pixel of detail the source actually has. */
 .crop{border:2px solid var(--ink);border-radius:var(--r);overflow:hidden;background:var(--card);
   max-width:320px}
-/* The window. The scan inside it is a lazy <img> pinned to the corner, not a
-   background: see the 'corner' function in build-rarity.mjs for why, and for
-   the identity that turns background-position into 'left'. */
 .crop-img{position:relative;aspect-ratio:16/5;overflow:hidden;background:var(--card)}
-/* .crop .crop-img, not .crop-img, AND THAT IS NOT TIDINESS.
-   Moving the scan from a background to an <img> put it in reach of every
-   container-img rule on this page for the first time. .gloss-fig img is
-   width:100%;max-width:132px and sits LATER in this stylesheet at the same
-   (0,1,1) specificity, so it won, and the eleven glossary crops each painted a
-   whole card shrunk to 132px instead of a magnified corner. The page still
-   looked fine at a glance: a card in a box, just the wrong picture, with the
-   caption underneath still promising the corner. The extra class takes these to
-   (0,2,1) so they beat any single-class img rule here or added later.
-   The border, radius and background are reset for the same reason: .gloss-fig
-   img donates all three, and .crop already draws its own frame. */
 .crop .crop-img img{position:absolute;bottom:0;width:600px;height:auto;max-width:none;
   border:0;border-radius:0;background:none}
 .crop .cr-r img{left:calc(100% - 600px)}
 .crop .cr-l img{left:calc(8% - 48px)}
 .crop figcaption{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink-2);padding:8px var(--s3);border-top:1px solid var(--hair);background:var(--page)}
-
-/* Where is it? Two eras side by side. */
 .era{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
 @media(max-width:640px){.era{grid-template-columns:1fr}}
 .era-one{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
@@ -75,8 +48,6 @@
 .era-one .who{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.05em;
   text-transform:uppercase;margin-bottom:var(--s3)}
 .era-one .crop{margin-bottom:var(--s3)}
-
-/* The two-step rule, as a thing you can actually follow. */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin:var(--s5) 0}
 @media(max-width:760px){.steps{grid-template-columns:1fr}}
 .step{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);
@@ -84,25 +55,11 @@
 .step b{display:block;font:400 var(--t-l)/1 var(--display);color:var(--ketchup-deep);margin-bottom:6px}
 .step h3{font:700 var(--t-body)/1.3 var(--body);margin-bottom:6px}
 .step p{color:var(--ink-2);font-size:var(--t-sm)}
-
 .tip{background:var(--mustard);border:2px solid var(--gold-deep);border-radius:var(--r);
   padding:var(--s5);margin:var(--s5) 0}
-/* BOTH LINES BELOW NAME --on-accent AND NEITHER USED TO. .tip is a filled
-   accent panel, and --mustard is a LIGHT teal now, so the heading inherited
-   --ink and the paragraph asked for it outright: #EEF1EF on #70B5D9, 1.99:1,
-   a near-white panel with near-white writing on it. --on-accent is the token
-   ui.css defines for text drawn on the gold and mustard fills and it measures
-   7.22:1 here. The heading needs its own declaration because it inherits from
-   the page rather than from .tip's own colour. */
 .tip h3{font:400 var(--t-m)/1.15 var(--display);color:var(--on-accent);margin-bottom:6px}
 .tip p{color:var(--on-accent);max-width:48em}
-/* The 12% black wash SURVIVED THE REPAINT and was checked rather than assumed:
-   it sat on #E8B93A at 1.29:1 and sits on #70B5D9 at 1.28:1, so the code chip
-   is exactly as distinct from its panel as it ever was, and --on-accent still
-   reads 5.62:1 on the washed patch. Left alone. */
 .tip code{font:700 var(--t-sm)/1 var(--mono);background:rgba(0,0,0,.12);padding:2px 6px;border-radius:4px}
-
-/* The ladder. */
 .ladder{list-style:none;display:flex;flex-direction:column;gap:var(--s4)}
 .rr{display:grid;grid-template-columns:34px 96px 1fr;gap:var(--s4);align-items:start;
   background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
@@ -111,10 +68,8 @@
 .rr.is-chase{border-color:var(--gold-deep);box-shadow:0 4px 0 var(--gold-deep),var(--lift)}
 .rr-n{font:400 var(--t-m)/1 var(--display);color:var(--ink-2);text-align:center;padding-top:4px}
 .rr-card img{width:100%;height:auto;border-radius:6px;display:block}
-/* The gutter rules for this row are argued in the JS comment above ladderRow. */
 .rr-body,.offl li>div:last-child{min-width:0}
 .rr-body h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:4px;overflow-wrap:anywhere}
-/* Tracks unchanged, span only: see the note above ladderRow. */
 @media(max-width:380px){
   .rr-body{grid-column:1/-1}
   .offl li>div:last-child{grid-column:1/-1}
@@ -122,33 +77,18 @@
 .rr-chase{font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
   background:var(--mustard);border:1px solid var(--gold-deep);color:var(--on-accent);
   padding:4px 7px;border-radius:var(--r-pill);vertical-align:middle}
-/* --on-accent, not --ink, for the same reason .tip carries it: this is a
-   filled accent pill and --mustard is light. --ink measured 1.99:1 on it,
-   --on-accent measures 7.22:1, and at 9px this is small text needing 4.5. */
 .rr-sym{font:700 var(--t-sm)/1.4 var(--mono);color:var(--plum);margin-bottom:6px;letter-spacing:.03em}
 .rr-look{color:var(--ink-2);font-size:var(--t-sm)}
 .rr-note{font:700 var(--t-micro)/1.6 var(--mono);color:var(--plum);background:var(--lilac-pale);
   border-radius:calc(var(--r) - 8px);padding:8px var(--s3);margin-top:8px}
 .rr-eg{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.04em;
   text-transform:uppercase;margin-top:8px}
-/* THE ONE ON THIS PAGE THAT CAME OUT OF A PACK. See pulledAt at the top of
-   this file for where it comes from and why it is not the pull tags.
-   TEAL because it is a route, --sky-deep and not --sky because the type is
-   small: 4.50:1 on --card #2F4F39 where --sky is 4.05:1 and fails. The card
-   name inside it is --ink at 6.70:1 rather than a second accent, so the row
-   still reads as one link with an emphasis in it rather than two colours
-   arguing. 44px minimum because it is a tap target on a phone and the rest of
-   this row is prose. */
 .rr-pulled{margin-top:10px;font:400 var(--t-sm)/1.4 var(--body)}
 .rr-pulled a{display:block;min-height:44px;color:var(--sky-deep)}
 .rr-pulled a:hover,.rr-pulled a:focus-visible{text-decoration:underline}
 .rr-pulled b{color:var(--ink);font-weight:600}
 .rr-zoom{grid-column:1/-1}
 @media(min-width:820px){.rr-zoom{grid-column:auto}}
-
-/* Not on the ladder. Same shape as .rr minus the number column, and every
-   selector carries its own class: see offLadderRow for why a bare p selector in
-   here would silently unstyle the symbol line. */
 .offl{list-style:none;display:flex;flex-direction:column;gap:var(--s4)}
 .offl li{display:grid;grid-template-columns:96px 1fr;gap:var(--s4);align-items:start;
   background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
@@ -156,10 +96,6 @@
 @media(min-width:820px){.offl li{grid-template-columns:120px 1fr 220px}}
 .offl-card img{width:100%;height:auto;border-radius:6px;display:block}
 .offl-body h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:4px}
-/* nowrap is load bearing at 390px: "still current" broke across two lines
-   INSIDE the pill, so the border ran off the right edge of one line and picked
-   up again on the next, which reads as a clipped box rather than a badge. As
-   one unit it wraps whole onto its own line under the heading. */
 .offl-flag{display:inline-block;white-space:nowrap;
   font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
   background:var(--page);border:1px solid var(--hair);color:var(--ink-2);
@@ -170,10 +106,6 @@
   text-transform:uppercase;margin-top:8px}
 .offl-zoom{grid-column:1/-1}
 @media(min-width:820px){.offl-zoom{grid-column:auto}}
-
-/* Returning collectors. */
-/* The card sits under the years and above the prose: you see the three
-   Charizards side by side first, which is the comparison, and read why after. */
 .ex-fig{margin:var(--s3) 0}
 .ex-fig img{display:block;width:100%;max-width:150px;height:auto;border-radius:6px;
   border:1px solid var(--hair);background:var(--page)}
@@ -186,71 +118,29 @@
 .ex1 .yrs{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ketchup-deep);letter-spacing:.05em;
   text-transform:uppercase;margin-bottom:8px}
 .ex1 p{color:var(--ink-2);font-size:var(--t-sm)}
-
 .gone{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--s3)}
 .gone li{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s4)}
 .gone b{display:block;font-weight:700}
 .gone .yrs{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.05em;margin:2px 0 6px}
 .gone p{color:var(--ink-2);font-size:var(--t-sm)}
-/* Same treatment as the glossary: flex column, figure pushed to the bottom, two
-   caption lines reserved, so the cards land on a line across each row instead
-   of stepping up and down with the length of the prose above them. */
 .gone li{display:flex;flex-direction:column}
 .gone-fig{margin:var(--s4) 0 0;padding-top:var(--s3);border-top:1px solid var(--hair);margin-top:auto}
 .gone-fig img{display:block;width:100%;max-width:132px;height:auto;border-radius:6px;
   border:1px solid var(--hair);background:var(--page)}
 .gone-fig figcaption{font:400 var(--t-micro)/1.45 var(--mono);color:var(--ink-2);margin-top:6px;min-height:2.9em}
-
 .gloss{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--s3)}
-/* Flex column with the figure pushed to the bottom by margin-top:auto. Tiles in
-   a row stretch to the tallest, and three terms carry no image at all, so
-   without this the pictures sit at whatever height their own text ended at and
-   the row of cards reads as ragged rather than as a row. */
 .gloss li{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s4);
   display:flex;flex-direction:column}
 .gloss b{font:700 var(--t-body)/1.3 var(--body);color:var(--ketchup-deep)}
 .gloss p{color:var(--ink-2);font-size:var(--t-sm);margin-top:4px}
-/* Every figure bottom-anchored, crops included. A crop is a wide short strip
-   and a card is tall, so the two can never line up on their tops when they land
-   in the same row; anchoring the bottoms is the alignment that holds for both. */
 .gloss-fig{margin:var(--s4) 0 0;padding-top:var(--s3);border-top:1px solid var(--hair);margin-top:auto}
-/* Capped rather than full width: a 600x825 scan at tile width makes every entry
-   a foot tall and buries the definitions, which are still the point. */
 .gloss-fig img{display:block;width:100%;max-width:132px;height:auto;border-radius:6px;
   border:1px solid var(--hair);background:var(--page)}
-/* Two lines reserved whether the caption fills them or not. The figures are
-   bottom-anchored, so a caption that wraps to two lines where its neighbor
-   used one lifts that card 16px above the rest of the row. Reserving the space
-   keeps the cards on a line across the row regardless of caption length. */
 .gloss-fig figcaption{font:400 var(--t-micro)/1.45 var(--mono);color:var(--ink-2);margin-top:6px;
   min-height:2.9em}
-/* The crop takes the tile's width up to the 320px cap on .crop, unlike the card
-   images above it, which stop at 132px. It is a magnified corner and the corner
-   is the point, so it gets every pixel the source has rather than being shrunk
-   to match a thumbnail. */
 .gloss-fig.is-crop .crop{margin-top:0}
-/* No aspect override here any more. This said 16/6 back when the base was 16/7,
-   to make the glossary strip the SHORTER of the two. The base is 16/5 now, so
-   the same 16/6 would have quietly flipped that round and made it the taller
-   one. One ratio for every crop is the thing that cannot drift. */
-
 .rg-foot{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
-
-/* DESKTOP READING MEASURE. The caps above were written in em as if 1em were
-   one character. It is not: Outfit runs 2.31 to 2.47 characters per em here,
-   so 46em bought .rg-p 112 real characters a line at 1440. ui.css already caps
-   main prose at var(--measure) and these rules only outranked it by landing
-   after the stylesheet. All min-width:1000, ui.css's own desktop breakpoint,
-   so the phone and the tablet range keep exactly the rules they had.
-
-   .rg-foot IS DELIBERATELY NOT IN HERE AND ITS 56em IS NOT THE SAME MISTAKE.
-   It is Space Mono at 11px, and mono runs about 1.77 characters per em rather
-   than Outfit's 2.31, so its 616px box measures 81 to 87 real characters, not
-   one line over 90. Capping it to 36em would take it to about 55 and make it
-   worse. Same reason ui.css keeps .price-note on its own 52em: the font is
-   what decides how many characters an em width buys, so a mono block does not
-   join the shared number. Measured, 1440x900, 16 August 2026. */
 @media(min-width:1000px){
 .rg-lede,.rg-p,.tip p{max-width:var(--measure)}
 }
@@ -260,8 +150,7 @@
 .faq-list{max-width:46em}
 .faq-list h3{font:600 var(--t-sm)/1.4 var(--body);color:var(--ink);margin:var(--s5) 0 6px}
 .faq-list p{color:var(--ink-2);line-height:1.6;margin-bottom:var(--s3)}
-.faq-list p:last-child{margin-bottom:0}
-</style>
+.faq-list p:last-child{margin-bottom:0}</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

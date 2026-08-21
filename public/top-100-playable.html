@@ -25,35 +25,18 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=582ae61a">
-<style>
-.pl-fmt{border:2px solid var(--keyline);border-radius:var(--r);background:var(--card);
+<style>.pl-fmt{border:2px solid var(--keyline);border-radius:var(--r);background:var(--card);
   padding:var(--s4);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
 .pl-fmt h2{font-size:var(--t-m);margin:0 0 var(--s2)}
 .pl-fmt dl{display:grid;grid-template-columns:1fr;gap:var(--s2) var(--s4);margin:0}
 .pl-fmt dt{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.04em;
   text-transform:uppercase;color:var(--ink-2)}
 .pl-fmt dd{margin:0 0 var(--s3);font-size:var(--t-sm);max-width:46em}
-/* MEASURED IN REAL CHARACTERS, NOT IN ch. At 1440 the wrap is 1,392px and none
-   of the prose on this page was constrained, so .pl-note ran 293 characters per
-   line at 11px and the plain body paragraph ran 188. Both are two to four times
-   a readable measure. The caps were set by measuring rendered line boxes and
-   dividing real text length by real line count, which is the only way to get
-   this right: "ch" is the advance width of a "0" and about 1.43 average
-   characters in Outfit, so a 75ch rule would have produced a 107 character line.
-
-   MEASURED AFTER, at 1440: .pl-note 83 to 98, .pl-p 75, .lede 67. The 46em on
-   the micro text is the site's existing convention for a source note (.ty-src
-   on /types.html and .dk-src next door both use it) and it lands near 100
-   characters at 11px rather than under 90, which is the trade that comes with
-   matching the neighbours instead of inventing a width for one page. At 390 the
-   same rules measure 67 to 73, because the wrap is narrower than the cap and
-   nothing below 1000px is affected at all. */
 .pl-p{max-width:38em}
 .pl-mark{display:inline-block;font-family:var(--mono);font-weight:700;
   background:var(--chip-gold-bg);border:1px solid var(--gold-deep);color:var(--gold-deep);
   border-radius:var(--r-sm);padding:1px 7px;margin-right:4px}
 .pl-note{font-size:var(--t-micro);color:var(--ink-2);margin:var(--s3) 0 0;line-height:1.7;max-width:46em}
-
 .pl-list{list-style:none;padding:0;margin:var(--s5) 0 0;display:grid;
   grid-template-columns:1fr;gap:var(--s2)}
 .pl{display:grid;grid-template-columns:2.2em 56px 1fr;gap:var(--s3);align-items:center;
@@ -62,7 +45,6 @@
 .pl-rank{font-family:var(--display);font-size:1.05rem;color:var(--gold-deep);
   text-align:right;line-height:1}
 .pl-pic{display:block}
-/* The scans are 245x337 intrinsic. The box is what decides the transfer. */
 .pl-art{width:56px;height:auto;border-radius:4px;display:block}
 .pl-noart{display:grid;place-items:center;width:56px;height:77px;border-radius:4px;
   background:var(--paper-3);border:1px dashed var(--hair);font-family:var(--mono);
@@ -79,10 +61,7 @@ a.pl-set:hover,a.pl-set:focus{color:var(--ink)}
   line-height:1.5}
 .pl-nums b{color:var(--ink)}
 .pl-pctv{white-space:nowrap}
-/* var(--hair) is an 18% alpha: 1.58:1, and never legible on either palette.
-   This is a character in running text, not a border. Twin of .dk-sep. */
 .pl-sep{color:var(--ink-2)}
-
 .pl-more{display:grid;grid-template-columns:1fr;gap:var(--s3);margin:var(--s5) 0 0;
   list-style:none;padding:0}
 .pl-more a{display:block;border:2px solid var(--keyline);border-radius:var(--r);
@@ -93,7 +72,6 @@ a.pl-set:hover,a.pl-set:focus{color:var(--ink)}
   margin-top:2px}
 .pl-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.7;
   max-width:46em}
-
 @media(min-width:700px){
   .pl-fmt dl{grid-template-columns:auto 1fr}
   .pl-fmt dt{text-align:right;padding-top:2px}
@@ -105,8 +83,7 @@ a.pl-set:hover,a.pl-set:focus{color:var(--ink)}
   .pl-art,.pl-noart{width:64px}
   .pl-noart{height:88px}
   .pl-more{grid-template-columns:repeat(4,1fr)}
-}
-</style>
+}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"The 100 most played Pokemon cards in Standard","description":"The 100 Pokemon cards played most in the current Standard format, counted across 357 tournament decklists. Ranked by how many decks play them, not by price.","image":["https://garbagerips585.github.io/assets/og-top-100-playable.jpg"],"datePublished":"2026-08-16","dateModified":"2026-08-16","author":{"@type":"Organization","name":"Garbage Rips 585"},"publisher":{"@type":"Organization","name":"Garbage Rips 585","logo":{"@type":"ImageObject","url":"https://garbagerips585.github.io/assets/logo-square.jpg"}},"mainEntityOfPage":"https://garbagerips585.github.io/top-100-playable.html"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Top 100 playable cards","item":"https://garbagerips585.github.io/top-100-playable.html"}]}</script>
 </head>

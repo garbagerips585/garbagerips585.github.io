@@ -25,29 +25,14 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=582ae61a">
-<style>
-.ty-lede{max-width:46em}
+<style>.ty-lede{max-width:46em}
 .ty-key{display:flex;flex-wrap:wrap;gap:8px;margin:var(--s5) 0 var(--s4)}
-/* min-height 44, not 40. WCAG 2.5.5 asks for 44x44 and these chips are the
-   page's primary navigation on a phone: they are the only way to reach a
-   section without scrolling the whole article. Measured 40px before this, so
-   they already cleared 2.5.8's 24px AA floor -- this is the AAA target, taken
-   because a one-handed reader thumbing down the page hits these first.
-   THE GAP IS UNTOUCHED AND HAS TO STAY THAT WAY: the parent sets gap:8px,
-   which is row AND column gap, so growing the box does not close the 8px
-   between two chips or between two wrapped rows. Re-measured after: 44px tall,
-   still 8px apart in both axes. */
 .ty-key a{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 var(--s3);
   border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
   text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
 .ty-key a:hover{border-color:var(--ink);background:var(--mustard);color:var(--on-accent)}
 .ty-m{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;flex:0 0 18px}
 .ty-m svg{width:15px;height:15px;display:block}
-/* THE SAME ELEVEN COLOURS, A SECOND TIME. They are declared here as well as in
-   MARK above because the marks are inline SVG paths and the CSS is what paints
-   them; MARK's first element is the value the two must agree on. IF YOU CHANGE
-   ONE, CHANGE BOTH: grass and darkness moved on 18 August 2026 and the reasoning
-   and all eleven measured ratios are in the block above MARK. */
 .ty-m-grass svg{fill:#5DAB4D;color:#5DAB4D}
 .ty-m-fire svg{fill:#D9482B;color:#D9482B}
 .ty-m-water svg{fill:#2E7FB8;color:#2E7FB8}
@@ -62,14 +47,6 @@
 .ty-key .ty-m svg{width:14px;height:14px}
 .ty-grp{margin-top:var(--s6)}
 .ty-grp > p{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
-/* --navy WAS A FRAME, A PANEL FILL AND AN INK AT ONCE, and it got away with it
-   only because all three jobs resolved to #111111. The 18 August 2026 split
-   made it an INK (#EEF1EF), moved the panel fill to --band-bg and the frame to
-   --keyline, so a rule that still said var(--navy) here painted a near-white
-   slab and wrote --chrome-ink #F7F8F7 on it at 1.06:1: the whole "no type
-   chart" block, its four rules and its card caption, gone. Frame is --keyline
-   at 4.19:1 on the page; the slab is --band-bg #192D22, where --chrome-ink is
-   13.70:1 and --foot-ink 10.05:1. */
 .ty-key-blk,.ty-t,.ty-meas{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4)}
 .ty-key-blk{background:var(--band-bg);color:var(--chrome-ink);padding:var(--s5);margin:var(--s5) 0}
@@ -79,44 +56,16 @@
 .ty-corner{display:grid;grid-template-columns:1fr 160px;gap:var(--s4);align-items:start;margin-top:var(--s4)}
 @media(max-width:640px){.ty-corner{grid-template-columns:1fr}}
 .ty-corner .ty-fig figcaption b,.ty-corner .ty-fig figcaption span{color:var(--foot-ink)}
-/* The set link inside the caption is the one link on the page sitting on the
-   dark slab, so it needs its own colour: ui.css's link colour is tuned for a
-   card and this is not one.
-   IT WAS #EFC94C, THE OLD MUSTARD, AND GOLD IS OUT OF THE PALETTE ENTIRELY as
-   of 18 August 2026: it survives on the Hall of Fame HIT badge and the trophy
-   frame and nowhere else. Under the accent rule a LINK is teal, and this one is
-   var(--t-micro), so it takes the small-text teal --gold-deep #81BEDE rather
-   than --gold: 7.19:1 on --band-bg, where --gold would be 4.84. Read the value,
-   never the name: every token with "gold" in it is a teal now. */
 .ty-corner .ty-fig figcaption a{color:var(--gold-deep)}
 .ty-rules{list-style:none;margin:0;padding:0}
 .ty-rules li{border-left:4px solid var(--gold);padding-left:var(--s3);margin-bottom:var(--s3);line-height:1.55}
 .ty-rules b{display:block;font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;
   text-transform:uppercase;margin-bottom:4px}
-/* Same swap, same reason, and this one is an EMPHASIS rather than a link: it is
-   the label on each rule inside the dark slab, 700 var(--t-micro) mono. It goes
-   to --gold-deep too, 7.19:1 on --band-bg, because at that size the small-text
-   teal is the one that clears 4.5:1 with room. */
 .ty-key-blk .ty-rules b{color:var(--gold-deep)}
 .ty-tbl-w{overflow-x:auto;margin-top:var(--s4);border:3px solid var(--keyline);border-radius:12px;
   background:var(--card);box-shadow:var(--hard-lg)}
-/* NO min-width ON THE TABLE. It had one, and at 390px that turned the highest
-   search-value block on the page into a thing you have to drag sideways. Four
-   short columns fit if nothing inside them is told not to wrap, which is why
-   .ty-n lost its white-space:nowrap below. The overflow-x wrapper stays as the
-   safety net: a long set name in a future note should scroll inside its own
-   box rather than push the document sideways. */
 .ty-tbl{width:100%;border-collapse:collapse;font-size:var(--t-sm)}
 .ty-tbl th,.ty-tbl td{text-align:left;padding:10px var(--s3);border-bottom:1px solid var(--hair);vertical-align:top}
-/* Four columns at 390px are 55px too wide on the site's normal cell padding
-   alone, measured. Tightening the padding and dropping to the micro size is
-   what brings the whole table inside the viewport instead of behind a sideways
-   drag, and this is the one block on the page a phone reader is most likely to
-   have come for. */
-/* table-layout:fixed, so the columns are decided by these percentages and never
-   by the longest word in a note. Without it the Flying and Poison notes, which
-   are the two longest cells in the table, set the column widths for all 18
-   rows and push the whole thing past 390px. */
 @media(max-width:640px){
   .ty-tbl{font-size:var(--t-micro);table-layout:fixed}
   .ty-tbl th,.ty-tbl td{padding:8px 4px}
@@ -126,12 +75,6 @@
   .ty-tbl col.c3{width:22%}
   .ty-tbl col.c4{width:36%}
 }
-/* NO white-space:nowrap ON EITHER HEADER. Both carried it and both overlapped
-   the moment the columns became fixed percentages at 390px: the four column
-   labels ran together into one unreadable string. The media query below could
-   not undo it either, because it sits earlier in this stylesheet and a media
-   query adds no specificity, so the later rule won. Fixed at the source rather
-   than with an override. */
 .ty-tbl thead th{font:700 var(--t-micro)/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink-2)}
 .ty-tbl tbody th{font-weight:700}
@@ -174,20 +117,10 @@
 .ty-open{margin:var(--s4) 0 0 var(--s4);font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);max-width:46em}
 .ty-open li{margin-bottom:var(--s2)}
 .ty-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.6;max-width:46em}
-
-/* DESKTOP READING MEASURE. The caps above were written in em as if 1em were
-   one character. It is not: these faces run 2.31 to 2.47 characters per em, so
-   44 to 46em bought 100 to 106 real characters a line at 1440. ui.css already
-   caps main prose at var(--measure) and these rules only outranked it by
-   landing after the stylesheet. Everything here is min-width:1000, ui.css's
-   own desktop breakpoint, so the phone and the tablet range keep exactly the
-   rules they had. Each selector below was read on the page first: all six are
-   ordinary paragraphs, no layout rows. */
 @media(min-width:1000px){
 .ty-lede,.ty-src{max-width:var(--measure)}
 .ty-grp > p,.ty-key-blk p,.ty-split p,.ty-meas p{max-width:var(--measure)}
-}
-</style>
+}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Card types"}]}</script>
 </head>
 <body>
