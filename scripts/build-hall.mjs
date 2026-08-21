@@ -26,6 +26,7 @@ import { APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/ch
 import { esc, shortDate, moneyCompact, noValue, rarityLabel, imgDims, cardNumKey, avifPicture } from "../shared/format.mjs";
 import { loadGradedPrices, MIN_SALES } from "../shared/graded-price.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
+import { pickIntlPrinting } from "../shared/intl-printing.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -88,25 +89,17 @@ function artLook(c) {
 // A hand-picked list still wins outright the moment one exists, which keeps the
 // tick meaningful: it becomes "promote the best" rather than "make the page
 // work at all".
-/**
- * WHICH PRINTING AN INTL HIT IS. THE ARGUMENT LIVES IN build-pages.mjs.
+/*
+ * WHICH PRINTING AN INTL HIT IS: shared/intl-printing.mjs, imported above.
  *
- * This is the second copy of one rule and that is deliberate rather than
- * careless: these two files already carry a written contract that they move
- * together about exactly this decision (see the paragraph above the call site
- * below, and the matching one in resolveHits), because the failure mode is a
- * plaque and a rip page naming different printings of one card, which looks
- * fine on both pages. The full argument, the counted scope, and the illustrator
- * cross-check that confirmed the three cards it resolves are written ONCE, in
- * pickIntlPrinting in scripts/build-pages.mjs. Read it there before changing
- * either copy, and change both in the same edit.
- *
- * The short version: exact tier on the SAME ladder wins; failing that, drop
- * every printing that states a DIFFERENT tier; take what is left only if it is
- * alone and its own tier is unstated. `same[0]` is never reached, so a
- * Japanese tier is never mapped onto an English one to win a number.
- *
- * `want` arrives already normalised. Returns the printing, or null.
+ * THIS USED TO BE THE SECOND COPY OF ONE RULE, kept in step with the one in
+ * build-pages.mjs by a comment in each file ordering the reader to edit both.
+ * A Japanese set guide became the third caller on 21 August 2026 and the rule
+ * moved into a module instead. Nothing about the decision changed: exact tier
+ * on the SAME ladder wins; failing that, drop every printing that states a
+ * DIFFERENT tier; take what is left only if it is alone and its own tier is
+ * unstated. `same[0]` is never reached, so a Japanese tier is never mapped onto
+ * an English one to win a collector number.
  */
 // The bases TCGdex does not have. See the note beside `img` in the intl
 // checklist mapping below for why this page reads it now and what it drops.
@@ -115,18 +108,6 @@ try {
   NO_SCAN = new Set(JSON.parse(await readFile(join(ROOT, "data/no-scan.json"), "utf8")).bases || []);
 } catch {
   /* optional: a missing base then renders as an img that removes itself */
-}
-
-const rNorm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
-function pickIntlPrinting(same, want) {
-  if (!same.length) return null;
-  if (!want) return same.length === 1 ? same[0] : null;
-  const exact = same.filter((c) => rNorm(c.rarity) === want);
-  if (exact.length === 1) return exact[0];
-  if (exact.length > 1) return null;
-  const unstated = same.filter((c) => !c.rarity);
-  const stated = same.filter((c) => c.rarity);
-  return unstated.length === 1 && stated.length ? unstated[0] : null;
 }
 
 let derivedFromHits = false;
@@ -146,7 +127,22 @@ if (!hall.length) {
   const unlisted = [];
   const intlIn = [];
   const ambiguous = [];
+  // A ROW THE HALL CAN PUT NOTHING BEHIND. Two shapes reach it: a promo with no
+  // set, no number and no price (see the gate below), and any row whose name is
+  // not on a checklist we hold (`unmatched`). The lede counts them together
+  // because the reader's question is the same one either way -- why is a card I
+  // watched come out of a pack not on the page -- and the answer is the same
+  // too: we would be publishing a name with nothing behind it.
+  const unplaceable = [];
   let rowsRead = 0;
+  // THE FOURTH THING THAT TAKES A ROW OFF THIS PAGE, AND IT WAS THE ONE NOBODY
+  // COUNTED. Every `seen.has(...)` below drops a row because the printing is
+  // already on the page, which is right -- a card pulled twice is one plaque --
+  // but it was the only drop with no line in the ledger, so the run could say
+  // it read 183 rows and inducted 140 and leave 33 of the difference unexplained.
+  // The page now states the whole subtraction in its own lede, and it cannot do
+  // that from numbers the build does not keep. See the lede below.
+  let repeats = 0;
   // The other checklist. /sets/ja-*.html, /sets/ko-*.html and /sets/zh-*.html
   // are all built out of this file; nothing but the English 28 lives under
   // public/data/cards.
@@ -208,8 +204,23 @@ if (!hall.length) {
         // publishing nothing whose two reads disagreed. See that module for why
         // the join is on `printing` rather than on the card name.
         const fp = firstPartner.priceForHit(h);
+        // AND THIS WAS THE FOURTH SILENT DROP, FOUND ON 21 AUGUST 2026 BY THE
+        // ARITHMETIC THE LEDE NOW PRINTS. The three above were fixed and
+        // ledgered; this one was never counted, so 183 rows came out as
+        // 140 + 32 + 10 = 182 and one card left with nothing said about it. It
+        // is Mega Kangaskhan ex on l6RPdGNs7uE, whose rip log row carries a
+        // name and a rarity and NO set, NO number and NO price, the only row of
+        // the 183 like that.
+        //
+        // IT STILL GOES, and the gate above it is still right: this branch is
+        // for a promo the log prices itself, and a plaque with no set, no
+        // number, no scan and no price is a name in a gold frame. What changes
+        // is that the run says so and the page counts it.
         if (typeof h.price !== "number" && typeof h.psa10 !== "number"
-            && !(fp && (fp.price != null || fp.psa10 != null))) continue;
+            && !(fp && (fp.price != null || fp.psa10 != null))) {
+          unplaceable.push({ card: h.card, rarity: h.rarity || null, vid });
+          continue;
+        }
         // DEDUPE, BECAUSE A PROMO CAN BE PULLED TWICE AND THREE OF THEM WERE.
         // The set branch below has always deduped on `<set>-<number>` and this
         // branch had nothing, which cost nothing while the only two rows here
@@ -218,7 +229,7 @@ if (!hall.length) {
         // printed in its own headline stat. First occurrence wins, same as
         // below, so the plaque links the first rip the card came out of.
         const pkey = `promo-${String(h.card).toLowerCase()}-${h.number || fp?.number || ""}`;
-        if (seen.has(pkey)) continue;
+        if (seen.has(pkey)) { repeats++; continue; }
         seen.add(pkey);
         // `_img` WAS HARDCODED null AND THE SCANS EXISTED THE WHOLE TIME.
         // data/hits.json carries an `img` on both promos, pointing at TCGdex's
@@ -336,7 +347,7 @@ if (!hall.length) {
       // No number, no scan and no price, all of which render as absent.
       if (!cards?.length) {
         const key = `${h.set}-${norm(h.card)}`;
-        if (seen.has(key)) continue;
+        if (seen.has(key)) { repeats++; continue; }
         seen.add(key);
         unlisted.push({ set: h.set, setName: h.setName || h.set, card: h.card });
         out.push({
@@ -448,7 +459,7 @@ if (!hall.length) {
           continue;
         }
         const ikey = `${h.set}-${norm(h.card)}`;
-        if (seen.has(ikey)) continue;
+        if (seen.has(ikey)) { repeats++; continue; }
         seen.add(ikey);
         out.push({
           set: h.set, number: null, name: h.card,
@@ -461,7 +472,7 @@ if (!hall.length) {
         continue;
       }
       const key = `${h.set}-${m.n}`;
-      if (seen.has(key)) continue;
+      if (seen.has(key)) { repeats++; continue; }
       seen.add(key);
       // `art` IS CARRIED SO THE LEDGER LINE CANNOT GO STALE. It used to end "so it
 // carries no scan and no price", which was a true sentence about every intl
@@ -490,7 +501,7 @@ if (source === "intl") intlIn.push({ set: h.set, card: m.name, n: m.n, art: Bool
     hall = out;
     derivedFromHits = true;
   }
-  hitsLedger = { rowsRead, inducted: out.length, unmatched, unlisted, intlIn, ambiguous };
+  hitsLedger = { rowsRead, inducted: out.length, repeats, unmatched, unlisted, intlIn, ambiguous, unplaceable };
 }
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
 
@@ -729,6 +740,62 @@ const rawCards = ranked.filter((c) => c.raw);
 const totalRaw = rawCards.reduce((n, c) => n + c.raw, 0);
 const gradedCards = ranked.filter((c) => c.psa10);
 const totalGraded = gradedCards.reduce((n, c) => n + c.psa10, 0);
+
+/* ------------------------------------------------ what this page ACTUALLY is
+ *
+ * "NOTHING HERE WAS HAND PICKED: THIS IS THE WHOLE LIST OF WHAT WAS PULLED ON
+ * CAMERA" WAS FALSE ON A PAGE IN THE MAIN NAV, AND THE PAGE BESIDE IT SAID SO.
+ *
+ * /luck.html prints "183 cards the log records" off exactly the same
+ * data/hits.json this file reads. This page printed 140 under a lede promising
+ * completeness twice, so two pages one nav item apart disagreed by 43 about the
+ * one fact the whole site is built on. That is the top-severity failure here:
+ * the site's claim is that its numbers are sourced and agree.
+ *
+ * BOTH ENDS WERE LOOKED AT AND ONLY ONE OF THEM IS WRONG. The omission is right
+ * and is argued in three places in this file already:
+ *   - 33 rows are a printing already on this page, PULLED AGAIN. One plaque per
+ *     printing is the model, and a hall of fame that lists the same card twice
+ *     is worse, not more complete.
+ *   - 10 rows name a card that is not on any checklist this site holds. The
+ *     comment above the `unmatched` drop says why publishing them anyway would
+ *     be worse: it prints a card name no catalog holds. That is a spreadsheet
+ *     fix, the build names every one of them on every run, and it is NOT this
+ *     page's job to paper over it.
+ * So the CLAIM is the defect. The page states its own arithmetic now, computed
+ * from the ledger and never typed, so it reconciles with /luck.html by
+ * subtraction that a reader can follow: read = plaques + repeats + held back.
+ *
+ * IF THE ARITHMETIC EVER STOPS ADDING UP, SAY LESS RATHER THAN SAYING IT WRONG.
+ * `scopeSentence` falls back to naming only what is on the page when the three
+ * numbers do not reconcile, which is the same rule as "absent beats wrong"
+ * everywhere else in this builder.
+ */
+const L = hitsLedger;
+const heldBack = L ? L.unmatched.length + L.unplaceable.length : 0;
+const scopeSentence = (() => {
+  if (!derivedFromHits || !L) return "";
+  const reconciles = L.rowsRead === ranked.length + L.repeats + heldBack;
+  if (!reconciles) {
+    return " Nothing here was hand picked: it is one plaque per printing, straight out of the rip log.";
+  }
+  // SHORT ENOUGH TO READ, because this is the first thing on the page and a
+  // phone gives it the whole screen. The first draft ran ten lines at 390 and
+  // pushed the top plaque below the fold, which is a page that explains itself
+  // instead of showing you the cards. Every number in it is still computed.
+  const parts = [];
+  if (L.repeats) parts.push(`${L.repeats} of them a printing already on this page, pulled again`);
+  if (heldBack) parts.push(`${heldBack} carrying a name no catalog we hold can match`);
+  if (!parts.length) return ` Nothing here was hand picked: all ${L.rowsRead} cards the rip log records are below.`;
+  return " Nothing here was hand picked, and it is one plaque per printing:" +
+    ` the rip log records ${L.rowsRead} cards, ${parts.join(", and ")}, which leaves the ${ranked.length} below.`;
+})();
+/* The tally tile said "Cards pulled" over a deduplicated count, which is the
+   same phrase /luck.html counts row-wise. It names what it is counting now, and
+   against what, in the "X of Y" shape the two tiles beside it already use. */
+const tallyLabel = derivedFromHits && L
+  ? `Printings of ${L.rowsRead} pulls`
+  : "Cards inducted";
 
 // SAY WHERE THE PSA 10 FIGURES CAME FROM, because all three facts about them
 // are load bearing and none is guessable from the table: a different source
@@ -1180,9 +1247,15 @@ const body = `
         phrase is in the search result and the h1 agrees with the link that got
         you here. */ ""}
       <h1>Our best Pokemon <span class="hl">pulls</span></h1>
-      <p>Every card that has come out of a pack on this channel, ranked by its PSA 10 price where we have one and by its raw price where we do not. Tap a card to see it full size.${derivedFromHits ? " Nothing here was hand picked: this is the whole list of what was pulled on camera." : ""}</p>
+      ${/* "EVERY CARD THAT HAS COME OUT OF A PACK" IS THE OTHER HALF OF THE
+            SAME OVERCLAIM and it went in the same edit. The scope is stated
+            once, in scopeSentence above, computed from the build's own ledger.
+            Do not put a completeness promise back in this opening clause: it
+            would then be making a claim the sentence after it has to walk
+            back. */ ""}
+      <p>The cards that have come out of a pack on this channel, ranked by their PSA 10 price where we have one and by their raw price where we do not. Tap a card to see it full size.${scopeSentence}</p>
       ${ranked.length ? `<div class="chof-tally">
-        <div><b>${ranked.length}</b><span>${derivedFromHits ? "Cards pulled" : "Cards inducted"}</span></div>
+        <div><b>${ranked.length}</b><span>${tallyLabel}</span></div>
         ${/* "ALL OF THEM RAW" HAS TO STOP SAYING "ALL" WHEN IT IS NOT ALL, and
               that became live the day this page started admitting cards it
               holds no price for. It is a SUM over the cards that HAVE a raw
@@ -1337,8 +1410,12 @@ console.log(`Wrote public/hall.html
   with card art    ${ranked.filter((c) => c.image).length}
   rarities         ${[...new Set(ranked.map((c) => c.rarity).filter(Boolean))].sort().join(", ")}
 `);
-// WHAT HAPPENED TO ALL 93 ROWS, because the lede on this page says it is the
-// whole list and nothing was checking that.
+// WHAT HAPPENED TO EVERY ROW, because the lede on this page describes its own
+// scope by subtraction and nothing else is checking that arithmetic.
+// THIS SAID "ALL 93 ROWS" AND THE LOG HOLDS 183. A row count written into a
+// comment goes stale on the next import, silently, which is the same failure
+// the page itself just had. It is not written down here any more; the run
+// prints it.
 //
 // Eleven rows used to leave without a word: seven on a promo with no price,
 // three on a set whose checklist this builder could not open, one on a card
@@ -1348,7 +1425,16 @@ console.log(`Wrote public/hall.html
 // silent drop is loud on the day it appears rather than in the next audit.
 if (hitsLedger) {
   const l = hitsLedger;
-  console.log(`  from data/hits.json: ${l.rowsRead} row${l.rowsRead === 1 ? "" : "s"} read, ${l.inducted} card${l.inducted === 1 ? "" : "s"} inducted`);
+  console.log(`  from data/hits.json: ${l.rowsRead} row${l.rowsRead === 1 ? "" : "s"} read, ${l.inducted} card${l.inducted === 1 ? "" : "s"} inducted, ${l.repeats} a printing already on the page`);
+  // THE SUBTRACTION THE PAGE PRINTS, CHECKED ON EVERY RUN. The lede states
+  // read = plaques + repeats + held back, so if that ever stops holding the
+  // page falls back to a shorter sentence and this line says why.
+  for (const x of l.unplaceable) {
+    console.log(`  DROPPED ${x.card}${x.rarity ? ` (${x.rarity})` : ""} on ${x.vid}: the rip log gives it no set, no number and no price, so there is nothing to put on a plaque but the name. Fill the Set cell in the My Hits tab and re-import.`);
+  }
+  if (l.rowsRead !== l.inducted + l.repeats + l.unmatched.length + l.unplaceable.length) {
+    console.log(`  LEDGER DOES NOT RECONCILE: ${l.rowsRead} read against ${l.inducted} + ${l.repeats} + ${l.unmatched.length} + ${l.unplaceable.length}. The lede has fallen back to naming only what is on the page.`);
+  }
   for (const x of l.intlIn) {
     console.log(`  ${x.card} #${x.n} (${x.set}) resolved against public/data/intl-guides.json, ${x.art ? "with that checklist's own scan" : "which holds no scan for that set"}, and no price either way`);
   }

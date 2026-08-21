@@ -44,6 +44,7 @@ import { raritiesIn, rarityChip, RARITY_CSS } from "../shared/rarity.mjs";
 import { ripPath } from "../shared/paths.mjs";
 import { loadGradedPrices } from "../shared/graded-price.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
+import { pickIntlPrinting, norm } from "../shared/intl-printing.mjs";
 import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount, avifPicture, packTileImg } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -306,6 +307,84 @@ try {
   /* optional: a missing base then renders as an img that removes itself */
 }
 
+/* ------------------------------------------------- the hit card's own scan --
+ *
+ * THE BIGGEST CARD ART ON THE SITE WAS THE ONLY CARD ART ON IT WITH NO LADDER,
+ * AND IT WAS THE SOFTEST PICTURE WE PUBLISH. Fixed 21 August 2026.
+ *
+ * READ OFF `currentSrc` AT DPR 1, 2 AND 3, never naturalWidth, which the spec
+ * density-corrects with a `w` descriptor and which has already built one
+ * 958-image finding out of nothing on this site. Boxes measured in the runtime
+ * DOM with prefers-reduced-motion forced, because .hitcards.is-armed carries a
+ * scale(.97) and getBoundingClientRect reports the TRANSFORMED width: the first
+ * pass read 138.71 for a 143px box and nearly wrote the wrong number down.
+ *
+ *      viewport      box     wanted at DPR 3      served (245w)
+ *      320           108     324                  76%
+ *      390           143     429                  57%
+ *      1440          194     388 (at DPR 2)       63%
+ *
+ * The box is `50vw - 52px` up to the 520px breakpoint and a flat 194px above
+ * it, measured at 21 widths from 320 to 1920. `sizes` below is that curve.
+ *
+ * SO THE READER WAS BEING HANDED A 245px FILE FOR A 429px BOX, a 1.75x upscale,
+ * of the one card the whole page is about. ui.css's own comment on .hitcards
+ * says the track is "Capped at 220px: the scan is 245px wide, so a wider cell
+ * upscales it and the card goes soft" -- an argument that is only true at DPR 1,
+ * which is the exact trap CLAUDE.md's "checked at DPR 2 and shipped at DPR 3"
+ * entry is about, one density further along.
+ *
+ * WHAT IT COSTS, and quote the pair or quote neither. TCGdex publishes 245 and
+ * 600 and nothing between, so the only rung available is `high`. Measured by
+ * fetching all 126 distinct hit-card files at both widths:
+ *
+ *      low.avif    16.7KB mean      2,579KB over the 121 pages
+ *      high.avif   58.0KB mean      8,836KB over the 121 pages
+ *
+ * so +38.8KB on the median page, +570KB on the Costco UPC rip's fourteen, and
+ * nothing at all at DPR 1 or on a 320px phone at DPR 2 (216 device px still
+ * clears 245). The band is 1,356 to 1,772px down a rip page and every image in
+ * it is lazy, so most of that is a scrolled cost rather than a load-path one.
+ *
+ * TWO THINGS PAY FOR IT AND NEITHER IS TASTE.
+ *  - THE LIGHTBOX ON THE SAME PAGE ALREADY FETCHES `high.avif` FOR THE SAME
+ *    CARD the moment anyone taps it. A reader who taps used to pay 16.7 + 58.0;
+ *    they now pay 58.0 once and the tap is a cache hit. The thumbnail got
+ *    sharper and the tapping reader got LIGHTER.
+ *  - /wanted.html draws a 151px box, one hair wider than this one, and its own
+ *    builder rejected the 245w file there in as many words: "VISIBLY SOFT ... a
+ *    site whose subject is card scans does not take that trade." It spent a new
+ *    460w rendition to avoid it. This box is 143 and was taking that trade on
+ *    every rip page.
+ *
+ * THE THIRD OPTION WAS COSTED AND REFUSED. Mirroring a middle width locally,
+ * which is what sync-card-thumbs.mjs does for /wanted.html's ten cards, saves
+ * 19.9% against the 600w by that script's own measurement -- so it would still
+ * cost +31KB a page, over 126 files that grow with every import, for about 21MB
+ * of committed binaries and a fourth rendition pipeline. The saving does not
+ * pay for the machinery at this count. If the hit corpus ever stops growing,
+ * re-open it; the script already derives its list rather than pinning it.
+ */
+const HITCARD_SIZES = "(max-width:520px) calc(50vw - 52px), 194px";
+/**
+ * ONLY TCGDEX HAS THE SECOND RUNG. `high.webp` is a sibling of `low.webp` on
+ * that host and nowhere else: the First Partner promos fall back to a local
+ * /assets/first-partner/ file whose renditions are named differently, and
+ * emitting `${url} 245w, ${url} 600w` for one of those would offer the browser
+ * the same file under two widths and let it pick the wrong one on purpose.
+ * Nothing in the built tree takes that path today, checked across all 158 hit
+ * slots, which is exactly why it is guarded rather than assumed.
+ */
+function hitcardImg(url) {
+  const two = /^https:\/\/assets\.tcgdex\.net\/.+\/low\.webp$/.test(url);
+  const ladder = two
+    ? ` srcset="${esc(url)} 245w, ${esc(url.replace(/low\.webp$/, "high.webp"))} 600w" sizes="${HITCARD_SIZES}"`
+    : "";
+  return avifPicture(
+    `<img class="hitcard-img" src="${esc(url)}"${ladder} alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(url)}>`,
+  );
+}
+
 // One intl checklist in the SAME SHAPE as an English one out of
 // public/data/cards/, so the matching below is one code path and not two.
 //
@@ -335,100 +414,16 @@ const intlChecklist = (setId) => {
   });
 };
 
-/**
- * WHICH PRINTING AN INTL HIT IS, AND WHY THIS IS NOT THE ENGLISH RULE.
+/*
+ * WHICH PRINTING AN INTL HIT IS: the rule, the argument for it and the three
+ * branches all live in shared/intl-printing.mjs now, imported above.
  *
- * ==========================================================================
- * `same[0]` IS BANNED HERE AND THAT BAN IS OLDER THAN THIS FUNCTION.
- * ==========================================================================
- *
- * On an English checklist the sheet and TCGdex share a vocabulary, so a miss
- * on the tier is a wording difference and `same[0]` is a safe last resort. They
- * do not share one across languages, and build-hall.mjs has the scar: Abyss Eye
- * prints Goldeen at #012 Common and #084 Illustration rare, the log writes the
- * tier as "Art Rare" because that is アートレア off the wrapper, and `same[0]`
- * handed the plaque the COMMON. So an intl row has always taken a printing only
- * where nothing could contradict it.
- *
- * MAPPING AR ONTO ILLUSTRATION RARE WOULD RESOLVE GOLDEEN AND IS STILL REFUSED.
- * shared/rarity.mjs keeps the seven Japanese letter tiers separate from the
- * English ladder and says why in as many words: "SAR and Special Illustration
- * Rare are close cousins, not the same thing, and asserting an equivalence the
- * two companies do not publish would be this site inventing a fact." Nothing
- * below bends it. Goldeen still goes in with no number.
- *
- * ==========================================================================
- * WHAT IS NEW IS A CASE WHERE ELIMINATION IS TOTAL, AND IT NEEDS NO MAPPING.
- * ==========================================================================
- *
- * Stellar Miracle prints Crabominable twice: #024, which TCGdex files as
- * "Uncommon", and #107, which TCGdex leaves UNFILED. The log says Art Rare.
- * Uncommon and Art Rare are both tiers on the JAPANESE ladder -- they are
- * jp-u and jp-ar in shared/rarity.mjs, アンコモン and アートレア on the same
- * wrapper -- and they are different tiers. So #024 is not the card the log
- * describes, and #107 is the only printing left. That argument is made entirely
- * inside one vocabulary and asserts nothing about the English one.
- *
- * THE THIRD BRANCH IS THE ONE THAT MAKES IT SAFE. A survivor is taken only when
- * it is ALONE and its own tier is unstated. Terapagos ex has FOUR printings in
- * that set, three of them unstated, and this refuses it rather than choosing.
- *
- * SCOPE, COUNTED RATHER THAN REASONED, 2026-08-21. The unstated-survivor branch
- * can only fire in a set where TCGdex declines to name the tier at all. Across
- * the thirteen guides in intl-guides.json today that is ja-stellar-miracle
- * (36 of 135 unstated), ja-violet-ex (30 of 108), ko-clay-burst (28 of 99),
- * ko-crimson-haze (33 of 96), ko-battle-partners (32 of 132) and
- * ko-mask-of-change (3 of 101). Abyss Eye, Nihil Zero, Mega Symphonia and Mega
- * Brave state EVERY rarity they hold, so on those four the branch is dead and
- * Goldeen, Manectric, Raticate, Aurorus and Spearow all still refuse.
- *
- * ==========================================================================
- * INDEPENDENTLY CONFIRMED BEFORE IT SHIPPED, AND THE CHECK IS REPEATABLE.
- * ==========================================================================
- *
- * Elimination says which printing is LEFT; it does not say what the picture is.
- * So the three were also identified positively, by ILLUSTRATOR, against the
- * English counterpart set this repo already holds a full priced checklist for.
- * intl-guides.json records ja-stellar-miracle's `equivalent` as stellar-crown
- * at confidence "confirmed", and they are the same set: TCGdex SV7 and sv07.
- *
- *     JA SV7  #107 Crabominable  Mitsuhiro Arita  ->  EN sv07 #149  Illustration rare
- *     JA SV7  #111 Meditite      Yuriko Akase     ->  EN sv07 #153  Illustration rare
- *     JA SV7  #106 Raboot        rika             ->  EN sv07 #147  Illustration rare
- *     JA SV7  #024 Crabominable  nagimiso         ->  EN sv07 #042  Uncommon
- *     JA SV7  #017 Raboot        aspara           ->  EN sv07 #027  Common
- *
- * Every one of the six is a UNIQUE (name, illustrator) pair on both sides, and
- * the English tier separates the two printings of each card exactly the way the
- * log's word does. TCGdex's English field for アートレア is "Illustration rare",
- * which is CLAUDE.md's own reading of the same disagreement on Goldeen.
- *
- * THAT JOIN IS NOT THE MECHANISM AND IS DELIBERATELY NOT IN THE CODE. Wiring it
- * in would put the English ladder back inside the answer for a Japanese card,
- * which is the one thing shared/rarity.mjs asks nobody to do. It is written here
- * so the next person can re-run it in four lines rather than take it on trust:
- * the illustrators are in public/data/intl-guides.json and in the `ill` field of
- * public/data/cards/stellar-crown.json, both already on disk.
- *
- * Returns the printing, or null, which the caller renders as absent.
+ * THIS FILE AND build-hall.mjs EACH HELD A COPY, and each carried a comment
+ * telling the reader to change the other one in the same edit. A set guide
+ * became the third caller on 21 August 2026 and that was the moment "keep two
+ * copies in step by hand" stopped being arguable. `norm` comes from the same
+ * module, because it was the other half of the copy.
  */
-const norm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
-function pickIntlPrinting(same, want) {
-  if (!same.length) return null;
-  // No tier written down is no evidence, so a repeated name cannot be settled.
-  if (!want) return same.length === 1 ? same[0] : null;
-  // 1. The tier is stated and it is the log's. One vocabulary, exact word.
-  const exact = same.filter((c) => norm(c.rarity) === want);
-  if (exact.length === 1) return exact[0];
-  if (exact.length > 1) return null;
-  // 2. Nothing states the log's tier. Drop everything that states a DIFFERENT
-  //    one and see what is left. This is where Goldeen stops: both of its
-  //    printings state a tier, neither is Art Rare, so nothing survives.
-  const unstated = same.filter((c) => !c.rarity);
-  const stated = same.filter((c) => c.rarity);
-  // 3. Alone, and unstated. Two survivors is a choice and this does not make it.
-  return unstated.length === 1 && stated.length ? unstated[0] : null;
-}
 
 const cardCache = new Map();
 async function resolveHits(vid) {
@@ -462,7 +457,21 @@ async function resolveHits(vid) {
       // and not on the card name.
       const fp = firstPartner.priceForHit(h);
       out.push({
-        name: h.card, setName: h.setName || fp?.setName || null, setId: null,
+        // THE SET NAME COMES BACK FROM THE SAME RECORD AS THE NUMBER, and until
+        // 21 August 2026 it did not, which is why one hit card on the site
+        // printed a naked "#025" where the set line goes. Mega Kangaskhan ex on
+        // l6RPdGNs7uE has no set, no number and no setName on its rip log row.
+        // The printings corpus resolved it to MEP Black Star Promos #025 and
+        // handed back the collector number and the scan while `pm.s`, the set
+        // that number belongs to, was dropped on the floor. So the page printed
+        // a collector number with no catalog behind it, one row from a correct
+        // "MEGA EVOLUTION - #151".
+        //
+        // Same rule the graded join two hundred lines up is held to: the
+        // number, the label and the picture arrive together or not at all.
+        // Order is the sheet first, then the priced product, then the corpus,
+        // so a set name a person wrote down still wins over a derived one.
+        name: h.card, setName: h.setName || fp?.setName || (pm && pm.s) || null, setId: null,
         rarity: h.rarity || (pm && pm.r) || null,
         n: h.number || (pm && pm.i) || fp?.number || null,
         img: pm && pm.g ? `${pm.g}/low.webp` : fp?.img || null,
@@ -1441,7 +1450,21 @@ ${
       ${hits
         .map(
           (h, hi) => `<li class="hitcard" style="--i:${hi}" data-name="${esc(h.name)}" data-set="${esc(h.setName || "")}" data-n="${esc(h.n || "")}" data-rarity="${esc(rarityLabel(h.rarity) || "")}" data-img="${esc(h.img ? h.img.replace("low.webp", "high.webp") : "")}" data-price="${typeof h.price === "number" ? moneyExact(h.price) : ""}" data-psa="${h.psa10 ? moneyRound(h.psa10) : ""}" data-src="${esc(h.priceSource || "")}">
-        <button class="hitcard-open" type="button" aria-label="See ${esc(h.name)} larger"></button>
+        ${/* A HIT CARD WITH NO SCAN IS NOT A BUTTON, AND UNTIL 21 AUGUST 2026
+              IT WAS ONE ON EVERY ONE OF THEM. The control was emitted
+              unconditionally, so a card with nothing to enlarge still shipped
+              a full-card target aria-labelled "See Mabosstiff ex larger". It
+              opened the dialog, locked the scroll and drew a picture box
+              measuring 0px, leaving the reader the name, the set and "No
+              market price": the three lines they had already read on the tile
+              they tapped. Six slots on four rip pages, and the count grows
+              with every import (it was two a commit earlier).
+              /hall.html has done this right since the day the intl plaques
+              landed, in the same words -- "A CARD WITH NO SCAN IS NOT A
+              BUTTON" -- and its plaqueArt branch is what this copies: the
+              named box stays, the button does not, so nothing offers a tap
+              that does nothing. The dialog and its markup are untouched. */ ""}
+        ${h.img ? `<button class="hitcard-open" type="button" aria-label="See ${esc(h.name)} larger"></button>` : ""}
         ${
           h.img
             // alt="" AND THE HIT IS STILL NAMED THREE WAYS WITHOUT IT: the
@@ -1452,7 +1475,7 @@ ${
             // reader reached the price. Same call as the chase grids on the
             // species and set pages. The is-none branch below is already
             // aria-hidden for exactly this reason.
-            ? avifPicture(`<img class="hitcard-img" src="${esc(h.img)}" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(h.img)}>`)
+            ? hitcardImg(h.img)
             : `<div class="hitcard-img is-none" aria-hidden="true"></div>`
         }
         <div class="hitcard-b">
@@ -1463,7 +1486,18 @@ ${
                from. esc(undefined) rendered the literal string "undefined" on
                three rip pages. Absent means print nothing, which is what the
                rest of this file does with missing data. */ ""}
-          ${h.setName ? `<p class="hitcard-s">${esc(h.setName)}${h.n ? ` &bull; #${esc(h.n)}` : ""}</p>` : h.n ? `<p class="hitcard-s">#${esc(h.n)}</p>` : ""}
+          ${/* AND A COLLECTOR NUMBER WITH NO SET IS NOT A SET LINE. This used
+               to fall back to printing the bare number, which is the half of
+               the "#025" fault that lives in the markup rather than in the
+               join. A number is only checkable against the catalog it was
+               issued in, so with no set named it asserts nothing a reader can
+               act on and it reads like a broken template. The number is still
+               on the li as data-n and still reaches the lightbox, which prints
+               it only alongside a set for the same reason.
+               The join above should now mean this branch never fires; it is
+               kept honest rather than deleted, because the next import is what
+               produced the last one. */ ""}
+          ${h.setName ? `<p class="hitcard-s">${esc(h.setName)}${h.n ? ` &bull; #${esc(h.n)}` : ""}</p>` : ""}
           ${h.rarity ? `<p class="hitcard-r">${esc(rarityLabel(h.rarity))}</p>` : ""}
           <p class="hitcard-p">${
             typeof h.price === "number" ? `<b>${moneyExact(h.price)}</b> <span>raw NM</span>` : `<span class="hitcard-nop">No market price</span>`
@@ -1641,10 +1675,23 @@ addEventListener('DOMContentLoaded',function(){
   // immediately and the reveal was left entirely to the observer, so anything
   // that stopped the observer firing left all 14 cards permanently invisible.
   // That is a worse failure than no animation at all, and it is what shipped.
-  if(!('IntersectionObserver' in window) ||
-     (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)){
-    return;   // never armed, so the cards are simply visible
-  }
+  //
+  // AND THIS EARLY RETURN USED TO TAKE THE LIGHTBOX WITH IT, THE SAME FAULT
+  // THE ART-LESS CARDS HAD, AT 158 SLOTS INSTEAD OF 6. Found 21 August 2026
+  // while driving the art-less fix: with prefers-reduced-motion set, or in any
+  // browser without IntersectionObserver, this bailed out before the wiring
+  // eighty lines below ever ran, so EVERY hit card on all 121 pages shipped a
+  // full-card control aria-labelled "See NAME larger" that did nothing at all.
+  // Reproduced at HEAD as well as here, so it is not new; it is just invisible
+  // unless you test with the media feature emulated, which nothing did.
+  //
+  // The reveal animation is the only thing a reduced-motion reader should lose.
+  // Looking at the card is not an animation. So the bail-out is now a bail-out
+  // from ARMING, and the lightbox is wired first, unconditionally.
+  var reduced = !('IntersectionObserver' in window) ||
+    (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  wireLightbox();
+  if(reduced) return;   // never armed, so the cards are simply visible
   list.classList.add('is-armed');
 
   // FAILSAFE. If the observer has not revealed everything within two seconds,
@@ -1661,7 +1708,11 @@ addEventListener('DOMContentLoaded',function(){
   },{rootMargin:'0px 0px -5% 0px',threshold:0});
   for(var i=0;i<cards.length;i++) io.observe(cards[i]);
 
-  // Tap a card for a bigger scan and the full price detail.
+  // Tap a card for a bigger scan and the full price detail. Declared as a
+  // function rather than run inline, so the reduced-motion bail-out above can
+  // call it BEFORE it returns; see the note beside that return for what leaving
+  // it down here cost. Hoisting is what makes the call site legal.
+  function wireLightbox(){
   var lb=document.getElementById('hitlb'), lbImg=document.getElementById('hitlbImg');
   var lastFocus=null;
   function txt(id,v){ var e=document.getElementById(id); e.textContent=v||''; e.hidden=!v; }
@@ -1680,11 +1731,21 @@ addEventListener('DOMContentLoaded',function(){
     if(img && img.indexOf('https://assets.tcgdex.net/')===0 && img.slice(-5)==='.webp')
       avif.setAttribute('srcset', img.slice(0,-5)+'.avif');
     else avif.removeAttribute('srcset');
+    // THE PREVIOUS CARD'S PICTURE USED TO STAY IN THE DOM. Nothing ever cleared
+    // src, so opening a card with a scan and then one without left a 600px
+    // high.webp under the wrong card's name; it was invisible only because the
+    // box collapsed to 0px, which is a CSS change away from being wrong on
+    // screen. Only a card WITH a scan can open this dialog now, so this branch
+    // should be unreachable -- it clears anyway, because "unreachable" is what
+    // the old one was too.
     if(img){ lbImg.src=img; lbImg.alt=li.getAttribute('data-name')+', '+li.getAttribute('data-set'); lbImg.hidden=false; }
-    else lbImg.hidden=true;
+    else { lbImg.removeAttribute('src'); lbImg.alt=''; lbImg.hidden=true; }
     txt('hitlbName', li.getAttribute('data-name'));
     var n=li.getAttribute('data-n');
-    txt('hitlbSet', li.getAttribute('data-set') + (n ? ' \u2022 #'+n : '') );
+    // A NUMBER WITH NO SET NAMES NO CATALOG, same rule as the tile's own set
+    // line. Joined on the parts that exist rather than concatenated, so an
+    // empty data-set cannot leave a leading " \u2022 #025".
+    txt('hitlbSet', [li.getAttribute('data-set'), n ? '#'+n : ''].filter(Boolean).join(' \u2022 '));
     var rar=li.getAttribute('data-rarity'), pr=li.getAttribute('data-price');
     txt('hitlbPrice', pr ? pr+' raw NM' + (rar ? '  \u2022  '+rar : '') : (rar||'No market price'));
     var psa=li.getAttribute('data-psa');
@@ -1708,6 +1769,7 @@ addEventListener('DOMContentLoaded',function(){
   // Click the backdrop, but not the card itself.
   lb.addEventListener('click',function(e){ if(e.target===lb) close(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !lb.hidden) close(); });
+  }
 })();
 </script>
 ${APP_JS}

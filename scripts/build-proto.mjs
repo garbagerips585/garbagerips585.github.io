@@ -2558,6 +2558,38 @@ if (before) {
   console.log(`  ${basename(target)}: rewrote ${before} absolute url(s) to ${SITE}`);
 }
 
+/* --------------------------------------------- which sets HAVE a set logo --
+ *
+ * app.js decides whether to ask for a set logo, and it was deciding by set-id
+ * PREFIX: anything not ja-, ko- or zh- was assumed to have one. Its own comment
+ * said why that was safe -- the intl sets "are the only sets without artwork" --
+ * which was true when it was written. Two English sets, silver-tempest and
+ * lost-origin, are tagged on videos with no logo file and no guide page, so
+ * selecting either chip on /videos.html fetched a 404 and printed the only red
+ * line in an otherwise silent console.
+ *
+ * A PREFIX IS A PROXY. THE FACT IS THE FOLDER, and this script already reads it
+ * (`logos`, from dirSet above, is where the "logos: 28/28" line at the foot of
+ * this run comes from). Stamping the ids onto the element that uses them means
+ * the list is regenerated on every build and cannot go stale the way app.js's
+ * hand-mirrored LABELS map openly can.
+ *
+ * ON ONE PAGE, NOT IN app.js. The script ships on all 1,486 built pages and
+ * only /videos.html has a #setHeader, so a constant in there would be paid for
+ * everywhere and read in one place. This is about 380 bytes on the one page.
+ *
+ * NOT AN ERROR WHERE THERE IS NO MARKER. index.html and playlists.html are in
+ * TARGETS for the domain rewrite above and carry no set header, exactly as they
+ * carry none of the two grid REGIONS.
+ */
+const SET_HEADER = /<div class="set-header" id="setHeader"([^>]*)>/;
+if (SET_HEADER.test(html)) {
+  const ids = [...logos].sort().join(" ");
+  html = html.replace(SET_HEADER, (m, rest) =>
+    `<div class="set-header" id="setHeader" data-logos="${ids}"${rest.replace(/\s*data-logos="[^"]*"/, "")}>`);
+  console.log(`  ${basename(target)}: set logo manifest stamped, ${logos.size} sets`);
+}
+
 await writeFile(target, html);
 }
 

@@ -241,10 +241,12 @@
     <p class="lede" style="max-width:38em">1 card worth keeping, with what it goes for raw.</p>
     <ul class="hitcards" id="hitcards">
       <li class="hitcard" style="--i:0" data-name="Lumiose City" data-set="Perfect Order" data-n="111" data-rarity="Ultra Rare" data-img="https://assets.tcgdex.net/en/me/me03/111/high.webp" data-price="$2.58" data-psa="" data-src="">
+        
         <button class="hitcard-open" type="button" aria-label="See Lumiose City larger"></button>
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/111/low.avif"><img class="hitcard-img" src="https://assets.tcgdex.net/en/me/me03/111/low.webp" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/111/low.avif 245w, https://assets.tcgdex.net/en/me/me03/111/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="hitcard-img" src="https://assets.tcgdex.net/en/me/me03/111/low.webp" srcset="https://assets.tcgdex.net/en/me/me03/111/low.webp 245w, https://assets.tcgdex.net/en/me/me03/111/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
         <div class="hitcard-b">
           <p class="hitcard-n">Lumiose City</p>
+          
           
           <p class="hitcard-s">Perfect Order &bull; #111</p>
           <p class="hitcard-r">Ultra Rare</p>
@@ -539,10 +541,23 @@ addEventListener('DOMContentLoaded',function(){
   // immediately and the reveal was left entirely to the observer, so anything
   // that stopped the observer firing left all 14 cards permanently invisible.
   // That is a worse failure than no animation at all, and it is what shipped.
-  if(!('IntersectionObserver' in window) ||
-     (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)){
-    return;   // never armed, so the cards are simply visible
-  }
+  //
+  // AND THIS EARLY RETURN USED TO TAKE THE LIGHTBOX WITH IT, THE SAME FAULT
+  // THE ART-LESS CARDS HAD, AT 158 SLOTS INSTEAD OF 6. Found 21 August 2026
+  // while driving the art-less fix: with prefers-reduced-motion set, or in any
+  // browser without IntersectionObserver, this bailed out before the wiring
+  // eighty lines below ever ran, so EVERY hit card on all 121 pages shipped a
+  // full-card control aria-labelled "See NAME larger" that did nothing at all.
+  // Reproduced at HEAD as well as here, so it is not new; it is just invisible
+  // unless you test with the media feature emulated, which nothing did.
+  //
+  // The reveal animation is the only thing a reduced-motion reader should lose.
+  // Looking at the card is not an animation. So the bail-out is now a bail-out
+  // from ARMING, and the lightbox is wired first, unconditionally.
+  var reduced = !('IntersectionObserver' in window) ||
+    (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  wireLightbox();
+  if(reduced) return;   // never armed, so the cards are simply visible
   list.classList.add('is-armed');
 
   // FAILSAFE. If the observer has not revealed everything within two seconds,
@@ -559,7 +574,11 @@ addEventListener('DOMContentLoaded',function(){
   },{rootMargin:'0px 0px -5% 0px',threshold:0});
   for(var i=0;i<cards.length;i++) io.observe(cards[i]);
 
-  // Tap a card for a bigger scan and the full price detail.
+  // Tap a card for a bigger scan and the full price detail. Declared as a
+  // function rather than run inline, so the reduced-motion bail-out above can
+  // call it BEFORE it returns; see the note beside that return for what leaving
+  // it down here cost. Hoisting is what makes the call site legal.
+  function wireLightbox(){
   var lb=document.getElementById('hitlb'), lbImg=document.getElementById('hitlbImg');
   var lastFocus=null;
   function txt(id,v){ var e=document.getElementById(id); e.textContent=v||''; e.hidden=!v; }
@@ -578,11 +597,21 @@ addEventListener('DOMContentLoaded',function(){
     if(img && img.indexOf('https://assets.tcgdex.net/')===0 && img.slice(-5)==='.webp')
       avif.setAttribute('srcset', img.slice(0,-5)+'.avif');
     else avif.removeAttribute('srcset');
+    // THE PREVIOUS CARD'S PICTURE USED TO STAY IN THE DOM. Nothing ever cleared
+    // src, so opening a card with a scan and then one without left a 600px
+    // high.webp under the wrong card's name; it was invisible only because the
+    // box collapsed to 0px, which is a CSS change away from being wrong on
+    // screen. Only a card WITH a scan can open this dialog now, so this branch
+    // should be unreachable -- it clears anyway, because "unreachable" is what
+    // the old one was too.
     if(img){ lbImg.src=img; lbImg.alt=li.getAttribute('data-name')+', '+li.getAttribute('data-set'); lbImg.hidden=false; }
-    else lbImg.hidden=true;
+    else { lbImg.removeAttribute('src'); lbImg.alt=''; lbImg.hidden=true; }
     txt('hitlbName', li.getAttribute('data-name'));
     var n=li.getAttribute('data-n');
-    txt('hitlbSet', li.getAttribute('data-set') + (n ? ' • #'+n : '') );
+    // A NUMBER WITH NO SET NAMES NO CATALOG, same rule as the tile's own set
+    // line. Joined on the parts that exist rather than concatenated, so an
+    // empty data-set cannot leave a leading " • #025".
+    txt('hitlbSet', [li.getAttribute('data-set'), n ? '#'+n : ''].filter(Boolean).join(' • '));
     var rar=li.getAttribute('data-rarity'), pr=li.getAttribute('data-price');
     txt('hitlbPrice', pr ? pr+' raw NM' + (rar ? '  •  '+rar : '') : (rar||'No market price'));
     var psa=li.getAttribute('data-psa');
@@ -606,9 +635,10 @@ addEventListener('DOMContentLoaded',function(){
   // Click the backdrop, but not the card itself.
   lb.addEventListener('click',function(e){ if(e.target===lb) close(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !lb.hidden) close(); });
+  }
 })();
 </script>
-<script src="/assets/app.js?v=7d21299e" defer></script>
+<script src="/assets/app.js?v=bee95179" defer></script>
 <script src="/assets/packplayer.js?v=d440f081" defer></script>
 </body>
 </html>

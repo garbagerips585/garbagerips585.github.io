@@ -493,7 +493,29 @@
         .replace(/&/g, " and ")
         .replace(/[^a-z0-9]+/g, " ")
         .replace(/\s+/g, " ")
-        .trim();
+        .trim()
+        // THE ONE SUFFIX FAMILY THE OFFICIAL NAME JOINS AND PEOPLE SPACE OUT.
+        // A card is printed "Cinderace VMAX", and a reader typing it that way
+        // got 0 of 319 while "Cinderace V Max" got 1, because the rip log's
+        // cell for that pull spells it spaced. THE CELL IS THE OWNER'S TO FIX
+        // and this is not a workaround for it: after he fixes it the failure
+        // simply reverses, and a reader who types "Cinderace V Max" against a
+        // correctly spelled catalog gets nothing. Running the collapse inside
+        // norm() is what makes it symmetric, because the query and the index
+        // both come through here, so the two spellings become one token on
+        // both sides and neither direction can miss.
+        //
+        // SCOPED TO THREE WORDS, NOT TO A GENERAL "JOIN SINGLE LETTERS" RULE,
+        // and that scope is measured rather than cautious. Our own checklists
+        // under public/data/cards hold 62 cards named VMAX, VSTAR or V-UNION
+        // and those are the only names in the catalog that fuse a letter to a
+        // word this way; ex, GX and V are already separate tokens and need
+        // nothing. Across all 319 records in videos.json the only V-suffix
+        // token of any kind, in any field, is that one hitCard cell, so
+        // nothing else in the library can collide with this today. "star" is
+        // the word to watch if the rule is ever widened: "Black Star Promo" is
+        // safe only because no "v" sits in front of it.
+        .replace(/\bv (max|star|union)\b/g, "v$1");
     }
 
     // Rarity tags are codes with no searchable words of their own. Somebody
@@ -740,21 +762,43 @@
           var sid = state.sets[0], slabel = labelOf("sets", sid);
           head.hidden = false;
           head.textContent = "";
-          // ONLY ASK FOR A LOGO THAT EXISTS. 28 sets ship one, and they are
-          // exactly the 28 in public/data/sets.json; the 13 Japanese, Korean and
-          // Chinese sets have none, so selecting one fired a 404 and logged a
-          // console error every time. Nothing was ever visible -- the onerror
-          // below strips the broken image and the header keeps its name and rip
-          // count -- but a wasted request and a red line in the console on a
-          // third of the chips is the kind of noise that trains people to
-          // ignore the console.
+          // ONLY ASK FOR A LOGO THAT EXISTS. Selecting a set with no artwork
+          // fired a 404 and logged a console error every time. Nothing was ever
+          // visible -- the onerror below strips the broken image and the header
+          // keeps its name and rip count -- but a wasted request and a red line
+          // in the console is the kind of noise that trains people to ignore
+          // the console.
           //
-          // The prefix test is the one signal available here: an intl set id is
-          // built as <lang>-<set> by shared/taxonomy.mjs, and those are the only
-          // sets without artwork. onerror STAYS as the backstop, because a
-          // missing English logo is a build problem and should degrade, not
-          // throw.
-          var hasLogo = !/^(ja|ko|zh)-/.test(sid);
+          // THIS TEST USED TO BE `!/^(ja|ko|zh)-/`, AND ITS OWN COMMENT SAID
+          // WHY THAT WAS SAFE: the intl sets "are the only sets without
+          // artwork". That was true when it was written and stopped being true
+          // the day two English sets got tagged with no logo and no guide.
+          // silver-tempest and lost-origin both 404ed here on a live page,
+          // and silver-tempest carries a hit card, so it was on the site in
+          // three places with artwork in none. A prefix is a PROXY for the
+          // fact; the fact is which files are on disk.
+          //
+          // SO THE PAGE CARRIES THE LIST AND THE BUILD WRITES IT.
+          // build-proto.mjs already reads public/assets/logos to count them and
+          // stamps the ids onto #setHeader as data-logos, so this cannot go
+          // stale the way LABELS above it can: add a logo file, rebuild, and
+          // the attribute grows. It is one page's worth of bytes and none on
+          // the other 1,485 that ship this script.
+          //
+          // WHAT AN UNSUPPORTED SET TAG LOOKS LIKE, decided rather than left to
+          // onerror: exactly what an intl set already looks like. No image
+          // element, no request, no console line, and the header keeps the set
+          // name and the rip count, which are the two true things we have. The
+          // filter itself was always correct and is untouched.
+          //
+          // FAIL OPEN, NOT CLOSED. With no attribute at all -- an older cached
+          // videos.html against a newer script -- every set is allowed to ask,
+          // which is the behaviour before this change plus the onerror backstop.
+          // Closing instead would silently strip 28 logos.
+          var manifest = head.getAttribute("data-logos");
+          var hasLogo = manifest === null
+            ? true
+            : (" " + manifest + " ").indexOf(" " + sid + " ") > -1;
           if (hasLogo) {
             var limg = new Image();
             limg.src = "assets/logos/" + sid + "-pokemon-tcg-set-logo.webp";
@@ -762,9 +806,31 @@
             limg.onerror = function () { limg.remove(); };
             head.appendChild(limg);
           }
+          // "N RIPS FROM THIS SET" IS A SENTENCE ABOUT THE SET, AND IT WAS
+          // BEING HANDED THE RESULT COUNT. With ?set=chaos-rising alone the two
+          // are the same number and it read true for months. Turn a product
+          // facet on as well and the header said "Chaos Rising / 14 rips from
+          // this set" while that set's own chip, in the same viewport, said 54.
+          // Both numbers are right and only one of them is what the sentence
+          // claims: 14 is how many results are showing, not how many rips exist
+          // of that set.
+          //
+          // COUNTED OVER `all`, WHICH IS THE SAME PLACE THE CHIP GETS ITS
+          // NUMBER (see buildChips), so the header and the chip cannot disagree
+          // by construction rather than by luck. Where nothing else is
+          // narrowing, the two counts are equal and the wording is unchanged --
+          // the "X of Y" form only appears when there is a Y to distinguish.
+          var inSet = 0;
+          for (var si = 0; si < all.length; si++) {
+            if ((all[si].sets || []).indexOf(sid) > -1) inSet++;
+          }
           var txt = el("div", "txt");
           txt.appendChild(el("b", null, slabel));
-          txt.appendChild(document.createTextNode(out.length + (out.length === 1 ? " rip" : " rips") + " from this set"));
+          txt.appendChild(document.createTextNode(
+            out.length === inSet
+              ? out.length + (out.length === 1 ? " rip" : " rips") + " from this set"
+              : out.length + " of " + inSet + (inSet === 1 ? " rip" : " rips") + " from this set"
+          ));
           head.appendChild(txt);
         } else {
           head.hidden = true;

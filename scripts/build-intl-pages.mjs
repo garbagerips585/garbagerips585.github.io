@@ -40,7 +40,8 @@ import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, FONTS,
   APP_JS_NO_PACKPLAYER as APP_JS } from "../shared/chrome.mjs";
 import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
-import { parseHits, rarityLabelOf, rarityMark, RARITY_CSS } from "../shared/rarity.mjs";
+import { raritiesIn, rarityLabelOf, rarityMark, RARITY_CSS } from "../shared/rarity.mjs";
+import { pickIntlPrinting, norm } from "../shared/intl-printing.mjs";
 import { esc, longDate, shortDate, rarityLabel, imgDims, avifPicture, moneyCompact } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -168,29 +169,91 @@ for (const s of enSets) {
 const ripsBySet = {};
 for (const v of videos) for (const s of v.sets || []) (ripsBySet[s] ||= []).push(v);
 
-// THE JAPANESE AND KOREAN PAGES HAD NO HITS SECTION AT ALL, so a pull logged
-// against Cyber Judge appeared on its rip page and nowhere else. Same parse as
-// build-set-pages.mjs, same conservative rule: a fragment only counts when its
-// first segment names a set we know, and doubles are one row with a count.
-const SET_BY_NAME = new Map();
-for (const cs of CARD_SETS) {
-  const n = (x) => String(x).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
-  SET_BY_NAME.set(n(cs.label), cs.id);
-  SET_BY_NAME.set(n(String(cs.label).replace(/\s*\((?:JP|KR|CN|TW)\)\s*$/i, "")), cs.id);
-}
+/* --------------------------------------------- what we pulled from this set --
+ *
+ * THESE PAGES HAD A BAND AND IT WAS READING THE WRONG FILE, SO SIX OF THE SEVEN
+ * GUIDES WITH LOGGED CARDS LISTED NONE OF THEM. Fixed 21 August 2026.
+ *
+ * The band went in to fix "a pull logged against Cyber Judge appeared on its rip
+ * page and nowhere else", and it fed on `parseHits(v.hitCard)` -- the raw Hit
+ * Card CELL, re-parsed here, counting a fragment only where its first segment
+ * spells a set name we recognise. That is a text join, and it lands on exactly
+ * one of the thirteen guides. Measured against the log before this change:
+ *
+ *      guide                    cards the log records    rows on the page
+ *      ja-nihil-zero                     3                      0
+ *      ja-stellar-miracle                3                      0
+ *      ja-abyss-eye                      2                      0
+ *      ja-mega-symphonia                 2                      0
+ *      ja-mega-brave                     1                      0
+ *      ja-ninja-spinner                  1                      0
+ *      ja-cyber-judge                    1                      1
+ *
+ * Meanwhile /hall.html carries plaques for Crabominable, Meditite and Raboot,
+ * all three out of Stellar Miracle, all three WITH card art, and that guide said
+ * nothing about any of them. Two pages in the same nav disagreeing about what
+ * came out of a pack is the same fault class as the hall's own count, and it is
+ * the one this site can least afford.
+ *
+ * IT WAS NEVER A DATA GAP AND IT IS NOT A LIMIT OF TCGDEX. data/hits.json is the
+ * structured file import-sheet.mjs writes per video, keyed by youtube id, with
+ * the set ALREADY resolved on every row -- which is what build-hall.mjs and the
+ * 34 English guides have both been reading all along. This reads the same file
+ * now. The rip band above it was always joined correctly; only the card band was
+ * looking somewhere else. CLAUDE.md records the same shape once before, when
+ * build-hall.mjs could only open one of the two checklist files this repo ships:
+ * "it is a builder that could only read one of the two."
+ *
+ * WHICH PRINTING, AND THE ANSWER IS THE SAME ONE THE OTHER TWO GIVE. The rule
+ * lives in shared/intl-printing.mjs and this is its third caller; going through
+ * it is what stops a guide naming a different printing from the plaque for the
+ * card. Four of the thirteen rows pin to a printing and nine do not, so nine go
+ * in on the sheet's own words with no number, which asserts nothing.
+ *
+ * STILL NO PRICES ON THESE PAGES, which is this file's standing rule and the
+ * one visible difference from the English band. A tile here carries the picture,
+ * the name, the tier and the number, and the note under the band says why there
+ * is no money on it rather than printing a column of "No price".
+ */
+const HITS = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
+const videoById = new Map(videos.map((v) => [v.id, v]));
 const cardKey = (x) =>
   String(x || "").toLowerCase().replace(/\b(trainer|supporter|item|stadium)\b/g, " ")
     .replace(/[^a-z0-9]+/g, " ").trim();
 
+/**
+ * The guide's own checklist in the shape pickIntlPrinting expects. Same cut
+ * build-hall.mjs and build-pages.mjs make: `image` in intl-guides.json is a
+ * whole url ending in /low.webp and every emitter here appends its own
+ * rendition, so it is reduced to the base and tested against no-scan.json,
+ * which sync-intl-guides.mjs does not apply.
+ */
+function guideChecklist(g) {
+  if (!g?.cards?.length) return null;
+  return g.cards.map((c) => {
+    const base = c.image ? String(c.image).replace(/\/(low|high)\.(webp|avif|png|jpg)$/, "") : null;
+    return {
+      n: c.localId,
+      name: c.en || c.native,
+      rarity: c.rarity || null,
+      img: base && !NO_SCAN.has(base) ? base : null,
+    };
+  });
+}
+
 const HITS_BY_SET = new Map();
-for (const v of videos) {
-  if (!v.hitCard) continue;
-  for (const h of parseHits(v.hitCard, SET_BY_NAME).hits) {
-    if (!HITS_BY_SET.has(h.set)) HITS_BY_SET.set(h.set, new Map());
-    const g = HITS_BY_SET.get(h.set);
+for (const [vid, list] of Object.entries(HITS)) {
+  const v = videoById.get(vid);
+  if (!v) continue;
+  for (const h of list) {
+    if (!h.set) continue;
     const k = cardKey(h.card);
     if (!k) continue;
-    if (!g.has(k)) g.set(k, { card: h.card, rarity: h.rarity, promo: h.promo, count: 0, rips: [] });
+    if (!HITS_BY_SET.has(h.set)) HITS_BY_SET.set(h.set, new Map());
+    const g = HITS_BY_SET.get(h.set);
+    // A CARD PULLED TWICE IS ONE ROW WITH A COUNT, same rule as the English
+    // guides and as /hall.html's dedupe. The count is the interesting part.
+    if (!g.has(k)) g.set(k, { card: h.card, rarity: h.rarity || null, count: 0, rips: [] });
     const e = g.get(k);
     e.count += 1;
     if (!e.rarity && h.rarity) e.rarity = h.rarity;
@@ -198,9 +261,38 @@ for (const v of videos) {
   }
 }
 
+/**
+ * THE LETTER BADGE, FROM A LABEL RATHER THAN FROM AN ID, AND IT REFUSES A NEAR
+ * MISS. The band used to be fed by parseHits, which hands back a rarity ID that
+ * rarityMark and rarityLabelOf take directly. data/hits.json stores what the
+ * person WROTE ("Art Rare", "Super Rare"), so the id has to be recovered, and
+ * raritiesIn is a substring matcher: it reads "Secret Rare" as `rare` and would
+ * print a one-star English black star on a Japanese secret. So the id is only
+ * accepted where the tier it names spells the log's own words back exactly.
+ * Anything else keeps the words and loses the mark, which is the standing rule
+ * everywhere a tier cannot be pinned on these pages.
+ */
+function rarityBadge(written) {
+  const words = rarityLabel(written);
+  if (!words) return "";
+  const id = raritiesIn(words)[0];
+  const exact = id && rarityLabelOf(id).toLowerCase() === String(words).toLowerCase();
+  return `<span class="mine-rk">${exact ? rarityMark(id) : ""}${esc(words)}</span>`;
+}
+
 function hitsBand(g, cls) {
-  const hits = [...(HITS_BY_SET.get(g.id) || new Map()).values()].sort((a, b) => b.count - a.count);
-  if (!hits.length) return "";
+  const rows = [...(HITS_BY_SET.get(g.id) || new Map()).values()].sort((a, b) => b.count - a.count);
+  if (!rows.length) return "";
+  const checklist = guideChecklist(g);
+  const pinned = [];
+  const plain = [];
+  for (const h of rows) {
+    const same = checklist ? checklist.filter((c) => norm(c.name) === norm(h.card)) : [];
+    const m = pickIntlPrinting(same, h.rarity ? norm(h.rarity) : null);
+    if (m) pinned.push({ ...h, m });
+    else plain.push(h);
+  }
+  const total = rows.length;
   return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
@@ -208,22 +300,67 @@ function hitsBand(g, cls) {
     ${/* The second sentence agrees as well as the first. An imported guide that
           has hit exactly one card read "1 card out of our own packs. Every one
           of them is in a video you can watch." build-set-pages.mjs carries the
-          same lede and got the same fix. */ ""}<p class="lede" style="max-width:38em">${hits.length} card${
-      hits.length === 1 ? "" : "s"
+          same lede and got the same fix. */ ""}<p class="lede" style="max-width:38em">${total} card${
+      total === 1 ? "" : "s"
     } out of our own packs.
-      ${hits.length === 1 ? "It is" : "Every one of them is"} in a video you can watch.</p>
-    <ul class="mine-list">
-      ${hits
+      ${total === 1 ? "It is" : "Every one of them is"} in a video you can watch.</p>
+    ${pinned.length ? `<ul class="mine-grid">
+      ${pinned
+        .map(
+          (h) => `<li class="mine">
+        ${h.m.img
+          ? avifPicture(`<img class="mine-img" src="${esc(h.m.img)}/low.webp" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(`${h.m.img}/low.webp`)}>`)
+          : `<div class="mine-img is-none" aria-hidden="true"></div>`}
+        <p class="mine-n">${esc(h.m.name)}${h.count > 1 ? ` <span class="mine-x">&times;${h.count}</span>` : ""}</p>
+        ${/* THE CHECKLIST'S TIER FIRST, THEN THE LOG'S OWN WORD. Same
+              precedence as the plaque on /hall.html, which is the point: the
+              two pages must not print different tiers for one card. TCGdex
+              leaves 36 of Stellar Miracle's 135 unfiled, which is exactly the
+              three cards this grid holds, so without the fallback the row
+              would show a bare collector number. */ ""}
+        <p class="mine-r">${[esc(rarityLabel(h.m.rarity || h.rarity) || ""), h.m.n ? `#${esc(h.m.n)}` : ""].filter(Boolean).join(" &bull; ")}</p>
+        ${h.rips.map((r) => `<a class="mine-w" href="/${esc(r.path)}">Watch the rip &rarr;</a>`).join("\n        ")}
+      </li>`
+        )
+        .join("\n      ")}
+    </ul>` : ""}
+    ${plain.length ? `<ul class="mine-list">
+      ${plain
         .map(
           (h) => `<li><b>${esc(h.card)}</b>${h.count > 1 ? ` <span class="mine-x">x${h.count}</span>` : ""}${
-            h.rarity ? ` <span class="mine-rk">${rarityMark(h.rarity)}${esc(rarityLabelOf(h.rarity))}</span>` : ""
+            h.rarity ? ` ${rarityBadge(h.rarity)}` : ""
           }
         ${h.rips.map((r) => `<a href="/${esc(r.path)}">${esc(r.label)} &rarr;</a>`).join("\n        ")}</li>`
         )
         .join("\n      ")}
-    </ul>
-    <p class="mine-note">Those came out of the rip log as written. They do not have a card number or a price
-      against them yet, so they are listed rather than priced.</p>
+    </ul>` : ""}
+    ${/* THE NOTE HAS TO DESCRIBE WHICHEVER HALVES ARE ON THE PAGE, because a
+          guide can show all four shapes: pinned with a scan, pinned without one,
+          and unpinned. Saying "they are listed rather than priced" over a grid
+          of pictures with collector numbers on them would be describing the
+          version of this band that existed before it read the rip log. */ ""}
+    ${/* AND A CARD WITH NO NUMBER HAS TWO DIFFERENT REASONS, which is the
+          distinction build-hall.mjs already draws on the console and which this
+          note used to flatten into one sentence. TCGdex publishes a card COUNT
+          and zero card records for Cyber Judge and for the Chinese guide, so
+          there is no list to look anything up on; everywhere else there IS a
+          list and the tier is what cannot separate two printings of one name.
+          Saying "the rarity ladder is not mapped" over a set we hold no
+          checklist for names the wrong cause. */ ""}
+    <p class="mine-note">${[
+      plain.length
+        ? `${
+            plain.length === total
+              ? plain.length === 1 ? "That one came" : "Those came"
+              : `${plain.length} of them came`
+          } out of the rip log as written, with no card number: ${
+            checklist
+              ? "the Japanese rarity ladder is deliberately not mapped onto the English one, so where a name is printed more than once in a set nothing here can say which printing it was"
+              : "the card database publishes a card count for this set and no card records, so there is no checklist here to look a number up on"
+          }.`
+        : "",
+      "We do not price non-English printings anywhere on this site, so these are shown rather than valued.",
+    ].filter(Boolean).join(" ")}</p>
   </div>
 </section>`;
 }
