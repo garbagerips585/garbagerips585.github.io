@@ -25,7 +25,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=13927e47">
+<link rel="stylesheet" href="/assets/ui.css?v=0fd7abb6">
 <style>
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
@@ -41,6 +41,15 @@ width:112px;padding:var(--s2);background:var(--card);border:1px solid var(--hair
 .dx-stage[aria-current]{border-width:3px;border-color:var(--keyline)}
 .dx-arrow{font:700 1.1rem/1 var(--body);color:var(--ink-2)}
 .dx-eff{display:grid;gap:var(--s2);margin-top:var(--s4);list-style:none}
+/* AT MOST FIVE ROWS AND EVERY ONE OF THEM WAS 1,392px WIDE AT 1440, on all
+   1,025 species pages, holding "x2" and up to six type names: the content
+   stopped a third of the way across and the card kept going. One column is
+   right on a phone and it is the only place it is right, so the grid gets a
+   second column once there is room for two honest ones. TWO AND NOT auto-fit:
+   the list is five items, so three columns leaves a 3+2 that reads as a
+   mistake, and the widest row (x2 on a dual type) genuinely needs half of
+   1,392 rather than a third of it. */
+@media(min-width:900px){.dx-eff{grid-template-columns:1fr 1fr}}
 .dx-eff li{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:baseline;
 background:var(--paper-2);border:1px solid var(--hair);border-radius:var(--r);padding:10px 12px}
 .dx-eff b{font:700 var(--t-sm)/1.4 var(--mono);min-width:3.2em}
@@ -49,7 +58,47 @@ background:var(--paper-2);border:1px solid var(--hair);border-radius:var(--r);pa
 color:var(--ink);background:var(--card);border:2px solid var(--keyline);border-radius:var(--r-pill);margin-top:var(--s4)}
 .dx-chips{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s3)}
 .dx-count{font:400 var(--t-sm)/1.4 var(--body);color:var(--ink-2);margin-top:var(--s3)}
-.dx-gen h3{font:700 var(--t-m)/1.2 var(--body);margin:var(--s5) 0 0}
+/* ------------------------------------------------- the generation strips */
+/* NINE HEADERS OVER A 30,328px COLUMN OF TEXT. Measured at 390x844 before the
+   change, by walking every picture inside <main> in document coordinates: the
+   longest run of this page with no picture in it was 30,328px, 88.7% of the
+   whole of <main>, from y=3,930 to the end. All 23 pictures were in the top
+   band. Nine generations of name-and-number chips followed with nothing to
+   look at, which on a phone is 36 screens of nothing.
+   THE STRIP IS CONTENT AND NOT DECORATION, which is the only reason it is
+   here: three starters say "this is where Kanto ends and Johto begins" to a
+   reader who is scrolling for Chikorita, and each one is a link to that
+   species' own page. A mascot here would have been the opposite of true: the
+   joke Trubbish carries is "there is nothing in this one" and this page lists
+   1,025 things.
+   THE BOX IS 48px AND THE RUNG DECIDES, NOT THE BOX. data/species-art.json
+   ships 96, 256 and 475 and nothing between, so the ladder here is 96w and
+   256w and the only question is where a density crosses. 48 x 1 = 48 and
+   48 x 2 = 96, both covered by the 96px file; 48 x 3 = 144 is not, so DPR 3
+   takes the 256. That is deliberate and it is the reason the box is 48 and not
+   56: at 56 the DPR 2 phone crosses too and the strips cost 301KB there as
+   well. Verified by reading currentSrc at all three densities, never off the
+   markup. The whole family is 99KB at DPR 1 and 2 and 301KB at DPR 3, all of
+   it fully-scrolled and NONE of it on the load path: the first strip sits
+   3,930px down a 844px viewport, so all 27 are lazy and none is fetched
+   before a reader asks for it.
+   Every box is pinned in the markup AND here, because CLS is 0.000 across the
+   tree and a strip of unsized pictures is the cheapest way to lose it. */
+.dx-genband{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3);margin:var(--s6) 0 0;
+padding:var(--s3);background:var(--paper);border:1px solid var(--hair);
+border-bottom:3px solid var(--keyline);border-radius:var(--r)}
+.dx-gentxt{flex:1 1 14em;min-width:0}
+.dx-genband h3{font:700 var(--t-m)/1.2 var(--body);margin:0}
+.dx-genband p{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);margin:3px 0 0}
+.dx-stbox{flex:none}
+.dx-stlab{font:400 var(--t-micro)/1.2 var(--mono);color:var(--ink-2);
+text-transform:uppercase;letter-spacing:.08em;margin:0 0 2px}
+.dx-starters{display:flex;gap:var(--s2);list-style:none;margin:0}
+.dx-starters a{display:flex;flex-direction:column;align-items:center;gap:1px;
+width:62px;color:var(--ink-2);text-decoration:none}
+.dx-starters img{width:48px;height:48px;object-fit:contain}
+.dx-starters b{font:400 var(--t-micro)/1.15 var(--body);text-align:center}
+.dx-starters a:hover b{color:var(--sky-deep);text-decoration:underline}
 .dx-list{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s2);margin-top:var(--s3);list-style:none}
 .dx-item{display:flex;flex-direction:column;gap:1px;background:var(--card);border:1px solid var(--hair);
 border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none}

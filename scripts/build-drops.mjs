@@ -247,7 +247,20 @@ const style = `
   border-radius:999px;background:var(--card);color:var(--ink);cursor:pointer}
 .dr-f[aria-pressed="true"]{background:var(--mustard);color:var(--on-accent)}
 .dr-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
-@media(max-width:820px){.dr-grid{grid-template-columns:1fr}}
+/* 700 AND NOT 820, BECAUSE 820 PUT AN iPAD ON THE PHONE LAYOUT. An iPad in
+   portrait is 768 CSS px, under the old 820, so a tablet got the phone's single
+   column and every drop card was stretched across the full 720px wrap. 700 is
+   the widest boundary that leaves 768 on two columns and it is a measured line
+   rather than a round one: the wrap is 660px inside a 700px viewport, so two
+   322px cards and a 16px gap fit exactly, and at 390 the wrap is 350px where
+   one column is still the only thing that fits.
+   These cards are short, 233 to 683 characters over a photo, so narrowing them
+   barely adds height and pairing them halves the rows: 1,448px to 1,123 at 768,
+   a 22% shorter band. NOT auto-fit, because the base repeat(2,1fr) IS this
+   grid's desktop rule at every width above 820 and there is no min-width rule
+   over it; an auto-fit floor low enough to give two columns at 720 computes
+   FOUR at the 1,392px wrap of a 1440 window, which nobody chose. */
+@media(max-width:700px){.dr-grid{grid-template-columns:1fr}}
 .drop{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4);display:flex;flex-direction:column;gap:var(--s2)}
 .drop[hidden]{display:none}

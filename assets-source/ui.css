@@ -269,7 +269,38 @@
      is 358 and the grid holds two; at 24 it is 342 and the grid drops to ONE
      column, doubling the height of every list that uses it. The desktop gutter
      is unchanged at 24: nothing above 700px was complained about and every
-     horizontal pixel here comes out of the content. */
+     horizontal pixel here comes out of the content.
+
+     THE PHONE VALUE WENT 16 -> 20 ON 21 August 2026, AND THE PARAGRAPH ABOVE
+     ASKED THE WRONG QUESTION. Tim, again and on the same subject: "on mobile
+     still noticing lots of things not looking perfect ... i noticed pages where
+     text and images are still going right to end of screen lets make sure
+     padding is perfect on all pages and all parts of the pages on mobile."
+     The word that matters is STILL. Every page in the tree was measured before
+     this change, all 1,486 of them at 320 and at 390 in headless Chrome, and
+     the site was already honouring 16px almost perfectly: 26 fault instances,
+     on 5 pages, all of them mechanical and all of them fixed in this same pass.
+     So there was no widespread bug to find. What Tim is looking at IS 16px, on
+     the pages where prose sits directly on the page ground with no card around
+     it, and 16 is simply not enough room there.
+
+     20 RATHER THAN 24, AND THE CEILING ABOVE IS WHY THE ANSWER IS NOT A ROUND
+     NUMBER. That paragraph compared 16 against 24 and never priced anything in
+     between, which is how a real constraint came to rule out the whole range
+     behind it. Two columns of .flat-list need 346px; 390 - 2 x 20 is 350, so
+     the grid still holds two with 4px to spare, where 24 leaves 342 and drops
+     one. 22 is the true maximum and lands on 346 EXACTLY, which is no headroom
+     at all against sub-pixel rounding, and this file's own note under Card
+     images is about a five-pixel margin being too thin to rely on. 20 is a
+     25% increase in the room Tim asked for at a cost of nothing measurable.
+
+     RE-MEASURED AFTER, same harness, all 1,486 pages at 320 and 390: 0 elements
+     past the right edge with no clipping ancestor, scrollX 0 on every page at
+     both widths, and .flat-list holds the same column count on every page that
+     carries one. The trophy on the home page does not move either, and that is
+     not luck: the note beside .hofx says its width is a CAP rather than a width
+     precisely so a later change here cannot push the banner back under the
+     fold, and 78vw still binds at 20 (the wrap would only win under 182px). */
   --gut:var(--s5);
   --r:10px; --r-pill:999px;
   /* --r-sm WAS USED FIFTEEN TIMES AND DEFINED NOWHERE. An undefined custom
@@ -361,8 +392,14 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
 /* THE ONE PLACE THE PHONE GUTTER IS SET. Everything that has to line up with
    the page edge reads --gut, so this block is the whole change and there is no
    second number to keep in step. 700px is the site's existing phone boundary:
-   .bar-in, .rail-in, .shelf and .mw-shelf all already switch here. */
-@media(max-width:700px){:root{--gut:var(--s4)}}
+   .bar-in, .rail-in, .shelf and .mw-shelf all already switch here.
+   IT IS A LITERAL 20px AND NOT A STEP ON THE --s SCALE, which is the one thing
+   about this line worth pausing on: the scale goes 16, 24, and the whole
+   argument in :root is that the right answer is BETWEEN those two. A token that
+   can only take scale values would have forced the choice back to 16 or 24, so
+   the literal is the decision rather than a lapse. The 24px desktop value above
+   is still var(--s5). */
+@media(max-width:700px){:root{--gut:20px}}
 .wrap{max-width:1500px;margin:0 auto;padding:0 var(--gut)}
 :focus-visible{outline:3px solid var(--ketchup-deep);outline-offset:2px;
   box-shadow:0 0 0 5px rgba(255,255,255,.95)}
@@ -1915,9 +1952,24 @@ footer .soc svg{fill:var(--chrome-ink)}
 /* quick facts: 2-up on a phone, 4-up when there is room */
 .facts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:22px}
 @media(min-width:700px){.facts{grid-template-columns:repeat(4,1fr);gap:14px}}
+/* min-width:0 IS THE SAME BUG AS .hitcard, one grid up. A 1fr track's default
+   minimum is MIN-CONTENT, so the widest figure in the row sets the floor for
+   BOTH tracks instead of each getting an equal share. Measured on
+   /top-graded.html at 320 BEFORE the fix, when the phone gutter was still 16
+   and the wrap was 288 wide so an equal share was 139px: the tracks came out
+   163.891px and 117.578px (not even equal, because the second track gives back
+   what the first one took), so the right-hand tile ran to 307.47 against a 304
+   limit and hung 3.47px into the gutter. $16,492,000 is the token: 133.89px of
+   Titan One at the clamp FLOOR. The floor is lowered below for the same reason
+   .hitcard-src is allowed to break -- min-width:0 on its own relocates the
+   overflow into the tile instead of removing it.
+   THE 139 IS THE OLD GUTTER'S ARITHMETIC and is kept only because it is what
+   the BEFORE column was measured against. The share is 135px now: the gutter
+   went to 20 in the same pass, so 320 - 40 - 10 of gap, halved. */
 .fact{
   background:var(--paper-2);border:3px solid var(--keyline);border-radius:12px;
   padding:14px 12px;text-align:center;box-shadow:0 5px 0 var(--trubbish);
+  min-width:0;
 }
 /* The rips count is a link to that set's rips. It is a whole bubble rather
    than a word inside one, so the target is the full 44px+ tile on a phone. */
@@ -1926,7 +1978,22 @@ footer .soc svg{fill:var(--chrome-ink)}
 .fact-link:hover,.fact-link:focus-visible{transform:translateY(-2px);
   box-shadow:0 7px 0 var(--trubbish);border-color:var(--sky-deep)}
 .fact-link:hover .l,.fact-link:focus-visible .l{color:var(--sky-deep)}
-.fact .n{font-family:var(--display);font-size:clamp(1.3rem,5.5vw,1.9rem);color:var(--ketchup-deep);line-height:1.05}
+/* THE CLAMP FLOOR WAS 1.3rem AND THAT IS WHAT MADE THE TILE TOO WIDE TO FIT.
+   Below 378px the 5.5vw middle term is already under 1.3rem, so the floor is
+   what renders and the figure stops shrinking exactly where the tile stops
+   having room: at 320 the floor painted $16,492,000 at 20.8px and 133.89px
+   wide against a track that had only about 109px of room inside its padding
+   and border. 1.05rem (16.8px) puts the 5.5vw term back in charge at 320,
+   where it computes 17.6px, and the figure fits.
+   NOTHING MOVES AT 390 OR ABOVE, and that is the point of moving the floor
+   rather than the ceiling or the vw term: 5.5vw is 21.45px at 390 and 1.3rem
+   was 20.8, so the floor has not been the rendered size on Tim's phone at any
+   point. RE-MEASURED ON THE BUILT PAGE after both this and the gutter change:
+   tracks 135px/135px and font-size 17.6px at 320, tracks 170px/170px and
+   21.45px at 390, and the row's right edge lands on 300.00 against a 300
+   limit at 320. Equal tracks are the thing to check here, not the number:
+   they are what says the min-content floor is no longer setting the size. */
+.fact .n{font-family:var(--display);font-size:clamp(1.05rem,5.5vw,1.9rem);color:var(--ketchup-deep);line-height:1.05}
 .fact .l{
   font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
   color:var(--ink-soft);margin-top:5px;font-weight:700;
@@ -4126,8 +4193,25 @@ span.cq-name{color:var(--ink)}
      card goes soft. auto-fill with a max of 220 keeps every card inside its
      source resolution at any viewport. */
   grid-template-columns:repeat(auto-fill,minmax(150px,220px));justify-content:center}
+/* min-width:0 IS THE GUTTER FIX AND IT IS THE Topps `<code>` BUG AGAIN. A grid
+   item's default minimum is its MIN-CONTENT width, so the `repeat(2,1fr)` in the
+   max-width:520 block below cannot hold two EQUAL tracks: the widest unbreakable
+   token in the card sets the floor and both tracks grow to it. The token is the
+   source line's domain, `pricecharting.com,`, which measures 138.6px in this
+   mono at 320. Measured on /rip/6-boxes-and-still-no-og-starters-M7NqqhR8V4M
+   .html at 320 before the fix: tracks 147.188px each against a 138px share, so
+   the row ran 306.38 inside a 288px wrap and `justify-content:center` split the
+   18.38px overflow evenly, putting the cards at 9.99 and 310.01 against a 16px
+   gutter. Two rip pages of 318 were affected and both are the First Partner
+   promo rips, whose card names are the longest in the tree.
+   THE PAGE DID NOT SCROLL SIDEWAYS, so the site's own overflow test passed it,
+   exactly as it did for the Topps `<code>`. 6px of card hanging into the gutter
+   is a real fault whether or not the document scrolls to meet it.
+   min-width:0 alone would move the overflow into the card rather than removing
+   it, so the source line is allowed to break: see .hitcard-src. */
 .hitcard{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
-  padding:var(--s3);display:flex;flex-direction:column;gap:var(--s2);box-shadow:var(--lift)}
+  padding:var(--s3);display:flex;flex-direction:column;gap:var(--s2);box-shadow:var(--lift);
+  min-width:0}
 .hitcard-img{display:block;width:100%;height:auto;aspect-ratio:245/337;object-fit:cover;
   border-radius:6px;background:var(--page)}
 /* A promo or an off-checklist card has no scan. Hold the same box so the grid
@@ -4229,7 +4313,18 @@ inherited from the UA default, so the promotion moves nothing on screen. */
 .loc-i{width:15px;height:15px;flex:none;fill:currentColor;display:block}
 /* Where a hand-read price came from. Only promos carry this: everything else
    refreshes nightly from one source the section note already names. */
-.hitcard-src{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-soft);margin-top:2px}
+/* overflow-wrap:anywhere IS THE OTHER HALF OF .hitcard's min-width:0 and it is
+   the declaration that actually lets the card be narrow. `pricecharting.com,`
+   is one unbreakable token 138.6px wide at 320, which is wider than the 138px
+   a two-up card gets there, so without a break opportunity the min-width:0
+   simply moves the overflow from the page to the card. `anywhere` rather than
+   `break-word` because only `anywhere` is honoured when the browser computes
+   MIN-CONTENT, which is the number the grid track is sized from: break-word
+   leaves min-content at the full token width and the track blows out anyway.
+   It is scoped to this one line and nothing else in the card breaks: a card
+   NAME split across lines would be worse than a narrow column. */
+.hitcard-src{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-soft);margin-top:2px;
+  overflow-wrap:anywhere}
 
 /* ---------- a landscape rip ----------
    .rip-grid is a narrow left column for the 9:16 player plus a wide right
@@ -5332,6 +5427,38 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
   box-shadow:inset 0 0 0 2px rgba(17,17,17,.6), inset 0 0 0 5px rgba(232,185,58,.5),
     0 0 34px rgba(232,185,58,.22), 0 16px 44px rgba(17,17,17,.46),
     0 0 0 5px rgba(255,255,255,.95)}
+
+/* ==========================================================================
+   THE HALL OF FAME RANK MEDALLION WAS THE WORST GUTTER FAULT ON THE SITE, and
+   it is corrected from here for the same reason .chof-art is NOT: that rule is
+   emitted into a page-level <style> by scripts/build-hall.mjs, which lands
+   after this file, so only SPECIFICITY can reach it. `.chofpage .chof-rank` is
+   0,2,0 against that file's 0,1,0 and wins wherever it sits in the cascade.
+
+   WHAT WAS WRONG. build-hall.mjs sets `.chof-rank{position:absolute;left:-10px}`
+   so the medallion straddles the card's top-left corner. Below 620px the list
+   is ONE column, so that card is the whole page column and the overhang is
+   entirely into the page gutter: measured on /hall.html at both 320 and 390,
+   the disc's left edge painted at x=7 against a 16px gutter, a 9px intrusion
+   and the largest on the site. It is a 40px gold disc, so it reads as the one
+   thing on the page that does not line up, which is exactly the complaint.
+
+   WHY left:0 RATHER THAN A SMALLER NEGATIVE. Any negative number is a second
+   value that has to be kept in step with --gut by hand, and the last three
+   bugs in this file are all of that shape. left:0 needs no arithmetic: the
+   disc's left edge lands on the card's, which IS the gutter line, so the
+   medallion aligns with every heading and paragraph on the page. It still
+   straddles the TOP edge (top:-10px is untouched), so it still reads as a
+   badge pinned to the card rather than as a bullet inside it.
+
+   SCOPED TO 700px, which is the site's phone boundary and where --gut steps.
+   Above it the list is two or three columns and only the leftmost card's
+   medallion is anywhere near the page edge, at a 24px gutter, so the original
+   overhang is left exactly as it was on every screen that is not a phone.
+   ========================================================================== */
+@media(max-width:700px){
+  .chofpage .chof-rank{left:0}
+}
 
 /* ==========================================================================
    THE NAMED PROSE CAPS, BROUGHT ONTO THE SHARED MEASURE.

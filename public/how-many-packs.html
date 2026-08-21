@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=13927e47">
+<link rel="stylesheet" href="/assets/ui.css?v=0fd7abb6">
 <style>
 .hp-lede{max-width:44em}
 /* --band-bg FOR THE FILL AND --keyline FOR THE FRAME, and this line used to
@@ -60,6 +60,18 @@
    and its five named products. */
 .hp-list{list-style:none;margin:var(--s5) 0 0;padding:0;display:grid;
   grid-template-columns:repeat(2,1fr);gap:var(--s4);align-items:start}
+/* THIS 900 IS CORRECT AND IT IS THE ONE THAT LOOKS WRONG. .hp-two lower down
+   moved to 700 on 20 August 2026 so an iPad in portrait stops getting the phone
+   layout, and this grid deliberately did not follow it. The cards carry a photo
+   AND a long labelled body, 535 to 1,465 characters, and .hp-card lays the
+   photo out as a flex row beside that text: narrow the card and the text column
+   loses width twice over, once to the grid and again to the photo it sits next
+   to. Measured at 768, forcing two columns: 9,241px to 9,675, so the band gets
+   TALLER and the reader gets a narrower measure for it.
+   Twenty-three cards also pair badly. The row is as tall as its tallest card
+   and these run 318px to 688px, so half of every row is white.
+   The 1000 rule is where this earns two columns: the wrap is 976px there and a
+   column is 480px, which is the width these cards were drawn for. */
 @media(max-width:900px){.hp-list{grid-template-columns:1fr}}
 .hp-card{display:flex;gap:var(--s4);align-items:flex-start;background:var(--card);
   border:3px solid var(--keyline);border-radius:12px;padding:var(--s4);box-shadow:var(--hard-lg)}
@@ -203,7 +215,19 @@
 .hp-cite a{display:inline-block}
 .hp-cite a span{display:block;color:var(--ink-soft);text-decoration:none}
 .hp-two{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4);margin-top:var(--s5)}
-@media(max-width:820px){.hp-two{grid-template-columns:1fr}}
+/* 700 AND NOT 820, BECAUSE 820 PUT AN iPAD ON THE PHONE LAYOUT. 768 is an iPad
+   in portrait and it is under 820, so a tablet got the phone's single column
+   with both boxes stretched across the full 720px wrap. The wrap is 660px
+   inside a 700px viewport, which is two 322px boxes and a 16px gap, and 350px
+   at 390 where one column is still the only fit.
+   THESE TWO BELONG SIDE BY SIDE and that is the actual argument: one box is the
+   2025 story that turned out to be wrong and the other is what could not be
+   sourced, so they are a PAIR of caveats and read as one when they are level.
+   Stacked, the second reads as a footnote to the first. They are short, 555 and
+   664 characters, so the pairing costs no height and saves some: 442px to 373
+   at 768. NOT auto-fit, because the base repeat(2,1fr) IS the desktop rule here
+   and an auto-fit floor low enough for two at 720 gives four at 1440. */
+@media(max-width:700px){.hp-two{grid-template-columns:1fr}}
 .hp-box{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4)}
 .hp-box h3{font:400 var(--t-m)/1.2 var(--display);margin-bottom:6px}

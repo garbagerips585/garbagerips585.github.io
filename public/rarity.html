@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=13927e47">
+<link rel="stylesheet" href="/assets/ui.css?v=0fd7abb6">
 <style>
 .rg{padding:var(--s7) 0 var(--s5)}
 .rg-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:42em;margin-bottom:var(--s5)}
@@ -111,7 +111,14 @@
 .rr.is-chase{border-color:var(--gold-deep);box-shadow:0 4px 0 var(--gold-deep),var(--lift)}
 .rr-n{font:400 var(--t-m)/1 var(--display);color:var(--ink-2);text-align:center;padding-top:4px}
 .rr-card img{width:100%;height:auto;border-radius:6px;display:block}
-.rr-body h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:4px}
+/* The gutter rules for this row are argued in the JS comment above ladderRow. */
+.rr-body,.offl li>div:last-child{min-width:0}
+.rr-body h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:4px;overflow-wrap:anywhere}
+/* Tracks unchanged, span only: see the note above ladderRow. */
+@media(max-width:380px){
+  .rr-body{grid-column:1/-1}
+  .offl li>div:last-child{grid-column:1/-1}
+}
 .rr-chase{font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
   background:var(--mustard);border:1px solid var(--gold-deep);color:var(--on-accent);
   padding:4px 7px;border-radius:var(--r-pill);vertical-align:middle}

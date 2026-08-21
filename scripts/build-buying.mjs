@@ -754,6 +754,19 @@ const style = `
 .by-grp{margin-top:var(--s6)}
 .by-grp > p{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
 .by-vs{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
+/* THIS 900 IS CORRECT AND IT IS THE ONE THAT LOOKS WRONG. Every other grid on
+   this page moved to 700 on 20 August 2026 so an iPad in portrait stops getting
+   the phone layout. This one did not, because the cards are ESSAYS: the venue
+   comparisons run 5,178 to 11,042 characters each. A text card does not get
+   shorter when you narrow it, it gets taller in exact proportion, so two
+   columns of unequal essays is a WORSE band. Measured at 768, forcing two
+   columns: 13,404px to 16,728, a 25% TALLER page for the same words, because a
+   grid row is as tall as its tallest card and an 11,042 character card paired
+   with a 5,178 one wastes the whole difference.
+   The 1200 rule below is where this band earns three columns: the wrap is
+   1,392px by then and a column is 453px, a reading measure rather than a
+   sliver. DO NOT "FINISH THE JOB" BY MOVING THIS TO 700 TO MATCH ITS
+   NEIGHBOURS: the neighbours are short cards and this one is not. */
 @media(max-width:900px){.by-vs{grid-template-columns:1fr}}
 .by-v,.by-p{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4)}
@@ -823,7 +836,28 @@ ${BRAND_STYLE}
 .by-grades,.by-cond-l{margin:var(--s2) 0 0 var(--s4);font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
 .by-grades li,.by-cond-l li{margin-bottom:var(--s2)}
 .by-ps{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
-@media(max-width:900px){.by-ps{grid-template-columns:1fr}}
+/* 700 AND NOT 900, BECAUSE 900 PUT AN iPAD ON THE PHONE LAYOUT. 768 is an iPad
+   in portrait, below the old 900, so a tablet got the phone's single column and
+   every protection card was stretched across the full 720px wrap. The wrap is
+   660px inside a 700px viewport: two 322px cards and a 16px gap fit exactly,
+   and at 390 the wrap is 350px where one column is still the only fit.
+   THE HEIGHT IS A WASH AND THE READING MEASURE IS NOT, which is the whole
+   argument for this one. The band is 4,246px in one column against 3,991 in
+   two, near enough nothing. The line length is the real cost: measured with a
+   canvas on this page's own 14px face, a card in the old single column ran
+   110 CHARACTERS PER LINE, and in two columns it runs 51. This file's
+   neighbours cap prose at 33em because that is 76 characters here, so 110 is
+   34 over the house standard and 51 is 25 under it. 51 also sits inside the
+   conventional 45 to 75 band and 110 sits a long way outside it, so two
+   columns is the closer of the two and not merely the shorter.
+   These are dense cards, 430 to 2,101 characters of nested lists, and they do
+   look busier paired than a mockup would suggest. That is the trade being
+   made deliberately: busy at a readable measure beats airy at 110 characters.
+   Seven cards over two columns leaves one half-width slot on the last row.
+   .by-vs ABOVE KEEPS ITS 900, and the measurement for why is written beside
+   it. NOT auto-fit: the 1200 rule sets three columns for this band, and an
+   auto-fit floor low enough for two at 720 also computes three at 1152. */
+@media(max-width:700px){.by-ps{grid-template-columns:1fr}}
 .by-list{margin:var(--s4) 0 0 var(--s4);max-width:46em;line-height:1.55}
 .by-list li{margin-bottom:var(--s3)}
 .by-list b{color:var(--ink)}

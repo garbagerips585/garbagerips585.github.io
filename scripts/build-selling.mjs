@@ -734,6 +734,20 @@ const style = `
 .se-grp{margin-top:var(--s6)}
 .se-grp > p{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
 .se-vs{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
+/* THIS 900 IS CORRECT AND IT IS THE ONE THAT LOOKS WRONG. Every other grid on
+   this page and its sibling /buying.html moved to 700 on 20 August 2026 so an
+   iPad in portrait stops getting the phone layout. This one did not, because
+   the cards are ESSAYS: the venue comparisons run 2,463 to 6,222 characters
+   each. A text card does not get shorter when you narrow it, it gets taller in
+   exact proportion, so two columns of unequal essays is a WORSE band and not a
+   better one. Measured at 768, forcing two columns: 13,324px to 13,983, and on
+   /buying.html where the longest card is 11,042 characters the same forcing
+   costs 25%, 13,404px to 16,728. The row is as tall as its tallest card, so
+   pairing a long essay with a short one buys nothing and pays for it twice.
+   The 1200 rule below is where this band earns three columns: by then the wrap
+   is 1,392px and a column is 453px, which is a reading measure rather than a
+   sliver. DO NOT "FINISH THE JOB" BY MOVING THIS TO 700 TO MATCH ITS
+   NEIGHBOURS: the neighbours are short cards and this one is not. */
 @media(max-width:900px){.se-vs{grid-template-columns:1fr}}
 .se-v,.se-p{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4)}
@@ -793,7 +807,26 @@ ${BRAND_STYLE}
 .se-cond li{margin-bottom:var(--s2)}
 .se-adv{display:block;font-size:var(--t-micro);opacity:.85}
 .se-ps{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
-@media(max-width:900px){.se-ps{grid-template-columns:1fr}}
+/* 700 AND NOT 900, BECAUSE 900 PUT AN iPAD ON THE PHONE LAYOUT. 768 is an iPad
+   in portrait and it is BELOW 900, so a tablet was getting the phone's single
+   column with every protection card stretched across the full 720px wrap. The
+   wrap is 660px inside a 700px viewport, which is two 322px cards and a 16px
+   gap, and 350px at 390 where one column is still the only fit.
+   .se-vs ABOVE KEEPS ITS 900 ON PURPOSE and the two are not an inconsistency:
+   see the measurement written beside it. These protection cards are 260 to
+   1,378 characters and the band gets SHORTER in two columns, 3,381px to 2,955,
+   because each card is mostly a short labelled list rather than an essay.
+   THE READING MEASURE MOVES FURTHER THAN THE HEIGHT DOES. Measured with a
+   canvas on this page's own 14px face, a card in the old single column ran
+   110 CHARACTERS PER LINE and in two columns it runs 51. The house standard is
+   33em, which is 76 characters here, so the old layout was 34 over it and the
+   new one is 25 under: 51 is inside the conventional 45 to 75 band and 110 is
+   nowhere near it. Same numbers as .by-ps on /buying.html, same call.
+   NOT auto-fit: the 1200 rule below sets three columns for this band and an
+   auto-fit floor low enough to give two at 720 computes three at the 1152px
+   wrap of a 1200 window too, which is the same answer by accident rather than
+   the one that was chosen. Moving the number touches 700..999 and nothing else. */
+@media(max-width:700px){.se-ps{grid-template-columns:1fr}}
 .se-list{margin:var(--s4) 0 0 var(--s4);max-width:46em;line-height:1.55}
 .se-list li{margin-bottom:var(--s3)}
 .se-list b{color:var(--ink)}

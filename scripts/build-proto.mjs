@@ -823,9 +823,15 @@ const hofHtml = hofPick
             //
             // IT IS EXACT AT EVERY PHONE WIDTH, WHICH IS A PROPERTY OF THE
             // CAP RATHER THAN LUCK. The cap can only lose to the wrap when
-            // 100vw - 2*--gut drops under 78vw, which with a 16px gutter is
-            // 145px, so there is no device on which this declaration is a
-            // guess. Read off the DOM: 209.6 at 320, 240.8 at 360, 264.2 at
+            // 100vw - 2*--gut drops under 78vw, which with the 20px phone
+            // gutter is 182px, so there is no device on which this declaration
+            // is a guess. THE NUMBER WAS 145px WHILE THE GUTTER WAS 16px and
+            // it is restated here because the gutter moved to 20 on 21 August
+            // 2026: the CONCLUSION is unchanged, and the reason it is unchanged
+            // is the one ui.css gives beside .hofx, that 78vw is a CAP rather
+            // than a width precisely so a gutter change cannot reach it. The
+            // measured boxes below did not move either and were re-read after.
+            // Read off the DOM: 209.6 at 320, 240.8 at 360, 264.2 at
             // 390, 282.9 at 414, 295.4 at 430, 384.3 at 544, every one of them
             // the number calc gives. So there is no second phone stop to write.
             //
@@ -2099,6 +2105,29 @@ ${sweep}`;
  * prefers-reduced-motion case: the band is the same object at both settings,
  * verified under an emulated reduce with the marks decoding.
  */
+// ---------------------------------------------------------------------------
+// THIS SITS IN JS AND NOT BESIDE THE DECLARATIONS IT DESCRIBES, because the
+// style block below ships to the browser verbatim: nothing strips comments out
+// of a page-level <style> the way build-css.mjs strips them out of ui.css, so
+// prose written in there is render-blocking page weight. Measured when these
+// notes were first written into the CSS: +1,411 bytes gzipped on /rarity.html,
+// +634 on /will-it-grade.html, +519 on /index.html and +459 on /start.html.
+//
+// A ROTATED SQUARE PAINTS OUTSIDE ITS OWN LAYOUT BOX, which is why this chevron
+// was the only thing on the home page hanging into the page gutter. The element
+// is 11x11 and transform does not change layout, so flex lays it out 11px wide
+// and ends it exactly on the wrap's right edge, while rotate(45deg) paints it
+// 11 * sqrt(2) = 15.556px wide about its centre. Measured at both 320 and 390:
+// the tip painted at 306.28 and 376.28 against limits of 304 and 374, so 2.28px
+// of it sat in the gutter at every width.
+// --chev-bleed IS THE ARITHMETIC RATHER THAN THE ANSWER, so a change to the
+// 11px does not silently leave the number 2.28 behind: it is half the
+// difference between the painted diagonal and the laid-out side. The margin
+// pulls the layout box in by exactly that, which lands the painted tip ON the
+// gutter line instead of past it. THE OPEN STATE HAS TO RESTATE IT: margin is
+// a shorthand and margin:5px 0 0 was zeroing the right side, at a higher
+// specificity than any longhand written above it.
+// ---------------------------------------------------------------------------
 const homeCss = `<style>.hofx-art .play{opacity:.95}
 /* The heading is ui.css's own .brk, the same object "Latest rips" and "Card
    Pokedex" use further down the page, so the band arrives in the page's own
@@ -2112,8 +2141,10 @@ const homeCss = `<style>.hofx-art .play{opacity:.95}
 .wdrop-sum::-webkit-details-marker{display:none}
 .wdrop-sum::marker{content:""}
 .wdrop-n{flex:none;font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);letter-spacing:.04em;text-transform:uppercase}
-.wdrop-chev{flex:none;width:11px;height:11px;margin-bottom:5px;border-right:3px solid var(--ketchup-deep);border-bottom:3px solid var(--ketchup-deep);transform:rotate(45deg)}
-.wdrop-d[open] .wdrop-chev{margin:5px 0 0;transform:rotate(-135deg)}
+/* --chev-bleed: see the note above homeCss. */
+.wdrop-chev{flex:none;width:11px;height:11px;--chev-bleed:calc((11px * 1.41421356 - 11px) / 2);
+  margin:0 var(--chev-bleed) 5px 0;border-right:3px solid var(--ketchup-deep);border-bottom:3px solid var(--ketchup-deep);transform:rotate(45deg)}
+.wdrop-d[open] .wdrop-chev{margin:5px var(--chev-bleed) 0 0;transform:rotate(-135deg)}
 .wdrop-body{padding-top:var(--s4)}
 .wdrop-more{margin-top:var(--s4)}
 .wdrop-more a{display:inline-flex;align-items:center;min-height:44px;font:700 var(--t-sm)/1 var(--body);color:var(--ketchup-deep)}

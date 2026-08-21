@@ -473,6 +473,51 @@ const slangCard = (s) => {
 };
 
 
+// ---------------------------------------------------------------------------
+// THE .rr LADDER ROW'S GUTTER RULES. This sits here, as a JS comment, and not
+// beside the declarations in the style block below, because that block ships to
+// the browser verbatim: nothing strips comments out of a page-level <style> the
+// way build-css.mjs strips them out of ui.css, so prose written in there is
+// render-blocking page weight on this page. Measured: this note cost 1,411
+// bytes gzipped on /rarity.html when it lived in the CSS.
+//
+// min-width:0 IS A GUTTER FIX AND IT IS THE SAME BUG ui.css RECORDS ON .hitcard
+// AND .fact. The 1fr third track of .rr has a default minimum of MIN-CONTENT,
+// so the widest unbreakable word in the body sets the track rather than the
+// space left over. Measured on this page at 320 before the fix: seven rows
+// computed 34px 96px 92px as intended and THREE came out 109.562px and 115px,
+// which pushed the h3, the description, the example line and the magnified
+// corner up to 6px past the wrap's right edge while the <li> box itself stayed
+// pinned at 16..304. The row is a flex child, so nothing widened visibly and
+// the page never scrolled sideways: only the contents hung over.
+// The words are display-font headings in Titan One at var(--t-m), and the
+// overflow-wrap on the heading is what gives the browser somewhere to break so
+// min-width:0 has an effect at min-content rather than just relocating the
+// overflow. anywhere and not break-word: only anywhere is honoured when the
+// browser computes the min-content the track is sized from.
+//
+// THOSE TWO STOP THE GUTTER FAULT AND ON THEIR OWN THEY LOOK BAD, WHICH IS WHY
+// THE max-width:380 MEDIA QUERY IN THE STYLE BLOCK IS THE REAL FIX. With just the pair above,
+// 320px rendered the heading "Uncommon" as "Uncom" over "mon". That is not a
+// near miss, it is the column being genuinely too small: the body track solves
+// to W - 236 (the two 20px gutters, 32px of card padding, 2px of border, and
+// the 34 + 16 + 96 + 16 of number, gap, card and gap), so it is 84px at 320,
+// and the widest word on the page is "Illustration" at 115.0px with "Uncommon"
+// at 109.6. No amount of breaking makes 115px of one word fit 84px of column.
+//
+// SO BELOW 380px THE BODY TAKES ITS OWN ROW, which is the pattern .rr-zoom
+// already uses on this same grid. The body gets the full 246px at 320 and
+// nothing breaks mid-word at any width. 380 is chosen off the arithmetic
+// rather than picked, and both sides of it were then MEASURED rather than
+// trusted: at 381 the row is still three columns and the body track is
+// 145.0px against that 115px word, at 380 it stacks and the body is 306.0px.
+// So the breakpoint sits exactly where the column stops being able to hold
+// the content with headroom, and 390 was never affected either way.
+// THE PAIR ABOVE STAYS ANYWAY. They are what makes it impossible for this row
+// to reach the gutter again if a future rarity name is longer than any of
+// today's, and with the stack in place neither of them has to fire on the
+// content the page actually has.
+// ---------------------------------------------------------------------------
 const ladderRow = (r, i) => `      <li class="rr${r.chase ? " is-chase" : ""}">
         <div class="rr-n">${i + 1}</div>
         <div class="rr-card">
@@ -622,7 +667,14 @@ const style = `
 .rr.is-chase{border-color:var(--gold-deep);box-shadow:0 4px 0 var(--gold-deep),var(--lift)}
 .rr-n{font:400 var(--t-m)/1 var(--display);color:var(--ink-2);text-align:center;padding-top:4px}
 .rr-card img{width:100%;height:auto;border-radius:6px;display:block}
-.rr-body h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:4px}
+/* The gutter rules for this row are argued in the JS comment above ladderRow. */
+.rr-body,.offl li>div:last-child{min-width:0}
+.rr-body h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:4px;overflow-wrap:anywhere}
+/* Tracks unchanged, span only: see the note above ladderRow. */
+@media(max-width:380px){
+  .rr-body{grid-column:1/-1}
+  .offl li>div:last-child{grid-column:1/-1}
+}
 .rr-chase{font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
   background:var(--mustard);border:1px solid var(--gold-deep);color:var(--on-accent);
   padding:4px 7px;border-radius:var(--r-pill);vertical-align:middle}

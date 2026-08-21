@@ -250,6 +250,26 @@ const desc =
 // it filters. Nothing is gained by a search box wider than the query anybody
 // types into it.
 const DESKTOP_CSS = `<style>
+/* TWO COLUMNS FROM 700, WHICH IS WHERE A TABLET STARTS. Until 20 August 2026
+   the first column rule here was the 1080 one below, so everything under it got
+   ONE column: an iPad in portrait is 768 CSS px and was showing sixty 720px-wide
+   rows, each holding a card name, a set, a rarity and a price, about seventy
+   characters in total. That is a phone layout at double width and nothing else.
+   700 is measured rather than picked: the wrap is 660px inside a 700px viewport,
+   which is two 329px rows and the 2px gap, and at 390 the wrap is 350px where
+   one column is still the only fit.
+   THIS ALSO MOVES 1024, ON PURPOSE. An iPad in landscape was the same single
+   column at 976px wide, and the 1080 rule right below already says two columns
+   is right for these rows, so the old behaviour was a cliff between 1024 and
+   1080 rather than a decision. The 1080 rule is now redundant and is kept
+   because it is the one that carries the .cardsearch cap with it.
+   NOT auto-fit: only floors between 325 and 329px give two columns at BOTH the
+   660px wrap of a 700 window and the 976px wrap of a 1024 one, and a rule that
+   survives on a four-pixel window is not a rule, it is a coincidence waiting
+   for the next gutter change. The 1600 rule below still takes it to three. */
+@media(min-width:700px){
+  .cq-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}
+}
 @media(min-width:1080px){
   .cq-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}
   .cardsearch{max-width:860px}

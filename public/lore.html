@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=13927e47">
+<link rel="stylesheet" href="/assets/ui.css?v=0fd7abb6">
 <link rel="stylesheet" href="/assets/games.css?v=15befa74">
 <style>
 /* THIS PAGE'S OWN IMAGERY. It lives here rather than in assets-source/ui.css
@@ -76,6 +76,17 @@
 .lore-scale{flex:1 1 260px;min-width:0;align-self:flex-end}
 .lore-scale svg{width:100%;height:auto;max-width:420px;display:block}
 .lore-scale figcaption{font:400 var(--t-micro)/1.5 var(--body);color:inherit;opacity:.72;margin-top:6px}
+
+/* The height bars grow as they scroll in, once. BASE STATE IS THE FINISHED BAR:
+   scaleY(0) exists only under .is-armed, which JS adds only when it has
+   confirmed it will reveal. transform-box:fill-box is NOT optional here, see
+   scripts/build-lore.mjs. Second scroll reveal on this site and the LAST one. */
+.lore-scale .lore-bar{transform-box:fill-box;transform-origin:50% 100%;
+  transition:transform .5s cubic-bezier(.2,.7,.3,1)}
+.lore-scale.is-armed .lore-bar{transform:scaleY(0)}
+.lore-scale.is-armed .lore-bar:nth-of-type(2){transition-delay:90ms}
+.lore-scale.is-armed.is-in .lore-bar{transform:none}
+@media(prefers-reduced-motion:reduce){.lore-scale.is-armed .lore-bar{transform:none}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Pokemon lore","item":"https://garbagerips585.github.io/lore.html"}]}</script>
 </head>
@@ -240,7 +251,7 @@
           <svg viewBox="0 0 300 132" role="img" aria-hidden="true" focusable="false">
       <line x1="20" y1="63" x2="300" y2="63" stroke="currentColor" stroke-width="1" opacity=".28"/><text x="0" y="67" font-size="10" fill="currentColor" opacity=".75" font-family="var(--mono)">1m</text><line x1="20" y1="10" x2="300" y2="10" stroke="currentColor" stroke-width="1" opacity=".28"/><text x="0" y="14" font-size="10" fill="currentColor" opacity=".75" font-family="var(--mono)">2m</text>
       <line x1="20" y1="116" x2="300" y2="116" stroke="currentColor" stroke-width="1.5"/>
-      <rect x="56" y="84.2" width="66" height="31.799999999999997" rx="3" fill="var(--gold)"/><text x="89" y="77.2" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor" font-family="var(--mono)">0.6m</text><text x="89" y="129" text-anchor="middle" font-size="10" fill="currentColor" opacity=".75" font-family="var(--mono)">TRUBBISH</text><rect x="156" y="15.300000000000011" width="66" height="100.69999999999999" rx="3" fill="var(--gold)"/><text x="189" y="8.300000000000011" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor" font-family="var(--mono)">1.9m</text><text x="189" y="129" text-anchor="middle" font-size="10" fill="currentColor" opacity=".75" font-family="var(--mono)">GARBODOR</text>
+      <rect class="lore-bar" x="56" y="84.2" width="66" height="31.799999999999997" rx="3" fill="var(--gold)"/><text x="89" y="77.2" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor" font-family="var(--mono)">0.6m</text><text x="89" y="129" text-anchor="middle" font-size="10" fill="currentColor" opacity=".75" font-family="var(--mono)">TRUBBISH</text><rect class="lore-bar" x="156" y="15.300000000000011" width="66" height="100.69999999999999" rx="3" fill="var(--gold)"/><text x="189" y="8.300000000000011" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor" font-family="var(--mono)">1.9m</text><text x="189" y="129" text-anchor="middle" font-size="10" fill="currentColor" opacity=".75" font-family="var(--mono)">GARBODOR</text>
     </svg>
           <figcaption>Drawn from the Pokedex heights, not from the artwork: the bars are to scale, the
             two pictures beside them are not.</figcaption>
@@ -472,6 +483,27 @@
     Pokedex data from pokeapi.co, read fresh rather than remembered.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
+<script>
+(function(){
+  var fig=document.querySelector('.lore-scale');
+  if(!fig) return;
+  var bars=fig.querySelectorAll('.lore-bar');
+  if(bars.length!==2) return;
+  /* RETURN WITHOUT ARMING: arming here is how a chart ships as empty air. */
+  if(!('IntersectionObserver' in window)||
+     (window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  fig.classList.add('is-armed');
+  /* Strips .is-armed at its SOURCE rather than adding .is-in over the top. */
+  var fs=setTimeout(function(){ fig.classList.remove('is-armed'); },2000);
+  var io=new IntersectionObserver(function(es){
+    for(var i=0;i<es.length;i++){
+      if(!es[i].isIntersecting) continue;
+      clearTimeout(fs); fig.classList.add('is-in'); io.disconnect();
+    }
+  },{rootMargin:'0px 0px -10% 0px',threshold:0});
+  io.observe(fig);
+})();
+</script>
 <script src="/assets/app.js?v=ae4e5a0b" defer></script>
 </body>
 </html>

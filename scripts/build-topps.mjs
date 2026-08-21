@@ -647,7 +647,25 @@ const CSS = `
    sentence of breakdown, and a table would either clip it or set five columns
    of ragged text at 390px. */
 .tp-sets{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:10px}
-@media (min-width:820px){.tp-sets{grid-template-columns:1fr 1fr}}
+/* 700 AND NOT 820, BECAUSE 820 PUT AN iPAD ON THE PHONE LAYOUT. An iPad in
+   portrait is 768 CSS px, under the old 820, so a tablet showed all eleven set
+   cards as 720px-wide boxes with the pack art marooned in the middle of them.
+   700 is measured: the wrap is 660px inside a 700px viewport, which is two
+   325px cards and the 10px gap, and at 390 the wrap is 350px where one column
+   is still the only fit. Measured at 768, one column to two: 4,127px to 3,246,
+   a 21% shorter run of sets.
+   STILL A FIXED PAIR AND NOT auto-fit, for two separate reasons and either one
+   would be enough. First, this rule is the only column rule on the grid, so it
+   governs 1440 as well as 768; an auto-fit floor low enough to give two columns
+   in a 660px wrap computes FOUR in the 1,392px wrap of a 1440 window, which
+   would re-decide a desktop layout nobody asked to change. Second, the SECOND
+   .tp-sets on this page holds exactly one card, the Europe-only set under "And
+   one that never came to the States", and auto-fit collapses its empty track
+   and stretches that lone card to the full width. It is the same kind of card
+   as the eleven above it and it has to be the same size as them, which a fixed
+   pair gives for free. (auto-fill would also keep the track, but it would still
+   lose the desktop count, so the fixed pair is the answer to both.) */
+@media (min-width:700px){.tp-sets{grid-template-columns:1fr 1fr}}
 .tp-set-card{background:var(--card);border:1px solid var(--hair);border-radius:var(--r-sm);
   padding:14px 16px}
 .tp-set-card h3{margin:0;font-size:var(--t-body);font-family:var(--body);font-weight:700;line-height:1.25}

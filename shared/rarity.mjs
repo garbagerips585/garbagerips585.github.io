@@ -217,6 +217,29 @@ export function rarityChip(id, { short = false } = {}) {
 export const rarityLabelOf = (id) => (BY_ID.get(id) || {}).label || "";
 
 /** The CSS, kept beside the key so the two cannot drift apart. */
+// ---------------------------------------------------------------------------
+// THIS SITS IN JS AND NOT BESIDE THE DECLARATIONS IT DESCRIBES, because the
+// style block below ships to the browser verbatim: nothing strips comments out
+// of a page-level <style> the way build-css.mjs strips them out of ui.css, so
+// prose written in there is render-blocking page weight. Measured when these
+// notes were first written into the CSS: +1,411 bytes gzipped on /rarity.html,
+// +634 on /will-it-grade.html, +519 on /index.html and +459 on /start.html.
+//
+// THE LONGEST RARITY NAME IS WIDER THAN A NARROW PHONE'S PAGE COLUMN, and this
+// chip inherits ui.css's .chip, which is flex:none plus white-space:nowrap
+// because it was written for the filter rails where a chip must never wrap.
+// A rarity key is not a rail: it is a wrapping row of labels, and the label is
+// the whole content, so the two rules want opposite things.
+// MEASURED on /start.html at 320 with the 20px phone gutter: "Special
+// Illustration Rare" wants 286.09px against a 280px column, so it ran 6.09px
+// past the right edge. It cleared by 1.91px at the old 16px gutter, which is
+// the kind of margin this repo has been caught by before, so the fix is the
+// rule and not the four pixels. Everything wider than about 336px still puts
+// it on one line, so nothing on a 390 phone or a desktop changes shape.
+// height:auto with a 44px FLOOR keeps the tap/label target at the size .chip
+// promises while letting a two-line chip be two lines tall; padding-block is
+// what stops the text touching the pill on that second line.
+// ---------------------------------------------------------------------------
 export const RARITY_CSS = `
 .rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
 .rk svg{width:11px;height:11px;display:block}
@@ -245,7 +268,10 @@ export const RARITY_CSS = `
 .rk-fire svg{fill:var(--ketchup);width:10px;height:12px}
 .rk-jp{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.04em;color:var(--chrome-ink);background:var(--band-bg);
   border-radius:3px;padding:3px 5px}
-.chip-rk{display:inline-flex;align-items:center}
+/* .chip-rk wrapping: see the note above RARITY_CSS. */
+.chip-rk{display:inline-flex;align-items:center;
+  flex:0 1 auto;min-width:0;white-space:normal;
+  height:auto;min-height:44px;padding-block:6px}
 `;
 
 // ============================================================================

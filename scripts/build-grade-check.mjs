@@ -306,6 +306,34 @@ const miniCard = (left) => {
             </svg>`;
 };
 
+// ---------------------------------------------------------------------------
+// THIS SITS IN JS AND NOT BESIDE THE DECLARATIONS IT DESCRIBES, because the
+// style block below ships to the browser verbatim: nothing strips comments out
+// of a page-level <style> the way build-css.mjs strips them out of ui.css, so
+// prose written in there is render-blocking page weight. Measured when these
+// notes were first written into the CSS: +1,411 bytes gzipped on /rarity.html,
+// +634 on /will-it-grade.html, +519 on /index.html and +459 on /start.html.
+//
+// THE LADDER'S TRACKS ARE FIXED AND THE PANEL IS NOT, so on the narrowest
+// phones the row is wider than the box it sits in and paints out through it.
+// The tracks do not shrink: col 1 has a 104px floor and cols 2 and 3 are auto
+// against a 56px drawing with a 56px caption under it, so the row is
+// 104 + 24 + 56 + 24 + 56 = 264px at every width. At 320 the panel's content
+// box is 242px (320 less two 20px gutters, less the 3px border and 16px
+// padding either side), so 22px of row hangs out of a 242px box and 3px of it
+// lands past the page gutter. The grid's own rect measures 242 and reports
+// nothing wrong, which is why only a paint-edge measurement finds this.
+// IT CLEARED BY 1px AT THE OLD 16px GUTTER and that is the whole reason it was
+// never seen: the row ended at 299 against a 304 limit. A layout held together
+// by four pixels of luck is not held together, so this fixes the row rather
+// than the four pixels, and it buys real headroom instead of just enough.
+// TWO CHANGES, PHONE ONLY, and 88px is not a guess: "Near Mint-Mint 8" is the
+// longest grade name and measures exactly 104.00px on one line, which is what
+// pins the first column. It carries a hyphen, so at 88 it breaks after "Near
+// Mint-" instead of pinning the track, and the row becomes
+// 88 + 12 + 56 + 12 + 56 = 224px inside 242: 18px spare rather than -22.
+// Above 700px nothing here applies and the desktop flex layout is untouched.
+// ---------------------------------------------------------------------------
 const ladder = () => `      <figure class="lad">
         <div class="lad-grid">
           <span class="lad-h"></span>
@@ -866,6 +894,10 @@ const style = `
 .lad-c{display:block;text-align:center}
 .lad-c b{display:block;margin-top:6px;font:700 var(--t-micro)/1 var(--mono);color:var(--ketchup-deep)}
 .lad-svg{display:block;width:clamp(56px,17vw,104px);height:auto}
+/* Phone tracks: see the note above ladder() for the arithmetic. */
+@media(max-width:700px){
+  .lad-grid{grid-template-columns:minmax(88px,220px) auto auto;column-gap:var(--s3)}
+}
 /* Desktop puts the caption beside the cards rather than under them. The grid is
    a fixed ~430px however wide the page is, so stacked it left roughly 800px of
    empty panel at 1280 with the explanation below the fold of the figure. */

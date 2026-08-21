@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=13927e47">
+<link rel="stylesheet" href="/assets/ui.css?v=0fd7abb6">
 <style>.ms-lede{max-width:46em}
 .ms-warn{max-width:46em;margin:0 0 var(--s3);padding:var(--s3) var(--s4);
 border:3px solid var(--keyline);border-radius:var(--r);background:var(--paper-3);
@@ -79,6 +79,9 @@ background:var(--paper-2);color:var(--ink);font-family:var(--body)}
 .ov-h3{margin:var(--s5) 0 var(--s2)}
 .ov-bands,.ov-list,.ov-kinds{list-style:none;margin:var(--s4) 0 0;padding:0;
 display:grid;gap:var(--s4)}
+@media(min-width:700px){
+.ov-bands{grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))}
+}
 .ov-b,.ov-l,.ov-k{border:3px solid var(--keyline);border-radius:var(--r);
 background:var(--card);padding:var(--s4);box-shadow:var(--hard-lg)}
 .ov-mult,.ov-brange{margin:0;display:flex;flex-direction:column;gap:2px}

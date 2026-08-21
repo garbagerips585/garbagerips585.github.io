@@ -26,7 +26,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=13927e47">
+<link rel="stylesheet" href="/assets/ui.css?v=0fd7abb6">
 <style>
 /* This page's own block rather than ui.css. ui.css is render blocking on every
    page on the site and these rules are used by two of them. */
@@ -258,7 +258,24 @@
 .t100-src h3{margin:0 0 4px;font-size:var(--t-body);font-family:var(--body);font-weight:700}
 .t100-src p{margin:0;font-size:var(--t-sm);color:var(--ink-2);max-width:60em}
 .t100-src code{font-family:var(--mono);font-size:.85em;word-break:break-all}
-@media (min-width:900px){.t100-src{grid-template-columns:1fr 1fr}}
+/* TWO COLUMNS FROM 700 AND NOT 900, BECAUSE 900 PUT AN iPAD ON THE PHONE
+   LAYOUT. An iPad in portrait is 768 CSS px, below the old 900, so a tablet
+   showed these four notes as 720px-wide boxes: a phone layout at double width.
+   700 is measured rather than picked: the wrap is 660px inside a 700px viewport,
+   which is two 325px boxes and the 10px gap, and at 390 the wrap is 350px where
+   one column is still the only fit. Measured at 768, one column to two: 640px
+   to 535, a 16% shorter methodology block.
+   auto-fit WAS TRIED HERE AND IT IS WRONG, WHICH IS WHY THIS SAYS 1fr 1fr.
+   This is the only column rule on the grid, so whatever it says also governs
+   1440. repeat(auto-fit,minmax(min(320px,100%),1fr)) gives the two columns that
+   were wanted at 768, and then FOUR columns of 341px in the 1,392px wrap at
+   1440, which is not a layout anybody chose for four methodology notes: it
+   shreds a 499 character paragraph into a 341px ribbon. Measured, not guessed.
+   A floor big enough to refuse the fourth column at 1440 is over 460px, and
+   that floor refuses the SECOND column at 768, which is the bug this rule
+   exists to fix. There is no floor that satisfies both, so the count is written
+   down instead. If a fifth note is ever added, this is the line to revisit. */
+@media (min-width:700px){.t100-src{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>

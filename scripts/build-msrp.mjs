@@ -1013,6 +1013,25 @@ const STYLE = `
 .ov-h3{margin:var(--s5) 0 var(--s2)}
 .ov-bands,.ov-list,.ov-kinds{list-style:none;margin:var(--s4) 0 0;padding:0;
   display:grid;gap:var(--s4)}
+/* .ov-bands IS THE ONE GRID ON THIS PAGE THAT AUTO-FIT ACTUALLY SUITS, and it
+   is here rather than in the 1000 block because the bug was everything BELOW
+   that block: an iPad in portrait is 768 CSS px, so until 20 August 2026 these
+   four bands were 720px-wide boxes holding 190 to 235 characters each, a phone
+   layout at double width. Four short, equal, label-and-a-sentence cards is the
+   one shape where the grid can be trusted to count its own columns: they never
+   leave a ragged row because four divides by two, and they never grow taller
+   when narrowed because there is not enough text in them to reflow. Measured at
+   768, one column to two: 593px to 397, a 33% shorter band.
+   THE FLOOR IS A REAL MEASUREMENT. 320px is the widest card that still lets two
+   sit in the 660px wrap of a 700px viewport with the 16px gap, and the narrowest
+   that still refuses a third in the 976px wrap at 1024, which is what keeps this
+   agreeing with the repeat(2,...) in the 1000 block instead of fighting it.
+   min() IS LOAD BEARING AND NOT DECORATION: a bare minmax(320px,1fr) cannot go
+   below its floor, so at 320 the 280px wrap would get a 320px track and paint
+   40px into the gutter. min(320px,100%) lets the single column shrink. */
+@media(min-width:700px){
+  .ov-bands{grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))}
+}
 .ov-b,.ov-l,.ov-k{border:3px solid var(--keyline);border-radius:var(--r);
   background:var(--card);padding:var(--s4);box-shadow:var(--hard-lg)}
 /* The multiple is the biggest thing on a listing card for the same reason the
@@ -1109,11 +1128,27 @@ const STYLE = `
      bands above and below it fill, which is the same "the top of the page reads
      as a different site from the bottom" the home page's desktop pass was
      about. Two columns instead. */
+  /* AND IT STAYS AT 1000 WHILE .ov-bands MOVED TO 700. That was checked on
+     20 August 2026 rather than assumed, when every other grid on the site was
+     pulled below the iPad's 768. These 26 product cards carry a photo laid out
+     BESIDE a 610 to 1,186 character body, so narrowing the card takes width off
+     the text twice: once for the grid and again for the photo it sits next to.
+     Measured at 768, forcing two columns: 10,513px to 12,138, a 15% TALLER page
+     for the same words. At 1000 the wrap is 976 and a column is 480px, which is
+     the width the card was drawn at. Do not pull this one down to match. */
   .ms-list{grid-template-columns:repeat(2,minmax(0,1fr))}
   /* Same call as .ms-list one line up and for the same reason: these are cards
      and not prose, so they fill the wrap rather than stopping at a measure. The
      listings stay ONE column at every width. Four of them side by side reads as
      a comparison of four shops, which is the one thing this band is not. */
+  /* .ov-bands ALREADY HAS TWO COLUMNS BY THE TIME THIS RULE IS REACHED, from
+     the auto-fit rule written beside its base declaration, and it is left in
+     this selector because this is where the ARGUMENT for two columns lives and
+     the two rules agree on the answer. .ov-kinds is the one this line still
+     decides, and it stays at 1000: five cards of 428 to 610 characters pair
+     into three rows with a hole in the last one, and the band is 1,239px in one
+     column against 1,159 in two at 768, a 6% saving that does not pay for a
+     ragged row and a 352px measure. It gets its two columns at 480px instead. */
   .ov-bands,.ov-kinds{grid-template-columns:repeat(2,minmax(0,1fr))}
   .ov-list{max-width:33em}
 }

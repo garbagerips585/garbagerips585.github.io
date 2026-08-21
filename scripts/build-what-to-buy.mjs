@@ -1531,6 +1531,44 @@ const STYLE = `
    every page of the site. Same call build-proto.mjs's inline block makes for
    .vcar and .hofx. If this page's components ever get reused, move them.
    ========================================================================== */
+/* ==========================================================================
+   THE CARD GRIDS START PAIRING AT 700, NOT AT 1000. Until 20 August 2026 the
+   first column rule on this page was the 1000 one below, so an iPad in portrait
+   at 768 CSS px got the phone layout with every card stretched across the full
+   720px wrap. 700 is measured rather than picked: the wrap is 660px inside a
+   700px viewport, which is two 322px cards and the gap, and at 390 the wrap is
+   350px where one column is still the only thing that fits. Measured at 768,
+   one column to two, this is the biggest single win on the site:
+       .wtb-picks   2,810px -> 1,970   -30%
+       .gft-picks   1,323px ->   831   -37%
+       .wtb-gloss   2,091px -> 1,350   -35%
+       .wtb-deck      471px ->   345   -27%
+   These are the shape that pairs well: a price, a label and three or four lines
+   over a small photo, so a card barely grows when it narrows and two of them
+   genuinely halve the band. Compare .by-vs on /buying.html, which is the same
+   change on essay-length cards and comes out 25% TALLER.
+   THE PICKS STAY A FIXED PAIR and the argument is the one written against the
+   1000 rule below: a situation carries one pick or two, and auto-fit collapses
+   the empty track and stretches a lone card back to full width, which is the
+   exact defect being fixed. That applies at 768 just as it does at 1200, so the
+   fixed pair comes down to 700 with them.
+   .wtb-gloss IS THE EXCEPTION AND TAKES auto-fit. It is eight glossary entries
+   of near-identical length with no lone-card instance, so there is nothing for
+   a fixed count to protect, and letting it count its own columns is what the
+   1400 rule below is already doing by hand. The 320px floor is the widest card
+   that still fits two in the 660px wrap and the narrowest that still refuses a
+   third in the 976px wrap at 1024, so it agrees with the 1000 rule rather than
+   fighting it. min() IS LOAD BEARING: a bare minmax(320px,1fr) cannot shrink
+   below its floor, so a 280px wrap at 320 would get a 320px track and paint
+   into the gutter. The caps stay in the 1000 block, because a container that
+   only exceeds 1000px above 1000px does not need capping below it.
+   ========================================================================== */
+@media(min-width:700px){
+.wtb-picks{grid-template-columns:1fr 1fr}
+.gft-picks{grid-template-columns:1fr 1fr}
+.wtb-deck{grid-template-columns:1fr 1fr}
+.wtb-gloss{grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))}
+}
 @media(min-width:1000px){
 /* The quick strip is a NAME AND A PRICE and the two have to stay in the same
    glance. 760 keeps the price about 600px from the name at most, which is

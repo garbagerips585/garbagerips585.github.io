@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=13927e47">
+<link rel="stylesheet" href="/assets/ui.css?v=0fd7abb6">
 
 <style>
 .rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
@@ -54,7 +54,10 @@
 .rk-fire svg{fill:var(--ketchup);width:10px;height:12px}
 .rk-jp{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.04em;color:var(--chrome-ink);background:var(--band-bg);
   border-radius:3px;padding:3px 5px}
-.chip-rk{display:inline-flex;align-items:center}
+/* .chip-rk wrapping: see the note above RARITY_CSS. */
+.chip-rk{display:inline-flex;align-items:center;
+  flex:0 1 auto;min-width:0;white-space:normal;
+  height:auto;min-height:44px;padding-block:6px}
 
 .st-fig{margin:var(--s4) 0 0}
 .st-ladder{display:flex;flex-wrap:wrap;gap:var(--s2)}

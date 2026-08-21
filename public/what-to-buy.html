@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=13927e47">
+<link rel="stylesheet" href="/assets/ui.css?v=0fd7abb6">
 <style>.wtb-lede{max-width:34em}
 .wtb-watch{margin-top:var(--s6)}
 .wtb-watch h3{font:400 var(--t-m)/1.2 var(--display);margin-bottom:var(--s2)}
@@ -141,6 +141,12 @@ line-height:1.5;max-width:34em;color:var(--ink-soft)}
 .wtb-body p+p,.wtb-no p+p{margin-top:var(--s3)}
 .wtb-body h3{margin:var(--s5) 0 var(--s3);font-size:1.15rem;line-height:1.25}
 .wtb-body h3:first-child{margin-top:0}
+@media(min-width:700px){
+.wtb-picks{grid-template-columns:1fr 1fr}
+.gft-picks{grid-template-columns:1fr 1fr}
+.wtb-deck{grid-template-columns:1fr 1fr}
+.wtb-gloss{grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))}
+}
 @media(min-width:1000px){
 .wtb-quick li{max-width:760px}
 .wtb-picks{grid-template-columns:1fr 1fr;max-width:1000px}

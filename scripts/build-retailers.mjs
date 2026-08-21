@@ -645,7 +645,21 @@ const STYLE = `
 .rt-grp{margin-top:var(--s6)}
 .rt-grp > p{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
 .rt-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
-@media(max-width:900px){.rt-cards{grid-template-columns:1fr}}
+/* 700 AND NOT 900, BECAUSE 900 PUT AN iPAD ON THE PHONE LAYOUT. An iPad in
+   portrait is 768 CSS px, which is BELOW the old 900 collapse, so a tablet got
+   the single column meant for a phone and every retailer card was stretched to
+   the full 720px wrap. 700 is the widest boundary that still leaves 768 on the
+   two column layout, and it is a real phone/tablet line rather than a round
+   number: the wrap measures 660px inside a 700px viewport, so two 322px cards
+   and a 16px gap fit exactly, and at 390 the wrap is 350px and one column is
+   still the only thing that fits.
+   NOT auto-fit, and that is deliberate rather than lazy. This grid's own
+   desktop rule is the base repeat(2,1fr) for 1000..1199 and a repeat(3,1fr)
+   at 1200, both chosen for these cards; an auto-fit floor low enough to give
+   two columns at 720 also computes THREE at the 1152px wrap of a 1200 window,
+   which would silently re-derive a column count somebody picked on purpose.
+   Moving the boundary changes 700..999 and provably nothing at 1000 or above. */
+@media(max-width:700px){.rt-cards{grid-template-columns:1fr}}
 .rt-c{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4)}
 .rt-ch{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);margin-bottom:var(--s2)}
