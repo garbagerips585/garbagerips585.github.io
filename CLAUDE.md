@@ -535,6 +535,39 @@ DATA once, by hand, into a committed file is a different act from harvesting
 tiles, and the script that does it is NOT in build-all.mjs for the same reason
 sync-decks.mjs is not.
 
+/card-shows.html GAINED THE SAME TWO LINKS ON 21 AUGUST 2026, FOR THE SAME
+NON-DISCRETIONARY REASON, AND IT IS THE SAME SENTENCE THAT CAUSED IT. Tim: "on
+the card shows page, make the image at the top an actual map showing the cities
+and surrounding areas right now its just names of cities and dots, needs to be a
+map, also please delete the calendar below the map not needed." That figure's
+caption had said, word for word, what /shops.html's had said a day earlier:
+"There are no roads on it because we do not have any to draw." Same error, same
+shape, second page: a true statement about the candidates somebody looked at,
+written as a statement about the subject. It draws the Lake Ontario shore, the
+Finger Lakes, the interstates, the trunk routes and the county lines now, from
+`data/card-show-map.json`, fetched once by `scripts/sync-card-show-map.mjs`,
+which is NOT in build-all.mjs. The ODbL credit and its two links are in the
+figure's own caption. No tiles, for the three reasons above.
+
+WHAT IS DIFFERENT IS THE SCALE AND IT CHANGED THE FEATURE LIST RATHER THAN THE
+DESIGN. /shops.html is 24 miles across at 37 units to the mile; this is Sanborn
+to Syracuse, 147 miles, at 3.9. **At 390px that is TWO PIXELS TO THE MILE**, so
+the same layers are a grey wash: the road list stops at TRUNK where that one runs
+to secondary (primary alone is 8,052 ways in this box), the water cut is fifty
+times coarser at half a square mile, the boundary is the COUNTY rather than a
+city limit, and the river CENTRELINES were fetched, drawn, looked at and
+REJECTED, 1,702 points for 130 blue veins that buried the Thruway. Every wide
+river here is a water polygon and is still on the map. **If you widen this map's
+feature list, screenshot it at 390 before you believe it helped.**
+
+THE CALENDAR UNDER IT WENT IN THE SAME EDIT, on the same instruction, and it is
+the hours-chart call on /shops.html a second time: five drawn months, a legend of
+four, and a grid that said in a second shape what every listing already says in
+full with the day in a slab down the side of the card. Nothing else read any of
+it; data/shows.json is untouched. The one clause of its caption worth keeping,
+the day count and the fact that the area buttons drive the map, moved under the
+map. The headstones are in build-shows.mjs.
+
 THE TEN RETAILER PAGES GAINED 53 OUTBOUND LINKS ON 20 AUGUST 2026 AND NOT ONE
 NEW DESTINATION, which is the only reason this one is short. It is argued here
 rather than added quietly in one builder, which is what the paragraphs above

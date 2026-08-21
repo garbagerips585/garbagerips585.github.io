@@ -44,6 +44,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { existsSync } from "node:fs";
 import { SITE } from "../shared/site.mjs";
+import { localDay } from "../shared/today.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache/shop-map");
@@ -444,7 +445,13 @@ const doc = {
     copyrightUrl: "https://www.openstreetmap.org/copyright",
   },
   source: "Overpass API (overpass-api.de)",
-  read: new Date().toISOString().slice(0, 10),
+  // localDay, NOT toISOString. This stamped the UTC date, so refreshing the map
+  // after 8pm Eastern published tomorrow's date on a page whose whole claim is
+  // that a number is traceable to a source and a date -- and check-build.py
+  // rejects a future read date, so it would have failed the build for whoever
+  // ran it after dark rather than shipping quietly. Found when the same bug was
+  // written fresh into sync-card-show-map.mjs and caught there.
+  read: localDay(),
   osmTimestamp: raw.roads.osm3s?.timestamp_osm_base || null,
   box: BOX,
   // What was asked for, so the next reader does not have to reverse it out of

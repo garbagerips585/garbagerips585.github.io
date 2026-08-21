@@ -51,6 +51,13 @@ import { CLIENT_DAY_JS } from "../shared/drops.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const data = JSON.parse(await readFile(join(ROOT, "data/shows.json"), "utf8"));
 
+// The roads, the water and the county lines, written by
+// scripts/sync-card-show-map.mjs from the Overpass API and committed. NO NETWORK
+// HAPPENS HERE and none may be added: that script is not in build-all.mjs, same
+// arrangement as sync-shop-map.mjs, sync-decks.mjs and sync-plate-photos.py, and
+// its own header says why.
+const mapDoc = JSON.parse(await readFile(join(ROOT, "data/card-show-map.json"), "utf8"));
+
 const TODAY = localDay();
 
 const REGIONS = [
@@ -197,9 +204,41 @@ const pokemonCount = upcoming.filter((s) => s.pokemon).length;
 //
 // SAME PICTURE AS /shops.html AND THE SAME REASONS. Drawn from coordinates, not
 // a map tile: no key, no network request, no terms of use, no 200KB. One scale
-// on both axes with the cos(latitude) correction, or it is not a map. No
-// coastline and no roads, because this site holds no licensed geometry for
-// either and drawing them freehand would be inventing data.
+// on both axes with the cos(latitude) correction, or it is not a map.
+//
+// THIS BLOCK USED TO END "No coastline and no roads, because this site holds no
+// licensed geometry for either and drawing them freehand would be inventing
+// data", AND THE FIGURE'S OWN CAPTION SAID THE SAME THING OUT LOUD: "There are
+// no roads on it because we do not have any to draw." Tim read the picture and
+// asked for the obvious thing: "make the image at the top an actual map showing
+// the cities and surrounding areas right now its just names of cities and dots,
+// needs to be a map".
+//
+// IT WAS THE SAME SENTENCE, WORD FOR WORD, THAT /shops.html HAD ALREADY BEEN
+// CAUGHT BY, and CLAUDE.md describes the shape in full: a true statement about
+// the candidates somebody looked at, written as a statement about the subject.
+// What had been ruled out was TILES, correctly. What had never been looked at
+// was the DATA those tiles are drawn from, which OpenStreetMap gives away under
+// the ODbL. The gap was a search, not a licence, and it had already been closed
+// on the sister page a day earlier. So this is not a new argument, it is the
+// same fix applied to the second of a pair of pages a reader moves between.
+//
+// SO THERE IS REAL GEOMETRY ON IT NOW: the Lake Ontario shore, the Finger Lakes,
+// Oneida and Onondaga, the Niagara River, the interstates and trunk routes, and
+// the county lines. scripts/sync-card-show-map.mjs fetches it once into
+// data/card-show-map.json and this builder reads that file offline; the ODbL
+// credit is in the caption with the licence linked, because that is a condition
+// of use rather than a courtesy. STILL NOT TILES, for the three reasons that
+// script's header sets out and that CLAUDE.md records.
+//
+// FEWER FEATURES THAN /shops.html AND HEAVIER ONES, WHICH IS THE WHOLE
+// DIFFERENCE BETWEEN THE TWO MAPS. That one is 24 miles across and draws at 37
+// units to the mile, so it can afford primary and secondary roads and a pond a
+// tenth of a mile wide. This one is 147 miles across and draws at 3.9 units to
+// the mile, which at 390px is TWO PIXELS PER MILE. The same feature list here is
+// a grey wash with no shape in it. The road list stops at trunk and the water
+// cut is fifty times coarser; the reasoning and the measured element counts are
+// in the sync script beside each query.
 //
 // TOWNS, NOT VENUES, AND THE CAPTION SAYS SO. Five of the eight venues on this
 // page are named places with no street address in our data. Rather than plot
@@ -212,13 +251,17 @@ const pokemonCount = upcoming.filter((s) => s.pokemon).length;
 // and it is not written anywhere else on the page: Batavia has a show almost
 // every month, which is a different fact from where Batavia is.
 //
-// THE MAP IS TALLER THAN THE GEOGRAPHY NEEDS AND THAT IS NOT A SCALE ERROR.
-// These towns sit in a band 147 miles east to west and 21 north to south, a
-// 7:1 strip, so at one honest scale the dots occupy 74 of the 250 units. The
-// extra height is for the LABELS, which is the same trade shopMap makes with
-// its greedy slot placement: the dots are where the towns are and only the
-// names move. Squashing the drawing to fit its own bounding box would put
-// "Niagara Falls", "Sanborn" and "Depew" on one line 35 units apart.
+// THE FRAME IS TALLER THAN THE TOWNS NEED AND THAT IS NOT A SCALE ERROR. These
+// towns sit in a band 147 miles east to west and 18 north to south, a 8:1 strip,
+// so at one honest scale the dots occupy 70 of the 250 units and sit across the
+// middle of the frame. That headroom was originally for the LABELS alone, which
+// is the trade shopMap makes with its greedy slot placement: the dots are where
+// the towns are and only the names move. It now also buys the map. The 250 units
+// reach from Lake Ontario down past the head of the Finger Lakes, so the space
+// above and below the strip of dots is the ground that explains why the dots are
+// a strip. Squashing the drawing to its own bounding box would put "Niagara
+// Falls", "Sanborn" and "Depew" on one line 35 units apart AND throw away every
+// feature that makes this a place rather than a scatter plot.
 const townCounts = new Map();
 for (const s of upcoming) townCounts.set(s.city, (townCounts.get(s.city) || 0) + 1);
 const townRegion = new Map();
@@ -254,14 +297,128 @@ function showMap() {
   const px = (lon) => offX + mx(lon) * k;
   const py = (lat) => H - (offY + my(lat) * k);
 
+  // THE CANVAS REACHES MUCH FURTHER THAN THE TOWNS DO, so the geometry has to as
+  // well. px/py above are fitted to the towns and then centred, and on this page
+  // that leaves the whole top of the frame north of the northernmost dot.
+  // Inverting the projection at the four edges of the viewBox gives the ground
+  // the drawing actually covers.
+  const lonAt = (x) => x0 + (x - offX) / k / (MI_PER_DEG_LAT * kx);
+  const latAt = (y) => y0 + (H - y - offY) / k / MI_PER_DEG_LAT;
+  const canvas = { west: lonAt(0), east: lonAt(W), north: latAt(0), south: latAt(H) };
+
+  // AND THE DATA FILE HAS TO COVER IT, WHICH IS THE ONE WAY THIS PAIRING CAN GO
+  // QUIETLY WRONG, AND IT IS LIKELIER HERE THAN ON /shops.html. That page's six
+  // dots are fixed. This page's canvas is fitted to the towns that have a show
+  // COMING UP, so it moves every time a listing expires or a new one lands: one
+  // show in a town nobody has listed before and the frame grows into ground
+  // sync-card-show-map.mjs never fetched, and the map renders a clean empty
+  // margin that looks like a design decision. Fail instead, and say which edge
+  // and by how far.
+  const b = mapDoc.box;
+  const over = [
+    ["west", b.west - canvas.west], ["east", canvas.east - b.east],
+    ["south", b.south - canvas.south], ["north", canvas.north - b.north],
+  ].filter(([, d]) => d > 0);
+  if (over.length) {
+    throw new Error(
+      `The card show map now reaches outside the geometry in data/card-show-map.json: ` +
+        over.map(([side, d]) => `${d.toFixed(4)} degrees past its ${side} edge`).join(", ") +
+        `.\nWiden BOX in scripts/sync-card-show-map.mjs and re-run it with --refresh.`
+    );
+  }
+  // A layer that came back empty is a query that stopped matching, not a corner
+  // of New York with no roads in it. That has happened once on the sister map,
+  // on its boundary query: Overpass answered 200 with nothing in it and the
+  // layer silently vanished, because New York files a city at admin_level 7 and
+  // the obvious query asks for 8. A layer that disappears looks exactly like a
+  // layer nobody asked for, so refuse to draw the figure at all.
+  for (const [name, lines] of Object.entries({
+    roads: [...mapDoc.roads.major, ...mapDoc.roads.minor],
+    water: mapDoc.water,
+    boundary: mapDoc.boundary,
+  })) {
+    if (!lines.length) {
+      throw new Error(
+        `data/card-show-map.json has no ${name} in it. Overpass can answer 200 with an ` +
+          `empty result, so re-run scripts/sync-card-show-map.mjs --refresh and check the counts.`
+      );
+    }
+  }
+
+  // ONE <path> PER LAYER, NOT ONE PER WAY. 178 stitched road lines as 178
+  // elements is 178 sets of attributes before a coordinate is written; as two
+  // paths with many M subpaths apiece it is two. Consecutive points that round to
+  // the same tenth of a unit are dropped: RDP in the sync script works in miles
+  // on the ground and cannot know that two of its survivors land on the same
+  // pixel here.
+  //
+  // RELATIVE LINETOS AFTER THE FIRST POINT, and the trap in doing that is
+  // ACCUMULATED ROUNDING: a hundred deltas each rounded to a tenth can walk a
+  // shoreline several units off its own end. Every delta is taken from the last
+  // point ACTUALLY EMITTED rather than from the true position, so the error is
+  // bounded at a tenth of a unit for the whole polyline instead of compounding.
+  // "cur" below is the emitted position and nothing else may be subtracted from.
+  // Separators are a comma inside a pair and a space between pairs, which is the
+  // shortest form that cannot be misread. Same code and same reasoning as
+  // shopMap in build-shops.mjs; read the long version there.
+  const d = (line, close) => {
+    const parts = [];
+    let cur = null;
+    for (const [lat, lon] of line) {
+      const x = +px(lon).toFixed(1), y = +py(lat).toFixed(1);
+      if (!cur) { cur = [x, y]; continue; }
+      const dx = +(x - cur[0]).toFixed(1), dy = +(y - cur[1]).toFixed(1);
+      if (!dx && !dy) continue;
+      parts.push(`${dx},${dy}`);
+      cur = [cur[0] + dx, cur[1] + dy];
+    }
+    if (!parts.length) return "";
+    const start = line[0];
+    return `M${+px(start[1]).toFixed(1)},${+py(start[0]).toFixed(1)}l${parts.join(" ")}${close ? "Z" : ""}`;
+  };
+  const layer = (lines, close) => lines.map((l) => d(l, close)).filter(Boolean).join("");
+
+  // THE ORDER IS THE MAP. Water under roads, because a bridge crosses a river and
+  // not the other way round; the county lines above both because they are an idea
+  // rather than a thing and have to survive being drawn over the Thruway; the
+  // dots above everything.
+  const base = `<g clip-path="url(#showmap-clip)" fill="none">
+        <path class="map-water" d="${layer(mapDoc.water, true)}"/>
+        <path class="map-road" d="${layer(mapDoc.roads.minor)}"/>
+        <path class="map-road-major" d="${layer(mapDoc.roads.major)}"/>
+        <path class="map-edge" d="${layer(mapDoc.boundary)}"/>
+      </g>`;
+
   const nice = [1, 2, 5, 10, 20, 50].find((n) => n * k > (W - PAD * 2) * 0.15) || 1;
   const R = (n) => 5 * Math.sqrt(n);
 
   // Greedy slot placement, lifted from shopMap for the same reason: Liverpool
   // and Syracuse are 3.7 miles apart, which is 14 units here, and their names
   // are 60 units wide. The DOT never moves.
+  //
+  // EVERY LABEL SITS ON A PLATE OF ITS OWN NOW AND THAT IS NOT DECORATION. Until
+  // the geometry went in, a name was cream type on one flat green and its
+  // contrast was whatever --ink on --paper-3 measures, everywhere, always. It now
+  // has Lake Ontario under it some of the time and a motorway the rest. Same fix
+  // and the same class of bug as /shops.html: a colour that was only correct
+  // because of what happened to be behind it.
+  //
+  // MEASURED RATHER THAN ARGUED, on the real figure at 390 and at 1440, by
+  // hiding every glyph, every dot, the halo and the scale bar in the live DOM
+  // and reading the BRIGHTEST pixel left inside each plate's own box. Worst
+  // ground on the whole map is #2D4436, under Batavia, Liverpool and the scale
+  // bar, and cream on it is 7.74:1 at both widths. The best is 8.42:1 under
+  // Rochester. Nothing here is close to the 4.5 line.
+  //
+  // TWO TRAPS IN TAKING THAT MEASUREMENT, both recorded on /shops.html and both
+  // reproduced here so the number means something. The plate has rx=5, so its
+  // four CORNERS show bare map and sampling the whole box reports the ground
+  // rather than the plate. And the outermost row of the rect is ANTIALIASED
+  // against what is under it, which reads as a failure that exists only in a
+  // pixel no glyph ever touches. The harness insets 3px past both.
   const placed = [];
   const LH = 18;
+  const marks = [];
   const dots = pts
     .slice()
     .sort((a, b) => px(a.at[1]) - px(b.at[1]))
@@ -281,151 +438,110 @@ function showMap() {
         if (!clash) break;
       }
       placed.push({ x: x1, y: ly, w });
+      // The plate is the box the collision test above already reasons about, so
+      // the two cannot disagree about how wide a name is: same x1, same w. Both
+      // live inside the same <g> as the dot, because the area filter toggles that
+      // group and a plate left behind by a faded label would be a hole in the map.
       return `<g class="map-t" data-region="${esc(p.region || "")}">
+        <circle class="map-halo" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(r + 4).toFixed(1)}"/>
         <circle class="map-dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}"/>
+        <rect class="map-plate" x="${x1.toFixed(1)}" y="${(ly - 9).toFixed(1)}"
+          width="${w.toFixed(1)}" height="18" rx="5"/>
         <text class="map-lbl" x="${(left ? x - r - 8 : x + r + 8).toFixed(1)}" y="${(ly + 4).toFixed(1)}"
           style="text-anchor:${left ? "end" : "start"}">${esc(text)}</text>
       </g>`;
     })
     .join("");
 
+  // The scale bar gets a plate for the same reason the names do: it used to sit
+  // on flat green and it now sits on whatever runs along the bottom of the frame.
   const barW = nice * k;
+  const barLabel = `${nice} mile${nice === 1 ? "" : "s"}`;
   return `<figure class="show-map">
       <svg viewBox="0 0 ${W} ${H}" role="img"
-        aria-label="Where the ${pts.length} towns with a show coming up are relative to each other, with a bigger dot for a town with more shows. Every listing below names its venue and town.">
+        aria-label="A map of western and central New York from Niagara Falls to Syracuse, with the Lake Ontario shore, the Finger Lakes, the interstates and the county lines drawn from OpenStreetMap data. The ${pts.length} towns with a show coming up are marked and named, with a bigger dot for a town with more shows. Every listing below names its venue and town.">
+        <defs><clipPath id="showmap-clip"><rect x="0" y="0" width="${W}" height="${H}" rx="10"/></clipPath></defs>
         <rect x="0" y="0" width="${W}" height="${H}" rx="10" class="map-bg"/>
+        ${base}
         ${dots}
         <g transform="translate(${PAD} ${H - 16})">
+          <rect class="map-plate" x="-10" y="-23" width="${(Math.max(barW, barLabel.length * 7) + 20).toFixed(1)}" height="32" rx="5"/>
           <line class="map-bar" x1="0" y1="0" x2="${barW.toFixed(1)}" y2="0"/>
           <line class="map-bar" x1="0" y1="-5" x2="0" y2="5"/>
           <line class="map-bar" x1="${barW.toFixed(1)}" y1="-5" x2="${barW.toFixed(1)}" y2="5"/>
-          <text class="map-bart" x="${(barW / 2).toFixed(1)}" y="-9">${nice} miles</text>
+          <text class="map-bart" x="${(barW / 2).toFixed(1)}" y="-9">${barLabel}</text>
         </g>
       </svg>
-      <figcaption>Where the shows are, relative to each other. One dot per town, at the town center, sized by
+      ${/* THE TWO LINKS IN HERE ARE THE ODbL AND ARE NOT DISCRETIONARY, which is
+            the same argument /shops.html's map makes, the same one the Garbage
+            Plate photo credits make, and CLAUDE.md records it in full.
+            OpenStreetMap's data is offered on condition that it is credited and
+            that the licence is reachable; a page that draws the roads and does
+            not link the deed is not making a tidier editorial choice, it is
+            using the data outside the terms it was offered under. They sit in
+            the figure's own credit line, at the end, labelled as leaving the
+            site, exactly like every other outbound link on this page. */ ""}
+      <figcaption>Where the shows are, and how far apart they are. One dot per town, at the town center, sized by
         how many shows it has coming up: ${
           [...townCounts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] || ""
-        } has the most. North is up and the scale is true both ways, which is why these sit in a strip: they are
-        strung along one road. There are no roads on it because we do not have any to draw, and no venue pins
-        because most of these venues have no street address in our data. Every listing below names the venue and
-        the town, which is the thing to put in a map app. Town positions geocoded from OpenStreetMap.</figcaption>
+        } has the most. The Lake Ontario shore, the Finger Lakes, the interstates, the trunk routes and the
+        county lines are real geometry, drawn from OpenStreetMap's data rather than from anybody's map tiles,
+        so nothing on this page asks another server for anything. North is up and the scale is true both ways,
+        which is why these towns sit in a strip: they are strung along the Thruway. There are no venue pins,
+        because most of these venues have no street address in our data, and every listing below names the
+        venue and the town, which is the thing to put in a map app. Map data from
+        <a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank"
+          aria-label="OpenStreetMap contributors, the source of the map data, opens on openstreetmap.org">OpenStreetMap contributors</a>,
+        licensed <a href="https://opendatacommons.org/licenses/odbl/1-0/" rel="noopener" target="_blank"
+          aria-label="The Open Database License version 1.0, which this map data is offered under, opens on opendatacommons.org">ODbL 1.0</a>,
+        read ${esc(longDate(mapDoc.read) || mapDoc.read)}.</figcaption>
     </figure>`;
 }
 
-// ---------------------------------------------------------------- the calendar
+// ------------------------------------------------------- the days, and a
+// ------------------------------------------------------- headstone for the
+// ------------------------------------------------------- calendar that was here
 //
-// A PAGE CALLED A CALENDAR THAT WAS NOT ONE. This page held 1,081 words and a
-// single decorative flower, and the thing it is for is a question a list
-// answers badly: which Saturdays are free, where the gaps are, and which day has
-// two shows on it. So the months get drawn, from the same `upcoming` array the
-// list below is built from. No new data, no new source, no new claim: it is the
-// list, arranged the way a calendar arranges things.
+// THE FIVE MONTH CALENDAR GRID WAS HERE AND IT IS GONE, ON TIM'S CALL: "also
+// please delete the calendar below the map not needed." Same call, same page and
+// the same reasoning as the hours chart that came off /shops.html on 20 August
+// 2026, which build-shops.mjs still carries the headstone for.
 //
-// DRAWN, NOT PHOTOGRAPHED, because there is nothing to photograph. The flyer
-// slot in data/shows.json has been empty since the file was written, and a stock
-// picture of some cards on a table would be an illustration of nothing.
+// It was five drawn months, one <figure> apiece, with a pill on every day that
+// had a show, a dot per show, a second dot colour for an all-Pokemon show, an
+// outline for the big one, and a four item key reading "a day with a show / a
+// card show / an all Pokemon show / the big one". It moved with the area filter
+// and it re-swept itself on the reader's own clock.
 //
-// MONOCHROME BECAUSE THE PALETTE IS. There is exactly one accent on this site
-// and it is gold, so a three-colour key for the three regions is not available
-// and was not faked with three greys nobody could tell apart. Region is handled
-// by the filter chips instead, which already exist and which this now moves
-// with; the marks themselves carry the distinction that matters on a Pokemon
-// channel, which is whether the whole floor is Pokemon.
-const CAL_W = 25; // day column
-const CAL_H = 23; // day row
-const CAL_TOP = 15; // room for the S M T W T F S header
-
-/** Every month from the month we are in to the month of the last show. */
-function calMonths() {
-  if (!upcoming.length) return [];
-  const start = new Date(`${TODAY.slice(0, 7)}-01T12:00:00Z`);
-  const last = new Date(`${upcoming[upcoming.length - 1].date.slice(0, 7)}-01T12:00:00Z`);
-  const out = [];
-  for (let d = start; d <= last; d = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1, 12))) {
-    out.push({ y: d.getUTCFullYear(), m: d.getUTCMonth() });
-  }
-  return out;
-}
-const CAL = calMonths();
-
-const daysIn = (y, m) => new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
-const firstDow = (y, m) => new Date(Date.UTC(y, m, 1)).getUTCDay();
-const rowsFor = (y, m) => Math.ceil((firstDow(y, m) + daysIn(y, m)) / 7);
-
-// One height for every month so the row of them does not come out ragged. Five
-// rows covers all five months as this is written, but a month that starts on a
-// Saturday and runs 31 days needs six, so it is computed rather than assumed.
-const CAL_ROWS = CAL.reduce((n, { y, m }) => Math.max(n, rowsFor(y, m)), 0);
-const CAL_VB_H = CAL_TOP + CAL_ROWS * CAL_H;
-
-/** Shows keyed by ISO date, so a day can carry two. */
-const showsOn = new Map();
-for (const s of upcoming) {
-  if (!showsOn.has(s.date)) showsOn.set(s.date, []);
-  showsOn.get(s.date).push(s);
-}
-
-const ordinal = (n) =>
-  n + (n % 100 >= 11 && n % 100 <= 13 ? "th" : ["th", "st", "nd", "rd"][n % 10] || "th");
-
-/**
- * One month, drawn.
- *
- * `role="img"` with a written label, rather than leaving 31 loose numbers for a
- * screen reader to read out one at a time. Everything in here is also in the
- * list below, in sentences, so the picture is the redundant copy and the label
- * only has to say what it shows.
- */
-function calMonth({ y, m }) {
-  const dim = daysIn(y, m);
-  const off = firstDow(y, m);
-  const label = `${MONTHS_LONG[m]} ${y}`;
-  const cells = [];
-  const hits = [];
-  for (let day = 1; day <= dim; day++) {
-    const i = off + day - 1;
-    const col = i % 7;
-    const row = Math.floor(i / 7);
-    const cx = col * CAL_W + CAL_W / 2;
-    const top = CAL_TOP + row * CAL_H;
-    const iso = `${y}-${String(m + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-    const list = showsOn.get(iso) || [];
-    const past = iso < TODAY;
-    if (list.length) hits.push(list.length > 1 ? `${ordinal(day)} (two)` : ordinal(day));
-    const dots = list
-      .map((s, n) => {
-        const spread = (n - (list.length - 1) / 2) * 7;
-        return `<circle class="cal-dot${s.pokemon ? " pk" : ""}" data-region="${esc(s.region || "")}"
-            data-date="${esc(iso)}" cx="${(cx + spread).toFixed(1)}" cy="${top + 17.5}" r="2.7"></circle>`;
-      })
-      .join("");
-    cells.push(
-      `<g class="cal-d${list.length ? " has" : ""}${
-        list.some((s) => s.featured) ? " feat" : ""
-      }${past ? " is-past" : ""}" data-date="${esc(iso)}">` +
-        (list.length
-          ? `<rect class="cal-pill" x="${cx - 10.5}" y="${top + 1}" width="21" height="20" rx="5"></rect>`
-          : "") +
-        `<text class="cal-n" x="${cx}" y="${top + 10}">${day}</text>${dots}</g>`
-    );
-  }
-  const head = ["S", "M", "T", "W", "T", "F", "S"]
-    .map((d, i) => `<text class="cal-dow" x="${i * CAL_W + CAL_W / 2}" y="7">${d}</text>`)
-    .join("");
-  const aria = hits.length
-    ? `${label}: shows on the ${hits.join(", the ")}.`
-    : `${label}: nothing listed yet.`;
-  return `<figure class="cal-m">
-          <figcaption>${esc(label)}</figcaption>
-          <svg viewBox="0 0 ${CAL_W * 7} ${CAL_VB_H}" role="img" aria-label="${esc(aria)}">
-            ${head}
-            ${cells.join("\n            ")}
-          </svg>
-        </figure>`;
-}
-
-const calDays = showsOn.size;
-const calDouble = [...showsOn.values()].filter((v) => v.length > 1).length;
+// The argument FOR it was real and is worth keeping in view rather than deleting
+// silently: it answered "which Saturdays are free and where are the gaps" by
+// looking, which a list answers badly. The argument AGAINST it is the one that
+// won, and it is the same one that won on /shops.html: every listing below
+// already carries its own date, in full, in a month-grouped list with the day in
+// a slab down the side of every card, so the grid said a second time in a second
+// shape a thing the page already says. It charged about 120 lines of date
+// arithmetic, 30 lines of CSS and a screen of page height for the repetition.
+//
+// WHAT WENT WITH IT, so nobody hunts for a caller: CAL_W, CAL_H, CAL_TOP,
+// calMonths, CAL, daysIn, firstDow, rowsFor, CAL_ROWS, CAL_VB_H, the showsOn
+// map, ordinal and calMonth existed only to feed it, and so did the .cal-* half
+// of PAGE_CSS and the two .cal-dot / .cal-d sweeps in the page script. NOTHING
+// ELSE READ ANY OF IT: checked across the tree, no other builder and no shared
+// module imports from this file, and data/shows.json is unchanged, because the
+// calendar was a second READER of `upcoming` and never a second source.
+//
+// ONE SENTENCE OF ITS CAPTION SURVIVES AND IT IS THE HALF THE MAP NEEDS. The
+// note under the grid read "22 shows on 19 days, 3 days with two of them. Same
+// list as below, drawn. The area buttons above move both." "Same list as below,
+// drawn" was about the grid and went with it. The DAY COUNT is a fact the page
+// states nowhere else, and "two shows on one day" is the one thing a reader
+// planning a Saturday actually needs a second view to see. And the sentence
+// about the buttons is now the only place the page says that the map moves with
+// the filter, which it does. So those two clauses move under the map.
+const dayCounts = new Map();
+for (const s of upcoming) dayCounts.set(s.date, (dayCounts.get(s.date) || 0) + 1);
+const showDays = dayCounts.size;
+const showDoubles = [...dayCounts.values()].filter((n) => n > 1).length;
 
 // ---------------------------------------------------------------- flyer check
 
@@ -520,56 +636,96 @@ const miniCSS = (css) =>
 const PAGE_CSS = `/* The map of where the shows are. Same box and the same currentColor-free,
    variable-only discipline as .shop-map on /shops.html, deliberately, because
    the two pages are a pair and a reader moves between them.
-   Type is 14 and 12 units in a 660 unit viewBox: measured at 390px, where the
-   figure renders 342px wide and a unit is 0.52, so a town name lands at 7.3px.
-   That is the floor and it is why the label is "Batavia · 8" and not "Batavia,
-   8 shows coming up" -- the sentence goes in the caption, where it is set in
-   real type. */
+   Type is 14 and 12 units in a 660 unit viewBox. THE RENDERED WIDTH IN THIS
+   NOTE WAS STALE AND SO WAS THE PIXEL SIZE IT GAVE: it said 342px and 7.3px.
+   Re-measured off getBoundingClientRect on the real page, 21 August 2026, at
+   three widths:
+
+        320   svg 288.0 x 109.1     a unit is 0.44     a town name is 6.1px
+        390   svg 358.0 x 135.6     a unit is 0.54     a town name is 7.6px
+       1440   svg 660.0 x 250.0     a unit is 1.00     a town name is 14.0px
+
+   7.6px IS THE FLOOR AND 6.1 IS UNDER IT, and it is why the label is
+   "Batavia · 8" and not "Batavia, 8 shows coming up": the sentence goes in the
+   caption, where it is set in real type, and the mark on the map is a name and
+   a number that a reader is matching against the list rather than reading.
+   Every one of them sits on an opaque plate, which is what makes 6.1px legible
+   at all rather than merely small. Do not put a THIRD fact in a label here; the
+   next thing that needs saying goes in the caption. */
 .show-map{margin:var(--s5) 0 0;color:var(--ink)}
 .show-map svg{display:block;width:100%;height:auto;max-width:660px}
 .show-map figcaption{font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-2);
   margin-top:var(--s2);max-width:52em}
+.show-map figcaption a{color:var(--ketchup-deep);font-weight:600}
+.show-map figcaption a:hover{text-decoration:underline}
 .map-bg{fill:var(--paper-3)}
+/* THE MAP'S OWN INK, AND IT IS THE SAME PALETTE AS .shop-map ON /shops.html,
+   DELIBERATELY, because the two pages are a pair and a reader moves between
+   them. Every value there is derived from a token by a stated move and the
+   derivations are written out beside the rules in build-shops.mjs; do not
+   re-derive them here, and if one of them changes, change both files.
+
+   The ground is --paper-3. Roads are the page ink at an opacity, which is the
+   one thing here that is not a new colour at all: a road is a lighter scratch on
+   the land. Water is the only hue, because water being blue is the one map
+   convention a reader has without being told, and it is --mustard pulled 65% of
+   the way to --navy-deep, which lands DARKER than the land as well as bluer.
+   That direction matters: water lighter than land reads as a road.
+
+   THE ONE PLACE THE VALUES DIVERGE IS THE STROKE WIDTHS, and it is scale rather
+   than taste. That map draws at 37 units to the mile and this one at 3.9, so a
+   1.1 unit road there is a tenth of a mile wide and here it is a whole mile.
+   Everything is thinner and fainter as a result: at 390px this figure is 2.05
+   pixels to the mile and a stroke that reads as a hairline over there reads as a
+   motorway ten lanes wide here. */
+.map-water{fill:#34565E;stroke:none}
+/* THERE IS NO .map-stream HERE AND /shops.html HAS ONE. The river and canal
+   centrelines were fetched, drawn and looked at, and they came off: 1,702 points,
+   30% of the data file, for 130 blue veins that at this size bury the Thruway.
+   The full working is in scripts/sync-card-show-map.mjs beside the query that no
+   longer runs. Every wide river here is a water POLYGON and is still drawn.
+
+   AND THE ROADS ARE HEAVIER THAN THEY WERE IN THE FIRST DRAFT because of it,
+   which is the other half of the same decision: with the veins gone the motorway
+   is the only continuous line across the frame, and it is the line that explains
+   why six towns 147 miles apart are a straight row of dots. Screenshotted at
+   1440 both ways before the numbers were changed. */
+.map-road{stroke:currentColor;stroke-width:.8;opacity:.22}
+.map-road-major{stroke:currentColor;stroke-width:2;opacity:.5}
+/* The county lines are an idea and not a thing, so they are dashed and they are
+   the pink, which on this site is the mark that goes nowhere. It is the one
+   place the map uses an accent, and it uses it because a dashed cream line at
+   low opacity is indistinguishable from a trunk road at this size, which defeats
+   the point of drawing it. They whisper: nine county lines across a frame this
+   wide is a reference grid, and at full strength it would be the busiest object
+   in the picture, which is exactly backwards for the thing here that matters
+   least. Same judgement, same numbers, as .sm-edge on /shops.html. */
+.map-edge{stroke:var(--ketchup);stroke-width:1;stroke-dasharray:4 3.5;opacity:.3;fill:none}
+/* The plate under each town name, and under the scale bar. --page at 88%, so a
+   label is legible over Lake Ontario and over the Thruway alike; see the note
+   beside the placement code and the measured worst case on /shops.html. */
+.map-plate{fill:var(--page);opacity:.88}
+/* A disc of the map's own ground behind each dot, so a dot reads as a dot on a
+   map and not as a junction of whatever roads it happens to land on. Depew sits
+   on the I-90 and NY-33 interchange and is the point that made this necessary. */
+.map-halo{fill:var(--paper-3);opacity:.8}
 .map-dot{fill:var(--gold);stroke:var(--ink);stroke-width:2}
 .map-lbl{font:700 14px var(--body);fill:var(--ink)}
 .map-bar{stroke:var(--ink);stroke-width:2.5}
 .map-bart{font:700 12px var(--mono);fill:var(--ink);text-anchor:middle}
-/* Dimmed by the same area filter that drives the calendar and the list. Kept
-   visible rather than removed: a town vanishing off a map moves nothing else on
-   it, so the reader loses the frame of reference that made the map worth having.
-   Faded, it still says "Syracuse is over there and you have filtered it out". */
+/* Dimmed by the same area filter that drives the list. Kept visible rather than
+   removed: a town vanishing off a map moves nothing else on it, so the reader
+   loses the frame of reference that made the map worth having. Faded, it still
+   says "Syracuse is over there and you have filtered it out". The PLATE fades
+   with the name it sits under, or a filtered-out town leaves a blank tile lying
+   on the map with nothing written on it. */
 .map-t.is-off .map-dot{fill:none;stroke:var(--ink-2);stroke-width:1.4;opacity:.35}
+.map-t.is-off .map-halo{opacity:.3}
+.map-t.is-off .map-plate{opacity:.25}
 .map-t.is-off .map-lbl{opacity:.3}
-.cal-wrap{margin:var(--s5) 0 0}
-.cal-grid{display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fit,minmax(148px,1fr));
-  align-items:start}
-.cal-m{margin:0}
-.cal-m figcaption{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;
-  text-transform:uppercase;color:var(--ink-2);margin-bottom:6px}
-.cal-m svg{display:block;width:100%;height:auto;overflow:visible}
-.cal-dow{font:700 7px/1 var(--mono);fill:var(--ink-2);text-anchor:middle;letter-spacing:.02em}
-.cal-n{font:400 9.5px/1 var(--mono);fill:var(--ink-2);text-anchor:middle}
-.cal-d.has .cal-n{font-weight:700;fill:var(--ink)}
-.cal-pill{fill:var(--paper-3)}
-.cal-d.feat .cal-pill{stroke:var(--ink);stroke-width:1.4}
-.cal-dot{fill:var(--ink)}
-.cal-dot.pk{fill:var(--gold);stroke:var(--gold-deep);stroke-width:.8}
-/* Dimmed rather than removed: a month with the first half greyed out is how
-   you see at a glance where in it you are standing. */
-.cal-d.is-past{opacity:.36}
-/* Toggled by the filter below, which drives the calendar and the list together.
-   display:none rather than the hidden attribute, which SVG elements do not
-   reliably honour. */
-.cal-dot.is-off{display:none}
-.cal-d.is-empty .cal-pill{display:none}
-.cal-d.is-empty .cal-n{font-weight:400;fill:var(--ink-2)}
-.cal-key{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);margin-top:var(--s3);
-  font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2)}
-.cal-key span{display:inline-flex;align-items:center;gap:6px}
-.cal-key i{width:9px;height:9px;border-radius:50%;background:var(--ink);flex:none}
-.cal-key i.pk{background:var(--gold);border:1px solid var(--gold-deep)}
-.cal-key i.day{width:16px;height:15px;border-radius:4px;background:var(--chip-gold-bg)}
-.cal-note{margin-top:var(--s2);font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2);
+/* The one line of prose under the map, and it is the surviving half of the
+   deleted calendar's note. See the headstone above dayCounts. */
+.map-note{margin-top:var(--s3);font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2);
   max-width:44em}
 
 /* DESKTOP READING MEASURE. 44em was written as if 1em were one character. It
@@ -581,7 +737,7 @@ const PAGE_CSS = `/* The map of where the shows are. Same box and the same curre
    face, not the mono one: the same 44em on Space Mono would be about 78
    characters and would need leaving alone. */
 @media(min-width:1000px){
-.cal-note{max-width:var(--measure)}
+.map-note{max-width:var(--measure)}
 }
 `;
 
@@ -732,22 +888,11 @@ ${next ? `
       </div>
     </div>
 ${showMap()}
-${CAL.length ? `
-    <div class="cal-wrap">
-      <div class="cal-grid">
-        ${CAL.map(calMonth).join("\n        ")}
-      </div>
-      <p class="cal-key">
-        <span><i class="day"></i>a day with a show</span>
-        <span><i></i>a card show</span>
-        <span><i class="pk"></i>an all Pokemon show</span>
-        <span><i class="day" style="background:none;border:1.4px solid var(--ink)"></i>the big one</span>
-      </p>
-      <p class="cal-note">${upcoming.length} show${upcoming.length === 1 ? "" : "s"} on
-        ${calDays} day${calDays === 1 ? "" : "s"}${
-          calDouble ? `, ${calDouble === 1 ? "one day" : `${calDouble} days`} with two of them` : ""
-        }. Same list as below, drawn. The area buttons above move both.</p>
-    </div>` : ""}
+${upcoming.length ? `
+    <p class="map-note">${upcoming.length} show${upcoming.length === 1 ? "" : "s"} on
+      ${showDays} day${showDays === 1 ? "" : "s"}${
+        showDoubles ? `, ${showDoubles === 1 ? "one day" : `${showDoubles} days`} with two of them` : ""
+      }. The area buttons above move the map and the list together.</p>` : ""}
 
     <div id="showList">
 ${byMonth
@@ -852,17 +997,26 @@ ${CLIENT_DAY_JS}
     }
   }
 
-  // The calendar is drawn from the same list, so it gets the same sweep. A mark
-  // for a show that has already happened is the identical bug, just smaller.
-  document.querySelectorAll('.cal-dot').forEach(function(d){
-    if (d.dataset.date < today) d.remove();
-  });
-  document.querySelectorAll('.cal-d').forEach(function(g){
-    // Re-derived rather than trusted: the build stamped is-past against the
-    // build clock, and the whole point of this pass is that the build clock can
-    // be days old.
-    g.classList.toggle('is-past', g.dataset.date < today);
-  });
+${/* THE CALENDAR'S OWN CLIENT SWEEP WAS HERE and went with the calendar. It
+        removed a .cal-dot whose date had passed and re-derived .is-past on
+        every day cell against the reader's own clock. NOTHING REPLACES IT and
+        nothing needs to: there is no per-date mark left on this page that the
+        sweep above does not already reach. The map's marks are per-TOWN and a
+        town keeps its dot for as long as it has a show. THAT IS THE ONE THING
+        TO RE-READ IF THE MAP EVER GAINS A DATE.
+
+        The dot sizes and the counts in the labels ARE stamped at build time and
+        are not re-derived here, which is the same small staleness the map on
+        /shops.html carries and is bounded by the nightly rebuild. A count that
+        reads one high on a deploy that has stopped moving is a different order
+        of wrong from a date that has already been and gone, which is the one
+        unforgivable bug on this page and is what the sweep above is for.
+
+        THIS IS THE $-BRACE-COMMENT FORM AND NOT A // LINE, deliberately: this
+        block is inside the page template, so a note written as a JS comment
+        here SHIPS to every reader. The file's own header records that lesson
+        costing 23KB once. Notes that belong to the builder go in this form or
+        out of the template entirely. */ ""}
 
   var empty = document.getElementById('showEmpty');
   function apply(region){
@@ -876,16 +1030,14 @@ ${CLIENT_DAY_JS}
       if (vis) any = true;
     });
     if (empty) empty.hidden = any;
-    // Same filter, same click, both views. A calendar that kept showing
-    // Syracuse while the list below had been narrowed to Rochester would be
-    // worse than no calendar.
-    document.querySelectorAll('.cal-dot').forEach(function(d){
-      d.classList.toggle('is-off', region !== 'all' && d.dataset.region !== region);
-    });
-    document.querySelectorAll('.cal-d').forEach(function(g){
-      g.classList.toggle('is-empty', !g.querySelector('.cal-dot:not(.is-off)'));
-    });
-    // The map is the third view of the same list and moves with the other two.
+    ${/* Same filter, same click, both views. The map is the SECOND view of the
+          same list and moves with it; a map still showing Syracuse while the
+          list below had been narrowed to Rochester would be worse than no map.
+          It was the third of three until the calendar came off, and this loop
+          is unchanged by that: the two .cal- loops that sat above it were
+          deleted whole rather than edited, so nothing here silently stopped
+          driving something. Faded, not removed, so the geography stays put;
+          see the .map-t.is-off rules and the note beside them. */ ""}
     document.querySelectorAll('.map-t').forEach(function(t){
       t.classList.toggle('is-off', region !== 'all' && t.dataset.region !== region);
     });
