@@ -8,7 +8,7 @@
       "path": "rip/the-greninja-luck-ran-out-lRT8jgjO2HM.html",
       "published": "2026-08-21",
       "duration": 21,
-      "views": 443,
+      "views": 464,
       "vertical": true,
       "short": true,
       "sets": [
@@ -93,7 +93,7 @@
       "path": "rip/i-just-pulled-a-1-000-card-iIgTusrqVtg.html",
       "published": "2026-08-18",
       "duration": 28,
-      "views": 1180,
+      "views": 1179,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7062,7 +7062,7 @@
       "path": "rip/final-journey-together-booster-bundle-pack-last-pack-magic-LGzHC-k4vh0.html",
       "published": "2026-04-24",
       "duration": 30,
-      "views": 993,
+      "views": 994,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7097,7 +7097,7 @@
       "path": "rip/prismatic-evolutions-poster-collection-eeveelutions-8SX0B-7WM8A.html",
       "published": "2026-04-23",
       "duration": 48,
-      "views": 989,
+      "views": 990,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7131,7 +7131,7 @@
       "path": "rip/pok-mon-unova-mini-tin-2-any-better-J0Gy0iIz3ok.html",
       "published": "2026-04-23",
       "duration": 34,
-      "views": 880,
+      "views": 881,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7206,7 +7206,7 @@
       "path": "rip/japanese-nihil-zero-packs-from-buffalo-tcg-con-NzWUDxXwnPI.html",
       "published": "2026-04-22",
       "duration": 44,
-      "views": 1145,
+      "views": 1146,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7240,7 +7240,7 @@
       "path": "rip/journey-together-booster-bundle-pack-5-we-need-a-hit-53yMHXauDnA.html",
       "published": "2026-04-21",
       "duration": 26,
-      "views": 1078,
+      "views": 1079,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7272,7 +7272,7 @@
       "path": "rip/only-garbage-rips-mega-evolutions-pack-2-dQaN_4yqS0w.html",
       "published": "2026-04-21",
       "duration": 17,
-      "views": 1223,
+      "views": 1224,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7307,7 +7307,7 @@
       "path": "rip/final-perfect-order-booster-bundle-pack-last-pack-magic-7PBrXPgt9kU.html",
       "published": "2026-04-20",
       "duration": 25,
-      "views": 1001,
+      "views": 1002,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7342,7 +7342,7 @@
       "path": "rip/only-garbage-rips-phantasmal-flames-pack-7-S_2SHhBqlH8.html",
       "published": "2026-04-20",
       "duration": 21,
-      "views": 1150,
+      "views": 1151,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7377,7 +7377,7 @@
       "path": "rip/random-2-pack-blister-armarouge-revavroom-houndstone-cg0H0ipfB90.html",
       "published": "2026-04-19",
       "duration": 46,
-      "views": 753,
+      "views": 754,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7416,7 +7416,7 @@
       "path": "rip/pok-mon-mega-evolution-booster-pack-1-first-pack-hVS0VH-nfVM.html",
       "published": "2026-04-19",
       "duration": 18,
-      "views": 1207,
+      "views": 1208,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7481,7 +7481,7 @@
       "path": "rip/journey-together-booster-bundle-pack-4-VP1UXW3MrGU.html",
       "published": "2026-04-18",
       "duration": 27,
-      "views": 970,
+      "views": 971,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7516,7 +7516,7 @@
       "path": "rip/first-partner-box-4-still-no-151-starters-JjTm-bYLhGE.html",
       "published": "2026-04-17",
       "duration": 43,
-      "views": 786,
+      "views": 787,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7595,7 +7595,7 @@
       "path": "rip/journey-together-booster-bundle-pack-3-39Rh6NJPK9M.html",
       "published": "2026-04-16",
       "duration": 22,
-      "views": 765,
+      "views": 767,
       "vertical": true,
       "short": true,
       "sets": [
@@ -8077,7 +8077,8 @@
       "vertical": true,
       "short": true,
       "sets": [
-        "surging-sparks"
+        "surging-sparks",
+        "twilight-masquerade"
       ],
       "products": [
         "ex-premium"
@@ -8086,7 +8087,7 @@
         "double-rare"
       ],
       "hitCard": "Surging Sparks - Palossand ex - Double Black Star - Double Rare ; Twilight Masquerade - Bloodmoon Ursaluna ex - Double Black Star - Double Rare",
-      "packsOpened": 2,
+      "packsOpened": 4,
       "packsStated": true,
       "setPacks": [
         {
@@ -8094,11 +8095,17 @@
           "name": "surging sparks",
           "packs": 2,
           "typed": true
+        },
+        {
+          "set": "twilight-masquerade",
+          "name": "twilight masquerade",
+          "packs": 2,
+          "typed": true
         }
       ],
       "packNumber": 1,
       "openingType": "ex Box",
-      "packs": 2,
+      "packs": 4,
       "label": "Surging Sparks ex Premium Collection - Pack 1"
     },
     {
@@ -8306,7 +8313,9 @@
       "vertical": true,
       "short": false,
       "sets": [
-        "paradox-rift"
+        "paradox-rift",
+        "obsidian-flames",
+        "silver-tempest"
       ],
       "products": [
         "ex-premium"
@@ -8316,18 +8325,30 @@
       ],
       "hitCard": "Mabosstiff ex - Black Star Promo ; Paradox Rift - Golisopod ex - Double Black Star - Double Rare ; Silver Tempest - Alolan Vulpix V",
       "hasHit": true,
-      "packsOpened": 1,
+      "packsOpened": 4,
       "packsStated": true,
       "setPacks": [
         {
           "set": "paradox-rift",
           "name": "paradox rift",
+          "packs": 2,
+          "typed": true
+        },
+        {
+          "set": "obsidian-flames",
+          "name": "obsidian flames",
+          "packs": 1,
+          "typed": true
+        },
+        {
+          "set": "silver-tempest",
+          "name": "silver tempest",
           "packs": 1,
           "typed": true
         }
       ],
       "openingType": "ex Box",
-      "packs": 1,
+      "packs": 4,
       "label": "Paradox Rift ex Premium Collection"
     },
     {
@@ -8340,7 +8361,9 @@
       "vertical": true,
       "short": false,
       "sets": [
-        "phantasmal-flames"
+        "phantasmal-flames",
+        "mega-evolution",
+        "journey-together"
       ],
       "products": [
         "tin"
@@ -8352,19 +8375,31 @@
       ],
       "hitCard": "Mega Charizard Y - Black Star Promo ; Journey Together - N's Zoroark ex - Double Black Star - Double Rare ; Mega Evolution - Marshadow - Single Gold Star - Illustration Rare ; Phantasmal Flames - Mega Lopunny ex - Double Black Star - Double Rare",
       "hasHit": true,
-      "packsOpened": 1,
+      "packsOpened": 4,
       "packsStated": true,
       "setPacks": [
         {
           "set": "phantasmal-flames",
           "name": "phantasmal flames",
+          "packs": 2,
+          "typed": true
+        },
+        {
+          "set": "mega-evolution",
+          "name": "mega evolution",
+          "packs": 1,
+          "typed": true
+        },
+        {
+          "set": "journey-together",
+          "name": "journey together",
           "packs": 1,
           "typed": true
         }
       ],
       "packNumber": 1,
       "openingType": "Tin",
-      "packs": 1,
+      "packs": 4,
       "label": "Phantasmal Flames Tin - Pack 1"
     },
     {

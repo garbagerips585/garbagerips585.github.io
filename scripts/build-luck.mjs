@@ -19,12 +19,17 @@
 //    words. The tags come from the Hit Card cell now, which is a person naming
 //    the cards that came out.
 //
-//    The bias moved rather than went away, which is why `hasHit` is still the
-//    denominator. A rip whose Hit Card cell is EMPTY produces no tag and would
-//    read as a rip that produced nothing, so a rate computed over the tags
-//    would measure how much of the log is filled in. `hasHit` is a deliberate
-//    yes/no about the rip itself, filled in for rips that hit AND for rips that
-//    did not, so it is the only column that can carry a denominator.
+//    The bias moved rather than went away, which is why the DERIVED `pulls`
+//    tags still carry no denominator. A rip whose Hit Card cell is EMPTY
+//    produces no tag and would read as a rip that produced nothing, so a rate
+//    computed over the tags would measure how much of the log is filled in.
+//
+//    "ONLY `hasHit`" WAS THE RULE UNTIL 21 AUGUST 2026 AND IT WAS TOO NARROW BY
+//    EXACTLY ONE ROW, WHICH IS THE WORST WIDTH TO BE WRONG BY. A rip with an
+//    empty Has Hit cell AND two priced cards written into the My Hits tab is
+//    not an unanswered rip, and this page called it one while /hall.html and
+//    that rip's own page published both of its cards. See the outcome block
+//    below for the rule that replaced it and for the tilt it carries.
 //
 // 2. Every rate carries its sample size, and rates below MIN_SAMPLE are shown
 //    as "not enough yet" rather than as a number. Three rips of a set is an
@@ -39,7 +44,7 @@
 // That is correct behaviour, not a bug: it shows what is known and says how
 // much is still unknown.
 
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, readdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
@@ -59,8 +64,18 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, shortDate } from "../shared/format.mjs";
+import { esc, shortDate, moneyCompact } from "../shared/format.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
+// THE PRICE CHAIN AND THE PRICE SENTENCE BOTH COME OUT OF SHARED MODULES AND
+// NEITHER IS RESTATED HERE. shared/graded-price.mjs exists because five
+// builders each held a private copy of the PSA 10 lookup and the site
+// published two different figures for one card on 54 pages; shared/card-prices
+// .mjs exists because ten builders each held a private copy of the sourcing
+// sentence and the source moved under all ten. This page prints both, so it
+// calls both.
+import { loadGradedPrices } from "../shared/graded-price.mjs";
+import { loadFirstPartner } from "../shared/first-partner.mjs";
+import { priceNote, priceFooter } from "../shared/card-prices.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -76,38 +91,134 @@ const { videos } = JSON.parse(await readFile(DATA, "utf8"));
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
 const setName = Object.fromEntries(sets.map((s) => [s.id, s.name]));
 
-// A rip counts toward a rate only once its outcome is known either way.
-const judged = videos.filter((v) => typeof v.hasHit === "boolean");
-const hits = judged.filter((v) => v.hasHit);
+// ===========================================================================
+// A RIP THAT DEMONSTRABLY HIT WAS INVISIBLE TO THE PAGE THAT COUNTS HITS.
+// Fixed 21 August 2026, and the rule changed rather than the arithmetic.
+//
+// WHAT HAPPENED. `hasHit` is a yes/no column and this page counted only the
+// rips where it says yes or no. `ac3pK3zh0DE`, "Opening a Reshiram ex Box",
+// has it EMPTY -- and it also has two cards written into the My Hits tab, both
+// of which the site prices, both of which are plaques on /hall.html, and both
+// of which its own rip page publishes. So the tree carried 274 hit bands and
+// 136 rips with a named card while this page said 273 and 135.
+//
+// THAT IS THE WORST CLASS OF FAULT ON THIS SITE, not an off-by-one: one page
+// contradicting another about a number both of them derive from the same file,
+// silently, with every gate green, because 273 is a perfectly plausible answer.
+//
+// THE RULE. A rip's outcome is known when the owner has said so, and there are
+// TWO ways he says so: he ticks Has Hit, or he writes the cards that came out
+// into the My Hits tab. Naming a card IS answering the question. So the
+// denominator is "rips whose outcome we can determine", and the page says that
+// in those words rather than saying "logged", which was ambiguous between the
+// two all along.
+//
+// WHAT IT CANNOT DO, STATED BECAUSE IT IS A REAL TILT AND NOT A QUIBBLE. A
+// named card can only ever resolve to a HIT. Nobody writes down the cards that
+// did not come out, so this rule adds hits and never misses, and while any rip
+// is on the page through it the rate carries that tilt. `impliedHits` counts
+// them and the page prints the count beside the rate, so the size of the tilt
+// is on the page rather than in this comment. It is 1 today against 274.
+//
+// THE OPPOSITE CASE IS A DATA ERROR AND IS SHOUTED ABOUT RATHER THAN ABSORBED:
+// a rip whose Has Hit says NO while the My Hits tab names a card out of it is
+// two answers that cannot both be true, and `contradictions` makes the run say
+// so. There are none today.
+//
+// ONE READ OF data/hits.json FOR THE WHOLE FILE. It used to be opened twice,
+// once here and once for the card ledger, which is how the two halves of a
+// page come to disagree about how many rows there are.
+let hitDoc = {};
+try {
+  hitDoc = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
+} catch { /* no rip log: the page falls back to the Has Hit column alone */ }
+const namedHitIds = new Set(
+  Object.entries(hitDoc).filter(([, list]) => Array.isArray(list) && list.length).map(([vid]) => vid),
+);
+// The resolved outcome, stamped once so that every count on this page reads
+// the same field. `true`, `false`, or `null` for still unknown.
+const contradictions = [];
+for (const v of videos) {
+  const named = namedHitIds.has(v.id);
+  if (v.hasHit === false && named) contradictions.push(v.id);
+  v._out = typeof v.hasHit === "boolean" ? v.hasHit : named ? true : null;
+  v._implied = typeof v.hasHit !== "boolean" && named;
+}
+const judged = videos.filter((v) => v._out !== null);
+const hits = judged.filter((v) => v._out);
+const impliedHits = judged.filter((v) => v._implied).length;
 const coverage = videos.length ? judged.length / videos.length : 0;
 
 const pct = (n, d) => (d ? Math.round((n / d) * 1000) / 10 : 0);
 const packsIn = (v) => (Number.isFinite(v.packs) && v.packs > 0 ? v.packs : null);
 
-/** Group the judged rips by a key, and rate each group. */
-function rateBy(keyFn, labelFn) {
+/**
+ * Group EVERY rip by a key, and rate each group over the ones with an answer.
+ *
+ * IT USED TO WALK `judged` ONLY, AND THAT MADE THE "Rips" COLUMN A FILTERED
+ * COUNT WEARING A TOTAL'S LABEL. A set with 20 rips and 14 answers printed
+ * "14" under a heading reading Rips, which is the same fault a QA pass found on
+ * /videos.html's set header on 21 August 2026: a filtered number stated as if
+ * it were the whole. Both halves are counted now and the cell prints both,
+ * because the rate's denominator is the answered ones and the volume question
+ * is about all of them.
+ *
+ * PACKS ARE PER KEY, NOT PER VIDEO. 17 rips open two or three sets at once, and
+ * charging the whole rip's pack count to each of them would inflate every one.
+ * `packsFor` lets the caller say which slice belongs to this key; the sets
+ * table passes the sheet's own Sets & Packs breakdown.
+ */
+function rateBy(keyFn, labelFn, packsFor = (v) => packsIn(v)) {
   const g = new Map();
-  for (const v of judged) {
+  for (const v of videos) {
     for (const k of keyFn(v)) {
-      if (!g.has(k)) g.set(k, { rips: 0, hits: 0, packs: 0, hitPacks: 0 });
+      if (!g.has(k)) g.set(k, { all: 0, rips: 0, hits: 0, packs: 0, packRips: 0, hitPacks: 0 });
       const e = g.get(k);
-      e.rips++;
-      if (v.hasHit) e.hits++;
-      const p = packsIn(v);
+      e.all++;
+      const answered = v._out !== null;
+      if (answered) {
+        e.rips++;
+        if (v._out) e.hits++;
+      }
+      const p = packsFor(v, k);
       if (p) {
         e.packs += p;
-        if (v.hasHit) e.hitPacks += p;
+        // HOW MANY RIPS THE PACK TOTAL IS OVER, because it is not over all of
+        // them. 257 of 319 rips state a pack count, so a bare "48 packs" in a
+        // row of 57 rips reads as though nine rips opened nothing. The Packs
+        // column on the set table prints both halves.
+        e.packRips++;
+        if (v._out) e.hitPacks += p;
       }
     }
   }
   return [...g.entries()]
     .map(([k, e]) => ({ key: k, label: labelFn(k), ...e, rate: pct(e.hits, e.rips) }))
-    .filter((r) => r.rips > 0)
+    .filter((r) => r.all > 0)
     .sort((a, b) => (b.rips >= MIN_SAMPLE) - (a.rips >= MIN_SAMPLE) || b.rate - a.rate || b.rips - a.rips);
 }
 
-const bySet = rateBy((v) => v.sets || [], (k) => setName[k] || labelFor("sets", k) || k);
-const byProduct = rateBy((v) => v.products || [], (k) => labelFor("products", k) || k);
+const bySet = rateBy(
+  (v) => v.sets || [],
+  (k) => setName[k] || labelFor("sets", k) || k,
+  // THE SHEET'S OWN PER SET BREAKDOWN FIRST. `setPacks` is what import-sheet
+  // .mjs reads out of the Sets & Packs cell, so on a rip that opened one pack
+  // of Black Bolt and one of White Flare each set is charged one. A rip with
+  // no breakdown is charged its whole count ONLY where it opened one set,
+  // because otherwise the same packs would be counted against every set named.
+  (v, k) => {
+    const row = (v.setPacks || []).find((x) => x.set === k);
+    if (row && Number.isFinite(row.packs) && row.packs > 0) return row.packs;
+    return (v.sets || []).length === 1 ? packsIn(v) : null;
+  },
+);
+// THE PRODUCT TABLE THAT USED TO SIT HERE IS A GRID OF CARDS NOW, AND THIS IS
+// WHY THERE IS NOT ALSO A TABLE. `rateBy` over v.products answered "which
+// product has the best hit rate" and nothing else: no volume, no packs, no
+// boxes, no best card, and it sorted by rate, so the question Tim actually
+// asked ("what product type has given us the most hits") was not on the page at
+// all. Two renderings of one axis, ordered differently, would have been two
+// answers to one question sitting in the same scroll. See prodRows.
 
 // What actually came out, from the rarity Tim recorded. Falls back to the
 // derived pull tags only for the count of each kind, never for a rate.
@@ -198,10 +309,12 @@ const tagCount = videos.reduce((n, v) => n + (v.pulls || []).length, 0);
 const tagRips = videos.filter((v) => (v.pulls || []).length).length;
 let hitRows = 0;
 let widestGap = null;
-try {
-  const hv = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
+{
+  // hitDoc, NOT A SECOND READ OF THE SAME FILE. See the outcome block at the
+  // top: this file used to open data/hits.json three times, which is three
+  // chances for two halves of one page to disagree about how many rows it has.
   const tagsById = new Map(videos.map((v) => [v.id, (v.pulls || []).length]));
-  for (const [vid, list] of Object.entries(hv)) {
+  for (const [vid, list] of Object.entries(hitDoc)) {
     if (!Array.isArray(list)) continue;
     hitRows += list.length;
     const tags = tagsById.get(vid) || 0;
@@ -210,7 +323,7 @@ try {
       widestGap = { vid, cards: list.length, tags };
     }
   }
-} catch { /* optional: the note drops the comparison rather than guessing at it */ }
+}
 
 const rarityRips = [...rarityCount.values()].reduce((n, x) => n + x, 0);
 const pullRips = videos.filter((v) => (v.pulls || []).length).length;
@@ -232,7 +345,7 @@ const chrono = [...judged].sort((a, b) => String(a.published).localeCompare(Stri
 let worst = { len: 0, from: null, to: null };
 let run = 0, runFrom = null;
 for (const v of chrono) {
-  if (!v.hasHit) {
+  if (!v._out) {
     if (!run) runFrom = v;
     run++;
     if (run > worst.len) worst = { len: run, from: runFrom, to: v };
@@ -241,7 +354,7 @@ for (const v of chrono) {
 let bestRun = { len: 0, from: null, to: null };
 run = 0; runFrom = null;
 for (const v of chrono) {
-  if (v.hasHit) {
+  if (v._out) {
     if (!run) runFrom = v;
     run++;
     if (run > bestRun.len) bestRun = { len: run, from: runFrom, to: v };
@@ -274,6 +387,464 @@ const droughtBreaker = (() => {
 
 const totalPacks = judged.reduce((n, v) => n + (packsIn(v) || 0), 0);
 const packsKnown = judged.filter(packsIn).length;
+
+// ===========================================================================
+// EVERYTHING BELOW THIS LINE IS THE 21 AUGUST 2026 PASS, and the three rules
+// it added to the three at the top of this file:
+//
+// 4. A COUNT AND A RATE NEVER TRAVEL ALONE. Tim asked "what product type has
+//    given us the most hits", and the answer to that question as asked is
+//    "whichever one we opened most of", which is not a fact about the product.
+//    So every count on this page is printed beside its rate AND its
+//    denominator, in the same box, at the same size. "30 hits" and "30 of 70
+//    logged rips" are the same sentence here and the second half is never
+//    dropped to save a line.
+//
+// 5. A VIDEO IS NOT A BOX AND THE PAGE SAYS SO WHERE IT MATTERS. An ETB holds
+//    nine packs and this channel films one pack at a time, so the 57 videos
+//    tagged etb are nowhere near 57 boxes: PACK_CAPACITY below is read out of
+//    scripts/build-sheet.py rather than retyped, and the note that uses it is
+//    the one thing standing between this page and a number that is wrong by a
+//    factor of nine. See boxNote.
+//
+// 6. NO MONEY TOTAL IS PRINTED HERE, and that is a decision rather than a gap.
+//    /hall.html already publishes the total ungraded guide value and the total
+//    PSA 10 over the cards it inducts, computed by the builder that owns the
+//    printing-match contract with build-pages.mjs. A second total on this page
+//    would be a second renderer of one fact, which is the exact failure
+//    shared/graded-price.mjs exists to end. This page prints the BEST card out
+//    of each product type, which is a fact /hall.html cannot carry because it
+//    does not know what was opened, and links to that page for the rest.
+// ===========================================================================
+
+// ------------------------------------------------- what a card is worth here
+//
+// THIS IS THE PART OF THE PAGE MOST LIKELY TO GO WRONG, so read this before
+// changing a line of it.
+//
+// The price of a pulled card is not stored anywhere. It is resolved from the
+// checklist, and the hard half is deciding WHICH PRINTING was pulled when a
+// set prints the same card several times. build-pages.mjs and build-hall.mjs
+// hold that decision together under a written contract, and a THIRD copy of
+// their rule is exactly how one card comes to show two prices on two pages.
+//
+// SO THIS FILE DOES NOT COPY THEIR RULE. IT USES A STRICTER ONE THAT CANNOT
+// DISAGREE WITH IT. Their chain is: the printing whose tier matches the log
+// exactly, then the first whose tier merely starts with the same eight
+// characters, then the first printing of that name at all. Ours stops at the
+// first branch and takes a bare name match only where the name is UNIQUE in
+// the set. Every card this file prices is therefore a card those two price the
+// same way, and every card where the two rules could part company is dropped
+// and counted rather than guessed at.
+//
+// PROVEN AGAINST THE PAGE THAT OWNS THE MONEY, 21 August 2026, by deduplicating
+// this ledger the way build-hall.mjs deduplicates its plaques: 21 cards with a
+// PSA 10 summing 2,726.55, against the "PSA 10 on 21 of 140" and the $2,727 that
+// /hall.html prints. Exact. The raw side is 120 cards at 732.79 against its 122
+// at $741, which is the two rows the looser rule takes and this one declines,
+// $8.21 between them. A subset that agrees is the whole design.
+//
+// THE PSA 10 FIGURE COMES OUT OF shared/graded-price.mjs AND IS NOT LOOKED UP
+// HERE AT ALL. One call, one chain, the same one every other page takes.
+const { resolve: psaResolve } = await loadGradedPrices();
+const firstPartner = await loadFirstPartner();
+
+const cardsBySet = new Map();
+try {
+  for (const f of await readdir(join(ROOT, "public/data/cards"))) {
+    if (!f.endsWith(".json")) continue;
+    const doc = JSON.parse(await readFile(join(ROOT, "public/data/cards", f), "utf8"));
+    cardsBySet.set(f.replace(/\.json$/, ""), doc);
+  }
+} catch { /* no checklists: every value figure below drops out rather than guesses */ }
+
+// The sourcing sentence for every ungraded figure on this page, from the
+// module that owns the wording. NOT "market price": a guide value and a market
+// price are different quantities and shared/card-prices.mjs says so at length.
+const priceDoc = (() => {
+  const one = cardsBySet.get("pitch-black") || [...cardsBySet.values()][0] || null;
+  if (!one) return null;
+  let pricecharting = 0, tcgdex = 0;
+  for (const d of cardsBySet.values()) {
+    pricecharting += d.pricedBy?.pricecharting || 0;
+    tcgdex += d.pricedBy?.tcgdex || 0;
+  }
+  return { priceSource: one.priceSource, pricesChecked: one.pricesChecked, checked: one.checked, pricedBy: { pricecharting, tcgdex } };
+})();
+
+const nrm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
+const videoById = new Map(videos.map((v) => [v.id, v]));
+
+/**
+ * One row per card named in the rip log, with the video it came out of and
+ * whatever the site knows about what it is worth.
+ *
+ * `drops` is a census rather than a debugging aid: a value figure over a
+ * ledger that quietly lost rows is a value figure about a smaller channel than
+ * the one the page is describing, and the run prints every bucket.
+ */
+const cardLedger = [];
+const cardDrops = { noChecklist: 0, notOnChecklist: 0, ambiguousPrinting: 0, noVideo: 0 };
+let cardRows = 0;
+{
+  for (const [vid, list] of Object.entries(hitDoc)) {
+    if (!Array.isArray(list)) continue;
+    const v = videoById.get(vid);
+    for (const h of list) {
+      cardRows++;
+      if (!v) { cardDrops.noVideo++; continue; }
+      const base = { vid, v, name: h.card, rarity: h.rarity || null, setName: h.setName || null };
+      // A PROMO CARRIES ITS OWN PRICE AND ALWAYS HAS. See data/hits.json's
+      // readme: TCGdex publishes no pricing for promo sets, so the rip log is
+      // the only copy, and shared/first-partner.mjs is the join for the three
+      // that also appear in an illustration collection.
+      if (!h.set) {
+        const fp = firstPartner.priceForHit(h);
+        const raw = typeof h.price === "number" ? h.price : fp?.price ?? null;
+        const psa = typeof h.psa10 === "number" ? h.psa10 : fp?.psa10 ?? null;
+        cardLedger.push({ ...base, set: null, number: h.number || fp?.number || null, raw, psa, promo: true });
+        continue;
+      }
+      const doc = cardsBySet.get(h.set);
+      if (!doc?.cards?.length) { cardDrops.noChecklist++; cardLedger.push({ ...base, set: h.set, number: null, raw: null, psa: null }); continue; }
+      const same = doc.cards.filter((c) => nrm(c.name) === nrm(h.card));
+      if (!same.length) { cardDrops.notOnChecklist++; cardLedger.push({ ...base, set: h.set, number: null, raw: null, psa: null }); continue; }
+      const want = h.rarity ? nrm(h.rarity) : null;
+      const exact = want ? same.filter((c) => nrm(c.rarity) === want) : [];
+      const m = exact.length === 1 ? exact[0] : (!exact.length && same.length === 1 ? same[0] : null);
+      if (!m) { cardDrops.ambiguousPrinting++; cardLedger.push({ ...base, set: h.set, number: null, raw: null, psa: null }); continue; }
+      const g = psaResolve(h.set, m.n, { name: m.name, setName: setName[h.set] || h.setName || h.set });
+      cardLedger.push({
+        ...base,
+        name: m.name,
+        set: h.set,
+        setName: setName[h.set] || h.setName || null,
+        number: m.n,
+        rarity: m.rarity || h.rarity || null,
+        raw: typeof m.price === "number" && m.price > 0 ? m.price : null,
+        psa: g && typeof g.price === "number" ? g.price : null,
+      });
+    }
+  }
+}
+
+const rawCards = cardLedger.filter((c) => typeof c.raw === "number");
+const psaCards = cardLedger.filter((c) => typeof c.psa === "number");
+
+// ============================================================================
+// "HOW MANY ETBs HAVE WE OPENED" IS THREE DIFFERENT QUESTIONS AND THIS LOG CAN
+// ANSWER TWO OF THEM. Read this before adding a box count back.
+//
+// Tim asked for "how many ETBs we have opened overall, how many single packs,
+// how many Booster bundles" and then, when the double count was put to him,
+// for the model where a box counts once and contributes its full pack count:
+// "only count each ETB once, but you count the 9 packs inside as 9 packs".
+// That model is exactly right and this data cannot carry it. The evidence, all
+// of it computed below rather than asserted, and all of it printed at the end
+// of a run so it cannot go stale:
+//
+//   1. THE Box # COLUMN IS A PRODUCT LABEL, NOT A SERIAL. `boxCollisions`
+//      counts the (opening type, set, Box #, Pack #) coordinates occupied by
+//      more than one video. Today it is 36 coordinates carrying 40 extra
+//      videos, and they are not re-uploads: "Ascended Heroes ex Premium
+//      Collection 1 - Pack 1" is 21 June AND 22 June, and the same product's
+//      "Collection 2 - Pack 1" is 17 June, 6 July and 8 July. Those are second
+//      and third boxes wearing the first one's number, because the "1" and the
+//      "2" name the product on the shelf. Nothing in the log separates a
+//      second box from a second video of one pack.
+//   2. SO A BOX CANNOT BE COUNTED, and if it cannot be counted its capacity
+//      cannot be added either. Adding 9 for a box while its nine pack videos
+//      each add 1 counts every one of those packs twice, which is the hazard
+//      in the request and the reason this is written out at this length.
+//   3. CAPACITY IS ONLY PUBLISHED FOR SIX OF THE THIRTEEN PRODUCT KINDS IN
+//      USE. PRODUCT_TO_PACKS is read out of scripts/build-sheet.py rather than
+//      retyped, for the reason check-build.py gives about its own copy: a
+//      second copy of the table that caused a bug is how a verifier comes to
+//      agree with the bug. ex-premium, tin, poke-ball-tin, collection-box and
+//      knock-out are not in it, and that is 81 rips.
+//   4. AND "PACKS IN THE BOX" IS NOT "PACKS RIPPED" EVEN WHERE BOTH ARE KNOWN.
+//      `boxShort` asks the question on the only boxes where it can be asked --
+//      a stated Box # whose pack numbers do not repeat, of a product whose
+//      capacity is published -- and finds four of them holding 33 packs with
+//      26 on camera. A Chaos Rising ETB is three packs in. Calling its other
+//      six "ripped" would be a claim the videos do not support.
+//
+// SO THE PAGE COUNTS PACKS RIPPED ON CAMERA, from the sheet's own Packs
+// column, and says in its own words that it is counting openings rather than
+// boxes bought. The number that unlocks the rest is a UNIQUE box serial in the
+// Box # column, and the page says that too, because a reader who wants the box
+// count should be able to see what is standing in the way of it.
+let PACK_CAPACITY = {};
+try {
+  const py = await readFile(join(ROOT, "scripts/build-sheet.py"), "utf8");
+  const blk = /^PRODUCT_TO_PACKS = \{(.*?)^\}/ms.exec(py);
+  if (blk) for (const m of blk[1].matchAll(/["']([a-z0-9-]+)["']\s*:\s*(\d+)/g)) PACK_CAPACITY[m[1]] = Number(m[2]);
+} catch { /* the census below reports zero known capacities rather than guessing one */ }
+
+/* ---------------------------------------------------------- boxes, as a FLOOR
+ *
+ * Pack # IS AN ORDINAL AND THAT IS WHAT MAKES THIS POSSIBLE. Tim: "the pack #
+ * listed in the excel document is the pack # of the pack from that box that is
+ * being opened in that video, not how many packs are in the video."
+ * import-sheet.mjs agrees in code rather than in prose: the warning at its
+ * `m.packNumber > packs` line reads "Pack 12 of a nine pack ETB", so it is
+ * already treating that column as an index into a box. Summing it would produce
+ * a large, confident, meaningless number and nothing here sums it.
+ *
+ * THE ONE THING AN ORDINAL LETS YOU COUNT IS BOXES, AND ONLY AS A FLOOR.
+ * Within one opening type and one set, if Pack 1 appears in three videos then
+ * three different boxes were opened, because one box has one first pack. So
+ * the box count for a group is the LARGEST NUMBER OF TIMES ANY SINGLE PACK
+ * NUMBER IS USED IN IT, and it is a floor rather than an answer: two boxes
+ * filmed at different pack numbers and never overlapping look like one.
+ *
+ * IT IS A FLOOR AND THE PAGE SAYS "AT LEAST" IN THE COPY. A floor can only
+ * ever be pushed up by more data, which is the property every figure on this
+ * page has to have while rows 258 to 319 are still being filled.
+ *
+ * WHY THIS AND NOT THE Box # COLUMN. Because that column is a product label
+ * rather than a serial, which the data says out loud: "Ascended Heroes ex
+ * Premium Collection 1 - Pack 1" is two videos a day apart, and "Collection 2 -
+ * Pack 1" is three videos across June and July. `boxCensus.collisions` counts
+ * every coordinate like that, and the run prints the total.
+ *
+ * A LOOSE PACK IS ITS OWN UNIT AND IS NOT COUNTED HERE. The test is
+ * PRODUCT_TO_PACKS saying the product holds exactly one pack, which is the
+ * four single-pack tags. Counting "boxes" of single packs would just be the
+ * video count wearing a different word.
+ *
+ * AND THE PACKS THOSE BOXES HOLD IS A SEPARATE QUANTITY FROM THE PACKS THAT
+ * WERE RIPPED. See boxCensus.capPacks against boxCensus.capFilmed: an ETB that
+ * is three videos in holds nine packs and has ripped three. The page prints
+ * both, labelled, and never adds them.
+ */
+const looseTag = (tag) => PACK_CAPACITY[tag] === 1;
+const boxFloor = new Map();
+let boxNoType = 0;
+{
+  const groups = new Map();
+  for (const v of videos) {
+    for (const tag of v.products || []) {
+      if (looseTag(tag)) continue;
+      if (!v.openingType) { boxNoType++; continue; }
+      const k = `${tag}||${v.openingType}||${(v.sets || [])[0] || "?"}`;
+      if (!groups.has(k)) groups.set(k, []);
+      groups.get(k).push(v);
+    }
+  }
+  for (const [k, list] of groups) {
+    const tag = k.split("||")[0];
+    const seen = new Map();
+    for (const v of list) if (Number.isFinite(v.packNumber)) seen.set(v.packNumber, (seen.get(v.packNumber) || 0) + 1);
+    boxFloor.set(tag, (boxFloor.get(tag) || 0) + Math.max(1, ...seen.values()));
+  }
+}
+
+const boxCensus = (() => {
+  const coord = new Map();
+  for (const v of videos) {
+    if (!Number.isFinite(v.packNumber)) continue;
+    const k = [v.openingType || "?", (v.sets || [])[0] || "?", v.boxNumber ?? "-", v.packNumber].join("|");
+    coord.set(k, (coord.get(k) || 0) + 1);
+  }
+  const collisions = [...coord.values()].filter((n) => n > 1);
+  const stated = new Map();
+  for (const v of videos) {
+    if (!Number.isFinite(v.boxNumber)) continue;
+    const k = [v.openingType || "?", (v.sets || [])[0] || "?", v.boxNumber].join("|");
+    if (!stated.has(k)) stated.set(k, []);
+    stated.get(k).push(v);
+  }
+  let checkable = 0, cap = 0, filmed = 0, short = 0;
+  for (const list of stated.values()) {
+    const pns = list.map((v) => v.packNumber).filter(Number.isFinite);
+    if (pns.length !== new Set(pns).size) continue;
+    const c = PACK_CAPACITY[(list[0].products || [])[0]];
+    if (!c) continue;
+    checkable++;
+    cap += c;
+    const cam = list.reduce((n, v) => n + (packsIn(v) || 0), 0);
+    filmed += cam;
+    if (cam < c) short++;
+  }
+  // THE GAP BETWEEN "PACKS THE BOXES HOLD" AND "PACKS RIPPED ON CAMERA", over
+  // every product whose capacity PRODUCT_TO_PACKS publishes. Two quantities,
+  // never added, and the page prints the smaller one as its headline.
+  //
+  // THE GAP HAS TWO CAUSES AND THE COPY MUST NOT BLEND THEM. Some of those
+  // packs have genuinely not been opened on camera yet, and some were opened
+  // in a rip that states no pack count. capRips and capPackRips are here so
+  // the sentence can say how much of the second there is instead of letting a
+  // reader take the whole gap for the first.
+  let capBoxes = 0, capPacks = 0, capFilmed = 0, capRips = 0, capPackRips = 0;
+  const filmedByTag = new Map(), ripsByTag = new Map(), packRipsByTag = new Map();
+  for (const v of videos) for (const t of v.products || []) {
+    filmedByTag.set(t, (filmedByTag.get(t) || 0) + (packsIn(v) || 0));
+    ripsByTag.set(t, (ripsByTag.get(t) || 0) + 1);
+    if (packsIn(v)) packRipsByTag.set(t, (packRipsByTag.get(t) || 0) + 1);
+  }
+  for (const [tag, f] of boxFloor) {
+    if (!PACK_CAPACITY[tag]) continue;
+    capBoxes += f;
+    capPacks += f * PACK_CAPACITY[tag];
+    capFilmed += filmedByTag.get(tag) || 0;
+    capRips += ripsByTag.get(tag) || 0;
+    capPackRips += packRipsByTag.get(tag) || 0;
+  }
+  return {
+    ripsWithBoxNo: videos.filter((v) => Number.isFinite(v.boxNumber)).length,
+    statedGroups: stated.size,
+    collisions: collisions.length,
+    collisionRips: collisions.reduce((n, x) => n + x - 1, 0),
+    checkable, cap, filmed, short,
+    boxes: [...boxFloor.values()].reduce((n, x) => n + x, 0),
+    boxNoType,
+    capBoxes, capPacks, capFilmed, capRips, capPackRips,
+    noCapacityTags: [...new Set(videos.flatMap((v) => v.products || []))].filter((t) => !PACK_CAPACITY[t]),
+  };
+})();
+const allPacks = videos.reduce((n, v) => n + (packsIn(v) || 0), 0);
+const allPackRips = videos.filter(packsIn).length;
+
+const byProductVol = new Map();
+for (const v of videos) {
+  for (const k of v.products || []) {
+    if (!byProductVol.has(k)) byProductVol.set(k, { key: k, vids: 0, judged: 0, hits: 0, packs: 0, packVids: 0, cards: 0, raw: [], psa: [], guide: 0, guideCards: 0 });
+    const e = byProductVol.get(k);
+    e.vids++;
+    if (v._out !== null) { e.judged++; if (v._out) e.hits++; }
+    const p = packsIn(v);
+    if (p) { e.packs += p; e.packVids++; }
+  }
+}
+// The cards, joined onto the same buckets through the video they came out of.
+// A card from a rip with no hit-or-not answer is left OUT of every value
+// figure, because the rate beside it is over judged rips and the two halves of
+// one box have to describe the same population.
+let cardsOutsideJudged = 0;
+for (const c of cardLedger) {
+  if (c.v._out === null) { cardsOutsideJudged++; continue; }
+  for (const k of c.v.products || []) {
+    const e = byProductVol.get(k);
+    if (!e) continue;
+    e.cards++;
+    if (typeof c.raw === "number") { e.raw.push(c); e.guide += c.raw; e.guideCards++; }
+    if (typeof c.psa === "number") e.psa.push(c);
+  }
+}
+const best = (list, f) => list.reduce((a, b) => (a === null || f(b) > f(a) ? b : a), null);
+const prodRows = [...byProductVol.values()].map((e) => ({
+  ...e,
+  label: labelFor("products", e.key) || e.key,
+  boxes: looseTag(e.key) ? 0 : boxFloor.get(e.key) || 0,
+  capacity: PACK_CAPACITY[e.key] ?? null,
+  rate: e.judged ? pct(e.hits, e.judged) : null,
+  bestRaw: best(e.raw, (c) => c.raw),
+  bestPsa: best(e.psa, (c) => c.psa),
+  // A FLOOR, NOT AN AVERAGE, and the page uses the word "at least" for it.
+  // Cards with no guide value count as zero and unlogged rips are not in the
+  // denominator, so the true figure can only be higher. That makes it a
+  // statement that stays true as rows 258 to 319 land instead of one that has
+  // to be walked back.
+  guidePerRip: e.judged ? e.guide / e.judged : null,
+})).sort((a, b) => b.hits - a.hits || b.judged - a.judged || a.label.localeCompare(b.label));
+
+const mostHits = prodRows.find((r) => r.hits > 0) || null;
+const bestRateRow = prodRows
+  .filter((r) => r.judged >= MIN_SAMPLE)
+  .sort((a, b) => b.rate - a.rate || b.judged - a.judged)[0] || null;
+const richestRow = prodRows
+  .filter((r) => r.judged >= MIN_SAMPLE && r.guidePerRip > 0)
+  .sort((a, b) => b.guidePerRip - a.guidePerRip)[0] || null;
+const bestRawCard = best(rawCards, (c) => c.raw);
+const bestPsaCard = best(psaCards, (c) => c.psa);
+
+/**
+ * How many packs had been ripped on camera by the time the best card turned up.
+ *
+ * A FLOOR, AND THE COPY SAYS "AT LEAST". It sums the Packs column over every
+ * rip published up to and including that one, and 62 of the 319 rips do not
+ * state a pack count, so the real number is higher. A floor is the only shape
+ * this can take while the log is still being filled: more answers can only
+ * ever push it up, never down, so the sentence never has to be walked back.
+ */
+const packsToBest = (() => {
+  if (!bestRawCard) return 0;
+  const upTo = String(bestRawCard.v.published || "");
+  return videos.filter((v) => String(v.published || "") <= upTo).reduce((n, v) => n + (packsIn(v) || 0), 0);
+})();
+
+// ------------------------------------------------------ the pack number question
+//
+// DOES IT MATTER WHICH PACK OUT OF THE BOX. It is the oldest superstition in
+// the hobby and this log can actually test it, because Tim records a Pack #.
+//
+// THE CAVEAT IS NOT OPTIONAL AND IT IS DRAWN, NOT WRITTEN IN SMALL PRINT: pack
+// 9 only exists inside products that hold nine packs, so the tall end of this
+// axis is a different mix of products from the short end and NOT a later
+// moment in one box. The columns thin out to nothing on the right for the same
+// reason, which is why the sample size is printed under every one of them and
+// why anything under MIN_SAMPLE draws as an empty frame with no reading in it.
+const byPackNo = new Map();
+for (const v of judged) {
+  const n = v.packNumber;
+  if (!Number.isInteger(n) || n < 1) continue;
+  if (!byPackNo.has(n)) byPackNo.set(n, { rips: 0, hits: 0 });
+  const e = byPackNo.get(n);
+  e.rips++;
+  if (v._out) e.hits++;
+}
+const packNoMax = byPackNo.size ? Math.max(...byPackNo.keys()) : 0;
+const packNoRows = Array.from({ length: packNoMax }, (_, i) => {
+  const e = byPackNo.get(i + 1) || { rips: 0, hits: 0 };
+  return { n: i + 1, ...e, rate: e.rips ? pct(e.hits, e.rips) : null, enough: e.rips >= MIN_SAMPLE };
+});
+const packNoJudged = packNoRows.reduce((n, r) => n + r.rips, 0);
+const packNoBest = packNoRows.filter((r) => r.enough).sort((a, b) => b.rate - a.rate)[0] || null;
+
+// ------------------------------------------------------------- runs and months
+//
+// THE RUN HISTOGRAM IS THE CHANNEL'S OWN NAME TURNED INTO A NUMBER. `worst` and
+// `bestRun` above already find the LONGEST of each; this finds every one of
+// them, so the page can show the shape rather than the extreme. Self-checked
+// against those two below, because two functions walking the same list and
+// disagreeing is the kind of thing that ships.
+function runsOf(want) {
+  const out = [];
+  let n = 0;
+  for (const v of chrono) {
+    if (v._out === want) n++;
+    else { if (n) out.push(n); n = 0; }
+  }
+  if (n) out.push(n);
+  return out;
+}
+const dryRuns = runsOf(false);
+const hotRuns = runsOf(true);
+const tallyRuns = (rs) => { const m = new Map(); for (const n of rs) m.set(n, (m.get(n) || 0) + 1); return m; };
+const dryTally = tallyRuns(dryRuns);
+const hotTally = tallyRuns(hotRuns);
+const runMax = Math.max(0, ...dryRuns, ...hotRuns);
+const dudRips = judged.filter((v) => !v._out).length;
+
+const MONTH_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const monthMap = new Map();
+let undated = 0;
+for (const v of videos) {
+  const k = String(v.published || "").slice(0, 7);
+  if (!/^\d{4}-\d{2}$/.test(k)) { undated++; continue; }
+  if (!monthMap.has(k)) monthMap.set(k, { key: k, filmed: 0, logged: 0, hits: 0, packs: 0 });
+  const e = monthMap.get(k);
+  e.filmed++;
+  if (v._out !== null) { e.logged++; if (v._out) e.hits++; }
+  e.packs += packsIn(v) || 0;
+}
+const monthRows = [...monthMap.values()].sort((a, b) => a.key.localeCompare(b.key)).map((e) => ({
+  ...e,
+  label: MONTH_SHORT[Number(e.key.slice(5, 7)) - 1] || e.key.slice(5, 7),
+  year: e.key.slice(0, 4),
+  rate: e.logged ? pct(e.hits, e.logged) : null,
+}));
 
 // ---------------------------------------------------------------------------
 
@@ -332,23 +903,18 @@ const shotFor = (key) => {
   return { src: hit.thumb, name: hit.name, set: setLabel };
 };
 
-const row = (r, hrefBase, withShot = false) => {
+// THE PACKS COLUMN IS NEW AND IT IS THE "BY SET" HALF OF WHAT TIM ASKED FOR:
+// "we should show stats by set, and overall stats". It is packs RIPPED ON
+// CAMERA, from the sheet's own Packs column, and the cell prints the rips it
+// is over because 257 of 319 rips state one. A bare pack total next to a rip
+// total invites the subtraction and the subtraction is wrong.
+const row = (r, hrefBase) => {
   const enough = r.rips >= MIN_SAMPLE;
-  const shot = withShot ? shotFor(r.key) : null;
   const name = hrefBase ? `<a href="${hrefBase}${esc(r.key)}">${esc(r.label)}</a>` : esc(r.label);
   return `        <tr${enough ? "" : ' class="thin"'}>
-          <th scope="row">${
-            withShot
-              ? `<span class="luck-prod">${
-                  shot
-                    ? `<img src="${esc(shot.src)}" sizes="56px" alt="${esc(shot.name)}, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer">`
-                    : `<span class="luck-noshot" aria-hidden="true"></span>`
-                }<span class="luck-prodn">${name}${
-                  shot ? `<em>${esc(shot.set)} shown</em>` : `<em>no photo we can publish</em>`
-                }</span></span>`
-              : name
-          }</th>
-          <td class="num">${r.rips}</td>
+          <th scope="row">${name}</th>
+          <td class="num">${r.all}${r.rips !== r.all ? `<em>${r.rips} answered</em>` : ""}</td>
+          <td class="num">${r.packs ? `${r.packs}<em>over ${r.packRips} rip${r.packRips === 1 ? "" : "s"}</em>` : '<span class="thin-note">none say</span>'}</td>
           <td class="num">${r.hits}</td>
           <td class="rate">${
             enough
@@ -375,14 +941,14 @@ const row = (r, hrefBase, withShot = false) => {
 // they have focusable children (.cc-scroll has 28 and still carries it), so the
 // convention is already "every table scroller", and this was the one that missed.
 // 166px hidden at 320.
-const table = (rows, what, hrefBase, withShot = false) =>
+const table = (rows, what, hrefBase) =>
   rows.length
-    ? `    <div class="luck-scroll" tabindex="0" role="region" aria-label="Hit rate by ${what}, scrollable table">
+    ? `    <div class="luck-scroll" tabindex="0" role="region" aria-label="Rips, packs, hits and hit rate by ${what}, scrollable table">
       <table class="luck-table">
-        <caption class="sr-only">Hit rate by ${what}</caption>
-        <thead><tr><th scope="col">${what}</th><th scope="col">Rips</th><th scope="col">Hits</th><th scope="col">Hit rate</th></tr></thead>
+        <caption class="sr-only">Rips, packs ripped, hits and hit rate by ${what}</caption>
+        <thead><tr><th scope="col">${what}</th><th scope="col">Rips</th><th scope="col">Packs</th><th scope="col">Hits</th><th scope="col">Hit rate</th></tr></thead>
         <tbody>
-${rows.map((r) => row(r, hrefBase, withShot)).join("\n")}
+${rows.map((r) => row(r, hrefBase)).join("\n")}
         </tbody>
       </table>
     </div>`
@@ -403,8 +969,14 @@ const miniCSS = (css) =>
 const style = `
 .luck{padding:var(--s7) 0 var(--s5)}
 .luck-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:42em;margin-bottom:var(--s5)}
-.luck-head{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3);margin-bottom:var(--s5)}
-@media(max-width:700px){.luck-head{grid-template-columns:repeat(2,1fr)}}
+.luck-head{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--s3);margin-bottom:var(--s5)}
+/* FIVE TILES IN A TWO COLUMN GRID LEAVES THE LAST ONE ALONE IN ITS ROW, and
+   the last one is the hit rate, which is the headline of the whole page. It
+   spans instead, so the orphan row becomes the emphasis it should have had. */
+@media(max-width:700px){
+  .luck-head{grid-template-columns:repeat(2,1fr)}
+  .luck-head > :last-child{grid-column:1 / -1}
+}
 .luck-stat{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s4);box-shadow:var(--lift)}
 .luck-stat b{display:block;font:400 var(--t-xl)/1 var(--display);color:var(--ink);margin-bottom:4px}
@@ -460,6 +1032,10 @@ const style = `
 .luck-table tbody th{font-weight:600}
 .luck-table tbody th a:hover{text-decoration:underline}
 .luck-table .num{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink-2);width:1%}
+/* The second line of a count cell: how many of them the number beside it is
+   over. Same shape as .pc-nums dd em on the product cards, and no opacity on
+   it for the reason recorded there. */
+.luck-table .num em{display:block;font:400 var(--t-micro)/1.3 var(--body);font-style:normal;white-space:nowrap}
 .luck-table .rate{width:40%;min-width:120px}
 .luck-table tr.thin{opacity:.62}
 .thin-note{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);letter-spacing:.04em;text-transform:uppercase}
@@ -511,6 +1087,163 @@ const style = `
 .luck-empty{color:var(--ink-2);background:var(--card);border:1px dashed var(--hair);
   border-radius:var(--r);padding:var(--s5);text-align:center}
 
+/* TWO COLUMNS OF INTRO PROSE FROM 1000px, and it is the same argument ui.css
+   makes about the home page: the reading measure is capped at 50ch, so on a
+   1,392px band one column of it used a third of the width and the grid of
+   cards under it used all of it, which is the "top of the page reads as a
+   different site from the bottom" failure. Two columns of 50ch fill the band
+   without touching the measure, and take about 240px of height off at 1440. */
+@media(min-width:1000px){
+  .luck-intro{display:grid;grid-template-columns:repeat(2,minmax(0,50ch));gap:0 var(--s6);align-items:start}
+}
+
+/* ---------------------------------------------------- the product spine ----
+   ONE CARD PER PRODUCT KIND, ordered by hits because that is the question Tim
+   asked, with the rate and its denominator in the same box so the order cannot
+   mislead on its own. Photo and the "Pitch Black shown" line are the product
+   table's, moved across whole: products.json is per SET, so without that line
+   the picture claims to be "an ETB" rather than "Pitch Black's ETB". */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:var(--s4)}
+.pcard{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s4);box-shadow:var(--lift);display:flex;flex-direction:column;gap:var(--s3)}
+/* A kind with too few logged rips to carry a rate is dimmed rather than hidden,
+   the same treatment tr.thin gets in the table above, because "we opened one of
+   these" is worth knowing and "1 of 1, 100%" is not. */
+.pcard--thin{opacity:.72}
+.pcard h3{display:flex;align-items:center;gap:var(--s3);font:400 var(--t-m)/1.2 var(--body);margin:0}
+.pcard h3 img,.pcard h3 .luck-noshot{flex:none;width:52px;height:52px;object-fit:contain;display:block;
+  background:var(--paper-2);border:1px solid var(--hair);border-radius:var(--r-sm)}
+.pc-name{min-width:0;flex:1}
+.pc-name a{font-weight:600}
+.pc-name a:hover,.pc-name a:focus-visible{text-decoration:underline}
+.pc-name em{display:block;font:400 var(--t-micro)/1.3 var(--body);color:var(--ink-2);font-style:normal;margin-top:2px}
+/* MOST HITS is a FLAG on a count, not a prize, so it is the small pink that
+   every other "the site is saying this" mark on the page uses. --ketchup-deep
+   and not --ketchup: this is 11px type and #E87EA1 measures 3.45:1 on the card. */
+.pc-flag{flex:none;font:700 var(--t-micro)/1 var(--mono);color:var(--ketchup-deep);
+  letter-spacing:.06em;border:1px solid var(--hair);border-radius:var(--r-pill);padding:5px 8px}
+.pc-nums{display:flex;flex-wrap:wrap;gap:var(--s3) var(--s5);margin:0}
+.pc-nums div{min-width:0}
+.pc-nums dt{font:700 var(--t-micro)/1.2 var(--mono);color:var(--ink-2);letter-spacing:.06em;text-transform:uppercase}
+/* NO opacity HERE. The second word of a label ("RIPPED", "AT LEAST") was
+   --ink-2 at .8, which measures 4.40:1 on --card against the 4.5 AA line at
+   11px. It is the word that says WHICH quantity the number under it is, so it
+   is the last thing on the card that should be faded. Full --ink-2, 5.73:1. */
+.pc-nums dt em{font-style:normal;display:block;font-weight:700}
+.pc-nums dd{margin:2px 0 0;font:400 var(--t-l)/1 var(--display);color:var(--ink)}
+.pc-nums dd em{display:block;font:400 var(--t-micro)/1.3 var(--body);color:var(--ink-2);font-style:normal;margin-top:3px}
+.pc-none{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);text-transform:uppercase}
+.pc-rate{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2) var(--s3);margin:0}
+.pc-rate .lbar{flex:1 1 120px}
+/* THE DENOMINATOR TRAVELS WITH THE RATE AND IS NOT SMALLER THAN IT. "12 of 57"
+   and "1 of 1" must not be able to look alike, which is the whole reason this
+   line exists rather than a footnote. */
+.pc-den{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.04em;text-transform:uppercase}
+.pc-best{display:block;border-top:1px dashed var(--hair);padding-top:var(--s3)}
+.pc-best em{display:block;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
+  font-style:normal;letter-spacing:.06em;text-transform:uppercase}
+.pc-best a{display:inline-block;min-height:24px;font:600 var(--t-sm)/1.4 var(--body);color:var(--sky-deep)}
+.pc-best a:hover,.pc-best a:focus-visible{text-decoration:underline}
+.pc-best b{display:inline;font:700 var(--t-sm)/1.4 var(--body);color:var(--ketchup-deep);margin-left:6px}
+.pc-best i{display:block;font:400 var(--t-micro)/1.3 var(--body);color:var(--ink-2);font-style:normal;margin-top:2px}
+.pc-best--none i{margin-top:4px}
+
+/* --------------------------------------------------------- the best band ---
+   THREE READINGS OF "BEST", SIDE BY SIDE, BECAUSE THEY DISAGREE. That
+   disagreement is the content: the card with the highest guide value is not
+   the card with the highest PSA 10, and neither is the product kind that has
+   returned the most value a rip. */
+.bests{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:var(--s4)}
+.bestc{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s5);box-shadow:var(--lift)}
+.bestc>span{display:block;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
+  letter-spacing:.08em;text-transform:uppercase}
+/* DIRECT CHILD ONLY. A bare .bestc b painted the words "At least" inside the third
+   card's PROSE at --t-xl in the display face, a 40px pink shout in the middle
+   of a sentence, because that paragraph uses <b> for emphasis exactly like the
+   rest of the page does. The headline figure is the figure, not every bold
+   word under it. */
+.bestc > b{display:block;font:400 var(--t-xl)/1.05 var(--display);color:var(--ketchup-deep);margin:6px 0 4px}
+.bestc p b{font-weight:600;color:var(--ink)}
+.bestc a{display:block;min-height:24px;font:600 var(--t-sm)/1.4 var(--body);color:var(--sky-deep)}
+.bestc a:hover,.bestc a:focus-visible{text-decoration:underline}
+.bestc p{color:var(--ink-2);font-size:var(--t-sm);margin-top:8px}
+
+/* -------------------------------------------------------------- the figures -
+   .lf is every drawing on this page. width:100% with a max-width is the same
+   shape .sg-svg uses on /will-it-grade.html, and the max-width is what stops a
+   1,392px band from scaling 10px type to 43px. */
+ /* THE CAP IS ON THE FIGURE, NOT ON THE SVG, and that is not a tidy-up. With
+    max-width on the drawing alone, a 1,030px rail column centred a 520px chart
+    and then ran its caption the full width underneath, so the two started at
+    different left edges and read as two separate things. Capping the FIGURE
+    makes the drawing and the sentence about it one column. */
+.luck-fig{margin:0;max-width:520px}
+.lf{display:block;width:100%;height:auto}
+.luck-fig figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);margin-top:var(--s3)}
+.luck-fig figcaption b{color:var(--ink);font-weight:600}
+/* EVERY COLOUR IS A CLASS. A custom property inside a fill= or stroke=
+   presentation attribute is not reliable across browsers, which is the rule
+   build-grade-check.mjs states and the reason there is not one paint attribute
+   in the three drawings this file emits. */
+.rf-lab{fill:var(--ink);font:700 10px/1 var(--mono);text-anchor:middle}
+.rf-n{fill:var(--ink);font:700 10px/1 var(--mono)}
+.rf-end{text-anchor:end}
+.rf-mid{text-anchor:middle}
+.rf-key{fill:var(--ink-2);font:700 9px/1 var(--mono);letter-spacing:.06em}
+/* A dry run is drawn as a SURFACE and a hot one as the accent, which is the
+   same pairing .lbar already makes on this page: the bar that means something
+   good is --mustard over --gold-deep, and nothing is the lightest painted step
+   on a keyline. Neither carries meaning by colour alone -- the two sides are
+   labelled, separated and counted. */
+.rf-dry{fill:var(--paper-3);stroke:var(--keyline);stroke-width:1}
+.rf-hot{fill:var(--mustard);stroke:var(--gold-deep);stroke-width:1}
+.pf-bar{fill:var(--mustard);stroke:var(--gold-deep);stroke-width:1}
+/* NOT ENOUGH RIPS BEHIND IT TO READ. An empty frame at full height, so it
+   occupies the column without asserting a value in it. */
+.pf-thin{fill:none;stroke:var(--keyline);stroke-width:1;stroke-dasharray:3 3;opacity:.75}
+.pf-base{stroke:var(--keyline);stroke-width:1}
+.pf-grid{stroke:var(--ink);stroke-width:1;opacity:.14}
+.pf-avg{stroke:var(--ketchup-deep);stroke-width:1.5;stroke-dasharray:5 4}
+.pf-ax{fill:var(--ink-2);font:700 9px/1 var(--mono);text-anchor:middle}
+.pf-n{fill:var(--ink-2);font:700 8px/1 var(--mono);text-anchor:middle}
+.pf-key{fill:var(--ink-2);font:700 9px/1 var(--mono);letter-spacing:.05em}
+.pf-end{text-anchor:end}
+.pf-mid{text-anchor:middle}
+.mf-hit{fill:var(--mustard);stroke:var(--gold-deep);stroke-width:.5}
+.mf-log{fill:var(--paper-3);stroke:var(--keyline);stroke-width:.5}
+.mf-un{fill:url(#lk-un);stroke:var(--keyline);stroke-width:.5}
+.mf-unbg{fill:var(--paper)}
+.mf-unln{stroke:var(--keyline);stroke-width:1.6}
+.mf-base{stroke:var(--keyline);stroke-width:1}
+.mf-ax{fill:var(--ink-2);font:700 9px/1 var(--mono);text-anchor:middle}
+.mf-yr{fill:var(--ink-2);font:700 8px/1 var(--mono);text-anchor:middle}
+.mf-key{fill:var(--ink-2);font:700 9px/1 var(--mono);letter-spacing:.05em}
+.mf-mid{text-anchor:middle}
+
+/* ------------------------------------------------------------ the ledger ---
+   WHERE EVERY NUMBER ON THIS PAGE CAME FROM, one row each. It is a table
+   rather than a paragraph because a reader checking one figure wants one row,
+   and because a row cannot be dropped by accident the way a clause can. */
+.ledger{width:100%;border-collapse:collapse;font-size:var(--t-sm);min-width:420px}
+.ledger th,.ledger td{text-align:left;padding:9px var(--s3);border-bottom:1px solid var(--hair);vertical-align:top}
+.ledger thead th{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-2);background:var(--page)}
+.ledger tbody th{font-weight:600;color:var(--ink)}
+.ledger td{color:var(--ink-2)}
+.ledger td em{font-style:normal;color:var(--ink);font-variant-numeric:tabular-nums}
+.ledger tbody tr:last-child th,.ledger tbody tr:last-child td{border-bottom:0}
+
+/* The mascot line. Trubbish means "there is nothing in this one", which is the
+   grammar build-search.mjs argues for the two of them, and a band about the
+   rips that produced nothing is the one place on this page it is earned. One
+   line, one place. */
+.trub{display:flex;align-items:center;gap:var(--s3);margin-top:var(--s4);
+  font:400 var(--t-sm)/1.5 var(--body);color:var(--ink-2)}
+.trub b{flex:none;font:700 var(--t-micro)/1 var(--mono);color:var(--ketchup-deep);
+  letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--hair);
+  border-radius:var(--r-pill);padding:6px 10px}
+
 /* DESKTOP. min-width only, so a phone and a tablet render what they rendered
    before. Measured identical at 390 before and after.
 
@@ -541,8 +1274,20 @@ const style = `
     grid-template-rows:auto auto 1fr;gap:0 var(--s6);align-items:start}
   .luck-rail > .wrap > h2{grid-column:1;grid-row:1;margin-bottom:var(--s2)}
   .luck-rail > .wrap > .luck-note{grid-column:1;grid-row:2;margin-bottom:0}
+  /* .luck-fig JOINS THE SAME PLACEMENT LIST AND HAS TO. Everything in this
+     grid is placed by hand, so a child with no rule of its own auto-flows into
+     whichever hole the explicit rules left, which for a figure is column 1
+     under the note. Same reason .luck-empty is named beside .luck-scroll. The
+     drawings sit in the right hand column with the tables, and the heading and
+     its note read down the rail beside them.
+     .trub IS PLACED WITH THE NOTE rather than in the rail, because it is the
+     band's last sentence and not a caption on the drawing. */
   .luck-rail > .wrap > .luck-scroll,
+  .luck-rail > .wrap > .luck-fig,
   .luck-rail > .wrap > .luck-empty{grid-column:2;grid-row:1 / span 3}
+  .luck-rail > .wrap > .bests{grid-column:2;grid-row:1 / span 3}
+  .luck-rail > .wrap > .trub{grid-column:1;grid-row:3;align-self:start;margin-top:var(--s4)}
+  .luck-rail > .wrap > .luck-method{grid-column:1;grid-row:3;align-self:start;margin:var(--s5) 0 0}
 }
 /* Reading measure. The em based caps above were set against the body face and
    .luck-lede is set in the larger --t-lede, so 42em came out at 748px and 87
@@ -566,6 +1311,233 @@ const style = `
 }
 `;
 
+// ===========================================================================
+// THE THREE DRAWINGS.
+//
+// THE IDIOM IS /fake-cards.html's AND /will-it-grade.html's AND IT WAS COPIED
+// RATHER THAN INVENTED: an inline <svg role="img"> with a viewBox and a one
+// SENTENCE aria-label, no binary asset, no request, and EVERY colour set from a
+// CLASS rather than from a fill= or stroke= presentation attribute, because a
+// custom property inside a presentation attribute is not reliable across
+// browsers. build-grade-check.mjs states both halves of that rule.
+//
+// THEY DO NOT SCROLL AND THEY DO NOT SHRINK THEIR TYPE, WHICH IS THE ONE
+// DESIGN DECISION IN HERE WORTH ARGUING. A chart with a column per month, or
+// per pack number, gets WIDER as the log fills, and there are only three ways
+// to take that: let the viewBox grow and cap the rendered width, which shrinks
+// the type until it is unreadable on a phone; let it grow and scroll, which
+// hides the newest months off the right on the width most readers are on; or
+// hold the viewBox at 320 units and let the COLUMNS get thinner. This takes the
+// third, so 10px type stays 10px at every future size of this data set, and the
+// only thing that degrades is column width. The labels then have to thin out
+// instead, which `stride` does from a MEASURED character advance: Space Mono
+// advances 0.6em, so a 3 character label at 9px is 16.2 units and a column
+// pitch under that cannot carry one. Nothing here needs hand editing when rows
+// 258 to 319 land, or when there are twenty months instead of seven.
+const svgFig = (id, label, viewW, viewH, body, caption) => `      <figure class="luck-fig">
+        <svg viewBox="0 0 ${viewW} ${viewH}" class="lf ${id}" role="img" aria-label="${esc(label)}">
+${body}
+        </svg>
+        <figcaption>${caption}</figcaption>
+      </figure>`;
+
+/** How many labels a row of this pitch can carry without them touching. */
+const strideFor = (pitch, chars) => Math.max(1, Math.ceil((chars * 5.4 + 4) / pitch));
+
+const runFigure = () => {
+  if (!runMax) return "";
+  const W = 320, ROW = 22, TOP = 26, MAXBAR = 92, L = 126, R = 194;
+  const H = TOP + runMax * ROW + 6;
+  const maxCount = Math.max(1, ...dryTally.values(), ...hotTally.values());
+  const rows = [];
+  for (let n = 1; n <= runMax; n++) {
+    const y = TOP + (n - 1) * ROW;
+    const mid = y + 15;
+    const d = dryTally.get(n) || 0;
+    const h = hotTally.get(n) || 0;
+    const dw = d ? Math.max(3, (d / maxCount) * MAXBAR) : 0;
+    const hw = h ? Math.max(3, (h / maxCount) * MAXBAR) : 0;
+    rows.push(
+      `          <text x="160" y="${mid}" class="rf-lab">${n} rip${n === 1 ? "" : "s"}</text>` +
+        (d
+          ? `<rect x="${(L - dw).toFixed(1)}" y="${y + 4}" width="${dw.toFixed(1)}" height="14" rx="2" class="rf-dry"/><text x="${(L - dw - 5).toFixed(1)}" y="${mid}" class="rf-n rf-end">${d}</text>`
+          : "") +
+        (h
+          ? `<rect x="${R}" y="${y + 4}" width="${hw.toFixed(1)}" height="14" rx="2" class="rf-hot"/><text x="${(R + hw + 5).toFixed(1)}" y="${mid}" class="rf-n">${h}</text>`
+          : "")
+    );
+  }
+  const body = `          <text x="${L}" y="14" class="rf-key rf-end">DRY RUNS</text>
+          <text x="160" y="14" class="rf-key rf-mid">LENGTH</text>
+          <text x="${R}" y="14" class="rf-key">HOT RUNS</text>
+${rows.join("\n")}`;
+  const label =
+    `A chart of how long the runs go. Reading down, one row for each length from one rip to ${runMax}. ` +
+    `On the left, ${dryRuns.length} separate runs of rips with nothing in them; on the right, ${hotRuns.length} runs where every rip hit. ` +
+    `The commonest length on both sides is one rip, and the longest dry run is ${Math.max(0, ...dryRuns)}.`;
+  const cap = `Every run of the same result in a row, counted over the ${judged.length} answered rips in upload order.
+        There are ${dryRuns.length} dry runs and ${hotRuns.length} hot ones, which is what a channel sitting near a coin flip looks
+        like: both sides are stacked at the short end and both have one long tail. The bars are counts of RUNS, not of rips.`;
+  return svgFig("rf", label, W, H, body, cap);
+};
+
+const packFigure = () => {
+  if (!packNoRows.length) return "";
+  const W = 320, LEFT = 26, RIGHT = 6, TOP = 14, PLOT = 112;
+  const base = TOP + PLOT;
+  // THE AXIS TITLE COLLIDED WITH THE SAMPLE ROW AND IT WAS NOT SUBTLE. Three
+  // rows live under the baseline: the pack number at +13, the number of rips
+  // behind it at +25, and the title. At +33 the title painted straight through
+  // the 8px sample row, because SVG text neither wraps nor clips and nothing
+  // errors when it overlaps. Measured off the render, not guessed: 9px type at
+  // +13, 8px at +25, so the title clears at +42 and the box has to be +48.
+  const H = base + 48;
+  const n = packNoRows.length;
+  const pitch = Math.min(30, (W - LEFT - RIGHT) / n);
+  const barW = Math.max(4, Math.min(18, pitch * 0.62));
+  const y = (p) => base - (p / 100) * PLOT;
+  const overall = pct(hits.length, judged.length);
+  const stride = strideFor(pitch, String(n).length);
+  const cols = packNoRows
+    .map((r, i) => {
+      const x = LEFT + i * pitch + (pitch - barW) / 2;
+      const shown = i === 0 || i === n - 1 || (i + 1) % stride === 0;
+      const bar = r.enough
+        ? `<rect x="${x.toFixed(1)}" y="${y(r.rate).toFixed(1)}" width="${barW.toFixed(1)}" height="${(base - y(r.rate)).toFixed(1)}" class="pf-bar"/>`
+        : r.rips
+          ? `<rect x="${x.toFixed(1)}" y="${TOP.toFixed(1)}" width="${barW.toFixed(1)}" height="${PLOT}" class="pf-thin"/>`
+          : "";
+      const cx = (x + barW / 2).toFixed(1);
+      return `          ${bar}${shown ? `<text x="${cx}" y="${base + 13}" class="pf-ax">${r.n}</text>` : ""}${
+        r.rips && shown ? `<text x="${cx}" y="${base + 25}" class="pf-n">${r.rips}</text>` : ""
+      }`;
+    })
+    .join("\n");
+  const body = `          <line x1="8" y1="7" x2="22" y2="7" class="pf-avg"/>
+          <text x="26" y="10" class="pf-key">EVERY ANSWERED RIP, ${overall}%</text>
+          <line x1="${LEFT}" y1="${base}" x2="${W - RIGHT}" y2="${base}" class="pf-base"/>
+          <line x1="${LEFT}" y1="${y(50).toFixed(1)}" x2="${W - RIGHT}" y2="${y(50).toFixed(1)}" class="pf-grid"/>
+          <text x="${LEFT - 4}" y="${(y(50) + 3).toFixed(1)}" class="pf-ax pf-end">50</text>
+          <text x="${LEFT - 4}" y="${(base + 3).toFixed(1)}" class="pf-ax pf-end">0</text>
+          <text x="${LEFT - 4}" y="${(TOP + 4).toFixed(1)}" class="pf-ax pf-end">100</text>
+${cols}
+          <line x1="${LEFT}" y1="${y(overall).toFixed(1)}" x2="${W - RIGHT}" y2="${y(overall).toFixed(1)}" class="pf-avg"/>
+          <text x="${(LEFT + (W - LEFT - RIGHT) / 2).toFixed(1)}" y="${base + 42}" class="pf-key pf-mid">PACK NUMBER, AND HOW MANY RIPS OF IT</text>`;
+  const label =
+    `A column chart of hit rate against pack number, one column for each pack from 1 to ${n}, with the number of answered rips printed under each. ` +
+    `The dashed line across it is the rate over every answered rip, ${overall} percent. ` +
+    `${packNoRows.filter((r) => !r.enough && r.rips).length} of the ${n} columns have fewer than ${MIN_SAMPLE} answered rips behind them and are drawn as empty frames with no reading in them.`;
+  const cap = `Hit rate by which pack out of the box it was, over the ${packNoJudged} answered rips that state a Pack number.
+        An empty frame is a pack number with fewer than ${MIN_SAMPLE} answered rips behind it: the sample is there, the reading is not.
+        <b>The right hand end is not a later moment in one box.</b> Pack 9 only exists inside products that hold nine packs, so
+        the columns are a different mix of products as you go right, and the thinning sample is the same fact said twice.`;
+  return svgFig("pf", label, W, H, body, cap);
+};
+
+const monthFigure = () => {
+  if (monthRows.length < 2) return "";
+  const W = 320, LEFT = 6, RIGHT = 6, TOP = 16, PLOT = 108;
+  const base = TOP + PLOT;
+  // Same clearance sum as the pack chart above: month at +13, year at +24, so
+  // the title needs +40 and the box +46.
+  const H = base + 46;
+  const n = monthRows.length;
+  const pitch = Math.min(44, (W - LEFT - RIGHT) / n);
+  const barW = Math.max(4, Math.min(26, pitch * 0.66));
+  const maxFilmed = Math.max(1, ...monthRows.map((m) => m.filmed));
+  const hOf = (k) => (k / maxFilmed) * PLOT;
+  const stride = strideFor(pitch, 3);
+  let lastYear = null;
+  const cols = monthRows
+    .map((m, i) => {
+      const x = LEFT + i * pitch + (pitch - barW) / 2;
+      const shown = i === 0 || i === n - 1 || (i + 1) % stride === 0;
+      const hh = hOf(m.hits);
+      const hl = hOf(m.logged - m.hits);
+      const hu = hOf(m.filmed - m.logged);
+      const yHit = base - hh;
+      const yLog = yHit - hl;
+      const yUn = yLog - hu;
+      const cx = (x + barW / 2).toFixed(1);
+      const yearMark = m.year !== lastYear;
+      lastYear = m.year;
+      return `          ${hh > 0 ? `<rect x="${x.toFixed(1)}" y="${yHit.toFixed(1)}" width="${barW.toFixed(1)}" height="${hh.toFixed(1)}" class="mf-hit"/>` : ""}${
+        hl > 0 ? `<rect x="${x.toFixed(1)}" y="${yLog.toFixed(1)}" width="${barW.toFixed(1)}" height="${hl.toFixed(1)}" class="mf-log"/>` : ""
+      }${hu > 0 ? `<rect x="${x.toFixed(1)}" y="${yUn.toFixed(1)}" width="${barW.toFixed(1)}" height="${hu.toFixed(1)}" class="mf-un"/>` : ""}${
+        shown ? `<text x="${cx}" y="${base + 13}" class="mf-ax">${m.label}</text>` : ""
+      }${shown && yearMark ? `<text x="${cx}" y="${base + 24}" class="mf-yr">${m.year}</text>` : ""}`;
+    })
+    .join("\n");
+  const body = `          <defs><pattern id="lk-un" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" class="mf-unbg"/><line x1="0" y1="0" x2="0" y2="5" class="mf-unln"/></pattern></defs>
+          <rect x="6" y="2" width="9" height="9" class="mf-hit"/><text x="19" y="10" class="mf-key">HIT</text>
+          <rect x="46" y="2" width="9" height="9" class="mf-log"/><text x="59" y="10" class="mf-key">NOTHING</text>
+          <rect x="120" y="2" width="9" height="9" class="mf-un"/><text x="133" y="10" class="mf-key">NOT LOGGED YET</text>
+${cols}
+          <line x1="${LEFT}" y1="${base}" x2="${W - RIGHT}" y2="${base}" class="mf-base"/>
+          <text x="${(LEFT + (W - LEFT - RIGHT) / 2).toFixed(1)}" y="${base + 40}" class="mf-key mf-mid">RIPS FILMED EACH MONTH</text>`;
+  const first = monthRows[0], last = monthRows[n - 1];
+  const gaps = monthRows.filter((m) => m.filmed > m.logged);
+  const label =
+    `A stacked column chart of rips filmed each month from ${first.label} ${first.year} to ${last.label} ${last.year}. ` +
+    `Each column is split into the rips that hit, the rips that produced nothing, and the rips not yet logged either way. ` +
+    `The tallest month is ${maxFilmed} rips. ${gaps.length === 0 ? "Every month has an answer for every rip." : `${gaps.length} of the ${n} months still carry rips with no answer yet.`}`;
+  const cap = `Every one of the ${videos.length} rips, by the month it went up. The hatched part of a column is the part of that
+        month nobody has answered yet, which is why this drawing is also the coverage picture: ${
+          gaps.length === 0
+            ? "there is none of it left."
+            : `${gaps.length} of the ${n} months still have some, and the shortfall is ${videos.length - judged.length} rips in total.`
+        } As the log fills, the hatching goes and nothing else about this chart moves.`;
+  return svgFig("mf", label, W, H, body, cap);
+};
+
+// ------------------------------------------------------- the product spine
+//
+// TIM ASKED TWO QUESTIONS AND THE FIRST ONE HAS A TRAP IN IT: "what product
+// type has given us the most hits, what product type has given us the best
+// hits". Most hits is a COUNT, the product types are opened wildly unevenly,
+// and the answer to the question as asked is "the one we opened most of".
+//
+// SO EVERY CARD PRINTS THE COUNT AND THE RATE AND THE DENOMINATOR TOGETHER,
+// at the same size, in the same box. The grid is ordered by hits, because that
+// is what he asked for, and the row under the heading says out loud that the
+// order is a count and names what the rate order would be instead. A reader
+// who only looks at the first card still cannot come away with the wrong idea.
+const prodCard = (r, rank) => {
+  const shot = shotFor(r.key);
+  const enough = r.judged >= MIN_SAMPLE;
+  const bestLine = (c, kind) =>
+    c
+      ? `<span class="pc-best"><em>${kind}</em><a href="/${esc(c.v.path)}">${esc(c.name)}</a><b>${esc(moneyCompact(kind === "Best PSA 10" ? c.psa : c.raw))}</b>${
+          c.setName ? `<i>${esc(c.setName)}</i>` : ""
+        }</span>`
+      : "";
+  return `        <article class="pcard${enough ? "" : " pcard--thin"}">
+          <h3>${shot
+            ? `<img src="${esc(shot.src)}" sizes="52px" alt="${esc(shot.name)}, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer">`
+            : `<span class="luck-noshot" aria-hidden="true"></span>`}<span class="pc-name"><a href="/videos.html?product=${esc(r.key)}">${esc(r.label)}</a>${
+    shot ? `<em>${esc(shot.set)} shown</em>` : `<em>no photo we can publish</em>`
+  }</span>${rank === 0 && r.hits > 0 ? '<span class="pc-flag">MOST HITS</span>' : ""}</h3>
+          ${/* THREE NUMBERS THAT ARE THREE DIFFERENT THINGS, so each one wears
+                its own word. Rips is videos. Packs is packs RIPPED ON CAMERA,
+                out of the rips that state one. Boxes is a FLOOR out of the
+                Pack # ordinals, and a loose pack has none because a loose pack
+                is its own unit. See the boxFloor note above. */ ""}
+          <dl class="pc-nums">
+            <div><dt>Rips</dt><dd>${r.vids}</dd></div>
+            <div><dt>Packs<em>ripped</em></dt><dd>${r.packVids ? `${r.packs}<em>over ${r.packVids} rip${r.packVids === 1 ? "" : "s"}</em>` : '<span class="pc-none">none say</span>'}</dd></div>
+            ${r.boxes ? `<div><dt>Boxes<em>at least</em></dt><dd>${r.boxes}${r.capacity ? `<em>${r.boxes * r.capacity} packs in them</em>` : ""}</dd></div>` : ""}
+            <div><dt>Hits</dt><dd>${r.hits}</dd></div>
+          </dl>
+          <p class="pc-rate">${
+            enough
+              ? `<span class="lbar" style="--w:${Math.max(2, r.rate)}%"><b>${r.rate}%</b></span><span class="pc-den">${r.hits} of ${r.judged} answered rips</span>`
+              : `<span class="thin-note">${r.hits} of ${r.judged} answered rip${r.judged === 1 ? "" : "s"} &bull; too few for a rate</span>`
+          }</p>
+          ${bestLine(r.bestRaw, "Best card") || '<span class="pc-best pc-best--none"><em>Best card</em><i>nothing from this one carries a guide value yet</i></span>'}
+          ${bestLine(r.bestPsa, "Best PSA 10")}
+        </article>`;
+};
+
 const headline = judged.length
   ? `${pct(hits.length, judged.length)}%`
   : "-";
@@ -579,16 +1551,22 @@ const body = `
         it counts what actually came out of packs opened on camera, one rip at a time. It is one
         person's luck, not the odds, and it is counted rather than remembered.</p>
 
+      ${/* THE LAST TILE USED TO READ "hit rate so far" WITH NO DENOMINATOR ON
+            IT. A stat tile is the part of a page that gets screenshotted, and
+            "49.5% hit rate" on its own is the same shape as the mistake this
+            project has already made once, where 56% coverage was reported as a
+            56% hit rate. The denominator is in the label now, computed. */ ""}
       <div class="luck-head">
         <div class="luck-stat"><b>${videos.length}</b><span>rips filmed</span></div>
-        <div class="luck-stat"><b>${judged.length}</b><span>logged either way</span></div>
+        <div class="luck-stat"><b>${allPacks.toLocaleString("en-US")}</b><span>packs ripped on camera</span></div>
+        <div class="luck-stat"><b>${judged.length}</b><span>rips with an answer</span></div>
         <div class="luck-stat"><b>${hits.length}</b><span>had a hit</span></div>
-        <div class="luck-stat"><b>${headline}</b><span>hit rate so far</span></div>
+        <div class="luck-stat"><b>${headline}</b><span>hit rate over ${judged.length} answered rips</span></div>
       </div>
 
       <div class="luck-cov">
-        <p>${judged.length} of ${videos.length} rips logged &bull; ${Math.round(coverage * 100)}% of the catalog${
-          packsKnown ? ` &bull; ${totalPacks.toLocaleString("en-US")} packs counted` : ""
+        <p>${judged.length} of ${videos.length} rips have an answer &bull; ${Math.round(coverage * 100)}% of the catalog${
+          allPackRips ? ` &bull; ${allPacks.toLocaleString("en-US")} packs across ${allPackRips} rips that say` : ""
         }</p>
         <div class="luck-covbar"><i style="width:${Math.max(1, Math.round(coverage * 100))}%"></i></div>
 ${
@@ -602,29 +1580,170 @@ ${
     </div>
   </section>
 
-  <section class="band luck-sec luck-rail">
+  <section class="band luck-sec">
     <div class="wrap">
-      <h2>Which sets have been <span class="hl">kind</span></h2>
-      <p class="luck-note">Hit rate is the share of logged rips from that set that produced something
-        worth keeping. Sets with fewer than ${MIN_SAMPLE} logged rips do not get a number: at that
-        size it would be noise dressed up as a fact.</p>
-${table(bySet, "Set", "/videos.html?set=")}
-    </div>
-  </section>
-
-  <section class="luck-sec luck-rail">
-    <div class="wrap">
-      <h2>Which products have been <span class="hl">worth it</span></h2>
-      <p class="luck-note">The same question asked of what was opened rather than what was in it.
-        A booster box holds far more packs than a single blister, so a higher rate here is expected
-        rather than surprising: what is worth reading is the gap between similar products.</p>
-${table(byProduct, "Product", "/videos.html?product=", true)}
+      <h2>What we have <span class="hl">opened</span></h2>
+      <div class="luck-intro">
+      <p class="luck-note">Ordered by hits, which is the question asked. <b>That order is a count, not a
+        verdict:</b> the kind with the most hits is usually the kind we opened most of, so every card
+        carries the rate and the rips it is over, at the same size, right underneath.${
+          bestRateRow && mostHits && bestRateRow.key !== mostHits.key
+            ? ` Most hits is ${esc(mostHits.label.toLowerCase())}. The best RATE over ${MIN_SAMPLE} or more answered rips is
+        ${esc(bestRateRow.label.toLowerCase())} at ${bestRateRow.rate}%.`
+            : ""
+        }</p>
+      <p class="luck-note">${/* THREE COUNTS THAT ARE THREE DIFFERENT THINGS, said in prose as well as
+            in the labels, because "how many ETBs have we opened" is the question
+            a reader arrives with and the answer is not the number of ETB videos.
+            See the boxFloor note in this builder for the whole argument. */ ""}<b>Rips are videos, packs are packs, and
+        boxes are neither.</b> An elite trainer box holds ${PACK_CAPACITY.etb || 9} packs and this channel films them one at
+        a time, so ${(prodRows.find((r) => r.key === "etb") || { vids: 0 }).vids} elite trainer box rips are nothing like
+        ${(prodRows.find((r) => r.key === "etb") || { vids: 0 }).vids} boxes. Packs is packs ripped on camera, out of the
+        rips that state a count. Boxes is a floor worked out from the Pack number column: if pack 1 turns up in three
+        videos of the same product and set then three boxes were opened, so that figure can only climb as more rips are
+        logged.${
+          boxCensus.capBoxes
+            ? ` Across the kinds whose pack count is published, those boxes hold ${boxCensus.capPacks} packs between them and
+        the rips of them count ${boxCensus.capFilmed}. <b>Those are two different quantities and neither is the other:</b>
+        some of the difference is packs not opened on camera yet, and some is packs opened in one of the
+        ${boxCensus.capRips - boxCensus.capPackRips} rips that state no count.`
+            : ""
+        }</p>
+      </div>
+      <div class="pgrid">
+${prodRows.map((r, i) => prodCard(r, i)).join("\n")}
+      </div>
+      <p class="luck-method" style="margin-top:var(--s5)">WHY THERE IS NO STRAIGHT BOX COUNT. THE BOX NUMBER COLUMN IN THE
+        RIP LOG NAMES THE PRODUCT ON THE SHELF RATHER THAN A PARTICULAR BOX: ${boxCensus.collisions} PAIRINGS OF OPENING
+        TYPE, SET, BOX NUMBER AND PACK NUMBER ARE USED BY MORE THAN ONE RIP, ${boxCensus.collisionRips} RIPS IN ALL, AND
+        THOSE RIPS WENT UP WEEKS APART. SO A SECOND BOX AND A SECOND VIDEO OF ONE PACK LOOK IDENTICAL IN THE LOG, AND THE
+        ONLY HONEST BOX FIGURE IS THE FLOOR ABOVE.</p>
     </div>
   </section>
 
   ${
+    bestRawCard || bestPsaCard || richestRow
+      ? `<section class="luck-sec luck-rail">
+    <div class="wrap">
+      <h2>The best cards, <span class="hl">three ways</span></h2>
+      <p class="luck-note">${/* THE LEDE IS COMPUTED, because whether the three readings agree is a
+            FACT ABOUT TODAY'S DATA and not a thing to assert. Two of them landed
+            on the same card the first day this band existed, and a hardcoded
+            "they do not agree" would have been the page arguing with itself in
+            the same screenful. */ ""}"Best" is not one thing. ${
+        bestRawCard && bestPsaCard && bestRawCard.name === bestPsaCard.name && bestRawCard.number === bestPsaCard.number
+          ? `The first two land on the same card at the moment, which is not the usual case and will not stay true: they are
+        two different measurements and the ungraded top and the graded top come apart as soon as a cheaper card with a
+        strong graded price turns up.`
+          : `These readings do not agree with each other, which is the interesting part rather than a problem to tidy away.`
+      }${priceDoc ? ` ${priceNote(priceDoc, { lead: "Ungraded figures" })}` : ""}</p>
+      <div class="bests">
+${
+  bestRawCard
+    ? `        <div class="bestc">
+          <span>Best card, ungraded</span>
+          <b>${esc(moneyCompact(bestRawCard.raw))}</b>
+          <a href="/${esc(bestRawCard.v.path)}">${esc(bestRawCard.name)}${bestRawCard.setName ? `, ${esc(bestRawCard.setName)}` : ""}</a>
+          <p>The highest guide value among the ${rawCards.length} of ${cardRows} cards in the rip log that carry one.${
+            bestRawCard.v.products?.length
+              ? ` It came out of ${esc(String(labelFor("products", bestRawCard.v.products[0]) || "a sealed product").toLowerCase())}`
+              : ""
+          }${packsToBest ? `, at least ${packsToBest} packs into the channel` : ""}.</p>
+        </div>`
+    : ""
+}
+${
+  bestPsaCard
+    ? `        <div class="bestc">
+          <span>Best card, PSA 10</span>
+          <b>${esc(moneyCompact(bestPsaCard.psa))}</b>
+          <a href="/${esc(bestPsaCard.v.path)}">${esc(bestPsaCard.name)}${bestPsaCard.setName ? `, ${esc(bestPsaCard.setName)}` : ""}</a>
+          <p>${/* THE SUBSET IS NAMED IN THE SENTENCE AND NOT IN A FOOTNOTE. A graded
+                figure exists for a small minority of these cards, so a ranking over
+                it is a ranking of that minority and reads as a ranking of the lot
+                unless it says otherwise. */ ""}A different question from the one beside it, and it rests on a much
+          smaller set: ${psaCards.length} of the ${cardRows} cards in the rip log have a graded figure at all. Nothing here
+          has been graded. This is what the guide says a 10 sells for.</p>
+        </div>`
+    : ""
+}
+${
+  richestRow
+    ? `        <div class="bestc">
+          <span>Best return a rip</span>
+          <b>at least ${esc(moneyCompact(richestRow.guidePerRip))}</b>
+          <a href="/videos.html?product=${esc(richestRow.key)}">${esc(richestRow.label)}</a>
+          <p>Guide value of every priced card out of it, over its ${richestRow.judged} answered rips. <b>At least</b> is
+          load bearing: a card with no guide value counts as nothing in that sum, so the figure is a floor and can only
+          climb. Only kinds with ${MIN_SAMPLE} or more answered rips are eligible.</p>
+        </div>`
+    : ""
+}
+      </div>
+      <p class="luck-method" style="margin-top:var(--s5)">NO MONEY TOTAL IS PRINTED ON THIS PAGE AND THAT IS DELIBERATE.
+        <a href="/hall.html">THE HALL OF FAME</a> ADDS THESE CARDS UP ONE BY ONE AND OWNS THAT SUM. A SECOND TOTAL HERE
+        WOULD BE A SECOND RENDERER OF ONE FACT, WHICH IS HOW ONE CARD ENDS UP WITH TWO PRICES ON TWO PAGES. WHAT THIS PAGE
+        ADDS IS WHICH PRODUCT EACH CARD CAME OUT OF, WHICH THAT PAGE DOES NOT KNOW.</p>
+    </div>
+  </section>`
+      : ""
+  }
+
+  ${
+    packNoRows.length
+      ? `<section class="band luck-sec luck-rail">
+    <div class="wrap">
+      <h2>Does it matter which <span class="hl">pack</span></h2>
+      <p class="luck-note">The oldest superstition in the hobby, and this log can test it, because the rip
+        sheet records which pack out of the box each video opened.${
+          packNoBest
+            ? ` The best position with a real sample behind it is pack ${packNoBest.n} at ${packNoBest.rate}% over
+        ${packNoBest.rips} answered rips, against ${headline} across every answered rip.`
+            : ""
+        }</p>
+${packFigure()}
+    </div>
+  </section>`
+      : ""
+  }
+
+  <section class="luck-sec luck-rail">
+    <div class="wrap">
+      <h2>Which sets have been <span class="hl">kind</span></h2>
+      <p class="luck-note">Hit rate is the share of answered rips from that set that produced something
+        worth keeping. Sets with fewer than ${MIN_SAMPLE} answered rips do not get a number: at that
+        size it would be noise dressed up as a fact. <b>Rips is every rip of that set</b>, and where some of
+        them have no answer yet the cell says how many do, because the rate is only over those. Packs is
+        packs ripped on camera, from the rip log's own set by set breakdown, so a rip that opened two sets
+        charges each of them its own packs rather than both of them all of them.</p>
+${table(bySet, "Set", "/videos.html?set=")}
+    </div>
+  </section>
+
+  ${
+    dudRips
+      ? `<section class="band luck-sec luck-rail">
+    <div class="wrap">
+      <h2>Most rips produce <span class="hl">nothing</span></h2>
+      <p class="luck-note">${dudRips} of the ${judged.length} answered rips produced nothing worth keeping, which is
+        ${pct(dudRips, judged.length)}% of them. That is the channel, not a bad patch: it is why it is called Garbage
+        Rips. The drawing is every run of the same result in a row, so you can see how long the bad ones actually go.</p>
+${runFigure()}
+      ${/* THE ONE PLACE ON THIS PAGE TRUBBISH IS EARNED. The grammar is argued
+            in build-search.mjs: Trubbish means "there is nothing in this one"
+            and Garbodor means "we went through the whole heap". A band about
+            the rips that produced nothing is Trubbish's sentence exactly, and
+            he appears once, here, and nowhere else on the page. */ ""}
+      <p class="trub"><b>Trubbish</b>${dryRuns.length} separate dry spells, ${dryRuns.length ? `the longest ${Math.max(...dryRuns)} rips` : ""}, and the
+        commonest one is a single rip. Nothing in it, on to the next one.</p>
+    </div>
+  </section>`
+      : ""
+  }
+
+  ${
     rarities.length || pulls.length
-      ? `<section class="band luck-sec">
+      ? `<section class="luck-sec">
     <div class="wrap">
       <h2>What has actually <span class="hl">come out</span></h2>
       <p class="luck-note">${
@@ -642,7 +1761,16 @@ ${table(byProduct, "Product", "/videos.html?product=", true)}
           ? ` A rip counts once per rarity however many cards of that rarity came out of it, so these are
       counts of rips rather than of cards: ${tagCount} tag${tagCount === 1 ? "" : "s"} across ${tagRips} rip${tagRips === 1 ? "" : "s"} against
       the ${hitRows} cards the log records${
-              widestGap ? `, and the biggest single rip is ${widestGap.cards} cards under ${widestGap.tags} tag${widestGap.tags === 1 ? "" : "s"}` : ""
+              /* THIS CLAUSE SAID "the biggest single rip is N cards" AND IT WAS
+                 NAMING A DIFFERENT RIP. `widestGap` is the widest GAP between
+                 cards and tags, picked by `list.length - tags`, which is not the
+                 same rip as the one with the most cards in it and only looks
+                 like it while the two happen to coincide. The day a 16 card rip
+                 carries 16 tags, gap 0, this sentence would still print the 14
+                 card rip's number while /hall.html and that rip's own page
+                 showed 16 -- which is the exact contradiction this page has
+                 already published once. It now says what it measures. */
+              widestGap ? `, and the widest gap on one rip is ${widestGap.cards} cards under ${widestGap.tags} tag${widestGap.tags === 1 ? "" : "s"}` : ""
             }. That is on purpose: this band is about how often a rip produces each kind of card, and counting
       one opening five times would let a single lucky box outweigh a month of them. The cards themselves are listed one
       by one on the <a href="/hall.html">best pulls page</a>.`
@@ -663,10 +1791,10 @@ ${tally
 
   ${
     worst.len || bestRun.len
-      ? `<section class="luck-sec">
+      ? `<section class="band luck-sec">
     <div class="wrap">
       <h2>Cold streaks and <span class="hl">hot ones</span></h2>
-      <p class="luck-note">Consecutive logged rips, in upload order.</p>
+      <p class="luck-note">The longest of each, and the rips they are made of.</p>
       <div class="streaks">
         <div class="streak cold">
           <span class="k">Longest drought</span>
@@ -707,10 +1835,68 @@ ${tally
       : ""
   }
 
-  <section class="luck-sec">
+  ${
+    monthRows.length > 1
+      ? `<section class="luck-sec luck-rail">
     <div class="wrap">
-      <p class="luck-method">HOW THIS IS COUNTED. A rip counts only once it has been marked as a hit
-        or not a hit in the rip log, so an untagged video is absent rather than assumed. "Hit" means
+      <h2>Month by <span class="hl">month</span></h2>
+      <p class="luck-note">Every rip by the month it went up, split into what came out of it. The hatched part
+        of a column is the part of that month nobody has answered yet, so this is the coverage picture as well
+        as the run rate: it fills in from the bottom as the log is worked through.</p>
+${monthFigure()}
+    </div>
+  </section>`
+      : ""
+  }
+
+  <section class="band luck-sec">
+    <div class="wrap">
+      ${/* THE LEDGER. Every figure on this page is a claim, and this is where a
+            reader can check one against the column it came out of without
+            taking anybody's word for the denominator. It is a TABLE rather than
+            a paragraph because somebody checking one figure wants one row, and
+            because a row cannot be dropped by accident the way a clause in a
+            long sentence can. Every number in it is the same variable the
+            section above used, so the two cannot drift apart. */ ""}
+      <h2>Where every number on this page <span class="hl">comes from</span></h2>
+      <p class="luck-note">One row per figure, with the column of the rip log it was counted out of and
+        what it was counted over. Nothing on this page is typed in.</p>
+      <div class="luck-scroll" tabindex="0" role="region" aria-label="What each figure on this page is counted over, scrollable table">
+        <table class="ledger">
+          <caption class="sr-only">The source and the denominator behind each figure on this page</caption>
+          <thead><tr><th scope="col">Figure</th><th scope="col">Counted over</th><th scope="col">From</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Hit rate, everywhere</th><td><em>${hits.length}</em> of <em>${judged.length}</em> rips whose outcome is known, out of ${videos.length} filmed${impliedHits ? `; ${impliedHits} of them known because the cards were named rather than the column ticked` : ""}</td><td>Has Hit, My Hits tab</td></tr>
+            <tr><th scope="row">Packs ripped</th><td><em>${allPacks}</em> packs across the <em>${allPackRips}</em> rips that state one</td><td>Sets &amp; Packs</td></tr>
+            <tr><th scope="row">Boxes, at least</th><td><em>${boxCensus.boxes}</em>, a floor from repeated pack positions${boxCensus.boxNoType ? `; ${boxCensus.boxNoType} rips of box products name no opening type and are left out` : ""}</td><td>Pack #, Opening Type</td></tr>
+            <tr><th scope="row">Pack position</th><td><em>${packNoJudged}</em> answered rips state which pack of the box it was</td><td>Pack #</td></tr>
+            <tr><th scope="row">Cards that came out</th><td><em>${cardRows}</em> card rows across ${videos.filter((v) => v.hitCard).length} rips${cardsOutsideJudged ? `; ${cardsOutsideJudged} of them sit on rips with no Has Hit answer and are left out of every value figure` : ""}</td><td>My Hits tab</td></tr>
+            <tr><th scope="row">Ungraded value</th><td><em>${rawCards.length}</em> of ${cardRows} card rows resolve to a printing with a guide value</td><td>PriceCharting, via the set checklist</td></tr>
+            <tr><th scope="row">PSA 10 value</th><td><em>${psaCards.length}</em> of ${cardRows} card rows have a graded figure at all</td><td>PriceCharting</td></tr>
+            <tr><th scope="row">Runs and streaks</th><td><em>${dryRuns.length}</em> dry and <em>${hotRuns.length}</em> hot, over the ${judged.length} answered rips in upload order</td><td>Has Hit, Published</td></tr>
+            <tr><th scope="row">Month by month</th><td><em>${videos.length - undated}</em> rips carry a publish date${undated ? `; ${undated} do not and are left out` : ""}</td><td>Published</td></tr>
+          </tbody>
+        </table>
+      </div>
+      ${
+        cardDrops.notOnChecklist + cardDrops.ambiguousPrinting + cardDrops.noChecklist
+          ? `<p class="luck-method" style="margin-top:var(--s5)">WHY SOME CARDS CARRY NO FIGURE.
+        ${cardDrops.noChecklist ? `${cardDrops.noChecklist} ARE FROM SETS WHOSE CHECKLIST THIS SITE DOES NOT HOLD. ` : ""}${
+              cardDrops.notOnChecklist ? `${cardDrops.notOnChecklist} NAME A CARD THAT IS NOT ON THE CHECKLIST FOR THE SET THEY NAME, WHICH IS A SPELLING TO FIX IN THE SHEET. ` : ""
+            }${
+              cardDrops.ambiguousPrinting ? `${cardDrops.ambiguousPrinting} COULD BE MORE THAN ONE PRINTING OF THE SAME CARD, AND THIS PAGE WILL NOT PICK ONE TO WIN A NUMBER. ` : ""
+            }A CARD WITH NO FIGURE IS STILL A HIT AND STILL COUNTS IN EVERY RATE ABOVE.</p>`
+          : ""
+      }
+      <p class="luck-method" style="margin-top:var(--s5)">HOW THIS IS COUNTED. A rip counts once its outcome is KNOWN, and
+        there are two ways the rip log says so: the Has Hit column is ticked yes or no, or the My Hits tab names the cards
+        that came out of it, which is the same person answering the same question a different way.${
+          impliedHits
+            ? ` ${impliedHits} rip${impliedHits === 1 ? "" : "s"} on this page ${impliedHits === 1 ? "is" : "are"} here on the second
+        route, and that route can only ever add a HIT, because nobody writes down the cards that did not come out. So while
+        that number is above zero the rate leans very slightly high, by at most ${impliedHits} in ${judged.length}.`
+            : ""
+        } A rip with neither answer is absent rather than assumed. "Hit" means
         a card worth keeping, judged by eye, not a fixed rarity threshold. These are observed results
         from one person opening packs on camera, not official pull rates: The Pokemon Company does not
         publish those, and anyone who tells you they know them is guessing. Small samples are labeled
@@ -812,10 +1998,43 @@ ${APP_JS}
 await writeFile(OUT, html);
 
 console.log(`Wrote public/luck.html
-  ${judged.length} of ${videos.length} rips logged either way (${Math.round(coverage * 100)}%)
-  ${hits.length} hits, ${headline} overall
+  ${judged.length} of ${videos.length} rips have a known outcome (${Math.round(coverage * 100)}%), ${impliedHits} of them from a named hit card rather than the Has Hit column
+  ${hits.length} hits, ${headline} overall, ${dudRips} produced nothing
   ${bySet.filter((r) => r.rips >= MIN_SAMPLE).length} of ${bySet.length} sets have a big enough sample to show a rate
-  ${packsKnown} rips have a pack count, ${totalPacks} packs counted`);
+  ${packsKnown} logged rips have a pack count, ${totalPacks} packs; ${allPackRips} of ${videos.length} overall, ${allPacks} packs`);
+// A rip whose Has Hit says NO while the My Hits tab names a card out of it is
+// two answers that cannot both be true. It is a sheet fix, not a builder fix,
+// so the run names the rows rather than picking a winner.
+if (contradictions.length) {
+  console.log(`  CONTRADICTION: ${contradictions.length} rip(s) say Has Hit = no and still name a hit card: ${contradictions.join(", ")}`);
+  console.log("    Fix it in the workbook. This page counts them as no hit, which is what the column says.");
+}
+// EVERY CENSUS THIS BUILDER TAKES IS PRINTED, because the numbers in the
+// comments above WILL go stale and the run is the copy that cannot. If one of
+// these lines starts saying something different, the page already is.
+console.log(`  boxes: at least ${boxCensus.boxes} from repeated pack positions across ${prodRows.filter((r) => r.boxes).length} product kinds`);
+console.log(`    Box # is not a serial: ${boxCensus.collisions} (type, set, box, pack) coordinates carry ${boxCensus.collisionRips} extra rip(s)`);
+console.log(`    capacity published for ${Object.keys(PACK_CAPACITY).length} product kinds; ${boxCensus.noCapacityTags.length} tag(s) in use have none: ${boxCensus.noCapacityTags.join(", ") || "none"}`);
+console.log(`    those boxes hold ${boxCensus.capPacks} packs, the rips of them count ${boxCensus.capFilmed}, a gap of ${boxCensus.capPacks - boxCensus.capFilmed}`);
+console.log(`      of which ${boxCensus.capRips - boxCensus.capPackRips} rip(s) of those kinds state no pack count at all, out of ${boxCensus.capRips}`);
+console.log(`  cards: ${cardRows} rows read, ${rawCards.length} with a guide value, ${psaCards.length} with a PSA 10`);
+for (const [k, n] of Object.entries(cardDrops)) if (n) console.log(`    ${n} row(s) unpriced: ${k}`);
+if (cardsOutsideJudged) console.log(`    ${cardsOutsideJudged} card row(s) sit on rips with no Has Hit answer and are outside every value figure`);
+if (mostHits) console.log(`  most hits: ${mostHits.label} ${mostHits.hits} of ${mostHits.judged} logged (${mostHits.rate}%)`);
+if (bestRateRow) console.log(`  best rate at ${MIN_SAMPLE}+: ${bestRateRow.label} ${bestRateRow.rate}% over ${bestRateRow.judged}`);
+if (richestRow) console.log(`  best guide value a rip: ${richestRow.label} at least ${moneyCompact(richestRow.guidePerRip)} over ${richestRow.judged}`);
+// A SELF CHECK, NOT A LOG LINE. `worst`/`bestRun` and `runsOf` walk the same
+// list for the same thing, and two functions that disagree about it is exactly
+// the kind of fault that ships silently on a page nobody recomputes by hand.
+if (dryRuns.length && Math.max(...dryRuns) !== worst.len) {
+  console.log(`  MISMATCH: longest dry run is ${Math.max(...dryRuns)} by runsOf and ${worst.len} by the streak walk`);
+}
+if (hotRuns.length && Math.max(...hotRuns) !== bestRun.len) {
+  console.log(`  MISMATCH: longest hot run is ${Math.max(...hotRuns)} by runsOf and ${bestRun.len} by the streak walk`);
+}
+if (dryRuns.reduce((n, x) => n + x, 0) !== dudRips) {
+  console.log(`  MISMATCH: dry runs sum to ${dryRuns.reduce((n, x) => n + x, 0)} against ${dudRips} rips with no hit`);
+}
 if (!judged.length) {
   console.log(`
   Nothing is marked "Has Hit" in the rip log yet, so every rate is empty.

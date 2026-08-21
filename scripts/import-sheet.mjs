@@ -866,7 +866,27 @@ for (const [n, r] of rows.slice(1).entries()) {
   const spRaw = get(r, idx.setsPacks);
   if (spRaw) {
     const NAMES = [...setIdByName.keys()].sort((a, b) => b.length - a.length);
-    for (const piece of String(spRaw).split(",")) {
+    // SEMICOLONS SEPARATE SETS HERE TOO, BECAUSE HE WRITES THEM.
+    //
+    // This split was commas only. On 21 August 2026 three rows -- 239, 246 and
+    // 247 -- separated their sets with a semicolon instead, which is the
+    // separator he already uses in Hit Info, and each of those rows lost 2 of
+    // its 3 set tags and its pack count as a result.
+    //
+    // IT WAS NOT A QUIET LOSS, IT MOVED A CARD TO THE WRONG SET. With only one
+    // set surviving, the single-set fallback stamped that set onto the row's
+    // promo card, so row 246 went looking for a Mabosstiff ex in Paradox Rift
+    // and row 247 for a Mega Charizard Y in Phantasmal Flames. Neither set
+    // prints either card; both are tin promos, SVP 086 and MEP 030. The
+    // symptom that surfaced was "that name is not on the checklist", which
+    // points at the card name and not at the separator two columns away.
+    //
+    // A semicolon cannot appear inside a set name -- the longest-first NAMES
+    // match below is what handles real punctuation, and the only set names on
+    // this site carrying any are parenthesised, like "First Partner
+    // Illustration Collection (Series 1)". So accepting it costs nothing and
+    // removes three cells from his correction list.
+    for (const piece of String(spRaw).split(/[;,]/)) {
       const frag = piece.replace(/\s+/g, " ").trim();
       if (!frag) continue;
       // TIM'S FORMAT, 20 AUGUST 2026: "<Set Name> - <N> Pack", commas between sets.

@@ -5071,9 +5071,15 @@
         "name": "surging sparks",
         "packs": 2,
         "typed": true
+      },
+      {
+        "set": "twilight-masquerade",
+        "name": "twilight masquerade",
+        "packs": 2,
+        "typed": true
       }
     ],
-    "packsOpened": 2,
+    "packsOpened": 4,
     "packsStated": true,
     "setsPacks": "Surging Sparks - 2 Packs ; Twilight Masquerade - 2 Packs",
     "openingType": "ex Box",
@@ -5218,11 +5224,23 @@
       {
         "set": "paradox-rift",
         "name": "paradox rift",
+        "packs": 2,
+        "typed": true
+      },
+      {
+        "set": "obsidian-flames",
+        "name": "obsidian flames",
+        "packs": 1,
+        "typed": true
+      },
+      {
+        "set": "silver-tempest",
+        "name": "silver tempest",
         "packs": 1,
         "typed": true
       }
     ],
-    "packsOpened": 1,
+    "packsOpened": 4,
     "packsStated": true,
     "setsPacks": "Paradox Rift - 2 Packs ; Obsidian Flames - 1 Pack ; Silver Tempest - 1 Pack",
     "openingType": "ex Box",
@@ -5231,9 +5249,7 @@
     "hits": [
       {
         "card": "Mabosstiff ex",
-        "rarity": "Black Star Promo",
-        "set": "paradox-rift",
-        "setName": "Paradox Rift"
+        "rarity": "Black Star Promo"
       },
       {
         "card": "Golisopod ex",
@@ -5253,11 +5269,23 @@
       {
         "set": "phantasmal-flames",
         "name": "phantasmal flames",
+        "packs": 2,
+        "typed": true
+      },
+      {
+        "set": "mega-evolution",
+        "name": "mega evolution",
+        "packs": 1,
+        "typed": true
+      },
+      {
+        "set": "journey-together",
+        "name": "journey together",
         "packs": 1,
         "typed": true
       }
     ],
-    "packsOpened": 1,
+    "packsOpened": 4,
     "packsStated": true,
     "setsPacks": "Phantasmal Flames - 2 Packs ; Mega Evolution - 1 Pack ; Journey Together - 1 Pack",
     "openingType": "Tin",
@@ -5267,9 +5295,7 @@
     "hits": [
       {
         "card": "Mega Charizard Y",
-        "rarity": "Black Star Promo",
-        "set": "phantasmal-flames",
-        "setName": "Phantasmal Flames"
+        "rarity": "Black Star Promo"
       },
       {
         "card": "N's Zoroark ex",
