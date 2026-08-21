@@ -92,6 +92,26 @@ const packsOnDisk = new Set(
     .map((f) => /^(.+)-garbage-rips-585-booster-pack\.webp$/.exec(f)?.[1])
     .filter(Boolean)
 );
+/* WHICH PLAYLISTS HAVE THEIR OWN SHARE CARD, read off the directory for exactly
+   the reason the two sets above are. All 22 of these pages previewed as the
+   same picture of a booster pack until 21 August 2026, which an audit measured
+   and which is a wasted click every time somebody pastes a playlist into a
+   chat: a playlist page is one of the two families on this site most likely to
+   be shared. scripts/build-og.py writes them, keyed `og-pl-<slug>.jpg` off the
+   SAME slugFor() below, and it refuses to write one whose headline is not this
+   page's own <h1>. The `pl-` prefix is what stops a playlist slug colliding
+   with a set id in one flat assets directory.
+
+   NOT A LIST AND NOT A FLAG. If build-og.py has not been run, the file is not
+   here, the page keeps the generic card and nothing breaks; run it and the page
+   picks the card up on the next build. That is the same arrangement
+   build-set-pages.mjs's ogCards has, and it is why build-og.py can stay out of
+   build-all.mjs. */
+const ogCardsOnDisk = new Set(
+  (await readdir(join(ROOT, "public/assets")).catch(() => []))
+    .map((f) => /^og-(pl-.+)\.jpg$/.exec(f)?.[1])
+    .filter(Boolean)
+);
 /**
  * The set logo, drawn 132px wide inside a 132x50 box.
  *
@@ -197,6 +217,14 @@ function theProduct(setId, prodId) {
  * checked below rather than assumed away.
  */
 const slugFor = (p) => slugify(p.title) || p.id.toLowerCase();
+
+// This playlist's own share card where build-og.py has written one, and the
+// site-wide one where it has not. ONE FUNCTION, SPENT TWICE in the head, so
+// og:image and twitter:image cannot name two different pictures.
+const ogImage = (p) => {
+  const slug = `pl-${slugFor(p)}`;
+  return `${SITE}/assets/${ogCardsOnDisk.has(slug) ? `og-${slug}` : "og-image"}.jpg`;
+};
 
 // A playlist with nothing in it is not a page. Two exist on the channel: they
 // were created and never filled. They come back on their own once a video
@@ -903,11 +931,11 @@ for (const run of runs) {
 <meta property="og:type" content="website">
 <meta property="og:url" content="${url}">
 <meta property="og:site_name" content="Garbage Rips 585">
-<meta property="og:image" content="${SITE}/assets/og-image.jpg">
+<meta property="og:image" content="${ogImage(p)}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="${SITE}/assets/og-image.jpg">
+<meta name="twitter:image" content="${ogImage(p)}">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">

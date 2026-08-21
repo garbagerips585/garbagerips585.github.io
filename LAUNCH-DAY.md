@@ -12,9 +12,21 @@ rehearsal; fix the other one rather than guessing.
 > **The one number that matters before you start:** `python3
 > scripts/rehearse-flip.py` must exit 0. It builds HEAD twice, once as it stands
 > and once flipped, and compares them. Rehearsed 21 August 2026: 65 of 65
-> builders both sides, 1,486 pages change, 1,281 sitemap urls move from
-> `garbagerips585.github.io` to `garbagerips.com`, 206 `noindex` pages before and
-> the same 206 after, zero files naming the staging host afterwards.
+> builders both sides, 1,486 HTML files change plus `robots.txt` and
+> `sitemap.xml`, 1,292 sitemap urls move from `garbagerips585.github.io` to
+> `garbagerips.com`, 195 `noindex` pages before and the same 195 after, zero
+> files naming the staging host afterwards.
+>
+> **THE SHAPE IS WHAT YOU ARE COMPARING AGAINST, AND THE COUNTS MOVE ON THEIR
+> OWN.** Two of the four above were stale when they were re-taken on 21 August:
+> the sitemap read 1,281 and the `noindex` count 206. Neither was a mistake and
+> neither is a regression. The Pokemon pages promote themselves as card prices
+> arrive, because `build-pokemon.mjs` re-derives its bar on every run, so pages
+> move out of `noindex` and into the sitemap by themselves and the two numbers
+> move together: **1,487 built HTML = 1,292 in the sitemap + 195 `noindex`**, and
+> that identity is the thing to check rather than either figure on its own. The
+> rehearsal prints all of it, so **run it and read its numbers instead of
+> trusting these.** If the sum does not come out, something is genuinely wrong.
 
 ---
 
@@ -157,7 +169,7 @@ JSON-LD `@id` onto the real domain, turns `robots.txt` from `Disallow: /` into
   grep -rl "github.io" public/ | grep -v assets   # must return nothing
   head -3 public/robots.txt                       # must say Allow: /
   cat public/CNAME                                # must say garbagerips.com
-  grep -c "<loc>" public/sitemap.xml              # 1,281 at HEAD; treat as a floor
+  grep -c "<loc>" public/sitemap.xml              # 1,292 at HEAD; treat as a floor
   ```
 
 - **Expected diff shape**, so an unexpected one is visible: **1,486 HTML files
@@ -273,7 +285,7 @@ Add the property at <https://search.google.com/search-console>, verify by DNS
 **After the flip, never before.** Submitting while `robots.txt` still says
 `Disallow: /` teaches Google the site is closed, and that is slow to unteach.
 
-- **Check:** the sitemap is accepted and reports ~1,281 discovered urls.
+- **Check:** the sitemap is accepted and reports ~1,292 discovered urls.
 - **Symptom:** "Couldn't fetch" usually means the DNS or the custom domain is not
   finished, not that the sitemap is wrong.
 

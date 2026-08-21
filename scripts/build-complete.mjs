@@ -37,6 +37,7 @@ import { readFile, readdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { faqBlock, FAQ_CSS } from "../shared/faq.mjs";
 import { priceNote, priceFooter, priceRead } from "../shared/card-prices.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
@@ -417,6 +418,29 @@ const style = `
 }
 `;
 
+const FAQ = faqBlock(
+  [
+    [
+      "How much does it cost to complete a Pokemon set?",
+      `It depends enormously on the set. Across the ${rows.length} sets on this page the base set ranges from ${moneyRound(cheapest.base)} for ${cheapest.name} to ${moneyRound(priciest.base)} for ${priciest.name}, buying every card as a single at the cheapest printing and before shipping. The master set, which adds the secret rares, is several times more: ${dearestMaster.name} is ${moneyRound(dearestMaster.master)}.`,
+    ],
+    [
+      "Is it cheaper to buy singles or open packs to complete a set?",
+      `Singles, almost always, and it is not close. A base set here averages ${moneyRound(totalBase / rows.length)} bought as singles. Opening enough packs to see every card in a set costs many times that, because packs repeat commons long before they finish the checklist. Packs are for the fun of opening them; singles are for finishing a set.`,
+    ],
+    [
+      "What is the difference between a base set and a master set?",
+      `The base set is every card numbered up to the printed total, so a card that reads 131/131 is the last one. A master set adds everything numbered above that total, which is where the secret rares and most of the expensive chase cards live. That is why the two numbers are so far apart: in ${lopsided[0]?.name || "several sets"} a single card is ${pct(lopsided[0]?.topShare || 0)} of the whole master-set bill.`,
+    ],
+  ],
+  {
+    heading: "The questions this page gets asked",
+    path: "/complete-a-set.html",
+    site: SITE,
+  }
+);
+
+
 const ld = [
   {
     "@context": "https://schema.org",
@@ -426,36 +450,7 @@ const ld = [
       { "@type": "ListItem", position: 2, name: "Cost to complete a set", item: `${SITE}/complete-a-set.html` },
     ],
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "How much does it cost to complete a Pokemon set?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `It depends enormously on the set. Across the ${rows.length} sets on this page the base set ranges from ${moneyRound(cheapest.base)} for ${cheapest.name} to ${moneyRound(priciest.base)} for ${priciest.name}, buying every card as a single at the cheapest printing and before shipping. The master set, which adds the secret rares, is several times more: ${dearestMaster.name} is ${moneyRound(dearestMaster.master)}.`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Is it cheaper to buy singles or open packs to complete a set?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `Singles, almost always, and it is not close. A base set here averages ${moneyRound(totalBase / rows.length)} bought as singles. Opening enough packs to see every card in a set costs many times that, because packs repeat commons long before they finish the checklist. Packs are for the fun of opening them; singles are for finishing a set.`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What is the difference between a base set and a master set?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `The base set is every card numbered up to the printed total, so a card that reads 131/131 is the last one. A master set adds everything numbered above that total, which is where the secret rares and most of the expensive chase cards live. That is why the two numbers are so far apart: in ${lopsided[0]?.name || "several sets"} a single card is ${pct(lopsided[0]?.topShare || 0)} of the whole master-set bill.`,
-        },
-      },
-    ],
-  },
+  FAQ.ld,
 ];
 
 const row = (r) => `<tr${r.missing ? ' class="cc-part"' : ""}>
@@ -491,7 +486,8 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
-<style>${miniCSS(style)}</style>
+<style>${miniCSS(style)}
+${FAQ_CSS}</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -711,6 +707,8 @@ ${MENU}
       <a href="/grading.html">is it worth grading?</a> covers what happens to a chase card after you own it.</p>
   </div>
 </section>
+
+${FAQ.html}
 
 </main>
 ${/* NOT "a floor". The methodology section two paragraphs up says in as many

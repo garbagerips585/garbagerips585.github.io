@@ -25,6 +25,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { faqBlock, FAQ_CSS } from "../shared/faq.mjs";
 import { priceNote, priceFooter, priceRead } from "../shared/card-prices.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
@@ -284,6 +285,25 @@ const desc =
   `What Pokemon card grading actually costs in ${new Date(g.checked).getFullYear()}, PSA against CGC, BGS and TAG, ` +
   `and the break even math on ${rows.length} real cards. PSA's cheapest tier is now ${moneyRound(psaCo.cheapest)}.`;
 
+const FAQ = faqBlock(
+  [
+    [
+      "How much does it cost to grade a Pokemon card?",
+      `PSA's cheapest active tier is ${moneyRound(psaCo.cheapest)} per card as of ${longDate(g.checked)}, after it paused its Value and Value Bulk tiers in June 2026. The cheapest of the ${coWord} is ${cheapest.name} at about ${moneyRound(cheapest.cheapest)}. Add roughly ${moneyRound(SHIP)} a card for shipping and insurance.`,
+    ],
+    [
+      "Is it worth grading my Pokemon card?",
+      `Only if the gap between the raw price and the PSA 10 price is bigger than the fee, and only if the card is genuinely mint. Of ${rows.length} cards we hold both prices for, ${worth.length} would clear PSA's current fee and ${notWorth.length} would not. Those figures are all for a 10, and a 9 is worth far less, so treat them as the best case.`,
+    ],
+  ],
+  {
+    heading: "The two questions this page gets asked",
+    path: "/grading.html",
+    site: SITE,
+  }
+);
+
+
 const ld = [
   {
     "@context": "https://schema.org",
@@ -293,28 +313,7 @@ const ld = [
       { "@type": "ListItem", position: 2, name: "Grading" },
     ],
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "How much does it cost to grade a Pokemon card?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `PSA's cheapest active tier is ${moneyRound(psaCo.cheapest)} per card as of ${longDate(g.checked)}, after it paused its Value and Value Bulk tiers in June 2026. The cheapest of the ${coWord} is ${cheapest.name} at about ${moneyRound(cheapest.cheapest)}. Add roughly ${moneyRound(SHIP)} a card for shipping and insurance.`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Is it worth grading my Pokemon card?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `Only if the gap between the raw price and the PSA 10 price is bigger than the fee, and only if the card is genuinely mint. Of ${rows.length} cards we hold both prices for, ${worth.length} would clear PSA's current fee and ${notWorth.length} would not. Those figures are all for a 10, and a 9 is worth far less, so treat them as the best case.`,
-        },
-      },
-    ],
-  },
+  FAQ.ld,
 ];
 
 const page = `<!DOCTYPE html>
@@ -342,7 +341,7 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
-<style>
+<style>${FAQ_CSS}
 /* The card in each verdict row. In this page's own block rather than ui.css:
    this page is the only user and ui.css is render blocking on all 426 pages.
    It rides INSIDE .gr-name rather than as a new grid column, because .gr's
@@ -630,6 +629,8 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
       and your patience. Not financial advice, just subtraction.</p>
   </div>
 </section>
+
+${FAQ.html}
 
 </main>
 ${footer("Grading fees change constantly. Always check the company's own page before submitting.")}

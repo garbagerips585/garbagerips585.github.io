@@ -152,6 +152,7 @@ import { readFile, writeFile, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { faqBlock, FAQ_CSS } from "../shared/faq.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits: no `<a href*="/rip/">` around an image or a `.pack`, no `[data-vcar]`
 // carousel, and none of packs.css's classes in any class attribute. Those are
@@ -1129,7 +1130,7 @@ const PATH = "/what-to-buy.html";
 // FAQPage, and every answer here is a shortened version of copy that is visibly
 // on the page. Nothing is claimed in the structured data that a reader cannot
 // read for themselves, which is both Google's rule and the honest version of it.
-const FAQ = [
+const FAQ_QA = [
   [
     "What Pokemon cards should I buy for my kid?",
     `For a young child who has never played, ${
@@ -1197,6 +1198,16 @@ const FAQ = [
   ],
 ];
 
+const FAQ = faqBlock(
+  FAQ_QA,
+  {
+    heading: "The questions a parent asks in the aisle",
+    path: "/what-to-buy.html",
+    site: SITE,
+  }
+);
+
+
 const LD = [
   {
     "@context": "https://schema.org",
@@ -1206,15 +1217,7 @@ const LD = [
       { "@type": "ListItem", position: 2, name: "What to buy" },
     ],
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: FAQ.map(([q, a]) => ({
-      "@type": "Question",
-      name: q,
-      acceptedAnswer: { "@type": "Answer", text: a },
-    })),
-  },
+  FAQ.ld,
 ];
 
 const STYLE = `
@@ -1643,7 +1646,8 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
-<style>${miniCSS(STYLE)}</style>
+<style>${miniCSS(STYLE)}
+${FAQ_CSS}</style>
 ${LD.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -1920,6 +1924,8 @@ ${links(guide.playing.links)}
       </div>
     </div>
   </section>
+
+${FAQ.html}
 
 </main>
 ${footer(

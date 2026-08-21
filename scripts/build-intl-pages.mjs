@@ -78,6 +78,35 @@ const logosOnDisk = new Set(
     .map((f) => /^(.+)-pokemon-tcg-set-logo\.webp$/.exec(f)?.[1])
     .filter(Boolean)
 );
+
+/* WHICH OF THESE GUIDES HAVE THEIR OWN SHARE CARD, read off the directory
+   exactly as logosOnDisk is, and for the same reason: a typed list goes stale
+   the next time a file lands.
+
+   ALL TWELVE OF THESE PAGES PREVIEWED AS THE SAME PICTURE OF A BOOSTER PACK
+   until 21 August 2026, so /sets/ja-abyss-eye.html and /sets/ko-clay-burst.html
+   were indistinguishable in a chat unfurl. They have no pack artwork -- there
+   are 18 wrappers in assets-source/packs and none of them is a Japanese, Korean
+   or Chinese print -- so scripts/build-og.py gives them the TYPOGRAPHIC card
+   build-og-pages.py draws for every other page with nothing to illustrate, and
+   it draws the ENGLISH name, because Titan One has no CJK glyph and because the
+   English equivalent is the whole reason somebody lands on one of these.
+
+   THE FALLBACK IS THE POINT OF READING DISK. build-og.py is deliberately not in
+   build-all.mjs, so on a machine that has never run it the file is absent, this
+   set is empty, every page keeps the generic card and nothing breaks. Same
+   arrangement as ogCards in build-set-pages.mjs. */
+const ogCardsOnDisk = new Set(
+  (await readdir(join(ROOT, "public/assets")).catch(() => []))
+    .map((f) => /^og-(.+)\.jpg$/.exec(f)?.[1])
+    .filter(Boolean)
+);
+
+// This guide's own card where there is one, the site-wide card where there is
+// not. ONE FUNCTION, spent by both the head and the Article node below, so the
+// tag and the schema cannot name two different pictures.
+const ogImage = (g) =>
+  `${SITE}/assets/${ogCardsOnDisk.has(g.id) ? `og-${g.id}` : "og-image"}.jpg`;
 /**
  * Drawn at 150px wide inside the panel. The masters are normalised by HEIGHT to
  * 300px and every one is a different width, so the -sm.webp (100px tall, 5-17KB)
@@ -1129,7 +1158,7 @@ function guidePage(g) {
       "@type": "Article",
       headline: `${g.english} Pokemon TCG Set Guide`,
       description: desc,
-      image: [`${SITE}/assets/og-image.jpg`],
+      image: [ogImage(g)],
       about: { "@type": "Thing", name: `${g.english} (Pokemon Trading Card Game, ${g.langName})` },
       url,
       // See the matching note in build-set-pages.mjs: `url` is not a substitute
@@ -1222,7 +1251,7 @@ function guidePage(g) {
     title: g.equivalent
       ? `${g.english} (${g.langName}) Set Guide: Cards & English Equivalent`
       : `${g.english} (${g.langName}) Set Guide`,
-    desc, canonical: url, image: `${SITE}/assets/og-image.jpg?v=2`, ld, noindex: thin,
+    desc, canonical: url, image: `${ogImage(g)}?v=2`, ld, noindex: thin,
     // Three blocks, each carried only where its markup exists. ART_CSS is the
     // pictures, PAGE_CSS is the card-for-card table, and RARITY_CSS is the
     // shared key's own stylesheet, which these pages were emitting `.rk` markup

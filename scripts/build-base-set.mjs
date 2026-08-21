@@ -65,6 +65,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { faqBlock, FAQ_CSS } from "../shared/faq.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear. The
@@ -883,6 +884,74 @@ const desc =
 
 /* ------------------------------------------------------------- structured -- */
 
+/* THESE SIX WERE IN THE SCHEMA AND NOWHERE ELSE UNTIL 21 AUGUST 2026, and they
+ * are the reason this page was the second worst on the site for it: 0 of 6
+ * questions and 0 of 6 answers appeared in the rendered text. faqBlock renders
+ * them and builds the FAQPage from the same array, and it throws if the two
+ * ever come apart. shared/faq.mjs carries the argument.
+ *
+ * RENDERING RATHER THAN DELETING, because the answers are not on this page in
+ * any other words. Measured in 6-word runs against the page's own text: 12%
+ * already said, and the two that matter most were 8% and 0%. The shadowless
+ * price comparison below is 95 words of sourced, two-feed reasoning that no
+ * reader could reach, on the page most likely to be searched for it, and the
+ * 1999-2000 copyright answer is the only place on the site that explains the
+ * 4th print at all. That is content, not markup.
+ *
+ * THE HowTo ON THIS PAGE WAS ALREADY COMPLIANT AND WAS LEFT ALONE. An audit
+ * reported 1 of 5 steps visible; re-measured, all 5 are, because each step's
+ * `where` and `how` render as prose in its own section and the audit's
+ * normaliser did not join two adjacent elements. Do not "fix" it.
+ */
+const FAQ = faqBlock(
+  [
+    [
+      "How do I know if my Base Set card is 1st Edition?",
+      "Look under the left edge of the artwork for a small black circle with a 1 in it and the word EDITION curved over the top. If it is there the card is 1st Edition. It is not the expansion symbol: Base Set does not have one.",
+    ],
+    [
+      "What does shadowless mean on a Pokemon card?",
+      "It means the artwork window has no drop shadow around it. On an Unlimited Base Set card a soft gray band runs down the right side of the artwork window and along its bottom. On a Shadowless card there is nothing there, and there is no 1st Edition stamp either. Shadowless was the second English print run of Base Set, between the 1st Edition run and Unlimited.",
+    ],
+    // THIS ANSWER CARRIES THE OTHER FEED'S FIGURE AND IT IS THE MOST IMPORTANT
+    // PLACE ON THE SITE THAT IT DOES. Google can lift a FAQPage answer and show
+    // it on its own, with no page around it: this one said "an ungraded
+    // Shadowless Base Set Charizard at $988" while /most-valuable-cards.html
+    // ranked the same card at $10,000, and a reader who saw only the snippet had
+    // nothing to tell them the two were measuring different things. The
+    // qualifying clause is inside the answer text for that reason, not beside it.
+    [
+      "Is shadowless worth more than unlimited?",
+      `Yes, and the gap is clearest on ungraded copies. PriceCharting's price guide, read ${readShort}, put an ungraded Shadowless Base Set Charizard at ${moneyCompact(
+        shad?.ungraded,
+      )} against ${moneyCompact(unl?.ungraded)} for the Unlimited printing of the same card. ` +
+        `Those are price guide values. A marketplace measures something different: TCGplayer's market price for the same ungraded Shadowless Charizard, read ${
+          basis.tcgRead
+        }, was ${
+          basis.both[0] ? `$${basis.both[0].market.toLocaleString("en-US")}` : ""
+        }, because Market Price is what recently sold on that one marketplace while a guide value is computed across the wider set of sales PriceCharting tracks. Neither figure is the other's correction.`,
+    ],
+    [
+      "Are 1st Edition cards shadowless?",
+      "Yes. Every 1st Edition Base Set card is also shadowless, because the shadow was added later. That is why the stamp is checked first: a card with the stamp is 1st Edition, and a card with no stamp and no shadow is what collectors call Shadowless.",
+    ],
+    [
+      "What does the 1999-2000 copyright mean on a Pokemon card?",
+      "It is the fourth Base Set print run, sometimes called the 4th print. It looks like an Unlimited card in every other way. Every earlier run reads 1999 Wizards along the bottom edge; this one reads 1999-2000 Wizards. It is not rarer than Unlimited.",
+    ],
+    [
+      "Does Base Set have a set symbol?",
+      "No. The bottom right of a Base Set card is the card number and a rarity mark with an empty space between them. Every set after it prints an expansion symbol in that gap, which is the quickest way to tell a Base Set card from a Base Set 2 reprint of the same artwork.",
+    ],
+  ],
+  {
+    heading: "The questions this page gets asked",
+    path: "/base-set.html",
+    site: SITE,
+  }
+);
+
+
 const ld = [
   {
     "@context": "https://schema.org",
@@ -898,54 +967,7 @@ const ld = [
       url: `${SITE}/base-set.html#${t.id}`,
     })),
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      [
-        "How do I know if my Base Set card is 1st Edition?",
-        "Look under the left edge of the artwork for a small black circle with a 1 in it and the word EDITION curved over the top. If it is there the card is 1st Edition. It is not the expansion symbol: Base Set does not have one.",
-      ],
-      [
-        "What does shadowless mean on a Pokemon card?",
-        "It means the artwork window has no drop shadow around it. On an Unlimited Base Set card a soft gray band runs down the right side of the artwork window and along its bottom. On a Shadowless card there is nothing there, and there is no 1st Edition stamp either. Shadowless was the second English print run of Base Set, between the 1st Edition run and Unlimited.",
-      ],
-      // THIS ANSWER CARRIES THE OTHER FEED'S FIGURE AND IT IS THE MOST IMPORTANT
-      // PLACE ON THE SITE THAT IT DOES. Google can lift a FAQPage answer and show
-      // it on its own, with no page around it: this one said "an ungraded
-      // Shadowless Base Set Charizard at $988" while /most-valuable-cards.html
-      // ranked the same card at $10,000, and a reader who saw only the snippet had
-      // nothing to tell them the two were measuring different things. The
-      // qualifying clause is inside the answer text for that reason, not beside it.
-      [
-        "Is shadowless worth more than unlimited?",
-        `Yes, and the gap is clearest on ungraded copies. PriceCharting's price guide, read ${readShort}, put an ungraded Shadowless Base Set Charizard at ${moneyCompact(
-          shad?.ungraded,
-        )} against ${moneyCompact(unl?.ungraded)} for the Unlimited printing of the same card. ` +
-          `Those are price guide values. A marketplace measures something different: TCGplayer's market price for the same ungraded Shadowless Charizard, read ${
-            basis.tcgRead
-          }, was ${
-            basis.both[0] ? `$${basis.both[0].market.toLocaleString("en-US")}` : ""
-          }, because Market Price is what recently sold on that one marketplace while a guide value is computed across the wider set of sales PriceCharting tracks. Neither figure is the other's correction.`,
-      ],
-      [
-        "Are 1st Edition cards shadowless?",
-        "Yes. Every 1st Edition Base Set card is also shadowless, because the shadow was added later. That is why the stamp is checked first: a card with the stamp is 1st Edition, and a card with no stamp and no shadow is what collectors call Shadowless.",
-      ],
-      [
-        "What does the 1999-2000 copyright mean on a Pokemon card?",
-        "It is the fourth Base Set print run, sometimes called the 4th print. It looks like an Unlimited card in every other way. Every earlier run reads 1999 Wizards along the bottom edge; this one reads 1999-2000 Wizards. It is not rarer than Unlimited.",
-      ],
-      [
-        "Does Base Set have a set symbol?",
-        "No. The bottom right of a Base Set card is the card number and a rarity mark with an empty space between them. Every set after it prints an expansion symbol in that gap, which is the quickest way to tell a Base Set card from a Base Set 2 reprint of the same artwork.",
-      ],
-    ].map(([q, a]) => ({
-      "@type": "Question",
-      name: q,
-      acceptedAnswer: { "@type": "Answer", text: a },
-    })),
-  },
+  FAQ.ld,
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -1359,8 +1381,16 @@ const style = `
    ========================================================================== */
 @media(min-width:1000px){
   .bs-page .wrap{max-width:calc(1152px + var(--gut) * 2)}
+  /* .faq-list IS IN THIS LIST BECAUSE h2 ALREADY WAS, and half a block in the
+     column is worse than none of it. The FAQ section added 21 August 2026 opens
+     with an h2 inside its own .wrap, so the bare h2 selector above already
+     caught the heading and indented it while the questions and answers under it
+     stayed on the band at 144. That is precisely the ragged left edge the long
+     note above this rule exists to remove, reintroduced by a new block rather
+     than by an old one. Measured at 1440: 390 against 144 before, both 390
+     after. */
   .bs-page .wrap > :is(.crumbs,.sec-label,h2,.bs-p2,.bs-foot,.bs-fig,
-    .bs-prices,.bs-cmp,.bs-cr,.bs-shots,.fk-golden){
+    .bs-prices,.bs-cmp,.bs-cr,.bs-shots,.fk-golden,.faq-list){
     margin-left:calc((100% - 660px) / 2)}
   .bs-page .wrap > .fk-golden{max-width:660px}
 }
@@ -1396,6 +1426,7 @@ const style = `
   .bs-p-nums{grid-area:prices;margin-top:0;align-self:center;flex-direction:column;
     align-items:flex-end;gap:2px;text-align:right}
 }
+${FAQ_CSS}
 `;
 
 /* ----------------------------------------------------------------- page -- */
@@ -1705,6 +1736,8 @@ ${d.traps
       <a href="/what-set.html">the set finder</a> reads the number after the slash.</p>
   </div>
 </section>
+
+${FAQ.html}
 
 <section class="band bs-sec">
   <div class="wrap">

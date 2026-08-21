@@ -77,8 +77,18 @@
   "that have none. He photographs things for a living and lives here, and a",
   "picture of Chili Hots or Fairport Hots does not exist under a free license",
   "anywhere. The schema and the card layout take one the day it exists: add it",
-  "to `photos` with `where` set to \"place:<the name on the card>\"."
+  "to `photos` with `where` set to \"place:<the name on the card>\".",
+  "",
+  "TWO DATES AND THEY ARE NOT INTERCHANGEABLE. `published` is the day this",
+  "page first went out, 20 August 2026, and it does not move again; `updated`",
+  "is the day the research was last re-read and it moves whenever anything in",
+  "here does. The Article node in scripts/build-garbage-plate.mjs spends the",
+  "first as datePublished and the second as dateModified, which is the pair",
+  "every other Article on the site carries. Do not point both at `updated`: a",
+  "page that claims it was written today every time somebody corrects a phone",
+  "number is telling a search engine it has no history."
  ],
+ "published": "2026-08-20",
  "updated": "2026-08-20",
  "read": "2026-08-20",
  "sources": [

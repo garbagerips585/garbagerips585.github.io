@@ -658,6 +658,26 @@ const placeCards = places
   })
   .join("\n");
 
+// THE HOME PAGE'S SHELL IS READ HERE RATHER THAN FURTHER DOWN because the
+// Article node below needs the og:image out of it. bar, sprite, menuPanel and
+// footer are still sliced off `home` at the foot of this file, where the rest
+// of the page assembly is; only these two lines moved up, on 21 August 2026.
+const home = await readFile(join(ROOT, "public/index.html"), "utf8");
+const head = home.slice(home.indexOf("<head>") + 6, home.indexOf("</head>"));
+
+/* THE ARTICLE'S image IS THE PAGE'S OWN og:image, READ OUT OF THE HEAD IT WILL
+ * SHIP WITH, so the two cannot disagree about what this page looks like. That
+ * is build-decks.mjs's rule ("reuse the page's OWN share card rather than the
+ * generic one so the two cannot drift") applied to a page whose head is SLICED
+ * out of index.html rather than composed, which is why it is a regex here and a
+ * template literal there. This page currently inherits the site's generic card,
+ * so both tags name it and both are right; give it a card of its own and both
+ * move together with no edit here. THROWS rather than falling back, because a
+ * silent fallback is how the head and the schema come apart in the first place.
+ */
+const OG_IMAGE = /<meta property="og:image" content="([^"]+)"/.exec(head)?.[1];
+if (!OG_IMAGE) throw new Error("build-garbage-plate: no og:image in the home page head to reuse");
+
 // SCHEMA. Article for the page itself, because that is what it is: a written,
 // sourced piece about a dish. The restaurants are an ItemList inside it and
 // NOT a set of LocalBusiness nodes, which is the same call build-shops.mjs
@@ -675,7 +695,25 @@ const schema = {
       description:
         "The history of the Rochester Garbage Plate, sourced, plus a diagram of what is on one and where to eat one.",
       inLanguage: "en-US",
+      /* FIVE PROPERTIES ADDED 21 AUGUST 2026, AND THIS NODE WAS THE ONLY ONE ON
+         THE SITE MISSING THEM. An audit read every Article in the built tree:
+         48 of 49 carried image, datePublished, author, publisher and
+         mainEntityOfPage, and this one carried none of the five, which made the
+         most link-worthy page on the site structurally ineligible for the
+         Article rich result whatever the copy did. The shape is copied from
+         build-decks.mjs rather than invented, down to publisher.logo, so the 49
+         now agree. `image` is an ARRAY there and is one here for the same
+         reason: Google's Article documentation takes a list. */
+      image: [OG_IMAGE],
+      datePublished: doc.published,
       dateModified: doc.updated,
+      author: { "@type": "Organization", name: "Garbage Rips 585" },
+      publisher: {
+        "@type": "Organization",
+        name: "Garbage Rips 585",
+        logo: { "@type": "ImageObject", url: `${SITE}/assets/logo-square.jpg` },
+      },
+      mainEntityOfPage: `${SITE}/garbage-plate.html`,
       about: { "@type": "Thing", name: "Garbage Plate" },
       isPartOf: { "@type": "WebSite", name: "Garbage Rips 585", url: `${SITE}/` },
       citation: (doc.sources || []).map((s) => ({
@@ -1119,9 +1157,8 @@ ${
 </main>`;
 
 // Share the home page's shell so this page cannot drift from the design. Same
-// slicing, same four landmarks, as build-shops.mjs.
-const home = await readFile(join(ROOT, "public/index.html"), "utf8");
-const head = home.slice(home.indexOf("<head>") + 6, home.indexOf("</head>"));
+// slicing, same four landmarks, as build-shops.mjs. `home` and `head` are read
+// further up, beside the Article node that needs the og:image out of them.
 const bar = home.slice(home.indexOf('<header class="bar">'), home.indexOf("</header>") + "</header>".length);
 const sprite = /<svg[^>]*(?:hidden|display:none)[^>]*>[\s\S]*?<\/svg>/.exec(home)?.[0] || "";
 const menuPanel = /<nav class="menu"[\s\S]*?<\/nav>/.exec(home)?.[0] || "";

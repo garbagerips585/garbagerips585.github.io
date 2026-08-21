@@ -33,6 +33,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { faqBlock, FAQ_CSS } from "../shared/faq.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -286,6 +287,38 @@ const desc =
   `All ${main.length} main English expansions indexed by size, with set symbols and release years.`;
 if (desc.length > 160) throw new Error(`meta description is ${desc.length} characters, over 160:\n${desc}`);
 
+const FAQ = faqBlock(
+  [
+    [
+      "What does the number on the bottom of a Pokemon card mean?",
+      `It is two numbers with a slash between them. The left one is that card's place in the set and the right one is ` +
+        `how many cards the set was printed with, so 45/102 is the forty-fifth card of a 102 card set. The right number ` +
+        `is the one that identifies the set: across the ${main.length} main English expansions there are ${totals.length} ` +
+        `different set sizes, and ${unique.length} of them belong to exactly one set.`,
+    ],
+    [
+      "How do I tell which set a Pokemon card is from?",
+      `Start with the number after the slash and narrow it with the symbol printed next to it. The number alone lands ` +
+        `on a single set ${unique.length} times out of ${totals.length}; the rest are shared by two or more, with ` +
+        `${worst} used by ${worstSets.length} different sets. The symbol tells those apart. It sits in the bottom right ` +
+        `corner on cards up to the XY era and moved to the bottom left in 2017 at Sun and Moon.`,
+    ],
+    [
+      "Why is my card numbered higher than the set total?",
+      `Because it is a secret rare: a card numbered above the printed set size, so a card reading 199/198 is real and ` +
+        `is the kind of card people are hoping for. Across the ${withSecrets.length} sets this site holds full checklists ` +
+        `for there are ${secretTotal.toLocaleString("en-US")} cards numbered above their own set total, ` +
+        `${mostSecrets.secretCount} of them in ${mostSecrets.name} alone.`,
+    ],
+  ],
+  {
+    heading: "The card number questions, answered short",
+    path: "/what-set.html",
+    site: SITE,
+  }
+);
+
+
 const ld = [
   {
     "@context": "https://schema.org",
@@ -295,48 +328,7 @@ const ld = [
       { "@type": "ListItem", position: 2, name: "What set is my card from?", item: `${SITE}/what-set.html` },
     ],
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "What does the number on the bottom of a Pokemon card mean?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            `It is two numbers with a slash between them. The left one is that card's place in the set and the right one is ` +
-            `how many cards the set was printed with, so 45/102 is the forty-fifth card of a 102 card set. The right number ` +
-            `is the one that identifies the set: across the ${main.length} main English expansions there are ${totals.length} ` +
-            `different set sizes, and ${unique.length} of them belong to exactly one set.`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: "How do I tell which set a Pokemon card is from?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            `Start with the number after the slash and narrow it with the symbol printed next to it. The number alone lands ` +
-            `on a single set ${unique.length} times out of ${totals.length}; the rest are shared by two or more, with ` +
-            `${worst} used by ${worstSets.length} different sets. The symbol tells those apart. It sits in the bottom right ` +
-            `corner on cards up to the XY era and moved to the bottom left in 2017 at Sun and Moon.`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Why is my card numbered higher than the set total?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            `Because it is a secret rare: a card numbered above the printed set size, so a card reading 199/198 is real and ` +
-            `is the kind of card people are hoping for. Across the ${withSecrets.length} sets this site holds full checklists ` +
-            `for there are ${secretTotal.toLocaleString("en-US")} cards numbered above their own set total, ` +
-            `${mostSecrets.secretCount} of them in ${mostSecrets.name} alone.`,
-        },
-      },
-    ],
-  },
+  FAQ.ld,
 ];
 
 /**
@@ -708,7 +700,8 @@ ${
 }
 ${FONTS}
 ${STYLES}
-<style>${miniCSS(style)}</style>
+<style>${miniCSS(style)}
+${FAQ_CSS}</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -844,6 +837,8 @@ ${indexRows}
       )}.</p>
   </div>
 </section>
+
+${FAQ.html}
 
 </main>
 ${footer(`Set list from the Pokemon TCG API, synced ${esc(longDate(expansions.syncedAt) || expansions.syncedAt)}.`)}

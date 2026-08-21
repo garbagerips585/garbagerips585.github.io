@@ -45,6 +45,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { faqBlock, FAQ_CSS } from "../shared/faq.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -530,6 +531,45 @@ const desc =
   `Cheapest is ${cheapest.name} at ${price(cheapest.best.each)}, priciest ${priciest.name} at ${price(priciest.best.each)}.`;
 if (desc.length > 160) throw new Error(`meta description is ${desc.length} characters, over 160:\n${desc}`);
 
+const FAQ = faqBlock(
+  [
+    [
+      "How much does a Pokemon booster pack cost?",
+      `It depends far more on the set than on where you buy it. Across the ${rows.length} sets priced on this page a ` +
+        `pack runs from ${price(cheapest.best.each)} for ${cheapest.name} to ${price(priciest.best.each)} for ${priciest.name}, ` +
+        `a spread of ${x(spread)} for the same object. Those are TCGplayer market prices read on ` +
+        `${longDate(checked) || checked}, divided by the pack count printed on the product.`,
+    ],
+    [
+      "Is a booster box cheaper per pack than buying single packs?",
+      // THE LAST CLAUSE WAS TYPED, AND IT WAS FALSE. It read "on the three
+        // cheapest sets on this page the booster box wins, and on the two
+        // priciest the loose pack does" while the visible page, thirty lines
+        // down, refuses to print the first half of exactly that sentence
+        // because headAllBoxed is false: Chaos Rising is the second cheapest
+        // set here and its cheapest pack is bought loose. A guard that stops
+        // the page saying something is worth nothing if the schema block
+        // says it anyway, and this one is the copy Google quotes.
+        `Not reliably. A single pack bought on its own is the cheapest pack in ${packWins.length} of the ${bothWays} sets ` +
+        `here that sell a pack both ways, and a box or bundle is cheaper in ${boxWins.length}. It has to be checked set by set rather than assumed` +
+        `${endsClause ? `: ${endsClause}` : ""}.`,
+    ],
+    [
+      "Is an Elite Trainer Box worth it?",
+      `Purely as packs, no. Across the ${etbSets.length} sets priced here the Elite Trainer Box is never the cheapest pack in its ` +
+        `set, it is the priciest option on the row in ${etbDearest.length} of them, and it runs a median of ${x(etbMedian)} the cheapest ` +
+        `pack in the same set. It also comes with sleeves, dice, a promo card and the box itself, and we put no price on those, so ` +
+        `whether that gap is worth paying is a question about the accessories rather than about the cards.`,
+    ],
+  ],
+  {
+    heading: "The price questions this page gets asked",
+    path: "/pack-prices.html",
+    site: SITE,
+  }
+);
+
+
 const ld = [
   {
     "@context": "https://schema.org",
@@ -539,55 +579,7 @@ const ld = [
       { "@type": "ListItem", position: 2, name: "Pack prices by set", item: `${SITE}/pack-prices.html` },
     ],
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "How much does a Pokemon booster pack cost?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            `It depends far more on the set than on where you buy it. Across the ${rows.length} sets priced on this page a ` +
-            `pack runs from ${price(cheapest.best.each)} for ${cheapest.name} to ${price(priciest.best.each)} for ${priciest.name}, ` +
-            `a spread of ${x(spread)} for the same object. Those are TCGplayer market prices read on ` +
-            `${longDate(checked) || checked}, divided by the pack count printed on the product.`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Is a booster box cheaper per pack than buying single packs?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            // THE LAST CLAUSE WAS TYPED, AND IT WAS FALSE. It read "on the three
-            // cheapest sets on this page the booster box wins, and on the two
-            // priciest the loose pack does" while the visible page, thirty lines
-            // down, refuses to print the first half of exactly that sentence
-            // because headAllBoxed is false: Chaos Rising is the second cheapest
-            // set here and its cheapest pack is bought loose. A guard that stops
-            // the page saying something is worth nothing if the schema block
-            // says it anyway, and this one is the copy Google quotes.
-            `Not reliably. A single pack bought on its own is the cheapest pack in ${packWins.length} of the ${bothWays} sets ` +
-            `here that sell a pack both ways, and a box or bundle is cheaper in ${boxWins.length}. It has to be checked set by set rather than assumed` +
-            `${endsClause ? `: ${endsClause}` : ""}.`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Is an Elite Trainer Box worth it?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            `Purely as packs, no. Across the ${etbSets.length} sets priced here the Elite Trainer Box is never the cheapest pack in its ` +
-            `set, it is the priciest option on the row in ${etbDearest.length} of them, and it runs a median of ${x(etbMedian)} the cheapest ` +
-            `pack in the same set. It also comes with sleeves, dice, a promo card and the box itself, and we put no price on those, so ` +
-            `whether that gap is worth paying is a question about the accessories rather than about the cards.`,
-        },
-      },
-    ],
-  },
+  FAQ.ld,
 ];
 
 /**
@@ -813,7 +805,8 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
-<style>${miniCSS(style)}</style>
+<style>${miniCSS(style)}
+${FAQ_CSS}</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -1019,6 +1012,8 @@ ${COLUMNS.map(
       guide, which also has the suggested price beside the shelf price.</p>
   </div>
 </section>
+
+${FAQ.html}
 
 </main>
 ${footer("Prices move daily. These are market prices with a read date, not a quote.")}

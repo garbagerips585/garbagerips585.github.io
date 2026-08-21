@@ -33,6 +33,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { faqBlock, FAQ_CSS } from "../shared/faq.mjs";
 import { priceNote, priceFooter, priceRead } from "../shared/card-prices.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
@@ -810,7 +811,69 @@ const style = `
 @media(min-width:1000px){
 .rg-lede,.rg-p,.tip p{max-width:var(--measure)}
 }
+${FAQ_CSS}
 `;
+
+/* THE SHORT ANSWERS, VISIBLE AND IN THE SCHEMA, FROM ONE ARRAY.
+ *
+ * These seven were in the FAQPage block and nowhere else until 21 August 2026:
+ * an audit normalised every question and answer on the site and searched the
+ * page's own rendered text for it, and this page scored 0 of 7 on both. The
+ * long argument is in shared/faq.mjs; the short version is that Google asks
+ * for the content to be visible and gives this site no rich result either way,
+ * so invisible markup was pure downside.
+ *
+ * RENDERING THEM WAS THE RIGHT HALF OF THAT FIX HERE, not deleting them. The
+ * same measurement asked how much of each answer the page ALREADY said, in
+ * 6-word runs: this page came out at 4%, the lowest on the site. "Alt art is
+ * collector slang rather than a printed rarity" and "a reverse holo Common is
+ * still a Common" are the two things a beginner most often has wrong, the
+ * ladder above never says either in those words, and both were written and
+ * then hidden. 275 words of real copy that no reader could reach.
+ *
+ * ORDER IS THE READER'S, NOT THE SCHEMA'S: where the symbol is, then what the
+ * stars mean, then the four names people arrive already confused by.
+ */
+const FAQ = faqBlock(
+  [
+    [
+      "Where is the rarity symbol on a Pokemon card?",
+      "In the bottom corner, next to the card number. On cards from Sun and Moon (2017) onward it is in the bottom left. On XY era cards and older it is in the bottom right.",
+    ],
+    [
+      "What do the stars on a Pokemon card mean?",
+      "Count them, then check the color. One black star is a Rare, two black stars a Double Rare, two silver stars an Ultra Rare, one gold star an Illustration Rare, two gold stars a Special Illustration Rare and three gold stars a Hyper Rare.",
+    ],
+    [
+      "Does a reverse holo make a card rare?",
+      "No. Reverse holo is a finish, not a rarity. The foil sits on everything except the artwork, and the card keeps whatever rarity symbol it was printed with. A reverse holo Common is still a Common.",
+    ],
+    [
+      "What is an alt art Pokemon card?",
+      "Alt art is collector slang rather than a printed rarity. It appears on no card and in no official rarity list. On a modern card it usually means an Illustration Rare or a Special Illustration Rare.",
+    ],
+    [
+      "How do I know if a card is a secret rare?",
+      "Its collector number is higher than the set total, for example 199/198. Secret rares are the Illustration Rare, Ultra Rare, Special Illustration Rare and Hyper Rare tiers.",
+    ],
+    // The two names a checklist on this site can show you that the ladder does
+    // not name. Both answers restate data/rarity.json's offLadder entries, and
+    // the sources for every claim in them are in that file.
+    [
+      "What is a Black White Rare Pokemon card?",
+      "A rarity introduced with Scarlet and Violet Black Bolt and White Flare in July 2025. The card is a full art printed in a single color, black or white throughout, and the corner prints two stars: the first filled in and the second an outline. Only those two sets have it.",
+    ],
+    [
+      "What is the difference between a Rare and a Holo Rare?",
+      "The symbol is the same. Both print one black star in the corner. A Holo Rare has foil on the artwork window and a plain Rare does not. Sword and Shield checklists and older list the two separately, which is where the name comes from.",
+    ],
+  ],
+  {
+    heading: "The seven questions this page gets asked",
+    path: "/rarity.html",
+    site: SITE,
+  }
+);
 
 const body = `
 <main id="main">
@@ -996,6 +1059,8 @@ ${d.slang.map(slangCard).join("\n")}
     </div>
   </section>
 
+${FAQ.html}
+
   <section class="rg-sec">
     <div class="wrap">
       <p class="rg-foot">CHECKED ${esc(longDate(d.checked).toUpperCase())} AGAINST REAL CARD SCANS,
@@ -1008,47 +1073,6 @@ ${d.slang.map(slangCard).join("\n")}
   </section>
 </main>`;
 
-const faq = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
-    [
-      "Where is the rarity symbol on a Pokemon card?",
-      "In the bottom corner, next to the card number. On cards from Sun and Moon (2017) onward it is in the bottom left. On XY era cards and older it is in the bottom right.",
-    ],
-    [
-      "What do the stars on a Pokemon card mean?",
-      "Count them, then check the color. One black star is a Rare, two black stars a Double Rare, two silver stars an Ultra Rare, one gold star an Illustration Rare, two gold stars a Special Illustration Rare and three gold stars a Hyper Rare.",
-    ],
-    [
-      "Does a reverse holo make a card rare?",
-      "No. Reverse holo is a finish, not a rarity. The foil sits on everything except the artwork, and the card keeps whatever rarity symbol it was printed with. A reverse holo Common is still a Common.",
-    ],
-    [
-      "What is an alt art Pokemon card?",
-      "Alt art is collector slang rather than a printed rarity. It appears on no card and in no official rarity list. On a modern card it usually means an Illustration Rare or a Special Illustration Rare.",
-    ],
-    [
-      "How do I know if a card is a secret rare?",
-      "Its collector number is higher than the set total, for example 199/198. Secret rares are the Illustration Rare, Ultra Rare, Special Illustration Rare and Hyper Rare tiers.",
-    ],
-    // The two names a checklist on this site can show you that the ladder does
-    // not name. Both answers restate data/rarity.json's offLadder entries, and
-    // the sources for every claim in them are in that file.
-    [
-      "What is a Black White Rare Pokemon card?",
-      "A rarity introduced with Scarlet and Violet Black Bolt and White Flare in July 2025. The card is a full art printed in a single color, black or white throughout, and the corner prints two stars: the first filled in and the second an outline. Only those two sets have it.",
-    ],
-    [
-      "What is the difference between a Rare and a Holo Rare?",
-      "The symbol is the same. Both print one black star in the corner. A Holo Rare has foil on the artwork window and a plain Rare does not. Sword and Shield checklists and older list the two separately, which is where the name comes from.",
-    ],
-  ].map(([q, a]) => ({
-    "@type": "Question",
-    name: q,
-    acceptedAnswer: { "@type": "Answer", text: a },
-  })),
-};
 
 const html = `<!DOCTYPE html>
 <html lang="en">
@@ -1077,7 +1101,7 @@ ${FONTS}
 ${STYLES}
 <style>${style}</style>
 <script type="application/ld+json">
-${JSON.stringify(faq, null, 2)}
+${JSON.stringify(FAQ.ld, null, 2)}
 </script>
 </head>
 <body>
@@ -1135,4 +1159,4 @@ console.log(`Wrote public/rarity.html
   ${d.ladder.length} rarities, each with a real card and a magnified corner
   ${(d.offLadder || []).length} off-ladder names, same treatment
   ${d.gone.length} retired mechanics, ${d.slang.length} glossary terms
-  ${faq.mainEntity.length} FAQ entries in schema`);
+  ${FAQ.count} FAQ entries, visible on the page and in the schema from one array`);

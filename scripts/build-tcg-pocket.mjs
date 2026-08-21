@@ -93,6 +93,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { faqBlock, FAQ_CSS } from "../shared/faq.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -378,6 +379,17 @@ const QA = [
   ],
 ];
 
+const FAQ = faqBlock(
+  QA,
+  {
+    heading: "The questions people ask before installing it",
+    path: "/tcg-pocket.html",
+    site: SITE,
+    bare: true,
+  }
+);
+
+
 const ld = [
   {
     "@context": "https://schema.org",
@@ -387,15 +399,7 @@ const ld = [
       { "@type": "ListItem", position: 2, name: "Learning from an app" },
     ],
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: QA.map(([name, text]) => ({
-      "@type": "Question",
-      name,
-      acceptedAnswer: { "@type": "Answer", text },
-    })),
-  },
+  FAQ.ld,
 ];
 
 const style = `
@@ -722,6 +726,8 @@ ${FORTNIGHT()}
           <a href="/shops.html">the shops around Rochester</a> will have somebody to play against.</p>
       </section>
 
+${FAQ.html}
+
       <div class="tp-out">
         <h2>One link, on Pokemon's own site</h2>
         <p>The official site, which is where both store buttons live. It is a download page rather than a guide,
@@ -834,7 +840,8 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
-<style>${style}</style>
+<style>${style}
+${FAQ_CSS}</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>

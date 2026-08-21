@@ -1252,64 +1252,44 @@ const siblings = (r) => {
   return [paged[(i + 1) % paged.length], paged[(i + 2) % paged.length]].filter((x) => x !== r);
 };
 
-const faq = (r, rs) => {
-  const qs = [
-    [
-      `Does ${r.name} sell Pokemon cards?`,
-      r.answer,
-    ],
-    [
-      `What Pokemon cards does ${r.name} sell?`,
-      `${TIER[r.stocksTier] || TIER.unknown}. ${r.stocks}`,
-    ],
-  ];
-  if (r.whereInStore) {
-    qs.push([`Where in ${r.name} are the Pokemon cards?`, `${r.whereInStore} Layouts differ from shop to shop, and a lot of chains now keep cards behind the counter or in a locked case, so ask a member of staff even if the shelf is empty.`]);
-  }
-  // THE ANSWER CARRIES EVERY ROW'S OWN DATE AND THIS IS THE JSON-LD COPY, which
-  // is why it matters more here than anywhere else on the page: Google can quote
-  // one of these answers on its own, with no table underneath it to correct it.
-  // It said "On the listings we read on <rs[0].read>" until 17 August 2026, and
-  // rs is ordered by price, so a shop with listings read on two days was dated
-  // from whichever product was cheapest. Every reading now states its own date
-  // inside the clause that states its price, and the opening clause gives the
-  // range, so no single date is ever put over a group that does not have one.
-  qs.push([
-    `Does ${r.name} sell Pokemon cards over MSRP?`,
-    rs.length
-      ? `On the ${rs.length === 1 ? "listing" : `${rs.length} listings`} we read ${readDatePhrase(
-          rs.map((x) => x.read)
-        )}, ${rs
-          // "WHICH IS 1 TIMES IT" IS WHAT A SHOP SELLING AT MSRP USED TO GET,
-          // and this is the one sentence on the site where that matters most:
-          // it is the FAQ answer Google can lift on its own, with no table
-          // beside it. GameStop's Pitch Black Battle Deck was $29.99 against a
-          // suggested $29.99. A multiplier is the right unit for every other
-          // row and the wrong one for that one, so the equal case says so in
-          // words. The near-equal case is kept as a multiplier rather than
-          // called "the same", because it is not: two decimals, so it can never
-          // print a bare "1" again.
-          .map((x) => {
-            const m = x.amount / x.base;
-            const cmp =
-              x.amount === x.base
-                ? "which is the same price"
-                : `which is ${multStr(m) === "1" ? m.toFixed(2) : multStr(m)} times it`;
-            return `the ${x.product} was ${moneyExact(x.amount)} on ${longDate(x.read)} against a suggested ${moneyExact(x.base)}, ${cmp}`;
-          })
-          .join("; ")}. Each of those is a reading on the day named rather than a standing price, and prices move.`
-      : r.priceNote || `This site holds no price reading from ${r.name}.`,
-  ]);
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: qs.map(([q, a]) => ({
-      "@type": "Question",
-      name: q,
-      acceptedAnswer: { "@type": "Answer", text: a },
-    })),
-  };
-};
+/* THE FAQPage ON THESE NINE PAGES WAS DELETED ON 21 AUGUST 2026, AND THIS IS
+ * ITS HEADSTONE RATHER THAN AN EDIT, because it will be proposed again.
+ *
+ * It emitted four Questions per retailer, 36 in all, built by reassembling
+ * `r.answer`, `r.stocks`, `r.whereInStore` and the price readings -- the same
+ * four fields the visible page renders. Google's structured-data policy for
+ * FAQPage asks that "the content must be visible to the user on the source
+ * page", and an audit measured this set at 1 of 4 questions and 2 to 3 of 4
+ * answers found verbatim in the rendered text.
+ *
+ * ELEVEN OTHER PAGES TOOK THE OTHER FIX and now render their Q&A visibly
+ * through shared/faq.mjs. THIS SET WAS THE ONE WHERE THAT WOULD HAVE MADE THE
+ * PAGE WORSE, and the number is why. The same measurement asked how much of
+ * each answer the page ALREADY says, in 6-word runs: those eleven scored 2% to
+ * 20%, and these nine scored 64% to 67%, with "Does <shop> sell Pokemon cards?"
+ * and "What Pokemon cards does <shop> sell?" at 100% each. This page's own
+ * first `<h2>` IS the first question, word for word. A visible FAQ block here
+ * would print two of the page's own paragraphs a second time under a heading
+ * that repeats a heading 3,000px above it.
+ *
+ * AND THERE WAS NOTHING TO LOSE BY DELETING IT. Since August 2023 Google
+ * restricts FAQ rich results to well-known government and health sites, so this
+ * markup earned these pages no rich result either way; it was carrying the
+ * policy risk of the 27 invisible strings for nothing. Every fact those answers
+ * asserted is still on the page, in the answer paragraph, the stock list, the
+ * "where in the shop" section and the price table with its per-reading dates.
+ *
+ * The one genuinely careful thing in there is worth keeping in mind if anybody
+ * rebuilds it: the over-MSRP answer stated EACH reading's own date inside the
+ * clause that stated its price, because rs is ordered by price and a shop read
+ * on two days was being dated from whichever product was cheapest. The visible
+ * `readingBlock` below already does the same thing, which is the other reason
+ * the schema was redundant rather than load bearing.
+ *
+ * IF YOU BRING IT BACK, bring it back through shared/faq.mjs so the section and
+ * the schema come out of one array, and write new answers that say something
+ * the page does not already say. Do not re-derive it from `r.answer`.
+ */
 
 // The bare host, for the "opens on <host>" half of an outbound aria-label.
 // Falls back to the empty string rather than throwing: a malformed url in the
@@ -1443,7 +1423,7 @@ for (const r of paged) {
   const title = `Does ${r.name} Sell Pokemon Cards? | Garbage Rips 585`;
   const desc = `${r.answer.split(". ")[0]}. What ${r.name} stocks, which department the cards are filed under, and every price we have read on their own site with the date and the address on it.`;
 
-  const page = `${head({ title, desc, path, extraLd: [crumbs(r.name, path), faq(r, rs)] })}
+  const page = `${head({ title, desc, path, extraLd: [crumbs(r.name, path)] })}
 <body>
 ${SPRITE}
 ${SKIP}

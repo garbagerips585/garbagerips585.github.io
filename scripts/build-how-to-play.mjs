@@ -67,6 +67,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { faqBlock, FAQ_CSS } from "../shared/faq.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -330,6 +331,17 @@ const QA = [
     "No. A preconstructed deck is a legal 60 card deck out of the box. Two people need two decks, or one Battle Academy box."],
 ];
 
+const FAQ = faqBlock(
+  QA,
+  {
+    heading: "The five questions a beginner asks first",
+    path: "/how-to-play.html",
+    site: SITE,
+    bare: true,
+  }
+);
+
+
 const ld = [
   {
     "@context": "https://schema.org",
@@ -339,15 +351,7 @@ const ld = [
       { "@type": "ListItem", position: 2, name: "How to play" },
     ],
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: QA.map(([name, text]) => ({
-      "@type": "Question",
-      name,
-      acceptedAnswer: { "@type": "Answer", text },
-    })),
-  },
+  FAQ.ld,
 ];
 
 // COMMENTS OUT OF THE SHIPPED PAGE, ARGUMENT KEPT IN THIS FILE. Same regex and
@@ -651,7 +655,13 @@ const style = `
    ========================================================================== */
 @media(min-width:1000px){
 .hp-wrap{max-width:calc(1152px + var(--gut) * 2)}
-.hp-wrap > :is(.crumbs,h1,.hp-lede,.hp-jump,.hp-out,.hp-src),
+/* .faq-sec IS IN THIS LIST AND HAS TO BE. It is a direct child of .hp-wrap, so
+   the 748px reading column this block exists to hold is opt-in by NAME: a new
+   sibling that is not listed sits flush left while every other block on the
+   page is indented, and at 1440 that measured 144px against 346px. It is
+   invisible in a screenshot of the section on its own and obvious to anybody
+   scrolling past the seam. Measured 21 August 2026, both before and after. */
+.hp-wrap > :is(.crumbs,h1,.hp-lede,.hp-jump,.hp-out,.hp-src,.faq-sec),
 .hp-s > :is(h2,p,.hp-steps,.hp-fig,.hp-call,.hp-tbl-w,.hp-shout,.hp-go,.hp-anat){
   margin-left:calc((100% - 748px) / 2)}
 .hp-s > .hp-anat{max-width:748px}
@@ -897,6 +907,8 @@ ${(win.ways || [])
           worth. This page is the one about the game.</p>
       </section>
 
+${FAQ.html}
+
       <div class="hp-out">
         <h2>Where to learn more, on Pokemon's own sites</h2>
         <p>Four links, and all four leave this site. We cannot host the rules and a page teaching them should say
@@ -1039,7 +1051,8 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
-<style>${miniCSS(style)}</style>
+<style>${miniCSS(style)}
+${FAQ_CSS}</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>

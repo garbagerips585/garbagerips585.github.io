@@ -81,6 +81,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { faqBlock, FAQ_CSS } from "../shared/faq.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -1011,6 +1012,29 @@ const desc =
   `${rows.length} current products, biggest to smallest, with a source on every number.`;
 if (desc.length > 160) throw new Error(`meta description is ${desc.length} characters, over 160:\n${desc}`);
 
+const FAQ = faqBlock(
+  [
+    [
+      "How many packs are in a Pokemon booster box?",
+      "Thirty-six, for an English booster display box, and that has held across the Scarlet & Violet and Mega Evolution eras. Two things catch people out: Europe also sells an eighteen-pack half display that gets called a booster box, and a Japanese box is a different product with five-card packs.",
+    ],
+    [
+      "How many packs are in an Elite Trainer Box?",
+      "Nine, for a main-expansion Elite Trainer Box from the Scarlet & Violet era onward, and eleven for the Pokemon Center version of the same set. That is not a fact about Elite Trainer Boxes in general: the first one held seven, then it was eight for nine years, and most special expansions from Generations to Crown Zenith held ten.",
+    ],
+    [
+      "How many cards are in a Pokemon booster pack?",
+      "Ten game cards plus one Basic Energy card and a code card, in the current English packs. It has not always been ten. Packs held eleven cards from Base Set to Neo Destiny, then nine from Expedition Base Set in September 2002 through the end of the EX Series, then ten from Diamond & Pearl in May 2007. An EX-era pack is a smaller pack, not a short-packed one.",
+    ],
+  ],
+  {
+    heading: "The counts people ask for most",
+    path: "/how-many-packs.html",
+    site: SITE,
+  }
+);
+
+
 const ld = [
   {
     "@context": "https://schema.org",
@@ -1020,39 +1044,7 @@ const ld = [
       { "@type": "ListItem", position: 2, name: "How many packs", item: `${SITE}/how-many-packs.html` },
     ],
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "How many packs are in a Pokemon booster box?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            "Thirty-six, for an English booster display box, and that has held across the Scarlet & Violet and Mega Evolution eras. Two things catch people out: Europe also sells an eighteen-pack half display that gets called a booster box, and a Japanese box is a different product with five-card packs.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "How many packs are in an Elite Trainer Box?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            "Nine, for a main-expansion Elite Trainer Box from the Scarlet & Violet era onward, and eleven for the Pokemon Center version of the same set. That is not a fact about Elite Trainer Boxes in general: the first one held seven, then it was eight for nine years, and most special expansions from Generations to Crown Zenith held ten.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "How many cards are in a Pokemon booster pack?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            "Ten game cards plus one Basic Energy card and a code card, in the current English packs. It has not always been ten. Packs held eleven cards from Base Set to Neo Destiny, then nine from Expedition Base Set in September 2002 through the end of the EX Series, then ten from Diamond & Pearl in May 2007. An EX-era pack is a smaller pack, not a short-packed one.",
-        },
-      },
-    ],
-  },
+  FAQ.ld,
 ];
 
 const style = `
@@ -1357,7 +1349,8 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
-<style>${style}</style>
+<style>${style}
+${FAQ_CSS}</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -1666,6 +1659,8 @@ ${OLD.map(
       figure. Nothing here states or implies how likely any card is to appear in any pack.</p>
   </div>
 </section>
+
+${FAQ.html}
 
 </main>
 ${footer("Pack counts are printed on the packaging, so they are checkable. Odds are not published by anybody.")}

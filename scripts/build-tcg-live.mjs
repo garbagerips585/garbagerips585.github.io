@@ -92,6 +92,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { faqBlock, FAQ_CSS } from "../shared/faq.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -345,6 +346,17 @@ const QA = [
   ],
 ];
 
+const FAQ = faqBlock(
+  QA,
+  {
+    heading: "The code card questions, answered short",
+    path: "/tcg-live.html",
+    site: SITE,
+    bare: true,
+  }
+);
+
+
 const ld = [
   {
     "@context": "https://schema.org",
@@ -354,15 +366,7 @@ const ld = [
       { "@type": "ListItem", position: 2, name: "The code card in the pack" },
     ],
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: QA.map(([name, text]) => ({
-      "@type": "Question",
-      name,
-      acceptedAnswer: { "@type": "Answer", text },
-    })),
-  },
+  FAQ.ld,
 ];
 
 const style = `
@@ -752,6 +756,8 @@ ${compareTable(esc)}
           <a href="/shops.html">the shops around Rochester</a> run league nights.</p>
       </section>
 
+${FAQ.html}
+
       <div class="tl-out">
         <h2>Two links, both on Pokemon's own sites</h2>
         <p>Everything above is free and both of these are the official versions. Nothing else on this subject
@@ -897,7 +903,8 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
-<style>${style}</style>
+<style>${style}
+${FAQ_CSS}</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
