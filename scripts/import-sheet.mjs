@@ -193,6 +193,21 @@ const PRODUCT_IDS = {
   // missing id captions the filter rail with a raw string and links to a page
   // that is not built. Both are a themed box holding packs and promos, which is
   // what collection-box already means on this site.
+  // FROM TIM'S SIXTH PASS, 21 August 2026. Same shape as every block above: the
+  // product's retail name where the column wants a kind of box.
+  //
+  // The two Collections are collection-box on the argument the First Partner
+  // note gives -- no id for them in shared/taxonomy.mjs, no /openings/ page, and
+  // a key naming a missing id captions the filter rail with a raw string and
+  // links to a page that is not built. A pin collection and a sticker
+  // collection are both a themed box holding packs and a promo, which is what
+  // collection-box already means here.
+  "3 pack blister": "blister",
+  "tech sticker collection": "collection-box",
+  "sticker collection": "collection-box",
+  "first partners deluxe pin collection": "collection-box",
+  "deluxe pin collection": "collection-box",
+  "pin collection": "collection-box",
   "2 pack blister": "blister",
   "poster collection": "collection-box",
   "victini illustration collection": "collection-box",
