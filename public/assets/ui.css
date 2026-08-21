@@ -729,7 +729,6 @@ footer .soc svg{fill:var(--chrome-ink)}
 .chaser-rar{color:var(--plum)}
 .chaser-pr{color:var(--ink);margin-top:4px}
 .chaser-pr i{font-style:normal;color:var(--gold-deep);display:block}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .hl{color:var(--ketchup-deep);text-shadow:2px 2px 0 var(--trubbish)}
 .vid-shell{
   position:relative;aspect-ratio:2/3;width:100%;border-radius:10px;overflow:hidden;

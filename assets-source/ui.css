@@ -2116,7 +2116,35 @@ footer .soc svg{fill:var(--chrome-ink)}
    own position:relative never came across and every rip page's pack escaped
    its container and covered the viewport. This pass compares whole selectors.
    -------------------------------------------------------------------------- */
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+/* .sr-only IS DEFINED ONCE, ABOVE. A byte-identical second copy sat here and
+   was removed 20 August 2026 -- and NOT to save bytes, which was the reason I
+   first wrote here before measuring it. Removing it is raw 106,478 -> 106,344,
+   a saving of 134, and gzipped 20,815 -> 20,831, a COST of 16: gzip had the
+   duplicate as a back-reference for almost nothing, and dropping it disturbed
+   the window around it. The site ships gzipped, so the honest accounting is that
+   this change costs 16 bytes.
+
+   It is worth those 16 bytes for one reason: a second identical rule is a trap
+   for whoever edits the first, because nothing tells them the other exists. That
+   is the argument. The byte argument is false and is recorded here so it is not
+   made again.
+
+   WHILE REMOVING IT, A MEASUREMENT ARTIFACT WORTH KNOWING. On /pack-prices.html,
+   /expansions.html and /how-many-packs.html at 320px, documentElement.scrollWidth
+   reads 500-600 against a 320 client width. It is not overflow. These spans are
+   position:absolute, so inside a horizontally scrolling table their containing
+   block is the 660px-wide scroller, and a 1x1 clipped span lands at x=599. It
+   extends the root's scroll area on paper and nothing else: body.scrollWidth
+   stays 320, scrollTo(400,0) leaves scrollX at 0, and no unclipped element sits
+   past the edge.
+
+   So documentElement.scrollWidth IS NOT A VALID OVERFLOW TEST ON THIS SITE. The
+   honest one, used by every sweep in CLAUDE.md, is an element past
+   documentElement.clientWidth with no clipping ancestor AND a non-zero scrollX
+   after scrollTo(400,0). A tablet-layout pass reported this reading as a real
+   bug on three pages; it is not, and this note exists so nobody spends the hour
+   again. */
+
 .hl{color:var(--ketchup-deep);text-shadow:2px 2px 0 var(--trubbish)}
 .vid-shell{
   position:relative;aspect-ratio:2/3;width:100%;border-radius:10px;overflow:hidden;
