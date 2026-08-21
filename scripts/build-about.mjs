@@ -23,7 +23,7 @@ import { SITE } from "../shared/site.mjs";
 // packs.css is NOT dropped here and cannot be from this file: these four pages
 // take their <head> by slicing index.html, so their stylesheet links are the
 // home page's. See shared/chrome.mjs beside the two exports.
-import { SOCIALS, SUBSCRIBE, APP_JS_NO_PACKPLAYER as APP_JS } from "../shared/chrome.mjs";
+import { SOCIALS, SUBSCRIBE, APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/chrome.mjs";
 import { MONTHS_LONG as MONTHS, esc } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -314,7 +314,7 @@ const swapped = head
 
 await writeFile(
   join(ROOT, "public/about.html"),
-  `<!DOCTYPE html>
+  dropUnusedPacksCSS(`<!DOCTYPE html>
 <html lang="en">
 <head>${swapped}<style>${style}</style>
 <script type="application/ld+json">
@@ -333,7 +333,7 @@ ${footer}
 ${APP_JS}
 </body>
 </html>
-`
+`)
 );
 
 console.log(`Wrote public/about.html

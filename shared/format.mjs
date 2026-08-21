@@ -697,6 +697,105 @@ export function imgDims(url) {
 }
 
 /**
+ * The srcset for ONE TCGplayer product photograph in a fixed CSS box.
+ *
+ * ===========================================================================
+ * SIZES IS DECLARED AGAINST THE CSS BOX, SO AT DPR 3 THE BROWSER ASKS FOR 3x IT
+ * ===========================================================================
+ *
+ * Seven builders each wrote this srcset by hand and all seven wrote the same
+ * bug, which is the whole reason it is one function now. Every one offered the
+ * small file and then jumped straight to _in_1000x1000.jpg, so:
+ *
+ *     box    DPR 1      DPR 2       DPR 3          what DPR 3 landed on
+ *     48px   150w ok    150w ok     144 <= 150 ok  the only safe one
+ *     64px   150w ok    128 ok      192 > 150 ->   _in_1000x1000, 547x1000
+ *     72px   150w ok    144 ok      216 > 150 ->   _in_1000x1000, 547x1000
+ *     84px   200w ok    168 ok      252 > 200 ->   _in_1000x1000, 547x1000
+ *     88px   200w ok    176 ok      264 > 200 ->   _in_1000x1000, 547x1000
+ *
+ * A 547x1000 JPEG is 101 to 135KB and it was landing in an 88 pixel box, 261
+ * times across 56 pages. /msrp.html is the worst of them: 32 pins at 64px, and
+ * measured at 390x844 DPR 3 that page transferred 3,837.4KB fully scrolled, of
+ * which 3.6MB is those 32 photographs.
+ *
+ * THE 64px ROW IS THE ONE THAT WAS BEING READ AS SAFE and it is not. Its box is
+ * the smallest that carries a srcset, so it reads like the 48px row, but its
+ * small rung is _150w and not _200w: 64 x 3 = 192 clears 150 and fires. Check
+ * the RUNG, never the box.
+ *
+ * _400w.jpg IS A REAL FILE AND IT IS EXACTLY 400 WIDE, which is what makes it
+ * the right top rung. Probed on three product ids on 2026-08-20, all 200:
+ *
+ *     _150w.jpg              150 x 223-274      11.2 to 19.2KB
+ *     _200w.jpg              200 x 297-366      17.5 to 30.3KB
+ *     _400w.jpg              400 x 594-731      50.6 to 93.8KB
+ *     _in_1000x1000.jpg      547-673 x 1000    102.0 to 135.5KB
+ *
+ * 250w, 300w, 320w, 500w, 600w and 800w all answer 403, so this ladder is the
+ * whole of what the CDN has and a candidate that is not on it is a broken
+ * image rather than a fallback: the browser has already committed to it.
+ *
+ * THE 1000w DESCRIPTOR WAS ALSO A LIE AND THERE IS NO RIGHT NUMBER TO PUT
+ * THERE. _in_1000x1000 fits the photograph inside a 1000x1000 square, so its
+ * WIDTH is whatever the product's aspect ratio makes it: 547, 673 and 642 on
+ * the three ids above. One literal cannot be right for all of them. It comes
+ * off the ladder rather than getting a better number, because once _400w is
+ * there no box on this site can reach it: the widest of them is 88px, which
+ * asks 264 device pixels at DPR 3 and 352 at DPR 4.
+ *
+ * WHAT THIS DOES NOT DO IS PICK THE SMALLEST FILE. An 88px box on a DPR 3
+ * phone genuinely wants 264 device pixels and _400w is the smallest rung that
+ * covers it; handing it _200w would be 24% short and the fix would be a
+ * downgrade wearing a saving. DPR 1 and DPR 2 are deliberately untouched: the
+ * small rung is left exactly as each caller had it, so the only pick that
+ * moves is the one that was wrong.
+ *
+ * THE 48px TABLES KEEP THEIR PICK AT EVERY DPR THIS SITE IS READ AT and still
+ * get the new rung, which is not a contradiction. 48 x 3 = 144 and the small
+ * rung is 150w, so DPR 1, 2 and 3 all take the same file they took before.
+ * What changes is what a DENSER screen falls to: past DPR 3.13 those 121
+ * pictures used to reach the 547x1000 file and now reach _400w. The rung is
+ * offered unconditionally for that reason, and because a ladder whose top
+ * depends on the caller's box is a ladder each caller can get wrong again.
+ *
+ * `box` is the CSS px the photograph is painted into, which for every caller is
+ * a fixed width in that builder's own style block, not a viewport unit.
+ * Returns the srcset value with no attribute around it, or "" when the url is
+ * not a TCGplayer product photo.
+ */
+const TCG_PRODUCT = /^(https:\/\/tcgplayer-cdn\.tcgplayer\.com\/product\/\d+)_(150|200|400)w\.jpg$/;
+export function productSrcset(thumb, box) {
+  const m = TCG_PRODUCT.exec(String(thumb || ""));
+  if (!m) return "";
+  const [, base, w] = m;
+  const small = Number(w);
+  // THE GUARD IS THE POINT OF PASSING THE BOX IN. 400w is the top of the CDN's
+  // ladder, so a placement wider than 133 CSS px cannot be served honestly from
+  // this host at DPR 3 and needs a decision rather than a silent soft picture.
+  // Every caller today is 48 to 88px. Fail the build instead of shipping mush.
+  if (!(box > 0) || box * 3 > 400) {
+    throw new Error(`productSrcset: a ${box}px box needs ${box * 3}px at DPR 3 and tcgplayer-cdn stops at 400w`);
+  }
+  const rungs = [`${base}_${small}w.jpg ${small}w`];
+  if (small < 400) rungs.push(`${base}_400w.jpg 400w`);
+  return rungs.join(", ");
+}
+
+/**
+ * The same thing as an ATTRIBUTE, with a leading space, or "" when there is
+ * none to write. Same convention as imgDims() above and for the same reason:
+ * three of the eight call sites used to gate the whole attribute on a second
+ * url being present, and an empty srcset="" is not the same as no srcset. Every
+ * caller takes this rather than the bare value so none of them can reinvent
+ * that gate and get it wrong the way all seven got the ladder wrong.
+ */
+export function productSrcsetAttr(thumb, box) {
+  const v = productSrcset(thumb, box);
+  return v ? ` srcset="${esc(v)}"` : "";
+}
+
+/**
  * Offer the same TCGdex art as AVIF, keeping the WebP as the fallback.
  *
  * TCGdex serves every scan at four extensions off one path, and nothing on this

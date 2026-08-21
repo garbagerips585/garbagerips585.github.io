@@ -24,11 +24,11 @@ import { loadGradedPrices } from "../shared/graded-price.mjs";
 // rip that WRAPS an <img> or a .pack facade, and a bare <li><a>title</a> has
 // neither, so those links navigated before this change and navigate after it.
 // If a set guide ever grows a picture tile, put APP_JS back in the same edit.
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer, FONTS,
+import { BAR, MENU, SPRITE, SKIP, STYLES, footer, FONTS, dropUnusedPacksCSS,
   APP_JS_NO_PACKPLAYER as APP_JS } from "../shared/chrome.mjs";
 import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
 import { parseHits, rarityLabelOf, rarityMark, RARITY_CSS } from "../shared/rarity.mjs";
-import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, RARITY_ORDER, cardNumKey, imgDims, avifPicture, plural, count } from "../shared/format.mjs";
+import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, RARITY_ORDER, cardNumKey, imgDims, productSrcsetAttr, avifPicture, plural, count } from "../shared/format.mjs";
 import { ripLabel, ownLineProduct } from "../shared/riplabel.mjs";
 import { daysSince } from "../shared/today.mjs";
 
@@ -2079,11 +2079,18 @@ function productBand(s, cls) {
   // and downloaded _in_1000x1000.jpg every time. Measured on one set page,
   // five products: 450.4KB fetched where 103.9KB was needed. 88px x DPR2 =
   // 176, which 200w covers, so this is 4x less data at identical pixels.
+  //
+  // THAT FIX STOPPED AT DPR 2 AND THE SENTENCE ABOVE IS WHY IT WAS EASY TO MISS.
+  // Every line of it is true and every number in it is a DPR 2 number, so the
+  // page read as solved. 88 x DPR3 = 264, 264 clears 200, and a DPR 3 phone went
+  // on taking _in_1000x1000.jpg for all 225 of these across 41 guides. The
+  // ladder is productSrcset() in shared/format.mjs now, which is where the DPR 3
+  // arithmetic lives for all seven builders that were writing it by hand.
   const cards = items
     .map(
       (p) => `      <li class="prod">
         <a class="prod-shot" href="${esc(affLink(p.url))}" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
-          ${deadImg(p.thumb) ? "" : `<img src="${esc(p.thumb)}" srcset="${esc(p.thumb)} 200w, ${esc(p.image)} 1000w"
+          ${deadImg(p.thumb) ? "" : `<img src="${esc(p.thumb)}"${productSrcsetAttr(p.thumb, 88)}
                sizes="88px" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(p.thumb)} referrerpolicy="no-referrer">`}
         </a>
         <div class="prod-body">
@@ -3663,8 +3670,19 @@ const dropUnusedPreconnect = (html) =>
     ? html
     : html.replace('<link rel="preconnect" href="https://images.pokemontcg.io" crossorigin>\n', "");
 
-for (const s of sets) await writeFile(join(OUT, `${s.id}.html`), dropUnusedPreconnect(setPage(s)));
-await writeFile(join(OUT, "index.html"), dropUnusedPreconnect(indexPage()));
+// dropUnusedPacksCSS SITS BESIDE dropUnusedPreconnect AND IS THE SAME KIND OF
+// CLEANUP: head() emits a link unconditionally and some pages never use what it
+// points at. SEVEN of these pages do not. Six guides draw no packshot, because
+// the whole "See it opened" band is gated on `rips` and nothing has been ripped
+// out of Black Bolt, Paldean Fates, Scarlet & Violet, Shrouded Fable, Stellar
+// Crown or White Flare yet, and /sets/index.html never had one. It is a
+// PREDICATE ON THE FINISHED HTML rather than a second read of `rips`, so the
+// stylesheet returns on its own the first time one of those sets is opened on
+// camera. See the note beside it in shared/chrome.mjs.
+const finish = (html) => dropUnusedPacksCSS(dropUnusedPreconnect(html));
+
+for (const s of sets) await writeFile(join(OUT, `${s.id}.html`), finish(setPage(s)));
+await writeFile(join(OUT, "index.html"), finish(indexPage()));
 
 console.log(`
 Wrote ${sets.length} set pages + index to public/sets/

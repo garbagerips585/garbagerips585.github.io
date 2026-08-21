@@ -33,7 +33,7 @@
     "without checking. A card that is missing keeps its remote TCGdex url and",
     "the page looks exactly like it did before this file grew a second half."
   ],
-  "syncedAt": "2026-08-17",
+  "syncedAt": "2026-08-20",
   "box": 72,
   "quality": 82,
   "source": "assets.tcgdex.net low.webp",
@@ -613,7 +613,8 @@
     "wanted": {
       "widths": [
         310,
-        420
+        420,
+        460
       ],
       "formats": [
         "avif",
@@ -680,17 +681,17 @@
         "https://assets.tcgdex.net/en/me/me02.5/284": {
           "stem": "ascended-heroes-284-mega-gengar-ex-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/me/me02.5/276": {
-          "stem": "ascended-heroes-276-pikachu-ex-pokemon-card"
-        },
         "https://assets.tcgdex.net/en/sv/sv04.5/232": {
           "stem": "paldean-fates-232-mew-ex-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/me/me02.5/290": {
-          "stem": "ascended-heroes-290-mega-dragonite-ex-pokemon-card"
+        "https://assets.tcgdex.net/en/me/me02.5/276": {
+          "stem": "ascended-heroes-276-pikachu-ex-pokemon-card"
         },
         "https://assets.tcgdex.net/en/me/me02/125": {
           "stem": "phantasmal-flames-125-mega-charizard-x-ex-pokemon-card"
+        },
+        "https://assets.tcgdex.net/en/me/me02.5/290": {
+          "stem": "ascended-heroes-290-mega-dragonite-ex-pokemon-card"
         },
         "https://assets.tcgdex.net/en/sv/sv10.5b/172": {
           "stem": "black-bolt-172-zekrom-ex-pokemon-card"
@@ -701,26 +702,17 @@
         "https://assets.tcgdex.net/en/sv/sv10.5w/172": {
           "stem": "white-flare-172-victini-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/sv/sv08.5/156": {
-          "stem": "prismatic-evolutions-156-sylveon-ex-pokemon-card"
+        "https://assets.tcgdex.net/en/sv/sv10/231": {
+          "stem": "destined-rivals-231-team-rocket-s-mewtwo-ex-pokemon-card"
         },
         "https://assets.tcgdex.net/en/sv/sv10.5w/173": {
           "stem": "white-flare-173-reshiram-ex-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/sv/sv10/231": {
-          "stem": "destined-rivals-231-team-rocket-s-mewtwo-ex-pokemon-card"
-        },
-        "https://assets.tcgdex.net/en/me/me02.5/294": {
-          "stem": "ascended-heroes-294-mega-charizard-y-ex-pokemon-card"
+        "https://assets.tcgdex.net/en/sv/sv08.5/156": {
+          "stem": "prismatic-evolutions-156-sylveon-ex-pokemon-card"
         },
         "https://assets.tcgdex.net/en/sv/sv02/203": {
           "stem": "paldea-evolved-203-magikarp-pokemon-card"
-        },
-        "https://assets.tcgdex.net/en/swsh/swsh6/201": {
-          "stem": "chilling-reign-201-blaziken-vmax-pokemon-card"
-        },
-        "https://assets.tcgdex.net/en/sv/sv06/214": {
-          "stem": "twilight-masquerade-214-greninja-ex-pokemon-card"
         },
         "https://assets.tcgdex.net/en/me/me02.5/277": {
           "stem": "ascended-heroes-277-pikachu-ex-pokemon-card"
@@ -728,8 +720,20 @@
         "https://assets.tcgdex.net/en/sv/sv03.5/199": {
           "stem": "151-199-charizard-ex-pokemon-card"
         },
+        "https://assets.tcgdex.net/en/me/me02.5/294": {
+          "stem": "ascended-heroes-294-mega-charizard-y-ex-pokemon-card"
+        },
         "https://assets.tcgdex.net/en/me/me02.5/281": {
           "stem": "ascended-heroes-281-team-rocket-s-mewtwo-ex-pokemon-card"
+        },
+        "https://assets.tcgdex.net/en/swsh/swsh6/201": {
+          "stem": "chilling-reign-201-blaziken-vmax-pokemon-card"
+        },
+        "https://assets.tcgdex.net/en/sv/sv06/214": {
+          "stem": "twilight-masquerade-214-greninja-ex-pokemon-card"
+        },
+        "https://assets.tcgdex.net/en/me/me02/130": {
+          "stem": "phantasmal-flames-130-mega-charizard-x-ex-pokemon-card"
         },
         "https://assets.tcgdex.net/en/sv/sv08.5/144": {
           "stem": "prismatic-evolutions-144-leafeon-ex-pokemon-card"
@@ -737,35 +741,32 @@
         "https://assets.tcgdex.net/en/sv/sv08.5/155": {
           "stem": "prismatic-evolutions-155-espeon-ex-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/me/me02/130": {
-          "stem": "phantasmal-flames-130-mega-charizard-x-ex-pokemon-card"
-        },
-        "https://assets.tcgdex.net/en/sv/sv08.5/149": {
-          "stem": "prismatic-evolutions-149-vaporeon-ex-pokemon-card"
-        },
         "https://assets.tcgdex.net/en/sv/sv08/238": {
           "stem": "surging-sparks-238-pikachu-ex-pokemon-card"
         },
         "https://assets.tcgdex.net/en/sv/sv04.5/234": {
           "stem": "paldean-fates-234-charizard-ex-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/sv/sv10.5b/166": {
-          "stem": "black-bolt-166-zekrom-ex-pokemon-card"
-        },
-        "https://assets.tcgdex.net/en/sv/sv08.5/150": {
-          "stem": "prismatic-evolutions-150-glaceon-ex-pokemon-card"
-        },
-        "https://assets.tcgdex.net/en/me/me01/188": {
-          "stem": "mega-evolution-188-mega-lucario-ex-pokemon-card"
+        "https://assets.tcgdex.net/en/sv/sv08.5/149": {
+          "stem": "prismatic-evolutions-149-vaporeon-ex-pokemon-card"
         },
         "https://assets.tcgdex.net/en/me/me02.5/295": {
           "stem": "ascended-heroes-295-mega-dragonite-ex-pokemon-card"
         },
+        "https://assets.tcgdex.net/en/sv/sv08.5/150": {
+          "stem": "prismatic-evolutions-150-glaceon-ex-pokemon-card"
+        },
+        "https://assets.tcgdex.net/en/me/me05/116": {
+          "stem": "pitch-black-116-mega-darkrai-ex-pokemon-card"
+        },
+        "https://assets.tcgdex.net/en/me/me01/188": {
+          "stem": "mega-evolution-188-mega-lucario-ex-pokemon-card"
+        },
+        "https://assets.tcgdex.net/en/sv/sv10.5b/166": {
+          "stem": "black-bolt-166-zekrom-ex-pokemon-card"
+        },
         "https://assets.tcgdex.net/en/sv/sv10/232": {
           "stem": "destined-rivals-232-cynthia-s-garchomp-ex-pokemon-card"
-        },
-        "https://assets.tcgdex.net/en/swsh/swsh6/177": {
-          "stem": "chilling-reign-177-galarian-moltres-v-pokemon-card"
         },
         "https://assets.tcgdex.net/en/sv/sv10.5b/105": {
           "stem": "black-bolt-105-seismitoad-pokemon-card"
@@ -773,17 +774,8 @@
         "https://assets.tcgdex.net/en/sv/sv08.5/146": {
           "stem": "prismatic-evolutions-146-flareon-ex-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/me/me05/116": {
-          "stem": "pitch-black-116-mega-darkrai-ex-pokemon-card"
-        },
         "https://assets.tcgdex.net/en/me/me04/116": {
           "stem": "chaos-rising-116-mega-greninja-ex-pokemon-card"
-        },
-        "https://assets.tcgdex.net/en/sv/sv10.5w/166": {
-          "stem": "white-flare-166-reshiram-ex-pokemon-card"
-        },
-        "https://assets.tcgdex.net/en/me/me01/187": {
-          "stem": "mega-evolution-187-mega-gardevoir-ex-pokemon-card"
         },
         "https://assets.tcgdex.net/en/me/me01/179": {
           "stem": "mega-evolution-179-mega-lucario-ex-pokemon-card"
@@ -791,50 +783,62 @@
         "https://assets.tcgdex.net/en/sv/sv08.5/153": {
           "stem": "prismatic-evolutions-153-jolteon-ex-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/me/me01/178": {
-          "stem": "mega-evolution-178-mega-gardevoir-ex-pokemon-card"
+        "https://assets.tcgdex.net/en/sv/sv10.5w/166": {
+          "stem": "white-flare-166-reshiram-ex-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/sv/sv08.5/167": {
-          "stem": "prismatic-evolutions-167-eevee-ex-pokemon-card"
+        "https://assets.tcgdex.net/en/me/me01/187": {
+          "stem": "mega-evolution-187-mega-gardevoir-ex-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/sv/sv04.5/233": {
-          "stem": "paldean-fates-233-gardevoir-ex-pokemon-card"
-        },
-        "https://assets.tcgdex.net/en/me/me04/122": {
-          "stem": "chaos-rising-122-mega-greninja-ex-pokemon-card"
-        },
-        "https://assets.tcgdex.net/en/sv/sv08/239": {
-          "stem": "surging-sparks-239-latias-ex-pokemon-card"
+        "https://assets.tcgdex.net/en/swsh/swsh6/177": {
+          "stem": "chilling-reign-177-galarian-moltres-v-pokemon-card"
         },
         "https://assets.tcgdex.net/en/me/me05/120": {
           "stem": "pitch-black-120-mega-darkrai-ex-pokemon-card"
         },
+        "https://assets.tcgdex.net/en/me/me01/178": {
+          "stem": "mega-evolution-178-mega-gardevoir-ex-pokemon-card"
+        },
+        "https://assets.tcgdex.net/en/me/me04/122": {
+          "stem": "chaos-rising-122-mega-greninja-ex-pokemon-card"
+        },
         "https://assets.tcgdex.net/en/sv/sv08.5/162": {
           "stem": "prismatic-evolutions-162-roaring-moon-ex-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/sv/sv06/220": {
-          "stem": "twilight-masquerade-220-perrin-pokemon-card"
+        "https://assets.tcgdex.net/en/sv/sv08/239": {
+          "stem": "surging-sparks-239-latias-ex-pokemon-card"
+        },
+        "https://assets.tcgdex.net/en/sv/sv08.5/167": {
+          "stem": "prismatic-evolutions-167-eevee-ex-pokemon-card"
         },
         "https://assets.tcgdex.net/en/me/me02.5/280": {
           "stem": "ascended-heroes-280-lillie-s-clefairy-ex-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/sv/sv10/230": {
-          "stem": "destined-rivals-230-ethan-s-ho-oh-ex-pokemon-card"
+        "https://assets.tcgdex.net/en/sv/sv04.5/233": {
+          "stem": "paldean-fates-233-gardevoir-ex-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/me/me01/177": {
-          "stem": "mega-evolution-177-mega-venusaur-ex-pokemon-card"
+        "https://assets.tcgdex.net/en/sv/sv06/220": {
+          "stem": "twilight-masquerade-220-perrin-pokemon-card"
         },
         "https://assets.tcgdex.net/en/me/me02.5/286": {
           "stem": "ascended-heroes-286-n-s-zoroark-ex-pokemon-card"
         },
+        "https://assets.tcgdex.net/en/me/me01/177": {
+          "stem": "mega-evolution-177-mega-venusaur-ex-pokemon-card"
+        },
+        "https://assets.tcgdex.net/en/sv/sv10/230": {
+          "stem": "destined-rivals-230-ethan-s-ho-oh-ex-pokemon-card"
+        },
         "https://assets.tcgdex.net/en/me/me02.5/274": {
           "stem": "ascended-heroes-274-mega-feraligatr-ex-pokemon-card"
+        },
+        "https://assets.tcgdex.net/en/swsh/swsh6/224": {
+          "stem": "chilling-reign-224-snorlax-pokemon-card"
         },
         "https://assets.tcgdex.net/en/sv/sv03.5/200": {
           "stem": "151-200-blastoise-ex-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/swsh/swsh6/224": {
-          "stem": "chilling-reign-224-snorlax-pokemon-card"
+        "https://assets.tcgdex.net/en/me/me03/121": {
+          "stem": "perfect-order-121-meowth-ex-pokemon-card"
         },
         "https://assets.tcgdex.net/en/me/me03/124": {
           "stem": "perfect-order-124-mega-zygarde-ex-pokemon-card"
@@ -842,77 +846,74 @@
         "https://assets.tcgdex.net/en/sv/sv08/237": {
           "stem": "surging-sparks-237-milotic-ex-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/me/me03/121": {
-          "stem": "perfect-order-121-meowth-ex-pokemon-card"
-        },
-        "https://assets.tcgdex.net/en/sv/sv04/199": {
-          "stem": "paradox-rift-199-groudon-pokemon-card"
+        "https://assets.tcgdex.net/en/sv/sv03.5/198": {
+          "stem": "151-198-venusaur-ex-pokemon-card"
         },
         "https://assets.tcgdex.net/en/sv/sv07/148": {
           "stem": "stellar-crown-148-squirtle-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/sv/sv03.5/198": {
-          "stem": "151-198-venusaur-ex-pokemon-card"
+        "https://assets.tcgdex.net/en/sv/sv03/223": {
+          "stem": "obsidian-flames-223-charizard-ex-pokemon-card"
+        },
+        "https://assets.tcgdex.net/en/sv/sv04/199": {
+          "stem": "paradox-rift-199-groudon-pokemon-card"
         },
         "https://assets.tcgdex.net/en/sv/sv08.5/165": {
           "stem": "prismatic-evolutions-165-dragapult-ex-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/sv/sv09/184": {
-          "stem": "journey-together-184-lillie-s-clefairy-ex-pokemon-card"
-        },
-        "https://assets.tcgdex.net/en/sv/sv03/223": {
-          "stem": "obsidian-flames-223-charizard-ex-pokemon-card"
-        },
         "https://assets.tcgdex.net/en/swsh/swsh6/179": {
           "stem": "chilling-reign-179-galarian-slowking-v-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/sv/sv10/233": {
-          "stem": "destined-rivals-233-team-rocket-s-nidoking-ex-pokemon-card"
-        },
-        "https://assets.tcgdex.net/en/sv/sv10/229": {
-          "stem": "destined-rivals-229-team-rocket-s-moltres-ex-pokemon-card"
+        "https://assets.tcgdex.net/en/sv/sv09/184": {
+          "stem": "journey-together-184-lillie-s-clefairy-ex-pokemon-card"
         },
         "https://assets.tcgdex.net/en/sv/sv07/143": {
           "stem": "stellar-crown-143-bulbasaur-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/sv/sv08.5/147": {
-          "stem": "prismatic-evolutions-147-ceruledge-ex-pokemon-card"
+        "https://assets.tcgdex.net/en/sv/sv10/229": {
+          "stem": "destined-rivals-229-team-rocket-s-moltres-ex-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/sv/sv03.5/202": {
-          "stem": "151-202-zapdos-ex-pokemon-card"
+        "https://assets.tcgdex.net/en/sv/sv10/233": {
+          "stem": "destined-rivals-233-team-rocket-s-nidoking-ex-pokemon-card"
         },
         "https://assets.tcgdex.net/en/sv/sv02/211": {
           "stem": "paldea-evolved-211-raichu-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/sv/sv06/188": {
-          "stem": "twilight-masquerade-188-eevee-pokemon-card"
+        "https://assets.tcgdex.net/en/sv/sv08.5/147": {
+          "stem": "prismatic-evolutions-147-ceruledge-ex-pokemon-card"
         },
         "https://assets.tcgdex.net/en/me/me05/117": {
           "stem": "pitch-black-117-morpeko-ex-pokemon-card"
         },
+        "https://assets.tcgdex.net/en/me/me02.5/289": {
+          "stem": "ascended-heroes-289-steven-s-metagross-ex-pokemon-card"
+        },
         "https://assets.tcgdex.net/en/sv/sv05/177": {
           "stem": "temporal-forces-177-gastly-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/sv/sv08/247": {
-          "stem": "surging-sparks-247-pikachu-ex-pokemon-card"
-        },
-        "https://assets.tcgdex.net/en/sv/sv02/226": {
-          "stem": "paldea-evolved-226-maushold-pokemon-card"
-        },
-        "https://assets.tcgdex.net/en/me/me02.5/289": {
-          "stem": "ascended-heroes-289-steven-s-metagross-ex-pokemon-card"
+        "https://assets.tcgdex.net/en/sv/sv03.5/202": {
+          "stem": "151-202-zapdos-ex-pokemon-card"
         },
         "https://assets.tcgdex.net/en/sv/sv03.5/168": {
           "stem": "151-168-charmander-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/sv/sv10.5w/105": {
-          "stem": "white-flare-105-oshawott-pokemon-card"
+        "https://assets.tcgdex.net/en/swsh/swsh6/166": {
+          "stem": "chilling-reign-166-zeraora-v-pokemon-card"
         },
         "https://assets.tcgdex.net/en/sv/sv03.5/173": {
           "stem": "151-173-pikachu-pokemon-card"
         },
-        "https://assets.tcgdex.net/en/swsh/swsh6/166": {
-          "stem": "chilling-reign-166-zeraora-v-pokemon-card"
+        "https://assets.tcgdex.net/en/sv/sv08/247": {
+          "stem": "surging-sparks-247-pikachu-ex-pokemon-card"
+        },
+        "https://assets.tcgdex.net/en/sv/sv03.5/170": {
+          "stem": "151-170-squirtle-pokemon-card"
+        },
+        "https://assets.tcgdex.net/en/sv/sv02/226": {
+          "stem": "paldea-evolved-226-maushold-pokemon-card"
+        },
+        "https://assets.tcgdex.net/en/sv/sv06/188": {
+          "stem": "twilight-masquerade-188-eevee-pokemon-card"
         }
       }
     }

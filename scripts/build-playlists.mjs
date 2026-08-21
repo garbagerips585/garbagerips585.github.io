@@ -31,7 +31,7 @@ import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 import { slugify } from "../shared/paths.mjs";
-import { esc, longDate, shortDate, viewCount, imgDims, packTileImg, noWidowEmoji, RIP_BANNER } from "../shared/format.mjs";
+import { esc, longDate, shortDate, viewCount, imgDims, productSrcsetAttr, packTileImg, noWidowEmoji, RIP_BANNER } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/playlists");
@@ -523,8 +523,11 @@ function idStrip(p, vids) {
           ${logo}
           <span>Every rip here opens <b>${esc(setName)}</b><br>Read the set guide &rarr;</span>
         </a>` : ""}
-        ${prod ? `<div class="plid-prod">
-          <img class="plid-shot" src="${esc(prod.thumb)}" srcset="${esc(prod.thumb)} 200w, ${esc(prod.image)} 1000w"
+        ${/* THE 84px THUMB TAKES productSrcset()'s LADDER, not a hand written one.
+              It offered _200w and then _in_1000x1000, and 84 x 3 = 252 clears
+              200, so on a DPR 3 phone all 13 of these playlist pages fetched a
+              547x1000 JPEG for an 84px box. See shared/format.mjs. */ ""}${prod ? `<div class="plid-prod">
+          <img class="plid-shot" src="${esc(prod.thumb)}"${productSrcsetAttr(prod.thumb, 84)}
                sizes="84px" alt="${esc(prod.name)}" decoding="async"${imgDims(prod.thumb)} referrerpolicy="no-referrer">
           <span>Opened here: the <b>${esc(prod.name)}</b>${
             // The blurb is written to stand alone on the set guides, where it is

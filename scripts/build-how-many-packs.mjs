@@ -97,7 +97,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, imgDims, moneyExact, count } from "../shared/format.mjs";
+import { esc, longDate, imgDims, productSrcsetAttr, moneyExact, count } from "../shared/format.mjs";
 import { spread } from "../shared/msrp-basis.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -859,10 +859,16 @@ const sourceLine = (r) => {
     .join(" ")}${cur.readAt ? `<span class="hp-read">All read ${esc(longDate(cur.readAt))}</span>` : ""}</p>`;
 };
 
+// THE PHOTOGRAPH IS 88px AND THE SRCSET IS productSrcset()'s, NOT A LOCAL ONE.
+// It used to offer _200w and then _in_1000x1000, and 88 x 3 = 264 clears 200, so
+// every one of these 22 pictures arrived as a 547x1000 JPEG on a DPR 3 phone.
+// This page is the shape where that hurts most: 140.8KB on load and 2,700.9KB
+// once a reader scrolls, measured at 390x844 DPR 3, Slow 4G, 4x CPU, over
+// HTTP/2, cache off, medians of 3. Nearly all of it was these.
 const shot = (r) =>
   r.photo
     ? `      <figure class="hp-shot">
-        <img src="${esc(r.photo.src)}" srcset="${esc(r.photo.src)} 200w, ${esc(r.photo.large)} 1000w"
+        <img src="${esc(r.photo.src)}"${productSrcsetAttr(r.photo.src, 88)}
              sizes="88px" alt="${esc(r.photo.name)}, sealed" loading="lazy" decoding="async"${imgDims(
         r.photo.src
       )} referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">

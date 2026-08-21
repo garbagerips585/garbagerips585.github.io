@@ -63,7 +63,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, shortDate, moneyExact, imgDims, plural, count } from "../shared/format.mjs";
+import { esc, longDate, shortDate, moneyExact, imgDims, productSrcsetAttr, plural, count } from "../shared/format.mjs";
 import { PRODUCT_TYPES, CARD_SETS } from "../shared/taxonomy.mjs";
 import { ripLabel } from "../shared/riplabel.mjs";
 
@@ -270,7 +270,7 @@ const shot = (e) => {
   const p = photoFor(e.id);
   if (!p) return "";
   return `      <figure class="op-shot">
-        <img src="${esc(p.src)}" srcset="${esc(p.src)} 200w, ${esc(p.large)} 1000w"
+        <img src="${esc(p.src)}"${productSrcsetAttr(p.src, 88)}
              sizes="88px" alt="${esc(p.name)}, sealed" decoding="async"${imgDims(p.src)}
              referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
         <figcaption>One example: the <b>${esc(p.name)}</b>. Photo TCGplayer's. ${
@@ -308,7 +308,7 @@ const shot = (e) => {
 const cardShot = (e, { eager = false } = {}) => {
   const p = photoFor(e.id);
   if (!p) return `<span class="op-ci op-cn" aria-hidden="true"></span>`;
-  return `<img class="op-ci" src="${esc(p.src)}" srcset="${esc(p.src)} 200w, ${esc(p.large)} 1000w"
+  return `<img class="op-ci" src="${esc(p.src)}"${productSrcsetAttr(p.src, 88)}
             sizes="88px" alt="One example of ${article(e.id)} ${esc(e.label)}: the ${esc(p.name)}, sealed"${
               eager ? "" : ' loading="lazy"'
             } decoding="async" referrerpolicy="no-referrer">`;
@@ -759,7 +759,17 @@ function setBandSum(e) {
 // 2026-08-16 all 121 product thumbs these six tables emit were fetched at both
 // widths: 121 of 121 answered 200 at 150w, 2,462.8KB of 200w against 1,550.9KB
 // of 150w. `onerror` still removes the picture if a later product breaks that.
-// The 1000w stays in the srcset for anything denser.
+//
+// "THE 1000w STAYS IN THE SRCSET FOR ANYTHING DENSER" WAS THE END OF THAT
+// SENTENCE AND IT IS THE ONE PLACE ON THIS PAGE IT WAS HARMLESS, which is worth
+// saying rather than deleting quietly, because the identical sentence in
+// build-msrp.mjs was that page's whole weight problem. 48 x 3 = 144 and 144
+// clears nothing: these 28 thumbs took the 150w file at DPR 1, 2 AND 3 and
+// still do. The top rung is _400w now rather than the 547x1000 file, so what
+// changed here is only what a screen denser than DPR 3.13 falls to. Confirmed
+// off currentSrc at all three densities: 0 changes at DPR 1 and 2, and of the
+// 35 pictures on /openings/etb.html exactly ONE moved at DPR 3, the 88px lede
+// figure. See productSrcset() in shared/format.mjs.
 //
 // No width/height, because tcgplayer-cdn files run 200x268 to 200x417 and
 // imgDims() returns nothing for them on purpose; the 48px box is fixed in CSS
@@ -771,7 +781,7 @@ const small = (u) => u.replace(/_200w\.jpg$/, "_150w.jpg");
 const priceShot = (r) =>
   r.thumb
     ? `<img class="op-pt" src="${esc(small(r.thumb))}"${
-        r.large ? ` srcset="${esc(small(r.thumb))} 150w, ${esc(r.large)} 1000w"` : ""
+        productSrcsetAttr(small(r.thumb), 48)
       } sizes="48px" alt="${esc(r.product || r.name)}, sealed" loading="lazy" decoding="async"
              referrerpolicy="no-referrer" onerror="this.remove()">`
     : `<span class="op-pt op-px" aria-hidden="true"></span>`;

@@ -141,7 +141,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, moneyExact } from "../shared/format.mjs";
+import { esc, longDate, moneyExact, productSrcsetAttr } from "../shared/format.mjs";
 // The photograph pins, shared with build-what-to-buy.mjs so a pin exists once.
 // See the photography note below.
 import { makePhotoFor } from "../shared/product-photos.mjs";
@@ -310,7 +310,22 @@ const photoFor = makePhotoFor({ products: prod, extra: EXTRA, dead: DEAD });
 // because the browser has already committed to it. build-openings.mjs fetched all
 // 121 of its thumbs at both widths on 2026-08-16 and got 200 at 150w on every
 // one, for 1,550.9KB against 2,462.8KB. The box here is 64px, so 150w covers DPR2
-// with room and the 1000w stays in the srcset for anything denser.
+// with room.
+//
+// "AND THE 1000w STAYS IN THE SRCSET FOR ANYTHING DENSER" IS WHAT THAT SENTENCE
+// USED TO END WITH, AND IT WAS THIS PAGE'S ENTIRE WEIGHT PROBLEM. "Anything
+// denser" is a DPR 3 phone, which is the device this site is actually read on.
+// 64 x 3 = 192, 192 clears 150, so all 32 pins took _in_1000x1000.jpg: a
+// 547x1000 JPEG of 102 to 135KB in a 64px box, 32 times. Measured at 390x844
+// DPR 3, Slow 4G, 4x CPU, over HTTP/2, cache off, medians of 3, this was the
+// heaviest page on the site fully scrolled at 3,837.4KB.
+//
+// THE 64px BOX WAS THE ONE BEING READ AS SAFE and it is the trap. It is smaller
+// than the 72, 84 and 88px boxes elsewhere, so it looks like the 48px tables
+// that genuinely are safe. It is not the box that decides, it is the RUNG: 48px
+// is safe against a 150w rung and 64px is not. productSrcset() in
+// shared/format.mjs owns that arithmetic for all seven builders now, and the
+// long version of it is in the comment above that function.
 //
 // NO WIDTH OR HEIGHT ATTRIBUTES. imgDims() returns nothing for tcgplayer-cdn on
 // purpose: those files run 200x268 to 200x417 and a declaration would be wrong by
@@ -327,7 +342,7 @@ const shot = (row, { eager = false } = {}) => {
   const p = photoFor(row.rowId);
   if (!p) return `<span class="ms-pic ms-nopic" aria-hidden="true"></span>`;
   return `<img class="ms-pic" src="${esc(small(p.src))}"${
-    p.large ? ` srcset="${esc(small(p.src))} 150w, ${esc(p.large)} 1000w"` : ""
+    productSrcsetAttr(small(p.src), 64)
   } sizes="64px" alt="${esc(p.name)}, sealed"${eager ? "" : ' loading="lazy"'} decoding="async"
         referrerpolicy="no-referrer" onerror="this.remove()">`;
 };

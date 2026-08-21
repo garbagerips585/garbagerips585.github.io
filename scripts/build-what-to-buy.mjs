@@ -165,7 +165,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, moneyExact } from "../shared/format.mjs";
+import { esc, longDate, moneyExact, productSrcsetAttr } from "../shared/format.mjs";
 // The photograph pins, shared with build-msrp.mjs so a pin exists once. This
 // file used to hold a second copy of them. See the photography note below.
 import { makePhotoFor } from "../shared/product-photos.mjs";
@@ -472,6 +472,14 @@ function photoFor(label) {
 // committed to it. build-openings.mjs fetched all 121 of its thumbs at both
 // widths and got 200 at 150w on every one.
 //
+// AND 150w WAS NOT ENOUGH FOR THIS BOX AT DPR 3, which the paragraph above did
+// not notice because it is about which SMALL file to ask for and the bug was in
+// the top rung. .wtb-pic is 72px, so 216 device pixels on a DPR 3 phone, and
+// 216 clears 150: all 23 of these took _in_1000x1000.jpg, a 547x1000 JPEG in a
+// 72px box. The ladder is productSrcset() in shared/format.mjs now and the top
+// rung is _400w, which is the smallest real file that covers 216. See that
+// function's comment for the probe of what the CDN actually publishes.
+//
 // NO WIDTH OR HEIGHT ATTRIBUTES. imgDims() returns nothing for tcgplayer-cdn on
 // purpose: those files run 200x268 to 200x417 and a declaration would be wrong
 // by up to 34%. The box is a fixed size in CSS, so nothing reflows.
@@ -489,7 +497,7 @@ const shot = (label, { eager = false } = {}) => {
   const p = photoFor(label);
   if (!p) return `<span class="wtb-pic wtb-nopic" aria-hidden="true"></span>`;
   return `<img class="wtb-pic" src="${esc(small(p.src))}"${
-    p.large ? ` srcset="${esc(small(p.src))} 150w, ${esc(p.large)} 1000w"` : ""
+    productSrcsetAttr(small(p.src), 72)
   } sizes="72px" alt="${esc(p.name)}, sealed"${
     eager ? "" : ' loading="lazy"'
   } decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">`;

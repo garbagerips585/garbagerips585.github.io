@@ -79,7 +79,7 @@ import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 // APP_JS_NO_PACKPLAYER, not APP_JS, same call and same reason as
 // build-shops.mjs: nothing on this page plays a rip where it sits.
-import { APP_JS_NO_PACKPLAYER as APP_JS } from "../shared/chrome.mjs";
+import { APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/chrome.mjs";
 import { esc, longDate, plateRule, PLATE_CSS } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -1078,7 +1078,7 @@ ${APP_JS}
 </html>
 `;
 
-await writeFile(join(ROOT, "public/garbage-plate.html"), html);
+await writeFile(join(ROOT, "public/garbage-plate.html"), dropUnusedPacksCSS(html));
 
 console.log(
   `Wrote public/garbage-plate.html  (${(doc.history || []).length} sourced history entries, ` +

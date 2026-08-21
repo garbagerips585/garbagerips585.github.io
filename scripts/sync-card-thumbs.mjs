@@ -129,12 +129,62 @@
 //   wanted 310w  covers 302 device px, the 151px box at 390 and DPR2
 //   wanted 420w  covers 326-342, the 163-171px box at 414 and 430 and DPR2,
 //                and the 325px box a 1600px desktop paints at DPR1
+//   wanted 460w  covers 453, the 151px box at 390 and DPR THREE, added 21
+//                August 2026 and argued in the block below
 //   cards  120w  the 60px box at DPR2
 //   cards  180w  the 60px box at DPR3
 // The remote 245w and 600w files stay in every srcset as the outer rungs, so a
 // 320px phone still takes TCGdex's own 245w (it needs 232 and that file is
-// better than anything encoded here) and a DPR3 phone on /wanted.html still
-// takes the 600w. Nothing is removed from the ladder; a middle is added to it.
+// better than anything encoded here). Nothing is removed from the ladder; a
+// middle is added to it.
+//
+// ===========================================================================
+// "AND A DPR3 PHONE ON /wanted.html STILL TAKES THE 600w" WAS THE END OF THAT
+// SENTENCE UNTIL 21 AUGUST 2026, AND IT WAS THE HEAVIEST LOAD PATH ON THE SITE
+// ===========================================================================
+//
+// It is stated as a fact rather than as a decision, which is how it survived: a
+// DPR 3 phone was never the case this ladder was built for, and a DPR 3 phone is
+// what this site is read on. The 151px box at 390 asks 453 device pixels, 453
+// clears 420, so all ten cards took TCGdex's 600w. Measured at 390x844 DPR 3,
+// Slow 4G, 4x CPU, over HTTP/2, cache off, medians of 3: 986.1KB on load, and
+// the fully scrolled figure is 1,005.1KB, so a reader pays essentially the whole
+// page before first paint. This entry says that above and it is still true.
+//
+// THIS IS NOT THE `sizes` BUG THE REST OF THE SITE HAD, and the difference is
+// worth stating because the fix is different. Everywhere else a box was asking
+// for 3x and getting handed a file five times too big, so the answer was a rung
+// already on the CDN. Here 600w IS the correct pick out of what exists: 453
+// needed, 420 short, 600 next. Nothing was mis-declared. The page is simply
+// asking for a width nobody publishes.
+//
+// SO THE WIDTH GETS MADE, WHICH IS WHAT THIS SCRIPT IS FOR. 460w covers 453 with
+// three pixels to spare and is 3.05 device pixels per CSS pixel: NOT a downgrade
+// from the 600w, which was 3.97 and oversampled. Measured over the ten cards,
+// AVIF q55 through this same encoder against TCGdex's own high.avif:
+//
+//     local 310w   367,535     ships, picked at 390 DPR 2
+//     local 420w   591,252     ships, picked at 414-430 DPR 2 and 1600 DPR 1
+//     local 460w   707,522     NEW, picked at 390 DPR 3        -19.9%
+//     local 520w   857,822     rejected, see below              -2.9%
+//     TCGdex 600w  883,293     what a DPR 3 phone took before
+//
+// 520w WAS THE OBVIOUS WIDTH AND IT IS THE ONE TO REJECT. It would ALSO cover
+// 414 and 430px phones, which need 489 and 513, so it looks like the tidier
+// answer: one rung for every DPR 3 phone instead of a rung for some of them. It
+// saves 2.9%. That is this file's own headline finding arriving in a new place,
+// so read it as a confirmation and not a surprise: Pillow does not beat TCGdex
+// at equal width, it only ever wins by dropping pixels, and at 520 there are
+// barely any left to drop. 20 committed binaries for 25KB is not a trade.
+//
+// SO 414 AND 430px PHONES KEEP THE 600w AND THAT IS DELIBERATE. The rung that
+// would serve them is the rung that saves nothing. 390 to 402 is the band this
+// buys, and it is the modal phone.
+//
+// NOTHING BELOW DPR 3 MOVES, confirmed off currentSrc at DPR 1, 2 and 3 rather
+// than argued from the numbers: 325 at DPR 1 still takes 420w, 302 and 326 and
+// 342 at DPR 2 still take 310w and 420w, and 620 at DPR 2 still takes 600w,
+// because 460 sits above all of those and below none of them.
 //
 // PILLOW'S AVIF IS NOT AS GOOD AS TCGDEX'S, and that is worth knowing before
 // anyone tries to re-encode the 245w files to "save more". At 245w this encoder
@@ -178,7 +228,7 @@ const FORCE = process.argv.includes("--force");
  * is a broken page.
  */
 const RENDITIONS = {
-  wanted: { widths: [310, 420], source: "high.webp", avif: 55, webp: 78 },
+  wanted: { widths: [310, 420, 460], source: "high.webp", avif: 55, webp: 78 },
   cards: { widths: [120, 180], source: "low.webp", avif: 55, webp: 78 },
 };
 /** How many of /cards.html's priciest rows to mirror. It renders 60. */

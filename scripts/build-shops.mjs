@@ -19,7 +19,7 @@ import { SITE } from "../shared/site.mjs";
 // packs.css is NOT dropped here and cannot be from this file: these four pages
 // take their <head> by slicing index.html, so their stylesheet links are the
 // home page's. See shared/chrome.mjs beside the two exports.
-import { APP_JS_NO_PACKPLAYER as APP_JS } from "../shared/chrome.mjs";
+import { APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/chrome.mjs";
 import { esc, longDate, plateRule, PLATE_CSS } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -725,7 +725,7 @@ ${APP_JS}
 </html>
 `;
 
-await writeFile(join(ROOT, "public/shops.html"), html);
+await writeFile(join(ROOT, "public/shops.html"), dropUnusedPacksCSS(html));
 
 const cleaned = shops.filter((s) => cleanUrl(s.url) !== s.url);
 console.log(`Wrote public/shops.html  (${shops.length} shop${shops.length === 1 ? "" : "s"})`);

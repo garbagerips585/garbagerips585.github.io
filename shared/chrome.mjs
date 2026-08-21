@@ -595,6 +595,68 @@ export const APP_JS_NO_PACKPLAYER = `<script src="/assets/app.js?v=${APP_V}" def
 export const STYLES_NO_PACKS_CSS = `<link rel="stylesheet" href="/assets/ui.css?v=${CSS_V}">`;
 
 /**
+ * Take packs.css off a FINISHED page that turned out to have no pack on it.
+ *
+ * THE NOTE ABOVE SAYS "worth taking when a builder is open anyway, not worth a
+ * sweep of its own", AND IT WAS WRONG ABOUT WHICH KIND OF COST THIS IS. It
+ * files packs.css with packplayer.js, and then says of the pair that "nothing
+ * here is render blocking except packs.css". packs.css IS the render blocking
+ * one. It is a `<link rel="stylesheet">` in the head, so it delays first paint
+ * on every page that carries it, and the phone this site is read on is on cell
+ * data in a shop queue. 1,888 bytes gzipped, measured on the built file with
+ * `gzip -9c public/assets/packs.css | wc -c`, but the byte count is not the
+ * point: it is a whole extra render blocking round trip in the one window where
+ * ui.css and the fonts are already competing for the link.
+ *
+ * TWELVE PAGES CARRY IT AND DRAW NO PACK, confirmed from the BUILT HTML rather
+ * than from a coverage tool, which matters because CSS coverage is a documented
+ * weak signal on this site: it reported packs.css at 0% on a page that plainly
+ * renders pack art, because the art is a background on a class the tool never
+ * sampled. The eight of those twelve that come through this file's STYLES are
+ * head slices of index.html, which is why they could not opt out at the source:
+ * their stylesheet links are the home page's.
+ *
+ * THE TEST IS THE THREE CONDITIONS THE NOTE ABOVE ALREADY STATES, applied to
+ * the rendered document rather than trusted from the builder:
+ *
+ *   1. no class token that packs.css can select. Every rule in that file is
+ *      some compound of .pack, .pack-art, .pack-face, .pack-brand,
+ *      .pack-mascot, .pack--tile, .pack--img and .pack--<set>, so one token
+ *      test beginning "pack" covers all 29 of them and covers a set skin added
+ *      next month that nothing here knows the name of.
+ *   2. no facade the SCRIPTS build at runtime: no [data-vcar], no
+ *      img[data-packsrc], no GRPack.attach.
+ *   3. no <a href*="/rip/"> WRAPPING an <img> or a .pack. This is the
+ *      condition a static scan gets wrong in both directions, and the note
+ *      above is emphatic about it. A bare <li><a>title</a> link to a rip is NOT
+ *      a tile: packplayer only claims an anchor with artwork inside it, which
+ *      is why 42 set guides and /hall.html keep their rip links and lose the
+ *      stylesheet.
+ *
+ * IT IS A NO-OP ON A PAGE THAT PASSES ANY ONE OF THEM, so it is safe to wrap
+ * around every page a builder writes, and it comes back on its own the day a
+ * page grows a facade. That is the property the alternative did not have:
+ * gating on a builder's own `rips` variable is a second copy of the question
+ * that goes stale silently the first time the markup changes.
+ */
+const PACK_CLASS = /class="[^"]*(?:^|["\s])pack(?=[-\s"])/i;
+const PACK_RUNTIME = /\bdata-vcar\b|\bdata-packsrc\b|GRPack\.attach/;
+// One anchor to a rip page, up to its own </a>, containing artwork.
+const PACK_RIP_TILE = /<a\b[^>]*href="[^"]*\/rip\/[^"]*"[^>]*>(?:(?!<\/a>)[\s\S])*?(?:<img\b|class="[^"]*(?:^|["\s])pack[-\s"])/i;
+const PACKS_LINK = /[ \t]*<link rel="stylesheet" href="\/assets\/packs\.css\?v=[^"]*">\n?/;
+
+export function pageUsesPacksCSS(html) {
+  return PACK_CLASS.test(html) || PACK_RUNTIME.test(html) || PACK_RIP_TILE.test(html);
+}
+
+export function dropUnusedPacksCSS(html) {
+  if (pageUsesPacksCSS(html)) return html;
+  // A page that never carried the link is not an error: build-video-games.mjs
+  // already opts out at the source through STYLES_NO_PACKS_CSS.
+  return html.replace(PACKS_LINK, "");
+}
+
+/**
  * The sticky bar.
  *
  * THE COMMENT HERE WAS WRONG BY TWO REWRITES. It said the search field is

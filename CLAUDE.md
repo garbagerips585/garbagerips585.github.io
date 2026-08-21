@@ -178,9 +178,36 @@ shared/        taxonomy.mjs, the set/product tag rules, imported by both
 
 The build strips the comments and nothing else: same rules, same order, byte
 for byte identical once whitespace and comments are removed. It exists because
-the stylesheet is render blocking on all 426 pages and 40% of it was prose.
-Measured, gzipped, which is how the host serves it: 42.4KB -> 17.4KB, a 59%
-cut to the transfer of the one asset that delays first paint everywhere.
+the stylesheet is render blocking on every page and most of it is prose.
+
+**THE FIGURES HERE WERE "426 pages" AND "42.4KB -> 17.4KB, a 59% cut" AND ALL
+THREE WERE STALE, corrected 21 August 2026.** The tree is 1,486 pages now, and
+the built stylesheet has grown past 20KB gzipped without anybody noticing,
+because the number that would have shown it was written down once and never
+re-taken. Measured today, gzipped, which is how the host serves it:
+
+      assets-source/ui.css    336,753 raw    113,442 gzipped
+      public/assets/ui.css    106,368 raw     20,768 gzipped
+
+so the strip is an 81.7% cut gzipped, not 59%, and **the file a reader actually
+waits for is 20,768 bytes and not 17,400.** Traced through git on the built
+copy, it has moved every day this week: 20,106 on 19 August, 20,468 later the
+same day, 20,741 / 20,770 / 20,744 / 20,768 across 20 August.
+
+**RE-TAKE IT RATHER THAN QUOTING IT**, because the number above will be wrong
+again within days and this file has now been wrong about it twice. One line,
+and the `<` matters: `gzip -9c file` stores the filename and mtime in the header
+and gives a different answer from `gzip -9c < file`, which is a real 30-byte
+disagreement and is how two passes can measure "the same thing" and differ:
+
+    for f in assets-source/ui.css public/assets/ui.css; do \
+      printf '%-24s raw=%s gz=%s\n' $f "$(wc -c < $f)" "$(gzip -9c < $f | wc -c)"; done
+
+The 20KB is still the point rather than the pity: it is one render blocking
+request on 1,486 pages, so a kilobyte here is worth more than a kilobyte
+anywhere else on the site. See the packs.css note under Card images for the
+other render blocking stylesheet and the twelve pages that were carrying it for
+nothing.
 
 The comments are the point of the source file, so they are not a cleanup
 target: most of them record a measurement or a bug that a tidy-up would
@@ -1596,6 +1623,120 @@ and the site's own overflow test passed it. Same shape as the Topps `<code>`
 bug recorded above.
 
 ## Card images (measured, and two things here are counterintuitive)
+
+**EVERY `sizes` ON THIS SITE WAS CHECKED AT DPR 2 AND SHIPPED AT DPR 3, AND
+THAT IS THE ONE SENTENCE TO TAKE OUT OF THIS SECTION.** Fixed 21 August 2026.
+`sizes` declares the CSS BOX, so the browser asks for box x DPR and picks the
+first candidate that covers it. Every note below this line, and every builder
+comment they came from, does its arithmetic at DPR 2 and stops. **The phone in
+a restock line is DPR 3.** Nine separate placements were correct at DPR 1 and
+DPR 2 and reached for the largest file on the ladder at DPR 3:
+
+      page family              box    DPR2 pick     DPR3 pick before the fix
+      /hall.html               120px  245w  ok      600w   79 scans
+      set guides x41           88px   200w  ok      547x1000 JPEG  225 imgs
+      /openings/ + 5 pages     88px   200w  ok      547x1000 JPEG
+      /how-many-packs.html     88px   200w  ok      547x1000 JPEG   22 imgs
+      /playlists/ x13          84px   200w  ok      547x1000 JPEG
+      /what-to-buy.html        72px   150w  ok      547x1000 JPEG   23 imgs
+      /msrp.html               64px   150w  ok      547x1000 JPEG   32 imgs
+      /wanted.html             151px  310w  ok      600w   10 scans
+      ETB price tables         48px   150w  ok      150w   the only safe one
+
+**IT IS THE RUNG THAT DECIDES, NOT THE BOX, and reading the box is how the
+64px row got filed as safe.** 64px is the SMALLEST box on the site that carries
+a srcset, so it looks like the 48px tables that genuinely are safe. It is not:
+48 x 3 = 144 and its rung is 150w, while 64 x 3 = 192 and its rung is also
+150w. Check what the small candidate IS before deciding a box is fine.
+
+**AND LOOK AT HOW LITTLE HEADROOM THE DPR 2 ROW HAS.** /hall.html declared
+120px against a 245w candidate: 240 against 245, FIVE PIXELS. Any box wider
+than 122px fires the same bug on the far more common DPR 2, and nothing in the
+CSS looks wrong when it does. **Leave real headroom, and state the DPR you
+checked at.**
+
+Measured with one harness at 390x844 DPR 3, Slow 4G with a 4x CPU slowdown,
+over HTTP/2 against a local TLS server, cache off, medians of 3. "on load" is
+network-quiet with no scroll; "last picture" is when the last image a reader
+gets without scrolling has arrived. **QUOTE A ROW, NEVER A COLUMN.**
+
+                              on load          fully scrolled     last picture
+      /hall.html          473.6 -> 232.4KB   4,520 -> 1,564KB   4,574 -> 3,359ms
+      /msrp.html          488.2 -> 254.9KB   3,837 -> 1,565KB   3,756 -> 3,017ms
+      /openings/          982.5 -> 500.9KB   1,277 ->   642KB   7,087 -> 4,661ms
+      /wanted.html        986.1 -> 778.4KB   1,005 ->   797KB   7,093 -> 5,956ms
+      /what-to-buy.html   508.2 -> 339.7KB   1,803 ->   839KB   4,432 -> 3,016ms
+      /how-many-packs     140.8 -> 140.7KB   2,701 -> 1,003KB   2,873 -> 2,881ms
+      /sets/chaos-rising  355.7 -> 355.7KB   1,638 -> 1,126KB   3,961 -> 3,938ms
+      /openings/etb.html  410.3 -> 333.7KB     617 ->   541KB   4,002 -> 3,996ms
+      /playlists/<one>    326.8 -> 287.0KB     346 ->   306KB   3,540 -> 3,381ms
+      /about.html         164.4 -> 162.5KB     183 ->   181KB   2,827 -> 2,827ms
+
+**NOTHING MOVED AT DPR 1 OR DPR 2 AND THAT WAS MEASURED RATHER THAN REASONED.**
+`currentSrc` was read off every image on nine pages at all three densities,
+before and after, against the two trees served from two ports: **0 candidate
+changes at DPR 1, 0 at DPR 2, 181 at DPR 3**, all of them the intended ones.
+Read `currentSrc`, never the markup. Settling a srcset argument by reading the
+HTML is how this shipped.
+
+**THE FIX IS ONE FUNCTION, `productSrcset()` IN shared/format.mjs, BECAUSE
+SEVEN BUILDERS EACH WROTE THIS SRCSET BY HAND AND ALL SEVEN WROTE THE SAME
+BUG.** It probes out to the rungs TCGplayer's CDN really has (150w, 200w, 400w
+are real files; 250w, 300w, 320w, 500w, 600w and 800w all 403) and tops the
+ladder at `_400w.jpg`. It THROWS for a box over 133px, because 400w is the top
+of that ladder and a wider placement needs a decision rather than a silent soft
+picture. **`_in_1000x1000.jpg` is off every ladder and is not coming back:** it
+fits the photo inside a 1000x1000 square, so its real width is 547, 673 or 642
+depending on the product and no single `w` descriptor is right for all of them.
+That descriptor said 1000w for years.
+
+**TWO PAGES WERE MEASURED AND DELIBERATELY NOT "FIXED", and both would have
+been made WORSE for a phone by the obvious change:**
+
+- **/topps-card-values.html**, 2,175KB fully scrolled over 200 hotlinked
+  PriceCharting scans (156 distinct; 44 appear on both hundreds and are cache
+  hits). There is no oversizing here. `.tp-art` is 64x90 CSS px and those files
+  are a fixed 240 HIGH, so they are 2.67x: exactly right at DPR 2 and 11% short
+  at DPR 3. PriceCharting publishes 60, 120, 240, 320 and 1600 and nothing
+  between, and **320.jpg is 62% heavier than 240.jpg** (112,534 against 69,385
+  bytes over six real cards from the page). Making DPR 3 exact would put over a
+  megabyte back on the phone to fix an 11% softness nobody has reported. The
+  page is heavy because it holds 200 pictures, not because they are big. The one
+  real win left is DPR 1 only, `120.jpg` at a 1.33x descriptor for a 65% cut on
+  a desktop, and this file's own rule is that a desktop number is a footnote.
+- The **footer badge, the eleven Garbage Plate photographs, the fonts, the
+  shops map and Chase Match's hotlink** were all left alone on the standing
+  arguments recorded elsewhere in this file. None was re-opened.
+
+**AND ONE PAGE WAS FIXED THE OTHER WAY, BY MAKING A WIDTH THAT DID NOT EXIST.**
+/wanted.html was NOT the `sizes` bug: its box is 151px, so it asks 453 device
+pixels at DPR 3 and 600w genuinely was the correct pick out of 245/310/420/600.
+The answer there was a rung, and `sync-card-thumbs.mjs` already mirrors that
+family, so it now writes a 460w one as well. Measured over the ten cards
+through that encoder: 460w is 707,522 bytes against TCGdex's 883,293 at 600w,
+**-19.9% at 3.05 device pixels per CSS pixel rather than 3.97**, so it is not a
+downgrade. **520w was the tidier-looking width and it is the one to reject: it
+would also cover 414 and 430px phones and it saves 2.9%,** which is that
+script's own "Pillow only wins by dropping pixels" finding arriving somewhere
+new. 414 and 430px phones keep the 600w on purpose.
+
+**packs.css IS RENDER BLOCKING AND TWELVE PAGES CARRIED IT WITH NO PACK ON
+THEM**: /about.html, /garbage-plate.html, /hall.html, /shops.html,
+/wanted.html, /sets/index.html and six set guides whose set has never been
+ripped on camera. 1,888 bytes gzipped, and a whole extra blocking round trip in
+the window where ui.css and the fonts are already competing. `dropUnusedPacksCSS`
+in shared/chrome.mjs takes it off a FINISHED page and is a no-op on any page
+that has anything for it to style. **CONFIRM FROM THE BUILT HTML, NOT FROM A
+COVERAGE TOOL:** coverage reported packs.css at 0% on a page that plainly
+renders pack art, because the art is a background on a class it never sampled.
+Verified in the runtime DOM instead, at 390x844 DPR 3, after app.js ran and
+after dispatching a real click on every `/rip/` link on the page (80 of them on
+/hall.html): 0 of packs.css's 25 class names on any of the twelve, with
+/videos.html, /playlists.html, a ripped set guide and the home page as positive
+controls. **THE HOME PAGE IS THE CONTROL THAT MATTERS** and it only fires after
+a click, so a test that cancels the click in the CAPTURE phase suppresses the
+thing it is looking for: packplayer ignores an event whose default is already
+prevented. Cancel in a bubble listener on `window` instead.
 
 Card scans come from four hosts and they do NOT behave alike. `imgDims(url)` in
 `shared/format.mjs` holds the intrinsic sizes, all measured by fetching the

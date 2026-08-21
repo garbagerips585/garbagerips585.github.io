@@ -20,7 +20,7 @@ import { SITE } from "../shared/site.mjs";
 // packs.css is NOT dropped here and cannot be from this file: these four pages
 // take their <head> by slicing index.html, so their stylesheet links are the
 // home page's. See shared/chrome.mjs beside the two exports.
-import { APP_JS_NO_PACKPLAYER as APP_JS } from "../shared/chrome.mjs";
+import { APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/chrome.mjs";
 import { esc, shortDate, moneyCompact, imgDims, avifPicture, rarityLabel } from "../shared/format.mjs";
 // priceRead(), so this page cannot stamp the checklist's date under a column of
 // dollars. See the long note beside the checklist join below.
@@ -690,7 +690,7 @@ ${APP_JS}
 </html>
 `;
 
-await writeFile(join(ROOT, "public/wanted.html"), html);
+await writeFile(join(ROOT, "public/wanted.html"), dropUnusedPacksCSS(html));
 console.log(`Wrote public/wanted.html
   hunting: ${hunting.length}${caught.length ? `, caught: ${caught.length}` : ""}
   with a raw price:    ${cards.filter((c) => c.raw).length} of ${cards.length}

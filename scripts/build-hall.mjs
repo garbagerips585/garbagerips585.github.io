@@ -22,7 +22,7 @@ import { SITE } from "../shared/site.mjs";
 // packs.css is NOT dropped here and cannot be from this file: these four pages
 // take their <head> by slicing index.html, so their stylesheet links are the
 // home page's. See shared/chrome.mjs beside the two exports.
-import { APP_JS_NO_PACKPLAYER as APP_JS } from "../shared/chrome.mjs";
+import { APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/chrome.mjs";
 import { esc, shortDate, moneyCompact, noValue, rarityLabel, imgDims, cardNumKey, avifPicture } from "../shared/format.mjs";
 import { loadGradedPrices, MIN_SALES } from "../shared/graded-price.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
@@ -632,13 +632,50 @@ const psaNote = gradedCards.length
  * exactly, so every 1x and 2x screen now takes the 25KB file and only a 3x
  * phone reaches for the 600. Nothing is resampled: both files already exist.
  *
- * THE LIGHTBOX STILL OPENS THE HIGH ONE. `data-img` below is deliberately left
- * on c.image, because the enlargement is the one place on this page where 600px
- * is the right amount of detail.
+ * ===========================================================================
+ * AND "ONLY A 3x PHONE" WAS THE WHOLE BUG, 21 August 2026.
+ * ===========================================================================
  *
- * sizes is a flat 120px rather than the clamp: with only 245 and 600 to choose
- * between, 96px and 120px select the same file, so the extra precision would
- * buy nothing and could drift out of step with the clamp unnoticed.
+ * That sentence reads like a rounding error and it was the entire page. This
+ * site is read on a phone in a restock line, and the phone in that line is a
+ * DPR 3 one. A 120px box at DPR 3 asks for 360 device pixels, 360 clears 245,
+ * so EVERY plaque took high.avif: measured at 390x844 DPR 3, Slow 4G, 4x CPU,
+ * over HTTP/2, cache off, this page moved 4,524KB fully scrolled with 79 scans
+ * on it, two of them 88KB and 134KB for a thumbnail.
+ *
+ * NOTE HOW LITTLE MARGIN THE 2x ROW HAD, because it is the reason the fix is
+ * the rung and not a smaller number in `sizes`. 120 x 2 = 240 against a 245w
+ * candidate: FIVE PIXELS. Any future box wider than 122px fires this on the far
+ * more common DPR 2 as well, and nothing in the CSS would look wrong.
+ *
+ * SO THE 600w RUNG COMES OFF THIS PLACEMENT. low.webp is the only candidate a
+ * plaque offers now, which is 245 into a 120px box: 2.04x, above the 2x this
+ * whole site targets and 32% short of a 3x screen's ideal. Measured before and
+ * after with one harness at 390x844 DPR 3 on the same tree, medians of 3.
+ *
+ * DO NOT QUOTE sync-card-thumbs.mjs's "245w IS VISIBLY SOFT" AT THIS. That
+ * rejection is real and it is about a 302px box on /wanted.html, where 245w is
+ * 0.81x and lands BELOW one device pixel per CSS pixel. Here the same file is
+ * 2.04x. The ratio is the fact; the filename is not.
+ *
+ * THE 360w MIRROR WAS THE OTHER OPTION AND IT WAS REJECTED ON THE ARITHMETIC.
+ * sync-card-thumbs.mjs could encode a 360w rendition of all 79 and make DPR 3
+ * exact. Its own header records that Pillow only ever beats TCGdex by dropping
+ * pixels, never at equal width, and a 360w local AVIF interpolates from the
+ * measured 310w and 420w pair at around 55KB against TCGdex's 36 to 112KB
+ * high.avif. That is 158 committed binaries to save a fraction of what taking
+ * the rung off saves outright, on a page that already hands the reader the full
+ * 600px scan on a tap.
+ *
+ * THE LIGHTBOX STILL OPENS THE HIGH ONE, and that is now load bearing rather
+ * than a nicety. `data-img` below is deliberately left on c.image, because the
+ * enlargement is the one place on this page where 600px is the right amount of
+ * detail, and it is the reader's route to it.
+ *
+ * NO srcset AND NO sizes ON THE TCGDEX BRANCH ANY MORE. One candidate is a
+ * `src`, and a one-entry srcset with a `sizes` beside it is a decision waiting
+ * to be misread as a live ladder. avifPicture() reads the `src` when there is
+ * no srcset, so the AVIF source survives untouched.
  */
 const TCGDEX_HIGH = /^(https:\/\/assets\.tcgdex\.net\/.+)\/high\.webp$/;
 // THE OTHER FAMILY OF SCANS THIS PAGE CAN NOW SHOW, and it is on our own disk
@@ -647,6 +684,17 @@ const TCGDEX_HIGH = /^(https:\/\/assets\.tcgdex\.net\/.+)\/high\.webp$/;
 // (build-first-partner.mjs writes both). Same split as the TCGdex branch:
 // the small file is the src for a 120px box, the large one is the srcset's top
 // candidate and is what the lightbox enlarges.
+//
+// THE 420w RUNG STAYS HERE WHILE THE TCGDEX 600w ONE GOES, AND THAT IS A
+// DECISION RATHER THAN A PLACE THE SWEEP STOPPED. Three plaques on this grid
+// take it. It is the honest DPR 3 answer for a 120px box, 420 against the 360
+// asked for, where TCGdex's next rung up is 600 and 67% over; it is on OUR
+// origin, so it costs no second DNS and TLS handshake and rides the connection
+// the page already has; and at 47.7KB it is twice the 245w file rather than
+// three to five times it. The inconsistency a reader could in principle see is
+// between what the two HOSTS publish, not between two decisions. If a later
+// pass wants all 79 plaques at one density, drop this rung too and re-measure;
+// do not add a 600w one back to the branch above to match it.
 //
 // THE DIMENSIONS COME BACK WITH IT because imgDims() cannot supply them. That
 // function switches on the HOST and knows the four remote card hosts; a path on
@@ -659,7 +707,7 @@ function plaqueArt(url) {
   const m = TCGDEX_HIGH.exec(url || "");
   if (m) {
     const low = `${m[1]}/low.webp`;
-    return { src: low, extra: ` srcset="${esc(low)} 245w, ${esc(url)} 600w" sizes="120px"`, dims: "" };
+    return { src: low, extra: "", dims: "" };
   }
   const fp = FP_HIGH.exec(url || "");
   if (fp) {
@@ -1085,7 +1133,7 @@ const swapped = head
 
 await writeFile(
   join(ROOT, "public/hall.html"),
-  `<!DOCTYPE html>
+  dropUnusedPacksCSS(`<!DOCTYPE html>
 <html lang="en">
 <head>${swapped}<style>${style}</style>
 </head>
@@ -1101,7 +1149,7 @@ ${footer}
 ${APP_JS}
 </body>
 </html>
-`
+`)
 );
 
 console.log(`Wrote public/hall.html
