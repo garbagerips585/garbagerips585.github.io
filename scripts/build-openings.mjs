@@ -134,8 +134,31 @@ const logoSize = async (file) => {
 
 // Measured once per build, not once per row: Chaos Rising appears on six of
 // these pages and Mega Evolution twice on one of them.
+//
+// THE PLATE IS TWO SIZES AND THE `sizes` ATTRIBUTE ONLY KNEW ABOUT ONE OF THEM,
+// which is what the LOGO_PHONE pair below is for. Fixed 21 August 2026. The
+// @media(max-width:560px) block near .op-sw drops the plate from 116x42 to
+// 88x34 so the row can go to two columns, and `drawnW` was computed against the
+// DESKTOP plate and then written flat. A phone was being told the logo would be
+// painted up to 1.32x wider than it is, on the density where that costs the
+// most, so at DPR 3 nine logos reached past a candidate that already covered
+// them: 116 x 3 = 348 asks for the 955w, 892w, 806w and 483w masters where the
+// real 86px box wants 258 and the -sm.webp beside them is 318, 303, 269 or 300.
+//
+// BOTH NUMBERS ARE THE CONTENT BOX, NOT THE DECLARED ONE. ui.css puts every
+// element on border-box and .op-sw carries a 1px border, so the img inside the
+// 88px plate measures 86 and inside the 116px plate 114. Read off the page with
+// getBoundingClientRect rather than off these constants, which is how the 2px
+// showed up at all.
 const LOGO_BOX_W = 116;
 const LOGO_BOX_H = 42;
+// The .op-sw override inside @media(max-width:560px). Keep the breakpoint here
+// and the one in the stylesheet in step: they are the same rule written twice
+// and nothing checks that they agree.
+const LOGO_PHONE_MQ = "(max-width:560px)";
+const LOGO_PHONE_W = 88;
+const LOGO_PHONE_H = 34;
+const LOGO_BORDER = 1; // .op-sw's border, both sides, on border-box
 const logoCache = new Map();
 async function setLogoTag(setId) {
   if (!logosOnDisk.has(setId)) return "";
@@ -151,11 +174,17 @@ async function setLogoTag(setId) {
       // -sm.webp is wide enough to satisfy, and Chrome correctly reaches past it
       // for the 300px-tall master on every logo. Same arithmetic and the same
       // trap build-playlists.mjs and build-intl-pages.mjs already record.
-      const drawnW = Math.round(Math.min(LOGO_BOX_W, (LOGO_BOX_H * big.w) / big.h));
+      // contain scales by min(boxW/w, boxH/h), so the drawn width is the smaller
+      // of the box width and the height-limited width.
+      const drawn = (bw, bh) =>
+        Math.round(Math.min(bw - LOGO_BORDER * 2, ((bh - LOGO_BORDER * 2) * big.w) / big.h));
+      const sizes =
+        `${LOGO_PHONE_MQ} ${drawn(LOGO_PHONE_W, LOGO_PHONE_H)}px, ` +
+        `${drawn(LOGO_BOX_W, LOGO_BOX_H)}px`;
       logoCache.set(
         setId,
         `<img class="op-sl" src="${base}-sm.webp" srcset="${base}-sm.webp ${sm.w}w, ${base}.webp ${big.w}w"` +
-          ` sizes="${drawnW}px" width="${sm.w}" height="${sm.h}" alt="" loading="lazy" decoding="async">`
+          ` sizes="${sizes}" width="${sm.w}" height="${sm.h}" alt="" loading="lazy" decoding="async">`
       );
     }
   }

@@ -74,158 +74,94 @@ a.ev-node:hover{background:var(--mustard);color:var(--on-accent)}
 .ev-fk{width:22px;height:34px;fill:var(--gold);color:var(--gold);margin-top:-4px}
 .ev-armbody{min-width:0}
 .ev-armbody .ev-line{margin-top:4px}
+/* VIEWPORT AND NOT CONTAINER, ON PURPOSE, AND THIS BLOCK IS NOT STRIPPED SO
+   the argument is kept short. A chain sits in a card 302 to 1354px wide across
+   the two pages that draw one, so a container query is the right SHAPE here.
+   It was written and measured on both, at every width: it changes nothing,
+   because a row chain that runs out of width staircases, and the threshold
+   that DOES change something costs 6,036px of scroll. The numbers are beside
+   the .ev-list breakpoint in scripts/build-evolution.mjs. */
 @media(min-width:720px){
   .ev-line{flex-direction:row;align-items:center;flex-wrap:wrap;gap:2px}
   .ev-ar{transform:none}
   .ev-step{padding:4px 6px;max-width:22em}
   .ev-arm{grid-template-columns:28px minmax(0,1fr)}
 }
-
 .ev-lede{max-width:46em}
-/* THE FINDER. Sticky, because the whole page is one long list and a reader who
-   has scrolled to Gible's neighbourhood and typed the wrong thing should not
-   have to scroll back up to fix it. 44px minimum on the input and every chip:
-   measured, not assumed, at 390x844.
-   top:var(--bar-h) and not 0. The site bar is itself sticky at top:0 with
-   z-index 60, so a second sticky element at 0 slides underneath it and the
-   input is hidden by the search box in the chrome. Same value .rail in ui.css
-   and .vg-rail in build-video-games.mjs use, for the same reason.
-   THE CHIPS ARE DELIBERATELY OUTSIDE THIS BOX. They were inside it, and
-   measured at 390x844 the eighteen of them wrapped to seven rows: the sticky
-   bar was 420px tall, half the phone viewport, and the chart it was meant to
-   help you search was reduced to a 300px slot underneath it. Screenshotted, not
-   reasoned about. The input is the thing worth pinning; a chip is set once. */
 .ev-find{position:sticky;top:var(--bar-h);z-index:40;background:var(--page);
-  padding:var(--s3) 0 var(--s2);margin:var(--s3) 0;border-bottom:1px solid var(--hair)}
+padding:var(--s3) 0 var(--s2);margin:var(--s3) 0;border-bottom:1px solid var(--hair)}
 .ev-filters{margin-top:var(--s5)}
 .ev-flabel{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;
-  color:var(--ink-2);margin-top:var(--s3)}
+color:var(--ink-2);margin-top:var(--s3)}
 .ev-find input{width:100%;min-height:48px;padding:0 var(--s3);border:3px solid var(--keyline);
-  border-radius:10px;background:var(--card);color:var(--ink);font:400 var(--t-body)/1 var(--body);
-  -webkit-appearance:none}
+border-radius:10px;background:var(--card);color:var(--ink);font:400 var(--t-body)/1 var(--body);
+-webkit-appearance:none}
 .ev-find input:focus{outline:3px solid var(--gold);outline-offset:2px}
 .ev-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:var(--s2)}
 .ev-chip{min-height:44px;padding:0 12px;border:1px solid var(--hair);border-radius:var(--r-pill);
-  background:var(--card);color:var(--ink);cursor:pointer;
-  font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;
-  display:inline-flex;align-items:center;gap:6px}
+background:var(--card);color:var(--ink);cursor:pointer;
+font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;
+display:inline-flex;align-items:center;gap:6px}
 .ev-chip span{color:var(--ink-2);font-weight:400}
 .ev-chip[aria-pressed="true"]{background:var(--mustard);border-color:var(--keyline);color:var(--on-accent)}
 .ev-chip[aria-pressed="true"] span{color:var(--on-accent)}
 .ev-count{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.05em;text-transform:uppercase;
-  color:var(--ink-2);margin-top:var(--s2)}
-/* THE STEP FIGURE. Same box as .ev-read, which is the card this page already
-   uses for a block that is prose about the chart rather than part of it, so a
-   reader meets one visual language and not two.
-   NOTHING IS CARRIED BY COLOUR. One fill, on the page's own paper tone, with a
-   hairline round the track and the count printed beside every bar. The scale is
-   set by the biggest bar and starts at zero, so the level bar being five times
-   the next one is the real ratio and not a stretched one.
-   THE SMALLEST BAR IS ABOUT 2% OF THE TRACK, roughly 7px at 390px, and that is
-   deliberate rather than an oversight: the whole finding is that eight of the
-   nine are small. No count is drawn INSIDE a bar, so nothing here can become
-   unreadable at that size; the number sits in real text on the line above,
-   where it wraps and where a screen reader gets it. */
+color:var(--ink-2);margin-top:var(--s2)}
 .ev-fig{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
-  box-shadow:var(--hard-lg);padding:var(--s4);margin:var(--s5) 0}
+box-shadow:var(--hard-lg);padding:var(--s4);margin:var(--s5) 0}
 .ev-figh{margin-bottom:var(--s4)}
 .ev-figl{list-style:none;margin:0;padding:0;display:grid;gap:var(--s3)}
 .ev-figl li{display:grid;grid-template-columns:1fr auto;gap:var(--s2);align-items:baseline;
-  padding-top:var(--s3);border-top:1px solid var(--hair)}
+padding-top:var(--s3);border-top:1px solid var(--hair)}
 .ev-figl li:first-child{padding-top:0;border-top:0}
 .ev-fn{font:400 var(--t-sm)/1.35 var(--body);color:var(--ink)}
 .ev-fv{font:700 var(--t-sm)/1 var(--mono);white-space:nowrap}
 .ev-fv span{font-weight:400;color:var(--ink-2)}
 .ev-ft{grid-column:1/-1;display:block;height:14px;margin-top:6px;border-radius:3px;
-  background:var(--paper-2);box-shadow:inset 0 0 0 1px var(--hair)}
+background:var(--paper-2);box-shadow:inset 0 0 0 1px var(--hair)}
 .ev-fb{display:block;height:100%;min-width:3px;border-radius:3px;background:var(--ink)}
 .ev-fig figcaption{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--hair);
-  font-size:var(--t-sm);line-height:1.55;color:var(--ink-2)}
+font-size:var(--t-sm);line-height:1.55;color:var(--ink-2)}
 .ev-fig figcaption b{color:var(--ink);font-weight:700}
-
 .ev-forks{display:flex;flex-wrap:wrap;gap:8px;margin:var(--s4) 0 0}
 .ev-forks a{display:inline-flex;flex-direction:column;justify-content:center;min-height:48px;
-  padding:6px 12px;border:1px solid var(--hair);border-radius:10px;background:var(--card);
-  color:inherit;text-decoration:none}
+padding:6px 12px;border:1px solid var(--hair);border-radius:10px;background:var(--card);
+color:inherit;text-decoration:none}
 .ev-forks a:hover{border-color:var(--ink);background:var(--mustard);color:var(--on-accent)}
 .ev-forks b{font:700 var(--t-sm)/1.2 var(--body)}
 .ev-forks span{font:400 var(--t-micro)/1.2 var(--mono);color:var(--ink-2)}
 .ev-forks a:hover span{color:var(--on-accent)}
 .ev-read{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
-  box-shadow:var(--hard-lg);padding:var(--s4);margin:var(--s5) 0}
+box-shadow:var(--hard-lg);padding:var(--s4);margin:var(--s5) 0}
 .ev-read h2{margin-bottom:var(--s2)}
 .ev-read p{font-size:var(--t-sm);line-height:1.55;max-width:46em}
 .ev-read p + p{margin-top:var(--s3)}
 .ev-list{display:flex;flex-direction:column;gap:var(--s4);margin-top:var(--s4)}
-/* ONE CARD PER LINE. The border is what tells two adjacent chains apart on a
-   phone, where they are both a vertical stack and would otherwise run together
-   into one long column of boxes. */
 .ev-card{border:2px solid var(--hair);border-radius:12px;background:var(--card);
-  padding:var(--s3);scroll-margin-top:96px}
+padding:var(--s3);scroll-margin-top:96px}
 .ev-branchy{border-color:var(--keyline);border-width:3px;box-shadow:var(--hard-lg)}
 .ev-h{font:400 var(--t-body)/1.2 var(--display);margin-bottom:var(--s3)}
 .ev-h span{font:400 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
-  color:var(--ink-2);vertical-align:middle}
-/* The line's own portrait. INLINE-BLOCK AND NOT A FLEX ITEM, deliberately: the
-   heading is already an inline run of a display face and a mono chip that
-   aligns itself with vertical-align, and turning the h3 into a flex row would
-   make that chip a flex item and drop the single space in front of it. This
-   way the existing two elements lay out exactly as they did.
-   THE display IS NOT OPTIONAL AND IT IS WHY THIS SHIPPED WRONG ONCE. ui.css
-   sets img{display:block} on every image on the site, so a rule here that only
-   set vertical-align left the portrait on its own line above the name and made
-   the heading 67px instead of 48. Measured, not guessed: read the img's own
-   computed display before believing an inline image is inline.
-   The file is 96px for this 48px box, so it is exact at DPR 2. */
+color:var(--ink-2);vertical-align:middle}
 .ev-sp{display:inline-block;width:48px;height:48px;vertical-align:middle;margin-right:8px}
 .ev-still{margin-top:var(--s4)}
 .ev-still ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
 .ev-still li{font:400 var(--t-micro)/1 var(--mono);border:1px solid var(--hair);
-  border-radius:var(--r-pill);padding:8px 10px;color:var(--ink-2)}
+border-radius:var(--r-pill);padding:8px 10px;color:var(--ink-2)}
 .ev-empty{padding:var(--s5) 0;color:var(--ink-2);font-size:var(--t-sm)}
 .ev-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.6;max-width:46em}
 .ev-open{margin:var(--s4) 0 0 var(--s4);font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);max-width:46em}
 .ev-open li{margin-bottom:var(--s2)}
-
-/* FROM 720px THE CHAIN TURNS. Below it, a chain is a column and the arrow
-   points down; above it there is room for three boxes and two arrows across.
-   720 rather than 640 because the longest real line, Wurmple's, is four boxes
-   and three conditions and it wraps below that. */
 @media(min-width:720px){
-  .ev-list{display:grid;grid-template-columns:1fr;gap:var(--s3)}
+.ev-list{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);align-items:start}
+.ev-branchy{grid-column:1 / -1}
 }
-/* TWO COLUMNS FROM 1100px, and the reason is the failure ui.css already
-   documents for the home page: a linear chain drawn as a row is about 560px
-   wide, so at 1440 every one of 340 cards left 800px of empty band beside it
-   and the page ran to 53,086px. Measured. Two columns fills the width and
-   roughly halves the scroll.
-   THE FORKS SPAN BOTH. Eevee is eight arms and Magnemite is seven conditions;
-   squeezed into a 700px column they wrap into a wall, and they are the cards
-   people came for. .ev-branchy is set by the builder from the data rather than
-   by hand, so a new branching line gets the full width without an edit here. */
-@media(min-width:1100px){
-  .ev-list{grid-template-columns:1fr 1fr;align-items:start}
-  .ev-branchy{grid-column:1 / -1}
-}
-/* DESKTOP READING MEASURE, and the class on the four loose paragraphs is why
-   this needs saying. --measure is ui.css's own cap and lands at 85 to 87 real
-   characters on this page's face, measured with a canvas rather than assumed
-   from ems. The four section paragraphs outside .ev-read and .ev-lede were
-   running to 88 and 90 at 1440 because nothing in this block reached them, so
-   they carry .ev-p and are named here. Same shape as the block at the foot of
-   build-types.mjs. */
 @media(min-width:1000px){
-  .ev-lede,.ev-src,.ev-read p,.ev-p{max-width:var(--measure)}
-  /* THE FIGURE IS CAPPED AND ITS CAPTION IS CAPPED INSIDE IT. A nine row bar
-     chart stretched across a 1,180px wrap turns the eight small bars into eight
-     slightly different slivers and the level bar into a black stripe, which is
-     the same "a fixed cap does not move" failure the home page's desktop pass
-     was about, one direction along. 46em holds the level bar at about 700px,
-     which is enough for a 2% bar to still be a mark. */
-  .ev-fig{max-width:46em}
-  .ev-fig figcaption{max-width:var(--measure)}
-}
-</style>
+.ev-lede,.ev-src,.ev-read p,.ev-p{max-width:var(--measure)}
+.ev-fig{max-width:46em}
+.ev-fig figcaption{max-width:var(--measure)}
+.ev-read{max-width:46em}
+}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Evolution chart"}]}</script>
 </head>
 <body>

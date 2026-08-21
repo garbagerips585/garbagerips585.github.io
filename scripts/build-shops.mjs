@@ -282,36 +282,106 @@ function shopMap(list) {
   // And the outermost row of the rect is ANTIALIASED against what is under it,
   // which read as 2.94:1 -- a failure that exists only in a pixel no glyph ever
   // touches. Inset past both before believing the figure.
-  const placed = [];
-  const LH = 17;
-  const marks = [];
-  const dots = pts
-    .map((s) => {
+  // TWO LABEL VARIANTS, AND THE SECOND ONE EXISTS BECAUSE THE FIRST ONE IS
+  // UNREADABLE ON A PHONE. The whole viewBox is scaled to fit its box, so the
+  // type scales with it: a shop name is 15 units here and 15 CSS px only when
+  // the drawing is at 1:1. Measured on the built page, off getBoundingClientRect
+  // and off the computed font-size times the real viewBox-to-viewport scale,
+  // which agree: 8.20 CSS px at 390, and the scale bar 7.11, against an 11px
+  // caption and 17px body copy sitting directly under them.
+  //
+  // getComputedStyle ON SVG TEXT REPORTS USER UNITS AND NOT CSS PIXELS. It reads
+  // 15 at every width and always will, which is how a figure this small passed a
+  // type check for a month.
+  //
+  // THE FLOOR IS 12 CSS PX and it is argued rather than picked. --t-micro is
+  // 11px, the smallest type token this site has, and it is what this figure's own
+  // caption is set in; nothing drawn ON the picture may be smaller than the prose
+  // explaining it, so the floor is the next token up, --t-label at 12px.
+  //
+  // WHY NOT SIMPLY SCALE THE NAMES UP. At 390 this figure is 350 x 244 CSS px
+  // and these are shop names rather than town names: "Great Lakes Gaming" at the
+  // floor is 232 units wide out of 640, 36% of the frame, and there are six of
+  // them. The greedy placer below answers that by pushing labels off their own
+  // dots, which is a worse map than a small one.
+  //
+  // SO THE PHONE GETS NUMBERS AND THE NAMES GO INTO HTML AT REAL TYPE, exactly
+  // what plateDiagram() on /garbage-plate.html does and what CLAUDE.md records
+  // as "the words are HTML, not SVG text". SAME FIX, SAME BREAKPOINT AND THE
+  // SAME NUMBERS AS showMap() IN build-shows.mjs, because these two maps are a
+  // pair and a reader moves between them: if one of them changes, change both.
+  // NUM_F is 28 against that file's 29 for the one reason the two ever differ,
+  // which is that this viewBox is 640 units wide and that one is 660, so the two
+  // render within a tenth of a pixel of each other at every width.
+  //
+  // NUMBERED WEST TO EAST, so the numbers ascend across the picture and a reader
+  // who has found one dot knows roughly where the next one is without reading.
+  const NAME_F = 16; // wide: the shop name. Was 15, which was 11.8px at 545.
+  const NUM_F = 28; // narrow: the key number. 12.25px at 320, 15.3px at 390.
+
+  const sorted = pts.slice().sort((a, b) => px(a.at[1]) - px(b.at[1]));
+  const keyNo = new Map(sorted.map((s, i) => [s.name, i + 1]));
+
+  // Greedy, in reading order, and it terminates: each label takes the first free
+  // slot at its own height or within four steps of it, up then down.
+  //
+  // IT RUNS ONCE PER VARIANT, with its own list of placed boxes, because the two
+  // variants are different widths and a shared list would let a name reserve a
+  // slot against a number. COLLISIONS IN HERE ARE SCALE INVARIANT: two boxes in
+  // user units either overlap or they do not, whatever the figure is drawn at,
+  // so a variant that is clean is clean at every width it is shown at.
+  //
+  // The plate and the baseline are ratios of the font size, taken from the
+  // numbers this figure shipped with at 15 units: 10/15, 20/15, 4/15. That is
+  // what lets one renderer draw both variants without either of them getting a
+  // hand-tuned box the collision test does not know about.
+  const place = (font, textOf, charW, padW) => {
+    const lh = Math.round((font * 17) / 15);
+    const placed = [];
+    return sorted.map((s) => {
       const x = px(s.at[1]), y = py(s.at[0]);
       // Labels flip to the left of the dot in the right third, so nothing runs
       // off the edge of the viewBox on a narrow phone.
       const left = x > W * 0.62;
-      const w = s.name.length * 8.4 + 16;
+      const text = textOf(s);
+      const w = text.length * charW + padW;
       const x1 = left ? x - 13 - w : x + 13;
       let ly = y;
       for (let step = 0; step < 9; step++) {
         // 0, -1, +1, -2, +2 ... so a label prefers to stay where its dot is.
-        const off = step === 0 ? 0 : (step % 2 ? -1 : 1) * Math.ceil(step / 2) * LH;
+        const off = step === 0 ? 0 : (step % 2 ? -1 : 1) * Math.ceil(step / 2) * lh;
         ly = y + off;
         const clash = placed.some(
-          (q) => Math.abs(q.y - ly) < LH && x1 < q.x + q.w && q.x < x1 + w
+          (q) => Math.abs(q.y - ly) < lh && x1 < q.x + q.w && q.x < x1 + w
         );
         if (!clash) break;
       }
       placed.push({ x: x1, y: ly, w });
-      // The plate is the box the collision test above already reasons about, so
-      // the two cannot disagree about how wide a name is: same x1, same w. It is
-      // drawn in a second pass, after every dot, or a plate could cover the dot
-      // of the shop whose label it is not.
-      marks.push(`<rect class="sm-plate" x="${x1.toFixed(1)}" y="${(ly - 10).toFixed(1)}"
-        width="${w.toFixed(1)}" height="20" rx="5"/>
-        <text x="${(left ? x - 13 : x + 13).toFixed(1)}" y="${(ly + 4).toFixed(1)}" text-anchor="${left ? "end" : "start"}"
-          font-size="15" font-weight="700" fill="currentColor" font-family="var(--body)">${esc(s.name)}</text>`);
+      return { x, y, left, text, w, x1, ly, font };
+    });
+  };
+  const wideMarks = place(NAME_F, (s) => s.name, (8.4 * NAME_F) / 15, NAME_F);
+  const numMarks = place(NUM_F, (s) => String(keyNo.get(s.name)), NUM_F * 0.62, NUM_F * 0.7);
+
+  // The plate is the box the collision test above already reasons about, so the
+  // two cannot disagree about how wide a name is: same x1, same w. A number is
+  // centred in its plate; a name hangs off the dot the way it always has. The
+  // hidden variant is display:none, so it has no box and cannot collide with the
+  // visible one, which is what keeps the collision count honest.
+  const mark = (m, cls, mid) => `<g class="${cls}">
+        <rect class="sm-plate" x="${m.x1.toFixed(1)}" y="${(m.ly - m.font * 0.667).toFixed(1)}"
+          width="${m.w.toFixed(1)}" height="${(m.font * 1.333).toFixed(1)}" rx="5"/>
+        <text x="${(mid ? m.x1 + m.w / 2 : m.left ? m.x - 13 : m.x + 13).toFixed(1)}"
+          y="${(m.ly + m.font * 0.267).toFixed(1)}" text-anchor="${mid ? "middle" : m.left ? "end" : "start"}"
+          font-size="${m.font}" font-weight="700" fill="currentColor" font-family="var(--body)">${esc(m.text)}</text>
+      </g>`;
+
+  // Marks are drawn in a second pass, after every dot, or a plate could cover
+  // the dot of the shop whose label it is not.
+  const marks = sorted.map((s, i) => mark(wideMarks[i], "mk-w", false) + mark(numMarks[i], "mk-n", true));
+  const dots = sorted
+    .map((s, i) => {
+      const { x, y } = wideMarks[i];
       // The dot keeps a ring of the map's own ground under its outline, so it
       // reads as a dot on a map rather than as a junction of the roads it lands
       // on. Millennium Games sits on the Jefferson Road interchange and was the
@@ -323,28 +393,80 @@ function shopMap(list) {
 
   // The scale bar gets a plate for the same reason the names do: it used to sit
   // on flat green and it now sits on whatever runs along the bottom of the
-  // frame, which round here is the Erie Canal and the Thruway.
+  // frame, which round here is the Erie Canal and the Thruway. It gets the same
+  // two variants, and it was the worst off of anything on this page at 390:
+  // 7.11 CSS px, the smallest type on the whole document. The plate is derived
+  // from the font rather than hand-set, so the box cannot fall out of step with
+  // the words in it.
+  //
+  // THE NARROW ONE PUTS THE WORDS BESIDE THE BAR RATHER THAN OVER IT, and that
+  // is height rather than taste: stacked, a 28 unit label plus the bar and its
+  // ticks is a 55 unit plate and it was the loudest object in the picture when
+  // it was screenshotted. Beside the bar it is 30, which is the bar's own
+  // height, and it is the form every printed map uses. It also abbreviates to
+  // "mi", which is what a scale bar says everywhere else in the world. Same
+  // change, same day, on /card-shows.html.
   const barW = nice * k;
   const barLabel = `${nice} mile${nice === 1 ? "" : "s"}`;
+  const bar = (font, cls, beside) => {
+    const label = beside ? `${nice} mi` : barLabel;
+    const tw = label.length * font * 0.62;
+    const ticks =
+      `<line x1="0" y1="0" x2="${barW.toFixed(1)}" y2="0" stroke="currentColor" stroke-width="2.5"/>` +
+      `<line x1="0" y1="-5" x2="0" y2="5" stroke="currentColor" stroke-width="2.5"/>` +
+      `<line x1="${barW.toFixed(1)}" y1="-5" x2="${barW.toFixed(1)}" y2="5" stroke="currentColor" stroke-width="2.5"/>`;
+    const type = (x, y, anchor) =>
+      `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${anchor}" font-size="${font}"` +
+      ` font-weight="700" fill="currentColor" font-family="var(--mono)">${label}</text>`;
+    if (beside) {
+      const top = -Math.max(font * 0.72, 8);
+      const bot = Math.max(font * 0.34, 8);
+      // UP 12 UNITS, AND IT IS A LINE BOX RATHER THAN A GLYPH. "50 mi" has no
+      // descender, so the ink clears the frame; the TEXT NODE does not, because
+      // its box runs from the ascender to the descender of a 29 unit face and
+      // hung 5.2 units below the bottom of the viewBox. Nothing is clipped out
+      // here (only the geometry layer is), so a mark that escapes the frame
+      // paints over the page. Measured with getBoundingClientRect, not by eye.
+      return `<g class="${cls}" transform="translate(0 -12)">
+          <rect class="sm-plate" x="-10" y="${top.toFixed(1)}" width="${(barW + tw + 32).toFixed(1)}"
+            height="${(bot - top).toFixed(1)}" rx="5"/>
+          ${ticks}
+          ${type(barW + 12, font * 0.34, "start")}
+        </g>`;
+    }
+    const base = -(font * 0.75) - 2;
+    const top = base - font * 0.82;
+    return `<g class="${cls}">
+          <rect class="sm-plate" x="-10" y="${top.toFixed(1)}"
+            width="${(Math.max(barW, tw) + 20).toFixed(1)}" height="${(9 - top).toFixed(1)}" rx="5"/>
+          ${ticks}
+          ${type(barW / 2, base, "middle")}
+        </g>`;
+  };
   return `<figure class="shop-map">
       <svg viewBox="0 0 ${W} ${H}" role="img"
         aria-label="A map of ${
           pts.length
-        } card shops around Rochester, New York. Roads, water and the city boundary are drawn from OpenStreetMap data, with each shop marked and named. Their addresses are on each card below.">
+        } card shops around Rochester, New York. Roads, water and the city boundary are drawn from OpenStreetMap data, with each shop marked and named. On a narrow screen the marks are numbered instead and the numbers are listed under the map. Their addresses are on each card below.">
         <defs><clipPath id="shopmap-clip"><rect x="0" y="0" width="${W}" height="${H}" rx="10"/></clipPath></defs>
         <rect x="0" y="0" width="${W}" height="${H}" rx="10" fill="var(--paper-3)"/>
         ${base}
         ${dots}
         ${marks.join("")}
         <g transform="translate(${PAD} ${H - 20})">
-          <rect class="sm-plate" x="-10" y="-25" width="${(Math.max(barW, barLabel.length * 8) + 20).toFixed(1)}" height="38" rx="5"/>
-          <line x1="0" y1="0" x2="${barW.toFixed(1)}" y2="0" stroke="currentColor" stroke-width="2.5"/>
-          <line x1="0" y1="-5" x2="0" y2="5" stroke="currentColor" stroke-width="2.5"/>
-          <line x1="${barW.toFixed(1)}" y1="-5" x2="${barW.toFixed(1)}" y2="5" stroke="currentColor" stroke-width="2.5"/>
-          <text x="${(barW / 2).toFixed(1)}" y="-9" text-anchor="middle" font-size="13" font-weight="700"
-            fill="currentColor" font-family="var(--mono)">${barLabel}</text>
+          ${bar(NAME_F, "mk-w", false)}
+          ${bar(NUM_F, "mk-n", true)}
         </g>
       </svg>
+      ${/* THE KEY. Only on the narrow layout, where the drawing carries numbers
+            instead of names; above 544 it is display:none and is out of the
+            accessibility tree along with the numbers it explains. Every name in
+            it is also an h2 on a card further down the page, so this is a second
+            view of the list rather than a new claim, exactly like the map. */ ""}
+      <p class="map-key-h">The shops on the map, west to east</p>
+      <ol class="map-key">
+        ${sorted.map((s, i) => `<li><b>${i + 1}</b><span>${esc(s.name)}</span></li>`).join("\n        ")}
+      </ol>
       ${/* THE TWO LINKS IN HERE ARE THE ODbL AND ARE NOT DISCRETIONARY, which is
             the same argument the Garbage Plate photo credits make and CLAUDE.md
             records in full. OpenStreetMap's data is offered on condition that it
@@ -544,12 +666,65 @@ const style = `
    because the cost of being wrong is a wasted drive. */
 .shop-play-warn{font:700 var(--t-micro)/1.6 var(--mono);color:var(--plum);
   background:var(--lilac-pale);border-radius:var(--r-sm);padding:8px 10px;margin-top:8px}
-/* The map. Full width of the wrap, capped so it does not become a poster on a
-   desktop, and the SVG scales with the box because it has a viewBox and no
-   width attribute. currentColor throughout, so it is correct on the light page
-   and would still be correct if this block ever moved onto the dark chrome. */
-.shop-map{margin:0 0 var(--s5);color:var(--ink)}
+/* The map. Capped so it does not become a poster on a desktop, and the SVG
+   scales with the box because it has a viewBox and no width attribute.
+   currentColor throughout, so it is correct on the light page and would still
+   be correct if this block ever moved onto the dark chrome.
+
+   THE FIGURE USED TO BE THE FULL WIDTH OF THE WRAP AND THE MAP 660 OF IT, so at
+   1440 it declared 1392px and left 732 of them bare, 52.6% of the viewport. It
+   painted nothing in that space, so this was a box-model fault rather than a
+   visible one, but a figure claiming width it never uses is the kind of thing
+   that gets "fixed" later by stretching the map into it.
+
+   GROWING THE MAP INSTEAD WAS THE OTHER OPTION AND IT WAS REJECTED, because it
+   fights the type fix rather than complementing it. At 1392 the drawing is at
+   2.18 units to the pixel, so a 16 unit shop name renders at 34.9px, which
+   would have to come back down in units, which is the opposite of what a phone
+   needs. Every stroke width and dash length in the block below is also argued
+   in units per mile at a stated rendered scale ("5 on 4 at 640 units is 3px on
+   and 2.4px off at 390"), and all of it would have to be re-derived. So the
+   figure shrinks to the map. Same call, same reasons, on /card-shows.html.
+
+   RENDERED TYPE, before -> after, measured off getBoundingClientRect and off
+   the computed font-size times the real viewBox-to-viewport scale, which agree:
+
+        320   unit 0.438   name 6.56 -> 12.25px (a number)   bar 5.69 -> 12.25
+        390   unit 0.547   name 8.20 -> 15.32px (a number)   bar 7.11 -> 15.32
+        768   unit 1.031   name 15.47 -> 16.50px             bar 13.41 -> 16.50
+       1440   unit 1.031   name 15.47 -> 16.50px             bar 13.41 -> 16.50 */
+.shop-map{margin:0 0 var(--s5);color:var(--ink);max-width:660px}
 .shop-map svg{display:block;width:100%;height:auto;max-width:660px}
+/* The two label variants, and the key that carries the names on a phone. Same
+   rules, same breakpoint and the same reasoning as .mk-w / .map-key in
+   build-shows.mjs; the two maps are a pair. display:none rather than an opacity
+   or a visibility, so the hidden variant has no box at all and cannot collide
+   with the visible one or hang off the edge of the frame. */
+.mk-n{display:none}
+@media(max-width:544px){
+.mk-w{display:none}
+.mk-n{display:inline}
+}
+.map-key-h,.map-key{display:none}
+.map-key-h{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-2);margin:var(--s3) 0 var(--s2)}
+.map-key{list-style:none;margin:0;padding:0;
+  grid-template-columns:repeat(auto-fill,minmax(10.5em,1fr));gap:var(--s2) var(--s3);
+  font:400 var(--t-sm)/1.35 var(--body);color:var(--ink)}
+.map-key li{display:flex;align-items:baseline;gap:8px}
+/* THE CHIP IS THE MAP'S OWN GROUND, --paper-3, AND IT WENT IN AT --page AND
+   CAME STRAIGHT BACK OUT. --page is what the plate on the drawing is filled
+   with, so copying it here looked like the obvious match, and it is also what
+   this section is painted in: the chip measured 0 pixels of difference from the
+   page behind it and the number sat on nothing. Measured, not noticed by eye.
+   --paper-3 is the colour of the map the number is sitting on, which is the
+   better echo anyway, and --ink on it is 5.35:1, read off the built page. */
+.map-key b{flex:none;min-width:1.7em;padding:2px 0;text-align:center;border-radius:4px;
+  background:var(--paper-3);color:var(--ink);font:700 var(--t-label)/1.3 var(--mono)}
+@media(max-width:544px){
+.map-key-h{display:block}
+.map-key{display:grid}
+}
 .shop-map figcaption{font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-2);
   margin-top:var(--s2);max-width:52em}
 .shop-map figcaption a{color:var(--ketchup-deep);font-weight:600}

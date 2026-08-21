@@ -759,11 +759,42 @@ export function imgDims(url) {
  * offered unconditionally for that reason, and because a ladder whose top
  * depends on the caller's box is a ladder each caller can get wrong again.
  *
+ * ===========================================================================
+ * AND THE MIDDLE RUNG WAS MISSING, WHICH COST /msrp.html 985KB ON A DPR 3 PHONE
+ * ===========================================================================
+ *
+ * Fixed 21 August 2026. The entry above probed the CDN, wrote down that 150w,
+ * 200w and 400w are the three real widths, and then handed the browser only TWO
+ * of them: the caller's own small rung and 400w. A 150w caller therefore got a
+ * ladder with a 2.67x step in it, and every box that needs between 151 and 200
+ * device pixels fell off the top of that step. /msrp.html is a 64px box, so it
+ * asks for 192 at DPR 3: 42 pixels past 150, 8 short of a file the CDN has been
+ * serving all along, and all 32 pins took _400w. It reads as correct because
+ * 400w IS the smallest candidate ON THE LADDER that covers 192; the ladder was
+ * the thing that was wrong.
+ *
+ * Re-probed on three product ids on 2026-08-21 before changing anything, and
+ * the widths between the rungs are still 403: 220, 240, 250, 260, 270, 280,
+ * 300, 320, 350 and 360 all refuse. So 150/200/400 is the whole ladder and it
+ * is now offered whole, from the caller's small rung upward.
+ *
+ * NOTHING ELSE ON THE SITE MOVES, and that was measured with `currentSrc` at
+ * DPR 1, 2 and 3 rather than reasoned from the boxes: the 200w callers (72 to
+ * 88px) already had 200w as their small rung and their ladders are unchanged,
+ * the 48px tables still take 150w at all three densities, and /what-to-buy.html
+ * keeps _400w because a 72px box asks 216 and 200w is 7.4% SHORT of that. This
+ * function still does not pick the smallest file; it picks the smallest file
+ * that covers the box, which it could not do while a rung was missing.
+ *
  * `box` is the CSS px the photograph is painted into, which for every caller is
  * a fixed width in that builder's own style block, not a viewport unit.
  * Returns the srcset value with no attribute around it, or "" when the url is
  * not a TCGplayer product photo.
  */
+// The whole of what tcgplayer-cdn publishes. Anything between these answers 403,
+// and a candidate that 403s is a broken image rather than a fallback, because
+// the browser has already committed to it.
+const TCG_RUNGS = [150, 200, 400];
 const TCG_PRODUCT = /^(https:\/\/tcgplayer-cdn\.tcgplayer\.com\/product\/\d+)_(150|200|400)w\.jpg$/;
 export function productSrcset(thumb, box) {
   const m = TCG_PRODUCT.exec(String(thumb || ""));
@@ -777,9 +808,12 @@ export function productSrcset(thumb, box) {
   if (!(box > 0) || box * 3 > 400) {
     throw new Error(`productSrcset: a ${box}px box needs ${box * 3}px at DPR 3 and tcgplayer-cdn stops at 400w`);
   }
-  const rungs = [`${base}_${small}w.jpg ${small}w`];
-  if (small < 400) rungs.push(`${base}_400w.jpg 400w`);
-  return rungs.join(", ");
+  // From the caller's small rung UP, not just the two ends of it. Starting at
+  // the caller's own rung rather than at 150 is what keeps DPR 1 and DPR 2
+  // exactly where the entry above left them for the 200w callers.
+  return TCG_RUNGS.filter((r) => r >= small)
+    .map((r) => `${base}_${r}w.jpg ${r}w`)
+    .join(", ");
 }
 
 /**

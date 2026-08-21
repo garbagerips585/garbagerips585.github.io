@@ -27,92 +27,40 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=c2b99ea6">
-<style>
-.ws-tool{background:var(--card);border:2px solid var(--keyline);border-radius:var(--r);
-  padding:var(--s5);box-shadow:var(--hard-lg);margin-top:var(--s5)}
+<style>.ws-tool{background:var(--card);border:2px solid var(--keyline);border-radius:var(--r);
+padding:var(--s5);box-shadow:var(--hard-lg);margin-top:var(--s5)}
 .ws-tool label{display:block;font:700 var(--t-label)/1 var(--mono);letter-spacing:.08em;
-  text-transform:uppercase;color:var(--ink-soft);margin-bottom:var(--s2)}
+text-transform:uppercase;color:var(--ink-soft);margin-bottom:var(--s2)}
 .ws-tool input{width:100%;box-sizing:border-box;min-height:52px;padding:0 var(--s4);
-  border:2px solid var(--keyline);border-radius:var(--r);background:var(--paper-2);
-  font:700 1.25rem/1 var(--mono);color:var(--ink)}
+border:2px solid var(--keyline);border-radius:var(--r);background:var(--paper-2);
+font:700 1.25rem/1 var(--mono);color:var(--ink)}
 .ws-tool input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .ws-hint{font:400 var(--t-sm)/1.5 var(--body);color:var(--ink-soft);margin:var(--s3) 0 0}
 .ws-count{font-family:var(--mono);font-size:var(--t-sm);color:var(--ink-soft);margin:var(--s4) 0 0}
-
 .ws-list{list-style:none;margin:var(--s4) 0 0;padding:0;
-  border-top:1px solid var(--hair)}
+border-top:1px solid var(--hair)}
 .ws-row{display:grid;grid-template-columns:1fr;gap:var(--s2);
-  padding:var(--s3) 0;border-bottom:1px solid var(--hair)}
+padding:var(--s3) 0;border-bottom:1px solid var(--hair)}
 .ws-n{font:400 1.5rem/1 var(--display);color:var(--ketchup-deep);
-  display:flex;align-items:baseline;gap:var(--s2)}
+display:flex;align-items:baseline;gap:var(--s2)}
 .ws-n span{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-soft);text-transform:uppercase;
-  letter-spacing:.06em}
+letter-spacing:.06em}
 .ws-sets{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
-/* WRAPS, and it has to. The longest row here is a 24px symbol, "Team Magma vs
-   Team Aqua ex", the year and era, and a "+16 secret" badge. Held on one line
-   that is 387px inside a 366px column at 390px wide, so the whole page picked
-   up 9px of horizontal scroll from four rows out of 141. min-width:0 as well,
-   or the name is a flex item that refuses to shrink below its longest word. */
 .ws-set{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);
-  font-size:var(--t-sm);line-height:1.35;min-width:0}
+font-size:var(--t-sm);line-height:1.35;min-width:0}
 .ws-set a,.ws-set>span{min-width:0}
 .ws-set img{width:24px;height:24px;object-fit:contain;flex:0 0 24px;
-  background:var(--paper-3);border-radius:4px;padding:2px;box-sizing:border-box}
-/* --sky-deep, not --navy. --navy is an INK now (#EEF1EF) and an ink-coloured
-   link inside ink-coloured prose is not a link, it is underlined text. The
-   accent reads 6.24:1 on the page and 4.50:1 on a card, both past AA. */
+background:var(--paper-3);border-radius:4px;padding:2px;box-sizing:border-box}
 .ws-set a{color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px;font-weight:700}
 .ws-yr{font-family:var(--mono);font-size:.68rem;color:var(--ink-soft);white-space:nowrap}
 .ws-badge{font-family:var(--mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;
-  background:var(--mustard);color:var(--on-accent);border:1px solid var(--keyline);border-radius:var(--r-pill);
-  padding:1px 7px;white-space:nowrap}
-/* THE COLOUR ON THAT LINE IS NOT DECORATION. --mustard is a light teal fill
-   now, so the inherited --ink wrote #EEF1EF on #70B5D9 at 1.99:1 and the badge
-   read as an empty pill. --on-accent is the token for exactly this and
-   measures 7.22:1 on the same fill. */
+background:var(--mustard);color:var(--on-accent);border:1px solid var(--keyline);border-radius:var(--r-pill);
+padding:1px 7px;white-space:nowrap}
 .ws-empty{padding:var(--s5) 0;font-size:var(--t-sm);color:var(--ink-soft)}
-/* The secret-rare chart.
-   IT USED TO SAY "EVERY FILL IS A LITERAL HEX ON PURPOSE", and the reason was
-   sound: --navy and --ketchup were both #111111, so a two-part bar written
-   against the tokens was one solid black bar with an invisible join and
-   nothing errored. THE FILLS ARE CLASSES NOW, WHICH KEEPS THAT GUARANTEE AND
-   ALSO SURVIVES A PALETTE MOVE. The trap was writing var() into a
-   presentation ATTRIBUTE, which paints nothing; a fill: declaration in a
-   stylesheet honours var() perfectly well, so the two bar parts get .ws-bar-a
-   and .ws-bar-b here and the svg carries no colour at all. Two named tokens
-   that cannot collide is the same protection the literals bought.
-
-   THE SPLIT IS STILL A WEIGHT DIFFERENCE AND IT IS NOW THE OTHER WAY UP. On
-   the white card the pale part was --paper-3 #E6E4DD and the solid part was
-   #111111. The card is #2F4F39 now, so the pale part is the one nearer the
-   ground: --keyline #86998C at 3.02:1 on the card, and the solid part is
-   --ink #EEF1EF at 8.03:1. Colour removed, it is still light-vs-lighter.
-
-   THE JOIN IS 2.66:1 AND THAT IS THE BEST ANY TWO-TONE SPLIT CAN DO HERE, not
-   a value somebody eyeballed. A middle tone has to clear the card ground on
-   one side and the solid part on the other, and the two demands pull opposite
-   ways: solving for the tone that balances them gives 2.83:1 in both
-   directions and nothing beats it, so 3:1 at the join AND 3:1 against the
-   ground is arithmetically impossible while the solid part is --ink. The join
-   is not the only carrier: every bar prints its own +N beside it and the
-   legend names both parts.
-   max-width 520px matches the drawn figures on /base-set.html.
-   NOTHING HERE IS UNDER 10px AND THE VALUE LABELS USED TO BE 9. A 360 unit box
-   renders 332px wide at 390, so a unit is 0.922px and 9px lands at 8.30, under
-   the point a label stops being readable on a phone. It was justified in this
-   comment as "a repeat of the bar beside it", which was wrong twice over: the
-   bar shows the LENGTH and only the label carries the count, and it was the
-   one measured number in the figure that failed its own test. 10px lands at
-   9.22 and every budget still passes with room. */
 .ws-fig{margin:var(--s5) 0 0;background:var(--card);border:1px solid var(--hair);
-  border-radius:10px;padding:var(--s4) var(--s4) var(--s3);max-width:620px}
+border-radius:10px;padding:var(--s4) var(--s4) var(--s3);max-width:620px}
 .ws-fig svg{display:block;width:100%;height:auto;max-width:520px;margin-inline:auto}
 .ws-fig text{font-family:var(--mono)}
-/* Measured on the .ws-fig ground, --card #2F4F39: the names and the legend
-   8.03:1, the values and the ticks 5.86:1, all past the 4.5:1 AA needs at
-   10px. The grid rungs are 1.44:1 and stay that way on purpose, exactly as
-   they were 1.35:1 on the white card: they are a ruled ground for the bars
-   and every one of them carries its own number underneath. */
 .ws-cname{font-size:10px;font-weight:400;fill:var(--ink)}
 .ws-cval{font-size:10px;font-weight:700;fill:var(--ink-2)}
 .ws-ctick{font-size:10px;font-weight:400;fill:var(--ink-2)}
@@ -122,12 +70,26 @@
 .ws-cgrid{stroke:var(--ink);stroke-opacity:.14}
 .ws-caxis{stroke:var(--ink)}
 .ws-fig figcaption{font-size:var(--t-sm);color:var(--ink-2);line-height:1.5;
-  margin-top:var(--s3);max-width:46em}
+margin-top:var(--s3);max-width:46em}
 @media(min-width:640px){
-  .ws-row{grid-template-columns:120px 1fr;gap:var(--s4);align-items:start}
-  .ws-n{justify-content:flex-end;flex-direction:column;align-items:flex-end;gap:2px}
+.ws-row{grid-template-columns:120px 1fr;gap:var(--s4);align-items:start}
+.ws-n{justify-content:flex-end;flex-direction:column;align-items:flex-end;gap:2px}
 }
-</style>
+@media(min-width:1000px){
+.ws-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(592px,1fr));
+column-gap:var(--s5)}
+}
+@media(min-width:1200px){
+.facts-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+gap:11px;align-items:start}
+.facts-list li{max-width:none}
+}
+@media(min-width:1100px){
+.ws-figrow{display:grid;grid-template-columns:620px minmax(0,1fr);
+gap:var(--s6);align-items:start}
+.ws-figrow > .ws-fig{margin-top:0}
+.ws-figrow > p{margin-top:0}
+}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"What set is my card from?","item":"https://garbagerips585.github.io/what-set.html"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What does the number on the bottom of a Pokemon card mean?","acceptedAnswer":{"@type":"Answer","text":"It is two numbers with a slash between them. The left one is that card's place in the set and the right one is how many cards the set was printed with, so 45/102 is the forty-fifth card of a 102 card set. The right number is the one that identifies the set: across the 141 main English expansions there are 86 different set sizes, and 48 of them belong to exactly one set."}},{"@type":"Question","name":"How do I tell which set a Pokemon card is from?","acceptedAnswer":{"@type":"Answer","text":"Start with the number after the slash and narrow it with the symbol printed next to it. The number alone lands on a single set 48 times out of 86; the rest are shared by two or more, with 132 used by 4 different sets. The symbol tells those apart. It sits in the bottom right corner on cards up to the XY era and moved to the bottom left in 2017 at Sun and Moon."}},{"@type":"Question","name":"Why is my card numbered higher than the set total?","acceptedAnswer":{"@type":"Answer","text":"Because it is a secret rare: a card numbered above the printed set size, so a card reading 199/198 is real and is the kind of card people are hoping for. Across the 27 sets this site holds full checklists for there are 1,360 cards numbered above their own set total, 154 of them in Paldean Fates alone."}}]}</script>
 </head>
@@ -1035,7 +997,7 @@
       <div class="fact"><div class="n">91</div><div class="l">Where Paldean Fates officially stops</div></div>
       <div class="fact"><div class="n">245</div><div class="l">Where it actually stops</div></div>
     </div>
-    <figure class="ws-fig">
+    <div class="ws-figrow"><figure class="ws-fig">
   <svg viewBox="0 0 360 430.5" role="img" aria-label="One bar per set, 27 of them, sorted by how far each runs past its own printed checklist. Each bar is pale up to the set's printed total and solid for every card numbered above it. Paldean Fates is the longest tail, 154 cards past a printed total of 91. Across all 27 sets it is 1,360 cards.">
     <line x1="130.0" y1="34" x2="130.0" y2="406.5" class="ws-cgrid" stroke-width="1"/>
     <text x="130.0" y="420.5" text-anchor="middle" class="ws-ctick">0</text><line x1="195.3" y1="34" x2="195.3" y2="406.5" class="ws-cgrid" stroke-width="1"/>
@@ -1139,7 +1101,7 @@
       rare: Paldean Fates cards all read out of 91 whether they are card 12 or card
       245. Rows in the index above carry a badge saying how far past the printed total each set runs.
       What those cards are actually called is on the <a href="/rarity.html">rarity guide</a>, and what they are worth is
-      on <a href="/cards.html">card search</a>.</p>
+      on <a href="/cards.html">card search</a>.</p></div>
   </div>
 </section>
 

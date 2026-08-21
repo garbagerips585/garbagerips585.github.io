@@ -163,6 +163,26 @@ const PRODUCT_IDS = {
   // sets block describes -- the system could not tell "Tim confirmed this" from
   // "Tim never looked at it" -- reappearing on the product column.
   "ex premium collection box": "ex-premium",
+
+  // FROM TIM'S FOURTH PASS, 21 August 2026, and the same failure a fourth time.
+  // Rows 67 and 72 answer this column with the PRODUCT'S FULL RETAIL NAME
+  // rather than a kind of box: "First Partner Illustration Collection
+  // (Series 1)". Both are already tagged collection-box in overrides.json
+  // because the title matcher guessed it, so once again nothing looked wrong
+  // and the only casualty was the difference between a guess and a confirmation.
+  //
+  // IT MAPS TO collection-box AND DOES NOT EARN AN ID OF ITS OWN. There is no
+  // first-partner product id in shared/taxonomy.mjs and no /openings/ page for
+  // one; adding a key here that named a missing id would caption the filter
+  // rail with a raw string and link to a page that is not built, which is
+  // precisely what the "ex box" comment above records going wrong.
+  //
+  // The Series 2 form is added at the same time, on the same reasoning as the
+  // Korean and Chinese single-pack keys: it does not appear in the sheet today,
+  // and a key that is never read costs nothing.
+  "first partner illustration collection (series 1)": "collection-box",
+  "first partner illustration collection (series 2)": "collection-box",
+  "first partner illustration collection": "collection-box",
   "ex collection box": "ex-premium",
 
   // A First Partner box is a collection box, which is what the title matcher

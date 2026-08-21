@@ -1688,6 +1688,100 @@ than 122px fires the same bug on the far more common DPR 2, and nothing in the
 CSS looks wrong when it does. **Leave real headroom, and state the DPR you
 checked at.**
 
+**THE FIX ABOVE LEFT 2.47MB ON A DPR 3 PHONE, IN TWO PLACES, AND BOTH WERE THE
+LADDER RATHER THAN THE DECLARATION.** Swept 21 August 2026, and the two causes
+are worth keeping apart because only one of them looks like the bug above:
+
+- **/msrp.html, 926.6KB, a MISSING RUNG.** `productSrcset()` had probed the CDN,
+  written down that 150w, 200w and 400w are the three real widths, and then
+  offered only TWO of them: the caller's own small rung and 400w. So a 150w
+  caller got a ladder with a 2.67x step in it. A 64px box asks 192 at DPR 3,
+  which is 42 past 150 and 8 SHORT of a file the CDN had all along, and all 32
+  pins took _400w. **Every declaration on that page was correct**: `sizes` is
+  64px, .ms-pic is 64px, and 400w genuinely is the smallest candidate ON THAT
+  LADDER that covers 192. Re-probed before changing anything and 220, 240, 250,
+  260, 270, 280, 300, 320, 350 and 360 are all still 403, so 150/200/400 is the
+  whole ladder and it is offered whole now, from each caller's small rung up.
+- **The twelve /openings/ pages, 1,604.6KB across 55 logos, a `sizes` THAT KNEW
+  ABOUT ONE OF THE TWO BOXES.** `@media(max-width:560px)` drops the .op-sw plate
+  from 116x42 to 88x34 so the row can go to two columns, and `setLogoTag` wrote
+  its drawn width against the DESKTOP plate and then wrote it FLAT. A phone was
+  told the logo is painted up to 1.32x wider than it is, on the density where
+  that costs the most: 116 x 3 = 348 reaches the 955w, 892w, 806w and 483w
+  masters where the real box wants 258 and the -sm.webp beside them is 318, 303,
+  269 or 300. It is a media query in the stylesheet and a literal in the builder,
+  which is the same shape as the eight-pixel gap above and just as invisible.
+
+**87 PICKS MOVED AND EVERY ONE OF THEM IS AT DPR 3.** Zero at DPR 1, zero at
+DPR 2, at 390 and at 1440, and /msrp.html is the only page that moves on a
+desktop at all. Read off `currentSrc` at all three densities against two trees
+served from two ports, 150 pages at 390 and 33 at 1440, the page list drawn from
+a static scan of all 1,486 built HTML files (37,689 `<img>`, 228 distinct
+class/ladder/sizes shapes) so the representatives are the whole surface and not
+a guess. Bytes are the sum of the ACTUAL file sizes of the rungs taken:
+
+                                DPR 1   DPR 2      DPR 3
+      /msrp.html at 390          same    same    -926.6KB
+      /msrp.html at 1440         same    same    -926.6KB
+      /openings/ x12 at 390      same    same  -1,604.6KB
+      /openings/ x12 at 1440     same    same       same
+
+The markup cost is +234 bytes gzipped on /msrp.html and 124 to 195 on the
+openings pages, and /what-to-buy.html pays 145 for a 200w candidate it never
+takes below DPR 4. That is the price of offering the ladder whole rather than
+per caller, and it is the same argument the 48px tables were already given.
+
+**`naturalWidth` IS NOT THE RUNG AND A QA PASS BUILT A 958-IMAGE FINDING ON IT.**
+With `w` descriptors the spec density-corrects it, so it hands back the `sizes`
+value and every image on the site looks exactly the size it was declared to be.
+Read `currentSrc`. Say which DPR.
+
+**AND `getBoundingClientRect().width` IS NOT THE RUNG EITHER WHEN THE IMAGE IS
+`object-fit:contain`.** The first pass over the openings logos flagged 39 of its
+own fixes as under-serves, because it checked the chosen file against the 86px
+LAYOUT box when contain draws most of those logos 51 to 79px wide inside it.
+Re-checked against `min(boxW, boxH * w/h)` with the real pixel dimensions read
+off disk: 222 reads at 390 and 1440 at DPR 1, 2 and 3, **zero under-serves**,
+tightest headroom 1.042x (Pokemon GO, 154 device px wanted against 160 available)
+against 1.023x on the desktop rows, which is pre-existing and untouched.
+
+**IT IS A REAL PICTURE CHANGE AND SAYING SO IS THE POINT.** /msrp.html's pins
+were being handed 400 pixels for a 192 pixel box, so the browser was
+supersampling 2.08x and the result was CRISPER than a correctly sized image can
+be. Screenshotted element-exact at 390 and 1440 at DPR 3, before against after:
+PSNR 28.5 and 24.9 dB over two pins, mean absolute Laplacian 9.8 -> 5.2 and
+14.1 -> 5.8. Nothing is blurred -- 200 real pixels cover a 192 pixel box -- but
+a 64px thumbnail that used to be drawn from four times its own area now is not.
+The precedent is /topps-card-values.html three entries down, which ACCEPTED an
+11% short pick rather than put a megabyte back on a phone; this one is 4% long.
+
+**TWO OF THE FOUR REPORTED OVER-PICKS WERE MEASURED AND ARE NOT FIXABLE, and
+one of them would have made the page HEAVIER:**
+
+- **/rarity.html's twelve 96px ladder cards are RIGHT to carry no `sizes`.** The
+  report called this the worst and the simplest of the four. Every one of those
+  twelve urls is ALSO the source of a 600px magnified crop in the same row, which
+  is exactly what CROP_CARDS in build-rarity.mjs exists to protect, and it was
+  checked from the DOM rather than from the markup: 12 of 12 shared, at DPR 1, 2
+  and 3. Give them a 245w/600w ladder and DPR 1 and DPR 2 fetch the low file for
+  the card AND the high file for the crop: **637.3KB and 12 requests becomes
+  808.9KB and 24**, +171.6KB, and DPR 3 does not move at all because 96 x 3 = 288
+  clears 245 anyway. Do not "fix" it.
+- **/what-to-buy.html's 1.85x IS THE LADDER'S GRANULARITY, not a declaration
+  bug.** .wtb-pic is 72px, which asks 216 at DPR 3, and 200w is 7.4% SHORT of
+  that while the next real file is 400w. Nothing between them exists. The prize
+  is real but it needs data this repo does not keep: those photographs are
+  `object-fit:contain` in a SQUARE box, so a portrait one is drawn narrower than
+  72 and 8 of the page's 13 would fit 200w on their DRAWN width, worth 337.2KB.
+  **THE OBVIOUS SHORTCUT IS WRONG AND THIS IS THE NUMBER THAT KILLS IT:** the
+  file's own line above says tcgplayer-cdn runs "200x268 to 200x417", so a blanket
+  0.746 factor looks safe. Fetched all 315 product photographs the site uses and
+  measured them: **162 of the 315 are square or LANDSCAPE**, up to 200x88, and
+  contain draws every one of those at the full box width. A per-image `sizes`
+  needs a per-product dims file and a sync to keep it true, the way
+  logo-dims.json and cover-dims.json already are, and its failure mode is silent
+  blur. That is its own change, not a rider on this one.
+
 Measured with one harness at 390x844 DPR 3, Slow 4G with a 4x CPU slowdown,
 over HTTP/2 against a local TLS server, cache off, medians of 3. "on load" is
 network-quiet with no scroll; "last picture" is when the last image a reader

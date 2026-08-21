@@ -332,6 +332,21 @@ const photoFor = makePhotoFor({ products: prod, extra: EXTRA, dead: DEAD });
 // up to 34%. The box is a fixed 64x64 in CSS, so nothing reflows.
 const small = (u) => u.replace(/_200w\.jpg$/, "_150w.jpg");
 
+// THE BOX IS ONE NUMBER NOW AND THAT IS NOT TIDYING. It was written six times:
+// twice here, in the srcset's box and in `sizes`, and four times in the stylesheet
+// below, in .ms-head's first grid track and in .ms-pic and .ms-nopic. Six copies
+// of a number that three of the six only work when they AGREE.
+//
+// It got a name on 21 August 2026 because the srcset stopped being slack. Until
+// then the ladder was 150w then 400w, so a box anywhere from 51 to 133px took
+// _400w at DPR 3 and a stale `sizes` could not be seen: every wrong declaration
+// in that range resolved to the same file. The middle rung is offered now, so
+// 64px takes _200w, which is 200 real pixels against the 192 the box asks for.
+// That is correct and it is 4% of headroom. Widen .ms-pic to 67 and leave this
+// at 64 and the page goes quietly soft, which is the /hall.html "FIVE PIXELS"
+// trap in CLAUDE.md arriving on a new page. One constant is the guard.
+const PIC_BOX = 64;
+
 // `eager` IS FOR THE FIRST ROW'S PHOTOGRAPH ONLY, and it is the same call
 // build-what-to-buy.mjs's `shot()` already makes for the first card on that
 // page. Measured on the built page at 390x844 DPR2: the first priced row's
@@ -342,8 +357,8 @@ const shot = (row, { eager = false } = {}) => {
   const p = photoFor(row.rowId);
   if (!p) return `<span class="ms-pic ms-nopic" aria-hidden="true"></span>`;
   return `<img class="ms-pic" src="${esc(small(p.src))}"${
-    productSrcsetAttr(small(p.src), 64)
-  } sizes="64px" alt="${esc(p.name)}, sealed"${eager ? "" : ' loading="lazy"'} decoding="async"
+    productSrcsetAttr(small(p.src), PIC_BOX)
+  } sizes="${PIC_BOX}px" alt="${esc(p.name)}, sealed"${eager ? "" : ' loading="lazy"'} decoding="async"
         referrerpolicy="no-referrer" onerror="this.remove()">`;
 };
 
@@ -927,10 +942,13 @@ const STYLE = `
    full width, where it gets to be 2rem. Above 560px there is room for all three
    across and the price goes back to the right, hard against the edge, which is
    where an eye scanning a column of prices wants it. */
-.ms-head{display:grid;grid-template-columns:64px 1fr;gap:var(--s3);align-items:start}
-.ms-pic{grid-row:span 2;width:64px;height:64px;object-fit:contain;border-radius:6px;
+.ms-head{display:grid;grid-template-columns:${PIC_BOX}px 1fr;gap:var(--s3);align-items:start}
+/* PIC_BOX, not a literal: see the comment beside it. The sizes attribute up
+   there is the same number, and the srcset only covers the box while they
+   agree. No backticks in here: this comment is inside a template literal. */
+.ms-pic{grid-row:span 2;width:${PIC_BOX}px;height:${PIC_BOX}px;object-fit:contain;border-radius:6px;
   background:var(--paper-3)}
-.ms-nopic{grid-row:span 2;width:64px;height:64px;border-radius:6px;
+.ms-nopic{grid-row:span 2;width:${PIC_BOX}px;height:${PIC_BOX}px;border-radius:6px;
   background:repeating-linear-gradient(45deg,var(--paper-3),var(--paper-3) 5px,
     var(--paper) 5px,var(--paper) 10px)}
 .ms-id h3{margin:0;font-size:1.05rem;line-height:1.25}

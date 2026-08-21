@@ -353,6 +353,31 @@ const ld = [
  * given a fixed 24px box with a light plate behind them: several era symbols
  * are near-black line art and vanish against the navy the site uses for keylines.
  */
+// COMMENTS OUT OF THE SHIPPED PAGE, ARGUMENT KEPT IN THIS FILE. Same trade
+// build-css.mjs makes for ui.css, and the same helper and the same regex ten
+// other builders on this site already use: build-buying.mjs and
+// build-complete.mjs both carry it with the argument written out, and it is
+// theirs rather than a new idea. Comments, plus the indentation between rules.
+// Nothing else.
+//
+// It is here because this block is inline in a render blocking <head> and
+// because the desktop rules added below on 21 August 2026 came with the
+// measurements that justify them written alongside, which is the site's own
+// convention and is not negotiable. Measured on the built page, in BYTES rather
+// than characters, because this page carries an accented Pokemon and a hundred
+// bullet glyphs and the two counts differ by 19:
+//
+//      style block   13,573 bytes, of which 9,930 are comment
+//      page          103,243 raw / 20,699 gzipped  unstripped
+//      page           93,243 raw / 16,214 gzipped  stripped
+//
+// The page was 96,251 / 17,852 before this pass. So the two-column index and
+// the two-up facts lists cost the reader NOTHING and give back 1,638 gzipped
+// bytes, and the whole argument for them is still in this file where the next
+// editor will read it.
+const miniCSS = (css) =>
+  css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/[ \t]*\n[ \t\n]*/g, "\n").trim();
+
 const style = `
 .ws-tool{background:var(--card);border:2px solid var(--keyline);border-radius:var(--r);
   padding:var(--s5);box-shadow:var(--hard-lg);margin-top:var(--s5)}
@@ -453,6 +478,126 @@ const style = `
   .ws-row{grid-template-columns:120px 1fr;gap:var(--s4);align-items:start}
   .ws-n{justify-content:flex-end;flex-direction:column;align-items:flex-end;gap:2px}
 }
+
+/* ==========================================================================
+   THE INDEX IS 62% OF THIS PAGE AND IT WAS ONE 592px COLUMN IN A 1,392px BAND,
+   fixed 21 August 2026. Measured at 1440x900, box against the rightmost PAINTED
+   pixel inside it, which is the test that matters here because the box was
+   never the problem: every .ws-row spans 24..1416 and none of them paints past
+   the middle of it.
+
+       ol.ws-list      6,489px of a 10,401px main
+       li.ws-row  x86  box 24..1416   ink 420..592   avg fill 34%
+       ul.facts-list   box 24..1416   ink 571        x3, 1,221px of page
+
+   AND THE ROW RULES ARE WHAT MADE IT READ AS BROKEN RATHER THAN AS NARROW.
+   .ws-row carries a border-bottom, so 86 hairlines were being drawn the full
+   1,392px under content that stopped at 500. A rule under nothing is not a
+   quiet defect the way a short paragraph is: it draws the empty half.
+
+   THE ANSWER IS LAYOUT AND NOT DECORATION, which is the precedent CLAUDE.md
+   sets for the home page, and this page is the same shape as the carousel that
+   set it: at 1440 that page showed two videos in its first 3,307px with 872px
+   of empty band either side of every card, and the sentence the fix is written
+   under is "the desktop fix is not a wider card, it is more of them". An index
+   row cannot be made wider. There are 86 of them, so there is more of them.
+
+   592px IS MEASURED AND IT IS THE SAME AT EVERY DESKTOP WIDTH, which is the
+   whole reason auto-fill is right here and a breakpoint is not. A row is a
+   120px number gutter and a set line that does not wrap, so its ink does not
+   move when the band does: p50 482, p90 528, p99 592, max 592, identical at
+   1000, 1100, 1200, 1280, 1440, 1600 and 1920. Every pixel past 592 was empty
+   BY CONSTRUCTION and no width was ever going to fill it. The widest row is
+   /123, which is Mysterious Treasures and HeartGold and SoulSilver with a
+   secret badge on each.
+
+   So the track minimum is that measured 592 rather than a share of the band,
+   and repeat(auto-fill) works out how many fit. THE THRESHOLD IS 1256px AND IT
+   WAS READ OFF THE PAGE RATHER THAN PREDICTED, because the first version of this
+   comment said 1280 and was wrong by 24 pixels: .wrap is border-box, so the
+   two gutters come out of it before the tracks are laid, and 1256 less
+   var(--gut) either side is 1,208, which is 592 + 24 + 592 to the pixel.
+   Stepped one pixel at a time on the built page, tracks read off
+   getComputedStyle and the list height beside them:
+
+       1255   1207px                    one column    list 6,489px
+       1256   592px 592px               two columns   list 3,669px
+       1257   592.5px 592.5px           two columns   list 3,644px
+       1280   604px 604px               two columns   list 3,644px
+       1440   684px 684px               two columns   list 3,644px
+
+   so nothing is ever squeezed: the narrowest column this rule can produce is
+   the widest row that exists, which is what a picked breakpoint could not
+   promise. The 25px between 3,669 and 3,644 is one row wrapping at exactly
+   592.0 and unwrapping at 592.5, which is the headroom being spent and is the
+   only width where it is.
+
+   THE FAILURE MODE IS GRACEFUL AND WAS CHECKED RATHER THAN ASSUMED, because
+   the data grows: .ws-set is flex-wrap with min-width:0 already, for the reason
+   its own comment gives about 390px, so a future set name past 592 wraps to a
+   second line and makes ONE row taller. It cannot overflow and it cannot
+   scroll the page sideways.
+   A 560px minimum would buy two columns from about 1192 as well, at the price
+   of wrapping the handful of rows between 560 and 592. That is a real trade and
+   it was rejected in favour of the measured number, which promises that no row
+   wraps that did not wrap before. If a later editor wants 1200, that is the
+   knob, and the rows it costs are the ones above p90.
+
+   align-items IS LEFT AT stretch, DELIBERATELY, AND IT COSTS HEIGHT. A row
+   stretches to its neighbour so the two border-bottoms land on one line and the
+   index reads as a ruled table across the whole band. Letting them sit at their
+   own heights is tighter and gives two ragged ladders of hairlines, which is
+   the defect above wearing a different hat.
+
+   min-width:1000 like every desktop rule on this site, so 320, 390 and 768 are
+   byte-identical. It is a no-op from 1000 to 1279, where auto-fill resolves to
+   one track, and that is correct rather than wasteful: one column IS the right
+   answer until two of them fit.
+   ========================================================================== */
+@media(min-width:1000px){
+  .ws-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(592px,1fr));
+    column-gap:var(--s5)}
+}
+
+/* THE QUICK FACTS GO TWO UP AT 1200, and this is the site's existing rule
+   rather than a new idea: build-complete.mjs, build-set-pages.mjs and
+   build-pack-prices.mjs all do exactly this to .facts-list at exactly this
+   breakpoint with the same max-width:none on the item. Read the long comment in
+   build-complete.mjs before changing it; the half worth repeating is that
+   capping the item instead made that page 446px TALLER and still left 873px of
+   empty band, because a cap fixes the measure by throwing the width away.
+   Three lists here, 1,221px of page, items inking to 525 of 1,392. */
+@media(min-width:1200px){
+  .facts-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:11px;align-items:start}
+  .facts-list li{max-width:none}
+}
+
+/* THE CHART GETS THE PARAGRAPH THAT IS ABOUT IT, rather than being centred or
+   left where it was. 620x748 at x=24..644 with 772px of empty band beside it,
+   and the very next element is the paragraph explaining what the chart means,
+   680px wide and 105px tall, stacked underneath. That is a companion the page
+   already owned and was not using, which is the /retailers/ case rather than
+   the /tcg-pocket.html one: centring is for a page with nothing to put beside
+   the text, and this is not that page.
+
+   THE TRACK IS THE FIGURE'S OWN WIDTH. .ws-fig is max-width:620px, so the first
+   track is 620 flat and the paragraph takes what is left. At 1100 that is 400px
+   and the paragraph grows from 105px to about 180, still well inside the
+   figure's 748, so the row costs NO height and gives back the 121px the stacked
+   paragraph was spending. Below 1100 the second track would be under 300px,
+   which is too narrow for prose, so that is where it starts.
+
+   IT IS ONE WRAPPER AND IT IS ONLY EMITTED WHEN THERE IS A CHART, because
+   secretChart returns an empty string under five rows and a grid whose first
+   track is a 620px figure that does not exist would pin the paragraph into
+   column two. */
+@media(min-width:1100px){
+  .ws-figrow{display:grid;grid-template-columns:620px minmax(0,1fr);
+    gap:var(--s6);align-items:start}
+  .ws-figrow > .ws-fig{margin-top:0}
+  .ws-figrow > p{margin-top:0}
+}
 `;
 
 const setLine = (s) => {
@@ -522,6 +667,11 @@ const script = `
 })();
 `;
 
+// Built once rather than inline in the page, because the .ws-figrow wrapper
+// below has to know whether there IS a figure before it opens a grid whose
+// first track is one. secretChart returns an empty string under five rows.
+const chart = secretChart(withSecrets, withGuide.length - withSecrets.length);
+
 const page = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -558,7 +708,7 @@ ${
 }
 ${FONTS}
 ${STYLES}
-<style>${style}</style>
+<style>${miniCSS(style)}</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -642,12 +792,12 @@ ${indexRows}
       <div class="fact"><div class="n">${mostSecrets.printedTotal}</div><div class="l">Where ${esc(mostSecrets.name)} officially stops</div></div>
       <div class="fact"><div class="n">${mostSecrets.total}</div><div class="l">Where it actually stops</div></div>
     </div>
-    ${secretChart(withSecrets, withGuide.length - withSecrets.length)}
+    ${chart ? `<div class="ws-figrow">` : ""}${chart}
     <p style="max-width:40em;margin-top:16px">So the number after the slash still identifies the set even on a secret
       rare: ${esc(mostSecrets.name)} cards all read out of ${mostSecrets.printedTotal} whether they are card 12 or card
       ${mostSecrets.total}. Rows in the index above carry a badge saying how far past the printed total each set runs.
       What those cards are actually called is on the <a href="/rarity.html">rarity guide</a>, and what they are worth is
-      on <a href="/cards.html">card search</a>.</p>
+      on <a href="/cards.html">card search</a>.</p>${chart ? `</div>` : ""}
   </div>
 </section>
 

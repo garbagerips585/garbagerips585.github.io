@@ -605,6 +605,13 @@ a.ev-node:hover{background:var(--mustard);color:var(--on-accent)}
 .ev-fk{width:22px;height:34px;fill:var(--gold);color:var(--gold);margin-top:-4px}
 .ev-armbody{min-width:0}
 .ev-armbody .ev-line{margin-top:4px}
+/* VIEWPORT AND NOT CONTAINER, ON PURPOSE, AND THIS BLOCK IS NOT STRIPPED SO
+   the argument is kept short. A chain sits in a card 302 to 1354px wide across
+   the two pages that draw one, so a container query is the right SHAPE here.
+   It was written and measured on both, at every width: it changes nothing,
+   because a row chain that runs out of width staircases, and the threshold
+   that DOES change something costs 6,036px of scroll. The numbers are beside
+   the .ev-list breakpoint in scripts/build-evolution.mjs. */
 @media(min-width:720px){
   .ev-line{flex-direction:row;align-items:center;flex-wrap:wrap;gap:2px}
   .ev-ar{transform:none}

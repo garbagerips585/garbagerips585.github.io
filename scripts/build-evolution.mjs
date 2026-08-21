@@ -353,6 +353,31 @@ const ld = [
   },
 ];
 
+// COMMENTS OUT OF THE SHIPPED PAGE, ARGUMENT KEPT IN THIS FILE. Same helper,
+// same regex and same trade as build-buying.mjs and build-complete.mjs, which
+// both carry the argument written out, and as build-css.mjs makes for ui.css.
+// Comments, plus the indentation between rules. Nothing else.
+//
+// This block is inline in a render blocking <head> and it is nearly all prose:
+// every rule in it was written with the measurement that justifies it beside
+// it, which is this site's convention and is worth more in the file than in the
+// document. Measured on the built page, in BYTES and not characters:
+//
+//      style block   12,863 bytes, of which 7,954 are comment
+//      page          380,587 raw / 43,989 gzipped  unstripped
+//      page          372,565 raw / 40,339 gzipped  stripped
+//
+// The page was 377,322 / 42,582 before this pass, so it gives back 2,243
+// gzipped bytes and the two rules below are free.
+//
+// IT STRIPS THIS BLOCK AND NOT EVO_CSS, which is imported from
+// shared/evolution.mjs and is also emitted here. That file is shared with the
+// species pages and this pass does not own it; stripping it at emit time would
+// work and would save more, but it would claim a saving on somebody else's
+// code. If a later pass wants it, the change is miniCSS(EVO_CSS + style).
+const miniCSS = (css) =>
+  css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/[ \t]*\n[ \t\n]*/g, "\n").trim();
+
 const style = `
 .ev-lede{max-width:46em}
 /* THE FINDER. Sticky, because the whole page is one long list and a reader who
@@ -460,24 +485,124 @@ const style = `
 .ev-open{margin:var(--s4) 0 0 var(--s4);font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);max-width:46em}
 .ev-open li{margin-bottom:var(--s2)}
 
-/* FROM 720px THE CHAIN TURNS. Below it, a chain is a column and the arrow
-   points down; above it there is room for three boxes and two arrows across.
-   720 rather than 640 because the longest real line, Wurmple's, is four boxes
-   and three conditions and it wraps below that. */
+/* FROM 720px THE CHAIN TURNS AND THE LIST BECOMES TWO COLUMNS, IN ONE QUERY.
+   Until 21 August 2026 those were two numbers 280px apart and the gap between
+   them was the largest hollow surface left on this site.
+
+   Below 720 a chain is a column and the arrow points down, drawn by EVO_CSS in
+   shared/evolution.mjs. Above it the chain is a row and the list holds two of
+   them. 720 rather than 640 because the longest real line, Wurmple's, is four
+   boxes and three conditions and it wraps below that.
+
+   WHY TWO COLUMNS AT ALL, which is the older half of this and is unchanged: a
+   linear chain drawn as a row is about 560px wide, so at 1440 every one of 340
+   cards left 800px of empty band beside it and the page ran to 53,086px. It is
+   the failure ui.css already documents for the home page. .ev-list is 91% of
+   this page, so wherever the list is one column the whole page is hollow.
+
+   THE BREAKPOINT WAS 1100, THEN 1000, AND IT IS 720. The 1100 to 1000 move was
+   measured at the time and is still the same finding one band along:
+
+       vw=1024   card 976 wide   ink p50 508   list 59,767px
+       vw=1100   card 520 wide   ink p50 386   list 43,368px
+
+   THE ARGUMENT THAT KEPT IT AT 1000 IS QUOTED HERE RATHER THAN DELETED,
+   BECAUSE IT WAS CHECKABLE AND ALL THREE OF ITS CLAIMS WERE WRONG. It read:
+   "IT DOES NOT GO BELOW 1000 AND THAT IS NOT TIMIDITY. At 900 the two columns
+   would be 420px and at 768 they would be 354, and the chain is a ROW from
+   720px up, drawn by EVO_CSS in shared/evolution.mjs against the VIEWPORT and
+   not against its container. A row chain in a 354px column is the wall the
+   comment above is about, and that stylesheet is shared with the species
+   pages, so the fix for the 768 band is not a number in this file."
+
+     - "A row chain in a 354px column is the wall." IT IS THE FIX. A row chain
+       that runs out of width does not run off the side of the card, it
+       STAIRCASES: flex-wrap puts the next name box on the line below its own
+       condition, so a three stage line reads down instead of across. Zero
+       elements hang off the right edge at 720, 768, 900, 999, 1000 or 1440,
+       tested the way this repo tests it, and it was screenshotted at 768 and
+       900 before it was believed.
+     - "that stylesheet is shared with the species pages." IT IS NOT.
+       build-pokemon.mjs imports loadEvolutions and walkChain, the DATA half of
+       that file, and draws its own boxes: 0 of the 1,026 /pokemon/ pages carry
+       an ev- class. EVO_CSS reaches exactly TWO pages, this one and
+       /eevee-evolutions.html, and the second holds no .ev-list at all, so
+       nothing in this block can reach it.
+     - "the fix for the 768 band is not a number in this file." It is this
+       number, and shared/evolution.mjs did not have to change at all.
+
+   THE CONTAINER QUERY WAS THE OBVIOUS FIX AND IT IS MEASURED AND REJECTED, and
+   this is the block EVO_CSS's own comment points at, so keep the two together.
+   Making the chain turn on the CARD's width rather than the viewport's is the
+   cleaner expression of what that rule means, and it is genuinely correct in
+   kind. It also does nothing here, and where it does something it does harm.
+   Four builds of the same page, one harness, same widths:
+
+       container-type on .ev-card, chain row from a 300px container:
+         identical document height to the rule above at 720, 768, 900, 999,
+         1000 and 1440, to the pixel. The narrowest container this page has is
+         302px, at a 720px viewport, so the query never fires differently. It
+         costs a containment context on all 340 cards, worth about a
+         millisecond on a 23ms forced-layout pass, plus its own rules, to buy
+         nothing.
+
+       the same but firing at 400px, so the chain goes back to a column in the
+         two narrow bands, which is the version that actually changes anything:
+         main 61,282 at 768 against 55,246, and 60,848 at 900 against 49,993.
+         6,036px and 10,855px of EXTRA scroll, and it does not even buy hollow
+         rows consistently: 48.9% against 47.8% at 768, which is WORSE, and
+         50.2% against 52.7% at 900, which is 2.5 points better. Refused.
+
+   THE REASON IT PAYS NOTHING IS THE ONE THING WORTH REMEMBERING: a container
+   query only becomes a lever once the container is narrower than the viewport
+   threshold, and the SAME edit that narrows the card here is the two-column
+   rule. Applied on its own, against the one-column list this page had, a
+   container query moved not one pixel at any width.
+
+   MEASURED, one harness, headless Chrome over CDP, DPR 1. Ink is the rightmost
+   PAINTED pixel per 1px row of main, where painted means a text line box or an
+   img or an svg; a container's own fill is NOT ink, because counting it
+   reports a hollow 976px card as fully inked, which is the thing being
+   measured. Before -> after:
+
+       vw     main height           row ink p50     inked rows under 60vw
+       320    108,090 -> unchanged  142 -> unchanged  77.2% -> unchanged
+       390    104,436 -> unchanged  141 -> unchanged  87.1% -> unchanged
+       768     65,230 ->   55,246   201 ->      495   85.3% ->     47.8%
+       900     64,359 ->   49,993   201 ->      518   86.1% ->     52.7%
+       1024    48,624 -> unchanged  580 -> unchanged  54.9% -> unchanged
+       1440    42,013 -> unchanged  788 -> unchanged  58.9% -> unchanged
+
+   320 and 390 are unchanged to the hundredth of a pixel and were measured
+   against 768 and 900 as a positive control, so a harness that saw nothing
+   could not have passed. /eevee-evolutions.html is unchanged at all six.
+
+   AND THE CLIFF AT THE OLD BREAKPOINT IS GONE, which is worth as much as the
+   heights. The document was 64,940px at 999 and 50,145px at 1000, so ONE PIXEL
+   of window width cost a reader 14,795px of scroll. It is 49,851 to 50,145
+   now, and the 294px left is the reading-measure block below rather than the
+   list. Swept a pixel either side of both bounds, document height, before ->
+   after, with /eevee-evolutions.html identical at every one of them:
+
+       719  102,878 -> 102,878     899   65,792 -> 51,466
+       720   67,668 ->  57,396     900   65,792 -> 51,426
+       767   66,707 ->  56,677     999   64,940 -> 49,851
+       768   66,661 ->  56,677    1000   50,145 -> 50,145
+
+   719 and 1000 are the two rows that prove the edit lands exactly where it was
+   aimed, and 0 elements hang off the right edge at any of the eight.
+
+   THE FORKS SPAN BOTH COLUMNS. Eevee is eight arms and Magnemite is seven
+   conditions; squeezed into a single column they wrap into a wall, and they
+   are the cards people came for. Measured at 1440, all 19 .ev-branchy cards
+   ink to 1,377 of a 1,392px box, because a fork draws a connector rule from
+   each condition across to the stage it produces. They fill the width they are
+   given, and from 720 up they are the only cards still getting the whole wrap.
+   .ev-branchy is set by the builder from the data rather than by hand, so a
+   new branching line gets the full width without an edit here. Nothing may
+   narrow them. */
 @media(min-width:720px){
-  .ev-list{display:grid;grid-template-columns:1fr;gap:var(--s3)}
-}
-/* TWO COLUMNS FROM 1100px, and the reason is the failure ui.css already
-   documents for the home page: a linear chain drawn as a row is about 560px
-   wide, so at 1440 every one of 340 cards left 800px of empty band beside it
-   and the page ran to 53,086px. Measured. Two columns fills the width and
-   roughly halves the scroll.
-   THE FORKS SPAN BOTH. Eevee is eight arms and Magnemite is seven conditions;
-   squeezed into a 700px column they wrap into a wall, and they are the cards
-   people came for. .ev-branchy is set by the builder from the data rather than
-   by hand, so a new branching line gets the full width without an edit here. */
-@media(min-width:1100px){
-  .ev-list{grid-template-columns:1fr 1fr;align-items:start}
+  .ev-list{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);align-items:start}
   .ev-branchy{grid-column:1 / -1}
 }
 /* DESKTOP READING MEASURE, and the class on the four loose paragraphs is why
@@ -497,6 +622,28 @@ const style = `
      which is enough for a 2% bar to still be a mark. */
   .ev-fig{max-width:46em}
   .ev-fig figcaption{max-width:var(--measure)}
+  /* .ev-read TAKES THE SAME CAP AS .ev-fig, AND THE COMMENT ON .ev-read ALREADY
+     CLAIMED IT DID. It says "Same box as .ev-read ... so a reader meets one
+     visual language and not two", and until 21 August 2026 only one of the two
+     was capped: the figure was 782px and the slab beside it was the full
+     1,392px wrap with the same 3px frame round it. Measured at 1440, box
+     against the rightmost PAINTED pixel inside it, the two of them:
+
+         div.ev-read   box 24..1416   ink 546   fill 38%
+         div.ev-read   box 24..1416   ink 699   fill 48%
+         figure.ev-fig box 24..806    ink 787   fill 98%
+
+     THE PARAGRAPHS DO NOT MOVE, which is the check that makes this a one line
+     change rather than a re-layout. .ev-read p is already max-width:46em at
+     var(--t-sm), which measures 699px, while 46em on the BOX resolves against
+     the inherited 17px and measures 782. 782 less the s4 padding either side
+     and the 3px frame either side is 744, so the p keeps its own 699px cap and
+     the frame closes in around it.
+     A SLAB OF PROSE BECOMES A CALLOUT THE WIDTH OF WHAT IT HOLDS. Same call
+     build-base-set.mjs made on .fk-golden, and for the same reason: nothing
+     goes beside these two blocks, so the choice is a band they cannot fill or a
+     box the size of their own contents. */
+  .ev-read{max-width:46em}
 }
 `;
 
@@ -607,7 +754,7 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
-<style>${EVO_CSS}${style}</style>
+<style>${EVO_CSS}${miniCSS(style)}</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>

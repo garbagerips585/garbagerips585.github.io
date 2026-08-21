@@ -268,8 +268,26 @@ border-radius:50%;background:var(--gold-deep)}
 .shop-play-note{font-size:var(--t-micro);color:var(--ink-2);margin-top:8px;line-height:1.5}
 .shop-play-warn{font:700 var(--t-micro)/1.6 var(--mono);color:var(--plum);
 background:var(--lilac-pale);border-radius:var(--r-sm);padding:8px 10px;margin-top:8px}
-.shop-map{margin:0 0 var(--s5);color:var(--ink)}
+.shop-map{margin:0 0 var(--s5);color:var(--ink);max-width:660px}
 .shop-map svg{display:block;width:100%;height:auto;max-width:660px}
+.mk-n{display:none}
+@media(max-width:544px){
+.mk-w{display:none}
+.mk-n{display:inline}
+}
+.map-key-h,.map-key{display:none}
+.map-key-h{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;
+text-transform:uppercase;color:var(--ink-2);margin:var(--s3) 0 var(--s2)}
+.map-key{list-style:none;margin:0;padding:0;
+grid-template-columns:repeat(auto-fill,minmax(10.5em,1fr));gap:var(--s2) var(--s3);
+font:400 var(--t-sm)/1.35 var(--body);color:var(--ink)}
+.map-key li{display:flex;align-items:baseline;gap:8px}
+.map-key b{flex:none;min-width:1.7em;padding:2px 0;text-align:center;border-radius:4px;
+background:var(--paper-3);color:var(--ink);font:700 var(--t-label)/1.3 var(--mono)}
+@media(max-width:544px){
+.map-key-h{display:block}
+.map-key{display:grid}
+}
 .shop-map figcaption{font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-2);
 margin-top:var(--s2);max-width:52em}
 .shop-map figcaption a{color:var(--ketchup-deep);font-weight:600}
@@ -481,7 +499,7 @@ border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s6);m
       the shop is why the local scene exists.</p>
 <figure class="shop-map">
       <svg viewBox="0 0 640 446" role="img"
-        aria-label="A map of 6 card shops around Rochester, New York. Roads, water and the city boundary are drawn from OpenStreetMap data, with each shop marked and named. Their addresses are on each card below.">
+        aria-label="A map of 6 card shops around Rochester, New York. Roads, water and the city boundary are drawn from OpenStreetMap data, with each shop marked and named. On a narrow screen the marks are numbered instead and the numbers are listed under the map. Their addresses are on each card below.">
         <defs><clipPath id="shopmap-clip"><rect x="0" y="0" width="640" height="446" rx="10"/></clipPath></defs>
         <rect x="0" y="0" width="640" height="446" rx="10" fill="var(--paper-3)"/>
         <g clip-path="url(#shopmap-clip)" fill="none">
@@ -491,35 +509,105 @@ border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s6);m
         <path class="sm-road-major" d="M230.6,308.6l-9.1,4.8 -7.4,-0.5 -10.7,-9.4 -10.2,-4.9 -20.4,-13.9 -12.2,-5.6 -20.4,-12.5 -4.8,-5.5 -11,-21.4 -20.7,-26.3 -4,-7.5 -1.3,-5.9 -0.3,-13.7 -5.4,-11.6 -1.2,-5.8 -1.7,-46.4 1.8,-27 1.7,-6.8 6.7,-10.4 2.7,-7.4 4.1,-24.7 0.1,-29.4 4.6,-17.9 1.3,-16 5,-12.5 1.1,-6.7M229.3,310.3l6.2,-2.6 5.7,-0.5 40,7.5 14.4,-0.1 30.1,-3.2 5.7,-3.5 2.7,-4.3 1.6,-12.6 -3.4,-12.8 2,-48.4 3.7,-4.4 12,-3.3 3.3,-2.4 8.3,-23.4 -2.5,-13.2 0.6,-28.5 -6.8,-16.1 -3.6,-34.4 -7.2,-26.7 -1.9,-24.7M340.4,55.8l1.3,21.2 7.3,27.4 3.6,34.5 6.7,15.8 -0.8,27 2.7,14.5 -5.2,15.5 -3.9,6.8 -4.5,3.7 -10.4,3.2 -3.3,4.7 -2.1,49 3.3,11.2 -1.4,12.7 -3.2,4.8 -4.8,3 -22,2.4 -22.7,0.7 -39.8,-7.4 -10.6,2.1 10.5,-3.6 3.7,1.6 2.1,3.9 -1.3,6.3 -0.9,20.7 -7.9,30.4 -5.7,6.7 -38.2,23.3 -11.7,11.4 -12,29 -9,15.6 -5.6,20.5M208.5,194.5l0,-2.9 1.3,-2.1 12.6,-10.9 5.1,-1.9 7.2,0.9 5.8,-2.1 4.2,0.2 7.4,3.8 2.1,6.7M674.3,15.8l-38.5,6 -13.1,5.2 -18,0.1 -14.3,2.2 -25.7,8.3 -38.1,1 -29.4,4.4 -54.1,-1.7 -55.7,2.1 -36,10.1 -5.7,2.8 -4.3,4.1 -1.8,3.8 -0.3,5.1 1.7,8.5 -1.1,3.7 -7.1,4.2 -9.5,2.6 -38.8,-0.3 -34.8,10.4 -34.7,2.1 -4.1,-1 -10.5,-6.4 -7.2,-0.4 -9.4,-7.8M170.3,75.7l8.3,4.9 14.4,12.3 7.8,0.7 12,7 19.3,-0.2 17.1,-1.5 34.1,-10.3 37,0.6 19,-3.3 3,-2.1 1.6,-3 -0.6,-17.9 3.9,-6.8 4.8,-2.5 35.4,-9.9 55.7,-1.8 52.2,1.9 30.2,-4.5 37.2,-0.9 6.9,-1.2 19.5,-7 15.2,-2.5 17.6,0 14,-5.7 22.1,-3.8 8.7,-0.1 7.6,-1.9M32.1,252.6l15.2,10.3 9.5,3.2 -8.9,-3.4 -16,-10.9M118.5,-36.3l-6.1,19.5 -1.4,15.6 -4.7,18.5 -0.4,31.6 -3.7,21.3 -2.5,7.4 -7,11.1 -1.6,6.5 -2.1,27.2 2.1,45.7 1.5,11.2 4.9,11.1 0.3,10 1.3,5.2 8,13.8 16.4,20.3 11.4,21.5 4.4,5.4 21.1,13 12.5,5.7 20.1,13.7 10.4,5 10.8,9.4 7.8,0.5 12.2,-5.5 5.6,1 3.5,5 1.2,13.8 -0.6,9.4 -8.2,30.8 -4.8,5.5 -37.3,22.5 -12.7,12.2 -12.5,29.5 -8.2,13.5 -6.4,22.8M322.3,474.4l-44.5,-8.1 -57.3,2.5 -33,-3.3 -62.4,2.6 -28.2,6.3M208.6,196.6l2.8,2.4 9.4,3.4 12.8,2.4 7.1,5.3 8.1,13.7 5,3 7.8,0.8 40.9,-4.6 16.6,-3.2 12.4,0.4 17.9,5.9 24.9,19.8 10.5,11.4 2.3,11.9 2.8,4.7 9.5,8 14.4,4.9 4.4,4 1.7,6.7 -0.9,17.9 9.3,22.1 5.3,22.6 5.6,8.1 15.2,12.3 9.3,15 16.3,17.6 5,15.7 0.6,16.4 1.2,5.2 2.5,4.8 8.6,9.7 2.8,9.5M501.4,474.4l-2.6,-9.7 -8.2,-8.7 -3.9,-7.3 -1.5,-20.1 -5.2,-16 -16.2,-17.6 -9.4,-15.1 -15.1,-12 -5.2,-7.4 -5.5,-23.3 -9.3,-22.5 1.1,-18.2 -1.5,-5.4 -4.8,-4.6 -14,-4.6 -9.2,-7.6 -3.4,-5.1 -1.3,-9.2 -2.3,-4.9 -15.4,-15.1 -21.5,-15.4 -14.9,-4.7 -11.2,-0.6 -58.3,7.8 -7.5,-0.4 -5.8,-3.1 -8.3,-13.8 -6.6,-5.4 -12.4,-2.1 -10.4,-3.7 -2.5,-2.4 -2.6,-6.6 -5.2,-2.7 -13.6,2.3 -82.4,-2.8 -11.6,-1.6 -27,3.2 -29.6,-2 -6.6,3.2 -4,7.1 -0.7,39.2 -1.6,7.3 -3,5.9 -16.6,19 -7.1,5.6 -11.1,4.9 -20.1,2.6M-33.7,282l19,-2.2 11.7,-4.6 8.1,-6.3 16.8,-19.4 3,-5.2 1.9,-7.2 1.2,-38.6 3.8,-6.7 7.1,-4.4 5.1,-0.6 19.7,1.8 15.8,-1 15.2,2.7 21.8,-3.2 65.6,2.5 7.7,-0.1 10.7,-2.3 4.8,2.4 3.3,7 -1.1,-3.6 0.8,-2.5 14.4,-12.3 5.6,-1.9 6.9,1 7.4,-2.4 9.1,3.6 1.8,2.9 0.8,4.5M-33.7,180.2l17.2,0.7 35,8.3M103.2,61.5l24.2,5.3 35,5.7 7.9,3.2 -7.8,-3.5 -50.4,-9.2M457.5,387.8l14.3,2.4 47.5,14.9 14.7,6.4 23,2.8 17.5,-0.6 22,10.9 77.8,0.5M-11.4,474.4l-9.3,-1.3 -13,0.4M-33.7,474.1l19,0.3M18.2,187.9l-32.5,-7.6 -19.4,-0.7M99.1,474.4l18.8,-4.2 15,-1.9 54.2,-2.2 33.7,4 43.3,-2.2 17.7,0.4 36.8,6.1"/>
         <path class="sm-edge" d="M202.6,64.5l5.2,-10.2 7.7,-7.9 6.9,-25.6 -1.7,-20.9 -4.1,-6.3 4.8,-7.7 0.4,-15.2 2.8,-7M196.4,-36.3l-3.8,9.7 -2.8,40.2 -12.2,20.2 -16.1,-0.1 -0.2,18.1 5.2,0 -8.6,16.8 -24.4,-2.8 0,26.3 -9,0 -2.3,-2 -3.7,-0.1 -24.9,8.8 -12.7,1.6 -24.2,7 0,1.2 30.7,-8.6 7.7,-0.1 25.5,-8.9 3.5,3.1 3.7,9.5 5.8,7.2 0,19.7 -41.7,-0.1 0,1.1 -0.1,15.3 6.3,5.7 3.8,7.2 16,62.3 22.7,37.5 23.9,17.6 -20,15.8 -16.1,8.7 7,0 -1.6,3.3 -3.6,1.8 3.5,6.8 -4.7,11.9 17.6,-0.7 1,-2.5 0.9,2.5 2.2,0 0.6,-2.3 0,2.3 3,-0.1 3.5,-8.6 2.9,-0.2 1.5,-4 -5.7,0.2 4.2,-10.9 -4.9,-0.2 0.6,-1.4 19.1,-1 5.5,-10 15.2,10 26.3,11.2 2.4,-6.1 -1.6,0 1.5,-6.4 2.6,-0.1 10.8,-27.5 2.2,-0.1 4.1,-11.3 6.9,-1.1 2.5,-7.6 7.3,-1.5 0.7,1.8 3.3,-7.2 13.3,-0.7 -4.7,4.8 3.6,-0.6 0.6,1.6 6.4,-3.1 0.7,1.6 6.4,-4.4 49,-1.5 -0.2,-12.8 2.3,0.6 9.1,-21.9 2.5,0.1 4.7,-11.2 -2.7,0.2 13.6,-34.3 -2,0.2 2.4,-5.4 -4.5,-3.1 0,-2.8 -4.2,11.8 -35,2 -4.9,-11.8 5.1,-13.1 -6.2,-9.2 -0.5,-10.7 4.6,-2.5 -0.2,-4 5.7,-2.1 1.1,-3.6 6.1,-0.3 6.5,-5.1 6.6,-2 -1.2,-6.7 3.3,-7 5,-3.1 3.4,0.4 5.1,-3.9 3.7,0.3 1.8,-3.9 -3.5,-0.1 -16.5,9.6 -3.2,7 0.4,7.1 -4.7,0.6 -6.9,5.7 -6.2,1 -2.7,4.6 -4.3,1 0.2,4.1 -4.1,2.1 -3.3,-57.7 7,-20.1 4.5,-6.7 -5.5,-2.8 4.8,-12 4.4,-0.2 -1.7,-8.1 13.8,-0.5 1.1,-2.9 -8.4,0.3 -1.6,-17.2 2.7,-2.9 -26.7,-7.7 -22.9,-11.2 -9.2,10.8 -3.3,1.6 0.5,4.8 -7.4,10.6 0.1,2.3 16.1,-0.6 6.6,3.2 7.7,-3 1.4,13.1 1.8,-1.8 11.1,-0.6 0.1,2.5 6.4,-0.6 0.5,7 6.5,0.2 -4.8,13.4 5.3,2.5 -4.4,6.2 -7.1,20.3 2,47.3 -41.5,1.9 -2.3,-18.7 -12.9,1 -0.2,-3.5 -29.9,4.6 -0.1,-3.6 -2.3,0.5 -0.4,-8.9 -16.1,0.6 -8,-10.7 -1.8,-6.3M144.9,267.9l-8.4,0.1 -0.8,-12.6 -26.3,0.3 -18.3,29.3 2.4,4.7 1.6,-0.7 0,3.8 2.8,-0.9 -1.5,5.6 6.8,4.6 10.6,-0.2 4.7,-2.9 -0.1,-4.8 5.8,-0.3 0.5,1.5 0.3,-1.5 23,-11.9 -3.1,-14.1M146.4,289.9l1,-1.8 -2.1,-3.8 -1.7,1 2.8,4.6"/>
       </g>
-        <circle class="sm-halo" cx="440.2" cy="250.2" r="11"/><circle cx="440.2" cy="250.2" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/><circle class="sm-halo" cx="240.6" cy="374.0" r="11"/><circle cx="240.6" cy="374.0" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/><circle class="sm-halo" cx="123.5" cy="62.7" r="11"/><circle cx="123.5" cy="62.7" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/><circle class="sm-halo" cx="516.5" cy="46.0" r="11"/><circle cx="516.5" cy="46.0" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/><circle class="sm-halo" cx="261.2" cy="264.5" r="11"/><circle cx="261.2" cy="264.5" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/><circle class="sm-halo" cx="273.5" cy="186.9" r="11"/><circle cx="273.5" cy="186.9" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/>
-        <rect class="sm-plate" x="327.2" y="240.2"
-        width="100.0" height="20" rx="5"/>
-        <text x="427.2" y="254.2" text-anchor="end"
-          font-size="15" font-weight="700" fill="currentColor" font-family="var(--body)">Just Games</text><rect class="sm-plate" x="253.6" y="364.0"
-        width="150.4" height="20" rx="5"/>
-        <text x="253.6" y="378.0" text-anchor="start"
-          font-size="15" font-weight="700" fill="currentColor" font-family="var(--body)">Millennium Games</text><rect class="sm-plate" x="136.5" y="52.7"
-        width="133.6" height="20" rx="5"/>
-        <text x="136.5" y="66.7" text-anchor="start"
-          font-size="15" font-weight="700" fill="currentColor" font-family="var(--body)">LingSter Games</text><rect class="sm-plate" x="386.7" y="36.0"
-        width="116.8" height="20" rx="5"/>
-        <text x="503.5" y="50.0" text-anchor="end"
-          font-size="15" font-weight="700" fill="currentColor" font-family="var(--body)">Legacy Games</text><rect class="sm-plate" x="274.2" y="271.5"
-        width="167.2" height="20" rx="5"/>
-        <text x="274.2" y="285.5" text-anchor="start"
-          font-size="15" font-weight="700" fill="currentColor" font-family="var(--body)">Great Lakes Gaming</text><rect class="sm-plate" x="286.5" y="176.9"
-        width="100.0" height="20" rx="5"/>
-        <text x="286.5" y="190.9" text-anchor="start"
-          font-size="15" font-weight="700" fill="currentColor" font-family="var(--body)">WeTheHobby</text>
+        <circle class="sm-halo" cx="123.5" cy="62.7" r="11"/><circle cx="123.5" cy="62.7" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/><circle class="sm-halo" cx="240.6" cy="374.0" r="11"/><circle cx="240.6" cy="374.0" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/><circle class="sm-halo" cx="261.2" cy="264.5" r="11"/><circle cx="261.2" cy="264.5" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/><circle class="sm-halo" cx="273.5" cy="186.9" r="11"/><circle cx="273.5" cy="186.9" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/><circle class="sm-halo" cx="440.2" cy="250.2" r="11"/><circle cx="440.2" cy="250.2" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/><circle class="sm-halo" cx="516.5" cy="46.0" r="11"/><circle cx="516.5" cy="46.0" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/>
+        <g class="mk-w">
+        <rect class="sm-plate" x="136.5" y="52.1"
+          width="141.4" height="21.3" rx="5"/>
+        <text x="136.5"
+          y="67.0" text-anchor="start"
+          font-size="16" font-weight="700" fill="currentColor" font-family="var(--body)">LingSter Games</text>
+      </g><g class="mk-n">
+        <rect class="sm-plate" x="136.5" y="44.1"
+          width="37.0" height="37.3" rx="5"/>
+        <text x="154.9"
+          y="70.2" text-anchor="middle"
+          font-size="28" font-weight="700" fill="currentColor" font-family="var(--body)">1</text>
+      </g><g class="mk-w">
+        <rect class="sm-plate" x="253.6" y="363.3"
+          width="159.4" height="21.3" rx="5"/>
+        <text x="253.6"
+          y="378.3" text-anchor="start"
+          font-size="16" font-weight="700" fill="currentColor" font-family="var(--body)">Millennium Games</text>
+      </g><g class="mk-n">
+        <rect class="sm-plate" x="253.6" y="355.3"
+          width="37.0" height="37.3" rx="5"/>
+        <text x="272.0"
+          y="381.5" text-anchor="middle"
+          font-size="28" font-weight="700" fill="currentColor" font-family="var(--body)">2</text>
+      </g><g class="mk-w">
+        <rect class="sm-plate" x="274.2" y="253.8"
+          width="177.3" height="21.3" rx="5"/>
+        <text x="274.2"
+          y="268.7" text-anchor="start"
+          font-size="16" font-weight="700" fill="currentColor" font-family="var(--body)">Great Lakes Gaming</text>
+      </g><g class="mk-n">
+        <rect class="sm-plate" x="274.2" y="245.8"
+          width="37.0" height="37.3" rx="5"/>
+        <text x="292.7"
+          y="271.9" text-anchor="middle"
+          font-size="28" font-weight="700" fill="currentColor" font-family="var(--body)">3</text>
+      </g><g class="mk-w">
+        <rect class="sm-plate" x="286.5" y="176.2"
+          width="105.6" height="21.3" rx="5"/>
+        <text x="286.5"
+          y="191.1" text-anchor="start"
+          font-size="16" font-weight="700" fill="currentColor" font-family="var(--body)">WeTheHobby</text>
+      </g><g class="mk-n">
+        <rect class="sm-plate" x="286.5" y="168.2"
+          width="37.0" height="37.3" rx="5"/>
+        <text x="305.0"
+          y="194.4" text-anchor="middle"
+          font-size="28" font-weight="700" fill="currentColor" font-family="var(--body)">4</text>
+      </g><g class="mk-w">
+        <rect class="sm-plate" x="321.6" y="221.5"
+          width="105.6" height="21.3" rx="5"/>
+        <text x="427.2"
+          y="236.4" text-anchor="end"
+          font-size="16" font-weight="700" fill="currentColor" font-family="var(--body)">Just Games</text>
+      </g><g class="mk-n">
+        <rect class="sm-plate" x="390.3" y="231.5"
+          width="37.0" height="37.3" rx="5"/>
+        <text x="408.7"
+          y="257.6" text-anchor="middle"
+          font-size="28" font-weight="700" fill="currentColor" font-family="var(--body)">5</text>
+      </g><g class="mk-w">
+        <rect class="sm-plate" x="380.0" y="35.3"
+          width="123.5" height="21.3" rx="5"/>
+        <text x="503.5"
+          y="50.3" text-anchor="end"
+          font-size="16" font-weight="700" fill="currentColor" font-family="var(--body)">Legacy Games</text>
+      </g><g class="mk-n">
+        <rect class="sm-plate" x="466.6" y="27.3"
+          width="37.0" height="37.3" rx="5"/>
+        <text x="485.1"
+          y="53.5" text-anchor="middle"
+          font-size="28" font-weight="700" fill="currentColor" font-family="var(--body)">6</text>
+      </g>
         <g transform="translate(46 426)">
-          <rect class="sm-plate" x="-10" y="-25" width="205.1" height="38" rx="5"/>
-          <line x1="0" y1="0" x2="185.1" y2="0" stroke="currentColor" stroke-width="2.5"/>
-          <line x1="0" y1="-5" x2="0" y2="5" stroke="currentColor" stroke-width="2.5"/>
-          <line x1="185.1" y1="-5" x2="185.1" y2="5" stroke="currentColor" stroke-width="2.5"/>
-          <text x="92.5" y="-9" text-anchor="middle" font-size="13" font-weight="700"
-            fill="currentColor" font-family="var(--mono)">5 miles</text>
+          <g class="mk-w">
+          <rect class="sm-plate" x="-10" y="-27.1"
+            width="205.1" height="36.1" rx="5"/>
+          <line x1="0" y1="0" x2="185.1" y2="0" stroke="currentColor" stroke-width="2.5"/><line x1="0" y1="-5" x2="0" y2="5" stroke="currentColor" stroke-width="2.5"/><line x1="185.1" y1="-5" x2="185.1" y2="5" stroke="currentColor" stroke-width="2.5"/>
+          <text x="92.5" y="-14.0" text-anchor="middle" font-size="16" font-weight="700" fill="currentColor" font-family="var(--mono)">5 miles</text>
+        </g>
+          <g class="mk-n" transform="translate(0 -12)">
+          <rect class="sm-plate" x="-10" y="-20.2" width="286.5"
+            height="29.7" rx="5"/>
+          <line x1="0" y1="0" x2="185.1" y2="0" stroke="currentColor" stroke-width="2.5"/><line x1="0" y1="-5" x2="0" y2="5" stroke="currentColor" stroke-width="2.5"/><line x1="185.1" y1="-5" x2="185.1" y2="5" stroke="currentColor" stroke-width="2.5"/>
+          <text x="197.1" y="9.5" text-anchor="start" font-size="28" font-weight="700" fill="currentColor" font-family="var(--mono)">5 mi</text>
+        </g>
         </g>
       </svg>
+      
+      <p class="map-key-h">The shops on the map, west to east</p>
+      <ol class="map-key">
+        <li><b>1</b><span>LingSter Games</span></li>
+        <li><b>2</b><span>Millennium Games</span></li>
+        <li><b>3</b><span>Great Lakes Gaming</span></li>
+        <li><b>4</b><span>WeTheHobby</span></li>
+        <li><b>5</b><span>Just Games</span></li>
+        <li><b>6</b><span>Legacy Games</span></li>
+      </ol>
       
       <figcaption>Where the shops are, and where they are relative to each other. North is up, the scale is
         true in both directions, and each dot is that shop's own street address rather than a pin dropped
