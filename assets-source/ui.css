@@ -618,6 +618,23 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
 /* Clear only exists while something is on, so it is never a dead control and
    never eats width in the common case. */
 .facet-clear{flex:none}
+/* WHILE ONE FACET PANEL IS OPEN, THE OTHER ROW IS VISIBLY OUT OF PLAY.
+   Opening "More sets" drops an absolutely positioned panel out of the set row:
+   234px tall at y=226, straight over the product row at y=239. Measured with
+   elementFromPoint, a click on any product chip or on "More products" lands on
+   a set chip instead. The panel closes on that click so the second tap works
+   and nobody is trapped -- which is why this was only ever a moderate bug -- but
+   the FIRST tap on a filter control is silently spent, and a control that looks
+   live and does nothing is the shape people report as "the filter is broken".
+
+   Overlaying is correct dropdown behaviour and the panel's own position:absolute
+   is argued above it (it would otherwise paint under the rail's backdrop-filter).
+   So the fix is not to move the panel, it is to stop the covered row from
+   claiming to be clickable: it dims and stops taking pointer events for exactly
+   as long as the panel is over it. The failure becomes legible instead of
+   silent, with no layout shift and nothing repositioned. */
+.libtools:has(.facet.open) .facet:not(.open){opacity:.45;pointer-events:none}
+
 .facet-clear[hidden]{display:none}
 /* A CHOSEN CHIP SORTS TO THE FRONT OF THE COLLAPSED ROW, and this used to be
    `b.style.order` written by syncChips in app.js. It is CSS now for one reason:

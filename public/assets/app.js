@@ -629,11 +629,28 @@
           var sid = state.sets[0], slabel = labelOf("sets", sid);
           head.hidden = false;
           head.textContent = "";
-          var limg = new Image();
-          limg.src = "assets/logos/" + sid + "-pokemon-tcg-set-logo.webp";
-          limg.alt = slabel + " Pokemon TCG set logo";
-          limg.onerror = function () { limg.remove(); };
-          head.appendChild(limg);
+          // ONLY ASK FOR A LOGO THAT EXISTS. 28 sets ship one, and they are
+          // exactly the 28 in public/data/sets.json; the 13 Japanese, Korean and
+          // Chinese sets have none, so selecting one fired a 404 and logged a
+          // console error every time. Nothing was ever visible -- the onerror
+          // below strips the broken image and the header keeps its name and rip
+          // count -- but a wasted request and a red line in the console on a
+          // third of the chips is the kind of noise that trains people to
+          // ignore the console.
+          //
+          // The prefix test is the one signal available here: an intl set id is
+          // built as <lang>-<set> by shared/taxonomy.mjs, and those are the only
+          // sets without artwork. onerror STAYS as the backstop, because a
+          // missing English logo is a build problem and should degrade, not
+          // throw.
+          var hasLogo = !/^(ja|ko|zh)-/.test(sid);
+          if (hasLogo) {
+            var limg = new Image();
+            limg.src = "assets/logos/" + sid + "-pokemon-tcg-set-logo.webp";
+            limg.alt = slabel + " Pokemon TCG set logo";
+            limg.onerror = function () { limg.remove(); };
+            head.appendChild(limg);
+          }
           var txt = el("div", "txt");
           txt.appendChild(el("b", null, slabel));
           txt.appendChild(document.createTextNode(out.length + (out.length === 1 ? " rip" : " rips") + " from this set"));

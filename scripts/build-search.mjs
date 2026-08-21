@@ -485,7 +485,14 @@ ${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
           that covers it: 15,582 bytes against /assets/garbodor.webp's 28,504
           for pixels nothing on this page can use. The 96px sm file loses at
           every DPR this box has, so there is no srcset worth writing. */ ""}out.innerHTML = html || '<div class="empty"><img class="empty-mascot" src="/assets/species/569.webp" alt="" width="256" height="256" loading="lazy" decoding="async" onerror="this.remove()"><p class="big">Nothing matched.</p><p>Try a Pokemon name, a set name, or a word from a video title.</p></div>';
-    say(n ? n.toLocaleString('en-US')+' result'+(n===1?'':'s') : '');
+    // A ZERO RESULT IS A RESULT AND HAS TO BE SPOKEN. This said say('') for a
+    // miss, so the live region was EMPTIED rather than announced: a screen
+    // reader got a count for every query that found something and silence for
+    // the one case where the reader most needs telling. /cards.html already
+    // gets this right by putting its whole "Nothing matched" sentence in the
+    // status region; this is the same sentence the visible panel shows.
+    say(n ? n.toLocaleString('en-US')+' result'+(n===1?'':'s')
+          : 'Nothing matched. Try a Pokemon name, a set name, or a word from a video title.');
   }
 
   function load(url, then){

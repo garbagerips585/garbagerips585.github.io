@@ -125,6 +125,7 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
   box-shadow:var(--lift);padding:var(--s4);
   -webkit-mask-image:none;mask-image:none}
 .facet-clear{flex:none}
+.libtools:has(.facet.open) .facet:not(.open){opacity:.45;pointer-events:none}
 .facet-clear[hidden]{display:none}
 .facet-box .chip[aria-pressed=true]{order:-1}
 @media(max-width:700px){
