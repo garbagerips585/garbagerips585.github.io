@@ -480,6 +480,42 @@ const REGION = {
   6: "Kalos", 7: "Alola", 8: "Galar", 9: "Paldea",
 };
 
+// ============================================================================
+// THE THREE STARTERS OF EACH GENERATION, BY DEX NUMBER, AND THIS IS THE ONLY
+// HAND WRITTEN LIST IN THE FILE. It is here because it is a fact about the
+// video games that no file this build reads records: data/pokedex.json carries
+// a generation and a species, and nothing in the corpus knows which three a
+// player was handed in the lab.
+//
+// STARTERS RATHER THAN A BOX LEGENDARY, and the reason is that "the box
+// legendary" is not a fact, it is a pick. Almost every generation ships a
+// PAIR (Groudon and Kyogre, Dialga and Palkia, Solgaleo and Lunala) and often
+// a third on the follow-up, so nine strips would be nine editorial choices
+// this file would have to defend one at a time. Generation 1 does not have one
+// at all: Red and Blue put Charizard and Blastoise on the box, which are
+// starter evolutions rather than legendaries. The starters are the opposite:
+// EXACTLY three, version independent, and every generation has them by
+// definition.
+//
+// They also happen to be the right pictures for THIS list. The three sit at or
+// beside the first dex number the section below them opens on (1/4/7,
+// 152/155/158, 906/909/912), so the strip is a preview of the rows underneath
+// it rather than an illustration bolted to the top. And they are three
+// different types, so the strip carries colour as well as shape and a reader
+// scrolling past at speed gets green/red/blue as a landmark before they read a
+// word of it.
+const STARTERS = {
+  1: [1, 4, 7],          // Bulbasaur, Charmander, Squirtle
+  2: [152, 155, 158],    // Chikorita, Cyndaquil, Totodile
+  3: [252, 255, 258],    // Treecko, Torchic, Mudkip
+  4: [387, 390, 393],    // Turtwig, Chimchar, Piplup
+  5: [495, 498, 501],    // Snivy, Tepig, Oshawott
+  6: [650, 653, 656],    // Chespin, Fennekin, Froakie
+  7: [722, 725, 728],    // Rowlet, Litten, Popplio
+  8: [810, 813, 816],    // Grookey, Scorbunny, Sobble
+  9: [906, 909, 912],    // Sprigatito, Fuecoco, Quaxly
+};
+
 // Which of the eleven CARD types a video game type is printed as. Read from
 // data/types.json, which /types.html is built from, so the two pages cannot
 // disagree: that file records the mapping as checked against Bulbapedia's table
@@ -628,6 +664,15 @@ width:112px;padding:var(--s2);background:var(--card);border:1px solid var(--hair
 .dx-stage[aria-current]{border-width:3px;border-color:var(--keyline)}
 .dx-arrow{font:700 1.1rem/1 var(--body);color:var(--ink-2)}
 .dx-eff{display:grid;gap:var(--s2);margin-top:var(--s4);list-style:none}
+/* AT MOST FIVE ROWS AND EVERY ONE OF THEM WAS 1,392px WIDE AT 1440, on all
+   1,025 species pages, holding "x2" and up to six type names: the content
+   stopped a third of the way across and the card kept going. One column is
+   right on a phone and it is the only place it is right, so the grid gets a
+   second column once there is room for two honest ones. TWO AND NOT auto-fit:
+   the list is five items, so three columns leaves a 3+2 that reads as a
+   mistake, and the widest row (x2 on a dual type) genuinely needs half of
+   1,392 rather than a third of it. */
+@media(min-width:900px){.dx-eff{grid-template-columns:1fr 1fr}}
 .dx-eff li{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:baseline;
 background:var(--paper-2);border:1px solid var(--hair);border-radius:var(--r);padding:10px 12px}
 .dx-eff b{font:700 var(--t-sm)/1.4 var(--mono);min-width:3.2em}
@@ -636,7 +681,47 @@ background:var(--paper-2);border:1px solid var(--hair);border-radius:var(--r);pa
 color:var(--ink);background:var(--card);border:2px solid var(--keyline);border-radius:var(--r-pill);margin-top:var(--s4)}
 .dx-chips{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s3)}
 .dx-count{font:400 var(--t-sm)/1.4 var(--body);color:var(--ink-2);margin-top:var(--s3)}
-.dx-gen h3{font:700 var(--t-m)/1.2 var(--body);margin:var(--s5) 0 0}
+/* ------------------------------------------------- the generation strips */
+/* NINE HEADERS OVER A 30,328px COLUMN OF TEXT. Measured at 390x844 before the
+   change, by walking every picture inside <main> in document coordinates: the
+   longest run of this page with no picture in it was 30,328px, 88.7% of the
+   whole of <main>, from y=3,930 to the end. All 23 pictures were in the top
+   band. Nine generations of name-and-number chips followed with nothing to
+   look at, which on a phone is 36 screens of nothing.
+   THE STRIP IS CONTENT AND NOT DECORATION, which is the only reason it is
+   here: three starters say "this is where Kanto ends and Johto begins" to a
+   reader who is scrolling for Chikorita, and each one is a link to that
+   species' own page. A mascot here would have been the opposite of true: the
+   joke Trubbish carries is "there is nothing in this one" and this page lists
+   1,025 things.
+   THE BOX IS 48px AND THE RUNG DECIDES, NOT THE BOX. data/species-art.json
+   ships 96, 256 and 475 and nothing between, so the ladder here is 96w and
+   256w and the only question is where a density crosses. 48 x 1 = 48 and
+   48 x 2 = 96, both covered by the 96px file; 48 x 3 = 144 is not, so DPR 3
+   takes the 256. That is deliberate and it is the reason the box is 48 and not
+   56: at 56 the DPR 2 phone crosses too and the strips cost 301KB there as
+   well. Verified by reading currentSrc at all three densities, never off the
+   markup. The whole family is 99KB at DPR 1 and 2 and 301KB at DPR 3, all of
+   it fully-scrolled and NONE of it on the load path: the first strip sits
+   3,930px down a 844px viewport, so all 27 are lazy and none is fetched
+   before a reader asks for it.
+   Every box is pinned in the markup AND here, because CLS is 0.000 across the
+   tree and a strip of unsized pictures is the cheapest way to lose it. */
+.dx-genband{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3);margin:var(--s6) 0 0;
+padding:var(--s3);background:var(--paper);border:1px solid var(--hair);
+border-bottom:3px solid var(--keyline);border-radius:var(--r)}
+.dx-gentxt{flex:1 1 14em;min-width:0}
+.dx-genband h3{font:700 var(--t-m)/1.2 var(--body);margin:0}
+.dx-genband p{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);margin:3px 0 0}
+.dx-stbox{flex:none}
+.dx-stlab{font:400 var(--t-micro)/1.2 var(--mono);color:var(--ink-2);
+text-transform:uppercase;letter-spacing:.08em;margin:0 0 2px}
+.dx-starters{display:flex;gap:var(--s2);list-style:none;margin:0}
+.dx-starters a{display:flex;flex-direction:column;align-items:center;gap:1px;
+width:62px;color:var(--ink-2);text-decoration:none}
+.dx-starters img{width:48px;height:48px;object-fit:contain}
+.dx-starters b{font:400 var(--t-micro)/1.15 var(--body);text-align:center}
+.dx-starters a:hover b{color:var(--sky-deep);text-decoration:underline}
 .dx-list{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s2);margin-top:var(--s3);list-style:none}
 .dx-item{display:flex;flex-direction:column;gap:1px;background:var(--card);border:1px solid var(--hair);
 border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none}
@@ -1640,6 +1725,49 @@ for (const p of [...byValue, ...byPopularity, ...PINNED.map((nm) => species.find
   featured.push(p);
 }
 
+const dexNo = (id) => `#${String(id).padStart(4, "0")}`;
+
+/**
+ * The header strip for one generation: its three starters, each a link to that
+ * species' page, over the block of chips that generation owns.
+ *
+ * TWO RENDITIONS AND ONE `sizes`, AND THE ARITHMETIC IS WRITTEN OUT BECAUSE
+ * READING THE BOX IS HOW SEVEN BUILDERS GOT THIS WRONG. The box is 48px. At
+ * DPR 1 the browser wants 48 device pixels and at DPR 2 it wants 96, and the
+ * 96px file covers both; at DPR 3 it wants 144 and the next rung up is 256, so
+ * that is what a DPR 3 phone takes. There is nothing between them, so this is
+ * the ladder rather than a choice about oversizing. `sizes` says 48px, which is
+ * the box actually rendered, and `width`/`height` pin it so nothing moves.
+ *
+ * `alt=""` IS DELIBERATE AND IS NOT A MISSING ALT. The species name is the
+ * link's own text, right under the picture and inside the same <a>, so a real
+ * alt would make a screen reader say "Bulbasaur Bulbasaur". The picture is
+ * doing the same job as the word beside it.
+ *
+ * A SPECIES WITH NO MIRRORED ARTWORK RENDERS AS THE NAME ALONE rather than as a
+ * broken box, which is the same rule `portrait()` follows further up. All 1,025
+ * have art today and sync-species-art.mjs is what keeps that true.
+ */
+function starterStrip(g) {
+  const three = (STARTERS[g] || []).map((id) => byId.get(id)).filter(Boolean);
+  if (!three.length) return "";
+  return `<div class="dx-stbox">
+        <p class="dx-stlab">Starters</p>
+        <ul class="dx-starters">
+          ${three
+            .map(
+              (s) => `<li><a href="/pokemon/${esc(s.slug)}.html">${
+                s.art?.sm
+                  ? `<img src="${s.art.sm.file}" srcset="${s.art.sm.file} ${s.art.sm.w}w, ${s.art.file} ${s.art.w}w"` +
+                    ` sizes="48px" width="48" height="48" alt="" loading="lazy" decoding="async">`
+                  : ""
+              }<b>${esc(s.name)}</b></a></li>`,
+            )
+            .join("\n          ")}
+        </ul>
+      </div>`;
+}
+
 function indexPage() {
   const url = `${SITE}/pokemon/`;
   const indexed = species.filter((p) => p.index).length;
@@ -1786,18 +1914,31 @@ function indexPage() {
     <p class="dx-count" id="dxCount" role="status">All ${n(DEX.length)} Pokemon</p>
     ${gens
       .map(
-        (g) => `<div class="dx-gen" data-gen="${g}">
-      <h3>Generation ${g}${REGION[g] ? ` &bull; ${REGION[g]}` : ""}</h3>
+        (g) => {
+          const inGen = species.filter((p) => p.gen === g);
+          // THE RANGE IS DERIVED, NOT TYPED. The dex is contiguous by
+          // generation and the list is already in dex order, so the first and
+          // last entry ARE the range and it cannot go stale the way a written
+          // "#0001 to #0151" would when a tenth generation lands.
+          const lo = inGen[0], hi = inGen[inGen.length - 1];
+          return `<div class="dx-gen" data-gen="${g}">
+      <div class="dx-genband">
+        <div class="dx-gentxt">
+          <h3>Generation ${g}${REGION[g] ? ` &bull; ${REGION[g]}` : ""}</h3>
+          <p>${n(inGen.length)} species &bull; ${dexNo(lo.id)} to ${dexNo(hi.id)}</p>
+        </div>
+        ${starterStrip(g)}
+      </div>
       <ul class="dx-list">
-        ${species
-          .filter((p) => p.gen === g)
+        ${inGen
           .map(
             (p) =>
-              `<li><a class="dx-item" href="/pokemon/${esc(p.slug)}.html"><b>${esc(p.name)}</b><span>#${String(p.id).padStart(4, "0")} &bull; ${n(p.prints.length)} cards</span></a></li>`,
+              `<li><a class="dx-item" href="/pokemon/${esc(p.slug)}.html"><b>${esc(p.name)}</b><span>${dexNo(p.id)} &bull; ${n(p.prints.length)} cards</span></a></li>`,
           )
           .join("\n        ")}
       </ul>
-    </div>`,
+    </div>`;
+        },
       )
       .join("\n    ")}
     <p class="price-note">Species list from the National Pokedex, pokeapi.co, read
@@ -1837,10 +1978,17 @@ ${footer(priceFooter("Pokedex data from PokeAPI. Fan made, not official."))}
     }
     for(var g=0;g<gens.length;g++){
       var offGen=gen&&gens[g].dataset.gen!==gen;
-      var empty=!gens[g].querySelector('li:not(.is-off)');
+      // '.dx-list li' AND NOT 'li'. The generation header strip holds three
+      // starter <li> of its own, and they never carry .is-off, so a bare 'li'
+      // here found one in every generation and no search could ever empty a
+      // section: typing "zzz" would hide all 1,025 chips and leave nine
+      // headers standing over nothing. The subtraction below has the same
+      // bug in the other direction, counting three starters as three hidden
+      // Pokemon, so both selectors are scoped to the real list.
+      var empty=!gens[g].querySelector('.dx-list li:not(.is-off)');
       gens[g].classList.toggle('is-off', !!offGen||empty);
       if(offGen){
-        var hidden=gens[g].querySelectorAll('li:not(.is-off)').length;
+        var hidden=gens[g].querySelectorAll('.dx-list li:not(.is-off)').length;
         shown-=hidden;
       }
     }

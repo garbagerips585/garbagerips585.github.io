@@ -199,9 +199,14 @@ function heightBars(a, b) {
       `<text x="0" y="${y(i) + 4}" font-size="10" fill="currentColor" opacity=".75" font-family="var(--mono)">${i}m</text>`
     );
   }
+  // THE CLASS IS lore-bar AND NOT bar, WHICH THE PROTOTYPE USED. `.bar` is this
+  // site's sticky navigation header in assets-source/ui.css, at (0,1,0) with a
+  // position, a z-index, a background and a colour on it. Nothing it declares
+  // paints on an SVG rect, so this would have looked correct forever and been a
+  // trap for whoever next read either rule. Name a class for the page it is on.
   const bar = (p, x) => {
     const h = base - y(m(p));
-    return `<rect x="${x}" y="${y(m(p))}" width="66" height="${h}" rx="3" fill="var(--gold)"/>` +
+    return `<rect class="lore-bar" x="${x}" y="${y(m(p))}" width="66" height="${h}" rx="3" fill="var(--gold)"/>` +
       `<text x="${x + 33}" y="${y(m(p)) - 7}" text-anchor="middle" font-size="12" font-weight="700"` +
       ` fill="currentColor" font-family="var(--mono)">${m(p).toFixed(1)}m</text>` +
       `<text x="${x + 33}" y="${base + 13}" text-anchor="middle" font-size="10"` +
@@ -256,6 +261,80 @@ const RARE_COMBOS = [...combos]
   .filter(([, v]) => v.length > 1 && v.length <= 3)
   .sort((a, b) => a[1].length - b[1].length)
   .slice(0, 6);
+
+// --- the height bars grow ---------------------------------------------------
+//
+// THE ONE CHART ON THIS SITE WHOSE POINT IS A SIZE DIFFERENCE, and the figure's
+// own caption says so: "the bars are to scale, the two pictures beside them are
+// not." Growing them from the baseline as they scroll into view is the reader
+// FEELING 1.9m against 0.6m instead of reading it. Garbodor starts 90ms behind
+// Trubbish so the two are seen as two rather than as one shape widening.
+//
+// **THIS IS THE SITE'S SECOND SCROLL REVEAL AND IT MUST STAY THE LAST ONE.**
+// The first is .hitcards on the rip pages. A general scroll-reveal primitive was
+// proposed and REJECTED, and the reason is the whole point: two reveals on a
+// site of 1,486 pages are two moments, and a scroll-reveal on every band is a
+// tic that makes the reader wait for content that had already arrived. If you
+// are here because you want a third, the answer is no; the lever is a better
+// picture, not a later one. Anything that turns this into a helper others can
+// call has already lost the argument.
+//
+// THE BASE STATE IS THE FINISHED BAR. .is-armed is added by JS only once it has
+// confirmed it will reveal, exactly like .hitcards.is-armed in build-pages.mjs,
+// so a killed transition, a missing IntersectionObserver, a thrown script or a
+// failed observer all leave a complete chart and never an empty one. NEVER ARM
+// UNDER REDUCED MOTION: ui.css sets transition:none!important for those
+// readers, which kills the movement and does NOT kill a transform:scaleY(0), so
+// arming under it is how a chart ships as two invisible rectangles.
+//
+// scaleY about the baseline is compositor only: no layout, no paint of anything
+// underneath, and CLS cannot move because an SVG rect's transform does not
+// change the box the figure reserves.
+//
+// transform-box:fill-box IS LOAD BEARING AND transform-origin:50% 100% ALONE IS
+// A BUG. On an SVG element transform-box defaults to view-box, so "100%" is the
+// bottom of the 300x132 VIEWBOX and not the bottom of the rect. The baseline is
+// at y=116, sixteen units above that, so the bars grew from sixteen units BELOW
+// the line they are measured against and passed straight through the TRUBBISH
+// and GARBODOR labels on the way up. Caught by reading the computed
+// transform-origin off the shipped page (it said "150px 132px") and then by
+// looking at the 140ms frame, where the bar is plainly sitting on the words.
+// fill-box makes the origin each rect's OWN bottom edge, which for both bars IS
+// y=116. The finished state is transform:none either way, so the settled figure
+// is unchanged and only the movement is.
+const LORE_ANIM_CSS = `
+/* The height bars grow as they scroll in, once. BASE STATE IS THE FINISHED BAR:
+   scaleY(0) exists only under .is-armed, which JS adds only when it has
+   confirmed it will reveal. transform-box:fill-box is NOT optional here, see
+   scripts/build-lore.mjs. Second scroll reveal on this site and the LAST one. */
+.lore-scale .lore-bar{transform-box:fill-box;transform-origin:50% 100%;
+  transition:transform .5s cubic-bezier(.2,.7,.3,1)}
+.lore-scale.is-armed .lore-bar{transform:scaleY(0)}
+.lore-scale.is-armed .lore-bar:nth-of-type(2){transition-delay:90ms}
+.lore-scale.is-armed.is-in .lore-bar{transform:none}
+@media(prefers-reduced-motion:reduce){.lore-scale.is-armed .lore-bar{transform:none}}`;
+
+const LORE_ANIM_JS = `<script>
+(function(){
+  var fig=document.querySelector('.lore-scale');
+  if(!fig) return;
+  var bars=fig.querySelectorAll('.lore-bar');
+  if(bars.length!==2) return;
+  /* RETURN WITHOUT ARMING: arming here is how a chart ships as empty air. */
+  if(!('IntersectionObserver' in window)||
+     (window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  fig.classList.add('is-armed');
+  /* Strips .is-armed at its SOURCE rather than adding .is-in over the top. */
+  var fs=setTimeout(function(){ fig.classList.remove('is-armed'); },2000);
+  var io=new IntersectionObserver(function(es){
+    for(var i=0;i<es.length;i++){
+      if(!es[i].isIntersecting) continue;
+      clearTimeout(fs); fig.classList.add('is-in'); io.disconnect();
+    }
+  },{rootMargin:'0px 0px -10% 0px',threshold:0});
+  io.observe(fig);
+})();
+<\/script>`;
 
 // --- page -------------------------------------------------------------------
 const desc = `Pokemon facts computed from the National Pokedex, not repeated: the rarest type combinations, the heaviest, the hardest to catch, and why Trubbish is ours.`;
@@ -343,6 +422,7 @@ ${STYLES}
 .lore-scale{flex:1 1 260px;min-width:0;align-self:flex-end}
 .lore-scale svg{width:100%;height:auto;max-width:420px;display:block}
 .lore-scale figcaption{font:400 var(--t-micro)/1.5 var(--body);color:inherit;opacity:.72;margin-top:6px}
+${LORE_ANIM_CSS}
 </style>
 <script type="application/ld+json">${JSON.stringify({
   "@context": "https://schema.org",
@@ -457,6 +537,7 @@ ${RARE_COMBOS.map(
 ${/* No "Fan content." here: footer() adds that clause itself, so this printed
       it twice in one sentence. */ ""}
 ${footer("Pokedex data from pokeapi.co, read fresh rather than remembered.")}
+${LORE_ANIM_JS}
 ${APP_JS}
 </body>
 </html>

@@ -403,44 +403,86 @@ function plateDiagram() {
     <g class="gpd-ink">
       ${/* The dish, back half first, exactly as plateMark builds it: the near
            rim is painted again AFTER the food, so the heap sits IN the bowl
-           rather than on a disc behind it. */ ""}
+           rather than on a disc behind it. THE EMPTY PLATE IS NOT A LAYER and
+           is deliberately outside every .gpd-lay wrapper: "Build the plate"
+           starts from a plate, and a sequence that begins with nothing at all
+           is a loading state rather than a recipe. */ ""}
       <ellipse cx="310" cy="432" rx="286" ry="60" class="gpd-china"/>
 
+      ${/* SIX .gpd-lay WRAPPERS, ONE PER NUMBERED LAYER, AND EACH ONE CARRIES
+           ITS OWN CALLOUT DISC. See the "Build the plate" note in the style
+           block below for what they are for. Three rules about the wrappers
+           themselves, because all three are easy to undo:
+
+           THE ORDER OF THE DRAWING IS UNCHANGED. Every wrapper sits exactly
+           where its art already sat, so the painted result with nothing armed
+           is what this figure has always rendered. The one group that had to
+           be SPLIT is the sauce clip: it held the specks, the onions and the
+           mustard, which are layers three, four and five, so it is now three
+           clip groups with the same clip and the same contents in the same
+           order. Splitting a clip group is free; reordering one is not.
+
+           THE NUMBERED DISCS ARE NOT IN HERE. They stay in one run at the end
+           of the drawing, painted over everything, and take the same .is-on
+           toggle keyed off the same index. The note beside them says what
+           putting them in their layers cost.
+
+           NOTHING HERE IS AN ANIMATION NAME. These are plain wrappers with
+           classes toggled on them; the transition lives in CSS. A @keyframes
+           referenced by a name that does not exist never runs and never fires
+           an event, which is the bug the pack wrapper shipped for weeks. */ ""}
       ${/* THE TWO SIDES ARE THE MOUND, split down the middle. The seam is drawn
            as an EDGE rather than left as a colour change, so which side is
            which survives the picture being greyscaled. */ ""}
-      <g clip-path="url(#gpSides)">
-        <rect x="80" y="290" width="230" height="180" fill="#F2E9CD"/>
-        <rect x="310" y="290" width="240" height="180" fill="#DFA93C"/>
-        <g class="gpd-mac">${mac}</g>
-        <g class="gpd-fries">${fries}</g>
-        <path class="gpd-seam" d="M310 306L310 458"/>
+      <g class="gpd-lay" data-lay="1">
+        <g clip-path="url(#gpSides)">
+          <rect x="80" y="290" width="230" height="180" fill="#F2E9CD"/>
+          <rect x="310" y="290" width="240" height="180" fill="#DFA93C"/>
+          <g class="gpd-mac">${mac}</g>
+          <g class="gpd-fries">${fries}</g>
+          <path class="gpd-seam" d="M310 306L310 458"/>
+        </g>
+        <path class="gpd-sides" d="${SIDES}"/>
       </g>
-      <path class="gpd-sides" d="${SIDES}"/>
 
       ${/* THE MEAT OVERHANGS ON PURPOSE. Drawn outside the clip so both pieces
            poke past the mound's outline, which is what makes them read as two
            objects lying on the sides rather than as a third stripe of it. */ ""}
-      <g class="gpd-meat">
-        <rect x="102" y="278" width="206" height="64" rx="32"/>
-        <rect x="290" y="252" width="212" height="64" rx="32"/>
+      <g class="gpd-lay" data-lay="2">
+        <g class="gpd-meat">
+          <rect x="102" y="278" width="206" height="64" rx="32"/>
+          <rect x="290" y="252" width="212" height="64" rx="32"/>
+        </g>
       </g>
 
-      <path class="gpd-sauce" d="${SAUCE}"/>
-      <g class="gpd-drip">
-        <path d="M188 280C182 316 178 366 184 388C189 405 200 400 199 384C197 350 194 312 188 280Z"/>
-        <path d="M436 278C442 312 447 358 441 380C436 397 425 392 426 376C428 342 431 308 436 278Z"/>
+      <g class="gpd-lay" data-lay="3">
+        <path class="gpd-sauce" d="${SAUCE}"/>
+        <g class="gpd-drip">
+          <path d="M188 280C182 316 178 366 184 388C189 405 200 400 199 384C197 350 194 312 188 280Z"/>
+          <path d="M436 278C442 312 447 358 441 380C436 397 425 392 426 376C428 342 431 308 436 278Z"/>
+        </g>
+        <g clip-path="url(#gpSauce)">
+          <g class="gpd-specks">${specks}</g>
+        </g>
       </g>
-      <g clip-path="url(#gpSauce)">
-        <g class="gpd-specks">${specks}</g>
-        <g class="gpd-onion">${onion}</g>
+
+      <g class="gpd-lay" data-lay="4">
+        <g clip-path="url(#gpSauce)">
+          <g class="gpd-onion">${onion}</g>
+        </g>
+      </g>
+
+      <g class="gpd-lay" data-lay="5">
         ${/* The mustard, clipped to the sauce so the stripe cannot end up
              floating in the air beside the plate, which is what it did the
              first time it was drawn unclipped. */ ""}
-        <path class="gpd-mustard" d="M204 200c26-26 44 12 70-14s46 20 72-8 44 18 68-4"/>
+        <g clip-path="url(#gpSauce)">
+          <path class="gpd-mustard" d="M204 200c26-26 44 12 70-14s46 20 72-8 44 18 68-4"/>
+        </g>
       </g>
 
-      ${/* The near rim, painted over the foot of the mound. */ ""}
+      ${/* The near rim, painted over the foot of the mound. NOT A LAYER, for
+           the same reason the back half is not: it is the dish. */ ""}
       <path class="gpd-china" d="M24 432a286 60 0 0 0 572 0"/>
       <path class="gpd-rim" d="M78 428a232 42 0 0 0 464 0"/>
 
@@ -451,13 +493,24 @@ function plateDiagram() {
            still arrives that way. NO DATE ON THAT: the page says twice that
            the dish's own start date is not documented, so nothing here may
            quietly attach 1918 to the food. 1918 is the SHOP. */ ""}
-      <g class="gpd-bread">
-        <path d="${slice}" transform="translate(418 476) scale(1.16)"/>
-        <path d="${slice}" transform="translate(482 460) scale(1.16)"/>
+      <g class="gpd-lay" data-lay="6">
+        <g class="gpd-bread">
+          <path d="${slice}" transform="translate(418 476) scale(1.16)"/>
+          <path d="${slice}" transform="translate(482 460) scale(1.16)"/>
+        </g>
+        <rect class="gpd-butter" x="526" y="502" width="38" height="29" rx="5"
+          transform="rotate(-12 545 516)"/>
       </g>
-      <rect class="gpd-butter" x="526" y="502" width="38" height="29" rx="5"
-        transform="rotate(-12 545 516)"/>
 
+      ${/* THE DISCS STAY LAST, WHICH IS WHERE THEY HAVE ALWAYS BEEN, and they
+           are NOT inside their layer's wrapper. That was tried and it moved
+           pixels: a disc drawn with its own layer is painted before everything
+           above it, and the near rim then ate the bottom of disc 1 and the
+           mustard ate the end of disc 4's leader. 1,034 pixels on a
+           before/after diff of the figure, on a page where the animation is
+           supposed to be the only thing that changed. They carry the same
+           .is-on toggle instead, driven off the same index, so a number still
+           arrives with the food it names. */ ""}
       ${call(1, 38, 420, 112, 420)}
       ${call(2, 602, 288, 506, 288)}
       ${call(3, 38, 232, 150, 238)}
@@ -724,6 +777,62 @@ const style = `
 .gp-layers h3{margin-bottom:4px}
 .gp-layers p{color:var(--ink-2);font-size:var(--t-sm);line-height:1.6}
 
+/* ---- "Build the plate" -------------------------------------------------- */
+/* THE FIGURE'S OWN CAPTION IS THE REASON THIS EXISTS, and it is already on the
+   page in these words: "The order is bottom to top and it matters: the sauce
+   goes over everything, which is what makes it a plate and not a tray of
+   sides." One click assembles the drawing in exactly that order, six layers
+   130ms apart, about 910ms end to end, with the numbered list lighting up in
+   step and the layer arriving right now wearing the pink disc. The drawing
+   DEMONSTRATES ITS OWN SENTENCE. It teaches, it does not decorate, and that is
+   the whole of the case for it: an animation that only made the page feel more
+   expensive would not be here. The full argument is in the builder source above
+   this string, where it costs a reader nothing.
+   TIED TO A REAL ACTION, REVEALS SOMETHING WANTED, SHORT, NEVER REPEATS: the
+   four tests the pack tear passes, which is where the house idiom comes from.
+   TRANSITIONS ON A CLASS TOGGLE, NEVER @keyframes. An animation naming
+   keyframes that do not exist never runs and never fires an event, which is
+   silent, and this repo has shipped that bug twice.
+   cubic-bezier(.2,.7,.3,1) IS THE HOUSE CURVE, the pack tear's own. */
+.gpd-lay,.gpd-call{transition:opacity .2s cubic-bezier(.2,.7,.3,1),transform .26s cubic-bezier(.2,.7,.3,1);
+  transform-origin:50% 100%}
+/* THE HIDDEN STATE ONLY EXISTS UNDER .is-armed AND THAT IS THE LOAD BEARING
+   PART. Every one of these rules is descended from a class JS adds, and JS only
+   adds it once it has checked it will run the sequence. A bare .gpd-lay with
+   opacity:0 on it would be the whole drawing missing for a reader whose script
+   failed, and the blanket transition:none!important this site sets under
+   reduced motion kills the transition WITHOUT touching an opacity:0 base, which
+   is precisely how invisible content ships. Base state is the finished plate. */
+.gpd.is-armed .gpd-lay,.gpd.is-armed .gpd-call{opacity:0;transform:translateY(16px) scale(.985)}
+.gpd.is-armed .gpd-lay.is-on,.gpd.is-armed .gpd-call.is-on{opacity:1;transform:none}
+.gp-layers li{transition:opacity .2s ease}
+.gp-layers.is-armed li{opacity:.3}
+.gp-layers.is-armed li.is-on{opacity:1}
+/* The pink is the site's small accent (--ketchup-deep, not --ketchup) because
+   a 17px numeral is nowhere near the 24px WCAG wants before the 3:1 gate
+   applies. It marks the layer arriving RIGHT NOW and is cleared at the end, so
+   the finished figure is the figure this page has always had. */
+.gp-layers.is-armed li.is-now .gpl-n{background:var(--ketchup-deep);color:var(--on-accent);
+  border-color:var(--ketchup-deep)}
+/* THE CONTROL IS THE SITE'S OWN BUTTON (.btn .btn-yt .btn-sm) rather than a new
+   one: teal fill, which is what every button on this site is. It ships hidden
+   and JS unhides it, because a control that does nothing is worse than no
+   control, and it is a CONTROL rather than content, so this is not the
+   "visible by default" rule being broken. Spent, it goes FLAT rather than away:
+   removing it would shift the figure up 900ms after a click, which is outside
+   the 500ms input window and would be the page's first layout shift. */
+.gp-build{font-family:inherit;cursor:pointer;margin:0 0 var(--s4)}
+.gp-build[disabled],.gp-build[disabled]:hover{box-shadow:none;transform:none;cursor:default}
+/* REDUCED MOTION: THE BUTTON IS NOT RENDERED, so the sequence can never start
+   and the plate is complete exactly as it is today. The two rules under it are
+   not dead: JS returns before arming, but a reader who turns the preference ON
+   mid-sequence would otherwise be left with the blanket transition:none and
+   half a plate frozen at opacity:0. */
+@media(prefers-reduced-motion:reduce){
+  .gp-build{display:none}
+  .gpd.is-armed .gpd-lay,.gpd.is-armed .gpd-call{opacity:1;transform:none}
+  .gp-layers.is-armed li{opacity:1}}
+
 /* ---- The photographs and their credits ---------------------------------- */
 /* ONE SHAPE FOR ALL TEN, and the credit is part of it rather than a thing bolted
    under some of them. CC BY and CC BY-SA both require the photographer's name,
@@ -888,6 +997,12 @@ const body = `
 
     <h2>What is actually <span class="hl">on one</span></h2>
     <p class="gp-sub">${esc(doc.anatomy?.intro || "")}</p>
+    ${/* SHIPS HIDDEN AND JS UNHIDES IT. The plate is complete without this
+         button and stays complete if it never appears; the drawing is content
+         and the button is a control, and a control that cannot do its job is
+         worse than no control at all. Reduced motion hides it in CSS as well,
+         so the sequence has two separate reasons never to start. */ ""}
+    <button type="button" class="btn btn-yt btn-sm gp-build" id="gpBuild" hidden>Build the plate</button>
     <figure class="gp-fig">
       <div class="gp-fig-in">
         ${plateDiagram()}
@@ -1057,6 +1172,80 @@ for (const [what, re] of [
   }
 }
 
+// "BUILD THE PLATE". The one thing on this page that moves, and the whole of
+// the argument for it, kept here where a reader pays nothing for it.
+//
+// WHY IT BELONGS. The figure's own caption already says, in these words: "The
+// order is bottom to top and it matters: the sauce goes over everything, which
+// is what makes it a plate and not a tray of sides." This makes the drawing
+// DEMONSTRATE that sentence rather than sit beside it. Six layers arrive in the
+// order they arrive on the real plate, 130ms apart, about 910ms end to end, and
+// the numbered list beside the drawing lights up in step so the reader's eye is
+// told where to look. It teaches; it does not decorate. An animation that only
+// made this page feel more expensive would not be here, and the next one
+// proposed should be held to the same test.
+//
+// THE FOUR TESTS IT PASSES are the pack wrapper's, which is where this site's
+// idiom comes from: tied to a real action (a click, never a timer and never a
+// scroll), reveals something the reader wants, short, and never repeats. The
+// button disables itself after one run.
+//
+// FIVE IMPLEMENTATION RULES, all of them scar tissue rather than taste:
+//   1. cubic-bezier(.2,.7,.3,1) is the house curve.
+//   2. Transition on a CLASS TOGGLE, never @keyframes. A CSS animation naming
+//      keyframes that do not exist never runs and never fires animationend,
+//      which is silent, and this repo has shipped that exact bug twice.
+//   3. Anything JS arms is VISIBLE BY DEFAULT and armed only once JS has
+//      confirmed it will reveal, with a failsafe. .hitcards.is-armed in
+//      build-pages.mjs is the reference implementation and this copies its
+//      shape, including stripping .is-armed at its SOURCE rather than
+//      overriding it: a failsafe that itself depends on the animation running
+//      is not a failsafe.
+//   4. Reduced motion removes the MOVEMENT, never the content or the mechanic.
+//      Here it removes the button instead, which removes the movement by
+//      removing the only way to start it, and leaves the plate whole.
+//   5. NEVER ARM UNDER REDUCED MOTION. assets-source/ui.css sets
+//      *,*::before,*::after{animation:none!important;transition:none!important}
+//      for those readers. That kills the animation and does NOT kill an
+//      opacity:0 base state, so arming under it is how you ship a figure that
+//      is simply not there. The check returns BEFORE the class is added.
+const buildScript = `<script>
+/* Build the plate. Why it exists, the four tests it passes and the five rules
+   it obeys are in scripts/build-garbage-plate.mjs, where a reader pays 0. */
+(function(){
+  var svg=document.querySelector('.gpd'), ol=document.querySelector('.gp-layers');
+  var btn=document.getElementById('gpBuild');
+  if(!svg||!ol||!btn) return;
+  var lays=svg.querySelectorAll('.gpd-lay'), calls=svg.querySelectorAll('.gpd-call'),
+      lis=ol.querySelectorAll('li');
+  if(lays.length!==6||calls.length!==6||lis.length!==6) return;
+  /* RETURN before arming, never merely skip the movement: ui.css already kills
+     the transition here and would leave the opacity:0 base behind. */
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  btn.hidden=false;
+  function step(n){
+    for(var i=0;i<6;i++){ var on=i<=n;
+      lays[i].classList.toggle('is-on',on); calls[i].classList.toggle('is-on',on);
+      lis[i].classList.toggle('is-on',on); lis[i].classList.toggle('is-now',i===n); }
+  }
+  /* Strips .is-armed at its SOURCE rather than overriding it, and spends the button. */
+  function settle(){
+    svg.classList.remove('is-armed'); ol.classList.remove('is-armed'); step(-1);
+    btn.disabled=true;
+  }
+  btn.addEventListener('click',function(){
+    if(btn.disabled) return;
+    svg.classList.add('is-armed'); ol.classList.add('is-armed'); step(-1);
+    var fs=setTimeout(settle,2000), i=0;   /* half a drawing beats nothing */
+    (function tick(){
+      step(i);
+      if(++i<6){ setTimeout(tick,130); return; }
+      setTimeout(function(){ clearTimeout(fs); settle(); },700);
+    })();
+  });
+})();
+<\/script>`;
+
 const html = `<!DOCTYPE html>
 <html lang="en">
 <head>${swapped}<style>${miniCSS(style)}</style>
@@ -1073,6 +1262,7 @@ ${menuPanel}
 ${body}
 ${footer}
 
+${buildScript}
 ${APP_JS}
 </body>
 </html>
