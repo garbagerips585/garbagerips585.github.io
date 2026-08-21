@@ -35,3 +35,30 @@ export const localDay = (dt = new Date()) => {
   const m = dt.getMonth() + 1, d = dt.getDate();
   return `${dt.getFullYear()}-${m < 10 ? "0" : ""}${m}-${d < 10 ? "0" : ""}${d}`;
 };
+
+/**
+ * Whole days from an ISO date to today, counted on the LOCAL calendar.
+ *
+ * THE SUBTRACTION IS THE BUG AND IT SURVIVED THE SWEEP THAT MADE THIS FILE.
+ * `Math.floor((Date.now() - new Date(iso)) / 86400000)` looks timezone-free and
+ * is not: `new Date("2026-07-17")` parses as UTC MIDNIGHT while `Date.now()` is
+ * an absolute instant, so the gap between them crosses a whole number at UTC
+ * midnight -- 8pm in Rochester, 7pm in winter.
+ *
+ * Two labels flipped on it, both on the front door. build-proto.mjs's badge on
+ * the newest rip read "Yesterday's Rip" from 8pm on the day the video went up,
+ * and build-set-pages.mjs told every set guide its release was a week older
+ * than it was: Pitch Black went "4 weeks ago" to "5 weeks ago" at 20:00 EDT on
+ * 20 August 2026, which is how this was found -- check-tree-drift reported two
+ * stale pages and the diff was the calendar, not the source.
+ *
+ * Both dates are reduced to their local YYYY-MM-DD first and only then parsed,
+ * so both sides are UTC midnight and the difference is exact whole days.
+ */
+export const daysSince = (iso, now = new Date()) => {
+  if (!iso) return null;
+  const a = Date.parse(`${String(iso).slice(0, 10)}T00:00:00Z`);
+  const b = Date.parse(`${localDay(now)}T00:00:00Z`);
+  if (Number.isNaN(a) || Number.isNaN(b)) return null;
+  return Math.round((b - a) / 86400000);
+};

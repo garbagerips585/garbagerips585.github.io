@@ -543,10 +543,50 @@ ${footer(priceFooter("Fan made, not official."))}
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 
+  ${/* EVERY WRITE TO THE STATUS LINE GOES THROUGH HERE, AND IT IS A LIVE
+        REGION, WHICH IS THE WHOLE REASON. Measured typing "charizard" at
+        110ms a key: 9 keystrokes mutated this aria-live="polite" paragraph
+        TEN times, and the LAST FOUR wrote the identical string, "134
+        matches", because the shard is loaded by the fourth letter and every
+        later letter narrows nothing. A polite region re-announces on every
+        mutation, so one search read out ten counts, the last four of them
+        the same sentence four times over.
+
+        THIS IS THE packplayer.js syncCarousel BUG, SECOND SIGHTING. The note
+        there says it in one line: assigning textContent replaces the node
+        even when the value is identical. That fix never travelled, so it is
+        written here as a helper rather than as a rule somebody has to
+        remember at four call sites.
+
+        BOTH HALVES ARE LOAD BEARING AND THEY FIX DIFFERENT THINGS.
+        - The IDENTICAL-VALUE GUARD kills the re-announcement of a count that
+          did not change. It cannot fix the other nine, because "2,435
+          matches" and "781 matches" ARE different strings.
+        - The DEBOUNCE is what collapses a burst of real, different counts
+          into the one that was true when the typist stopped. 400ms is chosen
+          against the 50ms the RESULTS are debounced by below: the list still
+          repaints on the measured 50ms cadence, so nothing about the sighted
+          page gets slower, and only the sentence that gets SPOKEN waits for
+          the typing to stop. Do not merge the two timers.
+
+        stPending rather than the element's own textContent is what the guard
+        compares, so a value superseded before it was ever painted is dropped
+        rather than queued, and the second test inside the timer makes sure a
+        value already on screen is never rewritten with itself. */ ""}
+  var stTimer=null, stPending='';
+  function setStatus(s){
+    if(s===stPending) return;
+    stPending=s;
+    clearTimeout(stTimer);
+    stTimer=setTimeout(function(){
+      if(status.textContent!==s) status.textContent=s;
+    },400);
+  }
+
   function render(hits, total){
     if(!hits.length){
       list.innerHTML='';
-      status.textContent='Nothing matched. Check the spelling, or try just the Pokemon name.';
+      setStatus('Nothing matched. Check the spelling, or try just the Pokemon name.');
       head.hidden=true;
       return;
     }
@@ -608,9 +648,9 @@ ${footer(priceFooter("Fan made, not official."))}
         + '</li>';
     }).join('');
     head.hidden=true;
-    status.textContent = total>hits.length
+    setStatus(total>hits.length
       ? total.toLocaleString('en-US')+' matches, showing the '+hits.length+' priciest'
-      : total.toLocaleString('en-US')+(total===1?' match':' matches');
+      : total.toLocaleString('en-US')+(total===1?' match':' matches'));
   }
 
   // ---- every printing, in every language -------------------------------
@@ -663,7 +703,7 @@ ${footer(priceFooter("Fan made, not official."))}
 
   function run(){
     var q=input.value.trim().toLowerCase(), set=sel.value;
-    if(!q && !set){ list.innerHTML=initial; status.textContent=''; head.hidden=false; return; }
+    if(!q && !set){ list.innerHTML=initial; setStatus(''); head.hidden=false; return; }
     if(!DATA){ load(run); return; }
     // A set filter names one of our 23 English sets, so it stays on the priced
     // index: the corpus has no notion of our slugs and every hit would be a
@@ -678,7 +718,7 @@ ${footer(priceFooter("Fan made, not official."))}
       return;
     }
     var k=shardKey(q);
-    if(!SHARD[k]){ status.textContent='Searching every set...'; loadShard(k, run); return; }
+    if(!SHARD[k]){ setStatus('Searching every set...'); loadShard(k, run); return; }
     var pm=priceMap();
     var hits=SHARD[k].filter(function(c){ return c.n.toLowerCase().indexOf(q)!==-1; })
       .map(function(c){
@@ -714,14 +754,14 @@ ${footer(priceFooter("Fan made, not official."))}
     if(then) WAITING.push(then);
     if(LOADING) return;
     LOADING=true;
-    status.textContent='Loading the card list...';
+    setStatus('Loading the card list...');
     fetch('/data/card-index.json').then(function(r){ return r.json(); }).then(function(j){
       DATA=j; LOADING=false;
       var q=WAITING; WAITING=[];
       q.forEach(function(fn){ fn(); });
     }).catch(function(){
       LOADING=false; WAITING=[];
-      status.textContent='Could not load the card list. Reload the page and try again.';
+      setStatus('Could not load the card list. Reload the page and try again.');
     });
   }
 

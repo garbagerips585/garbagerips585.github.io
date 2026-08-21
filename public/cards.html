@@ -792,10 +792,21 @@
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 
+  
+  var stTimer=null, stPending='';
+  function setStatus(s){
+    if(s===stPending) return;
+    stPending=s;
+    clearTimeout(stTimer);
+    stTimer=setTimeout(function(){
+      if(status.textContent!==s) status.textContent=s;
+    },400);
+  }
+
   function render(hits, total){
     if(!hits.length){
       list.innerHTML='';
-      status.textContent='Nothing matched. Check the spelling, or try just the Pokemon name.';
+      setStatus('Nothing matched. Check the spelling, or try just the Pokemon name.');
       head.hidden=true;
       return;
     }
@@ -857,9 +868,9 @@
         + '</li>';
     }).join('');
     head.hidden=true;
-    status.textContent = total>hits.length
+    setStatus(total>hits.length
       ? total.toLocaleString('en-US')+' matches, showing the '+hits.length+' priciest'
-      : total.toLocaleString('en-US')+(total===1?' match':' matches');
+      : total.toLocaleString('en-US')+(total===1?' match':' matches'));
   }
 
   // ---- every printing, in every language -------------------------------
@@ -912,7 +923,7 @@
 
   function run(){
     var q=input.value.trim().toLowerCase(), set=sel.value;
-    if(!q && !set){ list.innerHTML=initial; status.textContent=''; head.hidden=false; return; }
+    if(!q && !set){ list.innerHTML=initial; setStatus(''); head.hidden=false; return; }
     if(!DATA){ load(run); return; }
     // A set filter names one of our 23 English sets, so it stays on the priced
     // index: the corpus has no notion of our slugs and every hit would be a
@@ -927,7 +938,7 @@
       return;
     }
     var k=shardKey(q);
-    if(!SHARD[k]){ status.textContent='Searching every set...'; loadShard(k, run); return; }
+    if(!SHARD[k]){ setStatus('Searching every set...'); loadShard(k, run); return; }
     var pm=priceMap();
     var hits=SHARD[k].filter(function(c){ return c.n.toLowerCase().indexOf(q)!==-1; })
       .map(function(c){
@@ -963,14 +974,14 @@
     if(then) WAITING.push(then);
     if(LOADING) return;
     LOADING=true;
-    status.textContent='Loading the card list...';
+    setStatus('Loading the card list...');
     fetch('/data/card-index.json').then(function(r){ return r.json(); }).then(function(j){
       DATA=j; LOADING=false;
       var q=WAITING; WAITING=[];
       q.forEach(function(fn){ fn(); });
     }).catch(function(){
       LOADING=false; WAITING=[];
-      status.textContent='Could not load the card list. Reload the page and try again.';
+      setStatus('Could not load the card list. Reload the page and try again.');
     });
   }
 

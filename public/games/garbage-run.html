@@ -233,7 +233,8 @@
         </div>
 
         <div class="gr-board" id="grBoard">
-          <div class="gr-stage" id="grStage">
+          
+          <div class="gr-stage" id="grStage" tabindex="-1">
             <canvas id="grCanvas" width="420" height="680" role="img"
               aria-label="Garbage Run. Trubbish runs through downtown Rochester, past the Times Square building, the Xerox tower and High Falls, and you tap to flip him between the floor and the ceiling."></canvas>
             <div class="gr-over gr-attract" id="grOver" role="status">
@@ -252,8 +253,10 @@
           eat everything on the street, Garbage Plates included. A hundred pieces of trash and he evolves.</p>
 
         <div class="gr-how">
-          <p><b>How it works.</b> Tap anywhere, or press <span class="gr-keys">space</span>, <span class="gr-keys">W</span>
-          or the <span class="gr-keys">arrow keys</span>. Every piece of trash you eat is a point. Other Pokemon are out there too and
+          
+          <p><b>How it works.</b> Tap anywhere, or press Start and then use <span class="gr-keys">space</span>,
+          <span class="gr-keys">W</span> or the <span class="gr-keys">arrow keys</span>, which flip Trubbish once the
+          board has your focus. Every piece of trash you eat is a point. Other Pokemon are out there too and
           touching one ends the run. Get to 100 and Trubbish evolves into Garbodor for the rest of the game.<br>
           <b>Some of the trash is a Garbage Plate</b>, because of course it is. Home fries, macaroni salad, hot sauce,
           mustard and onion, exactly like Nick Tahou would hand you at two in the morning. A plate is worth the same one
@@ -1425,6 +1428,7 @@
   }
   var countIn = 0, acc = 0, last = 0;
   function start() {
+    takeKeys();
     paused = false;
     startBest = best;
     hideTitle();
@@ -1438,9 +1442,13 @@
     raf = requestAnimationFrame(tick);
   }
   var stage = document.getElementById("grStage");
+  function takeKeys() {
+    try { stage.focus({ preventScroll: true }); } catch (e) { stage.focus(); }
+  }
   stage.addEventListener("pointerdown", function (e) {
     if (e.target && e.target.closest && e.target.closest("button")) return;
     e.preventDefault();
+    takeKeys();
     if (running) flip(0);
     else if (paused) resume();
     else if (!elOver.hidden && goReady()) start();
@@ -1450,6 +1458,7 @@
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     var tgt = e.target;
     if (tgt && (tgt.isContentEditable || /^(input|textarea|select)$/i.test(tgt.tagName || ""))) return;
+    if (!stage.contains(document.activeElement)) return;
     var k = e.key.toLowerCase();
     if (k === " " || k === "spacebar" || k === "arrowup" || k === "arrowdown" ||
         k === "w" || k === "s") {
@@ -1465,6 +1474,7 @@
   var paused = false;
   function resume() {
     if (!paused) return;
+    takeKeys();
     paused = false;
     elOver.hidden = true;
     running = true;

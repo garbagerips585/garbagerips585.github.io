@@ -450,7 +450,7 @@
   </div>
 </footer>
 <script src="/assets/app.js?v=ae4e5a0b" defer></script>
-<script src="/assets/games.js?v=40f59b03" defer></script>
+<script src="/assets/games.js?v=11146bce" defer></script>
 <script>
 (function(){
   var ART='/assets/species/';
@@ -469,9 +469,10 @@
        told there is a question mark here helps nobody. */
     var slot=ask?portrait(ask,'')
                 :'<span class="gq-pending" aria-hidden="true">?</span>';
+    
     var q={
       stage:'<div class="gq-art" data-art>'+slot+'</div><p class="gq-q">'+r[0]+'</p>',
-      choices:opts,answer:answer,note:r[5]||'',
+      choices:opts,answer:answer,note:r[5]||'',ask:r[0],
       _art:art(ask||tell)
     };
     if(tell) q.reveal=function(stage){

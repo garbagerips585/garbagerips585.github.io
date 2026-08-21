@@ -350,6 +350,17 @@ const style = `
    flick near the edge dragging the whole page. */
 .gr-stage{touch-action:none;overscroll-behavior:contain}
 .gr-stage canvas{touch-action:none}
+/* THE STAGE IS FOCUSABLE NOW (tabindex="-1"), AND IT DELIBERATELY DECLARES NO
+   FOCUS STYLE OF ITS OWN. ui.css sets one ring for the whole site on bare
+   :focus-visible, and it lands on this element unchanged: an outline is painted
+   outside the box, so the stage's own overflow:hidden does not clip it. The
+   thing worth writing down is why nothing appears on a TAP. Focus is taken
+   programmatically when you tap the board or press Start, because holding focus
+   is what entitles the game to the keys (see THE KEYS BELONG TO THE GAME ONLY
+   WHILE IT HAS FOCUS beside the keydown handler), and :focus-visible does not
+   match a programmatic focus that followed a pointer. So the mouse and touch
+   player never sees a ring they did not ask for, and the keyboard player, who
+   got here by pressing Start, does. */
 
 .gr-hud{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:baseline;justify-content:flex-start;
   margin:var(--s4) 0 var(--s3)}
@@ -2551,6 +2562,11 @@ const GAME_JS = `
 
   var countIn = 0, acc = 0, last = 0;
   function start() {
+    // BEFORE THE OVERLAY GOES, NOT AFTER. elOver holds the Start button, and
+    // hiding the element that contains the focused button hands focus to
+    // <body>, which is now the state in which the game hears no keys at all.
+    // A keyboard player would have pressed Start and then found space dead.
+    takeKeys();
     paused = false;
     startBest = best;
     hideTitle();
@@ -2570,10 +2586,25 @@ const GAME_JS = `
   // and a canvas listener never hears it: tapping the board to begin did
   // nothing and you had to find the button. The stage contains both.
   var stage = document.getElementById("grStage");
+  // TAKING THE KEYS IS AN ACT, AND THIS IS THE ONE PLACE IT HAPPENS. Every way
+  // into the game routes through here: the board is tapped, Start is clicked,
+  // or a key that already belonged to the game started a run. See the long note
+  // on the keydown handler for why holding focus is the whole entitlement.
+  //
+  // preventDefault() on the pointerdown above is what makes this NECESSARY
+  // rather than tidy: cancelling that event also cancels the focus the browser
+  // would have moved here itself, so without this line a tap plays the game
+  // with focus still on <body> and the keys stay dead. And hiding the overlay
+  // in start() drops focus off the Start button onto <body>, which is the same
+  // hole arriving from the other side.
+  function takeKeys() {
+    try { stage.focus({ preventScroll: true }); } catch (e) { stage.focus(); }
+  }
   stage.addEventListener("pointerdown", function (e) {
     // Let the actual button behave like a button.
     if (e.target && e.target.closest && e.target.closest("button")) return;
     e.preventDefault();
+    takeKeys();
     if (running) flip(0);
     else if (paused) resume();
     else if (!elOver.hidden && goReady()) start();
@@ -2600,6 +2631,34 @@ const GAME_JS = `
     // on the page reported it because the game is off screen while you type.
     var tgt = e.target;
     if (tgt && (tgt.isContentEditable || /^(input|textarea|select)$/i.test(tgt.tagName || ""))) return;
+    // THE KEYS BELONG TO THE GAME ONLY WHILE IT HAS FOCUS, AND THE LINE BELOW
+    // IS THE WHOLE OF THAT. WCAG 2.1.4 wants a single-key shortcut turned off,
+    // remapped, OR scoped to focus, and this file took the fourth option, which
+    // is not on the list: it took the keys page-wide and preventDefault()ed
+    // them in every reachable state.
+    //
+    // MEASURED BEFORE THE GATE, at 1280x844, fresh load, focus on <body>,
+    // scrolled to y=1200 with the board entirely off screen on a 2,211px page:
+    // space, up, down, W and S each left scrollY at exactly 1200 and dismissed
+    // the attract overlay, so a reader who had never touched the game scrolled
+    // nowhere and started a run they could not see. Only PageDown moved the
+    // page. The comment two paragraphs down worried about a space bar pressed
+    // in the lock window and took the reader's five scroll keys with it.
+    //
+    // FOCUS, NOT VISIBILITY, AND THAT IS A CHOICE RATHER THAN THE EASY HALF. An
+    // IntersectionObserver on the stage would also let the keys work for
+    // somebody who has scrolled the board into view without touching it, and it
+    // was rejected: the reader who has just scrolled the game onto the screen
+    // is, by definition, mid-scroll, and space is how they were doing it. That
+    // is the reported bug again, moved 1,200px down the page and made harder to
+    // find. Seeing a thing is not asking for it. Every real way to ask now
+    // hands focus to the stage: tapping the board, pressing Start, or tabbing
+    // to Start and pressing it. takeKeys() is that, in one place.
+    //
+    // stage.contains() rather than an identity test, because the Start button
+    // lives INSIDE the stage: a keyboard player who has tabbed to Start has the
+    // game's focus and must be able to press space to begin.
+    if (!stage.contains(document.activeElement)) return;
     var k = e.key.toLowerCase();
     // SPACE IS NOT THE ONLY KEY ANY MORE. It was, on a page nobody had ever
     // played with a keyboard, and space on a long page is also the browser's own
@@ -2615,7 +2674,10 @@ const GAME_JS = `
       if (running) { e.preventDefault(); flip(0); }
       else if (paused) { e.preventDefault(); resume(); }
       // The key is swallowed either way, so a space bar pressed in the lock
-      // window still cannot throw the page down a screen.
+      // window still cannot throw the page down a screen. That now costs the
+      // page nothing, because we only get here with focus inside the stage:
+      // this is a control the reader is standing on eating its own key, which
+      // is what a button does.
       else if (!elOver.hidden) { e.preventDefault(); if (goReady()) start(); }
     }
   });
@@ -2638,6 +2700,10 @@ const GAME_JS = `
   var paused = false;
   function resume() {
     if (!paused) return;
+    // Same reason as in start(): the Resume button is inside the overlay this
+    // line is about to hide, and losing focus to <body> here would leave the
+    // run going with the keys dead.
+    takeKeys();
     paused = false;
     elOver.hidden = true;
     running = true;
@@ -2894,7 +2960,17 @@ ${MENU}
         </div>
 
         <div class="gr-board" id="grBoard">
-          <div class="gr-stage" id="grStage">
+          ${/* tabindex="-1" AND NOT 0, AND THE DIFFERENCE IS THE WHOLE FIX.
+               The stage has to be able to HOLD focus, because the keydown
+               handler below only acts while it does; it does not need to be a
+               TAB STOP, because the Start button sitting inside it already is
+               one and that button is how a keyboard player gets in. A second
+               tab stop on a generic div with no accessible name would announce
+               nothing and would sit in the tab order of every reader who is
+               only passing through on their way to the copy below. -1 is
+               focusable and never tabbed to, which is exactly the pair of
+               properties this wants. */ ""}
+          <div class="gr-stage" id="grStage" tabindex="-1">
             <canvas id="grCanvas" width="420" height="680" role="img"
               aria-label="Garbage Run. Trubbish runs through downtown Rochester, past the Times Square building, the Xerox tower and High Falls, and you tap to flip him between the floor and the ceiling."></canvas>
             <div class="gr-over gr-attract" id="grOver" role="status">
@@ -2913,8 +2989,17 @@ ${MENU}
           eat everything on the street, Garbage Plates included. A hundred pieces of trash and he evolves.</p>
 
         <div class="gr-how">
-          <p><b>How it works.</b> Tap anywhere, or press <span class="gr-keys">space</span>, <span class="gr-keys">W</span>
-          or the <span class="gr-keys">arrow keys</span>. Every piece of trash you eat is a point. Other Pokemon are out there too and
+          ${/* "ONCE THE BOARD HAS YOUR FOCUS" IS NOT PADDING, it is the one
+               sentence that stops the fix above reading as a broken game. The
+               keys only work while the stage holds focus, so a reader who takes
+               this line at its word from the bottom of the page, having never
+               touched the board, would press space and get a screen of scroll
+               instead. Tapping the board or pressing Start is what hands the
+               keys over, and both are named here in the order a hand finds
+               them. */ ""}
+          <p><b>How it works.</b> Tap anywhere, or press Start and then use <span class="gr-keys">space</span>,
+          <span class="gr-keys">W</span> or the <span class="gr-keys">arrow keys</span>, which flip Trubbish once the
+          board has your focus. Every piece of trash you eat is a point. Other Pokemon are out there too and
           touching one ends the run. Get to ${EVOLVE_AT} and Trubbish evolves into Garbodor for the rest of the game.<br>
           <b>Some of the trash is a Garbage Plate</b>, because of course it is. Home fries, macaroni salad, hot sauce,
           mustard and onion, exactly like Nick Tahou would hand you at two in the morning. A plate is worth the same one

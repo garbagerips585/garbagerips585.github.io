@@ -1627,9 +1627,28 @@ ${/* "the good bit" is British for "the good part", and it is not a word a
        told there is a question mark here helps nobody. */
     var slot=ask?portrait(ask,'')
                 :'<span class="gq-pending" aria-hidden="true">?</span>';
+    ${/* ask: THE QUESTION, IN WORDS, FOR THE ENGINE'S LIVE REGION, and it is
+          the reason this page is the only one of the three that passes one. The
+          other two ask in a picture, a silhouette and a set symbol, so there is
+          no sentence that would let a blind player answer and they pass nothing;
+          the engine then says nothing on a new question rather than inventing
+          "Which Pokemon is this?" every ten seconds.
+
+          MEASURED BEFORE IT WAS PASSED, with a MutationObserver on this page:
+          answering announced the verdict once, correctly, and then render()
+          replaced the question and all four choice labels in silence. A screen
+          reader said "1 Swellow, button" and stopped, so the one game here a
+          blind player can genuinely play never said what it was asking.
+
+          r[0] is the SAME string the visible <p class="gq-q"> gets, read from
+          the row rather than back out of the markup, so the spoken question and
+          the printed one cannot drift apart. See the note beside data-live in
+          games.js for why the question is allowed to appear twice in the tree,
+          and this comment is interpolated away rather than shipped because it
+          is three times the size of the line it explains. */ ""}
     var q={
       stage:'<div class="gq-art" data-art>'+slot+'</div><p class="gq-q">'+r[0]+'</p>',
-      choices:opts,answer:answer,note:r[5]||'',
+      choices:opts,answer:answer,note:r[5]||'',ask:r[0],
       _art:art(ask||tell)
     };
     if(tell) q.reveal=function(stage){

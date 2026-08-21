@@ -50,6 +50,21 @@
  *    `aria-disabled` now and the `locked` guard in answer() is what actually
  *    stops a second answer, as it always was.
  * ---------------------------------------------------------------------------
+ * AND TWO MORE FROM A KEYBOARD AND SCREEN READER SWEEP ON 20 AUGUST 2026, both
+ * of them the second half of a job this file had already done once.
+ *
+ * 4. THE ANSWER KEYS WERE STILL LIVE ON THE WHOLE PAGE. Point 1's fix kept them
+ *    out of text fields and stopped there; WCAG 2.1.4 also wants a single-key
+ *    shortcut scoped to focus. Focus the last link in the footer, press 1, and
+ *    the question was answered from four screens away. onKey() now returns
+ *    unless focus is inside the mount.
+ *
+ * 5. NOTHING SAID WHAT THE NEXT QUESTION WAS. The verdict was announced and
+ *    then render() swapped the question and all four labels in silence, so a
+ *    screen reader read out the first button and nothing else. There is one
+ *    live region now, sr-only, written once per resolved event and carrying the
+ *    numbers that moved with it. See the note beside the element.
+ * ---------------------------------------------------------------------------
  */
 (function () {
   "use strict";
@@ -165,7 +180,27 @@
       '<span class="gq-stat gq-clock" data-clock hidden></span>' +
       "</div>" +
       '<div class="gq-stage" data-stage></div>' +
-      '<p class="gq-say" data-say role="status" aria-live="polite"></p>' +
+      // ONE LIVE REGION, PRIMED EMPTY, WRITTEN ONCE PER RESOLVED EVENT. Same
+      // shape as chase-match's board and for the same reason. Measured with a
+      // MutationObserver on the trivia: the verdict announced once, correctly,
+      // and then render() replaced the question and all four labels in silence
+      // while the streak, the tally and the best score changed with no live
+      // region on them at all.
+      //
+      // .gq-say IS NOT THE LIVE REGION ANY MORE, which is the half of this that
+      // looks like a removal. It is the sighted player's line, coloured and read
+      // at leisure. Two polite regions firing a few hundred milliseconds apart
+      // is how a fast run becomes a queue of half-sentences, so the verdict
+      // comes through here instead with the numbers it changed. One event, one
+      // sentence.
+      //
+      // THE COST, BECAUSE IT IS REAL: a reader browsing element by element meets
+      // the question twice, in the stage and here. The alternative, aria-hidden
+      // on the visible question, makes this the ONLY copy, and a source that
+      // later stops passing an `ask` would then have a question no screen reader
+      // can reach at all. A repeated sentence beats a missing one.
+      '<p class="sr-only" data-live role="status" aria-live="polite"></p>' +
+      '<p class="gq-say" data-say></p>' +
       '<div class="gq-choices" data-choices></div>' +
       '<div class="gq-foot">' +
       // The hint for the skip, shown on the first three results of a session and
@@ -177,9 +212,15 @@
       '<button class="gq-mode" data-mode type="button">Sprint: 60 seconds</button>' +
       "</div>" +
       "</div>";
-    ["streak", "score", "asked", "best", "clock", "stage", "say", "choices", "mode", "skip"].forEach(function (k) {
+    ["streak", "score", "asked", "best", "clock", "stage", "say", "live", "choices", "mode", "skip"].forEach(function (k) {
       dom[k] = el.querySelector("[data-" + k + "]");
     });
+
+    /* The only thing that speaks. See the note beside the element: one write per
+     * resolved event, never per frame and never per choice. */
+    function announce(words) {
+      dom.live.textContent = words;
+    }
 
     function showBest() {
       dom.best.textContent = store.get(sprint ? bestSprintKey : bestKey, 0);
@@ -209,6 +250,22 @@
         });
         dom.choices.appendChild(b);
       });
+      // SAY THE QUESTION, ONCE, AFTER THE CHOICES EXIST. At the end of render()
+      // on purpose: a polite region written while the buttons are still being
+      // built would be read before the thing it asks about is in the document,
+      // and go() moves focus to the first choice straight after, so the reader
+      // hears the question and lands on answer one.
+      //
+      // OPTIONAL, AND TWO OF THE THREE GAMES PASS NOTHING. Who's That Pokemon
+      // and Guess the Set ask in a picture, a silhouette and a set symbol;
+      // there is no sentence that would let a blind player answer, and "Which
+      // Pokemon is this?" every ten seconds is noise. The trivia asks in words,
+      // so the trivia passes its words.
+      //
+      // The first question of a mount is deliberately silent: the region is
+      // created and written in the same task, and a live region filled in the
+      // tick it was created in does not announce. Nothing should speak on load.
+      if (q.ask) announce(q.ask);
       // Build the NEXT question now and preload its art, so the image is in
       // cache before the question that needs it is ever shown.
       upcoming = opts.next();
@@ -240,25 +297,46 @@
         buttons[b].setAttribute("aria-disabled", "true");
         if (b === q.answer) buttons[b].classList.add("is-right");
       }
+      var hadStreak = streak;
+      var newBest = false;
+      var verdict;
       if (right) {
         streak++;
         score++;
-        dom.say.textContent = q.note ? "Correct. " + q.note : "Correct.";
+        verdict = q.note ? "Correct. " + q.note : "Correct.";
         dom.say.className = "gq-say is-right";
-        if (!sprint && streak > store.get(bestKey, 0)) store.set(bestKey, streak);
+        if (!sprint && streak > store.get(bestKey, 0)) {
+          store.set(bestKey, streak);
+          newBest = true;
+        }
       } else {
         if (btn) btn.classList.add("is-wrong");
         streak = 0;
         // SAY THAT IT WAS WRONG. This announced only the correct answer, so a
         // screen reader heard "Goldeen. #118, Generation 1." and had to
         // remember which name they had picked to know whether they got it.
-        dom.say.textContent =
-          "Not quite. The answer is " + q.choices[q.answer].label + "." + (q.note ? " " + q.note : "");
+        verdict = "Not quite. The answer is " + q.choices[q.answer].label + "." + (q.note ? " " + q.note : "");
         dom.say.className = "gq-say is-wrong";
       }
+      dom.say.textContent = verdict;
       dom.streak.textContent = streak;
       showRun();
       showBest();
+      // THE NUMBERS TRAVEL WITH THE VERDICT RATHER THAN IN A REGION OF THEIR
+      // OWN. Three counters just moved in the bar and not one of them was in a
+      // live region, so a screen reader player could answer for twenty minutes
+      // and never be told a single score. An aria-live on the bar would fire
+      // three numbers a few milliseconds apart, on top of the verdict, on every
+      // answer. One sentence at the one moment they all change says it once.
+      //
+      // The streak only earns a clause when it means something: "Streak 0"
+      // after a miss is a number nobody needs, and that the streak you HAD is
+      // gone is the news, if you had one.
+      var tally = score + " of " + asked + " right.";
+      if (right) tally += " Streak " + streak + ".";
+      else if (hadStreak) tally += " Streak back to zero.";
+      if (newBest) tally += " A new best streak.";
+      announce(verdict + " " + tally);
       if (q.reveal) q.reveal(dom.stage);
 
       // The hold is still automatic, so putting the phone down and watching it
@@ -319,6 +397,15 @@
       });
       dom.choices.appendChild(again);
       showBest();
+      // THE END OF A SPRINT IS A RESOLVED EVENT TOO, and it was the loudest
+      // silent one: the clock stops on its own, the board is replaced by a
+      // result panel, and nothing about that is announced by anything. This is
+      // the same sentence the panel shows, in the order a person would say it.
+      announce(
+        "Time. " + score + " right in 60 seconds" +
+        (score > best ? ", a new best." : ", best is " + best + ".") +
+        (asked ? " " + asked + (asked === 1 ? " question" : " questions") + " answered." : "")
+      );
     }
 
     function start(isSprint) {
@@ -377,6 +464,25 @@
       var tag = t && t.tagName;
       if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (t && t.isContentEditable)) return;
       if (e.metaKey || e.ctrlKey || e.altKey) return;
+      // AND ONLY WHILE THE GAME HAS FOCUS, WHICH IS THE OTHER HALF OF THE SAME
+      // SUCCESS CRITERION AND WAS MISSING FOR AS LONG AS THE HALF ABOVE HAS
+      // BEEN HERE. 2.1.4 wants the shortcut turned off, remapped, or ACTIVE
+      // ONLY ON FOCUS; the fix above did none of those, it kept the keys off
+      // text fields and left them live everywhere else on the page.
+      //
+      // MEASURED BEFORE THIS LINE, on all three games: focus the last link in
+      // the footer, four screens below the game, press 1. The answer locked in,
+      // [data-asked] went 0 to 1 and the streak broke while the reader was
+      // reading the footer. Space was worse, being the page's own scroll key as
+      // well: with a result up, scrollY went 600 to 600 against a control of
+      // 600 to 1,317 on chase-match.
+      //
+      // el.contains() rather than a test on the buttons, because everything in
+      // the mount counts: the four answers, Sprint, and "Go again". answer()
+      // already hands focus back to the next question's first choice when the
+      // last answer came from the keyboard, so a keyboard run never falls out
+      // of this on its own.
+      if (!el.contains(document.activeElement)) return;
       var n = "1234".indexOf(e.key);
       if (locked) {
         if (!advance) return;
