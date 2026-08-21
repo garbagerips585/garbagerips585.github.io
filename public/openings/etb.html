@@ -106,14 +106,20 @@ border:1px solid var(--hair);border-radius:6px}
 .op-cn{background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
 .op-ex{display:block;margin-top:var(--s3);font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
 .op-note{color:var(--ink-2);font-size:var(--t-sm);line-height:1.55;max-width:44em}
-THE ANCHOR KEEPS ui.css's 44px min-height. It is the tap target and stacking
-the row is no reason to shrink it. */
+.op-promos{list-style:none;margin:var(--s3) 0 var(--s4);padding:0;display:grid;gap:var(--s2);max-width:46em}
+.op-pr{display:flex;flex-wrap:wrap;align-items:baseline;gap:.35em var(--s3);
+padding:var(--s2) var(--s3);border:2px solid var(--hair);border-radius:10px;background:var(--card)}
+.op-pr b{font-weight:700;font-size:var(--t-sm);line-height:1.3;margin-right:auto}
+.op-prc{font:400 var(--t-sm)/1.3 var(--body);font-weight:700;color:var(--ketchup-deep)}
+.op-prf{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
+@media(max-width:560px){.op-pr b{margin-right:0;flex:0 0 100%}}
 .op-kindrips li{flex-direction:column;align-items:flex-start;gap:0}
 .op-kindrips span{white-space:normal;min-width:0}
 @media(min-width:1000px){
 .op-lede{max-width:50ch}
 .op-note{max-width:50ch}
 .op-sets{max-width:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s3)}
+.op-promos{max-width:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s3)}
 }
 @media(min-width:1500px){
 .op-grid{grid-template-columns:repeat(4,1fr)}
@@ -321,6 +327,46 @@ the row is no reason to shrink it. */
       </ul>
       <p class="op-note">Openings and packs counted here, in our own videos, which is the only place
         these numbers come from. Of the 57 openings above, every one carries exactly one set tag, so the column adds up to the same 57. Each row opens that set's guide.</p>
+      <h2 class="op-sh">The promo card sealed in each of those boxes</h2>
+      <p class="op-note">Every Elite Trainer Box comes with one promo card, sitting in the tray under the
+        sleeves rather than inside any of the packs. It is part of the product, so it is the same card in
+        every copy of that set's box: one card per set below, listed once however many boxes of it we
+        opened. Chaos Rising is the clearest case: 21 openings of it on this page,
+        across more than one box, and the same single card in every one of them.</p>
+      <ul class="op-promos">
+        <li class="op-pr">
+          <b>Chaos Rising</b>
+          <span class="op-prc">Fennekin</span>
+          <span class="op-prf">full-art foil</span>
+        </li>
+        <li class="op-pr">
+          <b>Pitch Black</b>
+          <span class="op-prc">Zarude</span>
+          <span class="op-prf">full-art foil</span>
+        </li>
+        <li class="op-pr">
+          <b>Prismatic Evolutions</b>
+          <span class="op-prc">Eevee</span>
+          <span class="op-prf">full-art foil</span>
+        </li>
+        <li class="op-pr">
+          <b>Perfect Order</b>
+          <span class="op-prc">Tyrunt</span>
+          <span class="op-prf">full-art foil</span>
+        </li>
+        <li class="op-pr">
+          <b>Ascended Heroes</b>
+          <span class="op-prc">N's Zekrom</span>
+          <span class="op-prf">full-art foil</span>
+        </li>
+      </ul>
+      <p class="op-note"><b>Nobody pulled these.</b> This is what the box holds before it is opened, read off
+        The Pokemon Company's own product page for each one, and that is why it is on this page instead of
+        with the pulls. <a href="/hall.html">The Hall of Fame</a> and every hit we list are only ever a record
+        of what came out of a <em>pack</em> on camera, and an Elite Trainer Box promo never does. The card
+        each row names is the standard Elite Trainer Box's; the Pokemon Center edition of all of these carries
+        its own version stamped with the Pokemon Center logo, and we do not list it, because our product tag
+        cannot tell the two boxes apart and we will not guess which one was on the desk.</p>
       <p class="op-tcap">What an Elite Trainer Box costs, by set. TCGplayer market price, read August 16, 2026</p>
       <div class="op-tw" tabindex="0" role="region" aria-label="What an Elite Trainer Box costs, by set. TCGplayer market price, read August 16, 2026, scrollable table">
         <table class="op-t">

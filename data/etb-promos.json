@@ -1,0 +1,129 @@
+{
+  "_readme": [
+    "The promo card that comes sealed in an Elite Trainer Box, one per SET.",
+    "Drives the promo band on /openings/etb.html, built by scripts/build-openings.mjs.",
+    "",
+    "THE UNIT IS THE SET, NOT THE BOX AND EMPHATICALLY NOT THE VIDEO. Tim asked for",
+    "this as 'one promo card should be added for every ETB we open, not every ETB",
+    "Video but each full set'. A nine pack ETB is ripped across nine videos and the",
+    "box still held ONE promo, so a row keyed on the video would multiply one card by",
+    "nine. Keying on the box is wrong too, and Chaos Rising is the case that proves",
+    "it: the channel has opened THREE Chaos Rising Elite Trainer Boxes across 21",
+    "videos, and all three are the same product, so all three held the same Fennekin.",
+    "The promo is a property of the PRODUCT, so it is listed once per set however",
+    "many boxes of it were opened. The builder enforces that: it keys on set id and",
+    "there is no per box or per video field here to get wrong.",
+    "",
+    "------------------------------------------------- THIS IS NOT A RECORD OF PULLS",
+    "",
+    "READ THIS BEFORE ADDING ANYTHING TO THIS FILE OR MOVING ANYTHING OUT OF IT.",
+    "Everything here is a PRODUCT FACT: what The Pokemon Company says is in the box",
+    "before anybody opens it. It is not a claim that Tim pulled these cards, and an",
+    "ETB promo is not pulled at all, it sits under the sleeves in the tray.",
+    "",
+    "data/hits.json is the other kind of claim, and the two must never be merged.",
+    "That file is what came out of a PACK on camera, it is what /hall.html and the",
+    "hits page are built from, and its own lede promises 'Nothing here was hand",
+    "picked: this is the whole list of what was pulled on camera'. Writing a box",
+    "promo into it would break that sentence on the site's most shareable page.",
+    "",
+    "The confusion is easy to make and the data shows why: hits.json already carries",
+    "five cards whose rarity is 'Black Star Promo', pulled out of packs, so a promo",
+    "in that file is already a meaningful and DIFFERENT thing. None of the five cards",
+    "below appears in hits.json today, and if one ever does it belongs in BOTH files",
+    "saying two different things, not in one saying a blurred version of each.",
+    "",
+    "--------------------------------------------------------------------- SOURCING",
+    "",
+    "EVERY ROW IS FIRST PARTY. `contents` is quoted VERBATIM off the contents list",
+    "on The Pokemon Company's own product gallery page for that exact box, and the",
+    "url it was read from is in `sources`. Nothing here comes from a retailer",
+    "listing, a set tracker or a news site. That matters more than usual on this",
+    "file: retailer listings for these boxes routinely paraphrase the promo, several",
+    "name the wrong Pokemon, and Target's own page for Pitch Black calls the card",
+    "'exclusive' when it ships in the box everywhere.",
+    "",
+    "If pokemon.com has no product gallery page for a set's ETB, the set does NOT go",
+    "in this file. A partial sourced list is worth more than a complete guessed one,",
+    "and a missing row simply renders no line rather than an empty one.",
+    "",
+    "HAND MAINTAINED, AND DELIBERATELY SO, which is the same call data/upcoming.json",
+    "makes for the same reason. There is no API for the contents of a sealed box,",
+    "these are five rows that change at most once per set release, and the pages are",
+    "client rendered so a sync script would need a browser to read five sentences. A",
+    "new set gets a row here by hand when its ETB shows up in videos.json.",
+    "",
+    "THE POKEMON CENTER ETB IS DELIBERATELY ABSENT. Every set below also has a",
+    "Pokemon Center exclusive Elite Trainer Box, and it carries its own promo: a",
+    "second copy stamped with the Pokemon Center logo, and on some sets a different",
+    "card again. shared/taxonomy.mjs has ONE `etb` product tag and cannot tell the",
+    "two boxes apart, so listing the Pokemon Center card here would attach it to rips",
+    "that may well have been the standard box. `product` names exactly which box each",
+    "row was read off, and it is the standard one on all five.",
+    "",
+    "NO COLLECTOR NUMBERS. pokemon.com does not print one, so this file does not",
+    "either. A retailer listing quoted 'Tyrunt (MEP070)' and that number is not on",
+    "any first party page we can reach, so it is not published here.",
+    "",
+    "  set       the set id in shared/taxonomy.mjs, and the join key",
+    "  promo     the Pokemon the promo card features, as pokemon.com names it",
+    "  finish    the finish pokemon.com states, so the page never invents one",
+    "  contents  the contents line, quoted verbatim",
+    "  product   the exact product the line was read off",
+    "  sources   where it was read"
+  ],
+  "checked": "2026-08-21",
+  "source": "pokemon.com product galleries",
+  "promos": [
+    {
+      "set": "ascended-heroes",
+      "promo": "N's Zekrom",
+      "finish": "full-art foil",
+      "contents": "1 full-art foil promo card featuring N's Zekrom",
+      "product": "Pokemon TCG: Mega Evolution-Ascended Heroes Elite Trainer Box",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-evolution-ascended-heroes-elite-trainer-box"
+      ]
+    },
+    {
+      "set": "perfect-order",
+      "promo": "Tyrunt",
+      "finish": "full-art foil",
+      "contents": "1 full-art foil promo card featuring Tyrunt",
+      "product": "Pokemon TCG: Mega Evolution-Perfect Order Elite Trainer Box",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-evolution-perfect-order-elite-trainer-box"
+      ]
+    },
+    {
+      "set": "chaos-rising",
+      "promo": "Fennekin",
+      "finish": "full-art foil",
+      "contents": "1 full-art foil promo card featuring Fennekin",
+      "product": "Pokemon TCG: Mega Evolution-Chaos Rising Elite Trainer Box",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-evolution-chaos-rising-elite-trainer-box"
+      ]
+    },
+    {
+      "set": "pitch-black",
+      "promo": "Zarude",
+      "finish": "full-art foil",
+      "contents": "1 full-art foil promo card featuring Zarude",
+      "product": "Pokemon TCG: Mega Evolution-Pitch Black Elite Trainer Box",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-evolution-pitch-black-elite-trainer-box"
+      ]
+    },
+    {
+      "set": "prismatic-evolutions",
+      "promo": "Eevee",
+      "finish": "full-art foil",
+      "contents": "1 full-art foil promo card featuring Eevee",
+      "product": "Pokemon TCG: Scarlet & Violet-Prismatic Evolutions Elite Trainer Box",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-tcg/product-gallery/scarlet-violet-prismatic-evolutions-elite-trainer-box"
+      ]
+    }
+  ]
+}

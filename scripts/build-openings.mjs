@@ -85,6 +85,32 @@ const SET_NAME = new Map(CARD_SETS.map((s) => [s.id, s.label]));
 // pull cannot reach. See scripts/sync-extra-products.mjs.
 const EXTRA = JSON.parse(await readFile(join(ROOT, "data/extra-products.json"), "utf8")).products;
 
+// --------------------------------------------------------------- ETB promos
+//
+// The promo card sealed in an Elite Trainer Box, keyed on SET. Read by
+// promoBand() below, which renders on /openings/etb.html and nowhere else.
+//
+// THE UNIT IS THE SET AND THAT IS THE WHOLE POINT OF THE FEATURE. Tim asked for
+// it as "one promo card should be added for every ETB we open, not every ETB
+// Video but each full set". A nine pack box is ripped across nine videos and
+// held one card, so a per video row would print one promo nine times; and the
+// channel has opened THREE Chaos Rising boxes, which are three copies of one
+// product holding three copies of one card, so a per box row would print it
+// three times. This map is keyed on set id and carries no per box or per video
+// field, so neither mistake is expressible.
+//
+// AND IT IS A PRODUCT FACT, NOT A PULL, WHICH IS THE LINE THIS FILE MUST NOT
+// CROSS. An ETB promo does not come out of a pack: it is in the tray under the
+// sleeves before anybody opens anything. data/hits.json is the other kind of
+// claim, the record of what came out of a pack ON CAMERA, and /hall.html's own
+// lede promises "this is the whole list of what was pulled on camera". Nothing
+// here goes near either. The band below says so in visible text rather than
+// leaving a reader to infer it, because the two facts look identical once they
+// are both a Pokemon name next to a set name.
+const ETB_PROMOS = new Map(
+  JSON.parse(await readFile(join(ROOT, "data/etb-promos.json"), "utf8")).promos.map((p) => [p.set, p])
+);
+
 // The Japanese, Korean and Chinese sets, and which English set each one is.
 // Read for one reason: TCGdex publishes no logo or symbol art for ANY
 // non-English set, so a row for "Abyss Eye (JP)" has nothing of its own to
@@ -898,6 +924,108 @@ ${rows.join("\n")}
 }
 
 /**
+ * THE PROMO CARD THAT COMES IN THE BOX. /openings/etb.html only.
+ *
+ * ONE ROW PER SET, WHICH IS THE FEATURE AND NOT AN IMPLEMENTATION DETAIL. See
+ * the ETB_PROMOS comment at the top of this file for the ask and for why a per
+ * video or per box row would be wrong. The rows are driven off e.setRows, the
+ * same array the set band above draws, so this list can never name a set the
+ * page has not just said it opened, and it shrinks by itself if a tag changes.
+ *
+ * A SET WITH NO SOURCED PROMO SIMPLY HAS NO ROW. data/etb-promos.json only
+ * holds a set whose promo is on The Pokemon Company's own product gallery page
+ * for that exact box, so the join is a filter rather than a lookup with a
+ * fallback: there is no "not known" row and no empty cell, because a blank
+ * beside four filled ones reads as a data failure rather than as a limit we
+ * chose. The build prints any set it dropped, so the gap is visible to whoever
+ * runs it instead of only to a reader.
+ *
+ * THIS BAND IS NOT A LIST OF PULLS AND ITS COPY HAS TO SAY SO IN WORDS. A
+ * Pokemon name beside a set name is exactly what the hits page and the Hall of
+ * Fame print, so the two claims are visually identical and only the sentence
+ * around them can separate them. The note below states that these come sealed
+ * in the box, that nobody pulled them, and that this is why they are on this
+ * page and not on the hits page. Do not shorten it to fit: the whole risk of
+ * the feature is a reader coming away thinking Tim pulled a Fennekin.
+ *
+ * NO PICTURE, DELIBERATELY. The obvious illustration is the species sprite in
+ * public/assets/species, which this file already uses for the empty-state
+ * mascot. It is the wrong picture twice over: it is not the promo's artwork, so
+ * a reader would take a sprite for a card scan, and it would put five more
+ * requests on a page whose own header counts the bytes a build note costs. The
+ * card scans we DO hold are the set checklists, and a box promo is not on one.
+ *
+ * NO OUTBOUND LINK, AND THAT IS THE SITE'S OWN TEST APPLIED RATHER THAN AN
+ * OVERSIGHT. CLAUDE.md: "Does the READER need the destination, or does the
+ * SOURCE deserve a credit? The first earns a link. The second earns a name in
+ * plain text and nothing more." A price earns a link because it moves and the
+ * reader has to check whether it still holds. The contents of a sealed box do
+ * not move, and the row hands over the entire fact, so this is the decklist
+ * case: credit in plain text, urls in the data file for an editor to re-read.
+ * data/upcoming.json is the precedent and it is exact -- it carries pokemon.com
+ * and PokeBeach urls in a sources array, and /upcoming.html names PokeBeach in
+ * prose and links neither.
+ */
+function promoBand(e) {
+  if (e.id !== "etb") return "";
+  const rows = e.setRows.filter((r) => ETB_PROMOS.has(r.sid));
+  if (!rows.length) return "";
+
+  // Named so the build can be read rather than trusted, the same way the set
+  // band's own dropped-row reporting works.
+  const missing = e.setRows.filter((r) => !ETB_PROMOS.has(r.sid));
+  if (missing.length) {
+    console.log(
+      `  etb promos: no sourced promo for ${missing.length} of ${e.setRows.length} sets, ` +
+        `no row emitted: ${missing.map((r) => r.sid).join(", ")}`
+    );
+  }
+
+  // THE MULTI BOX SENTENCE IS COMPUTED, NEVER TYPED. It is the one line that
+  // demonstrates the per-set rule actually holding, so it has to come off the
+  // same data as the rows: if Chaos Rising's tagging changes, or another set
+  // overtakes it, the example follows without anybody editing a string. Nine is
+  // the pack count pokemon.com states for every box in this file, so more than
+  // nine openings of one set cannot have come out of a single box. The clause
+  // says "more than one box" and never a box COUNT: three of the Chaos Rising
+  // videos are a box still in progress, so 21 openings is not 21 divided by 9,
+  // and a number here would be arithmetic the data does not support.
+  const top = rows.reduce((a, b) => (b.openings > a.openings ? b : a), rows[0]);
+  const multi =
+    top.openings > 9
+      ? ` ${esc(top.name)} is the clearest case: ${count(top.openings, "opening")} of it on this page,
+        across more than one box, and the same single card in every one of them.`
+      : "";
+
+  const items = rows
+    .map((r) => {
+      const p = ETB_PROMOS.get(r.sid);
+      return `        <li class="op-pr">
+          <b>${esc(r.name)}</b>
+          <span class="op-prc">${esc(p.promo)}</span>
+          <span class="op-prf">${esc(p.finish)}</span>
+        </li>`;
+    })
+    .join("\n");
+
+  return `      <h2 class="op-sh">The promo card sealed in each of those boxes</h2>
+      <p class="op-note">Every Elite Trainer Box comes with one promo card, sitting in the tray under the
+        sleeves rather than inside any of the packs. It is part of the product, so it is the same card in
+        every copy of that set's box: one card per set below, listed once however many boxes of it we
+        opened.${multi}</p>
+      <ul class="op-promos">
+${items}
+      </ul>
+      <p class="op-note"><b>Nobody pulled these.</b> This is what the box holds before it is opened, read off
+        The Pokemon Company's own product page for each one, and that is why it is on this page instead of
+        with the pulls. <a href="/hall.html">The Hall of Fame</a> and every hit we list are only ever a record
+        of what came out of a <em>pack</em> on camera, and an Elite Trainer Box promo never does. The card
+        each row names is the standard Elite Trainer Box's; the Pokemon Center edition of all of these carries
+        its own version stamped with the Pokemon Center logo, and we do not list it, because our product tag
+        cannot tell the two boxes apart and we will not guess which one was on the desk.</p>`;
+}
+
+/**
  * WHY THIS IS DERIVED PER PAGE AND NOT ONE SENTENCE REUSED THIRTEEN TIMES.
  *
  * It used to read, on every product page: "A rip tagged with two sets is counted
@@ -1215,6 +1343,38 @@ const STYLE = `
 .op-ex{display:block;margin-top:var(--s3);font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
 .op-note{color:var(--ink-2);font-size:var(--t-sm);line-height:1.55;max-width:44em}
 
+/* THE ETB PROMO ROWS. /openings/etb.html only, so this costs the other
+   thirteen pages the bytes of the rules and nothing else.
+
+   DELIBERATELY NOT SHAPED LIKE .op-sr ABOVE. That row is a LINK, with a border,
+   a hover and a logo plate, and it goes to a set guide. These rows go nowhere,
+   so giving them the same box would draw a card a reader can click and then not
+   move when they do. They are a definition list drawn as rows: set, then the
+   card, then the finish.
+
+   THE CARD NAME IS THE PINK AND THE SET NAME IS NOT, which is the accent rule
+   in CLAUDE.md read straight off: pink is the mark that goes nowhere and the
+   card name is the thing this band exists to say. --ketchup-deep and not
+   --ketchup, for the same reason .op-sn b takes it: --t-sm is under the 24px
+   line where the big pink's 3.45:1 would apply, so the small pink is the one
+   the palette derived for this gate on this ground.
+
+   NO GRID AND NO NOWRAP. A card name and a set name are both free text and both
+   wrap, and the set band's own 560px media query exists because a three column
+   grid collapsed its middle column on a phone. This is flex with wrapping
+   allowed, so it needs no breakpoint of its own and cannot produce the
+   hanging-off-the-right-edge fault the .op-kindrips note above describes. */
+.op-promos{list-style:none;margin:var(--s3) 0 var(--s4);padding:0;display:grid;gap:var(--s2);max-width:46em}
+.op-pr{display:flex;flex-wrap:wrap;align-items:baseline;gap:.35em var(--s3);
+  padding:var(--s2) var(--s3);border:2px solid var(--hair);border-radius:10px;background:var(--card)}
+.op-pr b{font-weight:700;font-size:var(--t-sm);line-height:1.3;margin-right:auto}
+.op-prc{font:400 var(--t-sm)/1.3 var(--body);font-weight:700;color:var(--ketchup-deep)}
+.op-prf{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
+/* margin-right:auto pushes the card and its finish to the right on a wide row
+   and does nothing once the row wraps, so a phone gets set name, then card and
+   finish on the line under it, with no media query. */
+@media(max-width:560px){.op-pr b{margin-right:0;flex:0 0 100%}}
+
 /* THE ONE-RIP-PER-KIND LIST ON THE INDEX, AND THE OVERRIDE IS NOT COSMETIC.
    ui.css gives .riplist span white-space:nowrap, which is right on a product
    page where the caption is "18 Aug 2026 &bull; 3 packs" and wrong here, where
@@ -1228,9 +1388,24 @@ const STYLE = `
    The row also stacks, because a kind and a title on one baseline row would
    squeeze the title into a 100px column on a phone. Column, no gap, so the
    title sits directly under the kind the way every other two-line row on this
-   site does. */
+   site does.
+
    THE ANCHOR KEEPS ui.css's 44px min-height. It is the tap target and stacking
-   the row is no reason to shrink it. */
+   the row is no reason to shrink it.
+
+   THE TWO LINES ABOVE WERE OUTSIDE THE COMMENT AND THE RULE BELOW WAS DEAD,
+   fixed 21 August 2026. The block closed at "site does. *SLASH", then those two
+   sentences sat in the stylesheet as bare text with a second closing marker
+   after them, and miniCSS strips comments rather than validating what is left,
+   so all fourteen pages shipped that prose inside their inline STYLE element.
+   CSS error recovery is what made it expensive: an unexpected token at the top
+   level is consumed as a selector until the next block, so the garbage became
+   the PRELUDE of the very next rule and took the whole declaration with it. The
+   stacking rule below never applied on /openings/index.html. Its neighbour
+   survived, because it is a separate rule, which is why the 204px overflow the
+   comment above describes stayed fixed and only the layout half was lost, and
+   why nothing ever looked broken enough to chase. Verified by finding the text
+   in the built html rather than by reading the source. */
 .op-kindrips li{flex-direction:column;align-items:flex-start;gap:0}
 .op-kindrips span{white-space:normal;min-width:0}
 
@@ -1264,6 +1439,14 @@ const STYLE = `
      desktop pass was about. Two columns instead, so the band ends where the
      table does. */
   .op-sets{max-width:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s3)}
+  /* THE PROMO BAND TAKES THE SAME TREATMENT FOR THE SAME REASON, AND IT WAS
+     MEASURED RATHER THAN ASSUMED. Left at its 46em it rendered 782px at 1440
+     directly between the set band at 1,392 and the price table at 1,386: a
+     narrow strip sandwiched between two full-width neighbours, which is the
+     hole the paragraph above is about, made worse here because the band it sits
+     under lists the SAME FIVE SETS and the eye reads the two as one table. Two
+     columns, so the rows line up with the set rows above them. */
+  .op-promos{max-width:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s3)}
 }
 @media(min-width:1500px){
   .op-grid{grid-template-columns:repeat(4,1fr)}
@@ -1379,6 +1562,12 @@ for (const e of entries) {
      identical Trubbishes is the repetition this whole pass exists to avoid. */
   const shotHtml = shot(e);
   const setBandHtml = await setBand(e);
+  // Empty on thirteen of the fourteen pages. It is NOT in the pictureless test
+  // below, and that is deliberate rather than an omission: the band renders no
+  // <img> by design (see promoBand's own note on why a species sprite is the
+  // wrong picture), so counting it there would let a page lose its mascot to a
+  // band that put nothing in the empty room.
+  const promoBandHtml = promoBand(e);
   const priceTableHtml = priceTable(e);
   // runBandHtml IS IN THIS TEST DELIBERATELY. It renders no picture on any page
   // that qualifies today, so it changes nothing now; it is here so that the day
@@ -1445,7 +1634,14 @@ ${shotHtml}${/* "THIS KIND OF BOX" WAS WRONG ON SIX OF THE THIRTEEN PAGES IT PRI
            swap is semantic only and the page renders to the pixel as before.
            Verified by screenshot rather than assumed. -->
       <h2 class="op-sh">Which sets we opened these from</h2>
-${setBandHtml}
+${setBandHtml}${/* Directly under the set band and above the price table. It is
+           about the same five sets the band has just listed, in the same order,
+           so it reads as a second column of that list rather than as a new
+           subject; and it stays above the price table because what is IN the
+           box is the question a reader asks before what it costs. Empty string
+           on the other thirteen pages, interpolated with no newline of its own
+           so none of them gains a blank line: the same one-byte-a-page argument
+           runBand's call site makes below. */ ""}${promoBandHtml ? `\n${promoBandHtml}` : ""}
 ${priceTableHtml}
 ${e.prices.length
         ? `      <p class="op-note">Prices are TCGplayer market and lowest listing, read ${esc(longDate(prod.checked))},
