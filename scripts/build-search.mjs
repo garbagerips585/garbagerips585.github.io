@@ -390,11 +390,36 @@ ${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
     return {rows:rows, total:total};
   }
 
+  // ONE WRITE PER CHANGED VALUE, AND ONLY AFTER TYPING STOPS.
+  //
+  // status is aria-live="polite", and assigning textContent REPLACES THE TEXT
+  // NODE even when the string is identical -- so a screen reader announces
+  // again on a value that did not change. This is the packplayer.js
+  // syncCarousel bug and the /cards.html one, both already fixed and both
+  // written down; this was the third copy. Typing "charizard" on /cards.html
+  // mutated its region ten times for nine keystrokes with the last four
+  // identical, and this file had the same shape.
+  //
+  // The guard alone is not enough: the counts genuinely differ on most
+  // keystrokes, so every one still announces and the reader hears a countdown.
+  // The 220ms debounce is what makes it one sentence, and it is deliberately
+  // NOT applied to render() -- the list must keep repainting as fast as it
+  // does today; only the spoken sentence waits.
+  var sayT=null, said='';
+  function say(msg){
+    if(sayT) clearTimeout(sayT);
+    sayT=setTimeout(function(){
+      if(msg===said) return;
+      said=msg;
+      status.textContent=msg;
+    }, 220);
+  }
+
   function render(){
     var q=input.value.trim().toLowerCase();
-    if(!q){ out.innerHTML=''; status.textContent=''; empty.hidden=false; return; }
+    if(!q){ out.innerHTML=''; say(''); empty.hidden=false; return; }
     empty.hidden=true;
-    if(!SITE){ status.textContent='Loading...'; return; }
+    if(!SITE){ say('Loading...'); return; }
 
     var html='';
     var n=0;
@@ -460,7 +485,7 @@ ${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
           that covers it: 15,582 bytes against /assets/garbodor.webp's 28,504
           for pixels nothing on this page can use. The 96px sm file loses at
           every DPR this box has, so there is no srcset worth writing. */ ""}out.innerHTML = html || '<div class="empty"><img class="empty-mascot" src="/assets/species/569.webp" alt="" width="256" height="256" loading="lazy" decoding="async" onerror="this.remove()"><p class="big">Nothing matched.</p><p>Try a Pokemon name, a set name, or a word from a video title.</p></div>';
-    status.textContent = n ? n.toLocaleString('en-US')+' result'+(n===1?'':'s') : '';
+    say(n ? n.toLocaleString('en-US')+' result'+(n===1?'':'s') : '');
   }
 
   function load(url, then){
