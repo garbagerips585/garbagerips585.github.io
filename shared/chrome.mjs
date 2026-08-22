@@ -411,6 +411,37 @@ const labelFor = (href) => {
 export const SUBSCRIBE =
   "https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1";
 
+/**
+ * The accessible name on every Subscribe control this file emits.
+ *
+ * WORD ORDER IS LOAD BEARING AND IT IS NOT A TYPO. This read "Subscribe to
+ * Garbage Rips 585 on YouTube. Opens YouTube." until 22 August 2026, which
+ * failed WCAG 2.5.3 Label in Name on the two controls whose VISIBLE text is
+ * "Subscribe on YouTube" -- the menu pill and the footer button. 2.5.3 wants
+ * the visible words to appear as a CONTIGUOUS run inside the accessible name,
+ * and "Subscribe ... on YouTube" is split by "to Garbage Rips 585", so voice
+ * control on "click Subscribe on YouTube" matched nothing. Measured on the
+ * built tree before the change: 2,974 failures, 2 on every one of the 1,487
+ * pages. After: 0.
+ *
+ * Nothing is lost to a screen reader. Same words, same channel name, same
+ * "Opens YouTube." tail; the tail sits AFTER the visible run and so costs
+ * 2.5.3 nothing, which is the shape build-msrp/selling/upcoming already use.
+ *
+ * ONE CONSTANT, THREE CALL SITES, because the string used to be typed out
+ * three times in this file and a fix that reordered two of them would have
+ * left the third reading differently for no reason. It also covers the bar
+ * pill, whose visible text is the bare word "Subscribe": that one PASSED 2.5.3
+ * before and passes now, because "Subscribe" is still the first word.
+ *
+ * If you are tempted to restore the smoother English, don't -- re-read the
+ * paragraph above. Two more copies of this string live outside this file, on
+ * controls that show only "Subscribe" and therefore do not fail: line ~1443 of
+ * scripts/build-pages.mjs and line ~766 of scripts/build-about.mjs.
+ */
+export const SUB_LABEL =
+  "Subscribe on YouTube to Garbage Rips 585. Opens YouTube.";
+
 export const SOCIALS = [
   ["yt", "YouTube", "https://www.youtube.com/@GarbageRips585"],
   ["ig", "Instagram", "https://www.instagram.com/garbagerips585/"],
@@ -747,7 +778,7 @@ ${BAR_LINKS.map((h) => `      <a href="${h}">${labelFor(h)}</a>`).join("\n")}
       <span>Menu</span>
     </button>
     <a class="sub" href="${SUBSCRIBE}" rel="noopener" target="_blank"
-      aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube."><span>Subscribe</span></a>
+      aria-label="${SUB_LABEL}"><span>Subscribe</span></a>
   </div>
 </header>`;
 
@@ -847,7 +878,7 @@ ${links.map(([href, label]) => `        <li><a href="${href}">${label}</a></li>`
 ).join("\n")}
   </div>
   <a class="menu-sub" href="${SUBSCRIBE}" rel="noopener" target="_blank"
-    aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe on YouTube</a>
+    aria-label="${SUB_LABEL}">Subscribe on YouTube</a>
 </nav>`;
 
 /**
@@ -987,7 +1018,7 @@ export const FOOT_SUB = `<!--FOOT_SUB:START-->
       alt="The Garbage Rips 585 badge: a Rochester manhole cover carrying the city's flower emblem, with Trubbish in the middle and the words MADE IN ROC across the bottom" loading="lazy" decoding="async">
     <p class="foot-tag">Grab a fork. Let's rip.</p>
     <a class="btn btn-sub" href="${SUBSCRIBE}" rel="noopener" target="_blank"
-      aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe on YouTube</a>
+      aria-label="${SUB_LABEL}">Subscribe on YouTube</a>
     <p>A new rip most days. Every pack we open goes up, hit or no hit.</p>
     <!--FOOT_SUB:END-->`;
 

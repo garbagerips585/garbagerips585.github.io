@@ -1656,11 +1656,12 @@
   /**
    * Keep Tab inside whatever modal surface is open.
    *
-   * Two of them exist: the card lightbox (.lb.on, on 10 set and Pokemon pages)
-   * and the mobile menu (.menu.on, everywhere). Both cover the screen and both
-   * left every background control tabbable, so Tab walked focus behind an
-   * opaque overlay where the focus ring is invisible: 50 reachable controls
-   * behind the lightbox, 87 behind the menu at 375px.
+   * Three of them exist: the card lightbox (.lb.on, on 10 set and Pokemon
+   * pages), the rip pages' hit lightbox (.hitlb) and the mobile menu
+   * (.menu.on, everywhere). All three cover the screen and all three left every
+   * background control tabbable, so Tab walked focus behind an opaque overlay
+   * where the focus ring is invisible: 50 reachable controls behind the
+   * lightbox, 87 behind the menu at 375px.
    *
    * Handled once here rather than in the four generators that each emit their
    * own copy of the lightbox script. app.js is already on every page, and a
@@ -1669,6 +1670,20 @@
   function openSurface() {
     var lb = document.querySelector(".lb.on");
     if (lb) return lb;
+    /* MATCHED ON `hidden`, NOT ON A CLASS, and that is the whole bug. The hit
+       lightbox is the same dialog as .lb -- moves focus to Close, Escape
+       closes, focus returns to the .hitcard-open it came from -- but it opens
+       by dropping the `hidden` attribute instead of adding .on, so `.lb.on`
+       above never saw it. One Tab off Close landed on a.skip BEHIND the
+       backdrop, then the brand, then the nav: six invisible stops with the
+       modal still on screen.
+       COUNT IT ON THE OPENERS, NOT ON THE DIALOG. The dialog markup ships on
+       all 319 rip pages, but the script bails when there is no #hitcards, so it
+       can only be opened on the 129 pages that carry real hit cards -- 171
+       <button class="hitcard-open"> in the built tree. 319 is the markup count
+       and overstates who was reachable. */
+    var hl = document.querySelector(".hitlb:not([hidden])");
+    if (hl) return hl;
     var mb = document.getElementById("menuBtn");
     if (mb && mb.getAttribute("aria-expanded") === "true") {
       var panel = document.getElementById("menu");

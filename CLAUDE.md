@@ -2489,19 +2489,58 @@ WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
 - **ONE CONTROL ON EVERY VIDEO ARTWORK ON THE SITE, AND IT IS THE RIP PAGE'S
   OWN BANNER -- EXCEPT ON THE RIP PAGE RAILS, WHERE A DISC SURVIVED THE CHANGE
   AND THIS FILE DID NOT KNOW IT.** This entry read "every pack, everywhere" until
-  21 August 2026. Counted at HEAD that day: **288 of the 319 rip pages carry
-  2,588 `.vid-play` discs** on the "More from &lt;box&gt;" and "More &lt;set&gt;"
-  rail tiles, emitted by `scripts/build-pages.mjs` (two call sites, around lines
-  1312 and 1347). Those tiles are real `pack pack--tile pack--img` wrappers with a
-  play disc laid over them and no `.pack-hint` at all. The class is
+  21 August 2026. **Re-counted on the built tree 22 August 2026: 300 of the 319
+  rip pages carry 2,878 `.vid-play` discs**, emitted by `scripts/build-pages.mjs`
+  (two call sites, lines 1627 and 1662), on the "More from &lt;box&gt;" and
+  "More &lt;set&gt;" rail tiles. The count on 21 August was 288 pages / 2,588
+  discs; the tree grew, so re-count before quoting it. Those tiles are real
+  `pack pack--tile pack--img` wrappers with a play disc laid over them and no
+  `.pack-hint` at all. The class is
   `.vid-play`, not `.play`, which is why "`<span class="play">` is GONE from the
   tree" below is literally true and still leaves the disc on the site: an audit
-  that greps for the old name finds nothing and reports success. The contrast
-  argument against the disc -- 1.00:1 at its worst point, up to 48% of its
-  perimeter under 3:1 -- applies to these 2,588 exactly as it applied to the ones
-  that were replaced, because it is the same white disc on the same nineteen
-  wrappers. Deciding what to do about them is open; claiming they do not exist is
-  not. Everywhere else, since 19 August 2026, every pack carries
+  that greps for the old name finds nothing and reports success.
+
+  **THE CONTRAST FIGURE THIS ENTRY USED TO CARRY WAS THE WHITE DISC'S AND IT DOES
+  NOT DESCRIBE `.vid-play`. RE-MEASURED 22 AUGUST 2026.** It said "1.00:1 at its
+  worst point, up to 48% of its perimeter under 3:1 ... the same white disc". It
+  is not the same disc and it is not white: since Trubbish Deep it is
+  `--ketchup #E87EA1` inside a **3px `--paper-2 #2F4F39` ring**. Measured off
+  RENDERED PIXELS (screenshot, sampled 2.5px outside the rim, on the rim, and in
+  the fill, every 6 degrees, 54 discs whole-in-frame across the four rip pages
+  below, 1440x900 DPR 1 and 390x844 DPR 2):
+
+  | boundary | worst point | perimeter under 3:1 |
+  |---|---|---|
+  | outer edge: the `--paper-2` ring against the pack art | **1.00:1** | **88-97%** |
+  | disc body `--ketchup` against the pack art | 1.00:1 | 55-73% |
+  | **fill against its OWN ring, i.e. the disc's internal edge** | **3.45:1** | 0% |
+
+  So the perimeter number is 88-97%, not "up to 48%" -- roughly twice as bad as
+  recorded, because the pink matches the pink-heavy pack art nearly all the way
+  round where the white disc only collided at one point.
+
+  **AND THE THIRD ROW IS WHY "1.00:1" ALONE OVERSTATES IT, WHICH IS THE HALF
+  BOTH EARLIER READINGS MISSED.** The disc is not a flat blob that vanishes: it
+  carries its own two-tone edge at **3.45:1** the whole way round, with the glyph
+  at **6.16:1** inside it. `--ketchup` and `--paper-2` are each declared exactly
+  once, at `:root`; no skin overrides either, and skins only set `--pk-*` on the
+  artwork. So that 3.45:1 self-contained edge is CONSTANT on every skin and does
+  not depend on what is behind it. The disc reads as a disc even where its outer
+  edge disappears into the art.
+
+  **AND IT IS DECORATIVE, so nothing is lost to a screen reader.** It is
+  `aria-hidden="true"` with `pointer-events:none`; the real control is the
+  enclosing `<a class="vid-shell">`, which carries a full `aria-label`, and a
+  visible `<h3 class="vid-title">` link plus a date sit directly beneath the
+  tile. What is actually wrong is narrower than the old figure implied: an
+  AFFORDANCE INCONSISTENCY. Every other pack on the site says CLICK TO RIP THE
+  PACK at 3.82:1 and these 2,878 say it with a disc instead. **The fix, if it is
+  taken, is `.pack-hint` at those two call sites in build-pages.mjs** -- that
+  file's owner's call, and not a launch blocker, because no reader loses anything
+  here they cannot get from the title link one line below. What is NOT open is
+  quoting "up to 48%": that number was never about this disc.
+
+  Everywhere else, since 19 August 2026, every pack carries
   `.pack-hint` reading CLICK TO RIP THE PACK across the foot of the artwork:
   the carousel slide, the Hall of Fame trophy, the 22 playlist pages, and
   /videos.html both server-rendered AND client-rendered, as well as the rip page
@@ -2517,8 +2556,12 @@ WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
   by both builders; public/assets/app.js cannot import and restates it with a
   comment saying so. `<span class="play">`, the white disc, and `.hero-cta`,
   the "Rip it open ->" pill under every carousel slide, are both GONE from the
-  tree. Do not reintroduce either: the disc measured 1.00:1 at its worst point
-  against the nineteen wrappers with up to 48% of its perimeter under 3:1,
+  tree. Do not reintroduce either: **that WHITE disc** measured 1.00:1 at its
+  worst point against the nineteen wrappers with up to 48% of its perimeter
+  under 3:1 -- a figure that describes `<span class="play">` and nothing else,
+  so do not carry it over to the surviving pink `.vid-play`, which measures
+  1.00:1 at 88-97% of its perimeter and has its own 3.45:1 internal edge; see
+  the re-measurement above --
   while the banner floors at 3.82:1 on every skin because it is opaque and
   carries a near-white ring outside a near-black keyline, which are 14.6x apart
   in luminance so one of them always reads. `.hofx-cta`, "Watch the pull ->",
