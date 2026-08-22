@@ -16,9 +16,10 @@
     "pillarboxed": true,
     "sets": [
       "phantasmal-flames",
+      "mega-evolution",
       "destined-rivals",
-      "surging-sparks",
-      "mega-evolution"
+      "journey-together",
+      "surging-sparks"
     ],
     "products": [
       "upc"
@@ -108,14 +109,20 @@
   },
   "m9K7hpyjn04": {
     "sets": [
-      "twilight-masquerade",
-      "surging-sparks"
+      "surging-sparks",
+      "twilight-masquerade"
+    ],
+    "products": [
+      "knock-out"
     ]
   },
   "41vJCIdzYkw": {
     "sets": [
-      "twilight-masquerade",
-      "surging-sparks"
+      "surging-sparks",
+      "twilight-masquerade"
+    ],
+    "products": [
+      "knock-out"
     ]
   },
   "l6RPdGNs7uE": {
@@ -129,11 +136,21 @@
   },
   "mbzWBfNI-Qs": {
     "blurb": "Opening Korean Crimson Haze booster packs, testing international pack luck. Korean print. Full garbage plate energy applied. Garbage rips or overseas heat?",
-    "blurbWhy": "The YouTube description says 'Different pull rates.' The site does not state pull rates and nobody publishes them to check against, so the site's own description drops that line. The YouTube listing is untouched. THIS HAS BEEN LOST ONCE: it was reverted along with a tag rollback and had to be re-added, so if it disappears again check what last rewrote overrides.json."
+    "blurbWhy": "The YouTube description says 'Different pull rates.' The site does not state pull rates and nobody publishes them to check against, so the site's own description drops that line. The YouTube listing is untouched. THIS HAS BEEN LOST ONCE: it was reverted along with a tag rollback and had to be re-added, so if it disappears again check what last rewrote overrides.json.",
+    "sets": [
+      "ko-crimson-haze"
+    ],
+    "products": [
+      "korean-pack"
+    ]
   },
   "zIn3mWKwkyg": {
     "products": [
       "blister"
+    ],
+    "sets": [
+      "phantasmal-flames",
+      "mega-evolution"
     ]
   },
   "E5Wz7X1VMeY": {
@@ -1653,7 +1670,10 @@
   },
   "EOFAhFwJKqw": {
     "products": [
-      "blister"
+      "single-pack"
+    ],
+    "sets": [
+      "paradox-rift"
     ]
   },
   "iIgTusrqVtg": {
@@ -2271,6 +2291,302 @@
     ],
     "products": [
       "etb"
+    ]
+  },
+  "B5--7Dh5OEA": {
+    "sets": [
+      "shining-fates"
+    ],
+    "products": [
+      "single-pack"
+    ]
+  },
+  "NmO2vrjJhg0": {
+    "sets": [
+      "ascended-heroes"
+    ],
+    "products": [
+      "etb"
+    ]
+  },
+  "SJQCui3NGWw": {
+    "sets": [
+      "pokemon-go"
+    ],
+    "products": [
+      "single-pack"
+    ]
+  },
+  "F9S695pYxZ8": {
+    "sets": [
+      "ascended-heroes"
+    ],
+    "products": [
+      "etb"
+    ]
+  },
+  "Jtqb7ZpQXos": {
+    "sets": [
+      "pokemon-go"
+    ],
+    "products": [
+      "single-pack"
+    ]
+  },
+  "-e9F0ufKpIQ": {
+    "sets": [
+      "ascended-heroes"
+    ],
+    "products": [
+      "etb"
+    ]
+  },
+  "j6O6KdblfeY": {
+    "sets": [
+      "journey-together",
+      "destined-rivals",
+      "mega-evolution"
+    ],
+    "products": [
+      "ex-premium"
+    ]
+  },
+  "NWaiWG7vknM": {
+    "sets": [
+      "surging-sparks"
+    ],
+    "products": [
+      "single-pack"
+    ]
+  },
+  "SOQUDUMboVU": {
+    "sets": [
+      "ascended-heroes"
+    ],
+    "products": [
+      "blister"
+    ]
+  },
+  "XaXGDiOpGJs": {
+    "sets": [
+      "surging-sparks"
+    ],
+    "products": [
+      "single-pack"
+    ]
+  },
+  "pof6Ph34E6w": {
+    "sets": [
+      "ko-battle-partners"
+    ],
+    "products": [
+      "korean-pack"
+    ]
+  },
+  "EvVnOpgwSmo": {
+    "sets": [
+      "surging-sparks"
+    ],
+    "products": [
+      "single-pack"
+    ]
+  },
+  "IuEb3qtjflI": {
+    "sets": [
+      "surging-sparks"
+    ],
+    "products": [
+      "single-pack"
+    ]
+  },
+  "8xqvY3OzugE": {
+    "sets": [
+      "ascended-heroes"
+    ],
+    "products": [
+      "blister"
+    ]
+  },
+  "F9mAQqKd6r8": {
+    "sets": [
+      "phantasmal-flames",
+      "mega-evolution",
+      "journey-together"
+    ],
+    "products": [
+      "tin"
+    ]
+  },
+  "brj3GukGFAE": {
+    "sets": [
+      "151"
+    ],
+    "products": [
+      "single-pack"
+    ]
+  },
+  "AqZBxDu2wkc": {
+    "sets": [
+      "prismatic-evolutions"
+    ],
+    "products": [
+      "single-pack"
+    ]
+  },
+  "qdzDD_kM4Uk": {
+    "sets": [
+      "ascended-heroes"
+    ],
+    "products": [
+      "single-pack"
+    ]
+  },
+  "SQLDjKwVPk4": {
+    "sets": [
+      "destined-rivals"
+    ],
+    "products": [
+      "single-pack"
+    ]
+  },
+  "n_3lk9V4L64": {
+    "sets": [
+      "ascended-heroes"
+    ],
+    "products": [
+      "single-pack"
+    ]
+  },
+  "f9qJ_M3ot3k": {
+    "sets": [
+      "paradox-rift"
+    ],
+    "products": [
+      "single-pack"
+    ]
+  },
+  "LROQ-vFl4Hs": {
+    "sets": [
+      "ascended-heroes"
+    ],
+    "products": [
+      "single-pack"
+    ]
+  },
+  "RMastm9Bosw": {
+    "sets": [
+      "phantasmal-flames"
+    ],
+    "products": [
+      "single-pack"
+    ]
+  },
+  "vzYuzHFbueo": {
+    "sets": [
+      "ascended-heroes"
+    ],
+    "products": [
+      "single-pack"
+    ]
+  },
+  "Ab81MNFnDLw": {
+    "sets": [
+      "black-bolt",
+      "white-flare"
+    ],
+    "products": [
+      "tin"
+    ]
+  },
+  "3dKWTVbCH3I": {
+    "sets": [
+      "ascended-heroes"
+    ],
+    "products": [
+      "single-pack"
+    ]
+  },
+  "wMDMN2emLCM": {
+    "products": [
+      "single-pack"
+    ]
+  },
+  "QADrkuqf9pg": {
+    "sets": [
+      "ko-mask-of-change"
+    ],
+    "products": [
+      "korean-pack"
+    ]
+  },
+  "jO7K2zX6Rlg": {
+    "sets": [
+      "ja-violet-ex"
+    ],
+    "products": [
+      "japanese-pack"
+    ]
+  },
+  "8jKHh-P7P7M": {
+    "products": [
+      "chinese-pack"
+    ]
+  },
+  "hLr5iThoO2k": {
+    "sets": [
+      "journey-together"
+    ],
+    "products": [
+      "blister"
+    ]
+  },
+  "cmV6P3ssh2g": {
+    "sets": [
+      "phantasmal-flames",
+      "mega-evolution"
+    ],
+    "products": [
+      "blister"
+    ]
+  },
+  "SOCAXif6Mzs": {
+    "sets": [
+      "journey-together"
+    ],
+    "products": [
+      "blister"
+    ]
+  },
+  "Prq7KI6j1Vk": {
+    "sets": [
+      "phantasmal-flames"
+    ],
+    "products": [
+      "single-pack"
+    ]
+  },
+  "-1fhlQB1okI": {
+    "sets": [
+      "ja-cyber-judge"
+    ],
+    "products": [
+      "japanese-pack"
+    ]
+  },
+  "evnMahizn0I": {
+    "sets": [
+      "paldea-evolved"
+    ],
+    "products": [
+      "single-pack"
+    ]
+  },
+  "AXOYuKfoBXU": {
+    "sets": [
+      "phantasmal-flames"
+    ],
+    "products": [
+      "single-pack"
     ]
   }
 }

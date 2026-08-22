@@ -5915,7 +5915,593 @@
     "packNumber": 4,
     "hasHit": false
   },
+  "B5--7Dh5OEA": {
+    "setPacks": [
+      {
+        "set": "shining-fates",
+        "name": "shining fates",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Shining Fates",
+    "openingType": "Single Booster Pack",
+    "packNumber": 1,
+    "hasHit": true,
+    "hitCard": "Cinderace V",
+    "hits": [
+      {
+        "card": "Cinderace V",
+        "set": "shining-fates",
+        "setName": "Shining Fates"
+      }
+    ]
+  },
+  "NmO2vrjJhg0": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ETB",
+    "packNumber": 3,
+    "hasHit": false
+  },
+  "SJQCui3NGWw": {
+    "setPacks": [
+      {
+        "set": "pokemon-go",
+        "name": "pokémon go",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Pokémon GO",
+    "openingType": "Single Booster Pack",
+    "packNumber": 2,
+    "hasHit": false
+  },
+  "F9S695pYxZ8": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ETB",
+    "packNumber": 2,
+    "hasHit": false
+  },
+  "Jtqb7ZpQXos": {
+    "setPacks": [
+      {
+        "set": "pokemon-go",
+        "name": "pokémon go",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Pokémon GO",
+    "openingType": "Single Booster Pack",
+    "packNumber": 1,
+    "hasHit": false
+  },
+  "-e9F0ufKpIQ": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ETB",
+    "packNumber": 1,
+    "hasHit": true,
+    "hitCard": "Mega Charizard Y ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Mega Charizard Y ex",
+        "rarity": "Double Rare",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes"
+      }
+    ]
+  },
+  "j6O6KdblfeY": {
+    "setPacks": [
+      {
+        "set": "journey-together",
+        "name": "journey together",
+        "packs": 3,
+        "typed": true
+      },
+      {
+        "set": "destined-rivals",
+        "name": "destined rivals",
+        "packs": 3,
+        "typed": true
+      },
+      {
+        "set": "mega-evolution",
+        "name": "mega evolution",
+        "packs": 2,
+        "typed": true
+      }
+    ],
+    "packsOpened": 8,
+    "packsStated": true,
+    "setsPacks": "Journey Together - 3 Packs ; Destined Rivals - 3 Packs ; Mega Evolution - 2 Packs",
+    "openingType": "ex Premium Collection Box",
+    "hasHit": true,
+    "hitCard": "Mega Evolution - Trainer - Air Balloon - Double Silver Star - Ultra Rare ; Mega Venusaur ex - Black Star Promo",
+    "hits": [
+      {
+        "card": "Air Balloon",
+        "rarity": "Ultra Rare",
+        "set": "mega-evolution",
+        "setName": "Mega Evolution"
+      },
+      {
+        "card": "Mega Venusaur ex",
+        "rarity": "Black Star Promo"
+      }
+    ]
+  },
+  "NWaiWG7vknM": {
+    "setPacks": [
+      {
+        "set": "surging-sparks",
+        "name": "surging sparks",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Surging Sparks",
+    "openingType": "Single Booster Pack",
+    "packNumber": 4,
+    "hasHit": false
+  },
+  "SOQUDUMboVU": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 2,
+        "typed": true
+      }
+    ],
+    "packsOpened": 2,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes - 2 Packs",
+    "openingType": "2 Pack Blister",
+    "hasHit": true,
+    "hitCard": "Team Rocket's Mimikyu - Single Gold Star - Illustration Rare",
+    "hits": [
+      {
+        "card": "Team Rocket's Mimikyu",
+        "rarity": "Illustration Rare",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes"
+      }
+    ]
+  },
+  "XaXGDiOpGJs": {
+    "setPacks": [
+      {
+        "set": "surging-sparks",
+        "name": "surging sparks",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Surging Sparks",
+    "openingType": "Single Booster Pack",
+    "packNumber": 3,
+    "hasHit": false
+  },
+  "pof6Ph34E6w": {
+    "setPacks": [
+      {
+        "set": "ko-battle-partners",
+        "name": "battle partners",
+        "packs": 3,
+        "typed": true
+      }
+    ],
+    "packsOpened": 3,
+    "packsStated": true,
+    "setsPacks": "Battle Partners - 3 Packs",
+    "openingType": "Korean Single Booster Pack",
+    "hasHit": false
+  },
+  "EvVnOpgwSmo": {
+    "setPacks": [
+      {
+        "set": "surging-sparks",
+        "name": "surging sparks",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Surging Sparks",
+    "openingType": "Single Booster Pack",
+    "packNumber": 2,
+    "hasHit": true,
+    "hitCard": "Cyclizar ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Cyclizar ex",
+        "rarity": "Double Rare",
+        "set": "surging-sparks",
+        "setName": "Surging Sparks"
+      }
+    ]
+  },
+  "mbzWBfNI-Qs": {
+    "setPacks": [
+      {
+        "set": "ko-crimson-haze",
+        "name": "crimson haze",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Crimson Haze",
+    "openingType": "Korean Single Booster Pack",
+    "hasHit": false
+  },
+  "IuEb3qtjflI": {
+    "setPacks": [
+      {
+        "set": "surging-sparks",
+        "name": "surging sparks",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Surging Sparks",
+    "openingType": "Single Booster Pack",
+    "packNumber": 1,
+    "hasHit": true,
+    "hitCard": "Trainer - Enriching Energy - Pink Star - ACE SPEC Special Energy",
+    "hits": [
+      {
+        "card": "Trainer Enriching Energy Pink Star ACE SPEC Special Energy",
+        "set": "surging-sparks",
+        "setName": "Surging Sparks"
+      }
+    ]
+  },
+  "8xqvY3OzugE": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 2,
+        "typed": true
+      }
+    ],
+    "packsOpened": 2,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes - 2 Packs",
+    "openingType": "2 Pack Blister",
+    "hasHit": true,
+    "hitCard": "Weavile - Single Gold Star - Illustration Rare",
+    "hits": [
+      {
+        "card": "Weavile",
+        "rarity": "Illustration Rare",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes"
+      }
+    ]
+  },
+  "F9mAQqKd6r8": {
+    "setPacks": [
+      {
+        "set": "phantasmal-flames",
+        "name": "phantasmal flames",
+        "packs": 2,
+        "typed": true
+      },
+      {
+        "set": "mega-evolution",
+        "name": "mega evolution",
+        "packs": 1,
+        "typed": true
+      },
+      {
+        "set": "journey-together",
+        "name": "journey together",
+        "packs": 1,
+        "typed": true
+      }
+    ],
+    "packsOpened": 4,
+    "packsStated": true,
+    "setsPacks": "Phantasmal Flames - 2 Packs ; Mega Evolution - 1 Pack ; Journey Together - 1 Pack",
+    "openingType": "Tin",
+    "hasHit": true,
+    "hitCard": "Mega Charizard Y - Black Star Promo ; Phantasmal Flames - Empoleon ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Mega Charizard Y",
+        "rarity": "Black Star Promo"
+      },
+      {
+        "card": "Empoleon ex",
+        "rarity": "Double Rare",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames"
+      }
+    ]
+  },
+  "brj3GukGFAE": {
+    "setPacks": [
+      {
+        "set": "151",
+        "name": "151",
+        "packs": 2,
+        "typed": true
+      }
+    ],
+    "packsOpened": 2,
+    "packsStated": true,
+    "setsPacks": "151 - 2 Packs",
+    "openingType": "Single Booster Pack",
+    "hasHit": false
+  },
+  "zIn3mWKwkyg": {
+    "setPacks": [
+      {
+        "set": "phantasmal-flames",
+        "name": "phantasmal flames",
+        "packs": 2,
+        "typed": true
+      },
+      {
+        "set": "mega-evolution",
+        "name": "mega evolution",
+        "packs": 1,
+        "typed": true
+      }
+    ],
+    "packsOpened": 3,
+    "packsStated": true,
+    "setsPacks": "Phantasmal Flames - 2 Packs ; Mega Evolution - 1 Pack ;",
+    "openingType": "Pokémon Day 2026 Collection",
+    "hasHit": true,
+    "hitCard": "Mega Evolution - Mega Venusaur ex - Double Black Star - Double Rare ; Phantasmal Flames - Empoleon ex - Double Silver Star - Ultra Rare",
+    "hits": [
+      {
+        "card": "Mega Venusaur ex",
+        "rarity": "Double Rare",
+        "set": "mega-evolution",
+        "setName": "Mega Evolution"
+      },
+      {
+        "card": "Empoleon ex",
+        "rarity": "Ultra Rare",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames"
+      }
+    ]
+  },
+  "AqZBxDu2wkc": {
+    "setPacks": [
+      {
+        "set": "prismatic-evolutions",
+        "name": "prismatic evolutions",
+        "packs": 2,
+        "typed": true
+      }
+    ],
+    "packsOpened": 2,
+    "packsStated": true,
+    "setsPacks": "Prismatic Evolutions - 2 Packs",
+    "openingType": "Single Booster Pack",
+    "hasHit": true,
+    "hitCard": "Jolteon ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Jolteon ex",
+        "rarity": "Double Rare",
+        "set": "prismatic-evolutions",
+        "setName": "Prismatic Evolutions"
+      }
+    ]
+  },
+  "qdzDD_kM4Uk": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "Single Booster Pack",
+    "packNumber": 5,
+    "hasHit": false
+  },
+  "SQLDjKwVPk4": {
+    "setPacks": [
+      {
+        "set": "destined-rivals",
+        "name": "destined rivals",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Destined Rivals",
+    "openingType": "Single Booster Pack",
+    "hasHit": false
+  },
+  "n_3lk9V4L64": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "Single Booster Pack",
+    "packNumber": 4,
+    "hasHit": false
+  },
+  "f9qJ_M3ot3k": {
+    "setPacks": [
+      {
+        "set": "paradox-rift",
+        "name": "paradox rift",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Paradox Rift",
+    "openingType": "Single Booster Pack",
+    "packNumber": 1,
+    "hasHit": false
+  },
+  "LROQ-vFl4Hs": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "Single Booster Pack",
+    "packNumber": 3,
+    "hasHit": true,
+    "hitCard": "Cinderace ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Cinderace ex",
+        "rarity": "Double Rare",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes"
+      }
+    ]
+  },
+  "RMastm9Bosw": {
+    "setPacks": [
+      {
+        "set": "phantasmal-flames",
+        "name": "phantasmal flames",
+        "packs": 2,
+        "typed": true
+      }
+    ],
+    "packsOpened": 2,
+    "packsStated": true,
+    "setsPacks": "Phantasmal Flames - 2 Packs",
+    "openingType": "Single Booster Pack",
+    "hasHit": false
+  },
+  "vzYuzHFbueo": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "Single Booster Pack",
+    "packNumber": 2,
+    "hasHit": false
+  },
+  "Ab81MNFnDLw": {
+    "setPacks": [
+      {
+        "set": "black-bolt",
+        "name": "black bolt",
+        "packs": 1,
+        "typed": true
+      },
+      {
+        "set": "white-flare",
+        "name": "white flare",
+        "packs": 1,
+        "typed": true
+      }
+    ],
+    "packsOpened": 2,
+    "packsStated": true,
+    "setsPacks": "Black Bolt - 1 Pack, White Flare - 1 Pack",
+    "openingType": "Mini Tin",
+    "hasHit": true,
+    "hitCard": "Panpour - Single Gold Star - Illustration Rare",
+    "hits": [
+      {
+        "card": "Panpour",
+        "rarity": "Illustration Rare"
+      }
+    ]
+  },
   "3dKWTVbCH3I": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "Single Booster Pack",
     "hasHit": true,
     "hitCard": "Ascended Heroes - Stunfisk ex - Double Silver Star - Ultra Rare",
     "hits": [
@@ -5928,20 +6514,60 @@
     ]
   },
   "wMDMN2emLCM": {
+    "setsPacks": "Trick Or Trade - 3 Packs",
+    "openingType": "Single Booster Pack",
     "hasHit": false
   },
   "QADrkuqf9pg": {
+    "setPacks": [
+      {
+        "set": "ko-mask-of-change",
+        "name": "mask of change",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Mask of Change",
+    "openingType": "Korean Single Booster Pack",
     "hasHit": false
   },
   "jO7K2zX6Rlg": {
+    "setPacks": [
+      {
+        "set": "ja-violet-ex",
+        "name": "violet ex",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Violet ex",
+    "openingType": "Japanese Single Booster Pack",
     "hasHit": false
   },
   "8jKHh-P7P7M": {
+    "setsPacks": "Gem Pack Vol 2 (Eeveelutions)",
+    "openingType": "Chinese Single Booster Pack",
     "hasHit": false
   },
   "hLr5iThoO2k": {
+    "setPacks": [
+      {
+        "set": "journey-together",
+        "name": "journey together",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Journey Together",
+    "openingType": "3 Pack Blister",
     "hasHit": true,
-    "hitCard": "Journey Together - Volcanion ex - Double Black Star - Double Rare",
+    "hitCard": "Volcanion ex - Double Black Star - Double Rare",
     "hits": [
       {
         "card": "Volcanion ex",
@@ -5952,6 +6578,24 @@
     ]
   },
   "cmV6P3ssh2g": {
+    "setPacks": [
+      {
+        "set": "phantasmal-flames",
+        "name": "phantasmal flames",
+        "packs": 1,
+        "typed": true
+      },
+      {
+        "set": "mega-evolution",
+        "name": "mega evolution",
+        "packs": 1,
+        "typed": true
+      }
+    ],
+    "packsOpened": 2,
+    "packsStated": true,
+    "setsPacks": "Phantasmal Flames - 1 Pack ; Mega Evolution - 1 Pack",
+    "openingType": "2 Pack Blister",
     "hasHit": true,
     "hitCard": "Phantasmal Flames - Rotom ex - Double Black Star- Double Rare",
     "hits": [
@@ -5965,8 +6609,20 @@
     "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets."
   },
   "SOCAXif6Mzs": {
+    "setPacks": [
+      {
+        "set": "journey-together",
+        "name": "journey together",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Journey Together",
+    "openingType": "3 Pack Blister",
     "hasHit": true,
-    "hitCard": "Journey Together - Trainer - Ruffian - Double Silver Star - Ultra Rare",
+    "hitCard": "Trainer - Ruffian - Double Silver Star - Ultra Rare",
     "hits": [
       {
         "card": "Ruffian",
@@ -5977,8 +6633,20 @@
     ]
   },
   "Prq7KI6j1Vk": {
+    "setPacks": [
+      {
+        "set": "phantasmal-flames",
+        "name": "phantasmal flames",
+        "packs": 2,
+        "typed": true
+      }
+    ],
+    "packsOpened": 2,
+    "packsStated": true,
+    "setsPacks": "Phantasmal Flames - 2 Packs",
+    "openingType": "Single Booster Pack",
     "hasHit": true,
-    "hitCard": "Phantasmal Flames - Mismagius ex - Double Black Star - Double Rare",
+    "hitCard": "Mismagius ex - Double Black Star - Double Rare",
     "hits": [
       {
         "card": "Mismagius ex",
@@ -5989,8 +6657,20 @@
     ]
   },
   "-1fhlQB1okI": {
+    "setPacks": [
+      {
+        "set": "ja-cyber-judge",
+        "name": "cyber judge",
+        "packs": 6,
+        "typed": true
+      }
+    ],
+    "packsOpened": 6,
+    "packsStated": true,
+    "setsPacks": "Cyber Judge - 6 Packs",
+    "openingType": "Japanese Single Booster Pack",
     "hasHit": true,
-    "hitCard": "Cyber Judge - Incineroar ex - SR - Super Rare",
+    "hitCard": "Incineroar ex - SR - Super Rare",
     "hits": [
       {
         "card": "Incineroar ex",
@@ -6001,11 +6681,35 @@
     ]
   },
   "evnMahizn0I": {
+    "setPacks": [
+      {
+        "set": "paldea-evolved",
+        "name": "paldea evolved",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Paldea Evolved",
+    "openingType": "Single Booster Pack",
     "hasHit": false
   },
   "AXOYuKfoBXU": {
+    "setPacks": [
+      {
+        "set": "phantasmal-flames",
+        "name": "phantasmal flames",
+        "packs": 2,
+        "typed": true
+      }
+    ],
+    "packsOpened": 2,
+    "packsStated": true,
+    "setsPacks": "Phantasmal Flames - 2 Packs",
+    "openingType": "Single Booster Pack",
     "hasHit": true,
-    "hitCard": "Phantasmal Flames - Mega Lopunny ex - Double Black Star - Double Rare",
+    "hitCard": "Mega Lopunny ex - Double Black Star - Double Rare",
     "hits": [
       {
         "card": "Mega Lopunny ex",
@@ -6017,6 +6721,24 @@
     "playlistToAdd": "Hits"
   },
   "m9K7hpyjn04": {
+    "setPacks": [
+      {
+        "set": "surging-sparks",
+        "name": "surging sparks",
+        "packs": 1,
+        "typed": true
+      },
+      {
+        "set": "twilight-masquerade",
+        "name": "twilight masquerade",
+        "packs": 1,
+        "typed": true
+      }
+    ],
+    "packsOpened": 2,
+    "packsStated": true,
+    "setsPacks": "Surging Sparks - 1 Pack ; Twilight Masquerade - 1 Pack",
+    "openingType": "Knock Out Collection",
     "hasHit": true,
     "hitCard": "Surging Sparks - Feebas - Single Gold Star - Illustration Rare",
     "hits": [
@@ -6030,15 +6752,43 @@
     "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets."
   },
   "41vJCIdzYkw": {
+    "setPacks": [
+      {
+        "set": "surging-sparks",
+        "name": "surging sparks",
+        "packs": 1,
+        "typed": true
+      },
+      {
+        "set": "twilight-masquerade",
+        "name": "twilight masquerade",
+        "packs": 1,
+        "typed": true
+      }
+    ],
+    "packsOpened": 2,
+    "packsStated": true,
+    "setsPacks": "Surging Sparks - 1 Pack ; Twilight Masquerade - 1 Pack",
+    "openingType": "Knock Out Collection",
     "hasHit": false,
     "playlistToAdd": "Hits",
     "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets."
   },
   "EOFAhFwJKqw": {
-    "openingType": "Blister Pack",
-    "packNumber": 1,
+    "setPacks": [
+      {
+        "set": "paradox-rift",
+        "name": "paradox rift",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Paradox Rift",
+    "openingType": "Single Booster Pack",
     "hasHit": true,
-    "hitCard": "Paradox Rift - Tsareena ex - Double Black Star - Double Rare",
+    "hitCard": "Tsareena ex - Double Black Star - Double Rare",
     "hits": [
       {
         "card": "Tsareena ex",
@@ -6049,6 +6799,23 @@
     ]
   },
   "l6RPdGNs7uE": {
+    "setPacks": [
+      {
+        "set": "mega-evolution",
+        "name": "mega evolution",
+        "packs": 2,
+        "typed": true
+      },
+      {
+        "set": "destined-rivals",
+        "name": "destined rivals",
+        "packs": 2,
+        "typed": true
+      }
+    ],
+    "packsOpened": 4,
+    "packsStated": true,
+    "setsPacks": "Mega Evolution - 2 Packs ; Destined Rivals - 2 Packs",
     "openingType": "ex Box",
     "hasHit": true,
     "hitCard": "Mega Kangaskhan ex - Black Star Promo, Mega Evolution - Spearow - Single Gold Star - Illustration Rare",
@@ -6068,6 +6835,41 @@
     "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets."
   },
   "kj7532tb0_I": {
+    "setPacks": [
+      {
+        "set": "phantasmal-flames",
+        "name": "phantasmal flames",
+        "packs": 4,
+        "typed": true
+      },
+      {
+        "set": "mega-evolution",
+        "name": "mega evolution",
+        "packs": 4,
+        "typed": true
+      },
+      {
+        "set": "destined-rivals",
+        "name": "destined rivals",
+        "packs": 4,
+        "typed": true
+      },
+      {
+        "set": "journey-together",
+        "name": "journey together",
+        "packs": 4,
+        "typed": true
+      },
+      {
+        "set": "surging-sparks",
+        "name": "surging sparks",
+        "packs": 2,
+        "typed": true
+      }
+    ],
+    "packsOpened": 18,
+    "packsStated": true,
+    "setsPacks": "Phantasmal Flames - 4 Packs ; Mega Evolution - 4 Packs ; Destined Rivals - 4 Packs ; Journey Together - 4 Packs ; Surging Sparks - 2 Packs",
     "openingType": "UPC",
     "hasHit": true,
     "hitCard": "Phantasmal Flames - Trainer - Dawn - Double Silver Star - Ultra Rare, Phantasmal Flames - Mega Gengar ex - Double Black Star - Double Rare , Mega Evolution - Mega Gardevoir ex - Double Silver Star - Ultra Rare , Mega Evolution - Mega Venusaur ex - Double Black Star - Double Rare , Mega Evolution - Marshadow - Single Gold Star - Illustration Rare ,  Destined Rivals - Cetitan ex - Double Black Star , Destined Rivals - Rotom - Single Gold Star - Illustration Rare, Journey Together - Noibat - Single Gold Star - Illustration Rare, Journey Together - Trainer - Brock's Scouting - Double Silver Star - Ultra Rare , Journey Together - Blaziken ex - Double Black Star - Double Rare, Surging Sparks - Trainer - Scramble Switch - Single Pink Star -  ACE SPEC Rare , Surging Sparks - Trainer - Cyrano - Double Silver Star - Ultra Rare, Mega Charizard X UPC Promo - Mega Charizard X ex - Black Star Promo Card , Mega Charizard X UPC Promo - Oricorio ex - Black Star Promo Card",
@@ -6157,6 +6959,29 @@
     "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets."
   },
   "TN7_ZsuRQSI": {
+    "setPacks": [
+      {
+        "set": "mega-evolution",
+        "name": "mega evolution",
+        "packs": 2,
+        "typed": true
+      },
+      {
+        "set": "destined-rivals",
+        "name": "destined rivals",
+        "packs": 2,
+        "typed": true
+      },
+      {
+        "set": "journey-together",
+        "name": "journey together",
+        "packs": 2,
+        "typed": true
+      }
+    ],
+    "packsOpened": 6,
+    "packsStated": true,
+    "setsPacks": "Mega Evolution - 2 Packs ; Destined Rivals - 2 Packs ; Journey Together - 2 Packs",
     "openingType": "Collector Chest",
     "hasHit": true,
     "hitCard": "Mega Evolution - Stufful - Single Gold Star - Illustration Rare , Destined Rivals - Marnie's Grimmsnarl ex , Double Black Star - Double Rare , Journey Together - Wailord - Single Gold Star - Illustration Rare",

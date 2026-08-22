@@ -1494,6 +1494,112 @@
         "setName": "Ascended Heroes",
         "rarity": "Illustration Rare"
       }
+    ],
+    "B5--7Dh5OEA": [
+      {
+        "card": "Cinderace V",
+        "set": "shining-fates",
+        "setName": "Shining Fates"
+      }
+    ],
+    "-e9F0ufKpIQ": [
+      {
+        "card": "Mega Charizard Y ex",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes",
+        "rarity": "Double Rare"
+      }
+    ],
+    "j6O6KdblfeY": [
+      {
+        "card": "Air Balloon",
+        "set": "mega-evolution",
+        "setName": "Mega Evolution",
+        "rarity": "Ultra Rare"
+      },
+      {
+        "card": "Mega Venusaur ex",
+        "rarity": "Black Star Promo"
+      }
+    ],
+    "SOQUDUMboVU": [
+      {
+        "card": "Team Rocket's Mimikyu",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes",
+        "rarity": "Illustration Rare"
+      }
+    ],
+    "EvVnOpgwSmo": [
+      {
+        "card": "Cyclizar ex",
+        "set": "surging-sparks",
+        "setName": "Surging Sparks",
+        "rarity": "Double Rare"
+      }
+    ],
+    "IuEb3qtjflI": [
+      {
+        "card": "Trainer Enriching Energy Pink Star ACE SPEC Special Energy",
+        "set": "surging-sparks",
+        "setName": "Surging Sparks"
+      }
+    ],
+    "8xqvY3OzugE": [
+      {
+        "card": "Weavile",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes",
+        "rarity": "Illustration Rare"
+      }
+    ],
+    "F9mAQqKd6r8": [
+      {
+        "card": "Mega Charizard Y",
+        "rarity": "Black Star Promo"
+      },
+      {
+        "card": "Empoleon ex",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames",
+        "rarity": "Double Rare"
+      }
+    ],
+    "zIn3mWKwkyg": [
+      {
+        "card": "Mega Venusaur ex",
+        "set": "mega-evolution",
+        "setName": "Mega Evolution",
+        "rarity": "Double Rare"
+      },
+      {
+        "card": "Empoleon ex",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames",
+        "rarity": "Ultra Rare"
+      }
+    ],
+    "AqZBxDu2wkc": [
+      {
+        "card": "Jolteon ex",
+        "set": "prismatic-evolutions",
+        "setName": "Prismatic Evolutions",
+        "rarity": "Double Rare"
+      }
+    ],
+    "LROQ-vFl4Hs": [
+      {
+        "card": "Cinderace ex",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes",
+        "rarity": "Double Rare"
+      }
+    ],
+    "Ab81MNFnDLw": [
+      {
+        "card": "Panpour",
+        "rarity": "Illustration Rare"
+      }
     ]
   }
 }
