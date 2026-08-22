@@ -134,6 +134,19 @@
 .wdr-exp{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2)}
 .wdrop-src{font-size:var(--t-micro);line-height:1.45;color:var(--ink-2);margin-top:var(--s3);max-width:52em}
 .mwband .price-note,.pokedex .price-note{font-family:var(--body)}
+.rstats{padding:var(--s6) 0}
+.rstats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s3)}
+@media(min-width:600px){.rstats-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1200px){.rstats-grid{grid-template-columns:repeat(6,1fr)}}
+.rstat{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s4);box-shadow:var(--lift);min-width:0}
+@media(max-width:360px){.rstat{padding:var(--s4) var(--s3)}}
+.rstat b{display:block;font:400 var(--t-l)/1 var(--display);color:var(--ink);
+  margin-bottom:6px;overflow-wrap:anywhere}
+.rstat span{display:block;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+  letter-spacing:.06em;text-transform:uppercase}
+.rstats-src{font-size:var(--t-micro);line-height:1.5;color:var(--ink-2);
+  margin-top:var(--s4);max-width:60em}
 @media(min-width:545px) and (max-width:899px){
 .vcar .hero{max-width:520px;margin:0 auto;padding:var(--s5)}
 .vcar .hero-art,
@@ -561,6 +574,28 @@ main{padding-top:0}
       <div class="more"><a href="/videos.html">See all rips</a></div>
     </div>
   </div>
+
+<!-- The channel and rip-log counters, filled by build-proto.mjs. The markers
+     sit OUTSIDE the <section> on purpose, exactly as the drops band's do: if
+     there is nothing to count the region is empty and there is no band, rather
+     than an empty frame with a heading on it. Every figure inside is derived at
+     build time; nothing here is ever typed. -->
+<!-- RIPSTATS:START -->
+<section class="rstats" aria-labelledby="rstatsH">
+  <div class="wrap">
+    <div class="brk"><h2 id="rstatsH">The channel, <span class="hl">counted</span></h2><span class="ln"></span><a href="/luck.html">Every rip result &rarr;</a></div>
+    <div class="rstats-grid">
+      <div class="rstat"><b>265,348</b><span>views on the channel</span></div>
+      <div class="rstat"><b>336</b><span>subscribers</span></div>
+      <div class="rstat"><b>320</b><span>rips filmed</span></div>
+      <div class="rstat"><b>455</b><span>packs ripped on camera</span></div>
+      <div class="rstat"><b>210</b><span>hit cards logged</span></div>
+      <div class="rstat"><b>48.7%</b><span>hit rate, 155 of 318 answered rips</span></div>
+    </div>
+    <p class="rstats-src">Views and subscribers are YouTube's own counters for the channel, read August 22, 2026. The view total is not the sum of the counts on the rip tiles above: YouTube totals the two differently, and this is the one YouTube publishes. The rest is counted out of the rip log. Packs is packs opened on camera, over the 316 rips that state a count. The two hit figures count different things: 210 is CARDS, so a rip that produced three counts three, and 155 is RIPS, which is what a rate can be taken over. 318 of 320 rips have an answer.</p>
+  </div>
+</section>
+<!-- RIPSTATS:END -->
 
 <section class="mwband">
   <div class="wrap">

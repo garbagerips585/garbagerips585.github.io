@@ -2155,6 +2155,191 @@ ${sweep}`;
  * prefers-reduced-motion case: the band is the same object at both settings,
  * verified under an emulated reduce with the marks decoding.
  */
+
+/* ================================================================== RIPSTATS
+ *
+ * "The channel, counted": six figures and a source line, between Latest rips
+ * and Most wanted.
+ *
+ * Tim, 22 August 2026: "add a little stats widget to the home page where you
+ * can quickly see all of my youtube channel stats, including total number of
+ * channel views and all the pack opening info made into a little section on
+ * home page as well", and then "put the total number of packs we have ripped
+ * overall and the total number of hits we have gotten overall".
+ *
+ * IT IS A DOORWAY AND NOT A SECOND /luck.html. That page is the whole
+ * dashboard: eleven product cards, a run-length chart, a pack-position chart, a
+ * month histogram and a method table. What is here is the smallest set of
+ * numbers that makes somebody want to open it, plus the two counters that page
+ * does not hold at all because they are YouTube's rather than the log's.
+ *
+ * ---------------------------------------------------------------------------
+ * EVERY FIGURE, AND WHERE IT COMES FROM
+ * ---------------------------------------------------------------------------
+ *   views        rawVideos.channel.views        YouTube channels?part=statistics
+ *   subscribers  rawVideos.channel.subscribers  the same call
+ *   rips         videos.length                  public/data/videos.json
+ *   packs        sum of v.packs                 the rip log, via the sheet
+ *   hit cards    rows in data/hits.json         the sheet's My Hits tab
+ *   hit rate     hitRips / judged               resolved outcome, see below
+ * Nothing is typed and nothing needs hand-editing when the next rip lands.
+ *
+ * ---------------------------------------------------------------------------
+ * THE TWO VIEW COUNTS DISAGREE AND THIS BAND PRINTS ONE OF THEM
+ * ---------------------------------------------------------------------------
+ * On 22 August 2026 YouTube's channel counter said 265,348 and the 320
+ * per-video `views` fields summed to 266,441, a gap of 1,093. Neither is a bug:
+ * they are aggregated differently and stamped at different moments.
+ *
+ * THIS BAND TAKES THE CHANNEL COUNTER, for the reason everything else on this
+ * site is sourced the way it is: it is the number YouTube itself publishes on
+ * the channel page, so a reader can check it, and the sum is arithmetic of ours
+ * that matches nothing anybody can look up. It is also literally what was asked
+ * for ("total number of channel views").
+ *
+ * THE SUM IS NOT PRINTED ANYWHERE, on this page or any other, and it must not
+ * be added: two totals for one quantity, on one site, is the top-severity fault
+ * here. The per-video figures ARE printed, one per tile, and the source line
+ * under this band says in as many words that the channel total is not their
+ * sum. Checked across the built tree before this went in: no page stated a view
+ * TOTAL of any kind, so this band is the site's first and only one.
+ *
+ * ---------------------------------------------------------------------------
+ * THE RIP FIGURES ARE build-luck.mjs'S RULES, COPIED, AND MUST STAY IN STEP
+ * ---------------------------------------------------------------------------
+ * The same arrangement retag-videos.mjs has with sync-youtube.mjs, and for the
+ * same reason: the rule is short, the two files run in one build, and a shared
+ * module would still leave two copies because build-luck.mjs cannot import a
+ * builder's private helper without running it.
+ *
+ * A RIP'S OUTCOME IS KNOWN WHEN THE OWNER HAS SAID SO, AND HE SAYS IT TWO WAYS:
+ * he ticks Has Hit, or he writes the cards that came out into the My Hits tab.
+ * Naming a card can only ever mean a hit. So `judged` is the rips whose outcome
+ * we can determine and `hitRips` is the ones that produced something, which is
+ * 154 ticked plus 1 whose only answer is a named card. Take the Has Hit column
+ * alone and this band would say 154 of 317 where /luck.html says 155 of 318.
+ * See build-luck.mjs, the block above `hitDoc`, for the full argument.
+ *
+ * VERIFIED AGAINST THE BUILT /luck.html, 22 August 2026: 320 rips, 455 packs,
+ * 318 answered, 155 with a hit, 48.7%. Identical, and they have to be.
+ *
+ * ---------------------------------------------------------------------------
+ * "TOTAL HITS" IS TWO NUMBERS AND BOTH ARE ON THE BAND, LABELLED
+ * ---------------------------------------------------------------------------
+ * 210 is CARDS: a rip that produced three chase cards contributed three rows to
+ * the My Hits tab. 155 is RIPS: a rip that produced three counts once. Only the
+ * second can carry a rate, because the denominator is rips.
+ *
+ * PRINTING "210" AND "48.7%" SIDE BY SIDE WITH NO LABELS WOULD BE THE 56%
+ * MISTAKE AGAIN, the one on record here where a COVERAGE figure was published
+ * as a HIT RATE. So the rate tile names its own numerator and denominator on
+ * the tile itself, and the source line says which of the two hit figures counts
+ * cards and which counts rips.
+ *
+ * BOTH AGREE WITH THE PAGES THAT ALREADY STATE THEM. /hall.html: "the rip log
+ * records 210 cards" and "155 Printings of 210 pulls". /luck.html: "210 card
+ * rows across 155 rips". NOTE THE COLLISION: /hall.html's 155 is PRINTINGS and
+ * this band's 155 is RIPS, two different quantities that happen to be equal
+ * today. That is why the tile says "155 of 318 answered rips" and not "155".
+ *
+ * ---------------------------------------------------------------------------
+ * WHAT IS DELIBERATELY NOT HERE
+ * ---------------------------------------------------------------------------
+ * NO MASCOT AND NO PLATE. The plate ornament is one per page and its argued job
+ * (shared/format.mjs) is a breather on a page of unbroken prose; this page is
+ * bands of pack art and its seams are already marked by .brk. Trubbish means
+ * "there is nothing in this one" in three places and Garbodor means "we went
+ * through the whole heap" in two, both of them EMPTY states; putting Garbodor
+ * on a band of full counters would make it mean a third thing. Text also keeps
+ * the load path at zero new requests, which is the constraint that matters most
+ * on this page.
+ *
+ * NO YouTube `videoCount`. It is 320 and so is videos.length, and printing the
+ * counter would be a second source for one number that can drift the day a row
+ * is hidden on the sheet. The rip count is videos.length, which is what
+ * /luck.html counts and what the "All 320" chip above already says.
+ *
+ * NO NEW REQUEST, NO IMAGE, NO SCRIPT, AND NOTHING IN ui.css. The rules are in
+ * homeCss below, which rides in with the document and is never the last
+ * render-blocking thing on the page (CLAUDE.md's waterfall note). Space Mono
+ * 700 and Titan One 400 are both already on this page, so no font weight is
+ * added: see the .wdr-ch note in homeCss for what one stray 400 cost.
+ */
+const hitRows = JSON.parse(
+  await readFile(join(ROOT, "data/hits.json"), "utf8").catch(() => "{}")
+).videos || {};
+
+// Rips whose Hit Card cell named something. build-luck.mjs's `namedHitIds`.
+const namedHit = new Set(
+  Object.entries(hitRows).filter(([, list]) => Array.isArray(list) && list.length).map(([id]) => id)
+);
+// The resolved outcome: true, false, or null for still unknown.
+const outcome = (v) => (typeof v.hasHit === "boolean" ? v.hasHit : namedHit.has(v.id) ? true : null);
+const judgedRips = videos.filter((v) => outcome(v) !== null);
+const hitRips = judgedRips.filter((v) => outcome(v) === true);
+// build-luck.mjs's `packsIn`: a pack count is published only where the sheet
+// states one, so `packRips` is smaller than `videos.length` and the source line
+// says so rather than letting "455 packs" read as 455 over 320 rips.
+const packsIn = (v) => (Number.isFinite(v.packs) && v.packs > 0 ? v.packs : null);
+const allPacks = videos.reduce((n, v) => n + (packsIn(v) || 0), 0);
+const packRips = videos.filter(packsIn).length;
+const hitCards = Object.values(hitRows).reduce((n, list) => n + (Array.isArray(list) ? list.length : 0), 0);
+const hitRate = judgedRips.length
+  ? `${Math.round((hitRips.length / judgedRips.length) * 1000) / 10}%`
+  : null;
+
+const chStats = rawVideos.channel || null;
+const num = (n) => Number(n).toLocaleString("en-US");
+const statTile = (big, label) => `      <div class="rstat"><b>${big}</b><span>${label}</span></div>`;
+
+/* A tile is emitted only where the figure exists, so a missing feed is a
+ * shorter band rather than a zero. `channel` is absent from any videos.json
+ * written before sync-youtube.mjs started keeping it, and data/hits.json is
+ * absent on a checkout with no rip log imported; in both cases the band still
+ * renders the counters it does have. If NOTHING can be counted there is no
+ * band at all, because the markers sit outside the <section> exactly as the
+ * drops band's do. */
+const ripStatTiles = [
+  chStats && chStats.views ? statTile(num(chStats.views), "views on the channel") : "",
+  chStats && chStats.subscribers ? statTile(num(chStats.subscribers), "subscribers") : "",
+  videos.length ? statTile(num(videos.length), "rips filmed") : "",
+  allPacks ? statTile(num(allPacks), "packs ripped on camera") : "",
+  hitCards ? statTile(num(hitCards), "hit cards logged") : "",
+  hitRate ? statTile(hitRate, `hit rate, ${num(hitRips.length)} of ${num(judgedRips.length)} answered rips`) : "",
+].filter(Boolean);
+
+/* THE SOURCE LINE IS THE FEATURE, not a footnote on it. Six numbers with no
+ * provenance is the shape of thing this site refuses to ship: two of them are
+ * YouTube's and four are ours, one counts cards and one counts rips, and one
+ * has a denominator that is not the rip total. Every one of those is said here,
+ * in the page's own body face rather than .price-note's Space Mono 400, which
+ * is a weight this page does not otherwise load. */
+const ripStatsHtml = !ripStatTiles.length
+  ? ""
+  : `<section class="rstats" aria-labelledby="rstatsH">
+  <div class="wrap">
+    <div class="brk"><h2 id="rstatsH">The channel, <span class="hl">counted</span></h2><span class="ln"></span><a href="/luck.html">Every rip result &rarr;</a></div>
+    <div class="rstats-grid">
+${ripStatTiles.join("\n")}
+    </div>
+    <p class="rstats-src">${
+      chStats
+        ? `Views and subscribers are YouTube's own counters for the channel, read ${esc(longDate(chStats.readAt))}. ` +
+          `The view total is not the sum of the counts on the rip tiles above: YouTube totals the two differently, ` +
+          `and this is the one YouTube publishes. `
+        : ""
+    }The rest is counted out of the rip log.${
+      allPacks ? ` Packs is packs opened on camera, over the ${num(packRips)} rips that state a count.` : ""
+    }${
+      hitCards && hitRate
+        ? ` The two hit figures count different things: ${num(hitCards)} is CARDS, so a rip that produced three counts ` +
+          `three, and ${num(hitRips.length)} is RIPS, which is what a rate can be taken over. ` +
+          `${num(judgedRips.length)} of ${num(videos.length)} rips have an answer.`
+        : ""
+    }</p>
+  </div>
+</section>`;
+
 // ---------------------------------------------------------------------------
 // THIS SITS IN JS AND NOT BESIDE THE DECLARATIONS IT DESCRIBES, because the
 // style block below ships to the browser verbatim: nothing strips comments out
@@ -2256,6 +2441,70 @@ ${BRAND_STYLE_MIN}
    the same job. The rest of the component is ui.css's and is untouched.
    Scoped, because .price-note is not a home-page-only selector. */
 .mwband .price-note,.pokedex .price-note{font-family:var(--body)}
+/* ---------------------------------------------------------------- RIPSTATS.
+   The counters band between Latest rips and Most wanted. What every figure is
+   and where it comes from is argued above ripStatsHtml in build-proto.mjs.
+
+   THE TILE IS /luck.html'S OWN .luck-stat, DELIBERATELY AND ALMOST TO THE
+   DECLARATION: same --card ground, same --hair hairline, same --lift, a Titan
+   One number over a Space Mono label at --t-micro in --ink-2. This band is a
+   doorway to that page, and a doorway that looks like the room it opens onto is
+   one less thing for a reader to learn. It is also the safe colour choice: that
+   exact pairing is inside the 0-AA-failures sweep of 18 August 2026.
+
+   THE NUMBER IS --t-l WHERE .luck-stat b IS --t-xl, AND THAT IS ARITHMETIC
+   RATHER THAN TASTE. --t-xl tops out at 44px. Six tiles across a 1,452px wrap
+   is a 242px tile and a 183px content box after padding and borders, and
+   "265,348" is seven Titan One glyphs, about 26px each at 44px, so 182 against
+   183. One pixel of headroom is not headroom, and an over-wide number in a grid
+   item sets the track's min-content width and pushes the page sideways, which
+   is the /topps-card-values.html <code> bug in a different costume. --t-l tops
+   out at 32px and the same string measures about 133px.
+
+   THE SECTION HAS NO BACKGROUND OF ITS OWN. .mwband directly below it is a
+   full-width --card band and these tiles are --card, so painting this band
+   --card too would run the two together and six cards would read as one slab.
+   The page green between them is the separation, which is what the bottom
+   padding is buying.
+
+   2 / 3 / 6 COLUMNS, FIXED COUNTS RATHER THAN auto-fit, AND EVERY ONE OF THEM
+   DIVIDES SIX EXACTLY. auto-fit with a 150px floor gives four and five columns
+   through the middle of the range, and five into six strands one tile alone on
+   a row: the same orphan .luck-head has to fix by spanning its last child. Six
+   across wants about 170px of content per tile for the widest number, so the
+   last step waits until 1200 instead of 1000. */
+.rstats{padding:var(--s6) 0}
+.rstats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s3)}
+@media(min-width:600px){.rstats-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1200px){.rstats-grid{grid-template-columns:repeat(6,1fr)}}
+.rstat{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s4);box-shadow:var(--lift);min-width:0}
+/* THE NARROWEST PHONE IS WHERE THIS RUNS OUT AND HERE IS THE ARITHMETIC, so
+   nobody has to rediscover it the day the channel passes a million views.
+   Titan One digits measure about 0.581 x the font size, and --t-l floors at
+   22.4px, so a digit is 13.01px. At 320 the tile is 132px and 16px of padding
+   either side leaves 100, against 91.09px for "265,348". That is 8.91px of
+   headroom and ONE more character does not fit. Side padding drops to --s3 at
+   360 and under, which buys 8px and takes it to 16.91. A SEVEN FIGURE VIEW
+   COUNT STILL WILL NOT FIT AT 320: nine glyphs is 117px against 108, so when
+   this channel gets there the number wants --t-m below 360, not another 4px of
+   padding. */
+@media(max-width:360px){.rstat{padding:var(--s4) var(--s3)}}
+/* overflow-wrap IS THE FLOOR UNDER THAT, and it is not decoration: a grid
+   item's default minimum is its MIN-CONTENT width, so an unbreakable number
+   one pixel too wide does not clip, it widens the track and then the document,
+   which is the /topps-card-values.html <code> bug exactly. A number broken
+   across two lines looks wrong and can be seen; a page 12px wider than the
+   phone does not look like anything. */
+.rstat b{display:block;font:400 var(--t-l)/1 var(--display);color:var(--ink);
+  margin-bottom:6px;overflow-wrap:anywhere}
+.rstat span{display:block;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+  letter-spacing:.06em;text-transform:uppercase}
+/* Body face, not .price-note's Space Mono 400. This page loads Space Mono at
+   700 only, and a single 400 declaration on it fetches a second weight file:
+   see the .wdr-ch note above, where that cost 9.4KB above the fold. */
+.rstats-src{font-size:var(--t-micro);line-height:1.5;color:var(--ink-2);
+  margin-top:var(--s4);max-width:60em}
 @media(min-width:545px) and (max-width:899px){
 .vcar .hero{max-width:520px;margin:0 auto;padding:var(--s5)}
 .vcar .hero-art,
@@ -2530,6 +2779,10 @@ const REGIONS = {
   HOF: hallHtml,
   HOFPICK: hofHtml,
   LATEST: latestHtml,
+  // The counters band. Empty when there is nothing at all to count, and the
+  // markers sit OUTSIDE the <section>, so that case is no band rather than an
+  // empty frame. Same rule DROPS and WANTEDNOTE use.
+  RIPSTATS: ripStatsHtml,
   SETS101: setsHtml,
   COUNT_ALL: String(videos.length),
   COUNT_HITS: String(hitCount),
@@ -2649,6 +2902,20 @@ console.log(`index.html rebuilt from real data:
   ${videos.length} videos, ${hitCount} with a graded pull, ${sets.length} sets
   Hall of Fame: ${hall.map((v) => (v.pulls || []).join("/")).slice(0, 3).join(", ")}...
   logos: ${logos.size}/${sets.length}    pack art: ${packs.size} sets`);
+// THE COUNTERS BAND, PRINTED SO A PERSON RUNNING THIS BY HAND CAN HOLD THEM
+// AGAINST /luck.html's OWN HEADER WITHOUT OPENING THE PAGE. The rip figures are
+// build-luck.mjs's rules copied into this file (see the block above
+// ripStatsHtml), so this line is the cheap half of keeping the two in step:
+// the five numbers below must equal the five in .luck-head, and if they ever
+// do not, one of the two files has changed its rule and the site is
+// contradicting itself. build-all.mjs swallows a builder's stdout on success,
+// so this is a line for a hand run rather than a gate.
+console.log(
+  `  counters band: ${chStats ? `${num(chStats.views)} views, ${num(chStats.subscribers)} subs (read ${chStats.readAt}), ` : "no channel counters in videos.json, "}` +
+    `${num(videos.length)} rips, ${num(allPacks)} packs over ${num(packRips)} rips that say, ` +
+    `${num(hitCards)} hit cards, ${hitRate || "-"} over ${num(hitRips.length)}/${num(judgedRips.length)} answered` +
+    `\n    ^ the last five must match /luck.html's .luck-head exactly`
+);
 for (const line of dropsLog) console.log(`  ${line}`);
 if (noArt.length) console.log(`  sets ripped but with no pack art: ${noArt.join(", ")}`);
 if (untagged) {

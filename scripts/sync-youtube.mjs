@@ -3,6 +3,11 @@
 // it to data/videos.json + data/playlists.json.
 //
 //   YT_API_KEY=xxxxx node scripts/sync-youtube.mjs
+//   YT_API_KEY=xxxxx node scripts/sync-youtube.mjs --stats-only
+//
+// --stats-only refreshes the three channel counters (views, subscribers, video
+// count) and leaves the catalogue alone. One request instead of ~350. The
+// argument for it is beside `channelStats` below.
 //
 // The key is read from the environment on purpose: it never lands in the repo,
 // never ships to the browser, and the deployed site stays a pile of static
@@ -68,6 +73,90 @@ console.log("Fetching channel...");
 const channel = (await api("channels", { part: "contentDetails,snippet,statistics", id: CHANNEL_ID })).items?.[0];
 if (!channel) throw new Error("Channel not found. Check CHANNEL_ID.");
 const uploadsId = channel.contentDetails.relatedPlaylists.uploads;
+
+/**
+ * THE CHANNEL'S OWN COUNTERS, WHICH THIS CALL HAS BEEN FETCHING AND THROWING
+ * AWAY SINCE THE DAY IT WAS WRITTEN. `part` above already says `statistics`,
+ * and the only field anything read off this response was
+ * `contentDetails.relatedPlaylists.uploads`. So keeping the three numbers costs
+ * NO extra request and no extra quota; it is a field write.
+ *
+ * WHY THEY HAVE TO LIVE IN THE FILE RATHER THAN ON THE PAGE. The home page
+ * prints the view count, and a figure typed into a builder is wrong by the
+ * following morning on a channel that uploads daily. Same rule as every other
+ * number on this site: nothing is typed, everything is derived at build time
+ * from a file a sync wrote.
+ *
+ * THIS IS NOT THE SUM OF THE `views` FIELDS BELOW AND THE TWO DO NOT AGREE.
+ * On 22 August 2026 `statistics.viewCount` was 265,348 and the 320 per-video
+ * counts summed to 266,441, a gap of 1,093. Neither is wrong: YouTube
+ * aggregates the channel counter on its own schedule and its own rules, and the
+ * per-video figures are 320 separately-updated numbers. A page may print one or
+ * the other; it must never print both as if they were the same quantity, and it
+ * must say which one it took. The home page takes THIS one, because it is the
+ * figure YouTube itself publishes on the channel and a reader can check it.
+ *
+ * `readAt` IS ITS OWN DATE AND IS NOT `syncedAt`. On a full run the two are the
+ * same day, but `--stats-only` below refreshes these three without re-reading
+ * the catalogue, and stamping the catalogue's date under a counter read hours
+ * later claims a freshness the catalogue does not have. Same distinction
+ * data/graded.json draws between `checked` and `pricesChecked`.
+ *
+ * SUBSCRIBERS ARE ROUNDED BY YOUTUBE ABOVE 1,000 and are exact below it, so
+ * 336 is 336. If this channel passes a thousand, whatever prints it has to stop
+ * calling it exact; the API gives no flag for that, the rounding is documented
+ * behaviour, and there is nothing here to detect it with.
+ */
+const channelStats = {
+  views: Number(channel.statistics?.viewCount || 0),
+  subscribers: Number(channel.statistics?.subscriberCount || 0),
+  videos: Number(channel.statistics?.videoCount || 0),
+  readAt: localDay(),
+};
+
+/**
+ * --stats-only: refresh the three counters above and nothing else.
+ *
+ * WHY THIS MODE EXISTS. A full run is roughly 350 requests and rewrites all 320
+ * catalogue rows, because every one of them carries a view count that moves.
+ * The channel counters move too, and faster, but they are three numbers. Before
+ * this flag, "the home page's view total is a day old" and "the whole catalogue
+ * is a day old" were the same job, so refreshing the first meant putting a
+ * 320-row diff into a commit that changes two figures.
+ *
+ * IT WRITES THROUGH THE SAME SERIALISER AND THE SAME KEY ORDER as the full run
+ * at the foot of this file. That is the point: two writers of one file that
+ * disagree about its shape is how a data file comes to have two formats and a
+ * diff nobody can read. If you change the shape down there, change it here in
+ * the same edit.
+ *
+ * IT IS NOT IN THE NIGHTLY. refresh.yml runs the full sync, which writes these
+ * three as well, so the nightly needs no second step. This is for a person who
+ * wants the front page's counters current without re-reading the back
+ * catalogue.
+ */
+if (process.argv.includes("--stats-only")) {
+  const target = join(ROOT, "public/data/videos.json");
+  const doc = JSON.parse(await readFile(target, "utf8"));
+  await writeFile(
+    target,
+    JSON.stringify(
+      { channelId: doc.channelId, channel: channelStats, syncedAt: doc.syncedAt, videos: doc.videos },
+      null,
+      0
+    ) + "\n"
+  );
+  console.log(
+    `\nChannel counters refreshed in public/data/videos.json:\n` +
+      `  views       ${channelStats.views.toLocaleString("en-US")}\n` +
+      `  subscribers ${channelStats.subscribers.toLocaleString("en-US")}\n` +
+      `  videos      ${channelStats.videos.toLocaleString("en-US")}\n` +
+      `  read        ${channelStats.readAt}\n\n` +
+      `The catalogue itself was NOT re-read: syncedAt is still ${doc.syncedAt} and all ` +
+      `${(doc.videos || []).length} rows are untouched.\nRun without --stats-only for the full sync.\n`
+  );
+  process.exit(0);
+}
 
 console.log("Fetching every upload...");
 const uploads = await paginate("playlistItems", { part: "snippet,contentDetails", playlistId: uploadsId });
@@ -416,9 +505,14 @@ console.log(
 );
 
 await mkdir(join(ROOT, "public/data"), { recursive: true });
+// `channel` sits between the id and the sync date because it is a property of
+// the channel rather than of this run. See the block beside channelStats above
+// for why the three numbers are kept, why the view count is NOT the sum of the
+// `views` fields in `videos`, and why `channel.readAt` is a separate date from
+// `syncedAt`. THE KEY ORDER HERE AND IN --stats-only MUST MATCH.
 await writeFile(
   join(ROOT, "public/data/videos.json"),
-  JSON.stringify({ channelId: CHANNEL_ID, syncedAt: localDay(), videos }, null, 0) + "\n"
+  JSON.stringify({ channelId: CHANNEL_ID, channel: channelStats, syncedAt: localDay(), videos }, null, 0) + "\n"
 );
 // CARRY `path` FORWARD ACROSS A SYNC, BECAUSE THE FIRST BUILD AFTER ONE IS
 // OTHERWISE BROKEN AND ONLY THE FIRST.
