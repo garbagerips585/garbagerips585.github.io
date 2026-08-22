@@ -737,9 +737,23 @@ const ld = [
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    /* THREE LEVELS SINCE /rochester.html EXISTS. This page sat directly under
+       Home, which told a crawler it is a top-level subject of this site. It is
+       one of five pages that make up the local section, and the hub is the page
+       that says what that section is. The visible crumb below emits the same
+       three: a breadcrumb that disagrees with its own markup is worse than
+       neither, and the two used to be checked only by eye. */
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" },
-      { "@type": "ListItem", position: 2, name: "Card shows" },
+      /* "Local scene" AND NOT "Rochester, NY". The nav group holding these five
+         pages is headed Rochester, NY, so that is the SECTION's name and not the
+         hub page's; a page named after its own group is the two-names-one-page
+         failure read backwards. The label here matches the nav item, the visible
+         crumb below and the routing row at the foot of this page, because a page
+         called one thing in the menu and another in the breadcrumb is two pages
+         to a reader. See the note beside HUB in build-locals.mjs. */
+      { "@type": "ListItem", position: 2, name: "Local scene", item: SITE + "/rochester.html" },
+      { "@type": "ListItem", position: 3, name: "Card shows" },
     ],
   },
   ...upcoming.map((s) => ({
@@ -1111,7 +1125,7 @@ const page = head + `
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / Card shows</p>
+    <p class="crumbs"><a href="/">Home</a> / <a href="/rochester.html">Local scene</a> / Card shows</p>
 ${next ? `
     <a class="next-show" data-date="${esc(next.date)}" href="${esc(next.url || "#list")}"${next.url ? ` rel="noopener" target="_blank" aria-label="Next one up: ${esc(showRef(next))} at ${esc(next.venue)}, ${esc(next.city)}, opens on ${esc(hostOf(next.url))}"` : ""}>
       <span class="next-label">Next one up${daysAway(next.date) ? ` &bull; ${esc(daysAway(next.date))}` : ""}</span>
@@ -1200,10 +1214,18 @@ ${(data.watchFor || []).length ? `
           in-body inbound link from anywhere at all. A reader who has just
           decided not to drive to a show is the exact reader for the shops and
           the vendors, so this is a service rather than a link drop. */ ""}
+    ${/* AND THE HUB, ADDED WHEN /rochester.html WAS BUILT. The paragraph above
+          names the three sibling pages and it is still the right sentence, but a
+          list of three siblings is not the same thing as a way UP: a reader who
+          wants the local section rather than one page of it had nowhere to go,
+          which is the fault the hub page exists to fix. One sentence after the
+          three, not four links in one, because the three answer "what else is
+          on tonight" and this one answers "what else is here at all". */ ""}
     <p class="price-note" style="margin-top:var(--s4)">Nothing on for a while? The
       <a href="/shops.html">card shops around Rochester</a> are open the rest of the time and run league nights,
       <a href="/vendors.html">local vendors</a> are the sellers and breakers without a storefront, and
-      <a href="/creators.html">local creators</a> is everyone else filming Pokemon up here.</p>
+      <a href="/creators.html">local creators</a> is everyone else filming Pokemon up here.
+      <a href="/rochester.html">Everything local in one place</a> is the short version of all of it, counted.</p>
   </div>
 </section>
 

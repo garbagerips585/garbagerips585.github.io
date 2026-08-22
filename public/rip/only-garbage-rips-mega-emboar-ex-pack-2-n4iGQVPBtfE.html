@@ -42,7 +42,10 @@
   border-radius:3px;padding:3px 5px}
 .chip-rk{display:inline-flex;align-items:center;
   flex:0 1 auto;min-width:0;white-space:normal;
-  height:auto;min-height:44px;padding-block:6px}</style>
+  height:auto;min-height:44px;padding-block:6px}
+.vid-kind{margin:0 0 -5px;font-family:var(--mono);font-weight:700;
+font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;
+color:var(--ketchup-deep);line-height:1.3}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"Only Garbage Rips? 😬 | Mega Emboar ex Pack #2","description":"Opening Pack #2 from the Mega Emboar ex Box 🔥🐉\n\nPack #1 is in the books.\n\nNow the question is…\n\n😳 Can we go back-to-back?\n\nAnd more importantly…\n\n🐉 Can we finally pull the Dragonite SIR?\n\nOnly two packs remain after this, so every rip matters.\n\nLet’s see what Mega Emboar is hiding.","thumbnailUrl":["https://i.ytimg.com/vi/n4iGQVPBtfE/oardefault.jpg"],"uploadDate":"2026-06-23","embedUrl":"https://www.youtube.com/embed/n4iGQVPBtfE","url":"https://garbagerips585.github.io/rip/only-garbage-rips-mega-emboar-ex-pack-2-n4iGQVPBtfE.html","duration":"PT23S","interactionStatistic":{"@type":"InteractionCounter","interactionType":{"@type":"WatchAction"},"userInteractionCount":152},"publisher":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/","logo":{"@type":"ImageObject","url":"https://garbagerips585.github.io/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Every rip","item":"https://garbagerips585.github.io/videos.html"},{"@type":"ListItem","position":3,"name":"Ascended Heroes","item":"https://garbagerips585.github.io/videos.html?set=ascended-heroes"},{"@type":"ListItem","position":4,"name":"Only Garbage Rips? 😬 | Mega Emboar ex Pack #2"}]}</script>
 </head>
@@ -61,10 +64,10 @@
     <a class="bar-find" href="/search.html" aria-label="Search cards, sets, guides and rips"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg></a>
     <nav class="nav-links" aria-label="Primary">
       <a href="/videos.html">Rips</a>
+      <a href="/card-shows.html">Card shows</a>
       <a href="/cards.html">Card search</a>
       <a href="/sets/">Set guides</a>
       <a href="/start.html">Start here</a>
-      <a href="/card-shows.html">Card shows</a>
     </nav>
     <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -85,6 +88,28 @@
         <li><a href="/hall.html">Best pulls</a></li>
         <li><a href="/wanted.html">Most wanted</a></li>
         <li><a href="/luck.html">Rip results</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Rochester, NY<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/rochester.html">Local scene</a></li>
+        <li><a href="/card-shows.html">Card shows</a></li>
+        <li><a href="/shops.html">Card shops</a></li>
+        <li><a href="/vendors.html">Local vendors</a></li>
+        <li><a href="/creators.html">Local creators</a></li>
+        <li><a href="/garbage-plate.html">Garbage Plate</a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Just for fun<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
+        <li><a href="/lore.html">Pokemon lore</a></li>
+        <li><a href="/evolution.html">Evolution chart</a></li>
+        <li><a href="/eevee-evolutions.html">Eevee evolutions</a></li>
       </ul>
     </details>
     <details class="menu-g" open>
@@ -144,27 +169,6 @@
         <li><a href="/tcg-pocket.html">TCG Pocket app</a></li>
         <li><a href="/decks.html">Deck builds</a></li>
         <li><a href="/top-100-playable.html">Most played</a></li>
-      </ul>
-    </details>
-    <details class="menu-g" open>
-      <summary class="menu-h">Just for fun<span class="menu-x" aria-hidden="true"></span></summary>
-      <ul>
-        <li><a href="/games/">Games</a></li>
-        <li><a href="/video-games.html">Video games</a></li>
-        <li><a href="/lore.html">Pokemon lore</a></li>
-        <li><a href="/evolution.html">Evolution chart</a></li>
-        <li><a href="/eevee-evolutions.html">Eevee evolutions</a></li>
-      </ul>
-    </details>
-    <details class="menu-g" open>
-      <summary class="menu-h">Rochester, NY<span class="menu-x" aria-hidden="true"></span></summary>
-      <ul>
-        <li><a href="/card-shows.html">Card shows</a></li>
-        <li><a href="/shops.html">Card shops</a></li>
-        <li><a href="/vendors.html">Local vendors</a></li>
-        <li><a href="/creators.html">Local creators</a></li>
-        <li><a href="/garbage-plate.html">Garbage Plate</a></li>
-        <li><a href="/about.html">About</a></li>
       </ul>
     </details>
   </div>
@@ -427,11 +431,12 @@ Let’s see what Mega Emboar is hiding.</div>
           </span>
           <span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
         </a>
+        <p class="vid-kind">ex Premium Collection</p>
         <h3 class="vid-title"><a href="/rip/only-garbage-rips-mega-emboar-box-2-finale-xqV7AYXoVJs.html">Only Garbage Rips? 😬 | Mega Emboar Box #2 FINALE</a></h3>
         <p class="vid-meta">Jul 13, 2026</p>
       </article>
       <article class="vid">
-        <a class="vid-shell" href="/rip/finally-an-ex-hit-mega-emboar-box-2-nBKJMnw9L2Y.html" aria-label="Finally! An ex Hit! ⚡ | Mega Emboar Box #2">
+        <a class="vid-shell" href="/rip/final-ascended-heroes-bundle-2-pack-last-pack-magic-vW8lkXEx3Ao.html" aria-label="FINAL Ascended Heroes Bundle #2 Pack ⚡ | Last Pack Magic?! 😳">
           <span class="pack pack--tile pack--ascended-heroes pack--img" aria-hidden="true">
             <span class="pack-face pack-l">
               <span class="pack-art"><picture><source type="image/avif" srcset="/assets/packs/ascended-heroes-garbage-rips-585-booster-pack-tile.avif"><img class="pack-img" src="/assets/packs/ascended-heroes-garbage-rips-585-booster-pack-tile.webp" alt="" width="400" height="711" loading="lazy" decoding="async"></picture></span>
@@ -441,11 +446,12 @@ Let’s see what Mega Emboar is hiding.</div>
           </span>
           <span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
         </a>
-        <h3 class="vid-title"><a href="/rip/finally-an-ex-hit-mega-emboar-box-2-nBKJMnw9L2Y.html">Finally! An ex Hit! ⚡ | Mega Emboar Box #2</a></h3>
-        <p class="vid-meta">Jul 12, 2026</p>
+        <p class="vid-kind">Booster Bundle</p>
+        <h3 class="vid-title"><a href="/rip/final-ascended-heroes-bundle-2-pack-last-pack-magic-vW8lkXEx3Ao.html">FINAL Ascended Heroes Bundle #2 Pack ⚡ | Last Pack Magic?! 😳</a></h3>
+        <p class="vid-meta">Jun 4, 2026</p>
       </article>
       <article class="vid">
-        <a class="vid-shell" href="/rip/last-pack-magic-team-rocket-ultra-rare-pull-gFZ_jiV7DEY.html" aria-label="LAST PACK MAGIC! 🚀 | Team Rocket Ultra Rare Pull!">
+        <a class="vid-shell" href="/rip/ascended-heroes-etb-final-pack-final-pack-magic-O-vFg-5cx8E.html" aria-label="Ascended Heroes ETB FINAL PACK ⚡ | Final Pack Magic? 😬">
           <span class="pack pack--tile pack--ascended-heroes pack--img" aria-hidden="true">
             <span class="pack-face pack-l">
               <span class="pack-art"><picture><source type="image/avif" srcset="/assets/packs/ascended-heroes-garbage-rips-585-booster-pack-tile.avif"><img class="pack-img" src="/assets/packs/ascended-heroes-garbage-rips-585-booster-pack-tile.webp" alt="" width="400" height="711" loading="lazy" decoding="async"></picture></span>
@@ -455,11 +461,12 @@ Let’s see what Mega Emboar is hiding.</div>
           </span>
           <span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
         </a>
-        <h3 class="vid-title"><a href="/rip/last-pack-magic-team-rocket-ultra-rare-pull-gFZ_jiV7DEY.html">LAST PACK MAGIC! 🚀 | Team Rocket Ultra Rare Pull!</a></h3>
-        <p class="vid-meta">Jul 11, 2026</p>
+        <p class="vid-kind">Elite Trainer Box</p>
+        <h3 class="vid-title"><a href="/rip/ascended-heroes-etb-final-pack-final-pack-magic-O-vFg-5cx8E.html">Ascended Heroes ETB FINAL PACK ⚡ | Final Pack Magic? 😬</a></h3>
+        <p class="vid-meta">Mar 27, 2026</p>
       </article>
       <article class="vid">
-        <a class="vid-shell" href="/rip/pokemon-ascended-heroes-the-dry-spell-continues-uTGe-WswoVY.html" aria-label="Pokemon Ascended Heroes ⚡ | The Dry Spell Continues...">
+        <a class="vid-shell" href="/rip/ascended-heroes-pack-7-still-no-big-hits-A38u-diwmvw.html" aria-label="Ascended Heroes Pack #7 ⚡ | STILL No Big Hits… 😬">
           <span class="pack pack--tile pack--ascended-heroes pack--img" aria-hidden="true">
             <span class="pack-face pack-l">
               <span class="pack-art"><picture><source type="image/avif" srcset="/assets/packs/ascended-heroes-garbage-rips-585-booster-pack-tile.avif"><img class="pack-img" src="/assets/packs/ascended-heroes-garbage-rips-585-booster-pack-tile.webp" alt="" width="400" height="711" loading="lazy" decoding="async"></picture></span>
@@ -469,11 +476,12 @@ Let’s see what Mega Emboar is hiding.</div>
           </span>
           <span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
         </a>
-        <h3 class="vid-title"><a href="/rip/pokemon-ascended-heroes-the-dry-spell-continues-uTGe-WswoVY.html">Pokemon Ascended Heroes ⚡ | The Dry Spell Continues...</a></h3>
-        <p class="vid-meta">Jul 10, 2026</p>
+        <p class="vid-kind">Single Pack</p>
+        <h3 class="vid-title"><a href="/rip/ascended-heroes-pack-7-still-no-big-hits-A38u-diwmvw.html">Ascended Heroes Pack #7 ⚡ | STILL No Big Hits… 😬</a></h3>
+        <p class="vid-meta">May 7, 2026</p>
       </article>
       <article class="vid">
-        <a class="vid-shell" href="/rip/scorbunny-illustration-rare-mega-meganium-box-2-u9zpVOVsWyg.html" aria-label="SCORBUNNY ILLUSTRATION RARE! 🔥 | Mega Meganium Box #2">
+        <a class="vid-shell" href="/rip/ascended-heroes-mini-tin-4-we-need-a-hit-rMMOuM8bsqE.html" aria-label="Ascended Heroes Mini Tin #4 ⚡ | We NEED A Hit 😬">
           <span class="pack pack--tile pack--ascended-heroes pack--img" aria-hidden="true">
             <span class="pack-face pack-l">
               <span class="pack-art"><picture><source type="image/avif" srcset="/assets/packs/ascended-heroes-garbage-rips-585-booster-pack-tile.avif"><img class="pack-img" src="/assets/packs/ascended-heroes-garbage-rips-585-booster-pack-tile.webp" alt="" width="400" height="711" loading="lazy" decoding="async"></picture></span>
@@ -483,11 +491,12 @@ Let’s see what Mega Emboar is hiding.</div>
           </span>
           <span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
         </a>
-        <h3 class="vid-title"><a href="/rip/scorbunny-illustration-rare-mega-meganium-box-2-u9zpVOVsWyg.html">SCORBUNNY ILLUSTRATION RARE! 🔥 | Mega Meganium Box #2</a></h3>
-        <p class="vid-meta">Jul 9, 2026</p>
+        <p class="vid-kind">Tin</p>
+        <h3 class="vid-title"><a href="/rip/ascended-heroes-mini-tin-4-we-need-a-hit-rMMOuM8bsqE.html">Ascended Heroes Mini Tin #4 ⚡ | We NEED A Hit 😬</a></h3>
+        <p class="vid-meta">Apr 28, 2026</p>
       </article>
       <article class="vid">
-        <a class="vid-shell" href="/rip/pokemon-ascended-heroes-mega-emboar-pack-1-reality-check-WhfY82RrS4w.html" aria-label="Pokemon Ascended Heroes ⚡ | Mega Emboar Pack #1 Reality Check">
+        <a class="vid-shell" href="/rip/ascended-heroes-first-partners-deluxe-pin-collection-fZk7D5Wd0Eg.html" aria-label="Ascended Heroes First Partners Deluxe Pin Collection 🌱🔥💧">
           <span class="pack pack--tile pack--ascended-heroes pack--img" aria-hidden="true">
             <span class="pack-face pack-l">
               <span class="pack-art"><picture><source type="image/avif" srcset="/assets/packs/ascended-heroes-garbage-rips-585-booster-pack-tile.avif"><img class="pack-img" src="/assets/packs/ascended-heroes-garbage-rips-585-booster-pack-tile.webp" alt="" width="400" height="711" loading="lazy" decoding="async"></picture></span>
@@ -497,8 +506,9 @@ Let’s see what Mega Emboar is hiding.</div>
           </span>
           <span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
         </a>
-        <h3 class="vid-title"><a href="/rip/pokemon-ascended-heroes-mega-emboar-pack-1-reality-check-WhfY82RrS4w.html">Pokemon Ascended Heroes ⚡ | Mega Emboar Pack #1 Reality Check</a></h3>
-        <p class="vid-meta">Jul 8, 2026</p>
+        <p class="vid-kind">Collection Box</p>
+        <h3 class="vid-title"><a href="/rip/ascended-heroes-first-partners-deluxe-pin-collection-fZk7D5Wd0Eg.html">Ascended Heroes First Partners Deluxe Pin Collection 🌱🔥💧</a></h3>
+        <p class="vid-meta">Apr 10, 2026</p>
       </article>
     </div>
   </div>
@@ -516,6 +526,24 @@ Let’s see what Mega Emboar is hiding.</div>
         <a href="/hall.html">Best pulls</a>
         <a href="/wanted.html">Most wanted</a>
         <a href="/luck.html">Rip results</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Rochester, NY</p>
+        <a href="/rochester.html">Local scene</a>
+        <a href="/card-shows.html">Card shows</a>
+        <a href="/shops.html">Card shops</a>
+        <a href="/vendors.html">Local vendors</a>
+        <a href="/creators.html">Local creators</a>
+        <a href="/garbage-plate.html">Garbage Plate</a>
+        <a href="/about.html">About</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Just for fun</p>
+        <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
+        <a href="/lore.html">Pokemon lore</a>
+        <a href="/evolution.html">Evolution chart</a>
+        <a href="/eevee-evolutions.html">Eevee evolutions</a>
       </div>
       <div class="foot-col">
         <p class="foot-h">Cards</p>
@@ -565,23 +593,6 @@ Let’s see what Mega Emboar is hiding.</div>
         <a href="/tcg-pocket.html">TCG Pocket app</a>
         <a href="/decks.html">Deck builds</a>
         <a href="/top-100-playable.html">Most played</a>
-      </div>
-      <div class="foot-col">
-        <p class="foot-h">Just for fun</p>
-        <a href="/games/">Games</a>
-        <a href="/video-games.html">Video games</a>
-        <a href="/lore.html">Pokemon lore</a>
-        <a href="/evolution.html">Evolution chart</a>
-        <a href="/eevee-evolutions.html">Eevee evolutions</a>
-      </div>
-      <div class="foot-col">
-        <p class="foot-h">Rochester, NY</p>
-        <a href="/card-shows.html">Card shows</a>
-        <a href="/shops.html">Card shops</a>
-        <a href="/vendors.html">Local vendors</a>
-        <a href="/creators.html">Local creators</a>
-        <a href="/garbage-plate.html">Garbage Plate</a>
-        <a href="/about.html">About</a>
       </div>
     </nav>
     <!--FOOT_SUB:START-->
@@ -745,6 +756,6 @@ addEventListener('DOMContentLoaded',function(){
 })();
 </script>
 <script src="/assets/app.js?v=b4c32fa2" defer></script>
-<script src="/assets/packplayer.js?v=d440f081" defer></script>
+<script src="/assets/packplayer.js?v=0beb526d" defer></script>
 </body>
 </html>

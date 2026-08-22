@@ -73,6 +73,25 @@ const STEPS = [
   // AFTER build-proto.mjs, because it takes its <head>, bar, menu and footer by
   // slicing public/index.html, exactly as the four other pages that do that.
   "node scripts/build-garbage-plate.mjs",
+  // The front door to the five local pages, and it sits with them for the same
+  // reason the line above gives: same reader, the one who came for the Rochester
+  // angle. It reads data/shows.json, data/shops.json, data/vendors.json,
+  // data/creators.json and data/garbage-plate.json and writes one page, so it
+  // has no data dependency on any earlier step and nothing depends on its
+  // output. EVERY NUMBER ON THE PAGE IS COUNTED OUT OF THOSE FIVE FILES, which
+  // is what makes the ordering boring: it cannot go stale relative to the pages
+  // it summarises, because it is reading the same files they read rather than
+  // scraping the pages they produced.
+  //
+  // ORDER: the usual two, and it is the first of the pair that matters here.
+  // BEFORE build-search.mjs, which walks public/*.html and fails the build on an
+  // indexable page missing from its PAGES list, and this page is indexable from
+  // its first build. Before build-pages.mjs puts it in the sitemap; that one
+  // sits above this line, which is fine for the reason build-base-set.mjs
+  // records beside the same arrangement: the sitemap entry is a constant in that
+  // file and all that has to be true is that the page is on disk by the time
+  // check-build.py runs, and check-build.py is the last step.
+  "node scripts/build-rochester.mjs",
   "node scripts/build-about.mjs",
   "node scripts/build-luck.mjs",
   "node scripts/build-upcoming.mjs",

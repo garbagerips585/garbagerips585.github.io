@@ -84,12 +84,93 @@ export const NAV = [
   // which blew the second column out and pushed Play and Rochester ENTIRELY
   // below the fold. 16 of 46 links were unreachable without scrolling and every
   // Rochester page was one of them. No group here is larger than eight.
+  //
+  // THE TABLE ABOVE IS STALE BY 65px AND THE SHAPE OF IT IS STILL RIGHT. It was
+  // taken before `.menu-find` pinned a search line above the groups, so the 390
+  // panel measures 609px today where that row says 544. Re-measured 22 August
+  // 2026 on the built tree, driven headless over CDP, menu opened by clicking
+  // #menuBtn rather than by adding a class: 390x844 panel 609px in an 844px
+  // window, 0.72 of a screen, does not scroll; 1440x900 panel 716px, scrollH
+  // 714 against clientH 714, does not scroll. Both ends still fit.
+  //
+  // THE ORDER CHANGED ON 22 August 2026 AND THE MEMBERSHIP DID NOT. Tim: "keep
+  // looking at the nav ... everything thats related to my Youtube Channel and
+  // the pack rips info data should all be together, second thing I want to
+  // highlight is the Rochester, NY pages, and then the fun games section, and
+  // then all the guides can be last ... I want to be a hub for the local
+  // community to showcase what they do best". So it is channel, Rochester,
+  // games, then the five guide groups in the relative order they already had.
+  // Rochester went from eighth to second and Just for fun from seventh to
+  // third; nothing was renamed, nothing moved between groups, and every
+  // argument written beside a label below is untouched. It is a permutation of
+  // whole blocks, which is the only kind of nav edit that cannot lose one.
+  //
+  // MERGING THE FIVE GUIDE GROUPS WAS THE OBVIOUS NEXT MOVE AND IT WAS
+  // MEASURED AND REFUSED. The ask was for a nav that is easier to sort through,
+  // and with the guides pushed to the back it looks like they could be one
+  // block. Two things say no, and the first is the one that is invisible from
+  // the markup:
+  //
+  //   - ON A PHONE THE PANEL IS ALREADY AN ACCORDION WITH EVERY GROUP SHUT, so
+  //     its height is 48px per HEADING and not one pixel per link. Eight shut
+  //     summaries plus the pinned search line and the Subscribe pill is 609px
+  //     in an 844px window. A reader does not scroll it once, let alone twice,
+  //     so the failure the ask describes is not in this panel.
+  //   - THE DESKTOP PANEL IS WHERE A MERGE IS PAID FOR, and fewer groups means
+  //     taller columns in the same four tracks. Measured 22 August 2026 by
+  //     injecting each regrouping into the REAL panel on the real page, the
+  //     same 50 links throughout, app.js's own accordion collapse re-applied,
+  //     menu opened by clicking #menuBtn:
+  //
+  //       groups  390 panel  scrolls?   1440 panel     scrolls?  390 footNav
+  //       8        609px      no        714 / 714       no        1,535px
+  //       7        553px      no        865 / 838       YES       1,492px
+  //       6        497px      no        865 / 838       YES       1,448px
+  //       4        385px      no      1,523 / 838       YES       1,318px
+  //
+  //     Every merge scrolls the desktop panel, which is exactly what the table
+  //     at the top of this note bought when it settled on eight. The phone
+  //     saves 56px per merged group off a panel that already fits in 0.72 of a
+  //     screen, and the phone FOOTER, which is the tall surface people actually
+  //     mean, barely moves: collapsing all five guide groups into one saves
+  //     217px of a 1,535px footer nav and costs the 1440 panel 1.69 screens.
+  //
+  //   - AND EVERY AVAILABLE MERGE BREAKS THE EIGHT-LINK CAP ANYWAY. Cards and
+  //     Sets is 14 links, Prices and Buy-sell-grade is 15, all five guides is
+  //     34. The cap is what stopped "Guides" being the leftovers bucket the
+  //     paragraph above describes, so a merge is not one array edit: it is a
+  //     redistribution, and every label argument written below would have to be
+  //     re-opened to do it.
+  //
+  // So the win the ask is really after is ORDER, not count: the two things Tim
+  // named are now the first two headings a thumb lands on, and the guides he is
+  // happy to have last are last. No group here is larger than eight.
 
   // The channel, which is what the site is for. Rips, the playlists that sort
   // them, the best of what came out, what is still being hunted, and how the
   // luck actually ran. "The binder" used to be a separate two-link group for
   // the middle two; two links is not a category either, and these five are one
   // continuous story about the same shoebox.
+  //
+  // FIRST GROUP, AND SINCE 22 August 2026 THAT IS AN INSTRUCTION RATHER THAN AN
+  // INFERENCE. Tim: "everything thats related to my Youtube Channel and the
+  // pack rips info data should all be together ... the main focus of the site
+  // overall should be my youtube channel, the rip videos, the rip and hit
+  // stats". THE FIVE ALREADY WERE THAT LIST and were checked against it one at
+  // a time rather than assumed: /videos.html is the rip videos, /playlists.html
+  // is how they are sorted, /hall.html is the hit stats, /luck.html is the rip
+  // stats, and /wanted.html is the hunt those stats are kept for. Nothing was
+  // added and nothing was moved out.
+  //
+  // "The channel" KEPT AS THE HEADING. It is Tim's own word for the thing, and
+  // it is the one heading here that names a SOURCE rather than an errand, which
+  // is allowed for the same reason "Rochester, NY" is: for these five the thing
+  // you came to do is watch what this channel put out.
+  //
+  // /about.html IS NOT IN THIS GROUP AND THAT WAS ASKED AND ANSWERED. It is the
+  // page that explains the channel, so it has a real claim here; Tim put it in
+  // Rochester instead ("About can be under Rochester section too"). The
+  // argument is recorded beside it down there rather than repeated here.
   ["The channel", [
     ["/videos.html", "Rips"],
     ["/playlists.html", "Playlists"],
@@ -98,11 +179,169 @@ export const NAV = [
     // "Rip results" and NOT "Luck, measured". The old label front-loaded a
     // mood, spent its two words on a comma, and named the MEASUREMENT rather
     // than the thing measured. "Rips" is the brand word and is in this page's
-    // own title ("What Actually Came Out of 80 Rips"); "results" is the exact
+    // own title ("What Actually Came Out of 291 Rips" -- this note said 80
+    // until 22 August 2026, which is the count the page carried when the label
+    // was chosen; the label does not depend on the number, but a quoted title
+    // that no longer matches the page is the thing this file keeps catching);
+    // "results" is the exact
     // word the page's body uses, and it is the honest one: these are observed
     // results and not pull rates, which The Pokemon Company does not publish
     // and this site never states. Do not retitle this "Pull rates".
+    //
+    // RE-CHECKED 22 August 2026 WHEN THIS GROUP WAS CONFIRMED AS THE SITE'S
+    // FIRST, because "the rip and hit stats" is what Tim called this page and
+    // it is a full stats dashboard now rather than the single tally it was.
+    // The label still echoes the title, still says results rather than rates,
+    // and the refusal above stands. It was not reopened.
     ["/luck.html", "Rip results"],
+  ]],
+
+  // The local angle, kept as its own heading because it is the one thing no
+  // other Pokemon site has and the one query family this site can realistically
+  // rank first for.
+  //
+  // SECOND GROUP SINCE 22 August 2026, UP FROM EIGHTH, on Tim's ask: "second
+  // thing I want to highlight is the Rochester, NY pages ... I want to be a hub
+  // for the local community to showcase what they do best, this area is massive
+  // for pokemon cards and i want the world to know!" It was LAST, which meant
+  // the one family of pages nothing else on the internet competes for was the
+  // last heading in the menu and the last column in the footer.
+  //
+  // "Rochester, NY" SURVIVED A RENAME AND THE QUESTION WAS A FAIR ONE. With the
+  // Garbage Plate and About both in it, this stopped being a list of local
+  // listings and became the group that carries what the site IS, so a heading
+  // nearer "what this is about" was put up. It is refused on three grounds:
+  //
+  //   - THE PLACE NAME IS THE ERRAND HERE. The rule above is that groups are
+  //     named by what you came to do, not by content type, and for this one
+  //     family the thing you came to do IS geographic. Somebody who came
+  //     because they are local recognises "Rochester, NY" with no context;
+  //     nobody recognises "Local scene" without already knowing whose.
+  //   - TWO LABELS INSIDE IT DEPEND ON THE HEADING. "Local vendors" and "Local
+  //     creators" are local to whatever the heading says. Take the city out of
+  //     the heading and both become local to nowhere, which would cost two
+  //     renames to fix a heading that was not broken.
+  //   - IT IS THE PHRASE PEOPLE TYPE, which is the whole reason the paragraph
+  //     above says this is the one query family the site can rank first for. A
+  //     heading that reads well and is searched by nobody trades the only SEO
+  //     this group has for tidiness.
+  //
+  // AND THE GROUP DID NOT ACTUALLY STOP BEING ABOUT ROCHESTER when those two
+  // joined. /about.html's own description opens "Garbage Rips 585 is a Pokemon
+  // card channel from Rochester, New York" and the page calls itself a love
+  // letter to the city; /garbage-plate.html's h1 is the city's own dish. Both
+  // are Rochester pages that also happen to explain the site.
+  //
+  // A HUB PAGE MAY LAND AT THE TOP OF THIS GROUP. Another pass is rewriting
+  // /vendors.html and /creators.html so they read as a community hub rather
+  // than a directory, and may add a Rochester landing page. If it does, it goes
+  // FIRST, above "Card shows", because a hub is the thing the other five hang
+  // off. Seven links is still inside the eight this file's own note caps groups
+  // at, so it costs nothing measured; an eighth would, and would need the panel
+  // re-driven at both widths before it shipped.
+  ["Rochester, NY", [
+    // THE HUB GOES FIRST, and its label is deliberately NOT "Rochester, NY".
+    //
+    // /rochester.html summarises the five pages below it, so it is the one entry
+    // that earns the top of the group. It was proposed as "Rochester, NY" and
+    // that is exactly the two-names-one-page failure the note at the top of this
+    // file exists to prevent: a group heading and a link inside it reading
+    // identically render as a broken duplicate, and a reader who clicks the
+    // heading's own words expects the heading's own contents.
+    //
+    // "Local scene" is 11 characters, front-loaded, and ECHOED BY THE PAGE --
+    // its title ends "and the Local Scene" and its kicker reads "585 - The
+    // local scene". build-rochester.mjs THROWS if that echo stops being true or
+    // if the label passes 20 characters, so this cannot rot quietly.
+    //
+    // Seven links here, still inside the eight the panel measurement allows.
+    ["/rochester.html", "Local scene"],
+    // Shops and shows sit next to each other deliberately: they answer the same
+    // question a week apart. Keep the labels distinct, the urls are one letter
+    // apart and the menu is the only place a reader sees both at once.
+    ["/card-shows.html", "Card shows"],
+    ["/shops.html", "Card shops"],
+    ["/vendors.html", "Local vendors"],
+    ["/creators.html", "Local creators"],
+    // THE SIXTH LINK IN THIS GROUP, and the note at the top of NAV is what
+    // makes it safe: eight groups is the measured count that does not scroll
+    // either panel, no group here is larger than eight, and this one was at
+    // five. Added 20 August 2026 on Tim's ask for a page about the dish the
+    // channel is named after.
+    //
+    // "Garbage Plate" AND NOT "The plate" OR "Food". The label is the thing
+    // people type and the thing on the sign, it is the only two words in this
+    // menu that a Rochester reader will recognise instantly, and the page's own
+    // h1 asks "What is a Garbage Plate?" so the label and the destination say
+    // the same words. It sits under the two card-shopping links and above
+    // About, which is reading order: shops and shows are why you came, this is
+    // why the channel is called what it is, and About is who is talking.
+    //
+    // BOTH OF THESE WERE RE-OPENED WHEN ROCHESTER WENT SECOND AND TIM SETTLED
+    // BOTH, 22 August 2026. THEY ARE DECISIONS, NOT DEFAULTS: do not move
+    // either on a rules argument.
+    //
+    //   - THE PLATE. "Garbage Plate page needs to go in the Rochester section,
+    //     its a piece of Rochester, NY legend and lore." The case for moving it
+    //     to "Just for fun" was that it helps nobody buy, open or value a card,
+    //     which is that group's stated definition. The case against, and the
+    //     one that holds, is that every other page in that group is about
+    //     POKEMON: the minigames, the console timeline, the Pokedex facts. A
+    //     restaurant list would be the only non-Pokemon page in a group whose
+    //     definition is Pokemon-rather-than-cards, while here it sits with five
+    //     other Rochester places and is the page that explains the channel's
+    //     name to a stranger.
+    //   - ABOUT. "About can be under Rochester section too." It was already
+    //     here, so this confirms rather than moves it. The argument for pulling
+    //     it into "The channel" was that promoting Rochester turns the last
+    //     link of the last group into the eleventh link in the nav, and About
+    //     is the page explaining the whole site rather than a local listing.
+    //     Tim's reading is the other one and it is the site's own: the page is
+    //     a love letter to Rochester, so it belongs with Rochester. The reading
+    //     order above is unchanged and still describes what is here.
+    ["/garbage-plate.html", "Garbage Plate"],
+    ["/about.html", "About"],
+  ]],
+
+  // Pokemon rather than Pokemon cards: the minigames, the console timeline, the
+  // Pokedex facts and the evolution lines. Nothing here helps anybody buy,
+  // open or value a card, which is exactly why it is not filed with the pages
+  // that do.
+  //
+  // THIRD GROUP SINCE 22 August 2026, UP FROM SEVENTH. Tim: "and then the fun
+  // games section". That is this group, and the ranking is his: channel, then
+  // Rochester, then this, then the guides.
+  //
+  // "Just for fun" KEPT, AGAINST A RENAME TO "Fun and games". The rename had a
+  // real argument behind it, which is this file's own: labels are front-loaded
+  // nouns because a reader spends about two words per item, and "Just for"
+  // spends both on nothing. It is refused because "just" is the word doing the
+  // group's actual work. The definition above is that nothing in here helps you
+  // buy, open or value a card, and "just for fun" says precisely that in three
+  // words; "Fun and games" says the opposite of nothing, it says games, and two
+  // of the five links here are not games. The two-word budget is also a finding
+  // about scanning a list of fifty LINKS, not about eight headings that a phone
+  // renders as the entire menu with a chevron on each.
+  //
+  // AND IT IS STILL NOT CALLED "Games". /games/ below is called Games and the
+  // note on it says why two things called Games in one menu is a navigation
+  // problem. Promoting the group does not change that.
+  ["Just for fun", [
+    ["/games/", "Games"],
+    // "Video games" and NOT "Games", which the line above already owns. Two
+    // things called Games in one menu is a navigation problem, and the hub is
+    // the older claim on the word. This is the reference timeline of every
+    // official Pokemon release; that one is the minigames you play here.
+    ["/video-games.html", "Video games"],
+    ["/lore.html", "Pokemon lore"],
+    ["/evolution.html", "Evolution chart"],
+    // /eevee-evolutions.html WAS LEFT OUT OF THE NAV ONCE AND THAT WAS THE BUG.
+    // The argument was that it is one entry from the chart. What happened is
+    // that nothing on the site linked to it at all: 1,849 indexable words in
+    // the sitemap and invisible to any crawler following links. It also earns
+    // the line: eight branches from one species, each with a different trigger,
+    // and "how do I get Umbreon" is asked as its own question.
+    ["/eevee-evolutions.html", "Eevee evolutions"],
   ]],
 
   // Everything you do while holding a card, or looking for one.
@@ -329,56 +568,6 @@ export const NAV = [
     // carry and therefore the one that distinguishes nothing.
     ["/top-100-playable.html", "Most played"],
   ]],
-
-  // Pokemon rather than Pokemon cards: the minigames, the console timeline, the
-  // Pokedex facts and the evolution lines. Nothing here helps anybody buy,
-  // open or value a card, which is exactly why it is not filed with the pages
-  // that do.
-  ["Just for fun", [
-    ["/games/", "Games"],
-    // "Video games" and NOT "Games", which the line above already owns. Two
-    // things called Games in one menu is a navigation problem, and the hub is
-    // the older claim on the word. This is the reference timeline of every
-    // official Pokemon release; that one is the minigames you play here.
-    ["/video-games.html", "Video games"],
-    ["/lore.html", "Pokemon lore"],
-    ["/evolution.html", "Evolution chart"],
-    // /eevee-evolutions.html WAS LEFT OUT OF THE NAV ONCE AND THAT WAS THE BUG.
-    // The argument was that it is one entry from the chart. What happened is
-    // that nothing on the site linked to it at all: 1,849 indexable words in
-    // the sitemap and invisible to any crawler following links. It also earns
-    // the line: eight branches from one species, each with a different trigger,
-    // and "how do I get Umbreon" is asked as its own question.
-    ["/eevee-evolutions.html", "Eevee evolutions"],
-  ]],
-
-  // The local angle, kept as its own heading because it is the one thing no
-  // other Pokemon site has and the one query family this site can realistically
-  // rank first for.
-  ["Rochester, NY", [
-    // Shops and shows sit next to each other deliberately: they answer the same
-    // question a week apart. Keep the labels distinct, the urls are one letter
-    // apart and the menu is the only place a reader sees both at once.
-    ["/card-shows.html", "Card shows"],
-    ["/shops.html", "Card shops"],
-    ["/vendors.html", "Local vendors"],
-    ["/creators.html", "Local creators"],
-    // THE SIXTH LINK IN THIS GROUP, and the note at the top of NAV is what
-    // makes it safe: eight groups is the measured count that does not scroll
-    // either panel, no group here is larger than eight, and this one was at
-    // five. Added 20 August 2026 on Tim's ask for a page about the dish the
-    // channel is named after.
-    //
-    // "Garbage Plate" AND NOT "The plate" OR "Food". The label is the thing
-    // people type and the thing on the sign, it is the only two words in this
-    // menu that a Rochester reader will recognise instantly, and the page's own
-    // h1 asks "What is a Garbage Plate?" so the label and the destination say
-    // the same words. It sits under the two card-shopping links and above
-    // About, which is reading order: shops and shows are why you came, this is
-    // why the channel is called what it is, and About is who is talking.
-    ["/garbage-plate.html", "Garbage Plate"],
-    ["/about.html", "About"],
-  ]],
 ];
 
 /**
@@ -394,8 +583,44 @@ export const NAV = [
  * These are hrefs into NAV, never their own labels, so the bar cannot drift
  * from the menu again. A link in two places with two names is two mental
  * models and one of them is always wrong.
+ *
+ * THE ORDER FOLLOWS NAV'S ORDER, AND THAT IS WHY /card-shows.html MOVED FROM
+ * FIFTH TO SECOND on 22 August 2026, in the same edit that made Rochester the
+ * second group. This list is a SUBSET of the menu, so its order is the one
+ * place the bar can still contradict the panel behind it: a reader who is told
+ * Rips, Card search, Set guides, Start here, Card shows across the top, and
+ * then opens the menu and is told Rips, Card shows, ... , has been given two
+ * priorities for the same site. WCAG 2.2 SC 3.2.3 is about repeated navigation
+ * keeping its relative order, and this file already invokes it for the footer
+ * matching the menu; the bar is the third surface and was the one left out.
+ *
+ * IT ALSO DECIDES WHICH LINKS SURVIVE A NARROW WINDOW, AND THE MECHANISM IS
+ * POSITIONAL RATHER THAN ELASTIC, which is what makes this array order load
+ * bearing rather than cosmetic. assets-source/ui.css has exactly two rules on
+ * this row: `@media(min-width:900px){.nav-links{display:flex}}` and
+ * `@media(max-width:1099px){.nav-links a:nth-child(n+4){display:none}}`. So the
+ * row never overflows and never drops a link for want of space -- between 900
+ * and 1099 CSS keeps THE FIRST THREE IN DOCUMENT ORDER and hides the rest, and
+ * below 900 it hides all five. `nth-child` reads this array's order directly.
+ *
+ * Measured 22 August 2026 on the built tree, links actually painted (width and
+ * height non-zero, visibility not hidden), old order -> new order:
+ *
+ *     1440, 1280, 1100   all five                      all five
+ *     1000, 900          Rips, Card search, Set        Rips, Card shows,
+ *                        guides                        Card search
+ *     820, 700, 390      none                          none
+ *
+ * So the only width band this changes is 900 to 1099, and there it swaps a
+ * guide hub out of the three visible slots for the Rochester page, which is the
+ * second thing Tim asked to highlight. Nothing about the row's width changed:
+ * same five labels, same total, and no label wraps at any width from 320 up.
+ *
+ * THE PHONE IS UNAFFECTED BY THIS ARRAY ENTIRELY. Below 900 there are no bar
+ * links at all, so a phone reader reaches Card shows through the menu panel,
+ * where it is now the second group. Do not quote this table as a mobile win.
  */
-export const BAR_LINKS = ["/videos.html", "/cards.html", "/sets/", "/start.html", "/card-shows.html"];
+export const BAR_LINKS = ["/videos.html", "/card-shows.html", "/cards.html", "/sets/", "/start.html"];
 
 /** Every [href, label] in NAV, flattened, in order. */
 export const NAV_LINKS = NAV.flatMap(([, links]) => links);

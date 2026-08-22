@@ -23,6 +23,26 @@
 // Supporter names stay in their native script because no keyless source
 // translates them and guessing at 35 of them would be exactly the sort of
 // confident error a reference page must not make.
+//
+// **THIS PARAGRAPH USED TO SAY "no product photography" TOO, AND THE REASON
+// GIVEN WAS ABOUT THIS REPO RATHER THAN ABOUT THE WORLD.** 22 August 2026.
+// sync-products.mjs hardcoded `productLineName: ["pokemon"]`, so the sealed
+// pull was English-only BY CONFIGURATION, and that limit was read back off our
+// own data and written down as a fact about TCGplayer's catalogue: an earlier
+// pass reported that they carry no non-English sealed product at all. They
+// carry 308 Japanese ones. **That is the same shape of error the Garbage Plate
+// page confesses to three times in CLAUDE.md: a true statement about what
+// somebody looked at, written as a statement about what exists.** Eight of
+// these guides carry a photograph of the actual pack now; see packBand.
+//
+// THE PRICE STILL IS NOT ON THEM, and that is now a decision rather than a gap,
+// because products.json has one for all eight. The argument is over packBand.
+//
+// AND FIVE GUIDES STILL CARRY NO PHOTOGRAPH, which is a fact about the world
+// this time and was checked before it was written: TCGplayer has exactly two
+// Pokemon product lines and neither is Korean or Chinese. The proof, and the
+// reason the Japanese pack of the same set is NOT an acceptable stand-in on a
+// Korean guide, is over TCG_SET_INTL in shared/tcgplayer.mjs.
 
 import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
@@ -48,7 +68,8 @@ import { pickIntlPrinting, norm } from "../shared/intl-printing.mjs";
 // and three of those six are complete in public/data/printings. See
 // shared/card-scan.mjs for the table and for the two cross-checks.
 import { corpusScan, noScanBox, NOSCAN_CSS } from "../shared/card-scan.mjs";
-import { esc, longDate, shortDate, rarityLabel, imgDims, avifPicture, moneyCompact } from "../shared/format.mjs";
+import { esc, longDate, shortDate, rarityLabel, imgDims, avifPicture, moneyCompact,
+  productSrcsetAttr } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/sets");
@@ -168,6 +189,62 @@ const enSymbol = (en) => {
 const guides = JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8"));
 const { sets: enSets, rarityOrder } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
+
+/* ---------------------------------------------------- the pack photograph --
+ *
+ * public/data/products-intl.json, written by sync-products.mjs. Eight of these
+ * thirteen guides have an entry in it since 22 August 2026; see the long note
+ * over TCG_SET_INTL in shared/tcgplayer.mjs for which, why the other five have
+ * none, and how each match was verified on four independent axes before it was
+ * pinned.
+ *
+ * **IT IS A SEPARATE FILE FROM products.json AND THAT IS NOT TIDINESS.** The
+ * first version of this put the eight sets into products.json, whose ids they
+ * cannot collide with, and that file turns out to be a CORPUS that five
+ * builders iterate wholesale rather than a map they look up. The eight Japanese
+ * packs promptly appeared as the cheapest rows of the price-by-set table on
+ * /openings/single-pack.html, an English page, labelled with TCGplayer's raw
+ * set string because our taxonomy has no name for them. Nothing errored and the
+ * page rendered perfectly; check-tree-drift.mjs was the only thing that noticed.
+ * The full account is in sync-products.mjs over the intl loop. If you merge the
+ * two files, grep for every wholesale iteration of `.sets` first.
+ *
+ * Optional on purpose: a guide with no entry renders no band, which is the
+ * standing pattern on this site for absent data and is what the four Korean
+ * guides and the Chinese one get.
+ */
+let PRODUCTS = { sets: {} };
+try {
+  PRODUCTS = JSON.parse(await readFile(join(ROOT, "public/data/products-intl.json"), "utf8"));
+} catch {
+  /* optional: no products-intl.json means no pack band on any guide */
+}
+
+/* The TCGplayer product urls that answer 403. NOT the same key as NO_SCAN
+ * above, which holds TCGdex BASES: this is `deadUrls`, the whole-url list, and
+ * reading the wrong one of the two is how half of this feature worked on the
+ * English guides once. A dead photograph drops the band rather than painting an
+ * empty frame, for the reason argued over packBand. */
+let DEAD_IMG = new Set();
+try {
+  DEAD_IMG = new Set(JSON.parse(await readFile(join(ROOT, "data/no-scan.json"), "utf8")).deadUrls || []);
+} catch {
+  /* optional: without it a dead url renders an img that removes itself */
+}
+
+/* Affiliate config, read exactly as build-set-pages.mjs reads it and for the
+ * one reason worth the four lines: it is OFF today, and if it is ever switched
+ * on, these eight pages must not be the only TCGplayer links on the site that
+ * quietly ignore it. */
+let aff = {};
+try {
+  aff = JSON.parse(await readFile(join(ROOT, "data/affiliate.json"), "utf8"));
+} catch {
+  /* optional: links stay plain */
+}
+const affOn = Boolean(aff.tcgplayer?.enabled && aff.tcgplayer?.linkTemplate);
+const affLink = (url) =>
+  affOn ? aff.tcgplayer.linkTemplate.replace("{url}", encodeURIComponent(url)) : url;
 
 const enById = new Map(enSets.map((s) => [s.id, s]));
 
@@ -481,6 +558,102 @@ const ART_CSS = `
 /* .chase-card is a <button> in ui.css and these are anchors, so the two type
    rules a button does not inherit are restated. Nothing else changes. */
 .intl-enchase .chase-card{display:block;text-align:left;text-decoration:none;color:inherit;font:inherit}
+`;
+
+/**
+ * The sealed pack photograph. Carried only on the eight guides that have one.
+ *
+ * **THE BOX IS PINNED IN CSS AND THAT IS THE WHOLE CLS STORY.** imgDims()
+ * deliberately returns "" for tcgplayer-cdn, because that host serves a fixed
+ * 200 WIDE and a variable height, so there is no width/height pair to declare.
+ * Measured across the eight files this band actually loads: 200x200, 200x359,
+ * 200x366 twice, 200x388, 200x400 and 200x403 twice, so the ratio runs 1.00 to
+ * 2.02 and no single declaration is right for all of them. Same answer
+ * build-topps.mjs reached for PriceCharting's scans: a FIXED frame with the
+ * picture centred inside it by object-fit, which reserves its space before the
+ * image arrives and measures CLS 0.000.
+ *
+ * **THE SQUARE ONE IS REAL AND IS NOT A BROKEN FILE.** Abyss Eye's photograph
+ * (product 695111) is 200x200 where the other seven are portrait: TCGplayer
+ * padded that one into a square at the source. The img ELEMENT still fills the
+ * frame at 126x234 like every other one, and object-fit letterboxes the square
+ * picture to about 126x126 inside it with page green above and below, which is
+ * the correct rendering of a square picture in a portrait box. Do not "fix" it
+ * by cropping to fill: `cover` would cut the top and bottom off the pack art on
+ * that one guide and off nothing else, which is the least predictable thing
+ * this band could do.
+ *
+ * The frame is 128x236 (1.844), chosen to sit between the two clusters the
+ * eight files fall into rather than to match the tallest: pinning 2.02 would
+ * have left every 1.79-1.83 pack floating in a box a fifth taller than it.
+ *
+ * **THREE OF THE EIGHT ARE SOFT AT DPR 3 AND IT IS A CEILING RATHER THAN A
+ * DECLARATION BUG, which is the distinction the Card images section of
+ * CLAUDE.md spends two entries on.** Every rung of the CDN was fetched and
+ * MEASURED rather than trusted, because the file behind `_400w.jpg` is capped
+ * at the master:
+ *
+ *       Abyss Eye        150x150   200x200   400x400    (1000x1000 exists)
+ *       Violet ex        150x302   200x403   400x805
+ *       Stellar Miracle  150x300   200x400   400x800
+ *       Nihil Zero       150x291   200x388   400x776
+ *       Ninja Spinner    150x269   200x359   400x718
+ *       Cyber Judge      150x302   200x403   298x600  <- not 400 wide
+ *       Mega Brave       150x275   200x366   213x390  <- not 400 wide
+ *       Mega Symphonia   150x275   200x366   213x390  <- not 400 wide
+ *
+ * A 128px box wants 384 device pixels at DPR 3. Five packs have 400 and are
+ * exact. Cyber Judge has 298 and is 1.29x short; the two Mega packs have 213
+ * and are 1.80x short. **There is nothing larger to ask for and that was
+ * checked, not assumed:** `_in_1000x1000.jpg` returns the SAME 298x600 and
+ * 213x390 bytes for those three, because it is the master that is small. So
+ * this is not the /msrp.html case of a missing rung, and shrinking the frame to
+ * cover the worst of them would need a 71px box, which is not a photograph any
+ * more. Accepted on the /topps-card-values.html precedent, which took an 11%
+ * short pick over putting a megabyte back on a phone, and recorded here so the
+ * next pass does not go looking for a rung that does not exist.
+ */
+const PACK_CSS = `
+.pk-band{display:flex;gap:var(--s5);align-items:flex-start;flex-wrap:wrap;margin-top:var(--s4)}
+/* The fixed frame. background is the site's own paper rather than the white
+   .prod-shot uses on the English guides: these photographs arrive on a
+   transparent-looking white plate already, and a second white block behind a
+   square picture reads as a broken image on the dark green card. */
+.pk-shot{flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  width:128px;height:236px;border-radius:var(--r);background-color:var(--paper);
+  border:1px solid var(--hair);overflow:hidden}
+/* THE BOX IS FORCED, NOT SUGGESTED, AND THIS RULE WAS WRONG ONCE.
+   It read max-width/max-height with width:auto;height:auto, which lets the
+   image's INTRINSIC size win wherever it is smaller than the frame -- and with
+   the w descriptors the intrinsic size is DENSITY-CORRECTED, so it is computed
+   from the descriptor rather than from the file. productSrcset() labels the top
+   rung 400w because that is what the url says, and for three of these eight
+   products the file behind it IS NOT 400 PIXELS WIDE: TCGplayer caps _400w at
+   the master, so Cyber Judge's is 298x600 and both Mega packs' are 213x390.
+   The browser divided 400 by the 128px sizes value anyway, got 3.125, and laid the
+   298px file out at 95 CSS px. Measured: Cyber Judge drew 95x192 inside a
+   128x236 frame at DPR 2 and 3 while the other five drew 116x234, so three
+   guides showed a visibly smaller pack for a reason nothing in the markup or
+   the CSS showed. Forcing width/height to 100% and letting object-fit do the
+   letterboxing makes the drawn size a function of the FRAME alone, which is
+   what .prod-shot img in ui.css has always done.
+   min-height:0 and min-width:0 are load bearing for the same reason that rule
+   gives: a flex item's default minimum is its intrinsic size, which overrides
+   height:100% and would push the picture back out of the box. */
+.pk-shot img{width:100%;height:100%;min-height:0;min-width:0;object-fit:contain;display:block}
+.pk-say{flex:1 1 16em;min-width:0}
+.pk-name{font-weight:700;font-size:var(--t-m);line-height:1.35;margin:0}
+.pk-native{margin:4px 0 0;font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
+.pk-note{margin-top:var(--s4);max-width:56ch;font-size:var(--t-sm);line-height:1.55;color:var(--ink-2)}
+/* The link back to the listing. A 44px labelled control at the END of the
+   caption, which is the shape every outbound link on this site has to meet.
+   --sky-deep #81BEDE and NOT --sky #70B5D9: this is var(--t-sm), which clamps
+   under the 24px line where the big teal stops clearing 4.5:1, and it is the
+   same token .fk-see-list a takes for the same reason. */
+.pk-see{display:inline-flex;align-items:center;min-height:44px;margin-top:var(--s3);
+  color:var(--sky-deep);font:700 var(--t-sm)/1.2 var(--mono);
+  text-transform:uppercase;letter-spacing:.04em}
+.pk-see:hover{text-decoration:underline}
 `;
 
 const PAGE_CSS = `
@@ -1059,6 +1232,83 @@ function rarityBand(g, rarities, maxN, secretCount, cls) {
 </section>`;
 }
 
+/**
+ * THE PACK ITSELF, and it is one product rather than a shelf of them.
+ *
+ * Asked for by name on 22 August 2026. Tim: "I'm not shooting any of my own
+ * images, you should be able to source the images for the Japanese and Korean
+ * packs", and, on how much to show, "one representative item per product" --
+ * a booster pack for a set, not a montage of the whole box. So this band is a
+ * single photograph and a caption, where the English guides carry a grid of up
+ * to eight products with prices and per-pack arithmetic.
+ *
+ * **THERE IS NO PRICE ON IT AND THAT IS THIS PAGE FAMILY'S OWN RULE RATHER
+ * THAN AN OVERSIGHT.** The header of this file says "WHAT IS NOT ON THEM. No
+ * prices", and products.json carries a market price for all eight of these.
+ * The rule was written about TCGdex's Cardmarket figures, whose coverage is
+ * partial, and the argument given is that half a price table is worse than
+ * none -- which does not obviously apply to one figure that exists on 8 of 8.
+ * It is still the rule, and it is left standing for a better reason than
+ * inertia: the ask was for PICTURES, a price is a claim with an expiry that
+ * drags a read date and a staleness note onto a page whose data is otherwise
+ * dated once at the foot, and nothing about showing the wrapper needs one.
+ * If a later editor wants the price here, that is a real argument; make it in
+ * CLAUDE.md and in this comment first, and take the source note below with it.
+ *
+ * **THE LINK BACK IS NOT DISCRETIONARY AND IS NOT A NEW EXCEPTION.** These
+ * photographs are hotlinked from TCGplayer's CDN, exactly as the 975 product
+ * and card images already in this tree are, and sync-products.mjs states the
+ * terms that makes acceptable in its own header: "pointing at the source is
+ * both lighter and the honest way to use them. Every product links back to its
+ * TCGplayer listing." Dropping the link here would make these eight the only
+ * TCGplayer product photographs on the site that do not, which is a worse use
+ * of somebody else's photography, not a tidier one. It meets the shape: one
+ * small labelled 44px control at the END of the caption, never mid
+ * explanation, aria-labelled as leaving the site, rel="noopener".
+ */
+function packBand(g, cls) {
+  const entry = PRODUCTS.sets?.[g.id];
+  const p = entry?.products?.[0];
+  // No entry is the normal state for five of the thirteen guides. Render
+  // nothing at all rather than an empty frame captioned "no photo": the band
+  // is one picture, so a band with no picture in it is not a band.
+  if (!p?.thumb || DEAD_IMG.has(p.thumb)) return "";
+
+  const alt = `A sealed ${g.english} Japanese booster pack`;
+  return `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What it looks like</p>
+    <h2>The <span class="hl">pack</span> itself</h2>
+    <p class="lede" style="max-width:38em">What to look for on a shelf, or in somebody's rip.${
+      g.native ? ` The ${esc(g.langName)} name runs across the bottom of the wrapper.` : ""
+    }</p>
+    <div class="pk-band">
+      ${/* The picture is aria-hidden with tabindex="-1" and shares its href
+            with the labelled link below, which is the pattern 192 links in the
+            built tree already use: one destination split in two for the eye, so
+            a label here would announce the row twice. See the matching note in
+            build-set-pages.mjs. */ ""}<a class="pk-shot" href="${esc(affLink(p.url))}" rel="noopener" target="_blank"
+         tabindex="-1" aria-hidden="true">
+        <img src="${esc(p.thumb)}"${productSrcsetAttr(p.thumb, 128)} sizes="128px"
+             alt="${esc(alt)}" loading="lazy" decoding="async"${imgDims(p.thumb)}
+             onerror="this.remove()" referrerpolicy="no-referrer">
+      </a>
+      <div class="pk-say">
+        <p class="pk-name">${esc(p.name)}</p>
+        ${g.native ? `<p class="pk-native cjk" lang="${esc(g.lang)}">${esc(g.native)}</p>` : ""}
+        <a class="pk-see" href="${esc(affLink(p.url))}" rel="noopener" target="_blank"
+           aria-label="${esc(p.name)} on TCGplayer, opens on tcgplayer.com">See the listing &rarr;</a>
+      </div>
+    </div>
+    ${/* The set code is NOT printed separately, because TCGplayer's own set
+          name already opens with it ("m1L: Mega Brave"), and the first draft
+          said it twice in one sentence. It is still checked on every sync
+          against the guide's tcgdexId, which is where that check belongs. */ ""}<p class="pk-note">Photograph is TCGplayer's, from their ${esc(entry.tcgLine || "Pokemon Japan")}
+      catalogue, where this set is filed as ${esc(entry.tcgSet)}. We are not a shop and we do not sell any of this.</p>
+  </div>
+</section>`;
+}
+
 function checklistBand(g, cls) {
   if (!g.cards?.length) {
     return `<section class="${cls}">
@@ -1269,6 +1519,14 @@ function guidePage(g) {
     // genuinely nothing to show, and the empty-band filter below drops it.
     g.notable?.length ? (cls) => chaseBand(g, en, cls) : (cls) => enOnlyBand(g, en, cls),
     rarities.length ? { pin: true, html: (cls) => rarityBand(g, rarities, maxN, secretCount, cls) } : null,
+    // THE PACK GOES UNDER THE RARITY LADDER AND ABOVE THE CHECKLIST, which is
+    // where a reader has just been told what is IN the set and has not yet been
+    // handed 118 rows of it. It cannot go higher: the twin panel and the
+    // comparison band are the reason these pages exist, per the header, and a
+    // photograph above them would answer a question nobody came with. It
+    // returns "" on the five guides with no entry and the empty-band filter
+    // below drops it, so the zebra never gains a gap.
+    (cls) => packBand(g, cls),
     (cls) => checklistBand(g, cls),
     rips.length ? (cls) => ripsBand(g, rips, label, cls) : null,
     HITS_BY_SET.has(g.id) ? (cls) => hitsBand(g, cls) : null,
@@ -1311,8 +1569,12 @@ function guidePage(g) {
     // other twelve. Testing the rendered markup is exact and cannot drift out
     // of step with the condition inside hitsBand the way a second copy of that
     // condition would.
+    // A FIFTH BLOCK, and it is read off the drawn body for the same reason the
+    // no-scan panel's is: packBand renders on eight of the thirteen guides and
+    // testing the rendered markup cannot drift out of step with the condition
+    // inside it, where a second copy of that condition would.
     css: [en ? ART_CSS : "", rarityCompare(g, en) ? PAGE_CSS : "", HITS_BY_SET.has(g.id) ? RARITY_CSS : "",
-      body.includes("noscan") ? NOSCAN_CSS : ""]
+      body.includes("noscan") ? NOSCAN_CSS : "", body.includes("pk-band") ? PACK_CSS : ""]
       .filter(Boolean).join("\n"),
   }) + `
 <header class="set-hero">

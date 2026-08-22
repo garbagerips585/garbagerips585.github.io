@@ -36,7 +36,7 @@ import { readFile, writeFile, mkdir, stat } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { TCG_SET } from "../shared/tcgplayer.mjs";
+import { TCG_SET, TCG_SET_INTL } from "../shared/tcgplayer.mjs";
 
 import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -117,6 +117,37 @@ const KINDS = [
  */
 const SKIP = /\b(case|display|set of \d+|carton|bundle case|pack art bundle)\b/i;
 
+/**
+ * The url form of a product line -> the display form the rows carry back.
+ * Read off the catalogue's own `productLineName` aggregation, which holds 69
+ * lines and exactly two Pokemon ones. See TCG_SET_INTL in shared/tcgplayer.mjs.
+ */
+const LINE_NAME = {
+  pokemon: "Pokemon",
+  "pokemon-japan": "Pokemon Japan",
+};
+
+/**
+ * What the non-English guides pull, and it is ONE product on purpose.
+ *
+ * Tim asked for "a booster pack for a set, not a montage of the whole box", so
+ * these guides take the pack and nothing else. That is not only a layout call:
+ *
+ * **EVERY BLURB IN KINDS ABOVE IS AN ENGLISH-MARKET FACT AND MOST OF THEM ARE
+ * FALSE IN JAPANESE.** "Booster Box, 36 packs" is the English configuration; a
+ * modern Japanese box is 30 packs, and the older ones vary again. Pulling the
+ * full KINDS list here would have written "36 packs" against eight Japanese
+ * booster boxes into public/data/products.json, where it would have been a
+ * wrong number sitting in the tree whether or not any page rendered it. The
+ * narrow list is what keeps the claim true rather than merely unrendered.
+ *
+ * "One pack" is the one blurb that survives translation, and the pack CONTENTS
+ * are deliberately not stated: TCGplayer's own description says 5 cards for all
+ * eight of these against 10 in an English pack, and this site does not need to
+ * make that claim to show the picture.
+ */
+const INTL_KINDS = [{ kind: "Single Pack", blurb: "One pack", re: /\bbooster pack\b/i }];
+
 const args = process.argv.slice(2);
 const FORCE = args.includes("--force");
 const only = args.filter((a) => !a.startsWith("--"));
@@ -140,7 +171,7 @@ const HEADERS = {
  * other sets. Every result is therefore checked against the set that was
  * actually asked for.
  */
-async function fetchSet(setName) {
+async function fetchSet(setName, line = "pokemon") {
   const url =
     "https://mp-search-api.tcgplayer.com/v1/search/request?q=&isList=false&mpfev=1";
   const body = {
@@ -149,7 +180,14 @@ async function fetchSet(setName) {
     size: 50,
     filters: {
       term: {
-        productLineName: ["pokemon"],
+        // THE PRODUCT LINE IS A PARAMETER SINCE 22 AUGUST 2026 and it used to be
+        // the literal "pokemon", which made this script English-only BY
+        // CONFIGURATION rather than by anything about TCGplayer's catalogue.
+        // "pokemon-japan" is the only other Pokemon line they have; see the
+        // long note over TCG_SET_INTL in shared/tcgplayer.mjs for the proof
+        // that there is no Korean or Chinese one, and for the reason a count
+        // of 11,870 is evidence of a DROPPED filter rather than of a catalogue.
+        productLineName: [line],
         productTypeName: ["Sealed Products"],
         setName: [setName],
       },
@@ -176,7 +214,22 @@ async function fetchSet(setName) {
         const rows = (await res.json()).results?.[0]?.results || [];
         // See the note above fetchSet: an unknown setName is ignored rather
         // than rejected, so the rows have to be checked, not just counted.
-        return rows.filter((r) => r.setName === setName);
+        //
+        // THE PRODUCT LINE IS CHECKED THE SAME WAY NOW, and it is the same bug
+        // one level up. An unknown productLineName is dropped exactly as
+        // silently: asking for "pokemon-korean" returns 11,870 rows led by a
+        // Magic: The Gathering Hobbit display, and nothing about the response
+        // shape says so. Checking only setName would still have caught that one
+        // by accident, because those rows belong to other sets; checking both
+        // catches the case where a real set name exists on a line we did not
+        // ask for. A row has to agree on BOTH before it is ours.
+        //
+        // The filter takes the url form ("pokemon-japan") and the row carries
+        // the display form ("Pokemon Japan"), so LINE_NAME is the translation
+        // and not a nicety: comparing the two strings directly rejects every
+        // row on both lines.
+        const want = LINE_NAME[line];
+        return rows.filter((r) => r.setName === setName && r.productLineName === want);
       }
       if (res.status === 404) return [];
       // 429 and 5xx: back off rather than hammer a service being generous.
@@ -207,9 +260,9 @@ const urlName = (s) =>
  * that is the one a viewer is most likely to actually buy. A Pokemon Center
  * exclusive ETB at twice the price is not the ETB people mean.
  */
-function pickMain(raw) {
+function pickMain(raw, kinds = KINDS) {
   const out = [];
-  for (const { kind, blurb, re, not } of KINDS) {
+  for (const { kind, blurb, re, not } of kinds) {
     const hits = raw
       .filter(
         (p) =>
@@ -322,16 +375,179 @@ for (const s of targets) {
   );
 }
 
+// -------------------------------------------------- the non-English guides
+//
+// Eight of the thirteen guides in public/data/intl-guides.json, all Japanese.
+//
+// **THEY GO IN A FILE OF THEIR OWN AND THE FIRST VERSION PUT THEM IN
+// products.json, WHICH BROKE A PAGE NOBODY WAS LOOKING AT.** The ids cannot
+// collide (ja-abyss-eye against pitch-black), so sharing the file looked free
+// and it is not: **products.json is not a lookup table, it is a CORPUS that
+// five builders iterate WHOLESALE.** `pricesFor()` in build-openings.mjs walks
+// every set in it and takes any product of a matching kind, so the eight
+// Japanese packs immediately appeared as rows on /openings/single-pack.html --
+// an English page whose table is captioned "What a single pack costs, by set"
+// -- and at $2.24 to $3.63 against the cheapest English pack at $5.01 they
+// landed at the TOP of it, under a fallback label of "M5: Abyss Eye" because
+// the taxonomy has no name for them. build-pack-prices.mjs, build-set-pages
+// .mjs, build-how-many-packs.mjs and shared/case-standin.mjs iterate it the
+// same way; only build-pack-prices was accidentally safe, because it drops any
+// id that is not in sets.json.
+//
+// It was caught by check-tree-drift.mjs and by nothing else, which is the part
+// worth keeping: build-all exited 0, check-build.py exited 0, and the page
+// rendered perfectly. **Adding a row to a shared corpus is not the same act as
+// adding a key to a shared map**, and the second is what this looked like.
+//
+// So public/data/products-intl.json is a SEPARATE corpus with its own read
+// date, products.json goes back to being English-only and byte-identical, and
+// a builder that wants these has to ask for them by name. If you ever merge the
+// two, grep for every wholesale iteration first.
+//
+// **THE THREE-AXIS CHECK BELOW IS THE WHOLE POINT AND IT IS NOT AN
+// OPTIMISATION.** A wrong match here puts a photograph of the wrong product on
+// a set guide, which is worse than the blank these pages have today, and the
+// failure is invisible: every Japanese booster pack is the same shape, the same
+// size and the same trade dress, so nobody proofreading the page can tell that
+// Ninja Spinner's wrapper is sitting on the Nihil Zero guide. The set the API
+// was ASKED for is already re-checked on every row by fetchSet. These three ask
+// the harder question, which is whether the set we asked for is the set the
+// guide is about:
+//
+//   setCode      TCGplayer's own field against the guide's tcgdexId
+//   releaseDate  TCGplayer's own field against the guide's released, TO THE DAY
+//   english      the name after the colon against the guide's english
+//
+// All three have to agree or the set is SKIPPED and said out loud. It does not
+// throw, because a set quietly rotating out of their catalogue is a normal
+// thing that should not fail a launch build; it is loud instead. If you see one
+// of these lines, re-probe and re-pin in shared/tcgplayer.mjs rather than
+// loosening the check.
+// SELF-HEALING AFTER THE MISTAKE DESCRIBED ABOVE. This script loads the
+// existing products.json and only ever writes the ids it iterated, so the eight
+// intl entries an earlier version wrote in there would have SURVIVED the move
+// to a separate file forever, still feeding /openings/single-pack.html, and the
+// only visible sign would have been a set count that was eight too high. A
+// corpus that is meant to be English-only says so on every run.
+for (const id of Object.keys(TCG_SET_INTL)) delete doc.sets[id];
+
+const intlOutPath = join(ROOT, "public/data/products-intl.json");
+let intlDoc = { checked: null, source: "TCGplayer", sets: {} };
+if (existsSync(intlOutPath)) {
+  try {
+    intlDoc = JSON.parse(await readFile(intlOutPath, "utf8"));
+  } catch {}
+}
+intlDoc.sets ||= {};
+
+const intlPath = join(ROOT, "public/data/intl-guides.json");
+const intlGuides = existsSync(intlPath)
+  ? JSON.parse(await readFile(intlPath, "utf8")).sets || {}
+  : {};
+const intlReport = [];
+const intlRejected = [];
+
+for (const [id, pin] of Object.entries(TCG_SET_INTL)) {
+  if (only.length && !only.includes(id)) continue;
+  const g = intlGuides[id];
+  if (!g) {
+    intlRejected.push(`  ${id.padEnd(22)} pinned here but not in intl-guides.json`);
+    continue;
+  }
+
+  const cacheFile = join(CACHE, `${id}.json`);
+  let raw, readOn;
+  if (!FORCE && existsSync(cacheFile)) {
+    const c = JSON.parse(await readFile(cacheFile, "utf8"));
+    raw = Array.isArray(c) ? c : c.results;
+    readOn = Array.isArray(c) ? localDay((await stat(cacheFile)).mtime) : c.fetched;
+  } else {
+    raw = await fetchSet(pin.setName, pin.line);
+    readOn = today;
+    await writeFile(cacheFile, JSON.stringify({ fetched: today, results: raw }));
+    fetched++;
+    await sleep(800);
+  }
+
+  if (!raw.length) {
+    intlRejected.push(`  ${id.padEnd(22)} nothing sealed on sale under "${pin.setName}"`);
+    continue;
+  }
+
+  // Read the three fields off the rows rather than off any one row: every row
+  // in a set carries the same setCode and releaseDate, so a disagreement
+  // between them is itself a sign the setName filter was dropped.
+  const codes = [...new Set(raw.map((r) => String(r.setCode || "").toLowerCase()))];
+  const rels = [...new Set(raw.map((r) => String(r.customAttributes?.releaseDate || "").slice(0, 10)))];
+  const tcgEnglish = pin.setName.includes(": ") ? pin.setName.slice(pin.setName.indexOf(": ") + 2) : pin.setName;
+  const fail = [];
+  if (codes.length !== 1 || codes[0] !== String(g.tcgdexId || "").toLowerCase())
+    fail.push(`setCode ${JSON.stringify(codes)} against tcgdexId ${JSON.stringify(g.tcgdexId)}`);
+  if (rels.length !== 1 || rels[0] !== g.released)
+    fail.push(`releaseDate ${JSON.stringify(rels)} against released ${JSON.stringify(g.released)}`);
+  if (tcgEnglish !== g.english)
+    fail.push(`set name ${JSON.stringify(tcgEnglish)} against english ${JSON.stringify(g.english)}`);
+  if (fail.length) {
+    intlRejected.push(`  ${id.padEnd(22)} SKIPPED, ${fail.join("; ")}`);
+    delete intlDoc.sets[id];
+    continue;
+  }
+
+  const products = pickMain(raw, INTL_KINDS);
+  if (!products.length) {
+    intlRejected.push(`  ${id.padEnd(22)} no booster pack listed under "${pin.setName}"`);
+    delete intlDoc.sets[id];
+    continue;
+  }
+
+  intlDoc.sets[id] = {
+    tcgSet: pin.setName,
+    tcgLine: LINE_NAME[pin.line],
+    // The set code and the release date THIS RUN agreed on, kept so the page
+    // and a later reader can see what the match rested on rather than trusting
+    // that somebody once checked.
+    tcgSetCode: raw[0].setCode,
+    tcgReleased: rels[0],
+    checked: readOn,
+    products,
+  };
+  intlReport.push(
+    `  ${id.padEnd(22)} ${products[0].kind} $${products[0].market.toFixed(2)}` +
+      `  [${raw[0].setCode} / ${rels[0]}] ${products[0].name}`
+  );
+}
+
 // The newest per-set read, so the top-level date cannot claim to be fresher
 // than any of the data underneath it.
 doc.checked = Object.values(doc.sets).map((x) => x.checked).sort().pop() || today;
 doc.source = "TCGplayer";
 await writeFile(outPath, JSON.stringify(doc, null, 2) + "\n");
 
+// The non-English corpus, its own file and its own date. See the note over the
+// intl loop for why it is not merged into the one above.
+intlDoc.checked = Object.values(intlDoc.sets).map((x) => x.checked).sort().pop() || today;
+intlDoc.source = "TCGplayer";
+await writeFile(intlOutPath, JSON.stringify(intlDoc, null, 2) + "\n");
+
 console.log(`Wrote public/data/products.json`);
 console.log(report.join("\n"));
+if (intlReport.length) {
+  console.log(`\nWrote public/data/products-intl.json`);
+  console.log(`  non-English guides, product line ${LINE_NAME["pokemon-japan"]}:`);
+  console.log(intlReport.join("\n"));
+  console.log(
+    `  ${intlReport.length} matched on all three of setCode, releaseDate and set name.`
+  );
+}
+// Loud rather than silent, and never fatal. See the note over the intl loop.
+if (intlRejected.length) {
+  console.log(`\n  non-English guides NOT given a product photograph:`);
+  console.log(intlRejected.join("\n"));
+}
 console.log(
-  `\n${Object.keys(doc.sets).length} sets have products, ${fetched} fetched fresh` +
+  `\n${Object.keys(doc.sets).length} English sets in products.json` +
+    ` and ${Object.keys(intlDoc.sets).length} in products-intl.json,` +
+    ` ${fetched} fetched fresh` +
     (FORCE ? "" : ", rest from .cache/tcg-products (use --force for live prices)")
 );
 if (missing.length) {

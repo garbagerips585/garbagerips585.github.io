@@ -313,9 +313,38 @@ export const RIP_BANNER =
  * beside a heading or a paragraph that already names Rochester or the dish,
  * so a label here would be read out twice. Same call as .flower and RIP_BANNER.
  *
- * NOTHING IN IT MOVES, at any setting, so prefers-reduced-motion has nothing to
+ * NOTHING IN THE DRAWING ITSELF MOVES, at any setting: there is no animation
+ * and no transition inside this string, so a caller that does not ship
+ * PLATE_CSS gets a still picture and prefers-reduced-motion has nothing to
  * honour. Do not give it a hover transform: two of the placements sit inside
  * running prose where a moving ornament would pull the eye off the sentence.
+ *
+ * THAT SENTENCE SAID "NOTHING IN IT MOVES" UNTIL 22 AUGUST 2026 AND IT IS
+ * NARROWER THAN IT LOOKS. PLATE_CSS now gives the mark a press response, and
+ * the no-hover half of this rule is untouched and still correct; the argument
+ * for why a press is a different act from a hover is written out in full above
+ * PLATE_CSS. The reason this line is edited rather than deleted is that a
+ * caller can use plateMark WITHOUT PLATE_CSS, and build-games.mjs does exactly
+ * that, so "the drawing holds no motion of its own" is still a true and useful
+ * thing to know about this function.
+ *
+ * THERE IS A SIZE FLOOR AND IT IS 64px, WHICH IS ARITHMETIC RATHER THAN TASTE.
+ * The viewBox is 200x116 and almost every stroke in it is 3 to 4.5 units, so
+ * the drawn scale is px/200 and the thinnest line on screen is 3 * px/200.
+ * At 64px that is 0.96 CSS px, which is the last size at which the macaroni
+ * curls and the mustard stripe are still separate marks at DPR 1; at 84 (the
+ * default, and the fleuron) it is 1.26px, and at 132 (the games title screen)
+ * 1.98px. Below 64 the strokes fall under a device pixel, the six food colours
+ * merge and the whole thing reads as a smudge with a rim.
+ *
+ * SO THE PLATE IS NOT AVAILABLE AS A BULLET OR A LIST MARKER, and that is the
+ * question this note exists to close. A bullet is 16 to 24px, which puts the
+ * strokes at 0.24 to 0.36px, and the site already learned this the expensive
+ * way in a different medium: build-garbage-plate.mjs's diagram draws at 0.56
+ * on a phone and had to move every one of its labels out of the SVG and into
+ * HTML because 16 units came out at 9px. If a later pass wants a repeating
+ * small mark, it needs a DIFFERENT drawing with two or three shapes in it,
+ * not this one shrunk.
  */
 export function plateMark(px = 84) {
   return (
@@ -390,10 +419,234 @@ export const plateRule = (px = 84) =>
  * and this ornament is on five, so a shared rule would charge 1,478 pages for
  * something they never draw. Interpolated per page instead, which is the same
  * trade build-buying.mjs's miniCSS note already argues for that page's own CSS.
+ *
+ * ---------------------------------------------------------------------------
+ * TWO THINGS WERE ADDED HERE ON 22 AUGUST 2026 AND BOTH ARE ANSWERS TO
+ * SOMETHING ALREADY WRITTEN DOWN, so read the answer rather than the diff.
+ * ---------------------------------------------------------------------------
+ *
+ * ONE. THE HAIRLINE IS STAINED NOW, and it is the only accent this ornament
+ * has ever carried. It was var(--keyline) flat, #86998C, which is a grey-green
+ * and is the drabbest thing in a motif whose entire subject is a plate of food.
+ * It is now a gradient that runs from transparent at the outer end into
+ * var(--ketchup-deep) where it meets the mark, on both sides, so the colour
+ * pools at the plate and dies away before it reaches the margin.
+ *
+ * PINK IS NOT A TASTE CHOICE HERE, IT IS THE ONLY LEGAL ACCENT. CLAUDE.md:
+ * "teal is how you get around, pink is what the site is saying". Teal is
+ * every route and is never a mark that goes nowhere, and this hairline is the
+ * definition of a mark that goes nowhere, so teal is forbidden on it and pink
+ * is what the rule leaves. The 3:1 text gate does not reach a 2px decorative
+ * rule that is aria-hidden and carries no information, and --ketchup-deep is
+ * the lighter of the two pinks, so this is the more visible one either way.
+ *
+ * AND IT STAYS UNDER opacity:.5 AND OFF THE HEADING. The fleuron sits a
+ * var(--s6) margin above an h2, and CLAUDE.md is emphatic that a section
+ * heading is never pink because it would swallow its own .hl. Half opacity on
+ * a 2px line that fades out at both ends cannot be mistaken for a heading
+ * treatment; a solid pink bar butted against the h2 could be. If a later
+ * editor thickens this or removes the fade, that is the rule to re-check.
+ *
+ * TWO. THE PLATE ANSWERS A PRESS, and the comment above plateMark says in as
+ * many words: "Do not give it a hover transform: two of the placements sit
+ * inside running prose where a moving ornament would pull the eye off the
+ * sentence." THAT RULE IS RIGHT AND IT STANDS. There is still no :hover here.
+ *
+ * A PRESS IS NOT A HOVER AND THE DIFFERENCE IS THE WHOLE ARGUMENT. A hover
+ * fires when a pointer crosses the ornament on its way somewhere else: the
+ * reader did not ask for it, it happens in their peripheral vision, and it
+ * moves while they are reading the sentence beside it. That is exactly the
+ * failure the older rule describes. A press cannot happen in passing. The
+ * reader has put a finger or a button down ON the plate, which means their eye
+ * is already on the plate, so there is no sentence for it to pull them off.
+ *
+ * IT IS DELIBERATELY NOT A CONTROL AND CARRIES NO cursor:pointer. A mascot or
+ * an ornament that moves under a press implies it does something, and if it
+ * does nothing the reader taps it twice and feels misled, which is the same
+ * fault as a cursor:zoom-in that never zoomed. The defence is that this makes
+ * no promise: no pointer cursor, no focus ring, no href, no aria-anything, and
+ * it returns to exactly where it started. It is a plate you can nudge on the
+ * table, not a button that failed. Nobody who does not poke it will ever know
+ * it is there, and that is the correct amount of discoverability for a toy.
+ *
+ * SHAPE COPIED FROM .btn:active AND .pack:active IN ui.css rather than
+ * invented: a transition on a state change, never a @keyframes (a CSS
+ * animation naming missing keyframes never runs and never fires animationend,
+ * and this repo has shipped that twice), and the house curve
+ * cubic-bezier(.2,.7,.3,1). The press is faster than the release on purpose,
+ * .09s down and .2s back, which is what makes it read as give rather than as
+ * a slide. transform-origin sits at 50% 78%, which is the plate's own footprint
+ * in the 200x116 viewBox, so it rocks on the table instead of pivoting in air.
+ *
+ * IT INHERITS THE IOS CAVEAT THAT .btn ALREADY HAS: mobile Safari does not
+ * apply :active without a touch listener somewhere on the page. That is the
+ * existing behaviour of every pressable thing on this site rather than a new
+ * gap, and the failure mode is that the plate simply does not move.
+ *
+ * CLS IS UNMOVED BECAUSE NOTHING HERE IS LAYOUT. Both additions are a
+ * background and a transform; no size, no margin and no display changes under
+ * any state.
+ *
+ * REDUCED MOTION REMOVES THE MOVEMENT AND NOTHING ELSE. ui.css's blanket rule
+ * kills transitions but cannot undo a transform, so the transform is nulled
+ * explicitly. There is no persistent hidden state anywhere in this ornament to
+ * be left stuck: it has no opacity:0 base, so the reduced-motion reader gets a
+ * plate that is fully drawn and simply does not move.
  */
 export const PLATE_CSS = `.plate-rule{display:flex;align-items:center;gap:var(--s4);max-width:560px;margin:var(--s7) 0 var(--s6)}
-.plate-rule::before,.plate-rule::after{content:"";flex:1;height:2px;border-radius:2px;background:var(--keyline);opacity:.5}
-.plate-rule svg{flex:none;display:block}`;
+.plate-rule::before,.plate-rule::after{content:"";flex:1;height:2px;border-radius:2px;opacity:.5}
+.plate-rule::before{background:linear-gradient(90deg,transparent,var(--ketchup-deep))}
+.plate-rule::after{background:linear-gradient(90deg,var(--ketchup-deep),transparent)}
+.plate-rule svg{flex:none;display:block;transform-origin:50% 78%;transition:transform .2s cubic-bezier(.2,.7,.3,1)}
+.plate-rule:active svg{transform:translateY(2px) scale(.94) rotate(-3deg);transition-duration:.09s}
+@media(prefers-reduced-motion:reduce){.plate-rule:active svg{transform:none}}`;
+
+/**
+ * ===========================================================================
+ * THE MASCOT GRAMMAR, WRITTEN DOWN IN ONE PLACE FOR THE FIRST TIME.
+ * ===========================================================================
+ *
+ * It existed and it was correct, but it was recorded in a comment inside
+ * scripts/build-search.mjs beside one of its uses, which is a rule written
+ * where nobody looks for it. CLAUDE.md has a whole section about that exact
+ * failure (the Collectr footer link: "an argument written where nobody looks
+ * for the rule"). This file already owns the plate, so it owns the marks.
+ *
+ * THREE MARKS, THREE MEANINGS, AND THE MEANINGS ARE THE POINT. A mark with no
+ * meaning behind it is wallpaper within a month, and eleven identical marks is
+ * the repetition that kills the motif. So:
+ *
+ *   TRUBBISH  = "there is nothing in this one."
+ *               The empty state, and ONLY the empty state. He is the thing in
+ *               an empty room, so a Trubbish on a page that has something on
+ *               it is a lie. Five places today: the two grid states in
+ *               public/assets/app.js, a rip with no hits, /404.html, and
+ *               /openings/chinese-pack.html, which earns him by rendering no
+ *               picture at all (build-openings.mjs measures that rather than
+ *               naming the page). A sixth was added 22 August 2026, and it is
+ *               the grammar being applied where it had been missed rather than
+ *               extended: /upcoming.html's up-none box was the one empty state
+ *               on this site with no mascot in it.
+ *
+ *   GARBODOR  = "we went through the whole heap."
+ *               EXHAUSTIVENESS, not emptiness. This is the distinction the
+ *               build-search.mjs comment turns on and it is easy to lose: site
+ *               search draws Garbodor rather than Trubbish because what that
+ *               state says is not "nothing here" but "we read 316 openings,
+ *               5,181 cards, every set guide and 1,025 species, and that was
+ *               all of them". The heap is the evolved one.
+ *
+ *   THE PLATE = the ornament. plateMark is the drawing, plateRule is the
+ *               fleuron, and neither of them says anything: they are
+ *               aria-hidden furniture. See those two functions.
+ *
+ * WHAT WAS EXTENDED ON 22 AUGUST 2026, AND THE NEW RULE, so the next pass has
+ * something to work against:
+ *
+ * GARBODOR MAY NOW CLOSE A LIST AS WELL AS END A SEARCH, AND THAT IS THE SAME
+ * MEANING AND NOT A SECOND ONE. His documented sense is exhaustiveness. Until
+ * now the only exhaustive thing on the site that had a mark on it was a search
+ * that came back with nothing, which made him look like a failure mascot and
+ * made "Garbodor" read as a synonym for "sorry". He is not. He stands at the
+ * end of anything the site went all the way through, and that thing is usually
+ * full rather than empty.
+ *
+ * THE CONDITION, AND IT IS THE WHOLE OF THE RULE:
+ *
+ *     A HEAP MARK MAY ONLY RESTATE A COMPLETENESS CLAIM THE PAGE ALREADY
+ *     MAKES IN ITS OWN COPY, IN ITS OWN NUMBERS. It may never be the first
+ *     thing on the page to claim the list is complete.
+ *
+ * This site sources every figure it prints and an ornament must not read as
+ * data, so a mascot asserting "that is all of them" over a list that has not
+ * said so is a claim made by a picture, which is the worst place to make one.
+ * The line beside him therefore has to be derived from the same array the page
+ * counted in its lede, so it cannot go stale in one place and not the other.
+ *
+ * THE RULE IMMEDIATELY DISQUALIFIED THE BEST-LOOKING CANDIDATE, which is how
+ * you can tell it does some work. /video-games.html is 174 games over
+ * 41,714px, the densest catalogue on the site, and it is the obvious place for
+ * a heap mark. Its lede reads "Every official Pokemon game WE COULD FIND A
+ * RECORD OF", which is a deliberate hedge, and CLAUDE.md records that page
+ * hedging again at the foot about Metacritic's robots file. The page refuses
+ * to claim completeness, so a Garbodor claiming it for the page would have
+ * been the ornament overruling the copy. It got none.
+ *
+ * ONE PER PAGE, AT THE END OF THE RUN HE IS CLOSING, AND NOT AGAINST THE
+ * FOOTER. Every page on this site already ends in a drawn medallion and the
+ * "Grab a fork. Let's rip." sign-off, so a mark dropped just above the footer
+ * is a second closer 200px from the first. He closes a LIST, in the middle of
+ * the page, where the list actually stops.
+ *
+ * HE IS NOT AN EMPTY STATE AND MUST NOT REUSE .empty / .empty-mascot. Those
+ * classes carry app.js's landMascot arming in ui.css and, more importantly,
+ * they mean the other thing. Own class, own CSS, in the page's style block.
+ *
+ * THE BOX IS 96px ON A PHONE AND 128px ABOVE 700px, AND 128 IS THE ASSET'S OWN
+ * DESIGN POINT rather than a number picked here. scripts/sync-species-art.mjs
+ * says why it emits 256: "ONE SIZE, 256px, AND IT IS THE LARGEST DRAWN BOX
+ * DOUBLED. The portrait beside the H1 is drawn at 128 CSS pixels, so 256 is
+ * exactly sharp at DPR 2."
+ *
+ * SO THERE IS A SRCSET HERE WHERE build-search.mjs CORRECTLY WROTE NONE, and
+ * the difference is the box rather than a change of mind. That state clamps to
+ * 116px, so even DPR 1 wants 116 device pixels and the 96px sm/ rendition
+ * loses at every density it can be asked for. This box is 96 at 390, so DPR 1
+ * asks for exactly 96 and sm/569.webp wins outright at 4,746 bytes against
+ * 15,582. Two rungs, and the rung decides the bytes, not the CSS box:
+ *
+ *       390px  DPR 1   asks  96   -> sm/569.webp        4,746 bytes
+ *       390px  DPR 2   asks 192   ->    569.webp       15,582 bytes
+ *       390px  DPR 3   asks 288   ->    569.webp       15,582 bytes
+ *      1440px  DPR 1   asks 128   ->    569.webp       15,582 bytes
+ *      1440px  DPR 2   asks 256   ->    569.webp       15,582 bytes  (exact)
+ *
+ * THE lg/ RUNG WAS CONSIDERED AND REFUSED. At DPR 3 the 256 file is a 12.5%
+ * upscale on a phone and a 50% upscale on a 1440 desktop that does not
+ * commercially exist. lg/569.webp is 25,098 bytes, +61%, and
+ * sync-species-art.mjs is explicit that lg/ "exists for exactly one caller" and
+ * that a second one should ask first. A soft illustration held 12.5% under its
+ * natural size is not a visible defect; 9,516 extra bytes on every DPR 2 phone
+ * would be.
+ *
+ * LAZY, DECODING ASYNC, AND width/height ON THE ELEMENT so the 1:1 box is
+ * reserved from the attributes before a byte of image arrives. CLS is 0 and
+ * stays 0. onerror removes the node, exactly as every other mascot on the site
+ * does, so a missing file leaves the sentence standing on its own.
+ *
+ * HE ANSWERS A PRESS, for the reasons argued in full above PLATE_CSS, and the
+ * "is it pretending to be a control" question is sharper for a mascot than for
+ * an ornament because a character looks more like a thing you can use. Same
+ * defence and it is deliberate: no cursor:pointer, no href, no focus ring, and
+ * he returns to exactly where he was. He is a pile of rubbish you can prod.
+ *
+ * @param {string} line  Already-escaped label. Must be derived from the page's
+ *                       own count, never typed as a literal number.
+ */
+export const heapMark = (line) =>
+  `<p class="heap-mark"><img src="/assets/species/569.webp"` +
+  ` srcset="/assets/species/sm/569.webp 96w, /assets/species/569.webp 256w"` +
+  ` sizes="(min-width:700px) 128px, 96px"` +
+  ` alt="" width="256" height="256" loading="lazy" decoding="async"` +
+  ` onerror="this.remove()"><span>${line}</span></p>`;
+
+/**
+ * The rules heapMark needs, for a page's own style block. Same trade as
+ * PLATE_CSS: one page draws this today, and ui.css is render blocking on all
+ * of them.
+ *
+ * THE LINE IS THE MONO LABEL VOICE AND var(--ink-2), NOT AN ACCENT. It sits
+ * beside a picture and says something the page has already said in its lede,
+ * so it is a caption rather than a mark: pink would make it look like one of
+ * the flags, and teal would make it look like a link to somewhere.
+ */
+export const HEAP_CSS = `.heap-mark{display:flex;align-items:center;gap:var(--s4);margin:var(--s6) 0 0;
+  font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.heap-mark img{flex:none;width:96px;height:auto;display:block;transform-origin:50% 92%;
+  transition:transform .2s cubic-bezier(.2,.7,.3,1)}
+.heap-mark img:active{transform:scale(.94) rotate(-3deg);transition-duration:.09s}
+@media(min-width:700px){.heap-mark img{width:128px}}
+@media(prefers-reduced-motion:reduce){.heap-mark img:active{transform:none}}`;
 
 /**
  * Money, in the two shapes this site actually uses.

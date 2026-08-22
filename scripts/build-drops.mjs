@@ -45,7 +45,7 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { brandMark, BRAND_CREDIT, BRAND_STYLE } from "../shared/brands.mjs";
-import { esc, longDate } from "../shared/format.mjs";
+import { esc, longDate, plateRule, PLATE_CSS } from "../shared/format.mjs";
 // THE EXPIRY MODEL MOVED OUT OF THIS FILE ON 17 AUGUST 2026 and it did not
 // change on the way. The home page now carries a compact band built from the
 // same rows, so "which rows are still true today" is a question two pages ask
@@ -317,6 +317,10 @@ ${BRAND_STYLE}
 .dr-empty{color:var(--ink-2);padding:var(--s5) 0}
 .dr-key h2{margin-bottom:var(--s3)}
 .dr-key{margin-top:var(--s5);color:var(--ink-2);font-size:var(--t-sm);line-height:1.5;max-width:44em}
+
+/* The fleuron above .dr-key. Interpolated rather than living in ui.css, for the
+   reason written above PLATE_CSS itself. */
+${PLATE_CSS}
 `;
 
 const page = `<!DOCTYPE html>
@@ -420,6 +424,29 @@ ${drops.map(card).join("\n")}
            count is announced here rather than on the grid, because making the
            grid itself live would re-read every card on every keystroke. -->
       <p class="sr-only" id="drCount" role="status" aria-live="polite"></p>
+
+${/* THE PAGE'S FIRST AND ONLY FLEURON, and it is the existing one-per-page rule
+      being obeyed rather than a new one. What it means in one sentence: the
+      drops stop here and the explaining starts.
+
+      THIS PAGE IS THE SHAPE plateRule WAS WRITTEN FOR AND HAD NOT BEEN GIVEN.
+      That function argues its case on /buying.html: a very long stretch with
+      almost nothing to look at in it, where a mascot would read as pasted on
+      but a rule with a mark on it reads as the page taking a breath. Measured
+      at 390x844 in headless Chrome, this page is 6,161px tall and carries SIX
+      elements in main painted in either accent or holding a picture, which is
+      the thinnest density of any page in this pass. It has exactly ONE h2.
+
+      AND THE SEAM IS REAL RATHER THAN CONVENIENT, which is the other half of
+      that function's rule. Everything above this line is what the trackers
+      expect this week; everything below it is how to read what they said and
+      how much to trust it. Those are two different documents sharing a page.
+
+      /upcoming.html WAS THE OTHER CANDIDATE AND IT WAS REFUSED. It is 11,175px
+      with twelve accented elements, so it looks like the same case, but its
+      structure is not the same: it is broken by TWO dark band sections, and a
+      band edge is already a divider. A fleuron a couple of hundred pixels above
+      one is a second divider doing the first one's job. */ ""}      ${plateRule()}
 
       <div class="dr-key">
         <h2>How to read this page</h2>

@@ -139,8 +139,12 @@ gap:var(--s4) var(--s5);align-items:start}
 .se-list{max-width:1100px}
 }
 .plate-rule{display:flex;align-items:center;gap:var(--s4);max-width:560px;margin:var(--s7) 0 var(--s6)}
-.plate-rule::before,.plate-rule::after{content:"";flex:1;height:2px;border-radius:2px;background:var(--keyline);opacity:.5}
-.plate-rule svg{flex:none;display:block}</style>
+.plate-rule::before,.plate-rule::after{content:"";flex:1;height:2px;border-radius:2px;opacity:.5}
+.plate-rule::before{background:linear-gradient(90deg,transparent,var(--ketchup-deep))}
+.plate-rule::after{background:linear-gradient(90deg,var(--ketchup-deep),transparent)}
+.plate-rule svg{flex:none;display:block;transform-origin:50% 78%;transition:transform .2s cubic-bezier(.2,.7,.3,1)}
+.plate-rule:active svg{transform:translateY(2px) scale(.94) rotate(-3deg);transition-duration:.09s}
+@media(prefers-reduced-motion:reduce){.plate-rule:active svg{transform:none}}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Where to sell"}]}</script>
 </head>
 <body>
@@ -158,10 +162,10 @@ gap:var(--s4) var(--s5);align-items:start}
     <a class="bar-find" href="/search.html" aria-label="Search cards, sets, guides and rips"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg></a>
     <nav class="nav-links" aria-label="Primary">
       <a href="/videos.html">Rips</a>
+      <a href="/card-shows.html">Card shows</a>
       <a href="/cards.html">Card search</a>
       <a href="/sets/">Set guides</a>
       <a href="/start.html">Start here</a>
-      <a href="/card-shows.html">Card shows</a>
     </nav>
     <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -182,6 +186,28 @@ gap:var(--s4) var(--s5);align-items:start}
         <li><a href="/hall.html">Best pulls</a></li>
         <li><a href="/wanted.html">Most wanted</a></li>
         <li><a href="/luck.html">Rip results</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Rochester, NY<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/rochester.html">Local scene</a></li>
+        <li><a href="/card-shows.html">Card shows</a></li>
+        <li><a href="/shops.html">Card shops</a></li>
+        <li><a href="/vendors.html">Local vendors</a></li>
+        <li><a href="/creators.html">Local creators</a></li>
+        <li><a href="/garbage-plate.html">Garbage Plate</a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Just for fun<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
+        <li><a href="/lore.html">Pokemon lore</a></li>
+        <li><a href="/evolution.html">Evolution chart</a></li>
+        <li><a href="/eevee-evolutions.html">Eevee evolutions</a></li>
       </ul>
     </details>
     <details class="menu-g" open>
@@ -241,27 +267,6 @@ gap:var(--s4) var(--s5);align-items:start}
         <li><a href="/tcg-pocket.html">TCG Pocket app</a></li>
         <li><a href="/decks.html">Deck builds</a></li>
         <li><a href="/top-100-playable.html">Most played</a></li>
-      </ul>
-    </details>
-    <details class="menu-g" open>
-      <summary class="menu-h">Just for fun<span class="menu-x" aria-hidden="true"></span></summary>
-      <ul>
-        <li><a href="/games/">Games</a></li>
-        <li><a href="/video-games.html">Video games</a></li>
-        <li><a href="/lore.html">Pokemon lore</a></li>
-        <li><a href="/evolution.html">Evolution chart</a></li>
-        <li><a href="/eevee-evolutions.html">Eevee evolutions</a></li>
-      </ul>
-    </details>
-    <details class="menu-g" open>
-      <summary class="menu-h">Rochester, NY<span class="menu-x" aria-hidden="true"></span></summary>
-      <ul>
-        <li><a href="/card-shows.html">Card shows</a></li>
-        <li><a href="/shops.html">Card shops</a></li>
-        <li><a href="/vendors.html">Local vendors</a></li>
-        <li><a href="/creators.html">Local creators</a></li>
-        <li><a href="/garbage-plate.html">Garbage Plate</a></li>
-        <li><a href="/about.html">About</a></li>
       </ul>
     </details>
   </div>
@@ -1257,6 +1262,24 @@ gap:var(--s4) var(--s5);align-items:start}
         <a href="/luck.html">Rip results</a>
       </div>
       <div class="foot-col">
+        <p class="foot-h">Rochester, NY</p>
+        <a href="/rochester.html">Local scene</a>
+        <a href="/card-shows.html">Card shows</a>
+        <a href="/shops.html">Card shops</a>
+        <a href="/vendors.html">Local vendors</a>
+        <a href="/creators.html">Local creators</a>
+        <a href="/garbage-plate.html">Garbage Plate</a>
+        <a href="/about.html">About</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Just for fun</p>
+        <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
+        <a href="/lore.html">Pokemon lore</a>
+        <a href="/evolution.html">Evolution chart</a>
+        <a href="/eevee-evolutions.html">Eevee evolutions</a>
+      </div>
+      <div class="foot-col">
         <p class="foot-h">Cards</p>
         <a href="/cards.html">Card search</a>
         <a href="/search.html">Search the site</a>
@@ -1304,23 +1327,6 @@ gap:var(--s4) var(--s5);align-items:start}
         <a href="/tcg-pocket.html">TCG Pocket app</a>
         <a href="/decks.html">Deck builds</a>
         <a href="/top-100-playable.html">Most played</a>
-      </div>
-      <div class="foot-col">
-        <p class="foot-h">Just for fun</p>
-        <a href="/games/">Games</a>
-        <a href="/video-games.html">Video games</a>
-        <a href="/lore.html">Pokemon lore</a>
-        <a href="/evolution.html">Evolution chart</a>
-        <a href="/eevee-evolutions.html">Eevee evolutions</a>
-      </div>
-      <div class="foot-col">
-        <p class="foot-h">Rochester, NY</p>
-        <a href="/card-shows.html">Card shows</a>
-        <a href="/shops.html">Card shops</a>
-        <a href="/vendors.html">Local vendors</a>
-        <a href="/creators.html">Local creators</a>
-        <a href="/garbage-plate.html">Garbage Plate</a>
-        <a href="/about.html">About</a>
       </div>
     </nav>
     <!--FOOT_SUB:START-->

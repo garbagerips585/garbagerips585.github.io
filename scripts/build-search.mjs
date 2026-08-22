@@ -185,6 +185,19 @@ const PAGES = [
   ["/most-expensive-sealed.html", "Most expensive sealed", "The 100 most expensive sealed Pokemon products on TCGplayer, dated"],
   ["/hall.html", "Hall of Fame", "The best pulls on the channel"],
   ["/wanted.html", "Most wanted", "The cards still being chased"],
+  // THE HUB ABOVE THE FIVE LOCAL PAGES, and it goes IMMEDIATELY BEFORE THEM
+  // rather than at the end of this list with the other two it belongs with,
+  // because a reader who types "rochester" should be offered the page that
+  // routes to all five before any one of them.
+  //
+  // THE TITLE IS THE SEARCH AND NOT THE NAV LABEL. The menu calls this "The
+  // local scene", which is right in a group already headed Rochester, NY and
+  // useless here: nobody types "the local scene". They type "pokemon rochester
+  // ny" or "pokemon cards rochester", so the title carries the three words and
+  // the blurb carries the two things that make this page different from every
+  // other result for that query, which are that the shows and the shops are on
+  // it and that somebody local can get themselves listed on it.
+  ["/rochester.html", "Pokemon in Rochester, NY", "Everything local in one place: the card shows, the shops, the vendors and creators around the 585, and the Garbage Plate"],
   ["/card-shows.html", "Card shows", "Shows around Rochester, Buffalo and Syracuse"],
   ["/shops.html", "Card shops and where to play", "Local shops and league nights"],
   ["/videos.html", "All rips", "The full video library"],

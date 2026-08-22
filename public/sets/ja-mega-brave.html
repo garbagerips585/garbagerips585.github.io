@@ -62,7 +62,20 @@ padding-left:var(--s4);font-size:var(--t-body)}
 border-radius:3px;padding:3px 5px}
 .chip-rk{display:inline-flex;align-items:center;
 flex:0 1 auto;min-width:0;white-space:normal;
-height:auto;min-height:44px;padding-block:6px}</style>
+height:auto;min-height:44px;padding-block:6px}
+.pk-band{display:flex;gap:var(--s5);align-items:flex-start;flex-wrap:wrap;margin-top:var(--s4)}
+.pk-shot{flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+width:128px;height:236px;border-radius:var(--r);background-color:var(--paper);
+border:1px solid var(--hair);overflow:hidden}
+.pk-shot img{width:100%;height:100%;min-height:0;min-width:0;object-fit:contain;display:block}
+.pk-say{flex:1 1 16em;min-width:0}
+.pk-name{font-weight:700;font-size:var(--t-m);line-height:1.35;margin:0}
+.pk-native{margin:4px 0 0;font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
+.pk-note{margin-top:var(--s4);max-width:56ch;font-size:var(--t-sm);line-height:1.55;color:var(--ink-2)}
+.pk-see{display:inline-flex;align-items:center;min-height:44px;margin-top:var(--s3);
+color:var(--sky-deep);font:700 var(--t-sm)/1.2 var(--mono);
+text-transform:uppercase;letter-spacing:.04em}
+.pk-see:hover{text-decoration:underline}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Mega Brave Pokemon TCG Set Guide","description":"Mega Brave (メガブレイブ) Pokemon TCG set guide: 92 cards, released August 1, 2025, and why it is the same set as English Mega Evolution.","image":["https://garbagerips585.github.io/assets/og-ja-mega-brave.jpg"],"about":{"@type":"Thing","name":"Mega Brave (Pokemon Trading Card Game, Japanese)"},"url":"https://garbagerips585.github.io/sets/ja-mega-brave.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://garbagerips585.github.io/sets/ja-mega-brave.html"},"datePublished":"2026-08-12","dateModified":"2026-08-20","author":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/"},"publisher":{"@type":"Organization","name":"Garbage Rips 585","logo":{"@type":"ImageObject","url":"https://garbagerips585.github.io/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Set guides","item":"https://garbagerips585.github.io/sets/"},{"@type":"ListItem","position":3,"name":"Mega Brave"}]}</script>
 </head>
@@ -81,10 +94,10 @@ height:auto;min-height:44px;padding-block:6px}</style>
     <a class="bar-find" href="/search.html" aria-label="Search cards, sets, guides and rips"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg></a>
     <nav class="nav-links" aria-label="Primary">
       <a href="/videos.html">Rips</a>
+      <a href="/card-shows.html">Card shows</a>
       <a href="/cards.html">Card search</a>
       <a href="/sets/">Set guides</a>
       <a href="/start.html">Start here</a>
-      <a href="/card-shows.html">Card shows</a>
     </nav>
     <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -105,6 +118,28 @@ height:auto;min-height:44px;padding-block:6px}</style>
         <li><a href="/hall.html">Best pulls</a></li>
         <li><a href="/wanted.html">Most wanted</a></li>
         <li><a href="/luck.html">Rip results</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Rochester, NY<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/rochester.html">Local scene</a></li>
+        <li><a href="/card-shows.html">Card shows</a></li>
+        <li><a href="/shops.html">Card shops</a></li>
+        <li><a href="/vendors.html">Local vendors</a></li>
+        <li><a href="/creators.html">Local creators</a></li>
+        <li><a href="/garbage-plate.html">Garbage Plate</a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Just for fun<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
+        <li><a href="/lore.html">Pokemon lore</a></li>
+        <li><a href="/evolution.html">Evolution chart</a></li>
+        <li><a href="/eevee-evolutions.html">Eevee evolutions</a></li>
       </ul>
     </details>
     <details class="menu-g" open>
@@ -164,27 +199,6 @@ height:auto;min-height:44px;padding-block:6px}</style>
         <li><a href="/tcg-pocket.html">TCG Pocket app</a></li>
         <li><a href="/decks.html">Deck builds</a></li>
         <li><a href="/top-100-playable.html">Most played</a></li>
-      </ul>
-    </details>
-    <details class="menu-g" open>
-      <summary class="menu-h">Just for fun<span class="menu-x" aria-hidden="true"></span></summary>
-      <ul>
-        <li><a href="/games/">Games</a></li>
-        <li><a href="/video-games.html">Video games</a></li>
-        <li><a href="/lore.html">Pokemon lore</a></li>
-        <li><a href="/evolution.html">Evolution chart</a></li>
-        <li><a href="/eevee-evolutions.html">Eevee evolutions</a></li>
-      </ul>
-    </details>
-    <details class="menu-g" open>
-      <summary class="menu-h">Rochester, NY<span class="menu-x" aria-hidden="true"></span></summary>
-      <ul>
-        <li><a href="/card-shows.html">Card shows</a></li>
-        <li><a href="/shops.html">Card shops</a></li>
-        <li><a href="/vendors.html">Local vendors</a></li>
-        <li><a href="/creators.html">Local creators</a></li>
-        <li><a href="/garbage-plate.html">Garbage Plate</a></li>
-        <li><a href="/about.html">About</a></li>
       </ul>
     </details>
   </div>
@@ -466,6 +480,30 @@ height:auto;min-height:44px;padding-block:6px}</style>
 </section>
 
 <section class="tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What it looks like</p>
+    <h2>The <span class="hl">pack</span> itself</h2>
+    <p class="lede" style="max-width:38em">What to look for on a shelf, or in somebody's rip. The Japanese name runs across the bottom of the wrapper.</p>
+    <div class="pk-band">
+      <a class="pk-shot" href="https://www.tcgplayer.com/product/647498/mega-brave-booster-pack" rel="noopener" target="_blank"
+         tabindex="-1" aria-hidden="true">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/647498_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/647498_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/647498_400w.jpg 400w" sizes="128px"
+             alt="A sealed Mega Brave Japanese booster pack" loading="lazy" decoding="async"
+             onerror="this.remove()" referrerpolicy="no-referrer">
+      </a>
+      <div class="pk-say">
+        <p class="pk-name">Mega Brave Booster Pack</p>
+        <p class="pk-native cjk" lang="ja">メガブレイブ</p>
+        <a class="pk-see" href="https://www.tcgplayer.com/product/647498/mega-brave-booster-pack" rel="noopener" target="_blank"
+           aria-label="Mega Brave Booster Pack on TCGplayer, opens on tcgplayer.com">See the listing &rarr;</a>
+      </div>
+    </div>
+    <p class="pk-note">Photograph is TCGplayer's, from their Pokemon Japan
+      catalogue, where this set is filed as m1L: Mega Brave. We are not a shop and we do not sell any of this.</p>
+  </div>
+</section>
+
+<section class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
     <h2>Full <span class="hl">checklist</span></h2>
@@ -850,7 +888,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </section>
 
-<section class="band tight">
+<section class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
     <h2>We ripped <span class="hl">1</span> of these</h2>
@@ -874,7 +912,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </section>
 
-<section class="tight">
+<section class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
     <h2>What we have <span class="hl">hit</span> from this set</h2>
@@ -891,7 +929,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </section>
 
-<section class="band tight">
+<section class="tight">
   <div class="wrap">
     <h2>Where this <span class="hl">came from</span></h2>
     <ul class="facts-list">
@@ -927,6 +965,24 @@ height:auto;min-height:44px;padding-block:6px}</style>
         <a href="/hall.html">Best pulls</a>
         <a href="/wanted.html">Most wanted</a>
         <a href="/luck.html">Rip results</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Rochester, NY</p>
+        <a href="/rochester.html">Local scene</a>
+        <a href="/card-shows.html">Card shows</a>
+        <a href="/shops.html">Card shops</a>
+        <a href="/vendors.html">Local vendors</a>
+        <a href="/creators.html">Local creators</a>
+        <a href="/garbage-plate.html">Garbage Plate</a>
+        <a href="/about.html">About</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Just for fun</p>
+        <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
+        <a href="/lore.html">Pokemon lore</a>
+        <a href="/evolution.html">Evolution chart</a>
+        <a href="/eevee-evolutions.html">Eevee evolutions</a>
       </div>
       <div class="foot-col">
         <p class="foot-h">Cards</p>
@@ -976,23 +1032,6 @@ height:auto;min-height:44px;padding-block:6px}</style>
         <a href="/tcg-pocket.html">TCG Pocket app</a>
         <a href="/decks.html">Deck builds</a>
         <a href="/top-100-playable.html">Most played</a>
-      </div>
-      <div class="foot-col">
-        <p class="foot-h">Just for fun</p>
-        <a href="/games/">Games</a>
-        <a href="/video-games.html">Video games</a>
-        <a href="/lore.html">Pokemon lore</a>
-        <a href="/evolution.html">Evolution chart</a>
-        <a href="/eevee-evolutions.html">Eevee evolutions</a>
-      </div>
-      <div class="foot-col">
-        <p class="foot-h">Rochester, NY</p>
-        <a href="/card-shows.html">Card shows</a>
-        <a href="/shops.html">Card shops</a>
-        <a href="/vendors.html">Local vendors</a>
-        <a href="/creators.html">Local creators</a>
-        <a href="/garbage-plate.html">Garbage Plate</a>
-        <a href="/about.html">About</a>
       </div>
     </nav>
     <!--FOOT_SUB:START-->

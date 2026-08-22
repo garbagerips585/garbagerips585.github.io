@@ -70,11 +70,45 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc, longDate } from "../shared/format.mjs";
+// The same comment stripper build-css.mjs runs over ui.css. PAGE_CSS below is
+// mostly prose about why four rules exist, and an inline style block is render
+// blocking like the stylesheet is. stamp-assets.mjs would strip it last anyway,
+// but running it here means what this builder writes is what ships.
+import { strip as miniCSS } from "./build-css.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const vendors = JSON.parse(await readFile(join(ROOT, "data/vendors.json"), "utf8"));
 const creators = JSON.parse(await readFile(join(ROOT, "data/creators.json"), "utf8"));
 
+/* THE HUB THESE TWO PAGES NOW HANG UNDER. /rochester.html, built by
+   scripts/build-rochester.mjs, is the one page that says what the local scene
+   is and routes to all five of the local pages. Before it existed these two
+   sat directly under Home in the breadcrumb and named their sibling pages in
+   plain text that was not a link, so a reader who landed here from a search had
+   no way to discover that the card show calendar, the shop list and the plate
+   page were even on the same site. Written once here because it appears in the
+   visible crumb, in the BreadcrumbList and in the routing row at the foot.
+
+   THE LABEL IS "Local scene" AND IT WAS "Rochester, NY" FOR AN AFTERNOON, WHICH
+   WAS A BUG IN A PLACE WHERE THIS SITE HAS A NAMED RULE. The nav group these
+   five pages sit in is HEADED "Rochester, NY", so a link inside it reading
+   "Rochester, NY" is a heading and its own child with the same words: the
+   two-names-one-page failure shared/chrome.mjs exists to prevent, read from the
+   other end. It is also redundant, because a label inside a group headed
+   Rochester does not have to say Rochester.
+
+   ONE NAME ON EVERY SURFACE, which is the actual rule and the reason this is a
+   single constant rather than three strings. The nav item, the visible crumb on
+   all five local pages, the BreadcrumbList Google prints, and the routing rows
+   at the foot of each page ALL take this. A page called one thing in the menu
+   and another in the breadcrumb is two pages as far as a reader is concerned.
+
+   IT IS ECHOED BY THE PAGE, which is the nav's own condition on a label. The
+   hub's title ends "Shows, Shops and the Local Scene" and its kicker reads
+   "585 - The local scene", so a reader who taps the label lands on a page
+   saying it back to them in the first thing they see. Eleven characters, well
+   inside the 20 the footer grid allows at 138px. */
+const HUB = { url: "/rochester.html", label: "Local scene" };
 // Handle in, link out. Stored without the @ and without a url so one platform
 // change is one edit here, not an edit to every row.
 const SOCIALS = [
@@ -323,9 +357,80 @@ const earlyNote = (rows, noun) => {
       <p>${esc(nWord.replace(/^./, (c) => c.toUpperCase()))} ${esc(nounWord)} ${esc(isAre)} on this page.${esc(gap)}
         That is what we can actually point you at today rather than what we would like the page to look like, and
         it stays that way until somebody real goes on it.</p>
-      <p style="margin-top:12px"><a class="btn btn-yt btn-sm" href="https://www.youtube.com/@GarbageRips585">Tell us who we are missing</a></p>
+      <p style="margin-top:12px"><a class="btn btn-yt btn-sm" href="#get-listed">Here is how to get on it</a></p>
     </div>`;
 };
+
+/* THE BUTTON ABOVE USED TO GO TO youtube.com/@GarbageRips585 AND THAT IS THE
+   ONE THING ON THIS PAGE THAT WAS A DEAD END. The band admits the list is
+   short, and the only action it offered was a channel home page: no inbox, no
+   form, no sentence saying what to send. Somebody who wanted to be on this list
+   arrived at a wall of thumbnails and had to work out the rest themselves.
+   It now goes DOWN THE PAGE to the section below, which is the answer, and it
+   costs the page one outbound link rather than adding one.
+
+   WHY A WHOLE SECTION AND NOT A LONGER SENTENCE IN THE BAND. The band switches
+   itself off the moment the list clears four entries with no gaps, and the
+   invitation is the part that must NOT switch off: a list that stops inviting
+   people the day it gets useful stops growing the day it gets useful. So the
+   ask is a permanent section of both pages and the band is the temporary
+   admission of where the list is today. They say different things and only one
+   of them is meant to go away.
+
+   THE FIELDS ARE THE JSON'S OWN FIELDS, IN THE JSON'S OWN ORDER, and that is
+   the entire point of writing them out. data/vendors.json takes name, area,
+   sells, blurb, shows and a handle per platform; data/creators.json takes name,
+   area, does, blurb and its handles. A vendor who sends those five things has
+   written the row, and adding them is a paste rather than an interview. That is
+   the lowest-friction path this page can offer without a server, and this site
+   has no server.
+
+   NO NET NEW OUTBOUND LINK, WHICH IS THE CONDITION CLAUDE.md PUTS ON ONE. The
+   Instagram link is new; the YouTube channel link it replaces is gone; both
+   hosts are already in the footer of all 1,487 pages, so no destination this
+   site did not already point at appears here. Instagram is first because a DM
+   is a real inbox and a channel page is not, and the second control is
+   INTERNAL, to our own rips, where the comment box a local creator would
+   actually use lives. Both carry the aria-label the outbound rule makes the
+   condition of a link that leaves, and both are 44px controls at the end of the
+   section rather than links buried in a sentence.
+
+   NOTHING HERE PROMISES A LISTING AND THAT IS DELIBERATE. The third card says
+   we check first, because the whole value of these two pages is that a name on
+   them was looked at. An invitation that reads as automatic would be a
+   directory signup, which is the thing this page is not. */
+const getListed = ({ noun, one, fields, sends }) => `
+<section class="band tight" id="get-listed">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>How this list grows</p>
+    <h2>How to get on <span class="hl">this page</span></h2>
+    <p class="lede" style="max-width:44em">There is no form, no fee and no application. Tell us you exist and we
+      will look you up and put you on. This list is short because nobody has been asked, not because anybody was
+      turned down.</p>
+    <ul class="facts-list" style="max-width:44em">
+      <li><b>Send it however you like.</b> ${esc(sends)} It does not have to be you: if you buy from somebody good,
+        or you watch somebody local, send them instead.</li>
+      <li><b>Tell us ${esc(fields.length === 4 ? "these four things" : "these five things")}.</b> ${fields
+        .map((f) => esc(f))
+        .join(" ")} That is exactly what a card on this page holds, so nothing gets lost between you telling us and
+        it going up.</li>
+      <li><b>We look before we list.</b> Every name here is a real ${esc(one)} and every handle here has been opened
+        and checked, because a wrong handle sends somebody to a stranger. That is also why the list grows slowly:
+        it moves at the speed of checking rather than the speed of asking.</li>
+      <li><b>It costs nothing and it buys nothing.</b> No paid placements and no affiliate links, on this page or
+        anywhere on this site. ${
+          noun === "vendors"
+            ? "There is one editorial mark here, Bought from them, and it means Tim actually handed over money. It cannot be requested."
+            : "The order is alphabetical and it always will be, so nobody can pay or ask their way up it."
+        }</li>
+    </ul>
+    <p class="btn-row" style="margin-top:var(--s4)">
+      <a class="btn btn-sky btn-sm" href="https://www.instagram.com/garbagerips585/" rel="noopener" target="_blank"
+         aria-label="Message Garbage Rips 585 on Instagram, opens on instagram.com">Message us on Instagram</a>
+      <a class="btn btn-ghost btn-sm" href="/videos.html">Or comment on any rip</a>
+    </p>
+  </div>
+</section>`;
 
 /* TWO GUARDS, BECAUSE THIS PAGE'S COPY HAS NOW DRIFTED AHEAD OF ITS DATA THREE
    SEPARATE TIMES and every one of them was caught by a person reading the page
@@ -373,7 +478,34 @@ const checkVouch = (text, rows, where) => {
   );
 };
 
-function page({ metaDesc, slug, title, h1, kicker, lede, list, kind, empty, note, updated }) {
+/* THE ONLY PAGE CSS THESE TWO PAGES HAVE, and it is four rules because
+   everything else on them was already in ui.css. The routing row is a new
+   shape: a labelled strip of five internal links at the foot of the list, and
+   the nearest thing already in the stylesheet is .st-also, which is a single
+   link beside a button on /start.html rather than a row of its own.
+
+   TEAL, BECAUSE THEY ARE ROUTES. CLAUDE.md's accent rule in one line: teal is
+   how you get around. --sky-deep and not --sky, because this type is 14px and
+   the big teal only clears its ratio above 24px; --sky-deep measures 4.50:1 on
+   --page, which is the ground this row actually sits on.
+   THE LABEL IS NOT AN ACCENT AT ALL. It is --ink-soft, a neutral, for the same
+   reason a section heading on this site is neither teal nor pink: the two
+   accents must never land on each other, and a mono label above a row of teal
+   links is exactly where that goes wrong.
+
+   44px MINIMUM ON EVERY LINK. Five small links in a row is the tap-target
+   failure the footer's Collectr link was caught by, so each gets the full
+   height and the gap keeps them apart rather than the padding alone. */
+const PAGE_CSS = `
+.loc-more{margin-top:var(--s5);padding-top:var(--s4);border-top:1px solid var(--hair)}
+.loc-more-h{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-soft);margin-bottom:var(--s2)}
+.loc-more a{display:inline-flex;align-items:center;min-height:44px;margin-right:var(--s4);
+  font:700 var(--t-sm)/1.2 var(--body);color:var(--sky-deep)}
+.loc-more a:hover,.loc-more a:focus-visible{text-decoration:underline}
+`;
+
+function page({ metaDesc, slug, title, h1, kicker, lede, list, kind, empty, note, updated, ask }) {
   // Alphabetical, always. See the header note on why this is not a ranking.
   const rows = [...list].sort((a, b) => String(a.name).localeCompare(String(b.name)));
 
@@ -390,9 +522,16 @@ function page({ metaDesc, slug, title, h1, kicker, lede, list, kind, empty, note
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
+      /* THREE LEVELS SINCE /rochester.html EXISTS. These two pages sat directly
+         under Home, which said in structured data that they are top-level
+         subjects of this site. They are not: they are two of the five pages
+         that make up the local section, and the hub is the page that says so.
+         The visible crumb below emits the same three, because a breadcrumb that
+         disagrees with its own markup is worse than neither. */
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
-        { "@type": "ListItem", position: 2, name: h1, item: `${SITE}/${slug}` },
+        { "@type": "ListItem", position: 2, name: HUB.label, item: `${SITE}${HUB.url}` },
+        { "@type": "ListItem", position: 3, name: h1, item: `${SITE}/${slug}` },
       ],
     },
   ];
@@ -458,6 +597,7 @@ ${rows.length ? "" : '<meta name="robots" content="noindex,follow">\n'}<meta pro
 <meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
+<style>${miniCSS(PAGE_CSS)}</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -477,7 +617,7 @@ ${MENU}
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / ${esc(h1)}</p>
+    <p class="crumbs"><a href="/">Home</a> / <a href="${HUB.url}">${esc(HUB.label)}</a> / ${esc(h1)}</p>
     ${
       rows.length
         ? `<ul class="loc-list">
@@ -494,13 +634,36 @@ ${earlyNote(rows, kind)}
       <p class="fk-golden-h">Nothing here yet</p>
       <h2>This list is being <span class="hl">built</span></h2>
       <p>${esc(empty)}</p>
-      <p style="margin-top:12px"><a class="btn btn-yt btn-sm" href="https://www.youtube.com/@GarbageRips585">Tell us on the channel</a></p>
+      <p style="margin-top:12px"><a class="btn btn-yt btn-sm" href="#get-listed">Here is how to get on it</a></p>
     </div>
     <p class="price-note">We would rather show an empty page than a made up one. Everybody listed here will be a real
       person or a real business we can point you at, so the list starts empty and grows.</p>`
     }
+    ${/* THE PAGE NAMED ITS SIBLINGS AND LINKED NONE OF THEM. Both notes run
+          through esc(), which is correct, so "see Card shops" on /vendors.html
+          and the invitation to the wider region on /creators.html were plain
+          text pointing at pages one tap away that a reader had no way to reach
+          from here. A local section whose pages do not link each other is five
+          separate pages that happen to share a heading in the nav.
+
+          IT IS A ROW OF CONTROLS AND NOT LINKS INSIDE THE SENTENCE, which is
+          the shape CLAUDE.md asks for and also the reason the notes above did
+          not simply get anchors dropped into them: a route at the end of a
+          block is a route, a route in the middle of an explanation is a
+          reader losing their place. Every one of these is internal. */ ""}
+    <nav class="loc-more" aria-label="More local pages">
+      <p class="loc-more-h">More around Rochester</p>
+      <a href="${HUB.url}">The whole local scene</a>
+      <a href="/card-shows.html">Card shows</a>
+      <a href="/shops.html">Card shops</a>
+      <a href="${slug === "vendors.html" ? "/creators.html" : "/vendors.html"}">${
+        slug === "vendors.html" ? "Local creators" : "Local vendors"
+      }</a>
+      <a href="/garbage-plate.html">Garbage Plate</a>
+    </nav>
   </div>
 </section>
+${getListed(ask)}
 
 </main>
 ${footer("Local listings. No paid placements.")}
@@ -543,6 +706,24 @@ const V = page({
     "We are putting together a list of vendors around Rochester who are worth buying from: who they are, what they " +
     "carry, and which shows you will find them at. If you sell locally, or you have bought from somebody good, tell us.",
   note: "Vendors are people who sell, usually at the shows on the card show calendar. For shops with a door and opening hours, see Card shops.",
+  /* THE FIVE THINGS ARE data/vendors.json's OWN FIELDS IN ITS OWN ORDER: name,
+     area, sells, shows, and the handles. Written out because a vendor who sends
+     those five has written their row, and the difference between a page that
+     invites and a page that collects is whether the ask is specific enough to
+     answer in one message. */
+  ask: {
+    noun: "vendors",
+    one: "seller",
+    sends:
+      "A message, a comment, a photo of your table at a show, whatever is easiest.",
+    fields: [
+      "Your name as you want it printed.",
+      "The town you work out of.",
+      "What you carry: singles, sealed, graded, all of it.",
+      "Which shows you are usually at.",
+      "Every handle you want on the card, and your own site if you have one.",
+    ],
+  },
 });
 
 const C = page({
@@ -580,6 +761,21 @@ const C = page({
     "We want to point people at everybody else making Pokemon content in Rochester, Buffalo, Syracuse and the towns " +
     "around them. If that is you, or somebody you watch, let us know and you go on the list.",
   note: "Listed alphabetically, not ranked. Rochester first by focus, but anywhere in Upstate New York close enough to count belongs here.",
+  /* FOUR RATHER THAN FIVE, because data/creators.json holds four fields and not
+     five: a creator has no "shows" and no "sells". The count is written into the
+     ask rather than typed into the sentence, so the two cannot disagree. */
+  ask: {
+    noun: "creators",
+    one: "person",
+    sends:
+      "A message, a comment on a rip, a tag in a story, whatever is easiest.",
+    fields: [
+      "Your name as you want it printed.",
+      "Where you are: Rochester, Buffalo, Syracuse, or the town if it is none of those.",
+      "What you make: rips, singles, art, competitive, something we have not thought of.",
+      "Every handle you want on the card, and your own site if you have one.",
+    ],
+  },
 });
 
 await writeFile(join(ROOT, "public/vendors.html"), V);
@@ -590,4 +786,67 @@ console.log(`Wrote public/vendors.html (${nv} vendor${nv === 1 ? "" : "s"}) and 
 if (!nv || !nc) {
   console.log("  Empty lists render an honest empty state and stay noindex and out of the sitemap.");
   console.log("  Fill data/vendors.json and data/creators.json to publish them.");
+}
+
+/* THE LOWEST-FRICTION WAY TO GROW THESE TWO LISTS IS NOT A SEARCH, IT IS THE
+ * CHANNEL'S OWN DESCRIPTIONS, and nothing was reading them.
+ *
+ * The pages are short because nobody has added to them, and the obvious fix,
+ * going and finding local vendors, is the one thing this file exists to refuse:
+ * an unsourced name here is worse than a short list. But there IS a source that
+ * is already in the tree, already Tim's own words, and already a statement that
+ * he knows and works with somebody: the @mentions in his video descriptions. He
+ * tags the shop a box came from and the people he films with. Every one of those
+ * is a local account he has vouched for in public, on his own channel.
+ *
+ * SO THIS PRINTS A TO-DO AND NEVER WRITES A ROW. It cannot publish anybody: an
+ * @mention is not consent to be listed and this build has no way to check the
+ * account is local, which is the check the page promises its readers. What it
+ * removes is the part that actually stops the list growing, which is remembering
+ * who you have already worked with.
+ *
+ * THREE FILES, NOT TWO. A handle already on data/shops.json is not missing, it is
+ * on the right page: /shops.html is bricks and mortar and this is people, and
+ * data/vendors.json's own readme draws that line. Matching is on the handle and
+ * on a squashed form of the name, because "LingSter Games" is tagged
+ * @lingstergames.
+ *
+ * IT IS SILENT WHEN THERE IS NOTHING TO SAY, and today there is nothing: both
+ * handles the 319 descriptions contain are already on a local page. That is the
+ * check working rather than the check being pointless. It also cannot fail the
+ * build, because descriptions.json is written by a sync that is not in
+ * build-all.mjs and a missing file must not stop two pages rendering. */
+try {
+  const desc = JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8"));
+  const shops = JSON.parse(await readFile(join(ROOT, "data/shops.json"), "utf8"));
+  const flat = (s) => String(s).toLowerCase().replace(/[^a-z0-9]/g, "");
+  const known = new Set();
+  for (const o of [...(vendors.vendors || []), ...(creators.creators || []), ...(shops.shops || [])]) {
+    known.add(flat(o.name));
+    for (const [k] of SOCIALS) if (o[k]) known.add(flat(o[k]));
+  }
+  const seen = new Map();
+  for (const text of Object.values(desc)) {
+    for (const m of String(text).match(/@[A-Za-z0-9._-]{2,30}/g) || []) {
+      const h = m.slice(1);
+      seen.set(flat(h), (seen.get(flat(h)) || 0) + 1);
+    }
+  }
+  const missing = [...seen.entries()].filter(([h]) => !known.has(h)).sort((a, b) => b[1] - a[1]);
+  if (missing.length) {
+    console.log(
+      `  ${missing.length} account${missing.length === 1 ? "" : "s"} tagged in our own video descriptions ` +
+        `and on no local page yet:`
+    );
+    for (const [h, n] of missing.slice(0, 12)) {
+      console.log(`    @${h}  (tagged in ${n} description${n === 1 ? "" : "s"})`);
+    }
+    console.log(
+      "  Check each one is local and still active, then add it to data/vendors.json, data/creators.json\n" +
+        "  or data/shops.json. Do NOT paste a handle in without opening it: see the readme in either file."
+    );
+  }
+} catch {
+  /* data/descriptions.json comes from scripts/sync-youtube.mjs, which needs a
+     key and is not in build-all.mjs. No file, no nudge, no failure. */
 }

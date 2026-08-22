@@ -83,6 +83,49 @@ const OUT = join(ROOT, "public/rip");
 // the 317.
 const RARITY_CSS_MIN = RARITY_CSS.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\n{2,}/g, "\n").trim();
 
+/**
+ * The line under a "More <set>" tile that says WHAT WAS OPENED.
+ *
+ * PAGE LEVEL RATHER THAN ui.css, and that is a scope decision rather than a
+ * shortcut: .vid-kind exists on the rip pages and nowhere else, the same
+ * arrangement the third home-page layout took while ui.css was being rewritten
+ * under it. It ships only on the pages whose set rail actually opened more than
+ * one kind of thing, so the 34 single-kind rails and every page with no set rail
+ * pay nothing. stamp-assets.mjs strips this comment out of the built page, which
+ * is why it is written at length here.
+ *
+ * IT IS COPY UNDER THE ARTWORK AND NOT A PLATE ON TOP OF IT. CLAUDE.md is
+ * explicit about the wrapper: the pack art is CONTENT, "the mascot is the
+ * point", and the banner note ends "The copy goes underneath." ui.css says the
+ * same thing about this exact element from the other direction -- ".pack--tile
+ * .pack-mascot,.pack--tile .pack-hint,.pack--tile .pack-flash{display:none}",
+ * because at ~170px "the mascot badge and the hint strip do not survive the
+ * shrink". A chip laid over the tile would be reintroducing the strip that rule
+ * removed.
+ *
+ * PINK, AND THE SMALL PINK. It is a mark that goes nowhere, which is the
+ * accent rule's own definition of the pink side; teal is reserved for routes,
+ * and the title under it IS a route. At .66rem it is nowhere near the 24px
+ * where the big --ketchup clears 3:1, so it takes --ketchup-deep. That
+ * measures 6.24:1 on --sky-tint by arithmetic and 6.49:1 read off the RENDERED
+ * pixels at 390x844 DPR 2, which is the number to believe: the band paints a
+ * gradient, so the ground under the first tile's kicker is (31,52,51) rather
+ * than the token. Taken by hiding the glyphs and screenshotting the same box.
+ *
+ * .66rem IS .vid-meta's SIZE ON PURPOSE. The kicker was .62 for one build and
+ * came out SMALLER than the date it sits two lines above, which inverts the
+ * order the two are meant to be read in. Weight, case and colour carry the
+ * difference instead, which is what they do everywhere else on this site.
+ *
+ * -5px OF NEGATIVE MARGIN, not a change to .vid's own gap. .vid is a 9px flex
+ * column shared with /videos.html, /playlists.html and the box rail, so
+ * touching the gap would move tiles this change has no business moving. The
+ * kicker and the title it belongs to close up; the date keeps its own spacing.
+ */
+const KIND_CSS = `.vid-kind{margin:0 0 -5px;font-family:var(--mono);font-weight:700;
+font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;
+color:var(--ketchup-deep);line-height:1.3}`;
+
 // Graded prices, hand-entered first and synced second, with the same
 // ten-sale floor the set guides use. One store, so a card cannot show two
 // different numbers on two different pages.
@@ -881,6 +924,26 @@ for (const v of tagged) {
   }
 }
 
+// NEWEST FIRST IS AN ASSUMPTION THE "More <set>" BAND RESTS ON, SO IT IS
+// CHECKED RATHER THAN TRUSTED. That band now takes the first entry of each
+// product kind (see `related`), which is only "the newest of that kind" while
+// this order holds. If sync-youtube.mjs ever writes the catalogue in another
+// order the band would quietly start showing the OLDEST of each kind and every
+// page would still build, every gate would still be green, and nothing on the
+// page would look wrong. Same reasoning as checkSetMap in build-decks.mjs and
+// checkMapping in build-topps.mjs: a silent wrong answer is worth a throw.
+for (const list of bySet.values()) {
+  for (let i = 1; i < list.length; i++) {
+    if (String(list[i].published || "") > String(list[i - 1].published || "")) {
+      throw new Error(
+        `public/data/videos.json is no longer newest-first (${list[i - 1].id} ${list[i - 1].published} ` +
+          `before ${list[i].id} ${list[i].published}). The "More <set>" band picks the FIRST rip of each ` +
+          `product kind and calls it the newest; sort the catalogue or sort bySet here.`
+      );
+    }
+  }
+}
+
 // Was `niceViews`, one of five copies, each carrying a comment claiming it
 // matched one of the others. viewCount in shared/format.mjs records what they
 // were all still getting wrong after the last hand reconciliation, including
@@ -1132,7 +1195,132 @@ const noScanHits = showableHits.length && hits.some((h) => !h.img);
     .slice(0, 6)
     .sort((a, b) => packNo(a) - packNo(b));
 
-  const related = (setId ? bySet.get(setId) || [] : []).filter((x) => x.id !== v.id).slice(0, 6);
+  // ==========================================================================
+  // "More <set>" WAS A NEWEST-FIRST SLICE AND IT KEPT REPRINTING THE BAND
+  // ABOVE IT. Fixed 22 August 2026.
+  //
+  // THE RULE IS ALREADY WRITTEN DOWN AND THIS FILE WAS THE ONE PLACE NOT
+  // FOLLOWING IT. CLAUDE.md, under "Which pages have something to watch":
+  // "ONE PER KIND BEFORE ANY KIND REPEATS. Same round robin as setRipsFor in
+  // build-pokemon.mjs ... Single packs are 90 of the 316 videos, so a
+  // newest-first slice off the pool turns a band about the VARIETY of sealed
+  // product into a band about single packs." setRipsFor rounds robin over
+  // SETS because a species is printed in many; this band is already scoped to
+  // one set, so the axis that is left is WHAT WAS OPENED.
+  //
+  // WHAT THE FLAT SLICE WAS ACTUALLY PRODUCING, measured over all 319 rips
+  // before this change:
+  //
+  //   - 333 of the 1,306 set-rail tiles on the 221 pages that carry BOTH
+  //     rails, 25.5%, were a video already shown in "More from <box>" higher
+  //     up the same page. On 25 of those pages the lower band was a COMPLETE
+  //     copy of the upper one: twelve tiles, six videos, one picture.
+  //   - 132 of the 300 set rails, 44.0%, were a single product kind end to
+  //     end, and the mean was 1.66 kinds over six tiles.
+  //
+  // AFTER: 4.64 distinct kinds per rail and 34 rails, 11.3%, still one kind.
+  // Those 34 are sets the channel has only ever opened one way, which is a
+  // true thing about the set rather than a shortfall of the sort. The repeats
+  // go 333 to 14, 25.5% to 0.8%, and no rail loses a tile: sizes are identical
+  // to the old slice, 270 rails of six and the rest short because the set has
+  // nothing more in it.
+  //
+  // BUSIEST KIND FIRST so the lead tile comes off the kind this set has been
+  // opened most, exactly as setRipsFor leads with the busiest set. Newest
+  // first inside each kind, which is what the pool already is (videos.json is
+  // sorted newest-first and bySet preserves it; asserted where bySet is built
+  // rather than trusted, because this band silently degrades to the OLDEST of
+  // each kind if that ever stops being true and nothing on the page shows it).
+  //
+  // THE BOX RAIL GOES LAST RATHER THAN OUT, and that pair of measurements is
+  // the reason. `exclude` in setRipsFor is a hard drop, which is right there
+  // because its two tiers draw on the same large pool; here the pool IS the
+  // set, and a hard drop empties four rails outright and shortens ten more.
+  // Sorting the box rail's own videos to the BACK of the queue instead costs
+  // nothing: every rail keeps exactly the length it had, and the 14 tiles that
+  // still repeat are the sets where there is genuinely nothing else to show.
+  //
+  // ==========================================================================
+  // THE MARK THAT WAS PROPOSED FOR THESE TILES AND WAS MEASURED AND REJECTED,
+  // written here so nobody pays for the measurement twice. A design review
+  // proposed a hit / no-hit mark on every rail tile, on the grammar that "a
+  // mark earns its place when it states something true about that page's own
+  // data, emitted from a field, and the field must be false on most pages". It
+  // is a good idea and the field is there: hasHit answers 290 of 319 rips, and
+  // the outcome rule build-luck.mjs settled on (hasHit, or a card named in
+  // data/hits.json) answers 291. THREE MEASUREMENTS KILLED IT.
+  //
+  //   1. IT IS NOT RARE, WHICH IS ITS OWN TEST. Counted per rail rather than
+  //      sitewide: a no-hit mark lands on 648 of the 1,190 box-rail tiles,
+  //      54.5%, and 775 of the 1,688 set-rail tiles, 45.9%. The rule wants a
+  //      field that is FALSE on most pages and on the box rail it is TRUE on
+  //      most of them. A mark on more than half the tiles is wallpaper with an
+  //      opinion in it. (The mark does SPLIT a rail -- 91.4% of box rails and
+  //      94.3% of set rails are mixed, mean hit fraction 45.5% and 49.0% -- so
+  //      the failure is not that it differentiates nothing. It is that half a
+  //      wall of badges is still a wall.)
+  //   2. IT IS THE POSTER-FRAME PROBLEM IN SMALLER TYPE. ogCard at the top of
+  //      this file exists because the share card used to be YouTube's poster
+  //      frame, which is nearly always the pulled card, so "sharing a rip page
+  //      in a message showed the hit before anyone opened it, the one thing the
+  //      pack wrappers exist to prevent". Stamping the OUTCOME on a tile is
+  //      that decision reversed one notch, on the control whose whole job is to
+  //      get the rip opened.
+  //   3. THE MASCOT'S WORD IS ALREADY SPENT ON THIS PAGE. build-search.mjs
+  //      argues that "Trubbish already means 'there is nothing in this one' in
+  //      three places and the meaning is worth keeping single", and one of
+  //      those three is the .nohits band a few hundred lines below, on this
+  //      same page. A no-hit rip would then carry a 180px Trubbish saying it
+  //      once and three 20px Trubbishes saying it again about other rips.
+  //
+  // WHAT WAS BUILT INSTEAD answers the question a reader actually has before
+  // they press play -- what is about to be opened -- takes it from a field
+  // (products[0]), gives nothing away, and after the sort above it differs on
+  // 5.11 of the six tiles rather than on one bit.
+  const railFor = (pool) => {
+    const byKind = new Map();
+    for (const x of pool) {
+      const k = (x.products || [])[0] || "";
+      if (!byKind.has(k)) byKind.set(k, []);
+      byKind.get(k).push(x);
+    }
+    const kinds = [...byKind.keys()].sort((a, b) => byKind.get(b).length - byKind.get(a).length);
+    const out = [];
+    for (let round = 0; out.length < 6 && round < 40; round++) {
+      let added = false;
+      for (const k of kinds) {
+        const x = byKind.get(k)[round];
+        if (!x) continue;
+        out.push(x);
+        added = true;
+        if (out.length >= 6) break;
+      }
+      if (!added) break;
+    }
+    return out;
+  };
+  const related = (() => {
+    const pool = (setId ? bySet.get(setId) || [] : []).filter((x) => x.id !== v.id);
+    const shownAbove = new Set(sameBox.map((x) => x.id));
+    const out = railFor(pool.filter((x) => !shownAbove.has(x.id)));
+    if (out.length < 6) {
+      for (const x of railFor(pool.filter((x) => shownAbove.has(x.id)))) {
+        if (out.length >= 6) break;
+        out.push(x);
+      }
+    }
+    return out;
+  })();
+
+  // THE CHIP IS CONDITIONAL AND THAT IS THE WHOLE OF ITS ARGUMENT. A label
+  // repeated on all six tiles is not a differentiator, it is wallpaper with a
+  // word in it, so the tiles say what was opened only where the rail opened
+  // more than one thing. It is on 266 of the 300 set rails and on NEITHER
+  // rail of the box band, where every tile is by construction one pack out of
+  // one box and a chip would say "Single Pack" six times under a heading that
+  // already names the box.
+  const railKinds = new Set(related.map((x) => (x.products || [])[0] || ""));
+  const showKind = railKinds.size > 1;
 
   const ld = {
     "@context": "https://schema.org",
@@ -1226,7 +1414,7 @@ ${/* THE PACK IS THIS PAGE'S LCP ELEMENT AND THE PRELOAD SCANNER CANNOT SEE IT.
 <link rel="preload" as="image" href="/assets/packs/${packSet}-garbage-rips-585-booster-pack.avif" type="image/avif" fetchpriority="high">
 ${FONTS}
 ${STYLES}
-<style>${RARITY_CSS_MIN}${noScanHits ? `\n${NOSCAN_CSS}` : ""}</style>
+<style>${RARITY_CSS_MIN}${noScanHits ? `\n${NOSCAN_CSS}` : ""}${showKind ? `\n${KIND_CSS}` : ""}</style>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 <script type="application/ld+json">${JSON.stringify(crumbs)}</script>
 </head>
@@ -1660,7 +1848,20 @@ ${related.length ? `<section class="band tight">
             </span>
           </span>
           <span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-        </a>
+        </a>${showKind ? `
+        ${/*
+          WHAT WAS OPENED, NOT WHAT CAME OUT. The obvious mark to put here is
+          the hit, and it was measured and rejected: see the note above
+          related. A rip's OUTCOME on a tile is the poster-frame problem in
+          smaller type, which is the thing the pack wrappers and ogCard above
+          both exist to prevent; what was opened is the fact a reader wants
+          BEFORE they press play and it gives nothing away.
+
+          NOT DUPLICATED IN THE aria-label. The shell's label is the video's
+          own title and this line is a visible sibling of it, read in document
+          order exactly as the date under it is. Folding it into the label
+          would say it twice to the one reader who cannot see it said once.
+        */ ""}<p class="vid-kind">${esc(labelFor("products", (r.products || [])[0]))}</p>` : ""}
         <h3 class="vid-title"><a href="/${pathFor(r)}">${esc(r.title)}</a></h3>
         <p class="vid-meta">${shortDate(r.published)}</p>
       </article>`).join("\n      ")}
@@ -1919,6 +2120,19 @@ const urls = [
   // the opposite of what the site says.
   { loc: `${SITE}/wanted.html`, freq: "weekly", pri: "0.8" },
   { loc: `${SITE}/hall.html`, freq: "weekly", pri: "0.8" },
+  // The local hub, /rochester.html. HIGH priority because it is the entrance to
+  // the five local pages and the one url on this site aimed straight at "pokemon
+  // rochester ny", which is the query family CLAUDE.md's nav note calls the one
+  // this site can realistically rank first for. WEEKLY rather than monthly and
+  // that is not a guess: every number on it is counted out of data/shows.json at
+  // build time, and the show list expires a row every few days, so the page
+  // genuinely changes on a weekly cadence without anybody editing it.
+  //
+  // UNCONDITIONAL, unlike the two lines below. It has no empty state to be
+  // honest about: with no shows at all it still holds the shops, the plate and
+  // the routes, so there is no version of it that is a thin page pretending
+  // otherwise.
+  { loc: `${SITE}/rochester.html`, freq: "weekly", pri: "0.9" },
   { loc: `${SITE}/shops.html`, freq: "monthly", pri: "0.7" },
   // The Garbage Plate. HIGH priority and monthly, which is the pair the set
   // list and the release calendar get, because it is the same kind of page:

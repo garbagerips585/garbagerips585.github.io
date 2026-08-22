@@ -447,6 +447,33 @@ const style = `
 .up-none p + p{margin-top:var(--s3)}
 .up-none a{text-decoration:underline}
 
+/* THE MASCOT IS LEFT ALIGNED HERE AND CENTRED EVERYWHERE ELSE. ui.css sets
+   "margin:0 auto var(--s3)" on .empty-mascot because every other empty state on
+   the site is a centred block. This one is not: it is a dashed card of
+   left-aligned prose, and a centred picture over a left-aligned h2 reads as a
+   picture that missed its heading. Two-class selector, so it wins on
+   specificity without touching the shared rule. */
+.up-none .empty-mascot{margin:0 0 var(--s3)}
+
+/* AND HE ANSWERS A PRESS. The argument for why a press is legal where a hover
+   is not is written above PLATE_CSS in shared/format.mjs; the argument for
+   putting it on a mascot rather than only on the ornament is that this is the
+   one screen where a reader has arrived at a page with nothing on it, which is
+   the cheapest possible moment to hand them something to poke.
+
+   NO cursor:pointer AND NO href, deliberately: he moves, he goes back, and he
+   never pretends to be a control that failed.
+
+   SAFE AGAINST ui.css's ARMING RULE, checked rather than assumed. The
+   persistent opacity:0 in ".empty.is-armed .empty-mascot" needs an .empty
+   ancestor carrying .is-armed, written by app.js onto a state app.js itself
+   rendered. This box is .up-none, it is server rendered, and nothing on this
+   page calls landMascot, so there is no hidden state to be left stuck in. */
+.up-none .empty-mascot{transform-origin:50% 92%;
+  transition:transform .2s cubic-bezier(.2,.7,.3,1)}
+.up-none .empty-mascot:active{transform:scale(.94) rotate(-3deg);transition-duration:.09s}
+@media(prefers-reduced-motion:reduce){.up-none .empty-mascot:active{transform:none}}
+
 /* DESKTOP READING MEASURE. The caps above were written in em as if 1em were
    one character. It is not: Outfit runs 2.31 to 2.47 characters per em here,
    so 42 to 46em bought .up-lede 92 and .up-blurb 95 real characters a line at
@@ -483,6 +510,36 @@ const style = `
 // the page was built, and that is the same blank page arrived at a different
 // way. Links go to pages that are still true when this one has nothing.
 const emptyState = `      <div class="up-none" id="upNone"${sets.length || extras.length ? " hidden" : ""}>
+${/* THE ONE EMPTY STATE ON THIS SITE THAT HAD NO MASCOT IN IT, 22 August 2026.
+      What Trubbish means here, in one sentence: there is nothing in this one.
+      That is his whole documented job and this is the state he is for.
+
+      THIS IS THE GRAMMAR BEING APPLIED WHERE IT WAS MISSED, NOT EXTENDED.
+      shared/format.mjs now writes the mascot grammar down in one place; the
+      list of Trubbish's homes there is app.js's two grid states, a rip with no
+      hits, /404.html and /openings/chinese-pack.html. This box is the same
+      thing as all five and was built without one, which is exactly the note
+      build-search.mjs made about site search: the site had a state that
+      printed absence with nothing in it.
+
+      SAME MARKUP AS EVERY OTHER ONE, DELIBERATELY, so this reads as the site's
+      empty state rather than as a new invention: .empty-mascot is already in
+      ui.css, the 256px rendition is already the one every other placement
+      uses, and the alt is empty because the h2 under it says the same thing in
+      words. Nothing new goes into the render-blocking stylesheet.
+
+      IT COSTS NO IMAGE BYTES ON THE PAGE AS IT SHIPS TODAY. The box carries
+      hidden while either English array has anything in it, and both do, so the
+      element is display:none and a lazy image inside a display:none subtree is
+      never fetched. The markup is about 260 raw bytes and that is the whole
+      cost until the day the calendar actually empties.
+
+      THE FOOTER CREDIT IS UNCONDITIONAL AND THAT IS build-search.mjs's OWN
+      ARGUMENT. This box can be revealed at RUNTIME by the browser pass below,
+      for a reader who arrives after the last tracked release has come out, so
+      the picture is one that only some readers ever see. A credit that appears
+      only when that happens is a credit that is usually absent. */ ""}        <img class="empty-mascot" src="/assets/species/568.webp" alt=""
+             width="256" height="256" loading="lazy" decoding="async" onerror="this.remove()">
         <h2>Nothing on the calendar right now</h2>
         <p>Every release this page was tracking has come out. No English set after them has been
           named or dated, and this page does not print a set name nobody has announced, so there is
@@ -654,7 +711,14 @@ ${BAR}
 ${MENU}
 ${body}
 
-${footer(`Release dates checked ${longDate(doc.checked)}. Dates come from The Pokemon Company unless marked otherwise.`)}
+${/* THE POKEAPI LINE IS THE CONDITION OF THE MASCOT, not a nicety, and it is
+      unconditional for the reason build-search.mjs gives about its own: the
+      Trubbish in the up-none box is official artwork mirrored from the PokeAPI
+      sprite repository by scripts/sync-species-art.mjs, and this site's licence
+      for that imagery is that its source is named. The box is hidden today and
+      can be revealed at runtime by the countdown pass below, so a credit
+      printed only when it is visible would be a credit that is usually
+      absent. */ ""}${footer(`Release dates checked ${longDate(doc.checked)}. Dates come from The Pokemon Company unless marked otherwise. Pokemon artwork from pokeapi.co.`)}
 <script>
 (function () {
   // BELT AND BRACES ON THE COUNTDOWNS, the same idea as the date sweep at the

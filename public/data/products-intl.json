@@ -1,0 +1,174 @@
+{
+  "checked": "2026-08-22",
+  "source": "TCGplayer",
+  "sets": {
+    "ja-abyss-eye": {
+      "tcgSet": "M5: Abyss Eye",
+      "tcgLine": "Pokemon Japan",
+      "tcgSetCode": "M5",
+      "tcgReleased": "2026-05-22",
+      "checked": "2026-08-22",
+      "products": [
+        {
+          "kind": "Single Pack",
+          "blurb": "One pack",
+          "name": "Abyss Eye Booster Pack",
+          "productId": 695111,
+          "market": 2.95,
+          "low": 1.98,
+          "listings": 17,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/695111_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/695111_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/695111/abyss-eye-booster-pack"
+        }
+      ]
+    },
+    "ja-ninja-spinner": {
+      "tcgSet": "M4: Ninja Spinner",
+      "tcgLine": "Pokemon Japan",
+      "tcgSetCode": "m4",
+      "tcgReleased": "2026-03-13",
+      "checked": "2026-08-22",
+      "products": [
+        {
+          "kind": "Single Pack",
+          "blurb": "One pack",
+          "name": "Ninja Spinner Booster Pack",
+          "productId": 683776,
+          "market": 3.11,
+          "low": 1.99,
+          "listings": 22,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/683776_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/683776_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/683776/ninja-spinner-booster-pack"
+        }
+      ]
+    },
+    "ja-nihil-zero": {
+      "tcgSet": "M3: Nihil Zero",
+      "tcgLine": "Pokemon Japan",
+      "tcgSetCode": "M3",
+      "tcgReleased": "2026-01-23",
+      "checked": "2026-08-22",
+      "products": [
+        {
+          "kind": "Single Pack",
+          "blurb": "One pack",
+          "name": "Nihil Zero Booster Pack",
+          "productId": 674454,
+          "market": 2.24,
+          "low": 1.8,
+          "listings": 32,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/674454_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/674454_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/674454/nihil-zero-booster-pack"
+        }
+      ]
+    },
+    "ja-mega-brave": {
+      "tcgSet": "m1L: Mega Brave",
+      "tcgLine": "Pokemon Japan",
+      "tcgSetCode": "m1L",
+      "tcgReleased": "2025-08-01",
+      "checked": "2026-08-22",
+      "products": [
+        {
+          "kind": "Single Pack",
+          "blurb": "One pack",
+          "name": "Mega Brave Booster Pack",
+          "productId": 647498,
+          "market": 3.29,
+          "low": 2.25,
+          "listings": 21,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/647498_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/647498_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/647498/mega-brave-booster-pack"
+        }
+      ]
+    },
+    "ja-mega-symphonia": {
+      "tcgSet": "m1S: Mega Symphonia",
+      "tcgLine": "Pokemon Japan",
+      "tcgSetCode": "m1S",
+      "tcgReleased": "2025-08-01",
+      "checked": "2026-08-22",
+      "products": [
+        {
+          "kind": "Single Pack",
+          "blurb": "One pack",
+          "name": "Mega Symphonia Booster Pack",
+          "productId": 647499,
+          "market": 3.1,
+          "low": null,
+          "listings": 21,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/647499_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/647499_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/647499/mega-symphonia-booster-pack"
+        }
+      ]
+    },
+    "ja-stellar-miracle": {
+      "tcgSet": "SV7: Stellar Miracle",
+      "tcgLine": "Pokemon Japan",
+      "tcgSetCode": "SV7",
+      "tcgReleased": "2024-07-19",
+      "checked": "2026-08-22",
+      "products": [
+        {
+          "kind": "Single Pack",
+          "blurb": "One pack",
+          "name": "Stellar Miracle Booster Pack",
+          "productId": 565216,
+          "market": 3.63,
+          "low": 2,
+          "listings": 26,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/565216_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/565216_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/565216/stellar-miracle-booster-pack"
+        }
+      ]
+    },
+    "ja-cyber-judge": {
+      "tcgSet": "SV5M: Cyber Judge",
+      "tcgLine": "Pokemon Japan",
+      "tcgSetCode": "SV5M",
+      "tcgReleased": "2024-01-26",
+      "checked": "2026-08-22",
+      "products": [
+        {
+          "kind": "Single Pack",
+          "blurb": "One pack",
+          "name": "Cyber Judge Booster Pack",
+          "productId": 565223,
+          "market": 3.35,
+          "low": 2.32,
+          "listings": 12,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/565223_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/565223_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/565223/cyber-judge-booster-pack"
+        }
+      ]
+    },
+    "ja-violet-ex": {
+      "tcgSet": "SV1V: Violet ex",
+      "tcgLine": "Pokemon Japan",
+      "tcgSetCode": "SV1V",
+      "tcgReleased": "2023-01-20",
+      "checked": "2026-08-22",
+      "products": [
+        {
+          "kind": "Single Pack",
+          "blurb": "One pack",
+          "name": "Violet ex Booster Pack",
+          "productId": 565245,
+          "market": 3.31,
+          "low": 3,
+          "listings": 13,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/565245_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/565245_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/565245/violet-ex-booster-pack"
+        }
+      ]
+    }
+  }
+}

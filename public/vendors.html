@@ -25,7 +25,13 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=44c60e03">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Local vendors","item":"https://garbagerips585.github.io/vendors.html"}]}</script>
+<style>.loc-more{margin-top:var(--s5);padding-top:var(--s4);border-top:1px solid var(--hair)}
+.loc-more-h{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-soft);margin-bottom:var(--s2)}
+.loc-more a{display:inline-flex;align-items:center;min-height:44px;margin-right:var(--s4);
+  font:700 var(--t-sm)/1.2 var(--body);color:var(--sky-deep)}
+.loc-more a:hover,.loc-more a:focus-visible{text-decoration:underline}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Local scene","item":"https://garbagerips585.github.io/rochester.html"},{"@type":"ListItem","position":3,"name":"Local vendors","item":"https://garbagerips585.github.io/vendors.html"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Local vendors","itemListElement":[{"@type":"ListItem","position":1,"name":"RocPokéCon","url":"https://linktr.ee/rocpokecon"},{"@type":"ListItem","position":2,"name":"Toak Pulls","url":"https://toakpulls.com"}]}</script>
 </head>
 <body>
@@ -43,10 +49,10 @@
     <a class="bar-find" href="/search.html" aria-label="Search cards, sets, guides and rips"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg></a>
     <nav class="nav-links" aria-label="Primary">
       <a href="/videos.html">Rips</a>
+      <a href="/card-shows.html">Card shows</a>
       <a href="/cards.html">Card search</a>
       <a href="/sets/">Set guides</a>
       <a href="/start.html">Start here</a>
-      <a href="/card-shows.html">Card shows</a>
     </nav>
     <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -67,6 +73,28 @@
         <li><a href="/hall.html">Best pulls</a></li>
         <li><a href="/wanted.html">Most wanted</a></li>
         <li><a href="/luck.html">Rip results</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Rochester, NY<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/rochester.html">Local scene</a></li>
+        <li><a href="/card-shows.html">Card shows</a></li>
+        <li><a href="/shops.html">Card shops</a></li>
+        <li><a href="/vendors.html">Local vendors</a></li>
+        <li><a href="/creators.html">Local creators</a></li>
+        <li><a href="/garbage-plate.html">Garbage Plate</a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Just for fun<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
+        <li><a href="/lore.html">Pokemon lore</a></li>
+        <li><a href="/evolution.html">Evolution chart</a></li>
+        <li><a href="/eevee-evolutions.html">Eevee evolutions</a></li>
       </ul>
     </details>
     <details class="menu-g" open>
@@ -128,27 +156,6 @@
         <li><a href="/top-100-playable.html">Most played</a></li>
       </ul>
     </details>
-    <details class="menu-g" open>
-      <summary class="menu-h">Just for fun<span class="menu-x" aria-hidden="true"></span></summary>
-      <ul>
-        <li><a href="/games/">Games</a></li>
-        <li><a href="/video-games.html">Video games</a></li>
-        <li><a href="/lore.html">Pokemon lore</a></li>
-        <li><a href="/evolution.html">Evolution chart</a></li>
-        <li><a href="/eevee-evolutions.html">Eevee evolutions</a></li>
-      </ul>
-    </details>
-    <details class="menu-g" open>
-      <summary class="menu-h">Rochester, NY<span class="menu-x" aria-hidden="true"></span></summary>
-      <ul>
-        <li><a href="/card-shows.html">Card shows</a></li>
-        <li><a href="/shops.html">Card shops</a></li>
-        <li><a href="/vendors.html">Local vendors</a></li>
-        <li><a href="/creators.html">Local creators</a></li>
-        <li><a href="/garbage-plate.html">Garbage Plate</a></li>
-        <li><a href="/about.html">About</a></li>
-      </ul>
-    </details>
   </div>
   <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
     aria-label="Subscribe on YouTube to Garbage Rips 585. Opens YouTube.">Subscribe on YouTube</a>
@@ -165,7 +172,7 @@
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / Local vendors</p>
+    <p class="crumbs"><a href="/">Home</a> / <a href="/rochester.html">Local scene</a> / Local vendors</p>
     <ul class="loc-list">
       <li class="loc">
         <div class="loc-h">
@@ -197,10 +204,45 @@
       <p>Two vendors are on this page.
         That is what we can actually point you at today rather than what we would like the page to look like, and
         it stays that way until somebody real goes on it.</p>
-      <p style="margin-top:12px"><a class="btn btn-yt btn-sm" href="https://www.youtube.com/@GarbageRips585">Tell us who we are missing</a></p>
+      <p style="margin-top:12px"><a class="btn btn-yt btn-sm" href="#get-listed">Here is how to get on it</a></p>
     </div>
     <p class="price-note">Vendors are people who sell, usually at the shows on the card show calendar. For shops with a door and opening hours, see Card shops. Last updated August 13, 2026. No paid placements and no
       affiliate links on this page: everybody here is listed because they are worth your time.</p>
+    
+    <nav class="loc-more" aria-label="More local pages">
+      <p class="loc-more-h">More around Rochester</p>
+      <a href="/rochester.html">The whole local scene</a>
+      <a href="/card-shows.html">Card shows</a>
+      <a href="/shops.html">Card shops</a>
+      <a href="/creators.html">Local creators</a>
+      <a href="/garbage-plate.html">Garbage Plate</a>
+    </nav>
+  </div>
+</section>
+
+<section class="band tight" id="get-listed">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>How this list grows</p>
+    <h2>How to get on <span class="hl">this page</span></h2>
+    <p class="lede" style="max-width:44em">There is no form, no fee and no application. Tell us you exist and we
+      will look you up and put you on. This list is short because nobody has been asked, not because anybody was
+      turned down.</p>
+    <ul class="facts-list" style="max-width:44em">
+      <li><b>Send it however you like.</b> A message, a comment, a photo of your table at a show, whatever is easiest. It does not have to be you: if you buy from somebody good,
+        or you watch somebody local, send them instead.</li>
+      <li><b>Tell us these five things.</b> Your name as you want it printed. The town you work out of. What you carry: singles, sealed, graded, all of it. Which shows you are usually at. Every handle you want on the card, and your own site if you have one. That is exactly what a card on this page holds, so nothing gets lost between you telling us and
+        it going up.</li>
+      <li><b>We look before we list.</b> Every name here is a real seller and every handle here has been opened
+        and checked, because a wrong handle sends somebody to a stranger. That is also why the list grows slowly:
+        it moves at the speed of checking rather than the speed of asking.</li>
+      <li><b>It costs nothing and it buys nothing.</b> No paid placements and no affiliate links, on this page or
+        anywhere on this site. There is one editorial mark here, Bought from them, and it means Tim actually handed over money. It cannot be requested.</li>
+    </ul>
+    <p class="btn-row" style="margin-top:var(--s4)">
+      <a class="btn btn-sky btn-sm" href="https://www.instagram.com/garbagerips585/" rel="noopener" target="_blank"
+         aria-label="Message Garbage Rips 585 on Instagram, opens on instagram.com">Message us on Instagram</a>
+      <a class="btn btn-ghost btn-sm" href="/videos.html">Or comment on any rip</a>
+    </p>
   </div>
 </section>
 
@@ -215,6 +257,24 @@
         <a href="/hall.html">Best pulls</a>
         <a href="/wanted.html">Most wanted</a>
         <a href="/luck.html">Rip results</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Rochester, NY</p>
+        <a href="/rochester.html">Local scene</a>
+        <a href="/card-shows.html">Card shows</a>
+        <a href="/shops.html">Card shops</a>
+        <a href="/vendors.html">Local vendors</a>
+        <a href="/creators.html">Local creators</a>
+        <a href="/garbage-plate.html">Garbage Plate</a>
+        <a href="/about.html">About</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Just for fun</p>
+        <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
+        <a href="/lore.html">Pokemon lore</a>
+        <a href="/evolution.html">Evolution chart</a>
+        <a href="/eevee-evolutions.html">Eevee evolutions</a>
       </div>
       <div class="foot-col">
         <p class="foot-h">Cards</p>
@@ -264,23 +324,6 @@
         <a href="/tcg-pocket.html">TCG Pocket app</a>
         <a href="/decks.html">Deck builds</a>
         <a href="/top-100-playable.html">Most played</a>
-      </div>
-      <div class="foot-col">
-        <p class="foot-h">Just for fun</p>
-        <a href="/games/">Games</a>
-        <a href="/video-games.html">Video games</a>
-        <a href="/lore.html">Pokemon lore</a>
-        <a href="/evolution.html">Evolution chart</a>
-        <a href="/eevee-evolutions.html">Eevee evolutions</a>
-      </div>
-      <div class="foot-col">
-        <p class="foot-h">Rochester, NY</p>
-        <a href="/card-shows.html">Card shows</a>
-        <a href="/shops.html">Card shops</a>
-        <a href="/vendors.html">Local vendors</a>
-        <a href="/creators.html">Local creators</a>
-        <a href="/garbage-plate.html">Garbage Plate</a>
-        <a href="/about.html">About</a>
       </div>
     </nav>
     <!--FOOT_SUB:START-->

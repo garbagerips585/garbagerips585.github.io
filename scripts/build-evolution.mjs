@@ -172,7 +172,76 @@ const cardFor = (c) => {
   </article>`;
 };
 
-const cards = evolving.map(cardFor).join("\n");
+// ---------------------------------------------------------------------------
+// A GENERATION RULE BETWEEN THE BLOCKS, BECAUSE THE ONLY LANDMARK THIS PAGE
+// HAD WAS 293 IDENTICAL h3s.
+//
+// MEASURED BEFORE IT WAS ADDED, in headless Chrome at 390x844: the page is
+// 106,672px tall, which is 126 phone screens, and the heading outline is one
+// h1, three h2s at the top, then 293 `<h3>Xxxxx line</h3>` at 230 to 312px
+// apart, then the next h2 at y=100,772. So the gap between the last landmark
+// a scrolling reader passes and the next one is 98,188px, 116 screens, and it
+// is the largest such gap on the site by a factor of three.
+//
+// THE GROUPING IS ALREADY THERE AND IS SIMPLY NOT DRAWN. `evolving` is sorted
+// by national dex number of the first stage, which the note above says is
+// chosen so "the generation filter is only coherent if the page is already in
+// that order" and because "a reader scanning for a line they half remembered
+// is scanning by era". Both halves of that are true and both are invisible:
+// every chain already carries data-g, the chip row above already prints a
+// count per generation, and the blocks are already contiguous. Nothing here
+// computes a new fact. It labels a boundary the ordering had already made.
+//
+// IT IS `data-evintro` AND THAT IS THE WHOLE REASON THERE IS NO JS CHANGE.
+// The filter hides every `[data-evintro]` element the moment a search, a
+// generation or a method is active, which is the behaviour a divider wants
+// exactly: a full scroll gets era markers, and a filtered result is a
+// contiguous run of matches with nothing interleaved claiming to head a
+// section that is now three cards long. The alternative, teaching apply() to
+// count matches per generation and hide the empty headers, is more code for a
+// worse result. Do not give these a class the filter loop selects.
+//
+// grid-column:1/-1 IS NOT OPTIONAL. `.ev-list` is a flex column at 390 and a
+// two-column grid from 720 up, so without it a divider takes one cell and the
+// era label sits beside a Pokemon rather than above the block.
+//
+// NO PLATE AND NO MASCOT HERE, deliberately. plateRule()'s own header says ONE
+// PER PAGE, because "six of these down a long page is a pattern fill and stops
+// being charm about four screens in". Nine would be worse. This is a mono
+// label on a hairline, which is the landmark vocabulary the page already uses
+// for .ev-count.
+//
+// COSTS NOTHING ANYWHERE ELSE. Nine dividers of markup on ONE page, and the
+// three rules live in this file's own <style> block rather than in ui.css,
+// which is render blocking on the other 1,486 pages that never draw one.
+// Static markup with no image, so CLS is unmoved.
+// MOVED UP FROM BELOW THE CARD LOOP, and that is the only reason this sits
+// here rather than beside the chip row it also feeds. `genDivider` reads
+// genCounts, so a `const` declared after the loop that calls it is a temporal
+// dead zone throw at build time rather than a wrong page. The chip row further
+// down reads the same two values and is unchanged.
+const genCounts = {};
+for (const c of evolving) genCounts[c.root.gen || 0] = (genCounts[c.root.gen || 0] || 0) + 1;
+const gens = Object.keys(genCounts).map(Number).filter(Boolean).sort((a, b) => a - b);
+
+const genDivider = (g) =>
+  `      <p class="ev-gen" data-evintro id="gen-${g}"><b>Generation ${g}</b>` +
+  `<span>${genCounts[g]} line${genCounts[g] === 1 ? "" : "s"}</span></p>`;
+
+const cards = (() => {
+  const out = [];
+  let seen = null;
+  for (const c of evolving) {
+    const g = c.root.gen || 0;
+    // Only label a real generation. A chain whose root carries no gen (there
+    // are none today, and the `|| 0` above is why that is not an assumption)
+    // falls through and is rendered without inventing an era for it.
+    if (g && g !== seen) out.push(genDivider(g));
+    seen = g;
+    out.push(cardFor(c));
+  }
+  return out.join("\n");
+})();
 
 // The forks, listed at the top. These are the most searched and the hardest to
 // lay out, and a reader who came for one of them should not have to scroll 340
@@ -209,10 +278,6 @@ const stillList = still
   .join("");
 
 // ---------------------------------------------------------------------------
-const genCounts = {};
-for (const c of evolving) genCounts[c.root.gen || 0] = (genCounts[c.root.gen || 0] || 0) + 1;
-const gens = Object.keys(genCounts).map(Number).filter(Boolean).sort((a, b) => a - b);
-
 const methodCounts = {};
 for (const c of evolving) {
   const seen = new Set();
@@ -468,6 +533,32 @@ const style = `
 .ev-read p{font-size:var(--t-sm);line-height:1.55;max-width:46em}
 .ev-read p + p{margin-top:var(--s3)}
 .ev-list{display:flex;flex-direction:column;gap:var(--s4);margin-top:var(--s4)}
+/* THE ERA MARKER. See the note beside genDivider for why it exists and why it
+   carries data-evintro rather than a class the filter loop selects.
+   The label is OFF-WHITE and not an accent, which is CLAUDE.md's accent rule
+   read literally: teal is a route and this goes nowhere, pink is a mark and a
+   section heading is neither. The count beside it takes --ink-2, the same
+   relationship .ev-h and its "line" chip already have, so a reader meets one
+   pairing twice rather than two inventions. */
+/* max-width:none IS LOAD BEARING AND WAS FOUND BY MEASURING RATHER THAN BY
+   READING. This is a <p>, and the site caps prose paragraphs at --measure, so
+   at 1440 the marker came out 612px wide inside a 1,392px row whose own cards
+   are 690 -- a section rule NARROWER than the things it heads, which reads as
+   a rule that failed to reach rather than as a landmark. The site already has
+   the pattern this wants: the h1 on /about.html and /luck.html is a heading
+   with a hairline running the full width of the wrap beside it. This is that,
+   one level down. A reading measure is for reading; this is two words. */
+.ev-gen{display:flex;align-items:baseline;gap:var(--s3);margin:var(--s6) 0 var(--s2);
+  max-width:none;scroll-margin-top:96px}
+.ev-gen b{font:400 var(--t-m)/1.1 var(--display);white-space:nowrap}
+.ev-gen span{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-2);white-space:nowrap}
+/* The hairline runs out to the end of the row and is a pseudo element so the
+   marker is ONE element in the markup, the same trade PLATE_CSS argues for. */
+.ev-gen::after{content:"";flex:1;height:2px;border-radius:2px;background:var(--keyline);opacity:.5}
+/* FIRST ONE SITS TIGHT. The block above it is already separated by .ev-list's
+   own margin-top, so the full --s6 run would open a hole under the finder. */
+.ev-gen:first-child{margin-top:0}
 /* ONE CARD PER LINE. The border is what tells two adjacent chains apart on a
    phone, where they are both a vertical stack and would otherwise run together
    into one long column of boxes. */
@@ -617,6 +708,10 @@ const style = `
 @media(min-width:720px){
   .ev-list{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);align-items:start}
   .ev-branchy{grid-column:1 / -1}
+  /* THE ERA MARKER SPANS BOTH COLUMNS FOR THE SAME REASON THE FORKS DO. In one
+     cell it is a label sitting BESIDE a Pokemon rather than above a block, which
+     is worse than no marker: it reads as a card that failed to render. */
+  .ev-gen{grid-column:1 / -1}
 }
 /* DESKTOP READING MEASURE, and the class on the four loose paragraphs is why
    this needs saying. --measure is ui.css's own cap and lands at 85 to 87 real

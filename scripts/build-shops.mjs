@@ -50,6 +50,23 @@ function cleanUrl(raw) {
 const shopsDoc = JSON.parse(await readFile(join(ROOT, "data/shops.json"), "utf8"));
 const { shops } = shopsDoc;
 
+/* ONE NUMBER OUT OF ANOTHER PAGE'S FILE, AND IT IS READ RATHER THAN LINKED FOR
+   A REASON. The plate paragraph near the foot of this page used to say "eleven
+   places around here that serve one" as a typed literal, in the sentence that
+   sends the reader to the page holding the actual list. This is the only field
+   this builder wants out of that file, so it takes the length of the array and
+   nothing else: no shape assumption, no second copy of any restaurant, and if
+   the file ever disappears the number falls back to the word the sentence would
+   have used anyway rather than failing a page about shops over a page about
+   dinner. */
+let nPlatePlaces = "several";
+try {
+  nPlatePlaces = (JSON.parse(await readFile(join(ROOT, "data/garbage-plate.json"), "utf8")).places || []).length
+    || "several";
+} catch {
+  /* data/garbage-plate.json is hand written and belongs to build-garbage-plate.mjs. */
+}
+
 // The roads, the water and the city line, written by scripts/sync-shop-map.mjs
 // from the Overpass API and committed. NO NETWORK HAPPENS HERE and none may be
 // added: that script is not in build-all.mjs, same arrangement as sync-decks.mjs
@@ -616,19 +633,42 @@ const cards = shops
   })
   .join("\n");
 
-const schema = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  name: "Pokemon card shops in Rochester, NY",
-  description:
-    "Local card shops around Rochester, New York that Garbage Rips 585 buys from.",
-  itemListElement: shops.map((s, i) => ({
-    "@type": "ListItem",
-    position: i + 1,
-    name: s.name,
-    url: cleanUrl(s.url),
-  })),
-};
+/* TWO BLOCKS NOW, AND THE SECOND ONE IS THE OMISSION. This page emitted an
+   ItemList and no BreadcrumbList at all, so it was the only one of the five
+   local pages with no position in the site at all: not a top-level subject, not
+   under anything, just a list floating loose. /card-shows.html, /vendors.html
+   and /creators.html all carried one. The hub page it now sits under is
+   /rochester.html, and the visible crumb added to the body below says the same
+   three, because a breadcrumb that disagrees with its own markup is worse than
+   having neither.
+
+   AN ARRAY, SO THE <script> BELOW EMITS BOTH. It was a bare object and the head
+   JSON.stringify's it directly, which is why adding a second type here without
+   changing that line would have silently replaced the shop list. */
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" },
+      { "@type": "ListItem", position: 2, name: "Local scene", item: SITE + "/rochester.html" },
+      { "@type": "ListItem", position: 3, name: "Card shops" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Pokemon card shops in Rochester, NY",
+    description:
+      "Local card shops around Rochester, New York that Garbage Rips 585 buys from.",
+    itemListElement: shops.map((s, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: s.name,
+      url: cleanUrl(s.url),
+    })),
+  },
+];
 
 // COMMENTS OUT OF THE SHIPPED PAGE, ARGUMENT KEPT IN THIS FILE. Same regex and
 // the same trade as build-css.mjs makes for ui.css and miniCSS makes in seven
@@ -846,6 +886,13 @@ const body = `
 <main id="main" class="shops">
   <div class="wrap">
     <div class="brk"><h1>Card shops and <span class="hl">where to play</span></h1><span class="ln"></span></div>
+    ${/* THE CRUMB THIS PAGE NEVER HAD. Every other page in the local section
+          prints one and this one dropped the reader in with no way back up
+          except the logo. .crumbs is a ui.css class and costs nothing here; it
+          sits under the h1 rather than above it because this page's h1 is a
+          .brk rule-and-heading unit and splitting it would leave the rule
+          hanging over a line of mono type. */ ""}
+    <p class="crumbs"><a href="/">Home</a> / <a href="/rochester.html">Local scene</a> / Card shops</p>
     <p class="shops-lede">Where I actually buy, and where you can sit down and play. Real shops around
       Rochester, New York, run by people who know the hobby. Around here the counter you buy from and the
       table you play at are usually the same building, so both are on one page. Buy local when you can:
@@ -888,13 +935,21 @@ ${/* THE ONE ORNAMENT ON THIS PAGE, AND THIS IS THE PAGE THE PLATE WAS DRAWN
           POINTED NOWHERE. There is a whole page about the dish now, this page is
           the one whose reader is already out driving around Rochester, and the
           mark itself is the natural handle for the link. */ ""}
+    ${/* "eleven places" WAS TYPED, ON A SITE WHERE THAT IS THE ONE THING A
+          SENTENCE MAY NOT DO. It is correct today and it is correct only because
+          nobody has opened a twelfth: the moment a place goes into
+          data/garbage-plate.json this page would have contradicted the page it
+          is linking to, in the same sentence that sends the reader there. It is
+          counted out of that file now, exactly as /rochester.html counts it, so
+          the two pages cannot disagree. */ ""}
     <p class="shops-lede">Making a day of it? A plate is the other thing this city is known for,
       and <a href="/garbage-plate.html">the Garbage Plate page</a> has the sourced history, a
-      diagram of what is actually on one, and eleven places around here that serve one.</p>
+      diagram of what is actually on one, and ${nPlatePlaces} places around here that serve one.</p>
     <p class="shops-lede">Not everyone selling cards around here has a storefront.
       <a href="/vendors.html">Local vendors</a> are the breakers and sellers we buy from without one, and
       <a href="/creators.html">local creators</a> is who else is filming Pokemon in Rochester, Buffalo and
-      Syracuse.</p>
+      Syracuse. <a href="/rochester.html">Everything local in one place</a> is the short version of all of it,
+      with the shows, the shops and the plate counted.</p>
     <p class="shops-lede">Addresses, phone numbers and opening hours were last checked on
       ${esc(longDate(shopsDoc.updated) || "an unrecorded date")}. Shops move and change their hours, so call ahead if you are
       making a trip of it.</p>

@@ -2327,6 +2327,33 @@ about the picture.
 - All but one video is vertical. The exception is `kj7532tb0_I`. Counts are
   deliberately not written here: they were, and they went stale. Run
   `node scripts/build-untagged.mjs` for the current ones.
+- **A rip rail differentiates by what was OPENED, never by what came out.**
+  The obvious idea — a hit / no-hit mark on each tile — was measured and
+  rejected, and the numbers are in `build-pages.mjs` above `related` so it is
+  not re-proposed. Three reasons, any one of them fatal. It fails the mark rule
+  ("false on most pages"): on the box rail the mark is **true on 54.5% of
+  1,190 tiles**, and half a wall of badges is still a wall. It is the
+  poster-frame decision taken back — `ogCard` exists precisely because sharing
+  a rip used to show the hit before anyone opened it, and stamping the outcome
+  on the control whose job is to get the rip opened is the same mistake one
+  notch quieter. And Trubbish's word is already spent on that page: the
+  `.nohits` band a few hundred lines below says it once at 180px, so three
+  20px repeats say it again about other people's rips.
+- **The rails round-robin by product kind, and the round robin is the fix.**
+  `related` was a flat newest-first `slice(0, 6)`, so **333 of 1,306 set-rail
+  tiles (25.5%) repeated a video the box rail above had already shown**, and on
+  25 pages the lower band was a complete copy of the upper one. Now 14 of 1,306
+  (1.1%), 4 pages. Distinct product kinds per set rail 1.66 to 4.64. The box
+  rail is deliberately left alone at 100% one image, because there the picture
+  is TRUE: six packs out of one box are six identical packs.
+- **`/videos.html` has the same look and it is NOT the same defect.** 48 tiles,
+  6 artworks, 36 of them two. But it is a chronological library and re-sorting
+  it by product would falsify "Newest first". What is actually redundant there
+  is the caption: `CHAOS RISING • 611 VIEWS`, where **48 of 48 tiles already
+  carry that set name in the h3 above it and on the picture** -- one fact three
+  times, while what was opened is only implicit. Swap the set name for the
+  product kind in `makeCard`. Leave `.pack-hint` alone; it is identical on all
+  48 by design, because it is the affordance and not a differentiator.
 
 ## Current state
 Homepage order: nav, THIS WEEK'S DROPS, Greatest Hits (the Hall of Fame card,
@@ -2486,6 +2513,51 @@ WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
 - The Hall of Fame card keeps its text when the player mounts: the handler
   swaps only the art box, because replacing the whole card lost the title, the
   set and the view count.
+
+  **AND THE TEARDOWN HALF OF THAT WAS BROKEN FROM THE DAY IT WAS WRITTEN, FIXED
+  22 AUGUST 2026.** Tim: "if you click and watch any of the videos other than
+  the hall of fame video then the hall of fame video disappears and you cant see
+  it anymore". The `.hofx` branch of `playInTile` builds the playing state by
+  MOVING the anchor's children into a new `<div class="hofx is-playing">` shell
+  (`while (a.firstChild) shell.appendChild(a.firstChild)`), so **the original
+  `<a class="hofx">` is empty from that moment on**, and its teardown put that
+  empty anchor back. The single-live-embed registry (`open`/`live` at the foot
+  of packplayer.js) fires that teardown the instant ANY other tile mounts a
+  player, so the trophy came back as a blank stub: 304.2x660.3 to 304.2x44 at
+  390, 3 children to 0, 113 characters of text to 0, and the whole Greatest Hits
+  band 788.3px to 172. Tapping the stub then NAVIGATED, because an empty anchor
+  contains neither an `<img>` nor a `.pack` and `onDocClick`'s artwork test
+  rejects it, so the play-in-place handler declined the click it was written for.
+
+  **THE ORDER IS THE DIAGNOSIS AND IT IS NOT THE ONE THE REPORT DESCRIBES.** It
+  needs the trophy to have been played FIRST. Driven over CDP with real
+  dispatched input at 390x844 DPR 3, 768x1024 DPR 2 and 1440x900 DPR 2, both
+  motion modes, a fresh browser profile per run: HOF then another tile
+  reproduces at ALL THREE widths, by pointer and by keyboard alike, and playing
+  another tile WITHOUT having played the trophy never reproduces, nor does
+  playing two non-trophy tiles, nor playing the trophy twice. It reads as a
+  phone bug because a phone is the width where the trophy and the Latest slide
+  are the ONLY two playable tiles on the page (the `max-width:544px` block hides
+  the shelf and slides 1 to 4), so the second tap is almost forced.
+
+  The fix is in the teardown, not in the shell: put `artBox` back over the
+  stage, move the children home, then swap. Same nodes throughout, so the LCP
+  image is neither refetched nor relaid out and the card is replayable
+  afterwards. Verified after: every band box, all 21 rip-tile boxes, their text
+  and `body.scrollHeight` are IDENTICAL before and after four plays plus a
+  `GRPack.closeAll()`, at all three widths, and **CLS is 0.0000 on load and
+  0.0000 after the interaction** at every one. packplayer.js is 11,110 to 11,231
+  bytes gzipped, +121, and it is on 345 pages, so **stage those pages with the
+  asset**: the `?v=` stamp moves on all of them.
+
+  **THE HARNESS LIED TWICE BEFORE IT TOLD THE TRUTH, and both are reusable.**
+  A naive `querySelectorAll(...)[0]` picks a tile inside the hidden shelf at 390
+  and the click lands on nothing, which reads exactly like "no bug at this
+  width"; filter to a VISIBLE box that actually contains artwork. And Chrome
+  reuses a `--user-data-dir`, so a profile left over from the before-run served
+  the OLD asset from cache at the SAME `?v=` url and half the after-run
+  "failed". Use a unique profile per run, disable the cache, and assert which
+  build is live by fetching the script from inside the page.
 - **ONE CONTROL ON EVERY VIDEO ARTWORK ON THE SITE, AND IT IS THE RIP PAGE'S
   OWN BANNER -- EXCEPT ON THE RIP PAGE RAILS, WHERE A DISC SURVIVED THE CHANGE
   AND THIS FILE DID NOT KNOW IT.** This entry read "every pack, everywhere" until

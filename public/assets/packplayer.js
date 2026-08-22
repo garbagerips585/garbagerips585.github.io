@@ -353,6 +353,8 @@
     // as a plain <div> with only that box replaced. It has to stop being a link:
     // leaving an <a> wrapped around a live player means every click on the
     // video navigates away from it.
+    // THE TEARDOWN PUTS THE CARD BACK, NOT JUST THE ANCHOR: building the shell
+    // EMPTIES <a>, so restoring it alone left an empty gold frame. See CLAUDE.md.
     var artBox = a.querySelector(".hofx-art");
     if (artBox) {
       var shell = document.createElement("div");
@@ -360,7 +362,10 @@
       while (a.firstChild) shell.appendChild(a.firstChild);
       shell.replaceChild(host, shell.querySelector(".hofx-art"));
       open(host, function () {
-        if (shell.parentNode) shell.parentNode.replaceChild(a, shell);
+        if (!shell.parentNode) return;
+        if (host.parentNode === shell) shell.replaceChild(artBox, host);
+        while (shell.firstChild) a.appendChild(shell.firstChild);
+        shell.parentNode.replaceChild(a, shell);
       });
       slot.replaceChild(shell, a);
       attach(host);

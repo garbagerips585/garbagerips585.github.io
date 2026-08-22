@@ -63,7 +63,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, shortDate, moneyExact, imgDims, productSrcsetAttr, plural, count, noWidowEmoji } from "../shared/format.mjs";
+import { esc, longDate, shortDate, moneyExact, imgDims, productSrcsetAttr, plural, count, noWidowEmoji, heapMark, HEAP_CSS } from "../shared/format.mjs";
 import { PRODUCT_TYPES, CARD_SETS } from "../shared/taxonomy.mjs";
 import { ripLabel } from "../shared/riplabel.mjs";
 
@@ -1451,6 +1451,29 @@ const STYLE = `
 @media(min-width:1500px){
   .op-grid{grid-template-columns:repeat(4,1fr)}
 }
+
+/* The heap mark that closes the index grid. The rule and the whole argument for
+   it are above heapMark() in shared/format.mjs; this is only the interpolation,
+   for the same reason PLATE_CSS is interpolated rather than living in ui.css. */
+${HEAP_CSS}
+
+/* THE TRUBBISH ALREADY ON THIS FAMILY GETS THE SAME PRESS RESPONSE, so the two
+   mascots on these fourteen pages behave as one hand rather than as one that
+   answers and one that does not. .empty-mascot's box, drop shadow and centring
+   all still come from ui.css and nothing here touches them: this adds a
+   transform on a state change and nothing else.
+
+   SCOPED TO .empty-mascot ON THIS PAGE FAMILY ONLY because ui.css is off the
+   table and a page-level rule cannot reach the other four Trubbishes anyway.
+
+   SAFE AGAINST THE ARMING RULE IN ui.css, checked rather than assumed.
+   ".empty.is-armed .empty-mascot" sets a persistent opacity:0 and its own
+   transition, and it is armed by app.js only on a state app.js itself wrote.
+   The Trubbish here is SERVER RENDERED into the document, exactly like the one
+   on /404.html, so it is never armed and there is no opacity to fight over. */
+.empty-mascot{transform-origin:50% 92%;transition:transform .2s cubic-bezier(.2,.7,.3,1)}
+.empty-mascot:active{transform:scale(.94) rotate(-3deg);transition-duration:.09s}
+@media(prefers-reduced-motion:reduce){.empty-mascot:active{transform:none}}
 `;
 
 const head = (title, desc, path, extraLd = null) => `<!DOCTYPE html>
@@ -1492,10 +1515,29 @@ ${MENU}
 // Set logos are The Pokemon Company's, product photography is TCGplayer's, and
 // both are here to identify a thing this site is writing about rather than to
 // sell it. Nothing on this site is for sale.
-const tail = `</main>
+//
+// THE POKEAPI LINE IS NEW AND IT WAS ALREADY OWED, 22 August 2026. This family
+// has drawn a species sprite since the Trubbish empty state was added: the
+// mascot on /openings/chinese-pack.html is official artwork mirrored from the
+// PokeAPI sprite repository by scripts/sync-species-art.mjs, and the licence
+// this site holds for that imagery is that its source is named. /lore.html,
+// /evolution.html, /search.html and all 1,026 Pokemon pages carry the line;
+// these did not, because the footer was written before the mascot arrived and
+// nobody re-read it. The Garbodor added to the index today would have been a
+// second uncredited sprite rather than the first.
+//
+// PER PAGE RATHER THAN BLANKET, which is the one place this differs from
+// build-search.mjs. That file argues for an unconditional line because its
+// mascot is CLIENT rendered and appears only when a search fails, so a
+// conditional credit would usually be absent. Both sprites here are SERVER
+// rendered, so the build knows exactly which of the fourteen pages draw one:
+// the index always does, and a product page does when it is pictureless. The
+// other twelve are not charged for a credit to a picture they never show.
+const tail = (art = false) => `</main>
 ${footer(
   "Set logos are The Pokemon Company's. Product photos are TCGplayer's. Both are used to identify " +
-    "the sets and the products written about here."
+    "the sets and the products written about here." +
+    (art ? " Pokemon artwork from pokeapi.co." : "")
 )}
 ${APP_JS}
 </body>
@@ -1691,7 +1733,7 @@ ${e.vids
     </div>
   </section>
 ` +
-    tail;
+    tail(pictureless);
 
   await writeFile(join(OUT, `${e.id}.html`), page);
 }
@@ -1777,6 +1819,30 @@ ${entries
   )
   .join("\n")}
       </div>
+${/* THE HEAP MARK, AND THIS IS THE SITE'S FIRST GARBODOR THAT IS NOT A FAILURE
+      STATE. What he means here, in one sentence: that is every kind of sealed
+      product there is to open, and you have just been shown all of them.
+
+      HE PASSES THE ONE CONDITION heapMark IMPOSES, which is that he may only
+      restate a completeness claim the page already makes in its own copy and
+      its own numbers. The h1 twelve lines above reads "Every kind of sealed
+      product" and the lede ends "13 kinds, 319 openings, 358 packs counted",
+      both of them counted off the same entries array this grid was built from.
+      The mark adds no claim: it repeats the lede's own count, from the same
+      variable, so the two cannot drift apart the day a fourteenth kind is
+      tagged. That is why the line is count(entries.length) and not a literal.
+
+      HERE AND NOT AT THE END OF main, which is where the first draft put him
+      and where he was wrong. main ends at y=5,724 on this page and the footer
+      starts at 5,724, so a mark at the end of main lands about 200px above the
+      footer's own drawn medallion and the "Grab a fork. Let's rip." sign-off:
+      two closers in one screen, and the weaker one first. He belongs where the
+      thing he is closing actually stops, which is the last card of the grid.
+
+      THE PARAGRAPH UNDER HIM IS A SOURCE NOTE ABOUT THE COUNTS RATHER THAN
+      MORE LIST, so he is not splitting a run in half. */ ""}      ${heapMark(
+        `That is all ${count(entries.length, "kind")}.`
+      )}
       <p class="op-note" style="margin-top:var(--s5)">Pack counts are what we counted in our own videos, not a
         figure off a box. Where a product's contents are not in our data, the page says so rather than guess.
         The counts printed on the products themselves, biggest box to smallest blister with a source on each,
@@ -1839,7 +1905,7 @@ ${kindRips
 `
     : ""
 }` +
-  tail;
+  tail(true);
 
 await writeFile(join(OUT, "index.html"), idx);
 
