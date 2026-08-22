@@ -33,6 +33,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE, robots, LIVE, DOMAIN } from "../shared/site.mjs";
+import { localDay } from "../shared/today.mjs";
 import { priceNote, priceFooter, priceRead, chaseByPrice } from "../shared/card-prices.mjs";
 // SUBSCRIBE is imported rather than retyped. The channel URL and its
 // ?sub_confirmation=1 were hard coded here as a literal, which is one place for
@@ -44,7 +45,10 @@ import { raritiesIn, rarityChip, RARITY_CSS } from "../shared/rarity.mjs";
 import { ripPath } from "../shared/paths.mjs";
 import { loadGradedPrices } from "../shared/graded-price.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
-import { pickIntlPrinting, norm } from "../shared/intl-printing.mjs";
+import { norm } from "../shared/intl-printing.mjs";
+// THE RULE IS intl-printing.mjs AND IT IS UNCHANGED. This asks it in the rip
+// log's own vocabulary and hands back the guide's own row; see that file.
+import { pickIntlPrintingJp } from "../shared/intl-vocab.mjs";
 // THE CORPUS THIS FILE WAS NAMED AS NOT ASKING, AND THE PANEL A SLOT WITH NO
 // SCAN RENDERS. build-hall.mjs held corpusScan privately and its own header
 // said "build-pages.mjs has the identical gap on the identical rows and would
@@ -458,6 +462,11 @@ const intlChecklist = (setId) => {
       n: c.localId,
       name: c.en || c.native,
       rarity: c.rarity || null,
+      // THE SAME CARD'S TIER IN THE WORDS ON THE JAPANESE WRAPPER, WHICH IS THE
+      // VOCABULARY data/hits.json IS WRITTEN IN. Asked with, never printed:
+      // `rarity` above is what this page shows and what corpusScan below
+      // cross-checks against the printings corpus. See shared/intl-vocab.mjs.
+      rarityJp: c.rarityJp || null,
       img: base && !NO_SCAN.has(base) ? base : null,
       price: null,
       // BOTH NAMES SURVIVE THE FLATTENING NOW, AND ONLY corpusScan READS THEM.
@@ -585,7 +594,7 @@ async function resolveHits(vid) {
     // pickIntlPrinting never reaches `same[0]`; see its own comment for the
     // whole argument and for why Goldeen still gets no number.
     const m = intl
-      ? pickIntlPrinting(same, want)
+      ? pickIntlPrintingJp(same, want)
       : (want && same.find((c) => norm(c.rarity) === want)) ||
         (want && same.find((c) => norm(c.rarity).includes(want.slice(0, 8)))) ||
         same[0] || null;
@@ -2411,4 +2420,42 @@ Wrote public/sitemap.xml with ${urls.length} urls
     console.log(`  ${unshowable.length} did not, and render as text in "The hit" panel instead:`);
     for (const s of unshowable) console.log("    " + s);
   }
+
+  // AND THE SAME LIST GOES TO THE WORKBOOK, so the highlighting cannot rot.
+  //
+  // Tim reviews the sheet by row, and the rows worth reviewing are exactly the
+  // ones this build could not resolve. Handing him a list typed out by hand
+  // would be right for a day and wrong the moment a cell changes; writing it
+  // here means the workbook highlights whatever is ACTUALLY unresolved on the
+  // run that built it. scripts/build-sheet.py reads this and tints those rows.
+  //
+  // Keyed by video id rather than row number, because a row number is a fact
+  // about one export and the id is a fact about the video.
+  const review = {};
+  for (const s of unshowable) {
+    const m = /^([\w-]+): (.*)$/.exec(s);
+    if (!m) continue;
+    (review[m[1]] ||= []).push(m[2].replace(/\s+/g, " ").trim());
+  }
+  await writeFile(
+    join(ROOT, "data/sheet-review.json"),
+    JSON.stringify(
+      {
+        _readme: [
+          "Videos whose logged hit card did not resolve to a printing on the last",
+          "build, and why. WRITTEN BY scripts/build-pages.mjs, READ BY",
+          "scripts/build-sheet.py, which tints those rows so Tim can find them.",
+          "",
+          "Do not hand-edit: it is regenerated every build. If a row is here and",
+          "the cell looks right, the fault is more likely a vocabulary the site",
+          "does not hold yet than a typo -- check the reason before retyping.",
+        ],
+        built: localDay(),
+        videos: review,
+      },
+      null,
+      2,
+    ) + "\n",
+  );
+  console.log(`  wrote data/sheet-review.json (${Object.keys(review).length} videos to review)`);
 }

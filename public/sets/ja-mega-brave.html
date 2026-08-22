@@ -63,6 +63,12 @@ border-radius:3px;padding:3px 5px}
 .chip-rk{display:inline-flex;align-items:center;
 flex:0 1 auto;min-width:0;white-space:normal;
 height:auto;min-height:44px;padding-block:6px}
+.is-none.noscan,.chof-noart.noscan{display:flex;flex-direction:column;
+align-items:center;justify-content:center;gap:6px;padding:8%;box-sizing:border-box;
+background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8px 16px)}
+.noscan .noscan-s{aspect-ratio:auto;object-fit:contain;background:none;opacity:.92}
+.noscan .noscan-t{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;text-align:center}
 .pk-band{display:flex;gap:var(--s5);align-items:flex-start;flex-wrap:wrap;margin-top:var(--s4)}
 .pk-shot{flex:0 0 auto;display:flex;align-items:center;justify-content:center;
 width:128px;height:236px;border-radius:var(--r);background-color:var(--paper);
@@ -918,14 +924,28 @@ text-transform:uppercase;letter-spacing:.04em}
     <h2>What we have <span class="hl">hit</span> from this set</h2>
     <p class="lede" style="max-width:38em">1 card out of our own packs.
       It is in a video you can watch.</p>
-    
-    <ul class="mine-list">
-      <li><b>Spearow</b> <span class="mine-rk"><span class="rk rk-jp" title="Art Rare (AR, Japanese and Korean sets)">AR</span>Art Rare</span>
-        <a href="/rip/japanese-mega-brave-packs-do-these-hit-K5RKQlNhvl8.html">Japanese Mega Brave Packs 🇯🇵💥 | Do These Hit?! &rarr;</a></li>
+    <ul class="mine-grid">
+      <li class="mine">
+        <div class="mine-img is-none noscan" aria-hidden="true"><span class="noscan-t">No scan</span></div>
+        <p class="mine-n">Spearow</p>
+        
+        // THE JAPANESE WORD WINS ON A ROW THAT HAS ONE, and rarityJp is the field
+        // that carries it. Pinning these six rows moved them onto the shared
+        // precedence, which prints TCGdex's anglicised tier -- so a card that read
+        // "Art Rare" before, matching the letters printed on the wrapper and on the
+        // card itself, started reading "Illustration Rare". The rip log is written in
+        // the wrapper's vocabulary because that is what Tim reads off the pack, and a
+        // guide that renames his tier is the guide disagreeing with the card in his
+        // hand. rarityJp is additive and only exists where sync-intl-guides.mjs
+        // stamped it, so this cannot reach a row that never had a Japanese word.
+        <p class="mine-r">Art Rare &bull; #074</p>
+        <a class="mine-w" href="/rip/japanese-mega-brave-packs-do-these-hit-K5RKQlNhvl8.html">Watch the rip &rarr;</a>
+      </li>
     </ul>
     
     
-    <p class="mine-note">That one came out of the rip log as written, with no card number: the Japanese rarity ladder is deliberately not mapped onto the English one, so where a name is printed more than once in a set nothing here can say which printing it was. We do not price non-English printings anywhere on this site, so these are shown rather than valued.</p>
+    
+    <p class="mine-note">We do not price non-English printings anywhere on this site, so these are shown rather than valued.</p>
   </div>
 </section>
 

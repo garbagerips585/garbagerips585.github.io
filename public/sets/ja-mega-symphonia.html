@@ -862,6 +862,15 @@ text-transform:uppercase;letter-spacing:.04em}
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M1S/018/low.avif"><img class="mine-img" src="https://assets.tcgdex.net/ja/M/M1S/018/low.webp" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
         <p class="mine-n">Mega Abomasnow ex</p>
         
+        // THE JAPANESE WORD WINS ON A ROW THAT HAS ONE, and rarityJp is the field
+        // that carries it. Pinning these six rows moved them onto the shared
+        // precedence, which prints TCGdex's anglicised tier -- so a card that read
+        // "Art Rare" before, matching the letters printed on the wrapper and on the
+        // card itself, started reading "Illustration Rare". The rip log is written in
+        // the wrapper's vocabulary because that is what Tim reads off the pack, and a
+        // guide that renames his tier is the guide disagreeing with the card in his
+        // hand. rarityJp is additive and only exists where sync-intl-guides.mjs
+        // stamped it, so this cannot reach a row that never had a Japanese word.
         <p class="mine-r">Double Rare &bull; #018</p>
         <a class="mine-w" href="/rip/do-mega-symphonia-packs-actually-hit-auKzs0g2LL8.html">Watch the rip &rarr;</a>
       </li>

@@ -514,19 +514,54 @@ const speciesKey = (s) =>
  * **This is not the only guide with the gap** -- all seven Japanese guides carry
  * TCGdex's anglicised words against a rip log written in the wrapper's, which is
  * why 6 of the 13 intl hit rows that fail to resolve are "Art Rare" rows whose
- * only Art Rare printing TCGdex files as "Illustration rare". Widening this to
- * the guides that DO have a TCGdex checklist is a bigger change than un-stubbing
- * a page and is deliberately not made here.
+ * only Art Rare printing TCGdex files as "Illustration rare".
+ *
+ * ==========================================================================
+ * "Mega Ultra Rare" WAS THE PREDICTED LINE AND IT ARRIVED, 2026-08-22.
+ * ==========================================================================
+ *
+ * The comment under this array said the M-series sets would need one, and all
+ * FIVE of them do: exactly one card each, and it is the last card in the set.
+ * Read off the same numbering evidence as the rest of this ladder, five sets
+ * agreeing, secret block only:
+ *
+ *   M5  Abyss Eye       082-093 AR  094-111 SR  112-117 SAR  118-118 MUR
+ *   M4  Ninja Spinner   084-095 AR  096-113 SR  114-119 SAR  120-120 MUR
+ *   M3  Nihil Zero      081-092 AR  093-110 SR  111-116 SAR  117-117 MUR
+ *   m1L Mega Brave      064-075 AR  076-086 SR  087-091 SAR  092-092 MUR
+ *   m1S Mega Symphonia  064-075 AR  076-086 SR  087-091 SAR  092-092 MUR
+ *
+ * So AR < SR < SAR < Mega Ultra Rare is five sets telling us in their own
+ * numbering, exactly as Cyber Judge's 072/084/093/098 told us AR < SR < SAR <
+ * Ultra Rare. **THE ONE THING THE NUMBERING DOES NOT SETTLE is where Mega Ultra
+ * Rare sits against "Ultra Rare", because no set prints both**: SV5M ends in
+ * Ultra Rare and these five end in Mega Ultra Rare. It goes on top, and the
+ * reason is stated rather than assumed -- each is the last and best card of its
+ * own set, and the newer word is the newer generation's name for that slot. If
+ * a set ever prints both, that set's numbering settles it and this line changes.
+ *
+ * ==========================================================================
+ * WIDENING THIS LADDER ONTO THOSE FIVE GUIDES WAS CONSIDERED AND REFUSED.
+ * ==========================================================================
+ *
+ * This comment used to end by saying that giving the five guides that DO have a
+ * TCGdex checklist their TCGplayer words was "a bigger change than un-stubbing a
+ * page and is deliberately not made here". It was measured on 2026-08-22 and it
+ * is not made now either, because **it resolves FEWER of the six rows than the
+ * narrow fix does, and on two guides the checklist it would import is wrong.**
+ * See jpRarityWords below for what was done instead, and for the numbers.
  */
 const JP_RARITY_ORDER = [
   "Common", "Uncommon", "Rare", "Double Rare", "ACE Rare",
   "Art Rare", "Super Rare", "Special Art Rare", "Ultra Rare",
+  "Mega Ultra Rare",
 ];
 const JP_CHASE_MIN = JP_RARITY_ORDER.indexOf("ACE Rare");
 // Same shape and same reason as rarityRank: an unplaced tier stops the run
-// rather than being guessed at. The newer M-series sets say "Mega Ultra Rare"
-// where this one says "Ultra Rare", so this list WILL need a line the day a
-// second guide comes through here.
+// rather than being guessed at. EVERY Japanese word this repo writes down goes
+// through here, including the ones jpRarityWords stamps onto a guide whose
+// checklist is TCGdex's, so a tier nobody has placed fails the run even though
+// nothing ranks a chase grid by it.
 const jpRarityRank = (r, setId) => {
   if (r == null || r === "") return 0;
   const want = String(r).toLowerCase();
@@ -675,6 +710,241 @@ async function tcgChecklist(id, guide, official, setNative) {
   };
 }
 
+// ============================================================================
+// THE SAME VOCABULARY GAP ON A GUIDE THAT ALREADY HAS A CHECKLIST
+// ============================================================================
+//
+// tcgChecklist above fires ONLY where TCGdex returns nothing, which is why it
+// was safe: there was no checklist to overwrite. Six intl hit rows fail for the
+// same vocabulary reason on five guides that DO have one, and this is the
+// narrow answer to those six.
+//
+//   ja-abyss-eye      Goldeen   "Art Rare"  012 Common,   084 "Illustration rare"
+//   ja-abyss-eye      Manectric "Art Rare"  023 Uncommon, 086 "Illustration rare"
+//   ja-nihil-zero     Raticate  "Art Rare"  060 Uncommon, 092 "Illustration rare"
+//   ja-nihil-zero     Aurorus   "Art Rare"  023 Uncommon, 084 "Illustration rare"
+//   ja-mega-brave     Spearow   "Art Rare"  052 Common,   074 "Illustration rare"
+//   ja-ninja-spinner  Frogadier "Art Rare"  021 Common,   087 "Illustration rare"
+//
+// ---------------------------------------------------------------------------
+// WHY THE WORDS GO INTO THE QUESTION AND NOT ONTO THE PAGE. MEASURED, NOT FELT.
+// ---------------------------------------------------------------------------
+//
+// The obvious move is the wide one: let tcgChecklist run on a guide that
+// already has a TCGdex checklist and take TCGplayer's list instead, words and
+// all, exactly as ja-cyber-judge does. It was measured on 2026-08-22 against
+// all seven pinned Japanese guides and it is the WORSE fix on every axis.
+//
+// **IT RESOLVES FOUR OF THE SIX, NOT SIX.** Run honestly, with the seven axes
+// left as strict as they are, ja-ninja-spinner and ja-mega-brave are REFUSED,
+// so Frogadier and Spearow stay exactly as they are today.
+//
+// **AND THEY ARE REFUSED FOR A GOOD REASON: TCGPLAYER'S JAPANESE CATALOGUE IS
+// WRONG ON BOTH OF THEM.** This is the part worth keeping, whatever anybody
+// does next:
+//
+//   M4: Ninja Spinner   #044 Phanpy is MISSING; #032 Deoxys appears TWICE; and
+//                       #037 Meowstic is stamped 037/080, which is M3's
+//                       denominator on an M4 card.
+//   m1L: Mega Brave     carries a foreign row, "Mew ex - 002/043", numbered
+//                       151/165, filed under m1L by TCGplayer.
+//
+// **M4 RETURNS 120 ROWS AGAINST TCGDEX'S 120 CARDS**, because the missing card
+// and the duplicate cancel each other out exactly. That is this file's own
+// "a count proves nothing" happening again on a new set, and a wide fix that
+// trusted the total would have published a Ninja Spinner guide with no Phanpy
+// on it and two Deoxys at #32.
+//
+// **WHAT THE THREE SURVIVING GUIDES WOULD HAVE LOST IS NOT ONLY WORDS.**
+// Counted per guide rather than assumed:
+//
+//                        chase tiles swapped   rows renamed   illustrators lost
+//   ja-abyss-eye              5 of 12            24 of 118        116 of 118
+//   ja-nihil-zero             5 of 12            26 of 117        114 of 117
+//   ja-mega-symphonia         5 of 12            16 of 92          92 of 92
+//
+// All twelve tiles reorder on all three. The illustrator column is the one that
+// decided it: shared/intl-printing.mjs's own header names the illustrator join
+// as the repeatable, independent, by-hand confirmation that a chosen printing
+// is the right card, and TCGplayer publishes no illustrator, so the wide fix
+// pays for six hit rows by deleting the check that proves the six are right.
+// (It would also have GAINED English names -- 94 to 118, 91 to 117, 77 to 92 --
+// which is real and is the one argument on its side. It is not worth the rest.)
+//
+// **SO THE WORDS ARE USED TO ASK THE QUESTION AND NEVER TO ANSWER IT.** Nothing
+// this function writes is published as a rarity, ranked in a ladder, counted in
+// a histogram or shown in a chase grid. `rarity` stays TCGdex's on every card of
+// all five guides. The one new field, `rarityJp`, is read by exactly one thing:
+// the three builders that ask shared/intl-printing.mjs which printing a hit is.
+// See shared/intl-vocab.mjs, which is the only caller.
+//
+// **AND THAT IS NOT MERELY THE CAUTIOUS CHOICE, IT IS THE ONLY WORKING ONE.**
+// corpusScan in shared/card-scan.mjs cross-checks the chosen printing's rarity
+// against the printings corpus before it hands back a scan, and that corpus is
+// TCGdex's. Putting "Art Rare" on the row would have made every one of these
+// six resolve and then lose its picture on the rip page and the plaque, which
+// is a worse bug than the one being fixed and would have looked like a win.
+//
+// ---------------------------------------------------------------------------
+// WHAT IS CHECKED, AND WHY IT IS PER-ROW HERE AND WHOLE-SET UP THERE.
+// ---------------------------------------------------------------------------
+//
+// tcgChecklist refuses a whole set if one row is wrong, and its comment gives
+// the reason: it is building the checklist OUT OF the TCGplayer rows, joining
+// on collector number and nothing else, so a bad row is evidence the alignment
+// slipped rather than evidence about one card.
+//
+// **HERE THE ROW IS ALREADY IDENTIFIED BY AN INDEPENDENT CATALOGUE.** TCGdex
+// supplies the number, the name and the category; TCGplayer is being asked for
+// one field on a row we can already name. So a row can be checked against its
+// own counterpart instead of against an offset, and a disagreement is a fact
+// about that card rather than about the alignment. A misalignment cannot hide:
+// it would disagree on the species name almost everywhere, which is what the
+// coverage figure below is for.
+//
+// The set-identity axes are NOT relaxed. 1 to 4 hold exactly as above, and a
+// failure refuses the guide outright, because those say we fetched the right
+// set at all. Then every row must ALSO clear, on its own:
+//
+//   - its denominator equals TCGdex's cardCount.official  (this is axis 6 made
+//     per-row, and it is what catches Meowstic 037/080 and Mew ex 151/165)
+//   - its number has not already been taken  (the duplicate Deoxys)
+//   - TCGdex holds a card at that number
+//   - the two agree on category, and on species where it is a Pokemon
+//   - TCGdex already states a rarity for it, so this REPLACES a word rather
+//     than inventing one. That is what keeps ja-stellar-miracle's 36 unstated
+//     rows unstated and leaves pickIntlPrinting's unstated-survivor branch --
+//     the thing that resolves Crabominable, Meditite and Raboot -- untouched.
+//   - the word is on JP_RARITY_ORDER, so nothing unplaceable is ever stamped
+//
+// Measured on 2026-08-22, agreed rows over rows where BOTH catalogues state a
+// tier: abyss-eye 118/118, nihil-zero 117/117, mega-brave 92/92, mega-symphonia
+// 91/92, ninja-spinner 118/120, stellar-miracle 97/99, violet-ex 77/78.
+//
+// COVERAGE_MIN IS THE ALARM AND IT IS DELIBERATELY NOT 100%. Four of the rows
+// above are the two catalogue faults; the rest are name disagreements, and both
+// kinds are reported by name on every run. A slipped alignment would not cost
+// two rows, it would cost nearly all of them.
+
+/** Below this share of the contestable rows agreeing, the guide is refused. */
+const JP_COVERAGE_MIN = 0.95;
+
+/**
+ * TCGplayer's Japanese rarity word for each card of a guide whose checklist is
+ * TCGdex's, keyed by collector number.
+ *
+ * @returns {Promise<{words:Map<string,string>, notTaken:string[], pairs:Map,
+ *                    agreed:number, contested:number}|{refused:string}>}
+ */
+async function jpRarityWords(id, guide, official, cards) {
+  const pin = TCG_SET_INTL[id];
+  if (!pin) return { refused: `no TCGplayer set pinned in shared/tcgplayer.mjs` };
+  if (official == null) return { refused: `no TCGdex cardCount.official to check a denominator against` };
+  if (!cards.length) return { refused: `no TCGdex checklist to put words on` };
+
+  const { rows: raw, total } = await tcgCards(id, pin.setName, pin.line);
+  if (!raw.length) return { refused: `TCGplayer lists no singles under "${pin.setName}"` };
+
+  // Axes 1-4, unchanged and un-relaxed: is this the set we meant to ask about.
+  const want = TCG_LINE_NAME[pin.line];
+  const mine = raw.filter((r) => r.setName === pin.setName && r.productLineName === want);
+  if (mine.length !== raw.length) {
+    return {
+      refused:
+        `${raw.length - mine.length} of ${raw.length} rows are not "${pin.setName}" on ${want}. ` +
+        `An unknown setName is DROPPED rather than rejected and answers with the whole line; ` +
+        `re-probe and re-pin in shared/tcgplayer.mjs rather than filtering the strays out.`,
+    };
+  }
+  if (total && mine.length !== total) {
+    return { refused: `the search said ${total} products and ${mine.length} came back` };
+  }
+  const codes = [...new Set(mine.map((r) => String(r.setCode || "").toLowerCase()))];
+  const rels = [...new Set(mine.map((r) => String(r.customAttributes?.releaseDate || "").slice(0, 10)))];
+  const tcgEnglish = pin.setName.includes(": ") ? pin.setName.slice(pin.setName.indexOf(": ") + 2) : pin.setName;
+  const fail = [];
+  if (codes.length !== 1 || codes[0] !== String(guide.tcgdexId || "").toLowerCase())
+    fail.push(`setCode ${JSON.stringify(codes)} against tcgdexId ${JSON.stringify(guide.tcgdexId)}`);
+  if (rels.length !== 1 || rels[0] !== (guide.released || null))
+    fail.push(`releaseDate ${JSON.stringify(rels)} against released ${JSON.stringify(guide.released)}`);
+  if (tcgEnglish !== guide.english)
+    fail.push(`set name ${JSON.stringify(tcgEnglish)} against english ${JSON.stringify(guide.english)}`);
+  if (fail.length) return { refused: fail.join("; ") };
+
+  // Then one row at a time, against its own counterpart.
+  const byNum = new Map(cards.map((c) => [String(Number(c.localId)), c]));
+  const words = new Map();
+  const notTaken = [];
+  const pairs = new Map();
+  // THE DENOMINATOR IS COUNTED ON OUR SIDE AND THAT IS THE WHOLE POINT OF IT.
+  // Counting only the rows that got far enough to be compared made the alarm
+  // toothless in the one case it exists for: a pull where EVERY row carried the
+  // wrong denominator would have been rejected row by row, left this count at
+  // zero, and passed with a coverage of 1.0 and no words at all. Asking instead
+  // how much of the checklist WE hold came back agreed cannot be gamed by the
+  // rows failing earlier, and it falls the moment an alignment slips.
+  const contested = cards.filter((c) => c.rarity).length;
+  for (const r of mine) {
+    const parts = String(r.customAttributes?.number || "").split("/");
+    const num = String(Number(parts[0]));
+    const label = tcgCardName(r) || r.productName;
+    if (!Number.isFinite(Number(parts[0]))) {
+      notTaken.push(`"${label}" has an unreadable number ${JSON.stringify(r.customAttributes?.number)}`);
+      continue;
+    }
+    if (Number(parts[1]) !== Number(official)) {
+      notTaken.push(
+        `#${num} "${label}" is numbered /${parts[1]} against the printed set /${String(official).padStart(3, "0")}`
+      );
+      continue;
+    }
+    if (words.has(num)) {
+      notTaken.push(`#${num} "${label}" is a SECOND TCGplayer row for that number`);
+      continue;
+    }
+    const c = byNum.get(num);
+    if (!c) {
+      notTaken.push(`#${num} "${label}" has no row on the TCGdex checklist`);
+      continue;
+    }
+    if (!c.rarity) continue; // TCGdex states no tier: left unstated, on purpose.
+    const cat = tcgCategory(r);
+    if (cat !== c.category) {
+      notTaken.push(`#${num} is a ${cat} on TCGplayer and a ${c.category} on TCGdex`);
+      continue;
+    }
+    if (cat === "Pokemon" && speciesKey(label) !== speciesKey(c.en || c.native)) {
+      notTaken.push(`#${num} is "${label}" on TCGplayer and "${c.en || c.native}" on TCGdex`);
+      continue;
+    }
+    if (!r.rarityName) {
+      notTaken.push(`#${num} "${label}" carries no TCGplayer rarity`);
+      continue;
+    }
+    // Every word gets a rung or the run fails. jpRarityRank reports it itself.
+    if (jpRarityRank(r.rarityName, id) >= JP_RARITY_ORDER.length) {
+      notTaken.push(`#${num} "${label}" is a "${r.rarityName}", which is not on JP_RARITY_ORDER`);
+      continue;
+    }
+    words.set(num, r.rarityName);
+    const k = r.rarityName;
+    if (!pairs.has(k)) pairs.set(k, new Map());
+    const m = pairs.get(k);
+    m.set(c.rarity, (m.get(c.rarity) || 0) + 1);
+  }
+  const cover = contested ? words.size / contested : 0;
+  if (cover < JP_COVERAGE_MIN) {
+    return {
+      refused:
+        `only ${words.size} of the ${contested} TCGdex rows that state a tier agreed ` +
+        `(${(cover * 100).toFixed(1)}%, ` +
+        `floor ${(JP_COVERAGE_MIN * 100).toFixed(0)}%), which is what a slipped alignment looks like:\n      ` +
+        notTaken.slice(0, 8).join("\n      "),
+    };
+  }
+  return { words, notTaken, pairs, agreed: words.size, contested };
+}
+
 // ------------------------------------------------------------------------ main
 
 const map = JSON.parse(await readFile(join(ROOT, "data/intl-rips.json"), "utf8"));
@@ -693,6 +963,13 @@ const emptySets = [];
 // emptySets line above still fails the run.
 const tcgRefused = [];
 const tcgFilled = [];
+// The narrow vocabulary pass, reported apart from both of the above for the
+// same reason: a refusal here changes nothing that is on the page today, it
+// only leaves a hit row unresolved exactly as it already is.
+const jpStamped = [];
+const jpRefused = [];
+const jpNotTaken = [];
+const jpOutliers = [];
 const guides = {};
 
 for (const [id, e] of entries) {
@@ -801,6 +1078,48 @@ for (const [id, e] of entries) {
       illustrator: full?.illustrator || null,
     };
   });
+
+  // THE NARROW VOCABULARY PASS. See the long note over jpRarityWords. It runs
+  // only on a guide whose checklist is TCGdex's -- a TCGplayer checklist is
+  // already in this vocabulary and `rarityVocab: "jp"` says so -- and it adds a
+  // field. It never touches `rarity`, so `rarities`, `notable` and every rung
+  // printed on the page below are computed from exactly the words they were
+  // computed from before this existed.
+  if (!tcgMeta && cards.length && TCG_SET_INTL[id]) {
+    const jp = await jpRarityWords(id, { ...e, released: meta?.releaseDate || null }, official, cards);
+    if (jp.refused) {
+      jpRefused.push(`${id}: ${jp.refused}`);
+    } else {
+      let stamped = 0;
+      for (const c of cards) {
+        const w = jp.words.get(String(Number(c.localId)));
+        if (w) {
+          c.rarityJp = w;
+          stamped++;
+        }
+      }
+      jpStamped.push(
+        `${id}: ${stamped} card(s) carry a TCGplayer Japanese word beside TCGdex's` +
+          ` (${jp.agreed} of the ${jp.contested} TCGdex rows that state a tier)`
+      );
+      for (const n of jp.notTaken) jpNotTaken.push(`${id}: ${n}`);
+      // A tier the two catalogues genuinely disagree about, as opposed to the
+      // same tier spelled two ways, shows up as a MINORITY pairing under a word
+      // whose other rows all agree. Nothing is refused for it -- it is somebody
+      // else's data, and the word taken is still the one on the wrapper -- but a
+      // silent one would be a wrong answer nobody could see.
+      for (const [jpWord, m] of jp.pairs) {
+        if (m.size < 2) continue;
+        const sorted = [...m].sort((a, b) => b[1] - a[1]);
+        for (const [tx, n] of sorted.slice(1)) {
+          jpOutliers.push(
+            `${id}: "${jpWord}" lines up with "${sorted[0][0]}" on ${sorted[0][1]} card(s)` +
+              ` but with "${tx}" on ${n}`
+          );
+        }
+      }
+    }
+  }
 
   const rarities = {};
   for (const c of cards) if (c.rarity) rarities[c.rarity] = (rarities[c.rarity] || 0) + 1;
@@ -941,6 +1260,28 @@ if (tcgFilled.length) {
 if (tcgRefused.length) {
   console.log(`\n${tcgRefused.length} guide(s) TCGdex left empty were NOT filled from TCGplayer:`);
   for (const t of tcgRefused) console.log("  " + t);
+}
+if (jpStamped.length) {
+  console.log(
+    `\n${jpStamped.length} guide(s) keep TCGdex's checklist and TCGdex's rarity words, and carry` +
+      ` TCGplayer's Japanese word alongside for the hit join only:`
+  );
+  for (const t of jpStamped) console.log("  " + t);
+}
+if (jpNotTaken.length) {
+  console.log(`\n${jpNotTaken.length} row(s) got NO Japanese word, each named so it can be checked:`);
+  for (const t of jpNotTaken) console.log("  " + t);
+}
+if (jpOutliers.length) {
+  console.log(
+    `\n${jpOutliers.length} tier(s) the two catalogues do not agree about. The wrapper's word is` +
+      ` still the one taken; this is here so the disagreement is not silent:`
+  );
+  for (const t of jpOutliers) console.log("  " + t);
+}
+if (jpRefused.length) {
+  console.log(`\n${jpRefused.length} guide(s) were refused a Japanese vocabulary:`);
+  for (const t of jpRefused) console.log("  " + t);
 }
 if (warnings.length) {
   console.log(`\n${warnings.length} thing(s) to look at:`);

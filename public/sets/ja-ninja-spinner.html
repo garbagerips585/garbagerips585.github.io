@@ -1030,14 +1030,28 @@ text-transform:uppercase;letter-spacing:.04em}
     <h2>What we have <span class="hl">hit</span> from this set</h2>
     <p class="lede" style="max-width:38em">1 card out of our own packs.
       It is in a video you can watch.</p>
-    
-    <ul class="mine-list">
-      <li><b>Frogadier</b> <span class="mine-rk"><span class="rk rk-jp" title="Art Rare (AR, Japanese and Korean sets)">AR</span>Art Rare</span>
-        <a href="/rip/japanese-ninja-spinner-packs-greninja-hunt-begins-_ccErXVzURs.html">Japanese Ninja Spinner Packs 🇯🇵🥷 | Greninja Hunt Begins &rarr;</a></li>
+    <ul class="mine-grid">
+      <li class="mine">
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/M/M4/087/low.avif"><img class="mine-img" src="https://assets.tcgdex.net/ja/M/M4/087/low.webp" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+        <p class="mine-n">Frogadier</p>
+        
+        // THE JAPANESE WORD WINS ON A ROW THAT HAS ONE, and rarityJp is the field
+        // that carries it. Pinning these six rows moved them onto the shared
+        // precedence, which prints TCGdex's anglicised tier -- so a card that read
+        // "Art Rare" before, matching the letters printed on the wrapper and on the
+        // card itself, started reading "Illustration Rare". The rip log is written in
+        // the wrapper's vocabulary because that is what Tim reads off the pack, and a
+        // guide that renames his tier is the guide disagreeing with the card in his
+        // hand. rarityJp is additive and only exists where sync-intl-guides.mjs
+        // stamped it, so this cannot reach a row that never had a Japanese word.
+        <p class="mine-r">Art Rare &bull; #087</p>
+        <a class="mine-w" href="/rip/japanese-ninja-spinner-packs-greninja-hunt-begins-_ccErXVzURs.html">Watch the rip &rarr;</a>
+      </li>
     </ul>
     
     
-    <p class="mine-note">That one came out of the rip log as written, with no card number: the Japanese rarity ladder is deliberately not mapped onto the English one, so where a name is printed more than once in a set nothing here can say which printing it was. We do not price non-English printings anywhere on this site, so these are shown rather than valued.</p>
+    
+    <p class="mine-note">We do not price non-English printings anywhere on this site, so these are shown rather than valued.</p>
   </div>
 </section>
 

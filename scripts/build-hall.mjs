@@ -28,7 +28,9 @@ import { APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/ch
 import { esc, shortDate, moneyCompact, noValue, rarityLabel, imgDims, cardNumKey, avifPicture } from "../shared/format.mjs";
 import { loadGradedPrices, MIN_SALES } from "../shared/graded-price.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
-import { pickIntlPrinting } from "../shared/intl-printing.mjs";
+// THE RULE IS intl-printing.mjs AND IT IS UNCHANGED. This asks it in the rip
+// log's own vocabulary and hands back the guide's own row; see that file.
+import { pickIntlPrintingJp } from "../shared/intl-vocab.mjs";
 // corpusScan MOVED OUT OF THIS FILE ON 22 AUGUST 2026 AND THE NOTE THAT LIVED
 // HERE PREDICTED IT. It ended: "build-pages.mjs has the identical gap on the
 // identical rows and would want the identical three lines, but that file is not
@@ -331,6 +333,13 @@ if (!hall.length) {
             native: c.native || null,
             en: c.en || null,
             rarity: c.rarity || null,
+            // THE SAME CARD'S TIER IN THE WORDS ON THE JAPANESE WRAPPER, WHICH
+            // IS THE VOCABULARY data/hits.json IS WRITTEN IN. Asked with, never
+            // shown: `rarity` above is what this plaque prints and what
+            // corpusScan cross-checks against public/data/printings, and a
+            // Japanese word in that slot would cost these rows their scan. See
+            // shared/intl-vocab.mjs.
+            rarityJp: c.rarityJp || null,
             // `img: null` WAS A LITERAL AND IT WAS WRONG ON SIX OF THE THIRTEEN
             // GUIDES. The comment above this block says those guides carry "NO
             // image and NO price for any of them", and it read as a measured
@@ -471,7 +480,7 @@ if (!hall.length) {
       // "Secret Rare", the log says Double Rare, and the old test refused it
       // for having two printings when one of them matches the log exactly.
       if (source === "intl") {
-        const nm = pickIntlPrinting(same, want);
+        const nm = pickIntlPrintingJp(same, want);
         if (!nm) {
           m = null;
           ambiguous.push({ set: h.set, card: h.card, rarity: h.rarity || null, printings: same.length });

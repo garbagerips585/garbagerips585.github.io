@@ -36,6 +36,13 @@ try:
 except Exception:
     manual = {}
 
+# Which rows the last build could not resolve. Written by scripts/build-pages.mjs
+# on every run, so the tint below cannot go stale the way a typed list would.
+try:
+    REVIEW = json.loads((ROOT / "data/sheet-review.json").read_text())["videos"]
+except Exception:
+    REVIEW = {}
+
 # Only one thing is read out of here: an explicit empty set list, which is the
 # stored form of "Not a set (sealed/other)" and is indistinguishable from "not
 # answered" by the time it reaches videos.json.
@@ -389,6 +396,14 @@ GUESS_TXT = Font(name="Arial", size=10, color="0000FF")   # auto-filled, confirm
 HEAD_LOCKED = PatternFill("solid", fgColor="D9D9D9")   # from YouTube
 HEAD_INPUT = PatternFill("solid", fgColor="FFF2CC")    # yours to fill
 HEAD_HOF = PatternFill("solid", fgColor="FFD966")      # the Hall of Fame block
+# ROWS THE LAST BUILD COULD NOT RESOLVE, so the highlighting cannot go stale.
+# Written by scripts/build-pages.mjs into data/sheet-review.json on every run and
+# read here, rather than typed out -- a hand-written list of rows is correct for
+# a day and wrong the moment a cell changes. Salmon rather than the yellow of an
+# empty input, because these cells are FILLED and still did not resolve, which is
+# a different job from filling one in.
+REVIEW_FILL = PatternFill("solid", fgColor="FCD5CE")
+REVIEW_TXT = Font(name="Arial", size=10, italic=True, color="8A2E20")
 THIN = Side(style="thin", color="BFBFBF")
 BOX = Border(left=THIN, right=THIN, top=THIN, bottom=THIN)
 
@@ -995,6 +1010,13 @@ ordered = sorted(videos, key=lambda v: (v.get("published") or ""), reverse=True)
 
 for r, v in enumerate(ordered, start=2):
     vid = v["id"]
+    # TINTED IF THE LAST BUILD COULD NOT RESOLVE THIS ROW'S HIT CARD, with the
+    # reason in a cell comment so the row explains itself. The reason matters:
+    # several of these are NOT typos -- a set the site holds no checklist for,
+    # or two printings the written tier cannot separate -- and retyping a correct
+    # cell is wasted work. Applied at the top of the loop so every later write to
+    # this row keeps its own font and only the fill carries over.
+    _review = REVIEW.get(vid)
     sets_v = v.get("sets") or []
     products = v.get("products") or []
     pull = best_pull(v)
@@ -1217,6 +1239,17 @@ for r, v in enumerate(ordered, start=2):
             cell.font = BODY
         if col in (4,):
             cell.alignment = Alignment(horizontal="right")
+    if _review:
+        from openpyxl.comments import Comment
+        for _c in range(1, len(COL) + 1):
+            wv.cell(r, _c).fill = REVIEW_FILL
+        _cell = wv.cell(r, COL["Hit Info"])
+        _cell.comment = Comment(
+            "The last build could not resolve this hit:\n\n  "
+            + "\n  ".join(_review)
+            + "\n\nNot always a typo -- check the reason first.",
+            "Garbage Rips build",
+        )
 
 last = len(ordered) + 1
 # Look columns up by header rather than by number: three new columns shifted

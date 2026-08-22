@@ -74,7 +74,10 @@ import { BAR, MENU, SPRITE, SKIP, STYLES, footer, FONTS,
   APP_JS_NO_PACKPLAYER as APP_JS } from "../shared/chrome.mjs";
 import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
 import { raritiesIn, rarityLabelOf, rarityMark, RARITY_CSS } from "../shared/rarity.mjs";
-import { pickIntlPrinting, norm } from "../shared/intl-printing.mjs";
+import { norm } from "../shared/intl-printing.mjs";
+// THE RULE IS intl-printing.mjs AND IT IS UNCHANGED. This asks it in the rip
+// log's own vocabulary and hands back the guide's own row; see that file.
+import { pickIntlPrintingJp } from "../shared/intl-vocab.mjs";
 // THE THIRD AND FOURTH CALLERS OF A LOOKUP build-hall.mjs HELD PRIVATELY. Its
 // own header named build-pages.mjs as having the same gap and did not know this
 // file had it too: six of the thirteen guides carry no scan in intl-guides.json
@@ -361,6 +364,12 @@ function guideChecklist(g) {
       n: c.localId,
       name: c.en || c.native,
       rarity: c.rarity || null,
+      // THE SAME CARD'S TIER IN THE WORDS ON THE JAPANESE WRAPPER, WHICH IS THE
+      // VOCABULARY data/hits.json IS WRITTEN IN. Carried so pickIntlPrintingJp
+      // can ASK with it; `rarity` above stays TCGdex's and is what this page
+      // prints, what the ladder is ranked on and what corpusScan checks against.
+      // Absent on every guide with no TCGplayer pin. See shared/intl-vocab.mjs.
+      rarityJp: c.rarityJp || null,
       img: base && !NO_SCAN.has(base) ? base : null,
       // Both names survive the flattening, and only corpusScan reads them: that
       // corpus is sharded by the first letter of whichever name TCGdex holds,
@@ -409,7 +418,7 @@ for (const [setId, cards] of HITS_BY_SET) {
   if (!g?.native || !checklist) continue;
   for (const h of cards.values()) {
     const same = checklist.filter((c) => norm(c.name) === norm(h.card));
-    const m = pickIntlPrinting(same, h.rarity ? norm(h.rarity) : null);
+    const m = pickIntlPrintingJp(same, h.rarity ? norm(h.rarity) : null);
     if (!m || m.img) continue;
     const base = await corpusScan(g.native, { localId: m.n, en: m.en, native: m.native, rarity: m.rarity });
     if (base) CORPUS_ART.set(`${setId}|${m.n}`, base);
@@ -443,7 +452,7 @@ function hitsBand(g, cls) {
   const plain = [];
   for (const h of rows) {
     const same = checklist ? checklist.filter((c) => norm(c.name) === norm(h.card)) : [];
-    const m = pickIntlPrinting(same, h.rarity ? norm(h.rarity) : null);
+    const m = pickIntlPrintingJp(same, h.rarity ? norm(h.rarity) : null);
     if (m) pinned.push({ ...h, m });
     else plain.push(h);
   }
@@ -485,7 +494,16 @@ function hitsBand(g, cls) {
               leaves 36 of Stellar Miracle's 135 unfiled, which is exactly the
               three cards this grid holds, so without the fallback the row
               would show a bare collector number. */ ""}
-        <p class="mine-r">${[esc(rarityLabel(h.m.rarity || h.rarity) || ""), h.m.n ? `#${esc(h.m.n)}` : ""].filter(Boolean).join(" &bull; ")}</p>
+        // THE JAPANESE WORD WINS ON A ROW THAT HAS ONE, and rarityJp is the field
+        // that carries it. Pinning these six rows moved them onto the shared
+        // precedence, which prints TCGdex's anglicised tier -- so a card that read
+        // "Art Rare" before, matching the letters printed on the wrapper and on the
+        // card itself, started reading "Illustration Rare". The rip log is written in
+        // the wrapper's vocabulary because that is what Tim reads off the pack, and a
+        // guide that renames his tier is the guide disagreeing with the card in his
+        // hand. rarityJp is additive and only exists where sync-intl-guides.mjs
+        // stamped it, so this cannot reach a row that never had a Japanese word.
+        <p class="mine-r">${[esc(rarityLabel(h.m.rarityJp || h.m.rarity || h.rarity) || ""), h.m.n ? `#${esc(h.m.n)}` : ""].filter(Boolean).join(" &bull; ")}</p>
         ${h.rips.map((r) => `<a class="mine-w" href="/${esc(r.path)}">Watch the rip &rarr;</a>`).join("\n        ")}
       </li>`
         )
