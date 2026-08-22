@@ -129,7 +129,17 @@ function preorderBand(setName) {
         </li>`).join("\n");
 
   const cards = e.chase.slice(0, 8).map((c) => `        <li class="poc">
-          <a href="${esc(c.url)}" rel="noopener" target="_blank" aria-label="${esc(c.name)}${c.rarity ? `, ${esc(c.rarity)}` : ""}${c.number ? `, card ${esc(c.number)}` : ""}, opens on ${esc(hostOf(c.url))}">
+          ${/* THE WORD "card" USED TO SIT BETWEEN THE RARITY AND THE NUMBER
+               HERE AND IT BROKE WCAG 2.5.3, Label in Name. The tile SHOWS
+               "Mewtwo ex" then "FUTURISTIC RARE 157/128", and the label read
+               "Mewtwo ex, Futuristic Rare, card 157/128", so the visible words
+               were not a contiguous run inside the accessible name and a voice
+               control user saying "click Mewtwo ex Futuristic Rare 157/128" hit
+               nothing. Eight links on this page, measured 22 August 2026.
+               The number reads perfectly well without it. The ", opens on
+               <host>" tail stays: that is the site's outbound rule and it sits
+               AFTER the visible text, where it costs 2.5.3 nothing. */ ""}
+          <a href="${esc(c.url)}" rel="noopener" target="_blank" aria-label="${esc(c.name)}${c.rarity ? `, ${esc(c.rarity)}` : ""}${c.number ? `, ${esc(c.number)}` : ""}, opens on ${esc(hostOf(c.url))}">
             <img src="${esc(c.thumb)}" alt="${esc(c.name)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(c.thumb)} referrerpolicy="no-referrer">
             <span class="poc-n">${esc(c.name)}</span>
             <span class="poc-r">${esc(c.rarity || "")}${c.number ? ` &bull; ${esc(c.number)}` : ""}</span>

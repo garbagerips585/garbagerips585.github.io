@@ -491,9 +491,9 @@ const seenLine = (r) => {
     longDate(r.seen.readAt)
   )}. It is an example of the sum, not a score for the shop.${
     r.seen.url
-      ? ` <a href="${esc(r.seen.url)}" rel="nofollow noopener" target="_blank" aria-label="The ${esc(
+      ? ` <a href="${esc(r.seen.url)}" rel="nofollow noopener" target="_blank" aria-label="See the listing, the ${esc(
           r.seen.product
-        )} listing at ${esc(r.seen.retailer)}, opens on their site">See the listing</a>`
+        )} at ${esc(r.seen.retailer)}, opens on their site">See the listing</a>`
       : ""
   }</p>`;
 };
@@ -1338,7 +1338,21 @@ ${priced.map((r, i) => pricedRow(r, i)).join("\n")}
             <input id="msAsk" type="number" inputmode="decimal" min="0" step="0.01" placeholder="e.g. 89.99">
           </div>
         </div>
-        <p class="ms-out" id="msOut" role="status" aria-live="polite">Type a price and this works out the multiple.</p>
+        ${/* THE LIVE REGION MOVED OFF THIS PARAGRAPH, 22 August 2026, and the
+             reason is the same one build-search.mjs writes up beside its say().
+             #msOut was the visible answer AND the announcement, and it is
+             rewritten on every keystroke, so typing "89.99" into the box made a
+             screen reader read four complete sentences: "0.16x the $49.99
+             figure for the Elite Trainer Box. That is $41.99 under", then
+             1.78x, then 17.98x, then 180.02x. Measured in headless Chrome with
+             a MutationObserver on the region: four keystrokes, four full
+             sentences, three of them about a number the reader never meant to
+             type. The paragraph keeps repainting as fast as it does now; only
+             the SPOKEN copy waits, in the sr-only region below, behind the same
+             220ms debounce and the same "did the string actually change" guard.
+             Do not put aria-live back on this paragraph. */ ""}
+        <p class="ms-out" id="msOut">Type a price and this works out the multiple.</p>
+        <p class="sr-only" id="msSay" role="status" aria-live="polite"></p>
       </div>
       <p class="ms-body" style="margin-top:var(--s4)">This does the arithmetic and nothing else. It knows
         nothing about the shop you are standing in, and a number over one is not by itself a reason to walk
@@ -1527,13 +1541,31 @@ ${APP_JS}
 <script>
 (function(){
   var sel=document.getElementById('msProd'), ask=document.getElementById('msAsk'),
-      out=document.getElementById('msOut');
+      out=document.getElementById('msOut'), say=document.getElementById('msSay');
   if(!sel||!ask||!out) return;
   var REST='Type a price and this works out the multiple.';
+  // The spoken half. Two guards, and neither is enough on its own: the equality
+  // check kills a repeat of a string already said (changing the picker without
+  // changing the answer, or retyping the same digit), and the 220ms debounce is
+  // what turns a typed price into ONE sentence instead of one per keystroke.
+  // The visible paragraph above is deliberately NOT waited on.
+  var sayT=null, said='';
+  function announce(msg){
+    if(!say) return;
+    if(sayT) clearTimeout(sayT);
+    sayT=setTimeout(function(){
+      if(msg===said) return;
+      said=msg;
+      say.textContent=msg;
+    }, 220);
+  }
   function money(n){ return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
   function run(){
     var base=parseFloat(sel.value), paid=parseFloat(ask.value);
-    if(!(base>0)||!(paid>0)){ out.textContent=REST; return; }
+    // An empty or half-typed box says nothing at all. The old code rewrote the
+    // resting sentence here on every keystroke, which is a live region firing
+    // with no news in it.
+    if(!(base>0)||!(paid>0)){ out.textContent=REST; announce(''); return; }
     var mult=paid/base, over=paid-base;
     // toFixed(2) then trim the trailing zeros, so 2.00 reads "2" and 1.20 reads
     // "1.2". "2.00x MSRP" is the kind of false precision that makes a rough
@@ -1548,8 +1580,10 @@ ${APP_JS}
     var tail = Math.abs(over) < 0.005
       ? '. That is exactly it.'
       : '. That is '+money(Math.abs(over))+(over>0?' over.':' under.');
+    var body=m+'x the '+money(base)+' figure for the '+name.replace(/[<>&]/g,'')+tail;
     out.innerHTML='<b>'+m+'x</b> the '+money(base)+' figure for the '+
       name.replace(/[<>&]/g,'')+tail;
+    announce(body);
   }
   sel.addEventListener('change',run);
   ask.addEventListener('input',run);

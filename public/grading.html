@@ -282,9 +282,11 @@
         </select>
       </label>
     </form>
-    <div class="gcalc-out" id="gOut" aria-live="polite">
+    
+    <div class="gcalc-out" id="gOut">
       <p class="gcalc-hint">Fill both boxes and the answer appears here.</p>
     </div>
+    <p class="sr-only" id="gSay" role="status" aria-live="polite"></p>
   </div>
 </section>
 
@@ -773,7 +775,22 @@
 (function(){
   var raw=document.getElementById('gRaw'), ten=document.getElementById('gTen');
   var fee=document.getElementById('gFee'), out=document.getElementById('gOut');
+  var say=document.getElementById('gSay');
   var SHIP=15;
+  // The spoken half of the answer. Both guards earn their place: the equality
+  // check drops a repeat of a sentence already said, and the 220ms debounce is
+  // what makes a typed price ONE sentence rather than one per digit. The box
+  // above is deliberately not waited on.
+  var sayT=null, said='';
+  function announce(msg){
+    if(!say) return;
+    if(sayT) clearTimeout(sayT);
+    sayT=setTimeout(function(){
+      if(msg===said) return;
+      said=msg;
+      say.textContent=msg;
+    }, 220);
+  }
   // The browser cannot import shared/format.mjs, so this is the one copy of
   // moneyExact that has to be duplicated. Keep the two in step.
   function money(n){
@@ -783,6 +800,7 @@
     var r=parseFloat(raw.value), t=parseFloat(ten.value), f=parseFloat(fee.value);
     if(!isFinite(r)||!isFinite(t)||r<0||t<0){
       out.innerHTML='<p class="gcalc-hint">Fill both boxes and the answer appears here.</p>';
+      announce('');
       return;
     }
     var cost=f+SHIP, net=t-r-cost;
@@ -800,6 +818,12 @@
         + 'loses money. Keep it raw, sleeve it, and put the '+money(cost)+' toward more packs.</p>';
     }
     out.innerHTML=lines;
+    // The sum, without the paragraph of advice under it: a reader who wants the
+    // caveat is standing on the box and can read it, and reading it aloud on
+    // every recalculation is the thing this region exists to stop.
+    announce((good?'Worth a look. ':'Do not bother. ')
+      + money(t)+' in a 10, minus '+money(r)+' raw, minus '+money(cost)
+      + ' to grade and ship, leaves '+money(net)+'.');
   }
   [raw,ten,fee].forEach(function(el){ el.addEventListener('input',run); el.addEventListener('change',run); });
 })();

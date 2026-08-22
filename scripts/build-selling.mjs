@@ -195,7 +195,20 @@ const venueCard = (v) => {
   return `      <article class="se-v" id="${esc(v.id)}">
         <div class="se-vh">
           ${brandMark(v.id, v.name)}
-          <h3>${v.url ? `<a href="${esc(v.url)}" rel="noopener" target="_blank" aria-label="${esc(v.name)}'s own fees page, where the figures on this card were read, opens on ${esc(hostOf(v.url))}">${esc(v.name)}</a>` : esc(v.name)}</h3>
+          ${/* TWO OF THESE VENUES ARE PAGES ON THIS SITE, and the heading link
+               said so out loud in the ugliest possible way. "Local card show"
+               and "Card show" carry url "/shops.html" and "/card-shows.html" in
+               data/selling.json, which is right, and this template assumed every
+               venue was somebody else's shop: it produced target="_blank" plus
+               the label "Local card shop's own fees page, where the figures on
+               this card were read, OPENS ON " -- with a trailing "opens on" and
+               nothing after it, because hostOf() has no host to give for a
+               relative url. A screen reader read the empty promise aloud. Same
+               fix and same argument as the source rows below: an internal venue
+               is a plain link to our own page, in the site's own words. */ ""}
+          <h3>${v.url ? (v.url.startsWith("/")
+            ? `<a href="${esc(v.url)}" aria-label="${esc(v.name)}, our own page on this, where the figures on this card were read">${esc(v.name)}</a>`
+            : `<a href="${esc(v.url)}" rel="noopener" target="_blank" aria-label="${esc(v.name)}'s own fees page, where the figures on this card were read, opens on ${esc(hostOf(v.url))}">${esc(v.name)}</a>`) : esc(v.name)}</h3>
           <span class="se-st ${st.cls}">${esc(st.label)}</span>
         </div>
         ${v.type || v.format ? `<p class="se-fmt">${[v.type, v.format].filter(Boolean).map(esc).join(". ")}</p>` : ""}
@@ -228,8 +241,34 @@ const venueCard = (v) => {
             // the clause, never off the visible link text below, which is a
             // sentence and keeps its punctuation.
             const clause = what.replace(/\.\s*$/, "");
+            // ", opens on <host>" IS THE CONDITION, NOT A FLOURISH. CLAUDE.md
+            // makes an aria-label saying the link leaves the site the price of
+            // every outbound link on this site, and the venue heading above
+            // pays it while its own source rows underneath did not: 72 of the
+            // 87 outbound links on this page and 85 of the 96 on /buying.html
+            // carried a label that named the source and never said it was
+            // leaving. Measured on the built tree, 22 August 2026. hostOf() was
+            // already here for the heading; this is the same call.
+            // TWO OF THESE SOURCES ARE PAGES ON THIS SITE AND WERE BEING
+            // RENDERED AS OUTBOUND LINKS. data/selling.json cites /shops.html
+            // and /card-shows.html as the evidence for two rows, which is
+            // correct and is the site citing its own research; the template
+            // assumed every source was somebody else's and gave all four
+            // anchors `target="_blank"` and `rel="noopener"`. So an internal
+            // link opened a new tab with no warning anywhere, which is the
+            // opposite of the outbound rule rather than a mild version of it,
+            // and it was invisible until the "opens on <host>" clause above
+            // came back EMPTY for a relative url and left two links that could
+            // not say where they went. FOUR ANCHORS, and they were the only
+            // four in the whole 1,487-page tree: measured 22 August 2026,
+            // `<a target="_blank" href="/...">` appears nowhere else.
+            // An internal source is a plain link. No new tab, no rel, and no
+            // "opens on", because it does not leave the site.
+            const internal = typeof u === "string" && u.startsWith("/");
             return u
-              ? `<a href="${esc(u)}" aria-label="${esc(v.name)}${clause ? `, ${esc(clause)}` : ""}, source ${i + 1}" rel="noopener" target="_blank">${
+              ? `<a href="${esc(u)}" aria-label="${esc(v.name)}${clause ? `, ${esc(clause)}` : ""}, source ${i + 1}${
+                  internal ? "" : hostOf(u) ? `, opens on ${esc(hostOf(u))}` : ""
+                }"${internal ? "" : ` rel="noopener" target="_blank"`}>${
                   esc(what || `Source ${i + 1}`)
                 }</a>${read ? ` <span>read ${esc(longDate(read))}</span>` : ""}`
               : esc(what);
@@ -290,7 +329,9 @@ const prot = (p) => {
         ${p.note ? `<p class="se-nb">${esc(p.note)}</p>` : ""}
         ${parts.join("\n        ")}
         ${srcs.length ? `<p class="se-src">${srcs
-          .map((u, i) => `<a href="${esc(u)}" aria-label="${esc(p.venue)} policy, source ${i + 1}" rel="noopener" target="_blank">${i ? `Source ${i + 1}` : "Source"}</a>`)
+          .map((u, i) => `<a href="${esc(u)}" aria-label="Source${i ? ` ${i + 1}` : ""}, ${esc(p.venue)} policy${
+            hostOf(u) ? `, opens on ${esc(hostOf(u))}` : ""
+          }" rel="noopener" target="_blank">${i ? `Source ${i + 1}` : "Source"}</a>`)
           .join(", ")}${p.read ? `, read ${esc(longDate(p.read))}` : ""}</p>` : ""}
       </article>`;
 };
@@ -1048,7 +1089,7 @@ ${(safe.protections || []).map(prot).join("\n")}
           money at which moment.</p>
         <ol class="se-list">
 ${(safe.attacks || []).map((a) => `          <li><b>${esc(a.name)}.</b> ${esc(a.how)}${a.why ? ` ${esc(a.why)}` : ""}${a.note ? ` ${esc(a.note)}` : ""}${
-            a.source ? ` <a class="se-s1" href="${esc(a.source)}" aria-label="Source for ${esc(a.name)}" rel="noopener" target="_blank">Source</a>${
+            a.source ? ` <a class="se-s1" href="${esc(a.source)}" aria-label="Source for ${esc(a.name)}${hostOf(a.source) ? `, opens on ${esc(hostOf(a.source))}` : ""}" rel="noopener" target="_blank">Source</a>${
               a.read ? ` <span class="se-rd">read ${esc(longDate(a.read))}</span>` : ""
             }` : ""
           }</li>`).join("\n")}
@@ -1061,7 +1102,7 @@ ${(safe.attacks || []).map((a) => `          <li><b>${esc(a.name)}.</b> ${esc(a.
 ${(safe.defences || []).map((d) => `          <li><b>${esc(d.name)}.</b> ${esc(d.why || "")}${
             (d.thresholds || []).length ? ` ${d.thresholds.map(esc).join(" ")}` : ""
           }${
-            d.source ? ` <a class="se-s1" href="${esc(d.source)}" aria-label="Source for ${esc(d.name)}" rel="noopener" target="_blank">Source</a>${
+            d.source ? ` <a class="se-s1" href="${esc(d.source)}" aria-label="Source for ${esc(d.name)}${hostOf(d.source) ? `, opens on ${esc(hostOf(d.source))}` : ""}" rel="noopener" target="_blank">Source</a>${
               d.read ? ` <span class="se-rd">read ${esc(longDate(d.read))}</span>` : ""
             }` : ""
           }</li>`).join("\n")}
@@ -1089,7 +1130,9 @@ ${(safe.inPerson.because || []).map((b) => `          <li>${esc(b)}</li>`).join(
         </ul>
         <p class="se-lede" style="margin-top:var(--s4)"><b>What it costs you.</b> ${esc(safe.inPerson.cost)}</p>
         <p class="se-lede" style="margin-top:var(--s3)">${esc(safe.inPerson.ftc)}${
-          safe.inPerson.source ? ` <a class="se-s1" href="${esc(safe.inPerson.source)}" aria-label="FTC guidance for sellers" rel="noopener" target="_blank">Source</a>${
+          safe.inPerson.source ? ` <a class="se-s1" href="${esc(safe.inPerson.source)}" aria-label="Source, FTC guidance for sellers${
+            hostOf(safe.inPerson.source) ? `, opens on ${esc(hostOf(safe.inPerson.source))}` : ""
+          }" rel="noopener" target="_blank">Source</a>${
             safe.inPerson.read ? ` <span class="se-rd">read ${esc(longDate(safe.inPerson.read))}</span>` : ""
           }` : ""
         }</p>

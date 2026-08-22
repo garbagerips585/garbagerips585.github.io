@@ -236,8 +236,18 @@ const venueCard = (v) => {
             // the clause, never off the visible link text below, which is a
             // sentence and keeps its punctuation.
             const clause = what.replace(/\.\s*$/, "");
+            // ", opens on <host>" IS THE CONDITION, NOT A FLOURISH. CLAUDE.md
+            // makes an aria-label saying the link leaves the site the price of
+            // every outbound link on this site, and the venue heading above
+            // pays it while its own source rows underneath did not: 85 of the
+            // 96 outbound links on this page and 72 of the 87 on /selling.html
+            // carried a label that named the source and never said it was
+            // leaving. Measured on the built tree, 22 August 2026. hostOf() was
+            // already here for the heading; this is the same call.
             return u
-              ? `<a href="${esc(u)}" aria-label="${esc(v.name)}${clause ? `, ${esc(clause)}` : ""}, source ${i + 1}" rel="noopener" target="_blank">${
+              ? `<a href="${esc(u)}" aria-label="${esc(v.name)}${clause ? `, ${esc(clause)}` : ""}, source ${i + 1}${
+                  hostOf(u) ? `, opens on ${esc(hostOf(u))}` : ""
+                }" rel="noopener" target="_blank">${
                   esc(what || `Source ${i + 1}`)
                 }</a>${read ? ` <span>read ${esc(longDate(read))}</span>` : ""}`
               : esc(what);
@@ -290,7 +300,9 @@ const prot = (p) => {
         ${p.note ? `<p class="by-nb">${esc(p.note)}</p>` : ""}
         ${parts.join("\n        ")}
         ${srcs.length ? `<p class="by-src">${srcs
-          .map((u, i) => `<a href="${esc(u)}" aria-label="${esc(p.venue)} policy, source ${i + 1}" rel="noopener" target="_blank">${i ? `Source ${i + 1}` : "Source"}</a>`)
+          .map((u, i) => `<a href="${esc(u)}" aria-label="Source${i ? ` ${i + 1}` : ""}, ${esc(p.venue)} policy${
+            hostOf(u) ? `, opens on ${esc(hostOf(u))}` : ""
+          }" rel="noopener" target="_blank">${i ? `Source ${i + 1}` : "Source"}</a>`)
           .join(", ")}${p.read ? `, read ${esc(longDate(p.read))}` : ""}</p>` : ""}
       </article>`;
 };
@@ -1176,7 +1188,7 @@ ${(safe.protections || []).map(prot).join("\n")}
           one is defined by who had the card and who had the money at which moment.</p>
         <ol class="by-list">
 ${(safe.attacks || []).map((a) => `          <li><b>${esc(a.name)}.</b> ${esc(a.how)}${a.why ? ` ${esc(a.why)}` : ""}${a.note ? ` ${esc(a.note)}` : ""}${
-            a.source ? ` <a class="by-s1" href="${esc(a.source)}" aria-label="Source for ${esc(a.name)}" rel="noopener" target="_blank">Source</a>${
+            a.source ? ` <a class="by-s1" href="${esc(a.source)}" aria-label="Source for ${esc(a.name)}${hostOf(a.source) ? `, opens on ${esc(hostOf(a.source))}` : ""}" rel="noopener" target="_blank">Source</a>${
               a.read ? ` <span class="by-rd">read ${esc(longDate(a.read))}</span>` : ""
             }` : ""
           }</li>`).join("\n")}
@@ -1189,7 +1201,7 @@ ${(safe.attacks || []).map((a) => `          <li><b>${esc(a.name)}.</b> ${esc(a.
 ${(safe.defences || []).map((d) => `          <li><b>${esc(d.name)}.</b> ${esc(d.why || "")}${
             (d.thresholds || []).length ? ` ${d.thresholds.map(esc).join(" ")}` : ""
           }${
-            d.source ? ` <a class="by-s1" href="${esc(d.source)}" aria-label="Source for ${esc(d.name)}" rel="noopener" target="_blank">Source</a>${
+            d.source ? ` <a class="by-s1" href="${esc(d.source)}" aria-label="Source for ${esc(d.name)}${hostOf(d.source) ? `, opens on ${esc(hostOf(d.source))}` : ""}" rel="noopener" target="_blank">Source</a>${
               d.read ? ` <span class="by-rd">read ${esc(longDate(d.read))}</span>` : ""
             }` : ""
           }</li>`).join("\n")}

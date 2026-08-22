@@ -470,9 +470,23 @@ ${MENU}
         </select>
       </label>
     </form>
-    <div class="gcalc-out" id="gOut" aria-live="polite">
+    ${/* THE LIVE REGION MOVED OFF THIS BOX, 22 August 2026. Same bug and same
+         fix as /msrp.html the same day, and the argument is build-search.mjs's
+         beside its say(). #gOut was the visible answer AND the announcement,
+         and run() rewrites the whole box on every keystroke. Measured in
+         headless Chrome with a MutationObserver: typing "250" into the raw box
+         mutated the region three times and said the SAME resting sentence,
+         "Fill both boxes and the answer appears here", all three times; then
+         typing "1200" into the PSA box read out four running totals, three of
+         them for prices nobody had finished typing. Eight announcements for
+         seven keystrokes, and the only one worth hearing was the last.
+         The box still repaints instantly. Only the spoken copy waits, in the
+         sr-only region below, and it says nothing at all until BOTH boxes hold
+         a number. Do not put aria-live back on this div. */ ""}
+    <div class="gcalc-out" id="gOut">
       <p class="gcalc-hint">Fill both boxes and the answer appears here.</p>
     </div>
+    <p class="sr-only" id="gSay" role="status" aria-live="polite"></p>
   </div>
 </section>
 
@@ -638,7 +652,22 @@ ${footer("Grading fees change constantly. Always check the company's own page be
 (function(){
   var raw=document.getElementById('gRaw'), ten=document.getElementById('gTen');
   var fee=document.getElementById('gFee'), out=document.getElementById('gOut');
+  var say=document.getElementById('gSay');
   var SHIP=${SHIP};
+  // The spoken half of the answer. Both guards earn their place: the equality
+  // check drops a repeat of a sentence already said, and the 220ms debounce is
+  // what makes a typed price ONE sentence rather than one per digit. The box
+  // above is deliberately not waited on.
+  var sayT=null, said='';
+  function announce(msg){
+    if(!say) return;
+    if(sayT) clearTimeout(sayT);
+    sayT=setTimeout(function(){
+      if(msg===said) return;
+      said=msg;
+      say.textContent=msg;
+    }, 220);
+  }
   // The browser cannot import shared/format.mjs, so this is the one copy of
   // moneyExact that has to be duplicated. Keep the two in step.
   function money(n){
@@ -648,6 +677,7 @@ ${footer("Grading fees change constantly. Always check the company's own page be
     var r=parseFloat(raw.value), t=parseFloat(ten.value), f=parseFloat(fee.value);
     if(!isFinite(r)||!isFinite(t)||r<0||t<0){
       out.innerHTML='<p class="gcalc-hint">Fill both boxes and the answer appears here.</p>';
+      announce('');
       return;
     }
     var cost=f+SHIP, net=t-r-cost;
@@ -665,6 +695,12 @@ ${footer("Grading fees change constantly. Always check the company's own page be
         + 'loses money. Keep it raw, sleeve it, and put the '+money(cost)+' toward more packs.</p>';
     }
     out.innerHTML=lines;
+    // The sum, without the paragraph of advice under it: a reader who wants the
+    // caveat is standing on the box and can read it, and reading it aloud on
+    // every recalculation is the thing this region exists to stop.
+    announce((good?'Worth a look. ':'Do not bother. ')
+      + money(t)+' in a 10, minus '+money(r)+' raw, minus '+money(cost)
+      + ' to grade and ship, leaves '+money(net)+'.');
   }
   [raw,ten,fee].forEach(function(el){ el.addEventListener('input',run); el.addEventListener('change',run); });
 })();
