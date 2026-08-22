@@ -20,6 +20,7 @@ navy with a gold bloom until 18 August 2026; see the colour block below.
 Fonts come from .cache/fonts, which is gitignored: run scripts/fetch-fonts.sh
 first if it is empty. Both faces are SIL Open Font License.
 """
+import re
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
@@ -113,11 +114,6 @@ PAGES = {
     # page exists to explain rather than the topic, because "where to buy Pokemon
     # cards" is a phrase every content farm has already used and the shipping
     # arithmetic is the part nobody else prints.
-    "buying": ("WHAT IT REALLY COSTS", "Where to buy", "Shipping, buyer fees, and who eats it when it is wrong"),
-    # The other half of the same question. Its headline is the page's own H1 and
-    # the answer line names the mechanic the page exists to explain, because
-    # "where to buy Pokemon cards" is a phrase every SEO farm has already used
-    # and the shipping arithmetic is the part nobody else prints.
     "buying": ("WHAT IT REALLY COSTS", "Where to buy", "Shipping, buyer fees, and who eats it when it is wrong"),
     "drops": ("NOBODY ANNOUNCES THESE", "Drops this week", "What retailers are expected to have, in store and online"),
     # The kicker is the count because the count IS the pitch: every other "all
@@ -228,9 +224,46 @@ def build(slug, kicker, headline, answer):
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
     made = []
+    skipped = []
+    # WHICH CARDS ARE ACTUALLY WANTED, AND THE FIRST ANSWER TO THIS WAS WRONG.
+    #
+    # "collection" sat in PAGES with no page behind it, so every run wrote a
+    # 36.4KB og-collection.jpg nothing has ever pointed at -- the same bug
+    # build-og.py documents against og-default.jpg, where a QA pass deleted the
+    # file without stopping the script writing it again.
+    #
+    # THE OBVIOUS GATE IS WRONG AND WOULD HAVE BROKEN 1,026 PAGES. Testing
+    # public/<slug>.html catches collection, and also catches "pokemon",
+    # "eevee" and "complete" -- whose pages are /pokemon/index.html,
+    # /eevee-evolutions.html and /complete-a-set.html. og-pokemon.jpg is
+    # referenced by 1,026 pages. A slug is not a path here.
+    #
+    # The real invariant is whether anything POINTS at the card, so that is what
+    # is asked. The slug test is kept as the other half: a page can exist before
+    # anything links its card, and this script runs at step 41, BEFORE most page
+    # builders, so it reads the previous build's public/ -- which is committed,
+    # so it is there. On a from-scratch tree with no HTML at all, neither test
+    # can answer and everything is written, which is the safe direction.
+    built = list((ROOT / "public").rglob("*.html"))
+    referenced = set()
+    for page in built:
+        for hit in re.findall(r"og-([a-z0-9-]+)\.jpg", page.read_text(encoding="utf8", errors="replace")):
+            referenced.add(hit)
     for slug, (kicker, headline, answer) in PAGES.items():
+        wanted = (
+            not built
+            or slug in referenced
+            or (ROOT / "public" / f"{slug}.html").exists()
+        )
+        if not wanted:
+            skipped.append(slug)
+            continue
         p = build(slug, kicker, headline, answer)
         made.append((p.name, p.stat().st_size))
     print(f"Wrote {len(made)} share cards to public/assets/")
     for name, size in made:
         print(f"  {name:<26} {size / 1024:5.0f}KB")
+    if skipped:
+        # Named rather than silent: a slug sitting here is either a typo or a page
+        # somebody meant to build, and both want saying out loud once a run.
+        print(f"  {len(skipped)} skipped, no page built for them: {', '.join(sorted(skipped))}")
