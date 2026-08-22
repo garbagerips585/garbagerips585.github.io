@@ -38,6 +38,19 @@
 // THE PRICE STILL IS NOT ON THEM, and that is now a decision rather than a gap,
 // because products.json has one for all eight. The argument is over packBand.
 //
+// **ONE GUIDE'S CHECKLIST IS NOT TCGDEX'S AND EVERY BAND THAT SAYS WHOSE IT IS
+// HAS TO CHECK.** 22 August 2026. TCGdex declares SV5M Cyber Judge, states a
+// card count and publishes no cards for it, so that page was a noindex stub;
+// sync-intl-guides.mjs now fills it from TCGplayer, whose Japanese catalogue
+// carries the names, the collector numbers and the JAPANESE rarity words. The
+// scans are still TCGdex's, read out of public/data/printings, so nothing about
+// the pictures on this page family changed. `g.checklistFrom` is the flag, it
+// is ABSENT on the other twelve, and four bands branch on it: sourceBand,
+// checklistBand, rarityBand and the lede in the checklist. The reason it is a
+// flag rather than a rewrite is that the words a page prints have to name the
+// catalogue they came out of, and the rarity words in particular are in a
+// different vocabulary from the one on the guide next to it.
+//
 // AND FIVE GUIDES STILL CARRY NO PHOTOGRAPH, which is a fact about the world
 // this time and was checked before it was written: TCGplayer has exactly two
 // Pokemon product lines and neither is Korean or Chinese. The proof, and the
@@ -1087,13 +1100,21 @@ ${enFirst ? "" : enBlock}  </div>
  * imported printing's.
  */
 function enOnlyBand(g, en, cls) {
-  // TWO GUIDES REACH THIS AND THEY ARE EMPTY FOR TWO DIFFERENT REASONS, so the
-  // sentence is worked out from the data rather than written once and reused.
-  // ja-cyber-judge has no card records at all. ko-mask-of-change has 101 of
-  // them, none labelled above Double Rare and none numbered past the printed
-  // set, which is the condition sync-intl-guides.mjs already warns about at
-  // build time. Saying "TCGdex has no cards for this set" on the second one
+  // TWO GUIDES REACHED THIS AND THEY WERE EMPTY FOR TWO DIFFERENT REASONS, so
+  // the sentence is worked out from the data rather than written once and
+  // reused. ja-cyber-judge had no card records at all. ko-mask-of-change has
+  // 101 of them, none labelled above Double Rare and none numbered past the
+  // printed set, which is the condition sync-intl-guides.mjs already warns about
+  // at build time. Saying "TCGdex has no cards for this set" on the second one
   // would be plainly false to anybody who scrolled to the checklist.
+  //
+  // IT IS ONE GUIDE SINCE 22 AUGUST 2026 and the branch below is not dead:
+  // ja-cyber-judge has a TCGplayer checklist and twelve chase cards of its own
+  // now, so it takes chaseBand instead. The no-card-records branch stays because
+  // the condition that produced it has not gone anywhere: zh-gem-pack-2 is in
+  // the same state today and only misses this band because it has no English
+  // twin to show. Do not delete a branch because the one page that reached it
+  // stopped reaching it.
   const why = g.cards?.length
     ? `No card in the ${esc(g.langName)} printing is labeled at a chase rarity, so there is nothing of its own to picture here. Its full checklist is further down.`
     : `TCGdex has not published a card list for the ${esc(g.langName)} printing yet, so there is nothing of its own to picture here.`;
@@ -1225,9 +1246,23 @@ function rarityBand(g, rarities, maxN, secretCount, cls) {
         <span class="rar-bar"><i style="width:${Math.max(4, Math.round((n / maxN) * 100))}%"></i></span>
       </div>`).join("\n      ")}
     </div>
-    ${secretCount ? `<p class="price-note">${secretCount} more cards are numbered past card ${g.cardCount?.official}, which is
-      how ${esc(g.dataSource?.langName || g.langName)} sets carry their secret rares. TCGdex does not label the rarity on every
-      one of them, so they are counted here rather than guessed at.</p>` : ""}
+    ${/* THE SECOND SENTENCE IS ABOUT TCGDEX AND ONE GUIDE'S LADDER IS NOT
+          TCGDEX'S. "TCGdex does not label the rarity on every one of them" is
+          the reason those cards are counted rather than named on twelve of
+          these pages; on the TCGplayer-sourced one every secret IS labelled and
+          the ladder above already shows all four of its tiers, so the sentence
+          would be describing a gap the reader can see is not there. What is
+          worth saying there instead is which vocabulary the words above are in,
+          because "Ultra Rare" means the top of this set here and a rung four
+          lower on the guides next to it. */ ""}${secretCount ? `<p class="price-note">${secretCount} more cards are numbered past card ${g.cardCount?.official}, which is
+      how ${esc(g.dataSource?.langName || g.langName)} sets carry their secret rares. ${
+        g.checklistFrom
+          ? `Every one of them is named above, and the tier names are the ${esc(g.langName)} ones off the wrapper rather than
+      the English ladder: Art Rare, Super Rare, Special Art Rare and Ultra Rare are their own tiers and we do not translate
+      them into English ones.`
+          : `TCGdex does not label the rarity on every
+      one of them, so they are counted here rather than guessed at.`
+      }</p>` : ""}
   </div>
 </section>`;
 }
@@ -1324,9 +1359,25 @@ function checklistBand(g, cls) {
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
     <h2>Full <span class="hl">checklist</span></h2>
-    <p class="lede">All ${g.cards.length} cards, English names where the card is a Pokemon.${
+    ${/* TWO SENTENCES, BECAUSE THE TWO CHECKLIST SOURCES DO NOT COVER THE SAME
+          CARDS. "English names where the card is a Pokemon" is exactly true of
+          a TCGdex checklist and understates a TCGplayer one, which names the
+          Trainers and the Energy as well; printing it over a list where every
+          row has an English name reads as a page that has not looked at itself.
+          The price-note at the foot of this band says the same thing the other
+          way round and is switched with it. */ ""}<p class="lede">${
+      g.checklistFrom
+        ? `All ${g.cards.length} cards, in English, including the Trainers and the Energy.`
+        : `All ${g.cards.length} cards, English names where the card is a Pokemon.`
+    }${
       g.dataSource?.borrowed
         ? ` This list is the ${esc(g.dataSource.langName)} printing's, because TCGdex has no ${esc(g.langName)} card records for this set.`
+        : ""
+    }${
+      g.checklistFrom
+        ? ` The ${esc(g.checklistFrom.denominator)} cards of the printed set come first and the ${
+            g.cards.length - g.checklistFrom.denominator
+          } numbered past it follow, which is how ${esc(g.langName)} sets carry their secret rares.`
         : ""
     }</p>
     <details class="ig-list">
@@ -1338,10 +1389,15 @@ function checklistBand(g, cls) {
           ${c.rarity ? `<span class="ig-rr">${esc(rarityLabel(c.rarity))}</span>` : c.secret ? `<span class="ig-rr">Secret</span>` : kindOf(c) ? `<span class="ig-rr">${esc(kindOf(c))}</span>` : ""}</li>`).join("\n        ")}
       </ol>
     </details>
-    <p class="price-note">Pokemon names come from the National Pokedex number on each card, so they are looked up rather
+    ${g.checklistFrom
+      ? `<p class="price-note">Every name here is the one TCGplayer files this card under in their ${esc(g.checklistFrom.line)}
+      catalogue, so the Trainers and the Energy are named too, which is the one thing our other imported checklists cannot do.
+      Nothing on this page is transliterated or guessed at: where a name could not be read off a catalogue it is not printed.
+      The ${esc(g.langName)} name is beside each one, because that is what is on the card in your hand.</p>`
+      : `<p class="price-note">Pokemon names come from the National Pokedex number on each card, so they are looked up rather
       than transliterated. Trainer and Supporter cards keep their ${esc(g.dataSource?.langName || g.langName)} names: no
       free source translates them, and a guessed name on a reference page is worse than an honest one you can paste into
-      a search.</p>
+      a search.</p>`}
   </div>
 </section>`;
 }
@@ -1405,12 +1461,34 @@ ${rips
 </section>`;
 }
 
+/**
+ * WHOSE WORDS ARE ON THIS PAGE, AND ONE GUIDE'S ANSWER IS NOT TCGDEX'S.
+ *
+ * Twelve of these thirteen take their checklist, their rarities and their card
+ * names from TCGdex plus PokeAPI, and this band said so for all thirteen. Since
+ * 22 August 2026 ja-cyber-judge takes its checklist from TCGplayer, because
+ * TCGdex declares that set and publishes no cards for it, and a source line
+ * naming the wrong catalogue is worse on this page than on any other: the whole
+ * pitch of these guides is that a reader can check them.
+ *
+ * The three things that change with it are all real and all visible:
+ *   - the CHECKLIST and the RARITY WORDS are TCGplayer's
+ *   - the SCANS are still TCGdex's, so the credit is split rather than moved
+ *   - the card names are TCGplayer's English catalogue names, which is why that
+ *     guide has an English name on its Trainers and Energy where every other
+ *     one keeps them in Japanese. PokeAPI is not credited there because it did
+ *     no work there.
+ */
 function sourceBand(g, cls) {
+  const tcg = g.checklistFrom;
   return `<section class="${cls}">
   <div class="wrap">
     <h2>Where this <span class="hl">came from</span></h2>
     <ul class="facts-list">
-      <li>Set details, checklist and rarities from <a href="https://tcgdex.dev/" rel="noopener" target="_blank" aria-label="TCGdex, the card database this checklist came from, opens on tcgdex.dev">TCGdex</a>, read ${esc(longDate(guides.checked) || guides.checked)}.</li>
+      ${tcg
+        ? `<li>Card scans from <a href="https://tcgdex.dev/" rel="noopener" target="_blank" aria-label="TCGdex, the card database these scans came from, opens on tcgdex.dev">TCGdex</a>, and the set details read there ${esc(longDate(guides.checked) || guides.checked)}.</li>
+      <li><strong>The checklist, the card names and the rarities on this page are TCGplayer's</strong>, read ${esc(longDate(tcg.checked) || tcg.checked)} from their ${esc(tcg.line)} catalogue, where this set is filed as ${esc(tcg.setName)}. TCGdex lists the set and has published no cards for it: its own record declares ${g.declaredCount ?? "a"} card${g.declaredCount === 1 ? "" : "s"} and carries none of them. Every collector number in the TCGplayer list is written out of ${esc(String(tcg.denominator).padStart(3, "0"))}, which is the same printed set size TCGdex states, and the two catalogues were matched card for card on the collector number before any of this was published.</li>`
+        : `<li>Set details, checklist and rarities from <a href="https://tcgdex.dev/" rel="noopener" target="_blank" aria-label="TCGdex, the card database this checklist came from, opens on tcgdex.dev">TCGdex</a>, read ${esc(longDate(guides.checked) || guides.checked)}.</li>`}
       ${/* "on this page", not "below": this band is the LAST section, so it was
             pointing at a checklist that sits above it. */ ""}
       ${g.dataSource?.borrowed ? `<li><strong>The checklist on this page is the ${esc(g.dataSource.langName)} one.</strong> ${
@@ -1421,7 +1499,9 @@ function sourceBand(g, cls) {
           ? ` Its own entry claims ${g.declaredCount} cards against ${g.cardCount.total} in the ${esc(g.dataSource.langName)} set; that figure has no cards behind it to check, so the verifiable number is the one shown above.`
           : ""}</li>` : ""}
       ${g.nameNote ? `<li><strong>On the name.</strong> ${esc(g.nameNote)}</li>` : ""}
-      <li>Pokemon card names in English via the National Pokedex number, through <a href="https://pokeapi.co" rel="noopener" target="_blank" aria-label="PokeAPI, the source of the English card names, opens on pokeapi.co">PokeAPI</a>.</li>
+      ${tcg
+        ? `<li><strong>The rarity words here are the ${esc(g.langName)} ones.</strong> This set's tiers read Art Rare, Super Rare, Special Art Rare and Ultra Rare, which is what is printed on the wrapper. Our other imported guides read TCGdex's anglicised names for the same ladder, so the same card can be called two things across two of these pages. We do not map one onto the other: the two companies publish different names and inventing an equivalence between them is not something this site does.</li>`
+        : `<li>Pokemon card names in English via the National Pokedex number, through <a href="https://pokeapi.co" rel="noopener" target="_blank" aria-label="PokeAPI, the source of the English card names, opens on pokeapi.co">PokeAPI</a>.</li>`}
       <li>This is a fan page. Nothing here is sold by us and none of it is official.</li>
     </ul>
   </div>
@@ -1493,8 +1573,16 @@ function guidePage(g) {
 
   // A guide with no checklist, no rarities and no chase cards is a stub, and the
   // site already noindexes thin rip pages for exactly this reason. It stays
-  // reachable and in the nav; it just does not go to search until TCGdex
+  // reachable and in the nav; it just does not go to search until somebody
   // publishes the cards.
+  //
+  // THE CONDITION IS UNCHANGED AND ONE PAGE CAME OUT FROM UNDER IT ON 22 AUGUST
+  // 2026, WHICH IS THE ORDER THAT MATTERS. /sets/ja-cyber-judge.html was a
+  // 32,572-byte noindex stub with no card of its own on it, and it is indexable
+  // now because it stopped being thin, not because anybody decided it should be
+  // indexed: it renders a 100-row checklist, a nine-rung rarity ladder, twelve
+  // chase tiles and the pulled-card grid. `thin` was not touched. If a future
+  // guide is still a stub, this still hides it.
   const thin = !g.hasCards;
 
   // ---------------------------------------------------------------- the bands

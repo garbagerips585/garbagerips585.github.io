@@ -17,7 +17,7 @@ import { basename, join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { checkDrift } from "../shared/chrome.mjs";
 import { esc, MONTHS_SHORT as MONTHS, moneyCompact, imgDims, viewCount, avifPicture, packTileImg, longDate, noWidowEmoji, RIP_BANNER } from "../shared/format.mjs";
-import { labelFor } from "../shared/taxonomy.mjs";
+import { labelFor, PRODUCT_TYPES } from "../shared/taxonomy.mjs";
 // The sourcing sentence for a raw card price, and the "which of the two dates
 // in that file is the money's" helper. NOT re-worded here: this page prints the
 // same figures the set guides and /wanted.html do, out of the same files, so it
@@ -1313,8 +1313,21 @@ const PULL_BADGE = {
   sir: "SIR", ir: "IR", gold: "Gold", "alt-art": "Alt Art",
   "double-rare": "Double Rare", charizard: "Charizard",
 };
+// THE PRODUCT LABEL IS THE SHORT ONE WHERE TAXONOMY CARRIES ONE, for the same
+// reason PULL_BADGE above is shorter than the taxonomy label: app.js draws this
+// page's product filter chips from its own LABELS.products, and that table says
+// "ETB". labelFor() returns `label`, which is "Elite Trainer Box", so using it
+// for the tile caption would have captioned twelve of the first 48 tiles with a
+// name the chip directly above them does not use -- "the product rail and the
+// tiles under it disagreed", recorded in CLAUDE.md, word for word again.
+const productLabel = (id) => {
+  const e = PRODUCT_TYPES.find((p) => p.id === id);
+  return e ? e.short || e.label : id;
+};
 const labelOf = (group, id) => {
-  const hit = group === "pulls" ? PULL_BADGE[id] || id : labelFor(group, id);
+  const hit = group === "pulls" ? PULL_BADGE[id] || id
+    : group === "products" ? productLabel(id)
+    : labelFor(group, id);
   if (hit !== id) return hit;
   return String(id).split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
 };
@@ -1371,7 +1384,44 @@ function packFacade(setId) {
     `</span></span>`;
 }
 
-/** app.js makeCard(), as HTML. Unfiltered, so no preferSet and no rank. */
+/**
+ * app.js makeCard(), as HTML. Unfiltered, so no preferSet and no rank.
+ *
+ * THE CAPTION NAMES THE PRODUCT, NOT THE SET, AND THAT IS THE WHOLE POINT OF
+ * IT. This page is 48 server-rendered tiles drawn from 6 wrappers, and 36 of
+ * the 48 are two of them: pitch-black 24, chaos-rising 12. At 1440 that is 12
+ * tiles above the fold showing 2 distinct pictures; at 390 it is 4 showing 2.
+ *
+ * THE OBVIOUS FIX IS THE WRONG ONE HERE and it is worth saying why, because it
+ * is the fix that was right one file over. The rip rails in build-pages.mjs
+ * round-robin by product kind. /videos.html cannot: it is a chronological
+ * library whose own control says "Newest first", and re-sorting it by product
+ * would make that label a lie. libVideos below sorts by `published` and must
+ * keep doing so.
+ *
+ * WHAT WAS ACTUALLY REDUNDANT WAS THE CAPTION. It read "CHAOS RISING • 611
+ * VIEWS" under an h3 reading "Chaos Rising Pack" over a pack with CHAOS RISING
+ * printed across it: one fact three times, measured at 48 of 48 tiles, while
+ * what was opened was only implicit. Swapping the set for the product spends
+ * the same field and the same bytes on the one thing the picture cannot say.
+ *
+ * MEASURE IT AS THE PICTURE PLUS THE CAPTION, NOT THE CAPTION ALONE. "Distinct
+ * captions" is a decoy: the view count is on the end of every one of them, so
+ * it was already 47 of 48 before this change and is 47 of 48 after. The pair
+ * that matters is (wrapper, caption lead), because that is what a reader
+ * actually distinguishes two tiles by. Measured off the built tree at both
+ * widths: above the fold that pair goes 2 -> 4, and across the 48 it goes
+ * 6 -> 13. Six wrappers and six product kinds, but they cross rather than
+ * coincide, which is the whole reason the second field is worth its bytes.
+ *
+ * A TILE WITH NO PRODUCT PRINTS NOTHING RATHER THAN FALLING BACK TO THE SET.
+ * That is this function's existing pattern -- 5 videos carry no set and already
+ * drop the bit -- and falling back would reintroduce the duplication on exactly
+ * the tiles least able to afford it. Today it is unreachable: all 319 videos
+ * carry exactly one product, because deriveTags in taxonomy.mjs truncates to
+ * one ("a video is only ever ripped from one product at a time"). That is also
+ * why neither side writes a "+N", which the set branch above needed.
+ */
 function libCard(v) {
   const all = v.sets || [];
   // NOT faceSet(). app.js picks the wrapper without consulting which artwork
@@ -1382,8 +1432,8 @@ function libCard(v) {
   const href = v.path ? `/${v.path}` : "/videos.html";
   const pull = (v.pulls || [])[0];
   const bits = [];
-  if (all.length > 1) bits.push(`${labelOf("sets", all[0]).toUpperCase()} +${all.length - 1}`);
-  else if (all.length) bits.push(labelOf("sets", all[0]).toUpperCase());
+  const prod = (v.products || [])[0];
+  if (prod) bits.push(labelOf("products", prod).toUpperCase());
   if (v.views) bits.push(fmtViews(v.views).toUpperCase());
   else if (v.published) bits.push(fmtDate(v.published).toUpperCase());
   return `<article class="v"><a class="art" href="${esc(href)}" aria-label="${esc(v.siteTitle || v.title)}">` +

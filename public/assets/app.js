@@ -110,10 +110,10 @@
     // rather than implying the rip was only one of them.
     var sets = v.sets || [];
     // The set this tile speaks for: the one being filtered on where the video
-    // carries it, otherwise the first it is tagged with. Both the artwork below
-    // and the caption further down read from this, because a tile wearing the
-    // Chaos Rising wrapper under a Chaos Rising filter while its caption said
-    // "PERFECT ORDER +1" looked like the filter had leaked.
+    // carries it, otherwise the first it is tagged with. The ARTWORK reads from
+    // this; the caption no longer does, and the "PERFECT ORDER +1 under a Chaos
+    // Rising filter" fault it was added for cannot recur, because the caption
+    // can no longer name a set at all.
     var lead = opts.preferSet && sets.indexOf(opts.preferSet) > -1 ? opts.preferSet : sets[0];
     var set = lead;
     if (!opts.preferSet && sets.length > 1) set = "multi";
@@ -153,11 +153,13 @@
     h3.appendChild(a);
     card.appendChild(h3);
 
-    // Label from the real sets, never from the wrapper being shown: "multi" is
-    // an artwork choice and would read here as though it were a card set.
+    // WHAT WAS OPENED, and it used to be the set. The set is already in the h3
+    // and painted on the pack, so this said one fact three times. The argument,
+    // the numbers and the reason there is no "+N" are above libCard in
+    // build-proto.mjs, which renders the first 48 and must emit the same bytes.
     var bits = [];
-    if (sets.length > 1) bits.push(labelOf("sets", lead).toUpperCase() + " +" + (sets.length - 1));
-    else if (sets.length) bits.push(labelOf("sets", lead).toUpperCase());
+    var prod = (v.products || [])[0];
+    if (prod) bits.push(labelOf("products", prod).toUpperCase());
     if (v.views) bits.push(fmtViews(v.views).toUpperCase());
     else if (v.published) bits.push(fmtDate(v.published).toUpperCase());
     card.appendChild(el("p", null, bits.join("  \u2022  ")));
@@ -275,13 +277,19 @@
     // "Ex Premium" over a tile saying "ex Premium Collection". Same words now,
     // and the same words again in PRODUCT_LABELS in build-proto.mjs, which is
     // the home page's copy of this rail.
+    // ON A TILE NOW, NOT ONLY ON A CHIP, so this has to mirror taxonomy.mjs the
+    // way LABELS.sets does: `short` where PRODUCT_TYPES carries one, `label`
+    // otherwise. Four ids live in videos.json disagreed. See libCard.
     products: {
       upc: "UPC", etb: "ETB", "booster-box": "Booster Box", "ex-box": "ex Box",
       "ex-premium": "ex Premium Collection", bundle: "Booster Bundle",
       blister: "Blister", tin: "Tin", "poke-ball-tin": "Poke Ball Tin",
       "collection-box": "Collection Box", "single-pack": "Single Pack",
-      "japanese-pack": "Japanese Pack", "korean-pack": "Korean Pack",
-      "chinese-pack": "Chinese Pack"
+      "japanese-pack": "Japanese Booster Pack", "korean-pack": "Korean Booster Pack",
+      "chinese-pack": "Chinese Booster Pack", "knock-out": "Knock Out Collection",
+      // Unused so far; riplabel.mjs notes the same latency. Without them the
+      // day one is logged the fallback prints "Spc" on a tile.
+      spc: "Super Premium Collection", "ex-special": "ex Special Collection"
     },
     pulls: {
       sir: "SIR", ir: "IR", gold: "Gold", "alt-art": "Alt Art",
