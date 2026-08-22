@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=582ae61a">
+<link rel="stylesheet" href="/assets/ui.css?v=44c60e03">
 <link rel="stylesheet" href="/assets/packs.css?v=bb70e5eb">
 <style>.rar-pr{grid-column:1 / -1;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
 letter-spacing:.02em}
@@ -95,7 +95,13 @@ padding-left:7px;padding-right:7px;margin-left:-7px;margin-right:-7px}
 border-radius:3px;padding:3px 5px}
 .chip-rk{display:inline-flex;align-items:center;
 flex:0 1 auto;min-width:0;white-space:normal;
-height:auto;min-height:44px;padding-block:6px}</style>
+height:auto;min-height:44px;padding-block:6px}
+.is-none.noscan,.chof-noart.noscan{display:flex;flex-direction:column;
+align-items:center;justify-content:center;gap:6px;padding:8%;box-sizing:border-box;
+background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8px 16px)}
+.noscan .noscan-s{aspect-ratio:auto;object-fit:contain;background:none;opacity:.92}
+.noscan .noscan-t{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;text-align:center}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Crown Zenith Pokemon TCG Set Guide","description":"Crown Zenith Pokemon TCG set guide: 160 cards, released January 20, 2023. The priciest of those 160 is Pikachu at $44.44; Crown Zenith Galarian Gallery is a separate 70 cards we hold no prices for. Full rarity breakdown, every card priced, and the cards worth chasing.","image":["https://garbagerips585.github.io/assets/og-crown-zenith.jpg"],"about":{"@type":"Thing","name":"Crown Zenith (Pokemon Trading Card Game)"},"url":"https://garbagerips585.github.io/sets/crown-zenith.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://garbagerips585.github.io/sets/crown-zenith.html"},"datePublished":"2026-08-16","dateModified":"2026-08-16","author":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/"},"publisher":{"@type":"Organization","name":"Garbage Rips 585","logo":{"@type":"ImageObject","url":"https://garbagerips585.github.io/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Set guides","item":"https://garbagerips585.github.io/sets/"},{"@type":"ListItem","position":3,"name":"Crown Zenith"}]}</script>
 </head>
@@ -451,7 +457,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
     <p class="lede w38">1 card out of our own packs. It is in a video you can watch.</p>
     <ul class="mine-grid">
       <li class="mine">
-        <div class="mine-img is-none" aria-hidden="true"></div>
+        <div class="mine-img is-none noscan" aria-hidden="true"><img class="noscan-s" src="/assets/symbols/swsh12pt5-pokemon-tcg-set-symbol.webp" width="38" height="38" style="width:38px;height:38px" alt="" loading="lazy" decoding="async"><span class="noscan-t">No scan</span></div>
         <!-- The count rides on the name, not on the picture, because the
              picture is the card and the count is a fact about our pulls.
              Hidden at one: a "x1" badge on every other card would make the

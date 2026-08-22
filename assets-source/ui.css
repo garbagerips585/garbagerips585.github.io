@@ -1417,7 +1417,33 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
 .hofx:hover .pack-hint,.hofx:focus-visible .pack-hint{
   background:var(--gold-deep);color:var(--on-accent)}
 .pack:hover .pack-face{transform:scale(1.012)}
-.pack-face{transition:transform .18s ease}
+/* THE PACK GIVES UNDER YOUR THUMB BEFORE IT TEARS, and this is the only rule in
+   this pass that is about the thing the whole site is built around.
+
+   The wrapper already grows 1.2% under a pointer, which says "this is a thing".
+   It said nothing about being PUSHED, so the sequence a reader performs was
+   grow, [nothing], shake, tear: the wind-up was missing from the one animation
+   on this site anybody would call its best. A sealed foil pack squashes slightly
+   when you press it and then the seam goes. .988 is a hair under the 1.012 the
+   hover adds, so press reads as travel through rest rather than as a second size.
+
+   IT IS THE ONLY STATE A PHONE GETS. There is no hover on a touch screen, so
+   `.pack:hover` has never fired for most of the people who use this, and :active
+   is what a finger produces. 316 rip pages plus every pack the carousel, the
+   trophy and the grid tiles mount.
+
+   NOTHING HERE CAN COLLIDE WITH THE TEAR. `.pack.tearing` is pointer-events:none
+   so :active cannot hold through it, and a running @keyframes outranks a
+   transitioned declaration anyway, so packShake wins the frame it starts.
+   DECLARED AFTER :hover DELIBERATELY: both selectors are (0,2,0) and source
+   order is the only thing that separates them.
+
+   THE CURVE ON THE LINE BELOW WAS `ease` AND IS THE HOUSE CURVE NOW. One shared
+   transition drives both states, this pass added the second one, and the house
+   curve is what the tear, the hit cards, the library grid and the lightbox all
+   use. The finished values are identical; only the travel changed. */
+.pack:active .pack-face{transform:scale(.988)}
+.pack-face{transition:transform .18s cubic-bezier(.2,.7,.3,1)}
 
 /* ---------- the same banner, on every other surface that shows a video -------
    Tim, 19 August 2026: "I do like the 'Click To Open Pack' banner on the video
@@ -1891,6 +1917,22 @@ section.band-sky .sec-label{color:var(--sky)}section.band-navy .sec-label{color:
   transition:transform .12s ease,box-shadow .12s ease;
 }
 .btn:hover{transform:translate(-2px,-2px)}
+/* AND IT GOES BACK DOWN WHEN YOU PUSH IT. Every .btn is drawn as a physical
+   thing: a 2px keyline over a 4px hard shadow that DEEPENS to 6px as the button
+   lifts 2px toward you on hover. Nothing then happened on press, so the one
+   moment the reader actually commits was the only one with no feedback, and on
+   a phone -- where there is no hover at all -- pressing was the ONLY state and
+   it was silent. 4,305 buttons on all 1,487 pages.
+
+   +2px, NOT back to 0, so it lands two pixels PAST rest and closes the gap to
+   its own shadow from either state: 4px of travel from the hovered pointer and
+   2px from a finger that never hovered. Same idiom and same reading as
+   `.vcar-nav:active` at the foot of this file, which kills its offset and drops
+   into the shadow; that one can zero its box-shadow because it has exactly one
+   colour, while .btn's is `--keyline` on three variants and `--trubbish` on the
+   ghost, so this moves the BUTTON and leaves every variant's shadow alone.
+   Transform only, no colour, so it cannot leak the gold rule. */
+.btn:active{transform:translate(2px,2px)}
 .btn-yt{background:linear-gradient(180deg,var(--mustard),var(--gold));color:var(--on-accent);box-shadow:4px 4px 0 var(--keyline)}
 .btn-yt:hover{box-shadow:6px 6px 0 var(--keyline)}
 /* THE SUBSCRIBE BUTTON, AND WHY IT IS NOT .btn-yt.
@@ -2263,7 +2305,32 @@ footer .soc svg{fill:var(--chrome-ink)}
 /* ---------- chase card lightbox ----------
    Cards open large on this site rather than bouncing straight out to a
    marketplace. The price link is still there, one tap inside. */
-.chase-card{cursor:zoom-in;width:100%;text-align:left;font:inherit;color:inherit}
+.chase-card{cursor:zoom-in;width:100%;text-align:left;font:inherit;color:inherit;
+  transition:transform .14s cubic-bezier(.2,.7,.3,1),box-shadow .14s cubic-bezier(.2,.7,.3,1)}
+/* THE BIGGEST CONTROL SURFACE ON THE SITE ANSWERED NOTHING. Counted on the built
+   tree: 4,656 real chase cards across 1,065 pages, every one a <button> wearing
+   `cursor:zoom-in`, and there was no :hover rule and no :focus rule on the class
+   at all. A zoom-in cursor over a control that does not move is the site
+   promising something twice and delivering it neither time.
+
+   IT RISES, AND THE DIRECTION IS THE POINT rather than the site's other card
+   idiom. `.set-card` and `.btn` go DIAGONALLY into a hard shadow, which reads as
+   a card being slid; `.vid-shell` rises straight up on its drop shadow, which is
+   the language for a tile that OPENS something, and that is what this is. The
+   rise is also literally the first frame of `.lb`'s own scale-up further down
+   this file, on the same curve: hover is the promise and the tap is the payoff.
+
+   :not(.is-flat) IS LOAD BEARING AND IS NOT TIDINESS. 19,415 of the 24,071
+   chase cards in the tree are `.is-flat`, a printing we hold no price for: that
+   rule sets `cursor:default` and there is no lightbox behind it. A tile that
+   lifts under the cursor and then does nothing is a worse lie than one that
+   never moved. Both counts read off the built tree, not off a builder.
+
+   :focus-visible ON THE SAME RULE, following `.runrow` above. The global focus
+   ring still draws; this is the state change a pointer user gets, given to a
+   keyboard user too rather than left as a hover-only affordance. */
+.chase-card:not(.is-flat):hover,.chase-card:not(.is-flat):focus-visible{
+  transform:translateY(-3px);box-shadow:0 8px 0 var(--gold-deep)}
 .lb{
   position:fixed;inset:0;z-index:200;display:none;
   background:rgba(17,17,17,.86);backdrop-filter:blur(4px);
@@ -2286,6 +2353,64 @@ footer .soc svg{fill:var(--chrome-ink)}
   font-size:1.4rem;line-height:1;display:grid;place-items:center;box-shadow:0 4px 0 var(--keyline);
 }
 @media(max-width:520px){.lb{padding:14px}.lb-close{top:-12px;right:-6px}}
+
+/* ---------- the card comes toward you ----------
+   `.chase-card{cursor:zoom-in}` above has promised a zoom on 1,067 pages since
+   this lightbox was built, and nothing zoomed: `.lb` went display:none to
+   display:grid and the panel was simply THERE. The scrim fades up and the panel
+   arrives from .94, so the movement says the thing you tapped is coming toward
+   you. That is the mechanic the cursor already names, not a flourish added to it.
+
+   REACH: /hall.html, the 1,025 Pokedex pages and the 41 set guides. Four
+   builders open this (build-pokemon, build-hall, build-intl-pages,
+   build-set-pages) with the same `classList.add('on')` and NOT ONE OF THEM
+   CHANGED. That is the whole reason this is @starting-style rather than an
+   is-armed class: three of the four were off limits to the pass that wrote this,
+   and a mechanic that needs four builders edited in step is a mechanic that will
+   be half-edited later.
+
+   WHY THIS DOES NOT NEED THE is-armed DANCE, and it is worth being precise
+   because the rule it is exempt from is the most load-bearing one in this file.
+   `.hitcards`, `.wall` and `.empty-mascot` all arm a PERSISTENT opacity:0 that
+   something else has to come and take off, which is why they are visible by
+   default and armed only once JS has confirmed it will reveal. There is no
+   persistent hidden state here at all: the ONLY opacity:0 lives inside
+   @starting-style, which is the before-change style for one frame and cannot be
+   left behind. A browser that does not parse @starting-style drops the whole
+   at-rule and gets exactly what shipped before this: an instant lightbox. There
+   is no failure that can strand a card.
+
+   REDUCED MOTION NEEDS NO RULE HERE FOR THE SAME REASON. The blanket
+   `*{transition:none!important}` block above kills the transition, and with no
+   transition the element is at its after-change style on the first frame, which
+   is the finished panel. Verified by reading opacity and transform off the real
+   DOM with the media feature emulated rather than inferred: 1 and none at t=0.
+
+   ENTRY ONLY. Closing removes .on and the panel goes at once, which is what it
+   did before and is what a reader who has finished looking wants; an exit would
+   need transition-behavior:allow-discrete on `display` and would hold a
+   dismissed dialog on screen.
+
+   THERE ARE THREE MARKUPS AND ONE MECHANIC, AND THE LIST WAS COUNTED OFF THE
+   BUILT TREE RATHER THAN OFF THE BUILDERS, which is the only reason the second
+   and third are here at all:
+     - `.lb > .lb-inner`, 1,066 pages: the Pokedex and the set guides.
+     - `.lb > .lb-in`, ONE page. /hall.html writes its own panel class and there
+       is no `.lb-in` rule anywhere in this file, so hall took the scrim fade
+       and NOT the panel. It is build-hall.mjs's markup, so the divergence has
+       to be absorbed here; a grep of this stylesheet cannot see it.
+     - `.hitlb > .hitlb-in`, the hit-card lightbox on the rip pages, which opens
+       by dropping `hidden` rather than adding a class. `.hitcard-open` wears
+       the SAME `cursor:zoom-in`, so it was the same unkept promise in a third
+       place, and leaving it would have given the site two card lightboxes that
+       behave differently. */
+.lb.on,.hitlb:not([hidden]){opacity:1;transition:opacity .18s cubic-bezier(.2,.7,.3,1)}
+.lb.on .lb-inner,.lb.on .lb-in,.hitlb:not([hidden]) .hitlb-in{
+  transition:transform .24s cubic-bezier(.2,.7,.3,1)}
+@starting-style{
+  .lb.on,.hitlb:not([hidden]){opacity:0}
+  .lb.on .lb-inner,.lb.on .lb-in,.hitlb:not([hidden]) .hitlb-in{transform:scale(.94)}
+}
 /* ---------- what the pack looks like ---------- */
 /* --------------------------------------------------------------------------
    What you are chasing. The top cards from this rip's set, on the video's own
@@ -3196,7 +3321,25 @@ footer .soc svg{fill:var(--chrome-ink)}
     scroll-behavior:auto!important}
   .btn:hover,.vid-shell:hover,.soc:hover,.pl:hover,.chip:hover,.v:hover .art,
   .set:hover,.chof:hover,.wc:hover,.shop:hover,.mw:hover .mw-art,
-  .foot-social a:hover{transform:none!important}
+  .foot-social a:hover,
+  /* The three states added 22 August 2026. The rule above this list already
+     killed their TRANSITIONS, and that is not enough on its own: a transform
+     with no transition still applies, instantly, which is a jump rather than a
+     movement and is exactly what this reader asked not to have. The content and
+     the mechanic are untouched -- every one of these is still a control, still
+     focusable, still opens what it opened. Only the travel goes.
+     `.lb` needs no entry: its one hidden state lives inside @starting-style, so
+     with the transition killed there is nothing left to sit in. */
+  /* `.pack:hover .pack-face` is NOT one of the three: it has been on the site
+     for months and is on this list because adding :active beside it made the
+     omission asymmetric. Driven with the media feature emulated, before this
+     line: hover still jumped the wrapper to scale(1.012) while the press
+     correctly did nothing, so a reduced-motion reader got the one state they
+     did not ask for and lost the one they did. The block above already sets
+     transition:none on .pack-face, which is what hid this: somebody thought
+     about this element and covered the easing without covering the jump. */
+  .btn:active,.pack:active .pack-face,.pack:hover .pack-face,
+  .chase-card:not(.is-flat):hover,.chase-card:not(.is-flat):focus-visible{transform:none!important}
 }
 
 
@@ -4627,6 +4770,10 @@ inherited from the UA default, so the promotion moves nothing on screen. */
 .hitlb{position:fixed;inset:0;z-index:200;background:rgba(17,17,17,.88);
   display:flex;align-items:center;justify-content:center;padding:var(--s5)}
 .hitlb[hidden]{display:none}
+/* THIS ONE ARRIVES TOO, and its rules are NOT here: the scrim fade and the
+   panel's scale-up are grouped with `.lb`'s, by `.chase-card`, because the two
+   lightboxes are one mechanic and splitting the selector list would let them
+   drift. Three markups, one behaviour; the count and the argument are there. */
 .hitlb-in{position:relative;background:var(--card);border-radius:var(--r);padding:var(--s5);
   max-width:min(92vw,420px);max-height:92vh;overflow:auto;box-shadow:var(--hard-lg)}
 .hitlb-in img{display:block;width:100%;height:auto;border-radius:8px;background:var(--page)}

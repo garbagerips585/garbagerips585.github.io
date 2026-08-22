@@ -45,6 +45,13 @@ import { ripPath } from "../shared/paths.mjs";
 import { loadGradedPrices } from "../shared/graded-price.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
 import { pickIntlPrinting, norm } from "../shared/intl-printing.mjs";
+// THE CORPUS THIS FILE WAS NAMED AS NOT ASKING, AND THE PANEL A SLOT WITH NO
+// SCAN RENDERS. build-hall.mjs held corpusScan privately and its own header
+// said "build-pages.mjs has the identical gap on the identical rows and would
+// want the identical three lines, but that file is not this pass's to edit."
+// It is shared now rather than copied, for the reason five private copies of
+// gradedPrice() are the receipt for in CLAUDE.md.
+import { corpusScan, noScanBox, NOSCAN_CSS } from "../shared/card-scan.mjs";
 import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount, avifPicture, packTileImg } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -410,6 +417,14 @@ const intlChecklist = (setId) => {
       rarity: c.rarity || null,
       img: base && !NO_SCAN.has(base) ? base : null,
       price: null,
+      // BOTH NAMES SURVIVE THE FLATTENING NOW, AND ONLY corpusScan READS THEM.
+      // The printings corpus is sharded by the first letter of whichever name
+      // it holds, and it files a Japanese card under "0" where TCGdex has no
+      // translation, so a lookup with one name misses half the corpus. Nothing
+      // else in this builder touches either field: `name` above is still the
+      // one key a hit joins on, for the reason written over this function.
+      en: c.en || null,
+      native: c.native || null,
     };
   });
 };
@@ -531,11 +546,29 @@ async function resolveHits(vid) {
       : (want && same.find((c) => norm(c.rarity) === want)) ||
         (want && same.find((c) => norm(c.rarity).includes(want.slice(0, 8)))) ||
         same[0] || null;
+    // THE SECOND PLACE A JAPANESE SCAN LIVES, AND THIS BUILDER HAD NEVER ASKED
+    // IT. build-hall.mjs gained the lookup on 21 August 2026 and its note said
+    // in as many words that this file "has the identical gap on the identical
+    // rows". It did: Mega Abomasnow ex, Mega Symphonia #018, resolved to a real
+    // printing here, found no scan on the intl checklist and fell out of the
+    // hit-card band into the text list, while the plaque for the same card on
+    // /hall.html carried the picture. 92 of Mega Symphonia's 92 cards and 120
+    // of Ninja Spinner's 120 are in the corpus with their scans.
+    //
+    // ASKED ONLY AFTER THE PRINTING IS SETTLED, so it cannot change which card
+    // this row names: it is keyed on that printing's own (set, collector
+    // number) and cross-checks the native name and the rarity before taking a
+    // url. Frogadier in Ninja Spinner has scans for both #021 and #087 and
+    // still gets nothing, because pickIntlPrinting refuses to choose.
+    const backfill = intl && m && !m.img ? await corpusScan(INTL_SETS[h.set]?.native, { localId: m.n, en: m.en, native: m.native, rarity: m.rarity }) : null;
     out.push({
       name: h.card, setName: h.setName, setId: h.set,
       rarity: (m && m.rarity) || h.rarity || null,
       n: m ? m.n : null,
-      img: m && m.img ? `${m.img}/low.webp` : null,
+      // THE GUIDE'S OWN SCAN FIRST, THEN THE CORPUS. Same precedence
+      // build-hall.mjs uses: the file this row was resolved out of wins and the
+      // second source stands behind it rather than over it.
+      img: m && (m.img || backfill) ? `${m.img || backfill}/low.webp` : null,
       price: m && typeof m.price === "number" ? m.price : null,
       // NO GRADED LOOKUP ON AN INTL ROW. shared/graded-price.mjs is keyed on an
       // English set id and a PriceCharting console, and neither exists for a
@@ -1058,6 +1091,13 @@ const desc = (v.blurb || descriptions[v.id] || "")
 // per page, under a heading that says what came out of this one.
 const showableHits = hits.filter((h) => h.img || typeof h.price === "number");
 const pricedHits = hits.filter((h) => typeof h.price === "number");
+// WHETHER THIS PAGE PAYS FOR THE NO-SCAN PANEL'S RULES. The band renders every
+// hit once ANY of them is showable, so a row with neither a scan nor a price
+// still gets a tile, and that tile is the empty box Tim asked about. Four pages
+// of the 319 carry one today, so the rules are gated rather than shipped
+// everywhere: they are render-blocking bytes and 315 rip pages have nothing for
+// them to style. Same gate on /hall.html and on both set-guide builders.
+const noScanHits = showableHits.length && hits.some((h) => !h.img);
   // PACKS OUT OF THE SAME BOX, which is a stronger connection than "same set":
   // #1 through #10 of one ETB are one sitting, and a viewer who watched pack 3
   // usually wants pack 4, not another Chaos Rising rip.
@@ -1186,7 +1226,7 @@ ${/* THE PACK IS THIS PAGE'S LCP ELEMENT AND THE PRELOAD SCANNER CANNOT SEE IT.
 <link rel="preload" as="image" href="/assets/packs/${packSet}-garbage-rips-585-booster-pack.avif" type="image/avif" fetchpriority="high">
 ${FONTS}
 ${STYLES}
-<style>${RARITY_CSS_MIN}</style>
+<style>${RARITY_CSS_MIN}${noScanHits ? `\n${NOSCAN_CSS}` : ""}</style>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 <script type="application/ld+json">${JSON.stringify(crumbs)}</script>
 </head>
@@ -1476,7 +1516,16 @@ ${
             // species and set pages. The is-none branch below is already
             // aria-hidden for exactly this reason.
             ? hitcardImg(h.img)
-            : `<div class="hitcard-img is-none" aria-hidden="true"></div>`
+            // AND A HIT CARD WITH NO SCAN IS NOT AN EMPTY BOX EITHER, since
+            // 22 August 2026. Tim: "there should be no empty place holder
+            // images anywhere on the site." The branch above stopped it being
+            // a button; this stops it being a hatched rectangle. It is the
+            // set's own symbol and the words "No scan", still aria-hidden,
+            // still holding the same ratio box so the grid cannot jump. Six
+            // slots on four rip pages today. The argument for what goes in it,
+            // and for the three things that deliberately do not, is the second
+            // half of shared/card-scan.mjs.
+            : noScanBox("hitcard-img is-none", { slug: h.setId, name: h.setName })
         }
         <div class="hitcard-b">
           <p class="hitcard-n">${esc(h.name)}</p>

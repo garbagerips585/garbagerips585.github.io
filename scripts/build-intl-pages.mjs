@@ -42,6 +42,12 @@ import { BAR, MENU, SPRITE, SKIP, STYLES, footer, FONTS,
 import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
 import { raritiesIn, rarityLabelOf, rarityMark, RARITY_CSS } from "../shared/rarity.mjs";
 import { pickIntlPrinting, norm } from "../shared/intl-printing.mjs";
+// THE THIRD AND FOURTH CALLERS OF A LOOKUP build-hall.mjs HELD PRIVATELY. Its
+// own header named build-pages.mjs as having the same gap and did not know this
+// file had it too: six of the thirteen guides carry no scan in intl-guides.json
+// and three of those six are complete in public/data/printings. See
+// shared/card-scan.mjs for the table and for the two cross-checks.
+import { corpusScan, noScanBox, NOSCAN_CSS } from "../shared/card-scan.mjs";
 import { esc, longDate, shortDate, rarityLabel, imgDims, avifPicture, moneyCompact } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -266,6 +272,12 @@ function guideChecklist(g) {
       name: c.en || c.native,
       rarity: c.rarity || null,
       img: base && !NO_SCAN.has(base) ? base : null,
+      // Both names survive the flattening, and only corpusScan reads them: that
+      // corpus is sharded by the first letter of whichever name TCGdex holds,
+      // so a Japanese card with no translation is filed under "0" and a lookup
+      // with one name misses it. pickIntlPrinting reads neither.
+      en: c.en || null,
+      native: c.native || null,
     };
   });
 }
@@ -287,6 +299,30 @@ for (const [vid, list] of Object.entries(HITS)) {
     e.count += 1;
     if (!e.rarity && h.rarity) e.rarity = h.rarity;
     if (!e.rips.some((r) => r.path === v.path)) e.rips.push({ path: v.path, label: v.siteTitle || v.title });
+  }
+}
+
+/**
+ * THE SCAN THE GUIDE ITSELF DOES NOT HAVE, RESOLVED ONCE BEFORE ANY BAND DRAWS.
+ *
+ * hitsBand is synchronous and is called from inside a .map that builds the
+ * page, so the file lookup cannot happen there. It happens here instead, keyed
+ * on the printing pickIntlPrinting has ALREADY chosen, which is the same
+ * ordering /hall.html and the rip pages use and is what stops a picture ever
+ * deciding which card a tile names. A guide whose own checklist has the image
+ * never reaches this.
+ */
+const CORPUS_ART = new Map();
+for (const [setId, cards] of HITS_BY_SET) {
+  const g = guides.sets?.[setId];
+  const checklist = guideChecklist(g);
+  if (!g?.native || !checklist) continue;
+  for (const h of cards.values()) {
+    const same = checklist.filter((c) => norm(c.name) === norm(h.card));
+    const m = pickIntlPrinting(same, h.rarity ? norm(h.rarity) : null);
+    if (!m || m.img) continue;
+    const base = await corpusScan(g.native, { localId: m.n, en: m.en, native: m.native, rarity: m.rarity });
+    if (base) CORPUS_ART.set(`${setId}|${m.n}`, base);
   }
 }
 
@@ -337,9 +373,21 @@ function hitsBand(g, cls) {
       ${pinned
         .map(
           (h) => `<li class="mine">
-        ${h.m.img
-          ? avifPicture(`<img class="mine-img" src="${esc(h.m.img)}/low.webp" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(`${h.m.img}/low.webp`)}>`)
-          : `<div class="mine-img is-none" aria-hidden="true"></div>`}
+        ${/* THE GUIDE'S OWN SCAN, THEN THE CORPUS, THEN THE PANEL. Six of the
+              thirteen guides carry no image at all in intl-guides.json and
+              three of those six are complete in public/data/printings, which
+              this band had never asked; CORPUS_ART above is that lookup, done
+              before the page draws because this function is synchronous. What
+              is left after both is a card we hold no picture of anywhere, and
+              since 22 August 2026 that is a panel rather than a hatched
+              rectangle: no symbol here, because the only mark we hold for a
+              Japanese set is its ENGLISH twin's, and putting that on a Japanese
+              card would name the wrong printing. */ ""}${(() => {
+          const art = h.m.img || CORPUS_ART.get(`${g.id}|${h.m.n}`) || null;
+          return art
+            ? avifPicture(`<img class="mine-img" src="${esc(art)}/low.webp" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(`${art}/low.webp`)}>`)
+            : noScanBox("mine-img is-none");
+        })()}
         <p class="mine-n">${esc(h.m.name)}${h.count > 1 ? ` <span class="mine-x">&times;${h.count}</span>` : ""}</p>
         ${/* THE CHECKLIST'S TIER FIRST, THEN THE LOG'S OWN WORD. Same
               precedence as the plaque on /hall.html, which is the point: the
@@ -1257,7 +1305,14 @@ function guidePage(g) {
     // shared key's own stylesheet, which these pages were emitting `.rk` markup
     // without: the SR badge on /sets/ja-cyber-judge.html rendered as bare text
     // because nothing on the page defined the class.
-    css: [en ? ART_CSS : "", rarityCompare(g, en) ? PAGE_CSS : "", HITS_BY_SET.has(g.id) ? RARITY_CSS : ""]
+    // A FOURTH BLOCK, AND IT IS READ OFF THE DRAWN BODY RATHER THAN GUESSED.
+    // The no-scan panel fires on a card this repo holds no picture of anywhere,
+    // which is one tile on one of these thirteen guides today and none on the
+    // other twelve. Testing the rendered markup is exact and cannot drift out
+    // of step with the condition inside hitsBand the way a second copy of that
+    // condition would.
+    css: [en ? ART_CSS : "", rarityCompare(g, en) ? PAGE_CSS : "", HITS_BY_SET.has(g.id) ? RARITY_CSS : "",
+      body.includes("noscan") ? NOSCAN_CSS : ""]
       .filter(Boolean).join("\n"),
   }) + `
 <header class="set-hero">

@@ -29,6 +29,13 @@ import { BAR, MENU, SPRITE, SKIP, STYLES, footer, FONTS, dropUnusedPacksCSS,
 import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
 import { parseHits, rarityLabelOf, rarityMark, RARITY_CSS } from "../shared/rarity.mjs";
 import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, RARITY_ORDER, cardNumKey, imgDims, productSrcsetAttr, avifPicture, plural, count } from "../shared/format.mjs";
+// WHAT A CARD SLOT SHOWS WHEN THERE IS NO SCAN. One panel for /hall.html, the
+// rip pages and both set-guide builders, so four grids cannot answer the same
+// question four ways. corpusScan is the other half of that module and this file
+// does not call it: it is an intl lookup, and the rows that reach the panel
+// here are English cards whose NAME is not on the checklist, which is a
+// spreadsheet fix rather than a missing file.
+import { noScanBox, NOSCAN_CSS } from "../shared/card-scan.mjs";
 import { ripLabel, ownLineProduct } from "../shared/riplabel.mjs";
 import { daysSince } from "../shared/today.mjs";
 
@@ -2089,10 +2096,46 @@ function productBand(s, cls) {
   const cards = items
     .map(
       (p) => `      <li class="prod">
-        <a class="prod-shot" href="${esc(affLink(p.url))}" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
-          ${deadImg(p.thumb) ? "" : `<img src="${esc(p.thumb)}"${productSrcsetAttr(p.thumb, 88)}
-               sizes="88px" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(p.thumb)} referrerpolicy="no-referrer">`}
-        </a>
+        ${/*
+             A PRODUCT ROW WITH NO PHOTOGRAPH WAS A SOLID WHITE 88x88 SQUARE,
+             fixed 22 August 2026. `.prod-shot` in ui.css is `background:#fff`
+             because product photography arrives on white and a cream tile reads
+             as a halo round the box, so an anchor with no <img> in it painted a
+             bright white block on the dark green card, between five correct
+             photographs. On the two rows that hit it -- TCGplayer product
+             646039, the Surging Sparks Half Booster Box, and 709097, the Mega
+             Evolution Ascended Heroes Collection (Larry) -- that reads as a
+             broken image rather than as an absence, which is the worst way to
+             show a gap and is exactly what Tim asked to be rid of.
+
+             IT IS NOT A DATA GAP AND THAT WAS CHECKED BEFORE ANYTHING CHANGED.
+             Both urls are in data/no-scan.json's `deadUrls`: TCGplayer's own
+             CDN answers 403 for BOTH rungs of both products while serving the
+             other 181 photographs on these pages. No corpus in this repo holds
+             either box -- shared/product-photos.mjs is per row-kind and pins
+             the same host, data/topps-images.json is Topps, and the sealed
+             PriceCharting cache is Topps as well. The photograph is genuinely
+             absent, so the branch stays and only what it renders changes.
+
+             THE FALLBACK IS THE SITE'S OWN AND IT IS ALREADY ON THESE PRODUCTS.
+             build-openings.mjs draws `.op-px` for the identical 403s: it takes
+             the white plate off and lays the same diagonal hatch every other
+             missing picture on this site uses. This is that, plus the words,
+             because a hatch on its own is the empty placeholder rather than the
+             fix for it. The label says "No photo" and not "No scan": these are
+             sealed boxes, and the panel's default wording is about a card.
+
+             THE ANCHOR STAYS AND THAT IS NOT THE /hall.html CASE. That rule is
+             about a control that cannot do what it offers -- a lightbox with no
+             picture in it. This one still opens the product on TCGplayer, which
+             is what the other 181 do, and the row's real labelled link is the
+             product name beside it. */ ""}${deadImg(p.thumb)
+          ? noScanBox("prod-shot is-none", { label: "No photo", tag: "a",
+              attrs: ` href="${esc(affLink(p.url))}" rel="noopener" target="_blank" tabindex="-1"` })
+          : `<a class="prod-shot" href="${esc(affLink(p.url))}" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
+          <img src="${esc(p.thumb)}"${productSrcsetAttr(p.thumb, 88)}
+               sizes="88px" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(p.thumb)} referrerpolicy="no-referrer">
+        </a>`}
         <div class="prod-body">
           ${/* THE SHAPE REQUIREMENT, which this row met in every respect except
                 the label. "Every outbound link carries an aria-label saying it
@@ -3018,7 +3061,18 @@ ${rows}
       ${priced
         .map(
           (h) => `<li class="mine${h.kind === "promo" ? " is-promo" : ""}">
-        ${h.img ? avifPicture(`<img class="mine-img" src="${esc(h.img)}" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(h.img)}>`) : `<div class="mine-img is-none" aria-hidden="true"></div>`}
+        ${/* A TILE WITH NO SCAN IS NOT AN EMPTY BOX, since 22 August 2026. Tim,
+              about the whole site: "there should be no empty place holder
+              images anywhere on the site." Every one of these is a row whose
+              card NAME matches nothing on this set's checklist, so there is no
+              printing to fetch a picture of; the build says which rows and why
+              on every run. The box holds the same ratio and the same hatch and
+              now carries this set's own symbol and the words "No scan". The
+              symbol is honest here because the row is on that set's own guide,
+              it is a 40px glyph rather than a card face, and the page header
+              has already fetched the same file so it costs no request. The
+              three things deliberately NOT in it are argued in
+              shared/card-scan.mjs. */ ""}${h.img ? avifPicture(`<img class="mine-img" src="${esc(h.img)}" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(h.img)}>`) : noScanBox("mine-img is-none", { slug: s.id, name: s.name })}
         <!-- The count rides on the name, not on the picture, because the
              picture is the card and the count is a fact about our pulls.
              Hidden at one: a "x1" badge on every other card would make the
@@ -3274,7 +3328,13 @@ ${rows}
     })
     .join("\n\n");
 
-  return head({ title: setTitle(s.name), desc, canonical: url, image: `${SITE}/assets/${ogCards.has(s.id) ? `og-${s.id}` : "og-image"}.jpg?v=2`, ld, css: PAGE_CSS }) + `
+  // THE NO-SCAN PANEL'S RULES RIDE WITH THE PANEL. Eight of the 28 guides emit
+  // one today, so they are gated rather than added to PAGE_CSS: that block is
+  // render-blocking on every guide and 20 of them have nothing for it to style.
+  // Read off the drawn body rather than recomputed, so this cannot drift out of
+  // step with the condition inside the tile.
+  const css = body.includes("noscan") ? `${PAGE_CSS}\n${NOSCAN_CSS}` : PAGE_CSS;
+  return head({ title: setTitle(s.name), desc, canonical: url, image: `${SITE}/assets/${ogCards.has(s.id) ? `og-${s.id}` : "og-image"}.jpg?v=2`, ld, css }) + `
 <header class="set-hero">
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>

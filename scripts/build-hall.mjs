@@ -29,6 +29,16 @@ import { esc, shortDate, moneyCompact, noValue, rarityLabel, imgDims, cardNumKey
 import { loadGradedPrices, MIN_SALES } from "../shared/graded-price.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
 import { pickIntlPrinting } from "../shared/intl-printing.mjs";
+// corpusScan MOVED OUT OF THIS FILE ON 22 AUGUST 2026 AND THE NOTE THAT LIVED
+// HERE PREDICTED IT. It ended: "build-pages.mjs has the identical gap on the
+// identical rows and would want the identical three lines, but that file is not
+// this pass's to edit." It is now, and so are the two set-guide builders, so
+// the choice stopped being "one private copy" and became four of them. The
+// whole argument, the 312-scan table and the two cross-checks are in
+// shared/card-scan.mjs, which is intl-printing.mjs's impure neighbour rather
+// than a change to it: that module is a pure function about a rule and this one
+// reads two files off disk.
+import { corpusScan, noScanBox, NOSCAN_CSS } from "../shared/card-scan.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -112,110 +122,13 @@ try {
   /* optional: a missing base then renders as an img that removes itself */
 }
 
-/* ==========================================================================
- * THE SECOND PLACE A JAPANESE SCAN LIVES, AND THIS PAGE HAD NEVER ASKED IT.
- * ==========================================================================
- *
- * public/data/intl-guides.json is the checklist an intl plaque resolves
- * against, and its `image` field is null for every card in six of its
- * thirteen guides. The note beside the intl mapping below records that
- * correctly and treats it as the end of the story: "a set with no scans".
- *
- * IT IS NOT THE END OF THE STORY FOR THREE OF THE SIX. public/data/printings
- * /*.json is a different sync's output (sync-all-printings.mjs, 39,707
- * printings across 370 sets, 29,934 of them with an image) and it holds the
- * SAME sets with their scans. Counted on disk, 2026-08-21:
- *
- *       set                intl-guides scans   printings corpus scans
- *       メガシンフォニア        0 of 92               92 of 92
- *       ニンジャスピナー        0 of 120             120 of 120
- *       サイバージャッジ        no card list         100 of 100
- *       アビスアイ              0 of 118               0 of 118
- *       ムニキスゼロ            0 of 117               0 of 117
- *       メガブレイブ            0 of 92                0 of 92
- *
- * So 312 scans were reachable from this builder and never asked for, which is
- * the same shape as the `img: null` literal that hid 671 of them until
- * 21 August 2026. The bottom three are a real TCGdex gap and stay absent.
- *
- * ==========================================================================
- * THIS LOOKS UP A PICTURE. IT DOES NOT PICK A PRINTING, AND THAT IS THE WHOLE
- * REASON IT IS SAFE TO PUT IN THIS FILE.
- * ==========================================================================
- *
- * shared/intl-printing.mjs owns which printing an intl hit is, and this file
- * and build-pages.mjs must never disagree about that. Nothing here touches
- * it: it is called ONLY after pickIntlPrinting has already chosen a printing,
- * and it is keyed on that printing's own (set, collector number). A card the
- * rule refuses still gets no number and no scan. Frogadier in ニンジャスピナー
- * is the case that proves it: the corpus holds scans for BOTH #021 and #087,
- * the rule cannot separate them, and this returns nothing rather than
- * choosing a picture the page cannot name.
- *
- * TWO FIELDS ARE CROSS-CHECKED BEFORE THE URL IS TAKEN, because (set, number)
- * being a primary key in both files is an assumption rather than a promise,
- * and a scan silently moved onto the wrong card is worse than no scan. The
- * corpus record has to agree with the guide on the NATIVE CARD NAME and on
- * the RARITY. Both files are TCGdex output, so agreement is cheap where the
- * row is genuinely the same row and impossible where it is not. Verified on
- * the one card this fires for today: guide ja-mega-symphonia #018 is
- * メガユキノオーex "Double rare"; corpus メガシンフォニア #018 is
- * メガユキノオーex "Double rare" at assets.tcgdex.net/ja/M/M1S/018, whose
- * low/high webp and avif all answer 200 (27,672 / 146,992 / 18,327 / 92,706
- * bytes, checked 2026-08-21).
- *
- * THE CORPUS STORES THE TRANSLATED NAME WHERE IT HAS ONE AND THE NATIVE NAME
- * WHERE IT DOES NOT (`u` is 1 for untranslated, `p` carries the native name
- * when `n` is a translation), and it is SHARDED BY THE FIRST LETTER OF `n`.
- * That is why both shards are tried: this card is filed under "0" because its
- * name is untranslated Japanese, and a lookup that only tried the English
- * name's shard would have found nothing and reported "no scan for that set".
- *
- * IT STAYS IN THIS FILE RATHER THAN MOVING INTO shared/intl-printing.mjs.
- * That module is a pure function about a rule, argued at length as one; this
- * reads two files off disk to answer a different question. build-pages.mjs
- * has the identical gap on the identical rows and would want the identical
- * three lines, but that file is not this pass's to edit.
- */
-const shardCache = new Map();
-async function shard(name) {
-  const c = String(name || "").trim()[0]?.toLowerCase() ?? "0";
-  const key = /[a-z]/.test(c) ? c : "0";
-  if (!shardCache.has(key)) {
-    try {
-      shardCache.set(key, JSON.parse(await readFile(join(ROOT, `public/data/printings/${key}.json`), "utf8")));
-    } catch { shardCache.set(key, []); }
-  }
-  return shardCache.get(key);
-}
-const scanNorm = (x) => String(x || "").toLowerCase().replace(/[^a-z0-9぀-ヿ一-鿿가-힯]/g, "");
-/**
- * @param {string} setNative the guide's own native set name, which is the
- *        name the printings corpus files that set under.
- * @param {{localId:string, native:?string, rarity:?string}} card the printing
- *        ALREADY chosen by shared/intl-printing.mjs. Never a candidate.
- * @returns {Promise<?string>} the TCGdex image base, or null.
- */
-async function corpusScan(setNative, card) {
-  if (!setNative || !card?.localId) return null;
-  for (const nm of [card.en, card.native]) {
-    if (!nm) continue;
-    for (const rec of await shard(nm)) {
-      if (rec.s !== setNative || String(rec.i) !== String(card.localId)) continue;
-      // The two cross-checks. A disagreement means these are not the same row
-      // and the answer is nothing, per this builder's standing rule.
-      if (scanNorm(rec.r) !== scanNorm(card.rarity)) continue;
-      const native = rec.u ? rec.n : rec.p;
-      if (card.native && native && scanNorm(native) !== scanNorm(card.native)) continue;
-      const base = rec.g ? String(rec.g).replace(/\/(low|high)\.(webp|avif|png|jpg)$/, "") : null;
-      // data/no-scan.json applies here exactly as it applies to the guide's
-      // own image field: a base TCGdex has withdrawn renders as a dead round
-      // trip behind an onerror, which is what that file exists to prevent.
-      return base && !NO_SCAN.has(base) ? base : null;
-    }
-  }
-  return null;
-}
+/* THE SECOND PLACE A JAPANESE SCAN LIVES, AND WHAT A SLOT SHOWS WHEN THERE IS
+ * NONE, are both shared/card-scan.mjs now. `corpusScan` is called below, once
+ * the printing is already settled, and it is keyed on that printing's own (set,
+ * collector number) with two cross-checks on the way. `noScanBox` is what a
+ * plaque with no scan renders. The 312-scan table, the Frogadier case that
+ * proves this cannot pick a printing, and the argument for the panel's contents
+ * are all in that file's header. */
 
 let derivedFromHits = false;
 let hitsLedger = null;
@@ -1293,7 +1206,19 @@ function plaque(c, i) {
   // the 245/337 aspect-ratio rule reaching the <img> exactly as before.
   const img = c.image
     ? avifPicture(`<img src="${esc(art.src)}"${art.extra} alt="${[esc(c.name), esc(c.rarity || ""), c.setName ? `from Pokemon ${esc(c.setName)}` : ""].filter(Boolean).join(" ")}"${i < EAGER_PLAQUES ? "" : ` loading="lazy"`} onerror="this.remove()"${art.dims || imgDims(art.src)}>`)
-    : `<span class="chof-noart">${esc(c.name)}</span>`;
+    // THE BOX HELD THE CARD'S NAME UNTIL 22 AUGUST 2026 AND ui.css HAD ALREADY
+    // WRITTEN DOWN WHY THAT IS WRONG. `.set-noart`, the five set tiles with no
+    // logo file, took the same treatment and reversed it: "The slot used to be
+    // filled with the set's NAME, which the <b> underneath already prints, so
+    // those five tiles showed the same words twice and looked broken rather
+    // than degraded." `.chof-name` prints this card's name two lines down, so
+    // this plaque was the last place on the site still printing it twice.
+    // It is the set's own symbol and the words "No scan" now, on the same hatch
+    // the hit cards and the `mine` tiles use, and the whole box is aria-hidden
+    // because the plaque already announces the name, the set and the rarity.
+    // Nine of the fourteen are Japanese sets we hold no symbol for and get the
+    // words alone; the argument for all of it is in shared/card-scan.mjs.
+    : noScanBox("chof-noart", { slug: c.set, name: c.setName });
   // A CARD WITH NO SCAN IS NOT A BUTTON, AND UNTIL 21 AUGUST 2026 IT WAS GOING
   // TO BE. `.chof-noart` had never fired: every plaque came out of an English
   // checklist and every English checklist has scans. The Japanese rows admitted
@@ -1503,8 +1428,17 @@ ${evenBand(".chof-list", ranked.length, 3)}}
    to warm --lilac, where every other page on the site uses one neutral for
    secondary text. */
 .chof-art img{width:100%;height:auto;aspect-ratio:245/337;object-fit:contain;background:var(--paper-3)}
-.chof-noart{display:grid;place-items:center;aspect-ratio:245/337;padding:10%;
-  font:400 .8rem/1.2 var(--display);color:var(--chrome-dim);text-align:center;background:var(--paper-3)}
+/* THE BOX, AND NOTHING ELSE. This rule used to centre the card's NAME in
+   var(--display) on a flat var(--paper-3), which is the treatment .set-noart in
+   ui.css reversed for the reason quoted beside plaque(): the name is printed
+   two lines below and twice looked broken. Everything except the ratio moved to
+   .chof-noart.noscan in shared/card-scan.mjs, so this page, the hit cards and
+   the set guides' own tiles now paint one panel and cannot drift into three.
+   The ratio stays here: it holds the plaque's shape whatever is in it.
+
+   NO BACKTICKS IN THIS BLOCK. It sits inside a template literal, and the one
+   that was here took the build down on the first run. */
+.chof-noart{aspect-ratio:245/337}
 .chof-body{min-width:0;flex:1}
 .chof-name{font:600 var(--t-body)/1.25 var(--body);display:block}
 .chof-set,.chof-rar,.chof-pulled{display:block;font:700 var(--t-micro)/1.5 var(--mono);
@@ -1768,7 +1702,11 @@ await writeFile(
   join(ROOT, "public/hall.html"),
   dropUnusedPacksCSS(`<!DOCTYPE html>
 <html lang="en">
-<head>${swapped}<style>${style}</style>
+${/* THE NO-SCAN PANEL'S RULES RIDE WITH THE PANEL AND ONLY WITH IT. They are
+      render-blocking bytes, so they go in on the page that emitted a box and
+      nowhere else -- the same gate build-pages.mjs and the two set-guide
+      builders apply. Today every run emits some, and a run where none is
+      emitted must not ship the rules for nothing. */ ""}<head>${swapped}<style>${style}${ranked.some((c) => !c.image) ? NOSCAN_CSS : ""}</style>
 </head>
 <body>
 ${skipLink}
