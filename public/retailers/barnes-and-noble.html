@@ -32,6 +32,12 @@ padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
 .rt-key p{color:var(--foot-ink);line-height:1.55;max-width:44em}
 .rt-key p + p{margin-top:var(--s3)}
 .rt-key .rt-fig-svg{color:var(--foot-ink);margin-top:var(--s4);max-width:100%;height:auto}
+.rt-fn{display:none}
+@media(max-width:544px){
+.rt-fw{display:none}
+.rt-fn{display:inline}
+.rt-key .rt-fig-svg .rt-fl{font-size:12.5px}
+}
 .rt-grp{margin-top:var(--s6)}
 .rt-grp > p{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
 .rt-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
@@ -168,7 +174,7 @@ align-self:center;justify-self:center;margin-top:0;width:100%;max-width:460px}
     <a class="bar-find" href="/search.html" aria-label="Search cards, sets, guides and rips"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg></a>
     <nav class="nav-links" aria-label="Primary">
       <a href="/videos.html">Rips</a>
-      <a href="/card-shows.html">Card shows</a>
+      <a href="/rochester.html">Local scene</a>
       <a href="/cards.html">Card search</a>
       <a href="/sets/">Set guides</a>
       <a href="/start.html">Start here</a>
@@ -307,7 +313,7 @@ align-self:center;justify-self:center;margin-top:0;width:100%;max-width:460px}
         <h2>If the shelf is empty, <span class="hl">ask</span></h2>
         <p>If you cannot see any, ask anyway. A lot of shops now keep trading cards behind the counter, in a locked case or in the back, and plenty do not put them on the sales floor at all. An empty peg is not the same as no stock, and people walk out of shops that had the thing every day of the week.</p>
         <p>The question to ask is specific: do you have any Pokemon cards behind the counter. A staff member who has been asked ten times that morning will answer it in three seconds, and 'do you sell Pokemon cards' gets you pointed at an empty shelf.</p>
-        <svg class="rt-fig-svg" viewBox="0 0 240 96" width="240" height="96" role="img"
+        <svg class="rt-fig-svg" viewBox="8 6 232 100" width="300" height="129" role="img"
   aria-label="Two places Pokemon cards sit in a shop: an empty peg on the sales floor, and a locked case behind the counter."
   fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
   <g>
@@ -315,8 +321,8 @@ align-self:center;justify-self:center;margin-top:0;width:100%;max-width:460px}
     <path d="M14 14v60M98 14v60"/>
     <rect x="22" y="8" width="12" height="12" rx="1.2"/>
     <rect x="40" y="8" width="12" height="12" rx="1.2"/>
-    <text x="56" y="38" font-size="9" stroke="none" fill="currentColor" font-family="monospace">empty</text>
-    <text x="20" y="88" font-size="9" stroke="none" fill="currentColor" font-family="monospace">sales floor</text>
+    <text class="rt-fl" x="56" y="38" font-size="9" stroke="none" fill="currentColor" font-family="monospace">empty</text>
+    <text class="rt-fl" x="20" y="88" font-size="9" stroke="none" fill="currentColor" font-family="monospace">sales floor</text>
   </g>
   <g>
     <path d="M132 62h96v14h-96z"/>
@@ -328,7 +334,9 @@ align-self:center;justify-self:center;margin-top:0;width:100%;max-width:460px}
     <rect x="148" y="50" width="9" height="10" rx="1"/>
     <rect x="162" y="50" width="9" height="10" rx="1"/>
     <circle cx="212" cy="54" r="3"/>
-    <text x="140" y="88" font-size="9" stroke="none" fill="currentColor" font-family="monospace">behind the counter</text>
+    <text class="rt-fl rt-fw" x="140" y="88" font-size="9" stroke="none" fill="currentColor" font-family="monospace">behind the counter</text>
+    <text class="rt-fl rt-fn" x="140" y="88" font-size="9" stroke="none" fill="currentColor" font-family="monospace">behind the</text>
+    <text class="rt-fl rt-fn" x="140" y="102" font-size="9" stroke="none" fill="currentColor" font-family="monospace">counter</text>
   </g>
 </svg>
       </div>

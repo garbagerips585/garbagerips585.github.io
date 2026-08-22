@@ -34,15 +34,15 @@
   "source": "pricecharting.com",
   "sourceMethodology": "https://www.pricecharting.com/page/methodology",
   "measurement": "PriceCharting ungraded, Grade 9 and PSA 10 price guide values",
-  "checked": "2026-08-16",
+  "checked": "2026-08-22",
   "scanned": {
     "consoles": 33,
-    "pages": 45,
+    "pages": 44,
     "pagesSkipped": 0,
     "products": 2701,
-    "productsWithUngraded": 2489,
-    "productsWithG9": 1689,
-    "productsWithPsa10": 1471,
+    "productsWithUngraded": 2492,
+    "productsWithG9": 1697,
+    "productsWithPsa10": 1472,
     "keep": 115
   },
   "sets": [
@@ -64,8 +64,8 @@
       "withPsa10": 556,
       "printings": {
         "Sparkle": 151,
-        "Tekno": 151,
-        "Spectra": 151
+        "Spectra": 151,
+        "Tekno": 151
       },
       "topRawId": "3725965",
       "topPsaId": "3725878"
@@ -87,7 +87,7 @@
       "plain": 107,
       "withUngraded": 317,
       "withG9": 230,
-      "withPsa10": 196,
+      "withPsa10": 195,
       "printings": {
         "Foil": 101,
         "Rainbow Foil": 101,
@@ -115,7 +115,7 @@
       "unnumbered": 4,
       "plain": 96,
       "withUngraded": 282,
-      "withG9": 257,
+      "withG9": 258,
       "withPsa10": 217,
       "printings": {
         "Foil": 91,
@@ -125,7 +125,7 @@
         "Flames Embossed": 2,
         "Sunrays Black Logo": 1,
         "Holo": 1,
-        "Second Print": 1
+        "Silver Foil": 1
       },
       "topRawId": "8870962",
       "topPsaId": "3560972"
@@ -144,8 +144,8 @@
       "unnumbered": 4,
       "plain": 73,
       "withUngraded": 217,
-      "withG9": 132,
-      "withPsa10": 105,
+      "withG9": 133,
+      "withPsa10": 106,
       "printings": {
         "Rainbow Foil": 72,
         "Foil": 72
@@ -192,9 +192,9 @@
       "prefixes": {},
       "unnumbered": 2,
       "plain": 90,
-      "withUngraded": 165,
-      "withG9": 61,
-      "withPsa10": 79,
+      "withUngraded": 166,
+      "withG9": 66,
+      "withPsa10": 80,
       "printings": {
         "Foil": 89,
         "Holo": 1
@@ -215,15 +215,15 @@
       "prefixes": {},
       "unnumbered": 2,
       "plain": 87,
-      "withUngraded": 171,
-      "withG9": 87,
+      "withUngraded": 172,
+      "withG9": 89,
       "withPsa10": 85,
       "printings": {
         "Foil": 86,
         "Holo 3D": 1,
         "Holo": 1,
-        "Water": 1,
-        "Ice Foil": 1
+        "Ice Foil": 1,
+        "Water": 1
       },
       "topRawId": "5917691",
       "topPsaId": "5769787"
@@ -267,8 +267,8 @@
       "unnumbered": 2,
       "plain": 38,
       "withUngraded": 71,
-      "withG9": 18,
-      "withPsa10": 9,
+      "withG9": 17,
+      "withPsa10": 8,
       "printings": {
         "Holo": 38
       },
@@ -290,10 +290,10 @@
       "plain": 62,
       "withUngraded": 41,
       "withG9": 1,
-      "withPsa10": 2,
+      "withPsa10": 1,
       "printings": {},
       "topRawId": "5706179",
-      "topPsaId": "5706167"
+      "topPsaId": "5706123"
     },
     {
       "set": "2000 Topps TV Episode",
@@ -307,8 +307,8 @@
       "unnumbered": 0,
       "plain": 19,
       "withUngraded": 46,
-      "withG9": 11,
-      "withPsa10": 5,
+      "withG9": 10,
+      "withPsa10": 4,
       "printings": {
         "Rainbow Foil": 19,
         "Foil": 19
@@ -327,7 +327,7 @@
       },
       "unnumbered": 0,
       "plain": 17,
-      "withUngraded": 44,
+      "withUngraded": 45,
       "withG9": 15,
       "withPsa10": 8,
       "printings": {
@@ -417,8 +417,8 @@
       "unnumbered": 0,
       "plain": 25,
       "withUngraded": 23,
-      "withG9": 6,
-      "withPsa10": 6,
+      "withG9": 7,
+      "withPsa10": 8,
       "printings": {},
       "topRawId": "5252565",
       "topPsaId": "5252565"
@@ -700,7 +700,7 @@
       "plain": 10,
       "withUngraded": 10,
       "withG9": 10,
-      "withPsa10": 6,
+      "withPsa10": 7,
       "printings": {},
       "topRawId": "3975958",
       "topPsaId": "3975958"
@@ -785,8 +785,8 @@
     19,
     21,
     20,
-    22,
     23,
+    22,
     24,
     25,
     26,
@@ -835,10 +835,10 @@
     69,
     70,
     71,
-    73,
     72,
-    74,
+    73,
     75,
+    74,
     76,
     77,
     78,
@@ -848,31 +848,31 @@
     82,
     83,
     84,
-    86,
     85,
-    88,
+    86,
     87,
     89,
+    88,
     90,
-    91,
     93,
-    92,
+    91,
     94,
+    92,
     95,
     96,
     97,
     98,
     99,
-    100,
     101,
+    100,
     102,
     103,
     104,
     105,
-    107,
     106,
-    108,
+    107,
     109,
+    108,
     110,
     111,
     112,
@@ -883,55 +883,56 @@
   "psaOrder": [
     24,
     10,
+    17,
     6,
-    16,
     9,
     2,
     54,
-    15,
-    87,
-    95,
-    134,
-    99,
+    16,
+    88,
+    96,
+    135,
+    66,
     29,
-    98,
+    99,
+    117,
     118,
+    120,
     25,
     7,
     127,
-    117,
     31,
-    167,
+    168,
     32,
-    120,
-    110,
-    156,
-    17,
+    112,
+    157,
+    13,
     33,
     26,
     27,
-    168,
+    169,
     40,
-    135,
-    145,
+    136,
+    148,
     5,
     119,
-    83,
-    72,
-    138,
-    55,
-    126,
-    164,
-    158,
-    122,
-    169,
-    59,
-    162,
-    113,
-    170,
-    20,
-    22,
+    84,
     74,
+    139,
+    55,
+    170,
+    126,
+    165,
+    159,
+    122,
+    171,
+    85,
+    162,
+    172,
+    20,
+    100,
+    22,
+    76,
     123,
     18,
     121,
@@ -940,62 +941,61 @@
     52,
     125,
     124,
-    62,
-    171,
-    137,
-    166,
+    63,
+    173,
+    138,
+    167,
     128,
     35,
-    14,
-    38,
-    77,
-    70,
-    133,
-    141,
-    73,
-    139,
-    143,
-    142,
-    144,
-    45,
-    131,
-    42,
-    147,
-    152,
+    15,
     39,
-    154,
-    172,
-    173,
+    132,
+    79,
+    71,
+    134,
+    142,
+    75,
+    141,
+    144,
     150,
+    143,
+    145,
+    45,
+    130,
+    158,
+    147,
+    43,
+    152,
     151,
+    154,
+    174,
+    175,
+    149,
+    146,
     129,
     153,
-    146,
-    165,
+    166,
+    164,
     161,
-    148,
     155,
+    156,
+    42,
     53,
-    174,
-    71,
-    163,
-    43,
-    175,
-    116,
-    97,
-    130,
-    132,
-    100,
-    58,
-    76,
-    50,
-    136,
-    160,
-    63,
     176,
-    149,
-    157,
-    159
+    72,
+    163,
+    177,
+    116,
+    98,
+    131,
+    133,
+    101,
+    60,
+    78,
+    50,
+    137,
+    64,
+    160
   ],
   "cards": [
     {
@@ -1075,7 +1075,7 @@
       "console": "/console/pokemon-2000-topps-movie-first-appearance",
       "number": "",
       "printing": "",
-      "ungraded": 3979.82,
+      "ungraded": 3989.91,
       "g9": 21950,
       "psa10": 29353,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-movie-first-appearance/lugia",
@@ -1089,7 +1089,7 @@
       "console": "/console/pokemon-2000-topps-chrome",
       "number": "129",
       "printing": "Tekno",
-      "ungraded": 3606.49,
+      "ungraded": 3593.76,
       "g9": 1183,
       "psa10": 9000,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/magikarp-tekno-129",
@@ -1118,8 +1118,8 @@
       "number": "94",
       "printing": "Sparkle",
       "ungraded": 3200,
-      "g9": 2550.19,
-      "psa10": 23524.97,
+      "g9": 2549.85,
+      "psa10": 23425.56,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/gengar-sparkle-94",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/cb73522e0b55b474453837dc57222c4be15c66cf409a63b3bb3a687ac3ffc319/60.jpg",
       "id": "3725730"
@@ -1132,7 +1132,7 @@
       "number": "94",
       "printing": "Tekno",
       "ungraded": 3030.87,
-      "g9": 10891.97,
+      "g9": 10884.28,
       "psa10": 39000,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/gengar-tekno-94",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/mxy4tkpxdegh7kag/60.jpg",
@@ -1146,7 +1146,7 @@
       "number": "89",
       "printing": "Tekno",
       "ungraded": 2999,
-      "g9": 305.18,
+      "g9": 305.29,
       "psa10": 1058,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/muk-tekno-89",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ref2c09eafdf0c21261181ce1f3623d0b1fa5d8e38e7cf6a6d9e9f0e2f646bf5c71/60.jpg",
@@ -1161,13 +1161,27 @@
       "printing": "Tekno",
       "ungraded": 2999,
       "g9": 275,
-      "psa10": 512.85,
+      "psa10": 512.78,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/krabby-tekno-98",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ref8de14e1696ad95b845b0a980b3103a15549fe9b8e69533fb469ede90c39d2c79/60.jpg",
       "id": "3725748"
     },
     {
       "rank": 13,
+      "name": "Pikachu [Sparkle] #25",
+      "set": "2000 Topps Chrome",
+      "console": "/console/pokemon-2000-topps-chrome",
+      "number": "25",
+      "printing": "Sparkle",
+      "ungraded": 2500,
+      "g9": 4611,
+      "psa10": 5993.18,
+      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/pikachu-sparkle-25",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/cb5715db9013bad7783f20dc11ee935dfd46b67da1ae1317882c0db16e1c4419/60.jpg",
+      "id": "3561284"
+    },
+    {
+      "rank": 14,
       "name": "Hypno [Sparkle] #97",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -1181,7 +1195,7 @@
       "id": "3725742"
     },
     {
-      "rank": 14,
+      "rank": 15,
       "name": "Haunter [Sparkle] #93",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -1189,13 +1203,13 @@
       "printing": "Sparkle",
       "ungraded": 2172.02,
       "g9": 800,
-      "psa10": 2860.48,
+      "psa10": 2855.26,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/haunter-sparkle-93",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/1f756180b9e47d709aa98c1bc22812ddfb0414b3433807663f33bad3df3190f7/60.jpg",
       "id": "3725726"
     },
     {
-      "rank": 15,
+      "rank": 16,
       "name": "Zapdos [Tekno] #145",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -1209,7 +1223,7 @@
       "id": "3725942"
     },
     {
-      "rank": 16,
+      "rank": 17,
       "name": "Charizard [Tekno] #6",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -1217,24 +1231,10 @@
       "printing": "Tekno",
       "ungraded": 1650.02,
       "g9": 9750,
-      "psa10": 28981.29,
+      "psa10": 29380.4,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/charizard-tekno-6",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/a1d615f0a56f33efdf1d253747f5dae251968b3563c29105789283dea93ddefa/60.jpg",
       "id": "3561210"
-    },
-    {
-      "rank": 17,
-      "name": "Pikachu [Sparkle] #25",
-      "set": "2000 Topps Chrome",
-      "console": "/console/pokemon-2000-topps-chrome",
-      "number": "25",
-      "printing": "Sparkle",
-      "ungraded": 1605.46,
-      "g9": 4611,
-      "psa10": 5986.35,
-      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/pikachu-sparkle-25",
-      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/cb5715db9013bad7783f20dc11ee935dfd46b67da1ae1317882c0db16e1c4419/60.jpg",
-      "id": "3561284"
     },
     {
       "rank": 18,
@@ -1301,7 +1301,7 @@
       "printing": "Sparkle",
       "ungraded": 1250,
       "g9": 1100,
-      "psa10": 3244.6,
+      "psa10": 3245.06,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/scyther-sparkle-123",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/zeipxskwjycehktj/60.jpg",
       "id": "3725846"
@@ -1328,8 +1328,8 @@
       "number": "131",
       "printing": "Sparkle",
       "ungraded": 1112.5,
-      "g9": 12701.92,
-      "psa10": 45388.4,
+      "g9": 12721.39,
+      "psa10": 45490.02,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/lapras-sparkle-131",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/corrpojcrrp4puhx4aiq/60.jpg",
       "id": "3725878"
@@ -1341,7 +1341,7 @@
       "console": "/console/pokemon-2000-topps-chrome",
       "number": "150",
       "printing": "Sparkle",
-      "ungraded": 1065.85,
+      "ungraded": 1065.93,
       "g9": 1079.99,
       "psa10": 9000,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/mewtwo-sparkle-150",
@@ -1371,7 +1371,7 @@
       "printing": "Tekno",
       "ungraded": 950,
       "g9": null,
-      "psa10": 5125.07,
+      "psa10": 5123.17,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/jolteon-tekno-135",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/hvzjnkhjm7xwotjm/60.jpg",
       "id": "3725896"
@@ -1412,7 +1412,7 @@
       "number": "37",
       "printing": "Tekno",
       "ungraded": 850,
-      "g9": 260.22,
+      "g9": 267.61,
       "psa10": 687.5,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/vulpix-tekno-37",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/refc781c568ba58b22cc745a2b4334c2c4b61dfba2c515105f90132440cd291e8b6/60.jpg",
@@ -1467,7 +1467,7 @@
       "console": "/console/pokemon-2000-topps-chrome",
       "number": "151",
       "printing": "Sparkle",
-      "ungraded": 783.18,
+      "ungraded": 783.09,
       "g9": null,
       "psa10": null,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/mew-sparkle-151",
@@ -1518,17 +1518,17 @@
     },
     {
       "rank": 38,
-      "name": "Cubone [Tekno] #104",
+      "name": "Dodrio [Sparkle] #85",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
-      "number": "104",
-      "printing": "Tekno",
-      "ungraded": 683.53,
-      "g9": 1500,
-      "psa10": 2750,
-      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/cubone-tekno-104",
-      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ref13cb37bde788bab40f90bf2360edd1a435e56f25b39db052dc3d9a42f95364d9/60.jpg",
-      "id": "3725772"
+      "number": "85",
+      "printing": "Sparkle",
+      "ungraded": 716.5,
+      "g9": 371,
+      "psa10": 474.25,
+      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/dodrio-sparkle-85",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ref89ad5d5eb4cf65cf4d210f3f4a839da197a1a1c87a4b6a1450a112b6c36f6185/60.jpg",
+      "id": "3725694"
     },
     {
       "rank": 39,
@@ -1537,9 +1537,9 @@
       "console": "/console/pokemon-2000-topps-chrome",
       "number": "149",
       "printing": "Spectra",
-      "ungraded": 650,
+      "ungraded": 715,
       "g9": 412.5,
-      "psa10": 2200,
+      "psa10": 2799.99,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/dragonite-spectra-149",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/owkc3hppx445pogo/60.jpg",
       "id": "3725963"
@@ -1574,6 +1574,20 @@
     },
     {
       "rank": 42,
+      "name": "Alakazam [Sparkle] #65",
+      "set": "2000 Topps Chrome",
+      "console": "/console/pokemon-2000-topps-chrome",
+      "number": "65",
+      "printing": "Sparkle",
+      "ungraded": 575,
+      "g9": 705.46,
+      "psa10": 1941.26,
+      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/alakazam-sparkle-65",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/2f009ea9b985e834d14a8265e9a8695fb4cc1fc73d9270a537b3a41de15822e1/60.jpg",
+      "id": "3561443"
+    },
+    {
+      "rank": 43,
       "name": "Kabutops [Sparkle] #141",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -1585,20 +1599,6 @@
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/kabutops-sparkle-141",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ref9b2bbcfcf3bf00efa0e82d56071d04aaa772de2db8b1ef4499d2a2d6db5ad1a3/60.jpg",
       "id": "3725918"
-    },
-    {
-      "rank": 43,
-      "name": "Alakazam [Sparkle] #65",
-      "set": "2000 Topps Chrome",
-      "console": "/console/pokemon-2000-topps-chrome",
-      "number": "65",
-      "printing": "Sparkle",
-      "ungraded": 550,
-      "g9": 336.01,
-      "psa10": 1901.4,
-      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/alakazam-sparkle-65",
-      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/2f009ea9b985e834d14a8265e9a8695fb4cc1fc73d9270a537b3a41de15822e1/60.jpg",
-      "id": "3561443"
     },
     {
       "rank": 44,
@@ -1691,9 +1691,9 @@
       "console": "/console/pokemon-2000-topps-chrome",
       "number": "4",
       "printing": "Sparkle",
-      "ungraded": 494.49,
+      "ungraded": 493.22,
       "g9": 1500,
-      "psa10": 1760.54,
+      "psa10": 1761.13,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/charmander-sparkle-4",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/66ctopkfdr6kia3r/60.jpg",
       "id": "3561200"
@@ -1735,7 +1735,7 @@
       "printing": "Tekno",
       "ungraded": 476.01,
       "g9": 950,
-      "psa10": 1922.1,
+      "psa10": 1923.31,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/haunter-tekno-93",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/fclzhhwp3hp7onok/60.jpg",
       "id": "3725728"
@@ -1784,6 +1784,20 @@
     },
     {
       "rank": 57,
+      "name": "Future Looks Bright [Rainbow Foil] #41",
+      "set": "1999 Topps Movie",
+      "console": "/console/pokemon-1999-topps-movie",
+      "number": "41",
+      "printing": "Rainbow Foil",
+      "ungraded": 430.85,
+      "g9": 99.99,
+      "psa10": null,
+      "url": "https://www.pricecharting.com/game/pokemon-1999-topps-movie/future-looks-bright-rainbow-foil-41",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/y5aplkbmxb7nxhyx/60.jpg",
+      "id": "3560848"
+    },
+    {
+      "rank": 58,
       "name": "Marowak [Tekno] #105",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -1797,7 +1811,21 @@
       "id": "3725776"
     },
     {
-      "rank": 58,
+      "rank": 59,
+      "name": "Electrode [Sparkle] #101",
+      "set": "2000 Topps Chrome",
+      "console": "/console/pokemon-2000-topps-chrome",
+      "number": "101",
+      "printing": "Sparkle",
+      "ungraded": 418.22,
+      "g9": 475,
+      "psa10": 707.86,
+      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/electrode-sparkle-101",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ref16ef2aa26365d3631099ff202977806cb36b19c515e92438d941b85b91f408bf/60.jpg",
+      "id": "3725758"
+    },
+    {
+      "rank": 60,
       "name": "Gyarados [Spectra] #130",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -1811,35 +1839,21 @@
       "id": "3725875"
     },
     {
-      "rank": 59,
-      "name": "Arcanine [Sparkle] #59",
-      "set": "2000 Topps Chrome",
-      "console": "/console/pokemon-2000-topps-chrome",
-      "number": "59",
-      "printing": "Sparkle",
-      "ungraded": 412.5,
-      "g9": 1333,
-      "psa10": 3733.2,
-      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/arcanine-sparkle-59",
-      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/1b35201cc9722210f1ea2f4b8fc879904c22042be6136971e7d5b15c5945d50a/60.jpg",
-      "id": "3561419"
-    },
-    {
-      "rank": 60,
+      "rank": 61,
       "name": "Ivysaur [Tekno] #2",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
       "number": "2",
       "printing": "Tekno",
       "ungraded": 400,
-      "g9": 248.92,
-      "psa10": 600.04,
+      "g9": 798,
+      "psa10": 958,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/ivysaur-tekno-2",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/fvtigujryghlwbf4/60.jpg",
       "id": "3561194"
     },
     {
-      "rank": 61,
+      "rank": 62,
       "name": "Voltorb [Sparkle] #100",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -1853,7 +1867,7 @@
       "id": "3725754"
     },
     {
-      "rank": 62,
+      "rank": 63,
       "name": "Dragonair [Sparkle] #148",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -1867,7 +1881,7 @@
       "id": "3725954"
     },
     {
-      "rank": 63,
+      "rank": 64,
       "name": "Charmeleon [Sparkle] #5",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -1881,7 +1895,7 @@
       "id": "3561204"
     },
     {
-      "rank": 64,
+      "rank": 65,
       "name": "Slowbro [Tekno] #80",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -1895,7 +1909,21 @@
       "id": "3725676"
     },
     {
-      "rank": 65,
+      "rank": 66,
+      "name": "Slowking",
+      "set": "2000 Topps Movie First Appearance",
+      "console": "/console/pokemon-2000-topps-movie-first-appearance",
+      "number": "",
+      "printing": "",
+      "ungraded": 381.63,
+      "g9": 1500,
+      "psa10": 11282.41,
+      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-movie-first-appearance/slowking",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/8134c18d679dbb78e60ff67d51da1d2c1af7e2b95e9c26b3e286eeda20cd0758/60.jpg",
+      "id": "3561715"
+    },
+    {
+      "rank": 67,
       "name": "Lickitung [Sparkle] #108",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -1909,35 +1937,21 @@
       "id": "3725786"
     },
     {
-      "rank": 66,
-      "name": "Dewgong [Sparkle] #87",
-      "set": "2000 Topps Chrome",
-      "console": "/console/pokemon-2000-topps-chrome",
-      "number": "87",
-      "printing": "Sparkle",
-      "ungraded": 371,
-      "g9": 399.99,
-      "psa10": 1009,
-      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/dewgong-sparkle-87",
-      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ref680168a29e0ec73b137fda88e8c81d49af885a312eabe0d1c7f25e09b3f8bbab/60.jpg",
-      "id": "3725702"
-    },
-    {
-      "rank": 67,
+      "rank": 68,
       "name": "Beedrill [Tekno] #15",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
       "number": "15",
       "printing": "Tekno",
       "ungraded": 358.75,
-      "g9": 321.29,
+      "g9": 313.28,
       "psa10": 1100,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/beedrill-tekno-15",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/pokccufn2qneuuyf/60.jpg",
       "id": "3561245"
     },
     {
-      "rank": 68,
+      "rank": 69,
       "name": "Tentacruel [Tekno] #73",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -1951,7 +1965,7 @@
       "id": "3561477"
     },
     {
-      "rank": 69,
+      "rank": 70,
       "name": "Doduo [Sparkle] #84",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -1965,7 +1979,7 @@
       "id": "3725690"
     },
     {
-      "rank": 70,
+      "rank": 71,
       "name": "Arcanine [Tekno] #59",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -1979,21 +1993,35 @@
       "id": "3561421"
     },
     {
-      "rank": 71,
+      "rank": 72,
       "name": "Charmeleon [Tekno] #5",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
       "number": "5",
       "printing": "Tekno",
       "ungraded": 350,
-      "g9": 619.07,
+      "g9": 611.55,
       "psa10": 1905,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/charmeleon-tekno-5",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ref097ab41d6d56a3089ebc096c99124d0bded6743ee94f6cb7f5caf6642cb30048/60.jpg",
       "id": "3561206"
     },
     {
-      "rank": 72,
+      "rank": 73,
+      "name": "Dewgong [Sparkle] #87",
+      "set": "2000 Topps Chrome",
+      "console": "/console/pokemon-2000-topps-chrome",
+      "number": "87",
+      "printing": "Sparkle",
+      "ungraded": 350,
+      "g9": 399.99,
+      "psa10": 1009,
+      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/dewgong-sparkle-87",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ref680168a29e0ec73b137fda88e8c81d49af885a312eabe0d1c7f25e09b3f8bbab/60.jpg",
+      "id": "3725702"
+    },
+    {
+      "rank": 74,
       "name": "Psyduck [Tekno] #54",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2001,13 +2029,13 @@
       "printing": "Tekno",
       "ungraded": 349.99,
       "g9": 2417,
-      "psa10": 4355.65,
+      "psa10": 4195.84,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/psyduck-tekno-54",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/reff490b3c8fdf41a803c79334c67878abc34bc8a1a81baf6945c1039ab56b052d2/60.jpg",
       "id": "3561402"
     },
     {
-      "rank": 73,
+      "rank": 75,
       "name": "Bulbasaur [Sparkle] #1",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2021,21 +2049,21 @@
       "id": "3561188"
     },
     {
-      "rank": 74,
+      "rank": 76,
       "name": "Blastoise [Sparkle] #9",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
       "number": "9",
       "printing": "Sparkle",
-      "ungraded": 343.19,
-      "g9": 1588.75,
+      "ungraded": 342.72,
+      "g9": 1598.79,
       "psa10": 3200,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/blastoise-sparkle-9",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/7e49035ca951b211acdc72a304ef0881fcec95d01e03627065759469f906981d/60.jpg",
       "id": "3561220"
     },
     {
-      "rank": 75,
+      "rank": 77,
       "name": "Ivysaur [Sparkle] #2",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2049,7 +2077,7 @@
       "id": "3561192"
     },
     {
-      "rank": 76,
+      "rank": 78,
       "name": "Hitmonchan [Sparkle] #107",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2063,7 +2091,7 @@
       "id": "3725782"
     },
     {
-      "rank": 77,
+      "rank": 79,
       "name": "Squirtle [Sparkle] #7",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2077,21 +2105,7 @@
       "id": "3561212"
     },
     {
-      "rank": 78,
-      "name": "Electrode [Sparkle] #101",
-      "set": "2000 Topps Chrome",
-      "console": "/console/pokemon-2000-topps-chrome",
-      "number": "101",
-      "printing": "Sparkle",
-      "ungraded": 327.71,
-      "g9": 475,
-      "psa10": 707.86,
-      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/electrode-sparkle-101",
-      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ref16ef2aa26365d3631099ff202977806cb36b19c515e92438d941b85b91f408bf/60.jpg",
-      "id": "3725758"
-    },
-    {
-      "rank": 79,
+      "rank": 80,
       "name": "Slowbro [Sparkle] #80",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2105,7 +2119,7 @@
       "id": "3725674"
     },
     {
-      "rank": 80,
+      "rank": 81,
       "name": "Fearow [Tekno] #22",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2119,7 +2133,7 @@
       "id": "3561274"
     },
     {
-      "rank": 81,
+      "rank": 82,
       "name": "Magnemite [Sparkle] #81",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2133,13 +2147,13 @@
       "id": "3725678"
     },
     {
-      "rank": 82,
+      "rank": 83,
       "name": "Alakazam [Tekno] #65",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
       "number": "65",
       "printing": "Tekno",
-      "ungraded": 310.65,
+      "ungraded": 310.76,
       "g9": 600,
       "psa10": 950,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/alakazam-tekno-65",
@@ -2147,21 +2161,35 @@
       "id": "3561445"
     },
     {
-      "rank": 83,
+      "rank": 84,
       "name": "Venusaur [Tekno] #3",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
       "number": "3",
       "printing": "Tekno",
       "ungraded": 310.35,
-      "g9": 1362.5,
+      "g9": 1317.02,
       "psa10": 4450,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/venusaur-tekno-3",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/88bafbf71519210d0ba1774485432224132429a6d1b47e2dc59441d845ba2ade/60.jpg",
       "id": "3561198"
     },
     {
-      "rank": 84,
+      "rank": 85,
+      "name": "Arcanine [Sparkle] #59",
+      "set": "2000 Topps Chrome",
+      "console": "/console/pokemon-2000-topps-chrome",
+      "number": "59",
+      "printing": "Sparkle",
+      "ungraded": 310.06,
+      "g9": 1333,
+      "psa10": 3733.2,
+      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/arcanine-sparkle-59",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/1b35201cc9722210f1ea2f4b8fc879904c22042be6136971e7d5b15c5945d50a/60.jpg",
+      "id": "3561419"
+    },
+    {
+      "rank": 86,
       "name": "Magmar [Sparkle] #126",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2175,21 +2203,7 @@
       "id": "3725858"
     },
     {
-      "rank": 85,
-      "name": "Eevee [Spectra] #133",
-      "set": "2000 Topps Chrome",
-      "console": "/console/pokemon-2000-topps-chrome",
-      "number": "133",
-      "printing": "Spectra",
-      "ungraded": 307.5,
-      "g9": 332.72,
-      "psa10": 1050,
-      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/eevee-spectra-133",
-      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/7854828770d2654ac9ce4ee2390da5305412be3ac8298771e1619d31b55cabf7/60.jpg",
-      "id": "3725887"
-    },
-    {
-      "rank": 86,
+      "rank": 87,
       "name": "Gloom [Tekno] #44",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2203,7 +2217,7 @@
       "id": "3561362"
     },
     {
-      "rank": 87,
+      "rank": 88,
       "name": "Bellossom",
       "set": "2000 Topps Movie First Appearance",
       "console": "/console/pokemon-2000-topps-movie-first-appearance",
@@ -2211,13 +2225,13 @@
       "printing": "",
       "ungraded": 305,
       "g9": 554,
-      "psa10": 12470.86,
+      "psa10": 12498.81,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-movie-first-appearance/bellossom",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/84a5e9a84f7da74b1acef744a14c3234195fcbc94990734d74318d382fc1e79d/60.jpg",
       "id": "3561714"
     },
     {
-      "rank": 88,
+      "rank": 89,
       "name": "Chansey [Tekno] #113",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2231,32 +2245,18 @@
       "id": "3725808"
     },
     {
-      "rank": 89,
+      "rank": 90,
       "name": "Farfetch'd [Sparkle] #83",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
       "number": "83",
       "printing": "Sparkle",
-      "ungraded": 303.68,
+      "ungraded": 300.49,
       "g9": null,
       "psa10": null,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/farfetch%27d-sparkle-83",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ref3c99645d3409d7652aa07854f1573144c581fbc82b22172d8c58eadfff6aa8ad/60.jpg",
       "id": "3725686"
-    },
-    {
-      "rank": 90,
-      "name": "Horsea [Sparkle] #116",
-      "set": "2000 Topps Chrome",
-      "console": "/console/pokemon-2000-topps-chrome",
-      "number": "116",
-      "printing": "Sparkle",
-      "ungraded": 302.5,
-      "g9": 500,
-      "psa10": 522.05,
-      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/horsea-sparkle-116",
-      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/corrn6ywge4nhwqdjv6z/60.jpg",
-      "id": "3725818"
     },
     {
       "rank": 91,
@@ -2288,6 +2288,20 @@
     },
     {
       "rank": 93,
+      "name": "Horsea [Sparkle] #116",
+      "set": "2000 Topps Chrome",
+      "console": "/console/pokemon-2000-topps-chrome",
+      "number": "116",
+      "printing": "Sparkle",
+      "ungraded": 300,
+      "g9": 500,
+      "psa10": 522.05,
+      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/horsea-sparkle-116",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/corrn6ywge4nhwqdjv6z/60.jpg",
+      "id": "3725818"
+    },
+    {
+      "rank": 94,
       "name": "Koffing [Tekno] #109",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2301,7 +2315,7 @@
       "id": "3725792"
     },
     {
-      "rank": 94,
+      "rank": 95,
       "name": "Kangaskhan [Tekno] #115",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2315,21 +2329,21 @@
       "id": "3725816"
     },
     {
-      "rank": 95,
+      "rank": 96,
       "name": "Elekid",
       "set": "2000 Topps Movie First Appearance",
       "console": "/console/pokemon-2000-topps-movie-first-appearance",
       "number": "",
       "printing": "",
       "ungraded": 297.87,
-      "g9": 3396.04,
-      "psa10": 12132.36,
+      "g9": 3413.22,
+      "psa10": 12200.61,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-movie-first-appearance/elekid",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/a5efedf1f100fae61cb289b9ca3b4fd4051b089ff293e60c1d3ffecf4f62c773/60.jpg",
       "id": "3561719"
     },
     {
-      "rank": 96,
+      "rank": 97,
       "name": "Ursaring #8",
       "set": "2001 Topps Johto Hologram",
       "console": "/console/pokemon-2001-topps-johto-hologram",
@@ -2343,7 +2357,7 @@
       "id": "5706212"
     },
     {
-      "rank": 97,
+      "rank": 98,
       "name": "Raichu [Sparkle] #26",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2357,7 +2371,7 @@
       "id": "3561288"
     },
     {
-      "rank": 98,
+      "rank": 99,
       "name": "Noctowl #5",
       "set": "2001 Topps Johto Hologram",
       "console": "/console/pokemon-2001-topps-johto-hologram",
@@ -2371,21 +2385,21 @@
       "id": "5706209"
     },
     {
-      "rank": 99,
-      "name": "Slowking",
-      "set": "2000 Topps Movie First Appearance",
-      "console": "/console/pokemon-2000-topps-movie-first-appearance",
-      "number": "",
+      "rank": 100,
+      "name": "Charizard #6",
+      "set": "2000 Topps Chrome",
+      "console": "/console/pokemon-2000-topps-chrome",
+      "number": "6",
       "printing": "",
-      "ungraded": 275.4,
-      "g9": 1500,
-      "psa10": 11257.26,
-      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-movie-first-appearance/slowking",
-      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/8134c18d679dbb78e60ff67d51da1d2c1af7e2b95e9c26b3e286eeda20cd0758/60.jpg",
-      "id": "3561715"
+      "ungraded": 275,
+      "g9": 489.82,
+      "psa10": 3250,
+      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/charizard-6",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/f21dabfdd57eccc38a32c04749dafc063592530ee6a7b4a5e4b7108e4fc597c4/60.jpg",
+      "id": "3561207"
     },
     {
-      "rank": 100,
+      "rank": 101,
       "name": "Venusaur [Sparkle] #3",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2399,7 +2413,7 @@
       "id": "3561196"
     },
     {
-      "rank": 101,
+      "rank": 102,
       "name": "Butterfree [Tekno] #12",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2413,7 +2427,21 @@
       "id": "3561234"
     },
     {
-      "rank": 102,
+      "rank": 103,
+      "name": "Eevee [Spectra] #133",
+      "set": "2000 Topps Chrome",
+      "console": "/console/pokemon-2000-topps-chrome",
+      "number": "133",
+      "printing": "Spectra",
+      "ungraded": 273.64,
+      "g9": 333.59,
+      "psa10": 1050,
+      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/eevee-spectra-133",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/7854828770d2654ac9ce4ee2390da5305412be3ac8298771e1619d31b55cabf7/60.jpg",
+      "id": "3725887"
+    },
+    {
+      "rank": 104,
       "name": "Tauros [Sparkle] #128",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2427,21 +2455,21 @@
       "id": "3725866"
     },
     {
-      "rank": 103,
+      "rank": 105,
       "name": "Jigglypuff [Tekno] #39",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
       "number": "39",
       "printing": "Tekno",
-      "ungraded": 262.87,
-      "g9": 373,
+      "ungraded": 262.85,
+      "g9": 369,
       "psa10": null,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/jigglypuff-tekno-39",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/d62bcbc5b359cf45986c3d684c645b7bab91e2d9c328b87e4af7181fe312d298/60.jpg",
       "id": "3561342"
     },
     {
-      "rank": 104,
+      "rank": 106,
       "name": "Doduo [Tekno] #84",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2455,7 +2483,7 @@
       "id": "3725692"
     },
     {
-      "rank": 105,
+      "rank": 107,
       "name": "Mr. Mime [Tekno] #122",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2469,7 +2497,7 @@
       "id": "3725844"
     },
     {
-      "rank": 106,
+      "rank": 108,
       "name": "Nidoking [Tekno] #34",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2483,7 +2511,7 @@
       "id": "3561322"
     },
     {
-      "rank": 107,
+      "rank": 109,
       "name": "Kakuna [Tekno] #14",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2497,7 +2525,7 @@
       "id": "3561242"
     },
     {
-      "rank": 108,
+      "rank": 110,
       "name": "Dratini [Sparkle] #147",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2511,7 +2539,7 @@
       "id": "3725950"
     },
     {
-      "rank": 109,
+      "rank": 111,
       "name": "Lugia #62",
       "set": "2001 Topps Johto Sticker",
       "console": "/console/pokemon-2001-topps-johto-sticker",
@@ -2525,7 +2553,7 @@
       "id": "5706179"
     },
     {
-      "rank": 110,
+      "rank": 112,
       "name": "Charmander [Tekno] #4",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2539,7 +2567,7 @@
       "id": "3561202"
     },
     {
-      "rank": 111,
+      "rank": 113,
       "name": "Electrode [Tekno] #101",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2553,7 +2581,7 @@
       "id": "3725760"
     },
     {
-      "rank": 112,
+      "rank": 114,
       "name": "Seel [Sparkle] #86",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2567,46 +2595,18 @@
       "id": "3725698"
     },
     {
-      "rank": 113,
-      "name": "Charizard #6",
-      "set": "2000 Topps Chrome",
-      "console": "/console/pokemon-2000-topps-chrome",
-      "number": "6",
-      "printing": "",
-      "ungraded": 250.53,
-      "g9": 489.82,
-      "psa10": 3463.51,
-      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/charizard-6",
-      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/f21dabfdd57eccc38a32c04749dafc063592530ee6a7b4a5e4b7108e4fc597c4/60.jpg",
-      "id": "3561207"
-    },
-    {
-      "rank": 114,
-      "name": "Ninetales [Tekno] #38",
-      "set": "2000 Topps Chrome",
-      "console": "/console/pokemon-2000-topps-chrome",
-      "number": "38",
-      "printing": "Tekno",
-      "ungraded": 250,
-      "g9": 470.75,
-      "psa10": 910,
-      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/ninetales-tekno-38",
-      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/j3vpap22twnbay6y/60.jpg",
-      "id": "3561338"
-    },
-    {
       "rank": 115,
-      "name": "Shellder [Sparkle] #90",
+      "name": "Kangaskhan [Sparkle] #115",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
-      "number": "90",
+      "number": "115",
       "printing": "Sparkle",
-      "ungraded": 250,
-      "g9": 400,
-      "psa10": 450,
-      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/shellder-sparkle-90",
-      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ref0e3a31bf0c64c0f45048892f5ab66cae46e8580fef3de35ce013b56052e06f7d/60.jpg",
-      "id": "3725714"
+      "ungraded": 250.32,
+      "g9": 657,
+      "psa10": 788,
+      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/kangaskhan-sparkle-115",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/b58f8d79e6a3c3774485d6f007547f4e5b2ecfba1cc94e59dc830eda96d42ca7/60.jpg",
+      "id": "3725814"
     },
     {
       "rank": 116,
@@ -2629,9 +2629,9 @@
       "console": "/console/pokemon-2000-topps-movie-first-appearance",
       "number": "",
       "printing": "",
-      "ungraded": 243.92,
-      "g9": 2340.94,
-      "psa10": 8361.96,
+      "ungraded": 247.51,
+      "g9": 2797.35,
+      "psa10": 9999.01,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-movie-first-appearance/ledyba",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/a4004068f9cd48915fbd42cfbe96c4be5182c24b2274547729d06164647354ad/60.jpg",
       "id": "3561717"
@@ -2672,8 +2672,8 @@
       "number": "94",
       "printing": "Rainbow Foil",
       "ungraded": 225,
-      "g9": 1890.94,
-      "psa10": 6751.97,
+      "g9": 2580.72,
+      "psa10": 9223.54,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-tv/gengar-rainbow-foil-94",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/2b513db622ea1e77951be3e41b924dc2b924e9cfdc59f5cbf992a3267cfe8db0/60.jpg",
       "id": "3975760"
@@ -2685,7 +2685,7 @@
       "console": "/console/pokemon-2000-topps-chrome",
       "number": "8",
       "printing": "Tekno",
-      "ungraded": 224.88,
+      "ungraded": 224.69,
       "g9": 500.06,
       "psa10": 3129.5,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/wartortle-tekno-8",
@@ -2699,9 +2699,9 @@
       "console": "/console/pokemon-2000-topps-chrome",
       "number": "94",
       "printing": "Spectra",
-      "ungraded": 213.25,
-      "g9": 1154.1,
-      "psa10": 3915.72,
+      "ungraded": 212.27,
+      "g9": 1653.62,
+      "psa10": 3881.89,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/gengar-spectra-94",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/wijhjmye6fmqdr7a/60.jpg",
       "id": "3725731"
@@ -2714,7 +2714,7 @@
       "number": "136",
       "printing": "Sparkle",
       "ungraded": 200,
-      "g9": 2766.52,
+      "g9": 2769.14,
       "psa10": 3177.14,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/flareon-sparkle-136",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ref2b49a360b005e1c6f6f12df9e022b675dba94d25525478275c36831d0ad4ec88/60.jpg",
@@ -2799,55 +2799,69 @@
       "printing": "Tekno",
       "ungraded": 150,
       "g9": 285,
-      "psa10": 2008,
+      "psa10": 2000,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/primeape-tekno-57",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/839e21a38f07e661d27b11f60ad87d502c1ead9ab0eb7662dd2e01bc27004bba/60.jpg",
       "id": "3561413"
     },
     {
       "rank": 130,
-      "name": "Pikachu [Spectra] #25",
-      "set": "2000 Topps Chrome",
-      "console": "/console/pokemon-2000-topps-chrome",
-      "number": "25",
-      "printing": "Spectra",
-      "ungraded": 143.59,
-      "g9": 549.99,
-      "psa10": 1842.42,
-      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/pikachu-spectra-25",
-      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/llz3ooifm2wjzinp/60.jpg",
-      "id": "3561285"
-    },
-    {
-      "rank": 131,
       "name": "Growlithe [Sparkle] #58",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
       "number": "58",
       "printing": "Sparkle",
-      "ungraded": 142.82,
-      "g9": 365,
+      "ungraded": 146.41,
+      "g9": 558,
       "psa10": 2300,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/growlithe-sparkle-58",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ziyztrgnybvlychc/60.jpg",
       "id": "3561415"
     },
     {
+      "rank": 131,
+      "name": "Pikachu [Spectra] #25",
+      "set": "2000 Topps Chrome",
+      "console": "/console/pokemon-2000-topps-chrome",
+      "number": "25",
+      "printing": "Spectra",
+      "ungraded": 140.74,
+      "g9": 860,
+      "psa10": 1801.85,
+      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/pikachu-spectra-25",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/llz3ooifm2wjzinp/60.jpg",
+      "id": "3561285"
+    },
+    {
       "rank": 132,
+      "name": "Cubone [Tekno] #104",
+      "set": "2000 Topps Chrome",
+      "console": "/console/pokemon-2000-topps-chrome",
+      "number": "104",
+      "printing": "Tekno",
+      "ungraded": 137.5,
+      "g9": 1500,
+      "psa10": 2750,
+      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/cubone-tekno-104",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ref13cb37bde788bab40f90bf2360edd1a435e56f25b39db052dc3d9a42f95364d9/60.jpg",
+      "id": "3725772"
+    },
+    {
+      "rank": 133,
       "name": "Vulpix [Sparkle] #37",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
       "number": "37",
       "printing": "Sparkle",
-      "ungraded": 133.19,
-      "g9": 649,
+      "ungraded": 132.95,
+      "g9": 643.94,
       "psa10": 1800.5,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/vulpix-sparkle-37",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/083169020bc5d0a132d9436a2fbc5c7f4df29a15f568b2dd43387d0ee9af506f/60.jpg",
       "id": "3561332"
     },
     {
-      "rank": 133,
+      "rank": 134,
       "name": "Clefairy [Sparkle] #35",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2861,7 +2875,7 @@
       "id": "3561324"
     },
     {
-      "rank": 134,
+      "rank": 135,
       "name": "Jigglypuff [Sparkle] #39",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2875,7 +2889,7 @@
       "id": "3561340"
     },
     {
-      "rank": 135,
+      "rank": 136,
       "name": "Snorlax [Rainbow Foil] #HV14",
       "set": "2000 Topps TV Heroes & Villians",
       "console": "/console/pokemon-2000-topps-tv-heroes-&-villians",
@@ -2889,13 +2903,13 @@
       "id": "5530064"
     },
     {
-      "rank": 136,
+      "rank": 137,
       "name": "Pikachu #25",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
       "number": "25",
       "printing": "",
-      "ungraded": 104.15,
+      "ungraded": 102.63,
       "g9": 272.3,
       "psa10": 1750,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/pikachu-25",
@@ -2903,7 +2917,7 @@
       "id": "3561283"
     },
     {
-      "rank": 137,
+      "rank": 138,
       "name": "Vibrava #14",
       "set": "2004 Topps Advanced Challenge Die Cut",
       "console": "/console/pokemon-2004-topps-advanced-challenge-die-cut",
@@ -2917,21 +2931,35 @@
       "id": "5769875"
     },
     {
-      "rank": 138,
+      "rank": 139,
       "name": "Professor Oak [Rainbow Foil] #HV12",
       "set": "2000 Topps TV Heroes & Villians",
       "console": "/console/pokemon-2000-topps-tv-heroes-&-villians",
       "number": "HV12",
       "printing": "Rainbow Foil",
       "ungraded": 100.5,
-      "g9": 1156.65,
-      "psa10": 4128.08,
+      "g9": 1158.42,
+      "psa10": 4137.29,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-tv-heroes-&-villians/professor-oak-rainbow-foil-hv12",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/laggavkwcinngtny/60.jpg",
       "id": "5530062"
     },
     {
-      "rank": 139,
+      "rank": 140,
+      "name": "Charizard [Rainbow Foil] #6",
+      "set": "1999 Topps TV",
+      "console": "/console/pokemon-1999-topps-tv",
+      "number": "6",
+      "printing": "Rainbow Foil",
+      "ungraded": 87.49,
+      "g9": 787.25,
+      "psa10": 3128.32,
+      "url": "https://www.pricecharting.com/game/pokemon-1999-topps-tv/charizard-rainbow-foil-6",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/lbqko5hgwsu73jqn/60.jpg",
+      "id": "3560973"
+    },
+    {
+      "rank": 141,
       "name": "Pidgeot [Tekno] #18",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -2945,35 +2973,21 @@
       "id": "3561258"
     },
     {
-      "rank": 140,
-      "name": "Charizard [Rainbow Foil] #6",
-      "set": "1999 Topps TV",
-      "console": "/console/pokemon-1999-topps-tv",
-      "number": "6",
-      "printing": "Rainbow Foil",
-      "ungraded": 69.99,
-      "g9": 786.99,
-      "psa10": 3122.31,
-      "url": "https://www.pricecharting.com/game/pokemon-1999-topps-tv/charizard-rainbow-foil-6",
-      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/lbqko5hgwsu73jqn/60.jpg",
-      "id": "3560973"
-    },
-    {
-      "rank": 141,
+      "rank": 142,
       "name": "A Shipful of Shivers [Rainbow Foil] #OR12",
       "set": "2000 Topps TV Episode",
       "console": "/console/pokemon-2000-topps-tv-episode",
       "number": "OR12",
       "printing": "Rainbow Foil",
       "ungraded": 64.99,
-      "g9": 751.46,
-      "psa10": 2679.86,
+      "g9": 752.6,
+      "psa10": 2685.79,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-tv-episode/a-shipful-of-shivers-rainbow-foil-or12",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/corrz5uoz7y4cb22nz5b/60.jpg",
       "id": "5530079"
     },
     {
-      "rank": 142,
+      "rank": 143,
       "name": "Charizard [Foil] #16",
       "set": "2004 Topps Advanced Challenge",
       "console": "/console/pokemon-2004-topps-advanced-challenge",
@@ -2987,13 +3001,13 @@
       "id": "5769787"
     },
     {
-      "rank": 143,
+      "rank": 144,
       "name": "The Mandarin Island Miss Match [Foil] #OR16",
       "set": "2000 Topps TV Episode",
       "console": "/console/pokemon-2000-topps-tv-episode",
       "number": "OR16",
       "printing": "Foil",
-      "ungraded": 63.85,
+      "ungraded": 63.68,
       "g9": 329.99,
       "psa10": 2500,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-tv-episode/the-mandarin-island-miss-match-foil-or16",
@@ -3001,7 +3015,7 @@
       "id": "5530047"
     },
     {
-      "rank": 144,
+      "rank": 145,
       "name": "Umbreon #197",
       "set": "2001 Topps Johto Champions",
       "console": "/console/pokemon-2001-topps-johto-champions",
@@ -3015,29 +3029,15 @@
       "id": "5768725"
     },
     {
-      "rank": 145,
-      "name": "Charizard [Foil] #6",
-      "set": "1999 Topps TV",
-      "console": "/console/pokemon-1999-topps-tv",
-      "number": "6",
-      "printing": "Foil",
-      "ungraded": 60,
-      "g9": 354.5,
-      "psa10": 4512.49,
-      "url": "https://www.pricecharting.com/game/pokemon-1999-topps-tv/charizard-foil-6",
-      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/fadc2f35d129e3daa47488e8871be99a94c50a95010015a92be61db28fce63b0/60.jpg",
-      "id": "3560972"
-    },
-    {
       "rank": 146,
       "name": "Squirtle [Spectra] #7",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
       "number": "7",
       "printing": "Spectra",
-      "ungraded": 59.93,
+      "ungraded": 60,
       "g9": 269.4,
-      "psa10": 1999.95,
+      "psa10": 2000,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/squirtle-spectra-7",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/186b086af7bdbb0bce6a02cd574c5e6b1f8510cac82f2ebaec38736b219f20db/60.jpg",
       "id": "3561213"
@@ -3051,69 +3051,55 @@
       "printing": "",
       "ungraded": 59,
       "g9": 200,
-      "psa10": 2263.41,
+      "psa10": 2266,
       "url": "https://www.pricecharting.com/game/pokemon-2001-topps-johto/lugia-249",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ref6fe94deb5cfa629d40076b8dfdafaaa7214245861e71c50cabcd5d888885dff4/60.jpg",
       "id": "5706027"
     },
     {
       "rank": 148,
-      "name": "Mew [Spectra] #151",
-      "set": "2000 Topps Chrome",
-      "console": "/console/pokemon-2000-topps-chrome",
-      "number": "151",
-      "printing": "Spectra",
-      "ungraded": 58.52,
-      "g9": 754.17,
-      "psa10": 1951.66,
-      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/mew-spectra-151",
-      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/wfzjghpno2hvreg7/60.jpg",
-      "id": "3725976"
+      "name": "Charizard [Foil] #6",
+      "set": "1999 Topps TV",
+      "console": "/console/pokemon-1999-topps-tv",
+      "number": "6",
+      "printing": "Foil",
+      "ungraded": 58.51,
+      "g9": 354.5,
+      "psa10": 4512.49,
+      "url": "https://www.pricecharting.com/game/pokemon-1999-topps-tv/charizard-foil-6",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/fadc2f35d129e3daa47488e8871be99a94c50a95010015a92be61db28fce63b0/60.jpg",
+      "id": "3560972"
     },
     {
       "rank": 149,
-      "name": "The Mandarin Island Miss Match [Rainbow Foil] #OR16",
-      "set": "2000 Topps TV Episode",
-      "console": "/console/pokemon-2000-topps-tv-episode",
-      "number": "OR16",
-      "printing": "Rainbow Foil",
-      "ungraded": 56.74,
-      "g9": 439.57,
-      "psa10": 1566.02,
-      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-tv-episode/the-mandarin-island-miss-match-rainbow-foil-or16",
-      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/i3sdzyyd47kj5qoj/60.jpg",
-      "id": "5530083"
-    },
-    {
-      "rank": 150,
       "name": "Gengar [Foil] #94",
       "set": "2000 Topps TV",
       "console": "/console/pokemon-2000-topps-tv",
       "number": "94",
       "printing": "Foil",
       "ungraded": 56,
-      "g9": 275.2,
+      "g9": 280.71,
       "psa10": 2058.57,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-tv/gengar-foil-94",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/0e9c168d6cb6ae48475c6b4c10d0aeb99a53d3b28b79ad490afb221e52e2c9f3/60.jpg",
       "id": "3975759"
     },
     {
-      "rank": 151,
+      "rank": 150,
       "name": "Alakazam [Rainbow Foil] #65",
       "set": "1999 Topps TV",
       "console": "/console/pokemon-1999-topps-tv",
       "number": "65",
       "printing": "Rainbow Foil",
       "ungraded": 55.44,
-      "g9": 175.39,
-      "psa10": 2029.03,
+      "g9": 175.45,
+      "psa10": 2486.66,
       "url": "https://www.pricecharting.com/game/pokemon-1999-topps-tv/alakazam-rainbow-foil-65",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/43819de765641ea0e039c280cc79f9694c2e4251e403ba40f3fb910925de67b1/60.jpg",
       "id": "3561150"
     },
     {
-      "rank": 152,
+      "rank": 151,
       "name": "Golbat [Tekno] #42",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -3125,6 +3111,20 @@
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/golbat-tekno-42",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/6511502ff807669238b23c68c13d11e0f1da143788972dd892b0aa1932b0c457/60.jpg",
       "id": "3561354"
+    },
+    {
+      "rank": 152,
+      "name": "Machamp #EVO12",
+      "set": "2000 Topps TV Die Cut",
+      "console": "/console/pokemon-2000-topps-tv-die-cut",
+      "number": "EVO12",
+      "printing": "",
+      "ungraded": 54.99,
+      "g9": 625.71,
+      "psa10": 2231.93,
+      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-tv-die-cut/machamp-evo12",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/92001a713c54da1ca7066ab8c1117e451639ceb7a1a9159ac6a8d35b96061e85/60.jpg",
+      "id": "5252571"
     },
     {
       "rank": 153,
@@ -3156,6 +3156,20 @@
     },
     {
       "rank": 155,
+      "name": "Mew [Spectra] #151",
+      "set": "2000 Topps Chrome",
+      "console": "/console/pokemon-2000-topps-chrome",
+      "number": "151",
+      "printing": "Spectra",
+      "ungraded": 49.18,
+      "g9": 727.31,
+      "psa10": 1951.66,
+      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/mew-spectra-151",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/wfzjghpno2hvreg7/60.jpg",
+      "id": "3725976"
+    },
+    {
+      "rank": 156,
       "name": "Mechanical Mewtwo [Rainbow Foil] #6",
       "set": "1999 Topps Movie",
       "console": "/console/pokemon-1999-topps-movie",
@@ -3169,35 +3183,35 @@
       "id": "3560741"
     },
     {
-      "rank": 156,
+      "rank": 157,
       "name": "It's Not Over Yet #70",
       "set": "2000 Topps Movie",
       "console": "/console/pokemon-2000-topps-movie",
       "number": "70",
       "printing": "",
-      "ungraded": 40.36,
-      "g9": 171.2,
+      "ungraded": 41.89,
+      "g9": 161.04,
       "psa10": 6167.1,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-movie/it%27s-not-over-yet-70",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/b27dd77b677a3150e13ef5dee0670240d637c5fa23479be442667617da04a051/60.jpg",
       "id": "3561556"
     },
     {
-      "rank": 157,
-      "name": "Cyndaquil #4",
-      "set": "2001 Topps Johto Die Cut",
-      "console": "/console/pokemon-2001-topps-johto-die-cut",
-      "number": "4",
+      "rank": 158,
+      "name": "Mew #151",
+      "set": "2000 Topps TV",
+      "console": "/console/pokemon-2000-topps-tv",
+      "number": "151",
       "printing": "",
-      "ungraded": 40,
-      "g9": 443.29,
-      "psa10": 1541.41,
-      "url": "https://www.pricecharting.com/game/pokemon-2001-topps-johto-die-cut/cyndaquil-4",
-      "pcImg": null,
-      "id": "5706183"
+      "ungraded": 40.07,
+      "g9": 48.47,
+      "psa10": 2267.31,
+      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-tv/mew-151",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ovxajry7urjgdcfv/60.jpg",
+      "id": "3975933"
     },
     {
-      "rank": 158,
+      "rank": 159,
       "name": "Magikarp Mayhem [Foil] #20",
       "set": "2000 Topps Movie",
       "console": "/console/pokemon-2000-topps-movie",
@@ -3205,24 +3219,10 @@
       "printing": "Foil",
       "ungraded": 39.99,
       "g9": 150,
-      "psa10": 3999.95,
+      "psa10": 3917.17,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-movie/magikarp-mayhem-foil-20",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/refa25b838c29bd984f69c053fdc85a4e9af464a5f3315c8326d0f1b18124a133d7/60.jpg",
       "id": "3561578"
-    },
-    {
-      "rank": 159,
-      "name": "Gastly #EVO4",
-      "set": "2000 Topps TV Die Cut",
-      "console": "/console/pokemon-2000-topps-tv-die-cut",
-      "number": "EVO4",
-      "printing": "",
-      "ungraded": 36.99,
-      "g9": 432.24,
-      "psa10": 1539.39,
-      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-tv-die-cut/gastly-evo4",
-      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/33b87466bdf9ba636bc43131ba960e3fe9fa20dda4bcaf445f166d60298ac3ee/60.jpg",
-      "id": "5252563"
     },
     {
       "rank": 160,
@@ -3232,8 +3232,8 @@
       "number": "41",
       "printing": "Tekno",
       "ungraded": 33.87,
-      "g9": 246.31,
-      "psa10": 1655.08,
+      "g9": 246.12,
+      "psa10": 1648.1,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/zubat-tekno-41",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ref61d6a0d11ece16c23630b68209a576fb7cfc723733be476a395295974a362149/60.jpg",
       "id": "3561350"
@@ -3274,7 +3274,7 @@
       "number": "EP22",
       "printing": "Foil",
       "ungraded": 29.8,
-      "g9": 162.17,
+      "g9": 161.08,
       "psa10": 1902.77,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-tv/the-tower-of-terror-foil-ep22",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/uekoai6zwiqzvpt2/60.jpg",
@@ -3282,6 +3282,20 @@
     },
     {
       "rank": 164,
+      "name": "Pikachu [Foil] #25",
+      "set": "1999 Topps TV",
+      "console": "/console/pokemon-1999-topps-tv",
+      "number": "25",
+      "printing": "Foil",
+      "ungraded": 20.02,
+      "g9": 110,
+      "psa10": 1962.5,
+      "url": "https://www.pricecharting.com/game/pokemon-1999-topps-tv/pikachu-foil-25",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/377f7418a9bfc70b31a5ff2c29155b30eec27ef7226d94445746baeac1d18f86/60.jpg",
+      "id": "3561029"
+    },
+    {
+      "rank": 165,
       "name": "Trapped Charizard [Rainbow Foil] #51",
       "set": "1999 Topps Movie",
       "console": "/console/pokemon-1999-topps-movie",
@@ -3295,7 +3309,7 @@
       "id": "3560883"
     },
     {
-      "rank": 165,
+      "rank": 166,
       "name": "Clefairy [Tekno] #35",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -3309,13 +3323,13 @@
       "id": "3561326"
     },
     {
-      "rank": 166,
+      "rank": 167,
       "name": "Ninetales #38",
       "set": "1999 Topps TV",
       "console": "/console/pokemon-1999-topps-tv",
       "number": "38",
       "printing": "",
-      "ungraded": 3.42,
+      "ungraded": 3.32,
       "g9": 207.51,
       "psa10": 2950,
       "url": "https://www.pricecharting.com/game/pokemon-1999-topps-tv/ninetales-38",
@@ -3323,7 +3337,7 @@
       "id": "9730009"
     },
     {
-      "rank": 167,
+      "rank": 168,
       "name": "Eevee [Sparkle] #133",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -3337,7 +3351,7 @@
       "id": "3725886"
     },
     {
-      "rank": 168,
+      "rank": 169,
       "name": "Lickitung [Tekno] #108",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -3351,7 +3365,21 @@
       "id": "3725788"
     },
     {
-      "rank": 169,
+      "rank": 170,
+      "name": "Rhydon [Tekno] #112",
+      "set": "2000 Topps Chrome",
+      "console": "/console/pokemon-2000-topps-chrome",
+      "number": "112",
+      "printing": "Tekno",
+      "ungraded": null,
+      "g9": 609.04,
+      "psa10": 4034.97,
+      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/rhydon-tekno-112",
+      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/corrjnnsospt7vscflx3/60.jpg",
+      "id": "3725804"
+    },
+    {
+      "rank": 171,
       "name": "Gastly [Sparkle] #92",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -3365,7 +3393,7 @@
       "id": "3725722"
     },
     {
-      "rank": 170,
+      "rank": 172,
       "name": "Aerodactyl [Sparkle] #142",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -3379,7 +3407,7 @@
       "id": "3725922"
     },
     {
-      "rank": 171,
+      "rank": 173,
       "name": "Eevee [Tekno] #133",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -3393,7 +3421,7 @@
       "id": "3725888"
     },
     {
-      "rank": 172,
+      "rank": 174,
       "name": "Exeggutor [Sparkle] #103",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -3407,7 +3435,7 @@
       "id": "3725766"
     },
     {
-      "rank": 173,
+      "rank": 175,
       "name": "Lapras [Tekno] #131",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -3421,7 +3449,7 @@
       "id": "3725880"
     },
     {
-      "rank": 174,
+      "rank": 176,
       "name": "Onix [Tekno] #95",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
@@ -3429,69 +3457,53 @@
       "printing": "Tekno",
       "ungraded": null,
       "g9": null,
-      "psa10": 1920.06,
+      "psa10": 1910.13,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/onix-tekno-95",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ref20e428cd09a8444d380f3847bb71007012dc53405cb07dd583aaa8126a974b34/60.jpg",
       "id": "3725736"
     },
     {
-      "rank": 175,
+      "rank": 177,
       "name": "Dragonair [Tekno] #148",
       "set": "2000 Topps Chrome",
       "console": "/console/pokemon-2000-topps-chrome",
       "number": "148",
       "printing": "Tekno",
       "ungraded": null,
-      "g9": 652.21,
+      "g9": 652.12,
       "psa10": 1890,
       "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/dragonair-tekno-148",
       "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ref827dfe573d4b0d39fa28d6e93442e01ee8ec65a15648dc80c5172f4ebf78e379/60.jpg",
       "id": "3725959"
-    },
-    {
-      "rank": 176,
-      "name": "Gastly [Tekno] #92",
-      "set": "2000 Topps Chrome",
-      "console": "/console/pokemon-2000-topps-chrome",
-      "number": "92",
-      "printing": "Tekno",
-      "ungraded": null,
-      "g9": 830,
-      "psa10": 1594.17,
-      "url": "https://www.pricecharting.com/game/pokemon-2000-topps-chrome/gastly-tekno-92",
-      "pcImg": "https://storage.googleapis.com/images.pricecharting.com/ref6fd4c09ea3bdbf24e10453538ec85220ceae94b26881a2c6089cda03795b8f8d/60.jpg",
-      "id": "3725724"
     }
   ],
   "verify": {
-    "for": "2026-08-16",
-    "ran": "2026-08-18",
+    "for": "2026-08-22",
+    "ran": "2026-08-22",
     "method": "re-read the Ungraded, Grade 9 and PSA 10 columns from each product page, mapping columns by <th> label",
     "rankingColumns": [
       "ungraded",
       "psa10"
     ],
     "tolerance": 0.15,
-    "checked": 176,
-    "agree": 170,
-    "disagree": 6,
+    "checked": 177,
+    "agree": 176,
+    "disagree": 1,
     "unreadable": 0,
-    "imagesMissing": 1,
+    "imagesMissing": 0,
     "columns": {
       "ungraded": {
-        "agree": 163,
-        "disagree": 3,
+        "agree": 167,
         "none": 10
       },
       "g9": {
-        "agree": 135,
-        "none": 36,
-        "disagree": 5
+        "agree": 141,
+        "none": 36
       },
       "psa10": {
-        "none": 26,
-        "agree": 147,
-        "disagree": 3
+        "none": 27,
+        "agree": 149,
+        "disagree": 1
       }
     },
     "rows": [
@@ -3554,8 +3566,10 @@
           },
           "psa10": {
             "listing": 20867.57,
-            "product": 20867.57,
-            "status": "agree"
+            "product": 21088.29,
+            "status": "agree",
+            "change": 220.72,
+            "reconciles": true
           }
         },
         "headers": [
@@ -3679,16 +3693,16 @@
         "rank": 6,
         "name": "Lugia",
         "set": "2000 Topps Movie First Appearance",
-        "listing": 3979.82,
-        "product": 3979.82,
+        "listing": 3989.91,
+        "product": 3989.91,
         "statusCol": "ungraded",
         "status": "agree",
         "imgOk": true,
         "imgBytes": 7995,
         "cols": {
           "ungraded": {
-            "listing": 3979.82,
-            "product": 3979.82,
+            "listing": 3989.91,
+            "product": 3989.91,
             "status": "agree"
           },
           "g9": {
@@ -3715,16 +3729,16 @@
         "rank": 7,
         "name": "Magikarp [Tekno] #129",
         "set": "2000 Topps Chrome",
-        "listing": 3606.49,
-        "product": 3606.49,
+        "listing": 3593.76,
+        "product": 3593.76,
         "statusCol": "ungraded",
         "status": "agree",
         "imgOk": true,
         "imgBytes": 12850,
         "cols": {
           "ungraded": {
-            "listing": 3606.49,
-            "product": 3606.49,
+            "listing": 3593.76,
+            "product": 3593.76,
             "status": "agree"
           },
           "g9": {
@@ -3800,13 +3814,13 @@
             "status": "agree"
           },
           "g9": {
-            "listing": 2550.19,
-            "product": 2550.19,
+            "listing": 2549.85,
+            "product": 2549.85,
             "status": "agree"
           },
           "psa10": {
-            "listing": 23524.97,
-            "product": 23524.97,
+            "listing": 23425.56,
+            "product": 23425.56,
             "status": "agree"
           }
         },
@@ -3836,8 +3850,8 @@
             "status": "agree"
           },
           "g9": {
-            "listing": 10891.97,
-            "product": 10891.97,
+            "listing": 10884.28,
+            "product": 10884.28,
             "status": "agree"
           },
           "psa10": {
@@ -3872,11 +3886,9 @@
             "status": "agree"
           },
           "g9": {
-            "listing": 305.18,
+            "listing": 305.29,
             "product": 305.29,
-            "status": "agree",
-            "change": 0.11,
-            "reconciles": true
+            "status": "agree"
           },
           "psa10": {
             "listing": 1058,
@@ -3915,8 +3927,8 @@
             "status": "agree"
           },
           "psa10": {
-            "listing": 512.85,
-            "product": 512.85,
+            "listing": 512.78,
+            "product": 512.78,
             "status": "agree"
           }
         },
@@ -3931,6 +3943,42 @@
       },
       {
         "rank": 13,
+        "name": "Pikachu [Sparkle] #25",
+        "set": "2000 Topps Chrome",
+        "listing": 2500,
+        "product": 2500,
+        "statusCol": "ungraded",
+        "status": "agree",
+        "imgOk": true,
+        "imgBytes": 17601,
+        "cols": {
+          "ungraded": {
+            "listing": 2500,
+            "product": 2500,
+            "status": "agree"
+          },
+          "g9": {
+            "listing": 4611,
+            "product": 4611,
+            "status": "agree"
+          },
+          "psa10": {
+            "listing": 5993.18,
+            "product": 5993.18,
+            "status": "agree"
+          }
+        },
+        "headers": [
+          "Ungraded",
+          "Grade 7",
+          "Grade 8",
+          "Grade 9",
+          "Grade 9.5",
+          "PSA 10"
+        ]
+      },
+      {
+        "rank": 14,
         "name": "Hypno [Sparkle] #97",
         "set": "2000 Topps Chrome",
         "listing": 2375,
@@ -3966,7 +4014,7 @@
         ]
       },
       {
-        "rank": 14,
+        "rank": 15,
         "name": "Haunter [Sparkle] #93",
         "set": "2000 Topps Chrome",
         "listing": 2172.02,
@@ -3987,8 +4035,8 @@
             "status": "agree"
           },
           "psa10": {
-            "listing": 2860.48,
-            "product": 2860.48,
+            "listing": 2855.26,
+            "product": 2855.26,
             "status": "agree"
           }
         },
@@ -4002,7 +4050,7 @@
         ]
       },
       {
-        "rank": 15,
+        "rank": 16,
         "name": "Zapdos [Tekno] #145",
         "set": "2000 Topps Chrome",
         "listing": 1678.75,
@@ -4038,7 +4086,7 @@
         ]
       },
       {
-        "rank": 16,
+        "rank": 17,
         "name": "Charizard [Tekno] #6",
         "set": "2000 Topps Chrome",
         "listing": 1650.02,
@@ -4059,44 +4107,8 @@
             "status": "agree"
           },
           "psa10": {
-            "listing": 28981.29,
-            "product": 28981.29,
-            "status": "agree"
-          }
-        },
-        "headers": [
-          "Ungraded",
-          "Grade 7",
-          "Grade 8",
-          "Grade 9",
-          "Grade 9.5",
-          "PSA 10"
-        ]
-      },
-      {
-        "rank": 17,
-        "name": "Pikachu [Sparkle] #25",
-        "set": "2000 Topps Chrome",
-        "listing": 1605.46,
-        "product": 1605.46,
-        "statusCol": "ungraded",
-        "status": "agree",
-        "imgOk": true,
-        "imgBytes": 17601,
-        "cols": {
-          "ungraded": {
-            "listing": 1605.46,
-            "product": 1605.46,
-            "status": "agree"
-          },
-          "g9": {
-            "listing": 4611,
-            "product": 4611,
-            "status": "agree"
-          },
-          "psa10": {
-            "listing": 5986.35,
-            "product": 5986.35,
+            "listing": 29380.4,
+            "product": 29380.4,
             "status": "agree"
           }
         },
@@ -4275,8 +4287,8 @@
             "status": "agree"
           },
           "psa10": {
-            "listing": 3244.6,
-            "product": 3244.6,
+            "listing": 3245.06,
+            "product": 3245.06,
             "status": "agree"
           }
         },
@@ -4342,13 +4354,13 @@
             "status": "agree"
           },
           "g9": {
-            "listing": 12701.92,
-            "product": 12701.92,
+            "listing": 12721.39,
+            "product": 12721.39,
             "status": "agree"
           },
           "psa10": {
-            "listing": 45388.4,
-            "product": 45388.4,
+            "listing": 45490.02,
+            "product": 45490.02,
             "status": "agree"
           }
         },
@@ -4365,16 +4377,16 @@
         "rank": 25,
         "name": "Mewtwo [Sparkle] #150",
         "set": "2000 Topps Chrome",
-        "listing": 1065.85,
-        "product": 1065.85,
+        "listing": 1065.93,
+        "product": 1065.93,
         "statusCol": "ungraded",
         "status": "agree",
         "imgOk": true,
         "imgBytes": 18444,
         "cols": {
           "ungraded": {
-            "listing": 1065.85,
-            "product": 1065.85,
+            "listing": 1065.93,
+            "product": 1065.93,
             "status": "agree"
           },
           "g9": {
@@ -4455,8 +4467,8 @@
             "status": "none"
           },
           "psa10": {
-            "listing": 5125.07,
-            "product": 5125.07,
+            "listing": 5123.17,
+            "product": 5123.17,
             "status": "agree"
           }
         },
@@ -4492,8 +4504,10 @@
           },
           "psa10": {
             "listing": 432.12,
-            "product": 432.12,
-            "status": "agree"
+            "product": 432.38,
+            "status": "agree",
+            "change": 0.26,
+            "reconciles": true
           }
         },
         "headers": [
@@ -4558,11 +4572,9 @@
             "status": "agree"
           },
           "g9": {
-            "listing": 260.22,
+            "listing": 267.61,
             "product": 267.61,
-            "status": "agree",
-            "change": 7.39,
-            "reconciles": true
+            "status": "agree"
           },
           "psa10": {
             "listing": 687.5,
@@ -4691,16 +4703,16 @@
         "rank": 34,
         "name": "Mew [Sparkle] #151",
         "set": "2000 Topps Chrome",
-        "listing": 783.18,
-        "product": 783.18,
+        "listing": 783.09,
+        "product": 783.09,
         "statusCol": "ungraded",
         "status": "agree",
         "imgOk": true,
         "imgBytes": 18103,
         "cols": {
           "ungraded": {
-            "listing": 783.18,
-            "product": 783.18,
+            "listing": 783.09,
+            "product": 783.09,
             "status": "agree"
           },
           "g9": {
@@ -4833,30 +4845,28 @@
       },
       {
         "rank": 38,
-        "name": "Cubone [Tekno] #104",
+        "name": "Dodrio [Sparkle] #85",
         "set": "2000 Topps Chrome",
-        "listing": 683.53,
-        "product": 137.5,
+        "listing": 716.5,
+        "product": 716.5,
         "statusCol": "ungraded",
-        "status": "disagree",
+        "status": "agree",
         "imgOk": true,
-        "imgBytes": 11600,
+        "imgBytes": 21482,
         "cols": {
           "ungraded": {
-            "listing": 683.53,
-            "product": 137.5,
-            "status": "disagree",
-            "change": -546.03,
-            "reconciles": true
+            "listing": 716.5,
+            "product": 716.5,
+            "status": "agree"
           },
           "g9": {
-            "listing": 1500,
-            "product": 1500,
+            "listing": 371,
+            "product": 371,
             "status": "agree"
           },
           "psa10": {
-            "listing": 2750,
-            "product": 2750,
+            "listing": 474.25,
+            "product": 474.25,
             "status": "agree"
           }
         },
@@ -4873,19 +4883,17 @@
         "rank": 39,
         "name": "Dragonite [Spectra] #149",
         "set": "2000 Topps Chrome",
-        "listing": 2200,
-        "product": 2799.99,
-        "statusCol": "psa10",
-        "status": "disagree",
+        "listing": 715,
+        "product": 715,
+        "statusCol": "ungraded",
+        "status": "agree",
         "imgOk": true,
         "imgBytes": 13642,
         "cols": {
           "ungraded": {
-            "listing": 650,
+            "listing": 715,
             "product": 715,
-            "status": "agree",
-            "change": 65,
-            "reconciles": true
+            "status": "agree"
           },
           "g9": {
             "listing": 412.5,
@@ -4893,11 +4901,9 @@
             "status": "agree"
           },
           "psa10": {
-            "listing": 2200,
+            "listing": 2799.99,
             "product": 2799.99,
-            "status": "disagree",
-            "change": 599.99,
-            "reconciles": true
+            "status": "agree"
           }
         },
         "headers": [
@@ -4983,6 +4989,42 @@
       },
       {
         "rank": 42,
+        "name": "Alakazam [Sparkle] #65",
+        "set": "2000 Topps Chrome",
+        "listing": 575,
+        "product": 575,
+        "statusCol": "ungraded",
+        "status": "agree",
+        "imgOk": true,
+        "imgBytes": 10555,
+        "cols": {
+          "ungraded": {
+            "listing": 575,
+            "product": 575,
+            "status": "agree"
+          },
+          "g9": {
+            "listing": 705.46,
+            "product": 705.46,
+            "status": "agree"
+          },
+          "psa10": {
+            "listing": 1941.26,
+            "product": 1941.26,
+            "status": "agree"
+          }
+        },
+        "headers": [
+          "Ungraded",
+          "Grade 7",
+          "Grade 8",
+          "Grade 9",
+          "Grade 9.5",
+          "PSA 10"
+        ]
+      },
+      {
+        "rank": 43,
         "name": "Kabutops [Sparkle] #141",
         "set": "2000 Topps Chrome",
         "listing": 568.27,
@@ -5006,48 +5048,6 @@
             "listing": 2265.04,
             "product": 2265.04,
             "status": "agree"
-          }
-        },
-        "headers": [
-          "Ungraded",
-          "Grade 7",
-          "Grade 8",
-          "Grade 9",
-          "Grade 9.5",
-          "PSA 10"
-        ]
-      },
-      {
-        "rank": 43,
-        "name": "Alakazam [Sparkle] #65",
-        "set": "2000 Topps Chrome",
-        "listing": 550,
-        "product": 575,
-        "statusCol": "ungraded",
-        "status": "agree",
-        "imgOk": true,
-        "imgBytes": 10555,
-        "cols": {
-          "ungraded": {
-            "listing": 550,
-            "product": 575,
-            "status": "agree",
-            "change": 25,
-            "reconciles": true
-          },
-          "g9": {
-            "listing": 336.01,
-            "product": 705.46,
-            "status": "disagree",
-            "change": 369.45,
-            "reconciles": true
-          },
-          "psa10": {
-            "listing": 1901.4,
-            "product": 1941.26,
-            "status": "agree",
-            "change": 39.86,
-            "reconciles": true
           }
         },
         "headers": [
@@ -5279,16 +5279,16 @@
         "rank": 50,
         "name": "Charmander [Sparkle] #4",
         "set": "2000 Topps Chrome",
-        "listing": 494.49,
-        "product": 494.49,
+        "listing": 493.22,
+        "product": 493.22,
         "statusCol": "ungraded",
         "status": "agree",
         "imgOk": true,
         "imgBytes": 14297,
         "cols": {
           "ungraded": {
-            "listing": 494.49,
-            "product": 494.49,
+            "listing": 493.22,
+            "product": 493.22,
             "status": "agree"
           },
           "g9": {
@@ -5297,8 +5297,8 @@
             "status": "agree"
           },
           "psa10": {
-            "listing": 1760.54,
-            "product": 1760.54,
+            "listing": 1761.13,
+            "product": 1761.13,
             "status": "agree"
           }
         },
@@ -5405,8 +5405,8 @@
             "status": "agree"
           },
           "psa10": {
-            "listing": 1922.1,
-            "product": 1922.1,
+            "listing": 1923.31,
+            "product": 1923.31,
             "status": "agree"
           }
         },
@@ -5473,8 +5473,10 @@
           },
           "g9": {
             "listing": 855.96,
-            "product": 855.96,
-            "status": "agree"
+            "product": 850.92,
+            "status": "agree",
+            "change": -5.04,
+            "reconciles": true
           },
           "psa10": {
             "listing": 4087,
@@ -5529,6 +5531,42 @@
       },
       {
         "rank": 57,
+        "name": "Future Looks Bright [Rainbow Foil] #41",
+        "set": "1999 Topps Movie",
+        "listing": 430.85,
+        "product": 430.85,
+        "statusCol": "ungraded",
+        "status": "agree",
+        "imgOk": true,
+        "imgBytes": 9363,
+        "cols": {
+          "ungraded": {
+            "listing": 430.85,
+            "product": 430.85,
+            "status": "agree"
+          },
+          "g9": {
+            "listing": 99.99,
+            "product": 99.99,
+            "status": "agree"
+          },
+          "psa10": {
+            "listing": null,
+            "product": null,
+            "status": "none"
+          }
+        },
+        "headers": [
+          "Ungraded",
+          "Grade 7",
+          "Grade 8",
+          "Grade 9",
+          "Grade 9.5",
+          "PSA 10"
+        ]
+      },
+      {
+        "rank": 58,
         "name": "Marowak [Tekno] #105",
         "set": "2000 Topps Chrome",
         "listing": 430,
@@ -5564,7 +5602,43 @@
         ]
       },
       {
-        "rank": 58,
+        "rank": 59,
+        "name": "Electrode [Sparkle] #101",
+        "set": "2000 Topps Chrome",
+        "listing": 418.22,
+        "product": 418.22,
+        "statusCol": "ungraded",
+        "status": "agree",
+        "imgOk": true,
+        "imgBytes": 16056,
+        "cols": {
+          "ungraded": {
+            "listing": 418.22,
+            "product": 418.22,
+            "status": "agree"
+          },
+          "g9": {
+            "listing": 475,
+            "product": 475,
+            "status": "agree"
+          },
+          "psa10": {
+            "listing": 707.86,
+            "product": 707.86,
+            "status": "agree"
+          }
+        },
+        "headers": [
+          "Ungraded",
+          "Grade 7",
+          "Grade 8",
+          "Grade 9",
+          "Grade 9.5",
+          "PSA 10"
+        ]
+      },
+      {
+        "rank": 60,
         "name": "Gyarados [Spectra] #130",
         "set": "2000 Topps Chrome",
         "listing": 415,
@@ -5600,49 +5674,13 @@
         ]
       },
       {
-        "rank": 59,
-        "name": "Arcanine [Sparkle] #59",
-        "set": "2000 Topps Chrome",
-        "listing": 412.5,
-        "product": 412.5,
-        "statusCol": "ungraded",
-        "status": "agree",
-        "imgOk": true,
-        "imgBytes": 11247,
-        "cols": {
-          "ungraded": {
-            "listing": 412.5,
-            "product": 412.5,
-            "status": "agree"
-          },
-          "g9": {
-            "listing": 1333,
-            "product": 1333,
-            "status": "agree"
-          },
-          "psa10": {
-            "listing": 3733.2,
-            "product": 3733.2,
-            "status": "agree"
-          }
-        },
-        "headers": [
-          "Ungraded",
-          "Grade 7",
-          "Grade 8",
-          "Grade 9",
-          "Grade 9.5",
-          "PSA 10"
-        ]
-      },
-      {
-        "rank": 60,
+        "rank": 61,
         "name": "Ivysaur [Tekno] #2",
         "set": "2000 Topps Chrome",
-        "listing": 600.04,
-        "product": 958,
-        "statusCol": "psa10",
-        "status": "disagree",
+        "listing": 400,
+        "product": 400,
+        "statusCol": "ungraded",
+        "status": "agree",
         "imgOk": true,
         "imgBytes": 13237,
         "cols": {
@@ -5652,18 +5690,14 @@
             "status": "agree"
           },
           "g9": {
-            "listing": 248.92,
+            "listing": 798,
             "product": 798,
-            "status": "disagree",
-            "change": 549.08,
-            "reconciles": true
+            "status": "agree"
           },
           "psa10": {
-            "listing": 600.04,
+            "listing": 958,
             "product": 958,
-            "status": "disagree",
-            "change": 357.96,
-            "reconciles": true
+            "status": "agree"
           }
         },
         "headers": [
@@ -5676,7 +5710,7 @@
         ]
       },
       {
-        "rank": 61,
+        "rank": 62,
         "name": "Voltorb [Sparkle] #100",
         "set": "2000 Topps Chrome",
         "listing": 397.57,
@@ -5712,7 +5746,7 @@
         ]
       },
       {
-        "rank": 62,
+        "rank": 63,
         "name": "Dragonair [Sparkle] #148",
         "set": "2000 Topps Chrome",
         "listing": 394,
@@ -5748,7 +5782,7 @@
         ]
       },
       {
-        "rank": 63,
+        "rank": 64,
         "name": "Charmeleon [Sparkle] #5",
         "set": "2000 Topps Chrome",
         "listing": 385,
@@ -5784,7 +5818,7 @@
         ]
       },
       {
-        "rank": 64,
+        "rank": 65,
         "name": "Slowbro [Tekno] #80",
         "set": "2000 Topps Chrome",
         "listing": 384.69,
@@ -5820,7 +5854,43 @@
         ]
       },
       {
-        "rank": 65,
+        "rank": 66,
+        "name": "Slowking",
+        "set": "2000 Topps Movie First Appearance",
+        "listing": 381.63,
+        "product": 381.63,
+        "statusCol": "ungraded",
+        "status": "agree",
+        "imgOk": true,
+        "imgBytes": 13923,
+        "cols": {
+          "ungraded": {
+            "listing": 381.63,
+            "product": 381.63,
+            "status": "agree"
+          },
+          "g9": {
+            "listing": 1500,
+            "product": 1500,
+            "status": "agree"
+          },
+          "psa10": {
+            "listing": 11282.41,
+            "product": 11282.41,
+            "status": "agree"
+          }
+        },
+        "headers": [
+          "Ungraded",
+          "Grade 7",
+          "Grade 8",
+          "Grade 9",
+          "Grade 9.5",
+          "PSA 10"
+        ]
+      },
+      {
+        "rank": 67,
         "name": "Lickitung [Sparkle] #108",
         "set": "2000 Topps Chrome",
         "listing": 375,
@@ -5856,45 +5926,7 @@
         ]
       },
       {
-        "rank": 66,
-        "name": "Dewgong [Sparkle] #87",
-        "set": "2000 Topps Chrome",
-        "listing": 371,
-        "product": 350,
-        "statusCol": "ungraded",
-        "status": "agree",
-        "imgOk": true,
-        "imgBytes": 17993,
-        "cols": {
-          "ungraded": {
-            "listing": 371,
-            "product": 350,
-            "status": "agree",
-            "change": -21,
-            "reconciles": true
-          },
-          "g9": {
-            "listing": 399.99,
-            "product": 399.99,
-            "status": "agree"
-          },
-          "psa10": {
-            "listing": 1009,
-            "product": 1009,
-            "status": "agree"
-          }
-        },
-        "headers": [
-          "Ungraded",
-          "Grade 7",
-          "Grade 8",
-          "Grade 9",
-          "Grade 9.5",
-          "PSA 10"
-        ]
-      },
-      {
-        "rank": 67,
+        "rank": 68,
         "name": "Beedrill [Tekno] #15",
         "set": "2000 Topps Chrome",
         "listing": 358.75,
@@ -5910,11 +5942,9 @@
             "status": "agree"
           },
           "g9": {
-            "listing": 321.29,
+            "listing": 313.28,
             "product": 313.28,
-            "status": "agree",
-            "change": -8.01,
-            "reconciles": true
+            "status": "agree"
           },
           "psa10": {
             "listing": 1100,
@@ -5932,7 +5962,7 @@
         ]
       },
       {
-        "rank": 68,
+        "rank": 69,
         "name": "Tentacruel [Tekno] #73",
         "set": "2000 Topps Chrome",
         "listing": 352.72,
@@ -5968,7 +5998,7 @@
         ]
       },
       {
-        "rank": 69,
+        "rank": 70,
         "name": "Doduo [Sparkle] #84",
         "set": "2000 Topps Chrome",
         "listing": 351.71,
@@ -6004,7 +6034,7 @@
         ]
       },
       {
-        "rank": 70,
+        "rank": 71,
         "name": "Arcanine [Tekno] #59",
         "set": "2000 Topps Chrome",
         "listing": 351.66,
@@ -6040,7 +6070,7 @@
         ]
       },
       {
-        "rank": 71,
+        "rank": 72,
         "name": "Charmeleon [Tekno] #5",
         "set": "2000 Topps Chrome",
         "listing": 350,
@@ -6056,8 +6086,8 @@
             "status": "agree"
           },
           "g9": {
-            "listing": 619.07,
-            "product": 619.07,
+            "listing": 611.55,
+            "product": 611.55,
             "status": "agree"
           },
           "psa10": {
@@ -6076,7 +6106,43 @@
         ]
       },
       {
-        "rank": 72,
+        "rank": 73,
+        "name": "Dewgong [Sparkle] #87",
+        "set": "2000 Topps Chrome",
+        "listing": 350,
+        "product": 350,
+        "statusCol": "ungraded",
+        "status": "agree",
+        "imgOk": true,
+        "imgBytes": 17993,
+        "cols": {
+          "ungraded": {
+            "listing": 350,
+            "product": 350,
+            "status": "agree"
+          },
+          "g9": {
+            "listing": 399.99,
+            "product": 399.99,
+            "status": "agree"
+          },
+          "psa10": {
+            "listing": 1009,
+            "product": 1009,
+            "status": "agree"
+          }
+        },
+        "headers": [
+          "Ungraded",
+          "Grade 7",
+          "Grade 8",
+          "Grade 9",
+          "Grade 9.5",
+          "PSA 10"
+        ]
+      },
+      {
+        "rank": 74,
         "name": "Psyduck [Tekno] #54",
         "set": "2000 Topps Chrome",
         "listing": 349.99,
@@ -6097,11 +6163,9 @@
             "status": "agree"
           },
           "psa10": {
-            "listing": 4355.65,
+            "listing": 4195.84,
             "product": 4195.84,
-            "status": "agree",
-            "change": -159.81,
-            "reconciles": true
+            "status": "agree"
           }
         },
         "headers": [
@@ -6114,7 +6178,7 @@
         ]
       },
       {
-        "rank": 73,
+        "rank": 75,
         "name": "Bulbasaur [Sparkle] #1",
         "set": "2000 Topps Chrome",
         "listing": 349.99,
@@ -6150,24 +6214,24 @@
         ]
       },
       {
-        "rank": 74,
+        "rank": 76,
         "name": "Blastoise [Sparkle] #9",
         "set": "2000 Topps Chrome",
-        "listing": 343.19,
-        "product": 343.19,
+        "listing": 342.72,
+        "product": 342.72,
         "statusCol": "ungraded",
         "status": "agree",
         "imgOk": true,
         "imgBytes": 15396,
         "cols": {
           "ungraded": {
-            "listing": 343.19,
-            "product": 343.19,
+            "listing": 342.72,
+            "product": 342.72,
             "status": "agree"
           },
           "g9": {
-            "listing": 1588.75,
-            "product": 1588.75,
+            "listing": 1598.79,
+            "product": 1598.79,
             "status": "agree"
           },
           "psa10": {
@@ -6186,7 +6250,7 @@
         ]
       },
       {
-        "rank": 75,
+        "rank": 77,
         "name": "Ivysaur [Sparkle] #2",
         "set": "2000 Topps Chrome",
         "listing": 341.25,
@@ -6222,7 +6286,7 @@
         ]
       },
       {
-        "rank": 76,
+        "rank": 78,
         "name": "Hitmonchan [Sparkle] #107",
         "set": "2000 Topps Chrome",
         "listing": 337.25,
@@ -6258,7 +6322,7 @@
         ]
       },
       {
-        "rank": 77,
+        "rank": 79,
         "name": "Squirtle [Sparkle] #7",
         "set": "2000 Topps Chrome",
         "listing": 334.32,
@@ -6294,43 +6358,7 @@
         ]
       },
       {
-        "rank": 78,
-        "name": "Electrode [Sparkle] #101",
-        "set": "2000 Topps Chrome",
-        "listing": 327.71,
-        "product": 327.71,
-        "statusCol": "ungraded",
-        "status": "agree",
-        "imgOk": true,
-        "imgBytes": 16056,
-        "cols": {
-          "ungraded": {
-            "listing": 327.71,
-            "product": 327.71,
-            "status": "agree"
-          },
-          "g9": {
-            "listing": 475,
-            "product": 475,
-            "status": "agree"
-          },
-          "psa10": {
-            "listing": 707.86,
-            "product": 707.86,
-            "status": "agree"
-          }
-        },
-        "headers": [
-          "Ungraded",
-          "Grade 7",
-          "Grade 8",
-          "Grade 9",
-          "Grade 9.5",
-          "PSA 10"
-        ]
-      },
-      {
-        "rank": 79,
+        "rank": 80,
         "name": "Slowbro [Sparkle] #80",
         "set": "2000 Topps Chrome",
         "listing": 320.96,
@@ -6366,7 +6394,7 @@
         ]
       },
       {
-        "rank": 80,
+        "rank": 81,
         "name": "Fearow [Tekno] #22",
         "set": "2000 Topps Chrome",
         "listing": 316,
@@ -6402,7 +6430,7 @@
         ]
       },
       {
-        "rank": 81,
+        "rank": 82,
         "name": "Magnemite [Sparkle] #81",
         "set": "2000 Topps Chrome",
         "listing": 315.95,
@@ -6438,19 +6466,19 @@
         ]
       },
       {
-        "rank": 82,
+        "rank": 83,
         "name": "Alakazam [Tekno] #65",
         "set": "2000 Topps Chrome",
-        "listing": 310.65,
-        "product": 310.65,
+        "listing": 310.76,
+        "product": 310.76,
         "statusCol": "ungraded",
         "status": "agree",
         "imgOk": true,
         "imgBytes": 13265,
         "cols": {
           "ungraded": {
-            "listing": 310.65,
-            "product": 310.65,
+            "listing": 310.76,
+            "product": 310.76,
             "status": "agree"
           },
           "g9": {
@@ -6474,7 +6502,7 @@
         ]
       },
       {
-        "rank": 83,
+        "rank": 84,
         "name": "Venusaur [Tekno] #3",
         "set": "2000 Topps Chrome",
         "listing": 310.35,
@@ -6490,11 +6518,9 @@
             "status": "agree"
           },
           "g9": {
-            "listing": 1362.5,
+            "listing": 1317.02,
             "product": 1317.02,
-            "status": "agree",
-            "change": -45.48,
-            "reconciles": true
+            "status": "agree"
           },
           "psa10": {
             "listing": 4450,
@@ -6512,7 +6538,43 @@
         ]
       },
       {
-        "rank": 84,
+        "rank": 85,
+        "name": "Arcanine [Sparkle] #59",
+        "set": "2000 Topps Chrome",
+        "listing": 310.06,
+        "product": 310.06,
+        "statusCol": "ungraded",
+        "status": "agree",
+        "imgOk": true,
+        "imgBytes": 11247,
+        "cols": {
+          "ungraded": {
+            "listing": 310.06,
+            "product": 310.06,
+            "status": "agree"
+          },
+          "g9": {
+            "listing": 1333,
+            "product": 1333,
+            "status": "agree"
+          },
+          "psa10": {
+            "listing": 3733.2,
+            "product": 3733.2,
+            "status": "agree"
+          }
+        },
+        "headers": [
+          "Ungraded",
+          "Grade 7",
+          "Grade 8",
+          "Grade 9",
+          "Grade 9.5",
+          "PSA 10"
+        ]
+      },
+      {
+        "rank": 86,
         "name": "Magmar [Sparkle] #126",
         "set": "2000 Topps Chrome",
         "listing": 310,
@@ -6548,47 +6610,7 @@
         ]
       },
       {
-        "rank": 85,
-        "name": "Eevee [Spectra] #133",
-        "set": "2000 Topps Chrome",
-        "listing": 307.5,
-        "product": 273.64,
-        "statusCol": "ungraded",
-        "status": "agree",
-        "imgOk": true,
-        "imgBytes": 9149,
-        "cols": {
-          "ungraded": {
-            "listing": 307.5,
-            "product": 273.64,
-            "status": "agree",
-            "change": -33.86,
-            "reconciles": true
-          },
-          "g9": {
-            "listing": 332.72,
-            "product": 333.59,
-            "status": "agree",
-            "change": 0.87,
-            "reconciles": true
-          },
-          "psa10": {
-            "listing": 1050,
-            "product": 1050,
-            "status": "agree"
-          }
-        },
-        "headers": [
-          "Ungraded",
-          "Grade 7",
-          "Grade 8",
-          "Grade 9",
-          "Grade 9.5",
-          "PSA 10"
-        ]
-      },
-      {
-        "rank": 86,
+        "rank": 87,
         "name": "Gloom [Tekno] #44",
         "set": "2000 Topps Chrome",
         "listing": 307.5,
@@ -6624,7 +6646,7 @@
         ]
       },
       {
-        "rank": 87,
+        "rank": 88,
         "name": "Bellossom",
         "set": "2000 Topps Movie First Appearance",
         "listing": 305,
@@ -6645,8 +6667,8 @@
             "status": "agree"
           },
           "psa10": {
-            "listing": 12470.86,
-            "product": 12470.86,
+            "listing": 12498.81,
+            "product": 12498.81,
             "status": "agree"
           }
         },
@@ -6660,7 +6682,7 @@
         ]
       },
       {
-        "rank": 88,
+        "rank": 89,
         "name": "Chansey [Tekno] #113",
         "set": "2000 Topps Chrome",
         "listing": 305,
@@ -6696,19 +6718,19 @@
         ]
       },
       {
-        "rank": 89,
+        "rank": 90,
         "name": "Farfetch'd [Sparkle] #83",
         "set": "2000 Topps Chrome",
-        "listing": 303.68,
-        "product": 303.68,
+        "listing": 300.49,
+        "product": 300.49,
         "statusCol": "ungraded",
         "status": "agree",
         "imgOk": true,
         "imgBytes": 11967,
         "cols": {
           "ungraded": {
-            "listing": 303.68,
-            "product": 303.68,
+            "listing": 300.49,
+            "product": 300.49,
             "status": "agree"
           },
           "g9": {
@@ -6720,42 +6742,6 @@
             "listing": null,
             "product": null,
             "status": "none"
-          }
-        },
-        "headers": [
-          "Ungraded",
-          "Grade 7",
-          "Grade 8",
-          "Grade 9",
-          "Grade 9.5",
-          "PSA 10"
-        ]
-      },
-      {
-        "rank": 90,
-        "name": "Horsea [Sparkle] #116",
-        "set": "2000 Topps Chrome",
-        "listing": 302.5,
-        "product": 302.5,
-        "statusCol": "ungraded",
-        "status": "agree",
-        "imgOk": true,
-        "imgBytes": 19231,
-        "cols": {
-          "ungraded": {
-            "listing": 302.5,
-            "product": 302.5,
-            "status": "agree"
-          },
-          "g9": {
-            "listing": 500,
-            "product": 500,
-            "status": "agree"
-          },
-          "psa10": {
-            "listing": 522.05,
-            "product": 522.05,
-            "status": "agree"
           }
         },
         "headers": [
@@ -6841,6 +6827,42 @@
       },
       {
         "rank": 93,
+        "name": "Horsea [Sparkle] #116",
+        "set": "2000 Topps Chrome",
+        "listing": 300,
+        "product": 300,
+        "statusCol": "ungraded",
+        "status": "agree",
+        "imgOk": true,
+        "imgBytes": 19231,
+        "cols": {
+          "ungraded": {
+            "listing": 300,
+            "product": 300,
+            "status": "agree"
+          },
+          "g9": {
+            "listing": 500,
+            "product": 500,
+            "status": "agree"
+          },
+          "psa10": {
+            "listing": 522.05,
+            "product": 522.05,
+            "status": "agree"
+          }
+        },
+        "headers": [
+          "Ungraded",
+          "Grade 7",
+          "Grade 8",
+          "Grade 9",
+          "Grade 9.5",
+          "PSA 10"
+        ]
+      },
+      {
+        "rank": 94,
         "name": "Koffing [Tekno] #109",
         "set": "2000 Topps Chrome",
         "listing": 300,
@@ -6876,7 +6898,7 @@
         ]
       },
       {
-        "rank": 94,
+        "rank": 95,
         "name": "Kangaskhan [Tekno] #115",
         "set": "2000 Topps Chrome",
         "listing": 299.99,
@@ -6912,7 +6934,7 @@
         ]
       },
       {
-        "rank": 95,
+        "rank": 96,
         "name": "Elekid",
         "set": "2000 Topps Movie First Appearance",
         "listing": 297.87,
@@ -6928,18 +6950,14 @@
             "status": "agree"
           },
           "g9": {
-            "listing": 3396.04,
+            "listing": 3413.22,
             "product": 3413.22,
-            "status": "agree",
-            "change": 17.18,
-            "reconciles": true
+            "status": "agree"
           },
           "psa10": {
-            "listing": 12132.36,
+            "listing": 12200.61,
             "product": 12200.61,
-            "status": "agree",
-            "change": 68.25,
-            "reconciles": true
+            "status": "agree"
           }
         },
         "headers": [
@@ -6952,7 +6970,7 @@
         ]
       },
       {
-        "rank": 96,
+        "rank": 97,
         "name": "Ursaring #8",
         "set": "2001 Topps Johto Hologram",
         "listing": 289.42,
@@ -6988,7 +7006,7 @@
         ]
       },
       {
-        "rank": 97,
+        "rank": 98,
         "name": "Raichu [Sparkle] #26",
         "set": "2000 Topps Chrome",
         "listing": 286.48,
@@ -7024,7 +7042,7 @@
         ]
       },
       {
-        "rank": 98,
+        "rank": 99,
         "name": "Noctowl #5",
         "set": "2001 Topps Johto Hologram",
         "listing": 280,
@@ -7060,34 +7078,30 @@
         ]
       },
       {
-        "rank": 99,
-        "name": "Slowking",
-        "set": "2000 Topps Movie First Appearance",
-        "listing": 275.4,
-        "product": 381.63,
+        "rank": 100,
+        "name": "Charizard #6",
+        "set": "2000 Topps Chrome",
+        "listing": 275,
+        "product": 275,
         "statusCol": "ungraded",
-        "status": "disagree",
+        "status": "agree",
         "imgOk": true,
-        "imgBytes": 13923,
+        "imgBytes": 10872,
         "cols": {
           "ungraded": {
-            "listing": 275.4,
-            "product": 381.63,
-            "status": "disagree",
-            "change": 106.23,
-            "reconciles": true
+            "listing": 275,
+            "product": 275,
+            "status": "agree"
           },
           "g9": {
-            "listing": 1500,
-            "product": 1500,
+            "listing": 489.82,
+            "product": 489.82,
             "status": "agree"
           },
           "psa10": {
-            "listing": 11257.26,
-            "product": 11282.41,
-            "status": "agree",
-            "change": 25.15,
-            "reconciles": true
+            "listing": 3250,
+            "product": 3250,
+            "status": "agree"
           }
         },
         "headers": [
@@ -7100,7 +7114,7 @@
         ]
       },
       {
-        "rank": 100,
+        "rank": 101,
         "name": "Venusaur [Sparkle] #3",
         "set": "2000 Topps Chrome",
         "listing": 275,
@@ -7136,7 +7150,7 @@
         ]
       },
       {
-        "rank": 101,
+        "rank": 102,
         "name": "Butterfree [Tekno] #12",
         "set": "2000 Topps Chrome",
         "listing": 274.99,
@@ -7172,7 +7186,43 @@
         ]
       },
       {
-        "rank": 102,
+        "rank": 103,
+        "name": "Eevee [Spectra] #133",
+        "set": "2000 Topps Chrome",
+        "listing": 273.64,
+        "product": 273.64,
+        "statusCol": "ungraded",
+        "status": "agree",
+        "imgOk": true,
+        "imgBytes": 9149,
+        "cols": {
+          "ungraded": {
+            "listing": 273.64,
+            "product": 273.64,
+            "status": "agree"
+          },
+          "g9": {
+            "listing": 333.59,
+            "product": 333.59,
+            "status": "agree"
+          },
+          "psa10": {
+            "listing": 1050,
+            "product": 1050,
+            "status": "agree"
+          }
+        },
+        "headers": [
+          "Ungraded",
+          "Grade 7",
+          "Grade 8",
+          "Grade 9",
+          "Grade 9.5",
+          "PSA 10"
+        ]
+      },
+      {
+        "rank": 104,
         "name": "Tauros [Sparkle] #128",
         "set": "2000 Topps Chrome",
         "listing": 263.5,
@@ -7208,24 +7258,24 @@
         ]
       },
       {
-        "rank": 103,
+        "rank": 105,
         "name": "Jigglypuff [Tekno] #39",
         "set": "2000 Topps Chrome",
-        "listing": 262.87,
-        "product": 262.87,
+        "listing": 262.85,
+        "product": 262.85,
         "statusCol": "ungraded",
         "status": "agree",
         "imgOk": true,
         "imgBytes": 10961,
         "cols": {
           "ungraded": {
-            "listing": 262.87,
-            "product": 262.87,
+            "listing": 262.85,
+            "product": 262.85,
             "status": "agree"
           },
           "g9": {
-            "listing": 373,
-            "product": 373,
+            "listing": 369,
+            "product": 369,
             "status": "agree"
           },
           "psa10": {
@@ -7244,7 +7294,7 @@
         ]
       },
       {
-        "rank": 104,
+        "rank": 106,
         "name": "Doduo [Tekno] #84",
         "set": "2000 Topps Chrome",
         "listing": 261.69,
@@ -7280,7 +7330,7 @@
         ]
       },
       {
-        "rank": 105,
+        "rank": 107,
         "name": "Mr. Mime [Tekno] #122",
         "set": "2000 Topps Chrome",
         "listing": 260.96,
@@ -7316,7 +7366,7 @@
         ]
       },
       {
-        "rank": 106,
+        "rank": 108,
         "name": "Nidoking [Tekno] #34",
         "set": "2000 Topps Chrome",
         "listing": 260,
@@ -7352,7 +7402,7 @@
         ]
       },
       {
-        "rank": 107,
+        "rank": 109,
         "name": "Kakuna [Tekno] #14",
         "set": "2000 Topps Chrome",
         "listing": 260,
@@ -7388,7 +7438,7 @@
         ]
       },
       {
-        "rank": 108,
+        "rank": 110,
         "name": "Dratini [Sparkle] #147",
         "set": "2000 Topps Chrome",
         "listing": 259.25,
@@ -7424,7 +7474,7 @@
         ]
       },
       {
-        "rank": 109,
+        "rank": 111,
         "name": "Lugia #62",
         "set": "2001 Topps Johto Sticker",
         "listing": 257.56,
@@ -7460,7 +7510,7 @@
         ]
       },
       {
-        "rank": 110,
+        "rank": 112,
         "name": "Charmander [Tekno] #4",
         "set": "2000 Topps Chrome",
         "listing": 257.39,
@@ -7496,7 +7546,7 @@
         ]
       },
       {
-        "rank": 111,
+        "rank": 113,
         "name": "Electrode [Tekno] #101",
         "set": "2000 Topps Chrome",
         "listing": 256,
@@ -7532,7 +7582,7 @@
         ]
       },
       {
-        "rank": 112,
+        "rank": 114,
         "name": "Seel [Sparkle] #86",
         "set": "2000 Topps Chrome",
         "listing": 255,
@@ -7568,105 +7618,29 @@
         ]
       },
       {
-        "rank": 113,
-        "name": "Charizard #6",
-        "set": "2000 Topps Chrome",
-        "listing": 250.53,
-        "product": 275,
-        "statusCol": "ungraded",
-        "status": "agree",
-        "imgOk": true,
-        "imgBytes": 10872,
-        "cols": {
-          "ungraded": {
-            "listing": 250.53,
-            "product": 275,
-            "status": "agree",
-            "change": 24.47,
-            "reconciles": true
-          },
-          "g9": {
-            "listing": 489.82,
-            "product": 489.82,
-            "status": "agree"
-          },
-          "psa10": {
-            "listing": 3463.51,
-            "product": 3442.88,
-            "status": "agree",
-            "change": -20.63,
-            "reconciles": true
-          }
-        },
-        "headers": [
-          "Ungraded",
-          "Grade 7",
-          "Grade 8",
-          "Grade 9",
-          "Grade 9.5",
-          "PSA 10"
-        ]
-      },
-      {
-        "rank": 114,
-        "name": "Ninetales [Tekno] #38",
-        "set": "2000 Topps Chrome",
-        "listing": 250,
-        "product": 250,
-        "statusCol": "ungraded",
-        "status": "agree",
-        "imgOk": true,
-        "imgBytes": 12461,
-        "cols": {
-          "ungraded": {
-            "listing": 250,
-            "product": 250,
-            "status": "agree"
-          },
-          "g9": {
-            "listing": 470.75,
-            "product": 470.75,
-            "status": "agree"
-          },
-          "psa10": {
-            "listing": 910,
-            "product": 910,
-            "status": "agree"
-          }
-        },
-        "headers": [
-          "Ungraded",
-          "Grade 7",
-          "Grade 8",
-          "Grade 9",
-          "Grade 9.5",
-          "PSA 10"
-        ]
-      },
-      {
         "rank": 115,
-        "name": "Shellder [Sparkle] #90",
+        "name": "Kangaskhan [Sparkle] #115",
         "set": "2000 Topps Chrome",
-        "listing": 250,
-        "product": 250,
+        "listing": 250.32,
+        "product": 250.32,
         "statusCol": "ungraded",
         "status": "agree",
         "imgOk": true,
-        "imgBytes": 13802,
+        "imgBytes": 11532,
         "cols": {
           "ungraded": {
-            "listing": 250,
-            "product": 250,
+            "listing": 250.32,
+            "product": 250.32,
             "status": "agree"
           },
           "g9": {
-            "listing": 400,
-            "product": 400,
+            "listing": 657,
+            "product": 657,
             "status": "agree"
           },
           "psa10": {
-            "listing": 450,
-            "product": 450,
+            "listing": 788,
+            "product": 788,
             "status": "agree"
           }
         },
@@ -7719,26 +7693,26 @@
         "rank": 117,
         "name": "Ledyba",
         "set": "2000 Topps Movie First Appearance",
-        "listing": 243.92,
-        "product": 243.92,
+        "listing": 247.51,
+        "product": 247.51,
         "statusCol": "ungraded",
         "status": "agree",
         "imgOk": true,
         "imgBytes": 9725,
         "cols": {
           "ungraded": {
-            "listing": 243.92,
-            "product": 243.92,
+            "listing": 247.51,
+            "product": 247.51,
             "status": "agree"
           },
           "g9": {
-            "listing": 2340.94,
-            "product": 2340.94,
+            "listing": 2797.35,
+            "product": 2797.35,
             "status": "agree"
           },
           "psa10": {
-            "listing": 8361.96,
-            "product": 8361.96,
+            "listing": 9999.01,
+            "product": 9999.01,
             "status": "agree"
           }
         },
@@ -7827,10 +7801,10 @@
         "rank": 120,
         "name": "Gengar [Rainbow Foil] #94",
         "set": "2000 Topps TV",
-        "listing": 6751.97,
-        "product": 9223.54,
-        "statusCol": "psa10",
-        "status": "disagree",
+        "listing": 225,
+        "product": 225,
+        "statusCol": "ungraded",
+        "status": "agree",
         "imgOk": true,
         "imgBytes": 13025,
         "cols": {
@@ -7840,18 +7814,14 @@
             "status": "agree"
           },
           "g9": {
-            "listing": 1890.94,
+            "listing": 2580.72,
             "product": 2580.72,
-            "status": "disagree",
-            "change": 689.78,
-            "reconciles": true
+            "status": "agree"
           },
           "psa10": {
-            "listing": 6751.97,
+            "listing": 9223.54,
             "product": 9223.54,
-            "status": "disagree",
-            "change": 2471.57,
-            "reconciles": true
+            "status": "agree"
           }
         },
         "headers": [
@@ -7867,16 +7837,16 @@
         "rank": 121,
         "name": "Wartortle [Tekno] #8",
         "set": "2000 Topps Chrome",
-        "listing": 224.88,
-        "product": 224.88,
+        "listing": 224.69,
+        "product": 224.69,
         "statusCol": "ungraded",
         "status": "agree",
         "imgOk": true,
         "imgBytes": 12708,
         "cols": {
           "ungraded": {
-            "listing": 224.88,
-            "product": 224.88,
+            "listing": 224.69,
+            "product": 224.69,
             "status": "agree"
           },
           "g9": {
@@ -7903,26 +7873,26 @@
         "rank": 122,
         "name": "Gengar [Spectra] #94",
         "set": "2000 Topps Chrome",
-        "listing": 213.25,
-        "product": 213.25,
+        "listing": 212.27,
+        "product": 212.27,
         "statusCol": "ungraded",
         "status": "agree",
         "imgOk": true,
         "imgBytes": 12865,
         "cols": {
           "ungraded": {
-            "listing": 213.25,
-            "product": 213.25,
+            "listing": 212.27,
+            "product": 212.27,
             "status": "agree"
           },
           "g9": {
-            "listing": 1154.1,
-            "product": 1154.1,
+            "listing": 1653.62,
+            "product": 1653.62,
             "status": "agree"
           },
           "psa10": {
-            "listing": 3915.72,
-            "product": 3915.72,
+            "listing": 3881.89,
+            "product": 3881.89,
             "status": "agree"
           }
         },
@@ -7952,8 +7922,8 @@
             "status": "agree"
           },
           "g9": {
-            "listing": 2766.52,
-            "product": 2766.52,
+            "listing": 2769.14,
+            "product": 2769.14,
             "status": "agree"
           },
           "psa10": {
@@ -8173,8 +8143,8 @@
             "status": "agree"
           },
           "psa10": {
-            "listing": 2008,
-            "product": 2008,
+            "listing": 2000,
+            "product": 2000,
             "status": "agree"
           }
         },
@@ -8189,51 +8159,9 @@
       },
       {
         "rank": 130,
-        "name": "Pikachu [Spectra] #25",
-        "set": "2000 Topps Chrome",
-        "listing": 143.59,
-        "product": 140.74,
-        "statusCol": "ungraded",
-        "status": "agree",
-        "imgOk": true,
-        "imgBytes": 13065,
-        "cols": {
-          "ungraded": {
-            "listing": 143.59,
-            "product": 140.74,
-            "status": "agree",
-            "change": -2.85,
-            "reconciles": true
-          },
-          "g9": {
-            "listing": 549.99,
-            "product": 860,
-            "status": "disagree",
-            "change": 310.01,
-            "reconciles": true
-          },
-          "psa10": {
-            "listing": 1842.42,
-            "product": 1801.85,
-            "status": "agree",
-            "change": -40.57,
-            "reconciles": true
-          }
-        },
-        "headers": [
-          "Ungraded",
-          "Grade 7",
-          "Grade 8",
-          "Grade 9",
-          "Grade 9.5",
-          "PSA 10"
-        ]
-      },
-      {
-        "rank": 131,
         "name": "Growlithe [Sparkle] #58",
         "set": "2000 Topps Chrome",
-        "listing": 142.82,
+        "listing": 146.41,
         "product": 146.41,
         "statusCol": "ungraded",
         "status": "agree",
@@ -8241,18 +8169,14 @@
         "imgBytes": 15127,
         "cols": {
           "ungraded": {
-            "listing": 142.82,
+            "listing": 146.41,
             "product": 146.41,
-            "status": "agree",
-            "change": 3.59,
-            "reconciles": true
+            "status": "agree"
           },
           "g9": {
-            "listing": 365,
+            "listing": 558,
             "product": 558,
-            "status": "disagree",
-            "change": 193,
-            "reconciles": true
+            "status": "agree"
           },
           "psa10": {
             "listing": 2300,
@@ -8270,10 +8194,82 @@
         ]
       },
       {
+        "rank": 131,
+        "name": "Pikachu [Spectra] #25",
+        "set": "2000 Topps Chrome",
+        "listing": 140.74,
+        "product": 140.74,
+        "statusCol": "ungraded",
+        "status": "agree",
+        "imgOk": true,
+        "imgBytes": 13065,
+        "cols": {
+          "ungraded": {
+            "listing": 140.74,
+            "product": 140.74,
+            "status": "agree"
+          },
+          "g9": {
+            "listing": 860,
+            "product": 860,
+            "status": "agree"
+          },
+          "psa10": {
+            "listing": 1801.85,
+            "product": 1801.85,
+            "status": "agree"
+          }
+        },
+        "headers": [
+          "Ungraded",
+          "Grade 7",
+          "Grade 8",
+          "Grade 9",
+          "Grade 9.5",
+          "PSA 10"
+        ]
+      },
+      {
         "rank": 132,
+        "name": "Cubone [Tekno] #104",
+        "set": "2000 Topps Chrome",
+        "listing": 137.5,
+        "product": 137.5,
+        "statusCol": "ungraded",
+        "status": "agree",
+        "imgOk": true,
+        "imgBytes": 11600,
+        "cols": {
+          "ungraded": {
+            "listing": 137.5,
+            "product": 137.5,
+            "status": "agree"
+          },
+          "g9": {
+            "listing": 1500,
+            "product": 1500,
+            "status": "agree"
+          },
+          "psa10": {
+            "listing": 2750,
+            "product": 2750,
+            "status": "agree"
+          }
+        },
+        "headers": [
+          "Ungraded",
+          "Grade 7",
+          "Grade 8",
+          "Grade 9",
+          "Grade 9.5",
+          "PSA 10"
+        ]
+      },
+      {
+        "rank": 133,
         "name": "Vulpix [Sparkle] #37",
         "set": "2000 Topps Chrome",
-        "listing": 133.19,
+        "listing": 132.95,
         "product": 132.95,
         "statusCol": "ungraded",
         "status": "agree",
@@ -8281,18 +8277,14 @@
         "imgBytes": 16541,
         "cols": {
           "ungraded": {
-            "listing": 133.19,
+            "listing": 132.95,
             "product": 132.95,
-            "status": "agree",
-            "change": -0.24,
-            "reconciles": true
+            "status": "agree"
           },
           "g9": {
-            "listing": 649,
+            "listing": 643.94,
             "product": 643.94,
-            "status": "agree",
-            "change": -5.06,
-            "reconciles": true
+            "status": "agree"
           },
           "psa10": {
             "listing": 1800.5,
@@ -8310,7 +8302,7 @@
         ]
       },
       {
-        "rank": 133,
+        "rank": 134,
         "name": "Clefairy [Sparkle] #35",
         "set": "2000 Topps Chrome",
         "listing": 129.99,
@@ -8346,7 +8338,7 @@
         ]
       },
       {
-        "rank": 134,
+        "rank": 135,
         "name": "Jigglypuff [Sparkle] #39",
         "set": "2000 Topps Chrome",
         "listing": 125,
@@ -8382,7 +8374,7 @@
         ]
       },
       {
-        "rank": 135,
+        "rank": 136,
         "name": "Snorlax [Rainbow Foil] #HV14",
         "set": "2000 Topps TV Heroes & Villians",
         "listing": 114.77,
@@ -8418,22 +8410,20 @@
         ]
       },
       {
-        "rank": 136,
+        "rank": 137,
         "name": "Pikachu #25",
         "set": "2000 Topps Chrome",
-        "listing": 104.15,
-        "product": 100.52,
+        "listing": 102.63,
+        "product": 102.63,
         "statusCol": "ungraded",
         "status": "agree",
         "imgOk": true,
         "imgBytes": 12536,
         "cols": {
           "ungraded": {
-            "listing": 104.15,
-            "product": 100.52,
-            "status": "agree",
-            "change": -3.63,
-            "reconciles": true
+            "listing": 102.63,
+            "product": 102.63,
+            "status": "agree"
           },
           "g9": {
             "listing": 272.3,
@@ -8456,7 +8446,7 @@
         ]
       },
       {
-        "rank": 137,
+        "rank": 138,
         "name": "Vibrava #14",
         "set": "2004 Topps Advanced Challenge Die Cut",
         "listing": 102.5,
@@ -8492,7 +8482,7 @@
         ]
       },
       {
-        "rank": 138,
+        "rank": 139,
         "name": "Professor Oak [Rainbow Foil] #HV12",
         "set": "2000 Topps TV Heroes & Villians",
         "listing": 100.5,
@@ -8508,17 +8498,55 @@
             "status": "agree"
           },
           "g9": {
-            "listing": 1156.65,
+            "listing": 1158.42,
             "product": 1158.42,
+            "status": "agree"
+          },
+          "psa10": {
+            "listing": 4137.29,
+            "product": 4137.29,
+            "status": "agree"
+          }
+        },
+        "headers": [
+          "Ungraded",
+          "Grade 7",
+          "Grade 8",
+          "Grade 9",
+          "Grade 9.5",
+          "PSA 10"
+        ]
+      },
+      {
+        "rank": 140,
+        "name": "Charizard [Rainbow Foil] #6",
+        "set": "1999 Topps TV",
+        "listing": 3128.32,
+        "product": 3908.08,
+        "statusCol": "psa10",
+        "status": "disagree",
+        "imgOk": true,
+        "imgBytes": 11410,
+        "cols": {
+          "ungraded": {
+            "listing": 87.49,
+            "product": 88.11,
             "status": "agree",
-            "change": 1.77,
+            "change": 0.62,
+            "reconciles": true
+          },
+          "g9": {
+            "listing": 787.25,
+            "product": 787.41,
+            "status": "agree",
+            "change": 0.16,
             "reconciles": true
           },
           "psa10": {
-            "listing": 4128.08,
-            "product": 4137.29,
-            "status": "agree",
-            "change": 9.21,
+            "listing": 3128.32,
+            "product": 3908.08,
+            "status": "disagree",
+            "change": 779.76,
             "reconciles": true
           }
         },
@@ -8532,7 +8560,7 @@
         ]
       },
       {
-        "rank": 139,
+        "rank": 141,
         "name": "Pidgeot [Tekno] #18",
         "set": "2000 Topps Chrome",
         "listing": 74.99,
@@ -8568,49 +8596,7 @@
         ]
       },
       {
-        "rank": 140,
-        "name": "Charizard [Rainbow Foil] #6",
-        "set": "1999 Topps TV",
-        "listing": 69.99,
-        "product": 87.49,
-        "statusCol": "ungraded",
-        "status": "disagree",
-        "imgOk": true,
-        "imgBytes": 11410,
-        "cols": {
-          "ungraded": {
-            "listing": 69.99,
-            "product": 87.49,
-            "status": "disagree",
-            "change": 17.5,
-            "reconciles": true
-          },
-          "g9": {
-            "listing": 786.99,
-            "product": 787.25,
-            "status": "agree",
-            "change": 0.26,
-            "reconciles": true
-          },
-          "psa10": {
-            "listing": 3122.31,
-            "product": 3128.32,
-            "status": "agree",
-            "change": 6.01,
-            "reconciles": true
-          }
-        },
-        "headers": [
-          "Ungraded",
-          "Grade 7",
-          "Grade 8",
-          "Grade 9",
-          "Grade 9.5",
-          "PSA 10"
-        ]
-      },
-      {
-        "rank": 141,
+        "rank": 142,
         "name": "A Shipful of Shivers [Rainbow Foil] #OR12",
         "set": "2000 Topps TV Episode",
         "listing": 64.99,
@@ -8626,18 +8612,14 @@
             "status": "agree"
           },
           "g9": {
-            "listing": 751.46,
+            "listing": 752.6,
             "product": 752.6,
-            "status": "agree",
-            "change": 1.14,
-            "reconciles": true
+            "status": "agree"
           },
           "psa10": {
-            "listing": 2679.86,
+            "listing": 2685.79,
             "product": 2685.79,
-            "status": "agree",
-            "change": 5.93,
-            "reconciles": true
+            "status": "agree"
           }
         },
         "headers": [
@@ -8650,7 +8632,7 @@
         ]
       },
       {
-        "rank": 142,
+        "rank": 143,
         "name": "Charizard [Foil] #16",
         "set": "2004 Topps Advanced Challenge",
         "listing": 64,
@@ -8667,13 +8649,17 @@
           },
           "g9": {
             "listing": 298.03,
-            "product": 298.03,
-            "status": "agree"
+            "product": 298.02,
+            "status": "agree",
+            "change": -0.01,
+            "reconciles": true
           },
           "psa10": {
             "listing": 2420.14,
-            "product": 2420.14,
-            "status": "agree"
+            "product": 2429.56,
+            "status": "agree",
+            "change": 9.42,
+            "reconciles": true
           }
         },
         "headers": [
@@ -8686,19 +8672,19 @@
         ]
       },
       {
-        "rank": 143,
+        "rank": 144,
         "name": "The Mandarin Island Miss Match [Foil] #OR16",
         "set": "2000 Topps TV Episode",
-        "listing": 63.85,
-        "product": 63.85,
+        "listing": 63.68,
+        "product": 63.68,
         "statusCol": "ungraded",
         "status": "agree",
         "imgOk": true,
         "imgBytes": 10489,
         "cols": {
           "ungraded": {
-            "listing": 63.85,
-            "product": 63.85,
+            "listing": 63.68,
+            "product": 63.68,
             "status": "agree"
           },
           "g9": {
@@ -8722,7 +8708,7 @@
         ]
       },
       {
-        "rank": 144,
+        "rank": 145,
         "name": "Umbreon #197",
         "set": "2001 Topps Johto Champions",
         "listing": 62.5,
@@ -8758,57 +8744,19 @@
         ]
       },
       {
-        "rank": 145,
-        "name": "Charizard [Foil] #6",
-        "set": "1999 Topps TV",
-        "listing": 60,
-        "product": 57.73,
-        "statusCol": "ungraded",
-        "status": "agree",
-        "imgOk": true,
-        "imgBytes": 13441,
-        "cols": {
-          "ungraded": {
-            "listing": 60,
-            "product": 57.73,
-            "status": "agree",
-            "change": -2.27,
-            "reconciles": true
-          },
-          "g9": {
-            "listing": 354.5,
-            "product": 354.5,
-            "status": "agree"
-          },
-          "psa10": {
-            "listing": 4512.49,
-            "product": 4512.49,
-            "status": "agree"
-          }
-        },
-        "headers": [
-          "Ungraded",
-          "Grade 7",
-          "Grade 8",
-          "Grade 9",
-          "Grade 9.5",
-          "PSA 10"
-        ]
-      },
-      {
         "rank": 146,
         "name": "Squirtle [Spectra] #7",
         "set": "2000 Topps Chrome",
-        "listing": 59.93,
-        "product": 59.93,
+        "listing": 60,
+        "product": 60,
         "statusCol": "ungraded",
         "status": "agree",
         "imgOk": true,
         "imgBytes": 11546,
         "cols": {
           "ungraded": {
-            "listing": 59.93,
-            "product": 59.93,
+            "listing": 60,
+            "product": 60,
             "status": "agree"
           },
           "g9": {
@@ -8817,8 +8765,8 @@
             "status": "agree"
           },
           "psa10": {
-            "listing": 1999.95,
-            "product": 1999.95,
+            "listing": 2000,
+            "product": 2000,
             "status": "agree"
           }
         },
@@ -8853,8 +8801,8 @@
             "status": "agree"
           },
           "psa10": {
-            "listing": 2263.41,
-            "product": 2263.41,
+            "listing": 2266,
+            "product": 2266,
             "status": "agree"
           }
         },
@@ -8869,28 +8817,28 @@
       },
       {
         "rank": 148,
-        "name": "Mew [Spectra] #151",
-        "set": "2000 Topps Chrome",
-        "listing": 58.52,
-        "product": 58.52,
+        "name": "Charizard [Foil] #6",
+        "set": "1999 Topps TV",
+        "listing": 58.51,
+        "product": 58.51,
         "statusCol": "ungraded",
         "status": "agree",
         "imgOk": true,
-        "imgBytes": 13453,
+        "imgBytes": 13441,
         "cols": {
           "ungraded": {
-            "listing": 58.52,
-            "product": 58.52,
+            "listing": 58.51,
+            "product": 58.51,
             "status": "agree"
           },
           "g9": {
-            "listing": 754.17,
-            "product": 754.17,
+            "listing": 354.5,
+            "product": 354.5,
             "status": "agree"
           },
           "psa10": {
-            "listing": 1951.66,
-            "product": 1951.66,
+            "listing": 4512.49,
+            "product": 4512.49,
             "status": "agree"
           }
         },
@@ -8905,42 +8853,6 @@
       },
       {
         "rank": 149,
-        "name": "The Mandarin Island Miss Match [Rainbow Foil] #OR16",
-        "set": "2000 Topps TV Episode",
-        "listing": 56.74,
-        "product": 56.74,
-        "statusCol": "ungraded",
-        "status": "agree",
-        "imgOk": true,
-        "imgBytes": 14097,
-        "cols": {
-          "ungraded": {
-            "listing": 56.74,
-            "product": 56.74,
-            "status": "agree"
-          },
-          "g9": {
-            "listing": 439.57,
-            "product": 439.57,
-            "status": "agree"
-          },
-          "psa10": {
-            "listing": 1566.02,
-            "product": 1566.02,
-            "status": "agree"
-          }
-        },
-        "headers": [
-          "Ungraded",
-          "Grade 7",
-          "Grade 8",
-          "Grade 9",
-          "Grade 9.5",
-          "PSA 10"
-        ]
-      },
-      {
-        "rank": 150,
         "name": "Gengar [Foil] #94",
         "set": "2000 Topps TV",
         "listing": 56,
@@ -8956,8 +8868,8 @@
             "status": "agree"
           },
           "g9": {
-            "listing": 275.2,
-            "product": 275.2,
+            "listing": 280.71,
+            "product": 280.71,
             "status": "agree"
           },
           "psa10": {
@@ -8976,7 +8888,7 @@
         ]
       },
       {
-        "rank": 151,
+        "rank": 150,
         "name": "Alakazam [Rainbow Foil] #65",
         "set": "1999 Topps TV",
         "listing": 55.44,
@@ -8992,13 +8904,13 @@
             "status": "agree"
           },
           "g9": {
-            "listing": 175.39,
-            "product": 175.39,
+            "listing": 175.45,
+            "product": 175.45,
             "status": "agree"
           },
           "psa10": {
-            "listing": 2029.03,
-            "product": 2029.03,
+            "listing": 2486.66,
+            "product": 2486.66,
             "status": "agree"
           }
         },
@@ -9012,7 +8924,7 @@
         ]
       },
       {
-        "rank": 152,
+        "rank": 151,
         "name": "Golbat [Tekno] #42",
         "set": "2000 Topps Chrome",
         "listing": 55,
@@ -9048,6 +8960,42 @@
         ]
       },
       {
+        "rank": 152,
+        "name": "Machamp #EVO12",
+        "set": "2000 Topps TV Die Cut",
+        "listing": 54.99,
+        "product": 54.99,
+        "statusCol": "ungraded",
+        "status": "agree",
+        "imgOk": true,
+        "imgBytes": 11256,
+        "cols": {
+          "ungraded": {
+            "listing": 54.99,
+            "product": 54.99,
+            "status": "agree"
+          },
+          "g9": {
+            "listing": 625.71,
+            "product": 625.71,
+            "status": "agree"
+          },
+          "psa10": {
+            "listing": 2231.93,
+            "product": 2231.93,
+            "status": "agree"
+          }
+        },
+        "headers": [
+          "Ungraded",
+          "Grade 7",
+          "Grade 8",
+          "Grade 9",
+          "Grade 9.5",
+          "PSA 10"
+        ]
+      },
+      {
         "rank": 153,
         "name": "Snorlax [Spectra] #143",
         "set": "2000 Topps Chrome",
@@ -9065,8 +9013,10 @@
           },
           "g9": {
             "listing": 421.31,
-            "product": 421.31,
-            "status": "agree"
+            "product": 419.81,
+            "status": "agree",
+            "change": -1.5,
+            "reconciles": true
           },
           "psa10": {
             "listing": 1999.99,
@@ -9121,6 +9071,42 @@
       },
       {
         "rank": 155,
+        "name": "Mew [Spectra] #151",
+        "set": "2000 Topps Chrome",
+        "listing": 49.18,
+        "product": 49.18,
+        "statusCol": "ungraded",
+        "status": "agree",
+        "imgOk": true,
+        "imgBytes": 13453,
+        "cols": {
+          "ungraded": {
+            "listing": 49.18,
+            "product": 49.18,
+            "status": "agree"
+          },
+          "g9": {
+            "listing": 727.31,
+            "product": 727.31,
+            "status": "agree"
+          },
+          "psa10": {
+            "listing": 1951.66,
+            "product": 1951.66,
+            "status": "agree"
+          }
+        },
+        "headers": [
+          "Ungraded",
+          "Grade 7",
+          "Grade 8",
+          "Grade 9",
+          "Grade 9.5",
+          "PSA 10"
+        ]
+      },
+      {
+        "rank": 156,
         "name": "Mechanical Mewtwo [Rainbow Foil] #6",
         "set": "1999 Topps Movie",
         "listing": 43.42,
@@ -9156,24 +9142,24 @@
         ]
       },
       {
-        "rank": 156,
+        "rank": 157,
         "name": "It's Not Over Yet #70",
         "set": "2000 Topps Movie",
-        "listing": 40.36,
-        "product": 40.36,
+        "listing": 41.89,
+        "product": 41.89,
         "statusCol": "ungraded",
         "status": "agree",
         "imgOk": true,
         "imgBytes": 8578,
         "cols": {
           "ungraded": {
-            "listing": 40.36,
-            "product": 40.36,
+            "listing": 41.89,
+            "product": 41.89,
             "status": "agree"
           },
           "g9": {
-            "listing": 171.2,
-            "product": 171.2,
+            "listing": 161.04,
+            "product": 161.04,
             "status": "agree"
           },
           "psa10": {
@@ -9192,34 +9178,30 @@
         ]
       },
       {
-        "rank": 157,
-        "name": "Cyndaquil #4",
-        "set": "2001 Topps Johto Die Cut",
-        "listing": 40,
-        "product": 40,
+        "rank": 158,
+        "name": "Mew #151",
+        "set": "2000 Topps TV",
+        "listing": 40.07,
+        "product": 40.07,
         "statusCol": "ungraded",
         "status": "agree",
-        "imgOk": false,
-        "imgBytes": 0,
+        "imgOk": true,
+        "imgBytes": 11583,
         "cols": {
           "ungraded": {
-            "listing": 40,
-            "product": 40,
+            "listing": 40.07,
+            "product": 40.07,
             "status": "agree"
           },
           "g9": {
-            "listing": 443.29,
-            "product": 443.9,
-            "status": "agree",
-            "change": 0.61,
-            "reconciles": true
+            "listing": 48.47,
+            "product": 48.47,
+            "status": "agree"
           },
           "psa10": {
-            "listing": 1541.41,
-            "product": 1544.56,
-            "status": "agree",
-            "change": 3.15,
-            "reconciles": true
+            "listing": 2267.31,
+            "product": 2267.31,
+            "status": "agree"
           }
         },
         "headers": [
@@ -9232,7 +9214,7 @@
         ]
       },
       {
-        "rank": 158,
+        "rank": 159,
         "name": "Magikarp Mayhem [Foil] #20",
         "set": "2000 Topps Movie",
         "listing": 39.99,
@@ -9253,44 +9235,8 @@
             "status": "agree"
           },
           "psa10": {
-            "listing": 3999.95,
-            "product": 3999.95,
-            "status": "agree"
-          }
-        },
-        "headers": [
-          "Ungraded",
-          "Grade 7",
-          "Grade 8",
-          "Grade 9",
-          "Grade 9.5",
-          "PSA 10"
-        ]
-      },
-      {
-        "rank": 159,
-        "name": "Gastly #EVO4",
-        "set": "2000 Topps TV Die Cut",
-        "listing": 36.99,
-        "product": 36.99,
-        "statusCol": "ungraded",
-        "status": "agree",
-        "imgOk": true,
-        "imgBytes": 10064,
-        "cols": {
-          "ungraded": {
-            "listing": 36.99,
-            "product": 36.99,
-            "status": "agree"
-          },
-          "g9": {
-            "listing": 432.24,
-            "product": 432.24,
-            "status": "agree"
-          },
-          "psa10": {
-            "listing": 1539.39,
-            "product": 1539.39,
+            "listing": 3917.17,
+            "product": 3917.17,
             "status": "agree"
           }
         },
@@ -9320,18 +9266,14 @@
             "status": "agree"
           },
           "g9": {
-            "listing": 246.31,
+            "listing": 246.12,
             "product": 246.12,
-            "status": "agree",
-            "change": -0.19,
-            "reconciles": true
+            "status": "agree"
           },
           "psa10": {
-            "listing": 1655.08,
+            "listing": 1648.1,
             "product": 1648.1,
-            "status": "agree",
-            "change": -6.98,
-            "reconciles": true
+            "status": "agree"
           }
         },
         "headers": [
@@ -9432,11 +9374,9 @@
             "status": "agree"
           },
           "g9": {
-            "listing": 162.17,
+            "listing": 161.08,
             "product": 161.08,
-            "status": "agree",
-            "change": -1.09,
-            "reconciles": true
+            "status": "agree"
           },
           "psa10": {
             "listing": 1902.77,
@@ -9455,6 +9395,42 @@
       },
       {
         "rank": 164,
+        "name": "Pikachu [Foil] #25",
+        "set": "1999 Topps TV",
+        "listing": 20.02,
+        "product": 20.02,
+        "statusCol": "ungraded",
+        "status": "agree",
+        "imgOk": true,
+        "imgBytes": 11800,
+        "cols": {
+          "ungraded": {
+            "listing": 20.02,
+            "product": 20.02,
+            "status": "agree"
+          },
+          "g9": {
+            "listing": 110,
+            "product": 110,
+            "status": "agree"
+          },
+          "psa10": {
+            "listing": 1962.5,
+            "product": 1962.5,
+            "status": "agree"
+          }
+        },
+        "headers": [
+          "Ungraded",
+          "Grade 7",
+          "Grade 8",
+          "Grade 9",
+          "Grade 9.5",
+          "PSA 10"
+        ]
+      },
+      {
+        "rank": 165,
         "name": "Trapped Charizard [Rainbow Foil] #51",
         "set": "1999 Topps Movie",
         "listing": 18.98,
@@ -9490,7 +9466,7 @@
         ]
       },
       {
-        "rank": 165,
+        "rank": 166,
         "name": "Clefairy [Tekno] #35",
         "set": "2000 Topps Chrome",
         "listing": 8.87,
@@ -9526,19 +9502,19 @@
         ]
       },
       {
-        "rank": 166,
+        "rank": 167,
         "name": "Ninetales #38",
         "set": "1999 Topps TV",
-        "listing": 3.42,
-        "product": 3.42,
+        "listing": 3.32,
+        "product": 3.32,
         "statusCol": "ungraded",
         "status": "agree",
         "imgOk": true,
         "imgBytes": 9968,
         "cols": {
           "ungraded": {
-            "listing": 3.42,
-            "product": 3.42,
+            "listing": 3.32,
+            "product": 3.32,
             "status": "agree"
           },
           "g9": {
@@ -9562,7 +9538,7 @@
         ]
       },
       {
-        "rank": 167,
+        "rank": 168,
         "name": "Eevee [Sparkle] #133",
         "set": "2000 Topps Chrome",
         "listing": null,
@@ -9598,7 +9574,7 @@
         ]
       },
       {
-        "rank": 168,
+        "rank": 169,
         "name": "Lickitung [Tekno] #108",
         "set": "2000 Topps Chrome",
         "listing": null,
@@ -9634,7 +9610,43 @@
         ]
       },
       {
-        "rank": 169,
+        "rank": 170,
+        "name": "Rhydon [Tekno] #112",
+        "set": "2000 Topps Chrome",
+        "listing": null,
+        "product": null,
+        "statusCol": "ungraded",
+        "status": "agree",
+        "imgOk": true,
+        "imgBytes": 12070,
+        "cols": {
+          "ungraded": {
+            "listing": null,
+            "product": null,
+            "status": "none"
+          },
+          "g9": {
+            "listing": 609.04,
+            "product": 609.04,
+            "status": "agree"
+          },
+          "psa10": {
+            "listing": 4034.97,
+            "product": 4034.97,
+            "status": "agree"
+          }
+        },
+        "headers": [
+          "Ungraded",
+          "Grade 7",
+          "Grade 8",
+          "Grade 9",
+          "Grade 9.5",
+          "PSA 10"
+        ]
+      },
+      {
+        "rank": 171,
         "name": "Gastly [Sparkle] #92",
         "set": "2000 Topps Chrome",
         "listing": null,
@@ -9670,7 +9682,7 @@
         ]
       },
       {
-        "rank": 170,
+        "rank": 172,
         "name": "Aerodactyl [Sparkle] #142",
         "set": "2000 Topps Chrome",
         "listing": null,
@@ -9706,7 +9718,7 @@
         ]
       },
       {
-        "rank": 171,
+        "rank": 173,
         "name": "Eevee [Tekno] #133",
         "set": "2000 Topps Chrome",
         "listing": null,
@@ -9742,7 +9754,7 @@
         ]
       },
       {
-        "rank": 172,
+        "rank": 174,
         "name": "Exeggutor [Sparkle] #103",
         "set": "2000 Topps Chrome",
         "listing": null,
@@ -9778,7 +9790,7 @@
         ]
       },
       {
-        "rank": 173,
+        "rank": 175,
         "name": "Lapras [Tekno] #131",
         "set": "2000 Topps Chrome",
         "listing": null,
@@ -9814,7 +9826,7 @@
         ]
       },
       {
-        "rank": 174,
+        "rank": 176,
         "name": "Onix [Tekno] #95",
         "set": "2000 Topps Chrome",
         "listing": null,
@@ -9835,11 +9847,9 @@
             "status": "none"
           },
           "psa10": {
-            "listing": 1920.06,
+            "listing": 1910.13,
             "product": 1910.13,
-            "status": "agree",
-            "change": -9.93,
-            "reconciles": true
+            "status": "agree"
           }
         },
         "headers": [
@@ -9852,7 +9862,7 @@
         ]
       },
       {
-        "rank": 175,
+        "rank": 177,
         "name": "Dragonair [Tekno] #148",
         "set": "2000 Topps Chrome",
         "listing": null,
@@ -9868,8 +9878,8 @@
             "status": "none"
           },
           "g9": {
-            "listing": 652.21,
-            "product": 652.21,
+            "listing": 652.12,
+            "product": 652.12,
             "status": "agree"
           },
           "psa10": {
@@ -9886,113 +9896,20 @@
           "Grade 9.5",
           "PSA 10"
         ]
-      },
-      {
-        "rank": 176,
-        "name": "Gastly [Tekno] #92",
-        "set": "2000 Topps Chrome",
-        "listing": null,
-        "product": null,
-        "statusCol": "ungraded",
-        "status": "agree",
-        "imgOk": true,
-        "imgBytes": 12010,
-        "cols": {
-          "ungraded": {
-            "listing": null,
-            "product": null,
-            "status": "none"
-          },
-          "g9": {
-            "listing": 830,
-            "product": 830,
-            "status": "agree"
-          },
-          "psa10": {
-            "listing": 1594.17,
-            "product": 1594.65,
-            "status": "agree",
-            "change": 0.48,
-            "reconciles": true
-          }
-        },
-        "headers": [
-          "Ungraded",
-          "Grade 7",
-          "Grade 8",
-          "Grade 9",
-          "Grade 9.5",
-          "PSA 10"
-        ]
       }
     ]
   },
   "excluded": [
     {
-      "rank": 38,
-      "name": "Cubone [Tekno] #104",
-      "set": "2000 Topps Chrome",
-      "column": "Ungraded",
-      "listing": 683.53,
-      "product": 137.5,
-      "decided": "2026-08-18",
-      "public": "the Ungraded guide value moved between the two reads, so we hold two correct readings of it rather than one",
-      "why": "NOT a parse failure. The console listing was read 2026-08-16 and the product page 2026-08-18, and PriceCharting's own \"dollar change from last update\" on that product page's Ungraded cell says the value fell by $546.03: $137.50 minus that change is $683.53, the listing figure, to the cent. Across all 176 rows and all three price columns, 409 readings are identical on both page types and the other 47 all reconcile against the change PriceCharting itself reports, with none left over, so the column mapping is demonstrably right on every row. Two correctly read figures this far apart still give no basis for printing either one, so the Ungraded figure is excluded and this card cannot appear on the list ranked by it. Its other columns are gated separately and are published where they agreed."
-    },
-    {
-      "rank": 39,
-      "name": "Dragonite [Spectra] #149",
-      "set": "2000 Topps Chrome",
-      "column": "PSA 10",
-      "listing": 2200,
-      "product": 2799.99,
-      "decided": "2026-08-18",
-      "public": "the PSA 10 guide value moved between the two reads, so we hold two correct readings of it rather than one",
-      "why": "NOT a parse failure. The console listing was read 2026-08-16 and the product page 2026-08-18, and PriceCharting's own \"dollar change from last update\" on that product page's PSA 10 cell says the value rose by $599.99: $2,799.99 minus that change is $2,200.00, the listing figure, to the cent. Across all 176 rows and all three price columns, 409 readings are identical on both page types and the other 47 all reconcile against the change PriceCharting itself reports, with none left over, so the column mapping is demonstrably right on every row. Two correctly read figures this far apart still give no basis for printing either one, so the PSA 10 figure is excluded and this card cannot appear on the list ranked by it. Its other columns are gated separately and are published where they agreed."
-    },
-    {
-      "rank": 60,
-      "name": "Ivysaur [Tekno] #2",
-      "set": "2000 Topps Chrome",
-      "column": "PSA 10",
-      "listing": 600.04,
-      "product": 958,
-      "decided": "2026-08-18",
-      "public": "the PSA 10 guide value moved between the two reads, so we hold two correct readings of it rather than one",
-      "why": "NOT a parse failure. The console listing was read 2026-08-16 and the product page 2026-08-18, and PriceCharting's own \"dollar change from last update\" on that product page's PSA 10 cell says the value rose by $357.96: $958.00 minus that change is $600.04, the listing figure, to the cent. The same row's Grade 9 figure moved out of tolerance too and reconciles the same way; it is not published either. Across all 176 rows and all three price columns, 409 readings are identical on both page types and the other 47 all reconcile against the change PriceCharting itself reports, with none left over, so the column mapping is demonstrably right on every row. Two correctly read figures this far apart still give no basis for printing either one, so the PSA 10 figure is excluded and this card cannot appear on the list ranked by it. Its other columns are gated separately and are published where they agreed."
-    },
-    {
-      "rank": 99,
-      "name": "Slowking",
-      "set": "2000 Topps Movie First Appearance",
-      "column": "Ungraded",
-      "listing": 275.4,
-      "product": 381.63,
-      "decided": "2026-08-18",
-      "public": "the Ungraded guide value moved between the two reads, so we hold two correct readings of it rather than one",
-      "why": "NOT a parse failure. The console listing was read 2026-08-16 and the product page 2026-08-18, and PriceCharting's own \"dollar change from last update\" on that product page's Ungraded cell says the value rose by $106.23: $381.63 minus that change is $275.40, the listing figure, to the cent. Across all 176 rows and all three price columns, 409 readings are identical on both page types and the other 47 all reconcile against the change PriceCharting itself reports, with none left over, so the column mapping is demonstrably right on every row. Two correctly read figures this far apart still give no basis for printing either one, so the Ungraded figure is excluded and this card cannot appear on the list ranked by it. Its other columns are gated separately and are published where they agreed."
-    },
-    {
-      "rank": 120,
-      "name": "Gengar [Rainbow Foil] #94",
-      "set": "2000 Topps TV",
-      "column": "PSA 10",
-      "listing": 6751.97,
-      "product": 9223.54,
-      "decided": "2026-08-18",
-      "public": "the PSA 10 guide value moved between the two reads, so we hold two correct readings of it rather than one",
-      "why": "NOT a parse failure. The console listing was read 2026-08-16 and the product page 2026-08-18, and PriceCharting's own \"dollar change from last update\" on that product page's PSA 10 cell says the value rose by $2,471.57: $9,223.54 minus that change is $6,751.97, the listing figure, to the cent. The same row's Grade 9 figure moved out of tolerance too and reconciles the same way; it is not published either. Across all 176 rows and all three price columns, 409 readings are identical on both page types and the other 47 all reconcile against the change PriceCharting itself reports, with none left over, so the column mapping is demonstrably right on every row. Two correctly read figures this far apart still give no basis for printing either one, so the PSA 10 figure is excluded and this card cannot appear on the list ranked by it. Its other columns are gated separately and are published where they agreed."
-    },
-    {
       "rank": 140,
       "name": "Charizard [Rainbow Foil] #6",
       "set": "1999 Topps TV",
-      "column": "Ungraded",
-      "listing": 69.99,
-      "product": 87.49,
-      "decided": "2026-08-18",
-      "public": "the Ungraded guide value moved between the two reads, so we hold two correct readings of it rather than one",
-      "why": "NOT a parse failure. The console listing was read 2026-08-16 and the product page 2026-08-18, and PriceCharting's own \"dollar change from last update\" on that product page's Ungraded cell says the value rose by $17.50: $87.49 minus that change is $69.99, the listing figure, to the cent. Across all 176 rows and all three price columns, 409 readings are identical on both page types and the other 47 all reconcile against the change PriceCharting itself reports, with none left over, so the column mapping is demonstrably right on every row. Two correctly read figures this far apart still give no basis for printing either one, so the Ungraded figure is excluded and this card cannot appear on the list ranked by it. Its other columns are gated separately and are published where they agreed."
+      "column": "PSA 10",
+      "listing": 3128.32,
+      "product": 3908.08,
+      "decided": "2026-08-22",
+      "public": "the PSA 10 guide value moved between the two reads, so we hold two correct readings of it rather than one",
+      "why": "NOT a parse failure. The console listing was crawled on 22 August 2026 and the product page read the same morning, and PriceCharting's own \"dollar change from last update\" on that product page's PSA 10 cell says the value rose by $779.76: 3,908.08 - 779.76 = 3,128.32, the listing figure, to the cent. The same row's other two columns agreed and reconcile the same way (Ungraded 87.49 to 88.11 on a change of +0.62, Grade 9 787.25 to 787.41 on a change of +0.16), which is what a single new PSA 10 sale looks like against two columns that did not move. Across all 177 rows and all three price columns, 458 readings have a figure on both page types: 449 are identical to the cent and the other 9 all reconcile against the change PriceCharting itself reports, with none left over, so the column mapping is demonstrably right on every row. This is the only reading on the file outside the verifier tolerance of 0.15: +24.93%, against +1.06% for the next largest, #2 Charizard [Sparkle] #6. Two correctly read figures this far apart still give no basis for printing either one, so the PSA 10 figure is excluded and this card cannot appear on the list ranked by it. It stood 56th in that order. Its other columns are gated separately: its Ungraded figure agreed, and it was never a candidate for the raw hundred."
     }
   ]
 }

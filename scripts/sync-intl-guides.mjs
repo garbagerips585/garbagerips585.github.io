@@ -49,6 +49,9 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { TCG_SET_INTL } from "../shared/tcgplayer.mjs";
+// THE ONE NORMALISER. speciesKey below used to hold a third private copy of it
+// carrying the accent bug that cost ja-violet-ex #42 its rarity word.
+import { norm } from "../shared/intl-printing.mjs";
 import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache", "tcgdex");
@@ -484,9 +487,18 @@ function tcgCategory(r) {
  * each makes those "ironleaves" and "mrmime" on both sides. Applied
  * symmetrically, so a species whose name really did end in one of these tokens
  * would still match itself.
+ *
+ * **IT WAS A THIRD PRIVATE NORMALISER WITH THE SAME ACCENT BUG, 22 August 2026.**
+ * It read `.toLowerCase().replace(/[^a-z0-9]/g, "")`, which DELETES an accented
+ * letter rather than folding it, so ja-violet-ex #42 was "Flabebe" on TCGplayer
+ * and "Flabébé" on TCGdex, keyed "flabebe" against "flabb", and this run
+ * reported it as a species disagreement and refused the row its Japanese rarity
+ * word. It is the same fault `norm` in shared/intl-printing.mjs was carrying and
+ * is fixed the same way, by sharing that function rather than by patching a
+ * third copy of it. The trailing-suffix strip is what stays local: that is this
+ * function's actual job and no other caller wants it.
  */
-const speciesKey = (s) =>
-  String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "").replace(/(vmax|vstar|gx|ex|v)$/, "");
+const speciesKey = (s) => norm(s || "").replace(/(vmax|vstar|gx|ex|v)$/, "");
 
 /**
  * THE JAPANESE LADDER, ORDERED WITHIN ITSELF AND MAPPED ONTO NOTHING.
@@ -826,6 +838,72 @@ async function tcgChecklist(id, guide, official, setNative) {
 // kinds are reported by name on every run. A slipped alignment would not cost
 // two rows, it would cost nearly all of them.
 
+// ============================================================================
+// ENGLISH NAMES FOR THE CARDS POKEAPI CANNOT REACH. A SECOND, SEPARABLE CHANGE.
+// ============================================================================
+//
+// 22 August 2026. This rides on the pull jpRarityWords was already making and
+// on the per-row gate those rows were already clearing, but it is a DIFFERENT
+// change with a different justification, and the two are worth keeping apart.
+//
+// **THE GAP, COUNTED.** This file's own header says a checklist reading トロピウス
+// helps nobody in the US, and then names the limit honestly: "Trainer and Energy
+// cards have no dex number and are NOT guessed at". englishName() returns null
+// for anything that is not a Pokemon, because PokeAPI is keyed on the Pokedex
+// and a Rare Candy has no dex number. Measured on disk, 2026-08-22:
+//
+//       guide                non-Pokemon rows   of which no English name
+//       ja-abyss-eye                24                    24
+//       ja-ninja-spinner            24                    24
+//       ja-nihil-zero               26                    26
+//       ja-mega-symphonia           15                    15
+//       ja-mega-brave               15                    15
+//       ja-stellar-miracle          22                    22
+//       ja-violet-ex                18                    18
+//       ja-cyber-judge              16                     0
+//
+// **ja-cyber-judge IS THE CONTROL AND IT IS ALREADY DOING THIS.** That guide's
+// whole checklist comes from tcgChecklist above, which takes `en` straight off
+// `tcgCardName(r)`, so its sixteen Trainers and Energy have read "Hand Trimmer"
+// and not ハンドトリマー since the day that block was written. So publishing a
+// TCGplayer product name as a card name is not a new act on these pages; it is
+// the established one, applied to the seven guides that were left out of it
+// because they happened to have a TCGdex checklist.
+//
+// **WHAT IS TAKEN AND WHAT IS NOT.** Only `en`, and only where TCGdex supplies
+// none. `rarity` is untouched, exactly as the note above insists: the wide
+// import stays refused, the illustrator column stays, the chase grid keeps its
+// order, and no row that already reads in English changes a character. 144 rows
+// across the seven pinned guides gain a name and 0 are blocked.
+//
+// **THE ROW IS IDENTIFIED BEFORE THE NAME IS TAKEN, and for a Trainer that is a
+// weaker check than for a Pokemon, which is worth saying out loud.** The species
+// cross-check cannot run on a card that is not a species, so a Trainer's name is
+// joined on collector number, denominator and CATEGORY and nothing else. What
+// stands behind it is the whole-set alignment: the same pull has to clear axes
+// 1 to 4 for set identity, and then 95% of the rows that state a tier have to
+// agree, which on these guides is 92 to 118 of 118 and is carried almost
+// entirely by Pokemon rows whose species DOES cross-check. A slipped alignment
+// cannot show up on the Trainers alone.
+//
+// **AND ONE THING TCGPLAYER IS NOT CONSISTENT ABOUT, WHICH IS WHY THERE IS A
+// CROSS-GUIDE GUARD.** Measured over all 90 distinct Japanese non-Pokemon names
+// on the seven guides, 2026-08-22: TWO of them come back with two different
+// English names depending on which set you ask about.
+//
+//       アイアンディフェンダー   "Iron Defender"      ja-abyss-eye  #102
+//                        "Iron X Defense"     ja-mega-brave #057
+//       活力の森            "Forest of Vitality" ja-nihil-zero #109
+//                        "Vitality Forest"    ja-mega-symphonia #061
+//
+// Publishing both would put two names on one card across two guides in the same
+// nav, which is the cross-page contradiction this repo treats as its worst
+// fault class. So `dropConflictingNames` below refuses BOTH readings of a native
+// name that comes back two ways, and those cards keep the Japanese they already
+// had. It is the same move shared/card-scan.mjs makes on a set name that
+// resolves to two apiIds: "a name that resolves to two apiIds resolves to none."
+// 88 of the 90 are unambiguous and go in.
+
 /** Below this share of the contestable rows agreeing, the guide is refused. */
 const JP_COVERAGE_MIN = 0.95;
 
@@ -874,6 +952,8 @@ async function jpRarityWords(id, guide, official, cards) {
   // Then one row at a time, against its own counterpart.
   const byNum = new Map(cards.map((c) => [String(Number(c.localId)), c]));
   const words = new Map();
+  const names = new Map();
+  const taken = new Set();
   const notTaken = [];
   const pairs = new Map();
   // THE DENOMINATOR IS COUNTED ON OUR SIDE AND THAT IS THE WHOLE POINT OF IT.
@@ -898,7 +978,7 @@ async function jpRarityWords(id, guide, official, cards) {
       );
       continue;
     }
-    if (words.has(num)) {
+    if (taken.has(num)) {
       notTaken.push(`#${num} "${label}" is a SECOND TCGplayer row for that number`);
       continue;
     }
@@ -907,7 +987,14 @@ async function jpRarityWords(id, guide, official, cards) {
       notTaken.push(`#${num} "${label}" has no row on the TCGdex checklist`);
       continue;
     }
-    if (!c.rarity) continue; // TCGdex states no tier: left unstated, on purpose.
+    // THE IDENTITY CHECKS RUN BEFORE THE TIER CHECKS NOW, AND THAT REORDER IS
+    // THE WHOLE OF WHAT LETS A NAME BE TAKEN. `if (!c.rarity) continue` used to
+    // sit here, above the category and species tests, so a row TCGdex leaves
+    // unstated was never identified at all. A NAME and a TIER are independent
+    // facts about a card and only the tier cares whether TCGdex stated one; see
+    // the note over `names` below. Nothing about `words` moves: a row with no
+    // TCGdex tier still sets none, `contested` still counts only the rows that
+    // state one, and `cover` is computed from the same two numbers as before.
     const cat = tcgCategory(r);
     if (cat !== c.category) {
       notTaken.push(`#${num} is a ${cat} on TCGplayer and a ${c.category} on TCGdex`);
@@ -917,6 +1004,15 @@ async function jpRarityWords(id, guide, official, cards) {
       notTaken.push(`#${num} is "${label}" on TCGplayer and "${c.en || c.native}" on TCGdex`);
       continue;
     }
+    // This row is identified: same set, same number, same denominator, first
+    // row for that number, and the two catalogues agree on what kind of card it
+    // is and, for a Pokemon, on the species. `taken` is what makes the duplicate
+    // test above mean "already identified" rather than "already given a word".
+    taken.add(num);
+    // THE ENGLISH NAME, AND ONLY WHERE TCGDEX HAS NONE. See ENGLISH NAMES FOR
+    // THE CARDS POKEAPI CANNOT REACH, over this function.
+    if (!c.en && label) names.set(num, label);
+    if (!c.rarity) continue; // TCGdex states no tier: left unstated, on purpose.
     if (!r.rarityName) {
       notTaken.push(`#${num} "${label}" carries no TCGplayer rarity`);
       continue;
@@ -942,7 +1038,7 @@ async function jpRarityWords(id, guide, official, cards) {
         notTaken.slice(0, 8).join("\n      "),
     };
   }
-  return { words, notTaken, pairs, agreed: words.size, contested };
+  return { words, names, notTaken, pairs, agreed: words.size, contested };
 }
 
 // ------------------------------------------------------------------------ main
@@ -1097,6 +1193,13 @@ for (const [id, e] of entries) {
           c.rarityJp = w;
           stamped++;
         }
+        // THE NAME IS PROPOSED HERE AND PROMOTED AFTER EVERY GUIDE HAS RUN.
+        // It cannot be written straight onto `en`, because the conflict test is
+        // BETWEEN guides: アイアンディフェンダー is "Iron Defender" on one and
+        // "Iron X Defense" on another, and neither guide can see that alone.
+        // dropConflictingNames below is what promotes or discards these.
+        const nm = jp.names.get(String(Number(c.localId)));
+        if (nm && !c.en) c.enProposed = nm;
       }
       jpStamped.push(
         `${id}: ${stamped} card(s) carry a TCGplayer Japanese word beside TCGdex's` +
@@ -1239,6 +1342,62 @@ for (const [id, e] of entries) {
   );
 }
 
+/**
+ * PROMOTE THE PROPOSED ENGLISH NAMES, OR REFUSE BOTH READINGS OF A CARD THE TWO
+ * GUIDES DISAGREE ABOUT. See ENGLISH NAMES FOR THE CARDS POKEAPI CANNOT REACH.
+ *
+ * The test is BETWEEN guides, so it cannot run inside the loop above: no single
+ * guide can see that アイアンディフェンダー comes back "Iron Defender" on Abyss Eye
+ * and "Iron X Defense" on Mega Brave. A native name that resolves to two English
+ * names resolves to none, and the card keeps the Japanese it already had, which
+ * is the status quo rather than a loss.
+ *
+ * KEYED ON THE NATIVE NAME AND NOT ON THE CARD, deliberately. These are reprints:
+ * the same Trainer appears at several numbers within a set and across sets, and
+ * it is one card wearing one name. A per-number check would let one guide print
+ * "Iron Defender" at #102 and another "Iron X Defense" at #057, which is the
+ * contradiction this exists to stop.
+ */
+function dropConflictingNames(sets) {
+  const byNative = new Map();
+  for (const [id, s] of Object.entries(sets)) {
+    for (const c of s.cards || []) {
+      if (!c.enProposed) continue;
+      const k = String(c.native || "");
+      if (!k) continue;
+      if (!byNative.has(k)) byNative.set(k, new Map());
+      const m = byNative.get(k);
+      if (!m.has(c.enProposed)) m.set(c.enProposed, []);
+      m.get(c.enProposed).push(`${id} #${c.localId}`);
+    }
+  }
+  const refused = new Set();
+  const report = [];
+  for (const [native, m] of byNative) {
+    if (m.size < 2) continue;
+    refused.add(native);
+    report.push(
+      `"${native}" comes back as ` +
+        [...m].map(([en, where]) => `${JSON.stringify(en)} (${where.join(", ")})`).join(" and ") +
+        `, so BOTH are refused and the card keeps its Japanese name`
+    );
+  }
+  let promoted = 0;
+  for (const s of Object.values(sets)) {
+    for (const c of s.cards || []) {
+      if (!c.enProposed) continue;
+      if (!refused.has(String(c.native || "")) && !c.en) {
+        c.en = c.enProposed;
+        promoted++;
+      }
+      delete c.enProposed;
+    }
+  }
+  return { promoted, refused: refused.size, report, distinct: byNative.size };
+}
+
+const enFromTcg = dropConflictingNames(guides);
+
 const doc = {
   checked: localDay(),
   source: map.source || "TCGdex + PokeAPI",
@@ -1260,6 +1419,17 @@ if (tcgFilled.length) {
 if (tcgRefused.length) {
   console.log(`\n${tcgRefused.length} guide(s) TCGdex left empty were NOT filled from TCGplayer:`);
   for (const t of tcgRefused) console.log("  " + t);
+}
+if (enFromTcg.promoted || enFromTcg.refused) {
+  console.log(
+    `\n${enFromTcg.promoted} card(s) with no PokeAPI translation took an English name from` +
+      ` TCGplayer, over ${enFromTcg.distinct} distinct native name(s).` +
+      ` Trainer and Energy cards only: PokeAPI is keyed on the Pokedex and they have no number.`
+  );
+  if (enFromTcg.report.length) {
+    console.log(`  ${enFromTcg.refused} native name(s) came back two ways and were REFUSED:`);
+    for (const t of enFromTcg.report) console.log("    " + t);
+  }
 }
 if (jpStamped.length) {
   console.log(

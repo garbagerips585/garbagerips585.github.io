@@ -619,8 +619,25 @@ export const NAV = [
  * THE PHONE IS UNAFFECTED BY THIS ARRAY ENTIRELY. Below 900 there are no bar
  * links at all, so a phone reader reaches Card shows through the menu panel,
  * where it is now the second group. Do not quote this table as a mobile win.
+ *
+ * AND THE SECOND SLOT NAMED THE GROUP'S SECOND ENTRY, WHICH IS THIS FILE
+ * CONTRADICTING ITSELF IN ONE STRING. Corrected 22 August 2026. The paragraph
+ * above says the order follows NAV's order; the Rochester group's own comment
+ * says "A HUB PAGE MAY LAND AT THE TOP OF THIS GROUP ... If it does, it goes
+ * FIRST, above 'Card shows', because a hub is the thing the other five hang
+ * off." The hub landed, /rochester.html IS first in NAV, and this array still
+ * named /card-shows.html. So between 900 and 1099 the bar said "Card shows"
+ * where the panel behind it said "Local scene" first: two priorities for one
+ * site, which is the exact failure the WCAG 2.2 SC 3.2.3 paragraph above
+ * exists to prevent, arriving through the entry rather than through the order.
+ *
+ * IT IS A SWAP, NOT AN ADDITION, so the row is still five and the table above
+ * still describes which three survive 900 to 1099. Card shows is one tap away
+ * from the hub, which is the whole reason a hub earns the slot: the page it
+ * displaces is the first thing on the page that replaces it. THE PHONE IS
+ * STILL UNAFFECTED, for the reason the paragraph above gives.
  */
-export const BAR_LINKS = ["/videos.html", "/card-shows.html", "/cards.html", "/sets/", "/start.html"];
+export const BAR_LINKS = ["/videos.html", "/rochester.html", "/cards.html", "/sets/", "/start.html"];
 
 /** Every [href, label] in NAV, flattened, in order. */
 export const NAV_LINKS = NAV.flatMap(([, links]) => links);
@@ -910,6 +927,92 @@ export function dropUnusedPacksCSS(html) {
   // A page that never carried the link is not an error: build-video-games.mjs
   // already opts out at the source through STYLES_NO_PACKS_CSS.
   return html.replace(PACKS_LINK, "");
+}
+
+/**
+ * Take the hit-card lightbox off a rip page that has no hit card to open it.
+ *
+ * SAME SHAPE AS dropUnusedPacksCSS ABOVE AND FOR THE SAME REASON, which is why
+ * it sits here rather than in the one builder that calls it. build-pages.mjs
+ * emits the .hitlb dialog and its wiring script after </main> on every page it
+ * writes, unconditionally. The script's own first two lines are
+ * getElementById('hitcards') and if(!list) return, so on a page with no hit
+ * band it parses, runs, bails, and leaves a role="dialog" aria-modal="true" in
+ * the document that nothing on that page can ever open.
+ *
+ * MEASURED AT HEAD ON 22 AUGUST 2026, ON THE BUILT TREE RATHER THAN FROM THE
+ * BUILDER, and the count that was handed over ("192 of 319") was already
+ * stale, as was the later "129 reachable of 319": 320 rip pages, ALL 320 carry
+ * the dialog and the script, 142 carry a #hitcards list, and every one of
+ * those 142 carries at least one <button class="hitcard-open"> -- 186 of them,
+ * so there is no third state where the list ships with nothing to press. That
+ * leaves 178 pages that cannot open it. RE-TAKE THESE RATHER THAN QUOTING
+ * THEM: they move with every sheet import, which is exactly how the two
+ * figures above went stale within a day of each other. Two lines:
+ *
+ *     ls public/rip/*.html | wc -l
+ *     grep -l 'id="hitcards"' public/rip/*.html | wc -l
+ *
+ * WHAT IT IS WORTH: 129 lines and 6,902 raw bytes per page, and 2,779 to 2,815
+ * gzipped (median 2,805), taken as the delta on the WHOLE DOCUMENT before and
+ * after with `gzip -9c < file` rather than on the block compressed by itself,
+ * which is a bigger and dishonest number. The `<` matters, per the ui.css
+ * note. 498,903 bytes gzipped across the 178, 487.2KB, and the built tree's
+ * whole diff is 22,962 deletions and ZERO insertions across 178 files and
+ * nothing else, which is the check that proves no asset moved with it.
+ * Half the raw figure is the script's own // comments: this file
+ * strips comments out of a <style> block in stamp-assets.mjs and out of
+ * nothing else, so a JS comment in a page-level <script> is a shipped asset,
+ * exactly as build-pages.mjs's own header says of an HTML one.
+ *
+ * NONE OF THAT IS ON THE CRITICAL PATH and saying so is the point: the block
+ * is the last thing before </body> and the script is not deferred but is also
+ * not render blocking. Quote it as document weight on the second page of a
+ * visit, per the ui.css note, not as a paint win.
+ *
+ * IT IS A NO-OP ON ANY PAGE THAT HOLDS A #hitcards, so it is safe to wrap
+ * around every page the builder writes, and the dialog comes back on its own
+ * the day that video's hits are imported. That is the property the obvious
+ * alternative does not have: gating the emission on the template's own
+ * `showableHits.length` is the same question asked a second time, six hundred
+ * lines away from the first, and the note beside dropUnusedPacksCSS is the
+ * receipt for what a second copy of the question costs.
+ *
+ * NOTHING HERE TOUCHES app.js AND THAT IS DELIBERATE. The focus trap that
+ * keeps Tab inside this dialog lives there and matches on
+ * `.hitlb:not([hidden])`, so a page with no .hitlb simply never matches it and
+ * the trap is unchanged on the 142 that keep it. Leaving that file alone keeps
+ * the ?v= stamp off all 1,486 pages, which is the orphaned-asset failure this
+ * repo has shipped twice.
+ *
+ * THE SPAN IS ANCHORED ON THE SCRIPT'S OWN SIGNATURE, not on the first
+ * </script> after the dialog. A lazy [\s\S]*?</script> would stop at any
+ * script somebody later slips in between the two and cut the dialog loose from
+ * its wiring, leaving half a modal on the page; requiring the
+ * getElementById('hitcards') call INSIDE the span makes the shortest match
+ * either the right one or no match at all. And no match on a page that plainly
+ * carries .hitlb THROWS rather than returning the page unchanged, because the
+ * whole class of bug this repo keeps hitting is a rule that silently stopped
+ * firing and nobody could tell.
+ */
+const HIT_LIGHTBOX = /<div class="hitlb" id="hitlb"[\s\S]*?getElementById\('hitcards'\)[\s\S]*?<\/script>\n/;
+
+export function dropUnusedHitLightbox(html) {
+  // The list is what the script looks for, so it is what decides. Matched on
+  // the id and not on the class: .hitcards is also a class name and a future
+  // rule could select it somewhere the script never reaches.
+  if (/\bid="hitcards"/.test(html)) return html;
+  // A page that never carried the dialog is not an error, same as above.
+  if (!html.includes('<div class="hitlb"')) return html;
+  const out = html.replace(HIT_LIGHTBOX, "");
+  if (out === html) {
+    throw new Error(
+      "dropUnusedHitLightbox: this page carries .hitlb and no #hitcards, but the " +
+      "dialog-plus-script span did not match. The markup moved. Re-anchor " +
+      "HIT_LIGHTBOX in shared/chrome.mjs rather than shipping a dead dialog.",
+    );
+  }
+  return out;
 }
 
 /**

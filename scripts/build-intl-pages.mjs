@@ -74,7 +74,7 @@ import { BAR, MENU, SPRITE, SKIP, STYLES, footer, FONTS,
   APP_JS_NO_PACKPLAYER as APP_JS } from "../shared/chrome.mjs";
 import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
 import { raritiesIn, rarityLabelOf, rarityMark, RARITY_CSS } from "../shared/rarity.mjs";
-import { norm } from "../shared/intl-printing.mjs";
+import { norm, nameKeyOrThrow } from "../shared/intl-printing.mjs";
 // THE RULE IS intl-printing.mjs AND IT IS UNCHANGED. This asks it in the rip
 // log's own vocabulary and hands back the guide's own row; see that file.
 import { pickIntlPrintingJp } from "../shared/intl-vocab.mjs";
@@ -345,9 +345,45 @@ for (const v of videos) for (const s of v.sets || []) (ripsBySet[s] ||= []).push
  */
 const HITS = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
 const videoById = new Map(videos.map((v) => [v.id, v]));
-const cardKey = (x) =>
-  String(x || "").toLowerCase().replace(/\b(trainer|supporter|item|stadium)\b/g, " ")
-    .replace(/[^a-z0-9]+/g, " ").trim();
+/* ---------------------------------------------------------------------------
+ * THIS FILE HELD TWO NORMALISATIONS OF ONE CARD NAME AND USED BOTH, 22 August
+ * 2026. There is one now, and it is the SHARED one.
+ * ---------------------------------------------------------------------------
+ *
+ * The dedupe below was keyed with a private `cardKey()` that stripped a leading
+ * card-TYPE word ("Trainer", "Supporter", "Item", "Stadium") and collapsed to
+ * spaces; the checklist match forty lines down uses `norm(c.name) ===
+ * norm(h.card)`, which strips neither. So one row could be filed under
+ * "rare candy" and looked up as "trainerrarecandy" in the same pass.
+ *
+ * **THE OBVIOUS FIX IS TO SHARE cardKey AND IT IS THE WRONG ONE. MEASURED.**
+ * build-hall.mjs and build-pages.mjs have no `cardKey` at all: both match AND
+ * dedupe intl rows on `norm`. Standardising on cardKey therefore means editing
+ * those two as well, and generalising its type-word strip damages real names
+ * that this repo's own data contains:
+ *
+ *       "Turffield Stadium"  -> "turffield"       a real Stadium card
+ *       "Lively Stadium"     -> "lively"          a real Stadium card
+ *       "Gym Trainer"        -> "gym"             a real Supporter card
+ *       "Corviknight V Trainer Gallery" -> "corviknightvgallery"
+ *                                                 a LIVE row in data/hits.json
+ *
+ * That is the same class of fault as the empty key `norm` used to produce: a
+ * key that throws away the distinguishing word. So the unification goes the
+ * other way, onto `norm`, which is the key the other two builders already use
+ * and the one that now folds accents and keeps CJK. See shared/intl-printing.mjs.
+ *
+ * **IT IS A NO-OP ON TODAY'S DATA AND THAT WAS COUNTED RATHER THAN ASSUMED**,
+ * over every set in data/hits.json and not just the intl ones, 2026-08-22:
+ * 144 dedupe groups under cardKey and 144 under `norm`, zero groups merging two
+ * differently-written names under either, and zero empty keys under either.
+ *
+ * **WHAT THIS DOES NOT FIX, SAID OUT LOUD.** "Trainer Rare Candy" and "Trainer
+ * Poké Pad" still find no candidate, because the log writes a type word the
+ * checklist does not. Stripping it is a change to a key that build-hall.mjs and
+ * build-pages.mjs also read, so it belongs in one shared place and cannot be
+ * made from this file alone. Those two cells are the owner's; see the report.
+ * ------------------------------------------------------------------------- */
 
 /**
  * The guide's own checklist in the shape pickIntlPrinting expects. Same cut
@@ -356,10 +392,20 @@ const cardKey = (x) =>
  * rendition, so it is reduced to the base and tested against no-scan.json,
  * which sync-intl-guides.mjs does not apply.
  */
-function guideChecklist(g) {
+// `setId` is passed explicitly rather than read off `g.id`: only the objects
+// hitsBand is handed carry an id, and the CORPUS_ART loop's do not, so the
+// guard below reported "undefined #103" from one of its two call sites.
+function guideChecklist(g, setId) {
   if (!g?.cards?.length) return null;
   return g.cards.map((c) => {
     const base = c.image ? String(c.image).replace(/\/(low|high)\.(webp|avif|png|jpg)$/, "") : null;
+    // THE OTHER HALF OF THE GUARD. The dedupe above refuses an unkeyable HIT
+    // name; this refuses an unkeyable CHECKLIST name, which is the side the
+    // hazard actually lived on: 202 of these 1,310 rows keyed to "" before
+    // shared/intl-printing.mjs stopped dropping Japanese and Korean, so any
+    // unkeyable hit row would have matched all 202 at once. It is 0 of 1,310
+    // now, and this is what stops it silently becoming 1.
+    nameKeyOrThrow(c.en || c.native, `public/data/intl-guides.json, ${setId} #${c.localId}`);
     return {
       n: c.localId,
       name: c.en || c.native,
@@ -387,8 +433,15 @@ for (const [vid, list] of Object.entries(HITS)) {
   if (!v) continue;
   for (const h of list) {
     if (!h.set) continue;
-    const k = cardKey(h.card);
-    if (!k) continue;
+    // THE GUARD, AND IT REPLACES A SILENT `if (!k) continue`. An unkeyable card
+    // name is not a row to skip, it is a row that would match every OTHER
+    // unkeyable row on the checklist it is about to be looked up in, and then be
+    // separated on rarity alone on a page that prints a collector number. It
+    // throws for the reason shared/intl-printing.mjs gives over the same guard:
+    // a comment does not stop the next person. Zero of the rows in
+    // data/hits.json produce one today, counted across every set and not just
+    // the thirteen intl ones.
+    const k = nameKeyOrThrow(h.card, `data/hits.json, video ${vid}, set ${h.set}`);
     if (!HITS_BY_SET.has(h.set)) HITS_BY_SET.set(h.set, new Map());
     const g = HITS_BY_SET.get(h.set);
     // A CARD PULLED TWICE IS ONE ROW WITH A COUNT, same rule as the English
@@ -414,7 +467,7 @@ for (const [vid, list] of Object.entries(HITS)) {
 const CORPUS_ART = new Map();
 for (const [setId, cards] of HITS_BY_SET) {
   const g = guides.sets?.[setId];
-  const checklist = guideChecklist(g);
+  const checklist = guideChecklist(g, setId);
   if (!g?.native || !checklist) continue;
   for (const h of cards.values()) {
     const same = checklist.filter((c) => norm(c.name) === norm(h.card));
@@ -447,7 +500,7 @@ function rarityBadge(written) {
 function hitsBand(g, cls) {
   const rows = [...(HITS_BY_SET.get(g.id) || new Map()).values()].sort((a, b) => b.count - a.count);
   if (!rows.length) return "";
-  const checklist = guideChecklist(g);
+  const checklist = guideChecklist(g, g.id);
   const pinned = [];
   const plain = [];
   for (const h of rows) {
@@ -494,15 +547,29 @@ function hitsBand(g, cls) {
               leaves 36 of Stellar Miracle's 135 unfiled, which is exactly the
               three cards this grid holds, so without the fallback the row
               would show a bare collector number. */ ""}
-        // THE JAPANESE WORD WINS ON A ROW THAT HAS ONE, and rarityJp is the field
-        // that carries it. Pinning these six rows moved them onto the shared
-        // precedence, which prints TCGdex's anglicised tier -- so a card that read
-        // "Art Rare" before, matching the letters printed on the wrapper and on the
-        // card itself, started reading "Illustration Rare". The rip log is written in
-        // the wrapper's vocabulary because that is what Tim reads off the pack, and a
-        // guide that renames his tier is the guide disagreeing with the card in his
-        // hand. rarityJp is additive and only exists where sync-intl-guides.mjs
-        // stamped it, so this cannot reach a row that never had a Japanese word.
+        ${/* THE JAPANESE WORD WINS ON A ROW THAT HAS ONE, and rarityJp is the
+              field that carries it. Pinning these six rows moved them onto the
+              shared precedence, which prints TCGdex's anglicised tier -- so a
+              card that read "Art Rare" before, matching the letters printed on
+              the wrapper and on the card itself, started reading "Illustration
+              Rare". The rip log is written in the wrapper's vocabulary because
+              that is what Tim reads off the pack, and a guide that renames his
+              tier is the guide disagreeing with the card in his hand. rarityJp
+              is additive and only exists where sync-intl-guides.mjs stamped it,
+              so this cannot reach a row that never had a Japanese word.
+
+              THIS BLOCK WAS WRITTEN AS A LINE COMMENT AND A LINE COMMENT IS NOT
+              A COMMENT HERE. It sits inside a template literal, so all nine
+              lines of it were TEXT, and they shipped: every pinned row on all
+              seven Japanese guides printed them between the card name and its
+              tier, in the reader's own type, at HEAD on 22 August 2026. Nobody
+              caught it because a builder that emits prose looks like a builder
+              that emits prose. Every other note in this template uses the
+              interpolated-block-comment form for exactly this reason, so copy
+              a neighbour rather than writing a new one, keep BACKTICKS out of
+              it (CLAUDE.md's own gotcha: a backtick in a comment inside a
+              template literal ends the literal), and rebuild and read the page
+              before believing it. */ ""}
         <p class="mine-r">${[esc(rarityLabel(h.m.rarityJp || h.m.rarity || h.rarity) || ""), h.m.n ? `#${esc(h.m.n)}` : ""].filter(Boolean).join(" &bull; ")}</p>
         ${h.rips.map((r) => `<a class="mine-w" href="/${esc(r.path)}">Watch the rip &rarr;</a>`).join("\n        ")}
       </li>`

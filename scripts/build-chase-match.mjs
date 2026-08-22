@@ -299,9 +299,13 @@
 // THE PRICES ARE A SNAPSHOT AND THE PAGE DATES THEM.
 //
 // THE TOP 100 ARE THE 100 CLEANEST ROWS IN THAT FILE, checked rather than hoped
-// for. verify-raw-top.mjs re-read all 160 rows from a second page shape on
-// 2026-08-18 and found 5 disagreements; all 5 are ranked 118 to 155. Every one
-// of the 100 rows this game deals from agreed with itself and every one has an
+// for, and since 22 August 2026 they are SELECTED that way rather than merely
+// asserted to be: see the note beside the selection below for the day the two
+// stopped being the same thing. verify-raw-top.mjs re-read all 160 rows from a
+// second page shape on 2026-08-22 and found 1 disagreement, at rank 98, which
+// this pool now steps over. (It was 5 on 2026-08-18, all ranked 118 to 155,
+// which is why the cut-at-100 version had never been tested.) Every one of the
+// 100 rows this game deals from agreed with itself and every one has an
 // image that answered a HEAD request. Both facts are ASSERTED below at build
 // time rather than trusted, because a game deals a random sixteen out of a
 // hundred, so one bad row is a defect that shows up in one round in six and
@@ -440,10 +444,35 @@ const POOL_SIZE = 100;
 
 const raw = JSON.parse(await readFile(join(ROOT, "data/top-raw.json"), "utf8"));
 const verified = new Map((raw.verify?.rows || []).map((r) => [r.rank, r]));
-const top = raw.cards.filter((c) => c.rank >= 1 && c.rank <= POOL_SIZE).sort((a, b) => a.rank - b.rank);
+// THE HUNDRED IS THE HUNDRED /most-valuable-cards.html PUBLISHES, WHICH IS NOT
+// THE SAME THING AS ranks 1 to 100. This used to cut the file at `rank <= 100`
+// and then THROW if any of those hundred had failed its re-read, which worked
+// only for as long as every contested row happened to land below the cut. On
+// the 22 August 2026 crawl one landed at rank 98 (Latias & Latios GX #170, Team
+// Up, whose ungraded guide value moved $382.78 between the listing read and the
+// product read; the working is in that file's `excluded`), and the build stopped.
+//
+// The fix is to select the way build-top100.mjs already selects, in one line:
+// take the first POOL_SIZE rows that AGREED. The file keeps 160 candidates for
+// exactly this, the comment above this block has always said the pool is "the
+// 100 cleanest rows in that file", and the page whose list this game claims to
+// be dealing from fills its own hundred by the identical rule. Cutting the pool
+// to 97 instead, which this file's own error message offered, would have made
+// the game quietly stop being the hundred it says it is.
+//
+// The assertions below are unchanged and are now POST-conditions: if the
+// selection cannot find a clean hundred, or a selected row has no picture, that
+// is a real fault and still stops the build.
+const top = raw.cards
+  .filter((c) => verified.get(c.rank)?.status === "agree")
+  .sort((a, b) => a.rank - b.rank)
+  .slice(0, POOL_SIZE);
 
 if (top.length !== POOL_SIZE) {
-  throw new Error(`build-chase-match: data/top-raw.json holds ${top.length} of the top ${POOL_SIZE}, not ${POOL_SIZE}`);
+  throw new Error(
+    `build-chase-match: data/top-raw.json holds ${top.length} rows that agreed with their own ` +
+      `re-read, not ${POOL_SIZE}. Run: node scripts/verify-raw-top.mjs`,
+  );
 }
 {
   const noImg = top.filter((c) => verified.get(c.rank)?.imgOk !== true).map((c) => c.rank);

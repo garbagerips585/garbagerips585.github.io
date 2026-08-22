@@ -88,6 +88,9 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { esc } from "./format.mjs";
+// The one normaliser. See the note over `scanNorm` below for what this file
+// used to hold privately and why the shared one is the same three ranges.
+import { norm } from "./intl-printing.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -112,7 +115,30 @@ async function shard(name) {
   }
   return shardCache.get(key);
 }
-const scanNorm = (x) => String(x || "").toLowerCase().replace(/[^a-z0-9぀-ヿ一-鿿가-힯]/g, "");
+/**
+ * THIS WAS A SECOND NORMALISER AND IT IS THE SHARED ONE NOW, 22 August 2026.
+ *
+ * It read `String(x || "").toLowerCase().replace(/[^a-z0-9぀-ヿ一-鿿가-힯]/g, "")`
+ * -- the same three script ranges `norm` in shared/intl-printing.mjs now keeps,
+ * because THIS file had them right and that one did not. Two normalisers for
+ * one job, asked about the same card in the same run, is the shape this file's
+ * own header spends a paragraph on: "CLAUDE.md has the receipt for what four
+ * private copies of one lookup cost."
+ *
+ * The one behavioural difference is that `norm` also folds Latin combining
+ * marks, so an accented name keys to its letter rather than losing it. That is
+ * strictly better for the two cross-checks below, which compare a corpus record
+ * against a guide row: both are TCGdex output, and an accent difference between
+ * two spellings of one name was a silent refusal and a lost scan.
+ *
+ * **THE `|| ""` IS KEPT AND IT IS NOT NOISE.** `norm` coerces with `String(x)`,
+ * so it answers "null" for null and "undefined" for undefined. Those two are
+ * DIFFERENT strings, and a corpus record with no `r` field (undefined) is
+ * checked below against a guide row whose builder writes `c.rarity || null`.
+ * Dropping the `|| ""` would make that pair compare unequal and silently refuse
+ * a scan the old code allowed. Both collapse to "" here, exactly as before.
+ */
+const scanNorm = (x) => norm(x || "");
 
 /**
  * @param {string} setNative the guide's own native set name, which is the

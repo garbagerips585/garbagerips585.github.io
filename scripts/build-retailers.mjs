@@ -322,7 +322,42 @@ const pathOf = (r) => `/retailers/${r.slug}.html`;
 // clipart import, and in currentColor so it costs nothing and inherits the
 // palette. It is also what satisfies check-build.py's rule that a page with real
 // body copy carries something visual: every retailer page gets one.
-const AISLE = `<svg class="rt-fig-svg" viewBox="0 0 240 96" width="240" height="96" role="img"
+// THE TYPE ON IT WAS UNDER THE FLOOR AT EVERY WIDTH, NOT JUST ON A PHONE, and
+// that is the part a "measured at 320" report gets wrong about this one. The
+// svg carried width="240" against a 240 unit viewBox, so its scale was pinned
+// at 1.0 and a 9 unit label rendered 9.00px at 390 AND at 1440, dropping to
+// 8.47 at 320 only because the panel is narrower than 240 there. Every other
+// drawing on this site grows with its column; this one never did.
+//
+// The floor is --t-label, 12px, on the argument build-grade-check.mjs makes
+// beside .gd-fig: nothing drawn ON a picture may be smaller than the prose
+// explaining it. Two things had to change together to reach it.
+//
+// ONE, THE FRAME IS CROPPED TOWARDS THE INK AND THE INTRINSIC WIDTH GOES UP.
+// The ink ran x 14..237.5 and y 8..90.1 inside a 240x96 box, so the viewBox is
+// 8 6 232 100 now and not one coordinate below moved. width="300" is what lets
+// the drawing use the column it is actually given: at 390 and above the panel
+// is wider than 300, so the scale goes 1.0 -> 1.276.
+//
+// IT IS CROPPED TO 8 AND NOT TO 12, WHICH IS WHERE IT WENT FIRST. Cropping to
+// the ink exactly left the shelf's left upright, a 1.6 wide stroke centred on
+// x=14, with 1.2 units of air beside it, and screenshotted at 390 it reads as
+// touching the frame. 8 keeps 6 units there and gives up 0.2px of type. Crop to
+// the ink when the ink is TYPE; leave a stroke its own width when it is a line.
+//
+// TWO, THE LONG LABEL IS SET TWICE. "behind the counter" is 18 characters
+// starting at x=140, which at 0.6em leaves it 1.026x of room before it runs off
+// the right edge -- so on its own it caps the type at 9.23 units and no crop can
+// help, because the crop takes the space from the same side. It is two elements
+// now, one line above 544px and two lines below it, swapped with display:none
+// exactly as .mk-w / .mk-n do on /shops.html's map and for the same reason: a
+// hidden variant with no box cannot collide with the visible one or hang off
+// the frame. Broken, the widest line is "behind the" at 10 characters, which
+// fits 12.5 units with room.
+//
+// RE-MEASURE THE INK BEFORE CROPPING FURTHER, and remember the labels grow
+// inside the media query: the numbers above are at 12.5 units, not at 9.
+const AISLE = `<svg class="rt-fig-svg" viewBox="8 6 232 100" width="300" height="129" role="img"
   aria-label="Two places Pokemon cards sit in a shop: an empty peg on the sales floor, and a locked case behind the counter."
   fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
   <g>
@@ -330,8 +365,8 @@ const AISLE = `<svg class="rt-fig-svg" viewBox="0 0 240 96" width="240" height="
     <path d="M14 14v60M98 14v60"/>
     <rect x="22" y="8" width="12" height="12" rx="1.2"/>
     <rect x="40" y="8" width="12" height="12" rx="1.2"/>
-    <text x="56" y="38" font-size="9" stroke="none" fill="currentColor" font-family="monospace">empty</text>
-    <text x="20" y="88" font-size="9" stroke="none" fill="currentColor" font-family="monospace">sales floor</text>
+    <text class="rt-fl" x="56" y="38" font-size="9" stroke="none" fill="currentColor" font-family="monospace">empty</text>
+    <text class="rt-fl" x="20" y="88" font-size="9" stroke="none" fill="currentColor" font-family="monospace">sales floor</text>
   </g>
   <g>
     <path d="M132 62h96v14h-96z"/>
@@ -343,7 +378,9 @@ const AISLE = `<svg class="rt-fig-svg" viewBox="0 0 240 96" width="240" height="
     <rect x="148" y="50" width="9" height="10" rx="1"/>
     <rect x="162" y="50" width="9" height="10" rx="1"/>
     <circle cx="212" cy="54" r="3"/>
-    <text x="140" y="88" font-size="9" stroke="none" fill="currentColor" font-family="monospace">behind the counter</text>
+    <text class="rt-fl rt-fw" x="140" y="88" font-size="9" stroke="none" fill="currentColor" font-family="monospace">behind the counter</text>
+    <text class="rt-fl rt-fn" x="140" y="88" font-size="9" stroke="none" fill="currentColor" font-family="monospace">behind the</text>
+    <text class="rt-fl rt-fn" x="140" y="102" font-size="9" stroke="none" fill="currentColor" font-family="monospace">counter</text>
   </g>
 </svg>`;
 
@@ -642,6 +679,20 @@ const STYLE = `
 .rt-key p{color:var(--foot-ink);line-height:1.55;max-width:44em}
 .rt-key p + p{margin-top:var(--s3)}
 .rt-key .rt-fig-svg{color:var(--foot-ink);margin-top:var(--s4);max-width:100%;height:auto}
+/* THE DRAWN LABELS, AND THE px HERE IS A VIEWBOX UNIT RATHER THAN A PIXEL.
+   The frame is 228 units wide, so the rendered size is 228 units over whatever
+   the panel gives the drawing. Measured with getScreenCTM().a times the
+   user-unit size and cross-checked against getBoundingClientRect on the text
+   node; getComputedStyle reports USER UNITS on SVG text and reads 9 at every
+   width, which is why this went unseen. The whole argument, including why
+   width="300" and the two-line variant were both needed, is above AISLE.
+   Only the narrow variant is bumped, so nothing above 544px moves. */
+.rt-fn{display:none}
+@media(max-width:544px){
+.rt-fw{display:none}
+.rt-fn{display:inline}
+.rt-key .rt-fig-svg .rt-fl{font-size:12.5px}
+}
 .rt-grp{margin-top:var(--s6)}
 .rt-grp > p{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
 .rt-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}

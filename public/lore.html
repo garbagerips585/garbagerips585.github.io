@@ -43,6 +43,11 @@
 .lore-scale{flex:1 1 260px;min-width:0;align-self:flex-end}
 .lore-scale svg{width:100%;height:auto;max-width:420px;display:block}
 .lore-scale figcaption{font:400 var(--t-micro)/1.5 var(--body);color:inherit;opacity:.72;margin-top:6px}
+@media(max-width:544px){
+.lore-scale .ls-rule{font-size:15.5px}
+.lore-scale .ls-val{font-size:15.5px}
+.lore-scale .ls-name{font-size:15.5px}
+}
 .lore-list[data-cards="8"]{grid-template-columns:repeat(1,1fr)}
 @media(min-width:576px){.lore-list[data-cards="8"]{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1136px){.lore-list[data-cards="8"]{grid-template-columns:repeat(4,1fr)}}
@@ -79,7 +84,7 @@
     <a class="bar-find" href="/search.html" aria-label="Search cards, sets, guides and rips"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg></a>
     <nav class="nav-links" aria-label="Primary">
       <a href="/videos.html">Rips</a>
-      <a href="/card-shows.html">Card shows</a>
+      <a href="/rochester.html">Local scene</a>
       <a href="/cards.html">Card search</a>
       <a href="/sets/">Set guides</a>
       <a href="/start.html">Start here</a>
@@ -223,10 +228,10 @@
           <figcaption><b>Garbodor</b>#569 &bull; Trash Heap Pokemon</figcaption>
         </figure>
         <figure class="lore-scale">
-          <svg viewBox="0 0 300 132" role="img" aria-hidden="true" focusable="false">
-      <line x1="20" y1="63" x2="300" y2="63" stroke="currentColor" stroke-width="1" opacity=".28"/><text x="0" y="67" font-size="10" fill="currentColor" opacity=".75" font-family="var(--mono)">1m</text><line x1="20" y1="10" x2="300" y2="10" stroke="currentColor" stroke-width="1" opacity=".28"/><text x="0" y="14" font-size="10" fill="currentColor" opacity=".75" font-family="var(--mono)">2m</text>
+          <svg viewBox="0 -12 300 150" role="img" aria-hidden="true" focusable="false">
+      <line x1="20" y1="63" x2="300" y2="63" stroke="currentColor" stroke-width="1" opacity=".28"/><text class="ls-rule" x="0" y="67" font-size="10" fill="currentColor" opacity=".75" font-family="var(--mono)">1m</text><line x1="20" y1="10" x2="300" y2="10" stroke="currentColor" stroke-width="1" opacity=".28"/><text class="ls-rule" x="0" y="14" font-size="10" fill="currentColor" opacity=".75" font-family="var(--mono)">2m</text>
       <line x1="20" y1="116" x2="300" y2="116" stroke="currentColor" stroke-width="1.5"/>
-      <rect class="lore-bar" x="56" y="84.2" width="66" height="31.799999999999997" rx="3" fill="var(--gold)"/><text x="89" y="77.2" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor" font-family="var(--mono)">0.6m</text><text x="89" y="129" text-anchor="middle" font-size="10" fill="currentColor" opacity=".75" font-family="var(--mono)">TRUBBISH</text><rect class="lore-bar" x="156" y="15.300000000000011" width="66" height="100.69999999999999" rx="3" fill="var(--gold)"/><text x="189" y="8.300000000000011" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor" font-family="var(--mono)">1.9m</text><text x="189" y="129" text-anchor="middle" font-size="10" fill="currentColor" opacity=".75" font-family="var(--mono)">GARBODOR</text>
+      <rect class="lore-bar" x="56" y="84.2" width="66" height="31.799999999999997" rx="3" fill="var(--gold)"/><text class="ls-val" x="89" y="77.2" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor" font-family="var(--mono)">0.6m</text><text class="ls-name" x="89" y="129" text-anchor="middle" font-size="10" fill="currentColor" opacity=".75" font-family="var(--mono)">TRUBBISH</text><rect class="lore-bar" x="156" y="15.300000000000011" width="66" height="100.69999999999999" rx="3" fill="var(--gold)"/><text class="ls-val" x="189" y="8.300000000000011" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor" font-family="var(--mono)">1.9m</text><text class="ls-name" x="189" y="129" text-anchor="middle" font-size="10" fill="currentColor" opacity=".75" font-family="var(--mono)">GARBODOR</text>
     </svg>
           <figcaption>Drawn from the Pokedex heights, not from the artwork: the bars are to scale, the
             two pictures beside them are not.</figcaption>

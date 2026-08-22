@@ -2388,6 +2388,33 @@ about the picture.
   (1.1%), 4 pages. Distinct product kinds per set rail 1.66 to 4.64. The box
   rail is deliberately left alone at 100% one image, because there the picture
   is TRUE: six packs out of one box are six identical packs.
+- **AND THE ROUND ROBIN WAS STILL THE SAME SIX TITLES ON EVERY PAGE IN A SET,
+  which was the site's biggest SEO risk and not the thing anybody proposed
+  fixing.** The sort above is a per-page fix to a per-page complaint. It never
+  touched the SIDEWAYS problem: `byKind.get(k)[round]` is a fixed window off the
+  HEAD of each kind list and the kind lists belong to the SET, so 30 pages of a
+  set were handed the same six tiles. 7-word shingles over `<main>`, best match
+  against any sibling, all 320 rip pages, off real builds: **277 / 233 / 76 at
+  0.50 / 0.60 / 0.70, mean 0.619.** Deleting the box rail makes it *worse*
+  (0.623); deleting this band takes it to 242 / 114 / 17, mean 0.548, so this
+  band was essentially the whole effect. **It is NOT boilerplate** (only 13.8% of
+  a page's shingles appear on half the rip pages) and **more words do not fix
+  it**: pages carrying a named-hit band are MORE duplicated (0.643) than pages
+  without (0.598) while being 131 words longer.
+  **THE FIX IS TO SPIN THE WINDOW, NOT WIDEN IT,** 22 August 2026: each kind list
+  is walked from an offset taken from the page's own index in `bySet.get(setId)`,
+  wrapping per kind. **185 / 52 / 10, mean 0.507 — a 78% cut at 0.60 and 87% at
+  0.70, for one index and no new copy.** Every invariant above is
+  bit-for-bit unchanged and that is arithmetic rather than luck: which ROUND a
+  kind contributes on is untouched, so rail lengths, distinct kinds per rail
+  (4.70), single-kind rails (34), the `.vid-kind` gate and the 20 tiles that
+  still repeat the box rail are all identical before and after. The stop
+  condition had to move from `if (!x)` to `round >= list.length`, because the
+  modulo never returns undefined and would otherwise reprint a short kind.
+  **WHAT IT COSTS, since the table does not show it:** the single most recent rip
+  of a kind is no longer on every page of its set. It leads the newest page's
+  rail and steps back one page at a time, which is the right trade for a band
+  headed "More \<set\>" rather than "Latest \<set\>".
 - **`/videos.html` has the same look and it is NOT the same defect.** 48 tiles,
   6 artworks, 36 of them two. But it is a chronological library and re-sorting
   it by product would falsify "Newest first". What is actually redundant there

@@ -861,7 +861,7 @@
         {
           "localId": "070",
           "native": "ダークベル",
-          "en": null,
+          "en": "Dark Bell",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -873,7 +873,7 @@
         {
           "localId": "071",
           "native": "古びたずがいの化石",
-          "en": null,
+          "en": "Antique Skull Fossil",
           "rarity": "Common",
           "category": "Trainer",
           "secret": false,
@@ -885,7 +885,7 @@
         {
           "localId": "072",
           "native": "古びたたての化石",
-          "en": null,
+          "en": "Antique Armor Fossil",
           "rarity": "Common",
           "category": "Trainer",
           "secret": false,
@@ -897,7 +897,7 @@
         {
           "localId": "073",
           "native": "ごうかいボム",
-          "en": null,
+          "en": "Terrific Bomb",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -909,7 +909,7 @@
         {
           "localId": "074",
           "native": "リトライバッジ",
-          "en": null,
+          "en": "Retry Badge",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -921,7 +921,7 @@
         {
           "localId": "075",
           "native": "カスミの元気",
-          "en": null,
+          "en": "Misty's Spirit",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -933,7 +933,7 @@
         {
           "localId": "076",
           "native": "グラジオの決戦",
-          "en": null,
+          "en": "Gladion's Showdown",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -945,7 +945,7 @@
         {
           "localId": "077",
           "native": "サビ組のしたっぱ",
-          "en": null,
+          "en": "Rust Syndicate Grunt",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -957,7 +957,7 @@
         {
           "localId": "078",
           "native": "ムク",
-          "en": null,
+          "en": "Gwynn",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -969,7 +969,7 @@
         {
           "localId": "079",
           "native": "化石採掘場",
-          "en": null,
+          "en": "Fossil Excavation Site",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -981,7 +981,7 @@
         {
           "localId": "080",
           "native": "ボルト雷エネルギー",
-          "en": null,
+          "en": "Volt Lightning Energy",
           "rarity": "Rare",
           "category": "Energy",
           "secret": false,
@@ -993,7 +993,7 @@
         {
           "localId": "081",
           "native": "シャドー悪エネルギー",
-          "en": null,
+          "en": "Shadowy Darkess Energy",
           "rarity": "Rare",
           "category": "Energy",
           "secret": false,
@@ -1257,7 +1257,7 @@
         {
           "localId": "103",
           "native": "エネルギーつけかえ",
-          "en": null,
+          "en": "Energy Switch",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -1269,7 +1269,7 @@
         {
           "localId": "104",
           "native": "クラッシュハンマー",
-          "en": null,
+          "en": "Crushing Hammer",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -1281,7 +1281,7 @@
         {
           "localId": "105",
           "native": "ダークベル",
-          "en": null,
+          "en": "Dark Bell",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -1293,7 +1293,7 @@
         {
           "localId": "106",
           "native": "ごうかいボム",
-          "en": null,
+          "en": "Terrific Bomb",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -1305,7 +1305,7 @@
         {
           "localId": "107",
           "native": "ブレイブバングル",
-          "en": null,
+          "en": "Brave Bangle",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -1317,7 +1317,7 @@
         {
           "localId": "108",
           "native": "カスミの元気",
-          "en": null,
+          "en": "Misty's Spirit",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -1329,7 +1329,7 @@
         {
           "localId": "109",
           "native": "グラジオの決戦",
-          "en": null,
+          "en": "Gladion's Showdown",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -1341,7 +1341,7 @@
         {
           "localId": "110",
           "native": "サビ組のしたっぱ",
-          "en": null,
+          "en": "Rust Syndicate Grunt",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -1353,7 +1353,7 @@
         {
           "localId": "111",
           "native": "ムク",
-          "en": null,
+          "en": "Gwynn",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -1413,7 +1413,7 @@
         {
           "localId": "116",
           "native": "グラジオの決戦",
-          "en": null,
+          "en": "Gladion's Showdown",
           "rarity": "Special illustration rare",
           "category": "Trainer",
           "secret": true,
@@ -1425,7 +1425,7 @@
         {
           "localId": "117",
           "native": "ムク",
-          "en": null,
+          "en": "Gwynn",
           "rarity": "Special illustration rare",
           "category": "Trainer",
           "secret": true,
@@ -1521,7 +1521,7 @@
         {
           "localId": "117",
           "native": "ムク",
-          "en": null,
+          "en": "Gwynn",
           "rarity": "Special illustration rare",
           "category": "Trainer",
           "secret": true,
@@ -1533,7 +1533,7 @@
         {
           "localId": "116",
           "native": "グラジオの決戦",
-          "en": null,
+          "en": "Gladion's Showdown",
           "rarity": "Special illustration rare",
           "category": "Trainer",
           "secret": true,
@@ -2485,7 +2485,7 @@
         {
           "localId": "072",
           "native": "スペシャルレッドカード",
-          "en": null,
+          "en": "Special Red Card",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -2497,7 +2497,7 @@
         {
           "localId": "073",
           "native": "大漁ネット",
-          "en": null,
+          "en": "Big Haul Net",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -2509,7 +2509,7 @@
         {
           "localId": "074",
           "native": "変化の書",
-          "en": null,
+          "en": "Book of Transformation",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -2521,7 +2521,7 @@
         {
           "localId": "075",
           "native": "AZの安らぎ",
-          "en": null,
+          "en": "AZ's Tranquility",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -2533,7 +2533,7 @@
         {
           "localId": "076",
           "native": "ジプソ",
-          "en": null,
+          "en": "Philippe",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -2545,7 +2545,7 @@
         {
           "localId": "077",
           "native": "ホミカの演奏",
-          "en": null,
+          "en": "Roxie's Performance",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -2557,7 +2557,7 @@
         {
           "localId": "078",
           "native": "マチエール",
-          "en": null,
+          "en": "Emma",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -2569,7 +2569,7 @@
         {
           "localId": "079",
           "native": "アンジュフラエッテ",
-          "en": null,
+          "en": "Ange Floette",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -2581,7 +2581,7 @@
         {
           "localId": "080",
           "native": "プリズムタワー",
-          "en": null,
+          "en": "Prism Tower",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -2593,7 +2593,7 @@
         {
           "localId": "081",
           "native": "ニトロ炎エネルギー",
-          "en": null,
+          "en": "Nitro R Energy",
           "rarity": "Rare",
           "category": "Energy",
           "secret": false,
@@ -2605,7 +2605,7 @@
         {
           "localId": "082",
           "native": "バブル水エネルギー",
-          "en": null,
+          "en": "Bubble W Energy",
           "rarity": "Rare",
           "category": "Energy",
           "secret": false,
@@ -2617,7 +2617,7 @@
         {
           "localId": "083",
           "native": "マグネット鋼エネルギー",
-          "en": null,
+          "en": "Magnet M Energy",
           "rarity": "Rare",
           "category": "Energy",
           "secret": false,
@@ -2869,7 +2869,7 @@
         {
           "localId": "104",
           "native": "エネルギー回収",
-          "en": null,
+          "en": "Energy Retrieval",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -2881,7 +2881,7 @@
         {
           "localId": "105",
           "native": "ジャンボアイス",
-          "en": null,
+          "en": "Jumbo Ice Cream",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -2893,7 +2893,7 @@
         {
           "localId": "106",
           "native": "スペシャルレッドカード",
-          "en": null,
+          "en": "Special Red Card",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -2905,7 +2905,7 @@
         {
           "localId": "107",
           "native": "ツールスクラッパー",
-          "en": null,
+          "en": "Tool Scrapper",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -2917,7 +2917,7 @@
         {
           "localId": "108",
           "native": "AZの安らぎ",
-          "en": null,
+          "en": "AZ's Tranquility",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -2929,7 +2929,7 @@
         {
           "localId": "109",
           "native": "ジプソ",
-          "en": null,
+          "en": "Philippe",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -2941,7 +2941,7 @@
         {
           "localId": "110",
           "native": "ホミカの演奏",
-          "en": null,
+          "en": "Roxie's Performance",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -2953,7 +2953,7 @@
         {
           "localId": "111",
           "native": "マチエール",
-          "en": null,
+          "en": "Emma",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -2965,7 +2965,7 @@
         {
           "localId": "112",
           "native": "なみのりビーチ",
-          "en": null,
+          "en": "Surfing Beach",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -2977,7 +2977,7 @@
         {
           "localId": "113",
           "native": "プリズムタワー",
-          "en": null,
+          "en": "Prism Tower",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -3037,7 +3037,7 @@
         {
           "localId": "118",
           "native": "AZの安らぎ",
-          "en": null,
+          "en": "AZ's Tranquility",
           "rarity": "Special illustration rare",
           "category": "Trainer",
           "secret": true,
@@ -3049,7 +3049,7 @@
         {
           "localId": "119",
           "native": "ホミカの演奏",
-          "en": null,
+          "en": "Roxie's Performance",
           "rarity": "Special illustration rare",
           "category": "Trainer",
           "secret": true,
@@ -3145,7 +3145,7 @@
         {
           "localId": "119",
           "native": "ホミカの演奏",
-          "en": null,
+          "en": "Roxie's Performance",
           "rarity": "Special illustration rare",
           "category": "Trainer",
           "secret": true,
@@ -3157,7 +3157,7 @@
         {
           "localId": "118",
           "native": "AZの安らぎ",
-          "en": null,
+          "en": "AZ's Tranquility",
           "rarity": "Special illustration rare",
           "category": "Trainer",
           "secret": true,
@@ -4051,7 +4051,7 @@
         {
           "localId": "067",
           "native": "エネはたき",
-          "en": null,
+          "en": "Energy Swatter",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -4063,7 +4063,7 @@
         {
           "localId": "068",
           "native": "古びたアゴの化石",
-          "en": null,
+          "en": "Antique Jaw Fossil",
           "rarity": "Common",
           "category": "Trainer",
           "secret": false,
@@ -4075,7 +4075,7 @@
         {
           "localId": "069",
           "native": "古びたヒレの化石",
-          "en": null,
+          "en": "Antique Sail Fossil",
           "rarity": "Common",
           "category": "Trainer",
           "secret": false,
@@ -4087,7 +4087,7 @@
         {
           "localId": "070",
           "native": "ポケパッド",
-          "en": null,
+          "en": "Poke Pad",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -4099,7 +4099,7 @@
         {
           "localId": "071",
           "native": "ミアレガレット",
-          "en": null,
+          "en": "Lumiose Galette",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -4111,7 +4111,7 @@
         {
           "localId": "072",
           "native": "コアメモリ",
-          "en": null,
+          "en": "Core Memory",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -4123,7 +4123,7 @@
         {
           "localId": "073",
           "native": "タラゴン",
-          "en": null,
+          "en": "Tarragon",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -4135,7 +4135,7 @@
         {
           "localId": "074",
           "native": "ピュール",
-          "en": null,
+          "en": "Naveen",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -4147,7 +4147,7 @@
         {
           "localId": "075",
           "native": "メイのはげまし",
-          "en": null,
+          "en": "Rosa's Encouragement",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -4159,7 +4159,7 @@
         {
           "localId": "076",
           "native": "ユカリ",
-          "en": null,
+          "en": "Jacinthe",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -4171,7 +4171,7 @@
         {
           "localId": "077",
           "native": "ミアレシティ",
-          "en": null,
+          "en": "Lumiose City",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -4183,7 +4183,7 @@
         {
           "localId": "078",
           "native": "グロウ草エネルギー",
-          "en": null,
+          "en": "Grow G Energy",
           "rarity": "Rare",
           "category": "Energy",
           "secret": false,
@@ -4195,7 +4195,7 @@
         {
           "localId": "079",
           "native": "テレパス超エネルギー",
-          "en": null,
+          "en": "Telepath P Energy",
           "rarity": "Rare",
           "category": "Energy",
           "secret": false,
@@ -4207,7 +4207,7 @@
         {
           "localId": "080",
           "native": "ロック闘エネルギー",
-          "en": null,
+          "en": "Rock F Energy",
           "rarity": "Rare",
           "category": "Energy",
           "secret": false,
@@ -4459,7 +4459,7 @@
         {
           "localId": "101",
           "native": "エネルギーリサイクル",
-          "en": null,
+          "en": "Energy Recycler",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -4471,7 +4471,7 @@
         {
           "localId": "102",
           "native": "せいなるはい",
-          "en": null,
+          "en": "Sacred Ash",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -4483,7 +4483,7 @@
         {
           "localId": "103",
           "native": "ポケパッド",
-          "en": null,
+          "en": "Poke Pad",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -4495,7 +4495,7 @@
         {
           "localId": "104",
           "native": "ワンダーパッチ",
-          "en": null,
+          "en": "Wondrous Patch",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -4507,7 +4507,7 @@
         {
           "localId": "105",
           "native": "タラゴン",
-          "en": null,
+          "en": "Tarragon",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -4519,7 +4519,7 @@
         {
           "localId": "106",
           "native": "ピュール",
-          "en": null,
+          "en": "Naveen",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -4531,7 +4531,7 @@
         {
           "localId": "107",
           "native": "メイのはげまし",
-          "en": null,
+          "en": "Rosa's Encouragement",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -4543,7 +4543,7 @@
         {
           "localId": "108",
           "native": "ユカリ",
-          "en": null,
+          "en": "Jacinthe",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -4567,7 +4567,7 @@
         {
           "localId": "110",
           "native": "ミアレシティ",
-          "en": null,
+          "en": "Lumiose City",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -4627,7 +4627,7 @@
         {
           "localId": "115",
           "native": "メイのはげまし",
-          "en": null,
+          "en": "Rosa's Encouragement",
           "rarity": "Special illustration rare",
           "category": "Trainer",
           "secret": true,
@@ -4639,7 +4639,7 @@
         {
           "localId": "116",
           "native": "ユカリ",
-          "en": null,
+          "en": "Jacinthe",
           "rarity": "Special illustration rare",
           "category": "Trainer",
           "secret": true,
@@ -4735,7 +4735,7 @@
         {
           "localId": "116",
           "native": "ユカリ",
-          "en": null,
+          "en": "Jacinthe",
           "rarity": "Special illustration rare",
           "category": "Trainer",
           "secret": true,
@@ -4747,7 +4747,7 @@
         {
           "localId": "115",
           "native": "メイのはげまし",
-          "en": null,
+          "en": "Rosa's Encouragement",
           "rarity": "Special illustration rare",
           "category": "Trainer",
           "secret": true,
@@ -5521,7 +5521,7 @@
         {
           "localId": "057",
           "native": "あやしい時計",
-          "en": null,
+          "en": "Suspicious Watch",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -5533,7 +5533,7 @@
         {
           "localId": "058",
           "native": "メガシグナル",
-          "en": null,
+          "en": "Mega Signal",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -5545,7 +5545,7 @@
         {
           "localId": "059",
           "native": "アセロラのいたずら",
-          "en": null,
+          "en": "Acerola's Mischief",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -5557,7 +5557,7 @@
         {
           "localId": "060",
           "native": "ミツルの思いやり",
-          "en": null,
+          "en": "Wally's Compassion",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -5581,7 +5581,7 @@
         {
           "localId": "062",
           "native": "なみのりビーチ",
-          "en": null,
+          "en": "Surfing Beach",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -5593,7 +5593,7 @@
         {
           "localId": "063",
           "native": "ミステリーガーデン",
-          "en": null,
+          "en": "Mystery Garden",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -5809,7 +5809,7 @@
         {
           "localId": "081",
           "native": "なかよしポフィン",
-          "en": null,
+          "en": "Buddy-Buddy Poffin",
           "rarity": "Secret Rare",
           "category": "Trainer",
           "secret": true,
@@ -5821,7 +5821,7 @@
         {
           "localId": "082",
           "native": "ふしぎなアメ",
-          "en": null,
+          "en": "Rare Candy",
           "rarity": "Secret Rare",
           "category": "Trainer",
           "secret": true,
@@ -5833,7 +5833,7 @@
         {
           "localId": "083",
           "native": "メガシグナル",
-          "en": null,
+          "en": "Mega Signal",
           "rarity": "Secret Rare",
           "category": "Trainer",
           "secret": true,
@@ -5845,7 +5845,7 @@
         {
           "localId": "084",
           "native": "アセロラのいたずら",
-          "en": null,
+          "en": "Acerola's Mischief",
           "rarity": "Secret Rare",
           "category": "Trainer",
           "secret": true,
@@ -5857,7 +5857,7 @@
         {
           "localId": "085",
           "native": "ミツルの思いやり",
-          "en": null,
+          "en": "Wally's Compassion",
           "rarity": "Secret Rare",
           "category": "Trainer",
           "secret": true,
@@ -5869,7 +5869,7 @@
         {
           "localId": "086",
           "native": "ミステリーガーデン",
-          "en": null,
+          "en": "Mystery Garden",
           "rarity": "Secret Rare",
           "category": "Trainer",
           "secret": true,
@@ -5917,7 +5917,7 @@
         {
           "localId": "090",
           "native": "アセロラのいたずら",
-          "en": null,
+          "en": "Acerola's Mischief",
           "rarity": "Special illustration rare",
           "category": "Trainer",
           "secret": true,
@@ -5929,7 +5929,7 @@
         {
           "localId": "091",
           "native": "ミツルの思いやり",
-          "en": null,
+          "en": "Wally's Compassion",
           "rarity": "Special illustration rare",
           "category": "Trainer",
           "secret": true,
@@ -6037,7 +6037,7 @@
         {
           "localId": "086",
           "native": "ミステリーガーデン",
-          "en": null,
+          "en": "Mystery Garden",
           "rarity": "Secret Rare",
           "category": "Trainer",
           "secret": true,
@@ -6049,7 +6049,7 @@
         {
           "localId": "085",
           "native": "ミツルの思いやり",
-          "en": null,
+          "en": "Wally's Compassion",
           "rarity": "Secret Rare",
           "category": "Trainer",
           "secret": true,
@@ -6061,7 +6061,7 @@
         {
           "localId": "084",
           "native": "アセロラのいたずら",
-          "en": null,
+          "en": "Acerola's Mischief",
           "rarity": "Secret Rare",
           "category": "Trainer",
           "secret": true,
@@ -6073,7 +6073,7 @@
         {
           "localId": "083",
           "native": "メガシグナル",
-          "en": null,
+          "en": "Mega Signal",
           "rarity": "Secret Rare",
           "category": "Trainer",
           "secret": true,
@@ -6085,7 +6085,7 @@
         {
           "localId": "082",
           "native": "ふしぎなアメ",
-          "en": null,
+          "en": "Rare Candy",
           "rarity": "Secret Rare",
           "category": "Trainer",
           "secret": true,
@@ -6097,7 +6097,7 @@
         {
           "localId": "081",
           "native": "なかよしポフィン",
-          "en": null,
+          "en": "Buddy-Buddy Poffin",
           "rarity": "Secret Rare",
           "category": "Trainer",
           "secret": true,
@@ -6824,7 +6824,7 @@
         {
           "localId": "058",
           "native": "パワープロテイン",
-          "en": null,
+          "en": "Premium Power Pro",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -6836,7 +6836,7 @@
         {
           "localId": "059",
           "native": "ファイトゴング",
-          "en": null,
+          "en": "Fight Gong",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -6848,7 +6848,7 @@
         {
           "localId": "060",
           "native": "むしよけスプレー",
-          "en": null,
+          "en": "Repel",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -6860,7 +6860,7 @@
         {
           "localId": "061",
           "native": "マチスの取引",
-          "en": null,
+          "en": "Lt. Surge's Deal",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -6872,7 +6872,7 @@
         {
           "localId": "062",
           "native": "リーリエの決心",
-          "en": null,
+          "en": "Lillie's Determination",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -6884,7 +6884,7 @@
         {
           "localId": "063",
           "native": "危ない廃墟",
-          "en": null,
+          "en": "Dangerous Ruins",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -7100,7 +7100,7 @@
         {
           "localId": "081",
           "native": "パワープロテイン",
-          "en": null,
+          "en": "Premium Power Pro",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -7112,7 +7112,7 @@
         {
           "localId": "082",
           "native": "ファイトゴング",
-          "en": null,
+          "en": "Fight Gong",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -7124,7 +7124,7 @@
         {
           "localId": "083",
           "native": "夜のタンカ",
-          "en": null,
+          "en": "Night Stretcher",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -7136,7 +7136,7 @@
         {
           "localId": "084",
           "native": "ふうせん",
-          "en": null,
+          "en": "Air Balloon",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -7148,7 +7148,7 @@
         {
           "localId": "085",
           "native": "マチスの取引",
-          "en": null,
+          "en": "Lt. Surge's Deal",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -7160,7 +7160,7 @@
         {
           "localId": "086",
           "native": "リーリエの決心",
-          "en": null,
+          "en": "Lillie's Determination",
           "rarity": "Ultra Rare",
           "category": "Trainer",
           "secret": true,
@@ -7208,7 +7208,7 @@
         {
           "localId": "090",
           "native": "マチスの取引",
-          "en": null,
+          "en": "Lt. Surge's Deal",
           "rarity": "Special illustration rare",
           "category": "Trainer",
           "secret": true,
@@ -7220,7 +7220,7 @@
         {
           "localId": "091",
           "native": "リーリエの決心",
-          "en": null,
+          "en": "Lillie's Determination",
           "rarity": "Special illustration rare",
           "category": "Trainer",
           "secret": true,
@@ -7304,7 +7304,7 @@
         {
           "localId": "091",
           "native": "リーリエの決心",
-          "en": null,
+          "en": "Lillie's Determination",
           "rarity": "Special illustration rare",
           "category": "Trainer",
           "secret": true,
@@ -7316,7 +7316,7 @@
         {
           "localId": "090",
           "native": "マチスの取引",
-          "en": null,
+          "en": "Lt. Surge's Deal",
           "rarity": "Special illustration rare",
           "category": "Trainer",
           "secret": true,
@@ -8484,7 +8484,7 @@
         {
           "localId": "089",
           "native": "ガラスのラッパ",
-          "en": null,
+          "en": "Glass Trumpet",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -8496,7 +8496,7 @@
         {
           "localId": "090",
           "native": "古びたねっこの化石",
-          "en": null,
+          "en": "Antique Root Fossil",
           "rarity": "Common",
           "category": "Trainer",
           "secret": false,
@@ -8508,7 +8508,7 @@
         {
           "localId": "091",
           "native": "古びたふたの化石",
-          "en": null,
+          "en": "Antique Cover Fossil",
           "rarity": "Common",
           "category": "Trainer",
           "secret": false,
@@ -8520,7 +8520,7 @@
         {
           "localId": "092",
           "native": "ウタンのみ",
-          "en": null,
+          "en": "Payapa Berry",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -8532,7 +8532,7 @@
         {
           "localId": "093",
           "native": "オッカのみ",
-          "en": null,
+          "en": "Occa Berry",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -8544,7 +8544,7 @@
         {
           "localId": "094",
           "native": "きらめく結晶",
-          "en": null,
+          "en": "Sparkling Crystal",
           "rarity": null,
           "category": "Trainer",
           "secret": false,
@@ -8555,7 +8555,7 @@
         {
           "localId": "095",
           "native": "重力玉",
-          "en": null,
+          "en": "Gravity Orb",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -8567,7 +8567,7 @@
         {
           "localId": "096",
           "native": "デラックスボム",
-          "en": null,
+          "en": "Deluxe Bomb",
           "rarity": null,
           "category": "Trainer",
           "secret": false,
@@ -8578,7 +8578,7 @@
         {
           "localId": "097",
           "native": "アカマツ",
-          "en": null,
+          "en": "Crispin",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -8590,7 +8590,7 @@
         {
           "localId": "098",
           "native": "タロ",
-          "en": null,
+          "en": "Lacey",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -8602,7 +8602,7 @@
         {
           "localId": "099",
           "native": "ハイダイ",
-          "en": null,
+          "en": "Kofu",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -8614,7 +8614,7 @@
         {
           "localId": "100",
           "native": "ブライア",
-          "en": null,
+          "en": "Briar",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -8626,7 +8626,7 @@
         {
           "localId": "101",
           "native": "偉大な大樹",
-          "en": null,
+          "en": "Great Big Tree",
           "rarity": null,
           "category": "Trainer",
           "secret": false,
@@ -8637,7 +8637,7 @@
         {
           "localId": "102",
           "native": "ゼロの大空洞",
-          "en": null,
+          "en": "Area Zero Underdepths",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -8869,7 +8869,7 @@
         {
           "localId": "123",
           "native": "アカマツ",
-          "en": null,
+          "en": "Crispin",
           "rarity": null,
           "category": "Trainer",
           "secret": true,
@@ -8880,7 +8880,7 @@
         {
           "localId": "124",
           "native": "タロ",
-          "en": null,
+          "en": "Lacey",
           "rarity": null,
           "category": "Trainer",
           "secret": true,
@@ -8891,7 +8891,7 @@
         {
           "localId": "125",
           "native": "ハイダイ",
-          "en": null,
+          "en": "Kofu",
           "rarity": null,
           "category": "Trainer",
           "secret": true,
@@ -8902,7 +8902,7 @@
         {
           "localId": "126",
           "native": "ブライア",
-          "en": null,
+          "en": "Briar",
           "rarity": null,
           "category": "Trainer",
           "secret": true,
@@ -8957,7 +8957,7 @@
         {
           "localId": "131",
           "native": "タロ",
-          "en": null,
+          "en": "Lacey",
           "rarity": null,
           "category": "Trainer",
           "secret": true,
@@ -8968,7 +8968,7 @@
         {
           "localId": "132",
           "native": "ブライア",
-          "en": null,
+          "en": "Briar",
           "rarity": null,
           "category": "Trainer",
           "secret": true,
@@ -8990,7 +8990,7 @@
         {
           "localId": "134",
           "native": "勇気のおまもり",
-          "en": null,
+          "en": "Bravery Charm",
           "rarity": null,
           "category": "Trainer",
           "secret": true,
@@ -9001,7 +9001,7 @@
         {
           "localId": "135",
           "native": "ゼロの大空洞",
-          "en": null,
+          "en": "Area Zero Underdepths",
           "rarity": null,
           "category": "Trainer",
           "secret": true,
@@ -10968,7 +10968,8 @@
           "secret": false,
           "image": "https://assets.tcgdex.net/ja/SV/SV1V/042/low.webp",
           "imageLarge": "https://assets.tcgdex.net/ja/SV/SV1V/042/high.webp",
-          "illustrator": "Mizue"
+          "illustrator": "Mizue",
+          "rarityJp": "Common"
         },
         {
           "localId": "043",
@@ -11285,7 +11286,7 @@
         {
           "localId": "069",
           "native": "エレキジェネレーター",
-          "en": null,
+          "en": "Electric Generator",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -11297,7 +11298,7 @@
         {
           "localId": "070",
           "native": "ハイパーボール",
-          "en": null,
+          "en": "Ultra Ball",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -11309,7 +11310,7 @@
         {
           "localId": "071",
           "native": "ピクニックバスケット",
-          "en": null,
+          "en": "Picnic Basket",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -11321,7 +11322,7 @@
         {
           "localId": "072",
           "native": "ふしぎなアメ",
-          "en": null,
+          "en": "Rare Candy",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -11333,7 +11334,7 @@
         {
           "localId": "073",
           "native": "ゴツゴツメット",
-          "en": null,
+          "en": "Rocky Helmet",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -11345,7 +11346,7 @@
         {
           "localId": "074",
           "native": "カエデ",
-          "en": null,
+          "en": "Katy",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -11357,7 +11358,7 @@
         {
           "localId": "075",
           "native": "博士の研究（フトゥー博士）",
-          "en": null,
+          "en": "Professor's Research",
           "rarity": "Rare",
           "category": "Trainer",
           "secret": false,
@@ -11369,7 +11370,7 @@
         {
           "localId": "076",
           "native": "ペパー",
-          "en": null,
+          "en": "Arven",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -11381,7 +11382,7 @@
         {
           "localId": "077",
           "native": "ミモザ",
-          "en": null,
+          "en": "Miriam",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -11393,7 +11394,7 @@
         {
           "localId": "078",
           "native": "テーブルシティ",
-          "en": null,
+          "en": "Mesagoza",
           "rarity": "Uncommon",
           "category": "Trainer",
           "secret": false,
@@ -11603,7 +11604,7 @@
         {
           "localId": "097",
           "native": "カエデ",
-          "en": null,
+          "en": "Katy",
           "rarity": null,
           "category": "Trainer",
           "secret": true,
@@ -11614,7 +11615,7 @@
         {
           "localId": "098",
           "native": "博士の研究（フトゥー博士）",
-          "en": null,
+          "en": "Professor's Research",
           "rarity": null,
           "category": "Trainer",
           "secret": true,
@@ -11625,7 +11626,7 @@
         {
           "localId": "099",
           "native": "ペパー",
-          "en": null,
+          "en": "Arven",
           "rarity": null,
           "category": "Trainer",
           "secret": true,
@@ -11636,7 +11637,7 @@
         {
           "localId": "100",
           "native": "ミモザ",
-          "en": null,
+          "en": "Miriam",
           "rarity": null,
           "category": "Trainer",
           "secret": true,
@@ -11680,7 +11681,7 @@
         {
           "localId": "104",
           "native": "ペパー",
-          "en": null,
+          "en": "Arven",
           "rarity": null,
           "category": "Trainer",
           "secret": true,
@@ -11691,7 +11692,7 @@
         {
           "localId": "105",
           "native": "ミモザ",
-          "en": null,
+          "en": "Miriam",
           "rarity": null,
           "category": "Trainer",
           "secret": true,
@@ -11713,7 +11714,7 @@
         {
           "localId": "107",
           "native": "ふしぎなアメ",
-          "en": null,
+          "en": "Rare Candy",
           "rarity": null,
           "category": "Trainer",
           "secret": true,
@@ -11724,7 +11725,7 @@
         {
           "localId": "108",
           "native": "基本雷エネルギー",
-          "en": null,
+          "en": "Basic Lightning Energy",
           "rarity": null,
           "category": "Energy",
           "secret": true,

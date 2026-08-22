@@ -180,6 +180,21 @@ const purePoison = P.filter((p) => p.types.length === 1 && p.types[0] === "poiso
  * a screen reader gets the sentence, not a description of a rectangle.
  */
 function heightBars(a, b) {
+  // THE viewBox STARTS ABOVE THE BOX AND THAT IS NOT A TYPO. The value label
+  // sits at y(value) - 7, and for the taller Pokemon y(value) is already near
+  // the top of the plot, so its cap-height ran off the top of the frame: the
+  // ink box measured y=-4.63 against a viewBox starting at 0, and an <svg> with
+  // no overflow:visible clips. It was losing the top of "1.9m", the number the
+  // whole drawing exists to state. TOP_BLEED is the room that was missing, and
+  // it is spent on the viewBox rather than on moving the label, so not one
+  // coordinate below changes. It grows the figure's HEIGHT and cannot touch its
+  // width: width:100% maps the viewBox's WIDTH to the box, and that is still
+  // 300 units, so the user-unit-to-pixel scale is identical before and after.
+  // BOT_BLEED is the same trade at the other end: the two name labels sit at
+  // base + 13, and at the phone size their descender box runs past 132. The ink
+  // does not, because both names are uppercase, but leaving the frame exactly on
+  // the em box is what makes the next size bump clip silently.
+  const TOP_BLEED = 12, BOT_BLEED = 6;
   const H = 132, W = 300, PAD = 26, base = H - 16;
   const top = Math.max(m(a), m(b));
   const ceil = Math.ceil(top);                 // whole metres, so the rule is readable
@@ -196,7 +211,7 @@ function heightBars(a, b) {
   for (let i = 1; i <= ceil; i++) {
     rules.push(
       `<line x1="${PAD - 6}" y1="${y(i)}" x2="${W}" y2="${y(i)}" stroke="currentColor" stroke-width="1" opacity=".28"/>` +
-      `<text x="0" y="${y(i) + 4}" font-size="10" fill="currentColor" opacity=".75" font-family="var(--mono)">${i}m</text>`
+      `<text class="ls-rule" x="0" y="${y(i) + 4}" font-size="10" fill="currentColor" opacity=".75" font-family="var(--mono)">${i}m</text>`
     );
   }
   // THE CLASS IS lore-bar AND NOT bar, WHICH THE PROTOTYPE USED. `.bar` is this
@@ -207,12 +222,12 @@ function heightBars(a, b) {
   const bar = (p, x) => {
     const h = base - y(m(p));
     return `<rect class="lore-bar" x="${x}" y="${y(m(p))}" width="66" height="${h}" rx="3" fill="var(--gold)"/>` +
-      `<text x="${x + 33}" y="${y(m(p)) - 7}" text-anchor="middle" font-size="12" font-weight="700"` +
+      `<text class="ls-val" x="${x + 33}" y="${y(m(p)) - 7}" text-anchor="middle" font-size="12" font-weight="700"` +
       ` fill="currentColor" font-family="var(--mono)">${m(p).toFixed(1)}m</text>` +
-      `<text x="${x + 33}" y="${base + 13}" text-anchor="middle" font-size="10"` +
+      `<text class="ls-name" x="${x + 33}" y="${base + 13}" text-anchor="middle" font-size="10"` +
       ` fill="currentColor" opacity=".75" font-family="var(--mono)">${esc(p.name.toUpperCase())}</text>`;
   };
-  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-hidden="true" focusable="false">
+  return `<svg viewBox="0 ${-TOP_BLEED} ${W} ${H + TOP_BLEED + BOT_BLEED}" role="img" aria-hidden="true" focusable="false">
       ${rules.join("")}
       <line x1="${PAD - 6}" y1="${base}" x2="${W}" y2="${base}" stroke="currentColor" stroke-width="1.5"/>
       ${bar(a, PAD + 30)}${bar(b, PAD + 130)}
@@ -497,6 +512,38 @@ ${STYLES}
 .lore-scale{flex:1 1 260px;min-width:0;align-self:flex-end}
 .lore-scale svg{width:100%;height:auto;max-width:420px;display:block}
 .lore-scale figcaption{font:400 var(--t-micro)/1.5 var(--body);color:inherit;opacity:.72;margin-top:6px}
+/* --------------------------------------- the drawn type at the narrowest phone
+   THE font-size ATTRIBUTES IN heightBars ARE VIEWBOX UNITS, NOT PIXELS, and the
+   drawing is a 300 unit box laid into whatever the flex column gives it. So the
+   rendered size is 300 units over the box width, and that is the number nobody
+   had:
+
+        320px phone   svg 232   x0.773   10 units -> 7.73px   12 -> 9.28px
+        390px phone   svg 302   x1.007   10 units -> 10.07px  12 -> 12.08px
+        1440 desktop  svg 420   x1.400   10 units -> 14.00px  12 -> 16.80px
+
+   MEASURED WITH getScreenCTM().a TIMES THE USER-UNIT SIZE, cross-checked against
+   getBoundingClientRect on the text node. getComputedStyle reports USER UNITS on
+   SVG text and reads 10 at all three widths, so it cannot see any of this.
+
+   The floor is --t-label, 12px, on build-grade-check.mjs's argument beside
+   .gd-fig: nothing drawn on a picture may be smaller than the prose explaining
+   it, and this figure's caption is --t-micro. 15.5 units is 11.99px at 320.
+
+   THERE IS NO DEAD MARGIN TO CROP HERE and that was checked rather than assumed:
+   the ink box is the full 300 units wide, so this is the media-query case rather
+   than the viewBox case. Room was measured per label instead. At 15.5 units "1m"
+   is 18.6 units against the 20 the rule lines leave it, the two names are 74.4
+   wide on 100 unit centres, and the outer name ends at 226 of 300. The binding
+   one is "1m" against PAD-6, so do not pass 16 units without moving PAD.
+
+   Only inside max-width:544, so the two rows above are unchanged and the desktop
+   is untouched by construction. */
+@media(max-width:544px){
+.lore-scale .ls-rule{font-size:15.5px}
+.lore-scale .ls-val{font-size:15.5px}
+.lore-scale .ls-name{font-size:15.5px}
+}
 
 /* One column ladder per list, generated from its own card count so no row is
    left holding a hole: see loreGridCss in scripts/build-lore.mjs. */

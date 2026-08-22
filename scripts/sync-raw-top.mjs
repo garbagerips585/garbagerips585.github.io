@@ -127,6 +127,12 @@ const VERDICTS = {
   "10466811": { card: false, name: "2019 Fall Collectors Chest", why: "a sealed chest, not a card" },
   "13645269": { card: false, name: "Towering Splash GX Box", why: "a sealed box, not a card" },
   "9808318": { card: false, name: "Blister Pack", why: "sealed packaging, not a card" },
+  // Entered the window on the 22 August 2026 crawl at $4,305, which would have
+  // put a sealed box at number 24 on a page titled "most valuable raw cards".
+  // Judged from PriceCharting's own product page rather than from the name:
+  // its photo is the shrink-wrapped Legendary Collection Lava deck box with the
+  // Charizard art, and its Card Number attribute is "none".
+  "14011719": { card: false, name: "Lava Theme Deck", why: "a sealed theme deck box, not a card" },
   // Real cards whose names happen to carry a product word. Kept, because
   // dropping them would edit the answer just as surely as keeping a box would.
   "2365260": { card: true, name: "Blastoise [Trainer Deck B] #2", why: "a single card from the Base Set Trainer Deck B" },

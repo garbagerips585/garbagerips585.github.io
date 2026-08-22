@@ -146,6 +146,24 @@
   letter-spacing:.06em;text-transform:uppercase}
 .rstats-src{font-size:var(--t-micro);line-height:1.5;color:var(--ink-2);
   margin-top:var(--s4);max-width:60em}
+.hsay{margin:0;font:700 var(--t-micro)/1.25 var(--body);color:var(--chrome-dim)}
+.hof-ht{display:contents}
+.hsay-in{display:none}
+.hsay-top .hsay{color:var(--ink);font-size:var(--t-sm)}
+.hsay-top{padding-bottom:var(--s3)}
+.roc{padding:var(--s6) 0}
+.roc-lede{font-size:var(--t-sm);line-height:1.45;color:var(--ink-2);max-width:46em;margin:0}
+.roc-counts{list-style:none;margin:var(--s4) 0 0;padding:0;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3)}
+.roc-counts li{min-width:0}
+.roc-counts a{display:block;border-left:3px solid var(--keyline);padding-left:var(--s3)}
+.roc-counts b{display:block;font:400 var(--t-l)/1 var(--display);color:var(--ketchup-deep);
+  margin-bottom:6px;overflow-wrap:anywhere}
+.roc-counts span{display:block;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+  letter-spacing:.06em;text-transform:uppercase}
+.roc-counts a:hover span{text-decoration:underline}
+.roc-src{font-size:var(--t-micro);line-height:1.5;color:var(--ink-2);
+  margin-top:var(--s4);max-width:60em}
 @media(min-width:545px) and (max-width:899px){
 .vcar .hero{max-width:520px;margin:0 auto;padding:var(--s5)}
 .vcar .hero-art,
@@ -166,6 +184,12 @@
 main{padding-top:0}
 .wdrop{padding:6px 0}
 .wdrop-sum{min-height:44px;row-gap:6px}
+.hof-ht{display:flex;flex-direction:column;gap:4px;min-width:0}
+.hsay-in{display:block}
+.hsay-top{display:none}
+}
+@media(max-width:359px){
+.roc-counts{grid-template-columns:1fr;gap:var(--s4)}
 }</style>
 <!-- HOMECSS:END -->
 <style>.wanted{padding:var(--s7) 0 var(--s8)}
@@ -240,7 +264,7 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
     <a class="bar-find" href="/search.html" aria-label="Search cards, sets, guides and rips"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg></a>
     <nav class="nav-links" aria-label="Primary">
       <a href="/videos.html">Rips</a>
-      <a href="/card-shows.html">Card shows</a>
+      <a href="/rochester.html">Local scene</a>
       <a href="/cards.html">Card search</a>
       <a href="/sets/">Set guides</a>
       <a href="/start.html">Start here</a>
@@ -365,7 +389,7 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
         <b class="wc-name">Mega Darkrai ex</b>
         <span class="wc-meta">Pitch Black &bull; #116</span>
         <span class="wc-rar">Special Illustration Rare</span>
-        <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$249</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$2,700</span></div></span>
+        <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$266</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$2,700</span></div></span>
       </a>
       <a class="wc" href="https://www.tcgplayer.com/product/693517" rel="nofollow noopener" target="_blank"
         aria-label="Mega Greninja ex from Chaos Rising, opens on tcgplayer.com">
@@ -373,7 +397,7 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
         <b class="wc-name">Mega Greninja ex</b>
         <span class="wc-meta">Chaos Rising &bull; #116</span>
         <span class="wc-rar">Special Illustration Rare</span>
-        <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$208</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$610</span></div></span>
+        <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$208</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$560</span></div></span>
       </a>
       <a class="wc" href="https://www.tcgplayer.com/product/684342" rel="nofollow noopener" target="_blank"
         aria-label="Meowth ex from Perfect Order, opens on tcgplayer.com">
@@ -381,14 +405,14 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
         <b class="wc-name">Meowth ex</b>
         <span class="wc-meta">Perfect Order &bull; #121</span>
         <span class="wc-rar">Special Illustration Rare</span>
-        <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$128</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$365</span></div></span>
+        <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$126</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$325</span></div></span>
       </a>
       <div class="wc">
         <span class="wc-art"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/290/low.avif 245w, /assets/cards/ascended-heroes-290-mega-dragonite-ex-pokemon-card-310.avif 310w, /assets/cards/ascended-heroes-290-mega-dragonite-ex-pokemon-card-420.avif 420w, /assets/cards/ascended-heroes-290-mega-dragonite-ex-pokemon-card-460.avif 460w, https://assets.tcgdex.net/en/me/me02.5/290/high.avif 600w" sizes="(max-width:760px) calc((100vw - 88px) / 2), (max-width:1080px) calc((100vw - 158px) / 3), (max-width:1499px) calc((100vw - 200px) / 4), 325px"><img src="https://assets.tcgdex.net/en/me/me02.5/290/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/290/low.webp 245w, /assets/cards/ascended-heroes-290-mega-dragonite-ex-pokemon-card-310.webp 310w, /assets/cards/ascended-heroes-290-mega-dragonite-ex-pokemon-card-420.webp 420w, /assets/cards/ascended-heroes-290-mega-dragonite-ex-pokemon-card-460.webp 460w, https://assets.tcgdex.net/en/me/me02.5/290/high.webp 600w" sizes="(max-width:760px) calc((100vw - 88px) / 2), (max-width:1080px) calc((100vw - 158px) / 3), (max-width:1499px) calc((100vw - 200px) / 4), 325px" alt="Mega Dragonite ex Special Illustration Rare from Pokemon Ascended Heroes" onerror="this.remove()" width="245" height="337"></picture><span class="wc-flag">Hunting</span></span>
         <b class="wc-name">Mega Dragonite ex</b>
         <span class="wc-meta">Ascended Heroes &bull; #290</span>
         <span class="wc-rar">Special Illustration Rare</span>
-        <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$670</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$1,460</span></div></span>
+        <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$669</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$1,282</span></div></span>
       </div>
       <a class="wc" href="https://www.tcgplayer.com/product/662184" rel="nofollow noopener" target="_blank"
         aria-label="Mega Charizard X ex from Phantasmal Flames, opens on tcgplayer.com">
@@ -396,7 +420,7 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
         <b class="wc-name">Mega Charizard X ex</b>
         <span class="wc-meta">Phantasmal Flames &bull; #125</span>
         <span class="wc-rar">Special Illustration Rare</span>
-        <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$750</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$1,911</span></div></span>
+        <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$750</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$1,941</span></div></span>
       </a>
       <a class="wc" href="https://www.tcgplayer.com/product/654518" rel="nofollow noopener" target="_blank"
         aria-label="Mega Lucario ex from Mega Evolution, opens on tcgplayer.com">
@@ -404,7 +428,7 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
         <b class="wc-name">Mega Lucario ex</b>
         <span class="wc-meta">Mega Evolution &bull; #179</span>
         <span class="wc-rar">Special Illustration Rare</span>
-        <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$203</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$414</span></div></span>
+        <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$194</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$386</span></div></span>
       </a>
       <a class="wc" href="https://www.tcgplayer.com/product/644350" rel="nofollow noopener" target="_blank"
         aria-label="Victini from White Flare, opens on tcgplayer.com">
@@ -412,7 +436,7 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
         <b class="wc-name">Victini</b>
         <span class="wc-meta">White Flare &bull; #172</span>
         <span class="wc-rar">Black White Rare</span>
-        <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$551</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$1,474</span></div></span>
+        <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$550</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$1,475</span></div></span>
       </a>
       <a class="wc" href="https://www.tcgplayer.com/product/642283" rel="nofollow noopener" target="_blank"
         aria-label="Reshiram ex from White Flare, opens on tcgplayer.com">
@@ -420,7 +444,7 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
         <b class="wc-name">Reshiram ex</b>
         <span class="wc-meta">White Flare &bull; #166</span>
         <span class="wc-rar">Special Illustration Rare</span>
-        <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$199</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$500</span></div></span>
+        <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$190</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$476</span></div></span>
       </a>
       <a class="wc" href="https://www.tcgplayer.com/product/642558" rel="nofollow noopener" target="_blank"
         aria-label="Seismitoad from Black Bolt, opens on tcgplayer.com">
@@ -428,7 +452,7 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
         <b class="wc-name">Seismitoad</b>
         <span class="wc-meta">Black Bolt &bull; #105</span>
         <span class="wc-rar">Illustration Rare</span>
-        <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$226</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$2,109</span></div></span>
+        <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$234</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$2,109</span></div></span>
       </a>
       <a class="wc" href="https://www.tcgplayer.com/product/633031" rel="nofollow noopener" target="_blank"
         aria-label="Team Rocket's Mewtwo ex from Destined Rivals, opens on tcgplayer.com">
@@ -436,7 +460,7 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
         <b class="wc-name">Team Rocket's Mewtwo ex</b>
         <span class="wc-meta">Destined Rivals &bull; #231</span>
         <span class="wc-rar">Special Illustration Rare</span>
-        <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$519</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$1,120</span></div></span>
+        <span class="wc-prices"><div class="pr"><span class="pr-k">Raw</span><span class="pr-v">$482</span></div><div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">$1,197</span></div></span>
       </a>
 
     </div>
@@ -456,7 +480,7 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
         <li><a href="/rip/pok-mon-victini-illustration-collection-only-garbage-rips-XjFoToaom6k.html"><span>Black Bolt &bull; 3 rips</span>Pokémon Victini Illustration Collection 🔥 Only Garbage Rips? 😬</a></li>
       </ul>
     </section>
-    <p class="price-note">RAW PRICES ARE PRICECHARTING.COM'S PRICE GUIDE VALUE FOR AN UNGRADED COPY, READ AUG 16, 2026. THEY ARE READ OUT OF THE SAME SET CHECKLIST THE SET GUIDES AND THE CARD SEARCH PRINT FROM, SO THE THREE CANNOT DISAGREE ABOUT ONE CARD. THEY MOVE ON THEIR OWN.<br>PSA 10 PRICES COME FROM PRICECHARTING.COM AND POKEMONPRICETRACKER.COM, LAST CHECKED AUG 13, 2026. A GRADED PRICE IS A DIFFERENT MEASUREMENT FROM THE UNGRADED GUIDE VALUE ABOVE AND IS READ SEPARATELY, SO THE TWO COLUMNS ARE NOT ONE READING.</p>
+    <p class="price-note">RAW PRICES ARE PRICECHARTING.COM'S PRICE GUIDE VALUE FOR AN UNGRADED COPY, READ AUG 22, 2026. THEY ARE READ OUT OF THE SAME SET CHECKLIST THE SET GUIDES AND THE CARD SEARCH PRINT FROM, SO THE THREE CANNOT DISAGREE ABOUT ONE CARD. THEY MOVE ON THEIR OWN.<br>PSA 10 PRICES COME FROM PRICECHARTING.COM AND POKEMONPRICETRACKER.COM, LAST CHECKED AUG 22, 2026. A GRADED PRICE IS A DIFFERENT MEASUREMENT FROM THE UNGRADED GUIDE VALUE ABOVE AND IS READ SEPARATELY, SO THE TWO COLUMNS ARE NOT ONE READING.</p>
   </div>
 </main>
 <footer>

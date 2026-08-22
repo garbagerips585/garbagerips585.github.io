@@ -468,7 +468,29 @@ if (SUBS.length < 2) {
  * the "three perfect attributes" the paragraph under it depends on.
  */
 const sgFig = () => {
-  const W = 300, X0 = 44, X1 = 268, G0 = 6, G1 = 10;
+  // THE FRAME WAS 300 AND THE DRAWING ENDS AT 274, SO A PHONE WAS SCALING 26
+  // UNITS OF NOTHING. The drawing ends at the "10" tick, centred on X1=268 and
+  // so reaching 274 at
+  // the current type size; the viewBox ran to 300, so 26 units of every phone's
+  // width were empty. Cropping the frame to the ink is the one lever here that
+  // costs nothing: not a single coordinate below moves, no label changes its
+  // position relative to any other, and the whole drawing including its type
+  // scales up by 300/276. At 320 that is 7.53px -> 8.19px on .sg-key.
+  //
+  // IT IS NOT ENOUGH ON ITS OWN AND THE REST IS NOT AVAILABLE HERE. The floor
+  // is 12px (see .gd-fig below), which needs .sg-key at 14.7 units, and the KEY
+  // ROW caps it at 10.6: "One component" starts at x=13 and the average marker
+  // is a line at x=96, so 13 characters of Space Mono at 0.6em collide with it
+  // past 10.6 units. That is a SIBLING collision, not a frame one, so measuring
+  // labels against the viewBox edge does not see it -- the edge says 20.3.
+  // Raising .sg-key in a media query paints the key over the marker it is
+  // labelling and nothing errors. Fixing it means re-spacing the three key
+  // groups, which moves them at every width including the desktop, so it is a
+  // redraw and is left for one.
+  //
+  // 276 AND NOT 274: the two spare units are the headroom the "10" tick needs
+  // if anybody ever moves X1. Re-measure the ink before cropping further.
+  const VB_W = 276, X0 = 44, X1 = 268, G0 = 6, G1 = 10;
   const ROW_H = 58, TOP = 34;
   const H = TOP + SUBS.length * ROW_H + 4;
   const x = (g) => X0 + ((g - G0) / (G1 - G0)) * (X1 - X0);
@@ -505,7 +527,7 @@ const sgFig = () => {
                 role="img" and a SENTENCE only when the shape is the only place
                 a fact appears. An aria-label enumerating twelve component
                 scores would read the list out a second time. */ ""}
-          <svg viewBox="0 0 ${W} ${H}" class="sg-svg" aria-hidden="true" focusable="false">
+          <svg viewBox="0 0 ${VB_W} ${H}" class="sg-svg" aria-hidden="true" focusable="false">
             ${/* THE KEY IS LAID OUT BY HAND IN VIEWBOX UNITS AND THE NUMBERS
                   BELOW ARE MEASURED, NOT GUESSED. SVG text neither wraps nor
                   clips, so a label that outgrows its slot paints straight over

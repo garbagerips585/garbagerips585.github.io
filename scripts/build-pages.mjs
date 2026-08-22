@@ -39,7 +39,7 @@ import { priceNote, priceFooter, priceRead, chaseByPrice } from "../shared/card-
 // ?sub_confirmation=1 were hard coded here as a literal, which is one place for
 // the ID to be wrong and never noticed; shared/chrome.mjs is where the other
 // three Subscribe controls get it.
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS, SUBSCRIBE } from "../shared/chrome.mjs";
+import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS, SUBSCRIBE, dropUnusedHitLightbox } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 import { raritiesIn, rarityChip, RARITY_CSS } from "../shared/rarity.mjs";
 import { ripPath } from "../shared/paths.mjs";
@@ -934,20 +934,38 @@ for (const v of tagged) {
 }
 
 // NEWEST FIRST IS AN ASSUMPTION THE "More <set>" BAND RESTS ON, SO IT IS
-// CHECKED RATHER THAN TRUSTED. That band now takes the first entry of each
-// product kind (see `related`), which is only "the newest of that kind" while
-// this order holds. If sync-youtube.mjs ever writes the catalogue in another
-// order the band would quietly start showing the OLDEST of each kind and every
-// page would still build, every gate would still be green, and nothing on the
-// page would look wrong. Same reasoning as checkSetMap in build-decks.mjs and
-// checkMapping in build-topps.mjs: a silent wrong answer is worth a throw.
+// CHECKED RATHER THAN TRUSTED.
+//
+// THE CLAIM THIS GUARD PROTECTS CHANGED ON 22 AUGUST 2026 AND THE GUARD DID
+// NOT, which is the right way round: the band stopped calling the first entry
+// of each kind "the newest", so the sentence that said so had to move rather
+// than the throw. See `related` below. The band now takes entry
+// (round + spin) % length of each kind, where spin is this page's own position
+// in bySet.get(setId), so what this order actually buys is:
+//
+//   - THE ROTATION HAS A MEANING. spin walks the set's own rips newest to
+//     oldest, so the newest rip of a set leads its rail with the newest of
+//     each kind, the next one leads with the second newest, and so on down.
+//     In any other order the offset is still a valid spread but it is a
+//     spread over an arbitrary sequence, and "the newest rip shows you the
+//     newest of each thing" stops being true of any page.
+//   - IT IS STILL A DATED SEQUENCE INSIDE EACH KIND, so a rail reads as a run
+//     rather than as a shuffle, and two pages one apart in the set differ by
+//     one step rather than by a hash.
+//
+// If sync-youtube.mjs ever writes the catalogue in another order every page
+// would still build, every gate would still be green, and nothing on the page
+// would look wrong, which is exactly the failure a throw is for. Same
+// reasoning as checkSetMap in build-decks.mjs and checkMapping in
+// build-topps.mjs: a silent wrong answer is worth a throw.
 for (const list of bySet.values()) {
   for (let i = 1; i < list.length; i++) {
     if (String(list[i].published || "") > String(list[i - 1].published || "")) {
       throw new Error(
         `public/data/videos.json is no longer newest-first (${list[i - 1].id} ${list[i - 1].published} ` +
-          `before ${list[i].id} ${list[i].published}). The "More <set>" band picks the FIRST rip of each ` +
-          `product kind and calls it the newest; sort the catalogue or sort bySet here.`
+          `before ${list[i].id} ${list[i].published}). The "More <set>" band walks each product kind from ` +
+          `an offset taken from this page's own position in the same order, so both halves of that band ` +
+          `become arbitrary; sort the catalogue or sort bySet here.`
       );
     }
   }
@@ -1286,7 +1304,77 @@ const noScanHits = showableHits.length && hits.some((h) => !h.img);
   // they press play -- what is about to be opened -- takes it from a field
   // (products[0]), gives nothing away, and after the sort above it differs on
   // 5.11 of the six tiles rather than on one bit.
-  const railFor = (pool) => {
+  // ==========================================================================
+  // AND THE ROUND ROBIN WAS STILL THE SAME SIX TITLES ON EVERY PAGE IN A SET.
+  // Fixed 22 August 2026, and it is one index rather than any new copy.
+  //
+  // The sort above is a per-page fix to a per-page complaint: the lower band
+  // was reprinting the upper one. It never touched the SIDEWAYS problem, which
+  // is that byKind.get(k)[round] is a fixed window off the HEAD of each kind
+  // list and the kind lists are a property of the SET. Two rips of Chaos
+  // Rising differ only in which one of them is filtered out of its own rail,
+  // so 30 pages of a set were handed the same six tiles, the same six titles
+  // and the same six dates, and a crawler reads that as 30 near-copies.
+  //
+  // MEASURED, 7-word shingles over <main>, best match against any sibling,
+  // over all 320 rip pages, on a real build of each tree:
+  //
+  //                             >=0.50   >=0.60   >=0.70    mean
+  //     as shipped                 277      233       76   0.619
+  //     minus "More from <box>"    285      233       69   0.623
+  //     minus "More <set>"         242      114       17   0.548
+  //
+  // The box rail is worth NOTHING here and removing it makes the page very
+  // slightly worse, because it is already differentiated: it is scoped to one
+  // box and the boxes are small. This band was essentially the whole effect,
+  // and none of it was boilerplate -- only 13.8% of a page's shingles appear
+  // on half the rip pages, so it is sibling-to-sibling and not chrome. Adding
+  // WORDS does not touch it either: the pages that carry a named-hit band are
+  // MORE duplicated (0.643) than the ones that do not (0.598) despite being
+  // 131 words longer, which is what a rail-shaped problem looks like from the
+  // outside.
+  //
+  // THE FIX IS TO SPIN THE WINDOW, NOT TO WIDEN IT. Each kind list is walked
+  // from an offset taken from this page's own index in bySet.get(setId), so
+  // page 0 of a set gets the newest of each kind, page 1 the second newest,
+  // page 2 the third, wrapping at the end of each kind independently. The
+  // wrap is per kind, and because the kind lists are different lengths the
+  // offsets decorrelate on their own rather than marching in step.
+  //
+  // EVERY INVARIANT THE SORT ABOVE BOUGHT SURVIVES, and that is arithmetic
+  // rather than luck: which ROUND a kind contributes on is untouched, so the
+  // shape of the rail cannot move. `round >= list.length` is the same stop
+  // condition the old `if (!x) continue` was, which is what keeps ONE PER KIND
+  // BEFORE ANY KIND REPEATS true and, just as importantly, stops the modulo
+  // handing the same video back twice on a short kind list. Rail LENGTHS,
+  // DISTINCT KINDS PER RAIL, and therefore `showKind`, all depend only on the
+  // kind list lengths and are identical to the tile-for-tile. The box rail's
+  // videos are still demoted to the BACK of the queue rather than dropped, and
+  // whether the fallback fires depends only on pool sizes, so the 14 tiles
+  // that still repeat the box rail stay 14.
+  //
+  // WHAT IT ACTUALLY BOUGHT, same measurement, same trees:
+  //
+  //                             >=0.50   >=0.60   >=0.70    mean
+  //     before                     277      233       76   0.619
+  //     after                      193       66        4   0.516
+  //
+  // 271 of the 305 pages that carry a set rail have a pool bigger than the
+  // rail, so there is room to rotate on nearly all of them. The 34 that do not
+  // are sets the channel has opened six or fewer times, where the rail is the
+  // whole pool and there is nothing to spin: those pages are unchanged and
+  // always will be, which is a true thing about the set rather than a
+  // shortfall of the sort.
+  //
+  // WHAT IT COSTS, said plainly because the table does not show it: a reader
+  // walking a set's rips in order no longer sees the same six recommendations
+  // on each one, which is the point, but it also means the SINGLE most recent
+  // rip of a kind is no longer on every page of that set. It leads page 0's
+  // rail and then steps back one page at a time. That is the trade, and it is
+  // the right way round for a band whose heading is "More <set>" rather than
+  // "Latest <set>".
+  // ==========================================================================
+  const railFor = (pool, spin = 0) => {
     const byKind = new Map();
     for (const x of pool) {
       const k = (x.products || [])[0] || "";
@@ -1298,9 +1386,13 @@ const noScanHits = showableHits.length && hits.some((h) => !h.img);
     for (let round = 0; out.length < 6 && round < 40; round++) {
       let added = false;
       for (const k of kinds) {
-        const x = byKind.get(k)[round];
-        if (!x) continue;
-        out.push(x);
+        const list = byKind.get(k);
+        // The old test was `if (!x) continue`, on a plain [round]. It has to
+        // stay a test on ROUND rather than on the element, because the modulo
+        // below never returns undefined and would otherwise loop a two-video
+        // kind forever and print the same tile three times.
+        if (round >= list.length) continue;
+        out.push(list[(round + spin) % list.length]);
         added = true;
         if (out.length >= 6) break;
       }
@@ -1309,11 +1401,18 @@ const noScanHits = showableHits.length && hits.some((h) => !h.img);
     return out;
   };
   const related = (() => {
-    const pool = (setId ? bySet.get(setId) || [] : []).filter((x) => x.id !== v.id);
+    const setPool = setId ? bySet.get(setId) || [] : [];
+    const pool = setPool.filter((x) => x.id !== v.id);
+    // THIS PAGE'S OWN INDEX IN THE SET, newest first, asserted where bySet is
+    // built. Not a hash of the id: a hash spreads just as well and gives up
+    // the one thing this ordering is good for, which is that the newest rip of
+    // a set leads its rail with the newest of every kind. Both railFor calls
+    // take the SAME spin so the fallback tail stays in step with the head.
+    const spin = Math.max(0, setPool.findIndex((x) => x.id === v.id));
     const shownAbove = new Set(sameBox.map((x) => x.id));
-    const out = railFor(pool.filter((x) => !shownAbove.has(x.id)));
+    const out = railFor(pool.filter((x) => !shownAbove.has(x.id)), spin);
     if (out.length < 6) {
-      for (const x of railFor(pool.filter((x) => shownAbove.has(x.id)))) {
+      for (const x of railFor(pool.filter((x) => shownAbove.has(x.id)), spin)) {
         if (out.length >= 6) break;
         out.push(x);
       }
@@ -2042,10 +2141,27 @@ const ordered = videos.slice().sort((a, b) => (a.published < b.published ? 1 : -
 
 await rm(OUT, { recursive: true, force: true });
 await mkdir(OUT, { recursive: true });
+// THE HIT LIGHTBOX COMES OFF THE PAGES THAT CANNOT OPEN IT, and it is done
+// HERE, on the finished document, rather than by another `showableHits.length`
+// test inside the template. The argument for the post-processing shape, the
+// counts and the bytes are all beside dropUnusedHitLightbox in
+// shared/chrome.mjs; it is a no-op on a page that carries a #hitcards and it
+// throws rather than going quiet if the markup ever moves out from under it.
+// The tally is printed because the ratio is the thing that goes stale: it
+// moves every time import-sheet.mjs reads a new hit out of the log.
+let lightboxKept = 0, lightboxDropped = 0;
 for (let i = 0; i < ordered.length; i++) {
   const v = ordered[i];
-  await writeFile(join(ROOT, "public", pathFor(v)), page(v, ordered[i + 1], ordered[i - 1]));
+  const html = page(v, ordered[i + 1], ordered[i - 1]);
+  const out = dropUnusedHitLightbox(html);
+  if (out === html) lightboxKept++;
+  else lightboxDropped++;
+  await writeFile(join(ROOT, "public", pathFor(v)), out);
 }
+console.log(
+  `hit lightbox: kept on ${lightboxKept} rip page${lightboxKept === 1 ? "" : "s"}, ` +
+  `dropped from ${lightboxDropped} with no hit card to open it`,
+);
 
 // Sitemap: the three hubs plus every generated page.
 const today = videos[0]?.published || "2026-08-10";

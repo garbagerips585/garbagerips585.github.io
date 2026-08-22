@@ -36,6 +36,90 @@ import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, RARITY
 // here are English cards whose NAME is not on the checklist, which is a
 // spreadsheet fix rather than a missing file.
 import { noScanBox, NOSCAN_CSS } from "../shared/card-scan.mjs";
+
+/* ------------------------------------------- the .mine tiles get a 600w rung
+ *
+ * THE SAME CARD WAS SHARP ON ITS RIP PAGE AND SOFT HERE, and the two grids are
+ * the same geometry to the pixel. `hitcardImg` in build-pages.mjs gave the rip
+ * pages a 245w/600w ladder on 21 August 2026 and scoped the decision to hit
+ * cards; these tiles carried a bare `src` and nothing else, so a reader who
+ * followed "Watch the rip" from this band saw a crisper copy of the card they
+ * had just tapped.
+ *
+ * THE BOX IS MEASURED AND IT IS NOT COPIED FROM THE STYLESHEET. Driven at 22
+ * widths from 320 to 1920, reading offsetWidth (getBoundingClientRect is the
+ * TRANSFORMED box and would have been the wrong number if anything ever put a
+ * scale() on these): `calc(50vw - 52px)` holds exactly to 520, and 194px flat
+ * from 521 up. 108 at 320, 143 at 390, 208 at 520, 194 everywhere above. That
+ * is HITCARD_SIZES' curve to the pixel, arrived at independently, which is the
+ * reason this is the same fix rather than a similar one.
+ *
+ * WHAT IT WAS SERVING. 245w against a box that asks 429 device pixels at 390
+ * DPR 3 is 0.57x, 286 at 390 DPR 2 is 0.86x and 388 at 1440 DPR 2 is 0.63x.
+ * Read off `currentSrc` at all three densities, never naturalWidth, which is
+ * density-corrected with `w` descriptors and hands back the `sizes` value.
+ *
+ * AND IT IS VISIBLE, settled on rendered pixels rather than on the ratio.
+ * Screenshotted element-exact at the real 143px box at DPR 3, 245w against
+ * 600w over three cards: mean absolute Laplacian 8.98 -> 23.26, 11.43 -> 29.24
+ * and 14.47 -> 42.80, so 2.6 to 3.0x, at PSNR 24.29, 23.44 and 22.00 dB
+ * between the two. That is a BIGGER picture difference than the 24.9 to 28.5 dB
+ * /msrp.html's entry calls "a real picture change". On Espeon ex the card's own
+ * rules text is mush at 245w and legible at 600w.
+ *
+ * WHAT IT COSTS, and quote the pair or quote neither. TCGdex publishes 245 and
+ * 600 and nothing between, so `high` is the only rung there is. Measured by
+ * fetching both renditions of all 131 distinct files on the 16 English guides:
+ *
+ *      low.avif    16.3KB mean      2,135.8KB over the 16 pages
+ *      high.avif   56.3KB mean      7,381.4KB over the 16 pages
+ *
+ * so +40.0KB a card, +296.8KB on the MEDIAN guide, +784.1KB on Ascended
+ * Heroes' twenty-one, and +5,245.6KB over the family. Nothing at DPR 1 at any
+ * width, and nothing at 320 DPR 2 (216 device px still clears 245); 390 DPR 2,
+ * 390 DPR 3, 1440 DPR 2 and 320 DPR 3 all move.
+ *
+ * THAT IS 8x THE HIT-CARD FIX PER PAGE AND THE PER-CARD PRICE IS IDENTICAL
+ * (16.7 -> 58.0KB there against 16.3 -> 56.3 here). A guide holds a median of
+ * eight of these where a rip page holds one, so the only thing that changed is
+ * the count. Do not re-derive this as a new finding.
+ *
+ * IT IS ALL OFF THE LOAD PATH AND THAT WAS MEASURED. `.mine-grid` sits at
+ * y=4,766 of a 19,168px page on Ascended Heroes at 390 and y=4,657 of 15,907 on
+ * Pitch Black, far outside Chrome's 1,250px lazy window, and every tile is
+ * `loading="lazy"`. On-load weight does not move; fully scrolled at 390 DPR 2
+ * is 1,215.0 -> 1,999.1KB and 952.2 -> 1,249.0KB on those two.
+ *
+ * NEITHER OF THE TWO THINGS THAT PAID FOR THE HIT-CARD FIX IS HERE, and saying
+ * so is the point. There is no lightbox on a .mine tile, so nobody was fetching
+ * `high` for this card anyway; and only 6 of the 131 are also drawn large
+ * elsewhere on their own page, checked url by url against every `/high.` on
+ * each built guide, so the cache-hit argument is worth almost nothing. This is
+ * paid for by the picture alone.
+ *
+ * THE LOCAL MIRROR WAS NOT RE-OPENED. build-pages.mjs costed it at 126 files
+ * and refused; this is 131 of the same files and the arithmetic has not moved.
+ *
+ * ONLY TCGDEX HAS THE SECOND RUNG, same guard and same reason as `hitcardImg`:
+ * `high.webp` is a sibling of `low.webp` on that host and nowhere else, and
+ * emitting one url under two descriptors would let the browser pick the wrong
+ * one on purpose. All 137 slots in the built tree are TCGdex low.webp today,
+ * which is exactly why it is guarded rather than assumed.
+ *
+ * THE FOUR /sets/ja-*.html GUIDES ARE NOT FIXED BY THIS. Their six tiles come
+ * from build-intl-pages.mjs, which carries its own copy of this grid the way it
+ * carries its own copy of the lede. Same fix, same shape, that file's call.
+ */
+const MINE_SIZES = "(max-width:520px) calc(50vw - 52px), 194px";
+function mineImg(url) {
+  const two = /^https:\/\/assets\.tcgdex\.net\/.+\/low\.webp$/.test(url);
+  const ladder = two
+    ? ` srcset="${esc(url)} 245w, ${esc(url.replace(/low\.webp$/, "high.webp"))} 600w" sizes="${MINE_SIZES}"`
+    : "";
+  return avifPicture(
+    `<img class="mine-img" src="${esc(url)}"${ladder} alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(url)}>`,
+  );
+}
 import { ripLabel, ownLineProduct } from "../shared/riplabel.mjs";
 import { daysSince } from "../shared/today.mjs";
 
@@ -3072,7 +3156,7 @@ ${rows}
               it is a 40px glyph rather than a card face, and the page header
               has already fetched the same file so it costs no request. The
               three things deliberately NOT in it are argued in
-              shared/card-scan.mjs. */ ""}${h.img ? avifPicture(`<img class="mine-img" src="${esc(h.img)}" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(h.img)}>`) : noScanBox("mine-img is-none", { slug: s.id, name: s.name })}
+              shared/card-scan.mjs. */ ""}${h.img ? mineImg(h.img) : noScanBox("mine-img is-none", { slug: s.id, name: s.name })}
         <!-- The count rides on the name, not on the picture, because the
              picture is the card and the count is a fact about our pulls.
              Hidden at one: a "x1" badge on every other card would make the

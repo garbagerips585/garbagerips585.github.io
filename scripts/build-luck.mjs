@@ -64,7 +64,12 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, shortDate, moneyCompact } from "../shared/format.mjs";
+// `count` and `plural` ARE SHARED AND WERE ALREADY THERE. This file wrote the
+// `rip${n === 1 ? "" : "s"}` ternary inline eight times and still shipped two
+// rows reading "1 rips", which is the argument shared/format.mjs's own header
+// makes: assume every count you print can be 1 tomorrow. Both of the sentences
+// they fixed also needed the VERB to agree, which no helper can do for you.
+import { esc, shortDate, moneyCompact, count, plural } from "../shared/format.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 // THE PRICE CHAIN AND THE PRICE SENTENCE BOTH COME OUT OF SHARED MODULES AND
 // NEITHER IS RESTATED HERE. shared/graded-price.mjs exists because five
@@ -90,6 +95,42 @@ const OUT = process.env.LUCK_OUT || join(ROOT, "public/luck.html");
 const { videos } = JSON.parse(await readFile(DATA, "utf8"));
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
 const setName = Object.fromEntries(sets.map((s) => [s.id, s.name]));
+
+// A SET THIS SITE HOLDS NO NAME FOR STILL GETS A NAME, NOT ITS SLUG.
+//
+// Two English sets, silver-tempest and lost-origin, are tagged on rips in
+// videos.json and are in NEITHER public/data/sets.json NOR shared/taxonomy.mjs's
+// CARD_SETS. The set table's label chain was setName[k] || labelFor("sets", k)
+// || k, and labelFor RETURNS ITS OWN ARGUMENT when the table has no entry, so
+// the third fallback is dead code and the second one hands back the slug. Rows
+// 14 and 15 of 39 printed "silver-tempest" and "lost-origin" among 37 properly
+// named rows, which reads as a broken page rather than as missing data.
+//
+// THE FIX IS NOT TO ADD THE SETS. data/tcgdex-en.json's _readme costs that out:
+// a set needs entries in five maps and spawns a guide page, and neither of these
+// has a checklist, a logo or a guide behind it.
+//
+// AND IT IS NOT A NEW INVENTION EITHER. public/assets/app.js's labelOf() already
+// ends in exactly this de-slug, and /videos.html is where these two rows LINK
+// TO, so today the link text and the heading a reader lands on disagree about
+// the same set. Title-casing the slug makes them agree and asserts nothing the
+// site does not already print one click away: no logo is requested (build-proto
+// .mjs stamps the logo manifest onto #setHeader for that exact reason), no guide
+// is linked, and the rip and hit counts beside it were always real.
+//
+// SCOPED TO SETS ON PURPOSE. The product and rarity tables label through the
+// same helper and every one of their ids IS in the taxonomy; a sweep of the
+// built tree found these two rows and nothing else.
+const setLabel = (k) => {
+  const known = setName[k] || null;
+  if (known) return known;
+  const tag = labelFor("sets", k);
+  if (tag && tag !== k) return tag;
+  return String(k)
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+};
 
 // ===========================================================================
 // A RIP THAT DEMONSTRABLY HIT WAS INVISIBLE TO THE PAGE THAT COUNTS HITS.
@@ -200,7 +241,7 @@ function rateBy(keyFn, labelFn, packsFor = (v) => packsIn(v)) {
 
 const bySet = rateBy(
   (v) => v.sets || [],
-  (k) => setName[k] || labelFor("sets", k) || k,
+  setLabel,
   // THE SHEET'S OWN PER SET BREAKDOWN FIRST. `setPacks` is what import-sheet
   // .mjs reads out of the Sets & Packs cell, so on a rip that opened one pack
   // of Black Bolt and one of White Flare each set is charged one. A rip with
@@ -1221,6 +1262,90 @@ const style = `
 .mf-key{fill:var(--ink-2);font:700 9px/1 var(--mono);letter-spacing:.05em}
 .mf-mid{text-anchor:middle}
 
+/* ------------------------------------- the drawn type at the narrowest phone
+   THE PX IN EVERY RULE ABOVE IS A VIEWBOX UNIT AND NOT A RENDERED PIXEL, which
+   is the whole reason this block exists and the reason the sizes above look
+   safe and are not. All three drawings are a 320 unit box, and .lf is
+   width:100% inside a .wrap, so the SCALE is the wrap width over 320:
+
+        320px phone   wrap 280   x0.875    9 units ->  7.88px   8 ->  7.00px
+        390px phone   wrap 350   x1.094    9 units ->  9.84px   8 ->  8.75px
+        1440 desktop  cap  520   x1.625    9 units -> 14.63px   8 -> 13.00px
+
+   MEASURED, NOT DERIVED FROM THE STYLESHEET: getScreenCTM().a on each text node
+   times its user-unit font-size, cross-checked against getBoundingClientRect.
+   getComputedStyle on SVG text reports USER UNITS and reads 9 at every width,
+   so it can never see this and a comment quoting it is quoting nothing.
+
+   The floor is the one build-grade-check.mjs argues beside .gd-fig and it is
+   --t-label, 12px: nothing drawn ON a picture may be smaller than the prose
+   explaining it, and these captions are --t-sm. A 320px phone was 4 to 5px
+   under it on all three.
+
+   ONLY THE RUN FIGURE TAKES THE FIX, AND THE REASON THE OTHER TWO CANNOT IS
+   NOT THE ONE IT LOOKS LIKE. The obvious cap is horizontal room, measured per
+   label off getBBox in user space against the viewBox edge and the label's own
+   text-anchor: pf's tightest is the y-axis "100", end-anchored at x=22, which
+   leaves the box past 11.99 units; rf's is "DRY RUNS" at 23.45; mf's is "NOT
+   LOGGED YET" at 20.19. By that alone rf and mf both clear the 13.71 units
+   that 12px needs at x0.875.
+
+   THE REAL CAP IS strideFor, AND IT IS A BUILD-TIME DECISION ABOUT A
+   RENDER-TIME SIZE. strideFor(pitch, chars) is
+   ceil((chars * 5.4 + 4) / pitch), and the 5.4 in it is 9 units x the 0.6em
+   Space Mono advance: it decides WHICH tick labels are drawn at all by asking
+   how many fit AT NINE UNITS. Every .pf-ax, .pf-n, .mf-ax and .mf-yr on
+   the page is gated by it. Grow that type in a media query and the thinning
+   does not re-run -- the SVG was written once, at build time -- so the labels
+   that were exactly one stride apart now overlap, and SVG text neither wraps
+   nor clips, so nothing errors and the axis just goes to mush. THE COLLISION IS
+   WITH A SIBLING, NOT WITH THE EDGE, which is why the headroom number above
+   does not see it.
+
+   mf HAS THE SAME FAULT IN ITS LEGEND, independently of strideFor: "HIT" starts
+   at x=19 and the next swatch is a rect at x=46, so 3 chars of .mf-key may
+   not pass 13.6 units, and "NOTHING" at x=59 against the swatch at x=120 caps
+   it at 13.2. Both are under the 13.71 the floor needs, and neither is visible
+   to a check that only measures the viewBox.
+
+   SO pf AND mf NEED A REDRAW AND ARE LEFT FOR ONE, which is the same call
+   /what-set.html's secret-rares chart already has. The redraw is not "bigger
+   type": it is a NARROWER viewBox, because 320 units drawn into 280px is what
+   makes 9 units 7.88px, and the desktop is already correct at 14.63px. Bumping
+   the units in the builder instead would take the desktop to 22.75px, which is
+   an axis tick the size of a heading. Do not do that.
+
+   rf HAS NO STRIDE AND NO SIBLING GEOMETRY IN THE WAY. Every row is drawn,
+   ROW is a fixed 22 units, and the three labels live in fixed gutters: the
+   count labels sit outside bars that stop at L=126 and R=194, and .rf-lab
+   sits in the 68-unit channel between them. At 14 units the widest row label
+   ("8 rips", 6 chars) is 50.4 units in a 68 unit channel, the header row's
+   "DRY RUNS" ends exactly on L, and the deepest count label lands at x=12.2
+   against a left edge of 0. Checked at every row rather than at the worst one.
+
+   IT IS INSIDE max-width:544, this site's own phone breakpoint (build-shops
+   .mjs's map key and build-proto.mjs's home-page cut both use it), so the
+   desktop is untouched by construction rather than by intention.
+
+   THE HEADER ROW IS 13 AND THE DATA ROWS ARE 14, AND THAT SPLIT WAS FORCED BY
+   LOOKING AT IT. .rf-key is the three column headings, and they are pinned to
+   the bar boundaries rather than laid out against each other: "DRY RUNS" ends
+   ON L=126, "LENGTH" is centred on 160 and "HOT RUNS" starts ON R=194. At 14
+   units that leaves 6.3 units between them, about half a character, and
+   screenshotted at 320 the three read as one run of words rather than as three
+   labels. Nothing collides and no check catches it. 13 units puts the gap back
+   to 8.3 and costs the heading row 0.87px. Opening it properly means moving L
+   and R, which moves the bars at every width, so it is a redraw.
+
+   SO THE ROW LABELS AND COUNTS CLEAR THE FLOOR AT 12.25px AND THE THREE COLUMN
+   HEADINGS SIT AT 11.38px. That is deliberate and it is the right way round:
+   the headings are read once and the rows are the figure. */
+@media(max-width:544px){
+.rf-key{font-size:13px}
+.rf-lab{font-size:14px}
+.rf-n{font-size:14px}
+}
+
 /* ------------------------------------------------------------ the ledger ---
    WHERE EVERY NUMBER ON THIS PAGE CAME FROM, one row each. It is a table
    rather than a paragraph because a reader checking one figure wants one row,
@@ -1605,8 +1730,16 @@ ${
           boxCensus.capBoxes
             ? ` Across the kinds whose pack count is published, those boxes hold ${boxCensus.capPacks} packs between them and
         the rips of them count ${boxCensus.capFilmed}. <b>Those are two different quantities and neither is the other:</b>
-        some of the difference is packs not opened on camera yet, and some is packs opened in one of the
-        ${boxCensus.capRips - boxCensus.capPackRips} rips that state no count.`
+        some of the difference is packs not opened on camera yet, and some is packs opened in ${
+          /* "one of the 1 rips that state no count" shipped on the live page.
+             THE PLURAL IS ONLY HALF OF IT: at one there is no "one of" to be had
+             either, and "state" has to become "states". A count that can be 1
+             takes a whole clause, not a trailing s. */ ""
+        }${
+          boxCensus.capRips - boxCensus.capPackRips === 1
+            ? `the one rip that states no count`
+            : `one of the ${boxCensus.capRips - boxCensus.capPackRips} rips that state no count`
+        }.`
             : ""
         }</p>
       </div>
@@ -1868,7 +2001,7 @@ ${monthFigure()}
           <tbody>
             <tr><th scope="row">Hit rate, everywhere</th><td><em>${hits.length}</em> of <em>${judged.length}</em> rips whose outcome is known, out of ${videos.length} filmed${impliedHits ? `; ${impliedHits} of them known because the cards were named rather than the column ticked` : ""}</td><td>Has Hit, My Hits tab</td></tr>
             <tr><th scope="row">Packs ripped</th><td><em>${allPacks}</em> packs across the <em>${allPackRips}</em> rips that state one</td><td>Sets &amp; Packs</td></tr>
-            <tr><th scope="row">Boxes, at least</th><td><em>${boxCensus.boxes}</em>, a floor from repeated pack positions${boxCensus.boxNoType ? `; ${boxCensus.boxNoType} rips of box products name no opening type and are left out` : ""}</td><td>Pack #, Opening Type</td></tr>
+            <tr><th scope="row">Boxes, at least</th><td><em>${boxCensus.boxes}</em>, a floor from repeated pack positions${boxCensus.boxNoType ? `; ${count(boxCensus.boxNoType, "rip")} of box products ${plural(boxCensus.boxNoType, "names", "name")} no opening type and ${plural(boxCensus.boxNoType, "is", "are")} left out` : ""}</td><td>Pack #, Opening Type</td></tr>
             <tr><th scope="row">Pack position</th><td><em>${packNoJudged}</em> answered rips state which pack of the box it was</td><td>Pack #</td></tr>
             <tr><th scope="row">Cards that came out</th><td><em>${cardRows}</em> card rows across ${videos.filter((v) => v.hitCard).length} rips${cardsOutsideJudged ? `; ${cardsOutsideJudged} of them sit on rips with no Has Hit answer and are left out of every value figure` : ""}</td><td>My Hits tab</td></tr>
             <tr><th scope="row">Ungraded value</th><td><em>${rawCards.length}</em> of ${cardRows} card rows resolve to a printing with a guide value</td><td>PriceCharting, via the set checklist</td></tr>

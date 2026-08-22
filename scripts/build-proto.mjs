@@ -2340,6 +2340,202 @@ ${ripStatTiles.join("\n")}
   </div>
 </section>`;
 
+/* ------------------------------------------------- what this site IS, said --
+ *
+ * THE PROSE IS HERE AND NOT IN index.html, AND THAT IS THE SAME TRADE NOTE 4
+ * BELOW MAKES ABOUT THE STYLE BLOCK. index.html SHIPS. An HTML comment in it is
+ * bytes on the front door on every cold visit, and stamp-assets.mjs strips
+ * comments out of inline <style> blocks and out of nothing else. The first
+ * draft of this argument lived beside the h1 and the three markers and cost
+ * **2,218 bytes gzipped on index.html**, measured against HEAD; moved here and
+ * replaced with five-line pointers it costs 470. build-proto.mjs is not served
+ * to anybody, so the argument is free where it is now.
+ *
+ * THE h1 IS sr-only AND IT STAYS THAT WAY. THIS IS THE DEFENCE THAT WAS
+ * MISSING, and the design pass was right that nothing in the repo carried it.
+ * It is in the git history instead: fc7fc9dfe, 11 August 2026, "Fix the mobile
+ * and accessibility findings", whose message says it in as many words --
+ * "Three of four pages had no h1 at all. Outlines began at h2, so the home
+ * page, the hunt list and the shops page each presented as a document with no
+ * title. The home page's design has no visible page title, so it gets a screen
+ * reader one." So the element exists to give the document a title, and sr-only
+ * is the form that did that without inventing a page heading the design has
+ * never had. It is a decision, not a leftover.
+ *
+ * AND UN-HIDING IT WOULD COST THE FOLD, WHICH IS THE HALF THAT COMMIT COULD NOT
+ * HAVE KNOWN, because the trophy work is nine days younger than it. The h1 is
+ * 65 characters at var(--t-l), which wraps to three lines at 375. The stack
+ * above the trophy is in note 4 and every pixel in it has already been argued
+ * and spent: main's padding-top is 0, .hof's is 8, the heading row is 44 and is
+ * held there by a tap target, and the artwork is the last lever and was taken.
+ * A visible display h1 puts the Hall of Fame banner under the fold at every
+ * phone width. IF TIM WANTS IT VISIBLE THE LEVER IS THE BAND ORDER, not the
+ * type size: moving the two DROPS markers below .hof pays 59.41px, which is
+ * four times what the h1 needs. CLAUDE.md and note 4 both park that with him.
+ *
+ * THE PAGE NEVER SAID WHAT IT IS, AND THE ONE ELEMENT THAT DID WAS INVISIBLE.
+ * A design pass read the rendered pixels on 22 August 2026: the largest visible
+ * type on the first screen, at every width, was "Drops to watch this week" -- a
+ * retailer restock band. There was no SENTENCE on that screen at any width, and
+ * below 900px the word "Rochester" was not on it at all, because `.brand span`
+ * in the header lockup is display:none there. The h1 carries the answer and is
+ * `sr-only`; see the comment above it in public/index.html for why that is
+ * staying, which is a separate decision from this one.
+ *
+ * ONE STRING, TWO ELEMENTS, AND THE POINT OF THE TWO REGIONS IS THAT THEY
+ * CANNOT DRIFT. Both are written from `siteSay` below, so there is no second
+ * copy of the sentence anywhere in the tree to keep in step by hand -- the same
+ * arrangement RIP_BANNER has in shared/format.mjs, and for the same reason.
+ * Exactly one of the two is ever rendered, so a screen reader hears it once:
+ * SAYTOP is display:none at 544 and under, SAYHEAD is display:none above it.
+ *
+ * WHY IT IS NOT ONE ELEMENT AT THE TOP OF <main>, WHICH IS WHERE IT BELONGS:
+ * THERE ARE 9.52 PIXELS THERE AND A LINE OF TYPE IS 13.75. Measured over CDP,
+ * bottom edge of .pack-hint on the trophy against this file's own target of
+ * viewport-140 (note 4 below): 320x800 has 51.42px of slack, 375x812 has 9.52,
+ * 390x844 has 20.72, 414x896 has 39.66. 375 is the binding width and it always
+ * was -- it is the shortest viewport that still takes the full 78vw pack. A
+ * strip above the drops band was built and measured before this shape was
+ * chosen: at --t-micro with no padding at all it costs 13.75px, which busts 375
+ * by 4.23 and 390 by nothing to spare. With the 5px of padding it wants, 23.75.
+ *
+ * SO THE PHONE COPY GOES WHERE THERE IS ALREADY DEAD SPACE, AND THERE IS
+ * EXACTLY ONE SUCH PLACE ABOVE THE TROPHY. .hof-head is 44px tall and holds
+ * 22.41px of "Greatest Hits": the row is held open by the "All N hits" link's
+ * 44px tap target beside it, which note 4 correctly says is not SPENDABLE.
+ * Filling it is not spending it. Stacked under the h2 at 4px of gap the column
+ * is 22.41 + 4 + 13.75 = 40.16, still under 44, so THE ROW DOES NOT GROW AND
+ * THE FOLD DOES NOT MOVE AT ALL: the banner's bottom edge is 662.48 at 375,
+ * 683.28 at 390 and 716.34 at 414 before and after, to the pixel.
+ *
+ * THE ONE WIDTH IT COSTS ANYTHING IS 320, where the column is 187.5px wide and
+ * the sentence takes two lines: 9.9px, out of the 51.42 that width has spare.
+ * That is the trade written down rather than discovered.
+ *
+ * THE WORDING IS PICKED FOR THE COLUMN IT HAS TO FIT IN, and the headroom is
+ * the reason it is "NY" rather than "New York". The column at 375 is 242.5px
+ * (343 of wrap, less the link's 90 and the 12px gap). "Pokemon pack rips from
+ * Rochester, New York" renders 227.2px there -- one line, and 15.3px of
+ * headroom. "Pokemon pack rips from Rochester, NY" renders 195.3 and has 47.
+ * THE DIFFERENCE MATTERS BECAUSE A SECOND LINE AT 375 COSTS 9.91px AGAINST A
+ * 9.52px BUDGET: it is the one width where wrapping this sentence puts the
+ * trophy banner under the fold. 47px of headroom survives a four-digit hit
+ * count widening the link beside it and a fallback face rendering wider than
+ * Outfit before the webfont lands; 15.3px does not. The h1 and the about band
+ * both still spell "Rochester, New York" in full, so nothing is lost to search.
+ *
+ * BODY FACE AT 700, NOT SPACE MONO, AND NOT A NEW WEIGHT. It is a sentence
+ * rather than a label, so it is set as one; Outfit 700 is already on this page
+ * (`.hof-head a` right beside it is `700 var(--t-sm)/1 var(--body)`), so no
+ * font file is added. See the .wdr-ch note in homeCss for what one stray
+ * weight declaration cost above the fold on this same page.
+ */
+const siteSay = "Pokemon pack rips from Rochester, NY";
+// ui.css's own .wrap on the outer box, so the sentence starts on the same
+// gutter line as every heading under it rather than inventing a second one.
+const sayTopHtml = `<div class="hsay-top"><div class="wrap"><p class="hsay">${esc(siteSay)}</p></div></div>`;
+const sayHeadHtml = `<span class="hsay hsay-in">${esc(siteSay)}</span>`;
+
+/* --------------------------------------------------- Rochester on the page --
+ *
+ * /rochester.html WAS NOT LINKED FROM <main> ONCE. Measured 22 August 2026 over
+ * every href inside <main> on the built page: 78 links, 60 distinct targets, and
+ * the Rochester hub was not among them. It was reachable from the footer's
+ * "Local scene" column, at 85 to 89% of the page's height, and from the closed
+ * menu drawer, and from nowhere else. Rochester is the second group in NAV and
+ * the second thing Tim asked to highlight ("I want to be a hub for the local
+ * community ... this area is massive for pokemon cards and i want the world to
+ * know"), so a front door that never points at it is the site disagreeing with
+ * its own nav.
+ *
+ * THE FIGURES ARE RE-COUNTED HERE AND THAT IS A KNOWN COST, SO IT IS WRITTEN
+ * DOWN AND PRINTED. build-rochester.mjs owns these three rules; this band
+ * copies them, which is the same arrangement the counters band above has with
+ * build-luck.mjs and carries the same hazard: two files computing one number is
+ * how a site comes to print two answers to one question. The mitigations are
+ * the ones that band uses. The rules are one line each and are copied exactly,
+ * the source line below says which files they come from, and the run prints
+ * them at the end so a person running this by hand can hold them against
+ * /rochester.html's own counted cards without opening the page. IF THEY EVER
+ * DISAGREE, ONE OF THE TWO FILES HAS CHANGED ITS RULE AND THE SITE IS
+ * CONTRADICTING ITSELF; fix the rule, do not edit a number.
+ *
+ * NOTHING IS FETCHED AND NO NEW FILE IS INVENTED. All three are already in the
+ * tree and are read by build-rochester.mjs, /card-shows.html, /shops.html and
+ * /garbage-plate.html today.
+ *
+ * A TILE IS EMITTED ONLY WHERE THE FIGURE EXISTS and the whole band disappears
+ * if none of them do, because the markers sit OUTSIDE the <section> exactly as
+ * the drops band's and the counters band's do. An empty frame with a heading on
+ * it is worse than no band.
+ *
+ * THE SHOWS FIGURE IS THE ONE THAT MOVES ON A CLOCK and it is the only one that
+ * can go stale between deploys. It can only ever over-state, never under-state:
+ * a show that has happened stays in the count until the next build. /rochester
+ * .html carries exactly the same exposure with exactly the same filter, so this
+ * band cannot be more wrong than the page it points at, and the label says
+ * "coming up" rather than naming a date. THE ONE THING NOT TO DO HERE is give
+ * it the drops band's client sweep: that band removes rows because "be ready
+ * for a drop today" above the fold is the loudest lie the site can tell, and
+ * this is a count 2,000px down with no date in it.
+ *
+ * NO PACK COUNT, NO VIEW COUNT, NO HIT RATE. Those are the counters band's,
+ * eight hundred pixels up, and repeating one here would be the second source
+ * for a number this page already prints once.
+ */
+const rocShowsDoc = JSON.parse(await readFile(join(ROOT, "data/shows.json"), "utf8").catch(() => "{}"));
+const rocShopsDoc = JSON.parse(await readFile(join(ROOT, "data/shops.json"), "utf8").catch(() => "{}"));
+const rocPlateDoc = JSON.parse(await readFile(join(ROOT, "data/garbage-plate.json"), "utf8").catch(() => "{}"));
+// build-rochester.mjs's `upcoming`, filter and all. BUILT is this file's own
+// localDay(new Date()) and is the SAME three lines shared/today.mjs exports and
+// build-rochester.mjs imports, so the two pages filter on the same day. NOT
+// toISOString: after 8pm in Rochester UTC is already tomorrow, which is the bug
+// recorded above BUILT, and it would sweep a show off this count on the evening
+// BEFORE it happens.
+const rocToday = BUILT;
+const rocShows = (rocShowsDoc.shows || []).filter((s) => s.date >= rocToday).length;
+const rocShops = (rocShopsDoc.shops || []).length;
+const rocPlates = (rocPlateDoc.places || []).length;
+
+const rocTile = (big, label, href) =>
+  `      <li><a href="${href}"><b>${big}</b><span>${label}</span></a></li>`;
+const rocTiles = [
+  rocShows ? rocTile(num(rocShows), rocShows === 1 ? "card show coming up" : "card shows coming up", "/card-shows.html") : "",
+  rocShops ? rocTile(num(rocShops), rocShops === 1 ? "card shop" : "card shops", "/shops.html") : "",
+  rocPlates ? rocTile(num(rocPlates), rocPlates === 1 ? "place serves a plate" : "places serve a plate", "/garbage-plate.html") : "",
+].filter(Boolean);
+
+/* THE SENTENCE IS THE HUB'S OWN FIRST LINE, not a new one written for this
+ * band. /rochester.html opens "This is a card town and most of the internet has
+ * no idea", and that is the best sentence on the site for what this band is
+ * for; a paraphrase here would be the same claim in two voices. The clause
+ * after it is shortened from the hub's own, because the hub is listing what is
+ * ON it and this band is saying where to go.
+ *
+ * NO LINK INSIDE THE SENTENCE, AND THERE WAS ONE AND IT WAS TAKEN OUT. "one
+ * page" was an anchor to /rochester.html and it MEASURED THE SAME COLOUR AS THE
+ * PROSE AROUND IT, rgb(201,209,204) for both, read off rendered pixels rather
+ * than off the token: ui.css gives a bare <a> inside a <p> in a new section no
+ * route colour at all, so it was a link nothing marked as one. That fails this
+ * site's accent rule in the way that matters ("teal is how you get around"),
+ * and the band already carries its route in the .brk beside the heading plus
+ * three counted links under it. The fix was to DELETE the fourth rather than to
+ * paint it: a labelled control at the end of a heading row is the shape this
+ * file uses everywhere else, and a route buried mid-sentence is the shape
+ * CLAUDE.md complains about. */
+const rocHtml = !rocTiles.length
+  ? ""
+  : `<section class="roc" aria-labelledby="rocH">
+  <div class="wrap">
+    <div class="brk"><h2 id="rocH">Rochester, <span class="hl">New York</span></h2><span class="ln"></span><a href="/rochester.html">The local scene &rarr;</a></div>
+    <p class="roc-lede">This is a card town and most of the internet has no idea. The shows, the shops, the people who sell and film around here, and the dish the channel is named after are all on the local scene page.</p>
+    <ul class="roc-counts">
+${rocTiles.join("\n")}
+    </ul>
+    <p class="roc-src">Counted on the day this page was built, out of the same records the local scene page counts. Shows are the ones still to come, so between deploys that figure can only ever be too high, never too low.</p>
+  </div>
+</section>`;
+
 // ---------------------------------------------------------------------------
 // THIS SITS IN JS AND NOT BESIDE THE DECLARATIONS IT DESCRIBES, because the
 // style block below ships to the browser verbatim: nothing strips comments out
@@ -2505,6 +2701,53 @@ ${BRAND_STYLE_MIN}
    see the .wdr-ch note above, where that cost 9.4KB above the fold. */
 .rstats-src{font-size:var(--t-micro);line-height:1.5;color:var(--ink-2);
   margin-top:var(--s4);max-width:60em}
+/* 5. WHAT THIS SITE IS, SAID ON THE FIRST SCREEN. Argued in full above
+   siteSay in build-proto.mjs, which is where the fold arithmetic and the
+   two-element reason are written; the two rules that matter are here. There
+   are 9.52 above the trophy at 375, so the phone copy lives in .hof-head's
+   existing 44px row instead of taking a row of its own. */
+.hsay{margin:0;font:700 var(--t-micro)/1.25 var(--body);color:var(--chrome-dim)}
+/* THE COLUMN IS display:contents ABOVE 544 SO THE DESKTOP ROW IS THE ONE IT
+   ALWAYS WAS. The wrapper exists only to stack the heading and the sentence on
+   a phone; letting it be a real box at every width would put the h2 and .sub2
+   into a column on a desktop and grow that row. contents makes its children the
+   flex items of .hof-head directly, which is exactly the markup that shipped
+   before this change. .hof-head itself is NOT touched, deliberately: it is on
+   /hall.html as well, and that page slices its <head> out of index.html and so
+   carries this block verbatim. .hof-ht and .hsay are new names and match
+   nothing there. */
+.hof-ht{display:contents}
+.hsay-in{display:none}
+/* --ink AND NOT --ink-2 ABOVE 544. This is the page saying what it is, in
+   first position, and a caption colour reads as a caption. It measured 8.12:1
+   at --ink-2 and 9.29 at --ink off rendered pixels, so this is a legibility
+   gain as well. It stays --chrome-dim on the phone, where the same sentence
+   sits on .hof's dark band under a heading rather than alone on the page. */
+.hsay-top .hsay{color:var(--ink);font-size:var(--t-sm)}
+.hsay-top{padding-bottom:var(--s3)}
+/* 6. ROCHESTER. Argued above rocHtml in build-proto.mjs. .brk, .hl and .wrap
+   are ui.css's own, so the band arrives in the page's grammar; the new rules
+   are the counts
+   row, and it is a ROW rather than a second .rstat card grid on purpose. The
+   counters band 800px above it is six of those cards, and three more of the
+   same object under a different heading is how a page grows two navigation
+   systems that look alike (which is the tools band's own diagnosis). */
+.roc{padding:var(--s6) 0}
+.roc-lede{font-size:var(--t-sm);line-height:1.45;color:var(--ink-2);max-width:46em;margin:0}
+.roc-counts{list-style:none;margin:var(--s4) 0 0;padding:0;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3)}
+/* min-width:0 IS THE FLOOR UNDER THE TRACKS, same rule the .rstat note above
+   gives: a grid item's default minimum is its MIN-CONTENT width, so a long
+   label widens the track and then the document rather than wrapping. */
+.roc-counts li{min-width:0}
+.roc-counts a{display:block;border-left:3px solid var(--keyline);padding-left:var(--s3)}
+.roc-counts b{display:block;font:400 var(--t-l)/1 var(--display);color:var(--ketchup-deep);
+  margin-bottom:6px;overflow-wrap:anywhere}
+.roc-counts span{display:block;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+  letter-spacing:.06em;text-transform:uppercase}
+.roc-counts a:hover span{text-decoration:underline}
+.roc-src{font-size:var(--t-micro);line-height:1.5;color:var(--ink-2);
+  margin-top:var(--s4);max-width:60em}
 @media(min-width:545px) and (max-width:899px){
 .vcar .hero{max-width:520px;margin:0 auto;padding:var(--s5)}
 .vcar .hero-art,
@@ -2526,6 +2769,23 @@ ${BRAND_STYLE_MIN}
 main{padding-top:0}
 .wdrop{padding:6px 0}
 .wdrop-sum{min-height:44px;row-gap:6px}
+/* 5, the phone half. The column stacks the sentence under "Greatest Hits"
+   inside the 44px row that link's tap target already holds open: 22.41 + 4 +
+   13.75 = 40.16, so the row does not grow and the trophy does not move. The
+   .sub2 beside it is already display:none here (ui.css, max-width:560), so
+   exactly one line ever occupies this slot. Full argument above siteSay. */
+.hof-ht{display:flex;flex-direction:column;gap:4px;min-width:0}
+.hsay-in{display:block}
+.hsay-top{display:none}
+}
+/* ONE COLUMN ONLY AT 359 AND UNDER, NOT AT 544 AND UNDER, AND THE NUMBER IS
+   MEASURED. Three tracks at 390 is 110px each and the longest label, PLACES
+   SERVE A PLATE, is 146px at 11px mono with .06em of tracking, so it takes two
+   lines and the row is 57px. Stacked, the same three are 160.1px. Below 360 the
+   track is 85px and the same label goes to three lines with the words broken
+   oddly, which is where a row stops being a row. */
+@media(max-width:359px){
+.roc-counts{grid-template-columns:1fr;gap:var(--s4)}
 }</style>`;
 /* 3. ONE VIDEO PER BAND ON A PHONE, max-width:544px. LAYOUT ONLY: three
  * display rules, no colour, no spacing, nothing that changes above 544.
@@ -2783,6 +3043,17 @@ const REGIONS = {
   // markers sit OUTSIDE the <section>, so that case is no band rather than an
   // empty frame. Same rule DROPS and WANTEDNOTE use.
   RIPSTATS: ripStatsHtml,
+  // TWO REGIONS, ONE STRING. Both come from `siteSay` and exactly one of them
+  // is ever rendered; the argument for the pair, and for why the phone copy is
+  // not simply at the top of <main>, is above `siteSay`. Neither may be
+  // hand-edited in index.html: the whole point of the pair being generated is
+  // that the sentence cannot exist in two versions.
+  SAYTOP: sayTopHtml,
+  SAYHEAD: sayHeadHtml,
+  // The Rochester band. Empty when none of its three figures can be counted,
+  // and the markers sit OUTSIDE the <section> for the same reason the two
+  // bands above give.
+  ROCHESTER: rocHtml,
   SETS101: setsHtml,
   COUNT_ALL: String(videos.length),
   COUNT_HITS: String(hitCount),
@@ -2915,6 +3186,18 @@ console.log(
     `${num(videos.length)} rips, ${num(allPacks)} packs over ${num(packRips)} rips that say, ` +
     `${num(hitCards)} hit cards, ${hitRate || "-"} over ${num(hitRips.length)}/${num(judgedRips.length)} answered` +
     `\n    ^ the last five must match /luck.html's .luck-head exactly`
+);
+// THE ROCHESTER BAND'S THREE FIGURES, PRINTED FOR THE SAME REASON THE FIVE
+// ABOVE ARE: this file copies build-rochester.mjs's three counting rules, so
+// this line is the cheap half of keeping the two in step. They must equal the
+// counted cards on /rochester.html. If they ever do not, one of the two files
+// has changed its rule and the site is contradicting itself: fix the rule, not
+// the number. build-all.mjs swallows stdout on success, so this is a line for a
+// hand run rather than a gate.
+console.log(
+  `  Rochester band: ${num(rocShows)} shows still to come on ${rocToday}, ` +
+    `${num(rocShops)} shops, ${num(rocPlates)} plate places` +
+    `\n    ^ these three must match /rochester.html's counted cards`
 );
 for (const line of dropsLog) console.log(`  ${line}`);
 if (noArt.length) console.log(`  sets ripped but with no pack art: ${noArt.join(", ")}`);
