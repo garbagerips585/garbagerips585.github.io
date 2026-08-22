@@ -5465,7 +5465,8 @@
     "hitCard": "Radiant Charizard - Radiant Rare",
     "hits": [
       {
-        "card": "Radiant Charizard Radiant Rare",
+        "card": "Radiant Charizard",
+        "rarity": "Radiant Rare",
         "set": "pokemon-go",
         "setName": "Pokémon GO"
       }

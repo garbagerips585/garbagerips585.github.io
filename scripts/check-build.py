@@ -920,6 +920,118 @@ if _labels:
             + ". Add the id to LABELS.sets in public/assets/app.js."
         )
 
+# ---------------------------------------------------------------------------
+# AND THEY HAVE TO SPELL EVERY PRODUCT THE SAME WAY TOO, WHICH THE BLOCK ABOVE
+# DID NOT ASK.
+#
+# The set check exists because app.js and taxonomy.mjs draw one grid from two
+# tables. LABELS.products is the SAME hand copy of the SAME file and had nothing
+# watching it, and on 22 August 2026 it had drifted on four ids that are live in
+# videos.json: japanese-pack, korean-pack and chinese-pack were missing the word
+# "Booster", and knock-out was not listed at all, so it fell through labelOf()'s
+# title-case fallback and rendered "Knock Out" against "Knock Out Collection".
+#
+# IT WAS HARMLESS ON THE DAY AND THAT IS THE ARGUMENT FOR THE CHECK, NOT AGAINST
+# IT. Products only drew filter chips, so one wrong name sat on one rail with
+# nothing beside it to disagree with. The moment a product name reaches a tile
+# the same grid prints two names for one product, which is exactly what the set
+# names did twice ("the product rail and the tiles under it disagreed" is
+# already in CLAUDE.md, and build-proto.mjs's productLabel carries the note).
+#
+# THE COMPARISON IS `short or label`, NOT `label`. taxonomy.mjs gives ETB a
+# short and app.js says "ETB", and build-proto.mjs's productLabel() picks the
+# short for the tile caption precisely so the caption matches the chip. Compare
+# against `label` here and this check would demand app.js say "Elite Trainer
+# Box", breaking the agreement it exists to protect.
+#
+# ALL SIXTEEN ARE CHECKED, not just the thirteen that reach a tile. The set
+# check compares only ripped ids because the Set dropdown offers 146 sets that
+# legitimately fall to the fallback; PRODUCT_TYPES is a closed table of sixteen
+# and app.js spells out every one of them on purpose, its own comment saying the
+# unused ones are there so the fallback never prints "Spc" on a tile the day one
+# is logged. That arrangement is the invariant, so the unused rungs are the ones
+# most worth checking: nothing on the site would show a mistake in them.
+_ptax = {}
+try:
+    _tsrc = open("shared/taxonomy.mjs", encoding="utf-8").read()
+    _tblk = re.search(r"^export const PRODUCT_TYPES = \[(.*?)^\];", _tsrc, re.S | re.M).group(1)
+    # Line comments out first. The prose in that table talks about labels and
+    # ids in sentences, and a regex reading it as code would invent rungs.
+    _tblk = "\n".join(_l for _l in _tblk.split("\n") if not _l.strip().startswith("//"))
+    for _e in re.finditer(r'\bid:\s*"([^"]+)"(.*?)(?=\bid:\s*"|\Z)', _tblk, re.S):
+        _pid, _body = _e.group(1), _e.group(2)
+        _lab = re.search(r'\blabel:\s*"((?:[^"\\]|\\.)*)"', _body)
+        _sho = re.search(r'\bshort:\s*"((?:[^"\\]|\\.)*)"', _body)
+        if _lab:
+            _ptax[_pid] = (_sho or _lab).group(1)
+    if not _ptax:
+        raise ValueError("PRODUCT_TYPES parsed to zero entries")
+except Exception as _e:
+    fail.append(f"could not read PRODUCT_TYPES out of shared/taxonomy.mjs ({_e}), so the "
+                f"app.js product-name check below has no canonical names and would pass "
+                f"by comparing nothing")
+
+# READ INDEPENDENTLY OF THE SET BLOCK ABOVE. That block leaves app.js in `_src`
+# and it would be a line shorter to reuse it, but `_src` is also build-sheet.py
+# earlier in this file, so a failed read up there would silently hand this check
+# the wrong file or a stale one. A verifier that inherits another check's input
+# fails the same way the bugs in this file fail.
+_plabels = {}
+try:
+    _asrc = open("public/assets/app.js", encoding="utf-8").read()
+    _pobj = re.search(r"\bproducts:\s*\{(.*?)\n    \},", _asrc, re.S)
+    _pbody = "\n".join(_l for _l in _pobj.group(1).split("\n") if not _l.strip().startswith("//"))
+    # Keys are written BOTH ways in that object: bare where the id is a plain
+    # word (upc, etb, tin) and quoted where it carries a hyphen. Reading only
+    # the quoted form would have found 11 of 17 and called the rest missing.
+    for _k, _v in re.findall(r'"?([A-Za-z][A-Za-z0-9-]*)"?:\s*"((?:[^"\\]|\\.)*)"', _pbody):
+        _plabels[_k] = _v.replace('\\"', '"').replace("\\\\", "\\")
+    if not _plabels:
+        raise ValueError("LABELS.products parsed to zero entries")
+except Exception as _e:
+    fail.append(f"could not read LABELS.products out of public/assets/app.js ({_e}), so the "
+                f"product-name check has nothing to compare and would pass empty. Check the "
+                f"`products: {{` block is still there and still in that shape.")
+
+if _ptax and _plabels:
+    _pwrong = []
+    _pcompared = 0
+    for _p in sorted(_ptax):
+        _pcompared += 1
+        _pgot = _plabels.get(_p) or _title_case(_p)
+        if _pgot != _ptax[_p]:
+            _pwrong.append(f'{_p}: app.js renders "{_pgot}", taxonomy.mjs says "{_ptax[_p]}"')
+    _riplive = sorted({_p for _v in _vids for _p in (_v.get("products") or [])})
+    note(f"  {_pcompared} of {len(_ptax)} product names cross-checked against app.js, "
+         f"{len(_riplive)} of them on a video")
+    # Same guard as the set check, and the same reason: a run that compares
+    # nothing looks exactly like a run that found nothing.
+    if not _pcompared:
+        fail.append(
+            "the app.js product-name check compared 0 products, so it passed without "
+            "looking at anything. PRODUCT_TYPES in shared/taxonomy.mjs parsed to entries "
+            "with no id, which means that table changed shape."
+        )
+    # A product tag in the data that no table defines cannot be caught by the
+    # loop above, because that loop walks the table rather than the data.
+    _porphan = [_p for _p in _riplive if _p not in _ptax]
+    if _porphan:
+        fail.append(
+            f"{len(_porphan)} product tag(s) in public/data/videos.json that "
+            f"shared/taxonomy.mjs does not define, so nothing can name them and every tile "
+            f"and chip carrying one falls to a title-cased slug: " + ", ".join(_porphan[:6])
+            + ". Either add the id to PRODUCT_TYPES or fix the tag in data/manual.json."
+        )
+    if _pwrong:
+        fail.append(
+            f"{len(_pwrong)} product name(s) spelled differently by public/assets/app.js and "
+            f"shared/taxonomy.mjs, so a filter chip and the tiles under it would caption one "
+            f"product two ways: " + "; ".join(_pwrong[:6])
+            + (f" and {len(_pwrong) - 6} more" if len(_pwrong) > 6 else "")
+            + ". Fix the id in LABELS.products in public/assets/app.js; taxonomy.mjs is the "
+              "source and build-proto.mjs uses `short` where a product has one."
+        )
+
 # THE VERDICT GOES TO STDERR AND THE REASON WAS INVISIBLE UNTIL IT DID.
 #
 # build-all.mjs runs this file as its LAST step with stdio ["ignore","ignore",

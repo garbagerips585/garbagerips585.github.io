@@ -1712,12 +1712,54 @@ rows it read against how many cards it inducted. It is 80.
     over the cards that HAVE a raw price and was exact while every plaque had
     one. Three do not, so it reads "Raw on 77 of 80", matching the PSA 10 tile
     beside it, which has always named its subset.
-  - **ONE ROW IS STILL DROPPED AND IT IS A TYPO IN THE SPREADSHEET.** The sheet
-    says "Iono's Bellibolt" and Ascended Heroes lists "Iono's Bellibolt ex". We
-    hold that checklist, so publishing the row anyway would print a card name no
-    catalogue holds. The build says so on every run. **Fix it in the My Hits tab
-    and re-import; do NOT edit data/hits.json**, which import-sheet.mjs rebuilds
-    per video.
+  - **THE ROWS THAT DO NOT RESOLVE, RE-TAKEN 22 AUGUST 2026, AND THE BELLIBOLT
+    ONE IS NOT AMONG THEM ANY MORE.** This bullet described a single sheet typo,
+    "Iono's Bellibolt" against Ascended Heroes' "Iono's Bellibolt ex". THAT
+    FAULT IS GONE: rows 127 and 222 both read "Iono's Bellibolt ex" today and
+    both resolve. Checked against the workbook AND the built tree rather than
+    against this file, because a list of broken rows goes stale the moment Tim
+    edits a cell, and this one had. **Five rows are left and every one of them
+    needs him, not code.** The right-hand column is what the checklist we
+    already hold says the card is, so each is one cell edit away:
+
+      row  video         the Hit Info cell as typed                    the checklist holds
+      204  QXS1W_L2qbs   Bidoof PEELABLE DITTO 059/078 Reverse Holo    Pokemon GO #059 Bidoof
+      205  sdZx0lmq2mQ   Mega Froslass ex - Pink and Green Star -      Ascended Heroes #047, #265 or #275,
+                         Mega Attack Rare                              three printings of the one card
+      221  U91JWMsUHAU   Paras - Galarian Gallery                      NOTHING. Our Crown Zenith checklist is
+                                                                       160 numbered cards, no Galarian Gallery
+                                                                       subset and no Paras at all
+      228  J-Gqbe3jPn4   Gold Fighting Energy - Secret Rare            Chilling Reign #233 Fighting Energy
+      240  i9htInhtbCw   Trainer - Egg Incubator Gold - Secret Rare    Pokemon GO #087 Egg Incubator (#066 is
+                                                                       the Uncommon one, #087 is the gold)
+
+    **ROW 254 WAS THE SIXTH AND IT WAS OURS, SO IT WAS FIXED IN CODE AND NOT IN
+    THE SHEET**, 22 August 2026. "Radiant Charizard - Radiant Rare" came out as
+    a card called "Radiant Charizard Radiant Rare" and matched nothing, because
+    Radiant Rare was not a rung in RARITY_KEY and import-sheet.mjs derives the
+    names it will split off the front of a card from those labels. Adding the
+    rung resolved it to Pokemon GO #011 with no cell touched: plaques went 145
+    to 146, and the scan, the $17.28 and the number are on the rip page. **A
+    Radiant card draws NO stars and that was established off the scans rather
+    than guessed** -- read the block at the top of shared/rarity.mjs before
+    anybody puts a star count on it.
+
+    **MEGA ATTACK RARE, ON ROW 205, IS NOT THE SAME KIND OF GAP AND MUST NOT BE
+    ADDED TO THE KEY.** It is the Pokemon TCG API's word for a tier the TCGdex
+    checklist calls Ultra Rare, and this is already settled in the tree:
+    sync-sets.mjs records that Ascended Heroes reads "14 Ultra Rare + 7 Mega
+    Attack Rare" from one feed and "21 Ultra Rare and no Mega Attack Rare" from
+    the other, and gives it to the checklist, so the name no longer reaches
+    sets.json at all. data/rarity.json's own readme lists "Mega Attack Rare's
+    pastel star symbol. Single-sourced, unverified." among the claims it
+    refuses to publish. There is no printed tier here to add. That row also
+    needs one thing the other four do not: the checklist holds three Mega
+    Froslass ex, so the NUMBER has to come from Tim as well as the tier.
+
+    **FIX THESE IN THE SHEET AND RE-IMPORT; do NOT edit data/hits.json**, which
+    import-sheet.mjs rebuilds per video. A cell naming a card no checklist holds
+    still publishes the name and nothing else, which is the standing behaviour
+    and is better than a guess.
 
 **THREE FIRST PARTNER PROMOS ARE ON IT NOW AND THE JOIN THAT PUT THEM THERE IS
 `printing`.** data/hits.json records Rowlet MEP 043, Litten 044 and Popplio 045

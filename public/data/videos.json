@@ -1,14 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
-  "syncedAt": "2026-08-21",
+  "syncedAt": "2026-08-22",
   "videos": [
+    {
+      "id": "yiYrp7bo3PM",
+      "title": "Can we top the Mega Greninja? 🐸❌",
+      "path": "rip/can-we-top-the-mega-greninja-yiYrp7bo3PM.html",
+      "published": "2026-08-22",
+      "duration": 20,
+      "views": 84,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "chaos-rising"
+      ],
+      "products": [
+        "etb"
+      ],
+      "pulls": [],
+      "label": "Chaos Rising ETB"
+    },
     {
       "id": "lRT8jgjO2HM",
       "title": "The Greninja Luck Ran Out... 💀",
       "path": "rip/the-greninja-luck-ran-out-lRT8jgjO2HM.html",
       "published": "2026-08-21",
       "duration": 21,
-      "views": 611,
+      "views": 845,
       "vertical": true,
       "short": true,
       "sets": [
@@ -26,7 +44,7 @@
       "path": "rip/the-9th-pack-saved-the-box-h5mje3jbD48.html",
       "published": "2026-08-20",
       "duration": 24,
-      "views": 818,
+      "views": 815,
       "vertical": true,
       "short": true,
       "sets": [
@@ -61,7 +79,7 @@
       "path": "rip/is-rampardos-ex-a-real-hit-_RuAmy2dGL8.html",
       "published": "2026-08-19",
       "duration": 20,
-      "views": 1007,
+      "views": 1009,
       "vertical": true,
       "short": true,
       "sets": [
@@ -93,7 +111,7 @@
       "path": "rip/i-just-pulled-a-1-000-card-iIgTusrqVtg.html",
       "published": "2026-08-18",
       "duration": 28,
-      "views": 1180,
+      "views": 1184,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1379,7 +1397,7 @@
       "path": "rip/thievul-ir-pitch-black-first-pack-magic-GTC45Mri_gc.html",
       "published": "2026-07-17",
       "duration": 23,
-      "views": 627,
+      "views": 629,
       "vertical": true,
       "short": true,
       "sets": [
@@ -8859,7 +8877,7 @@
       "path": "rip/perfect-order-booster-pack-1-first-pack-magic-mDDuc-YDvbw.html",
       "published": "2026-03-30",
       "duration": 25,
-      "views": 1391,
+      "views": 1392,
       "vertical": true,
       "short": true,
       "sets": [
@@ -8894,7 +8912,7 @@
       "path": "rip/opening-pok-mon-first-partner-illustration-collection-series-JVrd7EVB2_8.html",
       "published": "2026-03-29",
       "duration": 73,
-      "views": 1262,
+      "views": 1267,
       "vertical": true,
       "short": false,
       "sets": [
@@ -8942,7 +8960,7 @@
       "path": "rip/pok-mon-go-booster-pack-5-we-need-a-hit-wHaIoWhy7XE.html",
       "published": "2026-03-28",
       "duration": 20,
-      "views": 1340,
+      "views": 1343,
       "vertical": true,
       "short": true,
       "sets": [
@@ -8974,7 +8992,7 @@
       "path": "rip/ascended-heroes-etb-final-pack-final-pack-magic-O-vFg-5cx8E.html",
       "published": "2026-03-27",
       "duration": 21,
-      "views": 1044,
+      "views": 1045,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9006,7 +9024,7 @@
       "path": "rip/pok-mon-go-booster-pack-4-is-this-the-mewtwo-pack-yjBNG5dvopc.html",
       "published": "2026-03-26",
       "duration": 20,
-      "views": 1456,
+      "views": 1457,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9039,7 +9057,7 @@
       "path": "rip/ascended-heroes-etb-pack-8-last-chance-before-the-final-pack-9J16fnroBBM.html",
       "published": "2026-03-25",
       "duration": 21,
-      "views": 342,
+      "views": 343,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9071,7 +9089,7 @@
       "path": "rip/pok-mon-go-booster-pack-3-getting-closer-to-mewtwo-tKOXv-qSYTo.html",
       "published": "2026-03-24",
       "duration": 20,
-      "views": 335,
+      "views": 336,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9104,7 +9122,7 @@
       "path": "rip/only-garbage-rips-ascended-heroes-etb-pack-7-h-KAo8SScL8.html",
       "published": "2026-03-23",
       "duration": 22,
-      "views": 1456,
+      "views": 1457,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9136,7 +9154,7 @@
       "path": "rip/only-garbage-rips-temporal-forces-booster-pack-2-lByjKSw3s-U.html",
       "published": "2026-03-22",
       "duration": 22,
-      "views": 569,
+      "views": 570,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9168,7 +9186,7 @@
       "path": "rip/ascended-heroes-etb-pack-6-redemption-pack-3WxpO0osReg.html",
       "published": "2026-03-21",
       "duration": 21,
-      "views": 612,
+      "views": 613,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9200,7 +9218,7 @@
       "path": "rip/temporal-forces-pack-1-is-this-set-any-good-mxwjJ0oXyUQ.html",
       "published": "2026-03-20",
       "duration": 21,
-      "views": 1915,
+      "views": 1916,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9232,7 +9250,7 @@
       "path": "rip/ascended-heroes-etb-pack-5-halfway-through-the-box-IcQFu0SaoH4.html",
       "published": "2026-03-19",
       "duration": 24,
-      "views": 1013,
+      "views": 1014,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9267,7 +9285,7 @@
       "path": "rip/only-garbage-rips-shining-fates-pack-2-W-aWk5zDYlw.html",
       "published": "2026-03-18",
       "duration": 19,
-      "views": 513,
+      "views": 514,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9299,7 +9317,7 @@
       "path": "rip/ascended-heroes-etb-pack-4-is-this-the-one-juzo0HheF1U.html",
       "published": "2026-03-17",
       "duration": 21,
-      "views": 444,
+      "views": 446,
       "vertical": true,
       "short": true,
       "sets": [

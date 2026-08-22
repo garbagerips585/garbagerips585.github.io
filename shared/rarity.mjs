@@ -22,6 +22,57 @@
 // the pull people came for.
 //
 // ============================================================================
+// A THIRD TIER IS NOT ON THAT PAGE EITHER, AND IT IS THE ONE THAT GETS NO STARS.
+// Radiant Rare, added 22 August 2026, stars: 0. WHAT THE CARD PRINTS AND HOW
+// THAT WAS ESTABLISHED, written out so nobody revises it on a hunch:
+//
+// The scans were read, not remembered. The six Radiant cards this site holds
+// (crown-zenith 020 / 051 / 105, pokemon-go 004 / 011 / 018) were fetched at
+// TCGdex high.webp, 600x825, and the rarity slot at the end of the bottom-left
+// group was cropped and magnified, the same figure /rarity.html builds. Beside
+// them, from the SAME two sets so the printing era and the band art are held
+// constant: crown-zenith 003 (Rare), pokemon-go 003 (Holo Rare), pokemon-go 071
+// (Ultra Rare) and pokemon-go 079 (Secret Rare).
+//
+//   Radiant Rare, all six ........ ONE star, printed WHITE
+//   Rare / Holo Rare ............. ONE star, printed BLACK
+//   Ultra Rare (swsh era) ........ ONE star, printed WHITE
+//   Secret Rare (swsh era) ....... ONE star, printed WHITE
+//
+// Counted in pixels rather than eyeballed, in the same 17x17 box on every card:
+// the Radiant stars are 12.5-13.5% near-white and 0% near-black, the Rare and
+// Holo Rare stars 0% near-white and 14.5-16.3% near-black. THE BAND BEHIND IT
+// IS NOT THE CAUSE: Radiant Venusaur (pokemon-go 004) and Holo Rare Venusaur
+// (pokemon-go 003) sit on the same grass-type green and print opposite stars,
+// so the colour is carried by the tier and not by the ground under it.
+//
+// SO THE STAR IS REAL AND IT IS USELESS, WHICH IS WHY THE ANSWER IS NO MARK AT
+// ALL. In the Sword & Shield era the rarity slot prints one white star for
+// Radiant Rare, Ultra Rare and Secret Rare alike: the star row does not name
+// the tier there the way the booklet's key names it on a Scarlet & Violet card.
+// Drawing one white star here would make a claim the print does not make, and
+// it would land a hair from the black-star mark this site already draws --
+// .rk-black resolves to --navy, which is #E4DCCC on Trubbish Deep, 1.30:1 from
+// white -- so the two tiers would read as one shape at 11px. That is the emoji
+// objection below, arriving through the front door.
+//
+// IT IS ALSO THE POSITION THIS REPO ALREADY HELD. BOOKLET_MARK in
+// build-set-pages.mjs names Radiant among the rungs it deliberately leaves
+// unmarked, and says why: "inventing a star count for them is exactly the
+// confident error a reference page must not make." The scans above are the
+// evidence for that instinct rather than a reversal of it. WHAT THE TIER GAINS
+// by being in the key at all is the parse, not the picture: raritiesIn() read
+// "Radiant Rare" as the bare rare rule and put a BLACK STAR and the word Rare
+// on a Radiant Charizard, and import-sheet.mjs derives its RARITY_WORDS from
+// the labels here, so with no rung the tier could not be split off the card
+// name and the site published a card called "Radiant Charizard Radiant Rare".
+//
+// IF SOMEBODY LATER GIVES IT A STAR COUNT, they need a card that prints a mark
+// only Radiant prints. There is no such card in the two sets above; check a
+// scan before changing the 0, and change the tone with it.
+// ============================================================================
+//
+// ============================================================================
 // WHY THESE ARE DRAWN AND NOT EMOJI.
 //
 // The ask was "emojis to indicate the rarity level". Emoji cannot express this
@@ -55,6 +106,21 @@ export const RARITY_KEY = [
   { id: "ace-spec", label: "ACE SPEC Rare", stars: 1, tone: "pink", short: "ACE SPEC" },
   { id: "ultra", label: "Ultra Rare", stars: 2, tone: "silver", short: "Ultra" },
   { id: "double-rare", label: "Double Rare", stars: 2, tone: "black", short: "Double" },
+  // NO STAR ROW. See the block at the top of this file for the six scans that
+  // settled it. The slot on the card is not empty -- it holds one white star --
+  // but that same white star is what an Ultra Rare and a Secret Rare of the
+  // same era print, so it identifies nothing and this site does not draw it.
+  // "none" is not a colour, it is the absence of a mark: rarityMark() returns
+  // an empty string for any rung with no stars, so the chip is the NAME alone.
+  //
+  // THE RUNG SITS HERE BECAUSE RARITY_ORDER PUTS IT HERE. shared/format.mjs
+  // orders 21 rarity names rarest first and files "Radiant Rare" below ACE SPEC
+  // Rare and above Holo Rare and Rare. That is the site's existing answer to
+  // where this tier ranks, so it is read off rather than invented, and it is
+  // what decides which id raritiesIn() returns first when a cell names two.
+  // ABOVE charizard for the reason every other real tier is: a Radiant
+  // Charizard is a Radiant, and the category never outranks the tier.
+  { id: "radiant", label: "Radiant Rare", stars: 0, tone: "none", short: "Radiant" },
   { id: "rare", label: "Rare", stars: 1, tone: "black", short: "Rare" },
   { id: "charizard", label: "Charizard", stars: 0, tone: "fire", short: "Charizard" },
 
@@ -143,6 +209,13 @@ const PATTERNS = [
   ["jp-u", /\buncommon\b/gi],
   ["jp-c", /\bcommon\b(?!\s*\/)/gi],
   ["double-rare", /\bdouble[\s\-/]+rare\b/gi],
+  // BEFORE the bare "rare" rule below, or "Radiant Rare" is eaten by it and a
+  // Radiant Charizard comes out wearing a black star and the word Rare, which
+  // is what two built pages said until 22 August 2026. The full two words are
+  // required and a bare "Radiant" is deliberately NOT matched: every one of
+  // these cards is CALLED Radiant something, so a one-word rule would read the
+  // tier out of the card's own name on every single row.
+  ["radiant", /\bradiant[\s\-/]+rare\b/gi],
   ["charizard", /\bcharizard\b|\bzard\b/gi],
   // Last, and never inside a card NAME. "Rare Candy" is a real Trainer card in
   // these sets and it is not a rarity, so a following capitalised word rules
@@ -200,6 +273,14 @@ export function rarityMark(id) {
   if (r.tone === "fire") {
     return `<span class="rk rk-fire" title="${r.label}"><svg viewBox="0 0 12 14" aria-hidden="true" focusable="false"><path d="M6 0C6 4 2 4.5 2 8.5A4 4 0 0 0 10 8.5C10 5.5 7.5 5 7.5 2.5 7.5 4.5 6 4 6 0Z"/></svg></span>`;
   }
+  // A RUNG WITH NO STAR ROW DRAWS NOTHING, and it has to be nothing rather than
+  // an empty span. .rk carries margin-right:5px and a title attribute, so the
+  // line below would otherwise emit a 5px invisible gap with a tooltip on it in
+  // front of every Radiant Rare label. This is also the test BOOKLET_MARK in
+  // build-set-pages.mjs already runs on its eight ids, so a rung with no mark
+  // can never be quietly added to that ladder and lose its stars in silence.
+  // Charizard is above this line because its mark is a flame and not a star.
+  if (!r.stars) return "";
   const star =
     r.tone === "mega"
       ? `<svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 0 7.4 4.6 12 6 7.4 7.4 6 12 4.6 7.4 0 6 4.6 4.6Z"/></svg>`

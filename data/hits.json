@@ -1402,9 +1402,10 @@
     ],
     "5BnjVE-BN70": [
       {
-        "card": "Radiant Charizard Radiant Rare",
+        "card": "Radiant Charizard",
         "set": "pokemon-go",
-        "setName": "Pokémon GO"
+        "setName": "Pokémon GO",
+        "rarity": "Radiant Rare"
       }
     ],
     "_ccErXVzURs": [
