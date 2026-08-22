@@ -43,7 +43,17 @@
 .tq-df{fill:var(--ink)}
 .tq-dt{fill:var(--ink);font-family:ui-monospace,monospace;font-weight:700}
 .tq-don{stroke:var(--on-accent)}
-.tq-fig figcaption{margin-top:var(--s3);font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
+.tq-corner svg{max-width:351px}
+@media (max-width:430px){
+  .tq-gen .gl-n{font-size:17px}
+  .tq-gen .gl-g,.tq-gen .gl-ax{font-size:16px}
+}
+@media (max-width:360px){
+  .tq-gen .gl-n{font-size:19px}
+  .tq-gen .gl-g,.tq-gen .gl-ax{font-size:18px}
+}
+.tq-fig figcaption{margin-top:var(--s3);margin-inline:auto;
+  font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
   text-align:center}
 .tq-eras{display:grid;gap:8px;margin-top:var(--s4);list-style:none;padding:0}
 .tq-era{display:grid;grid-template-columns:34px 1fr auto;gap:var(--s3);align-items:center;
@@ -239,7 +249,8 @@
       One is the number after the slash. The other is the symbol beside it, and that is the one this game is really
       asking about. Both live along the bottom edge, and the corner they live in changed once.</p>
 
-    <figure class="tq-fig">
+    
+    <figure class="tq-fig tq-corner">
       <!-- PORTRAIT, AND THAT IS NOT A DETAIL. The first draft drew two 180x152
            boxes, which is a landscape card, in a diagram whose entire subject is
            where on a card two marks sit. 130x182 is 0.714, against a real card's
@@ -250,7 +261,7 @@
            card wearing the mark twice and one wearing it nowhere, which is the
            exact opposite of what the caption underneath it said. A diagram is
            worth having only if somebody checks it against its own claim. -->
-      <svg viewBox="0 0 480 232" role="img"
+      <svg viewBox="44 0 324 232" role="img"
         aria-label="Two card outlines, both portrait. On the left, a card up to the XY era, with the collector number and the set symbol together in the bottom right corner. On the right, a card from Sun and Moon onward, with the number and symbol moved to the bottom left.">
         <!-- THE INK IS A CLASS, NOT A fill= ATTRIBUTE, and that is deliberate:
              this figure sits on .tq-fig, which is var(--paper-2), so its ink has
@@ -266,31 +277,29 @@
              at the same opacities, which would have been no mark at all. -->
         <g class="tq-d" stroke-width="3">
           <rect x="60" y="10" width="130" height="182" rx="8"/>
-          <rect x="290" y="10" width="130" height="182" rx="8"/>
+          <rect x="220" y="10" width="130" height="182" rx="8"/>
         </g>
         <g class="tq-df" opacity=".1">
           <rect x="70" y="20" width="110" height="96" rx="5"/>
-          <rect x="300" y="20" width="110" height="96" rx="5"/>
+          <rect x="230" y="20" width="110" height="96" rx="5"/>
         </g>
         <g class="tq-df" opacity=".18">
           <rect x="70" y="126" width="110" height="7" rx="3.5"/>
           <rect x="70" y="140" width="86" height="7" rx="3.5"/>
-          <rect x="300" y="126" width="110" height="7" rx="3.5"/>
-          <rect x="300" y="140" width="86" height="7" rx="3.5"/>
+          <rect x="230" y="126" width="110" height="7" rx="3.5"/>
+          <rect x="230" y="140" width="86" height="7" rx="3.5"/>
         </g>
-        <!-- The set-symbol disc keeps the amber, which is 4.51:1 on the figure,
-             and its ring goes to var(--on-accent) rather than to --ink: a
-             near-white ring on amber is 1.78:1 and would have vanished into the
-             disc it is meant to draw, where the dark ring is 8.05:1 on it. -->
+        <!-- The disc keeps the amber, 4.51:1 here; its ring is --on-accent and
+             not --ink, because a near-white ring on amber is 1.78:1. -->
         <g>
           <circle cx="174" cy="174" r="8" fill="#F5A62B" class="tq-don" stroke-width="2.5"/>
           <text x="158" y="178" text-anchor="end" class="tq-dt" font-size="11">25/198</text>
-          <circle cx="306" cy="174" r="8" fill="#F5A62B" class="tq-don" stroke-width="2.5"/>
-          <text x="322" y="178" class="tq-dt" font-size="11">25/198</text>
+          <circle cx="236" cy="174" r="8" fill="#F5A62B" class="tq-don" stroke-width="2.5"/>
+          <text x="252" y="178" class="tq-dt" font-size="11">25/198</text>
         </g>
         <g class="tq-dt" font-size="12">
           <text x="125" y="220" text-anchor="middle">up to XY, 2016</text>
-          <text x="355" y="220" text-anchor="middle">Sun &amp; Moon on, 2017</text>
+          <text x="285" y="220" text-anchor="middle">Sun &amp; Moon on, 2017</text>
         </g>
       </svg>
       <figcaption>Drawn, not a scan. The corner is the only thing that moved: the number and the symbol have always

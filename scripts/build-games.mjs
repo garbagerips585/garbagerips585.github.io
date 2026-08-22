@@ -806,7 +806,64 @@ const TEACH_CSS = `
 .tq-df{fill:var(--ink)}
 .tq-dt{fill:var(--ink);font-family:ui-monospace,monospace;font-weight:700}
 .tq-don{stroke:var(--on-accent)}
-.tq-fig figcaption{margin-top:var(--s3);font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
+/* THE CORNER DIAGRAM'S OWN CAP, and it is not a style choice: its viewBox was
+   cropped from 480 to 324 units, so 520px here would have rendered it 1.605x
+   its old size instead of 1.083x. 351/324 is the SAME ratio 520/480 was, to
+   four figures, so the drawing keeps every dimension it had above the phone
+   widths and the figure keeps its 251.3px height. The long note beside the
+   svg in the markup has the phone numbers this bought. */
+.tq-corner svg{max-width:351px}
+/* THE GENERATION LADDER'S LABELS, AND WHY THEY ARE SIZED HERE RATHER THAN IN
+   THE MARKUP. That chart has no dead margin to crop -- its drawing runs -1 to
+   463 in a 468 unit box, because the bars ARE the box -- so the only way to
+   buy a legible label on a phone is to spend user units on it. At 320 the
+   figure is 244 CSS px, a ratio of 0.521, and the 13 and 12 unit labels came
+   out at 6.78 and 6.26px; at 390 it is 0.671 and 8.72 and 8.05px.
+
+   These sizes are inside a media query BECAUSE THE DESKTOP RENDERING WAS NOT
+   THE PROBLEM: at 1440 the ratio is 1.111 and the same labels are already
+   14.4 and 13.3px, which is a normal chart. So above 430px not one byte of
+   this applies and the ladder is untouched. Below it, 17 and 16 units render
+   at 11.4 and 10.7px on a 390 phone and 8.9 and 8.3px at 320.
+
+   THE HEADROOM WAS CHECKED, both ways, because a bigger label in a fixed box
+   is a collision waiting to happen. Across: a three digit count at 17 units of
+   Space Mono is 30.6 units inside a 46 unit bar, and "generation" at 16 is 96
+   units inside 468. Down: the tallest bar starts at y=24 and its count sits at
+   y=18, so at 17 units the glyph tops land at 5.4 and stay inside the box;
+   the row of generation numbers ends at 196 and the axis word starts at 200. */
+@media (max-width:430px){
+  .tq-gen .gl-n{font-size:17px}
+  .tq-gen .gl-g,.tq-gen .gl-ax{font-size:16px}
+}
+/* AND A SECOND STEP FOR 320, which is the narrowest phone anybody still holds
+   and the width where a grid that survives 390 comes apart. 17 and 16 units
+   clear the floor at 375 and up (10.22 and 10.86px at 375) and land at 8.34 and
+   8.86 here, because the ratio at 320 is 0.521 against 0.639. 19 and 18 put
+   them at 9.90 and 9.38.
+
+   THE CEILING IS THE BOX, not taste, and it is close enough to write down: the
+   tallest bar's count sits at y=18 and 19 units of Space Mono puts the glyph
+   tops at 3.9 of a viewBox that starts at 0, and the row of generation numbers
+   descends to 196.2 against an axis word whose ascenders start at 198.5. Two
+   units of daylight. Do not raise either of these again without re-reading
+   those two numbers off the drawing. */
+@media (max-width:360px){
+  .tq-gen .gl-n{font-size:19px}
+  .tq-gen .gl-g,.tq-gen .gl-ax{font-size:18px}
+}
+/* margin-inline:auto IS THE WHOLE FIX AND text-align:center IS WHY IT IS A BUG
+   RATHER THAN A PREFERENCE. This caption is capped at 396px by a measure rule
+   it does not own, and a capped block with no auto margins sits at the start
+   edge. So on a 1440 desktop the drawing was centred in a 1360px figure and the
+   caption describing it sat 480px to its left, centring its own lines inside a
+   396px ribbon nowhere near it: the two halves of one figure on two different
+   centre lines. A caption that asks to be centred and then is not is the tell.
+   It is a no-op on a phone and that was checked rather than assumed: at 390 the
+   caption is 314px inside 314px of figure and at 768 it is 684 inside 684, so
+   there is no slack for auto margins to take and nothing below 1000px moves. */
+.tq-fig figcaption{margin-top:var(--s3);margin-inline:auto;
+  font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
   text-align:center}
 
 /* The era table. A LIST, not a table element: every row is symbol, name, years,
@@ -1314,15 +1371,15 @@ const genLadder = `<svg viewBox="0 0 ${gens.length * (BAR_W + BAR_GAP)} 218" rol
       return `<rect x="${x}" y="${y}" width="${BAR_W}" height="${h}" rx="4" fill="${
         g.gen === 1 ? "#F5A62B" : "#929E7C"
       }" stroke="#EEF1EF" stroke-width="2"/>
-  <text x="${x + BAR_W / 2}" y="${y - 6}" text-anchor="middle" font-family="ui-monospace,monospace"
+  <text class="gl-n" x="${x + BAR_W / 2}" y="${y - 6}" text-anchor="middle" font-family="ui-monospace,monospace"
     font-size="13" font-weight="700" fill="#EEF1EF">${g.n}</text>
-  <text x="${x + BAR_W / 2}" y="${24 + LADDER_H + 18}" text-anchor="middle" font-family="ui-monospace,monospace"
+  <text class="gl-g" x="${x + BAR_W / 2}" y="${24 + LADDER_H + 18}" text-anchor="middle" font-family="ui-monospace,monospace"
     font-size="12" font-weight="700" fill="#EEF1EF">${g.gen}</text>`;
     })
     .join("\n  ")}
   <!-- The axis word sat at x=0 y=196, level with the tick labels, and ran
        straight through the "2" under the second bar. It gets its own line. -->
-  <text x="${(gens.length * (BAR_W + BAR_GAP) - BAR_GAP) / 2}" y="212" text-anchor="middle"
+  <text class="gl-ax" x="${(gens.length * (BAR_W + BAR_GAP) - BAR_GAP) / 2}" y="212" text-anchor="middle"
     font-family="ui-monospace,monospace" font-size="12" font-weight="700" fill="#C9D1CC">generation</text>
 </svg>`;
 
@@ -1344,7 +1401,7 @@ const whosPage = shell({
       biggest one there has ever been, bigger than the 151 everybody knows, and generation 6 is less than half of it.
       Turn it on and most of what you are shown will be a shape you have never had to name.</p>
 
-    <figure class="tq-fig">
+    <figure class="tq-fig tq-gen">
       ${genLadder}
       <figcaption>Species per generation, counted from the National Pokedex read
         ${esc(longDate(dex.checked) || dex.checked)} at pokeapi.co. Amber is the 151 pool.
@@ -1484,6 +1541,58 @@ const whosPage = shell({
 await writeFile(join(OUT, "whos-that-pokemon.html"), whosPage);
 
 // --- Guess the Set ---------------------------------------------------------
+/*
+ * A JS COMMENT, NOT AN HTML ONE, AND THE DIFFERENCE IS 1,091 GZIPPED
+ * BYTES. build-css.mjs strips the stylesheet's comments and
+ * stamp-assets.mjs strips every inline <style> block's, but NOTHING
+ * strips a comment sitting in the markup: it is shipped to every reader
+ * of this page. The first draft of the note below was an HTML comment
+ * beside the svg and it took this page from 9,169 to 10,260 bytes
+ * gzipped, 11.9%, for prose no reader can see. So the long-form
+ * reasoning for this figure lives here and in TEACH_CSS, both of which
+ * cost nothing, and only the short colour notes stay in the markup where
+ * they already were.
+ * 
+ * THE viewBox IS CROPPED TO THE DRAWING AND THE CARDS SIT 30 UNITS
+ * APART, and both halves of that are one fix for one measurement: a
+ * phone rendered this figure's labels at 5.59 CSS px.
+ * 
+ * An SVG with a viewBox and width:100% renders every length at
+ * renderedWidth / viewBoxWidth, so a font-size in user units is only ever
+ * as big as that ratio lets it be. The box was 0 0 480 232 and the
+ * drawing inside it ran 58.5 to 423.6, so 115 units, a QUARTER of the
+ * picture, was empty margin, and the two cards were 97 units apart when
+ * they are 130 wide. On a 320px phone the figure is 244 CSS px, so the
+ * ratio was 0.508 and the 11 unit collector number came out at 5.59px;
+ * at 390 it was 0.654 and 7.20px. Both are under any floor you would set
+ * for a label somebody is meant to read.
+ * 
+ * Nothing about the drawing shrank. The right card moved 70 units left
+ * (gap 97 -> 30, still a clear channel between two 130 wide cards) and
+ * the box was cropped to the ink plus 14 units either side, which takes
+ * 480 to 324 and the ratio at 390 from 0.654 to 0.969: the same number
+ * renders at 10.66px now, and at 320 at 8.28px.
+ * 
+ * .tq-corner svg's max-width moves with it, 520 -> 351, BECAUSE THE RATIO
+ * IS THE THING TO HOLD, not the max-width: 351/324 is 1.0833, which is
+ * 520/480 to four figures, so every glyph and every outline is the size
+ * on a desktop it always was and the figure is the same 251.3px tall,
+ * which is what keeps CLS at zero. What does change above the phone
+ * widths is the composition: the cards close up and the picture stops
+ * being a quarter air.
+ * 
+ * THE LABELS ARE THE WIDEST THING IN THE BOX, not the cards. "Sun & Moon
+ * on, 2017" is 19 characters of Space Mono at 12 units, so it runs 137
+ * units against the card's 130 and it is what sets the crop: centred on
+ * the right card at 285 it spans 216.4 to 353.6 and the viewBox ends at
+ * 368, leaving 14.4 units. Widen either label and re-take that before
+ * widening the crop.
+ * 
+ * MEASURE THE RATIO, NOT THE font-size ATTRIBUTE, if this ever needs
+ * re-checking. getComputedStyle on SVG text reports the user unit and
+ * will cheerfully tell you the label is still 11 while the phone is
+ * painting it at 5.59.
+ */
 const setPage = shell({
   slug: "guess-the-set.html",
   compact: true,
@@ -1517,7 +1626,8 @@ const setPage = shell({
       One is the number after the slash. The other is the symbol beside it, and that is the one this game is really
       asking about. Both live along the bottom edge, and the corner they live in changed once.</p>
 
-    <figure class="tq-fig">
+    
+    <figure class="tq-fig tq-corner">
       <!-- PORTRAIT, AND THAT IS NOT A DETAIL. The first draft drew two 180x152
            boxes, which is a landscape card, in a diagram whose entire subject is
            where on a card two marks sit. 130x182 is 0.714, against a real card's
@@ -1528,7 +1638,7 @@ const setPage = shell({
            card wearing the mark twice and one wearing it nowhere, which is the
            exact opposite of what the caption underneath it said. A diagram is
            worth having only if somebody checks it against its own claim. -->
-      <svg viewBox="0 0 480 232" role="img"
+      <svg viewBox="44 0 324 232" role="img"
         aria-label="Two card outlines, both portrait. On the left, a card up to the XY era, with the collector number and the set symbol together in the bottom right corner. On the right, a card from Sun and Moon onward, with the number and symbol moved to the bottom left.">
         <!-- THE INK IS A CLASS, NOT A fill= ATTRIBUTE, and that is deliberate:
              this figure sits on .tq-fig, which is var(--paper-2), so its ink has
@@ -1544,31 +1654,29 @@ const setPage = shell({
              at the same opacities, which would have been no mark at all. -->
         <g class="tq-d" stroke-width="3">
           <rect x="60" y="10" width="130" height="182" rx="8"/>
-          <rect x="290" y="10" width="130" height="182" rx="8"/>
+          <rect x="220" y="10" width="130" height="182" rx="8"/>
         </g>
         <g class="tq-df" opacity=".1">
           <rect x="70" y="20" width="110" height="96" rx="5"/>
-          <rect x="300" y="20" width="110" height="96" rx="5"/>
+          <rect x="230" y="20" width="110" height="96" rx="5"/>
         </g>
         <g class="tq-df" opacity=".18">
           <rect x="70" y="126" width="110" height="7" rx="3.5"/>
           <rect x="70" y="140" width="86" height="7" rx="3.5"/>
-          <rect x="300" y="126" width="110" height="7" rx="3.5"/>
-          <rect x="300" y="140" width="86" height="7" rx="3.5"/>
+          <rect x="230" y="126" width="110" height="7" rx="3.5"/>
+          <rect x="230" y="140" width="86" height="7" rx="3.5"/>
         </g>
-        <!-- The set-symbol disc keeps the amber, which is 4.51:1 on the figure,
-             and its ring goes to var(--on-accent) rather than to --ink: a
-             near-white ring on amber is 1.78:1 and would have vanished into the
-             disc it is meant to draw, where the dark ring is 8.05:1 on it. -->
+        <!-- The disc keeps the amber, 4.51:1 here; its ring is --on-accent and
+             not --ink, because a near-white ring on amber is 1.78:1. -->
         <g>
           <circle cx="174" cy="174" r="8" fill="#F5A62B" class="tq-don" stroke-width="2.5"/>
           <text x="158" y="178" text-anchor="end" class="tq-dt" font-size="11">25/198</text>
-          <circle cx="306" cy="174" r="8" fill="#F5A62B" class="tq-don" stroke-width="2.5"/>
-          <text x="322" y="178" class="tq-dt" font-size="11">25/198</text>
+          <circle cx="236" cy="174" r="8" fill="#F5A62B" class="tq-don" stroke-width="2.5"/>
+          <text x="252" y="178" class="tq-dt" font-size="11">25/198</text>
         </g>
         <g class="tq-dt" font-size="12">
           <text x="125" y="220" text-anchor="middle">up to XY, 2016</text>
-          <text x="355" y="220" text-anchor="middle">Sun &amp; Moon on, 2017</text>
+          <text x="285" y="220" text-anchor="middle">Sun &amp; Moon on, 2017</text>
         </g>
       </svg>
       <figcaption>Drawn, not a scan. The corner is the only thing that moved: the number and the symbol have always

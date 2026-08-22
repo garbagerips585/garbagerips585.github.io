@@ -43,7 +43,17 @@
 .tq-df{fill:var(--ink)}
 .tq-dt{fill:var(--ink);font-family:ui-monospace,monospace;font-weight:700}
 .tq-don{stroke:var(--on-accent)}
-.tq-fig figcaption{margin-top:var(--s3);font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
+.tq-corner svg{max-width:351px}
+@media (max-width:430px){
+  .tq-gen .gl-n{font-size:17px}
+  .tq-gen .gl-g,.tq-gen .gl-ax{font-size:16px}
+}
+@media (max-width:360px){
+  .tq-gen .gl-n{font-size:19px}
+  .tq-gen .gl-g,.tq-gen .gl-ax{font-size:18px}
+}
+.tq-fig figcaption{margin-top:var(--s3);margin-inline:auto;
+  font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
   text-align:center}
 .tq-eras{display:grid;gap:8px;margin-top:var(--s4);list-style:none;padding:0}
 .tq-era{display:grid;grid-template-columns:34px 1fr auto;gap:var(--s3);align-items:center;
@@ -241,57 +251,57 @@
       biggest one there has ever been, bigger than the 151 everybody knows, and generation 6 is less than half of it.
       Turn it on and most of what you are shown will be a shape you have never had to name.</p>
 
-    <figure class="tq-fig">
+    <figure class="tq-fig tq-gen">
       <svg viewBox="0 0 468 218" role="img"
   aria-label="Bar chart of Pokemon species per generation: generation 1, 151; generation 2, 100; generation 3, 135; generation 4, 107; generation 5, 156; generation 6, 72; generation 7, 88; generation 8, 96; generation 9, 120. Generation 1 is the 151 pool.">
   <rect x="0" y="29" width="46" height="145" rx="4" fill="#F5A62B" stroke="#EEF1EF" stroke-width="2"/>
-  <text x="23" y="23" text-anchor="middle" font-family="ui-monospace,monospace"
+  <text class="gl-n" x="23" y="23" text-anchor="middle" font-family="ui-monospace,monospace"
     font-size="13" font-weight="700" fill="#EEF1EF">151</text>
-  <text x="23" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
+  <text class="gl-g" x="23" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
     font-size="12" font-weight="700" fill="#EEF1EF">1</text>
   <rect x="52" y="78" width="46" height="96" rx="4" fill="#929E7C" stroke="#EEF1EF" stroke-width="2"/>
-  <text x="75" y="72" text-anchor="middle" font-family="ui-monospace,monospace"
+  <text class="gl-n" x="75" y="72" text-anchor="middle" font-family="ui-monospace,monospace"
     font-size="13" font-weight="700" fill="#EEF1EF">100</text>
-  <text x="75" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
+  <text class="gl-g" x="75" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
     font-size="12" font-weight="700" fill="#EEF1EF">2</text>
   <rect x="104" y="44" width="46" height="130" rx="4" fill="#929E7C" stroke="#EEF1EF" stroke-width="2"/>
-  <text x="127" y="38" text-anchor="middle" font-family="ui-monospace,monospace"
+  <text class="gl-n" x="127" y="38" text-anchor="middle" font-family="ui-monospace,monospace"
     font-size="13" font-weight="700" fill="#EEF1EF">135</text>
-  <text x="127" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
+  <text class="gl-g" x="127" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
     font-size="12" font-weight="700" fill="#EEF1EF">3</text>
   <rect x="156" y="71" width="46" height="103" rx="4" fill="#929E7C" stroke="#EEF1EF" stroke-width="2"/>
-  <text x="179" y="65" text-anchor="middle" font-family="ui-monospace,monospace"
+  <text class="gl-n" x="179" y="65" text-anchor="middle" font-family="ui-monospace,monospace"
     font-size="13" font-weight="700" fill="#EEF1EF">107</text>
-  <text x="179" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
+  <text class="gl-g" x="179" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
     font-size="12" font-weight="700" fill="#EEF1EF">4</text>
   <rect x="208" y="24" width="46" height="150" rx="4" fill="#929E7C" stroke="#EEF1EF" stroke-width="2"/>
-  <text x="231" y="18" text-anchor="middle" font-family="ui-monospace,monospace"
+  <text class="gl-n" x="231" y="18" text-anchor="middle" font-family="ui-monospace,monospace"
     font-size="13" font-weight="700" fill="#EEF1EF">156</text>
-  <text x="231" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
+  <text class="gl-g" x="231" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
     font-size="12" font-weight="700" fill="#EEF1EF">5</text>
   <rect x="260" y="105" width="46" height="69" rx="4" fill="#929E7C" stroke="#EEF1EF" stroke-width="2"/>
-  <text x="283" y="99" text-anchor="middle" font-family="ui-monospace,monospace"
+  <text class="gl-n" x="283" y="99" text-anchor="middle" font-family="ui-monospace,monospace"
     font-size="13" font-weight="700" fill="#EEF1EF">72</text>
-  <text x="283" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
+  <text class="gl-g" x="283" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
     font-size="12" font-weight="700" fill="#EEF1EF">6</text>
   <rect x="312" y="89" width="46" height="85" rx="4" fill="#929E7C" stroke="#EEF1EF" stroke-width="2"/>
-  <text x="335" y="83" text-anchor="middle" font-family="ui-monospace,monospace"
+  <text class="gl-n" x="335" y="83" text-anchor="middle" font-family="ui-monospace,monospace"
     font-size="13" font-weight="700" fill="#EEF1EF">88</text>
-  <text x="335" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
+  <text class="gl-g" x="335" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
     font-size="12" font-weight="700" fill="#EEF1EF">7</text>
   <rect x="364" y="82" width="46" height="92" rx="4" fill="#929E7C" stroke="#EEF1EF" stroke-width="2"/>
-  <text x="387" y="76" text-anchor="middle" font-family="ui-monospace,monospace"
+  <text class="gl-n" x="387" y="76" text-anchor="middle" font-family="ui-monospace,monospace"
     font-size="13" font-weight="700" fill="#EEF1EF">96</text>
-  <text x="387" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
+  <text class="gl-g" x="387" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
     font-size="12" font-weight="700" fill="#EEF1EF">8</text>
   <rect x="416" y="59" width="46" height="115" rx="4" fill="#929E7C" stroke="#EEF1EF" stroke-width="2"/>
-  <text x="439" y="53" text-anchor="middle" font-family="ui-monospace,monospace"
+  <text class="gl-n" x="439" y="53" text-anchor="middle" font-family="ui-monospace,monospace"
     font-size="13" font-weight="700" fill="#EEF1EF">120</text>
-  <text x="439" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
+  <text class="gl-g" x="439" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
     font-size="12" font-weight="700" fill="#EEF1EF">9</text>
   <!-- The axis word sat at x=0 y=196, level with the tick labels, and ran
        straight through the "2" under the second bar. It gets its own line. -->
-  <text x="231" y="212" text-anchor="middle"
+  <text class="gl-ax" x="231" y="212" text-anchor="middle"
     font-family="ui-monospace,monospace" font-size="12" font-weight="700" fill="#C9D1CC">generation</text>
 </svg>
       <figcaption>Species per generation, counted from the National Pokedex read
