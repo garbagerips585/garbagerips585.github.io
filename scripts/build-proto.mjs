@@ -2738,7 +2738,13 @@ ${BRAND_STYLE_MIN}
 /* Online reads as the accent so the two channels separate at a glance, which
    is the whole point of the regrouping: "a high level way to see what
    retailers are expecting to drop that week". */
-.wdr-ch-on{color:var(--brand-accent)}
+/* --ketchup-deep, NOT --brand-accent, AND THIS WAS MY OWN BUG FROM THIS
+   MORNING. The channel word is 11px at weight 700, which is nowhere near
+   WCAG's 24px large-text line, so it takes the SMALL pink. #E87EA1 measures
+   3.45:1 on --paper-2 and #EEA0B9 measures 4.51:1. CLAUDE.md states this
+   rule in as many words and says five rules were already caught by it;
+   this was the sixth, added the same day the rule was re-read. */
+.wdr-ch-on{color:var(--ketchup-deep)}
 .wdr-lt .wdr-when{margin-top:0;font-size:var(--t-micro);color:var(--ink-2);flex-basis:100%}
 .wdr-what{font-size:var(--t-sm);line-height:1.35;color:var(--ink-2)}
 .wdr-exp{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2)}

@@ -171,6 +171,27 @@
     var d=e.data;
     if(typeof d==='string'){ try{ d=JSON.parse(d); }catch(_){ return; } }
     if(!d||typeof d!=='object') return;
+    // "readyToListen" IS NOT AN ANSWER. IT IS THE PLAYER SAYING KNOCK AGAIN.
+    //
+    // It is the FIRST thing the widget posts back, and it means the exact
+    // opposite of what gotFeed was reading it as: the player has not installed
+    // its handler yet and the handshake has to be repeated. Setting gotFeed on
+    // it killed the repeat interval at line 108 at precisely the moment the
+    // player was asking to be knocked at again, so no state ever arrived, the
+    // 2600ms watchdog fired, and EVERY RIP ON THIS SITE opened muted under a
+    // button reading "Tap to play" over a video that was already playing.
+    //
+    // The note over that interval already says the rule this broke: "The player
+    // installs its message handler well after the iframe fires load, and
+    // silently drops anything that arrives before it ... Repeat until it
+    // answers." This is what "answers" has to mean.
+    //
+    // MEASURED: with an extra poller injected from t=0 the feed delivers
+    // onReady at 370ms and playerState:1 at 771ms and the button never shows;
+    // without one the only message ever received is readyToListen at ~370ms.
+    // Answering it immediately, rather than only on the next 200ms tick, is
+    // free and takes the common case to the first round trip.
+    if(d.event==='readyToListen'){ listen(); return; }
     gotFeed=true;
     if(d.event==='onAutoplayBlocked'){ retreat(phase==='unmuting'?'sound':'play'); return; }
     // onStateChange carries info as a NUMBER; infoDelivery carries an object.
@@ -539,8 +560,31 @@
     var next = car.querySelector("[data-vcar-next]");
     // 2px of slack: scrollLeft is fractional at some zoom levels and an exact
     // comparison leaves the last slide's arrow enabled forever.
-    if (prev) prev.disabled = track.scrollLeft <= 2;
-    if (next) next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+    // DISABLING THE BUTTON THE KEYBOARD IS STANDING ON THROWS FOCUS TO <body>.
+    //
+    // Press Enter on Next until the track reaches the end and this line sets
+    // disabled on the element that currently holds focus. A disabled control is
+    // not focusable, so the browser drops focus to the document and the reader
+    // is silently returned to the top of the page from the middle of a band.
+    // Reproduced at 1280 (on the third press) and at 768 (on the fourth); the
+    // prev arrow at scrollLeft 0 has the identical shape.
+    //
+    // So hand focus to the OTHER arrow before disabling this one, and only when
+    // this one actually has it. That keeps the reader inside the band they are
+    // operating and on a control that is still live, which is the one the run
+    // has moved them toward anyway. If both ends are spent the bar is
+    // .is-static and hidden, and there is nothing to hand focus to.
+    var moveFocus = function (dying, alive) {
+      if (!dying || dying.disabled) return;
+      if (document.activeElement !== dying) return;
+      if (alive && !alive.disabled) alive.focus();
+    };
+    var atStart = track.scrollLeft <= 2;
+    var atEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+    if (prev && atStart) moveFocus(prev, next);
+    if (next && atEnd) moveFocus(next, prev);
+    if (prev) prev.disabled = atStart;
+    if (next) next.disabled = atEnd;
     // Desktop shows two or three slides at once, so a short run can fit the
     // track entirely. Both arrows are then permanently disabled beside a
     // counter reading "1 / 2" with both cards on screen, which is furniture
