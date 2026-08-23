@@ -97,7 +97,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, MONTHS_LONG } from "../shared/format.mjs";
+import { esc, longDate, MONTHS_LONG, clipMeta} from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const data = JSON.parse(await readFile(join(ROOT, "data/video-games.json"), "utf8"));
@@ -792,7 +792,7 @@ const page = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Every Pokemon Video Game, In Order | Garbage Rips 585</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/video-games.html">
 <meta property="og:title" content="Every Pokemon video game, in order">
 <meta property="og:description" content="${esc(desc)}">

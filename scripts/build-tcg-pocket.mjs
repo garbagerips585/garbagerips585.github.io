@@ -110,7 +110,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate } from "../shared/format.mjs";
+import { esc, longDate, clipMeta} from "../shared/format.mjs";
 import { COMPARE_ANSWER, COMPARE_CSS, compareTable } from "../shared/app-compare.mjs";
 import { APP_SHOT_CSS, appCredit, appIcon, appStrip } from "../shared/appshots.mjs";
 import { PACKS } from "../shared/packtally.mjs";
@@ -821,7 +821,7 @@ const page = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pokemon TCG Pocket: Can You Learn the Card Game From an App?</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/tcg-pocket.html">
 <meta property="og:title" content="Can you learn the card game from an app?">
 <meta property="og:description" content="${esc(desc)}">

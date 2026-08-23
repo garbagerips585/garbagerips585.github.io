@@ -174,7 +174,7 @@ import {
   APP_JS_NO_PACKPLAYER,
   footer,
 } from "../shared/chrome.mjs";
-import { esc, longDate } from "../shared/format.mjs";
+import { esc, longDate, clipMeta} from "../shared/format.mjs";
 import { namesProduct } from "../shared/first-partner.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -950,7 +950,7 @@ const html = `<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(TITLE)}</title>
-<meta name="description" content="${esc(DESC)}">
+<meta name="description" content="${esc(clipMeta(DESC))}">
 <link rel="canonical" href="${SITE}${PATH}">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">

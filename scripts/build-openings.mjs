@@ -63,7 +63,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, shortDate, moneyExact, imgDims, productSrcsetAttr, plural, count, noWidowEmoji, heapMark, HEAP_CSS } from "../shared/format.mjs";
+import { esc, longDate, shortDate, moneyExact, imgDims, productSrcsetAttr, plural, count, noWidowEmoji, heapMark, HEAP_CSS, clipMeta} from "../shared/format.mjs";
 import { PRODUCT_TYPES, CARD_SETS } from "../shared/taxonomy.mjs";
 import { ripLabel } from "../shared/riplabel.mjs";
 
@@ -1518,7 +1518,7 @@ const head = (title, desc, path, extraLd = null) => `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(title)}</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}${path}">
 <meta property="og:title" content="${esc(title.split(" | ")[0])}">
 <meta property="og:description" content="${esc(desc)}">

@@ -55,7 +55,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, moneyExact, moneyRound, moneyCompact, imgDims, avifPicture } from "../shared/format.mjs";
+import { esc, longDate, moneyExact, moneyRound, moneyCompact, imgDims, avifPicture, clipMeta} from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
@@ -467,7 +467,7 @@ const page = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>What Does It Cost to Complete a Pokemon Set? Priced Nightly</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/complete-a-set.html">
 <meta property="og:title" content="What does it cost to complete a set?">
 <meta property="og:description" content="${esc(desc)}">

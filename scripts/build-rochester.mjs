@@ -67,7 +67,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, shortDate, plateRule, PLATE_CSS } from "../shared/format.mjs";
+import { esc, longDate, shortDate, plateRule, PLATE_CSS, clipMeta} from "../shared/format.mjs";
 import { localDay } from "../shared/today.mjs";
 import { strip as miniCSS } from "./build-css.mjs";
 
@@ -505,7 +505,7 @@ const page = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(TITLE)}</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/rochester.html">
 <meta property="og:title" content="Pokemon in Rochester, NY">
 <meta property="og:description" content="${esc(desc)}">

@@ -72,7 +72,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, imgDims, avifPicture } from "../shared/format.mjs";
+import { esc, longDate, imgDims, avifPicture, clipMeta} from "../shared/format.mjs";
 import { loadDecks, checkSetMap, rankCards } from "../shared/decks.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -261,6 +261,22 @@ const style = `
 .pl-kind{font-family:var(--mono);font-size:var(--t-micro);text-transform:uppercase;
   letter-spacing:.04em;color:var(--ink-2)}
 .pl-set{font-family:var(--mono);font-size:var(--t-micro);color:var(--ink-2)}
+/* THE SET LINK IS THE ONLY LINK IN THE ROW AND IT WAS 17px TALL.
+   The card name beside it is a bold span, not an anchor, so a.pl-set is the sole
+   way out of any of these 100 rows, and a hit test at 390px measured 121x18. The
+   same fix .crumbs a already uses in ui.css: keep the text where it is and grow
+   the TARGET with an absolutely positioned pseudo-element, so nothing about the
+   layout, the line height or the wrap point changes. 44px is the WCAG 2.5.5 AAA
+   figure and the one the rest of this site's chrome already meets. .pl-meta gets
+   the containing block and .pl-kind stays above the overlay so the two do not
+   fight for the same pixels.
+   NO BACKTICKS IN HERE. This comment lives inside a template literal, and a
+   backtick closes it: see the note in CLAUDE.md. It cost one build. */
+a.pl-set{position:relative}
+a.pl-set::after{content:"";position:absolute;left:0;right:0;top:50%;
+  transform:translateY(-50%);height:44px;z-index:1}
+.pl-meta{position:relative}
+.pl-kind{position:relative;z-index:2}
 a.pl-set:hover,a.pl-set:focus{color:var(--ink)}
 .pl-set-plain{opacity:.85}
 .pl-nums{display:block;font-size:var(--t-micro);color:var(--ink-2);margin-top:2px;
@@ -302,7 +318,7 @@ const page = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The 100 Most Played Pokemon Cards in Standard</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/top-100-playable.html">
 <meta property="og:title" content="The 100 most played cards in Standard">
 <meta property="og:description" content="${esc(desc)}">

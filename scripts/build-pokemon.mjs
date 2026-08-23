@@ -104,7 +104,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, moneyExact, moneyRound, moneyCompact, rarityLabel, imgDims, avifPicture } from "../shared/format.mjs";
+import { esc, longDate, moneyExact, moneyRound, moneyCompact, rarityLabel, imgDims, avifPicture, clipMeta} from "../shared/format.mjs";
 // The rip tag vocabulary, so a species' printings can be joined to the rips that
 // opened those sets. See `setRipsFor`.
 import { CARD_SETS } from "../shared/taxonomy.mjs";
@@ -741,7 +741,7 @@ const head = ({ title, desc, canonical, ld, noindex }) => `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(title)}</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 ${noindex ? `<meta name="robots" content="noindex,follow">\n` : ""}<link rel="canonical" href="${canonical}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">

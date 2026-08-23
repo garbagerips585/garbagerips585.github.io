@@ -50,7 +50,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, shortDate } from "../shared/format.mjs";
+import { esc, longDate, shortDate, clipMeta} from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -670,7 +670,7 @@ const page = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>What Set Is My Pokemon Card From? Look Up the Number</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/what-set.html">
 <meta property="og:title" content="What set is my Pokemon card from?">
 <meta property="og:description" content="${esc(desc)}">

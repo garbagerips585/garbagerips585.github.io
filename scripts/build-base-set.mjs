@@ -77,7 +77,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, shortDate, moneyCompact, imgDims, avifPicture } from "../shared/format.mjs";
+import { esc, longDate, shortDate, moneyCompact, imgDims, avifPicture, clipMeta} from "../shared/format.mjs";
 import { gradedGate } from "../shared/graded-gate.mjs";
 // WHY THE OTHER PAGE SAYS $10,000 FOR THE CARD THIS ONE PRICES AT $988. Read the
 // header of that file before touching any figure in the money section here.
@@ -1456,7 +1456,7 @@ const html = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>1st Edition, Shadowless or Unlimited? Base Set, Told Apart</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/base-set.html">
 <meta property="og:title" content="1st Edition, Shadowless or Unlimited?">
 <meta property="og:description" content="${esc(desc)}">

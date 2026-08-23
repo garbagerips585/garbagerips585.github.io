@@ -59,7 +59,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, plateRule, PLATE_CSS, sentenceStart } from "../shared/format.mjs";
+import { esc, longDate, plateRule, PLATE_CSS, sentenceStart, clipMeta} from "../shared/format.mjs";
 import { brandMark, PROT_MARK, BRAND_CREDIT, BRAND_STYLE } from "../shared/brands.mjs";
 import { localDay } from "../shared/today.mjs";
 
@@ -966,7 +966,7 @@ const page = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Where to Sell Pokemon Cards, and What Each Place Takes</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/selling.html">
 <meta property="og:title" content="Where to sell Pokemon cards">
 <meta property="og:description" content="${esc(desc)}">

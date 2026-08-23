@@ -132,7 +132,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, moneyExact } from "../shared/format.mjs";
+import { esc, longDate, moneyExact, clipMeta} from "../shared/format.mjs";
 import { brandMark, BRAND_CREDIT, BRAND_STYLE } from "../shared/brands.mjs";
 import { loadListings, multStr, readDatePhrase } from "../shared/listings.mjs";
 // The pins, once, shared with /msrp.html and /what-to-buy.html. Read its header
@@ -1016,7 +1016,7 @@ const head = ({ title, desc, path, extraLd = [] }) => `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(title)}</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}${path}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">

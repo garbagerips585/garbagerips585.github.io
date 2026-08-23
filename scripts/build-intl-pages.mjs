@@ -85,7 +85,7 @@ import { pickIntlPrintingJp } from "../shared/intl-vocab.mjs";
 // shared/card-scan.mjs for the table and for the two cross-checks.
 import { corpusScan, noScanBox, NOSCAN_CSS } from "../shared/card-scan.mjs";
 import { esc, longDate, shortDate, rarityLabel, imgDims, avifPicture, moneyCompact,
-  productSrcsetAttr } from "../shared/format.mjs";
+  productSrcsetAttr, clipMeta} from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/sets");
@@ -793,7 +793,7 @@ const head = ({ title, desc, canonical, image, ld, noindex = false, css = "" }) 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(title)}</title>
-<meta name="description" content="${esc(desc)}">${
+<meta name="description" content="${esc(clipMeta(desc))}">${
   noindex
     ? '\n<meta name="robots" content="noindex,follow">'
     : ""
@@ -1424,7 +1424,7 @@ function packBand(g, cls) {
           name already opens with it ("m1L: Mega Brave"), and the first draft
           said it twice in one sentence. It is still checked on every sync
           against the guide's tcgdexId, which is where that check belongs. */ ""}<p class="pk-note">Photograph is TCGplayer's, from their ${esc(entry.tcgLine || "Pokemon Japan")}
-      catalogue, where this set is filed as ${esc(entry.tcgSet)}. We are not a shop and we do not sell any of this.</p>
+      catalog, where this set is filed as ${esc(entry.tcgSet)}. We are not a shop and we do not sell any of this.</p>
   </div>
 </section>`;
 }
@@ -1476,8 +1476,8 @@ function checklistBand(g, cls) {
     </details>
     ${g.checklistFrom
       ? `<p class="price-note">Every name here is the one TCGplayer files this card under in their ${esc(g.checklistFrom.line)}
-      catalogue, so the Trainers and the Energy are named too, which is the one thing our other imported checklists cannot do.
-      Nothing on this page is transliterated or guessed at: where a name could not be read off a catalogue it is not printed.
+      catalog, so the Trainers and the Energy are named too, which is the one thing our other imported checklists cannot do.
+      Nothing on this page is transliterated or guessed at: where a name could not be read off a catalog it is not printed.
       The ${esc(g.langName)} name is beside each one, because that is what is on the card in your hand.</p>`
       : `<p class="price-note">Pokemon names come from the National Pokedex number on each card, so they are looked up rather
       than transliterated. Trainer and Supporter cards keep their ${esc(g.dataSource?.langName || g.langName)} names: no
@@ -1572,7 +1572,7 @@ function sourceBand(g, cls) {
     <ul class="facts-list">
       ${tcg
         ? `<li>Card scans from <a href="https://tcgdex.dev/" rel="noopener" target="_blank" aria-label="TCGdex, the card database these scans came from, opens on tcgdex.dev">TCGdex</a>, and the set details read there ${esc(longDate(guides.checked) || guides.checked)}.</li>
-      <li><strong>The checklist, the card names and the rarities on this page are TCGplayer's</strong>, read ${esc(longDate(tcg.checked) || tcg.checked)} from their ${esc(tcg.line)} catalogue, where this set is filed as ${esc(tcg.setName)}. TCGdex lists the set and has published no cards for it: its own record declares ${g.declaredCount ?? "a"} card${g.declaredCount === 1 ? "" : "s"} and carries none of them. Every collector number in the TCGplayer list is written out of ${esc(String(tcg.denominator).padStart(3, "0"))}, which is the same printed set size TCGdex states, and the two catalogues were matched card for card on the collector number before any of this was published.</li>`
+      <li><strong>The checklist, the card names and the rarities on this page are TCGplayer's</strong>, read ${esc(longDate(tcg.checked) || tcg.checked)} from their ${esc(tcg.line)} catalog, where this set is filed as ${esc(tcg.setName)}. TCGdex lists the set and has published no cards for it: its own record declares ${g.declaredCount ?? "a"} card${g.declaredCount === 1 ? "" : "s"} and carries none of them. Every collector number in the TCGplayer list is written out of ${esc(String(tcg.denominator).padStart(3, "0"))}, which is the same printed set size TCGdex states, and the two catalogs were matched card for card on the collector number before any of this was published.</li>`
         : `<li>Set details, checklist and rarities from <a href="https://tcgdex.dev/" rel="noopener" target="_blank" aria-label="TCGdex, the card database this checklist came from, opens on tcgdex.dev">TCGdex</a>, read ${esc(longDate(guides.checked) || guides.checked)}.</li>`}
       ${/* "on this page", not "below": this band is the LAST section, so it was
             pointing at a checklist that sits above it. */ ""}

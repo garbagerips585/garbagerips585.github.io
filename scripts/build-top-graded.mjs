@@ -69,7 +69,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, shortDate, moneyCompact, imgDims, avifPicture, noValue } from "../shared/format.mjs";
+import { esc, longDate, shortDate, moneyCompact, imgDims, avifPicture, noValue, clipMeta} from "../shared/format.mjs";
 import { gradedGate } from "../shared/graded-gate.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -284,7 +284,7 @@ const page = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The ${rows.length} Highest PSA 10 Values in Pokemon | Garbage Rips 585</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/top-graded.html">
 <meta property="og:title" content="The ${rows.length} highest PSA 10 values in Pokemon">
 <meta property="og:description" content="${esc(desc)}">

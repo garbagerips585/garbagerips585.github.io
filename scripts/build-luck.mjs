@@ -69,7 +69,7 @@ import {
 // rows reading "1 rips", which is the argument shared/format.mjs's own header
 // makes: assume every count you print can be 1 tomorrow. Both of the sentences
 // they fixed also needed the VERB to agree, which no helper can do for you.
-import { esc, shortDate, moneyCompact, count, plural } from "../shared/format.mjs";
+import { esc, shortDate, moneyCompact, count, plural, clipMeta} from "../shared/format.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 // THE PRICE CHAIN AND THE PRICE SENTENCE BOTH COME OUT OF SHARED MODULES AND
 // NEITHER IS RESTATED HERE. shared/graded-price.mjs exists because five
@@ -2185,11 +2185,11 @@ const html = `<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pokemon Pack Luck, Measured: What Actually Came Out of ${judged.length} Rips</title>
-<meta name="description" content="${
+<meta name="description" content="${clipMeta(
   judged.length
     ? `Observed hit rates from ${allPacks} Pokemon packs opened on camera across ${judged.length} rips, broken down by set and product. Not official pull rates: what actually came out on camera.`
     : `What actually came out of ${videos.length} pack openings on camera, counted from our own rip log rather than estimated.`
-}">
+)}">
 ${judged.length ? "" : '<meta name="robots" content="noindex,follow">\n'}<link rel="canonical" href="${SITE}/luck.html">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">

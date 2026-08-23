@@ -166,7 +166,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, moneyExact, productSrcsetAttr } from "../shared/format.mjs";
+import { esc, longDate, moneyExact, productSrcsetAttr, clipMeta} from "../shared/format.mjs";
 // The photograph pins, shared with build-msrp.mjs so a pin exists once. This
 // file used to hold a second copy of them. See the photography note below.
 import { makePhotoFor } from "../shared/product-photos.mjs";
@@ -1627,7 +1627,7 @@ const page = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(TITLE)}</title>
-<meta name="description" content="${esc(DESC)}">
+<meta name="description" content="${esc(clipMeta(DESC))}">
 <link rel="canonical" href="${SITE}${PATH}">
 <meta property="og:title" content="${esc(TITLE.split(" | ")[0])}">
 <meta property="og:description" content="${esc(DESC)}">

@@ -1249,3 +1249,61 @@ export function packTileImg(setId) {
     `<img class="pack-img" src="${base}.webp" alt="" width="400" height="711"` +
     ` loading="lazy" decoding="async"></picture>`;
 }
+
+/**
+ * A meta description clipped to what a search result will actually show.
+ *
+ * WHY THIS EXISTS AS A SHARED HELPER. build-pages.mjs has clipped its own at
+ * 158 characters since the rip pages were written, and all 321 of them land
+ * inside the limit. Every other builder hand-writes its description with no
+ * length budget, and 74 of them ran over -- the worst at 270 characters, which
+ * is a description Google truncates by more than a third. The set guides had
+ * one clear cause: an optional companion-set clause appended after the sentence
+ * was already at its limit.
+ *
+ * CUT AT A WORD BOUNDARY AND SAY SO WITH AN ELLIPSIS, which is the rule the rip
+ * pages already follow. A description that stops mid-word reads as broken; one
+ * that stops mid-sentence with an ellipsis reads as a summary. Sentences are
+ * preferred over the ellipsis: if trimming whole sentences gets under the limit,
+ * that is a cleaner cut and no ellipsis is needed.
+ *
+ * @param {string} s the description as written
+ * @param {number} [n=158] the budget
+ */
+export function clipMeta(s, n = 158) {
+  const t = String(s || "").replace(/\s+/g, " ").trim();
+  if (t.length <= n) return t;
+  // FIRST TRY DROPPING WHOLE TRAILING SENTENCES. A complete thought that fits
+  // beats a truncated one, and it is what fixes the real cause of the overflow
+  // here: an optional clause appended after the sentence was already at budget.
+  //
+  // A SENTENCE ENDS AT A STOP FOLLOWED BY A SPACE AND A CAPITAL, not at any
+  // stop, because a decimal point is neither. `[^.!?]+[.!?]+` split "$4.99"
+  // into "$4." and "99" and shipped /sets/crown-zenith.html reading "released
+  // January 20, 2023. 00; Crown Zenith Galarian Gallery is...".
+  //
+  // AND THE CUT IS TAKEN BY INDEX, NEVER BY JOINING MATCHES. String.match with
+  // /g returns NON-OVERLAPPING matches from wherever the engine can start, so
+  // when the opening sentence contains a price and therefore cannot match, the
+  // first "sentence" returned begins in the MIDDLE of the text.
+  // /first-partner-illustration-collection.html came out starting at "99 on
+  // shelves" with the whole opening silently dropped. Slicing t from 0 to a
+  // terminator's index cannot do that: the result is a prefix by construction.
+  const ends = [];
+  const re = /[.!?]+(?=\s+[A-Z(\u201C"']|$)/g;
+  for (let m; (m = re.exec(t)); ) ends.push(m.index + m[0].length);
+  let whole = "";
+  for (const e of ends) {
+    if (e > n) break;
+    whole = t.slice(0, e);
+  }
+  // ONLY IF THE CLEAN SENTENCE STILL FILLS THE SPACE. A result shows about 155
+  // characters whether or not we use them, so a tidy 73-character sentence that
+  // throws away half the budget is a worse description than a 153-character one
+  // ending in an ellipsis. /sets/crown-zenith.html is the case: cut at the first
+  // stop it loses the Galarian Gallery clause entirely, which is the single most
+  // useful thing that page's description says.
+  if (whole.length >= Math.max(96, n * 0.62)) return whole;
+  return t.slice(0, n - 3).replace(/\s\S*$/, "").replace(/[.…\s]+$/, "") + "...";
+}
+

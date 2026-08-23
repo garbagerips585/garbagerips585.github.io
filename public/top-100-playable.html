@@ -55,6 +55,11 @@
 .pl-kind{font-family:var(--mono);font-size:var(--t-micro);text-transform:uppercase;
   letter-spacing:.04em;color:var(--ink-2)}
 .pl-set{font-family:var(--mono);font-size:var(--t-micro);color:var(--ink-2)}
+a.pl-set{position:relative}
+a.pl-set::after{content:"";position:absolute;left:0;right:0;top:50%;
+  transform:translateY(-50%);height:44px;z-index:1}
+.pl-meta{position:relative}
+.pl-kind{position:relative;z-index:2}
 a.pl-set:hover,a.pl-set:focus{color:var(--ink)}
 .pl-set-plain{opacity:.85}
 .pl-nums{display:block;font-size:var(--t-micro);color:var(--ink-2);margin-top:2px;

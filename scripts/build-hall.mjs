@@ -1898,7 +1898,15 @@ const body = `
           number started beating the rarity word, ranked[0] was Mega Greninja ex
           at $173 and this frame would have gone round the channel's THIRD best
           pull. */ ""}
-    ${mvc ? `<div class="mvc">
+    ${/* THE ANCHOR THE LEDE POINTS AT HAS TO EXIST HERE TOO.
+          `bestGradedLine` above links to `#${bestGraded.domId}`, and the only
+          place that id was emitted is the plaque loop below. When the best
+          graded card is ALSO rank 1 it gets lifted out of that loop into this
+          frame, the list starts at chof-2, and the link at the top of the page
+          went nowhere -- which is today's state and is why hall.html shipped a
+          dead in-page anchor. The plaque branch carries the same identity test,
+          so exactly one of the two can ever fire. */ ""}
+    ${mvc ? `<div class="mvc"${mvc === bestGraded ? ` id="${esc(mvc.domId)}"` : ""}>
       <span class="mvc-rank">1</span>
       <span class="mvc-tag">MVC &middot; Most valuable card</span>
       ${mvcArt}

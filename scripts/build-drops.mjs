@@ -45,7 +45,7 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { brandMark, BRAND_CREDIT, BRAND_STYLE } from "../shared/brands.mjs";
-import { esc, longDate, plateRule, PLATE_CSS } from "../shared/format.mjs";
+import { esc, longDate, plateRule, PLATE_CSS, clipMeta} from "../shared/format.mjs";
 // THE EXPIRY MODEL MOVED OUT OF THIS FILE ON 17 AUGUST 2026 and it did not
 // change on the way. The home page now carries a compact band built from the
 // same rows, so "which rows are still true today" is a question two pages ask
@@ -329,7 +329,7 @@ const page = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(TITLE)}</title>
-<meta name="description" content="${esc(DESC)}">
+<meta name="description" content="${esc(clipMeta(DESC))}">
 <link rel="canonical" href="${SITE}/drops.html">
 <meta property="og:title" content="${esc(OG_TITLE)}">
 <meta property="og:description" content="${esc(DESC)}">

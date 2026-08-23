@@ -76,7 +76,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, imgDims, avifPicture } from "../shared/format.mjs";
+import { esc, longDate, imgDims, avifPicture, clipMeta} from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const d = JSON.parse(await readFile(join(ROOT, "data/types.json"), "utf8"));
@@ -587,7 +587,7 @@ const page = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>What Are the Pokemon Card Types? All 11, Explained</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/types.html">
 <meta property="og:title" content="What are the Pokemon card types?">
 <meta property="og:description" content="${esc(desc)}">

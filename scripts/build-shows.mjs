@@ -40,7 +40,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, MONTHS_LONG } from "../shared/format.mjs";
+import { esc, longDate, MONTHS_LONG, clipMeta} from "../shared/format.mjs";
 
 import { localDay } from "../shared/today.mjs";
 /* CLIENT_DAY_JS is the BROWSER half of the question localDay() answers on this
@@ -1011,7 +1011,7 @@ const head = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Card Shows Near Rochester NY: Buffalo & Syracuse Calendar</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/card-shows.html">
 <meta property="og:title" content="Card shows near Rochester, Buffalo and Syracuse">
 <meta property="og:description" content="${esc(desc)}">

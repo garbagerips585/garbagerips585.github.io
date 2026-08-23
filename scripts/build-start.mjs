@@ -35,7 +35,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc } from "../shared/format.mjs";
+import { esc, clipMeta} from "../shared/format.mjs";
 import { RARITY_CSS, rarityChip } from "../shared/rarity.mjs";
 
 import { localDay } from "../shared/today.mjs";
@@ -264,7 +264,7 @@ const page = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Start Here: A Beginner's Guide to Pokemon Cards</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/start.html">
 <meta property="og:title" content="New to Pokemon cards? Start here">
 <meta property="og:description" content="${esc(desc)}">

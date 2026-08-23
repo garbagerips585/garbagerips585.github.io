@@ -215,7 +215,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, shortDate, moneyCompact, moneyExact, noValue, imgDims, avifPicture } from "../shared/format.mjs";
+import { esc, longDate, shortDate, moneyCompact, moneyExact, noValue, imgDims, avifPicture, clipMeta} from "../shared/format.mjs";
 // THE PUBLICATION GATE, shared with /top-graded.html, /base-set.html and
 // /most-valuable-cards.html. Nothing out of a PriceCharting file may be printed
 // on a single read: `new_price` means PSA 10 on a listing page and Grade 8 on a
@@ -552,7 +552,7 @@ const head = (title, desc, slug, ogSlug, ld = []) => `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(title)}</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/${slug}.html">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
@@ -1216,7 +1216,13 @@ ${APP_JS}
 // ---------------------------------------------------------------------------
 // PAGE TWO: /topps-card-values.html, the two hundreds.
 
-const valuesTitle = `Topps Pokemon Card Values from PriceCharting, Read ${readShort}`;
+// THE READ DATE IS ON THE PAGE, NOT IN THE <title>. It is honest and it belongs
+// here -- the kicker prints it, the lede prints it and the meta description
+// prints it -- but a SERP title is the one place it only ever reads as stale,
+// and it was spending 13 of the ~60 characters a result actually shows. This
+// was the only title on the site carrying a hard date; every other dated page
+// keeps it in body copy.
+const valuesTitle = "Topps Pokemon Card Values: Ungraded and PSA 10 Top 100s";
 const valuesDesc =
   `The ${rawList.length} most valuable Topps Pokemon cards ungraded and the ${psaList.length} highest PSA 10 values, ` +
   `ranked from PriceCharting's price guide across ${d.scanned.products.toLocaleString("en-US")} Topps products ` +
@@ -1241,7 +1247,14 @@ ${MENU}
   <div class="wrap">
     <span class="kicker">Topps trading cards &bull; Ungraded and PSA 10, priced by PriceCharting &bull; Read ${esc(read)}</span>
     <h1>Topps Pokemon card values: <span class="hl">two</span> top 100s</h1>
-    <p class="lede" style="max-width:42em">The same ${d.scanned.products.toLocaleString("en-US")} Topps cards
+    <p class="lede" style="max-width:42em">${/* PRODUCT RECORDS, NOT CARDS, and this
+      line was the one place on this page that got it wrong. `scanned.products`
+      counts PriceCharting rows, and a row is a printing rather than a card: 2000
+      Topps Chrome is 604 rows against 151 cards. The same figure is printed
+      correctly three other times in this file -- "Topps products" in the meta
+      description, "Topps listings read" on the stat tile, and "products" in the
+      note -- and CLAUDE.md names this as the easiest number on the page to
+      publish wrongly. */ ""}The same ${d.scanned.products.toLocaleString("en-US")} Topps listings
       ranked twice, because raw and graded do not give the same answer and it is not close. The most valuable loose
       Topps card is ${esc(rawTop.name)}; the highest PSA 10 value is ${esc(psaTop.name)}, ${psaTopRawPlace}. Both
       read on ${esc(read)}.</p>

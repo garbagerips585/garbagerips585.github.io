@@ -1158,6 +1158,39 @@ if len(_bad) > 6:
 
 
 # ---------------------------------------------------------------------------
+# COMMENT SYNTAX AND TO-DO MARKERS THAT REACHED THE PAGE AS VISIBLE TEXT.
+#
+# Same shape as the NaN/undefined check above and found the same way: by reading
+# a page rather than by reasoning about a builder. data/video-games.json had
+# HTML comment delimiters typed INSIDE JSON string values -- somebody tried to
+# comment out a field with <!-- --> in a format that has no comments -- so
+# /video-games.html printed "1996<!--", "-->" and "Game Freak <!--" as release
+# dates and a developer name, escaped and visible, on the 2027 Gen X row among
+# others. The same file carried 13 "???" placeholders rendering as release
+# dates, next to a real "N/A" convention that means something different.
+#
+# A JSON string cannot hold a comment. If a value needs to go, delete the key:
+# regionLines() in build-video-games.mjs already skips an absent region, which
+# is the correct rendering for "we do not know".
+#
+# "N/A" is deliberately NOT flagged: it asserts the game never came out in that
+# region, which is information the page is right to print.
+_marker = []
+for _f in sorted(glob.glob("public/**/*.html", recursive=True)):
+    _s = _read_page(_f)
+    _t = _re.sub(r"(?s)<(script|style)\b.*?</\1>", " ", _s)
+    _t = _re.sub(r"(?s)<!--.*?-->", " ", _t)          # real HTML comments are fine
+    _t = _re.sub(r"(?s)<[^>]+>", " ", _t)
+    for _m in _re.finditer(r"&lt;!--|--&gt;|\?\?\?", _t):
+        _ctx = _re.sub(r"\s+", " ", _t[max(0, _m.start() - 45):_m.end() + 30]).strip()
+        _marker.append(f"{_f}: {_m.group(0)!r} in visible text ... {_ctx[:95]}")
+for _m in _marker[:6]:
+    fail.append(_m)
+if len(_marker) > 6:
+    fail.append(f"...and {len(_marker) - 6} more comment/placeholder markers in visible text")
+
+
+# ---------------------------------------------------------------------------
 # IMAGE COVERAGE, REPORTED EVERY BUILD.
 #
 # The owner's standard is that this is a visual site and every page that can

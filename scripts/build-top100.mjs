@@ -376,7 +376,7 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { TCG_SET } from "../shared/tcgplayer.mjs";
-import { esc, longDate, moneyExact, moneyCompact, noValue } from "../shared/format.mjs";
+import { esc, longDate, moneyExact, moneyCompact, noValue, clipMeta} from "../shared/format.mjs";
 // THE PUBLICATION GATE ON THE PRICECHARTING FILE, shared with /top-graded.html
 // and /base-set.html. Nothing out of that file may be printed on a single read:
 // `new_price` means PSA 10 on a listing page and Grade 8 on a product page, a
@@ -1432,7 +1432,7 @@ for (const cfg of PAGES) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(cfg.title)}</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${url}">
 <meta property="og:title" content="${esc(cfg.title)}">
 <meta property="og:description" content="${esc(desc)}">

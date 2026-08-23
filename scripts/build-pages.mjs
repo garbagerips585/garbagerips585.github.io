@@ -57,7 +57,7 @@ import { pickIntlPrintingJp } from "../shared/intl-vocab.mjs";
 // gradedPrice() are the receipt for in CLAUDE.md.
 import { corpusScan, noScanBox, pinnedShot, NOSCAN_CSS } from "../shared/card-scan.mjs";
 import { loadCorpus, corpusCard } from "../shared/subset-cards.mjs";
-import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount, avifPicture, packTileImg } from "../shared/format.mjs";
+import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount, avifPicture, packTileImg, clipMeta} from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -924,9 +924,37 @@ const setLogoImg = (setId, { cls, clamp, lazy }) => {
     `(max-width:${Math.round(c.min / (c.vw / 100))}px) ${lo}px,` +
     ` (min-width:${Math.round(c.max / (c.vw / 100))}px) ${hi}px,` +
     ` ${(c.vw * ar).toFixed(2)}vw`;
+  // THE MIDDLE RUNG WAS ON DISK ALL ALONG AND THIS SRCSET DID NOT OFFER IT.
+  //
+  // The table above records "DPR 3 both master 52.5KB (unchanged)" as if that
+  // were the floor. It is not. -sm and the master straddle every DPR 3 phone and
+  // every retina desktop, so the browser correctly takes the master:
+  //
+  //     sizes on a 390 phone   77px   ->  DPR 3 wants 231w
+  //     sizes at >=1080px     122px   ->  DPR 2 wants 244w
+  //     surging-sparks -sm             226w      master 679w
+  //
+  // Five pixels short on the phone, eighteen on the desktop, and it pays the
+  // master both times. Measured across the 23 logos a rip page can name: -sm is
+  // too small for DPR 3 on 10 of them and for retina desktop on 11.
+  //
+  // RAISING -sm WOULD NOT FIX IT, WHICH IS WHY THIS IS A RUNG AND NOT A NUMBER.
+  // The rungs are normalised by HEIGHT and the `sizes` are widths, so a tall
+  // narrow logo gains almost nothing from a taller rung: 151 is 132w at 100px
+  // tall and would still miss 231w at SMALL_H 120. Raising SMALL_H to 105 covers
+  // only 16 of 23; to 120, only 19.
+  //
+  // build-logos.py already writes a -md at 150px tall for exactly this reason on
+  // the set guides, and it covers DPR 3 phones on 26 of 27 sets and retina
+  // desktop on 24 of 27, at about 21KB against the master's 51KB. Offering it
+  // costs one more candidate in the attribute and no new files. Guarded on the
+  // file existing, because Celebrations has no -md -- and does not need one, its
+  // -sm is already 428w.
+  const mdW = Math.round(ar * 150);
+  const md = hasMd(setId) ? `, ${base}-md.webp ${mdW}w` : "";
   return (
     `<img class="${cls}" width="${smW}" height="100" src="${base}-sm.webp"` +
-    ` srcset="${base}-sm.webp ${smW}w, ${base}.webp ${d[0]}w" sizes="${sizes}"` +
+    ` srcset="${base}-sm.webp ${smW}w${md}, ${base}.webp ${d[0]}w" sizes="${sizes}"` +
     ` alt=""${lazy ? ` loading="lazy"` : ""} decoding="async" onerror="this.remove()">`
   );
 };
@@ -945,6 +973,16 @@ const logosOnDisk = new Set(
     .filter(Boolean)
 );
 const hasLogo = (setId) => Boolean(setId) && logosOnDisk.has(setId);
+
+// The -md rendition, which not every set has. Same read, same directory, and
+// kept separate from `logosOnDisk` so a missing middle rung can never be
+// mistaken for a missing logo.
+const mdOnDisk = new Set(
+  (await readdir(join(ROOT, "public/assets/logos")).catch(() => []))
+    .map((f) => /^(.+)-pokemon-tcg-set-logo-md\.webp$/.exec(f)?.[1])
+    .filter(Boolean)
+);
+const hasMd = (setId) => Boolean(setId) && mdOnDisk.has(setId);
 
 // Which sets have a guide page to link to. The rip page used to reach its set
 // guide only through the "what you are chasing" block, which needs chase cards
@@ -1655,7 +1693,7 @@ const noScanHits = showableHits.length && hits.some((h) => !h.img);
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(headTitle)}</title>
-<meta name="description" content="${esc(metaDesc)}">${isTagged ? "" : '\n<meta name="robots" content="noindex,follow">'}
+<meta name="description" content="${esc(clipMeta(metaDesc))}">${isTagged ? "" : '\n<meta name="robots" content="noindex,follow">'}
 <link rel="canonical" href="${url}">
 <meta property="og:title" content="${esc(headTitle)}">
 <meta property="og:description" content="${esc(metaDesc)}">

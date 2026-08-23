@@ -70,7 +70,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, plateRule, PLATE_CSS, sentenceStart } from "../shared/format.mjs";
+import { esc, longDate, plateRule, PLATE_CSS, sentenceStart, clipMeta} from "../shared/format.mjs";
 import { brandMark, PROT_MARK, BRAND_CREDIT, BRAND_STYLE } from "../shared/brands.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -1042,7 +1042,7 @@ const page = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Where to Buy Pokemon Cards Online, and What Each Place Costs</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/buying.html">
 <meta property="og:title" content="Where to buy Pokemon cards online">
 <meta property="og:description" content="${esc(desc)}">

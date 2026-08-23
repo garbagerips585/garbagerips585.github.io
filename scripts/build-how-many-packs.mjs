@@ -98,7 +98,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, imgDims, productSrcsetAttr, moneyExact, count } from "../shared/format.mjs";
+import { esc, longDate, imgDims, productSrcsetAttr, moneyExact, count, clipMeta} from "../shared/format.mjs";
 import { spread } from "../shared/msrp-basis.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -1330,7 +1330,7 @@ const page = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>How Many Packs Are in Each Pokemon Box?</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/how-many-packs.html">
 <meta property="og:title" content="How many packs are in each Pokemon box?">
 <meta property="og:description" content="${esc(desc)}">

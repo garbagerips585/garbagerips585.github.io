@@ -101,7 +101,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, moneyRound, moneyExact } from "../shared/format.mjs";
+import { esc, longDate, moneyRound, moneyExact, clipMeta} from "../shared/format.mjs";
 import {
   loadEvolutions, groupRoutes, condsFor, dexNo, methodTags, METHOD_LABELS,
   EVO_MARKS, EVO_CSS, renderChain,
@@ -661,7 +661,7 @@ const page = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>All 8 Eevee Evolutions and How to Get Each One</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/eevee-evolutions.html">
 <meta property="og:title" content="How do you get every Eeveelution?">
 <meta property="og:description" content="${esc(desc)}">

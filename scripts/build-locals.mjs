@@ -69,7 +69,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate } from "../shared/format.mjs";
+import { esc, longDate, clipMeta} from "../shared/format.mjs";
 // The same comment stripper build-css.mjs runs over ui.css. PAGE_CSS below is
 // mostly prose about why four rules exist, and an inline style block is render
 // blocking like the stylesheet is. stamp-assets.mjs would strip it last anyway,
@@ -578,7 +578,7 @@ function page({ metaDesc, slug, title, h1, kicker, lede, list, kind, empty, note
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(title)}</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/${slug}">
 ${rows.length ? "" : '<meta name="robots" content="noindex,follow">\n'}<meta property="og:title" content="${esc(h1)}">
 <meta property="og:description" content="${esc(desc)}">

@@ -80,7 +80,7 @@ import { SITE } from "../shared/site.mjs";
 // APP_JS_NO_PACKPLAYER, not APP_JS, same call and same reason as
 // build-shops.mjs: nothing on this page plays a rip where it sits.
 import { APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/chrome.mjs";
-import { esc, longDate, plateRule, PLATE_CSS } from "../shared/format.mjs";
+import { esc, longDate, plateRule, PLATE_CSS, clipMeta} from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -1205,7 +1205,7 @@ const swapped = head
   )
   .replace(
     /<meta name="description"[^>]*>/,
-    `<meta name="description" content="${esc(DESC)}">`,
+    `<meta name="description" content="${esc(clipMeta(DESC))}">`,
   )
   .replace(/<link rel="canonical"[^>]*>/, `<link rel="canonical" href="${SITE}/garbage-plate.html">`)
   .replace(/(<meta property="og:url" content=")[^"]*/, (m, p1) => `${p1}${SITE}/garbage-plate.html`)

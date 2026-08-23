@@ -422,7 +422,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, moneyRound } from "../shared/format.mjs";
+import { esc, longDate, moneyRound, clipMeta} from "../shared/format.mjs";
 // The stylesheet's own comment stripper, reused rather than re-written: it is a
 // tokenizer, so a /* inside a quoted value or a url() cannot open a comment.
 import { strip as miniCSS } from "./build-css.mjs";
@@ -1386,7 +1386,7 @@ const page = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(title)}</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/games/chase-match.html">
 <meta property="og:title" content="Chase Match">
 <meta property="og:description" content="${esc(desc)}">

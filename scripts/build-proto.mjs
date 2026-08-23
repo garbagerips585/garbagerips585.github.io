@@ -3345,7 +3345,21 @@ main{padding-top:0}
 // error, unless the name is in this set. COUNT_ALL is the second case: the
 // home page dropped its marker when the link became "Watch All Rips" and
 // videos.html still carries one.
-const OWNED_ELSEWHERE = new Set(["LIBGRID", "LIBPRELOAD", "PLGRID", "COUNT_ALL", "LIBSTATS"]);
+/* THE "All N sets" BUTTON ON /videos.html WAS HAND TYPED AND READ 35 AGAINST 39.
+ *
+ * It sat OUTSIDE every region marker, so nothing here ever rewrote it, and
+ * app.js corrects it in the browser -- its own comment at the correction says
+ * "a hand-typed number goes stale silently", which is exactly what happened.
+ * A reader with scripting off and a crawler's first pass both saw 35. Four sets
+ * had been ripped since somebody last counted by hand.
+ *
+ * Making it a region is the fix rather than typing 39, because 39 goes stale the
+ * same way the moment Tim opens a pack from a fortieth set. The count is the
+ * distinct set tags across the catalogue, which is the same set app.js builds
+ * its chips from, so the served HTML and the corrected DOM now agree. */
+const setCountHtml = String(new Set(videos.flatMap((v) => v.sets || [])).size);
+
+const OWNED_ELSEWHERE = new Set(["LIBGRID", "LIBPRELOAD", "PLGRID", "COUNT_ALL", "LIBSTATS", "SETCOUNT"]);
 
 const REGIONS = {
   LIBGRID: libHtml,
@@ -3397,6 +3411,7 @@ const REGIONS = {
   // having the marker is not fatal. See the note over that set.
   COUNT_ALL: String(videos.length),
   LIBSTATS: libStatsHtml,
+  SETCOUNT: setCountHtml,
   // COUNT_HITS IS GONE FROM THE PAGE AND SO IS THE REGION. It filled
   // "All N hits" in the Greatest Hits header, and N was hitCount: rips
   // carrying one of the five RANKED pull tags, 115 of 321, where 156 rips

@@ -66,7 +66,7 @@ import { SITE } from "../shared/site.mjs";
 // take their <head> by slicing index.html, so their stylesheet links are the
 // home page's. See shared/chrome.mjs beside the two exports.
 import { SOCIALS, SUBSCRIBE, APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/chrome.mjs";
-import { MONTHS_LONG as MONTHS, esc, avifPicture, plateRule, plateMark, PLATE_CSS, longDate } from "../shared/format.mjs";
+import { MONTHS_LONG as MONTHS, esc, avifPicture, plateRule, plateMark, PLATE_CSS, longDate, clipMeta} from "../shared/format.mjs";
 // The stylesheet's own comment stripper, reused rather than re-written: it is a
 // tokenizer, so a /* inside a quoted value or a url() cannot open a comment.
 // build-css.mjs strips assets-source/ui.css and does NOT touch a page's own
@@ -145,7 +145,7 @@ const num = (n) => Number(n).toLocaleString("en-US");
  * happens when a builder stops writing a page, and it should not stop a build.
  */
 async function countTree(dir, base = "") {
-  const out = { total: 0, families: {} };
+  const out = { total: 0, families: {}, indexes: {} };
   for (const ent of await readdir(dir, { withFileTypes: true })) {
     if (ent.name.startsWith(".")) continue;
     const full = join(dir, ent.name);
@@ -153,10 +153,16 @@ async function countTree(dir, base = "") {
       const sub = await countTree(full, base ? `${base}/${ent.name}` : ent.name);
       out.total += sub.total;
       for (const [k, v] of Object.entries(sub.families)) out.families[k] = (out.families[k] || 0) + v;
+      for (const [k, v] of Object.entries(sub.indexes || {})) out.indexes[k] = (out.indexes[k] || 0) + v;
     } else if (ent.name.endsWith(".html")) {
       out.total += 1;
       const fam = base.split("/")[0] || "root";
       out.families[fam] = (out.families[fam] || 0) + 1;
+      // A SECTION INDEX IS A PAGE, BUT IT IS NOT ONE OF THE THINGS. Counted
+      // separately so the tree below can label its rows honestly; see the note
+      // over TREE_LABELS. `base` is empty at the root, where index.html is the
+      // home page and genuinely is one of the fifty.
+      if (base && ent.name === "index.html") out.indexes[fam] = (out.indexes[fam] || 0) + 1;
     }
   }
   return out;
@@ -313,7 +319,7 @@ const GUIDES = [
     [
       ["/cards.html", "Card search", "Every printing of every card, with a price guide value on it."],
       ["/most-valuable-cards.html", "The 100 most valuable raw cards", "Ranked on an ungraded price guide value, with a link on every row so you can check whether the figure still holds."],
-      ["/top-graded.html", "The 100 highest PSA 10 values", "The same catalogue asked a different question: what a perfect graded copy is worth."],
+      ["/top-graded.html", "The 100 highest PSA 10 values", "The same catalog asked a different question: what a perfect graded copy is worth."],
       ["/most-expensive-sealed.html", "The 100 most expensive sealed products", "Boxes and collections rather than cards."],
       ["/base-set.html", "1st Edition, Shadowless or Unlimited", "Which 1999 Base Set print run a card in your hand came from, and why it matters to the price."],
       ["/topps.html", "Topps Pokemon cards", "The Pokemon cards that are not TCG cards at all. Most collectors have never knowingly held one and several are worth real money."],
@@ -461,7 +467,7 @@ const FAQ = [
   ],
   [
     "Do you publish Pokemon pull rates?",
-    `No, and nothing on this site ever states one. The Pokemon Company does not publish the odds for its paper packs, so any number you see quoted for them is somebody's guess. What this site has instead is <a href="/luck.html">a count of what actually came out</a> of the packs opened on camera here, labelled as observed results rather than as odds.`,
+    `No, and nothing on this site ever states one. The Pokemon Company does not publish the odds for its paper packs, so any number you see quoted for them is somebody's guess. What this site has instead is <a href="/luck.html">a count of what actually came out</a> of the packs opened on camera here, labeled as observed results rather than as odds.`,
   ],
 ];
 
@@ -734,7 +740,32 @@ const TREE_LABELS = [
   ["retailers", "Retailers"],
   ["games", "Small games"],
 ];
-const treeRows = TREE_LABELS.map(([key, label]) => [label, fam[key] || 0]).sort((a, b) => b[1] - a[1]);
+/* THE LABELS SAID "Pokemon, one page each" OVER A COUNT OF 1,026, AND THERE ARE
+ * 1,025 POKEMON.
+ *
+ * `fam` is a raw count of .html files per directory, which is exactly right for
+ * the arithmetic -- the rows sum to 1,490 and that is the number the paragraph
+ * above them claims. What was wrong were the WORDS: four of those directories
+ * carry a section index, and an index is a page but it is not one of the things
+ * the label names. So this page said 1,026 Pokemon, 42 set guides, 14 sealed
+ * products and 6 small games in the tree, while a second block 150 lines below
+ * said 1,025, 41, 13 and 5 -- both computed, both shipping, disagreeing by one
+ * in four families.
+ *
+ * Taking the indexes out of each row and giving them a row of their own fixes
+ * the labels AND keeps the total, which subtracting alone would have broken.
+ * `playlists` and `retailers` are untouched because their index lives at the
+ * root as /playlists.html and /retailers.html, and the root row already counts
+ * it; only pokemon, sets, openings and games have one inside the directory.
+ */
+const idx = tree.indexes || {};
+const idxTotal = Object.values(idx).reduce((a, b) => a + b, 0);
+const treeRows = [
+  ...TREE_LABELS.map(([key, label]) => [label, (fam[key] || 0) - (idx[key] || 0)]),
+  ...(idxTotal ? [["Section index pages", idxTotal]] : []),
+]
+  .filter(([, n]) => n > 0)
+  .sort((a, b) => b[1] - a[1]);
 const treeMax = Math.max(...treeRows.map(([, n]) => n));
 const treeFigure = `<figure class="about-tree">
           <ul>
@@ -989,7 +1020,7 @@ ${jump.map(([id, label]) => `          <li><a href="#${id}">${esc(label)}</a></l
           repeated from page to page with nobody sourcing any of it, which is exactly the gap this
           site is built to fill. So <a href="/garbage-plate.html">the Garbage Plate guide</a> puts
           a source and a read date on every claim it makes, two of them primary: the trademark
-          file itself, and the restaurant's own printable order form, which is where the labelled
+          file itself, and the restaurant's own printable order form, which is where the labeled
           drawing of the six layers comes from. It cites ${num(plateSources)} sources, carries
           ${num(platePhotos)} photographs, lists ${num(plateSpots)} places around Rochester that
           serve it with the hours each business states about itself, and prints
@@ -1128,7 +1159,13 @@ const schema = {
       name: "Garbage Rips 585",
       alternateName: ["GarbageRips585", "Garbage Rips"],
       url: `${SITE}/`,
-      logo: `${SITE}/assets/og-image.jpg`,
+      // THE SQUARE MARK, NOT THE SHARE BANNER. og-image.jpg is 1200x630; a
+      // schema.org Organization logo is meant to be the square brand mark, and
+      // logo-square.jpg (760x760) is the one the other five Organization nodes
+      // on this site already use. Feeding the wide banner here made /about.html
+      // the odd one out at the exact moment a brand new domain is trying to
+      // establish one entity rather than two.
+      logo: `${SITE}/assets/logo-square.jpg`,
       description:
         "Pokemon card pack ripping channel from Rochester, New York. Hits, heartbreak and pure chaos.",
       foundingDate: oldest || undefined,
@@ -1200,7 +1237,7 @@ const DESC =
 
 const swapped = head
   .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(TITLE)}</title>`)
-  .replace(/<meta name="description"[^>]*>/, `<meta name="description" content="${esc(DESC)}">`)
+  .replace(/<meta name="description"[^>]*>/, `<meta name="description" content="${esc(clipMeta(DESC))}">`)
   .replace(/<link rel="canonical"[^>]*>/, `<link rel="canonical" href="${SITE}/about.html">`)
   .replace(/(<meta property="og:url" content=")[^"]*/, `$1${SITE}/about.html`)
   .replace(/(<meta property="og:title" content=")[^"]*/, `$1About Garbage Rips 585`)

@@ -48,7 +48,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, plateMark } from "../shared/format.mjs";
+import { esc, longDate, plateMark, clipMeta} from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/games");
@@ -681,7 +681,7 @@ function shell({ slug, title, desc, h1, kicker, lede, body, extra = "", ld = [],
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(title)}</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/games/${slug}">
 <meta property="og:title" content="${esc(plain(h1))}">
 <meta property="og:description" content="${esc(desc)}">

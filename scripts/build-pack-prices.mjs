@@ -62,7 +62,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, moneyExact, noValue } from "../shared/format.mjs";
+import { esc, longDate, moneyExact, noValue, clipMeta} from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -807,7 +807,7 @@ const page = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pokemon Pack Prices by Set: What One Pack Costs</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/pack-prices.html">
 <meta property="og:title" content="What does a Pokemon pack actually cost?">
 <meta property="og:description" content="${esc(desc)}">

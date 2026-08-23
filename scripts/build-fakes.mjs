@@ -38,7 +38,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { avifPicture, esc, imgDims, longDate } from "../shared/format.mjs";
+import { avifPicture, esc, imgDims, longDate, clipMeta} from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const d = JSON.parse(await readFile(join(ROOT, "data/fakes.json"), "utf8"));
@@ -520,7 +520,7 @@ const page = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>How to Spot a Fake Pokemon Card: ${d.tests.length} Tests That Work</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/fake-cards.html">
 <meta property="og:title" content="How to spot a fake Pokemon card">
 <meta property="og:description" content="${esc(desc)}">
