@@ -1798,7 +1798,16 @@ ${MENU}
               <img src="${thumb}" alt="" width="${v.vertical === false ? 1280 : 720}" height="${v.vertical === false ? 720 : 1280}" decoding="async">
             </picture>
           </noscript>
-          <button class="pack pack--${packSet}" id="pack" type="button" aria-label="Rip open: ${esc(title)}">
+          ${/* THE VISIBLE WORDS HAVE TO BE IN THE ACCESSIBLE NAME. WCAG 2.5.3, Label in
+              Name: this button SHOWS "CLICK TO RIP THE PACK" and its name said
+              "Rip open: <title>", so somebody driving the page by voice says what
+              they can see and nothing happens. The name now starts with the
+              visible string and keeps the title after it, which is what a screen
+              reader needs to tell one rip page's button from another's.
+              The tile banners elsewhere are a different case and stay as they
+              are: there the banner is aria-hidden decoration repeated on every
+              card and the control's real label is the video title. See the note
+              over RIP_BANNER in shared/format.mjs. */ ""}<button class="pack pack--${packSet}" id="pack" type="button" aria-label="Click to rip the pack: ${esc(title)}">
             <span class="pack-face pack-l" aria-hidden="true">
               <span class="pack-art"></span>
               <span class="pack-brand">${esc(setLabel || "GARBAGE RIPS")}<small>${setLabel ? "GARBAGE RIPS 585" : "585"}</small></span>

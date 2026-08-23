@@ -1843,7 +1843,17 @@ footer p{font:400 var(--t-sm)/1.6 var(--body);color:var(--chrome-dim);max-width:
 .nav-links a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;
   border-radius:var(--r-pill);color:var(--chrome-ink);white-space:nowrap;
   font:700 var(--t-sm)/1 var(--body)}
-.nav-links a:hover,.nav-links a:focus-visible{background:rgba(255,255,255,.14);color:var(--mustard)}
+/* HOVER GOES BRIGHTER, NOT TEALER. This used to switch the text to
+   var(--mustard), which the palette swap turned from a yellow into a light teal
+   -- and it sits on a ground that the .14 white overlay has already lightened,
+   so the two moved toward each other: measured 4.17:1 against the 4.5 this
+   needs at 14px bold, on the shared header of every page. The resting state was
+   never the problem (11.5:1), which is why a resting-state sweep misses it.
+   Going to #fff keeps the "this one is lit" affordance the colour change was
+   there for, reads as brighter than the resting cream rather than as a
+   different hue, and measures 6.3:1. .foot-nav a:hover and .menu a:hover
+   already do exactly this and already pass. */
+.nav-links a:hover,.nav-links a:focus-visible{background:rgba(255,255,255,.14);color:#fff}
 .nav-links a[aria-current=page]{background:var(--mustard);color:var(--on-accent)}
 
 /* 1080 is where brand + five links + the search field + Subscribe stop
@@ -5001,7 +5011,17 @@ inherited from the UA default, so the promotion moves nothing on screen. */
   background:radial-gradient(circle,rgba(232,185,58,.42) 0%,rgba(232,185,58,0) 70%)}
 .hofx-art img{position:relative;display:block;width:100%;height:auto;border-radius:10px;
   box-shadow:0 8px 22px rgba(0,0,0,.45)}
-.hofx-b{display:flex;flex-direction:column;gap:8px;min-width:0}
+/* position:relative PUTS THE WORDS ABOVE THE SHEEN, and that is a contrast fix
+   rather than a taste one. .hofx::before is an absolutely positioned pseudo with
+   no z-index, so it paints over in-flow content and under positioned content.
+   .hofx-art is already relative, so the sheen never crossed the card -- it
+   crossed the TEXT. Sampled at 26 phases of the 6.5s sweep, the worst frame put
+   .hofx-m at 3.06:1 against the 4.5 it needs at 11px bold, because a
+   rgba(255,255,255,.30) band lightens the ground under every glyph.
+   Joining the positioned layer means the sheen sweeps the panel and passes
+   BEHIND the words, which is what a shine on a frame should do anyway. Nothing
+   moves: position:relative with no offsets changes no geometry. */
+.hofx-b{position:relative;display:flex;flex-direction:column;gap:8px;min-width:0}
 .hofx-t{font:400 var(--t-l)/1.1 var(--display);color:var(--chrome-ink);
   text-shadow:0 2px 0 rgba(0,0,0,.35)}
 .hofx-m{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;

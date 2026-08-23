@@ -516,7 +516,7 @@ footer p{font:400 var(--t-sm)/1.6 var(--body);color:var(--chrome-dim);max-width:
 .nav-links a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;
   border-radius:var(--r-pill);color:var(--chrome-ink);white-space:nowrap;
   font:700 var(--t-sm)/1 var(--body)}
-.nav-links a:hover,.nav-links a:focus-visible{background:rgba(255,255,255,.14);color:var(--mustard)}
+.nav-links a:hover,.nav-links a:focus-visible{background:rgba(255,255,255,.14);color:#fff}
 .nav-links a[aria-current=page]{background:var(--mustard);color:var(--on-accent)}
 @media(min-width:900px){ .nav-links{display:flex} }
 @media(max-width:1099px){ .nav-links a:nth-child(n+4){display:none} }
@@ -1619,7 +1619,7 @@ span.cq-name{color:var(--ink)}
   background:radial-gradient(circle,rgba(232,185,58,.42) 0%,rgba(232,185,58,0) 70%)}
 .hofx-art img{position:relative;display:block;width:100%;height:auto;border-radius:10px;
   box-shadow:0 8px 22px rgba(0,0,0,.45)}
-.hofx-b{display:flex;flex-direction:column;gap:8px;min-width:0}
+.hofx-b{position:relative;display:flex;flex-direction:column;gap:8px;min-width:0}
 .hofx-t{font:400 var(--t-l)/1.1 var(--display);color:var(--chrome-ink);
   text-shadow:0 2px 0 rgba(0,0,0,.35)}
 .hofx-m{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;

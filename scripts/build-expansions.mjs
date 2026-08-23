@@ -474,8 +474,17 @@ const style = `
   border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);
   font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
 .xp-jump a:hover{border-color:var(--ink);background:var(--mustard);color:var(--on-accent)}
+/* color:var(--on-accent) IS NOT OPTIONAL ON A --mustard FILL, AND THIS WAS THE
+   ONE PLACE IT WAS MISSING. A button with no color declaration inherits the user
+   agent's own, which is white, and --mustard is a light teal since the palette
+   swap -- so this button shipped white-on-light-blue at 2.26:1 against the 4.5
+   it needs at 16px bold. Measured by sampling the rendered pixels, not computed
+   from the tokens. Every one of the other 41 --mustard background rules in this
+   repo already pairs the token with --on-accent; .xp-jump a:hover does it on the
+   line directly above. #231F20 on #70B5D9 is 7.22:1. */
 .xp-copy{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 var(--s5);
   border:2px solid var(--ink);border-radius:var(--r-pill);background:var(--mustard);
+  color:var(--on-accent);
   font:700 var(--t-body)/1 var(--body);box-shadow:var(--lift);cursor:pointer}
 .xp-copy:hover{transform:translateY(-2px)}
 
@@ -563,7 +572,13 @@ const style = `
    to another page rather than a mark that goes nowhere. */
 .xp-sub{flex-basis:100%;font:700 9px/1.3 var(--mono);letter-spacing:.06em;
   text-transform:uppercase;color:var(--ink-2)}
-.xp-sub a{color:var(--gold-deep);text-decoration:underline;text-underline-offset:2px}
+/* --ink, NOT --gold-deep. Measured 4.499:1 against the 4.5 this needs -- a
+   hair under, at 9px, which is the smallest text on the page. --gold-deep is
+   4.50:1 on this ground by arithmetic and lands under it once the real pixels
+   are sampled, so it was never passing with anything to spare. --ink is 6.70:1.
+   The underline stays and is what marks it as a link, which is the rule
+   anyway: colour alone is never allowed to be the only signal. */
+.xp-sub a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
 /* THE WRAP IS ON A SECOND CLASS, NOT ON .xp-name, and that is not fussiness.
    .xp-name is a nowrap flex row today, so its content width is part of what
    sets this table's minimum width at 390. Letting all 174 of them wrap could
