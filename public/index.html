@@ -130,6 +130,11 @@
   padding:3px 7px;border-radius:5px;border:1.5px dashed var(--ink-2);
   background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
 .wdr-when{font:700 var(--t-sm)/1.3 var(--body);color:var(--ink);margin-top:2px}
+.wdr-ls{list-style:none;margin:var(--s2) 0 0;padding:0;display:grid;gap:var(--s2)}
+.wdr-l+.wdr-l{border-top:1px solid var(--keyline);padding-top:var(--s2)}
+.wdr-lt{display:flex;align-items:center;flex-wrap:wrap;gap:var(--s2) 8px}
+.wdr-ch-on{color:var(--brand-accent)}
+.wdr-lt .wdr-when{margin-top:0;font-size:var(--t-micro);color:var(--ink-2);flex-basis:100%}
 .wdr-what{font-size:var(--t-sm);line-height:1.35;color:var(--ink-2)}
 .wdr-exp{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2)}
 .wdrop-src{font-size:var(--t-micro);line-height:1.45;color:var(--ink-2);margin-top:var(--s3);max-width:52em}
@@ -377,19 +382,53 @@ main{padding-top:0}
           in the words they hedged it with.</p>
         <ul class="wdrop-list">
         <li class="wdr">
-          <p class="wdr-top"><span class="bmk bmk-onDark"><img src="/assets/brands/target.svg" alt="" width="300" height="300" loading="lazy" decoding="async"></span><b>Target</b><span class="wdr-ch">In store</span><span class="wdr-cf">Expected</span></p>
-          <p class="wdr-when">Through the week, varies by store.</p>
-          <p class="wdr-what">Select Chaos Rising and Pitch Black products, plus First Partner Series 2 and 3 collection boxes.</p>
+          <p class="wdr-top"><span class="bmk bmk-onDark"><img src="/assets/brands/target.svg" alt="" width="300" height="300" loading="lazy" decoding="async"></span><b>Target</b></p>
+          <ul class="wdr-ls">
+          <li class="wdr-l">
+            <p class="wdr-lt"><span class="wdr-ch">In store</span><span class="wdr-cf">Expected</span><span class="wdr-when">Through the week, varies by store.</span></p>
+            <p class="wdr-what">Select Chaos Rising and Pitch Black products, plus First Partner Series 2 and 3 collection boxes.</p>
+          </li>
+          <li class="wdr-l">
+            <p class="wdr-lt"><span class="wdr-ch wdr-ch-on">Online</span><span class="wdr-cf">Expected</span><span class="wdr-when">No date or time is loaded, so nobody knows when they drop. The trackers expect Tuesday around 3am Eastern based on recent patterns, which is a guess rather than a time.</span></p>
+            <p class="wdr-what">Prismatic Evolutions Super Premium Collections, Pitch Black ETBs, Chaos Rising ETBs and First Partner Series 3 are loaded on Target's backend.</p>
+          </li>
+          </ul>
         </li>
         <li class="wdr">
-          <p class="wdr-top"><span class="bmk"><img src="/assets/brands/bestbuy.svg" alt="" width="1000" height="584" loading="lazy" decoding="async"></span><b>Best Buy</b><span class="wdr-ch">In store</span><span class="wdr-cf">Expected</span></p>
-          <p class="wdr-when">Through the week, varies by store.</p>
-          <p class="wdr-what">More Pitch Black booster bundles and 3-pack blisters, plus First Partner Series 2 and 3 collection boxes.</p>
+          <p class="wdr-top"><span class="bmk"><img src="/assets/brands/bestbuy.svg" alt="" width="1000" height="584" loading="lazy" decoding="async"></span><b>Best Buy</b></p>
+          <ul class="wdr-ls">
+          <li class="wdr-l">
+            <p class="wdr-lt"><span class="wdr-ch">In store</span><span class="wdr-cf">Expected</span><span class="wdr-when">Through the week, varies by store.</span></p>
+            <p class="wdr-what">More Pitch Black booster bundles and 3-pack blisters, plus First Partner Series 2 and 3 collection boxes.</p>
+          </li>
+          </ul>
         </li>
         <li class="wdr">
-          <p class="wdr-top"><span class="bmk"><img src="/assets/brands/walmart.svg" alt="" width="1024" height="241" loading="lazy" decoding="async"></span><b>Walmart</b><span class="wdr-ch">In store</span><span class="wdr-cf">Expected</span></p>
-          <p class="wdr-when">Through the week, varies by store.</p>
-          <p class="wdr-what">Pitch Black and Chaos Rising products, plus First Partner Series 2 and 3 collection boxes.</p>
+          <p class="wdr-top"><span class="bmk"><img src="/assets/brands/walmart.svg" alt="" width="1024" height="241" loading="lazy" decoding="async"></span><b>Walmart</b></p>
+          <ul class="wdr-ls">
+          <li class="wdr-l">
+            <p class="wdr-lt"><span class="wdr-ch">In store</span><span class="wdr-cf">Expected</span><span class="wdr-when">Through the week, varies by store.</span></p>
+            <p class="wdr-what">Pitch Black and Chaos Rising products, plus First Partner Series 2 and 3 collection boxes.</p>
+          </li>
+          </ul>
+        </li>
+        <li class="wdr">
+          <p class="wdr-top"><span class="bmk"><img src="/assets/brands/walgreens.svg" alt="" width="535" height="119" loading="lazy" decoding="async"></span><b>Walgreens</b></p>
+          <ul class="wdr-ls">
+          <li class="wdr-l">
+            <p class="wdr-lt"><span class="wdr-ch">In store</span><span class="wdr-cf">Expected</span><span class="wdr-when">Ongoing, select stores.</span></p>
+            <p class="wdr-what">Ascended Heroes 2-pack blisters, plus the Darkrai, Tyranitar and Slaking tins.</p>
+          </li>
+          </ul>
+        </li>
+        <li class="wdr">
+          <p class="wdr-top"><span class="bmk"><img src="/assets/brands/dollargeneral.svg" alt="" width="241" height="44" loading="lazy" decoding="async"></span><b>Dollar General</b></p>
+          <ul class="wdr-ls">
+          <li class="wdr-l">
+            <p class="wdr-lt"><span class="wdr-ch">In store</span><span class="wdr-cf">Expected</span><span class="wdr-when">Ongoing, select stores.</span></p>
+            <p class="wdr-what">Black Bolt and White Flare Unova poster collections.</p>
+          </li>
+          </ul>
         </li>
         </ul>
         <p class="wdrop-more"><a href="/drops.html">All 6 drops &rarr;</a></p>
@@ -413,10 +452,14 @@ main{padding-top:0}
   var today = todayIso();
   var ends = band.getAttribute("data-week-ends");
   if (isIsoDay(ends) && ends < today) return drop();
-  var rows = [].slice.call(band.querySelectorAll(".wdr[data-perish]"));
+  var rows = [].slice.call(band.querySelectorAll(".wdr-l[data-perish]"));
   for (var i = 0; i < rows.length; i++) {
     var ex = rows[i].getAttribute("data-expires");
     if (isIsoDay(ex) && ex < today && rows[i].parentNode) rows[i].parentNode.removeChild(rows[i]);
+  }
+  var cards = [].slice.call(band.querySelectorAll(".wdr"));
+  for (var k = 0; k < cards.length; k++) {
+    if (!cards[k].querySelectorAll(".wdr-l").length && cards[k].parentNode) cards[k].parentNode.removeChild(cards[k]);
   }
   var lk = band.querySelector("[data-dx]");
   if (lk) {
@@ -446,9 +489,13 @@ main{padding-top:0}
 
 <!-- SAYHEAD:END -->
       </div>
-      <a href="/videos.html?pull=1">All <!-- COUNT_HITS:START -->
-115
-<!-- COUNT_HITS:END --> hits &rarr;</a>
+      <!-- "Watch All The Hits", not a count. Tim, 23 August 2026. The number
+           that stood here was hitCount, which is rips carrying one of five
+           RANKED pull tags -- 115 of 321 -- while 156 rips had a hit. So "All
+           115 hits" was the wrong word over a filtered figure, and the count
+           region is gone rather than corrected: the destination already states
+           its own scope, and a front-door label does not need to. -->
+      <a href="/videos.html?pull=1">Watch All The Hits &rarr;</a>
     </div>
     <!-- HOFPICK:START -->
 <a class="hofx" href="/rip/i-just-pulled-a-1-000-card-iIgTusrqVtg.html">

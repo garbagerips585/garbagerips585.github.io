@@ -30,7 +30,7 @@ import { loadGradedPrices } from "../shared/graded-price.mjs";
 // place for both. See shared/drops.mjs.
 import {
   dropsClock, expiresOn as dropExpiresOn, isPerishable, splitByExpiry, isStale,
-  homeBandRows, CONF_LABEL, CLIENT_DAY_JS,
+  homeBandRows, homeBandByRetailer, CONF_LABEL, CLIENT_DAY_JS,
 } from "../shared/drops.mjs";
 // The retailer marks, from the same module and the same mirrored files
 // /drops.html, /buying.html, /selling.html and /retailers.html use. Extending
@@ -1765,7 +1765,7 @@ try {
   } else {
     const known = (doc.drops || []).filter((d) => R[d.retailer]);
     const { live, expired } = splitByExpiry(doc, known, DROPS_TODAY);
-    const { picked, skipped } = homeBandRows(doc, live);
+    const { picked, skipped } = homeBandByRetailer(doc, live);
 
     // THE COUNT NAMES THE DESTINATION, SO IT IS COUNTED THE WAY THE DESTINATION
     // COUNTS ITSELF. The sweep below was added precisely because "All 9 drops"
@@ -1828,6 +1828,53 @@ try {
           }
         </li>`;
     };
+
+    /* ONE CARD PER RETAILER, WITH A LINE FOR EACH CHANNEL IT DROPS ON.
+     *
+     * The band used to be three DROPS deduped by retailer, so Target's online
+     * loadout and Walmart's Walmart Wednesday were dropped as duplicates of the
+     * same shops' in-store rows: six of the nine rows in the file never reached
+     * the home page at all. Tim asked for the online ones back, "a high level
+     * way to see what retailers are expecting to drop that week".
+     *
+     * THE PERISHABLE MARK MOVES FROM THE CARD TO THE LINE, and the sweep below
+     * moves with it. A card can now hold one row that dies tonight and one that
+     * runs to Sunday -- Walmart is exactly that -- and marking the whole card
+     * perishable would take the surviving line with it. The sweep removes dead
+     * LINES and then removes any card left with none, which is the same
+     * behaviour one channel at a time.
+     *
+     * THE CONFIDENCE CHIP STAYS ON EVERY LINE. The old row carried one and the
+     * note above it argues at length that it is the one thing on this band that
+     * must not lose prominence, because a card wearing a retailer's own mark
+     * already looks more official than it has any right to. Two channels means
+     * two hedges, not one covering both: Target is `expected` in store and
+     * `expected` online, but Walmart is `expected` in store and `pattern`
+     * online, and printing one chip for that card would upgrade a guess.
+     */
+    const line = (d) => {
+      const ex = dropExpiresOn(doc, d);
+      const dies = isPerishable(doc, d);
+      return `          <li class="wdr-l"${dies ? ` data-expires="${esc(ex)}" data-perish="1"` : ""}>
+            <p class="wdr-lt"><span class="wdr-ch${d.channel === "store" ? "" : " wdr-ch-on"}">${
+              d.channel === "store" ? "In store" : "Online"
+            }</span><span class="wdr-cf">${esc(CONF_LABEL[d.confidence] || CONF_LABEL.expected)}</span>${
+              d.when ? `<span class="wdr-when">${esc(d.when)}</span>` : ""
+            }</p>
+            <p class="wdr-what">${esc(d.what)}</p>
+          </li>`;
+    };
+
+    const card = (g) => {
+      const r = R[g.retailer];
+      return `        <li class="wdr">
+          <p class="wdr-top">${brandMark(g.retailer, r.name)}<b>${esc(r.name)}</b></p>
+          <ul class="wdr-ls">
+${g.lines.map(line).join("\n")}
+          </ul>
+        </li>`;
+    };
+    void row;
 
     if (!picked.length) {
       dropsLog.push("drops band: nothing this week fits the band. No band.");
@@ -1896,10 +1943,14 @@ ${CLIENT_DAY_JS}
   var today = todayIso();
   var ends = band.getAttribute("data-week-ends");
   if (isIsoDay(ends) && ends < today) return drop();
-  var rows = [].slice.call(band.querySelectorAll(".wdr[data-perish]"));
+  var rows = [].slice.call(band.querySelectorAll(".wdr-l[data-perish]"));
   for (var i = 0; i < rows.length; i++) {
     var ex = rows[i].getAttribute("data-expires");
     if (isIsoDay(ex) && ex < today && rows[i].parentNode) rows[i].parentNode.removeChild(rows[i]);
+  }
+  var cards = [].slice.call(band.querySelectorAll(".wdr"));
+  for (var k = 0; k < cards.length; k++) {
+    if (!cards[k].querySelectorAll(".wdr-l").length && cards[k].parentNode) cards[k].parentNode.removeChild(cards[k]);
   }
   var lk = band.querySelector("[data-dx]");
   if (lk) {
@@ -1956,7 +2007,7 @@ ${CLIENT_DAY_JS}
           announces any of this, and <b>these are not our findings.</b> We are passing on what the trackers said,
           in the words they hedged it with.</p>
         <ul class="wdrop-list">
-${picked.map(row).join("\n")}
+${picked.map(card).join("\n")}
         </ul>
         <p class="wdrop-more"><a href="/drops.html">All ${destLive.length} drops &rarr;</a></p>
         <p class="wdrop-src">${credit || "Community restock trackers"}. Not a retailer speaking. Logos are the retailers&rsquo; own trademarks, here to name the shop and nothing more.</p>
@@ -1965,11 +2016,12 @@ ${picked.map(row).join("\n")}
   </div>
 </section>
 ${sweep}`;
+      const shown = picked.flatMap((g) => g.lines);
       dropsLog.push(
-        `drops band: ${picked.length} of ${live.length} live row(s), ${
-          picked.filter((d) => isPerishable(doc, d)).length
+        `drops band: ${picked.length} retailer(s) carrying ${shown.length} of ${live.length} live row(s), ${
+          shown.filter((d) => isPerishable(doc, d)).length
         } perishable: ` +
-          picked.map((d) => `${d.retailer}/${d.channel}${d.expires ? ` to ${d.expires}` : ""}`).join(", ")
+          picked.map((g) => `${g.retailer}[${g.lines.map((d) => d.channel).join("+")}]`).join(", ")
       );
     }
     if (expired.length) {
@@ -2634,6 +2686,19 @@ ${BRAND_STYLE_MIN}
   padding:3px 7px;border-radius:5px;border:1.5px dashed var(--ink-2);
   background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
 .wdr-when{font:700 var(--t-sm)/1.3 var(--body);color:var(--ink);margin-top:2px}
+/* THE CHANNEL LINES INSIDE ONE RETAILER'S CARD.
+   Two at most, in-store then online, each carrying its own channel word, its
+   own confidence chip and its own when -- see the argument beside the line
+   this file for why the chip is per line and not per card. The rule between
+   them is a hairline rather than a gap, so a card still reads as one shop. */
+.wdr-ls{list-style:none;margin:var(--s2) 0 0;padding:0;display:grid;gap:var(--s2)}
+.wdr-l+.wdr-l{border-top:1px solid var(--keyline);padding-top:var(--s2)}
+.wdr-lt{display:flex;align-items:center;flex-wrap:wrap;gap:var(--s2) 8px}
+/* Online reads as the accent so the two channels separate at a glance, which
+   is the whole point of the regrouping: "a high level way to see what
+   retailers are expecting to drop that week". */
+.wdr-ch-on{color:var(--brand-accent)}
+.wdr-lt .wdr-when{margin-top:0;font-size:var(--t-micro);color:var(--ink-2);flex-basis:100%}
 .wdr-what{font-size:var(--t-sm);line-height:1.35;color:var(--ink-2)}
 .wdr-exp{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2)}
 .wdrop-src{font-size:var(--t-micro);line-height:1.45;color:var(--ink-2);margin-top:var(--s3);max-width:52em}
@@ -3063,7 +3128,14 @@ const REGIONS = {
   ROCHESTER: rocHtml,
   SETS101: setsHtml,
   COUNT_ALL: String(videos.length),
-  COUNT_HITS: String(hitCount),
+  // COUNT_HITS IS GONE FROM THE PAGE AND SO IS THE REGION. It filled
+  // "All N hits" in the Greatest Hits header, and N was hitCount: rips
+  // carrying one of the five RANKED pull tags, 115 of 321, where 156 rips
+  // actually had a hit. The label said hits and the number counted graded
+  // pulls. Tim replaced the whole thing with "Watch All The Hits" on
+  // 23 August 2026, which removes the claim rather than restating it.
+  // hitCount itself stays: the run summary at the foot of this file still
+  // prints it, correctly worded as "with a graded pull".
   // Every guide under /sets/, not just the English ones. The chip said "All 23
   // sets" and landed on a page listing 36, because the imported guides were
   // never counted.

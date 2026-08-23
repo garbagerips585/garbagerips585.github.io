@@ -176,6 +176,69 @@ export function homeBandRows(doc, rows, {
   return { picked, skipped };
 }
 
+/**
+ * The home band grouped BY RETAILER rather than by drop.
+ *
+ * Tim, 23 August 2026: "can you also add in the expected online drops too, can
+ * make it super simple to read/see what retailers are planning online and in
+ * store". homeBandRows above answers a different question -- it picks the three
+ * most urgent DROPS and dedupes by retailer, so Target's online drop and
+ * Walmart's Walmart Wednesday were thrown away as duplicates of their in-store
+ * rows. Six of the nine rows in the file never reached the front door.
+ *
+ * WHY A SECOND FUNCTION RATHER THAN A FLAG. The old one is still the right
+ * answer to "what are the three most urgent things this week" and nothing about
+ * its ranking is wrong; this is a different unit of display. Both are exported
+ * and neither guesses which the caller wanted.
+ *
+ * ONE ROW PER CHANNEL, STORE BEFORE ONLINE. A retailer with two in-store rows
+ * keeps the more urgent one and the rest are reported as skipped rather than
+ * vanishing -- the caller prints that list at the end of a run. Store comes
+ * first because it is the one a reader cannot check from where they are
+ * sitting, so it is the one worth knowing before leaving the house.
+ *
+ * NO TRUNCATION OF WHAT THE TRACKERS SAID. maxWhat here is deliberately loose
+ * where homeBandRows keeps it tight, because that function was fighting for
+ * space above the fold and this band is inside a collapsed <details> that costs
+ * nothing until somebody opens it. A hedge clipped mid-sentence is the one
+ * thing this band must never do.
+ */
+// maxWhen is 200 because Target's online row writes 168 characters of it --
+// which backend loadouts have appeared and what that has meant on past
+// weeks -- and at 120 the ONE online row this week still had was the one
+// row left off the band. In this layout `when` is a full-width micro line
+// under the chips rather than a bold line competing with the card's name,
+// so it has the room the old row did not.
+export function homeBandByRetailer(doc, rows, { limit = 8, maxWhat = 220, maxWhen = 200 } = {}) {
+  const fits = (d) =>
+    String(d.what || "").length <= maxWhat && String(d.when || "").length <= maxWhen;
+  const tier = (d) => (isPerishable(doc, d) ? 0 : d.window?.from ? 1 : 2);
+  const rank = (a, b) =>
+    tier(a.d) - tier(b.d) ||
+    String(expiresOn(doc, a.d)).localeCompare(String(expiresOn(doc, b.d))) ||
+    a.i - b.i;
+
+  const skipped = { long: [], dupe: [] };
+  const byRetailer = new Map();
+  for (const x of rows.map((d, i) => ({ d, i })).sort(rank)) {
+    const { d } = x;
+    if (!fits(d)) { skipped.long.push(d); continue; }
+    if (!byRetailer.has(d.retailer)) byRetailer.set(d.retailer, { retailer: d.retailer, order: x.i, lines: [] });
+    const g = byRetailer.get(d.retailer);
+    if (g.lines.some((l) => l.channel === d.channel)) { skipped.dupe.push(d); continue; }
+    g.lines.push(d);
+  }
+  const groups = [...byRetailer.values()]
+    .map((g) => ({
+      ...g,
+      lines: g.lines.sort((a, b) => (a.channel === "store" ? 0 : 1) - (b.channel === "store" ? 0 : 1)),
+    }))
+    .sort((a, b) => rank({ d: a.lines[0], i: a.order }, { d: b.lines[0], i: b.order }));
+  const picked = groups.slice(0, limit);
+  for (const g of groups.slice(limit)) skipped.dupe.push(...g.lines);
+  return { picked, skipped };
+}
+
 /* ------------------------------------------------------- the client sweeps - */
 
 // TWO PAGES RUN THE SAME DATE ARITHMETIC IN THE BROWSER and they used to hold
