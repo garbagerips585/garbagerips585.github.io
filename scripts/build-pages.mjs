@@ -538,10 +538,35 @@ async function resolveHits(vid) {
         // number, the label and the picture arrive together or not at all.
         // Order is the sheet first, then the priced product, then the corpus,
         // so a set name a person wrote down still wins over a derived one.
-        name: h.card, setName: h.setName || fp?.setName || (pm && pm.s) || null, setId: null,
-        rarity: h.rarity || (pm && pm.r) || null,
-        n: h.number || (pm && pm.i) || fp?.number || null,
-        img: pm && pm.g ? `${pm.g}/low.webp` : fp?.img || null,
+        // THE PRICED PRODUCT OUTRANKS THE CORPUS GUESS, AND IT DID NOT, AND SIX
+        // CARDS SHOWED THE WRONG ARTWORK BECAUSE OF IT.
+        //
+        // `pm` has two finds. The first is exact -- name AND collector number.
+        // The second fires when the row carries no number and takes the first
+        // printing of that name in ANY set matching /promo/, which is shard file
+        // order and nothing else. `t.json` happens to hold "DP Black Star Promos
+        // DP01" before "MEP Black Star Promos 040", so Turtwig, Chimchar and
+        // Piplup on JjTm-bYLhGE and C4mvo_Justc rendered the 2007 Diamond and
+        // Pearl promo scans under the First Partner set name at the MEP price:
+        // a three-way hybrid, with the picture belonging to a different card
+        // printed nineteen years earlier. Rowlet, Litten and Popplio escaped
+        // only because MEP sorts before SM in their shards.
+        //
+        // `fp` is not a guess. It fires only when the row NAMES the First
+        // Partner Illustration Collection, the card name is in that product's
+        // 27-card list, and any number on the row agrees with the card's. So
+        // where fp answers it answers exactly, and it now takes the whole
+        // record rather than being outvoted field by field.
+        //
+        // WHOLE RECORD, NOT FIELD BY FIELD, which is the rule the paragraph
+        // above already states: the number, the label and the picture arrive
+        // together or not at all. Mixing fp's number with pm's picture is how
+        // this got shipped in the first place.
+        name: h.card,
+        setName: h.setName || fp?.setName || (fp ? null : pm && pm.s) || null, setId: null,
+        rarity: h.rarity || (fp ? null : pm && pm.r) || null,
+        n: h.number || fp?.number || (fp ? null : pm && pm.i) || null,
+        img: fp?.img || (pm && pm.g && !fp ? `${pm.g}/low.webp` : null),
         // A promo has no price in the nightly feed, so where one is recorded on
         // the hit itself we use it, and carry its source and date so the page
         // can say where it came from rather than implying it is a live figure.

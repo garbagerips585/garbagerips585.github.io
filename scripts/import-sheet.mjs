@@ -916,9 +916,27 @@ for (const [n, r] of rows.slice(1).entries()) {
           body = body.replace(/\s*\d+\s*$/, "").trim();
         }
       }
-      const low = body.toLowerCase();
+      // TWO SPELLINGS THAT COST A PACK EACH, NORMALISED BEFORE THE MATCH.
+      //
+      // "Gem Pack Vol 2 (Eeveelutions)" is a set this site knows -- it is
+      // zh-gem-pack-2 and the title matcher tags the video correctly -- but the
+      // catalog spells it "Gem Pack Vol. 2" with a period, and the row adds what
+      // was in the pack in brackets. startsWith missed, includes missed, and
+      // nearestSet bailed on the length the parenthetical added. The set tag
+      // survived on the title alone, so the page looked right and only the pack
+      // arithmetic was wrong, which is the hardest kind of miss to notice.
+      //
+      // A trailing parenthetical is a note about the fragment, never part of a
+      // set name -- no set on this site has one -- and "Vol 2" and "Vol. 2" are
+      // the same words. Both are normalised for MATCHING only; the row keeps
+      // whatever it typed.
+      const forMatch = body
+        .replace(/\s*\([^)]*\)\s*$/, "")
+        .replace(/\bvol\s+(\d)/i, "Vol. $1")
+        .trim();
+      const low = forMatch.toLowerCase();
       let hit = NAMES.find((n) => low.startsWith(n)) || NAMES.find((n) => low.includes(n));
-      if (!hit) hit = nearestSet(body, NAMES);
+      if (!hit) hit = nearestSet(forMatch, NAMES);
       if (!hit) {
         // A PACK THAT IS NOT A NUMBERED SET IS STILL A PACK. The First Partner
         // Illustration Collection holds a promo pack alongside two set packs,
@@ -930,6 +948,27 @@ for (const [n, r] of rows.slice(1).entries()) {
         // else unrecognised is still reported rather than silently counted.
         if (/promo|first partner|illustration collection/i.test(body)) {
           setPacks.push({ set: null, name: body, packs, typed });
+        } else if (suffix) {
+          // A NUMBER TIM TYPED IS A NUMBER TIM TYPED, EVEN WHEN THE SET IS NEW.
+          //
+          // "Trick Or Trade - 3 Packs" is not in sets.json, expansions.json,
+          // intl-guides.json or the printings corpus -- it is a Halloween
+          // bundle this site has no page for. Refusing the fragment threw the
+          // 3 away with it, and /luck.html published 458 packs where the log
+          // says 462.
+          //
+          // The gate is the EXPLICIT "- N Packs" suffix, not the looser bare
+          // trailing number above: that suffix is the one shape that cannot be
+          // anything but a pack count, so it is the one that can be trusted
+          // without a set behind it. Same treatment the promo pack already
+          // gets, for the same reason -- the pack was opened whether or not
+          // this site can name what it came from.
+          //
+          // STILL REPORTED. The fragment goes into unknownSet as well, so the
+          // run still ends by naming a set nobody has taught this file about;
+          // it just no longer loses the count on the way.
+          setPacks.push({ set: null, name: body, packs, typed });
+          unknownSet.add(frag);
         } else {
           unknownSet.add(frag);
         }
