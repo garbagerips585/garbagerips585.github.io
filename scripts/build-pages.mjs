@@ -746,7 +746,14 @@ async function resolveHits(vid) {
       ? null
       : pinnedShot([sub?.setName, m?.setName, h.setName, h.set], m?.n || sub?.n || h.number);
     out.push({
-      name: h.card, setName: h.setName, setId: h.set,
+      // THE CORPUS'S OWN NAME AND SET WHERE IT ANSWERED, and /hall.html has done
+      // this since the subset lookup went in. The rip log glues the subset onto
+      // the card -- "Corviknight V Trainer Gallery" -- because that is the only
+      // slot the sheet has for it, and printing it back read as a card called
+      // "Corviknight V Trainer Gallery" in "Silver Tempest". It is Corviknight
+      // V, in Silver Tempest Trainer Gallery, and the two pages now say the same
+      // thing about it.
+      name: sub?.name || h.card, setName: sub?.setName || h.setName, setId: h.set,
       rarity: (m && m.rarity) || sub?.rarity || h.rarity || null,
       n: m ? m.n : sub?.n || null,
       // THE GUIDE'S OWN SCAN FIRST, THEN THE CORPUS. Same precedence

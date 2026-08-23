@@ -4702,10 +4702,11 @@
     "openingType": "Single Booster Pack",
     "packNumber": 1,
     "hasHit": true,
-    "hitCard": "Paras - Galarian Gallery",
+    "hitCard": "Crown Zenith - Paras - Galarian Gallery - Rare",
     "hits": [
       {
-        "card": "Paras Galarian Gallery",
+        "card": "Paras",
+        "rarity": "Rare",
         "set": "crown-zenith",
         "setName": "Crown Zenith"
       }
@@ -6313,10 +6314,10 @@
     "setsPacks": "Phantasmal Flames - 2 Packs ; Mega Evolution - 1 Pack ; Journey Together - 1 Pack",
     "openingType": "Tin",
     "hasHit": true,
-    "hitCard": "Mega Charizard Y ex - Black Star Promo ; Phantasmal Flames - Empoleon ex - Double Black Star - Double Rare",
+    "hitCard": "Mega Charizard X ex - Black Star Promo ; Phantasmal Flames - Empoleon ex - Double Black Star - Double Rare",
     "hits": [
       {
-        "card": "Mega Charizard Y ex",
+        "card": "Mega Charizard X ex",
         "rarity": "Black Star Promo"
       },
       {

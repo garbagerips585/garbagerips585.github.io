@@ -1831,6 +1831,19 @@ for (const [n, r] of rows.slice(1).entries()) {
           // shape left that settles it, so nothing is dropped and the run says
           // so.
           const looksLikeSymbol = (s) => /\bstars?$/i.test(s) || /^[A-Z]{2,4}$/.test(s);
+          // A SUBSET NAME IN THAT SLOT IS ROUTING, NOT PART OF THE CARD'S NAME.
+          // "Crown Zenith - Paras - Galarian Gallery - Rare" is Paras, in Crown
+          // Zenith's Galarian Gallery. Read as a name it becomes "Paras Galarian
+          // Gallery", which is a card that does not exist, and because this
+          // parser can only ADD a row it sat on /hall.html beside the real Paras
+          // -- unnumbered, unpriced, and winning the dedupe because it sorted
+          // first. Same shape for Silver Tempest's Trainer Gallery.
+          //
+          // The list is shared/subset-cards.mjs's SUBSETS, which is the file that
+          // already knows these two are set names rather than card words. It is
+          // matched EXACTLY: a card really called "Gallery" something would not
+          // fill this slot on its own.
+          const SUBSET_SLOT = /^(galarian|trainer)\s+gallery$/i;
           let symIdx = -1, orphanSetIdx = -1;
           if (ki === -1 && ci === -1 && ri === parts.length - 1 && parts.length >= 3) {
             const cand = ri - 1;
@@ -1840,6 +1853,12 @@ for (const [n, r] of rows.slice(1).entries()) {
               /* "Phantasmal Falmes - Charizard X ex - Black Star Promo Card": the
                  set took the first field and the card is all that is left, so
                  there is no symbol here to drop. */
+            } else if (SUBSET_SLOT.test(parts[cand])) {
+              symIdx = cand;
+              quiet.push(
+                `${id}: "${parts[symIdx]}" is a subset of the set, not part of the card's name, ` +
+                  `so it was kept out of it. Card read as "${readAs(symIdx)}".`
+              );
             } else if (looksLikeSymbol(parts[cand])) {
               symIdx = cand;
               quiet.push(

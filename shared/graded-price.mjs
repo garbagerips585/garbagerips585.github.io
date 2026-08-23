@@ -120,12 +120,44 @@ export async function loadGradedPrices() {
   function pricecharting(name, setName, number) {
     for (const rec of pcByName.get(pcNorm(name)) || []) {
       if (typeof rec.psa10 !== "number") continue;
-      if (!pcNorm(rec.set).includes(pcNorm(setName))) continue;
+      if (!setsAgree(rec.set, setName)) continue;
       const got = /#\s*(\d+)/.exec(rec.matched || "");
       if (!got || pcNum(got[1]) !== pcNum(number)) continue;
       return rec;
     }
     return null;
+  }
+
+  /**
+   * Do PriceCharting's set and ours name the same set?
+   *
+   * Normally a substring test, which is what this has always been. The one
+   * exception is promos, and it cost five cards a graded price they already had
+   * on file.
+   *
+   * PRICECHARTING FILES EVERY ENGLISH PROMO IN ONE CONSOLE, "Pokemon Promo".
+   * We file them by the set actually printed on the card: "MEP Black Star
+   * Promos", "SVP Black Star Promos". Neither string contains the other, so no
+   * promo could ever join and the hall printed "No PSA 10 price for this
+   * printing" over $39.50, $40, $57.13, $72.50 and $95 sitting in
+   * data/graded.json. The two hand-kept promos escaped only because someone had
+   * typed their figures into data/hits.json by hand years' worth of comments ago.
+   *
+   * WHAT MAKES THIS SAFE IS THE NUMBER CHECK ABOVE, NOT THIS FUNCTION. A promo
+   * still has to agree on the card NAME and on the collector number PriceCharting
+   * actually landed on, and that pair is unique: checked across all 12 promo
+   * records and all 13 promo hits on the site, every match is one-to-one and
+   * every non-match is a card PriceCharting holds no record for at all. The
+   * loosening is only ever applied where OUR set name says "black star promos",
+   * so a set card can never fall through it.
+   *
+   * See shared/first-partner.mjs for the case this must NOT be used to solve:
+   * a bare "Rowlet" with no number is a different question, and that join is
+   * keyed on the product for exactly this reason.
+   */
+  function setsAgree(pcSet, setName) {
+    if (pcNorm(pcSet).includes(pcNorm(setName))) return true;
+    return pcNorm(pcSet) === "pokemonpromo" && /black\s*star\s*promos?$/i.test(String(setName || ""));
   }
 
   /**
@@ -138,9 +170,7 @@ export async function loadGradedPrices() {
    * and a column of silent dashes.
    */
   function nearMisses(name, setName) {
-    return (pcByName.get(pcNorm(name)) || []).filter((r) =>
-      pcNorm(r.set).includes(pcNorm(setName)),
-    );
+    return (pcByName.get(pcNorm(name)) || []).filter((r) => setsAgree(r.set, setName));
   }
 
   // THE KEY IS TRIED LITERALLY FIRST AND ZERO-STRIPPED SECOND, which is a
