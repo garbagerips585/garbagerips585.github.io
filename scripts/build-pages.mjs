@@ -618,7 +618,38 @@ async function resolveHits(vid) {
     // TWO RULES, ONE PER VOCABULARY, AND THE INTL ONE IS THE STRICTER OF THEM.
     // pickIntlPrinting never reaches `same[0]`; see its own comment for the
     // whole argument and for why Goldeen still gets no number.
-    const m = intl
+    // THE COLLECTOR NUMBER BEATS THE RARITY WORD, AND NOT HAVING THAT RULE PUT A
+    // $4.56 CARD WHERE A $668.50 ONE BELONGED.
+    //
+    // This chain matched on the RARITY only. The rarity column in the My Hits
+    // tab is unreliable in a specific, repeatable way -- it carries the tier of
+    // the SLOT the card came out of rather than of the card -- while the NUMBER
+    // column beside it is right. Measured against the checklists on 23 August
+    // 2026, three of the channel's most valuable pulls:
+    //
+    //   Mega Dragonite ex     sheet #290 "Double Rare"  -> resolved #152, $4.56
+    //                         checklist #290 IS Special Illustration Rare, $668.50
+    //   Mega Charizard Y ex   sheet #294 "Double Rare"  -> resolved #022, $5.46
+    //                         checklist #294 IS Mega Hyper Rare, $363.43
+    //   Mega Greninja ex      sheet #116 "Mega Hyper Rare" -> resolved #122, $173
+    //                         checklist #116 IS Special Illustration Rare, $208.26
+    //
+    // Every one landed on a real card of the right NAME and the wrong PRINTING,
+    // which is why nothing looked broken: a plaque with a scan, a price and a
+    // number, all of them belonging to a different card. The same #116 is logged
+    // three times with three different rarities, so the rarity cannot be the key.
+    //
+    // A NUMBER IS AN IDENTIFIER AND A RARITY IS A DESCRIPTION. Where the sheet
+    // gives a number and the checklist holds it, that IS the card and nothing
+    // else needs asking. Everything below is unchanged and still runs when there
+    // is no number, which is most rows.
+    const byNumber =
+      h.number && cards
+        ? cards.find((c) => norm(c.name) === norm(h.card) && String(c.n) === String(h.number))
+        : null;
+    const m = byNumber
+      ? byNumber
+      : intl
       ? pickIntlPrintingJp(same, want)
       : (want && same.find((c) => norm(c.rarity) === want)) ||
         (want && same.find((c) => norm(c.rarity).includes(want.slice(0, 8)))) ||
