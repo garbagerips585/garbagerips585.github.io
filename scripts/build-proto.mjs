@@ -591,6 +591,33 @@ const byNewest = [...videos].sort((a, b) =>
   (b.views || 0) - (a.views || 0)
 );
 
+/* THE RAW VALUE OF EACH RIP'S BEST CARD, written by build-pages.mjs.
+ *
+ * Tim, 23 August 2026: "the Greatest Hits videos should go in order of top hit
+ * cards based on RAW market price ... always sort cards on all pages by most
+ * valuable." This band had been ranked by pull TIER and then by VIEWS, which is
+ * a stand-in this repo's own TODO admits to, so a Hyper Rare with 932 views
+ * outranked a more valuable card with fewer.
+ *
+ * READ, NOT RE-DERIVED. Resolving a hit to a printing and a price is 400 lines
+ * of promo handling, intl checklists, First Partner joins and graded gates in
+ * build-pages.mjs, and a second copy here is how a site comes to print two
+ * answers to one question. build-all.mjs runs this file AFTER that one so the
+ * figure is this run's.
+ *
+ * MISSING IS 0 AND SORTS LAST, WHICH IS HONEST: 144 of 321 rips carry a raw
+ * value, and a rip whose card cannot be priced has not earned a place above one
+ * that can. The tier and the view count are still there underneath as
+ * tie-breakers, so the band is fully ordered either way.
+ */
+let HIT_VALUE = {};
+try {
+  HIT_VALUE = JSON.parse(await readFile(join(ROOT, "data/hit-values.json"), "utf8")).videos || {};
+} catch {
+  console.log("  data/hit-values.json is missing, so Greatest Hits falls back to tier then views. Run scripts/build-pages.mjs.");
+}
+const rawValue = (v) => HIT_VALUE[v.id] || 0;
+
 // Greatest Hits: the RIPS worth watching, which is a different thing from the
 // Card Hall of Fame on /hall.html. That page ranks cards; this ranks videos.
 // A real pull outranks a big view count, and views break ties
@@ -613,8 +640,14 @@ for (const v of videos
   .filter((v) => bestPull(v) != null && (v.sets || []).some((s) => packs.has(s)))
   // A rank typed on the sheet wins outright; everything without one falls in
   // behind by pull tier, then views.
+  // RAW VALUE FIRST. A rank typed on the sheet still wins outright, because it
+  // is a deliberate pin rather than a derived figure; today the only one there
+  // is (iIgTusrqVtg, rank 1) is ALSO the highest raw value at $172.79, so the
+  // two agree and the override is costing nothing. Tier and views stay as
+  // tie-breakers under the money.
   .sort((a, b) =>
     (a.hofRank ?? 999) - (b.hofRank ?? 999) ||
+    rawValue(b) - rawValue(a) ||
     bestPull(a) - bestPull(b) ||
     (b.views || 0) - (a.views || 0)
   )) {

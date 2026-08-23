@@ -39,12 +39,20 @@ const STEPS = [
   "node scripts/stamp-labels.mjs",
   "node scripts/sync-chrome.mjs",
   "python3 scripts/build-og-pages.py",
-  "node scripts/build-proto.mjs",
   "node scripts/build-set-pages.mjs",
   "node scripts/build-intl-pages.mjs",
   "node scripts/build-cards.mjs",
   "node scripts/build-pokemon.mjs",
   "node scripts/build-pages.mjs",
+  // BUILD-PROTO MOVED HERE, AFTER BUILD-PAGES, ON 23 AUGUST 2026. The home
+  // page orders its Greatest Hits shelf by the raw value of each rip's best
+  // card, and build-pages.mjs is the file that resolves those prices and
+  // writes data/hit-values.json. Run earlier, build-proto read LAST run's
+  // figures. It still has to run BEFORE the five builders that slice their
+  // <head> out of public/index.html -- build-wanted, build-hall, build-shops,
+  // build-garbage-plate and build-about -- and the earliest of those is
+  // build-wanted, so this slot satisfies both constraints.
+  "node scripts/build-proto.mjs",
   // BEFORE build-expansions.mjs and build-what-set.mjs, the only two pages that
   // paint set symbols. Both read data/symbol-dims.json to decide whether a set
   // has a local mirror; a set that is missing from it keeps its remote url, so

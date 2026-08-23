@@ -898,6 +898,50 @@ const bySet = new Map();
 const HITS_RESOLVED = new Map();
 for (const vid of Object.keys(HITS)) HITS_RESOLVED.set(vid, await resolveHits(vid));
 
+/* ------------------------------------------------- what each rip was worth --
+ *
+ * ONE NUMBER PER VIDEO: the raw guide value of the best card that came out of
+ * it. Written here because this is the file that already resolves every hit
+ * against its checklist, and read by build-proto.mjs to order the Greatest Hits
+ * shelf on the home page.
+ *
+ * Tim, 23 August 2026: "the Greatest Hits videos should go in order of top hit
+ * cards based on RAW market price ... always sort cards on all pages by most
+ * valuable." That shelf had been ranked by pull TIER and then by view count, a
+ * stand-in this repo's own TODO admits to, so a Hyper Rare with 932 views
+ * outranked a more valuable card with fewer.
+ *
+ * IT IS WRITTEN RATHER THAN RE-DERIVED, and that is the whole point. Resolving
+ * a hit to a printing and a price is 400 lines of promo handling, intl
+ * checklists, First Partner joins and graded gates, and a second copy of it in
+ * build-proto.mjs is exactly how this site would come to print two answers to
+ * one question. build-all.mjs now runs build-proto AFTER this file so the
+ * number is this run's, not last run's.
+ *
+ * `psa10` IS DELIBERATELY NOT THE FALLBACK. A graded figure is a different
+ * measurement from a raw one and sorting a mixed column by whichever is bigger
+ * is the exact bug /luck.html fixed in its own ordering: any card with a PSA 10
+ * recorded outranked every card without one.
+ */
+const hitValues = {};
+for (const [vid, list] of HITS_RESOLVED) {
+  const best = list.reduce((n, h) => (typeof h.price === "number" && h.price > n ? h.price : n), 0);
+  if (best > 0) hitValues[vid] = Math.round(best * 100) / 100;
+}
+await writeFile(
+  join(ROOT, "data/hit-values.json"),
+  JSON.stringify({
+    _readme:
+      "Best RAW guide value of any card pulled in each rip, keyed by YouTube id. " +
+      "Written by scripts/build-pages.mjs, which resolves the hits; read by " +
+      "scripts/build-proto.mjs to order the home page's Greatest Hits shelf. " +
+      "Do not hand-edit: it is regenerated on every build.",
+    checked: localDay(),
+    videos: hitValues,
+  }, null, 2) + "\n"
+);
+console.log(`Wrote data/hit-values.json  (${Object.keys(hitValues).length} rip(s) carry a raw value)`);
+
 // A LOGGED CARD THAT REACHES NO CARD BAND IS REPORTED, ONE LINE EACH.
 //
 // The hit band renders a card the reader can SEE: `showableHits` needs a scan
