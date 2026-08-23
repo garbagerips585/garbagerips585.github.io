@@ -674,6 +674,67 @@ main{padding-top:0}
     </div>
   </div>
 
+<!-- ABOUT SITS HERE, FOURTH, AND IT USED TO BE LAST ON THE PAGE.
+     Tim, 23 August 2026: "it should go right after the hits videos at the
+     top ... then the stats section which is called The channel, counted and
+     then after that go right into the Rochester, New York section".
+
+     THE TWO VIDEO SHELVES STAY TOGETHER. "The hits videos" is Greatest
+     Hits AND Latest rips -- both are shelves of rips and they share a
+     scroll -- so this lands after the pair rather than between them, which
+     is also the only placement that keeps the chain he spelled out
+     adjacent: about, then counted, then Rochester.
+
+     THE ORDER BELOW ROCHESTER IS UNCHANGED AND IS THE NAV'S OWN ORDER:
+     Most wanted and Card Pokedex are the channel's own data, then Card
+     guides and tools last, which is what Tim asked the nav to do on
+     22 August -- "all the guides can be last". -->
+<section class="about">
+  <div class="about-in">
+    <!-- THE BIGGEST SINGLE FILE ON THIS PAGE, and it was the last bare JPEG on
+         the site: 137KB of it, painted in a 342px box on a phone. The pack art
+         and every card scan had moved to AVIF with a WebP under it months ago
+         and this one was never swept up, because a hand-maintained page is not
+         reached by the builder that did the sweeping.
+
+         sizes IS MEASURED, NOT GUESSED. The box was read off the real layout at
+         four widths: 342 at 390, 720 at 768, 569 at both 1440 and 1920. That is
+         exactly the wrap's 48px of padding below ui.css's 860px breakpoint,
+         where .about-in collapses to one column, and a capped 569 above it. So
+         a DPR 2 phone asks for 684 device pixels and takes the 760w file at
+         37KB, which is the 100KB the change is worth to the reader who arrives
+         from a Short.
+
+         The JPEG stays as the <img> fallback and is fetched by nothing that can
+         decode either of the two above it. Keep the three in this order: a
+         <source> that a browser understands wins, so putting the WebP first
+         would hide the AVIF from everything. -->
+    <picture>
+      <source type="image/avif" sizes="(min-width:861px) 569px, calc(100vw - 48px)"
+              srcset="assets/banner-trubbish-760.avif 760w, assets/banner-trubbish-1300.avif 1300w">
+      <source type="image/webp" sizes="(min-width:861px) 569px, calc(100vw - 48px)"
+              srcset="assets/banner-trubbish-760.webp 760w, assets/banner-trubbish-1300.webp 1300w">
+      <img class="banner" src="assets/banner-trubbish.jpg" width="1300" height="725"
+           alt="Trubbish on a Rochester sidewalk with a plate and Garbage Rips card packs"
+           loading="lazy" decoding="async">
+    </picture>
+    <div>
+      <h2>Cards, plates, and a Pokemon made of garbage</h2>
+      <p>Garbage Rips 585 is one person in Rochester, New York, opening Pokemon cards on camera and
+        then writing down what came out of every single pack. Trubbish is the mascot because this city
+        earned it, and the plate is on the sidewalk because that is what Rochester feeds you at 2am.
+        No gatekeeping, no jargon and nothing to sell you &mdash; and if you are only here because a kid
+        asked for cards, <a href="/buying.html">the buying guide</a> starts exactly there.</p>
+      <div class="socials">
+        <a href="https://www.youtube.com/@GarbageRips585"><i style="--pip:#FF0033"></i>YouTube</a>
+        <a href="https://www.instagram.com/garbagerips585/"><i style="--pip:#BC1888"></i>Instagram</a>
+        <a href="https://www.tiktok.com/@garbagerips585"><i style="--pip:#F4F1E2"></i>TikTok</a>
+        <a href="https://www.facebook.com/GarbageRips585"><i style="--pip:#1877F2"></i>Facebook</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- The channel and rip-log counters, filled by build-proto.mjs. The markers
      sit OUTSIDE the <section> on purpose, exactly as the drops band's do: if
      there is nothing to count the region is empty and there is no band, rather
@@ -1030,47 +1091,7 @@ main{padding-top:0}
   </div>
 </section>
 
-<section class="about">
-  <div class="about-in">
-    <!-- THE BIGGEST SINGLE FILE ON THIS PAGE, and it was the last bare JPEG on
-         the site: 137KB of it, painted in a 342px box on a phone. The pack art
-         and every card scan had moved to AVIF with a WebP under it months ago
-         and this one was never swept up, because a hand-maintained page is not
-         reached by the builder that did the sweeping.
 
-         sizes IS MEASURED, NOT GUESSED. The box was read off the real layout at
-         four widths: 342 at 390, 720 at 768, 569 at both 1440 and 1920. That is
-         exactly the wrap's 48px of padding below ui.css's 860px breakpoint,
-         where .about-in collapses to one column, and a capped 569 above it. So
-         a DPR 2 phone asks for 684 device pixels and takes the 760w file at
-         37KB, which is the 100KB the change is worth to the reader who arrives
-         from a Short.
-
-         The JPEG stays as the <img> fallback and is fetched by nothing that can
-         decode either of the two above it. Keep the three in this order: a
-         <source> that a browser understands wins, so putting the WebP first
-         would hide the AVIF from everything. -->
-    <picture>
-      <source type="image/avif" sizes="(min-width:861px) 569px, calc(100vw - 48px)"
-              srcset="assets/banner-trubbish-760.avif 760w, assets/banner-trubbish-1300.avif 1300w">
-      <source type="image/webp" sizes="(min-width:861px) 569px, calc(100vw - 48px)"
-              srcset="assets/banner-trubbish-760.webp 760w, assets/banner-trubbish-1300.webp 1300w">
-      <img class="banner" src="assets/banner-trubbish.jpg" width="1300" height="725"
-           alt="Trubbish on a Rochester sidewalk with a plate and Garbage Rips card packs"
-           loading="lazy" decoding="async">
-    </picture>
-    <div>
-      <h2>Packs get opened here like a plate at 2am</h2>
-      <p>Messy, loud, and worth it. Garbage Rips 585 is one guy in Rochester, New York opening Pokemon cards on camera. Hits, heartbreak, and zero gatekeeping. Every rip ever filmed lives on this site.</p>
-      <div class="socials">
-        <a href="https://www.youtube.com/@GarbageRips585"><i style="--pip:#FF0033"></i>YouTube</a>
-        <a href="https://www.instagram.com/garbagerips585/"><i style="--pip:#BC1888"></i>Instagram</a>
-        <a href="https://www.tiktok.com/@garbagerips585"><i style="--pip:#F4F1E2"></i>TikTok</a>
-        <a href="https://www.facebook.com/GarbageRips585"><i style="--pip:#1877F2"></i>Facebook</a>
-      </div>
-    </div>
-  </div>
-</section>
 </main>
 
 <footer>
