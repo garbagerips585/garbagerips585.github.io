@@ -4257,10 +4257,10 @@
     "openingType": "Single Booster Pack",
     "packNumber": 12,
     "hasHit": true,
-    "hitCard": "Bidoof PEELABLE DITTO 059/078 Reverse Holo",
+    "hitCard": "Bidoof - Reverse Holo",
     "hits": [
       {
-        "card": "Bidoof PEELABLE DITTO 059/078 Reverse Holo",
+        "card": "Bidoof",
         "set": "pokemon-go",
         "setName": "Pokémon GO"
       }
@@ -4283,7 +4283,8 @@
     "hitCard": "Mega Froslass ex - Pink and Green Star - Mega Attack Rare",
     "hits": [
       {
-        "card": "Mega Froslass ex Pink and Green Star Mega Attack Rare",
+        "card": "Mega Froslass ex",
+        "rarity": "Ultra Rare",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes"
       }

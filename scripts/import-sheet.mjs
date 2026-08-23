@@ -1372,6 +1372,14 @@ for (const [n, r] of rows.slice(1).entries()) {
       "double black star": "Double Rare",
       "single black star": "Rare",
       "single pink star": "ACE SPEC Rare",
+      // THE MEGA-ERA ULTRA RARE PRINTS A TWO-TONE STAR, NOT A SILVER ONE.
+      // Mega Froslass ex, Ascended Heroes 265/217, carries a star split pink
+      // and green, and Tim typed what he saw. Settled from the card itself and
+      // from the catalog rather than from the words: the number on the scan is
+      // 265, and public/data/printings/ has exactly one Ascended Heroes 265 and
+      // it is this card at Ultra Rare. Same standing as the yellow star above --
+      // one symbol, one rung, no ambiguity to resolve.
+      "pink and green star": "Ultra Rare",
     };
     // A JAPANESE CARD PRINTS A LETTER CODE WHERE AN ENGLISH ONE PRINTS STARS,
     // AND THE CODE WAS ENDING UP IN THE CARD NAME.
@@ -1434,7 +1442,13 @@ for (const [n, r] of rows.slice(1).entries()) {
     // trailing "card" is here so "- Gold Card" is caught by this test as well
     // as by the one above, and the vocabulary is the SAME six words, not a
     // second list to keep in step.
-    const FINISH_FIELD = /^(gold|rainbow|silver|textured|full art|alt art)(\s+card)?$/i;
+    // "REVERSE HOLO" IS A FINISH AND WAS BECOMING PART OF THE NAME. Pokemon
+    // GO 059 is Bidoof, the card whose foil peels to reveal a Ditto, and the
+    // log named the finish because that is the whole point of the card. With
+    // no slot for it the leftover rule made the name "Bidoof Reverse Holo",
+    // which is on no checklist. The finish slot already exists and this is
+    // what it is for.
+    const FINISH_FIELD = /^(gold|rainbow|silver|textured|full art|alt art|reverse holo)(\s+card)?$/i;
     // The card TYPES, which are what Tim means when he writes a word like
     // Trainer between the set and the card. Used well below, where the set is
     // finally known and the set's own checklist can settle whether the word is
@@ -1454,7 +1468,7 @@ for (const [n, r] of rows.slice(1).entries()) {
     const RARITY_WORDS = [
       ...new Set([
         ...RARITY_KEY.map((r) => r.label).filter(Boolean),
-        "Shiny Rare", "Secret Rare", "Black Star Promo",
+        "Shiny Rare", "Secret Rare", "Black Star Promo", "Mega Attack Rare",
       ]),
     ].sort((a, b) => b.length - a.length);
     const SET_NAMES = [...setIdByName.keys()].sort((a, b) => b.length - a.length);
@@ -1542,6 +1556,21 @@ for (const [n, r] of rows.slice(1).entries()) {
           const deCard = (x) => x.replace(/\s+card$/, "");
           const ri = lows.findIndex((x) => RARITY_WORDS.some((w) => deCard(x) === w.toLowerCase()));
           if (ri !== -1) rarity = RARITY_WORDS.find((w) => deCard(lows[ri]) === w.toLowerCase());
+          // TWO CATALOGS, TWO WORDS, ONE RUNG. TCGplayer calls Ascended Heroes
+          // 265/217 a "Mega Attack Rare" and prints a star split pink and green;
+          // TCGdex, which is what public/data/printings/ is built from, calls the
+          // same printing "Ultra Rare". Downstream matching is an equality against
+          // the catalog word, so the sheet word has to become the catalog word here
+          // or the card resolves to nothing.
+          //
+          // MEASURED BEFORE IT WAS WRITTEN, because a rarity alias picks a printing.
+          // Ascended Heroes has 7 Mega Attack Rares and 14 Ultra Rares on TCGplayer.
+          // Our catalog calls all 7 of those numbers "Ultra Rare", with no exception,
+          // and NO card name in the set carries both rarities -- so the alias cannot
+          // send a row to the wrong printing. If a set ever prints both for one name,
+          // this stops being safe and has to become set-aware.
+          const RARITY_SYNONYM = { "mega attack rare": "Ultra Rare" };
+          if (rarity && RARITY_SYNONYM[rarity.toLowerCase()]) rarity = RARITY_SYNONYM[rarity.toLowerCase()];
           const ki = lows.findIndex((x) => STAR_RARITY[x]);
           if (ki !== -1) star = lows[ki];
           // The letter code, matched against the RAW part rather than the
