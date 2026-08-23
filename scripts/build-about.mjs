@@ -219,6 +219,26 @@ const startHere = (() => {
 const oldest = videos.map((v) => v.published).filter(Boolean).sort()[0] || null;
 const since = oldest ? `${MONTHS[Number(oldest.slice(5, 7)) - 1]} ${oldest.slice(0, 4)}` : null;
 
+/* ------------------------------------------------------------- the streak --
+ *
+ * "PACKS GET OPENED ON CAMERA MOST DAYS" WAS AN UNDERCLAIM AND THE LOG SAYS SO.
+ * Tim, 23 August 2026: "we rips pokemon packs daily on youtube, everyday, 365,
+ * no days off". Counted here rather than typed, because a cadence claim is
+ * exactly the kind of boast a reader should be able to check, and because this
+ * one goes stale the first day it stops being true.
+ *
+ * THE SPAN IS THE DENOMINATOR AND IT IS NOT 365. The channel is younger than a
+ * year, so "365" is the cadence and not the history, and the page says what it
+ * can prove: how many days there have been and how many of them carry a rip.
+ * If a day ever goes missing, `dayGaps` stops being 0 and the sentence below
+ * has to change with it -- which is the point of deriving it.
+ */
+const ripDays = [...new Set(videos.map((v) => String(v.published || "").slice(0, 10)).filter(Boolean))].sort();
+const daySpan = ripDays.length
+  ? Math.round((Date.parse(`${ripDays[ripDays.length - 1]}T00:00:00Z`) - Date.parse(`${ripDays[0]}T00:00:00Z`)) / 86400000) + 1
+  : 0;
+const dayGaps = daySpan - ripDays.length;
+
 /* ------------------------------------------------------------------- prices
  *
  * FOUR FIGURES, ALL FOUR READ OUT OF data/msrp.json, WHICH /msrp.html OWNS.
@@ -400,6 +420,20 @@ const FAQ = [
   [
     "Who runs Garbage Rips 585?",
     "One person, in Rochester, New York. There is no team and no shop behind it: it is one guy with a camera, a table and a lot of packs. The quickest way to reach him is any of the channel's socials.",
+  ],
+  [
+    "How often does Garbage Rips 585 upload?",
+    // COUNTED, NOT CLAIMED. The sentence renders from the same two derived
+    // figures the lede uses, so a day that ever goes missing changes the
+    // answer here instead of leaving a boast behind on a schema block that
+    // Google is reading. See "the streak" above.
+    dayGaps === 0
+      ? `Every day. There have been ${num(daySpan)} days since the first rip and every one of them has a rip on it: no gaps, no days off, ${num(videos.length)} videos so far. Some days there is more than one.`
+      : `Most days. ${num(daySpan - dayGaps)} of the ${num(daySpan)} days since the first rip carry one, ${num(videos.length)} videos in total.`,
+  ],
+  [
+    "What is the Trubbish trash can on the channel?",
+    "It is a real Pokemon Center item, from a limited run sold at the Pokemon Center in Tokyo and never released here, imported to Rochester. Every rip ends by feeding it: the wrappers, the packaging and the bulk all go in, on camera, in every single video. It is not a prop and it is not a bit that comes and goes.",
   ],
   [
     "Where is Garbage Rips 585 based?",
@@ -780,11 +814,14 @@ ${jump.map(([id, label]) => `          <li><a href="#${id}">${esc(label)}</a></l
         <p>Welcome to Garbage Rips 585, where Pokemon packs get ripped like a late-night
           Garbage Plate after the bars close.</p>
 
-        <p>It is a YouTube channel, running since ${since}. Packs get opened on camera most days
-          and whatever falls out falls out. There are ${num(videos.length)} rips up so far,
-          across ${num(setsRipped)} different sets, and every one of them has its own page here
-          with the video on it, so nothing on this site sends you to YouTube unless you want
-          to go.</p>
+        <p>It is a YouTube channel, running since ${since}, and it goes up <b>every single
+          day</b>. Not most days: ${
+            dayGaps === 0
+              ? `every day. There have been ${num(daySpan)} days since the first rip and all ${num(daySpan)} of them have one on them, which is the whole run with no gap in it`
+              : `${num(daySpan - dayGaps)} of the ${num(daySpan)} days since the first rip carry one`
+          }. There are ${num(videos.length)} rips up so far, across ${num(setsRipped)} different
+          sets, and every one of them has its own page here with the video on it, so nothing on
+          this site sends you to YouTube unless you want to go.</p>
 
         <p>Rochester is not incidental to any of it. This is the 585: Wegmans, the Public Market,
           High Falls, lake-effect weather that arrives sideways in November, and a dinner nowhere
@@ -796,7 +833,19 @@ ${jump.map(([id, label]) => `          <li><a href="#${id}">${esc(label)}</a></l
           Single packs, booster bundles, ETBs, whatever overpriced box was sitting on the
           counter, and every so often an imported pack nobody in the room can read. When
           something good does fall out, the yelling is real. We celebrate every rip, the good
-          ones and the bad ones, because a wall of hits is not what opening packs is like.</p>
+          ones and the bad ones, because a wall of hits is not what opening packs is like. The
+          bad ones have a name here and it is the channel's: those are the garbage rips, and
+          they get the same airtime as the hits.</p>
+
+        <p>Then the wrappers go in the bin, and the bin is the other half of the channel. There
+          is a Trubbish trash can on the desk and every rip ends the same way: the empties, the
+          packaging and the bulk get fed to him on camera. It happens in every single video, and
+          it is one of the things people turn up for.</p>
+
+        <p>The can itself is not a prop we made. It is a Pokemon Center item, sold for a limited
+          run at the Pokemon Center in Tokyo and never here, and this one was imported from Japan
+          to sit on a desk in Rochester and be fed booster wrappers. Which is either the correct
+          use of an exclusive collectible or the worst one, depending on who you ask.</p>
 
         <p>Nobody is going to be smug at you here. If you have never held a card and you
           want to know what the little star in the corner means, that is what the guides on
@@ -917,9 +966,12 @@ ${jump.map(([id, label]) => `          <li><a href="#${id}">${esc(label)}</a></l
           exist. Garbodor is the other kind of nothing, the one that means we went through the
           whole heap and it genuinely is not in there.</p>
 
-        <p>And we feed him. All the bulk, every wrapper, the packaging, the bad hits, the garbage
-          hits, every card that is never going in a binder. It all goes in the trash can and he
-          loves it. That is how he lives. He lives off garbage rips.</p>
+        <p>And we feed him, which on this channel is not a figure of speech. There is a Trubbish
+          trash can sitting on the desk, a Pokemon Center exclusive from a limited run sold only
+          in Tokyo and imported to Rochester for exactly this. He is in every video, and the
+          last thing that happens in a rip is the wrappers going into him. All the bulk, the packaging, the bad hits, the
+          garbage hits, every card that is never going in a binder. It all goes in and he loves
+          it. That is how he lives. He lives off garbage rips.</p>
 
         ${plateRule()}
 

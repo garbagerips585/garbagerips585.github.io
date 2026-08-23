@@ -1389,7 +1389,28 @@ export const FOOT_SUB = `<!--FOOT_SUB:START-->
     <p class="foot-tag">Grab a fork. Let's rip.</p>
     <a class="btn btn-sub" href="${SUBSCRIBE}" rel="noopener" target="_blank"
       aria-label="${SUB_LABEL}">Subscribe on YouTube</a>
-    <p>A new rip most days. Every pack we open goes up, hit or no hit.</p>
+    ${/* "MOST DAYS" WAS AN UNDERCLAIM AND THE DATA SAYS SO. Tim, 23 August
+          2026: "we rips pokemon packs daily on youtube, everyday, 365, no days
+          off, and we celebrate all rips even the Garbage Rips". Counted off
+          public/data/videos.json before this sentence was rewritten, because a
+          cadence claim on 1,489 pages is exactly the kind of boast that should
+          be checkable: first rip 1 February 2026, latest today, 204 days of
+          span, and 204 OF THOSE 204 DAYS HAVE A RIP ON THEM. Zero gaps, longest
+          streak the whole run. It is not a promise, it is the record.
+
+          THE THIRD SENTENCE IS THE THING THE SITE HAD NEVER MENTIONED. There is
+          a Trubbish trash can on the desk and the wrappers go into it at the end
+          of every rip, on camera, in every video. Tim: "he is in every very, and
+          a big part of the channel people love watching me feed the trubbish
+          trash can". The mascot is all over this site and until now nothing on
+          it said he is a real object in the videos.
+
+          NO NUMBER IN HERE. This constant is static and has no access to
+          videos.json; the counted version of the claim belongs on the pages that
+          can recompute it. A figure typed into the chrome of every page is a
+          figure that goes stale in 1,489 places at once. */ ""}
+    <p>A new rip every day. 365, no days off. Every pack goes up, hit or no hit,
+      and the wrappers go to the Trubbish can.</p>
     <!--FOOT_SUB:END-->`;
 
 export const footer = (extra = "") => `<footer>
