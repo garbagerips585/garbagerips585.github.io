@@ -1082,7 +1082,40 @@ ${list
 // the landing view is short, so the slides that exist beyond the first cost
 // nothing but a swipe. Five is enough to feel like there is more without
 // turning the band into a scroll the length of the old grid.
-const latestHtml = carousel((freshest.length ? freshest : byNewest).slice(0, 5), { dated: true });
+/* THE NEWEST RIP LEADS THIS BAND EVEN WHEN IT IS ALREADY ABOVE, and that is a
+ * deliberate exception to the no-repeat rule rather than a hole in it.
+ *
+ * `freshest` drops anything the Greatest Hits band already showed, which is the
+ * right default: nobody wants the same pack twice in one scroll. But this band
+ * is headed "Latest rips" and its first slide wears the newest-rip badge, so
+ * the dedupe was making a CLAIM ABOUT RECENCY out of whatever was left over.
+ *
+ * On 23 August 2026 today's rip pulled a Special Illustration Rare, which put
+ * it in the hits shelf, which took it out of here, so the front door led with
+ * 22 August under a label reading "Yesterday's Rip" on the day a rip had gone
+ * up. Tim: "on the home page its still showing the latest rip as the video form
+ * yesterday, should be showing todays video as the latest rip". The band was
+ * not stale, it was correct about the wrong question.
+ *
+ * SO THE EXCEPTION IS EXACTLY ONE SLIDE WIDE. The newest video goes in front
+ * whatever else it is doing on the page; slides 2 to 5 still come out of
+ * `freshest` and still refuse to repeat. A good rip appearing twice on the home
+ * page costs a little redundancy. A front door that appears a day behind costs
+ * the thing the whole site is for.
+ */
+const latestList = (() => {
+  const pool = freshest.length ? freshest : byNewest;
+  const seen = new Set();
+  const out = [];
+  for (const v of [byNewest[0], ...pool]) {
+    if (!v || seen.has(v.id)) continue;
+    seen.add(v.id);
+    out.push(v);
+    if (out.length === 5) break;
+  }
+  return out;
+})();
+const latestHtml = carousel(latestList, { dated: true });
 const hallHtml = carousel(hallList.slice(0, 5), { showSet: true });
 
 const ordered = [...sets].sort((a, b) => String(b.released).localeCompare(String(a.released)));
@@ -3127,7 +3160,12 @@ const REGIONS = {
   // bands above give.
   ROCHESTER: rocHtml,
   SETS101: setsHtml,
-  COUNT_ALL: String(videos.length),
+  // COUNT_ALL IS GONE FROM THE PAGE AND SO IS THE REGION, same call and same
+  // day as COUNT_HITS above. It filled "All 321" in the Latest rips header and
+  // the number was CORRECT, which is the difference between the two: that one
+  // was a filtered figure wearing the wrong word, this one was simply a count a
+  // front-door label does not need. Tim asked for "Watch All Rips" on
+  // 23 August 2026. videos.length is still read all over this file.
   // COUNT_HITS IS GONE FROM THE PAGE AND SO IS THE REGION. It filled
   // "All N hits" in the Greatest Hits header, and N was hitCount: rips
   // carrying one of the five RANKED pull tags, 115 of 321, where 156 rips
