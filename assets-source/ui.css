@@ -1149,7 +1149,16 @@ main{padding:var(--s4) 0 var(--s8)}
    a set's own logo on a card, because a collector recognises the logo faster
    than they read the name.
    -------------------------------------------------------------------------- */
-.pokedex{padding:var(--s7) 0 var(--s8);border-top:1px solid var(--hair)}
+/* 120px OF NOTHING SAT BETWEEN THE LAST SET TILE AND THE Card guides HEADING,
+   measured on the built page: --s8 off the bottom of this band plus --s7 off
+   the top of .tools, with no rule, no background change and nothing else
+   between them to earn it. Tim: "get rid of a little of the extra padding and
+   extra empty space between these two sections". Both are --s6 now, which is
+   64px and is the same junction .about and .rstats already use, so the page
+   has one spacing between adjacent content bands rather than three.
+   THE TOP STAYS --s7 because .pokedex opens with a keyline and a heading and
+   that rule needs air above it; only the bottom was doing nothing. */
+.pokedex{padding:var(--s7) 0 var(--s6);border-top:1px solid var(--hair)}
 .pdex-head{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;margin:0 0 var(--s3)}
 .pdex-lede{color:var(--ink-2);max-width:44em;margin-bottom:var(--s5)}
 .set-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--s3)}
@@ -3881,7 +3890,7 @@ footer .soc svg{fill:var(--chrome-ink)}
    The card guides block on the home page. Twelve reference pages that were
    previously reachable only from the menu and the footer.
    -------------------------------------------------------------------------- */
-.tools{padding:var(--s7) 0}
+.tools{padding:var(--s6) 0 var(--s7)}
 .tool-grid{display:grid;grid-template-columns:1fr;gap:var(--s3);margin-top:var(--s5)}
 .tool{display:block;background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s4);box-shadow:var(--lift);min-height:44px}

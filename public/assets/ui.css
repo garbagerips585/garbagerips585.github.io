@@ -263,7 +263,7 @@ main{padding:var(--s4) 0 var(--s8)}
   border-radius:var(--r-pill);padding:0 var(--s6);height:52px;display:inline-flex;
   align-items:center;box-shadow:var(--lift);color:var(--ink);cursor:pointer}
 .more a:hover,.more button:hover{background:var(--mustard);color:var(--on-accent)}
-.pokedex{padding:var(--s7) 0 var(--s8);border-top:1px solid var(--hair)}
+.pokedex{padding:var(--s7) 0 var(--s6);border-top:1px solid var(--hair)}
 .pdex-head{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;margin:0 0 var(--s3)}
 .pdex-lede{color:var(--ink-2);max-width:44em;margin-bottom:var(--s5)}
 .set-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--s3)}
@@ -1287,7 +1287,7 @@ footer .soc svg{fill:var(--chrome-ink)}
 .st-also{font:700 var(--t-sm)/1 var(--body);color:var(--sky-deep);min-height:44px;
   display:inline-flex;align-items:center}
 .st-also:hover{text-decoration:underline}
-.tools{padding:var(--s7) 0}
+.tools{padding:var(--s6) 0 var(--s7)}
 .tool-grid{display:grid;grid-template-columns:1fr;gap:var(--s3);margin-top:var(--s5)}
 .tool{display:block;background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s4);box-shadow:var(--lift);min-height:44px}
