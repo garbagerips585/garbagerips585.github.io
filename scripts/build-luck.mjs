@@ -968,14 +968,77 @@ const DEAD_URLS = new Set(
     .catch(() => [])
 );
 
+/* SEVEN KINDS HAD NO PHOTO AND SAID SO IN WORDS: "no photo we can publish".
+ * Tim: "make sure all the product types have an image for the product type,
+ * right now there are some blank ones ... nothing should be blank on this page."
+ *
+ * PRODUCT_SHOT above only reads public/data/products.json, which carries the
+ * English EXPANSION products: ETBs, bundles, blisters, tins. It holds nothing
+ * for an ex Premium Collection, a Poke Ball Tin, a Knock Out Collection or any
+ * Japanese pack, so those rows fell through to the words.
+ *
+ * TWO FILES ALREADY HELD THE MISSING PICTURES. data/extra-products.json pins the
+ * standalone products by TCGplayer id, and public/data/products-intl.json holds
+ * a pack photo for eight Japanese sets. Nothing was fetched for this; both are
+ * already synced and committed.
+ *
+ * TIM PICKED TWO OF THEM BY NAME: the ex Premium Collection shows Mega Zygarde
+ * ex, and the ex Box shows Ascended Heroes Mega Emboar ex. Those are his calls
+ * and they are pinned by product id so a catalogue reshuffle cannot swap them.
+ *
+ * THE JAPANESE PACK IS FROM A SET HE HAS ACTUALLY RIPPED, which is what he asked
+ * for: Abyss Eye, five rips, the most-opened Japanese set on the channel.
+ *
+ * KOREAN AND CHINESE ARE THE HONEST GAP AND THEY GET OUR OWN PACK ART. There is
+ * no Korean or Chinese sealed product anywhere in the sources this site uses:
+ * TCGplayer files those sets under its JAPANESE line, so "a Korean pack" there
+ * is a Japanese pack with a Japanese wrapper. Publishing one under a Korean
+ * label would be a false picture of a real product. The site's own drawn pack
+ * goes there instead: it is our artwork and it claims nothing about the box.
+ */
+const PINNED_SHOT = {
+  "ex-premium": [682939, "Mega Zygarde ex Premium Collection", "Mega Zygarde ex"],
+  "ex-box": [672734, "Ascended Heroes Mega Emboar ex Box", "Ascended Heroes"],
+  "poke-ball-tin": [688964, "Poke Ball Tin", "Poke Ball Tin"],
+  "knock-out": [628494, "Knock Out Collection", "Knock Out Collection"],
+  "collection-box": [593466, "Prismatic Evolutions Surprise Box", "Prismatic Evolutions"],
+  "japanese-pack": [695111, "Abyss Eye Booster Pack", "Abyss Eye (JP)"],
+};
+
+/* KOREAN AND CHINESE GET OUR OWN WRAPPER, because no photograph of theirs
+ * exists in any source this site uses and a wrong one is worse than a drawn one.
+ * The label under it says "Garbage Rips art" rather than naming a set, so the
+ * picture is not pretending to be the product. Same file the pack facades use.
+ */
+const OWN_PACK = {
+  "korean-pack": "Korean packs, Garbage Rips art",
+  "chinese-pack": "Chinese packs, Garbage Rips art",
+};
+
 const shotFor = (key) => {
   const spec = PRODUCT_SHOT[key];
-  if (!spec) return null;
-  const [sid, kind, setLabel, expect] = spec;
-  const hit = (PRODUCTS[sid]?.products || []).find((p) => p.kind === kind);
-  if (!hit || !hit.thumb || DEAD_URLS.has(hit.thumb)) return null;
-  if (!String(hit.name || "").toLowerCase().startsWith(expect.toLowerCase())) return null;
-  return { src: hit.thumb, name: hit.name, set: setLabel };
+  if (spec) {
+    const [sid, kind, setLabel, expect] = spec;
+    const hit = (PRODUCTS[sid]?.products || []).find((p) => p.kind === kind);
+    if (hit && hit.thumb && !DEAD_URLS.has(hit.thumb) &&
+        String(hit.name || "").toLowerCase().startsWith(expect.toLowerCase())) {
+      return { src: hit.thumb, name: hit.name, set: setLabel };
+    }
+  }
+  const pin = PINNED_SHOT[key];
+  if (pin) {
+    const [id, name, setLabel] = pin;
+    const src = `https://tcgplayer-cdn.tcgplayer.com/product/${id}_200w.jpg`;
+    if (!DEAD_URLS.has(src)) return { src, name, set: setLabel };
+  }
+  if (OWN_PACK[key]) {
+    return {
+      src: "/assets/packs/default-garbage-rips-585-booster-pack-tile.webp",
+      name: "Garbage Rips 585 booster pack artwork",
+      set: OWN_PACK[key],
+    };
+  }
+  return null;
 };
 
 // THE PACKS COLUMN IS NEW AND IT IS THE "BY SET" HALF OF WHAT TIM ASKED FOR:
