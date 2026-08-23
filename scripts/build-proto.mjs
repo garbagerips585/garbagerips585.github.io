@@ -2501,6 +2501,38 @@ const chStats = rawVideos.channel || null;
 const num = (n) => Number(n).toLocaleString("en-US");
 const statTile = (big, label) => `      <div class="rstat"><b>${big}</b><span>${label}</span></div>`;
 
+/* ------------------------------------------- the rip counter on /videos.html
+ *
+ * Tim, 23 August 2026: "I also want to put a mini rip stats widget at the top of
+ * this page, so you can quickly just see how many packs total we have ripped and
+ * how many hits total we have gotten and what that hit percentage is."
+ *
+ * THREE FIGURES AND NOT THE HOME PAGE'S SIX. This page is a library and the
+ * widget is furniture above it, so it carries exactly what he asked for and
+ * stops. Channel views, subscriber count and the card total all live on the home
+ * page's own band and on /luck.html.
+ *
+ * EVERY NUMBER COMES FROM THE SAME THREE CONSTS THE HOME BAND USES, declared
+ * forty lines up, so the two pages cannot disagree about how many packs have
+ * been opened. That is the whole reason this is here rather than recomputed:
+ * three files answering "how many hits" three ways is the fault this repo has
+ * fixed twice today already.
+ *
+ * "HITS" IS RIPS, NOT CARDS, AND THE LABEL SAYS SO. 156 rips produced a hit and
+ * 214 cards came out of them; a percentage can only be taken over the first, and
+ * a tile reading "hits" beside a rate that does not divide into it is the exact
+ * confusion the home page had to spell out in a paragraph. The label is "rips
+ * with a hit" so no paragraph is needed.
+ */
+const libStatsHtml = !allPacks
+  ? ""
+  : `<div class="libstats" role="group" aria-label="Rip totals">
+      <div class="libstat"><b>${num(allPacks)}</b><span>Packs ripped</span></div>
+      <div class="libstat"><b>${num(hitRips.length)}</b><span>Rips with a hit</span></div>
+      <div class="libstat"><b>${hitRate || "&mdash;"}</b><span>Hit rate</span></div>
+    </div>`;
+
+
 /* A tile is emitted only where the figure exists, so a missing feed is a
  * shorter band rather than a zero. `channel` is absent from any videos.json
  * written before sync-youtube.mjs started keeping it, and data/hits.json is
@@ -3274,7 +3306,7 @@ main{padding-top:0}
 // error, unless the name is in this set. COUNT_ALL is the second case: the
 // home page dropped its marker when the link became "Watch All Rips" and
 // videos.html still carries one.
-const OWNED_ELSEWHERE = new Set(["LIBGRID", "LIBPRELOAD", "PLGRID", "COUNT_ALL"]);
+const OWNED_ELSEWHERE = new Set(["LIBGRID", "LIBPRELOAD", "PLGRID", "COUNT_ALL", "LIBSTATS"]);
 
 const REGIONS = {
   LIBGRID: libHtml,
@@ -3325,6 +3357,7 @@ const REGIONS = {
   // say. It is back, and its name is in OWNED_ELSEWHERE so index.html not
   // having the marker is not fatal. See the note over that set.
   COUNT_ALL: String(videos.length),
+  LIBSTATS: libStatsHtml,
   // COUNT_HITS IS GONE FROM THE PAGE AND SO IS THE REGION. It filled
   // "All N hits" in the Greatest Hits header, and N was hitCount: rips
   // carrying one of the five RANKED pull tags, 115 of 321, where 156 rips

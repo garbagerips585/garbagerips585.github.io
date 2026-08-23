@@ -963,6 +963,60 @@ main{padding:var(--s4) 0 var(--s6)}
 @media(max-width:820px){.wall{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:640px){.wall{grid-template-columns:repeat(2,1fr);gap:var(--s5) var(--s3)}}
 
+/* THREE ACROSS ON /videos.html, AND SCOPED SO IT IS ONLY THAT PAGE.
+   Tim, 23 August 2026: "its showing too many videos in a row, on desktop it
+   shows 6 across, it should show 3 max across like the home page on desktop ...
+   right now the videos are too small to view on mobile and even on desktop with
+   6 across they are too small."
+
+   .wall IS ON 24 PAGES, not one: this library, the home page's Latest rips and
+   22 playlist pages. An unscoped change would re-lay all of them, so the grid
+   carries a modifier and the ladder above is untouched for everybody else.
+
+   THE NUMBER THAT MATTERS IS THE VIDEO, NOT THE TILE. .tile-stage centres a 9:16
+   player inside a 2:3 tile, so the video is 0.844 of the tile width less an 8px
+   border. Measured at six across: 176.5px of video at 1440, which is the
+   COMMONEST desktop and was rendering the smallest video on the site, smaller
+   than 1280 and smaller than 1920, because the wrap caps at 1452 and six columns
+   divide it. At three across, 1280 goes 189.1 -> 329.5px wide, three times the
+   area, and 1920 goes 184.9 -> 391.4.
+
+   AND IT IS LIGHTER ON LOAD, WHICH IS THE OPPOSITE OF WHAT A BIGGER TILE SOUNDS
+   LIKE: 829.8KB to 749.2KB at 1440 DPR 2 and 16 requests to 14, because
+   content-visibility:auto skips more off-screen tiles when fewer fit the first
+   screen. Fully scrolled is identical.
+
+   THE 1300/1080/820 STEPS ARE DROPPED HERE because they existed to walk 6 to 5
+   to 4 to 3, and 3 is now the top. 640 and below keeps two, which is the phone
+   layout Tim did not complain about.
+
+   WHAT IT COSTS, said out loud: the CLICK TO RIP THE PACK banner falls below the
+   fold at every desktop width, because the chrome above the grid is 428px and a
+   three-across tile is 600 to 710px tall. That is the trade -- today the
+   affordance is above the fold on a tile whose video is 176px wide, which is an
+   invitation to do something not worth doing. */
+.wall--lib{grid-template-columns:repeat(3,1fr)}
+@media(max-width:1300px){.wall--lib{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:1080px){.wall--lib{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:820px){.wall--lib{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.wall--lib{grid-template-columns:repeat(2,1fr)}}
+
+/* THE 440px CAP IS THE HALL OF FAME ANCHOR'S AND IT BITES HERE. A three-across
+   tile is 453px at 1440 and 473 at 1920, so the stage capped at 440 sat 33px
+   short of the slot it was filling: 363.3px of video against 391.4 uncapped.
+   Lifted on this grid only; .hofx keeps its own rule. */
+.wall--lib .tile-stage{max-width:none}
+
+/* The rip counter above the grid. Three figures, the same three consts the home
+   page's counters band reads. "Rips with a hit" rather than "hits" because the
+   rate divides into rips and not into cards, which is the distinction the home
+   page needed a whole paragraph to make. */
+.libstats{display:flex;flex-wrap:wrap;gap:var(--s3) var(--s5);margin:0 0 var(--s4)}
+.libstat{display:flex;flex-direction:column;gap:2px}
+.libstat b{font:400 var(--t-l)/1 var(--display);color:var(--ketchup-deep)}
+.libstat span{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-2)}
+
 /* A section break is a row inside the grid, not a new banded section. The
    content never stops to make room for a heading. */
 /* Negative bottom margin claws back most of the grid's row gap: a heading row
