@@ -2711,7 +2711,12 @@ const homeCss = `<style>.hofx-art .play{opacity:.95}
 .wdrop-d[open] .wdrop-chev{margin:5px var(--chev-bleed) 0 0;transform:rotate(-135deg)}
 .wdrop-body{padding-top:var(--s4)}
 .wdrop-more{margin-top:var(--s4)}
-.wdrop-more a{display:inline-flex;align-items:center;min-height:44px;font:700 var(--t-sm)/1 var(--body);color:var(--ketchup-deep)}
+/* TEAL, BECAUSE IT GOES SOMEWHERE. Nine section links on this page carry a
+   right arrow and eight of them are the teal route colour; this one was pink
+   and underlined, which is the site's own accent rule inverted -- teal is how
+   you get around, pink is what the site is saying. It is a link to
+   /drops.html and it should look like the other eight. */
+.wdrop-more a{display:inline-flex;align-items:center;min-height:44px;font:700 var(--t-sm)/1 var(--body);color:var(--sky-deep)}
 .wdrop-more a:hover{text-decoration:underline}
 .wdrop-lede{font-size:var(--t-sm);line-height:1.4;color:var(--ink-2);max-width:52em;margin-bottom:var(--s4)}
 .wdrop-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:var(--s3)}

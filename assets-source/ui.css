@@ -40,6 +40,14 @@
    The pack art is the only decoration. 18 wrappers, all different, is more
    colour than any layout could add, so everything around them stays quiet.
    ========================================================================== */
+/* THIS SITE IS DARK ONLY AND HAD NEVER SAID SO TO THE BROWSER. There are no
+   prefers-color-scheme rules anywhere, which is deliberate -- Trubbish Deep is
+   one palette -- but without this declaration the browser paints its OWN
+   furniture for a light page: scrollbars, form controls and Safari's chrome
+   tint all render light against a #1F382B ground. One line, no rule changes,
+   and it is the only thing on this page that talks to the UA rather than to
+   the document. */
+:root{color-scheme:dark}
 :root{
 
   /* ==========================================================================
@@ -941,7 +949,14 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
 /* --------------------------------------------------------------------------
    The wall. 2 up on a phone, 6 up on a desktop.
    -------------------------------------------------------------------------- */
-main{padding:var(--s4) 0 var(--s8)}
+/* --s6 AT THE FOOT, NOT --s8, AND THE MEASUREMENT IS THE ARGUMENT. From the
+   last painted pixel of the final band to the first painted pixel of the
+   footer was 165px at 320 and 390 and 164 at 768 and 1440: main's own 72
+   plus the footer's 48 plus the last card's margin, against a 64px norm
+   everywhere else on the page. 2.6x the spacing of every other junction
+   reads as a hole rather than as the page winding down, and the footer has
+   its own darker background to announce itself with. */
+main{padding:var(--s4) 0 var(--s6)}
 .wall{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--s5) var(--s4)}
 @media(max-width:1300px){.wall{grid-template-columns:repeat(5,1fr)}}
 @media(max-width:1080px){.wall{grid-template-columns:repeat(4,1fr)}}
@@ -1596,7 +1611,7 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
    to 300x150, which is why this footer was 969px tall with four black slabs
    in it.
    -------------------------------------------------------------------------- */
-footer{background:var(--chrome-bg);color:var(--foot-ink);padding:var(--s7) 0 var(--s6);text-align:center}
+footer{background:var(--chrome-bg);color:var(--foot-ink);padding:var(--s6) 0 var(--s6);text-align:center}
 footer .wrap{display:flex;flex-direction:column;align-items:center;gap:var(--s4)}
 
 .foot-tag{font:400 var(--t-l)/1 var(--display);color:var(--ketchup)}
