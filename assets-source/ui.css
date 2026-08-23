@@ -412,13 +412,50 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
 .bar-in{display:flex;align-items:center;gap:var(--s4);max-width:1500px;margin:0 auto;
   padding:var(--s2) var(--gut);min-height:var(--bar-h)}
 @media(max-width:700px){.bar-in{gap:var(--s2)}}
-.brand{display:flex;align-items:baseline;gap:var(--s2);flex:none;min-height:44px;
-  align-content:center;flex-wrap:wrap}
+/* THE WORDMARK IS A TWO-LINE BLOCK NOW, and the second line is a sentence.
+   It was "ROCHESTER, NY" in Space Mono, uppercase, .1em tracked, sitting
+   BESIDE the wordmark on a baseline, and hidden under 900px. Tim asked on
+   23 August 2026 for the site's sentence to sit under the logo on phone and
+   desktop alike and for the bare city line beside it to go.
+
+   THE ROW DOES NOT GET TALLER, which is the whole reason this is affordable.
+   .brand already reserves min-height:44px for its tap target and the stack
+   does not fill it: 1.05rem/1 display is 16.8px, the sentence is t-micro at
+   1.25 line-height, and 2px separates them. That column is under 44px at
+   every width, so the bar's height is unchanged and nothing below it moves.
+
+   BODY FACE AT 700, NOT THE MONO ABOVE IT. It stopped being a label and became
+   a sentence, and build-proto.mjs made exactly this call for exactly this
+   string when it rendered it on the home page: "it is a sentence rather than a
+   label, so it is set as one". Same face, same weight, no tracking, no
+   uppercase -- 34 characters of .1em uppercase mono would be far wider than
+   the wordmark it sits under, and .brand is flex:none, so that width would come
+   straight out of the nav links beside it. */
+.brand{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+  gap:2px;flex:none;min-height:44px}
 .brand b{font:400 1.05rem/1 var(--display);letter-spacing:.01em}
 .brand b i{font-style:normal;color:var(--brand-accent)}
-.brand span{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;color:var(--chrome-dim);
-  text-transform:uppercase}
-@media(max-width:900px){.brand span{display:none}}
+.brand span{font:700 var(--t-micro)/1.25 var(--body);letter-spacing:normal;
+  color:var(--chrome-dim);text-transform:none}
+/* THE ROW HAS 280px OF CONTENT AT 320px AND THE WORDMARK IS 128 OF IT.
+   Measured on the built page: .bar-in is padded 20px each side, its children
+   are the brand, a 44px menu button and a 91.5px Subscribe, and two 8px gaps
+   sit between them. That leaves the brand exactly 128.5px, and the wordmark
+   alone renders 128. There was never any room beside it -- which is why the
+   old city line was display:none under 900px rather than shrunk.
+
+   So under 400px the sentence takes two lines inside the wordmark's own width
+   instead of widening the brand. At 10px over 124px it wraps to two lines of
+   12px, and 16.8 + 2 + 24 = 42.8 still fits the 44px tap target .brand already
+   reserves, SO THE BAR STAYS 60px TALL at every width. Without this it went to
+   112 at 320 and 375 -- the whole row wrapped, which is what a 195.3px brand in
+   a 183.5px slot does.
+
+   400 rather than the measured 386.8, because the fallback face renders wider
+   than Outfit before the webfont lands and the margin is cheaper than a wrap. */
+@media(max-width:400px){
+  .brand span{font-size:10px;line-height:1.2;max-width:124px}
+}
 /* THE BAR HAS NO FORM IN IT ANY MORE. Nine rules lived here and 300 lines
    down for `.bar form`, `.bar input` and `.bar-search`, and all of them are
    deleted rather than left behind, because the markup they styled is gone from
@@ -2857,7 +2894,6 @@ footer .soc svg{fill:var(--chrome-ink)}
    which is what the 400px block under this one already does. */
 @media(max-width:560px){
   .brand b{font-size:.95rem}
-  .brand span{display:none}
   /* `.bar form.bar-search{display:none}` AND `.bar-find{display:flex}` STOOD
      HERE and are both gone, because there is no field to hide any more and the
      magnifier is now shown unconditionally where it is declared. The trap the

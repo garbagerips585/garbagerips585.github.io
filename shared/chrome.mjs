@@ -1094,9 +1094,26 @@ export function dropUnusedHitLightbox(html) {
  * and five links ate 167px of it. Those thresholds moved down. The arithmetic
  * and the measured sweep are beside `.nav-links` in assets-source/ui.css.
  */
+/**
+ * THE ONE COPY OF THE SENTENCE UNDER THE WORDMARK.
+ *
+ * It used to read "Rochester, NY" here and sit BESIDE the wordmark, while the
+ * home page said the whole sentence twice more -- once in a band under the bar
+ * for wide screens, once tucked under the Greatest Hits heading for phones.
+ * Tim asked on 23 August 2026 for one sentence under the logo on both, and for
+ * the bare "Rochester, NY" beside the wordmark to go.
+ *
+ * build-proto.mjs already treated this string as a thing that must not exist in
+ * two versions, and its note says so in as many words. Moving it into the header
+ * would have made a THIRD copy, so the string moved here and build-proto imports
+ * it. Both of its regions now render empty and the header is the only place the
+ * sentence is written.
+ */
+export const SITE_SAY = "Pokemon pack rips from Rochester, NY";
+
 export const BAR = `<header class="bar">
   <div class="bar-in">
-    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>${SITE_SAY}</span></a>
     <a class="bar-find" href="/search.html" aria-label="Search cards, sets, guides and rips"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg></a>
     <nav class="nav-links" aria-label="Primary">
 ${BAR_LINKS.map((h) => `      <a href="${h}">${labelFor(h)}</a>`).join("\n")}

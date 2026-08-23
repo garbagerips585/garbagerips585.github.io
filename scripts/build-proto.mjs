@@ -15,7 +15,7 @@ import { ripLabel } from "../shared/riplabel.mjs";
 import { SITE, DOMAIN, STAGING, LIVE } from "../shared/site.mjs";
 import { basename, join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { checkDrift } from "../shared/chrome.mjs";
+import { checkDrift, SITE_SAY } from "../shared/chrome.mjs";
 import { esc, MONTHS_SHORT as MONTHS, moneyCompact, imgDims, viewCount, avifPicture, packTileImg, longDate, noWidowEmoji, RIP_BANNER } from "../shared/format.mjs";
 import { labelFor, PRODUCT_TYPES } from "../shared/taxonomy.mjs";
 // The sourcing sentence for a raw card price, and the "which of the two dates
@@ -2430,11 +2430,18 @@ ${ripStatTiles.join("\n")}
  * font file is added. See the .wdr-ch note in homeCss for what one stray
  * weight declaration cost above the fold on this same page.
  */
-const siteSay = "Pokemon pack rips from Rochester, NY";
+const siteSay = SITE_SAY;
 // ui.css's own .wrap on the outer box, so the sentence starts on the same
 // gutter line as every heading under it rather than inventing a second one.
-const sayTopHtml = `<div class="hsay-top"><div class="wrap"><p class="hsay">${esc(siteSay)}</p></div></div>`;
-const sayHeadHtml = `<span class="hsay hsay-in">${esc(siteSay)}</span>`;
+// BOTH REGIONS RENDER EMPTY NOW. The sentence moved into the header, under the
+// wordmark, at every width -- see SITE_SAY in shared/chrome.mjs. Leaving these
+// two as empty strings rather than deleting the regions keeps the markers in
+// public/index.html valid, which the loop below still requires, and keeps the
+// fold arithmetic above readable as the history of why the pair existed.
+// siteSay is still read by the counters note below, so it stays declared.
+const sayTopHtml = "";
+const sayHeadHtml = "";
+void siteSay;
 
 /* --------------------------------------------------- Rochester on the page --
  *

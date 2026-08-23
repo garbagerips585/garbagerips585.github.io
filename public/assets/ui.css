@@ -67,13 +67,15 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
 .bar-in{display:flex;align-items:center;gap:var(--s4);max-width:1500px;margin:0 auto;
   padding:var(--s2) var(--gut);min-height:var(--bar-h)}
 @media(max-width:700px){.bar-in{gap:var(--s2)}}
-.brand{display:flex;align-items:baseline;gap:var(--s2);flex:none;min-height:44px;
-  align-content:center;flex-wrap:wrap}
+.brand{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+  gap:2px;flex:none;min-height:44px}
 .brand b{font:400 1.05rem/1 var(--display);letter-spacing:.01em}
 .brand b i{font-style:normal;color:var(--brand-accent)}
-.brand span{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;color:var(--chrome-dim);
-  text-transform:uppercase}
-@media(max-width:900px){.brand span{display:none}}
+.brand span{font:700 var(--t-micro)/1.25 var(--body);letter-spacing:normal;
+  color:var(--chrome-dim);text-transform:none}
+@media(max-width:400px){
+  .brand span{font-size:10px;line-height:1.2;max-width:124px}
+}
 .sub{flex:none;background:var(--yt-red);color:var(--on-yt);font:700 15px/1 var(--body);
   border-radius:var(--r-pill);padding:0 var(--s4);min-height:44px;display:inline-flex;
   align-items:center;justify-content:center;white-space:nowrap}
@@ -918,7 +920,6 @@ footer .soc svg{fill:var(--chrome-ink)}
 .bar-find:hover,.bar-find:focus-visible{background:rgba(255,255,255,.24)}
 @media(max-width:560px){
   .brand b{font-size:.95rem}
-  .brand span{display:none}
   .menu-btn span{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
     overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
   .menu-btn{padding:0;width:44px}
