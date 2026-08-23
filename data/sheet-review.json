@@ -9,36 +9,5 @@
     "does not hold yet than a typo -- check the reason before retyping."
   ],
   "built": "2026-08-23",
-  "videos": {
-    "XjM6y2L7v1c": [
-      "\"Goldeen\" (Abyss Eye (JP)) -- the checklist holds it and carries no scan and no price"
-    ],
-    "0vpWimyqJIE": [
-      "\"Manectric\" (Abyss Eye (JP)) -- the checklist holds it and carries no scan and no price"
-    ],
-    "EPqUqzrAc30": [
-      "\"Poké Pad\" (Nihil Zero (JP)) -- the checklist holds it and carries no scan and no price"
-    ],
-    "XjFoToaom6k": [
-      "\"Victini\" (Scarlet & Violet Black Star Promos) -- this site holds no checklist for that set, in public/data/cards/ or in public/data/intl-guides.json, so there is no scan and no price to show"
-    ],
-    "NzWUDxXwnPI": [
-      "\"Raticate\" (Nihil Zero (JP)) -- the checklist holds it and carries no scan and no price",
-      "\"Aurorus\" (Nihil Zero (JP)) -- the checklist holds it and carries no scan and no price"
-    ],
-    "cg0H0ipfB90": [
-      "\"Corviknight V Trainer Gallery\" (Silver Tempest) -- this site holds no checklist for that set, in public/data/cards/ or in public/data/intl-guides.json, so there is no scan and no price to show",
-      "\"Reshiram V\" (Silver Tempest) -- this site holds no checklist for that set, in public/data/cards/ or in public/data/intl-guides.json, so there is no scan and no price to show",
-      "\"Galarian Perrserker V\" (Lost Origin) -- this site holds no checklist for that set, in public/data/cards/ or in public/data/intl-guides.json, so there is no scan and no price to show"
-    ],
-    "U91JWMsUHAU": [
-      "\"Paras\" (Crown Zenith) -- that name is not on the checklist we hold for that set"
-    ],
-    "K5RKQlNhvl8": [
-      "\"Spearow\" (Mega Brave (JP)) -- the checklist holds it and carries no scan and no price"
-    ],
-    "g9RQqx9da6Q": [
-      "\"Alolan Vulpix V\" (Silver Tempest) -- this site holds no checklist for that set, in public/data/cards/ or in public/data/intl-guides.json, so there is no scan and no price to show"
-    ]
-  }
+  "videos": {}
 }

@@ -55,7 +55,8 @@ import { pickIntlPrintingJp } from "../shared/intl-vocab.mjs";
 // want the identical three lines, but that file is not this pass's to edit."
 // It is shared now rather than copied, for the reason five private copies of
 // gradedPrice() are the receipt for in CLAUDE.md.
-import { corpusScan, noScanBox, NOSCAN_CSS } from "../shared/card-scan.mjs";
+import { corpusScan, noScanBox, pinnedShot, NOSCAN_CSS } from "../shared/card-scan.mjs";
+import { loadCorpus, corpusCard } from "../shared/subset-cards.mjs";
 import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount, avifPicture, packTileImg } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -278,6 +279,16 @@ try {
   }
 } catch {}
 const HITS = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
+/* THE PRINTINGS CORPUS, FOR THE SETS THIS SITE KEEPS NO CHECKLIST FOR.
+ * public/data/cards holds 28 English sets; Silver Tempest, Lost Origin, the
+ * Trainer and Galarian Galleries and every Black Star Promo set are not among
+ * them, and their cards were reaching rip pages as a bare name with no number,
+ * no scan and no price. /hall.html has read the corpus since 23 August 2026 and
+ * this file had the identical gap on the identical rows, which is the same
+ * sentence build-hall.mjs's own note was written under a day earlier. Loaded
+ * once, over only the shards the logged card names could live in.
+ * See shared/subset-cards.mjs. */
+const HIT_CORPUS = await loadCorpus(ROOT, Object.values(HITS).flat().map((c) => c.card));
 // THE HIT CARDS TAKE THE SAME CHAIN AS THE CHASER BAND, AND THEY DID NOT.
 //
 // This was a SECOND copy of the lookup inside one file, and a laxer one: it
@@ -428,6 +439,15 @@ const HITCARD_SIZES = "(max-width:520px) calc(50vw - 52px), 194px";
  * the same file under two widths and let it pick the wrong one on purpose.
  * Nothing in the built tree takes that path today, checked across all 158 hit
  * slots, which is exactly why it is guarded rather than assumed.
+ *
+ * THREE CARDS DO TAKE IT NOW, and they are the tcgplayer-cdn pins out of
+ * data/card-shots.json. That host has two renditions off one product id but
+ * they are NOT siblings by string surgery -- `_200w.jpg` and
+ * `_in_1000x1000.jpg` -- so the guard above correctly emits no srcset for
+ * them, and the lightbox is handed the big one through `imgLarge` rather than
+ * by rewriting the small one's url. The `low.webp -> high.webp` swap on
+ * `data-img` is a silent no-op on any other host, which is how those three
+ * cards would have enlarged to a 200px thumbnail.
  */
 function hitcardImg(url) {
   const two = /^https:\/\/assets\.tcgdex\.net\/.+\/low\.webp$/.test(url);
@@ -573,7 +593,14 @@ async function resolveHits(vid) {
         // The hit's own figure still wins: it is what a person wrote down about
         // the card that came out, and the promo file is the fallback for the
         // product it covers.
-        price: typeof h.price === "number" ? h.price : fp?.price ?? null,
+        // AND THEN THE SHEET'S OWN Raw NM COLUMN. A promo has no price in the
+        // nightly feed by construction, and five of them had no hand-kept
+        // `price` either, so /hall.html was dropping them outright and the rip
+        // pages printed "No market price". Tim's TCGplayer links gave each one a
+        // market figure; typed into the My Hits tab, it lands here. Last in the
+        // chain, because it is frozen and the two above it are not.
+        price: typeof h.price === "number" ? h.price
+          : fp?.price ?? (typeof h.rawNm === "number" ? h.rawNm : null),
         psa10: typeof h.psa10 === "number" ? h.psa10 : fp?.psa10 ?? null,
         priceSource: h.priceSource || (fp && (fp.price != null || fp.psa10 != null) ? fp.source : null),
         priceAsOf: h.priceAsOf || (fp && (fp.price != null || fp.psa10 != null) ? fp.asOf : null),
@@ -642,9 +669,34 @@ async function resolveHits(vid) {
     // logged as hits in my video ... that is wrong."
     //
     // SO THE RARITY WINS AGAIN. It is the field a person fills in while looking
-    // at the card. If the derived number is ever to be trusted it has to stop
-    // being derived from a guess first; that is a fix in import-sheet.mjs, not
-    // a preference here.
+    // at the card.
+    //
+    // AND THE DERIVED NUMBER HAS NOW STOPPED BEING DERIVED FROM A GUESS, which
+    // is what the paragraph this replaced said the fix would have to be. As of
+    // 23 August 2026 import-sheet.mjs picks the printing with pickPrinting():
+    // an explicit number first, then the typed rarity where it names exactly
+    // one printing, and only then the dearest. So the number it writes into
+    // data/hits.json now AGREES with the rarity on the same row by
+    // construction, and the two fields can no longer point at different cards.
+    //
+    // The old rule was "keep the dearest printing of a name", and it moved 86
+    // rows. It claimed 51 Special Illustration Rares out of 462 packs, roughly
+    // one in nine, against a real pull rate near one in a hundred. With the
+    // rarity honoured the same 462 packs give 75 Double rares, 40 Illustration
+    // rares, 35 Ultra Rares and 2 SIRs, which is what a box of modern Pokemon
+    // actually does. Three separate confirmations, none of them mine:
+    //   - Tim's Hit Info cells name the SYMBOL as well as the tier, and they say
+    //     "Mega Dragonite ex - Double Black Star - Double Rare". Two black stars
+    //     is Double Rare. He pulled the $4.56 card, not the $668.50 one.
+    //   - He sent the TCGplayer link for Mega Charizard Y ex 022/217 himself,
+    //     against the 294 the old rule had chosen.
+    //   - data/graded.json's readme, written 14 August, records "Dawn #129 where
+    //     ours is #118" and "Mega Gardevoir ex #178 where ours is #159" -- our
+    //     numbers back then are the numbers the rarity gives back now.
+    //
+    // The order here stays rarity-first regardless, because it is the same
+    // answer by a shorter route and because this file must not start naming a
+    // different printing from build-hall.mjs.
     const m = intl
       ? pickIntlPrintingJp(same, want)
       : (want && same.find((c) => norm(c.rarity) === want)) ||
@@ -665,15 +717,50 @@ async function resolveHits(vid) {
     // url. Frogadier in Ninja Spinner has scans for both #021 and #087 and
     // still gets nothing, because pickIntlPrinting refuses to choose.
     const backfill = intl && m && !m.img ? await corpusScan(INTL_SETS[h.set]?.native, { localId: m.n, en: m.en, native: m.native, rarity: m.rarity }) : null;
+    // NO CHECKLIST, OR A NAME THAT IS NOT ON ONE: TRY THE CORPUS BEFORE GIVING UP.
+    // Silver Tempest and Lost Origin have no per-set file here at all, and the
+    // Trainer and Galarian Galleries are separate set names inside
+    // public/data/printings that nothing else joins to. Six logged cards -- the
+    // three V cards out of that 2-pack blister, Corviknight V TG18, Paras GG32
+    // and Victini 208 -- were rendering on their rip pages as a name and nothing
+    // else while the corpus held every one of them.
+    //
+    // ONLY WHERE THE CHECKLIST FOUND NOTHING, so it can never overrule a set
+    // file, and never on an intl row, which has its own stricter join above.
+    // The corpus carries no prices, so the sheet's own Raw NM column is the
+    // money for these; and where TCGdex has no scan for the printing at all,
+    // data/card-shots.json pins one. Same three sources, same order, as the
+    // plaque on /hall.html: the two files must agree or a card shows one number
+    // here and another there.
+    const sub = !m && !intl
+      ? corpusCard(HIT_CORPUS, { card: h.card, setName: h.setName || h.set, rarity: h.rarity, number: h.number })
+      : null;
+    // THE PIN IS ASKED WHENEVER NOTHING ELSE PRODUCED A PICTURE, including on a
+    // row the checklist DID resolve. Poke Pad 103 is the case: ja-nihil-zero
+    // pins the printing exactly and holds no scan for any card in the set, so
+    // gating the pin on an unresolved row left the one card it was added for
+    // still drawing a grey box. It is keyed on the printing that won, so it
+    // cannot change which card the row names.
+    const artFrom = m ? (m.img || backfill) : sub?.img;
+    const pin = artFrom
+      ? null
+      : pinnedShot([sub?.setName, m?.setName, h.setName, h.set], m?.n || sub?.n || h.number);
     out.push({
       name: h.card, setName: h.setName, setId: h.set,
-      rarity: (m && m.rarity) || h.rarity || null,
-      n: m ? m.n : null,
+      rarity: (m && m.rarity) || sub?.rarity || h.rarity || null,
+      n: m ? m.n : sub?.n || null,
       // THE GUIDE'S OWN SCAN FIRST, THEN THE CORPUS. Same precedence
       // build-hall.mjs uses: the file this row was resolved out of wins and the
       // second source stands behind it rather than over it.
-      img: m && (m.img || backfill) ? `${m.img || backfill}/low.webp` : null,
-      price: m && typeof m.price === "number" ? m.price : null,
+      img: m && (m.img || backfill) ? `${m.img || backfill}/low.webp` : sub?.img || pin?.thumb || null,
+      // The pinned scan is a TCGplayer url and carries its own full-size
+      // rendition, which the lightbox wants instead of a `/high.webp` built off
+      // a TCGdex base that does not exist for this card.
+      imgLarge: pin?.image || null,
+      price: m && typeof m.price === "number" ? m.price
+        : sub && typeof sub.price === "number" ? sub.price
+        : typeof h.rawNm === "number" ? h.rawNm
+        : null,
       // NO GRADED LOOKUP ON AN INTL ROW. shared/graded-price.mjs is keyed on an
       // English set id and a PriceCharting console, and neither exists for a
       // Japanese or Korean set, so asking is at best a miss and at worst a hit
@@ -681,7 +768,7 @@ async function resolveHits(vid) {
       psa10: m && !intl ? psaFor(h.set, m.n, m.name, setData.get(h.set)?.name || h.setName) : null,
       // A promo, or a card outside the set checklist, will not resolve. Kept
       // and shown by name rather than dropped, because it WAS pulled.
-      unresolved: !m,
+      unresolved: !m && !sub,
       // Which checklist answered, for the report at the foot of this run. An
       // intl row that resolved and still has nothing to show is a different
       // fact from a set this site holds no list for, and the two used to print
@@ -1881,7 +1968,7 @@ ${
     <ul class="hitcards" id="hitcards">
       ${hits
         .map(
-          (h, hi) => `<li class="hitcard" style="--i:${hi}" data-name="${esc(h.name)}" data-set="${esc(h.setName || "")}" data-n="${esc(h.n || "")}" data-rarity="${esc(rarityLabel(h.rarity) || "")}" data-img="${esc(h.img ? h.img.replace("low.webp", "high.webp") : "")}" data-price="${typeof h.price === "number" ? moneyExact(h.price) : ""}" data-psa="${h.psa10 ? moneyRound(h.psa10) : ""}" data-src="${esc(h.priceSource || "")}">
+          (h, hi) => `<li class="hitcard" style="--i:${hi}" data-name="${esc(h.name)}" data-set="${esc(h.setName || "")}" data-n="${esc(h.n || "")}" data-rarity="${esc(rarityLabel(h.rarity) || "")}" data-img="${esc(h.imgLarge || (h.img ? h.img.replace("low.webp", "high.webp") : ""))}" data-price="${typeof h.price === "number" ? moneyExact(h.price) : ""}" data-psa="${h.psa10 ? moneyRound(h.psa10) : ""}" data-src="${esc(h.priceSource || "")}">
         ${/* A HIT CARD WITH NO SCAN IS NOT A BUTTON, AND UNTIL 21 AUGUST 2026
               IT WAS ONE ON EVERY ONE OF THEM. The control was emitted
               unconditionally, so a card with nothing to enlarge still shipped

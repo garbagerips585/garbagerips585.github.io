@@ -41,7 +41,7 @@ import { pickIntlPrintingJp } from "../shared/intl-vocab.mjs";
 // shared/card-scan.mjs, which is intl-printing.mjs's impure neighbour rather
 // than a change to it: that module is a pure function about a rule and this one
 // reads two files off disk.
-import { corpusScan, noScanBox, NOSCAN_CSS } from "../shared/card-scan.mjs";
+import { corpusScan, noScanBox, pinnedShot, NOSCAN_CSS } from "../shared/card-scan.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -244,7 +244,30 @@ if (!hall.length) {
         // for a promo the log prices itself, and a plaque with no set, no
         // number, no scan and no price is a name in a gold frame. What changes
         // is that the run says so and the page counts it.
+        //
+        // TWO THINGS CHANGED ON 23 AUGUST 2026 AND THEY ARE THE SAME CHANGE.
+        // Tim sent TCGplayer links for six promos this branch had been dropping
+        // -- Mega Kangaskhan ex 025, Mabosstiff ex 086, Mega Charizard Y ex 030,
+        // Mega Charizard X ex 029, Mega Venusaur ex 013 and Victini 208 -- and
+        // what each link supplies is a COLLECTOR NUMBER and a MARKET PRICE.
+        // Both now go in the sheet, so both have to be read here:
+        //
+        //   `promoArt` resolves the number against public/data/printings, which
+        //   is where every one of those six scans already was. The branch used
+        //   to read only `h.img`, a field nothing writes any more, so a promo
+        //   without a hand-kept image had no picture available to it at all.
+        //
+        //   `h.rawNm` joins price and psa10 in the gate below. A promo has no
+        //   price in any live feed by construction -- TCGdex carries no TCGplayer
+        //   pricing for promo sets -- so the sheet's Raw NM column is not a
+        //   second-best source for these cards, it is the only one.
+        //
+        // The gate itself is unchanged in spirit: a plaque still needs SOMETHING
+        // beyond a name. It just now counts the two fields a person can actually
+        // fill in.
+        const promoArt = corpusCard(CORPUS, { card: h.card, setName: h.setName || null, rarity: h.rarity, number: h.number });
         if (typeof h.price !== "number" && typeof h.psa10 !== "number"
+            && typeof h.rawNm !== "number"
             && !(fp && (fp.price != null || fp.psa10 != null))) {
           unplaceable.push({ card: h.card, rarity: h.rarity || null, vid });
           continue;
@@ -270,10 +293,13 @@ if (!hall.length) {
         // set-card branch below uses, so plaqueArt() gives these the 245w
         // thumbnail and the 600w enlargement exactly like every other card.
         out.push({
-          set: null, number: h.number || fp?.number || null, name: h.card,
+          set: null, number: h.number || fp?.number || promoArt?.n || null, name: h.card,
           _vid: vid,
-          _img: h.img ? `${h.img}/high.webp` : fp?.imgLarge || null,
-          _raw: typeof h.price === "number" ? h.price : fp?.price ?? null,
+          _img: h.img ? `${h.img}/high.webp` : fp?.imgLarge || promoArt?.img?.replace(/\/low\.webp$/, "/high.webp") || null,
+          // `h.rawNm` LAST, for the reason spelled out at the corpus branch below:
+          // a promo has no price in any live feed, so the sheet's own column is the
+          // only figure there is. It sits behind both live sources, never in front.
+          _raw: typeof h.price === "number" ? h.price : fp?.price ?? (typeof h.rawNm === "number" ? h.rawNm : null),
           _rarity: h.rarity || "Black Star Promo",
           _psa10: typeof h.psa10 === "number" ? h.psa10 : fp?.psa10 ?? null,
           // The rip log stores ONE source, date and url per promo entry and
@@ -282,7 +308,10 @@ if (!hall.length) {
           _psa10AsOf: h.priceAsOf || fp?.asOf || null,
           _psa10Source: h.priceSource || fp?.source || null,
           _psa10Url: h.priceUrl || fp?.url || null,
-          _setName: h.setName || fp?.setName || "Black Star Promo",
+          // THE CORPUS SET NAME BEFORE THE GENERIC ONE. "MEP Black Star Promos"
+          // and "SVP Black Star Promos" are different sets and the plaque should
+          // say which; "Black Star Promo" is the last resort, not the label.
+          _setName: h.setName || fp?.setName || promoArt?.setName || "Black Star Promo",
         });
         continue;
       }
@@ -393,7 +422,14 @@ if (!hall.length) {
           }));
         }
       }
-      const norm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
+      // ACCENTS ARE FOLDED, NOT STRIPPED, AND THE DIFFERENCE IS A WHOLE CARD.
+// This used to go straight to `[^a-z0-9]`, which DELETES an accented letter
+// rather than replacing it: "Poke Pad" with the accent came out "pokpad" and
+// the checklist's "Poke Pad" came out "pokepad", so the two never met and the
+// card went on the page with no collector number for want of one letter. NFKD
+// splits the letter from its accent and the strip then removes only the accent.
+const norm = (x) =>
+  String(x).normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "");
       // NO CHECKLIST IN EITHER FILE IS A DIFFERENT CASE FROM A CARD THAT IS NOT
       // ON ONE, and they used to share a `continue`. Where the site holds no
       // list for the set at all there is nothing to fail to match against, so
@@ -416,13 +452,21 @@ if (!hall.length) {
         // of the card, and shared/subset-cards.mjs peels them off to pick the
         // set. It refuses a name it cannot separate rather than guessing, which
         // is the same rule the checklists are held to.
-        const sub = corpusCard(CORPUS, { card: h.card, setName: h.setName || h.set, rarity: h.rarity });
+        const sub = corpusCard(CORPUS, { card: h.card, setName: h.setName || h.set, rarity: h.rarity, number: h.number });
         if (sub) {
           out.push({
             set: h.set, number: sub.n, name: sub.name,
             _vid: vid,
             _img: sub.img,
-            _raw: sub.price,
+            // `h.rawNm` LAST. It is the Raw NM USD column of the My Hits tab, and for
+            // most rows it is a figure this site derived and wrote back, so it must
+            // never outrank a live one. For a handful of cards it is the ONLY figure
+            // that exists: Silver Tempest and Lost Origin have no checklist here, the
+            // printings corpus carries no prices, and TCGdex has no pricing for promo
+            // sets at all, so ten cards Tim sent TCGplayer links for on 23 August 2026
+            // had a scan, a number and no money. Typed into the sheet, it reaches the
+            // page. Frozen beats nothing; it does not beat fresh.
+            _raw: sub.price ?? (typeof h.rawNm === "number" ? h.rawNm : null),
             _rarity: sub.rarity || h.rarity || null,
             _setName: sub.setName || h.setName || null,
           });
@@ -434,7 +478,7 @@ if (!hall.length) {
           set: h.set, number: null, name: h.card,
           _vid: vid,
           _img: null,
-          _raw: null,
+          _raw: typeof h.rawNm === "number" ? h.rawNm : null,
           _rarity: h.rarity || null,
           _setName: h.setName || null,
         });
@@ -561,7 +605,7 @@ if (!hall.length) {
           // It still refuses what it cannot separate: Reshiram V has two Silver
           // Tempest printings and the log names no rarity, so that one stays
           // unmatched and gets reported rather than guessed at.
-          const sub = corpusCard(CORPUS, { card: h.card, setName: h.setName || h.set, rarity: h.rarity });
+          const sub = corpusCard(CORPUS, { card: h.card, setName: h.setName || h.set, rarity: h.rarity, number: h.number });
           if (sub) {
             const skey = `${h.set}-${norm(sub.name)}-${sub.n}`;
             if (seen.has(skey)) { repeats++; continue; }
@@ -570,7 +614,10 @@ if (!hall.length) {
               set: h.set, number: sub.n, name: sub.name,
               _vid: vid,
               _img: sub.img,
-              _raw: sub.price,
+              // Same as the branch above: the corpus carries no prices, so the
+            // sheet's own Raw NM column is the last resort and the only figure
+            // Silver Tempest, Lost Origin and the promo sets have.
+            _raw: sub.price ?? (typeof h.rawNm === "number" ? h.rawNm : null),
               _rarity: sub.rarity || h.rarity || null,
               _setName: sub.setName || h.setName || null,
             });
@@ -587,7 +634,7 @@ if (!hall.length) {
           set: h.set, number: null, name: h.card,
           _vid: vid,
           _img: null,
-          _raw: null,
+          _raw: typeof h.rawNm === "number" ? h.rawNm : null,
           _rarity: h.rarity || null,
           _setName: h.setName || null,
         });
@@ -621,7 +668,11 @@ if (source === "intl") intlIn.push({ set: h.set, card: m.name, n: m.n, art: m.im
         // other chain in this file uses: the file this row was resolved out of
         // wins, and the second source stands behind it rather than over it.
         _img: (m.img || backfill) ? `${m.img || backfill}/high.webp` : null,
-        _raw: typeof m.price === "number" ? m.price : null,
+        // The intl guides carry no prices at all by design, so every Japanese
+        // and Korean hit on this page reaches here with `m.price` null. The
+        // sheet's Raw NM column is the only figure those cards will ever have.
+        _raw: typeof m.price === "number" ? m.price
+          : typeof h.rawNm === "number" ? h.rawNm : null,
         _rarity: m.rarity || h.rarity || null,
         // The intl checklist carries no set name of its own that this page can
         // use, and sets.json is English only, so resolve() would otherwise
@@ -805,7 +856,15 @@ function resolve(c) {
     // what the rarity guide, the ladder in sync-sets.mjs and the sheet's own
     // rarities in data/hits.json already use.
     rarity: rarityLabel(c._rarity || c.rarity || chase?.rarity || null),
-    image: c._img || chase?.imageLarge || chase?.image || null,
+    // AND LAST, THE PIN LIST. Three logged cards are in no TCGdex url at any
+    // extension, so every source above them returns null and the plaque drew a
+    // grey "No scan" box: Corviknight V TG18, Victini 208 and Poke Pad 103.
+    // data/card-shots.json pins each to the TCGplayer product Tim linked. It is
+    // last because it is hand-kept and frozen, and a scan we sync should always
+    // win over one somebody typed in; see shared/card-scan.mjs for why an entry
+    // can only exist where the TCGdex url was checked and 404'd.
+    image: c._img || chase?.imageLarge || chase?.image
+      || pinnedShot([setName, c._setName, c.set], c.number)?.image || null,
     url: chaseLinks[c.set]?.links?.[cardNumKey(c.number)] || null,
     // RAW FROM THE CHECKLIST FIRST, AND THE CHECKLIST IS PRICECHARTING NOW.
     // This used to carry a note saying PriceCharting's own ungraded figure was
@@ -1286,6 +1345,12 @@ function plaqueArt(url) {
       dims: ` width="245" height="342"`,
     };
   }
+  // TCGPLAYER'S CDN SERVES TWO SIZES OFF ONE ID and the pin list stores the
+  // large one, so the thumbnail is derived rather than stored twice. 13-29KB
+  // against 135-170KB, both measured 23 Aug 2026. No width or height: that host
+  // pads to a fixed canvas and the plaque's own aspect-ratio rule owns the box.
+  const tcg = /^(https:\/\/tcgplayer-cdn\.tcgplayer\.com\/product\/\d+)_in_1000x1000\.jpg$/.exec(url || "");
+  if (tcg) return { src: `${tcg[1]}_200w.jpg`, extra: "", dims: "" };
   return { src: url, extra: "", dims: "" };
 }
 

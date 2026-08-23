@@ -541,24 +541,41 @@ let cardRows = 0;
       // that also appear in an illustration collection.
       if (!h.set) {
         const fp = firstPartner.priceForHit(h);
-        const raw = typeof h.price === "number" ? h.price : fp?.price ?? null;
+        // ...AND WHERE IT DOES NOT, the sheet's Raw NM column does. Five promos
+        // had no `price` of their own until Tim sent TCGplayer links on 23
+        // August 2026, so they counted as pulls with no value anywhere on this
+        // page. Behind both live sources, never in front; same order as
+        // build-pages.mjs and build-hall.mjs.
+        const raw = typeof h.price === "number" ? h.price
+          : fp?.price ?? (typeof h.rawNm === "number" ? h.rawNm : null);
         const psa = typeof h.psa10 === "number" ? h.psa10 : fp?.psa10 ?? null;
         cardLedger.push({ ...base, set: null, number: h.number || fp?.number || null, raw, psa, promo: true });
         continue;
       }
+      // THE THREE "no value" EXITS BELOW NOW CARRY THE SHEET'S OWN FIGURE.
+      // Silver Tempest, Lost Origin and the Black Star Promo sets have no
+      // checklist here, so every card out of them left this loop worth nothing
+      // and this page counted them as pulls with no money attached. `rawNm` is
+      // the one number those rows will ever have; the printing stays unpinned,
+      // which is honest, but the value is no longer thrown away.
+      const sheetRaw = typeof h.rawNm === "number" ? h.rawNm : null;
       const doc = cardsBySet.get(h.set);
-      if (!doc?.cards?.length) { cardDrops.noChecklist++; cardLedger.push({ ...base, set: h.set, number: null, raw: null, psa: null }); continue; }
+      if (!doc?.cards?.length) { cardDrops.noChecklist++; cardLedger.push({ ...base, set: h.set, number: h.number || null, raw: sheetRaw, psa: null }); continue; }
       const same = doc.cards.filter((c) => nrm(c.name) === nrm(h.card));
-      if (!same.length) { cardDrops.notOnChecklist++; cardLedger.push({ ...base, set: h.set, number: null, raw: null, psa: null }); continue; }
-      // REVERTED with build-pages.mjs and build-hall.mjs on 23 August 2026.
-      // The collector number in data/hits.json is DERIVED when the My Hits
-      // Number column is blank, which it is on the rows this mattered for, so
-      // preferring it promoted a lookup's guess over the rarity a person typed
-      // while looking at the card. See the long note in build-hall.mjs.
+      if (!same.length) { cardDrops.notOnChecklist++; cardLedger.push({ ...base, set: h.set, number: h.number || null, raw: sheetRaw, psa: null }); continue; }
+      // REVERTED with build-pages.mjs and build-hall.mjs on 23 August 2026, and
+      // the reason it stays reverted has since been fixed at the source: the
+      // number was DERIVED whenever the My Hits Number column was blank, and
+      // import-sheet.mjs derived it by taking the DEAREST printing of the name
+      // rather than the one the typed rarity names. That rule alone moved 86
+      // rows and claimed 51 Special Illustration Rares out of 462 packs.
+      // pickPrinting() in that file now reads the rarity, so the number and the
+      // rarity agree by construction and this order costs nothing. See the full
+      // note and its three confirmations in build-pages.mjs.
       const want = h.rarity ? nrm(h.rarity) : null;
       const exact = want ? same.filter((c) => nrm(c.rarity) === want) : [];
       const m = exact.length === 1 ? exact[0] : (!exact.length && same.length === 1 ? same[0] : null);
-      if (!m) { cardDrops.ambiguousPrinting++; cardLedger.push({ ...base, set: h.set, number: null, raw: null, psa: null }); continue; }
+      if (!m) { cardDrops.ambiguousPrinting++; cardLedger.push({ ...base, set: h.set, number: null, raw: sheetRaw, psa: null }); continue; }
       const g = psaResolve(h.set, m.n, { name: m.name, setName: setName[h.set] || h.setName || h.set });
       cardLedger.push({
         ...base,

@@ -422,10 +422,25 @@ if (col("Card") !== -1 && col("Raw NM USD") !== -1) {
   const knownVideo = new Map(videos.map((v) => [v.id, v]));
 
   // Every card we know, so Number, Rarity and Raw can be looked up rather than
-  // typed. Keyed by set + lowercased name; a name that appears twice in a set
-  // (a card and its secret-rare reprint) keeps the DEARER one, which is the one
-  // somebody logging a hit means.
+  // typed. Keyed by set + lowercased name.
+  //
+  // A NAME THAT APPEARS TWICE IN A SET USED TO KEEP THE DEARER ONE AND NOTHING
+  // ELSE, AND THAT COST $358 ON ONE ROW. Ascended Heroes prints Mega Charizard
+  // Y ex twice: 022, a Double rare worth $5.46, and 294, a Mega Hyper Rare
+  // worth $363.43. Row 198 of the My Hits tab names the set, leaves Number
+  // blank and types the rarity "Double Rare", and this map handed back 294. So
+  // the site published a $363.43 chase card, near the top of the Hall of Fame,
+  // for a card Tim had written down as a Double rare. He caught it himself and
+  // sent the TCGplayer link for 022/217.
+  //
+  // "The dearer one is the one somebody logging a hit means" is a fair guess
+  // and it stays as the fallback, but it is only ever a guess, and it must not
+  // outrank a tier the person actually typed. Same rule the whole importer is
+  // held to: a value from a human beats a value we derived. `allByCard` keeps
+  // every printing so pickPrinting() below can use the rarity to choose, and
+  // `byCard` keeps the dearest for the rows that type no rarity at all.
   const byCard = new Map();
+  const allByCard = new Map();
   const setIdOf = new Map();
   try {
     const dir = join(ROOT, "public/data/cards");
@@ -437,6 +452,8 @@ if (col("Card") !== -1 && col("Raw NM USD") !== -1) {
         const k = `${doc.set}|${(c.name || "").toLowerCase()}`;
         const prev = byCard.get(k);
         if (!prev || (c.price || 0) > (prev.price || 0)) byCard.set(k, c);
+        if (!allByCard.has(k)) allByCard.set(k, []);
+        allByCard.get(k).push(c);
       }
     }
   } catch (e) {
@@ -467,6 +484,14 @@ if (col("Card") !== -1 && col("Raw NM USD") !== -1) {
           // ex as the 046 Double rare rather than the 114 secret.
           const better = !prev || (Number(c.localId) || 0) > (Number(prev.n) || 0);
           if (better) byCard.set(k, { n: c.localId, rarity: c.rarity, price: null });
+          // The intl guides carry TWO rarity words per card: `rarity` is the
+          // checklist's ("Ultra Rare") and `rarityJp` is what is printed on the
+          // card in Japan ("Super Rare"). Tim reads the card, so he types the
+          // second one. Both go into the candidate so pickPrinting() can match
+          // either. Poke Pad on EPqUqzrAc30 is exactly this: 070 Uncommon and
+          // 103 Super Rare, and only the second word tells them apart.
+          if (!allByCard.has(k)) allByCard.set(k, []);
+          allByCard.get(k).push({ n: c.localId, rarity: c.rarity, rarityJp: c.rarityJp, price: null });
         }
       }
     }
@@ -475,6 +500,67 @@ if (col("Card") !== -1 && col("Raw NM USD") !== -1) {
   }
   if (!byCard.size) {
     console.warn("No card data loaded, so nothing can be looked up.");
+  }
+
+  /* ---------------------------------------------------------------------
+   * WHICH PRINTING OF A NAME A ROW MEANS.
+   *
+   * A set can print one name twice, and the two printings are different
+   * cards with different numbers and wildly different prices. This is the
+   * only place that choice is made for the My Hits tab, and the order is:
+   *
+   *   1. the collector NUMBER, if the row carries one. Nothing beats it.
+   *   2. the RARITY, if the row carries one and it picks out exactly ONE
+   *      printing. "Exactly one" is the whole safety rule: where two
+   *      printings share a tier this refuses to choose and falls through,
+   *      because a coin flip that looks like an answer is worse than the
+   *      old guess, which at least was consistent.
+   *   3. the dearest printing, which is the behaviour this replaced.
+   *
+   * NAMES ARE MATCHED WITH THE ACCENTS STRIPPED. The Japanese guides file
+   * "Poke Pad" and Tim writes "Poke Pad" with the accent, off the card, so
+   * the exact-key lookup missed and the row resolved to nothing at all.
+   * Accent-folding is a fallback here rather than the primary key so an
+   * exact match can never be beaten by a folded one.
+   *
+   * TWO RARITY VOCABULARIES ARE ACCEPTED and both are the card's own: the
+   * checklist word, and (on intl rows) the word printed in Japan. See the
+   * note in the intl loop above. canonRarity() adds TCGplayer's on top.
+   * --------------------------------------------------------------------- */
+  // CURLY QUOTES FOLD TOO. Google Sheets autocorrects an apostrophe to U+2019
+  // on the way in, so "Team Rocket's Mewtwo ex" and "Gladion's Final Battle"
+  // came back with a character no checklist uses and were reported as spelling
+  // mistakes on every import. They are not: they are the same name.
+  const foldName = (x) =>
+    String(x).normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
+      .replace(/[\u2018\u2019\u02bc]/g, "'").replace(/[\u201c\u201d]/g, '"')
+      .toLowerCase().trim();
+  const foldRarity = (x) => String(x || "").toLowerCase().replace(/[^a-z]/g, "");
+  const foldedAll = new Map();
+  for (const [k, list] of allByCard) {
+    const [setPart, namePart] = [k.slice(0, k.indexOf("|")), k.slice(k.indexOf("|") + 1)];
+    const fk = `${setPart}|${foldName(namePart)}`;
+    if (!foldedAll.has(fk)) foldedAll.set(fk, []);
+    foldedAll.get(fk).push(...list);
+  }
+  function pickPrinting(setId, card, typedRarity, typedNumber) {
+    const exact = allByCard.get(`${setId}|${card.toLowerCase()}`);
+    const list = exact && exact.length ? exact : foldedAll.get(`${setId}|${foldName(card)}`);
+    if (!list || !list.length) return null;
+    if (list.length === 1) return list[0];
+    const num = String(typedNumber || "").trim();
+    if (num) {
+      const byNum = list.filter((c) => String(c.n ?? c.localId ?? "").replace(/^0+/, "") === num.replace(/^0+/, ""));
+      if (byNum.length === 1) return byNum[0];
+    }
+    const want = foldRarity(canonRarity(typedRarity));
+    if (want) {
+      const byTier = list.filter(
+        (c) => foldRarity(c.rarity) === want || foldRarity(c.rarityJp) === want
+      );
+      if (byTier.length === 1) return byTier[0];
+    }
+    return byCard.get(`${setId}|${card.toLowerCase()}`) || list[0];
   }
   // Every set id we can name, so an id typed (or handed back by the workbook)
   // into the Set column resolves as well as a display name does.
@@ -500,6 +586,13 @@ if (col("Card") !== -1 && col("Raw NM USD") !== -1) {
     const card = cell(r, hi.card);
     const vid = cell(r, hi.video);
     if (!card && !vid) continue;                     // blank filler row
+    // THE FOOTER NOTES ARE NOT A VIDEO ID. build-sheet.py writes two sentences
+    // of instructions into column A under the last data row -- "One row per
+    // card pulled..." -- and this read them as video ids with a missing Card
+    // and reported them on every single import. A YouTube id is exactly 11
+    // characters of [A-Za-z0-9_-]; a sentence is not, so the two cannot be
+    // confused. A real 11-character id with no card is still reported.
+    if (!card && !/^[A-Za-z0-9_-]{11}$/.test(vid)) continue;
     if (!card) { problems.push(`row ${i + 1}: a Video ID with no Card`); continue; }
     if (vid && !knownVideo.has(vid)) problems.push(`row ${i + 1}: Video ID "${vid}" is not in the catalogue`);
 
@@ -515,13 +608,26 @@ if (col("Card") !== -1 && col("Raw NM USD") !== -1) {
       setIdByName.get(setLabel.toLowerCase()) ||
       setIdOf.get(setLabel.toLowerCase()) ||
       (knownSetId.has(setLabel.toLowerCase()) ? setLabel.toLowerCase() : null);
-    if (setLabel && !setId) problems.push(`row ${i + 1}: set "${setLabel}" not recognised`);
+    // A BLACK STAR PROMO SET IS REAL AND HAS NO CHECKLIST, AND SAYING SO EVERY
+    // RUN TRAINED PEOPLE TO IGNORE THIS LIST. build-sheet.py prefills the Set
+    // column from data/hits.json's `setName`, so the two hand-kept promos on
+    // the Costco rip come back reading "MEP Black Star Promos" -- a set nobody
+    // typed, that public/data/cards holds no file for by design, and that the
+    // promo resolver in build-pages.mjs handles correctly by leaving `set`
+    // null. Reporting it as an unrecognised set is telling the truth about the
+    // lookup and a lie about the sheet. `setId` stays null either way, so
+    // nothing downstream changes; only the noise goes.
+    const promoSet = /black star promos?$/i.test(setLabel.trim());
+    if (setLabel && !setId && !promoSet) problems.push(`row ${i + 1}: set "${setLabel}" not recognised`);
 
-    const found = setId ? byCard.get(`${setId}|${card.toLowerCase()}`) : null;
+    const found = setId ? pickPrinting(setId, card, cell(r, hi.rarity), cell(r, hi.number)) : null;
     if (found) looked++;
     // A name that matches nothing is nearly always a typo, and silently writing
     // nulls for it is how a hit ends up on the site with no number and no
     // price and nobody notices.
+    // ...and it is only a spelling mistake if the FOLDED name misses as well.
+    // pickPrinting already folds accents and curly quotes; this report did not,
+    // so it went on flagging names that had in fact resolved.
     else if (setId && byCard.size && !cell(r, hi.number)) {
       problems.push(`row ${i + 1}: no card called "${card}" in ${setLabel || setId}. Check the spelling.`);
     }

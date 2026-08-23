@@ -251,6 +251,77 @@ export async function corpusScan(setNative, card) {
  * on another. `.is-none.noscan` is (0,2,0) against `.hitcard-img`'s (0,1,0) and
  * `.noscan .noscan-s` is (0,2,0) against `.chof-art img`'s (0,1,1).
  */
+
+/* ==========================================================================
+ * PART ONE AND A HALF: pinnedShot. THE THIRD PLACE A SCAN LIVES, AND THE
+ * ONLY ONE THAT IS NOT TCGDEX.
+ * ==========================================================================
+ *
+ * corpusScan above covers the case where TCGdex HAS the picture and the intl
+ * guide simply does not carry it. A smaller set of cards is not in TCGdex at
+ * all, at any url, and no amount of looking in our own files will produce one:
+ *
+ *   Corviknight V TG18   the Trainer Gallery subset has no images there
+ *   Victini 208          the printing is listed, with nothing attached
+ *   Poke Pad 103         ja-nihil-zero is one of six guides with hasImages false
+ *
+ * All three are logged hits, so /hall.html drew all three as a grey noScanBox
+ * with the card's name in it. data/card-shots.json pins them to the TCGplayer
+ * product Tim linked, and this reads that file. It is a PIN LIST: three hand
+ * entries, each one added only after the TCGdex url was checked and found to
+ * 404, so it can never shadow a scan we already have.
+ *
+ * NO WIDTH OR HEIGHT COMES BACK. tcgplayer-cdn pads every file to a fixed
+ * canvas, and imgDims() in shared/format.mjs returns nothing for that host on
+ * purpose; the caller's CSS owns the box. Same treatment the sealed-product
+ * shots on /openings/ and /sets/ already get.
+ */
+let SHOTS = {};
+try {
+  SHOTS = JSON.parse(readFileSync(join(ROOT, "data/card-shots.json"), "utf8")).shots || {};
+} catch {
+  /* the file is optional: with none, every card falls back to noScanBox */
+}
+const SHOT_KEY = new Map(
+  Object.entries(SHOTS).map(([k, v]) => {
+    const [set, num] = [k.slice(0, k.lastIndexOf("|")), k.slice(k.lastIndexOf("|") + 1)];
+    return [`${scanNorm(set)}|${scanNorm(num)}`, v];
+  })
+);
+
+/**
+ * A pinned TCGplayer scan for one printing, or null.
+ *
+ * THE SET NAME IS TRIED IN SEVERAL SPELLINGS because the three files that
+ * reach here disagree about it by design: the corpus says "Nihil Zero", the
+ * rip log says "Nihil Zero (JP)" and the set id is "ja-nihil-zero". All three
+ * name one set, so all three are offered rather than picking a winner and
+ * making the other two miss.
+ *
+ * @param {?string|string[]} setName one or more spellings of the set.
+ * @param {?string} number the collector number.
+ * @returns {?{thumb: string, image: string, url: string, productId: number}}
+ */
+export function pinnedShot(setName, number) {
+  if (number == null || String(number).trim() === "") return null;
+  const n = scanNorm(number);
+  const tries = (Array.isArray(setName) ? setName : [setName]).filter(Boolean);
+  for (const raw of tries) {
+    for (const cand of [raw, String(raw).replace(/\s*\([^)]*\)\s*$/, ""), String(raw).replace(/^[a-z]{2}-/, "")]) {
+      const hit = SHOT_KEY.get(`${scanNorm(cand)}|${n}`);
+      if (hit) {
+        return {
+          productId: hit.productId,
+          url: hit.url || null,
+          thumb: `https://tcgplayer-cdn.tcgplayer.com/product/${hit.productId}_200w.jpg`,
+          image: `https://tcgplayer-cdn.tcgplayer.com/product/${hit.productId}_in_1000x1000.jpg`,
+        };
+      }
+    }
+  }
+  return null;
+}
+
 export const NOSCAN_CSS = `.is-none.noscan,.chof-noart.noscan{display:flex;flex-direction:column;
   align-items:center;justify-content:center;gap:6px;padding:8%;box-sizing:border-box;
   background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8px 16px)}

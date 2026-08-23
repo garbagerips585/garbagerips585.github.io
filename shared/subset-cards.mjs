@@ -23,7 +23,11 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
 const SUBSETS = ["Galarian Gallery", "Trainer Gallery"];
-const norm = (x) => String(x || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+// NFKD FIRST. Stripping [^a-z0-9] outright DELETES an accented letter instead of
+// folding it, so "Poke Pad" written with the accent and "Poke Pad" without it
+// normalise to two different strings. See the same note in scripts/build-hall.mjs.
+const norm = (x) =>
+  String(x || "").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "");
 
 /** Load the shards a set of card names could live in, once. */
 export async function loadCorpus(root, names) {
@@ -45,9 +49,36 @@ export async function loadCorpus(root, names) {
 /**
  * Resolve one logged hit against the corpus.
  * Returns { n, name, rarity, price, img, setName } or null.
+ *
+ * THE COLLECTOR NUMBER IS TRIED FIRST AND ON ITS OWN, WITHOUT THE SET NAME.
+ * Three reasons, all of them measured on 23 August 2026:
+ *
+ *   1. A name and a number together are unique. Checked across all ten cards
+ *      Tim sent TCGplayer links for: every one matched exactly one printing in
+ *      the whole 39,707-row corpus. Nothing the set name adds could improve on
+ *      one, and requiring it can only lose matches.
+ *   2. The set STRING is the thing that varies. The rip log says "Scarlet &
+ *      Violet Black Star Promos" and the corpus says "SVP Black Star Promos",
+ *      so Victini 208 matched on name and number and failed on the set. Making
+ *      the set a requirement would have dropped a card the number had already
+ *      identified.
+ *   3. It is the field a person can actually supply. Tim reads a number off
+ *      the card or off a TCGplayer link; he does not know which of the twenty
+ *      words for a rarity our catalogue happens to use, and he should not have
+ *      to. TCGplayer calls Reshiram V 024 an "Ultra Rare" and TCGdex calls it a
+ *      "Holo Rare V" -- same card, and only the number agrees.
+ *
+ * A number that matches MORE THAN ONE printing falls back to the set-name path
+ * below rather than picking one, which is this file's standing rule.
  */
-export function corpusCard(corpus, { card, setName, rarity }) {
-  if (!corpus?.length || !card || !setName) return null;
+export function corpusCard(corpus, { card, setName, rarity, number }) {
+  if (!corpus?.length || !card) return null;
+  if (number != null && String(number).trim()) {
+    const wantN = norm(number);
+    const byNum = corpus.filter((c) => norm(c.n) === norm(String(card).trim()) && norm(c.i) === wantN);
+    if (byNum.length === 1) return shape(byNum[0], byNum[0].s);
+  }
+  if (!setName) return null;
   let name = String(card).trim();
   let set = String(setName).trim();
   // "Paras Galarian Gallery" is Paras, in Crown Zenith Galarian Gallery.
@@ -74,6 +105,11 @@ export function corpusCard(corpus, { card, setName, rarity }) {
     (want && same.find((c) => norm(c.r) === want)) ||
     (same.length === 1 ? same[0] : null);
   if (!pick) return null;
+  return shape(pick, set);
+}
+
+/** One printing row -> the shape every caller of this file expects. */
+function shape(pick, set) {
   return {
     n: pick.i || null,
     name: pick.n,

@@ -1,0 +1,86 @@
+{
+  "_readme": [
+    "CARD SCANS TCGDEX DOES NOT HAVE, HOTLINKED FROM TCGPLAYER INSTEAD.",
+    "",
+    "Every card picture on this site comes from assets.tcgdex.net, and a handful",
+    "of real cards are simply not in it. Three of them are logged hits, so the",
+    "Hall of Fame drew them as a grey 'No scan' box with the name in it while a",
+    "picture existed one host away.",
+    "",
+    "THIS IS A PIN LIST AND NOT A FALLBACK. Nothing is guessed: each entry names",
+    "the TCGplayer product Tim linked, and the id in that url is what the CDN",
+    "path is built from. A card is added here only after its TCGdex url has been",
+    "checked and found to 404, so an entry can never quietly shadow a scan we",
+    "already have.",
+    "",
+    "KEYS ARE '<corpus set name>|<collector number>', which is the pair",
+    "public/data/printings uses and the pair a rip log row resolves to. Not the",
+    "card name: two sets can print the same name and only the pair is unique.",
+    "",
+    "TWO RENDITIONS, BOTH MEASURED 23 Aug 2026. `_200w` is 13-29KB and `_in_",
+    "1000x1000` is 135-170KB, both answer 200 with and without a referrer. They",
+    "carry NO width or height, because tcgplayer-cdn pads to a fixed canvas and",
+    "imgDims() in shared/format.mjs returns nothing for that host on purpose.",
+    "",
+    "To add one: find the card on tcgplayer.com, take the number out of the",
+    "/product/<id>/ path, and record why TCGdex has no scan for it."
+  ],
+  "checked": "2026-08-23",
+  "source": "tcgplayer.com",
+  "shots": {
+    "Abyss Eye|084": {
+      "productId": 695065,
+      "card": "Goldeen",
+      "url": "https://www.tcgplayer.com/product/695065/pokemon-japan-m5-abyss-eye-goldeen-084-081",
+      "why": "ja-abyss-eye carries no scans at all (hasImages: false) and the card is in no English set."
+    },
+    "Abyss Eye|086": {
+      "productId": 695075,
+      "card": "Manectric",
+      "url": "https://www.tcgplayer.com/product/695075/pokemon-japan-m5-abyss-eye-manectric-086-081",
+      "why": "ja-abyss-eye carries no scans at all (hasImages: false)."
+    },
+    "Crown Zenith Galarian Gallery|GG32": {
+      "productId": 478061,
+      "card": "Paras",
+      "url": "https://www.tcgplayer.com/product/478061/pokemon-swsh-crown-zenith-galarian-gallery-paras",
+      "why": "TCGdex holds no images for the Galarian Gallery subset; en/swsh/swsh12.5gg/GG32 404s."
+    },
+    "Mega Brave|074": {
+      "productId": 647183,
+      "card": "Spearow",
+      "url": "https://www.tcgplayer.com/product/647183/pokemon-japan-m1l-mega-brave-spearow-074-063",
+      "why": "ja-mega-brave carries no scans at all (hasImages: false)."
+    },
+    "Nihil Zero|084": {
+      "productId": 674403,
+      "card": "Aurorus",
+      "url": "https://www.tcgplayer.com/product/674403/pokemon-japan-m3-nihil-zero-aurorus-084-080",
+      "why": "ja-nihil-zero carries no scans at all (hasImages: false)."
+    },
+    "Nihil Zero|092": {
+      "productId": 674411,
+      "card": "Raticate",
+      "url": "https://www.tcgplayer.com/product/674411/pokemon-japan-m3-nihil-zero-raticate-092-080",
+      "why": "ja-nihil-zero carries no scans at all (hasImages: false)."
+    },
+    "Nihil Zero|103": {
+      "productId": 674422,
+      "card": "Poke Pad",
+      "url": "https://www.tcgplayer.com/product/674422/pokemon-japan-m3-nihil-zero-poke-pad-103-080",
+      "why": "ja-nihil-zero is one of the six intl guides that carry no scans at all (hasImages: false)."
+    },
+    "SVP Black Star Promos|208": {
+      "productId": 646169,
+      "card": "Victini",
+      "url": "https://www.tcgplayer.com/product/646169/pokemon-sv-scarlet-and-violet-promo-cards-victini-208",
+      "why": "TCGdex lists the printing with no image attached; en/sv/svp/208 404s."
+    },
+    "Silver Tempest Trainer Gallery|TG18": {
+      "productId": 452032,
+      "card": "Corviknight V",
+      "url": "https://www.tcgplayer.com/product/452032/pokemon-swsh12-silver-tempest-trainer-gallery-corviknight-v",
+      "why": "TCGdex holds no images for the Trainer Gallery subset; en/swsh/swsh12tg/TG18 404s."
+    }
+  }
+}
