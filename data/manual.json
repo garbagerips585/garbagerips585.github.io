@@ -5141,6 +5141,7 @@
     "setsPacks": "Surging Sparks - 2 Packs ; Twilight Masquerade - 2 Packs",
     "openingType": "ex Box",
     "packNumber": 1,
+    "hasHit": true,
     "hitCard": "Surging Sparks - Palossand ex - Double Black Star - Double Rare ; Twilight Masquerade - Bloodmoon Ursaluna ex - Double Black Star - Double Rare",
     "hits": [
       {
