@@ -69,81 +69,18 @@
     "field and NOT on the card name, because a bare \"Rowlet\" on some other rip",
     "is a different card; see that module for the rest of the reasoning."
   ],
-  "source": "workbook My Hits tab",
-  "checked": "2026-08-13",
+  "source": "My Hits tab",
+  "checked": "2026-08-23",
   "videos": {
     "kj7532tb0_I": [
-      {
-        "card": "Dawn",
-        "set": "phantasmal-flames",
-        "setName": "Phantasmal Flames",
-        "rarity": "Ultra Rare"
-      },
-      {
-        "card": "Mega Gengar ex",
-        "set": "phantasmal-flames",
-        "setName": "Phantasmal Flames",
-        "rarity": "Double Rare"
-      },
       {
         "card": "Mega Gardevoir ex",
         "set": "mega-evolution",
         "setName": "Mega Evolution",
-        "rarity": "Ultra Rare"
-      },
-      {
-        "card": "Mega Venusaur ex",
-        "set": "mega-evolution",
-        "setName": "Mega Evolution",
-        "rarity": "Double Rare"
-      },
-      {
-        "card": "Marshadow",
-        "set": "mega-evolution",
-        "setName": "Mega Evolution",
-        "rarity": "Illustration Rare"
-      },
-      {
-        "card": "Cetitan ex",
-        "set": "destined-rivals",
-        "setName": "Destined Rivals",
-        "rarity": "Double Rare"
-      },
-      {
-        "card": "Rotom",
-        "set": "destined-rivals",
-        "setName": "Destined Rivals",
-        "rarity": "Illustration Rare"
-      },
-      {
-        "card": "Noibat",
-        "set": "journey-together",
-        "setName": "Journey Together",
-        "rarity": "Illustration Rare"
-      },
-      {
-        "card": "Brock's Scouting",
-        "set": "journey-together",
-        "setName": "Journey Together",
-        "rarity": "Ultra Rare"
-      },
-      {
-        "card": "Blaziken ex",
-        "set": "journey-together",
-        "setName": "Journey Together",
-        "rarity": "Double Rare"
-      },
-      {
-        "card": "Scramble Switch",
-        "set": "surging-sparks",
-        "setName": "Surging Sparks",
-        "rarity": "ACE SPEC Rare"
-      },
-      {
-        "card": "Cyrano",
-        "set": "surging-sparks",
-        "setName": "Surging Sparks",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "187",
+        "rawNm": 203.42,
+        "hallOfFame": false
       },
       {
         "card": "Mega Charizard X ex",
@@ -157,7 +94,17 @@
         "priceAsOf": "2026-08-13",
         "priceUrl": "https://www.pricecharting.com/game/pokemon-promo/mega-charizard-x-ex-23",
         "img": "https://assets.tcgdex.net/en/me/mep/023",
-        "forSet": "phantasmal-flames"
+        "forSet": "phantasmal-flames",
+        "hallOfFame": false
+      },
+      {
+        "card": "Mega Venusaur ex",
+        "set": "mega-evolution",
+        "setName": "Mega Evolution",
+        "rarity": "Double Rare",
+        "number": "177",
+        "rawNm": 145.14,
+        "hallOfFame": false
       },
       {
         "card": "Oricorio ex",
@@ -171,27 +118,127 @@
         "priceAsOf": "2026-08-13",
         "priceUrl": "https://www.pricecharting.com/game/pokemon-promo/oricorio-ex-24",
         "img": "https://assets.tcgdex.net/en/me/mep/024",
-        "forSet": "phantasmal-flames"
+        "forSet": "phantasmal-flames",
+        "hallOfFame": false
+      },
+      {
+        "card": "Dawn",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames",
+        "rarity": "Ultra Rare",
+        "number": "129",
+        "rawNm": 22,
+        "hallOfFame": false
+      },
+      {
+        "card": "Marshadow",
+        "set": "mega-evolution",
+        "setName": "Mega Evolution",
+        "rarity": "Illustration Rare",
+        "number": "146",
+        "rawNm": 13.65,
+        "hallOfFame": false
+      },
+      {
+        "card": "Noibat",
+        "set": "journey-together",
+        "setName": "Journey Together",
+        "rarity": "Illustration Rare",
+        "number": "169",
+        "rawNm": 5.71,
+        "hallOfFame": false
+      },
+      {
+        "card": "Rotom",
+        "set": "destined-rivals",
+        "setName": "Destined Rivals",
+        "rarity": "Illustration Rare",
+        "number": "197",
+        "rawNm": 3.91,
+        "hallOfFame": false
+      },
+      {
+        "card": "Mega Gengar ex",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames",
+        "rarity": "Double Rare",
+        "number": "056",
+        "rawNm": 3.76,
+        "hallOfFame": false
+      },
+      {
+        "card": "Cyrano",
+        "set": "surging-sparks",
+        "setName": "Surging Sparks",
+        "rarity": "Ultra Rare",
+        "number": "230",
+        "rawNm": 2.25,
+        "hallOfFame": false
+      },
+      {
+        "card": "Brock's Scouting",
+        "set": "journey-together",
+        "setName": "Journey Together",
+        "rarity": "Ultra Rare",
+        "number": "179",
+        "rawNm": 2.07,
+        "hallOfFame": false
+      },
+      {
+        "card": "Cetitan ex",
+        "set": "destined-rivals",
+        "setName": "Destined Rivals",
+        "rarity": "Double Rare",
+        "number": "210",
+        "rawNm": 1.99,
+        "hallOfFame": false
+      },
+      {
+        "card": "Blaziken ex",
+        "set": "journey-together",
+        "setName": "Journey Together",
+        "rarity": "Double Rare",
+        "number": "024",
+        "rawNm": 1.99,
+        "hallOfFame": false
+      },
+      {
+        "card": "Scramble Switch",
+        "set": "surging-sparks",
+        "setName": "Surging Sparks",
+        "rarity": "ACE SPEC Rare",
+        "number": "186",
+        "rawNm": 1,
+        "hallOfFame": false
       }
     ],
     "TN7_ZsuRQSI": [
       {
+        "card": "Wailord",
+        "set": "journey-together",
+        "setName": "Journey Together",
+        "rarity": "Illustration Rare",
+        "number": "162",
+        "rawNm": 15.5,
+        "hallOfFame": false
+      },
+      {
         "card": "Stufful",
         "set": "mega-evolution",
         "setName": "Mega Evolution",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "154",
+        "rawNm": 6.89,
+        "hallOfFame": false
       },
       {
         "card": "Marnie's Grimmsnarl ex",
         "set": "destined-rivals",
         "setName": "Destined Rivals",
-        "rarity": "Double Rare"
-      },
-      {
-        "card": "Wailord",
-        "set": "journey-together",
-        "setName": "Journey Together",
-        "rarity": "Illustration Rare"
+        "rarity": "Double Rare",
+        "number": "136",
+        "rawNm": 1.3,
+        "hallOfFame": false
       }
     ],
     "iIgTusrqVtg": [
@@ -199,7 +246,10 @@
         "card": "Mega Greninja ex",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Mega Hyper Rare"
+        "rarity": "Mega Hyper Rare",
+        "number": "116",
+        "rawNm": 208.26,
+        "hallOfFame": false
       }
     ],
     "O5WscUY7qZI": [
@@ -207,7 +257,10 @@
         "card": "Cinccino ex",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "119",
+        "rawNm": 57.17,
+        "hallOfFame": false
       }
     ],
     "oSPbl9reyIM": [
@@ -215,7 +268,10 @@
         "card": "Rampardos ex",
         "set": "pitch-black",
         "setName": "Pitch Black",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "100",
+        "rawNm": 3.98,
+        "hallOfFame": false
       }
     ],
     "LmdyCAqDodM": [
@@ -223,7 +279,10 @@
         "card": "Bastiodon",
         "set": "pitch-black",
         "setName": "Pitch Black",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "093",
+        "rawNm": 2.81,
+        "hallOfFame": false
       }
     ],
     "k6p_6HEntYw": [
@@ -231,7 +290,10 @@
         "card": "Mega Skarmory ex",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "106",
+        "rawNm": 5.06,
+        "hallOfFame": false
       }
     ],
     "ndzNjhARITQ": [
@@ -239,7 +301,10 @@
         "card": "Toucannon",
         "set": "pitch-black",
         "setName": "Pitch Black",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "094",
+        "rawNm": 4.12,
+        "hallOfFame": false
       }
     ],
     "3pUiN-8XkEk": [
@@ -247,7 +312,10 @@
         "card": "Dawn",
         "set": "phantasmal-flames",
         "setName": "Phantasmal Flames",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "129",
+        "rawNm": 22,
+        "hallOfFame": false
       }
     ],
     "019sIQP5PwA": [
@@ -255,7 +323,10 @@
         "card": "Mega Floette ex",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "117",
+        "rawNm": 32.36,
+        "hallOfFame": false
       }
     ],
     "JfHlnrlX6S0": [
@@ -263,7 +334,10 @@
         "card": "Rampardos ex",
         "set": "pitch-black",
         "setName": "Pitch Black",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "100",
+        "rawNm": 3.98,
+        "hallOfFame": false
       }
     ],
     "R2VxbNMrlXQ": [
@@ -271,7 +345,10 @@
         "card": "Dawn",
         "set": "phantasmal-flames",
         "setName": "Phantasmal Flames",
-        "rarity": "Special Illustration Rare"
+        "rarity": "Special Illustration Rare",
+        "number": "129",
+        "rawNm": 22,
+        "hallOfFame": false
       }
     ],
     "m41IeIUpqRI": [
@@ -279,7 +356,10 @@
         "card": "Mega Starmie ex",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "118",
+        "rawNm": 40.1,
+        "hallOfFame": false
       }
     ],
     "q1WTwiauv3w": [
@@ -287,7 +367,10 @@
         "card": "Mega Chandelure ex",
         "set": "pitch-black",
         "setName": "Pitch Black",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "115",
+        "rawNm": 41.44,
+        "hallOfFame": false
       }
     ],
     "EtFK6nFW6IQ": [
@@ -295,7 +378,10 @@
         "card": "Mega Excadrill ex",
         "set": "pitch-black",
         "setName": "Pitch Black",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "103",
+        "rawNm": 8.12,
+        "hallOfFame": false
       }
     ],
     "z9fpigSEZ3Y": [
@@ -303,7 +389,10 @@
         "card": "Salazzle ex",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "101",
+        "rawNm": 2.07,
+        "hallOfFame": false
       }
     ],
     "3dKWTVbCH3I": [
@@ -311,7 +400,10 @@
         "card": "Stunfisk ex",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "252",
+        "rawNm": 1.88,
+        "hallOfFame": false
       }
     ],
     "hLr5iThoO2k": [
@@ -319,7 +411,10 @@
         "card": "Volcanion ex",
         "set": "journey-together",
         "setName": "Journey Together",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "182",
+        "rawNm": 19.95,
+        "hallOfFame": false
       }
     ],
     "cmV6P3ssh2g": [
@@ -327,7 +422,10 @@
         "card": "Rotom ex",
         "set": "phantasmal-flames",
         "setName": "Phantasmal Flames",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "126",
+        "rawNm": 16.25,
+        "hallOfFame": false
       }
     ],
     "SOCAXif6Mzs": [
@@ -335,7 +433,10 @@
         "card": "Ruffian",
         "set": "journey-together",
         "setName": "Journey Together",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "181",
+        "rawNm": 1,
+        "hallOfFame": false
       }
     ],
     "Prq7KI6j1Vk": [
@@ -343,7 +444,10 @@
         "card": "Mismagius ex",
         "set": "phantasmal-flames",
         "setName": "Phantasmal Flames",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "112",
+        "rawNm": 2.87,
+        "hallOfFame": false
       }
     ],
     "-1fhlQB1okI": [
@@ -351,7 +455,9 @@
         "card": "Incineroar ex",
         "set": "ja-cyber-judge",
         "setName": "Cyber Judge (JP)",
-        "rarity": "Super Rare"
+        "rarity": "Super Rare",
+        "number": "085",
+        "hallOfFame": false
       }
     ],
     "AXOYuKfoBXU": [
@@ -359,7 +465,10 @@
         "card": "Mega Lopunny ex",
         "set": "phantasmal-flames",
         "setName": "Phantasmal Flames",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "128",
+        "rawNm": 17.5,
+        "hallOfFame": false
       }
     ],
     "m9K7hpyjn04": [
@@ -367,7 +476,10 @@
         "card": "Feebas",
         "set": "surging-sparks",
         "setName": "Surging Sparks",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "198",
+        "rawNm": 9.96,
+        "hallOfFame": false
       }
     ],
     "EOFAhFwJKqw": [
@@ -375,19 +487,26 @@
         "card": "Tsareena ex",
         "set": "paradox-rift",
         "setName": "Paradox Rift",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "220",
+        "rawNm": 2.98,
+        "hallOfFame": false
       }
     ],
     "l6RPdGNs7uE": [
       {
-        "card": "Mega Kangaskhan ex",
-        "rarity": "Black Star Promo"
-      },
-      {
         "card": "Spearow",
         "set": "mega-evolution",
         "setName": "Mega Evolution",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "151",
+        "rawNm": 4.55,
+        "hallOfFame": false
+      },
+      {
+        "card": "Mega Kangaskhan ex",
+        "rarity": "Black Star Promo",
+        "hallOfFame": false
       }
     ],
     "GTC45Mri_gc": [
@@ -395,7 +514,10 @@
         "card": "Thievul",
         "set": "pitch-black",
         "setName": "Pitch Black",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "092",
+        "rawNm": 2.69,
+        "hallOfFame": false
       }
     ],
     "pRkDVGXWufQ": [
@@ -403,7 +525,10 @@
         "card": "Chespin",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "087",
+        "rawNm": 4.44,
+        "hallOfFame": false
       }
     ],
     "X0KK70SjzEM": [
@@ -411,7 +536,10 @@
         "card": "Sacred Ash",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "115",
+        "rawNm": 2.76,
+        "hallOfFame": false
       }
     ],
     "O1hNutypTR8": [
@@ -419,7 +547,10 @@
         "card": "Lumiose City",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "111",
+        "rawNm": 2.95,
+        "hallOfFame": false
       }
     ],
     "RP08BTumj2U": [
@@ -427,7 +558,10 @@
         "card": "Ampharos",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "090",
+        "rawNm": 7.77,
+        "hallOfFame": false
       }
     ],
     "nBKJMnw9L2Y": [
@@ -435,7 +569,10 @@
         "card": "Mega Scrafty ex",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "285",
+        "rawNm": 55.5,
+        "hallOfFame": false
       }
     ],
     "9CpAz0MxnTE": [
@@ -443,7 +580,10 @@
         "card": "Energy Recycler",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "108",
+        "rawNm": 2.99,
+        "hallOfFame": false
       }
     ],
     "gFZ_jiV7DEY": [
@@ -451,7 +591,10 @@
         "card": "Team Rocket's Transceiver",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "209",
+        "rawNm": 1.7,
+        "hallOfFame": false
       }
     ],
     "u9zpVOVsWyg": [
@@ -459,7 +602,10 @@
         "card": "Scorbunny",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "225",
+        "rawNm": 8.77,
+        "hallOfFame": false
       }
     ],
     "x3gI4dEKNMs": [
@@ -467,7 +613,10 @@
         "card": "Beedrill ex",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "098",
+        "rawNm": 4.02,
+        "hallOfFame": false
       }
     ],
     "Nqu1vGtbAME": [
@@ -475,7 +624,10 @@
         "card": "Mega Scrafty ex",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "285",
+        "rawNm": 55.5,
+        "hallOfFame": false
       }
     ],
     "rlJDEb0q1d0": [
@@ -483,21 +635,27 @@
         "card": "Chespin",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "087",
+        "rawNm": 4.44,
+        "hallOfFame": false
       }
     ],
     "M7NqqhR8V4M": [
       {
         "card": "Rowlet",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos",
+        "hallOfFame": false
       },
       {
         "card": "Litten",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos",
+        "hallOfFame": false
       },
       {
         "card": "Popplio",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos",
+        "hallOfFame": false
       }
     ],
     "lrl5v4z317s": [
@@ -505,7 +663,10 @@
         "card": "Shiinotic",
         "set": "surging-sparks",
         "setName": "Surging Sparks",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "194",
+        "rawNm": 4.06,
+        "hallOfFame": false
       }
     ],
     "EJ0AKqX2a_Q": [
@@ -513,7 +674,10 @@
         "card": "Salazzle ex",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "101",
+        "rawNm": 2.07,
+        "hallOfFame": false
       }
     ],
     "msETNgFSWD0": [
@@ -521,27 +685,36 @@
         "card": "Mega Floette ex",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "117",
+        "rawNm": 32.36,
+        "hallOfFame": false
       }
     ],
     "xNGxOuMpSiw": [
       {
-        "card": "Rowlet",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
-      },
-      {
-        "card": "Litten",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
-      },
-      {
-        "card": "Popplio",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
-      },
-      {
         "card": "Punk Helmet",
         "set": "phantasmal-flames",
         "setName": "Phantasmal Flames",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "121",
+        "rawNm": 1.37,
+        "hallOfFame": false
+      },
+      {
+        "card": "Rowlet",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos",
+        "hallOfFame": false
+      },
+      {
+        "card": "Litten",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos",
+        "hallOfFame": false
+      },
+      {
+        "card": "Popplio",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos",
+        "hallOfFame": false
       }
     ],
     "EifpW6bQhPE": [
@@ -549,7 +722,10 @@
         "card": "Mega Dragalge ex",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "118",
+        "rawNm": 38.77,
+        "hallOfFame": false
       }
     ],
     "6bMl7VF_ov0": [
@@ -557,7 +733,10 @@
         "card": "Dedenne",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "093",
+        "rawNm": 5.68,
+        "hallOfFame": false
       }
     ],
     "HHjdWa5tfXY": [
@@ -565,7 +744,10 @@
         "card": "Xerneas",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "091",
+        "rawNm": 9.9,
+        "hallOfFame": false
       }
     ],
     "w3dQBhumsug": [
@@ -573,7 +755,10 @@
         "card": "Larry's Dudunsparce ex",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "164",
+        "rawNm": 1.27,
+        "hallOfFame": false
       }
     ],
     "Mhz1-_ppwJA": [
@@ -581,7 +766,10 @@
         "card": "Krookodile ex",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "055",
+        "rawNm": 1.19,
+        "hallOfFame": false
       }
     ],
     "n4iGQVPBtfE": [
@@ -589,7 +777,10 @@
         "card": "Larry's Dudunsparce ex",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "164",
+        "rawNm": 1.27,
+        "hallOfFame": false
       }
     ],
     "qKiLbaLhdp8": [
@@ -597,7 +788,10 @@
         "card": "Slurpuff",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "236",
+        "rawNm": 8.22,
+        "hallOfFame": false
       }
     ],
     "QKYrh9l8BYA": [
@@ -605,7 +799,10 @@
         "card": "Mega Greninja ex",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "116",
+        "rawNm": 208.26,
+        "hallOfFame": false
       }
     ],
     "hOBpKIl2lX4": [
@@ -613,7 +810,10 @@
         "card": "Mega Hawlucha ex",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "283",
+        "rawNm": 56.25,
+        "hallOfFame": false
       }
     ],
     "4gBo585VhEI": [
@@ -621,7 +821,10 @@
         "card": "Cobalion ex",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "103",
+        "rawNm": 2.5,
+        "hallOfFame": false
       }
     ],
     "bpm7cSVXNiM": [
@@ -629,7 +832,10 @@
         "card": "Chespin",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "087",
+        "rawNm": 4.44,
+        "hallOfFame": false
       }
     ],
     "sS0fvyss7IM": [
@@ -637,7 +843,10 @@
         "card": "Mega Clefable ex",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "119",
+        "rawNm": 55,
+        "hallOfFame": false
       }
     ],
     "_3gRDHTv1lQ": [
@@ -645,7 +854,10 @@
         "card": "Mega Skarmory ex",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "106",
+        "rawNm": 5.06,
+        "hallOfFame": false
       }
     ],
     "XjM6y2L7v1c": [
@@ -653,7 +865,9 @@
         "card": "Goldeen",
         "set": "ja-abyss-eye",
         "setName": "Abyss Eye (JP)",
-        "rarity": "Art Rare"
+        "rarity": "Art Rare",
+        "number": "084",
+        "hallOfFame": false
       }
     ],
     "0vpWimyqJIE": [
@@ -661,7 +875,9 @@
         "card": "Manectric",
         "set": "ja-abyss-eye",
         "setName": "Abyss Eye (JP)",
-        "rarity": "Art Rare"
+        "rarity": "Art Rare",
+        "number": "086",
+        "hallOfFame": false
       }
     ],
     "udV4EBssAj0": [
@@ -669,7 +885,10 @@
         "card": "Mega Greninja ex",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "116",
+        "rawNm": 208.26,
+        "hallOfFame": false
       }
     ],
     "lcxUwIjlqZY": [
@@ -677,7 +896,10 @@
         "card": "Meowth ex",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "121",
+        "rawNm": 126.17,
+        "hallOfFame": false
       }
     ],
     "BiBdyozoD_Q": [
@@ -685,7 +907,10 @@
         "card": "Mega Pyroar ex",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "099",
+        "rawNm": 3.51,
+        "hallOfFame": false
       }
     ],
     "l_vpvsLXG50": [
@@ -693,7 +918,10 @@
         "card": "Doublade",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "098",
+        "rawNm": 2.67,
+        "hallOfFame": false
       }
     ],
     "qUzKnP4zmjM": [
@@ -701,7 +929,10 @@
         "card": "Decidueye ex",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "100",
+        "rawNm": 2.45,
+        "hallOfFame": false
       }
     ],
     "vW8lkXEx3Ao": [
@@ -709,7 +940,10 @@
         "card": "Iono's Bellibolt ex",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "279",
+        "rawNm": 60.13,
+        "hallOfFame": false
       }
     ],
     "16GEn7wSyuk": [
@@ -717,7 +951,10 @@
         "card": "Mega Floette ex",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "117",
+        "rawNm": 32.36,
+        "hallOfFame": false
       }
     ],
     "wtUPdMnZ_S8": [
@@ -725,7 +962,10 @@
         "card": "Decidueye ex",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "100",
+        "rawNm": 2.45,
+        "hallOfFame": false
       }
     ],
     "Y6rNMk6_kFs": [
@@ -733,7 +973,10 @@
         "card": "Mega Zygarde ex",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "124",
+        "rawNm": 126.56,
+        "hallOfFame": false
       }
     ],
     "jAkffPVM-JA": [
@@ -741,7 +984,10 @@
         "card": "Mega Eelektross ex",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "278",
+        "rawNm": 38.69,
+        "hallOfFame": false
       }
     ],
     "c-5u5X8BT_Y": [
@@ -749,7 +995,10 @@
         "card": "Beedrill ex",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "098",
+        "rawNm": 4.02,
+        "hallOfFame": false
       }
     ],
     "W2eIV9tya84": [
@@ -757,7 +1006,10 @@
         "card": "Vikavolt",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "230",
+        "rawNm": 3.62,
+        "hallOfFame": false
       }
     ],
     "hbUa4l-xono": [
@@ -765,7 +1017,10 @@
         "card": "Team Rocket's Raticate",
         "set": "destined-rivals",
         "setName": "Destined Rivals",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "202",
+        "rawNm": 6.68,
+        "hallOfFame": false
       }
     ],
     "Q26NJsmeVko": [
@@ -773,7 +1028,10 @@
         "card": "Tyranitar ex",
         "set": "prismatic-evolutions",
         "setName": "Prismatic Evolutions",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "064",
+        "rawNm": 1.28,
+        "hallOfFame": false
       }
     ],
     "h5mje3jbD48": [
@@ -781,7 +1039,10 @@
         "card": "Wailord ex",
         "set": "pitch-black",
         "setName": "Pitch Black",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "097",
+        "rawNm": 4.99,
+        "hallOfFame": false
       }
     ],
     "CP7sMGF3p3M": [
@@ -789,7 +1050,10 @@
         "card": "Brock's Scouting",
         "set": "journey-together",
         "setName": "Journey Together",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "179",
+        "rawNm": 2.07,
+        "hallOfFame": false
       }
     ],
     "25YT9cNRpqk": [
@@ -797,7 +1061,10 @@
         "card": "Ethan's Ho-Oh ex",
         "set": "destined-rivals",
         "setName": "Destined Rivals",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "230",
+        "rawNm": 150,
+        "hallOfFame": false
       }
     ],
     "HS0sPhhG3jo": [
@@ -805,7 +1072,10 @@
         "card": "Cobalion ex",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "103",
+        "rawNm": 2.5,
+        "hallOfFame": false
       }
     ],
     "h1vqc-37k_8": [
@@ -813,7 +1083,10 @@
         "card": "Watchog",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "097",
+        "rawNm": 2.62,
+        "hallOfFame": false
       }
     ],
     "JM8wHAH8FEw": [
@@ -821,7 +1094,10 @@
         "card": "Mega Pyroar ex",
         "set": "chaos-rising",
         "setName": "Chaos Rising",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "099",
+        "rawNm": 3.51,
+        "hallOfFame": false
       }
     ],
     "t_okfWNQ4BQ": [
@@ -829,7 +1105,10 @@
         "card": "Friends In Paldea",
         "set": "prismatic-evolutions",
         "setName": "Prismatic Evolutions",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "137",
+        "rawNm": 1.56,
+        "hallOfFame": false
       }
     ],
     "1zqH_hRYFvo": [
@@ -837,7 +1116,10 @@
         "card": "Crustle",
         "set": "destined-rivals",
         "setName": "Destined Rivals",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "186",
+        "rawNm": 3.3,
+        "hallOfFame": false
       }
     ],
     "yJujjKbIVFg": [
@@ -845,7 +1127,9 @@
         "card": "Crabominable",
         "set": "ja-stellar-miracle",
         "setName": "Stellar Miracle (JP)",
-        "rarity": "Art Rare"
+        "rarity": "Art Rare",
+        "number": "107",
+        "hallOfFame": false
       }
     ],
     "vZT6BI7EcQM": [
@@ -853,7 +1137,10 @@
         "card": "Meowth ex",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "121",
+        "rawNm": 126.17,
+        "hallOfFame": false
       }
     ],
     "VjhleCTxCDA": [
@@ -861,7 +1148,10 @@
         "card": "Walking Wake ex",
         "set": "prismatic-evolutions",
         "setName": "Prismatic Evolutions",
-        "rarity": "Hyper Rare"
+        "rarity": "Hyper Rare",
+        "number": "178",
+        "rawNm": 7.17,
+        "hallOfFame": false
       }
     ],
     "76YEF7mdqvk": [
@@ -869,7 +1159,10 @@
         "card": "Mamoswine ex",
         "set": "journey-together",
         "setName": "Journey Together",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "174",
+        "rawNm": 1.5,
+        "hallOfFame": false
       }
     ],
     "auKzs0g2LL8": [
@@ -877,13 +1170,17 @@
         "card": "Mega Abomasnow ex",
         "set": "ja-mega-symphonia",
         "setName": "Mega Symphonia (JP)",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "076",
+        "hallOfFame": false
       },
       {
         "card": "Rare Candy",
         "set": "ja-mega-symphonia",
         "setName": "Mega Symphonia (JP)",
-        "rarity": "Super Rare"
+        "rarity": "Super Rare",
+        "number": "082",
+        "hallOfFame": false
       }
     ],
     "8d2a5b_BmYQ": [
@@ -891,7 +1188,10 @@
         "card": "Larry's Staraptor",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "249",
+        "rawNm": 4.79,
+        "hallOfFame": false
       }
     ],
     "uGRqBM2AOag": [
@@ -899,7 +1199,10 @@
         "card": "Swinub",
         "set": "journey-together",
         "setName": "Journey Together",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "165",
+        "rawNm": 3,
+        "hallOfFame": false
       }
     ],
     "LFpa9K2DA6Q": [
@@ -907,7 +1210,10 @@
         "card": "Cornerstone Mask Ogerpon ex",
         "set": "prismatic-evolutions",
         "setName": "Prismatic Evolutions",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "160",
+        "rawNm": 14.9,
+        "hallOfFame": false
       }
     ],
     "bh8OGK_jE2Y": [
@@ -915,13 +1221,17 @@
         "card": "Meditite",
         "set": "ja-stellar-miracle",
         "setName": "Stellar Miracle (JP)",
-        "rarity": "Art Rare"
+        "rarity": "Art Rare",
+        "number": "111",
+        "hallOfFame": false
       },
       {
         "card": "Raboot",
         "set": "ja-stellar-miracle",
         "setName": "Stellar Miracle (JP)",
-        "rarity": "Art Rare"
+        "rarity": "Art Rare",
+        "number": "106",
+        "hallOfFame": false
       }
     ],
     "gq4wUMrTrB0": [
@@ -929,7 +1239,10 @@
         "card": "Team Rocket's Crobat ex",
         "set": "destined-rivals",
         "setName": "Destined Rivals",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "234",
+        "rawNm": 60.86,
+        "hallOfFame": false
       }
     ],
     "uyiszkVXiUQ": [
@@ -937,7 +1250,10 @@
         "card": "Mega Clefable ex",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "119",
+        "rawNm": 55,
+        "hallOfFame": false
       }
     ],
     "GK_IadR7G1g": [
@@ -945,7 +1261,8 @@
         "card": "Team Rocket’s Mewtwo ex",
         "set": "destined-rivals",
         "setName": "Destined Rivals",
-        "rarity": "Hyper Rare"
+        "rarity": "Hyper Rare",
+        "hallOfFame": false
       }
     ],
     "DMJYnQE8shY": [
@@ -953,7 +1270,10 @@
         "card": "Mega Clefable ex",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "119",
+        "rawNm": 55,
+        "hallOfFame": false
       }
     ],
     "d0ux4nsMixw": [
@@ -961,7 +1281,10 @@
         "card": "Probopass",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "096",
+        "rawNm": 1.29,
+        "hallOfFame": false
       }
     ],
     "PvitecaJjAc": [
@@ -969,7 +1292,10 @@
         "card": "Larry's Dudunsparce ex",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "164",
+        "rawNm": 1.27,
+        "hallOfFame": false
       }
     ],
     "oAdG2xms9Ko": [
@@ -977,7 +1303,10 @@
         "card": "Aurorus",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "092",
+        "rawNm": 3.24,
+        "hallOfFame": false
       }
     ],
     "tTxItGrPfUw": [
@@ -985,7 +1314,10 @@
         "card": "Mega Starmie ex",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "118",
+        "rawNm": 40.1,
+        "hallOfFame": false
       }
     ],
     "GroN9k8XsN0": [
@@ -993,7 +1325,10 @@
         "card": "Terapagos ex",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "179",
+        "rawNm": 1.67,
+        "hallOfFame": false
       }
     ],
     "rMMOuM8bsqE": [
@@ -1001,7 +1336,10 @@
         "card": "Terapagos ex",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "179",
+        "rawNm": 1.67,
+        "hallOfFame": false
       }
     ],
     "EPqUqzrAc30": [
@@ -1009,7 +1347,8 @@
         "card": "Poké Pad",
         "set": "ja-nihil-zero",
         "setName": "Nihil Zero (JP)",
-        "rarity": "Super Rare"
+        "rarity": "Super Rare",
+        "hallOfFame": false
       }
     ],
     "vHvWDOPoxjo": [
@@ -1017,7 +1356,10 @@
         "card": "Marnie's Grimmsnarl ex",
         "set": "destined-rivals",
         "setName": "Destined Rivals",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "136",
+        "rawNm": 1.3,
+        "hallOfFame": false
       }
     ],
     "QXS1W_L2qbs": [
@@ -1025,6 +1367,12 @@
         "card": "Bidoof",
         "set": "pokemon-go",
         "setName": "Pokémon GO"
+      },
+      {
+        "card": "Bidoof PEELABLE DITTO 059/078 Reverse Holo",
+        "set": "pokemon-go",
+        "setName": "Pokémon GO",
+        "hallOfFame": false
       }
     ],
     "sdZx0lmq2mQ": [
@@ -1033,6 +1381,12 @@
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
         "rarity": "Ultra Rare"
+      },
+      {
+        "card": "Mega Froslass ex Pink and Green Star Mega Attack Rare",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes",
+        "hallOfFame": false
       }
     ],
     "KEK0q0PgN_I": [
@@ -1040,7 +1394,10 @@
         "card": "Mega Lopunny ex",
         "set": "phantasmal-flames",
         "setName": "Phantasmal Flames",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "128",
+        "rawNm": 17.5,
+        "hallOfFame": false
       }
     ],
     "wBIeB-63sKw": [
@@ -1048,38 +1405,54 @@
         "card": "Lugia ex",
         "set": "prismatic-evolutions",
         "setName": "Prismatic Evolutions",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "082",
+        "rawNm": 1.99,
+        "hallOfFame": false
       }
     ],
     "XjFoToaom6k": [
       {
-        "card": "Victini",
-        "set": "scarlet-violet-black-star-promos",
-        "setName": "Scarlet & Violet Black Star Promos"
+        "card": "Excadrill ex",
+        "set": "black-bolt",
+        "setName": "Black Bolt",
+        "rarity": "Double Rare",
+        "number": "168",
+        "rawNm": 22.69,
+        "hallOfFame": false
       },
       {
         "card": "Servine",
         "set": "black-bolt",
         "setName": "Black Bolt",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "088",
+        "rawNm": 18.12,
+        "hallOfFame": false
       },
       {
         "card": "Musharna",
         "set": "black-bolt",
         "setName": "Black Bolt",
-        "rarity": "Illustration Rare"
-      },
-      {
-        "card": "Excadrill ex",
-        "set": "black-bolt",
-        "setName": "Black Bolt",
-        "rarity": "Double Rare"
+        "rarity": "Illustration Rare",
+        "number": "117",
+        "rawNm": 12.17,
+        "hallOfFame": false
       },
       {
         "card": "Mienshao",
         "set": "white-flare",
         "setName": "White Flare",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "134",
+        "rawNm": 9.78,
+        "hallOfFame": false
+      },
+      {
+        "card": "Victini",
+        "set": "scarlet-violet-black-star-promos",
+        "setName": "Scarlet & Violet Black Star Promos",
+        "hallOfFame": false
       }
     ],
     "LGzHC-k4vh0": [
@@ -1087,7 +1460,10 @@
         "card": "Lillie's Clefairy ex",
         "set": "journey-together",
         "setName": "Journey Together",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "184",
+        "rawNm": 97.23,
+        "hallOfFame": false
       }
     ],
     "8SX0B-7WM8A": [
@@ -1095,7 +1471,10 @@
         "card": "Teal Mask Ogerpon ex",
         "set": "prismatic-evolutions",
         "setName": "Prismatic Evolutions",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "145",
+        "rawNm": 19.99,
+        "hallOfFame": false
       }
     ],
     "J0Gy0iIz3ok": [
@@ -1103,7 +1482,10 @@
         "card": "Excadrill ex",
         "set": "black-bolt",
         "setName": "Black Bolt",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "168",
+        "rawNm": 22.69,
+        "hallOfFame": false
       }
     ],
     "HbSOpODafEw": [
@@ -1111,7 +1493,10 @@
         "card": "Stunfisk ex",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "252",
+        "rawNm": 1.88,
+        "hallOfFame": false
       }
     ],
     "NzWUDxXwnPI": [
@@ -1119,13 +1504,17 @@
         "card": "Raticate",
         "set": "ja-nihil-zero",
         "setName": "Nihil Zero (JP)",
-        "rarity": "Art Rare"
+        "rarity": "Art Rare",
+        "number": "092",
+        "hallOfFame": false
       },
       {
         "card": "Aurorus",
         "set": "ja-nihil-zero",
         "setName": "Nihil Zero (JP)",
-        "rarity": "Art Rare"
+        "rarity": "Art Rare",
+        "number": "084",
+        "hallOfFame": false
       }
     ],
     "dQaN_4yqS0w": [
@@ -1133,7 +1522,10 @@
         "card": "Acerola's Mischief",
         "set": "mega-evolution",
         "setName": "Mega Evolution",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "183",
+        "rawNm": 32.2,
+        "hallOfFame": false
       }
     ],
     "7PBrXPgt9kU": [
@@ -1141,7 +1533,10 @@
         "card": "Mega Starmie ex",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "118",
+        "rawNm": 40.1,
+        "hallOfFame": false
       }
     ],
     "S_2SHhBqlH8": [
@@ -1149,31 +1544,38 @@
         "card": "Nymble",
         "set": "phantasmal-flames",
         "setName": "Phantasmal Flames",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "096",
+        "rawNm": 1.58,
+        "hallOfFame": false
       }
     ],
     "cg0H0ipfB90": [
       {
         "card": "Corviknight V Trainer Gallery",
         "set": "silver-tempest",
-        "setName": "Silver Tempest"
+        "setName": "Silver Tempest",
+        "hallOfFame": false
       },
       {
         "card": "Reshiram V",
         "set": "silver-tempest",
-        "setName": "Silver Tempest"
+        "setName": "Silver Tempest",
+        "hallOfFame": false
       },
       {
         "card": "Galarian Perrserker V",
         "set": "lost-origin",
-        "setName": "Lost Origin"
+        "setName": "Lost Origin",
+        "hallOfFame": false
       }
     ],
     "U91JWMsUHAU": [
       {
         "card": "Paras Galarian Gallery",
         "set": "crown-zenith",
-        "setName": "Crown Zenith"
+        "setName": "Crown Zenith",
+        "hallOfFame": false
       }
     ],
     "VP1UXW3MrGU": [
@@ -1181,27 +1583,36 @@
         "card": "Iono's Bellibolt ex",
         "set": "journey-together",
         "setName": "Journey Together",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "183",
+        "rawNm": 34.64,
+        "hallOfFame": false
       }
     ],
     "JjTm-bYLhGE": [
       {
-        "card": "Turtwig",
-        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos"
-      },
-      {
-        "card": "Chimchar",
-        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos"
-      },
-      {
-        "card": "Piplup",
-        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos"
-      },
-      {
         "card": "Mismagius ex",
         "set": "phantasmal-flames",
         "setName": "Phantasmal Flames",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "112",
+        "rawNm": 2.87,
+        "hallOfFame": false
+      },
+      {
+        "card": "Turtwig",
+        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos",
+        "hallOfFame": false
+      },
+      {
+        "card": "Chimchar",
+        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos",
+        "hallOfFame": false
+      },
+      {
+        "card": "Piplup",
+        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos",
+        "hallOfFame": false
       }
     ],
     "K5RKQlNhvl8": [
@@ -1209,7 +1620,9 @@
         "card": "Spearow",
         "set": "ja-mega-brave",
         "setName": "Mega Brave (JP)",
-        "rarity": "Art Rare"
+        "rarity": "Art Rare",
+        "number": "074",
+        "hallOfFame": false
       }
     ],
     "6sg185zTjM4": [
@@ -1217,7 +1630,10 @@
         "card": "Decidueye ex",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "100",
+        "rawNm": 2.45,
+        "hallOfFame": false
       }
     ],
     "J-Gqbe3jPn4": [
@@ -1225,7 +1641,10 @@
         "card": "Fighting Energy",
         "set": "chilling-reign",
         "setName": "Chilling Reign",
-        "rarity": "Secret Rare"
+        "rarity": "Secret Rare",
+        "number": "233",
+        "rawNm": 12.93,
+        "hallOfFame": false
       }
     ],
     "yMTuhasZsZ4": [
@@ -1233,68 +1652,104 @@
         "card": "Volcanion ex",
         "set": "journey-together",
         "setName": "Journey Together",
-        "rarity": "Special Illustration Rare"
+        "rarity": "Special Illustration Rare",
+        "number": "182",
+        "rawNm": 19.95,
+        "hallOfFame": false
       }
     ],
     "4z82NZ7QCJY": [
       {
-        "card": "Rowlet",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
-      },
-      {
-        "card": "Litten",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
-      },
-      {
-        "card": "Popplio",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
-      },
-      {
         "card": "Mega Venusaur ex",
         "set": "mega-evolution",
         "setName": "Mega Evolution",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "177",
+        "rawNm": 145.14,
+        "hallOfFame": false
       },
       {
         "card": "Empoleon ex",
         "set": "phantasmal-flames",
         "setName": "Phantasmal Flames",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "114",
+        "rawNm": 2.08,
+        "hallOfFame": false
+      },
+      {
+        "card": "Rowlet",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos",
+        "hallOfFame": false
+      },
+      {
+        "card": "Litten",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos",
+        "hallOfFame": false
+      },
+      {
+        "card": "Popplio",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos",
+        "hallOfFame": false
       }
     ],
     "nCIpRxwMMBE": [
       {
         "card": "Cinderace V Max",
         "set": "rebel-clash",
-        "setName": "Rebel Clash"
+        "setName": "Rebel Clash",
+        "number": "036",
+        "rarity": "Holo Rare VMAX",
+        "hallOfFame": false
+      },
+      {
+        "card": "Cinderace VMAX",
+        "set": "rebel-clash",
+        "setName": "Rebel Clash",
+        "number": "036",
+        "rarity": "Holo Rare VMAX",
+        "rawNm": 18.1,
+        "hallOfFame": false
       }
     ],
     "fZk7D5Wd0Eg": [
       {
-        "card": "Anthea & Concordia",
-        "set": "ascended-heroes",
-        "setName": "Ascended Heroes",
-        "rarity": "Ultra Rare"
-      },
-      {
         "card": "Togekiss",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "235",
+        "rawNm": 6.27,
+        "hallOfFame": false
+      },
+      {
+        "card": "Anthea & Concordia",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes",
+        "rarity": "Ultra Rare",
+        "number": "182",
+        "rawNm": 1.59,
+        "hallOfFame": false
       }
     ],
     "ac3pK3zh0DE": [
       {
-        "card": "Palossand ex",
-        "set": "surging-sparks",
-        "setName": "Surging Sparks",
-        "rarity": "Double Rare"
-      },
-      {
         "card": "Bloodmoon Ursaluna ex",
         "set": "twilight-masquerade",
         "setName": "Twilight Masquerade",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "216",
+        "rawNm": 47,
+        "hallOfFame": false
+      },
+      {
+        "card": "Palossand ex",
+        "set": "surging-sparks",
+        "setName": "Surging Sparks",
+        "rarity": "Double Rare",
+        "number": "221",
+        "rawNm": 1.99,
+        "hallOfFame": false
       }
     ],
     "i9htInhtbCw": [
@@ -1302,62 +1757,86 @@
         "card": "Egg Incubator",
         "set": "pokemon-go",
         "setName": "Pokémon GO",
-        "rarity": "Secret Rare"
+        "rarity": "Secret Rare",
+        "number": "087",
+        "rawNm": 3.51,
+        "hallOfFame": false
       }
     ],
     "-fOEh7wMmkE": [
       {
-        "card": "Larry's Dudunsparce ex",
-        "set": "ascended-heroes",
-        "setName": "Ascended Heroes",
-        "rarity": "Double Rare"
-      },
-      {
         "card": "Dragapult ex",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "160",
+        "rawNm": 1.76,
+        "hallOfFame": false
+      },
+      {
+        "card": "Larry's Dudunsparce ex",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes",
+        "rarity": "Double Rare",
+        "number": "164",
+        "rawNm": 1.27,
+        "hallOfFame": false
       }
     ],
     "g9RQqx9da6Q": [
       {
-        "card": "Mabosstiff ex",
-        "rarity": "Black Star Promo"
-      },
-      {
         "card": "Golisopod ex",
         "set": "paradox-rift",
         "setName": "Paradox Rift",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "246",
+        "rawNm": 26.57,
+        "hallOfFame": false
+      },
+      {
+        "card": "Mabosstiff ex",
+        "rarity": "Black Star Promo",
+        "hallOfFame": false
       },
       {
         "card": "Alolan Vulpix V",
         "set": "silver-tempest",
-        "setName": "Silver Tempest"
+        "setName": "Silver Tempest",
+        "hallOfFame": false
       }
     ],
     "GLM2VLIWZGo": [
       {
-        "card": "Mega Charizard Y ex",
-        "rarity": "Black Star Promo"
-      },
-      {
         "card": "N's Zoroark ex",
         "set": "journey-together",
         "setName": "Journey Together",
-        "rarity": "Double Rare"
-      },
-      {
-        "card": "Marshadow",
-        "set": "mega-evolution",
-        "setName": "Mega Evolution",
-        "rarity": "Illustration Rare"
+        "rarity": "Double Rare",
+        "number": "185",
+        "rawNm": 42.63,
+        "hallOfFame": false
       },
       {
         "card": "Mega Lopunny ex",
         "set": "phantasmal-flames",
         "setName": "Phantasmal Flames",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "128",
+        "rawNm": 17.5,
+        "hallOfFame": false
+      },
+      {
+        "card": "Marshadow",
+        "set": "mega-evolution",
+        "setName": "Mega Evolution",
+        "rarity": "Illustration Rare",
+        "number": "146",
+        "rawNm": 13.65,
+        "hallOfFame": false
+      },
+      {
+        "card": "Mega Charizard Y ex",
+        "rarity": "Black Star Promo",
+        "hallOfFame": false
       }
     ],
     "LlGPrTKqIYg": [
@@ -1365,13 +1844,19 @@
         "card": "Mega Dragonite ex",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "290",
+        "rawNm": 668.5,
+        "hallOfFame": false
       },
       {
         "card": "Cheren",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "258",
+        "rawNm": 1.08,
+        "hallOfFame": false
       }
     ],
     "VYyrgZDkOFY": [
@@ -1379,7 +1864,10 @@
         "card": "Lapras ex",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "022",
+        "rawNm": 1.04,
+        "hallOfFame": false
       }
     ],
     "igNbRZX5e_0": [
@@ -1387,13 +1875,19 @@
         "card": "Mega Starmie ex",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "118",
+        "rawNm": 40.1,
+        "hallOfFame": false
       },
       {
         "card": "Dedenne",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "093",
+        "rawNm": 5.68,
+        "hallOfFame": false
       }
     ],
     "5BnjVE-BN70": [
@@ -1401,7 +1895,10 @@
         "card": "Radiant Charizard",
         "set": "pokemon-go",
         "setName": "Pokémon GO",
-        "rarity": "Radiant Rare"
+        "rarity": "Radiant Rare",
+        "number": "011",
+        "rawNm": 17.5,
+        "hallOfFame": false
       }
     ],
     "_ccErXVzURs": [
@@ -1409,28 +1906,37 @@
         "card": "Frogadier",
         "set": "ja-ninja-spinner",
         "setName": "Ninja Spinner (JP)",
-        "rarity": "Art Rare"
+        "rarity": "Art Rare",
+        "number": "087",
+        "hallOfFame": false
       }
     ],
     "gSygkzEehmU": [
       {
         "card": "Mewtwo V",
         "set": "pokemon-go",
-        "setName": "Pokémon GO"
+        "setName": "Pokémon GO",
+        "number": "030",
+        "rarity": "Holo Rare V",
+        "rawNm": 60,
+        "hallOfFame": false
       }
     ],
     "C4mvo_Justc": [
       {
         "card": "Turtwig",
-        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos"
+        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos",
+        "hallOfFame": false
       },
       {
         "card": "Chimchar",
-        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos"
+        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos",
+        "hallOfFame": false
       },
       {
         "card": "Piplup",
-        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos"
+        "printing": "First Partner Illustration Collection (Series 1) Sinnoh Region Promos",
+        "hallOfFame": false
       }
     ],
     "qlu2os83uos": [
@@ -1438,7 +1944,10 @@
         "card": "Premium Power Pro",
         "set": "mega-evolution",
         "setName": "Mega Evolution",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "174",
+        "rawNm": 2.45,
+        "hallOfFame": false
       }
     ],
     "mDDuc-YDvbw": [
@@ -1446,41 +1955,58 @@
         "card": "Mega Clefable ex",
         "set": "perfect-order",
         "setName": "Perfect Order",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "119",
+        "rawNm": 55,
+        "hallOfFame": false
       }
     ],
     "JVrd7EVB2_8": [
       {
-        "card": "Rowlet",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
-      },
-      {
-        "card": "Litten",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
-      },
-      {
-        "card": "Popplio",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos"
-      },
-      {
         "card": "Dewgong",
         "set": "phantasmal-flames",
         "setName": "Phantasmal Flames",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "097",
+        "rawNm": 5,
+        "hallOfFame": false
+      },
+      {
+        "card": "Rowlet",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos",
+        "hallOfFame": false
+      },
+      {
+        "card": "Litten",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos",
+        "hallOfFame": false
+      },
+      {
+        "card": "Popplio",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promos",
+        "hallOfFame": false
       }
     ],
     "yjBNG5dvopc": [
       {
         "card": "Melmetal V",
         "set": "pokemon-go",
-        "setName": "Pokémon GO"
+        "setName": "Pokémon GO",
+        "number": "047",
+        "rarity": "Holo Rare V",
+        "rawNm": 1.74,
+        "hallOfFame": false
       }
     ],
     "tKOXv-qSYTo": [
       {
         "card": "Dragonite V",
         "set": "pokemon-go",
-        "setName": "Pokémon GO"
+        "setName": "Pokémon GO",
+        "number": "049",
+        "rarity": "Holo Rare V",
+        "rawNm": 13.58,
+        "hallOfFame": false
       }
     ],
     "IcQFu0SaoH4": [
@@ -1488,14 +2014,21 @@
         "card": "Drakloak",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "248",
+        "rawNm": 6.58,
+        "hallOfFame": false
       }
     ],
     "B5--7Dh5OEA": [
       {
         "card": "Cinderace V",
         "set": "shining-fates",
-        "setName": "Shining Fates"
+        "setName": "Shining Fates",
+        "number": "18",
+        "rarity": "Holo Rare V",
+        "rawNm": 1.14,
+        "hallOfFame": false
       }
     ],
     "-e9F0ufKpIQ": [
@@ -1503,7 +2036,10 @@
         "card": "Mega Charizard Y ex",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "294",
+        "rawNm": 363.43,
+        "hallOfFame": false
       }
     ],
     "j6O6KdblfeY": [
@@ -1511,11 +2047,15 @@
         "card": "Air Balloon",
         "set": "mega-evolution",
         "setName": "Mega Evolution",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "166",
+        "rawNm": 2.99,
+        "hallOfFame": false
       },
       {
         "card": "Mega Venusaur ex",
-        "rarity": "Black Star Promo"
+        "rarity": "Black Star Promo",
+        "hallOfFame": false
       }
     ],
     "SOQUDUMboVU": [
@@ -1523,7 +2063,10 @@
         "card": "Team Rocket's Mimikyu",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "238",
+        "rawNm": 22.98,
+        "hallOfFame": false
       }
     ],
     "EvVnOpgwSmo": [
@@ -1531,7 +2074,10 @@
         "card": "Cyclizar ex",
         "set": "surging-sparks",
         "setName": "Surging Sparks",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "228",
+        "rawNm": 1.79,
+        "hallOfFame": false
       }
     ],
     "IuEb3qtjflI": [
@@ -1539,7 +2085,10 @@
         "card": "Enriching Energy",
         "set": "surging-sparks",
         "setName": "Surging Sparks",
-        "rarity": "ACE SPEC Rare"
+        "rarity": "ACE SPEC Rare",
+        "number": "191",
+        "rawNm": 2.99,
+        "hallOfFame": false
       }
     ],
     "8xqvY3OzugE": [
@@ -1547,19 +2096,26 @@
         "card": "Weavile",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "number": "228",
+        "rawNm": 4.63,
+        "hallOfFame": false
       }
     ],
     "F9mAQqKd6r8": [
       {
-        "card": "Mega Charizard Y ex",
-        "rarity": "Black Star Promo"
-      },
-      {
         "card": "Empoleon ex",
         "set": "phantasmal-flames",
         "setName": "Phantasmal Flames",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "114",
+        "rawNm": 2.08,
+        "hallOfFame": false
+      },
+      {
+        "card": "Mega Charizard Y ex",
+        "rarity": "Black Star Promo",
+        "hallOfFame": false
       }
     ],
     "zIn3mWKwkyg": [
@@ -1567,13 +2123,19 @@
         "card": "Mega Venusaur ex",
         "set": "mega-evolution",
         "setName": "Mega Evolution",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "177",
+        "rawNm": 145.14,
+        "hallOfFame": false
       },
       {
         "card": "Empoleon ex",
         "set": "phantasmal-flames",
         "setName": "Phantasmal Flames",
-        "rarity": "Ultra Rare"
+        "rarity": "Ultra Rare",
+        "number": "114",
+        "rawNm": 2.08,
+        "hallOfFame": false
       }
     ],
     "AqZBxDu2wkc": [
@@ -1581,7 +2143,10 @@
         "card": "Jolteon ex",
         "set": "prismatic-evolutions",
         "setName": "Prismatic Evolutions",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "153",
+        "rawNm": 192.5,
+        "hallOfFame": false
       }
     ],
     "LROQ-vFl4Hs": [
@@ -1589,7 +2154,10 @@
         "card": "Cinderace ex",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "number": "038",
+        "rawNm": 1.19,
+        "hallOfFame": false
       }
     ],
     "Ab81MNFnDLw": [
@@ -1597,7 +2165,10 @@
         "card": "Panpour",
         "rarity": "Illustration Rare",
         "set": "black-bolt",
-        "setName": "Black Bolt"
+        "setName": "Black Bolt",
+        "number": "101",
+        "rawNm": 14.36,
+        "hallOfFame": false
       }
     ],
     "b1B3Vbpsrh8": [
@@ -1605,7 +2176,8 @@
         "card": "Gladion’s Final Battle",
         "set": "pitch-black",
         "setName": "Pitch Black",
-        "rarity": "Special Illustration Rare"
+        "rarity": "Special Illustration Rare",
+        "hallOfFame": false
       }
     ]
   }

@@ -21,10 +21,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Pitch Black Elite Trainer Box"
-   },
-   "setId": "pitch-black",
-   "setLabel": "Pitch Black",
-   "productType": "etb"
+   }
   },
   {
    "id": "PLBIoWvw5RFMQ",
@@ -44,10 +41,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Pitch Black Booster Bundle"
-   },
-   "setId": "pitch-black",
-   "setLabel": "Pitch Black",
-   "productType": "bundle"
+   }
   },
   {
    "id": "PLXMhmkmyX32A",
@@ -68,10 +62,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Pitch Black Booster Pack"
-   },
-   "setId": "pitch-black",
-   "setLabel": "Pitch Black",
-   "productType": "single-pack"
+   }
   },
   {
    "id": "PLn62_rIirK-1Z-E8zrZEyQ1IT8BXvD5c8",
@@ -112,10 +103,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Chaos Rising Elite Trainer Box"
-   },
-   "setId": "chaos-rising",
-   "setLabel": "Chaos Rising",
-   "productType": "etb"
+   }
   },
   {
    "id": "PLn62_rIirK-2-rjTqQ4fTcg2Ng63t1vKS",
@@ -146,10 +134,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Chaos Rising Booster Bundle"
-   },
-   "setId": "chaos-rising",
-   "setLabel": "Chaos Rising",
-   "productType": "bundle"
+   }
   },
   {
    "id": "PLn62_rIirK-1OIVHung4k-CAlzIiYAmng",
@@ -188,10 +173,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Chaos Rising Booster Pack"
-   },
-   "setId": "chaos-rising",
-   "setLabel": "Chaos Rising",
-   "productType": "single-pack"
+   }
   },
   {
    "id": "PLn62_rIirK-1o0Udv8I1x91caDq5NFNUR",
@@ -219,10 +201,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Prismatic Evolutions Elite Trainer Box"
-   },
-   "setId": "prismatic-evolutions",
-   "setLabel": "Prismatic Evolutions",
-   "productType": "etb"
+   }
   },
   {
    "id": "PLn62_rIirK-1uwv6MIXNT3IlaJU-3N3b0",
@@ -250,10 +229,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Perfect Order Elite Trainer Box"
-   },
-   "setId": "perfect-order",
-   "setLabel": "Perfect Order",
-   "productType": "etb"
+   }
   },
   {
    "id": "PLn62_rIirK-1VfIY7CStVVTOljlTccOHq",
@@ -284,10 +260,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Ascended Heroes Booster Bundle"
-   },
-   "setId": "ascended-heroes",
-   "setLabel": "Ascended Heroes",
-   "productType": "bundle"
+   }
   },
   {
    "id": "PLn62_rIirK-3dux5yFkgamGpC67Opaxu_",
@@ -309,10 +282,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Mega Evolution Booster Pack"
-   },
-   "setId": "mega-evolution",
-   "setLabel": "Mega Evolution",
-   "productType": "single-pack"
+   }
   },
   {
    "id": "PLn62_rIirK-1q-W0qlw1r_OTmcIBxsNmq",
@@ -343,10 +313,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Journey Together Booster Bundle"
-   },
-   "setId": "journey-together",
-   "setLabel": "Journey Together",
-   "productType": "bundle"
+   }
   },
   {
    "id": "PLn62_rIirK-0oVKfsCbQyPNRhA037ACD0",
@@ -377,10 +344,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Perfect Order Booster Bundle"
-   },
-   "setId": "perfect-order",
-   "setLabel": "Perfect Order",
-   "productType": "bundle"
+   }
   },
   {
    "id": "PLn62_rIirK-2IBFbLzsyUWWHS4orkwvwm",
@@ -417,10 +381,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Perfect Order Booster Pack"
-   },
-   "setId": "perfect-order",
-   "setLabel": "Perfect Order",
-   "productType": "single-pack"
+   }
   },
   {
    "id": "PLn62_rIirK-3MK6S68mVy82C4ukzsXuhd",
@@ -496,10 +457,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Chaos Rising Elite Trainer Box, Perfect Order Booster Bundle and Ascended Heroes Booster Pack, on the Hits Only cover"
-   },
-   "setId": null,
-   "setLabel": null,
-   "productType": null
+   }
   },
   {
    "id": "PLn62_rIirK-21gFCezeA9OtOFpOvUHU54",
@@ -530,10 +488,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Pokemon GO Booster Pack"
-   },
-   "setId": "pokemon-go",
-   "setLabel": "Pokémon GO",
-   "productType": "single-pack"
+   }
   },
   {
    "id": "PLn62_rIirK-3VoV9L3TKAvhdku5msr-_a",
@@ -557,10 +512,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Surging Sparks Booster Pack"
-   },
-   "setId": "surging-sparks",
-   "setLabel": "Surging Sparks",
-   "productType": "single-pack"
+   }
   },
   {
    "id": "PLn62_rIirK-0LlcARhVo2tc2ZcXHBYtC_",
@@ -588,10 +540,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Ascended Heroes Elite Trainer Box"
-   },
-   "setId": "ascended-heroes",
-   "setLabel": "Ascended Heroes",
-   "productType": "etb"
+   }
   },
   {
    "id": "PLn62_rIirK-17Bz8L8cGDvGTXPINTO-nd",
@@ -622,10 +571,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Destined Rivals Booster Pack"
-   },
-   "setId": "destined-rivals",
-   "setLabel": "Destined Rivals",
-   "productType": "single-pack"
+   }
   },
   {
    "id": "PLn62_rIirK-3L-YXSCWoyvmW4rfKSL5fG",
@@ -647,10 +593,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Paradox Rift Booster Pack"
-   },
-   "setId": "paradox-rift",
-   "setLabel": "Paradox Rift",
-   "productType": "single-pack"
+   }
   },
   {
    "id": "PLn62_rIirK-0NBWXqK7tdKbO8jR-Xx8U7",
@@ -671,10 +614,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Journey Together Booster Pack"
-   },
-   "setId": "journey-together",
-   "setLabel": "Journey Together",
-   "productType": "single-pack"
+   }
   },
   {
    "id": "PLn62_rIirK-35hvtItZPFfnxWkGY-poRs",
@@ -713,10 +653,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Ascended Heroes Booster Pack"
-   },
-   "setId": "ascended-heroes",
-   "setLabel": "Ascended Heroes",
-   "productType": "single-pack"
+   }
   },
   {
    "id": "PLn62_rIirK-0GN2cSboCtZ2gbp7CqP0Ev",
@@ -745,10 +682,7 @@
     "w": 360,
     "h": 270,
     "alt": "Sealed Phantasmal Flames Booster Pack"
-   },
-   "setId": "phantasmal-flames",
-   "setLabel": "Phantasmal Flames",
-   "productType": "single-pack"
+   }
   }
  ]
 }

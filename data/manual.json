@@ -5033,10 +5033,10 @@
     "openingType": "Single Booster Pack",
     "packNumber": 2,
     "hasHit": true,
-    "hitCard": "Cinderace V Max",
+    "hitCard": "Cinderace VMAX",
     "hits": [
       {
-        "card": "Cinderace V Max",
+        "card": "Cinderace VMAX",
         "set": "rebel-clash",
         "setName": "Rebel Clash"
       }
