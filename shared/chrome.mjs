@@ -637,7 +637,35 @@ export const NAV = [
  * displaces is the first thing on the page that replaces it. THE PHONE IS
  * STILL UNAFFECTED, for the reason the paragraph above gives.
  */
-export const BAR_LINKS = ["/videos.html", "/rochester.html", "/cards.html", "/sets/", "/start.html"];
+/* BEST PULLS REPLACES SET GUIDES, 23 August 2026, AND THE ARGUMENT IS TIM'S OWN.
+ *
+ * He asked, now the site is finished, whether these are still the right five:
+ * "now that the site is more complete with all pages made do you want to re
+ * think what pages get linked there on desktop".
+ *
+ * THE ORDER HE SET FOR THE MENU ALREADY ANSWERS IT. On 22 August he gave the nav
+ * its priority in one sentence: everything about the YouTube channel and the rip
+ * data together first, Rochester second, the games third, "and then all the
+ * guides can be last". The bar was not holding to it. /sets/ is a GUIDE, the
+ * thing he put last, and it had a slot; /hall.html is RIP DATA, the thing he put
+ * first, and it was inside the closed menu.
+ *
+ * AND IT IS THE PAGE THIS CHANNEL IS ABOUT. The bar had a link to all the rips
+ * and no link to what came OUT of them. Best pulls is 164 plaques, every card
+ * the channel has ever pulled, and it is the most shareable page on the site by
+ * a distance. A stranger arriving from a Short is looking for the hits.
+ *
+ * WHAT IT COSTS /sets/, MEASURED RATHER THAN WAVED AT: it is linked from <main>
+ * on 79 pages, it keeps the first slot of its own menu group, and every set
+ * guide is reachable from any card, any rip of that set and the Card Pokedex
+ * band on the home page. /hall.html was better linked than it (174 pages) and
+ * still had no route from the bar, which is the imbalance this fixes.
+ *
+ * NO WIDTH CHANGE. "Best pulls" and "Set guides" are both ten characters, so the
+ * row arithmetic in .nav-links is untouched and the phone is unaffected either
+ * way: the bar drops to the hamburger below 900 and none of these five render.
+ */
+export const BAR_LINKS = ["/videos.html", "/hall.html", "/rochester.html", "/cards.html", "/start.html"];
 
 /** Every [href, label] in NAV, flattened, in order. */
 export const NAV_LINKS = NAV.flatMap(([, links]) => links);
