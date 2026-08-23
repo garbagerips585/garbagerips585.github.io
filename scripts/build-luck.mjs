@@ -772,6 +772,35 @@ const boxCensus = (() => {
   };
 })();
 const allPacks = videos.reduce((n, v) => n + (packsIn(v) || 0), 0);
+/* ------------------------------------------------- the figures the widget shows
+ *
+ * Tim: "at the top of the page we just need a super simple easy to read widget
+ * that gives all the high level stats, of how many total packs opened, how many
+ * total rip video, how many hits, how many SIRs, how many Hyper rares, etc."
+ *
+ * TIER COUNTS ARE COUNTS OF CARDS, and the header over them says so once so the
+ * six chips do not each have to. That distinction matters here more than
+ * anywhere on the site: the existing pull band a few screens down counts RIPS
+ * (a rip producing three Double Rares counts once), so the same tier has two
+ * honest numbers on one page and they must never be given the same label.
+ *
+ * RAREST FIRST, NOT BIGGEST FIRST. Sorted by count, Special Illustration Rare
+ * lands seventh and the thing Tim named would be buried under Double Rare. The
+ * ladder in shared/rarity.mjs already orders the tiers; this reverses it.
+ */
+const tierCount = new Map();
+for (const list of Object.values(hitDoc || {})) {
+  for (const c of list) {
+    const r = (c.rarity || "").trim();
+    if (r) tierCount.set(r, (tierCount.get(r) || 0) + 1);
+  }
+}
+const WIDGET_TIERS = [
+  "Mega Hyper Rare", "Hyper Rare", "Special Illustration Rare",
+  "Illustration Rare", "Ultra Rare", "Double Rare",
+];
+const tierChips = WIDGET_TIERS.map((t) => ({ tier: t, n: tierCount.get(t) || 0 }));
+
 const allPackRips = videos.filter(packsIn).length;
 
 const byProductVol = new Map();
@@ -1037,13 +1066,35 @@ const miniCSS = (css) =>
 const style = `
 .luck{padding:var(--s7) 0 var(--s5)}
 .luck-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:42em;margin-bottom:var(--s5)}
-.luck-head{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--s3);margin-bottom:var(--s5)}
+/* FIXED TRACKS THAT DIVIDE SIX, not auto-fit. auto-fit with six tiles strands
+   one alone on a row at several widths, which is why the old five-tile version
+   needed a :last-child{grid-column:1/-1} patch to hide the orphan. The home
+   page's .rstat settled this and its comment argues it: pick counts that divide
+   the tile count. 2 / 3 / 6 all do. */
+.luck-head{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s3);margin-bottom:var(--s4)}
+@media(min-width:600px){.luck-head{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1200px){.luck-head{grid-template-columns:repeat(6,1fr)}}
+/* The chase deck: same tracks, one step quieter. Smaller number, flatter
+   corner, no shadow. That flattening is the ONLY thing separating the two
+   decks -- no new colour and no rule. */
+.luck-chase{margin-bottom:var(--s5)}
+.luck-chase-h{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink);margin-bottom:var(--s2)}
+.luck-chase-h i{display:block;font:400 var(--t-sm)/1.4 var(--body);letter-spacing:normal;
+  text-transform:none;color:var(--ink-2)}
+.luck-chips{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s2)}
+@media(min-width:600px){.luck-chips{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1200px){.luck-chips{grid-template-columns:repeat(6,1fr)}}
+.luck-chip{background:var(--card);border:1px solid var(--hair);border-radius:var(--r-sm);
+  padding:var(--s3);min-width:0}
+.luck-chip b{display:block;font:400 var(--t-l)/1 var(--display);color:var(--ketchup-deep);
+  overflow-wrap:anywhere}
+.luck-chip span{display:block;margin-top:4px;font:700 var(--t-micro)/1.4 var(--mono);
+  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);overflow-wrap:anywhere}
 /* FIVE TILES IN A TWO COLUMN GRID LEAVES THE LAST ONE ALONE IN ITS ROW, and
    the last one is the hit rate, which is the headline of the whole page. It
    spans instead, so the orphan row becomes the emphasis it should have had. */
 @media(max-width:700px){
-  .luck-head{grid-template-columns:repeat(2,1fr)}
-  .luck-head > :last-child{grid-column:1 / -1}
 }
 .luck-stat{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s4);box-shadow:var(--lift)}
@@ -1699,36 +1750,66 @@ const body = `
   <section class="luck">
     <div class="wrap">
       <div class="brk"><h1>Luck, <span class="hl">measured</span></h1><span class="ln"></span></div>
+      ${/* THE LEDE KEEPS ITS FIRST TWO CLAUSES AND LOSES THE THIRD. "Nobody
+            publishes real pull rates" is why this page exists and "one person's
+            luck, not the odds" is the honesty claim that stops it being read as
+            odds; both stay. "Counted rather than remembered" was the rip log
+            talking about itself. */ ""}
       <p class="luck-lede">Nobody publishes real pull rates, so this page does the next best thing:
         it counts what actually came out of packs opened on camera, one rip at a time. It is one
-        person's luck, not the odds, and it is counted rather than remembered.</p>
+        person's luck, not the odds.</p>
 
       ${/* THE LAST TILE USED TO READ "hit rate so far" WITH NO DENOMINATOR ON
             IT. A stat tile is the part of a page that gets screenshotted, and
             "49.5% hit rate" on its own is the same shape as the mistake this
             project has already made once, where 56% coverage was reported as a
             56% hit rate. The denominator is in the label now, computed. */ ""}
+      ${/* SIX TILES ON A GRID THAT DIVIDES SIX, and the old five were on
+            auto-fit with a :last-child{grid-column:1/-1} patch to hide the
+            orphan an odd count leaves. Fixed tracks make the patch unnecessary.
+
+            "RIPS WITH AN ANSWER" IS GONE and it is the only tile that was
+            spreadsheet narration. It printed the identical number to "rips
+            filmed" under a second label, because coverage is 100%, so it said
+            nothing and read as a bug.
+
+            THE ORDER SOLVES THE UNIT BLUR WITHOUT PROSE: 1 and 2 are things
+            opened, 3 is CARDS, 4 and 5 are RIPS. Tile 4 carries its own
+            denominator so 156 can never be read as a card count while 214 sits
+            two tiles away. */ ""}
       <div class="luck-head">
-        <div class="luck-stat"><b>${videos.length}</b><span>rips filmed</span></div>
-        <div class="luck-stat"><b>${allPacks.toLocaleString("en-US")}</b><span>packs ripped on camera</span></div>
-        <div class="luck-stat"><b>${judged.length}</b><span>rips with an answer</span></div>
-        <div class="luck-stat"><b>${hits.length}</b><span>had a hit</span></div>
-        <div class="luck-stat"><b>${headline}</b><span>hit rate over ${judged.length} answered rips</span></div>
+        <div class="luck-stat"><b>${allPacks.toLocaleString("en-US")}</b><span>packs opened on camera</span></div>
+        <div class="luck-stat"><b>${videos.length}</b><span>rip videos</span></div>
+        <div class="luck-stat"><b>${cardLedger.length}</b><span>hit cards pulled</span></div>
+        <div class="luck-stat"><b>${hits.length}</b><span>rips that hit, of ${judged.length}</span></div>
+        <div class="luck-stat"><b>${headline}</b><span>hit rate per rip</span></div>
+        <div class="luck-stat"><b>${Math.round((hits.length / allPacks) * 1000) / 10}%</b><span>hit rate per pack</span></div>
       </div>
 
-      <div class="luck-cov">
-        <p>${judged.length} of ${videos.length} rips have an answer &bull; ${Math.round(coverage * 100)}% of the catalog${
-          allPackRips ? ` &bull; ${allPacks.toLocaleString("en-US")} packs across ${allPackRips} rips that say` : ""
-        }</p>
-        <div class="luck-covbar"><i style="width:${Math.max(1, Math.round(coverage * 100))}%"></i></div>
-${
-  judged.length && hits.length === judged.length
-    ? `        <p class="luck-caveat">Yes, that says ${headline}. The rips marked up so far are the ones
-        that had something in them, so read this as "the log is ${Math.round(coverage * 100)}% filled in"
-        rather than "the packs are ${headline} good". It will drop as the duds get logged.</p>`
-    : ""
-}
+      ${/* THE CHASE DECK. Counts of CARDS, rarest tier first, and the header
+            says "cards" once so six chips do not each have to. Quieter than the
+            deck above it by exactly one step -- smaller number, flatter box, no
+            shadow -- and no new colour, no rule, no second heading weight.
+
+            Numbers are --ketchup-deep, which is what .pull b already uses on
+            this page, so pink already means "a count of a kind of card" here.
+            The light pink measures 3.45:1 at this size and is not used. */ ""}
+      <div class="luck-chase">
+        <p class="luck-chase-h">Chase cards pulled <i>Counts of cards, rarest tier first</i></p>
+        <div class="luck-chips">
+${tierChips.map((t) => `          <div class="luck-chip"><b>${t.n}</b><span>${t.tier}</span></div>`).join("\n")}
+        </div>
       </div>
+
+      ${/* THE COVERAGE BAND IS GONE. It read "321 of 321 rips have an answer,
+            100% of the catalog" over a bar filled to 100%, so it measured
+            nothing and the bar read as a rendering bug. It also carried "462
+            packs across 321 rips that say", which is the rip log talking about
+            its own columns. Tim: "remove any text that is referencing the execl
+            document, like has answers, no one needs to know or see any of that".
+
+            .luck-caveat went with it. That branch only ever rendered at a 100%
+            hit rate, which has not been true since February. */ ""}
     </div>
   </section>
 
@@ -1750,10 +1831,8 @@ ${
             See the boxFloor note in this builder for the whole argument. */ ""}<b>Rips are videos, packs are packs, and
         boxes are neither.</b> An elite trainer box holds ${PACK_CAPACITY.etb || 9} packs and this channel films them one at
         a time, so ${(prodRows.find((r) => r.key === "etb") || { vids: 0 }).vids} elite trainer box rips are nothing like
-        ${(prodRows.find((r) => r.key === "etb") || { vids: 0 }).vids} boxes. Packs is packs ripped on camera, out of the
-        rips that state a count. Boxes is a floor worked out from the Pack number column: if pack 1 turns up in three
-        videos of the same product and set then three boxes were opened, so that figure can only climb as more rips are
-        logged.${
+        ${(prodRows.find((r) => r.key === "etb") || { vids: 0 }).vids} boxes. Packs is packs ripped on camera. Boxes is a
+        floor: if pack 1 turns up in three videos of the same product and set then three boxes were opened.${
           boxCensus.capBoxes
             ? ` Across the kinds whose pack count is published, those boxes hold ${boxCensus.capPacks} packs between them and
         the rips of them count ${boxCensus.capFilmed}. <b>Those are two different quantities and neither is the other:</b>
@@ -1780,11 +1859,6 @@ ${
       <div class="pgrid">
 ${prodRows.map((r, i) => prodCard(r, i)).join("\n")}
       </div>
-      <p class="luck-method" style="margin-top:var(--s5)">WHY THERE IS NO STRAIGHT BOX COUNT. THE BOX NUMBER COLUMN IN THE
-        RIP LOG NAMES THE PRODUCT ON THE SHELF RATHER THAN A PARTICULAR BOX: ${boxCensus.collisions} PAIRINGS OF OPENING
-        TYPE, SET, BOX NUMBER AND PACK NUMBER ARE USED BY MORE THAN ONE RIP, ${boxCensus.collisionRips} RIPS IN ALL, AND
-        THOSE RIPS WENT UP WEEKS APART. SO A SECOND BOX AND A SECOND VIDEO OF ONE PACK LOOK IDENTICAL IN THE LOG, AND THE
-        ONLY HONEST BOX FIGURE IS THE FLOOR ABOVE.</p>
     </div>
   </section>
 
@@ -1847,10 +1921,6 @@ ${
     : ""
 }
       </div>
-      <p class="luck-method" style="margin-top:var(--s5)">NO MONEY TOTAL IS PRINTED ON THIS PAGE AND THAT IS DELIBERATE.
-        <a href="/hall.html">THE HALL OF FAME</a> ADDS THESE CARDS UP ONE BY ONE AND OWNS THAT SUM. A SECOND TOTAL HERE
-        WOULD BE A SECOND RENDERER OF ONE FACT, WHICH IS HOW ONE CARD ENDS UP WITH TWO PRICES ON TWO PAGES. WHAT THIS PAGE
-        ADDS IS WHICH PRODUCT EACH CARD CAME OUT OF, WHICH THAT PAGE DOES NOT KNOW.</p>
     </div>
   </section>`
       : ""
@@ -2016,70 +2086,21 @@ ${monthFigure()}
       : ""
   }
 
-  <section class="band luck-sec">
-    <div class="wrap">
-      ${/* THE LEDGER. Every figure on this page is a claim, and this is where a
-            reader can check one against the column it came out of without
-            taking anybody's word for the denominator. It is a TABLE rather than
-            a paragraph because somebody checking one figure wants one row, and
-            because a row cannot be dropped by accident the way a clause in a
-            long sentence can. Every number in it is the same variable the
-            section above used, so the two cannot drift apart. */ ""}
-      <h2>Where every number on this page <span class="hl">comes from</span></h2>
-      <p class="luck-note">One row per figure, with the column of the rip log it was counted out of and
-        what it was counted over. Nothing on this page is typed in.</p>
-      <div class="luck-scroll" tabindex="0" role="region" aria-label="What each figure on this page is counted over, scrollable table">
-        <table class="ledger">
-          <caption class="sr-only">The source and the denominator behind each figure on this page</caption>
-          <thead><tr><th scope="col">Figure</th><th scope="col">Counted over</th><th scope="col">From</th></tr></thead>
-          <tbody>
-            <tr><th scope="row">Hit rate, everywhere</th><td><em>${hits.length}</em> of <em>${judged.length}</em> rips whose outcome is known, out of ${videos.length} filmed${impliedHits ? `; ${impliedHits} of them known because the cards were named rather than the column ticked` : ""}</td><td>Has Hit, My Hits tab</td></tr>
-            <tr><th scope="row">Packs ripped</th><td><em>${allPacks}</em> packs across the <em>${allPackRips}</em> rips that state one</td><td>Sets &amp; Packs</td></tr>
-            <tr><th scope="row">Boxes, at least</th><td><em>${boxCensus.boxes}</em>, a floor from repeated pack positions${boxCensus.boxNoType ? `; ${count(boxCensus.boxNoType, "rip")} of box products ${plural(boxCensus.boxNoType, "names", "name")} no opening type and ${plural(boxCensus.boxNoType, "is", "are")} left out` : ""}</td><td>Pack #, Opening Type</td></tr>
-            <tr><th scope="row">Pack position</th><td><em>${packNoJudged}</em> answered rips state which pack of the box it was</td><td>Pack #</td></tr>
-            <tr><th scope="row">Cards that came out</th><td><em>${cardRows}</em> card rows across ${videos.filter((v) => v.hitCard).length} rips${cardsOutsideJudged ? `; ${cardsOutsideJudged} of them sit on rips with no Has Hit answer and are left out of every value figure` : ""}</td><td>My Hits tab</td></tr>
-            <tr><th scope="row">Ungraded value</th><td><em>${rawCards.length}</em> of ${cardRows} card rows resolve to a printing with a guide value</td><td>PriceCharting, via the set checklist</td></tr>
-            <tr><th scope="row">PSA 10 value</th><td><em>${psaCards.length}</em> of ${cardRows} card rows have a graded figure at all</td><td>PriceCharting</td></tr>
-            <tr><th scope="row">Runs and streaks</th><td><em>${dryRuns.length}</em> dry and <em>${hotRuns.length}</em> hot, over the ${judged.length} answered rips in upload order</td><td>Has Hit, Published</td></tr>
-            <tr><th scope="row">Month by month</th><td><em>${videos.length - undated}</em> rips carry a publish date${undated ? `; ${undated} do not and are left out` : ""}</td><td>Published</td></tr>
-          </tbody>
-        </table>
-      </div>
-      ${
-        cardDrops.notOnChecklist + cardDrops.ambiguousPrinting + cardDrops.noChecklist
-          ? `<p class="luck-method" style="margin-top:var(--s5)">WHY SOME CARDS CARRY NO FIGURE.
-        ${cardDrops.noChecklist ? `${cardDrops.noChecklist} ARE FROM SETS WHOSE CHECKLIST THIS SITE DOES NOT HOLD. ` : ""}${
-              cardDrops.notOnChecklist ? `${cardDrops.notOnChecklist} NAME A CARD THAT IS NOT ON THE CHECKLIST FOR THE SET THEY NAME, WHICH IS A SPELLING TO FIX IN THE SHEET. ` : ""
-            }${
-              cardDrops.ambiguousPrinting ? `${cardDrops.ambiguousPrinting} COULD BE MORE THAN ONE PRINTING OF THE SAME CARD, AND THIS PAGE WILL NOT PICK ONE TO WIN A NUMBER. ` : ""
-            }A CARD WITH NO FIGURE IS STILL A HIT AND STILL COUNTS IN EVERY RATE ABOVE.</p>`
-          : ""
-      }
-      <p class="luck-method" style="margin-top:var(--s5)">HOW THIS IS COUNTED. A rip counts once its outcome is KNOWN, and
-        there are two ways the rip log says so: the Has Hit column is ticked yes or no, or the My Hits tab names the cards
-        that came out of it, which is the same person answering the same question a different way.${
-          impliedHits
-            ? ` ${impliedHits} rip${impliedHits === 1 ? "" : "s"} on this page ${impliedHits === 1 ? "is" : "are"} here on the second
-        route, and that route can only ever add a HIT, because nobody writes down the cards that did not come out. So while
-        that number is above zero the rate leans very slightly high, by at most ${impliedHits} in ${judged.length}.`
-            : ""
-        } A rip with neither answer is absent rather than assumed. "Hit" means
-        a card worth keeping, judged by eye, not a fixed rarity threshold. These are observed results
-        from one person opening packs on camera, not official pull rates: The Pokemon Company does not
-        publish those, and anyone who tells you they know them is guessing. Small samples are labeled
-        rather than rounded into confidence. Numbers move as more rips are logged.</p>
-      ${/* WHO "ONE PERSON OPENING PACKS ON CAMERA" IS. This page's whole claim
-            rests on first-hand observation, and it named no observer: /about
-            .html had ZERO in-body inbound links from anywhere on the site on 18
-            August 2026, so the page that says the strongest first-party thing
-            on the site had no link to the page that says who is saying it. That
-            is a plain provenance gap before it is an SEO one. */ ""}
-      <p class="luck-method" style="margin-top:var(--s4)">THE PERSON DOING THE OPENING, AND WHY THERE
-        IS A LOG OF IT AT ALL, IS ON <a href="/about.html">THE ABOUT PAGE</a>. EVERY RIP COUNTED HERE
-        HAS ITS OWN PAGE IN <a href="/videos.html">THE FULL LIBRARY</a>, AND THE CARDS THAT CAME OUT
-        OF THEM ARE IN <a href="/hall.html">THE HALL OF FAME</a>.</p>
-    </div>
-  </section>
+  ${/* THE "Where every number on this page comes from" SECTION IS GONE, all
+      423 words and 1,575px of it at 390. Nine rows naming the SPREADSHEET
+      COLUMN each figure was counted out of: "Has Hit, My Hits tab", "Sets &
+      Packs", "Pack #, Opening Type", "Published". Tim: "remove any text thats
+      place holder or explains how we got the data, the data, as the data is
+      pulled directly from the actual real rips in every video."
+
+      IT EXISTED TO BE AUDITED RATHER THAN READ, and what it was actually
+      protecting survives without it: every table on this page still carries its
+      own denominator in its own sub-line, and the widget's tiles now carry
+      theirs in their labels. No figure loses what it is counted over. The
+      NARRATION about what it is counted over is what goes.
+
+      The price provenance note at the foot is NOT part of this and stays: that
+      is sourcing for money figures, not an explanation of the rip log. */ ""}
 </main>`;
 
 // NO Dataset MARKUP UNTIL THERE IS A DATASET. With nothing logged this
