@@ -2407,21 +2407,26 @@ const ripStatsHtml = !ripStatTiles.length
     <div class="rstats-grid">
 ${ripStatTiles.join("\n")}
     </div>
-    <p class="rstats-src">${
-      chStats
-        ? `Views and subscribers are YouTube's own counters for the channel, read ${esc(longDate(chStats.readAt))}. ` +
-          `The view total is not the sum of the counts on the rip tiles above: YouTube totals the two differently, ` +
-          `and this is the one YouTube publishes. `
-        : ""
-    }The rest is counted out of the rip log.${
-      allPacks ? ` Packs is packs opened on camera, over the ${num(packRips)} rips that state a count.` : ""
-    }${
-      hitCards && hitRate
-        ? ` The two hit figures count different things: ${num(hitCards)} is CARDS, so a rip that produced three counts ` +
-          `three, and ${num(hitRips.length)} is RIPS, which is what a rate can be taken over. ` +
-          `${num(judgedRips.length)} of ${num(videos.length)} rips have an answer.`
-        : ""
-    }</p>
+    ${/* THE SOURCE PARAGRAPH IS GONE FROM THE HOME PAGE, 23 August 2026.
+          Tim, pointing at this one, the Rochester band's and both band notes:
+          "remove all of this copy from the home page". It ran seven lines on a
+          phone under four numbers, explaining that YouTube totals views
+          differently, that packs is counted over the rips that state a count,
+          and that 211 is cards where 156 is rips.
+
+          NOTHING BECOMES UNSOURCED AND THAT WAS CHECKED BEFORE IT WENT, on the
+          built pages rather than from memory. /luck.html carries the whole
+          argument including the cards-against-rips split, /rochester.html opens
+          with "Counted, not claimed", and every set guide dates its prices to
+          PriceCharting. Each band here already links to the page that owns its
+          figures, so the sourcing is one tap away rather than deleted.
+
+          THE RULE THIS BENDS IS REAL AND IS WORTH STATING: this site prints
+          where a number came from next to the number. It still does, on the
+          pages a reader goes to for the number. The home page is a front door,
+          and a front door reciting its methodology is the thing Tim has now
+          asked to stop three times. If a figure ever appears HERE that is
+          sourced NOWHERE else, this paragraph comes back with it. */ ""}
   </div>
 </section>`;
 
@@ -2624,7 +2629,10 @@ const rocHtml = !rocTiles.length
     <ul class="roc-counts">
 ${rocTiles.join("\n")}
     </ul>
-    <p class="roc-src">Counted on the day this page was built, out of the same records the local scene page counts. Shows are the ones still to come, so between deploys that figure can only ever be too high, never too low.</p>
+    ${/* .roc-src removed with the rest, same ask and same day. The claim it
+          made -- that the shows figure can only ever be too high between
+          deploys -- is made in full on /rochester.html, which this band links
+          to in its heading. */ ""}
   </div>
 </section>`;
 
@@ -3139,8 +3147,15 @@ const REGIONS = {
   // The sourcing note under each price band. Empty when the band prints no
   // price at all, which is the same "no frame around nothing" rule DROPS uses:
   // the markers sit outside the paragraph, so an empty region is no note.
-  WANTEDNOTE: wantedNote,
-  SETSNOTE: setsNote,
+  // BOTH BAND NOTES RENDER EMPTY, 23 August 2026, with the two source
+  // paragraphs above and for the same reason. They printed where the Most
+  // Wanted and Card Pokedex prices came from and when they were read; the set
+  // guide each tile links to prints the same sentence, dated, at the top of the
+  // page. The ledgers are still BUILT, so the run still reports any price with
+  // no checklist behind it -- that check is about the data and not about the
+  // copy, and losing it would be losing something real.
+  WANTEDNOTE: "",
+  SETSNOTE: "",
   HOF: hallHtml,
   HOFPICK: hofHtml,
   LATEST: latestHtml,

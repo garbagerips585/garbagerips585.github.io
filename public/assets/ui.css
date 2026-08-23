@@ -288,7 +288,7 @@ main{padding:var(--s4) 0 var(--s8)}
 .set-top i{font-style:normal;color:var(--gold-deep)}
 .set-rips{font:700 var(--t-micro)/1 var(--mono);color:var(--ketchup-deep);
   background:var(--lilac-pale);border-radius:var(--r-pill);padding:4px 9px;margin-top:var(--s1)}
-.about{background:var(--chrome-bg);color:var(--chrome-ink);padding:var(--s8) 0}
+.about{background:var(--chrome-bg);color:var(--chrome-ink);padding:var(--s6) 0}
 .about-in{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--s7);align-items:center;
   max-width:1180px;margin:0 auto;padding:0 var(--s5)}
 @media(max-width:860px){.about-in{grid-template-columns:1fr;gap:var(--s6)}}

@@ -1196,7 +1196,15 @@ main{padding:var(--s4) 0 var(--s8)}
    Who this is. At the bottom, where it belongs on a hub whose visitors came
    for the videos.
    -------------------------------------------------------------------------- */
-.about{background:var(--chrome-bg);color:var(--chrome-ink);padding:var(--s8) 0}
+/* --s6, NOT --s8, SINCE THE BAND MOVED. This was the LAST thing before the
+   footer, so 72px of top padding was the page winding down. It is fourth now,
+   between Latest rips and the counters band, and its neighbours .rstats and
+   .roc are both --s6: 72px between two content bands read as a hole rather
+   than as breathing room, which is what Tim called "large areas of empty
+   space" once the See all rips button under Latest rips went. The override at
+   the foot of this file already had the bottom at --s6, so this only ever
+   moved the top. */
+.about{background:var(--chrome-bg);color:var(--chrome-ink);padding:var(--s6) 0}
 .about-in{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--s7);align-items:center;
   max-width:1180px;margin:0 auto;padding:0 var(--s5)}
 @media(max-width:860px){.about-in{grid-template-columns:1fr;gap:var(--s6)}}
