@@ -541,15 +541,51 @@ const pricesFor = (id) => {
 // Packs are summed the same way, and are 0 for whole kinds: nothing in
 // videos.json records a pack count for an ex Premium Collection, so those rows
 // print openings only rather than a zero that reads as "no packs in it".
+// EVERY SET ON A MULTI-SET RIP WAS CHARGED THE WHOLE VIDEO'S PACK COUNT, and
+// that is 31 wrong figures across seven of these pages. `row.packs += v.packs`
+// is right for a rip that opened one set and is a straight multiplication for a
+// rip that opened five: kj7532tb0_I is an 18-pack UPC across five expansions,
+// so the set column on /openings/upc.html summed to NINETY against that page's
+// own tile reading "18 Packs counted, across 1 opening". The page even carries
+// a reconciliation note, and it reconciles the OPENINGS column only, so the
+// figure it does not mention is the one that was wrong.
+//
+// THE CORRECT SPLIT WAS ALREADY IN THE FILE AND NOTHING HERE ASKED FOR IT.
+// videos.json carries `setPacks`, which is what the sheet's own "Set - N Packs"
+// cells parse into, and build-luck.mjs has been using it all along. All 24
+// multi-set rips carry one. That UPC splits 4/4/4/4/2.
+//
+// A `{set: null}` ENTRY IS SKIPPED ON PURPOSE. setPacks records the promo pack
+// inside a First Partner box with no set id, because it genuinely belongs to no
+// expansion; it counts toward the video's own total and cannot be charged to a
+// set row. The same null is why the set column may sum to slightly less than
+// the page tile, which is now a real fact about the products rather than an
+// error, and the run prints it.
+//
+// FALLBACK, AND WHY IT IS NOT `v.packs`: where a rip names several sets and
+// carries no split, nothing here can say which pack came from where, so it adds
+// nothing and is reported. Charging the full count to each was the bug.
 const setRowsFor = (vids) => {
   const by = new Map();
+  let unattributed = 0;
   for (const v of vids) {
-    for (const sid of v.sets || []) {
+    const split = new Map();
+    for (const sp of v.setPacks || []) {
+      if (!sp.set) continue;
+      split.set(sp.set, (split.get(sp.set) || 0) + (Number(sp.packs) || 0));
+    }
+    const sids = v.sets || [];
+    for (const sid of sids) {
       const row = by.get(sid) || { sid, openings: 0, packs: 0 };
       row.openings += 1;
-      row.packs += v.packs || 0;
+      if (split.has(sid)) row.packs += split.get(sid);
+      else if (sids.length === 1) row.packs += v.packs || 0;
+      else unattributed += 1;
       by.set(sid, row);
     }
+  }
+  if (unattributed) {
+    console.log(`  ${unattributed} set row(s) on a multi-set rip carry no per-set pack count and add nothing to the packs column`);
   }
   const rows = [...by.values()].sort((a, b) => b.openings - a.openings || b.packs - a.packs);
   const top = Math.max(1, ...rows.map((r) => r.openings));

@@ -91,8 +91,15 @@ const { videos: allVideos } = JSON.parse(
   await readFile(join(ROOT, "public/data/videos.json"), "utf8")
 );
 const ripsFor = new Map(expansions.filter((s) => s.slug).map((s) => [s.slug, 0]));
+// THE IDS AS WELL AS THE COUNT, so the page total can be a set union rather than
+// a sum. See totalRips below for what the sum was claiming.
+const ripIdsFor = new Map(expansions.filter((s) => s.slug).map((s) => [s.slug, []]));
 for (const v of allVideos) {
-  for (const sid of v.sets || []) if (ripsFor.has(sid)) ripsFor.set(sid, ripsFor.get(sid) + 1);
+  for (const sid of v.sets || []) {
+    if (!ripsFor.has(sid)) continue;
+    ripsFor.set(sid, ripsFor.get(sid) + 1);
+    ripIdsFor.get(sid).push(v.id);
+  }
 }
 
 /* ------------------------------------------------- "N rips" WAS NOT A LINK
@@ -226,6 +233,7 @@ for (const [id, entry] of Object.entries(products.sets || {})) {
     kinds: Object.fromEntries(byKind),
     best,
     rips: ripsFor.get(id) ?? 0,
+    ripIds: ripIdsFor.get(id) ?? [],
     checked: entry.checked || products.checked,
   });
 }
@@ -518,7 +526,20 @@ for (const r of rows) {
   }
 }
 
-const totalRips = rows.reduce((n, r) => n + r.rips, 0);
+// DISTINCT RIPS, NOT THE SUM OF THE PER-SET COUNTS, and the old sum was
+// impossible on its face. Every row here counts the rips that opened ONE set,
+// so a rip that opened two sets is in two rows, and adding the column up counted
+// it twice: 328 "openings of these sets on camera" on a channel with 321 rips in
+// total. Every individual row was and is correct; only the total was wrong, which
+// is why nothing looked broken.
+//
+// It is 298 distinct rips over these 24 sets. Counted by id rather than by
+// arithmetic, because the sets a rip touches is the thing being deduplicated and
+// no adjustment to a sum can do that.
+const totalRips = (() => {
+  const ids = new Set(rows.flatMap((r) => r.ripIds || []));
+  return ids.size || rows.reduce((n, r) => n + r.rips, 0);
+})();
 const checked = products.checked;
 
 const price = (n) => moneyExact(n);

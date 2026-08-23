@@ -251,6 +251,8 @@ const huntRips = (() => {
         set: sid,
         name: setNameById.get(sid) || sid,
         total: list.length,
+        // The ids too, so huntRipTotal can be a union rather than a sum.
+        ripIds: list.map((x) => x.id),
         v: list[0],
         cards: hunting.filter((c) => c.set === sid).map((c) => c.name),
       };
@@ -258,7 +260,21 @@ const huntRips = (() => {
     .filter(Boolean)
     .sort((a, b) => b.total - a.total);
 })();
-const huntRipTotal = huntRips.reduce((n, r) => n + r.total, 0);
+// DISTINCT RIPS, NOT THE SUM OF THE PER-SET COUNTS. Same bug as
+// build-pack-prices.mjs's totalRips and the same shape: each entry counts the
+// rips that opened ONE set, so a rip that opened two is in two entries and the
+// sum counted it twice. It read "252 rips of the 9 sets we have opened that
+// print these cards"; it is 232 distinct rips. Every per-set figure was right,
+// which is exactly why nobody caught the total.
+//
+// There is already a long note directly above this line about a DIFFERENT
+// miscount in the same sentence, which is a fair warning that this sentence is
+// hard to get right: it names a subset of sets, and both halves of it have now
+// been wrong in different ways.
+const huntRipTotal = (() => {
+  const ids = new Set(huntRips.flatMap((r) => r.ripIds || []));
+  return ids.size || huntRips.reduce((n, r) => n + r.total, 0);
+})();
 
 /** The two price rows under a card. Each disappears entirely when unknown. */
 function prices(c) {
