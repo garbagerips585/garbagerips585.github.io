@@ -17,7 +17,7 @@
       "\"Manectric\" (Abyss Eye (JP)) -- the checklist holds it and carries no scan and no price"
     ],
     "EPqUqzrAc30": [
-      "\"Trainer Poké Pad\" (Nihil Zero (JP)) -- that name is not on the checklist we hold for that set"
+      "\"Poké Pad\" (Nihil Zero (JP)) -- the checklist holds it and carries no scan and no price"
     ],
     "QXS1W_L2qbs": [
       "\"Bidoof PEELABLE DITTO 059/078 Reverse Holo\" (Pokémon GO) -- that name is not on the checklist we hold for that set"
@@ -26,8 +26,7 @@
       "\"Mega Froslass ex Pink and Green Star Mega Attack Rare\" (Ascended Heroes) -- that name is not on the checklist we hold for that set"
     ],
     "XjFoToaom6k": [
-      "\"Victini\" (Scarlet & Violet Black Star Promos) -- this site holds no checklist for that set, in public/data/cards/ or in public/data/intl-guides.json, so there is no scan and no price to show",
-      "\"Mienshao Illustartion Rare\" (White Flare) -- that name is not on the checklist we hold for that set"
+      "\"Victini\" (Scarlet & Violet Black Star Promos) -- this site holds no checklist for that set, in public/data/cards/ or in public/data/intl-guides.json, so there is no scan and no price to show"
     ],
     "NzWUDxXwnPI": [
       "\"Raticate\" (Nihil Zero (JP)) -- the checklist holds it and carries no scan and no price",
@@ -44,33 +43,9 @@
     "K5RKQlNhvl8": [
       "\"Spearow\" (Mega Brave (JP)) -- the checklist holds it and carries no scan and no price"
     ],
-    "J-Gqbe3jPn4": [
-      "\"Gold Fighting Energy\" (Chilling Reign) -- that name is not on the checklist we hold for that set"
-    ],
-    "fZk7D5Wd0Eg": [
-      "\"Togekiss IllustrationRare\" (Ascended Heroes) -- that name is not on the checklist we hold for that set"
-    ],
-    "i9htInhtbCw": [
-      "\"Egg Incubator Gold\" (Pokémon GO) -- that name is not on the checklist we hold for that set"
-    ],
     "g9RQqx9da6Q": [
       "\"Mabosstiff ex\" (Paradox Rift) -- that name is not on the checklist we hold for that set",
       "\"Alolan Vulpix V\" (Silver Tempest) -- this site holds no checklist for that set, in public/data/cards/ or in public/data/intl-guides.json, so there is no scan and no price to show"
-    ],
-    "GLM2VLIWZGo": [
-      "\"Mega Charizard Y\" (Phantasmal Flames) -- that name is not on the checklist we hold for that set"
-    ],
-    "IuEb3qtjflI": [
-      "\"Trainer Enriching Energy Pink Star ACE SPEC Special Energy\" (Surging Sparks) -- that name is not on the checklist we hold for that set"
-    ],
-    "F9mAQqKd6r8": [
-      "\"Mega Charizard Y\" -- a promo that matched no entry in public/data/printings/ and carries no price of its own"
-    ],
-    "Ab81MNFnDLw": [
-      "\"Panpour\" -- a promo that matched no entry in public/data/printings/ and carries no price of its own"
-    ],
-    "b1B3Vbpsrh8": [
-      "\"Trainer Gladion’s Final Battle\" (Pitch Black) -- that name is not on the checklist we hold for that set"
     ]
   }
 }

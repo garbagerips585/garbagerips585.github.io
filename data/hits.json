@@ -1006,7 +1006,7 @@
     ],
     "EPqUqzrAc30": [
       {
-        "card": "Trainer Poké Pad",
+        "card": "Poké Pad",
         "set": "ja-nihil-zero",
         "setName": "Nihil Zero (JP)",
         "rarity": "Super Rare"
@@ -1075,7 +1075,7 @@
         "rarity": "Double Rare"
       },
       {
-        "card": "Mienshao Illustartion Rare",
+        "card": "Mienshao",
         "set": "white-flare",
         "setName": "White Flare",
         "rarity": "Illustration Rare"
@@ -1222,7 +1222,7 @@
     ],
     "J-Gqbe3jPn4": [
       {
-        "card": "Gold Fighting Energy",
+        "card": "Fighting Energy",
         "set": "chilling-reign",
         "setName": "Chilling Reign",
         "rarity": "Secret Rare"
@@ -1277,7 +1277,7 @@
         "rarity": "Ultra Rare"
       },
       {
-        "card": "Togekiss IllustrationRare",
+        "card": "Togekiss",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
         "rarity": "Illustration Rare"
@@ -1299,7 +1299,7 @@
     ],
     "i9htInhtbCw": [
       {
-        "card": "Egg Incubator Gold",
+        "card": "Egg Incubator",
         "set": "pokemon-go",
         "setName": "Pokémon GO",
         "rarity": "Secret Rare"
@@ -1340,9 +1340,7 @@
     ],
     "GLM2VLIWZGo": [
       {
-        "card": "Mega Charizard Y",
-        "set": "phantasmal-flames",
-        "setName": "Phantasmal Flames",
+        "card": "Mega Charizard Y ex",
         "rarity": "Black Star Promo"
       },
       {
@@ -1540,9 +1538,10 @@
     ],
     "IuEb3qtjflI": [
       {
-        "card": "Trainer Enriching Energy Pink Star ACE SPEC Special Energy",
+        "card": "Enriching Energy",
         "set": "surging-sparks",
-        "setName": "Surging Sparks"
+        "setName": "Surging Sparks",
+        "rarity": "ACE SPEC Rare"
       }
     ],
     "8xqvY3OzugE": [
@@ -1555,7 +1554,7 @@
     ],
     "F9mAQqKd6r8": [
       {
-        "card": "Mega Charizard Y",
+        "card": "Mega Charizard Y ex",
         "rarity": "Black Star Promo"
       },
       {
@@ -1598,12 +1597,14 @@
     "Ab81MNFnDLw": [
       {
         "card": "Panpour",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "set": "black-bolt",
+        "setName": "Black Bolt"
       }
     ],
     "b1B3Vbpsrh8": [
       {
-        "card": "Trainer Gladion’s Final Battle",
+        "card": "Gladion’s Final Battle",
         "set": "pitch-black",
         "setName": "Pitch Black",
         "rarity": "Special Illustration Rare"

@@ -42,10 +42,10 @@
     "openingType": "Single Booster Pack",
     "packNumber": 10,
     "hasHit": true,
-    "hitCard": "Trainer - Gladion’s Final Battle - Double Gold Star - Special Illustration Rare",
+    "hitCard": "Gladion’s Final Battle - Double Gold Star - Special Illustration Rare",
     "hits": [
       {
-        "card": "Trainer Gladion’s Final Battle",
+        "card": "Gladion’s Final Battle",
         "rarity": "Special Illustration Rare",
         "set": "pitch-black",
         "setName": "Pitch Black"
@@ -530,7 +530,7 @@
     "boxNumber": 2,
     "packNumber": 8,
     "hasHit": true,
-    "hitCard": "Trainer - Dawn - Double Silver Star - Ultra Rare",
+    "hitCard": "Dawn - Double Silver Star - Ultra Rare",
     "hits": [
       {
         "card": "Dawn",
@@ -657,7 +657,7 @@
     "boxNumber": 2,
     "packNumber": 7,
     "hasHit": true,
-    "hitCard": "Trainer - Dawn - Double Gold Star - Special Illustration Rare",
+    "hitCard": "Dawn - Double Gold Star - Special Illustration Rare",
     "hits": [
       {
         "card": "Dawn",
@@ -987,7 +987,7 @@
     "boxNumber": 2,
     "packNumber": 4,
     "hasHit": true,
-    "hitCard": "Trainer - Sacred Ash - Double Silver Star - Ultra Rare",
+    "hitCard": "Sacred Ash - Double Silver Star - Ultra Rare",
     "hits": [
       {
         "card": "Sacred Ash",
@@ -1029,7 +1029,7 @@
     "openingType": "Poke Ball Tin",
     "packNumber": 1,
     "hasHit": true,
-    "hitCard": "Trainer - Lumiose City - Double Silver Star - Ultra Rare",
+    "hitCard": "Lumiose City - Double Silver Star - Ultra Rare",
     "hits": [
       {
         "card": "Lumiose City",
@@ -1124,7 +1124,7 @@
     "boxNumber": 2,
     "packNumber": 2,
     "hasHit": true,
-    "hitCard": "Trainer - Energy Recycler - Double Silver Star - Ultra Rare",
+    "hitCard": "Energy Recycler - Double Silver Star - Ultra Rare",
     "hits": [
       {
         "card": "Energy Recycler",
@@ -1150,7 +1150,7 @@
     "boxNumber": 2,
     "packNumber": 4,
     "hasHit": true,
-    "hitCard": "Trainer - Team Rocket's Transceiver - Double Silver Star - Ultra Rare",
+    "hitCard": "Team Rocket's Transceiver - Double Silver Star - Ultra Rare",
     "hits": [
       {
         "card": "Team Rocket's Transceiver",
@@ -1581,7 +1581,7 @@
     "boxNumber": 5,
     "packNumber": 1,
     "hasHit": true,
-    "hitCard": "First Partner Illustration Collection (Series 1) Alola Region Promos : Rowlet, Litten, Popplio ; Phantasmal Flames - Trainer - Punk Helmet - Double Silver Star - Ultra Rare",
+    "hitCard": "First Partner Illustration Collection (Series 1) Alola Region Promos : Rowlet, Litten, Popplio ; Phantasmal Flames - Punk Helmet - Double Silver Star - Ultra Rare",
     "hits": [
       {
         "card": "Rowlet",
@@ -3080,7 +3080,7 @@
     "openingType": "Booster Bundle",
     "packNumber": 6,
     "hasHit": true,
-    "hitCard": "Trainer - Brock's Scouting - Double Silver Star - Ultra Rare",
+    "hitCard": "Brock's Scouting - Double Silver Star - Ultra Rare",
     "hits": [
       {
         "card": "Brock's Scouting",
@@ -3253,7 +3253,7 @@
     "openingType": "ETB",
     "packNumber": 5,
     "hasHit": true,
-    "hitCard": "Trainer - Friends In Paldea - Double Silver Star - Ultra Rare",
+    "hitCard": "Friends In Paldea - Double Silver Star - Ultra Rare",
     "hits": [
       {
         "card": "Friends In Paldea",
@@ -3482,7 +3482,7 @@
     "setsPacks": "Mega Symphonia - 5 Packs",
     "openingType": "Japanese Single Booster Pack",
     "hasHit": true,
-    "hitCard": "Mega Abomasnow ex - RR - Double Rare , Trainer - Rare Candy - SR - Full Art",
+    "hitCard": "Mega Abomasnow ex - RR - Double Rare , Rare Candy - SR - Full Art",
     "hits": [
       {
         "card": "Mega Abomasnow ex",
@@ -4202,10 +4202,10 @@
     "setsPacks": "Nihil Zero - 4 Packs",
     "openingType": "Japanese Single Booster Pack",
     "hasHit": true,
-    "hitCard": "Trainer - Poké Pad - SR - Full Art",
+    "hitCard": "Poké Pad - SR - Full Art",
     "hits": [
       {
-        "card": "Trainer Poké Pad",
+        "card": "Poké Pad",
         "rarity": "Super Rare",
         "set": "ja-nihil-zero",
         "setName": "Nihil Zero (JP)"
@@ -4374,7 +4374,7 @@
     "setsPacks": "Black Bolt - 2 Packs, White Flare - 2 Packs",
     "openingType": "Victini Illustration Collection",
     "hasHit": true,
-    "hitCard": "Victini - Scarlet & Violet Black Star Promo , Black Bolt - Servine - Single Gold Star - Illustration Rare, Black Bolt - Musharna - Single Gold Star - Illustration Rare, Black Bolt - Excadrill ex - Double Black Star - Double Rare, White Flare - Mienshao - Single Gold Star - Illustartion Rare",
+    "hitCard": "Victini - Scarlet & Violet Black Star Promo , Black Bolt - Servine - Single Gold Star - Illustration Rare, Black Bolt - Musharna - Single Gold Star - Illustration Rare, Black Bolt - Excadrill ex - Double Black Star - Double Rare, White Flare - Mienshao - Single Gold Star - Illustration Rare",
     "hits": [
       {
         "card": "Victini",
@@ -4400,7 +4400,7 @@
         "setName": "Black Bolt"
       },
       {
-        "card": "Mienshao Illustartion Rare",
+        "card": "Mienshao",
         "rarity": "Illustration Rare",
         "set": "white-flare",
         "setName": "White Flare"
@@ -4571,7 +4571,7 @@
     "openingType": "Single Booster Pack",
     "packNumber": 2,
     "hasHit": true,
-    "hitCard": "Trainer - Acerola's Mischief - Double Siliver Star - Ultra Rare",
+    "hitCard": "Acerola's Mischief - Double Siliver Star - Ultra Rare",
     "hits": [
       {
         "card": "Acerola's Mischief",
@@ -4651,7 +4651,7 @@
     "setsPacks": "Silver Tempest - 1 Pack , Lost Origin -1 Pack",
     "openingType": "2 Pack Blister",
     "hasHit": true,
-    "hitCard": "Silver Tempest - Corviknight V -  Trainer Gallery, Silver Tempest - Reshiram V , Lost Origin - Galarian Perrserker V",
+    "hitCard": "Silver Tempest - Corviknight V - Trainer Gallery, Silver Tempest - Reshiram V , Lost Origin - Galarian Perrserker V",
     "hits": [
       {
         "card": "Corviknight V Trainer Gallery",
@@ -4879,10 +4879,10 @@
     "openingType": "Single Booster Pack",
     "packNumber": 1,
     "hasHit": true,
-    "hitCard": "Gold Fighting Energy - Secret Rare",
+    "hitCard": "Fighting Energy - Secret Rare",
     "hits": [
       {
-        "card": "Gold Fighting Energy",
+        "card": "Fighting Energy",
         "rarity": "Secret Rare",
         "set": "chilling-reign",
         "setName": "Chilling Reign"
@@ -5104,7 +5104,7 @@
     "openingType": "First Partners Deluxe Pin Collection",
     "packNumber": 1,
     "hasHit": true,
-    "hitCard": "Anthea & Concordia - Double Silver Star - Ultra Rare ; Togekiss - Single Gold Star - IllustrationRare",
+    "hitCard": "Anthea & Concordia - Double Silver Star - Ultra Rare ; Togekiss - Single Gold Star - Illustration Rare",
     "hits": [
       {
         "card": "Anthea & Concordia",
@@ -5113,7 +5113,7 @@
         "setName": "Ascended Heroes"
       },
       {
-        "card": "Togekiss IllustrationRare",
+        "card": "Togekiss",
         "rarity": "Illustration Rare",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes"
@@ -5171,10 +5171,10 @@
     "openingType": "Single Booster Pack",
     "packNumber": 10,
     "hasHit": true,
-    "hitCard": "Trainer - Egg Incubator Gold - Secret Rare",
+    "hitCard": "Egg Incubator - Secret Rare",
     "hits": [
       {
-        "card": "Egg Incubator Gold",
+        "card": "Egg Incubator",
         "rarity": "Secret Rare",
         "set": "pokemon-go",
         "setName": "Pokémon GO"
@@ -5347,10 +5347,10 @@
     "openingType": "Tin",
     "packNumber": 1,
     "hasHit": true,
-    "hitCard": "Mega Charizard Y - Black Star Promo ; Journey Together - N's Zoroark ex - Double Black Star - Double Rare ; Mega Evolution - Marshadow - Single Gold Star - Illustration Rare ; Phantasmal Flames - Mega Lopunny ex - Double Black Star - Double Rare",
+    "hitCard": "Mega Charizard Y ex - Black Star Promo ; Journey Together - N's Zoroark ex - Double Black Star - Double Rare ; Mega Evolution - Marshadow - Single Gold Star - Illustration Rare ; Phantasmal Flames - Mega Lopunny ex - Double Black Star - Double Rare",
     "hits": [
       {
-        "card": "Mega Charizard Y",
+        "card": "Mega Charizard Y ex",
         "rarity": "Black Star Promo"
       },
       {
@@ -5418,7 +5418,7 @@
     "setsPacks": "Ascended Heroes - 3 Packs",
     "openingType": "Tech Sticker Collection",
     "hasHit": true,
-    "hitCard": "Mega Dragonite ex - Double Black Star - Double Rare ; Trainer - Cheren - Double Silver Star - Ultra Rare",
+    "hitCard": "Mega Dragonite ex - Double Black Star - Double Rare ; Cheren - Double Silver Star - Ultra Rare",
     "hits": [
       {
         "card": "Mega Dragonite ex",
@@ -5671,7 +5671,7 @@
     "setsPacks": "Phantasmal Flames -1 Pack ; Mega Evolution- 1 Pack",
     "openingType": "2 Pack Blister",
     "hasHit": true,
-    "hitCard": "Mega Evolution- Trainer - Premium Power Pro - Double Silver Star - Ultra Rare",
+    "hitCard": "Mega Evolution- Premium Power Pro - Double Silver Star - Ultra Rare",
     "hits": [
       {
         "card": "Premium Power Pro",
@@ -6111,7 +6111,7 @@
     "setsPacks": "Journey Together - 3 Packs ; Destined Rivals - 3 Packs ; Mega Evolution - 2 Packs",
     "openingType": "ex Premium Collection Box",
     "hasHit": true,
-    "hitCard": "Mega Evolution - Trainer - Air Balloon - Double Silver Star - Ultra Rare ; Mega Venusaur ex - Black Star Promo",
+    "hitCard": "Mega Evolution - Air Balloon - Double Silver Star - Ultra Rare ; Mega Venusaur ex - Black Star Promo",
     "hits": [
       {
         "card": "Air Balloon",
@@ -6251,10 +6251,11 @@
     "openingType": "Single Booster Pack",
     "packNumber": 1,
     "hasHit": true,
-    "hitCard": "Trainer - Enriching Energy - Pink Star - ACE SPEC Special Energy",
+    "hitCard": "Enriching Energy - Pink Star - ACE SPEC Rare",
     "hits": [
       {
-        "card": "Trainer Enriching Energy Pink Star ACE SPEC Special Energy",
+        "card": "Enriching Energy",
+        "rarity": "ACE SPEC Rare",
         "set": "surging-sparks",
         "setName": "Surging Sparks"
       }
@@ -6310,10 +6311,10 @@
     "setsPacks": "Phantasmal Flames - 2 Packs ; Mega Evolution - 1 Pack ; Journey Together - 1 Pack",
     "openingType": "Tin",
     "hasHit": true,
-    "hitCard": "Mega Charizard Y - Black Star Promo ; Phantasmal Flames - Empoleon ex - Double Black Star - Double Rare",
+    "hitCard": "Mega Charizard Y ex - Black Star Promo ; Phantasmal Flames - Empoleon ex - Double Black Star - Double Rare",
     "hits": [
       {
-        "card": "Mega Charizard Y",
+        "card": "Mega Charizard Y ex",
         "rarity": "Black Star Promo"
       },
       {
@@ -6538,11 +6539,13 @@
     "setsPacks": "Black Bolt - 1 Pack, White Flare - 1 Pack",
     "openingType": "Mini Tin",
     "hasHit": true,
-    "hitCard": "Panpour - Single Gold Star - Illustration Rare",
+    "hitCard": "Black Bolt - Panpour - Single Gold Star - Illustration Rare",
     "hits": [
       {
         "card": "Panpour",
-        "rarity": "Illustration Rare"
+        "rarity": "Illustration Rare",
+        "set": "black-bolt",
+        "setName": "Black Bolt"
       }
     ]
   },
@@ -6679,7 +6682,7 @@
     "setsPacks": "Journey Together",
     "openingType": "3 Pack Blister",
     "hasHit": true,
-    "hitCard": "Trainer - Ruffian - Double Silver Star - Ultra Rare",
+    "hitCard": "Ruffian - Double Silver Star - Ultra Rare",
     "hits": [
       {
         "card": "Ruffian",
@@ -6929,7 +6932,7 @@
     "setsPacks": "Phantasmal Flames - 4 Packs ; Mega Evolution - 4 Packs ; Destined Rivals - 4 Packs ; Journey Together - 4 Packs ; Surging Sparks - 2 Packs",
     "openingType": "UPC",
     "hasHit": true,
-    "hitCard": "Phantasmal Flames - Trainer - Dawn - Double Silver Star - Ultra Rare, Phantasmal Flames - Mega Gengar ex - Double Black Star - Double Rare , Mega Evolution - Mega Gardevoir ex - Double Silver Star - Ultra Rare , Mega Evolution - Mega Venusaur ex - Double Black Star - Double Rare , Mega Evolution - Marshadow - Single Gold Star - Illustration Rare ,  Destined Rivals - Cetitan ex - Double Black Star , Destined Rivals - Rotom - Single Gold Star - Illustration Rare, Journey Together - Noibat - Single Gold Star - Illustration Rare, Journey Together - Trainer - Brock's Scouting - Double Silver Star - Ultra Rare , Journey Together - Blaziken ex - Double Black Star - Double Rare, Surging Sparks - Trainer - Scramble Switch - Single Pink Star -  ACE SPEC Rare , Surging Sparks - Trainer - Cyrano - Double Silver Star - Ultra Rare, Mega Charizard X UPC Promo - Mega Charizard X ex - Black Star Promo Card , Mega Charizard X UPC Promo - Oricorio ex - Black Star Promo Card",
+    "hitCard": "Phantasmal Flames - Dawn - Double Silver Star - Ultra Rare, Phantasmal Flames - Mega Gengar ex - Double Black Star - Double Rare , Mega Evolution - Mega Gardevoir ex - Double Silver Star - Ultra Rare , Mega Evolution - Mega Venusaur ex - Double Black Star - Double Rare , Mega Evolution - Marshadow - Single Gold Star - Illustration Rare , Destined Rivals - Cetitan ex - Double Black Star , Destined Rivals - Rotom - Single Gold Star - Illustration Rare, Journey Together - Noibat - Single Gold Star - Illustration Rare, Journey Together - Brock's Scouting - Double Silver Star - Ultra Rare , Journey Together - Blaziken ex - Double Black Star - Double Rare, Surging Sparks - Scramble Switch - Single Pink Star - ACE SPEC Rare , Surging Sparks - Cyrano - Double Silver Star - Ultra Rare, Mega Charizard X UPC Promo - Mega Charizard X ex - Black Star Promo Card , Mega Charizard X UPC Promo - Oricorio ex - Black Star Promo Card",
     "hits": [
       {
         "card": "Dawn",
