@@ -14,7 +14,17 @@
     "VZtK6rT7ZTI",
     "h5mje3jbD48"
    ],
-   "path": "playlists/pitch-black-etb-opening-marathon.html"
+   "path": "playlists/pitch-black-etb-opening-marathon.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/pitch-black-etb.webp",
+    "jpg": "/assets/playlist-covers/pitch-black-etb.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Pitch Black Elite Trainer Box"
+   },
+   "setId": "pitch-black",
+   "setLabel": "Pitch Black",
+   "productType": "etb"
   },
   {
    "id": "PLBIoWvw5RFMQ",
@@ -27,7 +37,17 @@
    "videoIds": [
     "_RuAmy2dGL8"
    ],
-   "path": "playlists/pitch-black-booster-bundle-series.html"
+   "path": "playlists/pitch-black-booster-bundle-series.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/pitch-black-bundle.webp",
+    "jpg": "/assets/playlist-covers/pitch-black-bundle.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Pitch Black Booster Bundle"
+   },
+   "setId": "pitch-black",
+   "setLabel": "Pitch Black",
+   "productType": "bundle"
   },
   {
    "id": "PLXMhmkmyX32A",
@@ -41,7 +61,17 @@
     "E5Wz7X1VMeY",
     "b1B3Vbpsrh8"
    ],
-   "path": "playlists/pitch-black-single-pack-hunt.html"
+   "path": "playlists/pitch-black-single-pack-hunt.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/pitch-black-single-pack.webp",
+    "jpg": "/assets/playlist-covers/pitch-black-single-pack.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Pitch Black Booster Pack"
+   },
+   "setId": "pitch-black",
+   "setLabel": "Pitch Black",
+   "productType": "single-pack"
   },
   {
    "id": "PLn62_rIirK-1Z-E8zrZEyQ1IT8BXvD5c8",
@@ -75,7 +105,17 @@
     "iIgTusrqVtg",
     "yiYrp7bo3PM"
    ],
-   "path": "playlists/pokemon-chaos-rising-etb-opening-series.html"
+   "path": "playlists/pokemon-chaos-rising-etb-opening-series.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/chaos-rising-etb.webp",
+    "jpg": "/assets/playlist-covers/chaos-rising-etb.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Chaos Rising Elite Trainer Box"
+   },
+   "setId": "chaos-rising",
+   "setLabel": "Chaos Rising",
+   "productType": "etb"
   },
   {
    "id": "PLn62_rIirK-2-rjTqQ4fTcg2Ng63t1vKS",
@@ -99,7 +139,17 @@
     "udV4EBssAj0",
     "R4TUGTf0Eb4"
    ],
-   "path": "playlists/pokemon-chaos-rising-booster-bundle-opening-series.html"
+   "path": "playlists/pokemon-chaos-rising-booster-bundle-opening-series.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/chaos-rising-bundle.webp",
+    "jpg": "/assets/playlist-covers/chaos-rising-bundle.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Chaos Rising Booster Bundle"
+   },
+   "setId": "chaos-rising",
+   "setLabel": "Chaos Rising",
+   "productType": "bundle"
   },
   {
    "id": "PLn62_rIirK-1OIVHung4k-CAlzIiYAmng",
@@ -131,7 +181,17 @@
     "DP8HG31X1rg",
     "lRT8jgjO2HM"
    ],
-   "path": "playlists/pokemon-chaos-rising-pack-opening-series.html"
+   "path": "playlists/pokemon-chaos-rising-pack-opening-series.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/chaos-rising-single-pack.webp",
+    "jpg": "/assets/playlist-covers/chaos-rising-single-pack.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Chaos Rising Booster Pack"
+   },
+   "setId": "chaos-rising",
+   "setLabel": "Chaos Rising",
+   "productType": "single-pack"
   },
   {
    "id": "PLn62_rIirK-1o0Udv8I1x91caDq5NFNUR",
@@ -152,7 +212,17 @@
     "2wZwMWDlxP0",
     "CT5t8mKeZUw"
    ],
-   "path": "playlists/prismatic-evolutions-etb-pack-opening-series.html"
+   "path": "playlists/prismatic-evolutions-etb-pack-opening-series.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/prismatic-evolutions-etb.webp",
+    "jpg": "/assets/playlist-covers/prismatic-evolutions-etb.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Prismatic Evolutions Elite Trainer Box"
+   },
+   "setId": "prismatic-evolutions",
+   "setLabel": "Prismatic Evolutions",
+   "productType": "etb"
   },
   {
    "id": "PLn62_rIirK-1uwv6MIXNT3IlaJU-3N3b0",
@@ -173,7 +243,17 @@
     "1dkor9FBy7s",
     "dFIdg1ZRxDM"
    ],
-   "path": "playlists/perfect-order-etb-pack-opening-series.html"
+   "path": "playlists/perfect-order-etb-pack-opening-series.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/perfect-order-etb.webp",
+    "jpg": "/assets/playlist-covers/perfect-order-etb.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Perfect Order Elite Trainer Box"
+   },
+   "setId": "perfect-order",
+   "setLabel": "Perfect Order",
+   "productType": "etb"
   },
   {
    "id": "PLn62_rIirK-1VfIY7CStVVTOljlTccOHq",
@@ -197,7 +277,17 @@
     "iPxD2pp1zHo",
     "vW8lkXEx3Ao"
    ],
-   "path": "playlists/ascended-heroes-booster-bundle-opening-series.html"
+   "path": "playlists/ascended-heroes-booster-bundle-opening-series.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/ascended-heroes-bundle.webp",
+    "jpg": "/assets/playlist-covers/ascended-heroes-bundle.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Ascended Heroes Booster Bundle"
+   },
+   "setId": "ascended-heroes",
+   "setLabel": "Ascended Heroes",
+   "productType": "bundle"
   },
   {
    "id": "PLn62_rIirK-3dux5yFkgamGpC67Opaxu_",
@@ -212,7 +302,17 @@
     "dQaN_4yqS0w",
     "Pvi54rMlLfQ"
    ],
-   "path": "playlists/mega-evolution-booster-pack-opening-series.html"
+   "path": "playlists/mega-evolution-booster-pack-opening-series.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/mega-evolution-single-pack.webp",
+    "jpg": "/assets/playlist-covers/mega-evolution-single-pack.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Mega Evolution Booster Pack"
+   },
+   "setId": "mega-evolution",
+   "setLabel": "Mega Evolution",
+   "productType": "single-pack"
   },
   {
    "id": "PLn62_rIirK-1q-W0qlw1r_OTmcIBxsNmq",
@@ -236,7 +336,17 @@
     "FlMsxjakWcs",
     "CP7sMGF3p3M"
    ],
-   "path": "playlists/journey-together-booster-bundle-series-6-pack-opening.html"
+   "path": "playlists/journey-together-booster-bundle-series-6-pack-opening.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/journey-together-bundle.webp",
+    "jpg": "/assets/playlist-covers/journey-together-bundle.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Journey Together Booster Bundle"
+   },
+   "setId": "journey-together",
+   "setLabel": "Journey Together",
+   "productType": "bundle"
   },
   {
    "id": "PLn62_rIirK-0oVKfsCbQyPNRhA037ACD0",
@@ -260,7 +370,17 @@
     "7qgnakc3__c",
     "l_vpvsLXG50"
    ],
-   "path": "playlists/perfect-order-booster-bundle-series-6-packs-series.html"
+   "path": "playlists/perfect-order-booster-bundle-series-6-packs-series.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/perfect-order-bundle.webp",
+    "jpg": "/assets/playlist-covers/perfect-order-bundle.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Perfect Order Booster Bundle"
+   },
+   "setId": "perfect-order",
+   "setLabel": "Perfect Order",
+   "productType": "bundle"
   },
   {
    "id": "PLn62_rIirK-2IBFbLzsyUWWHS4orkwvwm",
@@ -290,7 +410,17 @@
     "k6p_6HEntYw",
     "aa9jzXRFtrg"
    ],
-   "path": "playlists/pok-mon-perfect-order-pack-opening-series.html"
+   "path": "playlists/pok-mon-perfect-order-pack-opening-series.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/perfect-order-single-pack.webp",
+    "jpg": "/assets/playlist-covers/perfect-order-single-pack.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Perfect Order Booster Pack"
+   },
+   "setId": "perfect-order",
+   "setLabel": "Perfect Order",
+   "productType": "single-pack"
   },
   {
    "id": "PLn62_rIirK-3MK6S68mVy82C4ukzsXuhd",
@@ -359,7 +489,17 @@
     "l6RPdGNs7uE",
     "TN7_ZsuRQSI"
    ],
-   "path": "playlists/hits-only-no-bulk-just-back-to-back-pulls.html"
+   "path": "playlists/hits-only-no-bulk-just-back-to-back-pulls.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/hits-only.webp",
+    "jpg": "/assets/playlist-covers/hits-only.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Chaos Rising Elite Trainer Box, Perfect Order Booster Bundle and Ascended Heroes Booster Pack, on the Hits Only cover"
+   },
+   "setId": null,
+   "setLabel": null,
+   "productType": null
   },
   {
    "id": "PLn62_rIirK-21gFCezeA9OtOFpOvUHU54",
@@ -383,7 +523,17 @@
     "-la8PgoBkCw",
     "QXS1W_L2qbs"
    ],
-   "path": "playlists/pok-mon-go-booster-pack-mewtwo-hunt-garbage-rips-585.html"
+   "path": "playlists/pok-mon-go-booster-pack-mewtwo-hunt-garbage-rips-585.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/pokemon-go-single-pack.webp",
+    "jpg": "/assets/playlist-covers/pokemon-go-single-pack.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Pokemon GO Booster Pack"
+   },
+   "setId": "pokemon-go",
+   "setLabel": "Pokémon GO",
+   "productType": "single-pack"
   },
   {
    "id": "PLn62_rIirK-3VoV9L3TKAvhdku5msr-_a",
@@ -400,7 +550,17 @@
     "IuEb3qtjflI",
     "RtJn1UOi2S8"
    ],
-   "path": "playlists/surging-sparks-booster-pack-opening-series-garbage-rips-585.html"
+   "path": "playlists/surging-sparks-booster-pack-opening-series-garbage-rips-585.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/surging-sparks-single-pack.webp",
+    "jpg": "/assets/playlist-covers/surging-sparks-single-pack.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Surging Sparks Booster Pack"
+   },
+   "setId": "surging-sparks",
+   "setLabel": "Surging Sparks",
+   "productType": "single-pack"
   },
   {
    "id": "PLn62_rIirK-0LlcARhVo2tc2ZcXHBYtC_",
@@ -421,7 +581,17 @@
     "F9S695pYxZ8",
     "-e9F0ufKpIQ"
    ],
-   "path": "playlists/ascended-heroes-elite-trainer-box-pack-series-garbage-rips-5.html"
+   "path": "playlists/ascended-heroes-elite-trainer-box-pack-series-garbage-rips-5.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/ascended-heroes-etb.webp",
+    "jpg": "/assets/playlist-covers/ascended-heroes-etb.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Ascended Heroes Elite Trainer Box"
+   },
+   "setId": "ascended-heroes",
+   "setLabel": "Ascended Heroes",
+   "productType": "etb"
   },
   {
    "id": "PLn62_rIirK-17Bz8L8cGDvGTXPINTO-nd",
@@ -445,7 +615,17 @@
     "6cwLQGIVpKU",
     "SQLDjKwVPk4"
    ],
-   "path": "playlists/destined-rivals-booster-pack-opening-series-garbage-rips-585.html"
+   "path": "playlists/destined-rivals-booster-pack-opening-series-garbage-rips-585.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/destined-rivals-single-pack.webp",
+    "jpg": "/assets/playlist-covers/destined-rivals-single-pack.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Destined Rivals Booster Pack"
+   },
+   "setId": "destined-rivals",
+   "setLabel": "Destined Rivals",
+   "productType": "single-pack"
   },
   {
    "id": "PLn62_rIirK-3L-YXSCWoyvmW4rfKSL5fG",
@@ -460,7 +640,17 @@
     "f9qJ_M3ot3k",
     "EOFAhFwJKqw"
    ],
-   "path": "playlists/paradox-rift-booster-pack-openings-garbage-rips-585.html"
+   "path": "playlists/paradox-rift-booster-pack-openings-garbage-rips-585.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/paradox-rift-single-pack.webp",
+    "jpg": "/assets/playlist-covers/paradox-rift-single-pack.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Paradox Rift Booster Pack"
+   },
+   "setId": "paradox-rift",
+   "setLabel": "Paradox Rift",
+   "productType": "single-pack"
   },
   {
    "id": "PLn62_rIirK-0NBWXqK7tdKbO8jR-Xx8U7",
@@ -474,7 +664,17 @@
     "hLr5iThoO2k",
     "SOCAXif6Mzs"
    ],
-   "path": "playlists/journey-together-booster-pack-opening-series-garbage-rips-58.html"
+   "path": "playlists/journey-together-booster-pack-opening-series-garbage-rips-58.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/journey-together-single-pack.webp",
+    "jpg": "/assets/playlist-covers/journey-together-single-pack.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Journey Together Booster Pack"
+   },
+   "setId": "journey-together",
+   "setLabel": "Journey Together",
+   "productType": "single-pack"
   },
   {
    "id": "PLn62_rIirK-35hvtItZPFfnxWkGY-poRs",
@@ -506,7 +706,17 @@
     "vzYuzHFbueo",
     "3dKWTVbCH3I"
    ],
-   "path": "playlists/ascended-heroes-booster-pack-opening-series-garbage-rips-585.html"
+   "path": "playlists/ascended-heroes-booster-pack-opening-series-garbage-rips-585.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/ascended-heroes-single-pack.webp",
+    "jpg": "/assets/playlist-covers/ascended-heroes-single-pack.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Ascended Heroes Booster Pack"
+   },
+   "setId": "ascended-heroes",
+   "setLabel": "Ascended Heroes",
+   "productType": "single-pack"
   },
   {
    "id": "PLn62_rIirK-0GN2cSboCtZ2gbp7CqP0Ev",
@@ -528,7 +738,17 @@
     "Prq7KI6j1Vk",
     "AXOYuKfoBXU"
    ],
-   "path": "playlists/phantasmal-flames-booster-pack-openings-garbage-rips-585.html"
+   "path": "playlists/phantasmal-flames-booster-pack-openings-garbage-rips-585.html",
+   "cover": {
+    "webp": "/assets/playlist-covers/phantasmal-flames-single-pack.webp",
+    "jpg": "/assets/playlist-covers/phantasmal-flames-single-pack.jpg",
+    "w": 360,
+    "h": 270,
+    "alt": "Sealed Phantasmal Flames Booster Pack"
+   },
+   "setId": "phantasmal-flames",
+   "setLabel": "Phantasmal Flames",
+   "productType": "single-pack"
   }
  ]
 }

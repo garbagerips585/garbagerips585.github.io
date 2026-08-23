@@ -1797,7 +1797,41 @@ function plTile(p, i) {
 // A playlist with nothing in it is not content, and app.js drops those too.
 // The index is passed through because PL_EAGER above counts position in the
 // FILTERED list, which is what the grid actually lays out.
-const plHtml = playlists.filter((p) => (p.count || 0) > 0).map(plTile).join("\n");
+/* GROUPED BY SET, SO EVERY PRODUCT FROM ONE SET SITS TOGETHER.
+ *
+ * Tim, 23 August 2026: "sort them by set type so every product from the set are
+ * showing together." The grid was in YouTube's own playlist order, which is the
+ * order he happened to create them in, so Pitch Black's three runs were split
+ * across three different rows with other sets between them.
+ *
+ * THE SET ORDER IS THE SITE'S OWN, newest release first, taken from sets.json
+ * rather than invented here: that is the order /sets/ and the set filter on
+ * /videos.html already use, and a third answer to "what order do sets go in"
+ * is not worth having. A set the release list does not carry sorts after the
+ * ones it does, and the one playlist with no set at all -- the Hits Only run,
+ * which spans every set by design -- goes last rather than being forced into
+ * somebody else's group.
+ *
+ * WITHIN A SET, BIGGEST RUN FIRST. The count is already on the card and it is
+ * the honest measure of which run is worth opening; product type would need a
+ * ranking nobody has agreed on.
+ */
+const setOrder = new Map(
+  [...sets]
+    .sort((a, b) => String(b.released || "").localeCompare(String(a.released || "")))
+    .map((s, i) => [s.id, i])
+);
+const plHtml = playlists
+  .filter((p) => (p.count || 0) > 0)
+  .slice()
+  .sort(
+    (a, b) =>
+      (a.setId ? setOrder.get(a.setId) ?? 9998 : 9999) - (b.setId ? setOrder.get(b.setId) ?? 9998 : 9999) ||
+      (b.count || 0) - (a.count || 0) ||
+      String(a.title).localeCompare(String(b.title))
+  )
+  .map(plTile)
+  .join("\n");
 
 /* -------------------------------------------- this week's drops, in a band -
  *
@@ -3234,7 +3268,13 @@ main{padding-top:0}
 // videos.html only: the packs it names are the first tiles of LIBGRID, so the
 // two have to be generated together or the preload drifts off the grid it was
 // derived from the next time a rip is published.
-const OWNED_ELSEWHERE = new Set(["LIBGRID", "LIBPRELOAD", "PLGRID"]);
+// COUNT_ALL IS OWNED BY videos.html NOW, WHICH IS WHY IT IS LISTED HERE.
+// A region missing from REGIONS is not an error, it is a marker nobody fills;
+// a region present in REGIONS whose marker is missing from index.html IS an
+// error, unless the name is in this set. COUNT_ALL is the second case: the
+// home page dropped its marker when the link became "Watch All Rips" and
+// videos.html still carries one.
+const OWNED_ELSEWHERE = new Set(["LIBGRID", "LIBPRELOAD", "PLGRID", "COUNT_ALL"]);
 
 const REGIONS = {
   LIBGRID: libHtml,
@@ -3276,12 +3316,15 @@ const REGIONS = {
   // bands above give.
   ROCHESTER: rocHtml,
   SETS101: setsHtml,
-  // COUNT_ALL IS GONE FROM THE PAGE AND SO IS THE REGION, same call and same
-  // day as COUNT_HITS above. It filled "All 321" in the Latest rips header and
-  // the number was CORRECT, which is the difference between the two: that one
-  // was a filtered figure wearing the wrong word, this one was simply a count a
-  // front-door label does not need. Tim asked for "Watch All Rips" on
-  // 23 August 2026. videos.length is still read all over this file.
+  // COUNT_ALL LEFT index.html AND STAYED ON videos.html, AND I ALMOST BROKE IT.
+  // It filled "All 321" in the Latest rips header, which became "Watch All Rips"
+  // on 23 August 2026, so I deleted the region -- and videos.html still carries
+  // the marker and still prints the number in "The newest rips, out of 321 on
+  // the channel". A region missing from REGIONS is not an error, it is a marker
+  // nobody fills, so that count silently froze at whatever the file happened to
+  // say. It is back, and its name is in OWNED_ELSEWHERE so index.html not
+  // having the marker is not fatal. See the note over that set.
+  COUNT_ALL: String(videos.length),
   // COUNT_HITS IS GONE FROM THE PAGE AND SO IS THE REGION. It filled
   // "All N hits" in the Greatest Hits header, and N was hitCount: rips
   // carrying one of the five RANKED pull tags, 115 of 321, where 156 rips

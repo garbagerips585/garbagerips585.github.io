@@ -537,19 +537,40 @@ await writeFile(
 // the previous value and handing it back keeps one author and closes the hole.
 // A playlist YouTube has just added has no previous value and gets no path,
 // which is correct -- it has no page yet either, and the reader below skips it.
+//
+// THE COVER IS CARRIED BACK FOR THE SAME REASON AND IT WAS NOT, so this sync
+// silently un-designed /playlists.html. `cover` is STAMPED onto this file by
+// sync-playlist-covers.mjs: the url, size and alt of a drawn panel showing the
+// actual sealed product, an Ascended Heroes Elite Trainer Box with the set logo
+// under it. This writer rebuilds every playlist record from YouTube's API
+// response, which knows nothing about that key, so every run since 19 August
+// dropped all 21 of them. build-proto.mjs falls back to the generic pack
+// wrapper when a playlist has no cover, and that fallback is deliberate and
+// quiet, so the grid went from 21 different products to 22 copies of the same
+// Trubbish pack and NOTHING reported it. Tim spotted it on the page.
+//
+// The 42 image files were on disk the whole time. Only the pointer was lost,
+// which is the worst shape of this bug: nothing 404s and nothing looks broken.
 const prevPlaylistPaths = new Map();
+const prevPlaylistCovers = new Map();
 try {
   const prev = JSON.parse(await readFile(join(ROOT, "public/data/playlists.json"), "utf8"));
-  for (const p of prev.playlists || []) if (p.id && p.path) prevPlaylistPaths.set(p.id, p.path);
+  for (const p of prev.playlists || []) {
+    if (p.id && p.path) prevPlaylistPaths.set(p.id, p.path);
+    if (p.id && p.cover) prevPlaylistCovers.set(p.id, p.cover);
+  }
 } catch {}
 await writeFile(
   join(ROOT, "public/data/playlists.json"),
   JSON.stringify(
     {
       syncedAt: localDay(),
-      playlists: playlists.map((p) =>
-        prevPlaylistPaths.has(p.id) ? { ...p, path: prevPlaylistPaths.get(p.id) } : p
-      ),
+      playlists: playlists.map((p) => {
+        const out = { ...p };
+        if (prevPlaylistPaths.has(p.id)) out.path = prevPlaylistPaths.get(p.id);
+        if (prevPlaylistCovers.has(p.id)) out.cover = prevPlaylistCovers.get(p.id);
+        return out;
+      }),
     },
     null,
     0

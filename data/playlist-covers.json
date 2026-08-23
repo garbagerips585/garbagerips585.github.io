@@ -1,6 +1,6 @@
 {
  "_readme": "Written by scripts/sync-playlist-covers.mjs. Which sealed product each playlist opens, and whose photograph it is. Drawn into public/assets/playlist-covers/ by scripts/build-playlist-covers.py. Product photographs are TCGplayer's, set logos are The Pokemon Company's, and /playlists.html credits both.",
- "syncedAt": "2026-08-18",
+ "syncedAt": "2026-08-23",
  "source": "TCGplayer, via public/data/products.json",
  "size": {
   "w": 360,
@@ -24,6 +24,26 @@
    "alt": "Sealed Pitch Black Elite Trainer Box",
    "webp": "/assets/playlist-covers/pitch-black-etb.webp",
    "jpg": "/assets/playlist-covers/pitch-black-etb.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLBIoWvw5RFMQ": {
+   "art": "product",
+   "file": "pitch-black-bundle",
+   "setId": "pitch-black",
+   "setLabel": "Pitch Black",
+   "productType": "bundle",
+   "kind": "Booster Bundle",
+   "productId": 692942,
+   "productName": "Pitch Black Booster Bundle",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/692942_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "title"
+   },
+   "alt": "Sealed Pitch Black Booster Bundle",
+   "webp": "/assets/playlist-covers/pitch-black-bundle.webp",
+   "jpg": "/assets/playlist-covers/pitch-black-bundle.jpg",
    "w": 360,
    "h": 270
   },

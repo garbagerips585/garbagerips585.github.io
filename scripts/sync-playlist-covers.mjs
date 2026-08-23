@@ -430,7 +430,19 @@ const stamped = {
   playlists: playlists.map((p) => {
     const c = covers[p.id];
     if (!c) return { ...p };
-    return { ...p, cover: { webp: c.webp, jpg: c.jpg, w: c.w, h: c.h, alt: c.alt } };
+    // setId AND setLabel TRAVEL WITH THE COVER so /playlists.html can group the
+    // grid by set. Tim, 23 August 2026: "sort them by set type so every product
+    // from the set are showing together." This file is the only one that works
+    // out which product a playlist opens, so it is the only one that can say
+    // which SET that product belongs to; build-proto.mjs reading a second file
+    // to answer the same question is how two builders come to disagree.
+    return {
+      ...p,
+      cover: { webp: c.webp, jpg: c.jpg, w: c.w, h: c.h, alt: c.alt },
+      setId: c.setId || null,
+      setLabel: c.setLabel || null,
+      productType: c.productType || null,
+    };
   }),
 };
 await writeFile(join(ROOT, "public/data/playlists.json"), JSON.stringify(stamped, null, 1));
