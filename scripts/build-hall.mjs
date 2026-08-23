@@ -789,6 +789,36 @@ function resolve(c) {
   };
 }
 
+/* THE CHANNEL'S HEADLINE COUNTS, READ AND NOT RECOMPUTED.
+ *
+ * build-proto.mjs owns these and writes data/rip-tally.json; build-all.mjs runs
+ * it before this file. THIS PAGE AND /luck.html ONCE PRINTED 140 AND 183 FOR THE
+ * SAME QUANTITY, one nav item apart, and the comments a hundred lines up are
+ * about that incident. Two files computing one number is how it happened, so
+ * this one reads.
+ *
+ * Empty is a real state and renders no tiles rather than zeros: on a first run,
+ * or if the writer is ever moved after this file in the build order, the page
+ * loses its widget and keeps its list, which is the honest failure.
+ */
+/* THE HERO CARD AND THE REST. ranked is already sorted by raw, highest first,
+ * so the MVC is simply its head. Promoted OUT rather than copied, so no card is
+ * on this page twice and the list's own numbering picks up at 2.
+ *
+ * A hero needs a picture to be a hero: if the top card has no scan it stays in
+ * the list and the frame does not render, which is this page's standing rule for
+ * absent data rather than a special case.
+ */
+/** Thousands separators, the same form every other builder prints. */
+const num = (n) => Number(n).toLocaleString("en-US");
+
+let TALLY = null;
+try {
+  TALLY = JSON.parse(await readFile(join(ROOT, "data/rip-tally.json"), "utf8"));
+} catch {
+  console.log("  data/rip-tally.json missing, so the stat tiles are skipped. Run scripts/build-proto.mjs.");
+}
+
 const ranked = hall
   .map(resolve)
   /* ======================================================================
@@ -873,6 +903,28 @@ const ranked = hall
 // and claimed a pile of raw cards is worth its graded value. Nothing here is
 // graded. So: raw is summed over every card, PSA 10 is summed only over the
 // cards that have one, and the label names the subset.
+const mvc = ranked.length && ranked[0].image ? ranked[0] : null;
+const rest = mvc ? ranked.slice(1) : ranked;
+const mvcArt = !mvc
+  ? ""
+  : (() => {
+      const look = artLook(mvc);
+      // 600w IS RIGHT HERE AND ONLY HERE. The plaques draw at 120px and dropped
+      // the high rung for it; this frame draws the card at 192 to 260 CSS px,
+      // which asks for 630 to 780 device pixels at DPR 3. One extra request on
+      // the page, not 164.
+      const big = String(mvc.image).replace(/\/low\.(webp|avif)$/, "/high.$1");
+      return `<button class="mvc-art" type="button"
+          data-img="${esc(mvc.image)}" data-name="${esc(mvc.name)}"
+          data-set="${esc(mvc.setName || "")}" data-rarity="${esc(mvc.rarity || "")}"
+          data-number="${esc(mvc.number || "")}" data-url="${esc(mvc.url || "")}"
+          data-raw="${mvc.raw ? esc(moneyCompact(mvc.raw)) : ""}"
+          data-psa="${mvc.psa10 ? esc(moneyCompact(mvc.psa10)) : ""}"
+          aria-label="Enlarge ${esc(mvc.name)}">${avifPicture(
+            `<img src="${esc(big)}" alt="${[esc(mvc.name), esc(mvc.rarity || ""), mvc.setName ? `from Pokemon ${esc(mvc.setName)}` : ""].filter(Boolean).join(" ")}" width="600" height="825">`
+          )}</button>`;
+    })();
+
 const rawCards = ranked.filter((c) => c.raw);
 const totalRaw = rawCards.reduce((n, c) => n + c.raw, 0);
 const gradedCards = ranked.filter((c) => c.psa10);
@@ -1378,6 +1430,84 @@ const style = `
    measured 1.06:1. --band-bg is the token that names this job. */
 .chofpage{background:var(--band-bg);color:var(--chrome-ink);padding:var(--s7) 0 var(--s8);
   background-image:radial-gradient(120% 70% at 50% 0%, rgba(224,162,31,.16), transparent 60%)}
+/* ------------------------------------------------------------------ MVC ---
+   THE GOLD IS COPIED FROM .hofx, .hofx-tag AND .chof-rank, byte for byte, and
+   NOT mixed fresh. CLAUDE.md rations gold to one meaning, "the biggest card the
+   channel has ever pulled", and keeps it as literal hexes so a token edit cannot
+   leak it back into the palette. Nothing here reads var(--gold): that token is a
+   teal. The animated sheen .hofx carries is deliberately left off, so there is
+   no motion to gate under prefers-reduced-motion. */
+.mvc{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s4);
+  align-items:center;text-align:center;margin:0 auto var(--s6);max-width:520px;
+  padding:var(--s6) var(--s4) var(--s5);
+  background:radial-gradient(120% 140% at 12% 0%,rgba(232,185,58,.20) 0%,rgba(232,185,58,0) 58%),
+    linear-gradient(135deg,#3A3A3A 0%,#212121 55%,#121212 100%);
+  border:4px solid #FFB000;border-radius:16px;
+  box-shadow:inset 0 0 0 2px rgba(17,17,17,.6),inset 0 0 0 5px rgba(232,185,58,.5),
+    0 0 34px rgba(232,185,58,.22),0 16px 44px rgba(17,17,17,.46)}
+/* left:52px, NOT --s4: the rank medallion hangs at left:-10px and is 40px wide,
+   so at 16px the ribbon sat under it. 52 leaves a 22px gap and the ribbon still
+   ends well inside the frame at 350px. */
+.mvc-tag{position:absolute;top:-16px;left:52px;z-index:2;
+  font:700 var(--t-micro)/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--on-accent);background:linear-gradient(180deg,#FFD23F,#FFB000);
+  border:2px solid #FFDF7A;border-radius:var(--r-pill);padding:8px 14px;
+  box-shadow:0 3px 0 #FFDF7A,0 8px 18px rgba(17,17,17,.35)}
+.mvc-rank{position:absolute;left:-10px;top:-10px;z-index:3;width:40px;height:40px;
+  border-radius:50%;display:grid;place-items:center;font:400 1.2rem/1 var(--display);
+  color:var(--on-accent);background:linear-gradient(180deg,#FFD23F,#FFB000);
+  box-shadow:0 2px 6px rgba(0,0,0,.5)}
+.mvc-art{position:relative;width:min(62%,210px);margin:0 auto;padding:0;border:0;
+  background:none;cursor:zoom-in;line-height:0}
+.mvc-art::before{content:"";position:absolute;inset:-14%;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,185,58,.42) 0%,rgba(232,185,58,0) 70%)}
+.mvc-art img{position:relative;display:block;width:100%;height:auto;border-radius:10px;
+  box-shadow:0 8px 22px rgba(0,0,0,.45)}
+.mvc-b{display:flex;flex-direction:column;gap:var(--s2);min-width:0}
+.mvc-nm{font:400 var(--t-l)/1.1 var(--display);color:var(--chrome-ink);
+  text-shadow:0 2px 0 rgba(0,0,0,.35)}
+.mvc-set{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--chrome-dim)}
+.mvc-pr{display:flex;justify-content:center;gap:var(--s5);margin:var(--s3) 0 0}
+.mvc-pr dt{font:700 var(--t-micro)/1.6 var(--mono);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--chrome-dim)}
+.mvc-pr dd{font:400 1.5rem/1 var(--display);color:var(--ketchup-deep);margin:0}
+.mvc-pr i{font-style:normal}
+.mvc-see{display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  align-self:center;margin-top:var(--s3);min-height:44px;text-decoration:none;
+  font:700 var(--t-sm)/1 var(--body);color:var(--on-accent);background:var(--mustard);
+  border:2px solid var(--chrome-ink);border-radius:var(--r-pill);padding:11px 18px}
+@media(min-width:621px){
+  .mvc{grid-template-columns:minmax(0,34%) minmax(0,1fr);text-align:left;gap:var(--s5);
+    padding:var(--s6) var(--s5) var(--s5);max-width:760px}
+  .mvc-art{width:100%;max-width:260px;margin:0}
+  .mvc-pr{justify-content:flex-start}
+  .mvc-see{align-self:flex-start}
+}
+@media(min-width:1081px){
+  .mvc{max-width:820px;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:var(--s6)}
+}
+/* The rate line under the tiles: the figure is a mark and goes nowhere, so it is
+   pink; the link is a route, so it is teal. 400 weight on the b, because 700
+   here would be a font weight this page does not already load. */
+.chof-rate{margin-top:var(--s3);font:400 var(--t-sm)/1.6 var(--body);color:var(--foot-ink)}
+.chof-rate b{font-weight:400;color:var(--ketchup-deep)}
+.chof-rate a{color:var(--sky-deep)}
+/* The counting rule, closed. Native <details>, no script. */
+.chof-how{max-width:44em;margin:0 auto var(--s6);text-align:left}
+.chof-how summary{display:flex;align-items:center;gap:8px;min-height:44px;cursor:pointer;
+  list-style:none;font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--sky-deep)}
+.chof-how summary::-webkit-details-marker{display:none}
+.chof-how summary::after{content:"+";font:400 1rem/1 var(--display)}
+.chof-how[open] summary::after{content:"−"}
+.chof-how p{font:400 var(--t-sm)/1.6 var(--body);color:var(--foot-ink);margin-top:var(--s2)}
+/* Two by two on a phone rather than a 253px stack of three. */
+@media(max-width:620px){
+  .chof-tally{gap:var(--s2)}
+  .chof-tally div{flex:1 1 calc(50% - var(--s2));min-width:0}
+  .chof-tally b{font-size:1.35rem}
+}
 .chof-head{text-align:center;max-width:44em;margin:0 auto var(--s6)}
 /* THE ACCENT RULE, ON A PAGE THAT USED TO BE BUILT OUT OF GOLD. Every
    --gold and --mustard here became a TEAL when the palette landed, and teal
@@ -1582,19 +1712,42 @@ const body = `
             anything. Do not soften it back to "by what it is worth": that
             phrasing names no key at all and is what this page carried for
             months while its own column looked unsorted. */ ""}
-      <p>The cards that have come out of a pack on this channel, ranked on the Raw NM price every plaque prints first, highest to lowest. Tap a card to see it full size.${scopeSentence}</p>
-      ${ranked.length ? `<div class="chof-tally">
-        <div><b>${ranked.length}</b><span>${tallyLabel}</span></div>
-        ${/* "ALL OF THEM RAW" HAS TO STOP SAYING "ALL" WHEN IT IS NOT ALL, and
-              that became live the day this page started admitting cards it
-              holds no price for. It is a SUM over the cards that HAVE a raw
-              price, and while every plaque had one the word was exact. The
-              three Japanese and Korean rows do not: nothing on this site prices
-              a non-English printing. Same shape as the PSA 10 tile beside it,
-              which has always named its subset, so the fix is to make the two
-              labels agree rather than to invent a third form of words. */ ""}${totalRaw ? `<div><b>${moneyCompact(totalRaw)}</b><span>${rawCards.length === ranked.length ? "All of them raw" : `Raw on ${rawCards.length} of ${ranked.length}`}</span></div>` : ""}
-        ${gradedCards.length ? `<div><b>${moneyCompact(totalGraded)}</b><span>PSA 10 on ${gradedCards.length} of ${ranked.length}</span></div>` : ""}
-      </div>` : ""}
+      ${/* THE LEDE OPENED WITH METHODOLOGY AND TIM SAID SO. It ran 394
+            characters and NINE LINES at 390px, so the whole first screen of a
+            page of best pulls was prose and the first card started at y=807.
+            It explained deduplication before it said what the page is.
+
+            144 characters now, four lines at 390 and two above it. Nothing is
+            deleted: "ranked on the Raw NM price" was already the first line of
+            .chof-note at the foot, so the lede was the SECOND copy of it, and
+            scopeSentence moves into the disclosure under the hero where "why
+            isn't the card I watched here" actually gets asked. */ ""}
+      <p>Every hit this channel has pulled on camera, most expensive first. Nothing hand picked,
+        straight out of the 585. Tap a card to see it full size.</p>
+      ${/* FOUR CHANNEL FACTS, NOT PAGE BOOKKEEPING. The first tile used to
+            read "164 / Printings of 211 pulls" and Tim said in as many words
+            that he did not know what it was. "Printing" is a word only this
+            builder uses. The two money tiles beside it were sums over subsets
+            nobody owns -- "$914 raw on 146 of 164" -- printed twenty-two pixels
+            above a sentence naming a single $919 card, so the page's headline
+            aggregate was smaller than one of its own rows.
+
+            Left to right these make a sentence: 462 packs across 321 videos,
+            156 of them hit, 214 cards came out. Nobody has to know what a
+            printing is, and every one is a fact about the CHANNEL rather than
+            about this page's deduplication.
+
+            "RIPS THAT HIT" IS RIPS AND "CARDS PULLED" IS CARDS. 156 and 214 are
+            different quantities and the rate below divides into the first. That
+            distinction is the one thing the old copy got right and it is why
+            the labels say which is which. */ ""}
+      ${TALLY ? `<div class="chof-tally">
+        <div><b>${num(TALLY.packs)}</b><span>Packs ripped</span></div>
+        <div><b>${num(TALLY.rips)}</b><span>Rips filmed</span></div>
+        <div><b>${num(TALLY.ripsWithHit)}</b><span>Rips that hit</span></div>
+        <div><b>${num(TALLY.cards)}</b><span>Cards pulled</span></div>
+      </div>
+      ${TALLY.hitRate ? `<p class="chof-rate">That is a <b>${esc(TALLY.hitRate)}</b> hit rate. <a href="/luck.html">See it broken down by set and product</a>.</p>` : ""}` : ""}
       ${/* WHERE THE BIGGEST GRADED NUMBER WENT. Computed above, never typed;
             the full argument for a line of copy rather than a second sort
             order is beside `bestGraded`. It sits AFTER the tally because the
@@ -1602,12 +1755,68 @@ const body = `
             145", so the sentence reads as that tile's footnote, which is what
             it is. It renders nothing at all when no plaque carries a graded
             price, which is the standing pattern on this page for absent
-            data. */ ""}${bestGradedLine}
+            data. */ ""}
     </div>
+
+    ${/* THE MVC. Tim: "lets pull out the #1 most valuable card and put it in a
+          gold frame at the top as the MVC most valuable card, something to make
+          it special and stand out."
+
+          IT IS PROMOTED OUT OF THE LIST, NOT COPIED. The list below starts at 2
+          and the hero carries the 1 medallion itself, so there is no duplicate,
+          no second sort order and no card that appears twice. Without the
+          medallion a list starting at 2 reads as an off-by-one bug.
+
+          THE GOLD IS BORROWED, NOT INVENTED. CLAUDE.md rations it: gold means
+          "the biggest card the channel has ever pulled" and survives in exactly
+          three places, all written as literal hexes so no token edit can leak it
+          back. This is the truest use of it there is, so every value here is
+          copied from .hofx, .hofx-tag and .chof-rank rather than mixed fresh.
+          Nothing reads var(--gold): that token is a TEAL.
+
+          THE PRICES STAY PINK. The frame carries the gold and already says
+          "biggest card"; painting the number gold spends the semantic twice.
+
+          AND IT ONLY BECAME THE RIGHT CARD AN HOUR AGO. Until the collector
+          number started beating the rarity word, ranked[0] was Mega Greninja ex
+          at $173 and this frame would have gone round the channel's THIRD best
+          pull. */ ""}
+    ${mvc ? `<div class="mvc">
+      <span class="mvc-rank">1</span>
+      <span class="mvc-tag">MVC &middot; Most valuable card</span>
+      ${mvcArt}
+      <div class="mvc-b">
+        <b class="mvc-nm">${esc(mvc.name)}</b>
+        <span class="mvc-set">${esc(mvc.setName || "")}${mvc.number ? ` &bull; #${esc(mvc.number)}` : ""}${mvc.rarity ? ` &bull; ${esc(mvc.rarity)}` : ""}</span>
+        <dl class="mvc-pr">
+          ${mvc.raw ? `<div><dt>Raw NM</dt><dd>${esc(moneyCompact(mvc.raw))}</dd></div>` : ""}
+          ${mvc.psa10 ? `<div><dt>PSA 10${mvc.psa10AsOf ? ` <i>${esc(shortDate(mvc.psa10AsOf))}</i>` : ""}</dt><dd>${esc(moneyCompact(mvc.psa10))}</dd></div>` : ""}
+        </dl>
+        ${mvc.rip ? `<a class="mvc-see" href="/${esc(mvc.rip.path)}">See it pulled <span aria-hidden="true">&rarr;</span></a>` : ""}
+      </div>
+    </div>` : ""}
+
+    ${/* THE BEST GRADED CARD, UNDER THE HERO RATHER THAN ABOVE IT. It renders
+          only when the top graded card is NOT the top raw card, which is the
+          branch it has always had, and today it fires: Mega Dragonite ex leads
+          on raw and Mega Charizard Y ex leads on PSA 10. Above the frame it
+          explained the ranking to somebody who had not seen the ranking yet;
+          under it, it reads as the footnote to the gold that it is. */ ""}
+    ${bestGradedLine}
+
+    ${/* THE COUNTING RULE, MOVED RATHER THAN DELETED. It was the back half of
+          the lede, where it explained deduplication to somebody who had not yet
+          been told what the page was. Closed by default, native <details>, no
+          script. This is where "why isn't the card I watched here" gets asked,
+          so this is where the answer belongs. */ ""}
+    ${scopeSentence ? `<details class="chof-how">
+      <summary>How this list is counted</summary>
+      <p>${scopeSentence.replace(/^\s*/, "")}</p>
+    </details>` : ""}
 
     ${ranked.length
       ? `<ol class="chof-list">
-${ranked.map(plaque).join("\n")}
+${rest.map((c, i) => plaque(c, i + 1)).join("\n")}
     </ol>`
       : `<p class="chof-empty">No cards inducted yet. Flag a card as <b>Card Hall of Fame</b> on the
          Chase Cards tab of the video log and it appears here, ranked automatically.</p>`}
