@@ -103,6 +103,21 @@ const PRODUCT_IDS = {
   // intended: it did not guess, it said so. The keys above are the old dropdown
   // LABELS, which nobody types by hand; these are the words a person writes.
   "blister pack": "blister",
+  // A SPECIAL RELEASE THAT IS A BLISTER BY SHAPE, AND TIM SAID SO.
+  // The Pokemon Day 2026 Collection is three packs -- two Phantasmal Flames
+  // and one Mega Evolution -- around a 30th Anniversary Pikachu promo, which
+  // is a blister in everything but the name on the box. Tim, 23 August 2026:
+  // "this is a special set, but you are right its kind of like a blister with
+  // multiple packs". The blister pattern in shared/taxonomy.mjs already reads
+  // a three-pack as one.
+  //
+  // IT WAS ALREADY TAGGED blister AND THAT WAS AN ACCIDENT. The cell matched
+  // no key, so no answer was stored, and what survived was a frozen override
+  // from an older run -- while the title matcher, asked directly, returns
+  // single-pack. The page was right and one re-import from a clean overrides
+  // file would have flipped it. Writing the key makes the answer deliberate.
+  "pokémon day 2026 collection": "blister",
+  "pokemon day 2026 collection": "blister",
   "upc": "upc",
   "ultra premium collection": "upc",
   "collector chest": "collection-box",
