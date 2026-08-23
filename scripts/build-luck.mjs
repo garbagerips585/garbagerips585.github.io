@@ -550,9 +550,36 @@ let cardRows = 0;
       if (!doc?.cards?.length) { cardDrops.noChecklist++; cardLedger.push({ ...base, set: h.set, number: null, raw: null, psa: null }); continue; }
       const same = doc.cards.filter((c) => nrm(c.name) === nrm(h.card));
       if (!same.length) { cardDrops.notOnChecklist++; cardLedger.push({ ...base, set: h.set, number: null, raw: null, psa: null }); continue; }
+      // THE COLLECTOR NUMBER BEATS THE RARITY WORD, AND THIS FILE WAS THE LAST
+      // ONE STILL ON THE OLD RULE. build-pages.mjs and build-hall.mjs both moved
+      // to number-first on 23 August 2026; this one did not, and it is the file
+      // that owns every money figure on the site's statistics page.
+      //
+      // The rip log's rarity cell records the tier of the SLOT a card came out
+      // of rather than of the card; the number beside it is right. 164 of the
+      // 168 priced rows carry one. What matching on the rarity was publishing:
+      //
+      //   best card, ungraded      $173      ->  $668.50   Mega Dragonite ex #290
+      //   best card, PSA 10        $919      ->  $2,116.38 Mega Charizard Y ex #294
+      //   sum of every raw value   $1,078.89 ->  $5,263.07
+      //   sum of every PSA 10      $7,942.27 ->  $20,399.61
+      //   cards with a graded figure  94 of 214 -> 142 of 214
+      //   best return a rip        $17.51    ->  $82.76
+      //
+      // Every one landed on a real card of the right NAME and the wrong
+      // PRINTING, so nothing 404ed and nothing looked wrong. 74 of 168 rows.
+      //
+      // AND IT WAS PUBLISHING A CONTRADICTION ONE CLICK WIDE: this page said
+      // Mega Greninja ex was worth $173 and linked to the rip page for the same
+      // card, built by build-pages.mjs, which said $208.26.
+      //
+      // THIS FILE'S OWN HEADER STILL CLAIMED IT "CANNOT DISAGREE" with those two
+      // builders, citing a proof from 21 August that stopped holding the moment
+      // they changed. A comment asserting agreement is not agreement.
       const want = h.rarity ? nrm(h.rarity) : null;
+      const byNumber = h.number ? same.find((c) => String(c.n) === String(h.number)) : null;
       const exact = want ? same.filter((c) => nrm(c.rarity) === want) : [];
-      const m = exact.length === 1 ? exact[0] : (!exact.length && same.length === 1 ? same[0] : null);
+      const m = byNumber || (exact.length === 1 ? exact[0] : (!exact.length && same.length === 1 ? same[0] : null));
       if (!m) { cardDrops.ambiguousPrinting++; cardLedger.push({ ...base, set: h.set, number: null, raw: null, psa: null }); continue; }
       const g = psaResolve(h.set, m.n, { name: m.name, setName: setName[h.set] || h.setName || h.set });
       cardLedger.push({
@@ -1730,16 +1757,23 @@ ${
           boxCensus.capBoxes
             ? ` Across the kinds whose pack count is published, those boxes hold ${boxCensus.capPacks} packs between them and
         the rips of them count ${boxCensus.capFilmed}. <b>Those are two different quantities and neither is the other:</b>
-        some of the difference is packs not opened on camera yet, and some is packs opened in ${
-          /* "one of the 1 rips that state no count" shipped on the live page.
-             THE PLURAL IS ONLY HALF OF IT: at one there is no "one of" to be had
-             either, and "state" has to become "states". A count that can be 1
-             takes a whole clause, not a trailing s. */ ""
+        ${
+          /* AND ZERO IS THE THIRD CASE, WHICH IS THE ONE THAT SHIPPED. The note
+             that used to sit here worked out that 1 needs its own clause and
+             stopped counting there, so at zero the page read "packs opened in
+             one of the 0 rips that state no count": ungrammatical, and naming a
+             cause with no instances behind it. Every one of the 321 rips states
+             a pack count today, so the whole second half of the sentence is
+             false and does not render. */ ""
         }${
-          boxCensus.capRips - boxCensus.capPackRips === 1
-            ? `the one rip that states no count`
-            : `one of the ${boxCensus.capRips - boxCensus.capPackRips} rips that state no count`
-        }.`
+          boxCensus.capRips - boxCensus.capPackRips === 0
+            ? `that difference is packs not opened on camera yet.`
+            : `some of the difference is packs not opened on camera yet, and some is packs opened in ${
+                boxCensus.capRips - boxCensus.capPackRips === 1
+                  ? `the one rip that states no count`
+                  : `one of the ${boxCensus.capRips - boxCensus.capPackRips} rips that state no count`
+              }.`
+        }`
             : ""
         }</p>
       </div>
@@ -2059,7 +2093,7 @@ const ld =
         "@context": "https://schema.org",
         "@type": "Dataset",
         name: "Observed Pokemon card hit rates from Garbage Rips 585",
-        description: `Hit rates observed across ${judged.length} logged pack openings, by set and by product type.`,
+        description: `Hit rates observed across ${allPacks} packs opened on camera in ${judged.length} filmed rips, by set and by product type.`,
         url: `${SITE}/luck.html`,
         creator: { "@type": "Organization", name: "Garbage Rips 585", url: `${SITE}/` },
         isAccessibleForFree: true,
@@ -2074,7 +2108,7 @@ const html = `<!DOCTYPE html>
 <title>Pokemon Pack Luck, Measured: What Actually Came Out of ${judged.length} Rips</title>
 <meta name="description" content="${
   judged.length
-    ? `Observed hit rates from ${judged.length} logged Pokemon pack openings, broken down by set and product. Not official pull rates: what actually came out on camera.`
+    ? `Observed hit rates from ${allPacks} Pokemon packs opened on camera across ${judged.length} rips, broken down by set and product. Not official pull rates: what actually came out on camera.`
     : `What actually came out of ${videos.length} pack openings on camera, counted from our own rip log rather than estimated.`
 }">
 ${judged.length ? "" : '<meta name="robots" content="noindex,follow">\n'}<link rel="canonical" href="${SITE}/luck.html">
@@ -2086,7 +2120,7 @@ ${judged.length ? "" : '<meta name="robots" content="noindex,follow">\n'}<link r
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:title" content="Pokemon Pack Luck, Measured">
-<meta property="og:description" content="Hit rates observed across ${judged.length} real pack openings, by set and by product.">
+<meta property="og:description" content="Hit rates observed across ${allPacks} real packs opened on camera, by set and by product.">
 <meta property="og:url" content="${SITE}/luck.html">
 <meta property="og:image" content="${SITE}/assets/og-luck.jpg">
 <meta property="og:image:width" content="1200">
