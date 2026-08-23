@@ -835,7 +835,8 @@ ${jump.map(([id, label]) => `          <li><a href="#${id}">${esc(label)}</a></l
           something good does fall out, the yelling is real. We celebrate every rip, the good
           ones and the bad ones, because a wall of hits is not what opening packs is like. The
           bad ones have a name here and it is the channel's: those are the garbage rips, and
-          they get the same airtime as the hits.</p>
+          they get the same airtime as the hits. That is where the line every video opens with
+          comes from: <b>Garbage Rips Only! Let&rsquo;s Go!</b></p>
 
         <p>Then the wrappers go in the bin, and the bin is the other half of the channel. There
           is a Trubbish trash can on the desk and every rip ends the same way: the empties, the

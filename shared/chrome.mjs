@@ -1386,7 +1386,22 @@ export const FOOT_SUB = `<!--FOOT_SUB:START-->
         alt="The Garbage Rips 585 mark: a Rochester manhole cover with a Garbage Plate on it and Trubbish sitting in the middle of the plate, GARBAGE RIPS 585 curved over the top and MADE IN ROC across the bottom, ringed by torn Garbage Rips card packs on a pavement"
         loading="lazy" decoding="async">
     </picture>
-    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    ${/* THE REAL CATCHPHRASE REPLACES AN INVENTED ONE, 23 August 2026. This
+          slot has read "Grab a fork. Let's rip." since the footer was written,
+          which was a line this site made up to go with the plate. Tim: "One of
+          our tag lines we say in every video is 'Garbage Rips Only! Let's Go!'
+          we can add that into the site anywhere it makes sense as well".
+
+          IT MAKES MOST SENSE HERE, and there is only one of these on the site.
+          It is the largest piece of display type in the footer, it sits
+          directly above the Subscribe button, and a rallying cry a viewer has
+          already heard 321 times is worth more in front of a call to action
+          than a line nobody has ever said out loud.
+
+          TWO CODE COMMENTS NAMED THE OLD LINE as "the sign-off" and were
+          updated in the same edit rather than left to go stale:
+          shared/format.mjs and scripts/build-openings.mjs. */ ""}
+    <p class="foot-tag">Garbage Rips Only! Let&rsquo;s Go!</p>
     <a class="btn btn-sub" href="${SUBSCRIBE}" rel="noopener" target="_blank"
       aria-label="${SUB_LABEL}">Subscribe on YouTube</a>
     ${/* "MOST DAYS" WAS AN UNDERCLAIM AND THE DATA SAYS SO. Tim, 23 August

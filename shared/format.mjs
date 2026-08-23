@@ -574,7 +574,7 @@ export const PLATE_CSS = `.plate-rule{display:flex;align-items:center;gap:var(--
  *
  * ONE PER PAGE, AT THE END OF THE RUN HE IS CLOSING, AND NOT AGAINST THE
  * FOOTER. Every page on this site already ends in a drawn medallion and the
- * "Grab a fork. Let's rip." sign-off, so a mark dropped just above the footer
+ * "Garbage Rips Only! Let's Go!" sign-off, so a mark dropped just above the footer
  * is a second closer 200px from the first. He closes a LIST, in the middle of
  * the page, where the list actually stops.
  *

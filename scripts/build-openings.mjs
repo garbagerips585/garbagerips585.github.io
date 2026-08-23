@@ -1835,7 +1835,7 @@ ${/* THE HEAP MARK, AND THIS IS THE SITE'S FIRST GARBODOR THAT IS NOT A FAILURE
       HERE AND NOT AT THE END OF main, which is where the first draft put him
       and where he was wrong. main ends at y=5,724 on this page and the footer
       starts at 5,724, so a mark at the end of main lands about 200px above the
-      footer's own drawn medallion and the "Grab a fork. Let's rip." sign-off:
+      footer's own drawn medallion and the "Garbage Rips Only! Let's Go!" sign-off:
       two closers in one screen, and the weaker one first. He belongs where the
       thing he is closing actually stops, which is the last card of the grid.
 
