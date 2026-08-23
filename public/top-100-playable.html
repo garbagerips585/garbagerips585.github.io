@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=1f86e4a7">
+<link rel="stylesheet" href="/assets/ui.css?v=bdfff081">
 <style>.pl-fmt{border:2px solid var(--keyline);border-radius:var(--r);background:var(--card);
   padding:var(--s4);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
 .pl-fmt h2{font-size:var(--t-m);margin:0 0 var(--s2)}
@@ -1772,8 +1772,16 @@ a.pl-set:hover,a.pl-set:focus{color:var(--ink)}
     </nav>
     <!--FOOT_SUB:START-->
     
-    <img class="foot-mark" src="/assets/made-in-roc.webp" width="256" height="218"
-      alt="The Garbage Rips 585 badge: a Rochester manhole cover carrying the city's flower emblem, with Trubbish in the middle and the words MADE IN ROC across the bottom" loading="lazy" decoding="async">
+    
+    <picture>
+      <source type="image/avif" sizes="(min-width:468px) 420px, calc(100vw - 48px)"
+              srcset="/assets/made-in-roc-420.avif 420w, /assets/made-in-roc-840.avif 840w">
+      <source type="image/webp" sizes="(min-width:468px) 420px, calc(100vw - 48px)"
+              srcset="/assets/made-in-roc-420.webp 420w, /assets/made-in-roc-840.webp 840w">
+      <img class="foot-mark" src="/assets/made-in-roc.jpg" width="420" height="234"
+        alt="The Garbage Rips 585 mark: a Rochester manhole cover with a Garbage Plate on it and Trubbish sitting in the middle of the plate, GARBAGE RIPS 585 curved over the top and MADE IN ROC across the bottom, ringed by torn Garbage Rips card packs on a pavement"
+        loading="lazy" decoding="async">
+    </picture>
     <p class="foot-tag">Grab a fork. Let's rip.</p>
     <a class="btn btn-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
       aria-label="Subscribe on YouTube to Garbage Rips 585. Opens YouTube.">Subscribe on YouTube</a>

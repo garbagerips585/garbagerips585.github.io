@@ -645,6 +645,7 @@ if _bare:
 # nightly loop; anything else that writes into public/ belongs in build-all.
 _ONE_OFF = {
     "build-favicon.py",   # icons, from logo-square.jpg
+    "build-foot-banner.py",  # the footer Made in ROC banner, from a master outside the repo
     "build-logos.py",     # set logos
     "build-og.py",        # the site share card
     "build-packs.py",     # pack art, from assets-source

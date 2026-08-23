@@ -1213,7 +1213,17 @@ main{padding:var(--s4) 0 var(--s8)}
 /* The 585 band's mark moved into the footer on 20 August 2026, on Tim's ask, so
    it sits on all 1,486 pages instead of two. The band it came from is gone and
    .roc went with it -- the copy beside it went too, by the same ask. */
-.foot-mark{display:block;width:88px;height:auto;margin:0 auto var(--s4)}
+/* THE MARK IS A BANNER SINCE 23 AUGUST 2026 and 88px is what it used to be.
+   The artwork carries GARBAGE RIPS 585 and MADE IN ROC as real lettering, so
+   the size is set by what is readable rather than by what is tidy: 420px is
+   where MADE IN ROC draws about 18px tall. Below 468 it takes the column and
+   the wrap's own 24px gutters, which is what the sizes attribute in
+   shared/chrome.mjs declares -- keep the two in step or a phone is handed
+   the wrong rung. aspect-ratio holds the box before the picture lands, so a
+   lazy image this far down the page cannot shift the footer under a reader
+   who has scrolled to it. */
+.foot-mark{display:block;width:100%;max-width:420px;height:auto;aspect-ratio:2752/1536;
+  margin:0 auto var(--s4);border-radius:var(--r)}
 footer{padding:var(--s6) 0;text-align:center}
 footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spacing:.03em}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}

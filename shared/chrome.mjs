@@ -1359,8 +1359,33 @@ export const FOOT_SUB = `<!--FOOT_SUB:START-->
           header calls out as having already happened once to the footer nav.
           If a FOOT_MARK block is ever split out, add it to BLOCKS in
           sync-chrome.mjs in the same commit or it will not travel. */ ""}
-    <img class="foot-mark" src="/assets/made-in-roc.webp" width="256" height="218"
-      alt="The Garbage Rips 585 badge: a Rochester manhole cover carrying the city's flower emblem, with Trubbish in the middle and the words MADE IN ROC across the bottom" loading="lazy" decoding="async">
+    ${/* A BANNER, NOT A BADGE, AND THE SHAPE IS WHY. The file here was 256x218
+          drawn at 88px: a small round stamp with no type in it worth reading.
+          Tim's replacement, 23 August 2026, is 2752x1536 at 1.792:1 and carries
+          two lines of lettering, GARBAGE RIPS 585 round the top and MADE IN ROC
+          across the manhole cover. Dropped into the old 88px box that whole
+          scene is 49px tall and both lines are gone, so the swap would have
+          discarded the only part of the picture that changed. It is capped at
+          420px instead, where MADE IN ROC draws about 18px.
+
+          THE LADDER STOPS AT 840 ON PURPOSE and a DPR 3 phone takes 2x rather
+          than 3x. The exact rung costs about 230KB against 840's 114, in the
+          footer of ALL 1,489 PAGES, on decorative art below the fold. Same
+          trade /topps-card-values.html took and wrote down. See the header of
+          scripts/build-foot-banner.py for the width-against-legibility figures
+          the 420 cap came out of.
+
+          AVIF FIRST, THEN WEBP, THEN THE JPEG. A <source> a browser understands
+          wins, so putting the WebP first would hide the AVIF from everything. */ ""}
+    <picture>
+      <source type="image/avif" sizes="(min-width:468px) 420px, calc(100vw - 48px)"
+              srcset="/assets/made-in-roc-420.avif 420w, /assets/made-in-roc-840.avif 840w">
+      <source type="image/webp" sizes="(min-width:468px) 420px, calc(100vw - 48px)"
+              srcset="/assets/made-in-roc-420.webp 420w, /assets/made-in-roc-840.webp 840w">
+      <img class="foot-mark" src="/assets/made-in-roc.jpg" width="420" height="234"
+        alt="The Garbage Rips 585 mark: a Rochester manhole cover with a Garbage Plate on it and Trubbish sitting in the middle of the plate, GARBAGE RIPS 585 curved over the top and MADE IN ROC across the bottom, ringed by torn Garbage Rips card packs on a pavement"
+        loading="lazy" decoding="async">
+    </picture>
     <p class="foot-tag">Grab a fork. Let's rip.</p>
     <a class="btn btn-sub" href="${SUBSCRIBE}" rel="noopener" target="_blank"
       aria-label="${SUB_LABEL}">Subscribe on YouTube</a>

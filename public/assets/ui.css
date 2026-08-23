@@ -302,7 +302,8 @@ main{padding:var(--s4) 0 var(--s8)}
   border:1px solid rgba(255,255,255,.18);font:700 var(--t-sm)/1 var(--body)}
 .socials a:hover{background:rgba(255,255,255,.16)}
 .socials i{width:12px;height:12px;border-radius:50%;background:var(--pip);flex:none}
-.foot-mark{display:block;width:88px;height:auto;margin:0 auto var(--s4)}
+.foot-mark{display:block;width:100%;max-width:420px;height:auto;aspect-ratio:2752/1536;
+  margin:0 auto var(--s4);border-radius:var(--r)}
 footer{padding:var(--s6) 0;text-align:center}
 footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spacing:.03em}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
