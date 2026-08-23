@@ -1366,12 +1366,10 @@
       {
         "card": "Bidoof",
         "set": "pokemon-go",
-        "setName": "Pokémon GO"
-      },
-      {
-        "card": "Bidoof PEELABLE DITTO 059/078 Reverse Holo",
-        "set": "pokemon-go",
         "setName": "Pokémon GO",
+        "number": "059",
+        "rarity": "Common",
+        "rawNm": 1.04,
         "hallOfFame": false
       }
     ],
@@ -1380,12 +1378,9 @@
         "card": "Mega Froslass ex",
         "set": "ascended-heroes",
         "setName": "Ascended Heroes",
-        "rarity": "Ultra Rare"
-      },
-      {
-        "card": "Mega Froslass ex Pink and Green Star Mega Attack Rare",
-        "set": "ascended-heroes",
-        "setName": "Ascended Heroes",
+        "rarity": "Ultra Rare",
+        "number": "275",
+        "rawNm": 63.75,
         "hallOfFame": false
       }
     ],
@@ -1572,9 +1567,10 @@
     ],
     "U91JWMsUHAU": [
       {
-        "card": "Paras Galarian Gallery",
+        "card": "Paras",
         "set": "crown-zenith",
         "setName": "Crown Zenith",
+        "rarity": "Rare",
         "hallOfFame": false
       }
     ],

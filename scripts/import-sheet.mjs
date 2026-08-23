@@ -71,6 +71,29 @@ function parseCsv(text) {
 }
 
 // The sheet's Opening Type values map back onto the site's product tag ids.
+/* TWO CATALOGUES, TWO WORDS, ONE RUNG, AND BOTH IMPORT PATHS NEED IT.
+ *
+ * TCGplayer calls Ascended Heroes 265/217 a "Mega Attack Rare"; TCGdex, which
+ * public/data/cards/ is built from, calls the same printing "Ultra Rare". Tim
+ * writes what TCGplayer shows him, which is right, and the checklist has to be
+ * matched on its own vocabulary.
+ *
+ * IT LIVED INSIDE THE Hit Info PARSER AND THE My Hits TAB NEVER SAW IT, so a
+ * rarity typed into that tab went through untranslated and check-build.py
+ * refused the workbook: "the log calls Mega Froslass ex a Mega Attack Rare, but
+ * ascended-heroes prints it only as Double rare, Special illustration rare,
+ * Ultra Rare." Correct complaint, wrong place to fix it -- the answer is not to
+ * retype Tim's cell in a vocabulary he does not use.
+ *
+ * MEASURED BEFORE IT WAS WRITTEN, because a rarity alias picks a PRINTING:
+ * Ascended Heroes has 7 Mega Attack Rares on TCGplayer and 14 Ultra Rares, our
+ * catalogue calls all 7 of those numbers Ultra Rare with no exception, and no
+ * card name in the set carries both. So the alias cannot send a row to the
+ * wrong card. If a set ever prints both for one name this stops being safe.
+ */
+const RARITY_SYNONYM = { "mega attack rare": "Ultra Rare" };
+const canonRarity = (r) => (r && RARITY_SYNONYM[String(r).toLowerCase()]) || r;
+
 const PRODUCT_IDS = {
   "single booster pack": "single-pack",
   "booster bundle": "bundle",
@@ -515,7 +538,9 @@ if (col("Card") !== -1 && col("Raw NM USD") !== -1) {
       setName: setId ? nameOfSet.get(setId) || null : null,
       // Typed value wins; otherwise the card data fills it in.
       number: cell(r, hi.number) || found?.n || null,
-      rarity: cell(r, hi.rarity) || found?.rarity || null,
+      // canonRarity so the My Hits tab accepts TCGplayer's word as well as the
+      // checklist's. See the note over RARITY_SYNONYM.
+      rarity: canonRarity(cell(r, hi.rarity)) || found?.rarity || null,
       rawNm: num(cell(r, hi.raw)) ?? found?.price ?? null,
       psa10: num(cell(r, hi.psa10)),
       hallOfFame: yes(cell(r, hi.hof)),
@@ -1623,8 +1648,7 @@ for (const [n, r] of rows.slice(1).entries()) {
           // and NO card name in the set carries both rarities -- so the alias cannot
           // send a row to the wrong printing. If a set ever prints both for one name,
           // this stops being safe and has to become set-aware.
-          const RARITY_SYNONYM = { "mega attack rare": "Ultra Rare" };
-          if (rarity && RARITY_SYNONYM[rarity.toLowerCase()]) rarity = RARITY_SYNONYM[rarity.toLowerCase()];
+          rarity = canonRarity(rarity);
           const ki = lows.findIndex((x) => STAR_RARITY[x]);
           if (ki !== -1) star = lows[ki];
           // The letter code, matched against the RAW part rather than the
