@@ -200,8 +200,29 @@ const usedStamps = [...priceStamps.values()].filter(Boolean);
 const rawSources = [...new Set(usedStamps.map((s) => s.priceSource).filter(Boolean))];
 const anyChecklistPrice = cards.some((c) => c.rawFrom === "checklist");
 
-const hunting = cards.filter((c) => !c.got);
-const caught = cards.filter((c) => c.got);
+/* GROUPED BY SET, NEWEST SET FIRST. Tim, 23 August 2026: "lets keep this page
+ * sorted by set". The list was in the order the cards were added to
+ * data/wanted.json, which put three Ascended Heroes chases in three different
+ * places once the list went from 10 cards to 29.
+ *
+ * THE SET ORDER IS sets.json's OWN, newest release first, which is what /sets/,
+ * the /videos.html filter and /playlists.html already use. A fourth answer to
+ * "what order do sets go in" is not worth having. Within a set the most
+ * expensive card leads, because that is what this page is about; where neither
+ * card has a price yet the collector number keeps it stable rather than letting
+ * the order wander between builds.
+ */
+const setRank = new Map(
+  [...sets]
+    .sort((a, b) => String(b.released || "").localeCompare(String(a.released || "")))
+    .map((x, i) => [x.id, i])
+);
+const bySet = (a, b) =>
+  (setRank.get(a.set) ?? 9999) - (setRank.get(b.set) ?? 9999) ||
+  (b.raw ?? 0) - (a.raw ?? 0) ||
+  String(a.number || "").localeCompare(String(b.number || ""));
+const hunting = cards.filter((c) => !c.got).sort(bySet);
+const caught = cards.filter((c) => c.got).sort(bySet);
 
 /* ------------------------------------------- the packs the hunt happens in
  *
@@ -611,27 +632,26 @@ const body = `
 ${hunting.map((c, k) => cardTile(c, { eager: k < EAGER_TILES })).join("\n")}
 ${caught.map((c) => cardTile(c, { hunted: false })).join("\n")}
     </div>
-    ${huntRips.length ? `<section class="w-watch">
-      <h2>The packs we are opening <span class="hl">looking for them</span></h2>${/* IT SAID "of the N sets these cards are printed in", AND huntRips
-           IS NOT THAT SET. It holds only the sets that have a rip, so the cards
-           above are printed across more sets than this number: on the current
-           list, White Flare and Black Bolt print three of the ten wanted cards
-           and neither has been opened on camera, so the page claimed seven when
-           it meant nine. Say what the number counts. */ ""}
-      <p class="w-watchlede">${huntRipTotal} rips of the ${
-        huntRips.length === 1 ? "set" : `${huntRips.length} sets`
-      } we have opened that print these cards, newest of each below. No promises about what is in a pack:
-        this is just where the hunt is happening.</p>
-      <ul class="w-riplist">
-${huntRips
-  .map(
-    (r) => `        <li><a href="/${esc(r.v.path)}"><span>${esc(r.name)} &bull; ${r.total} rip${
-      r.total === 1 ? "" : "s"
-    }</span>${esc(r.v.siteTitle || r.v.title)}</a></li>`,
-  )
-  .join("\n")}
-      </ul>
-    </section>` : ""}
+    ${/* THE "packs we are opening looking for them" BAND IS GONE, 23 August
+          2026. Tim: "please remove all the copy and everything in the bottom
+          section". It was a heading, a lede and nine cards linking to the newest
+          rip of each set that prints something on this list, under a page whose
+          whole job is the CARDS. It answered a question nobody arrives here
+          with, and every one of those rips is one tap away from the set guide
+          each card already links to.
+
+          huntRips and huntRipTotal are still COMPUTED, deliberately. The run
+          still reports them, and huntRipTotal is the figure that was double
+          counting sets until this morning, so the arithmetic stays under test
+          even with nothing rendering it. If the band is ever wanted back, it is
+          this comment and the block in git, not a rebuild.
+
+          THE PRICE NOTE UNDER IT STAYS. The screenshot included it, but it is
+          not part of this band: it is the provenance for every price on the
+          cards ABOVE, and this site's standing rule is that a page printing a
+          price says where it came from and when it was read. Removing it would
+          leave 29 dollar figures on the page with no source. That is Tim's call
+          to make explicitly rather than mine to infer from a crop. */ ""}
     <p class="price-note">RAW PRICES ARE ${
       esc((rawSources.length === 1 ? rawSources[0] : "PRICECHARTING.COM").toUpperCase())
     }'S PRICE GUIDE VALUE FOR AN UNGRADED COPY${

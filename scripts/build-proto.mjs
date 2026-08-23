@@ -2524,6 +2524,45 @@ const statTile = (big, label) => `      <div class="rstat"><b>${big}</b><span>${
  * confusion the home page had to spell out in a paragraph. The label is "rips
  * with a hit" so no paragraph is needed.
  */
+/* THE CANONICAL RIP TALLY, WRITTEN ONCE AND READ BY ANYBODY WHO NEEDS IT.
+ *
+ * These five figures are computed here from videos.json and data/hits.json. They
+ * are also computed, independently, in build-luck.mjs. That is already two, and
+ * /hall.html now wants them for its stat tiles, which would make three.
+ *
+ * THREE FILES ANSWERING "HOW MANY HITS" IS NOT HYPOTHETICAL HERE. This page and
+ * /luck.html printed 140 against 183 for the same quantity once, one nav item
+ * apart, and build-hall.mjs carries a screen of comments about it. Today alone I
+ * have fixed the same shape twice: a per-set figure summed across sets on three
+ * pages, and a home page band ranked on a number a different builder owned.
+ *
+ * So the numbers get written to disk and read back, exactly like
+ * data/hit-values.json above. build-all.mjs runs this file BEFORE build-hall.mjs,
+ * which is what makes the read this run's answer rather than last run's.
+ *
+ * IT IS NOT A CACHE AND MUST NOT BE HAND-EDITED. Nothing here is expensive to
+ * compute; the file exists so that one builder owns the definition of each word.
+ * "Rips that hit" is RIPS and "cards pulled" is CARDS, and the difference between
+ * them is the whole reason a rate can only be taken over the first.
+ */
+await writeFile(
+  join(ROOT, "data/rip-tally.json"),
+  JSON.stringify({
+    _readme:
+      "The channel's headline counts, computed by scripts/build-proto.mjs and read " +
+      "by scripts/build-hall.mjs so the two pages cannot disagree. Regenerated every " +
+      "build; do not hand-edit.",
+    checked: BUILT,
+    packs: allPacks,
+    rips: videos.length,
+    ripsWithHit: hitRips.length,
+    ripsJudged: judgedRips.length,
+    cards: hitCards,
+    hitRate,
+  }, null, 2) + "\n"
+);
+console.log(`Wrote data/rip-tally.json  (${allPacks} packs, ${videos.length} rips, ${hitRips.length} hit, ${hitCards} cards, ${hitRate})`);
+
 const libStatsHtml = !allPacks
   ? ""
   : `<div class="libstats" role="group" aria-label="Rip totals">
