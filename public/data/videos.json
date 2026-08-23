@@ -14,7 +14,7 @@
       "path": "rip/i-pulled-the-best-trainer-in-the-set-b1B3Vbpsrh8.html",
       "published": "2026-08-23",
       "duration": 21,
-      "views": 128,
+      "views": 138,
       "vertical": true,
       "short": true,
       "sets": [
@@ -42,7 +42,21 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Chaos Rising ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 4,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB - Pack 4"
     },
     {
       "id": "lRT8jgjO2HM",
@@ -60,7 +74,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Chaos Rising Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 14,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Chaos Rising Pack - Pack 14"
     },
     {
       "id": "h5mje3jbD48",

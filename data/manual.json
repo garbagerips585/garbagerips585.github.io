@@ -27,6 +27,38 @@
     "them to the site either: reverting one line in sync-youtube.mjs republishes all",
     "244 and nothing about the file would look wrong."
   ],
+  "yiYrp7bo3PM": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ETB",
+    "packNumber": 4,
+    "hasHit": false
+  },
+  "lRT8jgjO2HM": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "Single Booster Pack",
+    "packNumber": 14,
+    "hasHit": false
+  },
   "h5mje3jbD48": {
     "setPacks": [
       {
@@ -3434,7 +3466,7 @@
         "setName": "Mega Symphonia (JP)"
       },
       {
-        "card": "Trainer Rare Candy",
+        "card": "Rare Candy",
         "rarity": "Super Rare",
         "set": "ja-mega-symphonia",
         "setName": "Mega Symphonia (JP)"
