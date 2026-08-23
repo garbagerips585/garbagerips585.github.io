@@ -618,38 +618,34 @@ async function resolveHits(vid) {
     // TWO RULES, ONE PER VOCABULARY, AND THE INTL ONE IS THE STRICTER OF THEM.
     // pickIntlPrinting never reaches `same[0]`; see its own comment for the
     // whole argument and for why Goldeen still gets no number.
-    // THE COLLECTOR NUMBER BEATS THE RARITY WORD, AND NOT HAVING THAT RULE PUT A
-    // $4.56 CARD WHERE A $668.50 ONE BELONGED.
+    // THE RARITY IS TIM'S OWN DATA AND THE NUMBER IS DERIVED, WHICH IS THE
+    // OPPOSITE OF WHAT I ASSUMED FOR SIX HOURS ON 23 AUGUST 2026.
     //
-    // This chain matched on the RARITY only. The rarity column in the My Hits
-    // tab is unreliable in a specific, repeatable way -- it carries the tier of
-    // the SLOT the card came out of rather than of the card -- while the NUMBER
-    // column beside it is right. Measured against the checklists on 23 August
-    // 2026, three of the channel's most valuable pulls:
+    // I made the collector number win over the rarity word, on the evidence that
+    // hits.json carried "#290 Double Rare" for a Mega Dragonite ex and #290 is a
+    // Special Illustration Rare worth $668.50. I read that as a right number
+    // beside a wrong rarity. It is the other way round.
     //
-    //   Mega Dragonite ex     sheet #290 "Double Rare"  -> resolved #152, $4.56
-    //                         checklist #290 IS Special Illustration Rare, $668.50
-    //   Mega Charizard Y ex   sheet #294 "Double Rare"  -> resolved #022, $5.46
-    //                         checklist #294 IS Mega Hyper Rare, $363.43
-    //   Mega Greninja ex      sheet #116 "Mega Hyper Rare" -> resolved #122, $173
-    //                         checklist #116 IS Special Illustration Rare, $208.26
+    // THE My Hits Number COLUMN IS EMPTY ON THOSE ROWS. import-sheet.mjs writes
+    // `number: cell(r, hi.number) || found?.n`, so with nothing typed the number
+    // is filled in from a lookup, and that lookup had already picked the wrong
+    // printing. Making the number authoritative promoted a DERIVED value over
+    // the one a person actually entered, and then ranked the site on it.
     //
-    // Every one landed on a real card of the right NAME and the wrong PRINTING,
-    // which is why nothing looked broken: a plaque with a scan, a price and a
-    // number, all of them belonging to a different card. The same #116 is logged
-    // three times with three different rarities, so the rarity cannot be the key.
+    // What Tim typed for that card, in the Video Log's own Hit Info cell:
+    // "Mega Dragonite ex - Double Black Star - Double Rare". A double black star
+    // IS Double Rare. He pulled the Double Rare.
     //
-    // A NUMBER IS AN IDENTIFIER AND A RARITY IS A DESCRIPTION. Where the sheet
-    // gives a number and the checklist holds it, that IS the card and nothing
-    // else needs asking. Everything below is unchanged and still runs when there
-    // is no number, which is most rows.
-    const byNumber =
-      h.number && cards
-        ? cards.find((c) => norm(c.name) === norm(h.card) && String(c.n) === String(h.number))
-        : null;
-    const m = byNumber
-      ? byNumber
-      : intl
+    // The visible damage: /hall.html filled with chase printings of cards that
+    // were pulled as commons, so it read as if the most-wanted list had been
+    // pasted into the hall. Tim: "you added in all sorts of cards that are not
+    // logged as hits in my video ... that is wrong."
+    //
+    // SO THE RARITY WINS AGAIN. It is the field a person fills in while looking
+    // at the card. If the derived number is ever to be trusted it has to stop
+    // being derived from a guess first; that is a fix in import-sheet.mjs, not
+    // a preference here.
+    const m = intl
       ? pickIntlPrintingJp(same, want)
       : (want && same.find((c) => norm(c.rarity) === want)) ||
         (want && same.find((c) => norm(c.rarity).includes(want.slice(0, 8)))) ||

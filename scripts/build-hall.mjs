@@ -422,29 +422,22 @@ if (!hall.length) {
       // naming different printings of one card, which is the fault the comment
       // above this one was written to prevent.
       const want = h.rarity ? norm(h.rarity) : null;
-      // THE COLLECTOR NUMBER BEATS THE RARITY WORD. Same fix and same day as
-      // build-pages.mjs, and the numbers below are what it was costing THIS
-      // page, which is the one that ranks by money:
+      // REVERTED 23 August 2026, SAME DAY IT WENT IN. I made the collector
+      // number beat the rarity word here and in build-pages.mjs and
+      // build-luck.mjs, on the evidence that this page carried "#290 Double
+      // Rare" for a card whose #290 is a $668.50 Special Illustration Rare.
       //
-      //   Mega Dragonite ex    plaque said #152 Double Rare, $4.56
-      //                        the sheet's own #290 is a SIR worth $668.50
-      //   Mega Charizard Y ex  plaque said #022 Double Rare, $5.46
-      //                        the sheet's own #294 is Mega Hyper Rare, $363.43
-      //   Mega Greninja ex     plaque said #122 Mega Hyper Rare, $173
-      //                        the sheet's own #116 is a SIR worth $208.26
+      // THE NUMBER IS THE DERIVED FIELD, NOT THE RARITY. The My Hits Number
+      // column is EMPTY on those rows; import-sheet.mjs fills it from a lookup
+      // that had already chosen the wrong printing. So the fix promoted a guess
+      // over the thing a person typed while holding the card, and this page
+      // filled up with chase printings of cards that were pulled as commons.
       //
-      // So the page's ENTIRE RANKING was wrong at the top, and the card it
-      // called the channel's best was the third best. Every one of those
-      // resolved to a real card of the right name and the wrong printing, which
-      // is why it never looked broken.
-      //
-      // The rarity column in the My Hits tab carries the tier of the SLOT the
-      // card came out of rather than of the card; the NUMBER column beside it is
-      // right. #116 is logged three times with three different rarities, so the
-      // rarity cannot be the key. A number is an identifier, a rarity is a
-      // description.
-      let m = (h.number && same.find((c) => String(c.n) === String(h.number))) ||
-              (want && same.find((c) => norm(c.rarity) === want)) ||
+      // Tim, looking at the result: "you added in all sorts of cards that are
+      // not logged as hits in my video ... that is wrong." Nothing had been
+      // added -- every plaque was a real logged card -- but they were the wrong
+      // PRINTINGS, which reads exactly like the wanted list leaking in.
+      let m = (want && same.find((c) => norm(c.rarity) === want)) ||
               (want && same.find((c) => norm(c.rarity).includes(want.slice(0, 8)))) ||
               same[0];
       // THE RARITY MATCH DOES NOT SURVIVE THE TRIP TO A JAPANESE SET, AND THE

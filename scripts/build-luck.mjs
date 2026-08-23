@@ -550,36 +550,14 @@ let cardRows = 0;
       if (!doc?.cards?.length) { cardDrops.noChecklist++; cardLedger.push({ ...base, set: h.set, number: null, raw: null, psa: null }); continue; }
       const same = doc.cards.filter((c) => nrm(c.name) === nrm(h.card));
       if (!same.length) { cardDrops.notOnChecklist++; cardLedger.push({ ...base, set: h.set, number: null, raw: null, psa: null }); continue; }
-      // THE COLLECTOR NUMBER BEATS THE RARITY WORD, AND THIS FILE WAS THE LAST
-      // ONE STILL ON THE OLD RULE. build-pages.mjs and build-hall.mjs both moved
-      // to number-first on 23 August 2026; this one did not, and it is the file
-      // that owns every money figure on the site's statistics page.
-      //
-      // The rip log's rarity cell records the tier of the SLOT a card came out
-      // of rather than of the card; the number beside it is right. 164 of the
-      // 168 priced rows carry one. What matching on the rarity was publishing:
-      //
-      //   best card, ungraded      $173      ->  $668.50   Mega Dragonite ex #290
-      //   best card, PSA 10        $919      ->  $2,116.38 Mega Charizard Y ex #294
-      //   sum of every raw value   $1,078.89 ->  $5,263.07
-      //   sum of every PSA 10      $7,942.27 ->  $20,399.61
-      //   cards with a graded figure  94 of 214 -> 142 of 214
-      //   best return a rip        $17.51    ->  $82.76
-      //
-      // Every one landed on a real card of the right NAME and the wrong
-      // PRINTING, so nothing 404ed and nothing looked wrong. 74 of 168 rows.
-      //
-      // AND IT WAS PUBLISHING A CONTRADICTION ONE CLICK WIDE: this page said
-      // Mega Greninja ex was worth $173 and linked to the rip page for the same
-      // card, built by build-pages.mjs, which said $208.26.
-      //
-      // THIS FILE'S OWN HEADER STILL CLAIMED IT "CANNOT DISAGREE" with those two
-      // builders, citing a proof from 21 August that stopped holding the moment
-      // they changed. A comment asserting agreement is not agreement.
+      // REVERTED with build-pages.mjs and build-hall.mjs on 23 August 2026.
+      // The collector number in data/hits.json is DERIVED when the My Hits
+      // Number column is blank, which it is on the rows this mattered for, so
+      // preferring it promoted a lookup's guess over the rarity a person typed
+      // while looking at the card. See the long note in build-hall.mjs.
       const want = h.rarity ? nrm(h.rarity) : null;
-      const byNumber = h.number ? same.find((c) => String(c.n) === String(h.number)) : null;
       const exact = want ? same.filter((c) => nrm(c.rarity) === want) : [];
-      const m = byNumber || (exact.length === 1 ? exact[0] : (!exact.length && same.length === 1 ? same[0] : null));
+      const m = exact.length === 1 ? exact[0] : (!exact.length && same.length === 1 ? same[0] : null);
       if (!m) { cardDrops.ambiguousPrinting++; cardLedger.push({ ...base, set: h.set, number: null, raw: null, psa: null }); continue; }
       const g = psaResolve(h.set, m.n, { name: m.name, setName: setName[h.set] || h.setName || h.set });
       cardLedger.push({
