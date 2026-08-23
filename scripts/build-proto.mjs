@@ -618,6 +618,63 @@ try {
 }
 const rawValue = (v) => HIT_VALUE[v.id] || 0;
 
+/* THE MOST WANTED SCANS WERE A SINGLE 245w FILE WITH NO SRCSET AND NO SIZES,
+ * SO THEY WERE SOFT ON EVERY RETINA SCREEN. Measured drawn width against the
+ * device pixels needed: 148.2 CSS px at 390 (0.83x at DPR 2, 0.55x at DPR 3)
+ * and 218.7 at 1440 (0.56x at DPR 2). A card scan is fine print and a hair
+ * under half resolution is plainly visible on one.
+ *
+ * THE RUNGS ALREADY EXISTED AND THIS BAND WAS NOT ASKING FOR THEM.
+ * sync-card-thumbs.mjs mirrors exactly these cards for /wanted.html at 310,
+ * 420 and 460, and 460 was added for precisely this arithmetic. Reaching for
+ * TCGdex's own 600w instead would have been 112KB of AVIF per card against 24
+ * for the small one, on six cards, for a band below the fold.
+ *
+ * SIZES IS MEASURED, NOT GUESSED, and this box is NOT /wanted.html's, which is
+ * why the string is not shared: read off the built page at eight widths, the
+ * box is 130 at 320, 148.2 at 390, 168 from 545 to 860, 176 to 1300, 192 at
+ * 1280, 218.7 at 1440 and 228.7 at 1920. 41vw under 545 over-declares 390 by
+ * 12px, which is headroom in the safe direction.
+ *
+ * WHAT IT STILL DOES NOT COVER, said out loud: a DPR 3 DESKTOP wants 656 at
+ * 1440 and the top of this ladder is 600. That was already true and is capped
+ * by the source, not by this.
+ *
+ * A card with no local mirror keeps the two remote widths it has today, which
+ * is also what a newly hunted card gets until sync-card-thumbs.mjs runs again.
+ */
+const MW_SIZES =
+  "(min-width:1500px) 229px, (min-width:1300px) 219px, (min-width:1000px) 192px, " +
+  "(min-width:860px) 176px, (min-width:545px) 168px, " +
+  // UNDER 545 THE BOX IS A CLEAN 38vw AND A FLAT 41vw COST A WHOLE RUNG.
+  // Measured at eight phone widths: 130 at 320, then 136.8/142.5/148.2/157.3/
+  // 163.4 at 360/375/390/414/430, which is 38.0% of the viewport every time,
+  // capping at 168 by 480. 320 is the odd one at 40.6% because the gutters do
+  // not scale with it. Declaring a flat 41vw made a 390px phone ask for 480
+  // device pixels at DPR 3 where it needs 445, which stepped it past the 460w
+  // rung onto TCGdex's 600w: 112KB of AVIF against about 60, on the commonest
+  // phone there is. Three clauses instead of one, and 390 DPR 3 lands on 460w.
+  "(min-width:442px) 168px, (min-width:340px) 38vw, 41vw";
+let MW_REND = { widths: [], dir: "/assets/cards/", cards: {} };
+try {
+  MW_REND = JSON.parse(await readFile(join(ROOT, "data/card-thumbs.json"), "utf8")).renditions?.wanted || MW_REND;
+} catch { /* run scripts/sync-card-thumbs.mjs */ }
+
+function mwArt(url, alt) {
+  const base = String(url).replace(/\/(low|high)\.(webp|avif|png|jpg)$/, "");
+  const mirror = MW_REND.cards?.[base];
+  const rung = (ext) => [
+    `${base}/low.${ext} 245w`,
+    ...(mirror ? (MW_REND.widths || []).map((w) => `${MW_REND.dir}${mirror.stem}-${w}.${ext} ${w}w`) : []),
+    `${base}/high.${ext} 600w`,
+  ].join(", ");
+  const tag =
+    `<img src="${esc(base)}/low.webp" srcset="${esc(rung("webp"))}" sizes="${esc(MW_SIZES)}" ` +
+    `alt="${esc(alt)}" loading="lazy" onerror="this.remove()"${imgDims(`${base}/low.webp`)}>`;
+  return `<picture><source type="image/avif" srcset="${esc(rung("avif"))}" sizes="${esc(MW_SIZES)}">${tag}</picture>`;
+}
+
+
 // Greatest Hits: the RIPS worth watching, which is a different thing from the
 // Card Hall of Fame on /hall.html. That page ranks cards; this ranks videos.
 // A real pull outranks a big view count, and views break ties
@@ -1243,7 +1300,7 @@ const wantedHtml = (wanted.cards || [])
     else if (c.raw) addRaw(wantedLedger, c.rawDoc, c.rawRow, `${c.name} (${c.set})`);
     const inner = `<span class="mw-art">${
       img
-        ? avifPicture(`<img src="${esc(img)}" alt="${esc(c.name)} ${esc(c.rarity || "")} from ${esc(c.setName)}" loading="lazy" onerror="this.remove()"${imgDims(img)}>`)
+        ? mwArt(img, `${c.name} ${c.rarity || ""} from ${c.setName}`.replace(/\s+/g, " ").trim())
         : `<span class="mw-none">${esc(c.name)}</span>`
     }</span>
         <b>${esc(c.name)}</b><p>${esc(c.setName.toUpperCase())} &bull; ${price}</p>`;

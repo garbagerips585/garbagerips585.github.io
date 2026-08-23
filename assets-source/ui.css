@@ -1064,7 +1064,24 @@ main{padding:var(--s4) 0 var(--s6)}
    the banner is a 44px bar fused to the bottom of every art box, and the chip
    sat at 6px, i.e. underneath it. Every element that emits a `.dur` also emits
    a banner now, so this is the one rule rather than three overrides. */
-.dur{position:absolute;right:6px;bottom:50px;z-index:3;
+/* THE CHIP MOVED TO THE TOP, 23 August 2026, BECAUSE THE BOTTOM OF A PACK IS
+   NOT EMPTY SPACE, IT IS THE BRAND. Every wrapper carries "Garbage Rips 585"
+   baked across its lower third, and a chip pinned bottom-right sat on the end of
+   it. Measured by rendering each tile twice, once with .dur hidden, and diffing:
+   at 390 the Pitch Black tile in Latest rips lost 12.5 CSS px of wordmark ink,
+   12.9% of the lettering in that band; at 1440 Destined Rivals lost 28.5% of it.
+   The Hall of Fame trophy was clean, because Chaos Rising's wordmark ends higher
+   -- so this was art-dependent, which is exactly why it survived so long.
+
+   TOP RIGHT IS FREE AND IS THE ONLY CORNER THAT IS. .hit takes top-LEFT at
+   top:10px, so the two now read as a pair across the head of the art rather than
+   competing. Bottom-left is the plate in most of the illustrations, and the whole
+   bottom edge is the 44px CLICK TO RIP THE PACK banner.
+
+   THE NOTE ABOVE IS KEPT because the 44px it describes is still why this cannot
+   go back to the bottom: the banner is fused to the foot of every art box and a
+   chip at 6px would sit underneath it. */
+.dur{position:absolute;right:6px;top:10px;z-index:3;
   font:700 var(--t-micro)/1 var(--mono);color:#fff;background:rgba(17,17,17,.82);
   padding:4px 6px;border-radius:5px}
 /* a hit is the only thing that earns a flag */
