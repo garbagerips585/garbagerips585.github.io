@@ -1577,6 +1577,92 @@ that hours come from the business, and a second Rohrbach that is correctly
 licensed and is **the wrong one of their two buildings**. A free license is the
 first gate on this page and it has never been the only one.
 
+## Which PRINTING a logged hit is, and why the rarity decides it
+
+**THE RARITY COLUMN IS TIM'S DATA. THE NUMBER COLUMN IS USUALLY DERIVED.** He
+reads the symbol off the card and writes both: the Video Log's Hit Info cells say
+"Mega Dragonite ex - Double Black Star - Double Rare". A double black star IS
+Double Rare. The My Hits Number column is blank on most rows.
+
+`import-sheet.mjs` used to fill that blank by taking the **dearest** printing of
+the name in the set, and never read the rarity beside it. Where a set prints one
+name twice that silently upgraded the card. Ascended Heroes prints Mega Charizard
+Y ex at 022 (Double rare, $5.46) and 294 (Mega Hyper Rare, $363.43); the row says
+"Double Rare" and the site published 294.
+
+**It moved 86 rows and it is why /hall.html read as though the wanted list had
+been pasted into it.** Tim, 23 August 2026: "you added in all sorts of cards that
+are not logged as hits in my video ... that is wrong." Nothing had been added.
+Every plaque was a real logged card at the wrong PRINTING, which looks identical.
+
+`pickPrinting()` in `scripts/import-sheet.mjs` now resolves in this order, and
+the three renderers (`build-pages.mjs`, `build-hall.mjs`, `build-luck.mjs`) all
+key off the rarity to match:
+
+  1. an explicitly typed collector NUMBER
+  2. the typed RARITY, **only where it names exactly one printing** -- two
+     printings sharing a tier falls through rather than flipping a coin
+  3. the dearest printing, the old rule, now the last resort
+
+**THREE CONFIRMATIONS, NONE OF THEM INFERRED FROM THE CODE.** Do not re-litigate
+this without at least this much evidence:
+
+- The Video Log's own Hit Info cells name the symbol as well as the tier. All
+  **157** rows where that cell names a tier agree with the rarity-first pick.
+  **0 disagree.**
+- Tim sent the TCGplayer link for Mega Charizard Y ex **022/217** himself,
+  against the 294 the old rule chose.
+- `data/graded.json`'s readme, written 14 August, records "Dawn #129 where ours
+  is #118" and "Mega Gardevoir ex #178 where ours is #159". Our numbers then are
+  the numbers the rarity gives back now.
+
+**THE FASTEST SANITY CHECK IS THE RARITY MIX.** 462 packs should give roughly 70
+Double rares, 35 Ultra Rares, 40 Illustration rares and about 5 SIRs. The old
+data claimed **51 SIRs**, near 1 in 9 against a real rate near 1 in 100. If a
+change to any resolver moves that distribution, it is wrong. It also now
+separates one card pulled at different tiers in different rips -- Dawn #118 twice
+and #129 once -- which was impossible while the dearest always won.
+
+### Scans TCGdex does not have: `data/card-shots.json`
+
+Nine real printings are in **no** TCGdex url at any extension: the Galarian and
+Trainer Gallery subsets, promos listed with nothing attached, and the six intl
+guides with `hasImages: false`. They are pinned to a TCGplayer product id, keyed
+`"<corpus set name>|<collector number>"`, and read by `pinnedShot()` in
+`shared/card-scan.mjs`.
+
+- **An entry is only added after the TCGdex url was checked and 404'd**, and the
+  entry records that reason. A pin must never shadow a scan we already have.
+- **The two renditions are NOT siblings by string surgery.** `_200w.jpg` and
+  `_in_1000x1000.jpg` off one id. So `hitcardImg`'s srcset guard must keep its
+  `assets.tcgdex.net` test, and the lightbox's `low.webp -> high.webp` swap is a
+  silent **no-op** on that host -- the large url is passed through `imgLarge`
+  instead, or the card enlarges to a 200px thumbnail with nothing to say so.
+- No width or height: that host pads to a fixed canvas, and `imgDims()` returns
+  nothing for it on purpose.
+
+### `rawNm` is the price of last resort and it is load bearing
+
+The My Hits **Raw NM USD** column was read by nothing. For most rows that is
+harmless, because the checklist has the price. For the sets with **no checklist**
+-- Silver Tempest, Lost Origin, every Black Star Promo set, all thirteen intl
+guides -- it is the only figure that will ever exist, and 23 cards had a scan, a
+number and no money. All three renderers now fall back to it, **last**, behind
+every live source, because it is frozen and they are not.
+
+**A subset name is routing, not part of a card's name.** "Crown Zenith - Paras -
+Galarian Gallery - Rare" parsed as a card called "Paras Galarian Gallery", and
+because the Video Log parser can only ADD a row, that fossil sat on /hall.html
+beside the real Paras -- unnumbered, unpriced, and winning the dedupe by sorting
+first.
+
+**PriceCharting files every English promo in one console, "Pokemon Promo",** and
+we file them by the set printed on the card. Neither string contains the other,
+so no promo could join `data/graded.json` and five of them printed "No PSA 10
+price" over figures already on file. `setsAgree()` in `shared/graded-price.mjs`
+allows that one pairing; the collector-number check already there is what keeps
+it safe.
+
 ## Video data
 - `public/data/videos.json` is the whole catalogue, `playlists.json` the
   playlists. Both are written by `scripts/sync-youtube.mjs`.
