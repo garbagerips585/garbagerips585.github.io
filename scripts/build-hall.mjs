@@ -25,6 +25,7 @@ import { SITE } from "../shared/site.mjs";
 // take their <head> by slicing index.html, so their stylesheet links are the
 // home page's. See shared/chrome.mjs beside the two exports.
 import { APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/chrome.mjs";
+import { loadCorpus, corpusCard } from "../shared/subset-cards.mjs";
 import { esc, shortDate, moneyCompact, noValue, rarityLabel, imgDims, cardNumKey, avifPicture } from "../shared/format.mjs";
 import { loadGradedPrices, MIN_SALES } from "../shared/graded-price.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
@@ -137,6 +138,10 @@ let hitsLedger = null;
 const firstPartner = await loadFirstPartner();
 if (!hall.length) {
   const hits = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
+  /* The printings corpus, loaded once, and only the shards these card names
+   * need. It answers for sets this site keeps no per-set checklist for and
+   * for the subsets that live inside one. See shared/subset-cards.mjs. */
+  const CORPUS = await loadCorpus(ROOT, Object.values(hits).flat().map((c) => c.card));
   const seen = new Set();
   const out = [];
   // EVERY DROP IS LEDGERED AND EVERY LEDGER IS PRINTED AT THE END OF A RUN.
@@ -147,6 +152,7 @@ if (!hall.length) {
   // saying what it did with all 93 rows.
   const unmatched = [];
   const unlisted = [];
+  const fromCorpus = [];
   const intlIn = [];
   const ambiguous = [];
   // A ROW THE HALL CAN PUT NOTHING BEHIND. Two shapes reach it: a promo with no
@@ -398,6 +404,31 @@ if (!hall.length) {
         const key = `${h.set}-${norm(h.card)}`;
         if (seen.has(key)) { repeats++; continue; }
         seen.add(key);
+        // THE CORPUS ANSWERS FOR SETS THIS SITE KEEPS NO CHECKLIST FOR, and for
+        // the subsets that live inside one. public/data/cards/ holds 28 English
+        // sets; public/data/printings/ holds 370, including Silver Tempest, Lost
+        // Origin, "Crown Zenith Galarian Gallery" and "Silver Tempest Trainer
+        // Gallery". Five real cards were rendering as a bare name with no
+        // number, no scan and no price while the corpus held all of them.
+        //
+        // The rip log glues the subset onto the NAME -- "Paras Galarian
+        // Gallery" -- so those words are routing information rather than part
+        // of the card, and shared/subset-cards.mjs peels them off to pick the
+        // set. It refuses a name it cannot separate rather than guessing, which
+        // is the same rule the checklists are held to.
+        const sub = corpusCard(CORPUS, { card: h.card, setName: h.setName || h.set, rarity: h.rarity });
+        if (sub) {
+          out.push({
+            set: h.set, number: sub.n, name: sub.name,
+            _vid: vid,
+            _img: sub.img,
+            _raw: sub.price,
+            _rarity: sub.rarity || h.rarity || null,
+            _setName: sub.setName || h.setName || null,
+          });
+          fromCorpus.push(`${sub.name} #${sub.n} (${sub.setName})`);
+          continue;
+        }
         unlisted.push({ set: h.set, setName: h.setName || h.set, card: h.card });
         out.push({
           set: h.set, number: null, name: h.card,
@@ -519,6 +550,33 @@ if (!hall.length) {
         // limit of what two vocabularies can be joined on, so it goes in
         // unpinned exactly like a set with no checklist at all.
         if (source !== "intl") {
+          // THE SUBSETS ARE TRIED BEFORE THE ROW IS CALLED A DATA ERROR.
+          // Crown Zenith HAS a checklist and Paras is genuinely not on it,
+          // because Paras is a GALARIAN GALLERY card: the corpus files it under
+          // "Crown Zenith Galarian Gallery" GG32, a set this site keeps no
+          // per-set list for. Same for Corviknight V, which is Silver Tempest
+          // TRAINER GALLERY TG18. Dropping those as spelling mistakes was
+          // wrong; they are real cards in a subset the checklist does not cover.
+          //
+          // It still refuses what it cannot separate: Reshiram V has two Silver
+          // Tempest printings and the log names no rarity, so that one stays
+          // unmatched and gets reported rather than guessed at.
+          const sub = corpusCard(CORPUS, { card: h.card, setName: h.setName || h.set, rarity: h.rarity });
+          if (sub) {
+            const skey = `${h.set}-${norm(sub.name)}-${sub.n}`;
+            if (seen.has(skey)) { repeats++; continue; }
+            seen.add(skey);
+            out.push({
+              set: h.set, number: sub.n, name: sub.name,
+              _vid: vid,
+              _img: sub.img,
+              _raw: sub.price,
+              _rarity: sub.rarity || h.rarity || null,
+              _setName: sub.setName || h.setName || null,
+            });
+            fromCorpus.push(`${sub.name} #${sub.n} (${sub.setName})`);
+            continue;
+          }
           unmatched.push({ set: h.set, card: h.card, rarity: h.rarity || null, source });
           continue;
         }
@@ -803,6 +861,7 @@ function resolve(c) {
  * absent data rather than a special case.
  */
 /** Thousands separators, the same form every other builder prints. */
+
 const num = (n) => Number(n).toLocaleString("en-US");
 
 let TALLY = null;
