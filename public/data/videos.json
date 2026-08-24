@@ -1,20 +1,38 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 267373,
+    "views": 268314,
     "subscribers": 340,
-    "videos": 321,
-    "readAt": "2026-08-23"
+    "videos": 322,
+    "readAt": "2026-08-24"
   },
-  "syncedAt": "2026-08-23",
+  "syncedAt": "2026-08-24",
   "videos": [
+    {
+      "id": "tACIiMz6vRk",
+      "title": "Trubbish Food Alert! 📉🗑️",
+      "path": "rip/trubbish-food-alert-tACIiMz6vRk.html",
+      "published": "2026-08-24",
+      "duration": 18,
+      "views": 560,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "chaos-rising"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Chaos Rising Pack"
+    },
     {
       "id": "b1B3Vbpsrh8",
       "title": "I Pulled the BEST Trainer in the Set! ⚔️✨",
       "path": "rip/i-pulled-the-best-trainer-in-the-set-b1B3Vbpsrh8.html",
       "published": "2026-08-23",
       "duration": 21,
-      "views": 889,
+      "views": 945,
       "vertical": true,
       "short": true,
       "sets": [
@@ -49,7 +67,7 @@
       "path": "rip/can-we-top-the-mega-greninja-yiYrp7bo3PM.html",
       "published": "2026-08-22",
       "duration": 20,
-      "views": 1023,
+      "views": 1078,
       "vertical": true,
       "short": true,
       "sets": [
@@ -81,7 +99,7 @@
       "path": "rip/the-greninja-luck-ran-out-lRT8jgjO2HM.html",
       "published": "2026-08-21",
       "duration": 21,
-      "views": 848,
+      "views": 871,
       "vertical": true,
       "short": true,
       "sets": [
@@ -113,7 +131,7 @@
       "path": "rip/the-9th-pack-saved-the-box-h5mje3jbD48.html",
       "published": "2026-08-20",
       "duration": 24,
-      "views": 837,
+      "views": 838,
       "vertical": true,
       "short": true,
       "sets": [
@@ -148,7 +166,7 @@
       "path": "rip/is-rampardos-ex-a-real-hit-_RuAmy2dGL8.html",
       "published": "2026-08-19",
       "duration": 20,
-      "views": 1009,
+      "views": 1013,
       "vertical": true,
       "short": true,
       "sets": [
@@ -180,7 +198,7 @@
       "path": "rip/i-just-pulled-a-1-000-card-iIgTusrqVtg.html",
       "published": "2026-08-18",
       "duration": 28,
-      "views": 1184,
+      "views": 1185,
       "vertical": true,
       "short": true,
       "sets": [
@@ -853,7 +871,7 @@
       "path": "rip/did-we-get-the-zard-final-pack-3pUiN-8XkEk.html",
       "published": "2026-07-29",
       "duration": 29,
-      "views": 996,
+      "views": 997,
       "vertical": true,
       "short": true,
       "sets": [
@@ -957,7 +975,7 @@
       "path": "rip/the-curse-is-broken-pitch-black-hit-JfHlnrlX6S0.html",
       "published": "2026-07-26",
       "duration": 22,
-      "views": 34,
+      "views": 37,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1466,7 +1484,7 @@
       "path": "rip/thievul-ir-pitch-black-first-pack-magic-GTC45Mri_gc.html",
       "published": "2026-07-17",
       "duration": 23,
-      "views": 629,
+      "views": 631,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3668,7 +3686,7 @@
       "path": "rip/first-phantasmal-flamespack-in-the-mega-zygarde-collection-p-HGlF3-fpycc.html",
       "published": "2026-06-15",
       "duration": 20,
-      "views": 937,
+      "views": 938,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7464,7 +7482,7 @@
       "path": "rip/random-2-pack-blister-armarouge-revavroom-houndstone-cg0H0ipfB90.html",
       "published": "2026-04-19",
       "duration": 46,
-      "views": 754,
+      "views": 755,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7545,7 +7563,7 @@
         "single-pack"
       ],
       "pulls": [],
-      "hitCard": "Paras - Galarian Gallery",
+      "hitCard": "Crown Zenith - Paras - Galarian Gallery - Rare",
       "hasHit": true,
       "packsOpened": 1,
       "packsStated": true,
@@ -7996,7 +8014,7 @@
       "path": "rip/pok-mon-rebel-clash-booster-pack-2-any-better-nCIpRxwMMBE.html",
       "published": "2026-04-12",
       "duration": 25,
-      "views": 1260,
+      "views": 1261,
       "vertical": true,
       "short": true,
       "sets": [
@@ -8398,7 +8416,7 @@
       "path": "rip/only-garbage-rips-mabosstiff-box-opening-g9RQqx9da6Q.html",
       "published": "2026-04-06",
       "duration": 66,
-      "views": 883,
+      "views": 884,
       "vertical": true,
       "short": false,
       "sets": [
@@ -8446,7 +8464,7 @@
       "path": "rip/mega-charizard-y-ex-tin-did-we-hit-GLM2VLIWZGo.html",
       "published": "2026-04-05",
       "duration": 63,
-      "views": 829,
+      "views": 830,
       "vertical": true,
       "short": false,
       "sets": [
@@ -8765,7 +8783,7 @@
       "path": "rip/pok-mon-go-booster-pack-6-mewtwo-or-ditto-gSygkzEehmU.html",
       "published": "2026-04-01",
       "duration": 25,
-      "views": 531,
+      "views": 532,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9095,7 +9113,7 @@
       "path": "rip/pok-mon-go-booster-pack-4-is-this-the-mewtwo-pack-yjBNG5dvopc.html",
       "published": "2026-03-26",
       "duration": 20,
-      "views": 1457,
+      "views": 1458,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9160,7 +9178,7 @@
       "path": "rip/pok-mon-go-booster-pack-3-getting-closer-to-mewtwo-tKOXv-qSYTo.html",
       "published": "2026-03-24",
       "duration": 20,
-      "views": 336,
+      "views": 337,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9930,7 +9948,7 @@
       "path": "rip/only-garbage-rips-mega-charizard-x-tin-F9mAQqKd6r8.html",
       "published": "2026-03-01",
       "duration": 49,
-      "views": 24,
+      "views": 26,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9945,7 +9963,7 @@
         "double-rare",
         "charizard"
       ],
-      "hitCard": "Mega Charizard Y ex - Black Star Promo ; Phantasmal Flames - Empoleon ex - Double Black Star - Double Rare",
+      "hitCard": "Mega Charizard X ex - Black Star Promo ; Phantasmal Flames - Empoleon ex - Double Black Star - Double Rare",
       "hasHit": true,
       "packsOpened": 4,
       "packsStated": true,
