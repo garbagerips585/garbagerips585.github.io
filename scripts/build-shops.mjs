@@ -600,6 +600,31 @@ const cards = shops
     })();
     return `      <li class="shop">
         <div class="shop-head">
+          ${/* THE SHOP'S OWN LOGO, WHERE THE SHOP SENT ONE. Tim, 24 August
+                2026: "they sent me their logo to add." That is the ONLY way a
+                logo gets on this page. Do not go and fetch one from a shop's
+                site or social feed to fill a gap: that is the shop's artwork
+                and being good publicity for them is not a licence from them.
+                data/shops.json records who sent it and when, beside the file.
+
+                A SHOP WITH NO LOGO RENDERS EXACTLY AS BEFORE. The heading is
+                the shop name either way, so this is additive and the five
+                shops that have sent nothing are not made to look unfinished by
+                an empty frame, which is the same rule shared/brands.mjs
+                follows for a venue Commons has no mark for. */ ""}
+          ${/* WRITTEN OUT RATHER THAN THROUGH avifPicture(), and that is not
+                laziness. That helper only rewrites TCGdex and assets/packs/
+                urls; handed anything else it returns the <img> UNCHANGED, so
+                calling it here would have been a silent no-op that looked
+                correct in the source and shipped WebP to everybody. Checked by
+                reading the function rather than by assuming the name meant
+                what it says. */ ""}
+          ${s.logo ? `<span class="shop-logo"><picture>
+            <source type="image/avif" srcset="/assets/shops/${esc(s.logo)}-200.avif 200w, /assets/shops/${esc(s.logo)}-400.avif 400w" sizes="56px">
+            <img src="/assets/shops/${esc(s.logo)}-200.webp" alt="${esc(s.name)} logo" width="200" height="${
+              Math.round(200 * (s.logoH || 1) / (s.logoW || 1))
+            }" loading="lazy" decoding="async" srcset="/assets/shops/${esc(s.logo)}-200.webp 200w, /assets/shops/${esc(s.logo)}-400.webp 400w" sizes="56px">
+          </picture></span>` : ""}
           <h2>${esc(s.name)}</h2>
           ${s.visited ? `<span class="shop-flag">Filmed here</span>` : ""}
         </div>
@@ -697,7 +722,18 @@ const style = `
 .shop{display:flex;flex-direction:column;gap:var(--s2);background:var(--card);
   border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);
   box-shadow:var(--lift)}
-.shop-head{display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap}
+.shop-head{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap}
+/* THE LOGO SITS ON ITS OWN GROUND AND THAT IS NOT A STYLE CHOICE. LingSter's
+   mark is yellow and white artwork on BLACK, so on the card green it would
+   read as a black rectangle stuck to the card. A brand mark is somebody else's
+   artwork and we do not get to recolour it, which is the same rule
+   shared/brands.mjs states for the retailer marks, so the plate keeps the
+   colour the mark was drawn for and takes a keyline to make it deliberate.
+   object-fit:contain because the next shop to send one will not be square. */
+.shop-logo{flex:none;width:56px;height:56px;border-radius:var(--r-sm);
+  background:#000;border:1px solid var(--hair);overflow:hidden;
+  display:inline-flex;align-items:center;justify-content:center}
+.shop-logo img{width:100%;height:100%;object-fit:contain;display:block}
 .shop h2{font:400 var(--t-m)/1.15 var(--display)}
 .shop-flag{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;
   background:var(--mustard);color:var(--on-accent);border:1px solid var(--gold-deep);
