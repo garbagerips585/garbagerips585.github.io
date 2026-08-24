@@ -31,7 +31,7 @@ import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 import { slugify } from "../shared/paths.mjs";
-import { esc, longDate, shortDate, viewCount, imgDims, productSrcsetAttr, packTileImg, noWidowEmoji, RIP_BANNER, clipMeta} from "../shared/format.mjs";
+import { esc, longDate, shortDate, viewCount, imgDims, productSrcsetAttr, packTileImg, noWidowEmoji, RIP_BANNER, clipMeta, plainDashes} from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/playlists");
@@ -349,7 +349,11 @@ const cleanDesc = (s) => {
   while (cut > 1 && keywordLine(ls[cut - 1])) cut -= 1;
   if (ls.length - cut >= 3) t = ls.slice(0, cut).join("\n");
 
-  return t.replace(/[ \t]{2,}/g, " ").replace(/\s+$/, "").replace(/[\s\u2022|,;:-]+$/, "").trim();
+  // plainDashes LAST, so it sees the finished blurb. This is the single funnel
+  // every playlist description goes through -- the meta description and the
+  // visible lede both come out of here -- so one call covers both. See the note
+  // over plainDashes in shared/format.mjs for why this cannot live in the data.
+  return plainDashes(t.replace(/[ \t]{2,}/g, " ").replace(/\s+$/, "").replace(/[\s\u2022|,;:-]+$/, "").trim());
 };
 
 /**

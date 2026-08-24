@@ -28,7 +28,7 @@ import { BAR, MENU, SPRITE, SKIP, STYLES, footer, FONTS, dropUnusedPacksCSS,
   APP_JS_NO_PACKPLAYER as APP_JS } from "../shared/chrome.mjs";
 import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
 import { parseHits, rarityLabelOf, rarityMark, RARITY_CSS } from "../shared/rarity.mjs";
-import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, RARITY_ORDER, cardNumKey, imgDims, productSrcsetAttr, avifPicture, plural, count, clipMeta} from "../shared/format.mjs";
+import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, RARITY_ORDER, cardNumKey, imgDims, productSrcsetAttr, avifPicture, plural, count, clipMeta, plainDashesAll} from "../shared/format.mjs";
 // WHAT A CARD SLOT SHOWS WHEN THERE IS NO SCAN. One panel for /hall.html, the
 // rip pages and both set-guide builders, so four grids cannot answer the same
 // question four ways. corpusScan is the other half of that module and this file
@@ -1632,7 +1632,7 @@ const runTitle = (title, setName) => {
   return cut.length >= 6 ? cut : t;
 };
 
-const descriptions = JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}"));
+const descriptions = plainDashesAll(JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}")));
 
 function yearsSince(iso) {
   if (!iso) return null;

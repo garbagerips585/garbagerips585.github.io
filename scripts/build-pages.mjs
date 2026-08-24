@@ -57,7 +57,7 @@ import { pickIntlPrintingJp } from "../shared/intl-vocab.mjs";
 // gradedPrice() are the receipt for in CLAUDE.md.
 import { corpusScan, noScanBox, pinnedShot, NOSCAN_CSS } from "../shared/card-scan.mjs";
 import { loadCorpus, corpusCard } from "../shared/subset-cards.mjs";
-import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount, avifPicture, packTileImg, clipMeta} from "../shared/format.mjs";
+import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount, avifPicture, packTileImg, clipMeta, plainDashesAll} from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -1005,7 +1005,7 @@ const hasGuide = (setId) => Boolean(setId) && guideIds.has(setId);
 // no API reports and only a human can say.
 const OVERRIDES = JSON.parse(await readFile(join(ROOT, "data/overrides.json"), "utf8").catch(() => "{}"));
 
-const descriptions = JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}"));
+const descriptions = plainDashesAll(JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}")));
 
 const pathFor = (v) => v.path || ripPath(v);
 

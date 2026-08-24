@@ -16,7 +16,7 @@ import { SITE, DOMAIN, STAGING, LIVE } from "../shared/site.mjs";
 import { basename, join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { checkDrift, SITE_SAY } from "../shared/chrome.mjs";
-import { esc, MONTHS_SHORT as MONTHS, moneyCompact, imgDims, viewCount, avifPicture, packTileImg, longDate, noWidowEmoji, RIP_BANNER } from "../shared/format.mjs";
+import { esc, MONTHS_SHORT as MONTHS, moneyCompact, imgDims, viewCount, avifPicture, packTileImg, longDate, noWidowEmoji, RIP_BANNER, plainDashesAll} from "../shared/format.mjs";
 import { labelFor, PRODUCT_TYPES } from "../shared/taxonomy.mjs";
 // The sourcing sentence for a raw card price, and the "which of the two dates
 // in that file is the money's" helper. NOT re-worded here: this page prints the
@@ -77,7 +77,7 @@ const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), 
 // imported guides with no checklist are published noindex but are still linked
 // there, so a visitor who follows this chip finds 36 of them.
 const rawVideos = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
-const descriptions = JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}"));
+const descriptions = plainDashesAll(JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}")));
 const videos = rawVideos.videos || rawVideos;
 
 // THE SET NAMES THIS PAGE PRINTS, AND sets.json IS NOT ALL OF THEM.

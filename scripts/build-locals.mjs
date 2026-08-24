@@ -69,7 +69,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, clipMeta} from "../shared/format.mjs";
+import { esc, longDate, clipMeta, plainDashesAll} from "../shared/format.mjs";
 // The same comment stripper build-css.mjs runs over ui.css. PAGE_CSS below is
 // mostly prose about why four rules exist, and an inline style block is render
 // blocking like the stylesheet is. stamp-assets.mjs would strip it last anyway,
@@ -817,7 +817,7 @@ if (!nv || !nc) {
  * build, because descriptions.json is written by a sync that is not in
  * build-all.mjs and a missing file must not stop two pages rendering. */
 try {
-  const desc = JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8"));
+  const desc = plainDashesAll(JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8")));
   const shops = JSON.parse(await readFile(join(ROOT, "data/shops.json"), "utf8"));
   const flat = (s) => String(s).toLowerCase().replace(/[^a-z0-9]/g, "");
   const known = new Set();

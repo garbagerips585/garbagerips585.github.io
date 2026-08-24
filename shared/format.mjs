@@ -1307,3 +1307,47 @@ export function clipMeta(s, n = 158) {
   return t.slice(0, n - 3).replace(/\s\S*$/, "").replace(/[.…\s]+$/, "") + "...";
 }
 
+/**
+ * Em dashes out of QUOTED YOUTUBE COPY, and only out of that.
+ *
+ * CLAUDE.md rations em dashes out of the site's writing, and 46 of them were
+ * reaching <meta name="description"> and og:description -- the copy a search
+ * result shows -- plus about 66 more in visible body text on 60 rip and
+ * playlist pages. Every one traced to Tim's own YouTube descriptions, which the
+ * site quotes verbatim.
+ *
+ * THE FIX CANNOT LIVE IN THE DATA. scripts/sync-youtube.mjs WRITES
+ * data/descriptions.json on every run, so editing that file is undone by the
+ * next nightly sync. This is applied where the copy is READ instead, which is
+ * why it survives, and why the words on YouTube stay exactly as Tim wrote them.
+ *
+ * TWO SHAPES, TWO REPLACEMENTS, because one rule cannot serve both:
+ *   spaced   "Booster Pack #1 - kicking off a new series"   a dash clause
+ *   unspaced "no mercy, just a final classic Garbage Rip"    a comma is right
+ *
+ * SCOPED TO THIS ONE SOURCE ON PURPOSE. Two other families of em dash on this
+ * site are correct and must not be touched: the 374 aria-hidden "no value"
+ * glyphs from noValue() above, and the 33 inside official product names like
+ * "Mega Evolution-Pitch Black". Checked before this was written: zero product
+ * names appear inside the YouTube copy, so this cannot reach one -- but if that
+ * ever changes, this is scoped to the readers of descriptions.json and
+ * playlists.json rather than run over built pages, which is what keeps it safe.
+ *
+ * A NUMBER RANGE IS LEFT ALONE. "2020-2024" is not a clause and a comma would
+ * change what it says.
+ */
+export const plainDashes = (s) =>
+  String(s ?? "")
+    // A RANGE IS SETTLED FIRST AND THEN CANNOT BE TOUCHED AGAIN. "2020-2024" is
+    // not a clause and a comma would change what it says. Turning it into an EN
+    // dash both makes it typographically right and takes it out of reach of the
+    // two rules below, which only ever match an em dash. The first draft tried
+    // to do this with a lookbehind on the general rule and silently produced
+    // "Ran from 2020, 2024" -- caught by testing it rather than by reading it.
+    .replace(/(\d)\s*\u2014\s*(?=\d)/g, "$1\u2013")
+    .replace(/\s+\u2014\s+/g, " - ")
+    .replace(/(?<=\S)\u2014(?=\S)/g, ", ");
+
+/** plainDashes over every string value of a {id: text} map, for the readers. */
+export const plainDashesAll = (obj) =>
+  Object.fromEntries(Object.entries(obj || {}).map(([k, v]) => [k, typeof v === "string" ? plainDashes(v) : v]));
