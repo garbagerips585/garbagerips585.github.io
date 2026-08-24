@@ -14,7 +14,7 @@
       "path": "rip/trubbish-food-alert-tACIiMz6vRk.html",
       "published": "2026-08-24",
       "duration": 18,
-      "views": 560,
+      "views": 601,
       "vertical": true,
       "short": true,
       "sets": [
@@ -24,7 +24,21 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Chaos Rising Pack"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 15,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Chaos Rising Pack - Pack 15"
     },
     {
       "id": "b1B3Vbpsrh8",
@@ -67,7 +81,7 @@
       "path": "rip/can-we-top-the-mega-greninja-yiYrp7bo3PM.html",
       "published": "2026-08-22",
       "duration": 20,
-      "views": 1078,
+      "views": 1079,
       "vertical": true,
       "short": true,
       "sets": [
