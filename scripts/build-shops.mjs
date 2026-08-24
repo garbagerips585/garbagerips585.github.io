@@ -893,10 +893,19 @@ const body = `
           .brk rule-and-heading unit and splitting it would leave the rule
           hanging over a line of mono type. */ ""}
     <p class="crumbs"><a href="/">Home</a> / <a href="/rochester.html">Local scene</a> / Card shops</p>
+    ${/* "LCS" IS WHAT THE HOBBY CALLS THESE AND THE PAGE DID NOT SAY IT ONCE.
+          Tim, 24 August 2026: "a common word used in this hobby is LCS local
+          card shop, might be a good thing to add to this page for SEO."
+          Used ONCE in the lede where it reads as a definition rather than as a
+          keyword, and expanded in full the first time so the page answers "what
+          does LCS mean" for somebody new as well as matching the search. The
+          long form already appears in the meta description, so the two agree.
+          Not repeated down the page: three letters sprinkled through six shop
+          cards is stuffing, and it would read as it is. */ ""}
     <p class="shops-lede">Where I actually buy, and where you can sit down and play. Real shops around
-      Rochester, New York, run by people who know the hobby. Around here the counter you buy from and the
-      table you play at are usually the same building, so both are on one page. Buy local when you can:
-      the shop is why the local scene exists.</p>
+      Rochester, New York, run by people who know the hobby. In the hobby these are your LCS, short for local
+      card shop, and around here the counter you buy from and the table you play at are usually the same
+      building, so both are on one page. Buy local when you can: the shop is why the local scene exists.</p>
 ${shopMap(shops)}
     <ul class="shop-list">
 ${cards}

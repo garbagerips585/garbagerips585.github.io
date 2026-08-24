@@ -1095,14 +1095,18 @@ ${FAQ.map(([q, a]) => `          <h3>${esc(q)}</h3>\n          <p>${a}</p>`).joi
           ${since ? `<div class="stat-row"><b>${since.split(" ")[0].slice(0, 3)} ${since.split(" ")[1]}</b><span>first rip</span></div>` : ""}
         </div>
 
-        <div class="about-card">
-          <h3>The site</h3>
-          <div class="stat-row"><b>${num(tree.total)}</b><span>pages built</span></div>
-          <div class="stat-row"><b>${num(pokedex.count)}</b><span>Pokemon with a page</span></div>
-          <div class="stat-row"><b>${num(guideLinkCount)}</b><span>guides and tools</span></div>
-          <div class="stat-row"><b>${num(playlistCount)}</b><span>playlists</span></div>
-        </div>
-
+        ${/* THE SITE CARD IS GONE. Tim, 24 August 2026: "Remove the site stats
+              from about.html."
+              It counted the site rather than the channel: pages built, Pokemon
+              with a page, guides and tools, playlists. Those are facts about a
+              build, and a reader on the about page came for the channel. "The
+              channel" card above it stays, because rips filmed and sets opened
+              are facts about Tim.
+              The figures themselves are NOT orphaned by this. `tree.total` and
+              the rest still drive the counted-tree figure further down this
+              page, which is where a reader who does want the size of the site
+              finds it with the breakdown that makes it mean something. Nothing
+              was left computing into a void. */ ""}
         ${startHere.length ? `<div class="about-card">
           <h3>Start with these</h3>
           <ul class="about-rips">

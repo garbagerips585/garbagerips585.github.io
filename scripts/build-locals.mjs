@@ -441,7 +441,13 @@ const getListed = ({ noun, one, fields, emailFields, sends, asset, subject }) =>
         anywhere on this site. ${
           noun === "vendors"
             ? "There is one editorial mark here, Bought from them, and it means Tim actually handed over money. It cannot be requested."
-            : "The order is alphabetical and it always will be, so nobody can pay or ask their way up it."
+            : /* WAS "The order is alphabetical and it always will be, so nobody can pay
+                 or ask their way up it." It was true when it was written and stopped
+                 being true on 24 August 2026, when the order became hand picked at
+                 Tim's request. A promise a page cannot keep is worse than no promise,
+                 and the half that still holds is the half worth saying: the ordering
+                 changed, the not-for-sale part did not. */
+              "Nothing here is paid for and nothing here can be bought: no placements, no fees and no affiliate links, whatever order the list happens to be in."
         }</li>
     </ul>
     <p class="btn-row" style="margin-top:var(--s4)">
@@ -526,8 +532,19 @@ const PAGE_CSS = `
 `;
 
 function page({ metaDesc, slug, title, h1, kicker, lede, list, kind, empty, note, updated, ask }) {
-  // Alphabetical, always. See the header note on why this is not a ranking.
-  const rows = [...list].sort((a, b) => String(a.name).localeCompare(String(b.name)));
+  /* THE FILE'S OWN ORDER, NOT ALPHABETICAL, SINCE 24 August 2026.
+     Tim asked for Toak Pulls first on both lists. This used to sort by name and
+     therefore ignored data/vendors.json and data/creators.json entirely, so
+     reordering those files did nothing at all and the change looked like it had
+     not landed. Both files now carry a note saying their array order IS the page
+     order, which is only true because this line stopped overriding them.
+     The old comment said "See the header note on why this is not a ranking", and
+     that note is still right about the important half: this is not a ranking and
+     nothing on either page is paid for. What changed is that the order is picked
+     by hand rather than by the alphabet, so the sentence in getListed that
+     promised alphabetical was rewritten in the same commit rather than left
+     standing as a promise the data breaks. */
+  const rows = [...list];
 
   // Only when there IS a list. An empty page's lede is its whole pitch and the
   // rows it is measured against do not exist yet.

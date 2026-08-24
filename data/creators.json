@@ -1,40 +1,42 @@
 {
-  "_readme": [
-    "Pokemon creators from Rochester and the wider region. Drives /creators.html.",
-    "",
-    "EMPTY UNTIL TIM FILLS IT IN. These are real people. A wrong handle sends",
-    "traffic to a stranger, and a made-up creator is worse than an empty page.",
-    "",
-    "AREA is one of: Rochester, Buffalo, Syracuse, or Upstate NY for anywhere else",
-    "close enough to count. Same rule as the card show calendar: check the zip or",
-    "the profile before adding. A national search for 'Rochester Pokemon' returns",
-    "Rochester MINNESOTA and Rochester MICHIGAN above ours.",
-    "",
-    "Add one with a name and an area. Optional: blurb, youtube, instagram, tiktok,",
-    "twitch, url, does (what they make: rips, singles, art, competitive).",
-    "",
-    "Handles go in WITHOUT the @ and without a full url. The builder links them.",
-    "",
-    "THIS IS NOT A RANKING. Order is alphabetical by name, deliberately, so the",
-    "page cannot read as a league table of local creators."
-  ],
-  "updated": "2026-08-13",
-  "creators": [
-    {
-      "name": "Elliot Does Pokemon",
-      "area": "Rochester",
-      "does": "Pokemon content",
-      "youtube": "elliotdoespokemon",
-      "instagram": "elliotdoespokemon"
-    },
-    {
-      "name": "Toak Pulls",
-      "area": "Rochester",
-      "does": "Live streams, Pokemon comedy, pack openings",
-      "youtube": "toakpulls",
-      "tiktok": "toakpulls",
-      "instagram": "toakpulls",
-      "blurb": "They do all of it: live streams, comedy, and pack openings. Worth a follow, and you can buy from them in person at the local shows too."
-    }
-  ]
+ "_readme": [
+  "Pokemon creators from Rochester and the wider region. Drives /creators.html.",
+  "",
+  "EMPTY UNTIL TIM FILLS IT IN. These are real people. A wrong handle sends",
+  "traffic to a stranger, and a made-up creator is worse than an empty page.",
+  "",
+  "AREA is one of: Rochester, Buffalo, Syracuse, or Upstate NY for anywhere else",
+  "close enough to count. Same rule as the card show calendar: check the zip or",
+  "the profile before adding. A national search for 'Rochester Pokemon' returns",
+  "Rochester MINNESOTA and Rochester MICHIGAN above ours.",
+  "",
+  "Add one with a name and an area. Optional: blurb, youtube, instagram, tiktok,",
+  "twitch, url, does (what they make: rips, singles, art, competitive).",
+  "",
+  "Handles go in WITHOUT the @ and without a full url. The builder links them.",
+  "",
+  "THIS IS NOT A RANKING. Order is alphabetical by name, deliberately, so the",
+  "page cannot read as a league table of local creators.",
+  "",
+  "THE ORDER OF THIS ARRAY IS THE ORDER ON THE PAGE and it is hand picked, not alphabetical. Tim, 24 August 2026: Toak Pulls first. The page used to say the order was alphabetical and always would be, which was true and is not any more, so that sentence was rewritten in build-locals.mjs in the same change rather than left standing as a promise the file breaks. What the page still promises, and what is still true, is that no placement is paid for."
+ ],
+ "updated": "2026-08-13",
+ "creators": [
+  {
+   "name": "Toak Pulls",
+   "area": "Rochester",
+   "does": "Live streams, Pokemon comedy, pack openings",
+   "youtube": "toakpulls",
+   "tiktok": "toakpulls",
+   "instagram": "toakpulls",
+   "blurb": "They do all of it: live streams, comedy, and pack openings. Worth a follow, and you can buy from them in person at the local shows too."
+  },
+  {
+   "name": "Elliot Does Pokemon",
+   "area": "Rochester",
+   "does": "Pokemon content",
+   "youtube": "elliotdoespokemon",
+   "instagram": "elliotdoespokemon"
+  }
+ ]
 }

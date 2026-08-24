@@ -7,6 +7,8 @@
   "buildings. A shops page with two entries and a league page with two entries",
   "is two thin pages; one page that answers both is worth reading.",
   "",
+  "THE ORDER OF THIS ARRAY IS THE ORDER OF THE CARDS ON THE PAGE, and it is deliberate rather than alphabetical or arbitrary. Tim, 24 August 2026: LingSter Games first, then Millennium Games, then the rest. Those are the two he actually deals with, and LingSter is the shop the rip log thanks by name for selling at MSRP. The map key below the map is a DIFFERENT order, west to east, because that one is about geography and is sorted in the builder; changing this array does not touch it.",
+  "",
   "Add a shop with a name and a url. Everything else is optional and simply",
   "does not render when missing: area, address, phone, hours, blurb, goodFor,",
   "and the whole play block.",
@@ -80,31 +82,22 @@
  "playNote": "Play! Pokemon league schedules change constantly and go quiet between seasons. Call the shop before you drive.",
  "shops": [
   {
-   "name": "Just Games",
-   "url": "https://www.justgamesrochester.com/category/pokemon/",
-   "area": "Panorama Plaza, Penfield",
-   "address": "1601 Penfield Rd, Suite 34, Rochester, NY 14625",
-   "phone": "585-586-0586",
-   "hours": "Mon to Sat noon to 9pm, Sun noon to 6pm",
-   "blurb": "Rochester's flagship game store and the one with the busiest Pokemon calendar. Prereleases every set, a learn to play session for anyone starting out, and League Challenges and Cups through the year.",
+   "name": "LingSter Games",
+   "url": "https://lingstergames.com/collections/pokemon",
+   "area": "West Ridge Road, Rochester",
+   "address": "1586 West Ridge Rd, Rochester, NY 14615",
+   "phone": "585-287-6308",
+   "hours": "Wed to Sat 11am to 9:30pm, Sun 11am to 6pm, closed Mon and Tue",
+   "blurb": "Deep Pokemon singles and sealed, and the first stop when a set drops.",
    "goodFor": [
-    "Singles",
     "Sealed product",
-    "Organized Play",
-    "Prereleases"
+    "Singles",
+    "New releases"
    ],
-   "plays": [
-    "Prerelease weekends for every new set",
-    "League Challenge and League Cup events",
-    "Gym Leader Challenge, a casual format away from standard",
-    "Learn to Play sessions with loaner decks"
-   ],
-   "playNote": "They run a regular league but do not publish a fixed weekly time, so check the events calendar or call the counter.",
-   "eventsUrl": "https://www.justgamesrochester.com/category/pokemon/",
    "visited": false,
    "at": [
-    43.13282,
-    -77.49564
+    43.20621,
+    -77.66565
    ]
   },
   {
@@ -133,22 +126,31 @@
    ]
   },
   {
-   "name": "LingSter Games",
-   "url": "https://lingstergames.com/collections/pokemon",
-   "area": "West Ridge Road, Rochester",
-   "address": "1586 West Ridge Rd, Rochester, NY 14615",
-   "phone": "585-287-6308",
-   "hours": "Wed to Sat 11am to 9:30pm, Sun 11am to 6pm, closed Mon and Tue",
-   "blurb": "Deep Pokemon singles and sealed, and the first stop when a set drops.",
+   "name": "Just Games",
+   "url": "https://www.justgamesrochester.com/category/pokemon/",
+   "area": "Panorama Plaza, Penfield",
+   "address": "1601 Penfield Rd, Suite 34, Rochester, NY 14625",
+   "phone": "585-586-0586",
+   "hours": "Mon to Sat noon to 9pm, Sun noon to 6pm",
+   "blurb": "Rochester's flagship game store and the one with the busiest Pokemon calendar. Prereleases every set, a learn to play session for anyone starting out, and League Challenges and Cups through the year.",
    "goodFor": [
-    "Sealed product",
     "Singles",
-    "New releases"
+    "Sealed product",
+    "Organized Play",
+    "Prereleases"
    ],
+   "plays": [
+    "Prerelease weekends for every new set",
+    "League Challenge and League Cup events",
+    "Gym Leader Challenge, a casual format away from standard",
+    "Learn to Play sessions with loaner decks"
+   ],
+   "playNote": "They run a regular league but do not publish a fixed weekly time, so check the events calendar or call the counter.",
+   "eventsUrl": "https://www.justgamesrochester.com/category/pokemon/",
    "visited": false,
    "at": [
-    43.20621,
-    -77.66565
+    43.13282,
+    -77.49564
    ]
   },
   {
