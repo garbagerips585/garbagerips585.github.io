@@ -66,6 +66,17 @@ import { esc, longDate, clipMeta} from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const d = JSON.parse(await readFile(join(ROOT, "data/grade-check.json"), "utf8"));
+/* THE PHONE APPS, in their own file because they go stale faster than anything
+ * else on this page. Every rating and price was read off the store itself on
+ * the date in `checked`; see that file's readme for why the WRITTEN review
+ * average matters more than the star rating, and for the accuracy figure that
+ * circulates in this space and must not be repeated. */
+let apps = null;
+try {
+  apps = JSON.parse(await readFile(join(ROOT, "data/grading-apps.json"), "utf8"));
+} catch {
+  /* the section simply does not render */
+}
 
 // Read the sibling page's data rather than restating its shape. This sentence
 // promised "the fee table for all four companies" and a fifth had just been
@@ -1719,6 +1730,11 @@ const style = `
 .gc-def dt{font-weight:700;margin-top:var(--s4);line-height:1.3}
 .gc-def dd{margin:var(--s2) 0 0;color:var(--ink-2);font-size:var(--t-sm);line-height:1.55}
 .gc-aka{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.06em}
+.ga-h{font:700 var(--t-h3)/1.15 var(--display);margin:var(--s5) 0 var(--s4)}
+.ga-mk{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:var(--s3)}
+.ga-meta{margin-top:var(--s3);line-height:1.5}
+.ga-links{margin-top:var(--s3);display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline}
+.ga-links a{font-weight:700}
 /* Defect diagrams. EVERY WORD OF THE REASONING IS IN THE JS, in the block above
    gdCard() and in the one above STYLE_GD. Do not write prose in here. */
 .gd-row{display:flex;gap:var(--s5);align-items:flex-start;margin-top:var(--s2)}
@@ -1994,6 +2010,79 @@ ${d.selfCheck.items.map((i) => `          <article class="gc-c"><h3>${esc(i.head
           <p>${esc(d.selfCheck.notesCost.body)}${src(d.selfCheck.notesCost.source, "PSA grading service tiers")}</p>
         </div>
       </section>
+
+
+      ${apps ? `<section class="gc-sec" id="apps">
+        <h2>Can an <span class="hl">app</span> tell you first?</h2>
+        <p class="gc-in">${esc(apps.lead)}</p>
+        ${/* THE ANSWER LEADS, AND THE ANSWER IS MOSTLY NO. On a page whose whole
+              job is talking somebody out of a bad submission, an app section
+              that reads as a shopping list would work against the page. Two
+              separate research passes went looking for a predictor worth
+              recommending and neither found one, so this section says so. */ ""}
+        <div class="gc-key" style="margin-bottom:var(--s5)">
+          <h3>${esc(apps.predictors.head)}</h3>
+          <p>${esc(apps.predictors.body)}</p>
+          <p>${esc(apps.predictors.band)}</p>
+          <p><b>Test one yourself.</b> ${esc(apps.predictors.tell)}</p>
+          <p>${esc(apps.predictors.why)}</p>
+        </div>
+
+        <div class="gc-key" style="margin-bottom:var(--s5)">
+          <h3>${esc(apps.psa.head)}</h3>
+          <p>${esc(apps.psa.body)}</p>
+          <p>${esc(apps.psa.cgc)}</p>
+        </div>
+
+        <div class="gc-key" style="margin-bottom:var(--s5)">
+          <h3>${esc(apps.test.head)}</h3>
+          <p>${esc(apps.test.body)}</p>
+          <p><b>${esc(apps.test.so)}</b></p>
+          <p class="gc-aka">${esc(apps.test.fair)}</p>
+        </div>
+
+        <h3 class="ga-h">The two things a phone genuinely helps with</h3>
+        <div class="gc-cards">
+${apps.apps.map((a) => `          <article class="gc-c">
+            <h3>${esc(a.name)}</h3>
+            <p class="ga-mk">${esc(a.maker)}</p>
+            <p>${esc(a.does)}</p>
+            <p class="ga-meta"><b>${esc(a.price)}</b><br>${esc(a.rating)}${
+              a.written ? `<br>${esc(a.written)}` : ""
+            }</p>
+            <p class="gc-aka">${esc(a.flag)}</p>
+            <p class="ga-links">${[
+              a.ios ? `<a href="${esc(a.ios)}" rel="noopener" target="_blank" aria-label="${esc(a.name)} on the App Store, opens on apps.apple.com">App Store</a>` : "",
+              a.android ? `<a href="${esc(a.android)}" rel="noopener" target="_blank" aria-label="${esc(a.name)} on Google Play, opens on play.google.com">Google Play</a>` : "",
+            ].filter(Boolean).join(" &bull; ")}${a.android || !a.ios ? "" : `<span class="gc-aka"> &bull; iPhone only</span>`}</p>
+          </article>`).join("\n")}
+        </div>
+
+        <div class="gc-key" style="margin-top:var(--s5)">
+          <h3>${esc(apps.money.head)}</h3>
+          <p>${esc(apps.money.body)}</p>
+          <p>${esc(apps.money.trap)}</p>
+        </div>
+
+        <div class="gc-key" style="margin-top:var(--s4)">
+          <h3>${esc(apps.refuse.head)}</h3>
+          <p>${esc(apps.refuse.body)}${src(apps.refuse.link, apps.refuse.linkLabel)}</p>
+        </div>
+
+        <h3 class="ga-h">${esc(apps.instead.head)}</h3>
+        <div class="gc-cards">
+${apps.instead.items.map((x) => `          <article class="gc-c">
+            <h3>${esc(x.t)}</h3>
+            <p>${esc(x.d)}${x.href ? src(x.href, "GemRate population data") : ""}</p>
+          </article>`).join("\n")}
+        </div>
+
+        <div class="gc-key" style="margin-top:var(--s5)">
+          <h3>${esc(apps.avoid.head)}</h3>
+${apps.avoid.points.map((x) => `          <p>${esc(x)}</p>`).join("\n")}
+          <p class="gc-aka">Ratings, prices and store listings read ${esc(longDate(apps.checked) || apps.checked)}. Nothing here is an affiliate link and nobody paid to be on this page.</p>
+        </div>
+      </section>` : ""}
 
       <section class="gc-sec">
         <h2>What the <span class="hl">numbers</span> say about your odds</h2>

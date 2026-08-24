@@ -1,0 +1,147 @@
+{
+ "_readme": [
+  "PHONE APPS THAT PRE-SCREEN A CARD BEFORE YOU PAY TO GRADE IT.",
+  "Drives the app section on /will-it-grade.html.",
+  "",
+  "TWO INDEPENDENT SWEEPS WERE RUN AND THE SECOND ONE OVERTURNED THE FIRST.",
+  "A first pass ranked the grade PREDICTORS well, on the strength of their",
+  "written-review averages. A second pass, reading Google Play's own review feed",
+  "and install integers, found why those averages look good:",
+  "",
+  "  A user of the best-rated predictor, verbatim: 'They allow you to run a free",
+  "  scan if you give them a review.' Two more reviews say the same thing from",
+  "  the other side: 'Rating 5 stars purely for the free 5 mins daily.'",
+  "",
+  "  The same user ran the test that matters: 'I scanned the same brand new card",
+  "  twice, but before the second one I purposely dented the card. The first and",
+  "  second scan were nearly identical in grade and there was no mention of the",
+  "  dent.'",
+  "",
+  "  Others report the same card scoring 8.5 then 9.5, whitening reported in a",
+  "  different corner each run, and a plainly off-centre card scored 10/10 for",
+  "  centering.",
+  "",
+  "REVIEWS PER INSTALL IS THE TELL. Two long-established card apps that make no",
+  "grading claim sit at 1.0% and 1.4% of installs leaving a rating. The",
+  "predictors run 2.3%, 3.2%, 4.7% and 6.5%. One has 21 five-star ratings, zero",
+  "four-star and seven one-star, which is not a shape an audience produces.",
+  "",
+  "SO THIS PAGE RECOMMENDS NO GRADE PREDICTOR. Not because they are all bad,",
+  "but because not one publishes a blinded test, the review supply around them",
+  "is demonstrably bought, and the one independent test in the whole corpus is a",
+  "reader denting a card and the app not noticing. Recommending one on a page",
+  "whose job is to stop somebody wasting a submission fee would be the opposite",
+  "of what the page is for.",
+  "",
+  "WHAT IS LISTED INSTEAD is the work that can be checked: a centering",
+  "measurement you could redo with a ruler, and the break-even arithmetic, which",
+  "looks at no photograph at all.",
+  "",
+  "Every figure read off the stores' own APIs on the date in `checked`, with a",
+  "fabricated package id used as a 404 control. Re-read before trusting.",
+  "No affiliate links, ever."
+ ],
+ "checked": "2026-08-24",
+ "source": {
+  "name": "Apple App Store and Google Play, read directly",
+  "note": "Ratings, rating counts, prices and last-updated dates read from the stores' own APIs on the date above."
+ },
+ "lead": "An app cannot grade your card, and the ones that say they can are the ones to be most careful with. What a phone can genuinely do is two things: measure the centering, which is geometry you could check yourself with a ruler, and work out the grade this card has to come back at before submitting it makes any money.",
+ "caveat": "A flat photo cannot see the soft crease, the print line or the holo scratch that decides whether a card is a 9 or a 10. That is not something a better model fixes; it is the camera. Use a phone to measure centering and to do the arithmetic, and use your own eyes and a bright light for everything else.",
+ "apps": [
+  {
+   "name": "Card Centering Calculator",
+   "maker": "Jade Lizard Software",
+   "tier": "measure",
+   "does": "Measures the centering ratio off a photo and checks it against the published thresholds for PSA, BGS, SGC, CGC, TAG and ACE. It does not predict a grade, and does not claim to.",
+   "price": "Free, with a $4.99 one-time unlock. Carries ads.",
+   "ios": "https://apps.apple.com/us/app/card-centering-calculator/id6661022837",
+   "android": null,
+   "rating": "4.71 from 2,357 ratings",
+   "written": "3.57 across its 93 most recent written reviews",
+   "flag": "The manual guides are the trustworthy part. Reviewers report the automatic edge detection giving different readings for the same card, and the ads are aggressive enough that several people complain about them."
+  },
+  {
+   "name": "Grading Calculator for Pokemon",
+   "maker": "Jade Lizard Software",
+   "tier": "money",
+   "does": "Works out your break-even grade: the lowest grade that still turns a profit once grading, shipping, insurance and selling fees are paid. It looks at no photograph at all.",
+   "price": "Free, with a $3.99 unlock. Carries ads.",
+   "ios": "https://apps.apple.com/us/app/grading-calculator-for-pokemon/id6746773340",
+   "android": null,
+   "rating": "4.86 from 90 ratings",
+   "written": null,
+   "flag": "The only Pokemon-only app here, and the only one that answers the question this page is actually about. Last updated September 2025, so it is not being actively worked on."
+  },
+  {
+   "name": "PSA",
+   "maker": "Collectors Universe",
+   "tier": "after",
+   "does": "Identifies cards, checks certification numbers, builds and tracks a submission. It does not assess condition at all, and does not pretend to.",
+   "price": "Free, with nothing to buy inside it.",
+   "ios": "https://apps.apple.com/us/app/psa-card-scanner-grading/id996239729",
+   "android": "https://play.google.com/store/apps/details?id=com.psacard.certverification",
+   "rating": "4.83 from 54,362 ratings on iOS, 4.80 from 9,254 on Android",
+   "written": null,
+   "flag": "By far the biggest rating base of any app here, and it is the grading company's own. Worth having once you have decided to send something in. No help at all in deciding, and it does not claim to be."
+  }
+ ],
+ "avoid": {
+  "head": "What to be careful of",
+  "points": [
+   "An app claiming complete accuracy. One says exactly that on its own site, beside patented AI technology with no patent number and no test behind either.",
+   "A high star rating with bad written reviews under it. Stars come from a prompt inside the app; a written review costs somebody five minutes. One grader holds 4.6 stars from 529 ratings while seventeen of its twenty five most recent written reviews are one star. A reviewer of that app wrote that it asked for a five star review three times before he had even logged in for the first time.",
+   "Reviews traded for scans. A user of one app wrote, in the review itself, that he was posting it to unlock five minutes of the full version. Another wrote that a developer had reached out and graded a card for him free.",
+   "Ratings that arrive in a clump. One listing carries a block of five star reviews all posted within about three weeks, from two-name handles, several repeating the same sentence with the same deliberate misspelling, and a few with untranslated German left in the middle of the English.",
+   "Any blog post ranking the best grading app. The domains filling those search results were nearly all registered inside the last year by the app makers themselves, and every one ranks its own product first.",
+   "Any of it on a Japanese card. Not one app in either sweep mentions Japanese support, and several are trained on sports cards rather than Pokemon."
+  ]
+ },
+ "predictors": {
+  "head": "Why there is no grade predictor on this list",
+  "body": "A dozen apps will look at a photo and tell you the card is a 9.5. Not one of them has ever published a test you could check. Every accuracy figure in the category traces back to the company selling the app, and the ones shouting loudest have the least behind them: two separate services advertise 95 percent accuracy with no sample size, no method and no log. The one service that published a real-sounding claim, 87 percent within half a grade across 412 cards sent to PSA and back, promises the full per-card log on a page that does not contain one.",
+  "band": "Watch the wording on all of them. The claims are always within one grade. The question you are actually asking is whether the card is a 10 or a 9, so a tool that is right within one grade is, by its own description, no use for the only decision you came to make.",
+  "tell": "You can test one yourself in five minutes and it costs nothing. Scan the same card twice, then scan a card you already know is damaged. An app worth paying for gives you the same answer twice and notices the damage. Readers report neither. One scanned a brand new card, deliberately dented it, scanned it again and got the same grade with no mention of the dent. Another scanned three slabbed cards, a Beckett 9.5, a PSA 10 and a Black Label 10, and the app returned 7.5, 6 and 8.5. A third destroyed a card on purpose and it still came back a 9.",
+  "why": "There is a reason it does not work, and it is the camera rather than the software. When researchers at Liverpool John Moores built a corner grader, they gave up on cameras and switched to a flatbed scanner because they needed constant lighting, and even then they reached 83 percent on corners alone. A team at Hull built a robot with a Canon body and two softboxes to get around what they named the shadow problem. The companies that genuinely grade by machine use photometric stereo, laser topography and microscopes. And PSA prints the quiet part on its own Photograde page: the scanning process does not always pick up every detail or defect. That is PSA warning you about its own archival scans. Your phone, held over a card on a kitchen table, is a weaker instrument than the one PSA is disclaiming."
+ },
+ "refuse": {
+  "head": "One grader has already said it will not listen",
+  "body": "ACE Grading publishes a dispute policy that lists what it will not consider when you challenge a grade. Alongside previous grades from other companies it names pre-grade services and, in as many words, AI grading results and external automated assessments. It is the only published statement any grading company has made on the subject, and it is a refusal.",
+  "link": "https://help.acegrading.com/en/article/83a649",
+  "linkLabel": "ACE Grading dispute policy, section 2.2"
+ },
+ "money": {
+  "head": "Run the price past yourself before you subscribe",
+  "body": "SGC will grade a card, slab it and stand behind the number for fifteen dollars. CGC Economy is twenty. Against that, one popular predictor charges $9.99 a week, which is $519 a year, to guess. At those two numbers a subscriber has to correctly talk themselves out of about thirty five bad submissions a year, three a month every month, using a tool readers say scores two visibly different cards the same. Nobody ripping packs on weekends submits thirty five marginal cards a year.",
+  "trap": "Several of these listings also have a billing complaint problem that is documented in the stores themselves. On one, a user reported a signup screen showing $0.00 and a $34 charge landing immediately, and the developer replied in public that this has been reported multiple times by different users. On another, a free trial charged a lifetime membership on the spot."
+ },
+ "instead": {
+  "head": "What to use instead",
+  "items": [
+   {
+    "t": "The centering method already on this page",
+    "d": "Scroll up. Measuring the borders yourself against each company's published tolerance is the same arithmetic the apps are doing, it is free, and you can see your own working."
+   },
+   {
+    "t": "Population data, not a prediction",
+    "d": "GemRate publishes how often a specific card actually comes back a 10 across PSA, BGS, SGC and CGC, and PSA's own free app carries the same pop report. Knowing a card gems eight percent of the time is a harder number than any app's guess about your particular copy.",
+    "href": "https://www.gemrate.com"
+   },
+   {
+    "t": "A loupe and a bright light",
+    "d": "For surface, which is what actually decides a 9 against a 10, your eyes beat a phone camera. Hold an LED at a low raking angle and tilt the card. A jeweler's loupe costs about what one month of the expensive app costs."
+   }
+  ]
+ },
+ "psa": {
+  "head": "The fact that settles it",
+  "body": "PSA bought an AI grading company. Genamint, in April 2021, and its founder became a PSA vice president. So the company holding more graded card data than anyone on earth has owned a computer vision grading operation for five years. Its free app has been downloaded enough to carry fifty four thousand ratings. It identifies your card, prices it, checks certification numbers and builds your submission. It will not tell you what grade the card is going to get. Five years, all that data, and the people who actually assign the number still will not put a prediction in your hand.",
+  "cgc": "CGC says out loud what the machines are genuinely for. Its own help pages describe AI automating the time-consuming parts of grading, and it names them: attributing the card, and measuring the centering. Attribution and geometry. Not the grade."
+ },
+ "test": {
+  "head": "Somebody finally ran the test and published the numbers",
+  "body": "In July 2026 a collector put thirty Pokemon cards through five of these apps, sent the cards off to be graded, and published the per-card results instead of just the summary. The apps landed inside one grade most of the time, between 83 and 97 percent, which sounds fine until you look at what happened on the cards that came back Gem Mint. Not one app called a single 10 correctly. Every one of them under-graded every gem card. A Mega Sharpedo that came back a 10 was called 8.4, 9.0, 7.3, 7.0 and 7.0.",
+  "so": "That is the opposite of the failure everybody expects. The worry is always that an app talks you into a submission by flattering the card. On this data it does the reverse and talks you out of the only cards worth sending. Either way it is the same problem: the number the app gives you is not connected to the number you get back.",
+  "fair": "Thirty cards, one person, and the reference grades came from TAG rather than PSA, so treat it as one honest experiment and not a settled study. It is also the only published independent test of these apps on Pokemon cards that exists, which is the more telling thing about it."
+ }
+}

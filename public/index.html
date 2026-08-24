@@ -608,6 +608,121 @@ main{padding-top:0}
 </section>
 
 
+<!-- ABOUT SITS THIRD, AND THE THREE "WHO IS THIS" BANDS RUN TOGETHER.
+     Tim, 23 August 2026: "it should go right after the hits videos at the
+     top ... then the stats section which is called The channel, counted and
+     then after that go right into the Rochester, New York section".
+
+     24 August 2026, Tim again, giving the full running order and moving
+     Latest rips down below Rochester: "Drops to watch this week, Greatest
+     Hits, Cards plates and a Pokemon made of garbage, The channel counted,
+     Rochester New York, Latest rips, Most wanted, Card Pokedex, Card guides
+     & tools". So the page now opens with the week, then the best rips ever,
+     then the three bands that explain what this is -- who, counted, where --
+     and only then returns to the shelf of newest rips.
+
+     WHAT THAT COSTS AND WHY IT IS STILL RIGHT. The two video shelves no
+     longer sit adjacent, which was the original argument for keeping Latest
+     directly under Greatest Hits. In exchange the three explanatory bands are
+     now one uninterrupted run instead of being split by a carousel, and a
+     first-time visitor reaches "what is this channel" without scrolling past
+     two shelves of it. That is the trade Tim asked for, in his own order.
+
+     THE ORDER BELOW LATEST IS UNCHANGED AND IS THE NAV'S OWN ORDER:
+     Most wanted and Card Pokedex are the channel's own data, then Card
+     guides and tools last, which is what Tim asked the nav to do on
+     22 August -- "all the guides can be last". -->
+<section class="about">
+  <div class="about-in">
+    <!-- THE BIGGEST SINGLE FILE ON THIS PAGE, and it was the last bare JPEG on
+         the site: 137KB of it, painted in a 342px box on a phone. The pack art
+         and every card scan had moved to AVIF with a WebP under it months ago
+         and this one was never swept up, because a hand-maintained page is not
+         reached by the builder that did the sweeping.
+
+         sizes IS MEASURED, NOT GUESSED. The box was read off the real layout at
+         four widths: 342 at 390, 720 at 768, 569 at both 1440 and 1920. That is
+         exactly the wrap's 48px of padding below ui.css's 860px breakpoint,
+         where .about-in collapses to one column, and a capped 569 above it. So
+         a DPR 2 phone asks for 684 device pixels and takes the 760w file at
+         37KB, which is the 100KB the change is worth to the reader who arrives
+         from a Short.
+
+         The JPEG stays as the <img> fallback and is fetched by nothing that can
+         decode either of the two above it. Keep the three in this order: a
+         <source> that a browser understands wins, so putting the WebP first
+         would hide the AVIF from everything. -->
+    <picture>
+      <source type="image/avif" sizes="(min-width:861px) 569px, calc(100vw - 48px)"
+              srcset="assets/banner-trubbish-760.avif 760w, assets/banner-trubbish-1300.avif 1300w">
+      <source type="image/webp" sizes="(min-width:861px) 569px, calc(100vw - 48px)"
+              srcset="assets/banner-trubbish-760.webp 760w, assets/banner-trubbish-1300.webp 1300w">
+      <img class="banner" src="assets/banner-trubbish.jpg" width="1300" height="725"
+           alt="Trubbish on a Rochester sidewalk with a plate and Garbage Rips card packs"
+           loading="lazy" decoding="async">
+    </picture>
+    <div>
+      <h2>Cards, plates, and a Pokemon made of garbage</h2>
+      <p>Garbage Rips 585 is one person in Rochester, New York, opening Pokemon cards on camera
+        every single day. 365, no days off. Every rip starts the same way: wrappers into the
+        Trubbish trash can on the desk, then we see what we get! Every pull gets celebrated,
+        garbage ones included, and every pack gets tracked for the site.</p>
+      <p>The name is a Garbage Plate, the meal Rochester invented and nobody else understands.
+        The mascot is a Pokemon made of trash. <b>Garbage Rips Only! Let&rsquo;s Go!</b></p>
+      <div class="socials">
+        <a href="https://www.youtube.com/@GarbageRips585"><i style="--pip:#FF0033"></i>YouTube</a>
+        <a href="https://www.instagram.com/garbagerips585/"><i style="--pip:#BC1888"></i>Instagram</a>
+        <a href="https://www.tiktok.com/@garbagerips585"><i style="--pip:#F4F1E2"></i>TikTok</a>
+        <a href="https://www.facebook.com/GarbageRips585"><i style="--pip:#1877F2"></i>Facebook</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- The channel and rip-log counters, filled by build-proto.mjs. The markers
+     sit OUTSIDE the <section> on purpose, exactly as the drops band's do: if
+     there is nothing to count the region is empty and there is no band, rather
+     than an empty frame with a heading on it. Every figure inside is derived at
+     build time; nothing here is ever typed. -->
+<!-- RIPSTATS:START -->
+<section class="rstats" aria-labelledby="rstatsH">
+  <div class="wrap">
+    <div class="brk"><h2 id="rstatsH">The channel, <span class="hl">counted</span></h2><span class="ln"></span><a href="/luck.html">Every rip result &rarr;</a></div>
+    <div class="rstats-grid">
+      <div class="rstat"><b>268,314</b><span>views on the channel</span></div>
+      <div class="rstat"><b>340</b><span>subscribers</span></div>
+      <div class="rstat"><b>322</b><span>rips filmed</span></div>
+      <div class="rstat"><b>463</b><span>packs ripped on camera</span></div>
+      <div class="rstat"><b>212</b><span>hit cards logged</span></div>
+      <div class="rstat"><b>48.4%</b><span>hit rate, 156 of 322 answered rips</span></div>
+    </div>
+    
+  </div>
+</section>
+<!-- RIPSTATS:END -->
+
+<!-- Rochester. The markers sit OUTSIDE the <section> on purpose, exactly as
+     the two bands above: if none of its three figures can be counted there is
+     no band rather than a heading over nothing. It sits under "The channel,
+     counted" because the two answer the halves of one question in the same
+     grammar. /rochester.html was linked from <main> ZERO times before this.
+     Figures, sourcing and placement are argued above rocHtml in
+     build-proto.mjs. -->
+<!-- ROCHESTER:START -->
+<section class="roc" aria-labelledby="rocH">
+  <div class="wrap">
+    <div class="brk"><h2 id="rocH">Rochester, <span class="hl">New York</span></h2><span class="ln"></span><a href="/rochester.html">The local scene &rarr;</a></div>
+    <p class="roc-lede">This is a card town and most of the internet has no idea. The shows, the shops, the people who sell and film around here, and the dish the channel is named after are all on the local scene page.</p>
+    <ul class="roc-counts">
+      <li><a href="/card-shows.html"><b>22</b><span>card shows coming up</span></a></li>
+      <li><a href="/shops.html"><b>6</b><span>card shops</span></a></li>
+      <li><a href="/garbage-plate.html"><b>11</b><span>places serve a plate</span></a></li>
+    </ul>
+    
+  </div>
+</section>
+<!-- ROCHESTER:END -->
+
   <div class="wrap">
     <div class="wall">
 
@@ -702,112 +817,6 @@ main{padding-top:0}
            use it. -->
     </div>
   </div>
-
-<!-- ABOUT SITS HERE, FOURTH, AND IT USED TO BE LAST ON THE PAGE.
-     Tim, 23 August 2026: "it should go right after the hits videos at the
-     top ... then the stats section which is called The channel, counted and
-     then after that go right into the Rochester, New York section".
-
-     THE TWO VIDEO SHELVES STAY TOGETHER. "The hits videos" is Greatest
-     Hits AND Latest rips -- both are shelves of rips and they share a
-     scroll -- so this lands after the pair rather than between them, which
-     is also the only placement that keeps the chain he spelled out
-     adjacent: about, then counted, then Rochester.
-
-     THE ORDER BELOW ROCHESTER IS UNCHANGED AND IS THE NAV'S OWN ORDER:
-     Most wanted and Card Pokedex are the channel's own data, then Card
-     guides and tools last, which is what Tim asked the nav to do on
-     22 August -- "all the guides can be last". -->
-<section class="about">
-  <div class="about-in">
-    <!-- THE BIGGEST SINGLE FILE ON THIS PAGE, and it was the last bare JPEG on
-         the site: 137KB of it, painted in a 342px box on a phone. The pack art
-         and every card scan had moved to AVIF with a WebP under it months ago
-         and this one was never swept up, because a hand-maintained page is not
-         reached by the builder that did the sweeping.
-
-         sizes IS MEASURED, NOT GUESSED. The box was read off the real layout at
-         four widths: 342 at 390, 720 at 768, 569 at both 1440 and 1920. That is
-         exactly the wrap's 48px of padding below ui.css's 860px breakpoint,
-         where .about-in collapses to one column, and a capped 569 above it. So
-         a DPR 2 phone asks for 684 device pixels and takes the 760w file at
-         37KB, which is the 100KB the change is worth to the reader who arrives
-         from a Short.
-
-         The JPEG stays as the <img> fallback and is fetched by nothing that can
-         decode either of the two above it. Keep the three in this order: a
-         <source> that a browser understands wins, so putting the WebP first
-         would hide the AVIF from everything. -->
-    <picture>
-      <source type="image/avif" sizes="(min-width:861px) 569px, calc(100vw - 48px)"
-              srcset="assets/banner-trubbish-760.avif 760w, assets/banner-trubbish-1300.avif 1300w">
-      <source type="image/webp" sizes="(min-width:861px) 569px, calc(100vw - 48px)"
-              srcset="assets/banner-trubbish-760.webp 760w, assets/banner-trubbish-1300.webp 1300w">
-      <img class="banner" src="assets/banner-trubbish.jpg" width="1300" height="725"
-           alt="Trubbish on a Rochester sidewalk with a plate and Garbage Rips card packs"
-           loading="lazy" decoding="async">
-    </picture>
-    <div>
-      <h2>Cards, plates, and a Pokemon made of garbage</h2>
-      <p>Garbage Rips 585 is one person in Rochester, New York, opening Pokemon cards on camera
-        every single day. 365, no days off. Every rip starts the same way: wrappers into the
-        Trubbish trash can on the desk, then we see what we get! Every pull gets celebrated,
-        garbage ones included, and every pack gets tracked for the site.</p>
-      <p>The name is a Garbage Plate, the meal Rochester invented and nobody else understands.
-        The mascot is a Pokemon made of trash. <b>Garbage Rips Only! Let&rsquo;s Go!</b></p>
-      <div class="socials">
-        <a href="https://www.youtube.com/@GarbageRips585"><i style="--pip:#FF0033"></i>YouTube</a>
-        <a href="https://www.instagram.com/garbagerips585/"><i style="--pip:#BC1888"></i>Instagram</a>
-        <a href="https://www.tiktok.com/@garbagerips585"><i style="--pip:#F4F1E2"></i>TikTok</a>
-        <a href="https://www.facebook.com/GarbageRips585"><i style="--pip:#1877F2"></i>Facebook</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- The channel and rip-log counters, filled by build-proto.mjs. The markers
-     sit OUTSIDE the <section> on purpose, exactly as the drops band's do: if
-     there is nothing to count the region is empty and there is no band, rather
-     than an empty frame with a heading on it. Every figure inside is derived at
-     build time; nothing here is ever typed. -->
-<!-- RIPSTATS:START -->
-<section class="rstats" aria-labelledby="rstatsH">
-  <div class="wrap">
-    <div class="brk"><h2 id="rstatsH">The channel, <span class="hl">counted</span></h2><span class="ln"></span><a href="/luck.html">Every rip result &rarr;</a></div>
-    <div class="rstats-grid">
-      <div class="rstat"><b>268,314</b><span>views on the channel</span></div>
-      <div class="rstat"><b>340</b><span>subscribers</span></div>
-      <div class="rstat"><b>322</b><span>rips filmed</span></div>
-      <div class="rstat"><b>463</b><span>packs ripped on camera</span></div>
-      <div class="rstat"><b>212</b><span>hit cards logged</span></div>
-      <div class="rstat"><b>48.4%</b><span>hit rate, 156 of 322 answered rips</span></div>
-    </div>
-    
-  </div>
-</section>
-<!-- RIPSTATS:END -->
-
-<!-- Rochester. The markers sit OUTSIDE the <section> on purpose, exactly as
-     the two bands above: if none of its three figures can be counted there is
-     no band rather than a heading over nothing. It sits under "The channel,
-     counted" because the two answer the halves of one question in the same
-     grammar. /rochester.html was linked from <main> ZERO times before this.
-     Figures, sourcing and placement are argued above rocHtml in
-     build-proto.mjs. -->
-<!-- ROCHESTER:START -->
-<section class="roc" aria-labelledby="rocH">
-  <div class="wrap">
-    <div class="brk"><h2 id="rocH">Rochester, <span class="hl">New York</span></h2><span class="ln"></span><a href="/rochester.html">The local scene &rarr;</a></div>
-    <p class="roc-lede">This is a card town and most of the internet has no idea. The shows, the shops, the people who sell and film around here, and the dish the channel is named after are all on the local scene page.</p>
-    <ul class="roc-counts">
-      <li><a href="/card-shows.html"><b>22</b><span>card shows coming up</span></a></li>
-      <li><a href="/shops.html"><b>6</b><span>card shops</span></a></li>
-      <li><a href="/garbage-plate.html"><b>11</b><span>places serve a plate</span></a></li>
-    </ul>
-    
-  </div>
-</section>
-<!-- ROCHESTER:END -->
 
 <section class="mwband">
   <div class="wrap">

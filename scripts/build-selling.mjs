@@ -766,7 +766,15 @@ const style = `
 .se-jg{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink-2);margin-left:var(--s2)}
 .se-jg:first-child{margin-left:0}
-.se-v{scroll-margin-top:var(--s5)}
+/* NO scroll-margin-top OVERRIDE HERE. ui.css already sets
+   [id]{scroll-margin-top:calc(var(--bar-h) + 12px)} = 72px, which clears the
+   sticky bar. This file overrode it with var(--s5), 24px, so every click in the
+   jump nav parked the card top at y=24 and the bar (60px tall) cut the venue
+   name in half. Verified by driving the jump. A LOWER value than the global is
+   never right while the bar is sticky; if this ever needs its own figure it has
+   to be LARGER, the way build-video-games.mjs uses bar-h + 64px to leave the
+   heading breathing room. */
+
 .se-key{border:3px solid var(--keyline);border-radius:12px;background:var(--band-bg);color:var(--chrome-ink);
   padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
 .se-key h2{color:var(--chrome-ink);margin-bottom:var(--s3)}
