@@ -142,6 +142,7 @@
 // ============================================================================
 
 import { createHash } from "node:crypto";
+import { GA4_ID, SEARCH_CONSOLE } from "../shared/analytics.mjs";
 import { readFile, writeFile, readdir } from "node:fs/promises";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -311,3 +312,83 @@ console.log(
     `out of ${cssBefore.toLocaleString()} of HTML`
 );
 for (const [rel, v] of hashes) if (v) console.log(`  ${rel} -> ?v=${v}`);
+
+// ---------------------------------------------------------------------------
+// THIRD PASS: ANALYTICS AND SITE VERIFICATION
+// ---------------------------------------------------------------------------
+// WHY IT IS HERE AND NOT IN A BUILDER. There is no shared head() on this site:
+// every one of the 66 builders writes its own <head>, and index.html's is hand
+// maintained on top of that. Adding a snippet builder by builder would be 66
+// edits with 66 chances to miss one, and the one missed would be invisible --
+// a page that quietly reports nothing looks exactly like a page nobody visits.
+// This step already runs LAST over every built file however it was produced,
+// which is the same argument the inline-CSS strip makes in its own header.
+//
+// NOTHING IS EMITTED UNTIL AN ID IS SET. Both constants are "" in
+// shared/analytics.mjs, so today this pass is a no-op and the tree is byte for
+// byte what it was. That is deliberate: the diff that turns tracking on should
+// be a one-line diff that is obviously about tracking.
+//
+// IT IS IDEMPOTENT. A page that already carries the tag is skipped, so a
+// rebuild does not stack two copies, and check-tree-drift stays honest.
+//
+// PLACEMENT IS THE PART WORTH ARGUING. The snippet goes immediately before
+// </head>, which puts it AFTER the render-blocking stylesheet link. CLAUDE.md
+// records that first paint on this site is gated by ui.css alone, arriving
+// 1,226ms after the document on Slow 3G, so a script that jumped the queue in
+// front of it would cost real paint time for nothing. `async` on top of that
+// means it never blocks the parse. No preconnect: it would buy a few ms of
+// analytics latency in exchange for an early connection to a third party, on a
+// page whose paint is already waiting on our own file.
+// IT STRIPS BEFORE IT INJECTS, AND THAT IS NOT TIDINESS. The first version
+// only ADDED, guarded by "skip a page that already has the tag", and that was
+// wrong in a way that took a test with fake ids to show. public/index.html is
+// HAND MAINTAINED and COMMITTED, so a tag written into it is written into the
+// repo; and eight pages (about, shops, wanted, hall, garbage-plate, videos,
+// playlists and index itself) build their <head> by SLICING index.html, so on
+// the next build they copied the tag out of it. Setting the ids back to "" then
+// left the tag live on all eight, because a pass that only adds can never take
+// anything away. Turning tracking OFF has to actually turn it off.
+//
+// So the block is fenced in markers and every page has the fence removed first,
+// unconditionally, whether or not an id is set. Inject-after-strip is also what
+// makes a CHANGED id work: pasting a new G- id replaces the old one rather than
+// leaving two configs racing on the same page.
+const GA_OPEN = "<!--analytics:start-->";
+const GA_CLOSE = "<!--analytics:end-->";
+const GA_FENCE = /<!--analytics:start-->[\s\S]*?<!--analytics:end-->/g;
+
+{
+  const verify = SEARCH_CONSOLE
+    ? `<meta name="google-site-verification" content="${SEARCH_CONSOLE}">`
+    : "";
+  const ga = GA4_ID
+    ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA4_ID}"></script>` +
+      `<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}` +
+      `gtag('js',new Date());gtag('config','${GA4_ID}');</script>`
+    : "";
+  const block = verify || ga ? GA_OPEN + verify + ga + GA_CLOSE : "";
+  let injected = 0;
+  let cleaned = 0;
+  for await (const f of walk(PUB)) {
+    const src = await readFile(f, "utf8");
+    const bare = src.replace(GA_FENCE, "");
+    if (bare !== src) cleaned += 1;
+    let out = bare;
+    if (block) {
+      const i = bare.indexOf("</head>");
+      if (i !== -1) {
+        out = bare.slice(0, i) + block + bare.slice(i);
+        injected += 1;
+      }
+    }
+    if (out !== src) await writeFile(f, out);
+  }
+  if (block) {
+    const what = [GA4_ID && `GA4 ${GA4_ID}`, SEARCH_CONSOLE && "site verification"]
+      .filter(Boolean).join(" + ");
+    console.log(`  ${what} on ${injected} pages`);
+  } else if (cleaned) {
+    console.log(`  analytics removed from ${cleaned} pages (no id set)`);
+  }
+}
