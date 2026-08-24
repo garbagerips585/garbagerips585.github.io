@@ -887,7 +887,13 @@ function resolve(c) {
     // PriceCharting number would be describing a different measurement.
     psa10Sales: psaFrom === "tracker" ? auto?.psa10Sales ?? null : null,
     psa10Source:
-      psaFrom === "manual" ? "Tim"
+      // NOT THE OWNER'S NAME. This string is PUBLISHED: it lands in
+      // public/data/wanted.json and prints in the "PSA 10 prices come from"
+      // note on the set pages. It said "Tim" until 24 August 2026, when he
+      // asked that his real name not appear anywhere on the site. No card
+      // currently uses the manual path, so nothing was rendering it, but a
+      // single hand-entered price would have put his name on a live page.
+      psaFrom === "manual" ? "a hand-checked sale"
       : psaFrom === "pricecharting" ? pc.source || "pricecharting.com"
       : psaFrom === "tracker" ? auto?.source || "pokemonpricetracker.com"
       : psaFrom === "log" ? c._psa10Source || "pricecharting.com"

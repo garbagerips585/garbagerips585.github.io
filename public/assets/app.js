@@ -564,7 +564,7 @@
      *
      * Ids go in alongside labels so a slug pasted from a URL ("pitch-black")
      * matches as readily as the name. The spreadsheet fields are included even
-     * though most are still empty: they fill in as Tim tags, and a search that
+     * though most are still empty: they fill in as the owner tags, and a search that
      * silently ignores the description he just wrote would be worse than one
      * that never had it.
      */
@@ -667,7 +667,7 @@
      * The live filters that have no chip on screen to explain themselves.
      *
      * THE PRODUCT FILTER STILL WORKS ON A PHONE AND THE PHONE CANNOT SHOW IT.
-     * ui.css hides the product row below 700px because Tim asked for the set
+     * ui.css hides the product row below 700px because the owner asked for the set
      * filter alone there, but ?product= is linked 330 times across 318 of the
      * built pages (93 of them ?product=single-pack, 57 ?product=etb) and readUrl
      * takes it off the URL rather than off a chip, so every one of those links
@@ -930,7 +930,7 @@
       // The count in the toggle is the real one. The HTML ships 35 and 13 so
       // the button has its final width before videos.json lands and so the
       // page says something true with JS off, but the taxonomy grows every
-      // time Tim rips a new set and a hand-typed number goes stale silently.
+      // time the owner rips a new set and a hand-typed number goes stale silently.
       var more = document.querySelector('.facet[data-facet="' + group + '"] .facet-more .n');
       if (more) more.textContent = keys.length;
     }
