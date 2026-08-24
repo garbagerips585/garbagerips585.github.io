@@ -13,7 +13,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { SITE } from "../shared/site.mjs";
+import { SITE, mailtoHref} from "../shared/site.mjs";
 // APP_JS_NO_PACKPLAYER, not APP_JS. Nothing on this page plays a rip where it
 // sits; verified by driving it with a real dispatched click, not by grepping.
 // packs.css is NOT dropped here and cannot be from this file: these four pages
@@ -953,8 +953,17 @@ ${/* THE ONE ORNAMENT ON THIS PAGE, AND THIS IS THE PAGE THE PLATE WAS DRAWN
     <p class="shops-lede">Addresses, phone numbers and opening hours were last checked on
       ${esc(longDate(shopsDoc.updated) || "an unrecorded date")}. Shops move and change their hours, so call ahead if you are
       making a trip of it.</p>
+    ${/* THE ASK ALREADY EXISTED AND HAD NO ROUTE. "Say hello on any of the
+          socials" is an invitation that makes a shop owner go and find an
+          account, so this names an address and prefills what a listing needs.
+          Tim, 24 August 2026: "I want them to send their logos to get added to
+          the shops pages as well." */ ""}
     <p class="shops-note">NOT SPONSORED AND NOT AFFILIATE LINKS. THESE ARE SHOPS I GO TO.
-      IF YOU RUN A CARD SHOP AROUND ROCHESTER AND YOU ARE NOT ON HERE, SAY HELLO ON ANY OF THE SOCIALS.</p>
+      IF YOU RUN A CARD SHOP AROUND ROCHESTER AND YOU ARE NOT ON HERE, EMAIL ME.</p>
+    <p class="shops-lede">Send the shop name, address, opening hours and whether you run organized play, and attach
+      your logo: <a href="${esc(mailtoHref("card shop listing", ["Shop name: ", "Address: ", "Opening hours: ",
+      "Phone: ", "Website or socials: ", "Do you run organized play? ", "", "(attach your logo)"]))}">email the
+      channel</a>. It opens your own mail app, so the logo goes on as an attachment like any other email.</p>
   </div>
 </main>`;
 

@@ -55,7 +55,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { SITE } from "../shared/site.mjs";
+import { SITE, CONTACT_EMAIL, mailtoHref} from "../shared/site.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where it
 // sits: the two links to the channel go to /videos.html and to the rip pages,
 // which carry their own player. Same call and same reasoning as
@@ -545,20 +545,38 @@ ${MENU}
   <div class="wrap">
     <span class="kicker">${KICKER}</span>
     <h1>${H1}</h1>
-    <p class="lede" style="max-width:40em">This is a card town and most of the internet has no idea. Everything
-      local this site holds is on this page: the shows, the shops, the people who sell and film around here, and the
-      dish the channel is named after.</p>
+    ${/* STRAIGHT INTO IT. Tim, 24 August 2026: "the top copy needs to be removed
+          or changed, just go right into the info." This used to open with two
+          sentences of throat-clearing before a reader learned anything -- one
+          about the town and one listing what the page contains, which the page
+          then contains. The numbers ARE the point, so they lead, and they are
+          computed rather than typed so the sentence cannot go stale the week a
+          show is added. The one line of voice is kept and moved to the END,
+          where it lands on top of the evidence instead of asking for credit
+          before any has been shown. */ ""}<p class="lede" style="max-width:40em">${nShows} card show${nShows === 1 ? "" : "s"} on the calendar,
+      ${shops.length} shop${shops.length === 1 ? "" : "s"} with a door and an address, and ${plates.length}
+      kitchen${plates.length === 1 ? "" : "s"} that will put a garbage plate in front of you. This is a card town and
+      most of the internet has no idea.</p>
   </div>
 </header>
 
 <section class="tight">
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / Local scene</p>
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Counted, not claimed</p>
+    ${/* THE LABEL AND THE LEDE BOTH USED TO BE ABOUT THE METHOD. "Counted, not
+          claimed" over a paragraph explaining that the figures are read out of
+          the files at build time is a note to the author, not to a reader, and
+          Tim said so: "not so much about how you got the info for the stats
+          widget."
+          The build-time counting is still true and still the reason these
+          numbers can be trusted, and it stays written down in the header of
+          this file where it belongs. What a reader gets instead is what the
+          tiles are ABOUT. The one clause worth keeping from the old paragraph is
+          the last one: a thin number saying it is thin is a fact about the
+          scene, not about the build. */ ""}<p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Around here</p>
     <h2>What is actually <span class="hl">here</span></h2>
-    <p class="lede" style="max-width:44em">Every figure below is counted out of the files behind the five pages in
-      this section when the site is built, so none of it can drift away from what those pages show. Where a number is
-      thin, it says so.</p>
+    <p class="lede" style="max-width:44em">Shows you can drive to, shops you can walk into, and the plate the channel
+      is named after. Where a number is thin, it says so.</p>
     <ul class="roc-stats">
 ${STATS.join("\n")}
     </ul>
@@ -655,9 +673,29 @@ ${/* THE PEOPLE, AND THIS SECTION IS THE REASON THE PAGE EXISTS RATHER THAN THE
       whole reason a local list is worth more than a directory, and it is also why it grows slowly. If you sell at
       the shows, or you film around here, or you just watch somebody local who deserves the traffic, that is the
       fastest way this page stops being short.</p>
+    ${/* AND A ROUTE THAT IS NOT A FORM. Tim, 24 August 2026: "incase someone
+          wants to email me their vendor info, creator info, store info, shop
+          info, or show info they can just email me directly."
+          It sits in THIS section rather than in the footer because this is the
+          section that does the asking, and a reader who has just been told the
+          page is short is the reader most likely to be able to fix it. The two
+          buttons above send people to the per-list pages; this one covers the
+          three the buttons do not, and it covers the person who has something
+          local and does not know which list it belongs on. */ ""}
+    <p class="lede" style="max-width:44em">A shop, a show, a vendor, a creator, or anything else local this page has
+      missed: email it straight to <a href="mailto:${esc(CONTACT_EMAIL)}">${esc(CONTACT_EMAIL)}</a>. No form, no
+      sign up, and every listing gets checked before it goes up.</p>
     <p class="btn-row" style="margin-top:var(--s4)">
       <a class="btn btn-sky btn-sm" href="/vendors.html#get-listed">Get on the vendor list</a>
       <a class="btn btn-sky btn-sm" href="/creators.html#get-listed">Get on the creator list</a>
+      ${/* PREFILLED LIKE THE FIVE PAGES BELOW IT, but with the catch-all subject:
+            this is the hub, so the person clicking here is the one who has
+            something local and does not know which of the five lists it belongs
+            on. The raw address stays plain in the sentence above, because there
+            the job is to SHOW the address rather than to open a draft. */ ""}
+      <a class="btn btn-sky btn-sm" href="${esc(mailtoHref("something local for the site", [
+        "What it is (shop, show, vendor, creator, plate): ", "Name: ", "Where: ",
+        "Website or socials: ", "", "(attach a logo, a flyer or a photo if you have one)"]))}">Email the channel</a>
     </p>
   </div>
 </section>

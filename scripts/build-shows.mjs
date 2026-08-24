@@ -23,7 +23,7 @@ import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { SITE } from "../shared/site.mjs";
+import { SITE, mailtoHref} from "../shared/site.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -1226,6 +1226,15 @@ ${(data.watchFor || []).length ? `
       <a href="/vendors.html">local vendors</a> are the sellers and breakers without a storefront, and
       <a href="/creators.html">local creators</a> is everyone else filming Pokemon up here.
       <a href="/rochester.html">Everything local in one place</a> is the short version of all of it, counted.</p>
+    ${/* RUNNING A SHOW IS THE ONE THING ON THIS PAGE A READER MIGHT DO. The
+          calendar is collected by hand, so the only way it covers a show is if
+          somebody says so, and the flyer is the thing that makes a listing look
+          like the event. Tim, 24 August 2026: "with shows I want them to send me
+          flyers etc." */ ""}
+    <p class="price-note" style="margin-top:var(--s4)"><b>Running a show?</b> Send the date, the venue and what a
+      table costs, and attach the flyer: <a href="${esc(mailtoHref("card show listing", ["Show name: ",
+      "Date and times: ", "Venue and address: ", "Admission and table cost: ", "Website or socials: ", "",
+      "(attach the flyer)"]))}">email the channel</a>. Listings are collected by hand and cost nothing.</p>
   </div>
 </section>
 

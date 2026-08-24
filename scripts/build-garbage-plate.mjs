@@ -76,7 +76,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { SITE } from "../shared/site.mjs";
+import { SITE, mailtoHref} from "../shared/site.mjs";
 // APP_JS_NO_PACKPLAYER, not APP_JS, same call and same reason as
 // build-shops.mjs: nothing on this page plays a rip where it sits.
 import { APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/chrome.mjs";
@@ -1150,9 +1150,15 @@ ${
       Buffalo and Syracuse, and <a href="/about.html">about the channel</a> explains what Garbage Rips
       585 is and why it is named after dinner.</p>
 
+    ${/* Tim, 24 August 2026: "if people have other restaurants that they want
+          listed I can add them in." Same shape as the shops page: the page was
+          already asking and had no address on it. */ ""}
     <p class="gp-note">NOT SPONSORED AND NOT AFFILIATE LINKS. NOBODY PAID TO BE ON THIS PAGE.
-      IF YOU RUN A PLACE AROUND ROCHESTER THAT SERVES A PLATE AND YOU ARE NOT ON HERE, SAY HELLO ON ANY
-      OF THE SOCIALS.</p>
+      IF YOU RUN A PLACE AROUND ROCHESTER THAT SERVES A PLATE AND YOU ARE NOT ON HERE, EMAIL ME.</p>
+    <p class="gp-sub">Send the name, the address and what it is called on your menu, and attach a photo of the
+      plate: <a href="${esc(mailtoHref("garbage plate place", ["Place name: ", "Address: ",
+      "What it is called on your menu: ", "Website or socials: ", "", "(attach a photo of the plate)"]))}">email the
+      channel</a>.</p>
   </div>
 </main>`;
 

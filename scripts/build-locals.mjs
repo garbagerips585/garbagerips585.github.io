@@ -52,7 +52,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { SITE } from "../shared/site.mjs";
+import { SITE, CONTACT_EMAIL, mailtoHref} from "../shared/site.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -399,7 +399,7 @@ const earlyNote = (rows, noun) => {
    we check first, because the whole value of these two pages is that a name on
    them was looked at. An invitation that reads as automatic would be a
    directory signup, which is the thing this page is not. */
-const getListed = ({ noun, one, fields, sends }) => `
+const getListed = ({ noun, one, fields, emailFields, sends, asset, subject }) => `
 <section class="band tight" id="get-listed">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>How this list grows</p>
@@ -407,13 +407,33 @@ const getListed = ({ noun, one, fields, sends }) => `
     <p class="lede" style="max-width:44em">There is no form, no fee and no application. Tell us you exist and we
       will look you up and put you on. This list is short because nobody has been asked, not because anybody was
       turned down.</p>
+    <p class="btn-row" style="margin:var(--s4) 0 var(--s2)">
+      ${/* SHORT LABELS IN THE BODY, NOT THE PROSE FROM THE BULLET ABOVE. The
+            first version appended a colon to each `fields` sentence and produced
+            "What you carry: singles, sealed, graded, all of it:" -- a line with
+            two colons that reads as a broken template. The page explains; the
+            email prompts. They are different jobs and now different strings. */ ""}
+      <a class="btn btn-sky btn-sm" href="${esc(mailtoHref(subject, [...emailFields.map((f) => `${f}: `), "", `(attach your ${asset})`]))}">Email your listing</a>
+    </p>
     <ul class="facts-list" style="max-width:44em">
-      <li><b>Send it however you like.</b> ${esc(sends)} It does not have to be you: if you buy from somebody good,
-        or you watch somebody local, send them instead.</li>
+      <li><b>Send it however you like.</b> ${esc(sends)} Email is the surest one:
+        <a href="mailto:${esc(CONTACT_EMAIL)}">${esc(CONTACT_EMAIL)}</a>. It does not have to be you: if you buy from
+        somebody good, or you watch somebody local, send them instead.</li>
       <li><b>Tell us ${esc(fields.length === 4 ? "these four things" : "these five things")}.</b> ${fields
         .map((f) => esc(f))
         .join(" ")} That is exactly what a card on this page holds, so nothing gets lost between you telling us and
         it going up.</li>
+      ${/* THE ARTWORK GETS ITS OWN BULLET RATHER THAN A SIXTH FIELD. Tim, 24
+            August 2026: "I want vendors and creators to send me their brand
+            logos". Folding it into `fields` would have been the obvious move
+            and it is wrong twice: the sentence above counts that array to say
+            "these five things", so a sixth entry makes it lie, and an
+            attachment is a different KIND of ask from a line of text. It also
+            deserves the emphasis, because it is the thing that makes a card on
+            this page look like the business rather than like a row. */ ""}
+      <li><b>Attach your ${esc(asset)}.</b> Any size, any format, straight off your phone is fine. It is what makes
+        your card here look like you rather than like a line in a list. Nothing is uploaded on this site: it rides
+        along on the email.</li>
       <li><b>We look before we list.</b> Every name here is a real ${esc(one)} and every handle here has been opened
         and checked, because a wrong handle sends somebody to a stranger. That is also why the list grows slowly:
         it moves at the speed of checking rather than the speed of asking.</li>
@@ -714,6 +734,10 @@ const V = page({
   ask: {
     noun: "vendors",
     one: "seller",
+    asset: "logo",
+    subject: "vendor listing",
+    emailFields: ["Name as you want it printed", "Town you work out of", "What you carry",
+      "Shows you are usually at", "Handles and website"],
     sends:
       "A message, a comment, a photo of your table at a show, whatever is easiest.",
     fields: [
@@ -767,6 +791,10 @@ const C = page({
   ask: {
     noun: "creators",
     one: "person",
+    asset: "logo or channel art",
+    subject: "creator listing",
+    emailFields: ["Name as you want it printed", "Where you are", "What you make",
+      "Handles and website"],
     sends:
       "A message, a comment on a rip, a tag in a story, whatever is easiest.",
     fields: [

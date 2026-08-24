@@ -47,3 +47,53 @@ export const robots = () =>
       `# ${DOMAIN}. Crawling is off so the temporary copy never gets indexed\n` +
       `# and does not end up competing with the real domain at launch.\n` +
       `User-agent: *\nDisallow: /\n`;
+
+/**
+ * The channel's public inbox.
+ *
+ * ONE CONSTANT BECAUSE AN ADDRESS TYPED TWICE IS AN ADDRESS WRONG ONCE. The
+ * local section asks people to send in shops, shows, vendors and creators, and
+ * the ask is worthless if the route to send it changes between pages or gets a
+ * character wrong on one of them.
+ *
+ * PLAIN mailto, NOT OBFUSCATED. The point is that a stranger with a shop or a
+ * show can reach Tim in one tap from a phone, and every scheme for hiding an
+ * address from harvesters either breaks that or needs JavaScript to undo. This
+ * is a public channel address that already appears on YouTube, so there is
+ * nothing here that hiding it would protect.
+ */
+export const CONTACT_EMAIL = "garbagerips585@gmail.com";
+
+/**
+ * A prefilled mailto for one kind of submission.
+ *
+ * WHY NOT A FORM, and this was decided on the constraint rather than on taste.
+ * Tim, 24 August 2026: people should be able to "send over info and flyers and
+ * logos etc". Attachments are the whole answer. This site is static on GitHub
+ * Pages and executes nothing -- functions/ was deleted for exactly that reason,
+ * see CLAUDE.md -- so a form means a third party, and the free tiers that would
+ * host one either refuse file uploads or put them behind an account. A mailto
+ * opens the reader's own mail app, where attaching a flyer is one tap and
+ * already familiar, and it costs this site no dependency, no script and no
+ * privacy surface to explain.
+ *
+ * PREFILLED, BECAUSE THE COST OF A mailto IS A BLANK MESSAGE. Somebody who
+ * means well sends "hi I run a shop" and then there are three emails before
+ * anything can be listed. The subject is stamped so Tim can filter, and the
+ * body carries the exact fields the card on the page holds, so a first email
+ * can contain everything.
+ *
+ * ENCODED WITH encodeURIComponent AND NEWLINES AS CRLF, which is what RFC 6068
+ * asks for and what mail clients actually break lines on.
+ *
+ * @param {string} subject stamped into the subject line after the site name
+ * @param {string[]} lines the fields to prompt for, one per line
+ */
+export const mailtoHref = (subject, lines = []) => {
+  const body = lines.length ? lines.join("\r\n") : "";
+  const q = [
+    `subject=${encodeURIComponent(`Garbage Rips 585: ${subject}`)}`,
+    body ? `body=${encodeURIComponent(body)}` : "",
+  ].filter(Boolean).join("&");
+  return `mailto:${CONTACT_EMAIL}${q ? `?${q}` : ""}`;
+};
