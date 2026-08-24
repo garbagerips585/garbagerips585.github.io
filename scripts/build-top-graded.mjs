@@ -409,18 +409,6 @@ ${MENU}
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / Top PSA 10 values</p>
 
-    <div class="fk-golden">
-      <p class="fk-golden-h">What this number is, and what it is not</p>
-      <h2>A price guide value, not an <span class="hl">auction record</span></h2>
-      <p>Every figure here is PriceCharting's PSA 10 column. Their published method computes it from
-        completed eBay sales plus their own marketplace, blending the most recent sale, the median, the
-        average and an age weighted average, with outliers and sale dates taken into account. Shipping is
-        excluded. It is an estimate of what a PSA 10 copy is worth right now.</p>
-      <p>It is <b>not</b> a record of any single sale. Those are different numbers and they are often far
-        apart: the Illustrator Pikachu at the top of this list has a widely reported 2022 auction sale of
-        about $5.3 million against the ${moneyCompact(top?.psa10)} guide value shown here. If you want
-        hammer prices from a specific auction, this page is not that, and the reason is below.</p>
-    </div>
 
     <div class="facts" style="margin-top:20px">
       <div class="fact"><div class="n">${moneyCompact(top?.psa10)}</div><div class="l">Top of the list</div></div>
@@ -505,6 +493,34 @@ ${rows.map(row).join("\n")}
           pages were a cluster in the head of whoever built them and a set of
           unconnected pages to everyone else. Prose, not a link farm, which is
           the idiom the rest of the site uses. */ ""}
+${/* "What this number is, and what it is not" MOVED TO THE FOOT, 24 August 2026.
+      Tim: "lets either remove or move down the text at the top." Moved, not
+      removed, and not folded shut either: this is the fourth page in a row to
+      get this treatment and the rule that emerged is worth stating. A block
+      explaining where MONEY came from stays visible, because a page that ranks
+      cards by price owes the reader that account unhidden; a block explaining
+      how a page was COUNTED gets folded, because it is method rather than
+      warranty. This one is the first kind. Same call as
+      /most-valuable-cards.html and /most-expensive-sealed.html, which are one
+      template and moved together; /how-many-packs.html and /video-games.html
+      are the second kind and are collapsed in place instead.
+      The Illustrator Pikachu paragraph is the reason this matters: $16,492,000
+      as a guide value against a widely reported $5.3m auction sale is exactly
+      the kind of gap a reader is owed, and burying it in a <details> would be
+      worse than leaving it at the top. */ ""}
+    <div class="fk-golden">
+      <p class="fk-golden-h">What this number is, and what it is not</p>
+      <h2>A price guide value, not an <span class="hl">auction record</span></h2>
+      <p>Every figure here is PriceCharting's PSA 10 column. Their published method computes it from
+        completed eBay sales plus their own marketplace, blending the most recent sale, the median, the
+        average and an age weighted average, with outliers and sale dates taken into account. Shipping is
+        excluded. It is an estimate of what a PSA 10 copy is worth right now.</p>
+      <p>It is <b>not</b> a record of any single sale. Those are different numbers and they are often far
+        apart: the Illustrator Pikachu at the top of this list has a widely reported 2022 auction sale of
+        about $5.3 million against the ${moneyCompact(top?.psa10)} guide value shown here. If you want
+        hammer prices from a specific auction, this page is not that, and the reason is below.</p>
+    </div>
+
     <p class="price-note" style="margin-top:var(--s4)">The same catalog ranked the other way is
       <a href="/most-valuable-cards.html">the 100 most valuable raw cards</a>, ungraded and out of the sleeve.
       Nothing anybody opened is in <a href="/most-expensive-sealed.html">the 100 most expensive sealed

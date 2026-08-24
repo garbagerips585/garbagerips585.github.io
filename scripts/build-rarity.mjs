@@ -439,12 +439,19 @@ const slabDiagram = () => `<figure class="gloss-fig is-diagram">
                    cream page. On the slab's own fills it measured 2.79:1 (CARD NAME
                    & SET), 3.11:1 (the sealed-edge line) and 4.10:1 (GRADE), all under
                    the 4.5:1 AA needs. The palette moved to greys since, so the figure below is the old one:
-                   #111111 is the ink already used for MINT 10 in the same diagram
+                   #111111 is the ink already used for GEM MT 10 in the same diagram
                    and measures 14.84:1 on the worst of these fills now.
                    The 7px labels also go to 8px: the viewBox is 220 wide and renders
                    at 132px, so 7px in the box is about 4.2 real pixels. -->
               <text x="34" y="46" font-family="monospace" font-size="9" fill="#111111">CARD NAME &amp; SET</text>
-              <text x="34" y="72" font-family="monospace" font-size="22" font-weight="bold" fill="#111111">MINT 10</text>
+              ${/* GEM MT 10, NOT "MINT 10", AND THE OLD LABEL WAS A REAL ERROR.
+                    PSA prints GEM MT on a 10 and MINT on a NINE, so this diagram
+                    was showing a beginner a grade label that PSA has never
+                    printed, on the one page whose own header says it exists
+                    because "a beginner cannot tell when a guide is wrong".
+                    Caught 24 August 2026 while sourcing a photograph to replace
+                    this schematic. */ ""}
+              <text x="34" y="72" font-family="monospace" font-size="22" font-weight="bold" fill="#111111">GEM MT 10</text>
               <text x="150" y="72" font-family="monospace" font-size="8" fill="#111111">GRADE</text>
               <text x="34" y="83" font-family="monospace" font-size="8" fill="#111111">CERT 000000000</text>
               <rect x="34" y="96" width="152" height="176" rx="4" fill="#F1EFE8" stroke="#5B5B5B" stroke-width="2"/>

@@ -1,419 +1,429 @@
 {
-  "_readme": [
-    "Card examples for the rarity guide. Every entry points at a real card so the",
-    "page shows the actual printed symbol rather than a drawing of one.",
-    "",
-    "`zoom` is the bottom corner crop, as a CSS background-position. Modern cards",
-    "carry the symbol bottom-LEFT; XY era and older carry it bottom-RIGHT.",
-    "",
-    "SLANG ENTRIES CARRY THEIR OWN EXAMPLE. `show` is 'card' for a whole card,",
-    "'crop' for the magnified bottom-left corner, and the key is absent when no",
-    "honest picture exists. Cards here are deliberately DIFFERENT from the ladder",
-    "above: the reader gets a second worked example of each term, not a repeat.",
-    "",
-    "NEVER TYPE A PRICE INTO AN `example`. Name the card instead, with",
-    "`priceOf: {set, number}`, and build-rarity.mjs reads the figure out of",
-    "public/data/cards/<set>.json and formats it with the same moneyCompact",
-    "every other page uses. The Hit entry used to read '. $1,470' as literal",
-    "text while the checklist said $1,470.58 and /complete-a-set.html said",
-    "$1,471, so the site quoted two different prices for one card and the",
-    "typed one could never catch up. Works on any entry in any list here.",
-    "",
-    "THREE TERMS HAVE NO IMAGE, and that is not an oversight:",
-    "  RH. TCGdex serves one scan per card, of the NORMAL printing. It has no",
-    "  reverse-holo scan: variants_detailed lists a reverse variant but its image",
-    "  field is null. Showing the normal card labeled 'reverse holo' would teach",
-    "  the opposite of the thing the entry exists to teach.",
-    "  fake-cards page.",
-    "",
-    "WHAT NOT TO PUT ON THIS PAGE, all checked and deliberately left off:",
-    "  Shiny Rare's symbol being a HOLLOW gold star. Bulbapedia says hollow,",
-    "  Pokemon's own site says 'sparkling', and the scans were not sharp enough",
-    "  to settle it. The whole claim is the hollow-vs-solid distinction, so it is",
-    "  not worth publishing half-right.",
-    "  Mega Attack Rare's pastel star symbol. Single-sourced, unverified.",
-    "  Futuristic Rare. Real, but it does not exist in anyone's hands until the",
-    "  30th Celebration lands on 16 September 2026.",
-    "  A card for Rainbow rares. The whole claim is the rainbow FOIL, and a flat",
-    "  scan does not show foil, so the picture would prove nothing the words do",
-    "  not already say. The other eight retired mechanics are things you can SEE",
-    "  in a scan, which is why they have one.",
-    "",
-    "`offLadder` IS FOR RARITIES THIS SITE'S OWN CHECKLISTS PRINT THAT THE",
-    "LADDER ABOVE DOES NOT COVER. The failure case it exists for: somebody pulls",
-    "a card, reads the name off a set page here, looks it up on this page and",
-    "finds nothing. Counted across public/data/cards on 15 August 2026, Holo Rare",
-    "covers 88 cards and Black White Rare 4, and neither string appeared anywhere",
-    "on this page. Entries render with the magnified corner, same as the ladder,",
-    "because the symbol is the whole claim in both cases.",
-    "",
-    "NOT EVERY UNCOVERED NAME BELONGS HERE. Checked on the same pass and left",
-    "where they already were: Holo Rare V, VMAX and VSTAR are the `gone` entry",
-    "'V, VMAX and VSTAR'; Radiant Rare is the `gone` entry 'Radiant Pokemon';",
-    "Secret Rare is the glossary term, the number shortcut and an FAQ answer.",
-    "Those are covered in prose under the name printed on the card rather than",
-    "the name a checklist API returns, which is the right way round.",
-    "",
-    "EVERY ENTRY HERE CARRIES ITS `sources`, with the url and the date it was",
-    "read. Official Pokemon sources first, then Bulbapedia. Where a claim is",
-    "about the printed symbol it is also checked against the card scan the entry",
-    "shows, so a reader holding the card can settle it without either of us.",
-    "",
-    "SLAB IS A DIAGRAM, NOT A PHOTO, and that is deliberate. We own no graded",
-    "cards, and a grading company's product photography is theirs. A labeled",
-    "schematic teaches the thing a photo would: where the grade sits, where the",
-    "cert number is, that the card is sealed and cannot be removed without",
-    "destroying the holder. It is captioned as a schematic so nobody mistakes it",
-    "for a real slab. Same approach as the fake-cards diagram.",
-    "Grading still has no image: it is a process, not an object."
-  ],
-  "checked": "2026-08-15",
-  "eras": {
-    "old": {
-      "card": "https://assets.tcgdex.net/en/base/base1/4/high.webp",
-      "name": "Charizard",
-      "set": "Base Set, 1999",
-      "corner": "right"
-    },
-    "new": {
-      "card": "https://assets.tcgdex.net/en/sv/sv08.5/074/high.webp",
-      "name": "Eevee",
-      "set": "Prismatic Evolutions, 2025",
-      "corner": "left"
-    }
+ "_readme": [
+  "Card examples for the rarity guide. Every entry points at a real card so the",
+  "page shows the actual printed symbol rather than a drawing of one.",
+  "",
+  "`zoom` is the bottom corner crop, as a CSS background-position. Modern cards",
+  "carry the symbol bottom-LEFT; XY era and older carry it bottom-RIGHT.",
+  "",
+  "SLANG ENTRIES CARRY THEIR OWN EXAMPLE. `show` is 'card' for a whole card,",
+  "'crop' for the magnified bottom-left corner, and the key is absent when no",
+  "honest picture exists. Cards here are deliberately DIFFERENT from the ladder",
+  "above: the reader gets a second worked example of each term, not a repeat.",
+  "",
+  "NEVER TYPE A PRICE INTO AN `example`. Name the card instead, with",
+  "`priceOf: {set, number}`, and build-rarity.mjs reads the figure out of",
+  "public/data/cards/<set>.json and formats it with the same moneyCompact",
+  "every other page uses. The Hit entry used to read '. $1,470' as literal",
+  "text while the checklist said $1,470.58 and /complete-a-set.html said",
+  "$1,471, so the site quoted two different prices for one card and the",
+  "typed one could never catch up. Works on any entry in any list here.",
+  "",
+  "THREE TERMS HAVE NO IMAGE, and that is not an oversight:",
+  "  RH. TCGdex serves one scan per card, of the NORMAL printing. It has no",
+  "  reverse-holo scan: variants_detailed lists a reverse variant but its image",
+  "  field is null. Showing the normal card labeled 'reverse holo' would teach",
+  "  the opposite of the thing the entry exists to teach.",
+  "  fake-cards page.",
+  "",
+  "WHAT NOT TO PUT ON THIS PAGE, all checked and deliberately left off:",
+  "  Shiny Rare's symbol being a HOLLOW gold star. Bulbapedia says hollow,",
+  "  Pokemon's own site says 'sparkling', and the scans were not sharp enough",
+  "  to settle it. The whole claim is the hollow-vs-solid distinction, so it is",
+  "  not worth publishing half-right.",
+  "  Mega Attack Rare's pastel star symbol. Single-sourced, unverified.",
+  "  Futuristic Rare. Real, but it does not exist in anyone's hands until the",
+  "  30th Celebration lands on 16 September 2026.",
+  "  A card for Rainbow rares. The whole claim is the rainbow FOIL, and a flat",
+  "  scan does not show foil, so the picture would prove nothing the words do",
+  "  not already say. The other eight retired mechanics are things you can SEE",
+  "  in a scan, which is why they have one.",
+  "",
+  "`offLadder` IS FOR RARITIES THIS SITE'S OWN CHECKLISTS PRINT THAT THE",
+  "LADDER ABOVE DOES NOT COVER. The failure case it exists for: somebody pulls",
+  "a card, reads the name off a set page here, looks it up on this page and",
+  "finds nothing. Counted across public/data/cards on 15 August 2026, Holo Rare",
+  "covers 88 cards and Black White Rare 4, and neither string appeared anywhere",
+  "on this page. Entries render with the magnified corner, same as the ladder,",
+  "because the symbol is the whole claim in both cases.",
+  "",
+  "NOT EVERY UNCOVERED NAME BELONGS HERE. Checked on the same pass and left",
+  "where they already were: Holo Rare V, VMAX and VSTAR are the `gone` entry",
+  "'V, VMAX and VSTAR'; Radiant Rare is the `gone` entry 'Radiant Pokemon';",
+  "Secret Rare is the glossary term, the number shortcut and an FAQ answer.",
+  "Those are covered in prose under the name printed on the card rather than",
+  "the name a checklist API returns, which is the right way round.",
+  "",
+  "EVERY ENTRY HERE CARRIES ITS `sources`, with the url and the date it was",
+  "read. Official Pokemon sources first, then Bulbapedia. Where a claim is",
+  "about the printed symbol it is also checked against the card scan the entry",
+  "shows, so a reader holding the card can settle it without either of us.",
+  "",
+  "SLAB IS A DIAGRAM, NOT A PHOTO, and that is deliberate. We own no graded",
+  "cards, and a grading company's product photography is theirs. A labeled",
+  "schematic teaches the thing a photo would: where the grade sits, where the",
+  "cert number is, that the card is sealed and cannot be removed without",
+  "destroying the holder. It is captioned as a schematic so nobody mistakes it",
+  "for a real slab. Same approach as the fake-cards diagram.",
+  "Grading still has no image: it is a process, not an object.",
+  "",
+  "TWO SLOTS THAT WERE EMPTY ARE NOW FILLED, 24 August 2026, and each one needed a different source for a different reason. RAINBOW RARES had no card because this file argued a flat scan cannot show foil. That is true of the foil and false of the card: the pastel rainbow on a rainbow rare is a printed colour layer and is plainly there in a scan. Charizard VMAX, Darkness Ablaze 189/189, all four renditions live. Pikachu VMAX, Vivid Voltage 188 was the obvious alternative and is REFUSED: its .avif times out, and a <picture> does not fall back when a matching <source> fails, so that card renders as an empty bordered box on every AVIF browser. REVERSE HOLO could not come from TCGdex at all, and the reason in this readme is right: TCGdex serves one scan per card, of the NORMAL printing. Prismatic Evolutions is the exception in the whole hobby, because its Poke Ball and Master Ball patterns are separate TCGplayer PRODUCTS with their own photographs. The one chosen is collector number 074, the same number as the Common rung's Eevee, so the two tiles are the same card normal and reverse, which is the clearest teaching pair available. It is NOT a data/card-shots.json pin and must not become one: that file's contract is 'only where the TCGdex url 404s', and sv08.5/074 answers 200. A pin there would shadow the normal Eevee."
+ ],
+ "checked": "2026-08-15",
+ "eras": {
+  "old": {
+   "card": "https://assets.tcgdex.net/en/base/base1/4/high.webp",
+   "name": "Charizard",
+   "set": "Base Set, 1999",
+   "corner": "right"
   },
-  "ladder": [
+  "new": {
+   "card": "https://assets.tcgdex.net/en/sv/sv08.5/074/high.webp",
+   "name": "Eevee",
+   "set": "Prismatic Evolutions, 2025",
+   "corner": "left"
+  }
+ },
+ "ladder": [
+  {
+   "name": "Common",
+   "symbol": "One black circle",
+   "shape": "circle",
+   "color": "black",
+   "card": "https://assets.tcgdex.net/en/sv/sv08.5/074/high.webp",
+   "example": "Eevee, Prismatic Evolutions",
+   "look": "Plain card, matte finish, artwork sitting in a window. The tier every checklist has most of.",
+   "_look": "IT SAID \"The bulk of every pack\". That is how much of a pack is commons, which is a pack rate in a friendly voice and the last one left on this page: \"you get one or two in most packs\" came off the Reverse holo entry earlier. The site states none in any phrasing. The checklist fact is the one we can source, and this page prints the ladder it belongs to.",
+   "chase": false
+  },
+  {
+   "name": "Uncommon",
+   "symbol": "One black diamond",
+   "shape": "diamond",
+   "color": "black",
+   "card": "https://assets.tcgdex.net/en/sv/sv07/059/high.webp",
+   "example": "Mewtwo, Stellar Crown",
+   "look": "Looks the same as a Common to the naked eye. Most Trainer cards land here.",
+   "chase": false
+  },
+  {
+   "name": "Rare",
+   "symbol": "One black star",
+   "shape": "star",
+   "color": "black",
+   "card": "https://assets.tcgdex.net/en/sv/sv08.5/059/high.webp",
+   "example": "Umbreon, Prismatic Evolutions",
+   "look": "In modern sets these are always holo: foil on the artwork window, matte everywhere else.",
+   "chase": false
+  },
+  {
+   "name": "Double Rare",
+   "symbol": "Two black stars",
+   "shape": "star star",
+   "color": "black",
+   "card": "https://assets.tcgdex.net/en/sv/sv08.5/028/high.webp",
+   "example": "Pikachu ex, Prismatic Evolutions",
+   "look": "A Pokemon ex in an ordinary card frame. The everyday ex, and the only high tier that still looks like a normal card.",
+   "chase": false
+  },
+  {
+   "name": "Ultra Rare",
+   "symbol": "Two silver stars",
+   "shape": "star star",
+   "color": "silver",
+   "card": "https://assets.tcgdex.net/en/sv/sv05/193/high.webp",
+   "example": "Gengar ex, Temporal Forces",
+   "look": "Full art. The character fills the whole card, no artwork window, usually textured.",
+   "chase": true
+  },
+  {
+   "name": "Illustration Rare",
+   "symbol": "One gold star",
+   "shape": "star",
+   "color": "gold",
+   "card": "https://assets.tcgdex.net/en/sv/sv06/188/high.webp",
+   "example": "Eevee, Twilight Masquerade",
+   "look": "Full art of a normal Pokemon, not an ex, painted into a scene. The \"Pokemon in its habitat\" look.",
+   "chase": true
+  },
+  {
+   "name": "Special Illustration Rare",
+   "symbol": "Two gold stars",
+   "shape": "star star",
+   "color": "gold",
+   "card": "https://assets.tcgdex.net/en/sv/sv08.5/161/high.webp",
+   "example": "Umbreon ex, Prismatic Evolutions",
+   "look": "Full art of an ex or a Supporter in a scene, with glitter over it. Usually the most valuable card in a set.",
+   "chase": true
+  },
+  {
+   "name": "ACE SPEC Rare",
+   "symbol": "Its own ACE SPEC banner",
+   "shape": "ace",
+   "color": "ace",
+   "card": "https://assets.tcgdex.net/en/sv/sv08.5/119/high.webp",
+   "example": "Prime Catcher, Prismatic Evolutions",
+   "look": "A magenta and cyan Trainer or Special Energy. You are only allowed one in a deck, which is the whole point of them.",
+   "chase": false
+  },
+  {
+   "name": "Hyper Rare",
+   "symbol": "Three gold stars",
+   "shape": "star star star",
+   "color": "gold",
+   "card": "https://assets.tcgdex.net/en/sv/sv03/228/high.webp",
+   "example": "Charizard ex, Obsidian Flames",
+   "look": "The whole card is gold, borders and all. Unmistakable across a room.",
+   "chase": true
+  },
+  {
+   "name": "Mega Hyper Rare",
+   "symbol": "One gold sparkle",
+   "shape": "sparkle",
+   "color": "gold",
+   "card": "https://assets.tcgdex.net/en/me/me05/120/high.webp",
+   "example": "Mega Darkrai ex, Pitch Black",
+   "look": "Gold etched Mega Evolution ex with artwork drawn for it rather than a gold recolor of an existing card.",
+   "note": "New to the Mega Evolution era. The symbol is a single four pointed sparkle with a heavy black outline, not three stars: several guides get this wrong.",
+   "chase": true
+  }
+ ],
+ "offLadder": [
+  {
+   "name": "Black White Rare",
+   "flag": "new in 2025",
+   "era": "Black Bolt and White Flare, July 2025",
+   "symbol": "Two stars, the first filled in and the second an outline",
+   "body": "A full art printed in one color the whole way through. The artwork, the border, the text and the symbol are all black or all white, with no gold anywhere, so it does not read as a top tier card even though it is numbered past the set total. Victini is the odd one out and prints red instead.",
+   "ladder": "Two stars again, so counting alone will not place it. The tell is that the second star is hollow rather than filled, and that neither star is silver or gold. It is its own thing rather than a rung above Special Illustration Rare, and only these two sets have it: Victini and Zekrom ex in Black Bolt, Victini and Reshiram ex in White Flare.",
+   "card": "https://assets.tcgdex.net/en/sv/sv10.5b/172/high.webp",
+   "example": "Zekrom ex, Black Bolt. The corner reads 172/086",
+   "sources": [
     {
-      "name": "Common",
-      "symbol": "One black circle",
-      "shape": "circle",
-      "color": "black",
-      "card": "https://assets.tcgdex.net/en/sv/sv08.5/074/high.webp",
-      "example": "Eevee, Prismatic Evolutions",
-      "look": "Plain card, matte finish, artwork sitting in a window. The tier every checklist has most of.",
-      "_look": "IT SAID \"The bulk of every pack\". That is how much of a pack is commons, which is a pack rate in a friendly voice and the last one left on this page: \"you get one or two in most packs\" came off the Reverse holo entry earlier. The site states none in any phrasing. The checklist fact is the one we can source, and this page prints the ladder it belongs to.",
-      "chase": false
+     "url": "https://press.pokemon.com/en/releases/Pokemon-Reveals-New-Split-Expansion-Launching-Soon-for-the-Pokemon-Tra",
+     "read": "2026-08-15",
+     "for": "The Pokemon Company press release, dated May 6, 2025. Names the rarity and says the cards 'will feature card illustrations in a monochromatic black or white design'. Also the July 18, 2025 release date for both sets."
     },
     {
-      "name": "Uncommon",
-      "symbol": "One black diamond",
-      "shape": "diamond",
-      "color": "black",
-      "card": "https://assets.tcgdex.net/en/sv/sv07/059/high.webp",
-      "example": "Mewtwo, Stellar Crown",
-      "look": "Looks the same as a Common to the naked eye. Most Trainer cards land here.",
-      "chase": false
+     "url": "https://bulbapedia.bulbagarden.net/wiki/Black_White_rare_card_(TCG)",
+     "read": "2026-08-15",
+     "for": "'The rarity symbol for these cards are two stars, one black and one white.' Also that it has only been printed in these two sets, that the three Pokemon are Victini, Zekrom ex and Reshiram ex, and that the Victini card is red rather than monochrome."
     },
     {
-      "name": "Rare",
-      "symbol": "One black star",
-      "shape": "star",
-      "color": "black",
-      "card": "https://assets.tcgdex.net/en/sv/sv08.5/059/high.webp",
-      "example": "Umbreon, Prismatic Evolutions",
-      "look": "In modern sets these are always holo: foil on the artwork window, matte everywhere else.",
-      "chase": false
-    },
-    {
-      "name": "Double Rare",
-      "symbol": "Two black stars",
-      "shape": "star star",
-      "color": "black",
-      "card": "https://assets.tcgdex.net/en/sv/sv08.5/028/high.webp",
-      "example": "Pikachu ex, Prismatic Evolutions",
-      "look": "A Pokemon ex in an ordinary card frame. The everyday ex, and the only high tier that still looks like a normal card.",
-      "chase": false
-    },
-    {
-      "name": "Ultra Rare",
-      "symbol": "Two silver stars",
-      "shape": "star star",
-      "color": "silver",
-      "card": "https://assets.tcgdex.net/en/sv/sv05/193/high.webp",
-      "example": "Gengar ex, Temporal Forces",
-      "look": "Full art. The character fills the whole card, no artwork window, usually textured.",
-      "chase": true
-    },
-    {
-      "name": "Illustration Rare",
-      "symbol": "One gold star",
-      "shape": "star",
-      "color": "gold",
-      "card": "https://assets.tcgdex.net/en/sv/sv06/188/high.webp",
-      "example": "Eevee, Twilight Masquerade",
-      "look": "Full art of a normal Pokemon, not an ex, painted into a scene. The \"Pokemon in its habitat\" look.",
-      "chase": true
-    },
-    {
-      "name": "Special Illustration Rare",
-      "symbol": "Two gold stars",
-      "shape": "star star",
-      "color": "gold",
-      "card": "https://assets.tcgdex.net/en/sv/sv08.5/161/high.webp",
-      "example": "Umbreon ex, Prismatic Evolutions",
-      "look": "Full art of an ex or a Supporter in a scene, with glitter over it. Usually the most valuable card in a set.",
-      "chase": true
-    },
-    {
-      "name": "ACE SPEC Rare",
-      "symbol": "Its own ACE SPEC banner",
-      "shape": "ace",
-      "color": "ace",
-      "card": "https://assets.tcgdex.net/en/sv/sv08.5/119/high.webp",
-      "example": "Prime Catcher, Prismatic Evolutions",
-      "look": "A magenta and cyan Trainer or Special Energy. You are only allowed one in a deck, which is the whole point of them.",
-      "chase": false
-    },
-    {
-      "name": "Hyper Rare",
-      "symbol": "Three gold stars",
-      "shape": "star star star",
-      "color": "gold",
-      "card": "https://assets.tcgdex.net/en/sv/sv03/228/high.webp",
-      "example": "Charizard ex, Obsidian Flames",
-      "look": "The whole card is gold, borders and all. Unmistakable across a room.",
-      "chase": true
-    },
-    {
-      "name": "Mega Hyper Rare",
-      "symbol": "One gold sparkle",
-      "shape": "sparkle",
-      "color": "gold",
-      "card": "https://assets.tcgdex.net/en/me/me05/120/high.webp",
-      "example": "Mega Darkrai ex, Pitch Black",
-      "look": "Gold etched Mega Evolution ex with artwork drawn for it rather than a gold recolor of an existing card.",
-      "note": "New to the Mega Evolution era. The symbol is a single four pointed sparkle with a heavy black outline, not three stars: several guides get this wrong.",
-      "chase": true
+     "url": "https://assets.tcgdex.net/en/sv/sv10.5b/172/high.webp",
+     "read": "2026-08-15",
+     "for": "The printed corner, which is what the figure shows. Checked on all three: sv10.5b/171 Victini, sv10.5b/172 Zekrom ex and sv10.5w/173 Reshiram ex each print one solid star followed by one hollow star, bottom left. THE COLOUR IS NOT CLAIMED HERE. Bulbapedia says black and white; on a flat scan of a foil symbol both stars read grey, so this page claims only the fill, which the scan does settle."
     }
-  ],
-  "offLadder": [
+   ]
+  },
+  {
+   "name": "Holo Rare",
+   "flag": "an older name",
+   "era": "Sword and Shield sets and older",
+   "symbol": "One black star, the same symbol a plain Rare carries",
+   "body": "Not a symbol of its own and not a rung of its own. A Holo Rare is a Rare with foil on the artwork window, and the corner prints the same single black star either way. Crown Zenith has both: Entei at 021/159 is the Holo Rare, Bellossom at 003/159 is the plain one, and the two corners are identical.",
+   "ladder": "It sits exactly where Rare sits on the ladder above. Older checklists split the two and list them as separate lines, which is where the name comes from, so you will meet it on the Sword and Shield set guides here and not on a Scarlet and Violet one. Some checklists print the same tier the other way around, as Rare Holo.",
+   "card": "https://assets.tcgdex.net/en/swsh/swsh12.5/021/high.webp",
+   "example": "Entei, Crown Zenith. The corner reads 021/159",
+   "sources": [
     {
-      "name": "Black White Rare",
-      "flag": "new in 2025",
-      "era": "Black Bolt and White Flare, July 2025",
-      "symbol": "Two stars, the first filled in and the second an outline",
-      "body": "A full art printed in one color the whole way through. The artwork, the border, the text and the symbol are all black or all white, with no gold anywhere, so it does not read as a top tier card even though it is numbered past the set total. Victini is the odd one out and prints red instead.",
-      "ladder": "Two stars again, so counting alone will not place it. The tell is that the second star is hollow rather than filled, and that neither star is silver or gold. It is its own thing rather than a rung above Special Illustration Rare, and only these two sets have it: Victini and Zekrom ex in Black Bolt, Victini and Reshiram ex in White Flare.",
-      "card": "https://assets.tcgdex.net/en/sv/sv10.5b/172/high.webp",
-      "example": "Zekrom ex, Black Bolt. The corner reads 172/086",
-      "sources": [
-        {
-          "url": "https://press.pokemon.com/en/releases/Pokemon-Reveals-New-Split-Expansion-Launching-Soon-for-the-Pokemon-Tra",
-          "read": "2026-08-15",
-          "for": "The Pokemon Company press release, dated May 6, 2025. Names the rarity and says the cards 'will feature card illustrations in a monochromatic black or white design'. Also the July 18, 2025 release date for both sets."
-        },
-        {
-          "url": "https://bulbapedia.bulbagarden.net/wiki/Black_White_rare_card_(TCG)",
-          "read": "2026-08-15",
-          "for": "'The rarity symbol for these cards are two stars, one black and one white.' Also that it has only been printed in these two sets, that the three Pokemon are Victini, Zekrom ex and Reshiram ex, and that the Victini card is red rather than monochrome."
-        },
-        {
-          "url": "https://assets.tcgdex.net/en/sv/sv10.5b/172/high.webp",
-          "read": "2026-08-15",
-          "for": "The printed corner, which is what the figure shows. Checked on all three: sv10.5b/171 Victini, sv10.5b/172 Zekrom ex and sv10.5w/173 Reshiram ex each print one solid star followed by one hollow star, bottom left. THE COLOUR IS NOT CLAIMED HERE. Bulbapedia says black and white; on a flat scan of a foil symbol both stars read grey, so this page claims only the fill, which the scan does settle."
-        }
-      ]
+     "url": "https://bulbapedia.bulbagarden.net/wiki/Rarity",
+     "read": "2026-08-15",
+     "for": "The Rare section lists the sub-classifications: 'Regular Rare, which are marked with [one star] but do not have any holofoil design' and 'Holofoil Rare, which are marked with [one star] and also have a Holofoil design on the card art'. Same symbol, different finish."
     },
     {
-      "name": "Holo Rare",
-      "flag": "an older name",
-      "era": "Sword and Shield sets and older",
-      "symbol": "One black star, the same symbol a plain Rare carries",
-      "body": "Not a symbol of its own and not a rung of its own. A Holo Rare is a Rare with foil on the artwork window, and the corner prints the same single black star either way. Crown Zenith has both: Entei at 021/159 is the Holo Rare, Bellossom at 003/159 is the plain one, and the two corners are identical.",
-      "ladder": "It sits exactly where Rare sits on the ladder above. Older checklists split the two and list them as separate lines, which is where the name comes from, so you will meet it on the Sword and Shield set guides here and not on a Scarlet and Violet one. Some checklists print the same tier the other way around, as Rare Holo.",
-      "card": "https://assets.tcgdex.net/en/swsh/swsh12.5/021/high.webp",
-      "example": "Entei, Crown Zenith. The corner reads 021/159",
-      "sources": [
-        {
-          "url": "https://bulbapedia.bulbagarden.net/wiki/Rarity",
-          "read": "2026-08-15",
-          "for": "The Rare section lists the sub-classifications: 'Regular Rare, which are marked with [one star] but do not have any holofoil design' and 'Holofoil Rare, which are marked with [one star] and also have a Holofoil design on the card art'. Same symbol, different finish."
-        },
-        {
-          "url": "https://assets.tcgdex.net/en/swsh/swsh12.5/021/high.webp",
-          "read": "2026-08-15",
-          "for": "The printed corner. Compared bottom left crops of swsh12.5/021 Entei (Holo Rare) against swsh12.5/003 Bellossom (Rare), and swsh10.5/010 Charizard and swsh6/28 Cinderace (both Holo Rare) against swsh6/10 Abomasnow (Rare). All five print one black star."
-        },
-        {
-          "url": "public/data/cards",
-          "read": "2026-08-15",
-          "for": "Which sets on this site use the name. Holo Rare appears in celebrations, chilling-reign, crown-zenith, pokemon-go, rebel-clash and shining-fates, and in no Scarlet and Violet or Mega Evolution set. The Rare Holo word order comes from the other price feed and is what the older set guides here print."
-        }
-      ]
+     "url": "https://assets.tcgdex.net/en/swsh/swsh12.5/021/high.webp",
+     "read": "2026-08-15",
+     "for": "The printed corner. Compared bottom left crops of swsh12.5/021 Entei (Holo Rare) against swsh12.5/003 Bellossom (Rare), and swsh10.5/010 Charizard and swsh6/28 Cinderace (both Holo Rare) against swsh6/10 Abomasnow (Rare). All five print one black star."
+    },
+    {
+     "url": "public/data/cards",
+     "read": "2026-08-15",
+     "for": "Which sets on this site use the name. Holo Rare appears in celebrations, chilling-reign, crown-zenith, pokemon-go, rebel-clash and shining-fates, and in no Scarlet and Violet or Mega Evolution set. The Rare Holo word order comes from the other price feed and is what the older set guides here print."
     }
-  ],
-  "slang": [
+   ]
+  }
+ ],
+ "slang": [
+  {
+   "term": "IR",
+   "meaning": "Illustration Rare. One gold star, full art of a non-ex Pokemon in a scene.",
+   "card": "https://assets.tcgdex.net/en/sv/sv02/203/high.webp",
+   "example": "Magikarp, Paldea Evolved",
+   "show": "card"
+  },
+  {
+   "term": "SIR",
+   "meaning": "Special Illustration Rare. Two gold stars. Usually the best card in the set.",
+   "card": "https://assets.tcgdex.net/en/me/me02.5/284/high.webp",
+   "example": "Mega Gengar ex, Ascended Heroes",
+   "show": "card"
+  },
+  {
+   "term": "AA / alt art",
+   "meaning": "Alternate art. Collector slang, not a printed rarity. On a modern card it almost always means an IR or an SIR.",
+   "card": "https://assets.tcgdex.net/en/sv/sv04/199/high.webp",
+   "example": "Groudon, Paradox Rift. An Illustration Rare",
+   "show": "card"
+  },
+  {
+   "term": "FA",
+   "meaning": "Full art. The illustration covers the whole card with no artwork window.",
+   "card": "https://assets.tcgdex.net/en/sv/sv03.5/183/high.webp",
+   "example": "Charizard ex, 151",
+   "show": "card"
+  },
+  {
+   "term": "RH",
+   "meaning": "Reverse holo. Foil on everything except the artwork. Does not change the card's rarity.",
+   "card": "https://tcgplayer-cdn.tcgplayer.com/product/610590_200w.jpg",
+   "example": "Eevee, Prismatic Evolutions, Poke Ball pattern",
+   "show": "card"
+  },
+  {
+   "term": "UR",
+   "meaning": "Ultra Rare. Two silver stars, a full art ex.",
+   "card": "https://assets.tcgdex.net/en/me/me02.5/271/high.webp",
+   "example": "Mega Dragonite ex, Ascended Heroes",
+   "show": "card"
+  },
+  {
+   "term": "Hit",
+   "meaning": "Any card out of a pack worth meaningfully more than the pack cost.",
+   "card": "https://assets.tcgdex.net/en/sv/sv08.5/161/high.webp",
+   "example": "Umbreon ex, Prismatic Evolutions",
+   "priceOf": {
+    "set": "prismatic-evolutions",
+    "number": "161"
+   },
+   "show": "card"
+  },
+  {
+   "term": "Chase",
+   "meaning": "The one card everybody is opening the set hoping to find.",
+   "card": "https://assets.tcgdex.net/en/me/me02/125/high.webp",
+   "example": "Mega Charizard X ex, the Phantasmal Flames chase",
+   "show": "card"
+  },
+  {
+   "term": "Bulk",
+   "meaning": "Commons, uncommons and low value rares. Sold by weight or by the thousand.",
+   "card": "https://assets.tcgdex.net/en/sv/sv07/057/high.webp",
+   "example": "Slowpoke, Stellar Crown. A Common",
+   "show": "card"
+  },
+  {
+   "term": "Slab",
+   "meaning": "A card sealed in a rigid case by a grading company.",
+   "show": "diagram",
+   "example": "A schematic, not a photo of a real slab"
+  },
+  {
+   "term": "Grading",
+   "meaning": "Sending a card away to be authenticated and scored on condition. PSA runs 1 to 10 and is the market standard for Pokemon; BGS and CGC also grade."
+  },
+  {
+   "term": "Secret rare",
+   "meaning": "A card numbered higher than the set total, like 199/198.",
+   "card": "https://assets.tcgdex.net/en/sv/sv10.5b/105/high.webp",
+   "example": "Seismitoad, Black Bolt. The corner reads 105/086",
+   "show": "crop"
+  },
+  {
+   "term": "Regulation mark",
+   "meaning": "The single letter in the bottom corner. It controls tournament legality and has nothing to do with rarity or value.",
+   "card": "https://assets.tcgdex.net/en/sv/sv03.5/011/high.webp",
+   "example": "Metapod, 151. The letter sits after the illustrator credit",
+   "show": "crop"
+  }
+ ],
+ "gone": [
+  {
+   "name": "Pokemon LV.X",
+   "years": "2007 to 2009",
+   "note": "Played on top of an Active Pokemon. Gold band across the top.",
+   "card": "https://assets.tcgdex.net/en/pl/pl1/123/high.webp",
+   "example": "Drapion LV.X, Platinum"
+  },
+  {
+   "name": "Pokemon Prime",
+   "years": "2010",
+   "note": "The word Prime is not printed anywhere on the card. Spot them by the gold name text and spiked artwork edges.",
+   "card": "https://assets.tcgdex.net/en/hgss/hgss3/81/high.webp",
+   "example": "Espeon Prime, Undaunted"
+  },
+  {
+   "name": "Pokemon LEGEND",
+   "years": "2010",
+   "note": "Two card halves that combined into one Pokemon.",
+   "card": "https://assets.tcgdex.net/en/hgss/hgss3/87/high.webp",
+   "example": "Kyogre & Groudon LEGEND, Undaunted"
+  },
+  {
+   "name": "Pokemon-EX and M Pokemon-EX",
+   "years": "2012 to 2016",
+   "note": "The uppercase EX. Mega EX ended your turn unless you used a Spirit Link.",
+   "card": "https://assets.tcgdex.net/en/xy/xy2/11/high.webp",
+   "example": "Charizard EX, Flashfire"
+  },
+  {
+   "name": "Pokemon BREAK",
+   "years": "2015 to 2016",
+   "note": "Printed sideways and stacked on the stage below.",
+   "card": "https://assets.tcgdex.net/en/xy/xy9/41/high.webp",
+   "example": "Greninja BREAK, BREAKpoint"
+  },
+  {
+   "name": "Pokemon-GX",
+   "years": "2017 to 2019",
+   "note": "One GX attack per game. Tag Team GX put two Pokemon on a card and gave up three prizes.",
+   "card": "https://assets.tcgdex.net/en/sm/sm115/9/high.webp",
+   "example": "Charizard GX, Hidden Fates"
+  },
+  {
+   "name": "Amazing Rare",
+   "years": "2020 to 2021",
+   "note": "A burst of color behind the Pokemon that spills out past the frame, and a rainbow letter A in the corner where the star would be. Nine of them exist, six in Vivid Voltage and three in Shining Fates.",
+   "card": "https://assets.tcgdex.net/en/swsh/swsh4.5/17/high.webp",
+   "example": "Reshiram, Shining Fates",
+   "sources": [
     {
-      "term": "IR",
-      "meaning": "Illustration Rare. One gold star, full art of a non-ex Pokemon in a scene.",
-      "card": "https://assets.tcgdex.net/en/sv/sv02/203/high.webp",
-      "example": "Magikarp, Paldea Evolved",
-      "show": "card"
+     "url": "https://bulbapedia.bulbagarden.net/wiki/Amazing_Pok%C3%A9mon_(TCG)",
+     "read": "2026-08-15",
+     "for": "'Amazing Pokemon cards are identified by the Amazing Rare card rarity and an illustration with a multi-colored background that goes beyond the frame.' The card list is complete and runs to nine: Celebi, Raikou, Zacian, Zamazenta, Jirachi and Rayquaza in Vivid Voltage, Reshiram, Kyogre and Yveltal in Shining Fates. Nothing after Shining Fates, which is why this is in the retired list."
     },
     {
-      "term": "SIR",
-      "meaning": "Special Illustration Rare. Two gold stars. Usually the best card in the set.",
-      "card": "https://assets.tcgdex.net/en/me/me02.5/284/high.webp",
-      "example": "Mega Gengar ex, Ascended Heroes",
-      "show": "card"
+     "url": "https://bulbapedia.bulbagarden.net/wiki/Rarity",
+     "read": "2026-08-15",
+     "for": "'Amazing Pokemon were introduced in Vivid Voltage. The background of an Amazing Pokemon is a swirl of multiple colors that extends outside of the box for artwork.'"
     },
     {
-      "term": "AA / alt art",
-      "meaning": "Alternate art. Collector slang, not a printed rarity. On a modern card it almost always means an IR or an SIR.",
-      "card": "https://assets.tcgdex.net/en/sv/sv04/199/high.webp",
-      "example": "Groudon, Paradox Rift. An Illustration Rare",
-      "show": "card"
-    },
-    {
-      "term": "FA",
-      "meaning": "Full art. The illustration covers the whole card with no artwork window.",
-      "card": "https://assets.tcgdex.net/en/sv/sv03.5/183/high.webp",
-      "example": "Charizard ex, 151",
-      "show": "card"
-    },
-    {
-      "term": "RH",
-      "meaning": "Reverse holo. Foil on everything except the artwork. Does not change the card's rarity."
-    },
-    {
-      "term": "UR",
-      "meaning": "Ultra Rare. Two silver stars, a full art ex.",
-      "card": "https://assets.tcgdex.net/en/me/me02.5/271/high.webp",
-      "example": "Mega Dragonite ex, Ascended Heroes",
-      "show": "card"
-    },
-    {
-      "term": "Hit",
-      "meaning": "Any card out of a pack worth meaningfully more than the pack cost.",
-      "card": "https://assets.tcgdex.net/en/sv/sv08.5/161/high.webp",
-      "example": "Umbreon ex, Prismatic Evolutions",
-      "priceOf": { "set": "prismatic-evolutions", "number": "161" },
-      "show": "card"
-    },
-    {
-      "term": "Chase",
-      "meaning": "The one card everybody is opening the set hoping to find.",
-      "card": "https://assets.tcgdex.net/en/me/me02/125/high.webp",
-      "example": "Mega Charizard X ex, the Phantasmal Flames chase",
-      "show": "card"
-    },
-    {
-      "term": "Bulk",
-      "meaning": "Commons, uncommons and low value rares. Sold by weight or by the thousand.",
-      "card": "https://assets.tcgdex.net/en/sv/sv07/057/high.webp",
-      "example": "Slowpoke, Stellar Crown. A Common",
-      "show": "card"
-    },
-    {
-      "term": "Slab",
-      "meaning": "A card sealed in a rigid case by a grading company.",
-      "show": "diagram",
-      "example": "A schematic, not a photo of a real slab"
-    },
-    {
-      "term": "Grading",
-      "meaning": "Sending a card away to be authenticated and scored on condition. PSA runs 1 to 10 and is the market standard for Pokemon; BGS and CGC also grade."
-    },
-    {
-      "term": "Secret rare",
-      "meaning": "A card numbered higher than the set total, like 199/198.",
-      "card": "https://assets.tcgdex.net/en/sv/sv10.5b/105/high.webp",
-      "example": "Seismitoad, Black Bolt. The corner reads 105/086",
-      "show": "crop"
-    },
-    {
-      "term": "Regulation mark",
-      "meaning": "The single letter in the bottom corner. It controls tournament legality and has nothing to do with rarity or value.",
-      "card": "https://assets.tcgdex.net/en/sv/sv03.5/011/high.webp",
-      "example": "Metapod, 151. The letter sits after the illustrator credit",
-      "show": "crop"
+     "url": "https://assets.tcgdex.net/en/swsh/swsh4.5/17/high.webp",
+     "read": "2026-08-15",
+     "for": "The corner symbol, checked on all three Shining Fates cards: swsh4.5/17 Reshiram 017/072, swsh4.5/21 Kyogre 021/072 and swsh4.5/46 Yveltal 046/072. Each prints a white capital A on a multicoloured burst, bottom left, in the slot a star would occupy. All three are numbered inside the set total, so they are not secret rares."
     }
-  ],
-  "gone": [
-    {
-      "name": "Pokemon LV.X",
-      "years": "2007 to 2009",
-      "note": "Played on top of an Active Pokemon. Gold band across the top.",
-      "card": "https://assets.tcgdex.net/en/pl/pl1/123/high.webp",
-      "example": "Drapion LV.X, Platinum"
-    },
-    {
-      "name": "Pokemon Prime",
-      "years": "2010",
-      "note": "The word Prime is not printed anywhere on the card. Spot them by the gold name text and spiked artwork edges.",
-      "card": "https://assets.tcgdex.net/en/hgss/hgss3/81/high.webp",
-      "example": "Espeon Prime, Undaunted"
-    },
-    {
-      "name": "Pokemon LEGEND",
-      "years": "2010",
-      "note": "Two card halves that combined into one Pokemon.",
-      "card": "https://assets.tcgdex.net/en/hgss/hgss3/87/high.webp",
-      "example": "Kyogre & Groudon LEGEND, Undaunted"
-    },
-    {
-      "name": "Pokemon-EX and M Pokemon-EX",
-      "years": "2012 to 2016",
-      "note": "The uppercase EX. Mega EX ended your turn unless you used a Spirit Link.",
-      "card": "https://assets.tcgdex.net/en/xy/xy2/11/high.webp",
-      "example": "Charizard EX, Flashfire"
-    },
-    {
-      "name": "Pokemon BREAK",
-      "years": "2015 to 2016",
-      "note": "Printed sideways and stacked on the stage below.",
-      "card": "https://assets.tcgdex.net/en/xy/xy9/41/high.webp",
-      "example": "Greninja BREAK, BREAKpoint"
-    },
-    {
-      "name": "Pokemon-GX",
-      "years": "2017 to 2019",
-      "note": "One GX attack per game. Tag Team GX put two Pokemon on a card and gave up three prizes.",
-      "card": "https://assets.tcgdex.net/en/sm/sm115/9/high.webp",
-      "example": "Charizard GX, Hidden Fates"
-    },
-    {
-      "name": "Amazing Rare",
-      "years": "2020 to 2021",
-      "note": "A burst of color behind the Pokemon that spills out past the frame, and a rainbow letter A in the corner where the star would be. Nine of them exist, six in Vivid Voltage and three in Shining Fates.",
-      "card": "https://assets.tcgdex.net/en/swsh/swsh4.5/17/high.webp",
-      "example": "Reshiram, Shining Fates",
-      "sources": [
-        {
-          "url": "https://bulbapedia.bulbagarden.net/wiki/Amazing_Pok%C3%A9mon_(TCG)",
-          "read": "2026-08-15",
-          "for": "'Amazing Pokemon cards are identified by the Amazing Rare card rarity and an illustration with a multi-colored background that goes beyond the frame.' The card list is complete and runs to nine: Celebi, Raikou, Zacian, Zamazenta, Jirachi and Rayquaza in Vivid Voltage, Reshiram, Kyogre and Yveltal in Shining Fates. Nothing after Shining Fates, which is why this is in the retired list."
-        },
-        {
-          "url": "https://bulbapedia.bulbagarden.net/wiki/Rarity",
-          "read": "2026-08-15",
-          "for": "'Amazing Pokemon were introduced in Vivid Voltage. The background of an Amazing Pokemon is a swirl of multiple colors that extends outside of the box for artwork.'"
-        },
-        {
-          "url": "https://assets.tcgdex.net/en/swsh/swsh4.5/17/high.webp",
-          "read": "2026-08-15",
-          "for": "The corner symbol, checked on all three Shining Fates cards: swsh4.5/17 Reshiram 017/072, swsh4.5/21 Kyogre 021/072 and swsh4.5/46 Yveltal 046/072. Each prints a white capital A on a multicoloured burst, bottom left, in the slot a star would occupy. All three are numbered inside the set total, so they are not secret rares."
-        }
-      ]
-    },
-    {
-      "name": "Rainbow rares",
-      "years": "2017 to 2022",
-      "note": "Discontinued at Scarlet and Violet. They are not coming out of a modern pack, whatever the glitter on a Special Illustration Rare looks like."
-    },
-    {
-      "name": "V, VMAX and VSTAR",
-      "years": "2020 to January 2023",
-      "note": "Ended at Crown Zenith.",
-      "card": "https://assets.tcgdex.net/en/swsh/swsh3/20/high.webp",
-      "example": "Charizard VMAX, Darkness Ablaze"
-    },
-    {
-      "name": "Radiant Pokemon",
-      "years": "2022 to 2023",
-      "note": "Always Basic, one per deck, only worth one prize.",
-      "card": "https://assets.tcgdex.net/en/swsh/swsh10.5/011/high.webp",
-      "example": "Radiant Charizard, Pokémon GO"
-    }
-  ]
+   ]
+  },
+  {
+   "name": "Rainbow rares",
+   "years": "2017 to 2022",
+   "note": "Discontinued at Scarlet and Violet. They are not coming out of a modern pack, whatever the glitter on a Special Illustration Rare looks like.",
+   "card": "https://assets.tcgdex.net/en/swsh/swsh3/189/high.webp",
+   "example": "Charizard VMAX, Darkness Ablaze"
+  },
+  {
+   "name": "V, VMAX and VSTAR",
+   "years": "2020 to January 2023",
+   "note": "Ended at Crown Zenith.",
+   "card": "https://assets.tcgdex.net/en/swsh/swsh3/20/high.webp",
+   "example": "Charizard VMAX, Darkness Ablaze"
+  },
+  {
+   "name": "Radiant Pokemon",
+   "years": "2022 to 2023",
+   "note": "Always Basic, one per deck, only worth one prize.",
+   "card": "https://assets.tcgdex.net/en/swsh/swsh10.5/011/high.webp",
+   "example": "Radiant Charizard, Pokémon GO"
+  }
+ ]
 }
