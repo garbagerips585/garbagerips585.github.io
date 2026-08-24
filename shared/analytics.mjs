@@ -43,7 +43,7 @@
 // IF ANYBODY LATER WANTS THIS OFF THE CRITICAL PATH ENTIRELY, the honest
 // alternative is a log-based or cookieless analytics service with a ~1KB
 // script. That is a real option and it is not this one; do not half-migrate.
-export const GA4_ID = "";
+export const GA4_ID = "G-Q1D034VG72";
 
 // ---------------------------------------------------------------------------
 // SEARCH_CONSOLE -- the google-site-verification token

@@ -1367,7 +1367,31 @@ if _cov:
 # and the drops window are all legitimately in the future and are not touched.
 import datetime as _dt
 _TODAY = _dt.date.today().isoformat()
-_STAMPS = ("checked", "syncedAt", "compiled", "read", "readOn", "priceRead", "verified", "ran")
+# SIX NAMES FOR ONE CONCEPT, AND THE ALLOWLIST ONLY KNEW EIGHT OF THEM.
+# Extended 24 August 2026, launch day, after an audit counted 291 read-dates in
+# data/ that this guard could not see. The worst of them is `asOf`, which is
+# what data/psa10.json stamps on EVERY PSA 10 row -- 154 of them -- and that
+# file is rewritten nightly by sync-prices.mjs, which is the same after-dark
+# shape as the incident this guard was built for. data/first-partner.json
+# stamped `checked: 2026-08-20` on the 19th and the page published "PRICES READ
+# AUGUST 20, 2026", a date that had not happened.
+#
+# THE REAL FIX IS ONE NAME, NOT NINE, and it is not being done today. A site
+# whose central claim is a source plus a date should not spell the date field
+# six ways. Renaming across 47 files on launch day is the wrong trade; adding
+# the names is one line and gets nearly all of the value. If somebody does
+# unify them later, this tuple is the list of what to unify.
+_STAMPS = (
+    "checked", "syncedAt", "compiled", "read", "readOn", "priceRead", "verified", "ran",
+    # added 24 August 2026, counts are occurrences found in data/ that day
+    "asOf",            # 154, every psa10.json row, plus tcg-live and tcg-pocket
+    "readAt",          # 91, pack-counts-current.json and pack-counts-history.json
+    "articleEdited",   # 29
+    "articleCreated",  # 10
+    "decided",         # 3
+    "listingUpdated",  # 2
+    "priceAsOf",       # 2
+)
 _future = []
 for _p in sorted(glob.glob("data/*.json") + glob.glob("public/data/*.json")):
     _doc = _read_json(_p)
