@@ -43,24 +43,44 @@ the switch, and it is step 7.
 
 ## 1. GoDaddy — remove the parking records on `garbagerips.com`
 
-GoDaddy → **My Products** → `garbagerips.com` → **DNS** → **Manage Zones**.
+GoDaddy → **Domain** → `garbagerips.com` → **DNS** → **DNS Records**.
 
-Delete both existing apex `A` records:
+> **THE UI CHANGED AND THIS SECTION DESCRIBED THE OLD ONE.** Corrected
+> 24 August 2026, while doing it for real. The old zone editor listed one row
+> per IP, so this said "delete both apex A records" and printed the two
+> addresses `dig` returns. The current editor collapses them into a SINGLE row
+> and labels it by the PRODUCT rather than the address, so what is actually on
+> screen is one row reading:
+>
+> ```
+> A    @    WebsiteBuilder Site    1 Hour
+> ```
+>
+> That label is worth reading rather than skipping: it means the domain is not
+> merely parked, it is connected to GoDaddy's Website Builder. Deleting the row
+> may warn that it will disconnect that site, or may send you to detach the
+> product first. Both are fine. Nothing of ours depends on it.
 
-```
-76.223.105.230
-13.248.243.5
-```
+Delete that one `A` record. **It must go before the GitHub records go in, not
+after.**
 
-These are GoDaddy's own parking IPs, added automatically when the domain was
-bought. **They must go before the GitHub records go in, not after.** Four correct
+**Leave every other row alone**, and one of them matters more than it looks: the
+`TXT` on `_dmarc` is email authentication for the domain, and removing it
+changes how mail from it is treated. The two `NS` rows, the `SOA`, and the
+`CNAME` on `_domainconnect` all stay as well. The `CNAME` on `www` stays too and
+is EDITED in step 3, never deleted and re-added. Four correct
 records alongside two wrong ones is a round-robin: roughly a third of visitors
 get the parking page and the rest get the site, which looks like an intermittent
 fault rather than a misconfiguration and is the single most confusing way this
 can fail.
 
 - **Check:** `dig +short garbagerips.com A` returns nothing (or only the GitHub
-  four, after step 2).
+  four, after step 2). **Ask GoDaddy's own nameserver as well**, because a
+  public resolver can hold a stale answer for the whole TTL and that is
+  indistinguishable from a save that did not happen:
+  `dig +short @ns35.domaincontrol.com garbagerips.com A`. That one cannot be a
+  caching artefact, so an empty answer there means the record is genuinely
+  absent and a non-empty one means it is genuinely present.
 - **Symptom if missed:** the site loads for you and shows a GoDaddy "future home
   of something quite cool" parking page for somebody else, or alternates between
   the two on refresh. Also: GitHub's Pages settings will report the DNS check as
@@ -68,7 +88,16 @@ can fail.
 
 ## 2. GoDaddy — add GitHub's four A records on `garbagerips.com`
 
-Four `A` records on the apex, host `@`:
+Four `A` records on the apex, host `@`.
+
+> **THE NEW EDITOR DOES THIS AS ONE RECORD WITH FOUR VALUES**, via an "Add
+> another value" link under the Value box, rather than as four separate rows.
+> That is the same thing in the zone and it is the easier path: one Type, one
+> Name, one TTL, four values. Either shape is correct.
+>
+> **Do NOT use the "Connect Domain" button** that the page offers above the
+> record list, however helpful it looks. It reconnects the domain to a GoDaddy
+> product, which is what put the record deleted in step 1 there to begin with.
 
 ```
 185.199.108.153
