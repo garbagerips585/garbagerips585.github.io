@@ -451,7 +451,7 @@ ${/* THE PAGE'S FIRST AND ONLY FLEURON, and it is the existing one-per-page rule
       <div class="dr-key">
         <h2>How to read this page</h2>
         <p><b>Where it came from.</b> ${doc.source?.name ? `${esc(doc.source.name)}${doc.source.read ? `, read ${esc(longDate(doc.source.read))}` : ""}. ` : ""}Stock
-          tracking communities that Tim follows, passed on with the hedges they were written with. We do not
+          tracking communities we follow, passed on with the hedges they were written with. We do not
           name them, and there is no link, because several are private or paid and a reader is not served by
           being pointed at a door they cannot open. None of this is our own reporting and none of it is a
           retailer speaking.</p>

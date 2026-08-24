@@ -38,6 +38,7 @@ export const NORM_SRC = `function norm(str){
   return String(str==null?"":str)
     .normalize("NFD").replace(/[\\u0300-\\u036f]/g,"")
     .toLowerCase()
+    .replace(/['\u2019]/g,"")
     .replace(/&/g," and ")
     .replace(/[^a-z0-9]+/g," ")
     .replace(/\\s+/g," ")
@@ -84,7 +85,15 @@ export const SCORE_SRC = `function scoreRow(title,sub,term){
 export const norm = (str) =>
   String(str == null ? "" : str)
     .normalize("NFD").replace(/[̀-ͯ]/g, "")
+    // AN APOSTROPHE IS DELETED, NOT TURNED INTO A SPACE, and the difference is
+    // two whole classes of query. Folding it to a space made "Erika's" into
+    // "erika s", so a reader typing the natural "erikas invitation" matched
+    // nothing -- and 419 indexed cards carry an apostrophe. Same for the species
+    // page "Farfetch'd" against "farfetchd". Deleting it makes both spellings
+    // land on one token from either side, which is the symmetry this whole file
+    // exists to keep.
     .toLowerCase()
+    .replace(/['\u2019]/g, "")
     .replace(/&/g, " and ")
     .replace(/[^a-z0-9]+/g, " ")
     .replace(/\s+/g, " ")

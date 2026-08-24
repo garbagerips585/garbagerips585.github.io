@@ -567,7 +567,7 @@ const seriesBlock = (s) => {
 const faq = [
   [
     "What is in a First Partner Illustration Collection box?",
-    `One promo pack holding three of the nine promos in that series, two Pokemon TCG booster packs and a sticker sheet. That is The Pokemon Company's own contents list, word for word. The two boosters are assorted rather than a named set: Tim's Series 1 box held one Phantasmal Flames and one Mega Evolution pack.`,
+    `One promo pack holding three of the nine promos in that series, two Pokemon TCG booster packs and a sticker sheet. That is The Pokemon Company's own contents list, word for word. The two boosters are assorted rather than a named set: the Series 1 box opened on the channel held one Phantasmal Flames and one Mega Evolution pack.`,
   ],
   [
     "How much does it cost?",
@@ -740,21 +740,21 @@ ${faq
         <div class="fp-p">
           <span class="fp-kind">Manufacturer's suggested price</span>
           <span class="fp-big">${usd(MSRP)}</span>
-          <p>From Pokemon's own shop, Pokemon Center. Tim has bought this product at retail at this
+          <p>From Pokemon's own shop, Pokemon Center. We have bought this product at retail at this
             price and has seen it listed at Pokemon Center at it, read ${esc(longDate(PRICE_READ))}.</p>
         </div>
         <div class="fp-mult" aria-hidden="true">${MULT.toFixed(1)}x</div>
         <div class="fp-p">
           <span class="fp-kind">A retailer listed price, not an MSRP</span>
           <span class="fp-big">${usd(SHELF)}</span>
-          <p>What Best Buy and Target have been asking on the shelf, seen by Tim and read
+          <p>What Best Buy and Target have been asking on the shelf, seen in store and read
             ${esc(longDate(PRICE_READ))}. That is ${MULT.toFixed(1)} times the suggested price, or
             ${usd(SHELF - MSRP)} more per box.</p>
         </div>
       </div>
 
       <p class="fp-note" style="margin-top:var(--s5)"><b>Where these two figures came from, plainly.</b>
-        Both are Tim's own readings, dated above. Pokemon Center answers an automated request with a
+        Both are our own readings, dated above. Pokemon Center answers an automated request with a
         bot-check page rather than a product, so this site only ever records its prices by reading
         them in a real browser, and its last full read of the shop's TCG category was before this
         product appeared there. The three official product galleries carry no price at all, in either
@@ -952,7 +952,7 @@ ${pulls
         <li><b>The prices.</b> PriceCharting, read ${esc(longDate(doc.checked))}, twice per figure
           from two different pages and only published where the two readings agreed.
           <a href="${esc(doc.priceSourceUrl)}" rel="nofollow noopener" aria-label="PriceCharting's Pokemon promo price guide, opens on pricecharting.com">PriceCharting's promo price guide</a>.</li>
-        <li><b>The box price.</b> Tim's own readings, dated above, because no official page publishes
+        <li><b>The box price.</b> Our own readings, dated above, because no official page publishes
           one for this product.</li>
       </ul>
       <p class="fp-note" style="margin-top:var(--s5)"><b>What is not on this page, on purpose.</b>

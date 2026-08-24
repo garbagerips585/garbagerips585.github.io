@@ -39,6 +39,8 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc, clipMeta} from "../shared/format.mjs";
+import { NORM_SRC, PARSE_SRC, SCORE_SRC } from "../shared/search-text.mjs";
+import { labelFor } from "../shared/taxonomy.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -75,6 +77,24 @@ try {
   retailerPages = JSON.parse(await readFile(join(ROOT, "public/data/retailers-index.json"), "utf8")).pages || [];
 } catch {
   /* run: node scripts/build-retailers.mjs */
+}
+
+/* THE SAME FIX FOR /openings/, AND THE COMMENT ABOVE PREDICTED THE BUG.
+ *
+ * It says the guard at the foot of this file walks only the top level, "so a
+ * subdirectory is exactly where that mistake would happen again unnoticed". It
+ * did. All THIRTEEN sealed-product pages were unsearchable: "elite trainer box"
+ * answered 2 here against 58 on /videos.html, and "booster box", "ultra premium
+ * collection" and "japanese pack" answered nothing at all, while a page titled
+ * with each of those questions sat in the sitemap.
+ *
+ * Read from what build-openings.mjs wrote, exactly like the retailers above, so
+ * a new product kind is a data edit rather than a line here to remember. */
+let openingPages = [];
+try {
+  openingPages = JSON.parse(await readFile(join(ROOT, "public/data/openings-index.json"), "utf8")).pages || [];
+} catch {
+  /* run: node scripts/build-openings.mjs */
 }
 
 // The reference pages, named here because a page has no other machine-readable
@@ -202,7 +222,16 @@ const PAGES = [
   ["/shops.html", "Card shops and where to play", "Local shops and league nights"],
   ["/videos.html", "All rips", "The full video library"],
   ["/playlists.html", "Playlists", "Rips grouped into playlists"],
-  ["/games/", "Games", "Three Pokemon games for the wait in line"],
+  // THE THREE THAT WERE MISSING, and the hub's own count was wrong alongside
+  // them. /games/ said "Three Pokemon games" over a directory holding five, and
+  // guess-the-set, pokemon-trivia and whos-that-pokemon had no index entry at
+  // all, so the site's own search could not find three of its five games.
+  // Titled the way they are SEARCHED rather than the way the <title> tag reads:
+  // somebody types "whos that pokemon", not "Silhouette Quiz".
+  ["/games/", "Games", "Five Pokemon games for the wait in line"],
+  ["/games/whos-that-pokemon.html", "Who's That Pokemon?", "Name the Pokemon from its silhouette. The original 151 or all 1,025"],
+  ["/games/guess-the-set.html", "Guess the Set", "A real card scan, four sets, one right answer. 130 sets and 3,380 cards"],
+  ["/games/pokemon-trivia.html", "Pokemon Trivia", "1,400 questions generated from real Pokedex data"],
   ["/lore.html", "Pokemon lore", "Facts computed from the National Pokedex"],
   // THE TITLE LEADS WITH "EVOLUTION" because that is the whole of what somebody
   // types, and the blurb names the condition rather than the chart: "pokemon
@@ -233,6 +262,10 @@ try {
 }
 
 // [title, url, sub] for everything except cards.
+// id -> display name, so a rip tagged `pitch-black` is findable by typing
+// "Pitch Black". sets.json is already read above for the set-guide rows.
+const setNameById = new Map(sets.map((x) => [x.id, x.name]));
+
 const index = {
   pages: [
     ...PAGES.map(([url, title, sub]) => [title, url, sub]),
@@ -250,6 +283,9 @@ const index = {
     // to scan past. The question still earns its place underneath, because it is
     // what the page answers and it is what was typed into a search engine.
     ...retailerPages.map((p) => [p.name, p.path, p.sub]),
+    // The thirteen sealed-product pages. Already [title, path, sub] triples in
+    // the file build-openings.mjs writes, so they spread straight in.
+    ...openingPages,
   ],
   sets: [
     ...sets.map((s) => [s.name, `/sets/${s.id}.html`, `${s.total || "?"} cards${s.released ? ` • ${s.released.slice(0, 4)}` : ""}`]),
@@ -260,7 +296,38 @@ const index = {
     ]),
   ],
   pokemon: pokemon.map((p) => [p.name, `/pokemon/${p.slug}.html`, `${p.cards} cards across ${p.sets} sets`]),
-  rips: videos.map((v) => [v.title, `/${v.path}`, v.published]),
+  /* A FOURTH FIELD ON EVERY RIP: WHAT THE VIDEO IS ABOUT, NOT WHAT IT IS CALLED.
+   *
+   * A rip's title is a hook, not a description. Measured across all 322:
+   *   156 carry a hitCard the title never mentions
+   *   126 carry a set tag the title never mentions
+   *   185 carry a product tag the title never mentions
+   * So "elite trainer box" answered 2 here while /videos.html answered 58, and
+   * "double rare" answered 1 against 100. Both pages read the same catalogue;
+   * only this one was searching the wrong part of it.
+   *
+   * Field [3] rather than [2] because [2] is the published date and the row
+   * renderer prints it. `hits()` is told which field to search per list.
+   *
+   * TAG IDS ARE EXPANDED TO WORDS. The file stores "etb" and "single-pack";
+   * nobody types those. labelFor() is the same translation /videos.html uses for
+   * its filter chips, so a search and a chip mean the same thing by the same
+   * word. The raw id is kept alongside, because "etb" IS typed.
+   */
+  rips: videos.map((v) => [
+    v.title,
+    `/${v.path}`,
+    v.published,
+    [
+      ...(v.sets || []).map((x) => `${x} ${setNameById.get(x) || ""}`),
+      ...(v.products || []).map((x) => `${x} ${labelFor(x) || ""}`),
+      ...(v.pulls || []),
+      v.hitCard || "",
+    ]
+      .join(" ")
+      .replace(/\s+/g, " ")
+      .trim(),
+  ]),
   // THE BROWSER USED TO CARRY ITS OWN COPY OF THIS NUMBER, typed into the
   // placeholder as "4,481 cards". It was true when it was written and false the
   // moment a set was added: the page said 5,181 in three places and 4,481 in
@@ -392,15 +459,48 @@ ${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
   // Returns {rows, total} so a group can say how much it is hiding. Capping
   // silently is the bug: "chaos rising" matched 39 rips, showed 10, and said
   // nothing, on the page whose whole job is finding things.
-  function hits(list, q, limit){
-    var rows=[], total=0;
-    for(var i=0;i<list.length;i++){
-      if(list[i][0].toLowerCase().indexOf(q)!==-1){
-        total++;
-        if(rows.length<limit) rows.push(list[i]);
+  // THE MATCHER. See shared/search-text.mjs for why this is inlined from there
+  // rather than written here, and for the list of real queries the old
+  // one-line indexOf returned ZERO results for.
+  ${NORM_SRC}
+  ${PARSE_SRC}
+  ${SCORE_SRC}
+
+  // EVERY TERM HAS TO HIT, and the row is ranked by how well they hit.
+  //
+  // The old version substring-tested field [0] against the whole raw query, so
+  // "charizard mega" found nothing while "mega charizard" found eight, and "ir"
+  // returned 335 rows because a substring anywhere counted as much as a word.
+  // Terms are ANDed, each scores independently, and the totals decide the order.
+  //
+  // FIELD [2] IS SEARCHED NOW AND IT COSTS NOTHING. Every index row already
+  // ships [title, url, sub] and the sub was never consulted, so a page whose own
+  // subtitle is "Does GameStop sell Pokemon cards?" could not be found by typing
+  // that. It scores far below a title hit, so it broadens without reordering.
+  // subIdx says WHICH field holds the searchable extra text, because the lists
+  // do not agree: pages and sets carry a subtitle at [2], rips carry the
+  // published DATE there and their tags at [3]. Scoring a date was harmless and
+  // useless; this is what makes "elite trainer box" reach the 58 rips tagged
+  // with it rather than the 3 that happen to spell it in the title.
+  function hits(list, terms, limit, subIdx){
+    var si = subIdx === undefined ? 2 : subIdx;
+    var scored=[], i, j, row, sc, t, ok;
+    for(i=0;i<list.length;i++){
+      row=list[i]; sc=0; ok=true;
+      for(j=0;j<terms.length;j++){
+        t=scoreRow(row[0], row[si], terms[j]);
+        if(!t){ ok=false; break; }
+        sc+=t;
       }
+      if(ok) scored.push([sc,i,row]);
     }
-    return {rows:rows, total:total};
+    // Score first, then ORIGINAL INDEX, never the row object: the index files
+    // are ordered deliberately (Pokemon by dex number, rips newest first) and a
+    // tie has to fall back to that rather than to whatever sort() happens to do.
+    scored.sort(function(a,b){ return b[0]-a[0] || a[1]-b[1]; });
+    var rows=[];
+    for(i=0;i<scored.length&&rows.length<limit;i++) rows.push(scored[i][2]);
+    return {rows:rows, total:scored.length};
   }
 
   // ONE WRITE PER CHANGED VALUE, AND ONLY AFTER TYPING STOPS.
@@ -430,6 +530,7 @@ ${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
 
   function render(){
     var q=input.value.trim().toLowerCase();
+    var terms=parseQuery(q);
     if(!q){ out.innerHTML=''; say(''); empty.hidden=false; return; }
     empty.hidden=true;
     if(!SITE){ say('Loading...'); return; }
@@ -443,20 +544,29 @@ ${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
         : '';
     }
 
-    var p=hits(SITE.pages,q,6); n+=p.total;
+    var p=hits(SITE.pages,terms,6); n+=p.total;
     html+=group('Guides and pages', p.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(p));
 
-    var s=hits(SITE.sets,q,8); n+=s.total;
+    var s=hits(SITE.sets,terms,8); n+=s.total;
     html+=group('Set guides', s.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(s), '/sets/');
 
-    var k=hits(SITE.pokemon,q,8); n+=k.total;
+    var k=hits(SITE.pokemon,terms,8); n+=k.total;
     html+=group('Pokemon', k.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(k), '/pokemon/');
 
     if(CARDS){
       var c=[];
+      // THE CARD ROWS CARRY set AND rarity AND WERE MATCHED ON NEITHER.
+      // r = [name, setId, rarity, number, price]. "illustration rare" found 0
+      // cards while 20 rarity values sat in r[2] on every row, and a set name
+      // could not narrow a search at all. Folded and ANDed like everything else;
+      // the price sort below is untouched and still decides the order.
       for(var i=0;i<CARDS.cards.length;i++){
-        var r=CARDS.cards[i];
-        if(r[0].toLowerCase().indexOf(q)!==-1) c.push(r);
+        var r=CARDS.cards[i], ok=true;
+        var hay=norm(r[0]+' '+(CARDS.sets[r[1]]||r[1])+' '+(r[2]||'')+' '+(r[3]||''));
+        for(var j=0;j<terms.length;j++){
+          if(hay.indexOf(terms[j])===-1){ ok=false; break; }
+        }
+        if(ok) c.push(r);
       }
       c.sort(function(a,b){ return (b[4]||0)-(a[4]||0); });
       n+=c.length;
@@ -470,7 +580,7 @@ ${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
       html+='<section class="sg"><h2>Cards</h2><p class="price-note">Looking through '+SITE.cardCount.toLocaleString()+' cards...</p></section>';
     }
 
-    var v=hits(SITE.rips,q,10); n+=v.total;
+    var v=hits(SITE.rips,terms,10,3); n+=v.total;
     html+=group('Pack openings', v.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(v),
       v.total>v.rows.length ? '/videos.html?q='+encodeURIComponent(q) : '');
 

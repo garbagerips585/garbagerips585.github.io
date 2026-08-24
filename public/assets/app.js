@@ -498,6 +498,12 @@
       return String(str == null ? "" : str)
         .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
         .toLowerCase()
+        // APOSTROPHE DELETED, NOT SPACED. See shared/search-text.mjs: folding it
+        // to a space split "Erika's" into two tokens and made the natural
+        // "erikas invitation" match nothing across 419 cards. Both halves of the
+        // site fold the same way or the symmetry this function exists for is
+        // gone.
+        .replace(/['\u2019]/g, "")
         .replace(/&/g, " and ")
         .replace(/[^a-z0-9]+/g, " ")
         .replace(/\s+/g, " ")

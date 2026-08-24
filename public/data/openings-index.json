@@ -1,0 +1,73 @@
+{
+ "_readme": [
+  "Sealed product pages, for the site search. Written by build-openings.mjs.",
+  "Do not hand-edit: the next build overwrites it."
+ ],
+ "pages": [
+  [
+   "What is in a single booster pack?",
+   "/openings/single-pack.html",
+   "Single Pack: what is inside, what it costs, and every one opened on this channel."
+  ],
+  [
+   "What is in an Elite Trainer Box?",
+   "/openings/etb.html",
+   "Elite Trainer Box: what is inside, what it costs, and every one opened on this channel."
+  ],
+  [
+   "What is in a Booster Bundle?",
+   "/openings/bundle.html",
+   "Booster Bundle: what is inside, what it costs, and every one opened on this channel."
+  ],
+  [
+   "What is in an ex Premium Collection?",
+   "/openings/ex-premium.html",
+   "ex Premium Collection: what is inside, what it costs, and every one opened on this channel."
+  ],
+  [
+   "What is in a Japanese booster pack?",
+   "/openings/japanese-pack.html",
+   "Japanese Booster Pack: what is inside, what it costs, and every one opened on this channel."
+  ],
+  [
+   "What is in a collection box?",
+   "/openings/collection-box.html",
+   "Collection Box: what is inside, what it costs, and every one opened on this channel."
+  ],
+  [
+   "What is in a Pokemon tin?",
+   "/openings/tin.html",
+   "Tin: what is inside, what it costs, and every one opened on this channel."
+  ],
+  [
+   "What is in a blister pack?",
+   "/openings/blister.html",
+   "Blister: what is inside, what it costs, and every one opened on this channel."
+  ],
+  [
+   "What is in a Poke Ball Tin?",
+   "/openings/poke-ball-tin.html",
+   "Poke Ball Tin: what is inside, what it costs, and every one opened on this channel."
+  ],
+  [
+   "What is in a Korean booster pack?",
+   "/openings/korean-pack.html",
+   "Korean Booster Pack: what is inside, what it costs, and every one opened on this channel."
+  ],
+  [
+   "What is in a Knock Out Collection?",
+   "/openings/knock-out.html",
+   "Knock Out Collection: what is inside, what it costs, and every one opened on this channel."
+  ],
+  [
+   "What is in a Chinese booster pack?",
+   "/openings/chinese-pack.html",
+   "Chinese Booster Pack: what is inside, what it costs, and every one opened on this channel."
+  ],
+  [
+   "What is in an Ultra Premium Collection?",
+   "/openings/upc.html",
+   "UPC: what is inside, what it costs, and every one opened on this channel."
+  ]
+ ]
+}

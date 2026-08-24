@@ -344,15 +344,71 @@
   // Returns {rows, total} so a group can say how much it is hiding. Capping
   // silently is the bug: "chaos rising" matched 39 rips, showed 10, and said
   // nothing, on the page whose whole job is finding things.
-  function hits(list, q, limit){
-    var rows=[], total=0;
-    for(var i=0;i<list.length;i++){
-      if(list[i][0].toLowerCase().indexOf(q)!==-1){
-        total++;
-        if(rows.length<limit) rows.push(list[i]);
+  // THE MATCHER. See shared/search-text.mjs for why this is inlined from there
+  // rather than written here, and for the list of real queries the old
+  // one-line indexOf returned ZERO results for.
+  function norm(str){
+  return String(str==null?"":str)
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .toLowerCase()
+    .replace(/['’]/g,"")
+    .replace(/&/g," and ")
+    .replace(/[^a-z0-9]+/g," ")
+    .replace(/\s+/g," ")
+    .trim()
+    .replace(/\bv (max|star|union)\b/g,"v$1");
+}
+  function parseQuery(raw){
+  var q=norm(raw), out=[], m, re=/"([^"]+)"|(\S+)/g;
+  while((m=re.exec(q))) out.push(m[1]||m[2]);
+  return out;
+}
+  function scoreRow(title,sub,term){
+  var t=norm(title), s=sub?norm(sub):"";
+  if(t===term) return 100;
+  if(t.indexOf(term+" ")===0) return 40;
+  if((" "+t).indexOf(" "+term)!==-1) return 25;
+  if(t.indexOf(term)!==-1) return 12;
+  if(s&&(" "+s).indexOf(" "+term)!==-1) return 4;
+  if(s&&s.indexOf(term)!==-1) return 2;
+  return 0;
+}
+
+  // EVERY TERM HAS TO HIT, and the row is ranked by how well they hit.
+  //
+  // The old version substring-tested field [0] against the whole raw query, so
+  // "charizard mega" found nothing while "mega charizard" found eight, and "ir"
+  // returned 335 rows because a substring anywhere counted as much as a word.
+  // Terms are ANDed, each scores independently, and the totals decide the order.
+  //
+  // FIELD [2] IS SEARCHED NOW AND IT COSTS NOTHING. Every index row already
+  // ships [title, url, sub] and the sub was never consulted, so a page whose own
+  // subtitle is "Does GameStop sell Pokemon cards?" could not be found by typing
+  // that. It scores far below a title hit, so it broadens without reordering.
+  // subIdx says WHICH field holds the searchable extra text, because the lists
+  // do not agree: pages and sets carry a subtitle at [2], rips carry the
+  // published DATE there and their tags at [3]. Scoring a date was harmless and
+  // useless; this is what makes "elite trainer box" reach the 58 rips tagged
+  // with it rather than the 3 that happen to spell it in the title.
+  function hits(list, terms, limit, subIdx){
+    var si = subIdx === undefined ? 2 : subIdx;
+    var scored=[], i, j, row, sc, t, ok;
+    for(i=0;i<list.length;i++){
+      row=list[i]; sc=0; ok=true;
+      for(j=0;j<terms.length;j++){
+        t=scoreRow(row[0], row[si], terms[j]);
+        if(!t){ ok=false; break; }
+        sc+=t;
       }
+      if(ok) scored.push([sc,i,row]);
     }
-    return {rows:rows, total:total};
+    // Score first, then ORIGINAL INDEX, never the row object: the index files
+    // are ordered deliberately (Pokemon by dex number, rips newest first) and a
+    // tie has to fall back to that rather than to whatever sort() happens to do.
+    scored.sort(function(a,b){ return b[0]-a[0] || a[1]-b[1]; });
+    var rows=[];
+    for(i=0;i<scored.length&&rows.length<limit;i++) rows.push(scored[i][2]);
+    return {rows:rows, total:scored.length};
   }
 
   // ONE WRITE PER CHANGED VALUE, AND ONLY AFTER TYPING STOPS.
@@ -382,6 +438,7 @@
 
   function render(){
     var q=input.value.trim().toLowerCase();
+    var terms=parseQuery(q);
     if(!q){ out.innerHTML=''; say(''); empty.hidden=false; return; }
     empty.hidden=true;
     if(!SITE){ say('Loading...'); return; }
@@ -395,20 +452,29 @@
         : '';
     }
 
-    var p=hits(SITE.pages,q,6); n+=p.total;
+    var p=hits(SITE.pages,terms,6); n+=p.total;
     html+=group('Guides and pages', p.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(p));
 
-    var s=hits(SITE.sets,q,8); n+=s.total;
+    var s=hits(SITE.sets,terms,8); n+=s.total;
     html+=group('Set guides', s.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(s), '/sets/');
 
-    var k=hits(SITE.pokemon,q,8); n+=k.total;
+    var k=hits(SITE.pokemon,terms,8); n+=k.total;
     html+=group('Pokemon', k.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(k), '/pokemon/');
 
     if(CARDS){
       var c=[];
+      // THE CARD ROWS CARRY set AND rarity AND WERE MATCHED ON NEITHER.
+      // r = [name, setId, rarity, number, price]. "illustration rare" found 0
+      // cards while 20 rarity values sat in r[2] on every row, and a set name
+      // could not narrow a search at all. Folded and ANDed like everything else;
+      // the price sort below is untouched and still decides the order.
       for(var i=0;i<CARDS.cards.length;i++){
-        var r=CARDS.cards[i];
-        if(r[0].toLowerCase().indexOf(q)!==-1) c.push(r);
+        var r=CARDS.cards[i], ok=true;
+        var hay=norm(r[0]+' '+(CARDS.sets[r[1]]||r[1])+' '+(r[2]||'')+' '+(r[3]||''));
+        for(var j=0;j<terms.length;j++){
+          if(hay.indexOf(terms[j])===-1){ ok=false; break; }
+        }
+        if(ok) c.push(r);
       }
       c.sort(function(a,b){ return (b[4]||0)-(a[4]||0); });
       n+=c.length;
@@ -422,7 +488,7 @@
       html+='<section class="sg"><h2>Cards</h2><p class="price-note">Looking through '+SITE.cardCount.toLocaleString()+' cards...</p></section>';
     }
 
-    var v=hits(SITE.rips,q,10); n+=v.total;
+    var v=hits(SITE.rips,terms,10,3); n+=v.total;
     html+=group('Pack openings', v.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(v),
       v.total>v.rows.length ? '/videos.html?q='+encodeURIComponent(q) : '');
 
@@ -465,6 +531,6 @@
   }
 })();
 </script>
-<script src="/assets/app.js?v=9c9b3cb9" defer></script>
+<script src="/assets/app.js?v=b1799f9f" defer></script>
 </body>
 </html>

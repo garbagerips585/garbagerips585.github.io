@@ -440,7 +440,7 @@ const getListed = ({ noun, one, fields, emailFields, sends, asset, subject }) =>
       <li><b>It costs nothing and it buys nothing.</b> No paid placements and no affiliate links, on this page or
         anywhere on this site. ${
           noun === "vendors"
-            ? "There is one editorial mark here, Bought from them, and it means Tim actually handed over money. It cannot be requested."
+            ? "There is one editorial mark here, Bought from them, and it means money actually changed hands. It cannot be requested."
             : /* WAS "The order is alphabetical and it always will be, so nobody can pay
                  or ask their way up it." It was true when it was written and stopped
                  being true on 24 August 2026, when the order became hand picked at

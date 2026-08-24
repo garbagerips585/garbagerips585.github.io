@@ -1945,6 +1945,43 @@ ${kindRips
 
 await writeFile(join(OUT, "index.html"), idx);
 
+/* AN INDEX FOR THE SITE SEARCH, written here rather than hand-listed there.
+ *
+ * All thirteen of these pages were invisible to /search.html until 24 August
+ * 2026. Every one is titled "What is in a ...?", which is the exact question
+ * people type, and typing "elite trainer box" into the site's own search
+ * returned TWO results while /videos.html answered 58 for the same string.
+ * "booster box", "ultra premium collection" and "japanese pack" returned none.
+ *
+ * build-search.mjs's own comment predicted this in as many words: its guard
+ * walks only the TOP LEVEL of public/, "so a subdirectory is exactly where that
+ * mistake would happen again unnoticed". /retailers/ escaped only because
+ * build-retailers.mjs writes retailers-index.json. Same pattern, same reason:
+ * adding a product kind is a data edit, not a line to remember elsewhere.
+ *
+ * THE TITLE IS THE QUESTION, not the product name, because the question is what
+ * gets typed. ASKS already holds it for every kind and the page's own <h1> uses
+ * it, so the search result and the page agree.
+ */
+await writeFile(
+  join(ROOT, "public/data/openings-index.json"),
+  JSON.stringify(
+    {
+      _readme: [
+        "Sealed product pages, for the site search. Written by build-openings.mjs.",
+        "Do not hand-edit: the next build overwrites it.",
+      ],
+      pages: entries.map((e) => [
+        ASKS[e.id] || `What is in a ${e.label}?`,
+        `/openings/${e.id}.html`,
+        `${e.label}: what is inside, what it costs, and every one opened on this channel.`,
+      ]),
+    },
+    null,
+    1
+  ) + "\n"
+);
+
 console.log(`Wrote public/openings/ with ${entries.length + 1} pages
   ${entries.length} product types, ${totalRips} openings, ${totalPacks} packs counted
   ${entries.filter((e) => e.prices.length).length} have a price table
