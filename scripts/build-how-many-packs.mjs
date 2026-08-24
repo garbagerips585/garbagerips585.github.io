@@ -1057,6 +1057,21 @@ const style = `
    is a keyline rather than an ink, hence the border. */
 .hp-key{border:3px solid var(--keyline);border-radius:12px;background:var(--band-bg);color:var(--chrome-ink);
   padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
+/* THE SUMMARY IS THE WHOLE HEADING AND IT HAS TO BE A REAL TARGET.
+   list-style:none kills the default triangle in Firefox and the ::-webkit- rule
+   kills it in Safari and Chrome; the +/- after the heading replaces it, so the
+   affordance survives on all three. min-height 44px because this is now the
+   control that opens the section and a heading is not automatically a tap
+   target. The h2 goes inline so the marker sits ON the line rather than under
+   a block-level heading that has taken the full width. */
+.hp-key summary{display:flex;align-items:center;gap:10px;cursor:pointer;list-style:none;
+  min-height:44px}
+.hp-key summary::-webkit-details-marker{display:none}
+.hp-key summary::after{content:"+";margin-left:auto;font:400 1.4rem/1 var(--display);
+  color:var(--sky-deep)}
+.hp-key[open] summary::after{content:"−"}
+.hp-key summary h2{display:inline;margin:0}
+.hp-key[open] summary{margin-bottom:var(--s3)}
 .hp-key h2{color:var(--chrome-ink);margin-bottom:var(--s3)}
 .hp-key ol{margin:0 0 0 var(--s4);color:var(--foot-ink);line-height:1.6;max-width:44em}
 .hp-key li{margin-bottom:var(--s3)}
@@ -1387,14 +1402,27 @@ ${MENU}
       }</div><div class="l">Products with more than one sourced pack count</div></div>
     </div>
 
-    <div class="hp-key">
+    ${/* CLOSED BY DEFAULT, 24 August 2026. Tim: "make that section collapsed and
+          if you want to drop it down and read those you can but otherwise get
+          right into the data... right now takes up too much of the top of the
+          page and you have to scroll to start seeing the data you want to see."
+          It stays HERE rather than moving to the foot, which was his other
+          option, because these five points are how to READ the table directly
+          below them: MSRP is not on this page, the name on the box is not the
+          size of the box, a 30th Celebration pack is not a ten-card pack. At the
+          bottom they would be a disclaimer nobody reaches; closed and in place
+          they are one tap from the row that needs them.
+          <summary> carries the heading, so the count in it is still derived and
+          still cannot contradict the list. Native <details>, no script, same
+          shape as .chof-how on /hall.html and .vg-how on /video-games.html. */ ""}
+    <details class="hp-key">
       ${/* THE COUNT IN THE HEADING IS DERIVED. It said "Four things" and the
             list gained a fifth in the same edit that fixed the MSRP bullet, which
             is exactly how a heading comes to contradict the list under it on a
             site that keeps finding headline numbers disagreeing with their own
-            columns. `keyPoints` is the list; KEY_WORD counts its items. */ ""}<h2>${
+            columns. `keyPoints` is the list; KEY_WORD counts its items. */ ""}<summary><h2>${
         KEY_WORD
-      } things to know before you compare anything</h2>
+      } things to know before you compare anything</h2></summary>
       <ol>
 ${KEY_POINTS}      </ol>
       ${/* ONE SENTENCE AND A LINK, not a banner. Everybody reading this page is
@@ -1404,7 +1432,7 @@ ${KEY_POINTS}      </ol>
             pages stay agreed. */ ""}
       <p class="hp-code">Every one of those packs holds one more card that is not a Pokemon card, and it is the
         only one nobody keeps. <a href="/tcg-live.html">What the code card actually gets you.</a></p>
-    </div>
+    </details>
   </div>
 </section>
 

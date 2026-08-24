@@ -349,7 +349,41 @@ function timsPulls() {
   }
   return out;
 }
-const pulls = timsPulls();
+const pullsRaw = timsPulls();
+
+/* ONE SET OF PICTURES PER TRIO, WITH A COUNT, NOT ONE BLOCK PER VIDEO.
+ *
+ * Tim, 24 August 2026: "make sure we are only showing 1 set of images per set of
+ * cards and then if we hit it more than once we just put a number like 2x or 3x
+ * on them... don't have to show images for each set of cards pulled everytime."
+ *
+ * The Alola trio had been pulled three times and the Sinnoh trio twice, so the
+ * section rendered the identical three scans four times over and a reader
+ * scrolled past the same Rowlet, Litten and Popplio again and again. The COUNT
+ * is the fact worth showing, and it was the one thing the old layout could not
+ * say.
+ *
+ * NOTHING IS LOST BY GROUPING. Every rip that produced the trio keeps its own
+ * dated link, so a reader can still get to all three videos; they are a row of
+ * links under one set of pictures instead of three near-identical blocks. The
+ * newest pull dates the group, so the section still reads newest first.
+ *
+ * KEYED ON THE CARD NUMBERS, not on the region or the names: the number is the
+ * printing, and two videos that pulled the same three numbers pulled the same
+ * three cards. Sorted already by the builder above, so the key is stable.
+ */
+const pulls = (() => {
+  const byTrio = new Map();
+  for (const p of pullsRaw) {
+    const key = p.cards.map((c) => c.number).join("-");
+    if (!byTrio.has(key)) byTrio.set(key, { ...p, rips: [] });
+    const g = byTrio.get(key);
+    g.rips.push({ path: p.path, published: p.published, title: p.title });
+    // The group carries the NEWEST date, because the list is read newest first.
+    if (!g.published || (p.published && String(p.published) > String(g.published))) g.published = p.published;
+  }
+  return [...byTrio.values()].sort((a, b) => String(b.published || "").localeCompare(String(a.published || "")));
+})();
 
 // ---------------------------------------------------------------------------
 // COST TO COMPLETE, THE THREE QUESTIONS A COLLECTOR ACTUALLY ASKS
@@ -649,6 +683,13 @@ const style = `
 .fp-totals b{font:700 var(--t-m)/1 var(--mono);color:var(--ketchup-deep);white-space:nowrap}
 
 .fp-pull{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5)}
+/* THE COUNT BADGE. Gold, because on this site gold means "this is the notable
+   one" and a trio pulled three times is the notable row in the list. Small caps
+   mono so it reads as a tally rather than as part of the sentence, and it
+   carries a title so the number is not the only thing saying what it means. */
+.fp-times{display:inline-block;margin-left:6px;padding:2px 7px;border-radius:var(--r-pill);
+  font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;
+  color:var(--on-accent);background:var(--mustard);vertical-align:1px}
 .fp-pull-cards{display:flex;gap:var(--s2);margin:var(--s3) 0}
 .fp-pull-cards img{display:block;width:72px;height:auto;border-radius:3px}
 
@@ -862,9 +903,28 @@ ${pulls
   .map(
     (p) => `      <div class="fp-pull">
         <p class="fp-note"><b>${esc(p.cards.map((c) => c.name).join(", "))}</b> &bull;
-          ${esc(p.cards[0].region)} trio${p.published ? `, ${esc(longDate(String(p.published).slice(0, 10)))}` : ""}</p>
+          ${esc(p.cards[0].region)} trio${
+            p.rips.length > 1
+              ? ` <span class="fp-times" title="Pulled ${p.rips.length} times">${p.rips.length}&times;</span>`
+              : ""
+          }</p>
         <div class="fp-pull-cards">${p.cards.map((c) => scan(c, { sizes: STRIP_SIZES })).join("")}</div>
-        ${p.path ? `<p class="fp-note"><a href="${esc(p.path)}">Watch the rip</a></p>` : ""}
+        ${
+          p.rips.some((r) => r.path)
+            ? `<p class="fp-note">${p.rips.length > 1 ? "Watch the rips: " : ""}${p.rips
+                .filter((r) => r.path)
+                .sort((a, b) => String(b.published || "").localeCompare(String(a.published || "")))
+                .map(
+                  (r) =>
+                    `<a href="${esc(r.path)}">${
+                      p.rips.length > 1 && r.published
+                        ? esc(longDate(String(r.published).slice(0, 10)))
+                        : "Watch the rip"
+                    }</a>`
+                )
+                .join(" &bull; ")}</p>`
+            : ""
+        }
       </div>`
   )
   .join("\n")}

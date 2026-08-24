@@ -1472,8 +1472,22 @@ ${MENU}
 <section class="tight">
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / ${esc(cfg.navTitle)}</p>
-
-    ${honesty(cfg, d)}
+${/* WHAT THIS LIST ACTUALLY IS MOVED TO THE FOOT, 24 August 2026. Tim, about
+      /most-valuable-cards.html: "at the top of this page there is way too much
+      text... if that text needs to stay on the page for seo then thats fine but
+      can we move it to the bottom of the page? specifically the WHAT THIS LIST
+      ACTUALLY IS section."
+      It stays on the page in full, which is the SEO half of what he asked, and
+      it is not folded shut either: unlike the counting rules on /video-games.html
+      this block is the page's honesty statement, and a page that ranks cards by
+      money owes the reader an unhidden account of where the money came from.
+      What it does not get to be is the first 1,200 words. It is now the last
+      thing before the related links, so the ranking starts immediately and the
+      account is there for anybody who scrolls to it or lands on it from search.
+      BOTH pages move, not just the one named: /most-expensive-sealed.html is
+      built from this same template with its own variant of the block, and
+      leaving it at the top would make two sibling pages disagree about their own
+      shape for no reason a reader could see. */ ""}
 
     <div class="facts" style="margin-top:20px">${
       cfg.source === "pricecharting"
@@ -1562,6 +1576,12 @@ ${items.map((i) => row(i, cfg.key)).join("\n")}
       worth grading?</a> does the subtraction on raw against graded prices, <a href="/pack-prices.html">pack prices by
       set</a> covers what a pack costs today, and <a href="/complete-a-set.html">cost to complete a set</a> prices the
       whole checklist. Every card we actually pulled is in the <a href="/cards.html">card search</a>.</p>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    ${honesty(cfg, d)}
   </div>
 </section>
 

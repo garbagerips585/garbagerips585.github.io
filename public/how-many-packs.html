@@ -28,6 +28,14 @@
 <style>.hp-lede{max-width:44em}
 .hp-key{border:3px solid var(--keyline);border-radius:12px;background:var(--band-bg);color:var(--chrome-ink);
   padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
+.hp-key summary{display:flex;align-items:center;gap:10px;cursor:pointer;list-style:none;
+  min-height:44px}
+.hp-key summary::-webkit-details-marker{display:none}
+.hp-key summary::after{content:"+";margin-left:auto;font:400 1.4rem/1 var(--display);
+  color:var(--sky-deep)}
+.hp-key[open] summary::after{content:"−"}
+.hp-key summary h2{display:inline;margin:0}
+.hp-key[open] summary{margin-bottom:var(--s3)}
 .hp-key h2{color:var(--chrome-ink);margin-bottom:var(--s3)}
 .hp-key ol{margin:0 0 0 var(--s4);color:var(--foot-ink);line-height:1.6;max-width:44em}
 .hp-key li{margin-bottom:var(--s3)}
@@ -273,8 +281,9 @@
       <div class="fact"><div class="n">4</div><div class="l">Products with more than one sourced pack count</div></div>
     </div>
 
-    <div class="hp-key">
-      <h2>Five things to know before you compare anything</h2>
+    
+    <details class="hp-key">
+      <summary><h2>Five things to know before you compare anything</h2></summary>
       <ol>
         <li><b>There
           is a manufacturer price, and it is not on this page.</b> Pokemon Center is The Pokemon Company's own
@@ -301,7 +310,7 @@
       
       <p class="hp-code">Every one of those packs holds one more card that is not a Pokemon card, and it is the
         only one nobody keeps. <a href="/tcg-live.html">What the code card actually gets you.</a></p>
-    </div>
+    </details>
   </div>
 </section>
 
