@@ -18,67 +18,83 @@ So this draws a mark FOR 16px and scales it up, rather than shooting a photo
 and scaling it down. That reasoning is unchanged and is why the answer to "can
 we make the favicon Trubbish" is a DRAWN Trubbish and not a crop of one.
 
-IT IS TRUBBISH NOW AND IT WAS "GR" IN THE OLD PALETTE. Tim, 23 August 2026:
-"can we update our favicon to be our little Trubbish mascot, or change the
-colors to be updated to the new overall website pallete which is the colors of
-trubbish". Both halves were fair. The mark was two letters where the site has
-a mascot, and it was painted in navy #152638 on mustard #EFC94C -- the palette
-Trubbish Deep replaced on 18 August 2026, so the one image every tab showed was
-the last thing on the site still wearing the old colours.
+IT IS "GR" AGAIN, 24 AUGUST 2026, IN TRUBBISH DEEP. The owner: "i do not like that
+new favicon at all, lets go back to just doing GR but lets do the colors of the
+site pallet so dark green background and then a blue and pink letter for GR".
 
-WHAT SURVIVES THE CHANGE, because it is what makes an icon legible at 16px:
+SO THIS HAS NOW BEEN BOTH THINGS, AND THE HISTORY IS WORTH KEEPING because the
+next person will propose the drawn Trubbish again. The mark was "GR" on mustard
+until 23 August, became a drawn Trubbish that day, and came back to "GR" the
+next. What changed on the second move is the PALETTE, not the argument: the
+Trubbish version existed because the old letters were painted in the colours
+Trubbish Deep replaced, and that complaint is answered by repainting the letters
+rather than by drawing a mascot.
 
-  - TWO COLOURS AT OPPOSITE ENDS OF THE VALUE RANGE. It was navy on mustard at
-    about 9:1; it is now --page #1F382B on --ink #E4DCCC, MEASURED 9.29:1, so
-    the legibility this file was protecting is held rather than improved. The
-    eyes are 12.66:1 against the body, which is why they carry the icon. The
-    other two Trubbish colours were rejected as the ground pair on exactly the
-    grounds this file already argued: --ketchup is 1.94:1 against that ground
-    and the light blue is 1.66:1, which is why they are specks and not shapes.
+THE ONE THING THAT DID NOT SURVIVE IS THE 9.29:1. The Trubbish tile was
+--page on --ink, two colours at opposite ends of the value range, and this file
+spent a paragraph explaining that that ratio is what makes an icon read at
+16px. Two ACCENT letters on a dark ground cannot reach it, because both accents
+sit in the middle of the range by construction. Measured on the hexes actually
+used, and computed rather than guessed, which is this file's own standing rule:
 
-    A FIRST DRAFT OF THIS COMMENT SAID 10.9:1 AND WAS NOT MEASURED. The number
-    above came out of a contrast function run on the two hexes actually used.
-    Do not quote a ratio here you have not computed.
-  - FLAT FILLS, NO GRADIENT, NO PHOTOGRAPHIC NOISE.
-  - A SILHOUETTE THAT SURVIVES THE SHRINK. Trubbish is a rounded bag with two
-    torn flaps on top; at 16px that outline plus two white eyes is the whole
-    read, and it is more distinctive than two letters ever were.
+    G  --lilac  #70B5D9 on --page #1F382B    5.61:1
+    R  --ketchup #E87EA1 on --page #1F382B   4.78:1
 
-The pink and the light blue are on it as two specks of trash, which is where
-the rest of the mascot's palette lives without competing with the silhouette.
-At 16px they are single pixels of colour and stop the tile reading as a plain
-green shape; they carry NO meaning, which is what makes 1.94:1 and 1.66:1
-acceptable on them and on nothing else here.
+Both clear 4.5:1, so both are legible; neither is the 9.29:1 the mascot had.
 
-TWO DRAFTS WERE REJECTED FOR READING AS THE WRONG ANIMAL and the reasons are
-kept because the next person will draw them again. Narrow flaps standing
-STRAIGHT UP on a round head are ears, whatever they are meant to be, and the
-icon was a cat. A lighter ellipse under the eyes, centred and rounded, is a
-MUZZLE, and it was the other half of the same cat. The flaps lean out, the
-left further than the right so the symmetry breaks, they overlap the bag so
-they grow out of it rather than sitting beside it, and there is no belly.
+AND THE TWO LETTERS ARE 1.17:1 AGAINST EACH OTHER, which sounds alarming and is
+not, for one reason that has to hold: THEY DO NOT TOUCH. Both accents sit at
+almost the same lightness, so in greyscale the pair is one flat tone, and if a
+letter ever overlapped its neighbour the two would merge into a single blob. It
+is the GROUND each is read against, and the space between them, that does the
+work. Checked by rendering icon-512.png through a greyscale convert and
+resampling to 16, 32 and 48: the pair still reads as two letterforms at every
+size. IF ANYBODY TIGHTENS THE TRACKING HERE, re-run that check first.
+That is the real cost of the change and it is stated rather than buried. It is
+also the reason the two letters are the WHOLE tile: there is no third element
+competing with them, the counters are open, and the ground is the darkest green
+in the palette so the accents have as much room as the palette allows.
 
-The 180px Apple touch icon gets the same mark, because a home screen icon that
-matches the tab icon is worth more than a prettier one that does not.
+WHY G IS THE BLUE AND R IS THE PINK, since the owner said "a blue and pink letter"
+and did not assign them. It follows the site's own accent rule, which says pink
+is what the site is SAYING: the wordmark on every page is GARBAGE **RIPS** 585
+with RIPS in pink, so the R being pink makes the icon a two-letter compression
+of the wordmark rather than an unrelated pairing. Swapping them would put the
+teal on the half the wordmark paints pink.
 
-TITAN ONE IS NO LONGER NEEDED and the fetch-fonts dependency is gone with it:
-nothing here sets type any more.
+WHAT SURVIVES FROM THE TRUBBISH VERSION, because it is what makes any icon
+legible at 16px and none of it is about the subject:
+
+  - FLAT FILLS, NO GRADIENT, NO OUTLINE. A 1px stroke at 512 is a fifth of a
+    pixel at 16 and only muddies the edge.
+  - DRAWN AT 512 AND RESAMPLED DOWN, so the curves stay clean.
+  - EVERY SIZE IN THE .ico IS ITS OWN RENDER, never an upscaled 16.
+  - THE CONTACT SHEET IS THE CHECK. Nothing ships from this file until the
+    16px tile has been looked at at real size, on light AND on a dark tab bar.
+
+TITAN ONE IS NEEDED AGAIN and so is the fetch-fonts dependency: this sets type.
 """
 from pathlib import Path
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parent.parent
 PUB = ROOT / "public"
 
-# Straight from ui.css.
 # Straight from assets-source/ui.css, Trubbish Deep.
-GROUND = (0xE4, 0xDC, 0xCC)   # --ink        the light ground
-BODY = (0x1F, 0x38, 0x2B)     # --page       Trubbish's own deep green
-BELLY = (0x2F, 0x4F, 0x39)    # --paper-2    the lighter bag green
-WHITE = (0xFF, 0xFF, 0xFF)    # eyes and tooth, the mascot's own
-PINK = (0xE8, 0x7E, 0xA1)     # --ketchup
-BLUE = (0x70, 0xB5, 0xD9)     # the mascot's light blue
+GROUND = (0x1F, 0x38, 0x2B)   # --page       the darkest green the palette has
+G_INK = (0x70, 0xB5, 0xD9)    # --lilac      the light blue, 5.61:1 on GROUND
+R_INK = (0xE8, 0x7E, 0xA1)    # --ketchup    the pink,       4.78:1 on GROUND
+
+FONTS = ROOT / ".cache" / "fonts"
+
+
+def font(size):
+    p = FONTS / "TitanOne.ttf"
+    if not p.exists():
+        raise SystemExit(f"Missing {p}.\nRun: bash scripts/fetch-fonts.sh")
+    return ImageFont.truetype(str(p), size)
+
 
 # Drawn big and downsampled, so the curves and the type stay clean.
 SUPER = 512
@@ -87,12 +103,11 @@ SUPER = 512
 def mark(px, rounded=True):
     """The icon at `px`, drawn at 512 and resampled down.
 
-    DRAWN FOR 16px. Every proportion here is chosen so the silhouette still
-    reads when the whole thing is sixteen pixels across: the bag fills most of
-    the tile, the flaps break the outline at the top so it is not a circle, and
-    the eyes are large enough to survive as two white dots rather than closing
-    up. Nothing is outlined, because a 1px stroke at 512 is a fifth of a pixel
-    at 16 and only muddies the edge.
+    DRAWN FOR 16px. The two letters are the whole tile: they are set as large
+    as the counters allow and optically centred, because at sixteen pixels
+    anything else on the ground is a smudge competing with the only thing that
+    carries meaning. The G's bowl and the R's counter are what make this read
+    as letters rather than as two blobs, so nothing is allowed to close them.
     """
     im = Image.new("RGBA", (SUPER, SUPER), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
@@ -105,45 +120,20 @@ def mark(px, rounded=True):
     else:
         d.rectangle([0, 0, S - 1, S - 1], fill=GROUND)
 
-    # THE FLAPS FLOP OUTWARD AND THEY ARE NOT POINTED. First attempt drew them
-    # as two narrow triangles standing straight up and the icon read as a CAT:
-    # vertical points on a round head are ears, whatever they are meant to be.
-    # Trubbish's are torn corners of a bin bag, so they lean out, they are
-    # rounded at the tip, and the left one leans further than the right, which
-    # kills the symmetry that was doing most of the cat work.
-    # THEY OVERLAP THE BAG RATHER THAN SITTING ON IT. At 180px a gap of even a
-    # few pixels reads as two ears floating beside a head; the bag is painted
-    # after them, so anything that overlaps disappears into it and what is left
-    # is a torn corner growing out of the body.
-    for box, ang in (((0.10, 0.06, 0.44, 0.27), 28), ((0.58, 0.08, 0.90, 0.27), -20)):
-        f = Image.new("RGBA", (S, S), (0, 0, 0, 0))
-        ImageDraw.Draw(f).ellipse([box[0] * S, box[1] * S, box[2] * S, box[3] * S], fill=BODY)
-        im.alpha_composite(f.rotate(ang, resample=Image.BICUBIC, center=(S / 2, S / 2)))
+    # TWO LETTERS, TWO COLOURS, ONE OPTICAL CENTRE. They have to be measured as
+    # the PAIR and then drawn separately, because each needs its own fill:
+    # centring "G" and "R" independently would space them by their own widths
+    # rather than by the kerned advance and the mark would read as two initials
+    # with a gap rather than as a monogram.
+    f = font(int(S * 0.56))
+    box = d.textbbox((0, 0), "GR", font=f)
+    x = (S - (box[2] - box[0])) / 2 - box[0]
+    # Optical rather than metric: Titan One's cap height sits high in its em, so
+    # centring on the bounding box leaves the pair looking low on the tile.
+    y = (S - (box[3] - box[1])) / 2 - box[1] - S * 0.015
 
-    # The bag. Wider than it is tall and sitting low, which is the shape.
-    d.ellipse([0.115 * S, 0.215 * S, 0.885 * S, 0.910 * S], fill=BODY)
-
-    # NO BELLY. A lighter ellipse under the eyes was the second half of the cat:
-    # centred, rounded and directly below two eyes, it reads as a MUZZLE. The
-    # modelling is worth nothing at 16px and it was costing the whole silhouette.
-
-    # THE EYES CARRY THE ICON. Big and close-set, which is Trubbish rather than
-    # the wide-set pair a cat has, with small pupils so they stay white overall.
-    for cx in (0.395, 0.605) :
-        d.ellipse([(cx - 0.115) * S, 0.360 * S, (cx + 0.115) * S, 0.590 * S], fill=WHITE)
-        d.ellipse([(cx - 0.040) * S, 0.450 * S, (cx + 0.040) * S, 0.535 * S], fill=BODY)
-
-    # TWO TEETH, LOW AND OFF TO ONE SIDE, which is where the mascot's are. One
-    # centred tooth under a muzzle was reading as a nose. At 16px this is a
-    # light pixel or two along the bottom edge of the face and it is what makes
-    # the shape a creature rather than a blob.
-    d.polygon([(0.415 * S, 0.665 * S), (0.485 * S, 0.665 * S), (0.450 * S, 0.760 * S)], fill=WHITE)
-    d.polygon([(0.505 * S, 0.665 * S), (0.560 * S, 0.665 * S), (0.532 * S, 0.735 * S)], fill=WHITE)
-
-    # Two specks of trash, in the mascot's other two colours. They carry no
-    # meaning and are the first thing to go if the tile ever needs simplifying.
-    d.ellipse([0.150 * S, 0.720 * S, 0.235 * S, 0.800 * S], fill=PINK)
-    d.ellipse([0.780 * S, 0.680 * S, 0.858 * S, 0.755 * S], fill=BLUE)
+    d.text((x, y), "G", font=f, fill=G_INK)
+    d.text((x + d.textlength("G", font=f), y), "R", font=f, fill=R_INK)
 
     return im.resize((px, px), Image.LANCZOS)
 

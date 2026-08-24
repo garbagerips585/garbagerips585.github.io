@@ -6,11 +6,11 @@
 //   node scripts/build-first-partner.mjs
 //
 // Reads data/first-partner.json (scripts/sync-first-partner.mjs), plus
-// data/hits.json and public/data/videos.json to join Tim's own pulls to the
+// data/hits.json and public/data/videos.json to join the owner's own pulls to the
 // rips they came out of. Makes no network request.
 //
 // ---------------------------------------------------------------------------
-// WHY THIS PAGE EXISTS, IN TIM'S WORDS
+// WHY THIS PAGE EXISTS, IN THE OWNER'S WORDS
 // ---------------------------------------------------------------------------
 //
 // "I ran into a new product that I actually can't seem to find a ton of info on
@@ -37,7 +37,7 @@
 // WHAT IS ON THIS PAGE AND WHAT WAS REFUSED
 // ---------------------------------------------------------------------------
 //
-// Tim supplied research from PokeBeach, Cardlines, IGN, an Amazon listing and
+// The owner supplied research from PokeBeach, Cardlines, IGN, an Amazon listing and
 // two Reddit and YouTube threads. It was treated as claims to check, not as
 // copy to reword. Then he found the thing that settles most of it: The Pokemon
 // Company publishes a PRODUCT GALLERY for each of the three series. Those are
@@ -63,7 +63,7 @@
 //     which data/pokemon-center-prices.json forbids working around. Its cached
 //     read of 17 August 2026 (431 products) does not hold this product, and NO
 //     gallery in either region carries a price. So the figure on this page is
-//     TIM'S OWN READING, labelled as such and dated, exactly as /msrp.html
+//     THE OWNER'S OWN READING, labelled as such and dated, exactly as /msrp.html
 //     handles the one row it cannot source from the shop.
 //   - "GBP 14.99". Neither UK gallery carries a price. Nothing to cite, so it
 //     does not appear at all.
@@ -74,7 +74,7 @@
 //     appreciate." Opinion from one Reddit thread. This site does not publish
 //     that shape of claim; /buying.html's handling is to attribute a community
 //     claim precisely and briefly, and this one is not worth the sentence.
-//   - Tim's research dated Series 1 to 30 March 2026. The official gallery says
+//   - The owner's research dated Series 1 to 30 March 2026. The official gallery says
 //     20 March 2026. The gallery wins and THE PAGE SAYS SO OUT LOUD, because on
 //     a thinly covered product the disagreement is itself useful to a reader
 //     who found the other date somewhere else.
@@ -199,7 +199,7 @@ try {
 // THE 2021 PREDECESSOR, AND HOW MUCH OF IT COULD ACTUALLY BE SOURCED
 // ---------------------------------------------------------------------------
 //
-// Tim's research says this line revives the 25th anniversary First Partner
+// The owner's research says this line revives the 25th anniversary First Partner
 // Packs and fixes them by replacing oversized jumbo cards with binder-sized
 // ones. That is the most interesting comparison available and MOST OF IT DOES
 // NOT SHIP, because it could not be sourced:
@@ -233,11 +233,11 @@ const usd = (n) =>
   `$${Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
 // ---------------------------------------------------------------------------
-// THE PRICES TIM READ, AND THE TWO ARE NOT THE SAME KIND OF NUMBER
+// THE PRICES THE OWNER READ, AND THE TWO ARE NOT THE SAME KIND OF NUMBER
 // ---------------------------------------------------------------------------
 //
 // This is the site's whole thesis arriving in one product, and it is why the
-// price section is the spine of the page rather than a footnote. Tim: "new
+// price section is the spine of the page rather than a footnote. The owner: "new
 // people getting into the hobby, or parents trying to figure out what to buy
 // their kids and how much it should cost is a nightmare, i end up helping
 // people in stores all the time buy stuff because they dont know what to get".
@@ -251,7 +251,7 @@ const usd = (n) =>
 // suggested price, from Pokemon's own shop" and a shop figure is "a retailer
 // listed price rather than an MSRP".
 //
-// BOTH FIGURES ARE TIM'S OWN READINGS and the page says so. He has bought the
+// BOTH FIGURES ARE THE OWNER'S OWN READINGS and the page says so. He has bought the
 // product at retail at $14.99 and has seen $17.99 on Best Buy and Target
 // shelves. That is first-hand, dated, and better sourced than anything else
 // published about this product's price, but it is NOT the shop's own listing
@@ -288,17 +288,17 @@ const rawOf = (c) => c.pc?.cols?.raw?.value ?? null;
 const psaOf = (c) => c.pc?.cols?.psa10?.value ?? null;
 
 // ---------------------------------------------------------------------------
-// TIM'S OWN PULLS, JOINED RATHER THAN HAND LISTED
+// THE OWNER'S OWN PULLS, JOINED RATHER THAN HAND LISTED
 // ---------------------------------------------------------------------------
 //
 // data/hits.json is what the public pages read and it is keyed BY YOUTUBE VIDEO
 // ID, which is the join build-hall.mjs records throwing away on one line. This
 // dedupes to the SET OF PROMO NAMES named on that video rather than counting
-// rows. Hand listing them would go stale the next time Tim opens a box; this
+// rows. Hand listing them would go stale the next time the owner opens a box; this
 // grows on its own as more get tagged.
 //
 // THE PRODUCT IS NAMED IN `printing`, NOT IN THE CARD NAME, AND THAT SWAP IS
-// THE WHOLE REASON THIS COMMENT CHANGED. Tim writes one cell, "First Partner
+// THE WHOLE REASON THIS COMMENT CHANGED. The owner writes one cell, "First Partner
 // Illustration Collection (Series 1) Alola Region Promo : Rowlet, Litten,
 // Popplio". scripts/import-sheet.mjs used to glue the words before the colon
 // onto the front of each card, so this function could look for the product in
@@ -353,7 +353,7 @@ const pullsRaw = timsPulls();
 
 /* ONE SET OF PICTURES PER TRIO, WITH A COUNT, NOT ONE BLOCK PER VIDEO.
  *
- * Tim, 24 August 2026: "make sure we are only showing 1 set of images per set of
+ * The owner, 24 August 2026: "make sure we are only showing 1 set of images per set of
  * cards and then if we hit it more than once we just put a number like 2x or 3x
  * on them... don't have to show images for each set of cards pulled everytime."
  *
@@ -561,7 +561,7 @@ const seriesBlock = (s) => {
 // beside large internal ones, and each carries an aria-label saying where it
 // goes. No price row carries an outbound link, which follows /top-graded.html
 // and /topps-card-values.html rather than /most-valuable-cards.html, because
-// the open call recorded in CLAUDE.md's sixth exception is Tim's to settle and
+// the open call recorded in CLAUDE.md's sixth exception is the owner's to settle and
 // 27 more links is not the place to settle it quietly.
 
 const faq = [
@@ -999,7 +999,7 @@ const ld = [
   },
 ];
 
-const TITLE = "First Partner Illustration Collection: All 27 Cards and Prices";
+const TITLE = "First Partner Illustration Collection: 27 Cards, Prices";
 const DESC =
   `Every card in the 2026 Pokemon First Partner Illustration Collection: all 27 promos with raw and PSA 10 prices, what is in each box, ` +
   `the ${usd(MSRP)} suggested price against ${usd(SHELF)} on shelves, and the three series' release dates from Pokemon's own product galleries.`;

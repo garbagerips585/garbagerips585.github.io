@@ -19,7 +19,7 @@
 // The whole pitch of that page is that most collectors have never knowingly
 // held one of these cards. A guide to cards nobody recognises, with no picture
 // of one, cannot do its job, and no amount of prose about "anime stills on card
-// stock" substitutes for showing a reader the thing. Tim, 18 August 2026: this
+// stock" substitutes for showing a reader the thing. The owner, 18 August 2026: this
 // page should be "loaded with image examples of everything", and site-wide, "i
 // want no missing product images".
 //

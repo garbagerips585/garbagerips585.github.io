@@ -1,7 +1,7 @@
 # Garbage Rips 585 — brand hub site
 
 Content hub + SEO home for Garbage Rips 585, a Pokemon card pack-ripping
-channel from Rochester, NY (owner: Tim). Not an ecommerce site — the job is
+channel from Rochester, NY, run by one person. Not an ecommerce site — the job is
 brand entity SEO and funneling visitors to the channel and socials.
 
 ## Brand
@@ -9,11 +9,11 @@ brand entity SEO and funneling visitors to the channel and socials.
   Garbage Plate, 585 area code, Flower City, High Falls, Public Market,
   Wegmans, lake-effect weather, Trubbish/Garbodor as unofficial city Pokemon.
 - Palette: **"Trubbish Deep"**, chosen 18 August 2026, replacing the mono
-  "Black / White / Gold" that this entry described until then. Tim: "i love this
+  "Black / White / Gold" that this entry described until then. The owner: "i love this
   new color pallet for the trubbish look and feel ... deploy agents to re-do
   every page in that new trubbish color pallete". The channel is called Garbage
   Rips, the pack art is a Trubbish on a plate of trash, and these are the
-  mascot's own five colours, sent by Tim: bag green `#2F4F39`, feet green
+  mascot's own five colours, sent by the owner: bag green `#2F4F39`, feet green
   `#1F382B`, pink `#E87EA1`, light blue `#70B5D9`, and `#FFFFFF` / `#231F20` for
   the mouth and the outline. Every other value is DERIVED from one of those five
   by a stated move, and **the derivation is written beside the token it produced
@@ -40,7 +40,7 @@ brand entity SEO and funneling visitors to the channel and socials.
   - **Neither is a body section heading.** Those stay off-white, and that is
     LOAD BEARING: `.mw-head h2` reads "Most wanted" with `.hl` on the second
     word, so a pink heading would swallow its own highlight and a teal one would
-    sit a point of luminance from it, which is the "coloured blur" Tim
+    sit a point of luminance from it, which is the "coloured blur" the owner
     complained about on the charcoal sample.
 
   **THE BIG PINK IS NOT "LARGE TEXT" AT THE SIZES THIS SITE ACTUALLY USES.**
@@ -59,7 +59,7 @@ brand entity SEO and funneling visitors to the channel and socials.
   `.tiers li` and `.fk-see` were all caught. If you find a fourth, the fix is
   `--paper` (a well) or a dark fill, not a lighter accent.
 
-  **GOLD IS SEMANTIC, NOT PALETTE, AND THAT WAS TIM'S CALL:** "yeah its cool to
+  **GOLD IS SEMANTIC, NOT PALETTE, AND THAT WAS THE OWNER'S CALL:** "yeah its cool to
   keep the hall of fame gold, but just not use that color in the general pallet
   of the site colors." It has one meaning, *this is the biggest card the channel
   has ever pulled*, and it survives in three places, all written as LITERAL
@@ -74,7 +74,7 @@ brand entity SEO and funneling visitors to the channel and socials.
   DAY.** d2b31551 turned the site green and left `public/assets/og-*.jpg` navy,
   so for one day every link preview was the old palette with a gold RIPS and a
   gold kicker: the first thing a stranger ever saw of this site was the one
-  thing on it still breaking the rule above. Tim spotted it from a screenshot of
+  thing on it still breaking the rule above. The owner spotted it from a screenshot of
   his own link preview. Fixed 18 August 2026 in the two builders that write
   them, and BOTH have to move together because a set card and a guide card sit
   side by side in a feed:
@@ -411,7 +411,7 @@ in build-top-graded.mjs that 100 outbound links would be the largest exception
 on the site. That argument was written before these two pages existed and the
 count it feared is now live and written down here. So the site currently does
 both things with the same source, which is a real inconsistency rather than a
-subtlety: either that page gains links or these two lose them. It is Tim's
+subtlety: either that page gains links or these two lose them. It is the owner's
 call, and it is recorded here rather than settled quietly in one file.
 
 THAT OPEN CALL WAS THE REASON /topps-card-values.html HAS NO ROW LINKS, added
@@ -420,9 +420,9 @@ the product path is printed on every row as plain text and linked nowhere. The
 argument is in scripts/build-topps.mjs's header and it is short. Two hundred
 more outbound links would be the largest single addition of them the site has
 ever made, and making it would settle a question this file explicitly parks with
-Tim, in one builder, quietly, which is the exact mistake the four paragraphs
+the owner, in one builder, quietly, which is the exact mistake the four paragraphs
 above are about. The figures stay checkable because the path is on the row. If
-Tim settles it the other way, that page and /top-graded.html change in one edit,
+the owner settles it the other way, that page and /top-graded.html change in one edit,
 together, and this paragraph goes with them.
 
 THE SHAPE IS THE MITIGATION, exactly as for the fourth and fifth. Every large
@@ -489,7 +489,7 @@ instead of trusting it:
   content, which is exactly how it went uncounted. It IS argued, but in
   shared/chrome.mjs beside the constant, not here, and an argument written
   where nobody looks for the rule is the failure mode this section exists to
-  describe. The case for it is good and stands: it is Tim's own collection,
+  describe. The case for it is good and stands: it is the owner's own collection,
   the alternative was building a collection page out of Collectr's API that
   nobody comes here for, and one named text link at the foot of the page beats
   a fake page competing with the real ones.
@@ -594,7 +594,7 @@ from you.
 mistake the paragraphs above spend four screens complaining about. The map at
 the top of that page used to be six dots on a plain green field, and its own
 caption admitted the gap: "There are no roads on it because we do not have any
-to draw." Tim asked for a real map. It now draws roads, water and the City of
+to draw." The owner asked for a real map. It now draws roads, water and the City of
 Rochester line from OpenStreetMap DATA, fetched once by
 `scripts/sync-shop-map.mjs` into `data/shop-map.json` and rendered into the same
 inline SVG; no tiles, no runtime request to anybody. OSM data is ODbL, which
@@ -624,7 +624,7 @@ tiles, and the script that does it is NOT in build-all.mjs for the same reason
 sync-decks.mjs is not.
 
 /card-shows.html GAINED THE SAME TWO LINKS ON 21 AUGUST 2026, FOR THE SAME
-NON-DISCRETIONARY REASON, AND IT IS THE SAME SENTENCE THAT CAUSED IT. Tim: "on
+NON-DISCRETIONARY REASON, AND IT IS THE SAME SENTENCE THAT CAUSED IT. The owner: "on
 the card shows page, make the image at the top an actual map showing the cities
 and surrounding areas right now its just names of cities and dots, needs to be a
 map, also please delete the calendar below the map not needed." That figure's
@@ -694,7 +694,7 @@ away. If a later editor wants that column linked too, that is a real argument;
 make it here first.
 
 AND THE SEVENTH EXCEPTION THAT WAS ASKED FOR BY NAME AND STILL NOT MADE, 17
-August 2026. Tim stated the site's commercial purpose plainly: YouTube is the
+August 2026. The owner stated the site's commercial purpose plainly: YouTube is the
 primary channel and the goal is subscribers and views. That goal is in genuine
 tension with this rule, and the obvious way to serve it is to put a Subscribe
 link or a youtube.com link on all 1,475 pages. THAT IS THE ONE THING THAT WAS
@@ -842,7 +842,7 @@ Two constraints that shape these pages:
   second feed named the wrong card entirely.
 
   **THE MONEY IN THAT FILE IS PRICECHARTING'S NOW, NOT TCGDEX'S, SINCE 18
-  August 2026.** Tim: "lets use pricecharting as the main numbers for the
+  August 2026.** The owner: "lets use pricecharting as the main numbers for the
   entire site". `scripts/sync-pricecharting-cards.mjs` reads the crawl
   `sync-graded-top.mjs` already cached under `.cache/pricecharting-console/`
   and writes `data/pricecharting-cards.json`; `sync-cards.mjs` overlays it onto
@@ -918,7 +918,7 @@ Two constraints that shape these pages:
   number one is the Illustrator Pikachu. The full argument, both ways, is in
   the header of `scripts/build-top100.mjs` and the page says all of it out
   loud. /most-expensive-sealed.html stays on TCGplayer because the crawl
-  excludes sealed product; Tim authorised that split in as many words.
+  excludes sealed product; The owner authorised that split in as many words.
 
   THREE THINGS STAY WHERE THEY WERE AND NONE IS AN OVERSIGHT. `low` is a lowest
   live listing, which PriceCharting does not publish at all. Pokemon Center
@@ -1000,7 +1000,7 @@ for, so those rows carry a drawn tile rather than a borrowed scan.
 
 ## The Topps pages
 
-Two pages about the cards Topps made, added 18 August 2026 on Tim's ask: "the
+Two pages about the cards Topps made, added 18 August 2026 on the owner's ask: "the
 company Topps made their own sets of Pokemon cards back in the day ... not many
 collectors know about the Topps cards, and most don't realize how valuable they
 are as well". FOUR scripts now, and only the last is in build-all.mjs:
@@ -1127,7 +1127,7 @@ the open call recorded in the sixth exception above.
 
 **NOBODY SAYS "DEAREST", and this cost a day of the launch week.** Both pages
 shipped describing "the 100 dearest Topps Pokemon cards", in the h2s, the lede,
-the meta description and the og:description. Tim read his own page and said "not
+the meta description and the og:description. The owner read his own page and said "not
 sure why it says the dearest cards ... not sure what dearest means". It is
 British English for "most expensive", it is an agent's vocabulary rather than
 the site's, and it is worthless for search on top of that: nobody types "dearest
@@ -1208,12 +1208,12 @@ longer selector before rewriting the markup.
 
 ## The Garbage Plate page
 
-`/garbage-plate.html`, added 20 August 2026 on Tim's ask, built by
+`/garbage-plate.html`, added 20 August 2026 on the owner's ask, built by
 `scripts/build-garbage-plate.mjs` from `data/garbage-plate.json`. One builder,
 one data file, no sync step and no network: everything on the page was read by a
 human and written into the JSON with the source and the read date beside it.
 
-**WHY IT EXISTS, in Tim's words:** "I think there is really some good SEO juice
+**WHY IT EXISTS, in the owner's words:** "I think there is really some good SEO juice
 to be had with a dedicated Garbage Plate informational page built out, not a ton
 of great places to get good garbage plate info". Same instinct that produced the
 First Partner guide: he spotted thin coverage and asked for the page that fills
@@ -1258,7 +1258,7 @@ rules held it together and all three were measured rather than assumed:
   units is 9px. The drawing carries numbers only and the labels sit in an
   ordered list beside it at real body sizes. That is /shops.html's hours-chart
   lesson taken the first time instead of the third. **THAT CHART WAS DELETED ON
-  20 AUGUST 2026** on Tim's call, because every shop card already printed its own
+  20 AUGUST 2026** on the owner's call, because every shop card already printed its own
   hours in full and the grid said the same thing a second time in a second shape.
   The lesson it taught about type sizes in a scaled SVG outlived it, which is why
   this bullet still names it; the shop map that remains puts its six labels on
@@ -1563,7 +1563,7 @@ NOT be re-measured on 20 August 2026 and must not be quoted as current.** A
 token is free at mapillary.com/developer; put one in `.env` and this becomes a
 real lead again instead of an argument.
 
-Tim photographs things for a living and lives there, so his own pictures are
+The owner photographs things for a living and lives there, so his own pictures are
 still the answer for the seven: add one to `photos` in the data with `where` set
 to `place:<the name on the card>` and it renders. **Do not solve this by
 hotlinking, and do not solve it from a restaurant's own site or social feed** —
@@ -1579,7 +1579,7 @@ first gate on this page and it has never been the only one.
 
 ## Which PRINTING a logged hit is, and why the rarity decides it
 
-**THE RARITY COLUMN IS TIM'S DATA. THE NUMBER COLUMN IS USUALLY DERIVED.** He
+**THE RARITY COLUMN IS THE OWNER'S DATA. THE NUMBER COLUMN IS USUALLY DERIVED.** He
 reads the symbol off the card and writes both: the Video Log's Hit Info cells say
 "Mega Dragonite ex - Double Black Star - Double Rare". A double black star IS
 Double Rare. The My Hits Number column is blank on most rows.
@@ -1591,7 +1591,7 @@ Y ex at 022 (Double rare, $5.46) and 294 (Mega Hyper Rare, $363.43); the row say
 "Double Rare" and the site published 294.
 
 **It moved 86 rows and it is why /hall.html read as though the wanted list had
-been pasted into it.** Tim, 23 August 2026: "you added in all sorts of cards that
+been pasted into it.** The owner, 23 August 2026: "you added in all sorts of cards that
 are not logged as hits in my video ... that is wrong." Nothing had been added.
 Every plaque was a real logged card at the wrong PRINTING, which looks identical.
 
@@ -1610,7 +1610,7 @@ this without at least this much evidence:
 - The Video Log's own Hit Info cells name the symbol as well as the tier. All
   **157** rows where that cell names a tier agree with the rarity-first pick.
   **0 disagree.**
-- Tim sent the TCGplayer link for Mega Charizard Y ex **022/217** himself,
+- The owner sent the TCGplayer link for Mega Charizard Y ex **022/217** himself,
   against the 294 the old rule chose.
 - `data/graded.json`'s readme, written 14 August, records "Dawn #129 where ours
   is #118" and "Mega Gardevoir ex #178 where ours is #159". Our numbers then are
@@ -1803,7 +1803,7 @@ rows it read against how many cards it inducted. It is 80.
     "Iono's Bellibolt" against Ascended Heroes' "Iono's Bellibolt ex". THAT
     FAULT IS GONE: rows 127 and 222 both read "Iono's Bellibolt ex" today and
     both resolve. Checked against the workbook AND the built tree rather than
-    against this file, because a list of broken rows goes stale the moment Tim
+    against this file, because a list of broken rows goes stale the moment the owner
     edits a cell, and this one had. **Five rows are left and every one of them
     needs him, not code.** The right-hand column is what the checklist we
     already hold says the card is, so each is one cell edit away:
@@ -1840,7 +1840,7 @@ rows it read against how many cards it inducted. It is 80.
     pastel star symbol. Single-sourced, unverified." among the claims it
     refuses to publish. There is no printed tier here to add. That row also
     needs one thing the other four do not: the checklist holds three Mega
-    Froslass ex, so the NUMBER has to come from Tim as well as the tier.
+    Froslass ex, so the NUMBER has to come from the owner as well as the tier.
 
     **FIX THESE IN THE SHEET AND RE-IMPORT; do NOT edit data/hits.json**, which
     import-sheet.mjs rebuilds per video. A cell naming a card no checklist holds
@@ -2518,7 +2518,7 @@ the LAYOUT of the first two content bands is not, and the difference is
 described under "The home page is two layouts" below.
 
 **AND SINCE 18 August 2026 THE NUMBER OF TILES IS NOT THE SAME AT EVERY WIDTH
-EITHER, BELOW 545px.** Tim: "only update to the home page on mobile is to only
+EITHER, BELOW 545px.** The owner: "only update to the home page on mobile is to only
 show 1 video for each section, so show the Hall of fame video, but no other
 greatest hits videos, then show the latest rip video but no other videos on home
 page for now." So on a phone Greatest Hits is the trophy alone, its whole shelf
@@ -2558,7 +2558,7 @@ architecture notes are worse than none: they get quoted back as constraints.
 
 WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
 - **THIS WEEK'S DROPS IS THE FIRST THING IN `<main>` AND IT CAN DELETE ITSELF.**
-  Added 17 August 2026 on Tim's ask: "easy to just land on home page and see
+  Added 17 August 2026 on the owner's ask: "easy to just land on home page and see
   what upcoming pokemon drops to keep an eye out for this week". Three rows out
   of /drops.html's nine, generated into the `DROPS` region by build-proto.mjs
   from data/drops.json, linking through.
@@ -2670,7 +2670,7 @@ WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
   set and the view count.
 
   **AND THE TEARDOWN HALF OF THAT WAS BROKEN FROM THE DAY IT WAS WRITTEN, FIXED
-  22 AUGUST 2026.** Tim: "if you click and watch any of the videos other than
+  22 AUGUST 2026.** The owner: "if you click and watch any of the videos other than
   the hall of fame video then the hall of fame video disappears and you cant see
   it anymore". The `.hofx` branch of `playInTile` builds the playing state by
   MOVING the anchor's children into a new `<div class="hofx is-playing">` shell
@@ -2776,7 +2776,7 @@ WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
   no callers anywhere in the repo. It was edited in step with this change
   because the list said to, and its date chip was even moved to clear a banner
   it could never have collided with. Deleted. An emitter list is a maintenance
-  contract, so an entry that renders nothing costs more than a missing one. Tim: "I do like the 'Click To Open Pack' banner on
+  contract, so an entry that renders nothing costs more than a missing one. The owner: "I do like the 'Click To Open Pack' banner on
   the video pages themselves, can we carry that accross to the home page, and
   remove the 'Rip it open' ctas all together not needed just that one banner
   acorss the bottom". The markup is `RIP_BANNER` in shared/format.mjs, imported
@@ -2800,7 +2800,7 @@ WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
   sat at the CENTRE of the artwork and the banner sits at its foot.
 
   **THE WHOLE BAR IS ABOVE THE FOLD ON A PHONE SINCE 20 August 2026, AND THE
-  NUMBER TO BEAT IS 700 RATHER THAN 844.** Tim, on his own phone: "lets also
+  NUMBER TO BEAT IS 700 RATHER THAN 844.** The owner, on his own phone: "lets also
   make it so when you land on the home page you can see the entire hall of fame
   video on the screen, and see the click to rip open the pack banner and watch
   the video right when you land on home page above the fold no scrolling, we can
@@ -2833,7 +2833,7 @@ WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
   layout reached when all three packs went to one width. **THE OTHER LEVER WAS
   THE BAND ORDER AND IT WAS DELIBERATELY NOT TAKEN.** Moving the two DROPS
   markers below `.hof` pays the band's whole 59.41px AND would leave the pack
-  near 307 wide, but Tim asked for that band above the fold on 17 August in as
+  near 307 wide, but the owner asked for that band above the fold on 17 August in as
   many words, so it is a trade for him rather than for a stylesheet. If he wants
   the bigger pack, that swap is two markers and one paragraph.
 
@@ -2852,7 +2852,7 @@ WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
   The script lives outside every `NAME:START` marker, which is the only reason
   build-proto.mjs does not overwrite it.
 - The newest rip wears a LABEL, not a timestamp: "Today's Rip", "Yesterday's
-  Rip", or "Latest Rip" past that. Tim uploads daily so it reads "Today's Rip"
+  Rip", or "Latest Rip" past that. The owner uploads daily so it reads "Today's Rip"
   almost every day, which is what he asked for, but it is derived from the
   video's own publish date and never hardcoded: the nightly has failed three
   nights running before now, and the video on show can be older than the page
@@ -2881,7 +2881,7 @@ ALL `min-width`, so nothing a phone or a tablet renders changed. Three things:
 - Most wanted's tiles grow to fill their row instead of stopping at 168px.
 
 THE TROPHY COLUMN IS NO LONGER "a fixed 460 to 520px" AND THIS BULLET SAID SO
-UNTIL 17 August 2026. Tim: "home page layout on desktop is still wonky for the
+UNTIL 17 August 2026. The owner: "home page layout on desktop is still wonky for the
 first 3 videos". Those two picked numbers were the cause, because a SHARE is not
 a SIZE: the trophy's artwork is its column less a 4px border and var(--s5)
 padding, a slide's is half of what is left less a 1px border and var(--s4), and
@@ -2988,7 +2988,7 @@ Where it stayed, and why, because these are not oversights:
   That is argued work in that file. Leave it.
 - **Retailer pages and most game pages.** The suffix renders in full there, so
   removing it would lose brand for nothing.
-- **51 rip pages still over the cut.** Those titles are Tim's own YouTube titles
+- **51 rip pages still over the cut.** Those titles are the owner's own YouTube titles
   verbatim, and rewriting them would break the correspondence between the page
   and the video it is about.
 - **/index.html and /about.html**, where the brand is at the FRONT and is the
@@ -3040,7 +3040,7 @@ in the wrong place if the domain does not answer on launch day.
 
 ## TODO (rough priority)
 1. Greatest Hits playlist. The band ranks by pull tier then views as a
-   stand-in; Tim's own playlist would replace it. (The old note here pointed
+   stand-in; The owner's own playlist would replace it. (The old note here pointed
    at a "HITS ONLY PLAYER" comment in index.html that no longer exists.)
 2. Buy garbagerips.com, set it in Settings > Pages, then verify in
    Google Search Console and submit sitemap.xml. See DEPLOY.md.
@@ -3056,7 +3056,7 @@ in the wrong place if the domain does not answer on launch day.
    as permission.
 5. Consider migrating to Astro if the blog grows (keep it static).
 6. Naming consistency: "GarbageRips585" (one word, on sticker) vs
-   "Garbage Rips 585" (spaced, on YouTube). Tim to pick one for H1/metadata.
+   "Garbage Rips 585" (spaced, on YouTube). The owner to pick one for H1/metadata.
 
 ## Gotchas
 - Shorts playlist embed plays in a normal player, not the Shorts UI.

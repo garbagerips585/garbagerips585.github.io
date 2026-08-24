@@ -51,7 +51,7 @@ const SET_MAP = {
   "paldea-evolved": "sv2",
   "scarlet-violet": "sv1",
   "pokemon-go": "pgo",
-  // Sword & Shield era. Tim rips older packs from shops and shows constantly,
+  // Sword & Shield era. The owner rips older packs from shops and shows constantly,
   // and these five had NO way into the site at all: the Set dropdown in the
   // workbook is built from this file's output, so ten videos naming a set in
   // their own title had no cell to record it in and came back untagged every
@@ -86,7 +86,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // staging host instead would simply break on the day of the flip.
 // Derived from SITE, so it is correct in both states and needs no launch step.
 // scripts/sync-shop-map.mjs carries the same construction and the same reason.
-const UA = `garbagerips585-sets/1.0 (${SITE}/expansions.html; tim.patenaude@gmail.com)`;
+const UA = `garbagerips585-sets/1.0 (${SITE}/expansions.html; garbagerips585@gmail.com)`;
 
 async function apiGet(path, { tries = 6 } = {}) {
   let last = "";

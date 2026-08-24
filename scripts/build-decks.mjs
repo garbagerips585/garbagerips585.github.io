@@ -7,7 +7,7 @@
 // shared/decks.mjs, which also feeds /top-100-playable.html so the two pages
 // cannot print different numbers for the same corpus.
 //
-// WHAT THE READER CAME FOR. Tim asked for easy to download lists of the best
+// WHAT THE READER CAME FOR. The owner asked for easy to download lists of the best
 // custom decks you could make, for the physical game and for TCG Live. The
 // useful fact that makes that a real deliverable rather than a page of prose is
 // that POKEMON TCG LIVE IMPORTS A DECKLIST BY PASTE. So the page hands over an
@@ -82,6 +82,14 @@ import {
 } from "../shared/chrome.mjs";
 import { esc, longDate, imgDims, avifPicture, clipMeta} from "../shared/format.mjs";
 import { loadDecks, checkSetMap } from "../shared/decks.mjs";
+
+// WHEN THE TCG LIVE RULES ABOVE WERE READ, and it is deliberately NOT
+// d.checked. That one is the decklist corpus date, which moves every time the
+// deck data syncs and has nothing to do with when Pokemon's support articles
+// were read. Printing the corpus date beside a claim sourced from Pokemon
+// would be citing the wrong measurement with a straight face. Update this only
+// when somebody actually re-reads those two articles.
+const LIVE_RULES_READ = "2026-08-24";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const { d, resolve, byKey } = await loadDecks();
@@ -696,17 +704,51 @@ ${MENU}
           not because we checked them card by card.</p>
       </div>
 
-      <h2>How to get one of these into the game</h2>
+      ${/* THE OWNER, 24 AUGUST 2026: "add in exact step by step instructions on how you
+            could copy and paste deck builds from this site into the TCG live app and
+            then actually use those decks in the game". The four steps that stood here
+            stopped at the import, which is the easy half. The half that stops people
+            is what happens next: the deck lands in your collection and is NOT playable,
+            because Live requires you to own every card in it.
+
+            EVERY UI LABEL AND EVERY RULE BELOW IS QUOTED FROM POKEMON'S OWN SUPPORT
+            ARTICLES, read through the Zendesk API on 24 August 2026 because
+            support.pokemon.com returns 403 to an ordinary browser fetch. The deck
+            validity rules and "you cannot set the deck as active until you make it
+            valid" come from "Why can't I use my card or deck in Pokemon TCG Live?"
+            (edited 14 July 2026, the freshest official article on this). The crafting
+            sequence, including the "Show Cards" filter trap, comes from "How Do I
+            Exchange Trade Credits to Obtain Cards?" (edited 25 February 2025). Do not
+            reword the button names: they are the strings on screen. */ ""}
+      <h2>How to get one of these into the game, and actually play it</h2>
       <ol class="dk-steps">
-        <li>Pick a deck below and open <b>Show the raw import text</b>.</li>
-        <li>Hit <b>Copy the list</b>, or download the .txt if you would rather keep it.</li>
-        <li>In Pokemon TCG Live, open the deck manager, choose <b>Create a Deck</b>, then <b>Import Deck</b>.</li>
-        <li>Paste into the import box and confirm. Cards you do not own yet show as missing, and you can
-          craft them or build around them. New to the client? <a href="/tcg-live.html">Start here</a>.</li>
+        <li><b>Copy the list.</b> Pick a deck below, open <b>Show the raw import text</b>, and hit
+          <b>Copy the list</b>. Download the .txt instead if you would rather keep it.</li>
+        <li><b>Import it.</b> In Pokemon TCG Live, open <b>Decks</b>, choose <b>Create a Deck</b>, then
+          <b>Import Deck</b>. Paste into the box and confirm. New to the client?
+          <a href="/tcg-live.html">Start here</a>.</li>
+        <li><b>Expect it not to be playable yet, and do not take that as an error.</b> Live will only let
+          you use a deck that holds exactly 60 cards, has at least one Basic Pokemon, breaks no format or
+          ban rules, and contains <b>only cards you own</b>. Miss any of those and it shows a warning
+          saying which, and you cannot set the deck as active until you fix it. A freshly imported
+          top-tier list almost always fails on that last one.</li>
+        <li><b>Fill the gaps with Trade Credits.</b> Credits can only be spent while making or editing a
+          deck, which is why there is no shop to go to. Open the deck, choose <b>Edit Deck</b>, and filter
+          to the card you need. If you own no copies at all it will not show up until you change the
+          <b>Show Cards</b> filter, and that one setting is what makes people think the card is missing
+          from the game. Then select <b>Available</b>, pick the variant, and select <b>Exchange</b>. Use
+          the <b>+ button</b> for more than one copy and finish with <b>Confirm Exchange</b>.</li>
+        <li><b>Take the plain version every time.</b> Exchanging is final and cannot be refunded, and a
+          fancy variant plays exactly the same as the ordinary one. Credits spent on the pretty copy are
+          credits you no longer have for the card you still need.</li>
+        <li><b>Set it active and play.</b> Once the deck is valid the warning clears, you can make it your
+          active deck, and it is legal in the format it was built for. The same 60 cards is a legal paper
+          deck too, because it is the same game.</li>
       </ol>
       <p class="dk-asof">The .txt files hold the decklist and absolutely nothing else, no header and no
         credit line, because the importer reads everything you paste and a stray line is how an import
-        fails.</p>
+        fails. Deck rules and the crafting sequence are Pokemon's own, from their TCG Live support
+        articles, read ${esc(longDate(LIVE_RULES_READ))}.</p>
 
       <h2>What "most played" means here, exactly</h2>
       <p class="dk-p">These are the <b>most played</b> decks, ordered by <b>share of the recorded field</b>. That is a

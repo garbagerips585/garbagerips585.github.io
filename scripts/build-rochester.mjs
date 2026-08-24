@@ -11,7 +11,7 @@
 // them linked the other four. A reader who landed on the shop list from a
 // search had no way to discover the card show calendar existed.
 //
-// Tim, on what the site is for: "I want to be a hub for the local community to
+// The owner, on what the site is for: "I want to be a hub for the local community to
 // showcase what they do best, this area is massive for pokemon cards and i want
 // the world to know". You cannot tell somebody that in a nav heading. This is
 // the page that says it, with the numbers under it.
@@ -21,7 +21,7 @@
 // the page that owns it, so there is one place to fix it, and every figure here
 // is read out of data/shows.json, data/shops.json, data/vendors.json,
 // data/creators.json and data/garbage-plate.json at build time. Nothing on this
-// page is typed. If a show expires the count drops on its own; if Tim adds a
+// page is typed. If a show expires the count drops on its own; if the owner adds a
 // vendor the "two vendors" sentence rewrites itself and the paragraph admitting
 // the list is short switches itself off.
 //
@@ -46,7 +46,7 @@
 // geometry file and both took real work to make legible at 390px. A THIRD map
 // here would either duplicate 300 lines that will drift out of step with the two
 // real ones, or be the dotted field with no roads on it that CLAUDE.md records
-// Tim rejecting BY NAME on both of those pages. The maps are one tap away and
+// the owner rejecting BY NAME on both of those pages. The maps are one tap away and
 // they are better than anything this page would draw. What this page gets
 // instead is one real photograph and the drawn plate, which is the thing the
 // channel is named after and the only mark on the site a Rochester reader
@@ -300,7 +300,7 @@ const shopRow = (s) => `        <li>
         </li>`;
 
 // ---------------------------------------------------------------------------
-const TITLE = "Pokemon Cards in Rochester, NY: Shows, Shops and the Local Scene";
+const TITLE = "Pokemon Cards in Rochester, NY: Shows, Shops, Local Scene";
 const H1 = 'Pokemon in <span class="hl">Rochester</span>, NY';
 const KICKER = "585 &bull; The local scene";
 
@@ -545,7 +545,7 @@ ${MENU}
   <div class="wrap">
     <span class="kicker">${KICKER}</span>
     <h1>${H1}</h1>
-    ${/* STRAIGHT INTO IT. Tim, 24 August 2026: "the top copy needs to be removed
+    ${/* STRAIGHT INTO IT. The owner, 24 August 2026: "the top copy needs to be removed
           or changed, just go right into the info." This used to open with two
           sentences of throat-clearing before a reader learned anything -- one
           about the town and one listing what the page contains, which the page
@@ -566,7 +566,7 @@ ${MENU}
     ${/* THE LABEL AND THE LEDE BOTH USED TO BE ABOUT THE METHOD. "Counted, not
           claimed" over a paragraph explaining that the figures are read out of
           the files at build time is a note to the author, not to a reader, and
-          Tim said so: "not so much about how you got the info for the stats
+          the owner said so: "not so much about how you got the info for the stats
           widget."
           The build-time counting is still true and still the reason these
           numbers can be trusted, and it stays written down in the header of
@@ -654,7 +654,7 @@ ${shops.map(shopRow).join("\n")}
 
 ${/* THE PEOPLE, AND THIS SECTION IS THE REASON THE PAGE EXISTS RATHER THAN THE
       part of it that is behind. Shows and shops are places and they were always
-      going to be easy. The thing Tim actually asked for is a hub that showcases
+      going to be easy. The thing the owner actually asked for is a hub that showcases
       what the local community does, and that is these two pages, and they hold
       four entries between them. So this section prints the count, says whose gap
       it is, and sends the reader to the ask rather than to the list: a stranger
@@ -673,7 +673,7 @@ ${/* THE PEOPLE, AND THIS SECTION IS THE REASON THE PAGE EXISTS RATHER THAN THE
       whole reason a local list is worth more than a directory, and it is also why it grows slowly. If you sell at
       the shows, or you film around here, or you just watch somebody local who deserves the traffic, that is the
       fastest way this page stops being short.</p>
-    ${/* AND A ROUTE THAT IS NOT A FORM. Tim, 24 August 2026: "incase someone
+    ${/* AND A ROUTE THAT IS NOT A FORM. The owner, 24 August 2026: "incase someone
           wants to email me their vendor info, creator info, store info, shop
           info, or show info they can just email me directly."
           It sits in THIS section rather than in the footer because this is the

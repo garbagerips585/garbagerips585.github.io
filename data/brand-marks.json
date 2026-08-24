@@ -196,6 +196,15 @@
    "title": "File:Barnes & Noble logo.svg",
    "license": "Public domain",
    "artist": "Barnes &amp; Noble"
+  },
+  "sams-club": {
+   "file": "/assets/brands/sams-club.svg",
+   "alt": "Sam's Club",
+   "w": 794,
+   "h": 149,
+   "title": "File:Sam's Club logo 2026.svg",
+   "license": "Public domain",
+   "artist": "Walmart"
   }
  }
 }

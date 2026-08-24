@@ -553,7 +553,7 @@ function hitsBand(g, cls) {
               card that read "Art Rare" before, matching the letters printed on
               the wrapper and on the card itself, started reading "Illustration
               Rare". The rip log is written in the wrapper's vocabulary because
-              that is what Tim reads off the pack, and a guide that renames his
+              that is what the owner reads off the pack, and a guide that renames his
               tier is the guide disagreeing with the card in his hand. rarityJp
               is additive and only exists where sync-intl-guides.mjs stamped it,
               so this cannot reach a row that never had a Japanese word.
@@ -1355,7 +1355,7 @@ function rarityBand(g, rarities, maxN, secretCount, cls) {
 /**
  * THE PACK ITSELF, and it is one product rather than a shelf of them.
  *
- * Asked for by name on 22 August 2026. Tim: "I'm not shooting any of my own
+ * Asked for by name on 22 August 2026. The owner: "I'm not shooting any of my own
  * images, you should be able to source the images for the Japanese and Korean
  * packs", and, on how much to show, "one representative item per product" --
  * a booster pack for a set, not a montage of the whole box. So this band is a

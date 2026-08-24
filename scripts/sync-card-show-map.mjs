@@ -78,7 +78,7 @@ const ENDPOINT = "https://overpass-api.de/api/interpreter";
 // contact url FOLLOWS THE FLIP through SITE, for the reason sync-shop-map.mjs
 // records: a UA naming a host the site no longer serves is worse to an operator
 // than no UA at all.
-const UA = `garbagerips585-card-show-map/1.0 (${SITE}/card-shows.html; tim.patenaude@gmail.com)`;
+const UA = `garbagerips585-card-show-map/1.0 (${SITE}/card-shows.html; garbagerips585@gmail.com)`;
 
 // THE BOX IS THE DRAWING, PLUS A MARGIN, AND THE BUILDER CHECKS IT.
 //

@@ -130,7 +130,7 @@ export const viewCount = (n) =>
  *     /sets/phantasmal-flames.html  the value" over a 1
  *
  * THE PACK COUNTS ARE WHY THEY ALL APPEARED AT ONCE. 244 inferred pack counts
- * were withheld on 18 August 2026 pending Tim's filled sheet, so a site-wide
+ * were withheld on 18 August 2026 pending the owner's filled sheet, so a site-wide
  * total that had been in the hundreds became 1 overnight and four tiles started
  * reading as broken. Nothing about those tiles changed. Assume every count you
  * print can be 1 tomorrow.
@@ -153,7 +153,7 @@ export const count = (n, one, many) => `${n} ${plural(n, one, many)}`;
 /**
  * Keep a trailing emoji from landing on a line of its own.
  *
- * TIM'S PLAYLIST TITLES END IN EMOJI AND THE EMOJI ARE HIS, so the fix is never
+ * THE OWNER'S PLAYLIST TITLES END IN EMOJI AND THE EMOJI ARE HIS, so the fix is never
  * to drop one. "Pitch Black ETB Opening Marathon 🛡️💎" wrapped at 390px into
  * "...Marathon 🛡️" and then a second line holding "💎" and nothing else, on two
  * of the first three cards on /playlists.html. There is a line break
@@ -237,13 +237,13 @@ export const noValue = (reason, cls = "none") =>
  *
  * It is the banner the rip pages have always carried across the foot of the
  * sealed pack, and since 19 August 2026 it is the only affordance any video
- * artwork gets: Tim asked for "just that one banner acorss the bottom" and for
+ * artwork gets: The owner asked for "just that one banner acorss the bottom" and for
  * the "Rip it open" pills under the carousel slides to go entirely. The rules
  * are `.pack-hint` in assets-source/ui.css, written once for the rip page and
  * re-used here rather than reimplemented.
  *
  * THE WORDS ARE NOT A CHOICE MADE HERE. They are what build-pages.mjs already
- * prints on 316 rip pages, and they are what Tim pointed at. If they ever
+ * prints on 316 rip pages, and they are what the owner pointed at. If they ever
  * change they change in both places, which is most of the reason this constant
  * exists rather than four literals in two builders.
  *
@@ -266,7 +266,7 @@ export const RIP_BANNER =
  * THE GARBAGE PLATE, DRAWN RATHER THAN PHOTOGRAPHED, and the only picture on
  * this site that is not a card, a pack, a logo or a Pokemon.
  *
- * Tim asked for "little Garbage Plates and little Trubbish and Garbador images
+ * The owner asked for "little Garbage Plates and little Trubbish and Garbador images
  * to the sites pages ... to add charm and give the site its identity". The
  * channel is named after this dish, the commissioned banner has one sitting
  * beside Trubbish, /lore.html opens its mascot section by naming it and
@@ -1313,13 +1313,13 @@ export function clipMeta(s, n = 158) {
  * CLAUDE.md rations em dashes out of the site's writing, and 46 of them were
  * reaching <meta name="description"> and og:description -- the copy a search
  * result shows -- plus about 66 more in visible body text on 60 rip and
- * playlist pages. Every one traced to Tim's own YouTube descriptions, which the
+ * playlist pages. Every one traced to the owner's own YouTube descriptions, which the
  * site quotes verbatim.
  *
  * THE FIX CANNOT LIVE IN THE DATA. scripts/sync-youtube.mjs WRITES
  * data/descriptions.json on every run, so editing that file is undone by the
  * next nightly sync. This is applied where the copy is READ instead, which is
- * why it survives, and why the words on YouTube stay exactly as Tim wrote them.
+ * why it survives, and why the words on YouTube stay exactly as the owner wrote them.
  *
  * TWO SHAPES, TWO REPLACEMENTS, because one rule cannot serve both:
  *   spaced   "Booster Pack #1 - kicking off a new series"   a dash clause

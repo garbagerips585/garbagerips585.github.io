@@ -17,7 +17,7 @@
 // was not, and carried the retired over-hedge for a day with a link between the
 // two pages in both directions.
 //
-// TIM SETTLED IT IN AS MANY WORDS, and this file exists so nobody has to
+// THE OWNER SETTLED IT IN AS MANY WORDS, and this file exists so nobody has to
 // reconstruct it from two pages again:
 //
 //   "yeah I just take PokemonCenter.com prices as MSRP as that is what they sell
@@ -85,13 +85,13 @@
 import { loadListings, multStr } from "./listings.mjs";
 
 /**
- * Tim's four part model, in his order. Short claims, not prose: a page states
+ * The owner's four part model, in his order. Short claims, not prose: a page states
  * them in its own words and this is the checklist for whether it has.
  *
  * A PAGE MAY GO SHORTER THAN FOUR, and dropping one is a decision rather than an
  * edit. Dropping (1) is what /how-many-packs.html did and it produced the
  * contradiction this file exists for. Dropping (4) is worse in a different way:
- * it is the only part that helps anybody, and it is the reason Tim gives for the
+ * it is the only part that helps anybody, and it is the reason the owner gives for the
  * site existing at all ("parents trying to figure out what to buy their kids and
  * how much it should cost is a nightmare, i end up helping people in stores all
  * the time").

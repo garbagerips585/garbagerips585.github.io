@@ -60,7 +60,7 @@ const ENDPOINT = "https://overpass-api.de/api/interpreter";
 // This one also named garbagerips585.com, which after the flip is a REDIRECT
 // domain with no /shops.html of its own -- so OSM's operators would have been
 // pointed at a 301 that drops the path.
-const UA = `garbagerips585-shop-map/1.0 (${SITE}/shops.html; tim.patenaude@gmail.com)`;
+const UA = `garbagerips585-shop-map/1.0 (${SITE}/shops.html; garbagerips585@gmail.com)`;
 
 // THE BOX IS THE DRAWING, PLUS A MARGIN, AND THE BUILDER CHECKS IT.
 //

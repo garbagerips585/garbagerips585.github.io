@@ -21,7 +21,7 @@ export const PRODUCT_TYPES = [
     pattern: /\bex premium collection\b|\bex box\b|\bex collection\b/i },
   { id: "ex-special", label: "ex Special Collection", pattern: /\bex special collection\b/i },
   { id: "poke-ball-tin", label: "Poke Ball Tin", pattern: /pok[eé]\s?ball tin/i },
-  // Added 2026-08-15 after Tim typed it into the sheet by hand, because the
+  // Added 2026-08-15 after the owner typed it into the sheet by hand, because the
   // dropdown did not offer it and the product is real. It sits ABOVE the
   // generic collection-box rule so "Knock Out Collection" does not get swept
   // up as a plain collection box.
@@ -144,7 +144,7 @@ export const CARD_SETS = [
       /pok[eé]mon\s+151\b|\b151\b\s+(?:booster|packs?\b|etb\b|elite\s+trainer|bundle|box\b|upc\b|ultra[- ]premium|binder|poster|collection\b|tin\b|blister)/i,
   },
 
-  // Sword & Shield era, the sets Tim buys loose at shops and shows. Added
+  // Sword & Shield era, the sets the owner buys loose at shops and shows. Added
   // because ten videos named one of these in their own title and the site had
   // nowhere to put the answer: the workbook's Set dropdown is generated from
   // public/data/sets.json, so a set missing there is a set no cell in the sheet

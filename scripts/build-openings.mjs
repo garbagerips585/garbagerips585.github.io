@@ -90,7 +90,7 @@ const EXTRA = JSON.parse(await readFile(join(ROOT, "data/extra-products.json"), 
 // The promo card sealed in an Elite Trainer Box, keyed on SET. Read by
 // promoBand() below, which renders on /openings/etb.html and nowhere else.
 //
-// THE UNIT IS THE SET AND THAT IS THE WHOLE POINT OF THE FEATURE. Tim asked for
+// THE UNIT IS THE SET AND THAT IS THE WHOLE POINT OF THE FEATURE. The owner asked for
 // it as "one promo card should be added for every ETB we open, not every ETB
 // Video but each full set". A nine pack box is ripped across nine videos and
 // held one card, so a per video row would print one promo nine times; and the
@@ -747,7 +747,7 @@ const setPages = new Set(
 // on all fourteen pages, which is the note at the top of this file read
 // backwards.
 //
-// WHAT THE REVIEWER ACTUALLY SAW IS REAL, AND TIM NAMED IT FIRST. Looking at
+// WHAT THE REVIEWER ACTUALLY SAW IS REAL, AND THE OWNER NAMED IT FIRST. Looking at
 // twelve rows of this same shape on /sets/pitch-black.html on 20 August: "right
 // now its just a list of text, looks pretty big and boring". The rip list here
 // is that at scale, 57 rows differing in one digit on the ETB page and 93 on
@@ -828,7 +828,7 @@ const clockMS = (sec) => (sec ? `${Math.floor(sec / 60)}:${String(sec % 60).padS
 
 // THE BRAND TAIL COMES OFF, THE SET NAME DOES NOT, AND THAT SPLIT IS THE POINT.
 //
-// Eight of Tim's playlist titles end "| Garbage Rips 585", and this site's own
+// Eight of the owner's playlist titles end "| Garbage Rips 585", and this site's own
 // rule is that no page title carries that suffix (see the head() comment in the
 // per-product loop, and build-set-pages.mjs's runTitle, whose regex this is).
 // Three ETB runs would otherwise read "...Pack Series | Garbage Rips 585" on a
@@ -841,7 +841,7 @@ const clockMS = (sec) => (sec ? `${Math.floor(sec / 60)}:${String(sec % 60).padS
 // one-rip-per-kind list on the index already documents: whichever half the
 // heading has already said is the half that goes.
 //
-// THE EMOJI STAY. They are Tim's, /playlists.html and the 22 set guides print
+// THE EMOJI STAY. They are the owner's, /playlists.html and the 22 set guides print
 // them, and noWidowEmoji is the shared fix for the one thing they do wrong,
 // which is stranding a lone diamond on a line of its own in a 288px row.
 const runTitle = (t) => String(t).replace(/\s*\|\s*Garbage Rips 585\s*$/i, "").trim();
@@ -982,7 +982,7 @@ ${rows.join("\n")}
  * around them can separate them. The note below states that these come sealed
  * in the box, that nobody pulled them, and that this is why they are on this
  * page and not on the hits page. Do not shorten it to fit: the whole risk of
- * the feature is a reader coming away thinking Tim pulled a Fennekin.
+ * the feature is a reader coming away thinking the owner pulled a Fennekin.
  *
  * NO PICTURE, DELIBERATELY. The obvious illustration is the species sprite in
  * public/assets/species, which this file already uses for the empty-state
@@ -1297,6 +1297,13 @@ const STYLE = `
    .op-shot: product photography arrives on white, so a cream tile reads as a
    halo round the box. flex:none or the picture squashes as the set name wraps. */
 .op-ps{display:flex;gap:var(--s3);align-items:center}
+/* THE THIRD PLACE THIS EXACT BUG LIVES. A flex parent makes its anchor a flex
+   item, the anchor sizes to its text, and a product whose name is "151" ends up
+   an 18px wide tap target. Same cause and same fix as .vg-cite a on
+   /video-games.html and .ws-set a on /what-set.html. Found by
+   scripts/qa-sweep.mjs at 390px across five openings pages. */
+.op-ps a{display:inline-flex;align-items:center;justify-content:flex-start;
+  min-height:24px;min-width:24px}
 .op-pt{flex:none;width:48px;height:48px;object-fit:contain;display:block;background:#fff;
   border:1px solid var(--hair);border-radius:5px}
 /* No usable photo for this row: TCGplayer answers 403 for four of them. Same
@@ -1319,7 +1326,7 @@ const STYLE = `
   background:#fff;border:1px solid var(--hair);border-radius:5px;flex:none}
 .op-sl{width:100%;height:100%;object-fit:contain;display:block}
 /* NO PLATE AT ALL WHEN THERE IS NO LOGO, and this replaced an .op-sx that
-   painted a 45 degree hatch into the empty box. Tim, 19 August 2026: "I don't
+   painted a 45 degree hatch into the empty box. The owner, 19 August 2026: "I don't
    want any blank or any coming soon images". A hatch is a picture of a missing
    picture: it draws the eye to a hole and tells a reader something is still
    loading or still to come, when the truth is that the art does not exist.
@@ -1896,7 +1903,7 @@ ${/* THE HEAP MARK, AND THIS IS THE SITE'S FIRST GARBODOR THAT IS NOT A FAILURE
               It read "Every English booster pack in that count also held a code
               card, and what the code card gets you COUNTS THEM". /tcg-live.html
               stopped printing a code card total on 18 August 2026: its `COUNTED`
-              gate is false while the pack counts are withheld pending Tim's
+              gate is false while the pack counts are withheld pending the owner's
               filled sheet, so that section now says "we are not printing a total
               yet". A reader sent there for a figure was told there is not one.
 

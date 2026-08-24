@@ -4,7 +4,7 @@
 //
 //   node scripts/build-chase-match.mjs
 //
-// WHY THIS EXISTS. Tim asked for it in one sentence: "a bunch of pokemon cards
+// WHY THIS EXISTS. The owner asked for it in one sentence: "a bunch of pokemon cards
 // face down, so you only see the back of the cards, and then when you press a
 // card it flips over and reveals a pokemon and then flips back over, you have
 // to match the pokemon ... lets pick the top 100 most valuable raw cards are
@@ -26,7 +26,7 @@
 // ===========================================================================
 // THE RESEARCH, AND WHAT IT CHANGED
 // ===========================================================================
-// Tim asked for research before the code and this section is it. Every number
+// the owner asked for research before the code and this section is it. Every number
 // below that came from somewhere says where; every one that is a judgement call
 // says that instead. Four decisions were REVERSED by the reading, and they are
 // flagged as such, because a research note that only confirms what was already
@@ -221,7 +221,7 @@
 // Static, unmissable, a different colour from the gold a matched card wears,
 // and it says which cells are IN PLAY rather than which cell just moved, which
 // is more than the fade was going to say. The full argument, and the note that
-// changing the site-wide rule is Tim's call rather than a game's, is beside the
+// changing the site-wide rule is the owner's call rather than a game's, is beside the
 // media query in the stylesheet below.
 //
 // ---------------------------------------------------------------------------
@@ -230,7 +230,7 @@
 // NO SAVED ROUND. The research recommends persisting an in-progress board,
 // because the queue will move and a discarded tab loses the round. It is right,
 // and it is not built: it is a second serialisation format and a second set of
-// states to get wrong, for a game whose whole round is ninety seconds. If Tim
+// states to get wrong, for a game whose whole round is ninety seconds. If the owner
 // wants it, the deck plus the matched set plus the move count is the entire
 // payload.
 // NO SOUND AND NO HAPTICS. A restock line is a public place and a game that
@@ -243,7 +243,7 @@
 // ===========================================================================
 // THE CARD BACK IS DRAWN AND IT IS NOT POKEMON'S
 // ===========================================================================
-// Tim asked for the back to "look like the real back of a real pokemon card".
+// the owner asked for the back to "look like the real back of a real pokemon card".
 // It does not, and this is the one place the build departs from the ask.
 //
 // A card FACE on this site is a scan of a specific card, published beside the
@@ -839,7 +839,7 @@ const style = `
    crossfade would be compliant where a shortened rotateY would not, and in a
    sixteen cell grid an instant change is ambiguous about WHICH cell just
    changed. Getting it would mean carving an exception out of a site-wide rule
-   from one page, with an !important against an !important, and that is Tim's
+   from one page, with an !important against an !important, and that is the owner's
    call about the whole site rather than a game's to make quietly.
 
    SO THE AMBIGUITY IS ANSWERED WITHOUT MOTION INSTEAD, and the answer turned

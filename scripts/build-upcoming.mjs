@@ -26,7 +26,7 @@
 //
 // THE JAPANESE SECTION IS A THIRD LIST AND IT IS DELIBERATELY NOT MIXED IN.
 // data/upcoming.json's _readme used to say, flatly, "Japanese sets are not
-// English sets. Do not put a Japanese date on this page." Tim asked for the
+// English sets. Do not put a Japanese date on this page." The owner asked for the
 // Japanese calendar on 21 August 2026 because he collects Japanese cards and
 // they land months ahead of the English ones, so the rule was REWRITTEN rather
 // than dropped, and it is worth reading there before touching this file.

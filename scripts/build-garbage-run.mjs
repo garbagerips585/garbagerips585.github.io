@@ -33,7 +33,7 @@
 // whoever is not holding it, and both thumbs land in the same place. Removed
 // rather than left in as a feature nobody would use twice.
 //
-// THE MASCOTS ARE THE REAL SPRITES, because Tim asked for the actual Trubbish
+// THE MASCOTS ARE THE REAL SPRITES, because the owner asked for the actual Trubbish
 // rather than a green blob standing in for one.
 //
 // IT IS ONE SHARED FILE, NOT TWO, and this line said two until 20 August 2026.
@@ -211,7 +211,7 @@ const FOE_NAMES = await (async () => {
 
 // ---- THE TITLE SCREEN'S ALPHABET, 5x7, DRAWN AS RECTANGLES ------------------
 //
-// WHY THERE IS A FONT IN A PAGE BUILDER AT ALL. Tim asked for "a really cool 8
+// WHY THERE IS A FONT IN A PAGE BUILDER AT ALL. The owner asked for "a really cool 8
 // bit looking title screen ... like an old school computer game title screen",
 // and the one thing that makes a screen read as 8-bit is the LETTERING. The
 // obvious way to get it is a pixel web font, and that is the wrong trade on
@@ -236,7 +236,7 @@ const FOE_NAMES = await (async () => {
 //
 // ONLY THE CHARACTERS THE SCREEN ACTUALLY NEEDS. A-Z for the lettering, 0-9
 // because the high score is a number and 585 is in the brand, and space, comma,
-// period and hyphen because Tim's line is "Garbage Run - Rochester, NY -
+// period and hyphen because the owner's line is "Garbage Run - Rochester, NY -
 // Garbage Rips 585". There are no lowercase glyphs: an arcade title screen is
 // upper case, so every string drawn is upper-cased at the call.
 const GLYPHS = {
@@ -461,7 +461,7 @@ const style = `
    so it is height bound on every phone there is and its WIDTH is what the height
    buys. At 390x844 this takes 109.8px back, 35.8 of breadcrumb, 40 of section
    padding, 22 of heading and 12 of score margin, and every pixel of it goes into
-   the game: board 279x452 to 347x562 on the phone Tim holds.
+   the game: board 279x452 to 347x562 on the phone the owner holds.
 
    section.gr-sec, NOT .gr-sec, and that is the same trap as the hud above.
    ui.css sets section.tight{padding:48px 0} at (0,1,1), so a single class here
@@ -1056,7 +1056,7 @@ const GAME_JS = `
         // Every fifth one is bigger, so a trail flown cleanly builds.
         // A plate gets the bigger ring and the bigger +1. It is worth ONE POINT
         // like everything else, deliberately: scoring is where a difficulty
-        // change hides, and what Tim asked for is that some of the trash IS a
+        // change hides, and what the owner asked for is that some of the trash IS a
         // Garbage Plate, not that it is worth more. The reward is the moment.
         //
         // AND THE SPARK COUNT IS DELIBERATELY NOT PART OF IT, which cost a whole
@@ -1913,7 +1913,7 @@ const GAME_JS = `
 
   // ---- THE GARBAGE PLATE HE IS SITTING ON --------------------------------
   //
-  // Tim, on the title screen that shipped an hour before this: "can we make the
+  // the owner, on the title screen that shipped an hour before this: "can we make the
   // trubbish mascot sitting on a big Garbage Plate, then it will be perfect".
   // The channel is named after the dish and the reference is the channel's own
   // commissioned banner, public/assets/banner-trubbish.jpg, which already has
@@ -2319,7 +2319,7 @@ const GAME_JS = `
     var hi = footY - Math.round(ph * 0.035);
 
     // THE PLATE IS SIZED LAST, OUT OF WHAT IS LEFT, AND THAT IS THE FOLD RULE
-    // RATHER THAN A DETAIL. Tim asked for a BIG plate, so it wants to be half
+    // RATHER THAN A DETAIL. The owner asked for a BIG plate, so it wants to be half
     // again the mascot's width, which is what makes him look sat on it instead
     // of standing behind a saucer. But only the part of the dish BELOW his seat
     // costs the layout anything, and on a short screen there may not be room for
@@ -2755,7 +2755,7 @@ const GAME_JS = `
   var lastKey = "";
 
   // THE BOARD MUST NOT CHANGE SIZE WHILE SOMEBODY IS LOOKING AT IT, AND IT DID.
-  // Tim, on his own phone: "when you load it on mobile its got a short play
+  // The owner, on his own phone: "when you load it on mobile its got a short play
   // area, then when you scroll down it makes the play area larger, kind of
   // strange". Both halves of that were true and they had two separate causes,
   // which is why the board grew by more than either one alone would explain.

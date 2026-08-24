@@ -2,7 +2,7 @@
   "_readme": [
     "Videos whose logged hit card did not resolve to a printing on the last",
     "build, and why. WRITTEN BY scripts/build-pages.mjs, READ BY",
-    "scripts/build-sheet.py, which tints those rows so Tim can find them.",
+    "scripts/build-sheet.py, which tints those rows so the owner can find them.",
     "",
     "Do not hand-edit: it is regenerated every build. If a row is here and",
     "the cell looks right, the fault is more likely a vocabulary the site",

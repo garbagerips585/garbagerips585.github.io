@@ -7,7 +7,7 @@
   "buildings. A shops page with two entries and a league page with two entries",
   "is two thin pages; one page that answers both is worth reading.",
   "",
-  "THE ORDER OF THIS ARRAY IS THE ORDER OF THE CARDS ON THE PAGE, and it is deliberate rather than alphabetical or arbitrary. Tim, 24 August 2026: LingSter Games first, then Millennium Games, then the rest. Those are the two he actually deals with, and LingSter is the shop the rip log thanks by name for selling at MSRP. The map key below the map is a DIFFERENT order, west to east, because that one is about geography and is sorted in the builder; changing this array does not touch it.",
+  "THE ORDER OF THIS ARRAY IS THE ORDER OF THE CARDS ON THE PAGE, and it is deliberate rather than alphabetical or arbitrary. The owner, 24 August 2026: LingSter Games first, then Millennium Games, then the rest. Those are the two he actually deals with, and LingSter is the shop the rip log thanks by name for selling at MSRP. The map key below the map is a DIFFERENT order, west to east, because that one is about geography and is sorted in the builder; changing this array does not touch it.",
   "",
   "Add a shop with a name and a url. Everything else is optional and simply",
   "does not render when missing: area, address, phone, hours, blurb, goodFor,",

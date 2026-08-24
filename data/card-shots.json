@@ -8,7 +8,7 @@
     "picture existed one host away.",
     "",
     "THIS IS A PIN LIST AND NOT A FALLBACK. Nothing is guessed: each entry names",
-    "the TCGplayer product Tim linked, and the id in that url is what the CDN",
+    "the TCGplayer product the owner linked, and the id in that url is what the CDN",
     "path is built from. A card is added here only after its TCGdex url has been",
     "checked and found to 404, so an entry can never quietly shadow a scan we",
     "already have.",

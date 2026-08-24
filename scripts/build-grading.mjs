@@ -321,7 +321,7 @@ const page = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Is It Worth Grading? Pokemon Card Grading Costs and Break Even</title>
+<title>Is It Worth Grading? Pokemon Grading Costs and Break Even</title>
 <meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/grading.html">
 <meta property="og:title" content="Is it worth grading? The actual math">

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Build public/shops.html from data/shops.json: the card shops around
-// Rochester that Tim actually buys from.
+// Rochester that the owner actually buys from.
 //
 //   node scripts/build-shops.mjs
 //
@@ -93,7 +93,7 @@ const mapDoc = JSON.parse(await readFile(join(ROOT, "data/shop-map.json"), "utf8
  * THIS COMMENT USED TO SAY "THERE IS NO COASTLINE, NO ROAD AND NO CITY OUTLINE,
  * BECAUSE THIS SITE HAS NO LICENSED GEOMETRY FOR ANY OF THOSE", and the
  * figure's own caption admitted the gap out loud: "There are no roads on it
- * because we do not have any to draw." Tim read that and asked for the obvious
+ * because we do not have any to draw." The owner read that and asked for the obvious
  * thing: "we should update the image to be an actual maps with the dots showing
  * where the stores are in the area."
  *
@@ -539,7 +539,7 @@ function shopMap(list) {
     </figure>`;
 }
 
-// THE HOURS CHART WAS HERE AND IT IS GONE, 20 August 2026, ON TIM'S CALL:
+// THE HOURS CHART WAS HERE AND IT IS GONE, 20 August 2026, ON THE OWNER'S CALL:
 // "Remove the time chart below that map image doesn't need it, as each listing
 // for a store lists out its hours of operations and days they are open."
 //
@@ -894,7 +894,7 @@ const body = `
           hanging over a line of mono type. */ ""}
     <p class="crumbs"><a href="/">Home</a> / <a href="/rochester.html">Local scene</a> / Card shops</p>
     ${/* "LCS" IS WHAT THE HOBBY CALLS THESE AND THE PAGE DID NOT SAY IT ONCE.
-          Tim, 24 August 2026: "a common word used in this hobby is LCS local
+          The owner, 24 August 2026: "a common word used in this hobby is LCS local
           card shop, might be a good thing to add to this page for SEO."
           Used ONCE in the lede where it reads as a definition rather than as a
           keyword, and expanded in full the first time so the page answers "what
@@ -965,7 +965,7 @@ ${/* THE ONE ORNAMENT ON THIS PAGE, AND THIS IS THE PAGE THE PLATE WAS DRAWN
     ${/* THE ASK ALREADY EXISTED AND HAD NO ROUTE. "Say hello on any of the
           socials" is an invitation that makes a shop owner go and find an
           account, so this names an address and prefills what a listing needs.
-          Tim, 24 August 2026: "I want them to send their logos to get added to
+          The owner, 24 August 2026: "I want them to send their logos to get added to
           the shops pages as well." */ ""}
     <p class="shops-note">NOT SPONSORED AND NOT AFFILIATE LINKS. THESE ARE SHOPS I GO TO.
       IF YOU RUN A CARD SHOP AROUND ROCHESTER AND YOU ARE NOT ON HERE, EMAIL ME.</p>

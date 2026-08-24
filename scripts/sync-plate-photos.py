@@ -89,7 +89,7 @@ def _site_url() -> str:
     return dom.group(1) if live.group(1) == "true" else stg.group(1)
 
 
-UA = f"garbagerips585-plate-photos/1.0 ({_site_url()}/; tim.patenaude@gmail.com)"
+UA = f"garbagerips585-plate-photos/1.0 ({_site_url()}/; garbagerips585@gmail.com)"
 API = "https://commons.wikimedia.org/w/api.php"
 
 # THE THREE WIDTHS, AND WHY THEY ARE THESE THREE. The widest box any of these

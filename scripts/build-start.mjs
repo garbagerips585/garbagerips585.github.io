@@ -218,11 +218,11 @@ const STEPS = [
   },
 ];
 
-// A SEVENTH QUESTION THAT IS NOT ONE OF TIM'S SIX, and it sits outside the
+// A SEVENTH QUESTION THAT IS NOT ONE OF THE OWNER'S SIX, and it sits outside the
 // numbered list for exactly the reason the paragraph below the list already
 // gives: renumbering it to seven would change what this page claims about
 // itself. Every step above is about a card somebody is ALREADY HOLDING. This
-// one is about the wallet in the other hand, and it is the question Tim
+// one is about the wallet in the other hand, and it is the question the owner
 // actually gets asked out loud, by parents, in shops.
 //
 // It goes ABOVE the how-do-I-play paragraph rather than below it because a
@@ -393,7 +393,7 @@ ${MENU}
           them is about the game the cards are for, and "how do you actually play
           this" is the question somebody who has only ever opened packs asks
           first. It sits outside the numbered list on purpose, because the list
-          is Tim's six in his order and renumbering it to seven would change what
+          is the owner's six in his order and renumbering it to seven would change what
           the page claims about itself. */ ""}
     ${/* THE TWO APPS GET ONE SENTENCE BETWEEN THEM, not one each. This paragraph
           is already the overflow for everything the six numbered questions do not

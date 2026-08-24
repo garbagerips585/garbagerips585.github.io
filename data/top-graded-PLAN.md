@@ -11,7 +11,7 @@ history and it reached a live page.
 
 ## 1. The question does not have one answer, so the page names the one it picked
 
-Tim asked for the "top value graded cards ... top top top tier". That phrase
+the owner asked for the "top value graded cards ... top top top tier". That phrase
 maps onto at least four different measurements, which produce four different
 lists:
 

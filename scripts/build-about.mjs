@@ -8,7 +8,7 @@
 // is, so it carries the Organization schema and the links that tie the channel,
 // the socials and the site together as one entity. It is the page a stranger
 // reads to decide whether the channel is worth their time. And since 21 August
-// 2026 it is the page that says WHAT IS ON THE SITE, because Tim asked for that
+// 2026 it is the page that says WHAT IS ON THE SITE, because the owner asked for that
 // in as many words and there was nowhere else that answered it: the footer nav
 // lists the urls, and a list of urls is not an answer to "what is this".
 //
@@ -36,7 +36,7 @@
 //   and /lore.html is the page that prints that with its source. This page
 //   points there rather than restating it.
 //
-//   "The national food of Rochester" is Tim's phrase and he explained what he
+//   "The national food of Rochester" is the owner's phrase and he explained what he
 //   meant by it: "I just meant its the one food item Rochester, NY is known for
 //   globally." That is an ordinary, defensible claim and it is written here
 //   with confidence, as "the one food Rochester is known for outside
@@ -228,7 +228,7 @@ const since = oldest ? `${MONTHS[Number(oldest.slice(5, 7)) - 1]} ${oldest.slice
 /* ------------------------------------------------------------- the streak --
  *
  * "PACKS GET OPENED ON CAMERA MOST DAYS" WAS AN UNDERCLAIM AND THE LOG SAYS SO.
- * Tim, 23 August 2026: "we rips pokemon packs daily on youtube, everyday, 365,
+ * The owner, 23 August 2026: "we rips pokemon packs daily on youtube, everyday, 365,
  * no days off". Counted here rather than typed, because a cadence claim is
  * exactly the kind of boast a reader should be able to check, and because this
  * one goes stale the first day it stops being true.
@@ -281,7 +281,7 @@ const msrpPriced = msrp.products.filter((p) => typeof p.price === "number").leng
 
 /* -------------------------------------------------------------- the guides
  *
- * WHAT IS ON THE SITE, WHICH IS THE THING TIM ASKED FOR AND THE THING THE OLD
+ * WHAT IS ON THE SITE, WHICH IS THE THING THE OWNER ASKED FOR AND THE THING THE OLD
  * PAGE DID NOT ANSWER.
  *
  * IT IS A DATA STRUCTURE AND NOT PROSE, for one reason: the site gains a guide
@@ -419,7 +419,7 @@ const guideLinkCount = GUIDES.reduce((n, [, , rows]) => n + rows.length, 0);
  * with an anchor tag in its text is a snippet nobody can render.
  *
  * THE QUESTIONS ARE THE ONES A STRANGER ACTUALLY ASKS, not the ones that would
- * rank. Four of them are things Tim gets asked in person.
+ * rank. Four of them are things the owner gets asked in person.
  */
 const stripTags = (s) => String(s).replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
 const FAQ = [
@@ -1095,13 +1095,13 @@ ${FAQ.map(([q, a]) => `          <h3>${esc(q)}</h3>\n          <p>${a}</p>`).joi
           ${since ? `<div class="stat-row"><b>${since.split(" ")[0].slice(0, 3)} ${since.split(" ")[1]}</b><span>first rip</span></div>` : ""}
         </div>
 
-        ${/* THE SITE CARD IS GONE. Tim, 24 August 2026: "Remove the site stats
+        ${/* THE SITE CARD IS GONE. The owner, 24 August 2026: "Remove the site stats
               from about.html."
               It counted the site rather than the channel: pages built, Pokemon
               with a page, guides and tools, playlists. Those are facts about a
               build, and a reader on the about page came for the channel. "The
               channel" card above it stays, because rips filmed and sets opened
-              are facts about Tim.
+              are facts about the owner.
               The figures themselves are NOT orphaned by this. `tree.total` and
               the rest still drive the counted-tree figure further down this
               page, which is where a reader who does want the size of the site

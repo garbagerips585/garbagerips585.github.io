@@ -4,7 +4,7 @@
 //   node scripts/sync-expansions.mjs && node scripts/build-expansions.mjs
 //
 // This is the reference page. The Card Pokedex at /sets/ covers only the sets
-// Tim has actually opened and always will, because those pages promise rips and
+// the owner has actually opened and always will, because those pages promise rips and
 // chase card prices we can only have for sets we ripped. This one promises
 // nothing but the list, so it can be complete: 174 sets, 1999 to now, in order,
 // grouped by era.
@@ -824,7 +824,7 @@ const html = `<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Every Pokemon TCG Set in Order: All ${sets.length} Expansions ${firstYear} to ${lastYear}</title>
+<title>Every Pokemon TCG Set in Order: ${sets.length} Sets, ${firstYear} to ${lastYear}</title>
 <meta name="description" content="The complete list of Pokemon TCG sets in release order, ${firstYear} to ${lastYear}. All ${sets.length} English expansions with release dates and card counts, grouped by era.">
 <link rel="canonical" href="${SITE}/expansions.html">
 <link rel="icon" href="/favicon.ico" sizes="any">

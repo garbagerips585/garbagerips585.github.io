@@ -250,7 +250,7 @@ function heightBars(a, b) {
 // generation sizes. A picture that is only decoration is the thing this pass is
 // supposed to be removing, not adding.
 /* ------------------------------------------------------------------ MORE ---
- * Tim, 24 August 2026: "any other really interesting pokemon lore should get
+ * the owner, 24 August 2026: "any other really interesting pokemon lore should get
  * added... if there is any funny lore add that in too, just quick little things
  * most people wouldn't know about pokemon."
  *

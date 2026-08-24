@@ -54,9 +54,9 @@
      PALETTE: "Trubbish Deep", chosen 18 August 2026, and it replaced the mono
      "Black / White / Gold" palette that this block described until then.
 
-     Tim: "i love this new color pallet for the trubbish look and feel". The
+     The owner: "i love this new color pallet for the trubbish look and feel". The
      channel is called Garbage Rips, the pack art is a Trubbish on a plate of
-     trash, and these are the mascot's own five colours, sent by Tim: bag green
+     trash, and these are the mascot's own five colours, sent by the owner: bag green
      #2F4F39, feet green #1F382B, pink #E87EA1, light blue #70B5D9, and
      #FFFFFF / #231F20 for the mouth and the outline. Every other value in this
      block is DERIVED from one of those five by a stated move, in the F block of
@@ -77,7 +77,7 @@
          LOAD BEARING: `.mw-head h2` reads "Most wanted" with `.hl` on the
          second word, so a pink heading would swallow its own highlight and a
          teal one would sit a point of luminance from it, which is exactly the
-         "coloured blur" Tim complained about on the charcoal sample.
+         "coloured blur" the owner complained about on the charcoal sample.
      THE NUMBERS AGREE WITH THE MEANING, which is the test of whether a rule is
      real: teal has the headroom (4.05:1 on the card to pink's 3.45:1) and the
      teal role is the one that includes SMALL text at the 4.5:1 gate.
@@ -147,7 +147,7 @@
   --trubbish:#231F20;
   --wrap:1180px;
   --page:#1F382B; --card:#2F4F39;
-  /* THE INK IS TRUBBISH'S OWN BODY TAN, not an off-white. Tim: "all the white
+  /* THE INK IS TRUBBISH'S OWN BODY TAN, not an off-white. The owner: "all the white
      text, can we change it from white to be a light tan or light beige color,
      that way its not stark bright white on a dark green, and that way it
      incorporates one more color from Trubbish". Anchored on #A8A090 sampled
@@ -183,7 +183,7 @@
      trap --ketchup and --navy set for two months. READ THE VALUE, NEVER THE
      NAME. Gold is now SEMANTIC and appears in exactly two places on the whole
      site, the HALL OF FAME HIT badge and the 4px trophy frame, both as LITERAL
-     hexes so no token edit can leak it back. Tim, 18 August 2026: "its cool to
+     hexes so no token edit can leak it back. The owner, 18 August 2026: "its cool to
      keep the hall of fame gold, but just not use that color in the general
      pallet of the site colors". */
   --mustard:#70B5D9; --gold:#609CBB; --gold-deep:#81BEDE;
@@ -208,7 +208,7 @@
      The palette above is Black / White / Gold on purpose: one accent hue, so
      the pack art and the card scans are the only colour on a page. This is not
      a second accent. It is a BRAND MARK borrowed from another company, and it
-     is here because Tim asked for it by name on 18 August 2026: "maybe make it
+     is here because the owner asked for it by name on 18 August 2026: "maybe make it
      youtube red and white". YouTube is the site's primary channel and the whole
      commercial point of the hub, so its own button is allowed to look like
      itself. Nothing else is.
@@ -263,7 +263,7 @@
      them and leaves three 4px wrong, which is not read as "a gutter change went
      half way", it is read as one rail being broken.
 
-     THE PHONE VALUE WENT 12 -> 16 ON 19 August 2026 and it is Tim's call, on
+     THE PHONE VALUE WENT 12 -> 16 ON 19 August 2026 and it is the owner's call, on
      his own phone: "the padding on the home page on mobile, is really tight on
      the sets section, lets make sure all pages have some room to breathe on
      each side of the screen on mobile don't want everything going all the way
@@ -280,7 +280,7 @@
      horizontal pixel here comes out of the content.
 
      THE PHONE VALUE WENT 16 -> 20 ON 21 August 2026, AND THE PARAGRAPH ABOVE
-     ASKED THE WRONG QUESTION. Tim, again and on the same subject: "on mobile
+     ASKED THE WRONG QUESTION. The owner, again and on the same subject: "on mobile
      still noticing lots of things not looking perfect ... i noticed pages where
      text and images are still going right to end of screen lets make sure
      padding is perfect on all pages and all parts of the pages on mobile."
@@ -288,7 +288,7 @@
      this change, all 1,486 of them at 320 and at 390 in headless Chrome, and
      the site was already honouring 16px almost perfectly: 26 fault instances,
      on 5 pages, all of them mechanical and all of them fixed in this same pass.
-     So there was no widespread bug to find. What Tim is looking at IS 16px, on
+     So there was no widespread bug to find. What the owner is looking at IS 16px, on
      the pages where prose sits directly on the page ground with no card around
      it, and 16 is simply not enough room there.
 
@@ -300,7 +300,7 @@
      one. 22 is the true maximum and lands on 346 EXACTLY, which is no headroom
      at all against sub-pixel rounding, and this file's own note under Card
      images is about a five-pixel margin being too thin to rely on. 20 is a
-     25% increase in the room Tim asked for at a cost of nothing measurable.
+     25% increase in the room the owner asked for at a cost of nothing measurable.
 
      RE-MEASURED AFTER, same harness, all 1,486 pages at 320 and 390: 0 elements
      past the right edge with no clipping ancestor, scrollX 0 on every page at
@@ -422,7 +422,7 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
 @media(max-width:700px){.bar-in{gap:var(--s2)}}
 /* THE WORDMARK IS A TWO-LINE BLOCK NOW, and the second line is a sentence.
    It was "ROCHESTER, NY" in Space Mono, uppercase, .1em tracked, sitting
-   BESIDE the wordmark on a baseline, and hidden under 900px. Tim asked on
+   BESIDE the wordmark on a baseline, and hidden under 900px. The owner asked on
    23 August 2026 for the site's sentence to sit under the logo on phone and
    desktop alike and for the bare city line beside it to go.
 
@@ -476,7 +476,7 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
    two magnifiers side by side; nothing is left to spring it. */
 /* The bar's Subscribe. See the --yt-red fence in :root for why this one control
    is allowed a colour the palette does not contain, and for the measured
-   ratios. 15px rather than the 14px it was, because Tim's complaint was that it
+   ratios. 15px rather than the 14px it was, because the owner's complaint was that it
    was hard to see, and 44px minimum rather than a fixed 44px height so a
    wrapped label cannot crush the target below the threshold. */
 .sub{flex:none;background:var(--yt-red);color:var(--on-yt);font:700 15px/1 var(--body);
@@ -691,7 +691,7 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
 .facet-box .chip[aria-pressed=true]{order:-1}
 
 /* --------------------------------------------------------------------------
-   THE PHONE RAIL IS A SWIPE RAIL, NOT A COLLAPSED ROW. Tim, 19 August 2026,
+   THE PHONE RAIL IS A SWIPE RAIL, NOT A COLLAPSED ROW. The owner, 19 August 2026,
    looking at /videos.html on his own phone: "For the video filters on mobile
    can we just make the filters slide over to see more filters, instead of the
    big drop down menus, much easier to just have them slide, I also think you
@@ -743,7 +743,7 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
 
      THE RIGHT EDGE IS THE WHOLE AFFORDANCE. A row that stops at the gutter
      reads as a row that is finished and nobody swipes it. The clipped chip in
-     Tim's screenshot was an accident of a row that could not scroll; a
+     the owner's screenshot was an accident of a row that could not scroll; a
      deliberate partial chip is the standard way of saying the same thing on a
      row that can. padding-right is what stops the FAR end being jammed against
      the bezel once you get there.
@@ -794,7 +794,7 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
      offset showing a completely different part of the list. */
   .facet-box .chip[aria-pressed=true]{order:0}
 
-  /* THE PRODUCT ROW IS THE HALF TIM ASKED TO LOSE. Slot and toggle go, so its
+  /* THE PRODUCT ROW IS THE HALF THE OWNER ASKED TO LOSE. Slot and toggle go, so its
      13 chips are not merely invisible but out of the tab order too: a chip you
      can focus and cannot see is worse than one you cannot reach.
      ?product=etb STILL FILTERS. 330 links on 318 built pages carry one, 93 of
@@ -839,7 +839,7 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
    VERTICAL IS UNTOUCHED, so .hofx-tag still hangs 16px above the frame. */
 .hof{background:var(--chrome-bg);color:var(--chrome-ink);padding:var(--s5) 0 var(--s6);
   border-bottom:2px solid var(--gold);overflow-x:clip;
-  /* WAS rgba(201,151,0,.18), a gold bloom. Over Tim's green that reads olive and
+  /* WAS rgba(201,151,0,.18), a gold bloom. Over the owner's green that reads olive and
      muddy, and it is what let the gold badge and the gold frame blend INTO the
      band instead of sitting on it. Same geometry, same 62% stop: the band now
      lifts toward the CARD colour, so gold is the only warm pixel on it. */
@@ -964,7 +964,7 @@ main{padding:var(--s4) 0 var(--s6)}
 @media(max-width:640px){.wall{grid-template-columns:repeat(2,1fr);gap:var(--s5) var(--s3)}}
 
 /* THREE ACROSS ON /videos.html, AND SCOPED SO IT IS ONLY THAT PAGE.
-   Tim, 23 August 2026: "its showing too many videos in a row, on desktop it
+   The owner, 23 August 2026: "its showing too many videos in a row, on desktop it
    shows 6 across, it should show 3 max across like the home page on desktop ...
    right now the videos are too small to view on mobile and even on desktop with
    6 across they are too small."
@@ -988,7 +988,7 @@ main{padding:var(--s4) 0 var(--s6)}
 
    THE 1300/1080/820 STEPS ARE DROPPED HERE because they existed to walk 6 to 5
    to 4 to 3, and 3 is now the top. 640 and below keeps two, which is the phone
-   layout Tim did not complain about.
+   layout the owner did not complain about.
 
    WHAT IT COSTS, said out loud: the CLICK TO RIP THE PACK banner falls below the
    fold at every desktop width, because the chrome above the grid is 428px and a
@@ -1095,7 +1095,7 @@ main{padding:var(--s4) 0 var(--s6)}
   transition:opacity .15s}
 .v:hover .art::after{opacity:1}
 /* THE WHITE PLAY DISC IS GONE, 19 August 2026, AND `.play` NO LONGER EXISTS IN
-   THE TREE. Tim: "I dont really like any of the verisons you did for the play
+   THE TREE. The owner: "I dont really like any of the verisons you did for the play
    button change, but I do like the 'Click To Open Pack' banner on the video
    pages themselves, can we carry that accross to the home page, and remove the
    'Rip it open' ctas all together not needed just that one banner acorss the
@@ -1238,7 +1238,7 @@ main{padding:var(--s4) 0 var(--s6)}
 /* 120px OF NOTHING SAT BETWEEN THE LAST SET TILE AND THE Card guides HEADING,
    measured on the built page: --s8 off the bottom of this band plus --s7 off
    the top of .tools, with no rule, no background change and nothing else
-   between them to earn it. Tim: "get rid of a little of the extra padding and
+   between them to earn it. The owner: "get rid of a little of the extra padding and
    extra empty space between these two sections". Both are --s6 now, which is
    64px and is the same junction .about and .rstats already use, so the page
    has one spacing between adjacent content bands rather than three.
@@ -1283,7 +1283,7 @@ main{padding:var(--s4) 0 var(--s6)}
 .set-rips{font:700 var(--t-micro)/1 var(--mono);color:var(--ketchup-deep);
   /* WAS --paper-3, the LIGHTEST surface in the palette, where the small pink
      measured 3.60:1 against a 4.5 gate. Rather than lift the pink further
-     toward white and lose the hue Tim sent, the chip takes a dark fill: same
+     toward white and lose the hue the owner sent, the chip takes a dark fill: same
      colour on a ground it can actually sit on. Measured 8.02:1. */
   background:var(--lilac-pale);border-radius:var(--r-pill);padding:4px 9px;margin-top:var(--s1)}
 
@@ -1295,7 +1295,7 @@ main{padding:var(--s4) 0 var(--s6)}
    footer, so 72px of top padding was the page winding down. It is fourth now,
    between Latest rips and the counters band, and its neighbours .rstats and
    .roc are both --s6: 72px between two content bands read as a hole rather
-   than as breathing room, which is what Tim called "large areas of empty
+   than as breathing room, which is what the owner called "large areas of empty
    space" once the See all rips button under Latest rips went. The override at
    the foot of this file already had the bottom at --s6, so this only ever
    moved the top. */
@@ -1313,7 +1313,7 @@ main{padding:var(--s4) 0 var(--s6)}
   border:1px solid rgba(255,255,255,.18);font:700 var(--t-sm)/1 var(--body)}
 .socials a:hover{background:rgba(255,255,255,.16)}
 .socials i{width:12px;height:12px;border-radius:50%;background:var(--pip);flex:none}
-/* The 585 band's mark moved into the footer on 20 August 2026, on Tim's ask, so
+/* The 585 band's mark moved into the footer on 20 August 2026, on the owner's ask, so
    it sits on all 1,486 pages instead of two. The band it came from is gone and
    .roc went with it -- the copy beside it went too, by the same ask. */
 /* THE MARK IS A BANNER SINCE 23 AUGUST 2026 and 88px is what it used to be.
@@ -1596,7 +1596,7 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
 .pack-face{transition:transform .18s cubic-bezier(.2,.7,.3,1)}
 
 /* ---------- the same banner, on every other surface that shows a video -------
-   Tim, 19 August 2026: "I do like the 'Click To Open Pack' banner on the video
+   the owner, 19 August 2026: "I do like the 'Click To Open Pack' banner on the video
    pages themselves, can we carry that accross to the home page ... just that one
    banner acorss the bottom". So this is the RIP PAGE'S OWN `.pack-hint`, the
    same element with the same words, re-used on the grid tile, the carousel
@@ -1922,7 +1922,7 @@ footer p{font:400 var(--t-sm)/1.6 var(--body);color:var(--chrome-dim);max-width:
    PROTECTING IS GONE. Both thresholds were set by a search field: it was the
    only flexible item in the row, so links did not overflow, they ATE the input,
    and 1140 and 1340 were the widths at which roughly 250px of typable box
-   survived. The field was removed at Tim's request on 18 August 2026. Keep the
+   survived. The field was removed at the owner's request on 18 August 2026. Keep the
    paragraphs above anyway: they are the record of WHY the row behaves the way
    it does, and if a field ever comes back they are the arithmetic to redo.
 
@@ -2109,7 +2109,7 @@ section.band-sky .sec-label{color:var(--sky)}section.band-navy .sec-label{color:
    in luminance, 2.02:1 on the card green and 2.79:1 on the page green, both
    under the 3:1 WCAG 1.4.11 asks of a control's own boundary. The bar is the
    page green scaled to 80% for exactly this, which buys 3.22:1, and the pill is
-   then RINGED in Tim's own #FFFFFF, the colour he gave to teeth and the colour
+   then RINGED in the owner's own #FFFFFF, the colour he gave to teeth and the colour
    already on the label. The chain is red -> white 4.53:1 -> bar 14.59:1, so the
    worst link is the label rather than the boundary. box-shadow spread, not a
    border, so the 44px target does not move. The footer's .btn-sub already has a
@@ -2364,7 +2364,7 @@ footer .soc svg{fill:var(--chrome-ink)}
    where it computes 17.6px, and the figure fits.
    NOTHING MOVES AT 390 OR ABOVE, and that is the point of moving the floor
    rather than the ceiling or the vw term: 5.5vw is 21.45px at 390 and 1.3rem
-   was 20.8, so the floor has not been the rendered size on Tim's phone at any
+   was 20.8, so the floor has not been the rendered size on the owner's phone at any
    point. RE-MEASURED ON THE BUILT PAGE after both this and the gutter change:
    tracks 135px/135px and font-size 17.6px at 320, tracks 170px/170px and
    21.45px at 390, and the row's right edge lands on 300.00 against a 300
@@ -2943,7 +2943,7 @@ footer .soc svg{fill:var(--chrome-ink)}
 
 /* THE ROUTE TO SEARCH ABOVE 700px. This started as the phone-only stand-in for
    a field that would not fit below 560px. The field is gone at all widths
-   (Tim's call, 18 August 2026 - see the block below and the note in
+   (the owner's call, 18 August 2026 - see the block below and the note in
    shared/chrome.mjs), so this is the whole of search in the bar. It is a LINK
    to /search.html rather than a JS disclosure, because /search.html is a full
    page of field plus results and one tap gets you there. It is not the only
@@ -2951,7 +2951,7 @@ footer .soc svg{fill:var(--chrome-ink)}
    the footer.
 
    THIS ENTRY SAID "AT EVERY WIDTH NOW" AND `display:flex` UNCONDITIONALLY, AND
-   BOTH WERE TRUE UNTIL 19 August 2026. It is hidden on a phone now, on Tim's
+   BOTH WERE TRUE UNTIL 19 August 2026. It is hidden on a phone now, on the owner's
    ask; the query and the whole argument are in the max-width:700 block a
    hundred lines down, beside the row arithmetic they belong to. A reader who
    finds this rule first would otherwise conclude the icon is on every page on
@@ -2984,7 +2984,7 @@ footer .soc svg{fill:var(--chrome-ink)}
    THE FIELD IS NOW GONE AT EVERY WIDTH, NOT JUST HERE, AND THE REASON CHANGED.
    Everything below this paragraph was written to justify dropping it BELOW
    560px, where it genuinely did not fit, and the arithmetic is kept because it
-   is still the arithmetic of this row. It is no longer the reason. Tim asked
+   is still the arithmetic of this row. It is no longer the reason. The owner asked
    for the field to go, in his words "we can get rid of the search bar, don't
    think we need search bar", 18 August 2026. At 1440 it fitted with 370px of
    typable room, so nobody should read the sums below and conclude the field can
@@ -3121,7 +3121,7 @@ footer .soc svg{fill:var(--chrome-ink)}
    identical at every width and zoom where the row fits, which was checked at
    320 through 1920 before and after. */
 /* THIS QUERY WAS max-width:355px AND IS NOW max-width:700px, AND THE REASON IS
-   NOT THE ARITHMETIC ABOVE. Tim, 19 August 2026, reading his own phone: "lets
+   NOT THE ARITHMETIC ABOVE. The owner, 19 August 2026, reading his own phone: "lets
    remove the search icon in the top mobile nav." Everything above this
    paragraph is why the magnifier was the RIGHT thing to drop when something had
    to go at 320; it is kept because it is still the arithmetic of this row and
@@ -3132,7 +3132,7 @@ footer .soc svg{fill:var(--chrome-ink)}
    IT IS max-width:700 AND NOT max-width:899, which is where the bar's own
    phone shape actually ends (.nav-links only appears at 900). 700 is this
    file's phone boundary everywhere else -- .wrap, .bar-in, .rail-in and both
-   shelves all switch there -- and Tim said "mobile", not "anything without nav
+   shelves all switch there -- and the owner said "mobile", not "anything without nav
    links". A 768px tablet keeps the icon.
 
    SEARCH IS STILL REACHABLE ON A PHONE AND THAT IS THE CONDITION OF THE
@@ -3177,7 +3177,7 @@ footer .soc svg{fill:var(--chrome-ink)}
   background:var(--yt-red);color:var(--on-yt);font:700 var(--t-body)/1 var(--body)}
 .menu-sub:hover{background:var(--yt-red-deep)}
 /* THE MENU'S OWN SEARCH LINE, phone only, 19 August 2026.
-   Tim asked for the magnifier to come out of the phone bar. Search is already
+   The owner asked for the magnifier to come out of the phone bar. Search is already
    in the menu under Cards, but every group ships `open` and app.js strips that
    below 821px, so on a phone it sits inside a COLLAPSED group: the link has a
    real rect and a non-null offsetParent, and elementFromPoint at the middle of
@@ -3341,7 +3341,7 @@ footer .soc svg{fill:var(--chrome-ink)}
    is roughly 2,350px off the page for no loss: the rail at the top and the
    section header both already point at /sets/.
    -------------------------------------------------------------------------- */
-/* THIS IS THE RAIL TIM PHOTOGRAPHED, and the bug was ONE MISSING DECLARATION.
+/* THIS IS THE RAIL THE OWNER PHOTOGRAPHED, and the bug was ONE MISSING DECLARATION.
    The bleed and the padding were both here and both correct: margin-inline
    negates the gutter so the row runs off the bezel, padding-inline puts it
    back so the first tile lines up with the "Card Pokedex" heading above it.
@@ -3420,7 +3420,7 @@ footer .soc svg{fill:var(--chrome-ink)}
 .hero-meta{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.05em;color:var(--ink-2);
   text-transform:uppercase;margin-bottom:0}
 /* `.hero-cta` IS GONE, 19 August 2026. It was the "Rip it open ->" pill under
-   every carousel slide, ten of them on the home page and nowhere else. Tim:
+   every carousel slide, ten of them on the home page and nowhere else. The owner:
    "remove the 'Rip it open' ctas all together not needed just that one banner
    acorss the bottom". The banner on the artwork above it says the same thing in
    the same words the rip page uses, and printing an instruction twice inside one
@@ -4980,7 +4980,7 @@ inherited from the UA default, so the promotion moves nothing on screen. */
      TEAL, so the only gold left on the site is the gold typed here on purpose.
      This frame and the badge below are the two places it survives, and it
      means one thing: this is the biggest card the channel has ever pulled.
-     Tim: "its cool to keep the hall of fame gold". */
+     The owner: "its cool to keep the hall of fame gold". */
   border:4px solid #FFB000;border-radius:16px;
   /* Double rule: an inner hairline inside the gold border reads as a frame
      rather than a box with a coloured edge. */
@@ -5073,7 +5073,7 @@ inherited from the UA default, so the promotion moves nothing on screen. */
 }
 
 /* ---------- THE TROPHY HAS TO FIT AN IPHONE'S FIRST SCREEN, 20 August 2026 ---
-   Tim, on his own phone: "lets also make it so when you land on the home page
+   the owner, on his own phone: "lets also make it so when you land on the home page
    you can see the entire hall of fame video on the screen, and see the click to
    rip open the pack banner and watch the video right when you land on home page
    above the fold no scrolling, we can make the video smaller so its fits and
@@ -5157,8 +5157,8 @@ inherited from the UA default, so the promotion moves nothing on screen. */
    one width. THE ALTERNATIVE WAS THE BAND ORDER: moving the DROPS markers below
    .hof, which CLAUDE.md names as the lever for exactly this request, pays 59px
    of chrome and would have left the pack at ~307 wide. It was not taken because
-   Tim asked for the drops band above the fold on 17 August in as many words.
-   That is a trade for Tim, not for a stylesheet, so both halves are written down
+   the owner asked for the drops band above the fold on 17 August in as many words.
+   That is a trade for the owner, not for a stylesheet, so both halves are written down
    rather than one of them being made quietly. */
 @media(max-width:544px){
   .hof{padding-top:var(--s2)}
@@ -5532,7 +5532,7 @@ inherited from the UA default, so the promotion moves nothing on screen. */
    is a bug this file has already fixed once and a fluid fr would hand it back
    the moment the window grew. It also said "align-items:start, not stretch:
    the two columns are different heights by design". BOTH OF THOSE ARE WHAT
-   TIM REPORTED AS WONKY ON 17 AUGUST 2026 and both are corrected below, with
+   THE OWNER REPORTED AS WONKY ON 17 AUGUST 2026 and both are corrected below, with
    the measurements, at the rules that replace them. The reasoning is kept here
    because it is still half right: rank is real and the trophy must not end up
    the smallest pack in its own band. It is the SIZING that was wrong, not the
@@ -5549,7 +5549,7 @@ inherited from the UA default, so the promotion moves nothing on screen. */
    the band, and a share is not a size: the trophy's artwork is its column less
    its own frame, a slide's artwork is HALF of what is left less a different
    frame, and no pair of fixed numbers makes those two agree. Measured at 1500
-   before this, which is the width Tim was looking at:
+   before this, which is the width the owner was looking at:
 
        trophy art 464px wide     slide art 408px wide      spread 56px
        trophy card ends y=1435   slide cards end y=1366.7  spread 68.3px
@@ -5687,7 +5687,7 @@ inherited from the UA default, so the promotion moves nothing on screen. */
    of the range. The derived column above is continuous, so a second fixed
    number can only fight it: at 1400 the step would have pinned 520px where the
    formula asks for 450.7px and put the three packs back to three sizes over
-   exactly the widths Tim was looking at. Do not reinstate it.
+   exactly the widths the owner was looking at. Do not reinstate it.
    NOTE THAT THIS IS NOT THE CAROUSEL'S 1400 STEP, which is a different rule
    about a different thing and is untouched. .vcar-slide still goes 2.35 / 2.75
    / 3.3 at 1000 / 1200 / 1400 to hold the artwork still on the bands that are

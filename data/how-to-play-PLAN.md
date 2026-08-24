@@ -9,7 +9,7 @@ The registration checklist is at the bottom and the build fails without it.
 
 ## The brief, and the one thing that makes it hard
 
-Tim's words: explain it "in a super simple way that someone new can easily
+the owner's words: explain it "in a super simple way that someone new can easily
 understand and not make it too overwhelming, just giving them the super basics
 of how the game is set up, how to play, and how to win" so they can decide
 whether to learn it and play at local events or with friends.
@@ -43,7 +43,7 @@ URL `/how-to-play.html`. H1 as a question, matching the rest of the site:
 7. The three ways to win (~100 words)
 8. So can I actually play? (~250 words)
 
-Sections 3, 4 and 7 are Tim's own three beats, in his order: set up, play, win.
+Sections 3, 4 and 7 are the owner's own three beats, in his order: set up, play, win.
 The three additions earn their place:
 
 - **Section 1 goes first because the audience has no model of the game at all.**

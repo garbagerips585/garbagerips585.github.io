@@ -368,7 +368,7 @@
         "printedResistance": null,
         "inLocalData": "public/data/cards/151.json",
         "verified": "api.tcgdex.net/v2/en/cards/sv03.5-089, read August 15, 2026",
-        "whyThisOne": "Muk is a pure Poison Pokemon on a DARKNESS card, and it is a 30 cent common out of a set Tim rips, so a reader can hold the proof. Grimer, Koffing and Weezing in the same set all check out the same way."
+        "whyThisOne": "Muk is a pure Poison Pokemon on a DARKNESS card, and it is a 30 cent common out of a set the owner rips, so a reader can hold the proof. Grimer, Koffing and Weezing in the same set all check out the same way."
       },
       "exampleAlt": {
         "card": "Hydreigon ex",

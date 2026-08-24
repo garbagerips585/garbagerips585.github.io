@@ -159,7 +159,7 @@ for _f in _srcs:
 # honest is to leave nothing in public/ that build-all does not write.
 #
 # THERE WAS AN EXEMPTION SET HERE AND IT IS GONE WITH THE FILES IT NAMED. Six,
-# then seven, palette sample pages had to sit in the deploy root because Tim
+# then seven, palette sample pages had to sit in the deploy root because the owner
 # needed to open them ON HIS PHONE to pick a palette, and a phone cannot open a
 # file off assets-source/ on a laptop. They were written by a gen- script that
 # build-all deliberately never runs, so every builder edit reported all seven as
@@ -704,7 +704,7 @@ if os.path.exists(_refresh):
 # opened on camera with no guide page breaks the site's own promise, so refuse
 # to publish until somebody writes the guide.
 #
-# The whole point of growing the dropdown is that Tim can record a pack from a
+# The whole point of growing the dropdown is that the owner can record a pack from a
 # 2019 set that came out of a 2023 tin. Writing that set's guide means running
 # sync-sets.mjs and sync-cards.mjs, which are network jobs against an API that
 # rate-limits hard and answers 500 rather than 429, and a cold run takes several
@@ -775,7 +775,7 @@ if _noguide:
 #
 # THE SIGNATURE IS A CONTRADICTION THE DATA STATES ABOUT ITSELF, which is why
 # this can be checked rather than merely commented. A video with a Pack # is a
-# video about ONE pack out of a box: Tim's own sheet says so. A video whose
+# video about ONE pack out of a box: The owner's own sheet says so. A video whose
 # `packs` equals the whole product's capacity did not open one pack out of it.
 # Both claims cannot be true, and the prefill is the only thing that produces
 # the pair. The single legitimately published count today, iIgTusrqVtg, is an
@@ -1051,9 +1051,9 @@ if _ptax and _plabels:
 # build-all shows: whatever the tail happens to be, the final line always names
 # the count and the command that prints the full list.
 # ---------------------------------------------------------------------------
-# TIM'S OWN ANSWERS MUST ACTUALLY REACH THE PAGES.
+# THE OWNER'S OWN ANSWERS MUST ACTUALLY REACH THE PAGES.
 #
-# data/overrides.json is where the sheet importer records what Tim typed while
+# data/overrides.json is where the sheet importer records what the owner typed while
 # watching each video, and it ALWAYS wins over the title matcher. But it is not
 # what the site reads: pages are built from public/data/videos.json, and a
 # separate step (retag-videos.mjs --write, or a real sync) copies one into the
@@ -1087,7 +1087,7 @@ if _ov and _vids:
     if _stale:
         fail.append(
             f"{len(_stale)} video(s) have tags in data/overrides.json that never reached "
-            f"public/data/videos.json, so Tim's own answers are not on the pages. "
+            f"public/data/videos.json, so the owner's own answers are not on the pages. "
             f"Run `node scripts/retag-videos.mjs --write` then rebuild. "
             + "; ".join(_stale[:3])
             + (f"; and {len(_stale) - 3} more" if len(_stale) > 3 else "")
@@ -1395,7 +1395,7 @@ if _future:
 #
 # THE FAULT THIS EXISTS FOR, and it is the class rather than the instance.
 # data/hits.json carries two answers about one card and nothing compared them.
-# The tier Tim TYPED is what /rarity.html files the card under and what
+# The tier the owner TYPED is what /rarity.html files the card under and what
 # /luck.html labels it; the tier of the printing build-pages.mjs and
 # build-hall.mjs RESOLVE is what the rip page and the plaque print. Where the
 # two disagree, four pages disagree with each other, every builder exits 0 and

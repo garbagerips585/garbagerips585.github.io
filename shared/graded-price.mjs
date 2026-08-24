@@ -6,7 +6,7 @@
 // different numbers on two different pages").
 //
 // WHAT WENT WRONG, and it is worth stating precisely because the fix is not
-// obvious from either side of it. On 18 August 2026 Tim said "lets use
+// obvious from either side of it. On 18 August 2026 the owner said "lets use
 // pricecharting as the main numbers for the entire site", and build-hall.mjs
 // was moved onto data/graded.json for its graded column that day. Nothing else
 // was. Five builders held their own private copy of a `gradedPrice(setId,
@@ -30,11 +30,11 @@
 //   1. data/psa10.json `prices`   A HUMAN TYPED IT. It is a deliberate override
 //                                 of whatever any feed says, entered through
 //                                 the spreadsheet, and a sync must never win
-//                                 against a number Tim checked himself. It is
+//                                 against a number the owner checked himself. It is
 //                                 empty today (0 entries), which is exactly why
 //                                 it has to be implemented rather than assumed
 //                                 away: the day somebody types one, it wins.
-//   2. data/graded.json           PRICECHARTING. Tim's instruction of 18 August
+//   2. data/graded.json           PRICECHARTING. The owner's instruction of 18 August
 //                                 2026, quoted above, and the source of every
 //                                 raw price on the site since the same day.
 //   3. data/psa10.json `auto`     pokemonpricetracker.com, the automated
@@ -46,7 +46,7 @@
 //
 // The `auto` tier keeps its ten-sale floor. Volcarona came back at 15x its raw
 // price off six recorded sales, which is an anecdote and not a market. The
-// human tier skips the floor, because if Tim typed it he stands behind it, and
+// human tier skips the floor, because if the owner typed it he stands behind it, and
 // PriceCharting publishes no sale count for the gate to read.
 //
 // ---------------------------------------------------------------------------
@@ -208,7 +208,7 @@ export async function loadGradedPrices() {
       return {
         price: manual,
         from: "manual",
-        // A hand-entered price is Tim's own figure and carries no feed name,
+        // A hand-entered price is the owner's own figure and carries no feed name,
         // which is the call build-hall.mjs, build-proto.mjs and
         // build-wanted.mjs all already make.
         source: manualRec?.source || null,

@@ -21,7 +21,7 @@
 # TCGplayer half still runs on a fork or before the keys are added.
 name: Nightly refresh
 
-# 9am Eastern, every day, which is what Tim asked for on 17 August 2026.
+# 9am Eastern, every day, which is what the owner asked for on 17 August 2026.
 #
 # GITHUB CRON IS UTC AND HAS NO CONCEPT OF DAYLIGHT SAVING, so one line cannot
 # be 9am Eastern all year. Two are scheduled instead, 13:00 and 14:00 UTC, and

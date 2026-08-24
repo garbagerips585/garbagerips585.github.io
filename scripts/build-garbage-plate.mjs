@@ -4,7 +4,7 @@
 //
 //   node scripts/build-garbage-plate.mjs
 //
-// WHY THIS PAGE EXISTS. Tim asked for it twice, and the second ask is the one
+// WHY THIS PAGE EXISTS. The owner asked for it twice, and the second ask is the one
 // that shapes it: "I think there is really some good SEO juice to be had with a
 // dedicated Garbage Plate informational page built out, not a ton of great
 // places to get good garbage plate info". He is right about the coverage. What
@@ -23,7 +23,7 @@
 // quietly dropped, because saying what you do not know is itself a reason to
 // trust the rest.
 //
-// THE DISH IS NOBODY'S PROPERTY AND THE NAME IS SOMEBODY'S. Tim settled the
+// THE DISH IS NOBODY'S PROPERTY AND THE NAME IS SOMEBODY'S. The owner settled the
 // first half: "im not worried about any Garbage Plate licensing, its a local
 // page, and its only supporting the local food in Rochester, NY its not selling
 // anything". He is right, and the second half is a fact rather than a worry:
@@ -1150,7 +1150,7 @@ ${
       Buffalo and Syracuse, and <a href="/about.html">about the channel</a> explains what Garbage Rips
       585 is and why it is named after dinner.</p>
 
-    ${/* Tim, 24 August 2026: "if people have other restaurants that they want
+    ${/* the owner, 24 August 2026: "if people have other restaurants that they want
           listed I can add them in." Same shape as the shops page: the page was
           already asking and had no address on it. */ ""}
     <p class="gp-note">NOT SPONSORED AND NOT AFFILIATE LINKS. NOBODY PAID TO BE ON THIS PAGE.
@@ -1207,7 +1207,7 @@ const OG_TITLE = `What Is a Garbage Plate? Rochester's Dish, Explained`;
 const swapped = head
   .replace(
     /<title>[\s\S]*?<\/title>/,
-    `<title>What Is a Garbage Plate? Rochester's Dish, and Where to Eat One</title>`,
+    `<title>What Is a Garbage Plate? Rochester's Dish, and Where to Eat</title>`,
   )
   .replace(
     /<meta name="description"[^>]*>/,

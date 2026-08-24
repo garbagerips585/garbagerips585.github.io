@@ -401,7 +401,7 @@ const ripsFor = (() => {
  * there is a channel behind it.
  *
  * A title match is the strongest possible signal and stays the top tier, but it
- * only exists when Tim happened to type the name. The second tier is the SET: a
+ * only exists when the owner happened to type the name. The second tier is the SET: a
  * species has printings, a rip is tagged with the set it opened, and a rip of a
  * set that prints Gible cards is a genuinely relevant thing to show somebody
  * reading about Gible. That is a fact out of two files rather than a guess, and

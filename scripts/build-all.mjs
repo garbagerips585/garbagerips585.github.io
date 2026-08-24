@@ -111,7 +111,7 @@ const STEPS = [
   // it is a few hundred requests to PriceCharting and pokemon.com and what it
   // records is a dated measurement. Same arrangement and same reason as
   // sync-decks.mjs, sweep-scans.mjs and the two Topps syncs. It also reads
-  // data/hits.json and public/data/videos.json to join Tim's own pulls, so it
+  // data/hits.json and public/data/videos.json to join the owner's own pulls, so it
   // must run after build-pages.mjs has stamped `path` onto the videos.
   //
   // ORDER: the usual two. Before build-search.mjs, which walks public/*.html and

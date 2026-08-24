@@ -9,7 +9,7 @@
 // argument for what is on the page and what is deliberately left off it are in
 // data/tcg-live-PLAN.md.
 //
-// WHY THIS PAGE EXISTS AND WHY IT IS SHAPED THIS WAY. Tim scans the code cards
+// WHY THIS PAGE EXISTS AND WHY IT IS SHAPED THIS WAY. The owner scans the code cards
 // out of the packs he opens on camera. The rest of this site prices the cards,
 // grades them, checks them for fakes and says where to sell them; the code card
 // is the one thing in a booster pack the site had never said a word about. So
@@ -258,7 +258,7 @@ const REST = PACKS.bySet.filter((s) => s.packs < DRAWN_MIN);
 //
 // This used to throw on an empty PILES, on the reasoning that under one pile
 // there is no picture to draw. That was right while every video carried a pack
-// count. Tim, 18 August 2026: "make sure you aren't tagging any videos with
+// count. The owner, 18 August 2026: "make sure you aren't tagging any videos with
 // what type of product it is and what packs are in the video until you get my
 // execl sheet thats filled out with all that exact data". Those counts were the
 // old prefill rather than his answers, so they are withheld until the filled
@@ -845,7 +845,7 @@ for (const cap of body.match(CAPTION) || []) {
 
 const sections = body.match(/<section class="tl-s"[\s\S]*?<\/section>/g) || [];
 // 9 with the counted-packs section, 8 without it. That section is dropped while
-// pack counts are withheld pending Tim's filled sheet (see the COUNTED note
+// pack counts are withheld pending the owner's filled sheet (see the COUNTED note
 // above), so both are correct states and only a third number is a bug.
 const WANT_SECTIONS = 9;
 if (sections.length !== WANT_SECTIONS)

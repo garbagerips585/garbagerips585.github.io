@@ -16,7 +16,7 @@ agree.
 
 ## The brief, and why this page belongs on this site
 
-Tim plays Pocket. He calls it really fun and casual, it is free, and it is how he
+the owner plays Pocket. He calls it really fun and casual, it is free, and it is how he
 personally learned to play the card game: there is an AI that plays matches and
 he watched its moves until the game made sense. That is the hook and it is a
 better one than "here is a review of a mobile game", because it is a first-person
@@ -53,7 +53,7 @@ fields are the important part.
 
 **What is NOT documented by Pokemon anywhere that could be reached:**
 
-- The Auto feature. The thing Tim is actually describing, where you switch it on
+- The Auto feature. The thing the owner is actually describing, where you switch it on
   in a solo battle and the app plays your side while you watch, is corroborated
   by Wikipedia and by third-party guide sites and by nothing on any Pokemon
   property. Nine of the thirteen Pocket support articles were read in full and
@@ -62,7 +62,7 @@ fields are the important part.
 
 **So write it as a description of what the app does, in plain present tense, and
 never as a citation.** "Turn Auto on in a solo battle and the app plays your side
-while you watch" is true, matches every source, and is exactly what Tim
+while you watch" is true, matches every source, and is exactly what the owner
 describes. Do not write "Pokemon calls it X". Do not cite a wiki on the page.
 
 **And do not let the sourcing gap swallow the hook.** The learn-by-watching
@@ -71,7 +71,7 @@ competent computer take its turns against you, and that half is fully official.
 If Auto is one sentence and solo battles are the paragraph, the page is honest
 and the hook survives intact.
 
-**One thing to ask Tim before shipping.** He has the app open every day. What is
+**One thing to ask the owner before shipping.** He has the app open every day. What is
 the button actually labelled, and where is it? That is a thirty second question
 that settles the only naming problem on the page, and `couldNotVerify` says so.
 
@@ -89,7 +89,7 @@ an app review.
 
 The `<title>` and the deck under the H1 carry the app's name so the page is still
 findable as "Pokemon TCG Pocket guide". Something like: "Pokemon TCG Pocket is
-free, it is on your phone, and it is how Tim learned. Here is what it teaches you
+free, it is on your phone, and it is how the owner learned. Here is what it teaches you
 and what it does not."
 
 **Budget: 1,300 to 1,600 words of body copy.** Slightly less than the Live page
@@ -101,7 +101,7 @@ builder the same way.
 
 ### Order, and why this order
 
-1. What it is, and Tim's claim (~150 words)
+1. What it is, and the owner's claim (~150 words)
 2. **What it teaches you, and what it does not (~350 words)**, the anchor
 3. Your pack codes do not work here (~150 words)
 4. Which one should you install: Pocket or Live (~250 words, mostly a table)
@@ -122,14 +122,14 @@ made it.
 
 ### What goes in each section
 
-**1. What it is, and Tim's claim (~150 words)**
+**1. What it is, and the owner's claim (~150 words)**
 
 Two short paragraphs. Pokemon Trading Card Game Pocket is the official free
 Pokemon card game for phones, made by Creatures Inc., who made the physical card
 game, and DeNA. It came out on 30 October 2024. You open two free packs a day and
 you can battle.
 
-Then Tim's claim, in his voice, as the reason the page exists. He learned by
+Then the owner's claim, in his voice, as the reason the page exists. He learned by
 watching the app play. Name solo battles and Auto here in one sentence each and
 move on; section 2 is where the argument gets made.
 
@@ -155,7 +155,7 @@ the section reads as a warning:
 with Energy costs. Weakness. Retreat. Abilities. Trainer and Supporter cards.
 One Active Pokemon facing your opponent's with the rest on the Bench. Draw a card
 at the start of your turn. Knock Outs. That is most of what makes the card game
-feel like the card game, and it is why Tim's claim is true.
+feel like the card game, and it is why the owner's claim is true.
 
 **What does not.** Four differences, no more, chosen because each one would
 actually trip somebody up at a table:
@@ -264,7 +264,7 @@ The factual tour, and the section most at risk of turning into a feature list.
 Six things, one short paragraph each at most:
 
 - **Two free packs a day**, on a twelve-hour timer. This is the pitch and it is
-  quadruple-sourced. It is also the cleanest tie back to the channel: Tim opens
+  quadruple-sourced. It is also the cleanest tie back to the channel: The owner opens
   packs on camera, and this is pack opening that never costs anything.
 - **Pack points.** If you never get the card you want, opening packs from an
   expansion earns points that buy a specific card from that expansion, and they
@@ -341,8 +341,8 @@ the guy who runs this channel learned to play. Then send them to
   not mention Ruler of the Skies or whatever replaces it.
 - **Trade tokens, the Motorola crash notice, the web store's Xsolla plumbing,
   the New Zealand soft launch.** All transitional or trivia.
-- **Anything about whether the app is good.** No review voice. Tim's first-person
-  "this is how I learned" is a fact about Tim and belongs on the page. "It is the
+- **Anything about whether the app is good.** No review voice. The owner's first-person
+  "this is how I learned" is a fact about the owner and belongs on the page. "It is the
   best mobile card game" is a review and does not.
 - **Any claim that there is no chat.** Live has an official statement to that
   effect and Pocket does not. Say what the social features ARE.
@@ -374,7 +374,7 @@ other people's imagery and there are no in-house screenshots.
 - **The pack art the site already owns** is fine as decoration for a header,
   since it is commissioned work used site-wide. Credit stays as it is.
 
-**Tim plays this game daily and films himself opening packs.** A handful of his
+**The owner plays this game daily and films himself opening packs.** A handful of his
 own screenshots of the solo battle screen with Auto running would be the one
 thing this page cannot otherwise have, and it would settle the button naming at
 the same time. Worth asking. **Do not build the page waiting for them.** Ship it
@@ -538,7 +538,7 @@ copy. The short version:
   as `rtk proxy 'curl ... -o file'` or the JSON body arrives silently truncated
   and the parse error looks like a broken API.
 - **Nothing was learned first-hand.** Every claim is Pokemon's own written
-  documentation or a store listing. **Tim plays this daily.** Ten minutes of him
+  documentation or a store listing. **The owner plays this daily.** Ten minutes of him
   walking through the first-run flow, the solo battle screen and the Auto button
   would firm up the exact part of the page that most needs it. Worth asking
   before this ships.

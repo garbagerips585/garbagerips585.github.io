@@ -118,7 +118,7 @@ const dirSet = async (sub, suffix) =>
 //
 // WHO SAID SO AND WHEN comes back from the same call as the number, so this
 // page cannot credit one feed for another feed's figure. A hand-entered price
-// is Tim's own and carries no feed name, which is the resolver's own call now
+// is the owner's own and carries no feed name, which is the resolver's own call now
 // rather than a rule three builders each remembered separately.
 //
 // The join needs the card's NAME and its SET's name, because data/graded.json
@@ -538,7 +538,7 @@ const agoTag = (iso, cls) =>
 /**
  * The badge on the newest rip.
  *
- * Tim uploads at least once a day, so this reads "Today's Rip" almost every
+ * The owner uploads at least once a day, so this reads "Today's Rip" almost every
  * day, which is what he asked for. It is NOT hardcoded, because "almost every
  * day" is not every day: the nightly build failed three nights running once,
  * and a hardcoded label over a four day old video would be the most visible
@@ -593,7 +593,7 @@ const byNewest = [...videos].sort((a, b) =>
 
 /* THE RAW VALUE OF EACH RIP'S BEST CARD, written by build-pages.mjs.
  *
- * Tim, 23 August 2026: "the Greatest Hits videos should go in order of top hit
+ * The owner, 23 August 2026: "the Greatest Hits videos should go in order of top hit
  * cards based on RAW market price ... always sort cards on all pages by most
  * valuable." This band had been ranked by pull TIER and then by VIEWS, which is
  * a stand-in this repo's own TODO admits to, so a Hyper Rare with 932 views
@@ -832,7 +832,7 @@ async function logoAttrs(id, dispH) {
 // THE ONE HALL OF FAME HIT, framed. Separate from the Greatest Hits shelf
 // below it: the shelf is a row of six to browse, this is a single card the page
 // stops on. hall is already sorted by a typed hofRank, then pull tier, then
-// views, so hall[0] is the pick and Tim can override it from the sheet.
+// views, so hall[0] is the pick and the owner can override it from the sheet.
 //
 // Renders nothing when there is no hall, so the band cannot appear as an empty
 // gold frame on a fresh clone.
@@ -1091,7 +1091,7 @@ function heroTile(v, opts) {
             // THE NEWEST RIP CARRIES A LABEL, NOT A TIMESTAMP. It used to read
             // "Newest rip TODAY", which is two claims where one will do and the
             // weaker of the two goes stale first. The label says the same thing
-            // in the words Tim uses for it, and says less when it knows less.
+            // in the words the owner uses for it, and says less when it knows less.
             o.dated
               ? `<span class="hero-new" data-newest data-date="${esc(v.published || "")}">${esc(newestLabel(v.published))}</span>`
               : o.rankOf
@@ -1183,7 +1183,7 @@ ${list
  * On 23 August 2026 today's rip pulled a Special Illustration Rare, which put
  * it in the hits shelf, which took it out of here, so the front door led with
  * 22 August under a label reading "Yesterday's Rip" on the day a rip had gone
- * up. Tim: "on the home page its still showing the latest rip as the video form
+ * up. The owner: "on the home page its still showing the latest rip as the video form
  * yesterday, should be showing todays video as the latest rip". The band was
  * not stale, it was correct about the wrong question.
  *
@@ -1312,7 +1312,7 @@ const wantedHtml = (wanted.cards || [])
     //
     // Worse than that: those urls 302 to tcgplayer.pxf.io, an affiliate
     // network. The home page was routing its visitors through somebody else's
-    // affiliate link, on a band about cards Tim is still chasing. Nobody chose
+    // affiliate link, on a band about cards the owner is still chasing. Nobody chose
     // that; it came in with the card data.
     //
     // The set guide is the honest destination: it is ours, it shows the card in
@@ -1775,7 +1775,7 @@ function plTile(p, i) {
          "Pitch Black ETB Opening Marathon 🛡️💎" broke between the two emoji and
          put "💎" on line two by itself, inside a .pl-title that is
          -webkit-line-clamp:2, so a widow does not just look wrong, it spends
-         half the card's title. The emoji are Tim's own titles and none of them
+         half the card's title. The emoji are the owner's own titles and none of them
          is dropped: noWidowEmoji binds the run to the word before it.
          THE aria-label BELOW STILL TAKES THE PLAIN TITLE. It is text, not
          markup, and a span in it would be read out. */
@@ -1799,7 +1799,7 @@ function plTile(p, i) {
 // FILTERED list, which is what the grid actually lays out.
 /* GROUPED BY SET, SO EVERY PRODUCT FROM ONE SET SITS TOGETHER.
  *
- * Tim, 23 August 2026: "sort them by set type so every product from the set are
+ * The owner, 23 August 2026: "sort them by set type so every product from the set are
  * showing together." The grid was in YouTube's own playlist order, which is the
  * order he happened to create them in, so Pitch Black's three runs were split
  * across three different rows with other sets between them.
@@ -1991,7 +1991,7 @@ try {
      * The band used to be three DROPS deduped by retailer, so Target's online
      * loadout and Walmart's Walmart Wednesday were dropped as duplicates of the
      * same shops' in-store rows: six of the nine rows in the file never reached
-     * the home page at all. Tim asked for the online ones back, "a high level
+     * the home page at all. The owner asked for the online ones back, "a high level
      * way to see what retailers are expecting to drop that week".
      *
      * THE PERISHABLE MARK MOVES FROM THE CARD TO THE LINE, and the sweep below
@@ -2370,7 +2370,7 @@ ${sweep}`;
  * "The channel, counted": six figures and a source line, between Latest rips
  * and Most wanted.
  *
- * Tim, 22 August 2026: "add a little stats widget to the home page where you
+ * The owner, 22 August 2026: "add a little stats widget to the home page where you
  * can quickly see all of my youtube channel stats, including total number of
  * channel views and all the pack opening info made into a little section on
  * home page as well", and then "put the total number of packs we have ripped
@@ -2503,7 +2503,7 @@ const statTile = (big, label) => `      <div class="rstat"><b>${big}</b><span>${
 
 /* ------------------------------------------- the rip counter on /videos.html
  *
- * Tim, 23 August 2026: "I also want to put a mini rip stats widget at the top of
+ * the owner, 23 August 2026: "I also want to put a mini rip stats widget at the top of
  * this page, so you can quickly just see how many packs total we have ripped and
  * how many hits total we have gotten and what that hit percentage is."
  *
@@ -2603,7 +2603,7 @@ const ripStatsHtml = !ripStatTiles.length
 ${ripStatTiles.join("\n")}
     </div>
     ${/* THE SOURCE PARAGRAPH IS GONE FROM THE HOME PAGE, 23 August 2026.
-          Tim, pointing at this one, the Rochester band's and both band notes:
+          The owner, pointing at this one, the Rochester band's and both band notes:
           "remove all of this copy from the home page". It ran seven lines on a
           phone under four numbers, explaining that YouTube totals views
           differently, that packs is counted over the rips that state a count,
@@ -2619,7 +2619,7 @@ ${ripStatTiles.join("\n")}
           THE RULE THIS BENDS IS REAL AND IS WORTH STATING: this site prints
           where a number came from next to the number. It still does, on the
           pages a reader goes to for the number. The home page is a front door,
-          and a front door reciting its methodology is the thing Tim has now
+          and a front door reciting its methodology is the thing the owner has now
           asked to stop three times. If a figure ever appears HERE that is
           sourced NOWHERE else, this paragraph comes back with it. */ ""}
   </div>
@@ -2654,7 +2654,7 @@ ${ripStatTiles.join("\n")}
  * and spent: main's padding-top is 0, .hof's is 8, the heading row is 44 and is
  * held there by a tap target, and the artwork is the last lever and was taken.
  * A visible display h1 puts the Hall of Fame banner under the fold at every
- * phone width. IF TIM WANTS IT VISIBLE THE LEVER IS THE BAND ORDER, not the
+ * phone width. IF THE OWNER WANTS IT VISIBLE THE LEVER IS THE BAND ORDER, not the
  * type size: moving the two DROPS markers below .hof pays 59.41px, which is
  * four times what the h1 needs. CLAUDE.md and note 4 both park that with him.
  *
@@ -2735,7 +2735,7 @@ void siteSay;
  * the Rochester hub was not among them. It was reachable from the footer's
  * "Local scene" column, at 85 to 89% of the page's height, and from the closed
  * menu drawer, and from nowhere else. Rochester is the second group in NAV and
- * the second thing Tim asked to highlight ("I want to be a hub for the local
+ * the second thing the owner asked to highlight ("I want to be a hub for the local
  * community ... this area is massive for pokemon cards and i want the world to
  * know"), so a front door that never points at it is the site disagreeing with
  * its own nav.
@@ -3109,7 +3109,7 @@ main{padding-top:0}
 /* 3. ONE VIDEO PER BAND ON A PHONE, max-width:544px. LAYOUT ONLY: three
  * display rules, no colour, no spacing, nothing that changes above 544.
  *
- * Tim, 18 August 2026: "only update to the home page on mobile is to only show
+ * The owner, 18 August 2026: "only update to the home page on mobile is to only show
  * 1 video for each section, so show the Hall of fame video, but no other
  * greatest hits videos, then show the latest rip video but no other videos on
  * home page for now." So Greatest Hits keeps the trophy and loses the whole
@@ -3129,7 +3129,7 @@ main{padding-top:0}
  * calc(100vw - 64px)"), the width at which .hofx stops growing with the
  * viewport and pins at 480, and the top of the range where a carousel shows one
  * slide anyway. Between 545 and 899 the bands are unchanged, because that range
- * is a tablet and Tim asked about a phone.
+ * is a tablet and the owner asked about a phone.
  *
  * THE BAR GOES WITH THE SLIDES AND IT HAS TO. `.vcar-bar` reads "1 / 5" off
  * list.length at build time, so leaving it under a band showing one video would
@@ -3197,7 +3197,7 @@ main{padding-top:0}
  * 360x800 DPR 2 is the same page: 345.5 -> 389.9KB on load, 7,639 -> 6,879px.
  */
 
-/* 4. THE FOLD, 20 August 2026. Tim, looking at the page on his own phone:
+/* 4. THE FOLD, 20 August 2026. The owner, looking at the page on his own phone:
  * "lets also make it so when you land on the home page you can see the entire
  * hall of fame video on the screen, and see the click to rip open the pack
  * banner and watch the video right when you land on home page above the fold
@@ -3207,12 +3207,12 @@ main{padding-top:0}
  * THE TARGET IS 700, NOT 844, AND THAT IS WHY THIS LOOKS OVER-TIGHTENED IN A
  * HEADLESS VIEWPORT. Safari's own chrome takes 100 to 140px of an iPhone's
  * 844, so a banner that clears 844 in a browser with no chrome is still under
- * the reader's thumb on the phone Tim is holding. The acceptance test is the
+ * the reader's thumb on the phone the owner is holding. The acceptance test is the
  * BOTTOM EDGE of .pack-hint on the trophy, read with getBoundingClientRect at
  * 390x844: 860.33 before, 683.28 after.
  *
  * THE ORDER THE PIXELS WERE TAKEN IN IS THE POINT. Shrinking the artwork is
- * Tim's own suggestion and it is the LAST lever here rather than the first,
+ * the owner's own suggestion and it is the LAST lever here rather than the first,
  * because a pack too small to want stops being the thing worth landing on.
  * Measured at 390x844, top of the document down to the banner's bottom edge:
  *
@@ -3242,10 +3242,10 @@ main{padding-top:0}
  * twice ("move the two DROPS markers in index.html below the .hof section",
  * "the lever is the band ORDER, not the bar") and it would have paid the whole
  * 59.41px this band still costs AND left the pack near 307 wide instead of 264.
- * It is not taken because Tim asked for this band above the fold on 17 August,
+ * It is not taken because the owner asked for this band above the fold on 17 August,
  * in as many words, and trading one of his asks for another one quietly is not
  * a saving. Everything the band must not lose, its lede and its credit line, is
- * inside the collapsed body and none of it was touched. If Tim would rather
+ * inside the collapsed body and none of it was touched. If the owner would rather
  * have the bigger pack, that swap is two markers and this paragraph.
  *
  * WHAT ACTUALLY COST 31.59px IN THE BAND, AND ONLY 20 OF IT IS PADDING. The
@@ -3354,7 +3354,7 @@ main{padding-top:0}
  * had been ripped since somebody last counted by hand.
  *
  * Making it a region is the fix rather than typing 39, because 39 goes stale the
- * same way the moment Tim opens a pack from a fortieth set. The count is the
+ * same way the moment the owner opens a pack from a fortieth set. The count is the
  * distinct set tags across the catalogue, which is the same set app.js builds
  * its chips from, so the served HTML and the corrected DOM now agree. */
 const setCountHtml = String(new Set(videos.flatMap((v) => v.sets || [])).size);
@@ -3416,7 +3416,7 @@ const REGIONS = {
   // "All N hits" in the Greatest Hits header, and N was hitCount: rips
   // carrying one of the five RANKED pull tags, 115 of 321, where 156 rips
   // actually had a hit. The label said hits and the number counted graded
-  // pulls. Tim replaced the whole thing with "Watch All The Hits" on
+  // pulls. The owner replaced the whole thing with "Watch All The Hits" on
   // 23 August 2026, which removes the claim rather than restating it.
   // hitCount itself stays: the run summary at the foot of this file still
   // prints it, correctly worded as "with a graded pull".

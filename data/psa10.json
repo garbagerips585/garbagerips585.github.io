@@ -11,7 +11,7 @@
     "  auto    what scripts/sync-prices.mjs fetched. It owns and overwrites this",
     "          section on every run. Read only when `prices` has no entry.",
     "",
-    "So a number Tim checked himself can never be silently replaced by a feed.",
+    "So a number the owner checked himself can never be silently replaced by a feed.",
     "",
     "KEY FORMAT is <set-id>-<card-number>, matching the ids in sets.json:",
     "  \"pitch-black-116\"  is Mega Darkrai ex, Special Illustration Rare.",
@@ -21,7 +21,7 @@
     "A card with no entry in either section shows its raw TCGplayer price alone,",
     "which is the honest default. Nothing is ever guessed."
   ],
-  "checkedBy": "Tim",
+  "checkedBy": "The owner",
   "prices": {},
   "auto": {
     "phantasmal-flames-125": {

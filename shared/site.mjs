@@ -15,7 +15,7 @@
 
 /** Flip to true the day garbagerips.com is attached to the site.
  *
- * THE DOMAIN DROPS THE 585 AND THE BRAND KEEPS IT. Tim, 18 August 2026: "im
+ * THE DOMAIN DROPS THE 585 AND THE BRAND KEEPS IT. The owner, 18 August 2026: "im
  * actually going to buy garbagerips.com as the main domain leave out the 585 so
  * its shorter and easier for people to remember the domain name". The channel
  * is still Garbage Rips 585, the wordmark still reads 585, and every page still
@@ -57,7 +57,7 @@ export const robots = () =>
  * character wrong on one of them.
  *
  * PLAIN mailto, NOT OBFUSCATED. The point is that a stranger with a shop or a
- * show can reach Tim in one tap from a phone, and every scheme for hiding an
+ * show can reach the owner in one tap from a phone, and every scheme for hiding an
  * address from harvesters either breaks that or needs JavaScript to undo. This
  * is a public channel address that already appears on YouTube, so there is
  * nothing here that hiding it would protect.
@@ -68,7 +68,7 @@ export const CONTACT_EMAIL = "garbagerips585@gmail.com";
  * A prefilled mailto for one kind of submission.
  *
  * WHY NOT A FORM, and this was decided on the constraint rather than on taste.
- * Tim, 24 August 2026: people should be able to "send over info and flyers and
+ * The owner, 24 August 2026: people should be able to "send over info and flyers and
  * logos etc". Attachments are the whole answer. This site is static on GitHub
  * Pages and executes nothing -- functions/ was deleted for exactly that reason,
  * see CLAUDE.md -- so a form means a third party, and the free tiers that would
@@ -79,7 +79,7 @@ export const CONTACT_EMAIL = "garbagerips585@gmail.com";
  *
  * PREFILLED, BECAUSE THE COST OF A mailto IS A BLANK MESSAGE. Somebody who
  * means well sends "hi I run a shop" and then there are three emails before
- * anything can be listed. The subject is stamped so Tim can filter, and the
+ * anything can be listed. The subject is stamped so the owner can filter, and the
  * body carries the exact fields the card on the page holds, so a first email
  * can contain everything.
  *

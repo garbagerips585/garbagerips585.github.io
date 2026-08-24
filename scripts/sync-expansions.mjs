@@ -5,7 +5,7 @@
 //
 // This is every English set the Pokemon TCG API knows about, 1999 to now: main
 // expansions, promo sets, POP series kits, the lot. sync-sets.mjs pulls the
-// full card list for the 23 sets Tim has actually ripped; this pulls only the
+// full card list for the 23 sets the owner has actually ripped; this pulls only the
 // set-level facts, but for all of them.
 //
 // Kept separate from sets.json on purpose. sets.json drives the Card Pokedex

@@ -246,7 +246,7 @@ if (!hall.length) {
         // is that the run says so and the page counts it.
         //
         // TWO THINGS CHANGED ON 23 AUGUST 2026 AND THEY ARE THE SAME CHANGE.
-        // Tim sent TCGplayer links for six promos this branch had been dropping
+        // The owner sent TCGplayer links for six promos this branch had been dropping
         // -- Mega Kangaskhan ex 025, Mabosstiff ex 086, Mega Charizard Y ex 030,
         // Mega Charizard X ex 029, Mega Venusaur ex 013 and Victini 208 -- and
         // what each link supplies is a COLLECTOR NUMBER and a MARKET PRICE.
@@ -463,7 +463,7 @@ const norm = (x) =>
             // never outrank a live one. For a handful of cards it is the ONLY figure
             // that exists: Silver Tempest and Lost Origin have no checklist here, the
             // printings corpus carries no prices, and TCGdex has no pricing for promo
-            // sets at all, so ten cards Tim sent TCGplayer links for on 23 August 2026
+            // sets at all, so ten cards the owner sent TCGplayer links for on 23 August 2026
             // had a scan, a number and no money. Typed into the sheet, it reaches the
             // page. Frozen beats nothing; it does not beat fresh.
             _raw: sub.price ?? (typeof h.rawNm === "number" ? h.rawNm : null),
@@ -508,7 +508,7 @@ const norm = (x) =>
       // over the thing a person typed while holding the card, and this page
       // filled up with chase printings of cards that were pulled as commons.
       //
-      // Tim, looking at the result: "you added in all sorts of cards that are
+      // The owner, looking at the result: "you added in all sorts of cards that are
       // not logged as hits in my video ... that is wrong." Nothing had been
       // added -- every plaque was a real logged card -- but they were the wrong
       // PRINTINGS, which reads exactly like the wanted list leaking in.
@@ -780,7 +780,7 @@ function resolve(c) {
   const manual = graded.prices?.[key];
   const auto = graded.auto?.[key];
   // A PERSON STILL WINS, THEN PRICECHARTING, THEN THE PRICE SYNC. The middle two
-  // swapped places on 18 August 2026 on Tim's instruction: "lets use
+  // swapped places on 18 August 2026 on the owner's instruction: "lets use
   // pricecharting as the main numbers for the entire site". PriceCharting is now
   // the site's source for every raw price and every graded figure, so the hall's
   // PSA 10 column has to sit in the same order as the rest of the site rather
@@ -845,7 +845,7 @@ function resolve(c) {
     ...c,
     setName,
     // THE HUMAN TITLE, NOT `label`. `label` is the dry shelf tag the video log
-    // writes ("Phantasmal Flames UPC"); `title` is what Tim called the video
+    // writes ("Phantasmal Flames UPC"); `title` is what the owner called the video
     // ("Only Garbage Rips from the Latest Costco Charizard UPC Drop"), which is
     // the thing that makes somebody want to watch it. `siteTitle` is checked
     // first only because the rest of the site checks it; nothing writes one
@@ -859,7 +859,7 @@ function resolve(c) {
     // AND LAST, THE PIN LIST. Three logged cards are in no TCGdex url at any
     // extension, so every source above them returns null and the plaque drew a
     // grey "No scan" box: Corviknight V TG18, Victini 208 and Poke Pad 103.
-    // data/card-shots.json pins each to the TCGplayer product Tim linked. It is
+    // data/card-shots.json pins each to the TCGplayer product the owner linked. It is
     // last because it is hand-kept and frozen, and a scan we sync should always
     // win over one somebody typed in; see shared/card-scan.mjs for why an entry
     // can only exist where the TCGdex url was checked and 404'd.
@@ -889,7 +889,7 @@ function resolve(c) {
     psa10Source:
       // NOT THE OWNER'S NAME. This string is PUBLISHED: it lands in
       // public/data/wanted.json and prints in the "PSA 10 prices come from"
-      // note on the set pages. It said "Tim" until 24 August 2026, when he
+      // note on the set pages. It said "the owner" until 24 August 2026, when he
       // asked that his real name not appear anywhere on the site. No card
       // currently uses the manual path, so nothing was rendering it, but a
       // single hand-entered price would have put his name on a live page.
@@ -939,7 +939,7 @@ try {
 const ranked = hall
   .map(resolve)
   /* ======================================================================
-   * ONE SORT KEY, AND IT IS RAW. Tim, 2026-08-21: "make sure they are all
+   * ONE SORT KEY, AND IT IS RAW. The owner, 2026-08-21: "make sure they are all
    * ranked by their RAW value."
    * ======================================================================
    *
@@ -1087,7 +1087,7 @@ for (const c of ranked) {
  * IT IS. THIS IS THE HALF OF THE OLD SORT COMMENT THAT WAS RIGHT.
  * ==========================================================================
  *
- * Ranking on raw is Tim's call and the argument for it is beside the sort.
+ * Ranking on raw is the owner's call and the argument for it is beside the sort.
  * What that call genuinely costs is the one thing the old key bought: it
  * floated the channel's headline pull, Mega Greninja ex #122 at $906 in a
  * PSA 10, to plaque one, where nobody could miss it. Under raw order it
@@ -1117,7 +1117,7 @@ for (const c of ranked) {
  * tapping that the page has not hidden anything.
  *
  * IT IS NOT GOLD. Gold on this site means "the biggest card the channel has
- * ever pulled" and Tim confined it to three places written as literal hexes
+ * ever pulled" and the owner confined it to three places written as literal hexes
  * (see CLAUDE.md): the HALL OF FAME HIT badge, the trophy frame, and this
  * page's rank medallion. A fourth gold thing would spend the one semantic
  * colour the palette has on a second meaning. The flag is the SMALL PINK
@@ -1672,7 +1672,7 @@ ${evenBand(".chof-list", ranked.length, 3)}}
 .chof-1{box-shadow:0 0 0 1px rgba(224,162,31,.5), 0 14px 34px rgba(0,0,0,.45)}
 .chof-rank{position:absolute;left:-10px;top:-10px;z-index:3;width:34px;height:34px;
   border-radius:50%;display:grid;place-items:center;font:400 1rem/1 var(--display);
-  /* GOLD STAYS ON THIS PAGE AND ONLY ON THIS PAGE. Tim: "its cool to keep the
+  /* GOLD STAYS ON THIS PAGE AND ONLY ON THIS PAGE. The owner: "its cool to keep the
      hall of fame gold, but just not use that color in the general pallet of
      the site colors". So the medallion is a LITERAL gold, the same pair the
      HALL OF FAME HIT badge uses, rather than var(--gold), which is a teal now.
@@ -1835,7 +1835,7 @@ const body = `
             anything. Do not soften it back to "by what it is worth": that
             phrasing names no key at all and is what this page carried for
             months while its own column looked unsorted. */ ""}
-      ${/* THE LEDE OPENED WITH METHODOLOGY AND TIM SAID SO. It ran 394
+      ${/* THE LEDE OPENED WITH METHODOLOGY AND THE OWNER SAID SO. It ran 394
             characters and NINE LINES at 390px, so the whole first screen of a
             page of best pulls was prose and the first card started at y=807.
             It explained deduplication before it said what the page is.
@@ -1848,7 +1848,7 @@ const body = `
       <p>Every hit this channel has pulled on camera, most expensive first. Nothing hand picked,
         straight out of the 585. Tap a card to see it full size.</p>
       ${/* FOUR CHANNEL FACTS, NOT PAGE BOOKKEEPING. The first tile used to
-            read "164 / Printings of 211 pulls" and Tim said in as many words
+            read "164 / Printings of 211 pulls" and the owner said in as many words
             that he did not know what it was. "Printing" is a word only this
             builder uses. The two money tiles beside it were sums over subsets
             nobody owns -- "$914 raw on 146 of 164" -- printed twenty-two pixels
@@ -1881,7 +1881,7 @@ const body = `
             data. */ ""}
     </div>
 
-    ${/* THE MVC. Tim: "lets pull out the #1 most valuable card and put it in a
+    ${/* THE MVC. The owner: "lets pull out the #1 most valuable card and put it in a
           gold frame at the top as the MVC most valuable card, something to make
           it special and stand out."
 

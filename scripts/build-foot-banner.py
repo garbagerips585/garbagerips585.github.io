@@ -2,7 +2,7 @@
 """The footer's Made in ROC artwork, resized.
 
 WHY THIS IS A BANNER AND NOT A BADGE. The file it replaces was 256x218 and was
-DRAWN AT 88px: a small round stamp with no type in it worth reading. Tim's new
+DRAWN AT 88px: a small round stamp with no type in it worth reading. The owner's new
 artwork is 2752x1536, 1.792:1, and carries two lines of lettering -- GARBAGE
 RIPS 585 round the top and MADE IN ROC across the manhole cover. At 88px wide
 that whole scene is 49px tall and both lines are gone, so swapping the file into

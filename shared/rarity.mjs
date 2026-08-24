@@ -6,7 +6,7 @@
 //   rarityMark("sir")  -> inline SVG of two gold stars
 //
 // THE KEY ITSELF is printed in the booklet that ships inside a modern set, and
-// Tim photographed it on 15 August 2026:
+// the owner photographed it on 15 August 2026:
 //
 //   one black diamond ......... Uncommon
 //   one black star ............ Rare
@@ -89,7 +89,7 @@
 // official pack art. Drawing the star row is the same decision.
 // ============================================================================
 //
-// PARSING ONE FIELD RATHER THAN ASKING FOR SEVERAL. Tim writes a hit as
+// PARSING ONE FIELD RATHER THAN ASKING FOR SEVERAL. The owner writes a hit as
 // "Set - Card - Star description - Rarity" and separates several with commas,
 // because a single rip can produce cards at different tiers and splitting that
 // across columns cannot express it. So the rarity is READ OUT of the text
@@ -127,7 +127,7 @@ export const RARITY_KEY = [
   // ==========================================================================
   // JAPAN AND KOREA SHARE ONE LADDER, AND IT IS LETTERS RATHER THAN STARS.
   // Both print a letter code on the back of the wrapper and on the card itself
-  // instead of a star row. Tim photographed a Japanese pack and a Korean pack
+  // instead of a star row. The owner photographed a Japanese pack and a Korean pack
   // on 2026-08-15 and the codes are IDENTICAL, only the spelled-out names are
   // translated: SAR is スペシャルアートレア on the Japanese wrapper and
   // 스페셜아트레어 on the Korean one, and both print the same three letters.
@@ -362,7 +362,7 @@ export const RARITY_CSS = `
 //             setNames)
 //     -> [{ set: "journey-together", card: "Trainer Ruffian", rarity: "ultra" }]
 //
-// Tim writes a hit as `Set - Card - Star description - Rarity` and separates
+// the owner writes a hit as `Set - Card - Star description - Rarity` and separates
 // several with commas, because one rip can produce cards from several sets at
 // several tiers. The set pages want that: landing on Phantasmal Flames should
 // show everything pulled from Phantasmal Flames, and until now they could only
@@ -419,7 +419,7 @@ export function parseHits(text, setsByName) {
     // is a card.
     // THE LETTER CODES ARE A MARK, NOT A NAME, AND THIS DROPPED ONLY THE STARS.
     // A Japanese or Korean card prints SR where a Scarlet & Violet card prints
-    // two silver stars, so Tim fills the same slot with it: "Cyber Judge -
+    // two silver stars, so the owner fills the same slot with it: "Cyber Judge -
     // Incineroar ex - SR - Super Rare" is his format exactly. The star
     // descriptions are caught by the /star|holo|promo/ test above and the
     // spelled-out tiers by RARITY_ONLY, and the letters were caught by neither,

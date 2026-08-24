@@ -19,7 +19,7 @@
 // list that reads as a league table makes enemies of the people it leaves out,
 // and the whole point is to be useful to the scene rather than to grade it.
 //
-// `vouched` on a vendor is the one editorial signal, and it means Tim has
+// `vouched` on a vendor is the one editorial signal, and it means the owner has
 // actually bought from them. It is not a star rating and there is no scale.
 //
 // THESE TWO PAGES CARRY NO PICTURES AND THAT HAS NOW BEEN DECIDED TWICE, so
@@ -423,7 +423,7 @@ const getListed = ({ noun, one, fields, emailFields, sends, asset, subject }) =>
         .map((f) => esc(f))
         .join(" ")} That is exactly what a card on this page holds, so nothing gets lost between you telling us and
         it going up.</li>
-      ${/* THE ARTWORK GETS ITS OWN BULLET RATHER THAN A SIXTH FIELD. Tim, 24
+      ${/* THE ARTWORK GETS ITS OWN BULLET RATHER THAN A SIXTH FIELD. The owner, 24
             August 2026: "I want vendors and creators to send me their brand
             logos". Folding it into `fields` would have been the obvious move
             and it is wrong twice: the sentence above counts that array to say
@@ -444,7 +444,7 @@ const getListed = ({ noun, one, fields, emailFields, sends, asset, subject }) =>
             : /* WAS "The order is alphabetical and it always will be, so nobody can pay
                  or ask their way up it." It was true when it was written and stopped
                  being true on 24 August 2026, when the order became hand picked at
-                 Tim's request. A promise a page cannot keep is worse than no promise,
+                 the owner's request. A promise a page cannot keep is worse than no promise,
                  and the half that still holds is the half worth saying: the ordering
                  changed, the not-for-sale part did not. */
               "Nothing here is paid for and nothing here can be bought: no placements, no fees and no affiliate links, whatever order the list happens to be in."
@@ -497,7 +497,7 @@ const checkVouch = (text, rows, where) => {
   if (rows.some((o) => o.vouched)) return;
   throw new Error(
     `build-locals: ${where} says this site buys from the people on it, and no entry is marked "vouched".\n` +
-      `  "vouched" is the one editorial signal these pages have and it means Tim actually bought\n` +
+      `  "vouched" is the one editorial signal these pages have and it means the owner actually bought\n` +
       `  from them. A page that claims it in prose and renders it on no card is claiming it twice\n` +
       `  as loudly as the chip would and backing it with nothing. Set "vouched" where it is true,\n` +
       `  or say something the page can show.`
@@ -533,7 +533,7 @@ const PAGE_CSS = `
 
 function page({ metaDesc, slug, title, h1, kicker, lede, list, kind, empty, note, updated, ask }) {
   /* THE FILE'S OWN ORDER, NOT ALPHABETICAL, SINCE 24 August 2026.
-     Tim asked for Toak Pulls first on both lists. This used to sort by name and
+     The owner asked for Toak Pulls first on both lists. This used to sort by name and
      therefore ignored data/vendors.json and data/creators.json entirely, so
      reordering those files did nothing at all and the change looked like it had
      not landed. Both files now carry a note saying their array order IS the page
@@ -839,7 +839,7 @@ if (!nv || !nc) {
  * The pages are short because nobody has added to them, and the obvious fix,
  * going and finding local vendors, is the one thing this file exists to refuse:
  * an unsourced name here is worse than a short list. But there IS a source that
- * is already in the tree, already Tim's own words, and already a statement that
+ * is already in the tree, already the owner's own words, and already a statement that
  * he knows and works with somebody: the @mentions in his video descriptions. He
  * tags the shop a box came from and the people he films with. Every one of those
  * is a local account he has vouched for in public, on his own channel.

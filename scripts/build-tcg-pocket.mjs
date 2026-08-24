@@ -10,7 +10,7 @@
 // what is on the page and what is deliberately off it, is in
 // data/tcg-pocket-PLAN.md.
 //
-// WHY THIS PAGE EXISTS. Tim plays Pocket and says it is how HE learned the card
+// WHY THIS PAGE EXISTS. The owner plays Pocket and says it is how HE learned the card
 // game: he watched the app play matches until it made sense. That is a
 // first-person claim from the person whose name is on the site, and it answers a
 // question a beginner actually has, which is how to learn this without somebody
@@ -431,6 +431,13 @@ const style = `
   padding:var(--s4) var(--s5);margin:var(--s4) 0;box-shadow:var(--hard-lg);max-width:44em}
 .tp-shout p{font:400 var(--t-m)/1.3 var(--display);color:var(--chrome-ink)}
 .tp-shout span{display:block;margin-top:var(--s3);font-size:var(--t-sm);color:var(--foot-ink);line-height:1.5}
+/* The two platform awards. Deliberately quieter than .tp-shout: a shout box is
+   for a warning the reader must not miss, and this is a credential. Gold rule,
+   no fill, no frame, so it reads as a footnote with weight rather than as an
+   advert. */
+.tp-awards{border-left:4px solid var(--gold);padding-left:var(--s4);margin:var(--s4) 0;max-width:44em}
+.tp-awards p{line-height:1.55}
+.tp-awards .tp-src{margin-top:6px;font-size:var(--t-sm);color:var(--ink-2);line-height:1.5}
 .tp-go{list-style:none;margin:var(--s4) 0 0;padding:0;max-width:44em}
 .tp-go li{border-left:4px solid var(--gold);padding-left:var(--s3);margin-bottom:var(--s4);line-height:1.55}
 .tp-go b{display:block;font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;
@@ -592,6 +599,18 @@ const body = `
         <p>I learned to play from it. Not from a rulebook and not across a table from somebody sighing at me.
           The app has solo battles against the computer, and in a solo battle you can switch on an auto option and
           let the app take your turns while you watch. Watch enough turns and the game starts to make sense.</p>
+        ${/* THE AWARDS. The owner asked for these on 24 August 2026 and his wording
+              needed correcting first: he remembered "app of the year from apple
+              as best game", and Apple gave it iPhone GAME of the Year, which is
+              a different category from iPhone App of the Year. Both wins below
+              are read off the awarding company's own newsroom rather than off
+              coverage of it. The award year is printed because the game shipped
+              in 2024 and won in 2025, and leaving the year out makes the
+              sentence look like an error. */ ""}
+        <div class="tp-awards">
+          <p><b>${esc(d.awards.plain)}</b></p>
+          <p class="tp-src">Apple newsroom, December 2025. Google Play blog, November 2025.</p>
+        </div>
         <p>That works, which is why this page exists. It also comes with a catch big enough that Pokemon spells it
           out itself, and that is the next section.</p>
       </section>

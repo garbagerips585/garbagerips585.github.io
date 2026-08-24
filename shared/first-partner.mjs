@@ -2,7 +2,7 @@
 //
 // /first-partner-illustration-collection.html has published all 27 of these
 // cards with a picture, a number and two prices on each since 19 August 2026.
-// data/hits.json records that Tim pulled three of them, twice, and joined them
+// data/hits.json records that the owner pulled three of them, twice, and joined them
 // to NOTHING: those rows carry a `printing` string, no `set`, no `number` and
 // no price, and nothing in the build ever read `printing` as a key. So six rows
 // across two rip pages printed "No market price" for cards this site was
@@ -10,7 +10,7 @@
 // in the whole built tree.
 //
 // THE KEY IS `printing`, NOT `card`, AND THAT IS THE PART THAT IS EASY TO GET
-// WRONG. Tim writes one spreadsheet cell reading "First Partner Illustration
+// WRONG. The owner writes one spreadsheet cell reading "First Partner Illustration
 // Collection (Series 1) Alola Region Promo : Rowlet, Litten, Popplio".
 // scripts/import-sheet.mjs splits it: the card is called "Rowlet" and the
 // product name is kept in `printing`. build-first-partner.mjs's own comment

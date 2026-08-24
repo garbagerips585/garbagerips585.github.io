@@ -29,7 +29,7 @@
 // WHY TOPPS IS A PAGE AT ALL, AND WHAT MAKES THE CLAIM AN HONEST ONE
 // ---------------------------------------------------------------------------
 //
-// Tim, 18 August 2026: "the company Topps made their own sets of Pokemon cards
+// The owner, 18 August 2026: "the company Topps made their own sets of Pokemon cards
 // back in the day ... not many collectors know about the Topps cards, and most
 // don't realize how valuable they are as well".
 //
@@ -61,7 +61,7 @@
 // TWO RANKINGS OFF ONE CORPUS, AND THE UNION IS WHAT GETS VERIFIED
 // ---------------------------------------------------------------------------
 //
-// Tim asked for "top 100 cards raw and graded values". Those are two different
+// The owner asked for "top 100 cards raw and graded values". Those are two different
 // orders over one set of rows: the most expensive raw Topps card is not the most expensive
 // PSA 10 Topps card and they are not close. So this file writes ONE `cards`
 // array, the UNION of both candidate windows, each row carrying a stable

@@ -93,7 +93,7 @@ export const NAV = [
   // window, 0.72 of a screen, does not scroll; 1440x900 panel 716px, scrollH
   // 714 against clientH 714, does not scroll. Both ends still fit.
   //
-  // THE ORDER CHANGED ON 22 August 2026 AND THE MEMBERSHIP DID NOT. Tim: "keep
+  // THE ORDER CHANGED ON 22 August 2026 AND THE MEMBERSHIP DID NOT. The owner: "keep
   // looking at the nav ... everything thats related to my Youtube Channel and
   // the pack rips info data should all be together, second thing I want to
   // highlight is the Rochester, NY pages, and then the fun games section, and
@@ -142,7 +142,7 @@ export const NAV = [
   //     redistribution, and every label argument written below would have to be
   //     re-opened to do it.
   //
-  // So the win the ask is really after is ORDER, not count: the two things Tim
+  // So the win the ask is really after is ORDER, not count: the two things the owner
   // named are now the first two headings a thumb lands on, and the guides he is
   // happy to have last are last. No group here is larger than eight.
 
@@ -153,7 +153,7 @@ export const NAV = [
   // continuous story about the same shoebox.
   //
   // FIRST GROUP, AND SINCE 22 August 2026 THAT IS AN INSTRUCTION RATHER THAN AN
-  // INFERENCE. Tim: "everything thats related to my Youtube Channel and the
+  // INFERENCE. The owner: "everything thats related to my Youtube Channel and the
   // pack rips info data should all be together ... the main focus of the site
   // overall should be my youtube channel, the rip videos, the rip and hit
   // stats". THE FIVE ALREADY WERE THAT LIST and were checked against it one at
@@ -162,13 +162,13 @@ export const NAV = [
   // stats, and /wanted.html is the hunt those stats are kept for. Nothing was
   // added and nothing was moved out.
   //
-  // "The channel" KEPT AS THE HEADING. It is Tim's own word for the thing, and
+  // "The channel" KEPT AS THE HEADING. It is the owner's own word for the thing, and
   // it is the one heading here that names a SOURCE rather than an errand, which
   // is allowed for the same reason "Rochester, NY" is: for these five the thing
   // you came to do is watch what this channel put out.
   //
   // /about.html IS NOT IN THIS GROUP AND THAT WAS ASKED AND ANSWERED. It is the
-  // page that explains the channel, so it has a real claim here; Tim put it in
+  // page that explains the channel, so it has a real claim here; The owner put it in
   // Rochester instead ("About can be under Rochester section too"). The
   // argument is recorded beside it down there rather than repeated here.
   ["The channel", [
@@ -189,7 +189,7 @@ export const NAV = [
     // and this site never states. Do not retitle this "Pull rates".
     //
     // RE-CHECKED 22 August 2026 WHEN THIS GROUP WAS CONFIRMED AS THE SITE'S
-    // FIRST, because "the rip and hit stats" is what Tim called this page and
+    // FIRST, because "the rip and hit stats" is what the owner called this page and
     // it is a full stats dashboard now rather than the single tally it was.
     // The label still echoes the title, still says results rather than rates,
     // and the refusal above stands. It was not reopened.
@@ -200,7 +200,7 @@ export const NAV = [
   // other Pokemon site has and the one query family this site can realistically
   // rank first for.
   //
-  // SECOND GROUP SINCE 22 August 2026, UP FROM EIGHTH, on Tim's ask: "second
+  // SECOND GROUP SINCE 22 August 2026, UP FROM EIGHTH, on the owner's ask: "second
   // thing I want to highlight is the Rochester, NY pages ... I want to be a hub
   // for the local community to showcase what they do best, this area is massive
   // for pokemon cards and i want the world to know!" It was LAST, which meant
@@ -266,7 +266,7 @@ export const NAV = [
     // THE SIXTH LINK IN THIS GROUP, and the note at the top of NAV is what
     // makes it safe: eight groups is the measured count that does not scroll
     // either panel, no group here is larger than eight, and this one was at
-    // five. Added 20 August 2026 on Tim's ask for a page about the dish the
+    // five. Added 20 August 2026 on the owner's ask for a page about the dish the
     // channel is named after.
     //
     // "Garbage Plate" AND NOT "The plate" OR "Food". The label is the thing
@@ -277,7 +277,7 @@ export const NAV = [
     // About, which is reading order: shops and shows are why you came, this is
     // why the channel is called what it is, and About is who is talking.
     //
-    // BOTH OF THESE WERE RE-OPENED WHEN ROCHESTER WENT SECOND AND TIM SETTLED
+    // BOTH OF THESE WERE RE-OPENED WHEN ROCHESTER WENT SECOND AND THE OWNER SETTLED
     // BOTH, 22 August 2026. THEY ARE DECISIONS, NOT DEFAULTS: do not move
     // either on a rules argument.
     //
@@ -296,7 +296,7 @@ export const NAV = [
     //     it into "The channel" was that promoting Rochester turns the last
     //     link of the last group into the eleventh link in the nav, and About
     //     is the page explaining the whole site rather than a local listing.
-    //     Tim's reading is the other one and it is the site's own: the page is
+    //     The owner's reading is the other one and it is the site's own: the page is
     //     a love letter to Rochester, so it belongs with Rochester. The reading
     //     order above is unchanged and still describes what is here.
     ["/garbage-plate.html", "Garbage Plate"],
@@ -308,7 +308,7 @@ export const NAV = [
   // open or value a card, which is exactly why it is not filed with the pages
   // that do.
   //
-  // THIRD GROUP SINCE 22 August 2026, UP FROM SEVENTH. Tim: "and then the fun
+  // THIRD GROUP SINCE 22 August 2026, UP FROM SEVENTH. The owner: "and then the fun
   // games section". That is this group, and the ranking is his: channel, then
   // Rochester, then this, then the guides.
   //
@@ -365,7 +365,7 @@ export const NAV = [
     // search", which is the only place the two searches are told apart in
     // words.
     //
-    // THE ICON IS GONE ON A PHONE SINCE 19 August 2026 (Tim's ask; see the BAR
+    // THE ICON IS GONE ON A PHONE SINCE 19 August 2026 (the owner's ask; see the BAR
     // note below), SO THIS LINE IS NOT A SECOND ROUTE ANY MORE, IT IS THE
     // ROUTE. Do not remove it, do not rename it to something a reader would not
     // recognise as search, and do not move it out of the Cards group without
@@ -501,7 +501,7 @@ export const NAV = [
   ["Buy, sell, grade", [
     ["/start.html", "Start here"],
     // "I am holding a wallet, what now", against Start here's "I am holding a
-    // card, what now". The page exists because of something Tim said: he ends
+    // card, what now". The page exists because of something the owner said: he ends
     // up helping people in shops all the time, because a parent facing a wall
     // of boxes from $10 to $180 has no way to tell which is right.
     ["/what-to-buy.html", "Beginner buys"],
@@ -613,7 +613,7 @@ export const NAV = [
  *
  * So the only width band this changes is 900 to 1099, and there it swaps a
  * guide hub out of the three visible slots for the Rochester page, which is the
- * second thing Tim asked to highlight. Nothing about the row's width changed:
+ * second thing the owner asked to highlight. Nothing about the row's width changed:
  * same five labels, same total, and no label wraps at any width from 320 up.
  *
  * THE PHONE IS UNAFFECTED BY THIS ARRAY ENTIRELY. Below 900 there are no bar
@@ -637,7 +637,7 @@ export const NAV = [
  * displaces is the first thing on the page that replaces it. THE PHONE IS
  * STILL UNAFFECTED, for the reason the paragraph above gives.
  */
-/* BEST PULLS REPLACES SET GUIDES, 23 August 2026, AND THE ARGUMENT IS TIM'S OWN.
+/* BEST PULLS REPLACES SET GUIDES, 23 August 2026, AND THE ARGUMENT IS THE OWNER'S OWN.
  *
  * He asked, now the site is finished, whether these are still the right five:
  * "now that the site is more complete with all pages made do you want to re
@@ -1051,7 +1051,7 @@ export function dropUnusedHitLightbox(html) {
  * was visible all the way down and the magnifier had been deleted from the
  * markup entirely. It described the bar of two passes ago.
  *
- * THERE IS NO SEARCH FIELD IN THE BAR AT ANY WIDTH, AND THAT IS TIM'S CALL,
+ * THERE IS NO SEARCH FIELD IN THE BAR AT ANY WIDTH, AND THAT IS THE OWNER'S CALL,
  * 18 August 2026, in his words: "we can get rid of the search bar, don't think
  * we need search bar". THE REASON MATTERS MORE THAN THE RULE, because the
  * reason is what a later pass will weigh. It is not that the field did not
@@ -1071,7 +1071,7 @@ export function dropUnusedHitLightbox(html) {
  * behind a URL nobody is told about.
  *
  * `.bar-find` IS NOT IN THIS BAR ON A PHONE ANY MORE, since 19 August 2026, and
- * this line used to say "at every width". Tim, reading his own phone: "lets
+ * this line used to say "at every width". The owner, reading his own phone: "lets
  * remove the search icon in the top mobile nav." The markup below is unchanged
  * and the icon is still emitted, because this one string feeds the bar, the
  * menu and the footer and a markup edit would have taken it out of a desktop
@@ -1100,14 +1100,14 @@ export function dropUnusedHitLightbox(html) {
  * <details>, which is what `.menu-find` is. Two taps, and the second one is
  * labelled rather than guessed at.
  *
- * Tim asked to take the magnifier out of the phone bar. He did not ask to put
+ * The owner asked to take the magnifier out of the phone bar. He did not ask to put
  * search three taps away behind a group heading nobody would think to open,
  * and that is what removing it alone did. The line inside Cards STAYS: it is
  * that group's own contents and this is a shortcut, not a move.
  *
  * The route was Menu, Cards, Search the site: 1 tap before this change,
  * 3 after, and the middle one is a group label a reader has to guess holds
- * search. That is the price of the ask and it is Tim's to weigh. If he wants
+ * search. That is the price of the ask and it is the owner's to weigh. If he wants
  * it closer, the cheap fix is a single "Search" line pinned above the groups
  * in this panel, outside every <details>, which is a menu change nobody asked
  * for tonight and is deliberately NOT made here.
@@ -1128,7 +1128,7 @@ export function dropUnusedHitLightbox(html) {
  * It used to read "Rochester, NY" here and sit BESIDE the wordmark, while the
  * home page said the whole sentence twice more -- once in a band under the bar
  * for wide screens, once tucked under the Greatest Hits heading for phones.
- * Tim asked on 23 August 2026 for one sentence under the logo on both, and for
+ * The owner asked on 23 August 2026 for one sentence under the logo on both, and for
  * the bare "Rochester, NY" beside the wordmark to go.
  *
  * build-proto.mjs already treated this string as a thing that must not exist in
@@ -1261,7 +1261,7 @@ ${links.map(([href, label]) => `        <li><a href="${href}">${label}</a></li>`
  * to say where their card data and prices come from.
  */
 /**
- * Tim's public Collectr profile.
+ * The owner's public Collectr profile.
  *
  * We used to BUILD a collection page from Collectr's API. It is his own
  * tracking app view, not something a visitor comes here for, and a personal
@@ -1389,7 +1389,7 @@ export const FOOT_SUB = `<!--FOOT_SUB:START-->
           sync-chrome.mjs in the same commit or it will not travel. */ ""}
     ${/* A BANNER, NOT A BADGE, AND THE SHAPE IS WHY. The file here was 256x218
           drawn at 88px: a small round stamp with no type in it worth reading.
-          Tim's replacement, 23 August 2026, is 2752x1536 at 1.792:1 and carries
+          The owner's replacement, 23 August 2026, is 2752x1536 at 1.792:1 and carries
           two lines of lettering, GARBAGE RIPS 585 round the top and MADE IN ROC
           across the manhole cover. Dropped into the old 88px box that whole
           scene is 49px tall and both lines are gone, so the swap would have
@@ -1416,7 +1416,7 @@ export const FOOT_SUB = `<!--FOOT_SUB:START-->
     </picture>
     ${/* THE REAL CATCHPHRASE REPLACES AN INVENTED ONE, 23 August 2026. This
           slot has read "Grab a fork. Let's rip." since the footer was written,
-          which was a line this site made up to go with the plate. Tim: "One of
+          which was a line this site made up to go with the plate. The owner: "One of
           our tag lines we say in every video is 'Garbage Rips Only! Let's Go!'
           we can add that into the site anywhere it makes sense as well".
 
@@ -1432,7 +1432,7 @@ export const FOOT_SUB = `<!--FOOT_SUB:START-->
     <p class="foot-tag">Garbage Rips Only! Let&rsquo;s Go!</p>
     <a class="btn btn-sub" href="${SUBSCRIBE}" rel="noopener" target="_blank"
       aria-label="${SUB_LABEL}">Subscribe on YouTube</a>
-    ${/* "MOST DAYS" WAS AN UNDERCLAIM AND THE DATA SAYS SO. Tim, 23 August
+    ${/* "MOST DAYS" WAS AN UNDERCLAIM AND THE DATA SAYS SO. The owner, 23 August
           2026: "we rips pokemon packs daily on youtube, everyday, 365, no days
           off, and we celebrate all rips even the Garbage Rips". Counted off
           public/data/videos.json before this sentence was rewritten, because a
@@ -1443,7 +1443,7 @@ export const FOOT_SUB = `<!--FOOT_SUB:START-->
 
           THE THIRD SENTENCE IS THE THING THE SITE HAD NEVER MENTIONED. There is
           a Trubbish trash can on the desk and the wrappers go into it at the end
-          of every rip, on camera, in every video. Tim: "he is in every very, and
+          of every rip, on camera, in every video. The owner: "he is in every very, and
           a big part of the channel people love watching me feed the trubbish
           trash can". The mascot is all over this site and until now nothing on
           it said he is a real object in the videos.

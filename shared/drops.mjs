@@ -179,7 +179,7 @@ export function homeBandRows(doc, rows, {
 /**
  * The home band grouped BY RETAILER rather than by drop.
  *
- * Tim, 23 August 2026: "can you also add in the expected online drops too, can
+ * The owner, 23 August 2026: "can you also add in the expected online drops too, can
  * make it super simple to read/see what retailers are planning online and in
  * store". homeBandRows above answers a different question -- it picks the three
  * most urgent DROPS and dedupes by retailer, so Target's online drop and

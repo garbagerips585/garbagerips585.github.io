@@ -68,7 +68,7 @@ const d = JSON.parse(await readFile(join(ROOT, "data/rarity.json"), "utf8"));
  * matters. `pulls` is DERIVED FROM VIDEO TITLES by shared/taxonomy.mjs, and
  * build-luck.mjs spells out why that is unsafe: a title is not a record of
  * what came out, and the Ultra Rare pattern matches a title that says there
- * was no Ultra Rare in it. hits.json is Tim's own per-card log, keyed by video
+ * was no Ultra Rare in it. hits.json is the owner's own per-card log, keyed by video
  * id, with the rarity written by hand. It is the same file the Hall of Fame is
  * built from and it cannot claim a card the channel did not pull.
  *

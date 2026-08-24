@@ -1,1174 +1,1285 @@
 {
-  "_readme": [
-    "Research file for a guide to Pokemon Trading Card Game Pocket, the official",
-    "free mobile app. Companion to data/tcg-live.json, which covers Pokemon TCG",
-    "Live. THE TWO PAGES MUST NOT DUPLICATE EACH OTHER: Live is the full",
-    "competitive rules engine that eats the code card out of every pack; Pocket",
-    "is the casual mobile one that has nothing to do with the code card at all.",
-    "The vsLive block below is the comparison, and it is a large part of why this",
-    "page exists.",
-    "",
-    "THE BRIEF. Tim plays Pocket, calls it 'really fun and casual', and says it",
-    "is how HE learned to play the real card game: there is an AI that plays",
-    "matches and he watched its moves. theHook below establishes exactly what",
-    "that feature is. READ theHook.confidence BEFORE WRITING A WORD OF THE PAGE.",
-    "The short version: solo battles against the computer are officially",
-    "documented, the Auto feature that plays your side for you is NOT documented",
-    "on any Pokemon-owned page that could be reached, and the page has to be",
-    "worded so it stays true either way.",
-    "",
-    "EVERY CLAIM CARRIES A SOURCE KEY AND A READ DATE. A claim with neither does",
-    "not go on the page. Source keys resolve against the `sources` block.",
-    "",
-    "NEVER STATE PULL RATES, DROP RATES, ODDS OR 'CHANCE OF' ANYTHING, PHYSICAL",
-    "OR DIGITAL. Pocket publishes digital offering rates prominently. They were",
-    "deliberately not read, no number from them is in this file, and no url that",
-    "leads to them is recorded. See `forbidden.offeringRates`.",
-    "",
-    "THE APP CHANGES CONSTANTLY. It shipped on 2024-10-30 and was on version",
-    "1.7.1 when this was read. Everything here is dated. See `willGoStale`."
-  ],
-
-  "checked": "2026-08-16",
-
-  "appVersionAtCheck": {
-    "ios": "1.7.1",
-    "released": "2026-08-06",
-    "source": "appstore",
-    "read": "2026-08-16",
-    "androidLastUpdated": "2026-08-04",
-    "androidSource": "googleplay",
-    "note": "Set `checked` on a research refresh, not on every build. A date that moves because a build ran is a date that means nothing.",
-    "currentExpansionAtCheck": {
-      "name": "Ruler of the Skies",
-      "quote": "New Ruler of the Skies booster packs are now available.",
-      "source": "appstore",
-      "detail": "From the 1.7.1 App Store release notes. Do NOT build a page around the current expansion name; it will be wrong within weeks."
-    }
-  },
-
-  "sources": {
-    "officialSite": {
-      "id": "officialSite",
-      "title": "Pokemon Trading Card Game Pocket (official site)",
-      "url": "https://tcgpocket.pokemon.com/en-us/",
-      "publisher": "The Pokemon Company International",
-      "read": "2026-08-16",
-      "reachable": true,
-      "note": "Reachable to plain curl, unlike www.pokemon.com. THIN AND STALE: it still calls the game 'an upcoming game', carries a 2024 copyright line, and describes only packs and immersive cards. It has no battle, solo, trading or rules content. It is the right link to hand a reader for the download buttons and nothing else. It has NO sub-pages: /battle/, /how-to-play/, /guide/, /about/, /cards/, /news/, /play/, /rules/ and /beginner/ all 404."
-    },
-    "appstore": {
-      "id": "appstore",
-      "title": "Pokemon TCG Pocket on the App Store",
-      "url": "https://apps.apple.com/us/app/id6479970832",
-      "apiUrl": "https://itunes.apple.com/lookup?id=6479970832&country=us",
-      "publisher": "Apple / The Pokemon Company",
-      "read": "2026-08-16",
-      "reachable": "via the iTunes lookup JSON API",
-      "note": "The listing itself is marketing copy written by The Pokemon Company, so treat feature claims in the description as first-party but promotional. The metadata (price, version, dates, size, rating, languages) is Apple's and is firm."
-    },
-    "googleplay": {
-      "id": "googleplay",
-      "title": "Pokemon TCG Pocket on Google Play",
-      "url": "https://play.google.com/store/apps/details?id=jp.pokemon.pokemontcgp",
-      "publisher": "Google / The Pokemon Company",
-      "read": "2026-08-16",
-      "reachable": true,
-      "note": "Fetched as raw HTML. Only the 'Updated on' date and the same marketing description were taken from it. The bundle id jp.pokemon.pokemontcgp is worth noting: the app is published out of the Japanese entity, which is consistent with Creatures Inc. and DeNA building it."
-    },
-    "supportGameplay": {
-      "id": "supportGameplay",
-      "title": "Pokemon TCG Pocket Gameplay FAQ",
-      "url": "https://support.pokemon.com/hc/en-us/articles/30330309361172-Pok%C3%A9mon-TCG-Pocket-Gameplay-FAQ",
-      "apiUrl": "https://support.pokemon.com/api/v2/help_center/en-us/articles/30330309361172.json",
-      "publisher": "The Pokemon Company International",
-      "articleCreated": "2024-09-12",
-      "articleEdited": "2026-07-30",
-      "read": "2026-08-16",
-      "reachable": "JSON API only",
-      "note": "THE SINGLE MOST USEFUL SOURCE IN THIS FILE. It carries the official statement that the rules differ from the physical game, the price model, the languages, the device specs, and most of what is in the app. It is also the longest, at roughly 3,500 words."
-    },
-    "supportBattleRules": {
-      "id": "supportBattleRules",
-      "title": "Pokemon TCG Pocket Battle Rules FAQ",
-      "url": "https://support.pokemon.com/hc/en-us/articles/38906248102292-Pok%C3%A9mon-TCG-Pocket-Battle-Rules-FAQ",
-      "apiUrl": "https://support.pokemon.com/api/v2/help_center/en-us/articles/38906248102292.json",
-      "publisher": "The Pokemon Company International",
-      "articleCreated": "2025-06-30",
-      "articleEdited": "2025-11-12",
-      "read": "2026-08-16",
-      "reachable": "JSON API only",
-      "note": "Mostly card-specific rulings, not a rules summary. Two lines in it are general and useful: how attacks with no Energy cost work on the first turn, and that points come only from Knock Outs. Do not mine it for card rulings; that is not what our page is."
-    },
-    "supportTrading": {
-      "id": "supportTrading",
-      "title": "Pokemon TCG Pocket Trading FAQ",
-      "url": "https://support.pokemon.com/hc/en-us/articles/34322874608660-Pok%C3%A9mon-TCG-Pocket-Trading-FAQ",
-      "apiUrl": "https://support.pokemon.com/api/v2/help_center/en-us/articles/34322874608660.json",
-      "publisher": "The Pokemon Company International",
-      "articleCreated": "2025-01-28",
-      "articleEdited": "2026-07-30",
-      "read": "2026-08-16",
-      "reachable": "JSON API only"
-    },
-    "supportSharing": {
-      "id": "supportSharing",
-      "title": "Pokemon TCG Pocket Sharing and Social FAQ",
-      "url": "https://support.pokemon.com/hc/en-us/articles/30332621133204-Pok%C3%A9mon-TCG-Pocket-Sharing-and-Social-FAQ",
-      "apiUrl": "https://support.pokemon.com/api/v2/help_center/en-us/articles/30332621133204.json",
-      "publisher": "The Pokemon Company International",
-      "articleCreated": "2024-09-12",
-      "articleEdited": "2025-10-30",
-      "read": "2026-08-16",
-      "reachable": "JSON API only"
-    },
-    "supportPurchase": {
-      "id": "supportPurchase",
-      "title": "Pokemon TCG Pocket Purchase and Premium Pass FAQ",
-      "url": "https://support.pokemon.com/hc/en-us/articles/30331739144596-Pok%C3%A9mon-TCG-Pocket-Purchase-and-Premium-Pass-FAQ",
-      "apiUrl": "https://support.pokemon.com/api/v2/help_center/en-us/articles/30331739144596.json",
-      "publisher": "The Pokemon Company International",
-      "articleCreated": "2024-09-12",
-      "articleEdited": "2026-01-22",
-      "read": "2026-08-16",
-      "reachable": "JSON API only",
-      "note": "Long and almost entirely about billing troubleshooting. It confirms the premium pass is a paid monthly subscription and that Poke gold is bought through the app stores. It does NOT state a price."
-    },
-    "supportAccount": {
-      "id": "supportAccount",
-      "title": "Pokemon TCG Pocket Account Link and Data Transfer FAQ",
-      "url": "https://support.pokemon.com/hc/en-us/articles/30331783530644-Pok%C3%A9mon-TCG-Pocket-Account-Link-and-Data-Transfer-FAQ",
-      "apiUrl": "https://support.pokemon.com/api/v2/help_center/en-us/articles/30331783530644.json",
-      "publisher": "The Pokemon Company International",
-      "articleCreated": "2024-09-12",
-      "articleEdited": "2025-01-21",
-      "read": "2026-08-16",
-      "reachable": "JSON API only",
-      "note": "THE SOURCE FOR THE BIGGEST QUIET DIFFERENCE FROM LIVE: Pocket links to a Nintendo, Google or Apple account. A Pokemon Trainer Central account is not mentioned anywhere in it."
-    },
-    "supportGiftCode": {
-      "id": "supportGiftCode",
-      "title": "Pokemon TCG Pocket Gift Code FAQ",
-      "url": "https://support.pokemon.com/hc/en-us/articles/35876581854484-Pok%C3%A9mon-TCG-Pocket-Gift-Code-FAQ",
-      "apiUrl": "https://support.pokemon.com/api/v2/help_center/en-us/articles/35876581854484.json",
-      "publisher": "The Pokemon Company International",
-      "articleCreated": "2025-03-21",
-      "articleEdited": "2025-04-15",
-      "read": "2026-08-16",
-      "reachable": "JSON API only",
-      "note": "CRITICAL FOR THIS AUDIENCE AND EASY TO MISREAD. 'Gift codes' here are promotional campaign codes, redeemed on a web page with your in-game Support ID. They are NOT the code cards in physical booster packs. A reader skimming for 'code' will conflate the two, so the page has to separate them explicitly."
-    },
-    "supportWebStore": {
-      "id": "supportWebStore",
-      "title": "Pokemon TCG Pocket Web Store FAQ",
-      "url": "https://support.pokemon.com/hc/en-us/articles/44985710277268-Pok%C3%A9mon-TCG-Pocket-Web-Store-FAQ",
-      "apiUrl": "https://support.pokemon.com/api/v2/help_center/en-us/articles/44985710277268.json",
-      "publisher": "The Pokemon Company International",
-      "articleCreated": "2026-01-05",
-      "articleEdited": "2026-01-15",
-      "read": "2026-08-16",
-      "reachable": "JSON API only",
-      "note": "New in January 2026. The web store is run by Xsolla and sells Poke gold outside the app stores."
-    },
-    "supportTechnical": {
-      "id": "supportTechnical",
-      "title": "Pokemon TCG Pocket Technical Troubleshooting FAQ",
-      "url": "https://support.pokemon.com/hc/en-us/articles/30332689777428-Pok%C3%A9mon-TCG-Pocket-Technical-Troubleshooting-FAQ",
-      "apiUrl": "https://support.pokemon.com/api/v2/help_center/en-us/articles/30332689777428.json",
-      "publisher": "The Pokemon Company International",
-      "articleCreated": "2024-09-12",
-      "articleEdited": "2026-05-12",
-      "read": "2026-08-16",
-      "reachable": "JSON API only"
-    },
-    "supportBoosterPack": {
-      "id": "supportBoosterPack",
-      "title": "What can I expect in a Pokemon Trading Card Game booster pack?",
-      "url": "https://support.pokemon.com/hc/en-us/articles/360000981613-What-can-I-expect-in-a-Pok%C3%A9mon-Trading-Card-Game-booster-pack",
-      "apiUrl": "https://support.pokemon.com/api/v2/help_center/en-us/articles/360000981613.json",
-      "publisher": "The Pokemon Company International",
-      "articleCreated": "2018-02-14",
-      "articleEdited": "2023-07-21",
-      "read": "2026-08-16",
-      "reachable": "JSON API only",
-      "note": "THIS IS THE OFFICIAL SOURCE FOR 'THE CODE CARD IS FOR LIVE, NOT POCKET'. It describes physical pack contents and names Live by name as the place the code is redeemed. It is also, incidentally, a pack-contents article; do not lift the composition sentence onto our page as a rate claim of any kind, and note that it predates the Pocket launch entirely, which is why it does not mention Pocket."
-    },
-    "deckGuide": {
-      "id": "deckGuide",
-      "title": "Learn How to Build a Deck in Pokemon TCG Pocket",
-      "url": "https://www.pokemon.com/us/strategy/learn-how-to-build-a-deck-in-pokemon-tcg-pocket",
-      "publisher": "The Pokemon Company International",
-      "published": "2025-01-30",
-      "read": "2026-08-16",
-      "reachable": true,
-      "note": "THE BEST OFFICIAL SOURCE FOR THE REDUCED RULESET, and the only official page found that states the deck size, the copy limit, the three points and the Energy Zone in plain sentences. www.pokemon.com is behind Imperva and blocked plain curl; this page answered through WebFetch on 2026-08-16 while two other pokemon.com pages did not. Treat access as unreliable and quote from this file rather than re-fetching."
-    },
-    "collectingGuide": {
-      "id": "collectingGuide",
-      "title": "A Guide to Collecting Cards and Using Wonder Picks in Pokemon Trading Card Game Pocket",
-      "url": "https://www.pokemon.com/us/strategy/a-guide-to-collecting-cards-and-using-wonder-picks-in-pokemon-trading-card-game-pocket",
-      "publisher": "The Pokemon Company International",
-      "published": "2024-11-25",
-      "read": "2026-08-16",
-      "reachable": true,
-      "note": "Official, but written three weeks after launch and never obviously revised. Anything numeric in it (the premium pass price, shop stock) should carry its 2024 date on the page. It is the source for the twelve-hour pack timer phrasing."
-    },
-    "unlockBattlesGuide": {
-      "id": "unlockBattlesGuide",
-      "title": "How to Unlock Battles in Pokemon TCG Pocket",
-      "url": "https://www.pokemon.com/us/strategy/how-to-unlock-battles-in-pokemon-tcg-pocket",
-      "publisher": "The Pokemon Company International",
-      "read": "2026-08-16",
-      "reachable": false,
-      "note": "EXISTS BUT COULD NOT BE READ. Both /us/strategy/ and /us/features/ variants, and the /uk/ mirror, returned Imperva's 'Pardon Our Interruption' page; web.archive.org is not fetchable from this tool. It is listed here because it is the one official page whose title promises the beginner path, and somebody with a browser should read it before the page ships. The one fact it would carry that we needed, the level 3 unlock, is independently confirmed by supportGameplay, so nothing on the page depends on it."
-    },
-    "wikipedia": {
-      "id": "wikipedia",
-      "title": "Pokemon Trading Card Game Pocket",
-      "url": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Trading_Card_Game_Pocket",
-      "publisher": "Wikipedia",
-      "read": "2026-08-16",
-      "reachable": true,
-      "note": "Used for exactly one thing that no official source would confirm: that solo matches have an optional auto-battle feature. See theHook."
-    },
-    "bulbapedia": {
-      "id": "bulbapedia",
-      "title": "Pokemon Trading Card Game Pocket",
-      "url": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Card_Game_Pocket",
-      "publisher": "Bulbapedia",
-      "read": "2026-08-16",
-      "reachable": true,
-      "note": "The only source found for the Bench limit of three, the turn caps and the per-Pokemon point values. All of that is flagged in singleSourced. It is a good wiki and these numbers are almost certainly right; that is not the same as sourced, and this site's habit is to say which is which."
-    },
-    "game8AutoBattle": {
-      "id": "game8AutoBattle",
-      "title": "Auto-Battle Guide, Pokemon TCG Pocket",
-      "url": "https://game8.co/games/Pokemon-TCG-Pocket/archives/483074",
-      "publisher": "Game8",
-      "pageUpdated": "2025-11-25",
-      "read": "2026-08-16",
-      "reachable": true,
-      "note": "Third-party guide site. Used only to corroborate wikipedia on the Auto feature and to record where the button is. NOT quotable on our page as an authority. If the page says anything about Auto it should be worded as a description of what the app does, not as a citation to a wiki-adjacent guide farm."
-    },
-    "tcgLiveResearch": {
-      "id": "tcgLiveResearch",
-      "title": "data/tcg-live.json (this repo)",
-      "url": "data/tcg-live.json",
-      "publisher": "Garbage Rips 585 research, by a separate agent, same day",
-      "read": "2026-08-16",
-      "reachable": true,
-      "note": "EVERY LIVE FACT IN vsLive COMES FROM HERE, not from a fresh fetch, so the two pages cannot contradict each other. Each vsLive row records the key inside that file so a builder can trace it back to Pokemon's own wording."
-    },
-    "howToPlayResearch": {
-      "id": "howToPlayResearch",
-      "title": "data/how-to-play.json (this repo)",
-      "url": "data/how-to-play.json",
-      "publisher": "Garbage Rips 585 research",
-      "read": "2026-08-16",
-      "reachable": true,
-      "note": "EVERY PHYSICAL-GAME NUMBER IN reducedRuleset COMES FROM HERE, quoted from the official rulebook and handbook by that file. Do not re-derive them: 60 card deck, up to 5 Benched Pokemon, 6 Prize cards. If our comparison of the physical game disagrees with /how-to-play.html, our comparison is wrong."
-    }
-  },
-
-  "forbidden": {
-    "offeringRates": {
-      "exists": true,
-      "wasFetched": false,
-      "urlRecorded": false,
-      "rule": "Pocket publishes offering rates for its digital booster packs. They were deliberately not read, no figure from them is anywhere in this file, and no url that leads to them is recorded here on purpose. Do not state, quote, summarise, paraphrase, round, characterise or link them. Do not write 'the odds are published in the app' as an invitation, and do not write soft forms of the same claim: no 'rare', 'hard to pull', 'common', 'you will usually get', 'more likely than'. The site's rule is absolute and it does not have a digital exception.",
-      "theArgumentThisRuleExistsToREFUSE": "'But Pocket is a digital game and it publishes its own rates openly, so quoting them is just reporting a published fact.' No. CLAUDE.md's rule is that this site never states pull rates, and it already forbids linking Live's drop rate page through /how-to-play.html for exactly this reason: the claim made at one remove is the same claim. Pocket is where a future editor will argue hardest for the exception. Refuse it.",
-      "alsoNote": "Apple's App Store listing carries a 'Loot Boxes' advisory for this app (source: appstore, read 2026-08-16). That is a content descriptor, not an odds figure, and it is safe to record. It is probably not worth putting on the page either."
-    },
-    "giftCodeLists": {
-      "rule": "Do not publish a list of active Pocket gift codes. Several third-party sites do. They expire in weeks, they are not from Pokemon, and a code list turns an evergreen page into one that lies. If the page mentions gift codes at all it says what they are, says they come and go with campaigns, and names no code.",
-      "note": "Same rule the Live plan set for promo codes. As of 2026-08-16 third-party trackers were reporting no active codes at all, which is a good illustration of why a list is worthless on a static page."
-    },
-    "realMoneyValue": {
-      "rule": "Nothing in Pocket is worth real money and the page must not imply otherwise. Do not price digital cards, do not compare a digital card to its physical counterpart's market price, and do not link /buying.html or /selling.html from any section about digital cards.",
-      "note": "The Live research reached the same conclusion from Live's Terms of Use. Pocket's own Terms of Use were not read (the App Store description points at https://www.apppokemon.com/tcgp/kiyaku/kiyaku001/rule/ ), so do not quote Pocket's terms; state the point as a plain description of what the app is rather than as a citation."
-    },
-    "accountSelling": {
-      "rule": "No discussion of buying, selling or trading Pocket accounts, and no links to anywhere that does. It is a legal-shaped question, the answer is not ours to give, and the audience for this page includes children."
-    }
-  },
-
-  "theHook": {
-    "_note": [
-      "TIM'S FRAMING IS THE PAGE'S WHOLE REASON TO EXIST: an AI plays matches and",
-      "you learn the game by watching it. This block establishes what that",
-      "actually is. It is the part of the research most likely to be got wrong by",
-      "wanting it to be true, so the confidence fields are the important fields."
-    ],
-    "whatIsOfficiallyDocumented": {
-      "soloBattlesExist": {
-        "plain": "Pocket has a Solo mode: battles against the computer, separate from Versus battles against other people.",
-        "evidence": [
-          "supportGameplay names 'solo battles', 'step-up battles' and 'solo event battles' repeatedly, in the app's own vocabulary.",
-          "supportGameplay: rental decks 'cannot be used in versus battles', which only means anything if there is a non-versus battle mode.",
-          "supportGameplay: 'The availability of step-up battles may vary based on the current expansion and other factors. For example, you may find that some expansions offer only higher difficulty step-up or solo battles.'"
-        ],
-        "source": "supportGameplay",
-        "articleEdited": "2026-07-30",
-        "read": "2026-08-16",
-        "confidence": "FIRM AND OFFICIAL. The existence of solo play against the computer is not in doubt."
-      },
-      "battlesUnlockAtLevel3": {
-        "plain": "Battles are not available the moment you install. The battle feature unlocks at player level 3, which you reach by opening packs and playing with the collection side first.",
-        "quote": "You haven't reached player level 3, which is when the battle feature is unlocked.",
-        "source": "supportGameplay",
-        "read": "2026-08-16",
-        "confidence": "firm; quoted verbatim, in the context of why a player cannot join ranked matches",
-        "note": "USEFUL AND SLIGHTLY SURPRISING, and it belongs on the page. Somebody installing this to learn the card game will open it, find no battles, and think they have the wrong app."
-      },
-      "theAppTeachesItsOwnRules": {
-        "plain": "The app carries its own rules reference. Pokemon's answer to 'what are the rules' is to point you into it.",
-        "quote": "Please find more information about Pokemon TCG Pocket's game rules in Tips or by tapping the question mark button displayed at the top-right part of various screens of the app.",
-        "source": "supportGameplay",
-        "read": "2026-08-16",
-        "confidence": "firm, quoted verbatim",
-        "note": "This is the honest version of 'it teaches you'. The app has a Tips section and a contextual (?) button on most screens. That is a real, sourced, checkable teaching feature and it is a better thing to promise a reader than a feature we cannot document."
-      },
-      "guidedStart": {
-        "plain": "There is a tutorial. Completing the tutorial missions in the Guide section hands you pack hourglasses, shop tickets, a starter deck, a rental deck and Item cards, and the beginner deck you receive depends on which pack you chose to open first.",
-        "source": "collectingGuide",
-        "published": "2024-11-25",
-        "read": "2026-08-16",
-        "confidence": "the Guide-section missions and their rewards are official and quotable; the detail that the beginner deck depends on your first pack choice came through a search summary of unlockBattlesGuide, which could not be read directly, so DO NOT PRINT IT",
-        "note": "Two-year-old article. Reward lists change. Say there is a guided start with rewards; do not itemise it."
-      },
-      "rentalDecks": {
-        "plain": "The app lends you decks. Rental decks have a limited number of uses, each match spends one whether you win, lose or forfeit, and they cannot be used in versus battles.",
-        "quote": "Rental decks have a limited number of uses. Once the rental deck runs out of uses, the deck will disappear from the rental deck list... Please note that you cannot use rental decks in versus battles.",
-        "source": "supportGameplay",
-        "read": "2026-08-16",
-        "confidence": "firm, quoted verbatim",
-        "note": "STRONGER FOR THE PAGE'S ARGUMENT THAN IT LOOKS. A beginner does not need to own or build anything to sit down and play a real match against the computer. That is the actual on-ramp."
-      }
-    },
-    "theAutoFeature": {
-      "plain": "In solo battles you can switch on an Auto option and let the app play your side of the match while you watch. It is solo only: it cannot be used against other people.",
-      "whatItIsCalled": "Players and guides call it auto-battle or the Auto feature. WE DO NOT HAVE A POKEMON-PUBLISHED NAME FOR IT.",
-      "howItWorks": [
-        "It can be switched on before a solo battle and also during one, so you can hand the match over mid-way and take it back.",
-        "The CPU takes your turns for you: playing Pokemon, attaching Energy, attacking.",
-        "It plays simply. Third-party guides are consistent that it is fine for basic objectives and poor at anything that needs a plan.",
-        "It cannot be used in versus battles against other players."
-      ],
-      "sources": ["wikipedia", "game8AutoBattle"],
-      "read": "2026-08-16",
-      "confidence": "THE FEATURE IS REAL AND WELL CORROBORATED BY NON-POKEMON SOURCES. IT IS NOT DOCUMENTED ON ANY POKEMON-OWNED PAGE THAT COULD BE REACHED.",
-      "whatWasSearched": [
-        "support.pokemon.com Zendesk search for 'Pocket' returned all 13 Pocket articles; nine were fetched in full and their bodies grepped for 'auto'. Every hit was about automatic subscription renewal, automatic date resets or automatic time settings. None was about battles.",
-        "The Battle Rules FAQ (supportBattleRules), which is where it would belong, is entirely card-specific rulings and does not mention it.",
-        "The official site (officialSite) has no battle content at all and no sub-pages.",
-        "The App Store description and the Google Play description do not mention it.",
-        "www.pokemon.com's own Pocket strategy articles that could be read do not mention it, and the one that might (unlockBattlesGuide) is unreachable."
-      ],
-      "howToWriteIt": "Describe it as a thing the app does, in plain present tense, without citing a wiki as an authority and without claiming Pokemon documents it. 'Turn Auto on in a solo battle and the app plays your side while you watch' is honest, matches every source, and is exactly what Tim describes. Do NOT write 'Pokemon calls it X'. Do NOT capitalise it as a proper feature name in a way that implies official branding beyond the in-app button.",
-      "ifYouWantToBeStricter": "The page can be written so it does not depend on Auto at all: solo battles against the computer, rental decks and the in-app Tips are all officially sourced and already carry the 'watch and learn' argument, because in ANY solo battle you are watching a competent CPU take its turns against you. If a reviewer is uncomfortable with the wiki-only sourcing, drop Auto to one sentence and lead on solo battles. Do not drop it entirely: it is the specific thing Tim described and the specific thing a reader would go looking for."
-    },
-    "theHonestCaveatThatMustShip": {
-      "plain": "Watching Pocket play teaches you the SHAPE of the Pokemon card game, not its rules. Evolution, attacks, Weakness, Retreat, Abilities, the Active spot and the Bench all work recognisably. The numbers do not: the deck is a third the size, there are no Energy cards, there are no Prize cards, and the Bench is smaller.",
-      "why": "This site's readers play with physical cards. A page that says 'this is how I learned' without this caveat sends somebody to a table with the wrong rules in their head, and /how-to-play.html then reads as if it contradicts us.",
-      "basis": "reducedRuleset below, all of it sourced",
-      "note": "THIS IS THE PAGE'S MOST IMPORTANT SENTENCE AFTER THE HOOK ITSELF, and it should sit immediately under the hook rather than 900 words later."
-    }
-  },
-
-  "howToGet": {
-    "platforms": {
-      "plain": "Two platforms, both mobile: iPhone and iPad from the App Store, Android from Google Play. There is no Windows version, no Mac version and no browser version.",
-      "detail": [
-        {
-          "platform": "iOS / iPadOS",
-          "how": "App Store",
-          "url": "https://apps.apple.com/app/id6479970832",
-          "source": "officialSite",
-          "read": "2026-08-16"
-        },
-        {
-          "platform": "Android",
-          "how": "Google Play",
-          "url": "https://play.google.com/store/apps/details?id=jp.pokemon.pokemontcgp",
-          "source": "officialSite",
-          "read": "2026-08-16"
-        }
-      ],
-      "quote": "an upcoming game for iOS and Android devices from Creatures Inc., the original developers of the Pokemon TCG, and DeNA Co., Ltd.",
-      "quoteSource": "officialSite",
-      "quoteCaveat": "'upcoming' is the official site being two years stale. Do not quote that sentence on the page; use it only as evidence of the platform list and the developers.",
-      "confidence": "firm; the official site links exactly two store buttons and there is no desktop client anywhere",
-      "note": "THE CLEANEST SINGLE DIFFERENCE FROM LIVE AND WORTH LEADING THE COMPARISON WITH. Live runs on Windows and Mac as direct downloads as well as on phones (tcgLiveResearch.howToGet.platforms). Pocket is a phone game."
-    },
-    "price": {
-      "plain": "Free. There are optional in-app purchases.",
-      "quote": "The game is free to start. There are optional in-app purchases.",
-      "source": "supportGameplay",
-      "read": "2026-08-16",
-      "corroborated": ["appstore (listed price 0.00, 'Free')", "officialSite ('Free-to-start; optional in-game purchases available.')"],
-      "confidence": "firm, three independent official statements"
-    },
-    "account": {
-      "plain": "You do not need a Pokemon account. You pick a country and region, confirm your age, accept the terms and play. Linking an account is optional and it is about protecting your save, not about getting in.",
-      "whichAccounts": ["Nintendo Account", "Google Account", "Apple Account (iOS devices only)"],
-      "quote": "You can link an account from the game's title screen or main menu. Note: Players under a certain age can only link a Nintendo Account. Only iOS devices can link to an Apple Account.",
-      "source": "supportAccount",
-      "read": "2026-08-16",
-      "confidence": "FIRM ON WHICH ACCOUNTS. The 'you do not need one to start' half is established by the shape of the FAQ rather than by a sentence saying so: linking is described as something you do to transfer or share save data, the first-launch sequence it documents is 'Country/Region Selection, Age Confirmation > Terms of Use and Privacy Notice', and no Pokemon Trainer Central account appears anywhere in any Pocket support article. Word it as 'you are not asked to make a Pokemon account to start playing', which is what the sources support.",
-      "whyItMatters": "Live REQUIRES a Pokemon Trainer Central account (tcgLiveResearch.howToGet.account). Pocket does not use that account system at all. For a parent, or for somebody who just wants to try it on the bus, that is the single biggest practical difference between the two apps.",
-      "warning": {
-        "plain": "Link an account early. Without one, a reinstall loses everything and Pokemon says so.",
-        "quote": "If you reinstall the app without linking your save data to an account, you will not be able to recover your save data yourself.",
-        "source": "supportPurchase",
-        "read": "2026-08-16",
-        "note": "This belongs in the tips list. It is the mistake with the worst consequences and the smallest effort to avoid."
-      },
-      "childAccounts": {
-        "plain": "Under a certain age, only a Nintendo Account can be linked. Pokemon does not print the age and says it varies by country.",
-        "quote": "Only players over a certain age may link their account to an Apple Account or a Google Account... Age restrictions may differ depending on your country or region.",
-        "source": "supportAccount",
-        "read": "2026-08-16",
-        "confidence": "firm, and deliberately vague in the source. DO NOT INVENT AN AGE NUMBER."
-      }
-    },
-    "regions": {
-      "plain": "It is available almost everywhere. Pokemon's own App Store copy says the game has players in 150 countries and regions.",
-      "quote": "Pokemon Trading Card Game Pocket has players in 150 countries and regions around the world.",
-      "source": "appstore",
-      "read": "2026-08-16",
-      "confidence": "firm as a quote, but it is marketing copy describing where players ARE, not a list of where the app is SOLD. Attribute it rather than restating it as an availability claim.",
-      "corroboration": "The official site offers eleven localised regional versions (en-us, en-gb, en-au, en-ca, fr-fr, fr-ca, de-de, es-es, es-mx, it-it, pt-br) and support.pokemon.com carries dedicated 'Pokemon TCG Pocket Korea Support' and 'Pokemon TCG Pocket Asia Support' articles.",
-      "recommendation": "One sentence, same shape as the Live page's: if your app store has it, you can play. There is no list of excluded regions to print. Note separately that the Xsolla web store is NOT available everywhere the game is (supportWebStore lists 'The save data is set to a country or region where the web store is unavailable' as a login failure reason)."
-    },
-    "languages": {
-      "plain": "Nine languages, switchable inside the app.",
-      "list": ["Japanese", "English", "French", "Italian", "German", "Spanish", "Brazilian Portuguese", "Traditional Chinese", "Korean"],
-      "source": "supportGameplay",
-      "read": "2026-08-16",
-      "corroborated": "appstore lists the same nine language codes",
-      "quirk": {
-        "plain": "Cards keep the language you got them in. Changing the app language does not retranslate cards you already own.",
-        "quote": "Cards that you already own will remain the language that you acquired them in, even if the app language setting is changed.",
-        "source": "supportGameplay",
-        "read": "2026-08-16",
-        "note": "GENUINELY INTERESTING TO THIS SITE'S READERS, who already have international set guides and care about Japanese versus English printings. Worth one line. Wonder Pick cards arrive in whatever language the other player was playing in."
-      }
-    },
-    "deviceRequirements": {
-      "asOf": "2026-07-30",
-      "label": "Recommended mobile device specifications",
-      "ios": ["iPhone X or later", "iOS 15 or later / iPadOS 15 or later", "3GB of RAM or more"],
-      "android": ["Android 7.0 or later", "Support for Vulkan", "64-bit", "3GB of RAM or more", "Snapdragon 845 or later, or a GPU of similar performance"],
-      "source": "supportGameplay",
-      "read": "2026-08-16",
-      "confidence": "firm and quoted from the current article, but note Pokemon's own hedge",
-      "pokemonsOwnHedge": "The app is not guaranteed to work on all devices, even if those devices meet the listed requirements.",
-      "appStoreMinimum": "iOS 15.0 (appstore metadata, read 2026-08-16)",
-      "downloadSize": "About 766 MB on iOS (appstore fileSizeBytes 765,824,000, read 2026-08-16)",
-      "recommendation": "ONE SENTENCE, NOT A TABLE, exactly as the Live plan decided. 'A phone from the last several years with 3GB of RAM, running iOS 15 or Android 7 or later, as of July 2026.' The full lists live here for a future editor. The download size is worth naming because it is the useful contrast with Live, which is a much bigger install."
-    },
-    "history": {
-      "plain": "Released October 30, 2024. It is made by Creatures Inc. and DeNA and published by The Pokemon Company.",
-      "dates": [
-        { "what": "Soft launch, New Zealand", "when": "2024-09-26", "source": "wikipedia", "confidence": "single-sourced, and not worth putting on the page" },
-        { "what": "Worldwide release, iOS and Android", "when": "2024-10-30", "source": "appstore", "confidence": "firm; the App Store releaseDate field agrees with wikipedia" }
-      ],
-      "developers": "Creatures Inc. and DeNA Co., Ltd.",
-      "developersSource": "officialSite",
-      "read": "2026-08-16",
-      "note": "ONE LINE OF HISTORY AND NO MORE, same discipline as the Live plan. Creatures Inc. is worth naming for one reason only: they are the original developers of the physical card game, which is the fact that makes 'the official app' mean something."
-    }
-  },
-
-  "reducedRuleset": {
-    "_note": [
-      "THE MOST IMPORTANT SECTION ON THE PAGE FOR THIS SITE'S AUDIENCE. Readers",
-      "here play with physical cards. A reader must not come away thinking Pocket",
-      "rules are the rules.",
-      "",
-      "Every physical-game number below is quoted from data/how-to-play.json, which",
-      "took them from the official rulebook and handbook. Every Pocket number is",
-      "sourced separately. Where the only source is Bulbapedia it says so on the row."
-    ],
-    "pokemonSaysSoThemselves": {
-      "plain": "Pokemon states outright that the rules are different. This is not our inference.",
-      "quote": "The rules of Pokemon TCG Pocket are different from the Pokemon Trading Card Game. Please check the official website and within the game for more details on battle rules.",
-      "source": "supportGameplay",
-      "articleEdited": "2026-07-30",
-      "read": "2026-08-16",
-      "confidence": "firm, quoted verbatim, from an article edited five weeks before this was read",
-      "note": "PUT THIS IN A CALLOUT. It is the single most useful sentence available for this page, the way 'the digital pack is its own pack from the same set' was for the Live page. It lets the whole section be framed as reporting Pokemon's own position rather than as our editorial."
-    },
-    "differences": [
-      {
-        "what": "Deck size",
-        "pocket": "20 cards",
-        "physical": "60 cards",
-        "pocketQuote": "your deck must contain 20 cards, including no more than two copies of any card with the same name and at least one Basic Pokemon",
-        "pocketSource": "deckGuide",
-        "pocketPublished": "2025-01-30",
-        "physicalSource": "howToPlayResearch (deckBuilding, quoted from the official rulebook: 'Each player starts with their own deck of 60 cards to play the game.')",
-        "read": "2026-08-16",
-        "confidence": "firm both sides"
-      },
-      {
-        "what": "Copies of one card",
-        "pocket": "Two",
-        "physical": "Four",
-        "pocketQuote": "no more than two copies of any card with the same name",
-        "pocketSource": "deckGuide",
-        "physicalSource": "howToPlayResearch (deckBuilding)",
-        "read": "2026-08-16",
-        "confidence": "firm on the Pocket side. CHECK data/how-to-play.json FOR THE EXACT PHYSICAL WORDING before printing 'four': the real rule is four of a card with the same name, with basic Energy exempt, and the page should not simplify away the exemption it already explains elsewhere."
-      },
-      {
-        "what": "How you win",
-        "pocket": "Earn three points by Knocking Out your opponent's Pokemon. Points, not cards.",
-        "physical": "Take all six of your Prize cards, or knock out every Pokemon your opponent has in play, or win when they cannot draw.",
-        "pocketQuote": "Winning a battle in Pokemon TCG Pocket requires you to earn three points by Knocking Out your opponent's Pokemon.",
-        "pocketSource": "deckGuide",
-        "physicalSource": "howToPlayResearch (howToWin, prizes-6, and the three win conditions the page already teaches)",
-        "read": "2026-08-16",
-        "confidence": "firm both sides",
-        "note": "THERE ARE NO PRIZE CARDS IN POCKET AT ALL. That is the cleanest way to say it and it is the thing a physical player will find strangest. Say it as an absence, not as a substitution."
-      },
-      {
-        "what": "Points per Knock Out",
-        "pocket": "One for an ordinary Pokemon, two for a Pokemon ex, three for a Mega Evolution Pokemon ex",
-        "physical": "One Prize card, two for most V/ex/GX-style Pokemon",
-        "pocketSource": "bulbapedia",
-        "read": "2026-08-16",
-        "confidence": "SINGLE-SOURCED TO BULBAPEDIA. Do not print the Mega figure; Mega Evolution is a recent addition and the value is the most likely thing here to be wrong or to change. If the page needs this row at all, one clause is enough: knocking out a big Pokemon is worth more than one point."
-      },
-      {
-        "what": "Energy",
-        "pocket": "No Energy cards in the deck at all. An Energy Zone hands you one Energy each turn and you attach it wherever you like.",
-        "physical": "Energy cards live in your deck, you draw them, and you attach one per turn from your hand.",
-        "pocketQuote": "There's no need to include Energy cards in Pokemon TCG Pocket decks - the Energy Zone provides one Energy each turn, which you can attach to your any of your Pokemon as you see fit.",
-        "pocketSource": "deckGuide",
-        "physicalSource": "howToPlayResearch (turn, the attach-one-Energy step)",
-        "read": "2026-08-16",
-        "confidence": "firm both sides; the grammar slip in the quote is Pokemon's, so paraphrase rather than quote it verbatim",
-        "note": "THE BIGGEST SINGLE MECHANICAL DIFFERENCE AND THE ONE MOST LIKELY TO MISLEAD. A player who learned on Pocket sits down at a table, builds a deck with no Energy in it, and cannot attack. Say that out loud."
-      },
-      {
-        "what": "Bench",
-        "pocket": "Up to three Benched Pokemon",
-        "physical": "Up to five Benched Pokemon",
-        "pocketQuote": "In addition to their Active Pokemon, each player can have up to three Benched Pokemon, instead of five in the physical game.",
-        "pocketSource": "bulbapedia",
-        "physicalSource": "howToPlayResearch (benchLimit, quoted from the rulebook: 'Each player may have up to 5 Pokemon on the Bench at any one time.')",
-        "read": "2026-08-16",
-        "confidence": "SINGLE-SOURCED TO BULBAPEDIA ON THE POCKET SIDE. No official Pokemon page found states the Bench limit. The physical five is firm and official. If the page prints 'three', the source note must say the three comes from the wiki. It is safe to say 'the Bench is smaller' without a number, and that may be the better call."
-      },
-      {
-        "what": "Match length",
-        "pocket": "Capped: around 30 turns in versus battles, around 50 in solo",
-        "physical": "No turn cap in casual play; tournaments use a time limit and a three-turn end sequence",
-        "pocketSource": "bulbapedia",
-        "read": "2026-08-16",
-        "confidence": "SINGLE-SOURCED TO BULBAPEDIA. Do not print the numbers. What is safely sayable, and is the actually useful point, is that a Pocket match is short: a 20-card deck and three points end a game in a few minutes, which is the whole 'casual' pitch."
-      },
-      {
-        "what": "First turn",
-        "pocket": "The player going first cannot attach Energy from the Energy Zone that turn, but an attack that shows no Energy symbol can still be used on turn one.",
-        "physical": "The player going first cannot attack on their first turn.",
-        "pocketQuote": "If no Energy symbol is displayed to the left of the attack name on a card, then it is an attack that can be used without any Energy attached to the Pokemon. This means that the attack can be used on the first turn of the player that goes first.",
-        "pocketSource": "supportBattleRules",
-        "physicalSource": "howToPlayResearch (turn / setup)",
-        "read": "2026-08-16",
-        "confidence": "the Pocket quote is official and verbatim. The 'cannot attach Energy on the first turn' half is bulbapedia only. CHECK data/how-to-play.json for the exact physical first-turn rule before writing the contrast; do not restate it from memory."
-      },
-      {
-        "what": "Points from effects",
-        "pocket": "Points come only from Knock Outs. Discarding an opposing Pokemon with a card effect scores nothing.",
-        "pocketQuote": "No, a player does not get points if an opposing Pokemon in play is discarded due to an effect. Points are gotten only when an opponent's Pokemon is Knocked Out.",
-        "pocketSource": "supportBattleRules",
-        "read": "2026-08-16",
-        "confidence": "firm, quoted verbatim",
-        "note": "Probably too deep for our page. Recorded because it is one of only two general rules statements in the Battle Rules FAQ."
-      },
-      {
-        "what": "The cards themselves",
-        "pocket": "Pocket has its own expansions with their own codes (A1, A1a, A2 and onward). Some cards reuse older physical artwork; others are exclusive to Pocket and have never been printed.",
-        "physical": "Sets have their own set symbols and numbering, covered by /sets/ and /what-set.html on this site.",
-        "pocketQuote": "Expansions are sets of cards that are labeled with a single code. The expansion code (such as A1, A1a, and A2) tells you which cards belong to which booster packs.",
-        "pocketSource": "supportGameplay",
-        "corroborated": "appstore: 'Collect different kinds of Pokemon cards, like those with nostalgic illustrations from the past, as well as completely new cards exclusive to this game!'",
-        "read": "2026-08-16",
-        "confidence": "firm",
-        "note": "IMPORTANT FOR THIS SITE SPECIFICALLY. A reader who uses /what-set.html or /sets/ must not go looking for A1 in our set guides. Our set data is the physical game only."
-      }
-    ],
-    "whatIsTheSame": {
-      "plain": "Enough that the learning transfers. Basic, Stage 1 and Stage 2 Pokemon and evolution. Attacks with Energy costs. Weakness. Retreat costs. Abilities. Trainer and Supporter cards. One Active Pokemon facing your opponent's, with the rest on the Bench. Draw a card at the start of your turn. Knock Outs.",
-      "quote": "You always draw one card at the start of your turn",
-      "source": "deckGuide",
-      "corroborated": "supportBattleRules mentions Abilities, Bench, Active spot, evolution and effects clearing on returning to the Bench, all in the physical game's vocabulary",
-      "read": "2026-08-16",
-      "confidence": "firm as a list of concepts; each individual mechanic is visible in the official Pocket sources above and each is taught on /how-to-play.html",
-      "note": "THIS IS WHAT MAKES TIM'S CLAIM TRUE, so the page needs it as much as it needs the differences. The right structure is: here is what carries over, here is what does not, and the second list is the one to remember at a table."
-    }
-  },
-
-  "relationToPhysical": {
-    "_note": "This is where the two pages divide. The Live page owns the code card. This page's job is to say, once and clearly, that the code card has nothing to do with Pocket, and then point at the Live page.",
-    "packCodesDoNotWork": {
-      "plain": "The code card in a physical booster pack does not work in Pocket. It is for Pokemon TCG Live.",
-      "quote": "Each booster pack also contains 1 Energy card and 1 code card that can be redeemed in Pokemon TCG Live.",
-      "source": "supportBoosterPack",
-      "read": "2026-08-16",
-      "supportingEvidence": [
-        "No Pocket support article mentions pack codes, code cards or physical products in any way. All 13 Pocket articles on support.pokemon.com were listed and nine read in full on 2026-08-16.",
-        "Pocket's only code system is gift codes, which are campaign codes redeemed on a separate web page using your in-game Support ID, and which Pokemon says cannot be entered in the app at all (supportGiftCode).",
-        "The Pocket app has no redemption screen described anywhere in its own FAQs; the Live app and redeem.tcg.pokemon.com are the redemption routes Pokemon documents (tcgLiveResearch.codeCards.howToRedeem)."
-      ],
-      "confidence": "FIRM. The positive claim (the code card is for Live) is official and verbatim. The negative claim (it does not work in Pocket) is established by the positive claim plus the complete absence of any pack-code mechanism in Pocket's documentation. Word it as 'the code card in the pack is for Live; Pocket does not take it', which is exactly what the sources support.",
-      "note": "THE FIRST THING THIS AUDIENCE WILL ASK, and the reason this section goes high on the page rather than at the end. Everyone on this site is holding code cards."
-    },
-    "giftCodesAreADifferentThing": {
-      "plain": "Pocket does have codes, but they come from campaigns and events, not from packs. You redeem them on a web page with your in-game Support ID, not inside the app.",
-      "quote": "Gift codes can't be redeemed from within the Pokemon Trading Card Game Pocket app. Please visit the code redemption page to enter your support ID and gift code. The gift will be added to your in-game account's Gifts screen.",
-      "source": "supportGiftCode",
-      "read": "2026-08-16",
-      "confidence": "firm, quoted verbatim",
-      "note": "One short paragraph, purely to stop the confusion the word 'code' causes. See forbidden.giftCodeLists: name no codes."
-    },
-    "areTheyTheSameCards": {
-      "plain": "No. Pocket cards are their own thing. Some reuse illustrations from older printed cards, many are exclusive to the app, and the app's expansions do not correspond to physical sets.",
-      "source": "supportGameplay",
-      "corroborated": "appstore",
-      "read": "2026-08-16",
-      "confidence": "firm",
-      "note": "Follows from reducedRuleset.differences 'The cards themselves'. Also: the two games' cards could not be the same cards even in principle, because Pocket's have no Energy cards to pair with and no Prize-card economy."
-    },
-    "isThereAnyCrossoverAtAll": {
-      "plain": "None that could be established in either direction. Nothing physical unlocks anything in Pocket, and nothing in Pocket produces or affects a physical card.",
-      "confidence": "established by absence across nine official Pocket FAQs, the official site, both store listings and both wikis, read 2026-08-16",
-      "couldNotVerify": "Whether The Pokemon Company has ever printed physical promo cards tied to Pocket, or run a physical product promotion carrying a Pocket gift code. A search on 2026-08-16 found no evidence of either, but absence of evidence from one search is not the same as an established negative, so the page should not say 'there has never been any crossover'. Say 'there is no crossover', present tense, which is what was checked."
-    },
-    "nothingInItIsWorthMoney": {
-      "plain": "Digital cards in Pocket are not property and have no resale value. Trading happens inside the app, between friends, and costs an in-game resource.",
-      "basis": "Description of the trading system from supportTrading, read 2026-08-16, plus the general point.",
-      "confidence": "the mechanics are firm and official; the 'no monetary value' framing was NOT sourced to Pocket's own Terms of Use, which were not read",
-      "recommendation": "Say it as a description of how the app works rather than as a legal quote. The Live page has the Terms of Use quote and can carry that weight; this page does not need to. See forbidden.realMoneyValue and forbidden.accountSelling."
-    }
-  },
-
-  "whatIsInIt": {
-    "freePacks": {
-      "plain": "Two free booster packs a day, on a twelve-hour timer.",
-      "quote": "Every 12 hours, you can choose a booster pack to open at no cost.",
-      "source": "collectingGuide",
-      "published": "2024-11-25",
-      "read": "2026-08-16",
-      "corroborated": [
-        "appstore: 'Players can enjoy the experience of collecting, with two booster packs available to open every day.'",
-        "officialSite: 'you will be able to open two booster packs every day at no cost'",
-        "googleplay: 'you can open two booster packs at no cost each day'"
-      ],
-      "confidence": "FIRM. Four official statements, three of them current.",
-      "mechanics": {
-        "packStamina": "The timer is 'pack stamina'. Pack hourglasses, earned from missions, shorten the wait, and Poke gold can be spent to shorten it too if you have no hourglasses.",
-        "openTen": "An 'Open 10 packs' button appears when pack stamina reaches zero.",
-        "pokeGoldDailyCap": "Up to 720 Poke gold per day can be spent shortening pack waits, reset at 6:00 a.m. UTC.",
-        "source": "supportGameplay",
-        "read": "2026-08-16"
-      },
-      "note": "THE PITCH IN ONE LINE, and it is the honest reason the app is fun for somebody who likes opening packs. It costs nothing and it happens every day. This is also the cleanest tie back to the channel: Tim opens packs on camera and this is pack opening that never costs anything."
-    },
-    "packPoints": {
-      "plain": "Opening packs earns pack points for that expansion, and pack points buy a specific card of your choosing from that same expansion. They do not expire.",
-      "quotes": [
-        "No, pack points do not expire.",
-        "Opening booster packs of a given expansion earns you pack points for that expansion. Those points can be exchanged only for cards that appear in that expansion."
-      ],
-      "source": "supportGameplay",
-      "read": "2026-08-16",
-      "confidence": "firm, quoted verbatim",
-      "note": "IMPORTANT AND UNDER-EXPLAINED ELSEWHERE. It is the answer to 'what if I never pull the card I want', and it is the direct analogue of Live's Trade Credits. It also carries the point that this site is well placed to make: you do not need luck to own a card here. That is the opposite of how the physical hobby works, and it is worth saying without ever touching an odds figure."
-    },
-    "wonderPick": {
-      "plain": "You can look at packs other players opened and take one card out of them. It runs on its own stamina, which regenerates on a timer.",
-      "detail": [
-        "Wonder stamina regenerates one unit every twelve hours; wonder hourglasses or Poke gold shorten it (collectingGuide, 2024-11-25).",
-        "Adding somebody as a friend makes their pack openings eligible to appear in your Wonder Pick, though not all openings appear (supportSharing).",
-        "You can turn off sharing your own pack results: Menu > Other > Settings > Wonder Pick > Share booster packs (supportSharing).",
-        "Rewind watches restore an expired wonder pick, but not one you have already picked from (supportGameplay).",
-        "During 'sneak peek' campaigns some wonder picks reveal one card before you choose (supportGameplay)."
-      ],
-      "sources": ["collectingGuide", "supportSharing", "supportGameplay"],
-      "read": "2026-08-16",
-      "confidence": "firm; the feature is documented in three official places",
-      "note": "DO NOT DESCRIBE THE PICK ITSELF IN PROBABILISTIC TERMS. 'You pick one card from a set of face-down cards' is a description. 'You have a one in five chance' is a rate. The rule applies here as everywhere."
-    },
-    "trading": {
-      "plain": "Pocket trades. Live does not. It is friends only, it unlocks two weeks in, both cards must be the same rarity, only some cards are eligible, and each trade spends an in-game resource called shinedust.",
-      "detail": [
-        { "claim": "Friends only.", "quote": "You may only trade with friends. You cannot trade with anyone other than friends.", "source": "supportTrading" },
-        { "claim": "Unlocks 14 days after starting the game.", "quote": "the trading feature is not yet unlocked for that player (trading unlocks 14 days after starting the game)", "source": "supportTrading" },
-        { "claim": "One trade at a time, and the card cannot be swapped once placed.", "source": "supportTrading" },
-        { "claim": "Both cards must match on rarity, on having flair, and on having a gold frame.", "quote": "Both cards must be the same rarity. If a card has flair, both cards must have flair.", "source": "supportTrading" },
-        { "claim": "Only certain cards are tradable; the app carries the current list at Social Hub > Trade > (?) > Detailed trade list.", "source": "supportTrading" },
-        { "claim": "Trades cost shinedust, more for rarer cards, and the app shows the cost before you confirm.", "source": "supportTrading" },
-        { "claim": "There is a wishlist, up to 40 cards, visible to other players.", "source": "supportTrading" },
-        { "claim": "Trade tokens are being discontinued and can be exchanged for shinedust or pack hourglasses.", "source": "supportTrading", "confidence": "current as of the article's 2026-07-30 edit; this is a transitional mechanic and WILL go stale. Do not put it on the page." }
-      ],
-      "source": "supportTrading",
-      "articleEdited": "2026-07-30",
-      "read": "2026-08-16",
-      "confidence": "firm and current",
-      "note": "THE HEADLINE FOR THE COMPARISON WITH LIVE, and a genuinely surprising one: the app called Pokemon Trading Card Game Live does not let you trade, and the casual mobile one does. tcgLiveResearch.relationToPhysical.noTrading has Pokemon's own statement for Live. Do not itemise all eight rules on the page; three sentences and a 'the app tells you what is eligible' is the right length."
-    },
-    "sharing": {
-      "plain": "Separate from trading: you can give a friend one lower-rarity card and receive one back. It also unlocks two weeks in, and a player can only receive one shared card a day.",
-      "quote": "The Share function is unlocked 14 days after starting the game.",
-      "alsoQuote": "players can receive only one card through the share feature per day",
-      "source": "supportSharing",
-      "read": "2026-08-16",
-      "corroborated": "appstore describes it as giving one 1-to-4-diamond rarity card to an in-game friend and receiving one in return",
-      "confidence": "firm on the mechanics; the rarity range comes from App Store marketing copy and is version-dependent, so do not print the diamond range",
-      "note": "Recent: the App Store copy calls sharing newly added, and the Sharing FAQ was edited 2025-10-30. One line on the page."
-    },
-    "soloContent": {
-      "plain": "Solo battles against the computer, including step-up battles that ladder in difficulty and limited-time solo event battles. Battle tasks inside them give rewards for doing specific things in a match.",
-      "detail": [
-        "Step-up battle availability changes with the current expansion, and some expansions offer only the harder ones (supportGameplay).",
-        "Solo event battles can require event stamina, and Poke gold can be spent on event hourglasses if you run out (supportGameplay).",
-        "Rental decks work in solo battles and not in versus (supportGameplay)."
-      ],
-      "source": "supportGameplay",
-      "read": "2026-08-16",
-      "confidence": "firm and official for the existence, the vocabulary and the constraints. 'Battle tasks' as a named reward system is corroborated only by third-party guides (game8AutoBattle), so use the phrase loosely or not at all.",
-      "seeAlso": "theHook"
-    },
-    "versusAndRanked": {
-      "plain": "Versus battles against other players, and a ranked ladder that runs in seasons.",
-      "detail": [
-        { "claim": "Battles unlock at player level 3.", "quote": "You haven't reached player level 3, which is when the battle feature is unlocked.", "source": "supportGameplay" },
-        { "claim": "Ranked runs in seasons with their own periods, rewards are claimed after the season results are announced, and you get nothing if you did not play.", "source": "supportGameplay" },
-        { "claim": "Rank can move because of other players' results, so the rank shown right after a match may not be your final one.", "source": "supportGameplay" },
-        { "claim": "A tie leaves ranked points unchanged but resets your win streak; win streak bonuses stop increasing past five consecutive wins.", "source": "supportGameplay" },
-        { "claim": "Disconnecting from a versus match gives you about 120 seconds to rejoin before you lose.", "source": "supportGameplay" }
-      ],
-      "source": "supportGameplay",
-      "read": "2026-08-16",
-      "confidence": "firm; all quoted or closely paraphrased from the current article",
-      "recommendation": "THREE SENTENCES MAXIMUM ON RANKED, the same discipline the Live plan applied. No point values, no tier names, no league list. Unlike Live, Pocket's ranked system IS officially documented in this FAQ, which is worth noting in the source note as a contrast, but the detail is still not what a beginner needs."
-    },
-    "collectingSide": {
-      "plain": "The part of the app that is not battling at all: a card dex, binders and display boards you arrange and can show other players, and cosmetic flair on cards.",
-      "detail": [
-        "Binders and display boards can be set private, public, or visible only to friends; the default is private (supportSharing).",
-        "The card dex shows what you have not collected as a collector number, and tapping it reveals the card's data without its artwork (collectingGuide).",
-        "Flair is cosmetic and comes in two kinds, one for display and one for battle. Cards can be exchanged for flair, which removes copies from your collection (supportGameplay).",
-        "Gold frame flair is available for 1-, 2- and 3-diamond cards and not for parallel foils, 4-diamond-or-higher cards or promos (supportGameplay).",
-        "The app has 'immersive cards' whose illustrations are presented in a 3D-feeling way (appstore, officialSite).",
-        "The maximum number of binders, display boards and decks cannot be increased (supportGameplay)."
-      ],
-      "sources": ["supportGameplay", "supportSharing", "collectingGuide", "appstore"],
-      "read": "2026-08-16",
-      "confidence": "firm",
-      "note": "THE DIAMOND AND STAR RARITY LADDER IS A REAL THING IN THIS APP and the site already has /rarity.html about physical rarity symbols. Mentioning that Pocket has its own rarity marks is fine. Describing which are hard to get is not. Keep it to 'it has its own rarity ladder, and it is not the one on your physical cards'."
-    },
-    "paidTier": {
-      "plain": "Two ways to spend money, and neither is required. Poke gold is a currency you buy; the premium pass is a monthly subscription.",
-      "pokeGold": {
-        "whatItDoes": "Shortens waits, mostly. It can be spent to reduce the wait for a pack, to reduce a wonder pick wait, to restore an expired wonder pick, and on event hourglasses for solo event battles.",
-        "limits": "You can hold at most 3,600 Poke gold, and you can spend at most 720 a day on shortening pack waits, reset at 6:00 a.m. UTC.",
-        "warning": "Once spent it cannot be restored, and Pokemon says plainly it will not help with such requests.",
-        "quote": "Please keep in mind that once Poke gold is used, it cannot be restored. We appreciate your understanding as we are unable to assist with such inquiries.",
-        "boughtVia": "The App Store or Google Play, or the Xsolla-operated official web store, which is not available in all regions.",
-        "sources": ["supportGameplay", "supportPurchase", "supportWebStore"],
-        "read": "2026-08-16",
-        "confidence": "firm"
-      },
-      "premiumPass": {
-        "whatItIs": "A paid monthly subscription giving in-game benefits.",
-        "quote": "The premium pass is a paid service that allows you to receive several in-game benefits for a set monthly fee.",
-        "source": "supportPurchase",
-        "read": "2026-08-16",
-        "benefitsKnown": "Extra pack stamina and premium mission progress are named as transferable benefits (supportPurchase). The official collecting guide, published 2024-11-25, described it as giving additional daily packs and exclusive missions.",
-        "price": {
-          "figure": "9.99 USD per month",
-          "source": "collectingGuide",
-          "published": "2024-11-25",
-          "confidence": "SINGLE-SOURCED AND NEARLY TWO YEARS OLD. The current support article deliberately does not state a price and sends you to the in-game screen. RECOMMENDATION: do not print a price. Say it is a monthly subscription and that the app shows the current price. A wrong price on a page about somebody else's product is worse than no price.",
-          "read": "2026-08-16"
-        },
-        "gotcha": "The subscription attaches to the Apple or Google account, not to the save data, which is why it appears to vanish when somebody changes device or account. Pokemon's article is mostly about this. One line at most on our page, if any.",
-        "confidence": "firm that it exists and is monthly; everything about its contents is dated or version-dependent"
-      },
-      "honestFraming": "State the paid parts plainly and without either recommending or warning against them: the free daily packs are the game, and money buys speed, extra packs and cosmetics. That is accurate to every source read and it does not editorialise."
-    },
-    "otherThingsWorthKnowing": [
-      {
-        "claim": "The in-game day rolls over at 6:00 a.m. UTC, and daily rewards not claimed before then are gone.",
-        "quote": "The date changes at 6:00 a.m. (UTC).",
-        "source": "supportGameplay",
-        "read": "2026-08-16",
-        "note": "A GOOD TIP AND AN EASY ONE TO GET WRONG IN ROCHESTER: 6:00 UTC is 2:00 a.m. Eastern in summer and 1:00 a.m. in winter. State the UTC time as Pokemon does and let the reader convert, or give the local time WITH the daylight-saving caveat. Do not print one local time as if it were fixed."
-      },
-      {
-        "claim": "There is no free-text chat with strangers described anywhere in the social features. The documented social surface is friends, trading, sharing, wishlists, thanks and public binders.",
-        "source": "supportSharing, supportTrading",
-        "read": "2026-08-16",
-        "confidence": "ESTABLISHED BY ABSENCE, not by a statement. Live has an explicit official 'no chat' statement (tcgLiveResearch.howToPlayDigital.noChat); Pocket does not. If the page says anything about this it must be worded as what the app offers, not as what it forbids. Better: leave it out, or ask Tim, who plays it."
-      },
-      {
-        "claim": "Player names can be changed but then lock for 30 days, and inappropriate names can be changed for you.",
-        "source": "supportGameplay",
-        "read": "2026-08-16"
-      },
-      {
-        "claim": "Date of birth cannot be changed once set.",
-        "source": "supportGameplay",
-        "read": "2026-08-16",
-        "note": "Worth one clause in a tips list aimed at younger readers or their parents. It is irreversible and it gates the account-linking options."
-      },
-      {
-        "claim": "The app has display quality and frame rate cap settings for slower phones.",
-        "source": "supportTechnical",
-        "read": "2026-08-16",
-        "note": "Genuinely useful for a reader on an older phone, and nobody else's guide leads with it."
-      }
-    ]
-  },
-
-  "vsLive": {
-    "_note": [
-      "THE COMPARISON A READER ACTUALLY WANTS: which of these two free official",
-      "apps should I install. Every Live cell comes from data/tcg-live.json and",
-      "names the key inside it, so the two pages cannot drift apart. Do not",
-      "re-fetch Live facts; fix them in that file if they are wrong.",
-      "",
-      "BOTH PAGES SHOULD CARRY THE SAME TABLE, or at least the same rows in the",
-      "same order, so a reader landing on either one gets the same answer. Whoever",
-      "builds second should copy rather than reinvent."
-    ],
-    "theOneLineAnswer": "Live is the card game, digitally, with the same rules and the code cards from your packs. Pocket is a smaller, faster game of its own on your phone, with free packs every day and nothing to do with your code cards. If you want to learn or play the real game, Live. If you want something fun on the bus, Pocket. Installing both costs nothing.",
-    "rows": [
-      {
-        "question": "What is it",
-        "pocket": "A mobile collecting-and-battling game with its own reduced rules",
-        "pocketSource": "supportGameplay",
-        "live": "The official digital version of the physical card game",
-        "liveSource": "tcgLiveResearch.sources.tcgl"
-      },
-      {
-        "question": "Where it runs",
-        "pocket": "iPhone, iPad, Android. Phones and tablets only.",
-        "pocketSource": "officialSite",
-        "live": "iPhone, iPad, Android, Windows, Mac",
-        "liveSource": "tcgLiveResearch.howToGet.platforms"
-      },
-      {
-        "question": "Price",
-        "pocket": "Free, with optional in-app purchases",
-        "pocketSource": "supportGameplay",
-        "live": "Free, with optional in-app purchases",
-        "liveSource": "tcgLiveResearch.howToGet.free",
-        "note": "Identical, and worth saying so rather than leaving the row out. 'Which one costs money' is a real question and the answer is neither."
-      },
-      {
-        "question": "Account needed",
-        "pocket": "No Pokemon account. Optionally link a Nintendo, Google or Apple account to protect your save.",
-        "pocketSource": "supportAccount",
-        "live": "Yes, a free Pokemon account (Pokemon Trainer Central, formerly Pokemon Trainer Club)",
-        "liveSource": "tcgLiveResearch.howToGet.account",
-        "note": "THE MOST PRACTICAL ROW IN THE TABLE for somebody deciding what to install in the next two minutes."
-      },
-      {
-        "question": "Deck size",
-        "pocket": "20 cards, two copies of a name, no Energy cards",
-        "pocketSource": "deckGuide",
-        "live": "60 cards, the game's real deck rules, checked for you",
-        "liveSource": "tcgLiveResearch.howToPlayDigital.deckBuilding.rules"
-      },
-      {
-        "question": "Same rules as your physical cards",
-        "pocket": "No. Pokemon says so outright.",
-        "pocketSource": "supportGameplay",
-        "live": "Yes",
-        "liveSource": "tcgLiveResearch.howToPlayDigital",
-        "note": "THE ROW THE PAGE EXISTS FOR. If a reader takes one thing from the table it should be this one."
-      },
-      {
-        "question": "Pack code cards",
-        "pocket": "Not used. The code in your pack is not for this app.",
-        "pocketSource": "supportBoosterPack",
-        "live": "Yes. Every booster pack code gives a digital pack from the same set.",
-        "liveSource": "tcgLiveResearch.codeCards.whatABoosterCodeGives"
-      },
-      {
-        "question": "Free packs without spending anything",
-        "pocket": "Two a day, on a twelve-hour timer",
-        "pocketSource": "collectingGuide",
-        "live": "Earned by playing, through quests, leveling and currencies rather than on a clock",
-        "liveSource": "tcgLiveResearch.howToPlayDigital.currencies",
-        "note": "CHECK THE LIVE WORDING against that file before printing. It is a summary of two currencies, not a quoted claim, and it must not read as if Live hands out daily packs."
-      },
-      {
-        "question": "Trading",
-        "pocket": "Yes, with friends, after 14 days, with restrictions",
-        "pocketSource": "supportTrading",
-        "live": "No. Pokemon states players cannot trade in Live.",
-        "liveSource": "tcgLiveResearch.relationToPhysical.noTrading",
-        "note": "The most counterintuitive row and the one people will remember."
-      },
-      {
-        "question": "Playing the computer",
-        "pocket": "Solo battles, step-up battles and solo events, plus an Auto option that plays your side for you",
-        "pocketSource": "supportGameplay for the solo modes; wikipedia and game8AutoBattle for Auto",
-        "live": "The Learning Lab, guided lessons against the computer, plus a mode for testing a deck. No solo campaign.",
-        "liveSource": "tcgLiveResearch.howToPlayDigital.gameModes.solo",
-        "note": "THE ROW THAT CARRIES TIM'S HOOK, and it needs its sourcing asymmetry respected: the Live cell is official, the Auto half of the Pocket cell is not."
-      },
-      {
-        "question": "Match length",
-        "pocket": "Short. A 20-card deck and three points end a game quickly.",
-        "pocketSource": "deckGuide (deck size and win condition); the 'short' characterisation is ours, not a source's",
-        "live": "A full-length game of the real card game",
-        "liveSource": "tcgLiveResearch",
-        "note": "Do not print turn caps. See reducedRuleset.differences 'Match length'."
-      },
-      {
-        "question": "Which one to install to learn the real game",
-        "pocket": "It taught Tim the shape of it, and it is the gentler start",
-        "live": "This is the one that teaches and then enforces the actual rules",
-        "note": "THE TABLE SHOULD END ON A ROW THAT ANSWERS THE QUESTION RATHER THAN LEAVING IT OPEN. Both cells are true and the page should be comfortable saying both."
-      }
-    ],
-    "whatNotToDoInTheComparison": [
-      "Do not rank them. Neither app is better; they are different games and both are free.",
-      "Do not repeat the Live page's code card material here. One sentence and a link.",
-      "Do not repeat this page's ruleset material on the Live page. Live's ruleset section is about being software, not about being different.",
-      "Do not compare install sizes as a criticism. Recording both is fine; 'Live is bloated' is a review and this site does not review."
-    ]
-  },
-
-  "tipsForNewPlayers": {
-    "_note": "Six or seven on the page, no more, same discipline as the Live plan. Ordered here strongest first. `basis` says whether the tip is a sourced fact or advice derived from one.",
-    "tips": [
-      {
-        "tip": "Link an account on day one.",
-        "why": "Without one, reinstalling the app or losing the phone loses everything, and Pokemon says you will not be able to recover it yourself.",
-        "basis": "supportPurchase, supportAccount, read 2026-08-16",
-        "strength": "the consequence is quoted from Pokemon; the advice follows directly"
-      },
-      {
-        "tip": "Open your two free packs every day, and claim your daily rewards before the day rolls over at 6:00 a.m. UTC.",
-        "why": "The packs are the whole free game, and unclaimed daily mission rewards are gone once the date changes.",
-        "basis": "collectingGuide and supportGameplay, read 2026-08-16",
-        "strength": "both halves quoted"
-      },
-      {
-        "tip": "Do not panic when there is no Battle button. Battles unlock at player level 3, and you level up by opening packs and using Wonder Pick.",
-        "why": "It is the first thing a new player thinks is broken.",
-        "basis": "supportGameplay for the level 3 unlock, read 2026-08-16. The 'you level up by opening packs' half came through a search summary of unlockBattlesGuide and should be worded loosely.",
-        "strength": "the unlock is quoted; the route to it is softer"
-      },
-      {
-        "tip": "Use a rental deck for your first matches.",
-        "why": "You do not have to own or build anything to play a real match, and each rental deck has a limited number of uses, so spend them on learning rather than saving them.",
-        "basis": "supportGameplay, read 2026-08-16",
-        "strength": "the mechanic is quoted; the advice follows"
-      },
-      {
-        "tip": "Play the solo battles before you play people, and watch what the computer does with its turn.",
-        "why": "It is how I learned, and it is free, unlimited and nobody is waiting on you.",
-        "basis": "supportGameplay confirms solo battles exist; the rest is the page's own argument and Tim's experience",
-        "strength": "framed as advice, which needs no source, and it should read that way on the page"
-      },
-      {
-        "tip": "If you never pull the card you want, buy it with pack points.",
-        "why": "Opening packs from an expansion earns pack points for that expansion, they never expire, and they buy a specific card from it.",
-        "basis": "supportGameplay, read 2026-08-16",
-        "strength": "quoted verbatim. THE MOST USEFUL TIP ON THE LIST for somebody arriving from the physical hobby, because it is the thing that has no physical equivalent."
-      },
-      {
-        "tip": "Add friends. Trading and sharing both unlock two weeks in and both need them, and friends' pack openings feed your Wonder Pick.",
-        "why": "The two-week timer starts when you start, so a friends list built in week one is ready when the features are.",
-        "basis": "supportTrading, supportSharing, read 2026-08-16",
-        "strength": "the 14-day unlocks are quoted"
-      },
-      {
-        "tip": "Turn the display quality down if it stutters.",
-        "why": "The app has Display Quality and Frame Rate Cap settings under Menu > Other > Settings.",
-        "basis": "supportTechnical, read 2026-08-16",
-        "strength": "quoted. Probably the first one to cut if the list runs long."
-      },
-      {
-        "tip": "Set your date of birth carefully. It cannot be changed.",
-        "why": "It is irreversible and it decides which accounts you are allowed to link.",
-        "basis": "supportGameplay and supportAccount, read 2026-08-16",
-        "strength": "quoted. Worth keeping if the page has a parent-facing line at all."
-      }
-    ],
-    "beginnerMistakes": [
-      {
-        "mistake": "Trying to redeem the code card from a physical pack in Pocket.",
-        "reality": "That code is for Pokemon TCG Live. Pocket has no pack code redemption at all.",
-        "source": "supportBoosterPack",
-        "read": "2026-08-16",
-        "note": "THE NUMBER ONE MISCONCEPTION FOR THIS AUDIENCE, exactly as 'the digital pack is a copy of my pack' is for the Live page. It belongs high on the page, not buried in a mistakes list."
-      },
-      {
-        "mistake": "Learning on Pocket and then bringing Pocket's rules to a table.",
-        "reality": "The deck is 60 cards, there are Energy cards in it, there are six Prize cards, and the Bench holds five.",
-        "source": "howToPlayResearch",
-        "read": "2026-08-16",
-        "note": "The page's second most important correction, and the reason /how-to-play.html has to be linked early rather than at the end."
-      },
-      {
-        "mistake": "Thinking Pocket cards are worth something, or that they are the cards on our set pages.",
-        "reality": "They are their own expansions with their own codes, many are exclusive to the app, and nothing in it converts to anything physical.",
-        "source": "supportGameplay",
-        "read": "2026-08-16"
-      },
-      {
-        "mistake": "Spending Poke gold to rush pack timers early.",
-        "reality": "It cannot be undone, Pokemon will not restore it, and the packs arrive free twice a day anyway.",
-        "source": "supportGameplay",
-        "read": "2026-08-16",
-        "note": "Word this as what the app does, not as financial advice, and do not tell anybody what to buy or not buy."
-      }
-    ]
-  },
-
-  "changedRecently": [
-    {
-      "what": "Version 1.7.1 shipped with a new expansion, Ruler of the Skies, plus a revised Missions screen, a '4-diamond or higher guaranteed' booster pack category, deck ordering, and deck sharing via 2D pattern codes",
-      "when": "2026-08-06 on iOS, 2026-08-04 on Google Play",
-      "source": "appstore, googleplay",
-      "read": "2026-08-16",
-      "note": "DO NOT PUT THE GUARANTEED-CATEGORY ITEM ON THE PAGE. A 'guaranteed' pack category is a rarity-mechanics claim and it sits close enough to the odds rule to be left alone. It is recorded here only so a future editor knows why it is absent."
-    },
-    {
-      "what": "Deck sharing by scannable 2D pattern code was added, with a Scan Code and a Read Scanned Image route",
-      "when": "documented in the Technical FAQ edited 2026-05-12, shipped by 1.7.1",
-      "source": "supportTechnical, appstore",
-      "read": "2026-08-16"
-    },
-    {
-      "what": "The official Pokemon TCG Pocket Web Store opened, operated by Xsolla, selling Poke gold outside the app stores",
-      "when": "support article created 2026-01-05",
-      "source": "supportWebStore",
-      "read": "2026-08-16"
-    },
-    {
-      "what": "Card sharing between friends was added",
-      "when": "Sharing FAQ edited 2025-10-30; App Store copy still calls it new",
-      "source": "supportSharing, appstore",
-      "read": "2026-08-16"
-    },
-    {
-      "what": "Trading was added, then repeatedly widened: recent booster pack cards, 2-star and Shiny rarities became tradable, and trade tokens are being retired in favour of shinedust",
-      "when": "Trading FAQ created 2025-01-28, edited 2026-07-30",
-      "source": "supportTrading, appstore",
-      "read": "2026-08-16"
-    },
-    {
-      "what": "Mega Evolution Pokemon ex entered the game, worth more points on a Knock Out",
-      "when": "not dated by any source read",
-      "source": "bulbapedia",
-      "read": "2026-08-16",
-      "confidence": "single-sourced and undated. Recorded, not for publication."
-    },
-    {
-      "what": "A known crash when opening packs on two specific Motorola devices, with cards still awarded",
-      "when": "notice created 2026-07-27",
-      "source": "supportGameplay's sibling article 51825646356756",
-      "read": "2026-08-16",
-      "note": "Transient support notice. Not page material. Recorded as evidence of how fast this app's documentation moves."
-    }
-  ],
-
-  "singleSourced": [
-    "THE AUTO FEATURE, the page's hook. Wikipedia plus a third-party guide site. No Pokemon-owned page documents it. See theHook.theAutoFeature.",
-    "The Bench limit of three. Bulbapedia only. No official Pokemon page states it.",
-    "Turn caps of roughly 30 in versus and 50 in solo. Bulbapedia only. Not for publication.",
-    "Points per Knock Out by Pokemon type: one, two for ex, three for Mega ex. Bulbapedia only.",
-    "The first-turn restriction on attaching Energy. Bulbapedia only; the related quote about zero-Energy attacks IS official.",
-    "The premium pass price of 9.99 USD. One official article, published 2024-11-25, never obviously revised. Do not print it.",
-    "The New Zealand soft launch date. Wikipedia only, and not worth the page.",
-    "That the beginner deck you are given depends on which pack you opened first. A search summary of an official article that could not be read directly."
-  ],
-
-  "couldNotVerify": [
-    {
-      "question": "Does Pokemon itself document the Auto feature anywhere?",
-      "status": "No. Nine of the thirteen Pocket support articles were read in full and grepped; the Battle Rules FAQ, the official site, both store listings and the readable pokemon.com strategy guides were all checked. Nothing.",
-      "recommendation": "Describe what the app does, do not attribute it to Pokemon, and do not cite a wiki as an authority on the page. See theHook.theAutoFeature.howToWriteIt."
-    },
-    {
-      "question": "What is the Auto button actually labelled in the English app?",
-      "status": "Unknown. Third-party guides call it auto-battle; the in-game label was not confirmed by anyone with the app open.",
-      "recommendation": "TIM HAS THE APP. One screenshot of that screen settles the naming, the placement and whether it is on by default. Ask before shipping. Do not guess a label."
-    },
-    {
-      "question": "How many Pokemon can be on the Bench, officially?",
-      "status": "Only Bulbapedia says three. No official page found states a Bench limit.",
-      "recommendation": "Either say 'the Bench is smaller than the five you get with physical cards' without a number, or print three and attribute it to the wiki in the source note. Do not print three unattributed."
-    },
-    {
-      "question": "Is there any physical-product crossover, in either direction, ever?",
-      "status": "None found on 2026-08-16 across official and third-party sources. Not the same as an established never.",
-      "recommendation": "Write it in the present tense: there is no crossover. Do not write 'there has never been'."
-    },
-    {
-      "question": "Does the app work offline?",
-      "status": "Not stated anywhere. The technical FAQ is all network errors, and versus battles have a reconnection window, which implies an always-online design without saying so.",
-      "recommendation": "Leave it out, or ask Tim. Do not infer it onto the page."
-    },
-    {
-      "question": "Is there chat, and can strangers message a child playing this?",
-      "status": "No official statement either way for Pocket, unlike Live which has one. The documented social features are all structured (friends, trades, shares, wishlists, thanks, public binders).",
-      "recommendation": "The safest and most useful thing a parent-facing line can say is what IS there. Do not state that there is no chat without a source."
-    },
-    {
-      "question": "What does the premium pass currently include and cost?",
-      "status": "The current support article deliberately refuses to say and points at the in-game screen. The only figures found are from November 2024.",
-      "recommendation": "Say it is a monthly subscription and that the app shows what it costs. No numbers."
-    },
-    {
-      "question": "How often do new expansions arrive?",
-      "status": "Not stated by any official source. Expansion codes run A1, A1a, A2 onward and the app was on 'Ruler of the Skies' in August 2026, but no cadence is published.",
-      "recommendation": "Say new expansions arrive regularly. Do not say 'monthly' or name a schedule."
-    }
-  ],
-
-  "sourcesReachable": {
-    "reachable": [
-      "support.pokemon.com via the Zendesk JSON API: /api/v2/help_center/articles/search.json?query=...&locale=en-us listed all 13 Pocket articles, and /api/v2/help_center/en-us/articles/<id>.json returned each full body with created, updated and edited dates. THIS IS THE REASON THIS FILE EXISTS and it is worth putting in CLAUDE.md, as the Live research also concluded.",
-      "tcgpocket.pokemon.com, the official site, to plain curl. Thin and stale but useful for the platform links and the developer credit.",
-      "The iTunes lookup API for the App Store record: price, version, release dates, size, rating, languages, description and current release notes.",
-      "play.google.com as raw HTML, for the last-updated date and the description.",
-      "www.pokemon.com PARTIALLY, through WebFetch only: two /us/strategy/ articles answered on 2026-08-16 while a third and a /us/news/ article returned Imperva's block page. Plain curl to www.pokemon.com is refused outright with an Incapsula incident id. Treat it as unreliable rather than as blocked or as working.",
-      "en.wikipedia.org and bulbapedia.bulbagarden.net.",
-      "game8.co."
-    ],
-    "notReachable": [
-      "support.pokemon.com human-facing HTML. Same as the Live research found: use the API.",
-      "www.pokemon.com/us/strategy/how-to-unlock-battles-in-pokemon-tcg-pocket, in all three variants tried (/us/strategy/, /us/features/, /uk/features/). This is the one official page whose content we actually wanted and could not get.",
-      "www.pokemon.com/us/news/pokemon-tcg-pocket-ruler-of-the-skies-expansion-coming-soon.",
-      "web.archive.org, which this tooling refuses outright, so the usual workaround for an Imperva-blocked page is not available.",
-      "A note on the shell: plain `curl` output is truncated by this repo's rtk hook. Every fetch above was run as `rtk proxy 'curl ... -o file'` to get the whole body. Anyone repeating this research will otherwise get a silently truncated JSON body and a parse error that looks like a broken API."
-    ],
-    "deliberatelyNotFetched": [
-      "Anything that states Pocket's offering rates, in any form, at any url. See forbidden.offeringRates.",
-      "Third-party gift code trackers beyond confirming that such lists exist. See forbidden.giftCodeLists."
-    ]
-  },
-
-  "willGoStale": {
-    "note": "Software, and it moves faster than the Live client does. Two years old at the time of writing and on its seventh major version, with a new expansion every few weeks.",
-    "everythingVersioned": "The current expansion name, the version number, and anything in changedRecently.",
-    "premiumPass": "Contents and price. Already stale; that is why no price is recommended for the page.",
-    "trading": "Widened repeatedly since launch and still changing; trade tokens are mid-retirement.",
-    "deviceRequirements": "Raised over time, as Live's were twice in eighteen months.",
-    "socialFeatures": "Sharing arrived a year after launch. Assume more will.",
-    "theAutoFeature": "Third-party sources record its AI being adjusted in updates. The feature existing is stable; how well it plays is not.",
-    "whatWillNotGoStale": "The reduced ruleset relative to the physical game, the fact that pack codes are for Live, and the fact that it is free. Those are the page's spine and they are the parts worth writing at length."
+ "_readme": [
+  "Research file for a guide to Pokemon Trading Card Game Pocket, the official",
+  "free mobile app. Companion to data/tcg-live.json, which covers Pokemon TCG",
+  "Live. THE TWO PAGES MUST NOT DUPLICATE EACH OTHER: Live is the full",
+  "competitive rules engine that eats the code card out of every pack; Pocket",
+  "is the casual mobile one that has nothing to do with the code card at all.",
+  "The vsLive block below is the comparison, and it is a large part of why this",
+  "page exists.",
+  "",
+  "THE BRIEF. The owner plays Pocket, calls it 'really fun and casual', and says it",
+  "is how HE learned to play the real card game: there is an AI that plays",
+  "matches and he watched its moves. theHook below establishes exactly what",
+  "that feature is. READ theHook.confidence BEFORE WRITING A WORD OF THE PAGE.",
+  "The short version: solo battles against the computer are officially",
+  "documented, the Auto feature that plays your side for you is NOT documented",
+  "on any Pokemon-owned page that could be reached, and the page has to be",
+  "worded so it stays true either way.",
+  "",
+  "EVERY CLAIM CARRIES A SOURCE KEY AND A READ DATE. A claim with neither does",
+  "not go on the page. Source keys resolve against the `sources` block.",
+  "",
+  "NEVER STATE PULL RATES, DROP RATES, ODDS OR 'CHANCE OF' ANYTHING, PHYSICAL",
+  "OR DIGITAL. Pocket publishes digital offering rates prominently. They were",
+  "deliberately not read, no number from them is in this file, and no url that",
+  "leads to them is recorded. See `forbidden.offeringRates`.",
+  "",
+  "THE APP CHANGES CONSTANTLY. It shipped on 2024-10-30 and was on version",
+  "1.7.1 when this was read. Everything here is dated. See `willGoStale`."
+ ],
+ "checked": "2026-08-16",
+ "appVersionAtCheck": {
+  "ios": "1.7.1",
+  "released": "2026-08-06",
+  "source": "appstore",
+  "read": "2026-08-16",
+  "androidLastUpdated": "2026-08-04",
+  "androidSource": "googleplay",
+  "note": "Set `checked` on a research refresh, not on every build. A date that moves because a build ran is a date that means nothing.",
+  "currentExpansionAtCheck": {
+   "name": "Ruler of the Skies",
+   "quote": "New Ruler of the Skies booster packs are now available.",
+   "source": "appstore",
+   "detail": "From the 1.7.1 App Store release notes. Do NOT build a page around the current expansion name; it will be wrong within weeks."
   }
+ },
+ "sources": {
+  "officialSite": {
+   "id": "officialSite",
+   "title": "Pokemon Trading Card Game Pocket (official site)",
+   "url": "https://tcgpocket.pokemon.com/en-us/",
+   "publisher": "The Pokemon Company International",
+   "read": "2026-08-16",
+   "reachable": true,
+   "note": "Reachable to plain curl, unlike www.pokemon.com. THIN AND STALE: it still calls the game 'an upcoming game', carries a 2024 copyright line, and describes only packs and immersive cards. It has no battle, solo, trading or rules content. It is the right link to hand a reader for the download buttons and nothing else. It has NO sub-pages: /battle/, /how-to-play/, /guide/, /about/, /cards/, /news/, /play/, /rules/ and /beginner/ all 404."
+  },
+  "appstore": {
+   "id": "appstore",
+   "title": "Pokemon TCG Pocket on the App Store",
+   "url": "https://apps.apple.com/us/app/id6479970832",
+   "apiUrl": "https://itunes.apple.com/lookup?id=6479970832&country=us",
+   "publisher": "Apple / The Pokemon Company",
+   "read": "2026-08-16",
+   "reachable": "via the iTunes lookup JSON API",
+   "note": "The listing itself is marketing copy written by The Pokemon Company, so treat feature claims in the description as first-party but promotional. The metadata (price, version, dates, size, rating, languages) is Apple's and is firm."
+  },
+  "googleplay": {
+   "id": "googleplay",
+   "title": "Pokemon TCG Pocket on Google Play",
+   "url": "https://play.google.com/store/apps/details?id=jp.pokemon.pokemontcgp",
+   "publisher": "Google / The Pokemon Company",
+   "read": "2026-08-16",
+   "reachable": true,
+   "note": "Fetched as raw HTML. Only the 'Updated on' date and the same marketing description were taken from it. The bundle id jp.pokemon.pokemontcgp is worth noting: the app is published out of the Japanese entity, which is consistent with Creatures Inc. and DeNA building it."
+  },
+  "supportGameplay": {
+   "id": "supportGameplay",
+   "title": "Pokemon TCG Pocket Gameplay FAQ",
+   "url": "https://support.pokemon.com/hc/en-us/articles/30330309361172-Pok%C3%A9mon-TCG-Pocket-Gameplay-FAQ",
+   "apiUrl": "https://support.pokemon.com/api/v2/help_center/en-us/articles/30330309361172.json",
+   "publisher": "The Pokemon Company International",
+   "articleCreated": "2024-09-12",
+   "articleEdited": "2026-07-30",
+   "read": "2026-08-16",
+   "reachable": "JSON API only",
+   "note": "THE SINGLE MOST USEFUL SOURCE IN THIS FILE. It carries the official statement that the rules differ from the physical game, the price model, the languages, the device specs, and most of what is in the app. It is also the longest, at roughly 3,500 words."
+  },
+  "supportBattleRules": {
+   "id": "supportBattleRules",
+   "title": "Pokemon TCG Pocket Battle Rules FAQ",
+   "url": "https://support.pokemon.com/hc/en-us/articles/38906248102292-Pok%C3%A9mon-TCG-Pocket-Battle-Rules-FAQ",
+   "apiUrl": "https://support.pokemon.com/api/v2/help_center/en-us/articles/38906248102292.json",
+   "publisher": "The Pokemon Company International",
+   "articleCreated": "2025-06-30",
+   "articleEdited": "2025-11-12",
+   "read": "2026-08-16",
+   "reachable": "JSON API only",
+   "note": "Mostly card-specific rulings, not a rules summary. Two lines in it are general and useful: how attacks with no Energy cost work on the first turn, and that points come only from Knock Outs. Do not mine it for card rulings; that is not what our page is."
+  },
+  "supportTrading": {
+   "id": "supportTrading",
+   "title": "Pokemon TCG Pocket Trading FAQ",
+   "url": "https://support.pokemon.com/hc/en-us/articles/34322874608660-Pok%C3%A9mon-TCG-Pocket-Trading-FAQ",
+   "apiUrl": "https://support.pokemon.com/api/v2/help_center/en-us/articles/34322874608660.json",
+   "publisher": "The Pokemon Company International",
+   "articleCreated": "2025-01-28",
+   "articleEdited": "2026-07-30",
+   "read": "2026-08-16",
+   "reachable": "JSON API only"
+  },
+  "supportSharing": {
+   "id": "supportSharing",
+   "title": "Pokemon TCG Pocket Sharing and Social FAQ",
+   "url": "https://support.pokemon.com/hc/en-us/articles/30332621133204-Pok%C3%A9mon-TCG-Pocket-Sharing-and-Social-FAQ",
+   "apiUrl": "https://support.pokemon.com/api/v2/help_center/en-us/articles/30332621133204.json",
+   "publisher": "The Pokemon Company International",
+   "articleCreated": "2024-09-12",
+   "articleEdited": "2025-10-30",
+   "read": "2026-08-16",
+   "reachable": "JSON API only"
+  },
+  "supportPurchase": {
+   "id": "supportPurchase",
+   "title": "Pokemon TCG Pocket Purchase and Premium Pass FAQ",
+   "url": "https://support.pokemon.com/hc/en-us/articles/30331739144596-Pok%C3%A9mon-TCG-Pocket-Purchase-and-Premium-Pass-FAQ",
+   "apiUrl": "https://support.pokemon.com/api/v2/help_center/en-us/articles/30331739144596.json",
+   "publisher": "The Pokemon Company International",
+   "articleCreated": "2024-09-12",
+   "articleEdited": "2026-01-22",
+   "read": "2026-08-16",
+   "reachable": "JSON API only",
+   "note": "Long and almost entirely about billing troubleshooting. It confirms the premium pass is a paid monthly subscription and that Poke gold is bought through the app stores. It does NOT state a price."
+  },
+  "supportAccount": {
+   "id": "supportAccount",
+   "title": "Pokemon TCG Pocket Account Link and Data Transfer FAQ",
+   "url": "https://support.pokemon.com/hc/en-us/articles/30331783530644-Pok%C3%A9mon-TCG-Pocket-Account-Link-and-Data-Transfer-FAQ",
+   "apiUrl": "https://support.pokemon.com/api/v2/help_center/en-us/articles/30331783530644.json",
+   "publisher": "The Pokemon Company International",
+   "articleCreated": "2024-09-12",
+   "articleEdited": "2025-01-21",
+   "read": "2026-08-16",
+   "reachable": "JSON API only",
+   "note": "THE SOURCE FOR THE BIGGEST QUIET DIFFERENCE FROM LIVE: Pocket links to a Nintendo, Google or Apple account. A Pokemon Trainer Central account is not mentioned anywhere in it."
+  },
+  "supportGiftCode": {
+   "id": "supportGiftCode",
+   "title": "Pokemon TCG Pocket Gift Code FAQ",
+   "url": "https://support.pokemon.com/hc/en-us/articles/35876581854484-Pok%C3%A9mon-TCG-Pocket-Gift-Code-FAQ",
+   "apiUrl": "https://support.pokemon.com/api/v2/help_center/en-us/articles/35876581854484.json",
+   "publisher": "The Pokemon Company International",
+   "articleCreated": "2025-03-21",
+   "articleEdited": "2025-04-15",
+   "read": "2026-08-16",
+   "reachable": "JSON API only",
+   "note": "CRITICAL FOR THIS AUDIENCE AND EASY TO MISREAD. 'Gift codes' here are promotional campaign codes, redeemed on a web page with your in-game Support ID. They are NOT the code cards in physical booster packs. A reader skimming for 'code' will conflate the two, so the page has to separate them explicitly."
+  },
+  "supportWebStore": {
+   "id": "supportWebStore",
+   "title": "Pokemon TCG Pocket Web Store FAQ",
+   "url": "https://support.pokemon.com/hc/en-us/articles/44985710277268-Pok%C3%A9mon-TCG-Pocket-Web-Store-FAQ",
+   "apiUrl": "https://support.pokemon.com/api/v2/help_center/en-us/articles/44985710277268.json",
+   "publisher": "The Pokemon Company International",
+   "articleCreated": "2026-01-05",
+   "articleEdited": "2026-01-15",
+   "read": "2026-08-16",
+   "reachable": "JSON API only",
+   "note": "New in January 2026. The web store is run by Xsolla and sells Poke gold outside the app stores."
+  },
+  "supportTechnical": {
+   "id": "supportTechnical",
+   "title": "Pokemon TCG Pocket Technical Troubleshooting FAQ",
+   "url": "https://support.pokemon.com/hc/en-us/articles/30332689777428-Pok%C3%A9mon-TCG-Pocket-Technical-Troubleshooting-FAQ",
+   "apiUrl": "https://support.pokemon.com/api/v2/help_center/en-us/articles/30332689777428.json",
+   "publisher": "The Pokemon Company International",
+   "articleCreated": "2024-09-12",
+   "articleEdited": "2026-05-12",
+   "read": "2026-08-16",
+   "reachable": "JSON API only"
+  },
+  "supportBoosterPack": {
+   "id": "supportBoosterPack",
+   "title": "What can I expect in a Pokemon Trading Card Game booster pack?",
+   "url": "https://support.pokemon.com/hc/en-us/articles/360000981613-What-can-I-expect-in-a-Pok%C3%A9mon-Trading-Card-Game-booster-pack",
+   "apiUrl": "https://support.pokemon.com/api/v2/help_center/en-us/articles/360000981613.json",
+   "publisher": "The Pokemon Company International",
+   "articleCreated": "2018-02-14",
+   "articleEdited": "2023-07-21",
+   "read": "2026-08-16",
+   "reachable": "JSON API only",
+   "note": "THIS IS THE OFFICIAL SOURCE FOR 'THE CODE CARD IS FOR LIVE, NOT POCKET'. It describes physical pack contents and names Live by name as the place the code is redeemed. It is also, incidentally, a pack-contents article; do not lift the composition sentence onto our page as a rate claim of any kind, and note that it predates the Pocket launch entirely, which is why it does not mention Pocket."
+  },
+  "deckGuide": {
+   "id": "deckGuide",
+   "title": "Learn How to Build a Deck in Pokemon TCG Pocket",
+   "url": "https://www.pokemon.com/us/strategy/learn-how-to-build-a-deck-in-pokemon-tcg-pocket",
+   "publisher": "The Pokemon Company International",
+   "published": "2025-01-30",
+   "read": "2026-08-16",
+   "reachable": true,
+   "note": "THE BEST OFFICIAL SOURCE FOR THE REDUCED RULESET, and the only official page found that states the deck size, the copy limit, the three points and the Energy Zone in plain sentences. www.pokemon.com is behind Imperva and blocked plain curl; this page answered through WebFetch on 2026-08-16 while two other pokemon.com pages did not. Treat access as unreliable and quote from this file rather than re-fetching."
+  },
+  "collectingGuide": {
+   "id": "collectingGuide",
+   "title": "A Guide to Collecting Cards and Using Wonder Picks in Pokemon Trading Card Game Pocket",
+   "url": "https://www.pokemon.com/us/strategy/a-guide-to-collecting-cards-and-using-wonder-picks-in-pokemon-trading-card-game-pocket",
+   "publisher": "The Pokemon Company International",
+   "published": "2024-11-25",
+   "read": "2026-08-16",
+   "reachable": true,
+   "note": "Official, but written three weeks after launch and never obviously revised. Anything numeric in it (the premium pass price, shop stock) should carry its 2024 date on the page. It is the source for the twelve-hour pack timer phrasing."
+  },
+  "unlockBattlesGuide": {
+   "id": "unlockBattlesGuide",
+   "title": "How to Unlock Battles in Pokemon TCG Pocket",
+   "url": "https://www.pokemon.com/us/strategy/how-to-unlock-battles-in-pokemon-tcg-pocket",
+   "publisher": "The Pokemon Company International",
+   "read": "2026-08-16",
+   "reachable": false,
+   "note": "EXISTS BUT COULD NOT BE READ. Both /us/strategy/ and /us/features/ variants, and the /uk/ mirror, returned Imperva's 'Pardon Our Interruption' page; web.archive.org is not fetchable from this tool. It is listed here because it is the one official page whose title promises the beginner path, and somebody with a browser should read it before the page ships. The one fact it would carry that we needed, the level 3 unlock, is independently confirmed by supportGameplay, so nothing on the page depends on it."
+  },
+  "wikipedia": {
+   "id": "wikipedia",
+   "title": "Pokemon Trading Card Game Pocket",
+   "url": "https://en.wikipedia.org/wiki/Pok%C3%A9mon_Trading_Card_Game_Pocket",
+   "publisher": "Wikipedia",
+   "read": "2026-08-16",
+   "reachable": true,
+   "note": "Used for exactly one thing that no official source would confirm: that solo matches have an optional auto-battle feature. See theHook."
+  },
+  "bulbapedia": {
+   "id": "bulbapedia",
+   "title": "Pokemon Trading Card Game Pocket",
+   "url": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Card_Game_Pocket",
+   "publisher": "Bulbapedia",
+   "read": "2026-08-16",
+   "reachable": true,
+   "note": "The only source found for the Bench limit of three, the turn caps and the per-Pokemon point values. All of that is flagged in singleSourced. It is a good wiki and these numbers are almost certainly right; that is not the same as sourced, and this site's habit is to say which is which."
+  },
+  "game8AutoBattle": {
+   "id": "game8AutoBattle",
+   "title": "Auto-Battle Guide, Pokemon TCG Pocket",
+   "url": "https://game8.co/games/Pokemon-TCG-Pocket/archives/483074",
+   "publisher": "Game8",
+   "pageUpdated": "2025-11-25",
+   "read": "2026-08-16",
+   "reachable": true,
+   "note": "Third-party guide site. Used only to corroborate wikipedia on the Auto feature and to record where the button is. NOT quotable on our page as an authority. If the page says anything about Auto it should be worded as a description of what the app does, not as a citation to a wiki-adjacent guide farm."
+  },
+  "tcgLiveResearch": {
+   "id": "tcgLiveResearch",
+   "title": "data/tcg-live.json (this repo)",
+   "url": "data/tcg-live.json",
+   "publisher": "Garbage Rips 585 research, by a separate agent, same day",
+   "read": "2026-08-16",
+   "reachable": true,
+   "note": "EVERY LIVE FACT IN vsLive COMES FROM HERE, not from a fresh fetch, so the two pages cannot contradict each other. Each vsLive row records the key inside that file so a builder can trace it back to Pokemon's own wording."
+  },
+  "howToPlayResearch": {
+   "id": "howToPlayResearch",
+   "title": "data/how-to-play.json (this repo)",
+   "url": "data/how-to-play.json",
+   "publisher": "Garbage Rips 585 research",
+   "read": "2026-08-16",
+   "reachable": true,
+   "note": "EVERY PHYSICAL-GAME NUMBER IN reducedRuleset COMES FROM HERE, quoted from the official rulebook and handbook by that file. Do not re-derive them: 60 card deck, up to 5 Benched Pokemon, 6 Prize cards. If our comparison of the physical game disagrees with /how-to-play.html, our comparison is wrong."
+  }
+ },
+ "forbidden": {
+  "offeringRates": {
+   "exists": true,
+   "wasFetched": false,
+   "urlRecorded": false,
+   "rule": "Pocket publishes offering rates for its digital booster packs. They were deliberately not read, no figure from them is anywhere in this file, and no url that leads to them is recorded here on purpose. Do not state, quote, summarise, paraphrase, round, characterise or link them. Do not write 'the odds are published in the app' as an invitation, and do not write soft forms of the same claim: no 'rare', 'hard to pull', 'common', 'you will usually get', 'more likely than'. The site's rule is absolute and it does not have a digital exception.",
+   "theArgumentThisRuleExistsToREFUSE": "'But Pocket is a digital game and it publishes its own rates openly, so quoting them is just reporting a published fact.' No. CLAUDE.md's rule is that this site never states pull rates, and it already forbids linking Live's drop rate page through /how-to-play.html for exactly this reason: the claim made at one remove is the same claim. Pocket is where a future editor will argue hardest for the exception. Refuse it.",
+   "alsoNote": "Apple's App Store listing carries a 'Loot Boxes' advisory for this app (source: appstore, read 2026-08-16). That is a content descriptor, not an odds figure, and it is safe to record. It is probably not worth putting on the page either."
+  },
+  "giftCodeLists": {
+   "rule": "Do not publish a list of active Pocket gift codes. Several third-party sites do. They expire in weeks, they are not from Pokemon, and a code list turns an evergreen page into one that lies. If the page mentions gift codes at all it says what they are, says they come and go with campaigns, and names no code.",
+   "note": "Same rule the Live plan set for promo codes. As of 2026-08-16 third-party trackers were reporting no active codes at all, which is a good illustration of why a list is worthless on a static page."
+  },
+  "realMoneyValue": {
+   "rule": "Nothing in Pocket is worth real money and the page must not imply otherwise. Do not price digital cards, do not compare a digital card to its physical counterpart's market price, and do not link /buying.html or /selling.html from any section about digital cards.",
+   "note": "The Live research reached the same conclusion from Live's Terms of Use. Pocket's own Terms of Use were not read (the App Store description points at https://www.apppokemon.com/tcgp/kiyaku/kiyaku001/rule/ ), so do not quote Pocket's terms; state the point as a plain description of what the app is rather than as a citation."
+  },
+  "accountSelling": {
+   "rule": "No discussion of buying, selling or trading Pocket accounts, and no links to anywhere that does. It is a legal-shaped question, the answer is not ours to give, and the audience for this page includes children."
+  }
+ },
+ "theHook": {
+  "_note": [
+   "THE OWNER'S FRAMING IS THE PAGE'S WHOLE REASON TO EXIST: an AI plays matches and",
+   "you learn the game by watching it. This block establishes what that",
+   "actually is. It is the part of the research most likely to be got wrong by",
+   "wanting it to be true, so the confidence fields are the important fields."
+  ],
+  "whatIsOfficiallyDocumented": {
+   "soloBattlesExist": {
+    "plain": "Pocket has a Solo mode: battles against the computer, separate from Versus battles against other people.",
+    "evidence": [
+     "supportGameplay names 'solo battles', 'step-up battles' and 'solo event battles' repeatedly, in the app's own vocabulary.",
+     "supportGameplay: rental decks 'cannot be used in versus battles', which only means anything if there is a non-versus battle mode.",
+     "supportGameplay: 'The availability of step-up battles may vary based on the current expansion and other factors. For example, you may find that some expansions offer only higher difficulty step-up or solo battles.'"
+    ],
+    "source": "supportGameplay",
+    "articleEdited": "2026-07-30",
+    "read": "2026-08-16",
+    "confidence": "FIRM AND OFFICIAL. The existence of solo play against the computer is not in doubt."
+   },
+   "battlesUnlockAtLevel3": {
+    "plain": "Battles are not available the moment you install. The battle feature unlocks at player level 3, which you reach by opening packs and playing with the collection side first.",
+    "quote": "You haven't reached player level 3, which is when the battle feature is unlocked.",
+    "source": "supportGameplay",
+    "read": "2026-08-16",
+    "confidence": "firm; quoted verbatim, in the context of why a player cannot join ranked matches",
+    "note": "USEFUL AND SLIGHTLY SURPRISING, and it belongs on the page. Somebody installing this to learn the card game will open it, find no battles, and think they have the wrong app."
+   },
+   "theAppTeachesItsOwnRules": {
+    "plain": "The app carries its own rules reference. Pokemon's answer to 'what are the rules' is to point you into it.",
+    "quote": "Please find more information about Pokemon TCG Pocket's game rules in Tips or by tapping the question mark button displayed at the top-right part of various screens of the app.",
+    "source": "supportGameplay",
+    "read": "2026-08-16",
+    "confidence": "firm, quoted verbatim",
+    "note": "This is the honest version of 'it teaches you'. The app has a Tips section and a contextual (?) button on most screens. That is a real, sourced, checkable teaching feature and it is a better thing to promise a reader than a feature we cannot document."
+   },
+   "guidedStart": {
+    "plain": "There is a tutorial. Completing the tutorial missions in the Guide section hands you pack hourglasses, shop tickets, a starter deck, a rental deck and Item cards, and the beginner deck you receive depends on which pack you chose to open first.",
+    "source": "collectingGuide",
+    "published": "2024-11-25",
+    "read": "2026-08-16",
+    "confidence": "the Guide-section missions and their rewards are official and quotable; the detail that the beginner deck depends on your first pack choice came through a search summary of unlockBattlesGuide, which could not be read directly, so DO NOT PRINT IT",
+    "note": "Two-year-old article. Reward lists change. Say there is a guided start with rewards; do not itemise it."
+   },
+   "rentalDecks": {
+    "plain": "The app lends you decks. Rental decks have a limited number of uses, each match spends one whether you win, lose or forfeit, and they cannot be used in versus battles.",
+    "quote": "Rental decks have a limited number of uses. Once the rental deck runs out of uses, the deck will disappear from the rental deck list... Please note that you cannot use rental decks in versus battles.",
+    "source": "supportGameplay",
+    "read": "2026-08-16",
+    "confidence": "firm, quoted verbatim",
+    "note": "STRONGER FOR THE PAGE'S ARGUMENT THAN IT LOOKS. A beginner does not need to own or build anything to sit down and play a real match against the computer. That is the actual on-ramp."
+   }
+  },
+  "theAutoFeature": {
+   "plain": "In solo battles you can switch on an Auto option and let the app play your side of the match while you watch. It is solo only: it cannot be used against other people.",
+   "whatItIsCalled": "Players and guides call it auto-battle or the Auto feature. WE DO NOT HAVE A POKEMON-PUBLISHED NAME FOR IT.",
+   "howItWorks": [
+    "It can be switched on before a solo battle and also during one, so you can hand the match over mid-way and take it back.",
+    "The CPU takes your turns for you: playing Pokemon, attaching Energy, attacking.",
+    "It plays simply. Third-party guides are consistent that it is fine for basic objectives and poor at anything that needs a plan.",
+    "It cannot be used in versus battles against other players."
+   ],
+   "sources": [
+    "wikipedia",
+    "game8AutoBattle"
+   ],
+   "read": "2026-08-16",
+   "confidence": "THE FEATURE IS REAL AND WELL CORROBORATED BY NON-POKEMON SOURCES. IT IS NOT DOCUMENTED ON ANY POKEMON-OWNED PAGE THAT COULD BE REACHED.",
+   "whatWasSearched": [
+    "support.pokemon.com Zendesk search for 'Pocket' returned all 13 Pocket articles; nine were fetched in full and their bodies grepped for 'auto'. Every hit was about automatic subscription renewal, automatic date resets or automatic time settings. None was about battles.",
+    "The Battle Rules FAQ (supportBattleRules), which is where it would belong, is entirely card-specific rulings and does not mention it.",
+    "The official site (officialSite) has no battle content at all and no sub-pages.",
+    "The App Store description and the Google Play description do not mention it.",
+    "www.pokemon.com's own Pocket strategy articles that could be read do not mention it, and the one that might (unlockBattlesGuide) is unreachable."
+   ],
+   "howToWriteIt": "Describe it as a thing the app does, in plain present tense, without citing a wiki as an authority and without claiming Pokemon documents it. 'Turn Auto on in a solo battle and the app plays your side while you watch' is honest, matches every source, and is exactly what the owner describes. Do NOT write 'Pokemon calls it X'. Do NOT capitalise it as a proper feature name in a way that implies official branding beyond the in-app button.",
+   "ifYouWantToBeStricter": "The page can be written so it does not depend on Auto at all: solo battles against the computer, rental decks and the in-app Tips are all officially sourced and already carry the 'watch and learn' argument, because in ANY solo battle you are watching a competent CPU take its turns against you. If a reviewer is uncomfortable with the wiki-only sourcing, drop Auto to one sentence and lead on solo battles. Do not drop it entirely: it is the specific thing the owner described and the specific thing a reader would go looking for."
+  },
+  "theHonestCaveatThatMustShip": {
+   "plain": "Watching Pocket play teaches you the SHAPE of the Pokemon card game, not its rules. Evolution, attacks, Weakness, Retreat, Abilities, the Active spot and the Bench all work recognisably. The numbers do not: the deck is a third the size, there are no Energy cards, there are no Prize cards, and the Bench is smaller.",
+   "why": "This site's readers play with physical cards. A page that says 'this is how I learned' without this caveat sends somebody to a table with the wrong rules in their head, and /how-to-play.html then reads as if it contradicts us.",
+   "basis": "reducedRuleset below, all of it sourced",
+   "note": "THIS IS THE PAGE'S MOST IMPORTANT SENTENCE AFTER THE HOOK ITSELF, and it should sit immediately under the hook rather than 900 words later."
+  }
+ },
+ "howToGet": {
+  "platforms": {
+   "plain": "Two platforms, both mobile: iPhone and iPad from the App Store, Android from Google Play. There is no Windows version, no Mac version and no browser version.",
+   "detail": [
+    {
+     "platform": "iOS / iPadOS",
+     "how": "App Store",
+     "url": "https://apps.apple.com/app/id6479970832",
+     "source": "officialSite",
+     "read": "2026-08-16"
+    },
+    {
+     "platform": "Android",
+     "how": "Google Play",
+     "url": "https://play.google.com/store/apps/details?id=jp.pokemon.pokemontcgp",
+     "source": "officialSite",
+     "read": "2026-08-16"
+    }
+   ],
+   "quote": "an upcoming game for iOS and Android devices from Creatures Inc., the original developers of the Pokemon TCG, and DeNA Co., Ltd.",
+   "quoteSource": "officialSite",
+   "quoteCaveat": "'upcoming' is the official site being two years stale. Do not quote that sentence on the page; use it only as evidence of the platform list and the developers.",
+   "confidence": "firm; the official site links exactly two store buttons and there is no desktop client anywhere",
+   "note": "THE CLEANEST SINGLE DIFFERENCE FROM LIVE AND WORTH LEADING THE COMPARISON WITH. Live runs on Windows and Mac as direct downloads as well as on phones (tcgLiveResearch.howToGet.platforms). Pocket is a phone game."
+  },
+  "price": {
+   "plain": "Free. There are optional in-app purchases.",
+   "quote": "The game is free to start. There are optional in-app purchases.",
+   "source": "supportGameplay",
+   "read": "2026-08-16",
+   "corroborated": [
+    "appstore (listed price 0.00, 'Free')",
+    "officialSite ('Free-to-start; optional in-game purchases available.')"
+   ],
+   "confidence": "firm, three independent official statements"
+  },
+  "account": {
+   "plain": "You do not need a Pokemon account. You pick a country and region, confirm your age, accept the terms and play. Linking an account is optional and it is about protecting your save, not about getting in.",
+   "whichAccounts": [
+    "Nintendo Account",
+    "Google Account",
+    "Apple Account (iOS devices only)"
+   ],
+   "quote": "You can link an account from the game's title screen or main menu. Note: Players under a certain age can only link a Nintendo Account. Only iOS devices can link to an Apple Account.",
+   "source": "supportAccount",
+   "read": "2026-08-16",
+   "confidence": "FIRM ON WHICH ACCOUNTS. The 'you do not need one to start' half is established by the shape of the FAQ rather than by a sentence saying so: linking is described as something you do to transfer or share save data, the first-launch sequence it documents is 'Country/Region Selection, Age Confirmation > Terms of Use and Privacy Notice', and no Pokemon Trainer Central account appears anywhere in any Pocket support article. Word it as 'you are not asked to make a Pokemon account to start playing', which is what the sources support.",
+   "whyItMatters": "Live REQUIRES a Pokemon Trainer Central account (tcgLiveResearch.howToGet.account). Pocket does not use that account system at all. For a parent, or for somebody who just wants to try it on the bus, that is the single biggest practical difference between the two apps.",
+   "warning": {
+    "plain": "Link an account early. Without one, a reinstall loses everything and Pokemon says so.",
+    "quote": "If you reinstall the app without linking your save data to an account, you will not be able to recover your save data yourself.",
+    "source": "supportPurchase",
+    "read": "2026-08-16",
+    "note": "This belongs in the tips list. It is the mistake with the worst consequences and the smallest effort to avoid."
+   },
+   "childAccounts": {
+    "plain": "Under a certain age, only a Nintendo Account can be linked. Pokemon does not print the age and says it varies by country.",
+    "quote": "Only players over a certain age may link their account to an Apple Account or a Google Account... Age restrictions may differ depending on your country or region.",
+    "source": "supportAccount",
+    "read": "2026-08-16",
+    "confidence": "firm, and deliberately vague in the source. DO NOT INVENT AN AGE NUMBER."
+   }
+  },
+  "regions": {
+   "plain": "It is available almost everywhere. Pokemon's own App Store copy says the game has players in 150 countries and regions.",
+   "quote": "Pokemon Trading Card Game Pocket has players in 150 countries and regions around the world.",
+   "source": "appstore",
+   "read": "2026-08-16",
+   "confidence": "firm as a quote, but it is marketing copy describing where players ARE, not a list of where the app is SOLD. Attribute it rather than restating it as an availability claim.",
+   "corroboration": "The official site offers eleven localised regional versions (en-us, en-gb, en-au, en-ca, fr-fr, fr-ca, de-de, es-es, es-mx, it-it, pt-br) and support.pokemon.com carries dedicated 'Pokemon TCG Pocket Korea Support' and 'Pokemon TCG Pocket Asia Support' articles.",
+   "recommendation": "One sentence, same shape as the Live page's: if your app store has it, you can play. There is no list of excluded regions to print. Note separately that the Xsolla web store is NOT available everywhere the game is (supportWebStore lists 'The save data is set to a country or region where the web store is unavailable' as a login failure reason)."
+  },
+  "languages": {
+   "plain": "Nine languages, switchable inside the app.",
+   "list": [
+    "Japanese",
+    "English",
+    "French",
+    "Italian",
+    "German",
+    "Spanish",
+    "Brazilian Portuguese",
+    "Traditional Chinese",
+    "Korean"
+   ],
+   "source": "supportGameplay",
+   "read": "2026-08-16",
+   "corroborated": "appstore lists the same nine language codes",
+   "quirk": {
+    "plain": "Cards keep the language you got them in. Changing the app language does not retranslate cards you already own.",
+    "quote": "Cards that you already own will remain the language that you acquired them in, even if the app language setting is changed.",
+    "source": "supportGameplay",
+    "read": "2026-08-16",
+    "note": "GENUINELY INTERESTING TO THIS SITE'S READERS, who already have international set guides and care about Japanese versus English printings. Worth one line. Wonder Pick cards arrive in whatever language the other player was playing in."
+   }
+  },
+  "deviceRequirements": {
+   "asOf": "2026-07-30",
+   "label": "Recommended mobile device specifications",
+   "ios": [
+    "iPhone X or later",
+    "iOS 15 or later / iPadOS 15 or later",
+    "3GB of RAM or more"
+   ],
+   "android": [
+    "Android 7.0 or later",
+    "Support for Vulkan",
+    "64-bit",
+    "3GB of RAM or more",
+    "Snapdragon 845 or later, or a GPU of similar performance"
+   ],
+   "source": "supportGameplay",
+   "read": "2026-08-16",
+   "confidence": "firm and quoted from the current article, but note Pokemon's own hedge",
+   "pokemonsOwnHedge": "The app is not guaranteed to work on all devices, even if those devices meet the listed requirements.",
+   "appStoreMinimum": "iOS 15.0 (appstore metadata, read 2026-08-16)",
+   "downloadSize": "About 766 MB on iOS (appstore fileSizeBytes 765,824,000, read 2026-08-16)",
+   "recommendation": "ONE SENTENCE, NOT A TABLE, exactly as the Live plan decided. 'A phone from the last several years with 3GB of RAM, running iOS 15 or Android 7 or later, as of July 2026.' The full lists live here for a future editor. The download size is worth naming because it is the useful contrast with Live, which is a much bigger install."
+  },
+  "history": {
+   "plain": "Released October 30, 2024. It is made by Creatures Inc. and DeNA and published by The Pokemon Company.",
+   "dates": [
+    {
+     "what": "Soft launch, New Zealand",
+     "when": "2024-09-26",
+     "source": "wikipedia",
+     "confidence": "single-sourced, and not worth putting on the page"
+    },
+    {
+     "what": "Worldwide release, iOS and Android",
+     "when": "2024-10-30",
+     "source": "appstore",
+     "confidence": "firm; the App Store releaseDate field agrees with wikipedia"
+    }
+   ],
+   "developers": "Creatures Inc. and DeNA Co., Ltd.",
+   "developersSource": "officialSite",
+   "read": "2026-08-16",
+   "note": "ONE LINE OF HISTORY AND NO MORE, same discipline as the Live plan. Creatures Inc. is worth naming for one reason only: they are the original developers of the physical card game, which is the fact that makes 'the official app' mean something."
+  }
+ },
+ "reducedRuleset": {
+  "_note": [
+   "THE MOST IMPORTANT SECTION ON THE PAGE FOR THIS SITE'S AUDIENCE. Readers",
+   "here play with physical cards. A reader must not come away thinking Pocket",
+   "rules are the rules.",
+   "",
+   "Every physical-game number below is quoted from data/how-to-play.json, which",
+   "took them from the official rulebook and handbook. Every Pocket number is",
+   "sourced separately. Where the only source is Bulbapedia it says so on the row."
+  ],
+  "pokemonSaysSoThemselves": {
+   "plain": "Pokemon states outright that the rules are different. This is not our inference.",
+   "quote": "The rules of Pokemon TCG Pocket are different from the Pokemon Trading Card Game. Please check the official website and within the game for more details on battle rules.",
+   "source": "supportGameplay",
+   "articleEdited": "2026-07-30",
+   "read": "2026-08-16",
+   "confidence": "firm, quoted verbatim, from an article edited five weeks before this was read",
+   "note": "PUT THIS IN A CALLOUT. It is the single most useful sentence available for this page, the way 'the digital pack is its own pack from the same set' was for the Live page. It lets the whole section be framed as reporting Pokemon's own position rather than as our editorial."
+  },
+  "differences": [
+   {
+    "what": "Deck size",
+    "pocket": "20 cards",
+    "physical": "60 cards",
+    "pocketQuote": "your deck must contain 20 cards, including no more than two copies of any card with the same name and at least one Basic Pokemon",
+    "pocketSource": "deckGuide",
+    "pocketPublished": "2025-01-30",
+    "physicalSource": "howToPlayResearch (deckBuilding, quoted from the official rulebook: 'Each player starts with their own deck of 60 cards to play the game.')",
+    "read": "2026-08-16",
+    "confidence": "firm both sides"
+   },
+   {
+    "what": "Copies of one card",
+    "pocket": "Two",
+    "physical": "Four",
+    "pocketQuote": "no more than two copies of any card with the same name",
+    "pocketSource": "deckGuide",
+    "physicalSource": "howToPlayResearch (deckBuilding)",
+    "read": "2026-08-16",
+    "confidence": "firm on the Pocket side. CHECK data/how-to-play.json FOR THE EXACT PHYSICAL WORDING before printing 'four': the real rule is four of a card with the same name, with basic Energy exempt, and the page should not simplify away the exemption it already explains elsewhere."
+   },
+   {
+    "what": "How you win",
+    "pocket": "Earn three points by Knocking Out your opponent's Pokemon. Points, not cards.",
+    "physical": "Take all six of your Prize cards, or knock out every Pokemon your opponent has in play, or win when they cannot draw.",
+    "pocketQuote": "Winning a battle in Pokemon TCG Pocket requires you to earn three points by Knocking Out your opponent's Pokemon.",
+    "pocketSource": "deckGuide",
+    "physicalSource": "howToPlayResearch (howToWin, prizes-6, and the three win conditions the page already teaches)",
+    "read": "2026-08-16",
+    "confidence": "firm both sides",
+    "note": "THERE ARE NO PRIZE CARDS IN POCKET AT ALL. That is the cleanest way to say it and it is the thing a physical player will find strangest. Say it as an absence, not as a substitution."
+   },
+   {
+    "what": "Points per Knock Out",
+    "pocket": "One for an ordinary Pokemon, two for a Pokemon ex, three for a Mega Evolution Pokemon ex",
+    "physical": "One Prize card, two for most V/ex/GX-style Pokemon",
+    "pocketSource": "bulbapedia",
+    "read": "2026-08-16",
+    "confidence": "SINGLE-SOURCED TO BULBAPEDIA. Do not print the Mega figure; Mega Evolution is a recent addition and the value is the most likely thing here to be wrong or to change. If the page needs this row at all, one clause is enough: knocking out a big Pokemon is worth more than one point."
+   },
+   {
+    "what": "Energy",
+    "pocket": "No Energy cards in the deck at all. An Energy Zone hands you one Energy each turn and you attach it wherever you like.",
+    "physical": "Energy cards live in your deck, you draw them, and you attach one per turn from your hand.",
+    "pocketQuote": "There's no need to include Energy cards in Pokemon TCG Pocket decks - the Energy Zone provides one Energy each turn, which you can attach to your any of your Pokemon as you see fit.",
+    "pocketSource": "deckGuide",
+    "physicalSource": "howToPlayResearch (turn, the attach-one-Energy step)",
+    "read": "2026-08-16",
+    "confidence": "firm both sides; the grammar slip in the quote is Pokemon's, so paraphrase rather than quote it verbatim",
+    "note": "THE BIGGEST SINGLE MECHANICAL DIFFERENCE AND THE ONE MOST LIKELY TO MISLEAD. A player who learned on Pocket sits down at a table, builds a deck with no Energy in it, and cannot attack. Say that out loud."
+   },
+   {
+    "what": "Bench",
+    "pocket": "Up to three Benched Pokemon",
+    "physical": "Up to five Benched Pokemon",
+    "pocketQuote": "In addition to their Active Pokemon, each player can have up to three Benched Pokemon, instead of five in the physical game.",
+    "pocketSource": "bulbapedia",
+    "physicalSource": "howToPlayResearch (benchLimit, quoted from the rulebook: 'Each player may have up to 5 Pokemon on the Bench at any one time.')",
+    "read": "2026-08-16",
+    "confidence": "SINGLE-SOURCED TO BULBAPEDIA ON THE POCKET SIDE. No official Pokemon page found states the Bench limit. The physical five is firm and official. If the page prints 'three', the source note must say the three comes from the wiki. It is safe to say 'the Bench is smaller' without a number, and that may be the better call."
+   },
+   {
+    "what": "Match length",
+    "pocket": "Capped: around 30 turns in versus battles, around 50 in solo",
+    "physical": "No turn cap in casual play; tournaments use a time limit and a three-turn end sequence",
+    "pocketSource": "bulbapedia",
+    "read": "2026-08-16",
+    "confidence": "SINGLE-SOURCED TO BULBAPEDIA. Do not print the numbers. What is safely sayable, and is the actually useful point, is that a Pocket match is short: a 20-card deck and three points end a game in a few minutes, which is the whole 'casual' pitch."
+   },
+   {
+    "what": "First turn",
+    "pocket": "The player going first cannot attach Energy from the Energy Zone that turn, but an attack that shows no Energy symbol can still be used on turn one.",
+    "physical": "The player going first cannot attack on their first turn.",
+    "pocketQuote": "If no Energy symbol is displayed to the left of the attack name on a card, then it is an attack that can be used without any Energy attached to the Pokemon. This means that the attack can be used on the first turn of the player that goes first.",
+    "pocketSource": "supportBattleRules",
+    "physicalSource": "howToPlayResearch (turn / setup)",
+    "read": "2026-08-16",
+    "confidence": "the Pocket quote is official and verbatim. The 'cannot attach Energy on the first turn' half is bulbapedia only. CHECK data/how-to-play.json for the exact physical first-turn rule before writing the contrast; do not restate it from memory."
+   },
+   {
+    "what": "Points from effects",
+    "pocket": "Points come only from Knock Outs. Discarding an opposing Pokemon with a card effect scores nothing.",
+    "pocketQuote": "No, a player does not get points if an opposing Pokemon in play is discarded due to an effect. Points are gotten only when an opponent's Pokemon is Knocked Out.",
+    "pocketSource": "supportBattleRules",
+    "read": "2026-08-16",
+    "confidence": "firm, quoted verbatim",
+    "note": "Probably too deep for our page. Recorded because it is one of only two general rules statements in the Battle Rules FAQ."
+   },
+   {
+    "what": "The cards themselves",
+    "pocket": "Pocket has its own expansions with their own codes (A1, A1a, A2 and onward). Some cards reuse older physical artwork; others are exclusive to Pocket and have never been printed.",
+    "physical": "Sets have their own set symbols and numbering, covered by /sets/ and /what-set.html on this site.",
+    "pocketQuote": "Expansions are sets of cards that are labeled with a single code. The expansion code (such as A1, A1a, and A2) tells you which cards belong to which booster packs.",
+    "pocketSource": "supportGameplay",
+    "corroborated": "appstore: 'Collect different kinds of Pokemon cards, like those with nostalgic illustrations from the past, as well as completely new cards exclusive to this game!'",
+    "read": "2026-08-16",
+    "confidence": "firm",
+    "note": "IMPORTANT FOR THIS SITE SPECIFICALLY. A reader who uses /what-set.html or /sets/ must not go looking for A1 in our set guides. Our set data is the physical game only."
+   }
+  ],
+  "whatIsTheSame": {
+   "plain": "Enough that the learning transfers. Basic, Stage 1 and Stage 2 Pokemon and evolution. Attacks with Energy costs. Weakness. Retreat costs. Abilities. Trainer and Supporter cards. One Active Pokemon facing your opponent's, with the rest on the Bench. Draw a card at the start of your turn. Knock Outs.",
+   "quote": "You always draw one card at the start of your turn",
+   "source": "deckGuide",
+   "corroborated": "supportBattleRules mentions Abilities, Bench, Active spot, evolution and effects clearing on returning to the Bench, all in the physical game's vocabulary",
+   "read": "2026-08-16",
+   "confidence": "firm as a list of concepts; each individual mechanic is visible in the official Pocket sources above and each is taught on /how-to-play.html",
+   "note": "THIS IS WHAT MAKES THE OWNER'S CLAIM TRUE, so the page needs it as much as it needs the differences. The right structure is: here is what carries over, here is what does not, and the second list is the one to remember at a table."
+  }
+ },
+ "relationToPhysical": {
+  "_note": "This is where the two pages divide. The Live page owns the code card. This page's job is to say, once and clearly, that the code card has nothing to do with Pocket, and then point at the Live page.",
+  "packCodesDoNotWork": {
+   "plain": "The code card in a physical booster pack does not work in Pocket. It is for Pokemon TCG Live.",
+   "quote": "Each booster pack also contains 1 Energy card and 1 code card that can be redeemed in Pokemon TCG Live.",
+   "source": "supportBoosterPack",
+   "read": "2026-08-16",
+   "supportingEvidence": [
+    "No Pocket support article mentions pack codes, code cards or physical products in any way. All 13 Pocket articles on support.pokemon.com were listed and nine read in full on 2026-08-16.",
+    "Pocket's only code system is gift codes, which are campaign codes redeemed on a separate web page using your in-game Support ID, and which Pokemon says cannot be entered in the app at all (supportGiftCode).",
+    "The Pocket app has no redemption screen described anywhere in its own FAQs; the Live app and redeem.tcg.pokemon.com are the redemption routes Pokemon documents (tcgLiveResearch.codeCards.howToRedeem)."
+   ],
+   "confidence": "FIRM. The positive claim (the code card is for Live) is official and verbatim. The negative claim (it does not work in Pocket) is established by the positive claim plus the complete absence of any pack-code mechanism in Pocket's documentation. Word it as 'the code card in the pack is for Live; Pocket does not take it', which is exactly what the sources support.",
+   "note": "THE FIRST THING THIS AUDIENCE WILL ASK, and the reason this section goes high on the page rather than at the end. Everyone on this site is holding code cards."
+  },
+  "giftCodesAreADifferentThing": {
+   "plain": "Pocket does have codes, but they come from campaigns and events, not from packs. You redeem them on a web page with your in-game Support ID, not inside the app.",
+   "quote": "Gift codes can't be redeemed from within the Pokemon Trading Card Game Pocket app. Please visit the code redemption page to enter your support ID and gift code. The gift will be added to your in-game account's Gifts screen.",
+   "source": "supportGiftCode",
+   "read": "2026-08-16",
+   "confidence": "firm, quoted verbatim",
+   "note": "One short paragraph, purely to stop the confusion the word 'code' causes. See forbidden.giftCodeLists: name no codes."
+  },
+  "areTheyTheSameCards": {
+   "plain": "No. Pocket cards are their own thing. Some reuse illustrations from older printed cards, many are exclusive to the app, and the app's expansions do not correspond to physical sets.",
+   "source": "supportGameplay",
+   "corroborated": "appstore",
+   "read": "2026-08-16",
+   "confidence": "firm",
+   "note": "Follows from reducedRuleset.differences 'The cards themselves'. Also: the two games' cards could not be the same cards even in principle, because Pocket's have no Energy cards to pair with and no Prize-card economy."
+  },
+  "isThereAnyCrossoverAtAll": {
+   "plain": "None that could be established in either direction. Nothing physical unlocks anything in Pocket, and nothing in Pocket produces or affects a physical card.",
+   "confidence": "established by absence across nine official Pocket FAQs, the official site, both store listings and both wikis, read 2026-08-16",
+   "couldNotVerify": "Whether The Pokemon Company has ever printed physical promo cards tied to Pocket, or run a physical product promotion carrying a Pocket gift code. A search on 2026-08-16 found no evidence of either, but absence of evidence from one search is not the same as an established negative, so the page should not say 'there has never been any crossover'. Say 'there is no crossover', present tense, which is what was checked."
+  },
+  "nothingInItIsWorthMoney": {
+   "plain": "Digital cards in Pocket are not property and have no resale value. Trading happens inside the app, between friends, and costs an in-game resource.",
+   "basis": "Description of the trading system from supportTrading, read 2026-08-16, plus the general point.",
+   "confidence": "the mechanics are firm and official; the 'no monetary value' framing was NOT sourced to Pocket's own Terms of Use, which were not read",
+   "recommendation": "Say it as a description of how the app works rather than as a legal quote. The Live page has the Terms of Use quote and can carry that weight; this page does not need to. See forbidden.realMoneyValue and forbidden.accountSelling."
+  }
+ },
+ "whatIsInIt": {
+  "freePacks": {
+   "plain": "Two free booster packs a day, on a twelve-hour timer.",
+   "quote": "Every 12 hours, you can choose a booster pack to open at no cost.",
+   "source": "collectingGuide",
+   "published": "2024-11-25",
+   "read": "2026-08-16",
+   "corroborated": [
+    "appstore: 'Players can enjoy the experience of collecting, with two booster packs available to open every day.'",
+    "officialSite: 'you will be able to open two booster packs every day at no cost'",
+    "googleplay: 'you can open two booster packs at no cost each day'"
+   ],
+   "confidence": "FIRM. Four official statements, three of them current.",
+   "mechanics": {
+    "packStamina": "The timer is 'pack stamina'. Pack hourglasses, earned from missions, shorten the wait, and Poke gold can be spent to shorten it too if you have no hourglasses.",
+    "openTen": "An 'Open 10 packs' button appears when pack stamina reaches zero.",
+    "pokeGoldDailyCap": "Up to 720 Poke gold per day can be spent shortening pack waits, reset at 6:00 a.m. UTC.",
+    "source": "supportGameplay",
+    "read": "2026-08-16"
+   },
+   "note": "THE PITCH IN ONE LINE, and it is the honest reason the app is fun for somebody who likes opening packs. It costs nothing and it happens every day. This is also the cleanest tie back to the channel: The owner opens packs on camera and this is pack opening that never costs anything."
+  },
+  "packPoints": {
+   "plain": "Opening packs earns pack points for that expansion, and pack points buy a specific card of your choosing from that same expansion. They do not expire.",
+   "quotes": [
+    "No, pack points do not expire.",
+    "Opening booster packs of a given expansion earns you pack points for that expansion. Those points can be exchanged only for cards that appear in that expansion."
+   ],
+   "source": "supportGameplay",
+   "read": "2026-08-16",
+   "confidence": "firm, quoted verbatim",
+   "note": "IMPORTANT AND UNDER-EXPLAINED ELSEWHERE. It is the answer to 'what if I never pull the card I want', and it is the direct analogue of Live's Trade Credits. It also carries the point that this site is well placed to make: you do not need luck to own a card here. That is the opposite of how the physical hobby works, and it is worth saying without ever touching an odds figure."
+  },
+  "wonderPick": {
+   "plain": "You can look at packs other players opened and take one card out of them. It runs on its own stamina, which regenerates on a timer.",
+   "detail": [
+    "Wonder stamina regenerates one unit every twelve hours; wonder hourglasses or Poke gold shorten it (collectingGuide, 2024-11-25).",
+    "Adding somebody as a friend makes their pack openings eligible to appear in your Wonder Pick, though not all openings appear (supportSharing).",
+    "You can turn off sharing your own pack results: Menu > Other > Settings > Wonder Pick > Share booster packs (supportSharing).",
+    "Rewind watches restore an expired wonder pick, but not one you have already picked from (supportGameplay).",
+    "During 'sneak peek' campaigns some wonder picks reveal one card before you choose (supportGameplay)."
+   ],
+   "sources": [
+    "collectingGuide",
+    "supportSharing",
+    "supportGameplay"
+   ],
+   "read": "2026-08-16",
+   "confidence": "firm; the feature is documented in three official places",
+   "note": "DO NOT DESCRIBE THE PICK ITSELF IN PROBABILISTIC TERMS. 'You pick one card from a set of face-down cards' is a description. 'You have a one in five chance' is a rate. The rule applies here as everywhere."
+  },
+  "trading": {
+   "plain": "Pocket trades. Live does not. It is friends only, it unlocks two weeks in, both cards must be the same rarity, only some cards are eligible, and each trade spends an in-game resource called shinedust.",
+   "detail": [
+    {
+     "claim": "Friends only.",
+     "quote": "You may only trade with friends. You cannot trade with anyone other than friends.",
+     "source": "supportTrading"
+    },
+    {
+     "claim": "Unlocks 14 days after starting the game.",
+     "quote": "the trading feature is not yet unlocked for that player (trading unlocks 14 days after starting the game)",
+     "source": "supportTrading"
+    },
+    {
+     "claim": "One trade at a time, and the card cannot be swapped once placed.",
+     "source": "supportTrading"
+    },
+    {
+     "claim": "Both cards must match on rarity, on having flair, and on having a gold frame.",
+     "quote": "Both cards must be the same rarity. If a card has flair, both cards must have flair.",
+     "source": "supportTrading"
+    },
+    {
+     "claim": "Only certain cards are tradable; the app carries the current list at Social Hub > Trade > (?) > Detailed trade list.",
+     "source": "supportTrading"
+    },
+    {
+     "claim": "Trades cost shinedust, more for rarer cards, and the app shows the cost before you confirm.",
+     "source": "supportTrading"
+    },
+    {
+     "claim": "There is a wishlist, up to 40 cards, visible to other players.",
+     "source": "supportTrading"
+    },
+    {
+     "claim": "Trade tokens are being discontinued and can be exchanged for shinedust or pack hourglasses.",
+     "source": "supportTrading",
+     "confidence": "current as of the article's 2026-07-30 edit; this is a transitional mechanic and WILL go stale. Do not put it on the page."
+    }
+   ],
+   "source": "supportTrading",
+   "articleEdited": "2026-07-30",
+   "read": "2026-08-16",
+   "confidence": "firm and current",
+   "note": "THE HEADLINE FOR THE COMPARISON WITH LIVE, and a genuinely surprising one: the app called Pokemon Trading Card Game Live does not let you trade, and the casual mobile one does. tcgLiveResearch.relationToPhysical.noTrading has Pokemon's own statement for Live. Do not itemise all eight rules on the page; three sentences and a 'the app tells you what is eligible' is the right length."
+  },
+  "sharing": {
+   "plain": "Separate from trading: you can give a friend one lower-rarity card and receive one back. It also unlocks two weeks in, and a player can only receive one shared card a day.",
+   "quote": "The Share function is unlocked 14 days after starting the game.",
+   "alsoQuote": "players can receive only one card through the share feature per day",
+   "source": "supportSharing",
+   "read": "2026-08-16",
+   "corroborated": "appstore describes it as giving one 1-to-4-diamond rarity card to an in-game friend and receiving one in return",
+   "confidence": "firm on the mechanics; the rarity range comes from App Store marketing copy and is version-dependent, so do not print the diamond range",
+   "note": "Recent: the App Store copy calls sharing newly added, and the Sharing FAQ was edited 2025-10-30. One line on the page."
+  },
+  "soloContent": {
+   "plain": "Solo battles against the computer, including step-up battles that ladder in difficulty and limited-time solo event battles. Battle tasks inside them give rewards for doing specific things in a match.",
+   "detail": [
+    "Step-up battle availability changes with the current expansion, and some expansions offer only the harder ones (supportGameplay).",
+    "Solo event battles can require event stamina, and Poke gold can be spent on event hourglasses if you run out (supportGameplay).",
+    "Rental decks work in solo battles and not in versus (supportGameplay)."
+   ],
+   "source": "supportGameplay",
+   "read": "2026-08-16",
+   "confidence": "firm and official for the existence, the vocabulary and the constraints. 'Battle tasks' as a named reward system is corroborated only by third-party guides (game8AutoBattle), so use the phrase loosely or not at all.",
+   "seeAlso": "theHook"
+  },
+  "versusAndRanked": {
+   "plain": "Versus battles against other players, and a ranked ladder that runs in seasons.",
+   "detail": [
+    {
+     "claim": "Battles unlock at player level 3.",
+     "quote": "You haven't reached player level 3, which is when the battle feature is unlocked.",
+     "source": "supportGameplay"
+    },
+    {
+     "claim": "Ranked runs in seasons with their own periods, rewards are claimed after the season results are announced, and you get nothing if you did not play.",
+     "source": "supportGameplay"
+    },
+    {
+     "claim": "Rank can move because of other players' results, so the rank shown right after a match may not be your final one.",
+     "source": "supportGameplay"
+    },
+    {
+     "claim": "A tie leaves ranked points unchanged but resets your win streak; win streak bonuses stop increasing past five consecutive wins.",
+     "source": "supportGameplay"
+    },
+    {
+     "claim": "Disconnecting from a versus match gives you about 120 seconds to rejoin before you lose.",
+     "source": "supportGameplay"
+    }
+   ],
+   "source": "supportGameplay",
+   "read": "2026-08-16",
+   "confidence": "firm; all quoted or closely paraphrased from the current article",
+   "recommendation": "THREE SENTENCES MAXIMUM ON RANKED, the same discipline the Live plan applied. No point values, no tier names, no league list. Unlike Live, Pocket's ranked system IS officially documented in this FAQ, which is worth noting in the source note as a contrast, but the detail is still not what a beginner needs."
+  },
+  "collectingSide": {
+   "plain": "The part of the app that is not battling at all: a card dex, binders and display boards you arrange and can show other players, and cosmetic flair on cards.",
+   "detail": [
+    "Binders and display boards can be set private, public, or visible only to friends; the default is private (supportSharing).",
+    "The card dex shows what you have not collected as a collector number, and tapping it reveals the card's data without its artwork (collectingGuide).",
+    "Flair is cosmetic and comes in two kinds, one for display and one for battle. Cards can be exchanged for flair, which removes copies from your collection (supportGameplay).",
+    "Gold frame flair is available for 1-, 2- and 3-diamond cards and not for parallel foils, 4-diamond-or-higher cards or promos (supportGameplay).",
+    "The app has 'immersive cards' whose illustrations are presented in a 3D-feeling way (appstore, officialSite).",
+    "The maximum number of binders, display boards and decks cannot be increased (supportGameplay)."
+   ],
+   "sources": [
+    "supportGameplay",
+    "supportSharing",
+    "collectingGuide",
+    "appstore"
+   ],
+   "read": "2026-08-16",
+   "confidence": "firm",
+   "note": "THE DIAMOND AND STAR RARITY LADDER IS A REAL THING IN THIS APP and the site already has /rarity.html about physical rarity symbols. Mentioning that Pocket has its own rarity marks is fine. Describing which are hard to get is not. Keep it to 'it has its own rarity ladder, and it is not the one on your physical cards'."
+  },
+  "paidTier": {
+   "plain": "Two ways to spend money, and neither is required. Poke gold is a currency you buy; the premium pass is a monthly subscription.",
+   "pokeGold": {
+    "whatItDoes": "Shortens waits, mostly. It can be spent to reduce the wait for a pack, to reduce a wonder pick wait, to restore an expired wonder pick, and on event hourglasses for solo event battles.",
+    "limits": "You can hold at most 3,600 Poke gold, and you can spend at most 720 a day on shortening pack waits, reset at 6:00 a.m. UTC.",
+    "warning": "Once spent it cannot be restored, and Pokemon says plainly it will not help with such requests.",
+    "quote": "Please keep in mind that once Poke gold is used, it cannot be restored. We appreciate your understanding as we are unable to assist with such inquiries.",
+    "boughtVia": "The App Store or Google Play, or the Xsolla-operated official web store, which is not available in all regions.",
+    "sources": [
+     "supportGameplay",
+     "supportPurchase",
+     "supportWebStore"
+    ],
+    "read": "2026-08-16",
+    "confidence": "firm"
+   },
+   "premiumPass": {
+    "whatItIs": "A paid monthly subscription giving in-game benefits.",
+    "quote": "The premium pass is a paid service that allows you to receive several in-game benefits for a set monthly fee.",
+    "source": "supportPurchase",
+    "read": "2026-08-16",
+    "benefitsKnown": "Extra pack stamina and premium mission progress are named as transferable benefits (supportPurchase). The official collecting guide, published 2024-11-25, described it as giving additional daily packs and exclusive missions.",
+    "price": {
+     "figure": "9.99 USD per month",
+     "source": "collectingGuide",
+     "published": "2024-11-25",
+     "confidence": "SINGLE-SOURCED AND NEARLY TWO YEARS OLD. The current support article deliberately does not state a price and sends you to the in-game screen. RECOMMENDATION: do not print a price. Say it is a monthly subscription and that the app shows the current price. A wrong price on a page about somebody else's product is worse than no price.",
+     "read": "2026-08-16"
+    },
+    "gotcha": "The subscription attaches to the Apple or Google account, not to the save data, which is why it appears to vanish when somebody changes device or account. Pokemon's article is mostly about this. One line at most on our page, if any.",
+    "confidence": "firm that it exists and is monthly; everything about its contents is dated or version-dependent"
+   },
+   "honestFraming": "State the paid parts plainly and without either recommending or warning against them: the free daily packs are the game, and money buys speed, extra packs and cosmetics. That is accurate to every source read and it does not editorialise."
+  },
+  "otherThingsWorthKnowing": [
+   {
+    "claim": "The in-game day rolls over at 6:00 a.m. UTC, and daily rewards not claimed before then are gone.",
+    "quote": "The date changes at 6:00 a.m. (UTC).",
+    "source": "supportGameplay",
+    "read": "2026-08-16",
+    "note": "A GOOD TIP AND AN EASY ONE TO GET WRONG IN ROCHESTER: 6:00 UTC is 2:00 a.m. Eastern in summer and 1:00 a.m. in winter. State the UTC time as Pokemon does and let the reader convert, or give the local time WITH the daylight-saving caveat. Do not print one local time as if it were fixed."
+   },
+   {
+    "claim": "There is no free-text chat with strangers described anywhere in the social features. The documented social surface is friends, trading, sharing, wishlists, thanks and public binders.",
+    "source": "supportSharing, supportTrading",
+    "read": "2026-08-16",
+    "confidence": "ESTABLISHED BY ABSENCE, not by a statement. Live has an explicit official 'no chat' statement (tcgLiveResearch.howToPlayDigital.noChat); Pocket does not. If the page says anything about this it must be worded as what the app offers, not as what it forbids. Better: leave it out, or ask the owner, who plays it."
+   },
+   {
+    "claim": "Player names can be changed but then lock for 30 days, and inappropriate names can be changed for you.",
+    "source": "supportGameplay",
+    "read": "2026-08-16"
+   },
+   {
+    "claim": "Date of birth cannot be changed once set.",
+    "source": "supportGameplay",
+    "read": "2026-08-16",
+    "note": "Worth one clause in a tips list aimed at younger readers or their parents. It is irreversible and it gates the account-linking options."
+   },
+   {
+    "claim": "The app has display quality and frame rate cap settings for slower phones.",
+    "source": "supportTechnical",
+    "read": "2026-08-16",
+    "note": "Genuinely useful for a reader on an older phone, and nobody else's guide leads with it."
+   }
+  ]
+ },
+ "vsLive": {
+  "_note": [
+   "THE COMPARISON A READER ACTUALLY WANTS: which of these two free official",
+   "apps should I install. Every Live cell comes from data/tcg-live.json and",
+   "names the key inside it, so the two pages cannot drift apart. Do not",
+   "re-fetch Live facts; fix them in that file if they are wrong.",
+   "",
+   "BOTH PAGES SHOULD CARRY THE SAME TABLE, or at least the same rows in the",
+   "same order, so a reader landing on either one gets the same answer. Whoever",
+   "builds second should copy rather than reinvent."
+  ],
+  "theOneLineAnswer": "Live is the card game, digitally, with the same rules and the code cards from your packs. Pocket is a smaller, faster game of its own on your phone, with free packs every day and nothing to do with your code cards. If you want to learn or play the real game, Live. If you want something fun on the bus, Pocket. Installing both costs nothing.",
+  "rows": [
+   {
+    "question": "What is it",
+    "pocket": "A mobile collecting-and-battling game with its own reduced rules",
+    "pocketSource": "supportGameplay",
+    "live": "The official digital version of the physical card game",
+    "liveSource": "tcgLiveResearch.sources.tcgl"
+   },
+   {
+    "question": "Where it runs",
+    "pocket": "iPhone, iPad, Android. Phones and tablets only.",
+    "pocketSource": "officialSite",
+    "live": "iPhone, iPad, Android, Windows, Mac",
+    "liveSource": "tcgLiveResearch.howToGet.platforms"
+   },
+   {
+    "question": "Price",
+    "pocket": "Free, with optional in-app purchases",
+    "pocketSource": "supportGameplay",
+    "live": "Free, with optional in-app purchases",
+    "liveSource": "tcgLiveResearch.howToGet.free",
+    "note": "Identical, and worth saying so rather than leaving the row out. 'Which one costs money' is a real question and the answer is neither."
+   },
+   {
+    "question": "Account needed",
+    "pocket": "No Pokemon account. Optionally link a Nintendo, Google or Apple account to protect your save.",
+    "pocketSource": "supportAccount",
+    "live": "Yes, a free Pokemon account (Pokemon Trainer Central, formerly Pokemon Trainer Club)",
+    "liveSource": "tcgLiveResearch.howToGet.account",
+    "note": "THE MOST PRACTICAL ROW IN THE TABLE for somebody deciding what to install in the next two minutes."
+   },
+   {
+    "question": "Deck size",
+    "pocket": "20 cards, two copies of a name, no Energy cards",
+    "pocketSource": "deckGuide",
+    "live": "60 cards, the game's real deck rules, checked for you",
+    "liveSource": "tcgLiveResearch.howToPlayDigital.deckBuilding.rules"
+   },
+   {
+    "question": "Same rules as your physical cards",
+    "pocket": "No. Pokemon says so outright.",
+    "pocketSource": "supportGameplay",
+    "live": "Yes",
+    "liveSource": "tcgLiveResearch.howToPlayDigital",
+    "note": "THE ROW THE PAGE EXISTS FOR. If a reader takes one thing from the table it should be this one."
+   },
+   {
+    "question": "Pack code cards",
+    "pocket": "Not used. The code in your pack is not for this app.",
+    "pocketSource": "supportBoosterPack",
+    "live": "Yes. Every booster pack code gives a digital pack from the same set.",
+    "liveSource": "tcgLiveResearch.codeCards.whatABoosterCodeGives"
+   },
+   {
+    "question": "Free packs without spending anything",
+    "pocket": "Two a day, on a twelve-hour timer",
+    "pocketSource": "collectingGuide",
+    "live": "Earned by playing, through quests, leveling and currencies rather than on a clock",
+    "liveSource": "tcgLiveResearch.howToPlayDigital.currencies",
+    "note": "CHECK THE LIVE WORDING against that file before printing. It is a summary of two currencies, not a quoted claim, and it must not read as if Live hands out daily packs."
+   },
+   {
+    "question": "Trading",
+    "pocket": "Yes, with friends, after 14 days, with restrictions",
+    "pocketSource": "supportTrading",
+    "live": "No. Pokemon states players cannot trade in Live.",
+    "liveSource": "tcgLiveResearch.relationToPhysical.noTrading",
+    "note": "The most counterintuitive row and the one people will remember."
+   },
+   {
+    "question": "Playing the computer",
+    "pocket": "Solo battles, step-up battles and solo events, plus an Auto option that plays your side for you",
+    "pocketSource": "supportGameplay for the solo modes; wikipedia and game8AutoBattle for Auto",
+    "live": "The Learning Lab, guided lessons against the computer, plus a mode for testing a deck. No solo campaign.",
+    "liveSource": "tcgLiveResearch.howToPlayDigital.gameModes.solo",
+    "note": "THE ROW THAT CARRIES THE OWNER'S HOOK, and it needs its sourcing asymmetry respected: the Live cell is official, the Auto half of the Pocket cell is not."
+   },
+   {
+    "question": "Match length",
+    "pocket": "Short. A 20-card deck and three points end a game quickly.",
+    "pocketSource": "deckGuide (deck size and win condition); the 'short' characterisation is ours, not a source's",
+    "live": "A full-length game of the real card game",
+    "liveSource": "tcgLiveResearch",
+    "note": "Do not print turn caps. See reducedRuleset.differences 'Match length'."
+   },
+   {
+    "question": "Which one to install to learn the real game",
+    "pocket": "It taught the owner the shape of it, and it is the gentler start",
+    "live": "This is the one that teaches and then enforces the actual rules",
+    "note": "THE TABLE SHOULD END ON A ROW THAT ANSWERS THE QUESTION RATHER THAN LEAVING IT OPEN. Both cells are true and the page should be comfortable saying both."
+   }
+  ],
+  "whatNotToDoInTheComparison": [
+   "Do not rank them. Neither app is better; they are different games and both are free.",
+   "Do not repeat the Live page's code card material here. One sentence and a link.",
+   "Do not repeat this page's ruleset material on the Live page. Live's ruleset section is about being software, not about being different.",
+   "Do not compare install sizes as a criticism. Recording both is fine; 'Live is bloated' is a review and this site does not review."
+  ]
+ },
+ "tipsForNewPlayers": {
+  "_note": "Six or seven on the page, no more, same discipline as the Live plan. Ordered here strongest first. `basis` says whether the tip is a sourced fact or advice derived from one.",
+  "tips": [
+   {
+    "tip": "Link an account on day one.",
+    "why": "Without one, reinstalling the app or losing the phone loses everything, and Pokemon says you will not be able to recover it yourself.",
+    "basis": "supportPurchase, supportAccount, read 2026-08-16",
+    "strength": "the consequence is quoted from Pokemon; the advice follows directly"
+   },
+   {
+    "tip": "Open your two free packs every day, and claim your daily rewards before the day rolls over at 6:00 a.m. UTC.",
+    "why": "The packs are the whole free game, and unclaimed daily mission rewards are gone once the date changes.",
+    "basis": "collectingGuide and supportGameplay, read 2026-08-16",
+    "strength": "both halves quoted"
+   },
+   {
+    "tip": "Do not panic when there is no Battle button. Battles unlock at player level 3, and you level up by opening packs and using Wonder Pick.",
+    "why": "It is the first thing a new player thinks is broken.",
+    "basis": "supportGameplay for the level 3 unlock, read 2026-08-16. The 'you level up by opening packs' half came through a search summary of unlockBattlesGuide and should be worded loosely.",
+    "strength": "the unlock is quoted; the route to it is softer"
+   },
+   {
+    "tip": "Use a rental deck for your first matches.",
+    "why": "You do not have to own or build anything to play a real match, and each rental deck has a limited number of uses, so spend them on learning rather than saving them.",
+    "basis": "supportGameplay, read 2026-08-16",
+    "strength": "the mechanic is quoted; the advice follows"
+   },
+   {
+    "tip": "Play the solo battles before you play people, and watch what the computer does with its turn.",
+    "why": "It is how I learned, and it is free, unlimited and nobody is waiting on you.",
+    "basis": "supportGameplay confirms solo battles exist; the rest is the page's own argument and the owner's experience",
+    "strength": "framed as advice, which needs no source, and it should read that way on the page"
+   },
+   {
+    "tip": "If you never pull the card you want, buy it with pack points.",
+    "why": "Opening packs from an expansion earns pack points for that expansion, they never expire, and they buy a specific card from it.",
+    "basis": "supportGameplay, read 2026-08-16",
+    "strength": "quoted verbatim. THE MOST USEFUL TIP ON THE LIST for somebody arriving from the physical hobby, because it is the thing that has no physical equivalent."
+   },
+   {
+    "tip": "Add friends. Trading and sharing both unlock two weeks in and both need them, and friends' pack openings feed your Wonder Pick.",
+    "why": "The two-week timer starts when you start, so a friends list built in week one is ready when the features are.",
+    "basis": "supportTrading, supportSharing, read 2026-08-16",
+    "strength": "the 14-day unlocks are quoted"
+   },
+   {
+    "tip": "Turn the display quality down if it stutters.",
+    "why": "The app has Display Quality and Frame Rate Cap settings under Menu > Other > Settings.",
+    "basis": "supportTechnical, read 2026-08-16",
+    "strength": "quoted. Probably the first one to cut if the list runs long."
+   },
+   {
+    "tip": "Set your date of birth carefully. It cannot be changed.",
+    "why": "It is irreversible and it decides which accounts you are allowed to link.",
+    "basis": "supportGameplay and supportAccount, read 2026-08-16",
+    "strength": "quoted. Worth keeping if the page has a parent-facing line at all."
+   }
+  ],
+  "beginnerMistakes": [
+   {
+    "mistake": "Trying to redeem the code card from a physical pack in Pocket.",
+    "reality": "That code is for Pokemon TCG Live. Pocket has no pack code redemption at all.",
+    "source": "supportBoosterPack",
+    "read": "2026-08-16",
+    "note": "THE NUMBER ONE MISCONCEPTION FOR THIS AUDIENCE, exactly as 'the digital pack is a copy of my pack' is for the Live page. It belongs high on the page, not buried in a mistakes list."
+   },
+   {
+    "mistake": "Learning on Pocket and then bringing Pocket's rules to a table.",
+    "reality": "The deck is 60 cards, there are Energy cards in it, there are six Prize cards, and the Bench holds five.",
+    "source": "howToPlayResearch",
+    "read": "2026-08-16",
+    "note": "The page's second most important correction, and the reason /how-to-play.html has to be linked early rather than at the end."
+   },
+   {
+    "mistake": "Thinking Pocket cards are worth something, or that they are the cards on our set pages.",
+    "reality": "They are their own expansions with their own codes, many are exclusive to the app, and nothing in it converts to anything physical.",
+    "source": "supportGameplay",
+    "read": "2026-08-16"
+   },
+   {
+    "mistake": "Spending Poke gold to rush pack timers early.",
+    "reality": "It cannot be undone, Pokemon will not restore it, and the packs arrive free twice a day anyway.",
+    "source": "supportGameplay",
+    "read": "2026-08-16",
+    "note": "Word this as what the app does, not as financial advice, and do not tell anybody what to buy or not buy."
+   }
+  ]
+ },
+ "changedRecently": [
+  {
+   "what": "Version 1.7.1 shipped with a new expansion, Ruler of the Skies, plus a revised Missions screen, a '4-diamond or higher guaranteed' booster pack category, deck ordering, and deck sharing via 2D pattern codes",
+   "when": "2026-08-06 on iOS, 2026-08-04 on Google Play",
+   "source": "appstore, googleplay",
+   "read": "2026-08-16",
+   "note": "DO NOT PUT THE GUARANTEED-CATEGORY ITEM ON THE PAGE. A 'guaranteed' pack category is a rarity-mechanics claim and it sits close enough to the odds rule to be left alone. It is recorded here only so a future editor knows why it is absent."
+  },
+  {
+   "what": "Deck sharing by scannable 2D pattern code was added, with a Scan Code and a Read Scanned Image route",
+   "when": "documented in the Technical FAQ edited 2026-05-12, shipped by 1.7.1",
+   "source": "supportTechnical, appstore",
+   "read": "2026-08-16"
+  },
+  {
+   "what": "The official Pokemon TCG Pocket Web Store opened, operated by Xsolla, selling Poke gold outside the app stores",
+   "when": "support article created 2026-01-05",
+   "source": "supportWebStore",
+   "read": "2026-08-16"
+  },
+  {
+   "what": "Card sharing between friends was added",
+   "when": "Sharing FAQ edited 2025-10-30; App Store copy still calls it new",
+   "source": "supportSharing, appstore",
+   "read": "2026-08-16"
+  },
+  {
+   "what": "Trading was added, then repeatedly widened: recent booster pack cards, 2-star and Shiny rarities became tradable, and trade tokens are being retired in favour of shinedust",
+   "when": "Trading FAQ created 2025-01-28, edited 2026-07-30",
+   "source": "supportTrading, appstore",
+   "read": "2026-08-16"
+  },
+  {
+   "what": "Mega Evolution Pokemon ex entered the game, worth more points on a Knock Out",
+   "when": "not dated by any source read",
+   "source": "bulbapedia",
+   "read": "2026-08-16",
+   "confidence": "single-sourced and undated. Recorded, not for publication."
+  },
+  {
+   "what": "A known crash when opening packs on two specific Motorola devices, with cards still awarded",
+   "when": "notice created 2026-07-27",
+   "source": "supportGameplay's sibling article 51825646356756",
+   "read": "2026-08-16",
+   "note": "Transient support notice. Not page material. Recorded as evidence of how fast this app's documentation moves."
+  }
+ ],
+ "singleSourced": [
+  "THE AUTO FEATURE, the page's hook. Wikipedia plus a third-party guide site. No Pokemon-owned page documents it. See theHook.theAutoFeature.",
+  "The Bench limit of three. Bulbapedia only. No official Pokemon page states it.",
+  "Turn caps of roughly 30 in versus and 50 in solo. Bulbapedia only. Not for publication.",
+  "Points per Knock Out by Pokemon type: one, two for ex, three for Mega ex. Bulbapedia only.",
+  "The first-turn restriction on attaching Energy. Bulbapedia only; the related quote about zero-Energy attacks IS official.",
+  "The premium pass price of 9.99 USD. One official article, published 2024-11-25, never obviously revised. Do not print it.",
+  "The New Zealand soft launch date. Wikipedia only, and not worth the page.",
+  "That the beginner deck you are given depends on which pack you opened first. A search summary of an official article that could not be read directly."
+ ],
+ "couldNotVerify": [
+  {
+   "question": "Does Pokemon itself document the Auto feature anywhere?",
+   "status": "No. Nine of the thirteen Pocket support articles were read in full and grepped; the Battle Rules FAQ, the official site, both store listings and the readable pokemon.com strategy guides were all checked. Nothing.",
+   "recommendation": "Describe what the app does, do not attribute it to Pokemon, and do not cite a wiki as an authority on the page. See theHook.theAutoFeature.howToWriteIt."
+  },
+  {
+   "question": "What is the Auto button actually labelled in the English app?",
+   "status": "Unknown. Third-party guides call it auto-battle; the in-game label was not confirmed by anyone with the app open.",
+   "recommendation": "THE OWNER HAS THE APP. One screenshot of that screen settles the naming, the placement and whether it is on by default. Ask before shipping. Do not guess a label."
+  },
+  {
+   "question": "How many Pokemon can be on the Bench, officially?",
+   "status": "Only Bulbapedia says three. No official page found states a Bench limit.",
+   "recommendation": "Either say 'the Bench is smaller than the five you get with physical cards' without a number, or print three and attribute it to the wiki in the source note. Do not print three unattributed."
+  },
+  {
+   "question": "Is there any physical-product crossover, in either direction, ever?",
+   "status": "None found on 2026-08-16 across official and third-party sources. Not the same as an established never.",
+   "recommendation": "Write it in the present tense: there is no crossover. Do not write 'there has never been'."
+  },
+  {
+   "question": "Does the app work offline?",
+   "status": "Not stated anywhere. The technical FAQ is all network errors, and versus battles have a reconnection window, which implies an always-online design without saying so.",
+   "recommendation": "Leave it out, or ask the owner. Do not infer it onto the page."
+  },
+  {
+   "question": "Is there chat, and can strangers message a child playing this?",
+   "status": "No official statement either way for Pocket, unlike Live which has one. The documented social features are all structured (friends, trades, shares, wishlists, thanks, public binders).",
+   "recommendation": "The safest and most useful thing a parent-facing line can say is what IS there. Do not state that there is no chat without a source."
+  },
+  {
+   "question": "What does the premium pass currently include and cost?",
+   "status": "The current support article deliberately refuses to say and points at the in-game screen. The only figures found are from November 2024.",
+   "recommendation": "Say it is a monthly subscription and that the app shows what it costs. No numbers."
+  },
+  {
+   "question": "How often do new expansions arrive?",
+   "status": "Not stated by any official source. Expansion codes run A1, A1a, A2 onward and the app was on 'Ruler of the Skies' in August 2026, but no cadence is published.",
+   "recommendation": "Say new expansions arrive regularly. Do not say 'monthly' or name a schedule."
+  }
+ ],
+ "sourcesReachable": {
+  "reachable": [
+   "support.pokemon.com via the Zendesk JSON API: /api/v2/help_center/articles/search.json?query=...&locale=en-us listed all 13 Pocket articles, and /api/v2/help_center/en-us/articles/<id>.json returned each full body with created, updated and edited dates. THIS IS THE REASON THIS FILE EXISTS and it is worth putting in CLAUDE.md, as the Live research also concluded.",
+   "tcgpocket.pokemon.com, the official site, to plain curl. Thin and stale but useful for the platform links and the developer credit.",
+   "The iTunes lookup API for the App Store record: price, version, release dates, size, rating, languages, description and current release notes.",
+   "play.google.com as raw HTML, for the last-updated date and the description.",
+   "www.pokemon.com PARTIALLY, through WebFetch only: two /us/strategy/ articles answered on 2026-08-16 while a third and a /us/news/ article returned Imperva's block page. Plain curl to www.pokemon.com is refused outright with an Incapsula incident id. Treat it as unreliable rather than as blocked or as working.",
+   "en.wikipedia.org and bulbapedia.bulbagarden.net.",
+   "game8.co."
+  ],
+  "notReachable": [
+   "support.pokemon.com human-facing HTML. Same as the Live research found: use the API.",
+   "www.pokemon.com/us/strategy/how-to-unlock-battles-in-pokemon-tcg-pocket, in all three variants tried (/us/strategy/, /us/features/, /uk/features/). This is the one official page whose content we actually wanted and could not get.",
+   "www.pokemon.com/us/news/pokemon-tcg-pocket-ruler-of-the-skies-expansion-coming-soon.",
+   "web.archive.org, which this tooling refuses outright, so the usual workaround for an Imperva-blocked page is not available.",
+   "A note on the shell: plain `curl` output is truncated by this repo's rtk hook. Every fetch above was run as `rtk proxy 'curl ... -o file'` to get the whole body. Anyone repeating this research will otherwise get a silently truncated JSON body and a parse error that looks like a broken API."
+  ],
+  "deliberatelyNotFetched": [
+   "Anything that states Pocket's offering rates, in any form, at any url. See forbidden.offeringRates.",
+   "Third-party gift code trackers beyond confirming that such lists exist. See forbidden.giftCodeLists."
+  ]
+ },
+ "willGoStale": {
+  "note": "Software, and it moves faster than the Live client does. Two years old at the time of writing and on its seventh major version, with a new expansion every few weeks.",
+  "everythingVersioned": "The current expansion name, the version number, and anything in changedRecently.",
+  "premiumPass": "Contents and price. Already stale; that is why no price is recommended for the page.",
+  "trading": "Widened repeatedly since launch and still changing; trade tokens are mid-retirement.",
+  "deviceRequirements": "Raised over time, as Live's were twice in eighteen months.",
+  "socialFeatures": "Sharing arrived a year after launch. Assume more will.",
+  "theAutoFeature": "Third-party sources record its AI being adjusted in updates. The feature existing is stable; how well it plays is not.",
+  "whatWillNotGoStale": "The reduced ruleset relative to the physical game, the fact that pack codes are for Live, and the fact that it is free. Those are the page's spine and they are the parts worth writing at length."
+ },
+ "awards": {
+  "_note": [
+   "ADDED 24 AUGUST 2026 AT THE OWNER'S REQUEST, and his wording needed",
+   "correcting before it could go on the page. He said it 'won app of the year",
+   "from apple as best game'. Apple gave it iPhone GAME of the Year, which is a",
+   "different category from iPhone App of the Year (that went to Tiimo), and it",
+   "won in the 2025 awards for a game that launched in October 2024. Print the",
+   "award year explicitly or the ordering reads like a mistake.",
+   "",
+   "BOTH ARE WINS AND BOTH ARE READ OFF THE AWARDING COMPANY'S OWN NEWSROOM,",
+   "not off coverage. It was also a NOMINEE for Best Mobile Game at The Game",
+   "Awards 2024 and lost to Balatro, and was not nominated in 2025. Do not let",
+   "'award winning' drift into implying a Game Awards win."
+  ],
+  "apple": {
+   "what": "iPhone Game of the Year",
+   "which": "Apple's 2025 App Store Awards",
+   "when": "Announced 4 December 2025.",
+   "quote": "Apple's own citation calls the artwork amazing and the battles thrilling, and describes it as a remarkably fun evolution of Pokemon card battles.",
+   "source": "https://www.apple.com/newsroom/2025/12/apple-unveils-the-winners-of-the-2025-app-store-awards/"
+  },
+  "google": {
+   "what": "Best Game",
+   "which": "Google Play's Best of 2025",
+   "when": "Announced 18 November 2025.",
+   "source": "https://blog.google/products-and-platforms/platforms/google-play/best-apps-games-2025/"
+  },
+  "plain": "Apple named it iPhone Game of the Year for 2025, and Google Play made it Best Game.",
+  "notWon": "It was nominated for Best Mobile Game at The Game Awards in 2024 and did not win."
+ }
 }

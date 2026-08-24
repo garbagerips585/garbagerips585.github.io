@@ -16,7 +16,7 @@
 // WHY THERE ARE TWO PAGES AND NOT ONE, AND NOT THREE
 // ---------------------------------------------------------------------------
 //
-// Tim asked for one thing: "can we build out a Topps cards guide, with all the
+// The owner asked for one thing: "can we build out a Topps cards guide, with all the
 // info about the topps cards, what sets they came out with, what are the top
 // 100 cards raw and graded values". That is a reference guide and two rankings,
 // and they are read by the same person at different moments.
@@ -129,16 +129,16 @@
 // CLAUDE.md records that /most-valuable-cards.html carries 100 "check on
 // PriceCharting" links while /top-graded.html prints the same host's product
 // PATH on all 100 of its rows as plain text and links none of it, and that
-// which of those is right "is Tim's call". These pages follow /top-graded.html:
+// which of those is right "is the owner's call". These pages follow /top-graded.html:
 // two hundred more outbound links would be the largest single addition of them
 // the site has ever made, and making it here would settle an open question in
 // one file, quietly, which is precisely the mistake CLAUDE.md spends four
 // paragraphs on. The path is printed on every row, so every figure is still
-// checkable by hand. If Tim settles it the other way, both these lists and
+// checkable by hand. If the owner settles it the other way, both these lists and
 // /top-graded.html change together, in one edit.
 //
 // ---------------------------------------------------------------------------
-// NOBODY SAYS "DEAREST". Tim, 18 August 2026, reading the page he had just been
+// NOBODY SAYS "DEAREST". The owner, 18 August 2026, reading the page he had just been
 // handed: "not sure why it says the priciest cards ... not sure what priciest
 // means". It is British English for "most expensive", it is this file's
 // vocabulary rather than the site's, and it stopped the site's own owner dead.
@@ -156,7 +156,7 @@
 // with none, off the same data, which is why nobody noticed: the pictures were
 // already in the tree and one of the two builders was not asking for them. A
 // guide whose entire pitch is "most collectors have never knowingly held one of
-// these" cannot work without showing one. Tim: this page should be "loaded with
+// these" cannot work without showing one. The owner: this page should be "loaded with
 // image examples of everything".
 //
 // WHAT IT SHOWS NOW, and the density is the decision rather than the maximum:
@@ -402,7 +402,7 @@ function row(c, i, key) {
 
 const toppsOnRawTop100 = await (async () => {
   // How many rows of the SITE-WIDE raw hundred are Topps cards. This is the one
-  // number behind Tim's "most don't realize how valuable they are", and it is
+  // number behind the owner's "most don't realize how valuable they are", and it is
   // read off the published list rather than remembered: build-top100.mjs counts
   // it the same way for its own honesty block.
   try {

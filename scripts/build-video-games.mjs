@@ -759,7 +759,18 @@ const STYLE = `<style>
 .vg-guide{margin-top:var(--s3);font-size:var(--t-sm)}
 .vg-cite{margin-top:var(--s3);font:400 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);
   display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.vg-cite a{color:var(--ink)}
+/* THE CITATION LINKS ARE TAP TARGETS AND SOME OF THEM SPELL "X".
+   .vg-cite is a flex row, so every anchor in it computes to display:block and
+   sizes to its text. For a Metacritic link the text is the VERSION name, which
+   is right (a reader wants Sun or Moon, not two links both reading Metacritic)
+   and which makes "X" and "Y" seven pixels wide and eighteen tall. WCAG 2.2
+   asks for 24x24 and the inline-text exemption does not apply here, because
+   these are flex items rather than words inside a sentence. A minimum box
+   fixes it without touching the link text: "X" now sits centred in a 24px
+   square and the wider ones are unchanged. Found by scripts/qa-sweep.mjs at
+   390px, 22 targets on this page. */
+.vg-cite a{color:var(--ink);display:inline-flex;align-items:center;justify-content:center;
+  min-height:24px;min-width:24px}
 
 .vg-sum{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s3);margin:var(--s5) 0}
 .vg-sum div{border:3px solid var(--keyline);border-radius:var(--r);padding:var(--s3);
@@ -871,7 +882,7 @@ ${timeline}
 ${undatedBlock}
 
     ${/* THE COUNTING RULES MOVED TO THE FOOT AND FOLDED SHUT, 24 August 2026.
-          Tim: "if we need this text on this page then lets move it to the bottom
+          The owner: "if we need this text on this page then lets move it to the bottom
           so its not taking up the entire top of the page. if its for SEO great
           put it at the bottom."
           It is not placeholder, which is the other thing he asked: it is four

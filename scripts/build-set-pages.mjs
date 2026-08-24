@@ -455,7 +455,7 @@ const ogCards = new Set(
 
 // THREE SOURCES NOW, AND THE CHAIN IS SHARED RATHER THAN WRITTEN HERE.
 //
-// A person still wins first: `prices` in data/psa10.json is what Tim typed
+// A person still wins first: `prices` in data/psa10.json is what the owner typed
 // through the spreadsheet and a sync must never overwrite a number he checked
 // himself. PriceCharting (data/graded.json) is second, which is the site's
 // source for every other figure since 18 August 2026. pokemonpricetracker's
@@ -596,7 +596,7 @@ try {
 // The full card list per set, written by sync-cards.mjs. Until this existed the
 // English guides showed rarity totals and eight chase cards and nothing else,
 // while the imported guides listed every card, which was exactly backwards: the
-// sets Tim actually rips had less detail than the ones he does not.
+// sets the owner actually rips had less detail than the ones he does not.
 let checklists = {};
 try {
   const dir = join(ROOT, "public/data/cards");
@@ -1434,7 +1434,7 @@ for (const cs of CARD_SETS) {
 // Matching is by name WITHIN THE SET the hit already names, which is a much
 // smaller haystack than the whole catalogue and is why this is safe enough to
 // do at all. Where a name appears more than once in a set, usually the same
-// Pokemon at several rarities, the rarity Tim typed breaks the tie. If it
+// Pokemon at several rarities, the rarity the owner typed breaks the tie. If it
 // cannot, the card stays unresolved and is listed as text rather than shown as
 // the wrong scan.
 const CARD_INDEX = JSON.parse(await readFile(join(ROOT, "public/data/card-index.json"), "utf8"));
@@ -1619,7 +1619,7 @@ const clockMS = (sec) => (sec ? `${Math.floor(sec / 60)}:${String(sec % 60).padS
 // three lines above it has already said the set name and the guide is not a
 // list of playlists, it is the Pitch Black page. "Pokemon Chaos Rising ETB
 // Opening Series" becomes "ETB Opening Series", which is the half of the title
-// that tells two runs apart. The optional Pokemon prefix is there because Tim
+// that tells two runs apart. The optional Pokemon prefix is there because the owner
 // names some playlists "Pokemon <set>" and some "<set>", and the trailing
 // channel name is there because he adds it to some and not others.
 // FALLS BACK TO THE WHOLE TITLE rather than to a stub: if the trim leaves fewer
@@ -1866,7 +1866,7 @@ for (const v of videos) for (const s of v.sets || []) ripsBySet[s] = (ripsBySet[
 // of an ETB, a bundle, an ex Premium Collection and a loose pack. It is not
 // true of a First Partner Illustration Collection, which holds one promo pack
 // plus TWO ASSORTED boosters: this site's own First Partner guide says "The two
-// boosters are assorted rather than a named set: Tim's Series 1 box held one
+// boosters are assorted rather than a named set: The owner's Series 1 box held one
 // Phantasmal Flames and one Mega Evolution pack."
 //
 // WHAT THAT SHIPPED AS: the two First Partner rips are tagged with the sets
@@ -2190,7 +2190,7 @@ function productBand(s, cls) {
              646039, the Surging Sparks Half Booster Box, and 709097, the Mega
              Evolution Ascended Heroes Collection (Larry) -- that reads as a
              broken image rather than as an absence, which is the worst way to
-             show a gap and is exactly what Tim asked to be rid of.
+             show a gap and is exactly what the owner asked to be rid of.
 
              IT IS NOT A DATA GAP AND THAT WAS CHECKED BEFORE ANYTHING CHANGED.
              Both urls are in data/no-scan.json's `deadUrls`: TCGplayer's own
@@ -2873,7 +2873,7 @@ function setPage(s) {
 
     (() => {
       // A COUNT, THE WAYS IN, AND ONE THING TO PRESS PLAY ON. Redesigned
-      // 20 August 2026 on Tim's own note, looking at this section on Pitch
+      // 20 August 2026 on the owner's own note, looking at this section on Pitch
       // Black: "right now its just a list of text, looks pretty big and boring,
       // maybe there is a simpler way we can show how many packs / videos we
       // ripped, just by showing a number and linking to the playlist page".
@@ -2994,7 +2994,7 @@ ${rows}
         .sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
       // THE SAME CARD PULLED TWICE IS ONE CARD AND A COUNT, NOT TWO TILES.
       //
-      // Tim: "when we hit the same card more than once, don't show it twice on
+      // The owner: "when we hit the same card more than once, don't show it twice on
       // the pages where we show hits, just show the card and then make a new
       // badge for showing 2x or 3x or however many we have". Chespin appeared
       // twice on the Chaos Rising guide, identical scan, identical price,
@@ -3145,7 +3145,7 @@ ${rows}
       ${priced
         .map(
           (h) => `<li class="mine${h.kind === "promo" ? " is-promo" : ""}">
-        ${/* A TILE WITH NO SCAN IS NOT AN EMPTY BOX, since 22 August 2026. Tim,
+        ${/* A TILE WITH NO SCAN IS NOT AN EMPTY BOX, since 22 August 2026. The owner,
               about the whole site: "there should be no empty place holder
               images anywhere on the site." Every one of these is a row whose
               card NAME matches nothing on this set's checklist, so there is no

@@ -26,7 +26,7 @@
 //
 //   1. TITLE FIRST, through deriveTags() in shared/taxonomy.mjs. That is the
 //      same matcher that tagged every video on the site, pointed at the
-//      playlist title instead of a video title. Tim names the product in the
+//      playlist title instead of a video title. The owner names the product in the
 //      title on purpose ("Perfect Order Booster Bundle Series", "Ascended
 //      Heroes Elite Trainer Box Pack Series"), so the title is the most direct
 //      statement of intent there is. It resolves the SET on all 20 live
@@ -47,7 +47,7 @@
 // The title wins over the vote where they disagree, and one playlist disagrees:
 // "Journey Together Booster Pack Opening Series" holds two videos and both are
 // tagged `blister`. The title says booster pack, the cover shows a Journey
-// Together booster pack, and the report notes it. A playlist title is Tim's
+// Together booster pack, and the report notes it. A playlist title is the owner's
 // description of the run; the tags describe individual rips inside it.
 //
 // ------------------------------------------------ WHICH PHOTOGRAPH, AND WHOSE
@@ -95,7 +95,7 @@
 // product and all 11 name the SAME one. The other 10 show no product shot at
 // all, because `theProduct()` is stricter: it requires EVERY video in the run to
 // tag one set and one type, so a run holding one ex Box among its packs falls
-// out. This file is looser on purpose, because a COVER may lean on the title Tim
+// out. This file is looser on purpose, because a COVER may lean on the title the owner
 // wrote and a page making a claim in body copy should not. If you change either
 // join, re-run that comparison rather than assuming: a card showing an ETB that
 // links to a page showing a booster pack is the failure to avoid.
@@ -138,12 +138,12 @@ const TYPE_ROW = {
 };
 
 // Hits Only has no single product: 55 videos across 14 sets and 10 product
-// types, so there is nothing one photograph could honestly claim to be. Tim
+// types, so there is nothing one photograph could honestly claim to be. The owner
 // asked for something custom showing several product types instead, and this is
 // where the three it shows are chosen.
 //
 // MATCHED ON THE PLAYLIST ID rather than on the title, because the title is
-// Tim's and can change on YouTube without anything here noticing, and because
+// the owner's and can change on YouTube without anything here noticing, and because
 // "no set and no product tag" is a state a MIS-TAGGED playlist could also reach.
 // A named exception fails loudly if the playlist goes away; a rule that quietly
 // catches anything untagged would swallow a tagging bug instead.
@@ -431,7 +431,7 @@ const stamped = {
     const c = covers[p.id];
     if (!c) return { ...p };
     // setId AND setLabel TRAVEL WITH THE COVER so /playlists.html can group the
-    // grid by set. Tim, 23 August 2026: "sort them by set type so every product
+    // grid by set. The owner, 23 August 2026: "sort them by set type so every product
     // from the set are showing together." This file is the only one that works
     // out which product a playlist opens, so it is the only one that can say
     // which SET that product belongs to; build-proto.mjs reading a second file

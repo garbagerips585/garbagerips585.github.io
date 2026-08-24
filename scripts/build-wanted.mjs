@@ -200,7 +200,7 @@ const usedStamps = [...priceStamps.values()].filter(Boolean);
 const rawSources = [...new Set(usedStamps.map((s) => s.priceSource).filter(Boolean))];
 const anyChecklistPrice = cards.some((c) => c.rawFrom === "checklist");
 
-/* GROUPED BY SET, NEWEST SET FIRST. Tim, 23 August 2026: "lets keep this page
+/* GROUPED BY SET, NEWEST SET FIRST. The owner, 23 August 2026: "lets keep this page
  * sorted by set". The list was in the order the cards were added to
  * data/wanted.json, which put three Ascended Heroes chases in three different
  * places once the list went from 10 cards to 29.
@@ -633,7 +633,7 @@ ${hunting.map((c, k) => cardTile(c, { eager: k < EAGER_TILES })).join("\n")}
 ${caught.map((c) => cardTile(c, { hunted: false })).join("\n")}
     </div>
     ${/* THE "packs we are opening looking for them" BAND IS GONE, 23 August
-          2026. Tim: "please remove all the copy and everything in the bottom
+          2026. The owner: "please remove all the copy and everything in the bottom
           section". It was a heading, a lede and nine cards linking to the newest
           rip of each set that prints something on this list, under a page whose
           whole job is the CARDS. It answered a question nobody arrives here
@@ -650,7 +650,7 @@ ${caught.map((c) => cardTile(c, { hunted: false })).join("\n")}
           not part of this band: it is the provenance for every price on the
           cards ABOVE, and this site's standing rule is that a page printing a
           price says where it came from and when it was read. Removing it would
-          leave 29 dollar figures on the page with no source. That is Tim's call
+          leave 29 dollar figures on the page with no source. That is the owner's call
           to make explicitly rather than mine to infer from a crop. */ ""}
     <p class="price-note">RAW PRICES ARE ${
       esc((rawSources.length === 1 ? rawSources[0] : "PRICECHARTING.COM").toUpperCase())

@@ -3,7 +3,7 @@
 //
 //   node scripts/build-what-to-buy.mjs
 //
-// THIS IS TIM IN A SHOP AISLE AND THAT IS THE WHOLE BRIEF. Somebody is standing
+// THIS IS THE OWNER IN A SHOP AISLE AND THAT IS THE WHOLE BRIEF. Somebody is standing
 // in front of a wall of Pokemon boxes priced between nine dollars and four
 // hundred, with a kid attached to one arm, and they do not know what an ETB is,
 // why one box is $10 and another is $180, or that the $300 booster box on a
@@ -58,7 +58,7 @@
 // THE COLLECTOR BAND, ADDED 17 AUGUST 2026, AND IT IS THE ONE BLOCK HERE THAT
 // IS NOT FOR A BEGINNER
 //
-// A GIFT GUIDE WAS BRIEFED AS ITS OWN PAGE AND TIM CUT IT DOWN TO THIS, which is
+// A GIFT GUIDE WAS BRIEFED AS ITS OWN PAGE AND THE OWNER CUT IT DOWN TO THIS, which is
 // worth recording because the argument for the page was not silly and somebody
 // will make it again. The case was that a gift buyer is a genuinely different
 // reader: they do not know what the recipient owns, they cannot ask without
@@ -97,7 +97,7 @@
 // difference is obvious and it is the whole lesson. Each names the other, and
 // the anchors are #one-card and #no-blind-single.
 //
-// THE WALK-AWAY FIGURE IS THE PART TIM CARED MOST ABOUT and it is computed
+// THE WALK-AWAY FIGURE IS THE PART THE OWNER CARED MOST ABOUT and it is computed
 // twice over from files this builder does not own. The multiple comes off
 // data/over-msrp.json's own bands, so it cannot disagree with /msrp.html. The
 // evidence under it is a RANGE across every dated first-party shop listing in
@@ -1121,7 +1121,7 @@ const EVIDENCE_URLS = [CHEAPEST, DEAREST]
 // =================================================================== the page
 
 const TITLE =
-  "What Pokemon cards should I buy? A guide for parents and beginners";
+  "What Pokemon Cards Should I Buy? A Guide for Parents";
 const DESC =
   `What to actually buy your kid, what it should cost, and what not to buy. Plain English, ` +
   `no jargon, every price sourced from Pokemon's own shop or from agreeing price references.`;

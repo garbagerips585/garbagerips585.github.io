@@ -596,7 +596,7 @@ async function resolveHits(vid) {
         // AND THEN THE SHEET'S OWN Raw NM COLUMN. A promo has no price in the
         // nightly feed by construction, and five of them had no hand-kept
         // `price` either, so /hall.html was dropping them outright and the rip
-        // pages printed "No market price". Tim's TCGplayer links gave each one a
+        // pages printed "No market price". The owner's TCGplayer links gave each one a
         // market figure; typed into the My Hits tab, it lands here. Last in the
         // chain, because it is frozen and the two above it are not.
         price: typeof h.price === "number" ? h.price
@@ -645,7 +645,7 @@ async function resolveHits(vid) {
     // TWO RULES, ONE PER VOCABULARY, AND THE INTL ONE IS THE STRICTER OF THEM.
     // pickIntlPrinting never reaches `same[0]`; see its own comment for the
     // whole argument and for why Goldeen still gets no number.
-    // THE RARITY IS TIM'S OWN DATA AND THE NUMBER IS DERIVED, WHICH IS THE
+    // THE RARITY IS THE OWNER'S OWN DATA AND THE NUMBER IS DERIVED, WHICH IS THE
     // OPPOSITE OF WHAT I ASSUMED FOR SIX HOURS ON 23 AUGUST 2026.
     //
     // I made the collector number win over the rarity word, on the evidence that
@@ -659,13 +659,13 @@ async function resolveHits(vid) {
     // printing. Making the number authoritative promoted a DERIVED value over
     // the one a person actually entered, and then ranked the site on it.
     //
-    // What Tim typed for that card, in the Video Log's own Hit Info cell:
+    // What the owner typed for that card, in the Video Log's own Hit Info cell:
     // "Mega Dragonite ex - Double Black Star - Double Rare". A double black star
     // IS Double Rare. He pulled the Double Rare.
     //
     // The visible damage: /hall.html filled with chase printings of cards that
     // were pulled as commons, so it read as if the most-wanted list had been
-    // pasted into the hall. Tim: "you added in all sorts of cards that are not
+    // pasted into the hall. The owner: "you added in all sorts of cards that are not
     // logged as hits in my video ... that is wrong."
     //
     // SO THE RARITY WINS AGAIN. It is the field a person fills in while looking
@@ -685,7 +685,7 @@ async function resolveHits(vid) {
     // rarity honoured the same 462 packs give 75 Double rares, 40 Illustration
     // rares, 35 Ultra Rares and 2 SIRs, which is what a box of modern Pokemon
     // actually does. Three separate confirmations, none of them mine:
-    //   - Tim's Hit Info cells name the SYMBOL as well as the tier, and they say
+    //   - The owner's Hit Info cells name the SYMBOL as well as the tier, and they say
     //     "Mega Dragonite ex - Double Black Star - Double Rare". Two black stars
     //     is Double Rare. He pulled the $4.56 card, not the $668.50 one.
     //   - He sent the TCGplayer link for Mega Charizard Y ex 022/217 himself,
@@ -1064,7 +1064,7 @@ for (const vid of Object.keys(HITS)) HITS_RESOLVED.set(vid, await resolveHits(vi
  * against its checklist, and read by build-proto.mjs to order the Greatest Hits
  * shelf on the home page.
  *
- * Tim, 23 August 2026: "the Greatest Hits videos should go in order of top hit
+ * The owner, 23 August 2026: "the Greatest Hits videos should go in order of top hit
  * cards based on RAW market price ... always sort cards on all pages by most
  * valuable." That shelf had been ranked by pull TIER and then by view count, a
  * stand-in this repo's own TODO admits to, so a Hyper Rare with 932 views
@@ -1274,7 +1274,7 @@ const desc = (v.blurb || descriptions[v.id] || "")
    * number above is the one the build actually produced. Re-count, do not
    * inherit.
    *
-   * THE EMOJI TRAVELS WITH THE FULL STOP. Tim writes "...a certified Garbage
+   * THE EMOJI TRAVELS WITH THE FULL STOP. The owner writes "...a certified Garbage
    * Rip. 🗑️ The goth", where the emoji belongs to the sentence it follows, so
    * cutting at the bare "." would strand it at the head of the next one. The
    * expression allows a closing quote and any run of pictographs after the
@@ -1411,7 +1411,7 @@ const showableHits = hits.filter((h) => h.img || typeof h.price === "number");
 const pricedHits = hits.filter((h) => typeof h.price === "number");
 // WHETHER THIS PAGE PAYS FOR THE NO-SCAN PANEL'S RULES. The band renders every
 // hit once ANY of them is showable, so a row with neither a scan nor a price
-// still gets a tile, and that tile is the empty box Tim asked about. Four pages
+// still gets a tile, and that tile is the empty box the owner asked about. Four pages
 // of the 319 carry one today, so the rules are gated rather than shipped
 // everywhere: they are render-blocking bytes and 315 rip pages have nothing for
 // them to style. Same gate on /hall.html and on both set-guide builders.
@@ -1427,7 +1427,7 @@ const noScanHits = showableHits.length && hits.some((h) => !h.img);
   // title). Verified against the built tree: 0 of 317 pages had the band.
   //
   // The box is the label with its pack suffix taken off, so the grouping is
-  // Tim's own naming rather than anything derived. 17 boxes, 48 videos in a
+  // the owner's own naming rather than anything derived. 17 boxes, 48 videos in a
   // box with at least one sibling.
   //
   // ORDERED BY WHAT COMES NEXT, then filled backwards, then printed in pack
@@ -1873,7 +1873,7 @@ ${MENU}
           */ ""}${v.greatest ? `<a class="chip" href="/hall.html">Hall of Fame${v.hofRank ? ` #${v.hofRank}` : ""} <span aria-hidden="true">&rarr;</span></a>` : ""}
           ${
             // THE RARITIES COME OUT OF THE HIT FIELD, not out of a second column.
-            // Tim writes every hit into one free text cell because a single rip
+            // The owner writes every hit into one free text cell because a single rip
             // can produce several tiers, and asking for a dropdown as well means
             // typing the same fact twice and losing all but one of them. Where
             // that field names tiers, those win; otherwise fall back to the tags
@@ -1912,7 +1912,7 @@ ${MENU}
           Pack - Pack 8" reading across a bullet is a puzzle. A box name gets a
           comma ("Pitch Black ETB 1, pack 8") and a name that already ends in
           Pack takes a number instead, since "Pitch Black Pack, pack 8" says
-          pack twice. Tim's words, site punctuation.
+          pack twice. The owner's words, site punctuation.
         */ ""}<p class="rip-meta">${
           v.label
             ? esc(v.label.replace(/ - Pack (\d+)$/, (_m, n) => (/Pack$/i.test(v.label.slice(0, -_m.length)) ? ` #${n}` : `, pack ${n}`))) + " &bull; "
@@ -1943,7 +1943,7 @@ ${MENU}
 
           THE CELL IS STILL THE FLOOR AND THAT IS THE WHOLE POINT OF IT. A
           fragment the parser did not understand produces no hit, and those
-          pages fall through to Tim's own words exactly as before, which is the
+          pages fall through to the owner's own words exactly as before, which is the
           promise import-sheet.mjs makes when it keeps the raw string: nothing
           he types can be lost by a rule that failed to read it.
         */ ""}${v.hitCard && !showableHits.length ? `<div class="hit-panel">
@@ -2050,7 +2050,7 @@ ${
             // aria-hidden for exactly this reason.
             ? hitcardImg(h.img)
             // AND A HIT CARD WITH NO SCAN IS NOT AN EMPTY BOX EITHER, since
-            // 22 August 2026. Tim: "there should be no empty place holder
+            // 22 August 2026. The owner: "there should be no empty place holder
             // images anywhere on the site." The branch above stopped it being
             // a button; this stops it being a hatched rectangle. It is the
             // set's own symbol and the words "No scan", still aria-hidden,
@@ -2062,7 +2062,7 @@ ${
         }
         <div class="hitcard-b">
           <p class="hitcard-n">${esc(h.name)}</p>
-          ${/* A HIT CAN LEGITIMATELY HAVE NO SET. Tim writes the set on most hit
+          ${/* A HIT CAN LEGITIMATELY HAVE NO SET. The owner writes the set on most hit
                lines and leaves it off some, and on a video that opened packs
                from several sets nothing can honestly say which one a card came
                from. esc(undefined) rendered the literal string "undefined" on
@@ -2776,7 +2776,7 @@ Wrote public/sitemap.xml with ${urls.length} urls
 
   // AND THE SAME LIST GOES TO THE WORKBOOK, so the highlighting cannot rot.
   //
-  // Tim reviews the sheet by row, and the rows worth reviewing are exactly the
+  // The owner reviews the sheet by row, and the rows worth reviewing are exactly the
   // ones this build could not resolve. Handing him a list typed out by hand
   // would be right for a day and wrong the moment a cell changes; writing it
   // here means the workbook highlights whatever is ACTUALLY unresolved on the
@@ -2797,7 +2797,7 @@ Wrote public/sitemap.xml with ${urls.length} urls
         _readme: [
           "Videos whose logged hit card did not resolve to a printing on the last",
           "build, and why. WRITTEN BY scripts/build-pages.mjs, READ BY",
-          "scripts/build-sheet.py, which tints those rows so Tim can find them.",
+          "scripts/build-sheet.py, which tints those rows so the owner can find them.",
           "",
           "Do not hand-edit: it is regenerated every build. If a row is here and",
           "the cell looks right, the fault is more likely a vocabulary the site",

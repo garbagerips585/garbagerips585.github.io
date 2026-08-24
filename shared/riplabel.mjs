@@ -73,7 +73,7 @@ const NUM = /(?:\bpack\s*#?\s*(\d{1,2})\b|#\s*(\d{1,2})\b)/i;
  * First Partner Illustration Collection box?" with "One promo pack holding
  * three of the nine promos in that series, two Pokemon TCG booster packs and a
  * sticker sheet", and adds "The two boosters are assorted rather than a named
- * set: Tim's Series 1 box held one Phantasmal Flames and one Mega Evolution
+ * set: The owner's Series 1 box held one Phantasmal Flames and one Mega Evolution
  * pack." Assorted is the whole point. Two copies of box 5 can hold two
  * different sets, so no set name can go on the front of it without being wrong
  * about one of them.
@@ -87,7 +87,7 @@ const NUM = /(?:\bpack\s*#?\s*(\d{1,2})\b|#\s*(\d{1,2})\b)/i;
  * that `sets` on these rips is the CONTENTS of the box, and the first entry of
  * a contents list is not a brand.
  *
- * THE NAME IS TIM'S OWN CELL, NOT A LOOKUP. `openingType` is the Opening Type
+ * THE NAME IS THE OWNER'S OWN CELL, NOT A LOOKUP. `openingType` is the Opening Type
  * he typed, series number and all, and it is already the product's full name.
  * Re-deriving a prettier one here would be a second place for it to drift, and
  * the series is not decoration: Series 1, 2 and 3 are three different boxes.
@@ -95,7 +95,7 @@ const NUM = /(?:\bpack\s*#?\s*(\d{1,2})\b|#\s*(\d{1,2})\b)/i;
  * `unit` is the word for a single copy, so the box number reads as a box.
  * It is stated rather than guessed because the name ends in "Collection" and
  * "First Partner Illustration Collection (Series 1) 6" reads like a card
- * number. Tim's own titles are the model: "Mega Meganium ex Box #2 | Pack #2".
+ * number. The owner's own titles are the model: "Mega Meganium ex Box #2 | Pack #2".
  *
  * THE COLLECTOR CHEST WAS FOUND BY SWEEPING FOR THE SAME SHAPE and it is the
  * second row. TN7_ZsuRQSI is "Only Garbage Rips from the Pokemon Fall 2025
@@ -203,7 +203,7 @@ export function ripLabel(v, setName, desc) {
   // WHICH BOX, THEN WHICH PACK OUT OF IT. Asked for by name: "Chaos Rising ETB
   // 3 - Pack 3, or Pitch Black Booster Bundle 2 Pack 6".
   //
-  // TYPED ONLY, AND THAT IS THE WHOLE RULE. Tim, 18 August 2026: "make sure you
+  // TYPED ONLY, AND THAT IS THE WHOLE RULE. The owner, 18 August 2026: "make sure you
   // aren't tagging any videos with what type of product it is and what packs
   // are in the video until you get my execl sheet thats filled out with all
   // that exact data".
@@ -215,7 +215,7 @@ export function ripLabel(v, setName, desc) {
   // has never existed, because the parsed number is the PACK and it was printed
   // where a reader reads the BOX.
   //
-  // So a number appears only when Tim typed it in the sheet. Everything else
+  // So a number appears only when the owner typed it in the sheet. Everything else
   // stops at the product: "Chaos Rising ETB". NUM stays because build-sheet.py
   // still reports what his own copy says, as a note for him to confirm, never
   // as something published.

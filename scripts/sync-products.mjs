@@ -130,7 +130,7 @@ const LINE_NAME = {
 /**
  * What the non-English guides pull, and it is ONE product on purpose.
  *
- * Tim asked for "a booster pack for a set, not a montage of the whole box", so
+ * The owner asked for "a booster pack for a set, not a montage of the whole box", so
  * these guides take the pack and nothing else. That is not only a layout call:
  *
  * **EVERY BLURB IN KINDS ABOVE IS AN ENGLISH-MARKET FACT AND MOST OF THEM ARE

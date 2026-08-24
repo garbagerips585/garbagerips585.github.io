@@ -52,7 +52,7 @@
 // label above each condition is a styled <p>, NOT a heading, on purpose: it
 // would be a fourth level carrying no outline meaning.
 //
-// THREE: NO PICTURES. Tim asked to see all of them and there was not one image
+// THREE: NO PICTURES. The owner asked to see all of them and there was not one image
 // on the page. There are nine now, all LOCAL: public/assets/species/<dex>.webp,
 // mirrored by scripts/sync-species-art.mjs, listed in data/species-art.json,
 // 10.1KB to 16.5KB each and 121KB for all nine. No card scans and nothing

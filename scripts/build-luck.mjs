@@ -10,7 +10,7 @@
 //
 // HONESTY IS THE WHOLE VALUE HERE, so the rules are strict:
 //
-// 1. Only rips Tim has explicitly marked count toward a rate. THE REASON GIVEN
+// 1. Only rips the owner has explicitly marked count toward a rate. THE REASON GIVEN
 //    HERE WAS OUT OF DATE AND THE CONCLUSION IS NOT. It read "the `pulls` tags
 //    are derived from video titles, and titles are biased", which stopped being
 //    true when sync-youtube.mjs moved that field onto the rip log:
@@ -256,12 +256,12 @@ const bySet = rateBy(
 // THE PRODUCT TABLE THAT USED TO SIT HERE IS A GRID OF CARDS NOW, AND THIS IS
 // WHY THERE IS NOT ALSO A TABLE. `rateBy` over v.products answered "which
 // product has the best hit rate" and nothing else: no volume, no packs, no
-// boxes, no best card, and it sorted by rate, so the question Tim actually
+// boxes, no best card, and it sorted by rate, so the question the owner actually
 // asked ("what product type has given us the most hits") was not on the page at
 // all. Two renderings of one axis, ordered differently, would have been two
 // answers to one question sitting in the same scroll. See prodRows.
 
-// What actually came out, from the rarity Tim recorded. Falls back to the
+// What actually came out, from the rarity the owner recorded. Falls back to the
 // derived pull tags only for the count of each kind, never for a rate.
 //
 // "MORE THAN ONE" IS NOT A RARITY, and it was rendered in a row of rarities.
@@ -433,7 +433,7 @@ const packsKnown = judged.filter(packsIn).length;
 // EVERYTHING BELOW THIS LINE IS THE 21 AUGUST 2026 PASS, and the three rules
 // it added to the three at the top of this file:
 //
-// 4. A COUNT AND A RATE NEVER TRAVEL ALONE. Tim asked "what product type has
+// 4. A COUNT AND A RATE NEVER TRAVEL ALONE. The owner asked "what product type has
 //    given us the most hits", and the answer to that question as asked is
 //    "whichever one we opened most of", which is not a fact about the product.
 //    So every count on this page is printed beside its rate AND its
@@ -542,7 +542,7 @@ let cardRows = 0;
       if (!h.set) {
         const fp = firstPartner.priceForHit(h);
         // ...AND WHERE IT DOES NOT, the sheet's Raw NM column does. Five promos
-        // had no `price` of their own until Tim sent TCGplayer links on 23
+        // had no `price` of their own until the owner sent TCGplayer links on 23
         // August 2026, so they counted as pulls with no value anywhere on this
         // page. Behind both live sources, never in front; same order as
         // build-pages.mjs and build-hall.mjs.
@@ -598,7 +598,7 @@ const psaCards = cardLedger.filter((c) => typeof c.psa === "number");
 // "HOW MANY ETBs HAVE WE OPENED" IS THREE DIFFERENT QUESTIONS AND THIS LOG CAN
 // ANSWER TWO OF THEM. Read this before adding a box count back.
 //
-// Tim asked for "how many ETBs we have opened overall, how many single packs,
+// The owner asked for "how many ETBs we have opened overall, how many single packs,
 // how many Booster bundles" and then, when the double count was put to him,
 // for the model where a box counts once and contributes its full pack count:
 // "only count each ETB once, but you count the 9 packs inside as 9 packs".
@@ -646,7 +646,7 @@ try {
 
 /* ---------------------------------------------------------- boxes, as a FLOOR
  *
- * Pack # IS AN ORDINAL AND THAT IS WHAT MAKES THIS POSSIBLE. Tim: "the pack #
+ * Pack # IS AN ORDINAL AND THAT IS WHAT MAKES THIS POSSIBLE. The owner: "the pack #
  * listed in the excel document is the pack # of the pack from that box that is
  * being opened in that video, not how many packs are in the video."
  * import-sheet.mjs agrees in code rather than in prose: the warning at its
@@ -769,7 +769,7 @@ const boxCensus = (() => {
 const allPacks = videos.reduce((n, v) => n + (packsIn(v) || 0), 0);
 /* ------------------------------------------------- the figures the widget shows
  *
- * Tim: "at the top of the page we just need a super simple easy to read widget
+ * the owner: "at the top of the page we just need a super simple easy to read widget
  * that gives all the high level stats, of how many total packs opened, how many
  * total rip video, how many hits, how many SIRs, how many Hyper rares, etc."
  *
@@ -780,7 +780,7 @@ const allPacks = videos.reduce((n, v) => n + (packsIn(v) || 0), 0);
  * honest numbers on one page and they must never be given the same label.
  *
  * RAREST FIRST, NOT BIGGEST FIRST. Sorted by count, Special Illustration Rare
- * lands seventh and the thing Tim named would be buried under Double Rare. The
+ * lands seventh and the thing the owner named would be buried under Double Rare. The
  * ladder in shared/rarity.mjs already orders the tiers; this reverses it.
  */
 const tierCount = new Map();
@@ -869,7 +869,7 @@ const packsToBest = (() => {
 // ------------------------------------------------------ the pack number question
 //
 // DOES IT MATTER WHICH PACK OUT OF THE BOX. It is the oldest superstition in
-// the hobby and this log can actually test it, because Tim records a Pack #.
+// the hobby and this log can actually test it, because the owner records a Pack #.
 //
 // THE CAVEAT IS NOT OPTIONAL AND IT IS DRAWN, NOT WRITTEN IN SMALL PRINT: pack
 // 9 only exists inside products that hold nine packs, so the tall end of this
@@ -986,7 +986,7 @@ const DEAD_URLS = new Set(
 );
 
 /* SEVEN KINDS HAD NO PHOTO AND SAID SO IN WORDS: "no photo we can publish".
- * Tim: "make sure all the product types have an image for the product type,
+ * The owner: "make sure all the product types have an image for the product type,
  * right now there are some blank ones ... nothing should be blank on this page."
  *
  * PRODUCT_SHOT above only reads public/data/products.json, which carries the
@@ -999,7 +999,7 @@ const DEAD_URLS = new Set(
  * a pack photo for eight Japanese sets. Nothing was fetched for this; both are
  * already synced and committed.
  *
- * TIM PICKED TWO OF THEM BY NAME: the ex Premium Collection shows Mega Zygarde
+ * THE OWNER PICKED TWO OF THEM BY NAME: the ex Premium Collection shows Mega Zygarde
  * ex, and the ex Box shows Ascended Heroes Mega Emboar ex. Those are his calls
  * and they are pinned by product id so a catalogue reshuffle cannot swap them.
  *
@@ -1058,7 +1058,7 @@ const shotFor = (key) => {
   return null;
 };
 
-// THE PACKS COLUMN IS NEW AND IT IS THE "BY SET" HALF OF WHAT TIM ASKED FOR:
+// THE PACKS COLUMN IS NEW AND IT IS THE "BY SET" HALF OF WHAT THE OWNER ASKED FOR:
 // "we should show stats by set, and overall stats". It is packs RIPPED ON
 // CAMERA, from the sheet's own Packs column, and the cell prints the rips it
 // is over because 257 of 319 rips state one. A bare pack total next to a rip
@@ -1275,7 +1275,7 @@ const style = `
 }
 
 /* ---------------------------------------------------- the product spine ----
-   ONE CARD PER PRODUCT KIND, ordered by hits because that is the question Tim
+   ONE CARD PER PRODUCT KIND, ordered by hits because that is the question the owner
    asked, with the rate and its denominator in the same box so the order cannot
    mislead on its own. Photo and the "Pitch Black shown" line are the product
    table's, moved across whole: products.json is per SET, so without that line
@@ -1753,7 +1753,7 @@ ${cols}
 
 // ------------------------------------------------------- the product spine
 //
-// TIM ASKED TWO QUESTIONS AND THE FIRST ONE HAS A TRAP IN IT: "what product
+// THE OWNER ASKED TWO QUESTIONS AND THE FIRST ONE HAS A TRAP IN IT: "what product
 // type has given us the most hits, what product type has given us the best
 // hits". Most hits is a COUNT, the product types are opened wildly unevenly,
 // and the answer to the question as asked is "the one we opened most of".
@@ -1863,7 +1863,7 @@ ${tierChips.map((t) => `          <div class="luck-chip"><b>${t.n}</b><span>${t.
             100% of the catalog" over a bar filled to 100%, so it measured
             nothing and the bar read as a rendering bug. It also carried "462
             packs across 321 rips that say", which is the rip log talking about
-            its own columns. Tim: "remove any text that is referencing the execl
+            its own columns. The owner: "remove any text that is referencing the execl
             document, like has answers, no one needs to know or see any of that".
 
             .luck-caveat went with it. That branch only ever rendered at a 100%
@@ -2147,7 +2147,7 @@ ${monthFigure()}
   ${/* THE "Where every number on this page comes from" SECTION IS GONE, all
       423 words and 1,575px of it at 390. Nine rows naming the SPREADSHEET
       COLUMN each figure was counted out of: "Has Hit, My Hits tab", "Sets &
-      Packs", "Pack #, Opening Type", "Published". Tim: "remove any text thats
+      Packs", "Pack #, Opening Type", "Published". The owner: "remove any text thats
       place holder or explains how we got the data, the data, as the data is
       pulled directly from the actual real rips in every video."
 
@@ -2184,7 +2184,7 @@ const html = `<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pokemon Pack Luck, Measured: What Actually Came Out of ${judged.length} Rips</title>
+<title>Pokemon Pack Luck, Measured: What Came Out of ${judged.length} Rips</title>
 <meta name="description" content="${clipMeta(
   judged.length
     ? `Observed hit rates from ${allPacks} Pokemon packs opened on camera across ${judged.length} rips, broken down by set and product. Not official pull rates: what actually came out on camera.`

@@ -13,7 +13,7 @@ it is worth reading before adding another page, not before this one.
 
 ## The brief, and why this page belongs on this site
 
-Tim plays TCG Live himself and scans the code cards from the packs he opens on
+the owner plays TCG Live himself and scans the code cards from the packs he opens on
 camera. That is the hook and it is a genuinely good one: the code card is the
 only thing in a booster pack that this site has never had a word to say about.
 The rest of the site prices the cards, grades them, checks them for fakes and
@@ -353,7 +353,7 @@ What is legitimately available:
   a header image, since it is commissioned work the site uses everywhere. Credit
   stays as it is site-wide.
 
-If Tim wants real screenshots later, he can take them himself, and that is worth
+If the owner wants real screenshots later, he can take them himself, and that is worth
 saying to him: he plays this game and he films himself opening packs, so a
 handful of his own captures would be the one thing this page cannot otherwise
 have. **Do not build the page waiting for them.** Ship it with the SVG.
@@ -506,7 +506,7 @@ copy. The short version:
   adjudicate.
 - **Nothing was learned first-hand about the redemption screen.**
   `redeem.tcg.pokemon.com` is a login-walled JS shell. Every step in section 4 is
-  Pokemon's own written instructions, not observation. **Tim has an account and
+  Pokemon's own written instructions, not observation. **The owner has an account and
   plays this game.** Ten minutes of him walking through a redemption would firm
   up the one section of the page that most needs it, and would settle the iOS
   question outright. Worth asking before this ships.

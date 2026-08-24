@@ -84,7 +84,7 @@
     "keeping: nothing would notice one dying (sweep-scans.mjs is TCGdex-only, and",
     "onerror=this.remove() makes a dead url silent, which is the exact failure",
     "data/no-scan.json exists to prevent); two of the three keys are workbook",
-    "strings the build is actively telling Tim to fix, so a hand key on them gets",
+    "strings the build is actively telling the owner to fix, so a hand key on them gets",
     "LESS correct after he fixes them; and all three cards already sit in",
     "public/data/printings/*.json with the right set and number, lacking only an",
     "image, so the fix belongs in sync-all-printings.mjs. build-cards.mjs already",

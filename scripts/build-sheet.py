@@ -6,7 +6,7 @@
 Writes Garbage-Rips-585-Video-Log.xlsx at the repo root, prefilled from
 public/data/videos.json and sets.json. Every column the site actually reads is
 here, and every column is either something YouTube already knows (grey, do not
-edit) or something only Tim knows (yellow, please fill in).
+edit) or something only the owner knows (yellow, please fill in).
 
 Where a tag was derived automatically the guess is prefilled, so the job is
 correcting rather than typing. scripts/import-sheet.mjs reads the CSV export
@@ -56,7 +56,7 @@ videos = json.loads((ROOT / "public/data/videos.json").read_text())
 videos = videos.get("videos", videos)
 
 # ---------------------------------------------------------------------------
-# WHAT TIM'S OWN TITLE ALREADY SAID, read back so he does not type it twice.
+# WHAT THE OWNER'S OWN TITLE ALREADY SAID, read back so he does not type it twice.
 # ---------------------------------------------------------------------------
 #
 # Asked for by name: "we should like videos by what they are, example, Chaos
@@ -79,7 +79,7 @@ videos = videos.get("videos", videos)
 # even though a person can see it means 3: that is the sentence the older
 # comment below warns about, because a description can say it twice with two
 # different numbers ("Pack #2 of our third ETB") and a matcher picks wrong
-# confidently. A number Tim typed after the word Box is his answer being read
+# confidently. A number the owner typed after the word Box is his answer being read
 # back. A number a rule worked out from prose is the machine's guess, and this
 # file does not put those in the same colour, it does not put them in at all.
 try:
@@ -98,7 +98,7 @@ def _stated(v, rx):
     """The number this video's own title or description states, or None.
 
     Title first: when it is there it is the headline fact and it is the copy
-    Tim wrote most deliberately. Description second, because that is where most
+    the owner wrote most deliberately. Description second, because that is where most
     of them actually live.
     """
     for s in (v.get("title") or "", _descriptions.get(v.get("id"), "") or ""):
@@ -131,7 +131,7 @@ set_name.update(intl_sets)
 
 # EVERY ENGLISH SET EVER PRINTED, not only the ones with a guide page.
 #
-# This used to offer the 28 sets that have a guide. Tim's own reason for wanting
+# This used to offer the 28 sets that have a guide. The owner's own reason for wanting
 # more: a box set or a tin holds packs from sets we have no guide for, and until
 # now there was no cell he could fill to record that. He hit it on a Black Bolt
 # pack and had nowhere to put the answer.
@@ -141,7 +141,7 @@ set_name.update(intl_sets)
 # because the sets being opened on camera are almost always current and a
 # 180-row list is a long scroll to reach this year.
 #
-# THIS DOES NOT TEACH THE MATCHER 146 NEW NAMES. These are options for Tim to
+# THIS DOES NOT TEACH THE MATCHER 146 NEW NAMES. These are options for the owner to
 # pick, not patterns for the automatic tagger to guess from. Widening what the
 # matcher guesses at is what retagged "Pitch Black is SAVAGE Today!" as a 2019
 # McDonald's set, and tags now come from his answers rather than from title
@@ -195,7 +195,7 @@ RARITIES = [
     "ACE SPEC Rare",
     "Super Rare",
     "Charizard",
-    # Tim used this on two videos where a single rip produced several notable
+    # the owner used this on two videos where a single rip produced several notable
     # cards. It was not an option and it should have been: the alternative is
     # forcing one card to stand for the rip. The per-card detail goes on the
     # My Hits tab.
@@ -233,7 +233,7 @@ PULL_TO_RARITY = {
 PULL_ORDER = ["gold", "sir", "ir", "double-rare", "charizard"]
 
 # Box and series names, derived from the titles rather than invented, so the
-# dropdown matches what Tim actually films. Only names that begin with a set
+# dropdown matches what the owner actually films. Only names that begin with a set
 # name or "Mega" survive: the rest of a title is clickbait, not a product.
 _set_words = tuple(x["name"].lower() for x in sets) + ("mega ",)
 BOX_NAMES = set()
@@ -256,7 +256,7 @@ for _v in videos:
 # count and a release date for something that has neither. They stay out.
 #
 # But the question "what did he open" still HAS an answer, and without these
-# three rows the only honest thing Tim could put in the Set column was
+# three rows the only honest thing the owner could put in the Set column was
 # "Not a set (sealed/other)", which records that there is no expansion and
 # throws away which product it was. This column is where the answer survives:
 # import-sheet.mjs stores it as `box` in data/manual.json and this script reads
@@ -552,7 +552,7 @@ for col, (head, items) in enumerate(
 # Google Sheets, and a dropdown that points at another tab does not survive the
 # trip intact. Measured on one round trip, the Set column came back offering 35
 # of the 43 sets this file writes, having quietly dropped every option no row
-# had used yet, Black Bolt and White Flare among them. Tim opened a Black Bolt
+# had used yet, Black Bolt and White Flare among them. The owner opened a Black Bolt
 # pack, went to record it, and the sheet had no such value.
 #
 # A workbook-level defined name is the same range with a stable label on it, and
@@ -577,7 +577,7 @@ def named(col_idx, count):
 
 DV_SET = named(1, len(SET_NAMES))
 # THE SET COLUMN GETS ITS OWN NAME OVER THE SAME LIST, and this is the fix for
-# a bug Tim hit mid-fill: "im not seeing the card set field, its only shows set
+# a bug the owner hit mid-fill: "im not seeing the card set field, its only shows set
 # 2 and set 3 and set 4, but not the first set".
 #
 # WHAT ACTUALLY HAPPENED. This file already knew that Google Sheets mishandles
@@ -585,7 +585,7 @@ DV_SET = named(1, len(SET_NAMES))
 # says so. So all five Set columns were given their own DataValidation OBJECT.
 # That was necessary and not sufficient: the five objects still shared one
 # FORMULA, gr_list_A, and on the round trip Google DEDUPED THEM BACK INTO ONE
-# multi-range rule. Read out of Tim's returned file: a single validation with
+# multi-range rule. Read out of the owner's returned file: a single validation with
 # sqref "H2:H318 Q2:Q318 S2:S318 U2:U318 W2:W318", and the first range is the
 # one that stopped working.
 #
@@ -611,14 +611,14 @@ DV_PACKNO = named(13, len(PACK_NUMBERS))
 def dv(formula, strict=False):
     """A dropdown that offers the list and still accepts anything typed.
 
-    STRICT USED TO BE THE DEFAULT AND IT LOCKED TIM OUT OF HIS OWN SHEET.
+    STRICT USED TO BE THE DEFAULT AND IT LOCKED THE OWNER OUT OF HIS OWN SHEET.
 
     Google Sheets does not keep a dropdown that points at a range on another
     tab. On export back to xlsx it rewrites each one as a literal list built
     from THE VALUES ALREADY IN THAT COLUMN, so an option nobody has used yet
     simply disappears. Measured on one round trip: the Set column went from the
     43 options this file writes to 35, losing Black Bolt, White Flare, Stellar
-    Crown, Shrouded Fable, Paldean Fates and five more. Tim opened a Black Bolt
+    Crown, Shrouded Fable, Paldean Fates and five more. The owner opened a Black Bolt
     pack, went to record it, and the sheet refused the value.
 
     Strict validation turns that from a missing convenience into a wall. Not
@@ -630,7 +630,7 @@ def dv(formula, strict=False):
     dropdown looks short. Nothing here can stop Sheets rewriting it.
 
     SHOW THE WARNING, DO NOT SUPPRESS IT, and that inversion is the fix for the
-    thing Tim hit on 19 August: "Invalid: Input must fall within specified
+    thing the owner hit on 19 August: "Invalid: Input must fall within specified
     range", on a validation whose xlsx already said showErrorMessage="0".
 
     Suppressing the message is not the same as allowing the value, and Sheets
@@ -675,7 +675,7 @@ COLUMNS = [
     #
     # This replaces "More Sets", which was free text. Free text in one cell is
     # exactly what broke the hits: one typo and one stray comma cost two cards.
-    # FOUR COLUMNS. Tim, 19 August 2026: "I need it like this. Pitch Black ETB
+    # FOUR COLUMNS. The owner, 19 August 2026: "I need it like this. Pitch Black ETB
     # #3 , Pack 3 , Hit yes or no, Hit info and thats it. Most of the videos are
     # only 1 pack being opened in the video so this format will work."
     #
@@ -691,7 +691,7 @@ COLUMNS = [
     # else to count packs per set.
     #
     # SETS & PACKS SURVIVES AS AN OPTIONAL FIFTH COLUMN, blank on the vast
-    # majority. Tim: "I should start with all the videos with only one set and
+    # majority. The owner: "I should start with all the videos with only one set and
     # one pack, I can get those done quick, and then I can go back in and do the
     # videos with multiple set and packs once we figure out the best way". So it
     # is off the critical path rather than removed: a multi-set video is still
@@ -699,7 +699,7 @@ COLUMNS = [
     # the four that carry 300 rows.
     # WHAT HIS OWN TITLE ALREADY SAYS, GREY AND NEVER IMPORTED.
     #
-    # Tim, 19 August 2026, on being asked whether I could watch the videos and
+    # The owner, 19 August 2026, on being asked whether I could watch the videos and
     # fill this in: "thats a good idea to do the grayed out column, so I can see
     # what my titles or descriptions say but i still enter it in so its
     # confirmed by real person".
@@ -721,7 +721,7 @@ COLUMNS = [
     ("Product", 26, "input"),
     # WHICH ONE OF THAT PRODUCT, and it needed its own column after all.
     #
-    # Tim asked the right question: "the only thing I want to make sure is ok is
+    # The owner asked the right question: "the only thing I want to make sure is ok is
     # where i'm putting that an ETB is the third ETB we have opened... want to
     # make sure I have that in the correct spot". The answer was that there was
     # no correct spot. I had folded it into a written phrase, "Pitch Black ETB
@@ -739,7 +739,7 @@ COLUMNS = [
     ("Sets & Packs", 44, "input"),
     # HOW MANY PACKS OF EACH SET, immediately right of the cell it counts.
     #
-    # Tim, 20 August 2026: a column "for how many packs of that set are in the
+    # The owner, 20 August 2026: a column "for how many packs of that set are in the
     # video. Blank means one." He hit it on his first Japanese row, tuX1t8p29Ik,
     # which opened Abyss Eye packs #9 and #10 in the same video. Two packs of one
     # set, and Pack # cannot hold two numbers, so that row had left Pack # empty
@@ -936,7 +936,7 @@ wv.row_dimensions[1].height = 30
 
 # AUTOFILTER, AND IT IS THE BIGGEST USABILITY FIX IN THIS FILE.
 # The log is sorted newest first, which is right for "I just uploaded, log it".
-# Tim works the other way for backfill, oldest first, and without a filter that
+# The owner works the other way for backfill, oldest first, and without a filter that
 # meant scrolling to row 314 every session and hunting for the next blank by
 # eye. With this he sorts Published ascending in one click, and can filter any
 # column to Blanks to see exactly what is left.
@@ -947,7 +947,7 @@ wv.auto_filter.ref = f"A1:{get_column_letter(len(COLUMNS))}{len(videos) + 1}"
 # SHOW WHAT IS STILL MISSING, so a 317 row job can be reviewed at a glance
 # ---------------------------------------------------------------------------
 #
-# Tim, 18 August 2026: "I just dont want to run into anything that slows me
+# The owner, 18 August 2026: "I just dont want to run into anything that slows me
 # down". The thing that slows a long log down is not typing, it is FINDING the
 # row you have not done yet, and re-checking rows you already finished.
 #
@@ -1070,7 +1070,7 @@ for r, v in enumerate(ordered, start=2):
     # BY NAME, NEVER BY OFFSET. This used to write the extra sets at
     # COL["Set"] + n*2, on the assumption that Set, Packs, Set 2, Packs 2 sit
     # contiguously. They no longer do: the four extra pairs were moved past the
-    # columns Tim fills on every row, and the moment they moved this loop began
+    # columns the owner fills on every row, and the moment they moved this loop began
     # writing Set 2 into whatever now sits two columns after Set. It wrote
     # nothing at all in practice, so all 12 multi-set rows came back with only
     # their first set and the second was silently dropped on the next import.
@@ -1088,7 +1088,7 @@ for r, v in enumerate(ordered, start=2):
     # the same row gets filled in three times.
     if not sets_v and overrides_src.get(vid, {}).get("sets") == []:
         wv.cell(r, COL["Set"], "Not a set (sealed/other)").font = BODY
-    # OPENING TYPE IS NO LONGER GUESSED EITHER. Tim, 18 August 2026: "yes make
+    # OPENING TYPE IS NO LONGER GUESSED EITHER. The owner, 18 August 2026: "yes make
     # the execl sheet let me fill in what type of product it is, then what set
     # type of packs are in it and how many of each of those set type packs are
     # in the overall video".
@@ -1104,13 +1104,13 @@ for r, v in enumerate(ordered, start=2):
     # on it, so a blank cell is the question and nothing pre-answers it.
     # NOTHING IS GUESSED INTO THESE THREE COLUMNS ANY MORE.
     #
-    # Tim, 18 August 2026: "make sure you aren't tagging any videos with what
+    # The owner, 18 August 2026: "make sure you aren't tagging any videos with what
     # type of product it is and what packs are in the video until you get my
     # execl sheet thats filled out with all that exact data".
     #
     # Box #, Pack # and Packs are now handed back EMPTY unless a person has
     # answered them. Earlier today this file prefilled Box # and Pack # from
-    # Tim's own titles ("Mega Zygarde Box #2 Pack #5") in blue, and prefilled
+    # the owner's own titles ("Mega Zygarde Box #2 Pack #5") in blue, and prefilled
     # Packs from PRODUCT_TO_PACKS. Both were suggestions to confirm, and the
     # comment further down explains why a suggestion is not safe here: colour
     # does not survive export to CSV, so the importer reads every blue cell back
@@ -1120,7 +1120,7 @@ for r, v in enumerate(ordered, start=2):
     # A BLANK CELL IS THE HONEST STATE and it costs nothing downstream: every
     # reader is written as "show it if it is there", so a blank renders nothing
     # rather than a zero. The parse still exists in _stated() and is reported at
-    # the end of the run as a convenience, so Tim can see at a glance which rows
+    # the end of the run as a convenience, so the owner can see at a glance which rows
     # his own copy already answers, without any of it touching a cell.
     # NO PACKS OPENED COLUMN. It was a formula summing the typed numbers, and
     # the honest version needed SEQUENCE and TEXTAFTER, which are new functions
@@ -1146,7 +1146,7 @@ for r, v in enumerate(ordered, start=2):
     # and which was true of nothing. This script only ever read videos.json, so
     # a rebuild returned the machine's guesses and dropped every answer a human
     # had given: Has Hit, the rarity, Greatest Hits, the box name, the pack
-    # count. Tim corrected a Costco UPC from 16 packs to 18, imported it, and
+    # count. The owner corrected a Costco UPC from 16 packs to 18, imported it, and
     # the next rebuild handed back 16 with no indication anything had been said.
     #
     # These win over the guesses above, in BODY rather than GUESS_TXT, because
@@ -1161,7 +1161,7 @@ for r, v in enumerate(ordered, start=2):
     # THEY ARE RESTORED AGAIN NOW, AND THE REASON THEY WERE NOT IS SPENT.
     #
     # These two were handed back blank on 18 August because manual.json could
-    # not tell a value TIM TYPED from one this script SUGGESTED in blue that the
+    # not tell a value THE OWNER TYPED from one this script SUGGESTED in blue that the
     # CSV round trip laundered into an answer: 316 opening types and 244 pack
     # counts were in the file and the great majority of both were machine
     # guesses. Blanking the form was the only way to be sure what came back was
@@ -1178,7 +1178,7 @@ for r, v in enumerate(ordered, start=2):
     # prefills NOTHING into these columns, so anything present is an answer.
     if man.get("openingType"):
         wv.cell(r, COL["Product"], man["openingType"]).font = BODY
-    # EVERY COLUMN HE TYPES IS HANDED BACK. Tim found cells emptied between
+    # EVERY COLUMN HE TYPES IS HANDED BACK. The owner found cells emptied between
     # rebuilds: Sets & Packs was being imported and never restored, so 39 rows
     # of his work would have vanished on the next build. A column the sheet asks
     # for and does not return is a trap, and this is the last one.
@@ -1220,7 +1220,7 @@ for r, v in enumerate(ordered, start=2):
     # This first left the cells blank on a multi-set video and put the total in
     # Notes, reasoning that 18 across five sets does not say how many came from
     # each and the sheet should not invent a split. That is true, and it was
-    # still the wrong call: it left Tim looking at empty cells where he had
+    # still the wrong call: it left the owner looking at empty cells where he had
     # typed a number, which reads as data loss no matter what a note says. He
     # knows the split and can move the figure across the columns in seconds;
     # what he cannot do is get back a number the sheet threw away.
@@ -1257,7 +1257,7 @@ last = len(ordered) + 1
 # the wrong column without anything appearing to break.
 CI = {head: i for i, (head, _, _) in enumerate(COLUMNS, start=1)}
 for dv_formula, cols in [
-    # TWO DROPDOWNS, exactly the two Tim asked to keep: "only one for dropdowns
+    # TWO DROPDOWNS, exactly the two the owner asked to keep: "only one for dropdowns
     # would be the set types, we can keep those dropdown so i dont have to type
     # every time, and the product type can be dropdown". Both are closed
     # vocabularies where a near miss silently misfiles a row; every other column
@@ -1274,7 +1274,7 @@ for dv_formula, cols in [
     # single-select control can offer. The Lists tab still holds every set name
     # and every product type to copy from, and the importer matches what he
     # writes against both and reports anything it cannot place.
-    # DROPDOWNS ARE NOW ON THE SET COLUMNS AND NOWHERE ELSE. Tim, 19 August
+    # DROPDOWNS ARE NOW ON THE SET COLUMNS AND NOWHERE ELSE. The owner, 19 August
     # 2026: "only really need the dropdown for what cardsets are in the video,
     # the rest I can fill in myself will be easier".
     #
@@ -1336,7 +1336,7 @@ for dv_formula, cols in [
 # fills it.
 #
 # Free text. The My Hits tab is where a card gets picked one at a time.
-# BOX / SERIES IS FREE TEXT AND THE DROPDOWN IS GONE, at Tim's request on 19
+# BOX / SERIES IS FREE TEXT AND THE DROPDOWN IS GONE, at the owner's request on 19
 # August 2026: "the box series column is wrong, the drop down isn't showing
 # everything it could be. Can you actually just leave that blank not a drop
 # down and I will just type in what set or box it is in there, I will just type
@@ -1351,7 +1351,7 @@ for dv_formula, cols in [
 # WHAT HE TYPES THERE IS AN ANSWER, NOT A GUESS, which is the whole reason this
 # is safe to read back. The rule this file has been enforcing all day is that a
 # number a REGEX worked out from prose is inference and must not be published,
-# while a number TIM TYPED after the word Box is his own statement being read
+# while a number THE OWNER TYPED after the word Box is his own statement being read
 # back. "Pitch Black Booster Bundle #3 Pack#5" is the second kind. So one cell
 # he writes once can fill Opening Type, Set, Box # and Pack #, and doing it that
 # way is four times less typing on 317 rows.
@@ -1610,7 +1610,7 @@ dv_vid.add(f"A2:A{HIT_ROWS}")
 for formula, head, strict in [
     (DV_SET, "Set", False),
     (DV_RARITY, "Rarity", False),
-    # NOTHING IN THIS WORKBOOK REJECTS A TYPED VALUE ANY MORE. Tim, 19 August
+    # NOTHING IN THIS WORKBOOK REJECTS A TYPED VALUE ANY MORE. The owner, 19 August
     # 2026: "I just want to be able to add in anything I want into any cells I
     # want, not have it say you cant touch these". This was the last strict one,
     # a Yes/No column, and even there the reasoning was thin: the importer reads
@@ -1735,7 +1735,7 @@ print(f"  prefilled:  set {sum(1 for v in ordered if len(v.get('sets') or []) >=
       f"opening {sum(1 for v in ordered if (v.get('products') or [''])[0] in PRODUCT_TO_OPENING)}, "
       f"rarity {sum(1 for v in ordered if (manual.get(v['id']) or {}).get('hitRarity'))} (restored answers only, never guessed)")
 
-# WHAT TIM'S OWN COPY ALREADY ANSWERS, reported and never written into a cell.
+# WHAT THE OWNER'S OWN COPY ALREADY ANSWERS, reported and never written into a cell.
 # The columns go back blank because a blue guess becomes a typed answer the
 # moment the sheet is exported to CSV. This is the same information offered as a
 # progress note instead: how many rows he can fill from his own titles rather

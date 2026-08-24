@@ -2,7 +2,7 @@
   "_readme": [
     "Vendors we know and like around Rochester. Drives /vendors.html.",
     "",
-    "EMPTY UNTIL TIM FILLS IT IN, and it must stay that way. Every entry names a",
+    "EMPTY UNTIL THE OWNER FILLS IT IN, and it must stay that way. Every entry names a",
     "real business. Inventing one, or guessing a handle from a name, publishes a",
     "recommendation that could send somebody to the wrong seller or to nobody at",
     "all. The page renders an honest empty state rather than placeholder rows.",
@@ -18,7 +18,7 @@
     "SOCIAL HANDLES GO IN WITHOUT THE @, and as the handle only, never a full url",
     "with tracking on it. The builder makes the link.",
     "",
-    "`vouched` marks a vendor Tim has actually bought from. Only set it where that",
+    "`vouched` marks a vendor the owner has actually bought from. Only set it where that",
     "is true: the whole value of a local list is that it is not a directory."
   ],
   "updated": "2026-08-13",

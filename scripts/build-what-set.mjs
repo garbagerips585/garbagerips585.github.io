@@ -398,7 +398,14 @@ const style = `
    or the name is a flex item that refuses to shrink below its longest word. */
 .ws-set{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);
   font-size:var(--t-sm);line-height:1.35;min-width:0}
+/* .ws-set is a flex row, so its anchor computes to display:block and sizes to
+   its text. A set named "151" is eighteen pixels wide and nineteen tall, which
+   is under the 24x24 WCAG 2.2 asks of a target and is genuinely fiddly on a
+   phone. min-width:0 stays because it is what lets a long set name shrink
+   inside the row; the minimum box is added around it. Same cause and same fix
+   as .vg-cite a on /video-games.html. */
 .ws-set a,.ws-set>span{min-width:0}
+.ws-set a{display:inline-flex;align-items:center;justify-content:flex-start;min-height:24px;min-width:24px}
 .ws-set img{width:24px;height:24px;object-fit:contain;flex:0 0 24px;
   background:var(--paper-3);border-radius:4px;padding:2px;box-sizing:border-box}
 /* --sky-deep, not --navy. --navy is an INK now (#EEF1EF) and an ink-coloured

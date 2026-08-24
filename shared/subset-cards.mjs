@@ -54,7 +54,7 @@ export async function loadCorpus(root, names) {
  * Three reasons, all of them measured on 23 August 2026:
  *
  *   1. A name and a number together are unique. Checked across all ten cards
- *      Tim sent TCGplayer links for: every one matched exactly one printing in
+ *      the owner sent TCGplayer links for: every one matched exactly one printing in
  *      the whole 39,707-row corpus. Nothing the set name adds could improve on
  *      one, and requiring it can only lose matches.
  *   2. The set STRING is the thing that varies. The rip log says "Scarlet &
@@ -62,7 +62,7 @@ export async function loadCorpus(root, names) {
  *      so Victini 208 matched on name and number and failed on the set. Making
  *      the set a requirement would have dropped a card the number had already
  *      identified.
- *   3. It is the field a person can actually supply. Tim reads a number off
+ *   3. It is the field a person can actually supply. The owner reads a number off
  *      the card or off a TCGplayer link; he does not know which of the twenty
  *      words for a rarity our catalogue happens to use, and he should not have
  *      to. TCGplayer calls Reshiram V 024 an "Ultra Rare" and TCGdex calls it a

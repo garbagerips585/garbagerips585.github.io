@@ -173,7 +173,22 @@ async function* walk(dir) {
 
 // Matches href/src on an asset under /assets/, with or without an existing ?v=,
 // so re-running is idempotent and a changed file gets a changed stamp.
-const RE = /(href|src)="(\/assets\/[^"?]+\.(?:css|js))(\?v=[a-f0-9]+)?"/g;
+//
+// THE THREE ROOT ICONS ARE IN HERE TOO, ADDED 24 AUGUST 2026, AND THEY ARE THE
+// ONLY FILES THIS STAMPS THAT DO NOT LIVE UNDER /assets/. The owner: "my devices
+// are cached and showing the old ones want to make sure they are updated". The
+// files on disk were correct and had been since 23 August; what was missing was
+// any way for a browser to find that out. Every stylesheet and script on this
+// site carries a content hash and these three carried nothing, so a reader who
+// had ever loaded the site kept the old mark.
+//
+// A FAVICON IS THE WORST CASE FOR THIS, NOT AN ORDINARY IMAGE. Browsers cache
+// icons far more aggressively than they cache anything else and routinely hold
+// one past its own cache headers, and the tab icon is the thing a returning
+// reader recognises the site by. og:image already carried a hand-typed ?v=2,
+// which is the same fix done manually once and then never moved again; these
+// are hashed, so they update themselves whenever the artwork does.
+const RE = /(href|src)="(\/(?:assets\/[^"?]+\.(?:css|js)|favicon\.ico|favicon-32\.png|apple-touch-icon\.png))(\?v=[a-f0-9]+)?"/g;
 
 // The inline blocks. Lazy, so the first </style> after an opening tag ends the
 // block, which is what the parser does too. A <style> written INSIDE a CSS

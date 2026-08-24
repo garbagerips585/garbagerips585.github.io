@@ -173,7 +173,7 @@ export async function corpusScan(setNative, card) {
  * PART TWO: THE PANEL. WHAT A CARD SLOT WITH NO SCAN SHOWS.
  * ==========================================================================
  *
- * Tim, on the whole site: "there should be no empty place holder images
+ * the owner, on the whole site: "there should be no empty place holder images
  * anywhere on the site." Seventeen slots were one -- six hit cards on four rip
  * pages, eleven `mine` tiles on eight set guides -- plus fourteen plaques on
  * /hall.html that were doing something else and are now doing this.
@@ -267,7 +267,7 @@ export async function corpusScan(setNative, card) {
  *
  * All three are logged hits, so /hall.html drew all three as a grey noScanBox
  * with the card's name in it. data/card-shots.json pins them to the TCGplayer
- * product Tim linked, and this reads that file. It is a PIN LIST: three hand
+ * product the owner linked, and this reads that file. It is a PIN LIST: three hand
  * entries, each one added only after the TCGdex url was checked and found to
  * 404, so it can never shadow a scan we already have.
  *

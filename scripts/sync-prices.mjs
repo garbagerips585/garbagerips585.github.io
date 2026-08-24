@@ -18,7 +18,7 @@
 // HAND-ENTERED PRICES ALWAYS WIN. data/psa10.json keeps two sections:
 // `prices`, which a person filled in through the spreadsheet, and `auto`,
 // which this script owns and overwrites. The site prefers `prices` and falls
-// back to `auto`, so a sync can never silently replace a number Tim checked
+// back to `auto`, so a sync can never silently replace a number the owner checked
 // himself.
 
 import { readFile, writeFile, mkdir } from "node:fs/promises";
@@ -97,7 +97,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // staging host instead would simply break on the day of the flip.
 // Derived from SITE, so it is correct in both states and needs no launch step.
 // scripts/sync-shop-map.mjs carries the same construction and the same reason.
-const UA = `garbagerips585-prices/1.0 (${SITE}/grading.html; tim.patenaude@gmail.com)`;
+const UA = `garbagerips585-prices/1.0 (${SITE}/grading.html; garbagerips585@gmail.com)`;
 
 /** 60 calls a minute on the free and $9.99 tiers, so one per second is safe. */
 let spent = 0;

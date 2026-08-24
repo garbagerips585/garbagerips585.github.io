@@ -184,7 +184,7 @@ const rawPlaylists = await paginate("playlists", { part: "snippet,contentDetails
 const playlists = [];
 for (const p of rawPlaylists) {
   const items = await paginate("playlistItems", { part: "contentDetails", playlistId: p.id });
-  // Keep the playlist's own cover. Tim sets these by hand and they show the
+  // Keep the playlist's own cover. The owner sets these by hand and they show the
   // sealed packaging rather than a pulled card, so unlike a video's poster
   // frame they give nothing away and are better than any wrapper we could
   // substitute. Widest available: maxres is 1280 wide, standard 640, high 480.
@@ -245,7 +245,7 @@ for (const p of playlists) {
 }
 console.log(`Playlist titles supply tags for ${fromPlaylist.size} videos.`);
 
-// Whatever Tim filled in on the video log: hit card, rarity, greatest-hit
+// Whatever the owner filled in on the video log: hit card, rarity, greatest-hit
 // flag, affiliate link. Written by scripts/import-sheet.mjs.
 let manual_ = {};
 try {
@@ -415,10 +415,10 @@ await mkdir(join(ROOT, "data"), { recursive: true });
 await writeFile(join(ROOT, "data/descriptions.json"), JSON.stringify(descriptions, null, 0) + "\n");
 
 // ---------------------------------------------------------------------------
-// NO PACK COUNT IS PUBLISHED UNTIL TIM'S SHEET SAYS ONE
+// NO PACK COUNT IS PUBLISHED UNTIL THE OWNER'S SHEET SAYS ONE
 // ---------------------------------------------------------------------------
 //
-// Tim, 18 August 2026: "make sure you aren't tagging any videos with what type
+// The owner, 18 August 2026: "make sure you aren't tagging any videos with what type
 // of product it is and what packs are in the video until you get my execl sheet
 // thats filled out with all that exact data, once you have that you can update
 // all pages and videos acccordingly".
@@ -433,11 +433,11 @@ await writeFile(join(ROOT, "data/descriptions.json"), JSON.stringify(description
 //
 // EARLIER TODAY I REPLACED THAT GUESS WITH A DIFFERENT GUESS: where the copy
 // stated a pack number, the count became 1. More defensible, still inferred,
-// and still a number nobody typed being published as fact. Tim's instruction
+// and still a number nobody typed being published as fact. The owner's instruction
 // rules out both. So neither ships.
 //
 // A COUNT IS EMITTED ONLY WHEN THE SHEET STATES A PACK NUMBER for that video,
-// which is Tim's own answer rather than anybody's reading of his copy. Every
+// which is the owner's own answer rather than anybody's reading of his copy. Every
 // other video carries NO `packs` key at all, which is the shape the whole
 // pipeline already treats as "nobody has said": build-luck.mjs gates its
 // sentence on packsKnown and prints nothing without it, and the set and
@@ -449,7 +449,7 @@ await writeFile(join(ROOT, "data/descriptions.json"), JSON.stringify(description
 // 20 August 2026: THE SHEET NOW STATES A COUNT ON SOME ROWS, so there is a
 // third case above the two this block was written for, and it goes FIRST.
 //
-// Tim asked for a column beside Sets & Packs saying how many packs of that set
+// The owner asked for a column beside Sets & Packs saying how many packs of that set
 // the video opened, blank meaning one, because his first Japanese row opened
 // two packs of one set: tuX1t8p29Ik, Abyss Eye packs #9 and #10, one video.
 // The Pack # rule below cannot express that. It publishes 1 for every row with
@@ -472,7 +472,7 @@ await writeFile(join(ROOT, "data/descriptions.json"), JSON.stringify(description
 // inside a First Partner box, the video opens Box #6 and states Pack # 3, and an
 // unguarded sum would publish 3."
 //
-// M7NqqhR8V4M now publishes 3, correctly. Tim was asked directly and answered:
+// M7NqqhR8V4M now publishes 3, correctly. The owner was asked directly and answered:
 // "First partners boxes do come with 3 overall packs, 1 Pack of first partners
 // cards, and then two other sets come in each box so total of 3 packs per first
 // partners box", and "I listed out all 3 packs in each of the first partner
@@ -485,10 +485,10 @@ await writeFile(join(ROOT, "data/descriptions.json"), JSON.stringify(description
 // prevents the number the tree now publishes is the paragraph a future agent
 // quotes as grounds to revert a correct figure. The ambiguity the importer still
 // refuses is a count that does not line up one-per-set -- "3" against two sets --
-// which is a different thing from Tim naming three sets.
+// which is a different thing from the owner naming three sets.
 //
 // The Pack # rule is kept UNDERNEATH rather than replaced. It still covers the
-// 100-odd rows where Tim has typed a pack number and not yet touched the new
+// 100-odd rows where the owner has typed a pack number and not yet touched the new
 // column, and where both speak they agree: a single-set cell with a blank count
 // is one pack, which is what the Pack # rule already published.
 let fromSheet = 0;
@@ -547,7 +547,7 @@ await writeFile(
 // dropped all 21 of them. build-proto.mjs falls back to the generic pack
 // wrapper when a playlist has no cover, and that fallback is deliberate and
 // quiet, so the grid went from 21 different products to 22 copies of the same
-// Trubbish pack and NOTHING reported it. Tim spotted it on the page.
+// Trubbish pack and NOTHING reported it. The owner spotted it on the page.
 //
 // The 42 image files were on disk the whole time. Only the pointer was lost,
 // which is the worst shape of this bug: nothing 404s and nothing looks broken.

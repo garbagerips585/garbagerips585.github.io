@@ -251,7 +251,7 @@ const wholeCard = () => `<figure class="bs-card">
  *
  * THE CARD STAYS YELLOW AND THAT IS DELIBERATE. A first pass took it teal on
  * the reasoning that the palette has no yellow left. THE PALETTE RULE IS ABOUT
- * THE SITE'S CHROME, NOT ABOUT WHAT A PICTURE OF A THING LOOKS LIKE. Tim's
+ * THE SITE'S CHROME, NOT ABOUT WHAT A PICTURE OF A THING LOOKS LIKE. The owner's
  * words were "just not use that color in the general pallet of the site
  * colors", and ui.css already carves out exactly this case for .pack-mascot and
  * the eighteen .pack skins: "the pack skins are photographs of real products:

@@ -81,7 +81,7 @@ const FORCE = process.argv.includes("--force");
 // true this script would keep introducing itself with a host the site no
 // longer serves -- and a UA that names an unreachable address is worse than
 // no UA at all to the operators whose policies ask for one.
-const UA = `garbagerips585-build/1.0 (${SITE}/; tim.patenaude@gmail.com)`;
+const UA = `garbagerips585-build/1.0 (${SITE}/; garbagerips585@gmail.com)`;
 
 /**
  * id -> [Commons file title, what the mark actually says].
@@ -150,6 +150,14 @@ const MARKS = {
   fivebelow: ["File:Five Below logo.svg", "Five Below"],
   barnesandnoble: ["File:Barnes & Noble logo.svg", "Barnes & Noble"],
   staples: ["File:Staples Logo.svg", "Staples"],
+  // ADDED 24 AUGUST 2026, and the year in the title is load bearing. Sam's Club
+  // rebranded on 28 May 2026, so Commons holds five older marks under names
+  // that all look equally plausible from a search result. This is the current
+  // one. The 2020 mark is still there, still public domain, and still wrong.
+  // The retailer's key in data/drops.json is `sams-club`, so the file is named
+  // to match it and needs no ALIAS entry in shared/brands.mjs, unlike best-buy
+  // and dollar-general.
+  "sams-club": ["File:Sam's Club logo 2026.svg", "Sam's Club"],
 };
 
 const api = async (params) => {

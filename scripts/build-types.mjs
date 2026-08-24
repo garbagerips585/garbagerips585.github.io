@@ -145,7 +145,7 @@ try {
 // text beside them. They are also the types' own recognised colours, which is
 // the only thing they carry, and lifting all eleven to one ratio flattens them
 // to one luminance and turns Fire into salmon. If a later editor wants the full
-// set raised, that is a palette decision for Tim and not a contrast fix: make
+// set raised, that is a palette decision for the owner and not a contrast fix: make
 // it once, for all eleven, and re-measure the pair in .ty-key a:hover too.
 const MARK = {
   grass: ["#5DAB4D", `<path d="M11 1C4.6 1 1 4.4 1 8.2c0 1.2.4 2.2 1 2.9C3.4 8 5.9 5.8 8.9 4.6 6.4 6.3 4.4 8.6 3.4 11.4c.6.4 1.4.6 2.2.6C9.2 12 11 8.6 11 1Z"/>`],

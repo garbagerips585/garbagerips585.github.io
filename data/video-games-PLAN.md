@@ -20,7 +20,7 @@ here has to be "Video games" and the minigame hub keeps "Games".
 
 ## 1. Imagery: settled, with the engineering that makes it survive
 
-Tim's call, given twice: use the official cover artwork. This is a fan site,
+the owner's call, given twice: use the official cover artwork. This is a fan site,
 nothing is sold on it, the use is informational, and the footer already carries
 "Fan content. Not affiliated with The Pokemon Company". So the question stopped
 being whether and became **which host, at what size, and what happens when one
@@ -250,7 +250,7 @@ the source rather than invented.
 - **Bootlegs, ROM hacks and fan games.**
 
 Each exclusion removes rows that would be blank in three of the five columns
-this page exists to show. If Tim wants any of them back, the fetchers in the
+this page exists to show. If the owner wants any of them back, the fetchers in the
 scratchpad take a title and produce a full record, so adding one is a one-line
 change to the scope list rather than a research job.
 
@@ -594,13 +594,13 @@ does not exist.
 
 ---
 
-## 9. Open questions for Tim
+## 9. Open questions for the owner
 
 1. **1.4 MB fully scrolled.** Acceptable for a page that is 79 pieces of
    artwork, or pull lever 2 and drop to a 208px box for 786 KB? On-load is
    about 82 KB either way.
 2. **Japanese dates as the primary.** It is the honest choice for a Japanese
-   series and it puts Red and Green at February 1996 rather than 1998. Tim's
+   series and it puts Red and Green at February 1996 rather than 1998. The owner's
    audience is American. Worth one look at a mock before it is settled.
 3. **The five TCG video games.** They are in scope because this is a card
    channel. Two of them already have full pages here. Should those five rows be

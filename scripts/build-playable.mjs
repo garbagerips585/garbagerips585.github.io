@@ -354,6 +354,27 @@ ${MENU}
         across <b>${lists} tournament decklists</b>, so the order comes from arithmetic you can check rather
         than from anybody's opinion.</p>
 
+      <p class="pl-jump"><a href="#method">How this was counted</a></p>
+
+      <ol class="pl-list">
+        ${rows}
+      </ol>
+
+      ${/* THE METHOD MOVED BELOW THE LIST, 24 August 2026. The owner: "there is
+            alot of text at the top of this page too, maybe we can rethink that,
+            and get right into the list of top played cards." Roughly 400 words
+            of format table and methodology stood between the heading and rank 1,
+            which is most of a phone screen spent explaining a list the reader
+            cannot see yet.
+
+            IT MOVED RATHER THAN GOING AWAY, and that distinction is the whole
+            point of this page. The order is a counting claim, so how it was
+            counted has to be on the page or the ranking is just an assertion.
+            It now sits directly under the list, where a reader who wants to
+            argue with the order finds it at exactly the moment they want it.
+            This is the same call he made on most-valuable-cards, top-graded,
+            most-expensive-sealed and how-many-packs. */ ""}
+      <div id="method">
       <div class="pl-fmt">
         <h2>The format being counted</h2>
         <dl>
@@ -402,10 +423,7 @@ ${MENU}
             ? `The largest bunch below the cut is <b>${plateau.n} cards on ${plateau.at} lists</b>, at ranks ${plateau.from} to ${plateau.to}.`
             : ""
         } Read the bottom of this list as a group and not as an order.</p>
-
-      <ol class="pl-list">
-        ${rows}
-      </ol>
+      </div>
 
       <h2>Where to go next</h2>
       <ul class="pl-more">

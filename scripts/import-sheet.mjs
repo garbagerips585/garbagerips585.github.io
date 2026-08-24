@@ -74,7 +74,7 @@ function parseCsv(text) {
 /* TWO CATALOGUES, TWO WORDS, ONE RUNG, AND BOTH IMPORT PATHS NEED IT.
  *
  * TCGplayer calls Ascended Heroes 265/217 a "Mega Attack Rare"; TCGdex, which
- * public/data/cards/ is built from, calls the same printing "Ultra Rare". Tim
+ * public/data/cards/ is built from, calls the same printing "Ultra Rare". The owner
  * writes what TCGplayer shows him, which is right, and the checklist has to be
  * matched on its own vocabulary.
  *
@@ -83,7 +83,7 @@ function parseCsv(text) {
  * refused the workbook: "the log calls Mega Froslass ex a Mega Attack Rare, but
  * ascended-heroes prints it only as Double rare, Special illustration rare,
  * Ultra Rare." Correct complaint, wrong place to fix it -- the answer is not to
- * retype Tim's cell in a vocabulary he does not use.
+ * retype the owner's cell in a vocabulary he does not use.
  *
  * MEASURED BEFORE IT WAS WRITTEN, because a rarity alias picks a PRINTING:
  * Ascended Heroes has 7 Mega Attack Rares on TCGplayer and 14 Ultra Rares, our
@@ -120,16 +120,16 @@ const PRODUCT_IDS = {
   "knock out collection": "knock-out",
   "other": null,
 
-  // THE WAY TIM ACTUALLY WRITES THEM, now these columns are free text. Every
+  // THE WAY THE OWNER ACTUALLY WRITES THEM, now these columns are free text. Every
   // one came out of his own first pass on 19 August 2026 and was reported by
   // this script as unrecognised, which is the dropped dropdown working as
   // intended: it did not guess, it said so. The keys above are the old dropdown
   // LABELS, which nobody types by hand; these are the words a person writes.
   "blister pack": "blister",
-  // A SPECIAL RELEASE THAT IS A BLISTER BY SHAPE, AND TIM SAID SO.
+  // A SPECIAL RELEASE THAT IS A BLISTER BY SHAPE, AND THE OWNER SAID SO.
   // The Pokemon Day 2026 Collection is three packs -- two Phantasmal Flames
   // and one Mega Evolution -- around a 30th Anniversary Pikachu promo, which
-  // is a blister in everything but the name on the box. Tim, 23 August 2026:
+  // is a blister in everything but the name on the box. The owner, 23 August 2026:
   // "this is a special set, but you are right its kind of like a blister with
   // multiple packs". The blister pattern in shared/taxonomy.mjs already reads
   // a three-pack as one.
@@ -161,7 +161,7 @@ const PRODUCT_IDS = {
   "korean pack": "korean-pack",
   "chinese pack": "chinese-pack",
 
-  // FROM TIM'S THIRD PASS, 20 August 2026, and the same failure as the two
+  // FROM THE OWNER'S THIRD PASS, 20 August 2026, and the same failure as the two
   // blocks above wearing a different set of words. His first Japanese rows say
   // "Japanese Single Booster Pack": the map held "japanese pack" and the
   // English "single booster pack" separately and neither matched the two of
@@ -172,7 +172,7 @@ const PRODUCT_IDS = {
   // rather than a one-line fix. The title matcher had already guessed
   // japanese-pack from the word "Japanese" in the title and guessed RIGHT, so
   // the page was tagged correctly and the only casualty was the difference
-  // between "Tim confirmed this" and "a rule guessed it". That is the exact
+  // between "the owner confirmed this" and "a rule guessed it". That is the exact
   // failure the ex-premium block above describes, and it is now the third time
   // it has happened on this column.
   //
@@ -191,18 +191,18 @@ const PRODUCT_IDS = {
   // /openings/ page. When a Japanese box is actually opened, add the id to
   // taxonomy.mjs first and this key second.
 
-  // FROM TIM'S SECOND PASS, 19 August 2026, and the first of these was the
+  // FROM THE OWNER'S SECOND PASS, 19 August 2026, and the first of these was the
   // SECOND most common product value in the whole sheet at 16 rows. It went
   // unrecognised because the map had "ex premium collection" and "ex box" but
   // not the way he actually writes it, which is both of them at once. Nothing
   // looked broken: the importer declined to store his answer and the title
   // matcher's guess stayed, so the pages were tagged and the confirmation was
   // silently thrown away. That is the exact failure the long comment above the
-  // sets block describes -- the system could not tell "Tim confirmed this" from
-  // "Tim never looked at it" -- reappearing on the product column.
+  // sets block describes -- the system could not tell "the owner confirmed this" from
+  // "the owner never looked at it" -- reappearing on the product column.
   "ex premium collection box": "ex-premium",
 
-  // FROM TIM'S FOURTH PASS, 21 August 2026, and the same failure a fourth time.
+  // FROM THE OWNER'S FOURTH PASS, 21 August 2026, and the same failure a fourth time.
   // Rows 67 and 72 answer this column with the PRODUCT'S FULL RETAIL NAME
   // rather than a kind of box: "First Partner Illustration Collection
   // (Series 1)". Both are already tagged collection-box in overrides.json
@@ -218,7 +218,7 @@ const PRODUCT_IDS = {
   // The Series 2 form is added at the same time, on the same reasoning as the
   // Korean and Chinese single-pack keys: it does not appear in the sheet today,
   // and a key that is never read costs nothing.
-  // FROM TIM'S FIFTH PASS, 21 August 2026, and the same shape as the First
+  // FROM THE OWNER'S FIFTH PASS, 21 August 2026, and the same shape as the First
   // Partner block below it: he answers this column with the PRODUCT'S RETAIL
   // NAME rather than a kind of box. All three were reported unrecognised, which
   // is the dropped dropdown working -- it did not guess, it said so.
@@ -231,7 +231,7 @@ const PRODUCT_IDS = {
   // missing id captions the filter rail with a raw string and links to a page
   // that is not built. Both are a themed box holding packs and promos, which is
   // what collection-box already means on this site.
-  // FROM TIM'S SIXTH PASS, 21 August 2026. Same shape as every block above: the
+  // FROM THE OWNER'S SIXTH PASS, 21 August 2026. Same shape as every block above: the
   // product's retail name where the column wants a kind of box.
   //
   // The two Collections are collection-box on the argument the First Partner
@@ -264,7 +264,7 @@ const PRODUCT_IDS = {
   "first partner box": "collection-box",
 };
 
-/** Tim writes the series on the product, as in "First Partner Illustration
+/** The owner writes the series on the product, as in "First Partner Illustration
  * Collection (Series 1)". WHICH SERIES IT IS BELONGS TO THE SET COLUMN AND NOT
  * TO THE PRODUCT: the product is the same box either way, and keeping the
  * number here would need a new key for every series that is ever printed. The
@@ -289,7 +289,7 @@ try {
 }
 // EVERY ENGLISH SET, not only the ones with a guide page. The dropdown now
 // offers all 174, because a tin can hold a pack from a set we never wrote a
-// guide for and Tim needs somewhere to record it. Only 28 of them carry a
+// guide for and the owner needs somewhere to record it. Only 28 of them carry a
 // `slug`, since a slug is assigned when a guide is built, so the rest are keyed
 // on a slugified name. Verified collision-free against the guide ids and the
 // international ids at import time rather than assumed.
@@ -363,7 +363,7 @@ try {
 // THE SET'S OWN CHECKLIST, LOADED ONLY WHEN A HIT NEEDS PROVING.
 //
 // Used by the Hit Info parser to check a card name against the real cards in
-// the set Tim named, which is the difference between correcting a name and
+// the set the owner named, which is the difference between correcting a name and
 // guessing at one. Missing file means no checklist, which means no correction:
 // silence here always leaves the name exactly as he typed it.
 const checklistCache = new Map();
@@ -430,7 +430,7 @@ if (col("Card") !== -1 && col("Raw NM USD") !== -1) {
   // worth $363.43. Row 198 of the My Hits tab names the set, leaves Number
   // blank and types the rarity "Double Rare", and this map handed back 294. So
   // the site published a $363.43 chase card, near the top of the Hall of Fame,
-  // for a card Tim had written down as a Double rare. He caught it himself and
+  // for a card the owner had written down as a Double rare. He caught it himself and
   // sent the TCGplayer link for 022/217.
   //
   // "The dearer one is the one somebody logging a hit means" is a fair guess
@@ -486,7 +486,7 @@ if (col("Card") !== -1 && col("Raw NM USD") !== -1) {
           if (better) byCard.set(k, { n: c.localId, rarity: c.rarity, price: null });
           // The intl guides carry TWO rarity words per card: `rarity` is the
           // checklist's ("Ultra Rare") and `rarityJp` is what is printed on the
-          // card in Japan ("Super Rare"). Tim reads the card, so he types the
+          // card in Japan ("Super Rare"). The owner reads the card, so he types the
           // second one. Both go into the candidate so pickPrinting() can match
           // either. Poke Pad on EPqUqzrAc30 is exactly this: 070 Uncommon and
           // 103 Super Rare, and only the second word tells them apart.
@@ -518,7 +518,7 @@ if (col("Card") !== -1 && col("Raw NM USD") !== -1) {
    *   3. the dearest printing, which is the behaviour this replaced.
    *
    * NAMES ARE MATCHED WITH THE ACCENTS STRIPPED. The Japanese guides file
-   * "Poke Pad" and Tim writes "Poke Pad" with the accent, off the card, so
+   * "Poke Pad" and the owner writes "Poke Pad" with the accent, off the card, so
    * the exact-key lookup missed and the row resolved to nothing at all.
    * Accent-folding is a fallback here rather than the primary key so an
    * exact match can never be beaten by a folded one.
@@ -772,7 +772,7 @@ const idx = {
   // Sets & Packs and holds one number per set named there, in the same order,
   // commas between them. Blank means one of each.
   //
-  // Tim, 20 August 2026, asking for it: a column "for how many packs of that
+  // The owner, 20 August 2026, asking for it: a column "for how many packs of that
   // set are in the video. Blank means one." He hit it on his first Japanese
   // row, tuX1t8p29Ik, which opened Abyss Eye packs #9 and #10 in one video:
   // two packs of one set, with no Pack # that can hold both.
@@ -829,7 +829,7 @@ try { overrides = JSON.parse(await readFile(join(ROOT, "data/overrides.json"), "
 // file, and written by the importer as well as sitting in the file, so a
 // re-import does not quietly delete it.
 //
-// DELETE IT IN THE SAME EDIT THAT DELETES THE SUPPRESSION BLOCK, once Tim's
+// DELETE IT IN THE SAME EDIT THAT DELETES THE SUPPRESSION BLOCK, once the owner's
 // filled sheet has landed and every Packs cell is his own answer.
 const MANUAL_WARNING = [
   "READ THIS BEFORE TRUSTING ANY `packs` VALUE IN THIS FILE.",
@@ -839,23 +839,23 @@ const MANUAL_WARNING = [
   "and the column asks how many packs the VIDEO opened. Those are different",
   "questions and the format is one pack per Short. The prefill was blue text, and",
   "colour does not survive export to CSV, so every suggestion came back through",
-  "import-sheet.mjs indistinguishable from something Tim typed.",
+  "import-sheet.mjs indistinguishable from something the owner typed.",
   "",
   "It has already been published once: 21 Chaos Rising ETB rips each carrying 9,",
   "summing to 189 where 21 packs were opened, and /luck.html printed",
   "'232 packs counted' off that total.",
   "",
-  "Tim, 18 August 2026: 'make sure you aren't tagging any videos with what type of",
+  "the owner, 18 August 2026: 'make sure you aren't tagging any videos with what type of",
   "product it is and what packs are in the video until you get my execl sheet thats",
   "filled out with all that exact data'.",
   "",
   "So NOTHING here reaches the site unless the sheet states a Pack # for that video.",
   "The suppression is at the end of scripts/sync-youtube.mjs, under the banner",
-  "'NO PACK COUNT IS PUBLISHED UNTIL TIM'S SHEET SAYS ONE', and check-build.py",
+  "'NO PACK COUNT IS PUBLISHED UNTIL THE OWNER'S SHEET SAYS ONE', and check-build.py",
   "fails the build if a published `packs` equals its product's capacity on a video",
   "that also states a pack number, which is the exact signature of this prefill.",
   "",
-  "DO NOT DELETE THE VALUES. Tim's filled sheet overwrites them. Do not 'restore'",
+  "DO NOT DELETE THE VALUES. The owner's filled sheet overwrites them. Do not 'restore'",
   "them to the site either: reverting one line in sync-youtube.mjs republishes all",
   "244 and nothing about the file would look wrong.",
 ];
@@ -864,7 +864,7 @@ const MANUAL_WARNING = [
 //
 // `manual` is built fresh every run, so a field that no longer has a column
 // simply vanishes -- and on 20 August 2026 the Product # column was retired at
-// Tim's request, on the reasoning that a box number can be worked out later
+// the owner's request, on the reasoning that a box number can be worked out later
 // from the data. It mostly cannot: of the 73 rows that carried one, TWENTY
 // restate it somewhere else and 53 do not.
 //
@@ -894,7 +894,7 @@ const unknownSet = new Set();
 // HITS PARSED OUT OF THE VIDEO LOG'S Hit Info COLUMN.
 //
 // data/hits.json is what /hall.html, the rarity pages and the set guides read,
-// and until now it was filled ONLY from the My Hits tab. Tim fills Hit Info on
+// and until now it was filled ONLY from the My Hits tab. The owner fills Hit Info on
 // the Video Log instead, one line per video, so 23 of his 26 hit rows were
 // landing in manual.json and reaching no page at all: the hall showed 19
 // pictures against 42 plaques and he asked why.
@@ -906,7 +906,7 @@ const logHits = [];
 // A SET NAME WITH A TYPO IS STILL A SET NAME, and this is safe in a way that
 // guessing never is: it picks from a CLOSED LIST of 174 real set names rather
 // than inventing one. "Phantasmal Falmes" is not a judgement call about what
-// Tim meant, it is one transposition away from exactly one entry on that list
+// the owner meant, it is one transposition away from exactly one entry on that list
 // and nothing else is close.
 //
 // Deliberately tight. Only tried when an exact match fails, only on fragments
@@ -999,7 +999,7 @@ for (const [n, r] of rows.slice(1).entries()) {
   //
   // The distinction is the one this project has got wrong more than any other.
   // A Sets & Packs cell reading "Ascended Heroes" names ONE set and means one
-  // pack, which is Tim's own rule for a blank count. A cell reading "First
+  // pack, which is the owner's own rule for a blank count. A cell reading "First
   // Partner Illustration Collection (Series 1), Phantasmal Flames, Mega
   // Evolution" names the three packs a First Partner BOX HOLDS, and the video
   // it sits on, M7NqqhR8V4M, opens Box #6 and states Pack # 3. Summing the
@@ -1035,7 +1035,7 @@ for (const [n, r] of rows.slice(1).entries()) {
     for (const piece of String(spRaw).split(/[;,]/)) {
       const frag = piece.replace(/\s+/g, " ").trim();
       if (!frag) continue;
-      // TIM'S FORMAT, 20 AUGUST 2026: "<Set Name> - <N> Pack", commas between sets.
+      // THE OWNER'S FORMAT, 20 AUGUST 2026: "<Set Name> - <N> Pack", commas between sets.
       // "First Partner Illustration Collection (Series 1) - 1 Pack , Phantasmal
       // Flames - 1 Pack , Mega Evolution - 1 Pack". The count travels with the
       // name it counts, which is why the separate Packs of Each Set column is
@@ -1095,7 +1095,7 @@ for (const [n, r] of rows.slice(1).entries()) {
         if (/promo|first partner|illustration collection/i.test(body)) {
           setPacks.push({ set: null, name: body, packs, typed });
         } else if (suffix) {
-          // A NUMBER TIM TYPED IS A NUMBER TIM TYPED, EVEN WHEN THE SET IS NEW.
+          // A NUMBER THE OWNER TYPED IS A NUMBER THE OWNER TYPED, EVEN WHEN THE SET IS NEW.
           //
           // "Trick Or Trade - 3 Packs" is not in sets.json, expansions.json,
           // intl-guides.json or the printings corpus -- it is a Halloween
@@ -1124,7 +1124,7 @@ for (const [n, r] of rows.slice(1).entries()) {
     }
     // Held in locals: `m` is declared further down, and these blocks run
     // during the set/override work that happens before it exists.
-    // THE Packs of Each Set COLUMN IS GONE, 20 August 2026, on Tim's ask: the
+    // THE Packs of Each Set COLUMN IS GONE, 20 August 2026, on the owner's ask: the
     // count now travels inside Sets & Packs beside the name it counts. That
     // column existed for eight hours and was never filled in on a single row,
     // so nothing typed was lost retiring it -- and the positional form it used
@@ -1136,12 +1136,12 @@ for (const [n, r] of rows.slice(1).entries()) {
     // count that does not line up one-per-set. It just cannot arise in this
     // shape, because there is no longer a second list to line up against.
     //
-    // WHAT COUNTS AS TIM HAVING SAID HOW MANY PACKS: naming the set says it.
+    // WHAT COUNTS AS THE OWNER HAVING SAID HOW MANY PACKS: naming the set says it.
     // A named set is a pack, a blank count means one, and a "- N Pack" suffix
     // says otherwise. This gate used to refuse any multi-set cell, on the theory
     // that three names might be listing what a PRODUCT CONTAINS rather than what
     // the video OPENED -- and it was refusing true numbers on exactly the First
-    // Partner rows it was written to protect. Tim, 20 August 2026: "First
+    // Partner rows it was written to protect. The owner, 20 August 2026: "First
     // partners boxes do come with 3 overall packs ... total of 3 packs per first
     // partners box", and "I listed out all 3 packs in each of the first partner
     // videos". The cell is a list of what he opened.
@@ -1200,7 +1200,7 @@ for (const [n, r] of rows.slice(1).entries()) {
   // It happened. Today's taxonomy fix corrected six videos (four First Partner
   // boxes wrongly tagged 151, and two carrying a phantom Scarlet & Violet), and
   // a sheet generated before that fix still carried the old guesses. Importing
-  // it wholesale re-tagged all six as if Tim had confirmed them by hand. Of 272
+  // it wholesale re-tagged all six as if the owner had confirmed them by hand. Of 272
   // set cells in that import, 270 were byte-identical to the machine's own
   // prefill and exactly 2 were real edits.
   //
@@ -1285,17 +1285,17 @@ for (const [n, r] of rows.slice(1).entries()) {
     answered.sets.add(id);
     counted.notASet = (counted.notASet || 0) + 1;
   } else if (setIds.length) {
-    // TIM'S ANSWER IS RECORDED WHETHER OR NOT THE MATCHER AGREES WITH IT.
+    // THE OWNER'S ANSWER IS RECORDED WHETHER OR NOT THE MATCHER AGREES WITH IT.
     //
     // This used to retire the override whenever the sheet and the matcher said
     // the same thing, on the reasoning that agreement means there is nothing to
     // correct. That was right while the matcher was the source of truth and the
     // sheet was a way to fix it. It is backwards now that the sheet IS the
     // source: it threw away the answer and kept the guess, so the system could
-    // not tell "Tim confirmed this" from "Tim never looked at it".
+    // not tell "the owner confirmed this" from "the owner never looked at it".
     //
     // Measured before this changed: 286 videos carried a set tag and 272 of them
-    // came from the matcher, because agreement was discarded on every one. Tim
+    // came from the matcher, because agreement was discarded on every one. The owner
     // asked for only his own entries to drive the tags, and that was impossible
     // while his agreement was the one answer the importer refused to store.
     //
@@ -1338,7 +1338,7 @@ for (const [n, r] of rows.slice(1).entries()) {
       counted.packsStated = (counted.packsStated || 0) + 1;
     }
   }
-  // KEEP THE RAW CELL, ALWAYS, EVEN WHEN THE PARSE SUCCEEDED. Tim: "keep all my
+  // KEEP THE RAW CELL, ALWAYS, EVEN WHEN THE PARSE SUCCEEDED. The owner: "keep all my
   // info in there forever as its real data from me watching the videos its
   // accurate". A parsed structure is a DERIVATIVE of what he wrote; the string
   // is the record. Storing only the parse means a later change to the parser
@@ -1479,7 +1479,7 @@ for (const [n, r] of rows.slice(1).entries()) {
   const card = get(r, idx.hitCard);
   if (card) { m.hitCard = card; counted.card++; }
 
-  // ONE CELL, WRITTEN THE WAY TIM SAYS IT, AND A COMMA BETWEEN HITS.
+  // ONE CELL, WRITTEN THE WAY THE OWNER SAYS IT, AND A COMMA BETWEEN HITS.
   // 19 August 2026: "I will just keep typing them out how I have, the set name,
   // the card name, and rariety type all in one cell, and will just use coma if
   // there is more than one hit per video."
@@ -1533,7 +1533,7 @@ for (const [n, r] of rows.slice(1).entries()) {
     //
     // THE KEY WAS HALF WRITTEN OUT AND THE MISSING HALF COST A CARD NAME.
     // build-sheet.py puts the whole key on the Rarity header of the workbook
-    // Tim fills in, and only four of its eight lines were listed here, so
+    // the owner fills in, and only four of its eight lines were listed here, so
     // "Trainer - Dawn - Double Gold Star - Special Illustration Rare" left
     // "Double Gold Star" in the card name and published "Trainer Dawn Double
     // Gold Star". These eight are copied from RARITY_HINT in build-sheet.py,
@@ -1541,7 +1541,7 @@ for (const [n, r] of rows.slice(1).entries()) {
     const STAR_RARITY = {
       "one big yellow star": "Mega Hyper Rare",
       "single yellow star": "Mega Hyper Rare",
-      // THE THIRD NAME FOR THE SAME ONE STAR, and it is Tim's, 21 August 2026.
+      // THE THIRD NAME FOR THE SAME ONE STAR, and it is the owner's, 21 August 2026.
       // The two above were written from the set booklet's own wording; he types
       // the RARITY into the symbol slot instead -- "Mega Greninja ex - Mega
       // Yellow Star - Mega Hyper Rare". Nothing is ambiguous about it: there is
@@ -1559,7 +1559,7 @@ for (const [n, r] of rows.slice(1).entries()) {
       "single pink star": "ACE SPEC Rare",
       // THE MEGA-ERA ULTRA RARE PRINTS A TWO-TONE STAR, NOT A SILVER ONE.
       // Mega Froslass ex, Ascended Heroes 265/217, carries a star split pink
-      // and green, and Tim typed what he saw. Settled from the card itself and
+      // and green, and the owner typed what he saw. Settled from the card itself and
       // from the catalog rather than from the words: the number on the scan is
       // 265, and public/data/printings/ has exactly one Ascended Heroes 265 and
       // it is this card at Ultra Rare. Same standing as the yellow star above --
@@ -1569,7 +1569,7 @@ for (const [n, r] of rows.slice(1).entries()) {
     // A JAPANESE CARD PRINTS A LETTER CODE WHERE AN ENGLISH ONE PRINTS STARS,
     // AND THE CODE WAS ENDING UP IN THE CARD NAME.
     //
-    // Tim's row for the Cyber Judge rip reads "Cyber Judge - Incineroar ex - SR
+    // The owner's row for the Cyber Judge rip reads "Cyber Judge - Incineroar ex - SR
     // - Super Rare". That is his documented format exactly, Set - Card - the
     // mark on the card - Rarity, with the third field filled the way a Japanese
     // card fills it: SR is printed on the card itself, where a Scarlet & Violet
@@ -1591,7 +1591,7 @@ for (const [n, r] of rows.slice(1).entries()) {
     // puts on its own patterns and for the same reason it writes down there: R,
     // U and C are single capitals that turn up inside ordinary card names. The
     // match is against a WHOLE delimited field and is case sensitive, so it can
-    // only ever fire where Tim wrote the code in its own slot.
+    // only ever fire where the owner wrote the code in its own slot.
     //
     // IT CROSS-CHECKS EXACTLY LIKE THE STAR DOES. The code fills a rarity that
     // was not written out, and where both are present and disagree it is
@@ -1599,7 +1599,7 @@ for (const [n, r] of rows.slice(1).entries()) {
     const CODE_RARITY = Object.fromEntries(
       RARITY_KEY.filter((r) => r.jp && r.code && r.code.length > 1).map((r) => [r.code, r.label]),
     );
-    // FINISH WORDS ARE NOT PART OF THE CARD NAME. Tim writes "Mega Greninja ex
+    // FINISH WORDS ARE NOT PART OF THE CARD NAME. The owner writes "Mega Greninja ex
     // - Hyper Rare - Gold Card": the gold is how the card looks, not what it is
     // called, and leaving it in produced the card name "Mega Greninja ex Gold
     // Card". Stripped after the rarity is read, never before, so a finish can
@@ -1609,7 +1609,7 @@ for (const [n, r] of rows.slice(1).entries()) {
     //
     // The pattern above only fires on a finish word FOLLOWED BY the literal
     // word "card", because that is the shape it was written for ("- Gold
-    // Card"). Tim also writes the finish on its own, in its own delimited
+    // Card"). The owner also writes the finish on its own, in its own delimited
     // field, and two rows shipped a card name with the finish glued into it:
     //
     //   "Trainer - Rare Candy - SR - Full Art"  -> "Trainer Rare Candy Full Art"
@@ -1621,7 +1621,7 @@ for (const [n, r] of rows.slice(1).entries()) {
     // card is called.
     //
     // A WHOLE FIELD ONLY, which is the same restriction CODE_RARITY puts on the
-    // letter codes and for the same reason: the field is a slot Tim typed a
+    // letter codes and for the same reason: the field is a slot the owner typed a
     // delimiter around, so matching it can never eat a word out of the middle
     // of a name. "Alt Art Charizard" as one field is untouched. The optional
     // trailing "card" is here so "- Gold Card" is caught by this test as well
@@ -1634,7 +1634,7 @@ for (const [n, r] of rows.slice(1).entries()) {
     // which is on no checklist. The finish slot already exists and this is
     // what it is for.
     const FINISH_FIELD = /^(gold|rainbow|silver|textured|full art|alt art|reverse holo)(\s+card)?$/i;
-    // The card TYPES, which are what Tim means when he writes a word like
+    // The card TYPES, which are what the owner means when he writes a word like
     // Trainer between the set and the card. Used well below, where the set is
     // finally known and the set's own checklist can settle whether the word is
     // part of the name.
@@ -1649,7 +1649,7 @@ for (const [n, r] of rows.slice(1).entries()) {
     // the one the site renders from.
     //
     // The three extras below are not in RARITY_KEY because they are not chip
-    // rarities -- Tim writes them and they must still be recognised here.
+    // rarities -- the owner writes them and they must still be recognised here.
     const RARITY_WORDS = [
       ...new Set([
         ...RARITY_KEY.map((r) => r.label).filter(Boolean),
@@ -1665,7 +1665,7 @@ for (const [n, r] of rows.slice(1).entries()) {
 
     // "A : B, C, D" MEANS THREE CARDS THAT SHARE A CONTEXT, not one long name.
     //
-    // Tim's First Partner Illustration Collection line reads "First Partner
+    // The owner's First Partner Illustration Collection line reads "First Partner
     // Illustration Collection (Series 1) Alola Region Promo : Rowlet, Litten,
     // Popplio": one promo pack, three cards, and the words before the colon
     // describe all three. Split on commas alone and the first card swallows the
@@ -1680,14 +1680,14 @@ for (const [n, r] of rows.slice(1).entries()) {
     // Until 20 August 2026 no cell in this sheet had ever recorded hits from
     // two different packs -- all 54 named a single printing -- so the parse
     // below had no reason to look for a second one. First Partner boxes changed
-    // that: they hold three packs, Tim opens all three on camera, and Box #5 hit
+    // that: they hold three packs, the owner opens all three on camera, and Box #5 hit
     // in two of them. He wrote both into one cell and the colon-and-comma rule
     // read it as three cards from one pack, producing a card called
     // 'Popplio Trainer Punk Helmet' that does not exist and shipped to two
     // pages. That is not a typo in his data; it is a shape his format could not
     // express.
     //
-    // Tim picked the semicolon (20 August 2026) from the separators that were
+    // The owner picked the semicolon (20 August 2026) from the separators that were
     // free: neither ';' nor '|' appeared in any of the 54 hit cells, so nothing
     // already written changes meaning. Each block is parsed exactly as a whole
     // cell was before -- its own colon context, its own comma list -- so a cell
@@ -1730,7 +1730,7 @@ for (const [n, r] of rows.slice(1).entries()) {
           }
           // "BLACK STAR PROMO CARD" IS A RARITY WITH A NOUN ON THE END OF IT.
           //
-          // This test was an exact equality against the rarity list, so Tim's
+          // This test was an exact equality against the rarity list, so the owner's
           // "Phantasmal Falmes - Charizard X ex - Black Star Promo Card" matched
           // nothing, the whole trailing part fell into the card name, and two
           // rips published cards called "Charizard X ex Black Star Promo Card"
@@ -1770,7 +1770,7 @@ for (const [n, r] of rows.slice(1).entries()) {
           // THE SYMBOL SLOT IS POSITIONAL WHEN THE SHAPE LEAVES NO DOUBT, and
           // without this an unrecognised symbol becomes part of the card's name.
           //
-          // Tim writes "Card - Symbol - Rarity". Every symbol he uses is matched
+          // The owner writes "Card - Symbol - Rarity". Every symbol he uses is matched
           // by name against STAR_RARITY or by letter against CODE_RARITY, so a
           // symbol that is neither -- a typo, or an abbreviation the tables do
           // not carry -- is simply left over, and the leftovers are the name.
@@ -1799,7 +1799,7 @@ for (const [n, r] of rows.slice(1).entries()) {
           // AND "SOMETHING IS LEFT BEHIND" WAS NOT A STRONG ENOUGH TEST. The
           // leftover it protects can be the SET SLOT rather than the card, and
           // when it is, this rule deletes the card and publishes the prefix.
-          // Two of Tim's Costco UPC segments are exactly that shape:
+          // Two of the owner's Costco UPC segments are exactly that shape:
           //
           //   "Mega Charizard X UPC Promo - Mega Charizard X ex - Black Star Promo Card"
           //   "Mega Charizard X UPC Promo - Oricorio ex        - Black Star Promo Card"
@@ -1940,7 +1940,7 @@ for (const [n, r] of rows.slice(1).entries()) {
           name = rest.replace(/\s+/g, " ").trim();
         }
 
-        // A FRAGMENT THAT IS ONLY PUNCTUATION IS NOT A CARD. Tim's Collector
+        // A FRAGMENT THAT IS ONLY PUNCTUATION IS NOT A CARD. The owner's Collector
         // Chest line ends "... Double Rare , Journey Together - Wailord ...", and
         // a stray separator produced a hit whose card name was "-". It reached
         // data/hits.json and would have shown as a plaque with a dash on it.
@@ -1972,7 +1972,7 @@ for (const [n, r] of rows.slice(1).entries()) {
 
     // A HIT WITH NO SET TAKES THE VIDEO'S, BUT ONLY WHEN THERE IS EXACTLY ONE.
     //
-    // Tim writes the set on some rows and not others: "Chaos Rising - Mega
+    // The owner writes the set on some rows and not others: "Chaos Rising - Mega
     // Greninja ex - Hyper Rare" on the older ones, "Mega Greninja ex - Hyper
     // Rare" on the newer. Without a set the card cannot be matched to a scan,
     // so 17 hits had no picture on the hall.
@@ -1995,7 +1995,7 @@ for (const [n, r] of rows.slice(1).entries()) {
     // IS THE ONLY THING ALLOWED TO SAY SO.
     //
     // This used to stay glued, on the reasoning that Trainer was part of how
-    // Tim names the card and dropping it would lose which Dawn. It is the other
+    // the owner names the card and dropping it would lose which Dawn. It is the other
     // way round: Phantasmal Flames has exactly one Dawn, it is a Trainer, and
     // it is called "Dawn". "Trainer Dawn" is in no set's checklist, so it
     // resolved to no scan, no number and no price, and on the Costco UPC rip it
@@ -2071,7 +2071,7 @@ for (const [n, r] of rows.slice(1).entries()) {
         // Illustration Collection (Series 1) Alola Region Promo" onto the front
         // of Rowlet, and keeps it as `printing` instead. That field reached
         // data/manual.json and stopped at this line, so data/hits.json got three
-        // bare Pokemon names and the words Tim typed to say WHICH Rowlet were
+        // bare Pokemon names and the words the owner typed to say WHICH Rowlet were
         // dropped on the floor. Kept verbatim; nothing derives anything from it.
         ...(h.printing ? { printing: h.printing } : {}),
       });
@@ -2115,14 +2115,14 @@ for (const [n, r] of rows.slice(1).entries()) {
   const box = get(r, idx.box);
   if (box) m.box = box;
 
-  // READ Box / Series BACK INTO THE STRUCTURED COLUMNS, because Tim writes the
+  // READ Box / Series BACK INTO THE STRUCTURED COLUMNS, because the owner writes the
   // whole thing in one cell: "Pitch Black Booster Bundle #3 Pack#5". He asked
   // for the dropdown to go, correctly, since it could only ever offer products
   // already in the log and never the one being recorded for the first time.
   //
   // THIS IS TRANSCRIPTION, NOT INFERENCE, and that distinction is the only
   // reason it is allowed. Everything this project refused to publish today was
-  // a number a REGEX worked out from prose somebody else wrote. This is Tim's
+  // a number a REGEX worked out from prose somebody else wrote. This is the owner's
   // own sentence, written into a column that exists to be read, and reading
   // "#3" back out of it is no more a guess than reading a cell called Box #.
   //
@@ -2191,7 +2191,7 @@ for (const [n, r] of rows.slice(1).entries()) {
 //
 // This runs HERE, at the end, rather than in the My Hits block above, because
 // that block executes before the Video Log rows are parsed and logHits would
-// still be empty. The symptom was 23 of Tim's 26 hit rows reaching no page:
+// still be empty. The symptom was 23 of the owner's 26 hit rows reaching no page:
 // the hall showed 19 pictures against 42 plaques.
 //
 // MERGED, NOT REPLACED, and keyed on video plus card name exactly as the My
@@ -2213,7 +2213,7 @@ for (const [n, r] of rows.slice(1).entries()) {
 //      promo with its price and its scan, and everything in the readme.
 //   2. A name this parse produces that no existing row has, but which exactly
 //      one existing row's name ENDS WITH on a word boundary, is folded into
-//      that row rather than added beside it. Tim wrote "Charizard X ex" in the
+//      that row rather than added beside it. The owner wrote "Charizard X ex" in the
 //      Video Log and "Mega Charizard X ex" on the My Hits tab for the same
 //      card in the same video; an exact match always wins first, so this only
 //      fires where he wrote a shorter form of a name he had already logged.
@@ -2256,7 +2256,7 @@ if (logHits.length) {
       // Those two carry `promo`, `number`, `img`, `forSet` and a pricecharting
       // price, and they deliberately carry NO set id, because a promo is in no
       // expansion and resolving it against one puts the wrong Oricorio ex on
-      // the page. Tim's Video Log shorthand for the same two cards names
+      // the page. The owner's Video Log shorthand for the same two cards names
       // Phantasmal Flames, which is the product they shipped alongside rather
       // than the set they are in. A first cut of this filled in fields that
       // were merely ABSENT, and it promptly wrote that set id onto both promos
@@ -2421,7 +2421,7 @@ ${/* EXACT KEY, NOT A PREFIX TEST. Three real YouTube ids in this file start wit
 
 // THESE THREE WERE COLLECTED AND NEVER PRINTED, WHICH IS THE FAILURE MODE THE
 // SECTION ABOVE EXISTS TO ARGUE AGAINST. A Hit Info fragment this parser cannot
-// read is a card Tim watched himself pull and wrote down, and it was being
+// read is a card the owner watched himself pull and wrote down, and it was being
 // dropped in total silence: TN7_ZsuRQSI reads "Destined Rivals - Marnie's
 // Grimmsnarl ex , Double Black Star - Double Rare", a comma typed where a dash
 // belonged, so the rarity split off into a fragment with no card in it. The

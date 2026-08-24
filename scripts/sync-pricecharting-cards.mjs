@@ -29,7 +29,7 @@
 // WHY PRICECHARTING FOR RAW AT ALL, AND WHAT IT COST
 // ---------------------------------------------------------------------------
 //
-// Tim, 18 August 2026: "lets use pricecharting as the main numbers for the
+// The owner, 18 August 2026: "lets use pricecharting as the main numbers for the
 // entire site, I think they have the best numbers to show", and then, asked
 // about scope: "i only meant to use price charting for the raw prices and the
 // PSA10 or any other graded prices, keep the PokemonCenter.com prices for all

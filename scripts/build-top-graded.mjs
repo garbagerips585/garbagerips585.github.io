@@ -494,7 +494,7 @@ ${rows.map(row).join("\n")}
           unconnected pages to everyone else. Prose, not a link farm, which is
           the idiom the rest of the site uses. */ ""}
 ${/* "What this number is, and what it is not" MOVED TO THE FOOT, 24 August 2026.
-      Tim: "lets either remove or move down the text at the top." Moved, not
+      The owner: "lets either remove or move down the text at the top." Moved, not
       removed, and not folded shut either: this is the fourth page in a row to
       get this treatment and the rule that emerged is worth stating. A block
       explaining where MONEY came from stays visible, because a page that ranks

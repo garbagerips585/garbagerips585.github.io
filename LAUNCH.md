@@ -2,7 +2,7 @@
 
 Everything that has to happen before garbagerips.com is live, and the things
 worth doing soon after. Nothing here is code: the site builds and runs locally
-today. These are the accounts, the money, and the content only Tim can supply.
+today. These are the accounts, the money, and the content only the owner can supply.
 
 Every count in this file was checked against the data on 14 August 2026 rather
 than carried forward. The previous version had drifted badly enough to be
@@ -25,7 +25,7 @@ already exists.
       garbagerips585.com.** Both at GoDaddy, one year each.
 
       **Nothing is needed at the registrar to keep working, and the site is NOT
-      to go live on either yet.** Tim, 20 August: "I don't want to take the
+      to go live on either yet.** The owner, 20 August: "I don't want to take the
       website live on those pages yet ... once everything is perfect then we
       flip the switch". The repo is already in exactly that state: LIVE is
       false, no CNAME file exists, robots.txt is closed, and every canonical
@@ -65,7 +65,7 @@ already exists.
 
 ---
 
-## 2. Content only Tim can supply
+## 2. Content only the owner can supply
 
 - [ ] **Tag the 17 remaining videos.** The biggest single lever on the site. An
       untagged video is published `noindex` and kept out of the sitemap, so it
@@ -101,7 +101,7 @@ already exists.
 
 - [ ] **Create the Greatest Hits playlist on YouTube.** Until it exists the home
       page ranks by pull tier then views, which is a decent stand-in but not
-      Tim's own pick.
+      the owner's own pick.
 
 - [ ] **Add more Rochester card shops.** Six are listed: Just Games, Millennium
       Games, LingSter Games, Legacy Games, WeTheHobby and Great Lakes Gaming. `pokemon card shop rochester ny` is a
@@ -120,7 +120,7 @@ already exists.
       typed list.
 
       They were six extra copies of the home page and one of /msrp.html, added
-      18 and 19 August so Tim could compare palettes on his own phone, which
+      18 and 19 August so the owner could compare palettes on his own phone, which
       needs a real url and therefore a real deploy. Trubbish Deep with tan ink
       won. Nothing linked to them, none was in sitemap.xml, and all were
       `noindex` -- but a duplicate front door in the deploy root on launch day
@@ -148,7 +148,7 @@ already exists.
       SHIPPED.** Done 19 August 2026, so `ls public/preview-*.html` returns
       SEVEN again and the item above is the whole list once more.
 
-      Tim asked for the play buttons to be re-thought "as a click to rip pack
+      The owner asked for the play buttons to be re-thought "as a click to rip pack
       button", was shown A (Rip strip), B (Pull tab) and C (Open bar), and
       picked none of them: "I dont really like any of the verisons you did for
       the play button change, but I do like the 'Click To Open Pack' banner on
@@ -256,7 +256,7 @@ already exists.
       Disallow: / until LIVE is true, and submitting a sitemap while it does
       teaches Google the site is closed.
 
-## 3b. What only Tim can do, from the overnight sweep of 19 to 20 August
+## 3b. What only the owner can do, from the overnight sweep of 19 to 20 August
 
 Everything an agent could fix is fixed and deployed. These four need him.
 
@@ -267,7 +267,7 @@ Everything an agent could fix is fixed and deployed. These four need him.
       a 33% sample to a complete one.
 
 - [ ] **About 200 playlist tiles read as dates instead of pack numbers**, e.g.
-      "Perfect Order ETB (May 3, 2026)" nine times in a row. Tim's own YouTube
+      "Perfect Order ETB (May 3, 2026)" nine times in a row. The owner's own YouTube
       titles carry the number, but `shared/riplabel.mjs` records his standing
       instruction of 18 August not to publish a PARSED pack number, so it prints
       one only from a typed `Product #` and `Pack #`. Four Chaos Rising videos
@@ -379,7 +379,7 @@ Everything an agent could fix is fixed and deployed. These four need him.
       to one question.
 
       **Do not fix it by picking a feed.** `data/graded.json` is deliberately
-      scoped to cards Tim has actually pulled, 83 records, because a
+      scoped to cards the owner has actually pulled, 83 records, because a
       PriceCharting product page is about 1MB and crawling their index would be
       4.4GB. The guides need 99 figures across 28 sets, so switching them to
       PriceCharting would strand most of them: a worse inconsistency than the

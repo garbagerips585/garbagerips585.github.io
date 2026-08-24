@@ -209,7 +209,7 @@ const pokemonCount = upcoming.filter((s) => s.pokemon).length;
 // THIS BLOCK USED TO END "No coastline and no roads, because this site holds no
 // licensed geometry for either and drawing them freehand would be inventing
 // data", AND THE FIGURE'S OWN CAPTION SAID THE SAME THING OUT LOUD: "There are
-// no roads on it because we do not have any to draw." Tim read the picture and
+// no roads on it because we do not have any to draw." The owner read the picture and
 // asked for the obvious thing: "make the image at the top an actual map showing
 // the cities and surrounding areas right now its just names of cities and dots,
 // needs to be a map".
@@ -677,7 +677,7 @@ function showMap() {
 // ------------------------------------------------------- headstone for the
 // ------------------------------------------------------- calendar that was here
 //
-// THE FIVE MONTH CALENDAR GRID WAS HERE AND IT IS GONE, ON TIM'S CALL: "also
+// THE FIVE MONTH CALENDAR GRID WAS HERE AND IT IS GONE, ON THE OWNER'S CALL: "also
 // please delete the calendar below the map not needed." Same call, same page and
 // the same reasoning as the hours chart that came off /shops.html on 20 August
 // 2026, which build-shops.mjs still carries the headstone for.
@@ -1229,7 +1229,7 @@ ${(data.watchFor || []).length ? `
     ${/* RUNNING A SHOW IS THE ONE THING ON THIS PAGE A READER MIGHT DO. The
           calendar is collected by hand, so the only way it covers a show is if
           somebody says so, and the flyer is the thing that makes a listing look
-          like the event. Tim, 24 August 2026: "with shows I want them to send me
+          like the event. The owner, 24 August 2026: "with shows I want them to send me
           flyers etc." */ ""}
     <p class="price-note" style="margin-top:var(--s4)"><b>Running a show?</b> Send the date, the venue and what a
       table costs, and attach the flyer: <a href="${esc(mailtoHref("card show listing", ["Show name: ",

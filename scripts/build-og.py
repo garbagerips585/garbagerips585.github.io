@@ -30,7 +30,7 @@ W, H = 1200, 630
 # repainted "Trubbish Deep" in d2b31551 and these cards were not, so a link
 # preview was navy while the page it opened was green.
 #
-# GOLD IS GONE FROM THIS FILE AND THAT IS THE POINT OF THE EDIT. Tim: "its cool
+# GOLD IS GONE FROM THIS FILE AND THAT IS THE POINT OF THE EDIT. The owner: "its cool
 # to keep the hall of fame gold, but just not use that color in the general
 # pallet of the site colors." The old card spent gold three times, on the bloom,
 # on the rule and on the wordmark's RIPS, and all three are exactly the general
@@ -65,7 +65,7 @@ def build(pack_path, label, out_path):
     draw = ImageDraw.Draw(card)
 
     # THE BLOOM IS A SURFACE NOW, NOT AN ACCENT, and that is the same fix .hof
-    # took in ui.css: it used to be rgba(201,151,0,.18) gold, which over Tim's
+    # took in ui.css: it used to be rgba(201,151,0,.18) gold, which over the owner's
     # green reads olive, and it is now the CARD colour lifting out of the chrome.
     # Here it is --paper-3, one step lighter still, because it has to separate a
     # dark pack wrapper from a dark ground rather than just tint a band. Painting
@@ -118,7 +118,7 @@ def build(pack_path, label, out_path):
     # RIPS IS PINK BECAUSE THE LIVE WORDMARK IS PINK. ui.css:337 is
     # `.brand b i{color:var(--brand-accent)}` and --brand-accent is #E87EA1, so
     # the bar a reader lands on and the card they clicked now say the same thing.
-    # It was gold here, which is the one use of gold Tim asked to remove.
+    # It was gold here, which is the one use of gold the owner asked to remove.
     draw.text((TX, y), "RIPS", font=title, fill=PINK)
     rips_w = draw.textlength("RIPS", font=title)
     draw.text((TX + rips_w + 22, y), "585", font=title, fill=INK)
@@ -134,6 +134,33 @@ def build(pack_path, label, out_path):
     # a mark that goes nowhere, and the SMALL pink at 25px: #E87EA1 is 3.45:1 on
     # a card and the site reserves it for type over 24px.
     tracked(draw, (TX, y), label.upper()[:26], mono, PINK_SM, 2.5)
+
+    # ONE LINE SAYING WHAT THE SITE IS, ADDED 24 AUGUST 2026. The owner: "the share
+    # link image looks good, but should we add just a bit more text to it
+    # describing the site more? or at least add in a Garbage plate on there?"
+    #
+    # THE PLATE HALF OF THAT ASK IS ALREADY ANSWERED BY THE ART and that is why
+    # only the text half was done: the pack Trubbish is sitting on is a plate of
+    # Garbage Plate, drawn by Unableplacebo, and it occupies the whole left half
+    # of the card. Drawing a second one would be the same object twice on one
+    # 1200x630 frame.
+    #
+    # ONE LINE, NOT TWO, AND IT IS THE SIZE OF THE FRAME THAT DECIDES THAT. A
+    # link preview is rendered at roughly 500px wide in a phone feed, so this
+    # 25px mono is about 10px there. Every line added past the third is a line
+    # nobody reads, and the card's job is to be recognised rather than to be
+    # read. The claim it makes is the site's own and is true of every page it
+    # ships on, which is what lets one line serve all nineteen cards.
+    y += 38
+    # "EVERY PULL LOGGED" AND NOT "EVERY PACK OPENED ON CAMERA", WHICH WAS THE
+    # FIRST DRAFT AND DID NOT FIT. The text column starts at x=709 on a 1200px
+    # card, so a line has 491px before it touches the edge, and that draft
+    # measured 472.5 and left 18.5px of margin. It also said the same thing as
+    # "POKEMON PACK RIPS" directly above it. This one measures 297.5px, which is
+    # the SAME width as that line to a tenth of a pixel, so the two stack as a
+    # deliberate block rather than a ragged one, and it says the thing the
+    # CHANNEL does not already say: the site is the log.
+    tracked(draw, (TX, y), "EVERY PULL LOGGED", mono, INK_2, 2.5)
     y += 38
     tracked(draw, (TX, y), "ROCHESTER, NY", mono, INK_2, 2.5)
 
@@ -214,7 +241,7 @@ ASSETS = PUBLIC / "assets"
 # TITAN ONE AND SPACE MONO HAVE NO CJK AND NO EMOJI, and both would ship as
 # tofu boxes rather than as an error. Two families need this and for different
 # reasons: the Japanese, Korean and Chinese guides, whose native names are the
-# whole subject, and the playlist titles, which are Tim's own and carry emoji.
+# whole subject, and the playlist titles, which are the owner's own and carry emoji.
 #
 # THE INTL CARDS THEREFORE CARRY THE ENGLISH NAME, WHICH IS NOT A COMPROMISE:
 # CLAUDE.md records that the one thing Google's title cut was eating on those

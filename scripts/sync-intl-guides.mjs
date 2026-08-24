@@ -4,7 +4,7 @@
 //   node scripts/sync-intl-guides.mjs           cached, near instant
 //   node scripts/sync-intl-guides.mjs --force   refetch everything
 //
-// Reads data/intl-rips.json (the hand-verified map of foreign sets Tim has
+// Reads data/intl-rips.json (the hand-verified map of foreign sets the owner has
 // ripped) and writes public/data/intl-guides.json, which build-intl-pages.mjs
 // renders.
 //
@@ -291,7 +291,7 @@ const CHASE_MIN = RARITY_ORDER.indexOf("ACE SPEC Rare");
 //       Ultra Rare           Mega Hyper Rare               3
 //
 // The left column is what is printed on the Japanese wrapper, and it is the
-// vocabulary data/hits.json is written in, because Tim reads the tier off the
+// vocabulary data/hits.json is written in, because the owner reads the tier off the
 // wrapper: all thirteen non-English hit rows in that file say "Art Rare",
 // "Super Rare" or "Double Rare". The right column is an anglicisation that
 // shared/rarity.mjs deliberately refuses to map onto, and pickIntlPrinting

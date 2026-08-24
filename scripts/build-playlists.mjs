@@ -20,7 +20,7 @@
 // show their content, and it means packplayer.js picks the tiles up for free,
 // because it binds to any anchor pointing at /rip/ that contains a pack.
 //
-// ORDER IS THE PLAYLIST'S OWN. videoIds arrives in the order Tim arranged on
+// ORDER IS THE PLAYLIST'S OWN. videoIds arrives in the order the owner arranged on
 // YouTube, and that order is the whole point of a playlist, so it is not
 // re-sorted by date or by anything else.
 
@@ -325,7 +325,7 @@ const cleanDesc = (s) => {
   // Hits Only, the biggest playlist on the channel, 253 of 597.
   //
   // A keyword line is a short fragment with no terminal punctuation. THE TWO
-  // EXCLUSIONS ARE WHAT MAKE IT SAFE AND BOTH CAME OUT OF TIM'S OWN COPY: an
+  // EXCLUSIONS ARE WHAT MAKE IT SAFE AND BOTH CAME OUT OF THE OWNER'S OWN COPY: an
   // emoji line ("First Pack Magic", "Pull the Umbreon ex SIR", each with its
   // own emoji) and a bulleted line ("Pack luck") are also short and also
   // unpunctuated, and both are real writing that CLOSES a description. Every
@@ -357,7 +357,7 @@ const cleanDesc = (s) => {
 };
 
 /**
- * The blurb as Tim wrote it, which is not what the page showed until now.
+ * The blurb as the owner wrote it, which is not what the page showed until now.
  *
  * THE LINE BREAKS WERE THE WRITING AND THE PAGE THREW THEM AWAY. He writes
  * these in short lines on purpose. Read as he typed it:
@@ -405,7 +405,7 @@ const blurbHtml = (t) =>
  * blurb opens with one long "Welcome to the ..." line and there is often no
  * full stop inside 158 characters to cut at. Same helper and same 60% floor as
  * build-pages.mjs; the long note is there. The emoji is
- * allowed to travel with the full stop it follows, because Tim writes
+ * allowed to travel with the full stop it follows, because the owner writes
  * "One classic character promo. 🌿 Full garbage plate" and cutting at the bare
  * "." strands the emoji at the head of a sentence nobody will read.
  */
@@ -662,7 +662,7 @@ const compactViews = (n) => viewCount(n).toUpperCase();
  * The visible label for a tile, disambiguated within THIS page.
  *
  * ripLabel reduces a title to set plus product plus pack number, which is
- * exactly right in a mixed grid and collides badly inside a playlist: Tim
+ * exactly right in a mixed grid and collides badly inside a playlist: The owner
  * opened nine Chaos Rising ETBs, so nine tiles on that one page all read
  * "Chaos Rising ETB #2", each linking to a different video. Nine identical
  * links is a usability problem for everyone and an accessibility one for a
@@ -886,7 +886,7 @@ for (const run of runs) {
   // collapsed and does ship: 19 of these 21 pages had a literal line break
   // inside <meta name="description">. build-pages.mjs already did this for the
   // same reason and this file did not. `desc` below is untouched and goes
-  // through blurbHtml, so the page reads in Tim's own paragraphs.
+  // through blurbHtml, so the page reads in the owner's own paragraphs.
   const metaDesc = clip(
     (desc || `${vids.length} rip${vids.length === 1 ? "" : "s"} from Garbage Rips 585, in the order they were opened.`)
       .replace(/\s+/g, " ")

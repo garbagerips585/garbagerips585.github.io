@@ -21,7 +21,7 @@
 // WHY THE CARDS PAGE MOVED TO PRICECHARTING, 18 AUGUST 2026
 // ---------------------------------------------------------------------------
 //
-// Tim: "lets get all raw prices and all graded prices from pricecharting across
+// The owner: "lets get all raw prices and all graded prices from pricecharting across
 // the site all pages", and then, asked what to do about sealed: "use price
 // charting for everything if they have data for everything, if they dont have
 // data for sealed just use tcg player for that, but pricecharting seems to be
@@ -39,7 +39,7 @@
 // "Iron Bundle". There is no top 100 of sealed product in it to publish, and
 // re-crawling 793 consoles without that filter to chase one is not a trade
 // worth making against somebody else's bandwidth. So the sealed page keeps
-// TCGplayer, says so in its own title, and this is the arrangement Tim asked
+// TCGplayer, says so in its own title, and this is the arrangement the owner asked
 // for in as many words.
 //
 // ---------------------------------------------------------------------------
@@ -61,7 +61,7 @@
 // silent change CLAUDE.md spends four paragraphs complaining about, so here is
 // the decision and the argument, made in the same edit as the change.
 //
-// THE PAGE NOW RANKS EVERY LANGUAGE, AND THAT IS TIM'S DECISION RATHER THAN
+// THE PAGE NOW RANKS EVERY LANGUAGE, AND THAT IS THE OWNER'S DECISION RATHER THAN
 // THIS FILE'S. Asked the question directly on 18 August 2026, in conversation,
 // he answered: "yes lets add in all forgein cards into the top value cards so
 // its an all incusive list". The argument below is recorded because the file
@@ -189,7 +189,7 @@
 // it worried about is now live and documented in CLAUDE.md. The two pages are
 // therefore inconsistent with each other, deliberately noted here rather than
 // tidied away in passing: either that page gains links or these lose them, and
-// it is a call for Tim rather than for whoever is next in this file.
+// it is a call for the owner rather than for whoever is next in this file.
 //
 // The case against is the count: two hundred outbound links is more than the
 // whole rest of the site holds, and that is a real objection rather than a
@@ -1225,7 +1225,7 @@ const PAGES = [
     slug: "most-valuable-cards",
     og: "most-valuable-cards",
     navTitle: "Most valuable cards",
-    title: "The 100 Most Valuable Raw Pokemon Cards in PriceCharting's Price Guide",
+    title: "The 100 Most Valuable Raw Pokemon Cards, by Price Guide",
     h1: ["The 100 most valuable ", "raw", " Pokemon cards"],
     // "Pokemon cards", not "Pokemon TCG": thirteen of the hundred are Topps
     // cards, and "every language" is the change this page made in August 2026
@@ -1472,7 +1472,7 @@ ${MENU}
 <section class="tight">
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / ${esc(cfg.navTitle)}</p>
-${/* WHAT THIS LIST ACTUALLY IS MOVED TO THE FOOT, 24 August 2026. Tim, about
+${/* WHAT THIS LIST ACTUALLY IS MOVED TO THE FOOT, 24 August 2026. The owner, about
       /most-valuable-cards.html: "at the top of this page there is way too much
       text... if that text needs to stay on the page for seo then thats fine but
       can we move it to the bottom of the page? specifically the WHAT THIS LIST

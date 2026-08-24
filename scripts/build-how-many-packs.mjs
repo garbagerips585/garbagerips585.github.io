@@ -941,7 +941,7 @@ ${shot(r)}
                 // THE MSRP. This row used to say "rather than an MSRP" for every
                 // source alike, which put three Pokemon Center figures here in
                 // flat contradiction with /msrp.html, where the SAME two prices
-                // are labelled "$59.99 MSRP, Pokemon's own shop". Tim settled it:
+                // are labelled "$59.99 MSRP, Pokemon's own shop". The owner settled it:
                 // "i just take PokemonCenter.com prices as MSRP as that is what
                 // they sell it for, and then retailers are then able to sell it
                 // for whatever they want". A retailer reading is still a shelf
@@ -1278,7 +1278,7 @@ const style = `
 // WHAT THIS SITE'S OWN SHOP LISTINGS ACTUALLY CAME TO, against the suggested
 // price for the same product. Counted at build time out of shared/listings.mjs
 // through shared/msrp-basis.mjs, which is where the argument for printing a
-// distribution this small lives, and where Tim's four part model is written
+// distribution this small lives, and where the owner's four part model is written
 // down. Never type a threshold in here: read that file first.
 const SPREAD = await spread();
 
@@ -1298,7 +1298,7 @@ const KEY_POINTS = `        ${/* THIS BULLET DENIED THAT AN MSRP EXISTS AND /msr
               over-hedge data/msrp.json's own _readme corrected on 17 August 2026
               and this file was never updated for.
 
-              The four claims below are Tim's own model, in his order, and
+              The four claims below are the owner's own model, in his order, and
               shared/msrp-basis.mjs holds them so the five pages that touch this
               cannot drift apart again. The numbers are counted off this site's
               own listings at build time. Read that file before editing this. */ ""}<li><b>There
@@ -1402,7 +1402,7 @@ ${MENU}
       }</div><div class="l">Products with more than one sourced pack count</div></div>
     </div>
 
-    ${/* CLOSED BY DEFAULT, 24 August 2026. Tim: "make that section collapsed and
+    ${/* CLOSED BY DEFAULT, 24 August 2026. The owner: "make that section collapsed and
           if you want to drop it down and read those you can but otherwise get
           right into the data... right now takes up too much of the top of the
           page and you have to scroll to start seeing the data you want to see."

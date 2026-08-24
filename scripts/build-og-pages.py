@@ -161,7 +161,7 @@ def build(slug, kicker, headline, answer):
     draw = ImageDraw.Draw(card)
 
     # THE BLOOM IS A SURFACE NOW, NOT AN ACCENT. It was gold, which is the
-    # general-palette use Tim asked to drop; it lifts toward --paper-3 instead,
+    # general-palette use the owner asked to drop; it lifts toward --paper-3 instead,
     # the same move .hof made in ui.css when its gold bloom went to the card
     # green. Still top right so the type sits on the darker half, and the
     # headline can run into it, which is why the measurement below is taken on
