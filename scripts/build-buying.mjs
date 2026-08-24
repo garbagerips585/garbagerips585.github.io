@@ -195,6 +195,30 @@ const hostOf = (u) => {
   }
 };
 
+/**
+ * The line on the closed <details> that holds a venue's note and citations.
+ *
+ * IT NAMES THE READ DATE, AND THAT IS THE WHOLE POINT OF THE SUMMARY. A
+ * collapsed citation block is only acceptable here because the summary still
+ * says somebody checked this and when. "How we know this" on its own would
+ * hide the freshness, which is the half a reader actually judges the page on.
+ * The newest read across the venue's own sources is used, because that is the
+ * strongest true claim about the block behind the arrow.
+ *
+ * It also says HOW MANY sources there are, so a reader can tell a well-sourced
+ * venue from a thinly sourced one without opening either.
+ */
+const srcSummary = (v) => {
+  const reads = (v.sources || [])
+    .map((x) => (typeof x === "string" ? "" : x.read || ""))
+    .filter(Boolean)
+    .sort();
+  const newest = reads[reads.length - 1];
+  const n = (v.sources || []).length;
+  const count = n ? `${n} source${n === 1 ? "" : "s"}` : "How we know this";
+  return newest ? `${count}, read ${longDate(newest)}` : count;
+};
+
 const venueCard = (v) => {
   for (const k of Object.keys(v)) {
     if (!V_KNOWN.has(k)) throw new Error(`buying.json: venue "${v.id}" has unrendered key "${k}"`);
@@ -223,6 +247,26 @@ const venueCard = (v) => {
         ${(v.limits || []).length ? `<p class="by-lbl"><b>Limits and gates.</b></p><ul class="by-cond-l">${
           v.limits.map((x) => `<li>${esc(x)}</li>`).join("")
         }</ul>` : ""}
+        ${/* THE SOURCING COLLAPSES, 24 August 2026. Tim: "they need to be simpler
+              and easier to read and get to the point sooner". Measured on the
+              built page at 390px before this change: .by-nb and .by-src across
+              the ten venue cards were 3,919px and 1,858 words, 13.0% of the
+              page's words, INTERLEAVED between every venue rather than pooled.
+              That is four and a half phone screens of citation sitting between
+              a reader and the next shop.
+
+              IT COLLAPSES RATHER THAN MOVING OR GOING. This site's whole claim
+              is that its figures are checkable, so the citations stay exactly
+              where they are, attached to the thing they support. What changes
+              is that they are shut by default.
+
+              THE READ DATE STAYS VISIBLE IN THE SUMMARY, which is the part that
+              matters and is why this is not just <details> around a blob: the
+              credibility signal is "somebody checked this, on a date", and that
+              survives being closed. Only the list of urls is hidden. */ ""}
+        ${v.note || (v.sources || []).length ? `<details class="by-srcd"><summary>${
+          esc(srcSummary(v))
+        }</summary>` : ""}
         ${v.note ? `<p class="by-nb">${esc(v.note)}</p>` : ""}
         ${(v.sources || []).length ? `<p class="by-src">${v.sources
           .map((x, i) => {
@@ -253,6 +297,7 @@ const venueCard = (v) => {
               : esc(what);
           })
           .join(" &bull; ")}</p>` : ""}
+        ${v.note || (v.sources || []).length ? `</details>` : ""}
       </article>`;
 };
 
@@ -850,6 +895,43 @@ ${BRAND_STYLE}
    colour to a black, white and gold site. */
 .by-yes b{color:var(--ink)}
 .by-no b{color:var(--ketchup-deep)}
+/* THE COLLAPSED SOURCING. Quieter than .ig-list on the set guides, which
+   frames itself as a panel, because this one sits INSIDE a venue card and a
+   second frame inside a frame reads as a nested box rather than a control.
+   A rule above it and nothing else.
+
+   44px MINIMUM ON THE SUMMARY and it is not decorative padding: it is the tap
+   target, ten of them per page, and the site's own QA sweep fails anything
+   under 24. The marker is left as the browser's own triangle, because a
+   custom one would need its own rotation and focus states for no gain.
+
+   THE SUMMARY IS THE ONLY THING A CLOSED CARD SHOWS, so it takes --ink rather
+   than --ink-2: it has to read as a control somebody can open, and the muted
+   ink the citations use would make it look like more small print. */
+.by-srcd{margin-top:var(--s3);border-top:1px solid var(--hair)}
+/* THE TRIANGLE IS DRAWN BECAUSE display:flex DELETES THE REAL ONE. Chrome
+   removes a <summary>'s ::marker box entirely once the summary is a flex
+   container, so this control shipped with NO disclosure affordance at all: it
+   read as a line of small print that happened to be clickable, which is worse
+   than not collapsing at all. Confirmed by reading the computed style rather
+   than by looking: display "flex", list-style-type still "disclosure-closed",
+   ::marker content "normal", and nothing painted.
+   Flex is kept because it is what holds the 44px tap target and the baseline
+   together, so the marker is drawn instead, as borders rather than a glyph so
+   no font can fail to have it. */
+.by-srcd > summary{cursor:pointer;list-style:none;
+  min-height:44px;display:flex;align-items:center;gap:var(--s3);
+  font:400 var(--t-micro)/1.4 var(--mono);letter-spacing:.04em;
+  text-transform:uppercase;color:var(--ink)}
+.by-srcd > summary::-webkit-details-marker{display:none}
+.by-srcd > summary::before{content:"";flex:none;width:0;height:0;
+  border-left:6px solid currentColor;
+  border-top:4.5px solid transparent;border-bottom:4.5px solid transparent}
+.by-srcd[open] > summary::before{transform:rotate(90deg)}
+.by-srcd > summary:hover{text-decoration:underline}
+.by-srcd > summary:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.by-srcd[open] > summary{margin-bottom:var(--s2)}
+.by-srcd .by-nb{margin-top:0}
 .by-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s3);line-height:1.6}
 .by-s1,.by-rd{font:400 var(--t-micro)/1 var(--mono);white-space:nowrap}
 .by-rd{color:var(--ink-2)}
@@ -1101,11 +1183,19 @@ ${MENU}
         shipping and buyer fees are counted. Every figure was read off the company's own shipping, help or policy
         page rather than off a comparison site: ${nSourced} are fully sourced and the rest say which number is
         missing and where to go and look.</p>
-      <p class="lede by-lede">One example of why that matters, and it is the reason this page exists in the shape it
-        does. Everybody quotes a $35 free shipping threshold for Amazon. Amazon's own free shipping help page says
-        "the stated minimum threshold of eligible items" six times and never states the number. So this page tells
-        you the rule and sends you to your own cart for the figure, which is annoying and true, rather than
-        confident and possibly wrong.</p>
+      ${/* THE AMAZON EXAMPLE MOVED OUT OF THE LEDE, 24 August 2026. It was 77
+            words of METHODOLOGY sitting at y=496, which is the bottom of the
+            first screen and the top of the second, on a page whose complaint
+            was that it takes too long to reach a number. It is the same move
+            this site already made on most-valuable-cards, top-graded,
+            most-expensive-sealed, how-many-packs and top-100-playable: the
+            evidence for how we know a thing goes BELOW the thing.
+
+            IT WAS ALSO ALREADY ON THE PAGE TWICE. The Amazon venue card's own
+            .by-nb note makes the same point about the same help page, which is
+            where a reader who cares about Amazon specifically will actually be
+            standing. It now appears once, in the closing note, where it argues
+            for the page's method rather than delaying it. */ ""}
       <p class="lede by-lede">This is <a href="/selling.html">where to sell</a> pointed the other way. Same
         companies, different set of numbers, and the buyer's protection is usually the bigger one. Prices and
         policies move: every figure here carries the date it was read.</p>
@@ -1120,31 +1210,55 @@ ${GROUPS.map((g) => {
         .join("\n")}`
     : "";
 }).filter(Boolean).join("\n")}
+${/* THE SECOND ROW, 24 August 2026. The nav above indexes the ten venue cards
+      and stopped there, so the six sections BELOW them -- 4,820 words and
+      18,800px, 22 phone screens, 38% of the page -- had no jump target at all
+      and no way for a reader to know they existed. The charts are in here too
+      even though they sit near the top, because once you are thirty screens
+      down the only way back to them is scrolling.
+
+      A LINK BEATS A COLLAPSE FOR THIS HALF and that is the reason it is a nav
+      rather than more <details>. The per-card sourcing collapses well because
+      it is lookup material with a predictable label; these are prose sections
+      whose value is the argument inside them, and a collapsed summary of an
+      argument tells a reader nothing. They need to be FINDABLE, not hidden. */ ""}
+        <span class="by-jg">And</span>
+        <a href="#free-shipping">Free shipping</a>
+        <a href="#postage">Postage per seller</a>
+        <a href="#protection">Who protects a buyer</a>
+        <a href="#scams">How it goes wrong</a>
+        <a href="#defences">What defends against it</a>
+        <a href="#chain">Who touched the card</a>
       </nav>
       </div>
 
-      <div class="by-key">
-        <h2>The two questions that decide how a purchase can go wrong</h2>
-        <!-- The paragraphs are wrapped so the heading can sit beside ALL of
-             them rather than beside the first one. Left as flat siblings in a
-             two column grid, the heading takes row 1 column 1 and paragraph one
-             takes row 1 column 2, so the row is as tall as the taller of the
-             two and a gap opens under whichever is shorter. Measured, the three
-             line heading left a 40px hole under the first paragraph. One
-             wrapper is one grid item and the problem does not exist. -->
-        <div class="by-key-body">
-        <p>${esc(safe.framing.question)} Neither one is answered by how well known the site is.</p>
-        ${(safe.framing.why || []).map((w) => `<p>${esc(w)}</p>`).join("\n        ")}
-        </div>
-      </div>
 
-      <section class="by-grp">
+      <section class="by-grp" id="free-shipping">
         <h2>What an order has to reach before shipping is <span class="hl">free</span></h2>
         <p>Every venue below states its own threshold on its own card, twelve screens apart, and the number is the
           first thing a buyer wants. Here they are on one axis, with the four that publish no number at all
           underneath, because that group is the reason this page exists.</p>
 ${freeChart()}
       </section>
+
+      ${/* THE POSTAGE ARITHMETIC IS PROMOTED, 24 August 2026, from below every
+            venue card to directly under the free-shipping chart. Measured on
+            the built page before the move, it sat at y=28,832 at 390px, which
+            is 34 phone screens down, and it is the single most actionable
+            finding on the page: twelve cards from twelve sellers is $17.88 of
+            postage against $1.49 from one. It also explains the per-seller
+            shipping rule that every venue card below refers to, so a reader
+            who meets it FIRST understands the cards better. Nothing was
+            reworded; only its position changed. */ ""}
+${arith.claim ? `      <section class="by-grp" id="postage">
+        <h2>The cheapest card is not the cheapest <span class="hl">order</span></h2>
+        <p class="by-lede">${esc(arith.claim)}</p>
+${postageChart()}
+        <ul class="by-list">
+${(arith.because || []).map((b) => `          <li>${esc(b)}</li>`).join("\n")}
+        </ul>
+        ${arith.note ? `<p class="by-lede" style="margin-top:var(--s4)">${esc(arith.note)}</p>` : ""}
+      </section>` : ""}
 ${(() => {
   // NOTHING ANYWHERE CHECKED THAT EVERY VENUE ACTUALLY REACHED THE PAGE. The
   // section loop filters by group, so a venue in no matching section is simply
@@ -1169,17 +1283,33 @@ ${list.map(venueCard).join("\n")}
       </section>`;
 }).filter(Boolean).join("\n")}
 
-${arith.claim ? `      <section class="by-grp">
-        <h2>The cheapest card is not the cheapest <span class="hl">order</span></h2>
-        <p class="by-lede">${esc(arith.claim)}</p>
-${postageChart()}
-        <ul class="by-list">
-${(arith.because || []).map((b) => `          <li>${esc(b)}</li>`).join("\n")}
-        </ul>
-        ${arith.note ? `<p class="by-lede" style="margin-top:var(--s4)">${esc(arith.note)}</p>` : ""}
-      </section>` : ""}
 
-      <section class="by-grp">
+
+      ${/* THE FRAMING ESSAY MOVED DOWN HERE, 24 August 2026. It was section
+            two, 224 words of thesis between the reader and the first number on
+            a page whose complaint was that it takes too long to get to the
+            point. It is not filler and it was not cut: it is the argument the
+            whole safety half of this page rests on, so it now sits directly in
+            front of that half rather than in front of the prices. "Who touched
+            the card before you did", four sections below, expands the same
+            thesis at 597 words, so the two are now within reach of each
+            other. */ ""}
+      <div class="by-key" id="how-it-goes-wrong">
+        <h2>The two questions that decide how a purchase can go wrong</h2>
+        <!-- The paragraphs are wrapped so the heading can sit beside ALL of
+             them rather than beside the first one. Left as flat siblings in a
+             two column grid, the heading takes row 1 column 1 and paragraph one
+             takes row 1 column 2, so the row is as tall as the taller of the
+             two and a gap opens under whichever is shorter. Measured, the three
+             line heading left a 40px hole under the first paragraph. One
+             wrapper is one grid item and the problem does not exist. -->
+        <div class="by-key-body">
+        <p>${esc(safe.framing.question)} Neither one is answered by how well known the site is.</p>
+        ${(safe.framing.why || []).map((w) => `<p>${esc(w)}</p>`).join("\n        ")}
+        </div>
+      </div>
+
+      <section class="by-grp" id="protection">
         <h2>Who protects a <span class="hl">buyer</span></h2>
         <p>Buyer protection and seller protection are different products, and the buyer's version is generally the
           bigger one. What varies most is not whether you are covered, it is how long you have, and trading cards
@@ -1190,7 +1320,7 @@ ${(safe.protections || []).map(prot).join("\n")}
         </div>
       </section>
 
-      <section class="by-grp">
+      <section class="by-grp" id="scams">
         <h2>How it actually goes <span class="hl">wrong</span></h2>
         <p>Each of these is a mechanism rather than a type of person, and the first one is not a scam at all. Every
           one is defined by who had the card and who had the money at which moment.</p>
@@ -1203,7 +1333,7 @@ ${(safe.attacks || []).map((a) => `          <li><b>${esc(a.name)}.</b> ${esc(a.
         </ol>
       </section>
 
-      <section class="by-grp">
+      <section class="by-grp" id="defences">
         <h2>What actually <span class="hl">defends</span> against it</h2>
         <ol class="by-list">
 ${(safe.defences || []).map((d) => `          <li><b>${esc(d.name)}.</b> ${esc(d.why || "")}${
@@ -1216,7 +1346,7 @@ ${(safe.defences || []).map((d) => `          <li><b>${esc(d.name)}.</b> ${esc(d
         </ol>
       </section>
 
-${custody.claim ? `      <section class="by-grp">
+${custody.claim ? `      <section class="by-grp" id="chain">
         <h2>Who <span class="hl">touched</span> the card before you did</h2>
         <p class="by-lede">${esc(custody.claim)}</p>
         <ul class="by-chain">

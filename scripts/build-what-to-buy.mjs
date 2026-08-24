@@ -1280,6 +1280,19 @@ const STYLE = `
    a second set of buttons. The label is a quiet mono line rather than a heading:
    a real heading here would sit between the h1 and the first h2 and read as a
    section of the page instead of a signpost to one. */
+/* The situation chooser. Same chip shape as .wtb-jump's links so the page has
+   one idea of what a jump control looks like, but it sits INSIDE the section it
+   indexes rather than at the top of the page, so it takes the card surface
+   rather than the band's. 44px minimum height: these are tap targets and the
+   site's own QA sweep fails anything under 24. */
+.wtb-pick{display:flex;flex-wrap:wrap;gap:var(--s2);margin:var(--s4) 0 var(--s5)}
+.wtb-pick a{display:inline-flex;align-items:center;min-height:44px;
+  padding:6px var(--s3);border:2px solid var(--keyline);border-radius:999px;
+  background:var(--card);box-shadow:var(--hard);
+  font:700 var(--t-micro)/1.2 var(--mono);letter-spacing:.04em;
+  text-transform:uppercase;color:var(--sky-deep);text-decoration:none}
+.wtb-pick a:hover{background:var(--paper-3);text-decoration:underline}
+.wtb-pick a:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
 .wtb-jump{margin:var(--s5) 0 0}
 .wtb-jlabel{margin:0 0 var(--s2);font:700 .7rem/1 var(--mono);letter-spacing:.08em;
   text-transform:uppercase;color:var(--ink-soft)}
@@ -1691,6 +1704,24 @@ ${JUMP.map(([h, l]) => `          <a href="${esc(h)}">${esc(l)}</a>`).join("\n")
       <h2>Who is it <span class="hl">for</span>?</h2>
       <p class="lede wtb-lede">Find the one that sounds like you. Every price below is what the
         manufacturer suggests, not what a shop has to charge.</p>
+      ${/* THE CHOOSER, 24 August 2026. The eyebrow above says PICK YOUR
+            SITUATION and until now there was nothing to pick FROM: six
+            mutually exclusive scenarios laid end to end over 6,123px, which is
+            7.3 phone screens, with no index. A reader whose situation was the
+            last one scrolled past five wrong answers to reach it.
+
+            IT IS AN INDEX AND NOT A COLLAPSE, and that is the whole decision.
+            Collapsing would hide the answer the reader came for behind a
+            guess about which heading means them. A row of chips lets them jump
+            straight to their own case while leaving every other one readable
+            for somebody browsing, which is what a gift guide is usually read
+            like. It costs about 120px and can save seven screens.
+
+            The ids are the ones the cards already carry, so this adds no new
+            markup to them and cannot fall out of sync with the list below. */ ""}
+      <nav class="wtb-pick" aria-label="Choose your situation">
+${situations.map((x) => `        <a href="#${esc(x.id)}">${esc(x.who)}</a>`).join("\n")}
+      </nav>
       <ol class="wtb-sits">
 ${situations.map(situationCard).join("\n")}
       </ol>
@@ -1713,6 +1744,46 @@ ${buyRips
 ${para(guide.oneCard.body)}
       </div>
 ${links(guide.oneCard.links)}
+    </div>
+  </section>
+
+  ${/* PROMOTED, 24 August 2026, from slot six to slot two. This section opens
+        with its own sentence: "If you take one thing off this page, take this.
+        It is worth more money to you than everything above it." It was sitting
+        at y=22,037 at 390px, which is 26 phone screens and 4,639 words in, so
+        the page was contradicting itself in the plainest possible way.
+
+        It goes AFTER "Who is it for?" rather than above it, because the
+        scenarios are what somebody arrives for and this is what saves them
+        money once they know which box they are looking at. Nothing was
+        reworded and its id is unchanged, so the JUMP TO entry still lands. */ ""}
+  <section class="band tight" id="reseller">
+    <div class="wrap">
+      <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Read this one</p>
+      <h2>${esc(guide.reseller.title)}</h2>
+      <p class="wtb-flag"><b>${esc(guide.reseller.lede)}</b></p>
+      <div class="wtb-body">
+${para(guide.reseller.body)}
+      </div>
+${links(guide.reseller.links)}
+      <div class="wtb-body" style="margin-top:var(--s5)">
+        <h3>How we know that</h3>
+        <p>Not from a rumor. Each of these chains publishes its own rules for marketplace listings and
+          they are different from the rules for the shop's own stock, which is the split being described
+          above. These are the pages this site read, and the day it read them.</p>
+      </div>
+      <ul class="wtb-src">
+${MARKET_SOURCES.map(
+  (s) => `        <li><b>${esc(hostOf(s.url))}</b> &bull; ${esc(s.what)} &bull; read ${esc(
+    longDate(s.read)
+  )} &bull; ${esc(s.url)}</li>`
+).join("\n")}
+      </ul>
+      <div class="wtb-body" style="margin-top:var(--s4)">
+        <p>No shop is being accused of anything here. A marketplace is a normal way to run a website and
+          plenty of the sellers on one are perfectly good. The point is only that the price on the page
+          is not always the shop's price, and almost nobody new to this knows to check.</p>
+      </div>
     </div>
   </section>
 
@@ -1833,35 +1904,6 @@ ${packFig()}
     </div>
   </section>
 
-  <section class="band tight" id="reseller">
-    <div class="wrap">
-      <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Read this one</p>
-      <h2>${esc(guide.reseller.title)}</h2>
-      <p class="wtb-flag"><b>${esc(guide.reseller.lede)}</b></p>
-      <div class="wtb-body">
-${para(guide.reseller.body)}
-      </div>
-${links(guide.reseller.links)}
-      <div class="wtb-body" style="margin-top:var(--s5)">
-        <h3>How we know that</h3>
-        <p>Not from a rumor. Each of these chains publishes its own rules for marketplace listings and
-          they are different from the rules for the shop's own stock, which is the split being described
-          above. These are the pages this site read, and the day it read them.</p>
-      </div>
-      <ul class="wtb-src">
-${MARKET_SOURCES.map(
-  (s) => `        <li><b>${esc(hostOf(s.url))}</b> &bull; ${esc(s.what)} &bull; read ${esc(
-    longDate(s.read)
-  )} &bull; ${esc(s.url)}</li>`
-).join("\n")}
-      </ul>
-      <div class="wtb-body" style="margin-top:var(--s4)">
-        <p>No shop is being accused of anything here. A marketplace is a normal way to run a website and
-          plenty of the sellers on one are perfectly good. The point is only that the price on the page
-          is not always the shop's price, and almost nobody new to this knows to check.</p>
-      </div>
-    </div>
-  </section>
 
   <section class="tight">
     <div class="wrap">

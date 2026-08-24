@@ -186,6 +186,23 @@ const hostOf = (u) => {
   }
 };
 
+/**
+ * The line on the closed <details> holding a venue's note and citations.
+ * Twin of srcSummary in build-buying.mjs; see the argument there. Kept as a
+ * copy rather than shared because these two builders share no module today
+ * and one import would be the first, which is a bigger change than it looks.
+ */
+const srcSummary = (v) => {
+  const reads = (v.sources || [])
+    .map((x) => (typeof x === "string" ? "" : x.read || ""))
+    .filter(Boolean)
+    .sort();
+  const newest = reads[reads.length - 1];
+  const n = (v.sources || []).length;
+  const count = n ? `${n} source${n === 1 ? "" : "s"}` : "How we know this";
+  return newest ? `${count}, read ${longDate(newest)}` : count;
+};
+
 const venueCard = (v) => {
   for (const k of Object.keys(v)) {
     if (!V_KNOWN.has(k)) throw new Error(`selling.json: venue "${v.id}" has unrendered key "${k}"`);
@@ -228,6 +245,15 @@ const venueCard = (v) => {
         ${(v.sellerLevels || []).length ? `<p class="se-lbl"><b>What you are allowed to list, by level.</b></p><ul class="se-cond">${
           v.sellerLevels.map(sellerLevel).join("")
         }</ul>` : ""}
+        ${/* THE SOURCING COLLAPSES. Same change and same argument as
+              build-buying.mjs, measured separately on this page: .se-nb and
+              .se-src across the fourteen venue cards were 3,624px and 1,601
+              words, 15.2% of this page's words, interleaved between venues.
+              The citations stay attached to what they support and the read
+              date stays visible on the closed summary. */ ""}
+        ${v.note || (v.sources || []).length ? `<details class="se-srcd"><summary>${
+          esc(srcSummary(v))
+        }</summary>` : ""}
         ${v.note ? `<p class="se-nb">${esc(v.note)}</p>` : ""}
         ${(v.sources || []).length ? `<p class="se-src">${v.sources
           .map((x, i) => {
@@ -274,6 +300,7 @@ const venueCard = (v) => {
               : esc(what);
           })
           .join(" &bull; ")}</p>` : ""}
+        ${v.note || (v.sources || []).length ? `</details>` : ""}
       </article>`;
 };
 
@@ -848,6 +875,32 @@ ${BRAND_STYLE}
    colour to a black, white and gold site. */
 .se-yes b{color:var(--ink)}
 .se-no b{color:var(--ketchup-deep)}
+/* The collapsed sourcing. Twin of .by-srcd on /buying.html; the argument for
+   the quiet treatment and the 44px summary is written out there. */
+.se-srcd{margin-top:var(--s3);border-top:1px solid var(--hair)}
+/* THE TRIANGLE IS DRAWN BECAUSE display:flex DELETES THE REAL ONE. Chrome
+   removes a <summary>'s ::marker box entirely once the summary is a flex
+   container, so this control shipped with NO disclosure affordance at all: it
+   read as a line of small print that happened to be clickable, which is worse
+   than not collapsing at all. Confirmed by reading the computed style rather
+   than by looking: display "flex", list-style-type still "disclosure-closed",
+   ::marker content "normal", and nothing painted.
+   Flex is kept because it is what holds the 44px tap target and the baseline
+   together, so the marker is drawn instead, as borders rather than a glyph so
+   no font can fail to have it. */
+.se-srcd > summary{cursor:pointer;list-style:none;
+  min-height:44px;display:flex;align-items:center;gap:var(--s3);
+  font:400 var(--t-micro)/1.4 var(--mono);letter-spacing:.04em;
+  text-transform:uppercase;color:var(--ink)}
+.se-srcd > summary::-webkit-details-marker{display:none}
+.se-srcd > summary::before{content:"";flex:none;width:0;height:0;
+  border-left:6px solid currentColor;
+  border-top:4.5px solid transparent;border-bottom:4.5px solid transparent}
+.se-srcd[open] > summary::before{transform:rotate(90deg)}
+.se-srcd > summary:hover{text-decoration:underline}
+.se-srcd > summary:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.se-srcd[open] > summary{margin-bottom:var(--s2)}
+.se-srcd .se-nb{margin-top:0}
 .se-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s3);line-height:1.6}
 .se-prot{font-size:var(--t-sm);line-height:1.5;margin-top:var(--s2)}
 .se-s1,.se-rd{font:400 var(--t-micro)/1 var(--mono);white-space:nowrap}
@@ -1035,6 +1088,15 @@ ${GROUPS.map((g) => {
         .join("\n")}`
     : "";
 }).filter(Boolean).join("\n")}
+${/* THE SECOND ROW. Same change and same argument as build-buying.mjs: the nav
+      indexed the fourteen venue cards and stopped, leaving 2,210 words and
+      9,895px, nearly twelve phone screens, with no way to reach them or to
+      know they were there. */ ""}
+        <span class="se-jg">And</span>
+        <a href="#fees">What a sale costs</a>
+        <a href="#protection">Who protects a seller</a>
+        <a href="#scams">How it goes wrong</a>
+        <a href="#defences">What defends against it</a>
       </nav>
       </div>
 
@@ -1050,7 +1112,7 @@ ${GROUPS.map((g) => {
         </div>
       </div>
 
-      <section class="se-grp">
+      <section class="se-grp" id="fees">
         <h2>What a $100 sale actually <span class="hl">costs</span></h2>
         <p>Every venue below states its own rate on its own card, and nothing on this page puts them next to each
           other. Here they are next to each other, on the same sale, so the ranking is visible before you read
@@ -1082,7 +1144,7 @@ ${list.map(venueCard).join("\n")}
       </section>`;
 }).filter(Boolean).join("\n")}
 
-      <section class="se-grp">
+      <section class="se-grp" id="protection">
         <h2>Who protects a <span class="hl">seller</span></h2>
         <p>Seller protection and buyer protection are different products, and on every venue below the seller's
           version is the smaller one. This is the part people find out about afterwards.</p>
@@ -1091,7 +1153,7 @@ ${(safe.protections || []).map(prot).join("\n")}
         </div>
       </section>
 
-      <section class="se-grp">
+      <section class="se-grp" id="scams">
         <h2>How it actually goes <span class="hl">wrong</span></h2>
         <p>Each of these is a mechanism rather than a type of person. Every one is defined by who controls the
           money at which moment.</p>
@@ -1104,7 +1166,7 @@ ${(safe.attacks || []).map((a) => `          <li><b>${esc(a.name)}.</b> ${esc(a.
         </ol>
       </section>
 
-      <section class="se-grp">
+      <section class="se-grp" id="defences">
         <h2>What actually <span class="hl">defends</span> against it</h2>
         <ol class="se-list">
 ${(safe.defences || []).map((d) => `          <li><b>${esc(d.name)}.</b> ${esc(d.why || "")}${

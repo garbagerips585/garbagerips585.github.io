@@ -47,6 +47,14 @@ border-radius:var(--r);background:var(--card);box-shadow:var(--hard-lg)}
 justify-self:end}
 .wtb-quick .q-for{grid-column:1/-1;margin:0;font-size:.85rem;color:var(--ink-soft);
 line-height:1.35}
+.wtb-pick{display:flex;flex-wrap:wrap;gap:var(--s2);margin:var(--s4) 0 var(--s5)}
+.wtb-pick a{display:inline-flex;align-items:center;min-height:44px;
+padding:6px var(--s3);border:2px solid var(--keyline);border-radius:999px;
+background:var(--card);box-shadow:var(--hard);
+font:700 var(--t-micro)/1.2 var(--mono);letter-spacing:.04em;
+text-transform:uppercase;color:var(--sky-deep);text-decoration:none}
+.wtb-pick a:hover{background:var(--paper-3);text-decoration:underline}
+.wtb-pick a:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
 .wtb-jump{margin:var(--s5) 0 0}
 .wtb-jlabel{margin:0 0 var(--s2);font:700 .7rem/1 var(--mono);letter-spacing:.08em;
 text-transform:uppercase;color:var(--ink-soft)}
@@ -345,6 +353,15 @@ line-height:1.5;max-width:34em;color:var(--ink-soft)}
       <h2>Who is it <span class="hl">for</span>?</h2>
       <p class="lede wtb-lede">Find the one that sounds like you. Every price below is what the
         manufacturer suggests, not what a shop has to charge.</p>
+      
+      <nav class="wtb-pick" aria-label="Choose your situation">
+        <a href="#young-kid">A present for a young kid</a>
+        <a href="#already-opening">A kid who already collects and just wants to open stuff</a>
+        <a href="#wants-to-play">Somebody who wants to actually play the game</a>
+        <a href="#already-plays">A kid who already plays and wants a proper deck</a>
+        <a href="#big-present">The big present, one box with everything in it</a>
+        <a href="#tight-budget">Under fifteen dollars</a>
+      </nav>
       <ol class="wtb-sits">
     <li class="wtb-sit" id="young-kid">
       <h3>A present for a young kid</h3>
@@ -532,6 +549,43 @@ line-height:1.5;max-width:34em;color:var(--ink-soft)}
       </div>
       <p class="wtb-links"><a href="/cards.html">Look the card up</a>
         <a href="/pokemon/">Browse by Pokemon</a></p>
+    </div>
+  </section>
+
+  
+  <section class="band tight" id="reseller">
+    <div class="wrap">
+      <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Read this one</p>
+      <h2>The one thing almost nobody knows</h2>
+      <p class="wtb-flag"><b>If you take one thing off this page, take this. It is worth more money to you than everything above it.</b></p>
+      <div class="wtb-body">
+      <p>The big retailers' websites are two things wearing one page. They are the shop, selling the shop's own stock at the shop's own price, and they are also a marketplace, where other companies list their own goods on the same site and set their own prices.</p>
+      <p>So when the shop's own stock of a box sells out, the page does not go empty. It fills up with other people's listings of the same box, at whatever they feel like asking. The site looks identical. The logo is the same. The price is not.</p>
+      <p>That is why a box can show up at a genuinely shocking number on a website you have used for years, on a page that looks completely normal. The shop has not put its prices up. That is a stranger's price sitting on the shop's website.</p>
+      <p>The tell is printed on every listing and almost nobody reads it: look for who it is sold by and who ships it. If either line is a company name you have never heard of, you are buying from that company and not from the shop. The return window is usually shorter too, which is its own warning sign about who is actually on the hook.</p>
+      <p>What to do about it is boring and it works. Do not pay it. Stock comes back, usually weekly, and the shop's own price comes back with it. A box that is unavailable this week is still a box, and paying several times the suggested price for one because the page had a familiar logo on it is the most common way somebody new to this loses money.</p>
+      </div>
+      <p class="wtb-links"><a href="/drops.html">When stock actually lands</a>
+        <a href="/buying.html">Every venue, and what it costs a buyer</a>
+        <a href="/msrp.html">What it should have cost</a></p>
+      <div class="wtb-body" style="margin-top:var(--s5)">
+        <h3>How we know that</h3>
+        <p>Not from a rumor. Each of these chains publishes its own rules for marketplace listings and
+          they are different from the rules for the shop's own stock, which is the split being described
+          above. These are the pages this site read, and the day it read them.</p>
+      </div>
+      <ul class="wtb-src">
+        <li><b>target.com</b> &bull; The 90 day Target and 30 day Target Plus return windows &bull; read August 15, 2026 &bull; https://www.target.com/help/article/000061980</li>
+        <li><b>bestbuy.com</b> &bull; Free standard shipping at $35, the member waiver, and that Marketplace Products never qualify &bull; read August 15, 2026 &bull; https://www.bestbuy.com/site/help-topics/free-shipping/pcmcat276800050002.c?id=pcmcat276800050002</li>
+        <li><b>bestbuy.com</b> &bull; The 15 and 60 day windows, that member extensions do not apply to marketplace purchases, and the verbatim nonreturnable list naming trading cards including Pokemon cards &bull; read August 15, 2026 &bull; https://www.bestbuy.com/site/help-topics/return-exchange-policy/pcmcat260800050014.c?id=pcmcat260800050014</li>
+        <li><b>walmart.com</b> &bull; The $6.99 below-minimum fee, the $35 line, and that marketplace items count toward it but may carry separate shipping &bull; read August 15, 2026 &bull; https://www.walmart.com/help/article/the-walmart-site-and-app-experience/27f2678cb25a40a7b57a359fec3ca67f</li>
+        <li><b>walmart.com</b> &bull; The 90 day standard and 30 day marketplace return windows, and the absence of any trading card carve-out &bull; read August 15, 2026 &bull; https://www.walmart.com/help/article/walmart-standard-return-policy/adc0dfb692954e67a4de206fb8d9e03a</li>
+      </ul>
+      <div class="wtb-body" style="margin-top:var(--s4)">
+        <p>No shop is being accused of anything here. A marketplace is a normal way to run a website and
+          plenty of the sellers on one are perfectly good. The point is only that the price on the page
+          is not always the shop's price, and almost nobody new to this knows to check.</p>
+      </div>
     </div>
   </section>
 
@@ -859,41 +913,6 @@ line-height:1.5;max-width:34em;color:var(--ink-soft)}
     </div>
   </section>
 
-  <section class="band tight" id="reseller">
-    <div class="wrap">
-      <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Read this one</p>
-      <h2>The one thing almost nobody knows</h2>
-      <p class="wtb-flag"><b>If you take one thing off this page, take this. It is worth more money to you than everything above it.</b></p>
-      <div class="wtb-body">
-      <p>The big retailers' websites are two things wearing one page. They are the shop, selling the shop's own stock at the shop's own price, and they are also a marketplace, where other companies list their own goods on the same site and set their own prices.</p>
-      <p>So when the shop's own stock of a box sells out, the page does not go empty. It fills up with other people's listings of the same box, at whatever they feel like asking. The site looks identical. The logo is the same. The price is not.</p>
-      <p>That is why a box can show up at a genuinely shocking number on a website you have used for years, on a page that looks completely normal. The shop has not put its prices up. That is a stranger's price sitting on the shop's website.</p>
-      <p>The tell is printed on every listing and almost nobody reads it: look for who it is sold by and who ships it. If either line is a company name you have never heard of, you are buying from that company and not from the shop. The return window is usually shorter too, which is its own warning sign about who is actually on the hook.</p>
-      <p>What to do about it is boring and it works. Do not pay it. Stock comes back, usually weekly, and the shop's own price comes back with it. A box that is unavailable this week is still a box, and paying several times the suggested price for one because the page had a familiar logo on it is the most common way somebody new to this loses money.</p>
-      </div>
-      <p class="wtb-links"><a href="/drops.html">When stock actually lands</a>
-        <a href="/buying.html">Every venue, and what it costs a buyer</a>
-        <a href="/msrp.html">What it should have cost</a></p>
-      <div class="wtb-body" style="margin-top:var(--s5)">
-        <h3>How we know that</h3>
-        <p>Not from a rumor. Each of these chains publishes its own rules for marketplace listings and
-          they are different from the rules for the shop's own stock, which is the split being described
-          above. These are the pages this site read, and the day it read them.</p>
-      </div>
-      <ul class="wtb-src">
-        <li><b>target.com</b> &bull; The 90 day Target and 30 day Target Plus return windows &bull; read August 15, 2026 &bull; https://www.target.com/help/article/000061980</li>
-        <li><b>bestbuy.com</b> &bull; Free standard shipping at $35, the member waiver, and that Marketplace Products never qualify &bull; read August 15, 2026 &bull; https://www.bestbuy.com/site/help-topics/free-shipping/pcmcat276800050002.c?id=pcmcat276800050002</li>
-        <li><b>bestbuy.com</b> &bull; The 15 and 60 day windows, that member extensions do not apply to marketplace purchases, and the verbatim nonreturnable list naming trading cards including Pokemon cards &bull; read August 15, 2026 &bull; https://www.bestbuy.com/site/help-topics/return-exchange-policy/pcmcat260800050014.c?id=pcmcat260800050014</li>
-        <li><b>walmart.com</b> &bull; The $6.99 below-minimum fee, the $35 line, and that marketplace items count toward it but may carry separate shipping &bull; read August 15, 2026 &bull; https://www.walmart.com/help/article/the-walmart-site-and-app-experience/27f2678cb25a40a7b57a359fec3ca67f</li>
-        <li><b>walmart.com</b> &bull; The 90 day standard and 30 day marketplace return windows, and the absence of any trading card carve-out &bull; read August 15, 2026 &bull; https://www.walmart.com/help/article/walmart-standard-return-policy/adc0dfb692954e67a4de206fb8d9e03a</li>
-      </ul>
-      <div class="wtb-body" style="margin-top:var(--s4)">
-        <p>No shop is being accused of anything here. A marketplace is a normal way to run a website and
-          plenty of the sellers on one are perfectly good. The point is only that the price on the page
-          is not always the shop's price, and almost nobody new to this knows to check.</p>
-      </div>
-    </div>
-  </section>
 
   <section class="tight">
     <div class="wrap">

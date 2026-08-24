@@ -1188,11 +1188,17 @@ ${MENU}
       <p class="lede rt-lede">${retailers.length} shops we could confirm sell Pokemon cards, by reading it on
         that company's own website with our own eyes, on the date printed against each one. What they stock,
         which department they file the cards under, and every price we have actually read.</p>
+      ${/* SHORTENED, 24 August 2026, from 79 words to one sentence. The full
+            breakdown of which chains could not be confirmed and why was in the
+            SECOND paragraph of the page, above the one piece of advice on it
+            that a reader can act on, and it is said again properly in "The
+            eight we could not confirm" at the bottom in 392 words. Saying it
+            twice cost the top of the page about 250px and pushed the "ask
+            anyway" advice off the first screen. The link keeps it findable. */ ""}
       <p class="lede rt-lede">${esc(
         cnrTotalWord.charAt(0).toUpperCase() + cnrTotalWord.slice(1)
-      )} more chains were checked and are not on this list. ${esc(cnrSentence)}
-        They are named at the bottom with the reason, because "we could not read their site" and
-        "they do not sell them" are two different sentences and only the first one is ours to write.</p>
+      )} more chains were checked and are not on this list;
+        <a href="#could-not-read">the reason for each one</a> is at the bottom.</p>
 
       <div class="rt-key">
         <h2>If you cannot see any, <span class="hl">ask anyway</span></h2>
@@ -1235,7 +1241,11 @@ ${table()}
 ${gapList()}
       </section>
 
-      <section class="rt-grp">
+      ${/* THE ID IS LOAD BEARING NOW: the shortened lede at the top of the page
+            links here instead of restating this section's contents. Removing
+            it turns that link into a silent no-op, which is exactly the class
+            of fault the site's own QA sweep checks for. */ ""}
+      <section class="rt-grp" id="could-not-read">
         <h2>The ${esc(cnrTotalWord)} we could <span class="hl">not</span> confirm</h2>
         <p class="rt-note">None of this says these shops do not sell Pokemon cards. Most of it is a fact about
           a web server. Where a chain served a bot challenge we recorded that and moved on rather than trying to
