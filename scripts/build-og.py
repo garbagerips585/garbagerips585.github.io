@@ -135,32 +135,23 @@ def build(pack_path, label, out_path):
     # a card and the site reserves it for type over 24px.
     tracked(draw, (TX, y), label.upper()[:26], mono, PINK_SM, 2.5)
 
-    # ONE LINE SAYING WHAT THE SITE IS, ADDED 24 AUGUST 2026. The owner: "the share
-    # link image looks good, but should we add just a bit more text to it
-    # describing the site more? or at least add in a Garbage plate on there?"
+    # A THIRD LINE WAS ADDED HERE ON 24 AUGUST 2026 AND TAKEN BACK OUT THE SAME
+    # DAY. The owner had asked "should we add just a bit more text to it describing
+    # the site more? or at least add in a Garbage plate on there?", saw
+    # "EVERY PULL LOGGED" sitting between the label and Rochester, and said:
+    # "lets actually keep the share link image exactly how you had it".
     #
-    # THE PLATE HALF OF THAT ASK IS ALREADY ANSWERED BY THE ART and that is why
-    # only the text half was done: the pack Trubbish is sitting on is a plate of
-    # Garbage Plate, drawn by Unableplacebo, and it occupies the whole left half
-    # of the card. Drawing a second one would be the same object twice on one
-    # 1200x630 frame.
+    # SO THE CARD IS TWO MONO LINES AND THAT IS A DECISION NOW RATHER THAN AN
+    # ABSENCE. Worth keeping because the idea is an obvious one to have again:
+    # a link preview is rendered around 500px wide in a phone feed, where this
+    # 25px type is about 10px, and the third line pushed the block far enough
+    # down that the wordmark stopped being the thing the eye lands on. The card
+    # is there to be RECOGNISED, not read. Anything that needs reading belongs
+    # in the og:description, which is already carrying it.
     #
-    # ONE LINE, NOT TWO, AND IT IS THE SIZE OF THE FRAME THAT DECIDES THAT. A
-    # link preview is rendered at roughly 500px wide in a phone feed, so this
-    # 25px mono is about 10px there. Every line added past the third is a line
-    # nobody reads, and the card's job is to be recognised rather than to be
-    # read. The claim it makes is the site's own and is true of every page it
-    # ships on, which is what lets one line serve all nineteen cards.
-    y += 38
-    # "EVERY PULL LOGGED" AND NOT "EVERY PACK OPENED ON CAMERA", WHICH WAS THE
-    # FIRST DRAFT AND DID NOT FIT. The text column starts at x=709 on a 1200px
-    # card, so a line has 491px before it touches the edge, and that draft
-    # measured 472.5 and left 18.5px of margin. It also said the same thing as
-    # "POKEMON PACK RIPS" directly above it. This one measures 297.5px, which is
-    # the SAME width as that line to a tenth of a pixel, so the two stack as a
-    # deliberate block rather than a ragged one, and it says the thing the
-    # CHANNEL does not already say: the site is the log.
-    tracked(draw, (TX, y), "EVERY PULL LOGGED", mono, INK_2, 2.5)
+    # AND THE PLATE HALF OF THAT ASK NEVER NEEDED DOING: the pack Trubbish sits
+    # on IS a plate of Garbage Plate, drawn by Unableplacebo, filling the whole
+    # left half of the card.
     y += 38
     tracked(draw, (TX, y), "ROCHESTER, NY", mono, INK_2, 2.5)
 
