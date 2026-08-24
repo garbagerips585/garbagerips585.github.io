@@ -8,6 +8,36 @@
  "checked": "2026-08-24",
  "source": "PokeAPI/sprites, official-artwork",
  "art": {
+  "19": {
+   "file": "/assets/dex/19.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "20": {
+   "file": "/assets/dex/20.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "25": {
+   "file": "/assets/dex/25.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "27": {
+   "file": "/assets/dex/27.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "89": {
+   "file": "/assets/dex/89.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
   "92": {
    "file": "/assets/dex/92.webp",
    "w": 128,
@@ -16,6 +46,24 @@
   },
   "93": {
    "file": "/assets/dex/93.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "115": {
+   "file": "/assets/dex/115.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "127": {
+   "file": "/assets/dex/127.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "128": {
+   "file": "/assets/dex/128.webp",
    "w": 128,
    "h": 128,
    "box": "sm"
@@ -34,6 +82,12 @@
   },
   "146": {
    "file": "/assets/dex/146.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "151": {
+   "file": "/assets/dex/151.webp",
    "w": 128,
    "h": 128,
    "box": "sm"
@@ -152,8 +206,20 @@
    "h": 128,
    "box": "sm"
   },
+  "800": {
+   "file": "/assets/dex/800.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
   "890": {
    "file": "/assets/dex/890.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "1024": {
+   "file": "/assets/dex/1024.webp",
    "w": 128,
    "h": 128,
    "box": "sm"

@@ -249,6 +249,56 @@ function heightBars(a, b) {
 // different claim. Same for the legendary share, the baby count and the
 // generation sizes. A picture that is only decoration is the thing this pass is
 // supposed to be removing, not adding.
+/* ------------------------------------------------------------------ MORE ---
+ * Tim, 24 August 2026: "any other really interesting pokemon lore should get
+ * added... if there is any funny lore add that in too, just quick little things
+ * most people wouldn't know about pokemon."
+ *
+ * ALL OF IT IS STILL COMPUTED, WHICH IS THE ONLY WAY THIS PAGE IS ALLOWED TO
+ * GROW. The header of this file is blunt about why: a "did you know" page is the
+ * easiest place on a site to start quietly making things up, because the format
+ * invites confident one-liners and nobody expects a citation on a fun fact.
+ * Typing in twenty pieces of trivia would have been the fast way to answer this
+ * request and it would have thrown away the one thing that makes the page worth
+ * reading. Every line below is derived from data/pokedex.json and can be checked
+ * against pokeapi.co.
+ *
+ * AND STILL NO POKEDEX ENTRY TEXT. The flavour text from the games is where most
+ * "creepy Pokemon lore" lists get their material, and it is copyrighted. What is
+ * used here is the same as everywhere else on this page: the numbers, and the
+ * one or two word genus, which is a label rather than prose.
+ */
+
+// The densest thing in the dex, and it is funny rather than impressive: a
+// sphere 10cm across that outweighs the 20m dragon.
+const dense = P.filter((x) => x.hDm > 0)
+  .map((x) => ({ p: x, d: kg(x) / Math.pow(m(x), 3) }))
+  .sort((a, b) => b.d - a.d)[0];
+const cosmoTall = P.find((x) => x.hDm === Math.max(...P.map((y) => y.hDm)));
+
+// Never evolves, in either direction. Legendaries and Mythicals are excluded
+// because "a Legendary does not evolve" surprises nobody.
+const evoFroms = new Set(P.map((x) => x.evolvesFrom).filter(Boolean));
+const neverEvolve = P.filter(
+  (x) => !x.evolvesFrom && !evoFroms.has(x.name) && !x.legendary && !x.mythical
+);
+const neverFamous = neverEvolve.filter((x) => x.id <= 251).slice(0, 3);
+
+// The genus is the official one or two word category. Shared genera are the
+// surprise: Sandshrew is filed as a Mouse.
+const genusCount = new Map();
+for (const x of P) if (x.genus) genusCount.set(x.genus, [...(genusCount.get(x.genus) || []), x]);
+const genusRank = [...genusCount].sort((a, b) => b[1].length - a[1].length);
+const mouse = genusCount.get("Mouse") || [];
+
+const singleType = P.filter((x) => x.types.length === 1);
+const colorCount = [...P.reduce((mp, x) => mp.set(x.color, (mp.get(x.color) || 0) + 1), new Map())]
+  .filter(([k]) => k)
+  .sort((a, b) => b[1] - a[1]);
+const shortName = Math.min(...P.map((x) => x.name.length));
+const shortest = P.filter((x) => x.name.length === shortName);
+const easyLegends = P.filter((x) => (x.legendary || x.mythical) && x.catch === 255);
+
 const FACTS = [
   ["Type combinations", `Of the ${n(combos.size)} type combinations across the National Pokedex, ${n(soloOfCombo.length)} belong to exactly one Pokemon. ${soloOfCombo[0][1][0]} is the only ${list(soloOfCombo[0][0].split("/").map(cap))} Pokemon there has ever been.`, [byName(soloOfCombo[0][1][0])]],
   ["The most common type", `${cap(typeRank[0][0])} is the most crowded type in the dex with ${n(typeRank[0][1])} Pokemon. The rarest is ${cap(typeRank[typeRank.length - 1][0])}, with ${n(typeRank[typeRank.length - 1][1])}.`],
@@ -270,6 +320,44 @@ const FACTS = [
   ["Legendaries", `${n(legendary.length)} Pokemon are flagged Legendary and ${n(mythical.length)} Mythical, which is ${((legendary.length + mythical.length) / P.length * 100).toFixed(1)}% of the ${n(P.length)} in the National Pokedex.`],
   ["Babies", `${n(babies.length)} Pokemon are classed as baby Pokemon, a category that did not exist until breeding arrived in Generation 2.`],
   ["The biggest generation", `Generation ${genRank[0][0]} introduced ${n(genRank[0][1])} Pokemon, more than any other. Generation ${genRank[genRank.length - 1][0]} added the fewest, at ${n(genRank[genRank.length - 1][1])}.`],
+  [
+    "The densest Pokemon there is",
+    `${dense.p.name} is ${m(dense.p).toFixed(1)}m across and weighs ${kg(dense.p).toFixed(1)}kg, which is about ${n(Math.round(dense.d / 1000))} times the density of water. It outweighs ${cosmoTall.name}, the tallest thing in the dex, which stands ${m(cosmoTall).toFixed(0)}m and is ${n(Math.round(m(cosmoTall) / m(dense.p)))} times its height.`,
+    [dense.p, cosmoTall],
+  ],
+  [
+    "Most of them do evolve",
+    `${n(neverEvolve.length)} Pokemon never evolve at all, in either direction, once Legendaries and Mythicals are set aside. ${list(neverFamous.map((x) => x.name))} have been in that group since the first two generations.`,
+    neverFamous,
+  ],
+  [
+    "Sandshrew is a Mouse",
+    /* ALL EIGHT ARE NAMED, not the first four. The headline points at Sandshrew
+       and the first version sliced the list at four, which cut Sandshrew out of
+       its own fact and left the sentence naming Rattata, Raticate, Pikachu and
+       Raichu under a heading about a different Pokemon. Eight names is short
+       enough to print whole. */
+    `The dex sorts every Pokemon into a one or two word category, and there are ${n(genusRank.length)} of them. ${n(mouse.length)} are filed as the Mouse Pokemon, and they are not the ${n(mouse.length)} you would pick: ${list(mouse.map((x) => x.name))}. The most crowded category of all is ${genusRank[0][0]}, with ${n(genusRank[0][1].length)}.`,
+    [P.find((x) => x.name === "Sandshrew"), P.find((x) => x.name === "Pikachu")].filter(Boolean),
+  ],
+  [
+    "Two types or one",
+    `It is almost exactly even. ${n(singleType.length)} Pokemon have a single type and ${n(P.length - singleType.length)} have two, which is ${((singleType.length / P.length) * 100).toFixed(0)}% against ${(((P.length - singleType.length) / P.length) * 100).toFixed(0)}%.`,
+  ],
+  [
+    "The rarest color is black",
+    `Every Pokemon is filed under one official color. ${cap(colorCount[0][0])} leads with ${n(colorCount[0][1])} and ${cap(colorCount[colorCount.length - 1][0])} is the rarest at ${n(colorCount[colorCount.length - 1][1])}, fewer than one in ${n(Math.round(P.length / colorCount[colorCount.length - 1][1]))}.`,
+  ],
+  [
+    "Only two names are three letters",
+    `Out of ${n(P.length)}, exactly ${n(shortest.length)} Pokemon have ${n(shortName)} letter names: ${list(shortest.map((x) => x.name))}. Nothing has ever had fewer.`,
+    shortest,
+  ],
+  [
+    "Not every Legendary is hard to catch",
+    `${n(easyLegends.length)} of the Legendaries carry a capture rate of 255, the easiest in the game: ${list(easyLegends.map((x) => x.name))}. They are story catches rather than hunts. The hardest in the dex sit at ${hc.best} out of the same 255.`,
+    easyLegends,
+  ],
 ];
 
 const RARE_COMBOS = [...combos]

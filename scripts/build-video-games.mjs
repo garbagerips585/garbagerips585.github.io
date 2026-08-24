@@ -601,6 +601,19 @@ const STYLE = `<style>
    it. At 390px the chips scroll sideways INSIDE the rail, which is the one
    horizontal scroll on this page and it holds ten links rather than 160
    pictures. */
+/* The counting rules, closed. Native <details>, no script. Same rules as
+   .chof-how on /hall.html; kept page-local because that class is defined inside
+   build-hall.mjs's own style block and neither page loads the other's. */
+.vg-how{max-width:44em;margin:var(--s7) auto var(--s5);text-align:left}
+.vg-how summary{display:flex;align-items:center;gap:8px;min-height:44px;cursor:pointer;
+  list-style:none;font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--sky-deep)}
+.vg-how summary::-webkit-details-marker{display:none}
+.vg-how summary::after{content:"+";font:400 1rem/1 var(--display)}
+/* The minus sign is written as the CHARACTER. A CSS unicode escape for it
+   inside a template literal parses as an octal escape and the build dies. */
+.vg-how[open] summary::after{content:"−"}
+.vg-how p{font:400 var(--t-sm)/1.6 var(--body);color:var(--ink-2);margin-top:var(--s3)}
 .vg-rail{position:sticky;top:var(--bar-h);z-index:40;background:var(--paper-2);
   border-bottom:2px solid var(--keyline);margin-bottom:var(--s5)}
 .vg-rail-in{display:flex;gap:var(--s2);overflow-x:auto;overflow-y:hidden;
@@ -850,6 +863,27 @@ ${MENU}
       <div><b>${n(NATDEX)}</b><span>Species</span></div>
     </div>
 
+    <nav class="vg-rail" aria-label="Jump to a generation">
+      <div class="vg-rail-in">${rail}</div>
+    </nav>
+
+${timeline}
+${undatedBlock}
+
+    ${/* THE COUNTING RULES MOVED TO THE FOOT AND FOLDED SHUT, 24 August 2026.
+          Tim: "if we need this text on this page then lets move it to the bottom
+          so its not taking up the entire top of the page. if its for SEO great
+          put it at the bottom."
+          It is not placeholder, which is the other thing he asked: it is four
+          paragraphs of real sourcing -- what counts as a Pokemon game, why a
+          regional dex figure is not the National one, and why "no Metacritic
+          page" and "a page with no score" are printed as two different
+          sentences. That is worth keeping and worth indexing. It was just
+          sitting between the summary tiles and the games, so a reader who came
+          for 160 covers met 4,600 characters about method first.
+          Native <details>, no script, same shape as .chof-how on /hall.html. */ ""}
+    <details class="vg-how">
+      <summary>How this list is counted</summary>
     <p>Scroll it and the hardware changes shape under your thumb. Nothing here is cropped: every cover sits inside
       the same square box at its own proportions, so the squat Game Boy carts, the wide N64 and DS boxes and the
       tall Switch keycases are all the shape they really are. ${n(notBoxCount)} of the ${n(coverCount)} images are
@@ -881,13 +915,7 @@ ${MENU}
       extend, and Super Smash Bros., which is not a Pokemon game.
       ${n(deadCount)} rows say a game is gone, and they say it only where the source says so outright: a row without
       that mark is not a promise that the game still runs.</p>
-
-    <nav class="vg-rail" aria-label="Jump to a generation">
-      <div class="vg-rail-in">${rail}</div>
-    </nav>
-
-${timeline}
-${undatedBlock}
+    </details>
 
     <p class="price-note" style="margin-top:var(--s7)">Cover artwork belongs to Nintendo, Game Freak, Creatures and
       The Pokemon Company. Images are mirrored here from

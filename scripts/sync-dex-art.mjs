@@ -70,6 +70,15 @@ const ART = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/po
 // id -> box, and the comment says which line of /lore.html each one is the
 // subject of, so a later editor can tell what breaks if they drop one.
 const WANT = {
+  // Added 24 August 2026 with seven new computed facts on /lore.html. Each id
+  // here is named by a fact on that page; build-lore.mjs prints the ones it
+  // wanted and could not find, so this list is filled from its output rather
+  // than guessed at.
+  19: "sm", 20: "sm", 25: "sm", 27: "sm",                  // the Mouse Pokemon, and Pikachu and Sandshrew are two
+  115: "sm", 127: "sm", 128: "sm",                        // never evolve, since gen 1
+  89: "sm", 151: "sm",                                    // Muk and Mew, the only three letter names
+  800: "sm", 1024: "sm",                                  // Legendaries at capture rate 255
+
   568: "md", 569: "md",                                   // the mascots, drawn to scale
   248: "sm",                                              // the only Dark and Rock
   790: "sm", 797: "sm",                                   // heaviest, tied

@@ -25,7 +25,15 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=0be29975">
-<style>.vg-rail{position:sticky;top:var(--bar-h);z-index:40;background:var(--paper-2);
+<style>.vg-how{max-width:44em;margin:var(--s7) auto var(--s5);text-align:left}
+.vg-how summary{display:flex;align-items:center;gap:8px;min-height:44px;cursor:pointer;
+  list-style:none;font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--sky-deep)}
+.vg-how summary::-webkit-details-marker{display:none}
+.vg-how summary::after{content:"+";font:400 1rem/1 var(--display)}
+.vg-how[open] summary::after{content:"−"}
+.vg-how p{font:400 var(--t-sm)/1.6 var(--body);color:var(--ink-2);margin-top:var(--s3)}
+.vg-rail{position:sticky;top:var(--bar-h);z-index:40;background:var(--paper-2);
   border-bottom:2px solid var(--keyline);margin-bottom:var(--s5)}
 .vg-rail-in{display:flex;gap:var(--s2);overflow-x:auto;overflow-y:hidden;
   scrollbar-width:thin;padding:var(--s2) var(--s4);max-width:var(--wrap);margin:0 auto;
@@ -277,33 +285,6 @@
       <div><b>191</b><span>Covers</span></div>
       <div><b>1,025</b><span>Species</span></div>
     </div>
-
-    <p>Scroll it and the hardware changes shape under your thumb. Nothing here is cropped: every cover sits inside
-      the same square box at its own proportions, so the squat Game Boy carts, the wide N64 and DS boxes and the
-      tall Switch keycases are all the shape they really are. 65 of the 191 images are
-      not a box at all, because a phone game has no box and an arcade cabinet is furniture, and those are labeled
-      rather than passed off as cover art.</p>
-
-    <p style="margin-top:var(--s3)">11 of these are card games, marked so you can find them, and they
-      are left in date order rather than pulled into a band of their own. 68 carry a Metascore.
-      81 have no Metacritic page and 11 have a page with no aggregate score, which
-      are two different facts and are printed as two different sentences: every Game Boy core game predates
-      Metacritic's coverage of games, and that is not the same as a bad review.</p>
-
-    <p style="margin-top:var(--s3)">Where a game has a Pokedex, the number shown is the count of ENTRIES in that
-      game's regional Pokedex, which is a different number from the 1,025 species in the National Pokedex and
-      a different number again from how many you can actually catch in it. That third figure is not published, so
-      this page does not state it. 25 of the 160 have a regional dex on record at all.
-      Pokemon X and Y has three at once and there is no single Kalos figure, so all three are shown. The new Pokemon each generation added sum to exactly 1,025, which is the National Pokedex total
-      from the same source, so the two figures on this page check each other.</p>
-
-    <p style="margin-top:var(--s3)">What counts as a Pokemon game: everything The Pokemon Company and its partners
-      released as a game, including the phone titles, the arcade cabinets, the Pokemon mini library, the browser and
-      the Japanese educational releases. Out are Pokemon Bank, Pokemon HOME and the Pokedex apps, which store and
-      look things up rather than being played, the demos and the expansion passes, which belong to the game they
-      extend, and Super Smash Bros., which is not a Pokemon game.
-      9 rows say a game is gone, and they say it only where the source says so outright: a row without
-      that mark is not a promise that the game still runs.</p>
 
     <nav class="vg-rail" aria-label="Jump to a generation">
       <div class="vg-rail-in"><a href="#gen-i">Gen I</a><a href="#gen-ii">Gen II</a><a href="#gen-iii">Gen III</a><a href="#gen-iv">Gen IV</a><a href="#gen-v">Gen V</a><a href="#gen-vi">Gen VI</a><a href="#gen-vii">Gen VII</a><a href="#gen-viii">Gen VIII</a><a href="#gen-ix">Gen IX</a><a href="#gen-x">Gen X</a><a href="#gen-undated">Undated</a></div>
@@ -4375,6 +4356,37 @@
   </details>
 </li>
 </ol>
+
+    
+    <details class="vg-how">
+      <summary>How this list is counted</summary>
+    <p>Scroll it and the hardware changes shape under your thumb. Nothing here is cropped: every cover sits inside
+      the same square box at its own proportions, so the squat Game Boy carts, the wide N64 and DS boxes and the
+      tall Switch keycases are all the shape they really are. 65 of the 191 images are
+      not a box at all, because a phone game has no box and an arcade cabinet is furniture, and those are labeled
+      rather than passed off as cover art.</p>
+
+    <p style="margin-top:var(--s3)">11 of these are card games, marked so you can find them, and they
+      are left in date order rather than pulled into a band of their own. 68 carry a Metascore.
+      81 have no Metacritic page and 11 have a page with no aggregate score, which
+      are two different facts and are printed as two different sentences: every Game Boy core game predates
+      Metacritic's coverage of games, and that is not the same as a bad review.</p>
+
+    <p style="margin-top:var(--s3)">Where a game has a Pokedex, the number shown is the count of ENTRIES in that
+      game's regional Pokedex, which is a different number from the 1,025 species in the National Pokedex and
+      a different number again from how many you can actually catch in it. That third figure is not published, so
+      this page does not state it. 25 of the 160 have a regional dex on record at all.
+      Pokemon X and Y has three at once and there is no single Kalos figure, so all three are shown. The new Pokemon each generation added sum to exactly 1,025, which is the National Pokedex total
+      from the same source, so the two figures on this page check each other.</p>
+
+    <p style="margin-top:var(--s3)">What counts as a Pokemon game: everything The Pokemon Company and its partners
+      released as a game, including the phone titles, the arcade cabinets, the Pokemon mini library, the browser and
+      the Japanese educational releases. Out are Pokemon Bank, Pokemon HOME and the Pokedex apps, which store and
+      look things up rather than being played, the demos and the expansion passes, which belong to the game they
+      extend, and Super Smash Bros., which is not a Pokemon game.
+      9 rows say a game is gone, and they say it only where the source says so outright: a row without
+      that mark is not a promise that the game still runs.</p>
+    </details>
 
     <p class="price-note" style="margin-top:var(--s7)">Cover artwork belongs to Nintendo, Game Freak, Creatures and
       The Pokemon Company. Images are mirrored here from
