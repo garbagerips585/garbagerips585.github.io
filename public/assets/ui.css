@@ -1520,6 +1520,7 @@ span.cq-name{color:var(--ink)}
 .nohits{text-align:center}
 .nohits-img{display:block;margin:0 auto var(--s3);width:120px;height:auto;opacity:.9}
 .nohits .lede{max-width:34em;margin:0 auto var(--s4)}
+.nohits p{margin-left:auto;margin-right:auto}
 @media(max-width:520px){
   .hitcards{grid-template-columns:repeat(2,1fr);gap:var(--s3)}
 }
@@ -1636,6 +1637,9 @@ span.cq-name{color:var(--ink)}
   .hofx-art{width:100%;margin:0 auto}
   .hofx-b{align-items:center}
   .hofx-cta{align-self:center}
+}
+@media(min-width:641px) and (max-width:1199px){
+  .hofx{margin-inline:0 auto}
 }
 @media(max-width:544px){
   .hof{padding-top:var(--s2)}

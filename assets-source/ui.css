@@ -4793,6 +4793,19 @@ span.cq-name{color:var(--ink)}
 .nohits{text-align:center}
 .nohits-img{display:block;margin:0 auto var(--s3);width:120px;height:auto;opacity:.9}
 .nohits .lede{max-width:34em;margin:0 auto var(--s4)}
+/* THE BUTTON UNDER THE LEDE WAS 390px LEFT OF EVERYTHING ABOVE IT, on every
+   no-hit rip page. .nohits is text-align:center and the h2 duly centres across
+   the full 1440, but the <p> holding the button inherits a 612px prose
+   max-width from further up the sheet with margin:0, so it is LEFT PINNED and
+   the centring only centres the button inside that left-hand box. Measured at
+   1440 before this: wrap 0-1440, h2 24-1416, lede 421-1019 (already centred by
+   the rule above), button paragraph 24-636, button 238-422 against a visual
+   centre of 720.
+   The lede immediately above it had margin:0 auto and the button paragraph did
+   not, which is the whole bug: one of the two got the treatment. Correct at
+   390, where the max-width never binds, which is why it survived a phone-first
+   QA pass. */
+.nohits p{margin-left:auto;margin-right:auto}
 @media(max-width:520px){
   .hitcards{grid-template-columns:repeat(2,1fr);gap:var(--s3)}
 }
@@ -5160,6 +5173,33 @@ inherited from the UA default, so the promotion moves nothing on screen. */
    the owner asked for the drops band above the fold on 17 August in as many words.
    That is a trade for the owner, not for a stylesheet, so both halves are written down
    rather than one of them being made quietly. */
+/* THE TROPHY WAS INDENTED UP TO 306px FROM THE CARDS DIRECTLY BENEATH IT,
+   between the phone layout and the two-column desktop one. .hofx is capped at
+   520px and centred with margin:auto, while the shelf under it and every other
+   band on the page start at the 24px gutter. Measured on the built home page,
+   trophy left edge against the first shelf card's left edge:
+
+       768    trophy 124-644   shelf 24-744    indented 100px
+       834    trophy 157-677   shelf 24-810    indented 133px
+       1024   trophy 252-772   shelf 24-1000   indented 228px
+       1180   trophy 330-850   shelf 24-1156   indented 306px
+       1280   trophy  24-433   shelf 465-1256  correct, two-column layout
+
+   THE 520px CAP IS NOT THE BUG AND MUST NOT BE REMOVED. It exists because a
+   wider card leaves "a 360px pack marooned in a 720px card with 180px of white
+   either side", which is the failure the min-width:545 rule was written to fix
+   and which is argued at length further down this file. Widening the card here
+   would trade a small misalignment for that larger one.
+
+   So the card keeps its width and stops centring itself. Left edges line up
+   with the shelf, the heading and every other band, which is what makes the
+   section read as part of the page rather than as a floating object. Below 641
+   the phone layout owns it and above 1199 the two-column rule sets its own
+   margin, so this is scoped to exactly the range that was wrong. */
+@media(min-width:641px) and (max-width:1199px){
+  .hofx{margin-inline:0 auto}
+}
+
 @media(max-width:544px){
   .hof{padding-top:var(--s2)}
   .hofx{max-width:78vw;margin-top:18px;padding-top:20px}
