@@ -23,7 +23,7 @@
  * and retyped and a brand is not. Do NOT strip 585 from copy, titles or the
  * wordmark to "match" the domain: they are different things doing different
  * jobs. */
-export const LIVE = false;
+export const LIVE = true;
 
 export const DOMAIN = "https://garbagerips.com";
 export const STAGING = "https://garbagerips585.github.io";
