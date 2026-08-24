@@ -190,6 +190,36 @@ async function* walk(dir) {
 // are hashed, so they update themselves whenever the artwork does.
 const RE = /(href|src)="(\/(?:assets\/[^"?]+\.(?:css|js)|favicon\.ico|favicon-32\.png|apple-touch-icon\.png))(\?v=[a-f0-9]+)?"/g;
 
+// THE SHARE CARDS, ADDED 24 AUGUST 2026, AND THEY ARE THE REASON THIS PASS
+// EXISTS AT ALL RATHER THAN A TIDY-UP. og:image and twitter:image are absolute
+// urls in a content="" attribute, so the /assets/ rule above cannot see them,
+// and every one of the 1,412 pages that carries one carried a HAND-TYPED
+// "?v=2". That number was written once and never moved again, so when the 22
+// share cards were rebuilt on 24 August the url did not change, and a link
+// preview scraper keys its cache on the url. Facebook, iMessage and Slack
+// would each have gone on serving the OLD card for as long as they felt like
+// it, on the one asset whose entire job is to be seen by somebody who has
+// never been to the site.
+//
+// THIS IS THE FAVICON BUG ON A SECOND ASSET and it was found the same way: by
+// fetching the live file, confirming it was the new one, and then reading the
+// tag that points at it. A correct file behind a stale url looks exactly like
+// a broken deploy from the outside.
+//
+// The origin is stripped before hashing because hashOf() takes a path under
+// public/, and it is put back unchanged, so this is agnostic to whether
+// shared/site.mjs is pointing at the Pages host or the real domain.
+// IT MATCHES THE URL WHEREVER IT IS QUOTED, not just in content="". The first
+// version anchored on content= and left TWELVE behind, all of them the "image"
+// field inside the Organization JSON-LD on the eight pages that build their
+// head by slicing index.html. That is the SAME picture addressed by a SECOND
+// url on the SAME page, one stamped and one not, which is worse than leaving
+// both alone: a crawler reading the structured data and a scraper reading the
+// meta tag would have disagreed about which file they were looking at. The
+// path is specific enough (/assets/og-*.jpg) that no other quoted string on
+// the site can match it.
+const OG = /"(https?:\/\/[^"]*?)(\/assets\/og-[^"?]+\.(?:jpg|png))(\?v=[^"]*)?"/g;
+
 // The inline blocks. Lazy, so the first </style> after an opening tag ends the
 // block, which is what the parser does too. A <style> written INSIDE a CSS
 // comment is therefore consumed as content rather than opening a second block:
@@ -245,6 +275,35 @@ for await (const f of walk(PUB)) {
     files += 1;
   }
 }
+
+// SECOND PASS FOR THE SHARE CARDS. Separate from the loop above rather than
+// folded into one regex, because these are absolute urls in a content=""
+// attribute and the two rewrites have nothing in common but the hash lookup.
+// Run over the files as they now stand on disk, so a page rewritten above is
+// read back with its stylesheet stamps already in it.
+let ogStamped = 0;
+for await (const f of walk(PUB)) {
+  const src = await readFile(f, "utf8");
+  let changed = false;
+  const out = [];
+  let last = 0;
+  for (const m of src.matchAll(OG)) {
+    const v = await hashOf(m[2].replace(/^\//, ""));
+    if (!v) continue;
+    const want = `"${m[1]}${m[2]}?v=${v}"`;
+    if (m[0] !== want) {
+      out.push(src.slice(last, m.index), want);
+      last = m.index + m[0].length;
+      changed = true;
+      ogStamped += 1;
+    }
+  }
+  if (changed) {
+    out.push(src.slice(last));
+    await writeFile(f, out.join(""));
+  }
+}
+if (ogStamped) console.log(`  ${ogStamped} share-card urls stamped`);
 
 console.log(`Stamped ${stamped} asset link(s) across ${files} file(s)`);
 console.log(
