@@ -1227,7 +1227,7 @@ ${/* THE SECOND ROW, 24 August 2026. The nav above indexes the ten venue cards
         <a href="#postage">Postage per seller</a>
         <a href="#protection">Who protects a buyer</a>
         <a href="#scams">How it goes wrong</a>
-        <a href="#defences">What defends against it</a>
+        <a href="#defenses">What defends against it</a>
         <a href="#chain">Who touched the card</a>
       </nav>
       </div>
@@ -1333,10 +1333,10 @@ ${(safe.attacks || []).map((a) => `          <li><b>${esc(a.name)}.</b> ${esc(a.
         </ol>
       </section>
 
-      <section class="by-grp" id="defences">
+      <section class="by-grp" id="defenses">
         <h2>What actually <span class="hl">defends</span> against it</h2>
         <ol class="by-list">
-${(safe.defences || []).map((d) => `          <li><b>${esc(d.name)}.</b> ${esc(d.why || "")}${
+${(safe.defenses || []).map((d) => `          <li><b>${esc(d.name)}.</b> ${esc(d.why || "")}${
             (d.thresholds || []).length ? ` ${d.thresholds.map(esc).join(" ")}` : ""
           }${
             d.source ? ` <a class="by-s1" href="${esc(d.source)}" aria-label="Source for ${esc(d.name)}${hostOf(d.source) ? `, opens on ${esc(hostOf(d.source))}` : ""}" rel="noopener" target="_blank">Source</a>${
@@ -1412,4 +1412,4 @@ ${APP_JS}
 await writeFile(join(ROOT, "public/buying.html"), page);
 console.log(`Wrote public/buying.html
   ${venues.length} venues (${nSourced} fully sourced), ${(safe.protections || []).length} buyer protection policies,
-  ${(safe.attacks || []).length} mechanisms, ${(safe.defences || []).length} defences`);
+  ${(safe.attacks || []).length} mechanisms, ${(safe.defenses || []).length} defenses`);

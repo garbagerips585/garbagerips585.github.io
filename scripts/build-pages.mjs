@@ -1350,6 +1350,16 @@ const desc = (v.blurb || descriptions[v.id] || "")
     ...c,
     psa10: gradedPrice(setId, c.number, c.name, setData.get(setId)?.name || setLabel),
   }));
+  // WILL THE HITS BAND CARRY THE SOURCING NOTE? The chase band below prints
+  // prices too, so it needs one -- but only when the hits band is not already
+  // going to print the identical paragraph further down the same page. This is
+  // the same test the hits band applies to itself; it is read here rather than
+  // duplicated as a literal so the two cannot drift into disagreeing about
+  // which pages get a note.
+  const ripHits = HITS_RESOLVED.get(v.id) || [];
+  const hitsBandHasNote =
+    ripHits.some((h) => typeof h.price === "number") || ripHits.some((h) => h.psa10);
+
   const chaseBlock = chaseCards.length
     ? `<section class="band tight chasers">
   <div class="wrap">
@@ -1380,6 +1390,26 @@ const desc = (v.blurb || descriptions[v.id] || "")
         </div>
       </li>`).join("\n      ")}
     </ul>
+    ${/* THE CHASE BAND PRINTS PRICES AND HAD NO SOURCE LINE, ON 154 PAGES.
+          Found by a content audit on 24 August 2026. The site's hard rule is
+          that every price carries a source and the date it was read, and the
+          note that says so was gated on `pricedHits.length || hits.some(h =>
+          h.psa10)` down in the HITS section. So a rip that produced a hit got
+          the note and a rip that produced NOTHING did not, while this band
+          printed "Raw $967 PSA 10 $2,378" either way.
+
+          Measured on the built tree before the fix: 299 rip pages print a
+          price, 145 carried the note, 154 carried no attribution anywhere on
+          the page. The numbers were never wrong -- they match the set guides
+          exactly -- only the sourcing was missing, which on this site is the
+          part that makes a number worth reading.
+
+          IT IS THE SAME SENTENCE, NOT A SHORTER ONE. A band that cites its
+          source in fewer words than the band above it invites the reader to
+          wonder which one is the real disclosure. */ ""}
+    ${hitsBandHasNote ? "" : `<p class="price-note">${esc(priceNote(pricesDoc, { lead: "Raw prices" }))}
+      PSA 10 prices come from PriceCharting's guide too, read the same day, and only exist for some cards, so the
+      line is shown where we have one and left off where we do not. We do not sell cards.</p>`}
   </div>
 </section>`
     : "";

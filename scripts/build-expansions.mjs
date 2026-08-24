@@ -55,6 +55,33 @@ const { videos: allVideos } = JSON.parse(
 const ripsBySet = {};
 for (const v of allVideos) for (const sid of v.sets || []) ripsBySet[sid] = (ripsBySet[sid] || 0) + 1;
 
+/**
+ * The slug to look a row's rips up under.
+ *
+ * A ROW'S `slug` IS ONLY SET WHERE THE SITE HAS A SET GUIDE, and rips do not
+ * need one. 28 of the 174 rows carry a slug; the other 146 are sets with no
+ * guide, and TWO OF THOSE HAVE BEEN RIPPED ON CAMERA. So Silver Tempest and
+ * Lost Origin printed "None" in the Our rips column while /luck.html counted
+ * "2 over 2 rips" and "1 over 1 rip" for the same two sets and /hall.html
+ * showed four cards pulled out of them, including a Silver Tempest Trainer
+ * Gallery Corviknight V at rank 11. Three pages, one fact, two answers.
+ *
+ * Found by a content audit on 24 August 2026, the day after launch. The header
+ * above this block says the three pages "cannot drift again" because they all
+ * count from videos.json; they do, and they still disagreed, because this page
+ * was asking the question with a key that is null for 84% of its own rows.
+ *
+ * The fallback is deliberately narrow: a slugified name is used ONLY when it
+ * is already a real tag in videos.json, so it can never invent a link to a
+ * filter that would come back empty. Measured on the built tree, it changes
+ * exactly two rows.
+ */
+const ripSlug = (row) => {
+  if (row.slug) return row.slug;
+  const guess = String(row.name || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return guess && ripsBySet[guess] ? guess : null;
+};
+
 /* --------------------------------------------------------- the companion sets
  *
  * THREE ROWS ON THIS TABLE ARE NOT SETS YOU CAN BUY, and until 19 August 2026
@@ -379,13 +406,14 @@ function eraTable(e) {
                 column of integers. The attribute is written from the same
                 cardCount() the tile sums, so a copied list, the column and the
                 headline are one number in three places. */ ""}<td class="xp-cards" data-cards="${cc.n}">${cc.html}</td>
-          <td class="xp-rips">${
-            s.slug && soleRipBySet[s.slug]
-              ? `<a href="/${esc(soleRipBySet[s.slug].path)}">1 rip</a>`
-              : s.slug && ripsBySet[s.slug]
-              ? `<a href="/videos.html?set=${s.slug}">${ripsBySet[s.slug]} rip${ripsBySet[s.slug] === 1 ? "" : "s"}</a>`
-              : noValue("None", "xp-none")
-          }</td>
+          <td class="xp-rips">${(() => {
+            const rs = ripSlug(s);
+            if (rs && soleRipBySet[rs]) return `<a href="/${esc(soleRipBySet[rs].path)}">1 rip</a>`;
+            if (rs && ripsBySet[rs]) {
+              return `<a href="/videos.html?set=${esc(rs)}">${ripsBySet[rs]} rip${ripsBySet[rs] === 1 ? "" : "s"}</a>`;
+            }
+            return noValue("None", "xp-none");
+          })()}</td>
         </tr>`;
     })
     .join("\n");

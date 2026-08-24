@@ -524,7 +524,7 @@ const speciesKey = (s) => norm(s || "").replace(/(vmax|vstar|gx|ex|v)$/, "");
  * is real and it is visible to a reader who opens two of these guides side by
  * side, so build-intl-pages.mjs says out loud which vocabulary a page is in.
  * **This is not the only guide with the gap** -- all seven Japanese guides carry
- * TCGdex's anglicised words against a rip log written in the wrapper's, which is
+ * TCGdex's anglicized words against a rip log written in the wrapper's, which is
  * why 6 of the 13 intl hit rows that fail to resolve are "Art Rare" rows whose
  * only Art Rare printing TCGdex files as "Illustration rare".
  *

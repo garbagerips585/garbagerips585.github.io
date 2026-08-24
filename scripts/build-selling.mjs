@@ -5,7 +5,7 @@
 //   node scripts/build-selling.mjs
 //
 // Reads data/selling.json (venues and fees) and data/selling-safety.json
-// (protections, attacks, defences). Both carry a source url and a read date on
+// (protections, attacks, defenses). Both carry a source url and a read date on
 // every claim, the standard data/grading.json set.
 //
 // WHY THIS PAGE EXISTS AND WHY IT TOOK TWO PASSES. Every other page here
@@ -1096,7 +1096,7 @@ ${/* THE SECOND ROW. Same change and same argument as build-buying.mjs: the nav
         <a href="#fees">What a sale costs</a>
         <a href="#protection">Who protects a seller</a>
         <a href="#scams">How it goes wrong</a>
-        <a href="#defences">What defends against it</a>
+        <a href="#defenses">What defends against it</a>
       </nav>
       </div>
 
@@ -1166,10 +1166,10 @@ ${(safe.attacks || []).map((a) => `          <li><b>${esc(a.name)}.</b> ${esc(a.
         </ol>
       </section>
 
-      <section class="se-grp" id="defences">
+      <section class="se-grp" id="defenses">
         <h2>What actually <span class="hl">defends</span> against it</h2>
         <ol class="se-list">
-${(safe.defences || []).map((d) => `          <li><b>${esc(d.name)}.</b> ${esc(d.why || "")}${
+${(safe.defenses || []).map((d) => `          <li><b>${esc(d.name)}.</b> ${esc(d.why || "")}${
             (d.thresholds || []).length ? ` ${d.thresholds.map(esc).join(" ")}` : ""
           }${
             d.source ? ` <a class="se-s1" href="${esc(d.source)}" aria-label="Source for ${esc(d.name)}${hostOf(d.source) ? `, opens on ${esc(hostOf(d.source))}` : ""}" rel="noopener" target="_blank">Source</a>${
@@ -1236,4 +1236,4 @@ ${APP_JS}
 await writeFile(join(ROOT, "public/selling.html"), page);
 console.log(`Wrote public/selling.html
   ${venues.length} venues (${nSourced} fully sourced), ${(safe.protections || []).length} protection policies,
-  ${(safe.attacks || []).length} attacks, ${(safe.defences || []).length} defences`);
+  ${(safe.attacks || []).length} attacks, ${(safe.defenses || []).length} defenses`);

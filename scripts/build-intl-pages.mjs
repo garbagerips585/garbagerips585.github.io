@@ -549,7 +549,7 @@ function hitsBand(g, cls) {
               would show a bare collector number. */ ""}
         ${/* THE JAPANESE WORD WINS ON A ROW THAT HAS ONE, and rarityJp is the
               field that carries it. Pinning these six rows moved them onto the
-              shared precedence, which prints TCGdex's anglicised tier -- so a
+              shared precedence, which prints TCGdex's anglicized tier -- so a
               card that read "Art Rare" before, matching the letters printed on
               the wrapper and on the card itself, started reading "Illustration
               Rare". The rip log is written in the wrapper's vocabulary because
@@ -1585,7 +1585,7 @@ function sourceBand(g, cls) {
           : ""}</li>` : ""}
       ${g.nameNote ? `<li><strong>On the name.</strong> ${esc(g.nameNote)}</li>` : ""}
       ${tcg
-        ? `<li><strong>The rarity words here are the ${esc(g.langName)} ones.</strong> This set's tiers read Art Rare, Super Rare, Special Art Rare and Ultra Rare, which is what is printed on the wrapper. Our other imported guides read TCGdex's anglicised names for the same ladder, so the same card can be called two things across two of these pages. We do not map one onto the other: the two companies publish different names and inventing an equivalence between them is not something this site does.</li>`
+        ? `<li><strong>The rarity words here are the ${esc(g.langName)} ones.</strong> This set's tiers read Art Rare, Super Rare, Special Art Rare and Ultra Rare, which is what is printed on the wrapper. Our other imported guides read TCGdex's anglicized names for the same ladder, so the same card can be called two things across two of these pages. We do not map one onto the other: the two companies publish different names and inventing an equivalence between them is not something this site does.</li>`
         : `<li>Pokemon card names in English via the National Pokedex number, through <a href="https://pokeapi.co" rel="noopener" target="_blank" aria-label="PokeAPI, the source of the English card names, opens on pokeapi.co">PokeAPI</a>.</li>`}
       <li>This is a fan page. Nothing here is sold by us and none of it is official.</li>
     </ul>
