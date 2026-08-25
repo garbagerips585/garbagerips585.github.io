@@ -51,7 +51,16 @@ for f in files:
         ld=len(re.findall(r"application/ld\+json", s)),
     ))
 
-print(f"\nSEO SWEEP: {len(rows)} pages\n")
+# WITHOUT --all THIS SCANS public/*.html ONLY -- about 50 of 1,492 pages -- and
+# every section then prints "clean" for a sweep that never opened /rip, /sets,
+# /pokemon or /openings. That reads as a clean site and is a clean SAMPLE. On
+# 25 August 2026 it told me the site had 2 noindex pages and no long titles; the
+# full run found 190 and 57. The scope line was always printed and I tailed past
+# it, so it says so twice now and refuses to be quiet about being partial.
+if not ALL:
+    print(f"\n!! PARTIAL SWEEP: top-level pages only ({len(rows)} of "
+          f"{len(list(PUB.rglob('*.html')))}). Re-run with --all for the whole site.")
+print(f"\nSEO SWEEP: {len(rows)} pages{'' if ALL else '  [PARTIAL -- top level only]'}\n")
 
 def flag(label, test, show=lambda r: r["title"]):
     bad = [r for r in rows if test(r)]
