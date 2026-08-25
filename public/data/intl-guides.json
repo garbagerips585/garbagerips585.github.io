@@ -2156,7 +2156,8 @@
           "secret": false,
           "image": null,
           "imageLarge": null,
-          "illustrator": "Akino Fukuji"
+          "illustrator": "Akino Fukuji",
+          "rarityJp": "Common"
         },
         {
           "localId": "045",
@@ -9184,7 +9185,7 @@
         "setCode": "SV5M",
         "released": "2024-01-26",
         "denominator": 71,
-        "checked": "2026-08-22",
+        "checked": "2026-08-25",
         "rarityVocab": "jp",
         "art": "TCGdex, via public/data/printings"
       },
