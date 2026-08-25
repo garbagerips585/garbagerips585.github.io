@@ -33,6 +33,7 @@
 
 import { spawn } from "node:child_process";
 import { readdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { once } from "node:events";
 import { join, dirname, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { tmpdir } from "node:os";
@@ -52,18 +53,66 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // ---------------------------------------------------------------- page list
 async function pages() {
-  if (ONLY) return ONLY.split(",").map((s) => `/${s.replace(/^\/|\.html$/g, "")}.html`);
-  const out = [];
+  // THE WHOLE TREE IS ALWAYS WALKED, and --all only decides how much of it to
+  // sweep. Walking is a few readdir calls over 1,491 files and costs nothing
+  // next to a single render, and having the full list in hand is what lets
+  // --only be checked instead of trusted.
+  const all = [];
   const walk = async (dir) => {
     for (const e of await readdir(dir, { withFileTypes: true })) {
       const p = join(dir, e.name);
-      if (e.isDirectory()) { if (ALL) await walk(p); continue; }
+      if (e.isDirectory()) { await walk(p); continue; }
       if (!e.name.endsWith(".html")) continue;
-      out.push("/" + relative(PUB, p));
+      all.push("/" + relative(PUB, p));
     }
   };
   await walk(PUB);
-  return out.sort();
+  all.sort();
+
+  if (ONLY) {
+    // A --only TOKEN THAT NAMES NO PAGE USED TO SWEEP A 404. The path was built
+    // from the token by string surgery and handed straight to Chrome, so
+    // `--only 151` asked for /151.html -- which does not exist, because the
+    // page a person means by "151" is /sets/151.html. The server answered 404,
+    // Chrome rendered the error body, and the audit reported it as a page with
+    // no <h1>. That is the good outcome. The bad one is a 404 body that
+    // happens to pass every check, which reports a page as CLEAN when it was
+    // never loaded, and that is a checker lying about coverage.
+    const missing = [];
+    const want = ONLY.split(",")
+      .map((t) => t.trim())
+      .filter(Boolean)
+      .map((t) => {
+        const bare = t.replace(/^\/|\.html$/g, "");
+        const exact = `/${bare}.html`;
+        if (all.includes(exact)) return exact;
+        // A bare name matches a page anywhere in the tree, so "151" finds
+        // /sets/151.html and the caller gets what they plainly meant.
+        const hits = all.filter((p) => p.endsWith(`/${bare}.html`));
+        if (hits.length === 1) return hits[0];
+        missing.push({ token: t, hits });
+        return null;
+      })
+      .filter(Boolean);
+
+    if (missing.length) {
+      for (const m of missing) {
+        if (m.hits.length > 1) {
+          process.stderr.write(`--only ${m.token}: ambiguous, matches ${m.hits.length} pages\n`);
+          for (const h of m.hits.slice(0, 8)) process.stderr.write(`    ${h}\n`);
+          if (m.hits.length > 8) process.stderr.write(`    ...and ${m.hits.length - 8} more\n`);
+        } else {
+          process.stderr.write(`--only ${m.token}: no such page\n`);
+        }
+      }
+      process.exit(2);
+    }
+    return want;
+  }
+
+  // Without --all the sweep stays on the root pages, which is the default it
+  // has always had: one page per template, and the templates live at the root.
+  return ALL ? all : all.filter((p) => !p.slice(1).includes("/"));
 }
 
 // ---------------------------------------------------------------- chrome
@@ -322,7 +371,18 @@ async function main() {
   report(results, list.length);
   browser.close();
   server.kill();
+  // WAIT FOR CHROME TO ACTUALLY BE GONE BEFORE DELETING WHAT IT IS WRITING IN.
+  // kill() only delivers the signal; Chrome then flushes Default/ on its way
+  // out, and rm racing that flush is what printed
+  //   ENOTEMPTY: directory not empty, rmdir '.../qa-chrome-XXXX/Default'
+  // at the end of an otherwise clean sweep, and left the profile behind every
+  // time. 24 of them had piled up in the temp dir before anyone looked.
+  //
+  // RACED AGAINST A TIMEOUT so a Chrome that refuses to die cannot hang a
+  // sweep that has already printed its report. If that happens the profile
+  // leaks, which is the old behaviour and no worse than it.
   chrome.kill();
+  await Promise.race([once(chrome, "exit"), sleep(5000)]);
   await rm(profile, { recursive: true, force: true });
 }
 
