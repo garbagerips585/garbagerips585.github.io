@@ -66,7 +66,24 @@ jobs:
       #
       # Verified locally that the two modes agree: with the flag set,
       # check-tree-drift reports no drift across all 6,395 files.
+      # THE SITE BAKES "TODAY" INTO ITS HTML, so this job has to ask the question
+      # in the same timezone the tree was built in. index.html carries
+      # data-built="2026-08-24" and relative ages like "3 MONTHS AGO" and
+      # "YESTERDAY"; card-shows.html counts the days to the next show. Under UTC
+      # a runner one minute past midnight in London is already tomorrow in
+      # Rochester, and it reported card-shows.html and index.html as drifted for
+      # a commit that touched neither -- the push that proved it ran at 03:11
+      # UTC, which is 23:11 the PREVIOUS day in New York, the same day the tree
+      # was actually built.
+      #
+      # America/New_York is where the channel is and where the builds happen, so
+      # it is the clock the committed HTML is written against. This does not
+      # make the tree reproducible forever -- rebuild it tomorrow and the ages
+      # move, by design -- but CI runs seconds after the push, so same-day is
+      # the normal case and a genuine day-boundary miss is a real "rebuild me"
+      # signal rather than noise.
       - name: Does public/ match the source committed beside it?
         env:
           GR_SKIP_IMAGE_BUILDERS: '1'
+          TZ: America/New_York
         run: node scripts/check-tree-drift.mjs
