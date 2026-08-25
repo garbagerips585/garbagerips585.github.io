@@ -86,4 +86,4 @@ jobs:
         env:
           GR_SKIP_IMAGE_BUILDERS: '1'
           TZ: America/New_York
-        run: node scripts/check-tree-drift.mjs
+        run: node scripts/check-tree-drift.mjs --diff

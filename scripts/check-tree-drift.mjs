@@ -88,6 +88,14 @@ async function filesUnder(dir) {
 const hash = (p) => createHash("sha256").update(readFileSync(p)).digest("hex");
 
 const STAGED = process.argv.includes("--staged");
+/* NAMING A DRIFTED FILE IS NOT THE SAME AS EXPLAINING IT. The list of paths
+   answers "is public/ stale", which is what this script is for, but when the
+   answer is yes on a machine you cannot reach -- a CI runner -- the next
+   question is always "different HOW", and there is no way to ask it from here.
+   lore.html drifted on Linux and on no local run under any timezone, and
+   without this the only way forward was guessing.
+   Text only, and a few lines of it: a diff of two JPEGs helps nobody. */
+const SHOW_DIFF = process.argv.includes("--diff");
 
 // `git write-tree` freezes the index as a real tree object and prints its sha.
 // It writes an object and touches nothing else -- no commit, no ref, no index
@@ -182,6 +190,18 @@ try {
     if (list.length > 12) console.error(`    ... and ${list.length - 12} more`);
   };
   show(`stale, ${WHAT} builds them differently`, differ);
+  if (SHOW_DIFF) {
+    const TEXT = /\.(html|css|js|json|xml|txt|svg)$/i;
+    for (const f of differ.filter((x) => TEXT.test(x)).slice(0, 3)) {
+      console.error(`\n  --- how ${f} differs (built vs committed, first 20 lines) ---`);
+      try {
+        execFileSync("diff", ["-u", join(live, f), join(built, f)], { encoding: "utf8" });
+      } catch (e) {
+        const lines = String(e.stdout || "").split("\n").slice(2, 22);
+        for (const l of lines) console.error(`    ${l}`);
+      }
+    }
+  }
   show(`built by ${WHAT} but not committed`, missing);
   show(`committed but ${WHAT} no longer builds them`, extra);
   process.exit(1);
