@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=037cc7e7">
-<link rel="stylesheet" href="/assets/ui.css?v=2ca51f53">
+<link rel="stylesheet" href="/assets/ui.css?v=adc7d782">
 <style>.plate-rule{display:flex;align-items:center;gap:var(--s4);max-width:560px;margin:var(--s7) 0 var(--s6)}
 .plate-rule::before,.plate-rule::after{content:"";flex:1;height:2px;border-radius:2px;opacity:.5}
 .plate-rule::before{background:linear-gradient(90deg,transparent,var(--ketchup-deep))}
@@ -32,6 +32,7 @@
 .plate-rule svg{flex:none;display:block;transform-origin:50% 78%;transition:transform .2s cubic-bezier(.2,.7,.3,1)}
 .plate-rule:active svg{transform:translateY(2px) scale(.94) rotate(-3deg);transition-duration:.09s}
 @media(prefers-reduced-motion:reduce){.plate-rule:active svg{transform:none}}
+@media(min-width:1000px){.plate-rule{max-width:none}}
 .roc-stats{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
   gap:var(--s3);margin-top:var(--s4);padding:0}
 .roc-stats li{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
@@ -59,7 +60,7 @@
 .roc-rows{max-width:none;grid-template-columns:1fr 1fr}
 }
 .roc-plate{display:grid;gap:var(--s4);align-items:start;margin-top:var(--s4)}
-@media(min-width:760px){.roc-plate{grid-template-columns:1fr 520px}}
+@media(min-width:1000px){.roc-plate{grid-template-columns:minmax(0,1fr) 520px}}
 .roc-fig{margin:0}
 .roc-fig img{width:100%;height:auto;display:block;border-radius:var(--r);border:1px solid var(--hair)}
 .roc-fig figcaption{margin-top:var(--s3);font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-soft)}

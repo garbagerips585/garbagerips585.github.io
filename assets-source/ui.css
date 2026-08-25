@@ -2387,6 +2387,17 @@ footer .soc svg{fill:var(--chrome-ink)}
   color:var(--ink-soft);margin-top:5px;font-weight:700;
 }
 .fact.wide{grid-column:1 / -1}
+/* AND ABOVE 1000 IT DOES NOT NEED TO SPAN. A one-line date became a 1,392px
+   bar sitting under a row of 338px tiles on /card-shows.html: 338+338+338+1392.
+   Above 1000 the tile fits a normal cell and the date still sets on one line --
+   measured 198px of text in a 228px tile at a 1000px viewport, 308 in 338 at
+   1440. After: 338x4 at 1440, 278x4 at 1200, 228x4 at 1000, all 86px tall, no
+   wrapping and no overflow.
+   NO EFFECT ON THE 1,089 SET AND POKEMON PAGES, which was verified rather than
+   hoped: there .fact.wide is the FIFTH child, so the existing
+   .fact:last-child:nth-child(4n + 1) rule below re-spans it and those pages
+   render byte-identically. */
+@media(min-width:1000px){ .fact.wide{grid-column:auto} }
 /* rarity ladder */
 .rarity-list{display:flex;flex-direction:column;gap:9px;margin-top:18px}
 .rar{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center}
@@ -2430,6 +2441,21 @@ footer .soc svg{fill:var(--chrome-ink)}
   padding:13px 16px;font-size:.95rem;box-shadow:0 4px 0 var(--trubbish);
 }
 .facts-list b{font-family:var(--display);font-weight:400;color:var(--ketchup-deep)}
+/* FIVE 547px PILLS STACKED AGAINST THE LEFT EDGE OF A 1,392px BAND, on 1,077
+   pages: /start.html, /card-shows.html, /grading.html, /fake-cards.html and
+   every /pokemon/ page. The li was already capped at the shared measure; the
+   ul simply ran the whole wrap, so 845px of band sat empty beside every pill.
+   Two-up puts them in a 1,120px block whose tracks are 555px, which IS the
+   measure. Measured on /start.html after: ul 1392 -> 1120, li 547 -> 555,
+   block height 510 -> 307.
+   THIS IS THE WIDEST-REACH RULE IN THIS PASS. It is min-width:1000, so phone
+   and tablet are byte-identical, and it only changes the flow direction of a
+   list whose items were already capped. */
+@media(min-width:1000px){
+  .facts-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    align-items:start;max-width:1120px}
+  .facts-list li{max-width:none}
+}
 /* A LINK IN A FACT WAS INK ON INK, WHICH IS A LINK THAT DOES NOT EXIST. This
    block styled `li` and `b` and never `a`, so the two cardshows.io sources in
    the first fact on /card-shows.html computed to rgb(228,220,204) -- EXACTLY
@@ -3981,6 +4007,17 @@ footer .soc svg{fill:var(--chrome-ink)}
    Start here (/start.html), written by scripts/build-start.mjs.
    -------------------------------------------------------------------------- */
 .st-list{list-style:none;display:grid;gap:var(--s4);margin-top:var(--s5)}
+/* SIX STEP CARDS, EACH 1,392px WIDE AROUND A 504px MEASURE. The card is real
+   -- 1px border, card fill -- so at 1440 each one painted 840px of empty
+   panel beside its own text. Two-up makes the card 688 and the measure fits
+   with 80px to spare. Measured after: li 1392 -> 688, p unchanged at 504,
+   list height 1,472 -> 865, and rows already equal-height because a grid
+   stretches by default. Reading order stays 1-2 / 3-4 / 5-6.
+   .st-list is on /start.html and nowhere else. Below 1000 it is a single
+   720px column at 768 with its p at 614, which already fills. */
+@media(min-width:1000px){
+  .st-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 .st{display:grid;grid-template-columns:auto 1fr;gap:var(--s4);align-items:start;
   background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s5);box-shadow:var(--lift)}

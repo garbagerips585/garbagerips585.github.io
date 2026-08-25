@@ -937,6 +937,17 @@ const style = `
 .gp-gaps li{font-size:var(--t-sm);line-height:1.6;color:var(--ink-2)}
 
 /* ---- The restaurants ---------------------------------------------------- */
+/* align-items:start STAYS HERE, AND IT IS THE ONE BORDERED-CARD GRID ON THE
+   SITE THAT KEEPS IT. /retailers.html and /shops.html both went to stretch on
+   24 August 2026 because a short bordered card proud of its neighbours reads
+   as a broken row. This grid was measured in the same pass and deliberately
+   left alone: its spread is 474px at 1440 and 457 at 1280 against a shortest
+   card of 407px, because only 4 of the ~13 restaurants have a photograph and
+   figure.gpph is 344-398px tall. Stretching would paint 474px of EMPTY
+   bordered card, which is the /lore.html failure rather than a fix for this
+   one. The three grids are consistent by RULE -- stretch a bordered grid whose
+   cards are within a screen of each other, leave one that is not -- rather
+   than by looking the same. */
 .gp-places{list-style:none;display:grid;align-items:start;
   grid-template-columns:repeat(3,1fr);gap:var(--s4)}
 @media(max-width:980px){.gp-places{grid-template-columns:repeat(2,1fr)}}

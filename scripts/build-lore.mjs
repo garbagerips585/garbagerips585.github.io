@@ -470,7 +470,20 @@ const wrapNeeds = (cols) => {
   const need = cols * LORE_MIN + (cols - 1) * LORE_GAP;
   return need + (need + 40 >= 704 ? 48 : 40);
 };
-const LORE_STEPS = [1, 2, 3, 4, 5].map((c) => ({ c, at: wrapNeeds(c) }));
+/* THE LADDER STOPS AT 3, and this file already argued why it should.
+   The block above says these cards stretch and that the remedy for the empty
+   space inside them is FEWER, WIDER columns. That remedy was never reached at
+   15 cards, because fitCols accepts 5 (15 % 5 === 0) and the ladder offered it.
+   Measured at 1440, empty space inside a card:
+
+       5 columns   card 266   median 184   max 355   (shipped until now)
+       4 columns   card 336   median 118   max 237
+       3 columns   card 453   median  48   max 213
+
+   3 is both the best measured and the only one of the three that divides 15,
+   so fitCols would reject 4 and fall back to it anyway. It costs two rows of
+   height, which is the trade this file already said it was willing to make. */
+const LORE_STEPS = [1, 2, 3].map((c) => ({ c, at: wrapNeeds(c) }));
 
 /** The largest divisor of n that is no bigger than c: the column count that row cannot orphan. */
 const fitCols = (n, c) => {

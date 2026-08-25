@@ -499,7 +499,17 @@ export const PLATE_CSS = `.plate-rule{display:flex;align-items:center;gap:var(--
 .plate-rule::after{background:linear-gradient(90deg,var(--ketchup-deep),transparent)}
 .plate-rule svg{flex:none;display:block;transform-origin:50% 78%;transition:transform .2s cubic-bezier(.2,.7,.3,1)}
 .plate-rule:active svg{transform:translateY(2px) scale(.94) rotate(-3deg);transition-duration:.09s}
-@media(prefers-reduced-motion:reduce){.plate-rule:active svg{transform:none}}`;
+@media(prefers-reduced-motion:reduce){.plate-rule:active svg{transform:none}}
+/* THE ORNAMENT WAS CENTRED INSIDE A LEFT-ALIGNED MEASURE, so it was never on
+   the page's centre line. The 560px cap is right for a phone and wrong at
+   1440, where the mark landed at x=304 of 1440 between two 1392px blocks.
+   Above 1000 it takes the full wrap and the plate sits at x=720, dead centre
+   of the page and of the blocks above and below it. The hairline gradients
+   still die away before the margin because they are flex:1 either side of the
+   mark, so a wider rule fades over a longer run rather than reaching the edge.
+   PLATE_CSS is interpolated into 12 builders and they all sit in the same
+   1392px wrap, so this lands on all of them at once, which is the point. */
+@media(min-width:1000px){.plate-rule{max-width:none}}`;
 
 /**
  * ===========================================================================

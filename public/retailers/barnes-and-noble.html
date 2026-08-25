@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=037cc7e7">
-<link rel="stylesheet" href="/assets/ui.css?v=2ca51f53">
+<link rel="stylesheet" href="/assets/ui.css?v=adc7d782">
 <style>.rt-lede{max-width:46em}
 .rt-key{border:3px solid var(--keyline);border-radius:12px;background:var(--band-bg);color:var(--chrome-ink);
 padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
@@ -140,9 +140,17 @@ box-shadow:0 0 0 3px var(--paper-2);border-radius:2px}
 gap:var(--s4) var(--s5);align-items:start}
 .rt-fig > figcaption{grid-column:2;grid-row:1/-1;margin-top:0;max-width:45ch}
 .rt-fig > :not(figcaption){grid-column:1}
+.rt-key{display:grid;grid-template-columns:minmax(0,50ch) minmax(0,1fr);
+gap:0 var(--s5);align-items:start;max-width:1104px}
+.rt-key > h2{grid-column:1/-1}
+.rt-key > p{grid-column:1}
+.rt-key > .rt-fig-svg{grid-column:2;grid-row:2/span 4;
+align-self:center;justify-self:center;margin-top:0;width:100%;max-width:460px}
 }
 @media(min-width:1200px){
-.rt-cards{grid-template-columns:repeat(3,1fr);align-items:start}
+.rt-cards{grid-template-columns:repeat(3,1fr)}
+.rt-c{display:flex;flex-direction:column}
+.rt-c > a.rt-more{margin-top:auto}
 .rt-list{columns:2;column-gap:var(--s6);max-width:1100px}
 .rt-list li{break-inside:avoid}
 }

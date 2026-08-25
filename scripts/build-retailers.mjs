@@ -895,6 +895,30 @@ ${BRAND_STYLE}
     gap:var(--s4) var(--s5);align-items:start}
   .rt-fig > figcaption{grid-column:2;grid-row:1/-1;margin-top:0;max-width:45ch}
   .rt-fig > :not(figcaption){grid-column:1}
+  /* THE "IF YOU CANNOT SEE ANY, ASK ANYWAY" PANEL USED A THIRD OF ITSELF.
+     Measured at 1440: .rt-key is 1392 x 663 with a 3px border, holding an h2
+     at 1338, four paragraphs capped at 558, and a 300px diagram -- 786px of
+     bordered card painted empty down the right. Identical shape at 1280.
+
+     THE FIX ALREADY EXISTED IN THIS FILE, one block below, and was deliberately
+     scoped away from this page: .rt-shop .rt-key gets exactly this treatment
+     and /retailers/best-buy.html renders the same panel fully used. The
+     reasoning for excluding the index was that it "fills its wrap already",
+     which is true of its table and its card grid and false of this panel.
+
+     So the space is USED rather than the container narrowed, because the thing
+     to put in it is already on the page and is currently drawn at 300px.
+     Measured after: panel 663 -> 510 tall, diagram 460 wide at x=781, prose
+     unchanged at 558.
+
+     The span-4 IS THE FOUR PARAGRAPHS IN THE BODY TEMPLATE. Add a fifth and this
+     number moves, which is the same caveat the .rt-shop version carries. */
+  .rt-key{display:grid;grid-template-columns:minmax(0,50ch) minmax(0,1fr);
+    gap:0 var(--s5);align-items:start;max-width:1104px}
+  .rt-key > h2{grid-column:1/-1}
+  .rt-key > p{grid-column:1}
+  .rt-key > .rt-fig-svg{grid-column:2;grid-row:2/span 4;
+    align-self:center;justify-self:center;margin-top:0;width:100%;max-width:460px}
 }
 @media(min-width:1200px){
   /* align-items:start goes with the third column and is caused by it: a grid
@@ -902,7 +926,19 @@ ${BRAND_STYLE}
      cards differ by several hundred pixels, so three-up would paint empty
      bordered space under every short one. Same call build-buying.mjs made when
      its venue cards went to three. */
-  .rt-cards{grid-template-columns:repeat(3,1fr);align-items:start}
+  /* STRETCH, NOT start, AND THE SITE'S OWN RULE PICKS THIS. build-playlists.mjs
+     states it: the two grids in that pass that DO stretch are both grids of
+     BORDERED CARDS. .rt-c is bordered, rounded, filled and shadowed, so a short
+     card sitting proud of its neighbours reads as a broken row rather than as
+     content sized to itself. Measured spread between siblings in one row at
+     1440: 261px, and 303 at 1280.
+     The card ends in a links row, so the slack is pushed BELOW that row rather
+     than left inside the card: every card comes out 797 tall with its CTA at
+     704 and its source line at 778, bottom-aligned across the row. Measured
+     spread after: 0. */
+  .rt-cards{grid-template-columns:repeat(3,1fr)}
+  .rt-c{display:flex;flex-direction:column}
+  .rt-c > a.rt-more{margin-top:auto}
   /* TWO COLUMNS, CAPPED AT 1100px, AND THE CAP IS THE HALF THAT MATTERS.
      columns:2 divides whatever the block is given, so on the full 1,392px wrap
      each column came out 672 to 750px and set 111 to 126 real characters a line,

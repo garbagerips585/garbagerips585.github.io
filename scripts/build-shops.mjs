@@ -710,7 +710,16 @@ const miniCSS = (css) =>
 const style = `
 .shops{padding:var(--s7) 0 var(--s8)}
 .shops-lede{color:var(--ink-2);max-width:46em;margin-bottom:var(--s5)}
-.shop-list{list-style:none;display:grid;align-items:start;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+/* STRETCH ABOVE 981, for the reason build-playlists.mjs writes down: a grid of
+   BORDERED cards wants equal heights, because a short card proud of its
+   neighbours reads as a broken row. Measured spread here at 1440: 237px, and
+   247 at 1280. The slack goes below the links row rather than inside the card.
+   Measured after: 0, with no trailing empty space. */
+.shop-list{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+@media(min-width:981px){
+  .shop{display:flex;flex-direction:column}
+  .shop > .shop-links{margin-top:auto}
+}
 @media(max-width:980px){.shop-list{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:640px){.shop-list{grid-template-columns:1fr}}
 /* align-items:start on the list above, so a card is as tall as its own content.

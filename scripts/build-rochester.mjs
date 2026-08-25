@@ -479,7 +479,16 @@ ${PLATE_CSS}
    ui.css already puts .set-watch into two columns, so the page has one
    breakpoint for "a picture can sit beside a paragraph" rather than two. */
 .roc-plate{display:grid;gap:var(--s4);align-items:start;margin-top:var(--s4)}
-@media(min-width:760px){.roc-plate{grid-template-columns:1fr 520px}}
+/* 760 WAS TOO LOW FOR A FIXED 520px TRACK, and at 768 it broke the column it
+   was meant to create. The wrap is 720 there, so the 1fr track resolved to 184px and
+   the text column carried 382px and 437px of copy in a 184px ribbon, beside a
+   figure only 431px tall in an 896px row -- a void to the right AND below.
+   The text column needs about 380px, which needs 380 + 520 + 16 = 916 of wrap,
+   which is a viewport near 964. 1000 is the site's existing desktop
+   breakpoint, so it is used rather than inventing a third one. Measured after:
+   at 768 it stacks, text 720 wide, block 896 -> 868; at 1440 unchanged, text
+   856 and figure 520 at x=896. */
+@media(min-width:1000px){.roc-plate{grid-template-columns:minmax(0,1fr) 520px}}
 .roc-fig{margin:0}
 .roc-fig img{width:100%;height:auto;display:block;border-radius:var(--r);border:1px solid var(--hair)}
 .roc-fig figcaption{margin-top:var(--s3);font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-soft)}
