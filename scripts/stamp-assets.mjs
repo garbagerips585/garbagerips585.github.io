@@ -362,37 +362,10 @@ const GA_FENCE = /<!--analytics:start-->[\s\S]*?<!--analytics:end-->/g;
   const verify = SEARCH_CONSOLE
     ? `<meta name="google-site-verification" content="${SEARCH_CONSOLE}">`
     : "";
-  /* THE TAG IS FETCHED AFTER THE PAGE HAS PAINTED, NOT ALONGSIDE IT.
-     gtag.js is 161 KiB -- larger than the pack image that IS the mobile LCP --
-     and `async` only means "do not block parsing". It does not mean "wait":
-     the browser still opens the connection and spends bandwidth on it inside
-     the exact window where a phone on a slow link is trying to fetch the one
-     image the score is measured on. PageSpeed put it top of "Reduce unused
-     JavaScript" at 68.7 KiB unused, on a page whose desktop score is 97 and
-     whose mobile score is 83 entirely because of LCP.
-
-     THE QUEUE IS WHY THIS IS SAFE. dataLayer and gtag() are defined
-     immediately, exactly as before, so any call made before the tag arrives is
-     pushed onto the array and replayed when it loads. The 'js' and 'config'
-     calls below still happen at the same moment in the page's life; only the
-     161 KiB download moves.
-
-     WHAT IT COSTS, SAID PLAINLY: a visitor who leaves before the load event
-     will not be counted. On a site that paints in 1.4s on a throttled phone
-     that is a small slice, and it buys the LCP the whole connection. If the
-     traffic numbers ever look short against YouTube's own referral figures,
-     this is the first thing to suspect.
-
-     ALREADY-LOADED IS HANDLED. A bfcache restore or a script that runs after
-     the load event would otherwise never fire the listener, and the pageview
-     would be lost entirely rather than merely late. */
   const ga = GA4_ID
-    ? `<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}` +
-      `gtag('js',new Date());gtag('config','${GA4_ID}');` +
-      `(function(){function l(){var s=document.createElement('script');s.async=1;` +
-      `s.src='https://www.googletagmanager.com/gtag/js?id=${GA4_ID}';` +
-      `document.head.appendChild(s)}` +
-      `if(document.readyState==='complete')l();else addEventListener('load',l)})();</script>`
+    ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA4_ID}"></script>` +
+      `<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}` +
+      `gtag('js',new Date());gtag('config','${GA4_ID}');</script>`
     : "";
   const block = verify || ga ? GA_OPEN + verify + ga + GA_CLOSE : "";
   let injected = 0;
