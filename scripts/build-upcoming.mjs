@@ -564,7 +564,7 @@ ${/* THE ONE EMPTY STATE ON THIS SITE THAT HAD NO MASCOT IN IT, 22 August 2026.
       </div>`;
 
 const body = `
-<main id="main">
+<main id="main" tabindex="-1">
   <section class="up">
     <div class="wrap">
       <div class="brk"><h1>What is <span class="hl">coming next</span></h1><span class="ln"></span></div>

@@ -1790,7 +1790,7 @@ ${SKIP}
 ${BAR}
 ${MENU}
 
-<main id="main" class="rip tight${v.greatest ? " hall" : ""}">
+<main id="main" tabindex="-1" class="rip tight${v.greatest ? " hall" : ""}">
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/videos.html">Every rip</a>${setId ? ` / <a href="/videos.html?set=${setId}">${esc(setLabel)}</a>` : ""}</nav>
     <div class="rip-grid${v.vertical === false && !(OVERRIDES[v.id] || {}).pillarboxed ? " rip-grid--wide" : ""}">

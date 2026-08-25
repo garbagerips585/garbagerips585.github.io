@@ -1483,7 +1483,7 @@ ${SKIP}
 ${SPRITE}
 ${BAR}
 ${MENU}
-<main id="main" class="bs-page">
+<main id="main" tabindex="-1" class="bs-page">
 
 <header class="set-hero">
   <div class="wrap">

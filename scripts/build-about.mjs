@@ -819,7 +819,7 @@ const dexFig = (id, name, label) =>
           </figure>`;
 
 const body = `
-<main id="main" class="about-page">
+<main id="main" tabindex="-1" class="about-page">
   <div class="wrap">
     <div class="brk"><h1>About <span class="hl">Garbage Rips 585</span></h1><span class="ln"></span>
       ${/* THE ONLY SUBSCRIBE CONTROL ON THE SITE WITHOUT THE STANDARD LABEL.

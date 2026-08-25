@@ -769,7 +769,7 @@ ${SPRITE}
 ${SKIP}
 ${BAR}
 ${MENU}
-<main id="main">
+<main id="main" tabindex="-1">
 `;
 
 /** The portrait, or nothing at all. A missing one is never a hole. */

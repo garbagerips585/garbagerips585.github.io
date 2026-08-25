@@ -709,7 +709,7 @@ ${SPRITE}
 ${SKIP}
 ${BAR}
 ${MENU}
-<main id="main">
+<main id="main" tabindex="-1">
 
 <header class="set-hero${compact ? " g-hero" : ""}">
   <div class="wrap">

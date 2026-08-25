@@ -702,7 +702,7 @@ const style = `
 `;
 
 const body = `
-<main id="main">
+<main id="main" tabindex="-1">
   <section class="fp">
     <div class="wrap">
       <div class="brk"><h1>First Partner <span class="hl">Illustration Collection</span></h1><span class="ln"></span></div>

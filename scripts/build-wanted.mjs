@@ -622,7 +622,7 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
 `;
 
 const body = `
-<main id="main" class="wanted">
+<main id="main" tabindex="-1" class="wanted">
   <div class="wrap">
     <div class="brk"><h1>Most <span class="hl">wanted</span></h1><span class="ln"></span>
       <a href="/sets/">All ${guideCount} set guides &rarr;</a></div>

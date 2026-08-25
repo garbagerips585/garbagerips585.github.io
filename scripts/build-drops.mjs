@@ -363,7 +363,7 @@ ${SPRITE}
 ${SKIP}
 ${BAR}
 ${MENU}
-<main id="main">
+<main id="main" tabindex="-1">
   <section class="tight">
     <div class="wrap">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Drops this week</span></nav>

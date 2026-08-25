@@ -928,7 +928,7 @@ ${PLATE_CSS}
 `;
 
 const body = `
-<main id="main" class="shops">
+<main id="main" tabindex="-1" class="shops">
   <div class="wrap">
     <div class="brk"><h1>Card shops and <span class="hl">where to play</span></h1><span class="ln"></span></div>
     ${/* THE CRUMB THIS PAGE NEVER HAD. Every other page in the local section

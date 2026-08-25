@@ -479,6 +479,7 @@ footer p{font:400 var(--t-sm)/1.6 var(--body);color:var(--chrome-dim);max-width:
   background:var(--mustard);color:var(--on-accent);font:700 var(--t-sm)/1 var(--body);
   padding:var(--s3) var(--s4);border-radius:var(--r-pill);transition:top .12s}
 .skip:focus{top:var(--s3)}
+main:focus{outline:none}
 .menu-btn{flex:none;width:44px;height:44px;border-radius:50%;display:none;
   place-items:center;background:rgba(255,255,255,.1);
   border:1px solid rgba(255,255,255,.2);cursor:pointer;padding:0}

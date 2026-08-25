@@ -113,7 +113,7 @@ ${SPRITE}
 ${BAR}
 ${MENU}
 
-<main id="main" class="e404">
+<main id="main" tabindex="-1" class="e404">
   <div class="wrap">
     <div class="e404-in">
       <div class="e404-art">

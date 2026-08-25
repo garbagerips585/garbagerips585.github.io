@@ -883,7 +883,7 @@ const FAQ = faqBlock(
 );
 
 const body = `
-<main id="main">
+<main id="main" tabindex="-1">
   <section class="rg">
     <div class="wrap">
       ${/* THE H1 CARRIED NO TOPIC WORD AT ALL. "What have I actually got" names

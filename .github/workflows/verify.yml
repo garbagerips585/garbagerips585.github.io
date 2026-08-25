@@ -1,0 +1,54 @@
+# Does the commit that just landed contain the pages its own source produces?
+#
+# WHY THIS EXISTS, AND WHY IT IS SEPARATE FROM THE DEPLOY. public/ is generated
+# AND committed, so a commit can change a builder and change not one page, and
+# every existing gate still reports success: build-all exits 0 because it builds
+# the working tree, and check-build.py exits 0 because it reads public/ from
+# disk and public/ is a perfectly good build of the PREVIOUS source. Neither can
+# see the gap between them.
+#
+# IT HAPPENED THREE TIMES ON 19 AUGUST 2026 and twice more on 20 August. The
+# worst of them left 1,026 /pokemon/ pages, two thirds of the site, live and
+# built from a builder that had since changed. Every one was caught by somebody
+# happening to fetch the live file rather than trusting the commit.
+#
+# scripts/check-tree-drift.mjs has existed since then and was wired to NOTHING:
+# not this workflow, not build-all.mjs, and named in none of CLAUDE.md,
+# DEPLOY.md, LAUNCH.md or LAUNCH-DAY.md. Found by an audit on launch day. The
+# only defence against this repo's worst documented failure mode was a script
+# nobody was told to run.
+#
+# IT DOES NOT BLOCK THE DEPLOY, ON PURPOSE. Publishing a slightly stale page is
+# worse than not publishing, but publishing NOTHING because a check is having a
+# bad day is worse than both, and the deploy workflow has its own hard-won
+# reasoning about concurrency and timeouts that this must not complicate. This
+# runs alongside and goes red. A red tick beside a green deploy is exactly the
+# signal wanted: the site is up, and it is not what the source says.
+name: Verify the committed tree
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      # FULL HISTORY, NOT A SHALLOW CLONE. The check exports HEAD with
+      # `git archive`, which needs the commit's tree; a depth-1 clone has it,
+      # but --staged and any future comparison against a parent do not.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Does public/ match the source committed beside it?
+        run: node scripts/check-tree-drift.mjs

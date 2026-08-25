@@ -824,7 +824,7 @@ ${SPRITE}
 ${SKIP}
 ${BAR}
 ${MENU}
-<main id="main">
+<main id="main" tabindex="-1">
 `;
 
 /** The card name a US reader can actually read, with the native name kept alongside. */
@@ -1030,6 +1030,7 @@ function compareBand(g, en, cls) {
       }</p>
     <div class="rcmp-wrap">
       <table class="rcmp">
+        <caption class="sr-only">Card count by rarity in ${esc(g.english)} against ${esc(en.name)}</caption>
         <thead>
           <tr><th scope="col">Rarity</th><th scope="col">${g.langFlag ? `${g.langFlag} ` : ""}${esc(g.english)}</th><th scope="col">${esc(en.name)}</th></tr>
         </thead>

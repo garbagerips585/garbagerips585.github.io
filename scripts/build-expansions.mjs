@@ -685,7 +685,7 @@ const style = `
 `;
 
 const body = `
-<main id="main">
+<main id="main" tabindex="-1">
   <section class="xp">
     <div class="wrap">
       <div class="brk"><h1>Every Pokemon TCG set, <span class="hl">in order</span></h1><span class="ln"></span></div>

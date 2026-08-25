@@ -1804,7 +1804,7 @@ const headline = judged.length
   : "-";
 
 const body = `
-<main id="main">
+<main id="main" tabindex="-1">
   <section class="luck">
     <div class="wrap">
       <div class="brk"><h1>Luck, <span class="hl">measured</span></h1><span class="ln"></span></div>

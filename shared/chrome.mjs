@@ -1452,7 +1452,7 @@ export const FOOT_SUB = `<!--FOOT_SUB:START-->
       <source type="image/webp" sizes="(min-width:468px) 420px, calc(100vw - 48px)"
               srcset="/assets/made-in-roc-420.webp 420w, /assets/made-in-roc-840.webp 840w">
       <img class="foot-mark" src="/assets/made-in-roc.jpg" width="420" height="234"
-        alt="The Garbage Rips 585 mark: a Rochester manhole cover with a Garbage Plate on it and Trubbish sitting in the middle of the plate, GARBAGE RIPS 585 curved over the top and MADE IN ROC across the bottom, ringed by torn Garbage Rips card packs on a pavement"
+        alt="The Garbage Rips 585 mark: Trubbish sitting on a Garbage Plate over a Rochester manhole cover, ringed by torn card packs, lettered MADE IN ROC"
         loading="lazy" decoding="async">
     </picture>
     ${/* THE REAL CATCHPHRASE REPLACES AN INVENTED ONE, 23 August 2026. This

@@ -1423,7 +1423,7 @@ ${BACK_SPRITE}
 ${SKIP}
 ${BAR}
 ${MENU}
-<main id="main">
+<main id="main" tabindex="-1">
   <section class="tight cm-sec">
     <div class="wrap cm-wrap">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/games/">Games</a> / <span>Chase Match</span></nav>

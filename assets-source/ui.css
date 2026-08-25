@@ -1766,6 +1766,20 @@ footer p{font:400 var(--t-sm)/1.6 var(--body);color:var(--chrome-dim);max-width:
   padding:var(--s3) var(--s4);border-radius:var(--r-pill);transition:top .12s}
 .skip:focus{top:var(--s3)}
 
+/* THE SKIP LINK'S TARGET TAKES FOCUS, NOT JUST SCROLL. <main> is not focusable
+   on its own, so following #main moved the viewport but left focus on the link
+   in Safari and in several screen readers -- the next Tab then walked back into
+   the nav the reader had just asked to skip. tabindex="-1" on <main> makes it a
+   real focus target without putting it in the tab order.
+
+   OUTLINE OFF BECAUSE THIS FOCUS IS ALWAYS PROGRAMMATIC. Chrome and Firefox
+   already withhold the ring here, since scripted focus on a tabindex="-1"
+   element does not match :focus-visible. Safari paints one anyway, which draws
+   a box around the whole page. Nothing is lost by suppressing it: you cannot
+   Tab to this element, so the only way to focus it is the skip link, and the
+   jump itself is the feedback. */
+main:focus{outline:none}
+
 .menu-btn{flex:none;width:44px;height:44px;border-radius:50%;display:none;
   place-items:center;background:rgba(255,255,255,.1);
   border:1px solid rgba(255,255,255,.2);cursor:pointer;padding:0}

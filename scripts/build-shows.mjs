@@ -1040,7 +1040,7 @@ ${SPRITE}
 ${SKIP}
 ${BAR}
 ${MENU}
-<main id="main">
+<main id="main" tabindex="-1">
 `;
 
 /** One event card. */

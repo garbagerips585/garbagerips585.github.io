@@ -1561,7 +1561,7 @@ ${SPRITE}
 ${SKIP}
 ${BAR}
 ${MENU}
-<main id="main">`;
+<main id="main" tabindex="-1">`;
 
 // The pictures on these pages are not ours and the footer says whose they are.
 // Set logos are The Pokemon Company's, product photography is TCGplayer's, and

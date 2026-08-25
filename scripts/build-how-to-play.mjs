@@ -1060,7 +1060,7 @@ ${SPRITE}
 ${SKIP}
 ${BAR}
 ${MENU}
-<main id="main">
+<main id="main" tabindex="-1">
   <section class="tight">
     <div class="wrap hp-wrap">
 ${body}

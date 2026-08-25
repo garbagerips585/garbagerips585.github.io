@@ -1029,7 +1029,7 @@ const sourceList = (doc.sources || [])
   .join("\n");
 
 const body = `
-<main id="main" class="gp">
+<main id="main" tabindex="-1" class="gp">
   <div class="wrap">
     <div class="brk"><h1>What is a <span class="hl">Garbage Plate</span>?</h1><span class="ln"></span></div>
     <p class="gp-lede">It is the dish this channel is named after, and if you have never had one, here is

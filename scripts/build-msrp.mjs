@@ -1278,7 +1278,7 @@ ${SPRITE}
 ${SKIP}
 ${BAR}
 ${MENU}
-<main id="main" class="ms-page">
+<main id="main" tabindex="-1" class="ms-page">
 
   <section class="tight">
     <div class="wrap">

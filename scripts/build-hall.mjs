@@ -1805,7 +1805,7 @@ ${evenBand(".chof-list", ranked.length, 3)}}
 `;
 
 const body = `
-<main id="main" class="chofpage">
+<main id="main" tabindex="-1" class="chofpage">
   <div class="wrap">
     <div class="chof-head">
       ${/* "Best pulls" IS WHAT THE REST OF THE SITE CALLS THIS PAGE. All 1,478
