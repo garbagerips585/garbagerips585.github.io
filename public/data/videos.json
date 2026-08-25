@@ -1,20 +1,38 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 268314,
-    "subscribers": 340,
-    "videos": 322,
-    "readAt": "2026-08-24"
+    "views": 268439,
+    "subscribers": 343,
+    "videos": 323,
+    "readAt": "2026-08-25"
   },
-  "syncedAt": "2026-08-24",
+  "syncedAt": "2026-08-25",
   "videos": [
+    {
+      "id": "I9jPRYXbqkg",
+      "title": "The Post-Gold CURSE is Real! 💀",
+      "path": "rip/the-post-gold-curse-is-real-I9jPRYXbqkg.html",
+      "published": "2026-08-25",
+      "duration": 19,
+      "views": 28,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "chaos-rising"
+      ],
+      "products": [
+        "etb"
+      ],
+      "pulls": [],
+      "label": "Chaos Rising ETB"
+    },
     {
       "id": "tACIiMz6vRk",
       "title": "Trubbish Food Alert! 📉🗑️",
       "path": "rip/trubbish-food-alert-tACIiMz6vRk.html",
       "published": "2026-08-24",
       "duration": 18,
-      "views": 601,
+      "views": 875,
       "vertical": true,
       "short": true,
       "sets": [
@@ -46,7 +64,7 @@
       "path": "rip/i-pulled-the-best-trainer-in-the-set-b1B3Vbpsrh8.html",
       "published": "2026-08-23",
       "duration": 21,
-      "views": 945,
+      "views": 953,
       "vertical": true,
       "short": true,
       "sets": [
@@ -81,7 +99,7 @@
       "path": "rip/can-we-top-the-mega-greninja-yiYrp7bo3PM.html",
       "published": "2026-08-22",
       "duration": 20,
-      "views": 1079,
+      "views": 1088,
       "vertical": true,
       "short": true,
       "sets": [
@@ -113,7 +131,7 @@
       "path": "rip/the-greninja-luck-ran-out-lRT8jgjO2HM.html",
       "published": "2026-08-21",
       "duration": 21,
-      "views": 871,
+      "views": 893,
       "vertical": true,
       "short": true,
       "sets": [
@@ -180,7 +198,7 @@
       "path": "rip/is-rampardos-ex-a-real-hit-_RuAmy2dGL8.html",
       "published": "2026-08-19",
       "duration": 20,
-      "views": 1013,
+      "views": 1016,
       "vertical": true,
       "short": true,
       "sets": [
@@ -212,7 +230,7 @@
       "path": "rip/i-just-pulled-a-1-000-card-iIgTusrqVtg.html",
       "published": "2026-08-18",
       "duration": 28,
-      "views": 1185,
+      "views": 1187,
       "vertical": true,
       "short": true,
       "sets": [
@@ -784,7 +802,7 @@
       "path": "rip/toucannon-illustration-rare-pitch-black-etb-ndzNjhARITQ.html",
       "published": "2026-08-01",
       "duration": 24,
-      "views": 902,
+      "views": 906,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1025,7 +1043,7 @@
       "path": "rip/0-hits-left-in-the-etb-vTy3MKGN73k.html",
       "published": "2026-07-25",
       "duration": 19,
-      "views": 897,
+      "views": 898,
       "vertical": true,
       "short": true,
       "sets": [
