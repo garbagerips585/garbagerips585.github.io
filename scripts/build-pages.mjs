@@ -1256,8 +1256,20 @@ const desc = (v.blurb || descriptions[v.id] || "")
   // Google truncates the snippet around 160 characters, so the fallback shapes
   // itself around the title rather than assuming the title is short: the tail
   // is fixed, the title gets whatever room is left.
+  /* "a Elite Trainer Box" IS WHAT A HARDCODED ARTICLE WRITES HERE. Three of
+     the 22 product labels start with a vowel sound -- Elite Trainer Box, ex Box
+     and ex Premium Collection Box -- and until now the composed tail reached
+     only two pages, neither of them one of those, so the sentence had never
+     been wrong on a built page. Widening the fallback below is what would have
+     made it wrong.
+
+     U IS THE TRAP IN THE OTHER DIRECTION. UPC is spoken "you-pee-see" and takes
+     "a", so a plain vowel-letter test fails on the one label that starts with
+     one. An initial U followed by another capital is an acronym being spelled
+     out; followed by a lowercase letter it is a word. */
+  const article = (s) => (/^[aeio]/i.test(s) ? "an" : /^u[a-z]/.test(s) ? "an" : "a");
   const descTail = isTagged
-    ? `: a ${prodLabel} rip from ${setLabel}, opened on Garbage Rips 585 in Rochester, NY.`
+    ? `: ${article(prodLabel)} ${prodLabel} rip from ${setLabel}, opened on Garbage Rips 585 in Rochester, NY.`
     : `: a Pokemon pack rip from Garbage Rips 585 in Rochester, NY.`;
   /* CUT AT A SENTENCE, NOT AT A WORD, AND ONLY FALL BACK TO THE WORD.
    *
@@ -1314,9 +1326,29 @@ const desc = (v.blurb || descriptions[v.id] || "")
     title.length <= titleRoom
       ? title
       : title.slice(0, titleRoom).replace(/[\s,:;.!?-]+\S*$/, "");
-  const metaDesc = desc
-    ? clip(desc.replace(/\s+/g, " "), 158)
-    : shortTitle + descTail;
+  /* A DESCRIPTION THAT ONLY REPEATS THE TITLE IS NOT A DESCRIPTION. One video's
+     YouTube description is its own title and nothing else, so this published a
+     48-character meta description word for word identical to the <title> above
+     it: two identical lines in a search result and no reason to click either.
+     The composed tail below already exists for a video with no description at
+     all, and a description that says nothing the title did not is the same
+     situation wearing a value.
+
+     NARROW, AND COUNTED RATHER THAN GUESSED. Of the 322 rip pages exactly one
+     has a description that repeats its title or runs under 70 characters, so
+     this rewrites that page and leaves the other 321 byte for byte. 70 is the
+     floor seo-sweep.py already applies to every page on the site, not a number
+     invented here.
+
+     ONLY THE META DESCRIPTION. The visible blurb and the VideoObject schema
+     still carry the real YouTube text, because that is what the video actually
+     says about itself; this is the page's own summary, which is a different
+     claim with a different audience. */
+  const flat = (t) => t.replace(/\s+/g, " ").trim().toLowerCase();
+  const descSaysNothingNew = !desc || desc.length < 70 || flat(desc) === flat(title);
+  const metaDesc = descSaysNothingNew
+    ? shortTitle + descTail
+    : clip(desc.replace(/\s+/g, " "), 158);
   // Still YouTube's frame for the VideoObject schema and the poster behind the
   // pack, where it is correct. It is NOT the share image: see ogCard().
   // The player poster is the LCP image of every rip page, and it was being
