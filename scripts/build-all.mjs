@@ -390,7 +390,43 @@ const STEPS = [
 // the exit code of this script.
 let failed = 0;
 let workbook = 0;
-for (const step of STEPS) {
+/* THREE STEPS COMPOSE IMAGES, AND IMAGE BYTES DO NOT REPRODUCE ACROSS MACHINES.
+   build-og-pages.py draws the 97 share cards and sync-symbols.mjs mirrors the
+   174 set symbols, and BOTH rewrite their files on every run rather than
+   skipping what is already on disk. A different Pillow, a different libjpeg or
+   a font that Google has re-released since is a different encoder, so the same
+   source produces different bytes -- and because stamp-assets.mjs puts a
+   content hash in every og:image URL, changed image bytes restamp the pages
+   that reference them too. On a Linux runner that read as 1,092 drifted files
+   for a commit that touched two lines of a description.
+
+   SO CI VERIFIES THE HTML AND LEAVES THE IMAGES ALONE. Skipping these means the
+   committed images stay exactly where they are, stamp-assets hashes those, and
+   the pages come out byte-identical -- which is the actual question the drift
+   check exists to answer, and the one all five August incidents were about.
+   fetch-fonts.sh goes with them because build-og-pages.py is the only step that
+   reads the font cache, so skipping it drops a network call CI cannot use.
+
+   NOTHING ELSE DEPENDS ON THEM RUNNING: data/symbol-dims.json, the manifest
+   page builders read for real width and height, is committed, as are all 174
+   symbols and all 97 cards.
+
+   NEVER SILENT. A build that quietly does less than it says is how a stale tree
+   ships looking green, so the skipped steps are named on every run. */
+const SKIP_IMAGES = process.env.GR_SKIP_IMAGE_BUILDERS === "1";
+const IMAGE_STEPS = new Set([
+  "bash scripts/fetch-fonts.sh",
+  "python3 scripts/build-og-pages.py",
+  "node scripts/sync-symbols.mjs",
+]);
+const PLAN = SKIP_IMAGES ? STEPS.filter((s) => !IMAGE_STEPS.has(s)) : STEPS;
+if (SKIP_IMAGES) {
+  console.log("GR_SKIP_IMAGE_BUILDERS=1, so the image steps do not run:");
+  for (const s of STEPS.filter((x) => IMAGE_STEPS.has(x))) console.log(`  skip  ${s}`);
+  console.log("  The committed images are used as they are. HTML is still built in full.\n");
+}
+
+for (const step of PLAN) {
   const [bin, ...args] = step.split(" ");
   try {
     execFileSync(bin, args, { cwd: ROOT, stdio: ["ignore", "ignore", "pipe"] });
@@ -403,7 +439,7 @@ for (const step of STEPS) {
     console.log(String(e.stderr || e.message).trim().split("\n").slice(-4).map((l) => `        ${l}`).join("\n"));
   }
 }
-console.log(`\n${STEPS.length - failed} of ${STEPS.length} builders ok`);
+console.log(`\n${PLAN.length - failed} of ${PLAN.length} builders ok`);
 if (failed) {
   console.log("Something did not build. Fix it before publishing: a half-built\n" +
               "site ships stale canonicals on the pages that failed.");

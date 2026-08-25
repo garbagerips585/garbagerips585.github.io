@@ -50,27 +50,23 @@ jobs:
         with:
           node-version: '24'
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      # TWO OF THE 66 BUILDERS COMPOSE IMAGES AND NEED PILLOW: build-og-pages.py
-      # writes the 97 share cards, and sync-symbols.mjs shells out to Python for
-      # the set symbols. Without it they fail, build-all reports 64 of 66, and
-      # the drift check stops before it can answer the question it exists to ask.
-      # That is what this job did on its first three runs.
+      # THE IMAGE BUILDERS DO NOT RUN HERE, and that is the whole reason this
+      # job can give a straight answer. build-og-pages.py and sync-symbols.mjs
+      # rewrite their files on every run, so a runner with a different Pillow,
+      # a different libjpeg or a font Google has re-released since produces
+      # different bytes from the same source -- and since every og:image URL
+      # carries a content hash, changed images restamp the pages that reference
+      # them. This job reported 1,092 drifted files for a commit that changed
+      # two lines of one meta description, which is a checker crying wolf.
       #
-      # PINNED, because both builders REWRITE their images on every run rather
-      # than skipping ones already on disk. A different Pillow is a different
-      # JPEG encoder, so an unpinned install would report drift on 97 images
-      # that nobody touched. 11.3.0 is what built the committed tree.
-      - name: Pillow, pinned to what built the tree
-        run: python3 -m pip install --quiet Pillow==11.3.0
-
-      # The share cards are composited from the site's own faces, which are
-      # gitignored and fetched on demand, so a clean checkout has none.
-      - name: The two fonts the share cards are drawn with
-        run: bash scripts/fetch-fonts.sh
-
+      # Skipping them leaves the committed images in place for stamp-assets to
+      # hash, so the HTML comes out byte-identical and any real drift in it
+      # still fails the job. That is the failure this exists to catch: all five
+      # August incidents were stale HTML, not stale images.
+      #
+      # Verified locally that the two modes agree: with the flag set,
+      # check-tree-drift reports no drift across all 6,395 files.
       - name: Does public/ match the source committed beside it?
+        env:
+          GR_SKIP_IMAGE_BUILDERS: '1'
         run: node scripts/check-tree-drift.mjs
