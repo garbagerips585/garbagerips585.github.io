@@ -219,13 +219,37 @@ function listBlock(deck, i) {
   // focusable. The list is also rendered as structured columns directly above
   // with a Copy button beside it, so nothing here was ever the only route to the
   // content -- which is why this is the one to drop first if it ever gets in the way.
+  /* 54 CONTROLS, THREE ACCESSIBLE NAMES, until 25 August 2026. Eighteen decks
+     each render "Show the raw import text", "Copy the list" and "Download the
+     .txt", and nothing in any of those names said WHICH deck. Pulled up as a
+     list of links or buttons -- which is how a screen reader user scans a long
+     page -- this page was eighteen identical triples and no way to tell them
+     apart. The 18 hrefs were all distinct; the 18 names were one name.
+
+     THE DECK NAME IS NOT RECOVERABLE FROM CONTEXT HERE, which is what makes
+     this a failure rather than a nit. WCAG 2.4.4 lets a link lean on its
+     paragraph, list item or table cell; the h3 is none of those -- it sits in a
+     SIBLING <header>, outside the <details> entirely. The set guides get away
+     with a bare "Watch the rip" because the card name shares their <li>. This
+     had no such fallback.
+
+     aria-label AND NOT AN sr-only SPAN, and the visible words come FIRST inside
+     it. aria-label REPLACES the accessible name rather than adding to it, so
+     "Copy the list for Mega Excadrill" keeps the visible "Copy the list" as a
+     substring. That is what WCAG 2.5.3 asks for and it is not decoration:
+     somebody using voice control says "click Copy the list", and a name that
+     had dropped those words would no longer answer to them.
+
+     THE <pre> ALREADY DID THIS RIGHT and is what the rest is modelled on. The
+     <article> is named too: it maps to role="article", so a reader moving
+     article by article was getting eighteen unnamed ones. */
   return `<div class="dk-cols">${cols}</div>
 <details class="dk-raw">
-  <summary>Show the raw import text</summary>
+  <summary aria-label="Show the raw import text for ${esc(deck.name)}">Show the raw import text</summary>
   <pre id="dk-text-${i}" class="dk-pre" tabindex="0" role="region" aria-label="${esc(deck.name)} raw import text, scrollable">${esc(deck.list.text)}</pre>
   <div class="dk-acts">
-    <button type="button" class="dk-copy" data-target="dk-text-${i}">Copy the list</button>
-    <a class="dk-dl" href="${deck.file}" download>Download the .txt</a>
+    <button type="button" class="dk-copy" data-target="dk-text-${i}" aria-label="Copy the list for ${esc(deck.name)}">Copy the list</button>
+    <a class="dk-dl" href="${deck.file}" download aria-label="Download the .txt for ${esc(deck.name)}">Download the .txt</a>
   </div>
 </details>`;
 }
@@ -246,11 +270,11 @@ const deckCards = decks
       ? `<div class="dk-faces">${f.map((c) => cardImg(c)).join("")}</div>`
       : "";
     const l = deck.list;
-    return `<article class="dk" id="${deck.slug}">
+    return `<article class="dk" id="${deck.slug}" aria-labelledby="${deck.slug}-h">
   <header class="dk-head">
     <span class="dk-rank">${deck.pos}</span>
     <div class="dk-title">
-      <h3>${esc(deck.name)}</h3>
+      <h3 id="${deck.slug}-h">${esc(deck.name)}</h3>
       <p class="dk-share"><b>${deck.share}%</b> of the field
         <span class="dk-sep">/</span> ${deck.count.toLocaleString("en-US")} decks recorded
         ${deck.winPct != null ? `<span class="dk-sep">/</span> <span class="dk-win">${deck.winPct}% match win rate</span>` : ""}

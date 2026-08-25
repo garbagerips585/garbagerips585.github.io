@@ -26,6 +26,59 @@ export const esc = (s) =>
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
 
+/* --------------------------------------------------------------- language --
+   A screen reader picks its synthesiser from the nearest lang in scope. With
+   none, Japanese and Chinese card and set names inherit the document's
+   lang="en" and are read as English, which is noise rather than a name. This
+   was true of 9,847 strings across 1,033 pages before 25 August 2026.
+
+   SCRIPT FIRST, FEED SECOND, because on this site the two disagree. The four
+   ko-* set guides carry JAPANESE card names -- ko-battle-partners holds 144 CJK
+   strings and not one is Hangul, and ko-clay-burst says so in its own copy --
+   so tagging by the set's declared "ko" would swap one wrong voice for another.
+   Kana and Hangul are decisive on sight, so they are tested first and no hint
+   can override them. Only Han-only text is genuinely ambiguous between Japanese
+   and Chinese, and only that falls through to the caller's hint. */
+const HAS_CJK = /[぀-ヿ가-힯一-鿿㐀-䶿]/;
+
+/** BCP-47 tag for a run of card text, or "" when it is Latin and needs none. */
+export const scriptLang = (text, hint = "") => {
+  const v = String(text || "");
+  if (!HAS_CJK.test(v)) return "";
+  if (/[぀-ヿ]/.test(v)) return "ja";
+  if (/[가-힯]/.test(v)) return "ko";
+  return hint && hint !== "en" ? hint : "ja";
+};
+
+/**
+ * esc(), plus a lang wrapper when the text is not Latin.
+ *
+ * The WHOLE name is tagged, its Latin part included: "TAG TEAM GX タッグオール
+ * スターズ" is one Japanese set name that opens in roman letters, not two
+ * strings in two languages. Returns bare esc() output for Latin text, so the
+ * English names that are most of this site cost nothing.
+ */
+export const nat = (text, hint = "") => {
+  const l = scriptLang(text, hint);
+  return l ? `<span lang="${l}">${esc(text)}</span>` : esc(text);
+};
+
+/**
+ * esc(), tagging each non-Latin RUN inside a mixed string separately.
+ *
+ * For prose that switches language mid-sentence, where nat() would be wrong:
+ * "Wild Force (ワイルドフォース, SV5K)" is an English set name, its Japanese
+ * name, and a set code, and tagging the whole thing ja would hand "Wild Force"
+ * and "SV5K" to a Japanese synthesiser. Splitting on script keeps each half in
+ * its own voice. Use nat() for a name that is entirely one language and this
+ * for a sentence that contains one.
+ */
+export const natRuns = (text, hint = "") =>
+  String(text || "")
+    .split(/([぀-ヿ가-힯一-鿿㐀-䶿]+)/)
+    .map((part, i) => (i % 2 ? `<span lang="${scriptLang(part, hint)}">${esc(part)}</span>` : esc(part)))
+    .join("");
+
 export const MONTHS_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 export const MONTHS_LONG = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 

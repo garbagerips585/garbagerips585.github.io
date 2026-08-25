@@ -104,7 +104,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, moneyExact, moneyRound, moneyCompact, rarityLabel, imgDims, avifPicture, clipMeta} from "../shared/format.mjs";
+import { esc, longDate, moneyExact, moneyRound, moneyCompact, rarityLabel, imgDims, avifPicture, clipMeta, nat} from "../shared/format.mjs";
 // The rip tag vocabulary, so a species' printings can be joined to the rips that
 // opened those sets. See `setRipsFor`.
 import { CARD_SETS } from "../shared/taxonomy.mjs";
@@ -525,6 +525,41 @@ const gameTypeToCard = new Map();
 for (const t of tcgTypes?.types || []) {
   for (const g of t.gameTypes || []) gameTypeToCard.set(String(g).toLowerCase(), t.name);
 }
+
+/* JAPANESE AND CHINESE SET AND CARD NAMES WERE ANNOUNCED IN AN ENGLISH VOICE,
+   9,745 times across these pages. A screen reader picks its synthesiser from
+   lang, and with none in scope it stays on the document's lang="en" -- so
+   "ウルトラフォース" was read as English letters-that-are-not-letters rather than
+   as Japanese. It is the difference between hearing a set name and hearing
+   noise, and it happens on the tile, the caption and the flat list.
+
+   THE CORPUS ALREADY KNEW. Every printings row carries `l` ("en", "ja", "zh"),
+   which is what the extra bands pass as a hint; the priced feed has no language
+   column, so its set names are looked up in the map built here from the corpus.
+
+   SCRIPT BEATS THE FEED WHERE THE TWO DISAGREE, and on this site they do. The
+   four ko-* set guides hold JAPANESE card names -- ko-battle-partners has 144
+   CJK strings and not one is Hangul -- so anything keyed off the set's own "ko"
+   would tag Japanese text as Korean and swap one wrong voice for another. Kana
+   and Hangul are decisive on sight and are checked first; only Han-only text,
+   which really is ambiguous between Japanese and Chinese, falls through to the
+   feed.
+
+   THE WHOLE NAME IS TAGGED, INCLUDING ITS LATIN PART. "TAG TEAM GX タッグオール
+   スターズ" is one Japanese set name that happens to open in roman letters, not
+   two strings in two languages, and splitting a name to tag half of it would
+   break it for a copy-paste and for search.
+
+   IT COSTS NOTHING ON AN ENGLISH NAME. nat() returns bare esc() output when
+   there is no CJK in the string, so the ~99% of tiles that name an English set
+   carry not one extra byte. */
+const SET_LANG = new Map();
+for (const rows of printings.values()) {
+  for (const c of rows) if (c.l && c.l !== "en" && !SET_LANG.has(c.s)) SET_LANG.set(c.s, c.l);
+}
+/* scriptLang/nat live in shared/format.mjs because three builders need them.
+   SET_LANG stays here: it is this corpus's own answer for Han-only names, which
+   are the one case script alone cannot settle. */
 
 const species = DEX.map((p) => {
   const list = pricedBy.get(p.id) || [];
@@ -1205,8 +1240,8 @@ function pokePage(p) {
         data-set="${esc(c.setName)}"
         aria-label="Enlarge ${esc(c.name)}, ${esc(c.setName)}${c.n ? " " + esc(c.n) : ""}">
         ${c.img ? avifPicture(`<img src="${esc(c.img)}/low.webp" onerror="this.remove()" alt="" loading="lazy"${imgDims(c.img + "/low.webp")}>`) : ""}
-        <div class="nm">${esc(c.name)}</div>
-        <div class="rr">${esc(c.setName)} &bull; ${esc(c.n || "")}</div>
+        <div class="nm">${nat(c.name, SET_LANG.get(c.setName))}</div>
+        <div class="rr">${nat(c.setName, SET_LANG.get(c.setName))} &bull; ${esc(c.n || "")}</div>
         ${rar(c.rarity) ? `<div class="rr">${esc(rar(c.rarity))}</div>` : ""}
         ${typeof c.price === "number" ? `<div class="pr">${moneyCompact(c.price)}</div>` : ""}
       </button>`,
@@ -1343,8 +1378,8 @@ function pokePage(p) {
           // accessible text and nothing is lost by not repeating it.
           (c) => `<div class="chase-card is-flat">
         ${avifPicture(`<img src="${esc(c.g)}/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async"${imgDims(c.g + "/low.webp")}>`)}
-        <div class="nm">${esc(c.n)}</div>
-        <div class="rr">${esc(c.s)} &bull; ${esc(c.i)}</div>
+        <div class="nm">${nat(c.n, c.l)}</div>
+        <div class="rr">${nat(c.s, c.l)} &bull; ${esc(c.i)}</div>
         ${rar(c.r) ? `<div class="rr">${esc(rar(c.r))}</div>` : ""}
         ${tag(c) ? `<div class="rr">${tag(c)}</div>` : ""}
       </div>`,
@@ -1356,8 +1391,8 @@ function pokePage(p) {
       ${noScan
         .map(
           (c) => `<li class="flat-item">
-        <b>${esc(c.n)}</b>
-        <span>${esc(c.s)} &bull; ${esc(c.i)}</span>
+        <b>${nat(c.n, c.l)}</b>
+        <span>${nat(c.s, c.l)} &bull; ${esc(c.i)}</span>
         ${[rar(c.r), tag(c)].filter(Boolean).length ? `<span>${[rar(c.r), tag(c)].filter(Boolean).join(" &bull; ")}</span>` : ""}
       </li>`,
         )

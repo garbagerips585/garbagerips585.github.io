@@ -682,7 +682,16 @@ const cards = shops
             s.hours
               ? `<dt>Open</dt><dd>${esc(s.hours)}${
                   s.hoursSrc
-                    ? `<span class="shop-checked">confirmed on <a href="${esc(s.hoursSrc)}" rel="noopener" target="_blank">their own site</a>, ${esc(longDate(s.hoursRead) || s.hoursRead)}</span>`
+                    ? /* "THEIR OWN SITE" NAMED NOTHING, five times per page. Every other outbound
+                         link on this page closes its accessible name with "opens on <host>" -- the
+                         address link in the SAME <dl> does it -- and these five were the only ones
+                         skipped. Pulled up as a list of links, /shops.html gave five identical
+                         "their own site" with no shop and no destination between them; the shop
+                         name lives up in the <h2>, outside this <dd>, so there was nothing in
+                         context to recover it from either.
+
+                         The visible words stay inside the label for WCAG 2.5.3. */
+                      `<span class="shop-checked">confirmed on <a href="${esc(s.hoursSrc)}" rel="noopener" target="_blank" aria-label="their own site, ${esc(s.name)}, opens on ${esc(hostOf(s.hoursSrc))}">their own site</a>, ${esc(longDate(s.hoursRead) || s.hoursRead)}</span>`
                     : ""
                 }</dd>`
               : ""

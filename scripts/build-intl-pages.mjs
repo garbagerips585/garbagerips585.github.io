@@ -85,7 +85,7 @@ import { pickIntlPrintingJp } from "../shared/intl-vocab.mjs";
 // shared/card-scan.mjs for the table and for the two cross-checks.
 import { corpusScan, noScanBox, NOSCAN_CSS } from "../shared/card-scan.mjs";
 import { esc, longDate, shortDate, rarityLabel, imgDims, avifPicture, moneyCompact,
-  productSrcsetAttr, clipMeta} from "../shared/format.mjs";
+  productSrcsetAttr, clipMeta, nat, natRuns} from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/sets");
@@ -871,7 +871,7 @@ function twinBand(g, cls) {
          word and stays wherever it appears. */ ""}
     <p class="lede intl-lede">If you have watched these rips and then gone looking for the set in a US store, this is the
       one you want. ${esc(g.english)} is the ${esc(g.langName)} printing behind English ${esc(en.name)}${
-        merged ? `, which English built by merging it with ${esc(merged)}` : ""
+        merged ? `, which English built by merging it with ${natRuns(merged, g.dataSource?.lang || g.lang)}` : ""
       }.</p>
     <ul class="intl-grid">
       <li class="intl">
@@ -1476,7 +1476,7 @@ function checklistBand(g, cls) {
       <summary>Show the full ${esc(g.english)} checklist</summary>
       <ol class="ig-cards">
         ${g.cards.map((c) => `<li><span class="ig-no">${esc(c.localId || "")}</span>
-          <span class="ig-nm">${esc(cardName(c))}</span>
+          <span class="ig-nm">${nat(cardName(c), g.dataSource?.lang || g.lang)}</span>
           ${cardSub(c) ? `<span class="ig-native" lang="${esc(g.dataSource?.lang || g.lang)}">${esc(cardSub(c))}</span>` : ""}
           ${c.rarity ? `<span class="ig-rr">${esc(rarityLabel(c.rarity))}</span>` : c.secret ? `<span class="ig-rr">Secret</span>` : kindOf(c) ? `<span class="ig-rr">${esc(kindOf(c))}</span>` : ""}</li>`).join("\n        ")}
       </ol>

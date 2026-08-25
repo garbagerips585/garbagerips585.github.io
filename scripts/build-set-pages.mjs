@@ -28,7 +28,7 @@ import { BAR, MENU, SPRITE, SKIP, STYLES, footer, FONTS, dropUnusedPacksCSS,
   APP_JS_NO_PACKPLAYER as APP_JS } from "../shared/chrome.mjs";
 import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
 import { parseHits, rarityLabelOf, rarityMark, RARITY_CSS } from "../shared/rarity.mjs";
-import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, RARITY_ORDER, cardNumKey, imgDims, productSrcsetAttr, avifPicture, plural, count, clipMeta, plainDashesAll} from "../shared/format.mjs";
+import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, RARITY_ORDER, cardNumKey, imgDims, productSrcsetAttr, avifPicture, plural, count, clipMeta, plainDashesAll, nat} from "../shared/format.mjs";
 // WHAT A CARD SLOT SHOWS WHEN THERE IS NO SCAN. One panel for /hall.html, the
 // rip pages and both set-guide builders, so four grids cannot answer the same
 // question four ways. corpusScan is the other half of that module and this file
@@ -3741,12 +3741,17 @@ ${Object.keys(intlGuides).length ? `
         <span>
           <span class="ttl">${esc(g.english)}${g.langFlag ? ` ${g.langFlag}` : ""}</span><br>
           <span class="meta">${[
-            g.native || null,
+            g.native ? nat(g.native, g.dataSource?.lang || g.lang) : null,
             g.cardCount?.total ? `${g.cardCount.total} cards` : null,
             g.released ? g.released.slice(0, 4) : null,
             ripsBySet[id] ? `${ripsBySet[id]} rip${ripsBySet[id] === 1 ? "" : "s"}` : null,
-            en ? `= ${en.name}` : g.exclusive ? "no English version" : null,
-          ].filter(Boolean).map(esc).join(" &bull; ")}</span>
+            en ? `= ${esc(en.name)}` : g.exclusive ? "no English version" : null,
+            /* WAS .map(esc) OVER THE WHOLE ARRAY, which re-escaped the lang span
+               nat() returns and printed <span lang="ja"> as visible text on 12
+               cards. Every other entry here is a number, a year slice or a
+               literal; the only one that ever needed escaping is the English set
+               name, so it escapes itself and the markup passes through. */
+          ].filter(Boolean).join(" &bull; ")}</span>
         </span>
       </a>`;
         })
