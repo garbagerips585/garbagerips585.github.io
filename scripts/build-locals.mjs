@@ -69,7 +69,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, clipMeta, plainDashesAll} from "../shared/format.mjs";
+import { esc, clipMeta, plainDashesAll} from "../shared/format.mjs";
 // The same comment stripper build-css.mjs runs over ui.css. PAGE_CSS below is
 // mostly prose about why four rules exist, and an inline style block is render
 // blocking like the stylesheet is. stamp-assets.mjs would strip it last anyway,
@@ -291,6 +291,30 @@ const earlyNote = (rows, noun) => {
   const nWord = ["no", "one", "two", "three"][n] || String(n);
   const isAre = n === 1 ? "is" : "are";
   const nounWord = n === 1 ? noun.replace(/s$/, "") : noun;
+  /* THE SECOND SENTENCE IS AN ASK ON BOTH PAGES NOW, 25 August 2026, at the
+     owner's request. It used to end "it stays that way until somebody real goes
+     on it" -- a statement of editorial policy, addressed to nobody, sitting
+     directly above a button labelled "Here is how to get on it".
+
+     The first sentence still admits the list is short, because that part is
+     true and worth saying. What follows it now asks the one person who can
+     actually fix it, which is the reader.
+
+     "TO GET LISTED" AND NOT "AND YOU GO ON THE PAGE", and the difference is
+     load-bearing. The Get listed section below promises "We look before we
+     list ... every handle here has been opened and checked, because a wrong
+     handle sends somebody to a stranger." A line up here reading "tell us and
+     you are on it" would contradict that eleven lines later and promise a
+     listing this page does not hand out on request. Both pages invite; neither
+     guarantees. */
+  const pitch =
+    {
+      creators:
+        "Live in Western New York and make Pokemon content? Send us an email or a DM on socials with your info to get added to the page.",
+      vendors:
+        "Are you a Pokemon vendor in the greater Western New York area? Email or DM us to get listed on this page.",
+    }[noun] ||
+    "That is what we can actually point you at today rather than what we would like the page to look like, and it stays that way until somebody real goes on it.";
   const gap = thin
     ? ` ${thin === n ? (n === 1 ? "It has" : "None of them has") : `${["", "One", "Two", "Three"][thin] || thin} of them ${thin === 1 ? "has" : "have"}`} no write-up yet, which is our gap and not theirs.`
     : "";
@@ -376,8 +400,7 @@ const earlyNote = (rows, noun) => {
            width="256" height="256" loading="lazy" decoding="async" onerror="this.remove()">
       <h2 class="big">This list is still <span class="hl">short</span></h2>
       <p>${esc(nWord.replace(/^./, (c) => c.toUpperCase()))} ${esc(nounWord)} ${esc(isAre)} on this page.${esc(gap)}
-        That is what we can actually point you at today rather than what we would like the page to look like, and
-        it stays that way until somebody real goes on it.</p>
+        ${esc(pitch)}</p>
       <p style="margin-top:12px"><a class="btn btn-yt btn-sm" href="#get-listed">Here is how to get on it</a></p>
     </div>`;
 };
@@ -552,7 +575,7 @@ const PAGE_CSS = `
 .loc-more a:hover,.loc-more a:focus-visible{text-decoration:underline}
 `;
 
-function page({ metaDesc, slug, title, h1, kicker, lede, list, kind, empty, note, updated, ask }) {
+function page({ metaDesc, slug, title, h1, kicker, lede, list, kind, empty, ask }) {
   /* THE FILE'S OWN ORDER, NOT ALPHABETICAL, SINCE 24 August 2026.
      The owner asked for Toak Pulls first on both lists. This used to sort by name and
      therefore ignored data/vendors.json and data/creators.json entirely, so
@@ -685,9 +708,7 @@ ${rows.map((o) => card(o, kind)).join("\n")}
          paragraph on /creators.html opens "Listed alphabetically, not ranked",
          so the sentence contradicted itself eleven words later. The claim being
          made is that nobody paid to be on the list, so say that. */ ""}
-${earlyNote(rows, kind)}
-    <p class="price-note">${esc(note)} Last updated ${esc(longDate(updated) || "recently")}. No paid placements and no
-      affiliate links on this page: everybody here is listed because they are worth your time.</p>`
+${earlyNote(rows, kind)}`
         : `<div class="fk-golden">
       <p class="fk-golden-h">Nothing here yet</p>
       <h2>This list is being <span class="hl">built</span></h2>
@@ -758,12 +779,10 @@ const V = page({
      prints. */
   lede: "Sellers around Rochester worth knowing: who they are, what they carry, and where to find them.",
   list: vendors.vendors || [],
-  updated: vendors.updated,
   kind: "vendors",
   empty:
     "We are putting together a list of vendors around Rochester who are worth buying from: who they are, what they " +
     "carry, and which shows you will find them at. If you sell locally, or you have bought from somebody good, tell us.",
-  note: "Vendors are people who sell, usually at the shows on the card show calendar. For shops with a door and opening hours, see Card shops.",
   /* THE FIVE THINGS ARE data/vendors.json's OWN FIELDS IN ITS OWN ORDER: name,
      area, sells, shows, and the handles. Written out because a vendor who sends
      those five has written their row, and the difference between a page that
@@ -817,12 +836,10 @@ const C = page({
      of the reader, which is why the two are allowed to differ. */
   lede: "Other people around Rochester making Pokemon content. Go watch them.",
   list: creators.creators || [],
-  updated: creators.updated,
   kind: "creators",
   empty:
     "We want to point people at everybody else making Pokemon content in Rochester, Buffalo, Syracuse and the towns " +
     "around them. If that is you, or somebody you watch, let us know and you go on the list.",
-  note: "Listed alphabetically, not ranked. Rochester first by focus, but anywhere in Upstate New York close enough to count belongs here.",
   /* FOUR RATHER THAN FIVE, because data/creators.json holds four fields and not
      five: a creator has no "shows" and no "sells". The count is written into the
      ask rather than typed into the sentence, so the two cannot disagree. */
