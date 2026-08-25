@@ -533,7 +533,39 @@ const species = DEX.map((p) => {
   const priciest = priced.slice().sort((a, b) => b.price - a.price)[0] || null;
   const cheapest = priced.slice().sort((a, b) => a.price - b.price)[0] || null;
   const enScans = prints.filter((c) => c.l === "en" && c.g).length;
-  const sets = new Set(prints.map((c) => c.s));
+
+  /* THE PAGE RENDERED MORE CARDS THAN IT SAID EXISTED, on 57 of these 967
+     pages, and the total was the thing that was wrong rather than any band.
+
+     TWO FEEDS, AND ONE IS NOT A SUPERSET OF THE OTHER. `prints` is the TCGdex
+     catalogue and `list` is the priced feed. The page draws its priced grid
+     from `list`, then draws a second band from whatever is in `prints` and NOT
+     already drawn -- so a card that is priced but missing from the catalogue
+     gets rendered by the first band and counted by neither. It printed
+     prints.length, which is the size of one feed and not the size of the page.
+
+     absol.html said 51 and drew 52. bellibolt said 21 and drew 23. Across the
+     family it was 70 surplus cards on 57 pages, 44 off by one and 13 by two,
+     and the number was wrong in three places at once: this tile, the lede over
+     the priced grid, and the meta description Google reads.
+
+     ALMOST ALL OF THE MISSING CARDS ARE TRAINER-OWNED ASCENDED HEROES PRINTS --
+     Erika's Bellsprout, N's Zorua, Team Rocket's Mewtwo ex -- which is what a
+     catalogue lagging a new set looks like. This does not paper over the lag:
+     the cards were always DRAWN correctly, and the sum now matches the drawing.
+
+     KEYED THE SAME WAY THE PAGE DEDUPES, setName against s with leading zeroes
+     stripped, because a key that disagreed with the band's own key would fix
+     the arithmetic and leave a card counted twice. */
+  const pk = (set, num) => `${set}|${String(num).replace(/^0+/, "")}`;
+  const inPrints = new Set(prints.map((c) => pk(c.s, c.i)));
+  const unlisted = list.filter((c) => !inPrints.has(pk(c.setName, c.n)));
+  const nameable = prints.length + unlisted.length;
+
+  /* AND THE SET TALLY HAD THE SAME HOLE. "N across M sets" read M off the
+     catalogue too, so a priced card from a set the catalogue has never heard of
+     went uncounted twice over. */
+  const sets = new Set([...prints.map((c) => c.s), ...unlisted.map((c) => c.setName)]);
   const pricedSets = new Set(list.map((c) => c.set));
 
   // The earliest English set we can put a date on, Pocket excluded.
@@ -549,6 +581,7 @@ const species = DEX.map((p) => {
   return {
     ...p,
     list,
+    nameable,
     priced,
     priciest,
     cheapest,
@@ -898,9 +931,9 @@ function pokePage(p) {
     ? // The species name is already in the clause above, twice on most pages, so
       // the second sentence drops it. That is 55px of a line Google cuts, spent
       // on a word the reader has just read.
-      `${priciestClause} Every printing we can name: ${n(p.prints.length)} across ` +
+      `${priciestClause} Every printing we can name: ${n(p.nameable)} across ` +
       `${n(p.sets.size)} sets, ${n(p.priced.length)} with a market price.`
-    : `Every ${p.name} card we can name: ${n(p.prints.length)} printings across ${n(p.sets.size)} sets, plus ${p.name}'s ` +
+    : `Every ${p.name} card we can name: ${n(p.nameable)} printings across ${n(p.sets.size)} sets, plus ${p.name}'s ` +
       `evolution line, types and what beats it.`;
 
   const ld = [
@@ -1137,7 +1170,7 @@ function pokePage(p) {
           below it is the same shape and predates this note; it is left alone
           rather than swept, because moving it is a diff nobody asked for on
           launch eve, but do not add a third. */ ""}
-    <p class="lede" style="max-width:40em">${n(sorted.length)} of the ${n(p.prints.length)} printings we can name ${sorted.length === 1 ? "is in a set" : "are in sets"} we hold prices for. Tap a card to see it full size.</p>
+    <p class="lede" style="max-width:40em">${n(sorted.length)} of the ${n(p.nameable)} printings we can name ${sorted.length === 1 ? "is in a set" : "are in sets"} we hold prices for. Tap a card to see it full size.</p>
     <!-- THE aria-label CARRIES THE SET AND NUMBER, and it has to.
          It was "Enlarge <name>" alone, which on a Pokemon with several
          printings named every button on the page identically: charizard.html
@@ -1261,16 +1294,37 @@ function pokePage(p) {
     // quote what we can source". A third telling in between was a paragraph
     // apologising rather than a paragraph introducing, so this half just counts
     // them.
+    /* EVERY NUMBER IN THIS PARAGRAPH CAN BE ONE, and three of the four phrasings
+       did not allow for it. Shipped, that read:
+
+         hattrem.html   "3 more ... 1 have a scan and are pictured below."
+         3 pages        "1 more from sets we do not price, Japanese."
+         98 pages       "The other 1 we can name but not show."
+
+       The middle one is the worst of the three and not the most obvious: one
+       card cannot come from setS, so the sentence contradicted its own count
+       rather than merely reading awkwardly.
+
+       "The other one" IS A WORD AND NOT A NUMERAL because it is the only figure
+       here a reader does not scan for -- the counts above it are the point of
+       the sentence, and a numeral tail competes with them. */
+    const oneExtra = extra.length === 1;
     const from = isOnly
-      ? `All ${n(extra.length)} of them, ${inLangs}`
-      : `${n(extra.length)} more from sets we do not price, ${inLangs}`;
+      ? oneExtra
+        ? `The only one we can name, ${inLangs}`
+        : `All ${n(extra.length)} of them, ${inLangs}`
+      : oneExtra
+        ? `One more, from a set we do not price, ${inLangs}`
+        : `${n(extra.length)} more from sets we do not price, ${inLangs}`;
     const count = !noScan.length
-      ? `${from}, every one with a scan.`
+      ? `${from}, ${oneExtra ? "with a scan" : "every one with a scan"}.`
       : !withScan.length
-        ? `${from}. No scan for any of them, so this
+        ? `${from}. No scan for ${oneExtra ? "it" : "any of them"}, so this
       is a list of names rather than a wall of cards.`
-        : `${from}. ${n(withScan.length)} have a scan and
-      are pictured below. The other ${n(noScan.length)} we can name but not show.`;
+        : `${from}. ${n(withScan.length)} ${withScan.length === 1 ? "has" : "have"} a scan and
+      ${withScan.length === 1 ? "is" : "are"} pictured below. The other ${
+        noScan.length === 1 ? "one" : n(noScan.length)
+      } we can name but not show.`;
 
     return `
 <section class="band tight">
@@ -1457,7 +1511,7 @@ function pokePage(p) {
       </ul>
     </div>
     <div class="facts">
-      <div class="fact"><div class="n">${n(p.prints.length)}</div><div class="l">Printing${p.prints.length === 1 ? "" : "s"} we can name</div></div>
+      <div class="fact"><div class="n">${n(p.nameable)}</div><div class="l">Printing${p.nameable === 1 ? "" : "s"} we can name</div></div>
       <div class="fact"><div class="n">${n(p.sets.size)}</div><div class="l">Set${p.sets.size === 1 ? "" : "s"} they appear in</div></div>
       ${/* BOTH FIGURES ARE moneyCompact, AND THAT IS A BUG FIX RATHER THAN A
              TIDY-UP. This tile took moneyRound and the card tile it summarises
@@ -1708,7 +1762,7 @@ ${APP_JS}
 // of the index. The Pokedex below it is the real index.
 const eligible = species.filter((p) => p.index && p.priciest);
 const byValue = [...eligible].sort((a, b) => b.priciest.price - a.priciest.price).slice(0, FEATURED);
-const byPopularity = [...eligible].sort((a, b) => b.prints.length - a.prints.length).slice(0, FEATURED);
+const byPopularity = [...eligible].sort((a, b) => b.nameable - a.nameable).slice(0, FEATURED);
 // THE MASCOTS ARE PINNED. The band ranks by priciest card, which is the right
 // default and would never surface either of these: Trubbish and Garbodor are
 // commons worth pennies. They are also the channel's whole identity and the
@@ -1854,7 +1908,7 @@ function indexPage() {
           (p, i) => `<a class="poke-card" href="/pokemon/${esc(p.slug)}.html">
         ${p.priciest.img ? avifPicture(`<img src="${esc(p.priciest.img)}/low.webp" onerror="this.remove()" alt="${esc(p.priciest.name)}, the most valuable ${esc(p.name)} card" ${i < EAGER_POKE_TILES ? `decoding="async"` : `loading="lazy"`} width="245" height="337">`) : ""}
         <span class="poke-nm">${esc(p.name)}</span>
-        <span class="poke-meta">${n(p.prints.length)} cards &bull; ${n(p.sets.size)} sets</span>
+        <span class="poke-meta">${n(p.nameable)} cards &bull; ${n(p.sets.size)} sets</span>
         ${
           // NOTHING RATHER THAN A ZERO, which is the rule wanted.html states in
           // its own footnote and which this page was breaking: two entries
@@ -1933,7 +1987,7 @@ function indexPage() {
         ${inGen
           .map(
             (p) =>
-              `<li><a class="dx-item" href="/pokemon/${esc(p.slug)}.html"><b>${esc(p.name)}</b><span>${dexNo(p.id)} &bull; ${n(p.prints.length)} cards</span></a></li>`,
+              `<li><a class="dx-item" href="/pokemon/${esc(p.slug)}.html"><b>${esc(p.name)}</b><span>${dexNo(p.id)} &bull; ${n(p.nameable)} cards</span></a></li>`,
           )
           .join("\n        ")}
       </ul>
@@ -2045,7 +2099,7 @@ await writeFile(
       id: p.id,
       name: p.name,
       slug: p.slug,
-      cards: p.prints.length,
+      cards: p.nameable,
       sets: p.sets.size,
       top: p.priciest ? p.priciest.price : null,
       index: p.index,
@@ -2062,10 +2116,10 @@ console.log(
 if (unresolved) console.log(`  ${unresolved} priced cards could not be resolved to a dex number`);
 if (noArt) console.log(`  ${noArt} have no mirrored artwork: run node scripts/sync-species-art.mjs`);
 if (!typeDoc) console.log(`  no data/type-chart.json, so no page shows a type table: run node scripts/sync-type-chart.mjs`);
-for (const p of indexed.slice().sort((a, b) => b.prints.length - a.prints.length).slice(0, 6)) {
+for (const p of indexed.slice().sort((a, b) => b.nameable - a.nameable).slice(0, 6)) {
   console.log(
     `  /pokemon/${p.slug}.html`.padEnd(34) +
-      `${String(p.prints.length).padStart(4)} printings, ${p.sets.size} sets, ` +
+      `${String(p.nameable).padStart(4)} printings, ${p.sets.size} sets, ` +
       `${p.priced.length} priced, top ${moneyRound(p.priciest.price)}, ${p.rips.length} rips`,
   );
 }

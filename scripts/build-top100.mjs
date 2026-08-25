@@ -1121,6 +1121,28 @@ function methodologyMarket(cfg, d) {
 function honestyGuide(cfg, d) {
   const when = longDate(d.checked) || d.checked;
   const v = d.verify || {};
+
+  /* ONE CARD, DESCRIBED IN THE PLURAL FOUR TIMES. The published sentence read
+     "1 did not and are printed nowhere on this site, all of them below the
+     hundredth place. They are Latias & Latios GX #170, in every case because
+     the guide value moved between the two reads" -- and then contradicted
+     itself by closing on a singular "it".
+
+     The count is a live number, so this is not a copy fix: it reads 1 whenever
+     exactly one card fails the second read, which is most days. /top-graded.html
+     already gets the same sentence right ("Number 64, Lugia [1st Edition] #90,
+     IS printed nowhere on this site"), which is why the bug survived a reading:
+     the sibling page looked fine.
+
+     ZERO IS ALSO A REAL CASE and had the same shape, so it is answered here
+     rather than left to read "0 did not and are printed nowhere". */
+  const disagreeClause =
+    Number(v.disagree) === 0
+      ? "Every one of them agreed."
+      : Number(v.disagree) === 1
+        ? "One did not, and it is printed nowhere on this site: it sits below the hundredth place."
+        : `${esc(String(v.disagree))} did not and are printed nowhere
+        on this site, all of them below the hundredth place.`;
   const removed = cfg.sealedAboveCut;
   return `<div class="fk-golden">
       <p class="fk-golden-h">What this list actually is</p>
@@ -1162,8 +1184,7 @@ function honestyGuide(cfg, d) {
       <p><b>Every figure was read twice before it went on this page.</b> The ranking comes off PriceCharting's
         set listings; each row was then re-read from that card's own product page, which is a different page
         with different columns, and the two readings compared. ${esc(String(v.agree))} of the
-        ${esc(String(v.checked))} candidates agreed. ${esc(String(v.disagree))} did not and are printed nowhere
-        on this site, all of them below the hundredth place.${esc(cfg.excNote || "")} A figure that was read once
+        ${esc(String(v.checked))} candidates agreed. ${disagreeClause}${esc(cfg.excNote || "")} A figure that was read once
         is not published here, because the column names on those two pages do not mean the same thing and a
         single read cannot tell.</p>
       <p>Prices move every day and this page does not. The date above is the date the numbers were read,
@@ -1359,11 +1380,16 @@ for (const cfg of PAGES) {
       : oneReason
         ? // All of them for the same reason, said once. Five sentences with the
           // same clause in each reads as boilerplate and buries the names.
-          ` They are ${
-            exc.length > 1
-              ? `${exc.slice(0, -1).map((e) => e.name).join("; ")} and ${exc[exc.length - 1].name}`
-              : exc[0].name
-          }, in every case because ${exc[0].public}.`
+          /* "in every case" NEEDS MORE THAN ONE CASE. With a single exclusion
+             this read "They are Latias & Latios GX #170, in every case
+             because ..." -- plural subject, plural verb and a plural adverb
+             for one card. The one-reason branch exists precisely so the
+             reason is said once, and one exclusion is its commonest input. */
+          exc.length > 1
+            ? ` They are ${exc.slice(0, -1).map((e) => e.name).join("; ")} and ${
+                exc[exc.length - 1].name
+              }, in every case because ${exc[0].public}.`
+            : ` It is ${exc[0].name}, because ${exc[0].public}.`
         : " " + exc.map((e) => `${e.name} was dropped because ${e.public}.`).join(" ");
   } else {
     cfg.aboveMarket = items.filter((i) => i.low != null && i.low > i.market).length;

@@ -479,10 +479,23 @@ const exc = d.excluded || [];
 const excNote =
   !exc.length || exc.some((e) => !e.public || !e.column)
     ? ""
-    : " The other " +
-      (exc.length === 1 ? "one" : `${exc.length}`) +
-      " are not dropped whole: it is one FIGURE on each that could not be confirmed, so each is off the list " +
-      "ranked by that figure and still on the other one if its other column checked out. " +
+    : /* THE NUMBER WORD BRANCHED AND NOTHING AFTER IT DID, so with a single
+         exclusion -- the commonest case, and the one live on the page -- this
+         read "The other one ARE not dropped whole: it is one FIGURE on EACH
+         that could not be confirmed, so EACH is off the list". Singular
+         subject, plural verb, and two plural pronouns for one card.
+
+         "THE OTHER LIST" RATHER THAN "THE OTHER ONE" at the end, in both
+         branches. The sentence already opens on "The other one" meaning a
+         CARD, so closing on "still on the other one" meaning a LIST made the
+         same three words refer to two different things in one sentence. That
+         half was wrong at every count, not just at one. */
+      (exc.length === 1
+        ? " The other one is not dropped whole: it is one FIGURE on it that could not be confirmed, so it is " +
+          "off the list ranked by that figure and still on the other list if its other column checked out. "
+        : ` The other ${exc.length} are not dropped whole: it is one FIGURE on each that could not be ` +
+          "confirmed, so each is off the list ranked by that figure and still on the other list if its " +
+          "other column checked out. ") +
       exc
         .map((e) => `${esc(e.name)}, ${esc(e.set)}, ${esc(e.column)}: ${esc(e.public)}`)
         .join(". ") +

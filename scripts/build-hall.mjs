@@ -1252,7 +1252,7 @@ const scopeSentence = (() => {
   if (heldBack) parts.push(`${heldBack} carrying a name no catalog we hold can match`);
   if (!parts.length) return ` Nothing here was hand picked: all ${L.rowsRead} cards the rip log records are below.`;
   return " Nothing here was hand picked, and it is one plaque per printing:" +
-    ` the rip log records ${L.rowsRead} cards, ${parts.join(", and ")}, which leaves the ${ranked.length} below.`;
+    ` the rip log records ${L.rowsRead} cards, ${parts.join(", and ")}, which leaves the ${ranked.length} on this page.`;
 })();
 /* The tally tile said "Cards pulled" over a deduplicated count, which is the
    same phrase /luck.html counts row-wise. It names what it is counting now, and
@@ -1679,11 +1679,11 @@ const style = `
    count and one leaking out of its band invents an implicit column. */
 .chof-list{list-style:none;display:grid;gap:var(--s5) var(--s4);counter-reset:chof}
 @media(max-width:620px){.chof-list{gap:var(--s4)}
-${evenBand(".chof-list", ranked.length, 1)}}
+${evenBand(".chof-list", rest.length, 1)}}
 @media(min-width:621px) and (max-width:1080px){
-${evenBand(".chof-list", ranked.length, 2)}}
+${evenBand(".chof-list", rest.length, 2)}}
 @media(min-width:1081px){
-${evenBand(".chof-list", ranked.length, 3)}}
+${evenBand(".chof-list", rest.length, 3)}}
 .chof{position:relative;display:flex;gap:var(--s4);align-items:flex-start;
   background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);
   border-radius:14px;padding:var(--s4);transition:border-color .15s,transform .15s}

@@ -278,11 +278,11 @@ main{padding-top:0}
 @media(max-width:620px){.chof-list{gap:var(--s4)}
 .chof-list{grid-template-columns:repeat(1,1fr)}}
 @media(min-width:621px) and (max-width:1080px){
-.chof-list{grid-template-columns:repeat(2,1fr)}}
+.chof-list{grid-template-columns:repeat(2,1fr)}
+.chof-list>li:nth-last-child(-n+1){grid-column:span 2}}
 @media(min-width:1081px){
-.chof-list{grid-template-columns:repeat(6,1fr)}
-.chof-list>li{grid-column:span 2}
-.chof-list>li:nth-last-child(-n+2){grid-column:span 3}}
+.chof-list{grid-template-columns:repeat(3,1fr)}
+.chof-list>li:nth-last-child(-n+1){grid-column:span 3}}
 .chof{position:relative;display:flex;gap:var(--s4);align-items:flex-start;
   background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);
   border-radius:14px;padding:var(--s4);transition:border-color .15s,transform .15s}
@@ -531,7 +531,7 @@ main{padding-top:0}
     
     <details class="chof-how">
       <summary>How this list is counted</summary>
-      <p>Nothing here was hand picked, and it is one plaque per printing: the rip log records 212 cards, 42 of them a printing already on this page, pulled again, which leaves the 170 below.</p>
+      <p>Nothing here was hand picked, and it is one plaque per printing: the rip log records 212 cards, 42 of them a printing already on this page, pulled again, which leaves the 170 on this page.</p>
     </details>
 
     <ol class="chof-list">
