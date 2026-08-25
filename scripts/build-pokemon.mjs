@@ -1449,7 +1449,7 @@ function pokePage(p) {
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / <a href="/pokemon/">Pokemon</a> / ${esc(p.name)}</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/pokemon/">Pokemon</a> / ${esc(p.name)}</nav>
     <div class="dx-top">
       ${portrait(p, "dx-art", true)}
       <ul class="facts-list">
@@ -1805,7 +1805,7 @@ function indexPage() {
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / Pokemon</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Pokemon</nav>
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Most valuable, most printed</p>
     <h2>The ones people <span class="hl">chase</span></h2>
     <div class="poke-grid">

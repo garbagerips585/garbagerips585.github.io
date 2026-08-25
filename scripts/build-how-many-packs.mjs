@@ -1387,7 +1387,7 @@ ${MENU}
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / How many packs</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / How many packs</nav>
 
     <div class="facts">
       <div class="fact"><div class="n">${withNumber.length}</div><div class="l">Products with a sourced pack count</div></div>

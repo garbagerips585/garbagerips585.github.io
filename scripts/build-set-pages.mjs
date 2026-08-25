@@ -3469,7 +3469,7 @@ ${rows}
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / <a href="/sets/">Set guides</a> / ${esc(s.name)}</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/sets/">Set guides</a> / ${esc(s.name)}</nav>
 
     <div class="facts">
       <div class="fact"><div class="n">${s.total ?? "?"}</div><div class="l">Cards total</div></div>
@@ -3675,7 +3675,7 @@ function indexPage() {
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / Set guides</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Set guides</nav>
     <div class="set-index">
       ${sets.map((s, i) => `<a class="set-card" href="/sets/${s.id}.html">
         ${setCardLogo(s.id, `${esc(s.name)} logo`, { eager: i < EAGER_SET_CARDS })}

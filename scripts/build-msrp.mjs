@@ -1519,8 +1519,16 @@ ${Object.values(SOURCES)
     (s) => `        <li>
           <h3>${esc(s.name)}</h3>
           <p>${esc(s.what)}</p>
+          ${/* THE LABEL LEADS WITH THE URL BECAUSE THE URL IS WHAT IS VISIBLE.
+                WCAG 2.5.3 Label in Name: this link SHOWS its own href as its
+                text, and the label said the source's NAME instead, so the two
+                shared no word and speech input could not reach it. The name is
+                not lost -- the h3 two lines above already says it, which is
+                also why repeating it here was redundant rather than helpful.
+                "opens on their site" stays, because every outbound link on
+                this site has to say it leaves. */ ""}
           <p><a href="${esc(s.url)}" rel="nofollow noopener" target="_blank" aria-label="${esc(
-            s.name
+            s.url
           )}, opens on their site">${esc(s.url)}</a> &bull; read ${esc(longDate(s.readOn))}</p>
         </li>`
   )

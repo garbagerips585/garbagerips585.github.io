@@ -392,7 +392,7 @@ ${MENU}
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / Grading</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Grading</nav>
 
     <div class="fk-golden">
       <p class="fk-golden-h">Read this first</p>

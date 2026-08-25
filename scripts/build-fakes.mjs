@@ -624,7 +624,7 @@ ${MENU}
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / Real or fake</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Real or fake</nav>
 
     ${d.seePhotos ? `<div class="fk-see">
       <p class="fk-see-h">${esc(d.seePhotos.title)}</p>

@@ -1417,7 +1417,13 @@ function packBand(g, cls) {
         <p class="pk-name">${esc(p.name)}</p>
         ${g.native ? `<p class="pk-native cjk" lang="${esc(g.lang)}">${esc(g.native)}</p>` : ""}
         <a class="pk-see" href="${esc(affLink(p.url))}" rel="noopener" target="_blank"
-           aria-label="${esc(p.name)} on TCGplayer, opens on tcgplayer.com">See the listing &rarr;</a>
+           ${/* THE VISIBLE WORDS COME FIRST, WCAG 2.5.3 Label in Name. The label
+                 was "&lt;product&gt; on TCGplayer, opens on tcgplayer.com" while the
+                 link READS "See the listing", so the two shared no word at all
+                 and a speech-input user saying what they can see activated
+                 nothing. Same rule .pack already follows on the rip pages,
+                 where the banner text is inside the accessible name. */ ""}
+           aria-label="See the listing: ${esc(p.name)} on TCGplayer, opens on tcgplayer.com">See the listing &rarr;</a>
       </div>
     </div>
     ${/* The set code is NOT printed separately, because TCGplayer's own set
@@ -1766,7 +1772,7 @@ function guidePage(g) {
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / <a href="/sets/">Set guides</a> / ${esc(g.english)}</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/sets/">Set guides</a> / ${esc(g.english)}</nav>
 
     <div class="facts">
       <div class="fact"><div class="n">${total ?? "?"}</div><div class="l">Cards total</div></div>

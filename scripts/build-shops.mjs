@@ -937,7 +937,7 @@ const body = `
           sits under the h1 rather than above it because this page's h1 is a
           .brk rule-and-heading unit and splitting it would leave the rule
           hanging over a line of mono type. */ ""}
-    <p class="crumbs"><a href="/">Home</a> / <a href="/rochester.html">Local scene</a> / Card shops</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/rochester.html">Local scene</a> / Card shops</nav>
     ${/* "LCS" IS WHAT THE HOBBY CALLS THESE AND THE PAGE DID NOT SAY IT ONCE.
           The owner, 24 August 2026: "a common word used in this hobby is LCS local
           card shop, might be a good thing to add to this page for SEO."

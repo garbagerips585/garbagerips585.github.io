@@ -386,7 +386,7 @@ ${MENU}
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / Search</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Search</nav>
     <h1 class="sr-h1">Search</h1>
     <form class="cardsearch" role="search" onsubmit="return false">
       <label class="sr-only" for="sq">Search the site</label>

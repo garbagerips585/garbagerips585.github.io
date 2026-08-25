@@ -851,7 +851,7 @@ ${MENU}
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / Pack prices by set</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Pack prices by set</nav>
 
     <div class="facts">
       <div class="fact"><div class="n">${price(cheapest.best.each)}</div><div class="l">Cheapest pack (${esc(cheapest.name)})</div></div>

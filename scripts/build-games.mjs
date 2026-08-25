@@ -1193,7 +1193,7 @@ const hub = shell({
   extraCss: HUB_CSS,
   body: `<section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / Games</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Games</nav>
     <div class="g-list">
       ${CARDS.map(
         // h2, NOT h3. The three game names are the only headings on this hub
@@ -1451,7 +1451,7 @@ const whosPage = shell({
       <button class="btn btn-sm" type="button" id="mAll" aria-pressed="false">All ${whos.length.toLocaleString("en-US")}</button>
     </div>
 
-    <p class="crumbs"><a href="/">Home</a> / <a href="/games/">Games</a> / Who's That Pokemon?</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/games/">Games</a> / Who's That Pokemon?</nav>
     <p class="price-note" style="margin-top:var(--s5)">Artwork and Pokedex data from
       <a href="https://pokeapi.co" rel="noopener" target="_blank" aria-label="pokeapi.co, the source of the artwork and the Pokedex data this game is built from, opens on pokeapi.co">pokeapi.co</a>, read
       ${esc(longDate(dex.checked) || dex.checked)}. Pokemon and all Pokemon names are trademarks of
@@ -1612,7 +1612,7 @@ const setPage = shell({
       <button class="btn btn-sm" type="button" id="mAny" aria-pressed="true">Any era</button>
       <button class="btn btn-sm" type="button" id="mEra" aria-pressed="false">Same era</button>
     </div>
-    <p class="crumbs"><a href="/">Home</a> / <a href="/games/">Games</a> / Guess the Set</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/games/">Games</a> / Guess the Set</nav>
     <p class="price-note" style="margin-top:var(--s5)">${quizCards.length.toLocaleString("en-US")} cards from
       ${setNames.length} English sets, sampled across each set's numbering so it is not all commons.
       Scans from TCGdex, read ${esc(longDate(printings.checked) || printings.checked)}.
@@ -1860,7 +1860,7 @@ ${/* "the good bit" is British for "the good part", and it is not a word a
   body: `<section class="tight">
   <div class="wrap">
     <div id="game" class="g-quiz"></div>
-    <p class="crumbs"><a href="/">Home</a> / <a href="/games/">Games</a> / Trivia</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/games/">Games</a> / Trivia</nav>
     <p class="price-note" style="margin-top:var(--s5)">${shuffled.length.toLocaleString("en-US")} questions, every one
       generated from <a href="https://pokeapi.co" rel="noopener" target="_blank" aria-label="pokeapi.co, the source of the artwork and of every question here, opens on pokeapi.co">pokeapi.co</a> data read
       ${esc(longDate(dex.checked) || dex.checked)}, and the official artwork mirrored from the same place. Nothing here

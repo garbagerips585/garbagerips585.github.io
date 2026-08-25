@@ -730,7 +730,7 @@ ${MENU}
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / What set is my card from?</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / What set is my card from?</nav>
 
     <div class="ws-tool">
       <label for="wsq">The number after the slash</label>

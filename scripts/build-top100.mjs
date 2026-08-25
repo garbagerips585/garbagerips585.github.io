@@ -1471,7 +1471,7 @@ ${MENU}
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / ${esc(cfg.navTitle)}</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / ${esc(cfg.navTitle)}</nav>
 ${/* WHAT THIS LIST ACTUALLY IS MOVED TO THE FOOT, 24 August 2026. The owner, about
       /most-valuable-cards.html: "at the top of this page there is way too much
       text... if that text needs to stay on the page for seo then thats fine but

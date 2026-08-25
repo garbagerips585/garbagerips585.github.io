@@ -680,7 +680,7 @@ ${MENU}
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / Pokemon lore</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Pokemon lore</nav>
 
     <div class="fk-golden" style="margin-bottom:var(--s6)">
       <p class="fk-golden-h">The mascots</p>

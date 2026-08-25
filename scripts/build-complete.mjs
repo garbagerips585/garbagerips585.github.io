@@ -530,7 +530,7 @@ ${MENU}
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / Cost to complete a set</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Cost to complete a set</nav>
 
     <div class="facts">
       <div class="fact"><div class="n">${moneyCompact(cheapest.base)}</div><div class="l">Cheapest base set (${esc(cheapest.name)})</div></div>

@@ -1207,7 +1207,16 @@ ${/* THE ROW LINK'S ACCESSIBLE NAME WAS THE SET AND NOTHING ELSE.
       r.product is the full TCGplayer product name and falls back to the set
       exactly as the picture's alt does eight lines up. */ ""}${e.prices.map((r) => `            <tr><th scope="row"><span class="op-ps">${priceShot(r)}${
     r.url
-      ? `<a href="${esc(r.url)}" rel="noopener" target="_blank" aria-label="${esc(r.product || `${r.name} ${e.label}`)}, opens on tcgplayer.com">${esc(r.name)}</a>`
+      ? // THE SET NAME LEADS, BECAUSE THE SET NAME IS WHAT THE LINK SHOWS.
+        // WCAG 2.5.3 Label in Name. The visible text is the SET ("Rebel
+        // Clash") and the label was the PRODUCT ("Legends of Galar Tin [Zacian
+        // V]"), which share no word, so speech input could not reach it. The
+        // product is the more useful half and is kept -- it just no longer
+        // replaces the visible half. Reads as "Rebel Clash, Legends of Galar
+        // Tin [Zacian V], opens on tcgplayer.com".
+        `<a href="${esc(r.url)}" rel="noopener" target="_blank" aria-label="${esc(r.name)}${
+          r.product ? `, ${esc(r.product)}` : ` ${esc(e.label)}`
+        }, opens on tcgplayer.com">${esc(r.name)}</a>`
       : esc(r.name)
   }</span></th><td>${esc(moneyExact(r.market))}</td><td>${
     typeof r.low === "number" ? esc(moneyExact(r.low)) : "<span class=\"op-no\">not listed</span>"

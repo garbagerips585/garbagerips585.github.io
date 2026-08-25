@@ -654,7 +654,7 @@ ${MENU}
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / <a href="${HUB.url}">${esc(HUB.label)}</a> / ${esc(h1)}</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="${HUB.url}">${esc(HUB.label)}</a> / ${esc(h1)}</nav>
     ${
       rows.length
         ? `<ul class="loc-list">

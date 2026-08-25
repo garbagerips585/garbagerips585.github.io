@@ -829,7 +829,7 @@ const body = `
             so it was missed. Same words on purpose: a reader listening to the
             page should not be told two different things about one control. */ ""}<a href="${SUBSCRIBE}"
         aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe &rarr;</a></div>
-    <p class="crumbs"><a href="/">Home</a> / About</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / About</nav>
     <p class="about-lede">Garbage Rips 585 is a Pokemon card channel from Rochester, New York.
       One guy, a camera and a pile of packs. Every rip ever filmed has its own page on this site,
       and wrapped around them is a guide to the rest of it: what cards are worth, where to buy

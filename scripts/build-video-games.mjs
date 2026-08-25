@@ -865,7 +865,7 @@ ${MENU}
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / Every Pokemon video game</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Every Pokemon video game</nav>
 
     <div class="vg-sum">
       <div><b>${n(GAMES.length)}</b><span>Games</span></div>

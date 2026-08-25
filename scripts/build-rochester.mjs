@@ -571,7 +571,7 @@ ${MENU}
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / Local scene</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Local scene</nav>
     ${/* THE LABEL AND THE LEDE BOTH USED TO BE ABOUT THE METHOD. "Counted, not
           claimed" over a paragraph explaining that the figures are read out of
           the files at build time is a note to the author, not to a reader, and

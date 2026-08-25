@@ -1001,7 +1001,7 @@ ${MENU}
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / Topps Pokemon cards</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Topps Pokemon cards</nav>
 
     <div class="fk-golden">
       <p class="fk-golden-h">First, the thing that trips everybody up</p>
@@ -1263,7 +1263,7 @@ ${MENU}
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / <a href="/topps.html">Topps Pokemon cards</a> / Values</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/topps.html">Topps Pokemon cards</a> / Values</nav>
 
     <div class="fk-golden">
       <p class="fk-golden-h">What these numbers are</p>
