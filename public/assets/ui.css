@@ -1559,6 +1559,12 @@ span.cq-name{color:var(--ink)}
 .loc{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s5);box-shadow:var(--lift);display:flex;flex-direction:column;gap:6px}
 .loc-h{display:flex;align-items:baseline;gap:var(--s3);flex-wrap:wrap}
+.loc-logo{flex:none;width:56px;height:56px;border-radius:var(--r-sm);
+  background:var(--card);border:1px solid var(--hair);overflow:hidden;
+  display:inline-flex;align-items:center;justify-content:center}
+.loc-logo img{width:100%;height:100%;object-fit:contain;display:block}
+.loc-h:has(.loc-logo){align-items:center}
+.loc-h:has(.loc-logo) h2{flex:1 1 0;min-width:0}
 .loc h2{font:400 var(--t-m)/1.15 var(--display)}
 .loc-vouch{font:700 var(--t-micro)/1 var(--mono);text-transform:uppercase;letter-spacing:.05em;
   color:var(--gold-deep);border:1px solid var(--gold);border-radius:var(--r-pill);padding:4px 8px}

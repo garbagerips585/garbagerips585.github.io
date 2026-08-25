@@ -4958,6 +4958,29 @@ span.cq-name{color:var(--ink)}
 .loc{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s5);box-shadow:var(--lift);display:flex;flex-direction:column;gap:6px}
 .loc-h{display:flex;align-items:baseline;gap:var(--s3);flex-wrap:wrap}
+/* THE CREATOR LOGO, IN THE SHOP'S BOX. Same 56px square, same radius and hair
+   border /shops.html uses, so the two kinds of card cannot drift apart.
+   BASELINE IS RIGHT FOR TEXT AND WRONG FOR A 56px SQUARE. .loc-h aligns on the
+   baseline so a name and its "Bought from them" chip sit on one line; drop an
+   image into that and it hangs off the text baseline. `:has()` centres ONLY the
+   cards that carry a logo, so the ones that do not are untouched.
+   background IS THE CARD, NOT BLACK. object-fit:contain letterboxes a
+   non-square logo -- Elliot's is 1024x856, so a square box leaves about 4px
+   top and bottom -- and on the shop page's #000 that reads as a black frame
+   round the artwork. On the card's own colour the bars simply disappear. */
+.loc-logo{flex:none;width:56px;height:56px;border-radius:var(--r-sm);
+  background:var(--card);border:1px solid var(--hair);overflow:hidden;
+  display:inline-flex;align-items:center;justify-content:center}
+.loc-logo img{width:100%;height:100%;object-fit:contain;display:block}
+.loc-h:has(.loc-logo){align-items:center}
+/* AND THE NAME TAKES WHAT IS LEFT INSTEAD OF PUSHING ITSELF ONTO A NEW LINE.
+   .loc-h wraps, and 56px of logo plus a gap plus "Elliot Does Pokemon" at
+   heading size is wider than the card, so the whole heading wrapped BELOW the
+   logo and left it sitting alone on a line of its own. flex:1 1 0 with
+   min-width:0 lets the heading shrink and wrap its own words beside the logo,
+   which is what it should have been doing. min-width matters: without it a flex
+   item refuses to shrink past its longest word and the wrap comes back. */
+.loc-h:has(.loc-logo) h2{flex:1 1 0;min-width:0}
 /* h2, not h3. The card title is the only heading under the page h1, so an h3
 here skipped a heading level. The declaration is unchanged from the `.loc h3`
 this replaces, which is the point: the size was always set here rather than

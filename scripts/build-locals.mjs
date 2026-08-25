@@ -225,8 +225,29 @@ const NO_WRITE_UP =
   `<p class="loc-nowrite">We have not written this one up yet. The links are theirs and they work; ` +
   `the description is the part we owe them.</p>`;
 
+/* A LOGO ONLY WHERE THE PERSON SENT ONE, which is the same rule /shops.html
+   already runs on and the same rule CLAUDE.md sets for the platform marks a few
+   lines up: we draw what we hold and we do not go and fetch one. `logoNote` in
+   data/creators.json records who sent it and when, so the permission is written
+   down beside the file rather than remembered.
+
+   THE SHOP SHAPE, DELIBERATELY. Same 56px box, same two renditions at 200w and
+   400w, same AVIF-then-WebP order, so a creator card and a shop card cannot
+   drift apart. Height comes off the stored logoW/logoH rather than being
+   assumed square -- Elliot's is 1024x856, and a hardcoded square would have
+   squashed it. */
+const logoFor = (o) => o.logo
+  ? `<span class="loc-logo"><picture>
+            <source type="image/avif" srcset="/assets/creators/${esc(o.logo)}-200.avif 200w, /assets/creators/${esc(o.logo)}-400.avif 400w" sizes="56px">
+            <img src="/assets/creators/${esc(o.logo)}-200.webp" alt="${esc(o.name)} logo" width="200" height="${
+              Math.round(200 * (o.logoH || 1) / (o.logoW || 1))
+            }" loading="lazy" decoding="async" srcset="/assets/creators/${esc(o.logo)}-200.webp 200w, /assets/creators/${esc(o.logo)}-400.webp 400w" sizes="56px">
+          </picture></span>`
+  : "";
+
 const card = (o, kind) => `      <li class="loc">
         <div class="loc-h">
+          ${logoFor(o)}
           <h2>${esc(o.name)}</h2>
           ${o.vouched ? `<span class="loc-vouch">Bought from them</span>` : ""}
         </div>
