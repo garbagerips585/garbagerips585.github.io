@@ -764,6 +764,43 @@ const ld = [
     ...(s.end ? { endDate: `${s.date}T${s.end}:00${tzOffset(s.date)}` } : {}),
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    /* SEARCH CONSOLE ASKED FOR FIVE FIELDS ON 25 August 2026 AND TWO OF THEM
+       ARE THINGS THIS SITE KNOWS. All five were flagged "non-critical", which
+       Google defines as suggestions that do not stop the page appearing.
+
+       description  the listing's own blurb, on 8 of the 23 shows.
+       organizer    the promoter, on 4. NOT s.source: that is the aggregator the
+                    listing was read from, cardshows.io, which runs none of
+                    these shows. Naming it organizer would be a plain untruth
+                    dressed as structured data.
+
+       THE OTHER THREE ARE LEFT OFF ON PURPOSE, because filling a schema field
+       is a claim and we have nothing true to put in any of them:
+
+       performer    a card show has no performer. It is a room of dealer tables.
+                    Schema.org lists the field as optional for exactly this kind
+                    of event.
+       image        there is no photograph of any of these shows in the repo.
+                    The site's own share card would be an image of Garbage Rips,
+                    not of the event, and Google would print it beside somebody
+                    else's show.
+       validFrom    the date an offer opens. Nothing in the listings states when
+                    admission goes on sale, and inventing one would date a
+                    ticket window that may not exist.
+
+       This is the same rule the offers block below already follows: a show whose
+       admission was never stated gets no offers block rather than a made up
+       zero that would read as "Free" in a search result. */
+    ...(s.blurb ? { description: s.blurb } : {}),
+    ...(s.organiser
+      ? {
+          organizer: {
+            "@type": "Organization",
+            name: s.organiser,
+            ...(s.organiserUrl ? { url: s.organiserUrl } : {}),
+          },
+        }
+      : {}),
     location: {
       "@type": "Place",
       name: s.venue,
