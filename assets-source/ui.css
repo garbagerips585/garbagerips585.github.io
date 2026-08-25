@@ -1575,7 +1575,11 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
 .pack:hover .pack-hint,
 .v .art:hover .pack-hint,.v .art:focus-visible .pack-hint,
 .hero-art:hover .pack-hint,.hero-art:focus-visible .pack-hint,
-.hofx:hover .pack-hint,.hofx:focus-visible .pack-hint{
+.hofx:hover .pack-hint,.hofx:focus-visible .pack-hint,
+/* Same omission as the sizing rule above: the rip-page rail tile had no hover
+   or focus state at all, so its banner stayed the resting blue while every
+   other tile on the site went to --gold-deep. */
+.vid-shell:hover > .pack-hint,.vid-shell:focus-visible > .pack-hint{
   background:var(--gold-deep);color:var(--on-accent)}
 .pack:hover .pack-face{transform:scale(1.012)}
 /* THE PACK GIVES UNDER YOUR THUMB BEFORE IT TEARS, and this is the only rule in
@@ -1652,8 +1656,26 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
    decision this file should not restate. min-height keeps the bar 44px whatever
    the type does, so if a browser ever wraps the label to two lines the geometry
    does not move and .dur's 50px offset stays correct. */
-.v .art,.hero-art,.hofx-art{container-type:inline-size}
-.v .art .pack-hint,.hero-art .pack-hint,.hofx-art .pack-hint{
+/* .vid-shell JOINS THEM, and without it the clamp above cannot work. A
+   container query unit needs a container: with none, 4.6cqi does not resolve
+   and clamp(.5rem,4.6cqi,.72rem) falls to its MAXIMUM, so the rip-page rail
+   banners rendered at 11.52px on a 161px tile and wrapped to two lines. Adding
+   the rule to the selector list above was necessary and not sufficient; this is
+   the other half. Measured on a 375px viewport after: tile 161px, so 4.6cqi is
+   7.4px, clamped up to the .5rem floor of 8px, and the banner sets on one line
+   at every width from 320 to 1440. */
+.v .art,.hero-art,.hofx-art,.vid-shell{container-type:inline-size}
+/* .vid-shell IS THE RIP-PAGE RAIL TILE and it was missing from this list, so
+   3,020 banners fell back to the base rule's fixed .66rem and could not shrink.
+   Measured on a rip page before adding it: the bar wrapped to TWO lines at 320,
+   344, 360, 375 and 768, swelling from 32px to 49px and swallowing the pack
+   artwork's own "Garbage Rips 585" wordmark. 375 and 360 are the two commonest
+   phone widths after 390, and at 390 it fit with 2.1px of slack -- one font
+   fallback or a user minimum font size from wrapping too.
+   The banner sits OUTSIDE .pack on these tiles deliberately, because
+   .pack--tile .pack-hint is display:none, so it could not be a descendant. That
+   placement is also why none of these rules reached it. */
+.v .art .pack-hint,.hero-art .pack-hint,.hofx-art .pack-hint,.vid-shell > .pack-hint{
   box-sizing:border-box;bottom:0;min-height:44px;
   display:flex;align-items:center;justify-content:center;
   padding:6px 8px;line-height:1.2;text-wrap:balance;

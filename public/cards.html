@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=037cc7e7">
-<link rel="stylesheet" href="/assets/ui.css?v=adc7d782">
+<link rel="stylesheet" href="/assets/ui.css?v=69ed5488">
 <style>@media(min-width:700px){
   .cq-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}
 }
@@ -992,6 +992,17 @@
     fetch('/data/card-index.json').then(function(r){ return r.json(); }).then(function(j){
       DATA=j; LOADING=false;
       var q=WAITING; WAITING=[];
+      // NOTHING WAITING MEANS NOTHING WILL CLEAR THE STATUS, and it sat on
+      // "Loading the card list..." for ever. The focus handler warms the index
+      // with load() and NO callback, so on the common path -- tab into the box,
+      // do not type yet -- the queue drained empty and the line above stayed.
+      // Measured on the live page with real Tab presses: focus reached the
+      // input at t=14.4s, card-index.json completed at t=9.75s, and the region
+      // still read "Loading the card list..." at t=26.4s. It is a VISIBLE
+      // 580x18 element as well as a polite live region, so a sighted reader and
+      // a screen reader were both told the page was still loading.
+      // A callback sets its own status, so this only speaks when none will.
+      if(!q.length) setStatus('');
       q.forEach(function(fn){ fn(); });
     }).catch(function(){
       LOADING=false; WAITING=[];

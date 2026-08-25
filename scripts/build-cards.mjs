@@ -778,6 +778,17 @@ ${footer(priceFooter("Fan made, not official."))}
     fetch('/data/card-index.json').then(function(r){ return r.json(); }).then(function(j){
       DATA=j; LOADING=false;
       var q=WAITING; WAITING=[];
+      // NOTHING WAITING MEANS NOTHING WILL CLEAR THE STATUS, and it sat on
+      // "Loading the card list..." for ever. The focus handler warms the index
+      // with load() and NO callback, so on the common path -- tab into the box,
+      // do not type yet -- the queue drained empty and the line above stayed.
+      // Measured on the live page with real Tab presses: focus reached the
+      // input at t=14.4s, card-index.json completed at t=9.75s, and the region
+      // still read "Loading the card list..." at t=26.4s. It is a VISIBLE
+      // 580x18 element as well as a polite live region, so a sighted reader and
+      // a screen reader were both told the page was still loading.
+      // A callback sets its own status, so this only speaks when none will.
+      if(!q.length) setStatus('');
       q.forEach(function(fn){ fn(); });
     }).catch(function(){
       LOADING=false; WAITING=[];

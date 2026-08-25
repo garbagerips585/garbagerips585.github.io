@@ -28,7 +28,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=037cc7e7">
-<link rel="stylesheet" href="/assets/ui.css?v=adc7d782">
+<link rel="stylesheet" href="/assets/ui.css?v=69ed5488">
 <link rel="stylesheet" href="/assets/packs.css?v=bb70e5eb">
 <style>.rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
 .rk svg{width:11px;height:11px;display:block}
@@ -535,7 +535,35 @@ or another certified Garbage Rip.</div>
 // first kept an orphaned registry of what was playing.
 addEventListener('DOMContentLoaded',function(){
   var r=document.querySelector('.rip-stage');
-  if(r&&window.GRPack) GRPack.attach(r);
+  if(!r||!window.GRPack) return;
+  GRPack.attach(r);
+  // THE HERO NEVER JOINED THE SINGLE-PLAYER REGISTRY, so a rip page could run
+  // TWO embeds and two audio tracks at once. GRPack.attach() wires the pack;
+  // GRPack.open() is what registers with the registry, and only the rail tiles
+  // called it. So the hero mounted with the registry still empty and nothing was torn
+  // down, and the hero was invisible to the registry when a tile opened later.
+  // Reproduced with real clicks in fresh browsers in BOTH orders.
+  //
+  // It is not new: the hero has always been outside the registry. Putting the
+  // banner on 3,020 rail tiles on 24 August 2026 made it far easier to reach,
+  // which is how it was found.
+  //
+  // REGISTERING IS THE WHOLE FIX AND IT CLOSES BOTH DIRECTIONS. open() tears
+  // down whatever is live before arming the next, so clicking the hero now
+  // stops a playing tile, and clicking a tile afterwards runs this teardown.
+  // The teardown drops the iframe rather than restoring the pack: the pack has
+  // already been animated away and its opened flag is latched, and a hero that
+  // silently re-sealed itself would be a stranger thing than an empty stage.
+  // Dropping the embed is what stops the audio and frees the ~540KB, which is
+  // the actual harm.
+  var pk=r.querySelector('.pack');
+  if(pk) pk.addEventListener('click',function(){
+    var host=r.querySelector('.rip-player')||r;
+    GRPack.open(host,function(){
+      var f=host.querySelector('iframe');
+      if(f) f.remove();
+    });
+  });
 });
 </script>
 <div class="hitlb" id="hitlb" role="dialog" aria-modal="true" aria-labelledby="hitlbName" hidden>

@@ -1975,7 +1975,13 @@ ${rest.map((c, i) => plaque(c, i + 1)).join("\n")}
   </div>
 </main>
 
-<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Card">
+<!-- aria-labelledby, NOT a static aria-label. With aria-label="Card" every
+     card on this page announced as "Card, dialog" -- the one thing the dialog
+     exists to name was the one thing it did not say. The rip pages' own
+     .hitlb already does this correctly with aria-labelledby, announcing
+     "Salazzle ex, dialog", so this is the two matching rather than a new
+     pattern. -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lbNm">
   <button class="lb-close" type="button" aria-label="Close">&times;</button>
   <div class="lb-in">
     <picture><source id="lbAvif" type="image/avif"><img id="lbImg" src="" alt=""></picture>
@@ -2003,7 +2009,14 @@ ${rest.map((c, i) => plaque(c, i + 1)).join("\n")}
     if(src.indexOf('https://assets.tcgdex.net/')===0 && src.slice(-5)==='.webp')
       avif.setAttribute('srcset', src.slice(0,-5)+'.avif');
     else avif.removeAttribute('srcset');
-    img.src=src; img.alt=b.dataset.name+' '+b.dataset.number;
+    img.src=src; /* alt='' BECAUSE THE DIALOG ALREADY SAYS ALL OF IT. This was
+    b.dataset.name + ' ' + b.dataset.number, which produced
+    "Team Rocket's Mewtwo ex 240": a bare collector number with no context,
+    duplicating the h2 directly below the image AND the #240 in the rarity
+    line. A reader heard the card name three times and "240" twice. The
+    dialog is now labelled by that same h2, so the image is decorative
+    within it. */
+    img.alt='';
     document.getElementById('lbNm').textContent=b.dataset.name;
     document.getElementById('lbRr').textContent=[b.dataset.set,b.dataset.rarity,'#'+b.dataset.number].filter(Boolean).join(' \\u2022 ');
     document.getElementById('lbPr').textContent=[

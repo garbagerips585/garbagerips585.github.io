@@ -898,7 +898,16 @@ ${chips("gen", gens.map((g) => [String(g), `Gen ${g}`, genCounts[g]]))}
       <div class="ev-find">
         <label class="sr-only" for="evq">Find a Pokemon</label>
         <input id="evq" type="search" placeholder="Gible, Eevee, Magikarp..." autocomplete="off" enterkeyhint="search">
-        <p class="ev-count" id="evCount"></p>
+        ${/* role="status" BECAUSE THIS PAGE HAD NO LIVE REGION AT ALL. This
+              counter is the only feedback that the search box or any of the 18
+              filter chips did anything: typing "eevee" takes it from "340
+              lines, 201 that do not evolve" to "1 line" while the list
+              re-renders underneath. Without a live region a screen reader user
+              gets NOTHING back from either control. Every comparable page on
+              the site already does this -- cards, search, videos, drops,
+              grading, msrp, pokemon/index -- so this was the odd one out
+              rather than a new idea. */ ""}
+        <p class="ev-count" id="evCount" role="status" aria-live="polite"></p>
       </div>
 
 ${stepFig()}

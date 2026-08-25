@@ -427,13 +427,14 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
 .pack:hover .pack-hint,
 .v .art:hover .pack-hint,.v .art:focus-visible .pack-hint,
 .hero-art:hover .pack-hint,.hero-art:focus-visible .pack-hint,
-.hofx:hover .pack-hint,.hofx:focus-visible .pack-hint{
+.hofx:hover .pack-hint,.hofx:focus-visible .pack-hint,
+.vid-shell:hover > .pack-hint,.vid-shell:focus-visible > .pack-hint{
   background:var(--gold-deep);color:var(--on-accent)}
 .pack:hover .pack-face{transform:scale(1.012)}
 .pack:active .pack-face{transform:scale(.988)}
 .pack-face{transition:transform .18s cubic-bezier(.2,.7,.3,1)}
-.v .art,.hero-art,.hofx-art{container-type:inline-size}
-.v .art .pack-hint,.hero-art .pack-hint,.hofx-art .pack-hint{
+.v .art,.hero-art,.hofx-art,.vid-shell{container-type:inline-size}
+.v .art .pack-hint,.hero-art .pack-hint,.hofx-art .pack-hint,.vid-shell > .pack-hint{
   box-sizing:border-box;bottom:0;min-height:44px;
   display:flex;align-items:center;justify-content:center;
   padding:6px 8px;line-height:1.2;text-wrap:balance;

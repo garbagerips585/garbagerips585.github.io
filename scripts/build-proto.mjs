@@ -1162,7 +1162,14 @@ ${list
       </div>
       ${list.length > 1 ? `<div class="vcar-bar">
         <button class="vcar-nav" type="button" data-vcar-prev aria-label="Previous rip">&larr;</button>
-        <p class="vcar-count" aria-live="polite"><span data-vcar-i>1</span> / ${list.length}</p>
+        ${/* aria-atomic BECAUSE ONLY THE SPAN CHANGES. The live region is the
+              whole paragraph, "1 / 5", but the carousel rewrites only the
+              number inside the span. With aria-atomic defaulting to false a
+              screen reader announces just the changed node, so scrolling the
+              track said "2" -- no denominator, no context, no idea what the
+              2 counts. Confirmed by logging the mutations: the only one is
+              childList on the span, new value "2". */ ""}
+        <p class="vcar-count" aria-live="polite" aria-atomic="true"><span data-vcar-i>1</span> / ${list.length}</p>
         <button class="vcar-nav" type="button" data-vcar-next aria-label="Next rip">&rarr;</button>
       </div>` : ""}
     </div>`;
