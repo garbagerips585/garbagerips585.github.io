@@ -3508,27 +3508,24 @@ ${rows}
                  which is that we have not opened this set on camera, and it
                  takes the release tile's own font-size override because it is a
                  word in a slot sized for two digits. */ ""}<div class="fact"><div class="n" style="font-size:1.15rem">None yet</div><div class="l">Rips on this channel</div></div>`}
-      <div class="fact wide"><div class="n" style="font-size:1.15rem">${longDate(s.released) || "Unknown"}</div><div class="l">Release date${s.released ? ` &bull; ${yearsSince(s.released)}` : ""}</div></div>
-    </div>${/* DIRECTLY UNDER THE COUNT IT CORRECTS, AND ABOVE THE CHASE GRID.
-          The "Cards total" tile two lines up is the number a reader takes away,
-          and on three guides it is the size of a checklist rather than of a
-          set. Below the chase grid is after the damage, and inside Quick facts
-          is where this already lived and was missed.
-          THE NEWLINE IS INSIDE THE TERNARY. Written the obvious way, with the
-          interpolation on its own indented line, the 25 guides with no
-          companion each gained a line of trailing spaces. */ ""}${
-      comp ? `\n    ${compBand(s, comp)}` : ""}
-${(() => {
-  // The pack price was waiting on a human and did not need to be. Every one of
-  // the 23 sets already carries a live TCGplayer "Single Pack" market price
-  // through sync-products.mjs, and the SAME figure is already printed further
-  // down this page in the "What you can buy" band, so surfacing it up here adds
-  // no claim the page was not already making. data/set-notes.json held nothing
-  // but its readme, so this tile was hidden on all 23 sets while the number sat
-  // in the data.
+      ${(() => {
+  // THESE TWO USED TO BE A SECOND .facts GRID OF THEIR OWN, and a grid of one
+  // tile is the one case the orphan rules cannot help. Above 700
+  // `.fact:last-child:nth-child(4n + 1)` spans a lone tile across the row,
+  // which is right when it is the last tile of a full strip and wrong when it
+  // is the ONLY tile: on /sets/151.html it made "$29.58" sit in a 1,232px bar
+  // at a 1,280px viewport, under a row of four 298px tiles. Measured at five
+  // widths; the bar appeared at every one of them from 768 up.
   //
-  // A hand-written note still wins: someone who has actually stood in a shop
-  // knows something TCGplayer does not.
+  // IN THE SAME GRID THEY ARE ORDINARY TILES. The price becomes the fifth
+  // child, which lands it on `.fact:nth-child(4n + 1):nth-last-child(2)` --
+  // the row-of-two rule -- so it and the release date each take half the row.
+  // Below 700 nothing changes: the orphan rules live in a min-width query, and
+  // the tile was already a plain half-width cell there.
+  //
+  // BEFORE THE WIDE TILE, NOT AFTER, so the release date stays last. It is the
+  // one tile written to end the strip, and both orphan rules are anchored to
+  // where a tile falls in the order.
   const live = (productsBySet[s.id]?.products || []).find((p) => p.kind === "Single Pack");
   const packPrice = s.notes?.packPrice || (typeof live?.market === "number" ? moneyExact(live.market) : null);
   // The two are different claims and the label says which. "Typical" is a
@@ -3539,13 +3536,19 @@ ${(() => {
   // under the products band, and spelling it out again in a fact tile ran the
   // label to three lines on a phone for information the reader already has.
   const packFrom = s.notes?.packPrice ? "Single pack, typical" : "Single pack, market price";
-  if (!s.notes?.inPrint && !packPrice) return "";
-  return `
-    <div class="facts" style="margin-top:12px">
-      ${s.notes?.inPrint ? `<div class="fact"><div class="n" style="font-size:1.1rem">${esc(s.notes.inPrint)}</div><div class="l">Still in print?</div></div>` : ""}
-      ${packPrice ? `<div class="fact"><div class="n">${esc(packPrice)}</div><div class="l">${esc(packFrom)}</div></div>` : ""}
-    </div>`;
+  return `${s.notes?.inPrint ? `<div class="fact"><div class="n" style="font-size:1.1rem">${esc(s.notes.inPrint)}</div><div class="l">Still in print?</div></div>\n      ` : ""}${packPrice ? `<div class="fact"><div class="n">${esc(packPrice)}</div><div class="l">${esc(packFrom)}</div></div>\n      ` : ""}`;
 })()}
+      <div class="fact wide"><div class="n" style="font-size:1.15rem">${longDate(s.released) || "Unknown"}</div><div class="l">Release date${s.released ? ` &bull; ${yearsSince(s.released)}` : ""}</div></div>
+    </div>${/* DIRECTLY UNDER THE COUNT IT CORRECTS, AND ABOVE THE CHASE GRID.
+          The "Cards total" tile two lines up is the number a reader takes away,
+          and on three guides it is the size of a checklist rather than of a
+          set. Below the chase grid is after the damage, and inside Quick facts
+          is where this already lived and was missed.
+          THE NEWLINE IS INSIDE THE TERNARY. Written the obvious way, with the
+          interpolation on its own indented line, the 25 guides with no
+          companion each gained a line of trailing spaces. */ ""}${
+      comp ? `\n    ${compBand(s, comp)}` : ""}
+
 ${symbolFor(s) ? `
     <div class="setsym">
       ${symbolFor(s)}
