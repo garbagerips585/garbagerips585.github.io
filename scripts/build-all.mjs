@@ -36,6 +36,13 @@ const STEPS = [
   // import time for the cache-busting ?v=. Run it later and every page is
   // stamped with the hash of the stylesheet it is not carrying.
   "node scripts/build-css.mjs",
+  // AND THE SCRIPTS, FOR THE SAME REASON AND IN THE SAME SLOT. shared/chrome.mjs
+  // hashes public/assets/app.js at import time for its cache-busting ?v=, exactly
+  // as it hashes ui.css, so this has to run before the first builder that imports
+  // chrome.mjs or every page ships stamped with the hash of a file it is not
+  // carrying. Strips the comments out of assets-source/js/ into public/assets/:
+  // 37.6 KB gzipped, and the reasoning stays in the repo where it is useful.
+  "node scripts/build-js.mjs",
   "node scripts/stamp-labels.mjs",
   "node scripts/sync-chrome.mjs",
   "python3 scripts/build-og-pages.py",
