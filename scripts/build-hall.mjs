@@ -27,7 +27,7 @@ import { SITE } from "../shared/site.mjs";
 import { APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/chrome.mjs";
 import { loadCorpus, corpusCard } from "../shared/subset-cards.mjs";
 import { esc, shortDate, moneyCompact, noValue, rarityLabel, imgDims, cardNumKey, avifPicture } from "../shared/format.mjs";
-import { loadGradedPrices, MIN_SALES } from "../shared/graded-price.mjs";
+import { loadGradedPrices } from "../shared/graded-price.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
 // THE RULE IS intl-printing.mjs AND IT IS UNCHANGED. This asks it in the rip
 // log's own vocabulary and hands back the guide's own row; see that file.
@@ -738,7 +738,7 @@ const setById = new Map(sets.map((s) => [s.id, s]));
 // numbers, which is exactly what the header of this file says cannot happen.
 // Read that module before changing anything below: the number check against
 // `matched` is load bearing and its reasons are listed there.
-const { pc, pricecharting, nearMisses } = await loadGradedPrices();
+const { pc, pricecharting, nearMisses, resolve: gradedResolve } = await loadGradedPrices();
 
 // TCGplayer product links, keyed by set then collector number.
 //
@@ -777,7 +777,6 @@ function resolve(c) {
   // this is empty, so there is no stray bullet either.
   const setName = set?.name || c._setName || c.setName || c.set || "";
 
-  const manual = graded.prices?.[key];
   const auto = graded.auto?.[key];
   // A PERSON STILL WINS, THEN PRICECHARTING, THEN THE PRICE SYNC. The middle two
   // swapped places on 18 August 2026 on the owner's instruction: "lets use
@@ -812,15 +811,33 @@ function resolve(c) {
   // PriceCharting was the number actually on the page. Reordering the chain
   // would have made that misattribution common instead of rare, so the source is
   // now recorded by whoever supplies the figure, in the same expression.
-  const manualPrice =
-    typeof manual?.price === "number" ? manual.price : typeof manual === "number" ? manual : null;
-  const autoPrice =
-    auto?.psa10 && !(auto.psa10Sales != null && auto.psa10Sales < MIN_SALES) ? auto.psa10 : null;
+  /* THE SHARED LADDER, NOT A THIRD COPY OF IT. This file built its own
+     manual -> graded.json -> tracker chain, and on 25 August 2026 a fourth tier
+     was added to shared/graded-price.mjs -- the per-set checklists under
+     public/data/cards/, which carry a PriceCharting psa10 for 5,128 of 5,181
+     cards. Every other renderer goes through the module and picked it up. This
+     one did not, because it had its own chain, and the result was the very bug
+     that change set out to kill: Team Rocket's Mewtwo ex, Destined Rivals #240,
+     published at $188 on /hall.html off the tracker and $185 on the set guide
+     off the checklist. One card today; every future card with a checklist
+     figure and no graded.json row would have joined it.
+
+     `from` COMES BACK FROM THE MODULE and is not re-derived here, which is the
+     property the comment above this one asks for: the source is recorded by
+     whoever supplies the figure. The module returns "manual", "pricecharting"
+     or "tracker", the same three words this chain already used, so the
+     attribution and the URL below read unchanged.
+
+     THE LOG STAYS LAST AND STAYS LOCAL. It is the only tier the module does not
+     know about, for the reason written under it: TCGdex carries no TCGplayer
+     pricing for promo sets, so hits.json is the only copy of those two numbers
+     and nothing in a nightly can regenerate them. */
+  const shared = c.set && c.number
+    ? gradedResolve(c.set, c.number, { name: c.name, setName })
+    : null;
 
   const psaChain = [
-    { v: manualPrice, from: "manual" },
-    { v: pcHit?.psa10 ?? null, from: "pricecharting" },
-    { v: autoPrice, from: "tracker" },
+    { v: shared?.price ?? null, from: shared?.from ?? null },
     // `c._psa10` LAST, AND ITS ABSENCE HERE WAS THE SAME BUG AS `_setName` ABOVE:
     // the promo branch wrote a field under an underscore and nothing read it
     // back. `_raw` was read (which is why $38.75 showed) and `_psa10` was not, so
@@ -899,7 +916,12 @@ function resolve(c) {
       : psaFrom === "log" ? c._psa10Source || "pricecharting.com"
       : null,
     psa10Url:
-      psaFrom === "pricecharting" ? pcHit?.url || null
+      /* shared.url FIRST, because "pricecharting" now means one of two files.
+         graded.json rows carry their own url and so does every checklist row
+         (`pcUrl`); the module hands back whichever one actually answered. Read
+         off pcHit alone this went null for every card the checklist supplied,
+         which is a figure credited to PriceCharting with no way to go and look. */
+      psaFrom === "pricecharting" ? shared?.url || pcHit?.url || null
       : psaFrom === "log" ? c._psa10Url || null
       : null,
   };

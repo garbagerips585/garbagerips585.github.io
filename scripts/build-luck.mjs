@@ -586,6 +586,12 @@ let cardRows = 0;
         rarity: m.rarity || h.rarity || null,
         raw: typeof m.price === "number" && m.price > 0 ? m.price : null,
         psa: g && typeof g.price === "number" ? g.price : null,
+        // WHO SAID SO AND WHEN, CARRIED WITH THE FIGURE. The resolver hands
+        // both back in the same call that produced the number, and this file
+        // was throwing them away -- which is why the page printed thirteen PSA
+        // 10 figures under a sentence that dates the UNGRADED ones only.
+        psaSource: g?.source ?? null,
+        psaAsOf: g?.asOf ?? null,
       });
     }
   }
@@ -1935,7 +1941,30 @@ ${prodRows.map((r, i) => prodCard(r, i)).join("\n")}
         two different measurements and the ungraded top and the graded top come apart as soon as a cheaper card with a
         strong graded price turns up.`
           : `These readings do not agree with each other, which is the interesting part rather than a problem to tidy away.`
-      }${priceDoc ? ` ${priceNote(priceDoc, { lead: "Ungraded figures" })}` : ""}</p>
+      }${priceDoc ? ` ${priceNote(priceDoc, { lead: "Ungraded figures" })}` : ""}${
+        /* AND A SECOND SENTENCE FOR THE GRADED ONES, because the first covers
+           only the ungraded column and this page prints both. Every other page
+           that publishes a PSA 10 names its feed and dates it; this one named
+           pricecharting.com for the UNGRADED figures and left thirteen graded
+           ones unattributed, which reads as though the ungraded sentence covers
+           them. It does not: a graded sale and an ungraded guide value are
+           different measurements read on different days.
+
+           BUILT FROM THE FIGURES ACTUALLY USED, never typed. The names and the
+           date come off the resolver stamps collected in cardLedger above, so
+           a feed change cannot leave this sentence crediting a source the page
+           has stopped reading. */ ""
+      }${(() => {
+        const used = cardLedger.filter((c) => typeof c.psa === "number" && c.psaSource);
+        if (!used.length) return "";
+        const who = [...new Set(used.map((c) => c.psaSource))].sort();
+        const dates = [...new Set(used.map((c) => c.psaAsOf).filter(Boolean))].sort();
+        const when = dates.length > 1
+          ? ` between ${shortDate(dates[0])} and ${shortDate(dates[dates.length - 1])}`
+          : dates.length ? ` on ${shortDate(dates[0])}` : "";
+        return ` PSA 10 figures come from ${who.join(" and ")}, read${when}, and are a`
+          + ` different measurement from the ungraded guide value above.`;
+      })()}</p>
       <div class="bests">
 ${
   bestRawCard

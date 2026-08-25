@@ -846,7 +846,13 @@ const style = `
    .shop-facts dd a carries, because that rule is there to make a phone
    number and an address tappable and this is a word inside a sentence. */
 .shop-checked{display:block;font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2)}
-.shop-checked a{display:inline;min-height:0}
+/* .shop-facts dd .shop-checked a, NOT .shop-checked a, AND THE EXTRA CLASS IS
+   THE ENTIRE POINT. ui.css sets a 44px min-height on .shop-facts dd a to make
+   a phone number and an address tappable, and that selector scores 0-1-2
+   against this one's 0-1-1, so the shorter form LOST no matter where it sits in
+   the cascade. The result was an 11px footnote rendering inside a 44px box: 27
+   pixels of dead air under the hours in every shop card, measured. */
+.shop-facts dd .shop-checked a{display:inline;min-height:0}
 
 /* What you can actually turn up and play. */
 .shop-play{margin-top:var(--s3);padding:var(--s3);background:var(--paper-3);border-radius:var(--r-sm)}

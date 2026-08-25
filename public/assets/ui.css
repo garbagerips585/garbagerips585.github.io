@@ -1347,6 +1347,9 @@ footer .soc svg{fill:var(--chrome-ink)}
   .fact:nth-child(4n + 1):nth-last-child(2),
   .fact:nth-child(4n + 1):nth-last-child(2) + .fact{grid-column:span 2}
 }
+@media(max-width:699px){
+  .fact:nth-child(2n + 1):nth-last-child(2):has(+ .fact.wide){grid-column:1 / -1}
+}
 :root{--measure:36em}
 @media(min-width:1000px){
   main :is(p,dd,blockquote,figcaption){max-width:var(--measure)}

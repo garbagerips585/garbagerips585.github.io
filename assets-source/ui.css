@@ -4177,6 +4177,34 @@ footer .soc svg{fill:var(--chrome-ink)}
   .fact:nth-child(4n + 1):nth-last-child(2) + .fact{grid-column:span 2}
 }
 
+/* THE SAME RAGGED ROW, IN THE TWO-COLUMN LAYOUT. Everything above lives in a
+   min-width:700px query, so the phone had no equivalent and a tile that starts
+   the last row on its own sat in the left half with the right half empty.
+
+   IT IS OLDER THAN THE GRID MERGE THAT SURFACED IT. Before the two .facts grids
+   became one, the price tile was alone in a grid of its own and looked exactly
+   the same; merging them moved the hole rather than making it. 28 English set
+   guides show it, and the 11 ja-/ko- guides do not, because they carry five
+   tiles rather than six.
+
+   `:nth-child(2n + 1)` is "starts a row" at two columns and `:nth-last-child(2)`
+   is "second from the end", so together they are the only way a row of exactly
+   one can be left in front of the trailing .fact.wide. The wide tile keeps its
+   1/-1 here: the release date sets on one line at 350px and wraps at 170px,
+   which is why it was made wide in the first place. */
+@media(max-width:699px){
+  /* `:has(+ .fact.wide)` IS LOAD-BEARING AND THE RULE IS WRONG WITHOUT IT.
+     Written first as the bare `:nth-child(2n + 1):nth-last-child(2)`, it fired
+     on EVERY even-count grid, because in those the second-from-last tile always
+     starts a row -- and in those the row is already full. Counted across the
+     built site before shipping it: it would have broken 803 grids that are
+     correct today (58 of two tiles, 60 of four, 685 of six) by spanning a tile
+     that has a neighbour and shoving that neighbour onto a row of its own.
+     The orphan only exists when the LAST tile is .fact.wide and therefore takes
+     a row to itself, which leaves the one before it genuinely alone. */
+  .fact:nth-child(2n + 1):nth-last-child(2):has(+ .fact.wide){grid-column:1 / -1}
+}
+
 /* ==========================================================================
    THE READING MEASURE. ONE CAP, WRITTEN IN em, AND NEVER IN ch.
 
