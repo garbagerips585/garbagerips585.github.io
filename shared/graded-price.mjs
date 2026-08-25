@@ -104,6 +104,64 @@ export async function loadGradedPrices() {
     /* no graded sample yet; the chain skips tier 2 */
   }
 
+  /* THE SAME PRICECHARTING READ THE CHECKLISTS ALREADY CARRY, 25 August 2026.
+   *
+   * data/graded.json holds 153 hand-verified rows. The per-set checklists under
+   * public/data/cards/ hold a PriceCharting psa10 for 5,128 of 5,181 cards, out
+   * of the same crawl, and every builder that reads THOSE has been answering
+   * differently from every builder that reads this module. /grading.html builds
+   * its own map off the checklists; the set guides, /hall.html and /index.html
+   * come through here and fell past graded.json's 153 rows straight to the
+   * tracker.
+   *
+   * SO THE SAME CARD WAS PUBLISHED TWICE AT TWO PRICES. Maushold, Paldea
+   * Evolved #226: $1,452.50 on /grading.html and $709 on the set guide, both
+   * dated, both sourced, on a site whose rule is that every price says where it
+   * came from. Every one of the 20 cards that appears on both pages disagreed
+   * with itself.
+   *
+   * IT GOES BEHIND graded.json, NOT IN FRONT. That file is hand-verified and
+   * drops a row whose `matched` number disagrees, so it is the better answer
+   * where it has one; this only fills the fall-through. No figure graded.json
+   * supplies changes.
+   *
+   * THE JOIN IS SAFER THAN THE ONE ABOVE IT. These are our own checklists,
+   * keyed by set id and card number, so there is no name matching to get wrong
+   * -- which is the failure mode the long note at the top of this file exists
+   * to guard against.
+   *
+   * THE DATE IS THE PRICE CRAWL'S, NOT THE FILE'S. Each checklist carries
+   * `checked` for its card data and `pricesChecked` for the money, and they are
+   * different days. Stamping a price with the card-data date would credit a
+   * reading that never happened. */
+  const pcCards = {};
+  let pcCardsSource = null;
+  try {
+    const { readdir } = await import("node:fs/promises");
+    const dir = join(ROOT, "public/data/cards");
+    for (const f of await readdir(dir)) {
+      if (!f.endsWith(".json")) continue;
+      const doc = JSON.parse(await readFile(join(dir, f), "utf8"));
+      if (!doc?.set || !Array.isArray(doc.cards)) continue;
+      pcCardsSource = pcCardsSource || doc.priceSource || "pricecharting.com";
+      for (const c of doc.cards) {
+        if (typeof c?.psa10 !== "number" || !c.psa10) continue;
+        const rec = {
+          psa10: c.psa10,
+          url: c.pcUrl || null,
+          source: doc.priceSource || "pricecharting.com",
+          asOf: doc.pricesChecked || null,
+        };
+        // Both spellings, for the same reason `at` above looks up both: one
+        // checklist numbers a chase card "094" and another store says "94".
+        pcCards[`${doc.set}-${c.n}`] = rec;
+        pcCards[`${doc.set}-${pcNum(c.n)}`] ??= rec;
+      }
+    }
+  } catch {
+    /* no checklists on disk; the chain simply skips this tier */
+  }
+
   const pcByName = new Map();
   for (const rec of Object.values(pc.cards || {})) {
     const k = pcNorm(rec.name);
@@ -229,6 +287,22 @@ export async function loadGradedPrices() {
         // so at the top level rather than per record.
         asOf: pc.checked || null,
         url: hit.url || null,
+        sales: null,
+      };
+    }
+
+    // TIER 3: the same PriceCharting figure /grading.html has always used.
+    const pcc = at(pcCards, setId, number);
+    if (pcc) {
+      return {
+        price: pcc.psa10,
+        from: "pricecharting",
+        source: pcc.source,
+        asOf: pcc.asOf,
+        url: pcc.url,
+        // Null for the same reason tier 2 is null: PriceCharting publishes no
+        // sale count, and a "279 sales" note under its number would be
+        // describing the other feed's measurement.
         sales: null,
       };
     }
