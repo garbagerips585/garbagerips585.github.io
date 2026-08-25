@@ -14,7 +14,7 @@
       "path": "rip/the-post-gold-curse-is-real-I9jPRYXbqkg.html",
       "published": "2026-08-25",
       "duration": 19,
-      "views": 28,
+      "views": 76,
       "vertical": true,
       "short": true,
       "sets": [
@@ -24,7 +24,22 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Chaos Rising ETB"
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "boxNumber": 3,
+      "packNumber": 5,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB 3 - Pack 5"
     },
     {
       "id": "tACIiMz6vRk",
