@@ -54,7 +54,50 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # WHICH CRON IS 9am IN NEW YORK IS DECIDED BY THE DST OFFSET, NOT BY THE CLOCK
+  # WHEN THE JOB HAPPENS TO START. The old guard asked the runner what hour it
+  # was and stopped unless the answer was exactly "09". GitHub then ran these
+  # crons late -- measured over five days, between 54 minutes and 3 hours 3
+  # minutes late -- so on three of those five days BOTH crons woke up past 09
+  # and the refresh never ran at all.
+  #
+  # github.event.schedule NAMES THE CRON THAT FIRED, and it is stamped at
+  # trigger time, so a late start cannot change it. Pair that with the current
+  # UTC offset -- -0400 in summer, -0500 in winter -- and exactly one of the two
+  # crons is the 9am one on any given day, however late either arrives.
+  #
+  # AND SKIPPING IS NOT FAILING. The old guard called `exit 1` on the cron it
+  # did not want, so this workflow went red EVERY SINGLE DAY as designed. That
+  # is why nobody noticed it had also been genuinely broken since 20 August: a
+  # real failure looked exactly like the normal one. A gate job that outputs a
+  # flag leaves the unwanted run marked "skipped", so red means broken again.
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      go: ${{ steps.decide.outputs.go }}
+    steps:
+      - id: decide
+        run: |
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "Manual run; never gated."
+            echo "go=1" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          offset=$(TZ=America/New_York date +%z)
+          if [ "$offset" = "-0500" ]; then want="0 14 * * *"; else want="0 13 * * *"; fi
+          fired="${{ github.event.schedule }}"
+          echo "New York offset $offset, so the 9am cron today is '$want'. This run is '$fired'."
+          if [ "$fired" = "$want" ]; then
+            echo "go=1" >> "$GITHUB_OUTPUT"
+          else
+            echo "Not today's 9am cron. Skipping, which is not a failure."
+            echo "go=0" >> "$GITHUB_OUTPUT"
+          fi
+
   refresh:
+    needs: gate
+    if: needs.gate.outputs.go == '1'
     runs-on: ubuntu-latest
     # Same reasoning as the timeout in pages.yml, and it matters more here:
     # this workflow is what TRIGGERS the deploy, so a run wedged in this
@@ -69,26 +112,6 @@ jobs:
       YT_API_KEY: ${{ secrets.YT_API_KEY }}
       PPT_API_KEY: ${{ secrets.PPT_API_KEY }}
     steps:
-      # THE DAYLIGHT SAVING GUARD. Two crons fire every day, 13:00 and 14:00
-      # UTC, and exactly one of them is 9am in New York: 13:00 while Eastern
-      # Daylight Time is in force, 14:00 the rest of the year. This step ends
-      # the run on the wrong one, so the work happens once a day at 9am
-      # Eastern and never twice.
-      #
-      # It asks the runner for New York's current hour rather than doing the
-      # arithmetic, so a change to the DST rules needs no edit here.
-      #
-      # A manual workflow_dispatch is never blocked: github.event_name is only
-      # "schedule" for the cron runs.
-      - name: Only continue if it is 9am in New York
-        if: github.event_name == 'schedule'
-        run: |
-          hour=$(TZ=America/New_York date +%H)
-          if [ "$hour" != "09" ]; then
-            echo "New York hour is $hour, not 09. This is the other cron; stopping."
-            exit 1
-          fi
-          echo "New York hour is 09. Continuing."
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
@@ -141,7 +164,22 @@ jobs:
       # The guides for sets we have actually opened packs of. Heavily cached:
       # the first run made about 2,250 requests across TCGdex and PokeAPI, every
       # run since makes zero. Only a brand new foreign set costs anything.
+      # ONE BAD GUIDE MUST NOT STOP THE OTHER 1,490 PAGES GOING STALE.
+      # This step exits 1 when a guide would publish a card count with an empty
+      # checklist, which is the right thing to shout about -- but it sat sixth
+      # in a pipeline of fourteen, so `-e` killed the run before ANY page was
+      # rebuilt. zh-gem-pack-2 has tripped it since 20 August because TCGdex
+      # returns no card list for zh-cn/CBB2C while its own response declares 15
+      # cards, and that is upstream and not fixable here: refetched today, still
+      # zero. So one Chinese set with 15 cards froze every price, every date and
+      # every new video on the site for five days.
+      #
+      # continue-on-error KEEPS THE SIGNAL AND DROPS THE BLAST RADIUS: the data
+      # still refreshes, and the last step below re-raises this into a red job
+      # so it cannot become something nobody sees.
       - name: Non-English set guides
+        id: intl_guides
+        continue-on-error: true
         run: node scripts/sync-intl-guides.mjs
 
       # Full card checklists and prices for the 23 English sets, 4,481 cards.
@@ -235,3 +273,15 @@ jobs:
 
           $(git diff --cached --stat | tail -1)"
           git push
+
+      # RE-RAISED HERE, NOT SWALLOWED. Everything above has run and the refresh
+      # is committed; this is only about the exit status the run reports, so it
+      # goes last. A red job with the site refreshed beats a green job with the
+      # site five days stale, and beats a dead pipeline either way.
+      - name: Fail the run if a sync reported bad data
+        if: steps.intl_guides.outcome == 'failure'
+        run: |
+          echo "sync-intl-guides.mjs exited non-zero. The refresh above still ran and"
+          echo "committed; this step exists so the bad data is not invisible."
+          echo "Read the 'Non-English set guides' step for which guide and why."
+          exit 1
