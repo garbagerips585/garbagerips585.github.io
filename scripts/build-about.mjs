@@ -859,6 +859,35 @@ ${jump.map(([id, label]) => `          <li><a href="#${id}">${esc(label)}</a></l
           else in the country makes. The channel is named after the dinner. Around here chaos is a
           lifestyle and ripping packs is just part of the routine.</p>
 
+        ${/* THE ONE THING ON THIS PAGE THAT PREDATES THE CHANNEL, added at the
+             owner's request. Everything around it dates from the channel
+             starting; this is the twenty-six years before it, and it is the
+             answer to the question the rest of the page invites and never
+             takes: why packs at all, when singles are cheaper and certain.
+
+             FIRST PERSON SINGULAR, WHICH THIS PAGE ALREADY USES. "Half this
+             site exists because I have given the same answer out loud a dozen
+             times" is four sections down. A recollection told as "we" would be
+             a company remembering a childhood.
+
+             "THE EB IN THE MALL" AND NOT "EB GAMES". The memory is 1999 and the
+             chain did not carry the EB Games name until the 2000s; in 1999 it
+             was Electronics Boutique, and what everybody actually called it was
+             the EB. The owner's phrasing was "EB games in the mall", so this
+             keeps the place and drops a brand name that would be wrong by a
+             year or two. Flagged to him rather than changed silently.
+
+             "I REMEMBER THEM BEING $2.99" RATHER THAN A FLAT $2.99, because
+             every other figure on this site carries a source and the date it
+             was read, and this one cannot: it is a twenty-six year old memory
+             of a shelf price. Saying so is what keeps it from reading like the
+             sourced prices everywhere else. */ ""}
+        <p>None of this is new. I have been ripping Pokemon packs since the cards first landed here
+          in 1999. I remember them being $2.99 at the EB in the mall, bought one at a time with
+          whatever was in my pocket. I watched the anime before school, and I have played every
+          Pokemon video game since. That is why the channel opens packs instead of buying singles:
+          the part I liked as a kid is still the part I like.</p>
+
         <h3>What actually happens on the channel</h3>
         <p>Packs get opened. Most of them are garbage, which is where the name came from.
           Single packs, booster bundles, ETBs, whatever overpriced box was sitting on the
