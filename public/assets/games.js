@@ -344,11 +344,34 @@
       // interruptible. A wrong answer holds more than twice as long as a right
       // one because the note under it is the part worth reading.
       var moved = false;
-      var timer = setTimeout(go, right ? 700 : 1500);
+      // THE HOLD IS LONGER WHEN THE VERDICT HAS TO BE SPOKEN. WCAG 2.2.1: this
+      // is a timed change with no way to pause or extend it. The verdict is a
+      // full sentence -- "Correct. #626, introduced in Generation 5. 1 of 1
+      // right. Streak 1. A new best streak." is 85 characters, five to seven
+      // seconds of speech -- and focus moved to the next question 814ms after
+      // it was written, which preempts the announcement in most screen
+      // readers. A player using one would essentially never hear a whole
+      // verdict.
+      //
+      // THE FIX IS TIME, NOT A CONTROL, because the control already exists in
+      // the other direction: a tap skips the hold, so anybody who finds this
+      // slow can move on immediately, and the hint above tells them so. The
+      // hold only ever delays somebody who is not reading it.
+      //
+      // SPRINT IS DELIBERATELY EXEMPT. Its 60-second clock is the whole point
+      // of the mode and it is opt-in, so a longer hold there would break the
+      // thing somebody chose. Outside Sprint nothing is being raced.
+      var hold = sprint ? (right ? 700 : 1500) : (right ? 2200 : 4000);
+      var timer = setTimeout(go, hold);
       advanceReadyAt = Date.now() + SKIP_GUARD;
       if (hints > 0) {
         hints--;
         dom.skip.hidden = false;
+        // AND UNHIDE IT FROM ASSISTIVE TECH TOO. It ships with BOTH `hidden`
+        // and aria-hidden="true"; only `hidden` was ever cleared, so the one
+        // instruction telling you how to skip the hold was on screen for
+        // sighted players and permanently invisible to everybody else.
+        dom.skip.setAttribute("aria-hidden", "false");
       }
       advance = function () {
         if (moved || Date.now() < advanceReadyAt) return;
@@ -360,6 +383,7 @@
         moved = true;
         advance = null;
         dom.skip.hidden = true;
+        dom.skip.setAttribute("aria-hidden", "true");
         if (sprint && Date.now() >= deadline) return;
         render();
         if (hadFocus) {
