@@ -418,6 +418,15 @@ const IMAGE_STEPS = new Set([
   "bash scripts/fetch-fonts.sh",
   "python3 scripts/build-og-pages.py",
   "node scripts/sync-symbols.mjs",
+  // THE THIRD ONE, AND THE ONE THAT BIT. sync-dex-art.mjs looks like a pure
+  // fetcher and is not: the 36 images are committed, so it downloads nothing,
+  // but it then REBUILDS data/dex-art.json by reading each file's real width
+  // and height -- through Pillow. On a runner without Pillow every read
+  // returns null, every entry is skipped, and it writes an EMPTY manifest over
+  // a complete one while still exiting 0. lore.html then renders "No artwork
+  // held for Trubbish" where the art should be. That is the whole of the last
+  // drifted file, and it took --diff to see it.
+  "node scripts/sync-dex-art.mjs",
 ]);
 const PLAN = SKIP_IMAGES ? STEPS.filter((s) => !IMAGE_STEPS.has(s)) : STEPS;
 if (SKIP_IMAGES) {

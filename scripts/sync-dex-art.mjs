@@ -180,6 +180,37 @@ for (const id of Object.keys(WANT)) {
   manifest.art[id] = { file: `/assets/dex/${id}.webp`, w: wh[0], h: wh[1], box: WANT[id] };
 }
 
+/* A MANIFEST THAT LOST ENTRIES IS NOT A MANIFEST, IT IS DATA LOSS. Every entry
+   above needs a width and a height, and the only way to get one is to open the
+   file with Pillow. Where Pillow is missing sizeOf() returns null for every
+   image, every entry is skipped, and what lands on disk is `art: {}` -- written
+   over a complete manifest, at exit code 0, with nothing in the output that
+   reads as failure. The pages that draw from it then quietly swap their
+   artwork for "No artwork held for Trubbish".
+
+   That is exactly what happened on a CI runner with no Pillow, and the only
+   reason it was caught is that a drift check compared the built tree to the
+   committed one. On the machine that actually publishes this site the same run
+   would have overwritten data/dex-art.json and lore.html together and looked
+   like a normal build.
+
+   SO IT REFUSES, rather than writes. Losing entries while the images are still
+   sitting on disk means the reader broke, not the data. --force is the way to
+   say a real removal is intended. */
+const heldOnDisk = (await Promise.all(
+  Object.keys(WANT).map(async (id) => ((await exists(join(OUT, `${id}.webp`))) ? 1 : 0))
+)).reduce((a, b) => a + b, 0);
+const kept = Object.keys(manifest.art).length;
+if (!FORCE && kept < heldOnDisk) {
+  console.error(
+    `\nREFUSING TO WRITE ${MANIFEST}.\n` +
+    `  ${heldOnDisk} images are on disk but only ${kept} could be measured, so this\n` +
+    `  run would drop ${heldOnDisk - kept} entry(s) that the pages need.\n` +
+    `  Almost always this is Pillow: python3 -c "from PIL import Image" and see.\n` +
+    `  Fix that and re-run, or pass --force if the removal really is intended.`
+  );
+  process.exit(1);
+}
 await writeFile(MANIFEST, JSON.stringify(manifest, null, 1) + "\n");
 console.log(
   `dex art: ${fetched} written, ${held} already held, ${Object.keys(manifest.art).length} in manifest` +
