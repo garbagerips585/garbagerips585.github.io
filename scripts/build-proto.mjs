@@ -1083,7 +1083,19 @@ function heroTile(v, opts) {
   const label = all.length ? setLabel(all[0]).toUpperCase() : "GARBAGE RIPS";
   const p = bestPull(v);
   return `      <article class="hero">
-        <a class="hero-art" href="/${esc(v.path)}" aria-label="${esc(v.siteTitle || v.title)}">
+        <a class="hero-art" href="/${esc(v.path)}"${
+          // THE CLOCK IS IN THE NAME BECAUSE IT IS IN THE BOX. .dur sits INSIDE
+          // this anchor, and aria-label REPLACES an element's contents for a
+          // screen reader instead of adding to them, so the duration printed
+          // over the artwork reached everyone except the people using the
+          // label. Same bug the Most Wanted shelf had with its prices: a fact
+          // put on the tile on purpose, then hidden by the label meant to help.
+          //
+          // APPENDED IN THE PRINTED FORM, not as "29 seconds", so the name says
+          // the same thing the badge does. clock() is the function that drew
+          // the badge, so the two cannot drift apart.
+          ""
+        } aria-label="${esc(v.siteTitle || v.title)}${v.duration ? `, ${clock(v.duration)}` : ""}">
           ${face}${RIP_BANNER}${v.duration ? `<span class="dur">${clock(v.duration)}</span>` : ""}
         </a>
         <div class="hero-body">
@@ -1298,6 +1310,18 @@ const wantedHtml = (wanted.cards || [])
       : c.raw
         ? `RAW ${moneyCompact(c.raw)}`
         : "CHASING";
+    // THE SAME FACT, SAID RATHER THAN SHOUTED. The tile below is all caps
+    // because it is a price tag; this is the version that goes into the link's
+    // accessible name, so it has to survive being read out in a sentence.
+    // "CHASING" alone does not -- dropped mid-name it sounds like part of the
+    // card's title -- so it becomes a clause. The figures reuse moneyCompact,
+    // which is deliberate: the accessible name should say the number the tile
+    // shows, not a differently rounded one.
+    const spokenPrice = c.psa10
+      ? `PSA 10 ${moneyCompact(c.psa10)}`
+      : c.raw
+        ? `raw ${moneyCompact(c.raw)}`
+        : "still chasing this one";
     // Source and date for the six tiles this shelf prints, and only those six.
     // The graded stamps are the hunt file's own, because the graded FIGURE is
     // too; the raw stamps come from the checklist the raw figure was read out
@@ -1324,7 +1348,12 @@ const wantedHtml = (wanted.cards || [])
     //
     // The set guide is the honest destination: it is ours, it shows the card in
     // its checklist with the same price, and it keeps the visitor on the site.
-    return `      <a class="mw" href="/sets/${esc(c.set)}.html" aria-label="${esc(c.name)} from ${esc(c.setName)}, see the ${esc(c.setName)} set guide">${inner}</a>`;
+    // THE PRICE IS IN THE NAME BECAUSE IT IS ON THE TILE. aria-label REPLACES
+    // the element's text for a screen reader rather than adding to it, so the
+    // "RAW $266" printed under the card name was visible to everyone except the
+    // people relying on the label. A shelf about what a card costs was reading
+    // out as six cards with no costs.
+    return `      <a class="mw" href="/sets/${esc(c.set)}.html" aria-label="${esc(c.name)} from ${esc(c.setName)}, ${esc(spokenPrice)}, see the ${esc(c.setName)} set guide">${inner}</a>`;
   })
   .join("\n");
 

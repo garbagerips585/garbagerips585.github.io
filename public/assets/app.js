@@ -865,14 +865,30 @@
         // label comes through labelOf's title-case fallback for anything the
         // map misses, so the one string on this line that is not a literal is
         // the one string that should never be parsed as markup.
-        c.textContent = "";
-        c.appendChild(el("b", null, String(out.length)));
-        c.appendChild(document.createTextNode(
+        // ONE MUTATION RECORD, NOT THREE. This element is role="status", so it
+        // carries an implicit aria-live="polite" and an implicit
+        // aria-atomic="true": a reader re-reads the WHOLE region whenever it
+        // changes. Clearing it and appending twice put it through two
+        // half-built states first -- empty, then a bare "8" with no sentence
+        // around it -- before the real line. Measured: 3 records the old way,
+        // 1 this way.
+        //
+        // HONEST ABOUT WHAT THIS DOES AND DOES NOT FIX. All three of the old
+        // changes were synchronous, so they arrived in a single observer
+        // callback, and assistive tech that coalesces per task would already
+        // have read only the final state. I have no screen reader here and did
+        // NOT observe a double announcement. What this removes is the
+        // DEPENDENCE on that coalescing: the region is never observably
+        // half-built, so no timing or AT behavior can catch it mid-write.
+        var frag = document.createDocumentFragment();
+        frag.appendChild(el("b", null, String(out.length)));
+        frag.appendChild(document.createTextNode(
           " of " + all.length + " rips" +
           (state.pull ? " with a graded pull" : "") +
           (prodNote ? " • " + prodNote : "") +
           (out.length > shown ? " • showing " + shown : "")
         ));
+        c.replaceChildren(frag);
       }
       syncChips();
       writeUrl();
