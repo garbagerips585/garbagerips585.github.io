@@ -1052,6 +1052,38 @@ const warnings = [];
 // Guides whose checklist came back empty. Kept apart from `warnings` because
 // these set the exit code: a guide that states a card count and shows no cards
 // is a page making a confident claim about a set it has no data for.
+/* GUIDES WHOSE CHECKLIST TCGdex GENUINELY DOES NOT HAVE, as opposed to guides
+   whose cache went stale. The distinction matters because the two need opposite
+   responses and the check below could not tell them apart: it reported both as
+   "delete the cache file and re-run", which is the right fix for one of them and
+   an impossible instruction for the other.
+
+   THIS ONE FAILED THE NIGHTLY EVERY NIGHT FROM 20 AUGUST 2026. sync-intl-guides
+   sits sixth in a pipeline of fourteen, so `-e` killed the run before a single
+   page was rebuilt: every price, date and new video on 1,491 pages went stale
+   because of 15 Chinese cards. The run now continues past it, but a guard that
+   can only ever fail is still a guard nobody reads, which is the state this
+   workflow was in before.
+
+   AND THE PAGE IS NOT LYING, WHICH IS THE POINT OF THE CHECK. Read it:
+   /sets/zh-gem-pack-2.html renders "No checklist yet -- TCGdex knows this set
+   exists, when it landed and how big it is, but has not published its card
+   list", and the 15 is TCGdex's own cardCount.total, credited and dated in the
+   sources band. build-intl-pages.mjs even drops the words "checklist below"
+   from the header when there are no cards. The empty case is handled; what was
+   missing was a way to say so here.
+
+   NOTHING ELSE IS EXEMPT. An id not on this list still fails the run, so a
+   genuinely stale cache is caught exactly as before. Adding an entry is a
+   deliberate act that has to carry a reason and the day somebody checked. */
+const KNOWN_EMPTY = {
+  "zh-gem-pack-2": {
+    why: "TCGdex publishes no card list for zh-cn/CBB2C. Not a stale cache: refetched " +
+      "live and the response still carries cardCount.total 15 beside an empty cards array.",
+    checked: "2026-08-25",
+  },
+};
+const knownEmpty = [];
 const emptySets = [];
 // Every reason the TCGplayer fallback declined a guide TCGdex left empty, and
 // every guide it filled. Reported apart from `warnings` because a refusal here
@@ -1135,11 +1167,19 @@ for (const [id, e] of entries) {
     // one. The entry is written as it always was and the RUN fails instead, so
     // the tree on disk is unchanged and a human is told exactly which cache
     // file to delete.
-    emptySets.push(
-      `${id}: TCGdex returned no card list for ${src.lang}/${src.id}` +
-        (declared ? `, though the same response declares ${declared} cards` : "") +
-        `. Delete .cache/tcgdex/${src.lang}-${src.id}.json and re-run.`
-    );
+    /* NOTED, NOT SKIPPED, for the reason the paragraph above gives: an early
+       `continue` here would jump the entry-writing below with it, the guide
+       would vanish from the output, and the next build would delete its page
+       and 404 every link to it. Only the REPORTING changes. */
+    if (KNOWN_EMPTY[id]) {
+      knownEmpty.push(`${id}: ${KNOWN_EMPTY[id].why} Checked ${KNOWN_EMPTY[id].checked}.`);
+    } else {
+      emptySets.push(
+        `${id}: TCGdex returned no card list for ${src.lang}/${src.id}` +
+          (declared ? `, though the same response declares ${declared} cards` : "") +
+          `. Delete .cache/tcgdex/${src.lang}-${src.id}.json and re-run.`
+      );
+    }
   }
 
   // One request per card for rarity and dex number. Cached, so this only costs
@@ -1452,6 +1492,13 @@ if (jpOutliers.length) {
 if (jpRefused.length) {
   console.log(`\n${jpRefused.length} guide(s) were refused a Japanese vocabulary:`);
   for (const t of jpRefused) console.log("  " + t);
+}
+if (knownEmpty.length) {
+  console.log(
+    `\n${knownEmpty.length} guide(s) have no checklist because TCGdex has none, which is ` +
+    `known and is not a failure. Their pages say so where the checklist would be:`
+  );
+  for (const k of knownEmpty) console.log("  " + k);
 }
 if (warnings.length) {
   console.log(`\n${warnings.length} thing(s) to look at:`);
