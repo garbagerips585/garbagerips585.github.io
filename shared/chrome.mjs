@@ -172,10 +172,18 @@ export const NAV = [
   // Rochester instead ("About can be under Rochester section too"). The
   // argument is recorded beside it down there rather than repeated here.
   ["The channel", [
+    /* THE ORDER IS THE OWNER'S, 25 August 2026: Rips, Best pulls, Rip results,
+       Most wanted, Playlists. It was Rips, Playlists, Best pulls, Most wanted,
+       Rip results. Playlists moves from second to last and the three stats
+       pages come up behind Rips.
+
+       LABELS AND URLS ARE UNTOUCHED. He wrote the list capitalised -- "Best
+       Pulls", "Rip Results", "Most Wanted" -- and this menu is sentence case
+       throughout, every other group included. He asked for an order, so that is
+       what changed; recasing five links is a different decision and is not
+       smuggled in with this one. */
     ["/videos.html", "Rips"],
-    ["/playlists.html", "Playlists"],
     ["/hall.html", "Best pulls"],
-    ["/wanted.html", "Most wanted"],
     // "Rip results" and NOT "Luck, measured". The old label front-loaded a
     // mood, spent its two words on a comma, and named the MEASUREMENT rather
     // than the thing measured. "Rips" is the brand word and is in this page's
@@ -194,6 +202,8 @@ export const NAV = [
     // The label still echoes the title, still says results rather than rates,
     // and the refusal above stands. It was not reopened.
     ["/luck.html", "Rip results"],
+    ["/wanted.html", "Most wanted"],
+    ["/playlists.html", "Playlists"],
   ]],
 
   // The local angle, kept as its own heading because it is the one thing no
