@@ -57,7 +57,7 @@ import { pickIntlPrintingJp } from "../shared/intl-vocab.mjs";
 // gradedPrice() are the receipt for in CLAUDE.md.
 import { corpusScan, noScanBox, pinnedShot, NOSCAN_CSS } from "../shared/card-scan.mjs";
 import { loadCorpus, corpusCard } from "../shared/subset-cards.mjs";
-import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount, avifPicture, packTileImg, clipMeta, plainDashesAll} from "../shared/format.mjs";
+import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount, avifPicture, packTileImg, clipMeta, plainDashesAll, RIP_BANNER} from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -2187,7 +2187,31 @@ ${sameBox.length ? `<section class="band tight">
               <span class="pack-seal"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
             </span>
           </span>
-          <span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+          ${/* THE BANNER, NOT THE DISC, ON THESE RAILS TOO. 24 August 2026, and
+                this is the owner's call being taken: "make sure on any page that has
+                videos to play that all the thumbnails have the click to rip the
+                pack bar at the bottom and have the pack opening animation,
+                thats my favorite feature of the site".
+
+                CLAUDE.md has recorded this gap for a while and parked the
+                decision: every pack artwork on the site says CLICK TO RIP THE
+                PACK except the rip-page rails, which kept a play disc from
+                before the banner existed. Measured on the built tree before
+                this change: 322 rip pages carried 322 banners, one each for
+                the hero, and 3,020 discs across the rail tiles.
+
+                THE DISC WAS ALSO THE WEAKER CONTROL. Measured off rendered
+                pixels, its outer edge is 1.00:1 against the pack art for 88 to
+                97% of its perimeter, because the pink sits on pink-heavy
+                artwork nearly all the way round. The banner floors at 3.82:1
+                on every one of the nineteen pack skins, because it is opaque
+                and carries a near-white ring outside a near-black keyline,
+                which are 14.6x apart in luminance so one of them always reads.
+
+                Both were aria-hidden and decorative, so nothing changes for a
+                screen reader: the enclosing <a class="vid-shell"> carries the
+                real accessible name. */ ""}
+          ${RIP_BANNER}
         </a>
         <h3 class="vid-title"><a href="/${pathFor(r)}">Pack ${packNo(r)}</a></h3>
         <p class="vid-meta">${shortDate(r.published)}</p>
@@ -2222,7 +2246,31 @@ ${related.length ? `<section class="band tight">
               <span class="pack-seal"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
             </span>
           </span>
-          <span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+          ${/* THE BANNER, NOT THE DISC, ON THESE RAILS TOO. 24 August 2026, and
+                this is the owner's call being taken: "make sure on any page that has
+                videos to play that all the thumbnails have the click to rip the
+                pack bar at the bottom and have the pack opening animation,
+                thats my favorite feature of the site".
+
+                CLAUDE.md has recorded this gap for a while and parked the
+                decision: every pack artwork on the site says CLICK TO RIP THE
+                PACK except the rip-page rails, which kept a play disc from
+                before the banner existed. Measured on the built tree before
+                this change: 322 rip pages carried 322 banners, one each for
+                the hero, and 3,020 discs across the rail tiles.
+
+                THE DISC WAS ALSO THE WEAKER CONTROL. Measured off rendered
+                pixels, its outer edge is 1.00:1 against the pack art for 88 to
+                97% of its perimeter, because the pink sits on pink-heavy
+                artwork nearly all the way round. The banner floors at 3.82:1
+                on every one of the nineteen pack skins, because it is opaque
+                and carries a near-white ring outside a near-black keyline,
+                which are 14.6x apart in luminance so one of them always reads.
+
+                Both were aria-hidden and decorative, so nothing changes for a
+                screen reader: the enclosing <a class="vid-shell"> carries the
+                real accessible name. */ ""}
+          ${RIP_BANNER}
         </a>${showKind ? `
         ${/*
           WHAT WAS OPENED, NOT WHAT CAME OUT. The obvious mark to put here is
