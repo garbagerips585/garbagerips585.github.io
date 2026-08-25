@@ -239,6 +239,19 @@
       dom.stage.innerHTML = q.stage;
       dom.say.textContent = "";
       dom.say.className = "gq-say";
+      /* WHOEVER HELD FOCUS IN HERE IS ABOUT TO BE DELETED. The wipe below takes
+         the previous question's buttons and, after a sprint, the "Go again"
+         button the reader just pressed -- so focus fell to BODY on every new
+         board reached by keyboard. This file's own key handler bails on
+         `if (!el.contains(document.activeElement)) return;`, so 1-4, Space and
+         Enter went dead until the reader tabbed back in, unannounced.
+
+         Answer one is where it belongs. go() already moves focus there after a
+         correct answer, so this makes every other route into a fresh board
+         behave the way that one already does. Guarded, so a mouse player is not
+         moved and the very first board of a session does not steal focus from
+         wherever the reader actually is. */
+      var refocus = dom.choices.contains(document.activeElement);
       dom.choices.innerHTML = "";
       q.choices.forEach(function (c, i) {
         var b = document.createElement("button");
@@ -250,6 +263,10 @@
         });
         dom.choices.appendChild(b);
       });
+      if (refocus) {
+        var first = dom.choices.querySelector(".gq-btn");
+        if (first) first.focus();
+      }
       // SAY THE QUESTION, ONCE, AFTER THE CHOICES EXIST. At the end of render()
       // on purpose: a polite region written while the buttons are still being
       // built would be read before the thing it asks about is in the document,
@@ -398,8 +415,18 @@
       tick = null;
       advance = null;
       dom.skip.hidden = true;
+      dom.skip.setAttribute("aria-hidden", "true");
+      /* THE CLOCK STOPPED AND THE CONTROLS DID NOT NOTICE. `sprint` stayed
+         true after the 60 seconds ran out, so the mode button went on reading
+         "Stop the clock" over a finished sprint and [data-clock] stayed on
+         screen showing "0s". The UI was describing a running timer that had
+         already ended, and pressing the button then "stopped" nothing. */
+      sprint = false;
+      if (dom.mode) dom.mode.textContent = "Sprint: 60 seconds";
+      if (dom.clock) dom.clock.hidden = true;
       var best = store.get(bestSprintKey, 0);
       if (score > best) store.set(bestSprintKey, score);
+      var lostFocus = dom.choices.contains(document.activeElement);
       dom.choices.innerHTML = "";
       dom.stage.innerHTML =
         '<div class="gq-over"><p class="gq-over-n">' +
@@ -420,6 +447,18 @@
         start(true);
       });
       dom.choices.appendChild(again);
+      /* THE ANSWER BUTTON HOLDING FOCUS WAS JUST DELETED. dom.choices.innerHTML
+         = "" above destroys whatever the reader was on, and a destroyed element
+         cannot hold focus, so it fell to BODY. That is worse here than
+         anywhere else on the site: this file's key handler bails on
+         `if (!el.contains(document.activeElement)) return;`, so keys 1-4,
+         Space and Enter all go dead until the reader tabs the whole way back
+         into the game, with nothing saying so.
+
+         "Go again" is the right landing: it is the only action left, and it is
+         the one the run has moved them toward. Guarded on focus having been
+         inside the game, so a player using a mouse is not moved. */
+      if (lostFocus) again.focus();
       showBest();
       // THE END OF A SPRINT IS A RESOLVED EVENT TOO, and it was the loudest
       // silent one: the clock stops on its own, the board is replaced by a

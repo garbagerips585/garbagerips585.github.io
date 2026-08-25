@@ -945,6 +945,36 @@ const GAME_JS = `
   var againBtn = document.getElementById("cmAgain");
   var tierBtns = [].slice.call(document.querySelectorAll(".cm-tier"));
 
+  /* TAB STAYS INSIDE THE WIN PANEL WHILE IT IS UP.
+     app.js has a trap already and this panel cannot use it: openSurface() there
+     matches .lb.on, .hitlb:not([hidden]) and the open menu, and .cm-over is
+     none of those. Rather than add a fourth special case to a shared function
+     for one page, the panel traps its own two controls, which is all it has --
+     "Deal again" and the link under it.
+     Inerting the grid (see win()) already removes the 12 board buttons. This
+     covers the other direction: Tab off the last control would otherwise walk
+     into the nav and the footer with the dialog still on screen. */
+  if (overEl) {
+    overEl.addEventListener("keydown", function (e) {
+      if (e.key !== "Tab" || overEl.hidden) return;
+      var stops = [].slice.call(
+        overEl.querySelectorAll("button:not([disabled]), a[href]")
+      ).filter(function (el) { return el.offsetParent !== null; });
+      if (!stops.length) return;
+      var first = stops[0], last = stops[stops.length - 1];
+      // The panel itself holds focus when it opens, and it is tabindex="-1", so
+      // it is not in the stops list. The first Tab from there has to land on
+      // the first control rather than escaping past the last one.
+      if (document.activeElement === overEl) {
+        e.preventDefault();
+        (e.shiftKey ? last : first).focus();
+        return;
+      }
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+  }
+
   // ---- state --------------------------------------------------------------
   var tier = TIERS[1][0], pairs = TIERS[1][1], parMoves = TIERS[1][2];
   var cards = [];      // one entry per tile on the board
@@ -1074,6 +1104,7 @@ const GAME_JS = `
     cancelHold();
     cards = []; up = []; moves = 0; found = 0; foundRows = [];
     overEl.hidden = true;
+    if (gridEl) gridEl.inert = false;
     gridEl.innerHTML = "";
     gridEl.style.setProperty("--cm-cols", String(cols));
 
@@ -1296,6 +1327,12 @@ const GAME_JS = `
     overTotal.textContent = money(total);
     overList.innerHTML = html;
     overEl.hidden = false;
+    // THE BOARD GOES INERT, not aria-hidden. inert removes it from the tab
+    // order AND the accessibility tree in one attribute, and unlike
+    // aria-hidden it cannot leave a focusable element quietly reachable behind
+    // a screen it is hidden from. Only the grid: .cm-over is a sibling inside
+    // .cm-board, so inerting the board would inert the panel with it.
+    if (gridEl) gridEl.inert = true;
     // Focus the panel, not the button: the panel is labelled by its own heading
     // and described by the line under it, so landing on it reads the result out
     // and a Tab reaches the button. Landing on the button reads the button.
@@ -1456,7 +1493,14 @@ ${MENU}
 
         <div class="cm-board" id="cmBoard">
           <ul class="cm-grid" id="cmGrid" role="list" aria-label="Board"></ul>
-          <div class="cm-over" id="cmOver" role="dialog" aria-labelledby="cmOverTitle"
+          ${/* aria-modal, 25 August 2026. This is a role="dialog" that covers
+                the board and takes focus, and it was telling assistive tech
+                nothing about being modal: the 12 board buttons underneath
+                stayed in the tab order and in the accessibility tree, so
+                Shift+Tab off the panel landed on "Card 12 of 12" behind it and
+                Tab forward walked out into the page. The board is inerted while
+                this is up (see win() and deal()), and Tab is cycled inside it. */ ""}
+          <div class="cm-over" id="cmOver" role="dialog" aria-modal="true" aria-labelledby="cmOverTitle"
             aria-describedby="cmOverSub" tabindex="-1" hidden>
             <h2 id="cmOverTitle">Cleared</h2>
             <p id="cmOverSub"></p>

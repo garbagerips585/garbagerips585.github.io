@@ -1235,7 +1235,8 @@
       state.q = String(raw).trim();
       parsed = parseQuery(state.q);
       if (!sortIsMine) state.sort = state.q ? "relevance" : "new";
-      if (sortSel) sortSel.value = state.sort;
+      if (typeof syncRelevance === "function") syncRelevance();
+      else if (sortSel) sortSel.value = state.sort;
       if (clearQ) clearQ.hidden = !state.q;
       render(false, false, animate);
       if (immediate && search) search.value = state.q;
@@ -1285,13 +1286,37 @@
     });
 
     if (sortSel) {
-      // Only offered while searching: "Best match" against no query is
-      // meaningless and would sort every rip identically.
+      /* THE COMMENT HERE WAS RIGHT AND THE CODE DID NOT DO IT. "Only offered
+         while searching" described the intent; the option was built and
+         inserted unconditionally at boot and never removed. With no query,
+         SORTS.relevance scores every rip identically and falls through to the
+         published-date tiebreak, so picking "Best match" produced an order
+         byte-identical to "Newest first" -- verified by comparing the first ten
+         hrefs under each -- while the control read "Best match" and the URL
+         said sort=relevance. A control that claims to do something and
+         provably does nothing is worse than one that is not there.
+
+         SO IT COMES AND GOES WITH THE QUERY, through applyQuery, which is the
+         one place state.q changes. */
       var relOpt = document.createElement("option");
       relOpt.value = "relevance";
       relOpt.textContent = "Best match";
-      sortSel.insertBefore(relOpt, sortSel.firstChild);
-      sortSel.value = state.sort;
+      var syncRelevance = function () {
+        var on = !!state.q;
+        var here = relOpt.parentNode === sortSel;
+        if (on && !here) sortSel.insertBefore(relOpt, sortSel.firstChild);
+        else if (!on && here) {
+          // Falling back BEFORE the option leaves, or removing the selected
+          // option would silently leave the select showing whatever happens to
+          // be first.
+          if (state.sort === "relevance") { state.sort = "new"; sortIsMine = false; }
+          sortSel.removeChild(relOpt);
+        }
+        sortSel.value = state.sort;
+      };
+      // A url of ?sort=relevance with no q is the same empty promise arriving
+      // from outside, so it is corrected on the way in rather than trusted.
+      syncRelevance();
       sortSel.addEventListener("change", function () {
         state.sort = sortSel.value;
         sortIsMine = true;
@@ -1301,13 +1326,37 @@
     var moreBtn = document.getElementById("libMore");
     if (moreBtn) {
       moreBtn.addEventListener("click", function () {
+        /* THE BUTTON HIDES ITSELF ON THE LAST PRESS AND TOOK FOCUS WITH IT.
+           render() sets more.hidden = true once everything is shown, and a
+           hidden element is not focusable, so the browser drops focus to the
+           document: a keyboard reader at the bottom of the library is silently
+           returned to the top of the page by the act of loading more of it.
+           Verified with a real click -- activeElement went to BODY.
+
+           FOCUS GOES TO THE FIRST NEW TILE, not to some fallback, and that is
+           better than merely not losing it: the reader asked for more rips and
+           the first one they have not seen is exactly where they were trying to
+           get to. Same move packplayer.js's moveFocus makes for the carousel
+           arrows -- hand focus on before taking the control away.
+
+           Only when this button actually HAS focus. A mouse user has not moved
+           anything and must not be yanked down the page. */
+        var grid = document.getElementById("libGrid");
+        var had = document.activeElement === moreBtn;
+        var before = grid ? grid.querySelectorAll("article.v a.art").length : 0;
         shown += PAGE;
         render(true);
+        if (!had || !grid) return;
+        var links = grid.querySelectorAll("article.v a.art");
+        var next = links[before] || links[links.length - 1];
+        if (next) next.focus();
+        else if (!moreBtn.hidden) moreBtn.focus();
       });
     }
     var clear = document.getElementById("libClear");
     if (clear) {
       clear.addEventListener("click", function () {
+        var had = document.activeElement === clear;
         state.sets = []; state.products = []; state.pull = false;
         if (search) search.value = "";
         // Through applyQuery, so the parsed terms, the sort and the little
@@ -1315,6 +1364,16 @@
         // parsed query behind and the grid stayed filtered by a search the
         // box no longer showed.
         applyQuery("", false, true);
+        /* SAME SHAPE AS "Load 48 more" ABOVE. render() sets
+           clear.hidden = !n && !state.q, so the one press that empties every
+           filter is the press that removes the button, and focus fell to BODY.
+           Verified with a real click.
+
+           THE SEARCH BOX IS THE RIGHT LANDING, not the grid: clearing filters
+           is the start of a new search far more often than the end of one, and
+           it is the control that governs the list the reader was just narrowing.
+           Guarded on having had focus, so a mouse user is not dragged anywhere. */
+        if (had && search && !search.hidden) search.focus();
       });
     }
 

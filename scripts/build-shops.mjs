@@ -50,6 +50,29 @@ function cleanUrl(raw) {
 const shopsDoc = JSON.parse(await readFile(join(ROOT, "data/shops.json"), "utf8"));
 const { shops } = shopsDoc;
 
+/* HOURS WITHOUT A SOURCE STOP THE BUILD, the same way they already do on
+   /garbage-plate.html. That page has thrown on a place with hours and no
+   hoursSrc since it was written, with the reason spelled out beside it: "an
+   hour nobody can check is how somebody drives to a locked door." The rule is
+   the site's, not that page's, and this page was publishing five shops' hours
+   under one page-level "last checked" line with no record of where any of them
+   came from.
+
+   They had come from the shops. All five were re-read on 25 August 2026
+   against each shop's own site and all five matched what was already here.
+   That is exactly why this guard belongs here rather than a correction: the
+   data was right and unprovable, which is the state that rots quietly the next
+   time somebody adds a shop from a directory listing. */
+for (const s of shops) {
+  if (s.hours && !s.hoursSrc) {
+    throw new Error(
+      `data/shops.json: ${s.name} publishes hours with no hoursSrc. ` +
+        `Hours go up only where the shop states them about itself. ` +
+        `Add the page you read them on, or drop the hours.`
+    );
+  }
+}
+
 /* ONE NUMBER OUT OF ANOTHER PAGE'S FILE, AND IT IS READ RATHER THAN LINKED FOR
    A REASON. The plate paragraph near the foot of this page used to say "eleven
    places around here that serve one" as a typed literal, in the sentence that
@@ -640,7 +663,30 @@ const cards = shops
         ${s.address || s.phone || s.hours ? `<dl class="shop-facts">
           ${s.address ? `<dt>Where</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.address)}" rel="noopener" target="_blank" aria-label="${esc(s.address)}, where ${esc(s.name)} is, opens on google.com">${esc(s.address)}</a></dd>` : ""}
           ${s.phone ? `<dt>Phone</dt><dd><a href="tel:${esc(s.phone.replace(/[^0-9+]/g, ""))}">${esc(s.phone)}</a></dd>` : ""}
-          ${s.hours ? `<dt>Open</dt><dd>${esc(s.hours)}</dd>` : ""}
+          ${
+            /* THE HOURS NOW SAY WHO STATED THEM, 25 August 2026. The site's rule
+               is that a business's hours are published only where the business
+               states them about itself, and /garbage-plate.html has enforced
+               that since it was written: build-garbage-plate.mjs THROWS on a
+               place with hours and no hoursSrc, and prints "confirmed on their
+               own site" beside every one it renders.
+
+               This page published five shops' hours with a single page-level
+               "last checked" line and no record anywhere of WHERE they came
+               from. They did come from the shops themselves -- all five were
+               re-read on 25 August against each shop's own site and all five
+               matched what was already here, WeTheHobby included, whose own
+               contact page has a typo ("SAT 11pm to 8pm") that this page had
+               already quietly got right as 11am. But the repo did not record
+               it, so nobody could check without redoing the work. Now it does. */
+            s.hours
+              ? `<dt>Open</dt><dd>${esc(s.hours)}${
+                  s.hoursSrc
+                    ? `<span class="shop-checked">confirmed on <a href="${esc(s.hoursSrc)}" rel="noopener" target="_blank">their own site</a>, ${esc(longDate(s.hoursRead) || s.hoursRead)}</span>`
+                    : ""
+                }</dd>`
+              : ""
+          }
         </dl>` : ""}
         ${(s.plays || []).length ? `<div class="shop-play">
           <p class="shop-play-h">You can play here</p>
@@ -793,6 +839,14 @@ const style = `
 .shop-facts dd{line-height:1.5}
 .shop-facts a{color:var(--sky-deep);font-weight:600}
 .shop-facts a:hover{text-decoration:underline}
+/* Who stated the hours, set below them the way /garbage-plate.html sets its
+   own. Its own line is .gpp-checked and this matches it: same size, same
+   muted ink, on its own line so it reads as a footnote to the hours rather
+   than as part of them. The anchor opts OUT of the 44px min-height that
+   .shop-facts dd a carries, because that rule is there to make a phone
+   number and an address tappable and this is a word inside a sentence. */
+.shop-checked{display:block;font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2)}
+.shop-checked a{display:inline;min-height:0}
 
 /* What you can actually turn up and play. */
 .shop-play{margin-top:var(--s3);padding:var(--s3);background:var(--paper-3);border-radius:var(--r-sm)}
@@ -1004,8 +1058,16 @@ ${/* THE ONE ORNAMENT ON THIS PAGE, AND THIS IS THE PAGE THE PLATE WAS DRAWN
       <a href="/creators.html">local creators</a> is who else is filming Pokemon in Rochester, Buffalo and
       Syracuse. <a href="/rochester.html">Everything local in one place</a> is the short version of all of it,
       with the shows, the shops and the plate counted.</p>
-    <p class="shops-lede">Addresses, phone numbers and opening hours were last checked on
-      ${esc(longDate(shopsDoc.updated) || "an unrecorded date")}. Shops move and change their hours, so call ahead if you are
+    ${/* HOURS CAME OUT OF THIS SENTENCE, 25 August 2026, because they now date
+          themselves. Each shop's card carries "confirmed on their own site" and
+          the day it was read, so one blanket date up here covering hours too
+          would be a second, older answer to a question already answered beside
+          the hours -- and the older one would go stale first while still
+          reading as authoritative. What is left is what this line still
+          genuinely covers. */ ""}
+    <p class="shops-lede">Addresses and phone numbers were last checked on
+      ${esc(longDate(shopsDoc.updated) || "an unrecorded date")}; opening hours carry their own
+      date and source on each shop. Shops move and change their hours, so call ahead if you are
       making a trip of it.</p>
     ${/* THE ASK ALREADY EXISTED AND HAD NO ROUTE. "Say hello on any of the
           socials" is an invitation that makes a shop owner go and find an

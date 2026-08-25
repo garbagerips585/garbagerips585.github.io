@@ -1214,6 +1214,23 @@ ${g.shows.map(showCard).join("\n")}
          route, and they are on this page too. Match those three if you edit
          this: one wording for one action. -->
     <p class="show-empty" id="showEmpty" hidden>No shows listed in that area yet. Try another area, or tell us about one on any of the socials.</p>
+    ${/* THE FILTER WAS COMPLETELY SILENT, 25 August 2026. Pressing a region
+          chip hid and showed shows with no announcement of any kind: no count,
+          no role, nothing. A sighted reader watches 22 shows become 5; a
+          screen reader reader hears the chip's own label and then silence, with
+          no way to know whether anything happened or how much is left.
+
+          #showEmpty could not cover it either. It carried no role and no
+          aria-live, so even the zero case -- the one it was written for --
+          appeared silently. That case is reachable: the past-date sweep in the
+          same script removes .show nodes at runtime, so a stale deploy can
+          empty a region that was full at build time.
+
+          /videos.html already does this correctly with #libCount, and this is
+          the same thing in the same shape. sr-only because the count is plain
+          on screen already; this is the non-visual half of a change that was
+          only ever visual. */ ""}
+    <p class="sr-only" id="showCount" role="status"></p>
   </div>
 </section>
 ${(data.watchFor || []).length ? `
@@ -1348,6 +1365,21 @@ ${/* THE CALENDAR'S OWN CLIENT SWEEP WAS HERE and went with the calendar. It
       if (vis) any = true;
     });
     if (empty) empty.hidden = any;
+    var countEl = document.getElementById('showCount');
+    if (countEl) {
+      var n = document.querySelectorAll('.show:not([hidden])').length;
+      // THE CHIP'S OWN WORDS, NOT THE REGION ID. The ids are 'roc', 'buffalo'
+      // and 'syracuse', so the id would announce "12 shows in roc". The button
+      // the reader just pressed already says "Rochester".
+      var chip = document.querySelector('.chip.filt[data-region="' + region + '"]');
+      var where = region === 'all' || !chip ? '' : ' in ' + chip.textContent.trim();
+      // Built as one string and written once: the region is role="status",
+      // which is implicitly aria-atomic, so a half-built value would be read
+      // out on its way to the finished one.
+      countEl.textContent = n === 0
+        ? 'No shows' + where + '. ' + (empty ? empty.textContent : '')
+        : n + (n === 1 ? ' show' : ' shows') + where + '.';
+    }
     ${/* Same filter, same click, both views. The map is the SECOND view of the
           same list and moves with it; a map still showing Syracuse while the
           list below had been narrowed to Rochester would be worse than no map.

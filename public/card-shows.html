@@ -1035,6 +1035,8 @@ max-width:44em}
          route, and they are on this page too. Match those three if you edit
          this: one wording for one action. -->
     <p class="show-empty" id="showEmpty" hidden>No shows listed in that area yet. Try another area, or tell us about one on any of the socials.</p>
+    
+    <p class="sr-only" id="showCount" role="status"></p>
   </div>
 </section>
 
@@ -1249,6 +1251,21 @@ max-width:44em}
       if (vis) any = true;
     });
     if (empty) empty.hidden = any;
+    var countEl = document.getElementById('showCount');
+    if (countEl) {
+      var n = document.querySelectorAll('.show:not([hidden])').length;
+      // THE CHIP'S OWN WORDS, NOT THE REGION ID. The ids are 'roc', 'buffalo'
+      // and 'syracuse', so the id would announce "12 shows in roc". The button
+      // the reader just pressed already says "Rochester".
+      var chip = document.querySelector('.chip.filt[data-region="' + region + '"]');
+      var where = region === 'all' || !chip ? '' : ' in ' + chip.textContent.trim();
+      // Built as one string and written once: the region is role="status",
+      // which is implicitly aria-atomic, so a half-built value would be read
+      // out on its way to the finished one.
+      countEl.textContent = n === 0
+        ? 'No shows' + where + '. ' + (empty ? empty.textContent : '')
+        : n + (n === 1 ? ' show' : ' shows') + where + '.';
+    }
     
     document.querySelectorAll('.map-t').forEach(function(t){
       t.classList.toggle('is-off', region !== 'all' && t.dataset.region !== region);
@@ -1268,6 +1285,6 @@ max-width:44em}
   apply('all');
 })();
 </script>
-<script src="/assets/app.js?v=488f79ad" defer></script>
+<script src="/assets/app.js?v=f13d9b39" defer></script>
 </body>
 </html>
