@@ -68,6 +68,7 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
 .bar-in{display:flex;align-items:center;gap:var(--s4);max-width:1500px;margin:0 auto;
   padding:var(--s2) var(--gut);min-height:var(--bar-h)}
 @media(max-width:700px){.bar-in{gap:var(--s2)}}
+.brand-h1{display:contents;margin:0;font:inherit}
 .brand{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
   gap:2px;flex:none;min-height:44px}
 .brand b{font:400 1.05rem/1 var(--display);letter-spacing:.01em}

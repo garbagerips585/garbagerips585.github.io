@@ -1139,9 +1139,43 @@ export function dropUnusedHitLightbox(html) {
  */
 export const SITE_SAY = "Pokemon pack rips from Rochester, NY";
 
+/**
+ * The bar, in two forms, and the ONLY difference is which element wraps the
+ * brand lockup.
+ *
+ * WHY THE HOME PAGE NEEDS ITS OWN. /index.html was the one page on the site
+ * whose h1 was `sr-only`: the design has no visible page title, so 11 August
+ * gave the document a screen-reader one rather than inventing a heading. That
+ * was a real decision and the argument is above `siteSay` in build-proto.mjs.
+ * What it cost is a visible h1 on the front door, and the owner asked for it back:
+ * "is there no way to make the brand logo and text below it on the top left of
+ * the header the actual H1".
+ *
+ * There is, and it is free. Measured at 390 before choosing, bottom edge of the
+ * trophy's CLICK TO RIP banner: 683px today, 777 with the old 65-character h1
+ * made visible at display size, 771 with a compact h1 plus a lede line, and
+ * 683px with this. Nothing moves, because nothing is added -- the heading is an
+ * element that was already on screen.
+ *
+ * IT IS ALSO THE BETTER h1. "GARBAGE RIPS 585, Pokemon pack rips from
+ * Rochester, NY" puts the brand, the subject and the place in the visible
+ * heading; the hidden one buried Rochester at character 45.
+ *
+ * ONLY THE HOME PAGE MAY USE IT. Every other page has its own h1 in <main>, so
+ * handing them this one would give them two, which is worse than the problem it
+ * fixes. sync-chrome.mjs picks BAR_HOME for index.html and BAR for the other
+ * three hand-maintained pages, and every generated page imports BAR directly.
+ *
+ * THE SPACE BETWEEN </b> AND <span> IS LOAD BEARING and is the reason BRAND
+ * is interpolated rather than duplicated. Without it the accessible name and
+ * the text Google reads for the h1 run together as
+ * "GARBAGE RIPS 585Pokemon pack rips from Rochester, NY".
+ */
+const BRAND = `<b>GARBAGE <i>RIPS</i> 585</b> <span>${SITE_SAY}</span>`;
+
 export const BAR = `<header class="bar">
   <div class="bar-in">
-    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>${SITE_SAY}</span></a>
+    <a class="brand" href="/">${BRAND}</a>
     <a class="bar-find" href="/search.html" aria-label="Search cards, sets, guides and rips"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg></a>
     <nav class="nav-links" aria-label="Primary">
 ${BAR_LINKS.map((h) => `      <a href="${h}">${labelFor(h)}</a>`).join("\n")}
@@ -1154,6 +1188,13 @@ ${BAR_LINKS.map((h) => `      <a href="${h}">${labelFor(h)}</a>`).join("\n")}
       aria-label="${SUB_LABEL}"><span>Subscribe</span></a>
   </div>
 </header>`;
+
+
+/** The bar for /index.html only: the brand lockup IS that page's h1. */
+export const BAR_HOME = BAR.replace(
+  `<a class="brand" href="/">${BRAND}</a>`,
+  `<h1 class="brand-h1"><a class="brand" href="/">${BRAND}</a></h1>`,
+);
 
 /**
  * The panel behind the Menu button. Must sit after </header>.
@@ -1506,7 +1547,11 @@ export function checkDrift(indexHtml) {
 
   const problems = [];
   const checks = [
-    ["bar", slice('<header class="bar">', "</header>"), BAR],
+    // index.html gets BAR_HOME, whose only difference is the h1 around the
+    // brand lockup. Comparing it against BAR would fail the build on the one
+    // page the variant exists for.
+    ["bar", slice('<header class="bar">', "</header>"),
+      indexHtml.includes('class="brand-h1"') ? BAR_HOME : BAR],
     ["menu", slice('<nav class="menu"', "</nav>"), MENU],
     // The footer nav was NOT checked, and that is exactly where the drift
     // happened: index.html kept a hand-written six link footer while

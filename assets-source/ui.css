@@ -439,6 +439,17 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
    uppercase -- 34 characters of .1em uppercase mono would be far wider than
    the wordmark it sits under, and .brand is flex:none, so that width would come
    straight out of the nav links beside it. */
+/* THE HOME PAGE'S h1 IS THE HEADER LOCKUP, and this rule is what keeps that
+   from changing a single pixel. display:contents removes the h1 box entirely,
+   so .bar-in's flex layout still sees the <a class="brand"> as its own direct
+   child exactly as before; without it the h1 becomes a block-level flex item
+   and the whole header re-lays-out. font/margin are reset because a UA
+   stylesheet gives h1 2em bold and a big vertical margin, and either would be
+   inherited into the lockup.
+
+   ONLY /index.html carries this class. Every other page takes its header from
+   shared/chrome.mjs and has its own h1 in <main>. */
+.brand-h1{display:contents;margin:0;font:inherit}
 .brand{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
   gap:2px;flex:none;min-height:44px}
 .brand b{font:400 1.05rem/1 var(--display);letter-spacing:.01em}

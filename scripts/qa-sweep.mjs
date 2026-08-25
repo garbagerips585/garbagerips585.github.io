@@ -188,7 +188,14 @@ const AUDIT = `(() => {
 
   // HEADING ORDER. One h1, and no skipped level on the way down.
   const hs = [...document.querySelectorAll('main h1, main h2, main h3, main h4, main h5, main h6')];
-  const h1s = hs.filter((h) => h.tagName === 'H1').length;
+  // THE h1 IS NOT ALWAYS IN <main>. /index.html's h1 is the header brand
+  // lockup, which is deliberate: that page has no visible page title of its
+  // own, so the element already on screen was promoted rather than a heading
+  // invented. Counting only inside <main> reported it as having none, which is
+  // the checker being wrong about a correct page. Count h1 over the DOCUMENT
+  // and keep the SKIPPED-LEVEL check scoped to <main>, where the outline
+  // actually matters.
+  const h1s = document.querySelectorAll('h1').length;
   if (h1s !== 1) out.headings.push({ kind: 'h1-count', n: h1s });
   let prev = 0;
   for (const h of hs) {

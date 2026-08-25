@@ -20,7 +20,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
-import { BAR, MENU, FOOT_NAV, FOOT_SUB } from "../shared/chrome.mjs";
+import { BAR, BAR_HOME, MENU, FOOT_NAV, FOOT_SUB } from "../shared/chrome.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CHECK = process.argv.includes("--check");
@@ -38,6 +38,18 @@ const PAGES = [
   "public/shops.html",
   "public/wanted.html",
   "public/404.html",
+  // ADDED 24 AUGUST 2026, and it was already relying on this list without being
+  // on it. FIVE builders slice the bar straight out of public/index.html --
+  // about, hall, shops, wanted and garbage-plate -- and the first four are
+  // listed above, so whatever they sliced gets overwritten from the shared
+  // source here afterwards. garbage-plate was not, so it kept whatever
+  // index.html happened to hold.
+  //
+  // That was invisible until index.html's bar stopped being identical to
+  // everyone else's: BAR_HOME wraps the brand in an h1, garbage-plate sliced
+  // it, and that page shipped with TWO h1 elements. Caught by counting h1 tags
+  // across all 1,491 built pages rather than by looking at the page.
+  "public/garbage-plate.html",
 ];
 
 const BLOCKS = [
@@ -88,7 +100,19 @@ for (const rel of PAGES) {
 
   let next = html;
   const changed = [];
-  for (const { name, re, want } of BLOCKS) {
+  for (const { name, re, want: wantBase } of BLOCKS) {
+    // THE HOME PAGE TAKES A DIFFERENT BAR, AND ONLY THE HOME PAGE.
+    // BAR_HOME wraps the brand lockup in an h1, because /index.html is the one
+    // page whose own h1 was sr-only and the lockup is already the visible title
+    // it never had. Every other page here has an h1 in <main>; giving them this
+    // one would leave them with two. See BAR_HOME in shared/chrome.mjs.
+    //
+    // THIS IS ALSO WHY EDITING public/index.html BY HAND DID NOT STICK. This
+    // script rewrites the bar from the shared source and runs TWICE in
+    // build-all.mjs, so an h1 added to the file itself was silently reverted
+    // on the next build with no error. The header is not hand-maintained even
+    // though the page around it is.
+    const want = name === "bar" && rel === "public/index.html" ? BAR_HOME : wantBase;
     const found = re.exec(next)?.[0];
     if (!found) {
       notes.push(`  ${rel}: no ${name} block`);
