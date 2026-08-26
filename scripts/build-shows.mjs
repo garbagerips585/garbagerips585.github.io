@@ -179,6 +179,9 @@ const upcoming = (data.shows || [])
   .filter((s) => s.date >= TODAY)
   .sort((a, b) => a.date.localeCompare(b.date) || (a.start || "").localeCompare(b.start || ""));
 
+// Free-to-enter count, from the same test the counter tile uses.
+const nFree = upcoming.filter((s) => String(s.admission || "").trim().toLowerCase() === "free").length;
+
 // Group by calendar month so the page reads like a calendar rather than a list.
 const byMonth = [];
 for (const s of upcoming) {
@@ -1239,6 +1242,39 @@ ${g.shows.map(showCard).join("\n")}
           on screen already; this is the non-visual half of a change that was
           only ever visual. */ ""}
     <p class="sr-only" id="showCount" role="status"></p>
+  </div>
+</section>
+${/* "ARE THESE SHOWS TO PURCHASE CARDS, SELL THEM OR BOTH?" -- asked on
+     r/Rochester on 26 August 2026 by somebody who had never been to one, under
+     a post that was nothing but this calendar. The page answered WHEN and WHERE
+     and had not one word on what actually happens in the room: zero mentions of
+     trade, graded, singles or cash anywhere on it.
+
+     That is a bigger gap than any missing show. Somebody deciding whether this
+     is a thing for them cannot get there from a list of dates, and a calendar
+     that only serves people who already go is only half a calendar.
+
+     EVERYTHING HERE IS FIRST HAND OR ALREADY ON THE PAGE. The owner has been
+     going to these since February; the admission split is computed from the
+     same data the tiles use. Nothing about etiquette, haggling or what to bring
+     is asserted, because none of that is established -- "ask the vendor" is the
+     honest answer and it is the one given. */ ""}
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Never been to one?</p>
+    <h2>What actually <span class="hl">happens</span> at a card show</h2>
+    <p class="lede intl-lede">A room of tables, each one somebody's stock. You can buy, you can sell, and you can
+      trade, at the same table, in the same visit. Nobody minds which one you are there for.</p>
+    <ul class="facts-list">
+      <li><b>Buy, sell or trade.</b> All three, and you do not have to decide before you walk in. Bringing cards to
+        sell is as normal as bringing money to spend.</li>
+      <li><b>Sealed, singles and graded.</b> Booster boxes and packs, loose cards out of binders and cases, and slabs.
+        Which of the three a table carries varies table to table.</li>
+      <li><b>Every vendor is different, so ask them.</b> Walk up and ask what they have and what they are after. That
+        is the whole etiquette, and it is how you find the person holding the thing you want.</li>
+      <li><b>${nFree} of the ${upcoming.length} coming up are free to walk into.</b> Where a show has not published a
+        price we say so rather than guess, so check the listing before you set off.</li>
+    </ul>
   </div>
 </section>
 ${(data.watchFor || []).length ? `
