@@ -1444,7 +1444,16 @@ ${(data.watchFor || []).length ? `
       run a show, or you have a flyer from a local Discord or a shop counter, send it over on any of the socials at the
       bottom of the page and it goes up here. Flyers get shown in full.</p>
     <ul class="facts-list">
-      <li>Dates and times come from public listings, mostly ${(data.sources || []).map((s) => `<a href="${esc(s.url)}" rel="noopener" target="_blank" aria-label="${esc(s.name)}, one of the listings this calendar is read from, opens on ${esc(hostOf(s.url))}">${esc(s.name)}</a>`).join(" and ")}, read ${esc(longDate(data.checked) || data.checked)}.</li>
+      ${/* THE AGGREGATORS ARE NAMED AND NO LONGER LINKED, on the owner's instruction:
+         "we should remove any links going to outside sites that arent the official
+         show sites". That is this repo's own documented test arriving here rather
+         than a new rule. CLAUDE.md: "Does the READER need the destination, or does
+         the SOURCE deserve a credit? The first earns a link. The second earns a
+         name in plain text and nothing more." Nobody reading this calendar needs
+         cardshows.io: every date, time, venue and address it gave us is printed
+         on the card above, which is exactly the /decks.html argument. The credit
+         is owed and is kept, in full, with the date it was read. */ ""}
+      <li>Dates and times come from public listings, mostly ${(data.sources || []).map((s) => esc(s.name)).join(" and ")}, read ${esc(longDate(data.checked) || data.checked)}.</li>
       <li><strong>Always check the listing before you drive.</strong> Small shows move, sell out of tables, or get called off, and a page like this is a starting point rather than a promise.</li>
       <li>We are not the organizer of any of these and we do not take a cut. It is just a list.</li>
       <li>Shows in the Southern Tier are left off on purpose. They show up in the same feeds but they are closer to Binghamton than to any of these three cities.</li>

@@ -3939,8 +3939,19 @@ footer .soc svg{fill:var(--chrome-ink)}
    roughly 580px to live in. It was 704. Everything here is spacing, not content:
    no chip, no line of copy and no picture got smaller. */
 @media(max-width:719px){
-  .show-flyer{margin-top:8px}
-  .show{gap:10px;padding:12px}
+  /* 180px AND NOT 220 ON A PHONE, and this is the one change in the tightening
+     pass that costs something real, so it is written down rather than slipped in.
+     A card carrying a 3-line title, an address, chips, a blurb AND a portrait
+     flyer measured 659px against roughly 613px of room under the sticky bar and
+     the filter rail on an iPhone. Everything else had already been taken: the
+     phantom tap target on the chips, the collapsed 24px margin, the padding. The
+     only remaining levers were the owner's own copy or the picture, and the picture
+     is the one that loses least, because it is a THUMBNAIL WITH "Tap to enlarge"
+     UNDER IT and the full flyer is one tap away at 1024px. 40px off the width is
+     60px off the card. If a later editor wants the bigger thumbnail back, the
+     honest trade is that the flyer stops fitting on one screen. */
+  .show-flyer{margin-top:6px;max-width:180px}
+  .show{gap:8px;padding:12px}
 }
 .show-flyer img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain}
 

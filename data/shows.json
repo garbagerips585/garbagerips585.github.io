@@ -73,7 +73,6 @@
       "pokemon": true,
       "admission": null,
       "blurb": "All Pokemon show, so the whole floor is our cards rather than a couple of tables tolerated in a corner.",
-      "url": "https://cardshows.io/events/pokekon-fest-08-16-2026",
       "source": "cardshows.io"
     },
     {
@@ -88,7 +87,7 @@
       "region": "roc",
       "pokemon": false,
       "admission": "Free",
-      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free to walk into, and there is a gift at noon. The flyer bills it as sports cards, autographs and Pokemon, so expect a few Pokemon tables rather than a Pokemon show.",
+      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free to walk into, and there is a gift at noon. Expect a few Pokemon tables rather than a Pokemon show.",
       "organiser": "Ernie Orlando, Ernie's Cards",
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://collectorfestmonthly.com",
@@ -131,7 +130,6 @@
       "pokemon": false,
       "admission": "Free",
       "blurb": "Batavia is the halfway point between Rochester and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors, and Pokemon dealers set up alongside the sports tables. The drive is what gets you dealers from both cities in one room.",
-      "url": "https://cardshows.io/events/batavia-sports-card-toys-non-sports-and-collectible-show-09-05-2026",
       "source": "cardshows.io",
       "organiser": "Jen Oberlies, JC's Cards and Collectibles",
       "organiserUrl": "https://jcsportscollectibles.com",
@@ -150,7 +148,6 @@
       "city": "Buffalo",
       "region": "buffalo",
       "admission": "$5, under 12 free",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "pokemon": false
     },
@@ -165,7 +162,6 @@
       "region": "buffalo",
       "pokemon": false,
       "admission": "Free",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "the organiser, by text, August 26, 2026",
       "address": "445 Columbia Ave, Depew, NY 14043",
       "organiser": "Matt Brun, Buffalo Sports Card Convention",
@@ -184,7 +180,6 @@
       "region": "buffalo",
       "pokemon": false,
       "admission": "Free",
-      "url": "https://cardshows.io/events/northtowns-card-and-memorabilia-show-09-12-2026",
       "source": "cardshows.io",
       "organiser": "Shawn Hughes",
       "address": "6525 Ward Rd, Sanborn, NY 14132"
@@ -201,7 +196,6 @@
       "pokemon": false,
       "admission": "$5 general, cash only",
       "blurb": "Held in the Science and Industry Building at the Fairgrounds, not in Liverpool. Up to 120 tables, and vendors come from across the northeast and Canada.",
-      "url": "https://cardshows.io/events/collectorfest-09-13-2026",
       "source": "cardshows.io",
       "address": "581 State Fair Blvd, Syracuse, NY 13209",
       "tiers": [
@@ -229,7 +223,6 @@
       "city": "Rochester",
       "region": "roc",
       "admission": "Free",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "pokemon": false
     },
@@ -244,7 +237,6 @@
       "city": "Niagara Falls",
       "region": "buffalo",
       "admission": "Free",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "pkmnWhy": "The regional calendar lists 60+ tables of sports and Pokemon or TCG cards. Single source.",
       "pokemon": false,
@@ -284,17 +276,15 @@
       "region": "roc",
       "pokemon": false,
    "pkmn": "some",
-   "pkmnWhy": "The organiser told the channel there are Pokemon vendors set up, \"a fair mix of both sports and pokemon\", and that it keeps growing. Their own flyer bills it as sports cards, Pokemon and more.",
       "admission": "Free",
-      "blurb": "A weeknight evening show, which is rare and handy if weekends are gone. Yes, they took the 585 too.",
-      "url": "https://cardshows.io/events/585cardz-batavia-card-and-collectibles-show-09-23-2026",
+      "blurb": "A weeknight show, and almost everything else on this page is a weekend. If your Saturdays and Sundays are already spoken for, this is the one that fits.",
       "source": "the organiser's own flyer and a message from them, August 26, 2026",
       "organiser": "585Cardz",
       "address": "8250 Park Rd, Batavia, NY 14020",
    "logo": "585cardz",
    "logoW": 1158,
    "logoH": 1029,
-   "flyer": "585cardz-batavia-2026-09-23.jpg",
+   "flyer": "585cardz-batavia-monthly.jpg",
    "flyerW": 440,
    "flyerH": 656
   },
@@ -310,7 +300,6 @@
       "region": "roc",
       "pokemon": true,
       "admission": "Free",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "An all Pokemon show at the Batavia Quality Inn, free in, with food on site."
     },
@@ -330,7 +319,7 @@
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://collectorfestmonthly.com",
       "source": "cardshows.io",
-      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free to walk into, and there is a gift at noon. The flyer bills it as sports cards, autographs and Pokemon, so expect a few Pokemon tables rather than a Pokemon show.",
+      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free to walk into, and there is a gift at noon. Expect a few Pokemon tables rather than a Pokemon show.",
       "tables": "70+",
       "pkmn": "some",
       "pkmnWhy": "The organiser's own flyer for this monthly show lists Pokemon alongside sports cards and autographs. Rochester Pokemon dealers announce tables here too: Legends Card Shop posted from it in May 2025 with RJ's Card Store and Danimal TCG."
@@ -346,7 +335,6 @@
       "region": "roc",
       "pokemon": false,
       "admission": "Free",
-      "url": "https://cardshows.io/events/batavia-sports-card-toys-non-sports-and-collectible-show-10-03-2026",
       "source": "cardshows.io",
       "blurb": "Batavia is the halfway point between Rochester and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors, and Pokemon dealers set up alongside the sports tables. The drive is what gets you dealers from both cities in one room.",
       "organiser": "Jen Oberlies, JC's Cards and Collectibles",
@@ -366,7 +354,6 @@
       "city": "Lockport",
       "region": "buffalo",
       "admission": "Free",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "pkmnWhy": "It is hosted inside a TCG shop that deals Japanese and English Pokemon.",
       "pokemon": false,
@@ -383,7 +370,6 @@
       "city": "Lewiston",
       "region": "buffalo",
       "admission": "$5, under 12 free",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "pkmnWhy": "TCG is in the show's billed title. The title appears only on the regional calendar.",
       "pokemon": false,
@@ -402,7 +388,6 @@
       "pokemon": true,
       "admission": "$5 general, cash only",
       "blurb": "A dedicated Pokemon show at the Fairgrounds, run by CNY Promotions.",
-      "url": "https://cardshows.io/events/pokefest-syracuse-10-11-2026",
       "source": "cardshows.io",
       "tables": 100,
       "tiers": [
@@ -429,7 +414,6 @@
       "city": "Lewiston",
       "region": "buffalo",
       "admission": "$5, under 12 free",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "pkmnWhy": "TCG is in the show's billed title. The title appears only on the regional calendar.",
       "pokemon": false,
@@ -446,7 +430,6 @@
       "region": "buffalo",
       "pokemon": false,
       "admission": "Free",
-      "url": "https://cardshows.io/events/northtowns-card-and-memorabilia-show-10-17-2026",
       "source": "cardshows.io",
       "organiser": "Shawn Hughes",
       "address": "6525 Ward Rd, Sanborn, NY 14132"
@@ -463,7 +446,6 @@
       "region": "buffalo",
       "pokemon": true,
       "admission": "Free",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "Run out of Pallet Town Poke Shop by one of the people behind Buffalo Trading Card Con."
     },
@@ -515,7 +497,7 @@
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://collectorfestmonthly.com",
       "source": "cardshows.io",
-      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free to walk into, and there is a gift at noon. The flyer bills it as sports cards, autographs and Pokemon, so expect a few Pokemon tables rather than a Pokemon show.",
+      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free to walk into, and there is a gift at noon. Expect a few Pokemon tables rather than a Pokemon show.",
       "tables": "70+",
       "pkmn": "some",
       "pkmnWhy": "The organiser's own flyer for this monthly show lists Pokemon alongside sports cards and autographs. Rochester Pokemon dealers announce tables here too: Legends Card Shop posted from it in May 2025 with RJ's Card Store and Danimal TCG."
@@ -532,7 +514,6 @@
       "region": "syracuse",
       "pokemon": false,
       "admission": "$5 general, cash only",
-      "url": "https://cardshows.io/events/collectorsfest-111-10-18-2026",
       "source": "cardshows.io",
       "tables": 120,
       "tiers": [
@@ -561,12 +542,14 @@
       "region": "roc",
       "pokemon": false,
    "pkmn": "some",
-   "pkmnWhy": "The organiser told the channel there are Pokemon vendors set up, \"a fair mix of both sports and pokemon\", and that it keeps growing. Their own flyer bills it as sports cards, Pokemon and more.",
+      "blurb": "A weeknight show, and almost everything else on this page is a weekend. If your Saturdays and Sundays are already spoken for, this is the one that fits.",
       "admission": "Free",
-      "url": "https://cardshows.io/events/585cardz-batavia-card-and-collectibles-show-10-21-2026",
       "source": "the organiser's own flyer and a message from them, August 26, 2026",
       "organiser": "585Cardz",
       "address": "8250 Park Rd, Batavia, NY 14020",
+   "flyer": "585cardz-batavia-monthly.jpg",
+   "flyerW": 440,
+   "flyerH": 656,
    "logo": "585cardz",
    "logoW": 1158,
    "logoH": 1029
@@ -583,7 +566,6 @@
       "region": "roc",
       "pokemon": true,
       "admission": "Free",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "An all Pokemon show at the Batavia Quality Inn, free in, with food on site."
     },
@@ -678,7 +660,6 @@
       "region": "syracuse",
       "pokemon": false,
       "admission": null,
-      "url": "https://cardshows.io/events/collectors-fest-112-11-01-2026",
       "source": "cardshows.io",
       "address": "441 Electronics Parkway, Liverpool, NY 13088"
     },
@@ -693,12 +674,14 @@
       "region": "roc",
       "pokemon": false,
    "pkmn": "some",
-   "pkmnWhy": "The organiser told the channel there are Pokemon vendors set up, \"a fair mix of both sports and pokemon\", and that it keeps growing. Their own flyer bills it as sports cards, Pokemon and more.",
+      "blurb": "A weeknight show, and almost everything else on this page is a weekend. If your Saturdays and Sundays are already spoken for, this is the one that fits.",
       "admission": "Free",
-      "url": "https://cardshows.io/events/585cardz-batavia-card-and-collectibles-show-11-04-2026",
       "source": "the organiser's own flyer and a message from them, August 26, 2026",
       "organiser": "585Cardz",
       "address": "8250 Park Rd, Batavia, NY 14020",
+   "flyer": "585cardz-batavia-monthly.jpg",
+   "flyerW": 440,
+   "flyerH": 656,
    "logo": "585cardz",
    "logoW": 1158,
    "logoH": 1029
@@ -714,7 +697,6 @@
       "region": "roc",
       "pokemon": false,
       "admission": "Free",
-      "url": "https://cardshows.io/events/batavia-sports-card-toys-non-sports-and-collectible-show-11-07-2026",
       "source": "cardshows.io",
       "blurb": "Batavia is the halfway point between Rochester and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors, and Pokemon dealers set up alongside the sports tables. The drive is what gets you dealers from both cities in one room.",
       "organiser": "Jen Oberlies, JC's Cards and Collectibles",
@@ -734,7 +716,6 @@
       "tables": "145+",
       "organiser": "Buffalo Trading Card Con",
       "organiserUrl": "https://www.buffalotcgcon.com",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "warn": "General admission is cash only at the door. Early access is presale only.",
       "blurb": "Western New York's biggest TCG convention and the only three day show on this page. Pokemon, Magic, One Piece and other TCGs, plus video games and custom art. No sports.",
@@ -767,7 +748,6 @@
       "tables": "145+",
       "organiser": "Buffalo Trading Card Con",
       "organiserUrl": "https://www.buffalotcgcon.com",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "warn": "General admission is cash only at the door. Early access is presale only.",
       "blurb": "Western New York's biggest TCG convention and the only three day show on this page. Pokemon, Magic, One Piece and other TCGs, plus video games and custom art. No sports.",
@@ -800,7 +780,6 @@
       "tables": "145+",
       "organiser": "Buffalo Trading Card Con",
       "organiserUrl": "https://www.buffalotcgcon.com",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "warn": "General admission is cash only at the door. Early access is presale only.",
       "blurb": "Western New York's biggest TCG convention and the only three day show on this page. Pokemon, Magic, One Piece and other TCGs, plus video games and custom art. No sports.",
@@ -834,7 +813,6 @@
       "region": "roc",
       "pokemon": true,
       "admission": "Free",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "An all Pokemon show at the Batavia Quality Inn, free in, with food on site."
     },
@@ -849,7 +827,6 @@
       "region": "buffalo",
       "pokemon": false,
       "admission": "Free",
-      "url": "https://cardshows.io/events/northtowns-card-and-memorabilia-show-11-21-2026",
       "source": "cardshows.io",
       "organiser": "Shawn Hughes",
       "address": "6525 Ward Rd, Sanborn, NY 14132"
@@ -870,7 +847,7 @@
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://collectorfestmonthly.com",
       "source": "collectorfestmonthly.com",
-      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free to walk into, and there is a gift at noon. The flyer bills it as sports cards, autographs and Pokemon, so expect a few Pokemon tables rather than a Pokemon show.",
+      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free to walk into, and there is a gift at noon. Expect a few Pokemon tables rather than a Pokemon show.",
       "tables": "70+",
       "pkmn": "some",
       "pkmnWhy": "The organiser's own flyer for this monthly show lists Pokemon alongside sports cards and autographs. Rochester Pokemon dealers announce tables here too: Legends Card Shop posted from it in May 2025 with RJ's Card Store and Danimal TCG."
@@ -886,7 +863,6 @@
       "region": "roc",
       "pokemon": false,
       "admission": "Free",
-      "url": "https://cardshows.io/events/batavia-sports-card-toys-non-sports-and-collectible-show-12-05-2026",
       "source": "cardshows.io",
       "blurb": "Batavia is the halfway point between Rochester and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors, and Pokemon dealers set up alongside the sports tables. The drive is what gets you dealers from both cities in one room.",
       "organiser": "Jen Oberlies, JC's Cards and Collectibles",
@@ -908,7 +884,6 @@
       "pokemon": false,
       "admission": "$5 general",
       "blurb": "The big CNY Promotions end of year show. Sports, Pokemon, toys and autographs in the Horticultural Building.",
-      "url": "https://cardshows.io/events/collectors-mega-show-113-12-05-2026",
       "source": "cardshows.io",
       "tiers": [
         {
@@ -953,7 +928,6 @@
       "city": "Lockport",
       "region": "buffalo",
       "admission": "Free",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "pkmnWhy": "It is hosted inside a TCG shop that deals Japanese and English Pokemon.",
       "pokemon": false,
@@ -975,7 +949,7 @@
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://collectorfestmonthly.com",
       "source": "collectorfestmonthly.com",
-      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free to walk into, and there is a gift at noon. The flyer bills it as sports cards, autographs and Pokemon, so expect a few Pokemon tables rather than a Pokemon show.",
+      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free to walk into, and there is a gift at noon. Expect a few Pokemon tables rather than a Pokemon show.",
       "tables": "70+",
       "pkmn": "some",
       "pkmnWhy": "The organiser's own flyer for this monthly show lists Pokemon alongside sports cards and autographs. Rochester Pokemon dealers announce tables here too: Legends Card Shop posted from it in May 2025 with RJ's Card Store and Danimal TCG."
@@ -992,7 +966,6 @@
       "region": "roc",
       "pokemon": true,
       "admission": "Free",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "An all Pokemon show at the Batavia Quality Inn, free in, with food on site."
     },
@@ -1007,12 +980,14 @@
       "region": "roc",
       "pokemon": false,
    "pkmn": "some",
-   "pkmnWhy": "The organiser told the channel there are Pokemon vendors set up, \"a fair mix of both sports and pokemon\", and that it keeps growing. Their own flyer bills it as sports cards, Pokemon and more.",
+      "blurb": "A weeknight show, and almost everything else on this page is a weekend. If your Saturdays and Sundays are already spoken for, this is the one that fits.",
       "admission": "Free",
-      "url": "https://cardshows.io/events/585cardz-batavia-card-and-collectibles-show-12-16-2026",
       "source": "the organiser's own flyer and a message from them, August 26, 2026",
       "organiser": "585Cardz",
       "address": "8250 Park Rd, Batavia, NY 14020",
+   "flyer": "585cardz-batavia-monthly.jpg",
+   "flyerW": 440,
+   "flyerH": 656,
    "logo": "585cardz",
    "logoW": 1158,
    "logoH": 1029
@@ -1028,7 +1003,6 @@
       "region": "buffalo",
       "pokemon": false,
       "admission": "Free",
-      "url": "https://cardshows.io/events/northtowns-card-and-memorabilia-show-12-19-2026",
       "source": "cardshows.io",
       "organiser": "Shawn Hughes",
       "address": "6525 Ward Rd, Sanborn, NY 14132"
@@ -1046,7 +1020,6 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
@@ -1080,7 +1053,6 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
@@ -1100,7 +1072,7 @@
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://collectorfestmonthly.com",
       "source": "collectorfestmonthly.com",
-      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free to walk into, and there is a gift at noon. The flyer bills it as sports cards, autographs and Pokemon, so expect a few Pokemon tables rather than a Pokemon show.",
+      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free to walk into, and there is a gift at noon. Expect a few Pokemon tables rather than a Pokemon show.",
       "tables": "70+",
       "pkmn": "some",
       "pkmnWhy": "The organiser's own flyer for this monthly show lists Pokemon alongside sports cards and autographs. Rochester Pokemon dealers announce tables here too: Legends Card Shop posted from it in May 2025 with RJ's Card Store and Danimal TCG."
@@ -1121,7 +1093,7 @@
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://collectorfestmonthly.com",
       "source": "collectorfestmonthly.com",
-      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free to walk into, and there is a gift at noon. The flyer bills it as sports cards, autographs and Pokemon, so expect a few Pokemon tables rather than a Pokemon show.",
+      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free to walk into, and there is a gift at noon. Expect a few Pokemon tables rather than a Pokemon show.",
       "tables": "70+",
       "pkmn": "some",
       "pkmnWhy": "The organiser's own flyer for this monthly show lists Pokemon alongside sports cards and autographs. Rochester Pokemon dealers announce tables here too: Legends Card Shop posted from it in May 2025 with RJ's Card Store and Danimal TCG."
@@ -1139,7 +1111,6 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
@@ -1156,7 +1127,6 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
@@ -1173,7 +1143,6 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
@@ -1190,7 +1159,6 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
@@ -1207,7 +1175,6 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
@@ -1224,7 +1191,6 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
@@ -1241,7 +1207,6 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
@@ -1258,7 +1223,6 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
@@ -1275,7 +1239,6 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
@@ -1292,7 +1255,6 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
@@ -1309,7 +1271,6 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     }
