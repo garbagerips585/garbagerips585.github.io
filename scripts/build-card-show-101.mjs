@@ -167,32 +167,37 @@ const FLOORPLAN = `
           table owns what is on it, prices it themselves, and takes it home at the end of the day.</figcaption>
       </figure>`;
 
-/* SOURCED, DATED, AND NOT ROUNDED INTO ONE NUMBER. These started life on this
-   page as "around 70 percent cash, around 80 in credit", framed as though they
-   came from going to these shows. The owner then said plainly that he had
-   guessed them, so they were researched and replaced.
-   The guess was not wild -- 70 to 80 is real, but it is the band for HOT MODERN
-   PRODUCT specifically, not the general case. Published as the general case it
-   would have had somebody turn down a perfectly fair 50 percent offer on a
-   desirable single believing they were being lowballed.
-   Every figure here carries its source and the date it was read, which is the
-   same rule every card price on this site follows. */
+/* THE SOURCES DISAGREE, AND THAT DISAGREEMENT IS THE FINDING.
+   These numbers started as the owner's guess (70 cash / 80 credit), published in
+   a voice that read as first hand. Researched on 26 August 2026, and the
+   research did not produce one answer. It produced a spread:
+     - a card-show-specific guide says 60 to 80 percent cash
+     - two shop-facing guides say 40 to 60 on desirable singles
+     - collectors on a forum say you are lucky to get 50
+   A page that picked one of those and printed it would be doing exactly what
+   the guess did, only with a citation stapled on. So the table shows all three
+   WITH who said each, and the copy explains why they differ: the guides describe
+   what a good deal looks like, the forum describes what people actually walked
+   away with, and where you land inside that depends on what you are holding.
+   THE GUESS WAS CLOSER THAN THE FIRST ROUND OF RESEARCH SUGGESTED. Card shows do
+   appear to run above shop counters, which is what the owner said when told the
+   figures looked low. That is now on the page as a sourced claim rather than as
+   either of our hunches. */
 const TIERS = `
       <figure class="cs-fig">
         <table class="cs-tiers">
-          <caption>What a vendor offers in cash, as a share of market value</caption>
-          <thead><tr><th scope="col">What you are selling</th><th scope="col">Cash offer</th></tr></thead>
+          <caption>What a vendor pays you in cash, as a share of market value, by who is reporting it</caption>
+          <thead><tr><th scope="col">Source</th><th scope="col">Cash offer</th></tr></thead>
           <tbody>
-            <tr><th scope="row">Commons and bulk</th><td>20 to 40 percent, and true bulk goes by the card at a cent or three each</td></tr>
-            <tr><th scope="row">Desirable singles</th><td>40 to 60 percent</td></tr>
-            <tr><th scope="row">Hot modern product</th><td>70 to 80 percent</td></tr>
-            <tr><th scope="row">Graded cards</th><td>In the middle of that range</td></tr>
+            <tr><th scope="row">Card Codex, on card shows</th><td>60 to 80 percent</td></tr>
+            <tr><th scope="row">The Card Shop Finder, on shops</th><td>40 to 60 percent on desirable singles, 20 to 40 on commons and bulk, 70 to 80 on hot modern product, graded in the middle</td></tr>
+            <tr><th scope="row">ORB Sports Cards, on collections</th><td>40 to 60 percent of retail on desirable cards, less on bulk</td></tr>
+            <tr><th scope="row">Collectors on the Collectors Universe forum</th><td>Around 50 percent, described there as lucky</td></tr>
           </tbody>
         </table>
-        <figcaption>Ranges from The Card Shop Finder's guide to selling cards to a shop, read August 26, 2026.
-          Sports Card Vending's dealer guide makes the same point about there being no fixed rate: a percentage
-          is, in their words, an output of the deal and not a universal rule. Both describe shops rather than
-          show tables specifically, and a vendor at a table is carrying the same costs.</figcaption>
+        <figcaption>All read August 26, 2026. They do not agree, and the gap between them is worth more than any
+          single number in it: the guides describe what a good deal looks like, the forum describes what people
+          actually walked away with.</figcaption>
       </figure>`;
 
 const SECTIONS = [
@@ -237,11 +242,21 @@ const SECTIONS = [
     "What surprises people is the other direction. When a vendor buys FROM you they have to buy below market, " +
     "because they are covering rent, table cost, the time the card sits in a box, and the risk it moves against " +
     "them before it sells.",
-    "THERE IS NO SINGLE NUMBER, and anyone who gives you one is guessing. What a vendor offers is an output of the " +
-    "deal rather than a rule, and the thing that moves it most is how easily your card sells on. A card with " +
-    "frequent sales and broad demand can carry a high percentage. A thin parallel, a condition-sensitive raw card, " +
-    "or something falling after a release needs more margin, because the vendor may be holding it a long time.",
-    "The published guidance splits it roughly like this, in cash:"], TIERS],
+    "THERE IS NO SINGLE NUMBER, and we went looking hard enough to be sure of that. Four sources, and they do not " +
+    "agree with each other:"], TIERS],
+  ["spread", "Why those four numbers disagree",
+   ["Reading across them, the shape is this. Card shows do seem to run above shop counters, which is worth knowing " +
+    "before you take a collection to either. Guides quote the better end and collectors report the worse one, and " +
+    "both are honest: a guide is describing a good deal and a forum post is describing an average Sunday.",
+    "What actually decides where you land is how easily your card sells on. One dealer writing about his own table " +
+    "put it as plainly as anyone: a high demand card is worth more to him than a low demand one even when the two " +
+    "carry the same retail value, because the first one turns into money and the second one turns into storage. " +
+    "The same dealer puts his gross margin at about 20 percent on average and 30 percent as a very good day, which " +
+    "is the other half of the arithmetic and the reason none of this is personal.",
+    "So a thin parallel, a condition-sensitive raw card or something falling after a release gets a worse offer " +
+    "than its price guide suggests, and the card everybody is chasing this month gets a better one. Sports Card " +
+    "Vending's dealer guide makes the same point in one line: a percentage is an output of the deal and not a " +
+    "universal rule."]],
   ["credit", "Why trade credit beats cash",
    ["Credit is consistently the better of the two. The Card Shop Finder puts it at 25 to 50 percent above whatever " +
     "the cash offer was: an offer of $100 cash is commonly $125 to $150 in credit.",
@@ -257,7 +272,15 @@ const SECTIONS = [
     "will often do a real number on four of them, because it is one transaction instead of four and it clears more " +
     "of the table. Pick out everything you want first, then ask what they can do for the lot.",
     "Have cash for it. The best price a vendor can give is the cash price, for the reason in the payment section " +
-    "above, and it is much easier to agree a round number when the money is in your hand."]],
+    "above, and it is much easier to agree a round number when the money is in your hand.",
+    "There is a number for this side too, and it is the one nobody tells you: Card Codex reckons a fair opening " +
+    "offer at a show is 80 to 90 percent of what the card has recently sold for, and 85 to 90 percent is a good " +
+    "place to land. Read that both ways. It means there is usually something there, so ask. It also means the room " +
+    "is a slice and not a half, so an offer at 60 percent of comps is not a hard bargain, it is a waste of the " +
+    "vendor's afternoon.",
+    "On a raw card, condition is fair leverage: a soft corner or an off-centre front is a real reason the card is " +
+    "worth less, and saying so politely is different from picking holes. And the strongest thing you can do costs " +
+    "nothing, which is to be willing to walk. There are other tables, and both of you know it."]],
   ["selling", "Selling: know the number before you go",
    ["Look up roughly what your cards are worth before you walk in, so an offer means something to you. You do not " +
     "need a spreadsheet, just a sense of which two or three cards carry the value.",
