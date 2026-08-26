@@ -84,7 +84,23 @@ async function once(port) {
         bytes: performance.getEntriesByType('resource').reduce((a,r)=>a+(r.transferSize||0),0) })` });
     ws.close();
     return result.value;
-  } finally { chrome.kill(); await sleep(200); rmSync(profile, { recursive: true, force: true }); }
+  } finally {
+    chrome.kill();
+    await sleep(200);
+    /* THE CLEANUP KILLED THE MEASUREMENT IT WAS CLEANING UP AFTER. On Node 24 this
+       rmSync throws ENOTEMPTY: Chrome is still flushing its profile when we get
+       here, so a file appears in a directory rm has already walked. Thrown from a
+       `finally`, it REPLACES whatever the try block was returning -- so the probe
+       exited 1 with no output, having already done the work and measured the page.
+       A failure to delete a temp directory is not a failure to measure, and it
+       must not be allowed to look like one. Worst case a few MB sit in $TMPDIR
+       until the OS clears them, which is what $TMPDIR is for. */
+    try {
+      rmSync(profile, { recursive: true, force: true, maxRetries: 3, retryDelay: 100 });
+    } catch {
+      /* ignore: the numbers are already in hand */
+    }
+  }
 }
 
 const rows = [];

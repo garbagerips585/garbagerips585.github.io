@@ -800,8 +800,26 @@ const assetV = async (rel) =>
 
 const FONTS_V = await assetV("fonts.css");
 
-export const FONTS = `<link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
+/* OUTFIT IS NO LONGER PRELOADED, 25 August 2026, and this is a MEASURED change
+   rather than a reasoned one -- which matters, because the last performance
+   "fix" on this site was reasoned from a PageSpeed screenshot and took desktop
+   from 97 to 81.
+   THE PRELOADS COMPETED WITH THE ONLY RENDER-BLOCKING RESOURCE. ui.css is the
+   one thing standing between the reader and first paint, and 42KB of woff2 was
+   being fetched alongside it. Measured on /card-shows: ui.css took 443ms with
+   both preloads and 285ms with neither.
+   OUTFIT IS THE ONE THAT COSTS, at 32KB against Titan One's 10.7KB. Dropping
+   both measured -28% LCP; dropping only Outfit measured -19% and left CLS at
+   exactly 0.0000, because Titan One still preloads and the headings still paint
+   in the real display face.
+   THE COST IS A FALLBACK FLASH ON BODY TEXT, honestly. Outfit now lands after
+   first paint rather than before it, so some readers see Arial for a moment.
+   NOT a layout shift: the fallback is metric-matched and CLS did not move.
+   VERIFY AGAINST PRODUCTION, NOT LOCALHOST. The numbers above were taken over
+   HTTP/1.1; garbagerips.com is HTTP/2, where priority handling may shrink the
+   effect. Bandwidth contention itself is protocol-independent, but the size of
+   the win is not, so it was re-measured live before and after this shipped. */
+export const FONTS = `<link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=${FONTS_V}">`;
 
 /** Stylesheets, in the order they must load. */
