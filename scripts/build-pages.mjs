@@ -1726,7 +1726,12 @@ const noScanHits = showableHits.length && hits.some((h) => !h.img);
     name: title,
     description: desc || metaDesc,
     thumbnailUrl: [thumb],
-    uploadDate: v.published,
+    /* THE TIMESTAMP, NOT THE DATE. Google reads uploadDate as a datetime and a
+       bare "2026-02-05" fails it twice over: invalid value, and no timezone.
+       v.publishedAt is YouTube's own RFC 3339 stamp; v.published is the sliced
+       display date and is only the fallback for a record synced before that
+       field existed. */
+    uploadDate: v.publishedAt || v.published,
     embedUrl: `https://www.youtube.com/embed/${v.id}`,
     url,
     ...(isoDuration(v.duration) ? { duration: isoDuration(v.duration) } : {}),

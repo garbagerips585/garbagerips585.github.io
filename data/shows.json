@@ -390,6 +390,23 @@
       "source": "cardshows.io"
     },
     {
+      "id": "collectorfest-jcc-2026-11-22",
+      "name": "CollectorFest Monthly",
+      "date": "2026-11-22",
+      "start": "10:00",
+      "end": "14:00",
+      "venue": "Louis S. Wolk JCC of Greater Rochester",
+      "address": "1200 Edgewood Ave, Rochester, NY 14618",
+      "city": "Rochester",
+      "region": "roc",
+      "pokemon": false,
+      "admission": "Free",
+      "organiser": "CollectorFest Monthly",
+      "organiserUrl": "https://collectorfestmonthly.com",
+      "url": "https://collectorfestmonthly.com",
+      "source": "collectorfestmonthly.com"
+    },
+    {
       "id": "batavia-scts-2026-12-05",
       "name": "Batavia Sports Card, Toys & Collectible Show",
       "date": "2026-12-05",
@@ -420,6 +437,23 @@
       "source": "cardshows.io"
     },
     {
+      "id": "collectorfest-jcc-2026-12-13",
+      "name": "CollectorFest Monthly",
+      "date": "2026-12-13",
+      "start": "10:00",
+      "end": "14:00",
+      "venue": "Louis S. Wolk JCC of Greater Rochester",
+      "address": "1200 Edgewood Ave, Rochester, NY 14618",
+      "city": "Rochester",
+      "region": "roc",
+      "pokemon": false,
+      "admission": "Free",
+      "organiser": "CollectorFest Monthly",
+      "organiserUrl": "https://collectorfestmonthly.com",
+      "url": "https://collectorfestmonthly.com",
+      "source": "collectorfestmonthly.com"
+    },
+    {
       "id": "585cardz-batavia-2026-12-16",
       "name": "585Cardz Batavia Card & Collectibles Show",
       "date": "2026-12-16",
@@ -446,6 +480,40 @@
       "admission": "Free",
       "url": "https://cardshows.io/events/northtowns-card-and-memorabilia-show-12-19-2026",
       "source": "cardshows.io"
+    },
+    {
+      "id": "collectorfest-jcc-2027-01-31",
+      "name": "CollectorFest Monthly",
+      "date": "2027-01-31",
+      "start": "10:00",
+      "end": "14:00",
+      "venue": "Louis S. Wolk JCC of Greater Rochester",
+      "address": "1200 Edgewood Ave, Rochester, NY 14618",
+      "city": "Rochester",
+      "region": "roc",
+      "pokemon": false,
+      "admission": "Free",
+      "organiser": "CollectorFest Monthly",
+      "organiserUrl": "https://collectorfestmonthly.com",
+      "url": "https://collectorfestmonthly.com",
+      "source": "collectorfestmonthly.com"
+    },
+    {
+      "id": "collectorfest-jcc-2027-02-14",
+      "name": "CollectorFest Monthly",
+      "date": "2027-02-14",
+      "start": "10:00",
+      "end": "14:00",
+      "venue": "Louis S. Wolk JCC of Greater Rochester",
+      "address": "1200 Edgewood Ave, Rochester, NY 14618",
+      "city": "Rochester",
+      "region": "roc",
+      "pokemon": false,
+      "admission": "Free",
+      "organiser": "CollectorFest Monthly",
+      "organiserUrl": "https://collectorfestmonthly.com",
+      "url": "https://collectorfestmonthly.com",
+      "source": "collectorfestmonthly.com"
     }
   ],
   "_towns": {

@@ -27,6 +27,31 @@
     "them to the site either: reverting one line in sync-youtube.mjs republishes all",
     "244 and nothing about the file would look wrong."
   ],
+  "VSf9bxl_siE": {
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Pitch Black",
+    "openingType": "Single Booster Pack",
+    "packNumber": 11,
+    "hasHit": true,
+    "hitCard": "Mega Darkrai ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Mega Darkrai ex",
+        "rarity": "Double Rare",
+        "set": "pitch-black",
+        "setName": "Pitch Black"
+      }
+    ]
+  },
   "I9jPRYXbqkg": {
     "setPacks": [
       {

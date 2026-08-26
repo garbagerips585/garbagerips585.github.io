@@ -711,18 +711,32 @@ if (col("Card") !== -1 && col("Raw NM USD") !== -1) {
        where a dash belonged split one hit into two". Same disease, one layer up,
        and it is fixed at the dedupe rather than by hand so the sheet cannot
        reintroduce it on the next import. */
-    const idOf = (c) =>
-      c.set && (c.number ?? c.n) != null
-        ? `${c.set}|${String(c.number ?? c.n).replace(/^0+(?=\d)/, "")}`
-        : `name:${c.card}`;
-    const id = idOf(card);
-    const prev = (byVideo[video] || []).find((c) => idOf(c) === id) || {};
+    /* TWO KEYS, TRIED IN ORDER, and the second one is not optional. Keying on
+       set+number alone still let one card become two, from the other direction:
+       the Video Log's Hit Info yields a record with NO number, the My Hits tab
+       yields the same card WITH one, and `pitch-black|048` never equals
+       `name:Mega Darkrai ex`. Importing both tabs -- which is the normal way to
+       log a hit -- duplicated today's card on the day it was logged.
+       So: same set and number is the same card, and failing that, same set and
+       same folded name is the same card. Only a record with neither falls back
+       to the bare name. */
+    const norm = (n) => String(n).replace(/^0+(?=\d)/, "");
+    const numId = (c) =>
+      c.set && (c.number ?? c.n) != null ? `${c.set}|${norm(c.number ?? c.n)}` : null;
+    const nameId = (c) =>
+      `${c.set || "?"}|${String(c.card || "").toLowerCase().replace(/[^a-z0-9]/g, "")}`;
+    const same = (a, b) => {
+      const an = numId(a), bn = numId(b);
+      if (an && bn) return an === bn;
+      return nameId(a) === nameId(b);
+    };
+    const prev = (byVideo[video] || []).find((c) => same(c, card)) || {};
     const merged = { ...prev };
     for (const [k, v] of Object.entries(card)) {
       if (v == null && KEEP_IF_BLANK.includes(k)) continue;
       merged[k] = v;
     }
-    byVideo[video] = (byVideo[video] || []).filter((c) => idOf(c) !== id).concat(merged);
+    byVideo[video] = (byVideo[video] || []).filter((c) => !same(c, card)).concat(merged);
   }
   await writeFile(
     join(ROOT, "data/hits.json"),

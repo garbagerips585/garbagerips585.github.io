@@ -333,6 +333,15 @@ const videos = uploads
       title,
       path: ripPath(base),
       published: (item.contentDetails.videoPublishedAt || item.snippet.publishedAt || "").slice(0, 10),
+      /* THE FULL RFC 3339 STAMP, KEPT ALONGSIDE THE DATE. `published` is sliced to
+         ten characters because every page on this site prints a date, and that is
+         right for display -- but VideoObject.uploadDate is not display, it is a
+         datetime, and Search Console rejected all 323 of them on 26 August 2026:
+         "Invalid datetime value for uploadDate" and "missing a timezone".
+         YouTube hands us a complete, timezone-bearing timestamp and the slice was
+         throwing it away. Nothing is invented here: this is the API's own value,
+         Z-suffixed, straight through. */
+      publishedAt: item.contentDetails.videoPublishedAt || item.snippet.publishedAt || null,
       duration: d.duration ?? 0,
       views: d.views ?? 0,
       vertical: manual.vertical ?? vertical.get(id) ?? true,
