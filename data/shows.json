@@ -261,7 +261,6 @@
       "organiser": "Cold Front Cards",
       "url": "https://sites.google.com/view/wnycardshows",
       "source": "the organiser, by text with the flyer, August 26, 2026",
-      "pkmnWhy": "The organiser confirmed it directly, and the flyer bills it as a sports cards and Pokemon show.",
       "pokemon": false,
       "pkmn": "some",
       "tables": "60+",
@@ -270,8 +269,7 @@
       "logoH": 787,
       "flyer": "cold-front-2026-09-20.jpg",
       "flyerW": 440,
-      "flyerH": 660,
-      "blurb": "Billed as a sports cards and Pokemon show, 60+ tables at the Frontier firehall, free to walk into."
+      "flyerH": 660
     },
     {
       "id": "585cardz-batavia-2026-09-23",

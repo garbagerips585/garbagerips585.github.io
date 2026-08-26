@@ -3864,8 +3864,20 @@ footer .soc svg{fill:var(--chrome-ink)}
 /* Flyers are the whole point of the page for anyone who has one, so they are
    shown properly rather than as a thumbnail. Full width under the text on a
    phone, capped so a tall portrait flyer cannot run away with the page. */
+/* CENTRED, AND IT WAS NOT. The rule further up caps the flyer at 220px while
+   this one spans it across the whole card (grid-column 1 / -1), so on a 350px
+   card it sat 17px from the left with 113px of empty card to its right and read
+   as something that had come loose. The owner: "move up the flyer and center the
+   flyer for this show listing". margin-inline is a no-op on a desktop, where the
+   flyer is placed in its own 220px column and already fills it, so this needs no
+   breakpoint of its own. */
 .show-flyer{grid-column:1 / -1;display:block;border-radius:var(--r-sm);overflow:hidden;
-  border:2px solid var(--keyline);background:var(--paper-3)}
+  border:2px solid var(--keyline);background:var(--paper-3);margin-inline:auto}
+/* And closer to the listing it belongs to. --s4 left a 32px run of empty green
+   between the last line of the card and the flyer, which on a card whose whole
+   point is the flyer read as a gap rather than as spacing. PHONE ONLY: on a
+   desktop that margin is what holds the flyer clear of the card's top edge. */
+@media(max-width:719px){ .show-flyer{margin-top:var(--s3)} }
 .show-flyer img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain}
 
 .show-empty{color:var(--ink-2);padding:var(--s6) 0}

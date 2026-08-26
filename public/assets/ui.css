@@ -1159,7 +1159,8 @@ footer .soc svg{fill:var(--chrome-ink)}
   min-height:44px;display:inline-flex;align-items:center}
 .show-links a:hover{text-decoration:underline}
 .show-flyer{grid-column:1 / -1;display:block;border-radius:var(--r-sm);overflow:hidden;
-  border:2px solid var(--keyline);background:var(--paper-3)}
+  border:2px solid var(--keyline);background:var(--paper-3);margin-inline:auto}
+@media(max-width:719px){ .show-flyer{margin-top:var(--s3)} }
 .show-flyer img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain}
 .show-empty{color:var(--ink-2);padding:var(--s6) 0}
 .watch-list{list-style:none;display:grid;gap:var(--s4);margin-top:var(--s5)}
