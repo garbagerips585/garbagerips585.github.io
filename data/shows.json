@@ -93,7 +93,9 @@
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://cardshows.io/events/collectorfest-monthly-sports-and-collectibles-show-08-30-2026",
       "source": "cardshows.io",
-      "tables": 72
+      "tables": 72,
+      "pkmn": "some",
+      "pkmnWhy": "their own flyer lists Cards, Pokemon, Collectibles, and we go to it"
     },
     {
       "id": "buffalo-scc-depew-2026-09-05",
@@ -128,7 +130,9 @@
       "source": "cardshows.io",
       "organiser": "Jen Oberlies, JC's Cards and Collectibles",
       "organiserUrl": "https://jcsportscollectibles.com",
-      "address": "8250 Park Rd, Batavia, NY 14020"
+      "address": "8250 Park Rd, Batavia, NY 14020",
+      "pkmn": "some",
+      "pkmnWhy": "we go to it, and Sports Collectors Digest lists it as Jc's Sports Card and Pokemon"
     },
     {
       "id": "northtowns-sanborn-2026-09-12",
@@ -225,7 +229,9 @@
       "url": "https://cardshows.io/events/collectorfest-monthly-sports-and-collectibles-show-09-27-2026",
       "source": "cardshows.io",
       "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner.",
-      "tables": 72
+      "tables": 72,
+      "pkmn": "some",
+      "pkmnWhy": "their own flyer lists Cards, Pokemon, Collectibles, and we go to it"
     },
     {
       "id": "batavia-scts-2026-10-03",
@@ -243,7 +249,9 @@
       "blurb": "Batavia is the halfway point between Rochester and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors and the same quality, and the same mix of sports, Pokemon and other TCG. The drive is what gets you dealers from both cities in one room.",
       "organiser": "Jen Oberlies, JC's Cards and Collectibles",
       "organiserUrl": "https://jcsportscollectibles.com",
-      "address": "8250 Park Rd, Batavia, NY 14020"
+      "address": "8250 Park Rd, Batavia, NY 14020",
+      "pkmn": "some",
+      "pkmnWhy": "we go to it, and Sports Collectors Digest lists it as Jc's Sports Card and Pokemon"
     },
     {
       "id": "pokefest-syracuse-2026-10-11",
@@ -323,7 +331,9 @@
       "url": "https://cardshows.io/events/collectorfest-monthly-sports-and-collectibles-show-10-18-2026",
       "source": "cardshows.io",
       "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner.",
-      "tables": 72
+      "tables": 72,
+      "pkmn": "some",
+      "pkmnWhy": "their own flyer lists Cards, Pokemon, Collectibles, and we go to it"
     },
     {
       "id": "collectorsfest-111-2026-10-18",
@@ -474,7 +484,9 @@
       "blurb": "Batavia is the halfway point between Rochester and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors and the same quality, and the same mix of sports, Pokemon and other TCG. The drive is what gets you dealers from both cities in one room.",
       "organiser": "Jen Oberlies, JC's Cards and Collectibles",
       "organiserUrl": "https://jcsportscollectibles.com",
-      "address": "8250 Park Rd, Batavia, NY 14020"
+      "address": "8250 Park Rd, Batavia, NY 14020",
+      "pkmn": "some",
+      "pkmnWhy": "we go to it, and Sports Collectors Digest lists it as Jc's Sports Card and Pokemon"
     },
     {
       "name": "Buffalo Trading Card Con",
@@ -624,7 +636,9 @@
       "url": "https://collectorfestmonthly.com",
       "source": "collectorfestmonthly.com",
       "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner.",
-      "tables": 72
+      "tables": 72,
+      "pkmn": "some",
+      "pkmnWhy": "their own flyer lists Cards, Pokemon, Collectibles, and we go to it"
     },
     {
       "id": "batavia-scts-2026-12-05",
@@ -642,7 +656,9 @@
       "blurb": "Batavia is the halfway point between Rochester and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors and the same quality, and the same mix of sports, Pokemon and other TCG. The drive is what gets you dealers from both cities in one room.",
       "organiser": "Jen Oberlies, JC's Cards and Collectibles",
       "organiserUrl": "https://jcsportscollectibles.com",
-      "address": "8250 Park Rd, Batavia, NY 14020"
+      "address": "8250 Park Rd, Batavia, NY 14020",
+      "pkmn": "some",
+      "pkmnWhy": "we go to it, and Sports Collectors Digest lists it as Jc's Sports Card and Pokemon"
     },
     {
       "id": "mega-show-113-2026-12-05",
@@ -690,7 +706,9 @@
       "url": "https://collectorfestmonthly.com",
       "source": "collectorfestmonthly.com",
       "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner.",
-      "tables": 72
+      "tables": 72,
+      "pkmn": "some",
+      "pkmnWhy": "their own flyer lists Cards, Pokemon, Collectibles, and we go to it"
     },
     {
       "id": "extreme-pokemon-batavia-2026-12-13",
@@ -774,7 +792,9 @@
       "url": "https://collectorfestmonthly.com",
       "source": "collectorfestmonthly.com",
       "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner.",
-      "tables": 72
+      "tables": 72,
+      "pkmn": "some",
+      "pkmnWhy": "their own flyer lists Cards, Pokemon, Collectibles, and we go to it"
     },
     {
       "id": "collectorfest-jcc-2027-02-14",
@@ -793,7 +813,9 @@
       "url": "https://collectorfestmonthly.com",
       "source": "collectorfestmonthly.com",
       "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner.",
-      "tables": 72
+      "tables": 72,
+      "pkmn": "some",
+      "pkmnWhy": "their own flyer lists Cards, Pokemon, Collectibles, and we go to it"
     }
   ],
   "_towns": {

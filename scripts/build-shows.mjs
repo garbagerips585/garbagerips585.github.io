@@ -1164,7 +1164,17 @@ function showCard(s) {
           }</p>
           <p class="show-where"><a href="${esc(mapLink(s))}" rel="noopener" target="_blank" aria-label="${esc(s.venue)}, ${esc(s.city)} NY, where ${esc(showRef(s))} is held, opens on ${esc(hostOf(mapLink(s)))}">${esc(s.venue)}, ${esc(s.city)} NY</a></p>
           <div class="show-tags">
-            ${s.pokemon ? `<span class="chip pk">Pokemon show</span>` : ""}
+            ${/* THREE STATES, NOT TWO, ADDED 26 August 2026 AT THE OWNER'S INSTRUCTION.
+              This is a Pokemon site. He will happily list a sports show that has Pokemon on the floor, and he
+              does not want to send a reader on an hour's drive to a show that has none. `pokemon: true` has
+              always meant ALL-POKEMON and drives the counter tile; it could not say "sports show, Pokemon
+              definitely there", which is most of this calendar.
+              `pkmn: "some"` is that missing state, and it is only ever set where there is EVIDENCE: the
+              organiser's own flyer, the venue's listing, or the owner having stood in the room. Absent means we
+              have not confirmed it, and absent renders nothing rather than a guess dressed as a fact.
+              The reader is told what the marks mean under the calendar, so an unmarked show reads as
+              unconfirmed rather than as denied. */ ""}
+            ${s.pokemon ? `<span class="chip pk">Pokemon show</span>` : s.pkmn === "some" ? `<span class="chip pk">Pokemon here too</span>` : ""}
             ${soon ? `<span class="chip soon" data-soon>${esc(soon)}</span>` : ""}
             <span class="chip">${s.admission ? esc(s.admission) : "Check the listing"}</span>${/* TABLE COUNT,
               ADDED 26 August 2026, because it is the question the r/Rochester thread kept circling: is this show
@@ -1215,6 +1225,10 @@ const page = head + `
         further down than almost anybody scrolls.
         A LINK RATHER THAN A SECOND COPY of the invitation: the section at the foot already explains what to send
         and has the prefilled email on it, and two versions of an ask is how they drift apart. */ ""}
+    <p class="lede" style="max-width:36em">A show marked <b>Pokemon show</b> is all Pokemon. One marked
+      <b>Pokemon here too</b> is a general show where we have confirmed Pokemon is on the floor, either because we
+      go to it or because the organiser says so. Anything unmarked we have not been able to confirm either way, so
+      ask before you drive out for Pokemon specifically.</p>
     <p class="lede" style="max-width:36em"><a href="#missed">Know a show we are missing? Tell us and it goes on
       &rarr;</a></p>
   </div>
