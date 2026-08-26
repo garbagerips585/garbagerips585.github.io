@@ -1209,7 +1209,14 @@ const page = head + `
     <p class="lede" style="max-width:36em">Most of these are general card shows: sports, Pokemon and other TCG on the
       same floor. The all-Pokemon ones are called out on the card, and there are ${
         upcoming.filter((s) => s.pokemon).length
-      } of them coming up.</p>
+      } of them coming up.</p>${/* THE ASK, MOVED WHERE IT CAN BE SEEN, 26 August 2026. "Know one we missed?" sits at
+        90% of this page and the calendar now runs to February 2027, so it is below fourteen months of listings. The
+        page was posted to r/Rochester asking people to report shows we do not have, and the way to do that was
+        further down than almost anybody scrolls.
+        A LINK RATHER THAN A SECOND COPY of the invitation: the section at the foot already explains what to send
+        and has the prefilled email on it, and two versions of an ask is how they drift apart. */ ""}
+    <p class="lede" style="max-width:36em"><a href="#missed">Know a show we are missing? Tell us and it goes on
+      &rarr;</a></p>
   </div>
 </header>
 
@@ -1341,7 +1348,7 @@ ${(data.watchFor || []).length ? `
 
 <section class="tight">
   <div class="wrap">
-    <h2>Know one we <span class="hl">missed</span>?</h2>
+    <h2 id="missed">Know one we <span class="hl">missed</span>?</h2>
     <p class="lede" style="max-width:44em">This list is kept by hand, so it is only as good as what we can find. If you
       run a show, or you have a flyer from a local Discord or a shop counter, send it over on any of the socials at the
       bottom of the page and it goes up here. Flyers get shown in full.</p>

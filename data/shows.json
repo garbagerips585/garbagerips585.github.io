@@ -109,7 +109,8 @@
       "url": "https://cardshows.io/events/buffalo-sports-card-convention-09-05-2026",
       "source": "cardshows.io",
       "address": "445 Columbia Ave, Depew, NY 14043",
-      "organiser": "Buffalo Trading Card Con"
+      "organiser": "Matt Brun, Buffalo Sports Card Convention",
+      "warn": "Two sources disagree on the date: the organiser's own 2026 flyer says September 5, one regional calendar says September 12. Check before you drive."
     },
     {
       "id": "batavia-scts-2026-09-05",
@@ -124,7 +125,10 @@
       "admission": "Free",
       "blurb": "Batavia is the halfway point between Rochester and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors and the same quality, and the same mix of sports, Pokemon and other TCG. The drive is what gets you dealers from both cities in one room.",
       "url": "https://cardshows.io/events/batavia-sports-card-toys-non-sports-and-collectible-show-09-05-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "organiser": "Jen Oberlies, JC's Cards and Collectibles",
+      "organiserUrl": "https://jcsportscollectibles.com",
+      "address": "8250 Park Rd, Batavia, NY 14020"
     },
     {
       "id": "northtowns-sanborn-2026-09-12",
@@ -138,7 +142,9 @@
       "pokemon": false,
       "admission": "Free",
       "url": "https://cardshows.io/events/northtowns-card-and-memorabilia-show-09-12-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "organiser": "Shawn Hughes",
+      "address": "6525 Ward Rd, Sanborn, NY 14132"
     },
     {
       "id": "collectorfest-liverpool-2026-09-13",
@@ -146,28 +152,28 @@
       "date": "2026-09-13",
       "start": "09:30",
       "end": "15:00",
-      "venue": "Randolph House Hotel",
-      "city": "Liverpool",
+      "venue": "C&S Companies Science & Industry Building, NYS Fairgrounds",
+      "city": "Syracuse",
       "region": "syracuse",
       "pokemon": false,
-      "admission": "$5 general",
-      "blurb": "Liverpool is a Syracuse suburb, right off the 690.",
+      "admission": "$5 general, cash only",
+      "blurb": "Held in the Science and Industry Building at the Fairgrounds, not in Liverpool. Up to 120 tables, and vendors come from across the northeast and Canada.",
       "url": "https://cardshows.io/events/collectorfest-09-13-2026",
       "source": "cardshows.io",
-      "address": "441 Electronics Parkway, Liverpool, NY 13088",
+      "address": "581 State Fair Blvd, Syracuse, NY 13209",
       "tiers": [
         {
           "name": "General admission",
           "price": "$5",
-          "from": "09:30",
-          "note": "12 and under free"
+          "note": "cash only, 10 and under free"
         },
         {
           "name": "Early bird",
           "price": "$20",
           "from": "09:00"
         }
-      ]
+      ],
+      "tables": 120
     },
     {
       "id": "585cardz-batavia-2026-09-23",
@@ -182,7 +188,25 @@
       "admission": "Free",
       "blurb": "A weeknight evening show, which is rare and handy if weekends are gone. Yes, they took the 585 too.",
       "url": "https://cardshows.io/events/585cardz-batavia-card-and-collectibles-show-09-23-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "organiser": "585Cardz",
+      "address": "8250 Park Rd, Batavia, NY 14020"
+    },
+    {
+      "id": "extreme-pokemon-batavia-2026-09-26",
+      "name": "Extreme Pokemon Show",
+      "date": "2026-09-26",
+      "start": "10:00",
+      "end": "17:00",
+      "venue": "Quality Inn",
+      "address": "8250 Park Rd, Batavia, NY 14020",
+      "city": "Batavia",
+      "region": "roc",
+      "pokemon": true,
+      "admission": "Free",
+      "url": "https://sites.google.com/view/wnycardshows",
+      "source": "wnycardshows (Shake & Break 716)",
+      "blurb": "An all Pokemon show at the Batavia Quality Inn, free in, with food on site."
     },
     {
       "id": "collectorfest-jcc-2026-09-27",
@@ -216,24 +240,39 @@
       "admission": "Free",
       "url": "https://cardshows.io/events/batavia-sports-card-toys-non-sports-and-collectible-show-10-03-2026",
       "source": "cardshows.io",
-      "blurb": "Batavia is the halfway point between Rochester and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors and the same quality, and the same mix of sports, Pokemon and other TCG. The drive is what gets you dealers from both cities in one room."
+      "blurb": "Batavia is the halfway point between Rochester and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors and the same quality, and the same mix of sports, Pokemon and other TCG. The drive is what gets you dealers from both cities in one room.",
+      "organiser": "Jen Oberlies, JC's Cards and Collectibles",
+      "organiserUrl": "https://jcsportscollectibles.com",
+      "address": "8250 Park Rd, Batavia, NY 14020"
     },
     {
       "id": "pokefest-syracuse-2026-10-11",
       "name": "POKEFEST Syracuse",
       "date": "2026-10-11",
-      "start": "11:00",
-      "end": "19:00",
-      "venue": "NYS Fairgrounds",
-      "address": "581 State Fair Blvd., Syracuse, NY 13209",
+      "start": "10:00",
+      "end": "16:00",
+      "venue": "C&S Companies Science & Industry Building, NYS Fairgrounds",
+      "address": "581 State Fair Blvd, Syracuse, NY 13209",
       "city": "Syracuse",
       "region": "syracuse",
       "pokemon": true,
-      "admission": null,
-      "warn": "Listings disagree on this one: one says 11am to 7pm, another says 10am to 4pm with $5 in and $20 early bird. Check before you drive two hours.",
+      "admission": "$5 general, cash only",
       "blurb": "A dedicated Pokemon show at the Fairgrounds, run by CNY Promotions.",
       "url": "https://cardshows.io/events/pokefest-syracuse-10-11-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "tables": 100,
+      "tiers": [
+        {
+          "name": "General admission",
+          "price": "$5",
+          "note": "cash only, 12 and under free"
+        },
+        {
+          "name": "Early bird",
+          "price": "$20",
+          "from": "09:30"
+        }
+      ]
     },
     {
       "id": "northtowns-sanborn-2026-10-17",
@@ -247,7 +286,25 @@
       "pokemon": false,
       "admission": "Free",
       "url": "https://cardshows.io/events/northtowns-card-and-memorabilia-show-10-17-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "organiser": "Shawn Hughes",
+      "address": "6525 Ward Rd, Sanborn, NY 14132"
+    },
+    {
+      "id": "professor-sams-depew-2026-10-17",
+      "name": "Professor Sam's Card Show",
+      "date": "2026-10-17",
+      "start": "10:00",
+      "end": "16:00",
+      "venue": "Pallet Town Poke Shop",
+      "address": "6055 Transit Rd, Depew, NY 14043",
+      "city": "Depew",
+      "region": "buffalo",
+      "pokemon": true,
+      "admission": "Free",
+      "url": "https://sites.google.com/view/wnycardshows",
+      "source": "wnycardshows (Shake & Break 716)",
+      "blurb": "Run out of Pallet Town Poke Shop by one of the people behind Buffalo Trading Card Con."
     },
     {
       "id": "collectorfest-jcc-2026-10-18",
@@ -272,16 +329,29 @@
       "id": "collectorsfest-111-2026-10-18",
       "name": "Collectorsfest #111",
       "date": "2026-10-18",
-      "start": "10:00",
-      "end": "16:00",
-      "venue": "NYS Fairgrounds",
-      "address": "581 State Fair Blvd., Syracuse, NY 13209",
+      "start": "09:30",
+      "end": "15:00",
+      "venue": "C&S Companies Science & Industry Building, NYS Fairgrounds",
+      "address": "581 State Fair Blvd, Syracuse, NY 13209",
       "city": "Syracuse",
       "region": "syracuse",
       "pokemon": false,
-      "admission": null,
+      "admission": "$5 general, cash only",
       "url": "https://cardshows.io/events/collectorsfest-111-10-18-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "tables": 120,
+      "tiers": [
+        {
+          "name": "General admission",
+          "price": "$5",
+          "note": "cash only, 10 and under free"
+        },
+        {
+          "name": "Early bird",
+          "price": "$20",
+          "from": "09:00"
+        }
+      ]
     },
     {
       "id": "585cardz-batavia-2026-10-21",
@@ -295,7 +365,25 @@
       "pokemon": false,
       "admission": "Free",
       "url": "https://cardshows.io/events/585cardz-batavia-card-and-collectibles-show-10-21-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "organiser": "585Cardz",
+      "address": "8250 Park Rd, Batavia, NY 14020"
+    },
+    {
+      "id": "extreme-pokemon-batavia-2026-10-24",
+      "name": "Extreme Pokemon Show",
+      "date": "2026-10-24",
+      "start": "10:00",
+      "end": "17:00",
+      "venue": "Quality Inn",
+      "address": "8250 Park Rd, Batavia, NY 14020",
+      "city": "Batavia",
+      "region": "roc",
+      "pokemon": true,
+      "admission": "Free",
+      "url": "https://sites.google.com/view/wnycardshows",
+      "source": "wnycardshows (Shake & Break 716)",
+      "blurb": "An all Pokemon show at the Batavia Quality Inn, free in, with food on site."
     },
     {
       "id": "rocpokecon-2026-10-31",
@@ -337,7 +425,7 @@
       "ticketUrl": "https://www.rocpokecon.com/events/tickets",
       "url": "https://www.rocpokecon.com",
       "source": "rocpokecon.com",
-      "tables": "160+"
+      "tables": "300+"
     },
     {
       "id": "collectorsfest-112-2026-11-01",
@@ -366,7 +454,9 @@
       "pokemon": false,
       "admission": "Free",
       "url": "https://cardshows.io/events/585cardz-batavia-card-and-collectibles-show-11-04-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "organiser": "585Cardz",
+      "address": "8250 Park Rd, Batavia, NY 14020"
     },
     {
       "id": "batavia-scts-2026-11-07",
@@ -381,7 +471,125 @@
       "admission": "Free",
       "url": "https://cardshows.io/events/batavia-sports-card-toys-non-sports-and-collectible-show-11-07-2026",
       "source": "cardshows.io",
-      "blurb": "Batavia is the halfway point between Rochester and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors and the same quality, and the same mix of sports, Pokemon and other TCG. The drive is what gets you dealers from both cities in one room."
+      "blurb": "Batavia is the halfway point between Rochester and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors and the same quality, and the same mix of sports, Pokemon and other TCG. The drive is what gets you dealers from both cities in one room.",
+      "organiser": "Jen Oberlies, JC's Cards and Collectibles",
+      "organiserUrl": "https://jcsportscollectibles.com",
+      "address": "8250 Park Rd, Batavia, NY 14020"
+    },
+    {
+      "name": "Buffalo Trading Card Con",
+      "venue": "The Powerhouse",
+      "address": "140 Lee Street, Buffalo, NY 14210",
+      "city": "Buffalo",
+      "region": "buffalo",
+      "pokemon": true,
+      "admission": "$5 general, cash only at the door",
+      "tables": "145+",
+      "organiser": "Buffalo Trading Card Con",
+      "organiserUrl": "https://www.buffalotcgcon.com",
+      "url": "https://sites.google.com/view/wnycardshows",
+      "source": "wnycardshows (Shake & Break 716)",
+      "warn": "General admission is cash only at the door. Early access is presale only.",
+      "blurb": "Western New York's biggest TCG convention and the only three day show on this page. Pokemon, Magic, One Piece and other TCGs, plus video games and custom art. No sports.",
+      "id": "btcc-powerhouse-2026-11-13",
+      "date": "2026-11-13",
+      "start": "17:00",
+      "end": "21:00",
+      "tiers": [
+        {
+          "name": "General admission",
+          "price": "$5",
+          "note": "cash only at the door, 12 and under free"
+        },
+        {
+          "name": "Early access",
+          "price": "$25",
+          "from": "09:00",
+          "note": "presale only, no refunds"
+        }
+      ]
+    },
+    {
+      "name": "Buffalo Trading Card Con",
+      "venue": "The Powerhouse",
+      "address": "140 Lee Street, Buffalo, NY 14210",
+      "city": "Buffalo",
+      "region": "buffalo",
+      "pokemon": true,
+      "admission": "$5 general, cash only at the door",
+      "tables": "145+",
+      "organiser": "Buffalo Trading Card Con",
+      "organiserUrl": "https://www.buffalotcgcon.com",
+      "url": "https://sites.google.com/view/wnycardshows",
+      "source": "wnycardshows (Shake & Break 716)",
+      "warn": "General admission is cash only at the door. Early access is presale only.",
+      "blurb": "Western New York's biggest TCG convention and the only three day show on this page. Pokemon, Magic, One Piece and other TCGs, plus video games and custom art. No sports.",
+      "id": "btcc-powerhouse-2026-11-14",
+      "date": "2026-11-14",
+      "start": "10:00",
+      "end": "17:00",
+      "tiers": [
+        {
+          "name": "General admission",
+          "price": "$5",
+          "note": "cash only at the door, 12 and under free"
+        },
+        {
+          "name": "Early access",
+          "price": "$25",
+          "from": "09:00",
+          "note": "presale only, no refunds"
+        }
+      ]
+    },
+    {
+      "name": "Buffalo Trading Card Con",
+      "venue": "The Powerhouse",
+      "address": "140 Lee Street, Buffalo, NY 14210",
+      "city": "Buffalo",
+      "region": "buffalo",
+      "pokemon": true,
+      "admission": "$5 general, cash only at the door",
+      "tables": "145+",
+      "organiser": "Buffalo Trading Card Con",
+      "organiserUrl": "https://www.buffalotcgcon.com",
+      "url": "https://sites.google.com/view/wnycardshows",
+      "source": "wnycardshows (Shake & Break 716)",
+      "warn": "General admission is cash only at the door. Early access is presale only.",
+      "blurb": "Western New York's biggest TCG convention and the only three day show on this page. Pokemon, Magic, One Piece and other TCGs, plus video games and custom art. No sports.",
+      "id": "btcc-powerhouse-2026-11-15",
+      "date": "2026-11-15",
+      "start": "10:00",
+      "end": "16:00",
+      "tiers": [
+        {
+          "name": "General admission",
+          "price": "$5",
+          "note": "cash only at the door, 12 and under free"
+        },
+        {
+          "name": "Early access",
+          "price": "$25",
+          "from": "09:00",
+          "note": "presale only, no refunds"
+        }
+      ]
+    },
+    {
+      "id": "extreme-pokemon-batavia-2026-11-15",
+      "name": "Extreme Pokemon Show",
+      "date": "2026-11-15",
+      "start": "10:00",
+      "end": "17:00",
+      "venue": "Quality Inn",
+      "address": "8250 Park Rd, Batavia, NY 14020",
+      "city": "Batavia",
+      "region": "roc",
+      "pokemon": true,
+      "admission": "Free",
+      "url": "https://sites.google.com/view/wnycardshows",
+      "source": "wnycardshows (Shake & Break 716)",
+      "blurb": "An all Pokemon show at the Batavia Quality Inn, free in, with food on site."
     },
     {
       "id": "northtowns-sanborn-2026-11-21",
@@ -395,7 +603,9 @@
       "pokemon": false,
       "admission": "Free",
       "url": "https://cardshows.io/events/northtowns-card-and-memorabilia-show-11-21-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "organiser": "Shawn Hughes",
+      "address": "6525 Ward Rd, Sanborn, NY 14132"
     },
     {
       "id": "collectorfest-jcc-2026-11-22",
@@ -429,23 +639,39 @@
       "admission": "Free",
       "url": "https://cardshows.io/events/batavia-sports-card-toys-non-sports-and-collectible-show-12-05-2026",
       "source": "cardshows.io",
-      "blurb": "Batavia is the halfway point between Rochester and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors and the same quality, and the same mix of sports, Pokemon and other TCG. The drive is what gets you dealers from both cities in one room."
+      "blurb": "Batavia is the halfway point between Rochester and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors and the same quality, and the same mix of sports, Pokemon and other TCG. The drive is what gets you dealers from both cities in one room.",
+      "organiser": "Jen Oberlies, JC's Cards and Collectibles",
+      "organiserUrl": "https://jcsportscollectibles.com",
+      "address": "8250 Park Rd, Batavia, NY 14020"
     },
     {
       "id": "mega-show-113-2026-12-05",
       "name": "Collector's Mega Show #113",
       "date": "2026-12-05",
-      "start": "11:00",
-      "end": "19:00",
-      "venue": "NYS Fairgrounds",
+      "start": "09:30",
+      "end": "15:00",
+      "venue": "Horticulture Building, NYS Fairgrounds",
       "address": "581 State Fair Blvd, Syracuse, NY 13209",
       "city": "Syracuse",
       "region": "syracuse",
       "pokemon": false,
-      "admission": null,
+      "admission": "$5 general",
       "blurb": "The big CNY Promotions end of year show. Sports, Pokemon, toys and autographs in the Horticultural Building.",
       "url": "https://cardshows.io/events/collectors-mega-show-113-12-05-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "tiers": [
+        {
+          "name": "General admission",
+          "price": "$5",
+          "note": "12 and under free"
+        },
+        {
+          "name": "Early bird",
+          "price": "$20",
+          "from": "09:00",
+          "note": "enters 9:00 to 9:30am"
+        }
+      ]
     },
     {
       "id": "collectorfest-jcc-2026-12-13",
@@ -467,6 +693,22 @@
       "tables": 72
     },
     {
+      "id": "extreme-pokemon-batavia-2026-12-13",
+      "name": "Extreme Pokemon Show",
+      "date": "2026-12-13",
+      "start": "10:00",
+      "end": "17:00",
+      "venue": "Quality Inn",
+      "address": "8250 Park Rd, Batavia, NY 14020",
+      "city": "Batavia",
+      "region": "roc",
+      "pokemon": true,
+      "admission": "Free",
+      "url": "https://sites.google.com/view/wnycardshows",
+      "source": "wnycardshows (Shake & Break 716)",
+      "blurb": "An all Pokemon show at the Batavia Quality Inn, free in, with food on site."
+    },
+    {
       "id": "585cardz-batavia-2026-12-16",
       "name": "585Cardz Batavia Card & Collectibles Show",
       "date": "2026-12-16",
@@ -478,7 +720,9 @@
       "pokemon": false,
       "admission": "Free",
       "url": "https://cardshows.io/events/585cardz-batavia-card-and-collectibles-show-12-16-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "organiser": "585Cardz",
+      "address": "8250 Park Rd, Batavia, NY 14020"
     },
     {
       "id": "northtowns-sanborn-2026-12-19",
@@ -492,7 +736,26 @@
       "pokemon": false,
       "admission": "Free",
       "url": "https://cardshows.io/events/northtowns-card-and-memorabilia-show-12-19-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "organiser": "Shawn Hughes",
+      "address": "6525 Ward Rd, Sanborn, NY 14132"
+    },
+    {
+      "id": "pokekon-rochester-2027-01-09",
+      "name": "PokeKon Fest Rochester",
+      "date": "2027-01-09",
+      "start": "10:00",
+      "end": "17:00",
+      "venue": "RIT Inn & Conference Center",
+      "address": "5257 West Henrietta Road, Henrietta, NY 14467",
+      "city": "Henrietta",
+      "region": "roc",
+      "pokemon": true,
+      "admission": "$20, under 11 free",
+      "organiser": "PokeKon Fest / OurCons",
+      "url": "http://pokekon.com/Rochester/",
+      "source": "pokekon.com",
+      "blurb": "The same promoter as the Niagara Falls PokeKon, on our side of the state this time. All Pokemon, with free parking."
     },
     {
       "id": "collectorfest-jcc-2027-01-31",
@@ -561,6 +824,14 @@
     "Liverpool": [
       43.106456,
       -76.217705
+    ],
+    "Buffalo": [
+      42.886416,
+      -78.878149
+    ],
+    "Henrietta": [
+      43.061178,
+      -77.633898
     ]
   },
   "_towns_note": [
