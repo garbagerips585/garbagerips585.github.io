@@ -1201,18 +1201,21 @@ function showCard(s) {
           <p class="show-meta">${esc(weekday(s.date))}${
             timeRange(s.start, s.end) ? ` &bull; ${esc(timeRange(s.start, s.end))}` : ""
           }</p>
-          <p class="show-where"><a href="${esc(mapLink(s))}" data-map-apple="${esc(appleMapLink(s))}" rel="noopener" target="_blank" aria-label="${esc(s.venue)}, ${esc(s.city)} NY, where ${esc(showRef(s))} is held, opens on ${esc(hostOf(mapLink(s)))}">${esc(s.venue)}${s.address ? "" : `, ${esc(s.city)} NY`}</a>${
-            /* THE ADDRESS IS TEXT AND NOT PART OF THE LINK, on purpose. The owner:
-               "its easier to see what streets places are on and people know areas
-               so it helps, plus if you want to copy and paste into apple maps".
-               Both halves of that need it OUT of the anchor: a reader dragging to
-               select an address inside a link starts a drag on the link instead,
-               and on a phone a long press on a link opens the share sheet rather
-               than the selection handles. It also keeps the tap target one thing
-               rather than a 44px control wrapping two lines of small print.
-               61 of the 62 dates carry one; the venue link keeps ", City NY" for
-               the one that does not, because that link is all it has. */ ""
-          }${s.address ? `<span class="show-addr">${esc(s.address)}</span>` : ""}</p>
+          <p class="show-where"><a class="show-map" href="${esc(mapLink(s))}" data-map-apple="${esc(appleMapLink(s))}" rel="noopener" target="_blank" aria-label="${esc(s.venue)}, ${esc(s.city)} NY, where ${esc(showRef(s))} is held, opens on ${esc(hostOf(mapLink(s)))}"><span class="show-venue">${esc(s.venue)}${s.address ? "" : `, ${esc(s.city)} NY`}</span>${
+            /* THE ADDRESS IS INSIDE THE LINK NOW, and it was deliberately outside
+               it a few hours ago, so here is the trade rather than a silent flip.
+               It was out because selecting text inside an anchor is awkward: a drag
+               starts a drag on the link, and a long press on a phone opens the
+               share sheet. The owner asked for it in anyway: "so the venue name and
+               address are links and will open your default maps app on whatever
+               platform you are on". That is the better trade now that the Apple
+               swap below actually lands people in the right app, and iOS puts Copy
+               on the share sheet regardless.
+               ONE ANCHOR AROUND BOTH, not two anchors to the same place: two would
+               read as two destinations to a screen reader and halve the tap target.
+               The anchor is display:block so the whole two-line run is the target,
+               which is the fix .show-links needed for the same reason. */ ""
+          }${s.address ? `<span class="show-addr">${esc(s.address)}</span>` : ""}</a></p>
           <div class="show-tags">
             ${/* THREE STATES, NOT TWO, ADDED 26 August 2026 AT THE OWNER'S INSTRUCTION.
               This is a Pokemon site. He will happily list a sports show that has Pokemon on the floor, and he

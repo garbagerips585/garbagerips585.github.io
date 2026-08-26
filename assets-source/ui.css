@@ -3787,8 +3787,31 @@ footer .soc svg{fill:var(--chrome-ink)}
    The paragraph gains matching margin so two neighbouring links cannot end up
    overlapping each other's targets. */
 .show-where{font-size:var(--t-sm);margin-top:12px;margin-bottom:8px}
-.show-where a{color:var(--sky-deep);font-weight:600;padding:13px 0}
-.show-where a:hover{text-decoration:underline}
+/* BLOCK, so the whole two-line run is the tap target. The anchor wraps the venue
+   AND the address now, and an inline anchor would have made the target the shape
+   of the text rather than the shape of the row. */
+/* THE UNDERLINE IS CONTROLLED ON THE ANCHOR, AND THE ANCHOR CARRIES A CLASS SO
+   THAT IS POSSIBLE. A descendant cannot remove an ancestor's underline: the spec
+   propagates it as a drawn line rather than an inherited property, so
+   `.show-addr{text-decoration:none}` does nothing at any specificity, and the
+   street address gained a line through both of its lines the moment it moved
+   inside the link. Worse, `.show-where a` could not turn it off either, because
+   `main p a:not([class])` above outranks it at (0,2,4). That rule's own comment
+   says :not([class]) is there to keep it off anything the site has deliberately
+   styled, so the fix is the one it describes: give the anchor a class. */
+.show-where a{display:block;color:var(--sky-deep);font-weight:600;padding:13px 0;
+  text-decoration:none}
+.show-where a .show-venue{text-decoration:underline}
+/* THE ADDRESS KEEPS ITS OWN COLOUR AND WEIGHT INSIDE THE LINK, and it needs the
+   two-class selector to do it. `.show-addr` alone is (0,1,0) and `.show-where a`
+   is (0,1,1), so the anchor would win both the colour and the 600 weight and the
+   address would turn teal and bold. This is the same specificity trap ui.css
+   already records for parent colour flips, arriving from the other direction. */
+.show-where a .show-addr{font:400 var(--t-sm)/1.4 var(--body);color:var(--ink-2)}
+/* Underline the VENUE only. Underlining the block would drag a line through a
+   two-line street address, which reads as struck through more than as a link. */
+.show-where a:hover .show-venue,
+.show-where a:focus-visible .show-venue{text-decoration-thickness:2px}
 /* THE STREET ADDRESS, UNDER THE VENUE AND OUTSIDE THE LINK. The owner asked for it
    because "people know areas" and because an address you can select is one you
    can paste into whichever maps app you actually use; the reasoning for keeping

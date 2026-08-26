@@ -1120,8 +1120,12 @@ footer .soc svg{fill:var(--chrome-ink)}
 .show-meta{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.04em;
   text-transform:uppercase;color:var(--ink-2);margin-top:4px}
 .show-where{font-size:var(--t-sm);margin-top:12px;margin-bottom:8px}
-.show-where a{color:var(--sky-deep);font-weight:600;padding:13px 0}
-.show-where a:hover{text-decoration:underline}
+.show-where a{display:block;color:var(--sky-deep);font-weight:600;padding:13px 0;
+  text-decoration:none}
+.show-where a .show-venue{text-decoration:underline}
+.show-where a .show-addr{font:400 var(--t-sm)/1.4 var(--body);color:var(--ink-2)}
+.show-where a:hover .show-venue,
+.show-where a:focus-visible .show-venue{text-decoration-thickness:2px}
 .show-addr{display:block;margin-top:2px;font:400 var(--t-sm)/1.4 var(--body);color:var(--ink-2)}
 .show-h{display:flex;align-items:center;gap:10px}
 .show-h h3{flex:1 1 0;min-width:0}
