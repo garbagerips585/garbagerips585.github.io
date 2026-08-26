@@ -1129,7 +1129,7 @@ function showCard(s) {
           <p class="show-where"><a href="${esc(mapLink(s))}" rel="noopener" target="_blank" aria-label="${esc(s.venue)}, ${esc(s.city)} NY, where ${esc(showRef(s))} is held, opens on ${esc(hostOf(mapLink(s)))}">${esc(s.venue)}, ${esc(s.city)} NY</a></p>
           <div class="show-tags">
             ${s.pokemon ? `<span class="chip pk">Pokemon show</span>` : ""}
-            ${soon ? `<span class="chip soon">${esc(soon)}</span>` : ""}
+            ${soon ? `<span class="chip soon" data-soon>${esc(soon)}</span>` : ""}
             <span class="chip">${s.admission ? esc(s.admission) : "Check the listing"}</span>
           </div>
           ${s.blurb ? `<p class="show-blurb">${esc(s.blurb)}</p>` : ""}
@@ -1273,7 +1273,7 @@ ${/* "ARE THESE SHOWS TO PURCHASE CARDS, SELL THEM OR BOTH?" -- asked on
       <li><b>Every vendor is different, so ask them.</b> Walk up and ask what they have and what they are after. That
         is the whole etiquette, and it is how you find the person holding the thing you want.</li>
       <li><b>${nFree} of the ${upcoming.length} coming up are free to walk into.</b> Where a show has not published a
-        price we say so rather than guess, so check the listing before you set off.</li>
+        price we say so rather than guess, so check the listing before you head out.</li>
     </ul>
     <p style="margin-top:var(--s4)"><a class="btn btn-sky btn-sm" href="/card-show-101.html">Card show 101: how it all
       works &rarr;</a></p>
@@ -1373,6 +1373,11 @@ ${CLIENT_DAY_JS}
       if(lbl) lbl.textContent='Next one up';
       var href=first.querySelector('.show-links a');
       if(href) next.setAttribute('href', href.getAttribute('href'));
+      // AND THE DATE MOVES WITH IT. Without this the slab keeps the date of the
+      // show it just rolled past, so the countdown guard below never fires again
+      // and the label is stuck on a bare "Next one up" from then on. Never wrong,
+      // just quietly less useful, which is the kind of bug that survives.
+      if(first.dataset.date) next.dataset.date=first.dataset.date;
     } else {
       next.remove();
     }
@@ -1384,15 +1389,32 @@ ${CLIENT_DAY_JS}
   // normally hides this, and the nightly rebuild failed on 23 and 24 August.
   // Recomputed here against the reader's own clock, mirroring daysAway() in the
   // builder exactly: Today, Tomorrow, In N days up to seven, nothing after that.
+  // ONE FUNCTION, BECAUSE THE FIRST VERSION OF THIS FIXED ONE OF THE TWO PLACES
+  // AND SHIPPED. The hero slab got recomputed and the per-show chips did not, so
+  // a stale deploy would have said "Tomorrow" in the biggest type on the page and
+  // "In 4 days" on the listing card for the SAME SHOW, one screen apart. Worse
+  // than the staleness it replaced, because the page now disagrees with itself.
+  function dayWord(iso){
+    var away=Math.round((new Date(iso+'T12:00:00') - new Date(today+'T12:00:00'))/86400000);
+    if(away<0) return null;
+    return away===0 ? 'Today' : away===1 ? 'Tomorrow' : away<=7 ? 'In '+away+' days' : '';
+  }
   if(next && next.dataset.date && next.dataset.date >= today){
     var lbl2=next.querySelector('.next-label');
     if(lbl2){
-      var away=Math.round(
-        (new Date(next.dataset.date+'T12:00:00') - new Date(today+'T12:00:00'))/86400000);
-      var word = away===0 ? 'Today' : away===1 ? 'Tomorrow' : (away>1 && away<=7) ? 'In '+away+' days' : '';
+      var word=dayWord(next.dataset.date);
       lbl2.textContent = 'Next one up' + (word ? ' \u2022 ' + word : '');
     }
   }
+  // Every listing card's own chip, against the same clock and the same wording.
+  // A chip whose show is more than a week out loses the chip rather than keeping
+  // a stale one, which is what daysAway() does at build time.
+  document.querySelectorAll('.show[data-date]').forEach(function(el){
+    var chip=el.querySelector('[data-soon]');
+    if(!chip) return;
+    var word=dayWord(el.dataset.date);
+    if(!word) chip.remove(); else chip.textContent=word;
+  });
 
 ${/* THE CALENDAR'S OWN CLIENT SWEEP WAS HERE and went with the calendar. It
         removed a .cal-dot whose date had passed and re-derived .is-past on

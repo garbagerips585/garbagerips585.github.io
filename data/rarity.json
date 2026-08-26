@@ -33,7 +33,7 @@
   "  not worth publishing half-right.",
   "  Mega Attack Rare's pastel star symbol. Single-sourced, unverified.",
   "  Futuristic Rare. Real, but it does not exist in anyone's hands until the",
-  "  30th Celebration lands on 16 September 2026.",
+  "  30th Celebration lands on September 16, 2026.",
   "  A card for Rainbow rares. The whole claim is the rainbow FOIL, and a flat",
   "  scan does not show foil, so the picture would prove nothing the words do",
   "  not already say. The other eight retired mechanics are things you can SEE",
@@ -42,7 +42,7 @@
   "`offLadder` IS FOR RARITIES THIS SITE'S OWN CHECKLISTS PRINT THAT THE",
   "LADDER ABOVE DOES NOT COVER. The failure case it exists for: somebody pulls",
   "a card, reads the name off a set page here, looks it up on this page and",
-  "finds nothing. Counted across public/data/cards on 15 August 2026, Holo Rare",
+  "finds nothing. Counted across public/data/cards on August 15, 2026, Holo Rare",
   "covers 88 cards and Black White Rare 4, and neither string appeared anywhere",
   "on this page. Entries render with the magnified corner, same as the ladder,",
   "because the symbol is the whole claim in both cases.",
@@ -67,7 +67,7 @@
   "for a real slab. Same approach as the fake-cards diagram.",
   "Grading still has no image: it is a process, not an object.",
   "",
-  "TWO SLOTS THAT WERE EMPTY ARE NOW FILLED, 24 August 2026, and each one needed a different source for a different reason. RAINBOW RARES had no card because this file argued a flat scan cannot show foil. That is true of the foil and false of the card: the pastel rainbow on a rainbow rare is a printed colour layer and is plainly there in a scan. Charizard VMAX, Darkness Ablaze 189/189, all four renditions live. Pikachu VMAX, Vivid Voltage 188 was the obvious alternative and is REFUSED: its .avif times out, and a <picture> does not fall back when a matching <source> fails, so that card renders as an empty bordered box on every AVIF browser. REVERSE HOLO could not come from TCGdex at all, and the reason in this readme is right: TCGdex serves one scan per card, of the NORMAL printing. Prismatic Evolutions is the exception in the whole hobby, because its Poke Ball and Master Ball patterns are separate TCGplayer PRODUCTS with their own photographs. The one chosen is collector number 074, the same number as the Common rung's Eevee, so the two tiles are the same card normal and reverse, which is the clearest teaching pair available. It is NOT a data/card-shots.json pin and must not become one: that file's contract is 'only where the TCGdex url 404s', and sv08.5/074 answers 200. A pin there would shadow the normal Eevee."
+  "TWO SLOTS THAT WERE EMPTY ARE NOW FILLED, August 24, 2026, and each one needed a different source for a different reason. RAINBOW RARES had no card because this file argued a flat scan cannot show foil. That is true of the foil and false of the card: the pastel rainbow on a rainbow rare is a printed colour layer and is plainly there in a scan. Charizard VMAX, Darkness Ablaze 189/189, all four renditions live. Pikachu VMAX, Vivid Voltage 188 was the obvious alternative and is REFUSED: its .avif times out, and a <picture> does not fall back when a matching <source> fails, so that card renders as an empty bordered box on every AVIF browser. REVERSE HOLO could not come from TCGdex at all, and the reason in this readme is right: TCGdex serves one scan per card, of the NORMAL printing. Prismatic Evolutions is the exception in the whole hobby, because its Poke Ball and Master Ball patterns are separate TCGplayer PRODUCTS with their own photographs. The one chosen is collector number 074, the same number as the Common rung's Eevee, so the two tiles are the same card normal and reverse, which is the clearest teaching pair available. It is NOT a data/card-shots.json pin and must not become one: that file's contract is 'only where the TCGdex url 404s', and sv08.5/074 answers 200. A pin there would shadow the normal Eevee."
  ],
  "checked": "2026-08-15",
  "eras": {

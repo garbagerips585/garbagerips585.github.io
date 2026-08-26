@@ -557,7 +557,7 @@
   },
   "_towns_note": [
     "TOWN CENTRES, NOT VENUES, and that is deliberate. [lat, lon] geocoded once by",
-    "hand from OpenStreetMap Nominatim on 17 August 2026 and stored here so no",
+    "hand from OpenStreetMap Nominatim on August 17, 2026 and stored here so no",
     "build touches the network. Only 3 of the 8 venues on this page carry a street",
     "address at all; the rest are named places like 'Quality Inn, Batavia'. Across a",
     "map that spans 150 miles from Niagara Falls to Syracuse, a town centre is the",

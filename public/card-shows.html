@@ -442,7 +442,7 @@ max-width:44em}
           <p class="show-where"><a href="https://www.google.com/maps/search/?api=1&amp;query=1200%20Edgewood%20Ave%2C%20Rochester%2C%20NY%2014618" rel="noopener" target="_blank" aria-label="Louis S. Wolk JCC of Greater Rochester, Rochester NY, where CollectorFest Monthly, August 30, 2026 is held, opens on google.com">Louis S. Wolk JCC of Greater Rochester, Rochester NY</a></p>
           <div class="show-tags">
             
-            <span class="chip soon">In 4 days</span>
+            <span class="chip soon" data-soon>In 4 days</span>
             <span class="chip">Free</span>
           </div>
           <p class="show-blurb">The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner.</p>
@@ -1181,7 +1181,7 @@ max-width:44em}
       <li><b>Every vendor is different, so ask them.</b> Walk up and ask what they have and what they are after. That
         is the whole etiquette, and it is how you find the person holding the thing you want.</li>
       <li><b>19 of the 26 coming up are free to walk into.</b> Where a show has not published a
-        price we say so rather than guess, so check the listing before you set off.</li>
+        price we say so rather than guess, so check the listing before you head out.</li>
     </ul>
     <p style="margin-top:var(--s4)"><a class="btn btn-sky btn-sm" href="/card-show-101.html">Card show 101: how it all
       works &rarr;</a></p>
@@ -1381,6 +1381,11 @@ max-width:44em}
       if(lbl) lbl.textContent='Next one up';
       var href=first.querySelector('.show-links a');
       if(href) next.setAttribute('href', href.getAttribute('href'));
+      // AND THE DATE MOVES WITH IT. Without this the slab keeps the date of the
+      // show it just rolled past, so the countdown guard below never fires again
+      // and the label is stuck on a bare "Next one up" from then on. Never wrong,
+      // just quietly less useful, which is the kind of bug that survives.
+      if(first.dataset.date) next.dataset.date=first.dataset.date;
     } else {
       next.remove();
     }
@@ -1392,15 +1397,32 @@ max-width:44em}
   // normally hides this, and the nightly rebuild failed on 23 and 24 August.
   // Recomputed here against the reader's own clock, mirroring daysAway() in the
   // builder exactly: Today, Tomorrow, In N days up to seven, nothing after that.
+  // ONE FUNCTION, BECAUSE THE FIRST VERSION OF THIS FIXED ONE OF THE TWO PLACES
+  // AND SHIPPED. The hero slab got recomputed and the per-show chips did not, so
+  // a stale deploy would have said "Tomorrow" in the biggest type on the page and
+  // "In 4 days" on the listing card for the SAME SHOW, one screen apart. Worse
+  // than the staleness it replaced, because the page now disagrees with itself.
+  function dayWord(iso){
+    var away=Math.round((new Date(iso+'T12:00:00') - new Date(today+'T12:00:00'))/86400000);
+    if(away<0) return null;
+    return away===0 ? 'Today' : away===1 ? 'Tomorrow' : away<=7 ? 'In '+away+' days' : '';
+  }
   if(next && next.dataset.date && next.dataset.date >= today){
     var lbl2=next.querySelector('.next-label');
     if(lbl2){
-      var away=Math.round(
-        (new Date(next.dataset.date+'T12:00:00') - new Date(today+'T12:00:00'))/86400000);
-      var word = away===0 ? 'Today' : away===1 ? 'Tomorrow' : (away>1 && away<=7) ? 'In '+away+' days' : '';
+      var word=dayWord(next.dataset.date);
       lbl2.textContent = 'Next one up' + (word ? ' • ' + word : '');
     }
   }
+  // Every listing card's own chip, against the same clock and the same wording.
+  // A chip whose show is more than a week out loses the chip rather than keeping
+  // a stale one, which is what daysAway() does at build time.
+  document.querySelectorAll('.show[data-date]').forEach(function(el){
+    var chip=el.querySelector('[data-soon]');
+    if(!chip) return;
+    var word=dayWord(el.dataset.date);
+    if(!word) chip.remove(); else chip.textContent=word;
+  });
 
 
 

@@ -901,7 +901,7 @@ ${jump.map(([id, label]) => `          <li><a href="#${id}">${esc(label)}</a></l
         <p>Then the wrappers go in the bin, and the bin is the other half of the channel. There
           is a Trubbish trash can on the desk and every rip ends the same way: the empties, the
           packaging and the bulk get fed to him on camera. It happens in every single video, and
-          it is one of the things people turn up for.</p>
+          it is one of the things people show up for.</p>
 
         <p>The can itself is not a prop we made. It is a Pokemon Center item, sold for a limited
           run at the Pokemon Center in Tokyo and never here, and this one was imported from Japan

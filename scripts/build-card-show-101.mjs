@@ -58,7 +58,7 @@ const desc =
 const QA = [
   ["Are card shows for buying cards, selling them, or both?",
     "Both, and trading as well. You can do all three at the same table in the same visit, and you do not have to " +
-    "decide before you walk in. Turning up with cards to sell is as normal as turning up with money to spend."],
+    "decide before you walk in. Showing up with cards to sell is as normal as showing up with money to spend."],
   ["Do I need to bring cash?",
     "Cash gets you the best price, and it is worth bringing some for that reason alone. It is not the only way to " +
     "pay though: most vendors take PayPal, Apple Cash, Venmo or Zelle, and most carry a card reader as well. A card " +
@@ -69,11 +69,11 @@ const QA = [
     upcoming.length + " coming up, " + nPokemon + " are all Pokemon."],
   ["Does it cost anything to get in?",
     nFree + " of the " + upcoming.length + " shows on our calendar are free to walk into. Where a show has not " +
-    "published an admission price we say so rather than guess at it, so check the listing before you set off."],
+    "published an admission price we say so rather than guess at it, so check the listing before you head out."],
   ["Does sealed product get a better offer than singles?",
     "Yes, and by a wide margin. At shops that publish their rates, sealed Pokemon goes at 70 to 80 percent of " +
     "market low in cash and 80 to 90 in store credit, while singles run about 60 percent cash and up to 80 in " +
-    "credit. Sealed cannot be damaged in a binder and does not need grading, so a vendor can turn it round fast " +
+    "credit. Sealed cannot be damaged in a binder and does not need grading, so a vendor can move it on fast " +
     "and pays for the privilege. Graded 10s sit near sealed, around 70 cash and 80 credit."],
   ["What will a vendor pay for my cards?",
     "Less than they sell them for, and how much less depends on what it is and how easily it sells on. Published " +
@@ -168,7 +168,7 @@ const FLOORPLAN = `
           <path d="M296 260 h48" class="cs-door"/>
           <text x="320" y="252" class="cs-in">way in</text>
         </svg>
-        <figcaption>Every rectangle is one seller. There is no till and no back room: the person behind the
+        <figcaption>Every rectangle is one seller. There is no register and no back room: the person behind the
           table owns what is on it, prices it themselves, and takes it home at the end of the day.</figcaption>
       </figure>`;
 
@@ -195,10 +195,10 @@ const TIERS = `
             <tr><th scope="row">Graded, 10s</th><td>70 percent</td><td>80 percent</td><td>Average of the last five sold</td></tr>
           </tbody>
         </table>
-        <figcaption>Knight and Day Games publishes all three of those lines; Zulus Games publishes the higher
+        <figcaption>Market low means the cheapest listing rather than the headline market price, which matters more than it sounds and is covered below. Knight and Day Games publishes all three of those lines; Zulus Games publishes the higher
           sealed pair at 80 cash and 90 credit; Game Goblins puts singles at up to 65 percent cash with credit
-          worth a further quarter on top. All read August 26, 2026. Knight and Day also want Lightly Played or
-          better and will not take singles under fifty cents, which is normal and worth knowing before you sort
+          worth another quarter on top. All read August 26, 2026. Knight and Day also want Lightly Played or
+          better, meaning light edge wear at worst and nothing creased or scuffed, and will not take singles under fifty cents, which is normal and worth knowing before you sort
           a box.</figcaption>
       </figure>`;
 
@@ -207,11 +207,11 @@ const SECTIONS = [
    ["A card show is a hall or a function room with tables around it, and a different seller behind every table. " +
     "There is no single shop and no one price: each vendor brings their own cards, prices them their own way, and " +
     "packs them up at the end of the day.",
-    "That is the whole format. Walk in, walk round, and look at what is out."], FLOORPLAN],
+    "That is the whole format. Walk in, walk around, and look at what is out."], FLOORPLAN],
   ["buysell", "You can buy, you can sell, and you can trade",
    ["All three, and often with the same person in the same conversation. Vendors are not only there to sell to you: " +
     "most are actively buying, and plenty will trade.",
-    "So bringing cards with you is normal. If you have a box in a cupboard and no idea what is in it, a show is a " +
+    "So bringing cards with you is normal. If you have a box in a closet and no idea what is in it, a show is a " +
     "room full of people who will tell you, and some of them will make you an offer."]],
   ["tables", "Sealed, singles and graded",
    ["Sealed means unopened product: booster boxes, elite trainer boxes, loose packs. Singles are individual cards, " +
@@ -226,17 +226,17 @@ const SECTIONS = [
     "takes a percentage of the sale, and on a thin margin the vendor is passing on the fee rather than eating it."]],
   ["cost", "What it costs to get in, and what an early bird ticket buys",
    [nFree + " of the " + upcoming.length + " shows on our calendar are free to walk into. That is the normal shape " +
-    "of a regular local show: no door charge, turn up whenever you like.",
+    "of a regular local show: no door charge, show up whenever you like.",
     "The bigger ones charge, and they often sell a tier above general admission that gets you through the door " +
     "early. That premium is buying you two things. The room is quieter, so you can actually get to a table and talk " +
     "to the person behind it. And you get first pick: the good sealed product and the standout singles are bought in " +
     "the first hour, and by general admission a lot of the best of it has gone.",
-    "It is a real gap, not fifteen minutes. Collectorfest in Liverpool on 13 September runs $5 general from 9:30am " +
+    "It is a real gap, not fifteen minutes. Collectorfest in Liverpool, a Syracuse suburb, on September 13 runs $5 general from 9:30am " +
     "with a $20 early bird at 9am. RocPokeCon on Halloween runs $5 general from 10am, $15 early entry from 9am, and " +
     "a $95 VIP that is on the vendor floor at 8:30am. Whether that is worth it depends entirely on whether you are " +
     "hunting something specific.",
     "Where a show has not published an admission price anywhere we could find it, the calendar says so rather than " +
-    "guessing. Turning up expecting free entry and finding a cover charge is exactly the sort of wrong a calendar " +
+    "guessing. Showing up expecting free entry and finding a cover charge is exactly the sort of wrong a calendar " +
     "must not be."]],
   ["value", "What vendors pay, and why it is less than the sticker",
    ["A vendor prices what they are selling at or near market value, which is what the card actually trades for, not " +
@@ -246,7 +246,8 @@ const SECTIONS = [
     "them before it sells.",
     "AND IT IS NOT ONE NUMBER, it is three, because sealed, singles and graded are three different risks. Sealed " +
     "cannot be damaged in a binder and does not need grading, so a vendor can move it fast and pays accordingly. A " +
-    "raw single carries condition risk and has to find the one person who wants that card. A slab is somewhere " +
+    "raw single, and raw means ungraded and straight out of a binder, carries condition risk and has to find the " +
+    "one person who wants that card. A slab is somewhere " +
     "between: the condition question is already settled, but the buyer pool is narrower.",
     "These are rates that shops publish rather than ranges a guide estimates, which is why they are worth more:"], TIERS],
   ["basis", "The trap in every one of those numbers",
@@ -271,7 +272,8 @@ const SECTIONS = [
     "carry the same retail value, because the first one turns into money and the second one turns into storage. " +
     "The same dealer puts his gross margin at about 20 percent on average and 30 percent as a very good day, which " +
     "is the other half of the arithmetic and the reason none of this is personal.",
-    "So a thin parallel, a condition-sensitive raw card or something falling after a release gets a worse offer " +
+    "So a thin parallel, meaning an alternate printing of a card that few people collect, or a condition-sensitive " +
+    "raw card, or something falling after a release, gets a worse offer " +
     "than its price guide suggests, and the card everybody is chasing this month gets a better one. Sports Card " +
     "Vending's dealer guide makes the same point in one line: a percentage is an output of the deal and not a " +
     "universal rule."]],
@@ -287,27 +289,28 @@ const SECTIONS = [
    ["Most prices are at or near market, and most vendors have a little room in them. Asking is normal and nobody is " +
     "offended by it, as long as you are asking rather than telling.",
     "The room is almost always in the BUNDLE rather than the single card. A vendor who will not move on one card " +
-    "will often do a real number on four of them, because it is one transaction instead of four and it clears more " +
+    "will often come down properly on four of them, because it is one transaction instead of four and it clears more " +
     "of the table. Pick out everything you want first, then ask what they can do for the lot.",
     "Have cash for it. The best price a vendor can give is the cash price, for the reason in the payment section " +
-    "above, and it is much easier to agree a round number when the money is in your hand.",
-    "There is a number for this side too, and it is the one nobody tells you: Card Codex reckons a fair opening " +
+    "above, and it is much easier to agree on a round number when the money is in your hand.",
+    "There is a number for this side too, and it is the one nobody tells you: Card Codex, a hobby guide site, puts a fair opening " +
     "offer at a show is 80 to 90 percent of what the card has recently sold for, and 85 to 90 percent is a good " +
     "place to land. Read that both ways. It means there is usually something there, so ask. It also means the room " +
-    "is a slice and not a half, so an offer at 60 percent of comps is not a hard bargain, it is a waste of the " +
+    "is a slice and not a half, so an offer at 60 percent of what it last sold for is not a hard bargain, it is a " +
+    "waste of the " +
     "vendor's afternoon.",
-    "On a raw card, condition is fair leverage: a soft corner or an off-centre front is a real reason the card is " +
+    "On a raw card, condition is fair leverage: a soft corner or an off-center front is a real reason the card is " +
     "worth less, and saying so politely is different from picking holes. And the strongest thing you can do costs " +
     "nothing, which is to be willing to walk. There are other tables, and both of you know it."]],
   ["selling", "Selling: know the number before you go",
    ["Look up roughly what your cards are worth before you walk in, so an offer means something to you. You do not " +
     "need a spreadsheet, just a sense of which two or three cards carry the value.",
     "Then work out which band your cards are actually in, because that is what decides whether an offer is fair. " +
-    "Forty to sixty percent in cash on a desirable single is a NORMAL offer and not somebody trying it on; the same " +
+    "Forty to sixty percent in cash on a desirable single is a NORMAL offer and not somebody lowballing you; the same " +
     "forty percent on hot modern product is low. Knowing which of those you are holding is most of the negotiation.",
     "Ask for the credit number as well as the cash number before you decide. It is a different offer, not a " +
     "courtesy, and on the published spread it is worth a quarter to a half again.",
-    "It is still worth getting two or three offers on anything that actually matters. Vendors specialise, and the " +
+    "It is still worth getting two or three offers on anything that actually matters. Vendors specialize, and the " +
     "one who already has a buyer for your card can afford to pay more for it than the one who does not.",
     "Bring the cards in something that lets a person go through them quickly. A vendor is deciding whether to give " +
     "you money, and anything that makes it slow to see what you have works against you."]],
@@ -379,7 +382,7 @@ ${body}
     </div>
   </section>
 </main>
-${footer("Written from going to these shows. Not affiliated with any of them.")}
+${footer("What the floor is like and how vendors take payment is from going to these shows. The buy rates are other people's published figures, named and dated on the page. Not affiliated with any of them.")}
 ${APP_JS}
 </body>
 </html>

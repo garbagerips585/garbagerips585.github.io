@@ -628,7 +628,7 @@ ${nextShows.map(showRow).join("\n")}
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Open all week</p>
     <h2>The shops with a <span class="hl">door</span></h2>
     <p class="lede" style="max-width:44em">A show is a Saturday. These are open the rest of the week, and
-      ${playShops.length} of the ${shops.length} publish organized play you can turn up to. Addresses, phone numbers,
+      ${playShops.length} of the ${shops.length} publish organized play you can show up to. Addresses, phone numbers,
       hours and league nights are on the shop page, because one shop's opening hours should live in one place.</p>
     <ul class="roc-rows">
 ${shops.map(shopRow).join("\n")}

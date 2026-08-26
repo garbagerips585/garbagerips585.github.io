@@ -15,7 +15,7 @@
     "shop listing this site can source lives in data/pack-counts-current.json,",
     "with the url and the date on the source that saw the price, and the builder",
     "reads them straight out of it and joins each to its MSRP row for the",
-    "division. There are FOUR of them, all read 15 August 2026. A number on this",
+    "division. There are FOUR of them, all read August 15, 2026. A number on this",
     "page is stated in exactly one place in this repo, which is the same rule the",
     "pack counts and the Pokemon Center prices already keep.",
     "",
