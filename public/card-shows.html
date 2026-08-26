@@ -1360,6 +1360,22 @@ max-width:44em}
       next.remove();
     }
   }
+  // AND THE COUNTDOWN GOES STALE WITHOUT EVER GOING PAST. The block above only
+  // fires once the date has BEEN, so a page built on Wednesday still said
+  // "In 4 days" when a reader opened it on Friday: not wrong enough to trip any
+  // check, wrong enough to send somebody on the wrong day. The nightly rebuild
+  // normally hides this, and the nightly rebuild failed on 23 and 24 August.
+  // Recomputed here against the reader's own clock, mirroring daysAway() in the
+  // builder exactly: Today, Tomorrow, In N days up to seven, nothing after that.
+  if(next && next.dataset.date && next.dataset.date >= today){
+    var lbl2=next.querySelector('.next-label');
+    if(lbl2){
+      var away=Math.round(
+        (new Date(next.dataset.date+'T12:00:00') - new Date(today+'T12:00:00'))/86400000);
+      var word = away===0 ? 'Today' : away===1 ? 'Tomorrow' : (away>1 && away<=7) ? 'In '+away+' days' : '';
+      lbl2.textContent = 'Next one up' + (word ? ' • ' + word : '');
+    }
+  }
 
 
 
