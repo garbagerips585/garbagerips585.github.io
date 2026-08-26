@@ -66,6 +66,55 @@ TOL = 46
 CARD = (0x2F, 0x4F, 0x39)
 
 
+def deletterbox(im: Image.Image) -> Image.Image:
+    """Trim the black bars off a phone screenshot.
+
+    Organisers send logos as screenshots, so the file is the whole phone screen:
+    585Cardz's arrived 1170x2532 with the logo occupying rows 708 to 1737 and
+    black everywhere else. THAT BREAKS THE CUT BELOW RATHER THAN JUST WASTING
+    PIXELS, because background_mask takes the background colour FROM THE CORNERS.
+    All four corners are black, so it would flood the BARS away and leave the
+    white the logo actually sits on, producing a white box on a dark green page.
+
+    A BAR IS ONLY A BAR IF IT DIFFERS FROM WHAT IS UNDER IT. Trimming every
+    uniform edge row would eat the plain background of a normal logo (Cold
+    Front's top rows are uniform white, and they ARE the background the flood
+    fill needs to start from). So an edge run is only removed when it is uniform
+    AND its colour is far from the colour just inside it.
+    """
+    a = np.asarray(im).astype(np.int16)
+    h, w, _ = a.shape
+
+    def run(line_at, n):
+        i = 0
+        while i < n and line_at(i).std() < 3.0:
+            i += 1
+        return i
+
+    top = run(lambda i: a[i], h)
+    bot = run(lambda i: a[h - 1 - i], h)
+    left = run(lambda i: a[:, i], w)
+    right = run(lambda i: a[:, w - 1 - i], w)
+
+    def far(bar_colour, inside_colour):
+        return float(np.sqrt(((bar_colour - inside_colour) ** 2).sum())) > 60
+
+    if top and top < h - 1 and not far(a[0].mean(axis=0), a[min(top + 2, h - 1)].mean(axis=0)):
+        top = 0
+    if bot and bot < h - 1 and not far(a[h - 1].mean(axis=0), a[max(h - 3 - bot, 0)].mean(axis=0)):
+        bot = 0
+    if left and left < w - 1 and not far(a[:, 0].mean(axis=0), a[:, min(left + 2, w - 1)].mean(axis=0)):
+        left = 0
+    if right and right < w - 1 and not far(a[:, w - 1].mean(axis=0), a[:, max(w - 3 - right, 0)].mean(axis=0)):
+        right = 0
+
+    if top or bot or left or right:
+        im = im.crop((left, top, w - right, h - bot))
+        print(f"  letterbox trimmed: top {top}, bottom {bot}, left {left}, right {right}"
+              f" -> {im.size}")
+    return im
+
+
 def background_mask(rgb: np.ndarray, tol: int) -> np.ndarray:
     """True where a pixel is background: near the corner colour AND reachable
     from the border without crossing the art."""
@@ -103,7 +152,7 @@ def background_mask(rgb: np.ndarray, tol: int) -> np.ndarray:
 
 
 def cut(path: Path) -> Image.Image:
-    im = Image.open(path).convert("RGB")
+    im = deletterbox(ImageOps.exif_transpose(Image.open(path)).convert("RGB"))
     arr = np.asarray(im)
     bg = background_mask(arr, TOL)
 
