@@ -219,6 +219,7 @@ const PAGES = [
   // it and that somebody local can get themselves listed on it.
   ["/rochester.html", "Pokemon in Rochester, NY", "Everything local in one place: the card shows, the shops, the vendors and creators around the 585, and the Garbage Plate"],
   ["/card-shows.html", "Card shows", "Shows around Rochester, Buffalo and Syracuse"],
+  ["/card-show-101.html", "Card show 101", "What happens at a card show if you have never been"],
   ["/shops.html", "Card shops and where to play", "Local shops and league nights"],
   ["/videos.html", "All rips", "The full video library"],
   ["/playlists.html", "Playlists", "Rips grouped into playlists"],

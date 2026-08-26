@@ -1275,6 +1275,8 @@ ${/* "ARE THESE SHOWS TO PURCHASE CARDS, SELL THEM OR BOTH?" -- asked on
       <li><b>${nFree} of the ${upcoming.length} coming up are free to walk into.</b> Where a show has not published a
         price we say so rather than guess, so check the listing before you set off.</li>
     </ul>
+    <p style="margin-top:var(--s4)"><a class="btn btn-sky btn-sm" href="/card-show-101.html">Card show 101: how it all
+      works &rarr;</a></p>
   </div>
 </section>
 ${(data.watchFor || []).length ? `

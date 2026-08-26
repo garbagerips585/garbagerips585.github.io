@@ -541,6 +541,21 @@ export const NAV = [
     // true on any day the site is up.
     ["/drops.html", "Restocks"],
     ["/selling.html", "Where to sell"],
+    // A VENUE, not a market: the only entry here where you buy AND sell AND
+    // trade to the same person in the same conversation. It sits after "Where to
+    // sell" because it teaches both halves and the group runs buy, then sell,
+    // then grade -- and before the grading pair, which is a different question.
+    //
+    // "Card show 101" is 13 characters against the desktop menu's ~16, so it
+    // holds one line. "What happens at a card show" is 27 and would wrap in both
+    // the menu and the footer, which is the trap the Restocks note below records.
+    //
+    // WRITTEN BECAUSE OF r/ROCHESTER. Two of the first comments under the card
+    // show calendar asked what actually happens in the room. The calendar is
+    // under Rochester, NY with the rest of the local scene; this is not a local
+    // page at all, it is how the format works anywhere, which is why it belongs
+    // in this group and not beside the calendar.
+    ["/card-show-101.html", "Card show 101"],
     // A PAIR, and the labels have to say so. These answer the two halves of the
     // question somebody asks holding one card: will it grade, and does grading
     // it pay. Labelled "Grading" and "Will it grade" they read as two links to

@@ -2690,6 +2690,12 @@ const urls = [
   // structured data, the listings genuinely change, and "card shows near me" is
   // the kind of local search this site can actually win.
   { loc: `${SITE}/card-shows.html`, freq: "weekly", pri: "0.9" },
+  // Card show 101. The calendar answers when and where; this answers what a
+  // show IS, for somebody who has never been. Monthly rather than weekly and a
+  // notch below the calendar, because the calendar changes every week and this
+  // does not -- but it is a real destination and an orphan page is a page that
+  // never ranks.
+  { loc: `${SITE}/card-show-101.html`, freq: "monthly", pri: "0.7" },
   // Card search. 4,481 cards with live prices behind one page: the deepest
   // reference on the site and the one worth crawling most often.
   { loc: `${SITE}/cards.html`, freq: "daily", pri: "0.9" },

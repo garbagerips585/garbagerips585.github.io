@@ -130,6 +130,7 @@ const STEPS = [
   "node scripts/build-first-partner.mjs",
   "node scripts/build-rarity.mjs",
   "node scripts/build-shows.mjs",
+  "node scripts/build-card-show-101.mjs",
   "node scripts/build-fakes.mjs",
   // The 1999 Base Set print runs. Next to the rarity guide and the fake checks
   // because it is the same reader doing the same thing: holding one card and
