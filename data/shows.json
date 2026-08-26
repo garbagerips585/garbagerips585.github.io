@@ -117,23 +117,6 @@
       "pkmn": "some"
     },
     {
-      "id": "buffalo-scc-depew-2026-09-05",
-      "name": "Buffalo Sports Card Convention",
-      "date": "2026-09-05",
-      "start": "09:30",
-      "end": "14:30",
-      "venue": "Polish Falcons Club",
-      "city": "Depew",
-      "region": "buffalo",
-      "pokemon": false,
-      "admission": "$2, kids 12 and under free",
-      "url": "https://cardshows.io/events/buffalo-sports-card-convention-09-05-2026",
-      "source": "cardshows.io",
-      "address": "445 Columbia Ave, Depew, NY 14043",
-      "organiser": "Matt Brun, Buffalo Sports Card Convention",
-      "pkmnWhy": "No categories on the organiser's flyer, and their own listing calls it a sports card show. Pokemon presence not confirmed."
-    },
-    {
       "id": "batavia-scts-2026-09-05",
       "name": "Batavia Sports Card, Toys & Collectible Show",
       "date": "2026-09-05",
@@ -167,6 +150,25 @@
       "url": "https://sites.google.com/view/wnycardshows",
       "source": "wnycardshows (Shake & Break 716)",
       "pokemon": false
+    },
+    {
+      "id": "buffalo-scc-depew-2026-09-12",
+      "name": "Buffalo Sports Card Convention",
+      "date": "2026-09-12",
+      "start": "09:30",
+      "end": "14:30",
+      "venue": "Polish Falcons Club",
+      "city": "Depew",
+      "region": "buffalo",
+      "pokemon": false,
+      "admission": "Free",
+      "url": "https://sites.google.com/view/wnycardshows",
+      "source": "the organiser, by text, August 26, 2026",
+      "address": "445 Columbia Ave, Depew, NY 14043",
+      "organiser": "Matt Brun, Buffalo Sports Card Convention",
+      "pkmnWhy": "The organiser told us directly: TCG and sports, which means Pokemon and other TCGs alongside the sports tables.",
+      "pkmn": "some",
+      "blurb": "A free Buffalo-area show that draws 350 to 500 people through the door, with TCG and sports side by side."
     },
     {
       "id": "northtowns-sanborn-2026-09-12",
