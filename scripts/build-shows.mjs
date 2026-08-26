@@ -1225,7 +1225,7 @@ const page = head + `
         further down than almost anybody scrolls.
         A LINK RATHER THAN A SECOND COPY of the invitation: the section at the foot already explains what to send
         and has the prefilled email on it, and two versions of an ask is how they drift apart. */ ""}
-    <p class="lede" style="max-width:36em">A show marked <b>Pokemon show</b> is all Pokemon. One marked
+    <p class="lede" style="max-width:36em">A show marked <b>Pokemon show</b> is a Pokemon event: Pokemon is what it is billed as and there are no sports, though a few also carry Magic or One Piece. One marked
       <b>Pokemon here too</b> is a general show where we have confirmed Pokemon is on the floor, either because we
       go to it or because the organiser says so. Anything unmarked we have not been able to confirm either way, so
       ask before you drive out for Pokemon specifically.</p>
@@ -1248,7 +1248,11 @@ ${next ? `
 
     <div class="facts" style="margin-top:20px">
       <div class="fact"><div class="n">${upcoming.length}</div><div class="l">Shows coming up</div></div>
-      <div class="fact"><div class="n">${pokemonCount}</div><div class="l">All Pokemon shows</div></div>
+      <div class="fact"><div class="n">${pokemonCount}</div><div class="l">Pokemon shows</div>${/* WAS "All Pokemon shows" AND THE WORD ALL WAS DOING WORK IT COULD NOT
+        BACK. RIT's own listing calls RocPokeCon "centered around Pokemon but not exclusive to it" and names One
+        Piece and Magic; Buffalo Trading Card Con bills itself as a "Pokemon and TCG" convention. Neither is ALL
+        Pokemon. What they share, and what separates them from the rest of this page, is that Pokemon is the
+        billed subject and there are no sports. That is what the number counts, so that is what it says now. */ ""}</div>
       <div class="fact"><div class="n">${upcoming.filter((s) => s.admission === "Free").length}</div><div class="l">Free to get in</div></div>
       <div class="fact wide"><div class="n" style="font-size:1.15rem">${esc(longDate(data.checked) || data.checked)}</div><div class="l">Listings last checked</div></div>
     </div>
