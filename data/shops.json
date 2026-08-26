@@ -66,10 +66,16 @@
   "                    hours; /pages/events lists a Pokemon Weekly League on",
   "                    every Thursday of the current month.",
   "",
-  "TWO SHOPS PUBLISH HOURS WE DELIBERATELY DO NOT CARRY. Great Lakes Gaming's",
-  "only self-stated hours sit inside an Instagram caption reproduced on their",
-  "home page, and that same caption still advertises events 'Coming January",
-  "2026', so it is stale and the hours in it cannot be trusted. WeTheHobby's",
+  "ONE SHOP PUBLISHES HOURS WE DELIBERATELY DO NOT CARRY, and it was two until",
+  "August 26, 2026. Great Lakes Gaming HAS hours here now: their own /calendar",
+  "page carries them as plain text, which is the business stating its own hours",
+  "and clears the rule. THE TRAP ATTACHED TO THEM: every page of that Squarespace",
+  "site also emits theme boilerplate reading 'openingHours':'Mo 09:00-21:00 ... Su",
+  "09:00-21:00' and a businessHours JSON of 9am-9pm daily. That directly",
+  "contradicts the visible block, which says Monday and Tuesday CLOSED. It is a",
+  "template default and not the business, so do not scrape it. The old reason",
+  "still stands for the Instagram caption on their home page, which is stale and",
+  "still advertises events 'Coming January 2026'. WeTheHobby's",
   "own contact page reads 'SAT 11pm to 8pm', which is impossible; 11am is what",
   "is recorded here. Prefer omitting an hour to inventing one.",
   "",
@@ -147,28 +153,21 @@
   },
   {
    "name": "Just Games",
-   "url": "https://www.justgamesrochester.com/category/pokemon/",
+   "url": "https://www.justgamesrochester.com/",
    "area": "Panorama Plaza, Penfield",
    "address": "1601 Penfield Rd, Suite 34, Rochester, NY 14625",
    "phone": "585-586-0586",
    "hours": "Mon to Sat noon to 9pm, Sun noon to 6pm",
    "hoursSrc": "https://www.justgamesrochester.com/contact/",
    "hoursRead": "2026-08-25",
-   "blurb": "Rochester's flagship game store and the one with the busiest Pokemon calendar. Prereleases every set, a learn to play session for anyone starting out, and League Challenges and Cups through the year.",
+   "blurb": "Rochester's flagship game store, and the biggest of these. Singles, sealed and a proper events room. Through 2025 it had the busiest Pokemon calendar in the area; that calendar has gone quiet, so read the note below before you plan a trip around it.",
    "goodFor": [
     "Singles",
     "Sealed product",
-    "Organized Play",
-    "Prereleases"
+    "In store"
    ],
-   "plays": [
-    "Prerelease weekends for every new set",
-    "League Challenge and League Cup events",
-    "Gym Leader Challenge, a casual format away from standard",
-    "Learn to Play sessions with loaner decks"
-   ],
-   "playNote": "They run a regular league but do not publish a fixed weekly time, so check the events calendar or call the counter.",
-   "eventsUrl": "https://www.justgamesrochester.com/category/pokemon/",
+   "playNote": "Their Pokemon events have gone quiet, and it is their own three sources that say so, all read August 26, 2026. The Pokemon page this listing used to link has not been posted to since December 3, 2025 and carries nothing from 2026. Their live events calendar, covering late August to mid October 2026, lists no Pokemon at all: Magic, Lorcana, Star Wars Unlimited, 40K, D&D and Dice Throne, and no Pokemon. And their Play! Pokemon league reads Inactive. They ran prereleases, League Challenges and Cups, a Gym Leader Challenge season and Learn to Play sessions right through 2025, so this may be a gap rather than an ending. Call the counter before you drive out.",
+   "eventsUrl": "https://www.justgamesrochester.com/events/",
    "visited": false,
    "at": [
     43.13282,
@@ -188,8 +187,14 @@
    "goodFor": [
     "Singles",
     "Buylist",
+    "Organized Play",
     "In store"
    ],
+   "plays": [
+    "Pokemon TCG League, Tuesdays 4:30pm to 9:30pm"
+   ],
+   "playNote": "$5 to enter and it comes back to you as store credit, with a Pokemon prize pack on entry. Their calendar only publishes about two weeks ahead, so at any moment it shows a single Tuesday rather than a weekly series. Read August 26, 2026: consecutive instances on August 25 and September 1, same time and same price.",
+   "eventsUrl": "https://legacygamestore.com/events/",
    "visited": false,
    "at": [
     43.21276,
@@ -202,6 +207,9 @@
    "area": "South Clinton Avenue, downtown",
    "address": "100 S Clinton Ave, Suite 22, Rochester, NY 14604",
    "phone": "585-604-9626",
+   "hours": "Wed, Thu and Sun 5pm to 10pm, Fri and Sat 5pm to midnight. Closed Mon and Tue.",
+   "hoursSrc": "https://www.glgaminglounges.com/calendar",
+   "hoursRead": "2026-08-26",
    "blurb": "Not a shop front. It is a gaming lounge on the 22nd floor of an office tower downtown that sells Pokemon packs, Elite Trainer Boxes and booster boxes at the counter and gives Wednesday night over to Pokemon.",
    "goodFor": [
     "Sealed product",

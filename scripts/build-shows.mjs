@@ -1253,11 +1253,19 @@ function showCard(s) {
             </li>`).join("\n            ")}
           </ul>` : ""}
           ${s.warn ? `<p class="show-warn">${esc(s.warn)}</p>` : ""}
-          <p class="show-links">
+          ${/* THE WHOLE PARAGRAPH IS CONDITIONAL, because it can now be empty. Every
+             show used to carry a url, so this <p> always had something in it. Cold
+             Front's does not: the organiser sent the flyer directly and the only
+             "listing" was a third-party aggregator page carrying less than the
+             flyer already shows, so the owner asked for the link to go. An empty
+             <p class="show-links"> is display:flex with a 10px top margin, so it
+             would have left a gap between the chips and the flyer that nothing on
+             the page could explain. */ ""}
+          ${s.ticketUrl || s.url || (s.organiserUrl && s.organiserUrl !== s.url) ? `<p class="show-links">
             ${s.ticketUrl ? `<a class="tickets" href="${esc(s.ticketUrl)}" rel="noopener" target="_blank" aria-label="Get tickets for ${esc(showRef(s))}, opens on ${esc(hostOf(s.ticketUrl))}">Get tickets <span aria-hidden="true">&rarr;</span></a>` : ""}
             ${s.url ? `<a href="${esc(s.url)}" rel="noopener" target="_blank" aria-label="${s.organiserUrl && s.url === s.organiserUrl ? "Official site" : "Listing and details"} for ${esc(showRef(s))}, opens on ${esc(hostOf(s.url))}">${s.organiserUrl && s.url === s.organiserUrl ? "Official site" : "Listing &amp; details"}</a>` : ""}
             ${s.organiserUrl && s.organiserUrl !== s.url ? `<a href="${esc(s.organiserUrl)}" rel="noopener" target="_blank" aria-label="${esc(s.organiser && s.organiser !== s.name ? `${s.organiser}, who run ${showRef(s)}` : `The organizer of ${showRef(s)}`)}, opens on ${esc(hostOf(s.organiserUrl))}">${esc(s.organiser || "Organizer")}</a>` : ""}
-          </p>
+          </p>` : ""}
         </div>
         ${flyer ? `<button type="button" class="show-flyer" data-flyer="${esc(flyer.full)}" data-flyer-alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}">
           <img src="${esc(flyer.thumb)}" alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}"${flyer.w && flyer.h ? ` width="${flyer.w}" height="${flyer.h}"` : ""} loading="lazy" decoding="async">
