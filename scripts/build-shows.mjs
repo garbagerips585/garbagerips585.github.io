@@ -734,6 +734,42 @@ const flyerSrc = (s) => {
   return null;
 };
 
+/* ------------------------------------------------------------------- logos --
+ *
+ * BUILT AHEAD OF THE FIRST REPLY, 26 August 2026. Four organisers were emailed
+ * today asking for a logo and a bio in their own words, and this page had
+ * nowhere to put a logo: the creators and vendors pages have had one since
+ * Elliot's went up, and the calendar never did. A yes arriving to a page that
+ * cannot show it turns a five minute job into a project, which is how a yes
+ * goes stale.
+ *
+ * THE SAME LADDER THE CREATOR CARDS USE, deliberately: 200 and 400 wide, AVIF
+ * then WebP, sizes 56px, and the height computed from a stored logoW/logoH
+ * rather than assumed square. Elliot's is 1024x856 and a hardcoded square would
+ * have squashed it; the next one will be some other shape.
+ *
+ * AND THE SAME MISSING-FILE GUARD AS flyerSrc, for the same reason: a logo named
+ * in the data but absent from disk renders as a broken box at the top of a show
+ * card. Named here, reported at the end of the run, never shipped.
+ *
+ * A LOGO GOES UP ONLY WHEN ITS OWNER SENDS IT FOR THIS USE. That is the standing
+ * rule on this site and it is why none of these are filled in yet.
+ */
+const missingLogos = [];
+const logoFor = (s) => {
+  if (!s.logo) return "";
+  const rel = `assets/shows/${s.logo}-200.webp`;
+  if (!existsSync(join(ROOT, "public", rel))) {
+    missingLogos.push(`${s.id}: public/${rel} not found`);
+    return "";
+  }
+  const h = Math.round(200 * (s.logoH || 1) / (s.logoW || 1));
+  return `<span class="show-logo"><picture>
+            <source type="image/avif" srcset="/assets/shows/${esc(s.logo)}-200.avif 200w, /assets/shows/${esc(s.logo)}-400.avif 400w" sizes="56px">
+            <img src="/assets/shows/${esc(s.logo)}-200.webp" alt="${esc(s.name)} logo" width="200" height="${h}" loading="lazy" decoding="async" srcset="/assets/shows/${esc(s.logo)}-200.webp 200w, /assets/shows/${esc(s.logo)}-400.webp 400w" sizes="56px">
+          </picture></span>`;
+};
+
 // ------------------------------------------------------------------ structured
 
 const ld = [
@@ -1122,7 +1158,7 @@ function showCard(s) {
         </div>
         <div class="show-body">
           ${s.featured ? `<p class="show-flag">The big one</p>` : ""}
-          <h3>${esc(s.name)}</h3>
+          <div class="show-h">${logoFor(s)}<h3>${esc(s.name)}</h3></div>
           <p class="show-meta">${esc(weekday(s.date))}${
             timeRange(s.start, s.end) ? ` &bull; ${esc(timeRange(s.start, s.end))}` : ""
           }</p>
@@ -1512,6 +1548,10 @@ console.log(`Wrote public/card-shows.html
   next: ${next ? `${next.name}, ${next.date}, ${next.city}` : "nothing listed"}
   ${(data.shows || []).length - upcoming.length} past show(s) dropped
   flyers: ${upcoming.filter((s) => s.flyer).length} named`);
+if (missingLogos.length) {
+  console.log(`\n  ${missingLogos.length} logo(s) named in the data but not on disk:`);
+  for (const m of missingLogos) console.log(`    ${m}`);
+}
 if (missingFlyers.length) {
   console.log(`\n${missingFlyers.length} flyer(s) named but missing:`);
   for (const m of missingFlyers) console.log("  " + m);
