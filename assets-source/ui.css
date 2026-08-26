@@ -3789,7 +3789,14 @@ footer .soc svg{fill:var(--chrome-ink)}
 .show-where{font-size:var(--t-sm);margin-top:12px;margin-bottom:8px}
 .show-where a{color:var(--sky-deep);font-weight:600;padding:13px 0}
 .show-where a:hover{text-decoration:underline}
+/* THE INFO CHIPS IN A SHOW CARD WRAP; THE FILTER BUTTONS DO NOT.
+   .chip is flex:none and white-space:nowrap, correct for a row of filter buttons
+   in a scroller and wrong for a chip carrying a sentence. "$2, kids 12 and under
+   free" measured 179px against 172px available at 320 and pushed out through the
+   card's right padding. These are span.chip inside .show-tags, so scoping it here
+   leaves button.chip.filt exactly as it was. min-height keeps the 44px target. */
 .show-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.show-tags .chip{flex:0 1 auto;white-space:normal;height:auto;min-height:44px;padding-top:6px;padding-bottom:6px}
 .chip.pk{background:var(--gold);border-color:var(--keyline);color:var(--on-accent)}
 .chip.soon{background:var(--ketchup);border-color:var(--keyline);color:var(--on-alert)}
 .show-blurb{font-size:var(--t-sm);color:var(--ink-2);margin-top:10px;max-width:46em}
@@ -4617,7 +4624,19 @@ footer .soc svg{fill:var(--chrome-ink)}
 
    Not applied to .gr-scroll or any other overflow container that holds text
    rather than a table: those already wrap. */
+/* position:relative IS LOAD BEARING AND IS NOT ABOUT THESE GRADIENTS.
+   These three scrollers contain .sr-only spans, which are position:absolute. A
+   static ancestor is not a containing block, so those spans resolved against
+   BODY, landed hundreds of pixels to the right of the viewport, and the
+   wrapper's own overflow-x:auto never clipped them because they were never
+   really inside it. Measured at 320px: pack-prices scrolled to 600, how-many-
+   packs to 501, expansions to 497, and the exposed strip was empty because the
+   boxes are 1px and clipped. Page-level sideways scroll into blank space, from
+   three screen-reader labels nobody can see.
+   One line fixes all three, and it also anchors the shadow gradients below,
+   which is why it looks decorative and is not. */
 .cc-scroll,.xp-scroll,.luck-scroll{
+  position:relative;
   background-image:
     linear-gradient(to right,var(--card) 40%,rgba(255,255,255,0)),
     linear-gradient(to left,var(--card) 40%,rgba(255,255,255,0)),

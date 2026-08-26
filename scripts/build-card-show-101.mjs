@@ -121,7 +121,7 @@ const style = `
 .cs-s > p{max-width:44em;line-height:1.6}
 .cs-s > p + p{margin-top:var(--s3)}
 .cs-back{margin-top:var(--s7)}
-.cs-fig{margin:var(--s5) 0 0;max-width:44em}
+.cs-fig{margin:var(--s5) 0 0;max-width:44em;overflow-x:auto}
 .cs-plan{width:100%;height:auto;display:block}
 .cs-room{fill:var(--card);stroke:var(--keyline);stroke-width:2}
 .cs-table{fill:var(--sky);opacity:.85}
@@ -131,7 +131,16 @@ const style = `
 .cs-tiers caption{text-align:left;font-weight:600;padding-bottom:var(--s2)}
 .cs-tiers th,.cs-tiers td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--hair);vertical-align:top}
 .cs-tiers thead th{border-bottom:2px solid var(--keyline)}
-.cs-tiers tbody th{font-weight:600;white-space:nowrap;padding-right:var(--s4)}
+/* WAS white-space:nowrap, WHICH BROKE THE PAGE AT 320px. "Graded, 10s" became
+   unbreakable, forcing column one to 102px, which pushed the table to its
+   min-content width of 329 inside a 280px figure: it escaped by 49px and took
+   the document with it, 349 against a 320 viewport. Page-level sideways scroll
+   is the one layout rule this site does not bend.
+   AND .cs-fig SCROLLS ITS OWN OVERFLOW as the backstop, which is the convention
+   already: wide content scrolls inside its own container, the body never does.
+   Both, because the wrap fix alone leaves nothing catching the next long cell
+   somebody adds. */
+.cs-tiers tbody th{font-weight:600;padding-right:10px}
 .cs-fig figcaption{margin-top:var(--s3);font-size:var(--t-sm);color:var(--ink-2);line-height:1.55;max-width:40em}
 `;
 

@@ -1123,6 +1123,7 @@ footer .soc svg{fill:var(--chrome-ink)}
 .show-where a{color:var(--sky-deep);font-weight:600;padding:13px 0}
 .show-where a:hover{text-decoration:underline}
 .show-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.show-tags .chip{flex:0 1 auto;white-space:normal;height:auto;min-height:44px;padding-top:6px;padding-bottom:6px}
 .chip.pk{background:var(--gold);border-color:var(--keyline);color:var(--on-accent)}
 .chip.soon{background:var(--ketchup);border-color:var(--keyline);color:var(--on-alert)}
 .show-blurb{font-size:var(--t-sm);color:var(--ink-2);margin-top:10px;max-width:46em}
@@ -1430,6 +1431,7 @@ footer .soc svg{fill:var(--chrome-ink)}
   -webkit-overflow-scrolling:touch;
 }
 .cc-scroll,.xp-scroll,.luck-scroll{
+  position:relative;
   background-image:
     linear-gradient(to right,var(--card) 40%,rgba(255,255,255,0)),
     linear-gradient(to left,var(--card) 40%,rgba(255,255,255,0)),

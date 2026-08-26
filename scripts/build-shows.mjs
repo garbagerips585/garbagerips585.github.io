@@ -1130,7 +1130,13 @@ function showCard(s) {
           <div class="show-tags">
             ${s.pokemon ? `<span class="chip pk">Pokemon show</span>` : ""}
             ${soon ? `<span class="chip soon" data-soon>${esc(soon)}</span>` : ""}
-            <span class="chip">${s.admission ? esc(s.admission) : "Check the listing"}</span>
+            <span class="chip">${s.admission ? esc(s.admission) : "Check the listing"}</span>${/* TABLE COUNT,
+              ADDED 26 August 2026, because it is the question the r/Rochester thread kept circling: is this show
+              worth the drive. Two commenters asked whether a show was any good and what the mix was, and the size
+              of the room is the fastest honest answer to both. It was already being written into blurbs by hand
+              ("160+ vendor tables" on RocPokeCon), which is where a fact goes to become unsearchable and to
+              disagree with itself. It is a field now. Absent on most shows, and absent renders nothing. */ ""}
+            ${s.tables ? `<span class="chip">${esc(String(s.tables))} tables</span>` : ""}
           </div>
           ${s.blurb ? `<p class="show-blurb">${esc(s.blurb)}</p>` : ""}
           ${(s.tiers || []).length ? `<ul class="tiers">

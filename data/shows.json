@@ -89,10 +89,11 @@
       "pokemon": false,
       "admission": "Free",
       "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner.",
-      "organiser": "CollectorFest Monthly",
+      "organiser": "Ernie Orlando, Ernie's Cards",
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://cardshows.io/events/collectorfest-monthly-sports-and-collectibles-show-08-30-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "tables": 72
     },
     {
       "id": "buffalo-scc-depew-2026-09-05",
@@ -195,11 +196,12 @@
       "region": "roc",
       "pokemon": false,
       "admission": "Free",
-      "organiser": "CollectorFest Monthly",
+      "organiser": "Ernie Orlando, Ernie's Cards",
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://cardshows.io/events/collectorfest-monthly-sports-and-collectibles-show-09-27-2026",
       "source": "cardshows.io",
-      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner."
+      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner.",
+      "tables": 72
     },
     {
       "id": "batavia-scts-2026-10-03",
@@ -259,11 +261,12 @@
       "region": "roc",
       "pokemon": false,
       "admission": "Free",
-      "organiser": "CollectorFest Monthly",
+      "organiser": "Ernie Orlando, Ernie's Cards",
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://cardshows.io/events/collectorfest-monthly-sports-and-collectibles-show-10-18-2026",
       "source": "cardshows.io",
-      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner."
+      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner.",
+      "tables": 72
     },
     {
       "id": "collectorsfest-111-2026-10-18",
@@ -327,13 +330,14 @@
           "note": "Vendor floor at 8:30am, VIP suite all day, MSRP table, gift bag with lanyard and shirt"
         }
       ],
-      "blurb": "The big one, and it lands on Halloween. 160+ vendor tables at RIT with vendors from across New York, and it is all Pokemon: no sports, unlike the other shows on this page.",
+      "blurb": "The big one, and it lands on Halloween. Vendors come from across New York, and it is all Pokemon: no sports, unlike the other shows on this page.",
       "warn": "Presale prices go up $5 at 7pm on Friday October 30, so buy before then.",
       "organiser": "RocPokéCon",
       "organiserUrl": "https://www.rocpokecon.com",
       "ticketUrl": "https://www.rocpokecon.com/events/tickets",
       "url": "https://www.rocpokecon.com",
-      "source": "rocpokecon.com"
+      "source": "rocpokecon.com",
+      "tables": "160+"
     },
     {
       "id": "collectorsfest-112-2026-11-01",
@@ -405,11 +409,12 @@
       "region": "roc",
       "pokemon": false,
       "admission": "Free",
-      "organiser": "CollectorFest Monthly",
+      "organiser": "Ernie Orlando, Ernie's Cards",
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://collectorfestmonthly.com",
       "source": "collectorfestmonthly.com",
-      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner."
+      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner.",
+      "tables": 72
     },
     {
       "id": "batavia-scts-2026-12-05",
@@ -454,11 +459,12 @@
       "region": "roc",
       "pokemon": false,
       "admission": "Free",
-      "organiser": "CollectorFest Monthly",
+      "organiser": "Ernie Orlando, Ernie's Cards",
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://collectorfestmonthly.com",
       "source": "collectorfestmonthly.com",
-      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner."
+      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner.",
+      "tables": 72
     },
     {
       "id": "585cardz-batavia-2026-12-16",
@@ -500,11 +506,12 @@
       "region": "roc",
       "pokemon": false,
       "admission": "Free",
-      "organiser": "CollectorFest Monthly",
+      "organiser": "Ernie Orlando, Ernie's Cards",
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://collectorfestmonthly.com",
       "source": "collectorfestmonthly.com",
-      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner."
+      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner.",
+      "tables": 72
     },
     {
       "id": "collectorfest-jcc-2027-02-14",
@@ -518,11 +525,12 @@
       "region": "roc",
       "pokemon": false,
       "admission": "Free",
-      "organiser": "CollectorFest Monthly",
+      "organiser": "Ernie Orlando, Ernie's Cards",
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://collectorfestmonthly.com",
       "source": "collectorfestmonthly.com",
-      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner."
+      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner.",
+      "tables": 72
     }
   ],
   "_towns": {
