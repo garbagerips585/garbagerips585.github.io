@@ -584,6 +584,16 @@ const style = `
   border:2px solid var(--keyline);border-radius:var(--r-pill);padding:5px var(--s3);
   font-size:var(--t-sm);background:var(--card)}
 .dk-jump a:hover,.dk-jump a:focus{background:var(--mustard);color:var(--on-accent)}
+/* THE RANK AND THE PERCENTAGE DID NOT FLIP WITH THE CHIP, 1.11:1 and 1.45:1.
+   .dk-jump b and .dk-jump span each set their own colour, which beats the one
+   inherited from the rule above, so on hover the chip went mustard and the two
+   things written on it stayed where they were. The rank was effectively
+   invisible. Same shape as .chip .n in ui.css and a.ev-node:hover in
+   shared/evolution.mjs; all three are the palette swap landing on a state
+   nobody re-measured, because --mustard used to be a yellow that a light grey
+   still read against and is now a mid blue that it does not.
+   AND IT IS :focus, NOT :focus-visible, so this hit keyboard users too. */
+.dk-jump a:hover b,.dk-jump a:focus b,.dk-jump a:hover span,.dk-jump a:focus span{color:inherit}
 .dk-jump b{color:var(--gold-deep);font-family:var(--mono)}
 .dk-jump span{font-size:var(--t-micro);color:var(--ink-2)}
 /* The anchor target sits under the sticky bar without this. Same offset the
@@ -621,7 +631,11 @@ const style = `
   border-bottom:1px solid var(--hair);padding-bottom:var(--s1)}
 .dk-n{float:right;color:var(--ink)}
 .dk-col ul{list-style:none;padding:0;margin:0}
-.dk-col li{font-size:var(--t-sm);line-height:1.55;padding:1px 0}
+/* 22.7px ROWS, 1.3px UNDER THE 24px MINIMUM, and 423 of them stacked with no
+   gap, so on a phone the 24px target circles of adjacent rows overlap and a
+   fat-finger tap lands on the neighbouring card. 2px of padding clears it at
+   24.7 without moving the type. */
+.dk-col li{font-size:var(--t-sm);line-height:1.55;padding:2px 0}
 .dk-col a{text-decoration:none;color:var(--ink);display:block}
 .dk-col a:hover,.dk-col a:focus{text-decoration:underline}
 .dk-nolink{display:block;color:var(--ink)}

@@ -698,7 +698,7 @@ ${MENU}
       <p class="lede ee-lede">Eight of them, and no two work the same way. Three want a stone. Two want friendship
         and a clock. Two used to want a specific rock in a specific forest and now want a stone instead. One wants
         a move. <b>Eevee is the only Pokemon whose answer is eight answers</b>, which is why it gets a page.</p>
-      <p class="lede ee-lede">All nine of them are here, with the artwork, what each one takes, when it was
+      <p class="lede ee-lede">Eevee and all eight are here, with the artwork, what each one takes, when it was
         introduced and what its cards are worth. Tap a face to jump straight to it.</p>
 
       <!-- THE PICTURES COME BEFORE THE DIAGRAM, and they used to come after it.

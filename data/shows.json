@@ -41,7 +41,7 @@
     "",
     "REGIONS drive the filter chips: roc, buffalo, syracuse."
   ],
-  "checked": "2026-08-12",
+  "checked": "2026-08-25",
   "sources": [
     {
       "name": "cardshows.io Western New York",
@@ -104,9 +104,11 @@
       "city": "Depew",
       "region": "buffalo",
       "pokemon": false,
-      "admission": null,
+      "admission": "$2, kids 12 and under free",
       "url": "https://cardshows.io/events/buffalo-sports-card-convention-09-05-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "address": "445 Columbia Ave, Depew, NY 14043",
+      "organiser": "Buffalo Trading Card Con"
     },
     {
       "id": "batavia-scts-2026-09-05",
@@ -147,10 +149,24 @@
       "city": "Liverpool",
       "region": "syracuse",
       "pokemon": false,
-      "admission": null,
+      "admission": "$5 general",
       "blurb": "Liverpool is a Syracuse suburb, right off the 690.",
       "url": "https://cardshows.io/events/collectorfest-09-13-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "address": "441 Electronics Parkway, Liverpool, NY 13088",
+      "tiers": [
+        {
+          "name": "General admission",
+          "price": "$5",
+          "from": "09:30",
+          "note": "12 and under free"
+        },
+        {
+          "name": "Early bird",
+          "price": "$20",
+          "from": "09:00"
+        }
+      ]
     },
     {
       "id": "585cardz-batavia-2026-09-23",
@@ -205,7 +221,7 @@
       "start": "11:00",
       "end": "19:00",
       "venue": "NYS Fairgrounds",
-      "address": "581 State Fair Blvd, Syracuse, NY 13209",
+      "address": "581 State Fair Blvd., Syracuse, NY 13209",
       "city": "Syracuse",
       "region": "syracuse",
       "pokemon": true,
@@ -253,7 +269,7 @@
       "start": "10:00",
       "end": "16:00",
       "venue": "NYS Fairgrounds",
-      "address": "581 State Fair Blvd, Syracuse, NY 13209",
+      "address": "581 State Fair Blvd., Syracuse, NY 13209",
       "city": "Syracuse",
       "region": "syracuse",
       "pokemon": false,
@@ -328,7 +344,8 @@
       "pokemon": false,
       "admission": null,
       "url": "https://cardshows.io/events/collectors-fest-112-11-01-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "address": "441 Electronics Parkway, Liverpool, NY 13088"
     },
     {
       "id": "585cardz-batavia-2026-11-04",

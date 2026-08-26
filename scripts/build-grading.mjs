@@ -27,6 +27,7 @@ import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { faqBlock, FAQ_CSS } from "../shared/faq.mjs";
 import { priceNote, priceFooter, priceRead } from "../shared/card-prices.mjs";
+import { loadGradedPrices } from "../shared/graded-price.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -204,6 +205,8 @@ const SHIP = g.assumedShippingPerCard ?? 15;
 
 // Every card where we hold BOTH a raw and a PSA 10 price. `auto` is synced,
 // `prices` is hand-entered and wins, same rule as everywhere else on the site.
+const { resolve: gradedResolve } = await loadGradedPrices();
+
 const rows = [];
 let fromPcPsa = 0;
 let fromTrackerPsa = 0;
@@ -217,16 +220,47 @@ for (const [key, a] of Object.entries(psa.auto || {})) {
   // because it is the only feed carrying a sale count and the ten-sale floor
   // below is what stops this page doing arithmetic on an anecdote.
   const pcHit = pcPsa10.get(ck);
+  /* THIS PAGE RAN ITS OWN LADDER AND SKIPPED A TIER, until 25 August 2026.
+     The comment above is right that the ORDER has to match build-hall.mjs or
+     two pages subtract different numbers from the same raw price. It did match.
+     What it missed is that this ladder never read data/graded.json at all --
+     tier 2 of the shared resolver, 153 hand-verified rows, and the one that
+     outranks the per-set checklists.
+
+     PUBLISHED, THAT WAS: Dawn, Phantasmal Flames #129 at $84.50 here and $80.56
+     on hall.html, the set guide and the rip page. A 4.9% gap with both sides
+     sourced and dated, under a note on THIS page reading "They are the same
+     figures the rest of this site quotes." $80.56 is the right one twice over:
+     higher tier, and read 23 August against the checklist's 22nd.
+
+     Only 2 of the 64 rows here overlap graded.json, which is why one card was
+     the whole visible symptom. That is luck, not safety.
+
+     THE SHARED RESOLVER WAS BUILT FOR THIS PAGE AND NEVER WIRED IN. Its tier 3
+     comment says in as many words: "the same PriceCharting figure /grading.html
+     has always used." Same fix build-hall.mjs took this morning.
+
+     pcHit AND a.psa10 STAY AS THE FALLBACK rather than being deleted. resolve()
+     returns null for a card in none of its tiers, and for one under the ten-sale
+     floor; leaving the old chain behind it means this change can only ever move
+     a price that the shared ladder has a better answer for. */
+  const shared = gradedResolve(mk?.[1] || "", mk?.[2] || "", {
+    name: names.get(ck) || null,
+    setName: setName.get(mk?.[1] || "") || null,
+  });
   const psa10 =
-    (typeof manual === "number" ? manual : manual?.price) ?? pcHit ?? a.psa10;
+    (typeof manual === "number" ? manual : manual?.price) ?? shared?.price ?? pcHit ?? a.psa10;
   // TCGdex first, the graded feed's own raw as the fallback.
   const raw = rawPrice.get(ck) ?? a.rawNm;
   if (typeof psa10 !== "number" || typeof raw !== "number" || raw <= 0) continue;
   // Enough recorded sales to mean something. Six sales is an anecdote.
   if (a.psa10Sales != null && a.psa10Sales < 10) continue;
   if (manual == null) {
-    if (pcHit != null) fromPcPsa += 1;
-    else fromTrackerPsa += 1;
+    // The footer sentence counts which feed answered, so it has to ask the
+    // resolver that actually decided rather than the tier it used to.
+    const feed = shared?.from ?? (pcHit != null ? "pricecharting" : "tracker");
+    if (feed === "tracker") fromTrackerPsa += 1;
+    else fromPcPsa += 1;
   }
 
   const m = /^(.*)-([^-]+)$/.exec(key);

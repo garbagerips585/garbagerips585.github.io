@@ -503,7 +503,12 @@ ${PLATE_CSS}
   gap:var(--s3);margin-top:var(--s4);padding:0}
 .roc-routes a{display:block;height:100%;background:var(--card);border:1px solid var(--hair);
   border-radius:var(--r);padding:var(--s4);box-shadow:var(--lift)}
+/* Same regression as .wtb-pick a:hover: the ground lifts to --paper-3 and
+   .roc-routes b keeps --sky-deep, 4.50:1 -> 3.60:1. The b is 18.4px at weight
+   400, which is 0.26px UNDER the 18.66px large-text threshold, so it needs
+   4.5:1 and not 3:1 -- close enough to look exempt and not be. 5.35:1 now. */
 .roc-routes a:hover,.roc-routes a:focus-visible{background:var(--paper-3)}
+.roc-routes a:hover b,.roc-routes a:focus-visible b{color:var(--ink)}
 .roc-routes b{display:block;font:400 var(--t-m)/1.2 var(--display);color:var(--sky-deep)}
 .roc-routes span{display:block;margin-top:6px;font-size:var(--t-sm);line-height:1.6;color:var(--ink-2)}
 `;

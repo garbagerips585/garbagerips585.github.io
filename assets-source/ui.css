@@ -540,7 +540,7 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
 .chip{flex:none;font:700 var(--t-label)/1 var(--body);letter-spacing:.02em;
   background:var(--card);border:1px solid var(--hair);border-radius:var(--r-pill);
   padding:0 var(--s4);height:44px;display:inline-flex;align-items:center;gap:6px;
-  color:var(--ink);white-space:nowrap}
+  color:var(--ink);white-space:nowrap;cursor:pointer}
 .chip .n{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
 .chip:hover{border-color:var(--ink)}
 .chip[aria-current]{background:var(--mustard);color:var(--on-accent);border-color:var(--mustard)}
@@ -2122,7 +2122,7 @@ section.band-sky .sec-label{color:var(--sky)}section.band-navy .sec-label{color:
   padding:13px 24px;border-radius:999px;font-size:1rem;line-height:1;
   border:2px solid var(--keyline);
   transition:transform .12s ease,box-shadow .12s ease;
-}
+;cursor:pointer}
 .btn:hover{transform:translate(-2px,-2px)}
 /* AND IT GOES BACK DOWN WHEN YOU PUSH IT. Every .btn is drawn as a physical
    thing: a 2px keyline over a 4px hard shadow that DEEPENS to 6px as the button
@@ -2748,7 +2748,17 @@ footer .soc svg{fill:var(--chrome-ink)}
 }
 .vid-shell:hover .vid-play{background:var(--sky);transform:translate(-50%,-50%) scale(1.12)}
 .vid-play svg{width:18px;height:18px;fill:var(--on-accent);margin-left:3px}.hall .vid-shell:hover{border-color:#fff;box-shadow:0 10px 0 var(--gold-deep),0 20px 34px rgba(17,17,17,.5)}.hits .vid-shell:hover{border-color:var(--teal);box-shadow:0 10px 0 var(--teal),0 18px 30px rgba(17,17,17,.34)}
-.chip[aria-pressed=true]{background:var(--sky);color:var(--on-accent)}.chip.clear:hover{background:var(--ketchup);color:var(--on-alert)}
+/* THE COUNT INSIDE A SELECTED CHIP KEPT ITS RESTING COLOUR AND WENT TO 1.45:1.
+   .chip .n sets its own --ink-2 at (0,2,0), which out-specifies the colour
+   inherited from this rule, so the label flipped to --on-accent and the number
+   beside it did not. This is a SELECTED state, not a hover: it persists for as
+   long as a filter is on, on the main video library. Same fix the sibling
+   .facet-more:hover .n rule already carries, 40 lines up.
+   inherit AND NOT A NEW TOKEN, and no opacity with it: the label measures
+   7.22:1 on --sky and the count is already de-emphasised by size and weight,
+   so dimming it again is what broke it the first time. */
+.chip[aria-pressed=true]{background:var(--sky);color:var(--on-accent)}
+.chip[aria-pressed=true] .n{color:inherit}.chip.clear:hover{background:var(--ketchup);color:var(--on-alert)}
 .lib-count b{color:var(--ketchup-deep)}
 /* ---------- playlist cards ---------- */
 .pl-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}

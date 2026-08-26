@@ -96,7 +96,7 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
 .chip{flex:none;font:700 var(--t-label)/1 var(--body);letter-spacing:.02em;
   background:var(--card);border:1px solid var(--hair);border-radius:var(--r-pill);
   padding:0 var(--s4);height:44px;display:inline-flex;align-items:center;gap:6px;
-  color:var(--ink);white-space:nowrap}
+  color:var(--ink);white-space:nowrap;cursor:pointer}
 .chip .n{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
 .chip:hover{border-color:var(--ink)}
 .chip[aria-current]{background:var(--mustard);color:var(--on-accent);border-color:var(--mustard)}
@@ -568,7 +568,7 @@ section.band-sky .sec-label{color:var(--sky)}section.band-navy .sec-label{color:
   padding:13px 24px;border-radius:999px;font-size:1rem;line-height:1;
   border:2px solid var(--keyline);
   transition:transform .12s ease,box-shadow .12s ease;
-}
+;cursor:pointer}
 .btn:hover{transform:translate(-2px,-2px)}
 .btn:active{transform:translate(2px,2px)}
 .btn-yt{background:linear-gradient(180deg,var(--mustard),var(--gold));color:var(--on-accent);box-shadow:4px 4px 0 var(--keyline)}
@@ -812,7 +812,8 @@ footer .soc svg{fill:var(--chrome-ink)}
 }
 .vid-shell:hover .vid-play{background:var(--sky);transform:translate(-50%,-50%) scale(1.12)}
 .vid-play svg{width:18px;height:18px;fill:var(--on-accent);margin-left:3px}.hall .vid-shell:hover{border-color:#fff;box-shadow:0 10px 0 var(--gold-deep),0 20px 34px rgba(17,17,17,.5)}.hits .vid-shell:hover{border-color:var(--teal);box-shadow:0 10px 0 var(--teal),0 18px 30px rgba(17,17,17,.34)}
-.chip[aria-pressed=true]{background:var(--sky);color:var(--on-accent)}.chip.clear:hover{background:var(--ketchup);color:var(--on-alert)}
+.chip[aria-pressed=true]{background:var(--sky);color:var(--on-accent)}
+.chip[aria-pressed=true] .n{color:inherit}.chip.clear:hover{background:var(--ketchup);color:var(--on-alert)}
 .lib-count b{color:var(--ketchup-deep)}
 .pl-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
 .rip-player--wide{aspect-ratio:16/9!important;max-width:none}

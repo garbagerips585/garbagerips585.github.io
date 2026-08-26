@@ -179,7 +179,16 @@ const excNote =
       exc
         .map(
           (e) =>
-            `Number ${e.rank}, ${esc(e.name)}, is printed nowhere on this site: ${esc(e.public)}.`,
+            /* "Number 64" MEANT A DIFFERENT 64 THAN THE ONE ON THE PAGE. e.rank is the
+   PRE-exclusion rank from the source ranking; the rows renumber themselves
+   AFTER the exclusion (tg-rank is i + 1), so row 64 renders Mew #40 and the
+   sentence above it called number 64 a Lugia. Both sibling pages already say
+   this without a rank -- most-valuable-cards.html says "it sits below the
+   hundredth place" -- so dropping it here matches them and removes the clash.
+   THE SET GOES IN, because the page prints a DIFFERENT "Lugia [1st Edition]"
+   at rank 41 (Neo Genesis, #9). Without naming Wind from the Sea, a reader is
+   told a Lugia [1st Edition] is printed nowhere and then finds one 23 rows up. */
+`${esc(e.name)}, ${esc(e.set)}, is printed nowhere on this site: ${esc(e.public)}.`,
         )
         .join(" ");
 

@@ -568,6 +568,11 @@ export const EVO_CSS = `
   box-sizing:border-box}
 a.ev-node{background:var(--chip-gold-bg)}
 a.ev-node:hover{background:var(--mustard);color:var(--on-accent)}
+/* .ev-no carries its own --ink-2, so the dex number stayed put while the tile
+   went mustard: 8.11:1 at rest, 1.45:1 on hover, across 824 nodes on
+   evolution.html and 9 on eevee-evolutions.html. Third instance of the same
+   parent-flips-child-does-not bug found on 25 August 2026. */
+a.ev-node:hover .ev-no{color:inherit}
 .ev-nm{font:700 var(--t-body)/1.3 var(--body)}
 .ev-no{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
 /* The step: the drawn arrow and the condition it carries. ONE symbol in a

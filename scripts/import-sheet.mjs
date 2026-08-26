@@ -687,13 +687,42 @@ if (col("Card") !== -1 && col("Raw NM USD") !== -1) {
   for (const h of hits) {
     if (!h.video) continue;
     const { video, ...card } = h;
-    const prev = (byVideo[video] || []).find((c) => c.card === card.card) || {};
+    /* MATCHING ON THE NAME STRING ALONE MINTED A PHANTOM CARD, found 25 August
+       2026. The sheet logged one hit on nCIpRxwMMBE, "Cinderace VMAX". An older
+       hand-added record spelled it "Cinderace V Max". The two strings are not
+       equal, so every re-import merged the sheet's card and LEFT THE OTHER ONE
+       SITTING THERE: same set, same number 036, same image, same price, counted
+       twice.
+
+       It reached the headline. build-proto.mjs sums list lengths into
+       rip-tally.json without deduping, so "212 hit cards logged" on the home
+       page, "212 Cards pulled" on hall.html and four figures on luck.html were
+       every one of them one too high, for a card that does not exist. 211 is the
+       true number. hall.html's own 170 was right all along because it dedupes by
+       printing before it counts.
+
+       SO THE IDENTITY IS THE PRINTING, NOT THE SPELLING. Set plus collector
+       number is what makes two records the same card; a name is how a person
+       typed it that day. Falling back to the name only when there is no number
+       keeps the promos and the unnumbered rows working, which is the case the
+       old code was really written for.
+
+       This is the failure class hits.json's own _readme already names: "a comma
+       where a dash belonged split one hit into two". Same disease, one layer up,
+       and it is fixed at the dedupe rather than by hand so the sheet cannot
+       reintroduce it on the next import. */
+    const idOf = (c) =>
+      c.set && (c.number ?? c.n) != null
+        ? `${c.set}|${String(c.number ?? c.n).replace(/^0+(?=\d)/, "")}`
+        : `name:${c.card}`;
+    const id = idOf(card);
+    const prev = (byVideo[video] || []).find((c) => idOf(c) === id) || {};
     const merged = { ...prev };
     for (const [k, v] of Object.entries(card)) {
       if (v == null && KEEP_IF_BLANK.includes(k)) continue;
       merged[k] = v;
     }
-    byVideo[video] = (byVideo[video] || []).filter((c) => c.card !== card.card).concat(merged);
+    byVideo[video] = (byVideo[video] || []).filter((c) => idOf(c) !== id).concat(merged);
   }
   await writeFile(
     join(ROOT, "data/hits.json"),

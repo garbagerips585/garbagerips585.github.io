@@ -1291,7 +1291,14 @@ const STYLE = `
   background:var(--card);box-shadow:var(--hard);
   font:700 var(--t-micro)/1.2 var(--mono);letter-spacing:.04em;
   text-transform:uppercase;color:var(--sky-deep);text-decoration:none}
-.wtb-pick a:hover{background:var(--paper-3);text-decoration:underline}
+/* HOVER LIGHTENED THE GROUND AND LEFT THE TEXT, 4.50:1 -> 3.60:1 at 11px.
+   --sky-deep sits at EXACTLY 4.50 on --card at rest, so any hover that lifts
+   the background at all falls under. --ink on --paper-3 is 5.35:1.
+   THE TEXT BRIGHTENS RATHER THAN THE BACKGROUND DARKENING, because teal is how
+   you get around on this site and a resting link must stay teal; changing what
+   the ground does on hover would have meant changing it everywhere or making
+   this one component disagree with the rest. */
+.wtb-pick a:hover{background:var(--paper-3);color:var(--ink);text-decoration:underline}
 .wtb-pick a:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
 .wtb-jump{margin:var(--s5) 0 0}
 .wtb-jlabel{margin:0 0 var(--s2);font:700 .7rem/1 var(--mono);letter-spacing:.08em;

@@ -249,7 +249,16 @@ if (rows.length < 20) {
 
 const cheapest = rows[0];
 const priciest = rows[rows.length - 1];
-const spread = priciest.best.each / cheapest.best.each;
+/* THE PAGE SHOWED ITS WORKING AND THE WORKING DID NOT CHECK OUT. This divided
+   the UNROUNDED figures ($170.87/36 = $4.7464) and got 7.859, while the two
+   numbers printed either side of it are $37.30 and $4.75 -- which divide to
+   7.85. Arithmetically the old number was the more accurate one, and that is
+   exactly why it was the wrong one to print: it is the single figure on this
+   page a sceptical reader will check by hand, and it disagreed with the only
+   two inputs they can see. Dividing the rounded operands makes the sentence
+   reproducible from the sentence. */
+const cents = (n) => Math.round(n * 100) / 100;
+const spread = cents(priciest.best.each) / cents(cheapest.best.each);
 
 // THE FINDING. A single pack, bought one at a time, is the cheapest pack in the
 // set. Counted only where the set offers something else to lose to, or it would

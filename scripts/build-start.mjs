@@ -176,7 +176,11 @@ const STEPS = [
             <div class="st-ladder">${LADDER.map((id) => rarityChip(id)).join("")}</div>
             <figcaption>The marks in the bottom corner, drawn, commonest first. Same six
               you will find on a Scarlet and Violet era card, and the same drawings the
-              <a href="/rarity.html">rarity guide</a> uses. It holds three more.</figcaption>
+              <a href="/rarity.html">rarity guide</a> uses. It holds four more.</figcaption>${/* WAS "three more", counted against shared/rarity.mjs RARITY_KEY rather than
+     against /rarity.html, which is what the sentence points at. The key holds
+     a "charizard" entry that is a category on this channel and not a rarity,
+     and the count overlooked Radiant. /rarity.html's ladder is 10 rungs; six
+     are drawn here; four are not. */ ""}
           </figure>`,
   },
   {
