@@ -144,10 +144,23 @@ const weekday = (iso) =>
   ];
 
 /** A maps link built from the venue and city. Never an address we made up. */
+const mapQuery = (s) =>
+  [s.address || s.venue, s.address ? "" : s.city, s.address ? "" : "NY"].filter(Boolean).join(" ");
 const mapLink = (s) =>
-  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    [s.address || s.venue, s.address ? "" : s.city, s.address ? "" : "NY"].filter(Boolean).join(" ")
-  )}`;
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery(s))}`;
+
+/* THERE IS NO URL THAT MEANS "the reader's default maps app" AND THAT IS WHY
+ * THIS IS TWO LINKS AND A PIECE OF PLAIN TEXT rather than one clever scheme.
+ * A google.com/maps link opens the Google Maps APP where it is installed and a
+ * web page otherwise, so an iPhone without it gets a website when it wanted
+ * directions; maps.apple.com opens Apple Maps on Apple platforms and a web page
+ * everywhere else. Neither is right for everybody, so the page SERVES the Google
+ * one, which is the safe default and needs no script, and the block at the foot
+ * swaps it on Apple platforms only. The reliable answer for everyone else is the
+ * address itself, printed as selectable text under the venue: it costs nothing
+ * and it pastes into whatever app the reader actually uses. */
+const appleMapLink = (s) =>
+  `https://maps.apple.com/?q=${encodeURIComponent(mapQuery(s))}`;
 
 // The page covers three metro areas and nothing else. These feeds are regional
 // and cheerfully mix in the Southern Tier, and a national search for "Rochester
@@ -1188,7 +1201,18 @@ function showCard(s) {
           <p class="show-meta">${esc(weekday(s.date))}${
             timeRange(s.start, s.end) ? ` &bull; ${esc(timeRange(s.start, s.end))}` : ""
           }</p>
-          <p class="show-where"><a href="${esc(mapLink(s))}" rel="noopener" target="_blank" aria-label="${esc(s.venue)}, ${esc(s.city)} NY, where ${esc(showRef(s))} is held, opens on ${esc(hostOf(mapLink(s)))}">${esc(s.venue)}, ${esc(s.city)} NY</a></p>
+          <p class="show-where"><a href="${esc(mapLink(s))}" data-map-apple="${esc(appleMapLink(s))}" rel="noopener" target="_blank" aria-label="${esc(s.venue)}, ${esc(s.city)} NY, where ${esc(showRef(s))} is held, opens on ${esc(hostOf(mapLink(s)))}">${esc(s.venue)}${s.address ? "" : `, ${esc(s.city)} NY`}</a>${
+            /* THE ADDRESS IS TEXT AND NOT PART OF THE LINK, on purpose. The owner:
+               "its easier to see what streets places are on and people know areas
+               so it helps, plus if you want to copy and paste into apple maps".
+               Both halves of that need it OUT of the anchor: a reader dragging to
+               select an address inside a link starts a drag on the link instead,
+               and on a phone a long press on a link opens the share sheet rather
+               than the selection handles. It also keeps the tap target one thing
+               rather than a 44px control wrapping two lines of small print.
+               61 of the 62 dates carry one; the venue link keeps ", City NY" for
+               the one that does not, because that link is all it has. */ ""
+          }${s.address ? `<span class="show-addr">${esc(s.address)}</span>` : ""}</p>
           <div class="show-tags">
             ${/* THREE STATES, NOT TWO, ADDED 26 August 2026 AT THE OWNER'S INSTRUCTION.
               This is a Pokemon site. He will happily list a sports show that has Pokemon on the floor, and he
@@ -1452,6 +1476,27 @@ ${footer("Show listings are collected by hand and change without notice. Check w
 <script>
 (function(){
 ${CLIENT_DAY_JS}
+  // APPLE PLATFORMS GET APPLE MAPS. See the note over appleMapLink. Progressive
+  // enhancement: the served href is the Google one and is correct with no script
+  // at all, so this only ever swaps a working link for a better-targeted one.
+  // The aria-label names the host it opens on, per the site's outbound rule, so
+  // the LABEL has to move with the href or the page starts lying to a screen
+  // reader about where it is sending them.
+  try {
+    var ua = navigator.userAgent || "";
+    var apple = /iPhone|iPad|iPod/.test(ua) ||
+      (/Mac/.test(ua) && navigator.maxTouchPoints > 1) || /Macintosh/.test(ua);
+    if (apple) {
+      var links = document.querySelectorAll("a[data-map-apple]");
+      for (var i = 0; i < links.length; i++) {
+        var a = links[i], to = a.getAttribute("data-map-apple");
+        if (!to) continue;
+        a.setAttribute("href", to);
+        var lab = a.getAttribute("aria-label");
+        if (lab) a.setAttribute("aria-label", lab.replace(/opens on .*$/, "opens on maps.apple.com"));
+      }
+    }
+  } catch (e) {}
   // Belt and braces on dates. The build already dropped past shows, but a deploy
   // can sit for a few days, and a card show calendar that lists yesterday is
   // worse than no calendar at all.

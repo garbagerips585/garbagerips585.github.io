@@ -1122,6 +1122,7 @@ footer .soc svg{fill:var(--chrome-ink)}
 .show-where{font-size:var(--t-sm);margin-top:12px;margin-bottom:8px}
 .show-where a{color:var(--sky-deep);font-weight:600;padding:13px 0}
 .show-where a:hover{text-decoration:underline}
+.show-addr{display:block;margin-top:2px;font:400 var(--t-sm)/1.4 var(--body);color:var(--ink-2)}
 .show-h{display:flex;align-items:center;gap:10px}
 .show-h h3{flex:1 1 0;min-width:0}
 .show-logo{flex:0 0 auto;width:56px;height:56px;display:flex;align-items:center;justify-content:center}

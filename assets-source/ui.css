@@ -3789,6 +3789,18 @@ footer .soc svg{fill:var(--chrome-ink)}
 .show-where{font-size:var(--t-sm);margin-top:12px;margin-bottom:8px}
 .show-where a{color:var(--sky-deep);font-weight:600;padding:13px 0}
 .show-where a:hover{text-decoration:underline}
+/* THE STREET ADDRESS, UNDER THE VENUE AND OUTSIDE THE LINK. The owner asked for it
+   because "people know areas" and because an address you can select is one you
+   can paste into whichever maps app you actually use; the reasoning for keeping
+   it out of the anchor is in build-shows.mjs over the .show-where markup.
+   A BLOCK, so it never shares a line with the venue and get mistaken for part of
+   the link text. --t-sm AND NOT --t-micro: the hierarchy against the venue is
+   carried by COLOUR (--ink-2 against the link's --sky-deep), because this is
+   something the owner asked for so people could READ it, and micro is 11px. It
+   measures 5.86:1 on --card, so the smaller token was never the accessible
+   choice either, just the quiet one.
+   line-height 1.4 because these wrap to two lines at 320. */
+.show-addr{display:block;margin-top:2px;font:400 var(--t-sm)/1.4 var(--body);color:var(--ink-2)}
 /* THE INFO CHIPS IN A SHOW CARD WRAP; THE FILTER BUTTONS DO NOT.
    .chip is flex:none and white-space:nowrap, correct for a row of filter buttons
    in a scroller and wrong for a chip carrying a sentence. "$2, kids 12 and under
