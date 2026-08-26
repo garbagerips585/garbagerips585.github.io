@@ -1,0 +1,195 @@
+#!/usr/bin/env python3
+"""Cut show-organiser logos out of their background and size them for the web.
+
+    python3 scripts/build-show-logos.py [--preview]
+
+Drop masters in assets-source/shows/ named by the `logo` field in
+data/shows.json (cold-front-cards.png ...). Writes transparent AVIF and WebP at
+200 and 400 wide to public/assets/shows/, which is the ladder build-shows.mjs
+already emits a <picture> for.
+
+WHY A FLOOD FILL AND NOT A THRESHOLD. Organisers send logos as opaque squares
+on white, and the obvious cut is "every near-white pixel becomes transparent".
+That destroys this kind of art. The Cold Front logo is an ice theme: the letters
+carry white highlights, the icicles are white, and there are white sparkles. A
+threshold punches holes through all three and leaves the letters looking eaten.
+Only the white REACHING THE BORDER is background, so the fill starts at the edge
+and stops wherever the art does. White locked inside the art is never reached.
+
+THE HEIGHT IS PRINTED, NOT ASSUMED. Cutting the background changes the aspect
+ratio, because the master is padded and the art inside it is not square. The
+logoW/logoH in shows.json set the <img> height attribute, so a stale pair there
+reserves the wrong box and shifts the row as the logo loads. This prints the
+trimmed size for each file; put those numbers in the data.
+
+A LOGO GOES UP ONLY WHEN ITS OWNER SENDS IT FOR THIS USE. Cold Front's came by
+text from the organiser on 26 August 2026, with the flyer, for the calendar.
+
+Needs Pillow: python3 -m pip install --user Pillow
+"""
+import sys
+from collections import deque
+from pathlib import Path
+
+import numpy as np
+from PIL import Image, ImageOps
+
+ROOT = Path(__file__).resolve().parent.parent
+SRC = ROOT / "assets-source" / "shows"
+FLYERS = SRC / "flyers"
+OUT = ROOT / "public" / "assets" / "shows"
+
+# The card paints a flyer into a 220px box and the lightbox opens it to 900px.
+# One file cannot serve both: see the note over flyerSrc in build-shows.mjs.
+THUMB_W = 440          # 220px box at DPR 2
+FULL_W = 1024          # the lightbox cap is 900; masters so far are 1024 wide
+FLYER_Q = 78
+
+# Rendered into a 56px box, so 200w already covers DPR 3 (168 device px) and
+# 400w is only ever picked past DPR 3.57. Both are emitted because the page's
+# <picture> declares both and a candidate nobody takes costs only its markup.
+WIDTHS = (200, 400)
+# 50 AND NOT 82, AND THE ORDER OF THE TWO FORMATS IS WHY. The page puts AVIF
+# first, so a quality where AVIF is the LARGER file serves the worse one to
+# every modern browser. On art this dense, 200w: avif 10,706 / webp 12,578 at
+# q45, avif 21,304 / webp 17,522 at q82. AVIF only wins below about q55. It is
+# painted at 56px, so 200w is already 3.5x oversampled and the detail this
+# spends bytes on (sparkles, ice texture) is invisible at that size.
+QUALITY = 50
+
+# How close to the background colour a pixel must be to be walked through.
+# Generous on purpose: the halo around this art fades to white over ~150px, and
+# a tight threshold strands a grey ring that reads as a box on a dark page.
+TOL = 46
+
+# The page paints these on --card. Only used by --preview.
+CARD = (0x2F, 0x4F, 0x39)
+
+
+def background_mask(rgb: np.ndarray, tol: int) -> np.ndarray:
+    """True where a pixel is background: near the corner colour AND reachable
+    from the border without crossing the art."""
+    h, w, _ = rgb.shape
+    corners = np.array(
+        [rgb[0, 0], rgb[0, w - 1], rgb[h - 1, 0], rgb[h - 1, w - 1]], dtype=np.int16
+    )
+    # Organisers do send logos on off-white and on black, so take the colour
+    # from the master rather than assuming white.
+    bg = corners.mean(axis=0)
+    dist = np.sqrt(((rgb.astype(np.int16) - bg) ** 2).sum(axis=2))
+    cand = dist <= tol
+
+    seen = np.zeros((h, w), dtype=bool)
+    q = deque()
+    for x in range(w):
+        for y in (0, h - 1):
+            if cand[y, x] and not seen[y, x]:
+                seen[y, x] = True
+                q.append((y, x))
+    for y in range(h):
+        for x in (0, w - 1):
+            if cand[y, x] and not seen[y, x]:
+                seen[y, x] = True
+                q.append((y, x))
+
+    while q:
+        y, x = q.popleft()
+        for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            ny, nx = y + dy, x + dx
+            if 0 <= ny < h and 0 <= nx < w and cand[ny, nx] and not seen[ny, nx]:
+                seen[ny, nx] = True
+                q.append((ny, nx))
+    return seen
+
+
+def cut(path: Path) -> Image.Image:
+    im = Image.open(path).convert("RGB")
+    arr = np.asarray(im)
+    bg = background_mask(arr, TOL)
+
+    alpha = np.where(bg, 0, 255).astype(np.uint8)
+    out = np.dstack([arr, alpha])
+    img = Image.fromarray(out)
+
+    # The cut leaves a one-pixel rim of art-blended-with-white all round the
+    # edge. It survives as a pale outline on a dark page at full size; it does
+    # not survive the downscale, but the trim below is measured from alpha and
+    # a fringe would widen the box, so drop the weakest rim first.
+    box = img.getbbox()
+    return img.crop(box) if box else img
+
+
+def flyers() -> None:
+    """A flyer is a photograph of a poster: JPEG, no alpha, no background cut.
+
+    EXIF ORIENTATION IS APPLIED. A phone photograph of a flyer is stored
+    sideways with a rotation tag, and resizing without reading it ships the
+    poster on its side with correct width and height attributes on it, which
+    nothing in the build can see. Same trap as sync-plate-photos.py.
+    """
+    masters = sorted(p for p in FLYERS.glob("*") if p.suffix.lower() in
+                     (".png", ".jpg", ".jpeg", ".webp") and not p.name.startswith("."))
+    if not masters:
+        return
+    OUT.mkdir(parents=True, exist_ok=True)
+    for m in masters:
+        im = ImageOps.exif_transpose(Image.open(m)).convert("RGB")
+        w, h = im.size
+        for label, tw in (("", THUMB_W), ("-full", FULL_W)):
+            tw = min(tw, w)
+            th = max(1, round(tw * h / w))
+            dest = OUT / f"{m.stem}{label}.jpg"
+            im.resize((tw, th), Image.LANCZOS).save(
+                dest, "JPEG", quality=FLYER_Q, optimize=True, progressive=True)
+            print(f"  {dest.relative_to(ROOT)}  {tw}x{th}  {dest.stat().st_size:,} bytes")
+            if not label:
+                print(f'  data/shows.json: "flyerW": {tw}, "flyerH": {th}')
+
+
+def main() -> int:
+    preview = "--preview" in sys.argv
+    masters = sorted(p for p in SRC.glob("*.png") if not p.name.startswith("."))
+    if not masters and not FLYERS.exists():
+        print(f"No masters in {SRC.relative_to(ROOT)}/ - nothing to do.")
+        return 0
+
+    OUT.mkdir(parents=True, exist_ok=True)
+    for m in masters:
+        img = cut(m)
+        w, h = img.size
+        print(f"{m.name}: {Image.open(m).size} master -> {w}x{h} trimmed")
+        print(f'  data/shows.json: "logoW": {w}, "logoH": {h}')
+
+        if preview:
+            flat = Image.new("RGB", img.size, CARD)
+            flat.paste(img, mask=img.split()[3])
+            # NOT into public/: a preview is a decision aid, and the deploy
+            # root is not a scratch directory. It shipped once.
+            p = ROOT / ".cache" / f"{m.stem}-on-card.png"
+            p.parent.mkdir(parents=True, exist_ok=True)
+            flat.resize((420, round(420 * h / w)), Image.LANCZOS).save(p)
+            print(f"  preview: {p}")
+            continue
+
+        for tw in WIDTHS:
+            th = max(1, round(tw * h / w))
+            # A PLAIN RESIZE, NOT A PREMULTIPLIED ONE, and that was measured
+            # rather than assumed. Transparent pixels here still carry the
+            # background's white, so resizing colour and alpha independently is
+            # the textbook halo bug. Against ground truth (composite at full
+            # size, then downscale) the plain resize is RMSE 1.29 and the
+            # premultiply round trip is 4.78: un-premultiplying divides by a
+            # small alpha in uint8 and loses more than the bleed costs.
+            small = img.resize((tw, th), Image.LANCZOS)
+            for ext in ("avif", "webp"):
+                dest = OUT / f"{m.stem}-{tw}.{ext}"
+                small.save(dest, quality=QUALITY)
+                print(f"  {dest.relative_to(ROOT)}  {dest.stat().st_size:,} bytes")
+
+    if not preview:
+        flyers()
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

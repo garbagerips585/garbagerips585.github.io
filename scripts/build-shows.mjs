@@ -739,12 +739,25 @@ const showDoubles = [...dayCounts.values()].filter((n) => n > 1).length;
 // A flyer named in the data but missing on disk would render as a broken box on
 // the most visual part of the page, so it is checked here rather than trusted.
 const missingFlyers = [];
+
+/* TWO FILES, NOT ONE, AND THE THUMBNAIL IS THE REASON. This returned a single
+ * url that was BOTH the `src` of a 220px thumbnail on the card and the image
+ * the lightbox enlarges to 900px. One file cannot be both: Cold Front's flyer
+ * is 1024x1536 and the smallest JPEG that still reads at 900px is 375KB, which
+ * is what the card was going to pull to paint a 220px box. So `<name>.jpg` is
+ * the thumbnail and `<name>-full.jpg` is what opens, and BOTH are checked,
+ * because a lightbox that opens onto a 404 is worse than no lightbox: the
+ * thumbnail looks perfect right up until somebody taps it. */
 const flyerSrc = (s) => {
   if (!s.flyer) return null;
   const rel = `assets/shows/${s.flyer}`;
-  if (existsSync(join(ROOT, "public", rel))) return `/${rel}`;
-  missingFlyers.push(`${s.id}: public/${rel} not found`);
-  return null;
+  const full = rel.replace(/\.(jpg|jpeg|png|webp)$/i, "-full.$1");
+  const missing = [rel, full].filter((r) => !existsSync(join(ROOT, "public", r)));
+  if (missing.length) {
+    missingFlyers.push(`${s.id}: ${missing.map((r) => `public/${r}`).join(" and ")} not found`);
+    return null;
+  }
+  return { thumb: `/${rel}`, full: `/${full}`, w: s.flyerW || 0, h: s.flyerH || 0 };
 };
 
 /* ------------------------------------------------------------------- logos --
@@ -1222,8 +1235,8 @@ function showCard(s) {
             ${s.organiserUrl && s.organiserUrl !== s.url ? `<a href="${esc(s.organiserUrl)}" rel="noopener" target="_blank" aria-label="${esc(s.organiser && s.organiser !== s.name ? `${s.organiser}, who run ${showRef(s)}` : `The organizer of ${showRef(s)}`)}, opens on ${esc(hostOf(s.organiserUrl))}">${esc(s.organiser || "Organizer")}</a>` : ""}
           </p>
         </div>
-        ${flyer ? `<button type="button" class="show-flyer" data-flyer="${esc(flyer)}" data-flyer-alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}">
-          <img src="${esc(flyer)}" alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}" loading="lazy" decoding="async">
+        ${flyer ? `<button type="button" class="show-flyer" data-flyer="${esc(flyer.full)}" data-flyer-alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}">
+          <img src="${esc(flyer.thumb)}" alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}"${flyer.w && flyer.h ? ` width="${flyer.w}" height="${flyer.h}"` : ""} loading="lazy" decoding="async">
           <span class="show-flyer-hint">Tap to enlarge</span>
         </button>` : ""}
       </article>`;

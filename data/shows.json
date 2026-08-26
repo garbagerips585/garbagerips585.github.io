@@ -266,9 +266,11 @@
       "pkmn": "some",
       "tables": "60+",
       "logo": "cold-front-cards",
-      "logoW": 1024,
-      "logoH": 1024,
+    "logoW": 880,
+      "logoH": 787,
       "flyer": "cold-front-2026-09-20.jpg",
+      "flyerW": 440,
+      "flyerH": 660,
       "blurb": "Billed as a sports cards and Pokemon show, 60+ tables at the Frontier firehall, free to walk into."
     },
     {
