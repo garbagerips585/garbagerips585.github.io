@@ -1156,7 +1156,15 @@ const page = head + `
     <h1>Card <span class="hl">shows</span> near Rochester</h1>
     <p class="lede" style="max-width:36em">Every card show we can find within driving distance of Rochester, Buffalo
       and Syracuse. Dates, times, where to park yourself, and what it costs to get in. Built because working this out
-      every month from six different Facebook pages is genuinely annoying.</p>
+      every month from six different Facebook pages is genuinely annoying.</p>${/* WHAT KIND OF SHOW EACH ONE IS, said
+        once at the top, 26 August 2026. This page reaches a Pokemon audience from a Pokemon channel, and MOST OF THESE
+        ARE NOT POKEMON SHOWS: 24 of the 26 are general card shows and 2 are all Pokemon. A reader who assumed otherwise
+        and drove to a sports show would have been misled by omission rather than by anything the page said.
+        The counter tile already carries the number. This says what the number MEANS, which the tile cannot. */ ""}
+    <p class="lede" style="max-width:36em">Most of these are general card shows: sports, Pokemon and other TCG on the
+      same floor. The all-Pokemon ones are called out on the card, and there are ${
+        upcoming.filter((s) => s.pokemon).length
+      } of them coming up.</p>
   </div>
 </header>
 

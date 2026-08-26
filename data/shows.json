@@ -88,7 +88,7 @@
       "region": "roc",
       "pokemon": false,
       "admission": "Free",
-      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon.",
+      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner.",
       "organiser": "CollectorFest Monthly",
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://cardshows.io/events/collectorfest-monthly-sports-and-collectibles-show-08-30-2026",
@@ -121,7 +121,7 @@
       "region": "roc",
       "pokemon": false,
       "admission": "Free",
-      "blurb": "Batavia is the halfway point between Rochester and Buffalo, about 40 minutes out the Thruway.",
+      "blurb": "Batavia is the halfway point between Rochester and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors and the same quality, and the same mix of sports, Pokemon and other TCG. The drive is what gets you dealers from both cities in one room.",
       "url": "https://cardshows.io/events/batavia-sports-card-toys-non-sports-and-collectible-show-09-05-2026",
       "source": "cardshows.io"
     },
@@ -198,7 +198,8 @@
       "organiser": "CollectorFest Monthly",
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://cardshows.io/events/collectorfest-monthly-sports-and-collectibles-show-09-27-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner."
     },
     {
       "id": "batavia-scts-2026-10-03",
@@ -212,7 +213,8 @@
       "pokemon": false,
       "admission": "Free",
       "url": "https://cardshows.io/events/batavia-sports-card-toys-non-sports-and-collectible-show-10-03-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "blurb": "Batavia is the halfway point between Rochester and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors and the same quality, and the same mix of sports, Pokemon and other TCG. The drive is what gets you dealers from both cities in one room."
     },
     {
       "id": "pokefest-syracuse-2026-10-11",
@@ -260,7 +262,8 @@
       "organiser": "CollectorFest Monthly",
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://cardshows.io/events/collectorfest-monthly-sports-and-collectibles-show-10-18-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner."
     },
     {
       "id": "collectorsfest-111-2026-10-18",
@@ -324,7 +327,7 @@
           "note": "Vendor floor at 8:30am, VIP suite all day, MSRP table, gift bag with lanyard and shirt"
         }
       ],
-      "blurb": "The big one, and it lands on Halloween. 160+ vendor tables at RIT, all Pokemon, vendors from across New York. Doors from 7am for VIP, 10am for everyone else.",
+      "blurb": "The big one, and it lands on Halloween. 160+ vendor tables at RIT with vendors from across New York, and it is all Pokemon: no sports, unlike the other shows on this page.",
       "warn": "Presale prices go up $5 at 7pm on Friday October 30, so buy before then.",
       "organiser": "RocPokéCon",
       "organiserUrl": "https://www.rocpokecon.com",
@@ -373,7 +376,8 @@
       "pokemon": false,
       "admission": "Free",
       "url": "https://cardshows.io/events/batavia-sports-card-toys-non-sports-and-collectible-show-11-07-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "blurb": "Batavia is the halfway point between Rochester and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors and the same quality, and the same mix of sports, Pokemon and other TCG. The drive is what gets you dealers from both cities in one room."
     },
     {
       "id": "northtowns-sanborn-2026-11-21",
@@ -404,7 +408,8 @@
       "organiser": "CollectorFest Monthly",
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://collectorfestmonthly.com",
-      "source": "collectorfestmonthly.com"
+      "source": "collectorfestmonthly.com",
+      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner."
     },
     {
       "id": "batavia-scts-2026-12-05",
@@ -418,7 +423,8 @@
       "pokemon": false,
       "admission": "Free",
       "url": "https://cardshows.io/events/batavia-sports-card-toys-non-sports-and-collectible-show-12-05-2026",
-      "source": "cardshows.io"
+      "source": "cardshows.io",
+      "blurb": "Batavia is the halfway point between Rochester and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors and the same quality, and the same mix of sports, Pokemon and other TCG. The drive is what gets you dealers from both cities in one room."
     },
     {
       "id": "mega-show-113-2026-12-05",
@@ -451,7 +457,8 @@
       "organiser": "CollectorFest Monthly",
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://collectorfestmonthly.com",
-      "source": "collectorfestmonthly.com"
+      "source": "collectorfestmonthly.com",
+      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner."
     },
     {
       "id": "585cardz-batavia-2026-12-16",
@@ -496,7 +503,8 @@
       "organiser": "CollectorFest Monthly",
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://collectorfestmonthly.com",
-      "source": "collectorfestmonthly.com"
+      "source": "collectorfestmonthly.com",
+      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner."
     },
     {
       "id": "collectorfest-jcc-2027-02-14",
@@ -513,7 +521,8 @@
       "organiser": "CollectorFest Monthly",
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://collectorfestmonthly.com",
-      "source": "collectorfestmonthly.com"
+      "source": "collectorfestmonthly.com",
+      "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free in, and there is a giveaway at noon. It is the smaller of the two we go to and the vendors are good ones, with a real mix of sports, Pokemon and other TCG on the floor rather than one Pokemon table in the corner."
     }
   ],
   "_towns": {
