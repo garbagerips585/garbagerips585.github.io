@@ -70,12 +70,17 @@ const QA = [
   ["Does it cost anything to get in?",
     nFree + " of the " + upcoming.length + " shows on our calendar are free to walk into. Where a show has not " +
     "published an admission price we say so rather than guess at it, so check the listing before you set off."],
+  ["Does sealed product get a better offer than singles?",
+    "Yes, and by a wide margin. At shops that publish their rates, sealed Pokemon goes at 70 to 80 percent of " +
+    "market low in cash and 80 to 90 in store credit, while singles run about 60 percent cash and up to 80 in " +
+    "credit. Sealed cannot be damaged in a binder and does not need grading, so a vendor can turn it round fast " +
+    "and pays for the privilege. Graded 10s sit near sealed, around 70 cash and 80 credit."],
   ["What will a vendor pay for my cards?",
-    "Less than they sell them for, and how much less depends almost entirely on how easily the card sells on. " +
-    "Published guidance puts cash offers at 20 to 40 percent of market for commons and bulk, 40 to 60 percent for " +
-    "desirable singles, and 70 to 80 percent for hot modern product, with graded cards in the middle. Trade credit " +
-    "typically runs 25 to 50 percent above the cash offer, so $100 cash is commonly $125 to $150 in credit. There " +
-    "is no fixed rate: a percentage is an output of the deal rather than a rule."],
+    "Less than they sell them for, and how much less depends on what it is and how easily it sells on. Published " +
+    "Pokemon buy rates run about 60 percent cash on singles, 70 to 80 on sealed and 70 on graded 10s, with store " +
+    "credit worth roughly another 10 to 20 points on top of whichever of those applies. Watch what the percentage " +
+    "is measured against, though: sealed rates are quoted off market LOW and graded off the last five sales, both " +
+    "of which are below the headline price you looked up."],
   ["Is an early bird ticket worth paying for?",
     "It depends whether you are hunting something specific. Paying the premium gets you in ahead of general " +
     "admission, when the room is quiet enough to actually talk to a vendor and the best sealed product and standout " +
@@ -167,37 +172,34 @@ const FLOORPLAN = `
           table owns what is on it, prices it themselves, and takes it home at the end of the day.</figcaption>
       </figure>`;
 
-/* THE SOURCES DISAGREE, AND THAT DISAGREEMENT IS THE FINDING.
-   These numbers started as the owner's guess (70 cash / 80 credit), published in
-   a voice that read as first hand. Researched on 26 August 2026, and the
-   research did not produce one answer. It produced a spread:
-     - a card-show-specific guide says 60 to 80 percent cash
-     - two shop-facing guides say 40 to 60 on desirable singles
-     - collectors on a forum say you are lucky to get 50
-   A page that picked one of those and printed it would be doing exactly what
-   the guess did, only with a citation stapled on. So the table shows all three
-   WITH who said each, and the copy explains why they differ: the guides describe
-   what a good deal looks like, the forum describes what people actually walked
-   away with, and where you land inside that depends on what you are holding.
-   THE GUESS WAS CLOSER THAN THE FIRST ROUND OF RESEARCH SUGGESTED. Card shows do
-   appear to run above shop counters, which is what the owner said when told the
-   figures looked low. That is now on the page as a sourced claim rather than as
-   either of our hunches. */
+/* POKEMON RATES, BY CATEGORY, FROM SHOPS THAT PUBLISH THEM.
+   The first pass at this question found sports-card guides quoting one number
+   for everything. The owner pushed back: singles, sealed and graded each have
+   their own nuance. He was right, and the gap is not small -- sealed pays about
+   twenty points better than singles at the same shop.
+   These are PUBLISHED RATE CARDS rather than opinions, which is why they are
+   worth more than the ranges a guide quotes: a shop that prints its buy rate is
+   committing to it.
+   THE BASIS MATTERS AS MUCH AS THE PERCENTAGE and almost nobody says so, which
+   is why it gets a paragraph of its own below. "70 percent of market low" and
+   "70 percent of the last five sold" are both lower than 70 percent of the
+   headline number a price site shows you. */
 const TIERS = `
       <figure class="cs-fig">
         <table class="cs-tiers">
-          <caption>What a vendor pays you in cash, as a share of market value, by who is reporting it</caption>
-          <thead><tr><th scope="col">Source</th><th scope="col">Cash offer</th></tr></thead>
+          <caption>Published Pokemon buy rates, by what you are selling</caption>
+          <thead><tr><th scope="col">What you are selling</th><th scope="col">Cash</th><th scope="col">Store credit</th><th scope="col">Measured against</th></tr></thead>
           <tbody>
-            <tr><th scope="row">Card Codex, on card shows</th><td>60 to 80 percent</td></tr>
-            <tr><th scope="row">The Card Shop Finder, on shops</th><td>40 to 60 percent on desirable singles, 20 to 40 on commons and bulk, 70 to 80 on hot modern product, graded in the middle</td></tr>
-            <tr><th scope="row">ORB Sports Cards, on collections</th><td>40 to 60 percent of retail on desirable cards, less on bulk</td></tr>
-            <tr><th scope="row">Collectors on the Collectors Universe forum</th><td>Around 50 percent, described there as lucky</td></tr>
+            <tr><th scope="row">Singles</th><td>About 60 percent, up to 65</td><td>Up to 80 percent</td><td>Market, or TCGplayer low</td></tr>
+            <tr><th scope="row">Sealed</th><td>70 to 80 percent</td><td>80 to 90 percent</td><td>Market low</td></tr>
+            <tr><th scope="row">Graded, 10s</th><td>70 percent</td><td>80 percent</td><td>Average of the last five sold</td></tr>
           </tbody>
         </table>
-        <figcaption>All read August 26, 2026. They do not agree, and the gap between them is worth more than any
-          single number in it: the guides describe what a good deal looks like, the forum describes what people
-          actually walked away with.</figcaption>
+        <figcaption>Knight and Day Games publishes all three of those lines; Zulus Games publishes the higher
+          sealed pair at 80 cash and 90 credit; Game Goblins puts singles at up to 65 percent cash with credit
+          worth a further quarter on top. All read August 26, 2026. Knight and Day also want Lightly Played or
+          better and will not take singles under fifty cents, which is normal and worth knowing before you sort
+          a box.</figcaption>
       </figure>`;
 
 const SECTIONS = [
@@ -242,12 +244,28 @@ const SECTIONS = [
     "What surprises people is the other direction. When a vendor buys FROM you they have to buy below market, " +
     "because they are covering rent, table cost, the time the card sits in a box, and the risk it moves against " +
     "them before it sells.",
-    "THERE IS NO SINGLE NUMBER, and we went looking hard enough to be sure of that. Four sources, and they do not " +
-    "agree with each other:"], TIERS],
+    "AND IT IS NOT ONE NUMBER, it is three, because sealed, singles and graded are three different risks. Sealed " +
+    "cannot be damaged in a binder and does not need grading, so a vendor can move it fast and pays accordingly. A " +
+    "raw single carries condition risk and has to find the one person who wants that card. A slab is somewhere " +
+    "between: the condition question is already settled, but the buyer pool is narrower.",
+    "These are rates that shops publish rather than ranges a guide estimates, which is why they are worth more:"], TIERS],
+  ["basis", "The trap in every one of those numbers",
+   ["Look at the right-hand column, because it is where the money actually goes. Those percentages are not taken " +
+    "against the price you looked up. Sealed rates are quoted against MARKET LOW, and graded rates against the " +
+    "average of the last five sales.",
+    "Both of those sit below the headline figure a price site shows you, so an offer of 70 percent of market low is " +
+    "not 70 percent of what you think your box is worth. It is 70 percent of a smaller number. Nothing dishonest is " +
+    "happening, and the two shops quoted here say exactly which basis they use, but nobody points out what it does " +
+    "to the arithmetic.",
+    "So when a vendor names a percentage, the useful follow-up is a percentage OF WHAT. It is a completely normal " +
+    "question and it is the difference between comparing two offers properly and comparing two words."]],
   ["spread", "Why those four numbers disagree",
-   ["Reading across them, the shape is this. Card shows do seem to run above shop counters, which is worth knowing " +
-    "before you take a collection to either. Guides quote the better end and collectors report the worse one, and " +
-    "both are honest: a guide is describing a good deal and a forum post is describing an average Sunday.",
+   ["Those are shop rates, published and standing. Ask around about card shows and the answers scatter much wider: " +
+    "a show-focused guide says 60 to 80 percent cash, two shop-facing guides say 40 to 60 on desirable singles, and " +
+    "collectors on the Collectors Universe forum say you are lucky to get 50. All read August 26, 2026.",
+    "Guides quote the better end and collectors report the worse one, and both are honest, because they are not " +
+    "measuring the same thing. A guide describes what a good deal looks like. A forum post describes an average " +
+    "Sunday, including the ones where somebody took a bad offer because they had driven an hour.",
     "What actually decides where you land is how easily your card sells on. One dealer writing about his own table " +
     "put it as plainly as anyone: a high demand card is worth more to him than a low demand one even when the two " +
     "carry the same retail value, because the first one turns into money and the second one turns into storage. " +
