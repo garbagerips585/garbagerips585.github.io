@@ -1,5 +1,5 @@
 {
-  "checked": "2026-08-25",
+  "checked": "2026-08-26",
   "source": "TCGdex (api.tcgdex.net/v2), card names via PokeAPI dex numbers",
   "sets": {
     "ja-abyss-eye": {
