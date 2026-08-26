@@ -1201,7 +1201,7 @@ function showCard(s) {
           <p class="show-meta">${esc(weekday(s.date))}${
             timeRange(s.start, s.end) ? ` &bull; ${esc(timeRange(s.start, s.end))}` : ""
           }</p>
-          <p class="show-where"><a class="show-map" href="${esc(mapLink(s))}" data-map-apple="${esc(appleMapLink(s))}" rel="noopener" target="_blank" aria-label="${esc(s.venue)}, ${esc(s.city)} NY, where ${esc(showRef(s))} is held, opens on ${esc(hostOf(mapLink(s)))}"><span class="show-venue">${esc(s.venue)}${s.address ? "" : `, ${esc(s.city)} NY`}</span>${
+          <p class="show-where"><a class="venue-link" href="${esc(mapLink(s))}" data-map-apple="${esc(appleMapLink(s))}" rel="noopener" target="_blank" aria-label="${esc(s.venue)}, ${esc(s.city)} NY, where ${esc(showRef(s))} is held, opens on ${esc(hostOf(mapLink(s)))}"><span class="show-venue">${esc(s.venue)}${s.address ? "" : `, ${esc(s.city)} NY`}</span>${
             /* THE ADDRESS IS INSIDE THE LINK NOW, and it was deliberately outside
                it a few hours ago, so here is the trade rather than a silent flip.
                It was out because selecting text inside an anchor is awkward: a drag

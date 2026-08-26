@@ -3786,7 +3786,7 @@ footer .soc svg{fill:var(--chrome-ink)}
    wraps across lines instead of overflowing the way an inline-block would.
    The paragraph gains matching margin so two neighbouring links cannot end up
    overlapping each other's targets. */
-.show-where{font-size:var(--t-sm);margin-top:12px;margin-bottom:8px}
+.show-where{font-size:var(--t-sm);margin-top:6px;margin-bottom:2px}
 /* BLOCK, so the whole two-line run is the tap target. The anchor wraps the venue
    AND the address now, and an inline anchor would have made the target the shape
    of the text rather than the shape of the row. */
@@ -3798,8 +3798,29 @@ footer .soc svg{fill:var(--chrome-ink)}
    inside the link. Worse, `.show-where a` could not turn it off either, because
    `main p a:not([class])` above outranks it at (0,2,4). That rule's own comment
    says :not([class]) is there to keep it off anything the site has deliberately
-   styled, so the fix is the one it describes: give the anchor a class. */
-.show-where a{display:block;color:var(--sky-deep);font-weight:600;padding:13px 0;
+   styled, so the fix is the one it describes: give the anchor a class.
+
+   THE CLASS IS venue-link AND IT WAS show-map FOR ONE COMMIT, WHICH WAS A NAME
+   COLLISION. build-shows.mjs already ships `<figure class="show-map">` for the
+   drawn map at the top of the page, styled in that builder's own inline block as
+   `margin:var(--s5) 0 0`. Naming the anchor the same thing gave 61 links a 24px
+   top margin, and because the <p> around them has no border or padding that
+   margin COLLAPSED OUT THROUGH THE PARAGRAPH and became its effective margin. So
+   the paragraph's own margin-top was dead: setting it to 0 changed nothing, and
+   the gap read as max(24, whatever was set). It survived several attempts to tune
+   it and was only found by asking the browser which rules matched the element.
+   Grep both this file AND the page builders' inline CSS before naming a class. */
+/* padding:13px 0 WAS A TAP-TARGET HACK AND IS NOW 26px OF DEAD SPACE. It existed
+   when this was an INLINE link around a venue name, where the target was the
+   height of one line of text. The anchor is a block wrapping the venue AND the
+   address now, four lines and 63px on a phone, so the padding bought nothing and
+   opened the widest visible gap on the card, between the show time and the venue.
+   min-height KEEPS THE 44px FLOOR for the one date with no address, whose link is
+   still a single line; flex centring stops that one sitting at the top of its own
+   box. Do not swap the min-height back for padding: it costs every multi-line
+   card 26px to protect a single-line case that min-height already covers. */
+.show-where a{display:flex;flex-direction:column;justify-content:center;
+  min-height:44px;color:var(--sky-deep);font-weight:600;padding:2px 0;
   text-decoration:none}
 .show-where a .show-venue{text-decoration:underline}
 /* THE ADDRESS KEEPS ITS OWN COLOUR AND WEIGHT INSIDE THE LINK, and it needs the
@@ -3829,7 +3850,18 @@ footer .soc svg{fill:var(--chrome-ink)}
    in a scroller and wrong for a chip carrying a sentence. "$2, kids 12 and under
    free" measured 179px against 172px available at 320 and pushed out through the
    card's right padding. These are span.chip inside .show-tags, so scoping it here
-   leaves button.chip.filt exactly as it was. min-height keeps the 44px target. */
+   leaves button.chip.filt exactly as it was.
+
+   THE 44px min-height IS GONE AND THIS COMMENT USED TO END BY DEFENDING IT: "min-
+   height keeps the 44px target". There is no target. The sentence before it says
+   what these are, span.chip, and a span is not a tap target: checked in the DOM,
+   all three are SPAN, none sits inside an anchor, none has a tabindex or a
+   handler. The filter chips beside them genuinely are BUTTONs and keep their 44px
+   through the unscoped rule. So the floor was padding a control that cannot be
+   pressed, and it cost 12px on every chip row: two rows on a Cold Front card,
+   which is 24px of a card the owner is trying to fit above the fold on a phone.
+   The natural height is padding plus one line, about 32px, and the chips are
+   still comfortably readable. */
 .show-h{display:flex;align-items:center;gap:10px}
 .show-h h3{flex:1 1 0;min-width:0}
 /* 56px, matching the creator and shop cards exactly, so a logo is the same size
@@ -3838,8 +3870,8 @@ footer .soc svg{fill:var(--chrome-ink)}
    baselines and centring is what makes the pair look deliberate. */
 .show-logo{flex:0 0 auto;width:56px;height:56px;display:flex;align-items:center;justify-content:center}
 .show-logo img{max-width:56px;max-height:56px;width:auto;height:auto;border-radius:4px}
-.show-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.show-tags .chip{flex:0 1 auto;white-space:normal;height:auto;min-height:44px;padding-top:6px;padding-bottom:6px}
+.show-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.show-tags .chip{flex:0 1 auto;white-space:normal;height:auto;min-height:0;padding-top:6px;padding-bottom:6px}
 /* The two negative states are quieter than .pk on purpose. They are information,
    not a warning, and a red chip on a free local show would be a judgement. */
 .chip.pk-un,.chip.pk-no{background:var(--card);color:var(--ink-2);border-style:dashed}
@@ -3900,7 +3932,16 @@ footer .soc svg{fill:var(--chrome-ink)}
    between the last line of the card and the flyer, which on a card whose whole
    point is the flyer read as a gap rather than as spacing. PHONE ONLY: on a
    desktop that margin is what holds the flyer clear of the card's top edge. */
-@media(max-width:719px){ .show-flyer{margin-top:var(--s3)} }
+/* TIGHTER ON A PHONE, so a card with a flyer fits on one screen. The owner, on his
+   own phone: "want to get this all tighter so its all shown above the fold on
+   mobile". The sticky bar and the filter rail take 121px before a card starts, so
+   on an iPhone whose Safari chrome takes another 100 to 140 of 844 the card has
+   roughly 580px to live in. It was 704. Everything here is spacing, not content:
+   no chip, no line of copy and no picture got smaller. */
+@media(max-width:719px){
+  .show-flyer{margin-top:8px}
+  .show{gap:10px;padding:12px}
+}
 .show-flyer img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain}
 
 .show-empty{color:var(--ink-2);padding:var(--s6) 0}

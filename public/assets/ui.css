@@ -1119,8 +1119,9 @@ footer .soc svg{fill:var(--chrome-ink)}
 .show-body h3{font:400 var(--t-m)/1.2 var(--display)}
 .show-meta{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.04em;
   text-transform:uppercase;color:var(--ink-2);margin-top:4px}
-.show-where{font-size:var(--t-sm);margin-top:12px;margin-bottom:8px}
-.show-where a{display:block;color:var(--sky-deep);font-weight:600;padding:13px 0;
+.show-where{font-size:var(--t-sm);margin-top:6px;margin-bottom:2px}
+.show-where a{display:flex;flex-direction:column;justify-content:center;
+  min-height:44px;color:var(--sky-deep);font-weight:600;padding:2px 0;
   text-decoration:none}
 .show-where a .show-venue{text-decoration:underline}
 .show-where a .show-addr{font:400 var(--t-sm)/1.4 var(--body);color:var(--ink-2)}
@@ -1131,8 +1132,8 @@ footer .soc svg{fill:var(--chrome-ink)}
 .show-h h3{flex:1 1 0;min-width:0}
 .show-logo{flex:0 0 auto;width:56px;height:56px;display:flex;align-items:center;justify-content:center}
 .show-logo img{max-width:56px;max-height:56px;width:auto;height:auto;border-radius:4px}
-.show-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.show-tags .chip{flex:0 1 auto;white-space:normal;height:auto;min-height:44px;padding-top:6px;padding-bottom:6px}
+.show-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.show-tags .chip{flex:0 1 auto;white-space:normal;height:auto;min-height:0;padding-top:6px;padding-bottom:6px}
 .chip.pk-un,.chip.pk-no{background:var(--card);color:var(--ink-2);border-style:dashed}
 .show-why{margin-top:8px;font-size:var(--t-sm);line-height:1.5;color:var(--ink-2);max-width:44em}
 .map-go{background:none;border:0;padding:0;font:inherit;color:inherit;text-align:left;cursor:pointer;text-decoration:underline;text-underline-offset:3px;min-height:44px}
@@ -1164,7 +1165,10 @@ footer .soc svg{fill:var(--chrome-ink)}
 .show-links a:hover{text-decoration:underline}
 .show-flyer{grid-column:1 / -1;display:block;border-radius:var(--r-sm);overflow:hidden;
   border:2px solid var(--keyline);background:var(--paper-3);margin-inline:auto}
-@media(max-width:719px){ .show-flyer{margin-top:var(--s3)} }
+@media(max-width:719px){
+  .show-flyer{margin-top:8px}
+  .show{gap:10px;padding:12px}
+}
 .show-flyer img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain}
 .show-empty{color:var(--ink-2);padding:var(--s6) 0}
 .watch-list{list-style:none;display:grid;gap:var(--s4);margin-top:var(--s5)}
