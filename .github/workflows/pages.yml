@@ -65,9 +65,36 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      # The IndexNow step at the foot of this job runs a node script, and this
+      # job never had node. ubuntu-latest ships one, but pinning it to the same
+      # 24 verify.yml uses is what stops a runner image bump from quietly
+      # breaking a step whose failures are swallowed by continue-on-error.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: public
       - id: deployment
         uses: actions/deploy-pages@v4
+
+      # TELL INDEXNOW WHAT CHANGED, AFTER THE DEPLOY AND NOT BEFORE. Announcing a
+      # url before it is live invites a crawl of the old copy, or of a 404, which
+      # is worse than not announcing it at all. This step runs only once
+      # deploy-pages has reported success.
+      #
+      # `continue-on-error` IS DELIBERATE AND IS THE WHOLE POINT OF PUTTING IT
+      # LAST. The site is published and correct by the time this runs. A search
+      # engine ping that times out is not a broken deploy, and a red X here would
+      # train us to ignore red X's on the workflow that actually matters.
+      #
+      # fetch-depth 2, because the script diffs HEAD~1..HEAD to find what changed
+      # and the default checkout is a single commit with no parent to diff.
+      - name: Tell IndexNow which pages changed
+        continue-on-error: true
+        run: |
+          git fetch --deepen=1 --quiet || true
+          node scripts/indexnow.mjs
