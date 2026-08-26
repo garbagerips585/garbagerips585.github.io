@@ -162,6 +162,10 @@ const AREA = new Set([
   // Buffalo and Niagara
   "Buffalo", "Depew", "Sanborn", "Niagara Falls", "Amherst", "Cheektowaga",
   "Lancaster", "Hamburg", "Lockport", "Williamsville", "Tonawanda",
+  // Added 26 August 2026 with the shows that needed them. Blasdell is a Buffalo
+  // southtown at the McKinley Mall; Lewiston is where Niagara University sits,
+  // and its show is billed from the campus rather than from the village.
+  "Blasdell", "Lewiston", "Elma",
   // Syracuse and its ring
   "Syracuse", "Liverpool", "Cicero", "Camillus", "Baldwinsville", "East Syracuse",
 ]);
@@ -644,9 +648,9 @@ function showMap() {
         ${sorted
           .map(
             (p, i) =>
-              `<li data-region="${esc(p.region || "")}"><b>${i + 1}</b><span>${esc(p.city)}, ${p.n} show${
+              `<li data-region="${esc(p.region || "")}"><b>${i + 1}</b><button type="button" class="map-go" data-region="${esc(p.region || "")}">${esc(p.city)}, ${p.n} show${
                 p.n === 1 ? "" : "s"
-              }</span></li>`
+              }</button></li>`
           )
           .join("\n        ")}
       </ol>
@@ -659,20 +663,29 @@ function showMap() {
             using the data outside the terms it was offered under. They sit in
             the figure's own credit line, at the end, labelled as leaving the
             site, exactly like every other outbound link on this page. */ ""}
-      <figcaption>Where the shows are, and how far apart they are. One dot per town, at the town center, sized by
-        how many shows it has coming up: ${
-          [...townCounts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] || ""
-        } has the most. The Lake Ontario shore, the Finger Lakes, the interstates, the trunk routes and the
-        county lines are real geometry, drawn from OpenStreetMap's data rather than from anybody's map tiles,
-        so nothing on this page asks another server for anything. North is up and the scale is true both ways,
-        which is why these towns sit in a strip: they are strung along the Thruway. There are no venue pins,
-        because most of these venues have no street address in our data, and every listing below names the
-        venue and the town, which is the thing to put in a map app. Map data from
+      ${/* THE CAPTION WAS 150 WORDS AND IT SAT BETWEEN THE MAP AND THE CALENDAR, 26 August 2026. The owner's call
+            and a fair one: it explained how the map was drawn to somebody who only wanted to know where the shows
+            are. It is folded into a summary now.
+            THE CREDIT LINE STAYS OUT IN THE OPEN AND THAT IS NOT AN EDITORIAL CHOICE. OpenStreetMap's data is
+            offered on condition it is credited and the licence is reachable. Collapsing the attribution behind a
+            control the reader has to find first is not crediting it, so the two links stay visible and only the
+            explanation of how the map is drawn goes behind the fold. Same argument the comment above the links
+            has always made; the links have not moved. */ ""}
+      <figcaption>Where the shows are and how far apart they are. One dot per town, at the town center, sized by
+        how many shows it has coming up. Map data from
         <a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank"
           aria-label="OpenStreetMap contributors, the source of the map data, opens on openstreetmap.org">OpenStreetMap contributors</a>,
         licensed <a href="https://opendatacommons.org/licenses/odbl/1-0/" rel="noopener" target="_blank"
           aria-label="The Open Database License version 1.0, which this map data is offered under, opens on opendatacommons.org">ODbL 1.0</a>,
-        read ${esc(longDate(mapDoc.read) || mapDoc.read)}.</figcaption>
+        read ${esc(longDate(mapDoc.read) || mapDoc.read)}.
+        <details class="map-more"><summary>How this map is drawn</summary>
+          <p>The Lake Ontario shore, the Finger Lakes, the interstates, the trunk routes and the county lines are
+            real geometry, drawn from OpenStreetMap's data rather than from anybody's map tiles, so nothing on this
+            page asks another server for anything. North is up and the scale is true both ways, which is why these
+            towns sit in a strip: they are strung along the Thruway. There are no venue pins, because most of these
+            venues have no street address in our data, and every listing below names the venue and the town, which
+            is the thing to put in a map app.</p>
+        </details></figcaption>
     </figure>`;
 }
 
@@ -1174,7 +1187,13 @@ function showCard(s) {
               have not confirmed it, and absent renders nothing rather than a guess dressed as a fact.
               The reader is told what the marks mean under the calendar, so an unmarked show reads as
               unconfirmed rather than as denied. */ ""}
-            ${s.pokemon ? `<span class="chip pk">Pokemon show</span>` : s.pkmn === "some" ? `<span class="chip pk">Pokemon here too</span>` : ""}
+            ${s.pokemon
+              ? `<span class="chip pk">Pokemon show</span>`
+              : s.pkmn === "some"
+                ? `<span class="chip pk">Pokemon here too</span>`
+                : s.pkmn === "none"
+                  ? `<span class="chip pk-no">Sports only</span>`
+                  : `<span class="chip pk-un">Pokemon not confirmed</span>`}
             ${soon ? `<span class="chip soon" data-soon>${esc(soon)}</span>` : ""}
             <span class="chip">${s.admission ? esc(s.admission) : "Check the listing"}</span>${/* TABLE COUNT,
               ADDED 26 August 2026, because it is the question the r/Rochester thread kept circling: is this show
@@ -1184,6 +1203,10 @@ function showCard(s) {
               disagree with itself. It is a field now. Absent on most shows, and absent renders nothing. */ ""}
             ${s.tables ? `<span class="chip">${esc(String(s.tables))} tables</span>` : ""}
           </div>
+          ${s.pkmnWhy ? `<p class="show-why">${esc(s.pkmnWhy)}</p>` : ""}${/* THE REASON, PRINTED. Every other
+            calendar asserts a category and leaves you to trust it. This one says WHY it believes Pokemon is or is not
+            there, in one line, per show: whose flyer, whose post, whose vendor list. It is also the honest way to
+            carry a weak claim, because "the regional calendar says so, single source" reads as exactly what it is. */ ""}
           ${s.blurb ? `<p class="show-blurb">${esc(s.blurb)}</p>` : ""}
           ${(s.tiers || []).length ? `<ul class="tiers">
             ${s.tiers.map((t) => `<li>
@@ -1211,26 +1234,7 @@ const page = head + `
     <h1>Card <span class="hl">shows</span> near Rochester</h1>
     <p class="lede" style="max-width:36em">Every card show we can find within driving distance of Rochester, Buffalo
       and Syracuse. Dates, times, where to park yourself, and what it costs to get in. Built because working this out
-      every month from six different Facebook pages is genuinely annoying.</p>${/* WHAT KIND OF SHOW EACH ONE IS, said
-        once at the top, 26 August 2026. This page reaches a Pokemon audience from a Pokemon channel, and MOST OF THESE
-        ARE NOT POKEMON SHOWS: 24 of the 26 are general card shows and 2 are all Pokemon. A reader who assumed otherwise
-        and drove to a sports show would have been misled by omission rather than by anything the page said.
-        The counter tile already carries the number. This says what the number MEANS, which the tile cannot. */ ""}
-    <p class="lede" style="max-width:36em">Most of these are general card shows: sports, Pokemon and other TCG on the
-      same floor. The all-Pokemon ones are called out on the card, and there are ${
-        upcoming.filter((s) => s.pokemon).length
-      } of them coming up.</p>${/* THE ASK, MOVED WHERE IT CAN BE SEEN, 26 August 2026. "Know one we missed?" sits at
-        90% of this page and the calendar now runs to February 2027, so it is below fourteen months of listings. The
-        page was posted to r/Rochester asking people to report shows we do not have, and the way to do that was
-        further down than almost anybody scrolls.
-        A LINK RATHER THAN A SECOND COPY of the invitation: the section at the foot already explains what to send
-        and has the prefilled email on it, and two versions of an ask is how they drift apart. */ ""}
-    <p class="lede" style="max-width:36em">A show marked <b>Pokemon show</b> is a Pokemon event: Pokemon is what it is billed as and there are no sports, though a few also carry Magic or One Piece. One marked
-      <b>Pokemon here too</b> is a general show where we have confirmed Pokemon is on the floor, either because we
-      go to it or because the organiser says so. Anything unmarked we have not been able to confirm either way, so
-      ask before you drive out for Pokemon specifically.</p>
-    <p class="lede" style="max-width:36em"><a href="#missed">Know a show we are missing? Tell us and it goes on
-      &rarr;</a></p>
+      every month from six different Facebook pages is genuinely annoying.</p>
   </div>
 </header>
 
@@ -1344,6 +1348,26 @@ ${/* "ARE THESE SHOWS TO PURCHASE CARDS, SELL THEM OR BOTH?" -- asked on
     </ul>
     <p style="margin-top:var(--s4)"><a class="btn btn-sky btn-sm" href="/card-show-101.html">Card show 101: how it all
       works &rarr;</a></p>
+  </div>
+</section>
+${/* THE LEGEND LIVES AT THE FOOT OF THE CALENDAR, NOT ABOVE IT, moved 26 August
+     2026 at the owner's request and he was right. Three paragraphs of
+     explanation had stacked up in front of the hero: on a phone you landed on
+     the page and read a key before you could see the next show or a single
+     date. The marks are on the cards, so the key belongs where somebody who has
+     just scrolled past thirty of them is standing, and the top of the page
+     belongs to what is on this weekend. */ ""}
+<section class="tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What the marks mean</p>
+    <p class="lede" style="max-width:44em">Most of these are general card shows: sports, Pokemon and other TCG on the
+      same floor. A show marked <b>Pokemon show</b> is a Pokemon event: Pokemon is what it is billed as and there are
+      no sports, though a few also carry Magic or One Piece. One marked <b>Pokemon here too</b> is a general show where
+      we have confirmed Pokemon is on the floor, either because we go to it or because the organiser says so.</p>
+    <p class="lede" style="max-width:44em">A show marked <b>Pokemon not confirmed</b> is one we have not been able to
+      check. Shows tend to say so when they are one thing only, so a general collectors show usually does have a mix,
+      but that is a rule of thumb and not a promise. We are asking the organisers, and marks change as answers come
+      back. <a href="#missed">Know a show we are missing, or can you confirm one? Tell us &rarr;</a></p>
   </div>
 </section>
 ${(data.watchFor || []).length ? `
@@ -1554,6 +1578,24 @@ ${/* THE CALENDAR'S OWN CLIENT SWEEP WAS HERE and went with the calendar. It
       document.querySelectorAll('.chip.filt').forEach(function(o){ o.removeAttribute('aria-current'); });
       b.setAttribute('aria-current','true');
       apply(b.dataset.region);
+    });
+  });
+  /* THE TOWN NAMES ON THE MAP KEY ARE BUTTONS NOW, 26 August 2026. The map
+     showed you where Batavia was and named its twelve shows, and then made you
+     go back up to the area buttons to actually see them. Clicking the town does
+     what the reader already expected clicking the town to do.
+     IT DRIVES THE EXISTING AREA FILTER rather than adding a town filter, because
+     the areas are what the list is grouped by, and a second filtering model on
+     one page is how two controls end up disagreeing about what is shown. So
+     Batavia selects Rochester and the chip updates to match: the control that
+     moved is visibly the one you already had. */
+  document.querySelectorAll('.map-go').forEach(function(b){
+    b.addEventListener('click', function(){
+      var r = b.dataset.region || 'all';
+      var chip = document.querySelector('.chip.filt[data-region="' + r + '"]');
+      if (chip) chip.click(); else apply(r);
+      var list = document.getElementById('list');
+      if (list) list.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
   apply('all');

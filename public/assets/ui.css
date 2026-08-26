@@ -1128,6 +1128,13 @@ footer .soc svg{fill:var(--chrome-ink)}
 .show-logo img{max-width:56px;max-height:56px;width:auto;height:auto;border-radius:4px}
 .show-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .show-tags .chip{flex:0 1 auto;white-space:normal;height:auto;min-height:44px;padding-top:6px;padding-bottom:6px}
+.chip.pk-un,.chip.pk-no{background:var(--card);color:var(--ink-2);border-style:dashed}
+.show-why{margin-top:8px;font-size:var(--t-sm);line-height:1.5;color:var(--ink-2);max-width:44em}
+.map-go{background:none;border:0;padding:0;font:inherit;color:inherit;text-align:left;cursor:pointer;text-decoration:underline;text-underline-offset:3px;min-height:44px}
+.map-go:hover,.map-go:focus-visible{color:var(--sky-deep)}
+.map-more{margin-top:var(--s3)}
+.map-more summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center}
+#list{padding-top:0}
 .chip.pk{background:var(--gold);border-color:var(--keyline);color:var(--on-accent)}
 .chip.soon{background:var(--ketchup);border-color:var(--keyline);color:var(--on-alert)}
 .show-blurb{font-size:var(--t-sm);color:var(--ink-2);margin-top:10px;max-width:46em}
