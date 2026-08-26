@@ -71,10 +71,11 @@ const QA = [
     nFree + " of the " + upcoming.length + " shows on our calendar are free to walk into. Where a show has not " +
     "published an admission price we say so rather than guess at it, so check the listing before you set off."],
   ["What will a vendor pay for my cards?",
-    "Less than they sell them for, which is how the table stays in business. As a rough shape, expect around 70 " +
-    "percent of market value in cash and around 80 percent in trade credit. Credit is better because the money " +
-    "stays at their table, so if you were going to buy something anyway it is usually the better of the two. Both " +
-    "numbers move with the vendor and with how easy your card is to sell on."],
+    "Less than they sell them for, and how much less depends almost entirely on how easily the card sells on. " +
+    "Published guidance puts cash offers at 20 to 40 percent of market for commons and bulk, 40 to 60 percent for " +
+    "desirable singles, and 70 to 80 percent for hot modern product, with graded cards in the middle. Trade credit " +
+    "typically runs 25 to 50 percent above the cash offer, so $100 cash is commonly $125 to $150 in credit. There " +
+    "is no fixed rate: a percentage is an output of the deal rather than a rule."],
   ["Is an early bird ticket worth paying for?",
     "It depends whether you are hunting something specific. Paying the premium gets you in ahead of general " +
     "admission, when the room is quiet enough to actually talk to a vendor and the best sealed product and standout " +
@@ -121,6 +122,11 @@ const style = `
 .cs-table{fill:var(--sky);opacity:.85}
 .cs-door{stroke:var(--card);stroke-width:6}
 .cs-in{fill:var(--ink-2);font:400 12px var(--mono);text-anchor:middle}
+.cs-tiers{width:100%;border-collapse:collapse;font-size:var(--t-sm)}
+.cs-tiers caption{text-align:left;font-weight:600;padding-bottom:var(--s2)}
+.cs-tiers th,.cs-tiers td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--hair);vertical-align:top}
+.cs-tiers thead th{border-bottom:2px solid var(--keyline)}
+.cs-tiers tbody th{font-weight:600;white-space:nowrap;padding-right:var(--s4)}
 .cs-fig figcaption{margin-top:var(--s3);font-size:var(--t-sm);color:var(--ink-2);line-height:1.55;max-width:40em}
 `;
 
@@ -159,6 +165,34 @@ const FLOORPLAN = `
         </svg>
         <figcaption>Every rectangle is one seller. There is no till and no back room: the person behind the
           table owns what is on it, prices it themselves, and takes it home at the end of the day.</figcaption>
+      </figure>`;
+
+/* SOURCED, DATED, AND NOT ROUNDED INTO ONE NUMBER. These started life on this
+   page as "around 70 percent cash, around 80 in credit", framed as though they
+   came from going to these shows. The owner then said plainly that he had
+   guessed them, so they were researched and replaced.
+   The guess was not wild -- 70 to 80 is real, but it is the band for HOT MODERN
+   PRODUCT specifically, not the general case. Published as the general case it
+   would have had somebody turn down a perfectly fair 50 percent offer on a
+   desirable single believing they were being lowballed.
+   Every figure here carries its source and the date it was read, which is the
+   same rule every card price on this site follows. */
+const TIERS = `
+      <figure class="cs-fig">
+        <table class="cs-tiers">
+          <caption>What a vendor offers in cash, as a share of market value</caption>
+          <thead><tr><th scope="col">What you are selling</th><th scope="col">Cash offer</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Commons and bulk</th><td>20 to 40 percent, and true bulk goes by the card at a cent or three each</td></tr>
+            <tr><th scope="row">Desirable singles</th><td>40 to 60 percent</td></tr>
+            <tr><th scope="row">Hot modern product</th><td>70 to 80 percent</td></tr>
+            <tr><th scope="row">Graded cards</th><td>In the middle of that range</td></tr>
+          </tbody>
+        </table>
+        <figcaption>Ranges from The Card Shop Finder's guide to selling cards to a shop, read August 26, 2026.
+          Sports Card Vending's dealer guide makes the same point about there being no fixed rate: a percentage
+          is, in their words, an output of the deal and not a universal rule. Both describe shops rather than
+          show tables specifically, and a vendor at a table is carrying the same costs.</figcaption>
       </figure>`;
 
 const SECTIONS = [
@@ -200,15 +234,22 @@ const SECTIONS = [
   ["value", "What vendors pay, and why it is less than the sticker",
    ["A vendor prices what they are selling at or near market value, which is what the card actually trades for, not " +
     "what a price guide dreams about. That part is straightforward.",
-    "What surprises people is the other direction. When a vendor buys FROM you, they have to buy below market or " +
-    "there is no business: they are taking on the card, the risk that it moves against them, and the time it sits in " +
-    "a box. As a rough shape, expect somewhere around 70 percent of market value in cash, and around 80 percent if " +
-    "you take it in trade credit rather than notes.",
-    "Trade credit is better because the money never leaves the room. You are effectively agreeing to spend it at " +
-    "their table, so they can afford to be more generous with it. If you were going to buy something anyway, taking " +
-    "credit is usually the better deal of the two.",
-    "Treat both numbers as a starting shape and not a rule. It moves with the vendor, with how badly they want that " +
-    "particular card, and with how easy it is to sell on."]],
+    "What surprises people is the other direction. When a vendor buys FROM you they have to buy below market, " +
+    "because they are covering rent, table cost, the time the card sits in a box, and the risk it moves against " +
+    "them before it sells.",
+    "THERE IS NO SINGLE NUMBER, and anyone who gives you one is guessing. What a vendor offers is an output of the " +
+    "deal rather than a rule, and the thing that moves it most is how easily your card sells on. A card with " +
+    "frequent sales and broad demand can carry a high percentage. A thin parallel, a condition-sensitive raw card, " +
+    "or something falling after a release needs more margin, because the vendor may be holding it a long time.",
+    "The published guidance splits it roughly like this, in cash:"], TIERS],
+  ["credit", "Why trade credit beats cash",
+   ["Credit is consistently the better of the two. The Card Shop Finder puts it at 25 to 50 percent above whatever " +
+    "the cash offer was: an offer of $100 cash is commonly $125 to $150 in credit.",
+    "The reason is that the money never leaves the room. You are agreeing to spend it at their table, so the vendor " +
+    "keeps the sale and their cash position both, and can afford to be more generous. If you were going to buy " +
+    "something anyway, take the credit almost every time.",
+    "The corollary is worth saying plainly: if you need the money for something other than more cards, that gap is " +
+    "what you are paying for the privilege, and it is a real cost rather than a trick."]],
   ["buying", "Buying: where the room to move actually is",
    ["Most prices are at or near market, and most vendors have a little room in them. Asking is normal and nobody is " +
     "offended by it, as long as you are asking rather than telling.",
@@ -220,9 +261,13 @@ const SECTIONS = [
   ["selling", "Selling: know the number before you go",
    ["Look up roughly what your cards are worth before you walk in, so an offer means something to you. You do not " +
     "need a spreadsheet, just a sense of which two or three cards carry the value.",
-    "Then expect the shape above: around 70 percent in cash, around 80 in credit. An offer in that band is a normal " +
-    "offer, not somebody trying it on. If it comes in well under, it is fair to say so and take it to the next " +
-    "table, and it is worth getting two or three offers on anything that actually matters.",
+    "Then work out which band your cards are actually in, because that is what decides whether an offer is fair. " +
+    "Forty to sixty percent in cash on a desirable single is a NORMAL offer and not somebody trying it on; the same " +
+    "forty percent on hot modern product is low. Knowing which of those you are holding is most of the negotiation.",
+    "Ask for the credit number as well as the cash number before you decide. It is a different offer, not a " +
+    "courtesy, and on the published spread it is worth a quarter to a half again.",
+    "It is still worth getting two or three offers on anything that actually matters. Vendors specialise, and the " +
+    "one who already has a buyer for your card can afford to pay more for it than the one who does not.",
     "Bring the cards in something that lets a person go through them quickly. A vendor is deciding whether to give " +
     "you money, and anything that makes it slow to see what you have works against you."]],
   ["trading", "Trading: the one where both sides can win",
