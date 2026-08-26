@@ -1222,9 +1222,10 @@ function showCard(s) {
             ${s.organiserUrl && s.organiserUrl !== s.url ? `<a href="${esc(s.organiserUrl)}" rel="noopener" target="_blank" aria-label="${esc(s.organiser && s.organiser !== s.name ? `${s.organiser}, who run ${showRef(s)}` : `The organizer of ${showRef(s)}`)}, opens on ${esc(hostOf(s.organiserUrl))}">${esc(s.organiser || "Organizer")}</a>` : ""}
           </p>
         </div>
-        ${flyer ? `<a class="show-flyer" href="${esc(flyer)}" target="_blank" rel="noopener">
-          <img src="${esc(flyer)}" alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}" loading="lazy">
-        </a>` : ""}
+        ${flyer ? `<button type="button" class="show-flyer" data-flyer="${esc(flyer)}" data-flyer-alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}">
+          <img src="${esc(flyer)}" alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}" loading="lazy" decoding="async">
+          <span class="show-flyer-hint">Tap to enlarge</span>
+        </button>` : ""}
       </article>`;
 }
 const page = head + `
@@ -1430,6 +1431,10 @@ ${(data.watchFor || []).length ? `
 </section>
 
 </main>
+<div class="flyer-lb" id="flyerLb" role="dialog" aria-modal="true" aria-label="Show flyer" hidden>
+  <button type="button" class="flyer-lb-x" aria-label="Close the flyer">&times;</button>
+  <img src="" alt="">
+</div>
 ${footer("Show listings are collected by hand and change without notice. Check with the organizer before traveling.")}
 <script>
 (function(){
@@ -1598,6 +1603,45 @@ ${/* THE CALENDAR'S OWN CLIENT SWEEP WAS HERE and went with the calendar. It
       if (list) list.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
+  /* THE FLYER OPENED IN A NEW TAB AND NOW OPENS IN PLACE, at the owner's
+     request. A flyer is the densest thing on a show listing -- date, hours,
+     admission, table price, the promoter's phone number -- and sending somebody
+     to a raw .jpg on its own tab to read it means they lose the calendar and
+     have to come back. It is one image, so this is a dialog and not a gallery.
+     ONE NODE FOR THE WHOLE PAGE, filled on click. Sixty listings each carrying
+     their own hidden overlay would be sixty copies of the same markup for a
+     thing at most one of them ever shows.
+     KEYBOARD AND SCREEN READER BEHAVIOUR IS THE PART WORTH GETTING RIGHT:
+     role=dialog with aria-modal, focus moves to the close button on open and
+     returns to the flyer that opened it on close, Escape closes, and a click on
+     the backdrop closes. Without the focus return, closing the overlay drops a
+     keyboard user back at the top of the document. */
+  var lb = document.getElementById('flyerLb');
+  var lbImg = lb && lb.querySelector('img');
+  var lbClose = lb && lb.querySelector('.flyer-lb-x');
+  var lbOpener = null;
+  function closeLb(){
+    if (!lb) return;
+    lb.hidden = true;
+    document.body.style.overflow = '';
+    if (lbOpener) { lbOpener.focus(); lbOpener = null; }
+  }
+  document.querySelectorAll('.show-flyer').forEach(function(b){
+    b.addEventListener('click', function(){
+      if (!lb) return;
+      lbOpener = b;
+      lbImg.src = b.dataset.flyer;
+      lbImg.alt = b.dataset.flyerAlt || '';
+      lb.hidden = false;
+      document.body.style.overflow = 'hidden';
+      lbClose.focus();
+    });
+  });
+  if (lb) {
+    lbClose.addEventListener('click', closeLb);
+    lb.addEventListener('click', function(e){ if (e.target === lb) closeLb(); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !lb.hidden) closeLb(); });
+  }
   apply('all');
 })();
 </script>

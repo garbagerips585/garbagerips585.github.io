@@ -3817,6 +3817,25 @@ footer .soc svg{fill:var(--chrome-ink)}
    back to back, 48px each, which read as deliberate only while two paragraphs
    of explanation filled it. Those moved to the foot of the calendar. */
 #list{padding-top:0}
+/* ---------------------------------------------------------- flyer + dialog */
+.show-flyer{display:block;background:none;border:0;padding:0;margin-top:var(--s4);cursor:pointer;
+  border-radius:var(--r);overflow:hidden;position:relative;width:100%;max-width:220px}
+.show-flyer img{display:block;width:100%;height:auto;border-radius:var(--r);border:1px solid var(--hair)}
+.show-flyer-hint{display:block;margin-top:6px;font:400 var(--t-micro)/1.4 var(--body);color:var(--ink-2)}
+.show-flyer:hover img,.show-flyer:focus-visible img{border-color:var(--ink)}
+/* The overlay is near-opaque rather than a light scrim: a flyer is a dense,
+   bright image and anything showing through behind it competes with the thing
+   the reader just asked to look at. */
+.flyer-lb{position:fixed;inset:0;z-index:200;background:rgba(9,18,13,.94);
+  display:flex;align-items:center;justify-content:center;padding:var(--s4)}
+.flyer-lb[hidden]{display:none}
+.flyer-lb img{max-width:min(100%,900px);max-height:92vh;width:auto;height:auto;border-radius:var(--r)}
+/* 48px and top-right, clear of the image, because on a phone the image fills
+   almost the whole viewport and a control sitting on top of it is a control you
+   press by accident while pinching. */
+.flyer-lb-x{position:absolute;top:var(--s3);right:var(--s3);width:48px;height:48px;border-radius:50%;
+  border:1px solid var(--hair);background:var(--card);color:var(--ink);font-size:28px;line-height:1;cursor:pointer}
+.flyer-lb-x:hover,.flyer-lb-x:focus-visible{border-color:var(--ink)}
 .chip.pk{background:var(--gold);border-color:var(--keyline);color:var(--on-accent)}
 .chip.soon{background:var(--ketchup);border-color:var(--keyline);color:var(--on-alert)}
 .show-blurb{font-size:var(--t-sm);color:var(--ink-2);margin-top:10px;max-width:46em}
