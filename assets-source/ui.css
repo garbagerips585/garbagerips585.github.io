@@ -4295,8 +4295,28 @@ footer .soc svg{fill:var(--chrome-ink)}
    TALLER to make room for nothing. The column now only exists when there is
    actually a flyer in the card. */
 @media(min-width:720px){
-  .show{grid-template-columns:auto 1fr}
+  /* A CAP, BECAUSE 1fr ATE THE WHOLE VIEWPORT. At 1440 the card measured 1392px
+     and the grid resolved to 58px 1048px 220px, so the body column was over a
+     thousand pixels wide while the prose inside it stops at its own measure. The
+     flyer was not "on the right", it was marooned: 400-odd pixels of empty green
+     between the last word and the picture that belongs to it. The owner: "move the
+     flyers over to left closer to the show information, the overall container can
+     be smaller so its not so wide on the screen." 980 leaves the body about 640,
+     which is a comfortable measure, and puts the flyer next to the text it
+     illustrates rather than at the far edge of the monitor. */
+  .show{grid-template-columns:auto 1fr;max-width:980px}
   .show:has(.show-flyer){grid-template-columns:auto 1fr 220px}
+  /* BIGGER ON A DESKTOP, on the owner's ask. This breaks the site's own "a logo is
+     56px wherever it appears" rule on this page only, and it is worth it here:
+     these are the organisers' own marks and the card has room for them. The
+     `sizes` on the <img> moves with it, or a 80px box asks for 240 device pixels
+     at DPR 3 against a 200w file and the logo goes soft. */
+  .show-logo{width:80px;height:80px}
+  /* THE IMG CARRIES ITS OWN CAP AND THE BOX ALONE DOES NOTHING. .show-logo img
+     is max-width:56px, so growing only the flex box left an 80px box with a
+     56px picture centred in it: measured 80x80 against a drawn 56x50. Both
+     move or neither does. */
+  .show-logo img{max-width:80px;max-height:80px}
 }
 
 /* Real and Fake are a comparison and had the room to sit side by side, but the

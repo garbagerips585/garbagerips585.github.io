@@ -56,7 +56,6 @@ const data = JSON.parse(await readFile(join(ROOT, "data/shows.json"), "utf8"));
 // HAPPENS HERE and none may be added: that script is not in build-all.mjs, same
 // arrangement as sync-shop-map.mjs, sync-decks.mjs and sync-plate-photos.py, and
 // its own header says why.
-const mapDoc = JSON.parse(await readFile(join(ROOT, "data/card-show-map.json"), "utf8"));
 
 const TODAY = localDay();
 
@@ -287,420 +286,30 @@ for (const s of upcoming) townCounts.set(s.city, (townCounts.get(s.city) || 0) +
 const townRegion = new Map();
 for (const s of upcoming) if (!townRegion.has(s.city)) townRegion.set(s.city, s.region);
 
-function showMap() {
-  const towns = data._towns || {};
-  const noCoord = [...townCounts.keys()].filter((c) => !Array.isArray(towns[c]));
-  if (noCoord.length) {
-    console.warn(
-      `  no coordinate for ${noCoord.join(", ")}: left off the map. ` +
-        `Add it to _towns in data/shows.json, see _towns_note there.`
-    );
-  }
-  const pts = [...townCounts.entries()]
-    .filter(([c]) => Array.isArray(towns[c]))
-    .map(([city, n]) => ({ city, n, at: towns[city], region: townRegion.get(city) }));
-  if (pts.length < 2) return "";
-
-  const W = 660, H = 250, PAD = 40, FOOT = 30;
-  const lats = pts.map((p) => p.at[0]);
-  const lons = pts.map((p) => p.at[1]);
-  const midLat = (Math.min(...lats) + Math.max(...lats)) / 2;
-  const kx = Math.cos((midLat * Math.PI) / 180);
-  const MI_PER_DEG_LAT = 69.0;
-  const x0 = Math.min(...lons), y0 = Math.min(...lats);
-  const mx = (lon) => (lon - x0) * MI_PER_DEG_LAT * kx;
-  const my = (lat) => (lat - y0) * MI_PER_DEG_LAT;
-  const wMi = Math.max(...lons.map(mx)) || 1;
-  const hMi = Math.max(...lats.map(my)) || 1;
-  const k = Math.min((W - PAD * 2) / wMi, (H - FOOT - PAD * 2) / hMi);
-  const offX = (W - wMi * k) / 2, offY = FOOT + (H - FOOT - hMi * k) / 2;
-  const px = (lon) => offX + mx(lon) * k;
-  const py = (lat) => H - (offY + my(lat) * k);
-
-  // THE CANVAS REACHES MUCH FURTHER THAN THE TOWNS DO, so the geometry has to as
-  // well. px/py above are fitted to the towns and then centred, and on this page
-  // that leaves the whole top of the frame north of the northernmost dot.
-  // Inverting the projection at the four edges of the viewBox gives the ground
-  // the drawing actually covers.
-  const lonAt = (x) => x0 + (x - offX) / k / (MI_PER_DEG_LAT * kx);
-  const latAt = (y) => y0 + (H - y - offY) / k / MI_PER_DEG_LAT;
-  const canvas = { west: lonAt(0), east: lonAt(W), north: latAt(0), south: latAt(H) };
-
-  // AND THE DATA FILE HAS TO COVER IT, WHICH IS THE ONE WAY THIS PAIRING CAN GO
-  // QUIETLY WRONG, AND IT IS LIKELIER HERE THAN ON /shops.html. That page's six
-  // dots are fixed. This page's canvas is fitted to the towns that have a show
-  // COMING UP, so it moves every time a listing expires or a new one lands: one
-  // show in a town nobody has listed before and the frame grows into ground
-  // sync-card-show-map.mjs never fetched, and the map renders a clean empty
-  // margin that looks like a design decision. Fail instead, and say which edge
-  // and by how far.
-  const b = mapDoc.box;
-  const over = [
-    ["west", b.west - canvas.west], ["east", canvas.east - b.east],
-    ["south", b.south - canvas.south], ["north", canvas.north - b.north],
-  ].filter(([, d]) => d > 0);
-  if (over.length) {
-    throw new Error(
-      `The card show map now reaches outside the geometry in data/card-show-map.json: ` +
-        over.map(([side, d]) => `${d.toFixed(4)} degrees past its ${side} edge`).join(", ") +
-        `.\nWiden BOX in scripts/sync-card-show-map.mjs and re-run it with --refresh.`
-    );
-  }
-  // A layer that came back empty is a query that stopped matching, not a corner
-  // of New York with no roads in it. That has happened once on the sister map,
-  // on its boundary query: Overpass answered 200 with nothing in it and the
-  // layer silently vanished, because New York files a city at admin_level 7 and
-  // the obvious query asks for 8. A layer that disappears looks exactly like a
-  // layer nobody asked for, so refuse to draw the figure at all.
-  for (const [name, lines] of Object.entries({
-    roads: [...mapDoc.roads.major, ...mapDoc.roads.minor],
-    water: mapDoc.water,
-    boundary: mapDoc.boundary,
-  })) {
-    if (!lines.length) {
-      throw new Error(
-        `data/card-show-map.json has no ${name} in it. Overpass can answer 200 with an ` +
-          `empty result, so re-run scripts/sync-card-show-map.mjs --refresh and check the counts.`
-      );
-    }
-  }
-
-  // ONE <path> PER LAYER, NOT ONE PER WAY. 178 stitched road lines as 178
-  // elements is 178 sets of attributes before a coordinate is written; as two
-  // paths with many M subpaths apiece it is two. Consecutive points that round to
-  // the same tenth of a unit are dropped: RDP in the sync script works in miles
-  // on the ground and cannot know that two of its survivors land on the same
-  // pixel here.
-  //
-  // RELATIVE LINETOS AFTER THE FIRST POINT, and the trap in doing that is
-  // ACCUMULATED ROUNDING: a hundred deltas each rounded to a tenth can walk a
-  // shoreline several units off its own end. Every delta is taken from the last
-  // point ACTUALLY EMITTED rather than from the true position, so the error is
-  // bounded at a tenth of a unit for the whole polyline instead of compounding.
-  // "cur" below is the emitted position and nothing else may be subtracted from.
-  // Separators are a comma inside a pair and a space between pairs, which is the
-  // shortest form that cannot be misread. Same code and same reasoning as
-  // shopMap in build-shops.mjs; read the long version there.
-  const d = (line, close) => {
-    const parts = [];
-    let cur = null;
-    for (const [lat, lon] of line) {
-      const x = +px(lon).toFixed(1), y = +py(lat).toFixed(1);
-      if (!cur) { cur = [x, y]; continue; }
-      const dx = +(x - cur[0]).toFixed(1), dy = +(y - cur[1]).toFixed(1);
-      if (!dx && !dy) continue;
-      parts.push(`${dx},${dy}`);
-      cur = [cur[0] + dx, cur[1] + dy];
-    }
-    if (!parts.length) return "";
-    const start = line[0];
-    return `M${+px(start[1]).toFixed(1)},${+py(start[0]).toFixed(1)}l${parts.join(" ")}${close ? "Z" : ""}`;
-  };
-  const layer = (lines, close) => lines.map((l) => d(l, close)).filter(Boolean).join("");
-
-  // THE ORDER IS THE MAP. Water under roads, because a bridge crosses a river and
-  // not the other way round; the county lines above both because they are an idea
-  // rather than a thing and have to survive being drawn over the Thruway; the
-  // dots above everything.
-  const base = `<g clip-path="url(#showmap-clip)" fill="none">
-        <path class="map-water" d="${layer(mapDoc.water, true)}"/>
-        <path class="map-road" d="${layer(mapDoc.roads.minor)}"/>
-        <path class="map-road-major" d="${layer(mapDoc.roads.major)}"/>
-        <path class="map-edge" d="${layer(mapDoc.boundary)}"/>
-      </g>`;
-
-  const nice = [1, 2, 5, 10, 20, 50].find((n) => n * k > (W - PAD * 2) * 0.15) || 1;
-  const R = (n) => 5 * Math.sqrt(n);
-
-  // Greedy slot placement, lifted from shopMap for the same reason: Liverpool
-  // and Syracuse are 3.7 miles apart, which is 14 units here, and their names
-  // are 60 units wide. The DOT never moves.
-  //
-  // EVERY LABEL SITS ON A PLATE OF ITS OWN NOW AND THAT IS NOT DECORATION. Until
-  // the geometry went in, a name was cream type on one flat green and its
-  // contrast was whatever --ink on --paper-3 measures, everywhere, always. It now
-  // has Lake Ontario under it some of the time and a motorway the rest. Same fix
-  // and the same class of bug as /shops.html: a colour that was only correct
-  // because of what happened to be behind it.
-  //
-  // MEASURED RATHER THAN ARGUED, on the real figure at 390 and at 1440, by
-  // hiding every glyph, every dot, the halo and the scale bar in the live DOM
-  // and reading the BRIGHTEST pixel left inside each plate's own box. Worst
-  // ground on the whole map is #2D4436, under Batavia, Liverpool and the scale
-  // bar, and cream on it is 7.74:1 at both widths. The best is 8.42:1 under
-  // Rochester. Nothing here is close to the 4.5 line.
-  //
-  // TWO TRAPS IN TAKING THAT MEASUREMENT, both recorded on /shops.html and both
-  // reproduced here so the number means something. The plate has rx=5, so its
-  // four CORNERS show bare map and sampling the whole box reports the ground
-  // rather than the plate. And the outermost row of the rect is ANTIALIASED
-  // against what is under it, which reads as a failure that exists only in a
-  // pixel no glyph ever touches. The harness insets 3px past both.
-  // TWO LABEL VARIANTS, AND THE SECOND ONE EXISTS BECAUSE THE FIRST ONE IS
-  // UNREADABLE ON A PHONE. This whole viewBox is scaled to fit the box, so the
-  // type scales with it, and a size that reads at 660 units wide does not read
-  // at 350 CSS px. Measured on the built page with getBoundingClientRect and
-  // with the computed font-size multiplied by the real viewBox-to-viewport
-  // scale, which agree: a town name was 7.42 CSS px at 390 against an 11px
-  // caption and 17.6px body copy sitting directly under it.
-  //
-  // getComputedStyle ON SVG TEXT REPORTS USER UNITS AND NOT CSS PIXELS, which
-  // is why this went unnoticed for a month: the naive read says 14 and passes.
-  // The number that means anything is units x (svg.getBoundingClientRect().width
-  // / svg.viewBox.baseVal.width).
-  //
-  // THE FLOOR IS 12 CSS PX and it is argued rather than picked. --t-micro is
-  // 11px and is the smallest type token this site has; it is what this figure's
-  // own caption is set in. Nothing drawn ON the picture may be smaller than the
-  // prose explaining it, so the floor is the next token up, --t-label at 12px.
-  // Every mark on this map now measures at least 12.2px at every width from 320
-  // to 1440.
-  //
-  // WHY NOT SIMPLY SCALE THE NAMES UP, which is the obvious fix and is the
-  // wrong one here. At 390 this figure is 350 x 133 CSS px. A name at the floor
-  // is 1.6x its current width in units, and the greedy placer below then has to
-  // push labels 56 units clear of their own dots to keep them apart: "Batavia"
-  // ends up 30 CSS px from Batavia with no leader line, which is a worse map
-  // than a small one. There are only 250 units of height to spend and the towns
-  // sit in a strip across the middle of them.
-  //
-  // SO THE PHONE GETS NUMBERS AND THE NAMES GO INTO HTML AT REAL TYPE, which is
-  // exactly what plateDiagram() on /garbage-plate.html does and what CLAUDE.md
-  // records as "the words are HTML, not SVG text". A number is one glyph, so it
-  // fits at any size this map can be drawn at, and the key under the picture is
-  // set in --t-sm. THE KEY IS A GAIN AND NOT A CONSOLATION: the note above the
-  // stylesheet block in this file records that the label reads "Batavia · 8"
-  // rather than "Batavia, 8 shows coming up" because the sentence would not fit
-  // on the drawing. In the key it fits, because the key is not on the drawing.
-  //
-  // NUMBERED WEST TO EAST, and that is what makes the key cheap to use. The
-  // numbers ascend across the picture, so a reader who has seen one dot already
-  // knows roughly where 4 is without reading anything. On this page it is also
-  // the true shape of the data: these towns are strung along the Thruway.
-  //
-  // THE SWITCH IS max-width:544px, which is this site's own phone breakpoint
-  // (ui.css and homeCss in build-proto.mjs both use it). Above it the wrap is
-  // wide enough that a 16 unit name renders at 12.2px or better, and at 708 and
-  // up the map is at 1:1 and it is 16.0px. Below it the drawing would be doing
-  // the shrinking, so the drawing stops carrying words.
-  const NAME_F = 16; // wide: the town name. Was 14, which was 12px at 545.
-  const NUM_F = 29; // narrow: the key number. 12.3px at 320, 15.4px at 390.
-
-  // Greedy slot placement, lifted from shopMap for the same reason: Liverpool
-  // and Syracuse are 3.7 miles apart, which is 14 units here, and their names
-  // are 60 units wide. The DOT never moves.
-  //
-  // IT RUNS ONCE PER VARIANT, with its own placed list, because the two
-  // variants are different widths and a shared list would let a name reserve a
-  // slot against a number. COLLISIONS IN HERE ARE SCALE INVARIANT: two boxes in
-  // user units either overlap or they do not, whatever the figure is drawn at,
-  // so a variant that is clean is clean at every width it is shown at.
-  //
-  // EVERY LABEL SITS ON A PLATE OF ITS OWN NOW AND THAT IS NOT DECORATION. Until
-  // the geometry went in, a name was cream type on one flat green and its
-  // contrast was whatever --ink on --paper-3 measures, everywhere, always. It now
-  // has Lake Ontario under it some of the time and a motorway the rest. Same fix
-  // and the same class of bug as /shops.html: a colour that was only correct
-  // because of what happened to be behind it. The number plate is the SAME
-  // .map-plate at the same opacity, so that measurement carries over unchanged.
-  const sorted = pts.slice().sort((a, b) => px(a.at[1]) - px(b.at[1]));
-  const keyNo = new Map(sorted.map((p, i) => [p.city, i + 1]));
-
-  // The plate and the baseline are expressed as ratios of the font size, taken
-  // from the numbers this figure shipped with at 14 units: 9/14, 18/14, 4/14.
-  // That is what lets one renderer draw both variants without either of them
-  // getting a hand-tuned box that the collision test above does not know about.
-  // THE DOTS ARE RESERVED AGAINST AS WELL AS THE LABELS, AND THIS MAP HAD ONE
-  // OF THESE TOO. /shops.html's placer had the same hole and it was worse there
-  // -- its Great Lakes Gaming plate sat on the Just Games marker itself, 14.4 x
-  // 3.5 CSS px at 1440 -- so this figure was reported clean and was not. THE
-  // DIFFERENCE IS WHICH CIRCLE YOU MEASURE AGAINST, and it is worth writing
-  // down because a first pass here measured the wrong one and got zero:
-  //
-  //       plate over the DOT      0 at every width, both before and after
-  //       plate over the HALO     "Depew . 1", 13.2 x 0.4 CSS px at 545,
-  //                               17.2 x 0.5 at 768 and 1440, now 0
-  //
-  // THE HALO IS THE THING TO RESERVE, r + 4 AND NOT r. It is a ring of the map's
-  // own ground painted under the marker so a dot reads as a dot rather than as a
-  // junction of the roads it lands on, which is the whole reason it exists; a
-  // plate lying over it undoes that and is a fault whether or not it has reached
-  // the coloured circle in the middle yet. A label starts at x +/- (r + 8), so
-  // its own halo is 4 units clear and every dot can go in one list.
-  //
-  // MEASURED AT 320, 390, 544, 545, 768 AND 1440 ON BOTH MAPS, before against
-  // after, off getBoundingClientRect on the rendered SVG rather than off these
-  // user units: 2 overlaps before (one per map), 0 after, with 0 plate-on-plate,
-  // 0 label-on-label and 0 marks outside the frame throughout. One label moves
-  // on each map and nothing else in either file changes.
-  const haloes = sorted.map((p) => ({ x: px(p.at[1]), y: py(p.at[0]), r: R(p.n) + 4 }));
-  const place = (font, textOf, charW, padW) => {
-    const lh = Math.round((font * 18) / 14);
-    const placed = [];
-    return sorted.map((p) => {
-      const x = px(p.at[1]), y = py(p.at[0]), r = R(p.n);
-      const text = textOf(p);
-      const left = x > W * 0.62;
-      const w = text.length * charW + padW;
-      const x1 = left ? x - r - 8 - w : x + r + 8;
-      let ly = y;
-      for (let step = 0; step < 15; step++) {
-        const off = step === 0 ? 0 : (step % 2 ? -1 : 1) * Math.ceil(step / 2) * lh;
-        ly = y + off;
-        // The plate's real top and bottom, matching what mark() draws below:
-        // ly - font*0.643, font*1.286 high. The label test keeps its lh proxy.
-        const y0 = ly - font * 0.643, y1 = y0 + font * 1.286;
-        const clash =
-          placed.some((q) => Math.abs(q.y - ly) < lh && x1 < q.x + q.w && q.x < x1 + w) ||
-          haloes.some((d) => x1 < d.x + d.r && d.x - d.r < x1 + w && y0 < d.y + d.r && d.y - d.r < y1);
-        if (!clash) break;
-      }
-      placed.push({ x: x1, y: ly, w });
-      return { x, y, r, left, text, w, x1, ly, font };
-    });
-  };
-  const wideMarks = place(NAME_F, (p) => `${p.city} · ${p.n}`, (7.6 * NAME_F) / 14, NAME_F);
-  const numMarks = place(NUM_F, (p) => String(keyNo.get(p.city)), NUM_F * 0.62, NUM_F * 0.7);
-
-  // The plate is the box the collision test above already reasons about, so the
-  // two cannot disagree about how wide a name is: same x1, same w. A number is
-  // centred in its plate; a name hangs off the dot the way it always has.
-  const mark = (m, cls, mid) => `<g class="${cls}">
-        <rect class="map-plate" x="${m.x1.toFixed(1)}" y="${(m.ly - m.font * 0.643).toFixed(1)}"
-          width="${m.w.toFixed(1)}" height="${(m.font * 1.286).toFixed(1)}" rx="5"/>
-        <text class="map-lbl" x="${(mid ? m.x1 + m.w / 2 : m.left ? m.x - m.r - 8 : m.x + m.r + 8).toFixed(1)}"
-          y="${(m.ly + m.font * 0.286).toFixed(1)}"
-          style="font-size:${m.font}px;text-anchor:${mid ? "middle" : m.left ? "end" : "start"}">${esc(m.text)}</text>
-      </g>`;
-
-  // Both variants live inside the same <g> as the dot, because the area filter
-  // toggles that group and a plate left behind by a faded label would be a hole
-  // in the map. The hidden one is display:none, so it has no box and cannot
-  // collide with anything, which is what keeps the collision count honest.
-  const dots = sorted
-    .map((p, i) => {
-      const m = wideMarks[i];
-      return `<g class="map-t" data-region="${esc(p.region || "")}">
-        <circle class="map-halo" cx="${m.x.toFixed(1)}" cy="${m.y.toFixed(1)}" r="${(m.r + 4).toFixed(1)}"/>
-        <circle class="map-dot" cx="${m.x.toFixed(1)}" cy="${m.y.toFixed(1)}" r="${m.r.toFixed(1)}"/>
-        ${mark(m, "mk-w", false)}
-        ${mark(numMarks[i], "mk-n", true)}
-      </g>`;
-    })
-    .join("");
-
-  // The scale bar gets a plate for the same reason the names do: it used to sit
-  // on flat green and it now sits on whatever runs along the bottom of the frame.
-  // It gets the same two variants as well, and it is the mark that was worst off
-  // on a phone: 6.36 CSS px at 390, the smallest type anywhere on this page. The
-  // plate is derived from the font here rather than hand-set, so the box cannot
-  // fall out of step with the words in it.
-  //
-  // THE NARROW ONE PUTS THE WORDS BESIDE THE BAR RATHER THAN OVER IT, and that
-  // is height rather than taste. Stacked, a 29 unit label plus the bar and its
-  // ticks is a 57 unit plate, 23% of a 250 unit frame, and it was the loudest
-  // object in the picture when it was screenshotted. Beside the bar it is 31,
-  // which is the bar's own height, and it is the form every printed map uses.
-  // It also abbreviates to "mi", which is the same 37% saving in width and is
-  // what a scale bar says everywhere else in the world.
-  const barW = nice * k;
-  const barLabel = `${nice} mile${nice === 1 ? "" : "s"}`;
-  const bar = (font, cls, beside) => {
-    const label = beside ? `${nice} mi` : barLabel;
-    const tw = label.length * font * 0.62;
-    const ticks =
-      `<line class="map-bar" x1="0" y1="0" x2="${barW.toFixed(1)}" y2="0"/>` +
-      `<line class="map-bar" x1="0" y1="-5" x2="0" y2="5"/>` +
-      `<line class="map-bar" x1="${barW.toFixed(1)}" y1="-5" x2="${barW.toFixed(1)}" y2="5"/>`;
-    if (beside) {
-      const top = -Math.max(font * 0.72, 8);
-      const bot = Math.max(font * 0.34, 8);
-      // UP 12 UNITS, AND IT IS A LINE BOX RATHER THAN A GLYPH. "50 mi" has no
-      // descender, so the ink clears the frame; the TEXT NODE does not, because
-      // its box runs from the ascender to the descender of a 29 unit face and
-      // hung 5.2 units below the bottom of the viewBox. Nothing is clipped out
-      // here (only the geometry layer is), so a mark that escapes the frame
-      // paints over the page. Measured with getBoundingClientRect, not by eye.
-      return `<g class="${cls}" transform="translate(0 -12)">
-          <rect class="map-plate" x="-10" y="${top.toFixed(1)}" width="${(barW + tw + 32).toFixed(1)}"
-            height="${(bot - top).toFixed(1)}" rx="5"/>
-          ${ticks}
-          <text class="map-bart" x="${(barW + 12).toFixed(1)}" y="${(font * 0.34).toFixed(1)}"
-            style="font-size:${font}px;text-anchor:start">${label}</text>
-        </g>`;
-    }
-    const base = -(font * 0.75) - 2;
-    const top = base - font * 0.82;
-    return `<g class="${cls}">
-          <rect class="map-plate" x="-10" y="${top.toFixed(1)}"
-            width="${(Math.max(barW, tw) + 20).toFixed(1)}" height="${(9 - top).toFixed(1)}" rx="5"/>
-          ${ticks}
-          <text class="map-bart" x="${(barW / 2).toFixed(1)}" y="${base.toFixed(1)}"
-            style="font-size:${font}px">${label}</text>
-        </g>`;
-  };
-  return `<figure class="show-map">
-      <svg viewBox="0 0 ${W} ${H}" role="img"
-        aria-label="A map of western and central New York from Niagara Falls to Syracuse, with the Lake Ontario shore, the Finger Lakes, the interstates and the county lines drawn from OpenStreetMap data. The ${pts.length} towns with a show coming up are marked and named, with a bigger dot for a town with more shows. On a narrow screen the marks are numbered instead and the numbers are listed under the map. Every listing below names its venue and town.">
-        <defs><clipPath id="showmap-clip"><rect x="0" y="0" width="${W}" height="${H}" rx="10"/></clipPath></defs>
-        <rect x="0" y="0" width="${W}" height="${H}" rx="10" class="map-bg"/>
-        ${base}
-        ${dots}
-        <g transform="translate(${PAD} ${H - 16})">
-          ${bar(NAME_F, "mk-w", false)}
-          ${bar(NUM_F, "mk-n", true)}
-        </g>
-      </svg>
-      ${/* THE KEY. Only on the narrow layout, where the drawing carries numbers
-            instead of names; above 544 it is display:none and is out of the
-            accessibility tree with the numbers it explains. It carries the
-            sentence the map never had room for, and each row carries its town's
-            region so the area buttons fade it in step with the dot it names. */ ""}
-      <p class="map-key-h">The towns on the map, west to east</p>
-      <ol class="map-key">
-        ${sorted
-          .map(
-            (p, i) =>
-              `<li data-region="${esc(p.region || "")}"><b>${i + 1}</b><button type="button" class="map-go" data-region="${esc(p.region || "")}">${esc(p.city)}, ${p.n} show${
-                p.n === 1 ? "" : "s"
-              }</button></li>`
-          )
-          .join("\n        ")}
-      </ol>
-      ${/* THE TWO LINKS IN HERE ARE THE ODbL AND ARE NOT DISCRETIONARY, which is
-            the same argument /shops.html's map makes, the same one the Garbage
-            Plate photo credits make, and CLAUDE.md records it in full.
-            OpenStreetMap's data is offered on condition that it is credited and
-            that the licence is reachable; a page that draws the roads and does
-            not link the deed is not making a tidier editorial choice, it is
-            using the data outside the terms it was offered under. They sit in
-            the figure's own credit line, at the end, labelled as leaving the
-            site, exactly like every other outbound link on this page. */ ""}
-      ${/* THE CAPTION WAS 150 WORDS AND IT SAT BETWEEN THE MAP AND THE CALENDAR, 26 August 2026. The owner's call
-            and a fair one: it explained how the map was drawn to somebody who only wanted to know where the shows
-            are. It is folded into a summary now.
-            THE CREDIT LINE STAYS OUT IN THE OPEN AND THAT IS NOT AN EDITORIAL CHOICE. OpenStreetMap's data is
-            offered on condition it is credited and the licence is reachable. Collapsing the attribution behind a
-            control the reader has to find first is not crediting it, so the two links stay visible and only the
-            explanation of how the map is drawn goes behind the fold. Same argument the comment above the links
-            has always made; the links have not moved. */ ""}
-      <figcaption>Where the shows are and how far apart they are. One dot per town, at the town center, sized by
-        how many shows it has coming up. Map data from
-        <a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank"
-          aria-label="OpenStreetMap contributors, the source of the map data, opens on openstreetmap.org">OpenStreetMap contributors</a>,
-        licensed <a href="https://opendatacommons.org/licenses/odbl/1-0/" rel="noopener" target="_blank"
-          aria-label="The Open Database License version 1.0, which this map data is offered under, opens on opendatacommons.org">ODbL 1.0</a>,
-        read ${esc(longDate(mapDoc.read) || mapDoc.read)}.
-        <details class="map-more"><summary>How this map is drawn</summary>
-          <p>The Lake Ontario shore, the Finger Lakes, the interstates, the trunk routes and the county lines are
-            real geometry, drawn from OpenStreetMap's data rather than from anybody's map tiles, so nothing on this
-            page asks another server for anything. North is up and the scale is true both ways, which is why these
-            towns sit in a strip: they are strung along the Thruway. There are no venue pins, because most of these
-            venues have no street address in our data, and every listing below names the venue and the town, which
-            is the thing to put in a map app.</p>
-        </details></figcaption>
-    </figure>`;
-}
+// -------------------------------------------- a headstone for the map
+//
+// THE DRAWN MAP WAS HERE AND IT IS GONE, ON THE OWNER'S CALL: "remove the map and
+// the all the text and links below the map, and just get straight into the show
+// listings ... too much stuff to scroll past before you get to what people want
+// to read which is the show listing info".
+//
+// HE ASKED FOR IT IN THE FIRST PLACE, on 21 August 2026, and it goes because of
+// what it cost rather than because it was wrong: 414 lines of builder and FIFTY
+// THOUSAND characters of inline SVG standing between the filter buttons and the
+// first show card, on a page whose entire job is the show cards. It answered
+// "where are these towns", and almost nobody arrives with that question. The
+// ones who do get the venue and a full street address on every listing, each a
+// link into their own maps app since 26 August.
+//
+// WHAT WENT WITH IT: the town key and its .map-go buttons (town-level filtering,
+// replaced by the three area buttons he asked to keep), the "How this map is
+// drawn" disclosure, the show and day counter, the whole of PAGE_CSS, and the
+// OpenStreetMap and ODbL credit, which was NOT discretionary while the geometry
+// was on the page and is simply not owed now that it is not.
+//
+// data/card-show-map.json and scripts/sync-card-show-map.mjs are LEFT IN PLACE.
+// Nothing reads either now. They are the whole cost of putting it back, so
+// deleting them would be the expensive kind of tidy.
 
 // ------------------------------------------------------- the days, and a
 // ------------------------------------------------------- headstone for the
@@ -807,8 +416,8 @@ const logoFor = (s) => {
   }
   const h = Math.round(200 * (s.logoH || 1) / (s.logoW || 1));
   return `<span class="show-logo"><picture>
-            <source type="image/avif" srcset="/assets/shows/${esc(s.logo)}-200.avif 200w, /assets/shows/${esc(s.logo)}-400.avif 400w" sizes="56px">
-            <img src="/assets/shows/${esc(s.logo)}-200.webp" alt="${esc(s.name)} logo" width="200" height="${h}" loading="lazy" decoding="async" srcset="/assets/shows/${esc(s.logo)}-200.webp 200w, /assets/shows/${esc(s.logo)}-400.webp 400w" sizes="56px">
+            <source type="image/avif" srcset="/assets/shows/${esc(s.logo)}-200.avif 200w, /assets/shows/${esc(s.logo)}-400.avif 400w" sizes="(min-width:720px) 80px, 56px">
+            <img src="/assets/shows/${esc(s.logo)}-200.webp" alt="${esc(s.name)} logo" width="200" height="${h}" loading="lazy" decoding="async" srcset="/assets/shows/${esc(s.logo)}-200.webp 200w, /assets/shows/${esc(s.logo)}-400.webp 400w" sizes="(min-width:720px) 80px, 56px">
           </picture></span>`;
 };
 
@@ -940,188 +549,10 @@ const desc =
 // are; they simply stop being served.
 const miniCSS = (css) =>
   css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/[ \t]*\n[ \t\n]*/g, "\n").trim();
-const PAGE_CSS = `/* The map of where the shows are. Same box and the same currentColor-free,
-   variable-only discipline as .shop-map on /shops.html, deliberately, because
-   the two pages are a pair and a reader moves between them.
-
-   THIS NOTE USED TO END "7.6px IS THE FLOOR AND 6.1 IS UNDER IT", WHICH IS THE
-   SENTENCE THAT SHIPPED THE BUG. It had the arithmetic right and the conclusion
-   wrong: it measured a town name at 7.6 CSS px at 390 and then wrote 7.6 down
-   as an acceptable size, on a page whose own caption is set at 11px and whose
-   body copy is 17.6px. It is not a floor, it is a defect, and it was measured
-   again and called one on 21 August 2026. Re-measured off getBoundingClientRect
-   AND off the computed font-size times the real viewBox-to-viewport scale,
-   which agree to a hundredth, before -> after:
-
-        320   svg 280.0 x 106.1   unit 0.424   name 5.94 ->  12.30px (a number)
-        390   svg 350.0 x 132.6   unit 0.530   name 7.42 ->  15.38px (a number)
-        768   svg 660.0 x 250.0   unit 1.000   name 14.00 -> 16.00px
-       1440   svg 660.0 x 250.0   unit 1.000   name 14.00 -> 16.00px
-
-   getComputedStyle ON SVG TEXT REPORTS USER UNITS, NOT CSS PIXELS, and that is
-   why this sat here being quoted as a measurement. It reads 14 at every width
-   and always will. Multiply by the scale or measure the rendered box.
-
-   The two variants and why the phone gets numbers instead of names are argued
-   in full beside NAME_F and NUM_F in showMap(). The short version: 250 units of
-   height cannot hold six names at a legible size without pushing them off their
-   own dots, and this site already has the answer written down on
-   /garbage-plate.html -- the words are HTML, not SVG text. */
-.show-map{margin:var(--s5) 0 0;color:var(--ink);max-width:660px}
-.show-map svg{display:block;width:100%;height:auto;max-width:660px}
-/* THE FIGURE USED TO BE THE FULL WIDTH OF THE WRAP AND THE MAP 660 OF IT, so at
-   1440 it declared 1392px and left 732 of them bare, 52.6% of the viewport. It
-   painted nothing in that space, so this is a box-model fault rather than a
-   visible one, but a figure claiming width it never uses is the kind of thing
-   that gets "fixed" later by stretching the map into it.
-
-   GROWING THE MAP INSTEAD WAS THE OTHER OPTION AND IT WAS REJECTED, because it
-   fights the fix above rather than complementing it. At 1392 the drawing is at
-   2.11 units to the pixel, so a 16 unit town name renders at 33.8px, which
-   would have to come back down in units, which is the opposite of what the
-   phone needs. Every stroke width in the block below is also argued in units
-   per mile at a stated rendered scale, and this map's feature list was chosen
-   for this frame: the water cut is fifty times coarser than /shops.html's and
-   the roads stop at trunk. Doubling the size shows the omissions rather than
-   more of the map. So the figure shrinks to the map. */
-.show-map figcaption{font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-2);
-  margin-top:var(--s2);max-width:52em}
-/* THE ODbL CREDIT WAS THE ONLY PINK LINK ON A PAGE OF 58, AND THE OTHER 49
-   WERE ALREADY TEAL. CLAUDE.md's accent rule is that teal is every route and
-   pink is every mark that goes nowhere, so this page was breaking it twice in
-   one document and agreeing with itself nowhere. The rule won; the full
-   argument, and the contrast numbers that say the swap costs nothing (4.51 ->
-   4.50 on the card, 6.25 -> 6.24 on the page), is beside .shop-link in
-   build-shops.mjs, which had the same three rules and 21 of 25 links in them.
-   Same caption, same credit, same pair: if that one changes, change this. */
-.show-map figcaption a{color:var(--sky-deep);font-weight:600}
-.show-map figcaption a:hover{text-decoration:underline}
-.map-bg{fill:var(--paper-3)}
-/* THE MAP'S OWN INK, AND IT IS THE SAME PALETTE AS .shop-map ON /shops.html,
-   DELIBERATELY, because the two pages are a pair and a reader moves between
-   them. Every value there is derived from a token by a stated move and the
-   derivations are written out beside the rules in build-shops.mjs; do not
-   re-derive them here, and if one of them changes, change both files.
-
-   The ground is --paper-3. Roads are the page ink at an opacity, which is the
-   one thing here that is not a new colour at all: a road is a lighter scratch on
-   the land. Water is the only hue, because water being blue is the one map
-   convention a reader has without being told, and it is --mustard pulled 65% of
-   the way to --navy-deep, which lands DARKER than the land as well as bluer.
-   That direction matters: water lighter than land reads as a road.
-
-   THE ONE PLACE THE VALUES DIVERGE IS THE STROKE WIDTHS, and it is scale rather
-   than taste. That map draws at 37 units to the mile and this one at 3.9, so a
-   1.1 unit road there is a tenth of a mile wide and here it is a whole mile.
-   Everything is thinner and fainter as a result: at 390px this figure is 2.05
-   pixels to the mile and a stroke that reads as a hairline over there reads as a
-   motorway ten lanes wide here. */
-.map-water{fill:#34565E;stroke:none}
-/* THERE IS NO .map-stream HERE AND /shops.html HAS ONE. The river and canal
-   centrelines were fetched, drawn and looked at, and they came off: 1,702 points,
-   30% of the data file, for 130 blue veins that at this size bury the Thruway.
-   The full working is in scripts/sync-card-show-map.mjs beside the query that no
-   longer runs. Every wide river here is a water POLYGON and is still drawn.
-
-   AND THE ROADS ARE HEAVIER THAN THEY WERE IN THE FIRST DRAFT because of it,
-   which is the other half of the same decision: with the veins gone the motorway
-   is the only continuous line across the frame, and it is the line that explains
-   why six towns 147 miles apart are a straight row of dots. Screenshotted at
-   1440 both ways before the numbers were changed. */
-.map-road{stroke:currentColor;stroke-width:.8;opacity:.22}
-.map-road-major{stroke:currentColor;stroke-width:2;opacity:.5}
-/* The county lines are an idea and not a thing, so they are dashed and they are
-   the pink, which on this site is the mark that goes nowhere. It is the one
-   place the map uses an accent, and it uses it because a dashed cream line at
-   low opacity is indistinguishable from a trunk road at this size, which defeats
-   the point of drawing it. They whisper: nine county lines across a frame this
-   wide is a reference grid, and at full strength it would be the busiest object
-   in the picture, which is exactly backwards for the thing here that matters
-   least. Same judgement, same numbers, as .sm-edge on /shops.html. */
-.map-edge{stroke:var(--ketchup);stroke-width:1;stroke-dasharray:4 3.5;opacity:.3;fill:none}
-/* The plate under each town name, and under the scale bar. --page at 88%, so a
-   label is legible over Lake Ontario and over the Thruway alike; see the note
-   beside the placement code and the measured worst case on /shops.html. */
-.map-plate{fill:var(--page);opacity:.88}
-/* A disc of the map's own ground behind each dot, so a dot reads as a dot on a
-   map and not as a junction of whatever roads it happens to land on. Depew sits
-   on the I-90 and NY-33 interchange and is the point that made this necessary. */
-.map-halo{fill:var(--paper-3);opacity:.8}
-.map-dot{fill:var(--gold);stroke:var(--ink);stroke-width:2}
-/* NO font-size IN EITHER OF THESE TWO RULES, and that is deliberate. Both
-   variants of every mark set their own in a style attribute, computed from the
-   same constant the plate under it was computed from, so a size can never drift
-   from the box that was reserved for it. A size here would be a third opinion.
-   The px in an SVG font-size is a USER UNIT, never a CSS pixel; see the note at
-   the top of this block. */
-.map-lbl{font-weight:700;font-family:var(--body);fill:var(--ink)}
-.map-bar{stroke:var(--ink);stroke-width:2.5}
-.map-bart{font-weight:700;font-family:var(--mono);fill:var(--ink);text-anchor:middle}
-/* The two label variants. The wide one carries names, the narrow one carries
-   the numbers in .map-key. display:none rather than an opacity or a visibility,
-   so the hidden variant has no box at all and cannot collide with the visible
-   one or hang off the edge of the frame. 544 is this site's own phone
-   breakpoint; the arithmetic behind picking it is beside NAME_F in showMap(). */
-.mk-n{display:none}
-@media(max-width:544px){
-.mk-w{display:none}
-.mk-n{display:inline}
-}
-/* The key under the picture, and it is the half of this fix that carries the
-   words. Set in --t-sm, which is real type on a real line rather than a mark on
-   a drawing, so it is not affected by the figure's scale at all. Same shape as
-   the ordered list beside plateDiagram() on /garbage-plate.html. */
-.map-key-h,.map-key{display:none}
-.map-key-h{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;
-  text-transform:uppercase;color:var(--ink-2);margin:var(--s3) 0 var(--s2)}
-.map-key{list-style:none;margin:0;padding:0;
-  grid-template-columns:repeat(auto-fill,minmax(10.5em,1fr));gap:var(--s2) var(--s3);
-  font:400 var(--t-sm)/1.35 var(--body);color:var(--ink)}
-.map-key li{display:flex;align-items:baseline;gap:8px}
-/* THE CHIP IS THE MAP'S OWN GROUND, --paper-3, AND IT WENT IN AT --page AND
-   CAME STRAIGHT BACK OUT. --page is what the plate on the drawing is filled
-   with, so copying it here looked like the obvious match, and it is also what
-   this section is painted in: the chip measured 0 pixels of difference from the
-   page behind it and the number sat on nothing. Measured, not noticed by eye.
-   --paper-3 is the colour of the map the number is sitting on, which is the
-   better echo anyway, and --ink on it is 5.35:1, read off the built page. */
-.map-key b{flex:none;min-width:1.7em;padding:2px 0;text-align:center;border-radius:4px;
-  background:var(--paper-3);color:var(--ink);font:700 var(--t-label)/1.3 var(--mono)}
-/* Faded by the same area filter that fades the dot it names, and by the same
-   rule: a row that vanished would move the rest of the key and lose the numbers
-   that are still on the map. */
-.map-key li.is-off{opacity:.4}
-@media(max-width:544px){
-.map-key-h{display:block}
-.map-key{display:grid}
-}
-/* Dimmed by the same area filter that drives the list. Kept visible rather than
-   removed: a town vanishing off a map moves nothing else on it, so the reader
-   loses the frame of reference that made the map worth having. Faded, it still
-   says "Syracuse is over there and you have filtered it out". The PLATE fades
-   with the name it sits under, or a filtered-out town leaves a blank tile lying
-   on the map with nothing written on it. */
-.map-t.is-off .map-dot{fill:none;stroke:var(--ink-2);stroke-width:1.4;opacity:.35}
-.map-t.is-off .map-halo{opacity:.3}
-.map-t.is-off .map-plate{opacity:.25}
-.map-t.is-off .map-lbl{opacity:.3}
-/* The one line of prose under the map, and it is the surviving half of the
-   deleted calendar's note. See the headstone above dayCounts. */
-.map-note{margin-top:var(--s3);font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2);
-  max-width:44em}
-
-/* DESKTOP READING MEASURE. 44em was written as if 1em were one character. It
-   is not: Outfit at 11px runs about 2.31 characters per em, so that 484px box
-   measured 95 real characters a line at 1440. ui.css already caps main prose
-   at var(--measure) and this rule only outranked it by landing after the
-   stylesheet. min-width:1000 is ui.css's own desktop breakpoint, so the phone
-   and the tablet range keep exactly the rule they had. Note this is the body
-   face, not the mono one: the same 44em on Space Mono would be about 78
-   characters and would need leaving alone. */
-@media(min-width:1000px){
-.map-note{max-width:var(--measure)}
-}
-`;
+// PAGE_CSS IS GONE WITH THE MAP. Every rule in it was a .map-* or .show-map
+// rule: the figure, the geometry strokes, the town plates, the key and the
+// note under it. With the drawn map removed there is nothing on this page that
+// ui.css does not already style, so the page ships no inline <style> at all.
 
 const head = `<!DOCTYPE html>
 <html lang="en">
@@ -1150,7 +581,6 @@ ${FONTS}
 ${STYLES}
 ${/* Inline, not in ui.css: this page is the only user and ui.css is render
       blocking on all 426 pages. The set guides already work this way. */ ""}
-<style>${miniCSS(PAGE_CSS)}</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -1323,12 +753,6 @@ ${next ? `
         ${REGIONS.map((r) => `<button class="chip filt" type="button" data-region="${r.id}"${r.id === "all" ? ' aria-current="true"' : ""}>${esc(r.label)}</button>`).join("\n        ")}
       </div>
     </div>
-${showMap()}
-${upcoming.length ? `
-    <p class="map-note">${upcoming.length} show${upcoming.length === 1 ? "" : "s"} on
-      ${showDays} day${showDays === 1 ? "" : "s"}${
-        showDoubles ? `, ${showDoubles === 1 ? "one day" : `${showDoubles} days`} with two of them` : ""
-      }. The area buttons above move the map and the list together.</p>` : ""}
 
     <div id="showList">
 ${byMonth
@@ -1644,23 +1068,6 @@ ${/* THE CALENDAR'S OWN CLIENT SWEEP WAS HERE and went with the calendar. It
         ? 'No shows' + where + '. ' + (empty ? empty.textContent : '')
         : n + (n === 1 ? ' show' : ' shows') + where + '.';
     }
-    ${/* Same filter, same click, both views. The map is the SECOND view of the
-          same list and moves with it; a map still showing Syracuse while the
-          list below had been narrowed to Rochester would be worse than no map.
-          It was the third of three until the calendar came off, and this loop
-          is unchanged by that: the two .cal- loops that sat above it were
-          deleted whole rather than edited, so nothing here silently stopped
-          driving something. Faded, not removed, so the geography stays put;
-          see the .map-t.is-off rules and the note beside them. */ ""}
-    document.querySelectorAll('.map-t').forEach(function(t){
-      t.classList.toggle('is-off', region !== 'all' && t.dataset.region !== region);
-    });
-    ${/* The key is the narrow layout's half of the same mark, so it fades with
-          it. Without this line a phone filtered to Rochester would show a faded
-          dot with a full-strength name beside it saying the same town is on. */ ""}
-    document.querySelectorAll('.map-key li').forEach(function(t){
-      t.classList.toggle('is-off', region !== 'all' && t.dataset.region !== region);
-    });
   }
   document.querySelectorAll('.chip.filt').forEach(function(b){
     b.addEventListener('click', function(){
@@ -1678,15 +1085,6 @@ ${/* THE CALENDAR'S OWN CLIENT SWEEP WAS HERE and went with the calendar. It
      one page is how two controls end up disagreeing about what is shown. So
      Batavia selects Rochester and the chip updates to match: the control that
      moved is visibly the one you already had. */
-  document.querySelectorAll('.map-go').forEach(function(b){
-    b.addEventListener('click', function(){
-      var r = b.dataset.region || 'all';
-      var chip = document.querySelector('.chip.filt[data-region="' + r + '"]');
-      if (chip) chip.click(); else apply(r);
-      var list = document.getElementById('list');
-      if (list) list.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
-    });
-  });
   /* THE FLYER OPENED IN A NEW TAB AND NOW OPENS IN PLACE, at the owner's
      request. A flyer is the densest thing on a show listing -- date, hours,
      admission, table price, the promoter's phone number -- and sending somebody

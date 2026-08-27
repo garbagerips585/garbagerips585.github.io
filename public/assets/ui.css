@@ -1368,8 +1368,10 @@ footer .soc svg{fill:var(--chrome-ink)}
   .tool:hover{transform:none!important}
 }
 @media(min-width:720px){
-  .show{grid-template-columns:auto 1fr}
+  .show{grid-template-columns:auto 1fr;max-width:980px}
   .show:has(.show-flyer){grid-template-columns:auto 1fr 220px}
+  .show-logo{width:80px;height:80px}
+  .show-logo img{max-width:80px;max-height:80px}
 }
 @media(min-width:720px){
   .fk-vs{grid-template-columns:1fr 1fr}
