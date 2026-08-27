@@ -721,6 +721,13 @@ const cards = shops
              so three shops whose playNote says "check the calendar" had that calendar
              sitting in the data with no link on the page. It renders now. */ ""}
           ${s.eventsUrl && s.eventsUrl !== url ? `<a class="shop-link" href="${esc(s.eventsUrl)}" rel="noopener" target="_blank" aria-label="Events calendar for ${esc(s.name)}, opens on ${esc(hostOf(s.eventsUrl))}">Events calendar <span aria-hidden="true">&rarr;</span></a>` : ""}
+          ${/* A SINGLES STOREFRONT IS A DIFFERENT SHOP AND IS WORTH ITS OWN LINK.
+             Two of the six run one on a separate subdomain, and it answers the
+             question the main site cannot: which Pokemon singles are actually in
+             the case, priced, before you make the drive. Millennium named theirs
+             in their reply; Legacy's was already recorded in this file's readme
+             and had nowhere to go. */ ""}
+          ${s.singlesUrl ? `<a class="shop-link" href="${esc(s.singlesUrl)}" rel="noopener" target="_blank" aria-label="Pokemon singles store for ${esc(s.name)}, opens on ${esc(hostOf(s.singlesUrl))}">Singles store <span aria-hidden="true">&rarr;</span></a>` : ""}
           ${/* SOCIALS, ADDED WHEN THE FIRST SHOP ANSWERED. The outreach email asks for
              "website or socials" and there was nowhere to put the answer, which is the
              kind of gap you only find by actually asking somebody. These pass this

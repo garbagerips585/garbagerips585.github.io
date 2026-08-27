@@ -141,10 +141,14 @@
     "Organized Play"
    ],
    "plays": [
-    "Sanctioned Play! Pokemon TCG league"
+    "League nights, Mondays at 6pm",
+    "Trade days, about once a quarter",
+    "Prerelease events for new sets"
    ],
-   "playWarn": "Their official Play! Pokemon league page currently reads Inactive with no sessions scheduled, while other listings still describe a Monday league night. Call them before you go.",
+   "playNote": "Straight from the store, by email on August 27, 2026: league nights every Monday at 6pm, and trade days roughly once a quarter with no fixed schedule. Their Delta Reign prerelease is penciled in for October 25 and is not locked yet; it goes on their own calendar once it is. Their Play! Pokemon league page still reads Inactive, which is their listing being stale rather than the league being off.",
    "leagueUrl": "https://www.pokemon.com/us/play-pokemon/pokemon-events/leagues/3793208/",
+   "eventsUrl": "https://shop.millenniumgames.com/pages/calendar",
+   "singlesUrl": "https://singles.millenniumgames.com",
    "visited": false,
    "at": [
     43.08433,
@@ -199,6 +203,7 @@
    ],
    "playNote": "The Monday casual play, the release events and the learn to play sessions come from the store directly, by email on August 27, 2026. The Tuesday league is from their own event pages: $5 to enter and it comes back as store credit, with a Pokemon prize pack on entry. Their calendar only publishes about two weeks ahead, so it shows one Tuesday at a time rather than a weekly series.",
    "eventsUrl": "https://legacygamestore.com/events/",
+   "singlesUrl": "https://singles.legacygamestore.com",
    "instagram": "thelegacygamestore",
    "facebook": "legacygamestore",
    "youtube": "legacygamestore",
