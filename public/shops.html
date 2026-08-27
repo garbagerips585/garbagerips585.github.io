@@ -84,7 +84,7 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/assets/ui.css?v=7b2fa7ef">
+<link rel="stylesheet" href="/assets/ui.css?v=026292bb">
 <!-- NO packs.css: 0 of its 98 selectors match anything on this page, verified in a
      browser after JS. videos.html keeps it (11 classes) and every rip page needs it.
      The five pages that slice this head already drop it via dropUnusedPacksCSS. -->
@@ -644,10 +644,10 @@ border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s6);m
         <div class="shop-head">
           
           
-          <span class="shop-logo"><picture>
+          <button type="button" class="shop-logo" aria-label="Enlarge the LingSter Games logo" data-imglb="/assets/shops/lingster-games-lg.webp" data-imglb-avif="/assets/shops/lingster-games-lg.avif" data-imglb-alt="LingSter Games logo"><picture>
             <source type="image/avif" srcset="/assets/shops/lingster-games-200.avif 200w, /assets/shops/lingster-games-400.avif 400w" sizes="56px">
             <img src="/assets/shops/lingster-games-200.webp" alt="LingSter Games logo" width="200" height="196" loading="lazy" decoding="async" srcset="/assets/shops/lingster-games-200.webp 200w, /assets/shops/lingster-games-400.webp 400w" sizes="56px">
-          </picture></span>
+          </picture></button>
           <h2>LingSter Games</h2>
           
         </div>
@@ -892,6 +892,10 @@ border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s6);m
       channel</a>. It opens your own mail app, so the logo goes on as an attachment like any other email.</p>
   </div>
 </main>
+<div class="img-lb" id="imgLb" role="dialog" aria-modal="true" aria-label="Shop logo" hidden>
+  <button type="button" class="img-lb-x" aria-label="Close">&times;</button>
+  <picture><source id="imgLbAvif" type="image/avif" srcset=""><img src="" alt=""></picture>
+</div>
 <footer>
   <div class="wrap">
         <nav class="foot-nav" aria-label="Footer">
@@ -1003,6 +1007,66 @@ border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s6);m
   </div>
 </footer>
 
+<script>
+(function(){
+
+  var lb = document.getElementById('imgLb');
+  var lbImg = lb && lb.querySelector('img');
+  var lbAvif = lb && lb.querySelector('#imgLbAvif');
+  var lbClose = lb && lb.querySelector('.img-lb-x');
+  var lbOpener = null;
+  function closeLb(){
+    if (!lb) return;
+    lb.hidden = true;
+    if (lbAvif) lbAvif.srcset = '';
+    if (lbImg) { lbImg.removeAttribute('src'); lbImg.alt = ''; }
+    document.body.style.overflow = '';
+    var main = document.getElementById('main');
+    if (main) main.inert = false;
+    lb.setAttribute('aria-label', "Shop logo");
+    if (lbOpener) { lbOpener.focus(); lbOpener = null; }
+  }
+  document.querySelectorAll('[data-imglb]').forEach(function(b){
+    b.addEventListener('click', function(){
+      if (!lb) return;
+      lbOpener = b;
+      // THE SOURCE FIRST, THEN THE IMG, and the order is the whole trick. A
+      // <picture> resolves when the img gets its src: if the source's srcset is
+      // still empty at that moment the browser picks the WebP or JPEG and
+      // commits to it, and the AVIF never loads however correct the markup
+      // looks afterwards. packplayer.js records the same failure on the
+      // carousel slides.
+      if (lbAvif) lbAvif.srcset = b.dataset.imglbAvif || '';
+      lbImg.src = b.dataset.imglb;
+      lbImg.alt = b.dataset.imglbAlt || '';
+      lb.hidden = false;
+      document.body.style.overflow = 'hidden';
+      // The dialog holds exactly ONE focusable node, so without this a single
+      // Tab leaves it and lands in the footer, on links the reader cannot see
+      // behind a 94% opaque overlay. Shift+Tab is worse: it walks back up the
+      // whole page. inert also keeps the background out of the accessibility
+      // tree for the browsers that honour it; the Tab guard below covers the
+      // ones that do not.
+      var main = document.getElementById('main');
+      if (main) main.inert = true;
+      if (b.dataset.imglbAlt) lb.setAttribute('aria-label', b.dataset.imglbAlt);
+      lbClose.focus();
+    });
+  });
+  if (lb) {
+    lbClose.addEventListener('click', closeLb);
+    lb.addEventListener('click', function(e){ if (e.target === lb) closeLb(); });
+    document.addEventListener('keydown', function(e){
+      if (lb.hidden) return;
+      if (e.key === 'Escape') { closeLb(); return; }
+      // One focusable node in here, so the honest trap is to refuse Tab outright
+      // and keep focus on the close button rather than cycle a list of one.
+      if (e.key === 'Tab') { e.preventDefault(); lbClose.focus(); }
+    });
+  }
+
+})();
+</script>
 <script src="/assets/app.js?v=0ecfb48a" defer></script>
 </body>
 </html>

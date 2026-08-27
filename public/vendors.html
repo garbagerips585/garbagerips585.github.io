@@ -23,7 +23,7 @@
 <meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=037cc7e7">
-<link rel="stylesheet" href="/assets/ui.css?v=7b2fa7ef">
+<link rel="stylesheet" href="/assets/ui.css?v=026292bb">
 <style>.loc-more{margin-top:var(--s5);padding-top:var(--s4);border-top:1px solid var(--hair)}
 .loc-more-h{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
   color:var(--ink-soft);margin-bottom:var(--s2)}
@@ -176,10 +176,10 @@
     <ul class="loc-list">
       <li class="loc">
         <div class="loc-h">
-          <span class="loc-logo"><picture>
+          <button type="button" class="loc-logo" aria-label="Enlarge the TOAK Pulls logo" data-imglb="/assets/creators/toak-pulls-lg.webp" data-imglb-avif="/assets/creators/toak-pulls-lg.avif" data-imglb-alt="TOAK Pulls logo"><picture>
             <source type="image/avif" srcset="/assets/creators/toak-pulls-200.avif 200w, /assets/creators/toak-pulls-400.avif 400w" sizes="(min-width:900px) 168px, 96px">
             <img src="/assets/creators/toak-pulls-200.webp" alt="TOAK Pulls logo" width="200" height="248" loading="lazy" decoding="async" srcset="/assets/creators/toak-pulls-200.webp 200w, /assets/creators/toak-pulls-400.webp 400w" sizes="(min-width:900px) 168px, 96px">
-          </picture></span>
+          </picture></button>
           <h2>TOAK Pulls</h2>
           
         </div>
@@ -258,6 +258,10 @@
 </section>
 
 </main>
+<div class="img-lb" id="imgLb" role="dialog" aria-modal="true" aria-label="Logo" hidden>
+  <button type="button" class="img-lb-x" aria-label="Close">&times;</button>
+  <picture><source id="imgLbAvif" type="image/avif" srcset=""><img src="" alt=""></picture>
+</div>
 <footer>
   <div class="wrap">
     <nav class="foot-nav" aria-label="Footer">
@@ -369,6 +373,66 @@
     Local listings. No paid placements.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
+<script>
+(function(){
+
+  var lb = document.getElementById('imgLb');
+  var lbImg = lb && lb.querySelector('img');
+  var lbAvif = lb && lb.querySelector('#imgLbAvif');
+  var lbClose = lb && lb.querySelector('.img-lb-x');
+  var lbOpener = null;
+  function closeLb(){
+    if (!lb) return;
+    lb.hidden = true;
+    if (lbAvif) lbAvif.srcset = '';
+    if (lbImg) { lbImg.removeAttribute('src'); lbImg.alt = ''; }
+    document.body.style.overflow = '';
+    var main = document.getElementById('main');
+    if (main) main.inert = false;
+    lb.setAttribute('aria-label', "Logo");
+    if (lbOpener) { lbOpener.focus(); lbOpener = null; }
+  }
+  document.querySelectorAll('[data-imglb]').forEach(function(b){
+    b.addEventListener('click', function(){
+      if (!lb) return;
+      lbOpener = b;
+      // THE SOURCE FIRST, THEN THE IMG, and the order is the whole trick. A
+      // <picture> resolves when the img gets its src: if the source's srcset is
+      // still empty at that moment the browser picks the WebP or JPEG and
+      // commits to it, and the AVIF never loads however correct the markup
+      // looks afterwards. packplayer.js records the same failure on the
+      // carousel slides.
+      if (lbAvif) lbAvif.srcset = b.dataset.imglbAvif || '';
+      lbImg.src = b.dataset.imglb;
+      lbImg.alt = b.dataset.imglbAlt || '';
+      lb.hidden = false;
+      document.body.style.overflow = 'hidden';
+      // The dialog holds exactly ONE focusable node, so without this a single
+      // Tab leaves it and lands in the footer, on links the reader cannot see
+      // behind a 94% opaque overlay. Shift+Tab is worse: it walks back up the
+      // whole page. inert also keeps the background out of the accessibility
+      // tree for the browsers that honour it; the Tab guard below covers the
+      // ones that do not.
+      var main = document.getElementById('main');
+      if (main) main.inert = true;
+      if (b.dataset.imglbAlt) lb.setAttribute('aria-label', b.dataset.imglbAlt);
+      lbClose.focus();
+    });
+  });
+  if (lb) {
+    lbClose.addEventListener('click', closeLb);
+    lb.addEventListener('click', function(e){ if (e.target === lb) closeLb(); });
+    document.addEventListener('keydown', function(e){
+      if (lb.hidden) return;
+      if (e.key === 'Escape') { closeLb(); return; }
+      // One focusable node in here, so the honest trap is to refuse Tab outright
+      // and keep focus on the close button rather than cycle a list of one.
+      if (e.key === 'Tab') { e.preventDefault(); lbClose.focus(); }
+    });
+  }
+
+})();
+</script>
 <script src="/assets/app.js?v=0ecfb48a" defer></script>
 </body>
 </html>

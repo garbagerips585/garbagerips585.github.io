@@ -48,6 +48,10 @@ import { localDay } from "../shared/today.mjs";
    import: putting its NAME inside the <script> template at the foot of this
    file shipped a call to a function no page defines. See the note there. */
 import { CLIENT_DAY_JS } from "../shared/drops.mjs";
+// ONE LIGHTBOX FOR FOUR PAGES. This overlay started here, for the flyers; the
+// logos on /shops.html, /vendors.html and /creators.html now open in the same
+// one, so it lives in shared/ rather than in three more copies of itself.
+import { imgLbMarkup, imgLbJs } from "../shared/lightbox.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const data = JSON.parse(await readFile(join(ROOT, "data/shows.json"), "utf8"));
 
@@ -460,10 +464,27 @@ const logoFor = (s) => {
     return "";
   }
   const h = Math.round(200 * (s.logoH || 1) / (s.logoW || 1));
-  return `<span class="show-logo"><picture>
+  /* CLICKABLE ONLY WHERE THERE IS SOMETHING BIGGER TO OPEN. build-show-logos.py
+     writes a -lg rendition at min(800, master) and writes NOTHING under a 500px
+     master, because a 400px logo reopened at 400px is a control that appears to
+     do nothing. The capability is read off the disk rather than off a flag in
+     the data somebody has to remember to set. The AVIF is separately optional:
+     the same script drops one that came out bigger than its WebP, and Cold
+     Front's did, so this checks for the two files independently. */
+  const lgW = `assets/shows/${s.logo}-lg.webp`;
+  const lgA = `assets/shows/${s.logo}-lg.avif`;
+  const big = existsSync(join(ROOT, "public", lgW));
+  const bigAvif = big && existsSync(join(ROOT, "public", lgA));
+  const who = s.organiser || s.name;
+  const open = big
+    ? `<button type="button" class="show-logo" aria-label="Enlarge the ${esc(who)} logo" data-imglb="/${lgW}"${
+        bigAvif ? ` data-imglb-avif="/${lgA}"` : ""
+      } data-imglb-alt="${esc(who)} logo">`
+    : `<span class="show-logo">`;
+  return `${open}<picture>
             <source type="image/avif" srcset="/assets/shows/${esc(s.logo)}-200.avif 200w, /assets/shows/${esc(s.logo)}-400.avif 400w" sizes="(min-width:720px) 80px, 56px">
             <img src="/assets/shows/${esc(s.logo)}-200.webp" alt="${esc(s.name)} logo" width="200" height="${h}" loading="lazy" decoding="async" srcset="/assets/shows/${esc(s.logo)}-200.webp 200w, /assets/shows/${esc(s.logo)}-400.webp 400w" sizes="(min-width:720px) 80px, 56px">
-          </picture></span>`;
+          </picture>${big ? "</button>" : "</span>"}`;
 };
 
 // ------------------------------------------------------------------ structured
@@ -748,7 +769,7 @@ function showCard(s) {
             ${s.organiserUrl && s.organiserUrl !== s.url ? `<a href="${esc(s.organiserUrl)}" rel="noopener" target="_blank" aria-label="${esc(s.organiser && s.organiser !== s.name ? `${s.organiser}, who run ${showRef(s)}` : `The organizer of ${showRef(s)}`)}, opens on ${esc(hostOf(s.organiserUrl))}">${esc(s.organiser || "Organizer")}</a>` : ""}
           </p>` : ""}
         </div>
-        ${flyer ? `<button type="button" class="show-flyer" data-flyer="${esc(flyer.full)}" data-flyer-avif="${esc(flyer.fullAvif)}" data-flyer-alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}">
+        ${flyer ? `<button type="button" class="show-flyer" data-imglb="${esc(flyer.full)}" data-imglb-avif="${esc(flyer.fullAvif)}" data-imglb-alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}">
           <picture>${flyer.avif ? `<source type="image/avif" srcset="${esc(flyer.avif)}">` : ""}
           <img src="${esc(flyer.thumb)}" alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}"${flyer.w && flyer.h ? ` width="${flyer.w}" height="${flyer.h}"` : ""} loading="lazy" decoding="async"></picture>
           <span class="show-flyer-hint">Tap to enlarge</span>
@@ -961,10 +982,7 @@ ${(data.watchFor || []).length ? `
 </section>
 
 </main>
-<div class="flyer-lb" id="flyerLb" role="dialog" aria-modal="true" aria-label="Show flyer" hidden>
-  <button type="button" class="flyer-lb-x" aria-label="Close the flyer">&times;</button>
-  <picture><source id="flyerLbAvif" type="image/avif" srcset=""><img src="" alt=""></picture>
-</div>
+${imgLbMarkup("Show flyer or logo")}
 ${footer("Show listings are collected by hand and change without notice. Check with the organizer before traveling.")}
 <script>
 (function(){
@@ -1134,67 +1152,14 @@ ${/* THE CALENDAR'S OWN CLIENT SWEEP WAS HERE and went with the calendar. It
      request. A flyer is the densest thing on a show listing -- date, hours,
      admission, table price, the promoter's phone number -- and sending somebody
      to a raw .jpg on its own tab to read it means they lose the calendar and
-     have to come back. It is one image, so this is a dialog and not a gallery.
-     ONE NODE FOR THE WHOLE PAGE, filled on click. Sixty listings each carrying
-     their own hidden overlay would be sixty copies of the same markup for a
-     thing at most one of them ever shows.
-     KEYBOARD AND SCREEN READER BEHAVIOUR IS THE PART WORTH GETTING RIGHT:
-     role=dialog with aria-modal, focus moves to the close button on open and
-     returns to the flyer that opened it on close, Escape closes, and a click on
-     the backdrop closes. Without the focus return, closing the overlay drops a
-     keyboard user back at the top of the document. */
-  var lb = document.getElementById('flyerLb');
-  var lbImg = lb && lb.querySelector('img');
-  var lbAvif = lb && lb.querySelector('#flyerLbAvif');
-  var lbClose = lb && lb.querySelector('.flyer-lb-x');
-  var lbOpener = null;
-  function closeLb(){
-    if (!lb) return;
-    lb.hidden = true;
-    if (lbAvif) lbAvif.srcset = '';
-    if (lbImg) { lbImg.removeAttribute('src'); lbImg.alt = ''; }
-    document.body.style.overflow = '';
-    var main = document.getElementById('main');
-    if (main) main.inert = false;
-    lb.setAttribute('aria-label', 'Show flyer');
-    if (lbOpener) { lbOpener.focus(); lbOpener = null; }
-  }
-  document.querySelectorAll('.show-flyer').forEach(function(b){
-    b.addEventListener('click', function(){
-      if (!lb) return;
-      lbOpener = b;
-      // THE SOURCE FIRST, THEN THE IMG, and the order is the whole trick. A
-      // <picture> resolves when the img gets its src: if the source's srcset is
-      // still empty at that moment the browser picks the JPEG and commits to it,
-      // and the AVIF never loads however correct the markup looks afterwards.
-      // packplayer.js records the same failure on the carousel slides.
-      if (lbAvif) lbAvif.srcset = b.dataset.flyerAvif || '';
-      lbImg.src = b.dataset.flyer;
-      lbImg.alt = b.dataset.flyerAlt || '';
-      lb.hidden = false;
-      document.body.style.overflow = 'hidden';
-      // The dialog holds exactly ONE focusable node, so without this a single Tab
-      // leaves it and lands in the footer, on links the reader cannot see behind a
-      // 94% opaque overlay. Shift+Tab is worse: it walks back up all 61 listings.
-      // inert also keeps the background out of the accessibility tree for the
-      // browsers that honour it; the Tab guard below covers the ones that do not.
-      var main = document.getElementById('main');
-      if (main) main.inert = true;
-      if (b.dataset.flyerAlt) lb.setAttribute('aria-label', b.dataset.flyerAlt);
-      lbClose.focus();
-    });
-  });
-  if (lb) {
-    lbClose.addEventListener('click', closeLb);
-    lb.addEventListener('click', function(e){ if (e.target === lb) closeLb(); });
-    document.addEventListener('keydown', function(e){
-      if (lb.hidden) return;
-      if (e.key === 'Escape') { closeLb(); return; }
-      // One focusable node in here, so the honest trap is to refuse Tab outright
-      // and keep focus on the close button rather than cycle a list of one.
-      if (e.key === 'Tab') { e.preventDefault(); lbClose.focus(); }
-    });
-  }
+     have to come back.
+     THE HANDLER MOVED TO shared/lightbox.mjs ON 27 AUGUST 2026 and did not
+     change on the way: same single node, same focus return, same Escape, same
+     refuse-Tab trap. It moved because the shop, vendor and creator logos open
+     in it now too, and four copies of a focus trap diverge. The organiser
+     logos on THIS page are openers as well, which is why the dialog's resting
+     label says flyer or logo rather than flyer. */
+${imgLbJs("Show flyer or logo")}
   apply('all');
 })();
 </script>

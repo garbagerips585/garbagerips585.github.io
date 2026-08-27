@@ -11,6 +11,8 @@
 // businesses and we are not their authority. ItemList is what this actually is.
 
 import { readFile, writeFile } from "node:fs/promises";
+// A logo is only an opener where a -lg rendition is actually on disk.
+import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE, mailtoHref} from "../shared/site.mjs";
@@ -22,6 +24,9 @@ import { socialLinks } from "../shared/socials.mjs";
 // home page's. See shared/chrome.mjs beside the two exports.
 import { APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/chrome.mjs";
 import { esc, longDate, plateRule, PLATE_CSS } from "../shared/format.mjs";
+// The overlay the show flyers open in. Shared rather than copied: see the note
+// at the top of shared/lightbox.mjs.
+import { imgLbMarkup, imgLbJs } from "../shared/lightbox.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -643,12 +648,27 @@ const cards = shops
                 correct in the source and shipped WebP to everybody. Checked by
                 reading the function rather than by assuming the name meant
                 what it says. */ ""}
-          ${s.logo ? `<span class="shop-logo"><picture>
+          ${s.logo ? `${
+            /* THE LOGO OPENS LARGER ON A CLICK where build-brand-logos.py wrote
+               a -lg rendition, which it does at min(800, master) and declines to
+               do at all under a 500px master. Reading the disk rather than a
+               flag in the data means a shop that sends a small logo simply does
+               not get a control that appears to do nothing. The AVIF is checked
+               separately because that script drops one that lost to its WebP. */ ""
+          }${(() => {
+            const lgW = `assets/shops/${s.logo}-lg.webp`;
+            const lgA = `assets/shops/${s.logo}-lg.avif`;
+            if (!existsSync(join(ROOT, "public", lgW))) return `<span class="shop-logo">`;
+            const a = existsSync(join(ROOT, "public", lgA));
+            return `<button type="button" class="shop-logo" aria-label="Enlarge the ${esc(s.name)} logo" data-imglb="/${lgW}"${
+              a ? ` data-imglb-avif="/${lgA}"` : ""
+            } data-imglb-alt="${esc(s.name)} logo">`;
+          })()}<picture>
             <source type="image/avif" srcset="/assets/shops/${esc(s.logo)}-200.avif 200w, /assets/shops/${esc(s.logo)}-400.avif 400w" sizes="56px">
             <img src="/assets/shops/${esc(s.logo)}-200.webp" alt="${esc(s.name)} logo" width="200" height="${
               Math.round(200 * (s.logoH || 1) / (s.logoW || 1))
             }" loading="lazy" decoding="async" srcset="/assets/shops/${esc(s.logo)}-200.webp 200w, /assets/shops/${esc(s.logo)}-400.webp 400w" sizes="56px">
-          </picture></span>` : ""}
+          </picture>${existsSync(join(ROOT, "public", `assets/shops/${s.logo}-lg.webp`)) ? "</button>" : "</span>"}` : ""}
           <h2>${esc(s.name)}</h2>
           ${s.visited ? `<span class="shop-flag">Filmed here</span>` : ""}
         </div>
@@ -1182,8 +1202,14 @@ ${sprite}
 ${bar}
 ${menuPanel}
 ${body}
+${imgLbMarkup("Shop logo")}
 ${footer}
 
+<script>
+(function(){
+${imgLbJs("Shop logo")}
+})();
+</script>
 ${APP_JS}
 </body>
 </html>

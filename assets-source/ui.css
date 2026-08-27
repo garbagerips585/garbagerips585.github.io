@@ -3880,6 +3880,23 @@ footer .soc svg{fill:var(--chrome-ink)}
    the same reason it is on .loc-h: a wordmark and a heading have different
    baselines and centring is what makes the pair look deliberate. */
 .show-logo{flex:0 0 auto;width:56px;height:56px;display:flex;align-items:center;justify-content:center}
+/* THE LOGO IS A <button> WHEN WE HOLD SOMETHING BIGGER TO SHOW, and a <span>
+   when we do not, so this has to undo the UA button styling without touching
+   the box above. Same three lines on .shop-logo and .loc-logo, deliberately
+   repeated rather than shared: a single .imglb-open class would have to win or
+   lose against three different existing rules depending on where it landed in
+   this file, and that is the exact cascade accident .show-flyer already had.
+   cursor:zoom-in IS THE AFFORDANCE. There is no hint text under these the way
+   there is under a flyer: the logos sit in a heading row beside a name, and a
+   line of "tap to enlarge" under each one would be louder than the name. */
+button.show-logo,button.shop-logo,button.loc-logo{appearance:none;-webkit-appearance:none;
+  font:inherit;color:inherit;padding:0;cursor:zoom-in}
+button.show-logo:focus-visible,button.shop-logo:focus-visible,button.loc-logo:focus-visible{
+  outline:2px solid var(--ink);outline-offset:2px}
+/* .loc-logo and .shop-logo already draw a hair border; .show-logo does not, so
+   its feedback goes on the image it contains. */
+button.shop-logo:hover,button.loc-logo:hover{border-color:var(--ink)}
+button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}
 .show-logo img{max-width:56px;max-height:56px;width:auto;height:auto;border-radius:4px}
 .show-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .show-tags .chip{flex:0 1 auto;white-space:normal;height:auto;min-height:0;padding-top:6px;padding-bottom:6px}
@@ -3910,19 +3927,25 @@ footer .soc svg{fill:var(--chrome-ink)}
 .show-flyer img{display:block;width:100%;height:auto}
 .show-flyer-hint{display:block;margin-top:6px;font:400 var(--t-micro)/1.4 var(--body);color:var(--ink-2)}
 .show-flyer:hover,.show-flyer:focus-visible{border-color:var(--ink)}
-/* The overlay is near-opaque rather than a light scrim: a flyer is a dense,
-   bright image and anything showing through behind it competes with the thing
-   the reader just asked to look at. */
-.flyer-lb{position:fixed;inset:0;z-index:200;background:rgba(9,18,13,.94);
+/* THE OVERLAY IS SHARED BY FOUR PAGES AND IS NO LONGER ONLY FOR FLYERS, which
+   is why it is `img-lb` and not `flyer-lb`. Show logos, shop logos, vendor and
+   creator logos all open in this same dialog now, at the owner's request on 27
+   August 2026. Markup and behaviour live in shared/lightbox.mjs; only the look
+   is here. `lb` on its own was not available: it is already three components on
+   this site and has leaked a style once.
+   Near-opaque rather than a light scrim: a flyer is a dense, bright image and
+   anything showing through behind it competes with the thing the reader just
+   asked to look at. */
+.img-lb{position:fixed;inset:0;z-index:200;background:rgba(9,18,13,.94);
   display:flex;align-items:center;justify-content:center;padding:var(--s4)}
-.flyer-lb[hidden]{display:none}
-.flyer-lb img{max-width:min(100%,900px);max-height:92vh;width:auto;height:auto;border-radius:var(--r)}
+.img-lb[hidden]{display:none}
+.img-lb img{max-width:min(100%,900px);max-height:92vh;width:auto;height:auto;border-radius:var(--r)}
 /* 48px and top-right, clear of the image, because on a phone the image fills
    almost the whole viewport and a control sitting on top of it is a control you
    press by accident while pinching. */
-.flyer-lb-x{position:absolute;top:var(--s3);right:var(--s3);width:48px;height:48px;border-radius:50%;
+.img-lb-x{position:absolute;top:var(--s3);right:var(--s3);width:48px;height:48px;border-radius:50%;
   border:1px solid var(--hair);background:var(--card);color:var(--ink);font-size:28px;line-height:1;cursor:pointer}
-.flyer-lb-x:hover,.flyer-lb-x:focus-visible{border-color:var(--ink)}
+.img-lb-x:hover,.img-lb-x:focus-visible{border-color:var(--ink)}
 .chip.pk{background:var(--gold);border-color:var(--keyline);color:var(--on-accent)}
 .chip.soon{background:var(--ketchup);border-color:var(--keyline);color:var(--on-alert)}
 .show-blurb{font-size:var(--t-sm);color:var(--ink-2);margin-top:10px;max-width:46em}

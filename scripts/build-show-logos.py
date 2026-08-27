@@ -52,6 +52,18 @@ FLYER_AVIF_Q = 60
 # 400w is only ever picked past DPR 3.57. Both are emitted because the page's
 # <picture> declares both and a candidate nobody takes costs only its markup.
 WIDTHS = (200, 400)
+
+# AND ONE BIG ONE FOR THE LIGHTBOX, added 27 August 2026 when the owner asked for
+# every logo on the site to open larger on a click, the way the flyers below
+# already do. The reasoning, the 800 and the 500 floor are all written out once
+# in build-brand-logos.py, which does the same job for the shop and creator
+# logos; this is the same ladder on the same kind of file and the two must not
+# drift. NEVER UPSCALES: the width is min(800, whatever this master really is),
+# and Cold Front's trims to 880, which is where the 800 came from.
+LARGE_W = 800
+LARGE_MIN = 500
+# Looked AT rather than glanced at, so it does not run at the 56px box's q50.
+LARGE_Q = 72
 # 50 AND NOT 82, AND THE ORDER OF THE TWO FORMATS IS WHY. The page puts AVIF
 # first, so a quality where AVIF is the LARGER file serves the worse one to
 # every modern browser. On art this dense, 200w: avif 10,706 / webp 12,578 at
@@ -247,7 +259,10 @@ def main() -> int:
             print(f"  preview: {p}")
             continue
 
-        for tw in WIDTHS:
+        ladder = [(tw, f"-{tw}", QUALITY) for tw in WIDTHS]
+        if w >= LARGE_MIN:
+            ladder.append((min(LARGE_W, w), "-lg", LARGE_Q))
+        for tw, tag, q in ladder:
             th = max(1, round(tw * h / w))
             # A PLAIN RESIZE, NOT A PREMULTIPLIED ONE, and that was measured
             # rather than assumed. Transparent pixels here still carry the
@@ -258,9 +273,23 @@ def main() -> int:
             # small alpha in uint8 and loses more than the bleed costs.
             small = img.resize((tw, th), Image.LANCZOS)
             for ext in ("avif", "webp"):
-                dest = OUT / f"{m.stem}-{tw}.{ext}"
-                small.save(dest, quality=QUALITY)
-                print(f"  {dest.relative_to(ROOT)}  {dest.stat().st_size:,} bytes")
+                dest = OUT / f"{m.stem}{tag}.{ext}"
+                small.save(dest, quality=q)
+                print(f"  {dest.relative_to(ROOT)}  {tw}x{th}  {dest.stat().st_size:,} bytes")
+            # THE SAME GUARD THE FLYERS BELOW HAVE CARRIED SINCE DAY ONE, and
+            # this ladder went without it until 27 August 2026 because none of
+            # its renditions had ever lost. The -lg one does: Cold Front's mark
+            # is 103,889 bytes as AVIF against 97,250 as WebP at 800px. A
+            # <picture> takes the first source it can decode, so shipping that
+            # is not a harmless fallback, it is 6.6KB handed to every browser
+            # that supports AVIF, on the one image here somebody opened on
+            # purpose.
+            avif, webp = OUT / f"{m.stem}{tag}.avif", OUT / f"{m.stem}{tag}.webp"
+            ab, wb = avif.stat().st_size, webp.stat().st_size
+            if ab >= wb:
+                avif.unlink()
+                print(f"    dropped {avif.name}: {ab:,} bytes against the webp's "
+                      f"{wb:,}, so this one is served as webp only")
 
     if not preview:
         flyers()

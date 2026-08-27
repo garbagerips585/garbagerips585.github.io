@@ -50,10 +50,15 @@
 // yet, and an empty-ish page with no picture is better than a padded one.
 
 import { readFile, writeFile } from "node:fs/promises";
+// A logo is only an opener where a -lg rendition is actually on disk.
+import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE, CONTACT_EMAIL, mailtoHref} from "../shared/site.mjs";
 import { SOCIALS, GLYPH } from "../shared/socials.mjs";
+// The overlay the show flyers open in. Shared rather than copied: see the note
+// at the top of shared/lightbox.mjs.
+import { imgLbMarkup, imgLbJs } from "../shared/lightbox.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -233,13 +238,33 @@ const NO_WRITE_UP =
    than as a stale attribute. The two ends of the clamp are chosen so the 200w
    file covers the floor at DPR 2 and the 400w covers the ceiling; the whole
    sum is written out beside the rule in ui.css. CHANGE ONE AND CHANGE BOTH. */
+/* AND IT OPENS LARGER ON A CLICK, at the owner's request on 27 August 2026, in
+   the same overlay the show flyers use. build-brand-logos.py writes the -lg
+   rendition at min(800, master) and writes none at all under a 500px master, so
+   a logo becomes an opener only where there is genuinely more of it to see:
+   reopening a 400px file at 400px is a control that appears to do nothing. The
+   AVIF is checked separately, because that script drops one that came out bigger
+   than its WebP and Elliot's did exactly that. */
+const lgFor = (o) => {
+  const w = `assets/creators/${o.logo}-lg.webp`;
+  if (!existsSync(join(ROOT, "public", w))) return null;
+  const a = `assets/creators/${o.logo}-lg.avif`;
+  return { w: `/${w}`, a: existsSync(join(ROOT, "public", a)) ? `/${a}` : "" };
+};
 const logoFor = (o) => o.logo
-  ? `<span class="loc-logo"><picture>
+  ? `${(() => {
+      const lg = lgFor(o);
+      return lg
+        ? `<button type="button" class="loc-logo" aria-label="Enlarge the ${esc(o.name)} logo" data-imglb="${lg.w}"${
+            lg.a ? ` data-imglb-avif="${lg.a}"` : ""
+          } data-imglb-alt="${esc(o.name)} logo">`
+        : `<span class="loc-logo">`;
+    })()}<picture>
             <source type="image/avif" srcset="/assets/creators/${esc(o.logo)}-200.avif 200w, /assets/creators/${esc(o.logo)}-400.avif 400w" sizes="(min-width:900px) 168px, 96px">
             <img src="/assets/creators/${esc(o.logo)}-200.webp" alt="${esc(o.name)} logo" width="200" height="${
               Math.round(200 * (o.logoH || 1) / (o.logoW || 1))
             }" loading="lazy" decoding="async" srcset="/assets/creators/${esc(o.logo)}-200.webp 200w, /assets/creators/${esc(o.logo)}-400.webp 400w" sizes="(min-width:900px) 168px, 96px">
-          </picture></span>`
+          </picture>${lgFor(o) ? "</button>" : "</span>"}`
   : "";
 
 const card = (o, kind) => `      <li class="loc">
@@ -742,7 +767,13 @@ ${earlyNote(rows, kind)}`
 ${getListed(ask)}
 
 </main>
+${imgLbMarkup("Logo")}
 ${footer("Local listings. No paid placements.")}
+<script>
+(function(){
+${imgLbJs("Logo")}
+})();
+</script>
 ${APP_JS}
 </body>
 </html>

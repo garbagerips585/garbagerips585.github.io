@@ -51,6 +51,29 @@ WIDTHS = (200, 400)
 # kind: AVIF only beats WebP below about q55 on dense illustration.
 QUALITY = 50
 
+# AND ONE BIG ONE, FOR THE LIGHTBOX. The owner asked on 27 August 2026 for every
+# logo on the site to open larger on a click, the way the show flyers already do.
+# The 400w file could not do that job: .lb-shell paints up to 900 CSS px, so
+# opening the 400 would have blown it up 2.25x and shown somebody a blurrier
+# picture than the thumbnail they tapped. That is worse than no lightbox.
+#
+# 800 IS THE SMALLEST MASTER WE HOLD, ROUNDED DOWN. Cold Front's trims to 880
+# wide and is the floor of the five; picking anything above it would have meant
+# upscaling one logo to match the others, which is inventing detail rather than
+# revealing it. Every rendition here is min(800, whatever the master really is),
+# so this NEVER upscales.
+LARGE_W = 800
+# BELOW THIS, THERE IS NOTHING TO OPEN. A 400px master enlarged to 400px is a
+# click that appears to do nothing, which reads as a broken control. No -lg file
+# is written and the builders take that as "not clickable" -- the capability is
+# derived from what we actually hold, not from a flag somebody has to remember.
+LARGE_MIN = 500
+# HIGHER THAN QUALITY, AND FOR A REASON THAT IS NOT TASTE. q50 was chosen for a
+# 56px box where the whole image is 200px across and artifacts are physically
+# too small to resolve. This one is looked AT, filling most of a phone screen,
+# which is the one place on this site where compression is visible.
+LARGE_Q = 72
+
 
 def prepared(path: Path) -> Image.Image:
     """Load a master and trim the empty margin around the artwork.
@@ -79,9 +102,32 @@ def main() -> int:
         for m in masters:
             img = prepared(m)
             w, h = img.size
-            todo = [(tw, ext, out / f"{m.stem}-{tw}.{ext}")
+            todo = [(tw, ext, out / f"{m.stem}-{tw}.{ext}", QUALITY)
                     for tw in WIDTHS for ext in ("avif", "webp")]
-            if not force and all(d.exists() for _, _, d in todo):
+            # The lightbox rendition is named -lg rather than by its width,
+            # because its width is not fixed: it is min(800, this master), so
+            # naming it -800 would have been a lie on any master under that.
+            if w >= LARGE_MIN:
+                todo += [(min(LARGE_W, w), ext, out / f"{m.stem}-lg.{ext}", LARGE_Q)
+                         for ext in ("avif", "webp")]
+            # PER FILE, NOT PER MASTER, AND THAT DISTINCTION COST SOMETHING.
+            # The first version skipped a master only when EVERY rendition of it
+            # existed. Adding -lg to the ladder meant no master was complete any
+            # more, so a plain run re-encoded the 200s and 400s of two logos that
+            # had been sized by hand months earlier -- different bytes, and the
+            # guard below then deleted an AVIF the page links to unconditionally.
+            # A builder that adds a rendition must be able to add ONLY that one.
+            todo = [x for x in todo if force or not x[2].exists()]
+            # AND AN ABSENT AVIF BESIDE A PRESENT WEBP IS A DECISION, NOT A GAP.
+            # The guard at the bottom deletes an AVIF that came out bigger than
+            # its WebP. Without this line the next run sees the missing file,
+            # writes it again, and the guard deletes it again: work and a
+            # confusing "dropped" line on every run, for ever. Elliot's -lg does
+            # exactly that.
+            todo = [x for x in todo
+                    if force or x[1] != "avif"
+                    or not x[2].with_suffix(".webp").exists()]
+            if not todo:
                 skipped += 1
                 continue
 
@@ -92,14 +138,14 @@ def main() -> int:
             # Elliot's 1024x856 the first time round.
             print(f'  "logoW": {w}, "logoH": {h}')
 
-            for tw, ext, dest in todo:
+            for tw, ext, dest, q in todo:
                 th = max(1, round(tw * h / w))
                 # A plain resize, not a premultiplied one. The measurement
                 # behind that is in build-show-logos.py: against ground truth
                 # the plain resize is RMSE 1.29 and the premultiply round trip
                 # 4.78, because un-premultiplying divides by a small alpha in
                 # uint8 and loses more than the colour bleed costs.
-                img.resize((tw, th), Image.LANCZOS).save(dest, quality=QUALITY)
+                img.resize((tw, th), Image.LANCZOS).save(dest, quality=q)
                 print(f"  {dest.relative_to(ROOT)}  {tw}x{th}  {dest.stat().st_size:,} bytes")
                 wrote += 1
 
@@ -108,14 +154,19 @@ def main() -> int:
             # a guaranteed regression on every browser that supports it. Same
             # guard build-show-logos.py and build-logos.py carry, and it has
             # already fired once on a small flyer.
-            for tw in WIDTHS:
-                avif, webp = out / f"{m.stem}-{tw}.avif", out / f"{m.stem}-{tw}.webp"
+            # ONLY OVER WHAT THIS RUN WROTE. Pointed at every rendition it
+            # would happily delete a committed AVIF that predates the script and
+            # was fine, which is how adding a feature turns into a 404 on a
+            # <source> the builders emit without checking.
+            written = {d.stem.rsplit("-", 1)[1] for _, _, d, _ in todo}
+            for tag in written:
+                avif, webp = out / f"{m.stem}-{tag}.avif", out / f"{m.stem}-{tag}.webp"
                 if avif.exists() and webp.exists() and avif.stat().st_size >= webp.stat().st_size:
                     ab, wb = avif.stat().st_size, webp.stat().st_size
                     avif.unlink()
                     wrote -= 1
                     print(f"    dropped {avif.name}: {ab:,} bytes against the webp's "
-                          f"{wb:,}, so this width is served as webp only")
+                          f"{wb:,}, so this one is served as webp only")
 
     if skipped:
         print(f"{skipped} master(s) already built, left alone. --force to re-encode.")
