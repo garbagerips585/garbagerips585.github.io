@@ -1307,6 +1307,53 @@
       "flyer": "prime-time-2026-09-06.jpg",
       "flyerW": 310,
       "flyerH": 161
+    },
+    {
+      "id": "cny-collectors-expo-2026-09-19",
+      "name": "CNY Collector's Expo",
+      "date": "2026-09-19",
+      "start": "10:00",
+      "end": "15:30",
+      "venue": "TC3 Field House",
+      "address": "170 North St, Dryden, NY 13053",
+      "city": "Dryden",
+      "region": "syracuse",
+      "admission": "Free",
+      "tables": "150",
+      "tiers": [{"name": "General admission", "price": "Free", "from": "10:00"}, {"name": "Early bird", "price": "$5", "from": "09:00", "note": "9 to 10am"}],
+      "organiser": "Atlantic Card Promotions",
+      "organiserUrl": "https://www.atlanticcardpromotions.com",
+      "pokemon": false,
+      "pkmn": "some",
+      "pkmnWhy": "The flyer lists Pokemon second in its own category column, after Sports and before TCG, Comics, Modern and Vintage.",
+      "blurb": "150 tables in the TC3 field house, free to walk into from 10am, with a $5 early bird an hour before.",
+      "source": "a flyer sent to the channel on Discord, August 27, 2026",
+      "flyer": "cny-collectors-expo-2026-09-19.jpg",
+      "flyerW": 440,
+      "flyerH": 594
+    },
+    {
+      "id": "fall-fest-2026-09-26",
+      "name": "1st Annual Fall Fest",
+      "date": "2026-09-26",
+      "start": "10:00",
+      "end": "15:00",
+      "venue": "Elevate CNY Sports Complex",
+      "address": "4980 NY-233, Westmoreland, NY 13490",
+      "city": "Westmoreland",
+      "region": "syracuse",
+      "admission": "$2",
+      "tables": "100",
+      "tiers": [{"name": "General admission", "price": "$2", "from": "10:00"}, {"name": "Early admission", "price": "$10", "from": "09:00", "note": "9 to 10am"}],
+      "organiser": "Top Loader Productions",
+      "pokemon": false,
+      "pkmn": "some",
+      "pkmnWhy": "The flyer's category list names TCG rather than Pokemon by name, but its artwork leads with a Charizard ex and the promoter's logo is built around a Poke Ball.",
+      "blurb": "A first year show at the Elevate CNY sports complex, $2 in, with a $10 early admission an hour before. The flyer says 100 tables are expected rather than booked, and promises giveaways through the day.",
+      "source": "a flyer sent to the channel on Discord, August 27, 2026",
+      "flyer": "fall-fest-2026-09-26.jpg",
+      "flyerW": 440,
+      "flyerH": 665
     }
   ],
   "_towns": {
@@ -1369,6 +1416,14 @@
     "Cicero": [
       43.175624,
       -76.119368
+    ],
+    "Dryden": [
+      42.4937,
+      -76.2966
+    ],
+    "Westmoreland": [
+      43.1073,
+      -75.4418
     ]
   },
   "_towns_note": [

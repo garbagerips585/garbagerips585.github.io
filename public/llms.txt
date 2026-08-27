@@ -19,7 +19,7 @@
 
 ## The local scene, which is the part least well covered elsewhere
 
-- [Card shows calendar](https://garbagerips.com/card-shows.html): 62 upcoming shows around Rochester, Buffalo and Syracuse. 24 are all Pokemon, 30 more are mixed shows where Pokemon vendors are confirmed, 46 are free. Each listing names the venue, the full street address, the admission and who confirmed the Pokemon
+- [Card shows calendar](https://garbagerips.com/card-shows.html): 64 upcoming shows around Rochester, Buffalo and Syracuse. 24 are all Pokemon, 32 more are mixed shows where Pokemon vendors are confirmed, 47 are free. Each listing names the venue, the full street address, the admission and who confirmed the Pokemon
 - [Card show 101](https://garbagerips.com/card-show-101.html): what happens at a card show, what to bring, how vendors pay, and what percentage of market value they actually offer. The buy rates are other people's published figures, each one named and dated
 - [Card shops in Rochester](https://garbagerips.com/shops.html): 6 shops with hours taken only from each shop's own site, plus where you can sit down and play
 - [Rochester Pokemon scene](https://garbagerips.com/rochester.html): the hub tying the shows, the shops and the local pages together

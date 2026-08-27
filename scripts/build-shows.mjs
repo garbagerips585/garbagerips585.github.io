@@ -167,26 +167,65 @@ const appleMapLink = (s) =>
 // returns ours, so an out-of-area entry is a question of when, not whether.
 // Anything not on this list stops the build rather than quietly telling somebody
 // in the 585 to drive to another state.
-const AREA = new Set([
-  // Rochester and its ring
-  "Rochester", "Fairport", "Henrietta", "Webster", "Greece", "Penfield", "Victor",
-  "Batavia", "Canandaigua", "Brockport", "Pittsford",
-  // Buffalo and Niagara
-  "Buffalo", "Depew", "Sanborn", "Niagara Falls", "Amherst", "Cheektowaga",
-  "Lancaster", "Hamburg", "Lockport", "Williamsville", "Tonawanda",
-  // Added 26 August 2026 with the shows that needed them. Blasdell is a Buffalo
-  // southtown at the McKinley Mall; Lewiston is where Niagara University sits,
-  // and its show is billed from the campus rather than from the village.
-  "Blasdell", "Lewiston", "Elma",
-  // Syracuse and its ring
-  "Syracuse", "Liverpool", "Cicero", "Camillus", "Baldwinsville", "East Syracuse",
-]);
-const strays = (data.shows || []).filter((s) => !AREA.has(s.city));
-if (strays.length) {
+/* WHICH SHOWS BELONG HERE, MEASURED RATHER THAN LISTED.
+ *
+ * This was a hand-typed Set of about thirty city names, and a hand-typed list of
+ * exceptions is the thing this repo has been burned by most: it goes stale the
+ * first time somebody adds a show and then it lies without anybody editing it.
+ * Every city already carries a lat/lon in _towns, so the rule can just be the
+ * rule, and it is the owner's own words: "if a show is within 30-45 miles of the
+ * main city filters just add it into that filter."
+ *
+ * FORTY-FIVE MILES FROM ONE OF THREE ANCHORS. Checked against the calendar as it
+ * stood when this went in: the farthest city in use was Batavia at 31.2 miles,
+ * and every single city's nearest anchor already matched its declared region,
+ * 13 of 13. So this codifies what the data was doing rather than changing it.
+ *
+ * IT CHECKS THE REGION TOO, which the old Set could not. A show in Dryden filed
+ * under Rochester would have passed a name list happily; here the nearest anchor
+ * IS the answer, so a mis-filed region is caught rather than shipped. That is a
+ * real class of bug on a page whose only navigation is three area buttons.
+ *
+ * The radius is the one number to argue about. Widening it is a decision about
+ * how far the owner will tell somebody to drive, not a technical one. */
+const ANCHORS = { roc: [43.1566, -77.6088], buffalo: [42.8864, -78.8784], syracuse: [43.0481, -76.1474] };
+const RADIUS_MI = 45;
+const milesBetween = ([la1, lo1], [la2, lo2]) => {
+  const R = 3958.8, r = (d) => (d * Math.PI) / 180;
+  const dp = r(la2 - la1), dl = r(lo2 - lo1);
+  const h = Math.sin(dp / 2) ** 2 + Math.cos(r(la1)) * Math.cos(r(la2)) * Math.sin(dl / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+};
+const nearestAnchor = (pt) =>
+  Object.entries(ANCHORS)
+    .map(([id, a]) => ({ id, mi: milesBetween(pt, a) }))
+    .sort((x, y) => x.mi - y.mi)[0];
+
+const towns = data._towns || {};
+const areaProblems = [];
+for (const s of data.shows || []) {
+  const pt = towns[s.city];
+  if (!pt) {
+    areaProblems.push(`${s.id}: ${s.city} has no lat/lon in _towns, so it cannot be placed`);
+    continue;
+  }
+  const near = nearestAnchor(pt);
+  if (near.mi > RADIUS_MI) {
+    areaProblems.push(
+      `${s.id}: ${s.city} is ${near.mi.toFixed(1)} miles from ${near.id}, past the ${RADIUS_MI} mile radius`
+    );
+  } else if (s.region !== near.id) {
+    areaProblems.push(
+      `${s.id}: ${s.city} is filed under "${s.region}" but its nearest anchor is "${near.id}" (${near.mi.toFixed(1)} mi)`
+    );
+  }
+}
+if (areaProblems.length) {
   console.error(
-    `${strays.length} show(s) outside the Rochester, Buffalo and Syracuse areas:\n` +
-      strays.map((s) => `  ${s.id}: ${s.city}`).join("\n") +
-      `\n\nEither drop them from data/shows.json or, if the city really is local, add it to AREA in this script.`
+    `${areaProblems.length} show(s) fail the area rule:\n` +
+      areaProblems.map((t) => `  ${t}`).join("\n") +
+      `\n\nEvery show must be within ${RADIUS_MI} miles of Rochester, Buffalo or Syracuse, ` +
+      `filed under the nearest one, with its city in _towns. Widen RADIUS_MI only on purpose.`
   );
   process.exit(1);
 }
