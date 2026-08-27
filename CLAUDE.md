@@ -646,6 +646,28 @@ line still stands for everything else: a source belongs in a source line, never
 as an inline link inside a sentence, because that is how the count gets away
 from you.
 
+**THAT MAP CAME OFF /shops.html ON 27 AUGUST 2026 AND THE TWO ODbL LINKS WENT
+WITH IT, exactly as the paragraph below said they would.** The owner: "remove the
+map and text below it on the local card shop page shops.html just get right into
+the listings of the stores", which is word for word the instruction that took
+the map off /card-shows.html six days earlier. Measured on the built page, first
+shop card's top edge and total page height, before to after:
+
+      390x844    y=1,021 -> y=477     9,070 -> 8,525px    document 96,961 -> 57,449 bytes
+      1440x900   y=  915 -> y=317     4,229 -> 3,632px
+
+So a phone reader reaches the first shop **544px sooner** and a desktop reader
+**598px sooner**, and the page is 39.5KB lighter, nearly all of it inline SVG.
+`data/shop-map.json`, `scripts/sync-shop-map.mjs` and every shop's `at`
+coordinate are deliberately UNTOUCHED, the same way `data/card-show-map.json`
+was left: the four Overpass queries are the expensive part, not the drawing.
+The headstone in build-shops.mjs is what to read before rebuilding it.
+
+**THE PARAGRAPH BELOW IS KEPT AS WRITTEN rather than edited**, because the rule
+it establishes is the reusable part and is still live on /card-shows.html: OSM
+geometry earns a visible ODbL credit, and that credit is not discretionary. Read
+it as history for this page and as current for that one.
+
 /shops.html GAINED TWO LINKS OF THE SAME NON-DISCRETIONARY KIND ON 20 AUGUST
 2026, AND THEY ARE WRITTEN DOWN HERE RATHER THAN ADDED QUIETLY, which is the
 mistake the paragraphs above spend four screens complaining about. The map at
