@@ -5170,19 +5170,52 @@ span.cq-name{color:var(--ink)}
 .loc-list{list-style:none;display:grid;gap:var(--s4);margin-top:var(--s4);
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));width:100%;min-width:0}
 .loc{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
-  padding:var(--s5);box-shadow:var(--lift);display:flex;flex-direction:column;gap:6px}
+  padding:var(--s5);box-shadow:var(--lift);display:flex;flex-direction:column;gap:6px;
+  /* THE CARD IS THE CONTAINER THE LOGO SIZES AGAINST, and it has to be, because
+     this card's width does not track the viewport. .loc-list is auto-fit
+     minmax(260px,1fr): at 1440 with two vendors the empty tracks collapse and
+     each card is 688px, but add two more vendors and the same viewport gives
+     four cards of about 330. A logo sized in vw would be 21% of the card on one
+     of those pages and 50% on the other, and the second one is the page nobody
+     is looking at while they tune it. cqw makes the logo a fixed share of
+     whatever the card actually is. */
+  container-type:inline-size}
 .loc-h{display:flex;align-items:baseline;gap:var(--s3);flex-wrap:wrap}
-/* THE CREATOR LOGO, IN THE SHOP'S BOX. Same 56px square, same radius and hair
-   border /shops.html uses, so the two kinds of card cannot drift apart.
-   BASELINE IS RIGHT FOR TEXT AND WRONG FOR A 56px SQUARE. .loc-h aligns on the
+/* THE CREATOR LOGO. Same radius and hair border /shops.html uses, and it was
+   the same 56px square until the owner asked for it bigger on 27 August 2026.
+   IT NO LONGER MATCHES /shops.html AND THAT IS THE WHOLE OF THE DIFFERENCE:
+   this box grew, the shop one did not. The two are still the same shape and
+   the same treatment, so if the shop cards should follow, the change is the
+   two numbers below and the `sizes` in build-shops.mjs, in that order.
+
+   96px IS NOT A TASTE PICK, IT IS WHAT THE 200w RENDITION COVERS. sizes tells
+   the browser the box in CSS px and it fetches box x DPR, so a 96px box on a
+   DPR 2 phone wants 192 and takes the 200w file. Ask for 104 and the same
+   phone needs 208, steps up to the 400w, and pays 41KB for 8px nobody can see.
+   The ceiling is the same arithmetic one rendition up: 168 x 2 = 336, inside
+   the 400w.
+
+   AND THE MIDDLE IS cqw, NOT vw -- the reason is on .loc above. 24cqw is 165px
+   in a 688px card and hits the 96px floor by the time a card is down to 400,
+   which is the behaviour a fixed size cannot have.
+
+   IF YOU CHANGE EITHER END, CHANGE `sizes` IN build-locals.mjs TO MATCH. It is
+   written there as (min-width:900px) 168px, 96px, and it is a promise about
+   this rule. Understate it and every logo on the page is fetched too small and
+   painted blurry, which is the failure mode that looks like a bad master.
+
+   BASELINE IS RIGHT FOR TEXT AND WRONG FOR AN IMAGE. .loc-h aligns on the
    baseline so a name and its "Bought from them" chip sit on one line; drop an
    image into that and it hangs off the text baseline. `:has()` centres ONLY the
    cards that carry a logo, so the ones that do not are untouched.
    background IS THE CARD, NOT BLACK. object-fit:contain letterboxes a
-   non-square logo -- Elliot's is 1024x856, so a square box leaves about 4px
-   top and bottom -- and on the shop page's #000 that reads as a black frame
-   round the artwork. On the card's own colour the bars simply disappear. */
-.loc-logo{flex:none;width:56px;height:56px;border-radius:var(--r-sm);
+   non-square logo -- Elliot's is 1024x856 and TOAK Pulls' is 3884x4824, so one
+   leaves bars top and bottom and the other leaves them left and right -- and on
+   the shop page's #000 those read as a frame round the artwork. On the card's
+   own colour they simply disappear, which matters more at 168px than it did at
+   56 because the bars grow with the box. */
+.loc-logo{flex:none;width:clamp(96px,24cqw,168px);height:clamp(96px,24cqw,168px);
+  border-radius:var(--r-sm);
   background:var(--card);border:1px solid var(--hair);overflow:hidden;
   display:inline-flex;align-items:center;justify-content:center}
 .loc-logo img{width:100%;height:100%;object-fit:contain;display:block}

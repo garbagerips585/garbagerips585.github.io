@@ -220,17 +220,25 @@ const NO_WRITE_UP =
    data/creators.json records who sent it and when, so the permission is written
    down beside the file rather than remembered.
 
-   THE SHOP SHAPE, DELIBERATELY. Same 56px box, same two renditions at 200w and
-   400w, same AVIF-then-WebP order, so a creator card and a shop card cannot
-   drift apart. Height comes off the stored logoW/logoH rather than being
-   assumed square -- Elliot's is 1024x856, and a hardcoded square would have
-   squashed it. */
+   THE SHOP SHAPE, DELIBERATELY. Same two renditions at 200w and 400w, same
+   AVIF-then-WebP order, so a creator card and a shop card cannot drift apart.
+   Height comes off the stored logoW/logoH rather than being assumed square --
+   Elliot's is 1024x856, and a hardcoded square would have squashed it.
+
+   THE BOX IS NO LONGER 56px AND `sizes` HAD TO MOVE WITH IT. The owner asked
+   for a bigger logo on 27 August 2026, so .loc-logo in ui.css is now
+   clamp(96px,24cqw,168px). `sizes` is the only thing that tells the browser how
+   big the box is: leave it at 56px and every one of these is fetched at 112
+   physical pixels and stretched across 336, which reads as a bad master rather
+   than as a stale attribute. The two ends of the clamp are chosen so the 200w
+   file covers the floor at DPR 2 and the 400w covers the ceiling; the whole
+   sum is written out beside the rule in ui.css. CHANGE ONE AND CHANGE BOTH. */
 const logoFor = (o) => o.logo
   ? `<span class="loc-logo"><picture>
-            <source type="image/avif" srcset="/assets/creators/${esc(o.logo)}-200.avif 200w, /assets/creators/${esc(o.logo)}-400.avif 400w" sizes="56px">
+            <source type="image/avif" srcset="/assets/creators/${esc(o.logo)}-200.avif 200w, /assets/creators/${esc(o.logo)}-400.avif 400w" sizes="(min-width:900px) 168px, 96px">
             <img src="/assets/creators/${esc(o.logo)}-200.webp" alt="${esc(o.name)} logo" width="200" height="${
               Math.round(200 * (o.logoH || 1) / (o.logoW || 1))
-            }" loading="lazy" decoding="async" srcset="/assets/creators/${esc(o.logo)}-200.webp 200w, /assets/creators/${esc(o.logo)}-400.webp 400w" sizes="56px">
+            }" loading="lazy" decoding="async" srcset="/assets/creators/${esc(o.logo)}-200.webp 200w, /assets/creators/${esc(o.logo)}-400.webp 400w" sizes="(min-width:900px) 168px, 96px">
           </picture></span>`
   : "";
 

@@ -1598,9 +1598,11 @@ span.cq-name{color:var(--ink)}
 .loc-list{list-style:none;display:grid;gap:var(--s4);margin-top:var(--s4);
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));width:100%;min-width:0}
 .loc{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
-  padding:var(--s5);box-shadow:var(--lift);display:flex;flex-direction:column;gap:6px}
+  padding:var(--s5);box-shadow:var(--lift);display:flex;flex-direction:column;gap:6px;
+  container-type:inline-size}
 .loc-h{display:flex;align-items:baseline;gap:var(--s3);flex-wrap:wrap}
-.loc-logo{flex:none;width:56px;height:56px;border-radius:var(--r-sm);
+.loc-logo{flex:none;width:clamp(96px,24cqw,168px);height:clamp(96px,24cqw,168px);
+  border-radius:var(--r-sm);
   background:var(--card);border:1px solid var(--hair);overflow:hidden;
   display:inline-flex;align-items:center;justify-content:center}
 .loc-logo img{width:100%;height:100%;object-fit:contain;display:block}
