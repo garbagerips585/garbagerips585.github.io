@@ -3971,6 +3971,14 @@ footer .soc svg{fill:var(--chrome-ink)}
      honest trade is that the flyer stops fitting on one screen. */
   .show-flyer{margin-top:6px;max-width:180px}
   .show{gap:8px;padding:12px}
+  /* THE PRICE TIERS ARE THE TALLEST BLOCK ON ANY CARD THAT HAS THEM, measured at
+     390: 214px on RocPokeCon and 135 on Buffalo TCG Con, more than the flyer
+     costs. Each tier is a padded well and a long note wraps onto its own grid
+     line. Tightened rather than hidden, because a price somebody is about to pay
+     is the last thing that should go behind a disclosure. */
+  .tiers{gap:4px;margin-top:10px}
+  .tiers li{padding:6px 9px}
+  .tier-note{line-height:1.4}
 }
 .show-flyer img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain}
 

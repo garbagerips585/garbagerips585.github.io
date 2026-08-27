@@ -1168,6 +1168,9 @@ footer .soc svg{fill:var(--chrome-ink)}
 @media(max-width:719px){
   .show-flyer{margin-top:6px;max-width:180px}
   .show{gap:8px;padding:12px}
+  .tiers{gap:4px;margin-top:10px}
+  .tiers li{padding:6px 9px}
+  .tier-note{line-height:1.4}
 }
 .show-flyer img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain}
 .show-empty{color:var(--ink-2);padding:var(--s6) 0}
