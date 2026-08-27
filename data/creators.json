@@ -18,18 +18,24 @@
   "THIS IS NOT A RANKING. Order is alphabetical by name, deliberately, so the",
   "page cannot read as a league table of local creators.",
   "",
-  "THE ORDER OF THIS ARRAY IS THE ORDER ON THE PAGE and it is hand picked, not alphabetical. The owner, August 24, 2026: Toak Pulls first. The page used to say the order was alphabetical and always would be, which was true and is not any more, so that sentence was rewritten in build-locals.mjs in the same change rather than left standing as a promise the file breaks. What the page still promises, and what is still true, is that no placement is paid for."
+  "THE ORDER OF THIS ARRAY IS THE ORDER ON THE PAGE and it is hand picked, not alphabetical. The owner, August 24, 2026: TOAK Pulls first. The page used to say the order was alphabetical and always would be, which was true and is not any more, so that sentence was rewritten in build-locals.mjs in the same change rather than left standing as a promise the file breaks. What the page still promises, and what is still true, is that no placement is paid for."
  ],
  "updated": "2026-08-13",
  "creators": [
   {
-   "name": "Toak Pulls",
+   "name": "TOAK Pulls",
    "area": "Rochester",
    "does": "Live streams, Pokemon comedy, pack openings",
    "url": "https://toakpulls.com",
    "youtube": "toakpulls",
    "tiktok": "toakpulls",
    "instagram": "toakpulls",
+   "discord": "vKVCR2rpgs",
+   "whatnot": "toakpulls",
+   "logo": "toak-pulls",
+   "logoNote": "Sent by them for this use, August 27, 2026.",
+   "logoW": 3884,
+   "logoH": 4824,
    "blurb": "They do all of it: live streams, comedy, and pack openings. Worth a follow, and you can buy from them in person at the local shows too."
   },
   {

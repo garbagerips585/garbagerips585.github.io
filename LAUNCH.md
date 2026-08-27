@@ -275,7 +275,7 @@ Everything an agent could fix is fixed and deployed. These four need him.
       Filling those two columns converts the rest.
 
 - [ ] **/vendors.html and /creators.html hold three distinct people between
-      them**, and both sit in the primary nav on all 1,478 pages. Toak Pulls is
+      them**, and both sit in the primary nav on all 1,478 pages. TOAK Pulls is
       on both. Every other list page on the site states its count up front; these
       two are the only ones that do not, which reads as the page knowing it is
       thin. A content-supply problem, not a writing one.

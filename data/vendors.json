@@ -24,7 +24,7 @@
   "updated": "2026-08-13",
   "vendors": [
     {
-      "name": "Toak Pulls",
+      "name": "TOAK Pulls",
       "area": "Rochester and the wider region",
       "sells": "Singles and sealed, in person at shows",
       "blurb": "At all the local shows around the region, and they travel out of state for the bigger ones too.",
@@ -32,7 +32,13 @@
       "url": "https://toakpulls.com",
       "youtube": "toakpulls",
       "instagram": "toakpulls",
-      "tiktok": "toakpulls"
+      "tiktok": "toakpulls",
+      "discord": "vKVCR2rpgs",
+      "whatnot": "toakpulls",
+      "logo": "toak-pulls",
+      "logoNote": "Sent by them for this use, August 27, 2026.",
+      "logoW": 3884,
+      "logoH": 4824
     },
     {
       "name": "RocPokéCon",

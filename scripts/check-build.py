@@ -644,6 +644,7 @@ if _bare:
 # Assets are generated once from originals and are deliberately outside the
 # nightly loop; anything else that writes into public/ belongs in build-all.
 _ONE_OFF = {
+    "build-brand-logos.py",  # shop, vendor and creator logos, from assets-source
     "build-favicon.py",   # icons, from logo-square.jpg
     "build-foot-banner.py",  # the footer Made in ROC banner, from a master outside the repo
     "build-logos.py",     # set logos

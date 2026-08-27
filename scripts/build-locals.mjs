@@ -36,7 +36,7 @@
 //   - A MAP WAS CONSIDERED AND IT HAS NO SHAPE. /shops.html earns a drawn map
 //     because its rows carry addresses that are spread across the region.
 //     These rows carry an `area`, and today every entry on both pages reads
-//     "Rochester". A map of four pins in one place, one of which (Toak Pulls)
+//     "Rochester". A map of four pins in one place, one of which (TOAK Pulls)
 //     is the same entity appearing on both pages, teaches a reader nothing the
 //     word Rochester has not already told them.
 //   - PLATFORM LOGOS WOULD BE DECORATION. The link row already says YouTube,
@@ -566,7 +566,7 @@ const PAGE_CSS = `
 
 function page({ metaDesc, slug, title, h1, kicker, lede, list, kind, empty, ask }) {
   /* THE FILE'S OWN ORDER, NOT ALPHABETICAL, SINCE 24 August 2026.
-     The owner asked for Toak Pulls first on both lists. This used to sort by name and
+     The owner asked for TOAK Pulls first on both lists. This used to sort by name and
      therefore ignored data/vendors.json and data/creators.json entirely, so
      reordering those files did nothing at all and the change looked like it had
      not landed. Both files now carry a note saying their array order IS the page
