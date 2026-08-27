@@ -240,7 +240,7 @@ const SECTIONS = [
     "early. That premium is buying you two things. The room is quieter, so you can actually get to a table and talk " +
     "to the person behind it. And you get first pick: the good sealed product and the standout singles are bought in " +
     "the first hour, and by general admission a lot of the best of it has gone.",
-    "It is a real gap, not fifteen minutes. Collectorfest in Liverpool, a Syracuse suburb, on September 13 runs $5 general from 9:30am " +
+    "It is a real gap, not fifteen minutes. Collectorfest at the Syracuse Fairgrounds on September 13 runs $5 general from 9:30am " +
     "with a $20 early bird at 9am. RocPokeCon on Halloween runs $5 general from 10am, $15 early entry from 9am, and " +
     "a $95 VIP that is on the vendor floor at 8:30am. Whether that is worth it depends entirely on whether you are " +
     "hunting something specific.",
@@ -288,7 +288,7 @@ const SECTIONS = [
     "universal rule."]],
   ["credit", "Why trade credit beats cash",
    ["Credit is consistently the better of the two. The Card Shop Finder puts it at 25 to 50 percent above whatever " +
-    "the cash offer was: an offer of $100 cash is commonly $125 to $150 in credit.",
+    "the cash offer was: an offer of $100 cash is commonly $125 to $150 in credit. Read August 26, 2026.",
     "The reason is that the money never leaves the room. You are agreeing to spend it at their table, so the vendor " +
     "keeps the sale and their cash position both, and can afford to be more generous. If you were going to buy " +
     "something anyway, take the credit almost every time.",
@@ -302,9 +302,9 @@ const SECTIONS = [
     "of the table. Pick out everything you want first, then ask what they can do for the lot.",
     "Have cash for it. The best price a vendor can give is the cash price, for the reason in the payment section " +
     "above, and it is much easier to agree on a round number when the money is in your hand.",
-    "There is a number for this side too, and it is the one nobody tells you: Card Codex, a hobby guide site, puts a fair opening " +
+    "There is a number for this side too, and it is the one nobody tells you: Card Codex, a hobby guide site, says a fair opening " +
     "offer at a show is 80 to 90 percent of what the card has recently sold for, and 85 to 90 percent is a good " +
-    "place to land. Read that both ways. It means there is usually something there, so ask. It also means the room " +
+    "place to land, read August 26, 2026. Read that both ways. It means there is usually something there, so ask. It also means the room " +
     "is a slice and not a half, so an offer at 60 percent of what it last sold for is not a hard bargain, it is a " +
     "waste of the " +
     "vendor's afternoon.",

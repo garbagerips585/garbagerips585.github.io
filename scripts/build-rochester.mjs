@@ -244,7 +244,7 @@ const STATS = [
   stat(
     shops.length,
     shops.length === 1 ? "card shop" : "card shops",
-    `With a door, an address and opening hours, ${playShops.length} of them publishing organized play you can turn
+    `With a door, an address and opening hours, ${playShops.length} of them publishing organized play you can show
        up to. All on <a href="/shops.html">the shop list</a>, with a drawn map.`,
   ),
   stat(

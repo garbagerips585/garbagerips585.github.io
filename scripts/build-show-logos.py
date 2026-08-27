@@ -44,6 +44,9 @@ OUT = ROOT / "public" / "assets" / "shows"
 THUMB_W = 440          # 220px box at DPR 2
 FULL_W = 1024          # the lightbox cap is 900; masters so far are 1024 wide
 FLYER_Q = 78
+# Matched per flyer against the shipped JPEG's own SSIM: the three masters needed
+# q50, q55 and q60 to meet or beat it, so 60 covers all three with headroom.
+FLYER_AVIF_Q = 60
 
 # Rendered into a 56px box, so 200w already covers DPR 3 (168 device px) and
 # 400w is only ever picked past DPR 3.57. Both are emitted because the page's
@@ -187,10 +190,28 @@ def flyers() -> None:
         for label, tw in (("", THUMB_W), ("-full", FULL_W)):
             tw = min(tw, w)
             th = max(1, round(tw * h / w))
+            small = im.resize((tw, th), Image.LANCZOS)
             dest = OUT / f"{m.stem}{label}.jpg"
-            im.resize((tw, th), Image.LANCZOS).save(
-                dest, "JPEG", quality=FLYER_Q, optimize=True, progressive=True)
-            print(f"  {dest.relative_to(ROOT)}  {tw}x{th}  {dest.stat().st_size:,} bytes")
+            small.save(dest, "JPEG", quality=FLYER_Q, optimize=True, progressive=True)
+            # AND AN AVIF BESIDE IT. The flyers were the only images on the shows
+            # page not served AVIF-first: every logo and the footer mark already
+            # were. A codec shrinks whichever candidate the browser had ALREADY
+            # chosen, so unlike a width this pays at DPR 1, 2 and 3 alike. The JPEG
+            # stays as the fallback and is what the lightbox and the <img> point at.
+            avif = OUT / f"{m.stem}{label}.avif"
+            small.save(avif, "AVIF", quality=FLYER_AVIF_Q)
+            jb, ab = dest.stat().st_size, avif.stat().st_size
+            print(f"  {dest.relative_to(ROOT)}  {tw}x{th}  {jb:,} bytes")
+            print(f"  {avif.relative_to(ROOT)}  {tw}x{th}  {ab:,} bytes"
+                  f"  ({100 * (jb - ab) / jb:.1f}% smaller than the jpeg)")
+            # A LOUD REFUSAL RATHER THAN A SILENT REGRESSION: the page puts the
+            # AVIF first, so an AVIF that is BIGGER means every modern browser
+            # takes the worse file. Same trap the logo quality note records.
+            if ab >= jb:
+                raise SystemExit(
+                    f"{avif.name} is {ab:,} bytes against the JPEG's {jb:,}. "
+                    f"Serving it first would hand every modern browser the larger "
+                    f"file. Lower FLYER_AVIF_Q and re-run.")
             if not label:
                 print(f'  data/shows.json: "flyerW": {tw}, "flyerH": {th}')
 

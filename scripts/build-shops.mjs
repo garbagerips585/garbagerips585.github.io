@@ -697,9 +697,17 @@ const cards = shops
               : ""
           }
         </dl>` : ""}
-        ${(s.plays || []).length ? `<div class="shop-play">
-          <p class="shop-play-h">You can play here</p>
-          <ul>${s.plays.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>
+        ${/* THE NOTE AND THE WARNING ARE NOT GATED ON `plays` ANY MORE, and that gate
+             was a live bug rather than a tidy-up. A shop whose league has gone
+             QUIET has no `plays` list by definition, and it is exactly the shop
+             whose reader most needs the note: Just Games carried a 700-character
+             playNote saying its Pokemon calendar had stopped, three sources deep,
+             and none of it rendered, while its blurb told the reader to "read the
+             note below". This file's own rules exist to stop somebody driving to a
+             locked door, and the gate was hiding the warning that says so. */ ""}
+        ${(s.plays || []).length || s.playNote || s.playWarn ? `<div class="shop-play">
+          ${(s.plays || []).length ? `<p class="shop-play-h">You can play here</p>
+          <ul>${s.plays.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>` : ""}
           ${s.playNote ? `<p class="shop-play-note">${esc(s.playNote)}</p>` : ""}
           ${s.playWarn ? `<p class="shop-play-warn">${esc(s.playWarn)}</p>` : ""}
         </div>` : ""}

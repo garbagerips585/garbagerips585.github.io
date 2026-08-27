@@ -765,12 +765,15 @@ const flyerSrc = (s) => {
   if (!s.flyer) return null;
   const rel = `assets/shows/${s.flyer}`;
   const full = rel.replace(/\.(jpg|jpeg|png|webp)$/i, "-full.$1");
-  const missing = [rel, full].filter((r) => !existsSync(join(ROOT, "public", r)));
+  const avif = rel.replace(/\.(jpg|jpeg|png|webp)$/i, ".avif");
+  const fullAvif = rel.replace(/\.(jpg|jpeg|png|webp)$/i, "-full.avif");
+  const missing = [rel, full, avif, fullAvif].filter((r) => !existsSync(join(ROOT, "public", r)));
   if (missing.length) {
     missingFlyers.push(`${s.id}: ${missing.map((r) => `public/${r}`).join(" and ")} not found`);
     return null;
   }
-  return { thumb: `/${rel}`, full: `/${full}`, w: s.flyerW || 0, h: s.flyerH || 0 };
+  return { thumb: `/${rel}`, full: `/${full}`, avif: `/${avif}`, fullAvif: `/${fullAvif}`,
+    w: s.flyerW || 0, h: s.flyerH || 0 };
 };
 
 /* ------------------------------------------------------------------- logos --
@@ -1201,7 +1204,7 @@ function showCard(s) {
           <p class="show-meta">${esc(weekday(s.date))}${
             timeRange(s.start, s.end) ? ` &bull; ${esc(timeRange(s.start, s.end))}` : ""
           }</p>
-          <p class="show-where"><a class="venue-link" href="${esc(mapLink(s))}" data-map-apple="${esc(appleMapLink(s))}" rel="noopener" target="_blank" aria-label="${esc(s.venue)}, ${esc(s.city)} NY, where ${esc(showRef(s))} is held, opens on ${esc(hostOf(mapLink(s)))}"><span class="show-venue">${esc(s.venue)}${s.address ? "" : `, ${esc(s.city)} NY`}</span>${
+          <p class="show-where"><a class="venue-link" href="${esc(mapLink(s))}" data-map-apple="${esc(appleMapLink(s))}" rel="noopener" target="_blank" aria-label="${esc(s.venue)}${s.address ? `, ${esc(s.address)}` : `, ${esc(s.city)} NY`}, where ${esc(showRef(s))} is held, opens on ${esc(hostOf(mapLink(s)))}"><span class="show-venue">${esc(s.venue)}${s.address ? "" : `, ${esc(s.city)} NY`}</span>${
             /* THE ADDRESS IS INSIDE THE LINK NOW, and it was deliberately outside
                it a few hours ago, so here is the trade rather than a silent flip.
                It was out because selecting text inside an anchor is awkward: a drag
@@ -1270,8 +1273,9 @@ function showCard(s) {
             ${s.organiserUrl && s.organiserUrl !== s.url ? `<a href="${esc(s.organiserUrl)}" rel="noopener" target="_blank" aria-label="${esc(s.organiser && s.organiser !== s.name ? `${s.organiser}, who run ${showRef(s)}` : `The organizer of ${showRef(s)}`)}, opens on ${esc(hostOf(s.organiserUrl))}">${esc(s.organiser || "Organizer")}</a>` : ""}
           </p>` : ""}
         </div>
-        ${flyer ? `<button type="button" class="show-flyer" data-flyer="${esc(flyer.full)}" data-flyer-alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}">
-          <img src="${esc(flyer.thumb)}" alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}"${flyer.w && flyer.h ? ` width="${flyer.w}" height="${flyer.h}"` : ""} loading="lazy" decoding="async">
+        ${flyer ? `<button type="button" class="show-flyer" data-flyer="${esc(flyer.full)}" data-flyer-avif="${esc(flyer.fullAvif)}" data-flyer-alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}">
+          <picture><source type="image/avif" srcset="${esc(flyer.avif)}">
+          <img src="${esc(flyer.thumb)}" alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}"${flyer.w && flyer.h ? ` width="${flyer.w}" height="${flyer.h}"` : ""} loading="lazy" decoding="async"></picture>
           <span class="show-flyer-hint">Tap to enlarge</span>
         </button>` : ""}
       </article>`;
@@ -1412,10 +1416,10 @@ ${/* THE LEGEND LIVES AT THE FOOT OF THE CALENDAR, NOT ABOVE IT, moved 26 August
     <p class="lede" style="max-width:44em">Most of these are general card shows: sports, Pokemon and other TCG on the
       same floor. A show marked <b>Pokemon show</b> is a Pokemon event: Pokemon is what it is billed as and there are
       no sports, though a few also carry Magic or One Piece. One marked <b>Pokemon here too</b> is a general show where
-      we have confirmed Pokemon is on the floor, either because we go to it or because the organiser says so.</p>
+      we have confirmed Pokemon is on the floor, either because we go to it or because the organizer says so.</p>
     <p class="lede" style="max-width:44em">A show marked <b>Pokemon not confirmed</b> is one we have not been able to
       check. Shows tend to say so when they are one thing only, so a general collectors show usually does have a mix,
-      but that is a rule of thumb and not a promise. We are asking the organisers, and marks change as answers come
+      but that is a rule of thumb and not a promise. We are asking the organizers, and marks change as answers come
       back. <a href="#missed">Know a show we are missing, or can you confirm one? Tell us &rarr;</a></p>
   </div>
 </section>
@@ -1442,7 +1446,7 @@ ${(data.watchFor || []).length ? `
     <h2 id="missed">Know one we <span class="hl">missed</span>?</h2>
     <p class="lede" style="max-width:44em">This list is kept by hand, so it is only as good as what we can find. If you
       run a show, or you have a flyer from a local Discord or a shop counter, send it over on any of the socials at the
-      bottom of the page and it goes up here. Flyers get shown in full.</p>
+      bottom of the page and if we can confirm the date it goes up here. Flyers get shown in full.</p>
     <ul class="facts-list">
       ${/* THE AGGREGATORS ARE NAMED AND NO LONGER LINKED, on the owner's instruction:
          "we should remove any links going to outside sites that arent the official
@@ -1490,7 +1494,7 @@ ${(data.watchFor || []).length ? `
 </main>
 <div class="flyer-lb" id="flyerLb" role="dialog" aria-modal="true" aria-label="Show flyer" hidden>
   <button type="button" class="flyer-lb-x" aria-label="Close the flyer">&times;</button>
-  <img src="" alt="">
+  <picture><source id="flyerLbAvif" type="image/avif" srcset=""><img src="" alt=""></picture>
 </div>
 ${footer("Show listings are collected by hand and change without notice. Check with the organizer before traveling.")}
 <script>
@@ -1541,8 +1545,10 @@ ${CLIENT_DAY_JS}
     var first=document.querySelector('.show');
     if(first){
       next.querySelector('.next-name').textContent=first.querySelector('h3').textContent;
+      var _v=first.querySelector('.show-venue'), _a=first.querySelector('.show-addr');
+      var _where=_v ? (_v.textContent + (_a ? ', ' + _a.textContent : '')) : first.querySelector('.show-where').textContent;
       next.querySelector('.next-meta').textContent=first.querySelector('.show-meta').textContent
-        + ' \u2022 ' + first.querySelector('.show-where').textContent;
+        + ' \u2022 ' + _where;
       var lbl=next.querySelector('.next-label');
       if(lbl) lbl.textContent='Next one up';
       var href=first.querySelector('.show-links a');
@@ -1678,7 +1684,7 @@ ${/* THE CALENDAR'S OWN CLIENT SWEEP WAS HERE and went with the calendar. It
       var chip = document.querySelector('.chip.filt[data-region="' + r + '"]');
       if (chip) chip.click(); else apply(r);
       var list = document.getElementById('list');
-      if (list) list.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (list) list.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
     });
   });
   /* THE FLYER OPENED IN A NEW TAB AND NOW OPENS IN PLACE, at the owner's
@@ -1696,29 +1702,55 @@ ${/* THE CALENDAR'S OWN CLIENT SWEEP WAS HERE and went with the calendar. It
      keyboard user back at the top of the document. */
   var lb = document.getElementById('flyerLb');
   var lbImg = lb && lb.querySelector('img');
+  var lbAvif = lb && lb.querySelector('#flyerLbAvif');
   var lbClose = lb && lb.querySelector('.flyer-lb-x');
   var lbOpener = null;
   function closeLb(){
     if (!lb) return;
     lb.hidden = true;
+    if (lbAvif) lbAvif.srcset = '';
+    if (lbImg) { lbImg.removeAttribute('src'); lbImg.alt = ''; }
     document.body.style.overflow = '';
+    var main = document.getElementById('main');
+    if (main) main.inert = false;
+    lb.setAttribute('aria-label', 'Show flyer');
     if (lbOpener) { lbOpener.focus(); lbOpener = null; }
   }
   document.querySelectorAll('.show-flyer').forEach(function(b){
     b.addEventListener('click', function(){
       if (!lb) return;
       lbOpener = b;
+      // THE SOURCE FIRST, THEN THE IMG, and the order is the whole trick. A
+      // <picture> resolves when the img gets its src: if the source's srcset is
+      // still empty at that moment the browser picks the JPEG and commits to it,
+      // and the AVIF never loads however correct the markup looks afterwards.
+      // packplayer.js records the same failure on the carousel slides.
+      if (lbAvif) lbAvif.srcset = b.dataset.flyerAvif || '';
       lbImg.src = b.dataset.flyer;
       lbImg.alt = b.dataset.flyerAlt || '';
       lb.hidden = false;
       document.body.style.overflow = 'hidden';
+      // The dialog holds exactly ONE focusable node, so without this a single Tab
+      // leaves it and lands in the footer, on links the reader cannot see behind a
+      // 94% opaque overlay. Shift+Tab is worse: it walks back up all 61 listings.
+      // inert also keeps the background out of the accessibility tree for the
+      // browsers that honour it; the Tab guard below covers the ones that do not.
+      var main = document.getElementById('main');
+      if (main) main.inert = true;
+      if (b.dataset.flyerAlt) lb.setAttribute('aria-label', b.dataset.flyerAlt);
       lbClose.focus();
     });
   });
   if (lb) {
     lbClose.addEventListener('click', closeLb);
     lb.addEventListener('click', function(e){ if (e.target === lb) closeLb(); });
-    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !lb.hidden) closeLb(); });
+    document.addEventListener('keydown', function(e){
+      if (lb.hidden) return;
+      if (e.key === 'Escape') { closeLb(); return; }
+      // One focusable node in here, so the honest trap is to refuse Tab outright
+      // and keep focus on the close button rather than cycle a list of one.
+      if (e.key === 'Tab') { e.preventDefault(); lbClose.focus(); }
+    });
   }
   apply('all');
 })();

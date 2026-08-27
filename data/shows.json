@@ -41,7 +41,7 @@
     "",
     "REGIONS drive the filter chips: roc, buffalo, syracuse."
   ],
-  "checked": "2026-08-25",
+  "checked": "2026-08-26",
   "sources": [
     {
       "name": "cardshows.io Western New York",
@@ -91,7 +91,7 @@
       "organiser": "Ernie Orlando, Ernie's Cards",
       "organiserUrl": "https://collectorfestmonthly.com",
       "url": "https://collectorfestmonthly.com",
-      "source": "the organiser's own flyer for this date, sent by the channel, August 26, 2026",
+      "source": "the organizer's own flyer for this date, sent by the channel, August 26, 2026",
       "tables": "70+",
    "flyer": "collectorfest-jcc-2026-08-30.jpg",
    "flyerW": 440,
@@ -161,10 +161,10 @@
       "region": "buffalo",
       "pokemon": false,
       "admission": "Free",
-      "source": "the organiser, by text, August 26, 2026",
+      "source": "the organizer, by text, August 26, 2026",
       "address": "445 Columbia Ave, Depew, NY 14043",
       "organiser": "Matt Brun, Buffalo Sports Card Convention",
-      "pkmnWhy": "The organiser told us directly: TCG and sports, which means Pokemon and other TCGs alongside the sports tables.",
+      "pkmnWhy": "The organizer told us directly: TCG and sports, which means Pokemon and other TCGs alongside the sports tables.",
       "pkmn": "some",
       "blurb": "A free Buffalo-area show that draws 350 to 500 people through the door, with TCG and sports side by side."
     },
@@ -253,7 +253,7 @@
       "region": "buffalo",
       "admission": "Free",
       "organiser": "Cold Front Cards",
-      "source": "the organiser, by text with the flyer, August 26, 2026",
+      "source": "the organizer, by text with the flyer, August 26, 2026",
       "pokemon": false,
       "pkmn": "some",
       "tables": "60+",
@@ -277,7 +277,7 @@
    "pkmn": "some",
       "admission": "Free",
       "blurb": "A weeknight show, and almost everything else on this page is a weekend. If your Saturdays and Sundays are already spoken for, this is the one that fits.",
-      "source": "the organiser's own flyer and a message from them, August 26, 2026",
+      "source": "the organizer's own flyer and a message from them, August 26, 2026",
       "organiser": "585Cardz",
       "address": "8250 Park Rd, Batavia, NY 14020",
    "logo": "585cardz",
@@ -321,7 +321,7 @@
       "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free to walk into, and there is a gift at noon. Expect a few Pokemon tables rather than a Pokemon show.",
       "tables": "70+",
       "pkmn": "some",
-      "pkmnWhy": "The organiser's own flyer for this monthly show lists Pokemon alongside sports cards and autographs. Rochester Pokemon dealers announce tables here too: Legends Card Shop posted from it in May 2025 with RJ's Card Store and Danimal TCG."
+      "pkmnWhy": "The organizer's own flyer for this monthly show lists Pokemon alongside sports cards and autographs. Rochester Pokemon dealers announce tables here too: Legends Card Shop posted from it in May 2025 with RJ's Card Store and Danimal TCG."
     },
     {
       "id": "batavia-scts-2026-10-03",
@@ -499,7 +499,7 @@
       "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free to walk into, and there is a gift at noon. Expect a few Pokemon tables rather than a Pokemon show.",
       "tables": "70+",
       "pkmn": "some",
-      "pkmnWhy": "The organiser's own flyer for this monthly show lists Pokemon alongside sports cards and autographs. Rochester Pokemon dealers announce tables here too: Legends Card Shop posted from it in May 2025 with RJ's Card Store and Danimal TCG."
+      "pkmnWhy": "The organizer's own flyer for this monthly show lists Pokemon alongside sports cards and autographs. Rochester Pokemon dealers announce tables here too: Legends Card Shop posted from it in May 2025 with RJ's Card Store and Danimal TCG."
     },
     {
       "id": "collectorsfest-111-2026-10-18",
@@ -543,7 +543,7 @@
    "pkmn": "some",
       "blurb": "A weeknight show, and almost everything else on this page is a weekend. If your Saturdays and Sundays are already spoken for, this is the one that fits.",
       "admission": "Free",
-      "source": "the organiser's own flyer and a message from them, August 26, 2026",
+      "source": "the organizer's own flyer and a message from them, August 26, 2026",
       "organiser": "585Cardz",
       "address": "8250 Park Rd, Batavia, NY 14020",
    "flyer": "585cardz-batavia-monthly.jpg",
@@ -675,7 +675,7 @@
    "pkmn": "some",
       "blurb": "A weeknight show, and almost everything else on this page is a weekend. If your Saturdays and Sundays are already spoken for, this is the one that fits.",
       "admission": "Free",
-      "source": "the organiser's own flyer and a message from them, August 26, 2026",
+      "source": "the organizer's own flyer and a message from them, August 26, 2026",
       "organiser": "585Cardz",
       "address": "8250 Park Rd, Batavia, NY 14020",
    "flyer": "585cardz-batavia-monthly.jpg",
@@ -731,8 +731,7 @@
         {
           "name": "Early access",
           "price": "$25",
-          "from": "09:00",
-          "note": "presale only, no refunds"
+          "note": "presale only, no refunds. Friday early access time not published"
         }
       ]
     },
@@ -849,7 +848,7 @@
       "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free to walk into, and there is a gift at noon. Expect a few Pokemon tables rather than a Pokemon show.",
       "tables": "70+",
       "pkmn": "some",
-      "pkmnWhy": "The organiser's own flyer for this monthly show lists Pokemon alongside sports cards and autographs. Rochester Pokemon dealers announce tables here too: Legends Card Shop posted from it in May 2025 with RJ's Card Store and Danimal TCG."
+      "pkmnWhy": "The organizer's own flyer for this monthly show lists Pokemon alongside sports cards and autographs. Rochester Pokemon dealers announce tables here too: Legends Card Shop posted from it in May 2025 with RJ's Card Store and Danimal TCG."
     },
     {
       "id": "batavia-scts-2026-12-05",
@@ -951,7 +950,7 @@
       "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free to walk into, and there is a gift at noon. Expect a few Pokemon tables rather than a Pokemon show.",
       "tables": "70+",
       "pkmn": "some",
-      "pkmnWhy": "The organiser's own flyer for this monthly show lists Pokemon alongside sports cards and autographs. Rochester Pokemon dealers announce tables here too: Legends Card Shop posted from it in May 2025 with RJ's Card Store and Danimal TCG."
+      "pkmnWhy": "The organizer's own flyer for this monthly show lists Pokemon alongside sports cards and autographs. Rochester Pokemon dealers announce tables here too: Legends Card Shop posted from it in May 2025 with RJ's Card Store and Danimal TCG."
     },
     {
       "id": "extreme-pokemon-batavia-2026-12-13",
@@ -981,7 +980,7 @@
    "pkmn": "some",
       "blurb": "A weeknight show, and almost everything else on this page is a weekend. If your Saturdays and Sundays are already spoken for, this is the one that fits.",
       "admission": "Free",
-      "source": "the organiser's own flyer and a message from them, August 26, 2026",
+      "source": "the organizer's own flyer and a message from them, August 26, 2026",
       "organiser": "585Cardz",
       "address": "8250 Park Rd, Batavia, NY 14020",
    "flyer": "585cardz-batavia-monthly.jpg",
@@ -1020,7 +1019,7 @@
       "admission": "Free",
       "organiser": "Shawn Hughes",
       "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
     {
       "id": "pokekon-rochester-2027-01-09",
@@ -1053,7 +1052,7 @@
       "admission": "Free",
       "organiser": "Shawn Hughes",
       "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
     {
       "id": "collectorfest-jcc-2027-01-31",
@@ -1074,7 +1073,7 @@
       "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free to walk into, and there is a gift at noon. Expect a few Pokemon tables rather than a Pokemon show.",
       "tables": "70+",
       "pkmn": "some",
-      "pkmnWhy": "The organiser's own flyer for this monthly show lists Pokemon alongside sports cards and autographs. Rochester Pokemon dealers announce tables here too: Legends Card Shop posted from it in May 2025 with RJ's Card Store and Danimal TCG."
+      "pkmnWhy": "The organizer's own flyer for this monthly show lists Pokemon alongside sports cards and autographs. Rochester Pokemon dealers announce tables here too: Legends Card Shop posted from it in May 2025 with RJ's Card Store and Danimal TCG."
     },
     {
       "id": "collectorfest-jcc-2027-02-14",
@@ -1095,7 +1094,7 @@
       "blurb": "The closest thing Rochester has to a regular card show. Runs monthly, free to walk into, and there is a gift at noon. Expect a few Pokemon tables rather than a Pokemon show.",
       "tables": "70+",
       "pkmn": "some",
-      "pkmnWhy": "The organiser's own flyer for this monthly show lists Pokemon alongside sports cards and autographs. Rochester Pokemon dealers announce tables here too: Legends Card Shop posted from it in May 2025 with RJ's Card Store and Danimal TCG."
+      "pkmnWhy": "The organizer's own flyer for this monthly show lists Pokemon alongside sports cards and autographs. Rochester Pokemon dealers announce tables here too: Legends Card Shop posted from it in May 2025 with RJ's Card Store and Danimal TCG."
     },
     {
       "id": "northtowns-pkmn-2027-02-21",
@@ -1111,7 +1110,7 @@
       "admission": "Free",
       "organiser": "Shawn Hughes",
       "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
     {
       "id": "northtowns-pkmn-2027-03-21",
@@ -1127,7 +1126,7 @@
       "admission": "Free",
       "organiser": "Shawn Hughes",
       "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
     {
       "id": "northtowns-pkmn-2027-04-18",
@@ -1143,7 +1142,7 @@
       "admission": "Free",
       "organiser": "Shawn Hughes",
       "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
     {
       "id": "northtowns-pkmn-2027-05-16",
@@ -1159,7 +1158,7 @@
       "admission": "Free",
       "organiser": "Shawn Hughes",
       "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
     {
       "id": "northtowns-pkmn-2027-06-20",
@@ -1175,7 +1174,7 @@
       "admission": "Free",
       "organiser": "Shawn Hughes",
       "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
     {
       "id": "northtowns-pkmn-2027-07-18",
@@ -1191,7 +1190,7 @@
       "admission": "Free",
       "organiser": "Shawn Hughes",
       "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
     {
       "id": "northtowns-pkmn-2027-08-15",
@@ -1207,7 +1206,7 @@
       "admission": "Free",
       "organiser": "Shawn Hughes",
       "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
     {
       "id": "northtowns-pkmn-2027-09-19",
@@ -1223,7 +1222,7 @@
       "admission": "Free",
       "organiser": "Shawn Hughes",
       "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
     {
       "id": "northtowns-pkmn-2027-10-17",
@@ -1239,7 +1238,7 @@
       "admission": "Free",
       "organiser": "Shawn Hughes",
       "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
     {
       "id": "northtowns-pkmn-2027-11-21",
@@ -1255,7 +1254,7 @@
       "admission": "Free",
       "organiser": "Shawn Hughes",
       "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
     {
       "id": "northtowns-pkmn-2027-12-12",
@@ -1271,7 +1270,7 @@
       "admission": "Free",
       "organiser": "Shawn Hughes",
       "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organiser's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     }
   ],
   "_towns": {
