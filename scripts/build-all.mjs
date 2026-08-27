@@ -370,6 +370,7 @@ const STEPS = [
   // 404.html is generated too, and was missing from this list, so it only ever
   // rebuilt by hand. It carries no absolute site url today, which is the only
   // reason that was harmless.
+  "node scripts/build-llms.mjs",
   "node scripts/build-404.mjs",
   // Not a page: it writes UNTAGGED.md, the worklist of videos still held out
   // of the index for want of a tag. Generated because the hand-written one
