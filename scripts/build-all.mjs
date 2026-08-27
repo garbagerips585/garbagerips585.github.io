@@ -78,6 +78,13 @@ const STEPS = [
   "node scripts/build-wanted.mjs",
   "node scripts/build-hall.mjs",
   "node scripts/build-shops.mjs",
+  // ORDER: the usual two that every page slicing index.html has. AFTER
+  // build-proto.mjs, because it takes its head, bar, menu and footer out of
+  // public/index.html; before build-search.mjs, which walks public/*.html and
+  // fails the build on an indexable page missing from its PAGES list. The
+  // sitemap entry is a constant in build-pages.mjs, so that step running
+  // earlier is fine, the same arrangement build-base-set.mjs records.
+  "node scripts/build-privacy.mjs",
   // Next to build-shops.mjs because it is the same reader: somebody who came
   // for the Rochester angle. It reads data/garbage-plate.json, which a human
   // writes and which carries the source for every claim on the page, so it has

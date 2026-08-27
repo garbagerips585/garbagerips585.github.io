@@ -2638,6 +2638,12 @@ const urls = [
   // the routes, so there is no version of it that is a thin page pretending
   // otherwise.
   { loc: `${SITE}/rochester.html`, freq: "weekly", pri: "0.9" },
+  // YEARLY AND LOW, because that is the truth about it: it changes when what
+  // the site does changes, which is rarely, and it is not a page anybody should
+  // be sent to from a search result. It is in the sitemap rather than left out
+  // because a privacy page a crawler cannot find is the one kind of missing
+  // page that reads as evasive.
+  { loc: `${SITE}/privacy.html`, freq: "yearly", pri: "0.3" },
   { loc: `${SITE}/shops.html`, freq: "monthly", pri: "0.7" },
   // The Garbage Plate. HIGH priority and monthly, which is the pair the set
   // list and the release calendar get, because it is the same kind of page:

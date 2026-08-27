@@ -20,7 +20,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
-import { BAR, BAR_HOME, MENU, FOOT_NAV, FOOT_SUB } from "../shared/chrome.mjs";
+import { BAR, BAR_HOME, MENU, FOOT_NAV, FOOT_SUB, FOOT_COPY } from "../shared/chrome.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CHECK = process.argv.includes("--check");
@@ -50,10 +50,28 @@ const PAGES = [
   // it, and that page shipped with TWO h1 elements. Caught by counting h1 tags
   // across all 1,491 built pages rather than by looking at the page.
   "public/garbage-plate.html",
+  // ADDED 27 AUGUST 2026, ON ITS FIRST BUILD, FOR THE REASON DIRECTLY ABOVE.
+  // /privacy.html is the sixth builder that slices the bar out of index.html,
+  // so it inherited BAR_HOME's h1 around the brand and shipped with TWO h1
+  // elements exactly as garbage-plate did. Caught the same way, by counting
+  // them on the built page rather than by looking at it. A builder that slices
+  // index.html belongs on this list in the same commit that creates it.
+  "public/privacy.html",
 ];
 
 const BLOCKS = [
   { name: "bar", re: /<header class="bar">[\s\S]*?<\/header>/, want: BAR },
+  /* THE COPYRIGHT LINE, ADDED 27 AUGUST 2026 WITH THE PRIVACY LINK IN IT.
+     MATCHES UP TO THE FIRST <br> AND NO FURTHER, which is the whole care
+     required here: everything after that break is the page's own `extra`
+     sentence, different on all nine of these pages, and a block that swallowed
+     it would replace nine distinct disclaimers with one. Anchored on the entity
+     and the year span rather than on the text between them, so the line can be
+     reworded without the regex going quietly non-matching, which is the failure
+     mode that leaves a sync passing while it syncs nothing. */
+  { name: "foot-copyright",
+    re: /<p>&copy; <span id="year">\d{4}<\/span> Garbage Rips 585[\s\S]*?(?=<br>)/,
+    want: FOOT_COPY },
   { name: "menu", re: /<nav class="menu"[\s\S]*?<\/nav>/, want: MENU },
   // See checkDrift: the footer is where the drift actually happened.
   {

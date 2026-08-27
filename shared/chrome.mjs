@@ -1540,6 +1540,22 @@ export const FOOT_SUB = `<!--FOOT_SUB:START-->
       and the wrappers go to the Trubbish can.</p>
     <!--FOOT_SUB:END-->`;
 
+/* THE FIRST LINE OF THE COPYRIGHT PARAGRAPH, AS A CONSTANT, BECAUSE NINE PAGES
+   DO NOT GET IT FROM THIS FUNCTION. index, videos, playlists, hall, about,
+   shops, wanted, 404 and garbage-plate have their chrome INLINED rather than
+   imported, so `footer()` never runs for them; sync-chrome.mjs overwrites their
+   bar, menu, footer nav and Subscribe block from here afterwards, and the
+   copyright line was not on that list.
+   That went unnoticed until the Privacy link was added on 27 August 2026 and
+   reached 1,487 of 1,496 pages: everything EXCEPT the nine hand-maintained ones,
+   which is the set most likely to be somebody's entry point. /privacy.html
+   itself was one of them, because it takes its footer by slicing index.html, so
+   the page the link points AT was among the nine that did not carry it.
+   It is a sync-chrome block now, so the line cannot drift again. */
+export const FOOT_COPY =
+  `<p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City ` +
+  `&bull; Rochester, NY &bull; <a href="/privacy.html">Privacy</a>`;
+
 export const footer = (extra = "") => `<footer>
   <div class="wrap">
     ${FOOT_NAV}
@@ -1551,7 +1567,13 @@ ${SOCIALS.map(
 ).join("\n")}
     </div>
     <p class="foot-collectr"><a href="${COLLECTR}" rel="noopener" target="_blank" aria-label="See the whole collection on Collectr, opens on their site">See the whole collection on Collectr &rarr;</a></p>
-    <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
+    ${/* PRIVACY GOES HERE AND NOT IN NAV, and that is a fit constraint rather
+          than a ranking of its importance. The note over NAV records that eight
+          groups is the only count measured NOT to scroll the panel at either
+          390 or 1440; a ninth would cost the desktop panel its fit to hold a
+          page nobody browses to. The bottom line of the footer is where a
+          reader looks for it anyway, and it reaches all 1,495 pages from here. */ ""}
+    ${FOOT_COPY}<br>
     ${extra ? extra + "<br>" : ""}Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>`;

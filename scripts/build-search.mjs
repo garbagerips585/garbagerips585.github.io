@@ -250,6 +250,9 @@ const PAGES = [
   // page about this dish opens with the summary.
   ["/garbage-plate.html", "Garbage Plate", "The dish this channel is named after, sourced, with a diagram and where to eat one"],
   ["/vendors.html", "Local vendors", "Who sells cards around Rochester"],
+  // Indexable, so build-search.mjs requires it here: the check exists because
+  // four pages once shipped invisible to the site's own search.
+  ["/privacy.html", "Privacy", "Cookies, analytics and what this site does not do"],
   ["/about.html", "About", "Who this is and why"],
 ];
 

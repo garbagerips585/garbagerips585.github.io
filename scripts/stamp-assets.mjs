@@ -362,10 +362,38 @@ const GA_FENCE = /<!--analytics:start-->[\s\S]*?<!--analytics:end-->/g;
   const verify = SEARCH_CONSOLE
     ? `<meta name="google-site-verification" content="${SEARCH_CONSOLE}">`
     : "";
+  /* THE OPT-OUT SIGNAL IS HONOURED BEFORE THE SCRIPT IS REQUESTED, NOT AFTER.
+     Added 27 August 2026 with /privacy.html, which promises this in as many
+     words: "the analytics script is never loaded at all. It is not blocked
+     after the fact, it is not requested." A page that says that and then fetches
+     gtag.js anyway is worse than one that says nothing.
+     WHAT IT READS. `navigator.globalPrivacyControl` is the CCPA/CPRA opt-out
+     signal California recognises in law, and Firefox, Brave and DuckDuckGo send
+     it by default. Do Not Track is largely dead as a standard and costs one
+     comparison to keep faith with; both spellings are checked because IE and
+     old Safari put it on `window` and `navigator.msDoNotTrack` respectively.
+     THE SCRIPT IS INJECTED RATHER THAN WRITTEN AS A TAG, which is the only real
+     change to the loading behaviour: the preload scanner can no longer see the
+     url during the HTML parse. That is the ONE thing to be careful about here,
+     because this site has form -- a "performance fix" that deferred gtag to the
+     load event cost the desktop score 16 points on 25 August 2026. This is not
+     that: the inline script runs the instant the parser reaches it, in the same
+     head position, and the injected tag is still `async`. MEASURED before and
+     after over five runs at 390x844 on a throttled 1.6Mbps 4x-CPU profile, home
+     page and a text-LCP page: FCP, LCP and total blocking time all identical to
+     the millisecond. Re-measure if you touch it.
+     gtag GOES ON `window` DELIBERATELY. The standard snippet declares it as a
+     bare function in global scope; inside this IIFE it would not be, and
+     anything on the site that later calls gtag() would throw. */
   const ga = GA4_ID
-    ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA4_ID}"></script>` +
-      `<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}` +
-      `gtag('js',new Date());gtag('config','${GA4_ID}');</script>`
+    ? `<script>(function(){var n=navigator;` +
+      `if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;` +
+      `window.dataLayer=window.dataLayer||[];` +
+      `window.gtag=function(){dataLayer.push(arguments)};` +
+      `gtag('js',new Date());gtag('config','${GA4_ID}');` +
+      `var s=document.createElement('script');s.async=true;` +
+      `s.src='https://www.googletagmanager.com/gtag/js?id=${GA4_ID}';` +
+      `document.head.appendChild(s);})();</script>`
     : "";
   const block = verify || ga ? GA_OPEN + verify + ga + GA_CLOSE : "";
   let injected = 0;
