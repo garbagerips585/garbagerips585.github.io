@@ -664,10 +664,10 @@ const cards = shops
               a ? ` data-imglb-avif="/${lgA}"` : ""
             } data-imglb-alt="${esc(s.name)} logo">`;
           })()}<picture>
-            <source type="image/avif" srcset="/assets/shops/${esc(s.logo)}-200.avif 200w, /assets/shops/${esc(s.logo)}-400.avif 400w" sizes="56px">
+            <source type="image/avif" srcset="/assets/shops/${esc(s.logo)}-200.avif 200w, /assets/shops/${esc(s.logo)}-400.avif 400w" sizes="(min-width:900px) 168px, 96px">
             <img src="/assets/shops/${esc(s.logo)}-200.webp" alt="${esc(s.name)} logo" width="200" height="${
               Math.round(200 * (s.logoH || 1) / (s.logoW || 1))
-            }" loading="lazy" decoding="async" srcset="/assets/shops/${esc(s.logo)}-200.webp 200w, /assets/shops/${esc(s.logo)}-400.webp 400w" sizes="56px">
+            }" loading="lazy" decoding="async" srcset="/assets/shops/${esc(s.logo)}-200.webp 200w, /assets/shops/${esc(s.logo)}-400.webp 400w" sizes="(min-width:900px) 168px, 96px">
           </picture>${existsSync(join(ROOT, "public", `assets/shops/${s.logo}-lg.webp`)) ? "</button>" : "</span>"}` : ""}
           <h2>${esc(s.name)}</h2>
           ${s.visited ? `<span class="shop-flag">Filmed here</span>` : ""}
@@ -838,7 +838,13 @@ const style = `
    that look broken is worse than three cards of honest, different heights. */
 .shop{display:flex;flex-direction:column;gap:var(--s2);background:var(--card);
   border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);
-  box-shadow:var(--lift)}
+  box-shadow:var(--lift);
+  /* The card is what the logo sizes against, exactly as .loc is on the vendor
+     and creator pages. Reasoning in full over .loc in ui.css: this grid is
+     auto-fit, so the card width does not track the viewport and a logo sized in
+     vw is a different fraction of the card on every page that uses this
+     component. */
+  container-type:inline-size}
 .shop-head{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap}
 /* THE LOGO SITS ON ITS OWN GROUND AND THAT IS NOT A STYLE CHOICE. LingSter's
    mark is yellow and white artwork on BLACK, so on the card green it would
@@ -847,7 +853,26 @@ const style = `
    shared/brands.mjs states for the retailer marks, so the plate keeps the
    colour the mark was drawn for and takes a keyline to make it deliberate.
    object-fit:contain because the next shop to send one will not be square. */
-.shop-logo{flex:none;width:56px;height:56px;border-radius:var(--r-sm);
+/* THE SAME clamp AS .loc-logo, TO THE PIXEL, and that is the point: a shop card
+   and a vendor card are the same component wearing different data, and this box
+   was left at 56px when the other grew on 27 August 2026. Six shops rather than
+   two vendors means these cards are 350 to 453px wide against the vendors' 350
+   to 718, so the identical rule lands at 96 to 97px here and 96 to 160 there.
+   The rule self-limits; it did not need different numbers, and giving it any
+   would have started the drift over again.
+   THE PLATE STAYS #000 AND THAT MATTERS MORE AT THIS SIZE. LingSter's mark is
+   yellow and white drawn FOR black; on the card green it would read as a black
+   rectangle stuck to the card rather than as a brand plate. Checked at 128px
+   before this shipped, because a small black square and a large one are not the
+   same design decision. Do not "fix" it to var(--card): that is right for the
+   creator logos, which are drawn on transparency, and wrong for this one.
+   THE CLAMP AND THE sizes ATTRIBUTE ARE ONE PROMISE. Change either and change
+   both, or the browser fetches for a box that is not there.
+   NO BACKTICKS IN HERE. This block is inside a JS template literal, so a pair
+   of them around a word ends the string and the builder stops parsing. It did,
+   on this very comment. */
+.shop-logo{flex:none;width:clamp(96px,24cqw,168px);height:clamp(96px,24cqw,168px);
+  border-radius:var(--r-sm);
   background:#000;border:1px solid var(--hair);overflow:hidden;
   display:inline-flex;align-items:center;justify-content:center}
 .shop-logo img{width:100%;height:100%;object-fit:contain;display:block}

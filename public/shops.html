@@ -212,9 +212,11 @@ main{padding-top:0}
 @media(max-width:640px){.shop-list{grid-template-columns:1fr}}
 .shop{display:flex;flex-direction:column;gap:var(--s2);background:var(--card);
 border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);
-box-shadow:var(--lift)}
+box-shadow:var(--lift);
+container-type:inline-size}
 .shop-head{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap}
-.shop-logo{flex:none;width:56px;height:56px;border-radius:var(--r-sm);
+.shop-logo{flex:none;width:clamp(96px,24cqw,168px);height:clamp(96px,24cqw,168px);
+border-radius:var(--r-sm);
 background:#000;border:1px solid var(--hair);overflow:hidden;
 display:inline-flex;align-items:center;justify-content:center}
 .shop-logo img{width:100%;height:100%;object-fit:contain;display:block}
@@ -645,8 +647,8 @@ border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s6);m
           
           
           <button type="button" class="shop-logo" aria-label="Enlarge the LingSter Games logo" data-imglb="/assets/shops/lingster-games-lg.webp" data-imglb-avif="/assets/shops/lingster-games-lg.avif" data-imglb-alt="LingSter Games logo"><picture>
-            <source type="image/avif" srcset="/assets/shops/lingster-games-200.avif 200w, /assets/shops/lingster-games-400.avif 400w" sizes="56px">
-            <img src="/assets/shops/lingster-games-200.webp" alt="LingSter Games logo" width="200" height="196" loading="lazy" decoding="async" srcset="/assets/shops/lingster-games-200.webp 200w, /assets/shops/lingster-games-400.webp 400w" sizes="56px">
+            <source type="image/avif" srcset="/assets/shops/lingster-games-200.avif 200w, /assets/shops/lingster-games-400.avif 400w" sizes="(min-width:900px) 168px, 96px">
+            <img src="/assets/shops/lingster-games-200.webp" alt="LingSter Games logo" width="200" height="196" loading="lazy" decoding="async" srcset="/assets/shops/lingster-games-200.webp 200w, /assets/shops/lingster-games-400.webp 400w" sizes="(min-width:900px) 168px, 96px">
           </picture></button>
           <h2>LingSter Games</h2>
           
