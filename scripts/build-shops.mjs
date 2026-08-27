@@ -716,6 +716,25 @@ const cards = shops
             ${esc(host)} <span aria-hidden="true">&rarr;</span>
           </a>
           ${s.leagueUrl ? `<a class="shop-link" href="${esc(s.leagueUrl)}" rel="noopener" target="_blank" aria-label="Official league page for ${esc(s.name)}, the Play! Pokemon listing, opens on ${esc(hostOf(s.leagueUrl))}">Official league page <span aria-hidden="true">&rarr;</span></a>` : ""}
+          ${/* eventsUrl WAS A DEAD FIELD. Four shops carried one and nothing read it,
+             so three shops whose playNote says "check the calendar" had that calendar
+             sitting in the data with no link on the page. It renders now. */ ""}
+          ${s.eventsUrl && s.eventsUrl !== url ? `<a class="shop-link" href="${esc(s.eventsUrl)}" rel="noopener" target="_blank" aria-label="Events calendar for ${esc(s.name)}, opens on ${esc(hostOf(s.eventsUrl))}">Events calendar <span aria-hidden="true">&rarr;</span></a>` : ""}
+          ${/* SOCIALS, ADDED WHEN THE FIRST SHOP ANSWERED. The outreach email asks for
+             "website or socials" and there was nowhere to put the answer, which is the
+             kind of gap you only find by actually asking somebody. These pass this
+             site's outbound test on their own terms: a reader looking for a local shop
+             wants the feed where that shop posts what just came in. */ ""}
+          ${/* A LABEL MAP, NOT capitalize(). Uppercasing the first letter gives
+             "Youtube" and "Tiktok", which are not how either company writes its own
+             name, and a shop's socials are the one place on this page where the
+             brand names are somebody else's to spell. */ ""}
+          ${Object.entries(s.socials || {}).map(([k, href]) => {
+            const LABEL = { instagram: "Instagram", facebook: "Facebook", youtube: "YouTube",
+              discord: "Discord", tiktok: "TikTok", x: "X", twitch: "Twitch", bluesky: "Bluesky" };
+            const label = LABEL[k] || k[0].toUpperCase() + k.slice(1);
+            return `<a class="shop-link" href="${esc(href)}" rel="noopener" target="_blank" aria-label="${esc(s.name)} on ${esc(label)}, opens on ${esc(hostOf(href))}">${esc(label)} <span aria-hidden="true">&rarr;</span></a>`;
+          }).join("\n          ")}
         </p>
       </li>`;
   })
