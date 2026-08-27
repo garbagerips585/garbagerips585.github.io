@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 269371,
+    "views": 270390,
     "subscribers": 348,
-    "videos": 324,
-    "readAt": "2026-08-26"
+    "videos": 325,
+    "readAt": "2026-08-27"
   },
-  "syncedAt": "2026-08-26",
+  "syncedAt": "2026-08-27",
   "videos": [
+    {
+      "id": "8Cmsa2BycMc",
+      "title": "Where is the Pikachu SIR?? ⚡😱",
+      "path": "rip/where-is-the-pikachu-sir-8Cmsa2BycMc.html",
+      "published": "2026-08-27",
+      "publishedAt": "2026-08-27T12:09:30Z",
+      "duration": 21,
+      "views": 57,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "ascended-heroes"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Ascended Heroes Pack"
+    },
     {
       "id": "VSf9bxl_siE",
       "title": "Mega Darkrai ex is INSANE! 😱🤘",
@@ -15,7 +34,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 652,
+      "views": 1020,
       "vertical": true,
       "short": true,
       "sets": [
@@ -51,7 +70,7 @@
       "published": "2026-08-25",
       "publishedAt": "2026-08-25T11:58:34Z",
       "duration": 19,
-      "views": 841,
+      "views": 848,
       "vertical": true,
       "short": true,
       "sets": [
@@ -85,7 +104,7 @@
       "published": "2026-08-24",
       "publishedAt": "2026-08-24T12:22:06Z",
       "duration": 18,
-      "views": 1004,
+      "views": 1011,
       "vertical": true,
       "short": true,
       "sets": [
@@ -118,7 +137,7 @@
       "published": "2026-08-23",
       "publishedAt": "2026-08-23T12:40:33Z",
       "duration": 21,
-      "views": 959,
+      "views": 961,
       "vertical": true,
       "short": true,
       "sets": [
@@ -256,7 +275,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1018,
+      "views": 1019,
       "vertical": true,
       "short": true,
       "sets": [
@@ -289,7 +308,7 @@
       "published": "2026-08-18",
       "publishedAt": "2026-08-18T10:04:29Z",
       "duration": 28,
-      "views": 1187,
+      "views": 1188,
       "vertical": true,
       "short": true,
       "sets": [
@@ -878,7 +897,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 909,
+      "views": 910,
       "vertical": true,
       "short": true,
       "sets": [
@@ -982,7 +1001,7 @@
       "published": "2026-07-29",
       "publishedAt": "2026-07-29T12:21:37Z",
       "duration": 29,
-      "views": 997,
+      "views": 998,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1824,7 +1843,7 @@
       "published": "2026-07-14",
       "publishedAt": "2026-07-14T23:35:19Z",
       "duration": 23,
-      "views": 784,
+      "views": 783,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7250,7 +7269,7 @@
       "published": "2026-04-27",
       "publishedAt": "2026-04-27T23:10:01Z",
       "duration": 23,
-      "views": 2614,
+      "views": 2615,
       "vertical": true,
       "short": true,
       "sets": [
@@ -8850,7 +8869,7 @@
       "published": "2026-04-05",
       "publishedAt": "2026-04-05T23:49:00Z",
       "duration": 23,
-      "views": 1382,
+      "views": 1383,
       "vertical": true,
       "short": true,
       "sets": [
