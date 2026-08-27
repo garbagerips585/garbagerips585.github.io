@@ -630,6 +630,32 @@ footer .soc svg{fill:var(--chrome-ink)}
 @media(max-width:860px){.rip-grid{grid-template-columns:1fr;gap:28px}}
 .rip h1{font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.12;margin-bottom:14px}
 .rip-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.rip-src{margin-top:var(--s4);background:var(--paper);border:1px solid var(--hair);
+  border-radius:var(--r-sm);padding:var(--s4);max-width:34em}
+.rip-src-badge{font:700 var(--t-micro)/1 var(--mono);text-transform:uppercase;
+  letter-spacing:.08em;color:var(--ink-2);margin:0}
+.rip-src-h{display:flex;align-items:center;gap:10px;margin-top:8px}
+.rip-src-logo{flex:none;width:44px;height:44px;border-radius:var(--r-sm);overflow:hidden;
+  background:var(--card);border:1px solid var(--hair);
+  display:inline-flex;align-items:center;justify-content:center}
+.rip-src-logo img{width:100%;height:100%;object-fit:contain;display:block}
+.rip-src-id{min-width:0}
+.rip-src-name{margin:0;font:400 var(--t-m)/1.15 var(--display);color:var(--ink);
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rip-src-kind{margin:2px 0 0;font:700 var(--t-micro)/1.3 var(--mono);
+  text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+.rip-src-facts{margin:10px 0 0;display:grid;grid-template-columns:auto 1fr;gap:4px 10px}
+.rip-src-facts dt{font:700 var(--t-micro)/1.5 var(--mono);text-transform:uppercase;
+  letter-spacing:.05em;color:var(--ink-2)}
+.rip-src-facts dd{margin:0;font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
+.rip-src-src{display:block;margin-top:2px;font-size:var(--t-micro);color:var(--ink-soft)}
+.rip-src-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.rip-src-more{margin-top:6px;font-size:var(--t-sm)}
+.rip-src-more a{display:inline-flex;align-items:center;min-height:44px}
+@media(max-width:560px){
+  .rip-src-facts{grid-template-columns:1fr;gap:2px}
+  .rip-src-facts dd{margin-bottom:6px}
+}
 .rip-meta{font-family:var(--mono);font-size:.78rem;color:var(--ink-soft);margin-bottom:20px;font-weight:700}
 .rip-desc{white-space:pre-wrap;background:var(--paper-2);border:3px solid var(--keyline);
   border-radius:12px;padding:20px 22px;box-shadow:0 6px 0 var(--trubbish);font-size:.95rem}

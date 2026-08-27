@@ -463,6 +463,63 @@ one, but make it here first, in this file, in the same edit. Do not add one
 quietly to the foot of a page: that is precisely how the playlist cards became
 an exception this file did not admit to for months.
 
+THE SOURCE CARD ON A RIP PAGE IS THE NEWEST ADDITION OF OUTBOUND LINKS AND IT
+IS ARGUED HERE RATHER THAN ADDED QUIETLY IN A BUILDER, which is what the
+paragraphs above spend four screens complaining about. Added 27 August 2026 on
+the owner's ask: "I love tagging the stores and vendors who I buy the products
+from so lets figure out a really cool way to highlight the stores and vendors on
+the video pages for those rips."
+
+WHAT IT IS: 15 of the 325 rip pages name the shop or vendor the packs came from,
+and those 15 now carry a card in the rip's own info column with that seller's
+mark, what they are, where they are, and their links. 80 outbound links, all 80
+carrying an aria-label ending "opens on <host>": youtube.com 15,
+lingstergames.com 10, instagram, tiktok, discord, whatnot and toakpulls.com 10
+each, google.com 5 (map links on the shop address).
+
+THE TEST, APPLIED, AND IT IS THE HARDER HALF THAT DECIDES IT. This file's rule
+is "does the READER need the destination, or does the SOURCE deserve a credit?
+The first earns a link. The second earns a name in plain text and nothing more."
+A credit alone would therefore earn a NAME. What earns the links is that this
+card answers a question the video creates: somebody who just watched a Japanese
+Abyss Eye pack come open and wants to buy one needs the vendor who sells them at
+the local shows, and there is no other way for them to get there. That is the
+same argument /shops.html and /card-shows.html turn on, arriving on a page that
+was previously a dead end for it. The credit is the OCCASION for the card; the
+reader's need is what earns the links.
+
+THE SHAPE IS MET AND WAS COUNTED, not asserted. The card sits BELOW the player
+and below the rip's own title and date, never mid explanation; every outbound
+link is a small labelled pill next to a large internal one (the pack itself, the
+hit cards, both rails); and the last line of the card is INTERNAL, to that
+seller's full listing on /shops.html or /vendors.html, which is where the site
+keeps the version of these facts that has one date and one source.
+
+WHAT IT DELIBERATELY DOES NOT DO. It does not reproduce a listing. Hours appear
+only where the shop states them about itself AND carry the source link and the
+read date, which is the rule build-shops.mjs already FAILS THE BUILD over; the
+rest of the listing stays one tap away rather than being copied onto 15 pages to
+go stale against itself. It prints no price, no stock claim and no opinion about
+the seller beyond the site's own `vouched` chip, which appears only where the
+owner has said outright that he buys from them.
+
+AND THE BADGE SAYS "PACKS FROM", NOT "BOUGHT FROM", WHICH IS NARROWER THAN WHAT
+WAS ASKED FOR AND IS THE HONEST WIDTH. The sentences this is built from say two
+different things: "picked these up from @X" is a purchase and "huge thanks to @X
+for the packs" is not necessarily one. "Packs from" is true of both. The stronger
+claim is carried by `vouched` on the seller's own listing, which is the mark that
+already means exactly that everywhere else on this site, and it is set from the
+owner saying so rather than inferred from a thank-you.
+
+NOTHING IS HAND TAGGED AND THAT IS THE POINT. shared/pack-source.mjs matches a
+YouTube handle in the rip's own description against the `youtube` field on
+vendors, shops and creators, so a rip published tomorrow that credits a listed
+seller is credited on the site without anybody touching a data file. A BARE
+@MENTION IS NOT A CREDIT: the match needs a buying phrase in the same sentence,
+because "go follow @X" and "thanks to @X for the packs" are the same string to a
+handle search and different claims entirely. Where the sentence does not say it,
+nothing renders.
+
 THE COUNTING WAS WRONG THE WHOLE TIME AND THE NUMBER IS NOT SIX. Re-measured at
 HEAD on 21 August 2026 across every built page, socials and youtube.com
 excluded: **1,482 of the site's 1,487 built HTML files** carry a non-social

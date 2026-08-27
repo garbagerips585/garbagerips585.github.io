@@ -2310,6 +2310,59 @@ footer .soc svg{fill:var(--chrome-ink)}
 @media(max-width:860px){.rip-grid{grid-template-columns:1fr;gap:28px}}
 .rip h1{font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.12;margin-bottom:14px}
 .rip-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+/* WHO THE PACKS CAME FROM, under the meta line on the rips that name a seller.
+   The owner, 27 August 2026: "add their logo and credit them on the video pages".
+   ONE LINE, NOT A CARD. It sits between the date line and the pack, which is the
+   densest part of this page, and a bordered block there would read as an ad for
+   the vendor rather than as a credit from us. The logo is 28px, which is half
+   the smallest logo box anywhere else on the site: it is identification, not a
+   placement. It carries no lightbox, deliberately -- the dialog would go on 325
+   pages to enlarge a mark whose own page is one tap away through this link. */
+.rip-src{margin-top:var(--s4);background:var(--paper);border:1px solid var(--hair);
+  border-radius:var(--r-sm);padding:var(--s4);max-width:34em}
+/* THE BADGE IS THE FIRST THING READ AND IT IS THE WHOLE POINT OF THE BLOCK.
+   Small caps mono, the same label treatment .sec-label uses, so it reads as a
+   field name rather than as a heading competing with the rip's own title. */
+.rip-src-badge{font:700 var(--t-micro)/1 var(--mono);text-transform:uppercase;
+  letter-spacing:.08em;color:var(--ink-2);margin:0}
+.rip-src-h{display:flex;align-items:center;gap:10px;margin-top:8px}
+/* 44px, between the 28px this started at and the 96px a listing card uses. It
+   has to hold a wordmark legibly beside a name at body size without becoming
+   the loudest thing in a column that already has a title in it. */
+.rip-src-logo{flex:none;width:44px;height:44px;border-radius:var(--r-sm);overflow:hidden;
+  background:var(--card);border:1px solid var(--hair);
+  display:inline-flex;align-items:center;justify-content:center}
+.rip-src-logo img{width:100%;height:100%;object-fit:contain;display:block}
+.rip-src-id{min-width:0}
+.rip-src-name{margin:0;font:400 var(--t-m)/1.15 var(--display);color:var(--ink);
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rip-src-kind{margin:2px 0 0;font:700 var(--t-micro)/1.3 var(--mono);
+  text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+/* A definition list, not a table: these are field names and their values, and
+   they differ by KIND. A shop has an address and a phone, a vendor has what it
+   sells and which shows it works, and a table would promise columns that line
+   up down their length when the rows are not the same rows twice. */
+.rip-src-facts{margin:10px 0 0;display:grid;grid-template-columns:auto 1fr;gap:4px 10px}
+.rip-src-facts dt{font:700 var(--t-micro)/1.5 var(--mono);text-transform:uppercase;
+  letter-spacing:.05em;color:var(--ink-2)}
+.rip-src-facts dd{margin:0;font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
+/* The hours' own source line, the same shape a shop card carries: quieter than
+   the hours it dates, on its own line so it is not read as part of them. */
+.rip-src-src{display:block;margin-top:2px;font-size:var(--t-micro);color:var(--ink-soft)}
+.rip-src-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+/* THE LINK, NOT THE PARAGRAPH, CARRIES THE TARGET. An <a> around short text is
+   18px tall by default and the paragraph's own height is not tappable, so this
+   shipped at 18px on all four widths and was caught by measuring the anchor's
+   own box rather than by looking at it. inline-flex so the 44px is real and the
+   underline still hugs the words. Same fault, same fix, as .show-where a. */
+.rip-src-more{margin-top:6px;font-size:var(--t-sm)}
+.rip-src-more a{display:inline-flex;align-items:center;min-height:44px}
+@media(max-width:560px){
+  /* The grid becomes two stacked rows so a long address is not squeezed into a
+     column beside its own label at 390px. */
+  .rip-src-facts{grid-template-columns:1fr;gap:2px}
+  .rip-src-facts dd{margin-bottom:6px}
+}
 .rip-meta{font-family:var(--mono);font-size:.78rem;color:var(--ink-soft);margin-bottom:20px;font-weight:700}
 .rip-desc{white-space:pre-wrap;background:var(--paper-2);border:3px solid var(--keyline);
   border-radius:12px;padding:20px 22px;box-shadow:0 6px 0 var(--trubbish);font-size:.95rem}

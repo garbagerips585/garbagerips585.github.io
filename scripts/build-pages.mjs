@@ -58,6 +58,9 @@ import { pickIntlPrintingJp } from "../shared/intl-vocab.mjs";
 import { corpusScan, noScanBox, pinnedShot, NOSCAN_CSS } from "../shared/card-scan.mjs";
 import { loadCorpus, corpusCard } from "../shared/subset-cards.mjs";
 import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount, avifPicture, packTileImg, clipMeta, plainDashesAll, RIP_BANNER} from "../shared/format.mjs";
+// Who sold or sent the packs, read out of the rip's own description.
+import { sourceIndex, packSource, sourceCard } from "../shared/pack-source.mjs";
+import { socialLinks, GLYPH } from "../shared/socials.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -1006,6 +1009,42 @@ const hasGuide = (setId) => Boolean(setId) && guideIds.has(setId);
 const OVERRIDES = JSON.parse(await readFile(join(ROOT, "data/overrides.json"), "utf8").catch(() => "{}"));
 
 const descriptions = plainDashesAll(JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}")));
+
+/* THE SELLER INDEX, BUILT ONCE. Vendors first, then shops, then creators: TOAK
+   Pulls is on two of those lists with one handle and the sentence being matched
+   is about buying, so the credit links to the page that says what they sell.
+   The whole argument is in shared/pack-source.mjs. */
+const SRC_INDEX = sourceIndex([
+  { list: JSON.parse(await readFile(join(ROOT, "data/vendors.json"), "utf8")).vendors,
+    href: "/vendors.html", dir: "creators", kind: "vendors" },
+  { list: JSON.parse(await readFile(join(ROOT, "data/shops.json"), "utf8")).shops,
+    href: "/shops.html", dir: "shops", kind: "shops" },
+  { list: JSON.parse(await readFile(join(ROOT, "data/creators.json"), "utf8")).creators,
+    href: "/creators.html", dir: "creators", kind: "creators" },
+]);
+
+/* THE PLATFORM MARKS ARE ALREADY ON THIS PAGE. shared/chrome.mjs's sprite ships
+   i-yt, i-ig, i-tt and i-fb on every page including these, so a YouTube pill on
+   a rip page costs no new markup. Anything else takes the outbound arrow, which
+   is the same fallback /vendors.html uses and is ours to draw, unlike a Whatnot
+   or an eBay mark. */
+const SRC_OUT =
+  `<svg class="loc-i" viewBox="0 0 24 24" aria-hidden="true">` +
+  `<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" ` +
+  `fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const srcGlyph = (k) =>
+  k && GLYPH[k] ? `<svg class="loc-i" aria-hidden="true"><use href="#i-${GLYPH[k]}"/></svg>` : SRC_OUT;
+let srcCredited = 0;
+
+/* A CREDIT RENDERS ONLY WITH A LOGO THEY SENT US. `logo` is set in the data only
+   where its owner sent the file for this use, which is this site's standing rule,
+   so a seller with no logo yields no line rather than a bare name in a frame. */
+const packCreditLine = (v) => {
+  const hit = packSource(v.blurb || descriptions[v.id] || "", SRC_INDEX);
+  if (!hit || !hit.o.logo) return "";
+  srcCredited += 1;
+  return sourceCard(hit, { esc, socialLinks, glyph: srcGlyph, longDate });
+};
 
 const pathFor = (v) => v.path || ripPath(v);
 
@@ -1985,6 +2024,12 @@ ${MENU}
             ? esc(v.label.replace(/ - Pack (\d+)$/, (_m, n) => (/Pack$/i.test(v.label.slice(0, -_m.length)) ? ` #${n}` : `, pack ${n}`))) + " &bull; "
             : ""
         }${shortDate(v.published)}${v.views ? " &bull; " + niceViews(v.views) : ""}${!v.label && v.openingType ? " &bull; " + esc(v.openingType) : ""}</p>
+        ${/* THE SELLER CREDIT, DIRECTLY UNDER THE DATE LINE AND ABOVE THE PACK.
+             It belongs with the other facts about what this rip IS, not down
+             with the related rails, because "where these packs came from" is the
+             same kind of fact as "what set" and "when". 10 of 325 rips carry one
+             today; the other 315 are packs he bought at retail and print
+             nothing. */ ""}${packCreditLine(v)}
         ${/*
           THE PARAGRAPH IS A FALLBACK, NOT A HEADING.
           The Hit Card column is free text, and on a 14-pull video it arrives as
