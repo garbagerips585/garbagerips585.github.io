@@ -208,10 +208,16 @@ def flyers() -> None:
             # AVIF first, so an AVIF that is BIGGER means every modern browser
             # takes the worse file. Same trap the logo quality note records.
             if ab >= jb:
-                raise SystemExit(
-                    f"{avif.name} is {ab:,} bytes against the JPEG's {jb:,}. "
-                    f"Serving it first would hand every modern browser the larger "
-                    f"file. Lower FLYER_AVIF_Q and re-run.")
+                # NOT A BUILD FAILURE, A SKIP, and the difference matters. This
+                # fired for real on the first tiny flyer: a 310x161 screenshot,
+                # already heavily JPEG-compressed, encoded to 44,598 bytes of AVIF
+                # against the JPEG's 16,583. AVIF is not universally smaller, and
+                # it loses on small already-lossy sources. Killing the build would
+                # mean one bad flyer blocks the whole site; the honest answer is to
+                # not emit the file, so build-shows.mjs serves the JPEG alone.
+                avif.unlink()
+                print(f"    skipped: avif was {ab:,} against the jpeg's {jb:,}, "
+                      f"so this one is served as jpeg only")
             if not label:
                 print(f'  data/shows.json: "flyerW": {tw}, "flyerH": {th}')
 

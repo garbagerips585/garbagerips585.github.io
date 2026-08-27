@@ -1287,6 +1287,26 @@
       "organiser": "Shawn Hughes",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+    },
+    {
+      "id": "prime-time-2026-09-06",
+      "name": "Prime Time Trading Card Show",
+      "date": "2026-09-06",
+      "start": "10:00",
+      "end": "17:00",
+      "venue": "Venue at Lakeside",
+      "address": "1002 State Fair Blvd, Syracuse, NY 13209",
+      "city": "Syracuse",
+      "region": "syracuse",
+      "tables": 50,
+      "pokemon": false,
+      "pkmn": "some",
+      "pkmnWhy": "The flyer bills it as a Pokemon, One Piece and Dragon Ball show, with Pokemon named first.",
+      "blurb": "A TCG show rather than a sports show. Children 5 and under get in free and there is an early bird from 9am, but the flyer prints no adult price.",
+      "source": "a flyer sent to the channel on Discord, August 27, 2026",
+      "flyer": "prime-time-2026-09-06.jpg",
+      "flyerW": 310,
+      "flyerH": 161
     }
   ],
   "_towns": {

@@ -376,12 +376,18 @@ const flyerSrc = (s) => {
   const full = rel.replace(/\.(jpg|jpeg|png|webp)$/i, "-full.$1");
   const avif = rel.replace(/\.(jpg|jpeg|png|webp)$/i, ".avif");
   const fullAvif = rel.replace(/\.(jpg|jpeg|png|webp)$/i, "-full.avif");
-  const missing = [rel, full, avif, fullAvif].filter((r) => !existsSync(join(ROOT, "public", r)));
+  // THE AVIFs ARE OPTIONAL AND THE JPEGs ARE NOT. build-show-logos.py declines to
+  // write an AVIF that came out BIGGER than its JPEG, which happens on a small
+  // already-compressed source, so a missing AVIF is a deliberate decision rather
+  // than a broken build and the <picture> simply omits that <source>.
+  const missing = [rel, full].filter((r) => !existsSync(join(ROOT, "public", r)));
   if (missing.length) {
     missingFlyers.push(`${s.id}: ${missing.map((r) => `public/${r}`).join(" and ")} not found`);
     return null;
   }
-  return { thumb: `/${rel}`, full: `/${full}`, avif: `/${avif}`, fullAvif: `/${fullAvif}`,
+  const has = (r) => existsSync(join(ROOT, "public", r));
+  return { thumb: `/${rel}`, full: `/${full}`,
+    avif: has(avif) ? `/${avif}` : "", fullAvif: has(fullAvif) ? `/${fullAvif}` : "",
     w: s.flyerW || 0, h: s.flyerH || 0 };
 };
 
@@ -704,7 +710,7 @@ function showCard(s) {
           </p>` : ""}
         </div>
         ${flyer ? `<button type="button" class="show-flyer" data-flyer="${esc(flyer.full)}" data-flyer-avif="${esc(flyer.fullAvif)}" data-flyer-alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}">
-          <picture><source type="image/avif" srcset="${esc(flyer.avif)}">
+          <picture>${flyer.avif ? `<source type="image/avif" srcset="${esc(flyer.avif)}">` : ""}
           <img src="${esc(flyer.thumb)}" alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}"${flyer.w && flyer.h ? ` width="${flyer.w}" height="${flyer.h}"` : ""} loading="lazy" decoding="async"></picture>
           <span class="show-flyer-hint">Tap to enlarge</span>
         </button>` : ""}
