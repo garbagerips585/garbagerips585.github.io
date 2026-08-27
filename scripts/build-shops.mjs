@@ -14,6 +14,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE, mailtoHref} from "../shared/site.mjs";
+import { socialLinks } from "../shared/socials.mjs";
 // APP_JS_NO_PACKPLAYER, not APP_JS. Nothing on this page plays a rip where it
 // sits; verified by driving it with a real dispatched click, not by grepping.
 // packs.css is NOT dropped here and cannot be from this file: these four pages
@@ -725,16 +726,14 @@ const cards = shops
              kind of gap you only find by actually asking somebody. These pass this
              site's outbound test on their own terms: a reader looking for a local shop
              wants the feed where that shop posts what just came in. */ ""}
-          ${/* A LABEL MAP, NOT capitalize(). Uppercasing the first letter gives
-             "Youtube" and "Tiktok", which are not how either company writes its own
-             name, and a shop's socials are the one place on this page where the
-             brand names are somebody else's to spell. */ ""}
-          ${Object.entries(s.socials || {}).map(([k, href]) => {
-            const LABEL = { instagram: "Instagram", facebook: "Facebook", youtube: "YouTube",
-              discord: "Discord", tiktok: "TikTok", x: "X", twitch: "Twitch", bluesky: "Bluesky" };
-            const label = LABEL[k] || k[0].toUpperCase() + k.slice(1);
-            return `<a class="shop-link" href="${esc(href)}" rel="noopener" target="_blank" aria-label="${esc(s.name)} on ${esc(label)}, opens on ${esc(hostOf(href))}">${esc(label)} <span aria-hidden="true">&rarr;</span></a>`;
-          }).join("\n          ")}
+          ${/* THE SAME SOCIALS LIST VENDORS AND CREATORS USE, from shared/socials.mjs.
+             This builder briefly had its own: a socials:{platform:url} object with a
+             private label map, written the hour a shop first sent links. Two files
+             disagreeing about how to spell "YouTube" is how that ends, so it moved
+             out. Handles in the data, links built here. */ ""}
+          ${socialLinks(s).map(({ label, href }) =>
+            `<a class="shop-link" href="${esc(href)}" rel="noopener" target="_blank" aria-label="${esc(s.name)} on ${esc(label)}, opens on ${esc(hostOf(href))}">${esc(label)} <span aria-hidden="true">&rarr;</span></a>`
+          ).join("\n          ")}
         </p>
       </li>`;
   })

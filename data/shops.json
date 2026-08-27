@@ -199,12 +199,10 @@
    ],
    "playNote": "The Monday casual play, the release events and the learn to play sessions come from the store directly, by email on August 27, 2026. The Tuesday league is from their own event pages: $5 to enter and it comes back as store credit, with a Pokemon prize pack on entry. Their calendar only publishes about two weeks ahead, so it shows one Tuesday at a time rather than a weekly series.",
    "eventsUrl": "https://legacygamestore.com/events/",
-   "socials": {
-    "instagram": "https://www.instagram.com/thelegacygamestore",
-    "facebook": "https://www.facebook.com/legacygamestore",
-    "youtube": "https://www.youtube.com/@legacygamestore",
-    "discord": "https://discord.com/invite/daMFSvHSJ2"
-   },
+   "instagram": "thelegacygamestore",
+   "facebook": "legacygamestore",
+   "youtube": "legacygamestore",
+   "discord": "daMFSvHSJ2",
    "visited": false,
    "at": [
     43.21276,

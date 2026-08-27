@@ -53,6 +53,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE, CONTACT_EMAIL, mailtoHref} from "../shared/site.mjs";
+import { SOCIALS, GLYPH } from "../shared/socials.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -109,18 +110,6 @@ const creators = JSON.parse(await readFile(join(ROOT, "data/creators.json"), "ut
    saying it back to them in the first thing they see. Eleven characters, well
    inside the 20 the footer grid allows at 138px. */
 const HUB = { url: "/rochester.html", label: "Local scene" };
-// Handle in, link out. Stored without the @ and without a url so one platform
-// change is one edit here, not an edit to every row.
-const SOCIALS = [
-  ["youtube", "YouTube", (h) => `https://www.youtube.com/@${h}`],
-  ["instagram", "Instagram", (h) => `https://www.instagram.com/${h}/`],
-  ["tiktok", "TikTok", (h) => `https://www.tiktok.com/@${h}`],
-  ["twitch", "Twitch", (h) => `https://www.twitch.tv/${h}`],
-  ["facebook", "Facebook", (h) => `https://www.facebook.com/${h}`],
-  ["whatnot", "Whatnot", (h) => `https://www.whatnot.com/user/${h}`],
-  ["ebay", "eBay", (h) => `https://www.ebay.com/usr/${h}`],
-];
-
 /* FOUR OF THE SEVEN GET A GLYPH, AND THE OTHER THREE MUST NOT.
    These two pages carried zero pictures in <main>: 118 words on /creators.html
    and 177 on /vendors.html, entirely text. The site already draws YouTube,
@@ -132,7 +121,7 @@ const SOCIALS = [
    written when Collectr was linked without one, is that inventing a logo to sit
    beside four real ones is worse than a named text link. A pill that says a
    platform's name is not a broken version of a pill with its logo. */
-const GLYPH = { youtube: "yt", instagram: "ig", tiktok: "tt", facebook: "fb" };
+
 const glyphFor = (k) =>
   GLYPH[k] ? `<svg class="loc-i" aria-hidden="true"><use href="#i-${GLYPH[k]}"/></svg>` : OUT;
 
