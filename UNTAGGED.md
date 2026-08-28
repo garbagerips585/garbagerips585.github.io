@@ -6,8 +6,10 @@
 326 videos. **325 are fully tagged** (100%) and get their own
 indexed page. The remaining 1 still have a page and still show up
 in the library and in site search, but the page is marked `noindex` and kept
-out of the sitemap, because a page with no set and no product is too thin to
-rank and would drag the rest down with it.
+out of the sitemap, because a page missing EITHER its set or its product is too
+thin to rank and would drag the rest down with it.
+
+
 
 Tag one and it is promoted on the next build. Nothing else has to change.
 

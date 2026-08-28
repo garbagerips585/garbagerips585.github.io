@@ -94,8 +94,20 @@ const doc = `# Videos still needing tags
 ${videos.length} videos. **${tagged.length} are fully tagged** (${pct}%) and get their own
 indexed page. The remaining ${videos.length - tagged.length} still have a page and still show up
 in the library and in site search, but the page is marked \`noindex\` and kept
-out of the sitemap, because a page with no set and no product is too thin to
-rank and would drag the rest down with it.
+out of the sitemap, because a page missing EITHER its set or its product is too
+thin to rank and would drag the rest down with it.
+
+${/* THE SENTENCE ABOVE SAID "no set and no product" UNTIL 28 AUGUST 2026 AND
+      THAT DESCRIBED THE OPPOSITE RULE. build-pages.mjs is
+      `const isTagged = Boolean(setId && prodId)`, so a page needs BOTH to be
+      indexed and is held back when EITHER is missing. Read the old wording as a
+      condition and it says a page is only thin when it has neither, which would
+      have indexed today's one holdout: the Trick or Trade rip has a product
+      (Single Booster Pack) and no set, because Trick or Trade is a product
+      rather than a set with a checklist, so there is nothing for it to be
+      tagged with. The owner: "we can leave the trick or trade video off the
+      page thats ok". The video is unchanged; the sentence describing why was
+      simply wrong. */ ""}
 
 Tag one and it is promoted on the next build. Nothing else has to change.
 
