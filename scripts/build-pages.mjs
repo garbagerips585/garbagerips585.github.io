@@ -34,7 +34,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE, robots, LIVE, DOMAIN } from "../shared/site.mjs";
 import { localDay } from "../shared/today.mjs";
-import { priceNote, priceFooter, priceRead, chaseByPrice } from "../shared/card-prices.mjs";
+import { priceNote, priceFooter, priceRead, chaseByPrice, readSpan } from "../shared/card-prices.mjs";
 // SUBSCRIBE is imported rather than retyped. The channel URL and its
 // ?sub_confirmation=1 were hard coded here as a literal, which is one place for
 // the ID to be wrong and never noticed; shared/chrome.mjs is where the other
@@ -239,6 +239,19 @@ for (const s of setData.values()) {
 // both callers below pass those through. See shared/graded-price.mjs for the
 // precedence and for why the printing number is re-checked.
 const gradedFor = await loadGradedPrices();
+
+/* THE PSA 10 FIGURES ON A RIP PAGE CAN COME FROM TWO READS, AND THE PAGE USED
+   TO CLAIM ONE. data/graded.json is hand run and WINS the chain where it has a
+   row (see shared/graded-price.mjs: it is verified and drops a printing whose
+   number disagrees, so it is the better answer); everything else falls through
+   to the nightly checklist figure. Once refresh-prices.mjs began moving the
+   checklist every night those two dates diverged, and 50 rip pages went on
+   saying the PSA prices were "read the same day" as the raw ones when they were
+   five days older. These two dates bound every PSA figure the page can print,
+   so readSpan() over them is true whichever tier answered. */
+const GRADED_READ = JSON.parse(
+  await readFile(join(ROOT, "data/graded.json"), "utf8").catch(() => "{}")
+).checked || null;
 const firstPartner = await loadFirstPartner();
 const gradedPrice = (setId, number, name, setName) =>
   gradedFor.price(setId, number, { name, setName });
@@ -1479,7 +1492,9 @@ const desc = (v.blurb || descriptions[v.id] || "")
           source in fewer words than the band above it invites the reader to
           wonder which one is the real disclosure. */ ""}
     ${hitsBandHasNote ? "" : `<p class="price-note">${esc(priceNote(pricesDoc, { lead: "Raw prices" }))}
-      PSA 10 prices come from PriceCharting's guide too, read the same day, and only exist for some cards, so the
+      PSA 10 prices come from PriceCharting's guide too, ${esc(
+        readSpan([GRADED_READ, priceRead(pricesDoc)]) || "read on the date shown"
+      )}, and only exist for some cards, so the
       line is shown where we have one and left off where we do not. We do not sell cards.</p>`}
   </div>
 </section>`
@@ -2213,7 +2228,9 @@ ${
       sentence that makes the number worth trusting.
     */ ""}${pricedHits.length || hits.some((h) => h.psa10)
       ? `<p class="price-note">${esc(priceNote(pricesDoc, { lead: "Raw prices" }))}
-      PSA 10 prices come from PriceCharting's guide too, read the same day, and only exist for some cards, so the
+      PSA 10 prices come from PriceCharting's guide too, ${esc(
+        readSpan([GRADED_READ, priceRead(pricesDoc)]) || "read on the date shown"
+      )}, and only exist for some cards, so the
       line is shown where we have one and left off where we do not. Promos are not in that feed at all: where a promo carries a price it was
       read by hand from the source named under it, on the date shown, and it does not refresh overnight like the rest. We do not sell cards.</p>`
       : ""}

@@ -28,6 +28,7 @@ import { APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/ch
 import { loadCorpus, corpusCard } from "../shared/subset-cards.mjs";
 import { esc, shortDate, moneyCompact, noValue, rarityLabel, imgDims, cardNumKey, avifPicture } from "../shared/format.mjs";
 import { loadGradedPrices } from "../shared/graded-price.mjs";
+import { readSpan } from "../shared/card-prices.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
 // THE RULE IS intl-printing.mjs AND IT IS UNCHANGED. This asks it in the rip
 // log's own vocabulary and hands back the guide's own row; see that file.
@@ -1267,8 +1268,22 @@ const tallyLabel = derivedFromHits && L
 // that nobody in this list actually owns.
 const psaSources = [...new Set(gradedCards.map((c) => c.psa10Source).filter(Boolean))];
 const psaAsOf = gradedCards.map((c) => c.psa10AsOf).filter(Boolean).sort().pop();
+const psaSpanTxt = readSpan(gradedCards.map((c) => c.psa10AsOf));
+
+/* THE RAW HALF OF THIS PAGE PRINTED 168 FIGURES WITH NO READ DATE AT ALL, on a
+   site whose one hard rule is that a price carries a source and the day it was
+   read. The PSA half was dated and the raw half never had been.
+   AND THE SENTENCE WAS WRONG A SECOND WAY: it said every raw figure is
+   "PRICECHARTING'S UNGRADED PRICE GUIDE VALUE, THE SAME FIGURE EVERY SET GUIDE
+   AND THE CARD SEARCH PRINT", but the promos, Trainer Gallery cards and
+   non-English pulls are priced by hand in the rip log and appear in no set
+   guide and no card search. Both halves are counted here rather than asserted. */
+const rawSpanTxt = readSpan([
+  JSON.parse(await readFile(join(ROOT, "public/data/card-index.json"), "utf8").catch(() => "{}")).pricesChecked || null,
+  JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8").catch(() => "{}")).checked || null,
+]);
 const psaNote = gradedCards.length
-  ? ` PSA 10 FROM ${psaSources.join(" AND ").toUpperCase()}${psaAsOf ? `, READ ${shortDate(psaAsOf).toUpperCase()}` : ""},` +
+  ? ` PSA 10 FROM ${psaSources.join(" AND ").toUpperCase()}${psaSpanTxt ? `, ${psaSpanTxt.toUpperCase()}` : ""},` +
     ` AND ONLY WHERE IT RESOLVED TO THIS EXACT PRINTING. NONE OF THESE CARDS IS GRADED:` +
     ` IT IS WHAT THE SAME CARD SELLS FOR IN A PSA 10 SLAB.`
   : "";
@@ -1984,7 +1999,7 @@ ${rest.map((c, i) => plaque(c, i + 1)).join("\n")}
       HAVE ONE AND IS NOT WHAT THE ORDER IS BUILT ON: NOTHING HERE IS GRADED.
       A DASH MEANS NO PRICE WE ARE WILLING TO STAND BEHIND YET, NOT A CARD WORTH NOTHING.
       RAW NEAR MINT IS PRICECHARTING'S UNGRADED PRICE GUIDE VALUE, THE SAME FIGURE EVERY SET GUIDE
-      AND THE CARD SEARCH PRINT FOR THESE CARDS.${psaNote}</p>
+      AND THE CARD SEARCH PRINT, FOR THE CARDS IN OUR SET CHECKLISTS; PROMOS AND NON-ENGLISH PULLS ARE PRICED BY HAND IN THE RIP LOG AND APPEAR IN NEITHER${rawSpanTxt ? `, ${rawSpanTxt.toUpperCase()}` : ""}.${psaNote}</p>
 
     ${/* WHOSE PULLS THESE ARE. /about.html carried ZERO in-body inbound links
           from anywhere on the site, and this is the page most obviously making

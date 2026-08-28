@@ -23,6 +23,31 @@
 
 import { longDate } from "./format.mjs";
 
+/**
+ * An honest phrase for WHEN a set of figures was read, given every date behind
+ * them. Returns null when there is no date at all, because this module refuses
+ * to produce a sentence with no date rather than quietly dropping the clause.
+ *
+ * WHY A SPAN AND NOT A DAY. On 28 August 2026 the nightly refresh began moving
+ * raw prices every night while data/graded.json, which is hand run and wins the
+ * PSA 10 chain where it has a row, stayed on its own older read. Four pages
+ * then asserted ONE date over a MIXTURE: 50 rip pages said the PSA figures were
+ * "read the same day" as the raw ones, /wanted.html named a single LAST CHECKED,
+ * and /grading.html promised "both halves of the subtraction describe one
+ * printing of one card out of one source". Each was false for at least one row.
+ *
+ * The two pages that were already right are the model: a set guide dates each
+ * card inline, and /luck.html says "read between Aug 23, 2026 and Aug 28, 2026".
+ * This is that second sentence, made shared so a fifth page cannot invent a
+ * sixth wording.
+ */
+export function readSpan(dates) {
+  const days = [...new Set((dates || []).filter(Boolean).map((d) => String(d).slice(0, 10)))].sort();
+  if (!days.length) return null;
+  if (days.length === 1) return `read ${longDate(days[0])}`;
+  return `read between ${longDate(days[0])} and ${longDate(days[days.length - 1])}`;
+}
+
 /** The day the PRICES on this file were read, never the checklist's date. */
 export function priceRead(doc) {
   return doc?.pricesChecked || doc?.checked || null;

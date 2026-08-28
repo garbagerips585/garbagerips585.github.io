@@ -26,7 +26,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { faqBlock, FAQ_CSS } from "../shared/faq.mjs";
-import { priceNote, priceFooter, priceRead } from "../shared/card-prices.mjs";
+import { priceNote, priceFooter, priceRead , readSpan } from "../shared/card-prices.mjs";
 import { loadGradedPrices } from "../shared/graded-price.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
@@ -83,6 +83,15 @@ try {
   /* no graded sample yet; the section simply does not render */
 }
 const gRows = Object.values(graded.cards || {}).filter((c) => c.psa10 && c.ungraded);
+
+/* BOTH HALVES OF THE SUBTRACTION MUST REALLY COME FROM ONE READ, OR THIS PAGE
+   MUST NOT SAY THEY DO. data/graded.json is hand run and wins the PSA chain
+   where it has a row; everything else falls through to the nightly checklist
+   figure. Once the nightly began moving, one row here computed "+$X after fees"
+   across a 23 August PSA and a 28 August raw while the note promised one read.
+   These two dates bound every figure the page can print, so the phrase is true
+   whichever tier answered. Lazy, because priceDoc is filled further down. */
+const psaSpan = () => readSpan([graded.checked || null, priceRead(priceDoc)]) || "read on the date shown";
 const median = (a) => {
   const x = a.slice().sort((p, q) => p - q);
   return x.length ? x[x.length >> 1] : null;
@@ -667,8 +676,8 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
       They are the same figures the rest of this site quotes.
       ${esc(
         fromTrackerPsa > 0
-          ? `PSA 10 prices come from the same PriceCharting guide for ${fromPcPsa} of the ${fromPcPsa + fromTrackerPsa} cards below, read the same day as the raw figure beside them, so both halves of the subtraction describe one printing out of one source. The other ${fromTrackerPsa} come from pokemonpricetracker.com.`
-          : `PSA 10 prices come from the same PriceCharting guide, read the same day as the raw figure beside them, so both halves of the subtraction describe one printing of one card out of one source.`
+          ? `PSA 10 prices come from the same PriceCharting guide for ${fromPcPsa} of the ${fromPcPsa + fromTrackerPsa} cards below, ${psaSpan()}, so both halves of the subtraction describe one printing out of one source. The other ${fromTrackerPsa} come from pokemonpricetracker.com.`
+          : `PSA 10 prices come from the same PriceCharting guide, ${psaSpan()}, so both halves of the subtraction describe one printing of one card out of one source.`
       )}
       Which cards appear here is still decided by pokemonpricetracker.com's recorded sale counts, because it is the
       only feed that publishes one, and only cards with at least ten recorded sales are used. Card scans

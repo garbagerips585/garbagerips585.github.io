@@ -24,7 +24,7 @@ import { APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/ch
 import { esc, shortDate, moneyCompact, imgDims, avifPicture, rarityLabel } from "../shared/format.mjs";
 // priceRead(), so this page cannot stamp the checklist's date under a column of
 // dollars. See the long note beside the checklist join below.
-import { priceRead } from "../shared/card-prices.mjs";
+import { priceRead , readSpan } from "../shared/card-prices.mjs";
 import { loadGradedPrices } from "../shared/graded-price.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -522,6 +522,13 @@ function cardTile(c, { hunted = true, eager = false } = {}) {
 // checked in January and card B in August, "find" claimed every price on the
 // page was last checked in January.
 const asOf = cards.map((c) => c.psa10AsOf).filter(Boolean).sort().pop() || null;
+/* .pop() TAKES THE NEWEST, AND THE SENTENCE UNDER IT CLAIMED THAT ONE DATE FOR
+   ALL OF THEM. That was true while every PSA figure came from one hand-run
+   crawl. Since refresh-prices.mjs began moving the nightly checklist, these
+   cards can be read on different days: on 28 August 2026 twenty-six were read
+   that day and Team Rocket's Mewtwo ex was five days older, under a flat
+   "LAST CHECKED AUG 28". The span is true however many reads are behind it. */
+const psaSpanTxt = readSpan(cards.map((c) => c.psa10AsOf));
 const anyPsa = cards.some((c) => c.psa10);
 
 // WHO SAID SO, AND THE DATA HAD IT ALL ALONG. Every card with a graded figure
@@ -668,7 +675,7 @@ ${caught.map((c) => cardTile(c, { hunted: false })).join("\n")}
         anyPsa
           ? `<br>PSA 10 PRICES COME FROM ${
               esc(psaWho.toUpperCase())
-            }${asOf ? `, LAST CHECKED ${shortDate(asOf).toUpperCase()}` : ""}. ${/* NOT "A SEPARATE FEED FROM THE RAW FIGURES", WHICH STOPPED BEING TRUE
+            }${psaSpanTxt ? `, ${psaSpanTxt.toUpperCase()}` : ""}. ${/* NOT "A SEPARATE FEED FROM THE RAW FIGURES", WHICH STOPPED BEING TRUE
                  ON 21 AUGUST 2026. Both columns can now name pricecharting.com,
                  and a sentence telling a reader they are different companies
                  when they are the same one is worse than saying nothing. What
