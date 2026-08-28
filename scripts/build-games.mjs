@@ -1262,9 +1262,9 @@ const hub = shell({
             anybody wants one, is a sixth GAME. Adding a non-game to square the
             arithmetic is what this comment is a headstone for. */ ""}<a class="g-card g-plate" href="/garbage-plate.html">
         <span class="g-mark">${plateMark(132)}</span>
-        <span class="g-tag">Rochester</span>
+        <span class="g-tag">Rochester, NY</span>
         <h2>The Garbage Plate</h2>
-        <p>Not a game. This is the thing the channel is named after: a Rochester dish with a federal trademark, a
+        <p>Not a game. This is the thing the channel is named after: a Rochester, NY dish with a federal trademark, a
           founder its own sources disagree about, and eleven places to eat one. Every claim on that page carries the
           source it came from and the day it was read.</p>
       </a>

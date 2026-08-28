@@ -753,7 +753,7 @@ ${compareTable(esc)}
           cardboard in your hand is a legal question, and we are a Pokemon channel rather than a law firm.</p>
         <p>So the honest pitch is the one at the top. The code card is the only thing in a booster pack with no
           collector value at all, and this is what it is for. When you would rather play a person than a screen,
-          <a href="/shops.html">the shops around Rochester</a> run league nights.</p>
+          <a href="/shops.html">the shops around Rochester, NY</a> run league nights.</p>
       </section>
 
 ${FAQ.html}

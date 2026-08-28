@@ -467,7 +467,7 @@ ${/* THE PAGE'S FIRST AND ONLY FLEURON, and it is the existing one-per-page rule
             .join(", ")}.</p>
         <p style="margin-top:var(--s3)">Stock varies store to store and the good stuff goes fast, so this tells you
           where to look rather than what you will find. If you would rather buy without the hunt, the
-          <a href="/shops.html">Rochester shops</a> and the <a href="/card-shows.html">card shows</a> have
+          <a href="/shops.html">Rochester, NY shops</a> and the <a href="/card-shows.html">card shows</a> have
           cards on a table right now, and <a href="/pack-prices.html">pack prices</a> shows what a pack
           actually costs before you pay a scalper for one. Several of the rows above are First
           Partner collection boxes, and there is a

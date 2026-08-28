@@ -351,7 +351,7 @@
     "links": [
       ["/openings/", "See each one opened"],
       ["/msrp.html", "Check any price against the list"],
-      ["/shops.html", "Card shops around Rochester"]
+      ["/shops.html", "Card shops around Rochester, NY"]
     ]
   },
 
@@ -447,7 +447,7 @@
       "Ask somebody who works there. That is the whole trick. Ask if there is any Pokemon behind the counter, ask when the truck comes, ask what day they put it out. Nobody is going to laugh at you and most of them will just tell you.",
       "The same goes for a proper card shop, where the good stuff is behind glass by definition. Walking in and saying you have no idea what you are doing and it is for a seven year old is a completely normal thing to say in a card shop, and it gets you better advice than any website including this one."
     ],
-    "links": [["/shops.html", "Card shops around Rochester"], ["/card-shows.html", "Card shows nearby"]]
+    "links": [["/shops.html", "Card shops around Rochester, NY"], ["/card-shows.html", "Card shows nearby"]]
   },
 
   "playing": {

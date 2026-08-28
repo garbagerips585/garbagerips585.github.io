@@ -1367,8 +1367,8 @@ ${/* THE ONE ORNAMENT ON THIS PAGE, AND IT IS HERE BECAUSE OF WHAT IS UNDER IT
       this sits in is the second largest at 11,171px.
 
       The section below is the page's closing turn, from "every venue above ends
-      with a package" to a counter in Rochester, and it is the one paragraph on
-      the page that points at /shops.html. A Rochester dish is the mark for
+      with a package" to a counter in Rochester, NY, and it is the one paragraph on
+      the page that points at /shops.html. A Rochester, NY dish is the mark for
       that, which is why the ornament is here and not at the arithmetic seam
       13,000px up, where it would have been decoration on a fee table.
 
@@ -1379,7 +1379,7 @@ ${/* THE ONE ORNAMENT ON THIS PAGE, AND IT IS HERE BECAUSE OF WHAT IS UNDER IT
         <p class="by-lede">Every venue above ends with a package. A counter does not. You look at the card, you hand
           over money, and the transaction is finished before you leave: nothing to ship, no claim window, nobody to
           wait on and no clock to miss.${
-            shops ? ` This site already publishes <a href="/shops.html">${shops} shops around Rochester</a> and a
+            shops ? ` This site already publishes <a href="/shops.html">${shops} shops around Rochester, NY</a> and a
             <a href="/card-shows.html">card show calendar</a>.` : ""
           } What it costs is selection, which is the same trade as everything else on this page.</p>
         <p class="by-lede" style="margin-top:var(--s3)">A counter does not have to be a card shop, either.

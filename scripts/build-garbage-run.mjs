@@ -1161,7 +1161,7 @@ const GAME_JS = `
     titleDim: "rgba(236,228,212,.5)",
   };
 
-  // ---- downtown Rochester ---------------------------------------------
+  // ---- downtown Rochester, NY ---------------------------------------------
   // WHAT THE BACKGROUND WAS: seven 44x74 rectangles at rgba(255,255,255,.055),
   // scrolling along the bottom. It read as "some blocks", which is fair, and it
   // was the safest thing that could be there. This replaces it with the actual
@@ -1286,7 +1286,7 @@ const GAME_JS = `
     cut(g, x + w * 0.46, y + 50, w * 0.08, h - 54, 0.5);
   }
   // THE TIMES SQUARE BUILDING AND ITS FOUR WINGS OF PROGRESS. Four aluminium
-  // fins, forty two feet each, and the one Rochester roofline somebody would
+  // fins, forty two feet each, and the one Rochester, NY roofline somebody would
   // name from a silhouette alone. If only one shape in this layer survives being
   // dimmed, it has to be this one, so the wings are drawn tall and separated
   // rather than accurately proportioned.
@@ -1343,7 +1343,7 @@ const GAME_JS = `
       if (s) cut(g, sx - 0.7, y + 3, 1.4, h - 3, 0.42);
     }
   }
-  // A church spire. Rochester has a skyline full of them and one narrow pointed
+  // A church spire. Rochester, NY has a skyline full of them and one narrow pointed
   // shape does more for "this is a city" at this size than another slab does.
   function bSpire(g, x, y, w, h) {
     g.fillRect(x + w * 0.14, y + 34, w * 0.72, h - 34);
@@ -1917,7 +1917,7 @@ const GAME_JS = `
   // trubbish mascot sitting on a big Garbage Plate, then it will be perfect".
   // The channel is named after the dish and the reference is the channel's own
   // commissioned banner, public/assets/banner-trubbish.jpg, which already has
-  // this exact picture in it: Trubbish on a Rochester street with a plate beside
+  // this exact picture in it: Trubbish on a Rochester, NY street with a plate beside
   // him. The only change is that he is ON it here.
   //
   // IT IS THE SAME DISH THE GAME ALREADY DRAWS, IN THE SAME NINE COLOURS.
@@ -2972,7 +2972,7 @@ ${MENU}
                properties this wants. */ ""}
           <div class="gr-stage" id="grStage" tabindex="-1">
             <canvas id="grCanvas" width="420" height="680" role="img"
-              aria-label="Garbage Run. Trubbish runs through downtown Rochester, past the Times Square building, the Xerox tower and High Falls, and you tap to flip him between the floor and the ceiling."></canvas>
+              aria-label="Garbage Run. Trubbish runs through downtown Rochester, NY, past the Times Square building, the Xerox tower and High Falls, and you tap to flip him between the floor and the ceiling."></canvas>
             <div class="gr-over gr-attract" id="grOver" role="status">
               <h2 id="grTitle">Garbage Run</h2>
               <p id="grMsg">Tap the screen, or press space, to flip. Eat the trash, dodge the Pokemon.</p>
@@ -3004,7 +3004,7 @@ ${MENU}
           <b>Some of the trash is a Garbage Plate</b>, because of course it is. Home fries, macaroni salad, hot sauce,
           mustard and onion, exactly like Nick Tahou would hand you at two in the morning. A plate is worth the same one
           point as everything else on the street. It just tastes better.<br>
-          <b>That is downtown Rochester behind him.</b> The Times Square building and its four wings, the Xerox tower,
+          <b>That is downtown Rochester, NY behind him.</b> The Times Square building and its four wings, the Xerox tower,
           Kodak, the grain silos, and High Falls with the Pont de Rennes over the top of it. It is drawn on the canvas
           like everything else here, and it is kept dim on purpose so the things that can kill you stay the brightest
           objects on the screen.<br>

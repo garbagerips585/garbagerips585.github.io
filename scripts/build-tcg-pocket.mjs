@@ -727,7 +727,7 @@ ${FORTNIGHT()}
           <li><b>Link an account on day one.</b> Without one, a reinstall or a lost phone takes everything with
             it, and Pokemon says you will not be able to recover it yourself.</li>
           <li><b>Open both free packs every day,</b> and claim your daily rewards before the day rolls over.
-            Pokemon resets it at 6:00 a.m. UTC, which is 2:00 a.m. in Rochester in the summer and 1:00 a.m. in the
+            Pokemon resets it at 6:00 a.m. UTC, which is 2:00 a.m. in Rochester, NY in summer and 1:00 a.m. in
             winter.</li>
           <li><b>Do not panic when there is no Battle button.</b> Battles unlock at player level 3, and you get
             there by opening packs and playing with the collecting side first.</li>
@@ -742,7 +742,7 @@ ${FORTNIGHT()}
         </ol>
         <p>That is the lot. It is free, it is two minutes a day, and it is how the guy who runs this channel
           learned to play. When you want the real thing, <a href="/how-to-play.html">the rules are here</a> and
-          <a href="/shops.html">the shops around Rochester</a> will have somebody to play against.</p>
+          <a href="/shops.html">the shops around Rochester, NY</a> will have somebody to play against.</p>
       </section>
 
 ${FAQ.html}

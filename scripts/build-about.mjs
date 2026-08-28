@@ -343,8 +343,8 @@ const GUIDES = [
     [
       ["/buying.html", "Buying online", "Shipping thresholds and buyer fees read off each company's own page, plus what recourse you have when a card turns up wrong."],
       ["/retailers.html", "Which chains stock cards", `GameStop to Dollar General: what each one carries, which aisle it is filed in, and a page of its own for ${num(fam.retailers || 0)} of them.`],
-      ["/shops.html", "Card shops near Rochester", `The ${shopCount} local shops, with league nights, prereleases and hours.`],
-      ["/card-shows.html", "Card shows", "Every upcoming show around Rochester, Buffalo and Syracuse, with dates, venues and admission."],
+      ["/shops.html", "Card shops near Rochester, NY", `The ${shopCount} local shops, with league nights, prereleases and hours.`],
+      ["/card-shows.html", "Card shows", "Every upcoming show around Rochester, NY, Buffalo and Syracuse, with dates, venues and admission."],
       ["/selling.html", "Where to sell", "What each venue takes off the top, because the fees are the whole decision."],
       ["/vendors.html", "Local vendors", "Who is set up at the shows and markets around here."],
     ],
@@ -389,10 +389,10 @@ const GUIDES = [
     "roc",
     "Rochester, New York",
     [
-      ["/garbage-plate.html", "The Garbage Plate", `What is on one, where it came from with a source on every claim, and ${num(plateSpots)} places around Rochester that serve it.`],
+      ["/garbage-plate.html", "The Garbage Plate", `What is on one, where it came from with a source on every claim, and ${num(plateSpots)} places around Rochester, NY that serve it.`],
       ["/shops.html", "Card shops and where to play", "Drawn on a real map, with roads."],
-      ["/card-shows.html", "Shows around the region", "Rochester out to Buffalo and Syracuse."],
-      ["/creators.html", "Other people doing this locally", "Rochester, Buffalo and Syracuse."],
+      ["/card-shows.html", "Shows around the region", "Rochester, NY out to Buffalo and Syracuse."],
+      ["/creators.html", "Other people doing this locally", "Rochester, NY, Buffalo and Syracuse."],
     ],
   ],
 ];
@@ -439,7 +439,7 @@ const FAQ = [
   ],
   [
     "What is the Trubbish trash can on the channel?",
-    "It is a real Pokemon Center item, from a limited run sold at the Pokemon Center in Tokyo and never released here, imported to Rochester. Every rip ends by feeding it: the wrappers, the packaging and the bulk all go in, on camera, in every single video. It is not a prop and it is not a bit that comes and goes.",
+    "It is a real Pokemon Center item, from a limited run sold at the Pokemon Center in Tokyo and never released here, imported to Rochester, NY. Every rip ends by feeding it: the wrappers, the packaging and the bulk all go in, on camera, in every single video. It is not a prop and it is not a bit that comes and goes.",
   ],
   [
     "Where is Garbage Rips 585 based?",
@@ -459,7 +459,7 @@ const FAQ = [
   ],
   [
     "Why is it called Garbage Rips?",
-    `Three reasons and they are all the same reason. Most packs are garbage, which is the honest description of the hobby. Rochester's own dish is <a href="/garbage-plate.html">the Garbage Plate</a>. And the channel's mascot is Trubbish, who is a bag of trash with legs and who is fed every bad pull, every wrapper and all the bulk.`,
+    `Three reasons and they are all the same reason. Most packs are garbage, which is the honest description of the hobby. Rochester, NY's own dish is <a href="/garbage-plate.html">the Garbage Plate</a>. And the channel's mascot is Trubbish, who is a bag of trash with legs and who is fed every bad pull, every wrapper and all the bulk.`,
   ],
   [
     "What is a Garbage Plate?",
@@ -596,7 +596,7 @@ const style = `
 /* THE PACK PICTURE. It sits with the paragraph about the sealed wrapper because
    that paragraph describes an object, and the object exists: it is the wrapper
    drawn for this channel, the one every rip page opens with, and it happens to
-   carry the Rochester joke the two paragraphs above it are making.
+   carry the Rochester, NY joke the two paragraphs above it are making.
    170px is the drawn width and the file is 400 wide, which is what
    scripts/build-packs.py makes the tile for: "a tile is never wider than about
    200 CSS px, so 400 covers it at 2x". Do not point this at the non-tile file,
@@ -854,7 +854,7 @@ ${jump.map(([id, label]) => `          <li><a href="#${id}">${esc(label)}</a></l
           sets, and every one of them has its own page here with the video on it, so nothing on
           this site sends you to YouTube unless you want to go.</p>
 
-        <p>Rochester is not incidental to any of it. This is the 585: Wegmans, the Public Market,
+        <p>Rochester, NY is not incidental to any of it. This is the 585: Wegmans, the Public Market,
           High Falls, lake-effect weather that arrives sideways in November, and a dinner nowhere
           else in the country makes. The channel is named after the dinner. Around here chaos is a
           lifestyle and ripping packs is just part of the routine.</p>
@@ -905,7 +905,7 @@ ${jump.map(([id, label]) => `          <li><a href="#${id}">${esc(label)}</a></l
 
         <p>The can itself is not a prop we made. It is a Pokemon Center item, sold for a limited
           run at the Pokemon Center in Tokyo and never here, and this one was imported from Japan
-          to sit on a desk in Rochester and be fed booster wrappers. Which is either the correct
+          to sit on a desk in Rochester, NY and be fed booster wrappers. Which is either the correct
           use of an exclusive collectible or the worst one, depending on who you ask.</p>
 
         <p>Nobody is going to be smug at you here. If you have never held a card and you
@@ -938,7 +938,7 @@ ${jump.map(([id, label]) => `          <li><a href="#${id}">${esc(label)}</a></l
           What a card is worth and who says so. Where to buy, and what each place charges on top.
           What grading costs and whether it is worth doing. Which of the video games came out
           when. The most valuable cards and the most expensive sealed products. And, since we are
-          in Rochester, where to get a Garbage Plate.</p>
+          in Rochester, NY, where to get a Garbage Plate.</p>
 
         <p>There are ${num(tree.total)} pages on the site as it stands. Most of them are one card,
           one set or one rip, and nobody needs most of them. The ${num(guideLinkCount)} pages
@@ -991,7 +991,7 @@ ${jump.map(([id, label]) => `          <li><a href="#${id}">${esc(label)}</a></l
           carries and which aisle it is filed in, with a page of its own for ${num(fam.retailers || 0)}
           of them. <a href="/buying.html">Buying online</a> covers
           the marketplaces and what each one adds in fees.
-          <a href="/shops.html">Card shops near Rochester</a> lists the ${num(shopCount)} local
+          <a href="/shops.html">Card shops near Rochester, NY</a> lists the ${num(shopCount)} local
           ones, which is where to go if you want a person to explain it rather than a page.</p>
 
         <h3>Two things worth knowing before you spend</h3>
@@ -1005,7 +1005,7 @@ ${jump.map(([id, label]) => `          <li><a href="#${id}">${esc(label)}</a></l
           in your hand and no equipment at all.</p>
 
         <h2 id="mascots">Trubbish and Garbodor</h2>
-        <p>Rochester has no official Pokemon. Nobody at City Hall has voted on this and there is
+        <p>Rochester, NY has no official Pokemon. Nobody at City Hall has voted on this and there is
           no plaque. But if this city ever does get a vote, this channel has already cast one and
           it was not close. A place whose most famous dinner is a pile is not getting an elegant
           mascot and should stop trying for one.</p>
@@ -1029,7 +1029,7 @@ ${jump.map(([id, label]) => `          <li><a href="#${id}">${esc(label)}</a></l
 
         <p>And we feed him, which on this channel is not a figure of speech. There is a Trubbish
           trash can sitting on the desk, a Pokemon Center exclusive from a limited run sold only
-          in Tokyo and imported to Rochester for exactly this. He is in every video, and the
+          in Tokyo and imported to Rochester, NY for exactly this. He is in every video, and the
           last thing that happens in a rip is the wrappers going into him. All the bulk, the packaging, the bad hits, the
           garbage hits, every card that is never going in a binder. It all goes in and he loves
           it. That is how he lives. He lives off garbage rips.</p>
@@ -1037,7 +1037,7 @@ ${jump.map(([id, label]) => `          <li><a href="#${id}">${esc(label)}</a></l
         ${plateRule()}
 
         <h2 id="plate">Garbage Plates</h2>
-        <p>The Garbage Plate is the one food Rochester is known for outside Rochester. Two sides
+        <p>The Garbage Plate is the one food Rochester, NY is known for outside the city. Two sides
           on the bottom, meat on top of them, a spiced meat sauce poured over the lot, then raw
           onions and mustard, with bread and butter on the side. Nobody eats one with a plan.</p>
 
@@ -1051,7 +1051,7 @@ ${jump.map(([id, label]) => `          <li><a href="#${id}">${esc(label)}</a></l
           a source and a read date on every claim it makes, two of them primary: the trademark
           file itself, and the restaurant's own printable order form, which is where the labeled
           drawing of the six layers comes from. It cites ${num(plateSources)} sources, carries
-          ${num(platePhotos)} photographs, lists ${num(plateSpots)} places around Rochester that
+          ${num(platePhotos)} photographs, lists ${num(plateSpots)} places around Rochester, NY that
           serve it with the hours each business states about itself, and prints
           ${num(plateUnsourced)} things people repeat about this dish that we could not source at
           all, out loud, rather than dropping them quietly.</p>

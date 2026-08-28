@@ -1018,7 +1018,7 @@ ${COLUMNS.map(
         ${totalRips} openings of these sets on camera with the results written down, which is
         <a href="/luck.html">observed and not the same thing</a>.</li>
       <li><strong>What you will pay at a shop.</strong> Market price is what copies have been selling for online. A
-        counter in <a href="/shops.html">Rochester</a> or a table at a <a href="/card-shows.html">card show</a> is its
+        counter in <a href="/shops.html">Rochester, NY</a> or a table at a <a href="/card-shows.html">card show</a> is its
         own market, sometimes under this and sometimes over, and there is no feed for either.</li>
       <li><strong>Anything about half boxes, blisters, tins or collection boxes.</strong> They are in the sync and on the
         set guides with their full prices, but their pack counts are either variable or not in our data, so they are not

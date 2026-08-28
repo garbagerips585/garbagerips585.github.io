@@ -963,7 +963,7 @@
         "page": 17
       },
       "rochester": {
-        "plain": "This site already lists the Rochester shops and which of them run league nights, prereleases and learn-to-play sessions.",
+        "plain": "This site already lists the Rochester, NY shops and which of them run league nights, prereleases and learn-to-play sessions.",
         "internal": "/shops.html",
         "note": "public/shops.html already names a shop running 'a learn to play session for anyone starting out', plus League Challenges and Cups, and one shop with a weekly Thursday league. The 101 page should point at that page rather than restate any of it, because that page carries the hedges about schedules going stale."
       },

@@ -301,7 +301,7 @@ const shopRow = (s) => `        <li>
 
 // ---------------------------------------------------------------------------
 const TITLE = "Pokemon Cards in Rochester, NY: Shows, Shops, Local Scene";
-const H1 = 'Pokemon in <span class="hl">Rochester</span>, NY';
+const H1 = 'Pokemon in <span class="hl">Rochester, NY</span>, NY';
 const KICKER = "585 &bull; The local scene";
 
 /* THE NAV LABEL, AND THE GUARD THAT KEEPS THE PAGE SAYING IT BACK.
@@ -651,7 +651,7 @@ ${shops.map(shopRow).join("\n")}
           salad with hot sauce poured over the lot, and outside Monroe County almost nobody has heard of it. A rip
           with nothing in it is a garbage rip. That is the whole joke and it is also the reason a Pokemon channel
           from here is called what it is.</p>
-        <p class="lede" style="max-width:36em">${nPlates} places around Rochester serve one, under
+        <p class="lede" style="max-width:36em">${nPlates} places around Rochester, NY serve one, under
           ${nPlateNames} different ${nPlateNames === 1 ? "name" : "names"}: Nick Tahou Hots holds the trademark on
           the words Garbage Plate, so everybody else calls theirs something else. That page carries ${nPlateSources}
           sources and ${nPlatePhotos} photographs, and it also names the ${
@@ -725,7 +725,7 @@ ${/* THE GROUNDS ALTERNATE ALL THE WAY DOWN AND THIS ONE HAD TO GIVE ITS BAND UP
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>All of it</p>
     <h2>Everything local, in one <span class="hl">place</span></h2>
     <ul class="roc-routes">
-      <li><a href="/card-shows.html"><b>Card shows</b><span>${nShows} coming up around Rochester, Buffalo and
+      <li><a href="/card-shows.html"><b>Card shows</b><span>${nShows} coming up around Rochester, NY, Buffalo and
         Syracuse, with the dates, the venues and a drawn map of where they are.</span></a></li>
       <li><a href="/shops.html"><b>Card shops</b><span>${shops.length} shops with a door, what each one is good
         for, and where you can sit down and play.</span></a></li>
@@ -735,7 +735,7 @@ ${/* THE GROUNDS ALTERNATE ALL THE WAY DOWN AND THIS ONE HAD TO GIVE ITS BAND UP
         ${nCreators} so far, listed alphabetically and never ranked.</span></a></li>
       <li><a href="/garbage-plate.html"><b>Garbage Plate</b><span>The dish, its history, and the ${nPlates} places
         that serve one. Every claim on it carries a source.</span></a></li>
-      <li><a href="/videos.html"><b>The rips</b><span>The channel itself: packs opened in Rochester, mostly ending
+      <li><a href="/videos.html"><b>The rips</b><span>The channel itself: packs opened in Rochester, NY, mostly ending
         in garbage. That is the name.</span></a></li>
     </ul>
   </div>

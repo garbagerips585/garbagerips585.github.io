@@ -49,7 +49,7 @@
     "dress the rest up as data.",
     "",
     "WE HOLD NO LOCAL SHOP PRICES AND THE PAGE SAYS SO. data/shops.json has six",
-    "Rochester shops in it and not one price, because nobody walked in with a",
+    "Rochester, NY shops in it and not one price, because nobody walked in with a",
     "notebook. That gap is printed rather than filled with a guess or with an",
     "impression of what local shops charge.",
     "",
@@ -134,7 +134,7 @@
       "id": "local",
       "name": "Your local shop",
       "whatDecides": "Whatever the owner decides, product by product, and it can move between two visits. There is no listed price to read from here.",
-      "watch": "This site holds no prices from any local shop, so it makes no claim about them. The six Rochester shops on our shops page were visited for hours and events, not for a price list. Do the division in the aisle instead.",
+      "watch": "This site holds no prices from any local shop, so it makes no claim about them. The six Rochester, NY shops on our shops page were visited for hours and events, not for a price list. Do the division in the aisle instead.",
       "source": "the local shop list, which holds six shops and no prices, deliberately"
     }
   ],

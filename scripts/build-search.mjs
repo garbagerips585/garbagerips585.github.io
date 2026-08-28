@@ -218,7 +218,7 @@ const PAGES = [
   // other result for that query, which are that the shows and the shops are on
   // it and that somebody local can get themselves listed on it.
   ["/rochester.html", "Pokemon in Rochester, NY", "Everything local in one place: the card shows, the shops, the vendors and creators around the 585, and the Garbage Plate"],
-  ["/card-shows.html", "Card shows", "Shows around Rochester, Buffalo and Syracuse"],
+  ["/card-shows.html", "Card shows", "Shows around Rochester, NY, Buffalo and Syracuse"],
   ["/card-show-101.html", "Card show 101", "What happens at a card show if you have never been"],
   ["/shops.html", "Card shops and where to play", "Local shops and league nights"],
   ["/videos.html", "All rips", "The full video library"],
@@ -244,12 +244,12 @@ const PAGES = [
   // browsing a chart.
   ["/eevee-evolutions.html", "Eevee evolutions", "All eight Eeveelutions, and exactly what each one needs"],
   ["/video-games.html", "Every Pokemon video game", "Covers, release dates, platforms and Metascores, 1996 to now"],
-  ["/creators.html", "Local creators", "Other Rochester card channels worth watching"],
+  ["/creators.html", "Local creators", "Other Rochester, NY card channels worth watching"],
   // The blurb leads with the trademark date rather than with "the Rochester
   // dish", because the date is the surprising checkable fact and every other
   // page about this dish opens with the summary.
   ["/garbage-plate.html", "Garbage Plate", "The dish this channel is named after, sourced, with a diagram and where to eat one"],
-  ["/vendors.html", "Local vendors", "Who sells cards around Rochester"],
+  ["/vendors.html", "Local vendors", "Who sells cards around Rochester, NY"],
   // Indexable, so build-search.mjs requires it here: the check exists because
   // four pages once shipped invisible to the site's own search.
   ["/privacy.html", "Privacy", "Cookies, analytics and what this site does not do"],
@@ -257,7 +257,7 @@ const PAGES = [
   // file fails the build on an INDEXABLE page missing from PAGES, and the
   // archive's noindex lifts by itself on 30 August, which would have failed a
   // nightly build nobody was watching.
-  ["/past-shows.html", "Past card shows", "Shows around Rochester that have already happened, with the flyers"],
+  ["/past-shows.html", "Past card shows", "Shows around Rochester, NY that have already happened, with the flyers"],
   ["/about.html", "About", "Who this is and why"],
 ];
 

@@ -1187,7 +1187,7 @@ ${/* THE ONE ORNAMENT ON THIS PAGE, and it is the twin of the one on
       The section under it is the page's editorial turn, the argument that the
       safest sale is a local one made face to face, which is the same
       destination /buying.html's closing section reaches from the other end. A
-      Rochester dish is the mark for that, and the two pages now make the same
+      Rochester, NY dish is the mark for that, and the two pages now make the same
       turn with the same mark on it.
 
       ONE. Ten h2s on this page. */ ""}${plateRule()}
@@ -1212,7 +1212,7 @@ ${(safe.inPerson.because || []).map((b) => `          <li>${esc(b)}</li>`).join(
 ${(safe.inPerson.whereTheLineIs || []).map((b) => `          <li>${esc(b)}</li>`).join("\n")}
         </ul>
         <p class="se-lede" style="margin-top:var(--s4)">This site already publishes where the counter-and-table
-          venues are${shops ? `: <a href="/shops.html">${shops} shops around Rochester</a>` : ""}${
+          venues are${shops ? `: <a href="/shops.html">${shops} shops around Rochester, NY</a>` : ""}${
             shows ? ` and <a href="/card-shows.html">${shows} upcoming shows</a>` : ""
           }. A shop or a show is a busy public room with a proprietor in it, which removes most of the reason
           people are nervous about meeting a stranger.</p>

@@ -620,7 +620,7 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
     ${/* THE ONE ORNAMENT ON THIS PAGE, and it is the weakest of the three the
           plate went on, which is written down here rather than left to be
           rediscovered. /buying.html and /selling.html both close on a local,
-          in-person argument and a Rochester dish IS that argument. This page
+          in-person argument and a Rochester, NY dish IS that argument. This page
           closes on caveats, so the mark is doing the plain typographic job
           instead: a fleuron between the last table and the summary list.
 

@@ -691,7 +691,7 @@ const schema = {
     {
       "@type": "Article",
       "@id": `${SITE}/garbage-plate.html#article`,
-      headline: "What Is a Garbage Plate? The Rochester Dish, Explained",
+      headline: "What Is a Garbage Plate? The Rochester, NY Dish, Explained",
       description:
         "The history of the Rochester Garbage Plate, sourced, plus a diagram of what is on one and where to eat one.",
       inLanguage: "en-US",
@@ -992,7 +992,7 @@ const style = `
 .gpp-facts dd.gpp-tap a{display:inline-flex;align-items:center;min-height:44px}
 .gpp-checked{display:block;font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2)}
 /* The unconfirmed hour is LOUD on purpose. The cost of a quiet blank here is
-   somebody driving across Rochester to a locked door, which is the same reason
+   somebody driving across Rochester, NY to a locked door, which is the same reason
    /shops.html shouts its league-night disagreements. */
 .gpp-unknown{font:400 var(--t-micro)/1.6 var(--body);color:var(--plum)}
 .gpp-note{font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-2);margin-top:var(--s2);
@@ -1123,7 +1123,7 @@ ${placeCards}
       Restaurants move, change hands and change their hours, so call before you make a trip of it.</p>
 
     <h3 style="margin-top:var(--s6)">Places we checked and left off</h3>
-    <p class="gp-sub">Every one of these turns up on somebody's list of the best plates in Rochester.
+    <p class="gp-sub">Every one of these turns up on somebody's list of the best plates in Rochester, NY.
       None of them could be confirmed from the business itself, so none of them are above. They are
       written down here so nobody researches them again, and so you know the list is short on purpose.</p>
     <ul class="gp-gaps">
@@ -1156,8 +1156,8 @@ ${
     </ul>
 
     <p class="gp-sub" style="margin-top:var(--s6)">Hungry for the other local pages? The
-      <a href="/shops.html">card shops around Rochester</a> are where this channel actually buys, the
-      <a href="/card-shows.html">card show calendar</a> has everything coming up around Rochester,
+      <a href="/shops.html">card shops around Rochester, NY</a> are where this channel actually buys, the
+      <a href="/card-shows.html">card show calendar</a> has everything coming up around Rochester, NY,
       Buffalo and Syracuse, and <a href="/about.html">about the channel</a> explains what Garbage Rips
       585 is and why it is named after dinner.</p>
 
@@ -1211,14 +1211,14 @@ const footer = home.slice(home.lastIndexOf("<footer"), home.indexOf("</footer>")
 // touch one of those, this is the fix.
 const DESC =
   `GARBAGE PLATE has been a federal trademark since 18 August 1992, which is why everywhere else ` +
-  `in Rochester sells a trash plate. A sourced history of the dish, a labeled diagram of what is ` +
+  `in Rochester, NY sells a trash plate. A sourced history of the dish, a labeled diagram of what is ` +
   `on one, and ${places.length} places around Rochester, NY that serve it.`;
-const OG_TITLE = `What Is a Garbage Plate? Rochester's Dish, Explained`;
+const OG_TITLE = `What Is a Garbage Plate? Rochester, NY's Dish, Explained`;
 
 const swapped = head
   .replace(
     /<title>[\s\S]*?<\/title>/,
-    `<title>What Is a Garbage Plate? Rochester's Dish, and Where to Eat</title>`,
+    `<title>What Is a Garbage Plate? Rochester, NY's Dish, and Where to Eat</title>`,
   )
   .replace(
     /<meta name="description"[^>]*>/,

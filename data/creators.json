@@ -1,11 +1,11 @@
 {
  "_readme": [
-  "Pokemon creators from Rochester and the wider region. Drives /creators.html.",
+  "Pokemon creators from Rochester, NY and the wider region. Drives /creators.html.",
   "",
   "EMPTY UNTIL THE OWNER FILLS IT IN. These are real people. A wrong handle sends",
   "traffic to a stranger, and a made-up creator is worse than an empty page.",
   "",
-  "AREA is one of: Rochester, Buffalo, Syracuse, or Upstate NY for anywhere else",
+  "AREA is one of: Rochester, NY, Buffalo, Syracuse, or Upstate NY for anywhere else",
   "close enough to count. Same rule as the card show calendar: check the zip or",
   "the profile before adding. A national search for 'Rochester Pokemon' returns",
   "Rochester MINNESOTA and Rochester MICHIGAN above ours.",
@@ -24,7 +24,7 @@
  "creators": [
   {
    "name": "TOAK Pulls",
-   "area": "Rochester",
+   "area": "Rochester, NY",
    "does": "Live streams, Pokemon comedy, pack openings",
    "url": "https://toakpulls.com",
    "youtube": "toakpulls",
@@ -40,7 +40,7 @@
   },
   {
    "name": "Elliot Does Pokemon",
-   "area": "Rochester",
+   "area": "Rochester, NY",
    "does": "Diamond and Pearl era, rare Pokemon facts, comedy, pack openings",
    "youtube": "elliotdoespokemon",
    "instagram": "elliotdoespokemon",

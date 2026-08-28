@@ -889,7 +889,7 @@ ${(win.ways || [])
             <a href="/tcg-live.html">what the code gets you</a>.</li>
           <li><b>Then go and play with people</b>Hobby shops run leagues, and the rulebook tells new players to
             find one: ask whether your shop is a Play! Pokemon Store.
-            <a href="/shops.html">We list the shops around Rochester</a> and which of them run league nights,
+            <a href="/shops.html">We list the shops around Rochester, NY</a> and which of them run league nights,
             prereleases and a learn to play session. The <a href="/card-shows.html">card show calendar</a> is for
             buying, not playing.</li>
           <li><b>Is my card even legal?</b>Standard is the normal format and uses cards with regulation mark H,

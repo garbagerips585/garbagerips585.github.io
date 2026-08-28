@@ -538,7 +538,7 @@ const getListed = ({ noun, one, fields, emailFields, sends, asset, subject }) =>
    police prose in general and must not grow into that: `empty` and `note` are
    exempt on purpose, since both are plainly asks rather than descriptions
    ("anywhere in Upstate New York close enough to count belongs here"). */
-const CITY_WORDS = ["Rochester", "Buffalo", "Syracuse"];
+const CITY_WORDS = ["Rochester, NY", "Buffalo", "Syracuse"];
 
 const checkCities = (text, rows, where) => {
   const areas = rows.map((o) => String(o.area || "")).join(" | ");
@@ -550,8 +550,8 @@ const checkCities = (text, rows, where) => {
         `  Areas on the page: ${areas || "(none)"}\n` +
         `  A lede describes the list in front of the reader. Name the cities the rows are in,\n` +
         `  or add somebody from ${city}. Do NOT widen the sentence to cover a city the page\n` +
-        `  does not: that is what "Rochester, Buffalo, Syracuse and nearby" was doing over two\n` +
-        `  Rochester entries. The invitation to the wider region belongs in "empty" and "note".`
+        `  does not: that is what "Rochester, NY, Buffalo, Syracuse and nearby" was doing over two\n` +
+        `  Rochester, NY entries. The invitation to the wider region belongs in "empty" and "note".`
     );
   }
 };
@@ -753,7 +753,7 @@ ${earlyNote(rows, kind)}`
           block is a route, a route in the middle of an explanation is a
           reader losing their place. Every one of these is internal. */ ""}
     <nav class="loc-more" aria-label="More local pages">
-      <p class="loc-more-h">More around Rochester</p>
+      <p class="loc-more-h">More around Rochester, NY</p>
       <a href="${HUB.url}">The whole local scene</a>
       <a href="/card-shows.html">Card shows</a>
       <a href="/shops.html">Card shops</a>
@@ -805,11 +805,11 @@ const V = page({
      it to be re-read by eye. The metaDesc lost the same claim in the same edit,
      and it was the more expensive of the two because it is the copy Google
      prints. */
-  lede: "Sellers around Rochester worth knowing: who they are, what they carry, and where to find them.",
+  lede: "Sellers around Rochester, NY worth knowing: who they are, what they carry, and where to find them.",
   list: vendors.vendors || [],
   kind: "vendors",
   empty:
-    "We are putting together a list of vendors around Rochester who are worth buying from: who they are, what they " +
+    "We are putting together a list of vendors around Rochester, NY who are worth buying from: who they are, what they " +
     "carry, and which shows you will find them at. If you sell locally, or you have bought from somebody good, tell us.",
   /* THE FIVE THINGS ARE data/vendors.json's OWN FIELDS IN ITS OWN ORDER: name,
      area, sells, shows, and the handles. Written out because a vendor who sends
@@ -844,10 +844,10 @@ const C = page({
   // line promises a roster the page cannot show. Add the roles back the day the
   // file has them.
   metaDesc:
-    "Pokemon creators worth following in Rochester and around Upstate New York, " +
+    "Pokemon creators worth following in Rochester, NY and around Upstate New York, " +
     "with a link to each. No paid placements.",
   slug: "creators.html",
-  title: "Pokemon Creators in Rochester, Buffalo and Syracuse",
+  title: "Pokemon Creators in Rochester, NY, Buffalo and Syracuse",
   h1: "Local creators",
   kicker: "Upstate NY • Support your scene",
   /* THE LEDE NAMED THREE CITIES AND THE PAGE COVERS ONE. It read "Other people
@@ -862,11 +862,11 @@ const C = page({
      THE TITLE KEEPS THE THREE CITIES and that was already argued above: a title
      is the search this page is for. A lede is a description of the page in front
      of the reader, which is why the two are allowed to differ. */
-  lede: "Other people around Rochester making Pokemon content. Go watch them.",
+  lede: "Other people around Rochester, NY making Pokemon content. Go watch them.",
   list: creators.creators || [],
   kind: "creators",
   empty:
-    "We want to point people at everybody else making Pokemon content in Rochester, Buffalo, Syracuse and the towns " +
+    "We want to point people at everybody else making Pokemon content in Rochester, NY, Buffalo, Syracuse and the towns " +
     "around them. If that is you, or somebody you watch, let us know and you go on the list.",
   /* FOUR RATHER THAN FIVE, because data/creators.json holds four fields and not
      five: a creator has no "shows" and no "sells". The count is written into the
@@ -882,7 +882,7 @@ const C = page({
       "A message, a comment on a rip, a tag in a story, whatever is easiest.",
     fields: [
       "Your name as you want it printed.",
-      "Where you are: Rochester, Buffalo, Syracuse, or the town if it is none of those.",
+      "Where you are: Rochester, NY, Buffalo, Syracuse, or the town if it is none of those.",
       "What you make: rips, singles, art, competitive, something we have not thought of.",
       "Every handle you want on the card, and your own site if you have one.",
     ],

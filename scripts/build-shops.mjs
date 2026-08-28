@@ -612,7 +612,7 @@ const style = `
    drawing it. 5 on 4 at 640 units is 3px on and 2.4px off at 390.
 
    IT WENT IN AT 1.6 AND .62 AND CAME STRAIGHT BACK OUT AT 1.4 AND .46. Look at
-   the drawing rather than the value: Rochester's line is a genuinely jagged
+   the drawing rather than the value: Rochester, NY's line is a genuinely jagged
    thing, full of annexation notches, and at full strength it was the busiest
    object in the frame, which is exactly backwards for the piece of information
    here that matters least. It is context, so it whispers. */
@@ -666,12 +666,12 @@ ${/* THE ONE ORNAMENT ON THIS PAGE, AND THIS IS THE PAGE THE PLATE WAS DRAWN
       and the map is the only picture above the fold, so the page is SHORTER and
       even less illustrated than that measurement says. Everything below the
       list is six shop entries and a sign off with nothing to look at. It is the
-      least illustrated Rochester page on the site.
+      least illustrated Rochester, NY page on the site.
 
       HERE RATHER THAN AT THE TOP because the sentence under it is the page
       speaking in its own voice: the list of shops ends, and then "NOT SPONSORED
-      AND NOT AFFILIATE LINKS. THESE ARE SHOPS I GO TO." A Rochester dish is the
-      mark for a Rochester page saying that, and it is the same turn
+      AND NOT AFFILIATE LINKS. THESE ARE SHOPS I GO TO." A Rochester, NY dish is the
+      mark for a Rochester, NY page saying that, and it is the same turn
       /buying.html and /selling.html both make when they end on a local counter.
 
       NOT UNDER THE h1, which was the obvious spot and is the wrong one: the map
@@ -679,7 +679,7 @@ ${/* THE ONE ORNAMENT ON THIS PAGE, AND THIS IS THE PAGE THE PLATE WAS DRAWN
       screen of the page and none in the 6,377px underneath. */ ""}${plateRule()}
     ${shopsDoc.playNote ? `<p class="shops-lede" style="margin-top:var(--s5)">${esc(shopsDoc.playNote)}</p>` : ""}
     <p class="shops-lede">Looking for a one off rather than a weekly night? The
-      <a href="/card-shows.html">card show calendar</a> has every show coming up around Rochester, Buffalo
+      <a href="/card-shows.html">card show calendar</a> has every show coming up around Rochester, NY, Buffalo
       and Syracuse.</p>
     ${/* THE LOCAL CLUSTER WAS THREE PAGES AND ONE EDGE. /vendors.html and
           /creators.html had ZERO in-body inbound links from anywhere on the
@@ -691,7 +691,7 @@ ${/* THE ONE ORNAMENT ON THIS PAGE, AND THIS IS THE PAGE THE PLATE WAS DRAWN
          word on /card-shows.html. */ ""}
     ${/* THE ORNAMENT ABOVE THIS IS A GARBAGE PLATE AND UNTIL 20 AUGUST 2026 IT
           POINTED NOWHERE. There is a whole page about the dish now, this page is
-          the one whose reader is already out driving around Rochester, and the
+          the one whose reader is already out driving around Rochester, NY, and the
           mark itself is the natural handle for the link. */ ""}
     ${/* "eleven places" WAS TYPED, ON A SITE WHERE THAT IS THE ONE THING A
           SENTENCE MAY NOT DO. It is correct today and it is correct only because
@@ -705,7 +705,7 @@ ${/* THE ONE ORNAMENT ON THIS PAGE, AND THIS IS THE PAGE THE PLATE WAS DRAWN
       diagram of what is actually on one, and ${nPlatePlaces} places around here that serve one.</p>
     <p class="shops-lede">Not everyone selling cards around here has a storefront.
       <a href="/vendors.html">Local vendors</a> are the breakers and sellers we buy from without one, and
-      <a href="/creators.html">local creators</a> is who else is filming Pokemon in Rochester, Buffalo and
+      <a href="/creators.html">local creators</a> is who else is filming Pokemon in Rochester, NY, Buffalo and
       Syracuse. <a href="/rochester.html">Everything local in one place</a> is the short version of all of it,
       with the shows, the shops and the plate counted.</p>
     ${/* HOURS CAME OUT OF THIS SENTENCE, 25 August 2026, because they now date

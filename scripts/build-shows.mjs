@@ -65,7 +65,7 @@ const TODAY = localDay();
 
 const REGIONS = [
   { id: "all", label: "All" },
-  { id: "roc", label: "Rochester" },
+  { id: "roc", label: "Rochester, NY" },
   { id: "buffalo", label: "Buffalo & Niagara" },
   { id: "syracuse", label: "Syracuse" },
 ];
@@ -228,7 +228,7 @@ if (areaProblems.length) {
   console.error(
     `${areaProblems.length} show(s) fail the area rule:\n` +
       areaProblems.map((t) => `  ${t}`).join("\n") +
-      `\n\nEvery show must be within ${RADIUS_MI} miles of Rochester, Buffalo or Syracuse, ` +
+      `\n\nEvery show must be within ${RADIUS_MI} miles of Rochester, NY, Buffalo or Syracuse, ` +
       `filed under the nearest one, with its city in _towns. Widen RADIUS_MI only on purpose.`
   );
   process.exit(1);
@@ -674,7 +674,7 @@ const ld = [
 ];
 
 const desc =
-  `Every upcoming Pokemon and trading card show near Rochester, Buffalo and Syracuse NY. ` +
+  `Every upcoming Pokemon and trading card show near Rochester, NY, Buffalo and Syracuse NY. ` +
   `${upcoming.length} shows with dates, venues and admission, checked ${longDate(data.checked) || data.checked}.`;
 
 // COMMENTS OUT OF THE SHIPPED PAGE, ARGUMENT KEPT IN THIS FILE. Same regex and
@@ -703,7 +703,7 @@ const head = `<!DOCTYPE html>
 <title>Card Shows Near Rochester NY: Buffalo & Syracuse Calendar</title>
 <meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/card-shows.html">
-<meta property="og:title" content="Card shows near Rochester, Buffalo and Syracuse">
+<meta property="og:title" content="Card shows near Rochester, NY, Buffalo and Syracuse">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="${SITE}/card-shows.html">
@@ -874,8 +874,8 @@ const page = head + `
 <header class="set-hero">
   <div class="wrap">
     <span class="kicker">585 &bull; Get out of the house</span>
-    <h1>Card <span class="hl">shows</span> near Rochester</h1>
-    <p class="lede" style="max-width:36em">Every card show we can find within driving distance of Rochester, Buffalo
+    <h1>Card <span class="hl">shows</span> near Rochester, NY</h1>
+    <p class="lede" style="max-width:36em">Every card show we can find within driving distance of Rochester, NY, Buffalo
       and Syracuse. Dates, times, where to park yourself, and what it costs to get in. Built because working this out
       every month from six different Facebook pages is genuinely annoying.</p>
   </div>
@@ -1051,7 +1051,7 @@ ${(data.watchFor || []).length ? `
       <li>Shows in the Southern Tier are left off on purpose. They show up in the same feeds but they are closer to Binghamton than to any of these three cities.</li>
     </ul>
     ${/* THE LOCAL CLUSTER. This page held no in-body link to any of the other
-          three Rochester pages, and /vendors.html and /creators.html had no
+          three Rochester, NY pages, and /vendors.html and /creators.html had no
           in-body inbound link from anywhere at all. A reader who has just
           decided not to drive to a show is the exact reader for the shops and
           the vendors, so this is a service rather than a link drop. */ ""}
@@ -1063,7 +1063,7 @@ ${(data.watchFor || []).length ? `
           three, not four links in one, because the three answer "what else is
           on tonight" and this one answers "what else is here at all". */ ""}
     <p class="price-note" style="margin-top:var(--s4)">Nothing on for a while? The
-      <a href="/shops.html">card shops around Rochester</a> are open the rest of the time and run league nights,
+      <a href="/shops.html">card shops around Rochester, NY</a> are open the rest of the time and run league nights,
       <a href="/vendors.html">local vendors</a> are the sellers and breakers without a storefront, and
       <a href="/creators.html">local creators</a> is everyone else filming Pokemon up here.
       <a href="/rochester.html">Everything local in one place</a> is the short version of all of it, counted.</p>
@@ -1219,7 +1219,7 @@ ${/* THE CALENDAR'S OWN CLIENT SWEEP WAS HERE and went with the calendar. It
       var n = document.querySelectorAll('.show:not([hidden])').length;
       // THE CHIP'S OWN WORDS, NOT THE REGION ID. The ids are 'roc', 'buffalo'
       // and 'syracuse', so the id would announce "12 shows in roc". The button
-      // the reader just pressed already says "Rochester".
+      // the reader just pressed already says "Rochester, NY".
       var chip = document.querySelector('.chip.filt[data-region="' + region + '"]');
       var where = region === 'all' || !chip ? '' : ' in ' + chip.textContent.trim();
       // Built as one string and written once: the region is role="status",
@@ -1244,7 +1244,7 @@ ${/* THE CALENDAR'S OWN CLIENT SWEEP WAS HERE and went with the calendar. It
      IT DRIVES THE EXISTING AREA FILTER rather than adding a town filter, because
      the areas are what the list is grouped by, and a second filtering model on
      one page is how two controls end up disagreeing about what is shown. So
-     Batavia selects Rochester and the chip updates to match: the control that
+     Batavia selects Rochester, NY and the chip updates to match: the control that
      moved is visibly the one you already had. */
   /* THE FLYER OPENED IN A NEW TAB AND NOW OPENS IN PLACE, at the owner's
      request. A flyer is the densest thing on a show listing -- date, hours,
@@ -1289,7 +1289,7 @@ await writeFile(join(ROOT, "public/card-shows.html"), page);
  * for exactly that: "dont put it on that page until Sunday".
  */
 const archiveDesc =
-  `Every Pokemon and card show around Rochester, Buffalo and Syracuse that has already happened, newest first, ` +
+  `Every Pokemon and card show around Rochester, NY, Buffalo and Syracuse that has already happened, newest first, ` +
   `with the flyers. A record of what was on, and when the last one of a show was.`;
 
 const archiveHead = `<!DOCTYPE html>
@@ -1297,10 +1297,10 @@ const archiveHead = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Past Card Shows Around Rochester, Buffalo and Syracuse</title>
+<title>Past Card Shows Around Rochester, NY, Buffalo and Syracuse</title>
 <meta name="description" content="${esc(clipMeta(archiveDesc))}">
 <link rel="canonical" href="${SITE}/past-shows.html">
-<meta property="og:title" content="Past card shows around Rochester">
+<meta property="og:title" content="Past card shows around Rochester, NY">
 <meta property="og:description" content="${esc(archiveDesc)}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="${SITE}/past-shows.html">

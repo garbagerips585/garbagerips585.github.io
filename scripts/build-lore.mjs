@@ -684,7 +684,7 @@ ${MENU}
 
     <div class="fk-golden" style="margin-bottom:var(--s6)">
       <p class="fk-golden-h">The mascots</p>
-      <h2>Rochester's unofficial <span class="hl">Pokemon</span></h2>
+      <h2>Rochester, NY's unofficial <span class="hl">Pokemon</span></h2>
       <p>This city's most famous meal is the Garbage Plate. Its most famous export, if we get a vote, should be
         a walking trash bag. We did not choose ${esc(trubbish.name)} and ${esc(garbodor.name)} because of a joke we
         made up: the Pokedex got there first and files them as the
@@ -719,7 +719,7 @@ ${MENU}
         catch than the heap.</p>
       <p style="margin-top:12px">They are two of the ${n(poison.length)} ${esc(cap("poison"))} type Pokemon in the
         dex, and two of the ${n(purePoison.length)} that are pure ${esc(cap("poison"))} with no second type.
-        Calling them Rochester's Pokemon is our claim and nobody else's, but we would like it noted that
+        Calling them Rochester, NY's Pokemon is our claim and nobody else's, but we would like it noted that
         The Pokemon Company named a trash bag and a trash heap, and we named a channel after a plate of garbage,
         entirely independently.</p>
       <p style="margin-top:12px"><a class="btn btn-sm" href="/pokemon/trubbish.html">Every ${esc(trubbish.name)} card</a>
@@ -729,7 +729,7 @@ ${MENU}
     </div>
 
 ${/* THE SEAM THIS PAGE ALREADY MADE, AND THE ONE PLACE ON IT WITH NEITHER A
-      PICTURE NOR A MARK. Everything above this line is Rochester: the two
+      PICTURE NOR A MARK. Everything above this line is Rochester, NY: the two
       mascots, the height chart, the paragraph that ends "we named a channel
       after a plate of garbage, entirely independently", and a source line
       naming the trademark. Everything below it is the National Pokedex, and the
@@ -738,7 +738,7 @@ ${/* THE SEAM THIS PAGE ALREADY MADE, AND THE ONE PLACE ON IT WITH NEITHER A
 
       IT IS NOT DECORATION IN THIS SPOT, WHICH IS THE TEST. format.mjs asks
       that the ornament land on a seam the writing already made and beside copy
-      that already names Rochester or the dish, so a reader gets a fleuron
+      that already names Rochester, NY or the dish, so a reader gets a fleuron
       rather than a sticker and a screen reader gets nothing said twice. The
       sentence directly above it names the dish in as many words.
 

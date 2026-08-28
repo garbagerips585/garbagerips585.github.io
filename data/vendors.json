@@ -1,6 +1,6 @@
 {
   "_readme": [
-    "Vendors we know and like around Rochester. Drives /vendors.html.",
+    "Vendors we know and like around Rochester, NY. Drives /vendors.html.",
     "",
     "EMPTY UNTIL THE OWNER FILLS IT IN, and it must stay that way. Every entry names a",
     "real business. Inventing one, or guessing a handle from a name, publishes a",
@@ -25,12 +25,12 @@
   "vendors": [
     {
       "name": "TOAK Pulls",
-      "area": "Rochester and the wider region",
+      "area": "Rochester, NY and the wider region",
       "sells": "Sealed, singles and graded slabs, in person at shows",
       "vouched": true,
       "vouchedNote": "The owner, 27 August 2026: \"i do buy from TOAK Pulls, i always buy Japanese booster packs from them at every local show I see them at\" and \"they are legit and fair vendors love working with them\". Ten rips on this site open packs credited to them in their own descriptions.",
       "blurb": "At all the local shows around the region, and they travel out of state for the bigger ones too. Japanese boosters are what I buy from them, at every local show I catch them at. Legit, fair, and good to deal with.",
-      "shows": "Local Rochester area shows, plus out of state",
+      "shows": "Local Rochester, NY area shows, plus out of state",
       "url": "https://toakpulls.com",
       "youtube": "toakpulls",
       "instagram": "toakpulls",
@@ -44,9 +44,9 @@
     },
     {
       "name": "RocPokéCon",
-      "area": "Rochester",
+      "area": "Rochester, NY",
       "sells": "Vendors at their own show and at other local ones",
-      "blurb": "They run the biggest Pokemon card show in Rochester, and they vend at it and at other shows around the area.",
+      "blurb": "They run the biggest Pokemon card show in Rochester, NY, and they vend at it and at other shows around the area.",
       "shows": "RocPokéCon, plus other local shows",
       "links": "https://linktr.ee/rocpokecon"
     }

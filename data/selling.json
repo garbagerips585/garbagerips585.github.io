@@ -65,7 +65,7 @@
     "THE IN-PERSON OPTION IS A REAL VENUE, NOT A FOOTNOTE. Selling to a local shop",
     "or across a table at a card show has no commission, no payment processing fee,",
     "no shipping, and no payout wait. The trade is the price: a shop buys at a",
-    "percentage of market because it has to resell the card at market. No Rochester",
+    "percentage of market because it has to resell the card at market. No Rochester, NY",
     "shop publishes that percentage, so no percentage is recorded here. See",
     "shops.json and shows.json, which already carry the local ones.",
     "",
@@ -982,7 +982,7 @@
           "what": "The actual cost: the buy price",
           "rate": "Not published by any shop",
           "appliesTo": "Every card",
-          "note": "A SHOP BUYS BELOW MARKET BECAUSE IT HAS TO RESELL AT MARKET. The gap between what it pays you and what it lists the card for is its entire margin, and it also covers the cards that sit unsold. That gap is the fee, it is usually larger than any marketplace commission, and it is the honest trade for cash today with no shipping and no waiting. No Rochester-area shop publishes a buy percentage, so no percentage is recorded here. Ask, and ask more than one."
+          "note": "A SHOP BUYS BELOW MARKET BECAUSE IT HAS TO RESELL AT MARKET. The gap between what it pays you and what it lists the card for is its entire margin, and it also covers the cards that sit unsold. That gap is the fee, it is usually larger than any marketplace commission, and it is the honest trade for cash today with no shipping and no waiting. No Rochester, NY-area shop publishes a buy percentage, so no percentage is recorded here. Ask, and ask more than one."
         },
         {
           "what": "Store credit",
@@ -997,7 +997,7 @@
         {
           "url": "/shops.html",
           "read": "2026-08-15",
-          "what": "Six Rochester-area shops, each verified from the business's own site: Just Games, Millennium Games, LingSter Games, Legacy Games, Great Lakes Gaming, WeTheHobby. Rendered on the card shops page.",
+          "what": "Six Rochester, NY-area shops, each verified from the business's own site: Just Games, Millennium Games, LingSter Games, Legacy Games, Great Lakes Gaming, WeTheHobby. Rendered on the card shops page.",
           "from": "data/shops.json"
         }
       ],
@@ -1039,7 +1039,7 @@
         {
           "url": "/card-shows.html",
           "read": "2026-08-12",
-          "what": "Every upcoming show across the Rochester, Buffalo and Syracuse regions, each with the listing url it was read from. Rendered on the card shows page.",
+          "what": "Every upcoming show across the Rochester, NY, Buffalo and Syracuse regions, each with the listing url it was read from. Rendered on the card shows page.",
           "from": "data/shows.json"
         }
       ],

@@ -1513,7 +1513,7 @@ function ripsBand(g, rips, label, cls) {
             English twin's skin here would be a picture of the wrong pack. */ ""}
       <div class="packshot pack pack--default"><span class="pack-face pack-l"><span class="pack-art" style="background-image:url('/assets/packs/default-garbage-rips-585-booster-pack-tile.webp')"></span></span></div>
       <div>
-        <p class="lede">Imported packs, opened on camera in Rochester. No idea what any of the text says, which is half
+        <p class="lede">Imported packs, opened on camera in Rochester, NY. No idea what any of the text says, which is half
           the fun. Every ${esc(g.english)} rip on the channel is one tap away.</p>
         <div class="btn-row" style="margin-top:16px">
           <a class="btn btn-yt" href="/videos.html?set=${g.id}">Watch the ${esc(label)} rips</a>

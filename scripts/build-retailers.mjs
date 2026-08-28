@@ -1309,7 +1309,7 @@ ${(R.couldNotRead || [])
           shipping and buyer fees are counted is on <a href="/buying.html">where to buy</a>, and what a sealed
           product is supposed to cost in the first place is on <a href="/msrp.html">the MSRP page</a>. When the
           chains are expected to have stock is <a href="/drops.html">what is dropping this week</a>, and the
-          shops around Rochester with a counter you can stand at are on <a href="/shops.html">the shops page</a>.</p>
+          shops around Rochester, NY with a counter you can stand at are on <a href="/shops.html">the shops page</a>.</p>
       </section>
 
       <p class="rt-src" style="margin-top:var(--s6)">Every retailer on this page was confirmed by reading that

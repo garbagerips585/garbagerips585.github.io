@@ -68,11 +68,11 @@ const out = `# Garbage Rips 585
 
 ## The local scene, which is the part least well covered elsewhere
 
-${L("card-shows.html", "Card shows calendar", `${upcoming.length} upcoming shows around Rochester, Buffalo and Syracuse. ${allPkmn} are all Pokemon, ${somePkmn} more are mixed shows where Pokemon vendors are confirmed, ${free} are free. Each listing names the venue, the full street address, the admission and who confirmed the Pokemon`)}
+${L("card-shows.html", "Card shows calendar", `${upcoming.length} upcoming shows around Rochester, NY, Buffalo and Syracuse. ${allPkmn} are all Pokemon, ${somePkmn} more are mixed shows where Pokemon vendors are confirmed, ${free} are free. Each listing names the venue, the full street address, the admission and who confirmed the Pokemon`)}
 ${L("card-show-101.html", "Card show 101", "what happens at a card show, what to bring, how vendors pay, and what percentage of market value they actually offer. The buy rates are other people's published figures, each one named and dated")}
-${L("shops.html", "Card shops in Rochester", `${(shops.shops || shops).length} shops with hours taken only from each shop's own site, plus where you can sit down and play`)}
+${L("shops.html", "Card shops in Rochester, NY", `${(shops.shops || shops).length} shops with hours taken only from each shop's own site, plus where you can sit down and play`)}
 ${L("rochester.html", "Rochester Pokemon scene", "the hub tying the shows, the shops and the local pages together")}
-${L("garbage-plate.html", "What is a Garbage Plate", "the Rochester dish the channel is named after, sourced to the USPTO trademark record and the originating restaurant's own menu, with the things that could not be sourced listed as such")}
+${L("garbage-plate.html", "What is a Garbage Plate", "the Rochester, NY dish the channel is named after, sourced to the USPTO trademark record and the originating restaurant's own menu, with the things that could not be sourced listed as such")}
 
 ## Reference and data
 
