@@ -24,6 +24,12 @@ export const SOCIALS = [
   ["facebook", "Facebook", (h) => `https://www.facebook.com/${h}`],
   ["discord", "Discord", (h) => `https://discord.com/invite/${h}`],
   ["whatnot", "Whatnot", (h) => `https://www.whatnot.com/user/${h}`],
+  // ADDED 27 August 2026 for GI Cards and Collectibles, who publish one. The
+  // url is x.com and the label is X: the domain moved and the old one still
+  // redirects, but writing twitter.com would be linking through a redirect we
+  // do not control. Named after the platform rather than after the handle
+  // shape, like every other row here.
+  ["x", "X", (h) => `https://x.com/${h}`],
   ["ebay", "eBay", (h) => `https://www.ebay.com/usr/${h}`],
 ];
 

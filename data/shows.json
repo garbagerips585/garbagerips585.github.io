@@ -76,6 +76,33 @@
       "source": "cardshows.io"
     },
     {
+      "id": "gi-cards-del-lago-2026-08-29",
+      "name": "GI Cards Sports Cards and Collectibles Show #6",
+      "date": "2026-08-29",
+      "start": "10:00",
+      "end": "15:00",
+      "venue": "del Lago Casino Ballroom",
+      "address": "1133 NY-414, Waterloo, NY 13165",
+      "city": "Waterloo",
+      "region": "syracuse",
+      "admission": "$5, 12 and under free",
+      "tiers": [
+        { "name": "Early VIP", "price": "$20", "from": "09:00" },
+        { "name": "General admission", "price": "$5", "from": "10:00", "note": "12 and under free" }
+      ],
+      "blurb": "The sixth of this shop's shows at the del Lago ballroom. Billed as sports cards and memorabilia, Pokemon, Magic and One Piece. Doors are 10am, or 9am if you buy the early VIP ticket. Eight foot dealer tables are $40 and the number to call about one is on the flyer.",
+      "organiser": "GI Cards and Collectibles",
+      "organiserUrl": "https://gicardsny.com",
+      "source": "the organizer's own flyer, sent to the channel, August 27, 2026",
+      "flyer": "gi-cards-del-lago-2026-08-29.jpg",
+      "flyerW": 1325,
+      "flyerH": 2048,
+      "pokemon": false,
+      "pkmn": "some",
+      "pkmnWhy": "The flyer names Pokemon in its own list of what is on the floor, after sports cards and memorabilia.",
+      "regionNote": "Waterloo is 35.6 miles from Syracuse and 40.7 from Rochester, so it files under Syracuse: build-shows.mjs fails the build where the declared region is not the nearest anchor. It is inside the 45 mile radius of BOTH, which is why it is on the calendar at all."
+      },
+    {
       "id": "collectorfest-jcc-2026-08-30",
       "name": "CollectorFest Monthly",
       "date": "2026-08-30",
@@ -1360,6 +1387,10 @@
     "Rochester": [
       43.157285,
       -77.615214
+    ],
+    "Waterloo": [
+      42.904693,
+      -76.862789
     ],
     "Batavia": [
       42.998014,
