@@ -13,7 +13,7 @@ import { readFile, writeFile, mkdir, rm, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { priceNote, priceFooter, priceRead } from "../shared/card-prices.mjs";
+import { priceNote, priceFooter, priceRead , readSpan } from "../shared/card-prices.mjs";
 import { loadGradedPrices } from "../shared/graded-price.mjs";
 // NO packplayer.js, BUT packs.css STAYS. These pages wear a .pack facade as
 // decoration, so the stylesheet is doing real work; the script is not.
@@ -3708,17 +3708,21 @@ function indexPage() {
       const who = graded.length
         ? [...new Set(graded.map((s) => gradedSource(s.id, s.chase[0].number, s.chase[0].name, s.name)).filter(Boolean))]
         : [];
-      const gradedRead = graded
-        .map((s) => gradedAsOf(s.id, s.chase[0].number, s.chase[0].name, s.name))
-        .filter(Boolean)
-        .sort()
-        .pop();
+      /* .pop() TOOK THE NEWEST AND THE SENTENCE CLAIMED IT FOR ALL 28. Since
+         the nightly refresh began moving the checklist, a set whose PSA figure
+         comes from the hand-run data/graded.json is older than one that fell
+         through to the fresh feed: Destined Rivals' $1,127 was read on 23
+         August under a flat "read August 28". Its own set guide dated it
+         correctly, so this index disagreed with the page it links to. */
+      const gradedRead = readSpan(
+        graded.map((s) => gradedAsOf(s.id, s.chase[0].number, s.chase[0].name, s.name))
+      );
       return `
     <p class="price-note">Top is the priciest card in that set. ${esc(priceNote(newest || {}))}${
       graded.length
         ? ` The PSA 10 figures beside ${graded.length === 1 ? "one of them" : `${graded.length} of them`} are ${esc(
             who.length === 1 ? who[0] : "a separate graded sales feed"
-          )}'s graded sales data${gradedRead ? `, read ${esc(longDate(gradedRead) || gradedRead)}` : ""}, a different feed and a different measurement. A row with no PSA 10 figure has no graded reading we are willing to publish yet, which is not the same as a card nobody grades.`
+          )}'s graded sales data${gradedRead ? `, ${esc(gradedRead)}` : ""}, a different feed and a different measurement. A row with no PSA 10 figure has no graded reading we are willing to publish yet, which is not the same as a card nobody grades.`
         : ""
     }</p>`;
     })()}

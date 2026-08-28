@@ -277,6 +277,8 @@ let cardsChecked = null;
 // the price file as a whole rather than claiming Pitch Black's two exceptions
 // are the site's.
 let pricesDoc = null;
+const CHECKLIST_PRICE = new Map();
+const unpadNum = (n) => String(n ?? "").replace(/^0+(?=\d)/, "").toLowerCase();
 try {
   const one = JSON.parse(await readFile(join(ROOT, "public/data/cards/pitch-black.json"), "utf8"));
   cardsChecked = one.checked;
@@ -292,6 +294,18 @@ try {
     const d = JSON.parse(await readFile(join(ROOT, "public/data/cards", f), "utf8"));
     pricesDoc.pricedBy.pricecharting += d.pricedBy?.pricecharting || 0;
     pricesDoc.pricedBy.tcgdex += d.pricedBy?.tcgdex || 0;
+    /* THE CHASE FIGURE IS RE-READ OUT OF THE CHECKLIST IT IS DATED BY, which is
+       the same fix build-proto.mjs made for the home page and this band never
+       got. sets.json's chase price is a COPY, written by reconcile-cards.mjs,
+       and it was last written on 22 August; the note under this band dates its
+       numbers from the checklist's `pricesChecked`, which is today. So 873
+       figures on 303 rip pages were an Aug 22 reading printed under an Aug 28
+       date, and the same printing carried two different numbers on two pages:
+       Pikachu ex, Ascended Heroes #276 said $967 here and $876.08 on the set
+       guide. Reading the number and the date out of ONE file is the fix. */
+    for (const c of d.cards || []) {
+      if (typeof c.price === "number") CHECKLIST_PRICE.set(`${d.set}|${unpadNum(c.n)}`, c.price);
+    }
   }
 } catch {}
 const HITS = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
@@ -1432,6 +1446,9 @@ const desc = (v.blurb || descriptions[v.id] || "")
   // shared/card-prices.mjs.
   const chaseCards = chaseByPrice(setData.get(setId)?.chase).slice(0, 3).map((c) => ({
     ...c,
+    // The checklist's figure wins; the snapshot copy is only the fallback for a
+    // set whose checklist has not landed. See CHECKLIST_PRICE above.
+    price: CHECKLIST_PRICE.get(`${setId}|${unpadNum(c.number)}`) ?? c.price,
     psa10: gradedPrice(setId, c.number, c.name, setData.get(setId)?.name || setLabel),
   }));
   // WILL THE HITS BAND CARRY THE SOURCING NOTE? The chase band below prints

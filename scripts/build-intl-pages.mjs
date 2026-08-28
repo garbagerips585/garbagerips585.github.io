@@ -285,10 +285,22 @@ const enById = new Map(enSets.map((s) => [s.id, s]));
  * that module already uses.
  */
 const enPriceDocs = new Map();
+const EN_PRICE = new Map();
+const enUnpad = (n) => String(n ?? "").replace(/^0+(?=\d)/, "").toLowerCase();
 for (const s of enSets) {
   try {
     const doc = JSON.parse(await readFile(join(ROOT, `public/data/cards/${s.id}.json`), "utf8"));
     enPriceDocs.set(s.id, { priceSource: doc.priceSource, pricesChecked: doc.pricesChecked, checked: doc.checked });
+    /* AND THE FIGURES THEMSELVES, out of the same file the date comes from.
+       The chase list this band renders is sets.json's COPY, written by
+       reconcile-cards.mjs and last written 22 August, while the note under it
+       is dated from this checklist's `pricesChecked`. 46 of 48 English chase
+       figures across the 12 guides were therefore an Aug 22 reading printed
+       under today's date, and disagreed with the English set guide for the same
+       printing: Pitch Black #116 said $266 here and $233.07 there. */
+    for (const c of doc.cards || []) {
+      if (typeof c.price === "number") EN_PRICE.set(`${s.id}|${enUnpad(c.n)}`, c.price);
+    }
   } catch {
     /* no checklist for this set; the caller falls back */
   }
@@ -1286,7 +1298,7 @@ function enChase(g, en, { standalone = false, why = "", nativeBelow = false } = 
         ${avifPicture(`<img src="${esc(c.image)}" alt="" loading="lazy" decoding="async" onerror="this.remove()"${imgDims(c.image)}>`)}
         <div class="nm">${esc(c.name)}</div>
         <div class="rr">${esc(rarityLabel(c.rarity) || "")} &bull; ${esc(c.number)}</div>
-        <div class="pr">${moneyCompact(c.price)}</div>
+        <div class="pr">${moneyCompact(EN_PRICE.get(`${en.id}|${enUnpad(c.number)}`) ?? c.price)}</div>
       </a>`
         )
         .join("\n      ")}

@@ -455,7 +455,10 @@ for (const [slug, tcgdexId] of entries) {
         priceSource: pcCards.source || "pricecharting.com",
         priceMeasurement: pcCards.measurement || null,
         priceMethodology: pcCards.sourceMethodology || null,
-        pricesChecked: pcCards.checked || null,
+        // THE SET'S OWN READ DATE FIRST. sync-pricecharting-cards.mjs stamps each set
+        // from the day its own console page was read to completion; the shared
+        // date is only the fallback for a set the rotation has not reached.
+        pricesChecked: pcCards.sets?.[slug]?.checked || pcCards.checked || null,
         // The named fallback, so a page can say which figures are not
         // PriceCharting's without hunting for the `src` marks itself.
         priceFallback: "TCGdex, prices from TCGplayer",
@@ -505,7 +508,15 @@ await writeFile(
     // `pricesChecked`. /cards.html prints one of these under a column of dollar
     // figures, and until they were split it printed the one that moves nightly.
     priceSource: pcCards.source || "pricecharting.com",
-    pricesChecked: pcCards.checked || null,
+    /* THE OLDEST OF THE PER-SET DATES, NEVER THE NEWEST. This index covers all
+       28 sets and /cards.html prints ONE date under a column of dollar figures
+       drawn from all of them, so the only honest single value is the floor: the
+       day the least recently read set was read. Taking the newest would claim a
+       freshness the oldest rows cannot support, which is the same mistake
+       /wanted.html made with .sort().pop(). */
+    pricesChecked:
+      Object.values(pcCards.sets || {}).map((x) => x?.checked).filter(Boolean).sort()[0]
+      || pcCards.checked || null,
     pricedBy: { pricecharting: totalFromPc, tcgdex: totalPriced - totalFromPc },
     fields: ["name", "set", "number", "rarity", "price"],
     sets: Object.fromEntries(summary.map((s) => [s.slug, s.name])),

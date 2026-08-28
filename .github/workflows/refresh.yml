@@ -313,19 +313,33 @@ jobs:
       # is committed; this is only about the exit status the run reports, so it
       # goes last. A red job with the site refreshed beats a green job with the
       # site five days stale, and beats a dead pipeline either way.
-      # SAME PATTERN AS intl_guides ABOVE, AND IT WAS MISSING FOR ONE COMMIT.
-      # continue-on-error without a re-raise is not "keep the signal and drop the
-      # blast radius", it is dropping the signal: a total block by PriceCharting
-      # produced a green job and nobody would have looked.
-      - name: Fail the run if the price refresh did not happen
+      # THIS DELIBERATELY DOES *NOT* FAIL THE RUN, AND THAT REVERSES THE LAST
+      # COMMIT. It was written to copy the intl_guides re-raise below, and the
+      # copy was wrong because the blast radius is not the same. pages.yml
+      # deploys the nightly's commit through `workflow_run` gated on
+      # `conclusion == 'success'` (the default GITHUB_TOKEN raises no push
+      # event, which is why that trigger exists at all). So failing this job on
+      # a PriceCharting outage does not just flag stale prices, it BLOCKS THE
+      # WHOLE SITE FROM PUBLISHING: new rips, sealed prices, show listings, all
+      # committed and none deployed. A total block reproduces every night, so
+      # the freeze would sustain itself until somebody noticed. The step three
+      # above argues this exact case in capitals: "This site has already lost
+      # twelve days of publishing to a freeze nobody could see."
+      #
+      # THE SIGNAL SURVIVES WITHOUT THE BLAST RADIUS, which is the whole point
+      # of continue-on-error here. A refused hot tier does not move each set's
+      # read date, so check-freshness.mjs goes red on the next push and on its
+      # own schedule, and the site keeps publishing everything that DID work
+      # with prices honestly dated to their real read.
+      - name: Say so if the price refresh did not happen
         if: steps.prices.outcome == 'failure'
         run: |
-          echo "refresh-prices.mjs exited non-zero: fewer than half the 28 set-guide"
-          echo "consoles came back. The rest of the refresh still ran and committed."
-          echo "Prices KEEP THEIR PREVIOUS READ DATE, which is the correct outcome;"
-          echo "check-freshness.mjs will go red on every push until this recovers."
-          echo "Read the 'PriceCharting' step above for which consoles were refused."
-          exit 1
+          echo "::warning title=Price refresh degraded::refresh-prices.mjs exited non-zero."
+          echo "Prices keep their real per-set read dates, so nothing publishes a"
+          echo "freshness it does not have. check-freshness.mjs will go red if this"
+          echo "persists. Read the 'PriceCharting' step above for which consoles"
+          echo "were refused. The site still deploys, deliberately: see the comment"
+          echo "on this step."
 
       - name: Fail the run if a sync reported bad data
         if: steps.intl_guides.outcome == 'failure'

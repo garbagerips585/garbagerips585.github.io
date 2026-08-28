@@ -262,7 +262,15 @@ let refused = 0;
 for (const [setId, consolePath] of Object.entries(CONSOLES)) {
   const doc = JSON.parse(await readFile(join(ROOT, `public/data/cards/${setId}.json`), "utf8"));
   const rows = bySet.get(setId);
-  const entry = { console: consolePath, cards: {} };
+  /* EACH SET CARRIES THE DAY ITS OWN CONSOLE WAS READ, not one date for all 28.
+     refresh-prices.mjs bookmarks a console only when it ran to the end of its
+     own pagination, so this is the strongest claim available: a set whose page
+     was refused keeps the older date and says so, while the ones that came back
+     say today. Before this, ONE successful console dated all 28 -- and 27 of the
+     28 are multi-page, so a single 429 mid-pagination was enough to publish a
+     freshness the numbers did not have. Falls back to the shared date for a set
+     the rotation has never reached. */
+  const entry = { console: consolePath, checked: rot.refreshed?.[consolePath] || checked, cards: {} };
   let setPriced = 0;
 
   for (const c of doc.cards) {

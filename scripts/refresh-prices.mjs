@@ -118,19 +118,23 @@ function isConsolePage(html) {
 
 /** Every page of one console, following the cursor exactly as the crawl does. */
 async function refreshConsole(path) {
-  let cursor = 0, guard = 0, pages = 0;
+  let cursor = 0, guard = 0, pages = 0, complete = false;
   for (;;) {
     const url = `https://www.pricecharting.com${encPath(path)}?exclude-hardware=true` +
       (cursor ? `&cursor=${cursor}` : "");
-    if (DRY) { console.log(`  would fetch  ${url}`); return 1; }
+    if (DRY) { console.log(`  would fetch  ${url}`); return { pages: 1, complete: true }; }
     const html = await refetch(url);
+    // STOPPED BECAUSE WE WERE REFUSED, NOT BECAUSE WE REACHED THE END.
+    // 27 of the 28 hot consoles are multi-page (83 pages for 28 consoles), so a
+    // single 429 on page 3 of 5 used to leave that set 40% refreshed while the
+    // run reported the console done and dated every card in it as read today.
     if (!html) break;
     pages += 1;
     const { next } = parsePage(html);
-    if (next == null || next <= cursor || ++guard > 200) break;
+    if (next == null || next <= cursor || ++guard > 200) { complete = true; break; }
     cursor = next;
   }
-  return pages;
+  return { pages, complete };
 }
 
 /** Every Pokemon console path, from PriceCharting's own sitemap. Never guessed. */
@@ -204,16 +208,36 @@ console.log(`${plan.length} console(s) to refresh` +
     `of a ${tailLen} tail, one full pass every ${Math.ceil(tailLen / COLD)} days` : ""));
 
 let pages = 0, hotOk = 0, coldOk = 0;
+const failing = state.failing || {};
 for (const [tier, path] of plan) {
-  const n = await refreshConsole(path);
+  const { pages: n, complete } = await refreshConsole(path);
   pages += n;
-  if (n > 0) {
-    // Only a console that actually came back is marked done.
-    if (!DRY) state.refreshed[path] = localDay();
+  /* ONLY A CONSOLE THAT RAN TO THE END OF ITS OWN PAGINATION IS DONE. A
+     partial one is left unmarked so it is retried tomorrow, and its set keeps
+     the read date it can actually support. */
+  if (complete && n > 0) {
+    if (!DRY) { state.refreshed[path] = localDay(); delete failing[path]; }
     if (tier === "hot") hotOk += 1; else coldOk += 1;
-  } else if (tier === "hot") {
-    console.log(`  nothing came back for ${path}`);
+  } else {
+    if (!DRY) failing[path] = (failing[path] || 0) + 1;
+    if (tier === "hot") console.log(`  incomplete, will retry tomorrow: ${path}`);
   }
+}
+/* A PATH THAT CAN NEVER SUCCEED MUST NOT HOLD A SLOT FOREVER. Never-refreshed
+   sorts first, so one permanently unfetchable console sits at the head of the
+   queue every night. PriceCharting's sitemap contains at least one today:
+   /console/pokemon-mini is the HANDHELD, whose columns are Loose/CIB/New, so it
+   can never pass the console-listing check. Twenty-six such paths would stop
+   the rotation dead while still logging "one full pass every 30 days". After
+   five straight failures a path is parked with a date far in the past, which
+   sorts it last instead of first and lets the tail move again. */
+if (!DRY) {
+  for (const [path, n] of Object.entries(failing)) {
+    if (n >= 5 && !state.refreshed[path]) state.refreshed[path] = "1970-01-01";
+  }
+  state.failing = failing;
+  const parked = Object.entries(failing).filter(([p, n]) => n >= 5).map(([p]) => p);
+  if (parked.length) console.log(`  ${parked.length} console(s) parked after 5 failures: ${parked.slice(0, 3).join(", ")}`);
 }
 
 if (!DRY) {

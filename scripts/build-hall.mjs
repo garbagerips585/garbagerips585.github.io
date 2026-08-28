@@ -896,7 +896,13 @@ function resolve(c) {
     psa10,
     psa10AsOf:
       psaFrom === "manual" ? manual?.asOf || null
-      : psaFrom === "pricecharting" ? pc.checked || null
+      /* THE RESOLVER'S OWN DATE FIRST. `pc.checked` is data/graded.json's, and
+         shared/graded-price.mjs returns from:"pricecharting" for BOTH that
+         hand-run snapshot and the nightly checklist tier, carrying the right
+         asOf on each. Hardcoding graded.json's date labelled four plaques
+         "August 23" over figures actually read on the 28th, and made the page's
+         own stated span fail to cover its own numbers. */
+      : psaFrom === "pricecharting" ? shared?.asOf || pc.checked || null
       : psaFrom === "tracker" ? auto?.asOf || null
       : psaFrom === "log" ? c._psa10AsOf || null
       : null,
@@ -1278,9 +1284,16 @@ const psaSpanTxt = readSpan(gradedCards.map((c) => c.psa10AsOf));
    AND THE CARD SEARCH PRINT", but the promos, Trainer Gallery cards and
    non-English pulls are priced by hand in the rip log and appear in no set
    guide and no card search. Both halves are counted here rather than asserted. */
+/* EVERY STORE THAT CAN SUPPLY A RAW FIGURE ON THIS PAGE, not just the two
+   obvious ones. The first version spanned the checklist and the rip log and so
+   excluded eight older figures it prints: six First Partner cards read on 19
+   August, and two MEP promos carrying their own 13 August priceAsOf. A span
+   that does not cover its own numbers is the fault it was written to fix. */
 const rawSpanTxt = readSpan([
   JSON.parse(await readFile(join(ROOT, "public/data/card-index.json"), "utf8").catch(() => "{}")).pricesChecked || null,
   JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8").catch(() => "{}")).checked || null,
+  JSON.parse(await readFile(join(ROOT, "data/first-partner.json"), "utf8").catch(() => "{}")).checked || null,
+  ...rawCards.map((c) => c.psa10AsOf).filter(Boolean),
 ]);
 const psaNote = gradedCards.length
   ? ` PSA 10 FROM ${psaSources.join(" AND ").toUpperCase()}${psaSpanTxt ? `, ${psaSpanTxt.toUpperCase()}` : ""},` +

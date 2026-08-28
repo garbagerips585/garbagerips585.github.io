@@ -36,6 +36,7 @@
   "sets": {
     "151": {
       "console": "/console/pokemon-scarlet-&-violet-151",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 0.4,
@@ -2269,6 +2270,7 @@
     },
     "ascended-heroes": {
       "console": "/console/pokemon-ascended-heroes",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 1.2,
@@ -5274,6 +5276,7 @@
     },
     "black-bolt": {
       "console": "/console/pokemon-black-bolt",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 60,
@@ -7082,6 +7085,7 @@
     },
     "celebrations": {
       "console": "/console/pokemon-celebrations",
+      "checked": "2026-08-28",
       "cards": {
         "1": {
           "price": 1,
@@ -7339,6 +7343,7 @@
     },
     "chaos-rising": {
       "console": "/console/pokemon-chaos-rising",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 10.63,
@@ -8647,6 +8652,7 @@
     },
     "chilling-reign": {
       "console": "/console/pokemon-chilling-reign",
+      "checked": "2026-08-28",
       "cards": {
         "1": {
           "price": 0.65,
@@ -11123,6 +11129,7 @@
     },
     "crown-zenith": {
       "console": "/console/pokemon-crown-zenith",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 2.25,
@@ -12843,6 +12850,7 @@
     },
     "destined-rivals": {
       "console": "/console/pokemon-destined-rivals",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 0.4,
@@ -15460,6 +15468,7 @@
     },
     "journey-together": {
       "console": "/console/pokemon-journey-together",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 0.4,
@@ -17502,6 +17511,7 @@
     },
     "mega-evolution": {
       "console": "/console/pokemon-mega-evolution",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 1.3,
@@ -19513,6 +19523,7 @@
     },
     "obsidian-flames": {
       "console": "/console/pokemon-obsidian-flames",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 0.27,
@@ -22002,6 +22013,7 @@
     },
     "paldea-evolved": {
       "console": "/console/pokemon-paldea-evolved",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 0.27,
@@ -24984,6 +24996,7 @@
     },
     "paldean-fates": {
       "console": "/console/pokemon-paldean-fates",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 2.98,
@@ -27524,6 +27537,7 @@
     },
     "paradox-rift": {
       "console": "/console/pokemon-paradox-rift",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 0.87,
@@ -30360,6 +30374,7 @@
     },
     "perfect-order": {
       "console": "/console/pokemon-perfect-order",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 2.32,
@@ -31692,6 +31707,7 @@
     },
     "phantasmal-flames": {
       "console": "/console/pokemon-phantasmal-flames",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 4,
@@ -33087,6 +33103,7 @@
     },
     "pitch-black": {
       "console": "/console/pokemon-pitch-black",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 3.71,
@@ -34373,6 +34390,7 @@
     },
     "pokemon-go": {
       "console": "/console/pokemon-go",
+      "checked": "2026-08-28",
       "cards": {
         "001": {
           "price": 1.3,
@@ -35317,6 +35335,7 @@
     },
     "prismatic-evolutions": {
       "console": "/console/pokemon-prismatic-evolutions",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 1.22,
@@ -37224,6 +37243,7 @@
     },
     "rebel-clash": {
       "console": "/console/pokemon-rebel-clash",
+      "checked": "2026-08-28",
       "cards": {
         "1": {
           "price": 0.72,
@@ -39472,6 +39492,7 @@
     },
     "scarlet-violet": {
       "console": "/console/pokemon-scarlet-&-violet",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 0.19,
@@ -42255,6 +42276,7 @@
     },
     "shining-fates": {
       "console": "/console/pokemon-shining-fates",
+      "checked": "2026-08-28",
       "cards": {
         "1": {
           "price": 0.25,
@@ -43042,6 +43064,7 @@
     },
     "shrouded-fable": {
       "console": "/console/pokemon-shrouded-fable",
+      "checked": "2026-08-28",
       "cards": {
         "001": {
           "price": 0.25,
@@ -44094,6 +44117,7 @@
     },
     "stellar-crown": {
       "console": "/console/pokemon-stellar-crown",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 0.18,
@@ -45978,6 +46002,7 @@
     },
     "surging-sparks": {
       "console": "/console/pokemon-surging-sparks",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 1.5,
@@ -48673,6 +48698,7 @@
     },
     "temporal-forces": {
       "console": "/console/pokemon-temporal-forces",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 0.4,
@@ -51006,6 +51032,7 @@
     },
     "twilight-masquerade": {
       "console": "/console/pokemon-twilight-masquerade",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 0.56,
@@ -53428,6 +53455,7 @@
     },
     "white-flare": {
       "console": "/console/pokemon-white-flare",
+      "checked": "2026-08-28",
       "cards": {
         "100": {
           "price": 16.99,
