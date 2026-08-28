@@ -390,7 +390,7 @@ const GUIDES = [
     "Rochester, New York",
     [
       ["/garbage-plate.html", "The Garbage Plate", `What is on one, where it came from with a source on every claim, and ${num(plateSpots)} places around Rochester, NY that serve it.`],
-      ["/shops.html", "Card shops and where to play", "Drawn on a real map, with roads."],
+      ["/shops.html", "Card shops and where to play", "Addresses, hours and what each one is good for."],
       ["/card-shows.html", "Shows around the region", "Rochester, NY out to Buffalo and Syracuse."],
       ["/creators.html", "Other people doing this locally", "Rochester, NY, Buffalo and Syracuse."],
     ],
@@ -918,7 +918,7 @@ ${jump.map(([id, label]) => `          <li><a href="#${id}">${esc(label)}</a></l
 
         <figure class="about-pack">
           ${packFig}
-          <figcaption>This is the wrapper. Trubbish on a Garbage Plate, Rochester NY on the
+          <figcaption>This is the wrapper. Trubbish on a Garbage Plate, Rochester, NY on the
             plate label, and the channel name across the bottom. Every rip page on this site
             opens sealed behind one, and the pack that gets torn is the one for that video's
             set. Tap it and it shakes, tears down the middle and the video is already
@@ -1260,7 +1260,7 @@ const footer = home.slice(home.lastIndexOf("<footer"), home.indexOf("</footer>")
 // what buys the room: it keeps Pokemon, Rips, Guides and Rochester NY, which is
 // the whole set of terms this page should answer to, INCLUDING the local one.
 // If you lengthen it, measure it.
-const TITLE = "About Garbage Rips 585 | Pokemon Rips, Guides, Rochester NY";
+const TITLE = "About Garbage Rips 585 | Pokemon Rips from Rochester, NY";
 // FRONT LOADED, because the tail of this is cut in a result. The first sentence
 // is complete on its own and the numbers in it are computed.
 const DESC =

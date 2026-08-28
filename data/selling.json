@@ -982,7 +982,7 @@
           "what": "The actual cost: the buy price",
           "rate": "Not published by any shop",
           "appliesTo": "Every card",
-          "note": "A SHOP BUYS BELOW MARKET BECAUSE IT HAS TO RESELL AT MARKET. The gap between what it pays you and what it lists the card for is its entire margin, and it also covers the cards that sit unsold. That gap is the fee, it is usually larger than any marketplace commission, and it is the honest trade for cash today with no shipping and no waiting. No Rochester, NY-area shop publishes a buy percentage, so no percentage is recorded here. Ask, and ask more than one."
+          "note": "A SHOP BUYS BELOW MARKET BECAUSE IT HAS TO RESELL AT MARKET. The gap between what it pays you and what it lists the card for is its entire margin, and it also covers the cards that sit unsold. That gap is the fee, it is usually larger than any marketplace commission, and it is the honest trade for cash today with no shipping and no waiting. No Rochester, NY area shop publishes a buy percentage, so no percentage is recorded here. Ask, and ask more than one."
         },
         {
           "what": "Store credit",
@@ -997,7 +997,7 @@
         {
           "url": "/shops.html",
           "read": "2026-08-15",
-          "what": "Six Rochester, NY-area shops, each verified from the business's own site: Just Games, Millennium Games, LingSter Games, Legacy Games, Great Lakes Gaming, WeTheHobby. Rendered on the card shops page.",
+          "what": "Six Rochester, NY area shops, each verified from the business's own site: Just Games, Millennium Games, LingSter Games, Legacy Games, Great Lakes Gaming, WeTheHobby. Rendered on the card shops page.",
           "from": "data/shops.json"
         }
       ],

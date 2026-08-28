@@ -109,24 +109,45 @@ const unstamp = (html) => html
  * and is always submitted, which is right.
  */
 function changedPages() {
-  const out = execFileSync("git", ["diff", "-U0", "--diff-filter=ACM", "HEAD~1", "HEAD", "--", "public"], {
+  const out = execFileSync("git", ["diff", "-U0", "--diff-filter=ACMR", "HEAD~1", "HEAD", "--", "public"], {
     cwd: ROOT, encoding: "utf8", maxBuffer: 256 * 1024 * 1024,
   });
   const pages = [];
   let stampOnly = 0;
   for (const block of out.split(/^diff --git /m).slice(1)) {
     const lines = block.split("\n");
-    const head = lines.find((l) => l.startsWith("+++ b/"));
-    if (!head) continue;
-    const file = head.slice("+++ b/".length);
+    /* THE HEADER IS FOUND BY POSITION AND THE CONTENT IS EVERYTHING AFTER IT.
+       The first version tested each line with startsWith("---"), which also
+       eats a DELETED line whose own text starts with "--": seven pages here
+       begin a line with a bare "-->", and deleting one produced empty minus
+       AND plus arrays, which compared equal and dropped the page. */
+    const hi = lines.findIndex((l) => l.startsWith("+++ "));
+    if (hi < 0) {
+      /* No +++ header means git called it BINARY, or it is a pure rename.
+         Submit rather than drop: the old --name-only code did, and a silent
+         drop is the exact failure this function exists to prevent. */
+      const rt = lines.find((l) => l.startsWith("rename to "));
+      const m = /^a\/(.+) b\/(.+)$/.exec(lines[0] || "");
+      const f = rt ? rt.slice("rename to ".length) : m ? m[2] : null;
+      if (f && f.startsWith("public/") && f.endsWith(".html")) pages.push(f);
+      continue;
+    }
+    // Git appends a TAB after the path when the path contains a space.
+    const file = lines[hi].slice(4).replace(/^b\//, "").replace(/\t.*$/, "");
     if (!file.startsWith("public/") || !file.endsWith(".html")) continue;
     const minus = [], plus = [];
-    for (const l of lines) {
-      if (l.startsWith("---") || l.startsWith("+++")) continue;
+    for (const l of lines.slice(hi + 1)) {
       if (l.startsWith("-")) minus.push(unstamp(l.slice(1)));
       else if (l.startsWith("+")) plus.push(unstamp(l.slice(1)));
     }
-    minus.sort(); plus.sort();
+    /* COMPARED IN ORDER, NEVER SORTED, AND THAT IS THE WHOLE CORRECTNESS
+       ARGUMENT. Sorting made any PERMUTATION a match, so a change that only
+       MOVES lines compared equal and was dropped. Replayed over the last 250
+       commits that silently suppressed five of them, worst of all 5e297fd4e,
+       which reordered the nav on 1,492 pages and reported "changed only by
+       the asset cache buster ... Nothing to submit". Positional comparison
+       still collapses the cache buster perfectly, because a stamp line sits
+       at the same index on both sides of its own diff. */
     if (minus.length === plus.length && minus.every((l, i) => l === plus[i])) { stampOnly++; continue; }
     pages.push(file);
   }

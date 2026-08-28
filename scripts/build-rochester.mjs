@@ -245,7 +245,7 @@ const STATS = [
     shops.length,
     shops.length === 1 ? "card shop" : "card shops",
     `With a door, an address and opening hours, ${playShops.length} of them publishing organized play you can show
-       up to. All on <a href="/shops.html">the shop list</a>, with a drawn map.`,
+       up to. All on <a href="/shops.html">the shop list</a>.`,
   ),
   stat(
     nPlates,
@@ -301,7 +301,9 @@ const shopRow = (s) => `        <li>
 
 // ---------------------------------------------------------------------------
 const TITLE = "Pokemon Cards in Rochester, NY: Shows, Shops, Local Scene";
-const H1 = 'Pokemon in <span class="hl">Rochester, NY</span>, NY';
+const withAddr = shops.filter((s) => s.address).length;
+
+const H1 = 'Pokemon in <span class="hl">Rochester</span>, NY';
 const KICKER = "585 &bull; The local scene";
 
 /* THE NAV LABEL, AND THE GUARD THAT KEEPS THE PAGE SAYING IT BACK.
@@ -568,7 +570,7 @@ ${MENU}
           show is added. The one line of voice is kept and moved to the END,
           where it lands on top of the evidence instead of asking for credit
           before any has been shown. */ ""}<p class="lede" style="max-width:40em">${nShows} card show${nShows === 1 ? "" : "s"} on the calendar,
-      ${shops.length} shop${shops.length === 1 ? "" : "s"} with a door and an address, and ${plates.length}
+      ${withAddr} shop${withAddr === 1 ? "" : "s"} with a door and an address, and ${plates.length}
       kitchen${plates.length === 1 ? "" : "s"} that will put a garbage plate in front of you. This is a card town and
       most of the internet has no idea.</p>
   </div>
@@ -614,7 +616,7 @@ ${STATS.join("\n")}
 ${nextShows.map(showRow).join("\n")}
     </ul>
     <p class="btn-row" style="margin-top:var(--s4)">
-      <a class="btn btn-sky btn-sm" href="/card-shows.html">All ${nShows} shows, with a map</a>
+      <a class="btn btn-sky btn-sm" href="/card-shows.html">All ${nShows} shows</a>
     </p>`
         : `<p class="btn-row" style="margin-top:var(--s4)">
       <a class="btn btn-sky btn-sm" href="/card-shows.html">The card show calendar</a>
@@ -634,7 +636,7 @@ ${nextShows.map(showRow).join("\n")}
 ${shops.map(shopRow).join("\n")}
     </ul>
     <p class="btn-row" style="margin-top:var(--s4)">
-      <a class="btn btn-sky btn-sm" href="/shops.html">The shop list and the map</a>
+      <a class="btn btn-sky btn-sm" href="/shops.html">The shop list</a>
       <a class="btn btn-ghost btn-sm" href="/buying.html">Or buying online</a>
     </p>
   </div>
@@ -726,7 +728,7 @@ ${/* THE GROUNDS ALTERNATE ALL THE WAY DOWN AND THIS ONE HAD TO GIVE ITS BAND UP
     <h2>Everything local, in one <span class="hl">place</span></h2>
     <ul class="roc-routes">
       <li><a href="/card-shows.html"><b>Card shows</b><span>${nShows} coming up around Rochester, NY, Buffalo and
-        Syracuse, with the dates, the venues and a drawn map of where they are.</span></a></li>
+        Syracuse, with the dates and the venues.</span></a></li>
       <li><a href="/shops.html"><b>Card shops</b><span>${shops.length} shops with a door, what each one is good
         for, and where you can sit down and play.</span></a></li>
       <li><a href="/vendors.html"><b>Local vendors</b><span>People who sell, usually at the shows. ${nVendors} so

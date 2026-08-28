@@ -753,7 +753,7 @@ const swapped = head
     // Both halves of what the page now answers. "Where to play pokemon rochester
     // ny" is its own search with its own intent, and the old title only claimed
     // the buying half.
-    `<title>Pokemon Card Shops in Rochester NY &amp; Where to Play</title>`
+    `<title>Pokemon Card Shops in Rochester, NY &amp; Where to Play</title>`
   )
   .replace(
     /<meta name="description"[^>]*>/,

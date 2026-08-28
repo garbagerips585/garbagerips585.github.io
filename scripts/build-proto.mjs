@@ -2855,7 +2855,7 @@ const rocHtml = !rocTiles.length
   ? ""
   : `<section class="roc" aria-labelledby="rocH">
   <div class="wrap">
-    <div class="brk"><h2 id="rocH">Rochester, NY, <span class="hl">New York</span></h2><span class="ln"></span><a href="/rochester.html">The local scene &rarr;</a></div>
+    <div class="brk"><h2 id="rocH">Rochester, <span class="hl">New York</span></h2><span class="ln"></span><a href="/rochester.html">The local scene &rarr;</a></div>
     <p class="roc-lede">This is a card town and most of the internet has no idea. The shows, the shops, the people who sell and film around here, and the dish the channel is named after are all on the local scene page.</p>
     <ul class="roc-counts">
 ${rocTiles.join("\n")}

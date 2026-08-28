@@ -538,7 +538,7 @@ const getListed = ({ noun, one, fields, emailFields, sends, asset, subject }) =>
    police prose in general and must not grow into that: `empty` and `note` are
    exempt on purpose, since both are plainly asks rather than descriptions
    ("anywhere in Upstate New York close enough to count belongs here"). */
-const CITY_WORDS = ["Rochester, NY", "Buffalo", "Syracuse"];
+const CITY_WORDS = ["Rochester", "Buffalo", "Syracuse"];
 
 const checkCities = (text, rows, where) => {
   const areas = rows.map((o) => String(o.area || "")).join(" | ");
@@ -782,7 +782,7 @@ ${APP_JS}
 
 const V = page({
   metaDesc:
-    "Pokemon card sellers around Rochester NY worth knowing, what each one carries, and a link to " +
+    "Pokemon card sellers around Rochester, NY worth knowing, what each one carries, and a link to " +
     "find them. No paid placements.",
   slug: "vendors.html",
   title: "Pokemon Card Vendors in Rochester, NY | Garbage Rips 585",
@@ -882,7 +882,7 @@ const C = page({
       "A message, a comment on a rip, a tag in a story, whatever is easiest.",
     fields: [
       "Your name as you want it printed.",
-      "Where you are: Rochester, NY, Buffalo, Syracuse, or the town if it is none of those.",
+      "Where you are: \"Rochester, NY\", \"Buffalo\", \"Syracuse\", or the town if it is none of those.",
       "What you make: rips, singles, art, competitive, something we have not thought of.",
       "Every handle you want on the card, and your own site if you have one.",
     ],

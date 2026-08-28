@@ -691,7 +691,7 @@ const schema = {
     {
       "@type": "Article",
       "@id": `${SITE}/garbage-plate.html#article`,
-      headline: "What Is a Garbage Plate? The Rochester, NY Dish, Explained",
+      headline: "What Is a Garbage Plate? The Rochester, NY Dish",
       description:
         "The history of the Rochester Garbage Plate, sourced, plus a diagram of what is on one and where to eat one.",
       inLanguage: "en-US",
@@ -1210,15 +1210,15 @@ const footer = home.slice(home.lastIndexOf("<footer"), home.indexOf("</footer>")
 // and /shops.html, /wanted.html, /about.html and /hall.html still are. If you
 // touch one of those, this is the fix.
 const DESC =
-  `GARBAGE PLATE has been a federal trademark since 18 August 1992, which is why everywhere else ` +
+  `GARBAGE PLATE has been a federal trademark since August 18, 1992, which is why everywhere else ` +
   `in Rochester, NY sells a trash plate. A sourced history of the dish, a labeled diagram of what is ` +
   `on one, and ${places.length} places around Rochester, NY that serve it.`;
-const OG_TITLE = `What Is a Garbage Plate? Rochester, NY's Dish, Explained`;
+const OG_TITLE = `What Is a Garbage Plate? The Rochester, NY Dish`;
 
 const swapped = head
   .replace(
     /<title>[\s\S]*?<\/title>/,
-    `<title>What Is a Garbage Plate? Rochester, NY's Dish, and Where to Eat</title>`,
+    `<title>What Is a Garbage Plate? The Rochester, NY Dish</title>`,
   )
   .replace(
     /<meta name="description"[^>]*>/,

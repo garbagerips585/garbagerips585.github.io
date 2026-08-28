@@ -146,9 +146,16 @@ const weekday = (iso) =>
     new Date(iso + "T12:00:00").getDay()
   ];
 
+/* THE CITY FIELD CARRIES THE STATE FOR THE READER; THESE TWO CALLERS MUST NOT.
+   data/shows.json says "Rochester, NY" so the visible listing reads that way,
+   but schema.org addressLocality is the locality ALONE (addressRegion already
+   carries NY, and every other town in the file is bare), and the maps query
+   appends its own " NY" and would otherwise ask for "Rochester, NY NY". */
+const bareCity = (c) => String(c || "").replace(/,\s*(NY|New York)$/i, "");
+
 /** A maps link built from the venue and city. Never an address we made up. */
 const mapQuery = (s) =>
-  [s.address || s.venue, s.address ? "" : s.city, s.address ? "" : "NY"].filter(Boolean).join(" ");
+  [s.address || s.venue, s.address ? "" : bareCity(s.city), s.address ? "" : "NY"].filter(Boolean).join(" ");
 const mapLink = (s) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery(s))}`;
 
@@ -638,7 +645,7 @@ const ld = [
       address: {
         "@type": "PostalAddress",
         ...(s.address ? { streetAddress: s.address.split(",")[0] } : {}),
-        addressLocality: s.city,
+        addressLocality: bareCity(s.city),
         addressRegion: "NY",
         addressCountry: "US",
       },
@@ -674,7 +681,7 @@ const ld = [
 ];
 
 const desc =
-  `Every upcoming Pokemon and trading card show near Rochester, NY, Buffalo and Syracuse NY. ` +
+  `Every upcoming Pokemon and trading card show near Rochester, NY, Buffalo and Syracuse. ` +
   `${upcoming.length} shows with dates, venues and admission, checked ${longDate(data.checked) || data.checked}.`;
 
 // COMMENTS OUT OF THE SHIPPED PAGE, ARGUMENT KEPT IN THIS FILE. Same regex and
@@ -700,7 +707,7 @@ const head = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Card Shows Near Rochester NY: Buffalo & Syracuse Calendar</title>
+<title>Card Shows Near Rochester, NY: Buffalo & Syracuse Calendar</title>
 <meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/card-shows.html">
 <meta property="og:title" content="Card shows near Rochester, NY, Buffalo and Syracuse">
