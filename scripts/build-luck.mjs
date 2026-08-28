@@ -2188,6 +2188,24 @@ ${monthFigure()}
 
       The price provenance note at the foot is NOT part of this and stays: that
       is sourcing for money figures, not an explanation of the rip log. */ ""}
+
+    ${/* THE LICENCE, WHERE A READER CAN SEE IT. CC BY 4.0 is granted ON
+         CONDITION of attribution, so stating it only inside the page's
+         structured data would tell a machine and not the person who has to
+         comply. The Garbage Plate photographs already follow this rule for
+         exactly the same reason: a credit nobody can find is not a credit.
+         IT SAYS WHAT IS COVERED. The numbers on this page are counted out of
+         this channel's own rip log and are the owner's to license; the card
+         names, prices and set data they sit beside come from TCGdex,
+         PriceCharting and the Pokemon TCG API and are not his to give away.
+         A licence line that did not draw that line would be claiming more than
+         it holds. */ ""}
+    <p class="luck-note" style="margin-top:var(--s6)">The counts and rates on this page are our own, measured from
+      the rip log, and you are welcome to reuse them under
+      <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener" target="_blank"
+        aria-label="Creative Commons Attribution 4.0 International licence, opens on creativecommons.org">CC BY 4.0</a>
+      with credit to Garbage Rips 585. That covers the figures we counted, not the card names, prices or set data
+      beside them, which come from TCGdex, PriceCharting and the Pokemon TCG API.</p>
 </main>`;
 
 // NO Dataset MARKUP UNTIL THERE IS A DATASET. With nothing logged this
@@ -2205,6 +2223,22 @@ const ld =
         url: `${SITE}/luck.html`,
         creator: { "@type": "Organization", name: "Garbage Rips 585", url: `${SITE}/` },
         isAccessibleForFree: true,
+        /* CC BY 4.0, THE OWNER'S CHOICE, 28 August 2026, asked because Search
+           Console's Datasets report wants a `license` and a licence is a
+           statement about what other people may do rather than a field to fill.
+           IT IS ON THIS PAGE AND NOT ON /expansions.html, WHICH CARRIES THE
+           OTHER Dataset ON THIS SITE. That one says on its own face "Set data
+           from the Pokemon TCG API", so its facts are somebody else's and
+           docs.pokemontcg.io grants no reuse licence at all, only "Copyright
+           2022 Pokemon TCG API". Licensing it would be granting rights we were
+           never given. THIS page is different in kind: every figure on it is
+           counted out of this channel's own rip log, which is the owner's to
+           license and is exactly the sort of measurement worth being cited for.
+           THE VISIBLE LINE BELOW IS THE OTHER HALF and is not optional. CC BY
+           is granted ON CONDITION of attribution, so a licence that lives only
+           in a <script> a reader never sees does not tell them how to comply.
+           Same rule the Garbage Plate photo credits already follow. */
+        license: "https://creativecommons.org/licenses/by/4.0/",
       }
     : null;
 
