@@ -734,7 +734,19 @@ function showCard(s) {
                   ? `<span class="chip pk-no">Sports only</span>`
                   : `<span class="chip pk-un">Pokemon not confirmed</span>`}
             ${soon ? `<span class="chip soon" data-soon>${esc(soon)}</span>` : ""}
-            <span class="chip">${s.admission ? esc(s.admission) : "Check the listing"}</span>${/* TABLE COUNT,
+            ${/* THE ADMISSION CHIP IS SUPPRESSED WHERE THERE ARE TIERS, added 27 August
+              2026, and it is a de-duplication rather than a cut. A tiered show
+              prints every price WITH THE DOOR TIME IT BUYS a few lines below
+              this: "$20 Early VIP from 9am", "$5 General admission from 10am, 12
+              and under free". The chip could only ever repeat the headline one
+              and without the time, which is the half that matters when a show
+              has two doors, and RocPokeCon shipped exactly that confusion until
+              the tiers were added. Untiered shows, which is 63 of the 66, are
+              untouched and still carry the chip.
+              IT IS ALSO 29px OF THE 60 that had to come off the GI Cards card to
+              fit an iPhone with Safari's own chrome on screen: it was the third
+              chip, so it was wrapping the row onto a second line by itself. */ ""
+            }${(s.tiers || []).length ? "" : `<span class="chip">${s.admission ? esc(s.admission) : "Check the listing"}</span>`}${/* TABLE COUNT,
               ADDED 26 August 2026, because it is the question the r/Rochester thread kept circling: is this show
               worth the drive. Two commenters asked whether a show was any good and what the mix was, and the size
               of the room is the fastest honest answer to both. It was already being written into blurbs by hand
@@ -742,7 +754,14 @@ function showCard(s) {
               disagree with itself. It is a field now. Absent on most shows, and absent renders nothing. */ ""}
             ${s.tables ? `<span class="chip">${esc(String(s.tables))} tables</span>` : ""}
           </div>
-          ${s.pkmnWhy ? `<p class="show-why">${esc(s.pkmnWhy)}</p>` : ""}${/* THE REASON, PRINTED. Every other
+          ${/* THE `pkmnWhy` SENTENCE WAS PRINTED HERE AND IS NOT ANY MORE, 27 August
+             2026. The owner asked for it off two shows on the same day, an hour
+             apart, which is a preference rather than two corrections, and it was
+             also 63px of the 305 that had to come off a card to fit an iPhone
+             screen. THE FIELD IS NOT DELETED and must not be: `pkmn: "some"` is
+             only ever set where there is evidence, and pkmnWhy is where that
+             evidence is written down. It is a record now rather than a caption.
+             Putting it back is this one line. */ ""}${/* THE REASON, PRINTED. Every other
             calendar asserts a category and leaves you to trust it. This one says WHY it believes Pokemon is or is not
             there, in one line, per show: whose flyer, whose post, whose vendor list. It is also the honest way to
             carry a weak claim, because "the regional calendar says so, single source" reads as exactly what it is. */ ""}

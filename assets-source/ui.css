@@ -4045,16 +4045,34 @@ button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}
      UNDER IT and the full flyer is one tap away at 1024px. 40px off the width is
      60px off the card. If a later editor wants the bigger thumbnail back, the
      honest trade is that the flyer stops fitting on one screen. */
-  .show-flyer{margin-top:6px;max-width:180px}
+  /* 140px NOW, DOWN FROM 180, 27 August 2026, AND IT IS THE SAME TRADE THE
+     PARAGRAPH ABOVE ALREADY MADE ONCE. The owner, on his own phone, about the GI
+     Cards listing: "figure out how to make it all show within the fold on an
+     iphone ... maybe shorten text and just get the flyer up higher so its all
+     there." That card is the worst case on the calendar and the only one that is
+     all four at once: a two line title, a long blurb, TWO price tiers and a
+     PORTRAIT flyer. At 180px wide a 1325x2048 flyer is 278px tall on its own.
+     40px off the width is 62px off the card, the thumbnail still reads, and the
+     full 1024px flyer is one tap away, which is the reason this is the lever
+     that loses least. If a later editor widens it again, re-measure the GI Cards
+     card at 390 before believing it still fits. */
+  .show-flyer{margin-top:6px;max-width:140px}
   .show{gap:8px;padding:12px}
   /* THE PRICE TIERS ARE THE TALLEST BLOCK ON ANY CARD THAT HAS THEM, measured at
      390: 214px on RocPokeCon and 135 on Buffalo TCG Con, more than the flyer
      costs. Each tier is a padded well and a long note wraps onto its own grid
      line. Tightened rather than hidden, because a price somebody is about to pay
      is the last thing that should go behind a disclosure. */
-  .tiers{gap:4px;margin-top:10px}
-  .tiers li{padding:6px 9px}
-  .tier-note{line-height:1.4}
+  /* THE THREE PHONE TIER RULES THAT WERE HERE NEVER APPLIED AND HAVE MOVED.
+     They were `.tiers`, `.tiers li` and `.tier-note` at single-class
+     specificity, and the BASE rules for all three are declared about thirty
+     lines BELOW this block. Equal specificity, later wins, so the phone values
+     lost every time and the comment above claiming the tiers were "tightened
+     rather than hidden" on a phone had never been true: computed margin-top was
+     the base 12px, not the 10px written here, and padding was 8px 10px, not
+     6px 9px. Found by reading the COMPUTED values off the element after a
+     change to them moved nothing, which is the only way this shows up. They are
+     re-declared after the base rules now. */
 }
 .show-flyer img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain}
 
@@ -4098,6 +4116,17 @@ button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}
 .tier-from{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-transform:uppercase;
   letter-spacing:.04em}
 .tier-note{grid-column:2;font-size:var(--t-micro);color:var(--ink-2);line-height:1.5}
+/* THE PHONE TIER SIZES, DECLARED AFTER THE BASE ONES SO THEY ACTUALLY WIN. See
+   the headstone in the max-width:719px block above for where these lived and why
+   they did nothing there. Price tiers are the tallest block on any card that has
+   them, and this is spacing only: no price, no door time and no note is hidden,
+   because a price somebody is about to pay is the last thing that should go
+   behind a disclosure. */
+@media(max-width:719px){
+  .tiers{gap:4px;margin-top:8px}
+  .tiers li{padding:4px 9px}
+  .tier-note{line-height:1.35}
+}
 
 .show-links a.tickets{background:var(--gold);color:var(--on-accent);border:2px solid var(--keyline);
   border-radius:999px;padding:0 16px;box-shadow:0 3px 0 var(--gold-deep)}

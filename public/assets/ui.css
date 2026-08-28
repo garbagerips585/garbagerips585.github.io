@@ -1198,11 +1198,8 @@ button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}
 .show-links a:hover{text-decoration:underline}
 .show-flyer{grid-column:1 / -1}
 @media(max-width:719px){
-  .show-flyer{margin-top:6px;max-width:180px}
+  .show-flyer{margin-top:6px;max-width:140px}
   .show{gap:8px;padding:12px}
-  .tiers{gap:4px;margin-top:10px}
-  .tiers li{padding:6px 9px}
-  .tier-note{line-height:1.4}
 }
 .show-flyer img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain}
 .show-empty{color:var(--ink-2);padding:var(--s6) 0}
@@ -1232,6 +1229,11 @@ button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}
 .tier-from{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-transform:uppercase;
   letter-spacing:.04em}
 .tier-note{grid-column:2;font-size:var(--t-micro);color:var(--ink-2);line-height:1.5}
+@media(max-width:719px){
+  .tiers{gap:4px;margin-top:8px}
+  .tiers li{padding:4px 9px}
+  .tier-note{line-height:1.35}
+}
 .show-links a.tickets{background:var(--gold);color:var(--on-accent);border:2px solid var(--keyline);
   border-radius:999px;padding:0 16px;box-shadow:0 3px 0 var(--gold-deep)}
 .show-links a.tickets:hover{background:var(--mustard);color:var(--on-accent);text-decoration:none}
