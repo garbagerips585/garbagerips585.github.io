@@ -2689,6 +2689,10 @@ const urls = [
   // because a privacy page a crawler cannot find is the one kind of missing
   // page that reads as evasive.
   { loc: `${SITE}/privacy.html`, freq: "yearly", pri: "0.3" },
+  // The show archive. WEEKLY because that is how often it genuinely changes:
+  // a show moves onto it the morning after it happens, and there are a few most
+  // months.
+  { loc: `${SITE}/past-shows.html`, freq: "weekly", pri: "0.4" },
   { loc: `${SITE}/shops.html`, freq: "monthly", pri: "0.7" },
   // The Garbage Plate. HIGH priority and monthly, which is the pair the set
   // list and the release calendar get, because it is the same kind of page:

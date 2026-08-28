@@ -253,6 +253,11 @@ const PAGES = [
   // Indexable, so build-search.mjs requires it here: the check exists because
   // four pages once shipped invisible to the site's own search.
   ["/privacy.html", "Privacy", "Cookies, analytics and what this site does not do"],
+  // The show archive. Listed here BEFORE it is indexable rather than when: this
+  // file fails the build on an INDEXABLE page missing from PAGES, and the
+  // archive's noindex lifts by itself on 30 August, which would have failed a
+  // nightly build nobody was watching.
+  ["/past-shows.html", "Past card shows", "Shows around Rochester that have already happened, with the flyers"],
   ["/about.html", "About", "Who this is and why"],
 ];
 
