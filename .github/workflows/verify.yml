@@ -29,6 +29,13 @@ name: Verify the committed tree
 on:
   push:
     branches: [main]
+  # AND ON A CLOCK, because the freshness check below is useless without it.
+  # It only ever ran on push, and the nightly refresh IS this repo's main
+  # pusher: on 27 and 28 August 2026 the nightly did not fire, so nothing was
+  # pushed, so nothing checked that nothing had been pushed. 16:40 UTC is after
+  # both nightly crons and their observed 3 hour delay.
+  schedule:
+    - cron: "40 16 * * *"
   workflow_dispatch:
 
 permissions:
@@ -82,14 +89,22 @@ jobs:
       # move, by design -- but CI runs seconds after the push, so same-day is
       # the normal case and a genuine day-boundary miss is a real "rebuild me"
       # signal rather than noise.
-      # THE NIGHTLY CANNOT WATCH ITSELF. This runs on every push, where a person
-      # is already looking, because a check inside the nightly is silent on
-      # exactly the day the nightly stops. See scripts/check-freshness.mjs.
-      - name: Is the data the nightly owns still fresh?
-        run: node scripts/check-freshness.mjs
-
       - name: Does public/ match the source committed beside it?
         env:
           GR_SKIP_IMAGE_BUILDERS: '1'
           TZ: America/New_York
         run: node scripts/check-tree-drift.mjs --diff
+
+      # LAST, AND THAT IS DELIBERATE. This step and the drift check share a job
+      # under `bash -e`, so putting freshness first meant a stale DATE stopped
+      # the drift check from ever running, and this file's own header calls
+      # drift "the only defence against this repo's worst documented failure
+      # mode". A date is worth less than that, so it goes behind it.
+      #
+      # TZ, because the stamps are written by localDay() in New York and a
+      # runner is UTC: an evening push would otherwise read every file as a day
+      # older than it is and fail intermittently against a 3 day leash.
+      - name: Is the data the nightly owns still fresh?
+        env:
+          TZ: America/New_York
+        run: node scripts/check-freshness.mjs

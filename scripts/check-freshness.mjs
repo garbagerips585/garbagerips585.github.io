@@ -33,10 +33,21 @@ const WATCH = [
   ["data/price-rotation.json",      ["lastRun"],       3, "the nightly PriceCharting refresh"],
   ["data/pricecharting-cards.json", ["checked"],       3, "the 28 set-guide consoles, refreshed nightly"],
   ["public/data/card-index.json",   ["pricesChecked"], 3, "every card price on the site"],
-  ["data/graded.json",              ["checked"],      10, "PSA 10 prices, 50 a night by rotation"],
 ];
 
-/* WHAT IS DELIBERATELY NOT WATCHED, so nobody adds it back as a false alarm.
+/* data/graded.json WAS ON THIS LIST FOR ONE COMMIT AND THE LEASH WAS WRONG THE
+   SAME WAY sets.json's WAS, IN THE SAME EDIT. Its line read "PSA 10 prices, 50 a
+   night by rotation", which describes sync-prices.mjs -- and sync-prices.mjs
+   writes data/psa10.json, NOT graded.json. graded.json is written by
+   sync-pricecharting.mjs, which is hand run and in no workflow, and its own
+   readme says "A SNAPSHOT, NOT A FEED ... these do not refresh overnight". At a
+   10 day leash it would have failed EVERY PUSH from 3 September onwards.
+   Watching PSA 10 properly needs a stamp psa10.json does not carry: its dates
+   are per entry (`asOf`), so it wants a max() over entries and a leash measured
+   against the 50-a-night rotation. That is a real change, and inventing a third
+   number rather than measuring one is exactly the mistake being corrected here.
+
+   WHAT IS DELIBERATELY NOT WATCHED, so nobody adds it back as a false alarm.
    public/data/sets.json is sync-sets.mjs against api.pokemontcg.io, which is
    HAND RUN and whose syncedAt only moves when the set LIST changes. It was on
    this list for one commit at an 8 day leash, went red immediately at 12 days,

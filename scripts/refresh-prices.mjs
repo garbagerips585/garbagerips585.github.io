@@ -36,17 +36,25 @@
  */
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
+import { stat } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { gunzipSync } from "node:zlib";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { PC_CONSOLES, parsePage, unent } from "../shared/pricecharting.mjs";
+import { CONSOLE_HEADERS, PC_CONSOLES, parsePage, unent } from "../shared/pricecharting.mjs";
 import { localDay } from "../shared/today.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache/pricecharting-console");
 const STATE = join(ROOT, "data/price-rotation.json");
-const UA = "Mozilla/5.0 (compatible; garbagerips.com price refresh; +https://garbagerips.com/)";
+const SITEMAP_TTL_DAYS = 7;
+/* THE SAME IDENTITY THE OTHER CRAWL USES, AND THE COMMENT THAT SAID SO WAS
+   WRONG. This read "Mozilla/5.0 (compatible; ...)" while claiming to match
+   sync-graded-top.mjs, which it did not. Two strings from one operator means a
+   throttle or a block applied to the known identity does not cover the
+   unattended nightly, and leading with Mozilla/5.0 is browser mimicry rather
+   than the honest identification this site owes a server it crawls. */
+const UA = "GarbageRips585/1.0 (fan site; youtube.com/@GarbageRips585)";
 
 const args = process.argv.slice(2);
 const DRY = args.includes("--dry-run");
@@ -69,14 +77,43 @@ async function refetch(url) {
   const r = await fetch(url, { headers: { "User-Agent": UA, "Accept-Encoding": "gzip" } }).catch((e) => {
     console.log(`  NET   ${e.code || e.message}  ${url}`); return null;
   });
-  if (!r) { failed += 1; return null; }
-  if (!r.ok) { console.log(`  HTTP ${r.status}  ${url}`); failed += 1; return null; }
+  /* PACING BELONGS ON EVERY PATH, NOT JUST THE HAPPY ONE. The first version
+     slept only after a successful write, so the moment PriceCharting started
+     refusing us the crawler dropped all spacing and fired the whole batch at
+     network speed. Being told to back off must not make us faster. A refusal
+     waits LONGER, and a 429 or 403 longer again. */
+  if (!r) { failed += 1; await sleep(3000); return null; }
+  if (!r.ok) {
+    console.log(`  HTTP ${r.status}  ${url}`);
+    failed += 1;
+    await sleep(r.status === 429 || r.status === 403 ? 15000 : 3000);
+    return null;
+  }
   const buf = Buffer.from(await r.arrayBuffer());
   const html = buf[0] === 0x1f && buf[1] === 0x8b ? gunzipSync(buf).toString("utf8") : buf.toString("utf8");
+  await sleep(1100);
+  /* VALIDATE BEFORE OVERWRITING, because the cache entry we are about to
+     destroy is the only copy. A Cloudflare interstitial, a login wall, a
+     maintenance page and an empty body are all HTTP 200, and the first version
+     wrote every one of them over a good page and counted it as a success. A
+     console listing has a canonical link and these exact columns; anything else
+     is not one, whatever the status code said. */
+  if (!isConsolePage(html)) {
+    console.log(`  200 but not a console listing, keeping the cached copy  ${url}`);
+    failed += 1;
+    return null;
+  }
   await writeFile(keyFor(url), html);
   fetched += 1;
-  await sleep(1100);
   return html;
+}
+
+/** Does this look like the console listing we asked for, rather than a wall? */
+function isConsolePage(html) {
+  if (!html || html.length < 2000) return false;
+  if (!/rel="canonical" href="/.test(html)) return false;
+  const { headers } = parsePage(html);
+  return headers.length > 0 && headers.join("|") === CONSOLE_HEADERS.join("|");
 }
 
 /** Every page of one console, following the cursor exactly as the crawl does. */
@@ -100,10 +137,27 @@ async function refreshConsole(path) {
 async function allConsoles() {
   const url = "https://www.pricecharting.com/sitemap.xml";
   const k = keyFor(url);
-  let xml;
-  if (existsSync(k)) xml = await readFile(k, "utf8");
+  /* THE LIST HAS A SHELF LIFE. The first version read the cached sitemap if it
+     existed at all, so the copy fetched on 22 August would have been the
+     rotation's idea of the world forever: consoles added after it never entered
+     the rotation, and consoles removed were re-requested every cycle as 404s. */
+  let xml = null;
+  const age = existsSync(k) ? (Date.now() - (await stat(k)).mtimeMs) / 86400000 : Infinity;
+  if (age <= SITEMAP_TTL_DAYS) xml = await readFile(k, "utf8");
   else if (DRY) return Object.values(PC_CONSOLES);
-  else xml = await refetch(url);
+  else {
+    console.log(`  the console list is ${age === Infinity ? "missing" : `${Math.round(age)}d old`}, re-reading the sitemap`);
+    const r = await fetch(url, { headers: { "User-Agent": UA, "Accept-Encoding": "gzip" } }).catch(() => null);
+    await sleep(1100);
+    if (r && r.ok) {
+      const buf = Buffer.from(await r.arrayBuffer());
+      xml = buf[0] === 0x1f && buf[1] === 0x8b ? gunzipSync(buf).toString("utf8") : buf.toString("utf8");
+      if (xml.includes("<loc>")) await writeFile(k, xml);
+      else xml = null;
+    }
+    // Falling back to a stale list beats refreshing nothing at all.
+    if (!xml && existsSync(k)) { console.log("  sitemap refused, using the cached list"); xml = await readFile(k, "utf8"); }
+  }
   if (!xml) return null;
   const paths = new Set();
   for (const m of xml.matchAll(/<loc>(.*?)<\/loc>/g)) {
@@ -115,52 +169,79 @@ async function allConsoles() {
 }
 
 await mkdir(CACHE, { recursive: true });
-const state = existsSync(STATE) ? JSON.parse(await readFile(STATE, "utf8")) : { cursor: 0 };
+const state = existsSync(STATE) ? JSON.parse(await readFile(STATE, "utf8")) : {};
+/* A BOOKMARK PER CONSOLE, NOT AN INDEX INTO A LIST THAT MOVES. The first
+   version stored a cursor position, and `tail` is sorted, so a single console
+   added or removed upstream shifted every later index and silently cost one
+   console per event: one re-fetched, one skipped, with no record of which. It
+   also advanced on nights when every fetch failed, so a blocked run still burnt
+   30 days of rotation. Recording the DAY EACH PATH WAS LAST REFRESHED is immune
+   to all of that: the next batch is simply the ones least recently done, and a
+   path that failed is not marked, so it comes back tomorrow. */
+state.refreshed = state.refreshed || {};
 
 const hotPaths = [...new Set(Object.values(PC_CONSOLES))];
-let plan = [];
+const plan = [];
 if (HOT) plan.push(...hotPaths.map((p) => ["hot", p]));
 
-let all = null;
+let tailLen = null;
 if (COLD) {
-  all = await allConsoles();
-  if (!all) console.log("  the sitemap could not be read, so the cold rotation is skipped this run");
+  const all = await allConsoles();
+  if (!all) console.log("  the console list could not be read, so the cold rotation is skipped this run");
   else {
     const hot = new Set(hotPaths);
     const tail = all.filter((p) => !hot.has(p));
-    // Wrap, so the cursor walks the tail forever and never runs off the end.
-    const start = tail.length ? state.cursor % tail.length : 0;
-    for (let i = 0; i < Math.min(COLD, tail.length); i += 1) plan.push(["cold", tail[(start + i) % tail.length]]);
-    state.cursor = tail.length ? (start + Math.min(COLD, tail.length)) % tail.length : 0;
-    state.tail = tail.length;
-    state.cycleDays = COLD ? Math.ceil(tail.length / COLD) : null;
+    tailLen = tail.length;
+    // Never refreshed sorts first, then oldest first, then by path so it is stable.
+    const due = [...tail].sort((a, b) =>
+      (state.refreshed[a] || "").localeCompare(state.refreshed[b] || "") || a.localeCompare(b));
+    plan.push(...due.slice(0, Math.min(COLD, tail.length)).map((p) => ["cold", p]));
   }
 }
 
 console.log(`${plan.length} console(s) to refresh` +
-  (all ? `: ${plan.filter((p) => p[0] === "hot").length} hot, ${plan.filter((p) => p[0] === "cold").length} cold ` +
-    `of a ${state.tail} tail, one full pass every ${state.cycleDays} days` : ""));
+  (tailLen ? `: ${plan.filter((x) => x[0] === "hot").length} hot, ${plan.filter((x) => x[0] === "cold").length} cold ` +
+    `of a ${tailLen} tail, one full pass every ${Math.ceil(tailLen / COLD)} days` : ""));
 
-let pages = 0;
+let pages = 0, hotOk = 0, coldOk = 0;
 for (const [tier, path] of plan) {
   const n = await refreshConsole(path);
   pages += n;
-  if (tier === "hot" && n === 0) console.log(`  nothing came back for ${path}`);
+  if (n > 0) {
+    // Only a console that actually came back is marked done.
+    if (!DRY) state.refreshed[path] = localDay();
+    if (tier === "hot") hotOk += 1; else coldOk += 1;
+  } else if (tier === "hot") {
+    console.log(`  nothing came back for ${path}`);
+  }
 }
 
 if (!DRY) {
   state.lastRun = localDay();
-  state.lastHot = HOT ? localDay() : state.lastHot || null;
+  state.tail = tailLen ?? state.tail ?? null;
+  state.cycleDays = tailLen && COLD ? Math.ceil(tailLen / COLD) : state.cycleDays ?? null;
+  /* `lastHot` IS WHAT DATES EVERY PRICE ON THE SITE, so it moves only when the
+     hot tier actually produced pages. The first version assigned it
+     unconditionally, which meant a night when all 28 consoles were refused still
+     stamped today onto week-old numbers, through sync-pricecharting-cards.mjs and
+     into pricesChecked on every set file. That is exactly the lie this pipeline
+     was built to prevent, and it also blinded check-freshness.mjs, whose three
+     price leashes all hang off this field. If the hot tier got nothing, the old
+     date stands and the watchdog goes red on schedule. */
+  if (HOT && hotOk > 0) state.lastHot = localDay();
+  state.lastHotConsoles = HOT ? hotOk : state.lastHotConsoles ?? null;
   await writeFile(STATE, JSON.stringify(state, null, 2) + "\n");
 }
 
-console.log(`\n${pages} page(s) refreshed, ${fetched} fetched, ${failed} refused.`);
+console.log(`\n${pages} page(s) written, ${fetched} fetched, ${failed} refused.` +
+  (HOT ? `  Hot: ${hotOk}/${hotPaths.length} consoles.` : ""));
 console.log("Next: node scripts/sync-pricecharting-cards.mjs, then node scripts/sync-cards.mjs --prices");
 
-/* FAIL LOUDLY ONLY ON A SYSTEMIC REFUSAL. One 404 is evidence about one url; a
-   run where most of the batch was refused means we are blocked or they have
-   moved, and that must not pass as a quiet success the way the dead nightly did. */
-if (!DRY && plan.length && failed > fetched) {
-  console.error("\nMost of this batch was refused. Treating that as a real failure rather than a quiet one.");
+/* FAIL LOUDLY WHEN THE WORK DID NOT HAPPEN, and judge each tier on its own
+   count rather than on a shared failed-vs-fetched ratio, which mixed pages with
+   requests and flipped green on the pagination depth of the tail. */
+if (!DRY && HOT && hotOk < hotPaths.length / 2) {
+  console.error(`\nOnly ${hotOk} of ${hotPaths.length} set-guide consoles refreshed. Treating that as a real`);
+  console.error(`failure: prices keep their previous read date and check-freshness.mjs will say so.`);
   process.exit(1);
 }

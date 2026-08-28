@@ -148,6 +148,12 @@ jobs:
           path: .cache
           key: api-cache-${{ github.run_id }}
           restore-keys: api-cache-
+          # The job can END in a deliberate failure (the re-raise steps at the
+          # foot), and actions/cache only saves on success by default. Without
+          # this, a night that re-raises throws away the cold rotation pages it
+          # just paid for while still committing the bookmarks that say they
+          # were done.
+          save-always: true
 
       - name: New uploads
         if: env.YT_API_KEY != ''
@@ -206,6 +212,7 @@ jobs:
       #
       # DO NOT RAISE --cold TO "CATCH UP". A month is the design.
       - name: PriceCharting, 28 set guides daily plus a slice of the tail
+        id: prices
         continue-on-error: true
         run: node scripts/refresh-prices.mjs --hot --cold 26
 
@@ -306,6 +313,20 @@ jobs:
       # is committed; this is only about the exit status the run reports, so it
       # goes last. A red job with the site refreshed beats a green job with the
       # site five days stale, and beats a dead pipeline either way.
+      # SAME PATTERN AS intl_guides ABOVE, AND IT WAS MISSING FOR ONE COMMIT.
+      # continue-on-error without a re-raise is not "keep the signal and drop the
+      # blast radius", it is dropping the signal: a total block by PriceCharting
+      # produced a green job and nobody would have looked.
+      - name: Fail the run if the price refresh did not happen
+        if: steps.prices.outcome == 'failure'
+        run: |
+          echo "refresh-prices.mjs exited non-zero: fewer than half the 28 set-guide"
+          echo "consoles came back. The rest of the refresh still ran and committed."
+          echo "Prices KEEP THEIR PREVIOUS READ DATE, which is the correct outcome;"
+          echo "check-freshness.mjs will go red on every push until this recovers."
+          echo "Read the 'PriceCharting' step above for which consoles were refused."
+          exit 1
+
       - name: Fail the run if a sync reported bad data
         if: steps.intl_guides.outcome == 'failure'
         run: |
