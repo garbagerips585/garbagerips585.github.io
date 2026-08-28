@@ -28,13 +28,21 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 /* Days of grace per file. Anything the nightly touches every run gets a short
    leash; a rotating sync gets its own rotation length plus a day. */
 const WATCH = [
-  ["public/data/videos.json",      ["syncedAt"],                  3, "the YouTube sync"],
-  ["public/data/preorders.json",   ["checked"],                   4, "preorder prices"],
-  ["public/data/sets.json",        ["syncedAt"],                  8, "set checklists"],
-  ["public/data/card-index.json",  ["pricesChecked"],            10, "every card price on the site"],
-  ["data/pricecharting-cards.json",["checked"],                  10, "the PriceCharting overlay"],
-  ["data/graded.json",             ["checked"],                  10, "PSA 10 prices"],
+  ["public/data/videos.json",       ["syncedAt"],      3, "the YouTube sync"],
+  ["public/data/preorders.json",    ["checked"],       4, "preorder prices"],
+  ["data/price-rotation.json",      ["lastRun"],       3, "the nightly PriceCharting refresh"],
+  ["data/pricecharting-cards.json", ["checked"],       3, "the 28 set-guide consoles, refreshed nightly"],
+  ["public/data/card-index.json",   ["pricesChecked"], 3, "every card price on the site"],
+  ["data/graded.json",              ["checked"],      10, "PSA 10 prices, 50 a night by rotation"],
 ];
+
+/* WHAT IS DELIBERATELY NOT WATCHED, so nobody adds it back as a false alarm.
+   public/data/sets.json is sync-sets.mjs against api.pokemontcg.io, which is
+   HAND RUN and whose syncedAt only moves when the set LIST changes. It was on
+   this list for one commit at an 8 day leash, went red immediately at 12 days,
+   and the number was invented rather than checked. This file watches what the
+   nightly OWNS; a hand-run sync going quiet is a different question and wants a
+   different answer than failing every push. */
 
 const today = localDay();
 const days = (iso) => Math.round((new Date(today) - new Date(iso)) / 86400000);

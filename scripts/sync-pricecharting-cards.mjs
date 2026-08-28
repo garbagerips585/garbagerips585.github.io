@@ -71,6 +71,7 @@
 
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import { stat } from "node:fs/promises";
+import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { PC_CONSOLES } from "../shared/pricecharting.mjs";
@@ -229,7 +230,17 @@ for (const f of files) {
 // `checked` is the day these prices were read, and a `cp -r` of the tree cannot
 // silently make the site claim a fresher reading than it has.
 const topGraded = JSON.parse(await readFile(join(ROOT, "data/top-graded.json"), "utf8"));
-const checked = topGraded.checked;
+/* AND THE NIGHTLY REFRESH IS A SECOND CRAWL WITH ITS OWN RECORD, added 28 August
+   2026. refresh-prices.mjs re-fetches the 28 set-guide consoles every night, and
+   EVERY PRICE IN THIS FILE COMES OFF THOSE 28 PAGES, so once it has run, the day
+   it ran IS the day these numbers were read. data/price-rotation.json is that
+   crawl's own written record, exactly as data/top-graded.json is the older
+   crawl's, so this keeps the rule the paragraph above sets out: a read date is
+   borrowed from a file a crawl wrote, never from a mtime. Take the later of the
+   two, because either crawl may have run more recently than the other. */
+const rotPath = join(ROOT, "data/price-rotation.json");
+const rot = existsSync(rotPath) ? JSON.parse(await readFile(rotPath, "utf8")) : {};
+const checked = [topGraded.checked, rot.lastHot].filter(Boolean).sort().pop();
 const cacheDay = new Date(newestCache).toISOString().slice(0, 10);
 if (cacheDay !== checked) {
   console.log(

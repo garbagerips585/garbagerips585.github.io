@@ -191,6 +191,28 @@ jobs:
       # Full card checklists and prices for the 23 English sets, 4,481 cards.
       # --rotate does a quarter of the sets per night so every one is current
       # within four days without making 4,500 requests to a free API daily.
+      # PRICES, HOT TIER THEN A SLICE OF THE TAIL. The owner, 28 August 2026:
+      # "targeted price updates daily for the cards that are ... shown in the set
+      # guides etc, but then for the rest ... slow overnight updates daily small
+      # batches ... can take a full month."
+      #
+      # The unit is a CONSOLE PAGE, not a card: PriceCharting's set listing
+      # carries Ungraded, Grade 9 and PSA 10 for every card in the set, so 28
+      # pages refresh all 5,181 card prices the guides, the Pokedex and the rip
+      # pages read. The other 766 consoles feed the ranked pages and walk past
+      # at 26 a night, a full pass every 30 days. Together about 110 pages a
+      # night at 1.1s pacing, roughly two minutes, against a crawl that used to
+      # be 1,131 pages run by hand and then not run for six days.
+      #
+      # DO NOT RAISE --cold TO "CATCH UP". A month is the design.
+      - name: PriceCharting, 28 set guides daily plus a slice of the tail
+        continue-on-error: true
+        run: node scripts/refresh-prices.mjs --hot --cold 26
+
+      # Parses the cache the step above just refreshed. Makes no request itself.
+      - name: Card prices out of the refreshed pages
+        run: node scripts/sync-pricecharting-cards.mjs
+
       - name: Card checklists and prices
         run: node scripts/sync-cards.mjs --prices --rotate
 
