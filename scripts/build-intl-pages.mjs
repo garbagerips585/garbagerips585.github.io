@@ -78,6 +78,7 @@ import { norm, nameKeyOrThrow } from "../shared/intl-printing.mjs";
 // THE RULE IS intl-printing.mjs AND IT IS UNCHANGED. This asks it in the rip
 // log's own vocabulary and hands back the guide's own row; see that file.
 import { pickIntlPrintingJp } from "../shared/intl-vocab.mjs";
+import { chaseByPrice } from "../shared/card-prices.mjs";
 // THE THIRD AND FOURTH CALLERS OF A LOOKUP build-hall.mjs HELD PRIVATELY. Its
 // own header named build-pages.mjs as having the same gap and did not know this
 // file had it too: six of the thirteen guides carry no scan in intl-guides.json
@@ -1271,9 +1272,18 @@ function enChase(g, en, { standalone = false, why = "", nativeBelow = false } = 
   // browser and the page still pays for the round trip to find out, which is
   // the reason data/no-scan.json exists. None of the current chase cards is on
   // that list; this is here so a future set's is not the way it gets noticed.
-  const chase = (en?.chase || [])
-    .filter((c) => c.image && !NO_SCAN.has(String(c.image).replace(/\/(low|high)\.(webp|avif|png|jpg)$/, "")))
-    .slice(0, 4);
+  /* SORTED, AND SORTED ON THE CHECKLIST FIGURE IT PRINTS. This took the first
+     four entries of sets.json's array with NO sort at all, and the paragraph
+     under it calls them "the priciest cards in English". Eleven of the twelve
+     guides came out right only because that array happened to be in order;
+     ja-stellar-miracle printed Hydrapple ex at $36.47 as the fourth priciest
+     Stellar Crown card while Terapagos ex at $38.00 was left off entirely. */
+  const enPriceOf = (c) => EN_PRICE.get(`${en.id}|${enUnpad(c.number)}`) ?? c.price;
+  const chase = chaseByPrice(
+    (en?.chase || [])
+      .filter((c) => c.image && !NO_SCAN.has(String(c.image).replace(/\/(low|high)\.(webp|avif|png|jpg)$/, ""))),
+    enPriceOf
+  ).slice(0, 4);
   if (chase.length < 2) return "";
   return `${standalone ? "" : `    <h3 class="intl-enh">The same cards in English</h3>\n`}    <p class="intl-ensay">The priciest cards in English ${esc(en.name)}, which is the set on the shelf in a US store.
       These are that set's own cards, numbers and prices${

@@ -308,7 +308,22 @@ try {
     }
   }
 } catch {}
-const HITS = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
+const HITS_DOC = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8"));
+const HITS = HITS_DOC.videos || {};
+/* THE RIP LOG IS A SECOND SOURCE OF RAW FIGURES AND IT IS READ ON ITS OWN DAY.
+   24 raw prices on 16 rip pages come from data/hits.json's `rawNm` -- the
+   Japanese sets, Silver Tempest, Lost Origin and the Galleries, which are in no
+   checklist -- and were printed under the note's flat "read <checklist date>",
+   two days NEWER than the log was read. Claiming a figure is fresher than it is
+   runs the wrong way, so the raw note on any page that prints a hit price is
+   dated to the OLDER of the two. It understates by two days on the pages whose
+   figures are all checklist ones, and that is the safe direction. */
+const HITS_READ = HITS_DOC.checked || null;
+const olderRead = (doc) => {
+  const a = priceRead(doc), b = HITS_READ;
+  if (!a || !b) return doc;
+  return b < a ? { ...doc, pricesChecked: b } : doc;
+};
 /* THE PRINTINGS CORPUS, FOR THE SETS THIS SITE KEEPS NO CHECKLIST FOR.
  * public/data/cards holds 28 English sets; Silver Tempest, Lost Origin, the
  * Trainer and Galarian Galleries and every Black Star Promo set are not among
@@ -1444,11 +1459,21 @@ const desc = (v.blurb || descriptions[v.id] || "")
   // Zygarde ex at $120 above Meowth ex at $128 and led the band with a card the
   // set guide does not call the chase card. See chaseByPrice in
   // shared/card-prices.mjs.
-  const chaseCards = chaseByPrice(setData.get(setId)?.chase).slice(0, 3).map((c) => ({
+  /* SCORED ON THE SAME NUMBER IT PRINTS. chaseByPrice takes a `priceOf` for
+     exactly this and the first version of this fix did not pass one, so the
+     band sorted and sliced on sets.json's stale copy and then displayed the
+     live figure: Ascended Heroes printed Pikachu ex at $876 ABOVE Mega Gengar
+     ex at $944 on 58 pages, and Perfect Order put the WRONG CARD in the band,
+     descending order making it invisible. shared/card-prices.mjs says so in as
+     many words: "Pass priceOf to score an entry against something better than
+     its own copy of the price, which is what a builder holding the checklist
+     should do." */
+  const chasePrice = (c) => CHECKLIST_PRICE.get(`${setId}|${unpadNum(c.number)}`) ?? c.price;
+  const chaseCards = chaseByPrice(setData.get(setId)?.chase, chasePrice).slice(0, 3).map((c) => ({
     ...c,
     // The checklist's figure wins; the snapshot copy is only the fallback for a
     // set whose checklist has not landed. See CHECKLIST_PRICE above.
-    price: CHECKLIST_PRICE.get(`${setId}|${unpadNum(c.number)}`) ?? c.price,
+    price: chasePrice(c),
     psa10: gradedPrice(setId, c.number, c.name, setData.get(setId)?.name || setLabel),
   }));
   // WILL THE HITS BAND CARRY THE SOURCING NOTE? The chase band below prints
@@ -2244,7 +2269,7 @@ ${
       price IS shown the note stays exactly as it was, because that is the
       sentence that makes the number worth trusting.
     */ ""}${pricedHits.length || hits.some((h) => h.psa10)
-      ? `<p class="price-note">${esc(priceNote(pricesDoc, { lead: "Raw prices" }))}
+      ? `<p class="price-note">${esc(priceNote(olderRead(pricesDoc), { lead: "Raw prices" }))}
       PSA 10 prices come from PriceCharting's guide too, ${esc(
         readSpan([GRADED_READ, priceRead(pricesDoc)]) || "read on the date shown"
       )}, and only exist for some cards, so the
