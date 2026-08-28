@@ -67,6 +67,73 @@ const toUrl = (rel) => {
   return `${SITE}/${p}`;
 };
 
+/* WHICH PAGES ACTUALLY CHANGED, WHICH IS NOT THE SAME QUESTION AS WHICH FILES
+ * GIT TOUCHED, AND THE DIFFERENCE WAS A FIREHOSE.
+ *
+ * Every page carries `?v=<hash>` on ui.css, app.js, the favicons and its share
+ * card, written by stamp-assets.mjs from the hash of the file itself. So EDITING
+ * THE STYLESHEET RE-STAMPS ALL 1,498 PAGES, git reports 1,497 modified files,
+ * and the old rule submitted every one of them.
+ *
+ * MEASURED ON THE COMMIT THAT EXPOSED IT, dd231bd9d on 28 August 2026: of its
+ * 1,497 changed html files, 1,492 had a one-line diff reading
+ * `ui.css?v=99923619` -> `ui.css?v=b66b3466` and NOTHING ELSE. Five pages had
+ * really changed. Bing's own IndexNow export agrees from the other side: 842
+ * urls in that batch, and only the export's 1,000-row cap keeps it from showing
+ * the whole ~1,307.
+ *
+ * That is exactly the thing the header of this file says not to do -- "a
+ * firehose is how a submitter gets ignored" -- arrived at by accident, because
+ * "changed in the last commit" is a PROXY for "changed" and the proxy breaks the
+ * moment a shared asset moves. It had been doing it on every deploy that touched
+ * ui.css, which is most of them.
+ *
+ * THE STAMPS ARE UNPICKED WITH THE STAMPER'S OWN ANCHORS AND THAT IS LOAD
+ * BEARING, NOT FASTIDIOUSNESS. A blanket /\?v=[^"]+/ would ALSO rewrite the 314
+ * `youtube.com/watch?v=<id>` urls in this tree, so a rip page that swapped its
+ * video would compare equal and never be announced -- silently, on the one page
+ * family this site publishes daily. These two expressions mirror RE and OG in
+ * stamp-assets.mjs; if a third stamp is ever added there, add it here too.
+ */
+const unstamp = (html) => html
+  .replace(/((?:href|src)="\/(?:assets\/[^"?]+\.(?:css|js)|favicon\.ico|favicon-32\.png|apple-touch-icon\.png))\?v=[a-f0-9]+"/g, '$1"')
+  .replace(/("https?:\/\/[^"?]*?\/assets\/og-[^"?]+\.(?:jpg|png))\?v=[^"]*"/g, '$1"');
+
+/**
+ * The html files under public/ whose CONTENT changed in the last commit.
+ *
+ * One `git diff` rather than a `git show` per file, because the commit that
+ * prompted this carried 1,497 of them. -U0 gives just the changed lines; a file
+ * whose +/- lines are identical once unstamped changed by nothing but the cache
+ * buster. A newly added file has no minus side, so it can never compare equal
+ * and is always submitted, which is right.
+ */
+function changedPages() {
+  const out = execFileSync("git", ["diff", "-U0", "--diff-filter=ACM", "HEAD~1", "HEAD", "--", "public"], {
+    cwd: ROOT, encoding: "utf8", maxBuffer: 256 * 1024 * 1024,
+  });
+  const pages = [];
+  let stampOnly = 0;
+  for (const block of out.split(/^diff --git /m).slice(1)) {
+    const lines = block.split("\n");
+    const head = lines.find((l) => l.startsWith("+++ b/"));
+    if (!head) continue;
+    const file = head.slice("+++ b/".length);
+    if (!file.startsWith("public/") || !file.endsWith(".html")) continue;
+    const minus = [], plus = [];
+    for (const l of lines) {
+      if (l.startsWith("---") || l.startsWith("+++")) continue;
+      if (l.startsWith("-")) minus.push(unstamp(l.slice(1)));
+      else if (l.startsWith("+")) plus.push(unstamp(l.slice(1)));
+    }
+    minus.sort(); plus.sort();
+    if (minus.length === plus.length && minus.every((l, i) => l === plus[i])) { stampOnly++; continue; }
+    pages.push(file);
+  }
+  if (stampOnly) console.log(`${stampOnly} page(s) changed only by the asset cache buster; not submitting those.`);
+  return pages;
+}
+
 let urls = [];
 const explicit = args.filter((a) => !a.startsWith("--"));
 if (explicit.length) {
@@ -75,12 +142,7 @@ if (explicit.length) {
   const xml = await readFile(join(ROOT, "public/sitemap.xml"), "utf8");
   urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
 } else {
-  const out = execFileSync("git", ["diff", "--name-only", "--diff-filter=ACM", "HEAD~1", "HEAD"], {
-    cwd: ROOT, encoding: "utf8",
-  });
-  urls = out.split("\n")
-    .filter((f) => f.startsWith("public/") && f.endsWith(".html"))
-    .map(toUrl);
+  urls = changedPages().map(toUrl);
 }
 
 /* A PAGE THAT TELLS A CRAWLER TO GO AWAY MUST NOT BE SUBMITTED. Asking an engine
