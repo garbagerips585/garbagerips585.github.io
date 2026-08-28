@@ -5363,6 +5363,13 @@ inherited from the UA default, so the promotion moves nothing on screen. */
   color:var(--navy);background:var(--paper-3);border-radius:var(--r-pill);
   padding:0 12px;min-height:44px;display:inline-flex;align-items:center}
 .loc-soc:hover{background:var(--mustard);color:var(--on-accent)}
+/* THE ONE PILL A READER ACTUALLY WANTS, filled rather than tinted, used for a
+   shop's OWN site. Seven links of equal weight is seven decisions; this is the
+   one that answers "can I just look at what they have", so it is the one that
+   looks like a button. `--mustard` is the site's CTA fill and this is the only
+   CTA on a shop card, so it borrows the hover state as its resting one. */
+.loc-soc.is-primary{background:var(--mustard);color:var(--on-accent)}
+.loc-soc.is-primary:hover{background:var(--sky-deep);color:var(--on-accent)}
 /* THE PLATFORM MARK ON A LINK PILL. /creators.html and /vendors.html carried no
    picture at all in main, 118 and 177 words of pure text. The mark comes out of
    the sprite the footer already puts on every page, so the artwork costs zero

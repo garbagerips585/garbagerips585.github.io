@@ -16,7 +16,7 @@ import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE, mailtoHref} from "../shared/site.mjs";
-import { socialLinks } from "../shared/socials.mjs";
+import { socialLinks, GLYPH } from "../shared/socials.mjs";
 // APP_JS_NO_PACKPLAYER, not APP_JS. Nothing on this page plays a rip where it
 // sits; verified by driving it with a real dispatched click, not by grepping.
 // packs.css is NOT dropped here and cannot be from this file: these four pages
@@ -180,6 +180,35 @@ function hostOf(u) {
 // a bare street address with no shop attached, and "Official league page" named
 // no shop at all. The shop name is in the h2 above and was in no link name, so a
 // screen reader's link list was six addresses and seven domains in no order.
+/* THE LINK ROW WAS SEVEN TINY TEXT LINKS IN A LINE AND IT LOOKED IT. The owner,
+   27 August 2026: "can we also add social icons or do the links differently they
+   look strange when there are so many tiny text links next to each other like
+   that lets re think how we list out the links for the the card shops, vendors
+   and creators."
+   IT IS THE PILL /vendors.html AND /creators.html ALREADY USE, which is the real
+   answer to "re think": those two pages have had a good treatment for weeks and
+   /shops.html had a different one, so this is one system replacing two rather
+   than a third being invented. Same class, same 44px target, same platform marks
+   out of the sprite the footer puts on every page, so it costs no new artwork.
+   AND A HIERARCHY, WHICH IS THE PART THAT FIXES THE "so many" HALF. Seven links
+   of equal weight is seven decisions. A shop's OWN site is the one a reader
+   actually wants and it is filled and first; the two or three that go somewhere
+   specific in that shop (singles, events, league) come next; the socials, which
+   are a feed rather than an errand, come last. */
+const shopPill = (href, label, aria, key) =>
+  `<a class="loc-soc${key === "primary" ? " is-primary" : ""}" href="${esc(href)}" rel="noopener" target="_blank" aria-label="${esc(aria)}">${
+    key && GLYPH[key] ? `<svg class="loc-i" aria-hidden="true"><use href="#i-${GLYPH[key]}"/></svg>` : OUT_ARROW
+  }${esc(label)}</a>`;
+
+/* Ours to draw, unlike a platform's mark: it means "this leaves the site", which
+   is the same thing the aria-label on every one of these already says. Inline
+   rather than in the shared sprite because two pages want it and 1,497 ship the
+   sprite. */
+const OUT_ARROW =
+  `<svg class="loc-i" viewBox="0 0 24 24" aria-hidden="true">` +
+  `<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" ` +
+  `fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
 const cards = shops
   .map((s) => {
     const url = cleanUrl(s.url);
@@ -295,22 +324,20 @@ const cards = shops
           ${s.playNote ? `<p class="shop-play-note">${esc(s.playNote)}</p>` : ""}
           ${s.playWarn ? `<p class="shop-play-warn">${esc(s.playWarn)}</p>` : ""}
         </div>` : ""}
-        <p class="shop-links">
-          <a class="shop-link" href="${esc(url)}" rel="noopener" target="_blank" aria-label="${esc(host)}, ${esc(s.name)}'s own site, opens on their site">
-            ${esc(host)} <span aria-hidden="true">&rarr;</span>
-          </a>
-          ${s.leagueUrl ? `<a class="shop-link" href="${esc(s.leagueUrl)}" rel="noopener" target="_blank" aria-label="Official league page for ${esc(s.name)}, the Play! Pokemon listing, opens on ${esc(hostOf(s.leagueUrl))}">Official league page <span aria-hidden="true">&rarr;</span></a>` : ""}
+        <p class="shop-links loc-socs">
+          ${shopPill(url, host, `${host}, the ${s.name} site, opens on their site`, "primary")}
+          ${s.leagueUrl ? shopPill(s.leagueUrl, "League page", `Official league page for ${s.name}, the Play! Pokemon listing, opens on ${hostOf(s.leagueUrl)}`) : ""}
           ${/* eventsUrl WAS A DEAD FIELD. Four shops carried one and nothing read it,
              so three shops whose playNote says "check the calendar" had that calendar
              sitting in the data with no link on the page. It renders now. */ ""}
-          ${s.eventsUrl && s.eventsUrl !== url ? `<a class="shop-link" href="${esc(s.eventsUrl)}" rel="noopener" target="_blank" aria-label="Events calendar for ${esc(s.name)}, opens on ${esc(hostOf(s.eventsUrl))}">Events calendar <span aria-hidden="true">&rarr;</span></a>` : ""}
+          ${s.eventsUrl && s.eventsUrl !== url ? shopPill(s.eventsUrl, "Events", `Events calendar for ${s.name}, opens on ${hostOf(s.eventsUrl)}`) : ""}
           ${/* A SINGLES STOREFRONT IS A DIFFERENT SHOP AND IS WORTH ITS OWN LINK.
              Two of the six run one on a separate subdomain, and it answers the
              question the main site cannot: which Pokemon singles are actually in
              the case, priced, before you make the drive. Millennium named theirs
              in their reply; Legacy's was already recorded in this file's readme
              and had nowhere to go. */ ""}
-          ${s.singlesUrl ? `<a class="shop-link" href="${esc(s.singlesUrl)}" rel="noopener" target="_blank" aria-label="Pokemon singles store for ${esc(s.name)}, opens on ${esc(hostOf(s.singlesUrl))}">Singles store <span aria-hidden="true">&rarr;</span></a>` : ""}
+          ${s.singlesUrl ? shopPill(s.singlesUrl, "Singles", `Pokemon singles store for ${s.name}, opens on ${hostOf(s.singlesUrl)}`) : ""}
           ${/* SOCIALS, ADDED WHEN THE FIRST SHOP ANSWERED. The outreach email asks for
              "website or socials" and there was nowhere to put the answer, which is the
              kind of gap you only find by actually asking somebody. These pass this
@@ -321,8 +348,8 @@ const cards = shops
              private label map, written the hour a shop first sent links. Two files
              disagreeing about how to spell "YouTube" is how that ends, so it moved
              out. Handles in the data, links built here. */ ""}
-          ${socialLinks(s).map(({ label, href }) =>
-            `<a class="shop-link" href="${esc(href)}" rel="noopener" target="_blank" aria-label="${esc(s.name)} on ${esc(label)}, opens on ${esc(hostOf(href))}">${esc(label)} <span aria-hidden="true">&rarr;</span></a>`
+          ${socialLinks(s).map(({ key, label, href }) =>
+            shopPill(href, label, `${s.name} on ${label}, opens on ${hostOf(href)}`, key)
           ).join("\n          ")}
         </p>
       </li>`;
@@ -475,10 +502,15 @@ const style = `
 
    --sky-deep AND NOT --mustard, which is the same teal one step darker
    (#70B5D9) and measures 4.05:1 on the card. Small type takes the light one. */
-.shop-links{margin-top:auto;padding-top:var(--s3);display:flex;flex-wrap:wrap;gap:var(--s4)}
-.shop-link{font:700 var(--t-sm)/1 var(--body);
-  color:var(--sky-deep);min-height:44px;display:inline-flex;align-items:center}
-.shop-link:hover{text-decoration:underline}
+/* 6px OF GAP, NOT var(--s4). These are pills now rather than bare text links,
+   and 24px between two filled shapes reads as two groups rather than one row.
+   Matches .loc-socs on the vendor and creator cards exactly, which is the point
+   of the change: one treatment on all four pages. */
+.shop-links{margin-top:auto;padding-top:var(--s3);display:flex;flex-wrap:wrap;gap:6px}
+/* .shop-link WAS THE OLD TREATMENT AND IS GONE: 700 weight teal text with an
+   arrow, seven of them in a row on the GI Cards card, which is what the owner
+   called "so many tiny text links next to each other". The pill it became is
+   .loc-soc in ui.css, shared with /vendors.html and /creators.html. */
 
 /* Address, phone and hours. A definition list because that is what it is, and
    it gives the labels somewhere to live without inventing a class each. */
