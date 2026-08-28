@@ -13,7 +13,7 @@
     "summing to 189 where 21 packs were opened, and /luck.html printed",
     "'232 packs counted' off that total.",
     "",
-    "the owner, August 18, 2026: 'make sure you aren't tagging any videos with what type of",
+    "the owner, 18 August 2026: 'make sure you aren't tagging any videos with what type of",
     "product it is and what packs are in the video until you get my execl sheet thats",
     "filled out with all that exact data'.",
     "",
@@ -27,31 +27,6 @@
     "them to the site either: reverting one line in sync-youtube.mjs republishes all",
     "244 and nothing about the file would look wrong."
   ],
-  "VSf9bxl_siE": {
-    "setPacks": [
-      {
-        "set": "pitch-black",
-        "name": "pitch black",
-        "packs": 1,
-        "typed": false
-      }
-    ],
-    "packsOpened": 1,
-    "packsStated": true,
-    "setsPacks": "Pitch Black",
-    "openingType": "Single Booster Pack",
-    "packNumber": 11,
-    "hasHit": true,
-    "hitCard": "Mega Darkrai ex - Double Black Star - Double Rare",
-    "hits": [
-      {
-        "card": "Mega Darkrai ex",
-        "rarity": "Double Rare",
-        "set": "pitch-black",
-        "setName": "Pitch Black"
-      }
-    ]
-  },
   "I9jPRYXbqkg": {
     "setPacks": [
       {
@@ -7147,5 +7122,30 @@
     ],
     "playlistToAdd": "Hits",
     "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets."
+  },
+  "rPElm7KrH_E": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "Single Booster Pack",
+    "packNumber": 16,
+    "hasHit": true,
+    "hitCard": "Ampharos - Single Gold Star - Illustration Rare",
+    "hits": [
+      {
+        "card": "Ampharos",
+        "rarity": "Illustration Rare",
+        "set": "chaos-rising",
+        "setName": "Chaos Rising"
+      }
+    ]
   }
 }

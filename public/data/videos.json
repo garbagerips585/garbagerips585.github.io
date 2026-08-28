@@ -1,13 +1,49 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 270390,
-    "subscribers": 348,
-    "videos": 325,
-    "readAt": "2026-08-27"
+    "views": 271450,
+    "subscribers": 347,
+    "videos": 326,
+    "readAt": "2026-08-28"
   },
-  "syncedAt": "2026-08-27",
+  "syncedAt": "2026-08-28",
   "videos": [
+    {
+      "id": "rPElm7KrH_E",
+      "title": "The Single Pack Streak is REAL! ⚡😱",
+      "path": "rip/the-single-pack-streak-is-real-rPElm7KrH_E.html",
+      "published": "2026-08-28",
+      "publishedAt": "2026-08-28T11:48:15Z",
+      "duration": 20,
+      "views": 248,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "chaos-rising"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Ampharos - Single Gold Star - Illustration Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 16,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Chaos Rising Pack - Pack 16"
+    },
     {
       "id": "8Cmsa2BycMc",
       "title": "Where is the Pikachu SIR?? ⚡😱",
@@ -15,7 +51,7 @@
       "published": "2026-08-27",
       "publishedAt": "2026-08-27T12:09:30Z",
       "duration": 21,
-      "views": 57,
+      "views": 996,
       "vertical": true,
       "short": true,
       "sets": [
@@ -34,7 +70,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1020,
+      "views": 1098,
       "vertical": true,
       "short": true,
       "sets": [
@@ -43,25 +79,8 @@
       "products": [
         "single-pack"
       ],
-      "pulls": [
-        "double-rare"
-      ],
-      "hitCard": "Mega Darkrai ex - Double Black Star - Double Rare",
-      "hasHit": true,
-      "packsOpened": 1,
-      "packsStated": true,
-      "setPacks": [
-        {
-          "set": "pitch-black",
-          "name": "pitch black",
-          "packs": 1,
-          "typed": false
-        }
-      ],
-      "packNumber": 11,
-      "openingType": "Single Booster Pack",
-      "packs": 1,
-      "label": "Pitch Black Pack - Pack 11"
+      "pulls": [],
+      "label": "Pitch Black Pack"
     },
     {
       "id": "I9jPRYXbqkg",
@@ -70,7 +89,7 @@
       "published": "2026-08-25",
       "publishedAt": "2026-08-25T11:58:34Z",
       "duration": 19,
-      "views": 848,
+      "views": 851,
       "vertical": true,
       "short": true,
       "sets": [
@@ -104,7 +123,7 @@
       "published": "2026-08-24",
       "publishedAt": "2026-08-24T12:22:06Z",
       "duration": 18,
-      "views": 1011,
+      "views": 1012,
       "vertical": true,
       "short": true,
       "sets": [
@@ -275,7 +294,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1019,
+      "views": 1023,
       "vertical": true,
       "short": true,
       "sets": [
@@ -308,7 +327,7 @@
       "published": "2026-08-18",
       "publishedAt": "2026-08-18T10:04:29Z",
       "duration": 28,
-      "views": 1188,
+      "views": 1189,
       "vertical": true,
       "short": true,
       "sets": [
@@ -414,7 +433,7 @@
       "published": "2026-08-15",
       "publishedAt": "2026-08-15T12:10:37Z",
       "duration": 19,
-      "views": 793,
+      "views": 795,
       "vertical": true,
       "short": true,
       "sets": [
@@ -897,7 +916,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 910,
+      "views": 915,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7192,7 +7211,7 @@
       "published": "2026-04-28",
       "publishedAt": "2026-04-28T23:36:00Z",
       "duration": 34,
-      "views": 1092,
+      "views": 1093,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9110,7 +9129,7 @@
       "published": "2026-04-02",
       "publishedAt": "2026-04-02T10:43:00Z",
       "duration": 52,
-      "views": 225,
+      "views": 226,
       "vertical": true,
       "short": true,
       "sets": [
