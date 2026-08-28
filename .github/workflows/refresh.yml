@@ -37,8 +37,14 @@ name: Nightly refresh
 # fallback and the sync is safe to run twice.
 on:
   schedule:
-    - cron: "0 13 * * *"
-    - cron: "0 14 * * *"
+    # NOT ON THE HOUR, AND THAT IS THE WHOLE REASON THESE READ 13:17 / 14:17.
+    # GitHub queues every "0 * * * *" job in the world at once, so a run booked
+    # on the hour is delayed and, under load, DROPPED. Measured here: the runs
+    # that did fire started 2.5 to 3 hours late (15:26, 16:36, 16:55 UTC), and
+    # on 27 and 28 August 2026 neither cron fired at all, so the site went two
+    # days with no refresh and nothing went red. Seventeen past is quiet.
+    - cron: "17 13 * * *"
+    - cron: "17 14 * * *"
   workflow_dispatch:
     inputs:
       force_prices:
@@ -85,7 +91,7 @@ jobs:
             exit 0
           fi
           offset=$(TZ=America/New_York date +%z)
-          if [ "$offset" = "-0500" ]; then want="0 14 * * *"; else want="0 13 * * *"; fi
+          if [ "$offset" = "-0500" ]; then want="17 14 * * *"; else want="17 13 * * *"; fi
           fired="${{ github.event.schedule }}"
           echo "New York offset $offset, so the 9am cron today is '$want'. This run is '$fired'."
           if [ "$fired" = "$want" ]; then

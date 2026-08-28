@@ -82,6 +82,12 @@ jobs:
       # move, by design -- but CI runs seconds after the push, so same-day is
       # the normal case and a genuine day-boundary miss is a real "rebuild me"
       # signal rather than noise.
+      # THE NIGHTLY CANNOT WATCH ITSELF. This runs on every push, where a person
+      # is already looking, because a check inside the nightly is silent on
+      # exactly the day the nightly stops. See scripts/check-freshness.mjs.
+      - name: Is the data the nightly owns still fresh?
+        run: node scripts/check-freshness.mjs
+
       - name: Does public/ match the source committed beside it?
         env:
           GR_SKIP_IMAGE_BUILDERS: '1'
