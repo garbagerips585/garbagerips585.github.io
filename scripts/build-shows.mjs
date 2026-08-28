@@ -595,10 +595,16 @@ const ld = [
        performer    a card show has no performer. It is a room of dealer tables.
                     Schema.org lists the field as optional for exactly this kind
                     of event.
-       image        there is no photograph of any of these shows in the repo.
-                    The site's own share card would be an image of Garbage Rips,
-                    not of the event, and Google would print it beside somebody
-                    else's show.
+       image        WAS LEFT OFF FOR A REASON THAT HAS STOPPED BEING TRUE, and
+                    this note said so until 28 August 2026: "there is no
+                    photograph of any of these shows in the repo. The site's own
+                    share card would be an image of Garbage Rips, not of the
+                    event." The first half is what changed. Organisers started
+                    sending flyers on 26 August and 13 shows carry one now, and
+                    a flyer is the event's OWN artwork rather than ours, which
+                    is exactly what this field wants. It is filled where there
+                    is a flyer and left off where there is not; the share card
+                    is still never used, for the reason the old note gave.
        validFrom    the date an offer opens. Nothing in the listings states when
                     admission goes on sale, and inventing one would date a
                     ticket window that may not exist.
@@ -607,6 +613,16 @@ const ld = [
        admission was never stated gets no offers block rather than a made up
        zero that would read as "Free" in a search result. */
     ...(s.blurb ? { description: s.blurb } : {}),
+    /* THE FLYER, ABSOLUTE, AND ONLY WHERE ONE IS ON DISK. flyerSrc() already
+       refuses to name a file that is not there, for the reason its own header
+       gives: a lightbox that opens onto a 404 is worse than no lightbox, and a
+       404 in structured data is worse still because nobody sees it fail. The
+       -full rendition rather than the thumbnail, because Google wants the
+       largest available and these are 1024px or better. */
+    ...((() => {
+      const f = flyerSrc(s);
+      return f ? { image: [`${SITE}${f.full}`] } : {};
+    })()),
     ...(s.organiser
       ? {
           organizer: {
