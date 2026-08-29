@@ -39,7 +39,8 @@
     "    entry and finding a cover charge is exactly the sort of wrong this page",
     "    must not be.",
     "",
-    "REGIONS drive the filter chips: roc, buffalo, syracuse."
+    "REGIONS drive the filter chips: roc, buffalo, syracuse.",
+    "VENDORS. A show may carry `vendors`: [{ name, confirmed }]. `name` must match a vendor in data/vendors.json EXACTLY (trimmed, case-insensitive) -- it is a foreign key, so renaming a vendor there fails this build until the shows are updated too. `confirmed` is REQUIRED and must be a non-empty sentence saying who confirmed it and when; it prints under that vendor's name. A name with no listing, a missing or blank `confirmed`, a duplicate vendor or a null entry all FAIL the build, because a confirmed vendor that silently does not render is a typo shaped like a correct build."
   ],
   "checked": "2026-08-26",
   "sources": [

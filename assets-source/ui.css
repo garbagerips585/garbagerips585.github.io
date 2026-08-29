@@ -6635,20 +6635,25 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
   border-radius:var(--r-sm);padding:10px 12px}
 .show-vend-h{font:700 var(--t-micro)/1 var(--mono);text-transform:uppercase;
   letter-spacing:.08em;color:var(--ink-2);margin:0 0 8px}
-.show-vend-l{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px 16px}
-.sv{min-width:0}
+.show-vend-l{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px 18px}
+/* Each vendor carries its own source under its own name, so a card with three
+   vendors cannot leave a reader guessing which sentence belongs to which. */
+.sv{min-width:0;max-width:100%;display:flex;flex-direction:column;gap:2px}
 /* The anchor is the flex row, so the mark is inside the target rather than
    beside it. min-height keeps a logo-less vendor from collapsing to text. */
-.sv-link{display:flex;align-items:center;gap:9px;min-width:0;min-height:42px;
+.sv-link{display:flex;align-items:center;gap:9px;min-width:0;min-height:44px;
   text-decoration:none}
 .sv-link:hover .sv-id,.sv-link:focus-visible .sv-id{text-decoration:underline}
-/* object-fit:contain, because a vendor mark is their artwork and must not be
-   cropped to fill a square. Same rule the shop and creator logos take. */
-/* NO FIXED HEIGHT AND NO overflow:hidden. A vendor mark is their artwork and is
-   not square: TOAK Pulls' is 3884x4824, so a 34px wide mark is 42 tall. Forcing
-   a 34x34 box cropped it; the width is pinned and the height follows the file,
-   which is what the width/height attributes on the img also say, so nothing
-   shifts as it loads. */
+/* THE MARK IS NOT SQUARE AND ITS HEIGHT FOLLOWS THE FILE. TOAK Pulls' is
+   3884x4824, so a 34px wide mark is 42 tall; the width is pinned here and the
+   height comes from the width/height attributes the builder derives, so nothing
+   shifts as it loads and nothing is cropped. overflow:hidden is only here to
+   clip the corner radius, which is why there is no object-fit: the box is
+   already the image's own shape.
+   TWO COMMENTS THAT USED TO SIT HERE DESCRIBED CODE THAT WAS NEVER WRITTEN --
+   one claiming an object-fit this rule does not set, one saying "NO
+   overflow:hidden" directly above overflow:hidden. Both were copied from
+   .rip-src-logo, which does work that way. */
 .sv-logo{flex:none;width:34px;border-radius:var(--r-sm);overflow:hidden;
   background:var(--paper-2);display:block}
 .sv-logo img{width:100%;height:auto;display:block}
@@ -6656,5 +6661,4 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 /* The source line, same treatment as .rip-src-src and every other "who said so
    and when" on this site. It wraps rather than truncating: a confirmation a
    reader cannot read is a claim with no source on it. */
-.show-vend-src{font-size:var(--t-micro);color:var(--ink-2);line-height:1.35;
-  margin:8px 0 0}
+.sv-src{font-size:var(--t-micro);color:var(--ink-2);line-height:1.35;display:block}

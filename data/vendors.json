@@ -19,7 +19,8 @@
     "with tracking on it. The builder makes the link.",
     "",
     "`vouched` marks a vendor the owner has actually bought from. Only set it where that",
-    "is true: the whole value of a local list is that it is not a directory."
+    "is true: the whole value of a local list is that it is not a directory.",
+    "`name` IS A FOREIGN KEY. data/shows.json joins confirmed vendors to this file on name, so it must be unique here (the build throws on a duplicate) and renaming a vendor breaks every show that names them until those are updated. A `logo` requires `logoW`/`logoH` and its built renditions under public/assets/creators/, or the build fails: a logo goes up only where its owner sent it for this use, and the show card is a second use of that same permission."
   ],
   "updated": "2026-08-13",
   "vendors": [

@@ -175,17 +175,37 @@ const weekday = (iso) =>
  * Silently dropping a vendor is the "absent means unconfirmed" rule inverted:
  * here absent would mean a confirmed vendor the reader never sees, which is a
  * typo shaped exactly like a correct build. */
-const VENDORS = new Map(
-  ((JSON.parse(await readFile(join(ROOT, "data/vendors.json"), "utf8")).vendors) || [])
-    .map((v) => [String(v.name || "").toLowerCase(), v])
-);
+const VENDOR_LIST = (JSON.parse(await readFile(join(ROOT, "data/vendors.json"), "utf8")).vendors) || [];
+/* NAME IS THE JOIN KEY AND NOTHING ENFORCES THAT IT IS UNIQUE, so this does.
+   A Map keeps the LAST entry, so two vendors called the same thing would have
+   published one of them under the other's mark, silently, on somebody else's
+   business. Trimmed and NFC-normalised on both sides because the readme in
+   data/shows.json spells RocPokeCon without its accent twice. */
+const vKey = (n) => String(n ?? "").trim().normalize("NFC").toLowerCase();
+const VENDORS = new Map();
+for (const v of VENDOR_LIST) {
+  const k = vKey(v.name);
+  if (VENDORS.has(k)) {
+    throw new Error(
+      `data/vendors.json has two vendors named "${v.name}". The show cards join on name, ` +
+      `so a duplicate publishes one vendor under the other's logo. Rename one.`
+    );
+  }
+  VENDORS.set(k, v);
+}
 
-function showVendors(s) {
+function showVendors(s, past) {
+  /* NOT .filter(Boolean). A null in the array is malformed data, and quietly
+     dropping it is the same silent-vendor failure the guards below exist for. */
   const list = s.vendors || [];
   if (!list.length) return "";
+  const seen = new Set();
   return list.map((entry) => {
-    const name = typeof entry === "string" ? entry : entry.name;
-    const v = VENDORS.get(String(name || "").toLowerCase());
+    if (!entry || typeof entry !== "object") {
+      throw new Error(`Show "${s.name}" (${s.id}) has a vendor entry that is not an object: ${JSON.stringify(entry)}`);
+    }
+    const name = entry.name;
+    const v = VENDORS.get(vKey(name));
     if (!v) {
       throw new Error(
         `Show "${s.name}" (${s.id}) names vendor "${name}", which is not in data/vendors.json. ` +
@@ -193,38 +213,55 @@ function showVendors(s) {
         `is a typo that looks exactly like a correct build.`
       );
     }
-    if (typeof entry === "string" || !entry.confirmed) {
+    /* A NON-EMPTY STRING, not merely something truthy. `confirmed: true` passed
+       the first version of this guard and published the literal word "true" as
+       the source line, and "   " published a blank one. A required source that
+       accepts any value is not a required source. */
+    if (typeof entry.confirmed !== "string" || !entry.confirmed.trim()) {
       throw new Error(
-        `Show "${s.name}" (${s.id}) lists vendor "${name}" with no \`confirmed\` note. ` +
+        `Show "${s.name}" (${s.id}) lists vendor "${name}" with no \`confirmed\` sentence. ` +
         `Say who confirmed it and when: this page tells a reader who to expect to meet.`
       );
     }
-    /* THE LOGO ONLY WHERE ITS OWNER SENT ONE FOR THIS USE, which is the site's
-       standing rule and is why this reads `v.logo` rather than guessing a path.
-       A vendor with no logo still renders, as a name. */
-    /* HEIGHT COMES OFF THE STORED logoW/logoH, NEVER ASSUMED SQUARE, which is
-       what build-locals.mjs already does for the same marks. TOAK Pulls' is
-       3884x4824, so a 34px wide mark is 42 tall; hardcoding height="34" drew it
-       34x42 inside a 34x34 box, overflowing its own frame. */
-    const mh = Math.round(34 * (v.logoH || 1) / (v.logoW || 1));
-    const mark = v.logo
-      ? `<span class="sv-logo"><picture>` +
+    if (seen.has(vKey(name))) {
+      throw new Error(`Show "${s.name}" (${s.id}) lists vendor "${name}" twice.`);
+    }
+    seen.add(vKey(name));
+
+    /* THE LOGO ONLY WHERE ITS OWNER SENT ONE AND THE FILE IS ACTUALLY THERE.
+       build-locals.mjs checks the rendition exists before pointing at it and
+       this did not, so a vendor with a `logo` and no built files would have
+       published four dead urls inside an empty plate. logoW/logoH are required
+       WITH a logo, because without them the height falls back to a square and a
+       non-square mark reserves the wrong space and shifts on load. */
+    let mark = "";
+    if (v.logo) {
+      const base = join(ROOT, "public/assets/creators", `${v.logo}-200.webp`);
+      if (!existsSync(base)) {
+        throw new Error(
+          `Vendor "${v.name}" has logo "${v.logo}" but public/assets/creators/${v.logo}-200.webp ` +
+          `does not exist. Run the logo builder, or drop the logo field.`
+        );
+      }
+      if (!v.logoW || !v.logoH) {
+        throw new Error(`Vendor "${v.name}" has a logo but no logoW/logoH, so its height cannot be reserved.`);
+      }
+      const mh = Math.round(34 * v.logoH / v.logoW);
+      mark = `<span class="sv-logo"><picture>` +
         `<source type="image/avif" srcset="/assets/creators/${esc(v.logo)}-200.avif 200w, /assets/creators/${esc(v.logo)}-400.avif 400w" sizes="34px">` +
         `<img src="/assets/creators/${esc(v.logo)}-200.webp" alt="" width="34" height="${mh}" loading="lazy" decoding="async" ` +
-        `srcset="/assets/creators/${esc(v.logo)}-200.webp 200w, /assets/creators/${esc(v.logo)}-400.webp 400w" sizes="34px"></picture></span>`
-      : "";
-    /* THE NAME AND THE MARK, AND NOTHING ELSE. What they sell, where they are
-       and their links are one tap away on their own listing, and this card was
-       cut by 275px to fit an iPhone fold; spending that on a second copy of the
-       vendor page is the trade /shops.html already refused for hours. */
-    /* THE WHOLE ROW IS THE LINK, MARK INCLUDED, and that is measured rather than
-       tidy. With only the name inside the anchor the live target came out
-       87x26 on a phone: it clears this site's own 24px sweep and is still a
-       small thing to hit, with a 34x42 logo sitting right beside it doing
-       nothing. Wrapping both takes it to the height of the mark. This is the
-       flex-child trap that has already cost three targets on this site. */
+        `srcset="/assets/creators/${esc(v.logo)}-200.webp 200w, /assets/creators/${esc(v.logo)}-400.webp 400w" sizes="34px"></picture></span>`;
+    }
+
+    /* THE SOURCE SITS ON ITS OWN VENDOR. The first version pushed every
+       `confirmed` sentence through a Set and joined them under the list, so at
+       two vendors a reader could not tell which sentence belonged to which
+       name, and two vendors sharing a sentence collapsed to one line over two
+       names. This is the one feature whose entire purpose is provenance, and it
+       stopped carrying it at n=2. .rip-src-src is per item for the same reason. */
     return `<li class="sv"><a class="sv-link" href="/vendors.html" aria-label="${
-      esc(v.name)}, on the vendors page">${mark}<span class="sv-id">${esc(v.name)}</span></a></li>`;
+      esc(v.name)}, on the vendors page">${mark}<span class="sv-id">${esc(v.name)}</span></a>` +
+      `<span class="sv-src">${esc(entry.confirmed.trim())}</span></li>`;
   }).join("");
 }
 
@@ -934,11 +971,8 @@ function showCard(s) {
           </ul>` : ""}
           ${s.warn ? `<p class="show-warn">${esc(s.warn)}</p>` : ""}
           ${s.vendors?.length ? `<div class="show-vend">
-            <p class="show-vend-h">Confirmed vendors</p>
-            <ul class="show-vend-l">${showVendors(s)}</ul>
-            <p class="show-vend-src">${esc(
-              [...new Set(s.vendors.map((v) => v.confirmed).filter(Boolean))].join(" ")
-            )}</p>
+            <p class="show-vend-h" id="sv-h-${esc(s.id)}">${s.date < TODAY ? "Vendors we confirmed" : "Confirmed vendors"}</p>
+            <ul class="show-vend-l" aria-labelledby="sv-h-${esc(s.id)}">${showVendors(s, s.date < TODAY)}</ul>
           </div>` : ""}
           ${/* THE WHOLE PARAGRAPH IS CONDITIONAL, because it can now be empty. Every
              show used to carry a url, so this <p> always had something in it. Cold
