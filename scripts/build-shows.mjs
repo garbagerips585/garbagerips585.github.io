@@ -217,7 +217,14 @@ function showVendors(s) {
        and their links are one tap away on their own listing, and this card was
        cut by 275px to fit an iPhone fold; spending that on a second copy of the
        vendor page is the trade /shops.html already refused for hours. */
-    return `<li class="sv">${mark}<a class="sv-id" href="/vendors.html">${esc(v.name)}</a></li>`;
+    /* THE WHOLE ROW IS THE LINK, MARK INCLUDED, and that is measured rather than
+       tidy. With only the name inside the anchor the live target came out
+       87x26 on a phone: it clears this site's own 24px sweep and is still a
+       small thing to hit, with a 34x42 logo sitting right beside it doing
+       nothing. Wrapping both takes it to the height of the mark. This is the
+       flex-child trap that has already cost three targets on this site. */
+    return `<li class="sv"><a class="sv-link" href="/vendors.html" aria-label="${
+      esc(v.name)}, on the vendors page">${mark}<span class="sv-id">${esc(v.name)}</span></a></li>`;
   }).join("");
 }
 

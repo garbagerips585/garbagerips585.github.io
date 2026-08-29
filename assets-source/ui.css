@@ -6636,7 +6636,12 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 .show-vend-h{font:700 var(--t-micro)/1 var(--mono);text-transform:uppercase;
   letter-spacing:.08em;color:var(--ink-2);margin:0 0 8px}
 .show-vend-l{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px 16px}
-.sv{display:flex;align-items:center;gap:9px;min-width:0}
+.sv{min-width:0}
+/* The anchor is the flex row, so the mark is inside the target rather than
+   beside it. min-height keeps a logo-less vendor from collapsing to text. */
+.sv-link{display:flex;align-items:center;gap:9px;min-width:0;min-height:42px;
+  text-decoration:none}
+.sv-link:hover .sv-id,.sv-link:focus-visible .sv-id{text-decoration:underline}
 /* object-fit:contain, because a vendor mark is their artwork and must not be
    cropped to fill a square. Same rule the shop and creator logos take. */
 /* NO FIXED HEIGHT AND NO overflow:hidden. A vendor mark is their artwork and is
