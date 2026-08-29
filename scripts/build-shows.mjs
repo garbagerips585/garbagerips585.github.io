@@ -331,7 +331,7 @@ const towns = data._towns || {};
    "waterloo is honestly pretty much inbetween Syracuse and Rochester so just put
    it in both filters ... if anything is close to more than one city just make it
    filter into both."
-   Waterloo is 37.5 miles from Syracuse and 41.8 from Rochester, so it filed
+   Waterloo is 37.5 miles from Syracuse and 41.5 from Rochester, so it filed
    under Syracuse and the Rochester chip -- the one a Rochester reader obviously
    presses -- deleted the nearest show on the calendar while the hero above kept
    advertising it. `region` still holds the NEAREST anchor, so the build guard
@@ -939,7 +939,7 @@ function showCard(s) {
   const flyer = flyerSrc(s);
   const soon = daysAway(s.date);
   const d = new Date(s.date + "T12:00:00");
-  return `      <article class="show${s.featured ? " is-featured" : ""}" data-region="${esc((regionsFor(s.city) .length ? regionsFor(s.city) : [s.region]).join(" "))}" data-date="${esc(s.date)}"${s.pokemon ? ' data-pokemon="1"' : ""}${s.admission === "Free" ? ' data-free="1"' : ""}>
+  return `      <article class="show${s.featured ? " is-featured" : ""}" data-region="${esc((regionsFor(s.city).length ? regionsFor(s.city) : [s.region]).join(" "))}" data-date="${esc(s.date)}"${s.pokemon ? ' data-pokemon="1"' : ""}${s.admission === "Free" ? ' data-free="1"' : ""}>
         <div class="show-when" aria-hidden="true">
           <span class="show-mon">${MONTHS_LONG[d.getMonth()].slice(0, 3)}</span>
           <span class="show-day">${d.getDate()}</span>
@@ -1322,6 +1322,16 @@ ${CLIENT_DAY_JS}
       // and the label is stuck on a bare "Next one up" from then on. Never wrong,
       // just quietly less useful, which is the kind of bug that survives.
       if(first.dataset.date) next.dataset.date=first.dataset.date;
+      /* AND ITS AREA. This copied the date and not the region, so on a stale
+         deploy the hero repointed at a new show while keeping the old one's
+         chips. Today the hero IS the dual-region show, which makes it maximally
+         wrong: drop Waterloo and repoint to CollectorFest (roc), and the hero
+         still answers to "syracuse", advertising a Rochester show as "Next one
+         up" over a Syracuse list whose real next entry is a week later. That is
+         the exact failure the filter fix was written to remove, through the
+         other door. Cleared rather than left when the new card has none. */
+      if(first.dataset.region) next.dataset.region=first.dataset.region;
+      else next.removeAttribute('data-region');
     } else {
       next.remove();
     }

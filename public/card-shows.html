@@ -2653,6 +2653,16 @@
       // and the label is stuck on a bare "Next one up" from then on. Never wrong,
       // just quietly less useful, which is the kind of bug that survives.
       if(first.dataset.date) next.dataset.date=first.dataset.date;
+      /* AND ITS AREA. This copied the date and not the region, so on a stale
+         deploy the hero repointed at a new show while keeping the old one's
+         chips. Today the hero IS the dual-region show, which makes it maximally
+         wrong: drop Waterloo and repoint to CollectorFest (roc), and the hero
+         still answers to "syracuse", advertising a Rochester show as "Next one
+         up" over a Syracuse list whose real next entry is a week later. That is
+         the exact failure the filter fix was written to remove, through the
+         other door. Cleared rather than left when the new card has none. */
+      if(first.dataset.region) next.dataset.region=first.dataset.region;
+      else next.removeAttribute('data-region');
     } else {
       next.remove();
     }

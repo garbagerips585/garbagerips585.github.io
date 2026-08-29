@@ -314,10 +314,22 @@ jobs:
           # of it away at the last step. The window is ~20 minutes long and the
           # owner works in this repo during it, so this will recur.
           #
-          # --rebase --autostash is safe here: this job only ever ADDS generated
-          # output, it never edits a file a human is also editing, so replaying
-          # its one commit on top of theirs is exactly right. Three tries, because
-          # a second push can land while the first rebase is running.
+          # --rebase --autostash HANDLES THE COMMON CASE, WHICH IS A PLAIN RACE:
+          # somebody pushed source while this job was building, the two touch
+          # different files, and replaying one commit on top of the other is
+          # exactly right. Three tries, because a second push can land while the
+          # first rebase runs.
+          #
+          # IT DOES NOT HANDLE A CONFLICT, AND THE FIRST VERSION OF THIS COMMENT
+          # CLAIMED IT COULD NOT HAPPEN: "this job never edits a file a human is
+          # also editing". That is false, and the very commit that added it is
+          # the counterexample -- public/card-shows.html was hand-committed that
+          # morning and is a file this job rewrites nightly. On a real conflict
+          # the pull exits non-zero, the loop stops, and the night's output is
+          # lost, which is the outcome this was written to prevent. It is still
+          # a strict improvement on failing every race; closing the conflict
+          # case means rebuilding from the rebased tree, which is a bigger
+          # change than this one.
           for i in 1 2 3; do
             if git push; then exit 0; fi
             echo "Push rejected (attempt $i). Rebasing onto origin/main and retrying."
