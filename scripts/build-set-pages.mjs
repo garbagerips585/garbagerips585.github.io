@@ -2251,8 +2251,20 @@ function productBand(s, cls) {
               bestPack && bestPack.p === p ? ` <b>cheapest</b>` : ""
             }</p>`;
           })()}
+          ${/* A CHEAPEST LISTING FAR UNDER THE MARKET PRICE IS NOT THIS PRODUCT.
+                Ascended Heroes' Elite Trainer Box printed "$163.75 market ...
+                Cheapest listing $1.00, 224 sellers": a dollar buys the code
+                card, the empty box or a damaged one, not the ETB. 36 of the
+                site's 170 products were under half their market price and six
+                were under 5%, and this is the one number on the page a reader
+                acts on with money. Where the gap is that wide the figure is
+                dropped rather than qualified, because the site cannot say WHICH
+                cheap thing the listing is, and a number it cannot explain is
+                one it does not publish. 0.4 is a floor, not a measurement: it
+                keeps every genuinely cheap-but-real listing (the lowest kept
+                today is 44% of market) and drops the six impossible ones. */ ""}
           ${
-            p.low
+            p.low && (!p.market || p.low / p.market >= 0.4)
               ? `<p class="prod-low">Cheapest listing ${priceUSD(p.low)}${
                   p.listings ? ` &bull; ${p.listings} seller${p.listings === 1 ? "" : "s"}` : ""
                 }</p>`
@@ -3313,7 +3325,20 @@ ${rows}
               same one is worse than saying nothing. The true difference is what
               is being measured and when it was read, which is what the sentence
               was always for. Same correction in build-proto.mjs and
-              build-wanted.mjs. */ ""}The raw figure beside it is ${esc(s.priceStamps?.priceSource || "pricecharting.com")}'s price guide value for an ungraded copy, which is a different measurement read on a different day.</p>`;
+              build-wanted.mjs. */ ""}The raw figure beside it is ${esc(s.priceStamps?.priceSource || "pricecharting.com")}'s price guide value for an ungraded copy, which is a different measurement${
+      /* AND ONLY A DIFFERENT DAY WHEN IT REALLY IS ONE. This said "read on a
+         different day" unconditionally, and it stopped being true the moment
+         the nightly refresh started moving the raw prices: 23 of the 28 English
+         guides now read both figures on the SAME day and said otherwise in the
+         same paragraph that had just printed one date twice. The measurement
+         difference is the real point and stands on its own; the day is only
+         worth claiming when the two dates differ. */
+      (() => {
+        const rawRead = priceRead(s.priceStamps || {}) || s.pricesAsOf || null;
+        return read && rawRead && String(read).slice(0, 10) !== String(rawRead).slice(0, 10)
+          ? " read on a different day" : "";
+      })()
+    }.</p>`;
     })()}
   </div>
 </section>` },
