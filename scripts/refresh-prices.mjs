@@ -241,7 +241,13 @@ if (!DRY) {
 }
 
 if (!DRY) {
-  state.lastRun = localDay();
+  /* lastRun IS EARNED TOO, and it was the one field that was not.
+     check-freshness.mjs watches it on a 3 day leash, and it was stamped
+     unconditionally and written BEFORE the failure exit below, so a night where
+     PriceCharting refused everything still moved it and the watchdog stayed
+     green on one of its three price signals. It moves only when something
+     actually came back. */
+  if (hotOk > 0 || coldOk > 0) state.lastRun = localDay();
   state.tail = tailLen ?? state.tail ?? null;
   state.cycleDays = tailLen && COLD ? Math.ceil(tailLen / COLD) : state.cycleDays ?? null;
   /* `lastHot` IS WHAT DATES EVERY PRICE ON THE SITE, so it moves only when the

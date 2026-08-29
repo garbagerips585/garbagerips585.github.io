@@ -148,12 +148,14 @@ jobs:
           path: .cache
           key: api-cache-${{ github.run_id }}
           restore-keys: api-cache-
-          # The job can END in a deliberate failure (the re-raise steps at the
-          # foot), and actions/cache only saves on success by default. Without
-          # this, a night that re-raises throws away the cold rotation pages it
-          # just paid for while still committing the bookmarks that say they
-          # were done.
-          save-always: true
+          # NOTE: `save-always` USED TO BE HERE AND DID NOTHING. It was
+          # deprecated and made a no-op in actions/cache >= 4.2 and this
+          # workflow floats on @v4, so the one scenario it was added for -- the
+          # job ends red, the cache must still save -- is exactly the one where
+          # it silently stopped working. Receipts: run 32989362223 (green) has
+          # "Post Restore API cache: success"; run 33254818081 (red, today) has
+          # it "skipped". The explicit save step at the foot of this job
+          # replaces it.
 
       - name: New uploads
         if: env.YT_API_KEY != ''
@@ -307,35 +309,44 @@ jobs:
           git commit -m "Nightly refresh: $(date -u +%Y-%m-%d)
 
           $(git diff --cached --stat | tail -1)"
-          # REBASE AND RETRY, BECAUSE A PUSH RACE LOSES A WHOLE NIGHT'S WORK.
-          # On 29 August 2026 this step failed with "! [rejected] main -> main
-          # (fetch first)": somebody pushed while the refresh was running, so a
-          # run that had already fetched prices, videos and preorders threw all
-          # of it away at the last step. The window is ~20 minutes long and the
-          # owner works in this repo during it, so this will recur.
+          # A PUSH RACE IS RESOLVED BY REBUILDING, NEVER BY MERGING.
           #
-          # --rebase --autostash HANDLES THE COMMON CASE, WHICH IS A PLAIN RACE:
-          # somebody pushed source while this job was building, the two touch
-          # different files, and replaying one commit on top of the other is
-          # exactly right. Three tries, because a second push can land while the
-          # first rebase runs.
+          # The first version of this rebased and retried, on the argument that
+          # this job "only ever ADDS generated output". Measured against real
+          # history, that is false and not marginally: a bot commit touches
+          # 1,164 to 1,172 files, and human commits pushed the same day
+          # overlapped it by 1,113, 1,113, 1,113, 261 and 88. Replaying one real
+          # rip post across one real bot diff conflicts on 14 files; a site-wide
+          # rebuild conflicts on 1,497, because stamp-assets.mjs rewrites the
+          # ?v= line on every page from both sides. Conflict is the COMMON case
+          # here, and on a conflict the loop bailed and the night was lost
+          # anyway.
           #
-          # IT DOES NOT HANDLE A CONFLICT, AND THE FIRST VERSION OF THIS COMMENT
-          # CLAIMED IT COULD NOT HAPPEN: "this job never edits a file a human is
-          # also editing". That is false, and the very commit that added it is
-          # the counterexample -- public/card-shows.html was hand-committed that
-          # morning and is a file this job rewrites nightly. On a real conflict
-          # the pull exits non-zero, the loop stops, and the night's output is
-          # lost, which is the outcome this was written to prevent. It is still
-          # a strict improvement on failing every race; closing the conflict
-          # case means rebuilding from the rebased tree, which is a bigger
-          # change than this one.
-          for i in 1 2 3; do
+          # A CLEAN rebase was worse. Human edits a builder, bot commits pages
+          # built from the OLD builder, git merges them happily, and the pushed
+          # tree is new source with stale output -- the source/output drift
+          # verify.yml calls "this repo's worst documented failure mode", now
+          # published immediately because pages.yml deploys on workflow_run.
+          #
+          # So: throw the bot's commit away, take theirs, REBUILD, and commit
+          # the result. Generated files are never merged, so they cannot
+          # conflict and cannot drift from the source they came from.
+          for i in 1 2 3 4; do
             if git push; then exit 0; fi
-            echo "Push rejected (attempt $i). Rebasing onto origin/main and retrying."
-            git pull --rebase --autostash origin main || exit 1
+            echo "Push rejected (attempt $i). Taking origin/main and rebuilding on top of it."
+            git reset --hard HEAD~1
+            git pull --ff-only origin main || exit 1
+            node scripts/build-all.mjs || exit 1
+            git add -A
+            if git diff --cached --quiet; then
+              echo "Rebuilt on top of their push and nothing differs. Their tree already has it."
+              exit 0
+            fi
+            git commit -m "Nightly refresh: $(date -u +%Y-%m-%d)
+
+          $(git diff --cached --stat | tail -1)"
           done
-          echo "Still could not push after three attempts."
+          echo "Still could not push after four attempts."
           exit 1
 
       # RE-RAISED HERE, NOT SWALLOWED. Everything above has run and the refresh
@@ -360,6 +371,18 @@ jobs:
       # read date, so check-freshness.mjs goes red on the next push and on its
       # own schedule, and the site keeps publishing everything that DID work
       # with prices honestly dated to their real read.
+      # THE CACHE SAVE, EXPLICIT AND UNCONDITIONAL, because the built-in one
+      # only runs when the job is green and this job can end red on purpose.
+      # Without it a night that re-raises commits `state.refreshed[path] =
+      # today` for the cold consoles while discarding the pages behind those
+      # bookmarks, so the rotation skips them for a month.
+      - name: Keep the API cache even if this job ends red
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .cache
+          key: api-cache-${{ github.run_id }}
+
       - name: Say so if the price refresh did not happen
         if: steps.prices.outcome == 'failure'
         run: |
@@ -370,10 +393,18 @@ jobs:
           echo "were refused. The site still deploys, deliberately: see the comment"
           echo "on this step."
 
-      - name: Fail the run if a sync reported bad data
+      # DOWNGRADED FROM A FAILURE TO A WARNING, for the reason the price step
+      # three above already gives. The bot's commit has ALREADY landed on main
+      # by the time this runs, and its push raises no push event, so pages.yml
+      # only ever deploys it through workflow_run gated on conclusion ==
+      # success. Failing here therefore does not flag bad data, it BLOCKS THE
+      # COMMIT FROM EVER PUBLISHING -- and if the underlying guide problem is
+      # persistent, as zh-gem-pack-2 was from 20 August, it reproduces nightly
+      # and the freeze sustains itself. That is the twelve-day freeze this file
+      # warns about, with a different trigger.
+      - name: Say so if a sync reported bad data
         if: steps.intl_guides.outcome == 'failure'
         run: |
-          echo "sync-intl-guides.mjs exited non-zero. The refresh above still ran and"
-          echo "committed; this step exists so the bad data is not invisible."
+          echo "::warning title=Sync reported bad data::sync-intl-guides.mjs exited non-zero."
+          echo "The refresh above still ran and committed, and the site still deploys."
           echo "Read the 'Non-English set guides' step for which guide and why."
-          exit 1
