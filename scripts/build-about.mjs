@@ -75,6 +75,11 @@ import { MONTHS_LONG as MONTHS, esc, avifPicture, plateRule, plateMark, PLATE_CS
 import { strip as miniCSS } from "./build-css.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+/* COUNTED, NOT TYPED. This said "five situations" in two places while
+   data/what-to-buy.json held six, so the page undersold the guide it was
+   describing and would have gone stale again on the next one. */
+const wtbSituations = (JSON.parse(await readFile(join(ROOT, "data/what-to-buy.json"), "utf8")).situations || []).length;
+
 const readJSON = async (p) => JSON.parse(await readFile(join(ROOT, p), "utf8"));
 
 // The imported guides are listed on the same /sets/ index, so a count of
@@ -455,7 +460,7 @@ const FAQ = [
   ],
   [
     "What should I buy for a kid who is just getting into Pokemon cards?",
-    `It depends on whether they want to open things or play the game, and those are two different presents. For opening: a mini tin at ${MINI_TIN} or a booster bundle at ${BUNDLE}, which is six packs and nothing else. For playing: My First Battle at ${FIRST_BATTLE} for a young kid, or Battle Academy at ${BATTLE_ACADEMY} for one who can follow a rulebook. Neither of those two contains booster packs, which is the point: you cannot learn this game out of booster packs. Those are the prices Pokemon suggests, read ${msrpRead}, not what a shop has to charge. <a href="/what-to-buy.html">What should I buy?</a> goes through five situations with a photograph and a price on each.`,
+    `It depends on whether they want to open things or play the game, and those are two different presents. For opening: a mini tin at ${MINI_TIN} or a booster bundle at ${BUNDLE}, which is six packs and nothing else. For playing: My First Battle at ${FIRST_BATTLE} for a young kid, or Battle Academy at ${BATTLE_ACADEMY} for one who can follow a rulebook. Neither of those two contains booster packs, which is the point: you cannot learn this game out of booster packs. Those are the prices Pokemon suggests, read ${msrpRead}, not what a shop has to charge. <a href="/what-to-buy.html">What should I buy?</a> goes through ${wtbSituations} situations with a photograph and a price on each.`,
   ],
   [
     "Why is it called Garbage Rips?",
@@ -981,7 +986,7 @@ ${jump.map(([id, label]) => `          <li><a href="#${id}">${esc(label)}</a></l
           <li>If it has to be <b>one box that is obviously A Present</b>, the Elite Trainer Box at
             ${ETB} is the one, and it is the one shops mark up hardest.</li>
         </ul>
-        <p><a href="/what-to-buy.html">What should I buy?</a> walks through five situations with a
+        <p><a href="/what-to-buy.html">What should I buy?</a> walks through ${wtbSituations} situations with a
           photograph of the actual product and the price on each one.</p>
 
         <h3>Where to buy it</h3>

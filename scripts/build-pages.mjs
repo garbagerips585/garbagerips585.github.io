@@ -319,11 +319,15 @@ const HITS = HITS_DOC.videos || {};
    dated to the OLDER of the two. It understates by two days on the pages whose
    figures are all checklist ones, and that is the safe direction. */
 const HITS_READ = HITS_DOC.checked || null;
-const olderRead = (doc) => {
-  const a = priceRead(doc), b = HITS_READ;
-  if (!a || !b) return doc;
-  return b < a ? { ...doc, pricesChecked: b } : doc;
-};
+/* A RANGE, NOT THE OLDER DATE, AND THAT IS A CORRECTION TO THE FIX ABOVE IT.
+   Taking the older of the two stamped 159 rip pages "read August 26, 2026" over
+   figures that were read on the 28th -- every one of the 170 priced hit cards on
+   those pages matches the 28 August checklist to the cent. Understating is the
+   safe direction and it is still a false date, and the site already has the
+   honest form for exactly this: a span, as /luck.html and the PSA lines use.
+   The page prints a hit card, so a log-priced promo MAY be among them; the span
+   covers both without claiming either. */
+const rawSpanFor = (doc) => readSpan([priceRead(doc), HITS_READ].filter(Boolean));
 /* THE PRINTINGS CORPUS, FOR THE SETS THIS SITE KEEPS NO CHECKLIST FOR.
  * public/data/cards holds 28 English sets; Silver Tempest, Lost Origin, the
  * Trainer and Galarian Galleries and every Black Star Promo set are not among
@@ -2269,7 +2273,7 @@ ${
       price IS shown the note stays exactly as it was, because that is the
       sentence that makes the number worth trusting.
     */ ""}${pricedHits.length || hits.some((h) => h.psa10)
-      ? `<p class="price-note">${esc(priceNote(olderRead(pricesDoc), { lead: "Raw prices" }))}
+      ? `<p class="price-note">${esc(priceNote(pricesDoc, { lead: "Raw prices", readPhrase: rawSpanFor(pricesDoc) }))}
       PSA 10 prices come from PriceCharting's guide too, ${esc(
         readSpan([GRADED_READ, priceRead(pricesDoc)]) || "read on the date shown"
       )}, and only exist for some cards, so the

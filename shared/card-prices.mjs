@@ -105,12 +105,16 @@ export function chaseByPrice(chase, priceOf) {
  * market price would be the same error in the opposite direction.
  */
 export function priceNote(doc, opts = {}) {
-  const { lead = "Prices", trailing = "" } = opts;
+  /* `readPhrase` REPLACES THE WHOLE "read <date>" CLAUSE, for a page whose
+     figures come from two reads and needs readSpan()'s "read between X and Y"
+     rather than a single day. It is a phrase and not a date because readSpan
+     already decides which of the two forms is true. */
+  const { lead = "Prices", trailing = "", readPhrase = "" } = opts;
   const read = longDate(priceRead(doc)) || priceRead(doc);
   const src = doc?.priceSource || "pricecharting.com";
   const bits = [
     `${lead} are ${src}'s price guide value for an ungraded copy` +
-      (read ? `, read ${read}` : "") +
+      (readPhrase ? `, ${readPhrase}` : read ? `, read ${read}` : "") +
       ".",
   ];
   // A guide value is not a marketplace's market price and the pages that print

@@ -736,7 +736,7 @@ ${/* THE GROUNDS ALTERNATE ALL THE WAY DOWN AND THIS ONE HAD TO GIVE ITS BAND UP
       <li><a href="/vendors.html"><b>Local vendors</b><span>People who sell, usually at the shows. ${nVendors} so
         far, and the page says how to be the next one.</span></a></li>
       <li><a href="/creators.html"><b>Local creators</b><span>Other people around here making Pokemon content.
-        ${nCreators} so far, listed alphabetically and never ranked.</span></a></li>
+        ${nCreators} so far, in no particular order and never ranked.</span></a></li>
       <li><a href="/garbage-plate.html"><b>Garbage Plate</b><span>The dish, its history, and the ${nPlates} places
         that serve one. Every claim on it carries a source.</span></a></li>
       <li><a href="/videos.html"><b>The rips</b><span>The channel itself: packs opened in Rochester, NY, mostly ending

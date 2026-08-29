@@ -154,6 +154,15 @@ export const CARD_SETS = [
   // Every label below is the API's own name for the set, which is the agreement
   // this list's header demands.
   { id: "crown-zenith", label: "Crown Zenith" },
+  /* SILVER TEMPEST AND LOST ORIGIN ARE TAGGED IN data/overrides.json AND WERE
+     NOT HERE, so labelFor() had nothing to look up and printed the raw slug.
+     "silver-tempest" appeared 8 times on one rip page alone -- the breadcrumb,
+     the set chip, both pack faces, the meta line and the "More" heading -- while
+     the hit cards on that same page said "Silver Tempest" and /hall.html said
+     "Silver Tempest Trainer Gallery". Neither set has a checklist here, which is
+     exactly why they never reached this list through sync-sets.mjs. */
+  { id: "silver-tempest", label: "Silver Tempest" },
+  { id: "lost-origin", label: "Lost Origin" },
   // CELEBRATIONS IS A COMMON NOUN AND NEEDS THE 151 TREATMENT.
   //
   // The other four here are distinctive two-word proper nouns, so the default
