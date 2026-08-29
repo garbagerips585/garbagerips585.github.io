@@ -259,7 +259,18 @@
   }
     var today = todayIso();
     document.querySelectorAll('.show-pending').forEach(function(el){
-      if (el.dataset.date < today) el.hidden = false;
+      if (el.dataset.date < today) {
+        el.hidden = false;
+        /* AND THE CHIP GOES WITH IT. These cards are built while the show is
+           still ahead, so they carry a "Today" or "Tomorrow" chip; the sweep
+           revealed them on the archive and left the chip alone, so a page
+           headed "Nothing here is on any more" printed a show marked Today.
+           Harmless while the nightly runs, and the nightly failed on 23 and 24
+           August, which is the whole reason this sweep exists. card-shows.html
+           already guards its own chips; this page did not. */
+        var chip = el.querySelector('[data-soon]');
+        if (chip) chip.remove();
+      }
     });
     // A month that is still entirely ahead should not print its heading.
     document.querySelectorAll('.show-month').forEach(function(m){

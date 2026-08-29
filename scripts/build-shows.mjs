@@ -432,6 +432,22 @@ for (const s of past) {
 
 const next = upcoming[0] || null;
 const pokemonCount = upcoming.filter((s) => s.pokemon).length;
+/* THE NEWEST SOURCE ON THE PAGE, NOT THE FILE'S OWN FIELD. data.checked is when
+   cardshows.io was last read, but fourteen shows come from an organizer's flyer
+   or a message sent to the channel and carry their own later dates, and the
+   confirmed-vendor lines are later still. The tile read "August 26" on the day
+   the page shipped content read on the 29th, which undersells the calendar on
+   the one number a reader uses to decide whether to trust it. */
+/* THE TILE STAYS ON data.checked AND THAT IS DELIBERATE, after briefly not
+   being. An audit read "Listings last checked: August 26" beside shows sourced
+   from flyers dated the 27th and a vendor line dated the 29th, and called the
+   tile stale. It is not: "listings last checked" is the day the FEEDS were
+   swept, which is the last time anybody looked for a show that is not here yet,
+   and the footnote under it says exactly that ("mostly cardshows.io ... read
+   August 26, 2026"). Taking the newest fact on the page instead made the tile
+   claim the calendar had been swept on the 29th when it had not, which
+   overstates freshness -- the one direction this site treats as serious. The
+   newer per-show sources are printed on the shows they belong to. */
 
 // ------------------------------------------------------------------- the map
 //
@@ -779,6 +795,23 @@ const ld = [
             url: s.ticketUrl || s.url,
           })),
         }
+      : /^\$\d/.test(String(s.admission || "").trim())
+        ? {
+            /* A STATED DOLLAR PRICE IS A REAL PRICE AND WAS EMITTING NOTHING.
+               Four shows carry an admission like "$20, under 11 free" and no
+               tiers, so offers came out null -- including PokeKon Fest
+               Rochester, the most expensive show on the calendar, whose search
+               result therefore showed no price at all while every free show
+               showed one. Only the leading figure is taken; the concession is
+               prose and does not belong in a single Offer. */
+            offers: {
+              "@type": "Offer",
+              price: String(s.admission).trim().match(/^\$(\d+(?:\.\d{2})?)/)[1],
+              priceCurrency: "USD",
+              availability: "https://schema.org/InStock",
+              url: s.ticketUrl || s.url,
+            },
+          }
       : s.admission === "Free"
         ? {
             offers: {
@@ -885,7 +918,7 @@ function showCard(s) {
   const flyer = flyerSrc(s);
   const soon = daysAway(s.date);
   const d = new Date(s.date + "T12:00:00");
-  return `      <article class="show${s.featured ? " is-featured" : ""}" data-region="${esc(s.region || "")}" data-date="${esc(s.date)}"${s.pokemon ? ' data-pokemon="1"' : ""}>
+  return `      <article class="show${s.featured ? " is-featured" : ""}" data-region="${esc(s.region || "")}" data-date="${esc(s.date)}"${s.pokemon ? ' data-pokemon="1"' : ""}${s.admission === "Free" ? ' data-free="1"' : ""}>
         <div class="show-when" aria-hidden="true">
           <span class="show-mon">${MONTHS_LONG[d.getMonth()].slice(0, 3)}</span>
           <span class="show-day">${d.getDate()}</span>
@@ -1010,7 +1043,7 @@ const page = head + `
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/rochester.html">Local scene</a> / Card shows</nav>
 ${next ? `
-    <a class="next-show" data-date="${esc(next.date)}" href="${esc(next.url || "#list")}"${next.url ? ` rel="noopener" target="_blank" aria-label="Next one up: ${esc(showRef(next))} at ${esc(next.venue)}, ${esc(next.city)}, opens on ${esc(hostOf(next.url))}"` : ""}>
+    <a class="next-show" data-region="${esc(next.region || "")}" data-date="${esc(next.date)}" href="${esc(next.url || "#list")}"${next.url ? ` rel="noopener" target="_blank" aria-label="Next one up: ${esc(showRef(next))} at ${esc(next.venue)}, ${esc(next.city)}, opens on ${esc(hostOf(next.url))}"` : ""}>
       <span class="next-label">Next one up${daysAway(next.date) ? ` &bull; ${esc(daysAway(next.date))}` : ""}</span>
       <span class="next-name">${esc(next.name)}</span>
       <span class="next-meta">${esc(longDate(next.date) || next.date)}${
@@ -1019,13 +1052,13 @@ ${next ? `
     </a>` : ""}
 
     <div class="facts" style="margin-top:20px">
-      <div class="fact"><div class="n">${upcoming.length}</div><div class="l">Shows coming up</div></div>
-      <div class="fact"><div class="n">${pokemonCount}</div><div class="l">Pokemon shows</div>${/* WAS "All Pokemon shows" AND THE WORD ALL WAS DOING WORK IT COULD NOT
+      <div class="fact"><div class="n" data-fact="shows">${upcoming.length}</div><div class="l">Shows coming up</div></div>
+      <div class="fact"><div class="n" data-fact="pkmn">${pokemonCount}</div><div class="l">Pokemon shows</div>${/* WAS "All Pokemon shows" AND THE WORD ALL WAS DOING WORK IT COULD NOT
         BACK. RIT's own listing calls RocPokeCon "centered around Pokemon but not exclusive to it" and names One
         Piece and Magic; Buffalo Trading Card Con bills itself as a "Pokemon and TCG" convention. Neither is ALL
         Pokemon. What they share, and what separates them from the rest of this page, is that Pokemon is the
         billed subject and there are no sports. That is what the number counts, so that is what it says now. */ ""}</div>
-      <div class="fact"><div class="n">${upcoming.filter((s) => s.admission === "Free").length}</div><div class="l">Free to get in</div></div>
+      <div class="fact"><div class="n" data-fact="free">${upcoming.filter((s) => s.admission === "Free").length}</div><div class="l">Free to get in</div></div>
       <div class="fact wide"><div class="n" style="font-size:1.15rem">${esc(longDate(data.checked) || data.checked)}</div><div class="l">Listings last checked</div></div>
     </div>
   </div>
@@ -1339,6 +1372,20 @@ ${/* THE CALENDAR'S OWN CLIENT SWEEP WAS HERE and went with the calendar. It
       if (vis) any = true;
     });
     if (empty) empty.hidden = any;
+    /* THE TILES AND THE HERO MOVE WITH THE LIST, and until now neither did.
+       "47 Free to get in" sat over the Syracuse list where nine of ten charge
+       at the door, which is a money claim a reader acts on; and the hero kept
+       advertising GI Cards in the largest type on the page after the Rochester
+       filter had removed it from the list underneath. The right number was
+       already being computed one line below for the screen-reader status, and
+       announced only to the readers who cannot see the tiles contradicting it. */
+    var shown = [].slice.call(document.querySelectorAll('.show:not([hidden])'));
+    var set = function(k, v){ var el = document.querySelector('[data-fact="' + k + '"]'); if (el) el.textContent = v; };
+    set('shows', shown.length);
+    set('pkmn', shown.filter(function(el){ return el.dataset.pokemon === '1'; }).length);
+    set('free', shown.filter(function(el){ return el.dataset.free === '1'; }).length);
+    var hero = document.querySelector('.next-show');
+    if (hero) hero.hidden = region !== 'all' && hero.dataset.region !== region;
     var countEl = document.getElementById('showCount');
     if (countEl) {
       var n = document.querySelectorAll('.show:not([hidden])').length;
@@ -1491,7 +1538,18 @@ ${g.shows.map((s) => (s.date < TODAY ? showCard(s) : `<div class="show-pending" 
 ${CLIENT_DAY_JS}
     var today = todayIso();
     document.querySelectorAll('.show-pending').forEach(function(el){
-      if (el.dataset.date < today) el.hidden = false;
+      if (el.dataset.date < today) {
+        el.hidden = false;
+        /* AND THE CHIP GOES WITH IT. These cards are built while the show is
+           still ahead, so they carry a "Today" or "Tomorrow" chip; the sweep
+           revealed them on the archive and left the chip alone, so a page
+           headed "Nothing here is on any more" printed a show marked Today.
+           Harmless while the nightly runs, and the nightly failed on 23 and 24
+           August, which is the whole reason this sweep exists. card-shows.html
+           already guards its own chips; this page did not. */
+        var chip = el.querySelector('[data-soon]');
+        if (chip) chip.remove();
+      }
     });
     // A month that is still entirely ahead should not print its heading.
     document.querySelectorAll('.show-month').forEach(function(m){

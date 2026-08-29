@@ -93,6 +93,9 @@ const upcoming = (showsDoc.shows || [])
   .sort((a, b) => a.date.localeCompare(b.date));
 
 const shops = shopsDoc.shops || [];
+/* Counted, never assumed: GI Cards is on the list with no address, so
+   shops.length overstates every claim about doors and hours by one. */
+const withAddr = shops.filter((s) => s.address).length;
 const vendors = vendorsDoc.vendors || [];
 const creators = creatorsDoc.creators || [];
 const plates = plateDoc.places || [];
@@ -244,7 +247,7 @@ const STATS = [
   stat(
     shops.length,
     shops.length === 1 ? "card shop" : "card shops",
-    `With a door, an address and opening hours, ${playShops.length} of them publishing organized play you can show
+    `${withAddr} of them with a door, an address and opening hours, and ${playShops.length} publishing organized play you can show
        up to. All on <a href="/shops.html">the shop list</a>.`,
   ),
   stat(
@@ -301,7 +304,6 @@ const shopRow = (s) => `        <li>
 
 // ---------------------------------------------------------------------------
 const TITLE = "Pokemon Cards in Rochester, NY: Shows, Shops, Local Scene";
-const withAddr = shops.filter((s) => s.address).length;
 
 const H1 = 'Pokemon in <span class="hl">Rochester</span>, NY';
 const KICKER = "585 &bull; The local scene";
@@ -729,7 +731,7 @@ ${/* THE GROUNDS ALTERNATE ALL THE WAY DOWN AND THIS ONE HAD TO GIVE ITS BAND UP
     <ul class="roc-routes">
       <li><a href="/card-shows.html"><b>Card shows</b><span>${nShows} coming up around Rochester, NY, Buffalo and
         Syracuse, with the dates and the venues.</span></a></li>
-      <li><a href="/shops.html"><b>Card shops</b><span>${shops.length} shops with a door, what each one is good
+      <li><a href="/shops.html"><b>Card shops</b><span>${shops.length} shops, ${withAddr} with a door and an address, what each one is good
         for, and where you can sit down and play.</span></a></li>
       <li><a href="/vendors.html"><b>Local vendors</b><span>People who sell, usually at the shows. ${nVendors} so
         far, and the page says how to be the next one.</span></a></li>
