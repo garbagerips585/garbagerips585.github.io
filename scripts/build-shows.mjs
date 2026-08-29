@@ -327,6 +327,27 @@ const nearestAnchor = (pt) =>
     .sort((x, y) => x.mi - y.mi)[0];
 
 const towns = data._towns || {};
+/* A TOWN BETWEEN TWO CITIES BELONGS IN BOTH FILTERS. The owner, 29 August 2026:
+   "waterloo is honestly pretty much inbetween Syracuse and Rochester so just put
+   it in both filters ... if anything is close to more than one city just make it
+   filter into both."
+   Waterloo is 37.5 miles from Syracuse and 41.8 from Rochester, so it filed
+   under Syracuse and the Rochester chip -- the one a Rochester reader obviously
+   presses -- deleted the nearest show on the calendar while the hero above kept
+   advertising it. `region` still holds the NEAREST anchor, so the build guard
+   below still checks the one true filing; this only widens which chips show it.
+   DUAL_MI is a margin, not a second radius: a town qualifies for a second city
+   only if that city is within 15 miles of being its nearest. */
+const DUAL_MI = 15;
+const regionsFor = (city) => {
+  const pt = towns[city];
+  if (!pt) return [];
+  const all = Object.entries(ANCHORS)
+    .map(([id, a]) => ({ id, mi: milesBetween(pt, a) }))
+    .sort((x, y) => x.mi - y.mi);
+  const best = all[0];
+  return all.filter((a) => a.mi <= RADIUS_MI && a.mi - best.mi <= DUAL_MI).map((a) => a.id);
+};
 const areaProblems = [];
 for (const s of data.shows || []) {
   const pt = towns[s.city];
@@ -918,7 +939,7 @@ function showCard(s) {
   const flyer = flyerSrc(s);
   const soon = daysAway(s.date);
   const d = new Date(s.date + "T12:00:00");
-  return `      <article class="show${s.featured ? " is-featured" : ""}" data-region="${esc(s.region || "")}" data-date="${esc(s.date)}"${s.pokemon ? ' data-pokemon="1"' : ""}${s.admission === "Free" ? ' data-free="1"' : ""}>
+  return `      <article class="show${s.featured ? " is-featured" : ""}" data-region="${esc((regionsFor(s.city) .length ? regionsFor(s.city) : [s.region]).join(" "))}" data-date="${esc(s.date)}"${s.pokemon ? ' data-pokemon="1"' : ""}${s.admission === "Free" ? ' data-free="1"' : ""}>
         <div class="show-when" aria-hidden="true">
           <span class="show-mon">${MONTHS_LONG[d.getMonth()].slice(0, 3)}</span>
           <span class="show-day">${d.getDate()}</span>
@@ -1043,7 +1064,7 @@ const page = head + `
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/rochester.html">Local scene</a> / Card shows</nav>
 ${next ? `
-    <a class="next-show" data-region="${esc(next.region || "")}" data-date="${esc(next.date)}" href="${esc(next.url || "#list")}"${next.url ? ` rel="noopener" target="_blank" aria-label="Next one up: ${esc(showRef(next))} at ${esc(next.venue)}, ${esc(next.city)}, opens on ${esc(hostOf(next.url))}"` : ""}>
+    <a class="next-show" data-region="${esc((regionsFor(next.city).length ? regionsFor(next.city) : [next.region]).join(" "))}" data-date="${esc(next.date)}" href="${esc(next.url || "#list")}"${next.url ? ` rel="noopener" target="_blank" aria-label="Next one up: ${esc(showRef(next))} at ${esc(next.venue)}, ${esc(next.city)}, opens on ${esc(hostOf(next.url))}"` : ""}>
       <span class="next-label">Next one up${daysAway(next.date) ? ` &bull; ${esc(daysAway(next.date))}` : ""}</span>
       <span class="next-name">${esc(next.name)}</span>
       <span class="next-meta">${esc(longDate(next.date) || next.date)}${
@@ -1363,7 +1384,10 @@ ${/* THE CALENDAR'S OWN CLIENT SWEEP WAS HERE and went with the calendar. It
   var empty = document.getElementById('showEmpty');
   function apply(region){
     document.querySelectorAll('.show').forEach(function(el){
-      el.hidden = region !== 'all' && el.dataset.region !== region;
+      // A SHOW CAN NOW BE IN TWO AREAS, so this matches a token rather than the
+      // whole attribute: data-region is "syracuse roc" for a town between them.
+      el.hidden = region !== 'all' &&
+        (' ' + (el.dataset.region || '') + ' ').indexOf(' ' + region + ' ') === -1;
     });
     var any = false;
     document.querySelectorAll('.show-month').forEach(function(m){
@@ -1385,7 +1409,8 @@ ${/* THE CALENDAR'S OWN CLIENT SWEEP WAS HERE and went with the calendar. It
     set('pkmn', shown.filter(function(el){ return el.dataset.pokemon === '1'; }).length);
     set('free', shown.filter(function(el){ return el.dataset.free === '1'; }).length);
     var hero = document.querySelector('.next-show');
-    if (hero) hero.hidden = region !== 'all' && hero.dataset.region !== region;
+    if (hero) hero.hidden = region !== 'all' &&
+      (' ' + (hero.dataset.region || '') + ' ').indexOf(' ' + region + ' ') === -1;
     var countEl = document.getElementById('showCount');
     if (countEl) {
       var n = document.querySelectorAll('.show:not([hidden])').length;

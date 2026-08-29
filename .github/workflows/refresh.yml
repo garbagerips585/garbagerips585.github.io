@@ -307,7 +307,24 @@ jobs:
           git commit -m "Nightly refresh: $(date -u +%Y-%m-%d)
 
           $(git diff --cached --stat | tail -1)"
-          git push
+          # REBASE AND RETRY, BECAUSE A PUSH RACE LOSES A WHOLE NIGHT'S WORK.
+          # On 29 August 2026 this step failed with "! [rejected] main -> main
+          # (fetch first)": somebody pushed while the refresh was running, so a
+          # run that had already fetched prices, videos and preorders threw all
+          # of it away at the last step. The window is ~20 minutes long and the
+          # owner works in this repo during it, so this will recur.
+          #
+          # --rebase --autostash is safe here: this job only ever ADDS generated
+          # output, it never edits a file a human is also editing, so replaying
+          # its one commit on top of theirs is exactly right. Three tries, because
+          # a second push can land while the first rebase is running.
+          for i in 1 2 3; do
+            if git push; then exit 0; fi
+            echo "Push rejected (attempt $i). Rebasing onto origin/main and retrying."
+            git pull --rebase --autostash origin main || exit 1
+          done
+          echo "Still could not push after three attempts."
+          exit 1
 
       # RE-RAISED HERE, NOT SWALLOWED. Everything above has run and the refresh
       # is committed; this is only about the exit status the run reports, so it
