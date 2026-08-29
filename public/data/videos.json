@@ -1,13 +1,49 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 271450,
+    "views": 272561,
     "subscribers": 347,
-    "videos": 326,
-    "readAt": "2026-08-28"
+    "videos": 327,
+    "readAt": "2026-08-29"
   },
-  "syncedAt": "2026-08-28",
+  "syncedAt": "2026-08-29",
   "videos": [
+    {
+      "id": "0mtM71JvFkc",
+      "title": "Mega Dragalge ex is STUNNING! 🐲✨",
+      "path": "rip/mega-dragalge-ex-is-stunning-0mtM71JvFkc.html",
+      "published": "2026-08-29",
+      "publishedAt": "2026-08-29T12:09:23Z",
+      "duration": 22,
+      "views": 107,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "chaos-rising"
+      ],
+      "products": [
+        "etb"
+      ],
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Mega Dragalge ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "chaos-rising",
+          "name": "chaos rising",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 6,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB - Pack 6"
+    },
     {
       "id": "rPElm7KrH_E",
       "title": "The Single Pack Streak is REAL! ⚡😱",
@@ -15,7 +51,7 @@
       "published": "2026-08-28",
       "publishedAt": "2026-08-28T11:48:15Z",
       "duration": 20,
-      "views": 454,
+      "views": 937,
       "vertical": true,
       "short": true,
       "sets": [
@@ -51,7 +87,7 @@
       "published": "2026-08-27",
       "publishedAt": "2026-08-27T12:09:30Z",
       "duration": 21,
-      "views": 996,
+      "views": 1091,
       "vertical": true,
       "short": true,
       "sets": [
@@ -84,7 +120,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1107,
+      "views": 1128,
       "vertical": true,
       "short": true,
       "sets": [
@@ -187,7 +223,7 @@
       "published": "2026-08-23",
       "publishedAt": "2026-08-23T12:40:33Z",
       "duration": 21,
-      "views": 961,
+      "views": 963,
       "vertical": true,
       "short": true,
       "sets": [
@@ -223,7 +259,7 @@
       "published": "2026-08-22",
       "publishedAt": "2026-08-22T11:47:18Z",
       "duration": 20,
-      "views": 1124,
+      "views": 1125,
       "vertical": true,
       "short": true,
       "sets": [
@@ -325,7 +361,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1023,
+      "views": 1027,
       "vertical": true,
       "short": true,
       "sets": [
@@ -806,7 +842,7 @@
       "published": "2026-08-05",
       "publishedAt": "2026-08-05T11:58:19Z",
       "duration": 22,
-      "views": 774,
+      "views": 776,
       "vertical": true,
       "short": true,
       "sets": [
@@ -947,7 +983,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 915,
+      "views": 916,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1436,7 +1472,7 @@
       "published": "2026-07-21",
       "publishedAt": "2026-07-21T23:50:30Z",
       "duration": 20,
-      "views": 722,
+      "views": 723,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1504,7 +1540,7 @@
       "published": "2026-07-19",
       "publishedAt": "2026-07-19T12:25:22Z",
       "duration": 20,
-      "views": 689,
+      "views": 691,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1682,7 +1718,7 @@
       "published": "2026-07-17",
       "publishedAt": "2026-07-17T23:45:08Z",
       "duration": 23,
-      "views": 632,
+      "views": 633,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2074,7 +2110,7 @@
       "published": "2026-07-11",
       "publishedAt": "2026-07-11T11:57:27Z",
       "duration": 25,
-      "views": 1647,
+      "views": 1648,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2247,7 +2283,7 @@
       "published": "2026-07-09",
       "publishedAt": "2026-07-09T23:58:23Z",
       "duration": 24,
-      "views": 537,
+      "views": 538,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3494,7 +3530,7 @@
       "published": "2026-06-21",
       "publishedAt": "2026-06-21T11:20:39Z",
       "duration": 21,
-      "views": 1484,
+      "views": 1485,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4493,7 +4529,7 @@
       "published": "2026-06-07",
       "publishedAt": "2026-06-07T23:40:19Z",
       "duration": 19,
-      "views": 898,
+      "views": 899,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7422,7 +7458,7 @@
       "published": "2026-04-25",
       "publishedAt": "2026-04-25T11:03:00Z",
       "duration": 42,
-      "views": 1350,
+      "views": 1351,
       "vertical": true,
       "short": true,
       "sets": [
@@ -11023,7 +11059,7 @@
       "published": "2026-02-11",
       "publishedAt": "2026-02-11T12:30:14Z",
       "duration": 32,
-      "views": 933,
+      "views": 936,
       "vertical": true,
       "short": true,
       "sets": [

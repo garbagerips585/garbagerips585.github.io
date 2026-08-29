@@ -7188,5 +7188,30 @@
     "openingType": "Single Booster Pack",
     "packNumber": 8,
     "hasHit": false
+  },
+  "0mtM71JvFkc": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ETB",
+    "packNumber": 6,
+    "hasHit": true,
+    "hitCard": "Mega Dragalge ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Mega Dragalge ex",
+        "rarity": "Double Rare",
+        "set": "chaos-rising",
+        "setName": "Chaos Rising"
+      }
+    ]
   }
 }
