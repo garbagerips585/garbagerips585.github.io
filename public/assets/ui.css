@@ -1933,3 +1933,15 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
   .show-blurb,.fk-golden p,.fk-how,.fk-why,.fk-caveat,.fk-fig figcaption,
   .fk-no-item p,.fk-see-b,.st-body p,.gcalc-note{max-width:var(--measure)}
 }
+.show-vend{margin-top:var(--s3);background:var(--paper);border:1px solid var(--hair);
+  border-radius:var(--r-sm);padding:10px 12px}
+.show-vend-h{font:700 var(--t-micro)/1 var(--mono);text-transform:uppercase;
+  letter-spacing:.08em;color:var(--ink-2);margin:0 0 8px}
+.show-vend-l{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px 16px}
+.sv{display:flex;align-items:center;gap:9px;min-width:0}
+.sv-logo{flex:none;width:34px;border-radius:var(--r-sm);overflow:hidden;
+  background:var(--paper-2);display:block}
+.sv-logo img{width:100%;height:auto;display:block}
+.sv-id{min-width:0;font-weight:700}
+.show-vend-src{font-size:var(--t-micro);color:var(--ink-2);line-height:1.35;
+  margin:8px 0 0}

@@ -87,8 +87,17 @@
       "region": "syracuse",
       "admission": "$5, 12 and under free",
       "tiers": [
-        { "name": "Early VIP", "price": "$20", "from": "09:00" },
-        { "name": "General admission", "price": "$5", "from": "10:00", "note": "12 and under free" }
+        {
+          "name": "Early VIP",
+          "price": "$20",
+          "from": "09:00"
+        },
+        {
+          "name": "General admission",
+          "price": "$5",
+          "from": "10:00",
+          "note": "12 and under free"
+        }
       ],
       "blurb": "Sports cards, Pokemon, Magic and One Piece. Dealer tables are $40, and the number to book one is on the flyer.",
       "organiser": "GI Cards and Collectibles",
@@ -101,7 +110,7 @@
       "pkmn": "some",
       "pkmnWhy": "The flyer names Pokemon in its own list of what is on the floor, after sports cards and memorabilia.",
       "regionNote": "Waterloo is 35.6 miles from Syracuse and 40.7 from Rochester, NY, so it files under Syracuse: build-shows.mjs fails the build where the declared region is not the nearest anchor. It is inside the 45 mile radius of BOTH, which is why it is on the calendar at all."
-      },
+    },
     {
       "id": "collectorfest-jcc-2026-08-30",
       "name": "CollectorFest Monthly",
@@ -120,10 +129,16 @@
       "url": "https://collectorfestmonthly.com",
       "source": "the organizer's own flyer for this date, sent by the channel, August 26, 2026",
       "tables": 72,
-   "flyer": "collectorfest-jcc-2026-08-30.jpg",
-   "flyerW": 440,
-   "flyerH": 525,
-      "pkmn": "some"
+      "flyer": "collectorfest-jcc-2026-08-30.jpg",
+      "flyerW": 440,
+      "flyerH": 525,
+      "pkmn": "some",
+      "vendors": [
+        {
+          "name": "TOAK Pulls",
+          "confirmed": "Confirmed by the owner, 29 August 2026."
+        }
+      ]
     },
     {
       "id": "dave-adams-2026-08-30",
@@ -293,7 +308,7 @@
       "pkmn": "some",
       "tables": "60+",
       "logo": "cold-front-cards",
-    "logoW": 880,
+      "logoW": 880,
       "logoH": 787,
       "flyer": "cold-front-2026-09-20.jpg",
       "flyerW": 440,
@@ -309,19 +324,19 @@
       "city": "Batavia",
       "region": "roc",
       "pokemon": false,
-   "pkmn": "some",
+      "pkmn": "some",
       "admission": "Free",
       "blurb": "A weeknight show, and almost everything else on this page is a weekend. If your Saturdays and Sundays are already spoken for, this is the one that fits.",
       "source": "the organizer's own flyer and a message from them, August 26, 2026",
       "organiser": "585Cardz",
       "address": "8250 Park Rd, Batavia, NY 14020",
-   "logo": "585cardz",
-   "logoW": 1158,
-   "logoH": 1029,
-   "flyer": "585cardz-batavia-monthly.jpg",
-   "flyerW": 440,
-   "flyerH": 656
-  },
+      "logo": "585cardz",
+      "logoW": 1158,
+      "logoH": 1029,
+      "flyer": "585cardz-batavia-monthly.jpg",
+      "flyerW": 440,
+      "flyerH": 656
+    },
     {
       "id": "extreme-pokemon-batavia-2026-09-26",
       "name": "Extreme Pokemon Show",
@@ -578,19 +593,19 @@
       "city": "Batavia",
       "region": "roc",
       "pokemon": false,
-   "pkmn": "some",
+      "pkmn": "some",
       "blurb": "A weeknight show, and almost everything else on this page is a weekend. If your Saturdays and Sundays are already spoken for, this is the one that fits.",
       "admission": "Free",
       "source": "the organizer's own flyer and a message from them, August 26, 2026",
       "organiser": "585Cardz",
       "address": "8250 Park Rd, Batavia, NY 14020",
-   "flyer": "585cardz-batavia-monthly.jpg",
-   "flyerW": 440,
-   "flyerH": 656,
-   "logo": "585cardz",
-   "logoW": 1158,
-   "logoH": 1029
-  },
+      "flyer": "585cardz-batavia-monthly.jpg",
+      "flyerW": 440,
+      "flyerH": 656,
+      "logo": "585cardz",
+      "logoW": 1158,
+      "logoH": 1029
+    },
     {
       "id": "extreme-pokemon-batavia-2026-10-24",
       "name": "Extreme Pokemon Show",
@@ -715,19 +730,19 @@
       "city": "Batavia",
       "region": "roc",
       "pokemon": false,
-   "pkmn": "some",
+      "pkmn": "some",
       "blurb": "A weeknight show, and almost everything else on this page is a weekend. If your Saturdays and Sundays are already spoken for, this is the one that fits.",
       "admission": "Free",
       "source": "the organizer's own flyer and a message from them, August 26, 2026",
       "organiser": "585Cardz",
       "address": "8250 Park Rd, Batavia, NY 14020",
-   "flyer": "585cardz-batavia-monthly.jpg",
-   "flyerW": 440,
-   "flyerH": 656,
-   "logo": "585cardz",
-   "logoW": 1158,
-   "logoH": 1029
-  },
+      "flyer": "585cardz-batavia-monthly.jpg",
+      "flyerW": 440,
+      "flyerH": 656,
+      "logo": "585cardz",
+      "logoW": 1158,
+      "logoH": 1029
+    },
     {
       "id": "batavia-scts-2026-11-07",
       "name": "Batavia Sports Card, Toys & Collectible Show",
@@ -759,7 +774,7 @@
       "organiser": "Buffalo Trading Card Con",
       "organiserUrl": "https://www.buffalotcgcon.com",
       "source": "wnycardshows (Shake & Break 716)",
-            "blurb": "Western New York's biggest TCG convention and the only three day show on this page. Pokemon, Magic, One Piece and other TCGs, plus video games and custom art. No sports.",
+      "blurb": "Western New York's biggest TCG convention and the only three day show on this page. Pokemon, Magic, One Piece and other TCGs, plus video games and custom art. No sports.",
       "id": "btcc-powerhouse-2026-11-13",
       "date": "2026-11-13",
       "start": "17:00",
@@ -789,7 +804,7 @@
       "organiser": "Buffalo Trading Card Con",
       "organiserUrl": "https://www.buffalotcgcon.com",
       "source": "wnycardshows (Shake & Break 716)",
-            "blurb": "Western New York's biggest TCG convention and the only three day show on this page. Pokemon, Magic, One Piece and other TCGs, plus video games and custom art. No sports.",
+      "blurb": "Western New York's biggest TCG convention and the only three day show on this page. Pokemon, Magic, One Piece and other TCGs, plus video games and custom art. No sports.",
       "id": "btcc-powerhouse-2026-11-14",
       "date": "2026-11-14",
       "start": "10:00",
@@ -820,7 +835,7 @@
       "organiser": "Buffalo Trading Card Con",
       "organiserUrl": "https://www.buffalotcgcon.com",
       "source": "wnycardshows (Shake & Break 716)",
-            "blurb": "Western New York's biggest TCG convention and the only three day show on this page. Pokemon, Magic, One Piece and other TCGs, plus video games and custom art. No sports.",
+      "blurb": "Western New York's biggest TCG convention and the only three day show on this page. Pokemon, Magic, One Piece and other TCGs, plus video games and custom art. No sports.",
       "id": "btcc-powerhouse-2026-11-15",
       "date": "2026-11-15",
       "start": "10:00",
@@ -1020,19 +1035,19 @@
       "city": "Batavia",
       "region": "roc",
       "pokemon": false,
-   "pkmn": "some",
+      "pkmn": "some",
       "blurb": "A weeknight show, and almost everything else on this page is a weekend. If your Saturdays and Sundays are already spoken for, this is the one that fits.",
       "admission": "Free",
       "source": "the organizer's own flyer and a message from them, August 26, 2026",
       "organiser": "585Cardz",
       "address": "8250 Park Rd, Batavia, NY 14020",
-   "flyer": "585cardz-batavia-monthly.jpg",
-   "flyerW": 440,
-   "flyerH": 656,
-   "logo": "585cardz",
-   "logoW": 1158,
-   "logoH": 1029
-  },
+      "flyer": "585cardz-batavia-monthly.jpg",
+      "flyerW": 440,
+      "flyerH": 656,
+      "logo": "585cardz",
+      "logoW": 1158,
+      "logoH": 1029
+    },
     {
       "id": "northtowns-sanborn-2026-12-19",
       "name": "Northtowns Card & Memorabilia Show",
@@ -1349,7 +1364,19 @@
       "region": "syracuse",
       "admission": "Free",
       "tables": "150",
-      "tiers": [{"name": "General admission", "price": "Free", "from": "10:00"}, {"name": "Early bird", "price": "$5", "from": "09:00", "note": "9 to 10am"}],
+      "tiers": [
+        {
+          "name": "General admission",
+          "price": "Free",
+          "from": "10:00"
+        },
+        {
+          "name": "Early bird",
+          "price": "$5",
+          "from": "09:00",
+          "note": "9 to 10am"
+        }
+      ],
       "organiser": "Atlantic Card Promotions",
       "organiserUrl": "https://www.atlanticcardpromotions.com",
       "pokemon": false,
@@ -1372,7 +1399,19 @@
       "region": "syracuse",
       "admission": "$2",
       "tables": "100",
-      "tiers": [{"name": "General admission", "price": "$2", "from": "10:00"}, {"name": "Early admission", "price": "$10", "from": "09:00", "note": "9 to 10am"}],
+      "tiers": [
+        {
+          "name": "General admission",
+          "price": "$2",
+          "from": "10:00"
+        },
+        {
+          "name": "Early admission",
+          "price": "$10",
+          "from": "09:00",
+          "note": "9 to 10am"
+        }
+      ],
       "organiser": "Top Loader Productions",
       "pokemon": false,
       "pkmn": "some",

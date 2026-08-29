@@ -151,6 +151,76 @@ const weekday = (iso) =>
    but schema.org addressLocality is the locality ALONE (addressRegion already
    carries NY, and every other town in the file is bare), and the maps query
    appends its own " NY" and would otherwise ask for "Rochester, NY NY". */
+/* ------------------------------------------------- confirmed vendors -------
+ *
+ * The owner, 29 August 2026: "if we know there are confirmed vendors showing at a
+ * show that we list on the vendor page, we should list them as confirmed
+ * vendors even adding their logo. I know for sure that TOAK Pulls will be at
+ * the JCC event tomorrow."
+ *
+ * A SHOW NAMES A VENDOR, AND THE VENDOR'S OWN LISTING SUPPLIES EVERYTHING ELSE.
+ * data/shows.json carries nothing but the name and how it was confirmed; the
+ * logo, the link and what they sell are read out of data/vendors.json, so a
+ * vendor who changes their mark or their handle changes it in one place. Same
+ * shape as the seller credit on a rip page (shared/pack-source.mjs), and for
+ * the same reason.
+ *
+ * "CONFIRMED" IS A CLAIM ABOUT SOMEBODY ELSE'S BUSINESS, so it carries its
+ * source like every other claim here. `confirmed` is the sentence that says who
+ * said so and when, it is REQUIRED, and the build fails without it. A table
+ * list that is wrong sends somebody to a show to meet a vendor who is not
+ * there, which is the same cost as a wrong opening hour and gets the same rule.
+ *
+ * AND A NAME THAT MATCHES NO LISTING FAILS THE BUILD RATHER THAN VANISHING.
+ * Silently dropping a vendor is the "absent means unconfirmed" rule inverted:
+ * here absent would mean a confirmed vendor the reader never sees, which is a
+ * typo shaped exactly like a correct build. */
+const VENDORS = new Map(
+  ((JSON.parse(await readFile(join(ROOT, "data/vendors.json"), "utf8")).vendors) || [])
+    .map((v) => [String(v.name || "").toLowerCase(), v])
+);
+
+function showVendors(s) {
+  const list = s.vendors || [];
+  if (!list.length) return "";
+  return list.map((entry) => {
+    const name = typeof entry === "string" ? entry : entry.name;
+    const v = VENDORS.get(String(name || "").toLowerCase());
+    if (!v) {
+      throw new Error(
+        `Show "${s.name}" (${s.id}) names vendor "${name}", which is not in data/vendors.json. ` +
+        `Add them there first, or fix the spelling: a confirmed vendor that silently does not render ` +
+        `is a typo that looks exactly like a correct build.`
+      );
+    }
+    if (typeof entry === "string" || !entry.confirmed) {
+      throw new Error(
+        `Show "${s.name}" (${s.id}) lists vendor "${name}" with no \`confirmed\` note. ` +
+        `Say who confirmed it and when: this page tells a reader who to expect to meet.`
+      );
+    }
+    /* THE LOGO ONLY WHERE ITS OWNER SENT ONE FOR THIS USE, which is the site's
+       standing rule and is why this reads `v.logo` rather than guessing a path.
+       A vendor with no logo still renders, as a name. */
+    /* HEIGHT COMES OFF THE STORED logoW/logoH, NEVER ASSUMED SQUARE, which is
+       what build-locals.mjs already does for the same marks. TOAK Pulls' is
+       3884x4824, so a 34px wide mark is 42 tall; hardcoding height="34" drew it
+       34x42 inside a 34x34 box, overflowing its own frame. */
+    const mh = Math.round(34 * (v.logoH || 1) / (v.logoW || 1));
+    const mark = v.logo
+      ? `<span class="sv-logo"><picture>` +
+        `<source type="image/avif" srcset="/assets/creators/${esc(v.logo)}-200.avif 200w, /assets/creators/${esc(v.logo)}-400.avif 400w" sizes="34px">` +
+        `<img src="/assets/creators/${esc(v.logo)}-200.webp" alt="" width="34" height="${mh}" loading="lazy" decoding="async" ` +
+        `srcset="/assets/creators/${esc(v.logo)}-200.webp 200w, /assets/creators/${esc(v.logo)}-400.webp 400w" sizes="34px"></picture></span>`
+      : "";
+    /* THE NAME AND THE MARK, AND NOTHING ELSE. What they sell, where they are
+       and their links are one tap away on their own listing, and this card was
+       cut by 275px to fit an iPhone fold; spending that on a second copy of the
+       vendor page is the trade /shops.html already refused for hours. */
+    return `<li class="sv">${mark}<a class="sv-id" href="/vendors.html">${esc(v.name)}</a></li>`;
+  }).join("");
+}
+
 const bareCity = (c) => String(c || "").replace(/,\s*(NY|New York)$/i, "");
 
 /** A maps link built from the venue and city. Never an address we made up. */
@@ -856,6 +926,13 @@ function showCard(s) {
             </li>`).join("\n            ")}
           </ul>` : ""}
           ${s.warn ? `<p class="show-warn">${esc(s.warn)}</p>` : ""}
+          ${s.vendors?.length ? `<div class="show-vend">
+            <p class="show-vend-h">Confirmed vendors</p>
+            <ul class="show-vend-l">${showVendors(s)}</ul>
+            <p class="show-vend-src">${esc(
+              [...new Set(s.vendors.map((v) => v.confirmed).filter(Boolean))].join(" ")
+            )}</p>
+          </div>` : ""}
           ${/* THE WHOLE PARAGRAPH IS CONDITIONAL, because it can now be empty. Every
              show used to carry a url, so this <p> always had something in it. Cold
              Front's does not: the organiser sent the flyer directly and the only
