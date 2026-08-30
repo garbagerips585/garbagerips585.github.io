@@ -888,6 +888,23 @@ ${JSON.stringify(
   {
     "@context": "https://schema.org",
     "@type": "Dataset",
+    /* THERE IS DELIBERATELY NO `license` HERE, AND SEARCH CONSOLE WILL KEEP
+       ASKING FOR ONE. It reports "Missing field license" against this page as a
+       non-critical Datasets issue, first seen 25 August 2026, and the obvious
+       move is to copy /luck.html's CC BY 4.0 across. That would be a false
+       claim, and build-luck.mjs says why in as many words: the numbers there
+       "are counted out of this channel's own rip log and are the owner's to
+       license; the card names, prices and SET DATA they sit beside come from
+       TCGdex, PriceCharting and the Pokemon TCG API and are not his to give
+       away. A licence line that did not draw that line would be claiming more
+       than it holds."
+       This dataset is ENTIRELY set data -- release dates and card counts. There
+       is nothing of the channel's own measurement in it, so there is nothing
+       here the owner can license to anybody. A non-critical warning is the
+       correct outcome and the honest one; Google's own text says items with
+       this issue are valid. If a future editor wants the warning gone, the way
+       to earn it is to establish what TCGdex and the Pokemon TCG API actually
+       grant, in writing, not to assert a licence we do not hold. */
     name: `Pokemon TCG sets in release order, ${firstYear} to ${lastYear}`,
     description: `Release dates and card counts for all ${sets.length} English Pokemon Trading Card Game sets.`,
     url: `${SITE}/expansions.html`,
