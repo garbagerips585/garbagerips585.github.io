@@ -1,13 +1,46 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 272561,
-    "subscribers": 347,
-    "videos": 327,
-    "readAt": "2026-08-29"
+    "views": 274616,
+    "subscribers": 349,
+    "videos": 328,
+    "readAt": "2026-08-30"
   },
-  "syncedAt": "2026-08-29",
+  "syncedAt": "2026-08-30",
   "videos": [
+    {
+      "id": "zrI6oaxBct8",
+      "title": "Ascended Heroes is TOUGH 💀🤘",
+      "path": "rip/ascended-heroes-is-tough-zrI6oaxBct8.html",
+      "published": "2026-08-30",
+      "publishedAt": "2026-08-30T11:58:31Z",
+      "duration": 21,
+      "views": 109,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "ascended-heroes"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "ascended-heroes",
+          "name": "ascended heroes",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 9,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Ascended Heroes Pack - Pack 9"
+    },
     {
       "id": "0mtM71JvFkc",
       "title": "Mega Dragalge ex is STUNNING! 🐲✨",
@@ -15,7 +48,7 @@
       "published": "2026-08-29",
       "publishedAt": "2026-08-29T12:09:23Z",
       "duration": 22,
-      "views": 107,
+      "views": 973,
       "vertical": true,
       "short": true,
       "sets": [
@@ -51,7 +84,7 @@
       "published": "2026-08-28",
       "publishedAt": "2026-08-28T11:48:15Z",
       "duration": 20,
-      "views": 937,
+      "views": 964,
       "vertical": true,
       "short": true,
       "sets": [
@@ -87,7 +120,7 @@
       "published": "2026-08-27",
       "publishedAt": "2026-08-27T12:09:30Z",
       "duration": 21,
-      "views": 1091,
+      "views": 1170,
       "vertical": true,
       "short": true,
       "sets": [
@@ -120,7 +153,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1128,
+      "views": 1138,
       "vertical": true,
       "short": true,
       "sets": [
@@ -292,7 +325,7 @@
       "published": "2026-08-21",
       "publishedAt": "2026-08-21T12:14:12Z",
       "duration": 21,
-      "views": 893,
+      "views": 894,
       "vertical": true,
       "short": true,
       "sets": [
@@ -361,7 +394,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1027,
+      "views": 1028,
       "vertical": true,
       "short": true,
       "sets": [
@@ -394,7 +427,7 @@
       "published": "2026-08-18",
       "publishedAt": "2026-08-18T10:04:29Z",
       "duration": 28,
-      "views": 1189,
+      "views": 1193,
       "vertical": true,
       "short": true,
       "sets": [
@@ -842,7 +875,7 @@
       "published": "2026-08-05",
       "publishedAt": "2026-08-05T11:58:19Z",
       "duration": 22,
-      "views": 776,
+      "views": 779,
       "vertical": true,
       "short": true,
       "sets": [
@@ -983,7 +1016,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 916,
+      "views": 917,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4460,7 +4493,7 @@
       "published": "2026-06-08",
       "publishedAt": "2026-06-08T23:06:19Z",
       "duration": 18,
-      "views": 1072,
+      "views": 1074,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4493,7 +4526,7 @@
       "published": "2026-06-07",
       "publishedAt": "2026-06-07T11:15:33Z",
       "duration": 18,
-      "views": 741,
+      "views": 742,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7278,7 +7311,7 @@
       "published": "2026-04-28",
       "publishedAt": "2026-04-28T23:36:00Z",
       "duration": 34,
-      "views": 1093,
+      "views": 1094,
       "vertical": true,
       "short": true,
       "sets": [
@@ -8150,7 +8183,7 @@
       "published": "2026-04-16",
       "publishedAt": "2026-04-16T23:41:00Z",
       "duration": 48,
-      "views": 902,
+      "views": 904,
       "vertical": true,
       "short": true,
       "sets": [
