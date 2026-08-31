@@ -35,6 +35,7 @@ const SET_MAP = {
   "scarlet-violet": "sv1", "pokemon-go": "pgo",
   "crown-zenith": "swsh12pt5", "celebrations": "cel25", "chilling-reign": "swsh6",
   "shining-fates": "swsh45", "rebel-clash": "swsh2",
+  "silver-tempest": "swsh12",
 };
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

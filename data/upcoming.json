@@ -65,7 +65,7 @@
     "  list because it is 'related', that is the bug, and the answer is a sentence",
     "  in the English entry's blurb naming the Japanese set, not a row."
   ],
-  "checked": "2026-08-21",
+  "checked": "2026-08-31",
   "sets": [
     {
       "name": "30th Celebration",
@@ -111,9 +111,10 @@
       "highlights": [
         "Over 135 cards, more than 20 of them Trainer cards, and over 35 cards with special illustrations",
         "Four new Mega Evolution Pokemon ex: Mega Rayquaza ex, Mega Golurk ex, Mega Malamar ex and Mega Golisopod ex",
-        "Split Stadium cards with Legendary in the name. Both halves carry the same name and you need both to play it, so a deck can hold two complete ones at most",
-        "The rest of the breakdown is PokeBeach's rather than The Pokemon Company's: three of those Legendary Stadiums, six Pokemon ex, 14 illustration rares, 17 ultra rares and six special illustration rares",
-        "Prereleases run 24 October to 1 November, going by PokeBeach"
+        "Split Stadium cards with Legendary in the name. Both halves carry the same name and you need both to play it, so a deck can hold two complete ones at most. Placed side by side they form one extended picture, and a pack holding one holds both of its halves",
+        "The rest of the breakdown, published by The Pokemon Company itself on August 20, 2026: six Stadium cards making three Legendary Stadiums, six Pokemon ex, 14 illustration rares, 17 ultra rares and six special illustration rares",
+        "Prereleases start October 24 at participating local game stores, which is The Pokemon Company's own date. It has not announced an end, so the November 1 finish is PokeBeach's",
+        "Pokemon TCG Live gets the set on November 5, the day before it reaches shelves"
       ],
       "products": [
         { "name": "Booster Box", "note": "Four pack wraps: Mega Rayquaza, Mega Golisopod, Mega Golurk and Mega Malamar" },
@@ -128,6 +129,7 @@
       ],
       "productNote": "Every product here has been shown in official artwork, published by PokeBeach on August 20, 2026, so this is a real lineup rather than a guess at one. The Pokemon Company has still not put out a product page for the set, which is why not one of these carries a price or a date of its own here: none has been announced. If a shop quotes you a price for one, that is the shop's number and not a retail price.",
       "sources": [
+        "https://press.pokemon.com/en/releases/MEDIA-ALERT-New-Pokemon-Trading-Card-Game-Mega-EvolutionDelta-Reign-Ex",
         "https://www.pokemon.com/uk/news/the-pokemon-tcg-mega-evolution-delta-reign-expansion-arrives-november-6-2026",
         "https://www.pokebeach.com/2026/08/delta-reign-tcg-set-officially-revealed-for-november-full-product-lineup"
       ]

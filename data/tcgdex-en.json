@@ -92,7 +92,20 @@
     "undone by the next sync.",
     "",
     "The per-card urls above were all verified 200 and are kept as evidence. What",
-    "is recorded here is where the next person will come looking."
+    "is recorded here is where the next person will come looking.",
+    "",
+    "SILVER TEMPEST WAS ADDED ON AUGUST 31, 2026, WHICH REVERSES THE REJECTION",
+    "ABOVE, and not because that argument was wrong. It was right about what it",
+    "measured: the set buys 2 hit cards of the 21 and both on a guess, and that",
+    "is still true today. It is added because the owner is publishing a Silver",
+    "Tempest rip and asked for the guide, so the value is the PAGE, not the hit",
+    "resolution the rejection was pricing. Both warnings above were honored:",
+    "swsh12 was checked against BOTH APIs on the day and they agree (TCGdex 215",
+    "total, api.pokemontcg.io 195 printed and 215 total, name Silver Tempest on",
+    "each), and the near neighbour SWSH12: Silver Tempest Trainer Gallery was",
+    "NOT picked. Reshiram V still prints twice, at 024 and 172, so the rarity in",
+    "column K is STILL the right fix for the rip log and is not done here.",
+    "Lost Origin was not added: nothing has asked for it."
   ],
   "checked": "2026-08-15",
   "sets": {
@@ -123,6 +136,7 @@
     "celebrations": "cel25",
     "chilling-reign": "swsh6",
     "shining-fates": "swsh4.5",
-    "rebel-clash": "swsh2"
+    "rebel-clash": "swsh2",
+    "silver-tempest": "swsh12"
   }
 }

@@ -208,6 +208,7 @@ export const PC_CONSOLES = {
   "scarlet-violet": "/console/pokemon-scarlet-&-violet",
   "shining-fates": "/console/pokemon-shining-fates",
   "shrouded-fable": "/console/pokemon-shrouded-fable",
+  "silver-tempest": "/console/pokemon-silver-tempest",
   "stellar-crown": "/console/pokemon-stellar-crown",
   "surging-sparks": "/console/pokemon-surging-sparks",
   "temporal-forces": "/console/pokemon-temporal-forces",

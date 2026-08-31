@@ -63,6 +63,10 @@ const SET_MAP = {
   "chilling-reign": "swsh6",
   "shining-fates": "swsh45",
   "rebel-clash": "swsh2",
+  // Added August 31, 2026 for a rip going up on the channel. Verified the
+  // same way as the five above: swsh12 came back Silver Tempest, Sword &
+  // Shield, 195 printed and 215 total.
+  "silver-tempest": "swsh12",
 };
 
 // The rarity ladder lives in shared/format.mjs, next to the alias map that

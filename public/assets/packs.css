@@ -242,6 +242,21 @@
 }
 .pack--scarlet-violet.pack--tile.pack--img .pack-art{background-image:none}
 
+.pack--silver-tempest .pack-art{
+  background-color:#161D26;
+  background-image:url('packs/silver-tempest-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/silver-tempest-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/silver-tempest-garbage-rips-585-booster-pack.webp') type('image/webp'));
+  background-size:cover;
+  background-position:center;
+}
+.pack--silver-tempest .pack-art::before,.pack--silver-tempest .pack-art::after{content:none}
+.pack--silver-tempest .pack-brand,.pack--silver-tempest .pack-mascot{display:none}
+.pack--silver-tempest.pack--tile .pack-art{
+  background-image:url('packs/silver-tempest-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/silver-tempest-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/silver-tempest-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
+}
+.pack--silver-tempest.pack--tile.pack--img .pack-art{background-image:none}
+
 .pack--surging-sparks .pack-art{
   background-color:#161D26;
   background-image:url('packs/surging-sparks-garbage-rips-585-booster-pack.webp');

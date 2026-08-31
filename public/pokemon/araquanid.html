@@ -4,11 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Araquanid Cards and Prices: Every Printing We Could Find</title>
-<meta name="description" content="Every Araquanid card we can name: 17 printings across 17 sets, plus Araquanid's evolution line, types and what beats it.">
-<meta name="robots" content="noindex,follow">
+<meta name="description" content="The priciest Araquanid card we price is the Silver Tempest one at $0.23. Every printing we can name: 17 across 17 sets, 1 with a market price.">
 <link rel="canonical" href="https://garbagerips.com/pokemon/araquanid.html">
 <meta property="og:title" content="Araquanid Cards and Prices: Every Printing We Could Find">
-<meta property="og:description" content="Every Araquanid card we can name: 17 printings across 17 sets, plus Araquanid's evolution line, types and what beats it.">
+<meta property="og:description" content="The priciest Araquanid card we price is the Silver Tempest one at $0.23. Every printing we can name: 17 across 17 sets, 1 with a market price.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://garbagerips.com/pokemon/araquanid.html">
 <meta property="og:site_name" content="Garbage Rips 585">
@@ -210,7 +209,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
   <div class="wrap">
     <span class="kicker">#752 &bull; Water and Bug &bull; Generation 7, Alola</span>
     <h1>Araquanid <span class="hl">cards</span></h1>
-    <p class="lede" style="max-width:34em">Every Araquanid card we could find. We hold no price for any of them, so this page names and pictures the printings instead.</p>
+    <p class="lede" style="max-width:34em">Every Araquanid card we could find. The priciest one we price is the Silver Tempest one at $0.23.</p>
   </div>
 </header>
 
@@ -232,12 +231,11 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       <div class="fact"><div class="n">17</div><div class="l">Printings we can name</div></div>
       <div class="fact"><div class="n">17</div><div class="l">Sets they appear in</div></div>
       
-      
-      
+      <div class="fact"><div class="n">$0.23</div><div class="l">The only one we price</div></div>
       
       <a class="fact fact-link" href="#watch"><div class="n">2</div><div class="l">Rips of the set they are in <span aria-hidden="true">&darr;</span></div></a>
       
-      
+      <a class="fact fact-link" href="#evolution"><div class="n">2</div><div class="l">In the evolution line <span aria-hidden="true">&darr;</span></div></a>
     </div>
     <p class="price-note">Artwork and Pokedex data from pokeapi.co, read August 13, 2026.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>
@@ -245,6 +243,55 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
 </section>
 
 
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Priciest first</p>
+    <h2>Every <span class="hl">Araquanid</span> we price</h2>
+    
+    <p class="lede" style="max-width:40em">1 of the 17 printings we can name is in a set we hold prices for. Tap a card to see it full size.</p>
+    <!-- THE aria-label CARRIES THE SET AND NUMBER, and it has to.
+         It was "Enlarge <name>" alone, which on a Pokemon with several
+         printings named every button on the page identically: charizard.html
+         had NINE buttons all called "Enlarge Charizard ex", each opening a
+         different card. Tabbing through them sounded like nothing was moving.
+         Worse, aria-label REPLACES the visible text rather than adding to it,
+         so the set and number the button already shows in .rr were thrown away
+         for anyone listening (WCAG 2.5.3 wants the visible label inside the
+         accessible name).
+
+         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
+         alt="". It used to repeat the same strings a third time. Read back off
+         Accessibility.getFullAXTree, the tile announced:
+           button "Enlarge Abomasnow, Paldean Fates 101"
+             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
+             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
+         Chrome does NOT mark these descendants presentational, so the image was
+         genuinely reachable and genuinely said the card name a second time, on
+         every tile, on 95% of the 1,026 species pages (measured over 147 of
+         them). The scan is the illustration of a card the tile has already
+         named twice: that is the definition of decorative, so it takes the
+         empty alt. The name stays in the visible .nm below for a sighted
+         reader and for search. The onerror handler removes the node outright, so an
+         empty alt never leaves a nameless broken image behind. -->
+    <div class="chase-grid">
+      <button class="chase-card" type="button"
+        data-img="https://assets.tcgdex.net/en/swsh/swsh12/048/high.webp"
+        data-name="Araquanid" data-rarity="Uncommon"
+        data-number="048" data-price="$0.23"
+        data-set="Silver Tempest"
+        aria-label="Enlarge Araquanid, Silver Tempest 048">
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/048/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/048/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <div class="nm">Araquanid</div>
+        <div class="rr">Silver Tempest &bull; 048</div>
+        <div class="rr">Uncommon</div>
+        <div class="pr">$0.23</div>
+      </button>
+    </div>
+    <p class="price-note">Prices are pricecharting.com's price guide value for an ungraded copy, read August 31, 2026. A guide value is computed across the sales PriceCharting tracks, which is a wider set of venues than any one marketplace. 2 cards of the 5,396 priced here are not listed by PriceCharting and keep their TCGplayer market price via TCGdex instead. Where a card
+      comes as a normal, holo and reverse holo at different prices, the figure is the priciest of them. Prices move
+      daily, so treat these as a ballpark. <a href="/cards.html?q=Araquanid">Search every card</a>.</p>
+  </div>
+</section>
 
 <section class="tight" id="evolution">
   <div class="wrap">
@@ -279,9 +326,9 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
 
 <section class="band tight">
   <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The whole list</p>
-    <h2>Every <span class="hl">Araquanid</span> printing we could name</h2>
-    <p class="lede" style="max-width:40em">All 17 of them, English and Japanese. 13 have a scan and
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Everywhere else</p>
+    <h2>Every other <span class="hl">Araquanid</span> printing we could name</h2>
+    <p class="lede" style="max-width:40em">16 more from sets we do not price, English and Japanese. 12 have a scan and
       are pictured below. The other 4 we can name but not show. No price on these: we only quote what we can source.
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
@@ -318,13 +365,6 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         <div class="nm">Araquanid</div>
         <div class="rr">Fusion Strike &bull; 20</div>
         <div class="rr">Rare</div>
-        
-      </div>
-      <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/048/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12/048/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
-        <div class="nm">Araquanid</div>
-        <div class="rr">Silver Tempest &bull; 048</div>
-        <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">

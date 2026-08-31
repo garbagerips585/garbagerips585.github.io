@@ -45,6 +45,10 @@ export const TCG_SET = {
   "chilling-reign": "SWSH06: Chilling Reign",
   "shining-fates": "Shining Fates",
   "rebel-clash": "SWSH02: Rebel Clash",
+  // NOT "SWSH12: Silver Tempest Trainer Gallery", which is a separate 30 card
+  // set sold inside the same product and is the near neighbour warned about in
+  // data/tcgdex-en.json. Read off TCGplayer's own setName aggregation.
+  "silver-tempest": "SWSH12: Silver Tempest",
 };
 
 // ---------------------------------------------------------------------------
