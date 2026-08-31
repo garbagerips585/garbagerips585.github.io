@@ -110,7 +110,20 @@ jobs:
     # concurrency group stops publishing just as completely as a wedged deploy
     # does, and just as quietly. Generous, because the job talks to the
     # YouTube and PriceCharting APIs and then rebuilds ~1,480 pages.
-    timeout-minutes: 45
+    # 45 MINUTES WAS SIZED FOR A WARM CACHE AND KILLED THE ONLY RUN THAT COULD
+    # HAVE REWARMED IT. Measured: a run with the cache restored finishes in
+    # SIX minutes (25 and 26 August). The 29th failed at its push and, because
+    # save-always had silently become a no-op in actions/cache 4.2, saved no
+    # cache. The 30th therefore started cold, spent 45 minutes inside "Card
+    # checklists and prices" against a rate-limited TCGdex, and was cancelled at
+    # this ceiling -- saving no cache either. Each failure guaranteed the next
+    # one, and prices stopped moving for five days.
+    #
+    # The explicit cache save at the foot of this job breaks the loop, but a
+    # cold recovery run still needs room to finish: the 29th had reached 36
+    # minutes and was not done. Ninety gives a cold run headroom and still stops
+    # a wedged one, and a healthy night is unaffected because it takes six.
+    timeout-minutes: 90
     # Job level, not step level: a step's own env: block is NOT in scope for
     # that step's own if:, so the skip-when-absent guards below would never
     # fire and the steps would run keyless and fail.
