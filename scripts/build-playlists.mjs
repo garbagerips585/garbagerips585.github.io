@@ -972,7 +972,7 @@ ${strip}
       }</div>
 ${WALL_H2}
 ${statLine(vids, newest)}
-      <div class="wall">
+      <div class="wall" data-riplb>
 ${(() => { const labels = labelsFor(vids); return vids.map((v) => tile(v, labels, Boolean(run.setId))).join("\n"); })()}
       </div>
 ${nearby(run)}

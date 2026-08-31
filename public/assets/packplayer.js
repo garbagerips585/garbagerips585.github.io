@@ -148,22 +148,12 @@
     var m = VID.exec(a.getAttribute("href") || "");
     if (!m) return;                       // not a rip url; leave it alone
     e.preventDefault();
-    playInTile(a, m[1]);
+    if (a.closest(".wall--lib, [data-riplb]")) playInOverlay(a, m[1]);
+    else playInTile(a, m[1]);
   }
-  function playInTile(a, id) {
-    var byKeyboard = document.activeElement === a || a.contains(document.activeElement);
-    var img = a.querySelector("img");
-    var sk = img && SKIN.exec(img.getAttribute("src") || "");
-    var facade = a.querySelector(".pack");
-    var fromClass = facade && /pack--(?!tile\b|img\b)([a-z0-9-]+)/.exec(facade.className);
-    var skin = sk ? sk[1] : fromClass ? fromClass[1] : "default";
-    var slot = a.parentNode;
-    var titleEl = a.querySelector(".hofx-t, .hero-body h3, h3");
-    var title = (a.getAttribute("aria-label") || (titleEl ? titleEl.textContent : "") || "")
-      .replace(/^Play\s+/, "")
-      .trim();
+  function buildHost(id, title, skin, cls) {
     var host = document.createElement("div");
-    host.className = "rip-stage tile-stage";
+    host.className = cls;
     host.innerHTML =
       '<div class="rip-player pack-player" data-id="' + id + '" data-title="' +
         title.replace(/"/g, "&quot;") + '">' +
@@ -178,6 +168,102 @@
           '<span class="sound-on-label">Tap for sound</span>' +
         "</button>" +
       "</div>";
+    return host;
+  }
+  var lb = null, lbOpener = null, lbPushed = false;
+  function ensureLb() {
+    if (lb) return lb;
+    lb = document.createElement("div");
+    lb.className = "rip-lb";
+    lb.hidden = true;
+    lb.setAttribute("role", "dialog");
+    lb.setAttribute("aria-modal", "true");
+    lb.innerHTML =
+      '<div class="rip-lb-bar">' +
+        '<button class="rip-lb-x" type="button" aria-label="Close the video">&times;</button>' +
+      "</div>";
+    lb.addEventListener("click", function (e) {
+      if (e.target === lb || e.target.closest(".rip-lb-x")) closeLb();
+    });
+    document.body.appendChild(lb);
+    return lb;
+  }
+  function lbFocusables() {
+    return [].slice
+      .call(lb.querySelectorAll('button, iframe, a[href], [tabindex]:not([tabindex="-1"])'))
+      .filter(function (n) { return !n.hidden && n.offsetParent !== null; });
+  }
+  function onLbKey(e) {
+    if (e.key === "Escape") { e.preventDefault(); closeLb(); return; }
+    if (e.key !== "Tab") return;
+    var f = lbFocusables();
+    if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+  function closeLb() {
+    if (!lb || lb.hidden) return;
+    closeAll();                       // disposes the player: iframe, listener, timers
+    var host = lb.querySelector(".rip-stage");
+    if (host && host.parentNode) host.parentNode.removeChild(host);
+    lb.hidden = true;
+    document.removeEventListener("keydown", onLbKey, true);
+    document.body.style.overflow = "";
+    var main = document.getElementById("main");
+    if (main) main.inert = false;
+    if (lbOpener && lbOpener.focus) lbOpener.focus();
+    lbOpener = null;
+    if (lbPushed) { lbPushed = false; history.back(); }
+  }
+  window.addEventListener("popstate", function () {
+    if (lb && !lb.hidden) { lbPushed = false; closeLb(); }
+  });
+  function playInOverlay(a, id) {
+    var byKeyboard = document.activeElement === a || a.contains(document.activeElement);
+    var img = a.querySelector("img");
+    var sk = img && SKIN.exec(img.getAttribute("src") || "");
+    var facade = a.querySelector(".pack");
+    var fromClass = facade && /pack--(?!tile\b|img\b)([a-z0-9-]+)/.exec(facade.className);
+    var skin = sk ? sk[1] : fromClass ? fromClass[1] : "default";
+    var titleEl = a.querySelector(".hofx-t, .hero-body h3, h3");
+    var title = (a.getAttribute("aria-label") || (titleEl ? titleEl.textContent : "") || "")
+      .replace(/^Play\s+/, "")
+      .trim();
+    ensureLb();
+    lbOpener = a;
+    lb.setAttribute("aria-label", title || "Rip");
+    var host = buildHost(id, title, skin, "rip-stage");
+    if (a.closest("[data-wide]")) host.querySelector(".rip-player").classList.add("rip-player--wide");
+    lb.appendChild(host);
+    lb.hidden = false;
+    document.body.style.overflow = "hidden";
+    var main = document.getElementById("main");
+    if (main) main.inert = true;
+    document.addEventListener("keydown", onLbKey, true);
+    try { history.pushState({ riplb: 1 }, ""); lbPushed = true; } catch (err) { lbPushed = false; }
+    open(host, function () {
+      if (host.__packDispose) host.__packDispose();
+      if (host.parentNode) host.parentNode.removeChild(host);
+    });
+    attach(host);
+    var pk = host.querySelector(".pack");
+    if (pk) pk.click();
+    if (byKeyboard) { var x = lb.querySelector(".rip-lb-x"); if (x) x.focus(); }
+  }
+  function playInTile(a, id) {
+    var byKeyboard = document.activeElement === a || a.contains(document.activeElement);
+    var img = a.querySelector("img");
+    var sk = img && SKIN.exec(img.getAttribute("src") || "");
+    var facade = a.querySelector(".pack");
+    var fromClass = facade && /pack--(?!tile\b|img\b)([a-z0-9-]+)/.exec(facade.className);
+    var skin = sk ? sk[1] : fromClass ? fromClass[1] : "default";
+    var slot = a.parentNode;
+    var titleEl = a.querySelector(".hofx-t, .hero-body h3, h3");
+    var title = (a.getAttribute("aria-label") || (titleEl ? titleEl.textContent : "") || "")
+      .replace(/^Play\s+/, "")
+      .trim();
+    var host = buildHost(id, title, skin, "rip-stage tile-stage");
     var artBox = a.querySelector(".hofx-art");
     if (artBox) {
       var shell = document.createElement("div");

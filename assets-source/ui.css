@@ -6662,3 +6662,75 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
    and when" on this site. It wraps rather than truncating: a confirmation a
    reader cannot read is a claim with no source on it. */
 .sv-src{font-size:var(--t-micro);color:var(--ink-2);line-height:1.35;display:block}
+
+/* ---------- rip lightbox: a collection tile plays at full size -------------
+   WHY IT EXISTS. Collection tiles play IN PLACE, and .tile-stage centres a 9:16
+   player inside a 2:3 tile. Measured, not guessed: 128x234 at a 375px viewport
+   (34% of the screen) and 276x496 at 1440 (19%). The owner: "on mobile they are
+   pretty small". Mounting the same player in a full-screen overlay makes it
+   375x667 on a phone -- 2.9x the width and 8.6x the area -- and about 474x844
+   on a 1440x900 desktop.
+
+   SIBLING OF .img-lb, DELIBERATELY NOT A FORK OF IT. Same scrim colour, same
+   z-index, same 48px round close button, so the site keeps one modal look. It
+   is its own class because .img-lb centres an <img> against a max-width, while
+   this centres a box whose size is driven by HEIGHT, and because the two must
+   handle Tab differently: .img-lb refuses Tab outright, which is honest when it
+   holds one control, and would be a keyboard trap here where the overlay holds
+   a YouTube iframe the user has to be able to reach.
+
+   dvh, NOT vh. Safari's own chrome takes 100 to 140px of an iPhone's 844, so vh
+   would put the close button under the URL bar. */
+.rip-lb{position:fixed;inset:0;z-index:200;background:rgba(9,18,13,.94);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--s2)}
+.rip-lb[hidden]{display:none}
+
+/* The close button sits in a REAL ROW above the video rather than floating over
+   its top-right corner. Two reasons, both load-bearing: on a short phone the
+   full-bleed video reaches within a few px of the top, so a floating button
+   would sit on the picture; and that corner is where YouTube paints its own
+   title and share chrome, so a control there is one a thumb hits by accident. */
+.rip-lb-bar{flex:0 0 56px;height:56px;width:100%;max-width:1100px;
+  display:flex;align-items:center;justify-content:flex-end;padding:0 var(--s3)}
+.rip-lb-x{width:48px;height:48px;border-radius:50%;border:1px solid var(--hair);
+  background:var(--card);color:var(--ink);font-size:28px;line-height:1;cursor:pointer}
+.rip-lb-x:hover,.rip-lb-x:focus-visible{border-color:var(--ink)}
+
+/* Sized off the SHORTER of two limits: the height left after the 56px bar and
+   its gap, and the width the viewport has at all. On a phone the width wins and
+   the video goes edge to edge; on a desktop the height wins. Specificity 0,2,0
+   so it beats all three bare .rip-player rules -- including the
+   max-width:min(calc(100% - 40px),320px) inside the <=560px media query, which
+   is what produces the 287px player on a rip page -- without relying on source
+   order. */
+.rip-lb .rip-player{
+  aspect-ratio:9/16;
+  height:min(calc(100dvh - 72px), calc(100vw * 16 / 9));
+  max-width:100vw;
+  width:auto;
+  margin:0;
+  /* The rip page frames its player in a 4px mustard border over a drop shadow,
+     and that frame is right where the player sits INSIDE a page. Full bleed it
+     is not: it draws a line down the edge of the screen, and box-sizing means
+     it also spends 8px of the width this overlay exists to buy. Radius goes for
+     the same reason -- a rounded corner against the screen edge reads as a
+     rendering fault. Both come back with the gutters, below. */
+  border:0;
+  box-shadow:none;
+  border-radius:0;
+}
+@media (min-width:641px){
+  .rip-lb .rip-player{
+    border:4px solid var(--mustard);
+    box-shadow:0 8px 0 var(--gold-deep),0 16px 30px rgba(17,17,17,.3);
+    border-radius:12px;
+  }
+}
+
+/* The twelve long-form rips are 16:9 and want the opposite constraint. */
+.rip-lb .rip-player--wide{
+  aspect-ratio:16/9!important;
+  width:min(100vw, calc((100dvh - 72px) * 16 / 9));
+  height:auto;
+  max-width:100vw;
+}

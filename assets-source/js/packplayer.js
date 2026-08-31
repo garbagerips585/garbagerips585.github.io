@@ -342,7 +342,147 @@
     var m = VID.exec(a.getAttribute("href") || "");
     if (!m) return;                       // not a rip url; leave it alone
     e.preventDefault();
-    playInTile(a, m[1]);
+    /* OPT IN, PAGE BY PAGE, rather than sweeping every grid on the site into
+       the overlay. The home page plays in place at the owner's explicit
+       request, and the rip-page rails are thousands of tiles on pages that
+       already carry a full-size player above them; neither wants this. The
+       collection grids do: .wall--lib is /videos.html's own grid, and playlist
+       pages carry data-riplb. */
+    if (a.closest(".wall--lib, [data-riplb]")) playInOverlay(a, m[1]);
+    else playInTile(a, m[1]);
+  }
+
+  /* ONE COPY OF THE PLAYER MARKUP, spent by the tile path and the overlay path.
+     It was inline in playInTile and the overlay needed the identical nodes:
+     attach() finds .pack, .sound-on and .pack-player by selector, so two
+     hand-kept copies would be two chances for one of them to drift out of
+     attach()'s reach silently. */
+  function buildHost(id, title, skin, cls) {
+    var host = document.createElement("div");
+    host.className = cls;
+    host.innerHTML =
+      '<div class="rip-player pack-player" data-id="' + id + '" data-title="' +
+        title.replace(/"/g, "&quot;") + '">' +
+        '<button class="pack pack--' + skin + '" type="button" aria-label="Rip open">' +
+          '<span class="pack-face pack-l" aria-hidden="true"><span class="pack-art"></span></span>' +
+          '<span class="pack-face pack-r" aria-hidden="true"><span class="pack-art"></span></span>' +
+          '<span class="pack-flash" aria-hidden="true"></span>' +
+        "</button>" +
+        '<button class="sound-on" type="button" hidden>' +
+          '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/>' +
+          '<path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>' +
+          '<span class="sound-on-label">Tap for sound</span>' +
+        "</button>" +
+      "</div>";
+    return host;
+  }
+
+  var lb = null, lbOpener = null, lbPushed = false;
+
+  /* ONE NODE PER PAGE, FILLED ON CLICK -- the same argument shared/lightbox.mjs
+     makes, and stronger here: /videos.html carries 96 tiles and at most one of
+     them is ever open. */
+  function ensureLb() {
+    if (lb) return lb;
+    lb = document.createElement("div");
+    lb.className = "rip-lb";
+    lb.hidden = true;
+    lb.setAttribute("role", "dialog");
+    lb.setAttribute("aria-modal", "true");
+    lb.innerHTML =
+      '<div class="rip-lb-bar">' +
+        '<button class="rip-lb-x" type="button" aria-label="Close the video">&times;</button>' +
+      "</div>";
+    lb.addEventListener("click", function (e) {
+      // The scrim closes, the video does not. Anything inside .rip-player is
+      // the player itself and its own controls.
+      if (e.target === lb || e.target.closest(".rip-lb-x")) closeLb();
+    });
+    document.body.appendChild(lb);
+    return lb;
+  }
+
+  /* A REAL CYCLING TRAP, NOT .img-lb's "refuse Tab". That refusal is honest
+     where the overlay holds exactly one control; here it holds a close button
+     AND a YouTube iframe, and refusing Tab would make the player's own controls
+     unreachable by keyboard -- a WCAG 2.1.2 keyboard trap in the name of a
+     focus trap. */
+  function lbFocusables() {
+    return [].slice
+      .call(lb.querySelectorAll('button, iframe, a[href], [tabindex]:not([tabindex="-1"])'))
+      .filter(function (n) { return !n.hidden && n.offsetParent !== null; });
+  }
+
+  function onLbKey(e) {
+    if (e.key === "Escape") { e.preventDefault(); closeLb(); return; }
+    if (e.key !== "Tab") return;
+    var f = lbFocusables();
+    if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+
+  function closeLb() {
+    if (!lb || lb.hidden) return;
+    closeAll();                       // disposes the player: iframe, listener, timers
+    var host = lb.querySelector(".rip-stage");
+    if (host && host.parentNode) host.parentNode.removeChild(host);
+    lb.hidden = true;
+    document.removeEventListener("keydown", onLbKey, true);
+    document.body.style.overflow = "";
+    var main = document.getElementById("main");
+    if (main) main.inert = false;
+    if (lbOpener && lbOpener.focus) lbOpener.focus();
+    lbOpener = null;
+    // Back is how a phone dismisses a full-screen thing. We pushed a state with
+    // NO url change, so going back costs nothing and never publishes a second
+    // address for a page that already has a canonical one.
+    if (lbPushed) { lbPushed = false; history.back(); }
+  }
+
+  window.addEventListener("popstate", function () {
+    if (lb && !lb.hidden) { lbPushed = false; closeLb(); }
+  });
+
+  function playInOverlay(a, id) {
+    var byKeyboard = document.activeElement === a || a.contains(document.activeElement);
+    var img = a.querySelector("img");
+    var sk = img && SKIN.exec(img.getAttribute("src") || "");
+    var facade = a.querySelector(".pack");
+    var fromClass = facade && /pack--(?!tile\b|img\b)([a-z0-9-]+)/.exec(facade.className);
+    var skin = sk ? sk[1] : fromClass ? fromClass[1] : "default";
+    var titleEl = a.querySelector(".hofx-t, .hero-body h3, h3");
+    var title = (a.getAttribute("aria-label") || (titleEl ? titleEl.textContent : "") || "")
+      .replace(/^Play\s+/, "")
+      .trim();
+
+    ensureLb();
+    lbOpener = a;
+    lb.setAttribute("aria-label", title || "Rip");
+    var host = buildHost(id, title, skin, "rip-stage");
+    // 16:9 for the dozen long-form rips, the same class the rip page uses.
+    if (a.closest("[data-wide]")) host.querySelector(".rip-player").classList.add("rip-player--wide");
+    lb.appendChild(host);
+    lb.hidden = false;
+    document.body.style.overflow = "hidden";
+    var main = document.getElementById("main");
+    if (main) main.inert = true;
+    document.addEventListener("keydown", onLbKey, true);
+    try { history.pushState({ riplb: 1 }, ""); lbPushed = true; } catch (err) { lbPushed = false; }
+
+    open(host, function () {
+      if (host.__packDispose) host.__packDispose();
+      if (host.parentNode) host.parentNode.removeChild(host);
+    });
+    attach(host);
+    /* MOUNT INSIDE THE GESTURE. Everything above is synchronous on purpose:
+       the iframe has to be created while the user's click is still live or the
+       mute-then-unmute handshake loses its exemption and the rip comes up
+       silent under YouTube's own button. Nothing may be awaited before this. */
+    var pk = host.querySelector(".pack");
+    if (pk) pk.click();
+    if (byKeyboard) { var x = lb.querySelector(".rip-lb-x"); if (x) x.focus(); }
   }
 
   function playInTile(a, id) {
@@ -371,22 +511,7 @@
       .replace(/^Play\s+/, "")
       .trim();
 
-    var host = document.createElement("div");
-    host.className = "rip-stage tile-stage";
-    host.innerHTML =
-      '<div class="rip-player pack-player" data-id="' + id + '" data-title="' +
-        title.replace(/"/g, "&quot;") + '">' +
-        '<button class="pack pack--' + skin + '" type="button" aria-label="Rip open">' +
-          '<span class="pack-face pack-l" aria-hidden="true"><span class="pack-art"></span></span>' +
-          '<span class="pack-face pack-r" aria-hidden="true"><span class="pack-art"></span></span>' +
-          '<span class="pack-flash" aria-hidden="true"></span>' +
-        "</button>" +
-        '<button class="sound-on" type="button" hidden>' +
-          '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/>' +
-          '<path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>' +
-          '<span class="sound-on-label">Tap for sound</span>' +
-        "</button>" +
-      "</div>";
+    var host = buildHost(id, title, skin, "rip-stage tile-stage");
 
     // REPLACE ONLY THE ARTWORK WHERE THE ANCHOR IS MORE THAN ARTWORK.
     //
