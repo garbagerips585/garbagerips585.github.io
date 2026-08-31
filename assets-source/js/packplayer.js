@@ -160,10 +160,18 @@
     // 1 playing, 3 buffering. Buffering mid-unmute is normal, not a refusal.
     if(phase==='waiting'&&st===1){ clearTimeout(startWatch); askForSound(); return; }
     if(phase==='unmuting'&&st!==1&&st!==3){ retreat('sound'); return; }
-    if(phase==='done'&&st!==1&&st!==3&&muted===false){ retreat('sound'); }
+    // 0 is ENDED and 2 is PAUSED. Once sound has been granted and the video has
+    // played, both are the player doing exactly what it was asked, NOT a refusal
+    // -- and retreat() answers a refusal by re-muting and calling playVideo. So
+    // reaching it here restarted every finished rip from the top with the sound
+    // off under a "Tap for sound" button, and made pausing impossible. Measured
+    // on a 19s rip: ENDED at 19307ms, muted again at 19327ms, playing again at
+    // 19330ms. Excluded HERE ONLY: during 'unmuting' a pause really is WebKit
+    // refusing, which is what retreat() exists for, so that branch is untouched.
+    if(phase==='done'&&st!==1&&st!==3&&st!==0&&st!==2&&muted===false){ retreat('sound'); }
   }
 
-  window.addEventListener('message',function(e){
+  function onMsg(e){
     // Exact origin, and the message must come from OUR iframe. An indexOf on
     // "youtube" matches any host containing it and lets any frame drive this.
     if(e.origin!==EMBED&&e.origin!=='https://www.youtube.com') return;
@@ -201,7 +209,25 @@
     else if(info&&typeof info.playerState==='number') st=info.playerState;
     if(info&&typeof info.muted==='boolean') muted=info.muted;
     if(st!==null) onState(st);
-  });
+  }
+  window.addEventListener('message', onMsg);
+
+  /* TEARDOWN, AND IT NEVER EXISTED. attach() adds a window-level message
+     listener and arms three timers, and nothing undid any of them. Measured on
+     /videos.html: six tiles opened, SIX listeners left behind, each closure
+     pinning a dead iframe. An open aborted before the first message also left
+     feedTimer posting every 200ms for the life of the page, silently, because
+     post() returns early once contentWindow is gone.
+     GRPack.open() already tears the previous player down before arming the
+     next; the teardown it calls now calls this too, so the listener and the
+     timers go with the iframe. */
+  root.__packDispose = function(){
+    if(feedTimer){ clearInterval(feedTimer); feedTimer=null; }
+    clearTimeout(startWatch); clearTimeout(unmuteWatch);
+    window.removeEventListener('message', onMsg);
+    if(player && player.parentNode) player.parentNode.removeChild(player);
+    player=null; mounted=false; phase='dead';
+  };
 
   root.addEventListener('click',function(e){
     if(!e.target.closest||!e.target.closest('.sound-on')) return;
@@ -383,6 +409,10 @@
       while (a.firstChild) shell.appendChild(a.firstChild);
       shell.replaceChild(host, shell.querySelector(".hofx-art"));
       open(host, function () {
+        // Kill the listener, the timers and the iframe BEFORE the DOM swap:
+        // once host is detached the dispose still works, but doing it first
+        // means the iframe never lingers on a node nobody can see.
+        if (host.__packDispose) host.__packDispose();
         if (!shell.parentNode) return;
         if (host.parentNode === shell) shell.replaceChild(artBox, host);
         while (shell.firstChild) a.appendChild(shell.firstChild);
@@ -399,6 +429,7 @@
     // Whatever is already playing goes back to being a tile first. One embed is
     // ~540KB; a page that accumulated them would get heavier with every click.
     open(host, function () {
+      if (host.__packDispose) host.__packDispose();
       if (host.parentNode) host.parentNode.replaceChild(a, host);
     });
     slot.replaceChild(host, a);

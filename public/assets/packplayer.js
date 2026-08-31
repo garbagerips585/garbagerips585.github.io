@@ -74,9 +74,9 @@
   function onState(st){
     if(phase==='waiting'&&st===1){ clearTimeout(startWatch); askForSound(); return; }
     if(phase==='unmuting'&&st!==1&&st!==3){ retreat('sound'); return; }
-    if(phase==='done'&&st!==1&&st!==3&&muted===false){ retreat('sound'); }
+    if(phase==='done'&&st!==1&&st!==3&&st!==0&&st!==2&&muted===false){ retreat('sound'); }
   }
-  window.addEventListener('message',function(e){
+  function onMsg(e){
     if(e.origin!==EMBED&&e.origin!=='https://www.youtube.com') return;
     if(!player||e.source!==player.contentWindow) return;
     var d=e.data;
@@ -90,7 +90,15 @@
     else if(info&&typeof info.playerState==='number') st=info.playerState;
     if(info&&typeof info.muted==='boolean') muted=info.muted;
     if(st!==null) onState(st);
-  });
+  }
+  window.addEventListener('message', onMsg);
+  root.__packDispose = function(){
+    if(feedTimer){ clearInterval(feedTimer); feedTimer=null; }
+    clearTimeout(startWatch); clearTimeout(unmuteWatch);
+    window.removeEventListener('message', onMsg);
+    if(player && player.parentNode) player.parentNode.removeChild(player);
+    player=null; mounted=false; phase='dead';
+  };
   root.addEventListener('click',function(e){
     if(!e.target.closest||!e.target.closest('.sound-on')) return;
     showBtn(false);
@@ -177,6 +185,7 @@
       while (a.firstChild) shell.appendChild(a.firstChild);
       shell.replaceChild(host, shell.querySelector(".hofx-art"));
       open(host, function () {
+        if (host.__packDispose) host.__packDispose();
         if (!shell.parentNode) return;
         if (host.parentNode === shell) shell.replaceChild(artBox, host);
         while (shell.firstChild) a.appendChild(shell.firstChild);
@@ -190,6 +199,7 @@
       return;
     }
     open(host, function () {
+      if (host.__packDispose) host.__packDispose();
       if (host.parentNode) host.parentNode.replaceChild(a, host);
     });
     slot.replaceChild(host, a);
