@@ -77,6 +77,21 @@
 }
 .pack--destined-rivals.pack--tile.pack--img .pack-art{background-image:none}
 
+.pack--ja-ninja-spinner .pack-art{
+  background-color:#161D26;
+  background-image:url('packs/ja-ninja-spinner-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/ja-ninja-spinner-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/ja-ninja-spinner-garbage-rips-585-booster-pack.webp') type('image/webp'));
+  background-size:cover;
+  background-position:center;
+}
+.pack--ja-ninja-spinner .pack-art::before,.pack--ja-ninja-spinner .pack-art::after{content:none}
+.pack--ja-ninja-spinner .pack-brand,.pack--ja-ninja-spinner .pack-mascot{display:none}
+.pack--ja-ninja-spinner.pack--tile .pack-art{
+  background-image:url('packs/ja-ninja-spinner-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/ja-ninja-spinner-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/ja-ninja-spinner-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
+}
+.pack--ja-ninja-spinner.pack--tile.pack--img .pack-art{background-image:none}
+
 .pack--journey-together .pack-art{
   background-color:#161D26;
   background-image:url('packs/journey-together-garbage-rips-585-booster-pack.webp');

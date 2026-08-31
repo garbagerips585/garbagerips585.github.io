@@ -787,6 +787,7 @@ const ld = [
             "@type": "Organization",
             name: s.organiser,
             ...(s.organiserUrl ? { url: s.organiserUrl } : {}),
+            ...(s.phone ? { telephone: s.phone } : {}),
           },
         }
       : {}),
@@ -937,6 +938,13 @@ ${MENU}
 // down this file, and never an HTML comment inside a string that repeats.
 function showCard(s) {
   const flyer = flyerSrc(s);
+  /* THE LABEL IS THE ORGANIZER'S OWN FORMATTING AND THE HREF IS DIGITS, because
+     a reader recognises the number as the one printed on the flyer while the
+     dialler only accepts E.164. Both come off ONE field so they cannot drift.
+     `who` is NOT in scope here -- logoFor() has one and this function does not,
+     which is how the first version of this threw on every card with a phone. */
+  const telHref = s.phone ? `tel:+1${String(s.phone).replace(/\D/g, "")}` : null;
+  const telWho = s.organiser || s.name;
   const soon = daysAway(s.date);
   const d = new Date(s.date + "T12:00:00");
   return `      <article class="show${s.featured ? " is-featured" : ""}" data-region="${esc((regionsFor(s.city).length ? regionsFor(s.city) : [s.region]).join(" "))}" data-date="${esc(s.date)}"${s.pokemon ? ' data-pokemon="1"' : ""}${s.admission === "Free" ? ' data-free="1"' : ""}>
@@ -1036,10 +1044,11 @@ function showCard(s) {
              <p class="show-links"> is display:flex with a 10px top margin, so it
              would have left a gap between the chips and the flyer that nothing on
              the page could explain. */ ""}
-          ${s.ticketUrl || s.url || (s.organiserUrl && s.organiserUrl !== s.url) ? `<p class="show-links">
+          ${s.ticketUrl || s.url || s.phone || (s.organiserUrl && s.organiserUrl !== s.url) ? `<p class="show-links">
             ${s.ticketUrl ? `<a class="tickets" href="${esc(s.ticketUrl)}" rel="noopener" target="_blank" aria-label="Get tickets for ${esc(showRef(s))}, opens on ${esc(hostOf(s.ticketUrl))}">Get tickets <span aria-hidden="true">&rarr;</span></a>` : ""}
             ${s.url ? `<a href="${esc(s.url)}" rel="noopener" target="_blank" aria-label="${s.organiserUrl && s.url === s.organiserUrl ? "Official site" : "Listing and details"} for ${esc(showRef(s))}, opens on ${esc(hostOf(s.url))}">${s.organiserUrl && s.url === s.organiserUrl ? "Official site" : "Listing &amp; details"}</a>` : ""}
             ${s.organiserUrl && s.organiserUrl !== s.url ? `<a href="${esc(s.organiserUrl)}" rel="noopener" target="_blank" aria-label="${esc(s.organiser && s.organiser !== s.name ? `${s.organiser}, who run ${showRef(s)}` : `The organizer of ${showRef(s)}`)}, opens on ${esc(hostOf(s.organiserUrl))}">${esc(s.organiser || "Organizer")}</a>` : ""}
+            ${s.phone ? `<a href="${esc(telHref)}" aria-label="Call or text ${esc(telWho)} about ${esc(showRef(s))} on ${esc(s.phone)}">Call or text ${esc(s.phone)}</a>` : ""}
           </p>` : ""}
         </div>
         ${flyer ? `<button type="button" class="show-flyer" data-imglb="${esc(flyer.full)}" data-imglb-avif="${esc(flyer.fullAvif)}" data-imglb-alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}">

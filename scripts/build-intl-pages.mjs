@@ -123,6 +123,19 @@ const logosOnDisk = new Set(
     .filter(Boolean)
 );
 
+/* WHICH OF THESE SETS HAVE THEIR OWN PACK ART, read off the directory for the
+   same reason as logosOnDisk above. build-pages.mjs picks a rip page's wrapper
+   with exactly this test; this file used to hardcode `default` instead, and the
+   comment below the markup explained why: nobody had drawn a wrapper for a
+   Japanese or Korean set, so the only honest picture was the generic one.
+   That stopped being true on 31 August 2026 when Ninja Spinner got one. The
+   test, not a list, is what keeps the two builders agreeing as more are drawn. */
+const packsOnDisk = new Set(
+  (await readdir(join(ROOT, "public/assets/packs")).catch(() => []))
+    .map((f) => /^(.+)-garbage-rips-585-booster-pack-tile\.webp$/.exec(f)?.[1])
+    .filter(Boolean)
+);
+
 /* WHICH OF THESE GUIDES HAVE THEIR OWN SHARE CARD, read off the directory
    exactly as logosOnDisk is, and for the same reason: a typed list goes stale
    the next time a file lands.
@@ -158,6 +171,39 @@ const ogImage = (g) =>
  * exactly as setCardLogo does in build-set-pages.mjs. Never emitted for a set
  * with no file: onerror hides a 404 in the browser and still pays for it.
  */
+/* THE SET'S OWN LOGO, for the hero. enLogo() below is a different picture for a
+   different job: it shows the ENGLISH twin's logo to say what this set is called
+   in English. This one is the Japanese or Korean set's own.
+
+   NO INTL SET HAD A LOGO UNTIL 31 AUGUST 2026, which is why this did not exist
+   and the hero was text only. Ninja Spinner has one now. Every other intl guide
+   still has none and still renders exactly as before, because this returns "".
+
+   THE RENDITIONS ARE READ OFF THE DIRECTORY, not assumed. build-logos.py skips a
+   step whose master was already shorter than it -- Ninja Spinner's master is
+   112px tall, so there is no -md at all -- and naming a file that was never
+   written is a 404 above the fold. Same check and same reason as heroLogo() in
+   build-set-pages.mjs; the two are siblings and should be edited together. */
+const logoFiles = new Set(await readdir(join(ROOT, "public/assets/logos")).catch(() => []));
+const ownLogo = (setId, alt) => {
+  const d = LOGO_DIMS[`${setId}-pokemon-tcg-set-logo.webp`];
+  if (!logosOnDisk.has(setId) || !d) return "";
+  const base = `/assets/logos/${setId}-pokemon-tcg-set-logo`;
+  const [mw, mh] = d;
+  const aspect = mw / mh;
+  const cands = [[100, "-sm"], [150, "-md"], [mh, ""]]
+    .filter(([, sfx]) => sfx === "" || logoFiles.has(`${setId}-pokemon-tcg-set-logo${sfx}.webp`))
+    .map(([h, sfx]) => ({ w: Math.max(1, Math.round((mw * h) / mh)), sfx }))
+    .filter((c, i, a) => a.findIndex((x) => x.w === c.w) === i);
+  const px = (n) => Math.round(n * 10) / 10;
+  const sizes =
+    `(max-width:329px) ${px(56 * aspect)}px, ` +
+    `(max-width:647px) ${px(17 * aspect)}vw, ${px(110 * aspect)}px`;
+  return `<img class="logo-big" width="${mw}" height="${mh}" src="${base}.webp"` +
+    ` srcset="${cands.map((c) => `${base}${c.sfx}.webp ${c.w}w`).join(", ")}" sizes="${sizes}"` +
+    ` alt="${esc(alt)}" onerror="this.remove()">`;
+};
+
 const LOGO_BOX_W = 150;
 const LOGO_BOX_H = 56;
 const enLogo = (setId, alt) => {
@@ -1517,6 +1563,7 @@ function checklistBand(g, cls) {
 }
 
 function ripsBand(g, rips, label, cls) {
+  const packArt = packsOnDisk.has(g.id) ? g.id : "default";
   return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
@@ -1530,10 +1577,12 @@ function ripsBand(g, rips, label, cls) {
             ui.css and would tear this element out of its row. The url is
             absolute because packs.css's own is relative to /assets/. Same change
             and same reasoning as packTile() in build-set-pages.mjs.
-            The wrapper stays the GENERIC one. This is a page about a Japanese or
-            Korean set and the site has drawn no wrapper for one; putting the
-            English twin's skin here would be a picture of the wrong pack. */ ""}
-      <div class="packshot pack pack--default"><span class="pack-face pack-l"><span class="pack-art" style="background-image:url('/assets/packs/default-garbage-rips-585-booster-pack-tile.webp')"></span></span></div>
+            THE WRAPPER IS THIS SET'S OWN WHERE ONE HAS BEEN DRAWN, and the
+            generic one otherwise. It used to be generic unconditionally, because
+            no Japanese or Korean pack existed and the English twin's skin would
+            have been a picture of the wrong pack. That reasoning still holds for
+            every set with no art; it just no longer holds for all of them. */ ""}
+      <div class="packshot pack pack--${packArt}"><span class="pack-face pack-l"><span class="pack-art" style="background-image:url('/assets/packs/${packArt}-garbage-rips-585-booster-pack-tile.webp')"></span></span></div>
       <div>
         <p class="lede">Imported packs, opened on camera in Rochester, NY. No idea what any of the text says, which is half
           the fun. Every ${esc(g.english)} rip on the channel is one tap away.</p>
@@ -1782,6 +1831,7 @@ function guidePage(g) {
 <header class="set-hero">
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; ${g.langFlag ? `${g.langFlag} ` : ""}${esc(g.langName)} set</span>
+    ${ownLogo(g.id, `${g.english} logo`)}
     <h1>${esc(g.english)}</h1>
     ${g.native ? `<p class="intl-hero-native cjk" lang="${esc(g.lang)}">${esc(g.native)}</p>` : ""}
     <p class="lede" style="max-width:34em">${
