@@ -1,13 +1,46 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 274616,
+    "views": 274745,
     "subscribers": 349,
-    "videos": 328,
-    "readAt": "2026-08-30"
+    "videos": 329,
+    "readAt": "2026-08-31"
   },
-  "syncedAt": "2026-08-30",
+  "syncedAt": "2026-08-31",
   "videos": [
+    {
+      "id": "nTnwXiQzsW0",
+      "title": "Pitch Black vs. Garbage Rips 🗑️🤘",
+      "path": "rip/pitch-black-vs-garbage-rips-nTnwXiQzsW0.html",
+      "published": "2026-08-31",
+      "publishedAt": "2026-08-31T11:17:17Z",
+      "duration": 18,
+      "views": 107,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "pitch-black"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "pitch-black",
+          "name": "pitch black",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 12,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Pitch Black Pack - Pack 12"
+    },
     {
       "id": "zrI6oaxBct8",
       "title": "Ascended Heroes is TOUGH 💀🤘",
@@ -15,7 +48,7 @@
       "published": "2026-08-30",
       "publishedAt": "2026-08-30T11:58:31Z",
       "duration": 21,
-      "views": 109,
+      "views": 966,
       "vertical": true,
       "short": true,
       "sets": [
@@ -48,7 +81,7 @@
       "published": "2026-08-29",
       "publishedAt": "2026-08-29T12:09:23Z",
       "duration": 22,
-      "views": 973,
+      "views": 984,
       "vertical": true,
       "short": true,
       "sets": [
@@ -84,7 +117,7 @@
       "published": "2026-08-28",
       "publishedAt": "2026-08-28T11:48:15Z",
       "duration": 20,
-      "views": 964,
+      "views": 978,
       "vertical": true,
       "short": true,
       "sets": [
@@ -120,7 +153,7 @@
       "published": "2026-08-27",
       "publishedAt": "2026-08-27T12:09:30Z",
       "duration": 21,
-      "views": 1170,
+      "views": 1227,
       "vertical": true,
       "short": true,
       "sets": [
@@ -153,7 +186,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1138,
+      "views": 1148,
       "vertical": true,
       "short": true,
       "sets": [
@@ -325,7 +358,7 @@
       "published": "2026-08-21",
       "publishedAt": "2026-08-21T12:14:12Z",
       "duration": 21,
-      "views": 894,
+      "views": 895,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1016,7 +1049,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 917,
+      "views": 920,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1227,7 +1260,7 @@
       "published": "2026-07-26",
       "publishedAt": "2026-07-26T15:52:05Z",
       "duration": 22,
-      "views": 38,
+      "views": 39,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1751,7 +1784,7 @@
       "published": "2026-07-17",
       "publishedAt": "2026-07-17T23:45:08Z",
       "duration": 23,
-      "views": 633,
+      "views": 634,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2282,7 +2315,7 @@
       "published": "2026-07-09",
       "publishedAt": "2026-07-09T11:49:30Z",
       "duration": 22,
-      "views": 755,
+      "views": 756,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3040,7 +3073,7 @@
       "published": "2026-06-29",
       "publishedAt": "2026-06-29T23:06:17Z",
       "duration": 25,
-      "views": 42,
+      "views": 43,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3424,7 +3457,7 @@
       "published": "2026-06-23",
       "publishedAt": "2026-06-23T10:13:30Z",
       "duration": 18,
-      "views": 33,
+      "views": 35,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3563,7 +3596,7 @@
       "published": "2026-06-21",
       "publishedAt": "2026-06-21T11:20:39Z",
       "duration": 21,
-      "views": 1485,
+      "views": 1486,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9488,7 +9521,7 @@
       "published": "2026-03-29",
       "publishedAt": "2026-03-29T11:04:00Z",
       "duration": 73,
-      "views": 1267,
+      "views": 1268,
       "vertical": true,
       "short": false,
       "sets": [
@@ -10141,7 +10174,7 @@
       "published": "2026-03-10",
       "publishedAt": "2026-03-10T11:20:03Z",
       "duration": 75,
-      "views": 885,
+      "views": 886,
       "vertical": true,
       "short": false,
       "sets": [
@@ -10545,7 +10578,7 @@
       "published": "2026-02-27",
       "publishedAt": "2026-02-27T11:04:00Z",
       "duration": 46,
-      "views": 1197,
+      "views": 1198,
       "vertical": true,
       "short": true,
       "sets": [
