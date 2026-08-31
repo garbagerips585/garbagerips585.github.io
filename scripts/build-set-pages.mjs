@@ -322,15 +322,22 @@ const setCardLogo = (setId, alt, { eager = false } = {}) => {
   // Only emitted when build-logos.py wrote one; a logo whose master is already
   // under 150px tall has no -md file and keeps the two-candidate ladder.
   const hasMd = logoFiles.has(`${setId}-pokemon-tcg-set-logo-md.webp`);
+  /* -sm IS GUARDED THE SAME WAY -md IS, and it was not. build-logos.py skips any
+     rung whose master is ALREADY shorter than it, so a short logo can have
+     neither: Abyss Eye's master is 269x91 and got no -md and no -sm. Naming a
+     file that was never written puts a 404 in the card. Same fault, same fix, as
+     setLogoImg() in build-pages.mjs -- the two are siblings and both now read
+     every rung off the directory rather than assuming the ladder. */
+  const hasSm = logoFiles.has(`${setId}-pokemon-tcg-set-logo-sm.webp`);
   const cand = d
     ? [
-        `${base}-sm.webp ${Math.round((d[0] * SM_H) / d[1])}w`,
+        ...(hasSm ? [`${base}-sm.webp ${Math.round((d[0] * SM_H) / d[1])}w`] : []),
         ...(hasMd ? [`${base}-md.webp ${Math.round((d[0] * MD_H) / d[1])}w`] : []),
         `${base}.webp ${d[0]}w`,
       ]
     : [];
   const srcset = d ? ` srcset="${cand.join(", ")}" sizes="${boxW}px"` : "";
-  return `<img${logoAttrs(setId)} src="${base}${d ? "-sm" : ""}.webp"${srcset} alt="${alt}"${eager ? "" : ` loading="lazy"`} onerror="this.remove()">`;
+  return `<img${logoAttrs(setId)} src="${base}${d && hasSm ? "-sm" : ""}.webp"${srcset} alt="${alt}"${eager ? "" : ` loading="lazy"`} onerror="this.remove()">`;
 };
 
 /**
@@ -3767,6 +3774,11 @@ ${Object.keys(intlGuides).length ? `
         .map(([id, g]) => {
           const en = sets.find((x) => x.id === g.equivalent);
           return `<a class="set-card" href="/sets/${id}.html">
+        ${/* THE SAME CALL THE ENGLISH CARDS MAKE, so the two grids cannot drift
+              apart. It returns "" for a set with no art, which is still ten of
+              the thirteen imported sets, and those cards render exactly as they
+              did. Alt is empty on purpose: the .ttl beside it already names the
+              set, and a logo that repeats the name is decorative. */ ""}${setCardLogo(id, "")}
         <span>
           <span class="ttl">${esc(g.english)}${g.langFlag ? ` ${g.langFlag}` : ""}</span><br>
           <span class="meta">${[
