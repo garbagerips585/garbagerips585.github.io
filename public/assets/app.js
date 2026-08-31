@@ -57,6 +57,7 @@
     var art = el("a", "art");
     art.href = href;
     art.setAttribute("aria-label", v.siteTitle || v.title);  // full title stays the accessible name
+    if (v.vertical === false) art.setAttribute("data-wide", "");
     var sets = v.sets || [];
     var lead = opts.preferSet && sets.indexOf(opts.preferSet) > -1 ? opts.preferSet : sets[0];
     var set = lead;

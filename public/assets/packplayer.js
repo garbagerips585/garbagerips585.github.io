@@ -156,7 +156,7 @@
     host.className = cls;
     host.innerHTML =
       '<div class="rip-player pack-player" data-id="' + id + '" data-title="' +
-        title.replace(/"/g, "&quot;") + '">' +
+        title.replace(/&/g, "&amp;").replace(/"/g, "&quot;") + '">' +
         '<button class="pack pack--' + skin + '" type="button" aria-label="Rip open">' +
           '<span class="pack-face pack-l" aria-hidden="true"><span class="pack-art"></span></span>' +
           '<span class="pack-face pack-r" aria-hidden="true"><span class="pack-art"></span></span>' +
@@ -170,7 +170,20 @@
       "</div>";
     return host;
   }
-  var lb = null, lbOpener = null, lbPushed = false;
+  var lb = null, lbOpener = null, lbPushed = false, lbInerted = [];
+  function inertPage(on) {
+    if (on) {
+      lbInerted = [];
+      [].forEach.call(document.body.children, function (n) {
+        if (n === lb || n.inert) return;
+        n.inert = true;
+        lbInerted.push(n);
+      });
+    } else {
+      lbInerted.forEach(function (n) { n.inert = false; });
+      lbInerted = [];
+    }
+  }
   function ensureLb() {
     if (lb) return lb;
     lb = document.createElement("div");
@@ -180,6 +193,10 @@
     lb.setAttribute("aria-modal", "true");
     lb.innerHTML =
       '<div class="rip-lb-bar">' +
+        '<a class="rip-lb-like" href="https://www.youtube.com/" target="_blank" rel="noopener">' +
+          '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 22V10l4.2-7 1.4 1a2 2 0 0 1 .7 2.2L12.4 9h5.2a2 2 0 0 1 2 2.4l-1.5 8.1a2 2 0 0 1-2 1.5H7zM2 22h3V10H2z"/></svg>' +
+          "<span>Like on YouTube</span>" +
+        "</a>" +
         '<button class="rip-lb-x" type="button" aria-label="Close the video">&times;</button>' +
       "</div>";
     lb.addEventListener("click", function (e) {
@@ -205,13 +222,14 @@
   function closeLb() {
     if (!lb || lb.hidden) return;
     closeAll();                       // disposes the player: iframe, listener, timers
-    var host = lb.querySelector(".rip-stage");
-    if (host && host.parentNode) host.parentNode.removeChild(host);
+    [].forEach.call(lb.querySelectorAll(".rip-stage"), function (h) {
+      if (h.__packDispose) h.__packDispose();
+      if (h.parentNode) h.parentNode.removeChild(h);
+    });
     lb.hidden = true;
     document.removeEventListener("keydown", onLbKey, true);
     document.body.style.overflow = "";
-    var main = document.getElementById("main");
-    if (main) main.inert = false;
+    inertPage(false);
     if (lbOpener && lbOpener.focus) lbOpener.focus();
     lbOpener = null;
     if (lbPushed) { lbPushed = false; history.back(); }
@@ -233,13 +251,20 @@
     ensureLb();
     lbOpener = a;
     lb.setAttribute("aria-label", title || "Rip");
+    var like = lb.querySelector(".rip-lb-like");
+    if (like) {
+      like.href = "https://www.youtube.com/watch?v=" + id;
+      like.setAttribute(
+        "aria-label",
+        "Like " + (title || "this rip") + " on YouTube. Opens YouTube in a new tab."
+      );
+    }
     var host = buildHost(id, title, skin, "rip-stage");
     if (a.closest("[data-wide]")) host.querySelector(".rip-player").classList.add("rip-player--wide");
     lb.appendChild(host);
     lb.hidden = false;
     document.body.style.overflow = "hidden";
-    var main = document.getElementById("main");
-    if (main) main.inert = true;
+    inertPage(true);
     document.addEventListener("keydown", onLbKey, true);
     try { history.pushState({ riplb: 1 }, ""); lbPushed = true; } catch (err) { lbPushed = false; }
     open(host, function () {
@@ -249,7 +274,8 @@
     attach(host);
     var pk = host.querySelector(".pack");
     if (pk) pk.click();
-    if (byKeyboard) { var x = lb.querySelector(".rip-lb-x"); if (x) x.focus(); }
+    var x = lb.querySelector(".rip-lb-x");
+    if (x) x.focus();
   }
   function playInTile(a, id) {
     var byKeyboard = document.activeElement === a || a.contains(document.activeElement);

@@ -1000,10 +1000,18 @@ const setLogoImg = (setId, { cls, clamp, lazy }) => {
   // file existing, because Celebrations has no -md -- and does not need one, its
   // -sm is already 428w.
   const mdW = Math.round(ar * 150);
-  const md = hasMd(setId) ? `, ${base}-md.webp ${mdW}w` : "";
+  // EVERY RUNG READ OFF THE DIRECTORY, none assumed. The reserved box is the
+  // rendition src actually points at, so a logo with no -sm reserves the
+  // master's own box rather than a 100px-tall one that does not exist.
+  const sm = hasSm(setId);
+  const cands = [];
+  if (sm) cands.push(`${base}-sm.webp ${smW}w`);
+  if (hasMd(setId)) cands.push(`${base}-md.webp ${mdW}w`);
+  cands.push(`${base}.webp ${d[0]}w`);
   return (
-    `<img class="${cls}" width="${smW}" height="100" src="${base}-sm.webp"` +
-    ` srcset="${base}-sm.webp ${smW}w${md}, ${base}.webp ${d[0]}w" sizes="${sizes}"` +
+    `<img class="${cls}" width="${sm ? smW : d[0]}" height="${sm ? 100 : d[1]}"` +
+    ` src="${sm ? `${base}-sm.webp` : `${base}.webp`}"` +
+    ` srcset="${cands.join(", ")}" sizes="${sizes}"` +
     ` alt=""${lazy ? ` loading="lazy"` : ""} decoding="async" onerror="this.remove()">`
   );
 };
@@ -1032,6 +1040,19 @@ const mdOnDisk = new Set(
     .filter(Boolean)
 );
 const hasMd = (setId) => Boolean(setId) && mdOnDisk.has(setId);
+
+/* -sm CAN BE ABSENT TOO, and setLogoImg assumed it never was. build-logos.py
+   skips any rung whose master is ALREADY shorter than it, because scaled() does
+   not upscale. Abyss Eye's master is 269x91 -- shorter than the 150px rung and
+   the 100px one -- so it got neither, and the rip page emitted a src pointing
+   at a -sm.webp that was never written. check-build caught it as a broken link
+   above the fold, which is exactly what it is. Same shape as mdOnDisk. */
+const smOnDisk = new Set(
+  (await readdir(join(ROOT, "public/assets/logos")).catch(() => []))
+    .map((f) => /^(.+)-pokemon-tcg-set-logo-sm\.webp$/.exec(f)?.[1])
+    .filter(Boolean)
+);
+const hasSm = (setId) => Boolean(setId) && smOnDisk.has(setId);
 
 // Which sets have a guide page to link to. The rip page used to reach its set
 // guide only through the "what you are chasing" block, which needs chase cards

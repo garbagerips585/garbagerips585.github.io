@@ -100,6 +100,12 @@
     var art = el("a", "art");
     art.href = href;
     art.setAttribute("aria-label", v.siteTitle || v.title);  // full title stays the accessible name
+    // THE ONE HORIZONTAL RIP HAS TO SAY SO. The overlay sizes its player 9:16
+    // unless the tile is marked, and kj7532tb0_I (the Costco Charizard UPC
+    // drop) is the single 16:9 video of the 329. Unmarked it played letterboxed
+    // inside a portrait frame. `vertical` is already in videos.json and already
+    // shipped to this file, so this costs a lookup, not a fetch.
+    if (v.vertical === false) art.setAttribute("data-wide", "");
 
     // Sealed pack instead of the YouTube poster frame, which is nearly always
     // the pulled card and gives the whole video away before you open it.

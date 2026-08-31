@@ -752,7 +752,7 @@ function tile(v, labels, oneSet) {
   ].filter(Boolean);
   const pull = (v.pulls || [])[0];
   return `        <article class="v">
-          <a class="art" href="/${esc(v.path)}" aria-label="${esc(v.siteTitle || v.title)}">
+          <a class="art" href="/${esc(v.path)}" aria-label="${esc(v.siteTitle || v.title)}"${v.vertical === false ? " data-wide" : ""}>
             ${packMarkup(faceSet(v))}
             ${pull ? `<span class="hit">${esc(labelFor("pulls", pull))}</span>` : ""}
             ${v.duration ? `<span class="dur">${clock(v.duration)}</span>` : ""}

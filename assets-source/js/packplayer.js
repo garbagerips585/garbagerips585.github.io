@@ -362,7 +362,7 @@
     host.className = cls;
     host.innerHTML =
       '<div class="rip-player pack-player" data-id="' + id + '" data-title="' +
-        title.replace(/"/g, "&quot;") + '">' +
+        title.replace(/&/g, "&amp;").replace(/"/g, "&quot;") + '">' +
         '<button class="pack pack--' + skin + '" type="button" aria-label="Rip open">' +
           '<span class="pack-face pack-l" aria-hidden="true"><span class="pack-art"></span></span>' +
           '<span class="pack-face pack-r" aria-hidden="true"><span class="pack-art"></span></span>' +
@@ -377,7 +377,28 @@
     return host;
   }
 
-  var lb = null, lbOpener = null, lbPushed = false;
+  var lb = null, lbOpener = null, lbPushed = false, lbInerted = [];
+
+  /* EVERY TOP-LEVEL NODE BUT THE OVERLAY, NOT JUST #main. On /videos.html the
+     search box and both filter rails live in <section class="libtools">, which
+     is a SIBLING of <main> and not inside it -- deliberately, for the landmark
+     structure -- and the sticky bar, the nav and the footer are outside it too.
+     Inerting only #main therefore left every one of those tabbable behind a 94%
+     opaque scrim, with the focus ring painting UNDER it. Only what this turned
+     on gets turned off again, so a node something else inerted stays inert. */
+  function inertPage(on) {
+    if (on) {
+      lbInerted = [];
+      [].forEach.call(document.body.children, function (n) {
+        if (n === lb || n.inert) return;
+        n.inert = true;
+        lbInerted.push(n);
+      });
+    } else {
+      lbInerted.forEach(function (n) { n.inert = false; });
+      lbInerted = [];
+    }
+  }
 
   /* ONE NODE PER PAGE, FILLED ON CLICK -- the same argument shared/lightbox.mjs
      makes, and stronger here: /videos.html carries 96 tiles and at most one of
@@ -389,8 +410,23 @@
     lb.hidden = true;
     lb.setAttribute("role", "dialog");
     lb.setAttribute("aria-modal", "true");
+    /* LIKING CANNOT HAPPEN IN THE EMBED, so this is a way out to where it can.
+       Checked against both APIs rather than assumed: the IFrame Player API
+       documents thirteen methods and not one of them rates a video (every
+       "rate" in its reference is playbackRate), and the Data API's videos.rate
+       needs OAuth with the youtube or youtube.force-ssl scope -- a viewer
+       signing in and granting this site control of their YouTube account, for a
+       thumbs up. So the honest affordance is a link. It lives in the bar rather
+       than under the video because a 9:16 player is height-bound: every pixel
+       of chrome above or below it costs 0.5625px of WIDTH, and the bar is
+       already there. On a phone this hands off to the YouTube app, where the
+       viewer is signed in already. */
     lb.innerHTML =
       '<div class="rip-lb-bar">' +
+        '<a class="rip-lb-like" href="https://www.youtube.com/" target="_blank" rel="noopener">' +
+          '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 22V10l4.2-7 1.4 1a2 2 0 0 1 .7 2.2L12.4 9h5.2a2 2 0 0 1 2 2.4l-1.5 8.1a2 2 0 0 1-2 1.5H7zM2 22h3V10H2z"/></svg>' +
+          "<span>Like on YouTube</span>" +
+        "</a>" +
         '<button class="rip-lb-x" type="button" aria-label="Close the video">&times;</button>' +
       "</div>";
     lb.addEventListener("click", function (e) {
@@ -426,13 +462,21 @@
   function closeLb() {
     if (!lb || lb.hidden) return;
     closeAll();                       // disposes the player: iframe, listener, timers
-    var host = lb.querySelector(".rip-stage");
-    if (host && host.parentNode) host.parentNode.removeChild(host);
+    /* BELT AND BRACES THAT USED TO LEAK. If closeAll() ever fails to dispose
+       this host -- live nulled, or pointing at another root because something
+       else called GRPack.open -- removing the node alone strands the window
+       message listener and all three timers, which is the exact leak the
+       teardown was written to close. Dispose first, and sweep EVERY stage, not
+       just the first, so a stray second host cannot be left live in a hidden
+       overlay. */
+    [].forEach.call(lb.querySelectorAll(".rip-stage"), function (h) {
+      if (h.__packDispose) h.__packDispose();
+      if (h.parentNode) h.parentNode.removeChild(h);
+    });
     lb.hidden = true;
     document.removeEventListener("keydown", onLbKey, true);
     document.body.style.overflow = "";
-    var main = document.getElementById("main");
-    if (main) main.inert = false;
+    inertPage(false);
     if (lbOpener && lbOpener.focus) lbOpener.focus();
     lbOpener = null;
     // Back is how a phone dismisses a full-screen thing. We pushed a state with
@@ -460,14 +504,26 @@
     ensureLb();
     lbOpener = a;
     lb.setAttribute("aria-label", title || "Rip");
+    var like = lb.querySelector(".rip-lb-like");
+    if (like) {
+      like.href = "https://www.youtube.com/watch?v=" + id;
+      like.setAttribute(
+        "aria-label",
+        "Like " + (title || "this rip") + " on YouTube. Opens YouTube in a new tab."
+      );
+    }
     var host = buildHost(id, title, skin, "rip-stage");
-    // 16:9 for the dozen long-form rips, the same class the rip page uses.
+    /* 16:9 FOR THE ONE HORIZONTAL RIP, the same class build-pages.mjs gives its
+       page. There is exactly one -- kj7532tb0_I, the Costco Charizard UPC drop
+       -- and an earlier version of this comment said "the dozen", which was
+       wrong by twelve. Without the marker that video mounted letterboxed in a
+       9:16 frame: 375x211 of picture inside 375x667, which is the fault
+       ui.css's own 16:9 rule was written to prevent. */
     if (a.closest("[data-wide]")) host.querySelector(".rip-player").classList.add("rip-player--wide");
     lb.appendChild(host);
     lb.hidden = false;
     document.body.style.overflow = "hidden";
-    var main = document.getElementById("main");
-    if (main) main.inert = true;
+    inertPage(true);
     document.addEventListener("keydown", onLbKey, true);
     try { history.pushState({ riplb: 1 }, ""); lbPushed = true; } catch (err) { lbPushed = false; }
 
@@ -482,7 +538,15 @@
        silent under YouTube's own button. Nothing may be awaited before this. */
     var pk = host.querySelector(".pack");
     if (pk) pk.click();
-    if (byKeyboard) { var x = lb.querySelector(".rip-lb-x"); if (x) x.focus(); }
+    /* ALWAYS, NOT ONLY ON A KEYBOARD OPEN. This read `if (byKeyboard)`, copied
+       from focusPlayer() on rip pages where focus legitimately stays on the
+       page. In a modal it does not transfer: Safari and iOS Safari do not focus
+       a link on tap, so byKeyboard was false on the platform this whole feature
+       was built for, and inertPage() had just blurred the anchor -- leaving
+       activeElement on <body>, outside a dialog that claims aria-modal. A
+       screen reader then had no reason to enter it. */
+    var x = lb.querySelector(".rip-lb-x");
+    if (x) x.focus();
   }
 
   function playInTile(a, id) {

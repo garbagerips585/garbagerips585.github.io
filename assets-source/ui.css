@@ -6681,8 +6681,23 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 
    dvh, NOT vh. Safari's own chrome takes 100 to 140px of an iPhone's 844, so vh
    would put the close button under the URL bar. */
-.rip-lb{position:fixed;inset:0;z-index:200;background:rgba(9,18,13,.94);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--s2)}
+.rip-lb{
+  /* ONE SOURCE OF TRUTH FOR THE BOX. The bar used to be max-width:1100px while
+     the player is height-driven and much narrower, so at 1440 the close button
+     sat 257px to the right of the video it closes. Both now derive from these.
+     64px, not 72: the bar is 56 and the gap is --s2, which is 8. */
+  --riplb-h:min(calc(100dvh - 64px), calc(100vw * 16 / 9));
+  --riplb-w:calc(var(--riplb-h) * 9 / 16);
+  position:fixed;inset:0;z-index:200;background:rgba(9,18,13,.94);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--s2);
+  /* A drag that starts on the scrim chained to the document and scrolled the
+     page behind the overlay on iOS. body{overflow:hidden} does not stop that. */
+  overscroll-behavior:contain}
+/* SOFTER ON DESKTOP, ON PURPOSE. At .94 the overlay reads as a new page, which
+   is right on a phone where the video fills the screen, and heavy on a desktop
+   where it covers a grid the reader was using for 22 seconds. Letting the grid
+   stay faintly legible makes it read as a layer over the page instead. */
+@media (min-width:1000px){ .rip-lb{background:rgba(9,18,13,.85)} }
 .rip-lb[hidden]{display:none}
 
 /* The close button sits in a REAL ROW above the video rather than floating over
@@ -6690,8 +6705,17 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
    full-bleed video reaches within a few px of the top, so a floating button
    would sit on the picture; and that corner is where YouTube paints its own
    title and share chrome, so a control there is one a thumb hits by accident. */
-.rip-lb-bar{flex:0 0 56px;height:56px;width:100%;max-width:1100px;
-  display:flex;align-items:center;justify-content:flex-end;padding:0 var(--s3)}
+.rip-lb-bar{flex:0 0 56px;height:56px;width:min(100vw, var(--riplb-w));
+  display:flex;align-items:center;justify-content:space-between;gap:var(--s3);padding:0 var(--s3)}
+/* Liking is impossible inside a YouTube embed -- no IFrame API method exists,
+   and the Data API route wants OAuth over the viewer's whole YouTube account --
+   so this is the way out to where it is one tap. In the bar, not under the
+   video: a 9:16 player is height-bound, so chrome below it would cost width. */
+.rip-lb-like{display:inline-flex;align-items:center;gap:var(--s2);min-height:44px;padding:0 14px;
+  border-radius:999px;border:1px solid var(--hair);background:var(--card);color:var(--ink);
+  font:500 var(--t-sm)/1 var(--body);text-decoration:none;white-space:nowrap}
+.rip-lb-like svg{width:18px;height:18px;flex:0 0 18px;fill:currentColor}
+.rip-lb-like:hover,.rip-lb-like:focus-visible{border-color:var(--ink)}
 .rip-lb-x{width:48px;height:48px;border-radius:50%;border:1px solid var(--hair);
   background:var(--card);color:var(--ink);font-size:28px;line-height:1;cursor:pointer}
 .rip-lb-x:hover,.rip-lb-x:focus-visible{border-color:var(--ink)}
@@ -6705,7 +6729,7 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
    order. */
 .rip-lb .rip-player{
   aspect-ratio:9/16;
-  height:min(calc(100dvh - 72px), calc(100vw * 16 / 9));
+  height:var(--riplb-h);
   max-width:100vw;
   width:auto;
   margin:0;
@@ -6727,10 +6751,13 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
   }
 }
 
-/* The twelve long-form rips are 16:9 and want the opposite constraint. */
+/* THE ONE horizontal rip -- kj7532tb0_I, the Costco Charizard UPC drop -- wants
+   the opposite constraint. An earlier comment here said "the twelve", which was
+   wrong by twelve; ui.css already records the real count above. The tile marks
+   itself with data-wide off videos.json's `vertical` flag. */
 .rip-lb .rip-player--wide{
   aspect-ratio:16/9!important;
-  width:min(100vw, calc((100dvh - 72px) * 16 / 9));
+  width:min(100vw, calc((100dvh - 64px) * 16 / 9));
   height:auto;
   max-width:100vw;
 }

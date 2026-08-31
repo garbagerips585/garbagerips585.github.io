@@ -77,6 +77,21 @@
 }
 .pack--destined-rivals.pack--tile.pack--img .pack-art{background-image:none}
 
+.pack--ja-abyss-eye .pack-art{
+  background-color:#161D26;
+  background-image:url('packs/ja-abyss-eye-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/ja-abyss-eye-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/ja-abyss-eye-garbage-rips-585-booster-pack.webp') type('image/webp'));
+  background-size:cover;
+  background-position:center;
+}
+.pack--ja-abyss-eye .pack-art::before,.pack--ja-abyss-eye .pack-art::after{content:none}
+.pack--ja-abyss-eye .pack-brand,.pack--ja-abyss-eye .pack-mascot{display:none}
+.pack--ja-abyss-eye.pack--tile .pack-art{
+  background-image:url('packs/ja-abyss-eye-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/ja-abyss-eye-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/ja-abyss-eye-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
+}
+.pack--ja-abyss-eye.pack--tile.pack--img .pack-art{background-image:none}
+
 .pack--ja-nihil-zero .pack-art{
   background-color:#161D26;
   background-image:url('packs/ja-nihil-zero-garbage-rips-585-booster-pack.webp');
