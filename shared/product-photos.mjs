@@ -69,7 +69,14 @@ export const PRODUCT_PHOTOS = {
   // not the loose one, so the difference is now load bearing rather than a
   // footnote. Only two sets in products.json name a pack as sleeved; Stellar
   // Crown is one, so the sleeved row gets a picture that is actually of a sleeve.
-  "pack-sleeved": ["stellar-crown", "Single Pack", "Stellar Crown Sleeved Booster Pack"],
+  // RE-PINNED 1 September 2026, from stellar-crown. This is the failure mode the
+  // throw below describes, arriving for real: sync-products.mjs keeps only the
+  // CHEAPEST variant of each kind, Stellar Crown's cheapest Single Pack stopped
+  // being the sleeved one, and the pin then pointed at a plain booster pack. It
+  // failed the nightly for two days. obsidian-flames is the only set whose
+  // cheapest Single Pack is a sleeved pack today, so it is the only honest pin;
+  // when it flips too, re-pin again or drop the row and take the hatch.
+  "pack-sleeved": ["obsidian-flames", "Single Pack", "Obsidian Flames Sleeved Booster Pack"],
   "pack-loose": ["pitch-black", "Single Pack", "Pitch Black Booster Pack"],
   "booster-box": ["pitch-black", "Booster Box", "Pitch Black Booster Box"],
   "blister-1": ["pitch-black", "Blister Pack", "Pitch Black Single Pack Blister"],
