@@ -1,13 +1,46 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 274745,
-    "subscribers": 349,
-    "videos": 329,
-    "readAt": "2026-08-31"
+    "views": 275852,
+    "subscribers": 350,
+    "videos": 330,
+    "readAt": "2026-09-01"
   },
-  "syncedAt": "2026-08-31",
+  "syncedAt": "2026-09-01",
   "videos": [
+    {
+      "id": "vdsGni1AMtQ",
+      "title": "My First Silver Tempest Pack was TRASH 🗑️",
+      "path": "rip/my-first-silver-tempest-pack-was-trash-vdsGni1AMtQ.html",
+      "published": "2026-09-01",
+      "publishedAt": "2026-09-01T10:05:20Z",
+      "duration": 21,
+      "views": 69,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "silver-tempest"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "hasHit": false,
+      "packsOpened": 1,
+      "packsStated": true,
+      "setPacks": [
+        {
+          "set": "silver-tempest",
+          "name": "silver tempest",
+          "packs": 1,
+          "typed": false
+        }
+      ],
+      "packNumber": 1,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Silver Tempest Pack - Pack 1"
+    },
     {
       "id": "nTnwXiQzsW0",
       "title": "Pitch Black vs. Garbage Rips 🗑️🤘",
@@ -15,7 +48,7 @@
       "published": "2026-08-31",
       "publishedAt": "2026-08-31T11:17:17Z",
       "duration": 18,
-      "views": 107,
+      "views": 944,
       "vertical": true,
       "short": true,
       "sets": [
@@ -48,7 +81,7 @@
       "published": "2026-08-30",
       "publishedAt": "2026-08-30T11:58:31Z",
       "duration": 21,
-      "views": 966,
+      "views": 1032,
       "vertical": true,
       "short": true,
       "sets": [
@@ -81,7 +114,7 @@
       "published": "2026-08-29",
       "publishedAt": "2026-08-29T12:09:23Z",
       "duration": 22,
-      "views": 984,
+      "views": 1034,
       "vertical": true,
       "short": true,
       "sets": [
@@ -117,7 +150,7 @@
       "published": "2026-08-28",
       "publishedAt": "2026-08-28T11:48:15Z",
       "duration": 20,
-      "views": 978,
+      "views": 986,
       "vertical": true,
       "short": true,
       "sets": [
@@ -153,7 +186,7 @@
       "published": "2026-08-27",
       "publishedAt": "2026-08-27T12:09:30Z",
       "duration": 21,
-      "views": 1227,
+      "views": 1233,
       "vertical": true,
       "short": true,
       "sets": [
@@ -186,7 +219,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1148,
+      "views": 1152,
       "vertical": true,
       "short": true,
       "sets": [
@@ -358,7 +391,7 @@
       "published": "2026-08-21",
       "publishedAt": "2026-08-21T12:14:12Z",
       "duration": 21,
-      "views": 895,
+      "views": 896,
       "vertical": true,
       "short": true,
       "sets": [
@@ -391,7 +424,7 @@
       "published": "2026-08-20",
       "publishedAt": "2026-08-20T12:34:21Z",
       "duration": 24,
-      "views": 838,
+      "views": 839,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1049,7 +1082,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 920,
+      "views": 921,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1784,7 +1817,7 @@
       "published": "2026-07-17",
       "publishedAt": "2026-07-17T23:45:08Z",
       "duration": 23,
-      "views": 634,
+      "views": 637,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2139,7 +2172,7 @@
       "published": "2026-07-12",
       "publishedAt": "2026-07-12T23:58:39Z",
       "duration": 21,
-      "views": 717,
+      "views": 718,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3073,7 +3106,7 @@
       "published": "2026-06-29",
       "publishedAt": "2026-06-29T23:06:17Z",
       "duration": 25,
-      "views": 43,
+      "views": 46,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7421,7 +7454,7 @@
       "published": "2026-04-27",
       "publishedAt": "2026-04-27T23:10:01Z",
       "duration": 23,
-      "views": 2615,
+      "views": 2616,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7959,7 +7992,7 @@
       "published": "2026-04-19",
       "publishedAt": "2026-04-19T11:39:00Z",
       "duration": 46,
-      "views": 755,
+      "views": 756,
       "vertical": true,
       "short": true,
       "sets": [
@@ -8216,7 +8249,7 @@
       "published": "2026-04-16",
       "publishedAt": "2026-04-16T23:41:00Z",
       "duration": 48,
-      "views": 904,
+      "views": 906,
       "vertical": true,
       "short": true,
       "sets": [

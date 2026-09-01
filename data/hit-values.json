@@ -1,6 +1,6 @@
 {
   "_readme": "Best RAW guide value of any card pulled in each rip, keyed by YouTube id. Written by scripts/build-pages.mjs, which resolves the hits; read by scripts/build-proto.mjs to order the home page's Greatest Hits shelf. Do not hand-edit: it is regenerated on every build.",
-  "checked": "2026-08-31",
+  "checked": "2026-09-01",
   "videos": {
     "kj7532tb0_I": 38.75,
     "TN7_ZsuRQSI": 14.5,

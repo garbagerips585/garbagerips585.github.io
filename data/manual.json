@@ -7245,5 +7245,21 @@
     "openingType": "Single Booster Pack",
     "packNumber": 12,
     "hasHit": false
+  },
+  "vdsGni1AMtQ": {
+    "setPacks": [
+      {
+        "set": "silver-tempest",
+        "name": "silver tempest",
+        "packs": 1,
+        "typed": false
+      }
+    ],
+    "packsOpened": 1,
+    "packsStated": true,
+    "setsPacks": "Silver Tempest",
+    "openingType": "Single Booster Pack",
+    "packNumber": 1,
+    "hasHit": false
   }
 }
