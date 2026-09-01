@@ -239,7 +239,10 @@
   function lbFocusables() {
     return [].slice
       .call(lb.querySelectorAll('button, iframe, a[href], [tabindex]:not([tabindex="-1"])'))
-      .filter(function (n) { return !n.hidden && n.offsetParent !== null; });
+      .filter(function (n) {
+        if (n.hidden || n.offsetParent === null) return false;
+        return getComputedStyle(n).visibility !== "hidden";
+      });
   }
   function onLbKey(e) {
     if (e.key === "Escape") { e.preventDefault(); closeLb(); return; }
@@ -405,14 +408,12 @@
     el.setAttribute('aria-label','This rip has finished');
     var h='';
     if(d.kick) h+='<p class="rip-end-kick">'+eshtml(d.kick)+'</p>';
-    if(d.title) h+='<h3 class="rip-end-t">'+eshtml(d.title)+'</h3>';
+    if(d.title) h+='<p class="rip-end-t">'+eshtml(d.title)+'</p>';
     h+='<hr class="rip-end-rule">';
     if(d.next){
       var opener=d.onNext
-        ? '<button class="rip-end-next" type="button" aria-label="Rip open the next pack: '+
-            eshtml(d.next.title||'the next rip')+'">'
-        : '<a class="rip-end-next" href="'+eshtml(d.next.href||'#')+'" aria-label="Open the next rip: '+
-            eshtml(d.next.title||'the next rip')+'">';
+        ? '<button class="rip-end-next" type="button">'
+        : '<a class="rip-end-next" href="'+eshtml(d.next.href||'#')+'">';
       h+=opener+
         packFacade(d.next.skin,'rip-end-pack')+
         '<span>'+
@@ -432,30 +433,50 @@
         var r=d.rows[i];
         if(!r||!r.href) continue;
         h+='<a class="rip-end-row" href="'+eshtml(r.href)+'">'+
-            '<em>'+eshtml(r.label)+': <b>'+eshtml(r.value)+'</b></em><span aria-hidden="true">&rarr;</span>'+
+            '<span class="rip-end-rl">'+eshtml(r.label)+': <span class="rip-end-rv">'+eshtml(r.value)+'</span></span><span class="rip-end-ra" aria-hidden="true">&rarr;</span>'+
           '</a>';
       }
       h+='</div>';
     }
-    el.innerHTML='<div class="rip-end-in">'+h+'</div>';
+    el.innerHTML='<div class="rip-end-in">'+h+'</div>'+
+      '<p class="rip-end-say" role="status" aria-live="polite"></p>';
     return el;
+  }
+  function showFrame(pl,on){
+    var f=pl.querySelector('iframe');
+    if(!f) return;
+    f.style.visibility=on?'':'hidden';
+    if(on) f.removeAttribute('tabindex'); else f.setAttribute('tabindex','-1');
   }
   function showEndCard(host,d){
     var pl=host.querySelector('.rip-player');
     if(!pl||pl.querySelector('.rip-end')) return;
     var card=buildEndCard(d);
+    var ph=pl.clientHeight||0, pw=pl.clientWidth||0;
+    if(ph<340||pw<200) card.className+=' rip-end--tiny';
+    else if(ph<520) card.className+=' rip-end--tight';
     pl.appendChild(card);
+    showFrame(pl,false);
+    var say=card.querySelector('.rip-end-say');
+    if(say) setTimeout(function(){
+      say.textContent='Rip finished.'+(d.next?(' Next pack: '+(d.next.name||d.next.title||'')+'.'):'');
+    },80);
     var again=card.querySelector('.rip-end-again');
     if(again) again.addEventListener('click',function(){
       card.remove();
+      showFrame(pl,true);
       if(host.__endReset) host.__endReset();
       if(host.__replay) host.__replay();
+      var f=pl.querySelector('iframe');
+      if(f) try{ f.focus({preventScroll:true}); }catch(err){}
     });
     var nx=card.querySelector('.rip-end-next');
     if(nx&&typeof d.onNext==='function') nx.addEventListener('click',function(e){
       d.onNext(e);
     });
-    var inside=document.activeElement&&(document.activeElement===host||host.contains(document.activeElement));
+    var ae=document.activeElement;
+    var lbOpen=lb&&!lb.hidden&&lb.contains(host);
+    var inside=ae&&(ae===host||host.contains(ae)||(lbOpen&&lb.contains(ae)));
     if(inside){
       var first=card.querySelector('.rip-end-next,.rip-end-again');
       if(first) try{ first.focus({preventScroll:true}); }catch(err){ first.focus(); }
@@ -513,8 +534,8 @@
       meta=card&&(card.querySelector('.hero-meta')||card.querySelector(':scope > p'));
     }
     var sg=segs(meta);
-    if(sg.length>1) return sg[0];
-    if(sg.length===1&&!/views?$/i.test(sg[0])) return sg[0];
+    if(sg.length>1) return tidyCase(sg[0]);
+    if(sg.length===1&&!/views?$/i.test(sg[0])) return tidyCase(sg[0]);
     return '';
   }
   function tidyCase(v){

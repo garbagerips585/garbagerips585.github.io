@@ -529,7 +529,13 @@
   function lbFocusables() {
     return [].slice
       .call(lb.querySelectorAll('button, iframe, a[href], [tabindex]:not([tabindex="-1"])'))
-      .filter(function (n) { return !n.hidden && n.offsetParent !== null; });
+      .filter(function (n) {
+        if (n.hidden || n.offsetParent === null) return false;
+        // The finished player is hidden under the end card. It keeps its
+        // offsetParent, so without this it stayed in the wrap-around arithmetic
+        // as a stop the browser will never actually give focus to.
+        return getComputedStyle(n).visibility !== "hidden";
+      });
   }
 
   function onLbKey(e) {
@@ -589,12 +595,14 @@
       );
     }
     var host = buildHost(id, t.title, t.skin, "rip-stage", t.secs);
-    /* 16:9 FOR THE ONE HORIZONTAL RIP, the same class build-pages.mjs gives its
-       page. There is exactly one -- kj7532tb0_I, the Costco Charizard UPC drop
-       -- and an earlier version of this comment said "the dozen", which was
-       wrong by twelve. Without the marker that video mounted letterboxed in a
-       9:16 frame: 375x211 of picture inside 375x667, which is the fault
-       ui.css's own 16:9 rule was written to prevent. */
+    /* 16:9 FOR THE ONE HORIZONTAL RIP. There is exactly one -- kj7532tb0_I, the
+       Costco Charizard UPC drop -- and an earlier version of this comment said
+       "the dozen", which was wrong by twelve. Without the marker that video
+       mounted letterboxed in a 9:16 frame: 375x211 of picture inside 375x667,
+       which is the fault ui.css's own 16:9 rule was written to prevent.
+       IT SAID "the same class build-pages.mjs gives its page" AND THAT IS NOT
+       TRUE: that video is in OVERRIDES as pillarboxed, so its own page gets
+       rip-player--crop and only the overlay goes wide. */
     if (a.closest("[data-wide]")) host.querySelector(".rip-player").classList.add("rip-player--wide");
     lb.appendChild(host);
 
@@ -829,14 +837,16 @@
     el.setAttribute('aria-label','This rip has finished');
     var h='';
     if(d.kick) h+='<p class="rip-end-kick">'+eshtml(d.kick)+'</p>';
-    if(d.title) h+='<h3 class="rip-end-t">'+eshtml(d.title)+'</h3>';
+    if(d.title) h+='<p class="rip-end-t">'+eshtml(d.title)+'</p>';
     h+='<hr class="rip-end-rule">';
     if(d.next){
+      /* NO aria-label HERE. It overrode the visible words with a different
+         string, which is WCAG 2.5.3 Label in Name: a reader saying "Next pack
+         Pitch Black Pack 12" could not activate a control named after the
+         YouTube title instead. The contents are the name. */
       var opener=d.onNext
-        ? '<button class="rip-end-next" type="button" aria-label="Rip open the next pack: '+
-            eshtml(d.next.title||'the next rip')+'">'
-        : '<a class="rip-end-next" href="'+eshtml(d.next.href||'#')+'" aria-label="Open the next rip: '+
-            eshtml(d.next.title||'the next rip')+'">';
+        ? '<button class="rip-end-next" type="button">'
+        : '<a class="rip-end-next" href="'+eshtml(d.next.href||'#')+'">';
       h+=opener+
         packFacade(d.next.skin,'rip-end-pack')+
         '<span>'+
@@ -856,7 +866,7 @@
         var r=d.rows[i];
         if(!r||!r.href) continue;
         h+='<a class="rip-end-row" href="'+eshtml(r.href)+'">'+
-            '<em>'+eshtml(r.label)+': <b>'+eshtml(r.value)+'</b></em><span aria-hidden="true">&rarr;</span>'+
+            '<span class="rip-end-rl">'+eshtml(r.label)+': <span class="rip-end-rv">'+eshtml(r.value)+'</span></span><span class="rip-end-ra" aria-hidden="true">&rarr;</span>'+
           '</a>';
       }
       h+='</div>';
@@ -867,23 +877,67 @@
        title was rendered, present in the DOM, and invisible. margin:auto on an
        inner box centres when there is room and simply starts at the top when
        there is not. */
-    el.innerHTML='<div class="rip-end-in">'+h+'</div>';
+    el.innerHTML='<div class="rip-end-in">'+h+'</div>'+
+      '<p class="rip-end-say" role="status" aria-live="polite"></p>';
     return el;
   }
 
   /* Shown INSIDE .rip-player, which is position:relative and overflow:hidden,
      so the card is clipped to the frame and needs no sizing of its own. */
+  /* THE FINISHED PLAYER IS HIDDEN WHILE THE CARD IS UP, and this fixes two
+     faults at once. It was still tabbable underneath: measured 8 to 14 blind Tab
+     stops on YouTube's own controls beneath a 94% scrim, with no visible focus
+     anywhere, and Escape dead the whole time because a cross-origin iframe never
+     lets the document's keydown listener see the key. And .94 is not opaque
+     enough to hide YouTube's chrome -- the scrubber and the fullscreen button
+     ghosted through onto the card's own rows. visibility:hidden removes it from
+     the tab order and from view without pausing or unloading anything. */
+  function showFrame(pl,on){
+    var f=pl.querySelector('iframe');
+    if(!f) return;
+    f.style.visibility=on?'':'hidden';
+    if(on) f.removeAttribute('tabindex'); else f.setAttribute('tabindex','-1');
+  }
+
   function showEndCard(host,d){
     var pl=host.querySelector('.rip-player');
     if(!pl||pl.querySelector('.rip-end')) return;
     var card=buildEndCard(d);
+
+    /* SIZE THE CARD OFF THE PLAYER, NEVER OFF THE VIEWPORT. A media query cannot
+       see this: on a portrait phone the viewport is 812px tall while a rail
+       tile's player is 247, so `@media (max-height:420px)` was FALSE in exactly
+       the cases it was written for and fired in none of them. Measured on a rip
+       page rail tile: 509px of card in a 247px frame, NEXT PACK sliced through
+       the middle. The three families differ by a factor of three -- overlay
+       375x667, home tile ~309x464, rail tile ~136x247 -- so the card sheds
+       content by tier and NEXT PACK is the last thing standing, because it is
+       the whole feature. */
+    var ph=pl.clientHeight||0, pw=pl.clientWidth||0;
+    if(ph<340||pw<200) card.className+=' rip-end--tiny';
+    else if(ph<520) card.className+=' rip-end--tight';
+
     pl.appendChild(card);
+    showFrame(pl,false);
+
+    // Announced without stealing focus. Deferred one tick because a live region
+    // inserted with its text already in it is not reliably reported as a change.
+    var say=card.querySelector('.rip-end-say');
+    if(say) setTimeout(function(){
+      say.textContent='Rip finished.'+(d.next?(' Next pack: '+(d.next.name||d.next.title||'')+'.'):'');
+    },80);
 
     var again=card.querySelector('.rip-end-again');
     if(again) again.addEventListener('click',function(){
       card.remove();
+      showFrame(pl,true);
       if(host.__endReset) host.__endReset();
       if(host.__replay) host.__replay();
+      /* FOCUS WOULD OTHERWISE FALL TO <body>, which in the overlay is outside an
+         aria-modal dialog whose every sibling is inert -- a screen reader's
+         cursor resets to the top of the document. */
+      var f=pl.querySelector('iframe');
+      if(f) try{ f.focus({preventScroll:true}); }catch(err){}
     });
 
     var nx=card.querySelector('.rip-end-next');
@@ -898,7 +952,13 @@
        reason to yank focus away from someone reading further down the page;
        it IS a reason to hand the keyboard the next control when they were
        watching. */
-    var inside=document.activeElement&&(document.activeElement===host||host.contains(document.activeElement));
+    /* "Was the reader watching?" is the question, and in the overlay the answer
+       is yes while focus sits on the dialog's own close button -- which is not
+       inside the host, so this never fired in the context the feature was built
+       for. The lightbox counts as watching. */
+    var ae=document.activeElement;
+    var lbOpen=lb&&!lb.hidden&&lb.contains(host);
+    var inside=ae&&(ae===host||host.contains(ae)||(lbOpen&&lb.contains(ae)));
     if(inside){
       var first=card.querySelector('.rip-end-next,.rip-end-again');
       if(first) try{ first.focus({preventScroll:true}); }catch(err){ first.focus(); }
@@ -991,8 +1051,8 @@
     }
     var sg=segs(meta);
     // A one-segment <p> on a set-scoped playlist is the view count, not a set.
-    if(sg.length>1) return sg[0];
-    if(sg.length===1&&!/views?$/i.test(sg[0])) return sg[0];
+    if(sg.length>1) return tidyCase(sg[0]);
+    if(sg.length===1&&!/views?$/i.test(sg[0])) return tidyCase(sg[0]);
     return '';
   }
 
