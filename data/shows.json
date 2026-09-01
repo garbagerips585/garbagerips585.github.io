@@ -43,7 +43,7 @@
     "REGIONS drive the filter chips: roc, buffalo, syracuse.",
     "VENDORS. A show may carry `vendors`: [{ name, confirmed }]. `name` must match a vendor in data/vendors.json EXACTLY (trimmed, case-insensitive) -- it is a foreign key, so renaming a vendor there fails this build until the shows are updated too. `confirmed` is REQUIRED and must be a non-empty sentence saying who confirmed it and when; it prints under that vendor's name. A name with no listing, a missing or blank `confirmed`, a duplicate vendor or a null entry all FAIL the build, because a confirmed vendor that silently does not render is a typo shaped like a correct build."
   ],
-  "checked": "2026-08-26",
+  "checked": "2026-09-01",
   "sources": [
     {
       "name": "cardshows.io Western New York",
@@ -54,14 +54,7 @@
       "url": "https://cardshows.io/new-york/central-new-york"
     }
   ],
-  "watchFor": [
-    {
-      "name": "WNY Sports Card Expo",
-      "what": "The big two day Western New York expo. Ran March 28 and 29, 2026. No next date announced yet.",
-      "where": "Western New York",
-      "url": "https://wnysportscardexpo.com/"
-    }
-  ],
+  "watchFor": [],
   "shows": [
     {
       "id": "pokekon-niagara-2026-08-16",
@@ -630,7 +623,7 @@
       "id": "wny-expo-38-2026-10-24",
       "name": "The Ultimate Collectibles Show",
       "date": "2026-10-24",
-      "start": "10:00",
+      "start": "11:00",
       "end": "17:00",
       "venue": "McKinley Mall",
       "address": "3701 McKinley Pkwy, Blasdell, NY 14219",
@@ -643,7 +636,7 @@
       "organiser": "Rob Schilling",
       "url": "https://wnysportscardexpo.com",
       "organiserUrl": "https://wnysportscardexpo.com",
-      "source": "the organizer's own flyer and a message from them, August 27, 2026",
+      "source": "the organizer's own flyer and a message from them, August 27, 2026; hours corrected to 11-5 on September 1, 2026 from wnysportscardexpo.com, the organizer's own site, which outranks the flyer the 10am start came from",
       "pokemon": false,
       "pkmn": "some",
       "pkmnWhy": "The organizer confirmed it directly: \"a combo show ... sports card and pokemon and other TCGs\"."
@@ -652,7 +645,7 @@
       "id": "wny-expo-38-2026-10-25",
       "name": "The Ultimate Collectibles Show",
       "date": "2026-10-25",
-      "start": "10:00",
+      "start": "11:00",
       "end": "17:00",
       "venue": "McKinley Mall",
       "address": "3701 McKinley Pkwy, Blasdell, NY 14219",
@@ -665,7 +658,7 @@
       "organiser": "Rob Schilling",
       "url": "https://wnysportscardexpo.com",
       "organiserUrl": "https://wnysportscardexpo.com",
-      "source": "the organizer's own flyer and a message from them, August 27, 2026",
+      "source": "the organizer's own flyer and a message from them, August 27, 2026; hours corrected to 11-5 on September 1, 2026 from wnysportscardexpo.com, the organizer's own site, which outranks the flyer the 10am start came from",
       "pokemon": false,
       "pkmn": "some",
       "pkmnWhy": "The organizer confirmed it directly: \"a combo show ... sports card and pokemon and other TCGs\"."
