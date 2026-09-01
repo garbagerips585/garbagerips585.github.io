@@ -6761,3 +6761,111 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
   height:auto;
   max-width:100vw;
 }
+
+/* ---------------------------------------------------------------------------
+   THE END CARD. A ~20 second rip finishing with nothing to do next was the
+   biggest leak on the site: the player sat on its last frame and the reader
+   left. This fills the frame the moment the video ends.
+
+   IT GETS THE WHOLE PLAYER AND THAT IS THE POINT. The metadata that cannot fit
+   in a 96px band during playback -- set, duration, views, opening type -- has
+   667px to itself afterwards, when nothing is competing with it.
+
+   THE SCRIM IS OPAQUE ON PURPOSE. .94 of --navy-deep (#13231B) rather than a
+   wash over the last frame, so every contrast pair below is DETERMINISTIC
+   instead of depending on whichever card happened to be on screen when the
+   video stopped. A rip ending on a white-bordered card and one ending on a
+   dark holo would otherwise be two different colour problems.
+
+   ACCENT RULE, applied: the NEXT PACK control is a ROUTE, so it is teal
+   (--mustard, which is #70B5D9 and not a yellow -- read the token, not its
+   name). The kicker is a mark that goes nowhere, so it is pink. The title is a
+   heading, so it is neither and stays off-white. */
+.rip-end{
+  position:absolute;inset:0;z-index:6;
+  display:flex;
+  padding:20px;
+  /* --navy-deep #13231B. Written as a literal because it carries an alpha. */
+  background:rgba(19,35,27,.94);
+  /* A 16:9 rip is 375x211, so the card can be TALLER THAN ITS FRAME. Scrolling
+     inside itself is the honest answer; clipping the NEXT PACK control off the
+     bottom of the one long-form video on the channel is not. */
+  overflow-y:auto;overscroll-behavior:contain;
+  animation:ripEndIn .18s ease-out both;
+}
+.rip-end[hidden]{display:none}
+/* CENTRED WITHOUT CLIPPING. justify-content:center on a scrolling flex column
+   puts the overflow half above the top edge, where no scrollbar can reach it:
+   the card's own title was in the DOM and unreachable. margin:auto centres when
+   there is room and yields to the top when there is not. */
+.rip-end-in{margin:auto;width:100%;display:flex;flex-direction:column;gap:12px}
+@keyframes ripEndIn{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.rip-end{animation:none}}
+
+.rip-end-kick{
+  margin:0;font:700 .7rem/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ketchup-deep);
+}
+.rip-end-t{
+  margin:0;font:400 1.5rem/1.15 var(--display);color:var(--ink);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.rip-end-rule{border:0;border-top:2px solid var(--keyline);margin:2px 0;opacity:.5}
+
+/* The centrepiece: a REAL sealed pack in the next rip's own skin. One tap both
+   advances the deck and rips it, and because that tap is a live gesture the
+   sound is granted -- which is why this is a button and not an auto-advance.
+   See the long note in packplayer.js. */
+.rip-end-next{
+  display:flex;align-items:center;gap:14px;width:100%;
+  padding:12px 14px;border:0;border-radius:12px;cursor:pointer;text-align:left;
+  background:var(--mustard);color:var(--on-accent);
+  font:inherit;
+}
+.rip-end-next:hover,.rip-end-next:focus-visible{filter:brightness(1.08)}
+.rip-end-pack{flex:0 0 auto;width:66px;height:118px;position:relative}
+/* (0,3,0) BEATS `.rip-player .pack{position:absolute;inset:0}` AT (0,2,0).
+   Without this the next-pack thumbnail is pinned to the player's own box and
+   covers the entire end card with one giant wrapper. It looks like the card
+   never rendered. */
+.rip-player .rip-end .pack,.rip-end .pack{position:relative;inset:auto;cursor:inherit}
+.rip-end-next-lab{
+  display:block;font:700 .72rem/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+}
+.rip-end-next-name{display:block;margin-top:4px;font:400 .95rem/1.15 var(--display);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.rip-end-next-meta{display:block;margin-top:3px;font:700 .68rem/1.2 var(--mono);opacity:.75}
+
+.rip-end-acts{display:flex;gap:10px;flex-wrap:wrap}
+.rip-end-act{
+  flex:1 1 110px;min-height:44px;
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  padding:10px 12px;border-radius:10px;cursor:pointer;
+  border:2px solid var(--keyline);background:transparent;color:var(--ink);
+  font:700 .78rem/1.2 var(--mono);letter-spacing:.04em;text-transform:uppercase;
+  text-decoration:none;
+}
+.rip-end-act:hover,.rip-end-act:focus-visible{border-color:var(--mustard);color:var(--mustard)}
+
+.rip-end-rows{display:flex;flex-direction:column;gap:2px}
+.rip-end-row{
+  min-height:44px;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:6px 2px;color:var(--ink);text-decoration:none;
+  font:400 .92rem/1.25 var(--body);
+  border-top:1px solid rgba(134,153,140,.35);  /* --keyline #86998C */
+}
+.rip-end-row:hover,.rip-end-row:focus-visible{color:var(--mustard)}
+.rip-end-row b{font-weight:700;color:var(--mustard)}
+.rip-end-row span{flex:0 0 auto;color:var(--mustard)}
+
+/* A SHORT FRAME LOSES THE ROWS BEFORE IT LOSES THE PACK. The 16:9 player is
+   211px tall and the phone overlay can be shorter than the rip page's own
+   frame. Order of sacrifice: the two nav rows first, then the rule, then the
+   title clamps to one line. NEXT PACK never goes -- it is the whole feature. */
+@media (max-height:420px){
+  .rip-end{padding:12px 14px}
+  .rip-end-in{gap:8px}
+  .rip-end-rows,.rip-end-rule{display:none}
+  .rip-end-t{-webkit-line-clamp:1;font-size:1.1rem}
+  .rip-end-pack{width:48px;height:86px}
+}

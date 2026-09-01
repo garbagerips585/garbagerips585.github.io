@@ -57,6 +57,8 @@
     var art = el("a", "art");
     art.href = href;
     art.setAttribute("aria-label", v.siteTitle || v.title);  // full title stays the accessible name
+    art.setAttribute("data-dur", v.duration || 0);
+    art.setAttribute("data-views", v.views || 0);
     if (v.vertical === false) art.setAttribute("data-wide", "");
     var sets = v.sets || [];
     var lead = opts.preferSet && sets.indexOf(opts.preferSet) > -1 ? opts.preferSet : sets[0];

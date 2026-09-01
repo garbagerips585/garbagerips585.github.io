@@ -1953,7 +1953,7 @@ ${MENU}
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/videos.html">Every rip</a>${setId ? ` / <a href="/videos.html?set=${setId}">${esc(setLabel)}</a>` : ""}</nav>
     <div class="rip-grid${v.vertical === false && !(OVERRIDES[v.id] || {}).pillarboxed ? " rip-grid--wide" : ""}">
       <div class="rip-stage">
-        <div class="rip-player pack-player${(OVERRIDES[v.id] || {}).pillarboxed ? " rip-player--crop" : v.vertical === false ? " rip-player--wide" : ""}" id="player" data-id="${v.id}" data-title="${esc(title)}">
+        <div class="rip-player pack-player${(OVERRIDES[v.id] || {}).pillarboxed ? " rip-player--crop" : v.vertical === false ? " rip-player--wide" : ""}" id="player" data-id="${v.id}" data-title="${esc(title)}" data-dur="${v.duration || 0}" data-views="${v.views || 0}">
           ${/* THIS POSTER IS COMPLETELY COVERED BY THE PACK, AND IT IS IN A
                <noscript> BECAUSE loading="lazy" DID NOT STOP IT DOWNLOADING.
                ui.css pins .rip-player .pack to inset:0 at z-index 3 and the
@@ -2345,7 +2345,7 @@ ${sameBox.length ? `<section class="band tight">
       for anyone not reading the heading.
     */ ""}<div class="vid-grid">
       ${sameBox.map((r) => `<article class="vid">
-        <a class="vid-shell" href="/${pathFor(r)}" aria-label="${esc(r.label || r.title)}">
+        <a class="vid-shell" href="/${pathFor(r)}" aria-label="${esc(r.label || r.title)}" data-dur="${r.duration || 0}" data-views="${r.views || 0}">
           <span class="pack pack--tile pack--${tileSet(r)} pack--img" aria-hidden="true">
             <span class="pack-face pack-l">
               <span class="pack-art">${packTileImg(tileSet(r))}</span>
@@ -2404,7 +2404,7 @@ ${related.length ? `<section class="band tight">
     </div>
     <div class="vid-grid">
       ${related.map((r) => `<article class="vid">
-        <a class="vid-shell" href="/${pathFor(r)}" aria-label="${esc(r.title)}">
+        <a class="vid-shell" href="/${pathFor(r)}" aria-label="${esc(r.title)}" data-dur="${r.duration || 0}" data-views="${r.views || 0}">
           <span class="pack pack--tile pack--${tileSet(r)} pack--img" aria-hidden="true">
             <span class="pack-face pack-l">
               <span class="pack-art">${packTileImg(tileSet(r))}</span>

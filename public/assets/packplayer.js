@@ -71,9 +71,31 @@
       if(l) l.textContent=(kind==='play'?'Tap to play':'Tap for sound');
     }
   }
+  var endTimer=null, ended=false, endArmed=false;
+  function fireEnd(){
+    if(ended) return;
+    ended=true;
+    clearTimeout(endTimer); endTimer=null;
+    if(typeof root.__onEnd==='function') root.__onEnd();
+  }
+  function armEnd(){
+    if(endArmed) return;
+    endArmed=true;
+    var secs=Number(p.dataset.dur||0);
+    if(!secs) return;
+    endTimer=setTimeout(fireEnd,secs*1000+1500);
+  }
+  root.__replay=function(){ cmd('seekTo',[0,true]); cmd('playVideo'); };
+  root.__endReset=function(){
+    ended=false; endArmed=false;
+    clearTimeout(endTimer); endTimer=null;
+    armEnd();
+  };
   function onState(st){
+    if(st===1) armEnd();
     if(phase==='waiting'&&st===1){ clearTimeout(startWatch); askForSound(); return; }
     if(phase==='unmuting'&&st!==1&&st!==3){ retreat('sound'); return; }
+    if(st===0){ fireEnd(); return; }
     if(phase==='done'&&st!==1&&st!==3&&st!==0&&st!==2&&muted===false){ retreat('sound'); }
   }
   function onMsg(e){
@@ -94,7 +116,8 @@
   window.addEventListener('message', onMsg);
   root.__packDispose = function(){
     if(feedTimer){ clearInterval(feedTimer); feedTimer=null; }
-    clearTimeout(startWatch); clearTimeout(unmuteWatch);
+    clearTimeout(startWatch); clearTimeout(unmuteWatch); clearTimeout(endTimer);
+    endTimer=null;
     window.removeEventListener('message', onMsg);
     if(player && player.parentNode) player.parentNode.removeChild(player);
     player=null; mounted=false; phase='dead';
@@ -237,48 +260,62 @@
   window.addEventListener("popstate", function () {
     if (lb && !lb.hidden) { lbPushed = false; closeLb(); }
   });
-  function playInOverlay(a, id) {
-    var byKeyboard = document.activeElement === a || a.contains(document.activeElement);
-    var img = a.querySelector("img");
-    var sk = img && SKIN.exec(img.getAttribute("src") || "");
-    var facade = a.querySelector(".pack");
-    var fromClass = facade && /pack--(?!tile\b|img\b)([a-z0-9-]+)/.exec(facade.className);
-    var skin = sk ? sk[1] : fromClass ? fromClass[1] : "default";
-    var titleEl = a.querySelector(".hofx-t, .hero-body h3, h3");
-    var title = (a.getAttribute("aria-label") || (titleEl ? titleEl.textContent : "") || "")
-      .replace(/^Play\s+/, "")
-      .trim();
-    ensureLb();
-    lbOpener = a;
-    lb.setAttribute("aria-label", title || "Rip");
+  function mountOverlayStage(a, id) {
+    var t = readTile(a);
+    lb.setAttribute("aria-label", t.title || "Rip");
     var like = lb.querySelector(".rip-lb-like");
     if (like) {
       like.href = "https://www.youtube.com/watch?v=" + id;
       like.setAttribute(
         "aria-label",
-        "Like " + (title || "this rip") + " on YouTube. Opens YouTube in a new tab."
+        "Like " + (t.title || "this rip") + " on YouTube. Opens YouTube in a new tab."
       );
     }
-    var host = buildHost(id, title, skin, "rip-stage");
+    var host = buildHost(id, t.title, t.skin, "rip-stage");
+    host.__opener = a;
     if (a.closest("[data-wide]")) host.querySelector(".rip-player").classList.add("rip-player--wide");
     lb.appendChild(host);
-    lb.hidden = false;
-    document.body.style.overflow = "hidden";
-    inertPage(true);
-    document.addEventListener("keydown", onLbKey, true);
-    try { history.pushState({ riplb: 1 }, ""); lbPushed = true; } catch (err) { lbPushed = false; }
     open(host, function () {
       if (host.__packDispose) host.__packDispose();
       if (host.parentNode) host.parentNode.removeChild(host);
     });
     attach(host);
+    armEndCard(host, function () {
+      return payloadFor(
+        t,
+        function () { return stepCells(a.closest("article.v"), "article.v", "a.art"); },
+        advanceOverlay
+      );
+    });
     var pk = host.querySelector(".pack");
     if (pk) pk.click();
     var x = lb.querySelector(".rip-lb-x");
     if (x) x.focus();
   }
+  function advanceOverlay(nx) {
+    if (!lb || lb.hidden || !nx) return;
+    var m = VID.exec(nx.getAttribute("href") || "");
+    if (!m) return;
+    [].forEach.call(lb.querySelectorAll(".rip-stage"), function (h) {
+      if (h.__packDispose) h.__packDispose();
+      if (h.parentNode) h.parentNode.removeChild(h);
+    });
+    lbOpener = nx;
+    mountOverlayStage(nx, m[1]);
+  }
+  function playInOverlay(a, id) {
+    ensureLb();
+    lbOpener = a;
+    lb.hidden = false;
+    document.body.style.overflow = "hidden";
+    inertPage(true);
+    document.addEventListener("keydown", onLbKey, true);
+    try { history.pushState({ riplb: 1 }, ""); lbPushed = true; } catch (err) { lbPushed = false; }
+    mountOverlayStage(a, id);
+  }
   function playInTile(a, id) {
     var byKeyboard = document.activeElement === a || a.contains(document.activeElement);
+    var endT = readTile(a);
     var img = a.querySelector("img");
     var sk = img && SKIN.exec(img.getAttribute("src") || "");
     var facade = a.querySelector(".pack");
@@ -305,6 +342,9 @@
       });
       slot.replaceChild(shell, a);
       attach(host);
+      armEndCard(host, function () {
+        return payloadFor(endT, function () { return nextFromTile(host); }, advanceTile);
+      });
       var pk0 = host.querySelector(".pack");
       if (pk0) pk0.click();
       if (byKeyboard) focusInto(host);
@@ -316,15 +356,291 @@
     });
     slot.replaceChild(host, a);
     attach(host);
+    armEndCard(host, function () {
+      return payloadFor(endT, function () { return nextFromTile(host); }, advanceTile);
+    });
     var pk = host.querySelector(".pack");
     if (pk) pk.click();
     if (byKeyboard) focusInto(host);
+  }
+  function advanceTile(nx) {
+    if (!nx) return;
+    var m = VID.exec(nx.getAttribute("href") || "");
+    if (m) playInTile(nx, m[1]);
   }
   function focusInto(host) {
     setTimeout(function () {
       var f = host.querySelector("iframe");
       if (f) f.focus({ preventScroll: true });
     }, 60);
+  }
+  function eshtml(v){
+    return String(v==null?'':v)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;');
+  }
+  function fmtDur(secs){
+    secs=Math.max(0,Math.round(Number(secs)||0));
+    return Math.floor(secs/60)+':'+('0'+(secs%60)).slice(-2);
+  }
+  function packFacade(skin, cls){
+    return '<span class="pack pack--'+eshtml(skin||'default')+' '+cls+'" aria-hidden="true">'+
+      '<span class="pack-face pack-l"><span class="pack-art"></span></span>'+
+      '<span class="pack-face pack-r"><span class="pack-art"></span></span>'+
+    '</span>';
+  }
+  function buildEndCard(d){
+    var el=document.createElement('div');
+    el.className='rip-end';
+    el.setAttribute('role','group');
+    el.setAttribute('aria-label','This rip has finished');
+    var h='';
+    if(d.kick) h+='<p class="rip-end-kick">'+eshtml(d.kick)+'</p>';
+    if(d.title) h+='<h3 class="rip-end-t">'+eshtml(d.title)+'</h3>';
+    h+='<hr class="rip-end-rule">';
+    if(d.next){
+      var opener=d.onNext
+        ? '<button class="rip-end-next" type="button" aria-label="Rip open the next pack: '+
+            eshtml(d.next.title||'the next rip')+'">'
+        : '<a class="rip-end-next" href="'+eshtml(d.next.href||'#')+'" aria-label="Open the next rip: '+
+            eshtml(d.next.title||'the next rip')+'">';
+      h+=opener+
+        packFacade(d.next.skin,'rip-end-pack')+
+        '<span>'+
+          '<span class="rip-end-next-lab">Next pack</span>'+
+          '<span class="rip-end-next-name">'+eshtml(d.next.name||d.next.title||'')+'</span>'+
+          (d.next.meta?'<span class="rip-end-next-meta">'+eshtml(d.next.meta)+'</span>':'')+
+        '</span>'+
+      (d.onNext?'</button>':'</a>');
+    }
+    h+='<div class="rip-end-acts">'+
+        '<button class="rip-end-act rip-end-again" type="button">Watch again</button>'+
+        (d.href?'<a class="rip-end-act rip-end-full" href="'+eshtml(d.href)+'">Full rip page</a>':'')+
+      '</div>';
+    if(d.rows&&d.rows.length){
+      h+='<div class="rip-end-rows">';
+      for(var i=0;i<d.rows.length;i++){
+        var r=d.rows[i];
+        if(!r||!r.href) continue;
+        h+='<a class="rip-end-row" href="'+eshtml(r.href)+'">'+
+            '<em>'+eshtml(r.label)+': <b>'+eshtml(r.value)+'</b></em><span aria-hidden="true">&rarr;</span>'+
+          '</a>';
+      }
+      h+='</div>';
+    }
+    el.innerHTML='<div class="rip-end-in">'+h+'</div>';
+    return el;
+  }
+  function showEndCard(host,d){
+    var pl=host.querySelector('.rip-player');
+    if(!pl||pl.querySelector('.rip-end')) return;
+    var card=buildEndCard(d);
+    pl.appendChild(card);
+    var again=card.querySelector('.rip-end-again');
+    if(again) again.addEventListener('click',function(){
+      card.remove();
+      if(host.__endReset) host.__endReset();
+      if(host.__replay) host.__replay();
+    });
+    var nx=card.querySelector('.rip-end-next');
+    if(nx&&typeof d.onNext==='function') nx.addEventListener('click',function(e){
+      d.onNext(e);
+    });
+    var inside=document.activeElement&&(document.activeElement===host||host.contains(document.activeElement));
+    if(inside){
+      var first=card.querySelector('.rip-end-next,.rip-end-again');
+      if(first) try{ first.focus({preventScroll:true}); }catch(err){ first.focus(); }
+    }
+  }
+  var SEG=/\s*[•·]\s*/;
+  function segs(el){
+    if(!el) return [];
+    return el.textContent.split(SEG).map(function(t){ return t.trim(); }).filter(Boolean);
+  }
+  function fmtViews(n){
+    n=Number(n)||0;
+    if(n>=1000000) return (n/1000000).toFixed(1).replace(/\.0$/,'')+'M views';
+    if(n>=1000) return (n/1000).toFixed(1).replace(/\.0$/,'')+'K views';
+    return n+(n===1?' view':' views');
+  }
+  function skinOf(a){
+    var img=a.querySelector('img');
+    var src=img&&(img.getAttribute('src')||img.getAttribute('data-packsrc'))||'';
+    var m=SKIN.exec(src);
+    if(m) return m[1];
+    var facade=a.querySelector('.pack');
+    var c=facade&&/pack--(?!tile\b|img\b)([a-z0-9-]+)/.exec(facade.className);
+    return c?c[1]:'default';
+  }
+  function titleOf(a,secs){
+    var t=a.getAttribute('aria-label')||'';
+    if(!t){
+      var el=a.querySelector('.hofx-t, .hero-body h3, h3');
+      t=el?el.textContent:'';
+    }
+    t=t.replace(/^Play\s+/,'').trim();
+    if(secs){
+      var suf=', '+fmtDur(secs);
+      if(t.slice(-suf.length)===suf) t=t.slice(0,-suf.length).trim();
+    }
+    return t;
+  }
+  function labelOf(a){
+    var card=a.closest('article');
+    var h=card&&card.querySelector('h3.vid-title > a, h3 > a, .hero-body h3 > a');
+    if(h&&h.textContent.trim()) return h.textContent.trim();
+    var hof=a.querySelector('.hofx-t');
+    return hof?hof.textContent.trim():'';
+  }
+  function setOf(a){
+    var b=a.querySelector('.pack-brand');
+    if(b&&b.firstChild&&b.firstChild.nodeValue){
+      var v=b.firstChild.nodeValue.trim();
+      if(v&&!/^(multi|garbage rips)$/i.test(v)) return v;
+    }
+    var meta=a.querySelector('.hofx-m');
+    if(!meta){
+      var card=a.closest('article');
+      meta=card&&(card.querySelector('.hero-meta')||card.querySelector(':scope > p'));
+    }
+    var sg=segs(meta);
+    if(sg.length>1) return sg[0];
+    if(sg.length===1&&!/views?$/i.test(sg[0])) return sg[0];
+    return '';
+  }
+  function tidyCase(v){
+    if(!v||/[a-z]/.test(v)) return v;
+    return v.toLowerCase().replace(/\b[a-z]/g,function(c){ return c.toUpperCase(); });
+  }
+  function kindOf(a){
+    var card=a.closest('article');
+    var k=card&&card.querySelector('.vid-kind');
+    if(k&&k.textContent.trim()) return tidyCase(k.textContent.trim());
+    var pp=card&&card.querySelector(':scope > p');
+    var sg=segs(pp);
+    if(sg.length>1&&!/views?$/i.test(sg[0])) return tidyCase(sg[0]);
+    return '';
+  }
+  function readTile(a){
+    if(!a) return null;
+    var m=VID.exec(a.getAttribute('href')||'');
+    var secs=Number(a.getAttribute('data-dur')||0);
+    var views=Number(a.getAttribute('data-views')||0);
+    var skin=skinOf(a);
+    return {
+      el:a,
+      id:m?m[1]:'',
+      href:a.getAttribute('href')||'',
+      title:titleOf(a,secs),
+      name:labelOf(a)||titleOf(a,secs),
+      set:setOf(a),
+      kind:kindOf(a),
+      skin:skin,
+      secs:secs,
+      views:views
+    };
+  }
+  function kickerFor(t){
+    var out=[];
+    if(t.set) out.push(t.set.toUpperCase());
+    if(t.secs) out.push(fmtDur(t.secs));
+    if(t.views) out.push(fmtViews(t.views).toUpperCase());
+    return out.join(' · ');
+  }
+  function rowsFor(t){
+    var rows=[];
+    if(t.set&&(t.setHref||(t.skin&&!/^(default|multi)$/.test(t.skin))))
+      rows.push({label:'From the set',value:t.set,href:t.setHref||('/videos.html?set='+t.skin)});
+    if(t.kind)
+      rows.push({label:'Opening type',value:t.kind,href:'/videos.html'});
+    return rows;
+  }
+  function visibleEl(n){ return !!(n&&n.offsetParent!==null); }
+  function playable(a){
+    return !!(a&&(a.querySelector('img')||a.querySelector('.pack')));
+  }
+  function stepCells(cell,cellSel,linkSel){
+    for(var n=cell&&cell.nextElementSibling;n;n=n.nextElementSibling){
+      if(!n.matches||!n.matches(cellSel)) continue;
+      var link=n.querySelector(linkSel);
+      if(link&&playable(link)&&visibleEl(n)) return link;
+    }
+    return null;
+  }
+  function nextOnHome(host){
+    var slide=host.closest&&host.closest('.vcar-slide');
+    if(slide) return stepCells(slide,'.vcar-slide','a.hero-art');
+    var slides=document.querySelectorAll('.vcar-slide');
+    for(var i=0;i<slides.length;i++){
+      var link=slides[i].querySelector('a.hero-art');
+      if(link&&playable(link)&&visibleEl(slides[i])) return link;
+    }
+    return null;
+  }
+  function nextOnRipPage(){
+    var meta=document.querySelector('main .rip-meta');
+    var m=meta&&/(?:,\s*pack\s*|pack\s*#)(\d+)/i.exec(meta.textContent||'');
+    var cur=m?Number(m[1]):null;
+    var heads=document.querySelectorAll('section.band .sec-head h2');
+    var boxGrid=null,setGrid=null;
+    for(var i=0;i<heads.length;i++){
+      var sec=heads[i].closest('section.band');
+      var g=sec&&sec.querySelector('.vid-grid');
+      if(!g) continue;
+      if(/^More from\b/.test(heads[i].textContent)) boxGrid=boxGrid||g;
+      else if(/^More\b/.test(heads[i].textContent)) setGrid=setGrid||g;
+    }
+    if(boxGrid&&cur!==null){
+      var best=null,bestN=Infinity;
+      var tiles=boxGrid.querySelectorAll('article.vid');
+      for(var j=0;j<tiles.length;j++){
+        var t=tiles[j].querySelector('.vid-title a');
+        var n=t&&/^Pack (\d+)$/.exec(t.textContent.trim());
+        if(!n) continue;
+        if(Number(n[1])>cur&&Number(n[1])<bestN){
+          bestN=Number(n[1]);
+          best=tiles[j].querySelector('a.vid-shell');
+        }
+      }
+      if(best) return best;
+    }
+    if(setGrid) return setGrid.querySelector('a.vid-shell');
+    return null;
+  }
+  function nextFromTile(host){
+    if(host.closest('.vcar-slide')||host.closest('.hofx')) return nextOnHome(host);
+    var cell=host.closest('article.vid');
+    if(cell) return stepCells(cell,'article.vid','a.vid-shell');
+    cell=host.closest('article.v');
+    if(cell) return stepCells(cell,'article.v','a.art');
+    return null;
+  }
+  function payloadFor(t,nextFn,advance){
+    var nx=null;
+    try{ nx=nextFn?nextFn():null; }catch(err){ nx=null; }
+    var nd=nx?readTile(nx):null;
+    return {
+      kick:kickerFor(t),
+      title:t.name||t.title,
+      href:t.href,
+      rows:rowsFor(t),
+      next:nd?{
+        title:nd.title,
+        name:nd.name||nd.title,
+        skin:nd.skin,
+        href:nd.href,
+        meta:[nd.set,nd.secs?fmtDur(nd.secs):''].filter(Boolean).join(' · ')
+      }:null,
+      onNext:(nd&&advance)?function(){ advance(nx); }:null
+    };
+  }
+  function armEndCard(host,build){
+    if(typeof build!=='function') return;
+    host.__onEnd=function(){
+      var d=null;
+      try{ d=build(); }catch(err){ d=null; }
+      if(d) showEndCard(host,d);
+    };
   }
   function carouselClick(e) {
     var btn = e.target.closest && e.target.closest("[data-vcar-prev],[data-vcar-next]");
@@ -429,7 +745,39 @@
   window.GRPack = { attach: attach, open: open, closeAll: closeAll };
   document.addEventListener("click", onDocClick);
   document.addEventListener("click", carouselClick);
+  function readRipPage() {
+    var pl = document.getElementById("player");
+    if (!pl) return null;
+    var h1 = document.querySelector("main h1");
+    var crumb = document.querySelector(".crumbs a[href*=\"set=\"]");
+    var pack = document.querySelector("#player .pack");
+    var c = pack && /pack--(?!tile\b|img\b)([a-z0-9-]+)/.exec(pack.className);
+    var meta = document.querySelector("main .rip-meta");
+    var sg = segs(meta);
+    return {
+      id: pl.getAttribute("data-id") || "",
+      href: location.pathname,
+      title: (h1 ? h1.textContent : pl.getAttribute("data-title") || "").trim(),
+      name: (h1 ? h1.textContent : pl.getAttribute("data-title") || "").trim(),
+      set: crumb ? crumb.textContent.trim() : (sg.length ? sg[0] : ""),
+      setHref: crumb ? crumb.getAttribute("href") : "",
+      kind: "",
+      skin: c ? c[1] : "default",
+      secs: Number(pl.getAttribute("data-dur") || 0),
+      views: Number(pl.getAttribute("data-views") || 0)
+    };
+  }
+  function armRipPage() {
+    var stage = document.querySelector(".rip-stage");
+    if (!stage || !document.getElementById("player")) return;
+    var t = readRipPage();
+    if (!t) return;
+    armEndCard(stage, function () {
+      return payloadFor(t, nextOnRipPage, null);
+    });
+  }
+  function boot() { wireCarousels(); armRipPage(); }
   if (document.readyState === "loading")
-    document.addEventListener("DOMContentLoaded", wireCarousels);
-  else wireCarousels();
+    document.addEventListener("DOMContentLoaded", boot);
+  else boot();
 })();

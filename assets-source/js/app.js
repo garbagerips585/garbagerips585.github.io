@@ -100,6 +100,10 @@
     var art = el("a", "art");
     art.href = href;
     art.setAttribute("aria-label", v.siteTitle || v.title);  // full title stays the accessible name
+    // The end card's runtime backup timer reads this. Without it a filtered
+    // grid's tiles are the one place on the site with no duration at all.
+    art.setAttribute("data-dur", v.duration || 0);
+    art.setAttribute("data-views", v.views || 0);
     // THE ONE HORIZONTAL RIP HAS TO SAY SO. The overlay sizes its player 9:16
     // unless the tile is marked, and kj7532tb0_I (the Costco Charizard UPC
     // drop) is the single 16:9 video of the 329. Unmarked it played letterboxed

@@ -838,7 +838,7 @@ async function logoAttrs(id, dispH) {
 // gold frame on a fresh clone.
 const hofPick = hall[0] || null;
 const hofHtml = hofPick
-  ? `<a class="hofx" href="/${esc(hofPick.path)}">
+  ? `<a class="hofx" href="/${esc(hofPick.path)}" data-dur="${hofPick.duration || 0}" data-views="${hofPick.views || 0}">
         <span class="hofx-tag">Hall of Fame hit</span>
         <span class="hofx-art">
           ${(() => {
@@ -1083,7 +1083,7 @@ function heroTile(v, opts) {
   const label = all.length ? setLabel(all[0]).toUpperCase() : "GARBAGE RIPS";
   const p = bestPull(v);
   return `      <article class="hero">
-        <a class="hero-art" href="/${esc(v.path)}"${
+        <a class="hero-art" href="/${esc(v.path)}" data-dur="${v.duration || 0}" data-views="${v.views || 0}"${
           // THE CLOCK IS IN THE NAME BECAUSE IT IS IN THE BOX. .dur sits INSIDE
           // this anchor, and aria-label REPLACES an element's contents for a
           // screen reader instead of adding to them, so the duration printed
@@ -1595,7 +1595,7 @@ function libCard(v) {
   if (prod) bits.push(labelOf("products", prod).toUpperCase());
   if (v.views) bits.push(fmtViews(v.views).toUpperCase());
   else if (v.published) bits.push(fmtDate(v.published).toUpperCase());
-  return `<article class="v"><a class="art" href="${esc(href)}" aria-label="${esc(v.siteTitle || v.title)}">` +
+  return `<article class="v"><a class="art" href="${esc(href)}" aria-label="${esc(v.siteTitle || v.title)}" data-dur="${v.duration || 0}" data-views="${v.views || 0}">` +
     packFacade(set) +
     (pull ? `<span class="hit">${esc(labelOf("pulls", pull))}</span>` : "") +
     (v.duration ? `<span class="dur">${clock(v.duration)}</span>` : "") +

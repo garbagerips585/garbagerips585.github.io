@@ -156,7 +156,63 @@
     }
   }
 
+  /* WHEN THE VIDEO ENDS.
+   *
+   * A rip is about twenty seconds long. Until this existed the player simply
+   * stopped on its last frame and the reader left, which is the biggest leak
+   * on the site: 330 videos, each one ending in nothing to do next.
+   *
+   * ENDED ONLY BECAME TRUSTWORTHY ON 1 SEPTEMBER 2026. Before that, state 0
+   * fell through to retreat(), which re-muted and called playVideo, so every
+   * finished rip silently restarted from the top with the sound off. The end
+   * card could not have been built on a signal that behaved like that. See the
+   * long comment in onState below for the measurement.
+   *
+   * AND THE SIGNAL IS STILL NOT GUARANTEED. YouTube's embed does not reliably
+   * post state 0 for a Short, so a video that ends can leave the card unshown.
+   * The backup is EXACT rather than a guess: every rip carries its real runtime
+   * in seconds, so the timer is that runtime plus 1500ms of slack for the
+   * handshake and any buffering. Whichever arrives first wins and the other is
+   * cancelled, so the card cannot fire twice.
+   *
+   * `ended` is deliberately one-way. Watch again clears it through
+   * root.__endReset, because that is a new play of the same video; nothing else
+   * may. */
+  var endTimer=null, ended=false, endArmed=false;
+
+  function fireEnd(){
+    if(ended) return;
+    ended=true;
+    clearTimeout(endTimer); endTimer=null;
+    if(typeof root.__onEnd==='function') root.__onEnd();
+  }
+
+  function armEnd(){
+    if(endArmed) return;
+    endArmed=true;
+    var secs=Number(p.dataset.dur||0);
+    // No duration on this player: the state feed is all there is. That is the
+    // honest fallback -- guessing a runtime would fire the card over a video
+    // still playing, which is worse than a card that never comes.
+    if(!secs) return;
+    endTimer=setTimeout(fireEnd,secs*1000+1500);
+  }
+
+  // Watch again. seekTo before playVideo, because a player sitting on state 0
+  // answers playVideo by resuming at the end and ending again immediately.
+  root.__replay=function(){ cmd('seekTo',[0,true]); cmd('playVideo'); };
+
+  // A replay is a fresh video as far as this is concerned.
+  root.__endReset=function(){
+    ended=false; endArmed=false;
+    clearTimeout(endTimer); endTimer=null;
+    armEnd();
+  };
+
   function onState(st){
+    // The runtime backup is armed the moment the video is really playing, not
+    // at mount: a player that never starts must not get an end card.
+    if(st===1) armEnd();
     // 1 playing, 3 buffering. Buffering mid-unmute is normal, not a refusal.
     if(phase==='waiting'&&st===1){ clearTimeout(startWatch); askForSound(); return; }
     if(phase==='unmuting'&&st!==1&&st!==3){ retreat('sound'); return; }
@@ -168,6 +224,10 @@
     // on a 19s rip: ENDED at 19307ms, muted again at 19327ms, playing again at
     // 19330ms. Excluded HERE ONLY: during 'unmuting' a pause really is WebKit
     // refusing, which is what retreat() exists for, so that branch is untouched.
+    // ENDED. Placed AFTER the unmuting branch and BEFORE the done branch so
+    // neither changes: the done branch already excluded 0, and during
+    // 'unmuting' a stop really is a refusal for retreat() to answer.
+    if(st===0){ fireEnd(); return; }
     if(phase==='done'&&st!==1&&st!==3&&st!==0&&st!==2&&muted===false){ retreat('sound'); }
   }
 
@@ -223,7 +283,8 @@
      timers go with the iframe. */
   root.__packDispose = function(){
     if(feedTimer){ clearInterval(feedTimer); feedTimer=null; }
-    clearTimeout(startWatch); clearTimeout(unmuteWatch);
+    clearTimeout(startWatch); clearTimeout(unmuteWatch); clearTimeout(endTimer);
+    endTimer=null;
     window.removeEventListener('message', onMsg);
     if(player && player.parentNode) player.parentNode.removeChild(player);
     player=null; mounted=false; phase='dead';
@@ -489,30 +550,27 @@
     if (lb && !lb.hidden) { lbPushed = false; closeLb(); }
   });
 
-  function playInOverlay(a, id) {
-    var byKeyboard = document.activeElement === a || a.contains(document.activeElement);
-    var img = a.querySelector("img");
-    var sk = img && SKIN.exec(img.getAttribute("src") || "");
-    var facade = a.querySelector(".pack");
-    var fromClass = facade && /pack--(?!tile\b|img\b)([a-z0-9-]+)/.exec(facade.className);
-    var skin = sk ? sk[1] : fromClass ? fromClass[1] : "default";
-    var titleEl = a.querySelector(".hofx-t, .hero-body h3, h3");
-    var title = (a.getAttribute("aria-label") || (titleEl ? titleEl.textContent : "") || "")
-      .replace(/^Play\s+/, "")
-      .trim();
-
-    ensureLb();
-    lbOpener = a;
-    lb.setAttribute("aria-label", title || "Rip");
+  /* THE STAGE, SEPARATED FROM THE OVERLAY AROUND IT, so that advancing to the
+     next rip can replace what is playing without touching the dialog.
+     ADVANCING MUST NOT CLOSE AND REOPEN: closeLb() calls history.back() and
+     refocuses the opener, so a close/reopen cycle pushes a second history
+     state and throws focus out of the dialog it is about to re-enter. */
+  function mountOverlayStage(a, id) {
+    var t = readTile(a);
+    lb.setAttribute("aria-label", t.title || "Rip");
     var like = lb.querySelector(".rip-lb-like");
     if (like) {
       like.href = "https://www.youtube.com/watch?v=" + id;
       like.setAttribute(
         "aria-label",
-        "Like " + (title || "this rip") + " on YouTube. Opens YouTube in a new tab."
+        "Like " + (t.title || "this rip") + " on YouTube. Opens YouTube in a new tab."
       );
     }
-    var host = buildHost(id, title, skin, "rip-stage");
+    var host = buildHost(id, t.title, t.skin, "rip-stage");
+    /* THE GRID POSITION IS NOT RECOVERABLE FROM THE HOST here: the stage lives
+       in .rip-lb on <body> and every other top-level node is inert. Keep the
+       anchor it came from so the end card can ask what follows it. */
+    host.__opener = a;
     /* 16:9 FOR THE ONE HORIZONTAL RIP, the same class build-pages.mjs gives its
        page. There is exactly one -- kj7532tb0_I, the Costco Charizard UPC drop
        -- and an earlier version of this comment said "the dozen", which was
@@ -521,21 +579,25 @@
        ui.css's own 16:9 rule was written to prevent. */
     if (a.closest("[data-wide]")) host.querySelector(".rip-player").classList.add("rip-player--wide");
     lb.appendChild(host);
-    lb.hidden = false;
-    document.body.style.overflow = "hidden";
-    inertPage(true);
-    document.addEventListener("keydown", onLbKey, true);
-    try { history.pushState({ riplb: 1 }, ""); lbPushed = true; } catch (err) { lbPushed = false; }
 
     open(host, function () {
       if (host.__packDispose) host.__packDispose();
       if (host.parentNode) host.parentNode.removeChild(host);
     });
     attach(host);
+    armEndCard(host, function () {
+      return payloadFor(
+        t,
+        function () { return stepCells(a.closest("article.v"), "article.v", "a.art"); },
+        advanceOverlay
+      );
+    });
     /* MOUNT INSIDE THE GESTURE. Everything above is synchronous on purpose:
        the iframe has to be created while the user's click is still live or the
        mute-then-unmute handshake loses its exemption and the rip comes up
-       silent under YouTube's own button. Nothing may be awaited before this. */
+       silent under YouTube's own button. Nothing may be awaited before this.
+       That holds for an advance from the end card too -- its tap is the
+       gesture that buys the next rip its sound. */
     var pk = host.querySelector(".pack");
     if (pk) pk.click();
     /* ALWAYS, NOT ONLY ON A KEYBOARD OPEN. This read `if (byKeyboard)`, copied
@@ -549,6 +611,32 @@
     if (x) x.focus();
   }
 
+  /* Swap the playing rip for the next one, in the dialog that is already open. */
+  function advanceOverlay(nx) {
+    if (!lb || lb.hidden || !nx) return;
+    var m = VID.exec(nx.getAttribute("href") || "");
+    if (!m) return;
+    [].forEach.call(lb.querySelectorAll(".rip-stage"), function (h) {
+      if (h.__packDispose) h.__packDispose();
+      if (h.parentNode) h.parentNode.removeChild(h);
+    });
+    // Closing later must return the reader to the tile they are ACTUALLY
+    // watching, not the one they started from three rips ago.
+    lbOpener = nx;
+    mountOverlayStage(nx, m[1]);
+  }
+
+  function playInOverlay(a, id) {
+    ensureLb();
+    lbOpener = a;
+    lb.hidden = false;
+    document.body.style.overflow = "hidden";
+    inertPage(true);
+    document.addEventListener("keydown", onLbKey, true);
+    try { history.pushState({ riplb: 1 }, ""); lbPushed = true; } catch (err) { lbPushed = false; }
+    mountOverlayStage(a, id);
+  }
+
   function playInTile(a, id) {
     // WAS THIS A KEYBOARD ACTIVATION? It has to be asked HERE, before the
     // anchor is replaced. attach() already does the right thing on a rip page:
@@ -557,6 +645,10 @@
     // been swapped out and focus had fallen to <body>. So every keyboard user
     // who played a video from a tile lost their place on the page.
     var byKeyboard = document.activeElement === a || a.contains(document.activeElement);
+    /* THE TILE IS READ HERE, BEFORE THE SWAP. slot.replaceChild detaches this
+       anchor, and a detached node's closest("article") is null, so every fact
+       the end card prints would come back empty if this ran later. */
+    var endT = readTile(a);
     // The set comes from the image filename where there is an image, and from
     // the facade's own pack--<set> class where there is not. Falling back to
     // "default" for the CSS tiles would have given every rip on /videos.html
@@ -609,6 +701,9 @@
       });
       slot.replaceChild(shell, a);
       attach(host);
+      armEndCard(host, function () {
+        return payloadFor(endT, function () { return nextFromTile(host); }, advanceTile);
+      });
       var pk0 = host.querySelector(".pack");
       if (pk0) pk0.click();
       if (byKeyboard) focusInto(host);
@@ -624,12 +719,24 @@
     slot.replaceChild(host, a);
 
     attach(host);
+    armEndCard(host, function () {
+      return payloadFor(endT, function () { return nextFromTile(host); }, advanceTile);
+    });
     // The pack's own handler runs the shake, the tear and the mount. Calling it
     // from inside this click keeps the user gesture alive, which is what buys
     // unmuted playback a moment later.
     var pk = host.querySelector(".pack");
     if (pk) pk.click();
     if (byKeyboard) focusInto(host);
+  }
+
+  /* ADVANCE BY REPLAYING THE REAL CLICK PATH. Synchronous, so the next iframe
+     is created while the end card's tap is still live and the rip comes up with
+     sound. open() tears the finished player down as the next one arms. */
+  function advanceTile(nx) {
+    if (!nx) return;
+    var m = VID.exec(nx.getAttribute("href") || "");
+    if (m) playInTile(nx, m[1]);
   }
 
   /* Move focus onto the freshly mounted player. Deferred, because the iframe is
@@ -642,6 +749,423 @@
     }, 60);
   }
 
+
+  /* ---------------------------------------------------------------------
+   * THE END CARD.
+   *
+   * Everything it prints is already in the tile that was clicked. Nothing is
+   * fetched and nothing is computed that the page did not already know, which
+   * is what makes it free on a page carrying hundreds of tiles.
+   *
+   * NO AUTO-ADVANCE, AND THIS IS THE LOAD-BEARING DECISION. An iframe created
+   * without a live user gesture may autoplay MUTED ONLY. Auto-advancing would
+   * therefore land the next rip silent under YouTube's own unmute button --
+   * precisely the symptom the mute-then-unmute handshake at the top of this
+   * file exists to prevent, across every page that carries a player. It would
+   * be reintroducing a fixed bug as a feature. It would also chain a viewer
+   * five 20-second videos deep in under two minutes with no memory of choosing
+   * any of them, and it would skip the tear, which is the product.
+   *
+   * So the cure for "nothing happens" is ONE TAP, NOT ZERO. Tapping NEXT PACK
+   * advances the deck and rips it in the same gesture, and because that gesture
+   * is real the sound is granted. End of video to next video playing with audio
+   * is one tap: as fast as autoplay, without surrendering either the tear or
+   * the sound.
+   */
+  function eshtml(v){
+    return String(v==null?'':v)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;');
+  }
+
+  function fmtDur(secs){
+    secs=Math.max(0,Math.round(Number(secs)||0));
+    return Math.floor(secs/60)+':'+('0'+(secs%60)).slice(-2);
+  }
+
+  /* A pack facade with no button around it. buildHost's is a <button> because
+     it is the thing you rip; this one is decoration inside a bigger control,
+     and a button inside a button is invalid markup that browsers repair by
+     splitting the outer one. */
+  function packFacade(skin, cls){
+    return '<span class="pack pack--'+eshtml(skin||'default')+' '+cls+'" aria-hidden="true">'+
+      '<span class="pack-face pack-l"><span class="pack-art"></span></span>'+
+      '<span class="pack-face pack-r"><span class="pack-art"></span></span>'+
+    '</span>';
+  }
+
+  function buildEndCard(d){
+    var el=document.createElement('div');
+    el.className='rip-end';
+    el.setAttribute('role','group');
+    el.setAttribute('aria-label','This rip has finished');
+    var h='';
+    if(d.kick) h+='<p class="rip-end-kick">'+eshtml(d.kick)+'</p>';
+    if(d.title) h+='<h3 class="rip-end-t">'+eshtml(d.title)+'</h3>';
+    h+='<hr class="rip-end-rule">';
+    if(d.next){
+      var opener=d.onNext
+        ? '<button class="rip-end-next" type="button" aria-label="Rip open the next pack: '+
+            eshtml(d.next.title||'the next rip')+'">'
+        : '<a class="rip-end-next" href="'+eshtml(d.next.href||'#')+'" aria-label="Open the next rip: '+
+            eshtml(d.next.title||'the next rip')+'">';
+      h+=opener+
+        packFacade(d.next.skin,'rip-end-pack')+
+        '<span>'+
+          '<span class="rip-end-next-lab">Next pack</span>'+
+          '<span class="rip-end-next-name">'+eshtml(d.next.name||d.next.title||'')+'</span>'+
+          (d.next.meta?'<span class="rip-end-next-meta">'+eshtml(d.next.meta)+'</span>':'')+
+        '</span>'+
+      (d.onNext?'</button>':'</a>');
+    }
+    h+='<div class="rip-end-acts">'+
+        '<button class="rip-end-act rip-end-again" type="button">Watch again</button>'+
+        (d.href?'<a class="rip-end-act rip-end-full" href="'+eshtml(d.href)+'">Full rip page</a>':'')+
+      '</div>';
+    if(d.rows&&d.rows.length){
+      h+='<div class="rip-end-rows">';
+      for(var i=0;i<d.rows.length;i++){
+        var r=d.rows[i];
+        if(!r||!r.href) continue;
+        h+='<a class="rip-end-row" href="'+eshtml(r.href)+'">'+
+            '<em>'+eshtml(r.label)+': <b>'+eshtml(r.value)+'</b></em><span aria-hidden="true">&rarr;</span>'+
+          '</a>';
+      }
+      h+='</div>';
+    }
+    /* WRAPPED, AND THE WRAPPER IS THE FIX FOR A REAL BUG. A flex column with
+       justify-content:center that overflows is clipped at BOTH ends, and the
+       top overflow is UNREACHABLE -- no scrollbar reaches it. The card's own
+       title was rendered, present in the DOM, and invisible. margin:auto on an
+       inner box centres when there is room and simply starts at the top when
+       there is not. */
+    el.innerHTML='<div class="rip-end-in">'+h+'</div>';
+    return el;
+  }
+
+  /* Shown INSIDE .rip-player, which is position:relative and overflow:hidden,
+     so the card is clipped to the frame and needs no sizing of its own. */
+  function showEndCard(host,d){
+    var pl=host.querySelector('.rip-player');
+    if(!pl||pl.querySelector('.rip-end')) return;
+    var card=buildEndCard(d);
+    pl.appendChild(card);
+
+    var again=card.querySelector('.rip-end-again');
+    if(again) again.addEventListener('click',function(){
+      card.remove();
+      if(host.__endReset) host.__endReset();
+      if(host.__replay) host.__replay();
+    });
+
+    var nx=card.querySelector('.rip-end-next');
+    if(nx&&typeof d.onNext==='function') nx.addEventListener('click',function(e){
+      /* SYNCHRONOUS, INSIDE THE CLICK. The next player's iframe has to be
+         created while this gesture is still live or the handshake loses its
+         exemption and the rip comes up silent. Nothing may be awaited here. */
+      d.onNext(e);
+    });
+
+    /* MOVE FOCUS ONLY IF IT WAS ALREADY IN THE PLAYER. A video ending is not a
+       reason to yank focus away from someone reading further down the page;
+       it IS a reason to hand the keyboard the next control when they were
+       watching. */
+    var inside=document.activeElement&&(document.activeElement===host||host.contains(document.activeElement));
+    if(inside){
+      var first=card.querySelector('.rip-end-next,.rip-end-again');
+      if(first) try{ first.focus({preventScroll:true}); }catch(err){ first.focus(); }
+    }
+  }
+
+  /* READING A TILE.
+   *
+   * Mapped against the BUILT tree rather than the builders, because the two
+   * disagree in ways that matter. Five families emit a playable tile and no
+   * two of them carry the same facts in the same place:
+   *
+   *   index .hero-art   set in .hero-meta, aria-label has ", 0:29" APPENDED
+   *   index .hofx       set in .hofx-m, no aria-label at all
+   *   videos .art       set in .pack-brand, and RE-RENDERED IN THE BROWSER
+   *   playlists .art    set in .pack-brand, which reads "multi" on 10 tiles
+   *   rip .vid-shell    set in .pack-brand, 3,109 of them
+   *
+   * Duration and views used to be display text in four different shapes, and
+   * absent entirely on the 3,109 rip-rail tiles. Every emitter now writes
+   * data-dur and data-views instead, so this reads two numbers rather than
+   * parsing "1.4K VIEWS" out of a sentence. The display spans are untouched.
+   */
+  var SEG=/\s*[•·]\s*/;
+
+  function segs(el){
+    if(!el) return [];
+    return el.textContent.split(SEG).map(function(t){ return t.trim(); }).filter(Boolean);
+  }
+
+  function fmtViews(n){
+    n=Number(n)||0;
+    if(n>=1000000) return (n/1000000).toFixed(1).replace(/\.0$/,'')+'M views';
+    if(n>=1000) return (n/1000).toFixed(1).replace(/\.0$/,'')+'K views';
+    return n+(n===1?' view':' views');
+  }
+
+  /* Same order as playInTile: the image filename first, the facade class
+     second. The class alone would be wrong on .hero-art and .hofx, which carry
+     no .pack at all, and the image alone is wrong on every tile /videos.html
+     re-renders after a filter, which carries no <img>. */
+  function skinOf(a){
+    var img=a.querySelector('img');
+    var src=img&&(img.getAttribute('src')||img.getAttribute('data-packsrc'))||'';
+    var m=SKIN.exec(src);
+    if(m) return m[1];
+    var facade=a.querySelector('.pack');
+    var c=facade&&/pack--(?!tile\b|img\b)([a-z0-9-]+)/.exec(facade.className);
+    return c?c[1]:'default';
+  }
+
+  function titleOf(a,secs){
+    var t=a.getAttribute('aria-label')||'';
+    if(!t){
+      var el=a.querySelector('.hofx-t, .hero-body h3, h3');
+      t=el?el.textContent:'';
+    }
+    t=t.replace(/^Play\s+/,'').trim();
+    /* .hero-art appends ", 0:29" to its own accessible name. Stripping any
+       trailing time would eat a real title that happens to end in one, so this
+       only strips the EXACT string this tile's own duration produces. */
+    if(secs){
+      var suf=', '+fmtDur(secs);
+      if(t.slice(-suf.length)===suf) t=t.slice(0,-suf.length).trim();
+    }
+    return t;
+  }
+
+  /* The short label under the artwork ("Silver Tempest Pack - Pack 1") reads
+     better on the card than the YouTube title, which is written for a feed. */
+  function labelOf(a){
+    var card=a.closest('article');
+    var h=card&&card.querySelector('h3.vid-title > a, h3 > a, .hero-body h3 > a');
+    if(h&&h.textContent.trim()) return h.textContent.trim();
+    var hof=a.querySelector('.hofx-t');
+    return hof?hof.textContent.trim():'';
+  }
+
+  function setOf(a){
+    var b=a.querySelector('.pack-brand');
+    if(b&&b.firstChild&&b.firstChild.nodeValue){
+      var v=b.firstChild.nodeValue.trim();
+      // "multi" and "GARBAGE RIPS" are placeholders, not set names.
+      if(v&&!/^(multi|garbage rips)$/i.test(v)) return v;
+    }
+    var meta=a.querySelector('.hofx-m');
+    if(!meta){
+      var card=a.closest('article');
+      meta=card&&(card.querySelector('.hero-meta')||card.querySelector(':scope > p'));
+    }
+    var sg=segs(meta);
+    // A one-segment <p> on a set-scoped playlist is the view count, not a set.
+    if(sg.length>1) return sg[0];
+    if(sg.length===1&&!/views?$/i.test(sg[0])) return sg[0];
+    return '';
+  }
+
+  /* /videos.html prints the product kind in caps as display text; the rip
+     rails print it in title case. Shouting on one family and not the other
+     reads as a bug in the row beneath "From the set: Silver Tempest". */
+  function tidyCase(v){
+    if(!v||/[a-z]/.test(v)) return v;
+    return v.toLowerCase().replace(/\b[a-z]/g,function(c){ return c.toUpperCase(); });
+  }
+
+  function kindOf(a){
+    var card=a.closest('article');
+    var k=card&&card.querySelector('.vid-kind');
+    if(k&&k.textContent.trim()) return tidyCase(k.textContent.trim());
+    var pp=card&&card.querySelector(':scope > p');
+    var sg=segs(pp);
+    if(sg.length>1&&!/views?$/i.test(sg[0])) return tidyCase(sg[0]);
+    return '';
+  }
+
+  /* Everything the card prints about ONE tile. */
+  function readTile(a){
+    if(!a) return null;
+    var m=VID.exec(a.getAttribute('href')||'');
+    var secs=Number(a.getAttribute('data-dur')||0);
+    var views=Number(a.getAttribute('data-views')||0);
+    var skin=skinOf(a);
+    return {
+      el:a,
+      id:m?m[1]:'',
+      href:a.getAttribute('href')||'',
+      title:titleOf(a,secs),
+      name:labelOf(a)||titleOf(a,secs),
+      set:setOf(a),
+      kind:kindOf(a),
+      skin:skin,
+      secs:secs,
+      views:views
+    };
+  }
+
+  /* The kicker prints only what this family actually has. A tile with no view
+     count says so by omission rather than by printing a zero. */
+  function kickerFor(t){
+    var out=[];
+    if(t.set) out.push(t.set.toUpperCase());
+    if(t.secs) out.push(fmtDur(t.secs));
+    if(t.views) out.push(fmtViews(t.views).toUpperCase());
+    return out.join(' · ');
+  }
+
+  function rowsFor(t){
+    var rows=[];
+    // The skin slug IS the set slug wherever a real set was drawn, which is
+    // what /videos.html filters on. "default" and "multi" are not sets.
+    if(t.set&&(t.setHref||(t.skin&&!/^(default|multi)$/.test(t.skin))))
+      rows.push({label:'From the set',value:t.set,href:t.setHref||('/videos.html?set='+t.skin)});
+    if(t.kind)
+      rows.push({label:'Opening type',value:t.kind,href:'/videos.html'});
+    return rows;
+  }
+
+  /* WHICH VIDEO IS NEXT.
+   *
+   * Every one of these was measured against the built tree, and the obvious
+   * answer was wrong in three of the four contexts.
+   *
+   * NOT nextElementSibling ON THE ANCHOR. A tile's <a> is the first child of an
+   * <article>, and its next sibling is the <h3> holding the SAME rip's title
+   * link. A naive walk "advances" to the video that just finished. Step at the
+   * CELL level instead.
+   *
+   * NOT THE FIRST TILE OF THE BOX RAIL. build-pages.mjs selects that rail
+   * next-packs-first and then re-sorts it into PACK ORDER for display, so tile
+   * zero is usually an EARLIER pack. Counted over the 249 pages carrying a box
+   * rail: 207 have a later pack available and tile zero is the honest next on
+   * only 99 of them. It is wrong about half the time. Pick by pack number.
+   *
+   * NOT A HIDDEN SLIDE. Below 545px the home page hides every carousel slide
+   * but the first and hides the arrows with them, so there are exactly two
+   * playable tiles on the whole page. Advancing into a display:none slide
+   * mounts a ~540KB embed in an invisible box: audio playing, nothing on
+   * screen, and no way to reach it.
+   *
+   * AND WHERE THERE IS NO NEXT, THERE IS NO CONTROL. The card drops NEXT PACK
+   * entirely rather than falling back to pack--default. The promise is a real
+   * sealed pack in the next rip's own skin; a generic green wrapper is a claim
+   * about which set is next, and it would be false. */
+  function visibleEl(n){ return !!(n&&n.offsetParent!==null); }
+
+  function playable(a){
+    return !!(a&&(a.querySelector('img')||a.querySelector('.pack')));
+  }
+
+  function stepCells(cell,cellSel,linkSel){
+    for(var n=cell&&cell.nextElementSibling;n;n=n.nextElementSibling){
+      if(!n.matches||!n.matches(cellSel)) continue;
+      var link=n.querySelector(linkSel);
+      if(link&&playable(link)&&visibleEl(n)) return link;
+    }
+    return null;
+  }
+
+  function nextOnHome(host){
+    var slide=host.closest&&host.closest('.vcar-slide');
+    // Inside a track: the next slide the reader can actually see. Running off
+    // the end of a band does NOT jump to another band -- that reads as random.
+    if(slide) return stepCells(slide,'.vcar-slide','a.hero-art');
+    // The trophy is not in a track at all. It hands off to the first visible
+    // slide on the page, which on a phone is Latest rips slide 0 and is the
+    // whole mechanism there.
+    var slides=document.querySelectorAll('.vcar-slide');
+    for(var i=0;i<slides.length;i++){
+      var link=slides[i].querySelector('a.hero-art');
+      if(link&&playable(link)&&visibleEl(slides[i])) return link;
+    }
+    return null;
+  }
+
+  /* The rip page's own hero. Two rail shapes, and the pack number is the only
+     honest ordering. Both title forms seen in the tree are covered:
+     "…, pack 5" and "… Pack #9". */
+  function nextOnRipPage(){
+    var meta=document.querySelector('main .rip-meta');
+    var m=meta&&/(?:,\s*pack\s*|pack\s*#)(\d+)/i.exec(meta.textContent||'');
+    var cur=m?Number(m[1]):null;
+    var heads=document.querySelectorAll('section.band .sec-head h2');
+    var boxGrid=null,setGrid=null;
+    for(var i=0;i<heads.length;i++){
+      var sec=heads[i].closest('section.band');
+      var g=sec&&sec.querySelector('.vid-grid');
+      if(!g) continue;
+      if(/^More from\b/.test(heads[i].textContent)) boxGrid=boxGrid||g;
+      else if(/^More\b/.test(heads[i].textContent)) setGrid=setGrid||g;
+    }
+    if(boxGrid&&cur!==null){
+      var best=null,bestN=Infinity;
+      var tiles=boxGrid.querySelectorAll('article.vid');
+      for(var j=0;j<tiles.length;j++){
+        var t=tiles[j].querySelector('.vid-title a');
+        var n=t&&/^Pack (\d+)$/.exec(t.textContent.trim());
+        if(!n) continue;
+        // Pack numbers are NOT unique here: boxOf() groups on a label prefix,
+        // so two physical boxes sharing a label collide and 69 of 249 rails
+        // carry a duplicate. First in DOM order wins, which is pack order.
+        if(Number(n[1])>cur&&Number(n[1])<bestN){
+          bestN=Number(n[1]);
+          best=tiles[j].querySelector('a.vid-shell');
+        }
+      }
+      if(best) return best;
+    }
+    // No later pack in the box (42 of 249), or no box rail (66 pages). The set
+    // rail is a good "more like this" and a bad "next", but it is a real rip in
+    // the same set and it is the best thing left.
+    if(setGrid) return setGrid.querySelector('a.vid-shell');
+    return null;
+  }
+
+  function nextFromTile(host){
+    if(host.closest('.vcar-slide')||host.closest('.hofx')) return nextOnHome(host);
+    var cell=host.closest('article.vid');
+    if(cell) return stepCells(cell,'article.vid','a.vid-shell');
+    cell=host.closest('article.v');
+    if(cell) return stepCells(cell,'article.v','a.art');
+    return null;
+  }
+
+  /* Assemble the card's data for a tile that is about to play, given a function
+     that says what follows it. */
+  function payloadFor(t,nextFn,advance){
+    var nx=null;
+    try{ nx=nextFn?nextFn():null; }catch(err){ nx=null; }
+    var nd=nx?readTile(nx):null;
+    return {
+      kick:kickerFor(t),
+      title:t.name||t.title,
+      href:t.href,
+      rows:rowsFor(t),
+      next:nd?{
+        title:nd.title,
+        name:nd.name||nd.title,
+        skin:nd.skin,
+        href:nd.href,
+        meta:[nd.set,nd.secs?fmtDur(nd.secs):''].filter(Boolean).join(' · ')
+      }:null,
+      onNext:(nd&&advance)?function(){ advance(nx); }:null
+    };
+  }
+
+  /* The contract every context uses: give the host its data, and it will show
+     the card when the video ends however that is detected. */
+  function armEndCard(host,build){
+    if(typeof build!=='function') return;
+    host.__onEnd=function(){
+      var d=null;
+      try{ d=build(); }catch(err){ d=null; }
+      if(d) showEndCard(host,d);
+    };
+  }
 
   /* ---------------------------------------------------------------------
    * Carousel arrows.
@@ -855,7 +1379,56 @@
   // Bound once, at the document, so tiles rendered later are covered too.
   document.addEventListener("click", onDocClick);
   document.addEventListener("click", carouselClick);
+  /* THE RIP PAGE'S OWN HERO gets an end card too, and it is armed here rather
+     than in the inline script build-pages.mjs writes, so 330 pages did not have
+     to change to gain it. attach() is called by that script; this only sets the
+     hook it reads when the video ends, and the order of the two does not
+     matter.
+
+     ITS NEXT CONTROL IS A LINK, NOT AN ADVANCE. Everything else on this page --
+     the h1, the hit cards, the description, the source card -- is about the
+     hero video. Swapping the hero underneath all of it would leave the page
+     describing something that is no longer playing, which is a worse lie than
+     the extra tap costs. In a grid or the overlay there is no such surrounding
+     claim, so those advance in place. */
+  function readRipPage() {
+    var pl = document.getElementById("player");
+    if (!pl) return null;
+    var h1 = document.querySelector("main h1");
+    var crumb = document.querySelector(".crumbs a[href*=\"set=\"]");
+    var pack = document.querySelector("#player .pack");
+    var c = pack && /pack--(?!tile\b|img\b)([a-z0-9-]+)/.exec(pack.className);
+    var meta = document.querySelector("main .rip-meta");
+    var sg = segs(meta);
+    return {
+      id: pl.getAttribute("data-id") || "",
+      href: location.pathname,
+      title: (h1 ? h1.textContent : pl.getAttribute("data-title") || "").trim(),
+      name: (h1 ? h1.textContent : pl.getAttribute("data-title") || "").trim(),
+      // The breadcrumb carries the SET; .rip-meta's first segment is the BOX
+      // ("Pitch Black ETB 1, pack 3"), which is a different fact.
+      set: crumb ? crumb.textContent.trim() : (sg.length ? sg[0] : ""),
+      setHref: crumb ? crumb.getAttribute("href") : "",
+      kind: "",
+      skin: c ? c[1] : "default",
+      secs: Number(pl.getAttribute("data-dur") || 0),
+      views: Number(pl.getAttribute("data-views") || 0)
+    };
+  }
+
+  function armRipPage() {
+    var stage = document.querySelector(".rip-stage");
+    if (!stage || !document.getElementById("player")) return;
+    var t = readRipPage();
+    if (!t) return;
+    armEndCard(stage, function () {
+      return payloadFor(t, nextOnRipPage, null);
+    });
+  }
+
+  function boot() { wireCarousels(); armRipPage(); }
+
   if (document.readyState === "loading")
-    document.addEventListener("DOMContentLoaded", wireCarousels);
-  else wireCarousels();
+    document.addEventListener("DOMContentLoaded", boot);
+  else boot();
 })();
