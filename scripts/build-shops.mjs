@@ -250,9 +250,17 @@ const cards = shops
           }${(() => {
             const lgW = `assets/shops/${s.logo}-lg.webp`;
             const lgA = `assets/shops/${s.logo}-lg.avif`;
-            if (!existsSync(join(ROOT, "public", lgW))) return `<span class="shop-logo">`;
+            /* THE PLATE IS BLACK FOR EVERYONE AND THAT IS ONLY RIGHT FOR A
+               MARK DRAWN LIGHT. Legacy Games sent a dark purple one, their own
+               brand colour: #5019DC measures 2.51:1 on #000, under the 3:1 a
+               graphic needs, so it would have gone on the page as a mark you
+               cannot see. On white it is 8.35:1. logoBg lets one shop bring its
+               own ground rather than forcing every logo onto a compromise, and
+               it is a DELIBERATE value in the data, never a default. */
+            const bg = s.logoBg ? ` style="background:${esc(s.logoBg)}"` : "";
+            if (!existsSync(join(ROOT, "public", lgW))) return `<span class="shop-logo"${bg}>`;
             const a = existsSync(join(ROOT, "public", lgA));
-            return `<button type="button" class="shop-logo" aria-label="Enlarge the ${esc(s.name)} logo" data-imglb="/${lgW}"${
+            return `<button type="button" class="shop-logo"${bg} aria-label="Enlarge the ${esc(s.name)} logo" data-imglb="/${lgW}"${
               a ? ` data-imglb-avif="/${lgA}"` : ""
             } data-imglb-alt="${esc(s.name)} logo">`;
           })()}<picture>
