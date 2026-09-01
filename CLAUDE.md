@@ -892,6 +892,106 @@ Three things that are easy to get wrong and were all wrong once:
 - Never call `playVideo` on an unmuted, not-yet-started player: a refused
   scripted play is itself what triggers YouTube's play button.
 
+## The end card
+
+Added 1 September 2026. A rip is about twenty seconds long, and the player used
+to stop on its last frame with nothing to do next: 330 videos, on 361 pages
+carrying a player. When a video ends, `.rip-end` fades in over the frame with
+the set, runtime and views as a kicker, the rip's title, a REAL SEALED PACK in
+the NEXT rip's own skin, Watch again, Full rip page, and rows to the set and the
+opening type. Everything it prints is already in the tile that was clicked;
+nothing is fetched.
+
+**IT IS ONE TAP, NOT ZERO, AND THAT IS NOT A UX PREFERENCE.** An iframe created
+without a live gesture may autoplay MUTED ONLY, so auto-advancing lands the next
+rip silent under YouTube's own unmute button, which is the exact symptom the
+mute-then-unmute handshake above exists to prevent. Auto-advance would be
+shipping a fixed bug back as a feature. NEXT PACK advances and rips in the same
+gesture, so the tap that chooses is the tap that buys the sound. Do not
+"improve" this into an autoplaying queue.
+
+**IT WAS ONLY BUILDABLE AFTER ENDED BECAME HONEST.** Before 1 September, state 0
+fell through to `retreat()`, which re-muted and restarted every finished rip.
+And a SECOND path did the same thing until the end card was built: the "Tap for
+sound" button set `phase='unmuting'` and cleared its watchdog without arming a
+new one, so nothing ever moved the phase on, and twenty seconds later ENDED hit
+the unmuting branch and restarted the rip. That was live on the path iOS reaches
+most. If a rip ever restarts itself again, look at `phase` before anything else.
+
+**THE FOUR CONTEXTS DISAGREE ABOUT EVERYTHING AND EACH ONE WAS MEASURED.**
+Five families emit a playable tile and no two carry the same facts in the same
+place: `.hero-art` has the set in `.hero-meta` and appends ", 0:29" to its own
+aria-label; `.hofx` has no aria-label at all; `.art` on /videos.html is
+RE-RENDERED IN THE BROWSER on every filter tap; playlist `.art` reads "multi" in
+`.pack-brand` on ten tiles; and the 3,109 rip-rail `.vid-shell` tiles carried no
+duration and no view count at all. All five emitters write `data-dur` and
+`data-views` now and the visible spans are untouched. Read those, not the text.
+
+**FOUR THINGS THAT LOOK RIGHT AND ARE WRONG. Do not re-derive these.**
+- **`nextElementSibling` on the anchor is the SAME video.** A tile's `<a>` is the
+  first child of an `<article>` and its next sibling is the `<h3>` holding that
+  rip's own title link. Step at the CELL level.
+- **The box rail's first tile is usually an EARLIER pack.** `build-pages.mjs`
+  selects it next-packs-first and then re-sorts into PACK ORDER to render. Of
+  the 249 pages carrying one, 207 have a later pack and tile zero is the honest
+  next on only 99. Pick by pack number off `.rip-meta`, which comes in two
+  shapes: "…, pack 5" and "… Pack #9".
+- **A carousel slide can be visible and unreachable.** `offsetParent` only knows
+  about `display:none`, so a slide off the right edge of the track passes a
+  visibility test. Below 545px the home page hides every slide but the first, so
+  there are exactly TWO playable tiles on the whole page. Advancing must both
+  check visibility AND scroll the track, and the scroll comes strictly AFTER the
+  mount so nothing sits between the click and the iframe.
+- **A deferred slide has no `src`, only `data-packsrc`**, so a skin read returns
+  "default" on the one control whose entire promise is the next set's own pack.
+
+**WHERE THERE IS NO NEXT, THERE IS NO CONTROL.** The card drops NEXT PACK rather
+than falling back to `pack--default`, because a generic wrapper is a claim about
+which set is next and it would be false. That is the honest state on a phone
+after the Latest slide, at the end of a playlist, and on the newest rip.
+
+**ON A RIP PAGE THE CONTROL IS A LINK, NOT AN ADVANCE**, because that page's h1,
+hit cards, description and source card are all about the hero video and swapping
+it underneath them would leave the page describing something that is not
+playing. That link carries a real `.pack`, which made it match `onDocClick`'s own
+artwork test: it was swallowed on all 330 rip pages and mounted a player INSIDE
+the card. `onDocClick` ignores anything inside `.rip-end` now.
+
+**THE CARD IS SIZED OFF THE PLAYER, NEVER OFF THE VIEWPORT, AND THIS IS THE ONE
+MOST LIKELY TO BE "FIXED" BACK.** It was `@media (max-height:420px)` and that
+could never fire: a media query asks the VIEWPORT how tall it is, and the short
+thing here is the PLAYER. On a portrait phone the viewport is 812px while a
+rip-page rail tile's player is 247. Measured before the fix: **509px of card in a
+247px frame**, NEXT PACK sliced through the middle, on the largest tile family on
+the site. `showEndCard` measures the player and sets `.rip-end--tight` (<520px
+tall) or `.rip-end--tiny` (<340px tall or <200px wide). The three families differ
+by a factor of three: overlay 375x667, home tile ~309x464, rail tile ~136x247.
+The order of sacrifice is the rows and the rule, then the title, then the
+kicker. **NEXT PACK is never dropped, because it is the whole feature.**
+
+**THE FINISHED PLAYER IS HIDDEN WHILE THE CARD IS UP** (`visibility:hidden` plus
+`tabindex="-1"`), and that is two fixes in one. It stayed tabbable underneath:
+8 to 14 blind Tab stops on YouTube's own controls beneath the scrim, and Escape
+DEAD for that whole stretch, because a cross-origin iframe never lets the
+document's keydown listener see the key. The focus trap was simply not in
+effect. And `.94` is not opaque enough to hide YouTube's chrome: the scrubber and
+the fullscreen button ghosted through onto the card's own rows. `lbFocusables`
+also has to test `visibility`, because a hidden iframe keeps its `offsetParent`.
+
+**THE SCRIM IS OPAQUE ON PURPOSE.** `.94` of `--navy-deep` rather than a wash
+over the last frame, so every contrast pair is deterministic instead of
+depending on whichever card happened to be on screen when the video stopped.
+Measured at the worst possible rendered background: title 10.12:1, kicker
+6.81:1, teal fill 7.22:1, rows 10.12:1. `.rip-end-next-meta` failed at 4.39:1
+until its `opacity:.75` came off, which is CLAUDE.md's own "the big pink is not
+large text" trap arriving in a different colour.
+
+**VERIFIED IN A REAL BROWSER, and a 21-second rip is the test.** It played to its
+end and the card appeared unaided at 21,083ms, which is the genuine ENDED signal
+rather than the duration+1500ms backup. That backup reads `data-dur` off
+`.rip-player`, so `buildHost` has to write it: it did not, and the backup was
+dead on every tile and every overlay while working on rip pages only.
+
 ## Set pages
 `/sets/<id>.html` is a "Set 101" guide per card set, plus a `/sets/` index.
 Two scripts, run in order:
