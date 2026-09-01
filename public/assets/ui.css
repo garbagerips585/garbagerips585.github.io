@@ -2016,7 +2016,7 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
   font:inherit;text-decoration:none;
 }
 .rip-end-next:hover,.rip-end-next:focus-visible{filter:brightness(1.08)}
-.rip-end-pack{flex:0 0 auto;width:66px;height:118px;position:relative}
+.rip-end .rip-end-pack{flex:0 0 auto;width:66px;height:118px;position:relative}
 .rip-player .rip-end .pack,.rip-end .pack{position:relative;inset:auto;cursor:inherit}
 .rip-end-next-lab{
   display:block;font:700 .72rem/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;

@@ -6823,7 +6823,15 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
   font:inherit;text-decoration:none;
 }
 .rip-end-next:hover,.rip-end-next:focus-visible{filter:brightness(1.08)}
-.rip-end-pack{flex:0 0 auto;width:66px;height:118px;position:relative}
+/* THE PREFIX IS LOAD BEARING AND IT IS NOT TIDINESS. `.tile-stage .pack` sets
+   width:100% and height:100% at (0,2,0), and a bare `.rip-end-pack` is (0,1,0),
+   so in a TILE the next-pack thumbnail lost and computed 267x0: a zero-height
+   pack, which renders as an empty teal slab where the artwork should be. It hit
+   the FULL tier only, because `.rip-end--tight` and `.rip-end--tiny` are already
+   (0,2,0) and win, and the overlay has no .tile-stage at all -- so every context
+   I had tested was one of the ones that worked. Keep all three at (0,2,0) or
+   above, and keep this block last in the file. */
+.rip-end .rip-end-pack{flex:0 0 auto;width:66px;height:118px;position:relative}
 /* (0,3,0) BEATS `.rip-player .pack{position:absolute;inset:0}` AT (0,2,0).
    Without this the next-pack thumbnail is pinned to the player's own box and
    covers the entire end card with one giant wrapper. It looks like the card
