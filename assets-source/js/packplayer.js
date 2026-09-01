@@ -819,15 +819,51 @@
     return Math.floor(secs/60)+':'+('0'+(secs%60)).slice(-2);
   }
 
-  /* A pack facade with no button around it. buildHost's is a <button> because
-     it is the thing you rip; this one is decoration inside a bigger control,
-     and a button inside a button is invalid markup that browsers repair by
-     splitting the outer one. */
-  function packFacade(skin, cls){
-    return '<span class="pack pack--'+eshtml(skin||'default')+' '+cls+'" aria-hidden="true">'+
-      '<span class="pack-face pack-l"><span class="pack-art"></span></span>'+
-      '<span class="pack-face pack-r"><span class="pack-art"></span></span>'+
-    '</span>';
+  /* THE REAL WRAPPER, NOT THE DRAWN ONE. This was a CSS .pack facade, which is
+     right where the pack is the thing you rip open -- it has to tear in half --
+     and wrong here, where it is a picture of what is next. The facade draws an
+     abstract gradient from that set's --pk-* variables, so the control promising
+     "a real sealed pack in the next rip's own skin" was showing a green smear.
+     The owner: "can we put the actual pack image we have for each set in the end
+     screen instead of the generic pack you have now?"
+
+     THE SAME FILE THE TILES ALREADY USE, which is why this is close to free: the
+     -tile rendition is what heroTile, the grid walls and the rip rails all draw,
+     so on the page the reader is already on it is normally a cache hit. That is
+     also why the AVIF is offered rather than skipped -- those tiles fetch AVIF,
+     so serving the WebP here would be a fresh 48KB instead of nothing.
+
+     NO src IN THE MARKUP. The urls are carried as data- and applied after the
+     error handler is attached, because a src set in innerHTML starts loading
+     immediately and a slug with no art on disk (stellar-crown today) would fire
+     error before anything was listening. */
+  function packArt(skin, cls){
+    var slug=String(skin||'default').replace(/[^a-z0-9-]/gi,'');
+    var base='/assets/packs/'+slug+'-garbage-rips-585-booster-pack-tile';
+    return '<picture class="'+cls+'-wrap">'+
+      '<source type="image/avif" data-avif="'+base+'.avif">'+
+      '<img class="'+cls+'" alt="" width="400" height="711" decoding="async" data-webp="'+base+'.webp">'+
+    '</picture>';
+  }
+
+  var PACK_FALLBACK='/assets/packs/default-garbage-rips-585-booster-pack-tile';
+
+  /* Attach the handler, THEN start the load. A slug the CSS knows but the pack
+     builder never drew falls back to the default wrapper rather than to a broken
+     image icon; the <source> is dropped with it, because a picture whose chosen
+     source 404s does not fall through to the img on its own. */
+  function armPackArt(root){
+    var img=root.querySelector('img[data-webp]');
+    if(!img) return;
+    var src=root.querySelector('source[data-avif]');
+    img.addEventListener('error',function once(){
+      img.removeEventListener('error',once);
+      if(src&&src.parentNode) src.parentNode.removeChild(src);
+      img.src=PACK_FALLBACK+'.webp';
+    });
+    if(src){ src.srcset=src.getAttribute('data-avif'); src.removeAttribute('data-avif'); }
+    img.src=img.getAttribute('data-webp');
+    img.removeAttribute('data-webp');
   }
 
   function buildEndCard(d){
@@ -848,7 +884,7 @@
         ? '<button class="rip-end-next" type="button">'
         : '<a class="rip-end-next" href="'+eshtml(d.next.href||'#')+'">';
       h+=opener+
-        packFacade(d.next.skin,'rip-end-pack')+
+        packArt(d.next.skin,'rip-end-pack')+
         '<span>'+
           '<span class="rip-end-next-lab">Next pack</span>'+
           '<span class="rip-end-next-name">'+eshtml(d.next.name||d.next.title||'')+'</span>'+
@@ -918,6 +954,7 @@
     else if(ph<520) card.className+=' rip-end--tight';
 
     pl.appendChild(card);
+    armPackArt(card);
     showFrame(pl,false);
 
     // Announced without stealing focus. Deferred one tick because a live region

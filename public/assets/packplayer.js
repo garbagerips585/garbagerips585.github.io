@@ -395,11 +395,27 @@
     secs=Math.max(0,Math.round(Number(secs)||0));
     return Math.floor(secs/60)+':'+('0'+(secs%60)).slice(-2);
   }
-  function packFacade(skin, cls){
-    return '<span class="pack pack--'+eshtml(skin||'default')+' '+cls+'" aria-hidden="true">'+
-      '<span class="pack-face pack-l"><span class="pack-art"></span></span>'+
-      '<span class="pack-face pack-r"><span class="pack-art"></span></span>'+
-    '</span>';
+  function packArt(skin, cls){
+    var slug=String(skin||'default').replace(/[^a-z0-9-]/gi,'');
+    var base='/assets/packs/'+slug+'-garbage-rips-585-booster-pack-tile';
+    return '<picture class="'+cls+'-wrap">'+
+      '<source type="image/avif" data-avif="'+base+'.avif">'+
+      '<img class="'+cls+'" alt="" width="400" height="711" decoding="async" data-webp="'+base+'.webp">'+
+    '</picture>';
+  }
+  var PACK_FALLBACK='/assets/packs/default-garbage-rips-585-booster-pack-tile';
+  function armPackArt(root){
+    var img=root.querySelector('img[data-webp]');
+    if(!img) return;
+    var src=root.querySelector('source[data-avif]');
+    img.addEventListener('error',function once(){
+      img.removeEventListener('error',once);
+      if(src&&src.parentNode) src.parentNode.removeChild(src);
+      img.src=PACK_FALLBACK+'.webp';
+    });
+    if(src){ src.srcset=src.getAttribute('data-avif'); src.removeAttribute('data-avif'); }
+    img.src=img.getAttribute('data-webp');
+    img.removeAttribute('data-webp');
   }
   function buildEndCard(d){
     var el=document.createElement('div');
@@ -415,7 +431,7 @@
         ? '<button class="rip-end-next" type="button">'
         : '<a class="rip-end-next" href="'+eshtml(d.next.href||'#')+'">';
       h+=opener+
-        packFacade(d.next.skin,'rip-end-pack')+
+        packArt(d.next.skin,'rip-end-pack')+
         '<span>'+
           '<span class="rip-end-next-lab">Next pack</span>'+
           '<span class="rip-end-next-name">'+eshtml(d.next.name||d.next.title||'')+'</span>'+
@@ -456,6 +472,7 @@
     if(ph<340||pw<200) card.className+=' rip-end--tiny';
     else if(ph<520) card.className+=' rip-end--tight';
     pl.appendChild(card);
+    armPackArt(card);
     showFrame(pl,false);
     var say=card.querySelector('.rip-end-say');
     if(say) setTimeout(function(){

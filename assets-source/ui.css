@@ -6823,20 +6823,20 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
   font:inherit;text-decoration:none;
 }
 .rip-end-next:hover,.rip-end-next:focus-visible{filter:brightness(1.08)}
-/* THE PREFIX IS LOAD BEARING AND IT IS NOT TIDINESS. `.tile-stage .pack` sets
-   width:100% and height:100% at (0,2,0), and a bare `.rip-end-pack` is (0,1,0),
-   so in a TILE the next-pack thumbnail lost and computed 267x0: a zero-height
-   pack, which renders as an empty teal slab where the artwork should be. It hit
-   the FULL tier only, because `.rip-end--tight` and `.rip-end--tiny` are already
-   (0,2,0) and win, and the overlay has no .tile-stage at all -- so every context
-   I had tested was one of the ones that worked. Keep all three at (0,2,0) or
-   above, and keep this block last in the file. */
-.rip-end .rip-end-pack{flex:0 0 auto;width:66px;height:118px;position:relative}
-/* (0,3,0) BEATS `.rip-player .pack{position:absolute;inset:0}` AT (0,2,0).
-   Without this the next-pack thumbnail is pinned to the player's own box and
-   covers the entire end card with one giant wrapper. It looks like the card
-   never rendered. */
-.rip-player .rip-end .pack,.rip-end .pack{position:relative;inset:auto;cursor:inherit}
+/* THE NEXT PACK IS A PHOTOGRAPH OF THE REAL WRAPPER NOW, not the drawn facade.
+   The picture element is the flex item and carries the box; the img fills it.
+
+   THE PREFIX IS STILL LOAD BEARING AND IT IS NOT TIDINESS. While this was a
+   .pack facade, `.tile-stage .pack` set width:100% and height:100% at (0,2,0)
+   and beat a bare (0,1,0) rule, so in a TILE the thumbnail computed 267x0 -- a
+   zero-height pack, rendering as an empty teal slab. It hit the FULL tier only,
+   because the two tier rules are already (0,2,0) and win, and the overlay has no
+   .tile-stage at all, so every context tested was one of the ones that worked.
+   The facade is gone, but keep all three of these at (0,2,0) or above and keep
+   this block last in the file: the next host class will do it again. */
+.rip-end .rip-end-pack-wrap{flex:0 0 auto;width:66px;height:118px;display:block;
+  border-radius:5px;overflow:hidden}
+.rip-end .rip-end-pack{width:100%;height:100%;object-fit:contain;display:block}
 .rip-end-next-lab{
   display:block;font:700 .72rem/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;
 }
@@ -6890,7 +6890,7 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 .rip-end--tight .rip-end-in{gap:8px}
 .rip-end--tight .rip-end-rows,.rip-end--tight .rip-end-rule{display:none}
 .rip-end--tight .rip-end-t{-webkit-line-clamp:1;font-size:1.1rem}
-.rip-end--tight .rip-end-pack{width:48px;height:86px}
+.rip-end--tight .rip-end-pack-wrap{width:48px;height:86px}
 
 /* A RAIL TILE IS 136x247 AND NOTHING DISCURSIVE FITS IN IT. What survives is the
    one thing the reader can act on and a way back to the rip they just watched. */
@@ -6902,7 +6902,7 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 .rip-end--tiny .rip-end-rows,
 .rip-end--tiny .rip-end-full{display:none}
 .rip-end--tiny .rip-end-next{flex-direction:column;gap:6px;padding:8px;text-align:center}
-.rip-end--tiny .rip-end-pack{width:40px;height:72px}
+.rip-end--tiny .rip-end-pack-wrap{width:40px;height:72px}
 .rip-end--tiny .rip-end-next-lab{font-size:.62rem}
 .rip-end--tiny .rip-end-next-name{font-size:.8rem;-webkit-line-clamp:2}
 .rip-end--tiny .rip-end-next-meta{display:none}
