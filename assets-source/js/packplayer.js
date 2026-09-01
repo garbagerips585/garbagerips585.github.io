@@ -184,6 +184,9 @@
     if(ended) return;
     ended=true;
     clearTimeout(endTimer); endTimer=null;
+    // The start watchdog would otherwise fire at 2600ms and paint "Tap to play"
+    // under the card, on a video that has already finished.
+    clearTimeout(startWatch);
     if(typeof root.__onEnd==='function') root.__onEnd();
   }
 
@@ -297,6 +300,17 @@
     phase='unmuting';
     cmd('unMute'); cmd('setVolume',[100]); cmd('playVideo');
     clearTimeout(unmuteWatch);
+    /* AND ARM THE WATCHDOG AGAIN. Without this the phase never left 'unmuting',
+       so twenty seconds later ENDED hit the unmuting branch of onState, was read
+       as a refusal, and retreat() re-muted and restarted the rip from the top --
+       the pre-1-September bug, still live on the one path that reaches it most
+       on iOS. It also meant the end card could never fire after a reader had
+       tapped for sound. */
+    unmuteWatch=setTimeout(function(){
+      if(phase!=='unmuting') return;
+      if(muted===false) phase='done';
+      else retreat('sound');
+    },900);
   });
 
   // Driven off animationend rather than timers that guess the CSS durations:
@@ -400,6 +414,13 @@
     // A .pack facade counts as artwork exactly as an <img> does; a title link
     // has neither and still navigates, which was the whole point of the rule.
     if (!a || !(a.querySelector("img") || a.querySelector(".pack"))) return;
+    /* THE END CARD'S OWN CONTROLS ARE NOT TILES. Its NEXT PACK carries a real
+       .pack facade so the reader sees the next set's wrapper, and that made it
+       match the artwork test above: on all 330 rip pages the link was swallowed
+       here and a player was mounted INSIDE the card, on a page whose h1 and hit
+       cards still described the finished rip. Where the card means to advance
+       in place it uses a <button> and never reaches this handler at all. */
+    if (a.closest(".rip-end")) return;
     var m = VID.exec(a.getAttribute("href") || "");
     if (!m) return;                       // not a rip url; leave it alone
     e.preventDefault();
@@ -418,11 +439,12 @@
      attach() finds .pack, .sound-on and .pack-player by selector, so two
      hand-kept copies would be two chances for one of them to drift out of
      attach()'s reach silently. */
-  function buildHost(id, title, skin, cls) {
+  function buildHost(id, title, skin, cls, dur) {
     var host = document.createElement("div");
     host.className = cls;
     host.innerHTML =
-      '<div class="rip-player pack-player" data-id="' + id + '" data-title="' +
+      '<div class="rip-player pack-player" data-id="' + id + '" data-dur="' +
+        (Number(dur) || 0) + '" data-title="' +
         title.replace(/&/g, "&amp;").replace(/"/g, "&quot;") + '">' +
         '<button class="pack pack--' + skin + '" type="button" aria-label="Rip open">' +
           '<span class="pack-face pack-l" aria-hidden="true"><span class="pack-art"></span></span>' +
@@ -566,11 +588,7 @@
         "Like " + (t.title || "this rip") + " on YouTube. Opens YouTube in a new tab."
       );
     }
-    var host = buildHost(id, t.title, t.skin, "rip-stage");
-    /* THE GRID POSITION IS NOT RECOVERABLE FROM THE HOST here: the stage lives
-       in .rip-lb on <body> and every other top-level node is inert. Keep the
-       anchor it came from so the end card can ask what follows it. */
-    host.__opener = a;
+    var host = buildHost(id, t.title, t.skin, "rip-stage", t.secs);
     /* 16:9 FOR THE ONE HORIZONTAL RIP, the same class build-pages.mjs gives its
        page. There is exactly one -- kj7532tb0_I, the Costco Charizard UPC drop
        -- and an earlier version of this comment said "the dozen", which was
@@ -653,11 +671,11 @@
     // the facade's own pack--<set> class where there is not. Falling back to
     // "default" for the CSS tiles would have given every rip on /videos.html
     // the generic green wrapper instead of its own.
-    var img = a.querySelector("img");
-    var sk = img && SKIN.exec(img.getAttribute("src") || "");
-    var facade = a.querySelector(".pack");
-    var fromClass = facade && /pack--(?!tile\b|img\b)([a-z0-9-]+)/.exec(facade.className);
-    var skin = sk ? sk[1] : fromClass ? fromClass[1] : "default";
+    /* ONE READER, because there were two and only one of them was fixed. A
+       carousel slide the track has not shown yet has NO src, only data-packsrc,
+       so this returned "default" and the end card's own thumbnail (which does
+       read data-packsrc) disagreed with the pack that actually tore open. */
+    var skin = skinOf(a);
     var slot = a.parentNode;
     // The .hofx spotlight takes its accessible name from its contents rather
     // than an aria-label, so this produced title="" and the YouTube iframe went
@@ -667,7 +685,7 @@
       .replace(/^Play\s+/, "")
       .trim();
 
-    var host = buildHost(id, title, skin, "rip-stage tile-stage");
+    var host = buildHost(id, title, skin, "rip-stage tile-stage", endT.secs);
 
     // REPLACE ONLY THE ARTWORK WHERE THE ANCHOR IS MORE THAN ARTWORK.
     //
@@ -736,7 +754,17 @@
   function advanceTile(nx) {
     if (!nx) return;
     var m = VID.exec(nx.getAttribute("href") || "");
-    if (m) playInTile(nx, m[1]);
+    if (!m) return;
+    var slide = nx.closest(".vcar-slide");
+    playInTile(nx, m[1]);
+    /* AND BRING IT ON SCREEN, strictly AFTER the mount. offsetParent only knows
+       about display:none, so a slide sitting off the right edge of the track
+       counted as visible and the rip played out of sight with its audio running.
+       Nothing may come between the click and the iframe, so this runs last. */
+    if (slide && slide.scrollIntoView) {
+      try { slide.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" }); }
+      catch (err) { slide.scrollIntoView(); }
+    }
   }
 
   /* Move focus onto the freshly mounted player. Deferred, because the iframe is
@@ -1161,9 +1189,14 @@
   function armEndCard(host,build){
     if(typeof build!=='function') return;
     host.__onEnd=function(){
-      var d=null;
-      try{ d=build(); }catch(err){ d=null; }
-      if(d) showEndCard(host,d);
+      /* THE RENDER IS INSIDE THE GUARD TOO. A throw in buildEndCard escaped
+         through fireEnd into the message listener, and `ended` was already
+         latched, so the failure was permanent AND silent -- the exact "nothing
+         happens when it ends" this feature exists to remove. */
+      try{
+        var d=build();
+        if(d) showEndCard(host,d);
+      }catch(err){}
     };
   }
 
@@ -1402,7 +1435,9 @@
     var sg = segs(meta);
     return {
       id: pl.getAttribute("data-id") || "",
-      href: location.pathname,
+      // No "Full rip page" link here: this IS the full rip page. buildEndCard
+      // omits the control when there is no href.
+      href: "",
       title: (h1 ? h1.textContent : pl.getAttribute("data-title") || "").trim(),
       name: (h1 ? h1.textContent : pl.getAttribute("data-title") || "").trim(),
       // The breadcrumb carries the SET; .rip-meta's first segment is the BOX

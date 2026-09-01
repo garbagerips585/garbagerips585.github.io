@@ -6820,7 +6820,7 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
   display:flex;align-items:center;gap:14px;width:100%;
   padding:12px 14px;border:0;border-radius:12px;cursor:pointer;text-align:left;
   background:var(--mustard);color:var(--on-accent);
-  font:inherit;
+  font:inherit;text-decoration:none;
 }
 .rip-end-next:hover,.rip-end-next:focus-visible{filter:brightness(1.08)}
 .rip-end-pack{flex:0 0 auto;width:66px;height:118px;position:relative}

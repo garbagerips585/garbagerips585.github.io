@@ -76,6 +76,7 @@
     if(ended) return;
     ended=true;
     clearTimeout(endTimer); endTimer=null;
+    clearTimeout(startWatch);
     if(typeof root.__onEnd==='function') root.__onEnd();
   }
   function armEnd(){
@@ -128,6 +129,11 @@
     phase='unmuting';
     cmd('unMute'); cmd('setVolume',[100]); cmd('playVideo');
     clearTimeout(unmuteWatch);
+    unmuteWatch=setTimeout(function(){
+      if(phase!=='unmuting') return;
+      if(muted===false) phase='done';
+      else retreat('sound');
+    },900);
   });
   function once(fn){ var done=false; return function(){ if(done) return; done=true; fn(); }; }
   function after(el,name,fn){
@@ -168,17 +174,19 @@
     if (e.defaultPrevented) return;
     var a = e.target.closest && e.target.closest('a[href*="/rip/"]');
     if (!a || !(a.querySelector("img") || a.querySelector(".pack"))) return;
+    if (a.closest(".rip-end")) return;
     var m = VID.exec(a.getAttribute("href") || "");
     if (!m) return;                       // not a rip url; leave it alone
     e.preventDefault();
     if (a.closest(".wall--lib, [data-riplb]")) playInOverlay(a, m[1]);
     else playInTile(a, m[1]);
   }
-  function buildHost(id, title, skin, cls) {
+  function buildHost(id, title, skin, cls, dur) {
     var host = document.createElement("div");
     host.className = cls;
     host.innerHTML =
-      '<div class="rip-player pack-player" data-id="' + id + '" data-title="' +
+      '<div class="rip-player pack-player" data-id="' + id + '" data-dur="' +
+        (Number(dur) || 0) + '" data-title="' +
         title.replace(/&/g, "&amp;").replace(/"/g, "&quot;") + '">' +
         '<button class="pack pack--' + skin + '" type="button" aria-label="Rip open">' +
           '<span class="pack-face pack-l" aria-hidden="true"><span class="pack-art"></span></span>' +
@@ -271,8 +279,7 @@
         "Like " + (t.title || "this rip") + " on YouTube. Opens YouTube in a new tab."
       );
     }
-    var host = buildHost(id, t.title, t.skin, "rip-stage");
-    host.__opener = a;
+    var host = buildHost(id, t.title, t.skin, "rip-stage", t.secs);
     if (a.closest("[data-wide]")) host.querySelector(".rip-player").classList.add("rip-player--wide");
     lb.appendChild(host);
     open(host, function () {
@@ -316,17 +323,13 @@
   function playInTile(a, id) {
     var byKeyboard = document.activeElement === a || a.contains(document.activeElement);
     var endT = readTile(a);
-    var img = a.querySelector("img");
-    var sk = img && SKIN.exec(img.getAttribute("src") || "");
-    var facade = a.querySelector(".pack");
-    var fromClass = facade && /pack--(?!tile\b|img\b)([a-z0-9-]+)/.exec(facade.className);
-    var skin = sk ? sk[1] : fromClass ? fromClass[1] : "default";
+    var skin = skinOf(a);
     var slot = a.parentNode;
     var titleEl = a.querySelector(".hofx-t, .hero-body h3, h3");
     var title = (a.getAttribute("aria-label") || (titleEl ? titleEl.textContent : "") || "")
       .replace(/^Play\s+/, "")
       .trim();
-    var host = buildHost(id, title, skin, "rip-stage tile-stage");
+    var host = buildHost(id, title, skin, "rip-stage tile-stage", endT.secs);
     var artBox = a.querySelector(".hofx-art");
     if (artBox) {
       var shell = document.createElement("div");
@@ -366,7 +369,13 @@
   function advanceTile(nx) {
     if (!nx) return;
     var m = VID.exec(nx.getAttribute("href") || "");
-    if (m) playInTile(nx, m[1]);
+    if (!m) return;
+    var slide = nx.closest(".vcar-slide");
+    playInTile(nx, m[1]);
+    if (slide && slide.scrollIntoView) {
+      try { slide.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" }); }
+      catch (err) { slide.scrollIntoView(); }
+    }
   }
   function focusInto(host) {
     setTimeout(function () {
@@ -637,9 +646,10 @@
   function armEndCard(host,build){
     if(typeof build!=='function') return;
     host.__onEnd=function(){
-      var d=null;
-      try{ d=build(); }catch(err){ d=null; }
-      if(d) showEndCard(host,d);
+      try{
+        var d=build();
+        if(d) showEndCard(host,d);
+      }catch(err){}
     };
   }
   function carouselClick(e) {
@@ -756,7 +766,7 @@
     var sg = segs(meta);
     return {
       id: pl.getAttribute("data-id") || "",
-      href: location.pathname,
+      href: "",
       title: (h1 ? h1.textContent : pl.getAttribute("data-title") || "").trim(),
       name: (h1 ? h1.textContent : pl.getAttribute("data-title") || "").trim(),
       set: crumb ? crumb.textContent.trim() : (sg.length ? sg[0] : ""),

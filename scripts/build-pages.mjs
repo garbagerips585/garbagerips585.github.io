@@ -2504,8 +2504,19 @@ addEventListener('DOMContentLoaded',function(){
   if(pk) pk.addEventListener('click',function(){
     var host=r.querySelector('.rip-player')||r;
     GRPack.open(host,function(){
+      // DISPOSE THE STAGE, NOT JUST THE IFRAME. attach() arms a window message
+      // listener and three timers on .rip-stage, and dropping the embed alone
+      // left every one of them pending. That was survivable while nothing read
+      // them; the end card's runtime backup made it visible, because roughly
+      // twenty seconds after a reader left the hero for a rail tile the card
+      // painted itself over the emptied hero frame while a different rip played
+      // underneath it. Its Watch again was dead too: the player is gone, so
+      // every command posts into a null contentWindow and silently does nothing.
+      if(r.__packDispose) r.__packDispose();
       var f=host.querySelector('iframe');
       if(f) f.remove();
+      var card=host.querySelector('.rip-end');
+      if(card) card.remove();
     });
   });
 });
