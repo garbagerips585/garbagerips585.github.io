@@ -1192,11 +1192,36 @@ for (const [id, e] of entries) {
     }
   });
 
+  /* THE CORPUS LEADS THE API ON IMAGES, and only the EMPTY-checklist case was
+     handled. The TCGplayer fallback above fires when api.tcgdex.net returns NO
+     cards at all, which is the ja-cyber-judge shape. Ninja Spinner and Mega
+     Symphonia are a different shape and fell straight through it: the API
+     answers with the full checklist -- 120 and 92 cards, right names, right
+     numbers -- and `image: null` on every one, so the guard never tripped and
+     212 cards published with no picture while public/data/printings held a
+     working assets.tcgdex.net base for all 212. Verified: M4/067 and M1S/092
+     both serve 200 today.
+
+     So the image falls back per CARD rather than per SET. This also means a
+     future set where the corpus lands before the API lights up on its own,
+     which matters: TCGdex's Japanese image pipeline has published nothing since
+     April 2025, so every new Japanese set arrives in exactly this state. The
+     three sets the corpus genuinely has nothing for -- M3, M5, M1L -- are
+     untouched and stay imageless, which is the honest answer for them. */
+  const scans = setNative ? await printingsFor(setNative) : new Map();
+
   const cards = tcgCards_ || list.map((brief, i) => {
     const full = detailed[i];
     const dex = Array.isArray(full?.dexId) ? full.dexId[0] : full?.dexId || null;
     const native = brief.name || full?.name || "";
     const num = Number(brief.localId);
+    // The API's own scan where it has one, the corpus's where it does not. The
+    // corpus stores `g` as a base that may already carry a /low or /high tail,
+    // so it is stripped exactly as the TCGplayer fallback strips it.
+    const rec = Number.isFinite(num) ? scans.get(String(num)) : null;
+    const imgBase =
+      full?.image ||
+      (rec?.g ? String(rec.g).replace(/\/(low|high)\.(webp|avif|png|jpg)$/, "") : null);
     return {
       localId: brief.localId || null,
       native,
@@ -1209,8 +1234,8 @@ for (const [id, e] of entries) {
       // wide, so twelve chase tiles at full size would have been 2MB of image
       // to show thumbnails. The big one is only fetched if somebody taps to
       // enlarge it.
-      image: full?.image ? `${full.image}/low.webp` : null,
-      imageLarge: full?.image ? `${full.image}/high.webp` : null,
+      image: imgBase ? `${imgBase}/low.webp` : null,
+      imageLarge: imgBase ? `${imgBase}/high.webp` : null,
       illustrator: full?.illustrator || null,
     };
   });
