@@ -190,6 +190,26 @@
       "pokemon": false
     },
     {
+      "id": "prime-time-2026-09-06",
+      "name": "Prime Time Trading Card Show",
+      "date": "2026-09-06",
+      "start": "10:00",
+      "end": "17:00",
+      "venue": "Venue at Lakeside",
+      "address": "1002 State Fair Blvd, Syracuse, NY 13209",
+      "city": "Syracuse",
+      "region": "syracuse",
+      "tables": 50,
+      "pokemon": false,
+      "pkmn": "some",
+      "pkmnWhy": "The flyer bills it as a Pokemon, One Piece and Dragon Ball show, with Pokemon named first.",
+      "blurb": "A TCG show rather than a sports show. Children 5 and under get in free and there is an early bird from 9am, but the flyer prints no adult price.",
+      "source": "a flyer sent to the channel on Discord, August 27, 2026",
+      "flyer": "prime-time-2026-09-06.jpg",
+      "flyerW": 310,
+      "flyerH": 161
+    },
+    {
       "id": "buffalo-scc-depew-2026-09-12",
       "name": "Buffalo Sports Card Convention",
       "date": "2026-09-12",
@@ -225,6 +245,27 @@
       "address": "6525 Ward Rd, Sanborn, NY 14132"
     },
     {
+      "id": "arch-angel-2026-09-13",
+      "name": "Arch Angels Collectors Show",
+      "date": "2026-09-13",
+      "start": "10:00",
+      "end": "15:00",
+      "venue": "Archangel School",
+      "address": "2400 Chili Ave, Rochester, NY 14624",
+      "city": "Rochester, NY",
+      "region": "roc",
+      "admission": "Free",
+      "blurb": "A charity show for Archangel School, run by the people behind the Batavia shows. Free to get in, with food and refreshments on site. Six foot vendor tables are $40, and the number to call about one is on the flyer.",
+      "organiser": "Jen and Don",
+      "source": "the organizer's own flyer, sent to the channel by a reader on Discord, August 27, 2026",
+      "sourceNote": "The name and the venue spelling come from the flyer itself now rather than from the aggregator that first listed this show: that read \"Arch Angel Sports Card and Collectors Show\" at \"Arch Angel School\", and the flyer says Arch Angels Collectors Show at Archangel School. Everything the aggregator had that the flyer also states, the date, 10am to 3pm, free admission and the Chili Avenue address, matched exactly, which is why nothing else moved. The Pokemon mark also moved: this entry read \"Pokemon not confirmed\" until the flyer arrived, which was honest at the time and is now out of date. THE EVIDENCE FOR pkmn:some IS THE FLYER ITSELF, which is built around a Pokeball drawn as large as the show title, and that is the first of the three kinds build-shows.mjs allows. It was on the page as pkmnWhy for one build and the owner asked for it to come off, so it lives here instead: the chip still has to be justified even where the justification is not printed. It is the one show on the r/Rochester post that was listed as unconfirmed, so that post is now wrong about it.",
+      "flyer": "arch-angel-2026-09-13.jpg",
+      "flyerW": 727,
+      "flyerH": 824,
+      "pokemon": false,
+      "pkmn": "some"
+    },
+    {
       "id": "collectorfest-liverpool-2026-09-13",
       "name": "Collectorfest",
       "date": "2026-09-13",
@@ -253,25 +294,39 @@
       "tables": 120
     },
     {
-      "id": "arch-angel-2026-09-13",
-      "name": "Arch Angels Collectors Show",
-      "date": "2026-09-13",
+      "id": "cny-collectors-expo-2026-09-19",
+      "name": "CNY Collector's Expo",
+      "date": "2026-09-19",
       "start": "10:00",
-      "end": "15:00",
-      "venue": "Archangel School",
-      "address": "2400 Chili Ave, Rochester, NY 14624",
-      "city": "Rochester, NY",
-      "region": "roc",
+      "end": "15:30",
+      "venue": "TC3 Field House",
+      "address": "170 North St, Dryden, NY 13053",
+      "city": "Dryden",
+      "region": "syracuse",
       "admission": "Free",
-      "blurb": "A charity show for Archangel School, run by the people behind the Batavia shows. Free to get in, with food and refreshments on site. Six foot vendor tables are $40, and the number to call about one is on the flyer.",
-      "organiser": "Jen and Don",
-      "source": "the organizer's own flyer, sent to the channel by a reader on Discord, August 27, 2026",
-      "sourceNote": "The name and the venue spelling come from the flyer itself now rather than from the aggregator that first listed this show: that read \"Arch Angel Sports Card and Collectors Show\" at \"Arch Angel School\", and the flyer says Arch Angels Collectors Show at Archangel School. Everything the aggregator had that the flyer also states, the date, 10am to 3pm, free admission and the Chili Avenue address, matched exactly, which is why nothing else moved. The Pokemon mark also moved: this entry read \"Pokemon not confirmed\" until the flyer arrived, which was honest at the time and is now out of date. THE EVIDENCE FOR pkmn:some IS THE FLYER ITSELF, which is built around a Pokeball drawn as large as the show title, and that is the first of the three kinds build-shows.mjs allows. It was on the page as pkmnWhy for one build and the owner asked for it to come off, so it lives here instead: the chip still has to be justified even where the justification is not printed. It is the one show on the r/Rochester post that was listed as unconfirmed, so that post is now wrong about it.",
-      "flyer": "arch-angel-2026-09-13.jpg",
-      "flyerW": 727,
-      "flyerH": 824,
+      "tables": "150",
+      "tiers": [
+        {
+          "name": "General admission",
+          "price": "Free",
+          "from": "10:00"
+        },
+        {
+          "name": "Early bird",
+          "price": "$5",
+          "from": "09:00",
+          "note": "9 to 10am"
+        }
+      ],
+      "organiser": "Atlantic Card Promotions",
+      "organiserUrl": "https://www.atlanticcardpromotions.com",
       "pokemon": false,
-      "pkmn": "some"
+      "pkmn": "some",
+      "blurb": "Sponsored by Southern Tier Sports Corner, who also run the vendor floor.",
+      "source": "a flyer sent to the channel on Discord, August 27, 2026",
+      "flyer": "cny-collectors-expo-2026-09-19.jpg",
+      "flyerW": 440,
+      "flyerH": 594
     },
     {
       "id": "niagara-vault-2026-09-19",
@@ -336,6 +391,58 @@
       "flyerH": 656
     },
     {
+      "id": "fall-fest-2026-09-26",
+      "name": "1st Annual Fall Fest",
+      "date": "2026-09-26",
+      "start": "10:00",
+      "end": "15:00",
+      "venue": "Elevate CNY Sports Complex",
+      "address": "4980 NY-233, Westmoreland, NY 13490",
+      "city": "Westmoreland",
+      "region": "syracuse",
+      "admission": "$2",
+      "tables": "100",
+      "tiers": [
+        {
+          "name": "General admission",
+          "price": "$2",
+          "from": "10:00"
+        },
+        {
+          "name": "Early admission",
+          "price": "$10",
+          "from": "09:00",
+          "note": "9 to 10am"
+        }
+      ],
+      "organiser": "Top Loader Productions",
+      "pokemon": false,
+      "pkmn": "some",
+      "pkmnWhy": "The flyer names TCG rather than Pokemon, but its artwork leads with a Charizard ex.",
+      "blurb": "A first year show, and the flyer says 100 tables are expected rather than booked.",
+      "source": "a flyer sent to the channel on Discord, August 27, 2026",
+      "flyer": "fall-fest-2026-09-26.jpg",
+      "flyerW": 440,
+      "flyerH": 665
+    },
+    {
+      "id": "excalibur-niagara-2026-09-26",
+      "name": "Excalibur Events: Niagara Falls Premodern/Pauper Weekend",
+      "date": "2026-09-26",
+      "start": "08:45",
+      "venue": "Niagara Falls Convention Center",
+      "address": "101 Old Falls St, Niagara Falls, NY 14303",
+      "city": "Niagara Falls",
+      "region": "buffalo",
+      "pokemon": false,
+      "admission": null,
+      "blurb": "A Magic: The Gathering tournament weekend, not a walk-in card show, and it is here because the vendor hall is worth the drive: Card Garden and Rochester CCG are both listed. Premodern $10k and Pauper mains run from 8:45am, with a Legacy $5k on the Sunday. Playing costs $90 for the Premodern main and $70 for the Legacy. Excalibur do not publish a price for walking in just to browse the vendors, so check before you drive: a collector on r/Buffalo expected browsing to be free, and that is his expectation rather than the organizer's word.",
+      "organiser": "Excalibur Events, LLC",
+      "organiserUrl": "https://www.excaliburevents.net",
+      "url": "https://www.excaliburevents.net/weekends/niagara-falls-2026",
+      "source": "excaliburevents.net, the organizer's own site, read 1 September 2026; surfaced by a reader on r/Buffalo who had the dates a day early"
+    },
+    {
       "id": "extreme-pokemon-batavia-2026-09-26",
       "name": "Extreme Pokemon Show",
       "date": "2026-09-26",
@@ -371,6 +478,23 @@
       "tables": 72,
       "pkmn": "some",
       "pkmnWhy": "The organizer confirmed it directly, and we are at this one most months: the same Pokemon vendors are there every time."
+    },
+    {
+      "id": "excalibur-niagara-2026-09-27",
+      "name": "Excalibur Events: Niagara Falls Premodern/Pauper Weekend",
+      "date": "2026-09-27",
+      "start": "08:45",
+      "venue": "Niagara Falls Convention Center",
+      "address": "101 Old Falls St, Niagara Falls, NY 14303",
+      "city": "Niagara Falls",
+      "region": "buffalo",
+      "pokemon": false,
+      "admission": null,
+      "blurb": "A Magic: The Gathering tournament weekend, not a walk-in card show, and it is here because the vendor hall is worth the drive: Card Garden and Rochester CCG are both listed. Premodern $10k and Pauper mains run from 8:45am, with a Legacy $5k on the Sunday. Playing costs $90 for the Premodern main and $70 for the Legacy. Excalibur do not publish a price for walking in just to browse the vendors, so check before you drive: a collector on r/Buffalo expected browsing to be free, and that is his expectation rather than the organizer's word.",
+      "organiser": "Excalibur Events, LLC",
+      "organiserUrl": "https://www.excaliburevents.net",
+      "url": "https://www.excaliburevents.net/weekends/niagara-falls-2026",
+      "source": "excaliburevents.net, the organizer's own site, read 1 September 2026; surfaced by a reader on r/Buffalo who had the dates a day early"
     },
     {
       "id": "batavia-scts-2026-10-03",
@@ -424,6 +548,22 @@
       "pkmn": "some"
     },
     {
+      "id": "bpt-fall-2026-10-11",
+      "name": "Buffalo Prime Time Fall Sports & TCG Show",
+      "date": "2026-10-11",
+      "start": "10:00",
+      "end": "15:00",
+      "venue": "Kiernan Recreation Center, Niagara University",
+      "address": "17 University Dr, Niagara University, NY 14109",
+      "city": "Lewiston",
+      "region": "buffalo",
+      "admission": "$5, under 12 free",
+      "source": "wnycardshows (Shake & Break 716)",
+      "pkmnWhy": "TCG is in the show's billed title. The title appears only on the regional calendar.",
+      "pokemon": false,
+      "pkmn": "some"
+    },
+    {
       "id": "pokefest-syracuse-2026-10-11",
       "name": "POKEFEST Syracuse",
       "date": "2026-10-11",
@@ -452,22 +592,6 @@
           "from": "09:30"
         }
       ]
-    },
-    {
-      "id": "bpt-fall-2026-10-11",
-      "name": "Buffalo Prime Time Fall Sports & TCG Show",
-      "date": "2026-10-11",
-      "start": "10:00",
-      "end": "15:00",
-      "venue": "Kiernan Recreation Center, Niagara University",
-      "address": "17 University Dr, Niagara University, NY 14109",
-      "city": "Lewiston",
-      "region": "buffalo",
-      "admission": "$5, under 12 free",
-      "source": "wnycardshows (Shake & Break 716)",
-      "pkmnWhy": "TCG is in the show's billed title. The title appears only on the regional calendar.",
-      "pokemon": false,
-      "pkmn": "some"
     },
     {
       "id": "northtowns-sanborn-2026-10-17",
@@ -1341,96 +1465,6 @@
       "organiser": "Shawn Hughes",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
-    },
-    {
-      "id": "prime-time-2026-09-06",
-      "name": "Prime Time Trading Card Show",
-      "date": "2026-09-06",
-      "start": "10:00",
-      "end": "17:00",
-      "venue": "Venue at Lakeside",
-      "address": "1002 State Fair Blvd, Syracuse, NY 13209",
-      "city": "Syracuse",
-      "region": "syracuse",
-      "tables": 50,
-      "pokemon": false,
-      "pkmn": "some",
-      "pkmnWhy": "The flyer bills it as a Pokemon, One Piece and Dragon Ball show, with Pokemon named first.",
-      "blurb": "A TCG show rather than a sports show. Children 5 and under get in free and there is an early bird from 9am, but the flyer prints no adult price.",
-      "source": "a flyer sent to the channel on Discord, August 27, 2026",
-      "flyer": "prime-time-2026-09-06.jpg",
-      "flyerW": 310,
-      "flyerH": 161
-    },
-    {
-      "id": "cny-collectors-expo-2026-09-19",
-      "name": "CNY Collector's Expo",
-      "date": "2026-09-19",
-      "start": "10:00",
-      "end": "15:30",
-      "venue": "TC3 Field House",
-      "address": "170 North St, Dryden, NY 13053",
-      "city": "Dryden",
-      "region": "syracuse",
-      "admission": "Free",
-      "tables": "150",
-      "tiers": [
-        {
-          "name": "General admission",
-          "price": "Free",
-          "from": "10:00"
-        },
-        {
-          "name": "Early bird",
-          "price": "$5",
-          "from": "09:00",
-          "note": "9 to 10am"
-        }
-      ],
-      "organiser": "Atlantic Card Promotions",
-      "organiserUrl": "https://www.atlanticcardpromotions.com",
-      "pokemon": false,
-      "pkmn": "some",
-      "blurb": "Sponsored by Southern Tier Sports Corner, who also run the vendor floor.",
-      "source": "a flyer sent to the channel on Discord, August 27, 2026",
-      "flyer": "cny-collectors-expo-2026-09-19.jpg",
-      "flyerW": 440,
-      "flyerH": 594
-    },
-    {
-      "id": "fall-fest-2026-09-26",
-      "name": "1st Annual Fall Fest",
-      "date": "2026-09-26",
-      "start": "10:00",
-      "end": "15:00",
-      "venue": "Elevate CNY Sports Complex",
-      "address": "4980 NY-233, Westmoreland, NY 13490",
-      "city": "Westmoreland",
-      "region": "syracuse",
-      "admission": "$2",
-      "tables": "100",
-      "tiers": [
-        {
-          "name": "General admission",
-          "price": "$2",
-          "from": "10:00"
-        },
-        {
-          "name": "Early admission",
-          "price": "$10",
-          "from": "09:00",
-          "note": "9 to 10am"
-        }
-      ],
-      "organiser": "Top Loader Productions",
-      "pokemon": false,
-      "pkmn": "some",
-      "pkmnWhy": "The flyer names TCG rather than Pokemon, but its artwork leads with a Charizard ex.",
-      "blurb": "A first year show, and the flyer says 100 tables are expected rather than booked.",
-      "source": "a flyer sent to the channel on Discord, August 27, 2026",
-      "flyer": "fall-fest-2026-09-26.jpg",
-      "flyerW": 440,
-      "flyerH": 665
     }
   ],
   "_towns": {
