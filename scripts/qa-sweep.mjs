@@ -5,6 +5,21 @@
 //   node scripts/qa-sweep.mjs --all                 every page in public/ (1,491)
 //   node scripts/qa-sweep.mjs --only rarity,decks   just those
 //   node scripts/qa-sweep.mjs --widths 390          one width
+//   node scripts/qa-sweep.mjs --all --base https://garbagerips.com
+//                                                   the DEPLOYED site, not public/
+//
+// WHY SWEEP THE DEPLOYED SITE AT ALL, when the local tree it was built from has
+// already passed. Because they are not the same thing and the difference is
+// exactly where this project has been bitten: a Pages deploy that silently
+// stopped publishing for twelve days, an asset that 404s only under the real
+// host, a ?v= stamp that went out pointing at a file the deploy did not carry.
+// The local sweep proves the TREE renders; this proves the SITE does. The page
+// list still comes from local public/, which is the right list precisely
+// because a file missing from the deploy should show up as a failure here.
+//
+// BE POLITE WITH IT. Every render is a real request to somebody else's CDN, so
+// remote runs settle longer and are worth pointing at a subset (--only) unless
+// you actually need the whole tree.
 //
 // WHY A BROWSER AND NOT ANOTHER STATIC CHECK. check-build.py already reads the
 // built HTML well: asset hashes, CSS parity, laundered claims, future dates,
@@ -48,6 +63,10 @@ const arg = (n, d) => { const i = argv.indexOf(n); return i === -1 ? d : argv[i 
 const WIDTHS = (arg("--widths", "390,768,1440")).split(",").map(Number);
 const ONLY = arg("--only", "");
 const ALL = argv.includes("--all");
+// Drive a remote origin instead of the local static server. Trailing slash is
+// stripped so callers can pass either form without producing a double slash.
+const BASE = arg("--base", "").replace(/\/$/, "");
+const ORIGIN = BASE || `http://127.0.0.1:${PORT}`;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -316,17 +335,21 @@ const AUDIT = `(() => {
 })()`;
 
 // ---------------------------------------------------------------- the run
-const server = spawn("node", [join(ROOT, ".claude/server.js")], {
+// No local server when a remote origin was named: starting one would bind a
+// port for nothing and, worse, make a passing run look like it proved something
+// about the deploy when it had quietly served public/ instead.
+const server = BASE ? null : spawn("node", [join(ROOT, ".claude/server.js")], {
   cwd: ROOT, stdio: "ignore", env: { ...process.env, PORT: String(PORT) },
 });
-process.on("exit", () => { try { server.kill(); chrome?.kill(); } catch {} });
+process.on("exit", () => { try { server?.kill(); chrome?.kill(); } catch {} });
 
 async function main() {
   // Wait for the static server before Chrome, so no page can load half-served.
   for (let i = 0; i < 80; i++) {
-    try { if ((await fetch(`http://127.0.0.1:${PORT}/index.html`)).ok) break; } catch {}
+    try { if ((await fetch(`${ORIGIN}/index.html`)).ok) break; } catch {}
     await sleep(100);
   }
+  if (BASE) console.log(`sweeping the DEPLOYED site at ${BASE}, not public/`);
   const wsUrl = await startChrome();
   const browser = cdp(wsUrl);
   await browser.ready;
@@ -350,9 +373,11 @@ async function main() {
       const errors = [];
       // Console and network failures are collected per page load.
       const onEvent = (m) => {};
-      await send("Page.navigate", { url: `http://127.0.0.1:${PORT}${path}` });
+      await send("Page.navigate", { url: `${ORIGIN}${path}` });
       // Settle: load event, then lazy images near the top, then a paint.
-      await sleep(width === WIDTHS[0] ? 700 : 450);
+      // A remote origin needs longer: these are real round trips to a CDN, and
+      // a short settle reports a half-loaded page as a broken one.
+      await sleep((width === WIDTHS[0] ? 700 : 450) + (BASE ? 900 : 0));
       // Force every lazy image to commit so a 404 cannot hide below the fold.
       await send("Runtime.evaluate", {
         expression: `document.querySelectorAll('img[loading=lazy]').forEach(i=>i.loading='eager');`,
@@ -370,7 +395,7 @@ async function main() {
   await writeFile(join(ROOT, ".cache/qa-sweep.json"), JSON.stringify(results, null, 1));
   report(results, list.length);
   browser.close();
-  server.kill();
+  server?.kill();
   // WAIT FOR CHROME TO ACTUALLY BE GONE BEFORE DELETING WHAT IT IS WRITING IN.
   // kill() only delivers the signal; Chrome then flushes Default/ on its way
   // out, and rm racing that flush is what printed
@@ -422,4 +447,4 @@ function report(results, pageCount) {
   console.log(S.join("\n"));
 }
 
-main().catch((e) => { console.error(e); server.kill(); chrome?.kill(); process.exit(1); });
+main().catch((e) => { console.error(e); server?.kill(); chrome?.kill(); process.exit(1); });
