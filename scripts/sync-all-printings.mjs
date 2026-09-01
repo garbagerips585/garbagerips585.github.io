@@ -292,6 +292,54 @@ for (const c of cards) {
     perCardDrops += 1;
   }
 }
+/* ---------------------------------- the cards TCGdex simply does not have */
+
+// 1,929 ENGLISH PRINTINGS CARRY NO TCGDEX SCAN AT ALL, and for a good share of
+// them a picture exists one host away. imgDims() in shared/format.mjs has known
+// images.pokemontcg.io's shape for months; nothing was reading it for these.
+//
+// The pairing is set name -> set id out of data/ptcg-scans.json, which is
+// checked in rather than fetched because api.pokemontcg.io answered 500 on two
+// of three attempts the day this was written. Every pairing in that file was
+// already proven against real cards; see its own readme.
+//
+// AND IT IS STILL PROBED PER CARD HERE, because a set existing on that host
+// proves nothing about one card in it -- which is the exact lesson the per-set
+// probe above already records, one level up. A pairing gets a card an ATTEMPT,
+// not an image.
+const ptcgSets = JSON.parse(await readFile(join(ROOT, "data/ptcg-scans.json"), "utf8")).sets || {};
+// H01 -> H1, 001 -> 1. The corpus zero-pads Skyridge's holos and this host does
+// not, which silently lost all 32 until the raw number was tried first and this
+// second. Only Skyridge needs it; the other 28 sets join on the raw number.
+const dePad = (n) => {
+  const m = /^([A-Za-z]*)0*(\d+)([A-Za-z]*)$/.exec(String(n));
+  return m ? `${m[1]}${Number(m[2])}${m[3]}` : String(n);
+};
+const orphans = cards.filter((c) => !c.g && c.l === "en" && ptcgSets[c.s]);
+let rescued = 0;
+if (orphans.length) {
+  console.log(`Probing ${orphans.length} imageless English cards on images.pokemontcg.io...`);
+  for (let i = 0; i < orphans.length; i += 12) {
+    await Promise.all(
+      orphans.slice(i, i + 12).map(async (c) => {
+        const id = ptcgSets[c.s];
+        for (const num of [String(c.i), dePad(c.i)].filter((v, j, a) => a.indexOf(v) === j)) {
+          const base = `https://images.pokemontcg.io/${id}/${num}`;
+          try {
+            const r = await fetch(`${base}.png`, { method: "HEAD" });
+            if (r.ok) {
+              c.gp = base;
+              rescued += 1;
+              return;
+            }
+          } catch {}
+        }
+      }),
+    );
+  }
+  console.log(`  ${rescued} of ${orphans.length} found a scan on images.pokemontcg.io`);
+}
+
 const withImg = cards.filter((c) => c.g).length;
 console.log(`  ${liveSets} of ${bySet.size} sets have images, ${withImg} cards keep one`);
 console.log(`  ${perCardDrops} cards dropped an image base that data/no-scan.json records as a 404`);

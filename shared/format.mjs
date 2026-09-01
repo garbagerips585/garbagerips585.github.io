@@ -995,6 +995,27 @@ export function moneyRound(v) {
  *
  * Returns a string ready to drop into a tag, with a leading space, or "".
  */
+/**
+ * THE SCAN FOR ONE PRINTINGS RECORD, whichever host it came from.
+ *
+ * `g` is a TCGdex base you append /low.webp or /high.webp to. `gp` is a
+ * pokemontcg.io base you append .png or _hires.png to, written by
+ * sync-all-printings.mjs for the cards TCGdex has no scan for at all. The two
+ * shapes are different enough that four consumers each hand-appending
+ * "/low.webp" would each need the same two-branch test, so it lives here once.
+ *
+ * ORDER IS NOT ARBITRARY: TCGdex first, always. It is the source the whole site
+ * is built on, its renditions are WebP rather than PNG, and `gp` only ever
+ * exists on a record that has no `g`. A record carrying both would be a bug in
+ * the sync, and taking `g` first means it degrades to the right answer anyway.
+ */
+export function cardScan(rec, big) {
+  if (!rec) return null;
+  if (rec.g) return `${rec.g}/${big ? "high" : "low"}.webp`;
+  if (rec.gp) return `${rec.gp}${big ? "_hires" : ""}.png`;
+  return null;
+}
+
 export function imgDims(url) {
   const u = String(url || "");
   if (!u) return "";

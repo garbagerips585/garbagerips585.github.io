@@ -104,7 +104,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, moneyExact, moneyRound, moneyCompact, rarityLabel, imgDims, avifPicture, clipMeta, nat} from "../shared/format.mjs";
+import { esc, longDate, moneyExact, moneyRound, moneyCompact, rarityLabel, imgDims, avifPicture, clipMeta, nat, cardScan } from "../shared/format.mjs";
 // The rip tag vocabulary, so a species' printings can be joined to the rips that
 // opened those sets. See `setRipsFor`.
 import { CARD_SETS } from "../shared/taxonomy.mjs";
@@ -1377,7 +1377,7 @@ function pokePage(p) {
           // is a plain div with no aria-label, so the visible text IS the
           // accessible text and nothing is lost by not repeating it.
           (c) => `<div class="chase-card is-flat">
-        ${avifPicture(`<img src="${esc(c.g)}/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async"${imgDims(c.g + "/low.webp")}>`)}
+        ${avifPicture(`<img src="${esc(cardScan(c, false))}" onerror="this.remove()" alt="" loading="lazy" decoding="async"${imgDims(cardScan(c, false))}>`)}
         <div class="nm">${nat(c.n, c.l)}</div>
         <div class="rr">${nat(c.s, c.l)} &bull; ${esc(c.i)}</div>
         ${rar(c.r) ? `<div class="rr">${esc(rar(c.r))}</div>` : ""}

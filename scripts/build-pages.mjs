@@ -57,7 +57,7 @@ import { pickIntlPrintingJp } from "../shared/intl-vocab.mjs";
 // gradedPrice() are the receipt for in CLAUDE.md.
 import { corpusScan, noScanBox, pinnedShot, NOSCAN_CSS } from "../shared/card-scan.mjs";
 import { loadCorpus, corpusCard } from "../shared/subset-cards.mjs";
-import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount, avifPicture, packTileImg, clipMeta, plainDashesAll, RIP_BANNER} from "../shared/format.mjs";
+import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount, avifPicture, packTileImg, clipMeta, plainDashesAll, RIP_BANNER, cardScan } from "../shared/format.mjs";
 // Who sold or sent the packs, read out of the rip's own description.
 import { sourceIndex, packSource, sourceCard } from "../shared/pack-source.mjs";
 import { socialLinks, GLYPH } from "../shared/socials.mjs";
@@ -635,7 +635,7 @@ async function resolveHits(vid) {
         setName: h.setName || fp?.setName || (fp ? null : pm && pm.s) || null, setId: null,
         rarity: h.rarity || (fp ? null : pm && pm.r) || null,
         n: h.number || fp?.number || (fp ? null : pm && pm.i) || null,
-        img: fp?.img || (pm && pm.g && !fp ? `${pm.g}/low.webp` : null),
+        img: fp?.img || (pm && !fp ? cardScan(pm, false) : null),
         // A promo has no price in the nightly feed, so where one is recorded on
         // the hit itself we use it, and carry its source and date so the page
         // can say where it came from rather than implying it is a live figure.

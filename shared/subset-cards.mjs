@@ -1,3 +1,4 @@
+import { cardScan } from "./format.mjs";
 // Cards the per-set checklists cannot answer for, resolved out of the printings
 // corpus instead.
 //
@@ -115,7 +116,7 @@ function shape(pick, set) {
     name: pick.n,
     rarity: pick.r || null,
     price: typeof pick.p === "number" ? pick.p : null,
-    img: pick.g ? `${pick.g}/low.webp` : null,
+    img: cardScan(pick, false),
     setName: pick.s || set,
   };
 }
