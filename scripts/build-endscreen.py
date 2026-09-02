@@ -144,6 +144,7 @@ def counts():
     """
     import glob, re
     c = {
+        "rips": len(glob.glob(str(ROOT / "public/rip/*.html"))),
         "dex": len(glob.glob(str(ROOT / "public/pokemon/*.html"))),
         "sets": len(glob.glob(str(ROOT / "public/sets/*.html"))),
     }
@@ -153,7 +154,7 @@ def counts():
         raise SystemExit("cards.html no longer prints an 'N Pokemon card printings' "
                          "total; read that page and update this before shipping a number")
     c["printings"] = m.group(1)
-    for k in ("dex", "sets"):
+    for k in ("rips", "dex", "sets"):
         if not c[k]:
             raise SystemExit(f"counted zero {k} in public/; build the site first")
     return c
@@ -369,13 +370,39 @@ def build():
     # ones checked and left off -- rather than a page of its own. He came back
     # with "Garbage Plate 101 & Directory", which describes both halves of that
     # page instead of only the smaller one. Do not shorten it back.
+    # THE HIT RATE LINE, ADDED 2 SEPTEMBER 2026: "should we change one of the
+    # bullet points to be something about the stats from my rips, like view my hit
+    # rates per set or something like that?"
+    #
+    # IT POINTS AT A PAGE THAT REALLY DOES THIS, WHICH WAS CHECKED FIRST.
+    # /luck.html is "Luck, measured: What Came Out of 331 Rips" and its third
+    # section is literally "Which sets have been kind", a per-set hit rate table.
+    # Worth knowing if the wording is ever tightened: that page does NOT rate
+    # every set. It withholds a number below 12 answered rips, in its own words
+    # because "at that size it would be noise dressed up as a fact". "Hit rates by
+    # set" is a fair name for the table; it is not a promise of a row per set.
+    #
+    # THE NUMBER IS COUNTED OFF DISK AND NOT LIFTED OFF THAT PAGE, unlike the
+    # printings figure. The obvious regex finds "104 answered rips" first, which
+    # is a sub-count inside one of its sections and not the total, and a bullet
+    # built on it would have shipped a confidently wrong 104.
+    #
+    # IT REPLACES "1,026 Pokemon card pages", which he had already offered up:
+    # "we can remove one of the bullets about the 1,026 pokemon card pages or the
+    # amount of listings maybe?". Of those two the printings line is the stronger
+    # keep, since a search over 39,707 is the less replaceable claim.
+    #
+    # AND IT IS SECOND RATHER THAN LAST, WHICH IS A CHANGE TO HIS ORDER. His list
+    # ran rips, local, plate, then three card-database lines in a row. Hit rates
+    # are about HIS RIPS, so it sits with the daily-rip line, and the three card
+    # lines stop being a block. One line move if he wants it back at the end.
     bullets = [
         "A new pack rip video every day",
+        f"Hit rates by set, over {N['rips']:,} rips",
         "Rochester, NY card shops + card show calendar",
         "Garbage Plate 101 & Directory",
         f"{N['sets']:,} Pokemon card set guides",
         f"Search {N['printings']} Pokemon card printings",
-        f"{N['dex']:,} Pokemon card pages",
     ]
     # OUTFIT AND NOT SPACE MONO, AND THE NEW LIST IS WHY. CLAUDE.md assigns Space
     # Mono to labels and tickers and Outfit to body, and six sentences in mixed
