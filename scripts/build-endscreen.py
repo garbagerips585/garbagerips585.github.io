@@ -116,7 +116,6 @@ def counts():
     """
     import glob, re
     c = {
-        "rips": len(glob.glob(str(ROOT / "public/rip/*.html"))),
         "dex": len(glob.glob(str(ROOT / "public/pokemon/*.html"))),
         "sets": len(glob.glob(str(ROOT / "public/sets/*.html"))),
     }
@@ -126,7 +125,7 @@ def counts():
         raise SystemExit("cards.html no longer prints an 'N Pokemon card printings' "
                          "total; read that page and update this before shipping a number")
     c["printings"] = m.group(1)
-    for k in ("rips", "dex", "sets"):
+    for k in ("dex", "sets"):
         if not c[k]:
             raise SystemExit(f"counted zero {k} in public/; build the site first")
     return c
@@ -153,9 +152,22 @@ def heart(size, fill):
     return im.resize((size, size), Image.LANCZOS)
 
 
-def font(name, size):
+def font(name, size, weight=None):
+    """Load a print font, and NAME THE WEIGHT when the file is a variable font.
+
+    OUTFIT.TTF IS VARIABLE AND ITS DEFAULT AXIS VALUE IS 100, WHICH IS THIN.
+    ImageFont.truetype() applies no instance of its own, so asking for "Outfit"
+    and drawing with it silently gives the lightest weight the family has --
+    hairline type that looks like a rendering fault rather than a choice. It is
+    not a broken font and there is no error to catch; the only tell is that the
+    result looks wrong, which is a poor way to find out. Every other font in this
+    directory is static, so this bites exactly one caller today.
+    """
     from PIL import ImageFont
-    return ImageFont.truetype(str(FONTS / name), size)
+    f = ImageFont.truetype(str(FONTS / name), size)
+    if weight is not None:
+        f.set_variation_by_axes([weight])
+    return f
 
 
 def shadowed(card, box, radius, fill, outline, shadow, drop=10):
@@ -294,19 +306,38 @@ def build():
     # around. Measuring what is actually opaque put the list in clear air with
     # the artwork untouched.
     N = counts()
+    # HIS WORDING AND HIS ORDER, 2 September 2026, typed out in full and not
+    # paraphrased. He rewrote the list I had proposed: the rip COUNT came out and
+    # "a new pack rip video every day" went in, the Garbage Plate went in, and
+    # Rochester moved to second. The only thing done to his lines is that the
+    # three numbers are substituted rather than typed -- all three of his figures
+    # matched what counts() reads today, so nothing on screen changes, but the
+    # card can no longer drift from the site as pages are added.
+    #
+    # "GARBAGE PLATE DIRECTORY" IS A FAIR NAME FOR IT AND WAS CHECKED. It is the
+    # "Where to eat one" section of /garbage-plate.html, eleven named places from
+    # Nick Tahou Hots to Rohrbach, with a further list of the ones checked and
+    # left off. It is a section of an explainer rather than a page of its own,
+    # which is worth knowing if the wording is ever revisited.
     bullets = [
-        "A NEW PACK RIP EVERY DAY",
-        # Thousands separators throughout: the printings figure is quoted from
-        # cards.html WITH its comma, so a bare 1026 beside a 39,707 reads as two
-        # different kinds of number on one list.
-        f"ALL {N['rips']:,} RIPS, HIT BY HIT",
-        f"SEARCH {N['printings']} CARD PRINTINGS",
-        f"{N['dex']:,} POKEMON CARD PAGES",
-        f"{N['sets']:,} SET GUIDES",
-        "ROCHESTER SHOPS + SHOW CALENDAR",
+        "A new pack rip video every day",
+        "Rochester, NY card shops + card show calendar",
+        "Garbage Plate directory",
+        f"{N['sets']:,} Pokemon card set guides",
+        f"Search {N['printings']} Pokemon card printings",
+        f"{N['dex']:,} Pokemon card pages",
     ]
-    f_b = font("SpaceMono-b.ttf", 37)
-    bx, by, STEP = MARGIN + 34, 1344, 50
+    # OUTFIT AND NOT SPACE MONO, AND THE NEW LIST IS WHY. CLAUDE.md assigns Space
+    # Mono to labels and tickers and Outfit to body, and six sentences in mixed
+    # case are body copy, not labels. It is also the only way they FIT: Space
+    # Mono is monospaced, so his longest line ("Rochester, NY card shops + card
+    # show calendar", 44 characters) measures 1035px at the old 37px and would
+    # have to drop to 30px to clear the action rail. Outfit sets the same line in
+    # 805px at 38px, so the list got bigger by changing typeface rather than
+    # smaller by keeping one.
+    # 600, which is the weight ui.css sets body copy in.
+    f_b = font("Outfit.ttf", 38, weight=600)
+    bx, by, STEP = MARGIN + 34, 1338, 50
     for i, line in enumerate(bullets):
         cy = by + i * STEP
         # The marker is PINK because CLAUDE.md's accent rule is that pink is every
@@ -315,8 +346,8 @@ def build():
         l, t, r, b = d.textbbox((0, 0), line, font=f_b)
         d.text((bx, cy - (b - t) / 2 - t), line, font=f_b, fill=C["ink-2"])
         # NOTHING MAY REACH THE ACTION RAIL. The three like/comment/share circles
-        # occupy the right 12.8% from 74.2% to 95.0% down, which four of these six
-        # lines are level with. A long line would run under the Share icon.
+        # occupy the right 12.8% from 74.2% to 95.0% down, which every one of
+        # these lines is level with. A long line would run under the Share icon.
         if cy > RAIL_T and bx + (r - l) > RAIL_X - 16:
             raise SystemExit(
                 f'"{line}" is {bx + (r - l):.0f}px wide and reaches YouTube\'s '
