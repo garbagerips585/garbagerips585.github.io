@@ -602,10 +602,34 @@ for _pat in _AVIF_PAGES:
         _spans = [
             (m.start(), m.end()) for m in _pic.finditer(_h) if _avif_source.search(m.group(0))
         ]
+        # A NON-ENGLISH `high` RENDITION IS EXEMPT, AND IT IS NOT A LOOPHOLE.
+        # This check and avifPicture() shared one premise: swapping .webp for
+        # .avif on a TCGdex url gives a file that exists. True of every English
+        # card and of `low` in every language; FALSE of the 600px renditions of
+        # the Japanese sets. Measured 2 September 2026 with curl against ja/M/M4:
+        # low.avif 11 of 11 fine, high.webp 5 of 5 fine, high.avif 11 of 12 never
+        # answer -- one patient request sat 60 seconds and returned 504, and the
+        # retry hung again.
+        #
+        # A 404 would cost nothing: the <img> fires error and its onerror cleans
+        # up. A HANG fires nothing. <picture> has already committed to the AVIF
+        # source, so the reader gets an empty frame for a minute and then loses
+        # the image when the 504 lands. Two hit cards on a rip page were blank
+        # boxes exactly this way, and it was the owner who found them on the live
+        # page, not this file.
+        #
+        # So avifPicture() declines these now, and this check has to agree or the
+        # build fails on its own correct output. Six pages, all Japanese hit
+        # cards. If TCGdex fixes the rendition, delete both exemptions together
+        # and the bytes come back on their own.
+        _intl_high = _re.compile(
+            r"https://assets\.tcgdex\.net/(?!en/)[^\"'\s>]+/high\.webp"
+        )
         _n = sum(
             1
             for m in _img_tag.finditer(_h)
             if _tcgdex_webp.search(m.group(0))
+            and not _intl_high.search(m.group(0))
             and not any(s <= m.start() and m.end() <= e for s, e in _spans)
         )
         if _n:

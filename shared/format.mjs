@@ -1256,6 +1256,32 @@ export function avifPicture(img, opts) {
   // AVIF at all) would otherwise get a source pointing at files that 400. A pack
   // srcset must be entirely local for the same reason.
   if (tcgdex && /https?:\/\/(?!assets\.tcgdex\.net)/.test(cand)) return img;
+  /* THE .avif SIBLING IS NOT GUARANTEED ON A NON-ENGLISH `high` RENDITION, and
+     TCGdex fails it in the worst possible way. This function's whole premise is
+     that swapping the extension gives a file that exists, which is true of every
+     English card and of `low` in every language. It is FALSE for the 600px
+     renditions of the Japanese sets, and the failure is not a 404: the request
+     HANGS. Measured 2 September 2026 against ja/M/M4 (Ninja Spinner), curl:
+
+         low.avif   11 of 11 fine, 0.4-0.9s
+         high.webp   5 of  5 fine, 0.5-0.6s
+         high.avif  11 of 12 never answer; one patient request sat 60s and
+                    returned 504, and the retry hung again
+
+     A 404 would be harmless here, because the <img> fires error and
+     onerror="this.remove()" cleans up. A hang fires nothing: the picture element
+     has already committed to the AVIF source, so the reader gets an empty frame
+     for a full minute and THEN loses the image entirely when the 504 lands. That
+     is how two hit cards on a rip page came to be blank boxes.
+
+     Dropping only the high candidate would be worse than dropping the source:
+     once a <source> matches, the browser chooses from THAT list alone, so a
+     lone 245w AVIF would be upscaled into a 306px box while a perfectly good
+     600w WebP sat unused on the <img>. So the whole AVIF source goes, and the
+     WebP ladder underneath serves both rungs. Six pages in the built tree are
+     affected. English is untouched, and so is every `low`-only intl url, which
+     is nearly all of the 11,179 intl bases this site emits. */
+  if (tcgdex && /assets\.tcgdex\.net\/(?!en\/)/.test(cand) && /high\.webp/.test(cand)) return img;
   if (packs && (tcgdex || /https?:\/\//.test(cand))) return img;
   const sizes = attr(A.sizes);
   const avif = cand.replace(/\.webp/g, ".avif");
