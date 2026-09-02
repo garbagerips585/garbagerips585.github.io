@@ -2952,7 +2952,19 @@ footer .soc svg{fill:var(--chrome-ink)}
 .set-header{
   display:flex;align-items:center;gap:18px;flex-wrap:wrap;
   background:var(--paper-2);border:3px solid var(--keyline);border-radius:14px;
-  box-shadow:0 6px 0 var(--trubbish);padding:16px 22px;margin:22px 0 0;
+  box-shadow:0 6px 0 var(--trubbish);padding:16px 22px;
+  /* THE BOTTOM MARGIN IS ON THIS AND NOT ON .libstats BELOW IT, and that is the
+     opposite of the call .rip-desc took for the same "two boxes touching" bug.
+     Measured before choosing: .libstats has TWO predecessors on this page. With
+     a set filter on it follows this card; with no filter this card is
+     display:none and it follows .brk, which sets its own 12px and looks right.
+     A margin-top on .libstats would push that healthy 12px to 24 as well and
+     change a state nobody complained about. This card only exists when a filter
+     is on, so a margin here reaches exactly the broken case.
+     24px because .rip-desc uses the same step under the same 6px hard shadow:
+     the gap a reader SEES is 24 - 6 = 18. Was 0, with the shadow hanging into
+     the numbers. */
+  margin:22px 0 var(--s5);
 }
 .set-header .txt{font-family:var(--mono);font-size:.76rem;font-weight:700;color:var(--ink-soft);letter-spacing:.08em}
 .set-header .txt b{display:block;font-family:var(--display);font-size:1.1rem;color:var(--ink);letter-spacing:0;margin-bottom:2px}
