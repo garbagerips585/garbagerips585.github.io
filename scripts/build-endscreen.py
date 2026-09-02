@@ -23,16 +23,30 @@ element's box was then read out of the page and expressed as a percentage of the
 video, because a percentage is the only form of this measurement that survives a
 change of phone:
 
-    right action rail (like / comment / share)   left 87.2%, 68.8% -> 95.8% down
-    bottom scrim, channel row, title, progress   68.8% down -> past the bottom
+    right action rail, three white circles       left 87.2%, 74.2% -> 95.0% down
+    Subscribe pill, opaque rgb(241,241,241)      98.2% down
+    channel row @GarbageRips585                  99.9% down
+    title                                        below the video entirely
 
-So the honest safe area is the top 68% of the frame, and that is measured rather
-than guessed. Two cautions in both directions. It was taken on mobile WEB; the
-iOS and Android apps stack the title onto a second line and can add a sound row,
-so the app's bottom band is TALLER than this, never shorter -- 68% is a floor.
-And a Short is also watched on desktop, where none of this chrome overlaps the
-video at all. A design that clears the mobile band is correct in both places,
-which is why the number is applied and not averaged.
+TWO LINES, NOT ONE, BECAUSE THE SCRIM AND THE CHROME ARE NOT THE SAME THING.
+The first pass of this file used a single 68.8% line, which is where YouTube's
+bottom GRADIENT begins, and it was too cautious by a third of the frame. That
+gradient is a dark translucent wash, and everything on this card is light type
+on a dark ground: a dark wash over light-on-dark costs nothing. What actually
+destroyed the old end card was the OPAQUE chrome -- a white Subscribe pill and
+white channel text sitting on his artwork -- and that starts at 98.2%. So the
+rule is opacity, not the scrim, and re-measuring for the opaque boxes above is
+what freed the room the bullet list now sits in.
+
+THE 85% LINE IS THE APP ALLOWANCE AND IS NOT MEASURED. All of the above is
+mobile WEB, which parks the channel row just below the video; the iOS and
+Android apps overlay it ON the video and stack the title onto a second line, and
+I cannot measure those from here. 85% leaves the bottom 288px of a 1920 frame
+for a block that occupies roughly 10% on web. It is a judgement, it is labelled
+as one, and it is deliberately generous.
+
+And a Short is also watched on DESKTOP, where none of this chrome overlaps the
+video at all. A design that clears the mobile band is correct in both places.
 
 NOTHING THAT MATTERS IS PLACED BELOW IT, and the assertion at the bottom of this
 file fails the build rather than trusting me to have kept to it.
@@ -53,8 +67,11 @@ FONTS = ROOT / "assets-source/print-fonts"
 W, H = 1080, 1920                     # what a Short is
 
 # ------------------------------------------------- the measured Shorts chrome
-SAFE_BOTTOM = round(H * 0.688)        # 1322. Where YouTube's scrim begins.
-CRIT = SAFE_BOTTOM - 22               # 1300, a little air above the boundary
+SCRIM_TOP = round(H * 0.688)          # 1322. The gradient. Harmless to light type.
+CRIT = round(H * 0.85)                # 1632. Opaque chrome, with the app allowance.
+RAIL_X = round(W * 0.872)             # 942. Left edge of the like/comment/share rail.
+RAIL_T = round(H * 0.742)             # 1424
+RAIL_B = round(H * 0.950)             # 1824
 SAFE_TOP = 96                         # the app's own top row
 MARGIN = 60
 
@@ -81,6 +98,59 @@ def tokens():
 # 4.53:1. It is a literal there and a literal here for the same reason: it is a
 # borrowed brand colour that must not follow this site's palette anywhere.
 YT_RED = (0xEE, 0x00, 0x00)
+
+
+def counts():
+    """WHAT THE SITE ACTUALLY HAS, COUNTED, so the list cannot go stale.
+
+    The owner asked for "a little breakdown of the top things on the site". Every
+    line below is a number this repo can produce on demand rather than a number I
+    typed once: he publishes a rip a DAY, so a hand written "331 rips" is wrong by
+    tomorrow, and a wrong count on a card that goes out to every viewer is worse
+    than no count. Regenerating the end screen re-reads them.
+
+    The printings total is the exception and is quoted, not counted: it is the
+    figure build-cards.mjs prints on /cards.html, so this card and that page
+    cannot disagree. If the regex stops matching, that is a real change and this
+    stops rather than guessing.
+    """
+    import glob, re
+    c = {
+        "rips": len(glob.glob(str(ROOT / "public/rip/*.html"))),
+        "dex": len(glob.glob(str(ROOT / "public/pokemon/*.html"))),
+        "sets": len(glob.glob(str(ROOT / "public/sets/*.html"))),
+    }
+    m = re.search(r"([\d,]{5,})\s+Pokemon card printings",
+                  (ROOT / "public/cards.html").read_text(encoding="utf-8"))
+    if not m:
+        raise SystemExit("cards.html no longer prints an 'N Pokemon card printings' "
+                         "total; read that page and update this before shipping a number")
+    c["printings"] = m.group(1)
+    for k in ("rips", "dex", "sets"):
+        if not c[k]:
+            raise SystemExit(f"counted zero {k} in public/; build the site first")
+    return c
+
+
+def heart(size, fill):
+    """A heart, drawn rather than found, at 4x and downsampled for clean edges.
+
+    IT IS A HEART AND NOT A THUMB BECAUSE THAT IS WHAT THE VIEWER IS LOOKING AT.
+    YouTube's like control on a Short is a HEART -- it was measured on the rail
+    above, the first of the three white circles -- so a thumbs up would be
+    pointing at a button that does not exist on this surface. The old card had a
+    thumb, which is Facebook's.
+    """
+    S = 4
+    d_ = size * S
+    im = Image.new("RGBA", (d_, d_), (0, 0, 0, 0))
+    dr = ImageDraw.Draw(im)
+    r = d_ * 0.27
+    dr.ellipse([d_ * .5 - r * 2, d_ * .10, d_ * .5, d_ * .10 + r * 2], fill=fill)
+    dr.ellipse([d_ * .5, d_ * .10, d_ * .5 + r * 2, d_ * .10 + r * 2], fill=fill)
+    dr.polygon([(d_ * .5 - r * 2, d_ * .40), (d_ * .5 + r * 2, d_ * .40),
+                (d_ * .5, d_ * .93)], fill=fill)
+    return im.resize((size, size), Image.LANCZOS)
 
 
 def font(name, size):
@@ -183,7 +253,14 @@ def build():
     sw = (W - MARGIN * 2 - GAP) - lw
     lx = MARGIN
     shadowed(card, (lx, y, lx + lw, y + PH), PH // 2, C["mustard"], C["trubbish"], C["trubbish"])
-    centre(d, "LIKE", f_pill, y + PH / 2 - 4, C["on-accent"], cx=lx + lw / 2)
+    # The heart and the word are centred AS A GROUP, not each in its own half:
+    # centring them separately leaves a hole down the middle of a pill this wide.
+    HS, HG = 58, 20
+    tw_ = d.textlength("LIKE", font=f_pill)
+    gx = lx + (lw - (HS + HG + tw_)) / 2
+    hi = heart(HS, C["on-accent"])
+    card.paste(hi, (round(gx), round(y + (PH - HS) / 2 + 2)), hi)
+    centre(d, "LIKE", f_pill, y + PH / 2 - 4, C["on-accent"], cx=gx + HS + HG + tw_ / 2)
     sx = lx + lw + GAP
     shadowed(card, (sx, y, sx + sw, y + PH), PH // 2, YT_RED, C["trubbish"], C["trubbish"])
     centre(d, "SUBSCRIBE", f_pill, y + PH / 2 - 4, (255, 255, 255), cx=sx + sw / 2)
@@ -200,43 +277,83 @@ def build():
     centre(d, "GARBAGERIPS.COM", f_url, y + UH / 2, C["mustard"])
     bottom = y + UH
 
-    # ------------------------------------------------------------ the ticker
-    # THE DEAD ZONE IS ONLY DEAD ON A PHONE, which is the half of this I had
-    # wrong at first. A Short played on DESKTOP keeps its chrome beside the
-    # video rather than over it, so nothing covers the bottom third there and an
-    # empty third looks like a file that failed to finish. So one quiet line
-    # goes in it: on mobile it sits under YouTube's scrim as texture, on desktop
-    # it closes the frame. It is the site's own ticker voice, in --keyline at a
-    # size that is deliberately NOT competing with the url above it, and it
-    # carries nothing a viewer would be sorry to miss -- which is the test for
-    # anything placed below the line.
-    f_tick = font("SpaceMono-b.ttf", 34)
-    centre(d, "A NEW PACK RIP EVERY DAY  //  ROCHESTER, NY",
-           f_tick, 1516, C["keyline"])
+    # ----------------------------------------------------------- the breakdown
+    # The owner: "under the GarbageRips.com button can you add a little breakdown
+    # of the top things on the site little bullet points, just so people know
+    # what the site has? Only need to list the top 5-6 things, one of them can be
+    # the New Pack Rip Everyday which you already have."
+    #
+    # SIX LINES, AND EVERY NUMBER IN THEM IS COUNTED AT BUILD TIME. See counts().
+    # The order is the site's own primary nav -- Rips, Best pulls, Local scene,
+    # Card search, Start here -- because that ordering is already an answer to
+    # "what does this site have", decided once and not re-litigated on a sticker.
+    #
+    # THIS BLOCK IS THE REASON THE 68.8% LINE HAD TO BE RE-EXAMINED rather than
+    # worked around. Squeezed above it, the list would have cost the mascot
+    # roughly 180px of height, and he is the thing the owner asked to build this
+    # around. Measuring what is actually opaque put the list in clear air with
+    # the artwork untouched.
+    N = counts()
+    bullets = [
+        "A NEW PACK RIP EVERY DAY",
+        # Thousands separators throughout: the printings figure is quoted from
+        # cards.html WITH its comma, so a bare 1026 beside a 39,707 reads as two
+        # different kinds of number on one list.
+        f"ALL {N['rips']:,} RIPS, HIT BY HIT",
+        f"SEARCH {N['printings']} CARD PRINTINGS",
+        f"{N['dex']:,} POKEMON CARD PAGES",
+        f"{N['sets']:,} SET GUIDES",
+        "ROCHESTER SHOPS + SHOW CALENDAR",
+    ]
+    f_b = font("SpaceMono-b.ttf", 37)
+    bx, by, STEP = MARGIN + 34, 1344, 50
+    for i, line in enumerate(bullets):
+        cy = by + i * STEP
+        # The marker is PINK because CLAUDE.md's accent rule is that pink is every
+        # mark that GOES NOWHERE and teal is every route. A bullet goes nowhere.
+        d.ellipse([bx - 34, cy - 7, bx - 20, cy + 7], fill=C["brand-accent"])
+        l, t, r, b = d.textbbox((0, 0), line, font=f_b)
+        d.text((bx, cy - (b - t) / 2 - t), line, font=f_b, fill=C["ink-2"])
+        # NOTHING MAY REACH THE ACTION RAIL. The three like/comment/share circles
+        # occupy the right 12.8% from 74.2% to 95.0% down, which four of these six
+        # lines are level with. A long line would run under the Share icon.
+        if cy > RAIL_T and bx + (r - l) > RAIL_X - 16:
+            raise SystemExit(
+                f'"{line}" is {bx + (r - l):.0f}px wide and reaches YouTube\'s '
+                f"action rail at x={RAIL_X}. Shorten it or drop the type size.")
+    listbottom = by + (len(bullets) - 1) * STEP + 22
 
     # THE GUARD, and it is the point of the whole file. A future edit that grows
     # the art, the type or a pill pushes the url under YouTube's channel row and
     # nothing about the PNG would look wrong -- it only fails on a phone, which
     # is where nobody is looking. So it fails here instead.
+    bottom = max(bottom, listbottom)
     if bottom > CRIT:
         raise SystemExit(
-            f"the stack ends at y={bottom:.0f}, below the {CRIT}px line where "
-            f"YouTube's Shorts chrome starts (68.8% of {H}). Shrink something.")
+            f"the stack ends at y={bottom:.0f}, past the {CRIT}px line ({CRIT/H:.0%} "
+            f"of {H}) where YouTube's opaque chrome is allowed for. Shrink something.")
 
     OUT.mkdir(parents=True, exist_ok=True)
     card.save(OUT / "garbage-rips-endscreen.png")
 
     # A SECOND FILE WITH THE CHROME DRAWN ON IT, because the owner has to be able
-    # to check this claim himself rather than take my word for where the bar is.
-    # The red is the measured rail and scrim; anything of his under it would be
-    # covered on a phone. It is a proof, not a deliverable.
+    # to check this himself rather than take my word for where the bar is. It
+    # shows BOTH zones, because they are not the same and conflating them is the
+    # mistake the first version of this file made:
+    #   amber  the gradient scrim. Dark, translucent. Light type survives it.
+    #   red    the opaque chrome and the action rail. Nothing may go here.
+    # It is a proof, not a deliverable. Do not upload this one.
     g = card.copy()
     gd = ImageDraw.Draw(g, "RGBA")
-    gd.rectangle([0, SAFE_BOTTOM, W, H], fill=(238, 0, 0, 92))
-    gd.rectangle([round(W * .872), round(H * .688), W, round(H * .958)], fill=(238, 0, 0, 92))
-    gd.line([0, SAFE_BOTTOM, W, SAFE_BOTTOM], fill=(255, 255, 255), width=4)
-    gd.text((MARGIN, SAFE_BOTTOM + 18), "YOUTUBE COVERS EVERYTHING BELOW THIS LINE",
-            font=font("SpaceMono-b.ttf", 30), fill=(255, 255, 255))
+    gd.rectangle([0, SCRIM_TOP, W, H], fill=(255, 176, 0, 46))
+    gd.rectangle([0, CRIT, W, H], fill=(238, 0, 0, 92))
+    gd.rectangle([RAIL_X, RAIL_T, W, RAIL_B], fill=(238, 0, 0, 92))
+    f_g = font("SpaceMono-b.ttf", 27)
+    for yy, lab in ((SCRIM_TOP, "SCRIM STARTS. A DARK WASH, LIGHT TYPE SURVIVES IT"),
+                    (CRIT, "OPAQUE CHROME ALLOWANCE. NOTHING BELOW THIS LINE")):
+        gd.line([0, yy, W, yy], fill=(255, 255, 255), width=4)
+        gd.text((MARGIN, yy + 14), lab, font=f_g, fill=(255, 255, 255))
+    gd.text((RAIL_X - 316, RAIL_T + 14), "ACTION RAIL ->", font=f_g, fill=(255, 255, 255))
     g.save(OUT / "garbage-rips-endscreen-safe-area.png")
 
     print(f"  canvas   {W}x{H}")
