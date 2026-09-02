@@ -1268,7 +1268,7 @@
     ],
     "GK_IadR7G1g": [
       {
-        "card": "Team Rocket’s Mewtwo ex",
+        "card": "Team Rocket\u2019s Mewtwo ex",
         "set": "destined-rivals",
         "setName": "Destined Rivals",
         "rarity": "Hyper Rare",
@@ -1356,7 +1356,7 @@
     ],
     "EPqUqzrAc30": [
       {
-        "card": "Poké Pad",
+        "card": "Pok\u00e9 Pad",
         "set": "ja-nihil-zero",
         "setName": "Nihil Zero (JP)",
         "rarity": "Super Rare",
@@ -1380,7 +1380,7 @@
       {
         "card": "Bidoof",
         "set": "pokemon-go",
-        "setName": "Pokémon GO",
+        "setName": "Pok\u00e9mon GO",
         "number": "059",
         "rarity": "Common",
         "rawNm": 0.57,
@@ -1777,7 +1777,7 @@
       {
         "card": "Egg Incubator",
         "set": "pokemon-go",
-        "setName": "Pokémon GO",
+        "setName": "Pok\u00e9mon GO",
         "rarity": "Secret Rare",
         "number": "087",
         "rawNm": 3.22,
@@ -1922,7 +1922,7 @@
       {
         "card": "Radiant Charizard",
         "set": "pokemon-go",
-        "setName": "Pokémon GO",
+        "setName": "Pok\u00e9mon GO",
         "rarity": "Radiant Rare",
         "number": "011",
         "rawNm": 19.18,
@@ -1944,7 +1944,7 @@
       {
         "card": "Mewtwo V",
         "set": "pokemon-go",
-        "setName": "Pokémon GO",
+        "setName": "Pok\u00e9mon GO",
         "number": "030",
         "rarity": "Holo Rare V",
         "rawNm": 5,
@@ -2020,7 +2020,7 @@
       {
         "card": "Melmetal V",
         "set": "pokemon-go",
-        "setName": "Pokémon GO",
+        "setName": "Pok\u00e9mon GO",
         "number": "047",
         "rarity": "Holo Rare V",
         "rawNm": 0.68,
@@ -2031,7 +2031,7 @@
       {
         "card": "Dragonite V",
         "set": "pokemon-go",
-        "setName": "Pokémon GO",
+        "setName": "Pok\u00e9mon GO",
         "number": "049",
         "rarity": "Holo Rare V",
         "rawNm": 4.81,
@@ -2206,7 +2206,7 @@
     ],
     "b1B3Vbpsrh8": [
       {
-        "card": "Gladion’s Final Battle",
+        "card": "Gladion\u2019s Final Battle",
         "set": "pitch-black",
         "setName": "Pitch Black",
         "rarity": "Special Illustration Rare",
@@ -2240,6 +2240,26 @@
         "set": "chaos-rising",
         "setName": "Chaos Rising",
         "rarity": "Double Rare"
+      }
+    ],
+    "W1FHYQ8cWlU": [
+      {
+        "card": "Cinccino ex",
+        "set": "ja-ninja-spinner",
+        "setName": "Ninja Spinner (JP)",
+        "rarity": "Double Rare",
+        "number": "071",
+        "hallOfFame": false,
+        "handNote": "The owner, 2 September 2026: \"Cinccino ex - RR - Double Rare\". Ninja Spinner prints Cinccino ex three times (071 Double rare, 103 Ultra Rare, 117 Special illustration rare) and the rarity names exactly one, which is the rule pickPrinting follows. Hand-kept until the My Hits tab carries it."
+      },
+      {
+        "card": "Watchog",
+        "set": "ja-ninja-spinner",
+        "setName": "Ninja Spinner (JP)",
+        "rarity": "Art Rare",
+        "number": "095",
+        "hallOfFame": false,
+        "handNote": "The owner, 2 September 2026: \"Watchog - AR - Art Rare\". Two printings in the set, 069 Common and 095 Illustration rare, and TCGdex's English word for the Japanese Art Rare tier IS Illustration rare, so the rarity names exactly one. Rarity is written in the owner's vocabulary, matching the Frogadier row already on this set. Hand-kept until the My Hits tab carries it."
       }
     ]
   }

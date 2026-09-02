@@ -10,7 +10,7 @@
 
 - It NEVER states pull rates or pack odds. The Pokemon Company does not publish
   them. Where it reports what came out of packs, those are one person's observed
-  results over 330 judged rips, labeled as luck and not as odds.
+  results over 331 judged rips, labeled as luck and not as odds.
 - Every price carries the source it came from and the date it was read.
 - Shop and restaurant hours appear only where the business states them about
   itself. Directories are not treated as evidence.
@@ -35,7 +35,7 @@
 - [Where to buy](https://garbagerips.com/buying.html): every retailer compared, with what each one actually costs
 - [Where to sell](https://garbagerips.com/selling.html): every venue compared, with the fees each one takes
 - [How to play](https://garbagerips.com/how-to-play.html): the rules, for a complete beginner
-- [Pack luck, measured](https://garbagerips.com/luck.html): what came out of 330 judged rips. Observed results, explicitly not odds
+- [Pack luck, measured](https://garbagerips.com/luck.html): what came out of 331 judged rips. Observed results, explicitly not odds
 
 ## The channel
 

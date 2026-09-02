@@ -206,11 +206,20 @@ const ownLogo = (setId, alt) => {
 
 const LOGO_BOX_W = 150;
 const LOGO_BOX_H = 56;
-const enLogo = (setId, alt) => {
+const tileLogo = (setId, alt) => {
   if (!logosOnDisk.has(setId)) return "";
   const base = `/assets/logos/${setId}-pokemon-tcg-set-logo`;
   const d = LOGO_DIMS[`${setId}-pokemon-tcg-set-logo.webp`];
   if (!d) return "";
+  /* THE -sm RENDITION IS NOT GUARANTEED AND THIS FUNCTION USED TO ASSUME IT WAS.
+     That held while it only ever ran on ENGLISH sets, which all have one. The
+     moment it was pointed at the intl guides it broke: build-logos.py skips a
+     step whose master is already shorter than it, and ja-abyss-eye's master is
+     short enough to have no -sm at all, so the page went out linking a file that
+     was never written. check-build.py caught it, which is what it is for. Read
+     the directory, exactly as ownLogo does a few lines up -- the two are
+     siblings and this is the third time that lesson has been paid for. */
+  const hasSm = logoFiles.has(`${setId}-pokemon-tcg-set-logo-sm.webp`);
   const smW = Math.round((d[0] * 100) / d[1]);
   // SIZES IS THE DRAWN WIDTH, WHICH object-fit:contain DECIDES, NOT THE BOX
   // WIDTH. A flat "150px" claims 300 device px at DPR2, which no -sm.webp is
@@ -219,9 +228,9 @@ const enLogo = (setId, alt) => {
   // drawn width is the smaller of the box width and the height-limited width,
   // and that is the number the browser needs.
   const drawnW = Math.round(Math.min(LOGO_BOX_W, (LOGO_BOX_H * d[0]) / d[1]));
-  return `<img class="intl-logo" src="${base}-sm.webp"
-          srcset="${base}-sm.webp ${smW}w, ${base}.webp ${d[0]}w" sizes="${drawnW}px"
-          width="${smW}" height="100" alt="${esc(alt)}" loading="lazy" decoding="async">`;
+  return `<img class="intl-logo" src="${hasSm ? `${base}-sm.webp` : `${base}.webp`}"
+          srcset="${hasSm ? `${base}-sm.webp ${smW}w, ` : ""}${base}.webp ${d[0]}w" sizes="${drawnW}px"
+          width="${hasSm ? smW : d[0]}" height="${hasSm ? 100 : d[1]}" alt="${esc(alt)}" loading="lazy" decoding="async">`;
 };
 
 // The TCGdex bases that answer 404, found by fetching all 4,655 image urls the
@@ -696,7 +705,7 @@ const yearsSince = (iso) => {
  * inline here rather than in ui.css, which is render blocking on all 426 pages.
  */
 const ART_CSS = `
-/* The English set logo, in the English half of the twin panel. 150px wide with
+/* A set logo in the twin panel, in EITHER half. 150px wide with
    a FIXED 56px-tall box, because the logos are normalised by height at the
    source but not all the same width: without the box the two columns of the
    panel end up different heights and the grid rows jump between guides. */
@@ -937,6 +946,17 @@ function twinBand(g, cls) {
         <p class="intl-lang">${g.langFlag ? `${g.langFlag} ` : ""}${esc(g.langName)}${g.tcgdexId ? ` &bull; ${esc(g.tcgdexId)}` : ""}</p>
         <h3>${esc(g.english)}</h3>
         ${g.native ? `<p class="intl-native" lang="${esc(g.lang)}">${esc(g.native)}</p>` : ""}
+        ${/* THE JAPANESE HALF HAD NO PICTURE AND THE ENGLISH HALF DID, which is
+              backwards on a page about the Japanese set: this panel exists to say
+              "these two are the same cards", and it was showing the twin's mark
+              and not this set's. The owner asked for it, 2 September 2026. It is
+              tileLogo and NOT ownLogo because this is the panel's fixed 56px box
+              rather than the hero's; ownLogo is a different size for a different
+              job and its markup would break the fixed height the two columns
+              depend on to stop the grid jumping between guides. Renders on the
+              intl guides that have a logo file -- Ninja Spinner today -- and
+              returns "" for the rest, exactly as before. */ ""}
+        ${tileLogo(g.id, `${g.english} logo`)}
         <p class="intl-meta">${[
           g.cardCount?.total ? `${g.cardCount.total} cards` : null,
           longDate(g.released) || null,
@@ -960,7 +980,7 @@ function twinBand(g, cls) {
       <li class="intl is-en">
         <p class="intl-lang">English${en.apiId ? ` &bull; ${esc(String(en.apiId).toUpperCase())}` : ""}</p>
         <h3>${esc(en.name)}</h3>
-        ${enLogo(g.equivalent, `The English ${en.name} set logo`)}
+        ${tileLogo(g.equivalent, `The English ${en.name} set logo`)}
         <p class="intl-meta">${[
           enTotal ? `${enTotal} cards` : null,
           longDate(en.released) || null,
