@@ -82,8 +82,8 @@ MARGIN = 60
 # black) and a hex copied by hand stops tracking the site at the next repaint.
 def tokens():
     css = (ROOT / "assets-source/ui.css").read_text(encoding="utf-8")
-    want = ["ink", "ink-2", "page", "chrome-bg", "band-bg", "paper-2",
-            "keyline", "mustard", "brand-accent", "on-accent", "trubbish"]
+    want = ["ink", "ink-2", "page", "chrome-bg", "band-bg", "paper-2", "keyline",
+            "mustard", "brand-accent", "ketchup-deep", "on-accent", "trubbish"]
     out = {}
     for name in want:
         m = re.search(rf"--{name}:\s*(#[0-9A-Fa-f]{{6}})", css)
@@ -98,6 +98,34 @@ def tokens():
 # 4.53:1. It is a literal there and a literal here for the same reason: it is a
 # borrowed brand colour that must not follow this site's palette anywhere.
 YT_RED = (0xEE, 0x00, 0x00)
+
+
+def bell(size, fill):
+    """A notification bell, built from primitives the same way heart() is.
+
+    The owner: "can you also add a little bell icon in the subscribe button,
+    thats meant for subscribe and turn on notifications ... same way you added
+    the heart to the like button."
+
+    IT IS THE BELL AND NOT THE SUBSCRIBED-BELL. YouTube's own control is a bell
+    that only appears AFTER somebody subscribes, so this is an invitation rather
+    than a picture of a button on screen -- which is the same reason the heart is
+    a heart: it points at the control the viewer actually has.
+
+    Drawn at 4x and downsampled, because a shape assembled from ellipses and a
+    polygon has hard edges that alias badly at icon size.
+    """
+    S = 4
+    d_ = size * S
+    im = Image.new("RGBA", (d_, d_), (0, 0, 0, 0))
+    dr = ImageDraw.Draw(im)
+    dr.ellipse([d_ * .44, d_ * .04, d_ * .56, d_ * .16], fill=fill)   # the handle
+    dr.pieslice([d_ * .24, d_ * .10, d_ * .76, d_ * .62], 180, 360, fill=fill)
+    dr.polygon([(d_ * .24, d_ * .36), (d_ * .76, d_ * .36),
+                (d_ * .90, d_ * .70), (d_ * .10, d_ * .70)], fill=fill)
+    dr.rounded_rectangle([d_ * .06, d_ * .66, d_ * .94, d_ * .78], d_ * .06, fill=fill)
+    dr.ellipse([d_ * .41, d_ * .81, d_ * .59, d_ * .99], fill=fill)   # the clapper
+    return im.resize((size, size), Image.LANCZOS)
 
 
 def counts():
@@ -219,7 +247,7 @@ def build():
     # ------------------------------------------------------------- the wordmark
     f_mark = font("TitanOne.ttf", 92)
     f_tag = font("SpaceMono-b.ttf", 31)
-    y = SAFE_TOP + 46
+    y = SAFE_TOP + 24
     # GARBAGE and 585 are ink, RIPS is --brand-accent. That split is not a
     # flourish: it is how .brand b i renders the wordmark in the site header, so
     # the last frame of a Short and the top of garbagerips.com carry one mark.
@@ -229,9 +257,9 @@ def build():
     for t, col in parts:
         d.text((x, y), t, font=f_mark, fill=col)
         x += d.textlength(t, font=f_mark)
-    y += 118
+    y += 112
     centre(d, "POKEMON PACK RIPS FROM ROCHESTER, NY", f_tag, y + 14, C["ink-2"])
-    y += 62
+    y += 54
 
     # ----------------------------------------------------------- the mascot
     # CROPPED, not letterboxed. The source is 1300x725 and dropping it in whole
@@ -240,10 +268,19 @@ def build():
     # and enough skyline to still say Rochester, and drops the empty bench on
     # the far left. 920px of source into 960px of panel is a 4% upscale.
     #
-    # 600 TALL AND NOT 663, WHICH THE GUARD BELOW DECIDED RATHER THAN I DID. The
-    # first pass ran the stack to y=1343, 44px into YouTube's channel row, and
-    # the panel is the one element with slack to give.
-    CW, CH = 960, 600
+    # THE PANEL STAYS THE FULL CONTENT WIDTH, and the sign-off was paid for out of
+    # the gaps instead. Narrowing it to 860 was the first attempt and it looked
+    # wrong for a reason worth writing down: the pills and the url band below are
+    # 960, so the picture became the NARROWEST thing in a stack it is supposed to
+    # lead, and the bullets -- which cannot move right without running into the
+    # action rail -- then started outside its left edge. One content width, and
+    # the 63px came off the spacing between things rather than out of Trubbish.
+    #
+    # Adding room by moving the safe-area line was the other option and was
+    # refused: that line is an allowance for phones I cannot measure, and
+    # spending it to fit more copy is how a guard quietly stops meaning anything.
+    CW = 960
+    CH = round(CW * 575 / 920)
     crop = art.crop((260, 96, 1180, 671)).resize((CW, CH), Image.LANCZOS)
     px, py = (W - CW) // 2, y
     shadowed(card, (px - 6, py - 6, px + CW + 6, py + CH + 6), 26,
@@ -251,7 +288,7 @@ def build():
     card.paste(crop, (px, py))
     d.rounded_rectangle([px - 6, py - 6, px + CW + 6, py + CH + 6], 26,
                         outline=C["keyline"], width=5)
-    y = py + CH + 58
+    y = py + CH + 44
 
     # ------------------------------------------------------------- the asks
     # LIKE takes --mustard (a TEAL) because CLAUDE.md's accent rule is that teal
@@ -261,22 +298,33 @@ def build():
     # asked for a like, a subscribe, a bell and a channel name at once.
     f_pill = font("TitanOne.ttf", 56)
     PH, GAP = 124, 30
-    lw = (W - MARGIN * 2 - GAP) * 0.42
+    # 0.39, NOT 0.42, BECAUSE THE SECOND PILL GREW AN ICON. At the old split the
+    # two pills had 95px and 69px of internal padding, so the wider one looked
+    # more crowded than the narrow one sitting next to it. 0.39 puts them at 81
+    # and 83. The pills are still different widths, which is right -- SUBSCRIBE
+    # is the longer word and the more important ask.
+    lw = (W - MARGIN * 2 - GAP) * 0.39
     sw = (W - MARGIN * 2 - GAP) - lw
     lx = MARGIN
     shadowed(card, (lx, y, lx + lw, y + PH), PH // 2, C["mustard"], C["trubbish"], C["trubbish"])
     # The heart and the word are centred AS A GROUP, not each in its own half:
     # centring them separately leaves a hole down the middle of a pill this wide.
     HS, HG = 58, 20
-    tw_ = d.textlength("LIKE", font=f_pill)
-    gx = lx + (lw - (HS + HG + tw_)) / 2
-    hi = heart(HS, C["on-accent"])
-    card.paste(hi, (round(gx), round(y + (PH - HS) / 2 + 2)), hi)
-    centre(d, "LIKE", f_pill, y + PH / 2 - 4, C["on-accent"], cx=gx + HS + HG + tw_ / 2)
+
+    def pill(x0, width, ink, word, icon, dy=2):
+        """Icon and word centred AS A GROUP, not each in its own half: centring
+        them separately leaves a hole down the middle of a pill this wide."""
+        tw_ = d.textlength(word, font=f_pill)
+        gx = x0 + (width - (HS + HG + tw_)) / 2
+        gl = icon(HS, ink)
+        card.paste(gl, (round(gx), round(y + (PH - HS) / 2 + dy)), gl)
+        centre(d, word, f_pill, y + PH / 2 - 4, ink, cx=gx + HS + HG + tw_ / 2)
+
+    pill(lx, lw, C["on-accent"], "LIKE", heart)
     sx = lx + lw + GAP
     shadowed(card, (sx, y, sx + sw, y + PH), PH // 2, YT_RED, C["trubbish"], C["trubbish"])
-    centre(d, "SUBSCRIBE", f_pill, y + PH / 2 - 4, (255, 255, 255), cx=sx + sw / 2)
-    y += PH + 54
+    pill(sx, sw, (255, 255, 255), "SUBSCRIBE", bell, dy=0)
+    y += PH + 44
 
     # --------------------------------------------------------------- the url
     # The biggest single line on the frame, and the reason the layout is as
@@ -339,7 +387,7 @@ def build():
     # smaller by keeping one.
     # 600, which is the weight ui.css sets body copy in.
     f_b = font("Outfit.ttf", 38, weight=600)
-    bx, by, STEP = MARGIN + 34, 1338, 50
+    bx, by, STEP = MARGIN + 34, round(bottom) + 42, 46
     for i, line in enumerate(bullets):
         cy = by + i * STEP
         # The marker is PINK because CLAUDE.md's accent rule is that pink is every
@@ -360,7 +408,51 @@ def build():
     # the art, the type or a pill pushes the url under YouTube's channel row and
     # nothing about the PNG would look wrong -- it only fails on a phone, which
     # is where nobody is looking. So it fails here instead.
-    bottom = max(bottom, listbottom)
+    # -------------------------------------------------------------- the sign-off
+    # The owner: "maybe at the bottom where ever youtube won't cut off we add the
+    # tag line 'Let's Go!' or the full tag line 'Garbage Rips Only! Let's Go!'".
+    # The full one, because this is the last thing on the last frame and a bare
+    # "Let's Go!" does not say whose it is.
+    #
+    # PINK, AND THAT IS THE RULE RATHER THAN A PREFERENCE. CLAUDE.md's accent rule
+    # is that teal is every ROUTE and pink is every mark that GOES NOWHERE, so the
+    # url above is teal and a catchphrase is pink.
+    #
+    # BUT THE LIGHTER PINK, AND THAT WAS MEASURED RATHER THAN EYEBALLED. In
+    # --brand-accent this line came out at 4.68:1 on the ground actually painted
+    # under it, falling to 3.50:1 once YouTube's scrim is modelled over it. That
+    # PASSES -- it is large text and the gate is 3.0 -- and it was still wrong:
+    # every other line on the card sits between 6.0 and 7.5, so the sign-off was
+    # the faintest thing on the frame, which is the opposite of what a sign-off is
+    # for. --ketchup-deep is the palette's own answer to a pink that is short of
+    # contrast and takes it to 6.11:1, or 4.47:1 under the scrim, without leaving
+    # the accent rule. The size gate is what CLAUDE.md ties this token to; the
+    # reason underneath it is contrast, and that reason applies here too.
+    # 48 AND NOT 54, WHICH THE RAIL CHECK BELOW DECIDED. At 54 the line is 862px
+    # wide and its right edge lands at x=971, 29px inside the action rail: the
+    # "LET'S GO!" would have sat under the Share icon on every phone. 48 puts the
+    # edge at 924 against a limit of 926. The margin is small because the line is
+    # his and shrinking his words further to buy slack is the wrong trade.
+    f_sign = font("TitanOne.ttf", 48)
+    # 36 RATHER THAN THE LIST'S OWN 46 STEP. At the same rhythm as the bullets it
+    # read as a seventh one; further away it drifts toward YouTube's chrome. The
+    # separation it actually needs is done by weight and colour, not distance.
+    sy = listbottom + 36
+    # One space, as he wrote it. Two looked like a typographic beat and was mine.
+    sign = "GARBAGE RIPS ONLY! LET'S GO!"
+    sl, st, sr, sb = d.textbbox((0, 0), sign, font=f_sign)
+    # IT IS CENTRED, SO THE RAIL CHECK IS ON ITS RIGHT EDGE AND NOT ITS WIDTH.
+    # The bullets are left aligned and grow rightward; this grows BOTH ways from
+    # the middle, so the same guard written the same way would have passed a line
+    # that runs under the Share icon.
+    if sy + (sb - st) > RAIL_T and (W + (sr - sl)) / 2 > RAIL_X - 16:
+        raise SystemExit(
+            f'the sign-off reaches x={(W + (sr - sl)) / 2:.0f}, into YouTube\'s '
+            f"action rail at x={RAIL_X}. Shorten it or drop the type size.")
+    centre(d, sign, f_sign, sy + (sb - st) / 2, C["ketchup-deep"])
+    signbottom = sy + (sb - st) + 8
+
+    bottom = max(bottom, listbottom, signbottom)
     if bottom > CRIT:
         raise SystemExit(
             f"the stack ends at y={bottom:.0f}, past the {CRIT}px line ({CRIT/H:.0%} "
