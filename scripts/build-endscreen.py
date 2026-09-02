@@ -148,6 +148,22 @@ def counts():
         "dex": len(glob.glob(str(ROOT / "public/pokemon/*.html"))),
         "sets": len(glob.glob(str(ROOT / "public/sets/*.html"))),
     }
+    # THE DROPS PAGE IS THE ONE CLAIM ON THIS CARD WITH AN EXPIRY DATE. Every
+    # other line is true whenever it is read; "weekly retailer drops" is only true
+    # while somebody is still compiling them. data/drops.json carries the week it
+    # covers, so the card refuses to make the claim once that week is well past
+    # rather than promising a stranger a page that has quietly stopped.
+    import json, datetime
+    dj = json.loads((ROOT / "data/drops.json").read_text(encoding="utf-8"))
+    week = datetime.date.fromisoformat(dj["weekEnds"])
+    stale = (datetime.date.today() - week).days
+    if stale > 14:
+        raise SystemExit(
+            f"data/drops.json covers the week ending {week}, {stale} days ago, and "
+            f"the card claims WEEKLY retailer drops. Refresh the drops data, or "
+            f"take that bullet out before regenerating.")
+    c["retailers"] = len(dj.get("retailers") or [])
+
     m = re.search(r"([\d,]{5,})\s+Pokemon card printings",
                   (ROOT / "public/cards.html").read_text(encoding="utf-8"))
     if not m:
@@ -289,7 +305,7 @@ def build():
     card.paste(crop, (px, py))
     d.rounded_rectangle([px - 6, py - 6, px + CW + 6, py + CH + 6], 26,
                         outline=C["keyline"], width=5)
-    y = py + CH + 44
+    y = py + CH + 38
 
     # ------------------------------------------------------------- the asks
     # LIKE takes --mustard (a TEAL) because CLAUDE.md's accent rule is that teal
@@ -325,7 +341,7 @@ def build():
     sx = lx + lw + GAP
     shadowed(card, (sx, y, sx + sw, y + PH), PH // 2, YT_RED, C["trubbish"], C["trubbish"])
     pill(sx, sw, (255, 255, 255), "SUBSCRIBE", bell, dy=0)
-    y += PH + 44
+    y += PH + 38
 
     # --------------------------------------------------------------- the url
     # The biggest single line on the frame, and the reason the layout is as
@@ -396,9 +412,21 @@ def build():
     # ran rips, local, plate, then three card-database lines in a row. Hit rates
     # are about HIS RIPS, so it sits with the daily-rip line, and the three card
     # lines stop being a block. One line move if he wants it back at the end.
+    # THE DROPS LINE, ADDED 2 SEPTEMBER 2026: "we should also add something about
+    # the weekly drop info or weekly retailer drop info or something like that".
+    #
+    # CHECKED THAT IT IS ACTUALLY WEEKLY BEFORE CALLING IT WEEKLY. /drops.html is
+    # "Pokemon Card Drops and Restocks This Week", data/drops.json was covering
+    # the week of 31 August when this went in, and its history shows it edited
+    # every few days rather than left standing. There is a hard freshness gate in
+    # counts() so this stays true without anybody remembering to check.
+    #
+    # THIRD, BECAUSE IT IS THE THING WITH A CLOCK ON IT. His home page opens with
+    # "Drops to watch this week", so it is the section he leads with there too.
     bullets = [
         "A new pack rip video every day",
         f"Hit rates by set, over {N['rips']:,} rips",
+        "Weekly retailer drops and restocks",
         "Rochester, NY card shops + card show calendar",
         "Garbage Plate 101 & Directory",
         f"{N['sets']:,} Pokemon card set guides",
@@ -414,7 +442,7 @@ def build():
     # smaller by keeping one.
     # 600, which is the weight ui.css sets body copy in.
     f_b = font("Outfit.ttf", 38, weight=600)
-    bx, by, STEP = MARGIN + 34, round(bottom) + 42, 46
+    bx, by, STEP = MARGIN + 34, round(bottom) + 36, 44
     for i, line in enumerate(bullets):
         cy = by + i * STEP
         # The marker is PINK because CLAUDE.md's accent rule is that pink is every
@@ -464,7 +492,7 @@ def build():
     # 36 RATHER THAN THE LIST'S OWN 46 STEP. At the same rhythm as the bullets it
     # read as a seventh one; further away it drifts toward YouTube's chrome. The
     # separation it actually needs is done by weight and colour, not distance.
-    sy = listbottom + 36
+    sy = listbottom + 30
     # One space, as he wrote it. Two looked like a typographic beat and was mine.
     sign = "GARBAGE RIPS ONLY! LET'S GO!"
     sl, st, sr, sb = d.textbbox((0, 0), sign, font=f_sign)
