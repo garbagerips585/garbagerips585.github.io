@@ -1499,6 +1499,15 @@
       "rawNm": 26.45,
       "asOf": "2026-08-25",
       "source": "pokemonpricetracker.com"
+    },
+    "chaos-rising-088": {
+      "psa10": 131,
+      "psa10Confidence": "high",
+      "psa10Sales": 97,
+      "psa10LastSale": "2026-08-31",
+      "rawNm": 7.41,
+      "asOf": "2026-09-02",
+      "source": "pokemonpricetracker.com"
     }
   }
 }
