@@ -2687,5 +2687,17 @@
     "products": [
       "single-pack"
     ]
+  },
+  "W1FHYQ8cWlU": {
+    "sets": [
+      "ja-ninja-spinner"
+    ],
+    "products": [
+      "japanese-pack"
+    ],
+    "pulls": [
+      "double-rare",
+      "ir"
+    ]
   }
 }

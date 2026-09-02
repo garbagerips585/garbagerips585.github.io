@@ -60,6 +60,7 @@ import { loadCorpus, corpusCard } from "../shared/subset-cards.mjs";
 import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount, avifPicture, packTileImg, clipMeta, plainDashesAll, RIP_BANNER, cardScan } from "../shared/format.mjs";
 // Who sold or sent the packs, read out of the rip's own description.
 import { sourceIndex, packSource, sourceCard } from "../shared/pack-source.mjs";
+import { showIndex, boughtAtShow } from "../shared/bought-at.mjs";
 import { socialLinks, GLYPH } from "../shared/socials.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -1090,6 +1091,13 @@ const SRC_INDEX = sourceIndex([
     href: "/creators.html", dir: "creators", kind: "creators" },
 ]);
 
+/* The same calendar /card-shows.html renders, grouped by the identity a
+   description can name: a show is its NAME and its CITY, never one of its dates.
+   shared/bought-at.mjs explains why the city is a gate rather than a tie-break. */
+const SHOW_INDEX = showIndex(
+  JSON.parse(await readFile(join(ROOT, "data/shows.json"), "utf8")).shows
+);
+
 /* THE PLATFORM MARKS ARE ALREADY ON THIS PAGE. shared/chrome.mjs's sprite ships
    i-yt, i-ig, i-tt and i-fb on every page including these, so a YouTube pill on
    a rip page costs no new markup. Anything else takes the outbound arrow, which
@@ -1102,6 +1110,7 @@ const SRC_OUT =
 const srcGlyph = (k) =>
   k && GLYPH[k] ? `<svg class="loc-i" aria-hidden="true"><use href="#i-${GLYPH[k]}"/></svg>` : SRC_OUT;
 let srcCredited = 0;
+let srcAtShow = 0;
 
 /* A CREDIT RENDERS ONLY WITH A LOGO THEY SENT US. `logo` is set in the data only
    where its owner sent the file for this use, which is this site's standing rule,
@@ -1110,7 +1119,9 @@ const packCreditLine = (v) => {
   const hit = packSource(v.blurb || descriptions[v.id] || "", SRC_INDEX);
   if (!hit || !hit.o.logo) return "";
   srcCredited += 1;
-  return sourceCard(hit, { esc, socialLinks, glyph: srcGlyph, longDate });
+  const boughtAt = boughtAtShow(v.blurb || descriptions[v.id] || "", SHOW_INDEX);
+  if (boughtAt) srcAtShow += 1;
+  return sourceCard(hit, { esc, socialLinks, glyph: srcGlyph, longDate, boughtAt });
 };
 
 const pathFor = (v) => v.path || ripPath(v);
@@ -3060,6 +3071,11 @@ Wrote public/sitemap.xml with ${urls.length} urls
   ${videos.length - tagged.length} untagged: page still exists so a click never
   leaves the site, but marked noindex so they are not thin pages in search
   (see UNTAGGED.md; tag them and re-run this)
+
+  ${srcCredited} carry a seller's card, ${srcAtShow} of those also name the card
+  show the packs were bought at. Both are read out of the rip's OWN description,
+  so a count that drops after an upload means the wording changed and not the
+  data: the seller needs an @handle and the show needs its town.
 `);
 
 {

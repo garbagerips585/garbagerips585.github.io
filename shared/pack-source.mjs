@@ -145,9 +145,18 @@ export function packSource(description, index) {
  */
 const KIND_LABEL = { shops: "Card shop", vendors: "Vendor", creators: "Creator" };
 
-export function sourceCard(hit, { esc, socialLinks, glyph, longDate }) {
+export function sourceCard(hit, { esc, socialLinks, glyph, longDate, boughtAt }) {
   const { o, dir, href, kind } = hit;
   const facts = [];
+  /* WHERE HE WAS WHEN HE BOUGHT THEM, which is a different fact from who sold
+     them and is the one a local reader can act on: the vendor travels, and the
+     show is a date and a room they can turn up to. It sits FIRST because it is
+     the only line on this card that is about the reader's own town rather than
+     about the seller. shared/bought-at.mjs decides it, and returns nothing
+     unless the rip's own description says the packs came from that show. */
+  if (boughtAt)
+    facts.push(["Bought at", `<a href="/card-shows.html">${esc(boughtAt.name)}</a>${
+      boughtAt.city ? `<span class="rip-src-src">${esc(boughtAt.city)}</span>` : ""}`]);
   // A SHOP'S ADDRESS GOES TO A MAP, exactly as its own card does. The hours are
   // deliberately NOT here: this site publishes them only beside the date and the
   // source they were read from, and that pairing lives on /shops.html.
