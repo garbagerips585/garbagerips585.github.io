@@ -1,0 +1,36 @@
+{
+  "_readme": [
+    "WHO SOLD THE PACKS AND WHERE HE BOUGHT THEM, for the rips whose description",
+    "does not say it in the shape the automatic join needs. Keyed by YouTube video id.",
+    "",
+    "WHY THIS FILE EXISTS AT ALL, given both joins are automatic. They read the",
+    "rip's own description, and they are deliberately strict: shared/pack-source.mjs",
+    "needs an @handle, because 'go follow @X' and a bare name are the same string to",
+    "a handle search and only one of them is a credit; shared/bought-at.mjs needs the",
+    "town, because 'CollectorFest Monthly' in Rochester, NY and 'Collectorfest' in",
+    "SYRACUSE are two different shows and it credited the wrong one before that gate",
+    "went in. Strictness is right, and it means a description that says 'from TOAK",
+    "Pulls' in plain text yields nothing at all. That happened on 2 September 2026.",
+    "",
+    "THE OWNER IS THE SOURCE HERE, NOT AN INFERENCE, and that is the whole licence",
+    "for this file. Every entry records what he said and when. Do NOT add a row",
+    "because a description looks like it means a shop, or because a show was on that",
+    "weekend: that is exactly the guessing both joins refuse to do. If it is not on",
+    "the record, leave it out and the page says nothing, which is the standing rule.",
+    "",
+    "seller  the YouTube handle on the vendor, shop or creator listing, lowercase",
+    "        and without the @. It is the key sourceIndex() builds its map on, so a",
+    "        handle with no listing yields nothing rather than a bare name.",
+    "show    the show's name EXACTLY as data/shows.json spells it.",
+    "city    that show's city, also exactly as shows.json spells it. Both are",
+    "        checked against the calendar on every build and a miss THROWS, because",
+    "        a typo here would silently drop the badge rather than shout.",
+    "why     who said so and when. Not optional."
+  ],
+  "W1FHYQ8cWlU": {
+    "seller": "toakpulls",
+    "show": "CollectorFest Monthly",
+    "city": "Rochester, NY",
+    "why": "The owner, 2 September 2026: \"you already know who the vendor is we have a vendor page and logo for them so add in cards bought from TOAK Pulls\" and \"add in that it was bought a a local card show, Collector Fest in Rochester, NY at JCC\". The description for this rip says \"from TOAK Pulls\" as plain text rather than @TOAKPulls, so the automatic credit finds nothing; the show half would have resolved on its own."
+  }
+}

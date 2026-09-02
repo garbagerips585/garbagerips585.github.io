@@ -99,7 +99,18 @@ const bases = (name) => {
   return [...out];
 };
 
-export function boughtAtShow(desc, index) {
+export function boughtAtShow(desc, index, pin) {
+  /* THE OWNER'S OWN WORD FIRST. He knows which room he was standing in; the
+     sentence below is only a way of not having to ask him every time. The name
+     and city must match the calendar EXACTLY, and a miss returns null loudly
+     enough for the caller to throw, because a typo here would silently drop the
+     badge rather than shout -- which is the failure mode this whole file exists
+     to avoid. */
+  if (pin && pin.show) {
+    const want = norm(pin.show), city = norm(pin.city);
+    const hit = index.find((s) => norm(s.name) === want && (!city || norm(s.city) === city));
+    return hit || null;
+  }
   const text = String(desc || "");
   if (!text) return null;
   for (const raw of text.split(SPLIT)) {

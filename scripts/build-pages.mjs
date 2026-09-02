@@ -1098,6 +1098,24 @@ const SHOW_INDEX = showIndex(
   JSON.parse(await readFile(join(ROOT, "data/shows.json"), "utf8")).shows
 );
 
+/* The hand-written half, for rips whose description does not say it in the shape
+   either join needs. The file's own readme carries the licence for it: the owner
+   said so, and that is a better source than a regex over his own prose. */
+const PINNED_SOURCE = JSON.parse(await readFile(join(ROOT, "data/bought-at.json"), "utf8"));
+
+/* A TYPO HERE WOULD SILENTLY DROP THE BADGE, so it fails the build instead. Both
+   halves are checked against the data they name: the handle against the listings
+   sourceIndex holds, the show against the calendar. */
+for (const [id, pin] of Object.entries(PINNED_SOURCE)) {
+  if (id.startsWith("_")) continue;
+  if (pin.seller && !SRC_INDEX.get(String(pin.seller).toLowerCase()))
+    throw new Error(`data/bought-at.json: ${id} names seller "${pin.seller}", which no vendor, shop or creator listing carries as a youtube handle.`);
+  if (pin.show && !boughtAtShow("", SHOW_INDEX, pin))
+    throw new Error(`data/bought-at.json: ${id} names show "${pin.show}" in "${pin.city}", which data/shows.json does not spell that way.`);
+  if (!pin.why)
+    throw new Error(`data/bought-at.json: ${id} has no "why". Every entry records who said so and when.`);
+}
+
 /* THE PLATFORM MARKS ARE ALREADY ON THIS PAGE. shared/chrome.mjs's sprite ships
    i-yt, i-ig, i-tt and i-fb on every page including these, so a YouTube pill on
    a rip page costs no new markup. Anything else takes the outbound arrow, which
@@ -1116,10 +1134,11 @@ let srcAtShow = 0;
    where its owner sent the file for this use, which is this site's standing rule,
    so a seller with no logo yields no line rather than a bare name in a frame. */
 const packCreditLine = (v) => {
-  const hit = packSource(v.blurb || descriptions[v.id] || "", SRC_INDEX);
+  const pin = PINNED_SOURCE[v.id];
+  const hit = packSource(v.blurb || descriptions[v.id] || "", SRC_INDEX, pin);
   if (!hit || !hit.o.logo) return "";
   srcCredited += 1;
-  const boughtAt = boughtAtShow(v.blurb || descriptions[v.id] || "", SHOW_INDEX);
+  const boughtAt = boughtAtShow(v.blurb || descriptions[v.id] || "", SHOW_INDEX, pin);
   if (boughtAt) srcAtShow += 1;
   return sourceCard(hit, { esc, socialLinks, glyph: srcGlyph, longDate, boughtAt });
 };
@@ -3073,9 +3092,12 @@ Wrote public/sitemap.xml with ${urls.length} urls
   (see UNTAGGED.md; tag them and re-run this)
 
   ${srcCredited} carry a seller's card, ${srcAtShow} of those also name the card
-  show the packs were bought at. Both are read out of the rip's OWN description,
-  so a count that drops after an upload means the wording changed and not the
-  data: the seller needs an @handle and the show needs its town.
+  show the packs were bought at. Both are read out of the rip's OWN description
+  where it says so, so a count that DROPS after an upload means the wording
+  changed and not the data: the seller needs an @handle and the show needs its
+  town. Where it does not, data/bought-at.json is where the owner says it
+  outright, and that file is checked against the listings and the calendar on
+  every build rather than trusted.
 `);
 
 {

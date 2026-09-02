@@ -90,7 +90,19 @@ export function sourceIndex(docs) {
  * NULL IS THE COMMON ANSWER AND IS NOT A FAILURE. 315 of 325 rips name nobody,
  * because he bought those packs himself at retail.
  */
-export function packSource(description, index) {
+export function packSource(description, index, pin) {
+  /* A NAMED SELLER BEATS THE SENTENCE, and it is the only thing that may. The
+     match below needs an @handle on purpose: a bare name and "go follow @X" are
+     the same string to a handle search, and only one of them is a credit. That
+     strictness means a description reading "from TOAK Pulls" in plain text
+     yields nothing, which is what happened on 2 September 2026. data/bought-at
+     .json is where the owner says it outright instead, and his word is a better
+     source than a regex over his own prose. A handle with no listing still
+     yields nothing rather than a bare name in a frame. */
+  if (pin && pin.seller) {
+    const hit = index.get(String(pin.seller).toLowerCase());
+    if (hit) return hit;
+  }
   if (!description || !index.size) return null;
   const goods = GOODS.test(String(description));
   for (const raw of String(description).split(SPLIT)) {
