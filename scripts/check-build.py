@@ -131,8 +131,25 @@ _ba = open("scripts/build-all.mjs", encoding="utf-8").read()
 # ...except this file. check-build.py is the LAST step in build-all, so it
 # matched its own name and every edit to the verifier reported the whole site
 # as stale. A verifier cannot be its own trigger.
+# COMMENTS STRIPPED FIRST, FOR THE SAME REASON THE _orphan GUARD 500 LINES BELOW
+# STRIPS THEM. This was a plain substring search over the raw file, so a script
+# whose name appears only in build-all's PROSE counted as a build step. It has a
+# lot of prose: line 245 reads "scripts/sync-decks.mjs, which is NOT in this list
+# and must not be", and that sentence alone put sync-decks.mjs into the set that
+# gates page freshness. Measured: 14 scripts were in here that build-all never
+# runs -- the sync-*, verify-*, sweep-scans and import-sheet family. Editing any
+# one of them reported all 1,504 pages stale and forced exactly the no-op full
+# rebuild that _OWNER_ASSETS below exists to prevent. The _orphan guard learned
+# this lesson already and its comment says an audit defeated it in the way it
+# existed to prevent; this half of the file never got the same treatment.
+#
+# Checked against the 68 quoted steps before changing it: the strip loses NO real
+# builder. import-sheet.mjs is the one survivor, because its name is in a printed
+# help string rather than a comment, and one stale entry is a fair price for a
+# change that cannot silently drop a source.
+_ba_code = "\n".join(re.sub(r"//.*$", "", _ln) for _ln in _ba.split("\n"))
 _srcs = [_f for _f in glob.glob("scripts/*.mjs") + glob.glob("scripts/*.py")
-         if os.path.basename(_f) in _ba
+         if os.path.basename(_f) in _ba_code
          and os.path.basename(_f) != "check-build.py"]
 # TWO DIRECTORIES UNDER assets-source ARE OUTPUTS, NOT SOURCES, and sweeping
 # them in is the same bug this file already records one paragraph above for
@@ -144,9 +161,35 @@ _srcs = [_f for _f in glob.glob("scripts/*.mjs") + glob.glob("scripts/*.py")
 # was a full rebuild that changed nothing. Caught on the end screen, 2 September
 # 2026; the sticker had the same fault latent in it since the day before and
 # would have fired on its first reprint.
-_OWNER_ASSETS = {"assets-source/stickers", "assets-source/endscreen"}
+# print-fonts IS THE THIRD ONE AND WAS MISSED WHEN THE OTHER TWO WENT IN.
+# grep says it is read by exactly two files, build-sticker.py and
+# build-endscreen.py, both of which are _ONE_OFF owner-asset builders that write
+# nothing into public/. So nothing in the built tree derives from those four .ttf
+# files, and leaving it in meant adding a font weight to the sticker would fire
+# the identical false failure the other two were exempted for.
+_OWNER_ASSETS = {"assets-source/stickers", "assets-source/endscreen",
+                 "assets-source/print-fonts"}
 _srcs += glob.glob("shared/*.mjs")
-_srcs += [_f for _f in glob.glob("assets-source/*") if _f not in _OWNER_ASSETS]
+# THE SUBDIRECTORIES ARE WALKED, NOT STAT'ED, AND assets-source/js IS WHY.
+# glob'ing assets-source/* yields DIRECTORIES, and a directory's mtime only moves
+# when an entry is created, removed or renamed -- never when a file inside it is
+# edited in place. So the whole of assets-source/js was being judged by a
+# timestamp that an edit to app.js does not touch. Measured on the day this was
+# written: the directory said 25 August while the newest file inside it said 1
+# September, seven days newer, and that directory holds app.js, packplayer.js and
+# games.js, which ship on every page of the site. An in-place edit to any of them
+# advanced nothing here, so a genuinely stale tree would have reported clean.
+# assets-source/shows had the same skew a day wide.
+#
+# This is the opposite failure from the one _OWNER_ASSETS fixes, and it is the
+# worse one: that made a clean tree look stale, this made a stale tree look clean.
+for _p in glob.glob("assets-source/*"):
+    if _p in _OWNER_ASSETS:
+        continue
+    if os.path.isdir(_p):
+        _srcs += [os.path.join(_r, _n) for _r, _, _ns in os.walk(_p) for _n in _ns]
+    else:
+        _srcs.append(_p)
 _newest_src, _newest_src_t = None, 0
 for _f in _srcs:
     _t = os.path.getmtime(_f)

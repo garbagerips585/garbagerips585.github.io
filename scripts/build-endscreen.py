@@ -30,7 +30,8 @@ change of phone:
 
 TWO LINES, NOT ONE, BECAUSE THE SCRIM AND THE CHROME ARE NOT THE SAME THING.
 The first pass of this file used a single 68.8% line, which is where YouTube's
-bottom GRADIENT begins, and it was too cautious by a third of the frame. That
+bottom GRADIENT begins, and it was too cautious by a sixth of the frame -- 85%
+against 68.8% is 311px of 1920. That
 gradient is a dark translucent wash, and everything on this card is light type
 on a dark ground: a dark wash over light-on-dark costs nothing. What actually
 destroyed the old end card was the OPAQUE chrome -- a white Subscribe pill and
@@ -51,9 +52,15 @@ video at all. A design that clears the mobile band is correct in both places.
 NOTHING THAT MATTERS IS PLACED BELOW IT, and the assertion at the bottom of this
 file fails the build rather than trusting me to have kept to it.
 
-THE DEAD ZONE IS SPENT ON ARTWORK, WHICH IS THE ONE THING IT IS GOOD FOR. The
-bottom 620px cannot hold a word, so it holds Trubbish's own background, zoomed
-and dimmed. YouTube's chrome then sits on a dark wash rather than over type.
+THE DEAD ZONE IS A DARK WASH, AND NOT IN THE END VISIBLE ARTWORK. The intent was
+to spend it on Trubbish's own background, zoomed and dimmed, and the ramp does
+put the image there. Measured on the shipped PNG it does not survive the
+treatment: luminance below the content runs stdev 3.05 over a range of 50-64,
+against stdev 55 in the top third. At 88% veil over a 26px blur there is nothing
+a viewer would call artwork down there. That is FINE and is left alone, since a
+flat dark ground is the right thing under YouTube's white channel row -- but the
+claim that a picture is visible there was wrong, and would send somebody looking
+for a rendering fault that does not exist.
 """
 import re
 from pathlib import Path
@@ -67,37 +74,54 @@ FONTS = ROOT / "assets-source/print-fonts"
 W, H = 1080, 1920                     # what a Short is
 
 # ------------------------------------------------- the measured Shorts chrome
-SCRIM_TOP = round(H * 0.688)          # 1322. The gradient. Harmless to light type.
+SCRIM_TOP = round(H * 0.688)          # 1321. The gradient. Harmless to light type.
 CRIT = round(H * 0.85)                # 1632. Opaque chrome, with the app allowance.
 RAIL_X = round(W * 0.872)             # 942. Left edge of the like/comment/share rail.
-RAIL_T = round(H * 0.742)             # 1424
+RAIL_T = round(H * 0.742)             # 1425
 RAIL_B = round(H * 0.950)             # 1824
 SAFE_TOP = 96                         # the app's own top row
 MARGIN = 60
 
 # ---------------------------------------------------------------- the palette
-# Read out of ui.css BY NAME, never typed in, exactly as build-sticker.py and
-# build-og.py do. CLAUDE.md is emphatic about why: the token names on this site
+# Read out of ui.css BY NAME, never typed in, as build-sticker.py does. NOT as
+# build-og.py does, which this comment used to claim: build-og.py carries
+# HARDCODED literals under a header saying they were read out of :root once, on
+# 18 August 2026, and never re-derived. Its INK_2 is #D4CCBC, exactly the stale
+# value the cascade note below is about. CLAUDE.md is emphatic about why: the
+# token names on this site
 # do not mean their colours (every "mustard" is a teal, "trubbish" is a near
 # black) and a hex copied by hand stops tracking the site at the next repaint.
 def tokens():
     css = (ROOT / "assets-source/ui.css").read_text(encoding="utf-8")
-    want = ["ink", "ink-2", "page", "chrome-bg", "band-bg", "paper-2", "keyline",
-            "mustard", "brand-accent", "ketchup-deep", "on-accent", "trubbish"]
+    # --chrome-bg was in this list and painted nothing. It is gone: tokens()
+    # RAISES on a name it cannot find, so an unused entry is a live tripwire that
+    # can fail the build over a colour this file does not use.
+    want = ["ink", "ink-2", "page", "band-bg", "paper-2", "keyline", "mustard",
+            "brand-accent", "ketchup-deep", "on-accent", "trubbish", "yt-red"]
     out = {}
     for name in want:
-        m = re.search(rf"--{name}:\s*(#[0-9A-Fa-f]{{6}})", css)
-        if not m:
+        # THE LAST DECLARATION, NOT THE FIRST, AND --ink-2 IS WHY. re.search takes
+        # the first match; CSS takes the last one that applies. ui.css declares
+        # --ink-2 twice at :root -- #D4CCBC on line 165 and #C9D1CC on line 4867 --
+        # and its own comment above the second reads "A SECOND :root, DECLARED
+        # 2,200 LINES AFTER THE FIRST, AND IT WINS. This is the single most
+        # dangerous line in the file for anyone changing the palette." It won
+        # against everything except this reader, so every bullet and the tagline
+        # shipped a colour the site had stopped using. Reading a token by name is
+        # only worth doing if it resolves the way the browser resolves it.
+        hits = re.findall(rf"--{name}:\s*(#[0-9A-Fa-f]{{6}})", css)
+        if not hits:
             raise SystemExit(f"ui.css has no --{name}; read the stylesheet before editing this list")
-        out[name] = tuple(int(m.group(1)[i:i + 2], 16) for i in (1, 3, 5))
+        out[name] = tuple(int(hits[-1][i:i + 2], 16) for i in (1, 3, 5))
     return out
 
-# THE ONE COLOUR NOT TAKEN FROM A TOKEN, and it is deliberate. ui.css fixes the
-# Subscribe red at #EE0000 rather than YouTube's #FF0000, because white on
-# #FF0000 is 4.00:1 and fails AA for normal text while #EE0000 clears it at
-# 4.53:1. It is a literal there and a literal here for the same reason: it is a
-# borrowed brand colour that must not follow this site's palette anywhere.
-YT_RED = (0xEE, 0x00, 0x00)
+# THE SUBSCRIBE RED IS READ BY NAME LIKE EVERYTHING ELSE. It was a literal here
+# under a comment claiming ui.css keeps it as one too. That was wrong: ui.css:254
+# declares --yt-red:#EE0000 beside --yt-red-deep and --on-yt. The VALUE is
+# deliberate -- white on YouTube's own #FF0000 is 4.00:1 and fails AA for normal
+# text, while #EE0000 clears it at 4.53:1 -- and it is fenced off from the site
+# palette in ui.css by its own comment, which is the part worth respecting.
+# Copying it by hand was the one thing this file tells itself never to do.
 
 
 def bell(size, fill):
@@ -159,14 +183,20 @@ def counts():
     # rather than promising a stranger a page that has quietly stopped.
     import json, datetime
     dj = json.loads((ROOT / "data/drops.json").read_text(encoding="utf-8"))
-    week = datetime.date.fromisoformat(dj["weekEnds"])
+    try:
+        week = datetime.date.fromisoformat(dj["weekEnds"])
+    except (KeyError, ValueError, TypeError) as e:
+        # Every other failure in this file is a written SystemExit. This was the
+        # one that would have dumped a raw traceback on a renamed or malformed key.
+        raise SystemExit(
+            f"data/drops.json: cannot read weekEnds ({e!r}). The card claims WEEKLY "
+            f"retailer drops and cannot check that claim without it.")
     stale = (datetime.date.today() - week).days
     if stale > 14:
         raise SystemExit(
             f"data/drops.json covers the week ending {week}, {stale} days ago, and "
             f"the card claims WEEKLY retailer drops. Refresh the drops data, or "
             f"take that bullet out before regenerating.")
-    c["retailers"] = len(dj.get("retailers") or [])
 
     for k in ("sets",):
         if not c[k]:
@@ -183,15 +213,21 @@ def heart(size, fill):
     pointing at a button that does not exist on this surface. The old card had a
     thumb, which is Facebook's.
     """
+    # r WAS 0.27, WHICH PUT THE LOBES OFF THE EDGE OF THE CANVAS. At 0.27 the
+    # shape spans -0.04 to 1.04 of the box, so PIL simply cropped it: measured at
+    # 400px, 116 and 118 opaque pixels sat on the left and right edges and the
+    # heart rendered with both cheeks shaved flat. Downsampling from 4x cannot
+    # help, because the cut is geometric rather than aliasing. 0.24 spans .02 to
+    # .98 and fits. bell() was checked the same way and is clean at 0 edge pixels.
     S = 4
     d_ = size * S
     im = Image.new("RGBA", (d_, d_), (0, 0, 0, 0))
     dr = ImageDraw.Draw(im)
-    r = d_ * 0.27
-    dr.ellipse([d_ * .5 - r * 2, d_ * .10, d_ * .5, d_ * .10 + r * 2], fill=fill)
-    dr.ellipse([d_ * .5, d_ * .10, d_ * .5 + r * 2, d_ * .10 + r * 2], fill=fill)
-    dr.polygon([(d_ * .5 - r * 2, d_ * .40), (d_ * .5 + r * 2, d_ * .40),
-                (d_ * .5, d_ * .93)], fill=fill)
+    r = d_ * 0.24
+    dr.ellipse([d_ * .5 - r * 2, d_ * .12, d_ * .5, d_ * .12 + r * 2], fill=fill)
+    dr.ellipse([d_ * .5, d_ * .12, d_ * .5 + r * 2, d_ * .12 + r * 2], fill=fill)
+    dr.polygon([(d_ * .5 - r * 2, d_ * .42), (d_ * .5 + r * 2, d_ * .42),
+                (d_ * .5, d_ * .95)], fill=fill)
     return im.resize((size, size), Image.LANCZOS)
 
 
@@ -300,7 +336,14 @@ def build():
     px, py = (W - CW) // 2, y
     shadowed(card, (px - 6, py - 6, px + CW + 6, py + CH + 6), 26,
              C["paper-2"], C["keyline"], C["trubbish"], drop=12)
-    card.paste(crop, (px, py))
+    # THE ARTWORK IS MASKED TO THE FRAME'S CORNERS, because a square paste inside
+    # a rounded rectangle shows through at all four. Measured before fixing: the
+    # pixel at the panel's top-left corner was (191,199,220), bright sky from the
+    # crop, sitting outside a frame whose keyline is (134,153,140). The re-stroke
+    # below draws INWARD from px-6 and covers px-6..px-1, so it never reached it.
+    mask = Image.new("L", (CW, CH), 0)
+    ImageDraw.Draw(mask).rounded_rectangle([0, 0, CW - 1, CH - 1], 20, fill=255)
+    card.paste(crop, (px, py), mask)
     d.rounded_rectangle([px - 6, py - 6, px + CW + 6, py + CH + 6], 26,
                         outline=C["keyline"], width=5)
     y = py + CH + 48
@@ -337,7 +380,7 @@ def build():
 
     pill(lx, lw, C["on-accent"], "LIKE", heart)
     sx = lx + lw + GAP
-    shadowed(card, (sx, y, sx + sw, y + PH), PH // 2, YT_RED, C["trubbish"], C["trubbish"])
+    shadowed(card, (sx, y, sx + sw, y + PH), PH // 2, C["yt-red"], C["trubbish"], C["trubbish"])
     pill(sx, sw, (255, 255, 255), "SUBSCRIBE", bell, dy=0)
     y += PH + 46
 
@@ -358,10 +401,12 @@ def build():
     # what the site has? Only need to list the top 5-6 things, one of them can be
     # the New Pack Rip Everyday which you already have."
     #
-    # SIX LINES, AND EVERY NUMBER IN THEM IS COUNTED AT BUILD TIME. See counts().
-    # The order is the site's own primary nav -- Rips, Best pulls, Local scene,
-    # Card search, Start here -- because that ordering is already an answer to
-    # "what does this site have", decided once and not re-litigated on a sticker.
+    # EVERY NUMBER IN THIS LIST IS COUNTED AT BUILD TIME. See counts(). After the
+    # owner's final edit there is exactly ONE number left on the card, the set
+    # guide count; the rip total, the dex page count and the printings figure all
+    # left with the bullets that carried them. This list no longer follows the
+    # site's primary nav, which an earlier version of this comment claimed: three
+    # of the five nav items have no bullet at all now.
     #
     # THIS BLOCK IS THE REASON THE 68.8% LINE HAD TO BE RE-EXAMINED rather than
     # worked around. Squeezed above it, the list would have cost the mascot
@@ -407,14 +452,17 @@ def build():
         f"{N['sets']:,} Pokemon card set guides",
     ]
     # OUTFIT AND NOT SPACE MONO, AND THE NEW LIST IS WHY. CLAUDE.md assigns Space
-    # Mono to labels and tickers and Outfit to body, and six sentences in mixed
+    # Mono to labels and tickers and Outfit to body, and five sentences in mixed
     # case are body copy, not labels. It is also the only way they FIT: Space
     # Mono is monospaced, so his longest line ("Rochester, NY card shops + card
-    # show calendar", 44 characters) measures 1035px at the old 37px and would
+    # show calendar", 45 characters) measures 1035px at the old 37px and would
     # have to drop to 30px to clear the action rail. Outfit sets the same line in
-    # 805px at 38px, so the list got bigger by changing typeface rather than
+    # 808px at 38px, so the list got bigger by changing typeface rather than
     # smaller by keeping one.
-    # 600, which is the weight ui.css sets body copy in.
+    # 600. NOT because ui.css sets body copy there -- it does not, body is
+    # `font:400 17px/1.55` at ui.css:343, and 600 in that file is reserved for
+    # labels and titles. This is a label-sized job on a frame read at arm's length
+    # in about three seconds, so it takes the label weight deliberately.
     f_b = font("Outfit.ttf", 38, weight=600)
     bx, by, STEP = MARGIN + 34, round(bottom) + 44, 48
     for i, line in enumerate(bullets):
@@ -424,13 +472,27 @@ def build():
         d.ellipse([bx - 34, cy - 7, bx - 20, cy + 7], fill=C["brand-accent"])
         l, t, r, b = d.textbbox((0, 0), line, font=f_b)
         d.text((bx, cy - (b - t) / 2 - t), line, font=f_b, fill=C["ink-2"])
-        # NOTHING MAY REACH THE ACTION RAIL. The three like/comment/share circles
-        # occupy the right 12.8% from 74.2% to 95.0% down, which every one of
-        # these lines is level with. A long line would run under the Share icon.
-        if cy > RAIL_T and bx + (r - l) > RAIL_X - 16:
+        # THIS GUARD USED TO CHECK ONE BULLET OUT OF FIVE AND READ AS IF IT CHECKED
+        # ALL OF THEM. It was written `if cy > RAIL_T and ...`, and the comment
+        # beside it claimed "every one of these lines is level with" the rail.
+        # They are not: the five centres are 1270, 1318, 1366, 1414, 1462 against
+        # a RAIL_T of 1425, so only the LAST one was ever tested. The longest line
+        # on the card, "Rochester, NY card shops + card show calendar", is the
+        # third and was never checked at all -- it fits, but nothing verified
+        # that. A 73-character first bullet drew to x=1346 on a 1080px canvas,
+        # 266px off the frame, and the build printed "wrote ..." and exited 0.
+        #
+        # SO THERE ARE TWO LIMITS AND EVERY LINE IS HELD TO BOTH. The canvas edge
+        # applies always; the action rail applies only where a line is level with
+        # it. Taking the tighter of the two per line means the check cannot go
+        # quiet again just because the layout moved a bullet up.
+        right = bx + (r - l)
+        limit = min(W - MARGIN, RAIL_X - 16) if cy > RAIL_T else W - MARGIN
+        if right > limit:
+            why = "YouTube's action rail" if limit < W - MARGIN else "the frame"
             raise SystemExit(
-                f'"{line}" is {bx + (r - l):.0f}px wide and reaches YouTube\'s '
-                f"action rail at x={RAIL_X}. Shorten it or drop the type size.")
+                f'bullet {i + 1}, "{line}", ends at x={right:.0f} and runs into '
+                f"{why} at x={limit}. Shorten it or drop the type size.")
     listbottom = by + (len(bullets) - 1) * STEP + 22
 
     # THE GUARD, and it is the point of the whole file. A future edit that grows
@@ -457,11 +519,10 @@ def build():
     # contrast and takes it to 6.11:1, or 4.47:1 under the scrim, without leaving
     # the accent rule. The size gate is what CLAUDE.md ties this token to; the
     # reason underneath it is contrast, and that reason applies here too.
-    # 48 AND NOT 54, WHICH THE RAIL CHECK BELOW DECIDED. At 54 the line is 862px
-    # wide and its right edge lands at x=971, 29px inside the action rail: the
-    # "LET'S GO!" would have sat under the Share icon on every phone. 48 puts the
-    # edge at 924 against a limit of 926. The margin is small because the line is
-    # his and shrinking his words further to buy slack is the wrong trade.
+    # 48 AND NOT 54, WHICH THE RAIL CHECK BELOW DECIDED. At 54 the "LET'S GO!"
+    # would have sat under the Share icon on every phone; the measured figures are
+    # beside that check. The margin is small because the line is his, and
+    # shrinking his words further to buy slack is the wrong trade.
     f_sign = font("TitanOne.ttf", 48)
     # 36 RATHER THAN THE LIST'S OWN 46 STEP. At the same rhythm as the bullets it
     # read as a seventh one; further away it drifts toward YouTube's chrome. The
@@ -472,8 +533,9 @@ def build():
     sl, st, sr, sb = d.textbbox((0, 0), sign, font=f_sign)
     # IT IS CENTRED, SO THE RAIL CHECK IS ON ITS RIGHT EDGE AND NOT ITS WIDTH.
     # The bullets are left aligned and grow rightward; this grows BOTH ways from
-    # the middle, so the same guard written the same way would have passed a line
-    # that runs under the Share icon.
+    # the middle. Measured: at 48px the line is 756px wide and its right edge
+    # lands at 918 against a limit of 926, so the margin is 8px. At 54px it is 850
+    # wide with an edge at 965, which is 23px inside the rail.
     if sy + (sb - st) > RAIL_T and (W + (sr - sl)) / 2 > RAIL_X - 16:
         raise SystemExit(
             f'the sign-off reaches x={(W + (sr - sl)) / 2:.0f}, into YouTube\'s '
