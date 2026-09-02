@@ -1508,6 +1508,34 @@ const archiveDesc =
   `Every Pokemon and card show around Rochester, NY, Buffalo and Syracuse that has already happened, newest first, ` +
   `with the flyers. A record of what was on, and when the last one of a show was.`;
 
+/* THE ARCHIVE'S BREADCRUMB, AND IT IS THE ONLY STRUCTURED DATA THIS PAGE GETS.
+ *
+ * seo-sweep.py flagged past-shows.html on 2 September 2026 as the one page in the
+ * tree with no ld+json at all. The other two without it, 404.html and
+ * search.html, are deliberately noindex; this one is indexable, so it was simply
+ * the odd one out. 42 of the 53 root pages carry a BreadcrumbList and this page
+ * already renders the visible nav for one -- Home / Card shows / Past shows -- so
+ * the markup only describes what a reader can already see.
+ *
+ * IT DELIBERATELY DOES NOT EMIT Event, WHICH IS THE OBVIOUS THING TO COPY.
+ * /card-shows.html carries 65 of them, and duplicating that here would be one
+ * line of code. But Google's event rich results are for events a reader can still
+ * go to, and every row on this page has already happened. Marking up sixty-odd
+ * ended events buys no rich result and pushes dead dates into a slot meant for
+ * live ones. The breadcrumb is the honest half.
+ */
+const archiveCrumbs = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
+    { "@type": "ListItem", position: 2, name: "Card shows", item: `${SITE}/card-shows.html` },
+    // The current page carries no item URL, matching how build-shows.mjs writes
+    // the last crumb on /card-shows.html itself.
+    { "@type": "ListItem", position: 3, name: "Past shows" },
+  ],
+};
+
 const archiveHead = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1533,6 +1561,7 @@ const archiveHead = `<!DOCTYPE html>
 <meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
+<script type="application/ld+json">${JSON.stringify(archiveCrumbs)}</script>
 </head>
 <body>
 ${SPRITE}
