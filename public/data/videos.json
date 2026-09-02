@@ -2,7 +2,7 @@
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
     "views": 275957,
-    "subscribers": 354,
+    "subscribers": 353,
     "videos": 331,
     "readAt": "2026-09-02"
   },
@@ -15,20 +15,15 @@
       "published": "2026-09-02",
       "publishedAt": "2026-09-02T10:10:23Z",
       "duration": 51,
-      "views": 695,
+      "views": 665,
       "vertical": true,
       "short": true,
       "sets": [
+        "chaos-rising",
         "ja-ninja-spinner"
       ],
-      "products": [
-        "japanese-pack"
-      ],
-      "pulls": [
-        "double-rare",
-        "ir"
-      ],
-      "label": "Ninja Spinner (JP) Pack"
+      "products": [],
+      "pulls": []
     },
     {
       "id": "vdsGni1AMtQ",
@@ -136,7 +131,7 @@
       "published": "2026-08-29",
       "publishedAt": "2026-08-29T12:09:23Z",
       "duration": 22,
-      "views": 1070,
+      "views": 1067,
       "vertical": true,
       "short": true,
       "sets": [
@@ -172,7 +167,7 @@
       "published": "2026-08-28",
       "publishedAt": "2026-08-28T11:48:15Z",
       "duration": 20,
-      "views": 988,
+      "views": 987,
       "vertical": true,
       "short": true,
       "sets": [
