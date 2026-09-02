@@ -137,17 +137,15 @@ def counts():
     tomorrow, and a wrong count on a card that goes out to every viewer is worse
     than no count. Regenerating the end screen re-reads them.
 
-    The printings total is the exception and is quoted, not counted: it is the
-    figure build-cards.mjs prints on /cards.html, so this card and that page
-    cannot disagree. If the regex stops matching, that is a real change and this
-    stops rather than guessing.
     """
     import glob, re
-    c = {
-        "rips": len(glob.glob(str(ROOT / "public/rip/*.html"))),
-        "dex": len(glob.glob(str(ROOT / "public/pokemon/*.html"))),
-        "sets": len(glob.glob(str(ROOT / "public/sets/*.html"))),
-    }
+    # ONLY WHAT THE LIST STILL PRINTS. It has carried a rip total, a dex page
+    # total and a printings figure at different points this afternoon, and each
+    # was dropped as the owner settled the wording. A count left behind here is
+    # not free: the printings one read cards.html and RAISED on a miss, so it
+    # would have failed the build over a page whose number the card no longer
+    # shows. Delete them with the line that used them.
+    c = {"sets": len(glob.glob(str(ROOT / "public/sets/*.html")))}
     # THE DROPS PAGE IS THE ONE CLAIM ON THIS CARD WITH AN EXPIRY DATE. Every
     # other line is true whenever it is read; "weekly retailer drops" is only true
     # while somebody is still compiling them. data/drops.json carries the week it
@@ -164,13 +162,7 @@ def counts():
             f"take that bullet out before regenerating.")
     c["retailers"] = len(dj.get("retailers") or [])
 
-    m = re.search(r"([\d,]{5,})\s+Pokemon card printings",
-                  (ROOT / "public/cards.html").read_text(encoding="utf-8"))
-    if not m:
-        raise SystemExit("cards.html no longer prints an 'N Pokemon card printings' "
-                         "total; read that page and update this before shipping a number")
-    c["printings"] = m.group(1)
-    for k in ("rips", "dex", "sets"):
+    for k in ("sets",):
         if not c[k]:
             raise SystemExit(f"counted zero {k} in public/; build the site first")
     return c
@@ -305,7 +297,7 @@ def build():
     card.paste(crop, (px, py))
     d.rounded_rectangle([px - 6, py - 6, px + CW + 6, py + CH + 6], 26,
                         outline=C["keyline"], width=5)
-    y = py + CH + 38
+    y = py + CH + 48
 
     # ------------------------------------------------------------- the asks
     # LIKE takes --mustard (a TEAL) because CLAUDE.md's accent rule is that teal
@@ -341,7 +333,7 @@ def build():
     sx = lx + lw + GAP
     shadowed(card, (sx, y, sx + sw, y + PH), PH // 2, YT_RED, C["trubbish"], C["trubbish"])
     pill(sx, sw, (255, 255, 255), "SUBSCRIBE", bell, dy=0)
-    y += PH + 38
+    y += PH + 46
 
     # --------------------------------------------------------------- the url
     # The biggest single line on the frame, and the reason the layout is as
@@ -386,51 +378,27 @@ def build():
     # ones checked and left off -- rather than a page of its own. He came back
     # with "Garbage Plate 101 & Directory", which describes both halves of that
     # page instead of only the smaller one. Do not shorten it back.
-    # THE HIT RATE LINE, ADDED 2 SEPTEMBER 2026: "should we change one of the
-    # bullet points to be something about the stats from my rips, like view my hit
-    # rates per set or something like that?"
+    # THE FINAL FIVE, 2 September 2026, settled by the owner after four passes:
+    # "ok lets do this as the final list". His wording and his order, including
+    # "restocks info" rather than the "restocks" I had set.
     #
-    # IT POINTS AT A PAGE THAT REALLY DOES THIS, WHICH WAS CHECKED FIRST.
-    # /luck.html is "Luck, measured: What Came Out of 331 Rips" and its third
-    # section is literally "Which sets have been kind", a per-set hit rate table.
-    # Worth knowing if the wording is ever tightened: that page does NOT rate
-    # every set. It withholds a number below 12 answered rips, in its own words
-    # because "at that size it would be noise dressed up as a fact". "Hit rates by
-    # set" is a fair name for the table; it is not a promise of a row per set.
+    # WHAT CAME OUT, so nobody adds it back thinking it was an oversight. A hit
+    # rate line ("Hit rates by set, over 331 rips") and a card search line
+    # ("Search 39,707 Pokemon card printings") were both on the card and both were
+    # cut by him, along with an earlier "1,026 Pokemon card pages". The list ran
+    # to seven and he brought it back to five. That is the right call for a frame
+    # that is on screen for about three seconds at the end of a video whose median
+    # length is 22 seconds.
     #
-    # THE NUMBER IS COUNTED OFF DISK AND NOT LIFTED OFF THAT PAGE, unlike the
-    # printings figure. The obvious regex finds "104 answered rips" first, which
-    # is a sub-count inside one of its sections and not the total, and a bullet
-    # built on it would have shipped a confidently wrong 104.
-    #
-    # IT REPLACES "1,026 Pokemon card pages", which he had already offered up:
-    # "we can remove one of the bullets about the 1,026 pokemon card pages or the
-    # amount of listings maybe?". Of those two the printings line is the stronger
-    # keep, since a search over 39,707 is the less replaceable claim.
-    #
-    # AND IT IS SECOND RATHER THAN LAST, WHICH IS A CHANGE TO HIS ORDER. His list
-    # ran rips, local, plate, then three card-database lines in a row. Hit rates
-    # are about HIS RIPS, so it sits with the daily-rip line, and the three card
-    # lines stop being a block. One line move if he wants it back at the end.
-    # THE DROPS LINE, ADDED 2 SEPTEMBER 2026: "we should also add something about
-    # the weekly drop info or weekly retailer drop info or something like that".
-    #
-    # CHECKED THAT IT IS ACTUALLY WEEKLY BEFORE CALLING IT WEEKLY. /drops.html is
-    # "Pokemon Card Drops and Restocks This Week", data/drops.json was covering
-    # the week of 31 August when this went in, and its history shows it edited
-    # every few days rather than left standing. There is a hard freshness gate in
-    # counts() so this stays true without anybody remembering to check.
-    #
-    # THIRD, BECAUSE IT IS THE THING WITH A CLOCK ON IT. His home page opens with
-    # "Drops to watch this week", so it is the section he leads with there too.
+    # THE DROPS LINE IS THE ONLY ONE WITH AN EXPIRY DATE and counts() gates it.
+    # /drops.html is "Pokemon Card Drops and Restocks This Week", and the word
+    # weekly stops being true the moment the data stops being compiled.
     bullets = [
         "A new pack rip video every day",
-        f"Hit rates by set, over {N['rips']:,} rips",
-        "Weekly retailer drops and restocks",
+        "Weekly retailer drops and restocks info",
         "Rochester, NY card shops + card show calendar",
         "Garbage Plate 101 & Directory",
         f"{N['sets']:,} Pokemon card set guides",
-        f"Search {N['printings']} Pokemon card printings",
     ]
     # OUTFIT AND NOT SPACE MONO, AND THE NEW LIST IS WHY. CLAUDE.md assigns Space
     # Mono to labels and tickers and Outfit to body, and six sentences in mixed
@@ -442,7 +410,7 @@ def build():
     # smaller by keeping one.
     # 600, which is the weight ui.css sets body copy in.
     f_b = font("Outfit.ttf", 38, weight=600)
-    bx, by, STEP = MARGIN + 34, round(bottom) + 36, 44
+    bx, by, STEP = MARGIN + 34, round(bottom) + 44, 48
     for i, line in enumerate(bullets):
         cy = by + i * STEP
         # The marker is PINK because CLAUDE.md's accent rule is that pink is every
@@ -492,7 +460,7 @@ def build():
     # 36 RATHER THAN THE LIST'S OWN 46 STEP. At the same rhythm as the bullets it
     # read as a seventh one; further away it drifts toward YouTube's chrome. The
     # separation it actually needs is done by weight and colour, not distance.
-    sy = listbottom + 30
+    sy = listbottom + 40
     # One space, as he wrote it. Two looked like a typographic beat and was mine.
     sign = "GARBAGE RIPS ONLY! LET'S GO!"
     sl, st, sr, sb = d.textbbox((0, 0), sign, font=f_sign)
