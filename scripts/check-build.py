@@ -677,6 +677,7 @@ _ONE_OFF = {
     "build-playlist-covers.py",  # playlist covers, from .cache + the set logos
     "build-show-logos.py",  # show organisers' logos and flyers, from assets-source/shows
     "build-sheet.py",     # the Excel workbook, not a web page
+    "build-sticker.py",   # the giveaway sticker, a PRINT asset; writes nothing into public/
 }
 #
 # Covers stamp-* as well as build-*, because the step that went missing was

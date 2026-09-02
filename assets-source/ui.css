@@ -2364,8 +2364,27 @@ footer .soc svg{fill:var(--chrome-ink)}
   .rip-src-facts dd{margin-bottom:6px}
 }
 .rip-meta{font-family:var(--mono);font-size:.78rem;color:var(--ink-soft);margin-bottom:20px;font-weight:700}
+/* THIS BLOCK HAD NO TOP MARGIN AND SAT FLUSH AGAINST WHATEVER PRECEDED IT.
+   Measured on a rip page: a 0px gap between the source card's bottom edge and
+   this one's top, two bordered boxes touching. The owner: "there needs to be some
+   padding added between these sections on the video pages, its really tight".
+
+   THE MARGIN GOES HERE RATHER THAN ON .rip-src, AND THAT IS WHY IT IS ONE RULE.
+   Counted across the built tree, .rip-desc follows THREE different things: a
+   p.hit-none on 170 pages, a p.rip-meta on 150, and the source card's </aside>
+   on 9. A margin-bottom on .rip-src would fix one of the three. This fixes all
+   of them, and it cannot double up, because the parent is a plain display:block
+   div so adjacent sibling margins COLLAPSE: the gap becomes max(previous
+   margin-bottom, 24) rather than their sum. On the 150 pages after .rip-meta
+   that is 20 -> 24, and nothing else moves.
+
+   24px is --s5, which is what .rip-nav below it already takes, so the column
+   keeps one rhythm rather than gaining a number of its own. Note the 6px hard
+   shadow: it hangs below the box, so the gap a reader SEES under this block is
+   24 - 6 = 18, which is why the value above it is the larger of the two. */
 .rip-desc{white-space:pre-wrap;background:var(--paper-2);border:3px solid var(--keyline);
-  border-radius:12px;padding:20px 22px;box-shadow:0 6px 0 var(--trubbish);font-size:.95rem}
+  border-radius:12px;padding:20px 22px;box-shadow:0 6px 0 var(--trubbish);font-size:.95rem;
+  margin-top:var(--s5)}
 .crumbs{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);margin-bottom:18px;font-weight:700}
 /* UNDERLINED, because colour alone is all that marked these as links and the
    colour does not carry. --sky-deep against the trail's own --ink-soft was
