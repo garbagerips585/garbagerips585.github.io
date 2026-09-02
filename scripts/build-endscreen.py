@@ -314,15 +314,17 @@ def build():
     # matched what counts() reads today, so nothing on screen changes, but the
     # card can no longer drift from the site as pages are added.
     #
-    # "GARBAGE PLATE DIRECTORY" IS A FAIR NAME FOR IT AND WAS CHECKED. It is the
-    # "Where to eat one" section of /garbage-plate.html, eleven named places from
-    # Nick Tahou Hots to Rohrbach, with a further list of the ones checked and
-    # left off. It is a section of an explainer rather than a page of its own,
-    # which is worth knowing if the wording is ever revisited.
+    # THE GARBAGE PLATE LINE IS NOW THE ACCURATE ONE, and he corrected it rather
+    # than me. It read "Garbage Plate directory"; when that went in I checked the
+    # page and noted that the directory is the "Where to eat one" SECTION of an
+    # explainer -- eleven named places from Nick Tahou Hots to Rohrbach, plus the
+    # ones checked and left off -- rather than a page of its own. He came back
+    # with "Garbage Plate 101 & Directory", which describes both halves of that
+    # page instead of only the smaller one. Do not shorten it back.
     bullets = [
         "A new pack rip video every day",
         "Rochester, NY card shops + card show calendar",
-        "Garbage Plate directory",
+        "Garbage Plate 101 & Directory",
         f"{N['sets']:,} Pokemon card set guides",
         f"Search {N['printings']} Pokemon card printings",
         f"{N['dex']:,} Pokemon card pages",
