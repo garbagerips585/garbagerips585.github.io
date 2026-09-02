@@ -70,6 +70,37 @@ const daysOld = daysStale(doc, TODAY);
 
 const R = doc.retailers || {};
 const all = doc.drops || [];
+
+/* CHANNEL IS A CLOSED SET AND A TYPO IN IT IS SILENT, WHICH IS WHY THIS THROWS.
+ * There is already a check below for a row naming an unknown RETAILER, on the
+ * reasoning that it would render an unlabelled card. A bad CHANNEL is worse,
+ * because nothing renders as missing: every test in this file and in the browser
+ * script asks `=== "store"`, so an unrecognised value falls through every one of
+ * them to the else branch and the row comes out looking FINE while saying the
+ * opposite of the truth.
+ *
+ * That is not hypothetical. 647502bc3, the 31 August compile, typed "in-store"
+ * where the four previous weeks had "store". The live page then read "0 in store,
+ * 3 online" against a real split of 8 and 3, labelled all eight in-store drops as
+ * Online, and gave the "In store (0)" filter nothing to show. It shipped and sat
+ * there, because a page full of plausible rows is exactly what nobody re-reads.
+ * Found on 2 September by an agent fact-checking a DIFFERENT claim.
+ *
+ * So the value is validated at the door rather than trusted. "in-store" is the
+ * obvious way to make this mistake again and gets its own sentence. */
+const CHANNELS = new Set(["store", "online"]);
+const badCh = all.filter((d) => !CHANNELS.has(d.channel));
+if (badCh.length) {
+  const hint = badCh.some((d) => d.channel === "in-store")
+    ? ' The value is "store", not "in-store".'
+    : "";
+  throw new Error(
+    `data/drops.json: ${badCh.length} row(s) have a channel this page cannot ` +
+    `render: ${[...new Set(badCh.map((d) => JSON.stringify(d.channel)))].join(", ")}. ` +
+    `Allowed: "store", "online".${hint} These would render as Online and be ` +
+    `counted as neither, which is what happened on 31 August 2026.`
+  );
+}
 const known = all.filter((d) => R[d.retailer]);
 if (known.length !== all.length) {
   // A row naming a retailer with no entry would render an unlabelled card, and

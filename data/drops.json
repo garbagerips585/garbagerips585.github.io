@@ -201,7 +201,7 @@
     },
     {
       "retailer": "target",
-      "channel": "in-store",
+      "channel": "store",
       "confidence": "pattern",
       "what": "Expect to see Ascended Heroes Large Tins, select Chaos Rising and Pitch Black products, and First Partner Series 3 Collection Boxes.",
       "when": null,
@@ -224,7 +224,7 @@
     },
     {
       "retailer": "best-buy",
-      "channel": "in-store",
+      "channel": "store",
       "confidence": "pattern",
       "what": "Expect to see more restocks of Ascended Heroes Booster Bundles, Ascended Heroes Tins, Pitch Black Booster Bundles and 3 Pack Blisters, and First Partner Series 3 Collection Boxes.",
       "when": null,
@@ -234,7 +234,7 @@
     },
     {
       "retailer": "walmart",
-      "channel": "in-store",
+      "channel": "store",
       "confidence": "pattern",
       "what": "Expect more restocks of Ascended Heroes Large Tins, Pitch Black and Chaos Rising products, and First Partner Series 2 and 3 Collection Boxes.",
       "when": null,
@@ -270,7 +270,7 @@
     },
     {
       "retailer": "sams-club",
-      "channel": "in-store",
+      "channel": "store",
       "confidence": "pattern",
       "what": "Select stores MAY restock a second wave of Ascended Heroes Focused Fighters in store. Internal comms have asked all clubs to wait for an announced drop date, but the trackers say a very few stores are going against this and restocking at random.",
       "when": null,
@@ -280,7 +280,7 @@
     },
     {
       "retailer": "walgreens",
-      "channel": "in-store",
+      "channel": "store",
       "confidence": "pattern",
       "what": "Select stores are still receiving Ascended Heroes 2 Pack Blisters and Darkrai, Tyranitar and Slaking Tins. There are no limits in store, so the trackers expect these to sell out fast.",
       "when": null,
@@ -290,7 +290,7 @@
     },
     {
       "retailer": "dollar-general",
-      "channel": "in-store",
+      "channel": "store",
       "confidence": "pattern",
       "what": "Select stores are still receiving Black Bolt and White Flare Unova Poster Collections.",
       "when": null,
@@ -300,7 +300,7 @@
     },
     {
       "retailer": "dicks",
-      "channel": "in-store",
+      "channel": "store",
       "confidence": "pattern",
       "what": "Select stores may have Ascended Heroes Large Tins. The trackers put them slightly above MSRP, around $30, and offer it as an option if you are struggling to find any elsewhere.",
       "when": null,
@@ -310,7 +310,7 @@
     },
     {
       "retailer": "costco",
-      "channel": "in-store",
+      "channel": "store",
       "confidence": "pattern",
       "what": "Ascended Heroes Tins in a 5 pack have loaded on the internal Costco system for the US. The trackers say it is extremely early and they are not expecting a drop any time soon; they are flagging it as an update only.",
       "when": null,

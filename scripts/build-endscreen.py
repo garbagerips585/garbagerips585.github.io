@@ -145,7 +145,13 @@ def counts():
     # not free: the printings one read cards.html and RAISED on a miss, so it
     # would have failed the build over a page whose number the card no longer
     # shows. Delete them with the line that used them.
-    c = {"sets": len(glob.glob(str(ROOT / "public/sets/*.html")))}
+    # THE INDEX IS NOT A SET GUIDE, and counting it shipped a wrong number on a
+    # card the owner already has. public/sets/ holds 42 guides plus index.html,
+    # the directory listing, so the bare glob said 43 and the live /sets/ page
+    # links 42. A count that is one out is worse than no count: it is the exact
+    # shape of error nobody re-checks, because 43 looks as plausible as 42.
+    c = {"sets": len([f for f in glob.glob(str(ROOT / "public/sets/*.html"))
+                      if Path(f).name != "index.html"])}
     # THE DROPS PAGE IS THE ONE CLAIM ON THIS CARD WITH AN EXPIRY DATE. Every
     # other line is true whenever it is read; "weekly retailer drops" is only true
     # while somebody is still compiling them. data/drops.json carries the week it
