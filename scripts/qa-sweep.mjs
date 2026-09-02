@@ -383,9 +383,38 @@ async function main() {
         expression: `document.querySelectorAll('img[loading=lazy]').forEach(i=>i.loading='eager');`,
       });
       await sleep(500);
-      const { result } = await send("Runtime.evaluate", {
+      let { result } = await send("Runtime.evaluate", {
         expression: AUDIT, returnByValue: true, awaitPromise: false,
       });
+
+      /* A PAGE THAT DID NOT LOAD IS NOT A PAGE WITH DEFECTS, and told apart the
+         two look identical in the report. A remote sweep of garbagerips.com
+         came back with three findings on /pokemon/emboar.html at 390 and NONE
+         anywhere else: an image with no alt whose src was a base64 data: URI, an
+         unlabelled link to "/", and zero h1s. That is Chrome's own network error
+         page, measured as if it were the site. The real page fetched 200 with
+         exactly one h1 on three consecutive tries.
+
+         EVERY PAGE THIS SITE SERVES LINKS ui.css, so its absence means the
+         document in front of us is not ours. Retry once, with a longer settle,
+         and only believe the second reading. Local runs effectively never hit
+         this; a run over somebody else's CDN will. */
+      const loaded = await send("Runtime.evaluate", {
+        expression: `!!document.querySelector('link[href*="ui.css"]')`,
+        returnByValue: true,
+      });
+      if (loaded?.result?.value === false) {
+        process.stderr.write(`  retrying ${path}@${width}: no stylesheet, the page did not load\n`);
+        await send("Page.navigate", { url: `${ORIGIN}${path}` });
+        await sleep(2500 + (BASE ? 1500 : 0));
+        await send("Runtime.evaluate", {
+          expression: `document.querySelectorAll('img[loading=lazy]').forEach(i=>i.loading='eager');`,
+        });
+        await sleep(600);
+        ({ result } = await send("Runtime.evaluate", {
+          expression: AUDIT, returnByValue: true, awaitPromise: false,
+        }));
+      }
       if (result?.value) results.push({ path, width, ...result.value });
       n++;
       if (n % 25 === 0) process.stderr.write(`  ${n}/${list.length * WIDTHS.length}\n`);
