@@ -35,8 +35,7 @@ for the wordmark only, or regenerate with the tagline moved into the bottom band
 |---|---|---|
 | GARBAGE RIPS 585 | 58 | 13.9 pt |
 | Pokemon Pack Rips from Rochester, NY | 29 | 7.0 pt |
-| GARBAGERIPS.COM | 50 | 12.0 pt |
-| fan content line | 23 | 5.5 pt |
+| GARBAGERIPS.COM | 86 | 20.6 pt |
 
 7 pt is the floor for something a stranger is meant to read across a table. The
 first draft had the tagline at 4.8 pt, which is smaller than the small print on
@@ -45,17 +44,20 @@ a receipt, on the line that was specifically asked for.
 ## Contrast, measured
 
 Vinyl and paper both lose a little contrast against a screen, so these are
-measured on the exact colours in the file: URL 5.61:1, fan content line 4.19:1,
-wordmark 10.70:1, the pink RIPS 5.51:1. Nothing here relies on a fine
-distinction between two similar colours.
+measured on the exact colours in the file: URL 5.61:1, wordmark 10.70:1, the
+pink RIPS 5.51:1. Nothing here relies on a fine distinction between two similar
+colours.
 
-## The one line that is not a design choice
+## The fan content line came off, 2 September 2026
 
-**"FAN CONTENT • NOT AFFILIATED WITH THE POKEMON COMPANY"** is on it because the
-site's footer is required to carry it, the drawing is a Pokemon character, and a
-sticker handed to a stranger at a card show is the copy most likely to be read
-with nothing else around it. Make it smaller if the layout needs it. Do not
-remove it.
+It read "FAN CONTENT • NOT AFFILIATED WITH THE POKEMON COMPANY" under the url. It
+was raised as worth keeping and the owner decided otherwise, which is his call on
+his own brand. Recorded here so nobody re-adds it as a bug fix, and so a future
+sticker can put it back knowing what it was: 23 px, 5.5 pt, in `--keyline`, at
+4.19:1 on the band.
+
+**The website is unaffected.** That line is still in the footer of all 1,504
+pages, which is where CLAUDE.md's requirement actually sits.
 
 ## If the print shop asks
 

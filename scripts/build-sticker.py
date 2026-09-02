@@ -132,21 +132,20 @@ def build():
     # TEAL, because the accent rule on this site is that teal is every ROUTE and
     # pink is every mark that goes nowhere. A url is the most route-like thing
     # on the sticker, and it is the whole reason the sticker exists.
-    f_url = font("SpaceMono-b.ttf", 50)
+    f_url = font("SpaceMono-b.ttf", 86)
     url = "GARBAGERIPS.COM"
-    uw = d.textlength(url, font=f_url)
     by = BLEED + AH
-    d.text(((W - uw) / 2, by + 26), url, font=f_url, fill=C["mustard"])
+    l, t, r, b = d.textbbox((0, 0), url, font=f_url)
+    d.text(((W - (r - l)) / 2 - l, by + (BAND - (b - t)) / 2 - t),
+           url, font=f_url, fill=C["mustard"])
 
-    # THE DISCLAIMER TRAVELS WITH THE ARTWORK, and this is the one line on the
-    # sticker that is not a design decision. The site's footer is required to
-    # carry it (CLAUDE.md, Brand), the drawing is a Pokemon character, and a
-    # sticker handed to strangers at a card show is the copy most likely to be
-    # read with no context around it. Small is fine. Absent is not.
-    f_fine = font("SpaceMono-a.ttf", 23)
-    fine = "FAN CONTENT  \u2022  NOT AFFILIATED WITH THE POKEMON COMPANY"
-    fw = d.textlength(fine, font=f_fine)
-    d.text(((W - fw) / 2, by + 26 + 50 + 14), fine, font=f_fine, fill=C["keyline"])
+    # THE FAN CONTENT LINE WAS HERE AND THE OWNER TOOK IT OFF, 2 September 2026:
+    # "remove the disclaimer at the bottom". It was raised as worth keeping, he
+    # decided, and it is his brand and his sticker. Recorded rather than argued
+    # again, and note the site FOOTER still carries it on all 1,504 pages, which
+    # is where CLAUDE.md's requirement actually sits -- nothing on the site
+    # changed by taking it off a print asset. If a future sticker wants it back,
+    # it was 23px / 5.5pt in --keyline under the url, at 4.19:1.
 
     OUT.mkdir(parents=True, exist_ok=True)
     card.save(OUT / "garbage-rips-sticker-print.png", dpi=(DPI, DPI))
