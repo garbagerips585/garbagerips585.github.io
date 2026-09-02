@@ -134,7 +134,19 @@ _ba = open("scripts/build-all.mjs", encoding="utf-8").read()
 _srcs = [_f for _f in glob.glob("scripts/*.mjs") + glob.glob("scripts/*.py")
          if os.path.basename(_f) in _ba
          and os.path.basename(_f) != "check-build.py"]
-_srcs += glob.glob("shared/*.mjs") + glob.glob("assets-source/*")
+# TWO DIRECTORIES UNDER assets-source ARE OUTPUTS, NOT SOURCES, and sweeping
+# them in is the same bug this file already records one paragraph above for
+# build-sheet.py: a thing that feeds no page gating every page's freshness.
+# scripts/build-sticker.py and scripts/build-endscreen.py write ASSETS FOR THE
+# OWNER -- a print sticker, a Shorts end screen -- and neither puts a byte into
+# public/, so regenerating one cannot make a single page stale. Left in, running
+# either builder reported all 1,504 pages as behind and the only way to clear it
+# was a full rebuild that changed nothing. Caught on the end screen, 2 September
+# 2026; the sticker had the same fault latent in it since the day before and
+# would have fired on its first reprint.
+_OWNER_ASSETS = {"assets-source/stickers", "assets-source/endscreen"}
+_srcs += glob.glob("shared/*.mjs")
+_srcs += [_f for _f in glob.glob("assets-source/*") if _f not in _OWNER_ASSETS]
 _newest_src, _newest_src_t = None, 0
 for _f in _srcs:
     _t = os.path.getmtime(_f)
@@ -669,6 +681,7 @@ if _bare:
 # nightly loop; anything else that writes into public/ belongs in build-all.
 _ONE_OFF = {
     "build-brand-logos.py",  # shop, vendor and creator logos, from assets-source
+    "build-endscreen.py", # the Shorts end screen, an asset for the OWNER; nothing enters public/
     "build-favicon.py",   # icons, from logo-square.jpg
     "build-foot-banner.py",  # the footer Made in ROC banner, from a master outside the repo
     "build-logos.py",     # set logos
