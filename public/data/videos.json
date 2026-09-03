@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 275957,
-    "subscribers": 354,
-    "videos": 331,
-    "readAt": "2026-09-02"
+    "views": 276031,
+    "subscribers": 355,
+    "videos": 332,
+    "readAt": "2026-09-03"
   },
-  "syncedAt": "2026-09-02",
+  "syncedAt": "2026-09-03",
   "videos": [
+    {
+      "id": "EBfDd87Ow84",
+      "title": "Perfect Order Pack #11 ⚔️ | The Salazzle Curse is Real! 🔥",
+      "path": "rip/perfect-order-pack-11-the-salazzle-curse-is-real-EBfDd87Ow84.html",
+      "published": "2026-09-03",
+      "publishedAt": "2026-09-03T10:12:15Z",
+      "duration": 20,
+      "views": 567,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "perfect-order"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Perfect Order Pack"
+    },
     {
       "id": "W1FHYQ8cWlU",
       "title": "Ninja Spinner #6-10 ⚔️ | @TOAKPulls  Has The HEAT! 🔥",
@@ -15,7 +34,7 @@
       "published": "2026-09-02",
       "publishedAt": "2026-09-02T10:10:23Z",
       "duration": 51,
-      "views": 695,
+      "views": 938,
       "vertical": true,
       "short": true,
       "sets": [
@@ -37,7 +56,7 @@
       "published": "2026-09-01",
       "publishedAt": "2026-09-01T10:05:20Z",
       "duration": 21,
-      "views": 1159,
+      "views": 1198,
       "vertical": true,
       "short": true,
       "sets": [
@@ -70,7 +89,7 @@
       "published": "2026-08-31",
       "publishedAt": "2026-08-31T11:17:17Z",
       "duration": 18,
-      "views": 949,
+      "views": 952,
       "vertical": true,
       "short": true,
       "sets": [
@@ -103,7 +122,7 @@
       "published": "2026-08-30",
       "publishedAt": "2026-08-30T11:58:31Z",
       "duration": 21,
-      "views": 1071,
+      "views": 1098,
       "vertical": true,
       "short": true,
       "sets": [
@@ -136,7 +155,7 @@
       "published": "2026-08-29",
       "publishedAt": "2026-08-29T12:09:23Z",
       "duration": 22,
-      "views": 1070,
+      "views": 1084,
       "vertical": true,
       "short": true,
       "sets": [
@@ -172,7 +191,7 @@
       "published": "2026-08-28",
       "publishedAt": "2026-08-28T11:48:15Z",
       "duration": 20,
-      "views": 988,
+      "views": 989,
       "vertical": true,
       "short": true,
       "sets": [
@@ -208,7 +227,7 @@
       "published": "2026-08-27",
       "publishedAt": "2026-08-27T12:09:30Z",
       "duration": 21,
-      "views": 1233,
+      "views": 1235,
       "vertical": true,
       "short": true,
       "sets": [
@@ -241,7 +260,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1156,
+      "views": 1158,
       "vertical": true,
       "short": true,
       "sets": [
@@ -277,7 +296,7 @@
       "published": "2026-08-25",
       "publishedAt": "2026-08-25T11:58:34Z",
       "duration": 19,
-      "views": 851,
+      "views": 853,
       "vertical": true,
       "short": true,
       "sets": [
@@ -311,7 +330,7 @@
       "published": "2026-08-24",
       "publishedAt": "2026-08-24T12:22:06Z",
       "duration": 18,
-      "views": 1012,
+      "views": 1013,
       "vertical": true,
       "short": true,
       "sets": [
@@ -344,7 +363,7 @@
       "published": "2026-08-23",
       "publishedAt": "2026-08-23T12:40:33Z",
       "duration": 21,
-      "views": 963,
+      "views": 965,
       "vertical": true,
       "short": true,
       "sets": [
@@ -380,7 +399,7 @@
       "published": "2026-08-22",
       "publishedAt": "2026-08-22T11:47:18Z",
       "duration": 20,
-      "views": 1125,
+      "views": 1126,
       "vertical": true,
       "short": true,
       "sets": [
@@ -413,7 +432,7 @@
       "published": "2026-08-21",
       "publishedAt": "2026-08-21T12:14:12Z",
       "duration": 21,
-      "views": 896,
+      "views": 898,
       "vertical": true,
       "short": true,
       "sets": [
@@ -446,7 +465,7 @@
       "published": "2026-08-20",
       "publishedAt": "2026-08-20T12:34:21Z",
       "duration": 24,
-      "views": 839,
+      "views": 840,
       "vertical": true,
       "short": true,
       "sets": [
@@ -482,7 +501,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1028,
+      "views": 1032,
       "vertical": true,
       "short": true,
       "sets": [
@@ -515,7 +534,7 @@
       "published": "2026-08-18",
       "publishedAt": "2026-08-18T10:04:29Z",
       "duration": 28,
-      "views": 1193,
+      "views": 1194,
       "vertical": true,
       "short": true,
       "sets": [
@@ -554,7 +573,7 @@
       "published": "2026-08-17",
       "publishedAt": "2026-08-17T12:04:11Z",
       "duration": 20,
-      "views": 800,
+      "views": 801,
       "vertical": true,
       "short": true,
       "sets": [
@@ -587,7 +606,7 @@
       "published": "2026-08-16",
       "publishedAt": "2026-08-16T13:13:06Z",
       "duration": 21,
-      "views": 920,
+      "views": 921,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1104,7 +1123,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 922,
+      "views": 923,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4483,7 +4502,7 @@
       "published": "2026-06-09",
       "publishedAt": "2026-06-09T10:10:34Z",
       "duration": 22,
-      "views": 1175,
+      "views": 1176,
       "vertical": true,
       "short": true,
       "sets": [
