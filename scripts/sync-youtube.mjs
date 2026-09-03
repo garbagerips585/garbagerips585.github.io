@@ -389,8 +389,23 @@ const videos = uploads
       // a zero. Every reader is written as "show it if it is there", and the
       // absent case is 316 of 316 videos today, so absence has to be the shape
       // that costs nothing and renders nothing.
-      ...(log.boxNumber ? { boxNumber: log.boxNumber } : {}),
-      ...(log.packNumber ? { packNumber: log.packNumber } : {}),
+      //
+      // AND AN OVERRIDE BEATS THE SHEET FOR THESE TWO AS WELL, for the same
+      // reason it does for blurb below. The pack number can only ever come from
+      // the owner -- riplabel.mjs refuses to parse one out of a title, after a
+      // regex published eight rips as "Chaos Rising ETB #2" and invented an
+      // "ETB #9" box that never existed -- and the ONLY route he had was the
+      // spreadsheet. So a number he gives any other way could not be recorded
+      // at all: manual.json is rebuilt from the CSV on every import, and
+      // packNumber is not in its CARRY_FORWARD list, so an entry typed in there
+      // by hand is silently dropped the next time the sheet comes back without
+      // it. overrides.json is loaded and mutated rather than rebuilt, which is
+      // what makes it the durable half of the pair.
+      //
+      // This does NOT loosen the typed-only rule. The number still has to be
+      // typed by him; it just no longer has to be typed in one particular file.
+      ...((manual.boxNumber ?? log.boxNumber) ? { boxNumber: manual.boxNumber ?? log.boxNumber } : {}),
+      ...((manual.packNumber ?? log.packNumber) ? { packNumber: manual.packNumber ?? log.packNumber } : {}),
       ...(log.greatest ? { greatest: true } : {}),
       ...(log.hofRank != null ? { hofRank: log.hofRank } : {}),
       ...(log.affiliate ? { affiliate: log.affiliate } : {}),
