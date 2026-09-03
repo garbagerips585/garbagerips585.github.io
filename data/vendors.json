@@ -20,7 +20,8 @@
     "",
     "`vouched` marks a vendor the owner has actually bought from. Only set it where that",
     "is true: the whole value of a local list is that it is not a directory.",
-    "`name` IS A FOREIGN KEY. data/shows.json joins confirmed vendors to this file on name, so it must be unique here (the build throws on a duplicate) and renaming a vendor breaks every show that names them until those are updated. A `logo` requires `logoW`/`logoH` and its built renditions under public/assets/creators/, or the build fails: a logo goes up only where its owner sent it for this use, and the show card is a second use of that same permission."
+    "`name` IS A FOREIGN KEY. data/shows.json joins confirmed vendors to this file on name, so it must be unique here (the build throws on a duplicate) and renaming a vendor breaks every show that names them until those are updated. A `logo` requires `logoW`/`logoH` and its built renditions under public/assets/creators/, or the build fails: a logo goes up only where its owner sent it for this use, and the show card is a second use of that same permission.",
+    "THE ARRAY ORDER IS THE PAGE ORDER. build-locals.mjs renders this list as it stands and sorts it by nothing, so appending a vendor puts them last and reordering here is how the page is reordered. The owner set this order on 3 September 2026: TOAK Pulls, Legends Card Shop, RocPokeCon."
   ],
   "updated": "2026-08-13",
   "vendors": [
@@ -44,14 +45,6 @@
       "logoH": 4824
     },
     {
-      "name": "RocPokéCon",
-      "area": "Rochester, NY",
-      "sells": "Vendors at their own show and at other local ones",
-      "blurb": "They run the biggest Pokemon card show in Rochester, NY, and they vend at it and at other shows around the area.",
-      "shows": "RocPokéCon, plus other local shows",
-      "links": "https://linktr.ee/rocpokecon"
-    },
-    {
       "name": "Legends Card Shop",
       "area": "Rochester, NY, and out to Buffalo and Syracuse",
       "sells": "Modern and vintage singles, slabs, plushies and pins, in person at shows",
@@ -71,6 +64,14 @@
       "flyerW": 440,
       "flyerH": 583,
       "flyerNote": "Their upcoming show dates, sent 3 September 2026. The image they sent is cut off below the last row, mid-sentence at \"COME SEE US &\", so anything under that is not on this site."
+    },
+    {
+      "name": "RocPokéCon",
+      "area": "Rochester, NY",
+      "sells": "Vendors at their own show and at other local ones",
+      "blurb": "They run the biggest Pokemon card show in Rochester, NY, and they vend at it and at other shows around the area.",
+      "shows": "RocPokéCon, plus other local shows",
+      "links": "https://linktr.ee/rocpokecon"
     }
   ]
 }
