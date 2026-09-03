@@ -147,9 +147,21 @@ _ba = open("scripts/build-all.mjs", encoding="utf-8").read()
 # builder. import-sheet.mjs is the one survivor, because its name is in a printed
 # help string rather than a comment, and one stale entry is a fair price for a
 # change that cannot silently drop a source.
-_ba_code = "\n".join(re.sub(r"//.*$", "", _ln) for _ln in _ba.split("\n"))
+# A QUOTED STEP, NOT A SUBSTRING, WHICH IS THE END OF THIS PARTICULAR BUG.
+# Stripping // comments got 13 of the 14 false entries and left import-sheet.mjs,
+# because its name is inside a QUOTED HELP STRING -- "the cell and re-run
+# scripts/import-sheet.mjs; nothing here needs redoing." -- and no amount of
+# comment stripping reaches prose that lives in a string literal. Matching the
+# actual invocation instead ends the whole class: build-all runs a script by
+# writing "node scripts/X" or "python3 scripts/X" and nothing else does.
+#
+# Checked before switching: 68 unique quoted steps, and moving to this test drops
+# exactly import-sheet.mjs and adds nothing. fetch-fonts.sh is invoked as bash
+# rather than node, which costs nothing here because _srcs globs only .mjs/.py.
+_steps = {_s.split("/")[-1] for _s in
+          re.findall(r'"(?:node|python3) (scripts/[A-Za-z0-9._-]+)', _ba)}
 _srcs = [_f for _f in glob.glob("scripts/*.mjs") + glob.glob("scripts/*.py")
-         if os.path.basename(_f) in _ba_code
+         if os.path.basename(_f) in _steps
          and os.path.basename(_f) != "check-build.py"]
 # TWO DIRECTORIES UNDER assets-source ARE OUTPUTS, NOT SOURCES, and sweeping
 # them in is the same bug this file already records one paragraph above for
