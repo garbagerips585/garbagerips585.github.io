@@ -77,6 +77,7 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc, clipMeta, plainDashesAll} from "../shared/format.mjs";
+import { avifSource } from "../shared/logo-srcset.mjs";
 // The same comment stripper build-css.mjs runs over ui.css. PAGE_CSS below is
 // mostly prose about why four rules exist, and an inline style block is render
 // blocking like the stylesheet is. stamp-assets.mjs would strip it last anyway,
@@ -286,23 +287,7 @@ const logoFor = (o) => o.logo
           } data-imglb-alt="${esc(o.name)} logo">`
         : `<span class="loc-logo">`;
     })()}<picture>
-            ${/* THE AVIF SOURCE IS BUILT FROM THE FILES THAT EXIST, NOT ASSUMED.
-                  build-brand-logos.py DROPS a rendition whose AVIF encoded LARGER
-                  than its WebP -- "so this one is served as webp only" -- and this
-                  srcset named both widths unconditionally. Legends Card Shop is the
-                  first logo where the 200w lost, so the browser picked a source
-                  that had deliberately never been written and the card rendered a
-                  BROKEN IMAGE. lgFor() a few lines up already guards its own file
-                  with existsSync for exactly this reason; this half never did.
-                  Emitting only the widths on disk means a dropped rendition costs
-                  a candidate rather than the picture. */ ""}${(() => {
-              const av = [200, 400]
-                .filter((w) => existsSync(join(ROOT, "public", `assets/creators/${o.logo}-${w}.avif`)))
-                .map((w) => `/assets/creators/${esc(o.logo)}-${w}.avif ${w}w`);
-              return av.length
-                ? `<source type="image/avif" srcset="${av.join(", ")}" sizes="(min-width:900px) 168px, 96px">`
-                : "";
-            })()}
+            ${avifSource(ROOT, "creators", o.logo, "(min-width:900px) 168px, 96px")}
             <img src="/assets/creators/${esc(o.logo)}-200.webp" alt="${esc(o.name)} logo" width="200" height="${
               Math.round(200 * (o.logoH || 1) / (o.logoW || 1))
             }" loading="lazy" decoding="async" srcset="/assets/creators/${esc(o.logo)}-200.webp 200w, /assets/creators/${esc(o.logo)}-400.webp 400w" sizes="(min-width:900px) 168px, 96px">

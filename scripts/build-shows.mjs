@@ -41,6 +41,7 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc, longDate, MONTHS_LONG, clipMeta} from "../shared/format.mjs";
+import { avifSource } from "../shared/logo-srcset.mjs";
 
 import { localDay } from "../shared/today.mjs";
 /* CLIENT_DAY_JS is the BROWSER half of the question localDay() answers on this
@@ -248,7 +249,7 @@ function showVendors(s, past) {
       }
       const mh = Math.round(34 * v.logoH / v.logoW);
       mark = `<span class="sv-logo"><picture>` +
-        `<source type="image/avif" srcset="/assets/creators/${esc(v.logo)}-200.avif 200w, /assets/creators/${esc(v.logo)}-400.avif 400w" sizes="34px">` +
+        avifSource(ROOT, "creators", v.logo, "34px") +
         `<img src="/assets/creators/${esc(v.logo)}-200.webp" alt="" width="34" height="${mh}" loading="lazy" decoding="async" ` +
         `srcset="/assets/creators/${esc(v.logo)}-200.webp 200w, /assets/creators/${esc(v.logo)}-400.webp 400w" sizes="34px"></picture></span>`;
     }

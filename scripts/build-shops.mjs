@@ -24,6 +24,7 @@ import { socialLinks, GLYPH } from "../shared/socials.mjs";
 // home page's. See shared/chrome.mjs beside the two exports.
 import { APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/chrome.mjs";
 import { esc, longDate, plateRule, PLATE_CSS } from "../shared/format.mjs";
+import { avifSource } from "../shared/logo-srcset.mjs";
 // The overlay the show flyers open in. Shared rather than copied: see the note
 // at the top of shared/lightbox.mjs.
 import { imgLbMarkup, imgLbJs } from "../shared/lightbox.mjs";
@@ -264,7 +265,7 @@ const cards = shops
               a ? ` data-imglb-avif="/${lgA}"` : ""
             } data-imglb-alt="${esc(s.name)} logo">`;
           })()}<picture>
-            <source type="image/avif" srcset="/assets/shops/${esc(s.logo)}-200.avif 200w, /assets/shops/${esc(s.logo)}-400.avif 400w" sizes="(min-width:900px) 168px, 96px">
+            ${avifSource(ROOT, "shops", s.logo, "(min-width:900px) 168px, 96px")}
             <img src="/assets/shops/${esc(s.logo)}-200.webp" alt="${esc(s.name)} logo" width="200" height="${
               Math.round(200 * (s.logoH || 1) / (s.logoW || 1))
             }" loading="lazy" decoding="async" srcset="/assets/shops/${esc(s.logo)}-200.webp 200w, /assets/shops/${esc(s.logo)}-400.webp 400w" sizes="(min-width:900px) 168px, 96px">
