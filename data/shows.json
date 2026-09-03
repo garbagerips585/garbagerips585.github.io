@@ -168,12 +168,16 @@
       "pokemon": false,
       "admission": "Free",
       "blurb": "Batavia is the halfway point between Rochester, NY and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors, and Pokemon dealers set up alongside the sports tables. The drive is what gets you dealers from both cities in one room.",
-      "source": "cardshows.io",
+      "source": "cardshows.io, and the organiser's flyer sent to the channel, 3 September 2026",
       "organiser": "Jen Oberlies, JC's Cards and Collectibles",
       "organiserUrl": "https://jcsportscollectibles.com",
       "address": "8250 Park Rd, Batavia, NY 14020",
       "pkmn": "some",
-      "pkmnWhy": "The promoter lists it in Sports Collectors Digest as \"JC's Sports Card & Pokemon\", and Pokemon dealers post from it. The flyer itself bills sports, toys and non-sports."
+      "pkmnWhy": "The promoter lists it in Sports Collectors Digest as \"JC's Sports Card & Pokemon\", and Pokemon dealers post from it. The flyer itself bills sports, toys and non-sports.",
+      "flyer": "batavia-scts-monthly.jpg",
+      "flyerW": 440,
+      "flyerH": 503,
+      "phone": "585-353-0834"
     },
     {
       "id": "bpt-sports-2026-09-06",
@@ -203,11 +207,11 @@
       "pokemon": false,
       "pkmn": "some",
       "pkmnWhy": "The flyer bills it as a Pokemon, One Piece and Dragon Ball show, with Pokemon named first.",
-      "blurb": "A TCG show rather than a sports show. Children 5 and under get in free and there is an early bird from 9am, but the flyer prints no adult price.",
-      "source": "a flyer sent to the channel on Discord, August 27, 2026",
+      "blurb": "A TCG show rather than a sports show. Children 5 and under get in free and there is an early bird from 9am, but the flyer prints no adult price. Fifty vendor tables, and the flyer is still asking for vendors. The organiser publishes on Instagram as @primetimetcgshow.",
+      "source": "the organiser's flyer, sent to the channel on Discord, August 27 2026 and again 3 September 2026",
       "flyer": "prime-time-2026-09-06.jpg",
-      "flyerW": 310,
-      "flyerH": 161
+      "flyerW": 440,
+      "flyerH": 551
     },
     {
       "id": "buffalo-scc-depew-2026-09-12",
@@ -527,13 +531,17 @@
       "region": "roc",
       "pokemon": false,
       "admission": "Free",
-      "source": "cardshows.io",
+      "source": "cardshows.io, and the organiser's flyer sent to the channel, 3 September 2026",
       "blurb": "Batavia is the halfway point between Rochester, NY and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors, and Pokemon dealers set up alongside the sports tables. The drive is what gets you dealers from both cities in one room.",
       "organiser": "Jen Oberlies, JC's Cards and Collectibles",
       "organiserUrl": "https://jcsportscollectibles.com",
       "address": "8250 Park Rd, Batavia, NY 14020",
       "pkmn": "some",
-      "pkmnWhy": "The promoter lists it in Sports Collectors Digest as \"JC's Sports Card & Pokemon\", and Pokemon dealers post from it. The flyer itself bills sports, toys and non-sports."
+      "pkmnWhy": "The promoter lists it in Sports Collectors Digest as \"JC's Sports Card & Pokemon\", and Pokemon dealers post from it. The flyer itself bills sports, toys and non-sports.",
+      "flyer": "batavia-scts-monthly.jpg",
+      "flyerW": 440,
+      "flyerH": 503,
+      "phone": "585-353-0834"
     },
     {
       "id": "locks-lockport-2026-10-04",
@@ -900,13 +908,17 @@
       "region": "roc",
       "pokemon": false,
       "admission": "Free",
-      "source": "cardshows.io",
+      "source": "cardshows.io, and the organiser's flyer sent to the channel, 3 September 2026",
       "blurb": "Batavia is the halfway point between Rochester, NY and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors, and Pokemon dealers set up alongside the sports tables. The drive is what gets you dealers from both cities in one room.",
       "organiser": "Jen Oberlies, JC's Cards and Collectibles",
       "organiserUrl": "https://jcsportscollectibles.com",
       "address": "8250 Park Rd, Batavia, NY 14020",
       "pkmn": "some",
-      "pkmnWhy": "The promoter lists it in Sports Collectors Digest as \"JC's Sports Card & Pokemon\", and Pokemon dealers post from it. The flyer itself bills sports, toys and non-sports."
+      "pkmnWhy": "The promoter lists it in Sports Collectors Digest as \"JC's Sports Card & Pokemon\", and Pokemon dealers post from it. The flyer itself bills sports, toys and non-sports.",
+      "flyer": "batavia-scts-monthly.jpg",
+      "flyerW": 440,
+      "flyerH": 503,
+      "phone": "585-353-0834"
     },
     {
       "name": "Buffalo Trading Card Con",
@@ -1065,13 +1077,17 @@
       "region": "roc",
       "pokemon": false,
       "admission": "Free",
-      "source": "cardshows.io",
+      "source": "cardshows.io, and the organiser's flyer sent to the channel, 3 September 2026",
       "blurb": "Batavia is the halfway point between Rochester, NY and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors, and Pokemon dealers set up alongside the sports tables. The drive is what gets you dealers from both cities in one room.",
       "organiser": "Jen Oberlies, JC's Cards and Collectibles",
       "organiserUrl": "https://jcsportscollectibles.com",
       "address": "8250 Park Rd, Batavia, NY 14020",
       "pkmn": "some",
-      "pkmnWhy": "The promoter lists it in Sports Collectors Digest as \"JC's Sports Card & Pokemon\", and Pokemon dealers post from it. The flyer itself bills sports, toys and non-sports."
+      "pkmnWhy": "The promoter lists it in Sports Collectors Digest as \"JC's Sports Card & Pokemon\", and Pokemon dealers post from it. The flyer itself bills sports, toys and non-sports.",
+      "flyer": "batavia-scts-monthly.jpg",
+      "flyerW": 440,
+      "flyerH": 503,
+      "phone": "585-353-0834"
     },
     {
       "id": "mega-show-113-2026-12-05",
