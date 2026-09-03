@@ -133,6 +133,10 @@
         {
           "name": "TOAK Pulls",
           "confirmed": "Confirmed by the owner, August 29, 2026."
+        },
+        {
+          "name": "Legends Card Shop",
+          "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026. Matched to this row by date AND street address, not by name alone."
         }
       ]
     },
@@ -298,6 +302,30 @@
       "tables": 120
     },
     {
+      "id": "flower-city-comic-con-2026-09-18",
+      "name": "Flower City Comic Con",
+      "date": "2026-09-18",
+      "start": "15:00",
+      "end": "20:00",
+      "venue": "Total Sports Experience",
+      "address": "880 Elmgrove Rd, Rochester, NY 14624",
+      "city": "Rochester, NY",
+      "region": "roc",
+      "pokemon": false,
+      "admission": "$20 pre-sale, $23 at the door",
+      "url": "https://www.fc3roc.com",
+      "source": "fc3roc.com/showinfo for the dates, hours and prices, read 3 September 2026, plus Legends Card Shop's own flyer for the fact that a Pokemon vendor is there",
+      "blurb": "A comic con rather than a card show, and it is here for the same reason the Excalibur weekend is: the vendor hall. Legends Card Shop have it on their own upcoming dates, so there is at least one Pokemon vendor in the room. Three days, and the Friday is the short one at 3pm to 8pm. Ages 10 and under get in free, 11 to 14 pay less, and a weekend pass is $60 pre-sale. Parking is free on site.",
+      "pkmn": "some",
+      "pkmnWhy": "Legends Card Shop list it on the upcoming-dates flyer they sent the channel, 3 September 2026. The con itself bills comics and pop culture and publishes no Pokemon programming, so this is one confirmed vendor rather than a Pokemon show.",
+      "vendors": [
+        {
+          "name": "Legends Card Shop",
+          "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026."
+        }
+      ]
+    },
+    {
       "id": "cny-collectors-expo-2026-09-19",
       "name": "CNY Collector's Expo",
       "date": "2026-09-19",
@@ -331,6 +359,30 @@
       "flyer": "cny-collectors-expo-2026-09-19.jpg",
       "flyerW": 440,
       "flyerH": 594
+    },
+    {
+      "id": "flower-city-comic-con-2026-09-19",
+      "name": "Flower City Comic Con",
+      "date": "2026-09-19",
+      "start": "10:00",
+      "end": "19:00",
+      "venue": "Total Sports Experience",
+      "address": "880 Elmgrove Rd, Rochester, NY 14624",
+      "city": "Rochester, NY",
+      "region": "roc",
+      "pokemon": false,
+      "admission": "$30 pre-sale, $35 at the door",
+      "url": "https://www.fc3roc.com",
+      "source": "fc3roc.com/showinfo for the dates, hours and prices, read 3 September 2026, plus Legends Card Shop's own flyer for the fact that a Pokemon vendor is there",
+      "blurb": "A comic con rather than a card show, and it is here for the same reason the Excalibur weekend is: the vendor hall. Legends Card Shop have it on their own upcoming dates, so there is at least one Pokemon vendor in the room. Three days, and the Friday is the short one at 3pm to 8pm. Ages 10 and under get in free, 11 to 14 pay less, and a weekend pass is $60 pre-sale. Parking is free on site.",
+      "pkmn": "some",
+      "pkmnWhy": "Legends Card Shop list it on the upcoming-dates flyer they sent the channel, 3 September 2026. The con itself bills comics and pop culture and publishes no Pokemon programming, so this is one confirmed vendor rather than a Pokemon show.",
+      "vendors": [
+        {
+          "name": "Legends Card Shop",
+          "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026."
+        }
+      ]
     },
     {
       "id": "niagara-vault-2026-09-19",
@@ -370,6 +422,30 @@
       "flyer": "cold-front-2026-09-20.jpg",
       "flyerW": 440,
       "flyerH": 660
+    },
+    {
+      "id": "flower-city-comic-con-2026-09-20",
+      "name": "Flower City Comic Con",
+      "date": "2026-09-20",
+      "start": "10:00",
+      "end": "17:00",
+      "venue": "Total Sports Experience",
+      "address": "880 Elmgrove Rd, Rochester, NY 14624",
+      "city": "Rochester, NY",
+      "region": "roc",
+      "pokemon": false,
+      "admission": "$25 pre-sale, $30 at the door",
+      "url": "https://www.fc3roc.com",
+      "source": "fc3roc.com/showinfo for the dates, hours and prices, read 3 September 2026, plus Legends Card Shop's own flyer for the fact that a Pokemon vendor is there",
+      "blurb": "A comic con rather than a card show, and it is here for the same reason the Excalibur weekend is: the vendor hall. Legends Card Shop have it on their own upcoming dates, so there is at least one Pokemon vendor in the room. Three days, and the Friday is the short one at 3pm to 8pm. Ages 10 and under get in free, 11 to 14 pay less, and a weekend pass is $60 pre-sale. Parking is free on site.",
+      "pkmn": "some",
+      "pkmnWhy": "Legends Card Shop list it on the upcoming-dates flyer they sent the channel, 3 September 2026. The con itself bills comics and pop culture and publishes no Pokemon programming, so this is one confirmed vendor rather than a Pokemon show.",
+      "vendors": [
+        {
+          "name": "Legends Card Shop",
+          "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026."
+        }
+      ]
     },
     {
       "id": "585cardz-batavia-2026-09-23",
@@ -413,6 +489,39 @@
       "source": "excaliburevents.net, the organizer's own site: the Event Hours block reads Friday 3PM-9PM, Saturday 8AM-9PM, Sunday 8AM-6PM. Read 1 September 2026, after a reader on r/Buffalo pointed at the Friday hours this file had missed."
     },
     {
+      "id": "excalibur-niagara-2026-09-26",
+      "name": "Excalibur Events: Niagara Falls Premodern/Pauper Weekend",
+      "date": "2026-09-26",
+      "start": "08:00",
+      "end": "21:00",
+      "venue": "Niagara Falls Convention Center",
+      "address": "101 Old Falls St, Niagara Falls, NY 14303",
+      "city": "Niagara Falls",
+      "region": "buffalo",
+      "pokemon": false,
+      "admission": null,
+      "blurb": "A Magic: The Gathering tournament weekend, not a walk-in card show, and it is here because of the vendor hall: Card Garden, Rochester CCG, The Mana Mart and The Slaughterhouse Games are all listed. Playing costs $90 for the Premodern main and $70 for the Legacy. Excalibur publish no price for walking in just to browse, so check before you drive.",
+      "organiser": "Excalibur Events, LLC",
+      "organiserUrl": "https://www.excaliburevents.net",
+      "url": "https://www.excaliburevents.net/weekends/niagara-falls-2026",
+      "source": "excaliburevents.net, the organizer's own site: the Event Hours block reads Friday 3PM-9PM, Saturday 8AM-9PM, Sunday 8AM-6PM. Read 1 September 2026, after a reader on r/Buffalo pointed at the Friday hours this file had missed."
+    },
+    {
+      "id": "extreme-pokemon-batavia-2026-09-26",
+      "name": "Extreme Pokemon Show",
+      "date": "2026-09-26",
+      "start": "10:00",
+      "end": "17:00",
+      "venue": "Quality Inn",
+      "address": "8250 Park Rd, Batavia, NY 14020",
+      "city": "Batavia",
+      "region": "roc",
+      "pokemon": true,
+      "admission": "Free",
+      "source": "wnycardshows (Shake & Break 716)",
+      "blurb": "An all Pokemon show at the Batavia Quality Inn, free in, with food on site."
+    },
+    {
       "id": "fall-fest-2026-09-26",
       "name": "1st Annual Fall Fest",
       "date": "2026-09-26",
@@ -448,39 +557,6 @@
       "flyerH": 665
     },
     {
-      "id": "excalibur-niagara-2026-09-26",
-      "name": "Excalibur Events: Niagara Falls Premodern/Pauper Weekend",
-      "date": "2026-09-26",
-      "start": "08:00",
-      "end": "21:00",
-      "venue": "Niagara Falls Convention Center",
-      "address": "101 Old Falls St, Niagara Falls, NY 14303",
-      "city": "Niagara Falls",
-      "region": "buffalo",
-      "pokemon": false,
-      "admission": null,
-      "blurb": "A Magic: The Gathering tournament weekend, not a walk-in card show, and it is here because of the vendor hall: Card Garden, Rochester CCG, The Mana Mart and The Slaughterhouse Games are all listed. Playing costs $90 for the Premodern main and $70 for the Legacy. Excalibur publish no price for walking in just to browse, so check before you drive.",
-      "organiser": "Excalibur Events, LLC",
-      "organiserUrl": "https://www.excaliburevents.net",
-      "url": "https://www.excaliburevents.net/weekends/niagara-falls-2026",
-      "source": "excaliburevents.net, the organizer's own site: the Event Hours block reads Friday 3PM-9PM, Saturday 8AM-9PM, Sunday 8AM-6PM. Read 1 September 2026, after a reader on r/Buffalo pointed at the Friday hours this file had missed."
-    },
-    {
-      "id": "extreme-pokemon-batavia-2026-09-26",
-      "name": "Extreme Pokemon Show",
-      "date": "2026-09-26",
-      "start": "10:00",
-      "end": "17:00",
-      "venue": "Quality Inn",
-      "address": "8250 Park Rd, Batavia, NY 14020",
-      "city": "Batavia",
-      "region": "roc",
-      "pokemon": true,
-      "admission": "Free",
-      "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "An all Pokemon show at the Batavia Quality Inn, free in, with food on site."
-    },
-    {
       "id": "collectorfest-jcc-2026-09-27",
       "name": "CollectorFest Monthly",
       "date": "2026-09-27",
@@ -500,7 +576,13 @@
       "blurb": "Free Monthly 72-table show, lots of great Pokemon vendors, and a good mix of vintage and modern sports cards and collectibles, plus there is a giveaway at noon.",
       "tables": 72,
       "pkmn": "some",
-      "pkmnWhy": "The organizer confirmed it directly, and we are at this one most months: the same Pokemon vendors are there every time."
+      "pkmnWhy": "The organizer confirmed it directly, and we are at this one most months: the same Pokemon vendors are there every time.",
+      "vendors": [
+        {
+          "name": "Legends Card Shop",
+          "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026. Matched to this row by date AND street address, not by name alone."
+        }
+      ]
     },
     {
       "id": "excalibur-niagara-2026-09-27",
@@ -619,6 +701,12 @@
           "price": "$20",
           "from": "09:30"
         }
+      ],
+      "vendors": [
+        {
+          "name": "Legends Card Shop",
+          "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026. Matched to this row by date AND street address, not by name alone."
+        }
       ]
     },
     {
@@ -706,7 +794,13 @@
       "blurb": "Free Monthly 72-table show, lots of great Pokemon vendors, and a good mix of vintage and modern sports cards and collectibles, plus there is a giveaway at noon.",
       "tables": 72,
       "pkmn": "some",
-      "pkmnWhy": "The organizer confirmed it directly, and we are at this one most months: the same Pokemon vendors are there every time."
+      "pkmnWhy": "The organizer confirmed it directly, and we are at this one most months: the same Pokemon vendors are there every time.",
+      "vendors": [
+        {
+          "name": "Legends Card Shop",
+          "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026. Matched to this row by date AND street address, not by name alone."
+        }
+      ]
     },
     {
       "id": "collectorsfest-111-2026-10-18",
@@ -858,7 +952,13 @@
       "ticketUrl": "https://www.rocpokecon.com/events/tickets",
       "url": "https://www.rocpokecon.com",
       "source": "rocpokecon.com",
-      "tables": "300+"
+      "tables": "300+",
+      "vendors": [
+        {
+          "name": "Legends Card Shop",
+          "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026. Matched to this row by date AND street address, not by name alone."
+        }
+      ]
     },
     {
       "id": "collectorsfest-112-2026-11-01",
@@ -979,6 +1079,12 @@
           "from": "09:00",
           "note": "presale only, no refunds"
         }
+      ],
+      "vendors": [
+        {
+          "name": "Legends Card Shop",
+          "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026. Matched to this row by date AND street address, not by name alone."
+        }
       ]
     },
     {
@@ -1009,6 +1115,12 @@
           "price": "$25",
           "from": "09:00",
           "note": "presale only, no refunds"
+        }
+      ],
+      "vendors": [
+        {
+          "name": "Legends Card Shop",
+          "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026. Matched to this row by date AND street address, not by name alone."
         }
       ]
     },
@@ -1090,6 +1202,23 @@
       "phone": "585-353-0834"
     },
     {
+      "id": "golden-saucer-nf-2026-12-05",
+      "name": "Golden Saucer Gaming Expo",
+      "date": "2026-12-05",
+      "venue": "Fashion Outlets of Niagara Falls",
+      "address": "1900 Military Rd, Niagara Falls, NY 14304",
+      "city": "Niagara Falls",
+      "region": "buffalo",
+      "organiser": "Golden Saucer Gaming",
+      "url": "https://www.goldensaucergaming.com",
+      "organiserUrl": "https://www.goldensaucergaming.com",
+      "source": "goldensaucergaming.com",
+      "pkmnWhy": "Their published vendor list names Pokemon dealers outright: J J's Pokestop and Pokefam.",
+      "blurb": "Retro video games and TCGs together. Hours and admission were not published when we checked.",
+      "pokemon": false,
+      "pkmn": "some"
+    },
+    {
       "id": "mega-show-113-2026-12-05",
       "name": "Collector's Mega Show #113",
       "date": "2026-12-05",
@@ -1120,23 +1249,6 @@
       ],
       "pkmn": "some",
       "pkmnWhy": "their listing names Pokemon outright, alongside non-sports cards"
-    },
-    {
-      "id": "golden-saucer-nf-2026-12-05",
-      "name": "Golden Saucer Gaming Expo",
-      "date": "2026-12-05",
-      "venue": "Fashion Outlets of Niagara Falls",
-      "address": "1900 Military Rd, Niagara Falls, NY 14304",
-      "city": "Niagara Falls",
-      "region": "buffalo",
-      "organiser": "Golden Saucer Gaming",
-      "url": "https://www.goldensaucergaming.com",
-      "organiserUrl": "https://www.goldensaucergaming.com",
-      "source": "goldensaucergaming.com",
-      "pkmnWhy": "Their published vendor list names Pokemon dealers outright: J J's Pokestop and Pokefam.",
-      "blurb": "Retro video games and TCGs together. Hours and admission were not published when we checked.",
-      "pokemon": false,
-      "pkmn": "some"
     },
     {
       "id": "locks-lockport-2026-12-12",

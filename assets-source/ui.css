@@ -5389,6 +5389,27 @@ inherited from the UA default, so the promotion moves nothing on screen. */
    made it the loudest line on the card. */
 .loc-nowrite{font-size:var(--t-sm);color:var(--ink-2);font-style:italic}
 .loc-shows{font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-soft)}
+/* THE CONFIRMED SHOW LIST AND THE FLYER, both new on a vendor card 3 September
+   2026. They sit ABOVE .loc-socs on purpose: that rule is margin-top:auto, so
+   anything added after it gets pushed to the bottom of the card and the links
+   stop being the last thing a reader reaches. */
+.loc-conf{margin-top:var(--s3);padding-top:var(--s3);border-top:1px solid var(--hair)}
+.loc-conf-h{font:700 var(--t-micro)/1.4 var(--mono);text-transform:uppercase;
+  letter-spacing:.05em;color:var(--ink-2);margin-bottom:var(--s2)}
+.loc-conf-l{list-style:none;display:flex;flex-direction:column;gap:4px}
+.loc-conf-l li{font-size:var(--t-sm);color:var(--ink);display:flex;flex-wrap:wrap;gap:0 8px;align-items:baseline}
+/* The date is the thing being scanned for, so it is the one part that is not
+   body colour. Pink because it goes nowhere: the accent rule holds here as
+   anywhere else, and these list items are not links. */
+.loc-conf-l li b{font:400 var(--t-sm)/1.4 var(--display);color:var(--ketchup-deep);flex:none;min-width:4.2em}
+.loc-conf-l li span{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
+.loc-conf-m{margin-top:var(--s2);font-size:var(--t-sm)}
+.loc-flyer{display:block;width:100%;max-width:220px;margin-top:var(--s3);padding:0;
+  border:3px solid var(--keyline);border-radius:10px;background:none;cursor:zoom-in;
+  overflow:hidden;line-height:0}
+.loc-flyer img{width:100%;height:auto;display:block}
+.loc-flyer:hover{border-color:var(--mustard)}
+.loc-flyer:focus-visible{outline:3px solid var(--mustard);outline-offset:2px}
 .loc-socs{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:var(--s3)}
 .loc-soc{font:700 var(--t-micro)/1 var(--mono);text-transform:uppercase;letter-spacing:.05em;
   color:var(--navy);background:var(--paper-3);border-radius:var(--r-pill);

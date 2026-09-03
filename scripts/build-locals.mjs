@@ -49,6 +49,7 @@
 // widely enough that a regional map becomes a real picture. Neither is true
 // yet, and an empty-ish page with no picture is better than a padded one.
 
+import { readFileSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 // A logo is only an opener where a -lg rendition is actually on disk.
 import { existsSync } from "node:fs";
@@ -85,6 +86,31 @@ import { strip as miniCSS } from "./build-css.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const vendors = JSON.parse(await readFile(join(ROOT, "data/vendors.json"), "utf8"));
 const creators = JSON.parse(await readFile(join(ROOT, "data/creators.json"), "utf8"));
+
+/* THE CALENDAR, READ HERE SO A VENDOR CARD CAN SAY WHERE THEY WILL BE.
+ *
+ * The owner, 3 September 2026: "also add in a list of confirmed shows under the
+ * vendors info too so people can quickly see". The join already exists in the
+ * other direction -- data/shows.json names confirmed vendors and
+ * build-shows.mjs renders them on the show card -- so this reads the SAME field
+ * back rather than introducing a second list that could disagree with it.
+ * data/vendors.json holds no show dates and must not: one fact, one home.
+ *
+ * ONLY WHAT IS STILL AHEAD. A vendor card is a "where can I find them" answer,
+ * so a show that has already happened is noise on it. The show pages keep the
+ * history; this list is forward-looking and empties itself. */
+const SHOW_ROWS = (() => {
+  const raw = JSON.parse(readFileSync(join(ROOT, "data/shows.json"), "utf8"));
+  return Array.isArray(raw) ? raw : raw.shows || [];
+})();
+const TODAY_ISO = new Date().toISOString().slice(0, 10);
+const confirmedFor = (name) =>
+  SHOW_ROWS.filter((s) => s.date >= TODAY_ISO && (s.vendors || []).some((v) => v && v.name === name))
+    .sort((a, b) => a.date.localeCompare(b.date));
+const showDay = (iso) => {
+  const d = new Date(iso + "T12:00:00");
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+};
 
 /* THE HUB THESE TWO PAGES NOW HANG UNDER. /rochester.html, built by
    scripts/build-rochester.mjs, is the one page that says what the local scene
@@ -260,12 +286,79 @@ const logoFor = (o) => o.logo
           } data-imglb-alt="${esc(o.name)} logo">`
         : `<span class="loc-logo">`;
     })()}<picture>
-            <source type="image/avif" srcset="/assets/creators/${esc(o.logo)}-200.avif 200w, /assets/creators/${esc(o.logo)}-400.avif 400w" sizes="(min-width:900px) 168px, 96px">
+            ${/* THE AVIF SOURCE IS BUILT FROM THE FILES THAT EXIST, NOT ASSUMED.
+                  build-brand-logos.py DROPS a rendition whose AVIF encoded LARGER
+                  than its WebP -- "so this one is served as webp only" -- and this
+                  srcset named both widths unconditionally. Legends Card Shop is the
+                  first logo where the 200w lost, so the browser picked a source
+                  that had deliberately never been written and the card rendered a
+                  BROKEN IMAGE. lgFor() a few lines up already guards its own file
+                  with existsSync for exactly this reason; this half never did.
+                  Emitting only the widths on disk means a dropped rendition costs
+                  a candidate rather than the picture. */ ""}${(() => {
+              const av = [200, 400]
+                .filter((w) => existsSync(join(ROOT, "public", `assets/creators/${o.logo}-${w}.avif`)))
+                .map((w) => `/assets/creators/${esc(o.logo)}-${w}.avif ${w}w`);
+              return av.length
+                ? `<source type="image/avif" srcset="${av.join(", ")}" sizes="(min-width:900px) 168px, 96px">`
+                : "";
+            })()}
             <img src="/assets/creators/${esc(o.logo)}-200.webp" alt="${esc(o.name)} logo" width="200" height="${
               Math.round(200 * (o.logoH || 1) / (o.logoW || 1))
             }" loading="lazy" decoding="async" srcset="/assets/creators/${esc(o.logo)}-200.webp 200w, /assets/creators/${esc(o.logo)}-400.webp 400w" sizes="(min-width:900px) 168px, 96px">
           </picture>${lgFor(o) ? "</button>" : "</span>"}`
   : "";
+
+/* THE SHOW DATES FLYER, WHERE A VENDOR SENT ONE. Same lightbox contract as the
+   logo above and the show flyers on /card-shows.html: a button carrying
+   data-imglb, bound by shared/lightbox.mjs, so a reader taps the thumbnail and
+   gets the poster at full size. It reuses build-show-logos.py's flyer pipeline
+   rather than a second one, so the file lives beside every other flyer and gets
+   the same widths, the same AVIF-or-not decision and the same EXIF handling.
+
+   THE -full FILE IS CHECKED BEFORE IT IS LINKED, exactly as lgFor does for the
+   logos, because build-show-logos.py DROPS an AVIF that came out bigger than
+   its JPEG. Linking a file that was deliberately not written is how you ship a
+   lightbox that opens onto nothing. */
+const flyerFor = (o) => {
+  if (!o.flyer) return "";
+  const stem = String(o.flyer).replace(/\.[a-z]+$/i, "");
+  const full = `assets/shows/${stem}-full.jpg`;
+  if (!existsSync(join(ROOT, "public", full))) return "";
+  const fullAvif = `assets/shows/${stem}-full.avif`;
+  const avif = `assets/shows/${stem}.avif`;
+  const alt = `${o.name} upcoming show dates`;
+  return `        <button type="button" class="loc-flyer" aria-label="Enlarge the ${esc(o.name)} show dates flyer" data-imglb="/${esc(full)}"${
+    existsSync(join(ROOT, "public", fullAvif)) ? ` data-imglb-avif="/${esc(fullAvif)}"` : ""
+  } data-imglb-alt="${esc(alt)}">
+          <picture>
+            ${existsSync(join(ROOT, "public", avif)) ? `<source type="image/avif" srcset="/${esc(avif)}">` : ""}
+            <img src="/assets/shows/${esc(stem)}.jpg" alt="${esc(alt)}" width="${o.flyerW || 440}" height="${o.flyerH || 0}" loading="lazy" decoding="async">
+          </picture>
+        </button>`;
+};
+
+/* WHERE THEY WILL ACTUALLY BE, COUNTED OFF data/shows.json RATHER THAN TYPED.
+   `shows` above is the vendor's own sentence about the circuit they work --
+   "Rochester, NY, Buffalo and Syracuse, plus out of state" -- and it never goes
+   stale because it names no dates. This is the opposite: real rows, real dates,
+   and it empties itself as they pass. Both earn their place and they are
+   labelled differently so a reader is not asked to reconcile them.
+
+   THE DATES ARE NOT LINKED ONE BY ONE because /card-shows.html has no per-show
+   anchor to link to. Inventing one here would mean a link that 404s to the
+   middle of a page. One link to the calendar, at the end, is honest. */
+const confirmedShows = (o) => {
+  const up = confirmedFor(o.name);
+  if (!up.length) return "";
+  return `        <div class="loc-conf">
+          <p class="loc-conf-h">Confirmed at ${up.length} upcoming ${up.length === 1 ? "show" : "shows"}</p>
+          <ul class="loc-conf-l">${up
+            .map((s) => `<li><b>${esc(showDay(s.date))}</b> ${esc(s.name)}<span>${esc(s.city)}</span></li>`)
+            .join("")}</ul>
+          <p class="loc-conf-m"><a href="/card-shows.html">See them on the calendar</a></p>
+        </div>`;
+};
 
 const card = (o, kind) => `      <li class="loc">
         <div class="loc-h">
@@ -277,6 +370,8 @@ const card = (o, kind) => `      <li class="loc">
         ${o.does || o.sells ? `<p class="loc-does">${esc(o.does || o.sells)}</p>` : ""}
         ${o.blurb ? `<p class="loc-blurb">${esc(o.blurb)}</p>` : NO_WRITE_UP}
         ${o.shows ? `<p class="loc-shows">Usually at: ${esc(o.shows)}</p>` : ""}
+${confirmedShows(o)}
+${flyerFor(o)}
         ${links(o)}
       </li>`;
 
