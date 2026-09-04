@@ -63,20 +63,23 @@ export const PRODUCT_PHOTOS = {
   etb: ["pitch-black", "Elite Trainer Box", "Pitch Black Elite Trainer Box"],
   "etb-pc": ["pitch-black", "Pokemon Center Elite Trainer Box", "Pitch Black Pokemon Center Elite Trainer Box"],
   bundle: ["pitch-black", "Booster Bundle", "Pitch Black Booster Bundle"],
-  // THE PACK ROW SPLIT IN TWO ON 17 AUGUST 2026 and the pictures had to split
-  // with it, or the page would illustrate "sleeved" and "loose" with one photo
-  // of whichever it happened to be. Pokemon Center prices the SLEEVED pack and
-  // not the loose one, so the difference is now load bearing rather than a
-  // footnote. Only two sets in products.json name a pack as sleeved; Stellar
-  // Crown is one, so the sleeved row gets a picture that is actually of a sleeve.
-  // RE-PINNED 1 September 2026, from stellar-crown. This is the failure mode the
-  // throw below describes, arriving for real: sync-products.mjs keeps only the
-  // CHEAPEST variant of each kind, Stellar Crown's cheapest Single Pack stopped
-  // being the sleeved one, and the pin then pointed at a plain booster pack. It
-  // failed the nightly for two days. obsidian-flames is the only set whose
-  // cheapest Single Pack is a sleeved pack today, so it is the only honest pin;
-  // when it flips too, re-pin again or drop the row and take the hatch.
-  "pack-sleeved": ["obsidian-flames", "Single Pack", "Obsidian Flames Sleeved Booster Pack"],
+    // THE SLEEVED ROW HAS NO PIN AND TAKES THE HATCH. It was pinned to
+    // stellar-crown, which flipped on 1 September 2026 and failed the nightly for
+    // two days; re-pinned to obsidian-flames, which flipped by 3 September and
+    // failed it again, three nights out of six. The throw below describes exactly
+    // this and the pin kept walking into it, because a set-and-kind pin cannot
+    // hold a VARIANT: sync-products.mjs keeps only the CHEAPEST product of each
+    // kind, and a sleeved pack is the cheapest Single Pack only by accident of
+    // the day's prices.
+    //
+    // CHECKED BEFORE DROPPING IT RATHER THAN ASSUMED: on 4 September 2026 not ONE
+    // set in products.json has a sleeved pack as its cheapest Single Pack, so the
+    // third re-pin was never available in the first place.
+    //
+    // /msrp.html draws its own hatch for a row with no photograph and still owes
+    // that row its price, which is the state this leaves. Pin it again only if a
+    // set's cheapest Single Pack becomes a sleeved one AND looks likely to stay
+    // that way; otherwise this row is a hatch by design.
   "pack-loose": ["pitch-black", "Single Pack", "Pitch Black Booster Pack"],
   "booster-box": ["pitch-black", "Booster Box", "Pitch Black Booster Box"],
   "blister-1": ["pitch-black", "Blister Pack", "Pitch Black Single Pack Blister"],

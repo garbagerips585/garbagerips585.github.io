@@ -1,5 +1,5 @@
 {
-  "checked": "2026-09-02",
+  "checked": "2026-09-04",
   "source": "TCGplayer",
   "sets": {
     "ja-abyss-eye": {
@@ -7,7 +7,7 @@
       "tcgLine": "Pokemon Japan",
       "tcgSetCode": "M5",
       "tcgReleased": "2026-05-22",
-      "checked": "2026-09-02",
+      "checked": "2026-09-04",
       "products": [
         {
           "kind": "Single Pack",
@@ -15,8 +15,8 @@
           "name": "Abyss Eye Booster Pack",
           "productId": 695111,
           "market": 2.79,
-          "low": 1.99,
-          "listings": 21,
+          "low": 2.2,
+          "listings": 22,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/695111_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/695111_200w.jpg",
           "url": "https://www.tcgplayer.com/product/695111/abyss-eye-booster-pack"
@@ -28,15 +28,15 @@
       "tcgLine": "Pokemon Japan",
       "tcgSetCode": "m4",
       "tcgReleased": "2026-03-13",
-      "checked": "2026-09-02",
+      "checked": "2026-09-04",
       "products": [
         {
           "kind": "Single Pack",
           "blurb": "One pack",
           "name": "Ninja Spinner Booster Pack",
           "productId": 683776,
-          "market": 2.8,
-          "low": 2.23,
+          "market": 2.76,
+          "low": 2.21,
           "listings": 24,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/683776_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/683776_200w.jpg",
@@ -49,16 +49,16 @@
       "tcgLine": "Pokemon Japan",
       "tcgSetCode": "M3",
       "tcgReleased": "2026-01-23",
-      "checked": "2026-09-02",
+      "checked": "2026-09-04",
       "products": [
         {
           "kind": "Single Pack",
           "blurb": "One pack",
           "name": "Nihil Zero Booster Pack",
           "productId": 674454,
-          "market": 2.25,
+          "market": 2.27,
           "low": 1.8,
-          "listings": 31,
+          "listings": 29,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/674454_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/674454_200w.jpg",
           "url": "https://www.tcgplayer.com/product/674454/nihil-zero-booster-pack"
@@ -70,7 +70,7 @@
       "tcgLine": "Pokemon Japan",
       "tcgSetCode": "m1L",
       "tcgReleased": "2025-08-01",
-      "checked": "2026-09-02",
+      "checked": "2026-09-04",
       "products": [
         {
           "kind": "Single Pack",
@@ -91,15 +91,15 @@
       "tcgLine": "Pokemon Japan",
       "tcgSetCode": "m1S",
       "tcgReleased": "2025-08-01",
-      "checked": "2026-09-02",
+      "checked": "2026-09-04",
       "products": [
         {
           "kind": "Single Pack",
           "blurb": "One pack",
           "name": "Mega Symphonia Booster Pack",
           "productId": 647499,
-          "market": 3.22,
-          "low": 1.29,
+          "market": 3.21,
+          "low": null,
           "listings": 23,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/647499_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/647499_200w.jpg",
@@ -112,7 +112,7 @@
       "tcgLine": "Pokemon Japan",
       "tcgSetCode": "SV7",
       "tcgReleased": "2024-07-19",
-      "checked": "2026-09-02",
+      "checked": "2026-09-04",
       "products": [
         {
           "kind": "Single Pack",
@@ -120,8 +120,8 @@
           "name": "Stellar Miracle Booster Pack",
           "productId": 565216,
           "market": 3.72,
-          "low": 2,
-          "listings": 25,
+          "low": 2.6,
+          "listings": 23,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/565216_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/565216_200w.jpg",
           "url": "https://www.tcgplayer.com/product/565216/stellar-miracle-booster-pack"
@@ -133,7 +133,7 @@
       "tcgLine": "Pokemon Japan",
       "tcgSetCode": "SV5M",
       "tcgReleased": "2024-01-26",
-      "checked": "2026-09-02",
+      "checked": "2026-09-04",
       "products": [
         {
           "kind": "Single Pack",
@@ -154,7 +154,7 @@
       "tcgLine": "Pokemon Japan",
       "tcgSetCode": "SV1V",
       "tcgReleased": "2023-01-20",
-      "checked": "2026-09-02",
+      "checked": "2026-09-04",
       "products": [
         {
           "kind": "Single Pack",
@@ -163,7 +163,7 @@
           "productId": 565245,
           "market": 3.27,
           "low": 3,
-          "listings": 14,
+          "listings": 13,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/565245_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/565245_200w.jpg",
           "url": "https://www.tcgplayer.com/product/565245/violet-ex-booster-pack"
