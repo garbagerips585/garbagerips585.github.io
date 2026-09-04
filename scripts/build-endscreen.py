@@ -348,8 +348,8 @@ def build():
     # bought the crop back: this is a TALLER slice of the source than the 888px
     # version managed, so Trubbish keeps his ears and the plate keeps its edge.
     CW = W - MARGIN * 2
-    CH = round(CW * 620 / 920)
-    crop = art.crop((260, 66, 1180, 686)).resize((CW, CH), Image.LANCZOS)
+    CH = round(CW * 596 / 920)
+    crop = art.crop((260, 78, 1180, 674)).resize((CW, CH), Image.LANCZOS)
     px, py = (W - CW) // 2, y
     shadowed(card, (px - 6, py - 6, px + CW + 6, py + CH + 6), 26,
              C["paper-2"], C["keyline"], C["trubbish"], drop=12)
@@ -483,7 +483,11 @@ def build():
     # labels and titles. This is a label-sized job on a frame read at arm's length
     # in about three seconds, so it takes the label weight deliberately.
     f_b = font("Outfit.ttf", 33, weight=600)
-    bx, by, STEP = MARGIN + 30, round(bottom) + 28, 38
+    # 56 RATHER THAN 28 UNDER THE URL BAND. The owner, seeing the redesign: "can
+    # you move down the bullet points just a bit". Paid for by 24px off the
+    # panel rather than out of the bottom clearance, which is the one number on
+    # this card that is protecting somebody else's chrome.
+    bx, by, STEP = MARGIN + 30, round(bottom) + 56, 38
     for i, line in enumerate(bullets):
         cy = by + i * STEP
         # The marker is PINK because CLAUDE.md's accent rule is that pink is every
