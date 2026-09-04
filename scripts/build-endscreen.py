@@ -28,26 +28,28 @@ change of phone:
     channel row @GarbageRips585                  99.9% down
     title                                        below the video entirely
 
-TWO LINES, NOT ONE, BECAUSE THE SCRIM AND THE CHROME ARE NOT THE SAME THING.
-The first pass of this file used a single 68.8% line, which is where YouTube's
-bottom GRADIENT begins, and it was too cautious by a sixth of the frame -- 85%
-against 68.8% is 311px of 1920. That
-gradient is a dark translucent wash, and everything on this card is light type
-on a dark ground: a dark wash over light-on-dark costs nothing. What actually
-destroyed the old end card was the OPAQUE chrome -- a white Subscribe pill and
-white channel text sitting on his artwork -- and that starts at 98.2%. So the
-rule is opacity, not the scrim, and re-measuring for the opaque boxes above is
-what freed the room the bullet list now sits in.
+MEASURED IN THE APPS THEMSELVES, 4 September 2026, WHICH IS THE ONLY EVIDENCE
+THAT COUNTS HERE. Everything before this was read off m.youtube.com in a desktop
+browser and it was wrong in three directions at once. The owner posted this card
+to YouTube, Instagram Reels and TikTok and sent a screenshot of each. Read off
+those three, as a share of the frame so the numbers carry to any canvas:
 
-THE 85% LINE IS THE APP ALLOWANCE AND IS NOT MEASURED. All of the above is
-mobile WEB, which parks the channel row just below the video; the iOS and
-Android apps overlay it ON the video and stack the title onto a second line, and
-I cannot measure those from here. 85% leaves the bottom 288px of a 1920 frame
-for a block that occupies roughly 10% on web. It is a judgement, it is labelled
-as one, and it is deliberately generous.
+                    top chrome   rail starts   rail left edge   bottom chrome
+    YouTube            12.0%        50.0%           88.0%           83.5%
+    Instagram          11.8%        55.2%           88.6%           81.0%
+    TikTok             10.8%        47.8%           88.0%           76.5%
+    WORST CASE         12.0%        47.8%           88.0%           76.5%
 
-And a Short is also watched on DESKTOP, where none of this chrome overlaps the
-video at all. A design that clears the mobile band is correct in both places.
+THE RAIL IS THE BAD MISS. Mobile web put it at 74% of the height; in the apps it
+begins at 47.8%. That is 508px out on a 1920 frame, and it is exactly why the
+like, comment and share icons sat on the SUBSCRIBE button and across the bullet
+list in all three screenshots. The top allowance was 96px against a real 230, so
+the wordmark and tagline were under the back arrow and the search glass
+everywhere. The bottom was 1632 against 1469.
+
+Mobile web was not lying, it is a different surface. The lesson is that a browser
+measurement of a phone APP is a guess wearing a number's clothes. I labelled the
+85% line a judgement at the time and should have said the same of the other three.
 
 NOTHING THAT MATTERS IS PLACED BELOW IT, and the assertion at the bottom of this
 file fails the build rather than trusting me to have kept to it.
@@ -75,12 +77,19 @@ W, H = 1080, 1920                     # what a Short is
 
 # ------------------------------------------------- the measured Shorts chrome
 SCRIM_TOP = round(H * 0.688)          # 1321. The gradient. Harmless to light type.
-CRIT = round(H * 0.85)                # 1632. Opaque chrome, with the app allowance.
-RAIL_X = round(W * 0.872)             # 942. Left edge of the like/comment/share rail.
-RAIL_T = round(H * 0.742)             # 1425
+# Each is the worst of the three apps, then given a little back.
+CRIT = 1450                           # worst bottom chrome 76.5% = 1469
+RAIL_X = 936                          # worst rail left edge 88.0% = 951
+RAIL_T = 900                          # worst rail top 47.8% = 917
 RAIL_B = round(H * 0.950)             # 1824
-SAFE_TOP = 96                         # the app's own top row
-MARGIN = 60
+SAFE_TOP = 250                        # worst top chrome 12.0% = 230
+# 140, NOT 96, AND THE RAIL IS WHY RATHER THAN TASTE. The pills and the url
+# band run the full content width and sit BELOW y=900, which is where the action
+# rail begins in the apps, so a 96px margin put their right ends at x=984 and
+# under the like button -- which is exactly what the SUBSCRIBE screenshot shows.
+# 160 puts them at 920, which is the limit the guard enforces. It also happens to be what the
+# owner asked for: "leave some more padding around so it doesnt go to the ends".
+MARGIN = 160
 
 # ---------------------------------------------------------------- the palette
 # Read out of ui.css BY NAME, never typed in, as build-sticker.py does. NOT as
@@ -296,9 +305,9 @@ def build():
     d = ImageDraw.Draw(card)
 
     # ------------------------------------------------------------- the wordmark
-    f_mark = font("TitanOne.ttf", 92)
-    f_tag = font("SpaceMono-b.ttf", 31)
-    y = SAFE_TOP + 24
+    f_mark = font("TitanOne.ttf", 76)
+    f_tag = font("SpaceMono-b.ttf", 25)
+    y = SAFE_TOP + 20
     # GARBAGE and 585 are ink, RIPS is --brand-accent. That split is not a
     # flourish: it is how .brand b i renders the wordmark in the site header, so
     # the last frame of a Short and the top of garbagerips.com carry one mark.
@@ -308,9 +317,9 @@ def build():
     for t, col in parts:
         d.text((x, y), t, font=f_mark, fill=col)
         x += d.textlength(t, font=f_mark)
-    y += 112
+    y += 94
     centre(d, "POKEMON PACK RIPS FROM ROCHESTER, NY", f_tag, y + 14, C["ink-2"])
-    y += 54
+    y += 46
 
     # ----------------------------------------------------------- the mascot
     # CROPPED, not letterboxed. The source is 1300x725 and dropping it in whole
@@ -330,9 +339,17 @@ def build():
     # Adding room by moving the safe-area line was the other option and was
     # refused: that line is an allowance for phones I cannot measure, and
     # spending it to fit more copy is how a guard quietly stops meaning anything.
-    CW = 960
-    CH = round(CW * 575 / 920)
-    crop = art.crop((260, 96, 1180, 671)).resize((CW, CH), Image.LANCZOS)
+    # 888 IS THE CONTENT WIDTH, 1080 LESS TWO 96px MARGINS, and the crop is a
+    # little shorter than it was. The frame lost 336px of usable height when the
+    # app measurements came in; the alternative was narrowing the panel below the
+    # pills and the url, which was tried once before and looked wrong for the
+    # reason recorded further down.
+    # The panel is the content width like everything else. Narrowing the frame
+    # bought the crop back: this is a TALLER slice of the source than the 888px
+    # version managed, so Trubbish keeps his ears and the plate keeps its edge.
+    CW = W - MARGIN * 2
+    CH = round(CW * 620 / 920)
+    crop = art.crop((260, 66, 1180, 686)).resize((CW, CH), Image.LANCZOS)
     px, py = (W - CW) // 2, y
     shadowed(card, (px - 6, py - 6, px + CW + 6, py + CH + 6), 26,
              C["paper-2"], C["keyline"], C["trubbish"], drop=12)
@@ -346,7 +363,7 @@ def build():
     card.paste(crop, (px, py), mask)
     d.rounded_rectangle([px - 6, py - 6, px + CW + 6, py + CH + 6], 26,
                         outline=C["keyline"], width=5)
-    y = py + CH + 48
+    y = py + CH + 28
 
     # ------------------------------------------------------------- the asks
     # LIKE takes --mustard (a TEAL) because CLAUDE.md's accent rule is that teal
@@ -354,8 +371,8 @@ def build():
     # matching the pill in the site header. Two pills and no more: at a median
     # 22 seconds a Short's end card is read in a glance, and the previous one
     # asked for a like, a subscribe, a bell and a channel name at once.
-    f_pill = font("TitanOne.ttf", 56)
-    PH, GAP = 124, 30
+    f_pill = font("TitanOne.ttf", 44)
+    PH, GAP = 96, 26
     # 0.39, NOT 0.42, BECAUSE THE SECOND PILL GREW AN ICON. At the old split the
     # two pills had 95px and 69px of internal padding, so the wider one looked
     # more crowded than the narrow one sitting next to it. 0.39 puts them at 81
@@ -364,10 +381,11 @@ def build():
     lw = (W - MARGIN * 2 - GAP) * 0.39
     sw = (W - MARGIN * 2 - GAP) - lw
     lx = MARGIN
+    pills_y = y
     shadowed(card, (lx, y, lx + lw, y + PH), PH // 2, C["mustard"], C["trubbish"], C["trubbish"])
     # The heart and the word are centred AS A GROUP, not each in its own half:
     # centring them separately leaves a hole down the middle of a pill this wide.
-    HS, HG = 58, 20
+    HS, HG = 46, 16
 
     def pill(x0, width, ink, word, icon, dy=2):
         """Icon and word centred AS A GROUP, not each in its own half: centring
@@ -382,14 +400,15 @@ def build():
     sx = lx + lw + GAP
     shadowed(card, (sx, y, sx + sw, y + PH), PH // 2, C["yt-red"], C["trubbish"], C["trubbish"])
     pill(sx, sw, (255, 255, 255), "SUBSCRIBE", bell, dy=0)
-    y += PH + 46
+    y += PH + 28
 
     # --------------------------------------------------------------- the url
     # The biggest single line on the frame, and the reason the layout is as
     # spare as it is. Teal, because the accent rule holds that teal is every
     # ROUTE, and a url is the most route-like thing there is.
-    f_url = font("SpaceMono-b.ttf", 74)
-    UH = 122
+    f_url = font("SpaceMono-b.ttf", 58)
+    UH = 88
+    url_y = y
     shadowed(card, (MARGIN, y, W - MARGIN, y + UH), 22,
              C["band-bg"], C["mustard"], C["trubbish"])
     centre(d, "GARBAGERIPS.COM", f_url, y + UH / 2, C["mustard"])
@@ -463,8 +482,8 @@ def build():
     # `font:400 17px/1.55` at ui.css:343, and 600 in that file is reserved for
     # labels and titles. This is a label-sized job on a frame read at arm's length
     # in about three seconds, so it takes the label weight deliberately.
-    f_b = font("Outfit.ttf", 38, weight=600)
-    bx, by, STEP = MARGIN + 34, round(bottom) + 44, 48
+    f_b = font("Outfit.ttf", 33, weight=600)
+    bx, by, STEP = MARGIN + 30, round(bottom) + 28, 38
     for i, line in enumerate(bullets):
         cy = by + i * STEP
         # The marker is PINK because CLAUDE.md's accent rule is that pink is every
@@ -523,11 +542,11 @@ def build():
     # would have sat under the Share icon on every phone; the measured figures are
     # beside that check. The margin is small because the line is his, and
     # shrinking his words further to buy slack is the wrong trade.
-    f_sign = font("TitanOne.ttf", 48)
+    f_sign = font("TitanOne.ttf", 40)
     # 36 RATHER THAN THE LIST'S OWN 46 STEP. At the same rhythm as the bullets it
     # read as a seventh one; further away it drifts toward YouTube's chrome. The
     # separation it actually needs is done by weight and colour, not distance.
-    sy = listbottom + 40
+    sy = listbottom + 20
     # One space, as he wrote it. Two looked like a typographic beat and was mine.
     sign = "GARBAGE RIPS ONLY! LET'S GO!"
     sl, st, sr, sb = d.textbbox((0, 0), sign, font=f_sign)
@@ -543,6 +562,16 @@ def build():
     centre(d, sign, f_sign, sy + (sb - st) / 2, C["ketchup-deep"])
     signbottom = sy + (sb - st) + 8
 
+    # THE PILLS AND THE URL BAND WERE NEVER CHECKED AND THAT IS HOW THEY ENDED UP
+    # UNDER THE RAIL. Both run the full content width and both sit below RAIL_T,
+    # so their right edge is a rail question exactly as a long bullet is; the
+    # guard only ever looked at text. It looks at the box now.
+    right_edge = W - MARGIN
+    for label, top in (("the pills", pills_y), ("the url band", url_y)):
+        if top > RAIL_T and right_edge > RAIL_X - 16:
+            raise SystemExit(
+                f"{label} ends at x={right_edge} and sits at y={top:.0f}, which is "
+                f"inside YouTube's action rail (x>{RAIL_X}, y>{RAIL_T}). Widen MARGIN.")
     bottom = max(bottom, listbottom, signbottom)
     if bottom > CRIT:
         raise SystemExit(
