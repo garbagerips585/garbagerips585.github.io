@@ -461,7 +461,22 @@ for (const step of PLAN) {
     if (isWorkbook) workbook += 1;
     else failed += 1;
     console.log(`  ${isWorkbook ? "SHEET" : "FAIL "} ${step}`);
-    console.log(String(e.stderr || e.message).trim().split("\n").slice(-4).map((l) => `        ${l}`).join("\n"));
+      /* THE MESSAGE IS AT THE TOP OF A NODE ERROR AND slice(-4) THREW IT AWAY.
+         This printed the LAST four lines of stderr, which for an uncaught throw
+         is the bottom of the stack plus the "Node.js v22.23.2" banner. So the
+         nightly reported three builders failing for days and said nothing at all
+         about WHY: build-retailers.mjs alone throws two different six-line errors
+         from this exact call path, each naming the file, the row and the fix, and
+         both were discarded in favour of "at Array.map (<anonymous>)".
+
+         The fix is not "print more lines", it is print the MESSAGE, which Node
+         puts FIRST. Four stack frames are kept because frames are the part that
+         genuinely repeats and truncates safely; a message never is. */
+      const errOut = String(e.stderr || e.message).trimEnd().split("\n");
+      const firstFrame = errOut.findIndex((l) => /^\s+at\s/.test(l));
+      const msgLines = firstFrame === -1 ? errOut : errOut.slice(0, firstFrame);
+      const frameLines = firstFrame === -1 ? [] : errOut.slice(firstFrame, firstFrame + 4);
+      console.log([...msgLines, ...frameLines].map((l) => `        ${l}`).join("\n"));
   }
 }
 console.log(`\n${PLAN.length - failed} of ${PLAN.length} builders ok`);
