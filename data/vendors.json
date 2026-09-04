@@ -72,6 +72,20 @@
       "blurb": "They run the biggest Pokemon card show in Rochester, NY, and they vend at it and at other shows around the area.",
       "shows": "RocPokéCon, plus other local shows",
       "links": "https://linktr.ee/rocpokecon"
+    },
+    {
+      "name": "Pok.eJoe Trading Cards",
+      "area": "Rochester, NY",
+      "sells": "Raw singles vintage, mid era and modern, plus PSA graded slabs",
+      "blurb": "Raw singles across all three eras, vintage, mid era and modern, and every slab they bring is PSA graded. A Rochester, NY vendor working the local show circuit.",
+      "blurbNote": "Built from the owner's own words, 4 September 2026: \"pok.ejoe trading cards - Rochester, NY Vendor Selling raw singles vintage, mid era & modern. All PSA graded slabs.\" Nothing added. NOT a vouch: he has not said he buys from them, and `vouched` on this file means he has.",
+      "shows": "Local shows around Rochester, NY",
+      "instagram": "pok.ejoe",
+      "logo": "pok-ejoe",
+      "logoNote": "Sent by the owner for this use, 4 September 2026.",
+      "logoW": 1044,
+      "logoH": 862,
+      "nameNote": "The logo sets the name in caps as POK.EJOE over POKEMON CARDS and he wrote it \"pok.ejoe trading cards\", so the mid-word capital is a reading of the wordmark rather than something either source states. `name` is a foreign key that data/shows.json joins on, so changing it means changing every show that names them."
     }
   ]
 }
