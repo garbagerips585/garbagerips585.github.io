@@ -2,12 +2,33 @@
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
     "views": 276031,
-    "subscribers": 358,
-    "videos": 332,
-    "readAt": "2026-09-03"
+    "subscribers": 357,
+    "videos": 333,
+    "readAt": "2026-09-04"
   },
-  "syncedAt": "2026-09-03",
+  "syncedAt": "2026-09-04",
   "videos": [
+    {
+      "id": "1mYM0mYP_bA",
+      "title": "Phantasmal Flames Pack #12 👻 | Where are the hits?! 📉",
+      "path": "rip/phantasmal-flames-pack-12-where-are-the-hits-1mYM0mYP_bA.html",
+      "published": "2026-09-04",
+      "publishedAt": "2026-09-04T10:20:25Z",
+      "duration": 21,
+      "views": 416,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "phantasmal-flames"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "packNumber": 12,
+      "packs": 1,
+      "label": "Phantasmal Flames Pack - Pack 12"
+    },
     {
       "id": "EBfDd87Ow84",
       "title": "Perfect Order Pack #11 ⚔️ | The Salazzle Curse is Real! 🔥",
@@ -15,7 +36,7 @@
       "published": "2026-09-03",
       "publishedAt": "2026-09-03T10:12:15Z",
       "duration": 20,
-      "views": 805,
+      "views": 1261,
       "vertical": true,
       "short": true,
       "sets": [
@@ -36,7 +57,7 @@
       "published": "2026-09-02",
       "publishedAt": "2026-09-02T10:10:23Z",
       "duration": 51,
-      "views": 938,
+      "views": 959,
       "vertical": true,
       "short": true,
       "sets": [
@@ -58,7 +79,7 @@
       "published": "2026-09-01",
       "publishedAt": "2026-09-01T10:05:20Z",
       "duration": 21,
-      "views": 1205,
+      "views": 1232,
       "vertical": true,
       "short": true,
       "sets": [
@@ -124,7 +145,7 @@
       "published": "2026-08-30",
       "publishedAt": "2026-08-30T11:58:31Z",
       "duration": 21,
-      "views": 1103,
+      "views": 1104,
       "vertical": true,
       "short": true,
       "sets": [
@@ -262,7 +283,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1158,
+      "views": 1159,
       "vertical": true,
       "short": true,
       "sets": [
@@ -536,7 +557,7 @@
       "published": "2026-08-18",
       "publishedAt": "2026-08-18T10:04:29Z",
       "duration": 28,
-      "views": 1194,
+      "views": 1196,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1373,7 +1394,7 @@
       "published": "2026-07-25",
       "publishedAt": "2026-07-25T12:31:31Z",
       "duration": 19,
-      "views": 898,
+      "views": 899,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1963,7 +1984,7 @@
       "published": "2026-07-15",
       "publishedAt": "2026-07-15T12:25:26Z",
       "duration": 22,
-      "views": 923,
+      "views": 924,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4094,7 +4115,7 @@
       "published": "2026-06-15",
       "publishedAt": "2026-06-15T10:08:22Z",
       "duration": 25,
-      "views": 986,
+      "views": 987,
       "vertical": true,
       "short": true,
       "sets": [
@@ -6641,7 +6662,7 @@
       "published": "2026-05-10",
       "publishedAt": "2026-05-10T12:48:00Z",
       "duration": 20,
-      "views": 1260,
+      "views": 1263,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9097,7 +9118,7 @@
       "published": "2026-04-05",
       "publishedAt": "2026-04-05T23:49:00Z",
       "duration": 23,
-      "views": 1383,
+      "views": 1385,
       "vertical": true,
       "short": true,
       "sets": [
