@@ -314,7 +314,7 @@
       "pokemon": false,
       "admission": "$20 pre-sale, $23 at the door",
       "url": "https://www.fc3roc.com",
-      "source": "fc3roc.com/showinfo for the dates, hours and prices, read 3 September 2026, plus Legends Card Shop's own flyer for the fact that a Pokemon vendor is there",
+      "source": "fc3roc.com/showinfo for the dates, hours and prices, read 3 September 2026, plus Legends Card Shop's own flyer for the fact that a Pokemon vendor is there; organiser read off fc3roc.com, which states the con is \"produced by the Mighty Monkey Corporation, a 501(c)(3) corporation\", 4 September 2026",
       "blurb": "A comic con rather than a card show, and it is here for the same reason the Excalibur weekend is: the vendor hall. Two Pokemon vendors are confirmed in the room, Legends Card Shop and TOAK Pulls, both of whom put it on their own upcoming dates. Three days, and the Friday is the short one at 3pm to 8pm. Ages 10 and under get in free, 11 to 14 pay less, and a weekend pass is $60 pre-sale. Parking is free on site.",
       "pkmn": "some",
       "pkmnWhy": "Legends Card Shop and TOAK Pulls both list it on the upcoming dates they sent the channel, 3 September 2026. The con itself bills comics and pop culture and publishes no Pokemon programming, so this is two confirmed vendors rather than a Pokemon show.",
@@ -327,7 +327,9 @@
           "name": "TOAK Pulls",
           "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\"."
         }
-      ]
+      ],
+      "organiser": "Mighty Monkey Corporation",
+      "organiserUrl": "https://www.fc3roc.com"
     },
     {
       "id": "cny-collectors-expo-2026-09-19",
@@ -377,7 +379,7 @@
       "pokemon": false,
       "admission": "$30 pre-sale, $35 at the door",
       "url": "https://www.fc3roc.com",
-      "source": "fc3roc.com/showinfo for the dates, hours and prices, read 3 September 2026, plus Legends Card Shop's own flyer for the fact that a Pokemon vendor is there",
+      "source": "fc3roc.com/showinfo for the dates, hours and prices, read 3 September 2026, plus Legends Card Shop's own flyer for the fact that a Pokemon vendor is there; organiser read off fc3roc.com, which states the con is \"produced by the Mighty Monkey Corporation, a 501(c)(3) corporation\", 4 September 2026",
       "blurb": "A comic con rather than a card show, and it is here for the same reason the Excalibur weekend is: the vendor hall. Two Pokemon vendors are confirmed in the room, Legends Card Shop and TOAK Pulls, both of whom put it on their own upcoming dates. Three days, and the Friday is the short one at 3pm to 8pm. Ages 10 and under get in free, 11 to 14 pay less, and a weekend pass is $60 pre-sale. Parking is free on site.",
       "pkmn": "some",
       "pkmnWhy": "Legends Card Shop and TOAK Pulls both list it on the upcoming dates they sent the channel, 3 September 2026. The con itself bills comics and pop culture and publishes no Pokemon programming, so this is two confirmed vendors rather than a Pokemon show.",
@@ -390,7 +392,9 @@
           "name": "TOAK Pulls",
           "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\"."
         }
-      ]
+      ],
+      "organiser": "Mighty Monkey Corporation",
+      "organiserUrl": "https://www.fc3roc.com"
     },
     {
       "id": "niagara-vault-2026-09-19",
@@ -444,7 +448,7 @@
       "pokemon": false,
       "admission": "$25 pre-sale, $30 at the door",
       "url": "https://www.fc3roc.com",
-      "source": "fc3roc.com/showinfo for the dates, hours and prices, read 3 September 2026, plus Legends Card Shop's own flyer for the fact that a Pokemon vendor is there",
+      "source": "fc3roc.com/showinfo for the dates, hours and prices, read 3 September 2026, plus Legends Card Shop's own flyer for the fact that a Pokemon vendor is there; organiser read off fc3roc.com, which states the con is \"produced by the Mighty Monkey Corporation, a 501(c)(3) corporation\", 4 September 2026",
       "blurb": "A comic con rather than a card show, and it is here for the same reason the Excalibur weekend is: the vendor hall. Two Pokemon vendors are confirmed in the room, Legends Card Shop and TOAK Pulls, both of whom put it on their own upcoming dates. Three days, and the Friday is the short one at 3pm to 8pm. Ages 10 and under get in free, 11 to 14 pay less, and a weekend pass is $60 pre-sale. Parking is free on site.",
       "pkmn": "some",
       "pkmnWhy": "Legends Card Shop and TOAK Pulls both list it on the upcoming dates they sent the channel, 3 September 2026. The con itself bills comics and pop culture and publishes no Pokemon programming, so this is two confirmed vendors rather than a Pokemon show.",
@@ -457,7 +461,9 @@
           "name": "TOAK Pulls",
           "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\"."
         }
-      ]
+      ],
+      "organiser": "Mighty Monkey Corporation",
+      "organiserUrl": "https://www.fc3roc.com"
     },
     {
       "id": "585cardz-batavia-2026-09-23",
@@ -757,7 +763,8 @@
           "name": "TOAK Pulls",
           "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\"."
         }
-      ]
+      ],
+      "organiserUrl": "https://northpittsportscards.com"
     },
     {
       "id": "northtowns-sanborn-2026-10-17",
@@ -819,7 +826,8 @@
           "name": "TOAK Pulls",
           "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\"."
         }
-      ]
+      ],
+      "organiserUrl": "https://northpittsportscards.com"
     },
     {
       "id": "toyfest-10-2026-10-17",
