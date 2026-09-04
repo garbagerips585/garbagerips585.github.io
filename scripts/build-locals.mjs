@@ -77,6 +77,7 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc, clipMeta, plainDashesAll} from "../shared/format.mjs";
+import { slugify } from "../shared/paths.mjs";
 import { avifSource } from "../shared/logo-srcset.mjs";
 // The same comment stripper build-css.mjs runs over ui.css. PAGE_CSS below is
 // mostly prose about why four rules exist, and an inline style block is render
@@ -345,7 +346,14 @@ const confirmedShows = (o) => {
         </div>`;
 };
 
-const card = (o, kind) => `      <li class="loc">
+/* AN ANCHOR PER CARD, so /card-shows.html can send a reader to the ONE vendor
+   they tapped rather than to the top of a list they then have to scan. The
+   confirmed-vendor rows over there link to "#v-" + this same slugify, and both
+   sides take it from the vendor's `name`, which data/vendors.json already
+   declares to be a foreign key. */
+const vendorAnchor = (o) => `v-${slugify(o.name || "")}`;
+
+const card = (o, kind) => `      <li class="loc" id="${esc(vendorAnchor(o))}">
         <div class="loc-h">
           ${logoFor(o)}
           <h2>${esc(o.name)}</h2>

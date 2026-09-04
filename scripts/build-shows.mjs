@@ -41,6 +41,7 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc, longDate, MONTHS_LONG, clipMeta} from "../shared/format.mjs";
+import { slugify } from "../shared/paths.mjs";
 import { avifSource } from "../shared/logo-srcset.mjs";
 
 import { localDay } from "../shared/today.mjs";
@@ -254,15 +255,27 @@ function showVendors(s, past) {
         `srcset="/assets/creators/${esc(v.logo)}-200.webp 200w, /assets/creators/${esc(v.logo)}-400.webp 400w" sizes="34px"></picture></span>`;
     }
 
-    /* THE SOURCE SITS ON ITS OWN VENDOR. The first version pushed every
-       `confirmed` sentence through a Set and joined them under the list, so at
-       two vendors a reader could not tell which sentence belonged to which
-       name, and two vendors sharing a sentence collapsed to one line over two
-       names. This is the one feature whose entire purpose is provenance, and it
-       stopped carrying it at n=2. .rip-src-src is per item for the same reason. */
-    return `<li class="sv"><a class="sv-link" href="/vendors.html" aria-label="${
+    /* WHAT THEY SELL, NOT HOW WE KNOW THEY ARE COMING. The owner, 3 September
+       2026: "lets remove the text below their name and logo on how we confirmed
+       it ... if its confirmed that means I confirmed it myself from a flyer or
+       with a vendor or both". He is right that the provenance was answering a
+       question the reader never asked: the heading already says CONFIRMED, and
+       he is the one who confirmed it. A reader looking at a show wants to know
+       what this vendor brings.
+
+       THE `confirmed` SENTENCE IS STILL REQUIRED AND STILL CHECKED, it just
+       stops being printed. The guard above still throws on a missing or blank
+       one, and every note written so far is kept in data/shows.json. That is
+       deliberate: the reason this list is worth trusting is that each row has a
+       source behind it, and dropping the field because the page stopped showing
+       it would quietly turn a checked list into an unchecked one.
+
+       The link now goes to the vendor's own card rather than the top of the
+       page, using the anchor build-locals.mjs writes from the same slugify. */
+    const what = typeof v.sells === "string" && v.sells.trim() ? v.sells.trim() : "";
+    return `<li class="sv"><a class="sv-link" href="/vendors.html#v-${esc(slugify(v.name || ""))}" aria-label="${
       esc(v.name)}, on the vendors page">${mark}<span class="sv-id">${esc(v.name)}</span></a>` +
-      `<span class="sv-src">${esc(entry.confirmed.trim())}</span></li>`;
+      (what ? `<span class="sv-src">${esc(what)}</span>` : "") + `</li>`;
   }).join("");
 }
 
