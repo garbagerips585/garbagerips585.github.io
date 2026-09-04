@@ -322,6 +322,10 @@
         {
           "name": "Legends Card Shop",
           "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026."
+        },
+        {
+          "name": "TOAK Pulls",
+          "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\"."
         }
       ]
     },
@@ -381,6 +385,10 @@
         {
           "name": "Legends Card Shop",
           "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026."
+        },
+        {
+          "name": "TOAK Pulls",
+          "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\"."
         }
       ]
     },
@@ -444,6 +452,10 @@
         {
           "name": "Legends Card Shop",
           "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026."
+        },
+        {
+          "name": "TOAK Pulls",
+          "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\"."
         }
       ]
     },
@@ -581,6 +593,10 @@
         {
           "name": "Legends Card Shop",
           "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026. Matched to this row by date AND street address, not by name alone."
+        },
+        {
+          "name": "TOAK Pulls",
+          "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\". They named the SERIES rather than a date, so this is every 2026 instance of it. The two 2027 dates are deliberately not marked: a September message is not a commitment five months out, and the owner can extend it if they confirm."
         }
       ]
     },
@@ -706,6 +722,40 @@
         {
           "name": "Legends Card Shop",
           "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026. Matched to this row by date AND street address, not by name alone."
+        },
+        {
+          "name": "TOAK Pulls",
+          "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\"."
+        }
+      ]
+    },
+    {
+      "id": "the-big-show-2026-10-16",
+      "name": "The Big Show",
+      "date": "2026-10-16",
+      "start": "13:00",
+      "end": "19:00",
+      "venue": "Pittsburgh Event Center",
+      "address": "232 Wise Road, Harmony, PA 16037",
+      "city": "Harmony, PA",
+      "region": "away",
+      "farAfield": "The owner, 3 September 2026: \"its still driving distance from Rochester, NY so its worth adding to the show page list\". TOAK Pulls are vending it. 208 miles from Rochester, NY, well past the 45 mile rule, and here on that decision rather than by accident.",
+      "pokemon": false,
+      "admission": "$5, VIP $12 from 1pm",
+      "tables": 200,
+      "organiser": "North Pittsburgh Sports Cards",
+      "url": "https://northpittsportscards.com",
+      "source": "the organiser's flyer, sent to the channel by TOAK Pulls 3 September 2026, and checked against northpittsportscards.com listings for the same dates, times and prices",
+      "blurb": "A Pittsburgh-area show and by some way the farthest thing on this page: about three and a half hours from Rochester, NY, so it is a day out rather than a Saturday morning. Over 200 tables, sports cards and TCG together, with Pokemon billed. VIP is $12 and gets you in two hours early with a welcome gift; general admission is $5 after that. Run by North Pittsburgh Sports Cards, whose poster also carries a separate fundraiser show in September. Not to be confused with the other Big Show Card Show, which is in Breinigsville at the far end of the state.",
+      "pkmn": "some",
+      "pkmnWhy": "The flyer bills \"Sports Cards, TCG, Pokemon, Memorabilia\", so Pokemon is named but it is a sports-led show.",
+      "flyer": "the-big-show-2026-10-16.png",
+      "flyerW": 440,
+      "flyerH": 662,
+      "vendors": [
+        {
+          "name": "TOAK Pulls",
+          "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\"."
         }
       ]
     },
@@ -740,6 +790,36 @@
       "admission": "Free",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "Run out of Pallet Town Poke Shop by one of the people behind Buffalo Trading Card Con."
+    },
+    {
+      "id": "the-big-show-2026-10-17",
+      "name": "The Big Show",
+      "date": "2026-10-17",
+      "start": "09:00",
+      "end": "16:00",
+      "venue": "Pittsburgh Event Center",
+      "address": "232 Wise Road, Harmony, PA 16037",
+      "city": "Harmony, PA",
+      "region": "away",
+      "farAfield": "The owner, 3 September 2026: \"its still driving distance from Rochester, NY so its worth adding to the show page list\". TOAK Pulls are vending it. 208 miles from Rochester, NY, well past the 45 mile rule, and here on that decision rather than by accident.",
+      "pokemon": false,
+      "admission": "$5, VIP $12 from 9am",
+      "tables": 200,
+      "organiser": "North Pittsburgh Sports Cards",
+      "url": "https://northpittsportscards.com",
+      "source": "the organiser's flyer, sent to the channel by TOAK Pulls 3 September 2026, and checked against northpittsportscards.com listings for the same dates, times and prices",
+      "blurb": "A Pittsburgh-area show and by some way the farthest thing on this page: about three and a half hours from Rochester, NY, so it is a day out rather than a Saturday morning. Over 200 tables, sports cards and TCG together, with Pokemon billed. VIP is $12 and gets you in two hours early with a welcome gift; general admission is $5 after that. Run by North Pittsburgh Sports Cards, whose poster also carries a separate fundraiser show in September. Not to be confused with the other Big Show Card Show, which is in Breinigsville at the far end of the state.",
+      "pkmn": "some",
+      "pkmnWhy": "The flyer bills \"Sports Cards, TCG, Pokemon, Memorabilia\", so Pokemon is named but it is a sports-led show.",
+      "flyer": "the-big-show-2026-10-16.png",
+      "flyerW": 440,
+      "flyerH": 662,
+      "vendors": [
+        {
+          "name": "TOAK Pulls",
+          "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\"."
+        }
+      ]
     },
     {
       "id": "toyfest-10-2026-10-17",
@@ -799,6 +879,10 @@
         {
           "name": "Legends Card Shop",
           "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026. Matched to this row by date AND street address, not by name alone."
+        },
+        {
+          "name": "TOAK Pulls",
+          "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\". They named the SERIES rather than a date, so this is every 2026 instance of it. The two 2027 dates are deliberately not marked: a September message is not a commitment five months out, and the owner can extend it if they confirm."
         }
       ]
     },
@@ -1048,6 +1132,12 @@
           "price": "$25",
           "note": "presale only, no refunds. Friday early access time not published"
         }
+      ],
+      "vendors": [
+        {
+          "name": "TOAK Pulls",
+          "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\"."
+        }
       ]
     },
     {
@@ -1084,6 +1174,10 @@
         {
           "name": "Legends Card Shop",
           "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026. Matched to this row by date AND street address, not by name alone."
+        },
+        {
+          "name": "TOAK Pulls",
+          "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\"."
         }
       ]
     },
@@ -1121,6 +1215,10 @@
         {
           "name": "Legends Card Shop",
           "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026. Matched to this row by date AND street address, not by name alone."
+        },
+        {
+          "name": "TOAK Pulls",
+          "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\"."
         }
       ]
     },
@@ -1176,7 +1274,13 @@
       "blurb": "Free Monthly 72-table show, lots of great Pokemon vendors, and a good mix of vintage and modern sports cards and collectibles, plus there is a giveaway at noon.",
       "tables": 72,
       "pkmn": "some",
-      "pkmnWhy": "The organizer confirmed it directly, and we are at this one most months: the same Pokemon vendors are there every time."
+      "pkmnWhy": "The organizer confirmed it directly, and we are at this one most months: the same Pokemon vendors are there every time.",
+      "vendors": [
+        {
+          "name": "TOAK Pulls",
+          "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\". They named the SERIES rather than a date, so this is every 2026 instance of it. The two 2027 dates are deliberately not marked: a September message is not a commitment five months out, and the owner can extend it if they confirm."
+        }
+      ]
     },
     {
       "id": "batavia-scts-2026-12-05",
@@ -1286,7 +1390,13 @@
       "blurb": "Free Monthly 72-table show, lots of great Pokemon vendors, and a good mix of vintage and modern sports cards and collectibles, plus there is a giveaway at noon.",
       "tables": 72,
       "pkmn": "some",
-      "pkmnWhy": "The organizer confirmed it directly, and we are at this one most months: the same Pokemon vendors are there every time."
+      "pkmnWhy": "The organizer confirmed it directly, and we are at this one most months: the same Pokemon vendors are there every time.",
+      "vendors": [
+        {
+          "name": "TOAK Pulls",
+          "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\". They named the SERIES rather than a date, so this is every 2026 instance of it. The two 2027 dates are deliberately not marked: a September message is not a commitment five months out, and the owner can extend it if they confirm."
+        }
+      ]
     },
     {
       "id": "extreme-pokemon-batavia-2026-12-13",
@@ -1687,6 +1797,10 @@
     "Westmoreland": [
       43.1073,
       -75.4418
+    ],
+    "Harmony, PA": [
+      40.7981,
+      -80.1259
     ]
   },
   "_towns_note": [

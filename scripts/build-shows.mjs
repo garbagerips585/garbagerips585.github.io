@@ -356,6 +356,31 @@ for (const s of data.shows || []) {
     areaProblems.push(`${s.id}: ${s.city} has no lat/lon in _towns, so it cannot be placed`);
     continue;
   }
+  /* A NAMED, REASONED OPT-OUT RATHER THAN A WIDER RADIUS, and the difference is
+     the whole point of this guard. The owner, 3 September 2026, on The Big Show
+     in Harmony, PA: "its still driving distance from Rochester, NY so its worth
+     adding to the show page list". It is 158 miles from Buffalo and 208 from
+     Rochester, against a 45 mile rule whose farthest current city is Dryden at
+     39. Widening RADIUS_MI to reach it would have to go to 160+, which would
+     stop catching anything: every mis-filed row this check exists for, and most
+     of Ontario, Cleveland and Pennsylvania besides.
+
+     So the radius stays where it is and a row may opt OUT of it by saying why.
+     `farAfield` is a sentence, not a boolean, because the reason is the thing
+     worth keeping: a future editor reads why this one is here rather than
+     finding a flag and guessing. The city must STILL be in _towns, so a typo is
+     still caught -- the exemption is from the distance rule, not from being
+     placed at all -- and the distance is printed so the decision stays visible.
+
+     Such a show gets `region: "away"`. regionsFor() returns nothing past the
+     radius, so the card falls back to that, and apply() in the page script
+     shows it under All and hides it under the three area buttons. That is the
+     honest behaviour: it is genuinely not near any of them. */
+  if (s.farAfield) {
+    const near = nearestAnchor(pt);
+    console.log(`  ${s.id}: out of area on purpose, ${near.mi.toFixed(0)} mi from ${near.id}. ${s.farAfield}`);
+    continue;
+  }
   const near = nearestAnchor(pt);
   if (near.mi > RADIUS_MI) {
     areaProblems.push(
