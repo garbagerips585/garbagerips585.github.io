@@ -1208,9 +1208,51 @@ function chaseBand(g, en, cls) {
       ? `<h3 class="flat-h">The ${esc(g.english)} chase list</h3>`
       : "";
 
+  /* THE WORD PRINTED ON THE WRAPPER, NOW THAT THE OWNER HAS SETTLED IT.
+     He asked on 4 September 2026: "keep the Art Rare on Japanese sets and use
+     Illustration Rare for English sets."
+
+     THIS FILE AND shared/rarity.mjs BOTH PARKED THIS DELIBERATELY AND WERE RIGHT
+     TO. rarity.mjs keeps the two ladders apart because "asserting an equivalence
+     the two companies do not publish would be this site inventing a fact", and
+     sync-intl-guides.mjs records what that cost: "all seven Japanese guides carry
+     TCGdex's anglicized words against a rip log written in the wrapper's, which
+     is why 6 of the 13 intl hit rows that fail to resolve are Art Rare rows whose
+     only Art Rare printing TCGdex files as Illustration rare." Neither file could
+     settle it on its own. He has.
+
+     `rarityJp` has been carried on these cards all along and printed nowhere but
+     the hits band. It is the Japanese vocabulary, so this prints what is on the
+     pack rather than a translation of it: 60 Art Rares and 28 Special Art Rares
+     across six guides.
+
+     THE FALLBACK CANNOT MIX THE TWO VOCABULARIES AND THE GUARD PROVES IT. Four
+     cards across those six guides carry no rarityJp -- one Rare, one Uncommon,
+     two Commons -- and those three rungs are spelled IDENTICALLY on both ladders,
+     so the fallback yields the same string. On any other rung it throws, because
+     that would put an English rung name into a Japanese checklist. The four
+     Korean guides and ja-cyber-judge hold no rarityJp at all and are untouched:
+     they keep TCGdex's words throughout, which is one vocabulary per page.
+
+     rarityCompare() is NOT changed and must not be: it lines this set's counts up
+     against the ENGLISH set's, so it has to stay in the vocabulary it compares. */
+  const guideHasJp = (g.cards || []).some((c) => c.rarityJp);
+  const SHARED_RUNGS = new Set(["common", "uncommon", "rare"]);
+  const wrapRarity = (c) => {
+    if (!c) return null;
+    if (c.rarityJp) return c.rarityJp;
+    if (c.rarity && guideHasJp && !SHARED_RUNGS.has(String(c.rarity).toLowerCase())) {
+      throw new Error(
+        `${g.id} #${c.localId} "${c.en || c.native}" has no rarityJp and its TCGdex ` +
+        `rarity "${c.rarity}" is not a rung both ladders spell the same. Printing it ` +
+        `would mix an English rung name into a Japanese checklist.`);
+    }
+    return c.rarity;
+  };
+
   const tile = (c) => `<button class="chase-card" type="button"
         data-img="${esc(c.imageLarge || c.image || "")}"
-        data-name="${esc(cardName(c))}" data-rarity="${esc(rarityLabel(c.rarity) || (c.secret ? "Numbered past the set" : ""))}"
+        data-name="${esc(cardName(c))}" data-rarity="${esc(rarityLabel(wrapRarity(c)) || (c.secret ? "Numbered past the set" : ""))}"
         data-number="${esc(c.localId || "")}" data-price=""
         aria-label="Enlarge ${esc(cardName(c))}">
         ${/* alt="" : the button is aria-labelled "Enlarge <name>" and the .nm
@@ -1218,13 +1260,13 @@ function chaseBand(g, en, cls) {
               screen reader say the card three times over on one tile. */ ""}${avifPicture(`<img src="${esc(c.image)}" alt="" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}
         <div class="nm">${esc(cardName(c))}</div>
         ${cardSub(c) ? `<div class="ig-native" lang="${esc(g.dataSource?.lang || g.lang)}">${esc(cardSub(c))}</div>` : ""}
-        <div class="rr">${esc(rarityLabel(c.rarity) || (c.secret ? "Secret" : kindOf(c) || "Card"))} &bull; ${esc(c.localId || "")}</div>
+        <div class="rr">${esc(rarityLabel(wrapRarity(c)) || (c.secret ? "Secret" : kindOf(c) || "Card"))} &bull; ${esc(c.localId || "")}</div>
       </button>`;
 
   const row = (c) => `<li class="flat-item">
         <b>${esc(cardName(c))}</b>
         ${cardSub(c) ? `<span lang="${esc(g.dataSource?.lang || g.lang)}">${esc(cardSub(c))}</span>` : ""}
-        <span>${esc(rarityLabel(c.rarity) || (c.secret ? "Secret" : kindOf(c) || "Card"))} &bull; ${esc(c.localId || "")}</span>
+        <span>${esc(rarityLabel(wrapRarity(c)) || (c.secret ? "Secret" : kindOf(c) || "Card"))} &bull; ${esc(c.localId || "")}</span>
       </li>`;
 
   return `<section class="${cls}">
