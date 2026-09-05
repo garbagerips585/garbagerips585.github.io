@@ -1446,6 +1446,7 @@ const whosPage = shell({
   body: `<section class="tight">
   <div class="wrap">
     <div id="game"></div>
+    <noscript><p class="lede">Who's That Pokemon needs JavaScript, and yours is turned off, so there is no game on this page. Everything else on the site reads without it.</p></noscript>
     <div class="btn-row" style="justify-content:center;margin-bottom:var(--s5)">
       <button class="btn btn-sm" type="button" id="mGen1" aria-pressed="true">The original 151</button>
       <button class="btn btn-sm" type="button" id="mAll" aria-pressed="false">All ${whos.length.toLocaleString("en-US")}</button>
@@ -1608,6 +1609,7 @@ const setPage = shell({
   body: `<section class="tight">
   <div class="wrap">
     <div id="game" class="g-cards"></div>
+    <noscript><p class="lede">Guess the Set needs JavaScript, and yours is turned off, so there is no game on this page. Everything else on the site reads without it.</p></noscript>
     <div class="btn-row" style="justify-content:center;margin-bottom:var(--s5)">
       <button class="btn btn-sm" type="button" id="mAny" aria-pressed="true">Any era</button>
       <button class="btn btn-sm" type="button" id="mEra" aria-pressed="false">Same era</button>
@@ -1860,6 +1862,7 @@ ${/* "the good bit" is British for "the good part", and it is not a word a
   body: `<section class="tight">
   <div class="wrap">
     <div id="game" class="g-quiz"></div>
+    <noscript><p class="lede">Pokemon Trivia needs JavaScript, and yours is turned off, so there is no game on this page. Everything else on the site reads without it.</p></noscript>
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/games/">Games</a> / Trivia</nav>
     <p class="price-note" style="margin-top:var(--s5)">${shuffled.length.toLocaleString("en-US")} questions, every one
       generated from <a href="https://pokeapi.co" rel="noopener" target="_blank" aria-label="pokeapi.co, the source of the artwork and of every question here, opens on pokeapi.co">pokeapi.co</a> data read

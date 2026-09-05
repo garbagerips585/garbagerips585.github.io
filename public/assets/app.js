@@ -252,7 +252,8 @@
       state.sets = (p.get("set") || "").split(",").filter(Boolean);
       state.products = (p.get("product") || "").split(",").filter(Boolean);
       state.pull = p.get("pull") === "1";
-      state.sort = p.get("sort") || "new";
+      var wantSort = p.get("sort");
+      state.sort = SORTS[wantSort] ? wantSort : "new";
     }
     function writeUrl() {
       var p = new URLSearchParams();
@@ -333,6 +334,7 @@
       if (state.sets.length && !state.sets.some(function (s) { return (v.sets || []).indexOf(s) > -1; })) return false;
       if (state.products.length && !state.products.some(function (s) { return (v.products || []).indexOf(s) > -1; })) return false;
       if (state.pull && !(v.pulls || []).some(function (p) { return PULL_TIERS.indexOf(p) > -1; })) return false;
+      if (state.q && !parsed.terms.length && !parsed.neg.length) return false;
       if (parsed.terms.length || parsed.neg.length) {
         var hay = haystack(v);
         for (var i = 0; i < parsed.terms.length; i++) if (hay.indexOf(parsed.terms[i]) === -1) return false;

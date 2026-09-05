@@ -441,7 +441,13 @@
   function render(){
     var q=input.value.trim().toLowerCase();
     var terms=parseQuery(q);
-    if(!q){ out.innerHTML=''; say(''); empty.hidden=false; return; }
+    /* !terms.length AND NOT JUST !q. norm() keeps only [a-z0-9], so a query of
+       one emoji, or "!!!", or ".*", is a non-empty string that parses to no
+       terms at all -- and every match loop below is a for over terms, so with
+       none of them nothing is ever rejected and the page answered "6,900
+       results" as though everything matched. /cards.html already gets this
+       right, which is where the wording comes from. */
+    if(!q || !terms.length){ out.innerHTML=''; say(''); empty.hidden=false; return; }
     empty.hidden=true;
     if(!SITE){ say('Loading...'); return; }
 
@@ -533,6 +539,6 @@
   }
 })();
 </script>
-<script src="/assets/app.js?v=c119340d" defer></script>
+<script src="/assets/app.js?v=b8e2f822" defer></script>
 </body>
 </html>

@@ -222,8 +222,13 @@
       dom.live.textContent = words;
     }
 
-    function showBest() {
-      dom.best.textContent = store.get(sprint ? bestSprintKey : bestKey, 0);
+    /* THE CALLER SAYS WHICH BEST IT MEANS, because `sprint` is not a reliable
+       witness at the moment this runs: endSprint() flips it to false before
+       calling here, so the panel said "a new best" while the stat bar beside it
+       read 0 -- it was showing the streak best, which a sprint never sets. */
+    function showBest(isSprint) {
+      var s = isSprint === undefined ? sprint : isSprint;
+      dom.best.textContent = store.get(s ? bestSprintKey : bestKey, 0);
     }
     function showRun() {
       dom.score.textContent = score;
@@ -459,7 +464,7 @@
          the one the run has moved them toward. Guarded on focus having been
          inside the game, so a player using a mouse is not moved. */
       if (lostFocus) again.focus();
-      showBest();
+      showBest(true);
       // THE END OF A SPRINT IS A RESOLVED EVENT TOO, and it was the loudest
       // silent one: the clock stops on its own, the board is replaced by a
       // result panel, and nothing about that is announced by anything. This is
@@ -498,7 +503,13 @@
     }
 
     dom.mode.addEventListener("click", function () {
-      start(!sprint);
+      /* STOPPING THE CLOCK IS ENDING THE SPRINT, NOT STARTING A NEW GAME. This
+         was start(!sprint) both ways, so the one control actually labelled
+         "Stop the clock" was the only exit that did not bank the score: the
+         buzzer banks it, and switching mode banks it through destroy(), but
+         this threw the run away and showed no result panel. */
+      if (sprint) endSprint();
+      else start(true);
     });
 
     /* TAP ANYWHERE ON THE GAME TO MOVE ON. Bound to the block rather than to a

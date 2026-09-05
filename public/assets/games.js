@@ -88,8 +88,9 @@
     function announce(words) {
       dom.live.textContent = words;
     }
-    function showBest() {
-      dom.best.textContent = store.get(sprint ? bestSprintKey : bestKey, 0);
+    function showBest(isSprint) {
+      var s = isSprint === undefined ? sprint : isSprint;
+      dom.best.textContent = store.get(s ? bestSprintKey : bestKey, 0);
     }
     function showRun() {
       dom.score.textContent = score;
@@ -227,7 +228,7 @@
       });
       dom.choices.appendChild(again);
       if (lostFocus) again.focus();
-      showBest();
+      showBest(true);
       announce(
         "Time. " + score + " right in 60 seconds" +
         (score > best ? ", a new best." : ", best is " + best + ".") +
@@ -260,7 +261,8 @@
       render();
     }
     dom.mode.addEventListener("click", function () {
-      start(!sprint);
+      if (sprint) endSprint();
+      else start(true);
     });
     function onTap(e) {
       if (!advance) return;

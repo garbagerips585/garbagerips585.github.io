@@ -480,7 +480,12 @@
       state.sets = (p.get("set") || "").split(",").filter(Boolean);
       state.products = (p.get("product") || "").split(",").filter(Boolean);
       state.pull = p.get("pull") === "1";
-      state.sort = p.get("sort") || "new";
+      /* VALIDATED, NOT JUST DEFAULTED-WHEN-ABSENT. ?sort=bogus is a truthy
+         value that no <option> carries, so the list fell back to "new"
+         correctly while the dropdown went blank (selectedIndex -1) and stopped
+         describing what the reader was looking at. */
+      var wantSort = p.get("sort");
+      state.sort = SORTS[wantSort] ? wantSort : "new";
     }
     function writeUrl() {
       var p = new URLSearchParams();
@@ -646,6 +651,12 @@
       // assigns and the ladder does not rank. A filter that disagrees with the
       // control that opened it is the bug this whole parameter was fixing.
       if (state.pull && !(v.pulls || []).some(function (p) { return PULL_TIERS.indexOf(p) > -1; })) return false;
+      /* A TYPED QUERY THAT PARSES TO NOTHING MATCHES NOTHING. The parser keeps
+         only [a-z0-9], so "!!!" or a lone emoji is a non-empty query with no
+         terms in it, and this block used to skip itself entirely and report all
+         334 rips as matching. An empty BOX still shows everything, which is why
+         the test is on the raw query rather than on the parsed terms. */
+      if (state.q && !parsed.terms.length && !parsed.neg.length) return false;
       if (parsed.terms.length || parsed.neg.length) {
         var hay = haystack(v);
         for (var i = 0; i < parsed.terms.length; i++) if (hay.indexOf(parsed.terms[i]) === -1) return false;
