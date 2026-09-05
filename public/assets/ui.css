@@ -1933,7 +1933,7 @@ main:has(> .set-cta:last-child){padding-bottom:0}
 .cc-table tbody tr:nth-child(even) th,
 .cc-table tbody tr:nth-child(even) td{background:var(--paper)}
 .cc-table tbody tr:hover th,
-.cc-table tbody tr:hover td{background:var(--paper-3)}
+.cc-table tbody tr:hover td{background:var(--navy-deep)}
 .chip[aria-pressed=true]{border-color:var(--keyline)}
 section.band-gold .hl{color:var(--on-accent);text-shadow:3px 3px 0 var(--chip-gold-bg)}
 footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}

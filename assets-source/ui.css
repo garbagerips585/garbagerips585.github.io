@@ -6497,14 +6497,30 @@ main:has(> .set-cta:last-child){padding-bottom:0}
    and in this palette those are BOTH #FFFFFF. A five column table of prices
    that scrolls sideways on a phone, with a sticky first column, and no row
    banding to follow across it.
-   A monotonic ladder rather than a repaint: odd rows stay white, even rows take
-   --paper (#F4F3EF), and the row hover moves DOWN to --paper-3 (#E6E4DD) so it
-   is darker than either stripe instead of landing between them. Hover was
-   --sky-tint, which is lighter than the even stripe it has to beat. */
+   A monotonic ladder rather than a repaint: odd rows stay one ground, even rows
+   take --paper, and the row hover moves DOWN so it is darker than either stripe
+   instead of landing between them. Hover was --sky-tint, which is lighter than
+   the even stripe it has to beat.
+
+   THAT PARAGRAPH USED TO SAY --paper-3 (#E6E4DD) AND BOTH HALVES OF IT WENT
+   STALE IN THE REPAINT. #E6E4DD was the light palette's value; --paper-3 is
+   #405D49 now, which is the LIGHTEST of the four grounds here -- lighter than
+   both stripes -- so the hover landed above the ladder rather than below it and
+   the rule did the exact opposite of what this comment claims. It also dropped
+   .cc-table a from 4.50:1 to 3.60:1, under AA, on four pages. --navy-deep
+   (#13231B) is darker than --paper and --card both, which is what "moves DOWN"
+   was always asking for, and it carries the links at 8.06:1 and body text at
+   12.0:1.
+
+   THE FIX IS THE GROUND AND NOT THE TEXT, which is where this differs from the
+   same regression on .roc-routes in build-rochester.mjs. That one recolours the
+   text on hover, correctly: it is a card lifting, and nothing there has to stay
+   in a ladder. These rows do. Recolouring the link would have bought the
+   contrast back and left the banding still inverted. */
 .cc-table tbody tr:nth-child(even) th,
 .cc-table tbody tr:nth-child(even) td{background:var(--paper)}
 .cc-table tbody tr:hover th,
-.cc-table tbody tr:hover td{background:var(--paper-3)}
+.cc-table tbody tr:hover td{background:var(--navy-deep)}
 
 /* 5. A PRESSED FILTER CHIP WAS ALMOST INDISTINGUISHABLE FROM AN UNPRESSED ONE.
    Pressed is --sky over an unpressed --card: #35BEEF against white was

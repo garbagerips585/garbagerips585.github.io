@@ -1027,7 +1027,7 @@
     },
     {
       "id": "rocpokecon-2026-10-31",
-      "name": "RocPokéCon",
+      "name": "RocPok\u00e9Con",
       "date": "2026-10-31",
       "start": "07:00",
       "end": "17:00",
@@ -1059,7 +1059,7 @@
       ],
       "blurb": "Centered on Pokemon but not only Pokemon, and it lands on Halloween.",
       "warn": "Presale prices go up $5 at 7pm on Friday October 30, so buy before then.",
-      "organiser": "RocPokéCon",
+      "organiser": "RocPok\u00e9Con",
       "organiserUrl": "https://www.rocpokecon.com",
       "ticketUrl": "https://www.rocpokecon.com/events/tickets",
       "url": "https://www.rocpokecon.com",
@@ -1071,7 +1071,7 @@
           "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026. Matched to this row by date AND street address, not by name alone."
         },
         {
-          "name": "RocPokéCon",
+          "name": "RocPok\u00e9Con",
           "confirmed": "The owner, 4 September 2026: \"Yes RocPokeCon are vendors at their own shows including the next one on Halloween\". They run the show and sell at it, which their vendor listing already says in its own words."
         },
         {
@@ -1533,9 +1533,9 @@
       "blurb": "The same promoter as the Niagara Falls PokeKon, on our side of the state this time. All Pokemon, with free parking."
     },
     {
-      "id": "northtowns-pkmn-2027-01-17",
+      "id": "northtowns-pkmn-2027-01-10",
       "name": "Northtowns Pokemon & TCG Card Show",
-      "date": "2027-01-17",
+      "date": "2027-01-10",
       "start": "10:00",
       "end": "15:00",
       "venue": "American Legion",
@@ -1545,8 +1545,9 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "source": "wnycardshows (Shake & Break 716), read 5 September 2026",
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day.",
+      "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
     },
     {
       "id": "collectorfest-jcc-2027-01-31",
@@ -1605,13 +1606,14 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "source": "wnycardshows (Shake & Break 716), read 5 September 2026",
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day.",
+      "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
     },
     {
-      "id": "northtowns-pkmn-2027-03-21",
+      "id": "northtowns-pkmn-2027-03-14",
       "name": "Northtowns Pokemon & TCG Card Show",
-      "date": "2027-03-21",
+      "date": "2027-03-14",
       "start": "10:00",
       "end": "15:00",
       "venue": "American Legion",
@@ -1621,13 +1623,14 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "source": "wnycardshows (Shake & Break 716), read 5 September 2026",
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day.",
+      "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
     },
     {
-      "id": "northtowns-pkmn-2027-04-18",
+      "id": "northtowns-pkmn-2027-04-04",
       "name": "Northtowns Pokemon & TCG Card Show",
-      "date": "2027-04-18",
+      "date": "2027-04-04",
       "start": "10:00",
       "end": "15:00",
       "venue": "American Legion",
@@ -1637,13 +1640,14 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "source": "wnycardshows (Shake & Break 716), read 5 September 2026",
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day.",
+      "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
     },
     {
-      "id": "northtowns-pkmn-2027-05-16",
+      "id": "northtowns-pkmn-2027-05-02",
       "name": "Northtowns Pokemon & TCG Card Show",
-      "date": "2027-05-16",
+      "date": "2027-05-02",
       "start": "10:00",
       "end": "15:00",
       "venue": "American Legion",
@@ -1653,13 +1657,14 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "source": "wnycardshows (Shake & Break 716), read 5 September 2026",
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day.",
+      "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
     },
     {
-      "id": "northtowns-pkmn-2027-06-20",
+      "id": "northtowns-pkmn-2027-06-06",
       "name": "Northtowns Pokemon & TCG Card Show",
-      "date": "2027-06-20",
+      "date": "2027-06-06",
       "start": "10:00",
       "end": "15:00",
       "venue": "American Legion",
@@ -1669,8 +1674,9 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "source": "wnycardshows (Shake & Break 716), read 5 September 2026",
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day.",
+      "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
     },
     {
       "id": "northtowns-pkmn-2027-07-18",
@@ -1685,13 +1691,14 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "source": "wnycardshows (Shake & Break 716), read 5 September 2026",
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day.",
+      "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
     },
     {
-      "id": "northtowns-pkmn-2027-08-15",
+      "id": "northtowns-pkmn-2027-08-08",
       "name": "Northtowns Pokemon & TCG Card Show",
-      "date": "2027-08-15",
+      "date": "2027-08-08",
       "start": "10:00",
       "end": "15:00",
       "venue": "American Legion",
@@ -1701,13 +1708,14 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "source": "wnycardshows (Shake & Break 716), read 5 September 2026",
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day.",
+      "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
     },
     {
-      "id": "northtowns-pkmn-2027-09-19",
+      "id": "northtowns-pkmn-2027-09-12",
       "name": "Northtowns Pokemon & TCG Card Show",
-      "date": "2027-09-19",
+      "date": "2027-09-12",
       "start": "10:00",
       "end": "15:00",
       "venue": "American Legion",
@@ -1717,13 +1725,14 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "source": "wnycardshows (Shake & Break 716), read 5 September 2026",
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day.",
+      "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
     },
     {
-      "id": "northtowns-pkmn-2027-10-17",
+      "id": "northtowns-pkmn-2027-10-03",
       "name": "Northtowns Pokemon & TCG Card Show",
-      "date": "2027-10-17",
+      "date": "2027-10-03",
       "start": "10:00",
       "end": "15:00",
       "venue": "American Legion",
@@ -1733,13 +1742,14 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "source": "wnycardshows (Shake & Break 716), read 5 September 2026",
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day.",
+      "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
     },
     {
-      "id": "northtowns-pkmn-2027-11-21",
+      "id": "northtowns-pkmn-2027-11-14",
       "name": "Northtowns Pokemon & TCG Card Show",
-      "date": "2027-11-21",
+      "date": "2027-11-14",
       "start": "10:00",
       "end": "15:00",
       "venue": "American Legion",
@@ -1749,8 +1759,9 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "source": "wnycardshows (Shake & Break 716), read 5 September 2026",
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day.",
+      "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
     },
     {
       "id": "northtowns-pkmn-2027-12-12",
@@ -1765,8 +1776,9 @@
       "pokemon": true,
       "admission": "Free",
       "organiser": "Shawn Hughes",
-      "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
+      "source": "wnycardshows (Shake & Break 716), read 5 September 2026",
+      "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day.",
+      "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
     }
   ],
   "_towns": {

@@ -560,7 +560,11 @@ const style = `
    ground that is actually distinguishable from the card, at 1.19:1, so the gold
    rule on the left does the work and the tint only supports it. Hover only, so
    nothing here is the sole carrier of any meaning. */
-.xp-table tbody tr:hover{background:var(--paper-3)}
+/* --navy-deep, not --paper-3: same inversion as .cc-table in ui.css, where the
+   repaint left --paper-3 lighter than the stripes it was chosen to sit under.
+   It also put .xp-rips a (--ketchup-deep) at 3.60:1; on --navy-deep it is
+   8.07:1 and the hover is finally darker than either stripe. */
+.xp-table tbody tr:hover{background:var(--navy-deep)}
 .xp-table tbody tr:hover th{box-shadow:inset 3px 0 0 var(--gold)}
 .xp-table tbody th{font-weight:600}
 .xp-name{display:flex;align-items:center;gap:10px}

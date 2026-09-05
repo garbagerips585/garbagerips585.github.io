@@ -1,0 +1,116 @@
+PROMPT FOR THE YOUTUBE GEMINI ASSISTANT
+Paste everything below the line into the assistant.
+
+------------------------------------------------------------------------
+
+I run the YouTube channel Garbage Rips 585 — daily Pokemon card pack rips
+filmed in Rochester, NY. I now have a companion website, and from now on every
+video description you write must link to it.
+
+THE SITE: https://garbagerips.com
+
+It is a free, non-commercial reference site. There are no ads and no affiliate
+codes on any link, so never describe a link as sponsored, affiliated, or an
+affiliate link.
+
+=== WHAT TO ADD TO EVERY DESCRIPTION ===
+
+At the END of the description, after my normal write-up, add this block:
+
+  📖 [SET NAME] set guide — chase cards, prices, full checklist:
+  https://garbagerips.com/sets/[SLUG].html
+
+  📅 Every card show in Western NY: https://garbagerips.com/card-shows.html
+  🏪 Card shops near Rochester, NY: https://garbagerips.com/shops.html
+
+Replace [SET NAME] and [SLUG] using the list further down. If the video opens
+more than one set, include one 📖 line per set, most-featured set first.
+
+If the video credits a seller, shop, or vendor I bought the packs from, add
+this line above the 📅 line:
+
+  🃏 Packs from [NAME]: https://garbagerips.com/shops.html
+
+Use /vendors.html instead of /shops.html if they are a show vendor or online
+seller rather than a brick-and-mortar shop. If you are not sure which, use
+/shops.html.
+
+=== THE ONLY VALID SET GUIDE SLUGS ===
+
+NEVER invent a slug. A set guide URL is only valid if its slug is on this list.
+If I open a set that is NOT on this list, omit the 📖 line entirely and link
+https://garbagerips.com/sets/ instead. Do not guess, do not pluralize, do not
+change hyphens, and do not "correct" a slug that looks unusual.
+
+English sets:
+  151, ascended-heroes, black-bolt, celebrations, chaos-rising,
+  chilling-reign, crown-zenith, destined-rivals, journey-together,
+  mega-evolution, obsidian-flames, paldea-evolved, paldean-fates,
+  paradox-rift, perfect-order, phantasmal-flames, pitch-black, pokemon-go,
+  prismatic-evolutions, rebel-clash, scarlet-violet, shining-fates,
+  shrouded-fable, silver-tempest, stellar-crown, surging-sparks,
+  temporal-forces, twilight-masquerade, white-flare
+
+Japanese sets:
+  ja-abyss-eye, ja-cyber-judge, ja-mega-brave, ja-mega-symphonia,
+  ja-nihil-zero, ja-ninja-spinner, ja-stellar-miracle, ja-violet-ex
+
+Korean sets:
+  ko-battle-partners, ko-clay-burst, ko-crimson-haze, ko-mask-of-change
+
+Chinese sets:
+  zh-gem-pack-2
+
+Example — a Silver Tempest pack opening:
+
+  📖 Silver Tempest set guide — chase cards, prices, full checklist:
+  https://garbagerips.com/sets/silver-tempest.html
+
+  📅 Every card show in Western NY: https://garbagerips.com/card-shows.html
+  🏪 Card shops near Rochester, NY: https://garbagerips.com/shops.html
+
+=== OTHER PAGES YOU MAY LINK, WHEN THE VIDEO IS ACTUALLY ABOUT THAT ===
+
+Only use these when the video's own content matches. Do not add them to every
+video — the three-line block above is the default and is usually enough.
+
+  https://garbagerips.com/upcoming.html        upcoming sets and release dates
+  https://garbagerips.com/drops.html           this week's retail restocks
+  https://garbagerips.com/cards.html           search any card's value
+  https://garbagerips.com/complete-a-set.html  what completing a set costs
+  https://garbagerips.com/what-to-buy.html     which product is best value
+  https://garbagerips.com/buying.html          where to buy, chain by chain
+  https://garbagerips.com/card-show-101.html   first time at a card show
+  https://garbagerips.com/vendors.html         show vendors and online sellers
+  https://garbagerips.com/sets/                index of every set guide
+
+=== HARD RULES ===
+
+1. NEVER invent or guess a URL. Every link you write must be copied exactly
+   from this message. If the page you want does not exist here, leave it out.
+   A broken link in a description is worse than no link.
+
+2. ALWAYS write "Rochester, NY" or "Rochester, New York" — never bare
+   "Rochester". There is more than one Rochester in the United States and I am
+   trying to rank for the New York one. The only exception is a proper name
+   that genuinely contains it, such as "Visit Rochester".
+
+3. Never call anything sponsored, affiliated, endorsed, or an affiliate link.
+   Nothing on the site is for sale and no link carries a tracking code.
+
+4. Do not promise a price in the description. Card values move. Say the guide
+   has prices; do not state what a card is worth.
+
+5. Keep my own voice and the existing structure of the description. The link
+   block is an addition at the end, not a rewrite.
+
+6. Do not add hashtags to the link block.
+
+7. If the video has no hit and no set worth naming, still include the 📅 and
+   🏪 lines. They apply to every video.
+
+=== WHY ===
+
+Every video should send viewers somewhere useful. The set guide matches what
+they just watched, and the shows and shops pages are the local reason someone
+in Western New York would subscribe.
