@@ -411,6 +411,14 @@ const GA_FENCE = /<!--analytics:start-->[\s\S]*?<!--analytics:end-->/g;
      the correct instrument and it also puts every browser on one path.
      pointerdown still brings it forward for anyone who touches the page early.
 
+     CONFIRMED ON THE DEPLOYED SITE, which is the only measurement that counted
+     in the end: gtag is now requested at 2249, 2257 and 2364ms, and the home
+     page measures 1692, 1700 and 1812ms -- median 1700ms against the 2016ms
+     baseline, and against 1704ms for blocking gtag outright. The defer is worth
+     its full 316ms and the simulation was right about the size all along; it
+     was the instrument that was wrong. Measure what you SHIPPED, not what you
+     modelled.
+
      THE PAGEVIEW STILL FIRES. `gtag('js')` and `gtag('config')` above push into
      dataLayer before any of this, and gtag.js drains that buffer when it
      arrives, so deferring the tag moves when the hit is sent, not whether. A
