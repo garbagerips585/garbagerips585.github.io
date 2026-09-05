@@ -394,11 +394,22 @@ const GA_FENCE = /<!--analytics:start-->[\s\S]*?<!--analytics:end-->/g;
      event is much later than idle-with-a-1500ms-ceiling, which is the likeliest
      reason the August attempt went the other way.
 
-     THE setTimeout IS NOT A BELT-AND-BRACES FALLBACK, IT IS THE SAFARI PATH.
-     Safari has never shipped requestIdleCallback, so an idle-only defer would
-     have stopped loading analytics entirely on iPhone, which is most of this
-     audience -- a silent 100% data loss dressed as a speed win. pointerdown
-     brings it forward again for anyone who touches the page early.
+     IT IS A PLAIN TIMER, AND requestIdleCallback IS DELIBERATELY NOT USED --
+     which took shipping the wrong version to learn. rIC was in here first, with
+     the timer only as a Safari fallback, because Safari has never shipped rIC
+     and an idle-only defer would have stopped loading analytics on iPhone
+     entirely: a silent 100% data loss on most of this audience, dressed as a
+     speed win. But measured live after deploying it, rIC fired at 896, 896 and
+     966ms. The main thread goes idle long before the 1500ms ceiling, so Chrome
+     got a 170ms defer rather than the measured one, and the home page came back
+     at 1980ms against a 2016ms baseline. The entire win had evaporated and the
+     arithmetic above still looked right.
+
+     The reason is that the thing being avoided here is NETWORK contention, not
+     main-thread contention: 172KB competing with the LCP image for 1.6Mbps. An
+     idle callback answers the wrong question, and answers it early. A timer is
+     the correct instrument and it also puts every browser on one path.
+     pointerdown still brings it forward for anyone who touches the page early.
 
      THE PAGEVIEW STILL FIRES. `gtag('js')` and `gtag('config')` above push into
      dataLayer before any of this, and gtag.js drains that buffer when it
@@ -419,7 +430,6 @@ const GA_FENCE = /<!--analytics:start-->[\s\S]*?<!--analytics:end-->/g;
       `var s=document.createElement('script');s.async=true;` +
       `s.src='https://www.googletagmanager.com/gtag/js?id=${GA4_ID}';` +
       `document.head.appendChild(s)};` +
-      `if(window.requestIdleCallback)requestIdleCallback(g,{timeout:1500});` +
       `setTimeout(g,1500);` +
       `addEventListener('pointerdown',g,{once:true,passive:true});` +
       `})();</script>`
