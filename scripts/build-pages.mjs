@@ -60,6 +60,7 @@ import { loadCorpus, corpusCard } from "../shared/subset-cards.mjs";
 import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount, avifPicture, packTileImg, clipMeta, plainDashesAll, RIP_BANNER, cardScan } from "../shared/format.mjs";
 // Who sold or sent the packs, read out of the rip's own description.
 import { sourceIndex, packSource, sourceCard } from "../shared/pack-source.mjs";
+import { avifSource } from "../shared/logo-srcset.mjs";
 import { showIndex, boughtAtShow } from "../shared/bought-at.mjs";
 import { socialLinks, GLYPH } from "../shared/socials.mjs";
 
@@ -804,7 +805,15 @@ async function resolveHits(vid) {
       // V, in Silver Tempest Trainer Gallery, and the two pages now say the same
       // thing about it.
       name: sub?.name || h.card, setName: sub?.setName || h.setName, setId: h.set,
-      rarity: (m && m.rarity) || sub?.rarity || h.rarity || null,
+      // THE JAPANESE RUNG WHERE THE CHECKLIST HAS ONE. m.rarity is TCGdex's
+      // anglicized word for a Japanese card, and taking it first printed
+      // "Illustration Rare" on seven hit cards whose own rip description, three
+      // paragraphs up the same page, says Art Rare. m.rarityJp is that same
+      // checklist row's Japanese column, fetched in intlChecklist() above and
+      // until now read by nothing, so this keeps the documented precedence --
+      // the file the row resolved out of wins -- and stops it meaning "the
+      // English word wins".
+      rarity: (m && (m.rarityJp || m.rarity)) || sub?.rarity || h.rarity || null,
       n: m ? m.n : sub?.n || null,
       // THE GUIDE'S OWN SCAN FIRST, THEN THE CORPUS. Same precedence
       // build-hall.mjs uses: the file this row was resolved out of wins and the
@@ -1140,7 +1149,8 @@ const packCreditLine = (v) => {
   srcCredited += 1;
   const boughtAt = boughtAtShow(v.blurb || descriptions[v.id] || "", SHOW_INDEX, pin);
   if (boughtAt) srcAtShow += 1;
-  return sourceCard(hit, { esc, socialLinks, glyph: srcGlyph, longDate, boughtAt });
+  return sourceCard(hit, { esc, socialLinks, glyph: srcGlyph, longDate, boughtAt,
+    avif: (dir, stem, sizes) => avifSource(ROOT, dir, stem, sizes) });
 };
 
 const pathFor = (v) => v.path || ripPath(v);

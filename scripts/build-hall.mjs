@@ -674,7 +674,14 @@ if (source === "intl") intlIn.push({ set: h.set, card: m.name, n: m.n, art: m.im
         // sheet's Raw NM column is the only figure those cards will ever have.
         _raw: typeof m.price === "number" ? m.price
           : typeof h.rawNm === "number" ? h.rawNm : null,
-        _rarity: m.rarity || h.rarity || null,
+        // THE JAPANESE RUNG FIRST WHERE THE CHECKLIST CARRIES ONE. Same
+        // precedence as _img above -- the file this row resolved out of wins --
+        // but m.rarity is TCGdex's anglicized word, so on a Japanese set it
+        // outranked the wrapper's own and printed "Illustration Rare" beside a
+        // card whose pack says Art Rare. m.rarityJp is that same checklist's
+        // Japanese column, so this stays "the guide wins" and stops being
+        // "the English word wins".
+        _rarity: m.rarityJp || m.rarity || h.rarity || null,
         // The intl checklist carries no set name of its own that this page can
         // use, and sets.json is English only, so resolve() would otherwise
         // print the slug. The sheet's own words are the right label: "Abyss Eye

@@ -1166,6 +1166,72 @@ function compareBand(g, en, cls) {
  * artwork for a Japanese entry was measured and rejected long before this, for
  * the reason written above enChase below.
  */
+/* THREE BANDS ON THESE PAGES PRINT A RARITY AND EACH ONE USED TO DECIDE FOR
+   ITSELF, which is how a Japanese set page ended up carrying both ladders at
+   once. chaseBand held the wrapper as a local, so checklistBand could not
+   reach it and printed TCGdex's `c.rarity` straight: 88 checklist rows reading
+   "Illustration Rare" under chase tiles two sections above reading "Art Rare",
+   same cards, same page. rarityBand had the same gap. The wrapper is up here
+   now so that a band cannot print a rarity without going through it. */
+const SHARED_RUNGS = new Set(["common", "uncommon", "rare"]);
+
+function makeWrapRarity(g) {
+  const guideHasJp = (g.cards || []).some((c) => c.rarityJp);
+  return (c) => {
+    if (!c) return null;
+    if (c.rarityJp) return c.rarityJp;
+    if (c.rarity && guideHasJp && !SHARED_RUNGS.has(String(c.rarity).toLowerCase())) {
+      throw new Error(
+        `${g.id} #${c.localId} "${c.en || c.native}" has no rarityJp and its TCGdex ` +
+        `rarity "${c.rarity}" is not a rung both ladders spell the same. Printing it ` +
+        `would mix an English rung name into a Japanese checklist.`);
+    }
+    return c.rarity;
+  };
+}
+
+/* THE LADDER'S NAMES ARE READ OUT OF THE CARDS, NOT OUT OF A TABLE I WROTE.
+   The counts in g.rarities are TCGdex's and they are right; only the words are
+   theirs too, and on a Japanese set the words are wrong. The temptation is a
+   hardcoded English-to-Japanese map, and it is a trap: ja-cyber-judge's own
+   ladder lists Super Rare AND Ultra Rare as separate rungs, so "Ultra Rare is
+   really Super Rare" would collapse two real ones on the guide that proves
+   they are different. Instead each TCGdex rung is asked what rarityJp the
+   cards filed under it actually carry. Every rung above `rare` answers
+   unanimously across all five guides.
+
+   COUNTS ARE NOT RECOMPUTED FROM THE CARDS, deliberately. Doing that also
+   renames the rungs, and it silently moves one card on ja-nihil-zero and two
+   on ja-violet-ex between Common and Uncommon, where the two sources genuinely
+   disagree. That is a data question, not a spelling one, and it is not this
+   function's to answer. Only the label changes; every number stays TCGdex's.
+
+   The two disagreeing rungs are both rungs the ladders spell identically, so
+   majority wins there and the printed word is the same either way. On any
+   other rung a split throws, because that would be a guess. */
+function jpLadderNames(g) {
+  const tally = new Map();
+  for (const c of g.cards || []) {
+    if (!c.rarity || !c.rarityJp) continue;
+    if (!tally.has(c.rarity)) tally.set(c.rarity, new Map());
+    const t = tally.get(c.rarity);
+    t.set(c.rarityJp, (t.get(c.rarityJp) || 0) + 1);
+  }
+  const out = new Map();
+  for (const [tcg, t] of tally) {
+    const ranked = [...t].sort((a, b) => b[1] - a[1]);
+    if (ranked.length > 1 && !SHARED_RUNGS.has(String(tcg).toLowerCase())) {
+      throw new Error(
+        `${g.id}: cards filed under TCGdex rarity "${tcg}" carry more than one ` +
+        `rarityJp (${ranked.map(([n, k]) => `${n} x${k}`).join(", ")}), and "${tcg}" ` +
+        `is not a rung both ladders spell the same. Naming the ladder rung would ` +
+        `be a guess.`);
+    }
+    out.set(tcg, ranked[0][0]);
+  }
+  return out;
+}
+
 function chaseBand(g, en, cls) {
   const withScan = g.notable.filter((c) => c.image);
   const noScan = g.notable.filter((c) => !c.image);
@@ -1236,19 +1302,10 @@ function chaseBand(g, en, cls) {
 
      rarityCompare() is NOT changed and must not be: it lines this set's counts up
      against the ENGLISH set's, so it has to stay in the vocabulary it compares. */
-  const guideHasJp = (g.cards || []).some((c) => c.rarityJp);
-  const SHARED_RUNGS = new Set(["common", "uncommon", "rare"]);
-  const wrapRarity = (c) => {
-    if (!c) return null;
-    if (c.rarityJp) return c.rarityJp;
-    if (c.rarity && guideHasJp && !SHARED_RUNGS.has(String(c.rarity).toLowerCase())) {
-      throw new Error(
-        `${g.id} #${c.localId} "${c.en || c.native}" has no rarityJp and its TCGdex ` +
-        `rarity "${c.rarity}" is not a rung both ladders spell the same. Printing it ` +
-        `would mix an English rung name into a Japanese checklist.`);
-    }
-    return c.rarity;
-  };
+  /* The wrapper itself now lives at module scope, as makeWrapRarity. See the
+     note there for why: being local to this band is what let the checklist
+     print a different ladder from the chase tiles on the same page. */
+  const wrapRarity = makeWrapRarity(g);
 
   const tile = (c) => `<button class="chase-card" type="button"
         data-img="${esc(c.imageLarge || c.image || "")}"
@@ -1435,6 +1492,7 @@ function enChase(g, en, { standalone = false, why = "", nativeBelow = false } = 
 }
 
 function rarityBand(g, rarities, maxN, secretCount, cls) {
+  const jpNames = jpLadderNames(g);
   return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
@@ -1457,7 +1515,7 @@ function rarityBand(g, rarities, maxN, secretCount, cls) {
           which is a rendered change made by a comment. */ ""}
     <div class="rarity-list" data-figure="chart">
       ${rarities.map(([r, n]) => `<div class="rar">
-        <span class="rar-name">${esc(rarityLabel(r) || r)}</span>
+        <span class="rar-name">${esc(rarityLabel(jpNames.get(r) || r) || jpNames.get(r) || r)}</span>
         <span class="rar-n">${n}</span>
         <span class="rar-bar"><i style="width:${Math.max(4, Math.round((n / maxN) * 100))}%"></i></span>
       </div>`).join("\n      ")}
@@ -1567,6 +1625,7 @@ function packBand(g, cls) {
 }
 
 function checklistBand(g, cls) {
+  const wrapRarity = makeWrapRarity(g);
   if (!g.cards?.length) {
     return `<section class="${cls}">
   <div class="wrap">
@@ -1608,7 +1667,7 @@ function checklistBand(g, cls) {
         ${g.cards.map((c) => `<li><span class="ig-no">${esc(c.localId || "")}</span>
           <span class="ig-nm">${nat(cardName(c), g.dataSource?.lang || g.lang)}</span>
           ${cardSub(c) ? `<span class="ig-native" lang="${esc(g.dataSource?.lang || g.lang)}">${esc(cardSub(c))}</span>` : ""}
-          ${c.rarity ? `<span class="ig-rr">${esc(rarityLabel(c.rarity))}</span>` : c.secret ? `<span class="ig-rr">Secret</span>` : kindOf(c) ? `<span class="ig-rr">${esc(kindOf(c))}</span>` : ""}</li>`).join("\n        ")}
+          ${c.rarity ? `<span class="ig-rr">${esc(rarityLabel(wrapRarity(c)))}</span>` : c.secret ? `<span class="ig-rr">Secret</span>` : kindOf(c) ? `<span class="ig-rr">${esc(kindOf(c))}</span>` : ""}</li>`).join("\n        ")}
       </ol>
     </details>
     ${g.checklistFrom

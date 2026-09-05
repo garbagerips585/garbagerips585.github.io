@@ -12,8 +12,13 @@
     "stores with an address and opening hours. A vendor may have neither.",
     "",
     "Add one with a name. Everything else is optional and simply does not render",
-    "when missing: blurb, url, instagram, tiktok, facebook, whatnot, ebay, shows,",
-    "sells, area.",
+    "when missing: blurb, url, links, shows, sells, area, and any handle in",
+    "shared/socials.mjs -- youtube, instagram, tiktok, twitch, facebook, discord,",
+    "x, whatnot, ebay. THAT FILE IS THE AUTHORITY, not this list: an earlier",
+    "version of this line named only six of them, and `links`, `youtube` and",
+    "`discord` are all read and rendered while going unmentioned here. RocPokeCon",
+    "reaches its audience through `links` alone, so a maintainer tidying away a",
+    "field this readme did not vouch for would have deleted their only address.",
     "",
     "SOCIAL HANDLES GO IN WITHOUT THE @, and as the handle only, never a full url",
     "with tracking on it. The builder makes the link.",
@@ -21,9 +26,9 @@
     "`vouched` marks a vendor the owner has actually bought from. Only set it where that",
     "is true: the whole value of a local list is that it is not a directory.",
     "`name` IS A FOREIGN KEY. data/shows.json joins confirmed vendors to this file on name, so it must be unique here (the build throws on a duplicate) and renaming a vendor breaks every show that names them until those are updated. A `logo` requires `logoW`/`logoH` and its built renditions under public/assets/creators/, or the build fails: a logo goes up only where its owner sent it for this use, and the show card is a second use of that same permission.",
-    "THE ARRAY ORDER IS THE PAGE ORDER. build-locals.mjs renders this list as it stands and sorts it by nothing, so appending a vendor puts them last and reordering here is how the page is reordered. The owner set this order on 3 September 2026: TOAK Pulls, Legends Card Shop, RocPokeCon."
+    "THE ARRAY ORDER IS THE PAGE ORDER. build-locals.mjs renders this list as it stands and sorts it by nothing, so appending a vendor puts them last and reordering here is how the page is reordered. The owner set this order on 3 September 2026: TOAK Pulls, Legends Card Shop, RocPokeCon. Pok.eJoe Trading Cards was appended on 4 September 2026, which is what appending is supposed to do -- the rule is the order above, not the roster, which will keep growing."
   ],
-  "updated": "2026-08-13",
+  "updated": "2026-09-04",
   "vendors": [
     {
       "name": "TOAK Pulls",

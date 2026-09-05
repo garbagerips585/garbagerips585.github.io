@@ -157,7 +157,17 @@ export function packSource(description, index, pin) {
  */
 const KIND_LABEL = { shops: "Card shop", vendors: "Vendor", creators: "Creator" };
 
-export function sourceCard(hit, { esc, socialLinks, glyph, longDate, boughtAt }) {
+/* `avif` IS INJECTED RATHER THAN IMPORTED because this module is shared and
+   holds no ROOT of its own, and the thing it has to know is whether a file
+   exists on disk. It used to name -200.avif and -400.avif unconditionally,
+   which is the exact bug shared/logo-srcset.mjs was written to end:
+   build-brand-logos.py drops an AVIF whenever the WebP came out smaller, and
+   both of Pok.eJoe's and one of Legends Card Shop's are dropped right now. A
+   <picture> that has committed to a <source> does not fall back to the <img>,
+   so the first rip crediting @LegendsCardShop would have painted a broken
+   image. Three call sites were fixed when the helper landed; this fourth one
+   was missed because it is a `dir` variable rather than a literal. */
+export function sourceCard(hit, { esc, socialLinks, glyph, longDate, boughtAt, avif }) {
   const { o, dir, href, kind } = hit;
   const facts = [];
   /* WHERE HE WAS WHEN HE BOUGHT THEM, which is a different fact from who sold
@@ -208,7 +218,7 @@ export function sourceCard(hit, { esc, socialLinks, glyph, longDate, boughtAt })
           <p class="rip-src-badge">Packs from</p>
           <div class="rip-src-h">
             <span class="rip-src-logo"><picture>
-              <source type="image/avif" srcset="/assets/${dir}/${esc(o.logo)}-200.avif 200w, /assets/${dir}/${esc(o.logo)}-400.avif 400w" sizes="44px">
+              ${avif(dir, o.logo, "44px")}
               <img src="/assets/${dir}/${esc(o.logo)}-200.webp" alt="" width="28" height="${h}" loading="lazy" decoding="async" srcset="/assets/${dir}/${esc(o.logo)}-200.webp 200w, /assets/${dir}/${esc(o.logo)}-400.webp 400w" sizes="44px">
             </picture></span>
             <div class="rip-src-id">

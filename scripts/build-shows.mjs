@@ -738,7 +738,7 @@ const logoFor = (s) => {
       } data-imglb-alt="${esc(who)} logo">`
     : `<span class="show-logo">`;
   return `${open}<picture>
-            <source type="image/avif" srcset="/assets/shows/${esc(s.logo)}-200.avif 200w, /assets/shows/${esc(s.logo)}-400.avif 400w" sizes="(min-width:720px) 80px, 56px">
+            ${avifSource(ROOT, "shows", s.logo, "(min-width:720px) 80px, 56px")}
             <img src="/assets/shows/${esc(s.logo)}-200.webp" alt="${esc(s.name)} logo" width="200" height="${h}" loading="lazy" decoding="async" srcset="/assets/shows/${esc(s.logo)}-200.webp 200w, /assets/shows/${esc(s.logo)}-400.webp 400w" sizes="(min-width:720px) 80px, 56px">
           </picture>${big ? "</button>" : "</span>"}`;
 };
