@@ -40,7 +40,7 @@ import { priceNote, priceFooter, priceRead, chaseByPrice, readSpan } from "../sh
 // the ID to be wrong and never noticed; shared/chrome.mjs is where the other
 // three Subscribe controls get it.
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS, SUBSCRIBE, dropUnusedHitLightbox } from "../shared/chrome.mjs";
-import { labelFor } from "../shared/taxonomy.mjs";
+import { labelFor, pullLabel, isJpSet } from "../shared/taxonomy.mjs";
 import { raritiesIn, rarityChip, RARITY_CSS } from "../shared/rarity.mjs";
 import { ripPath } from "../shared/paths.mjs";
 import { loadGradedPrices } from "../shared/graded-price.mjs";
@@ -2110,7 +2110,7 @@ ${MENU}
               const named = raritiesIn(v.hitCard);
               return named.length
                 ? named.map((id) => rarityChip(id)).join("\n          ")
-                : v.pulls.map((p) => `<span class="chip">${esc(labelFor("pulls", p))}</span>`).join("\n          ");
+                : v.pulls.map((p) => `<span class="chip">${esc(pullLabel(p, isJpSet((v.sets || [])[0])))}</span>`).join("\n          ");
             })()
           }
         </div>

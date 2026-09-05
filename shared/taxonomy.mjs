@@ -316,6 +316,22 @@ export function labelFor(group, id) {
   return hit ? hit.label : id;
 }
 
+/* A PULL TAG IS A VIDEO-LEVEL LABEL AND ITS VOCABULARY IS ENGLISH-ONLY, which
+   is fine until the video opened a Japanese pack. `ir` reads "Illustration
+   Rare" out of PULL_TAGS above, so a playlist tile and a rip page's chip row
+   both called a Japanese card by the English rung -- on the same page whose hit
+   card, a few inches down, correctly said "Art Rare".
+   ONLY THESE TWO RUNGS DIFFER between the ladders, and both come straight out
+   of shared/rarity.mjs, which already carries jp-ar "Art Rare" and jp-sar
+   "Special Art Rare". Nothing is invented here. `gold`, `alt-art`, `full-art`
+   and the rest are the same word on both, and Ultra Rare deliberately is NOT
+   mapped: ja-cyber-judge's own ladder lists Super Rare and Ultra Rare as
+   separate rungs, so treating one as the other would collapse two real ones. */
+const PULL_JP = new Map([["ir", "Art Rare"], ["sir", "Special Art Rare"]]);
+export const isJpSet = (setId) => /^(ja|ko|zh)-/.test(String(setId || ""));
+export const pullLabel = (id, jp = false) =>
+  (jp && PULL_JP.get(id)) || labelFor("pulls", id);
+
 /**
  * YouTube treats anything 60s or under (and vertical) as a Short. We store the
  * flag explicitly so the grid does not letterbox the handful of long-form rips.

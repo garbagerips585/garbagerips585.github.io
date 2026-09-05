@@ -29,7 +29,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
-import { labelFor } from "../shared/taxonomy.mjs";
+import { labelFor, pullLabel, isJpSet } from "../shared/taxonomy.mjs";
 import { slugify } from "../shared/paths.mjs";
 import { esc, longDate, shortDate, viewCount, imgDims, productSrcsetAttr, packTileImg, noWidowEmoji, RIP_BANNER, clipMeta, plainDashes} from "../shared/format.mjs";
 
@@ -754,7 +754,7 @@ function tile(v, labels, oneSet) {
   return `        <article class="v">
           <a class="art" href="/${esc(v.path)}" aria-label="${esc(v.siteTitle || v.title)}" data-dur="${v.duration || 0}" data-views="${v.views || 0}"${v.vertical === false ? " data-wide" : ""}>
             ${packMarkup(faceSet(v))}
-            ${pull ? `<span class="hit">${esc(labelFor("pulls", pull))}</span>` : ""}
+            ${pull ? `<span class="hit">${esc(pullLabel(pull, isJpSet((v.sets || [])[0])))}</span>` : ""}
             ${v.duration ? `<span class="dur">${clock(v.duration)}</span>` : ""}
             ${RIP_BANNER}
           </a>

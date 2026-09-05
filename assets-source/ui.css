@@ -4975,7 +4975,12 @@ button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}
 }
 .cc-table thead th{
   font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;
-  background:var(--band-bg);color:var(--chrome-ink);border-bottom:none;position:sticky;top:0;
+  /* border-bottom WAS none, which was fine while the hover ground was light:
+     the header sat 2.0:1 from a hovered first row. Against --navy-deep it is
+     1.12:1, and with no rule between them a hovered top row merges into the
+     sticky header while you scroll. The keyline costs nothing in the resting
+     state, where the stripe change already marks the boundary. */
+  background:var(--band-bg);color:var(--chrome-ink);border-bottom:1px solid var(--keyline);position:sticky;top:0;
   white-space:nowrap;
 }
 .cc-table tbody th{

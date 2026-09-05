@@ -802,7 +802,7 @@ const ETB = [
   { n: "8", when: "Plasma Blast to Silver Tempest", what: "Nine years at eight packs for main expansions, confirmed on the XY, Sun & Moon and Sword & Shield merchandise pages separately. This is the best-supported historical figure here.", trust: "two", ids: ["S7", "S13", "S14"] },
   { n: "10", when: "Most special expansions, Generations to Crown Zenith", what: "Which is why a flat claim that Elite Trainer Boxes used to hold eight is wrong for that whole window. Bulbapedia hedges with most, and so does this row.", trust: "one", ids: ["S7"] },
   { n: "9", when: "Scarlet & Violet onward, still current", what: "Nine on every main expansion since 2023, confirmed on three official expansion pages including the current one. This is the number on the shelf today.", trust: "both", ids: ["S9", "S10", "S11"] },
-  { n: "11", when: "Pokemon Center version, Scarlet & Violet onward", what: "Two more packs and a second promo card for the same money at the time of writing. Not a region split, a retail-channel one, and the names differ by two words.", trust: "both", ids: ["S7", "S9"] },
+  { n: "11", when: "Pokemon Center version, Scarlet & Violet onward", what: "Two more packs and a second promo card for $10 more at MSRP, $59.99 against $49.99. Not a region split, a retail-channel one, and the names differ by two words.", trust: "both", ids: ["S7", "S9"] },
   { n: "12", when: "Pokemon Center Pokemon GO and Pokemon Center Crown Zenith", what: "Two products only.", trust: "one", ids: ["S7"] },
   { n: "10 + 5", when: "Celebrations, 2021", what: "Ten Celebrations packs plus five from other Sword & Shield sets, and thirteen plus six in the Pokemon Center version. Celebrations packs hold four cards, so ten of them is not ten of anything else.", trust: "one", ids: ["S7", "S6"] },
   { n: "8", when: "Pokemon Center Chilling Reign, a packing error", what: "It should have held ten. Recorded because it is a real trap on one specific product rather than a rule.", trust: "one", ids: ["S7"] },
@@ -815,7 +815,7 @@ const REGIONAL = [
   { trap: "Brazilian booster packs", detail: "Seven cards a pack, and six before Sun & Moon.", trust: "one", ids: ["S1"] },
   { trap: "Diamond & Pearl Collector's Tins, September 2007", detail: "Four packs in both regions, but North America got two Mysterious Treasures and two Diamond & Pearl while the international run got four Diamond & Pearl.", trust: "one", ids: ["S15"] },
   { trap: "Lucario Collector's Tin", detail: "Four packs in the 2007 run and three in the 2008 re-issue. Same name, same art.", trust: "one", ids: ["S15"] },
-  { trap: "Elite Trainer Box against Pokemon Center Elite Trainer Box", detail: "Nine packs against eleven for the same expansion, sold at the same price at the time of writing.", trust: "official", ids: ["S9", "S11"] },
+  { trap: "Elite Trainer Box against Pokemon Center Elite Trainer Box", detail: "Nine packs against eleven for the same expansion, at $49.99 and $59.99 MSRP. The two often sit at the same price on a shelf, which is a retailer\u2019s markup on the cheaper one rather than parity.", trust: "official", ids: ["S9", "S11"] },
 ];
 
 const OLD = [

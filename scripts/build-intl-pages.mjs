@@ -566,6 +566,15 @@ function rarityBadge(written) {
 }
 
 function hitsBand(g, cls) {
+  /* THROUGH THE WRAPPER LIKE EVERY OTHER BAND. This one used to duplicate the
+     precedence inline -- rarityJp || rarity || h.rarity -- which produced the
+     right words but skipped the guard that throws when a card has no rarityJp
+     and a rung the two ladders do not spell the same. Output is unchanged today
+     (all 15 intl rows in data/hits.json already carry the Japanese vocabulary);
+     the point is that "no band prints a rarity without going through the
+     wrapper" was a claim the code did not actually enforce, and three separate
+     bands have now been caught printing the wrong ladder. */
+  const wrapRarity = makeWrapRarity(g);
   const rows = [...(HITS_BY_SET.get(g.id) || new Map()).values()].sort((a, b) => b.count - a.count);
   if (!rows.length) return "";
   const checklist = guideChecklist(g, g.id);
@@ -638,7 +647,7 @@ function hitsBand(g, cls) {
               it (CLAUDE.md's own gotcha: a backtick in a comment inside a
               template literal ends the literal), and rebuild and read the page
               before believing it. */ ""}
-        <p class="mine-r">${[esc(rarityLabel(h.m.rarityJp || h.m.rarity || h.rarity) || ""), h.m.n ? `#${esc(h.m.n)}` : ""].filter(Boolean).join(" &bull; ")}</p>
+        <p class="mine-r">${[esc(rarityLabel(wrapRarity(h.m) || h.rarity) || ""), h.m.n ? `#${esc(h.m.n)}` : ""].filter(Boolean).join(" &bull; ")}</p>
         ${h.rips.map((r) => `<a class="mine-w" href="/${esc(r.path)}">Watch the rip &rarr;</a>`).join("\n        ")}
       </li>`
         )
@@ -1784,7 +1793,7 @@ function sourceBand(g, cls) {
           : ""}</li>` : ""}
       ${g.nameNote ? `<li><strong>On the name.</strong> ${esc(g.nameNote)}</li>` : ""}
       ${tcg
-        ? `<li><strong>The rarity words here are the ${esc(g.langName)} ones.</strong> This set's tiers read Art Rare, Super Rare, Special Art Rare and Ultra Rare, which is what is printed on the wrapper. Our other imported guides read TCGdex's anglicized names for the same ladder, so the same card can be called two things across two of these pages. We do not map one onto the other: the two companies publish different names and inventing an equivalence between them is not something this site does.</li>`
+        ? `<li><strong>The rarity words here are the ${esc(g.langName)} ones.</strong> This set's tiers read Art Rare, Super Rare, Special Art Rare and Ultra Rare, which is what is printed on the wrapper, and TCGdex happens to publish this one set in those words. On the guides where it publishes the anglicized names instead, the ${esc(g.langName)} word is taken from the checklist's own rarity column rather than translated: the two ladders are lined up by reading what a card is actually filed as in both, on the same row, and where a rung has no answer in that column nothing is printed for it. We still do not invent an equivalence the two companies have not published.</li>`
         : `<li>Pokemon card names in English via the National Pokedex number, through <a href="https://pokeapi.co" rel="noopener" target="_blank" aria-label="PokeAPI, the source of the English card names, opens on pokeapi.co">PokeAPI</a>.</li>`}
       <li>This is a fan page. Nothing here is sold by us and none of it is official.</li>
     </ul>

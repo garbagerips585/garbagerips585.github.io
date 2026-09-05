@@ -554,21 +554,39 @@ const style = `
    its shape while it moves. */
 .xp-table thead th{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;
   text-transform:uppercase;color:var(--chrome-dim);background:var(--chrome-bg);
+  /* Same keyline, same reason, as .cc-table thead th in ui.css: --chrome-bg is
+     1.12:1 from the --navy-deep hover, so without a rule a hovered top row
+     merges into the sticky header. */
+  border-bottom:1px solid var(--keyline);
   position:sticky;top:0;z-index:1}
-/* HOVER was --lilac-pale on white, 1.13:1. It was a lilac tint on cream before
-   the repaint and is an off-white on white now. --paper-3 is the palette's only
-   ground that is actually distinguishable from the card, at 1.19:1, so the gold
-   rule on the left does the work and the tint only supports it. Hover only, so
-   nothing here is the sole carrier of any meaning. */
 /* --navy-deep, not --paper-3: same inversion as .cc-table in ui.css, where the
    repaint left --paper-3 lighter than the stripes it was chosen to sit under.
    It also put .xp-rips a (--ketchup-deep) at 3.60:1; on --navy-deep it is
-   8.07:1 and the hover is finally darker than either stripe. */
+   8.07:1 and the hover is finally darker than either stripe.
+
+   THE PARAGRAPH THAT USED TO SIT HERE described --paper-3 as "the palette's
+   only ground that is actually distinguishable from the card, at 1.19:1", which
+   was written before the repaint and was left standing when the rule beneath it
+   changed. Two contradicting notes in adjacent lines is worse than one stale
+   one, so it is gone rather than appended to. The companion change in ui.css
+   rewrote its stale paragraph instead of stacking on it; this now matches. */
 .xp-table tbody tr:hover{background:var(--navy-deep)}
 .xp-table tbody tr:hover th{box-shadow:inset 3px 0 0 var(--gold)}
 .xp-table tbody th{font-weight:600}
 .xp-name{display:flex;align-items:center;gap:10px}
-.xp-name img{flex:none;width:20px;height:20px;object-fit:contain}
+/* THE SYMBOL GETS ITS OWN GROUND AND KEEPS IT THROUGH THE HOVER. These are
+   transparent line-art marks and 48 of the 174 on this page are DARK, so they
+   were riding whatever the row was painted. Moving the hover down to
+   --navy-deep, which fixed the text, put five of them at 1.00:1 -- bw9, dv1,
+   sv10, sv5 and sv8 vanish completely -- and the four solid black ones (base6,
+   det1, ecard1, ecard3) at 1.28:1. --paper-3, the ground that change removed,
+   was in fact the BEST of the three for this column at 2.24:1. A plate that
+   does not move with the row is the way to have both: the text reads on the
+   dark hover and the symbol keeps a constant, light ground under it in either
+   state. This is the thing "the fix is the ground and not the text" missed --
+   there was a third thing in the row, and it was neither. */
+.xp-name img{flex:none;width:20px;height:20px;object-fit:contain;
+  background:var(--paper-3);border-radius:3px;padding:1px;box-sizing:content-box}
 .xp-nosym{flex:none;width:20px;height:20px;border-radius:4px;background:var(--hair)}
 /* "WE HAVE OPENED THIS SET" was #FFFFFF on #FFFFFF, 1.00:1, and the gold
    underline on the link was the entire surviving marker. That underline also

@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=037cc7e7">
 <!-- No preconnect to images.pokemontcg.io: every set symbol on this page is
      mirrored locally by scripts/sync-symbols.mjs and served from this origin. -->
-<link rel="stylesheet" href="/assets/ui.css?v=2871c8cc">
+<link rel="stylesheet" href="/assets/ui.css?v=93f76a45">
 <style>.xp{padding:var(--s7) 0 var(--s5)}
 .xp-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:40em;margin-bottom:var(--s5)}
 .xp-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3);margin-bottom:var(--s5)}
@@ -59,12 +59,14 @@ vertical-align:middle}
 .xp-table tbody tr:last-child th,.xp-table tbody tr:last-child td{border-bottom:0}
 .xp-table thead th{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;
 text-transform:uppercase;color:var(--chrome-dim);background:var(--chrome-bg);
+border-bottom:1px solid var(--keyline);
 position:sticky;top:0;z-index:1}
 .xp-table tbody tr:hover{background:var(--navy-deep)}
 .xp-table tbody tr:hover th{box-shadow:inset 3px 0 0 var(--gold)}
 .xp-table tbody th{font-weight:600}
 .xp-name{display:flex;align-items:center;gap:10px}
-.xp-name img{flex:none;width:20px;height:20px;object-fit:contain}
+.xp-name img{flex:none;width:20px;height:20px;object-fit:contain;
+background:var(--paper-3);border-radius:3px;padding:1px;box-sizing:content-box}
 .xp-nosym{flex:none;width:20px;height:20px;border-radius:4px;background:var(--hair)}
 .xp-table tr.mine th{box-shadow:inset 4px 0 0 var(--gold)}
 .xp-table tr.mine:hover th{box-shadow:inset 4px 0 0 var(--gold)}
@@ -105,7 +107,7 @@ gap:var(--s6);align-items:start}
   "name": "Pokemon TCG sets in release order, 1999 to 2026",
   "description": "Release dates and card counts for all 174 English Pokemon Trading Card Game sets.",
   "url": "https://garbagerips.com/expansions.html",
-  "dateModified": "2026-08-16",
+  "dateModified": "2026-09-05",
   "creator": {
     "@type": "Organization",
     "name": "Garbage Rips 585",
@@ -256,7 +258,7 @@ gap:var(--s6);align-items:start}
         <div class="xp-stat"><b>174</b><span>sets</span></div>
         <div class="xp-stat"><b>20,482</b><span>cards</span></div>
         <div class="xp-stat"><b>17</b><span>eras</span></div>
-        <div class="xp-stat"><b>28</b><span>of these have a guide</span></div>
+        <div class="xp-stat"><b>29</b><span>of these have a guide</span></div>
       </div>
 
       <nav class="xp-jump" aria-label="Jump to an era">
@@ -1951,9 +1953,9 @@ gap:var(--s6);align-items:start}
           <td class="xp-cards" data-cards="30">30</td>
           <td class="xp-rips"><span class="xp-none" aria-hidden="true">&mdash;</span><span class="sr-only">None</span></td>
         </tr>
-        <tr>
+        <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh12-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n">Silver Tempest</span></span>
+            <span class="xp-name"><img src="/assets/symbols/swsh12-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><span class="xp-n"><a href="/sets/silver-tempest.html">Silver Tempest</a></span></span>
           </th>
           <td class="xp-date"><time datetime="2022-11-11">Nov 11, 2022</time></td>
           <td class="xp-cards" data-cards="215">195 <span class="sec">+20</span><span class="sr-only">, plus 20 secret cards numbered past the printed total</span></td>
@@ -2421,7 +2423,7 @@ document.getElementById("copyAll")?.addEventListener("click", async (e) => {
     <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank" aria-label="See the whole collection on Collectr, opens on their site">See the whole collection on Collectr &rarr;</a></p>
     
     <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY &bull; <a href="/privacy.html">Privacy</a><br>
-    Set data from the Pokemon TCG API, last checked August 16, 2026.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+    Set data from the Pokemon TCG API, last checked September 5, 2026.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
 

@@ -16,9 +16,15 @@ WHY THE TITLE CHECK MEASURES PIXELS AND NOT CHARACTERS, which is the same
 mistake in a second costume. Google truncates a SERP title on WIDTH, and
 characters are a poor proxy for it: "Pokemon TCG Pocket: Can You Learn the Card
 Game From an App?" is exactly 60 characters, renders 622px, and is cut -- while
-41 titles longer than 60 characters render well inside the cut and are fine. A
-60-character rule therefore reported 27 correct pages and stayed silent about 8
+29 titles longer than 60 characters render inside the cut and are fine. A
+60-character rule therefore reported 29 correct pages and stayed silent about 8
 broken ones, which is both failure modes at once.
+
+BOTH FIGURES IN THAT SENTENCE WERE WRONG WHEN IT WAS WRITTEN, which is a poor
+showing for a paragraph about miscounting. They said 41 and 27: 41 is the count
+at 600px rather than the 580px this actually fires at, and 27 reproduces at no
+threshold at all. The 12 titles between 580 and 600 are neither silent nor
+"fine" -- they print as `edge`.
 """
 import re, sys, json, pathlib, collections, html as _html
 
@@ -46,11 +52,19 @@ ALL = "--all" in sys.argv
 SERP_PX, SURE_PX = 580, 600
 
 # Google strips emoji out of SERP titles, so measuring them overstates every
-# title carrying one -- 352 of the indexable pages here, mostly /playlists,
-# where the flag glyph is worth about 21px that will never be drawn.
+# title carrying one -- 353 of the indexable pages here, 93% of them under /rip,
+# where the glyphs are worth 20-50px that will never be drawn.
+#
+# U+2640 AND U+2642 ARE CARVED OUT OF THAT RANGE ON PURPOSE. Google draws them
+# as text, not emoji, and they are part of the Pokemon's name: the title of
+# /pokemon/nidoran-m.html ends the name in a male sign, and stripping it
+# measured that title 15px narrower than it actually renders. Neither Nidoran is
+# anywhere near the cut so no verdict moved, but a rule that quietly deletes a
+# character out of a name is wrong before it is consequential. The Arrows block
+# and Miscellaneous Technical came out with them: neither is emoji either.
 EMOJI = re.compile(
-    "[\U0001F000-\U0001FAFF\U00002600-\U000027BF\U00002B00-\U00002BFF"
-    "\U0001F1E6-\U0001F1FF\U00002190-\U000021FF\U00002300-\U000023FF]"
+    "[\U0001F000-\U0001FAFF\U00002600-\U0000263F\U00002643-\U000027BF"
+    "\U00002B00-\U00002BFF\U0001F1E6-\U0001F1FF]"
     "|[\U0000FE00-\U0000FE0F\U0000200D\U000020E3]")
 
 def _load_font():

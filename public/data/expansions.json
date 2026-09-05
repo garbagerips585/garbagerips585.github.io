@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-08-16",
+  "syncedAt": "2026-09-05",
   "source": "https://api.pokemontcg.io",
   "seriesOrder": [
     "Base",
@@ -1929,8 +1929,8 @@
       "logo": "https://images.pokemontcg.io/swsh12/logo.png",
       "symbol": "https://images.pokemontcg.io/swsh12/symbol.png",
       "promo": false,
-      "slug": null,
-      "rips": 0
+      "slug": "silver-tempest",
+      "rips": 3
     },
     {
       "apiId": "swsh12tg",
@@ -2034,7 +2034,7 @@
       "symbol": "https://images.pokemontcg.io/sv3/symbol.png",
       "promo": false,
       "slug": "obsidian-flames",
-      "rips": 1
+      "rips": 2
     },
     {
       "apiId": "sv3pt5",
@@ -2060,7 +2060,7 @@
       "symbol": "https://images.pokemontcg.io/sv4/symbol.png",
       "promo": false,
       "slug": "paradox-rift",
-      "rips": 3
+      "rips": 4
     },
     {
       "apiId": "sv4pt5",
@@ -2138,7 +2138,7 @@
       "symbol": "https://images.pokemontcg.io/sv8/symbol.png",
       "promo": false,
       "slug": "surging-sparks",
-      "rips": 9
+      "rips": 10
     },
     {
       "apiId": "sv8pt5",
@@ -2164,7 +2164,7 @@
       "symbol": "https://images.pokemontcg.io/sv9/symbol.png",
       "promo": false,
       "slug": "journey-together",
-      "rips": 15
+      "rips": 19
     },
     {
       "apiId": "sv10",
@@ -2177,7 +2177,7 @@
       "symbol": "https://images.pokemontcg.io/sv10/symbol.png",
       "promo": false,
       "slug": "destined-rivals",
-      "rips": 15
+      "rips": 17
     },
     {
       "apiId": "zsv10pt5",
@@ -2190,7 +2190,7 @@
       "symbol": "https://images.pokemontcg.io/zsv10pt5/symbol.png",
       "promo": false,
       "slug": "black-bolt",
-      "rips": 0
+      "rips": 3
     },
     {
       "apiId": "rsv10pt5",
@@ -2203,7 +2203,7 @@
       "symbol": "https://images.pokemontcg.io/rsv10pt5/symbol.png",
       "promo": false,
       "slug": "white-flare",
-      "rips": 0
+      "rips": 3
     },
     {
       "apiId": "me1",
@@ -2216,7 +2216,7 @@
       "symbol": "https://images.pokemontcg.io/me1/symbol.png",
       "promo": false,
       "slug": "mega-evolution",
-      "rips": 7
+      "rips": 20
     },
     {
       "apiId": "me2",
@@ -2229,7 +2229,7 @@
       "symbol": "https://images.pokemontcg.io/me2/symbol.png",
       "promo": false,
       "slug": "phantasmal-flames",
-      "rips": 17
+      "rips": 25
     },
     {
       "apiId": "me2pt5",
@@ -2242,7 +2242,7 @@
       "symbol": "https://images.scrydex.com/pokemon/me2pt5-symbol/symbol",
       "promo": false,
       "slug": "ascended-heroes",
-      "rips": 55
+      "rips": 59
     },
     {
       "apiId": "me3",
@@ -2255,7 +2255,7 @@
       "symbol": "https://images.scrydex.com/pokemon/me3-symbol/symbol",
       "promo": false,
       "slug": "perfect-order",
-      "rips": 44
+      "rips": 50
     },
     {
       "apiId": "me4",
@@ -2268,7 +2268,7 @@
       "symbol": "https://images.scrydex.com/pokemon/me4-symbol/symbol",
       "promo": false,
       "slug": "chaos-rising",
-      "rips": 52
+      "rips": 59
     },
     {
       "apiId": "me5",
@@ -2281,7 +2281,7 @@
       "symbol": "https://images.scrydex.com/pokemon/me5-symbol/symbol",
       "promo": false,
       "slug": "pitch-black",
-      "rips": 21
+      "rips": 27
     }
   ]
 }

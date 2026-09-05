@@ -439,7 +439,7 @@ ${MENU}
 
     <div class="fk-golden">
       <p class="fk-golden-h">Read this first</p>
-      <h2>PSA got a lot <span class="hl">pricier</span> this summer</h2>
+      <h2>PSA got a lot <span class="hl">pricier</span> in June 2026</h2>
       <p>${esc(psaCo.note)}</p>
     </div>
 
