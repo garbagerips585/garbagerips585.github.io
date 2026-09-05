@@ -70,7 +70,7 @@
     "is a different card; see that module for the rest of the reasoning."
   ],
   "source": "My Hits tab",
-  "checked": "2026-08-31",
+  "checked": "2026-09-05",
   "videos": {
     "kj7532tb0_I": [
       {
@@ -2271,6 +2271,17 @@
         "number": "016",
         "hallOfFame": false,
         "handNote": "The owner, 3 September 2026: \"Single Booster Pack , Pack #11 , Hit Yes, Salazzle ex - Double Black Star - Double Rare - Perfect Order\". Perfect Order prints Salazzle ex twice, 016 Double rare and 101 Ultra Rare, and the rarity names exactly one, which is the rule pickPrinting follows. \"Double Black Star\" is the same claim said twice: two black stars IS the Double Rare symbol, so the symbol and the name agree and nothing here is inferred. Hand-kept until the My Hits tab carries it."
+      }
+    ],
+    "5lv5he4FWxM": [
+      {
+        "card": "Mega Lucario ex",
+        "set": "mega-evolution",
+        "setName": "Mega Evolution",
+        "rarity": "Double Rare",
+        "number": "077",
+        "hallOfFame": false,
+        "handNote": "The owner, 5 September 2026: \"Single Booster Pack , Pack #4 , Hit yes, Mega Lucario ex - Double Black Star - Double Rare, Mega Evolution\". Mega Evolution prints Mega Lucario ex four times -- 077 Double rare, 160 Ultra Rare, 179 Special illustration rare, 188 Mega Hyper Rare -- and the rarity names exactly one, which is the rule pickPrinting follows. \"Double Black Star\" is the same claim said twice: two black stars IS the Double Rare symbol, so the symbol and the name agree and nothing here is inferred. Worth saying plainly that this is the CHEAPEST of the four, about $1.40 raw against $244 for the Mega Hyper Rare: the rarity he typed is what picks the printing, and it is not the one a guess reaching for the best card would have landed on. Hand-kept until the My Hits tab carries it."
       }
     ]
   }

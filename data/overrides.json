@@ -2707,5 +2707,9 @@
   "1mYM0mYP_bA": {
     "packNumber": 12,
     "packNumberWhy": "The owner, 4 September 2026: \"Single Booster Pack, Pack #12 , Hit - No, Phantasmal Flames\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. His sheet has not caught up with this rip yet, so it lives here rather than in manual.json, which the next CSV import would rebuild without it."
+  },
+  "5lv5he4FWxM": {
+    "packNumber": 4,
+    "packNumberWhy": "The owner, 5 September 2026: \"Single Booster Pack , Pack #4 , Hit yes, Mega Lucario ex - Double Black Star - Double Rare, Mega Evolution\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. This title does read \"Pack #4\", and that is still not a source -- it is the same string the regex was banned from trusting. His sheet has not caught up with this rip yet, so it lives here rather than in manual.json, which the next CSV import would rebuild without it."
   }
 }
