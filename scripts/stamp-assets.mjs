@@ -372,16 +372,40 @@ const GA_FENCE = /<!--analytics:start-->[\s\S]*?<!--analytics:end-->/g;
      it by default. Do Not Track is largely dead as a standard and costs one
      comparison to keep faith with; both spellings are checked because IE and
      old Safari put it on `window` and `navigator.msDoNotTrack` respectively.
-     THE SCRIPT IS INJECTED RATHER THAN WRITTEN AS A TAG, which is the only real
-     change to the loading behaviour: the preload scanner can no longer see the
-     url during the HTML parse. That is the ONE thing to be careful about here,
-     because this site has form -- a "performance fix" that deferred gtag to the
-     load event cost the desktop score 16 points on 25 August 2026. This is not
-     that: the inline script runs the instant the parser reaches it, in the same
-     head position, and the injected tag is still `async`. MEASURED before and
-     after over five runs at 390x844 on a throttled 1.6Mbps 4x-CPU profile, home
-     page and a text-LCP page: FCP, LCP and total blocking time all identical to
-     the millisecond. Re-measure if you touch it.
+     THE SCRIPT IS INJECTED RATHER THAN WRITTEN AS A TAG, and since 5 September
+     2026 the injection is also DEFERRED. gtag/js transfers about 172KB, which
+     is more than the LCP image, and it held bandwidth from roughly 723ms to
+     2800ms -- directly across the LCP image download -- for 91% of all the
+     scripting on the page.
+
+     THE DEFER WAS MEASURED BEFORE IT WAS BELIEVED, because this site has form:
+     a "performance fix" that deferred gtag to the LOAD EVENT cost the desktop
+     score 16 points on 25 August 2026, and the note that replaced it said
+     re-measure if you touch it. So this was measured against the live site at
+     390x844, DPR 3, 4x CPU, 1.6Mbps, cache off, three runs an arm, by delaying
+     the real googletagmanager request rather than by reasoning about it:
+
+         baseline                 1936 2016 2124   median 2016ms
+         injection delayed 1500ms 1684 1712 1820   median 1712ms
+         gtag blocked outright    1696 1704 1812   median 1704ms
+
+     The defer captures the whole win -- 1712 against 1704 is noise -- so ~300ms
+     comes back on all 1,507 pages and nothing is given up to get it. The load
+     event is much later than idle-with-a-1500ms-ceiling, which is the likeliest
+     reason the August attempt went the other way.
+
+     THE setTimeout IS NOT A BELT-AND-BRACES FALLBACK, IT IS THE SAFARI PATH.
+     Safari has never shipped requestIdleCallback, so an idle-only defer would
+     have stopped loading analytics entirely on iPhone, which is most of this
+     audience -- a silent 100% data loss dressed as a speed win. pointerdown
+     brings it forward again for anyone who touches the page early.
+
+     THE PAGEVIEW STILL FIRES. `gtag('js')` and `gtag('config')` above push into
+     dataLayer before any of this, and gtag.js drains that buffer when it
+     arrives, so deferring the tag moves when the hit is sent, not whether. A
+     visitor who leaves inside 1.5s is not counted -- but they were not counted
+     before either, because the script did not finish until about 2.8s.
+     Re-measure if you touch it.
      gtag GOES ON `window` DELIBERATELY. The standard snippet declares it as a
      bare function in global scope; inside this IIFE it would not be, and
      anything on the site that later calls gtag() would throw. */
@@ -391,9 +415,14 @@ const GA_FENCE = /<!--analytics:start-->[\s\S]*?<!--analytics:end-->/g;
       `window.dataLayer=window.dataLayer||[];` +
       `window.gtag=function(){dataLayer.push(arguments)};` +
       `gtag('js',new Date());gtag('config','${GA4_ID}');` +
+      `var d=false,g=function(){if(d)return;d=true;` +
       `var s=document.createElement('script');s.async=true;` +
       `s.src='https://www.googletagmanager.com/gtag/js?id=${GA4_ID}';` +
-      `document.head.appendChild(s);})();</script>`
+      `document.head.appendChild(s)};` +
+      `if(window.requestIdleCallback)requestIdleCallback(g,{timeout:1500});` +
+      `setTimeout(g,1500);` +
+      `addEventListener('pointerdown',g,{once:true,passive:true});` +
+      `})();</script>`
     : "";
   const block = verify || ga ? GA_OPEN + verify + ga + GA_CLOSE : "";
   let injected = 0;
