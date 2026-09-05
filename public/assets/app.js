@@ -175,7 +175,7 @@
   var dataPromise = null;
   function loadVideos() {
     if (dataPromise) return dataPromise;
-    dataPromise = fetch("data/videos.json")
+    dataPromise = fetch("/data/videos.json")
       .then(function (r) {
         if (!r.ok) throw new Error("videos.json " + r.status);
         return r.json();
@@ -187,7 +187,7 @@
     return dataPromise;
   }
   function loadPlaylists() {
-    return fetch("data/playlists.json")
+    return fetch("/data/playlists.json")
       .then(function (r) { return r.ok ? r.json() : { playlists: [] }; })
       .catch(function () { return { playlists: [] }; });
   }

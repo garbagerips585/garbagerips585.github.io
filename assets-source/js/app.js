@@ -323,7 +323,11 @@
   var dataPromise = null;
   function loadVideos() {
     if (dataPromise) return dataPromise;
-    dataPromise = fetch("data/videos.json")
+    /* ROOT-ABSOLUTE. These were relative, which happens to work because every
+       page that calls them today sits at the root -- and silently 404s the day
+       one does not: /rip/data/videos.json is a real request this would make.
+       Every other asset reference on the site is already root-absolute. */
+    dataPromise = fetch("/data/videos.json")
       .then(function (r) {
         if (!r.ok) throw new Error("videos.json " + r.status);
         return r.json();
@@ -348,7 +352,7 @@
   }
 
   function loadPlaylists() {
-    return fetch("data/playlists.json")
+    return fetch("/data/playlists.json")
       .then(function (r) { return r.ok ? r.json() : { playlists: [] }; })
       .catch(function () { return { playlists: [] }; });
   }
