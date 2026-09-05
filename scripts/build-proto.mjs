@@ -41,6 +41,21 @@ import {
 import { brandMark, BRAND_STYLE_MIN } from "../shared/brands.mjs";
 import { daysSince } from "../shared/today.mjs";
 
+/* A ROW WITH NO LOGO PRINTED ITS NAME TWICE. brandMark() falls back to a
+   hatched .bmk-n chip that CONTAINS the retailer's name, and both call sites
+   below follow the mark with <b>${r.name}</b> -- so Dick's Sporting Goods, the
+   one retailer in this list with no SVG, rendered as "Dick's Sporting
+   Goods Dick's Sporting Goods". The chip is aria-hidden, so a screen reader
+   heard it once and only people looking at the page saw the fault.
+   build-buying.mjs and build-selling.mjs already do exactly this, for the same
+   reason and in the same words: a row with no mark simply starts with its
+   name. */
+const wdrMark = (id, label) => {
+  const m = brandMark(id, label);
+  return m.includes("bmk-n") ? "" : m;
+};
+
+
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 // The live home page and the prototype share one design and one generator, so
 // the prototype can never drift into showing something the real page does not.
@@ -2010,7 +2025,7 @@ try {
       // The logo is exactly the reason the hedge has to be louder, not quieter.
       // If a layout change ever costs the chip its prominence, move the mark.
       return `        <li class="wdr"${dies ? ` data-expires="${esc(ex)}" data-perish="1"` : ""}>
-          <p class="wdr-top">${brandMark(d.retailer, r.name)}<b>${esc(r.name)}</b><span class="wdr-ch">${
+          <p class="wdr-top">${wdrMark(d.retailer, r.name)}<b>${esc(r.name)}</b><span class="wdr-ch">${
             d.channel === "store" ? "In store" : "Online"
           }</span><span class="wdr-cf">${esc(CONF_LABEL[d.confidence] || CONF_LABEL.expected)}</span></p>
           ${d.when ? `<p class="wdr-when">${esc(d.when)}</p>` : ""}
@@ -2061,7 +2076,7 @@ try {
     const card = (g) => {
       const r = R[g.retailer];
       return `        <li class="wdr">
-          <p class="wdr-top">${brandMark(g.retailer, r.name)}<b>${esc(r.name)}</b></p>
+          <p class="wdr-top">${wdrMark(g.retailer, r.name)}<b>${esc(r.name)}</b></p>
           <ul class="wdr-ls">
 ${g.lines.map(line).join("\n")}
           </ul>

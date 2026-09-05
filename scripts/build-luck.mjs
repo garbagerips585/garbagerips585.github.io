@@ -1747,12 +1747,21 @@ ${cols}
   const label =
     `A stacked column chart of rips filmed each month from ${first.label} ${first.year} to ${last.label} ${last.year}. ` +
     `Each column is split into the rips that hit, the rips that produced nothing, and the rips not yet logged either way. ` +
-    `The tallest month is ${maxFilmed} rips. ${gaps.length === 0 ? "Every month has an answer for every rip." : `${gaps.length} of the ${n} months still carry rips with no answer yet.`}`;
+    `The tallest month is ${maxFilmed} rips. ${gaps.length === 0 ? "Every month has an answer for every rip." : `${gaps.length} of the ${n} month${n === 1 ? "" : "s"} still ${gaps.length === 1 ? "carries" : "carry"} rips with no answer yet.`}`;
   const cap = `Every one of the ${videos.length} rips, by the month it went up. The hatched part of a column is the part of that
         month nobody has answered yet, which is why this drawing is also the coverage picture: ${
           gaps.length === 0
             ? "there is none of it left."
-            : `${gaps.length} of the ${n} months still have some, and the shortfall is ${videos.length - judged.length} rips in total.`
+            /* BOTH COUNTS CAN BE 1 AND TODAY BOTH ARE, which is the whole reason
+               this reads "1 of the 8 months still have some, and the shortfall is
+               1 rips". Three different numbers govern three different words and
+               it is worth being explicit about which is which: "months" is
+               plural because there are ${n} of them, the VERB agrees with
+               gaps.length because the subject is "${gaps.length} of the ${n}",
+               and "rips" pluralises off the shortfall alone. Pluralising
+               "months" off gaps.length instead reads "1 of the 8 month", which
+               is how this was first mis-fixed. */
+            : `${gaps.length} of the ${n} month${n === 1 ? "" : "s"} still ${gaps.length === 1 ? "has" : "have"} some, and the shortfall is ${videos.length - judged.length} rip${videos.length - judged.length === 1 ? "" : "s"} in total.`
         } As the log fills, the hatching goes and nothing else about this chart moves.`;
   return svgFig("mf", label, W, H, body, cap);
 };

@@ -101,6 +101,24 @@ import {
 import { esc, longDate, imgDims, productSrcsetAttr, moneyExact, count, clipMeta} from "../shared/format.mjs";
 import { spread } from "../shared/msrp-basis.mjs";
 
+/* CUT AT A WORD, NOT AT A CHARACTER. Both call sites below used to slice a
+   fixed number of characters off a headline, which published ten citation
+   links reading "Ultra-Premium Collect...", "Prismatic Evolutions Supe...",
+   "Poke..." and "Elite Train...". The full title survives in the aria-label,
+   so a screen reader got the whole thing and everyone looking at the page got
+   a broken word -- the one reader who could not tell was the one being served
+   correctly. Backing up to the last space also drops the trailing space before
+   the ellipsis that four more of them had. The 0.6 floor stops a title with no
+   early space from collapsing to almost nothing: below that it is better to
+   break the word than to print three characters and a dot. */
+const clip = (text, limit) => {
+  if (text.length <= limit) return text;
+  const cut = text.slice(0, limit);
+  const sp = cut.lastIndexOf(" ");
+  return `${(sp > limit * 0.6 ? cut.slice(0, sp) : cut).replace(/[\s,;:.\u2013\u2014-]+$/, "")}...`;
+};
+
+
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 const cur = JSON.parse(await readFile(join(ROOT, "data/pack-counts-current.json"), "utf8"));
@@ -512,7 +530,7 @@ const cite = (...ids) =>
       const short = s.title.replace(/\s*\(TCG\)$/, "").replace(/^Expansion Overview:\s*/, "");
       return `<a href="${esc(s.url)}" rel="noopener nofollow" target="_blank" aria-label="${esc(
         s.title
-      )}, on ${esc(site)}">${esc(short.length > 42 ? `${short.slice(0, 40)}...` : short)}<span>${esc(
+      )}, on ${esc(site)}">${esc(clip(short, 42))}<span>${esc(
         site
       )}</span></a>`;
     })
@@ -854,7 +872,7 @@ const sourceLine = (r) => {
       return `<a href="${esc(s.url)}" rel="noopener nofollow" target="_blank" aria-label="${esc(
         r.name
       )}, source: ${esc(s.title)}, on ${esc(s.publisher)}">${esc(
-        short.length > 44 ? `${short.slice(0, 42)}...` : short
+        clip(short, 44)
       )}<span>${esc(s.publisher)}</span></a>`;
     })
     .join(" ")}${cur.readAt ? `<span class="hp-read">All read ${esc(longDate(cur.readAt))}</span>` : ""}</p>`;
