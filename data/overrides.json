@@ -2711,5 +2711,10 @@
   "5lv5he4FWxM": {
     "packNumber": 4,
     "packNumberWhy": "The owner, 5 September 2026: \"Single Booster Pack , Pack #4 , Hit yes, Mega Lucario ex - Double Black Star - Double Rare, Mega Evolution\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. This title does read \"Pack #4\", and that is still not a source -- it is the same string the regex was banned from trusting. His sheet has not caught up with this rip yet, so it lives here rather than in manual.json, which the next CSV import would rebuild without it."
+  },
+  "38yPPGnA7Vk": {
+    "packNumber": 7,
+    "boxNumber": 3,
+    "packNumberWhy": "The owner, 6 September 2026: \"Todays video is Chaos Rising, ETB #3, Pack #7, Hit yes - Xerneas - Single Gold Star - Illustration Rare\", and separately \"todays rip is a pack bought from LingSter Games\". Both numbers are typed, which is the only way either may be set: riplabel.mjs refuses to read a pack number out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. This title says \"Pack #7\" and nothing about the box at all, and the box is the half a reader cannot recover: packs 1, 2, 3 and 5 of this same ETB carry boxNumber 3 because their titles happened to say so, and packs 4 and 6 are blank because theirs did not. His sheet has not caught up with this rip yet, so it lives here rather than in manual.json, which the next CSV import would rebuild without it."
   }
 }

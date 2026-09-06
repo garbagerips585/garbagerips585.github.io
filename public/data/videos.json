@@ -15,7 +15,7 @@
       "published": "2026-09-06",
       "publishedAt": "2026-09-06T10:45:02Z",
       "duration": 25,
-      "views": 506,
+      "views": 748,
       "vertical": true,
       "short": true,
       "sets": [
@@ -25,7 +25,10 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Chaos Rising ETB"
+      "boxNumber": 3,
+      "packNumber": 7,
+      "packs": 1,
+      "label": "Chaos Rising ETB 3 - Pack 7"
     },
     {
       "id": "5lv5he4FWxM",
@@ -34,7 +37,7 @@
       "published": "2026-09-05",
       "publishedAt": "2026-09-05T10:30:30Z",
       "duration": 25,
-      "views": 902,
+      "views": 901,
       "vertical": true,
       "short": true,
       "sets": [

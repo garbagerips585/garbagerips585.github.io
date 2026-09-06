@@ -32,5 +32,9 @@
     "show": "CollectorFest Monthly",
     "city": "Rochester, NY",
     "why": "The owner, 2 September 2026: \"you already know who the vendor is we have a vendor page and logo for them so add in cards bought from TOAK Pulls\" and \"add in that it was bought a a local card show, Collector Fest in Rochester, NY at JCC\". The description for this rip says \"from TOAK Pulls\" as plain text rather than @TOAKPulls, so the automatic credit finds nothing; the show half would have resolved on its own."
+  },
+  "38yPPGnA7Vk": {
+    "seller": "lingstergames",
+    "why": "The owner, 6 September 2026: \"Todays video is Chaos Rising, ETB #3, Pack #7, Hit yes - Xerneas - Single Gold Star - Illustration Rare\", and separately \"todays rip is a pack bought from LingSter Games\". LingSterGames is the YouTube handle on their /shops.html listing, which is the key sourceIndex() maps on. No show and no city: this was bought over a shop counter on West Ridge Road, not at a card show, and those two fields are the show gate rather than an address."
   }
 }
