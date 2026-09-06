@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 276099,
-    "subscribers": 358,
-    "videos": 334,
-    "readAt": "2026-09-05"
+    "views": 276121,
+    "subscribers": 359,
+    "videos": 335,
+    "readAt": "2026-09-06"
   },
-  "syncedAt": "2026-09-05",
+  "syncedAt": "2026-09-06",
   "videos": [
+    {
+      "id": "38yPPGnA7Vk",
+      "title": "Chaos Rising Pack #7 🦌✨ | This Xerneas is STUNNING!",
+      "path": "rip/chaos-rising-pack-7-this-xerneas-is-stunning-38yPPGnA7Vk.html",
+      "published": "2026-09-06",
+      "publishedAt": "2026-09-06T10:45:02Z",
+      "duration": 25,
+      "views": 506,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "chaos-rising"
+      ],
+      "products": [
+        "etb"
+      ],
+      "pulls": [],
+      "label": "Chaos Rising ETB"
+    },
     {
       "id": "5lv5he4FWxM",
       "title": "Mega Evolution Pack #4 ⚔️ | We Finally Hit a MEGA! 💥",
@@ -15,7 +34,7 @@
       "published": "2026-09-05",
       "publishedAt": "2026-09-05T10:30:30Z",
       "duration": 25,
-      "views": 280,
+      "views": 902,
       "vertical": true,
       "short": true,
       "sets": [
@@ -36,7 +55,7 @@
       "published": "2026-09-04",
       "publishedAt": "2026-09-04T10:20:25Z",
       "duration": 21,
-      "views": 1076,
+      "views": 1122,
       "vertical": true,
       "short": true,
       "sets": [
@@ -57,7 +76,7 @@
       "published": "2026-09-03",
       "publishedAt": "2026-09-03T10:12:15Z",
       "duration": 20,
-      "views": 1377,
+      "views": 1417,
       "vertical": true,
       "short": true,
       "sets": [
@@ -78,7 +97,7 @@
       "published": "2026-09-02",
       "publishedAt": "2026-09-02T10:10:23Z",
       "duration": 51,
-      "views": 973,
+      "views": 986,
       "vertical": true,
       "short": true,
       "sets": [
@@ -199,7 +218,7 @@
       "published": "2026-08-29",
       "publishedAt": "2026-08-29T12:09:23Z",
       "duration": 22,
-      "views": 1086,
+      "views": 1089,
       "vertical": true,
       "short": true,
       "sets": [
@@ -545,7 +564,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1032,
+      "views": 1037,
       "vertical": true,
       "short": true,
       "sets": [
@@ -787,7 +806,7 @@
       "published": "2026-08-12",
       "publishedAt": "2026-08-12T12:28:06Z",
       "duration": 20,
-      "views": 670,
+      "views": 671,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1167,7 +1186,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 923,
+      "views": 924,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1902,7 +1921,7 @@
       "published": "2026-07-17",
       "publishedAt": "2026-07-17T23:45:08Z",
       "duration": 23,
-      "views": 639,
+      "views": 638,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2751,7 +2770,7 @@
       "published": "2026-07-05",
       "publishedAt": "2026-07-05T23:53:31Z",
       "duration": 23,
-      "views": 814,
+      "views": 815,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3575,7 +3594,7 @@
       "published": "2026-06-23",
       "publishedAt": "2026-06-23T10:13:30Z",
       "duration": 18,
-      "views": 35,
+      "views": 38,
       "vertical": true,
       "short": true,
       "sets": [
@@ -11619,7 +11638,7 @@
       "published": "2026-02-01",
       "publishedAt": "2026-02-01T01:28:21Z",
       "duration": 416,
-      "views": 91,
+      "views": 92,
       "vertical": false,
       "short": false,
       "sets": [
