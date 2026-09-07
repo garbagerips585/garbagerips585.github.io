@@ -19,7 +19,7 @@
 
 ## The local scene, which is the part least well covered elsewhere
 
-- [Card shows calendar](https://garbagerips.com/card-shows.html): 69 upcoming shows around Rochester, NY, Buffalo and Syracuse. 24 are all Pokemon, 39 more are mixed shows where Pokemon vendors are confirmed, 44 are free. Each listing names the venue, the full street address, the admission and who confirmed the Pokemon
+- [Card shows calendar](https://garbagerips.com/card-shows.html): 67 upcoming shows around Rochester, NY, Buffalo and Syracuse. 24 are all Pokemon, 38 more are mixed shows where Pokemon vendors are confirmed, 44 are free. Each listing names the venue, the full street address, the admission and who confirmed the Pokemon
 - [Card show 101](https://garbagerips.com/card-show-101.html): what happens at a card show, what to bring, how vendors pay, and what percentage of market value they actually offer. The buy rates are other people's published figures, each one named and dated
 - [Card shops in Rochester, NY](https://garbagerips.com/shops.html): 7 shops with hours taken only from each shop's own site, plus where you can sit down and play
 - [Rochester Pokemon scene](https://garbagerips.com/rochester.html): the hub tying the shows, the shops and the local pages together
@@ -39,7 +39,7 @@
 
 ## The channel
 
-- [Every rip](https://garbagerips.com/videos.html): 335 videos, each with its own page on this site
+- [Every rip](https://garbagerips.com/videos.html): 336 videos, each with its own page on this site
 - [Hall of Fame](https://garbagerips.com/hall.html): every card pulled on camera, with what it is worth and the rip it came from
 - [About](https://garbagerips.com/about.html): who runs this and why
 

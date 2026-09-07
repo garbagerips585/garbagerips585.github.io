@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 276121,
-    "subscribers": 359,
-    "videos": 335,
-    "readAt": "2026-09-06"
+    "views": 276142,
+    "subscribers": 362,
+    "videos": 336,
+    "readAt": "2026-09-07"
   },
-  "syncedAt": "2026-09-06",
+  "syncedAt": "2026-09-07",
   "videos": [
+    {
+      "id": "YCAtXeZ0jhA",
+      "title": "Destined Rivals Pack #13 💀 | The Unlucky Streak is REAL!",
+      "path": "rip/destined-rivals-pack-13-the-unlucky-streak-is-real-YCAtXeZ0jhA.html",
+      "published": "2026-09-07",
+      "publishedAt": "2026-09-07T10:03:11Z",
+      "duration": 19,
+      "views": 772,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "destined-rivals"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Destined Rivals Pack"
+    },
     {
       "id": "38yPPGnA7Vk",
       "title": "Chaos Rising Pack #7 🦌✨ | This Xerneas is STUNNING!",
@@ -15,7 +34,7 @@
       "published": "2026-09-06",
       "publishedAt": "2026-09-06T10:45:02Z",
       "duration": 25,
-      "views": 748,
+      "views": 1056,
       "vertical": true,
       "short": true,
       "sets": [
@@ -37,7 +56,7 @@
       "published": "2026-09-05",
       "publishedAt": "2026-09-05T10:30:30Z",
       "duration": 25,
-      "views": 901,
+      "views": 925,
       "vertical": true,
       "short": true,
       "sets": [
@@ -58,7 +77,7 @@
       "published": "2026-09-04",
       "publishedAt": "2026-09-04T10:20:25Z",
       "duration": 21,
-      "views": 1122,
+      "views": 1156,
       "vertical": true,
       "short": true,
       "sets": [
@@ -79,7 +98,7 @@
       "published": "2026-09-03",
       "publishedAt": "2026-09-03T10:12:15Z",
       "duration": 20,
-      "views": 1417,
+      "views": 1429,
       "vertical": true,
       "short": true,
       "sets": [
@@ -100,7 +119,7 @@
       "published": "2026-09-02",
       "publishedAt": "2026-09-02T10:10:23Z",
       "duration": 51,
-      "views": 986,
+      "views": 989,
       "vertical": true,
       "short": true,
       "sets": [
@@ -221,7 +240,7 @@
       "published": "2026-08-29",
       "publishedAt": "2026-08-29T12:09:23Z",
       "duration": 22,
-      "views": 1089,
+      "views": 1090,
       "vertical": true,
       "short": true,
       "sets": [
@@ -326,7 +345,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1160,
+      "views": 1161,
       "vertical": true,
       "short": true,
       "sets": [
@@ -362,7 +381,7 @@
       "published": "2026-08-25",
       "publishedAt": "2026-08-25T11:58:34Z",
       "duration": 19,
-      "views": 854,
+      "views": 855,
       "vertical": true,
       "short": true,
       "sets": [
@@ -429,7 +448,7 @@
       "published": "2026-08-23",
       "publishedAt": "2026-08-23T12:40:33Z",
       "duration": 21,
-      "views": 966,
+      "views": 967,
       "vertical": true,
       "short": true,
       "sets": [
@@ -567,7 +586,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1037,
+      "views": 1042,
       "vertical": true,
       "short": true,
       "sets": [
@@ -639,7 +658,7 @@
       "published": "2026-08-17",
       "publishedAt": "2026-08-17T12:04:11Z",
       "duration": 20,
-      "views": 801,
+      "views": 803,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1189,7 +1208,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 924,
+      "views": 925,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1504,7 +1523,7 @@
       "published": "2026-07-23",
       "publishedAt": "2026-07-23T12:23:31Z",
       "duration": 27,
-      "views": 1127,
+      "views": 1128,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2560,7 +2579,7 @@
       "published": "2026-07-08",
       "publishedAt": "2026-07-08T23:55:23Z",
       "duration": 21,
-      "views": 1024,
+      "views": 1025,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4768,7 +4787,7 @@
       "published": "2026-06-06",
       "publishedAt": "2026-06-06T11:00:06Z",
       "duration": 18,
-      "views": 916,
+      "views": 917,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5083,7 +5102,7 @@
       "published": "2026-06-02",
       "publishedAt": "2026-06-02T23:10:16Z",
       "duration": 17,
-      "views": 1112,
+      "views": 1113,
       "vertical": true,
       "short": true,
       "sets": [
@@ -6358,7 +6377,7 @@
       "published": "2026-05-14",
       "publishedAt": "2026-05-14T10:15:00Z",
       "duration": 18,
-      "views": 801,
+      "views": 803,
       "vertical": true,
       "short": true,
       "sets": [
@@ -10686,7 +10705,7 @@
       "published": "2026-02-28",
       "publishedAt": "2026-02-28T12:27:00Z",
       "duration": 30,
-      "views": 218,
+      "views": 219,
       "vertical": true,
       "short": true,
       "sets": [
