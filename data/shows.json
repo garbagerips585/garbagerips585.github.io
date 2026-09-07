@@ -274,8 +274,8 @@
       "pkmn": "some"
     },
     {
-      "id": "collectorfest-liverpool-2026-09-13",
-      "name": "Collectorfest",
+      "id": "collectorsfest-110-2026-09-13",
+      "name": "Collectorsfest #110",
       "date": "2026-09-13",
       "start": "09:30",
       "end": "15:00",
@@ -284,14 +284,14 @@
       "region": "syracuse",
       "pokemon": false,
       "admission": "$5 general, cash only",
-      "blurb": "Held in the Science and Industry Building at the Fairgrounds, not in Liverpool. Up to 120 tables, and vendors come from across the northeast and Canada.",
-      "source": "cardshows.io",
+      "blurb": "Held in the Science and Industry Building at the Fairgrounds, not in Liverpool. The organiser bills it as Central New York's largest sports card, memorabilia and TCG show, 120 tables, and the flyer says they are sold out. Sports Card Nation is the official SGC bulk submitter for the show and will take sports and non-sports cards on the day to be graded by SGC.",
+      "source": "the organiser's own flyer for Collectorsfest #110, sent by the owner 7 September 2026, which supersedes cardshows.io for everything it states",
       "address": "581 State Fair Blvd, Syracuse, NY 13209",
       "tiers": [
         {
           "name": "General admission",
           "price": "$5",
-          "note": "cash only, 10 and under free"
+          "note": "cash only, 12 and under free"
         },
         {
           "name": "Early bird",
@@ -299,7 +299,12 @@
           "from": "09:00"
         }
       ],
-      "tables": 120
+      "tables": 120,
+      "organiser": "CNY Promotions",
+      "sourceNote": "THE FLYER SETTLES THE LIVERPOOL QUESTION FOR GOOD. Three aggregators place this date at the Randolph House Hotel in Liverpool; the organiser's own flyer says N.Y.S. Fairgrounds, Science & Industry Building, 581 State Fair Blvd, Syracuse. The id used to be collectorfest-liverpool-2026-09-13, a fossil of that error which left the blurb arguing with a town nobody had put in the row, and the name was a bare \"Collectorfest\" where its own siblings here are #111 and #112. Both now match the flyer.\nWHAT THE FLYER CHANGED, not just confirmed: admission was recorded as \"10 and under free\" and the flyer says 12 and under, so an eleven year old was being quoted a price they do not pay. Everything else the flyer states matched what was here -- 9am early bird at $20, general 9:30am to 3pm at $5, 120 tables, the address -- which is why nothing else moved.\n\"Cash only\" is the one claim left standing on cardshows.io alone; the flyer does not mention payment at all. It is kept because it is the safer error: a reader who brings cash to a show that takes cards has lost nothing, and the reverse loses them the door.\nTHE POKEMON MARK STAYS OFF ON PURPOSE. The flyer bills \"Sports Cards, Memorabilia & TCG\", and TCG is not Pokemon -- it is equally Magic, Yu-Gi-Oh or One Piece. The bar here is a flyer that names Pokemon, which this one does not.",
+      "flyer": "collectorsfest-110-2026-09-13.jpg",
+      "flyerW": 440,
+      "flyerH": 566
     },
     {
       "id": "flower-city-comic-con-2026-09-18",
@@ -941,7 +946,8 @@
         }
       ],
       "pkmn": "some",
-      "pkmnWhy": "their listing names Pokemon outright, alongside non-sports cards"
+      "pkmnWhy": "their listing names Pokemon outright, alongside non-sports cards",
+      "sourceNote": "THE 10-AND-UNDER LINE HERE IS PROBABLY WRONG AND IS DELIBERATELY NOT CHANGED. It reads \"cash only, 10 and under free\", from cardshows.io, and it is the same sentence cardshows.io gave Collectorsfest #110 -- where the organiser's own flyer, read 7 September 2026, says 12 and under. Same organiser, same building, same $5 and $20 tiers, and the aggregator has already been wrong about #110's venue. So the odds are this says 12 as well. It stays at 10 until a flyer for THIS date says otherwise, because copying #110's flyer onto #111 is inferring a fact about a show nobody has published yet, and that is the guess this file exists to refuse. If a reader turns up with an eleven year old, 10 is the answer that costs them five dollars rather than the door."
     },
     {
       "id": "585cardz-batavia-2026-10-21",
