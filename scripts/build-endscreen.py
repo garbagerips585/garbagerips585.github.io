@@ -483,10 +483,10 @@ def build():
     # /drops.html is "Pokemon Card Drops and Restocks This Week", and the word
     # weekly stops being true the moment the data stops being compiled.
     bullets = [
-        "Weekly retailer drops and restocks info",
         "Rochester, NY card shops and card shows",
         "Local vendors and the shows they sell at",
         "Garbage Plate 101 & Directory",
+        "Weekly retailer drops and restocks info",
     ]
     # OUTFIT AND NOT SPACE MONO, AND THE NEW LIST IS WHY. CLAUDE.md assigns Space
     # Mono to labels and tickers and Outfit to body, and five sentences in mixed
