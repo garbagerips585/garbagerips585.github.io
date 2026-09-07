@@ -438,7 +438,7 @@ ${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
   var input=document.getElementById('sq');
   var out=document.getElementById('sqOut'), status=document.getElementById('sqStatus');
   var empty=document.getElementById('sqEmpty');
-  var SITE=null, CARDS=null, cardsTried=false;
+  var SITE=null, CARDS=null, cardsTried=false, siteFailed=false, cardsFailed=false;
 
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
@@ -548,7 +548,10 @@ ${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
        right, which is where the wording comes from. */
     if(!q || !terms.length){ out.innerHTML=''; say(''); empty.hidden=false; return; }
     empty.hidden=true;
-    if(!SITE){ say('Loading...'); return; }
+    if(!SITE){
+      if(siteFailed){ out.innerHTML=''; say('Search could not load. Everything is still reachable from the menu, and the channel is at youtube.com/@GarbageRips585'); return; }
+      say('Loading...'); return;
+    }
 
     var html='';
     var n=0;
@@ -592,7 +595,9 @@ ${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
     }
 
     if(!CARDS && q.length>=2){
-      html+='<section class="sg"><h2>Cards</h2><p class="price-note">Looking through '+SITE.cardCount.toLocaleString()+' cards...</p></section>';
+      html+='<section class="sg"><h2>Cards</h2><p class="price-note">'+(cardsFailed
+        ? 'The card index could not load, so cards are not in these results. Everything else here is.'
+        : 'Looking through '+SITE.cardCount.toLocaleString()+' cards...')+'</p></section>';
     }
 
     var v=hits(SITE.rips,terms,10,3); n+=v.total;
@@ -633,11 +638,23 @@ ${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
           : 'Nothing matched. Try a Pokemon name, a set name, or a word from a video title.');
   }
 
-  function load(url, then){
-    return fetch(url).then(function(r){ return r.json(); }).then(then).catch(function(){});
+  /* A SWALLOWED REJECTION LEFT THE PAGE SAYING "Loading..." FOR EVER. The
+     catch was empty and render()'s !SITE branch has no terminal state, so a
+     failed site-index.json hid the intro panel, rendered nothing, and never
+     said why -- and cardsTried is set BEFORE the fetch, so a failed
+     card-index.json left "Looking through 5,396 cards..." on screen with
+     nothing left to retry it. /videos.html degrades properly on the same
+     failure ("Could not load the library -- The channel still works"), which
+     is the behaviour being matched here. */
+  function load(url, then, fail){
+    return fetch(url).then(function(r){
+      if(!r.ok) throw new Error(r.status);
+      return r.json();
+    }).then(then).catch(function(){ if(fail) fail(); });
   }
 
-  load('/data/site-index.json', function(j){ SITE=j; render(); });
+  load('/data/site-index.json', function(j){ SITE=j; render(); },
+       function(){ siteFailed=true; render(); });
   // The card index is the big one, so it only loads once somebody has typed
   // enough to plausibly mean a card. Most searches never pull it.
   function wantCards(){
@@ -647,7 +664,8 @@ ${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
     // typing history.
     if(cardsTried || input.value.trim().length<2) return;
     cardsTried=true;
-    load('/data/card-index.json', function(j){ CARDS=j; render(); });
+    load('/data/card-index.json', function(j){ CARDS=j; render(); },
+         function(){ cardsFailed=true; render(); });
   }
   input.addEventListener('input', wantCards);
 

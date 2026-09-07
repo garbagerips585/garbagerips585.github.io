@@ -515,6 +515,26 @@
     lb.addEventListener("click", function (e) {
       // The scrim closes, the video does not. Anything inside .rip-player is
       // the player itself and its own controls.
+      //
+      // THE SECOND HALF OF A DOUBLE-CLICK USED TO CLOSE WHAT THE FIRST HALF
+      // OPENED. The overlay covers the tile that was just clicked, so on a
+      // double-click the second press lands on this scrim at the same
+      // coordinates -- elementFromPoint over the tile's own centre returns
+      // DIV.rip-lb once it is up. A YouTube iframe was mounted and torn down
+      // for nothing, and to the reader the video simply refused to open.
+      // Reproduced with real mouse events at 80, 150, 300 and 600ms gaps, so it
+      // is not a tight race.
+      //
+      // 700ms RATHER THAN A DOUBLE-CLICK THRESHOLD, and the difference matters.
+      // The platform figure is about 500ms and a first attempt at 400ms still
+      // let the 600ms case through, because the behaviour this is actually
+      // catching is not double-clicking: it is somebody clicking a second time
+      // because the first click did not visibly do anything yet, and that is
+      // paced by patience rather than by the OS. The cost of being generous
+      // here is small and recoverable -- for 0.7s the scrim will not close, and
+      // Escape and the X button both still work throughout -- while the cost of
+      // being tight is a video that opens and vanishes, which reads as broken.
+      if (Date.now() - (lb.__openedAt || 0) < 700) return;
       if (e.target === lb || e.target.closest(".rip-lb-x")) closeLb();
     });
     document.body.appendChild(lb);
@@ -655,6 +675,7 @@
   function playInOverlay(a, id) {
     ensureLb();
     lbOpener = a;
+    lb.__openedAt = Date.now();
     lb.hidden = false;
     document.body.style.overflow = "hidden";
     inertPage(true);

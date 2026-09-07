@@ -231,6 +231,7 @@
         '<button class="rip-lb-x" type="button" aria-label="Close the video">&times;</button>' +
       "</div>";
     lb.addEventListener("click", function (e) {
+      if (Date.now() - (lb.__openedAt || 0) < 700) return;
       if (e.target === lb || e.target.closest(".rip-lb-x")) closeLb();
     });
     document.body.appendChild(lb);
@@ -316,6 +317,7 @@
   function playInOverlay(a, id) {
     ensureLb();
     lbOpener = a;
+    lb.__openedAt = Date.now();
     lb.hidden = false;
     document.body.style.overflow = "hidden";
     inertPage(true);
