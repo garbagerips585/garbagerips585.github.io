@@ -138,12 +138,12 @@
     "information does not exist in machine-readable form because it does not",
     "exist in advance at all. Nobody knows, including the retailers."
   ],
-  "weekOf": "2026-08-31",
-  "weekEnds": "2026-09-06",
-  "compiled": "2026-08-30",
+  "weekOf": "2026-09-07",
+  "weekEnds": "2026-09-13",
+  "compiled": "2026-09-07",
   "source": {
     "name": "Community restock trackers",
-    "read": "2026-08-30",
+    "read": "2026-09-07",
     "note": "Stock tracking communities the owner follows, passed on as they were written. Not an announcement from any retailer, and not this site's own findings.",
     "url": null
   },
@@ -190,11 +190,11 @@
       "retailer": "pokemon-center",
       "channel": "online",
       "confidence": "pattern",
-      "what": "Be on alert for a Pokemon Center drop this week. There is no stock for products loaded on the backend yet. The trackers are still expecting 30th Celebration UPCs to drop soon, and they say we are approaching the drop window for Delta Reign preorders as well.",
+      "what": "Be on alert for a Pokemon Center drop this week. The trackers say we are in the official window where 30th Celebration UPCs and Delta Reign preorders can go live, and that they will pass on any indication of a drop ahead of time.",
       "when": "The most common drop days are Monday to Wednesday, 11am to 2pm Eastern.",
       "window": {
-        "from": "2026-08-31",
-        "to": "2026-09-02"
+        "from": "2026-09-07",
+        "to": "2026-09-09"
       },
       "expires": null,
       "notes": null
@@ -216,8 +216,8 @@
       "what": "Currently no products are loaded on the backend of Target. Expect this to change as the week progresses.",
       "when": "Lately the trackers have been seeing online drops at 3am Eastern on both Tuesday and Thursday.",
       "window": {
-        "from": "2026-09-01",
-        "to": "2026-09-03"
+        "from": "2026-09-08",
+        "to": "2026-09-10"
       },
       "expires": null,
       "notes": null
@@ -226,67 +226,49 @@
       "retailer": "best-buy",
       "channel": "store",
       "confidence": "pattern",
-      "what": "Expect to see more restocks of Ascended Heroes Booster Bundles, Ascended Heroes Tins, Pitch Black Booster Bundles and 3 Pack Blisters, and First Partner Series 3 Collection Boxes.",
+      "what": "Primarily Pitch Black products and First Partner Series 3 in store this week.",
       "when": null,
       "window": null,
       "expires": null,
-      "notes": null
-    },
-    {
-      "retailer": "walmart",
-      "channel": "store",
-      "confidence": "pattern",
-      "what": "Expect more restocks of Ascended Heroes Large Tins, Pitch Black and Chaos Rising products, and First Partner Series 2 and 3 Collection Boxes.",
-      "when": null,
-      "window": null,
-      "expires": null,
-      "notes": null
-    },
-    {
-      "retailer": "walmart",
-      "channel": "online",
-      "confidence": "announced",
-      "what": "The Prismatic Evolutions ETB raffle will be available to enter on the Walmart site.",
-      "when": "Monday 6:00pm Pacific.",
-      "window": {
-        "from": "2026-08-31",
-        "to": "2026-08-31"
-      },
-      "expires": "2026-08-31",
-      "notes": null
-    },
-    {
-      "retailer": "walmart",
-      "channel": "online",
-      "confidence": "pattern",
-      "what": "The usual Walmart Wednesday may also occur this week. If it does, the trackers say a full product list will be shared ahead of the drop window.",
-      "when": "Wednesday, if it happens.",
-      "window": {
-        "from": "2026-09-02",
-        "to": "2026-09-02"
-      },
-      "expires": "2026-09-02",
-      "notes": null
+      "notes": [
+        "The trackers are pushing back on this one: a lot of social media accounts are claiming Ascended Heroes Booster Bundles and Large Tins, and they say those accounts are about three weeks behind, because not a single store had them in transit as of the night before this was written."
+      ]
     },
     {
       "retailer": "sams-club",
       "channel": "store",
-      "confidence": "pattern",
-      "what": "Select stores MAY restock a second wave of Ascended Heroes Focused Fighters in store. Internal comms have asked all clubs to wait for an announced drop date, but the trackers say a very few stores are going against this and restocking at random.",
+      "confidence": "expected",
+      "what": "Select stores MAY randomly restock a second wave of Ascended Heroes Focused Fighters in store.",
       "when": null,
       "window": null,
       "expires": null,
-      "notes": null
+      "notes": [
+        "Internal comms have asked all clubs to wait for an announced drop date. The trackers say a very few stores are going against that and restocking anyway, so this is a maybe rather than a plan."
+      ]
+    },
+    {
+      "retailer": "costco",
+      "channel": "store",
+      "confidence": "expected",
+      "what": "Ascended Heroes ETBs are loaded on the Costco internal system, but are not expected in store until late September or early October.",
+      "when": "Depots are not expected to start receiving stock until 13 September at the earliest, and it still has to ship on to individual stores.",
+      "window": null,
+      "expires": null,
+      "notes": [
+        "The trackers call out social media accounts claiming these are dropping this week as false information used as engagement bait."
+      ]
     },
     {
       "retailer": "walgreens",
       "channel": "store",
       "confidence": "pattern",
-      "what": "Select stores are still receiving Ascended Heroes 2 Pack Blisters and Darkrai, Tyranitar and Slaking Tins. There are no limits in store, so the trackers expect these to sell out fast.",
+      "what": "Select stores are still receiving Ascended Heroes 2 Pack Blisters and Darkrai, Tyranitar and Slaking Tins.",
       "when": null,
       "window": null,
       "expires": null,
-      "notes": null
+      "notes": [
+        "No limits in store, so the trackers expect these to sell out fast."
+      ]
     },
     {
       "retailer": "dollar-general",
@@ -299,23 +281,29 @@
       "notes": null
     },
     {
-      "retailer": "dicks",
-      "channel": "store",
-      "confidence": "pattern",
-      "what": "Select stores may have Ascended Heroes Large Tins. The trackers put them slightly above MSRP, around $30, and offer it as an option if you are struggling to find any elsewhere.",
-      "when": null,
-      "window": null,
-      "expires": null,
+      "retailer": "walmart",
+      "channel": "online",
+      "confidence": "window",
+      "what": "The Prismatic Evolutions ETB and Super Premium Collection raffle is due to open for entries on the Walmart site.",
+      "when": "Wednesday 2pm Pacific, which is 5pm Eastern.",
+      "window": {
+        "from": "2026-09-09",
+        "to": "2026-09-09"
+      },
+      "expires": "2026-09-09",
       "notes": null
     },
     {
-      "retailer": "costco",
-      "channel": "store",
+      "retailer": "walmart",
+      "channel": "online",
       "confidence": "pattern",
-      "what": "Ascended Heroes Tins in a 5 pack have loaded on the internal Costco system for the US. The trackers say it is extremely early and they are not expecting a drop any time soon; they are flagging it as an update only.",
-      "when": null,
-      "window": null,
-      "expires": null,
+      "what": "The usual Walmart Wednesday may also happen this week. If it does, the trackers say a full product list will be shared ahead of the drop window.",
+      "when": "Wednesday.",
+      "window": {
+        "from": "2026-09-09",
+        "to": "2026-09-09"
+      },
+      "expires": "2026-09-09",
       "notes": null
     }
   ]
