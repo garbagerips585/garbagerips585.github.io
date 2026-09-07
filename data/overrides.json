@@ -2706,7 +2706,9 @@
   },
   "1mYM0mYP_bA": {
     "packNumber": 12,
-    "packNumberWhy": "The owner, 4 September 2026: \"Single Booster Pack, Pack #12 , Hit - No, Phantasmal Flames\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. His sheet has not caught up with this rip yet, so it lives here rather than in manual.json, which the next CSV import would rebuild without it."
+    "packNumberWhy": "The owner, 4 September 2026: \"Single Booster Pack, Pack #12 , Hit - No, Phantasmal Flames\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. His sheet has not caught up with this rip yet, so it lives here rather than in manual.json, which the next CSV import would rebuild without it.",
+    "hasHit": false,
+    "hasHitWhy": "The owner, 4 September 2026: \"Single Booster Pack, Pack #12 , Hit - No, Phantasmal Flames\". The \"no\" half of that sentence was recorded nowhere at the time, because overrides could not answer hasHit until 7 September, so this rip sat unjudged for three days and /luck.html counted it in the shortfall. Added when the gap was found, from the message that already said it."
   },
   "5lv5he4FWxM": {
     "packNumber": 4,
@@ -2716,5 +2718,11 @@
     "packNumber": 7,
     "boxNumber": 3,
     "packNumberWhy": "The owner, 6 September 2026: \"Todays video is Chaos Rising, ETB #3, Pack #7, Hit yes - Xerneas - Single Gold Star - Illustration Rare\", and separately \"todays rip is a pack bought from LingSter Games\". Both numbers are typed, which is the only way either may be set: riplabel.mjs refuses to read a pack number out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. This title says \"Pack #7\" and nothing about the box at all, and the box is the half a reader cannot recover: packs 1, 2, 3 and 5 of this same ETB carry boxNumber 3 because their titles happened to say so, and packs 4 and 6 are blank because theirs did not. His sheet has not caught up with this rip yet, so it lives here rather than in manual.json, which the next CSV import would rebuild without it."
+  },
+  "YCAtXeZ0jhA": {
+    "packNumber": 13,
+    "hasHit": false,
+    "packNumberWhy": "The owner, 7 September 2026: \"Single Booster Pack , Pack #13, Hit no , Destined Rivals\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. His sheet has not caught up with this rip yet, so it lives here rather than in manual.json, which the next CSV import would rebuild without it.",
+    "hasHitWhy": "A rip WITH a hit is answered by its data/hits.json row; a rip with none has nothing to imply one, so without this it counts as not yet judged rather than as judged and empty, and /luck.html carries it in the shortfall. \"Hit no\" is his own word for it and is the whole source."
   }
 }

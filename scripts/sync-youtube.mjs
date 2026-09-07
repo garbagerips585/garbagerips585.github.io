@@ -374,7 +374,17 @@ const videos = uploads
       // read openingType, siteTitle, blurb, feature, hide, box or notes.
       ...(log.hitCard ? { hitCard: log.hitCard } : {}),
       ...(log.hitRarity ? { hitRarity: log.hitRarity } : {}),
-      ...(log.hasHit != null ? { hasHit: log.hasHit } : {}),
+      /* OVERRIDES CAN ANSWER THIS TOO, and until 7 September 2026 they could
+         not, which quietly cost the coverage figure. hasHit is what makes a rip
+         COUNTED rather than pending -- build-luck.mjs reads _out off it -- and
+         it only ever came from the sheet. A rip with a hit gets there anyway,
+         because a row in data/hits.json implies one; a rip with NO hit has
+         nothing to imply, so "hit no" told to me directly had no way into the
+         file at all. Pack #12 of Phantasmal Flames sat in the unanswered pile
+         for three days for exactly that reason, while the page said the
+         shortfall was 2 rips. Same precedence as boxNumber above: the typed
+         value wins, the sheet stands behind it. */
+      ...((manual.hasHit ?? log.hasHit) != null ? { hasHit: manual.hasHit ?? log.hasHit } : {}),
       ...(log.packs ? { packs: log.packs } : {}),
       // HOW MANY PACKS OF EACH SET, carried through so the pack total below can
       // use it. packsStated is set by import-sheet.mjs only where the sheet
