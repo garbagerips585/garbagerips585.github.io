@@ -183,8 +183,14 @@ def counts():
     # the directory listing, so the bare glob said 43 and the live /sets/ page
     # links 42. A count that is one out is worse than no count: it is the exact
     # shape of error nobody re-checks, because 43 looks as plausible as 42.
-    c = {"sets": len([f for f in glob.glob(str(ROOT / "public/sets/*.html"))
-                      if Path(f).name != "index.html"])}
+    # THE SET GUIDE COUNT WAS HERE AND ITS LINE CAME OFF THE CARD ON 7 SEPTEMBER
+    # 2026, so it went with it, which is what the paragraph above says to do. It
+    # counted public/sets/*.html less index.html and the whole reason it was
+    # written down is worth keeping even though the number is gone: the bare glob
+    # said 43 where the live page links 42, because the directory listing is not
+    # a set guide, and a count that is one out is the exact shape of error nobody
+    # re-checks. If a future line wants it back, that is the trap.
+    c = {}
     # THE DROPS PAGE IS THE ONE CLAIM ON THIS CARD WITH AN EXPIRY DATE. Every
     # other line is true whenever it is read; "weekly retailer drops" is only true
     # while somebody is still compiling them. data/drops.json carries the week it
@@ -207,8 +213,14 @@ def counts():
             f"the card claims WEEKLY retailer drops. Refresh the drops data, or "
             f"take that bullet out before regenerating.")
 
-    for k in ("sets",):
-        if not c[k]:
+    # OVER c ITSELF, NOT A TYPED TUPLE. This read `for k in ("sets",)` and the
+    # tuple outlived the count it named by about a minute: deleting the set-guide
+    # line took `sets` out of the dict and left this asking for it, so the build
+    # died on a KeyError rather than on any of the written messages above. A
+    # check that names its subjects by hand has to be edited twice, and the
+    # second edit is the one that gets missed.
+    for k, v in c.items():
+        if not v:
             raise SystemExit(f"counted zero {k} in public/; build the site first")
     return c
 
@@ -318,7 +330,14 @@ def build():
         d.text((x, y), t, font=f_mark, fill=col)
         x += d.textlength(t, font=f_mark)
     y += 94
-    centre(d, "POKEMON PACK RIPS FROM ROCHESTER, NY", f_tag, y + 14, C["ink-2"])
+    # DAILY IS IN THE HEADER RATHER THAN IN THE LIST, on the owner's ask, and the
+    # first bullet came off in the same edit because the two said the same thing.
+    # It is the one fact about this channel that belongs above the artwork: a
+    # stranger deciding whether to subscribe wants the CADENCE, and a line in a
+    # five item list read at arm's length is not where that lands. Space Mono
+    # bold 25 takes it from 540px to 630 against a 760px content width, so it
+    # still centres on one line with 130px to spare.
+    centre(d, "DAILY POKEMON PACK RIPS FROM ROCHESTER, NY", f_tag, y + 14, C["ink-2"])
     y += 46
 
     # ----------------------------------------------------------- the mascot
@@ -464,11 +483,10 @@ def build():
     # /drops.html is "Pokemon Card Drops and Restocks This Week", and the word
     # weekly stops being true the moment the data stops being compiled.
     bullets = [
-        "A new pack rip video every day",
         "Weekly retailer drops and restocks info",
-        "Rochester, NY card shops + card show calendar",
+        "Rochester, NY card shops and card shows",
+        "Local vendors and the shows they sell at",
         "Garbage Plate 101 & Directory",
-        f"{N['sets']:,} Pokemon card set guides",
     ]
     # OUTFIT AND NOT SPACE MONO, AND THE NEW LIST IS WHY. CLAUDE.md assigns Space
     # Mono to labels and tickers and Outfit to body, and five sentences in mixed
@@ -487,7 +505,18 @@ def build():
     # you move down the bullet points just a bit". Paid for by 24px off the
     # panel rather than out of the bottom clearance, which is the one number on
     # this card that is protecting somebody else's chrome.
-    bx, by, STEP = MARGIN + 30, round(bottom) + 56, 38
+    # STEP 48, NOT 38, AND THE TYPE SIZE DELIBERATELY DID NOT MOVE. Dropping two
+    # lines and adding one leaves the block a bullet shorter, and the tempting
+    # spend is a bigger face. Measured against the action rail at 33, 36, 38 and
+    # 40px: the widest new line ends at x=830 at 33 and x=926 at 38, and the rail
+    # limit is 920. So 38px would put the list back INTO the chrome it was just
+    # pulled out of. The clearance is the thing worth buying here -- the longest
+    # line used to end at 894 with 42px of gap, and it now ends at 809 with 111 --
+    # because YouTube's rail LABELS ("Share", "Remix") sit further left than the
+    # icons that RAIL_X was measured from, which is why the old card looked tight
+    # on YouTube and fine on TikTok and Reels. The freed height goes into the
+    # gaps instead, which is what makes four lines read at arm's length.
+    bx, by, STEP = MARGIN + 30, round(bottom) + 56, 48
     for i, line in enumerate(bullets):
         cy = by + i * STEP
         # The marker is PINK because CLAUDE.md's accent rule is that pink is every
