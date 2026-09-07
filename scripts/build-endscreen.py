@@ -484,7 +484,7 @@ def build():
     # weekly stops being true the moment the data stops being compiled.
     bullets = [
         "Rochester, NY card shops and card shows",
-        "Local vendors and the shows they sell at",
+        "Local vendors and local content creators",
         "Garbage Plate 101 & Directory",
         "Weekly retailer drops and restocks info",
     ]
