@@ -94,16 +94,17 @@
     },
     {
       "name": "Skull & Bones Collectibles",
-      "area": "Rochester, NY and the wider region, plus Erie, PA",
+      "area": "Rochester, NY",
       "sells": "Buy, sell and trade, in person at shows and live on Whatnot",
-      "blurb": "A local vendor doing the Rochester, NY show circuit, and they travel: their own September list runs Arch Angel and the Extreme Pokemon show in Batavia, then out to the Mill Creek Mall in Erie for a three day one. They buy, sell and trade at the table, and they stream on Whatnot between shows.",
+      "blurb": "Local to Rochester, NY, and out on the show circuit most weekends: their own September list runs Arch Angel and the Extreme Pokemon show in Batavia, then out to the Mill Creek Mall in Erie for a three day one. They buy, sell and trade at the table, and they stream on Whatnot between shows.",
       "shows": "Local shows around Rochester, NY, plus out of state",
       "instagram": "snbcollectibles",
       "whatnot": "skullnbonescollectibles",
       "logo": "skull-and-bones-collectibles",
       "logoNote": "Sent by them for this use, 8 September 2026, with their upcoming-shows flyer.",
       "logoW": 1000,
-      "logoH": 1000
+      "logoH": 1000,
+      "areaNote": "The owner, 8 September 2026: \"just confirmed that Skull & Bones Collectibles is a local Rochester, NY vendor\". This read \"Rochester, NY and the wider region, plus Erie, PA\" for one build, which was assembled from their own shows flyer and described their TRAVEL rather than where they are from -- a vendor who turns up at Rochester, NY shows and one who is based here are different claims, and the flyer could only support the first. He confirmed the second. The Erie, PA trip is still on the record, in `shows` and in the blurb, where it belongs: it is where they go, not where they are."
     }
   ]
 }
