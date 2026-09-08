@@ -362,6 +362,52 @@ const regionsFor = (city) => {
   const best = all[0];
   return all.filter((a) => a.mi <= RADIUS_MI && a.mi - best.mi <= DUAL_MI).map((a) => a.id);
 };
+/* A SHOW OUT OF AREA BUT INSIDE A DRIVE STILL BELONGS UNDER THE NEAREST CITY'S
+   CHIP. The owner, 8 September 2026, asked for exactly this and set the number:
+   "ill take your suggestion of 2 hours drives from the main cities, could maybe
+   extended it to 3 hours but not further than that."
+
+   WHAT IT FIXES. `farAfield` rows get region "away", which no chip carries, so
+   they appeared ONLY under All. A Buffalo collector pressing "Buffalo & Niagara"
+   -- the obvious thing to press -- never saw the Erie show at all, though it is a
+   two hour drive and the nearest out-of-state show to them. That is the same
+   fault the DUAL_MI note above describes for Waterloo: the chip a reader
+   obviously presses hiding the show they would most want.
+
+   IT IS A DRIVE, NOT A RADIUS, AND THAT DISTINCTION IS THE WHOLE POINT. The 45
+   mile rule stays where it is and stays in straight lines; this reads measured
+   ROAD time out of data/shows.json's `_drives`, which is why Erie qualifies at
+   92 road miles when its 81 mile straight line tells you nothing useful about a
+   lake shore. Nothing is computed here and no build touches the network.
+
+   SET AT TWO HOURS, HIS PRIMARY NUMBER, NOT THE THREE HE WOULD TOLERATE, AND
+   TODAY THE TWO ARE THE SAME PAGE. Measured: Erie is 1h59m from Buffalo and
+   3h19m from Rochester, NY; Harmony PA is 3h41m from Buffalo, its own nearest
+   city. So at 2 hours exactly one pairing qualifies, Erie under Buffalo, and at
+   3 hours it is still exactly that one -- Erie/Rochester and Harmony/Buffalo both
+   fall outside either way. Taking the tighter number costs nothing today and is
+   one constant to move when it does. Do not raise it past 3. */
+const DRIVE_HOURS = 2;
+const drives = data._drives || {};
+const driveFor = (city) => {
+  const dr = drives[city];
+  return dr && typeof dr.hours === "number" ? dr : null;
+};
+/* The nearest city's chip, but ONLY when the measured drive is inside the
+   threshold. A town with no measured drive returns nothing, which is the honest
+   default: absent evidence is not a short drive. */
+const driveRegions = (city) => {
+  const dr = driveFor(city);
+  return dr && dr.hours <= DRIVE_HOURS && dr.anchor ? [dr.anchor] : [];
+};
+/* Straight-line chips first, then any earned by a drive, de-duplicated. Falls
+   back to the row's own `region` so an away show with no qualifying drive still
+   carries "away" and still appears under All, exactly as before. */
+const chipRegions = (s) => {
+  const merged = [...new Set([...regionsFor(s.city), ...driveRegions(s.city)])];
+  return merged.length ? merged : [s.region];
+};
+
 const areaProblems = [];
 for (const s of data.shows || []) {
   const pt = towns[s.city];
@@ -986,7 +1032,7 @@ function showCard(s) {
   const telWho = s.organiser || s.name;
   const soon = daysAway(s.date);
   const d = new Date(s.date + "T12:00:00");
-  return `      <article class="show${s.featured ? " is-featured" : ""}" data-region="${esc((regionsFor(s.city).length ? regionsFor(s.city) : [s.region]).join(" "))}" data-date="${esc(s.date)}"${s.pokemon ? ' data-pokemon="1"' : ""}${s.admission === "Free" ? ' data-free="1"' : ""}>
+  return `      <article class="show${s.featured ? " is-featured" : ""}" data-region="${esc(chipRegions(s).join(" "))}" data-date="${esc(s.date)}"${s.pokemon ? ' data-pokemon="1"' : ""}${s.admission === "Free" ? ' data-free="1"' : ""}>
         <div class="show-when" aria-hidden="true">
           <span class="show-mon">${MONTHS_LONG[d.getMonth()].slice(0, 3)}</span>
           <span class="show-day">${d.getDate()}</span>
@@ -1031,6 +1077,19 @@ function showCard(s) {
                   ? `<span class="chip pk-no">Sports only</span>`
                   : `<span class="chip pk-un">Pokemon not confirmed</span>`}
             ${soon ? `<span class="chip soon" data-soon>${esc(soon)}</span>` : ""}
+            ${/* THE DRIVE, ON EVERY OUT-OF-AREA SHOW, INCLUDING THE ONES NO CHIP CARRIES.
+              The badge is not the filter's label and must not be confused for it: Harmony
+              PA is 3h41m from Buffalo and shows this chip while qualifying for no city, so
+              a reader who finds it under All still learns the one fact that decides whether
+              they go. The owner's own framing when this was scoped: the drive is what
+              matters and the state line is incidental, which is why it says "about 2 hours
+              from Buffalo" and never "Pennsylvania".
+              "About" is doing real work -- see the _drives readme: two routing engines
+              disagreed by 21 minutes on the same road. */ ""}
+            ${(() => {
+              const dr = driveFor(s.city);
+              return dr ? `<span class="chip drive">Drive: ${esc(dr.label)} from ${esc(dr.anchorName)}</span>` : "";
+            })()}
             ${/* THE ADMISSION CHIP IS SUPPRESSED WHERE THERE ARE TIERS, added 27 August
               2026, and it is a de-duplication rather than a cut. A tiered show
               prints every price WITH THE DOOR TIME IT BUYS a few lines below
@@ -1112,7 +1171,7 @@ const page = head + `
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/rochester.html">Local scene</a> / Card shows</nav>
 ${next ? `
-    <a class="next-show" data-region="${esc((regionsFor(next.city).length ? regionsFor(next.city) : [next.region]).join(" "))}" data-date="${esc(next.date)}" href="${esc(next.url || "#list")}"${next.url ? ` rel="noopener" target="_blank" aria-label="Next one up: ${esc(showRef(next))} at ${esc(next.venue)}, ${esc(next.city)}, opens on ${esc(hostOf(next.url))}"` : ""}>
+    <a class="next-show" data-region="${esc(chipRegions(next).join(" "))}" data-date="${esc(next.date)}" href="${esc(next.url || "#list")}"${next.url ? ` rel="noopener" target="_blank" aria-label="Next one up: ${esc(showRef(next))} at ${esc(next.venue)}, ${esc(next.city)}, opens on ${esc(hostOf(next.url))}"` : ""}>
       <span class="next-label">Next one up${daysAway(next.date) ? ` &bull; ${esc(daysAway(next.date))}` : ""}</span>
       <span class="next-name">${esc(next.name)}</span>
       <span class="next-meta">${esc(longDate(next.date) || next.date)}${

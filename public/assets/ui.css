@@ -1190,6 +1190,7 @@ button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}
 .img-lb-x:hover,.img-lb-x:focus-visible{border-color:var(--ink)}
 .chip.pk{background:var(--gold);border-color:var(--keyline);color:var(--on-accent)}
 .chip.soon{background:var(--ketchup);border-color:var(--keyline);color:var(--on-alert)}
+.chip.drive{background:var(--paper);border-color:var(--keyline);color:var(--ink)}
 .show-blurb{font-size:var(--t-sm);color:var(--ink-2);margin-top:10px;max-width:46em}
 .show-warn{font:700 var(--t-micro)/1.7 var(--mono);color:var(--plum);
   background:var(--lilac-pale);border-radius:var(--r-sm);padding:var(--s3);

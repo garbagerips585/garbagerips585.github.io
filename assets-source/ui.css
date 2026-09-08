@@ -4032,6 +4032,15 @@ button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}
 .img-lb-x:hover,.img-lb-x:focus-visible{border-color:var(--ink)}
 .chip.pk{background:var(--gold);border-color:var(--keyline);color:var(--on-accent)}
 .chip.soon{background:var(--ketchup);border-color:var(--keyline);color:var(--on-alert)}
+/* THE DRIVE CHIP IS INFORMATION, NOT AN ACCENT, so it takes a surface and ink
+   rather than teal or pink. It sits in the same row as `Pokemon here too`
+   (--gold) and `Soon` (--ketchup), both of which are saying something urgent or
+   categorical; a distance is neither, and a third coloured chip in a row of
+   three would make the row read as three warnings. --paper is the WELL in the
+   five-step ladder, a step darker than the card it sits on, so it reads as a
+   quiet inset. NOT --paper-3, which is the lightest surface there is and where
+   this site has already failed contrast three times on small text. */
+.chip.drive{background:var(--paper);border-color:var(--keyline);color:var(--ink)}
 .show-blurb{font-size:var(--t-sm);color:var(--ink-2);margin-top:10px;max-width:46em}
 /* Anything the listings disagree about. Loud on purpose: this is the line that
    stops somebody driving two hours to a closed hall. */

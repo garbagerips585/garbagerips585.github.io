@@ -2094,5 +2094,41 @@
     "ADDING A TOWN: geocode '<Town>, <County> County, New York, USA', check the",
     "type comes back administrative or census rather than something on the",
     "landscape, and put [lat, lon] in here to six places."
-  ]
+  ],
+  "_drives": {
+    "_readme": [
+      "ROAD DRIVES FOR OUT-OF-AREA TOWNS, measured once by hand and stored so no build",
+      "touches the network, exactly as _towns stores geocodes. Only towns whose shows",
+      "carry `farAfield` need an entry; everything else is inside the 45 mile rule and",
+      "the straight line is enough for it.",
+      "",
+      "WHY ROAD MILES AND NOT THE STRAIGHT LINE _towns ALREADY GIVES. The area guard's",
+      "45 mile rule is written in straight lines and stays that way. This is a",
+      "different question -- 'would I drive to this?' -- and lake shores and interstates",
+      "make the two disagree badly out here: Erie is 81 miles from Buffalo as the crow",
+      "flies and 92 by road.",
+      "",
+      "HOW: OSRM (router.project-osrm.org, /route/v1/driving) over OpenStreetMap road",
+      "data, 8 September 2026. These are FREE-FLOW estimates and not live traffic. A",
+      "second engine (Valhalla) put Buffalo to Erie at 1h38m against OSRM's 1h59m, so",
+      "treat the times as approximate and the MILES as the solid figure. `label` is how",
+      "the badge says it, and it is deliberately vague for that reason.",
+      "",
+      "Re-measure if a route changes. Nothing recomputes this."
+    ],
+    "Erie": {
+      "anchor": "buffalo",
+      "anchorName": "Buffalo",
+      "miles": 92,
+      "hours": 1.99,
+      "label": "about 2 hours"
+    },
+    "Harmony, PA": {
+      "anchor": "buffalo",
+      "anchorName": "Buffalo",
+      "miles": 187,
+      "hours": 3.68,
+      "label": "about 3 hours 40"
+    }
+  }
 }
