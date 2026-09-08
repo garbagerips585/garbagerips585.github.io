@@ -99,6 +99,22 @@
       "whatnotNote": "THE WHATNOT LINK CAME OFF AND THE CLAIM THAT THEY STREAM CAME WITH IT. The owner, 8 September 2026: \"Skull & Bones Collectibles actually doesn't stream live on what not ... they have a what not page that they sell random stuff on but not part of their main business.\" This entry had \"live on Whatnot\" in `sells` and \"they stream on Whatnot between shows\" in the blurb, both of which were mine: I resolved the handle out of a share link he passed on and read a channel to buy from them into an account that is not one.\nThe account exists and is skullnbonescollectibles. It is not stored as a `whatnot` handle, because on this page a link under a vendor's name reads as \"here is where to buy from them\", and this file's own rule is that the value of a local list is that it is NOT a directory. Pointing a reader at a page the vendor does not sell cards on is the same kind of wrong as a stale price. Put it back the moment they say it is a real sales channel.\nTheir business is the table at the shows, and the card says that and nothing more."
     },
     {
+      "name": "Jake's Place",
+      "area": "Batavia, NY, and out to Pittsburgh and Ohio",
+      "sells": "Pokemon, One Piece, Magic, Lorcana, video games, plush and more",
+      "blurb": "Jake is a lifelong collector of all things nerdy who has been vending for over a year: Pokemon, One Piece, Magic, Lorcana, video games, plush and more. Batavia, NY based, and he travels for it -- he has been as far as Pittsburgh and Ohio recently.",
+      "shows": "Local shows around Rochester, NY, plus out of state",
+      "instagram": "jakesplace585",
+      "tiktok": "jakesplace585",
+      "facebook": "profile.php?id=61574492061334",
+      "whatnot": "jakes_place",
+      "ebay": "jakesplace64",
+      "logo": "jakes-place",
+      "logoNote": "Sent by them for this use, 8 September 2026.",
+      "logoW": 1080,
+      "logoH": 951
+    },
+    {
       "name": "RocPokéCon",
       "area": "Rochester, NY",
       "sells": "Vendors at their own show and at other local ones",
