@@ -26,7 +26,7 @@
     "`vouched` marks a vendor the owner has actually bought from. Only set it where that",
     "is true: the whole value of a local list is that it is not a directory.",
     "`name` IS A FOREIGN KEY. data/shows.json joins confirmed vendors to this file on name, so it must be unique here (the build throws on a duplicate) and renaming a vendor breaks every show that names them until those are updated. A `logo` requires `logoW`/`logoH` and its built renditions under public/assets/creators/, or the build fails: a logo goes up only where its owner sent it for this use, and the show card is a second use of that same permission.",
-    "THE ARRAY ORDER IS THE PAGE ORDER. build-locals.mjs renders this list as it stands and sorts it by nothing, so appending a vendor puts them last and reordering here is how the page is reordered. The owner set this order on 3 September 2026: TOAK Pulls, Legends Card Shop, RocPokeCon. Pok.eJoe Trading Cards was appended on 4 September 2026, which is what appending is supposed to do -- the rule is the order above, not the roster, which will keep growing."
+    "THE ARRAY ORDER IS THE PAGE ORDER. build-locals.mjs renders this list as it stands and sorts it by nothing, so appending a vendor puts them last and reordering here is how the page is reordered. The owner set this order on 3 September 2026: TOAK Pulls, Legends Card Shop, RocPokeCon. Pok.eJoe Trading Cards was appended on 4 September 2026 and Skull & Bones Collectibles on 8 September 2026, which is what appending is supposed to do. ON 8 SEPTEMBER 2026 HE MOVED RocPokeCon TO LAST -- \"make roc pokemon the last vendor on this page\" -- so the order is now TOAK Pulls, Legends Card Shop, Pok.eJoe, Skull & Bones, RocPokeCon. The rule is still that the order here IS the page, and that it is his to set: do not re-sort this list by name, by date added, or by how many shows a vendor is confirmed at."
   ],
   "updated": "2026-09-08",
   "vendors": [
@@ -71,14 +71,6 @@
       "flyerNote": "Their upcoming show dates, sent 3 September 2026. The image they sent is cut off below the last row, mid-sentence at \"COME SEE US &\", so anything under that is not on this site."
     },
     {
-      "name": "RocPokéCon",
-      "area": "Rochester, NY",
-      "sells": "Vendors at their own show and at other local ones",
-      "blurb": "They run the biggest Pokemon card show in Rochester, NY, and they vend at it and at other shows around the area.",
-      "shows": "RocPokéCon, plus other local shows",
-      "links": "https://linktr.ee/rocpokecon"
-    },
-    {
       "name": "Pok.eJoe Trading Cards",
       "area": "Rochester, NY",
       "sells": "Raw singles vintage, mid era and modern, plus PSA graded slabs",
@@ -105,6 +97,14 @@
       "logoW": 1000,
       "logoH": 1000,
       "areaNote": "The owner, 8 September 2026: \"just confirmed that Skull & Bones Collectibles is a local Rochester, NY vendor\". This read \"Rochester, NY and the wider region, plus Erie, PA\" for one build, which was assembled from their own shows flyer and described their TRAVEL rather than where they are from -- a vendor who turns up at Rochester, NY shows and one who is based here are different claims, and the flyer could only support the first. He confirmed the second. The Erie, PA trip is still on the record, in `shows` and in the blurb, where it belongs: it is where they go, not where they are."
+    },
+    {
+      "name": "RocPokéCon",
+      "area": "Rochester, NY",
+      "sells": "Vendors at their own show and at other local ones",
+      "blurb": "They run the biggest Pokemon card show in Rochester, NY, and they vend at it and at other shows around the area.",
+      "shows": "RocPokéCon, plus other local shows",
+      "links": "https://linktr.ee/rocpokecon"
     }
   ]
 }
