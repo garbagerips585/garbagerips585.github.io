@@ -43,7 +43,7 @@
     "REGIONS drive the filter chips: roc, buffalo, syracuse.",
     "VENDORS. A show may carry `vendors`: [{ name, confirmed }]. `name` must match a vendor in data/vendors.json EXACTLY (trimmed, case-insensitive) -- it is a foreign key, so renaming a vendor there fails this build until the shows are updated too. `confirmed` is REQUIRED and must be a non-empty sentence saying who confirmed it and when; it prints under that vendor's name. A name with no listing, a missing or blank `confirmed`, a duplicate vendor or a null entry all FAIL the build, because a confirmed vendor that silently does not render is a typo shaped like a correct build."
   ],
-  "checked": "2026-09-01",
+  "checked": "2026-09-08",
   "sources": [
     {
       "name": "cardshows.io Western New York",
@@ -52,6 +52,10 @@
     {
       "name": "cardshows.io Central New York",
       "url": "https://cardshows.io/new-york/central-new-york"
+    },
+    {
+      "name": "CNY Promotions, the promoter's own flyers for Collectorsfest #110 to #113, POKEFEST and Toyfest #10",
+      "url": "https://cnypromotions.com"
     }
   ],
   "watchFor": [],
@@ -263,15 +267,16 @@
       "city": "Rochester, NY",
       "region": "roc",
       "admission": "Free",
-      "blurb": "A charity show for Archangel School, run by the people behind the Batavia shows. Free to get in, with food and refreshments on site. Six foot vendor tables are $40, and the number to call about one is on the flyer.",
+      "blurb": "A charity show for Archangel School, run by the people behind the Batavia shows. Free to get in, and the promoter bills vintage and modern sports cards, Pokemon and non-sports cards. Food and refreshments are on site and are sold, not free. Six foot vendor tables are $40, and the number to call about one is on the flyer.",
       "organiser": "Jen and Don",
-      "source": "the organizer's own flyer, sent to the channel by a reader on Discord, August 27, 2026",
-      "sourceNote": "The name and the venue spelling come from the flyer itself now rather than from the aggregator that first listed this show: that read \"Arch Angel Sports Card and Collectors Show\" at \"Arch Angel School\", and the flyer says Arch Angels Collectors Show at Archangel School. Everything the aggregator had that the flyer also states, the date, 10am to 3pm, free admission and the Chili Avenue address, matched exactly, which is why nothing else moved. The Pokemon mark also moved: this entry read \"Pokemon not confirmed\" until the flyer arrived, which was honest at the time and is now out of date. THE EVIDENCE FOR pkmn:some IS THE FLYER ITSELF, which is built around a Pokeball drawn as large as the show title, and that is the first of the three kinds build-shows.mjs allows. It was on the page as pkmnWhy for one build and the owner asked for it to come off, so it lives here instead: the chip still has to be justified even where the justification is not printed. It is the one show on the r/Rochester post that was listed as unconfirmed, so that post is now wrong about it.",
+      "source": "the organizer's own flyer, sent to the channel by a reader on Discord, August 27, 2026, and a SECOND promoter flyer for the same show sent by the owner on 8 September 2026",
+      "sourceNote": "THERE ARE TWO OFFICIAL FLYERS FOR THIS ONE SHOW AND THEY DISAGREE ABOUT ITS NAME. The first, a black and white photocopy, says \"ARCH ANGELS COLLECTORS SHOW\" at \"ARCHANGEL SCHOOL\". The second, a full-colour design the owner sent on 8 September 2026, says \"ARCH ANGEL SPORTS CARD and COLLECTORS SHOW\" at \"ARCH ANGEL SCHOOL\" -- which is the name the aggregator had, and which an earlier note here moved AWAY from on the strength of the first flyer. So the aggregator was reading the other flyer, not inventing one. Neither name is corrected into the other; the row keeps the first, and this records that both are the promoter's own.\nTHE VENUE SPELLING IS SETTLED BY THE SCHOOL ITSELF, not by either flyer: it is Archangel School, one word, at 2400 Chili Ave, Rochester, NY 14624 (archangelschool.com, a private Catholic school, read 8 September 2026). The colour flyer's \"ARCH ANGEL SCHOOL\" is its own styling.\nWHAT THE SECOND FLYER CHANGED. The Pokemon mark used to rest on the first flyer's artwork -- a Pokeball drawn as large as the show title -- which is the weakest of the three kinds build-shows.mjs allows. The second flyer bills Pokemon in TEXT, so the mark now rests on a billing rather than on a drawing. And the blurb said \"food and refreshments on site\", which reads as free; both flyers say they are FOR PURCHASE.\nWHAT IT DID NOT CHANGE, because the two agree exactly: Sunday 13 September, 10am to 3pm, free admission, 2400 Chili Avenue, and Jen or Don on 585-353-0834 for tables. Only the FIRST flyer states the $40 table price and the words \"TRUSTED VENDORS\"; only the second states the sports/Pokemon/non-sports billing. Both are kept as sources for that reason.\nTHE SECOND FLYER IS DELIBERATELY NOT THE PICTURE ON THIS ROW. What arrived is a SCREENSHOT OF A SOCIAL POST: the platform's like, comment, share and save controls are burned into the image over the Pokemon booster pack on its right-hand side, with the counts 27, 2 and 12 beside them, and the bottom of the flyer is cropped off mid-artwork. Cropping the controls away takes about a tenth of the flyer's own width with them. The first flyer is lower quality and complete, so it stays until a clean copy of the colour one turns up.",
       "flyer": "arch-angel-2026-09-13.jpg",
       "flyerW": 727,
       "flyerH": 824,
       "pokemon": false,
-      "pkmn": "some"
+      "pkmn": "some",
+      "pkmnWhy": "The promoter's second flyer says it in words: \"VINTAGE & MODERN SPORTS CARDS, POKEMON & NON-SPORTS CARDS\" across the foot of it, with a graded 1999 Charizard among the five cards in the artwork. That is a flyer naming Pokemon, which is the bar Collectorsfest #110 is held to and fails."
     },
     {
       "id": "collectorsfest-110-2026-09-13",
@@ -722,7 +727,7 @@
       "date": "2026-10-11",
       "start": "10:00",
       "end": "16:00",
-      "organiser": "CNY Promotions",
+      "organiser": "CNY Promotions, LLC",
       "organiserUrl": "https://cnypromotions.com",
       "venue": "C&S Companies Science & Industry Building, NYS Fairgrounds",
       "address": "581 State Fair Blvd, Syracuse, NY 13209",
@@ -730,8 +735,8 @@
       "region": "syracuse",
       "pokemon": true,
       "admission": "$5 general, cash only",
-      "blurb": "A dedicated Pokemon show at the Fairgrounds, run by CNY Promotions.",
-      "source": "cardshows.io",
+      "blurb": "A dedicated Pokemon show at the Fairgrounds, billed by the promoter as a TCG collectibles show: trading cards, games, toys, Funko Pops, plush and a whole lot more. The artwork is Pikachu, Ash and three Pokemon cards, so this is the one CNY Promotions date that is about Pokemon rather than merely including it.",
+      "source": "the organiser's own flyer for this show, published on cnypromotions.com and read 8 September 2026, which supersedes cardshows.io for everything it states",
       "tables": 100,
       "tiers": [
         {
@@ -754,7 +759,11 @@
           "name": "TOAK Pulls",
           "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\"."
         }
-      ]
+      ],
+      "sourceNote": "THE HOURS ON THIS ROW WERE ALREADY RIGHT AND THE AGGREGATOR IS WRONG, which is worth recording because the next person to check will find them disagreeing. cardshows.io prints 11:00 AM - 7:00 PM; the organiser's own flyer says \"Syracuse, NY 10am - 4pm\" and \"10am - 4pm: $5, 12 & under free\", with a 9:30am early bird at $20. This row has said 10am to 4pm all along.\n\"Cash only\" and the 100 tables are cardshows.io's alone -- the flyer states neither -- and they are kept on the same reasoning #110's cash-only line is kept.",
+      "flyer": "pokefest-syracuse-2026-10-11.jpg",
+      "flyerW": 440,
+      "flyerH": 570
     },
     {
       "id": "the-big-show-2026-10-16",
@@ -862,15 +871,16 @@
       "region": "syracuse",
       "admission": "$5 general, cash only",
       "tables": 120,
-      "organiser": "CNY Promotions",
+      "organiser": "CNY Promotions, LLC",
       "url": "https://cnypromotions.com",
       "organiserUrl": "https://cnypromotions.com",
-      "source": "nysfairgrounds.ny.gov",
+      "source": "the organiser's own flyer for this show, published on cnypromotions.com and read 8 September 2026, which supersedes cardshows.io for everything it states",
       "tiers": [
         {
           "name": "General admission",
           "price": "$5",
-          "note": "cash only"
+          "note": "cash only, 12 and under free",
+          "from": "09:30"
         },
         {
           "name": "Early bird",
@@ -878,10 +888,15 @@
           "from": "09:00"
         }
       ],
-      "pkmnWhy": "The flyer and the Fairgrounds listing both name Pokemon.",
-      "blurb": "A toy and comic show from the Collectorsfest promoter, with Pokemon among the billed categories.",
+      "pkmnWhy": "The organiser's own flyer names Pokemon in its category list: \"Up to 120 tables of Vintage & Modern Collectible Toys, Comic Books, Die Cast, Hot Wheels, Action Figures, Pokemon, Funko Pops, Star Wars, Non-Sports Cards & a whole lot More.\"",
+      "blurb": "Billed as Central New York's largest toy and comic book show, up to 120 tables, with Pokemon among the categories the promoter lists.",
       "pokemon": false,
-      "pkmn": "some"
+      "pkmn": "some",
+      "phone": "607-753-8580",
+      "sourceNote": "The children's admission was missing entirely: the flyer says \"12 & under free\" and this row priced everybody at $5. Hours, tables and the $20 early bird all matched already.",
+      "flyer": "toyfest-10-2026-10-17.jpg",
+      "flyerW": 440,
+      "flyerH": 570
     },
     {
       "id": "collectorfest-jcc-2026-10-18",
@@ -931,13 +946,13 @@
       "region": "syracuse",
       "pokemon": false,
       "admission": "$5 general, cash only",
-      "source": "cardshows.io",
+      "source": "the organiser's own flyer for this show, published on cnypromotions.com and read 8 September 2026, which supersedes cardshows.io for everything it states",
       "tables": 120,
       "tiers": [
         {
           "name": "General admission",
           "price": "$5",
-          "note": "cash only, 10 and under free"
+          "note": "cash only, 12 and under free"
         },
         {
           "name": "Early bird",
@@ -946,8 +961,15 @@
         }
       ],
       "pkmn": "some",
-      "pkmnWhy": "their listing names Pokemon outright, alongside non-sports cards",
-      "sourceNote": "THE 10-AND-UNDER LINE HERE IS PROBABLY WRONG AND IS DELIBERATELY NOT CHANGED. It reads \"cash only, 10 and under free\", from cardshows.io, and it is the same sentence cardshows.io gave Collectorsfest #110 -- where the organiser's own flyer, read 7 September 2026, says 12 and under. Same organiser, same building, same $5 and $20 tiers, and the aggregator has already been wrong about #110's venue. So the odds are this says 12 as well. It stays at 10 until a flyer for THIS date says otherwise, because copying #110's flyer onto #111 is inferring a fact about a show nobody has published yet, and that is the guess this file exists to refuse. If a reader turns up with an eleven year old, 10 is the answer that costs them five dollars rather than the door."
+      "pkmnWhy": "The flyers for the SHOWS EITHER SIDE OF IT name Pokemon in their own category lists -- #112 on 1 November (\"Sports & Non Sports Cards, Memorabilia, Wax, Sets, Graded Cards, Pokemon, Autographs\") and the Mega Show #113 on 5 December (\"Sports Cards, Toys, Pokemon, Wax, Sets\") -- same organiser, same series, both read off cnypromotions.com on 8 September 2026. This is the SERIES rather than this date.",
+      "sourceNote": "THE 10-AND-UNDER LINE IS SETTLED AND IT WAS WRONG. It read \"cash only, 10 and under free\" from cardshows.io, flagged here as probably a copy of the same aggregator error that gave Collectorsfest #110 the same sentence. The organiser's own flyer for THIS date, read 8 September 2026, says \"Admission $5 - 12 & under free\". So an eleven year old was being quoted a price they do not pay, on this row as well as on #110. Everything else the flyer states matched what was here -- 9am early bird at $20, general 9:30am to 3pm at $5, the Science & Industry Building and the address -- which is why nothing else moved.\n\"Cash only\" is the one claim left standing on cardshows.io alone; the flyer does not mention payment. Kept for the reason #110 keeps it: a reader who brings cash to a show that takes cards has lost nothing, and the reverse loses them the door.\nTHE POKEMON MARK NO LONGER RESTS ON THE AGGREGATOR, AND THAT MATTERS. CARDSHOWS.IO'S CATEGORY SENTENCE IS BOILERPLATE AND IS NOT EVIDENCE. Its event pages read \"Featuring sports cards, Pokemon, TCG, and collectibles for buyers, sellers and traders in the Central New York area\" -- the SAME sentence, word for word, on POKEFEST and on Collectorsfest #111, two shows whose own flyers bill completely different things. It is generated per listing, so a pkmn mark may never rest on it. This date's own flyer names NO categories at all -- it spends its lower half on the SGC bulk submission instead -- so unlike #110, whose flyer listed categories and chose not to say Pokemon, there is no meaningful silence here to read. The mark now cites the adjacent flyers of the same series and says so out loud.",
+      "organiser": "CNY Promotions, LLC",
+      "organiserUrl": "https://cnypromotions.com",
+      "phone": "607-753-8580",
+      "blurb": "The October Collectorsfest at the Fairgrounds, billed as Central New York's premier sports cards and collectible show. Sports Card Nation is the official SGC bulk submitter for the show and will take sports and non-sports cards on the day to be graded by SGC.",
+      "flyer": "collectorsfest-111-2026-10-18.jpg",
+      "flyerW": 440,
+      "flyerH": 570
     },
     {
       "id": "585cardz-batavia-2026-10-21",
@@ -1088,7 +1110,7 @@
     },
     {
       "id": "collectorsfest-112-2026-11-01",
-      "name": "Collectors Fest #112",
+      "name": "Collectorsfest #112",
       "date": "2026-11-01",
       "start": "09:30",
       "end": "15:00",
@@ -1096,9 +1118,32 @@
       "city": "Liverpool",
       "region": "syracuse",
       "pokemon": false,
-      "admission": null,
-      "source": "cardshows.io",
-      "address": "441 Electronics Parkway, Liverpool, NY 13088"
+      "admission": "$5 general",
+      "source": "the organiser's own flyer for this show, published on cnypromotions.com and read 8 September 2026, which supersedes cardshows.io for everything it states",
+      "address": "441 Electronics Parkway, Liverpool, NY 13088",
+      "tiers": [
+        {
+          "name": "General admission",
+          "price": "$5",
+          "from": "09:30",
+          "note": "12 and under free"
+        },
+        {
+          "name": "Early bird",
+          "price": "$20",
+          "from": "09:00"
+        }
+      ],
+      "tables": 60,
+      "organiser": "CNY Promotions, LLC",
+      "organiserUrl": "https://cnypromotions.com",
+      "pkmn": "some",
+      "pkmnWhy": "The organiser's own flyer names Pokemon outright in its category list: \"Up to 60 tables of Sports & Non Sports Cards, Memorabilia, Wax, Sets, Graded Cards, Pokemon, Autographs, Supplies to protect your items, and a whole lot more.\"",
+      "blurb": "The one Collectorsfest of the run that is NOT at the Fairgrounds: it is at the Randolph House Hotel in Liverpool, and that is the organiser's own flyer saying so rather than an aggregator guessing. Up to 60 tables. Sports Card Nation takes cards on the day for SGC grading.",
+      "sourceNote": "THIS ROW WAS ALMOST EMPTY AND THE FLYER FILLED IT: it had no admission, no tiers, no tables, no organiser, no blurb and no Pokemon mark, all of it now off cnypromotions.com, read 8 September 2026.\nAND LIVERPOOL IS RIGHT HERE, WHICH IS THE OPPOSITE OF #110. Three aggregators wrongly put Collectorsfest #110 at the Randolph House Hotel in Liverpool when its flyer said the NYS Fairgrounds. It would have been easy to \"fix\" this row the same way. The flyer for #112 says Randolph House Hotel, 441 Electronics Parkway, Liverpool, NY in its own headline, so the venue that was here was correct all along. One aggregator error does not travel.\nThe name was \"Collectors Fest #112\" and the flyer says COLLECTORSFEST #112, matching its siblings #110 and #111.",
+      "flyer": "collectorsfest-112-2026-11-01.jpg",
+      "flyerW": 440,
+      "flyerH": 570
     },
     {
       "id": "585cardz-batavia-2026-11-04",
@@ -1373,22 +1418,23 @@
       "name": "Collector's Mega Show #113",
       "date": "2026-12-05",
       "start": "09:30",
-      "end": "15:00",
-      "organiser": "CNY Promotions",
+      "end": "16:00",
+      "organiser": "CNY Promotions, LLC",
       "organiserUrl": "https://cnypromotions.com",
-      "venue": "Horticulture Building, NYS Fairgrounds",
+      "venue": "Horticultural Building, NYS Fairgrounds",
       "address": "581 State Fair Blvd, Syracuse, NY 13209",
       "city": "Syracuse",
       "region": "syracuse",
       "pokemon": false,
       "admission": "$5 general",
-      "blurb": "The big CNY Promotions end of year show. Sports, Pokemon, toys and autographs in the Horticultural Building.",
-      "source": "cardshows.io",
+      "blurb": "The big CNY Promotions end of year show, over 200 tables, and the one that moves to the Horticultural Building rather than Science & Industry. Sports, Pokemon, toys and autographs, with Sports Card Nation taking cards for SGC grading.",
+      "source": "the organiser's own flyer for this show, published on cnypromotions.com and read 8 September 2026, which supersedes cardshows.io for everything it states",
       "tiers": [
         {
           "name": "General admission",
           "price": "$5",
-          "note": "12 and under free"
+          "note": "12 and under free",
+          "from": "09:30"
         },
         {
           "name": "Early bird",
@@ -1398,7 +1444,12 @@
         }
       ],
       "pkmn": "some",
-      "pkmnWhy": "their listing names Pokemon outright, alongside non-sports cards"
+      "pkmnWhy": "The organiser's own flyer names Pokemon THIRD in its own category list: \"Sports Cards, Toys, Pokemon, Wax, Sets, Graded Cards, Autographs, Funko Pops, Memorabilia, Supplies, Non-Sports Cards, and a whole lot more.\"",
+      "tables": "200+",
+      "sourceNote": "THE CLOSING TIME WAS AN HOUR EARLY AND THAT IS THE REAL ERROR THIS FLYER CAUGHT. This row said 9:30am to 3pm; the organiser's own flyer says \"9:30am - 4pm\". Everything else it states matched -- Saturday 5 December, the Fairgrounds, 581 State Fair Blvd, $20 early bird at 9am, $5 general, 12 and under free -- and it ADDS \"Over 200 Tables with the best assortment in Central New York\", which is why this row now carries a table count where it had none. The building is spelled Horticultural on the flyer.\nThe Pokemon mark used to read \"their listing names Pokemon outright\", meaning cardshows.io. CARDSHOWS.IO'S CATEGORY SENTENCE IS BOILERPLATE AND IS NOT EVIDENCE. Its event pages read \"Featuring sports cards, Pokemon, TCG, and collectibles for buyers, sellers and traders in the Central New York area\" -- the SAME sentence, word for word, on POKEFEST and on Collectorsfest #111, two shows whose own flyers bill completely different things. It is generated per listing, so a pkmn mark may never rest on it. It cites the flyer now.",
+      "flyer": "mega-show-113-2026-12-05.jpg",
+      "flyerW": 440,
+      "flyerH": 570
     },
     {
       "id": "locks-lockport-2026-12-12",
