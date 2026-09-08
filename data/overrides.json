@@ -2724,5 +2724,9 @@
     "hasHit": false,
     "packNumberWhy": "The owner, 7 September 2026: \"Single Booster Pack , Pack #13, Hit no , Destined Rivals\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. His sheet has not caught up with this rip yet, so it lives here rather than in manual.json, which the next CSV import would rebuild without it.",
     "hasHitWhy": "A rip WITH a hit is answered by its data/hits.json row; a rip with none has nothing to imply one, so without this it counts as not yet judged rather than as judged and empty, and /luck.html carries it in the shortfall. \"Hit no\" is his own word for it and is the whole source."
+  },
+  "zwB2JsJN6XA": {
+    "packNumber": 1,
+    "packNumberWhy": "The owner, 8 September 2026: \"Single Booster Pack, Pack #1, Hit yes, Trainer - Ruffian - Double Silver Star - Ultra Rare - Journey Together\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. This title does read \"Pack #1\", and that is still not a source -- it is the same string the regex was banned from trusting. No hasHit override is needed: the rip's data/hits.json row answers that, and only a rip with NO hit needs saying so out loud. His sheet has not caught up with this rip yet, so it lives here rather than in manual.json, which the next CSV import would rebuild without it."
   }
 }

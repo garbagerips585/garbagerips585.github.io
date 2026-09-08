@@ -70,7 +70,7 @@
     "is a different card; see that module for the rest of the reasoning."
   ],
   "source": "My Hits tab",
-  "checked": "2026-09-06",
+  "checked": "2026-09-08",
   "videos": {
     "kj7532tb0_I": [
       {
@@ -2293,6 +2293,17 @@
         "number": "091",
         "hallOfFame": false,
         "handNote": "The owner, 6 September 2026: \"Todays video is Chaos Rising, ETB #3, Pack #7, Hit yes - Xerneas - Single Gold Star - Illustration Rare\", and separately \"todays rip is a pack bought from LingSter Games\". Chaos Rising prints Xerneas twice, 042 Rare and 091 Illustration rare, and the rarity names exactly one, which is the rule pickPrinting follows. \"Single Gold Star\" is the same claim said twice: one gold star IS the Illustration Rare symbol, so the symbol and the name agree and nothing here is inferred. Chaos Rising is an English set, so Illustration Rare is the right vocabulary for it and Art Rare would be wrong -- the opposite of the Japanese rows above. Hand-kept until the My Hits tab carries it."
+      }
+    ],
+    "zwB2JsJN6XA": [
+      {
+        "card": "Ruffian",
+        "set": "journey-together",
+        "setName": "Journey Together",
+        "rarity": "Ultra Rare",
+        "number": "181",
+        "hallOfFame": false,
+        "handNote": "The owner, 8 September 2026: \"Single Booster Pack, Pack #1, Hit yes, Trainer - Ruffian - Double Silver Star - Ultra Rare - Journey Together\". Journey Together prints Ruffian twice, 157 Uncommon and 181 Ultra Rare, and the rarity names exactly one, which is the rule pickPrinting follows. \"Double Silver Star\" is the same claim said twice: two silver stars IS the Ultra Rare symbol, so the symbol and the name agree and nothing here is inferred. \"Trainer\" agrees too -- both Ruffians are Trainers, so it corroborates the card without narrowing the printing. Journey Together is an English set, so Ultra Rare is the right vocabulary for it. This is the SECOND time this exact card has been pulled on camera: SOCAXif6Mzs carries Ruffian 181 as well, imported from the My Hits tab, and that row still holds a stale rawNm of 1 against the 0.93 the set file prices today -- which is the whole reason prices are not stored here. Hand-kept until the My Hits tab carries it."
       }
     ]
   }
