@@ -276,7 +276,13 @@
       "flyerH": 824,
       "pokemon": false,
       "pkmn": "some",
-      "pkmnWhy": "The promoter's second flyer says it in words: \"VINTAGE & MODERN SPORTS CARDS, POKEMON & NON-SPORTS CARDS\" across the foot of it, with a graded 1999 Charizard among the five cards in the artwork. That is a flyer naming Pokemon, which is the bar Collectorsfest #110 is held to and fails."
+      "pkmnWhy": "The promoter's second flyer says it in words: \"VINTAGE & MODERN SPORTS CARDS, POKEMON & NON-SPORTS CARDS\" across the foot of it, with a graded 1999 Charizard among the five cards in the artwork. That is a flyer naming Pokemon, which is the bar Collectorsfest #110 is held to and fails.",
+      "vendors": [
+        {
+          "name": "Skull & Bones Collectibles",
+          "confirmed": "Skull & Bones Collectibles' own upcoming-shows flyer, sent to the channel by the owner on 8 September 2026. Matched to this row by date AND street address, not by name alone."
+        }
+      ]
     },
     {
       "id": "collectorsfest-110-2026-09-13",
@@ -559,7 +565,13 @@
       "pokemon": true,
       "admission": "Free",
       "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "An all Pokemon show at the Batavia Quality Inn, free in, with food on site."
+      "blurb": "An all Pokemon show at the Batavia Quality Inn, free in, with food on site.",
+      "vendors": [
+        {
+          "name": "Skull & Bones Collectibles",
+          "confirmed": "Skull & Bones Collectibles' own upcoming-shows flyer, sent to the channel by the owner on 8 September 2026. Matched to this row by date AND street address, not by name alone."
+        }
+      ]
     },
     {
       "id": "fall-fest-2026-09-26",

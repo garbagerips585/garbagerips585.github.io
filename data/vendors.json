@@ -28,7 +28,7 @@
     "`name` IS A FOREIGN KEY. data/shows.json joins confirmed vendors to this file on name, so it must be unique here (the build throws on a duplicate) and renaming a vendor breaks every show that names them until those are updated. A `logo` requires `logoW`/`logoH` and its built renditions under public/assets/creators/, or the build fails: a logo goes up only where its owner sent it for this use, and the show card is a second use of that same permission.",
     "THE ARRAY ORDER IS THE PAGE ORDER. build-locals.mjs renders this list as it stands and sorts it by nothing, so appending a vendor puts them last and reordering here is how the page is reordered. The owner set this order on 3 September 2026: TOAK Pulls, Legends Card Shop, RocPokeCon. Pok.eJoe Trading Cards was appended on 4 September 2026, which is what appending is supposed to do -- the rule is the order above, not the roster, which will keep growing."
   ],
-  "updated": "2026-09-04",
+  "updated": "2026-09-08",
   "vendors": [
     {
       "name": "TOAK Pulls",
@@ -91,6 +91,19 @@
       "logoW": 1044,
       "logoH": 862,
       "nameNote": "The logo sets the name in caps as POK.EJOE over POKEMON CARDS and he wrote it \"pok.ejoe trading cards\", so the mid-word capital is a reading of the wordmark rather than something either source states. `name` is a foreign key that data/shows.json joins on, so changing it means changing every show that names them."
+    },
+    {
+      "name": "Skull & Bones Collectibles",
+      "area": "Rochester, NY and the wider region, plus Erie, PA",
+      "sells": "Buy, sell and trade, in person at shows and live on Whatnot",
+      "blurb": "A local vendor doing the Rochester, NY show circuit, and they travel: their own September list runs Arch Angel and the Extreme Pokemon show in Batavia, then out to the Mill Creek Mall in Erie for a three day one. They buy, sell and trade at the table, and they stream on Whatnot between shows.",
+      "shows": "Local shows around Rochester, NY, plus out of state",
+      "instagram": "snbcollectibles",
+      "whatnot": "skullnbonescollectibles",
+      "logo": "skull-and-bones-collectibles",
+      "logoNote": "Sent by them for this use, 8 September 2026, with their upcoming-shows flyer.",
+      "logoW": 1000,
+      "logoH": 1000
     }
   ]
 }
