@@ -690,6 +690,35 @@
       ]
     },
     {
+      "id": "millcreek-mall-2026-10-02",
+      "name": "Sports Card, Collectibles & TCG Super Show",
+      "date": "2026-10-02",
+      "start": "11:00",
+      "end": "19:00",
+      "venue": "Millcreek Mall, Center and Macy's Courts",
+      "address": "5800 Peach St, Erie, PA 16565",
+      "city": "Erie",
+      "region": "away",
+      "farAfield": "The owner, 8 September 2026: \"we can add in the Mill Creek Mall, Erie all good, better to have more\". 95 ROAD miles from Buffalo and 164 from Rochester, NY, measured on OSM road data by two independent routing engines agreeing within 1.5%; the 81 miles this guard prints beside it is the straight line, which is the figure the 45 mile rule is written in, so the two are not in conflict. Real drive is about 1h40m from Buffalo and 2h45m from Rochester, NY. That is CLOSER than The Big Show in Harmony, PA, which is here on the same owner's same call, so this sits inside a precedent he had already set. Skull & Bones Collectibles are vending it.",
+      "pokemon": false,
+      "pkmn": "some",
+      "pkmnWhy": "The promoter's own copy names Pokemon outright: \"a huge weekend of sports cards, collectibles, Pokemon, One Piece & TCG fun\", and their dealer page bills the event as a \"Sports Card & Pokemon/TCG Show\".",
+      "admission": "Free",
+      "tables": "200+",
+      "organiser": "Pittsburgh Card Show",
+      "organiserUrl": "https://pittsburghcardshow.com",
+      "phone": "724-557-4635",
+      "blurb": "The Friday opening of a three day show in the mall's Center and Macy's Courts, 200+ tables. Free to get in and free to park. Sports, Pokemon, One Piece and TCG.",
+      "source": "the venue's own event page, millcreekmall.net/events/41687-sports-cards-collectibles-show, read 8 September 2026, which carries the promoter's copy and their phone and email; the promoter is Pittsburgh Card Show, pittsburghcardshow.com. Skull & Bones Collectibles' upcoming-shows flyer, sent by the owner the same day, is how we learned of it.",
+      "sourceNote": "THE SUNDAY CLOSES FOUR HOURS EARLIER THAN THE SATURDAY and that is the one that would burn a late driver on a 2h45m trip, so each day is its own row with its own hours rather than one row with a range. 11am-7pm, 10am-7pm, 11am-3pm, read off the venue's event page.\nPOKEMON IS NAMED BY THE PROMOTER, not inferred from \"TCG\": their copy reads \"a huge weekend of sports cards, collectibles, Pokemon, One Piece & TCG fun\", and their own dealer page calls the event a \"Sports Card & Pokemon/TCG Show\". It is still not an all-Pokemon show, so the mark is `some`.\nThe phone is the promoter's business line, published on the event page for the show, which is the one condition this file puts on a phone.",
+      "vendors": [
+        {
+          "name": "Skull & Bones Collectibles",
+          "confirmed": "Skull & Bones Collectibles' own upcoming-shows flyer, sent to the channel by the owner on 8 September 2026, listing \"Mill Creek Mall Show, Oct 2-4th, millcreek mall, erie pa\"."
+        }
+      ]
+    },
+    {
       "id": "batavia-scts-2026-10-03",
       "name": "Batavia Sports Card, Toys & Collectible Show",
       "date": "2026-10-03",
@@ -713,6 +742,35 @@
       "phone": "585-353-0834"
     },
     {
+      "id": "millcreek-mall-2026-10-03",
+      "name": "Sports Card, Collectibles & TCG Super Show",
+      "date": "2026-10-03",
+      "start": "10:00",
+      "end": "19:00",
+      "venue": "Millcreek Mall, Center and Macy's Courts",
+      "address": "5800 Peach St, Erie, PA 16565",
+      "city": "Erie",
+      "region": "away",
+      "farAfield": "The owner, 8 September 2026: \"we can add in the Mill Creek Mall, Erie all good, better to have more\". 95 ROAD miles from Buffalo and 164 from Rochester, NY, measured on OSM road data by two independent routing engines agreeing within 1.5%; the 81 miles this guard prints beside it is the straight line, which is the figure the 45 mile rule is written in, so the two are not in conflict. Real drive is about 1h40m from Buffalo and 2h45m from Rochester, NY. That is CLOSER than The Big Show in Harmony, PA, which is here on the same owner's same call, so this sits inside a precedent he had already set. Skull & Bones Collectibles are vending it.",
+      "pokemon": false,
+      "pkmn": "some",
+      "pkmnWhy": "The promoter's own copy names Pokemon outright: \"a huge weekend of sports cards, collectibles, Pokemon, One Piece & TCG fun\", and their dealer page bills the event as a \"Sports Card & Pokemon/TCG Show\".",
+      "admission": "Free",
+      "tables": "200+",
+      "organiser": "Pittsburgh Card Show",
+      "organiserUrl": "https://pittsburghcardshow.com",
+      "phone": "724-557-4635",
+      "blurb": "The full Saturday, and the longest of the three days at nine hours. 200+ tables across the Center and Macy's Courts, free entry and free parking.",
+      "source": "the venue's own event page, millcreekmall.net/events/41687-sports-cards-collectibles-show, read 8 September 2026, which carries the promoter's copy and their phone and email; the promoter is Pittsburgh Card Show, pittsburghcardshow.com. Skull & Bones Collectibles' upcoming-shows flyer, sent by the owner the same day, is how we learned of it.",
+      "sourceNote": "THE SUNDAY CLOSES FOUR HOURS EARLIER THAN THE SATURDAY and that is the one that would burn a late driver on a 2h45m trip, so each day is its own row with its own hours rather than one row with a range. 11am-7pm, 10am-7pm, 11am-3pm, read off the venue's event page.\nPOKEMON IS NAMED BY THE PROMOTER, not inferred from \"TCG\": their copy reads \"a huge weekend of sports cards, collectibles, Pokemon, One Piece & TCG fun\", and their own dealer page calls the event a \"Sports Card & Pokemon/TCG Show\". It is still not an all-Pokemon show, so the mark is `some`.\nThe phone is the promoter's business line, published on the event page for the show, which is the one condition this file puts on a phone.",
+      "vendors": [
+        {
+          "name": "Skull & Bones Collectibles",
+          "confirmed": "Skull & Bones Collectibles' own upcoming-shows flyer, sent to the channel by the owner on 8 September 2026, listing \"Mill Creek Mall Show, Oct 2-4th, millcreek mall, erie pa\"."
+        }
+      ]
+    },
+    {
       "id": "locks-lockport-2026-10-04",
       "name": "Collectibles at the Locks",
       "date": "2026-10-04",
@@ -727,6 +785,35 @@
       "pkmnWhy": "It is hosted inside a TCG shop that deals Japanese and English Pokemon.",
       "pokemon": false,
       "pkmn": "some"
+    },
+    {
+      "id": "millcreek-mall-2026-10-04",
+      "name": "Sports Card, Collectibles & TCG Super Show",
+      "date": "2026-10-04",
+      "start": "11:00",
+      "end": "15:00",
+      "venue": "Millcreek Mall, Center and Macy's Courts",
+      "address": "5800 Peach St, Erie, PA 16565",
+      "city": "Erie",
+      "region": "away",
+      "farAfield": "The owner, 8 September 2026: \"we can add in the Mill Creek Mall, Erie all good, better to have more\". 95 ROAD miles from Buffalo and 164 from Rochester, NY, measured on OSM road data by two independent routing engines agreeing within 1.5%; the 81 miles this guard prints beside it is the straight line, which is the figure the 45 mile rule is written in, so the two are not in conflict. Real drive is about 1h40m from Buffalo and 2h45m from Rochester, NY. That is CLOSER than The Big Show in Harmony, PA, which is here on the same owner's same call, so this sits inside a precedent he had already set. Skull & Bones Collectibles are vending it.",
+      "pokemon": false,
+      "pkmn": "some",
+      "pkmnWhy": "The promoter's own copy names Pokemon outright: \"a huge weekend of sports cards, collectibles, Pokemon, One Piece & TCG fun\", and their dealer page bills the event as a \"Sports Card & Pokemon/TCG Show\".",
+      "admission": "Free",
+      "tables": "200+",
+      "organiser": "Pittsburgh Card Show",
+      "organiserUrl": "https://pittsburghcardshow.com",
+      "phone": "724-557-4635",
+      "blurb": "The last day, and it is the SHORT one: doors 11am and everything is over at 3pm, four hours earlier than the Saturday. Worth knowing before a two and a half hour drive.",
+      "source": "the venue's own event page, millcreekmall.net/events/41687-sports-cards-collectibles-show, read 8 September 2026, which carries the promoter's copy and their phone and email; the promoter is Pittsburgh Card Show, pittsburghcardshow.com. Skull & Bones Collectibles' upcoming-shows flyer, sent by the owner the same day, is how we learned of it.",
+      "sourceNote": "THE SUNDAY CLOSES FOUR HOURS EARLIER THAN THE SATURDAY and that is the one that would burn a late driver on a 2h45m trip, so each day is its own row with its own hours rather than one row with a range. 11am-7pm, 10am-7pm, 11am-3pm, read off the venue's event page.\nPOKEMON IS NAMED BY THE PROMOTER, not inferred from \"TCG\": their copy reads \"a huge weekend of sports cards, collectibles, Pokemon, One Piece & TCG fun\", and their own dealer page calls the event a \"Sports Card & Pokemon/TCG Show\". It is still not an all-Pokemon show, so the mark is `some`.\nThe phone is the promoter's business line, published on the event page for the show, which is the one condition this file puts on a phone.",
+      "vendors": [
+        {
+          "name": "Skull & Bones Collectibles",
+          "confirmed": "Skull & Bones Collectibles' own upcoming-shows flyer, sent to the channel by the owner on 8 September 2026, listing \"Mill Creek Mall Show, Oct 2-4th, millcreek mall, erie pa\"."
+        }
+      ]
     },
     {
       "id": "bpt-fall-2026-10-10",
@@ -1958,6 +2045,10 @@
     "East Rochester": [
       43.112157,
       -77.483559
+    ],
+    "Erie": [
+      42.129471,
+      -80.08527
     ]
   },
   "_towns_note": [
