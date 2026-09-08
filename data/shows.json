@@ -257,34 +257,6 @@
       "address": "6525 Ward Rd, Sanborn, NY 14132"
     },
     {
-      "id": "arch-angel-2026-09-13",
-      "name": "Arch Angels Collectors Show",
-      "date": "2026-09-13",
-      "start": "10:00",
-      "end": "15:00",
-      "venue": "Archangel School",
-      "address": "2400 Chili Ave, Rochester, NY 14624",
-      "city": "Rochester, NY",
-      "region": "roc",
-      "admission": "Free",
-      "blurb": "A charity show for Archangel School, run by the people behind the Batavia shows. Free to get in, and the promoter bills vintage and modern sports cards, Pokemon and non-sports cards. Food and refreshments are on site and are sold, not free. Six foot vendor tables are $40, and the number to call about one is on the flyer.",
-      "organiser": "Jen and Don",
-      "source": "the organizer's own flyer, sent to the channel by a reader on Discord, August 27, 2026, and a SECOND promoter flyer for the same show sent by the owner on 8 September 2026",
-      "sourceNote": "THERE ARE TWO OFFICIAL FLYERS FOR THIS ONE SHOW AND THEY DISAGREE ABOUT ITS NAME. The first, a black and white photocopy, says \"ARCH ANGELS COLLECTORS SHOW\" at \"ARCHANGEL SCHOOL\". The second, a full-colour design the owner sent on 8 September 2026, says \"ARCH ANGEL SPORTS CARD and COLLECTORS SHOW\" at \"ARCH ANGEL SCHOOL\" -- which is the name the aggregator had, and which an earlier note here moved AWAY from on the strength of the first flyer. So the aggregator was reading the other flyer, not inventing one. Neither name is corrected into the other; the row keeps the first, and this records that both are the promoter's own.\nTHE VENUE SPELLING IS SETTLED BY THE SCHOOL ITSELF, not by either flyer: it is Archangel School, one word, at 2400 Chili Ave, Rochester, NY 14624 (archangelschool.com, a private Catholic school, read 8 September 2026). The colour flyer's \"ARCH ANGEL SCHOOL\" is its own styling.\nWHAT THE SECOND FLYER CHANGED. The Pokemon mark used to rest on the first flyer's artwork -- a Pokeball drawn as large as the show title -- which is the weakest of the three kinds build-shows.mjs allows. The second flyer bills Pokemon in TEXT, so the mark now rests on a billing rather than on a drawing. And the blurb said \"food and refreshments on site\", which reads as free; both flyers say they are FOR PURCHASE.\nWHAT IT DID NOT CHANGE, because the two agree exactly: Sunday 13 September, 10am to 3pm, free admission, 2400 Chili Avenue, and Jen or Don on 585-353-0834 for tables. Only the FIRST flyer states the $40 table price and the words \"TRUSTED VENDORS\"; only the second states the sports/Pokemon/non-sports billing. Both are kept as sources for that reason.\nTHE SECOND FLYER IS DELIBERATELY NOT THE PICTURE ON THIS ROW. What arrived is a SCREENSHOT OF A SOCIAL POST: the platform's like, comment, share and save controls are burned into the image over the Pokemon booster pack on its right-hand side, with the counts 27, 2 and 12 beside them, and the bottom of the flyer is cropped off mid-artwork. Cropping the controls away takes about a tenth of the flyer's own width with them. The first flyer is lower quality and complete, so it stays until a clean copy of the colour one turns up.",
-      "flyer": "arch-angel-2026-09-13.jpg",
-      "flyerW": 727,
-      "flyerH": 824,
-      "pokemon": false,
-      "pkmn": "some",
-      "pkmnWhy": "The promoter's second flyer says it in words: \"VINTAGE & MODERN SPORTS CARDS, POKEMON & NON-SPORTS CARDS\" across the foot of it, with a graded 1999 Charizard among the five cards in the artwork. That is a flyer naming Pokemon, which is the bar Collectorsfest #110 is held to and fails.",
-      "vendors": [
-        {
-          "name": "Skull & Bones Collectibles",
-          "confirmed": "Skull & Bones Collectibles' own upcoming-shows flyer, sent to the channel by the owner on 8 September 2026. Matched to this row by date AND street address, not by name alone."
-        }
-      ]
-    },
-    {
       "id": "collectorsfest-110-2026-09-13",
       "name": "Collectorsfest #110",
       "date": "2026-09-13",
@@ -316,6 +288,34 @@
       "flyer": "collectorsfest-110-2026-09-13.jpg",
       "flyerW": 440,
       "flyerH": 566
+    },
+    {
+      "id": "arch-angel-2026-09-13",
+      "name": "Arch Angels Collectors Show",
+      "date": "2026-09-13",
+      "start": "10:00",
+      "end": "15:00",
+      "venue": "Archangel School",
+      "address": "2400 Chili Ave, Rochester, NY 14624",
+      "city": "Rochester, NY",
+      "region": "roc",
+      "admission": "Free",
+      "blurb": "A charity show for Archangel School, run by the people behind the Batavia shows. Free to get in, and the promoter bills vintage and modern sports cards, Pokemon and non-sports cards. Food and refreshments are on site and are sold, not free. Six foot vendor tables are $40, and the number to call about one is on the flyer.",
+      "organiser": "Jen and Don",
+      "source": "the organizer's own flyer, sent to the channel by a reader on Discord, August 27, 2026, and a SECOND promoter flyer for the same show sent by the owner on 8 September 2026",
+      "sourceNote": "THERE ARE TWO OFFICIAL FLYERS FOR THIS ONE SHOW AND THEY DISAGREE ABOUT ITS NAME. The first, a black and white photocopy, says \"ARCH ANGELS COLLECTORS SHOW\" at \"ARCHANGEL SCHOOL\". The second, a full-colour design the owner sent on 8 September 2026, says \"ARCH ANGEL SPORTS CARD and COLLECTORS SHOW\" at \"ARCH ANGEL SCHOOL\" -- which is the name the aggregator had, and which an earlier note here moved AWAY from on the strength of the first flyer. So the aggregator was reading the other flyer, not inventing one. Neither name is corrected into the other; the row keeps the first, and this records that both are the promoter's own.\nTHE VENUE SPELLING IS SETTLED BY THE SCHOOL ITSELF, not by either flyer: it is Archangel School, one word, at 2400 Chili Ave, Rochester, NY 14624 (archangelschool.com, a private Catholic school, read 8 September 2026). The colour flyer's \"ARCH ANGEL SCHOOL\" is its own styling.\nWHAT THE SECOND FLYER CHANGED. The Pokemon mark used to rest on the first flyer's artwork -- a Pokeball drawn as large as the show title -- which is the weakest of the three kinds build-shows.mjs allows. The second flyer bills Pokemon in TEXT, so the mark now rests on a billing rather than on a drawing. And the blurb said \"food and refreshments on site\", which reads as free; both flyers say they are FOR PURCHASE.\nWHAT IT DID NOT CHANGE, because the two agree exactly: Sunday 13 September, 10am to 3pm, free admission, 2400 Chili Avenue, and Jen or Don on 585-353-0834 for tables. Only the FIRST flyer states the $40 table price and the words \"TRUSTED VENDORS\"; only the second states the sports/Pokemon/non-sports billing. Both are kept as sources for that reason.\nTHE SECOND FLYER IS DELIBERATELY NOT THE PICTURE ON THIS ROW. What arrived is a SCREENSHOT OF A SOCIAL POST: the platform's like, comment, share and save controls are burned into the image over the Pokemon booster pack on its right-hand side, with the counts 27, 2 and 12 beside them, and the bottom of the flyer is cropped off mid-artwork. Cropping the controls away takes about a tenth of the flyer's own width with them. The first flyer is lower quality and complete, so it stays until a clean copy of the colour one turns up.",
+      "flyer": "arch-angel-2026-09-13.jpg",
+      "flyerW": 727,
+      "flyerH": 824,
+      "pokemon": false,
+      "pkmn": "some",
+      "pkmnWhy": "The promoter's second flyer says it in words: \"VINTAGE & MODERN SPORTS CARDS, POKEMON & NON-SPORTS CARDS\" across the foot of it, with a graded 1999 Charizard among the five cards in the artwork. That is a flyer naming Pokemon, which is the bar Collectorsfest #110 is held to and fails.",
+      "vendors": [
+        {
+          "name": "Skull & Bones Collectibles",
+          "confirmed": "Skull & Bones Collectibles' own upcoming-shows flyer, sent to the channel by the owner on 8 September 2026. Matched to this row by date AND street address, not by name alone."
+        }
+      ]
     },
     {
       "id": "flower-city-comic-con-2026-09-18",
@@ -350,6 +350,22 @@
       ],
       "organiser": "Mighty Monkey Corporation",
       "organiserUrl": "https://www.fc3roc.com"
+    },
+    {
+      "id": "niagara-vault-2026-09-19",
+      "name": "Niagara Vault Expo",
+      "date": "2026-09-19",
+      "start": "08:30",
+      "end": "14:00",
+      "venue": "St. Leo Church Bingo Hall",
+      "address": "2748 Military Rd, Niagara Falls, NY 14304",
+      "city": "Niagara Falls",
+      "region": "buffalo",
+      "admission": "Free",
+      "source": "wnycardshows (Shake & Break 716)",
+      "pkmnWhy": "The regional calendar lists 60+ tables of sports and Pokemon or TCG cards. Single source.",
+      "pokemon": false,
+      "pkmn": "some"
     },
     {
       "id": "cny-collectors-expo-2026-09-19",
@@ -421,43 +437,31 @@
       "organiserUrl": "https://www.fc3roc.com"
     },
     {
-      "id": "niagara-vault-2026-09-19",
-      "name": "Niagara Vault Expo",
-      "date": "2026-09-19",
-      "start": "08:30",
-      "end": "14:00",
-      "venue": "St. Leo Church Bingo Hall",
-      "address": "2748 Military Rd, Niagara Falls, NY 14304",
-      "city": "Niagara Falls",
-      "region": "buffalo",
-      "admission": "Free",
-      "source": "wnycardshows (Shake & Break 716)",
-      "pkmnWhy": "The regional calendar lists 60+ tables of sports and Pokemon or TCG cards. Single source.",
-      "pokemon": false,
-      "pkmn": "some"
-    },
-    {
-      "id": "cold-front-2026-09-20",
-      "name": "Cold Front Cards Show",
+      "id": "roc-city-2026-09-20",
+      "name": "Roc City Card Show",
       "date": "2026-09-20",
-      "start": "10:30",
-      "end": "15:30",
-      "venue": "Frontier Firehall",
-      "address": "2176 Liberty Dr, Niagara Falls, NY 14304",
-      "city": "Niagara Falls",
-      "region": "buffalo",
-      "admission": "Free",
-      "organiser": "Cold Front Cards",
-      "source": "the organizer, by text with the flyer, August 26, 2026",
+      "start": "09:00",
+      "end": "15:00",
+      "venue": "Basketball Plus",
+      "address": "465 W Commercial St, East Rochester, NY 14445",
+      "city": "East Rochester",
+      "region": "roc",
       "pokemon": false,
       "pkmn": "some",
-      "tables": "60+",
-      "logo": "cold-front-cards",
-      "logoW": 880,
-      "logoH": 787,
-      "flyer": "cold-front-2026-09-20.jpg",
-      "flyerW": 440,
-      "flyerH": 660
+      "pkmnWhy": "The promoter's own flyer prints \"POKEMON CARDS!\" as one of its two headline banners, opposite \"SPORTS CARDS!\", and their link page bills the show as \"Sports, Pokemon, Raffles, Giveaways\". Named outright rather than left at TCG.",
+      "admission": "Free",
+      "organiser": "Roc City Card Show",
+      "url": "https://solo.to/roccitycardshow",
+      "phone": "585-944-3347",
+      "blurb": "A monthly show in East Rochester, about ten minutes out from the city, in the rear building at Basketball Plus. Free to get in and free to park, sports and Pokemon side by side, with raffles and giveaways on the day. It starts at 9am, which is an hour earlier than most of the shows on this page.",
+      "source": "the promoter's own flyer and link page: instagram.com/roccitycardshow and solo.to/roccitycardshow, read 8 September 2026, after Skull & Bones Collectibles' upcoming-shows flyer named the date",
+      "sourceNote": "THE STREET NUMBER ON THE VENDOR'S FLYER IS WRONG BY TEN AND THAT IS THE WHOLE REASON THIS ROW WAS CHECKED RATHER THAN COPIED. Skull & Bones Collectibles' flyer, which is how we learned this show exists, says 455 West Commercial St. The promoter says 465 every time: on the show flyer, on solo.to/roccitycardshow (\"465W Commercial St Rear Building\"), and on the June 2026 edition's post. 465 is independently the address of Basketball Plus, read off basketballplus.co the same day; 455 is not. A vendor naming a show is good evidence the show exists and poor evidence of its details.\nEVERY FIELD HERE WAS READ OFF THE PROMOTER, not off the vendor and not off an aggregator. The hours, the date and the Pokemon billing come from the flyer image on their own account; the address, the free admission and the contact come from their link page. THE SHOW IS ON NO AGGREGATOR AT ALL -- not cardshows.io, which lists 13 Western New York shows and none of them this one, nor the WNY Card Shows calendar, nor tcgshowsnearme -- so there was no listing to reconcile and none to be misled by.\nIt is monthly and the promoter has announced no October date yet. The phone number is theirs, published on their own link page for vending enquiries, which is the one condition this file puts on a phone.\n9am is an hour earlier than nearly everything else here, so it is called out in the blurb rather than left for somebody to miss.",
+      "vendors": [
+        {
+          "name": "Skull & Bones Collectibles",
+          "confirmed": "Skull & Bones Collectibles' own upcoming-shows flyer, sent to the channel by the owner on 8 September 2026. They list it as \"Roc City Cardshow, Sun 20th\"; the promoter's own spelling is Roc City Card Show, which is what this row uses."
+        }
+      ]
     },
     {
       "id": "flower-city-comic-con-2026-09-20",
@@ -492,6 +496,29 @@
       ],
       "organiser": "Mighty Monkey Corporation",
       "organiserUrl": "https://www.fc3roc.com"
+    },
+    {
+      "id": "cold-front-2026-09-20",
+      "name": "Cold Front Cards Show",
+      "date": "2026-09-20",
+      "start": "10:30",
+      "end": "15:30",
+      "venue": "Frontier Firehall",
+      "address": "2176 Liberty Dr, Niagara Falls, NY 14304",
+      "city": "Niagara Falls",
+      "region": "buffalo",
+      "admission": "Free",
+      "organiser": "Cold Front Cards",
+      "source": "the organizer, by text with the flyer, August 26, 2026",
+      "pokemon": false,
+      "pkmn": "some",
+      "tables": "60+",
+      "logo": "cold-front-cards",
+      "logoW": 880,
+      "logoH": 787,
+      "flyer": "cold-front-2026-09-20.jpg",
+      "flyerW": 440,
+      "flyerH": 660
     },
     {
       "id": "585cardz-batavia-2026-09-23",
@@ -609,6 +636,24 @@
       "flyerH": 665
     },
     {
+      "id": "excalibur-niagara-2026-09-27",
+      "name": "Excalibur Events: Niagara Falls Premodern/Pauper Weekend",
+      "date": "2026-09-27",
+      "start": "08:00",
+      "end": "18:00",
+      "venue": "Niagara Falls Convention Center",
+      "address": "101 Old Falls St, Niagara Falls, NY 14303",
+      "city": "Niagara Falls",
+      "region": "buffalo",
+      "pokemon": false,
+      "admission": null,
+      "blurb": "A Magic: The Gathering tournament weekend, not a walk-in card show, and it is here because of the vendor hall: Card Garden, Rochester CCG, The Mana Mart and The Slaughterhouse Games are all listed. Playing costs $90 for the Premodern main and $70 for the Legacy. Excalibur publish no price for walking in just to browse, so check before you drive.",
+      "organiser": "Excalibur Events, LLC",
+      "organiserUrl": "https://www.excaliburevents.net",
+      "url": "https://www.excaliburevents.net/weekends/niagara-falls-2026",
+      "source": "excaliburevents.net, the organizer's own site: the Event Hours block reads Friday 3PM-9PM, Saturday 8AM-9PM, Sunday 8AM-6PM. Read 1 September 2026, after a reader on r/Buffalo pointed at the Friday hours this file had missed."
+    },
+    {
       "id": "collectorfest-jcc-2026-09-27",
       "name": "CollectorFest Monthly",
       "date": "2026-09-27",
@@ -643,24 +688,6 @@
           "confirmed": "The owner, 4 September 2026, listing where they are booked: \"Flower city comic con 18-19-20th, Collector fest monthly 27th, Collector fest monthly oct 18th, Roc pokecon oct 31st, Collector fest November 22 Dec 13th\"."
         }
       ]
-    },
-    {
-      "id": "excalibur-niagara-2026-09-27",
-      "name": "Excalibur Events: Niagara Falls Premodern/Pauper Weekend",
-      "date": "2026-09-27",
-      "start": "08:00",
-      "end": "18:00",
-      "venue": "Niagara Falls Convention Center",
-      "address": "101 Old Falls St, Niagara Falls, NY 14303",
-      "city": "Niagara Falls",
-      "region": "buffalo",
-      "pokemon": false,
-      "admission": null,
-      "blurb": "A Magic: The Gathering tournament weekend, not a walk-in card show, and it is here because of the vendor hall: Card Garden, Rochester CCG, The Mana Mart and The Slaughterhouse Games are all listed. Playing costs $90 for the Premodern main and $70 for the Legacy. Excalibur publish no price for walking in just to browse, so check before you drive.",
-      "organiser": "Excalibur Events, LLC",
-      "organiserUrl": "https://www.excaliburevents.net",
-      "url": "https://www.excaliburevents.net/weekends/niagara-falls-2026",
-      "source": "excaliburevents.net, the organizer's own site: the Event Hours block reads Friday 3PM-9PM, Saturday 8AM-9PM, Sunday 8AM-6PM. Read 1 September 2026, after a reader on r/Buffalo pointed at the Friday hours this file had missed."
     },
     {
       "id": "batavia-scts-2026-10-03",
@@ -809,38 +836,6 @@
       "organiserUrl": "https://northpittsportscards.com"
     },
     {
-      "id": "northtowns-sanborn-2026-10-17",
-      "name": "Northtowns Card & Memorabilia Show",
-      "date": "2026-10-17",
-      "start": "10:00",
-      "end": "15:00",
-      "venue": "American Legion",
-      "city": "Sanborn",
-      "region": "buffalo",
-      "pokemon": false,
-      "pkmn": "some",
-      "pkmnWhy": "A collector who has been reported it on r/Buffalo, 1 September 2026: \"The Northtown Card show in Sanborn is very Pokemon heavy.\" That is a first-hand account rather than the organiser or a listing, and it is recorded as one.",
-      "admission": "Free",
-      "source": "cardshows.io",
-      "organiser": "Shawn Hughes",
-      "address": "6525 Ward Rd, Sanborn, NY 14132"
-    },
-    {
-      "id": "professor-sams-depew-2026-10-17",
-      "name": "Professor Sam's Card Show",
-      "date": "2026-10-17",
-      "start": "10:00",
-      "end": "16:00",
-      "venue": "Pallet Town Poke Shop",
-      "address": "6055 Transit Rd, Depew, NY 14043",
-      "city": "Depew",
-      "region": "buffalo",
-      "pokemon": true,
-      "admission": "Free",
-      "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "Run out of Pallet Town Poke Shop by one of the people behind Buffalo Trading Card Con."
-    },
-    {
       "id": "the-big-show-2026-10-17",
       "name": "The Big Show",
       "date": "2026-10-17",
@@ -911,40 +906,36 @@
       "flyerH": 570
     },
     {
-      "id": "collectorfest-jcc-2026-10-18",
-      "name": "CollectorFest Monthly",
-      "date": "2026-10-18",
+      "id": "northtowns-sanborn-2026-10-17",
+      "name": "Northtowns Card & Memorabilia Show",
+      "date": "2026-10-17",
       "start": "10:00",
-      "end": "14:00",
-      "venue": "Louis S. Wolk JCC of Greater Rochester",
-      "address": "1200 Edgewood Ave, Rochester, NY 14618",
-      "city": "Rochester, NY",
-      "region": "roc",
+      "end": "15:00",
+      "venue": "American Legion",
+      "city": "Sanborn",
+      "region": "buffalo",
       "pokemon": false,
-      "admission": "Free",
-      "organiser": "Ernie Orlando, Ernie's Cards",
-      "organiserUrl": "https://collectorfestmonthly.com",
-      "phone": "(585) 414-6726",
-      "url": "https://collectorfestmonthly.com",
-      "source": "the organizer's own printed flyer for the whole 2026-27 run, handed to the channel by Ernie Orlando at the JCC show, August 31, 2026",
-      "blurb": "Free Monthly 72-table show, lots of great Pokemon vendors, and a good mix of vintage and modern sports cards and collectibles, plus there is a giveaway at noon.",
-      "tables": 72,
       "pkmn": "some",
-      "pkmnWhy": "The organizer confirmed it directly, and we are at this one most months: the same Pokemon vendors are there every time.",
-      "vendors": [
-        {
-          "name": "Legends Card Shop",
-          "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026. Matched to this row by date AND street address, not by name alone."
-        },
-        {
-          "name": "TOAK Pulls",
-          "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\". They named the SERIES rather than a date, so this is every 2026 instance of it. The two 2027 dates are deliberately not marked: a September message is not a commitment five months out, and the owner can extend it if they confirm."
-        },
-        {
-          "name": "Pok.eJoe Trading Cards",
-          "confirmed": "The owner, 4 September 2026, listing where they are booked: \"Flower city comic con 18-19-20th, Collector fest monthly 27th, Collector fest monthly oct 18th, Roc pokecon oct 31st, Collector fest November 22 Dec 13th\"."
-        }
-      ]
+      "pkmnWhy": "A collector who has been reported it on r/Buffalo, 1 September 2026: \"The Northtown Card show in Sanborn is very Pokemon heavy.\" That is a first-hand account rather than the organiser or a listing, and it is recorded as one.",
+      "admission": "Free",
+      "source": "cardshows.io",
+      "organiser": "Shawn Hughes",
+      "address": "6525 Ward Rd, Sanborn, NY 14132"
+    },
+    {
+      "id": "professor-sams-depew-2026-10-17",
+      "name": "Professor Sam's Card Show",
+      "date": "2026-10-17",
+      "start": "10:00",
+      "end": "16:00",
+      "venue": "Pallet Town Poke Shop",
+      "address": "6055 Transit Rd, Depew, NY 14043",
+      "city": "Depew",
+      "region": "buffalo",
+      "pokemon": true,
+      "admission": "Free",
+      "source": "wnycardshows (Shake & Break 716)",
+      "blurb": "Run out of Pallet Town Poke Shop by one of the people behind Buffalo Trading Card Con."
     },
     {
       "id": "collectorsfest-111-2026-10-18",
@@ -982,6 +973,42 @@
       "flyer": "collectorsfest-111-2026-10-18.jpg",
       "flyerW": 440,
       "flyerH": 570
+    },
+    {
+      "id": "collectorfest-jcc-2026-10-18",
+      "name": "CollectorFest Monthly",
+      "date": "2026-10-18",
+      "start": "10:00",
+      "end": "14:00",
+      "venue": "Louis S. Wolk JCC of Greater Rochester",
+      "address": "1200 Edgewood Ave, Rochester, NY 14618",
+      "city": "Rochester, NY",
+      "region": "roc",
+      "pokemon": false,
+      "admission": "Free",
+      "organiser": "Ernie Orlando, Ernie's Cards",
+      "organiserUrl": "https://collectorfestmonthly.com",
+      "phone": "(585) 414-6726",
+      "url": "https://collectorfestmonthly.com",
+      "source": "the organizer's own printed flyer for the whole 2026-27 run, handed to the channel by Ernie Orlando at the JCC show, August 31, 2026",
+      "blurb": "Free Monthly 72-table show, lots of great Pokemon vendors, and a good mix of vintage and modern sports cards and collectibles, plus there is a giveaway at noon.",
+      "tables": 72,
+      "pkmn": "some",
+      "pkmnWhy": "The organizer confirmed it directly, and we are at this one most months: the same Pokemon vendors are there every time.",
+      "vendors": [
+        {
+          "name": "Legends Card Shop",
+          "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026. Matched to this row by date AND street address, not by name alone."
+        },
+        {
+          "name": "TOAK Pulls",
+          "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\". They named the SERIES rather than a date, so this is every 2026 instance of it. The two 2027 dates are deliberately not marked: a September message is not a commitment five months out, and the owner can extend it if they confirm."
+        },
+        {
+          "name": "Pok.eJoe Trading Cards",
+          "confirmed": "The owner, 4 September 2026, listing where they are booked: \"Flower city comic con 18-19-20th, Collector fest monthly 27th, Collector fest monthly oct 18th, Roc pokecon oct 31st, Collector fest November 22 Dec 13th\"."
+        }
+      ]
     },
     {
       "id": "585cardz-batavia-2026-10-21",
@@ -1386,29 +1413,6 @@
       ]
     },
     {
-      "id": "batavia-scts-2026-12-05",
-      "name": "Batavia Sports Card, Toys & Collectible Show",
-      "date": "2026-12-05",
-      "start": "10:00",
-      "end": "15:00",
-      "venue": "Quality Inn",
-      "city": "Batavia",
-      "region": "roc",
-      "pokemon": false,
-      "admission": "Free",
-      "source": "cardshows.io, and the organiser's flyer sent to the channel, 3 September 2026",
-      "blurb": "Batavia is the halfway point between Rochester, NY and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors, and Pokemon dealers set up alongside the sports tables. The drive is what gets you dealers from both cities in one room.",
-      "organiser": "Jen Oberlies, JC's Cards and Collectibles",
-      "organiserUrl": "https://jcsportscollectibles.com",
-      "address": "8250 Park Rd, Batavia, NY 14020",
-      "pkmn": "some",
-      "pkmnWhy": "The promoter lists it in Sports Collectors Digest as \"JC's Sports Card & Pokemon\", and Pokemon dealers post from it. The flyer itself bills sports, toys and non-sports.",
-      "flyer": "batavia-scts-monthly.jpg",
-      "flyerW": 440,
-      "flyerH": 503,
-      "phone": "585-353-0834"
-    },
-    {
       "id": "golden-saucer-nf-2026-12-05",
       "name": "Golden Saucer Gaming Expo",
       "date": "2026-12-05",
@@ -1462,6 +1466,29 @@
       "flyer": "mega-show-113-2026-12-05.jpg",
       "flyerW": 440,
       "flyerH": 570
+    },
+    {
+      "id": "batavia-scts-2026-12-05",
+      "name": "Batavia Sports Card, Toys & Collectible Show",
+      "date": "2026-12-05",
+      "start": "10:00",
+      "end": "15:00",
+      "venue": "Quality Inn",
+      "city": "Batavia",
+      "region": "roc",
+      "pokemon": false,
+      "admission": "Free",
+      "source": "cardshows.io, and the organiser's flyer sent to the channel, 3 September 2026",
+      "blurb": "Batavia is the halfway point between Rochester, NY and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors, and Pokemon dealers set up alongside the sports tables. The drive is what gets you dealers from both cities in one room.",
+      "organiser": "Jen Oberlies, JC's Cards and Collectibles",
+      "organiserUrl": "https://jcsportscollectibles.com",
+      "address": "8250 Park Rd, Batavia, NY 14020",
+      "pkmn": "some",
+      "pkmnWhy": "The promoter lists it in Sports Collectors Digest as \"JC's Sports Card & Pokemon\", and Pokemon dealers post from it. The flyer itself bills sports, toys and non-sports.",
+      "flyer": "batavia-scts-monthly.jpg",
+      "flyerW": 440,
+      "flyerH": 503,
+      "phone": "585-353-0834"
     },
     {
       "id": "locks-lockport-2026-12-12",
@@ -1926,6 +1953,10 @@
     "Harmony, PA": [
       40.7981,
       -80.1259
+    ],
+    "East Rochester": [
+      43.112157,
+      -77.483559
     ]
   },
   "_towns_note": [
