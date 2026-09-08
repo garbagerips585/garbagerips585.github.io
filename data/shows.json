@@ -199,7 +199,13 @@
       "region": "buffalo",
       "admission": "$5, under 12 free",
       "source": "wnycardshows (Shake & Break 716)",
-      "pokemon": false
+      "pokemon": false,
+      "organiser": "Buffalo Prime Time Sport Card Show",
+      "organiserUrl": "https://www.facebook.com/people/Buffalo-Prime-Time-Sport-Card-Show/61590952058837/",
+      "phone": "716-465-7736",
+      "pkmn": "some",
+      "pkmnWhy": "The promoter's own Facebook page says what they do in one line: \"Buffalo Prime Time Sports Cards run Sports and Pokemon shows in the Buffalo Area.\" Read 8 September 2026. That is the promoter naming Pokemon, rather than a calendar's TCG.",
+      "sourceNote": "THE PROMOTER WAS FINDABLE ALL ALONG AND THIS ROW HAD NO ORGANISER. Buffalo Prime Time Sport Card Show, page read 8 September 2026, publishing (716) 465-7736 and Buffaloprimetimesportscards@gmail.com as their contact. They run the M Hotel show and the Niagara University one, which is why those rows now share an organiser.\nNOT THE SYRACUSE \"PRIME TIME TRADING CARD SHOW\", which is a different promoter with a similar name: that one is @primetimetcgshow on Instagram, billing itself \"Syracuse's Newest Premier TCG Show\" at the Venue at Lakeside. The two are deliberately not merged.\nThe Pokemon mark used to rest on the word TCG in a calendar's title. It rests on the promoter's own description now."
     },
     {
       "id": "prime-time-2026-09-06",
@@ -363,9 +369,11 @@
       "region": "buffalo",
       "admission": "Free",
       "source": "wnycardshows (Shake & Break 716)",
-      "pkmnWhy": "The regional calendar lists 60+ tables of sports and Pokemon or TCG cards. Single source.",
+      "pkmnWhy": "The regional calendar's entry for THIS show reads \"Sports, Pokemon, non-sports, and TCG cards, toys, comics, funko pops, and more\". Single source.",
       "pokemon": false,
-      "pkmn": "some"
+      "pkmn": "some",
+      "blurb": "A free morning show in the church bingo hall, and an early one: doors 8:30am and done by 2pm. The listing asks, without requiring it, that you bring a non-perishable food item for the church's food pantry.",
+      "sourceNote": "THE OLD pkmnWhy CITED THE WRONG SHOW'S SENTENCE, and the conclusion was right for the wrong reason, which is worse than being wrong. It read \"The regional calendar lists 60+ tables of sports and Pokemon or TCG cards\". That \"60+ tables\" line belongs to the COLD FRONT CARD SHOW, the next entry down the same calendar, on 20 September at the Frontier Volunteer Fire Department. Niagara Vault's own entry carries no table count at all -- which is why this row has never had a `tables` field, and the prose was quietly claiming one the data did not. Re-read off the calendar on 8 September 2026.\nThe mark still stands, on this show's own words: its entry does name Pokemon. Only the citation moved.\nTHE FOUR SOURCES FOR THIS SHOW ARE ONE SOURCE. Shake & Break 716's Western New York calendar at sites.google.com/view/wnycardshows is the upstream, and TCDb, Treasure Hunter and tcgshowsnearme are all re-publishing it -- TCDb's own entry names that calendar as the show's web address, and tcgshowsnearme credits the show to \"WNY Card Shows\", which is the calendar rather than a promoter. So their agreement is NOT corroboration and must not be read as any. Checked 8 September 2026."
     },
     {
       "id": "cny-collectors-expo-2026-09-19",
@@ -598,7 +606,8 @@
           "name": "Skull & Bones Collectibles",
           "confirmed": "Skull & Bones Collectibles' own upcoming-shows flyer, sent to the channel by the owner on 8 September 2026. Matched to this row by date AND street address, not by name alone."
         }
-      ]
+      ],
+      "sourceNote": "NO PROMOTER FOR THIS SHOW EXISTS ANYWHERE WE CAN REACH, and that was searched properly on 8 September 2026 rather than assumed: no Instagram account, no Facebook page, no Facebook event, no website, no contact. It is an established recurring show -- earlier instances ran on 26 July and 2 August 2026 with the same hours -- with no public identity behind it.\nTHE FOUR SOURCES FOR THIS SHOW ARE ONE SOURCE. Shake & Break 716's Western New York calendar at sites.google.com/view/wnycardshows is the upstream, and TCDb, Treasure Hunter and tcgshowsnearme are all re-publishing it -- TCDb's own entry names that calendar as the show's web address, and tcgshowsnearme credits the show to \"WNY Card Shows\", which is the calendar rather than a promoter. So their agreement is NOT corroboration and must not be read as any. Checked 8 September 2026.\nIT IS NOT THE OTHER TWO BATAVIA SHOWS AT THE SAME HOTEL, and that was checked because it is the obvious wrong guess. The Batavia Sports Card, Toys & Collectible Show is JC's Cards and Collectibles, whose own Facebook page runs a separately branded \"Pokemon only\" show at 10am-3pm and has never used the word \"Extreme\"; the Wednesday 4pm-9pm show is 585Cardz. Neither is this.\nIf it ever needs confirming, the route is Shake & Break 716 themselves, who take the submissions: shakeandbreak716@gmail.com."
     },
     {
       "id": "fall-fest-2026-09-26",
@@ -784,7 +793,8 @@
       "source": "wnycardshows (Shake & Break 716)",
       "pkmnWhy": "It is hosted inside a TCG shop that deals Japanese and English Pokemon.",
       "pokemon": false,
-      "pkmn": "some"
+      "pkmn": "some",
+      "sourceNote": "THIS SHOW HAS NO WEB PRESENCE OUTSIDE ONE CALENDAR. An exact-phrase search for its name returns nothing at all, 8 September 2026. THE FOUR SOURCES FOR THIS SHOW ARE ONE SOURCE. Shake & Break 716's Western New York calendar at sites.google.com/view/wnycardshows is the upstream, and TCDb, Treasure Hunter and tcgshowsnearme are all re-publishing it -- TCDb's own entry names that calendar as the show's web address, and tcgshowsnearme credits the show to \"WNY Card Shows\", which is the calendar rather than a promoter. So their agreement is NOT corroboration and must not be read as any. Checked 8 September 2026.\nTHE VENUE IS A SHOP AND THAT IS NOT EVIDENCE THEY RUN IT. Three Ws TCG & More at 54 Pine St publish their own contact and socials, and neither their Instagram nor their Linktree mentions this show, so they are deliberately NOT recorded as the organiser. Hosting a show and promoting one are different things and this file does not guess between them."
     },
     {
       "id": "millcreek-mall-2026-10-04",
@@ -827,9 +837,13 @@
       "region": "buffalo",
       "admission": "$5, under 12 free",
       "source": "wnycardshows (Shake & Break 716)",
-      "pkmnWhy": "TCG is in the show's billed title. The title appears only on the regional calendar.",
+      "pkmnWhy": "The promoter's own Facebook page says what they do in one line: \"Buffalo Prime Time Sports Cards run Sports and Pokemon shows in the Buffalo Area.\" Read 8 September 2026. That is the promoter naming Pokemon, rather than a calendar's TCG.",
       "pokemon": false,
-      "pkmn": "some"
+      "pkmn": "some",
+      "organiser": "Buffalo Prime Time Sport Card Show",
+      "organiserUrl": "https://www.facebook.com/people/Buffalo-Prime-Time-Sport-Card-Show/61590952058837/",
+      "phone": "716-465-7736",
+      "sourceNote": "THE PROMOTER WAS FINDABLE ALL ALONG AND THIS ROW HAD NO ORGANISER. Buffalo Prime Time Sport Card Show, page read 8 September 2026, publishing (716) 465-7736 and Buffaloprimetimesportscards@gmail.com as their contact. They run the M Hotel show and the Niagara University one, which is why those rows now share an organiser.\nNOT THE SYRACUSE \"PRIME TIME TRADING CARD SHOW\", which is a different promoter with a similar name: that one is @primetimetcgshow on Instagram, billing itself \"Syracuse's Newest Premier TCG Show\" at the Venue at Lakeside. The two are deliberately not merged.\nThe Pokemon mark used to rest on the word TCG in a calendar's title. It rests on the promoter's own description now.\nADMISSION IS STILL THE CALENDAR'S ALONE: $5 with under 12 free is Shake & Break 716's line, and the promoter's own event page states no price. Left as it is rather than removed, because a reader who brings $5 to a free show has lost nothing and the reverse loses them the door."
     },
     {
       "id": "bpt-fall-2026-10-11",
@@ -843,9 +857,13 @@
       "region": "buffalo",
       "admission": "$5, under 12 free",
       "source": "wnycardshows (Shake & Break 716)",
-      "pkmnWhy": "TCG is in the show's billed title. The title appears only on the regional calendar.",
+      "pkmnWhy": "The promoter's own Facebook page says what they do in one line: \"Buffalo Prime Time Sports Cards run Sports and Pokemon shows in the Buffalo Area.\" Read 8 September 2026. That is the promoter naming Pokemon, rather than a calendar's TCG.",
       "pokemon": false,
-      "pkmn": "some"
+      "pkmn": "some",
+      "organiser": "Buffalo Prime Time Sport Card Show",
+      "organiserUrl": "https://www.facebook.com/people/Buffalo-Prime-Time-Sport-Card-Show/61590952058837/",
+      "phone": "716-465-7736",
+      "sourceNote": "THE PROMOTER WAS FINDABLE ALL ALONG AND THIS ROW HAD NO ORGANISER. Buffalo Prime Time Sport Card Show, page read 8 September 2026, publishing (716) 465-7736 and Buffaloprimetimesportscards@gmail.com as their contact. They run the M Hotel show and the Niagara University one, which is why those rows now share an organiser.\nNOT THE SYRACUSE \"PRIME TIME TRADING CARD SHOW\", which is a different promoter with a similar name: that one is @primetimetcgshow on Instagram, billing itself \"Syracuse's Newest Premier TCG Show\" at the Venue at Lakeside. The two are deliberately not merged.\nThe Pokemon mark used to rest on the word TCG in a calendar's title. It rests on the promoter's own description now.\nADMISSION IS STILL THE CALENDAR'S ALONE: $5 with under 12 free is Shake & Break 716's line, and the promoter's own event page states no price. Left as it is rather than removed, because a reader who brings $5 to a free show has lost nothing and the reverse loses them the door."
     },
     {
       "id": "pokefest-syracuse-2026-10-11",
@@ -1022,7 +1040,10 @@
       "pokemon": true,
       "admission": "Free",
       "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "Run out of Pallet Town Poke Shop by one of the people behind Buffalo Trading Card Con."
+      "blurb": "Run out of Pallet Town Poke Shop by one of the people behind Buffalo Trading Card Con.",
+      "organiser": "Pallet Town Poke Shop and Professor Sam's Card Shop",
+      "organiserUrl": "https://www.pallettownpokeshop.com",
+      "sourceNote": "THE ORGANISER IS CONFIRMED AND THE DATE IS NOT, WHICH IS AN ODD PAIR AND WORTH SAYING PLAINLY. The show is co-hosted by two shops the same person owns, Pallet Town Poke Shop in Depew (which is the venue) and Professor Sam's Card Shop in Tonawanda; both are named as hosts on the promoter's own Facebook event, read 8 September 2026.\nBUT THAT EVENT IS FOR 27 JUNE 2026, 1pm to 6pm. It is the ONLY instance of this show the promoter has published, and the regional calendar's own \"Facebook Event\" link for the 17 October date resolves to it. So this row's date AND its 10am-4pm hours come from the calendar alone, and the hours differ from the one edition the promoter did publish. Worth an email to ProfessorSamsCardShop@gmail.com before anybody drives to it.\nThe calendar names the venue \"Professor Sam's Pallet Town\". The promoter's own naming is two separate stores, and this row uses the shop that is actually the address."
     },
     {
       "id": "collectorsfest-111-2026-10-18",
@@ -1133,7 +1154,8 @@
       "pokemon": true,
       "admission": "Free",
       "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "An all Pokemon show at the Batavia Quality Inn, free in, with food on site."
+      "blurb": "An all Pokemon show at the Batavia Quality Inn, free in, with food on site.",
+      "sourceNote": "NO PROMOTER FOR THIS SHOW EXISTS ANYWHERE WE CAN REACH, and that was searched properly on 8 September 2026 rather than assumed: no Instagram account, no Facebook page, no Facebook event, no website, no contact. It is an established recurring show -- earlier instances ran on 26 July and 2 August 2026 with the same hours -- with no public identity behind it.\nTHE FOUR SOURCES FOR THIS SHOW ARE ONE SOURCE. Shake & Break 716's Western New York calendar at sites.google.com/view/wnycardshows is the upstream, and TCDb, Treasure Hunter and tcgshowsnearme are all re-publishing it -- TCDb's own entry names that calendar as the show's web address, and tcgshowsnearme credits the show to \"WNY Card Shows\", which is the calendar rather than a promoter. So their agreement is NOT corroboration and must not be read as any. Checked 8 September 2026.\nIT IS NOT THE OTHER TWO BATAVIA SHOWS AT THE SAME HOTEL, and that was checked because it is the obvious wrong guess. The Batavia Sports Card, Toys & Collectible Show is JC's Cards and Collectibles, whose own Facebook page runs a separately branded \"Pokemon only\" show at 10am-3pm and has never used the word \"Extreme\"; the Wednesday 4pm-9pm show is 585Cardz. Neither is this.\nIf it ever needs confirming, the route is Shake & Break 716 themselves, who take the submissions: shakeandbreak716@gmail.com."
     },
     {
       "id": "wny-expo-38-2026-10-24",
@@ -1448,7 +1470,8 @@
       "pokemon": true,
       "admission": "Free",
       "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "An all Pokemon show at the Batavia Quality Inn, free in, with food on site."
+      "blurb": "An all Pokemon show at the Batavia Quality Inn, free in, with food on site.",
+      "sourceNote": "NO PROMOTER FOR THIS SHOW EXISTS ANYWHERE WE CAN REACH, and that was searched properly on 8 September 2026 rather than assumed: no Instagram account, no Facebook page, no Facebook event, no website, no contact. It is an established recurring show -- earlier instances ran on 26 July and 2 August 2026 with the same hours -- with no public identity behind it.\nTHE FOUR SOURCES FOR THIS SHOW ARE ONE SOURCE. Shake & Break 716's Western New York calendar at sites.google.com/view/wnycardshows is the upstream, and TCDb, Treasure Hunter and tcgshowsnearme are all re-publishing it -- TCDb's own entry names that calendar as the show's web address, and tcgshowsnearme credits the show to \"WNY Card Shows\", which is the calendar rather than a promoter. So their agreement is NOT corroboration and must not be read as any. Checked 8 September 2026.\nIT IS NOT THE OTHER TWO BATAVIA SHOWS AT THE SAME HOTEL, and that was checked because it is the obvious wrong guess. The Batavia Sports Card, Toys & Collectible Show is JC's Cards and Collectibles, whose own Facebook page runs a separately branded \"Pokemon only\" show at 10am-3pm and has never used the word \"Extreme\"; the Wednesday 4pm-9pm show is 585Cardz. Neither is this.\nIf it ever needs confirming, the route is Shake & Break 716 themselves, who take the submissions: shakeandbreak716@gmail.com."
     },
     {
       "id": "northtowns-sanborn-2026-11-21",
@@ -1592,7 +1615,8 @@
       "source": "wnycardshows (Shake & Break 716)",
       "pkmnWhy": "It is hosted inside a TCG shop that deals Japanese and English Pokemon.",
       "pokemon": false,
-      "pkmn": "some"
+      "pkmn": "some",
+      "sourceNote": "THIS SHOW HAS NO WEB PRESENCE OUTSIDE ONE CALENDAR. An exact-phrase search for its name returns nothing at all, 8 September 2026. THE FOUR SOURCES FOR THIS SHOW ARE ONE SOURCE. Shake & Break 716's Western New York calendar at sites.google.com/view/wnycardshows is the upstream, and TCDb, Treasure Hunter and tcgshowsnearme are all re-publishing it -- TCDb's own entry names that calendar as the show's web address, and tcgshowsnearme credits the show to \"WNY Card Shows\", which is the calendar rather than a promoter. So their agreement is NOT corroboration and must not be read as any. Checked 8 September 2026.\nTHE VENUE IS A SHOP AND THAT IS NOT EVIDENCE THEY RUN IT. Three Ws TCG & More at 54 Pine St publish their own contact and socials, and neither their Instagram nor their Linktree mentions this show, so they are deliberately NOT recorded as the organiser. Hosting a show and promoting one are different things and this file does not guess between them."
     },
     {
       "id": "collectorfest-jcc-2026-12-13",
@@ -1639,7 +1663,8 @@
       "pokemon": true,
       "admission": "Free",
       "source": "wnycardshows (Shake & Break 716)",
-      "blurb": "An all Pokemon show at the Batavia Quality Inn, free in, with food on site."
+      "blurb": "An all Pokemon show at the Batavia Quality Inn, free in, with food on site.",
+      "sourceNote": "NO PROMOTER FOR THIS SHOW EXISTS ANYWHERE WE CAN REACH, and that was searched properly on 8 September 2026 rather than assumed: no Instagram account, no Facebook page, no Facebook event, no website, no contact. It is an established recurring show -- earlier instances ran on 26 July and 2 August 2026 with the same hours -- with no public identity behind it.\nTHE FOUR SOURCES FOR THIS SHOW ARE ONE SOURCE. Shake & Break 716's Western New York calendar at sites.google.com/view/wnycardshows is the upstream, and TCDb, Treasure Hunter and tcgshowsnearme are all re-publishing it -- TCDb's own entry names that calendar as the show's web address, and tcgshowsnearme credits the show to \"WNY Card Shows\", which is the calendar rather than a promoter. So their agreement is NOT corroboration and must not be read as any. Checked 8 September 2026.\nIT IS NOT THE OTHER TWO BATAVIA SHOWS AT THE SAME HOTEL, and that was checked because it is the obvious wrong guess. The Batavia Sports Card, Toys & Collectible Show is JC's Cards and Collectibles, whose own Facebook page runs a separately branded \"Pokemon only\" show at 10am-3pm and has never used the word \"Extreme\"; the Wednesday 4pm-9pm show is 585Cardz. Neither is this.\nIf it ever needs confirming, the route is Shake & Break 716 themselves, who take the submissions: shakeandbreak716@gmail.com."
     },
     {
       "id": "585cardz-batavia-2026-12-16",
