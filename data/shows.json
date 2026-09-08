@@ -1420,14 +1420,15 @@
       "address": "1900 Military Rd, Niagara Falls, NY 14304",
       "city": "Niagara Falls",
       "region": "buffalo",
-      "organiser": "Golden Saucer Gaming",
+      "organiser": "Golden Saucer Gaming LLC",
       "url": "https://www.goldensaucergaming.com",
       "organiserUrl": "https://www.goldensaucergaming.com",
       "source": "goldensaucergaming.com",
-      "pkmnWhy": "Their published vendor list names Pokemon dealers outright: J J's Pokestop and Pokefam.",
-      "blurb": "Retro video games and TCGs together. Hours and admission were not published when we checked.",
+      "pkmnWhy": "The AUGUST 2026 edition of this show was billed by the promoter naming Pokemon outright -- \"Trading Cards (Pokemon, MTG, One Piece +)\" in their own calendar entry -- and Pokemon dealers vended it. This is the series rather than this date: see sourceNote.",
+      "blurb": "Retro video games and TCGs together, at the Fashion Outlets rather than the DoubleTree the August show used. Hours and admission are not published yet: the promoter has posted the date and the venue and nothing else.",
       "pokemon": false,
-      "pkmn": "some"
+      "pkmn": "some",
+      "sourceNote": "THE MISSING HOURS AND PRICE ARE THE PROMOTER'S GAP, NOT OURS, AND THAT IS WORTH RECORDING SO NOBODY RESEARCHES IT A THIRD TIME. Their own page, read 8 September 2026, heads this date \"EARLY ANNOUNCEMENT\" and carries the date, the venue, the address and an email signup -- \"Add your email to be updated as we get closer to the event!\" -- and nothing else. Their public Google Calendar entry for 5 December is an ALL-DAY event with DESCRIPTION:TBD, against the same calendar's 2 August entry which carried full hours, a $5 price and a ticket link. The Shopify ticket product from that show now 404s. No aggregator carries the December date either. There is nothing to find until they announce.\nTHE POKEMON MARK WAS RESTING ON A LIST HEADED \"OUR PAST VENDORS\". This row's pkmnWhy read \"Their published vendor list names Pokemon dealers outright: J J's Pokestop and Pokefam\", which reads as a list for THIS show and is not one: the section is past vendors, from the 2 August edition at the DoubleTree, a different venue. The December copy names no categories at all -- just \"A DAY OF RETRO VIDEO GAMES, TRADING CARDS, AND NOSTALGIA\". So the mark now cites the August billing, where the promoter did name Pokemon, and says out loud that it is the series and not the date. Same treatment as Collectorsfest #111.\nRe-read this row when they announce. The hours, the price and a real vendor list should all arrive together."
     },
     {
       "id": "mega-show-113-2026-12-05",
