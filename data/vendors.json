@@ -87,16 +87,16 @@
     {
       "name": "Skull & Bones Collectibles",
       "area": "Rochester, NY",
-      "sells": "Buy, sell and trade, in person at shows and live on Whatnot",
-      "blurb": "Local to Rochester, NY, and out on the show circuit most weekends: their own September list runs Arch Angel and the Extreme Pokemon show in Batavia, then out to the Mill Creek Mall in Erie for a three day one. They buy, sell and trade at the table, and they stream on Whatnot between shows.",
+      "sells": "Buy, sell and trade, in person at shows",
+      "blurb": "Local to Rochester, NY, and out on the show circuit most weekends: their own September list runs Arch Angel and the Extreme Pokemon show in Batavia, then out to the Mill Creek Mall in Erie for a three day one. They buy, sell and trade at the table.",
       "shows": "Local shows around Rochester, NY, plus out of state",
       "instagram": "snbcollectibles",
-      "whatnot": "skullnbonescollectibles",
       "logo": "skull-and-bones-collectibles",
       "logoNote": "Sent by them for this use, 8 September 2026, with their upcoming-shows flyer.",
       "logoW": 1000,
       "logoH": 1000,
-      "areaNote": "The owner, 8 September 2026: \"just confirmed that Skull & Bones Collectibles is a local Rochester, NY vendor\". This read \"Rochester, NY and the wider region, plus Erie, PA\" for one build, which was assembled from their own shows flyer and described their TRAVEL rather than where they are from -- a vendor who turns up at Rochester, NY shows and one who is based here are different claims, and the flyer could only support the first. He confirmed the second. The Erie, PA trip is still on the record, in `shows` and in the blurb, where it belongs: it is where they go, not where they are."
+      "areaNote": "The owner, 8 September 2026: \"just confirmed that Skull & Bones Collectibles is a local Rochester, NY vendor\". This read \"Rochester, NY and the wider region, plus Erie, PA\" for one build, which was assembled from their own shows flyer and described their TRAVEL rather than where they are from -- a vendor who turns up at Rochester, NY shows and one who is based here are different claims, and the flyer could only support the first. He confirmed the second. The Erie, PA trip is still on the record, in `shows` and in the blurb, where it belongs: it is where they go, not where they are.",
+      "whatnotNote": "THE WHATNOT LINK CAME OFF AND THE CLAIM THAT THEY STREAM CAME WITH IT. The owner, 8 September 2026: \"Skull & Bones Collectibles actually doesn't stream live on what not ... they have a what not page that they sell random stuff on but not part of their main business.\" This entry had \"live on Whatnot\" in `sells` and \"they stream on Whatnot between shows\" in the blurb, both of which were mine: I resolved the handle out of a share link he passed on and read a channel to buy from them into an account that is not one.\nThe account exists and is skullnbonescollectibles. It is not stored as a `whatnot` handle, because on this page a link under a vendor's name reads as \"here is where to buy from them\", and this file's own rule is that the value of a local list is that it is NOT a directory. Pointing a reader at a page the vendor does not sell cards on is the same kind of wrong as a stale price. Put it back the moment they say it is a real sales channel.\nTheir business is the table at the shows, and the card says that and nothing more."
     },
     {
       "name": "RocPokéCon",
