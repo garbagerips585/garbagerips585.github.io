@@ -33,7 +33,11 @@ on:
   # It only ever ran on push, and the nightly refresh IS this repo's main
   # pusher: on 27 and 28 August 2026 the nightly did not fire, so nothing was
   # pushed, so nothing checked that nothing had been pushed. 16:40 UTC is after
-  # both nightly crons and their observed 3 hour delay.
+  # both nightly crons and their observed 3 hour delay -- comfortably so since
+  # 8 September 2026, when those crons moved from 13:17/14:17 to 07:17/08:17
+  # and the latest a nightly can now arrive became about 11:20 UTC. Left at
+  # 16:40 on purpose: the wide margin costs nothing, and a midday check also
+  # catches drift pushed by hand during the morning.
   schedule:
     - cron: "40 16 * * *"
   workflow_dispatch:

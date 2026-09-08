@@ -5,14 +5,15 @@
 # price is however old the last manual run was. Deploy is a separate workflow
 # that fires on any push to main, so committing here is what publishes.
 #
-# Runs once a day at 9am in Rochester. It is scheduled as TWO crons, 13:00 and
-# 14:00 UTC, and a guard in the job ends the run on whichever one is not 9am
-# Eastern that day, so the time is fixed LOCALLY and a change to the daylight
-# saving rules needs no edit. See the schedule and the guard below.
+# Runs once a day at about 3am in Rochester. It is scheduled as TWO crons,
+# 07:17 and 08:17 UTC, and a guard in the job ends the run on whichever one is
+# not 3am Eastern that day, so the time is fixed LOCALLY and a change to the
+# daylight saving rules needs no edit. See the schedule and the guard below.
 #
 # (This said "07:10 UTC, about 3am in Rochester" until 19 August 2026, which was
 # contradicted by the cron twenty lines below it in this same file. DEPLOY.md
-# carried the same stale claim and was corrected without this being noticed.)
+# carried the same stale claim and was corrected without this being noticed.
+# It then genuinely was 9am Eastern from 19 August to 8 September 2026.)
 #
 # SECRETS THIS NEEDS  (Settings -> Secrets and variables -> Actions)
 #   YT_API_KEY    YouTube Data API v3, for new uploads
@@ -21,15 +22,37 @@
 # TCGplayer half still runs on a fork or before the keys are added.
 name: Nightly refresh
 
-# 9am Eastern, every day, which is what the owner asked for on 17 August 2026.
+# 3am Eastern, every day.
+#
+# THE OWNER ASKED FOR 9am ON 17 AUGUST 2026 AND NEVER ONCE GOT IT. GitHub runs
+# scheduled jobs late, and measured here that lateness was 54 minutes to 3
+# hours 3 minutes, so a 13:17 booking actually arrived at 15:26, 16:36 and
+# 16:55 UTC -- 11:26am, 12:36pm and 12:55pm in Rochester. The request was for a
+# morning refresh and what it produced was a lunchtime one.
+#
+# THAT LUNCHTIME LANDING IS THE PROBLEM, not the hour on paper. This job
+# force-pushes a rebuild of ~1,400 pages, so arriving in the middle of a
+# working session puts it in direct contention with whoever is editing. It
+# collided with in-flight work on three consecutive days, 5 to 7 September
+# 2026. Nothing was lost, but only because each collision was caught by hand:
+# reset to the bot's tree, re-apply the source files, rebuild, re-verify that
+# no price regressed. The recovery is fiddly and the failure mode is silent.
+#
+# The push loop below already resolves a race correctly on the BOT's side --
+# take theirs, rebuild, retry. It cannot do anything about a human's unpushed
+# local commits, and that is the half that actually hurts. Moving the run out
+# of waking hours removes the overlap instead of handling it.
+#
+# 3:17am plus GitHub's worst measured 3 hours still lands by 6:20am Eastern,
+# which is earlier than any run this schedule has ever actually produced and
+# well before the day starts. The site is fresh when the owner wakes up, which
+# is what "9am" was asking for in the first place.
 #
 # GITHUB CRON IS UTC AND HAS NO CONCEPT OF DAYLIGHT SAVING, so one line cannot
-# be 9am Eastern all year. Two are scheduled instead, 13:00 and 14:00 UTC, and
-# the job's first step exits early on whichever one is not 9am in New York
-# today. That keeps it at 9am through both halves of the year rather than
-# drifting to 8am every November.
-#
-# It used to be a single "10 7 * * *", which is 3:10am Eastern in summer.
+# be 3am Eastern all year. Two are scheduled instead, 07:17 and 08:17 UTC, and
+# the job's first step exits early on whichever one is not 3am in New York
+# today. That keeps it at 3am through both halves of the year rather than
+# drifting to 2am every November.
 #
 # GitHub also runs scheduled jobs late when the fleet is busy, sometimes by
 # tens of minutes, and drops them entirely on a repository with no activity for
@@ -37,14 +60,14 @@ name: Nightly refresh
 # fallback and the sync is safe to run twice.
 on:
   schedule:
-    # NOT ON THE HOUR, AND THAT IS THE WHOLE REASON THESE READ 13:17 / 14:17.
+    # NOT ON THE HOUR, AND THAT IS THE WHOLE REASON THESE READ 07:17 / 08:17.
     # GitHub queues every "0 * * * *" job in the world at once, so a run booked
     # on the hour is delayed and, under load, DROPPED. Measured here: the runs
     # that did fire started 2.5 to 3 hours late (15:26, 16:36, 16:55 UTC), and
     # on 27 and 28 August 2026 neither cron fired at all, so the site went two
     # days with no refresh and nothing went red. Seventeen past is quiet.
-    - cron: "17 13 * * *"
-    - cron: "17 14 * * *"
+    - cron: "17 7 * * *"
+    - cron: "17 8 * * *"
   workflow_dispatch:
     inputs:
       force_prices:
@@ -60,17 +83,19 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # WHICH CRON IS 9am IN NEW YORK IS DECIDED BY THE DST OFFSET, NOT BY THE CLOCK
-  # WHEN THE JOB HAPPENS TO START. The old guard asked the runner what hour it
-  # was and stopped unless the answer was exactly "09". GitHub then ran these
-  # crons late -- measured over five days, between 54 minutes and 3 hours 3
-  # minutes late -- so on three of those five days BOTH crons woke up past 09
-  # and the refresh never ran at all.
+  # WHICH CRON IS 3am IN NEW YORK IS DECIDED BY THE DST OFFSET, NOT BY THE CLOCK
+  # WHEN THE JOB HAPPENS TO START. An older guard asked the runner what hour it
+  # was and stopped unless the answer was the hour it wanted. GitHub then ran
+  # these crons late -- measured over five days, between 54 minutes and 3 hours
+  # 3 minutes late -- so on three of those five days BOTH crons woke up past
+  # the wanted hour and the refresh never ran at all. That trap gets WORSE at
+  # 3am, not better, because a late run crosses into the next hour just the
+  # same; reading the clock is the wrong test at any hour.
   #
   # github.event.schedule NAMES THE CRON THAT FIRED, and it is stamped at
   # trigger time, so a late start cannot change it. Pair that with the current
   # UTC offset -- -0400 in summer, -0500 in winter -- and exactly one of the two
-  # crons is the 9am one on any given day, however late either arrives.
+  # crons is the 3am one on any given day, however late either arrives.
   #
   # AND SKIPPING IS NOT FAILING. The old guard called `exit 1` on the cron it
   # did not want, so this workflow went red EVERY SINGLE DAY as designed. That
@@ -91,13 +116,13 @@ jobs:
             exit 0
           fi
           offset=$(TZ=America/New_York date +%z)
-          if [ "$offset" = "-0500" ]; then want="17 14 * * *"; else want="17 13 * * *"; fi
+          if [ "$offset" = "-0500" ]; then want="17 8 * * *"; else want="17 7 * * *"; fi
           fired="${{ github.event.schedule }}"
-          echo "New York offset $offset, so the 9am cron today is '$want'. This run is '$fired'."
+          echo "New York offset $offset, so the 3am cron today is '$want'. This run is '$fired'."
           if [ "$fired" = "$want" ]; then
             echo "go=1" >> "$GITHUB_OUTPUT"
           else
-            echo "Not today's 9am cron. Skipping, which is not a failure."
+            echo "Not today's 3am cron. Skipping, which is not a failure."
             echo "go=0" >> "$GITHUB_OUTPUT"
           fi
 

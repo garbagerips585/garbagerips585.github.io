@@ -36,16 +36,24 @@ already been checked. Run it again by hand if you edited anything afterwards.
 
 ## The nightly refresh
 
-`.github/workflows/refresh.yml` runs once a day at 9am in New York. It re-syncs
-YouTube and the card prices, rebuilds, and commits if anything changed.
+`.github/workflows/refresh.yml` runs once a day at about 3am in New York. It
+re-syncs YouTube and the card prices, rebuilds, and commits if anything changed.
 
-**It is scheduled as TWO crons, 13:00 and 14:00 UTC, and that is deliberate.**
-Exactly one of them is 9am Eastern depending on whether daylight saving is in
-force, and the job's first step asks the runner for New York's current hour and
-stops on the wrong one. So the work happens once a day at a fixed LOCAL time,
-and a change to the DST rules needs no edit. The consequence worth knowing:
-the run on the wrong cron ends by failing on purpose, so a red X in the Actions
-tab every day is expected here and is not a signal.
+**It is scheduled as TWO crons, 07:17 and 08:17 UTC, and that is deliberate.**
+Exactly one of them is 3am Eastern depending on whether daylight saving is in
+force, and a small `gate` job decides which by pairing New York's current UTC
+offset with `github.event.schedule`, the cron that fired. That is stamped at
+trigger time, so a late start cannot change the answer -- which matters,
+because GitHub has started these runs anywhere from 54 minutes to 3 hours
+late. The wrong cron's run is marked **skipped**, not failed, so a red X in the
+Actions tab is a real problem and not the daily noise it used to be.
+
+**It ran at 9am Eastern from 19 August to 8 September 2026 and was moved.** The
+9am booking never actually produced a 9am run -- with GitHub's lateness it
+landed at 11:26am, 12:36pm and 12:55pm Eastern -- and a job that force-pushes a
+rebuild of ~1,400 pages arriving mid-session collided with in-flight editing on
+three consecutive days. 3:17am plus the worst measured delay still lands by
+6:20am, before the day starts.
 
 This is the ONLY freshness mechanism. The site used to layer a live RSS feed
 over the committed JSON through a Cloudflare function; GitHub Pages cannot
