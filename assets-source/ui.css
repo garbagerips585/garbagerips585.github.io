@@ -6301,6 +6301,27 @@ inherited from the UA default, so the promotion moves nothing on screen. */
    that disables the arrows. With JS off the class never lands and the bar
    stays, which is correct: the track is a native scroller either way. */
 .vcar.is-static .vcar-bar{display:none}
+/* AND THE BAND'S BOTTOM SPACING HAS TO BE PUT BACK WHEN IT GOES, because the
+   rule above is what was providing it. .vcar-bar is 44px tall with
+   margin-top:var(--s3) one rule up, so it was holding 56px of clear air under
+   the Latest rips card -- and nothing else on that band declares any. Hide the
+   bar and the card's bottom edge lands EXACTLY on .mwband's top edge, measured
+   at 0px, and because .hero and .mwband are both var(--card) the two surfaces
+   merge into one shape with a notch in it. The owner spotted it on his phone.
+   It is a PHONE bug only because that is where the bar goes: below 545px the
+   max-width:544 block in build-proto.mjs hides slides 1 to 4, packplayer.js
+   then measures one slide, sets .is-static, and the bar takes the spacing with
+   it. Measured on the live page: 56px of gap at 1440 with the bar, 0px at 375
+   without it. Same calc as the bar's own height so the swap is exactly
+   neutral -- a band that gains the bar loses this and lands on the same pixel.
+   .wall > , NOT a bare .vcar.is-static, AND THAT SCOPE IS LOAD BEARING. The
+   Hall of Fame carousel is .is-static too, permanently and by design (its own
+   note twenty rules up: exactly two slides, nothing to page to), and it lives
+   in .shelf rather than .wall. Padding it would push the shelf column down and
+   break the "bottoms line up to 0.0px at 1280, 1440, 1500, 1600 and 1920"
+   invariant CLAUDE.md records for that band. .wall holds one carousel on one
+   page: .vcar is on index.html and nowhere else in the built tree. */
+.wall > .vcar.is-static{padding-bottom:calc(44px + var(--s3))}
 .vcar-nav{width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:50%;
   background:var(--card);border:2px solid var(--ink);color:var(--ink);cursor:pointer;
   font:700 1.1rem/1 var(--body);box-shadow:0 2px 0 var(--ink)}
