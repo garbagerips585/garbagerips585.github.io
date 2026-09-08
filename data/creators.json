@@ -53,8 +53,8 @@
     {
       "name": "Jake's Place",
       "area": "Batavia, NY",
-      "does": "Inventory, pickups and where he is vending next",
-      "doesNote": "His own words on both accounts, read 8 September 2026: Instagram says \"Avid collector and seller of video games, TCG, comics and more! Follow my page to keep up with inventory and where I'll [be]\", and TikTok says \"Avid collector and seller of video games, TCGs, and more!!\". So `does` describes what the accounts actually carry rather than a format nobody has claimed: the owner called him a content creator, which he is, but neither bio mentions streams or a show and this file does not invent one.",
+      "does": "Vendor card show content on TikTok, plus inventory and pickups",
+      "doesNote": "The owner, 8 September 2026: \"he does Vendor Card Show Content on his Tik Tok page thats his content style or type\". That is the FORMAT, and it is what this field is for, so it leads.\nIt read \"Inventory, pickups and where he is vending next\" for one build. That was drawn from his own bios -- Instagram \"Follow my page to keep up with inventory and where I'll [be]\", TikTok \"Avid collector and seller of video games, TCGs, and more!!\", both read 8 September 2026 -- because neither bio names a format and this file does not invent one. The bios were right about what the accounts carry and simply could not answer what KIND of video he makes. The owner could. Both halves are true, so both are in the line.",
       "instagram": "jakesplace585",
       "tiktok": "jakesplace585",
       "facebook": "profile.php?id=61574492061334",
@@ -64,7 +64,7 @@
       "logoNote": "Sent by them for this use, 8 September 2026.",
       "logoW": 1080,
       "logoH": 951,
-      "blurb": "Jake is a lifelong collector of all things nerdy who has been vending for over a year: Pokemon, One Piece, Magic, Lorcana, video games, plush and more. Batavia, NY based, and he travels for it -- he has been as far as Pittsburgh and Ohio recently."
+      "blurb": "Jake is a lifelong collector of all things nerdy who has been vending for over a year: Pokemon, One Piece, Magic, Lorcana, video games, plush and more. On TikTok he makes vendor card show content, the view from behind the table, and posts what he has picked up and where he is setting up next. Batavia, NY based, and he travels for it -- as far as Pittsburgh and Ohio recently."
     }
   ]
 }
