@@ -3,11 +3,33 @@
   "channel": {
     "views": 276179,
     "subscribers": 367,
-    "videos": 337,
+    "videos": 338,
     "readAt": "2026-09-09"
   },
   "syncedAt": "2026-09-09",
   "videos": [
+    {
+      "id": "jFjeoYqBUis",
+      "title": "Perfect Order Pack #12 📉 | The Hit Streak is OVER! 💀",
+      "path": "rip/perfect-order-pack-12-the-hit-streak-is-over-jFjeoYqBUis.html",
+      "published": "2026-09-09",
+      "publishedAt": "2026-09-09T10:13:37Z",
+      "duration": 19,
+      "views": 8,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "perfect-order"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "hasHit": false,
+      "packNumber": 12,
+      "packs": 1,
+      "label": "Perfect Order Pack - Pack 12"
+    },
     {
       "id": "zwB2JsJN6XA",
       "title": "Journey Together Pack #1 🛡️ | We Hit An ULTRA RARE! 🔥",
@@ -15,7 +37,7 @@
       "published": "2026-09-08",
       "publishedAt": "2026-09-08T10:10:05Z",
       "duration": 21,
-      "views": 1388,
+      "views": 1400,
       "vertical": true,
       "short": true,
       "sets": [
@@ -36,7 +58,7 @@
       "published": "2026-09-07",
       "publishedAt": "2026-09-07T10:03:11Z",
       "duration": 19,
-      "views": 1061,
+      "views": 1064,
       "vertical": true,
       "short": true,
       "sets": [
@@ -58,7 +80,7 @@
       "published": "2026-09-06",
       "publishedAt": "2026-09-06T10:45:02Z",
       "duration": 25,
-      "views": 1108,
+      "views": 1111,
       "vertical": true,
       "short": true,
       "sets": [
@@ -80,7 +102,7 @@
       "published": "2026-09-05",
       "publishedAt": "2026-09-05T10:30:30Z",
       "duration": 25,
-      "views": 968,
+      "views": 972,
       "vertical": true,
       "short": true,
       "sets": [
