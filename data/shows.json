@@ -19,6 +19,24 @@
     "the page hides stragglers on load too, so a stale build never shows a date",
     "that has been and gone. Leave old entries here as a record if you like.",
     "",
+    "TWO THINGS EARN A SHOW THAT IS OUT OF AREA, and they are different arguments.",
+    "  1. THE DRIVE. A show within 2 hours by road of Rochester, NY, Buffalo or",
+    "     Syracuse joins that city's filter chip even if it is out of state, on the",
+    "     owner's call of 8 September 2026. Erie, PA is the case. See DRIVE_HOURS in",
+    "     build-shows.mjs and the `_drives` table below for the measured times.",
+    "  2. A CONFIRMED LOCAL VENDOR IS VENDING IT. The owner, 9 September 2026: \"we",
+    "     can make these types of exceptions when its one of our confirmed local",
+    "     vendors is vending at a show out of state or further away we can always add",
+    "     it to their page and show page and list them as confirmed to show support.\"",
+    "     This one has NO distance limit and is not a distance argument at all --",
+    "     EC3CON at Mohegan Sun is six hours from Syracuse. The show is here to back",
+    "     somebody local who is travelling, so the `vendors` entry is the POINT of the",
+    "     row rather than a detail on it. A show added this way that loses its local",
+    "     vendor has lost its reason to be here.",
+    "  Either way the row still needs `farAfield` saying WHICH argument it is, its",
+    "  city still has to be in `_towns`, and the drive badge still prints the real",
+    "  number so nobody mistakes six hours for a day out.",
+    "",
     "WHAT IS DELIBERATELY LEFT OUT",
     "  - Southern Tier shows (Endicott, Elmira Heights, Nichols). They turn up in",
     "    the same regional feeds but they are two and a half to three hours from",
@@ -43,7 +61,7 @@
     "REGIONS drive the filter chips: roc, buffalo, syracuse.",
     "VENDORS. A show may carry `vendors`: [{ name, confirmed }]. `name` must match a vendor in data/vendors.json EXACTLY (trimmed, case-insensitive) -- it is a foreign key, so renaming a vendor there fails this build until the shows are updated too. `confirmed` is REQUIRED and must be a non-empty sentence saying who confirmed it and when; it prints under that vendor's name. A name with no listing, a missing or blank `confirmed`, a duplicate vendor or a null entry all FAIL the build, because a confirmed vendor that silently does not render is a typo shaped like a correct build."
   ],
-  "checked": "2026-09-08",
+  "checked": "2026-09-09",
   "sources": [
     {
       "name": "cardshows.io Western New York",
@@ -1535,6 +1553,64 @@
       ]
     },
     {
+      "id": "ec3con-2026-11-28",
+      "name": "EC3CON: East Coast Collectibles Convention",
+      "date": "2026-11-28",
+      "start": "10:00",
+      "end": "18:00",
+      "venue": "Earth Expo Center, Mohegan Sun",
+      "address": "1 Mohegan Sun Blvd, Uncasville, CT 06382",
+      "city": "Uncasville",
+      "region": "away",
+      "farAfield": "A CONFIRMED LOCAL VENDOR IS VENDING IT, AND THE OWNER MADE THAT ITS OWN REASON, 9 September 2026: \"lets add that show because Legends is going and they are local vendors so might as well add it to the list on their vendor page and the shows page, we can make these types of exceptions when its one of our confirmed local vendors is vending at a show out of state or further away we can always add it to their page and show page and list them as confirmed to show support.\"\nTHIS IS THE SECOND KIND OF farAfield AND IT IS NOT A DISTANCE ARGUMENT. Erie is here because it is a two hour drive. This is 297 road miles and SIX HOURS from Syracuse, its nearest anchor, 7h32m from Rochester, NY and 8h45m from Buffalo -- double the ceiling the owner set for the drive rule that same afternoon, and it does not qualify under it and is not meant to. It is here to back a local vendor who is travelling, and the drive badge says six hours out loud so nobody mistakes it for a day out.",
+      "pokemon": false,
+      "pkmn": "some",
+      "pkmnWhy": "The promoter names Pokemon FIRST on their own flyer -- \"POKEMON | SPORTS | TCG | NON-SPORTS | SPECIAL GUESTS\" -- and their site calls it \"the largest quarterly Pokemon, sports card and collectibles show at Mohegan Sun\".",
+      "admission": null,
+      "tables": 350,
+      "organiser": "East Coast Collectibles",
+      "organiserUrl": "https://www.ec3con.com",
+      "url": "https://www.ec3con.com",
+      "blurb": "The Saturday, and the long day: doors 10am to 6pm, with early bird entry from 9am and a trade night afterwards from 6:30pm to 10pm. 350 vendor tables at Mohegan Sun, Pokemon billed first, plus sports, non-sports and special guests. Free parking anywhere on the property, and kids under 12 are free with an adult. JSA are on site authenticating autographs. It falls on Black Friday weekend, which the promoter points out themselves.",
+      "source": "the promoter's own site, ec3con.com, read 9 September 2026, plus the EC3CON flyer Legends Card Shop posted to their Instagram story the same day",
+      "sourceNote": "THE PRICE IS NOT PUBLISHED ANYWHERE WE CAN REACH and is deliberately left unstated, so the card reads \"Check the listing\" rather than a guess. The flyer prints GENERAL ADMISSION and EARLY BIRD ADMISSION with their TIMES and no figures; ec3con.com sells through a third-party ticket page this repo could not open. THE $15 AND $25 ON THEIR HOME PAGE ARE NOT ADMISSION -- they are JSA's autograph authentication fees, $15 per item signed at the show and from $25 for one signed earlier. Reading them as ticket prices was one careless grep away and would have put two wrong numbers on the page.\nKIDS UNDER 12 ARE FREE *WITH AN ADULT PRESENT*, which is the site's wording and a real condition; the flyer says only \"KIDS UNDER 12 ENTER FREE\". The stricter version is the one recorded.\nTHE TRADE NIGHT DATE ON THEIR OWN SITE IS STALE. Under the November block it reads \"Trade Night - Saturday Sept 5, 2026: 6:30pm-10pm\", a leftover from the September show. The flyer for THIS show says trade night Saturday 6:30pm to 10pm, so that is what is recorded. Do not \"correct\" it back to September.\nThe promoter runs this quarterly at the same venue and has published the next three: 17 January 2027 (one day, Sunday), 27 March 2027 (one day, Saturday) and 19-20 June 2027. Not added -- they are five to nine months out and no local vendor has said they are going, which is the only thing that earns a show at this distance.",
+      "vendors": [
+        {
+          "name": "Legends Card Shop",
+          "confirmed": "Legends Card Shop posted the EC3CON flyer to their own Instagram story on 9 September 2026 saying \"We are excited to be apart of an epic event!\", and the owner passed it on the same day."
+        }
+      ]
+    },
+    {
+      "id": "ec3con-2026-11-29",
+      "name": "EC3CON: East Coast Collectibles Convention",
+      "date": "2026-11-29",
+      "start": "10:00",
+      "end": "16:00",
+      "venue": "Earth Expo Center, Mohegan Sun",
+      "address": "1 Mohegan Sun Blvd, Uncasville, CT 06382",
+      "city": "Uncasville",
+      "region": "away",
+      "farAfield": "A CONFIRMED LOCAL VENDOR IS VENDING IT, AND THE OWNER MADE THAT ITS OWN REASON, 9 September 2026: \"lets add that show because Legends is going and they are local vendors so might as well add it to the list on their vendor page and the shows page, we can make these types of exceptions when its one of our confirmed local vendors is vending at a show out of state or further away we can always add it to their page and show page and list them as confirmed to show support.\"\nTHIS IS THE SECOND KIND OF farAfield AND IT IS NOT A DISTANCE ARGUMENT. Erie is here because it is a two hour drive. This is 297 road miles and SIX HOURS from Syracuse, its nearest anchor, 7h32m from Rochester, NY and 8h45m from Buffalo -- double the ceiling the owner set for the drive rule that same afternoon, and it does not qualify under it and is not meant to. It is here to back a local vendor who is travelling, and the drive badge says six hours out loud so nobody mistakes it for a day out.",
+      "pokemon": false,
+      "pkmn": "some",
+      "pkmnWhy": "The promoter names Pokemon FIRST on their own flyer -- \"POKEMON | SPORTS | TCG | NON-SPORTS | SPECIAL GUESTS\" -- and their site calls it \"the largest quarterly Pokemon, sports card and collectibles show at Mohegan Sun\".",
+      "admission": null,
+      "tables": 350,
+      "organiser": "East Coast Collectibles",
+      "organiserUrl": "https://www.ec3con.com",
+      "url": "https://www.ec3con.com",
+      "blurb": "The Sunday, and the shorter of the two: 10am to 4pm, with no early bird and no trade night. 350 vendor tables at Mohegan Sun, Pokemon billed first, plus sports, non-sports and special guests. Free parking anywhere on the property, and kids under 12 are free with an adult. JSA are on site authenticating autographs. It falls on Black Friday weekend, which the promoter points out themselves.",
+      "source": "the promoter's own site, ec3con.com, read 9 September 2026, plus the EC3CON flyer Legends Card Shop posted to their Instagram story the same day",
+      "sourceNote": "THE PRICE IS NOT PUBLISHED ANYWHERE WE CAN REACH and is deliberately left unstated, so the card reads \"Check the listing\" rather than a guess. The flyer prints GENERAL ADMISSION and EARLY BIRD ADMISSION with their TIMES and no figures; ec3con.com sells through a third-party ticket page this repo could not open. THE $15 AND $25 ON THEIR HOME PAGE ARE NOT ADMISSION -- they are JSA's autograph authentication fees, $15 per item signed at the show and from $25 for one signed earlier. Reading them as ticket prices was one careless grep away and would have put two wrong numbers on the page.\nKIDS UNDER 12 ARE FREE *WITH AN ADULT PRESENT*, which is the site's wording and a real condition; the flyer says only \"KIDS UNDER 12 ENTER FREE\". The stricter version is the one recorded.\nTHE TRADE NIGHT DATE ON THEIR OWN SITE IS STALE. Under the November block it reads \"Trade Night - Saturday Sept 5, 2026: 6:30pm-10pm\", a leftover from the September show. The flyer for THIS show says trade night Saturday 6:30pm to 10pm, so that is what is recorded. Do not \"correct\" it back to September.\nThe promoter runs this quarterly at the same venue and has published the next three: 17 January 2027 (one day, Sunday), 27 March 2027 (one day, Saturday) and 19-20 June 2027. Not added -- they are five to nine months out and no local vendor has said they are going, which is the only thing that earns a show at this distance.",
+      "vendors": [
+        {
+          "name": "Legends Card Shop",
+          "confirmed": "Legends Card Shop posted the EC3CON flyer to their own Instagram story on 9 September 2026 saying \"We are excited to be apart of an epic event!\", and the owner passed it on the same day."
+        }
+      ]
+    },
+    {
       "id": "golden-saucer-nf-2026-12-05",
       "name": "Golden Saucer Gaming Expo",
       "date": "2026-12-05",
@@ -2086,6 +2162,10 @@
     "Erie": [
       42.129471,
       -80.08527
+    ],
+    "Uncasville": [
+      41.434664,
+      -72.109987
     ]
   },
   "_towns_note": [
@@ -2141,6 +2221,13 @@
       "miles": 187,
       "hours": 3.68,
       "label": "about 3 hours 40"
+    },
+    "Uncasville": {
+      "anchor": "syracuse",
+      "anchorName": "Syracuse",
+      "miles": 297,
+      "hours": 5.97,
+      "label": "about 6 hours"
     }
   }
 }

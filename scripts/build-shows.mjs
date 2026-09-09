@@ -424,6 +424,15 @@ for (const s of data.shows || []) {
      stop catching anything: every mis-filed row this check exists for, and most
      of Ontario, Cleveland and Pennsylvania besides.
 
+     THERE ARE TWO GROUNDS FOR THE OPT-OUT NOW, added 9 September 2026, and only
+     the first is about distance. The second is the owner's: "we can make these
+     types of exceptions when its one of our confirmed local vendors is vending at
+     a show out of state or further away ... and list them as confirmed to show
+     support." That one has no limit -- EC3CON at Mohegan Sun is SIX HOURS from
+     Syracuse -- because it is not a claim that the show is near, it is a claim
+     that somebody local is going. A row added on that ground exists FOR its
+     `vendors` entry, so one that loses its local vendor has lost its reason.
+
      So the radius stays where it is and a row may opt OUT of it by saying why.
      `farAfield` is a sentence, not a boolean, because the reason is the thing
      worth keeping: a future editor reads why this one is here rather than

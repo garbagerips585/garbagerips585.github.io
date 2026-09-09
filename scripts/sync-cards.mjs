@@ -349,6 +349,54 @@ for (const [slug, tcgdexId] of entries) {
       /* unreadable previous file; nothing to compare against */
     }
   }
+  /* THE THIRD SHAPE, AND IT IS THE ONE THAT ACTUALLY HAPPENED, 9 September 2026.
+     The nightly wrote 1,405 cards across SEVEN sets -- chilling-reign,
+     destined-rivals, paldean-fates, phantasmal-flames, pitch-black,
+     scarlet-violet, stellar-crown -- with `rarity`, `cat`, `img` and `ill` ALL
+     null, over files that had every one of them the day before. Both guards
+     above passed it: the checklist did not shrink (244 cards in, 244 out) and
+     `missing` stayed 0.
+
+     `missing` stays 0 because it is `full === undefined`, and it is judging the
+     FETCH rather than the ANSWER. A detail response that arrives without its
+     fields -- or as null rather than undefined -- is a successful fetch by that
+     test, and then every `full?.x || null` below quietly yields null. TCGdex's
+     SET endpoint returns only {id, image, localId, name} per card, so rarity
+     exists ONLY on the per-card endpoint; when that degrades, the summary shape
+     is exactly what a card looks like with nothing in it.
+
+     This is not cosmetic. `rarity` decides which printing a logged hit resolves
+     to (see pickPrinting in import-sheet.mjs), and it draws the rarity ladder on
+     every set guide, /rarity.html and the tier counts on /luck.html. `img` null
+     means the set guide has no card pictures at all. check-build.py caught it
+     only sideways, as 36 hits whose tier "the set prints only as ?".
+
+     So: judge the answer. No English set on this site legitimately has zero
+     rarities -- all 43 had full coverage before this run -- so a file that comes
+     back with none where the old one had some is a bad answer, not a re-scoped
+     set. Same remedy as the other two, and the same exit code as the shrink
+     guard, because an upstream that answers without its fields is a thing
+     somebody has to look at. */
+  const _rar = (list_) => (list_ || []).filter((c) => c.rarity).length;
+  if (_prevCards && _rar(_prevCards) > 0 && _rar(cards) * 2 < _rar(_prevCards)) {
+    warnings.push(
+      `${slug}: TCGdex answered with rarity on ${_rar(cards)} of ${cards.length} card(s) ` +
+        `where the file on disk has ${_rar(_prevCards)}. The per-card endpoint is answering ` +
+        `without its fields, which also blanks cat, img and ill. KEPT THE PREVIOUS FILE. ` +
+        `Re-run with --force once ${API}/cards/<id> is returning rarity again.`
+    );
+    failedSets.push(slug);
+    for (const c of _prevCards) index.push([c.name, slug, c.n, c.rarity || "", c.price ?? null]);
+    const sample = _prevCards.find((c) => c.img);
+    if (sample) imgBase[slug] = sample.img.replace(/\/[^/]+$/, "");
+    const prevDoc = JSON.parse(await readFile(_prevPath, "utf8"));
+    summary.push({ slug, name: ours.name, cards: _prevCards.length, priced: prevDoc.priced ?? 0 });
+    totalCards += _prevCards.length;
+    totalPriced += prevDoc.priced ?? 0;
+    console.log(`  ${slug.padEnd(21)} rarity collapsed, kept the previous file`);
+    continue;
+  }
+
   if (_prevCards && cards.length < _prevCards.length) {
     warnings.push(
       `${slug}: TCGdex returned ${cards.length} cards where the file on disk has ` +
