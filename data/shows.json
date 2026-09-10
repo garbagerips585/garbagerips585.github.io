@@ -61,7 +61,7 @@
     "REGIONS drive the filter chips: roc, buffalo, syracuse.",
     "VENDORS. A show may carry `vendors`: [{ name, confirmed }]. `name` must match a vendor in data/vendors.json EXACTLY (trimmed, case-insensitive) -- it is a foreign key, so renaming a vendor there fails this build until the shows are updated too. `confirmed` is REQUIRED and must be a non-empty sentence saying who confirmed it and when; it prints under that vendor's name. A name with no listing, a missing or blank `confirmed`, a duplicate vendor or a null entry all FAIL the build, because a confirmed vendor that silently does not render is a typo shaped like a correct build."
   ],
-  "checked": "2026-09-09",
+  "checked": "2026-09-10",
   "sources": [
     {
       "name": "cardshows.io Western New York",
@@ -291,7 +291,7 @@
       "region": "syracuse",
       "pokemon": false,
       "admission": "$5 general, cash only",
-      "blurb": "Held in the Science and Industry Building at the Fairgrounds, not in Liverpool. The organiser bills it as Central New York's largest sports card, memorabilia and TCG show, 120 tables, and the flyer says they are sold out. Sports Card Nation is the official SGC bulk submitter for the show and will take sports and non-sports cards on the day to be graded by SGC.",
+      "blurb": "Held in the Science and Industry Building at the Fairgrounds, not in Liverpool. The promoter bills it as Central New York's premier and largest sports cards, memorabilia and TCG collectible show, and the flyer says all 120 tables are sold out.",
       "source": "the organiser's own flyer for Collectorsfest #110, sent by the owner 7 September 2026, which supersedes cardshows.io for everything it states",
       "address": "581 State Fair Blvd, Syracuse, NY 13209",
       "tiers": [
@@ -308,10 +308,15 @@
       ],
       "tables": 120,
       "organiser": "CNY Promotions",
-      "sourceNote": "THE FLYER SETTLES THE LIVERPOOL QUESTION FOR GOOD. Three aggregators place this date at the Randolph House Hotel in Liverpool; the organiser's own flyer says N.Y.S. Fairgrounds, Science & Industry Building, 581 State Fair Blvd, Syracuse. The id used to be collectorfest-liverpool-2026-09-13, a fossil of that error which left the blurb arguing with a town nobody had put in the row, and the name was a bare \"Collectorfest\" where its own siblings here are #111 and #112. Both now match the flyer.\nWHAT THE FLYER CHANGED, not just confirmed: admission was recorded as \"10 and under free\" and the flyer says 12 and under, so an eleven year old was being quoted a price they do not pay. Everything else the flyer states matched what was here -- 9am early bird at $20, general 9:30am to 3pm at $5, 120 tables, the address -- which is why nothing else moved.\n\"Cash only\" is the one claim left standing on cardshows.io alone; the flyer does not mention payment at all. It is kept because it is the safer error: a reader who brings cash to a show that takes cards has lost nothing, and the reverse loses them the door.\nTHE POKEMON MARK STAYS OFF ON PURPOSE. The flyer bills \"Sports Cards, Memorabilia & TCG\", and TCG is not Pokemon -- it is equally Magic, Yu-Gi-Oh or One Piece. The bar here is a flyer that names Pokemon, which this one does not.",
+      "sourceNote": "THE SGC GRADING IS GONE AND THE PROMOTER TOLD US HIMSELF. the promoter directly, by email, 9 September 2026: \"I do have new photos on my web site and we are no longer offering SGC grading at our shows. If you have a chance to replace the ones for Sept, 13, Oct. 18, Nov. 1 & Dec 5 shows.\" He attached the CNY Promotions logo for this use in the same message. Four rows said Sports Card Nation would take cards on the day to be graded by SGC, off his own earlier flyers, and all four now say nothing about grading because it is no longer offered. That was the most actionable sentence on those cards -- somebody could have driven to Syracuse with a stack of cards to submit -- so it is the correction worth having fastest.\nHis four replacement flyers are on the page, pulled from cnypromotions.com the same day. Every show detail on them is unchanged from the versions they replace: dates, the buildings, 9am early bird at $20, general 9:30am with 12 and under free, and the table counts. The SGC block is simply gone, and photographs of the show floor are in its place.\nTHE POKEMON MARK WENT ON WITH THIS FLYER, HAVING BEEN OFF ON PURPOSE. The old note here said \"the bar is a flyer that names Pokemon, which this one does not\", and that was right about the old flyer: it billed \"Sports Cards, Memorabilia & TCG\" and TCG is equally Magic or One Piece. The replacement still does not name Pokemon in words, but it puts a Pikachu ex on the poster as one of three cards. That is the artwork ground, which this file already accepts for Fall Fest, so the mark goes on and says which ground it rests on.\nWHAT DID NOT CHANGE: the flyer still says nothing about payment, so \"cash only\" remains cardshows.io's claim alone and is kept for the reason it always was -- a reader who brings cash to a card-taking show has lost nothing and the reverse loses them the door. And it still says 120 tables SOLD OUT, in a starburst, which is what this row already recorded.\nTHE OLD sourceNote FOR THIS ROW IS WORTH KEEPING IN MIND: three aggregators placed this date at the Randolph House Hotel in Liverpool and the organiser's flyer says the NYS Fairgrounds. That is still true and still the reason this row exists in the shape it does.",
       "flyer": "collectorsfest-110-2026-09-13.jpg",
       "flyerW": 440,
-      "flyerH": 566
+      "flyerH": 570,
+      "logo": "cny-promotions",
+      "logoW": 1920,
+      "logoH": 1080,
+      "pkmn": "some",
+      "pkmnWhy": "The replacement flyer, 9 September 2026, features a PIKACHU ex card as one of its three pictures, beside an Aaron Judge card and a shot of the floor. The billing line still says TCG rather than Pokemon, so this is the artwork rather than the words -- the same ground the 1st Annual Fall Fest is marked on, where the flyer says TCG and leads with a Charizard ex."
     },
     {
       "id": "arch-angel-2026-09-13",
@@ -934,10 +939,13 @@
           "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\"."
         }
       ],
-      "sourceNote": "THE HOURS ON THIS ROW WERE ALREADY RIGHT AND THE AGGREGATOR IS WRONG, which is worth recording because the next person to check will find them disagreeing. cardshows.io prints 11:00 AM - 7:00 PM; the organiser's own flyer says \"Syracuse, NY 10am - 4pm\" and \"10am - 4pm: $5, 12 & under free\", with a 9:30am early bird at $20. This row has said 10am to 4pm all along.\n\"Cash only\" and the 100 tables are cardshows.io's alone -- the flyer states neither -- and they are kept on the same reasoning #110's cash-only line is kept.",
+      "sourceNote": "THE HOURS ON THIS ROW WERE ALREADY RIGHT AND THE AGGREGATOR IS WRONG, which is worth recording because the next person to check will find them disagreeing. cardshows.io prints 11:00 AM - 7:00 PM; the organiser's own flyer says \"Syracuse, NY 10am - 4pm\" and \"10am - 4pm: $5, 12 & under free\", with a 9:30am early bird at $20. This row has said 10am to 4pm all along.\n\"Cash only\" and the 100 tables are cardshows.io's alone -- the flyer states neither -- and they are kept on the same reasoning #110's cash-only line is kept.\nTHE PROMOTER SENT HIS LOGO BY EMAIL ON 9 SEPTEMBER 2026 for this use, so it is on all six of his rows. He asked for replacement FLYERS on four of them -- 13 September, 18 October, 1 November and 5 December -- and did NOT name this one, so this flyer is untouched. He also said SGC grading is no longer offered at his shows; this row never claimed it.",
       "flyer": "pokefest-syracuse-2026-10-11.jpg",
       "flyerW": 440,
-      "flyerH": 570
+      "flyerH": 570,
+      "logo": "cny-promotions",
+      "logoW": 1920,
+      "logoH": 1080
     },
     {
       "id": "the-big-show-2026-10-16",
@@ -1035,10 +1043,13 @@
       "pokemon": false,
       "pkmn": "some",
       "phone": "607-753-8580",
-      "sourceNote": "The children's admission was missing entirely: the flyer says \"12 & under free\" and this row priced everybody at $5. Hours, tables and the $20 early bird all matched already.",
+      "sourceNote": "The children's admission was missing entirely: the flyer says \"12 & under free\" and this row priced everybody at $5. Hours, tables and the $20 early bird all matched already.\nTHE PROMOTER SENT HIS LOGO BY EMAIL ON 9 SEPTEMBER 2026 for this use, so it is on all six of his rows. He asked for replacement FLYERS on four of them -- 13 September, 18 October, 1 November and 5 December -- and did NOT name this one, so this flyer is untouched. He also said SGC grading is no longer offered at his shows; this row never claimed it.",
       "flyer": "toyfest-10-2026-10-17.jpg",
       "flyerW": 440,
-      "flyerH": 570
+      "flyerH": 570,
+      "logo": "cny-promotions",
+      "logoW": 1920,
+      "logoH": 1080
     },
     {
       "id": "northtowns-sanborn-2026-10-17",
@@ -1103,14 +1114,17 @@
       ],
       "pkmn": "some",
       "pkmnWhy": "The flyers for the SHOWS EITHER SIDE OF IT name Pokemon in their own category lists -- #112 on 1 November (\"Sports & Non Sports Cards, Memorabilia, Wax, Sets, Graded Cards, Pokemon, Autographs\") and the Mega Show #113 on 5 December (\"Sports Cards, Toys, Pokemon, Wax, Sets\") -- same organiser, same series, both read off cnypromotions.com on 8 September 2026. This is the SERIES rather than this date.",
-      "sourceNote": "THE 10-AND-UNDER LINE IS SETTLED AND IT WAS WRONG. It read \"cash only, 10 and under free\" from cardshows.io, flagged here as probably a copy of the same aggregator error that gave Collectorsfest #110 the same sentence. The organiser's own flyer for THIS date, read 8 September 2026, says \"Admission $5 - 12 & under free\". So an eleven year old was being quoted a price they do not pay, on this row as well as on #110. Everything else the flyer states matched what was here -- 9am early bird at $20, general 9:30am to 3pm at $5, the Science & Industry Building and the address -- which is why nothing else moved.\n\"Cash only\" is the one claim left standing on cardshows.io alone; the flyer does not mention payment. Kept for the reason #110 keeps it: a reader who brings cash to a show that takes cards has lost nothing, and the reverse loses them the door.\nTHE POKEMON MARK NO LONGER RESTS ON THE AGGREGATOR, AND THAT MATTERS. CARDSHOWS.IO'S CATEGORY SENTENCE IS BOILERPLATE AND IS NOT EVIDENCE. Its event pages read \"Featuring sports cards, Pokemon, TCG, and collectibles for buyers, sellers and traders in the Central New York area\" -- the SAME sentence, word for word, on POKEFEST and on Collectorsfest #111, two shows whose own flyers bill completely different things. It is generated per listing, so a pkmn mark may never rest on it. This date's own flyer names NO categories at all -- it spends its lower half on the SGC bulk submission instead -- so unlike #110, whose flyer listed categories and chose not to say Pokemon, there is no meaningful silence here to read. The mark now cites the adjacent flyers of the same series and says so out loud.",
+      "sourceNote": "THE SGC GRADING IS GONE AND THE PROMOTER TOLD US HIMSELF. the promoter directly, by email, 9 September 2026: \"I do have new photos on my web site and we are no longer offering SGC grading at our shows. If you have a chance to replace the ones for Sept, 13, Oct. 18, Nov. 1 & Dec 5 shows.\" He attached the CNY Promotions logo for this use in the same message. Four rows said Sports Card Nation would take cards on the day to be graded by SGC, off his own earlier flyers, and all four now say nothing about grading because it is no longer offered. That was the most actionable sentence on those cards -- somebody could have driven to Syracuse with a stack of cards to submit -- so it is the correction worth having fastest.\nHis four replacement flyers are on the page, pulled from cnypromotions.com the same day. Every show detail on them is unchanged from the versions they replace: dates, the buildings, 9am early bird at $20, general 9:30am with 12 and under free, and the table counts. The SGC block is simply gone, and photographs of the show floor are in its place.\nTHE 10-AND-UNDER LINE WAS SETTLED EARLIER AND STAYS SETTLED. This row read \"cash only, 10 and under free\" from cardshows.io until 8 September; the promoter's own flyer for this date says \"Admission $5 - 12 & under free\", and the replacement flyer says it again. An eleven year old was being quoted a price they do not pay.\n\"Cash only\" is still cardshows.io's alone -- neither flyer mentions payment -- and is kept on the safer-error reasoning.\nTHE POKEMON MARK ON THIS ROW STILL RESTS ON THE SERIES, NOT ON THIS DATE. Its own flyer names no categories in either version. #112's flyer and the Mega Show's both name Pokemon in their category lists, same organiser, same series, and that is what the mark cites.",
       "organiser": "CNY Promotions, LLC",
       "organiserUrl": "https://cnypromotions.com",
       "phone": "607-753-8580",
-      "blurb": "The October Collectorsfest at the Fairgrounds, billed as Central New York's premier sports cards and collectible show. Sports Card Nation is the official SGC bulk submitter for the show and will take sports and non-sports cards on the day to be graded by SGC.",
+      "blurb": "The October Collectorsfest at the Fairgrounds, billed as Central New York's premier sports cards and collectible show, 120 tables.",
       "flyer": "collectorsfest-111-2026-10-18.jpg",
       "flyerW": 440,
-      "flyerH": 570
+      "flyerH": 570,
+      "logo": "cny-promotions",
+      "logoW": 1920,
+      "logoH": 1080
     },
     {
       "id": "collectorfest-jcc-2026-10-18",
@@ -1317,11 +1331,14 @@
       "organiserUrl": "https://cnypromotions.com",
       "pkmn": "some",
       "pkmnWhy": "The organiser's own flyer names Pokemon outright in its category list: \"Up to 60 tables of Sports & Non Sports Cards, Memorabilia, Wax, Sets, Graded Cards, Pokemon, Autographs, Supplies to protect your items, and a whole lot more.\"",
-      "blurb": "The one Collectorsfest of the run that is NOT at the Fairgrounds: it is at the Randolph House Hotel in Liverpool, and that is the organiser's own flyer saying so rather than an aggregator guessing. Up to 60 tables. Sports Card Nation takes cards on the day for SGC grading.",
-      "sourceNote": "THIS ROW WAS ALMOST EMPTY AND THE FLYER FILLED IT: it had no admission, no tiers, no tables, no organiser, no blurb and no Pokemon mark, all of it now off cnypromotions.com, read 8 September 2026.\nAND LIVERPOOL IS RIGHT HERE, WHICH IS THE OPPOSITE OF #110. Three aggregators wrongly put Collectorsfest #110 at the Randolph House Hotel in Liverpool when its flyer said the NYS Fairgrounds. It would have been easy to \"fix\" this row the same way. The flyer for #112 says Randolph House Hotel, 441 Electronics Parkway, Liverpool, NY in its own headline, so the venue that was here was correct all along. One aggregator error does not travel.\nThe name was \"Collectors Fest #112\" and the flyer says COLLECTORSFEST #112, matching its siblings #110 and #111.",
+      "blurb": "The one Collectorsfest of the run that is NOT at the Fairgrounds: it is at the Randolph House Hotel in Liverpool, and that is the promoter's own flyer saying so rather than an aggregator guessing. Up to 60 tables.",
+      "sourceNote": "THE SGC GRADING IS GONE AND THE PROMOTER TOLD US HIMSELF. the promoter directly, by email, 9 September 2026: \"I do have new photos on my web site and we are no longer offering SGC grading at our shows. If you have a chance to replace the ones for Sept, 13, Oct. 18, Nov. 1 & Dec 5 shows.\" He attached the CNY Promotions logo for this use in the same message. Four rows said Sports Card Nation would take cards on the day to be graded by SGC, off his own earlier flyers, and all four now say nothing about grading because it is no longer offered. That was the most actionable sentence on those cards -- somebody could have driven to Syracuse with a stack of cards to submit -- so it is the correction worth having fastest.\nHis four replacement flyers are on the page, pulled from cnypromotions.com the same day. Every show detail on them is unchanged from the versions they replace: dates, the buildings, 9am early bird at $20, general 9:30am with 12 and under free, and the table counts. The SGC block is simply gone, and photographs of the show floor are in its place.\nAND LIVERPOOL IS RIGHT HERE, WHICH IS THE OPPOSITE OF #110. Three aggregators wrongly put Collectorsfest #110 at this same hotel when its flyer said the NYS Fairgrounds, so it would have been easy to \"fix\" this row the same way. Both versions of #112's flyer say Randolph House Hotel, 441 Electronics Parkway, Liverpool, NY in the headline. One aggregator error does not travel.\nThis row had no admission, no tiers, no tables, no organiser, no blurb and no Pokemon mark until 8 September; all of it came off the promoter's flyer, and the replacement confirms every figure.",
       "flyer": "collectorsfest-112-2026-11-01.jpg",
       "flyerW": 440,
-      "flyerH": 570
+      "flyerH": 570,
+      "logo": "cny-promotions",
+      "logoW": 1920,
+      "logoH": 1080
     },
     {
       "id": "585cardz-batavia-2026-11-04",
@@ -1642,7 +1659,7 @@
       "region": "syracuse",
       "pokemon": false,
       "admission": "$5 general",
-      "blurb": "The big CNY Promotions end of year show, over 200 tables, and the one that moves to the Horticultural Building rather than Science & Industry. Sports, Pokemon, toys and autographs, with Sports Card Nation taking cards for SGC grading.",
+      "blurb": "The big CNY Promotions end of year show, and the promoter calls it the largest collectibles show in Central New York: over 200 vendor tables, and the one that moves to the Horticultural Building rather than Science & Industry. Sports, Pokemon, toys and autographs.",
       "source": "the organiser's own flyer for this show, published on cnypromotions.com and read 8 September 2026, which supersedes cardshows.io for everything it states",
       "tiers": [
         {
@@ -1661,10 +1678,13 @@
       "pkmn": "some",
       "pkmnWhy": "The organiser's own flyer names Pokemon THIRD in its own category list: \"Sports Cards, Toys, Pokemon, Wax, Sets, Graded Cards, Autographs, Funko Pops, Memorabilia, Supplies, Non-Sports Cards, and a whole lot more.\"",
       "tables": "200+",
-      "sourceNote": "THE CLOSING TIME WAS AN HOUR EARLY AND THAT IS THE REAL ERROR THIS FLYER CAUGHT. This row said 9:30am to 3pm; the organiser's own flyer says \"9:30am - 4pm\". Everything else it states matched -- Saturday 5 December, the Fairgrounds, 581 State Fair Blvd, $20 early bird at 9am, $5 general, 12 and under free -- and it ADDS \"Over 200 Tables with the best assortment in Central New York\", which is why this row now carries a table count where it had none. The building is spelled Horticultural on the flyer.\nThe Pokemon mark used to read \"their listing names Pokemon outright\", meaning cardshows.io. CARDSHOWS.IO'S CATEGORY SENTENCE IS BOILERPLATE AND IS NOT EVIDENCE. Its event pages read \"Featuring sports cards, Pokemon, TCG, and collectibles for buyers, sellers and traders in the Central New York area\" -- the SAME sentence, word for word, on POKEFEST and on Collectorsfest #111, two shows whose own flyers bill completely different things. It is generated per listing, so a pkmn mark may never rest on it. It cites the flyer now.",
+      "sourceNote": "THE SGC GRADING IS GONE AND THE PROMOTER TOLD US HIMSELF. the promoter directly, by email, 9 September 2026: \"I do have new photos on my web site and we are no longer offering SGC grading at our shows. If you have a chance to replace the ones for Sept, 13, Oct. 18, Nov. 1 & Dec 5 shows.\" He attached the CNY Promotions logo for this use in the same message. Four rows said Sports Card Nation would take cards on the day to be graded by SGC, off his own earlier flyers, and all four now say nothing about grading because it is no longer offered. That was the most actionable sentence on those cards -- somebody could have driven to Syracuse with a stack of cards to submit -- so it is the correction worth having fastest.\nHis four replacement flyers are on the page, pulled from cnypromotions.com the same day. Every show detail on them is unchanged from the versions they replace: dates, the buildings, 9am early bird at $20, general 9:30am with 12 and under free, and the table counts. The SGC block is simply gone, and photographs of the show floor are in its place.\nTHE CLOSING TIME WAS AN HOUR EARLY UNTIL 8 SEPTEMBER and the replacement flyer confirms the fix: 9:30am to 4pm, not 3pm. It also repeats \"Over 200 Tables\" and adds a starburst reading \"Largest Collectibles Show in CNY. Over 200 vendor tables\", which is where the blurb's claim now comes from. The building is spelled Horticultural on both versions.\nThe Pokemon mark cites this flyer, which names Pokemon third in its own category list.",
       "flyer": "mega-show-113-2026-12-05.jpg",
       "flyerW": 440,
-      "flyerH": 570
+      "flyerH": 570,
+      "logo": "cny-promotions",
+      "logoW": 1920,
+      "logoH": 1080
     },
     {
       "id": "batavia-scts-2026-12-05",
