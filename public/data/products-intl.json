@@ -1,5 +1,5 @@
 {
-  "checked": "2026-09-09",
+  "checked": "2026-09-10",
   "source": "TCGplayer",
   "sets": {
     "ja-abyss-eye": {
@@ -7,15 +7,15 @@
       "tcgLine": "Pokemon Japan",
       "tcgSetCode": "M5",
       "tcgReleased": "2026-05-22",
-      "checked": "2026-09-09",
+      "checked": "2026-09-10",
       "products": [
         {
           "kind": "Single Pack",
           "blurb": "One pack",
           "name": "Abyss Eye Booster Pack",
           "productId": 695111,
-          "market": 2.69,
-          "low": 1.77,
+          "market": 2.67,
+          "low": 1.69,
           "listings": 24,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/695111_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/695111_200w.jpg",
@@ -28,7 +28,7 @@
       "tcgLine": "Pokemon Japan",
       "tcgSetCode": "m4",
       "tcgReleased": "2026-03-13",
-      "checked": "2026-09-09",
+      "checked": "2026-09-10",
       "products": [
         {
           "kind": "Single Pack",
@@ -49,7 +49,7 @@
       "tcgLine": "Pokemon Japan",
       "tcgSetCode": "M3",
       "tcgReleased": "2026-01-23",
-      "checked": "2026-09-09",
+      "checked": "2026-09-10",
       "products": [
         {
           "kind": "Single Pack",
@@ -58,7 +58,7 @@
           "productId": 674454,
           "market": 2.34,
           "low": 1.8,
-          "listings": 29,
+          "listings": 30,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/674454_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/674454_200w.jpg",
           "url": "https://www.tcgplayer.com/product/674454/nihil-zero-booster-pack"
@@ -70,7 +70,7 @@
       "tcgLine": "Pokemon Japan",
       "tcgSetCode": "m1L",
       "tcgReleased": "2025-08-01",
-      "checked": "2026-09-09",
+      "checked": "2026-09-10",
       "products": [
         {
           "kind": "Single Pack",
@@ -78,8 +78,8 @@
           "name": "Mega Brave Booster Pack",
           "productId": 647498,
           "market": 3.41,
-          "low": 2.25,
-          "listings": 18,
+          "low": 2.23,
+          "listings": 19,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/647498_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/647498_200w.jpg",
           "url": "https://www.tcgplayer.com/product/647498/mega-brave-booster-pack"
@@ -91,7 +91,7 @@
       "tcgLine": "Pokemon Japan",
       "tcgSetCode": "m1S",
       "tcgReleased": "2025-08-01",
-      "checked": "2026-09-09",
+      "checked": "2026-09-10",
       "products": [
         {
           "kind": "Single Pack",
@@ -99,8 +99,8 @@
           "name": "Mega Symphonia Booster Pack",
           "productId": 647499,
           "market": 3.23,
-          "low": 2.15,
-          "listings": 22,
+          "low": 1.29,
+          "listings": 23,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/647499_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/647499_200w.jpg",
           "url": "https://www.tcgplayer.com/product/647499/mega-symphonia-booster-pack"
@@ -112,7 +112,7 @@
       "tcgLine": "Pokemon Japan",
       "tcgSetCode": "SV7",
       "tcgReleased": "2024-07-19",
-      "checked": "2026-09-09",
+      "checked": "2026-09-10",
       "products": [
         {
           "kind": "Single Pack",
@@ -133,7 +133,7 @@
       "tcgLine": "Pokemon Japan",
       "tcgSetCode": "SV5M",
       "tcgReleased": "2024-01-26",
-      "checked": "2026-09-09",
+      "checked": "2026-09-10",
       "products": [
         {
           "kind": "Single Pack",
@@ -154,16 +154,16 @@
       "tcgLine": "Pokemon Japan",
       "tcgSetCode": "SV1V",
       "tcgReleased": "2023-01-20",
-      "checked": "2026-09-09",
+      "checked": "2026-09-10",
       "products": [
         {
           "kind": "Single Pack",
           "blurb": "One pack",
           "name": "Violet ex Booster Pack",
           "productId": 565245,
-          "market": 3.25,
+          "market": 3.21,
           "low": 3,
-          "listings": 15,
+          "listings": 14,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/565245_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/565245_200w.jpg",
           "url": "https://www.tcgplayer.com/product/565245/violet-ex-booster-pack"
