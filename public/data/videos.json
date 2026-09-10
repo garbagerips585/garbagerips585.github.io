@@ -2,12 +2,34 @@
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
     "views": 285198,
-    "subscribers": 367,
-    "videos": 338,
+    "subscribers": 368,
+    "videos": 339,
     "readAt": "2026-09-10"
   },
   "syncedAt": "2026-09-10",
   "videos": [
+    {
+      "id": "wRcmnOW-sSo",
+      "title": "Ascended Heroes Pack #10 📉 | 10 Packs In and NO HITS?! 💀",
+      "path": "rip/ascended-heroes-pack-10-10-packs-in-and-no-hits-wRcmnOW-sSo.html",
+      "published": "2026-09-10",
+      "publishedAt": "2026-09-10T10:21:32Z",
+      "duration": 23,
+      "views": 242,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "ascended-heroes"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "hasHit": false,
+      "packNumber": 10,
+      "packs": 1,
+      "label": "Ascended Heroes Pack - Pack 10"
+    },
     {
       "id": "jFjeoYqBUis",
       "title": "Perfect Order Pack #12 📉 | The Hit Streak is OVER! 💀",
@@ -15,7 +37,7 @@
       "published": "2026-09-09",
       "publishedAt": "2026-09-09T10:13:37Z",
       "duration": 19,
-      "views": 27,
+      "views": 30,
       "vertical": true,
       "short": true,
       "sets": [
@@ -37,7 +59,7 @@
       "published": "2026-09-08",
       "publishedAt": "2026-09-08T10:10:05Z",
       "duration": 21,
-      "views": 1454,
+      "views": 1462,
       "vertical": true,
       "short": true,
       "sets": [
@@ -58,7 +80,7 @@
       "published": "2026-09-07",
       "publishedAt": "2026-09-07T10:03:11Z",
       "duration": 19,
-      "views": 1102,
+      "views": 1121,
       "vertical": true,
       "short": true,
       "sets": [
@@ -287,7 +309,7 @@
       "published": "2026-08-29",
       "publishedAt": "2026-08-29T12:09:23Z",
       "duration": 22,
-      "views": 1095,
+      "views": 1096,
       "vertical": true,
       "short": true,
       "sets": [
@@ -633,7 +655,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1044,
+      "views": 1045,
       "vertical": true,
       "short": true,
       "sets": [
