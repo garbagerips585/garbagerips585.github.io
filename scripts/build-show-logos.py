@@ -166,6 +166,58 @@ def background_mask(rgb: np.ndarray, tol: int) -> np.ndarray:
     return seen
 
 
+# SOME LOGOS ARE WORSE WITH THE BACKGROUND CUT, AND THE CUT IS NOT A JUDGEMENT
+# ABOUT WHETHER THEY LOOK GOOD. cut() decides what is background; it cannot
+# decide whether the art SURVIVES losing it. A logo whose ink is dark and whose
+# shapes have white counters comes out of it as a patchwork: the ink lands on
+# --card at close to no contrast, and the enclosed whites stay behind as slivers
+# that read as holes punched in the letters.
+#
+# CNY PROMOTIONS IS THAT CASE and the owner called it, 10 September 2026: "for
+# Collectorfest logo you leave the white background, the png cut out doesn't look
+# good, ok to keep it on white". Navy #002F6C wordmark, a white bar through the
+# middle of it reading PROMOTIONS, and a white counter inside the N. Cut, the
+# navy sits on the dark green card and the two whites float unattached.
+#
+# So this is an opt-out BY NAME rather than a heuristic, because the test is
+# taste and nothing here can measure it. Add a stem when a cut logo looks wrong
+# on the page, and look at the rendition on the card green before deciding: run
+# this script with --preview, which flattens each one onto CARD for exactly that.
+KEEP_BACKGROUND = {"cny-promotions"}
+
+
+def keep_plate(path: Path) -> Image.Image:
+    """The logo as sent, on the background it was drawn on, letterboxing removed.
+
+    deletterbox() still runs, because a screenshot's black bars are not the
+    logo's background and nobody wants them either. What is deliberately NOT run
+    is background_mask(), so the white the art was designed to sit on ships with
+    it. Returned RGBA with a solid alpha so the caller's resize path, which
+    resizes colour and alpha together, needs no special case.
+    """
+    im = deletterbox(ImageOps.exif_transpose(Image.open(path)).convert("RGB"))
+
+    # CROP THE PLATE TIGHT TO THE INK, WITH A MARGIN, because keeping the
+    # background is not the same as keeping the empty space around it. CNY's
+    # master is 1920x1080 with the wordmark in the middle, so shipping it as
+    # sent gave a 1586x1080 white slab whose art was a third of its height: on
+    # a 34px-tall card slot that renders the logo about 11px tall and the rest
+    # is white. background_mask finds the ink here exactly as it does for a
+    # cut, and is used only to MEASURE. PAD keeps the wordmark off the edge of
+    # its own plate, which is what makes it read as a plate rather than a crop.
+    arr = np.asarray(im)
+    bg = background_mask(arr, TOL)
+    ys, xs = np.where(~bg)
+    if len(xs):
+        PAD = round(min(im.size) * 0.03)
+        l = max(0, xs.min() - PAD)
+        t = max(0, ys.min() - PAD)
+        r = min(im.width, xs.max() + 1 + PAD)
+        b = min(im.height, ys.max() + 1 + PAD)
+        im = im.crop((l, t, r, b))
+    return im.convert("RGBA")
+
+
 def cut(path: Path) -> Image.Image:
     im = deletterbox(ImageOps.exif_transpose(Image.open(path)).convert("RGB"))
     arr = np.asarray(im)
@@ -243,9 +295,10 @@ def main() -> int:
 
     OUT.mkdir(parents=True, exist_ok=True)
     for m in masters:
-        img = cut(m)
+        img = keep_plate(m) if m.stem in KEEP_BACKGROUND else cut(m)
         w, h = img.size
-        print(f"{m.name}: {Image.open(m).size} master -> {w}x{h} trimmed")
+        how = "on its own white" if m.stem in KEEP_BACKGROUND else "trimmed"
+        print(f"{m.name}: {Image.open(m).size} master -> {w}x{h} {how}")
         print(f'  data/shows.json: "logoW": {w}, "logoH": {h}')
 
         if preview:

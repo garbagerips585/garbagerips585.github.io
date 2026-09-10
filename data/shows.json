@@ -313,10 +313,11 @@
       "flyerW": 440,
       "flyerH": 570,
       "logo": "cny-promotions",
-      "logoW": 1920,
-      "logoH": 1080,
+      "logoW": 1399,
+      "logoH": 581,
       "pkmn": "some",
-      "pkmnWhy": "The replacement flyer, 9 September 2026, features a PIKACHU ex card as one of its three pictures, beside an Aaron Judge card and a shot of the floor. The billing line still says TCG rather than Pokemon, so this is the artwork rather than the words -- the same ground the 1st Annual Fall Fest is marked on, where the flyer says TCG and leads with a Charizard ex."
+      "pkmnWhy": "The replacement flyer, 9 September 2026, features a PIKACHU ex card as one of its three pictures, beside an Aaron Judge card and a shot of the floor. The billing line still says TCG rather than Pokemon, so this is the artwork rather than the words -- the same ground the 1st Annual Fall Fest is marked on, where the flyer says TCG and leads with a Charizard ex.",
+      "logoNote": "Sent by the promoter by email, 9 September 2026, for this use. IT KEEPS ITS WHITE BACKGROUND, on the owner's call of 10 September: \"for Collectorfest logo you leave the white background, the png cut out doesn't look good, ok to keep it on white\". It is in build-show-logos.py's KEEP_BACKGROUND set for that reason, and the note there says why the cut fails on this particular art: navy ink that lands on --card at almost no contrast, plus white counters inside the N and the PROMOTIONS bar that stay behind as unattached slivers. The plate is cropped tight to the ink with a 3% margin rather than shipped as sent, because the master is 1920x1080 with the wordmark in the middle and that gave a white slab whose art was a third of its height."
     },
     {
       "id": "arch-angel-2026-09-13",
@@ -944,8 +945,9 @@
       "flyerW": 440,
       "flyerH": 570,
       "logo": "cny-promotions",
-      "logoW": 1920,
-      "logoH": 1080
+      "logoW": 1399,
+      "logoH": 581,
+      "logoNote": "Sent by the promoter by email, 9 September 2026, for this use. IT KEEPS ITS WHITE BACKGROUND, on the owner's call of 10 September: \"for Collectorfest logo you leave the white background, the png cut out doesn't look good, ok to keep it on white\". It is in build-show-logos.py's KEEP_BACKGROUND set for that reason, and the note there says why the cut fails on this particular art: navy ink that lands on --card at almost no contrast, plus white counters inside the N and the PROMOTIONS bar that stay behind as unattached slivers. The plate is cropped tight to the ink with a 3% margin rather than shipped as sent, because the master is 1920x1080 with the wordmark in the middle and that gave a white slab whose art was a third of its height."
     },
     {
       "id": "the-big-show-2026-10-16",
@@ -1048,8 +1050,9 @@
       "flyerW": 440,
       "flyerH": 570,
       "logo": "cny-promotions",
-      "logoW": 1920,
-      "logoH": 1080
+      "logoW": 1399,
+      "logoH": 581,
+      "logoNote": "Sent by the promoter by email, 9 September 2026, for this use. IT KEEPS ITS WHITE BACKGROUND, on the owner's call of 10 September: \"for Collectorfest logo you leave the white background, the png cut out doesn't look good, ok to keep it on white\". It is in build-show-logos.py's KEEP_BACKGROUND set for that reason, and the note there says why the cut fails on this particular art: navy ink that lands on --card at almost no contrast, plus white counters inside the N and the PROMOTIONS bar that stay behind as unattached slivers. The plate is cropped tight to the ink with a 3% margin rather than shipped as sent, because the master is 1920x1080 with the wordmark in the middle and that gave a white slab whose art was a third of its height."
     },
     {
       "id": "northtowns-sanborn-2026-10-17",
@@ -1123,8 +1126,9 @@
       "flyerW": 440,
       "flyerH": 570,
       "logo": "cny-promotions",
-      "logoW": 1920,
-      "logoH": 1080
+      "logoW": 1399,
+      "logoH": 581,
+      "logoNote": "Sent by the promoter by email, 9 September 2026, for this use. IT KEEPS ITS WHITE BACKGROUND, on the owner's call of 10 September: \"for Collectorfest logo you leave the white background, the png cut out doesn't look good, ok to keep it on white\". It is in build-show-logos.py's KEEP_BACKGROUND set for that reason, and the note there says why the cut fails on this particular art: navy ink that lands on --card at almost no contrast, plus white counters inside the N and the PROMOTIONS bar that stay behind as unattached slivers. The plate is cropped tight to the ink with a 3% margin rather than shipped as sent, because the master is 1920x1080 with the wordmark in the middle and that gave a white slab whose art was a third of its height."
     },
     {
       "id": "collectorfest-jcc-2026-10-18",
@@ -1337,8 +1341,9 @@
       "flyerW": 440,
       "flyerH": 570,
       "logo": "cny-promotions",
-      "logoW": 1920,
-      "logoH": 1080
+      "logoW": 1399,
+      "logoH": 581,
+      "logoNote": "Sent by the promoter by email, 9 September 2026, for this use. IT KEEPS ITS WHITE BACKGROUND, on the owner's call of 10 September: \"for Collectorfest logo you leave the white background, the png cut out doesn't look good, ok to keep it on white\". It is in build-show-logos.py's KEEP_BACKGROUND set for that reason, and the note there says why the cut fails on this particular art: navy ink that lands on --card at almost no contrast, plus white counters inside the N and the PROMOTIONS bar that stay behind as unattached slivers. The plate is cropped tight to the ink with a 3% margin rather than shipped as sent, because the master is 1920x1080 with the wordmark in the middle and that gave a white slab whose art was a third of its height."
     },
     {
       "id": "585cardz-batavia-2026-11-04",
@@ -1683,8 +1688,9 @@
       "flyerW": 440,
       "flyerH": 570,
       "logo": "cny-promotions",
-      "logoW": 1920,
-      "logoH": 1080
+      "logoW": 1399,
+      "logoH": 581,
+      "logoNote": "Sent by the promoter by email, 9 September 2026, for this use. IT KEEPS ITS WHITE BACKGROUND, on the owner's call of 10 September: \"for Collectorfest logo you leave the white background, the png cut out doesn't look good, ok to keep it on white\". It is in build-show-logos.py's KEEP_BACKGROUND set for that reason, and the note there says why the cut fails on this particular art: navy ink that lands on --card at almost no contrast, plus white counters inside the N and the PROMOTIONS bar that stay behind as unattached slivers. The plate is cropped tight to the ink with a 3% margin rather than shipped as sent, because the master is 1920x1080 with the wordmark in the middle and that gave a white slab whose art was a third of its height."
     },
     {
       "id": "batavia-scts-2026-12-05",
