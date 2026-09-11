@@ -65,42 +65,145 @@
     "  list because it is 'related', that is the bug, and the answer is a sentence",
     "  in the English entry's blurb naming the Japanese set, not a row."
   ],
-  "checked": "2026-08-31",
+  "checked": "2026-09-11",
   "sets": [
     {
       "name": "30th Celebration",
       "code": null,
       "date": "2026-09-16",
       "confidence": "confirmed",
-      "blurb": "The anniversary set, and the first Pokemon TCG expansion to launch worldwide on the same day as Japan. Every single card in it is foil, including the basic Energy.",
+      "blurb": "The anniversary set, and the first Pokemon TCG expansion to launch worldwide on the same day as Japan. Its theme is day and night. Every single card in it is foil, including the basic Energy, and there is no booster box and no loose packs: the only way to get packs is inside one of the products below.",
       "highlights": [
-        "A new rarity, Futuristic rare, debuting on Mewtwo ex and Mew ex",
-        "30 different Pikachu illustrations by 30 illustrators",
-        "A 30 card Classic Collection of reprints, numbered outside the main set",
-        "Packs are 5 foil cards plus a foil basic Energy"
+        "Every card is foil, basic Energy included, and the theme is Pokemon in daytime and nighttime moments",
+        "A new rarity, Futuristic rare, by the Japanese artist YOSHIROTTEN, who also designed the Energy. TPCi describes the art as evoking hope toward an unknown future",
+        "One of 30 unique foil Pikachu in every pack, each by a different illustrator. Japan's first is by Ken Sugimori, recreating his own Jungle Pikachu",
+        "30 classic cards return with a foil treatment. TPCi says these are NOT Standard legal, but are playable in formats that allow the original prints",
+        "Packs are five foil cards, one foil basic Energy and a Pokemon TCG Live code card",
+        "Playable in Pokemon TCG Live from 15 September at 10am PDT, a day before the cards reach shops, with login bonuses",
+        "The English set is not the Japanese one: it combines Japan's 30th Celebration with its Espeon ex and Umbreon ex Premium Deck Set, and turns some Japanese cards into English promos"
       ],
       "products": [
-        { "name": "Elite Trainer Box", "date": "2026-09-16", "packs": 9, "price": "$49.99", "note": "Full art Nidorina promo" },
-        { "name": "Pokemon Center Elite Trainer Box", "date": "2026-09-16", "packs": 11, "note": "Pokemon Center exclusive, two Nidorina promos" },
-        { "name": "ex Box, Sylveon ex and Greninja ex", "date": "2026-09-16", "packs": 4, "price": "$21.99" },
-        { "name": "Poster Collection", "date": "2026-09-16", "packs": 3, "price": "$14.99", "note": "Articuno, Zapdos and Moltres foil promos, plus a wall poster showing over 160 cards" },
-        { "name": "Tech Sticker Collection", "date": "2026-09-16", "packs": 3, "price": "$14.99", "note": "An Alolan Exeggutor or Lucario foil promo and a sticker sheet" },
-        { "name": "Knock Out Collection", "date": "2026-09-16", "packs": 2, "price": "$9.99", "note": "A foil Eevee and a plastic coin" },
-        { "name": "2 Pack Blister", "date": "2026-09-16", "packs": 2, "note": "A foil Eevee and a plastic coin, the same contents the Knock Out Collection lists. They are two separate products and the showcase describes them the same way." },
-        { "name": "Booster Bundle", "date": "2026-10-02", "packs": 6 },
-        { "name": "Binder Collection", "date": "2026-10-02", "packs": 5, "note": "A nine pocket binder in the anniversary design" },
-        { "name": "Mini Tins", "date": "2026-10-02", "packs": 2, "note": "Ten art cards that together make two pictures, one day and one night" },
-        { "name": "Battle Deck, Espeon ex and Umbreon ex", "date": "2026-10-30", "price": "$19.99", "note": "All foil 60 card decks" },
-        { "name": "Ultra Premium Collection, Day and Night", "date": "2026-11-06", "packs": 29, "price": "$179.99", "note": "Plus one Classic Collection pack" },
-        { "name": "Ditto Premium Collection", "date": "2026-11-06", "packs": 8, "note": "A Ditto foil promo and an acrylic display" },
-        { "name": "Figure Collection, Mew and Mewtwo", "date": "2026-11-06", "packs": 5, "price": "$29.99" },
-        { "name": "ex Tin, Sylveon ex or Greninja ex", "date": "2026-12-04", "packs": 4, "price": "$21.99", "confidence": "expected" }
+        {
+          "name": "Elite Trainer Box",
+          "date": "2026-09-16",
+          "packs": 9,
+          "price": "$49.99",
+          "note": "An illustration rare style Nidorina promo, 16 foil basic Energy and accessories. The Nidorina exists as a promo because its Illustration Rare was cut from the English set."
+        },
+        {
+          "name": "Pokemon Center Elite Trainer Box",
+          "date": "2026-09-16",
+          "packs": 11,
+          "note": "Pokemon Center exclusive, two Nidorina promos"
+        },
+        {
+          "name": "ex Box, Sylveon ex and Greninja ex",
+          "date": "2026-09-16",
+          "packs": 4,
+          "price": "$21.99"
+        },
+        {
+          "name": "Poster Collection",
+          "date": "2026-09-16",
+          "packs": 3,
+          "price": "$14.99",
+          "note": "Articuno, Zapdos and Moltres foil promos, plus a full size two sided poster. TPCi describes the poster as showing over 160 cards from the set, which is the only number it has published about this set and is NOT a set size."
+        },
+        {
+          "name": "Tech Sticker Collection",
+          "date": "2026-09-16",
+          "packs": 3,
+          "price": "$14.99",
+          "note": "An Alolan Exeggutor or Lucario foil promo and a sticker sheet"
+        },
+        {
+          "name": "Knock Out Collection",
+          "date": "2026-09-16",
+          "packs": 2,
+          "price": "$9.99",
+          "note": "A foil Eevee and a plastic coin"
+        },
+        {
+          "name": "2 Pack Blister",
+          "date": "2026-09-16",
+          "packs": 2,
+          "note": "A foil Eevee and a plastic coin, the same contents the Knock Out Collection lists. They are two separate products and the showcase describes them the same way.",
+          "price": "$9.99"
+        },
+        {
+          "name": "Booster Bundle",
+          "date": "2026-10-02",
+          "packs": 6,
+          "price": "$26.94"
+        },
+        {
+          "name": "Binder Collection",
+          "date": "2026-12-04",
+          "packs": 5,
+          "note": "A nine pocket binder in the anniversary design. DELAYED: this was 2 October and TPCi moved it to 4 December in the United States, confirmed without announcement on pokemon.com and on retailer pages including Best Buy. No reason was given. It was also the one 30th product being opened on stream months early, which is how much of the set leaked, though nothing ties that to the delay.",
+          "price": "$31.99"
+        },
+        {
+          "name": "Mini Tins",
+          "date": "2026-10-02",
+          "packs": 2,
+          "note": "Day and Night Mini Tins. Each comes with a sticker sheet and an art card matching the tin, and the Unown across the set of them spell out ANNIVERSARY when the artwork is combined.",
+          "price": "$9.99"
+        },
+        {
+          "name": "Battle Deck, Espeon ex and Umbreon ex",
+          "date": "2026-10-30",
+          "price": "$19.99",
+          "note": "All foil 60 card decks, each led by Espeon ex or Umbreon ex, with a deck box, coin and playmat, plus an illustration rare style Victini or Zeraora."
+        },
+        {
+          "name": "Ultra Premium Collection, Day and Night",
+          "date": "2026-11-06",
+          "packs": 29,
+          "price": "$179.99",
+          "note": "Two versions: Pikachu ex (day) with Espeon ex, or Pikachu ex (night) with Umbreon ex. A day or night themed playmat, sleeves, deck box and accessories. 29 packs plus one Classic Collection pack, which holds three cards from the Classic Collection."
+        },
+        {
+          "name": "Ditto Premium Collection",
+          "date": "2026-11-06",
+          "packs": 8,
+          "note": "A Ditto foil promo and an acrylic display",
+          "price": "$39.99"
+        },
+        {
+          "name": "Figure Collection, Mew and Mewtwo",
+          "date": "2026-11-06",
+          "packs": 5,
+          "price": "$29.99"
+        },
+        {
+          "name": "ex Tin, Sylveon ex or Greninja ex",
+          "date": "2026-12-04",
+          "packs": 4,
+          "price": "$21.99",
+          "confidence": "confirmed",
+          "note": "Sylveon ex or Greninja ex promo. Dated by TPCi's English product guide, so this is no longer an expected lineup entry."
+        }
       ],
       "noBoosterBox": true,
       "sources": [
+        "https://press.pokemon.com/en/releases/MEDIA-ALERT-Pokemon-Unveils-New-Pokemon-Trading-Card-Game-30th-Celebra",
+        "https://press.pokemon.com/en/releases/MEDIA-ALERT-The-Pokemon-Company-International-Reveals-Product-Lineup-f",
         "https://www.pokemon.com/us/news/pokemon-tcg-30th-celebration-product-showcase",
-        "https://www.pokemoncenter.com/product/10-10447-111/pokemon-tcg-30th-celebration-pokemon-center-elite-trainer-box"
-      ]
+        "https://www.pokemoncenter.com/product/10-10447-111/pokemon-tcg-30th-celebration-pokemon-center-elite-trainer-box",
+        "https://www.pokebeach.com/2026/09/30th-celebration-english-set-guide-full-card-list-products-store-promotions-and-more",
+        "https://www.pokebeach.com/2026/09/30th-celebration-full-set-list-revealed-for-japan-features-176-cards",
+        "https://www.pokebeach.com/2026/09/30th-anniversary-binder-collections-delayed-until-december"
+      ],
+      "packNote": "Five foil cards, one foil basic Energy and one Pokemon TCG Live code card. STATED BY TPCi in the 1 June 2026 press release, footnote 2, not inferred from a pack render. There is no booster box and no single packs: every pack comes inside one of this set's products.",
+      "cardCountNote": "NO OFFICIAL TOTAL EXISTS. Checked 11 September 2026 against three TPCi sources -- the pokemon.com product showcase and both press releases (1 June and 30 June 2026) -- and none of them states a set size. The only number TPCi has published about this set is 'over 160 cards', describing what is pictured on the Poster Collection's poster, which is not a card count. PokeBeach counts 199 for English: 128 main set including the 30 Pikachu, 33 secret rares, 30 Classic Collection and 8 basic Energy. As of 10 September several secret rares were still unrevealed, so part of that 199 is slots rather than cards anyone has seen, and PokeBeach's own English gallery runs to number 158 with four blanks in it. Japan's set is 176. This file's rule is that a count TPCi has not announced is not printed as one, so 199 appears only with PokeBeach's name on it.",
+      "cutCards": "The Illustration Rares of Nidorina and Ditto are in the Japanese set and are NOT in the English one. Both were turned into English promos instead, which is why a Nidorina promo is the Elite Trainer Box's card.",
+      "storePromo": "A foil Mewtwo promo with $15 of Pokemon TCG purchases at GameStop, Best Buy, Hot Topic, Barnes & Noble, BoxLunch, Five Below and Macy's.",
+      "accessories": "The Pokemon Center releases matching accessories on 16 September, the same day as the set: deck boxes, playmats, card sleeves, card displays, a card storage box and tote bags.",
+      "japanPullNote": "JAPANESE BOX, NOT AN ENGLISH ONE, and one opening is not a pull rate. A single official Japanese 20 pack box opening gave 20 Pikachu with no duplicates, 2 Classic Collection, 4 Illustration Rares, 1 Special Illustration Rare and 1 Futuristic Rare. English pull rates have not been published, and English packs hold 5 cards to Japan's 6, so nothing here transfers.",
+      "productNote": "THERE IS NO BOOSTER BOX AND NO LOOSE PACKS. Every pack of this set comes inside one of the products above, so there is no per pack price to compare and a shop offering single packs is selling something else. Separately, a foil Mewtwo promo comes with $15 of Pokemon TCG purchases at GameStop, Best Buy, Hot Topic, Barnes & Noble, BoxLunch, Five Below and Macy's. The Nidorina and Ditto Illustration Rares are in the Japanese set and not the English one; both became English promos instead, which is why a Nidorina is the Elite Trainer Box card. TPCi has never published a total card count for this set: PokeBeach counts 199 in English with several secret rares still unrevealed, and Japan's set is a different 176.",
+      "classicLegality": "TPCi, 1 June 2026 press release, footnote 3: the classic cards in 30th Celebration packs are NOT legal in Standard, but are eligible in formats that allow the original prints of those cards. Worth knowing before anyone builds around a Classic Collection pull.",
+      "tcgLive": "Playable in Pokemon TCG Live from 15 September 2026, 10am PDT, one day before the physical release, on iOS, Android, macOS and Windows, with login bonuses. TPCi, 30 June 2026 press release."
     },
     {
       "name": "Mega Evolution: Delta Reign",
@@ -117,15 +220,37 @@
         "Pokemon TCG Live gets the set on November 5, the day before it reaches shelves"
       ],
       "products": [
-        { "name": "Booster Box", "note": "Four pack wraps: Mega Rayquaza, Mega Golisopod, Mega Golurk and Mega Malamar" },
-        { "name": "Booster Bundle" },
-        { "name": "Elite Trainer Box", "note": "The box promo is the Kyogre illustration rare from Japan's Storm Emeralda, cut from the English set and moved here" },
-        { "name": "Pokemon Center Elite Trainer Box", "note": "Pokemon Center exclusive. A stamped version of the Kyogre promo has been shown as well" },
-        { "name": "Build and Battle Box" },
-        { "name": "Seel Blister" },
-        { "name": "Spritzee Checklane Blister" },
-        { "name": "Premium Checklane Blister, Ampharos or Delphox" },
-        { "name": "Target Checklane Blister, Xerneas and Deoxys or Keldeo and Delibird", "note": "Target exclusive" }
+        {
+          "name": "Booster Box",
+          "note": "Four pack wraps: Mega Rayquaza, Mega Golisopod, Mega Golurk and Mega Malamar"
+        },
+        {
+          "name": "Booster Bundle"
+        },
+        {
+          "name": "Elite Trainer Box",
+          "note": "The box promo is the Kyogre illustration rare from Japan's Storm Emeralda, cut from the English set and moved here"
+        },
+        {
+          "name": "Pokemon Center Elite Trainer Box",
+          "note": "Pokemon Center exclusive. A stamped version of the Kyogre promo has been shown as well"
+        },
+        {
+          "name": "Build and Battle Box"
+        },
+        {
+          "name": "Seel Blister"
+        },
+        {
+          "name": "Spritzee Checklane Blister"
+        },
+        {
+          "name": "Premium Checklane Blister, Ampharos or Delphox"
+        },
+        {
+          "name": "Target Checklane Blister, Xerneas and Deoxys or Keldeo and Delibird",
+          "note": "Target exclusive"
+        }
       ],
       "productNote": "Every product here has been shown in official artwork, published by PokeBeach on August 20, 2026, so this is a real lineup rather than a guess at one. The Pokemon Company has still not put out a product page for the set, which is why not one of these carries a price or a date of its own here: none has been announced. If a shop quotes you a price for one, that is the shop's number and not a retail price.",
       "sources": [
@@ -142,7 +267,9 @@
       "confidence": "confirmed",
       "packs": 4,
       "blurb": "Mega Meganium ex, Mega Emboar ex or Mega Feraligatr ex, with four Ascended Heroes packs.",
-      "sources": ["https://www.pokemon.com/us/news/check-out-every-pokemon-tcg-product-release-in-august-2026"]
+      "sources": [
+        "https://www.pokemon.com/us/news/check-out-every-pokemon-tcg-product-release-in-august-2026"
+      ]
     },
     {
       "name": "Enhanced 2 Pack Blister",
@@ -151,7 +278,9 @@
       "packs": 2,
       "price": "$10.99",
       "blurb": "Gengar, Marshadow or Team Rocket's Mimikyu in cosmos holo, plus a metallic coin.",
-      "sources": ["https://www.pokebeach.com/2026/07/new-gengar-enhanced-2-pack-blister-and-mega-greninja-mini-portfolio-to-release-in-october"]
+      "sources": [
+        "https://www.pokebeach.com/2026/07/new-gengar-enhanced-2-pack-blister-and-mega-greninja-mini-portfolio-to-release-in-october"
+      ]
     },
     {
       "name": "Mini Portfolio",
@@ -160,7 +289,9 @@
       "packs": 1,
       "price": "$5.49",
       "blurb": "Mega Greninja and Mega Zeraora on the front, Mega Darkrai and Mega Chandelure on the back. Comes with one Pitch Black pack.",
-      "sources": ["https://www.pokebeach.com/2026/07/new-gengar-enhanced-2-pack-blister-and-mega-greninja-mini-portfolio-to-release-in-october"]
+      "sources": [
+        "https://www.pokebeach.com/2026/07/new-gengar-enhanced-2-pack-blister-and-mega-greninja-mini-portfolio-to-release-in-october"
+      ]
     },
     {
       "name": "Deck Crafter's Collection",
@@ -169,7 +300,9 @@
       "packs": 1,
       "price": "$9.99",
       "blurb": "The replacement for the Trainer's Toolkit. A foil Meowth ex, 39 tournament ready Trainer cards, dividers and one Pitch Black pack.",
-      "sources": ["https://icv2.com/articles/news/view/63081/build-new-decks-pokemon-tcg-deck-crafters-collection"]
+      "sources": [
+        "https://icv2.com/articles/news/view/63081/build-new-decks-pokemon-tcg-deck-crafters-collection"
+      ]
     }
   ],
   "japan": {
@@ -201,7 +334,9 @@
         "date": "2026-09-16",
         "confidence": "confirmed",
         "blurb": "The one date on this list that is not early. 30th Celebration launches worldwide on the same day, so Japan and the English release are both 16 September.",
-        "sources": ["https://www.pokebeach.com/2026/05/aura-seeker-japanese-tcg-set-to-release-in-november"]
+        "sources": [
+          "https://www.pokebeach.com/2026/05/aura-seeker-japanese-tcg-set-to-release-in-november"
+        ]
       },
       {
         "name": "30th Celebration Premium Deck Set, Espeon and Umbreon",
@@ -209,7 +344,9 @@
         "confidence": "confirmed",
         "price": "¥6,200",
         "blurb": "Two 60 card decks, built around a special illustration rare Espeon ex or Umbreon ex. Illustration rares of Zeraora and Victini are in there too.",
-        "sources": ["https://www.pokebeach.com/2026/06/30th-celebration-japan-championships"]
+        "sources": [
+          "https://www.pokebeach.com/2026/06/30th-celebration-japan-championships"
+        ]
       },
       {
         "name": "30th Celebration Futuristic Box",
@@ -217,14 +354,18 @@
         "confidence": "confirmed",
         "price": "¥27,500",
         "blurb": "Japan only, and the expensive one. Two Pikachu ex Futuristic rare promos, one day themed and one night themed, with a pile of premium accessories.",
-        "sources": ["https://www.pokebeach.com/2026/06/30th-celebration-japan-championships"]
+        "sources": [
+          "https://www.pokebeach.com/2026/06/30th-celebration-japan-championships"
+        ]
       },
       {
         "name": "Nine 30th Celebration Card Sets",
         "date": "2026-10-16",
         "confidence": "confirmed",
         "blurb": "The 27 starter Pokemon promos that English speakers got in the First Partner Collections, split across nine card sets.",
-        "sources": ["https://www.pokebeach.com/2026/05/mega-gengar-ex-mega-dragonite-ex-and-mega-feraligatr-ex-special-deck-set-to-release-in-japan"]
+        "sources": [
+          "https://www.pokebeach.com/2026/05/mega-gengar-ex-mega-dragonite-ex-and-mega-feraligatr-ex-special-deck-set-to-release-in-japan"
+        ]
       },
       {
         "name": "Special Deck Set, Mega Feraligatr ex, Mega Dragonite ex and Mega Gengar ex",
@@ -232,14 +373,18 @@
         "confidence": "confirmed",
         "price": "¥5,500",
         "blurb": "Three decks in one box. English collectors already have alternate art Mega Feraligatr ex and Mega Gengar ex from the Ascended Heroes box and the Mega Moonlight tins.",
-        "sources": ["https://www.pokebeach.com/2026/05/mega-gengar-ex-mega-dragonite-ex-and-mega-feraligatr-ex-special-deck-set-to-release-in-japan"]
+        "sources": [
+          "https://www.pokebeach.com/2026/05/mega-gengar-ex-mega-dragonite-ex-and-mega-feraligatr-ex-special-deck-set-to-release-in-japan"
+        ]
       },
       {
         "name": "Aura Seeker",
         "date": "2026-11-27",
         "confidence": "confirmed",
         "blurb": "Starring Mega Lucario Z ex. No English set has been named for it, and this page will not guess one: Japanese sets do not map one to one onto English ones, which Delta Reign above is the current proof of.",
-        "sources": ["https://www.pokebeach.com/2026/05/aura-seeker-japanese-tcg-set-to-release-in-november"]
+        "sources": [
+          "https://www.pokebeach.com/2026/05/aura-seeker-japanese-tcg-set-to-release-in-november"
+        ]
       }
     ]
   }
