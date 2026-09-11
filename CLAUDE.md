@@ -1110,7 +1110,55 @@ Two constraints that shape these pages:
 - "Still in print" and pack prices are not in the API and are not guessed.
   They live in `data/set-notes.json` for a human, along with any fun facts,
   and are omitted when blank. Everything else is API fact or checklist
-  arithmetic. Never state pull rates: we do not have them.
+  arithmetic.
+
+## Pull rates: a SOURCING rule since 11 September 2026, not a ban
+
+**THIS SAID "Never state pull rates: we do not have them" AND THE OWNER LIFTED IT**
+on 11 September 2026, in these words: "you can post any pull rates or anything
+thats confirmed." Read the old rule's own reason before reading the new rule:
+it was *we do not have them*, and every other statement of it in this file gave
+the same ground, that The Pokemon Company does not publish them. **It was an
+AVAILABILITY rule wearing the clothes of a principle**, which is why lifting it
+changes less than it looks like it changes.
+
+**SO THE TEST IS NOW "IS IT CONFIRMED", AND THAT WORD IS DOING ALL THE WORK.**
+Confirmed means the publisher stated it: TPCi, Pokemon Center, pokemon.com, a
+press release, or the printed odds on a pack or box. A news site REPORTING such
+a statement carries it the way this file already treats PokeBeach everywhere
+else, named in the sentence.
+
+**WHAT IS NOT CONFIRMED, AND THESE ARE THE ONES THAT WILL BE ARGUED FOR:**
+- **A box somebody opened.** One 20 pack box is a SAMPLE OF TWENTY, not a rate,
+  and printing it as one is the same error as [[rip-log-rarity-beats-number]] at
+  a different scale. Label it as one opening or leave it out.
+- **A leak, a streamer's early box, or a set tracker's extrapolation.** The 30th
+  Celebration leaked months early and is the live example.
+- **Another region's figure.** Japan's 30th Celebration pack holds six cards and
+  the English one holds five, so a Japanese rate is not an English rate even
+  when it is genuine.
+- **A rate for a DIFFERENT product than the one on the page.** A booster box
+  rate is not an Elite Trainer Box rate.
+
+**A GUARANTEE IS BETTER THAN A RATE AND IS USUALLY ALREADY CONFIRMED.** "One of
+30 Pikachu in every pack" and "five foil cards, one foil Energy, one code card"
+are TPCi's own words about 30th Celebration, they are certainties rather than
+probabilities, and they are what a collector actually plans around. Prefer them,
+and say which they are.
+
+**/luck.html DOES NOT CHANGE.** Its numbers are the channel's OWN openings and
+are labeled observed results, which is a different claim from an odds statement
+and is still the honest framing for it. Do not relabel them as pull rates.
+
+**THE FORBIDDEN LINK ON /how-to-play.html, /tcg-live.html AND /tcg-pocket.html
+IS STILL FORBIDDEN AND NEEDS THE OWNER'S SEPARATE CALL.** See that rule above.
+Its stated reason was "the site never states pull rates, and linking a page of
+them through a guide of ours is the same claim made at one remove", and the first
+half of that sentence is no longer true, so the rule is now resting on nothing.
+It is left standing anyway, because it is about the DIGITAL games' offering
+rates on three specific pages and the owner's instruction was about this set's
+cards. This file's own rule is that an exception is argued here before it is
+made, so it is written down here as open rather than taken as settled.
 
 ## Deck pages
 
@@ -1297,7 +1345,14 @@ those two taxonomies do not line up.
 **WHAT IS DELIBERATELY ABSENT FROM BOTH PAGES.** No pull rates and no pack odds:
 Bulbapedia states insert odds for several of these sets, they were read and
 deliberately NOT recorded, and data/topps-sets.json says so, so there is nothing
-in the tree to emit by accident. No print run totals, because nothing sourceable
+in the tree to emit by accident. **THE BAN THAT CAUSED THAT WAS LIFTED ON 11
+SEPTEMBER 2026 (see "Pull rates: a SOURCING rule" above) AND THESE PAGES WERE
+NOT CHANGED.** Two reasons, and the second is the real one. The odds were never
+written down, so putting them back is a research job on 12 sets rather than an
+edit. And Bulbapedia is not the publisher: 1999 to 2003 Topps insert odds would
+need the printed odds off a wrapper or box to clear the new "confirmed" test,
+which is exactly the kind of claim the new rule is careful about. If the owner
+wants them, that is a deliberate pass with a source per figure. No print run totals, because nothing sourceable
 publishes one and "not many were printed" is exactly the shape of claim this
 site does not make. No named licensing counterparty: who Topps signed the
 Pokemon license with is not stated by any source we reached, so the page says
@@ -3227,12 +3282,12 @@ in the wrong place if the domain does not answer on launch day.
 4. Blog for actual search traffic: set reviews, "Pokemon card shops
    Rochester NY" local angle. Each post embeds a video, and each new page
    goes in build-pages.mjs's sitemap list, not into sitemap.xml by hand.
-   THIS LINE USED TO SAY "pull rates" and it should never have. The site's
-   hard rule is that pull rates are never stated, because The Pokemon Company
-   does not publish them, and /luck.html goes out of its way to say its
-   numbers are observed results instead. A TODO naming a content plan the
-   rest of the file forbids is exactly the kind of note that gets quoted back
-   as permission.
+   THIS LINE USED TO SAY "pull rates", THEN SAID IT SHOULD NEVER HAVE, AND
+   BOTH ARE NOW OUT OF DATE. The owner lifted the ban on 11 September 2026 and it
+   is a sourcing rule now: see "Pull rates: a SOURCING rule" above for what
+   counts as confirmed and what does not. Pull rate content is a legitimate
+   plan again; a page of unsourced odds still is not, and a single box
+   opening is a sample rather than a rate.
 5. Consider migrating to Astro if the blog grows (keep it static).
 6. Naming consistency: "GarbageRips585" (one word, on sticker) vs
    "Garbage Rips 585" (spaced, on YouTube). The owner to pick one for H1/metadata.

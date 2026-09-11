@@ -1048,5 +1048,58 @@
     "https://www.pokebeach.com/2026/09/30th-celebration-full-set-list-revealed-for-japan-features-176-cards",
     "https://www.pokebeach.com/2026/09/30th-anniversary-binder-collections-delayed-until-december"
   ],
-  "pullRatesNote": "DELIBERATELY NOT RECORDED, AND THIS FIELD EXISTS SO NOBODY ADDS THEM BACK. CLAUDE.md: \"Never state pull rates: we do not have them\", and the site never does, because The Pokemon Company does not publish them. Two figures were read while researching this set and are NOT in this file, in the tree, or on the page: a reported Japanese 20 pack box opening broken down by rarity, and PokeBeach's note that English rates would follow at release. A single opening is not a rate anyway, and Japan's pack holds six cards to English's five, so it would not even transfer. Same call and same reasoning as data/topps-sets.json, which read Bulbapedia's insert odds for several Topps sets and recorded none of them. What the site DOES publish is what the channel actually opened, on /luck.html, labeled as observed results."
+  "guarantees": [
+    {
+      "claim": "Five foil cards, one foil basic Energy and one Pokemon TCG Live code card in every pack.",
+      "source": "official",
+      "where": "TPCi press release, 1 June 2026, footnote 2"
+    },
+    {
+      "claim": "One of the 30 Pikachu in every single pack, each by a different illustrator.",
+      "source": "official",
+      "where": "TPCi press release, 1 June 2026, and the pokemon.com product showcase"
+    },
+    {
+      "claim": "Every card in the set is foil, basic Energy included.",
+      "source": "official",
+      "where": "TPCi press releases, 1 and 30 June 2026"
+    },
+    {
+      "claim": "The Ultra-Premium Collection's 30th pack is a Classic Collection pack holding three Classic Collection cards, on top of its 29 normal packs.",
+      "source": "reported",
+      "where": "PokeBeach's English product guide, 10 September 2026"
+    }
+  ],
+  "guaranteesNote": "THESE ARE CERTAINTIES AND NOT ODDS, which is why they lead. A guaranteed Pikachu in all 199 packs of a sealed run is worth more to somebody master setting this than any probability, because it is the one part of the set you cannot miss by being unlucky.",
+  "japanBoxOpening": {
+    "label": "One Japanese box, opened once",
+    "packs": 20,
+    "rows": [
+      [
+        "Pikachu",
+        "20, one per pack, no duplicates"
+      ],
+      [
+        "Classic Collection",
+        "2"
+      ],
+      [
+        "Illustration rares",
+        "4"
+      ],
+      [
+        "Special illustration rare",
+        "1"
+      ],
+      [
+        "Futuristic rare",
+        "1"
+      ]
+    ],
+    "caveat": "This is a SAMPLE OF TWENTY PACKS, not a pull rate, and it is a JAPANESE box. Japanese packs hold six cards where English packs hold five, and the two sets are different sizes (176 against 199), so it does not convert into an English expectation. It is on the page because it is the only opened-box data that exists for this set and because one opening of a known size is a fact about that opening. Do not restate it as a rate.",
+    "source": "reported",
+    "where": "PokeBeach, 9 September 2026, describing one official Japanese box opening"
+  },
+  "englishRates": "NOT PUBLISHED YET. Checked 11 September 2026: PokeBeach's English set guide still reads \"We will have this information closer to the set's release next week\", and TPCi has published nothing. The set releases 16 September. ADD THEM HERE WHEN THEY LAND, and they clear the confirmed bar the moment the publisher or PokeBeach states them rather than a streamer estimating from a box.",
+  "pullRatesPolicy": "THE SITE-WIDE BAN WAS LIFTED BY THE OWNER ON 11 SEPTEMBER 2026: \"you can post any pull rates or anything thats confirmed.\" CLAUDE.md now carries it as a sourcing rule rather than a ban, under \"Pull rates: a SOURCING rule\". The bar is that the PUBLISHER stated it. A box somebody opened, a leak, a streamer's early case and another region's figure all fail that bar, which is why japanBoxOpening above is labeled as one opening in its own heading and englishRates is still empty."
 }

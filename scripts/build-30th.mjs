@@ -304,14 +304,41 @@ ${SECTIONS.map(binderSection).join("\n")}
       <li><span class="t30-tag off">Official</span>${esc(doc.set.tcgLive.split(".")[0])}.</li>
       <li><span class="t30-tag">No box</span>${esc(doc.set.noBox)}</li>
     </ul>
-    <h3>What this page will not tell you</h3>
-    <p style="max-width:42em">Pull rates. The Pokemon Company does not publish them for this set or any other,
-      so this site does not state them, and that holds however confident a number looks somewhere else. Two were
-      read while this page was being researched and neither is written down anywhere in the site's data, for the
-      same reason the Topps guide recorded none of the insert odds it read.</p>
-    <p style="max-width:42em">What does get published here is what actually came out of the packs on camera,
-      counted from the rip log and labeled as observed results rather than as odds.
-      <a href="/luck.html">See the channel's own numbers</a>.</p>
+    <h3>What every pack guarantees</h3>
+    <p style="max-width:42em">${esc(doc.guaranteesNote)}</p>
+    <ul class="t30-facts">
+${doc.guarantees
+  .map(
+    (g) =>
+      `      <li><span class="t30-tag${g.source === "official" ? " off" : ""}">${
+        g.source === "official" ? "Official" : "PokeBeach"
+      }</span>${esc(g.claim)} <span class="t30-src-i">${esc(g.where)}</span></li>`
+  )
+  .join("\n")}
+    </ul>
+
+    <h3>${esc(doc.japanBoxOpening.label)}</h3>
+    <p style="max-width:42em"><span class="t30-tag">One box, not a rate</span>${esc(doc.japanBoxOpening.caveat)}</p>
+    <div class="t30-scroll" style="max-width:32em">
+      <table class="t30-tbl">
+        <caption class="t30-cap">What came out of one ${doc.japanBoxOpening.packs} pack Japanese box. ${esc(
+          doc.japanBoxOpening.where
+        )}.</caption>
+        <thead><tr><th scope="col">Card</th><th scope="col">In that box</th></tr></thead>
+        <tbody>
+${doc.japanBoxOpening.rows
+  .map((r) => `            <tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`)
+  .join("\n")}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>English pull rates</h3>
+    <p style="max-width:42em"><span class="t30-tag">Not published</span>${esc(doc.englishRates.split(". ADD THEM")[0])}.
+      They will be added here when the publisher or PokeBeach states them. A number worked out from somebody's
+      early box is not one of those, and this page will not carry it as one.</p>
+    <p style="max-width:42em">What the channel has actually opened is counted separately and labeled as
+      observed results rather than as odds. <a href="/luck.html">See those numbers</a>.</p>
   </div>
 </section>
 

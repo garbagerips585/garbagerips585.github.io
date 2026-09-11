@@ -7032,3 +7032,12 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
    the grid legible to somebody who cannot see how many pockets are filled. */
 .t30-fig{margin:0}
 .t30-fig figcaption{color:var(--ink-2);font-size:var(--t-sm);line-height:1.45;margin-top:var(--s3);max-width:42em}
+/* The inline source credit after a claim on /30th-celebration.html, and the
+   table caption over the one opened box. Both are small print that has to stay
+   legible: --ink-2 on --card measures well clear of AA, and neither is ever set
+   over artwork. The caption is not decoration -- it is what stops a table of
+   five numbers reading as a rate, so it carries the sample size in words. */
+.t30-src-i{display:block;font:700 var(--t-micro)/1.35 var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.03em;margin-top:3px}
+.t30-cap{caption-side:top;text-align:left;padding:9px 10px;color:var(--ink-2);
+  font-size:var(--t-sm);line-height:1.4;border-bottom:1px solid var(--keyline)}
