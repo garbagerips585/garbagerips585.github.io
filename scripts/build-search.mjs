@@ -189,6 +189,11 @@ const PAGES = [
     "First Partner Illustration Collection",
     "All 27 promos with prices, what is in the box, and the panorama artwork",
   ],
+  [
+    "/30th-celebration.html",
+    "30th Celebration",
+    "Every product and date, what is in a pack, Japan's full card list, and the master set",
+  ],
   ["/expansions.html", "Every set ever", "The complete expansion list"],
   // The two ranked price lists. Both are one line each here for the reason the
   // comment above PAGES gives: four pages once shipped without one and were

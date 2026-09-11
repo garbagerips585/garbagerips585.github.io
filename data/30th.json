@@ -1,0 +1,1052 @@
+{
+  "_readme": [
+    "Everything the site knows about Pokemon TCG: 30th Celebration, the 2026",
+    "anniversary set. Drives /30th-celebration.html. Hand maintained: the set",
+    "was not out when this file was written.",
+    "",
+    "WHAT IS OFFICIAL AND WHAT IS NOT IS MARKED ON EVERY CLAIM, and the",
+    "distinction is load bearing on this page more than most, because the set",
+    "leaked months early and a lot of confident numbers are circulating.",
+    "  official  TPCi said it: pokemon.com, press.pokemon.com or Pokemon Center",
+    "  reported  a news site SAW it. PokeBeach only, and named in the text",
+    "  derived   arithmetic on a reported number, marked as such and never",
+    "            presented as a source's claim",
+    "Nothing a comment section worked out is in this file. There is a widely",
+    "discussed three card gap after Japan's #165 and a set of leaked RGB Mews;",
+    "neither is here, for the reason data/upcoming.json's readme gives: what a",
+    "source saw is reportable, what it reckons is not.",
+    "",
+    "THERE IS NO OFFICIAL CARD COUNT. Checked 11 September 2026 against the",
+    "pokemon.com product showcase and both TPCi press releases (1 June, 30",
+    "June): none states a set size. The only number TPCi has published is",
+    "'over 160 cards', which describes what is PICTURED ON THE POSTER in the",
+    "Poster Collection, not the set. Every total on this page is PokeBeach's",
+    "and is attributed to them on the page itself.",
+    "",
+    "PRODUCTS ARE COPIED FROM data/upcoming.json AND THAT OVERLAP IS",
+    "DELIBERATE AND TEMPORARY. That file's own readme says a set is deleted",
+    "from it once it ships, so after 16 September this file is the only home",
+    "for the product list and the copy here is what survives. Until then the",
+    "two must agree: change upcoming.json first, then re-run",
+    "scripts/make-30th-data.mjs, which is how this key was written."
+  ],
+  "checked": "2026-09-11",
+  "set": {
+    "name": "Pokemon TCG: 30th Celebration",
+    "slug": "30th-celebration",
+    "release": "2026-09-16",
+    "releaseNote": "The first Pokemon TCG expansion to launch on the same day worldwide in participating markets. TPCi notes the exact time on launch day varies by country. Official, 1 June 2026 press release.",
+    "tcgLive": "Playable in Pokemon TCG Live from 15 September 2026, 10am PDT, one day before the physical release, on iOS, Android, macOS and Windows, with login bonuses. TPCi, 30 June 2026 press release.",
+    "theme": "Day and night: Pokemon shown in daytime and nighttime moments. Official.",
+    "allFoil": "Every card in the set is foil, basic Energy included. Official.",
+    "noBox": "There is no booster box and no loose packs. Every pack comes inside one of the products below, so this set has no per pack retail price and a shop selling single packs is selling something else.",
+    "packContents": "Five foil cards, one foil basic Energy and one Pokemon TCG Live code card. STATED BY TPCi in the 1 June 2026 press release, footnote 2, not inferred from a pack render. There is no booster box and no single packs: every pack comes inside one of this set's products.",
+    "classicLegality": "TPCi, 1 June 2026 press release, footnote 3: the classic cards in 30th Celebration packs are NOT legal in Standard, but are eligible in formats that allow the original prints of those cards. Worth knowing before anyone builds around a Classic Collection pull."
+  },
+  "structure": {
+    "english": {
+      "count": 199,
+      "main": 128,
+      "pikachu": 30,
+      "secret": 33,
+      "classic": 30,
+      "energy": 8,
+      "source": "reported",
+      "note": "PokeBeach's count of the revealed English list, 10 September 2026. The 30 Pikachu are part of the 128 main set cards. Several secret rares were still unrevealed: PokeBeach's own English gallery runs to number 158 and has four blanks in it, so part of the 33 is slots rather than cards anyone has seen."
+    },
+    "japan": {
+      "count": 176,
+      "main": 103,
+      "pikachu": 30,
+      "secret": 35,
+      "classic": 30,
+      "energy": 8,
+      "source": "reported",
+      "note": "PokeBeach, 9 September 2026. The 30 Pikachu are part of the 103 main set cards. Japan's list and the English one are NOT the same set and the numbering does not line up: English has 128 main set cards to Japan's 103, because it folds in cards from Japan's Espeon ex and Umbreon ex 30th Celebration Premium Deck Set."
+    },
+    "derived": "DERIVED, NOT REPORTED: Japan's revealed numbering runs #001-165 plus 8 Energy, which is 173 of the stated 176. Main is #001-103, then #104-135 is 32 secret rares, then #136-165 is the 30 Classic Collection. PokeBeach states 35 secret rares, so three are unrevealed. That is arithmetic on their own figures and is not a claim any source made."
+  },
+  "products": [
+    {
+      "name": "Elite Trainer Box",
+      "date": "2026-09-16",
+      "packs": 9,
+      "price": "$49.99",
+      "note": "An illustration rare style Nidorina promo, 16 foil basic Energy and accessories. The Nidorina exists as a promo because its Illustration Rare was cut from the English set."
+    },
+    {
+      "name": "Pokemon Center Elite Trainer Box",
+      "date": "2026-09-16",
+      "packs": 11,
+      "note": "Pokemon Center exclusive, two Nidorina promos"
+    },
+    {
+      "name": "ex Box, Sylveon ex and Greninja ex",
+      "date": "2026-09-16",
+      "packs": 4,
+      "price": "$21.99"
+    },
+    {
+      "name": "Poster Collection",
+      "date": "2026-09-16",
+      "packs": 3,
+      "price": "$14.99",
+      "note": "Articuno, Zapdos and Moltres foil promos, plus a full size two sided poster. TPCi describes the poster as showing over 160 cards from the set, which is the only number it has published about this set and is NOT a set size."
+    },
+    {
+      "name": "Tech Sticker Collection",
+      "date": "2026-09-16",
+      "packs": 3,
+      "price": "$14.99",
+      "note": "An Alolan Exeggutor or Lucario foil promo and a sticker sheet"
+    },
+    {
+      "name": "Knock Out Collection",
+      "date": "2026-09-16",
+      "packs": 2,
+      "price": "$9.99",
+      "note": "A foil Eevee and a plastic coin"
+    },
+    {
+      "name": "2 Pack Blister",
+      "date": "2026-09-16",
+      "packs": 2,
+      "note": "A foil Eevee and a plastic coin, the same contents the Knock Out Collection lists. They are two separate products and the showcase describes them the same way.",
+      "price": "$9.99"
+    },
+    {
+      "name": "Booster Bundle",
+      "date": "2026-10-02",
+      "packs": 6,
+      "price": "$26.94"
+    },
+    {
+      "name": "Binder Collection",
+      "date": "2026-12-04",
+      "packs": 5,
+      "note": "A nine pocket binder in the anniversary design. DELAYED: this was 2 October and TPCi moved it to 4 December in the United States, confirmed without announcement on pokemon.com and on retailer pages including Best Buy. No reason was given. It was also the one 30th product being opened on stream months early, which is how much of the set leaked, though nothing ties that to the delay.",
+      "price": "$31.99"
+    },
+    {
+      "name": "Mini Tins",
+      "date": "2026-10-02",
+      "packs": 2,
+      "note": "Day and Night Mini Tins. Each comes with a sticker sheet and an art card matching the tin, and the Unown across the set of them spell out ANNIVERSARY when the artwork is combined.",
+      "price": "$9.99"
+    },
+    {
+      "name": "Battle Deck, Espeon ex and Umbreon ex",
+      "date": "2026-10-30",
+      "price": "$19.99",
+      "note": "All foil 60 card decks, each led by Espeon ex or Umbreon ex, with a deck box, coin and playmat, plus an illustration rare style Victini or Zeraora."
+    },
+    {
+      "name": "Ultra Premium Collection, Day and Night",
+      "date": "2026-11-06",
+      "packs": 29,
+      "price": "$179.99",
+      "note": "Two versions: Pikachu ex (day) with Espeon ex, or Pikachu ex (night) with Umbreon ex. A day or night themed playmat, sleeves, deck box and accessories. 29 packs plus one Classic Collection pack, which holds three cards from the Classic Collection."
+    },
+    {
+      "name": "Ditto Premium Collection",
+      "date": "2026-11-06",
+      "packs": 8,
+      "note": "A Ditto foil promo and an acrylic display",
+      "price": "$39.99"
+    },
+    {
+      "name": "Figure Collection, Mew and Mewtwo",
+      "date": "2026-11-06",
+      "packs": 5,
+      "price": "$29.99"
+    },
+    {
+      "name": "ex Tin, Sylveon ex or Greninja ex",
+      "date": "2026-12-04",
+      "packs": 4,
+      "price": "$21.99",
+      "confidence": "confirmed",
+      "note": "Sylveon ex or Greninja ex promo. Dated by TPCi's English product guide, so this is no longer an expected lineup entry."
+    }
+  ],
+  "storePromo": "A foil Mewtwo promo with $15 of Pokemon TCG purchases at GameStop, Best Buy, Hot Topic, Barnes & Noble, BoxLunch, Five Below and Macy's.",
+  "cutCards": "The Illustration Rares of Nidorina and Ditto are in the Japanese set and are NOT in the English one. Both were turned into English promos instead, which is why a Nidorina promo is the Elite Trainer Box's card.",
+  "accessories": "The Pokemon Center releases matching accessories on 16 September, the same day as the set: deck boxes, playmats, card sleeves, card displays, a card storage box and tote bags.",
+  "japanList": [
+    {
+      "n": 1,
+      "name": "Exeggcute",
+      "section": "main"
+    },
+    {
+      "n": 2,
+      "name": "Alolan Exeggutor",
+      "section": "main"
+    },
+    {
+      "n": 3,
+      "name": "Volbeat",
+      "section": "main"
+    },
+    {
+      "n": 4,
+      "name": "Illumise",
+      "section": "main"
+    },
+    {
+      "n": 5,
+      "name": "Vivillon",
+      "section": "main"
+    },
+    {
+      "n": 6,
+      "name": "Moltres",
+      "section": "main"
+    },
+    {
+      "n": 7,
+      "name": "Ho-Oh",
+      "section": "main"
+    },
+    {
+      "n": 8,
+      "name": "Reshiram",
+      "section": "main"
+    },
+    {
+      "n": 9,
+      "name": "Fuecoco ex",
+      "section": "main"
+    },
+    {
+      "n": 10,
+      "name": "Slowpoke",
+      "section": "main"
+    },
+    {
+      "n": 11,
+      "name": "Lapras",
+      "section": "main"
+    },
+    {
+      "n": 12,
+      "name": "Articuno",
+      "section": "main"
+    },
+    {
+      "n": 13,
+      "name": "Kyogre",
+      "section": "main"
+    },
+    {
+      "n": 14,
+      "name": "Palkia",
+      "section": "main"
+    },
+    {
+      "n": 15,
+      "name": "Greninja ex",
+      "section": "main"
+    },
+    {
+      "n": 16,
+      "name": "Wishiwashi",
+      "section": "main"
+    },
+    {
+      "n": 17,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 18,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 19,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 20,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 21,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 22,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 23,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 24,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 25,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 26,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 27,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 28,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 29,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 30,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 31,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 32,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 33,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 34,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 35,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 36,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 37,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 38,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 39,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 40,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 41,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 42,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 43,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 44,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 45,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 46,
+      "name": "Pikachu",
+      "section": "pikachu"
+    },
+    {
+      "n": 47,
+      "name": "Pikachu ex",
+      "section": "main"
+    },
+    {
+      "n": 48,
+      "name": "Pikachu ex",
+      "section": "main"
+    },
+    {
+      "n": 49,
+      "name": "Zapdos",
+      "section": "main"
+    },
+    {
+      "n": 50,
+      "name": "Zekrom",
+      "section": "main"
+    },
+    {
+      "n": 51,
+      "name": "Toxtricity",
+      "section": "main"
+    },
+    {
+      "n": 52,
+      "name": "Morpeko",
+      "section": "main"
+    },
+    {
+      "n": 53,
+      "name": "Miraidon",
+      "section": "main"
+    },
+    {
+      "n": 54,
+      "name": "Mewtwo",
+      "section": "main"
+    },
+    {
+      "n": 55,
+      "name": "Mewtwo ex",
+      "section": "main"
+    },
+    {
+      "n": 56,
+      "name": "Mew",
+      "section": "main"
+    },
+    {
+      "n": 57,
+      "name": "Mew ex",
+      "section": "main"
+    },
+    {
+      "n": 58,
+      "name": "Espeon",
+      "section": "main"
+    },
+    {
+      "n": 59,
+      "name": "Sylveon ex",
+      "section": "main"
+    },
+    {
+      "n": 60,
+      "name": "Unown",
+      "section": "main"
+    },
+    {
+      "n": 61,
+      "name": "Drifloon",
+      "section": "main"
+    },
+    {
+      "n": 62,
+      "name": "Chandelure",
+      "section": "main"
+    },
+    {
+      "n": 63,
+      "name": "Xerneas",
+      "section": "main"
+    },
+    {
+      "n": 64,
+      "name": "Cosmog",
+      "section": "main"
+    },
+    {
+      "n": 65,
+      "name": "Cosmoem",
+      "section": "main"
+    },
+    {
+      "n": 66,
+      "name": "Lunala",
+      "section": "main"
+    },
+    {
+      "n": 67,
+      "name": "Gimmighoul",
+      "section": "main"
+    },
+    {
+      "n": 68,
+      "name": "Groudon",
+      "section": "main"
+    },
+    {
+      "n": 69,
+      "name": "Lucario",
+      "section": "main"
+    },
+    {
+      "n": 70,
+      "name": "Seismitoad",
+      "section": "main"
+    },
+    {
+      "n": 71,
+      "name": "Lycanroc",
+      "section": "main"
+    },
+    {
+      "n": 72,
+      "name": "Koraidon",
+      "section": "main"
+    },
+    {
+      "n": 73,
+      "name": "Nidoran",
+      "section": "main"
+    },
+    {
+      "n": 74,
+      "name": "Nidorina",
+      "section": "main"
+    },
+    {
+      "n": 75,
+      "name": "Alolan Meowth",
+      "section": "main"
+    },
+    {
+      "n": 76,
+      "name": "Gengar ex",
+      "section": "main"
+    },
+    {
+      "n": 77,
+      "name": "Umbreon",
+      "section": "main"
+    },
+    {
+      "n": 78,
+      "name": "Scraggy",
+      "section": "main"
+    },
+    {
+      "n": 79,
+      "name": "Yveltal",
+      "section": "main"
+    },
+    {
+      "n": 80,
+      "name": "Galarian Meowth",
+      "section": "main"
+    },
+    {
+      "n": 81,
+      "name": "Jirachi ex",
+      "section": "main"
+    },
+    {
+      "n": 82,
+      "name": "Dialga",
+      "section": "main"
+    },
+    {
+      "n": 83,
+      "name": "Ferrothorn",
+      "section": "main"
+    },
+    {
+      "n": 84,
+      "name": "Solgaleo",
+      "section": "main"
+    },
+    {
+      "n": 85,
+      "name": "Zacian",
+      "section": "main"
+    },
+    {
+      "n": 86,
+      "name": "Zamazenta",
+      "section": "main"
+    },
+    {
+      "n": 87,
+      "name": "Gholdengo",
+      "section": "main"
+    },
+    {
+      "n": 88,
+      "name": "Salamence ex",
+      "section": "main"
+    },
+    {
+      "n": 89,
+      "name": "Jangmo-o",
+      "section": "main"
+    },
+    {
+      "n": 90,
+      "name": "Hakamo-o",
+      "section": "main"
+    },
+    {
+      "n": 91,
+      "name": "Kommo-o",
+      "section": "main"
+    },
+    {
+      "n": 92,
+      "name": "Meowth",
+      "section": "main"
+    },
+    {
+      "n": 93,
+      "name": "Ditto",
+      "section": "main"
+    },
+    {
+      "n": 94,
+      "name": "Eevee",
+      "section": "main"
+    },
+    {
+      "n": 95,
+      "name": "Snorlax",
+      "section": "main"
+    },
+    {
+      "n": 96,
+      "name": "Igglybuff",
+      "section": "main"
+    },
+    {
+      "n": 97,
+      "name": "Lugia",
+      "section": "main"
+    },
+    {
+      "n": 98,
+      "name": "Hisuian Zorua",
+      "section": "main"
+    },
+    {
+      "n": 99,
+      "name": "Hisuian Zoroark",
+      "section": "main"
+    },
+    {
+      "n": 100,
+      "name": "Maushold",
+      "section": "main"
+    },
+    {
+      "n": 101,
+      "name": "Ultra Ball",
+      "section": "main"
+    },
+    {
+      "n": 102,
+      "name": "Poke Pad",
+      "section": "main"
+    },
+    {
+      "n": 103,
+      "name": "Switch",
+      "section": "main"
+    },
+    {
+      "n": 104,
+      "name": "Alolan Exeggutor",
+      "section": "secret"
+    },
+    {
+      "n": 105,
+      "name": "Moltres",
+      "section": "secret"
+    },
+    {
+      "n": 106,
+      "name": "Lapras",
+      "section": "secret"
+    },
+    {
+      "n": 107,
+      "name": "Articuno",
+      "section": "secret"
+    },
+    {
+      "n": 108,
+      "name": "Zapdos",
+      "section": "secret"
+    },
+    {
+      "n": 109,
+      "name": "Toxtricity",
+      "section": "secret"
+    },
+    {
+      "n": 110,
+      "name": "Morpeko",
+      "section": "secret"
+    },
+    {
+      "n": 111,
+      "name": "Drifloon",
+      "section": "secret"
+    },
+    {
+      "n": 112,
+      "name": "Chandelure",
+      "section": "secret"
+    },
+    {
+      "n": 113,
+      "name": "Lycanroc",
+      "section": "secret"
+    },
+    {
+      "n": 114,
+      "name": "Nidorina",
+      "section": "secret"
+    },
+    {
+      "n": 115,
+      "name": "Alolan Meowth",
+      "section": "secret"
+    },
+    {
+      "n": 116,
+      "name": "Scraggy",
+      "section": "secret"
+    },
+    {
+      "n": 117,
+      "name": "Galarian Meowth",
+      "section": "secret"
+    },
+    {
+      "n": 118,
+      "name": "Gholdengo",
+      "section": "secret"
+    },
+    {
+      "n": 119,
+      "name": "Kommo-o",
+      "section": "secret"
+    },
+    {
+      "n": 120,
+      "name": "Meowth",
+      "section": "secret"
+    },
+    {
+      "n": 121,
+      "name": "Ditto",
+      "section": "secret"
+    },
+    {
+      "n": 122,
+      "name": "Hisuian Zorua",
+      "section": "secret"
+    },
+    {
+      "n": 123,
+      "name": "Maushold",
+      "section": "secret"
+    },
+    {
+      "n": 124,
+      "name": "Fuecoco ex",
+      "section": "secret"
+    },
+    {
+      "n": 125,
+      "name": "Greninja ex",
+      "section": "secret"
+    },
+    {
+      "n": 126,
+      "name": "Pikachu ex",
+      "section": "secret"
+    },
+    {
+      "n": 127,
+      "name": "Pikachu ex",
+      "section": "secret"
+    },
+    {
+      "n": 128,
+      "name": "Mewtwo ex",
+      "section": "secret"
+    },
+    {
+      "n": 129,
+      "name": "Mew ex",
+      "section": "secret"
+    },
+    {
+      "n": 130,
+      "name": "Sylveon ex",
+      "section": "secret"
+    },
+    {
+      "n": 131,
+      "name": "Gengar ex",
+      "section": "secret"
+    },
+    {
+      "n": 132,
+      "name": "Jirachi ex",
+      "section": "secret"
+    },
+    {
+      "n": 133,
+      "name": "Salamence ex",
+      "section": "secret"
+    },
+    {
+      "n": 134,
+      "name": "Mewtwo ex",
+      "section": "secret"
+    },
+    {
+      "n": 135,
+      "name": "Mew ex",
+      "section": "secret"
+    },
+    {
+      "n": 136,
+      "name": "Pikachu",
+      "section": "classic"
+    },
+    {
+      "n": 137,
+      "name": "Charizard",
+      "section": "classic"
+    },
+    {
+      "n": 138,
+      "name": "Misty",
+      "section": "classic"
+    },
+    {
+      "n": 139,
+      "name": "Erika's Jigglypuff",
+      "section": "classic"
+    },
+    {
+      "n": 140,
+      "name": "Sneasel",
+      "section": "classic"
+    },
+    {
+      "n": 141,
+      "name": "Shining Celebi",
+      "section": "classic"
+    },
+    {
+      "n": 142,
+      "name": "Lugia",
+      "section": "classic"
+    },
+    {
+      "n": 143,
+      "name": "Delcatty",
+      "section": "classic"
+    },
+    {
+      "n": 144,
+      "name": "Dark Tyranitar",
+      "section": "classic"
+    },
+    {
+      "n": 145,
+      "name": "Scizor ex",
+      "section": "classic"
+    },
+    {
+      "n": 146,
+      "name": "Metagross (delta)",
+      "section": "classic"
+    },
+    {
+      "n": 147,
+      "name": "Palkia LV.X",
+      "section": "classic"
+    },
+    {
+      "n": 148,
+      "name": "Uxie",
+      "section": "classic"
+    },
+    {
+      "n": 149,
+      "name": "Crobat G",
+      "section": "classic"
+    },
+    {
+      "n": 150,
+      "name": "Gengar (Prime)",
+      "section": "classic"
+    },
+    {
+      "n": 151,
+      "name": "Darkrai & Cresselia LEGEND",
+      "section": "classic"
+    },
+    {
+      "n": 152,
+      "name": "Darkrai & Cresselia LEGEND",
+      "section": "classic"
+    },
+    {
+      "n": 153,
+      "name": "N",
+      "section": "classic"
+    },
+    {
+      "n": 154,
+      "name": "Rayquaza EX",
+      "section": "classic"
+    },
+    {
+      "n": 155,
+      "name": "Genesect EX",
+      "section": "classic"
+    },
+    {
+      "n": 156,
+      "name": "Mega Gardevoir EX",
+      "section": "classic"
+    },
+    {
+      "n": 157,
+      "name": "Greninja BREAK",
+      "section": "classic"
+    },
+    {
+      "n": 158,
+      "name": "Solgaleo GX",
+      "section": "classic"
+    },
+    {
+      "n": 159,
+      "name": "Buzzwole GX",
+      "section": "classic"
+    },
+    {
+      "n": 160,
+      "name": "Pikachu & Zekrom GX",
+      "section": "classic"
+    },
+    {
+      "n": 161,
+      "name": "Zacian V",
+      "section": "classic"
+    },
+    {
+      "n": 162,
+      "name": "Raikou",
+      "section": "classic"
+    },
+    {
+      "n": 163,
+      "name": "Mew VMAX",
+      "section": "classic"
+    },
+    {
+      "n": 164,
+      "name": "Arceus VSTAR",
+      "section": "classic"
+    },
+    {
+      "n": 165,
+      "name": "Magikarp",
+      "section": "classic"
+    },
+    {
+      "n": null,
+      "name": "Basic Grass Energy",
+      "section": "energy"
+    },
+    {
+      "n": null,
+      "name": "Basic Fire Energy",
+      "section": "energy"
+    },
+    {
+      "n": null,
+      "name": "Basic Water Energy",
+      "section": "energy"
+    },
+    {
+      "n": null,
+      "name": "Basic Lightning Energy",
+      "section": "energy"
+    },
+    {
+      "n": null,
+      "name": "Basic Psychic Energy",
+      "section": "energy"
+    },
+    {
+      "n": null,
+      "name": "Basic Fighting Energy",
+      "section": "energy"
+    },
+    {
+      "n": null,
+      "name": "Basic Darkness Energy",
+      "section": "energy"
+    },
+    {
+      "n": null,
+      "name": "Basic Metal Energy",
+      "section": "energy"
+    }
+  ],
+  "sources": [
+    "https://press.pokemon.com/en/releases/MEDIA-ALERT-Pokemon-Unveils-New-Pokemon-Trading-Card-Game-30th-Celebra",
+    "https://press.pokemon.com/en/releases/MEDIA-ALERT-The-Pokemon-Company-International-Reveals-Product-Lineup-f",
+    "https://www.pokemon.com/us/news/pokemon-tcg-30th-celebration-product-showcase",
+    "https://www.pokemoncenter.com/product/10-10447-111/pokemon-tcg-30th-celebration-pokemon-center-elite-trainer-box",
+    "https://www.pokebeach.com/2026/09/30th-celebration-english-set-guide-full-card-list-products-store-promotions-and-more",
+    "https://www.pokebeach.com/2026/09/30th-celebration-full-set-list-revealed-for-japan-features-176-cards",
+    "https://www.pokebeach.com/2026/09/30th-anniversary-binder-collections-delayed-until-december"
+  ],
+  "pullRatesNote": "DELIBERATELY NOT RECORDED, AND THIS FIELD EXISTS SO NOBODY ADDS THEM BACK. CLAUDE.md: \"Never state pull rates: we do not have them\", and the site never does, because The Pokemon Company does not publish them. Two figures were read while researching this set and are NOT in this file, in the tree, or on the page: a reported Japanese 20 pack box opening broken down by rarity, and PokeBeach's note that English rates would follow at release. A single opening is not a rate anyway, and Japan's pack holds six cards to English's five, so it would not even transfer. Same call and same reasoning as data/topps-sets.json, which read Bulbapedia's insert odds for several Topps sets and recorded none of them. What the site DOES publish is what the channel actually opened, on /luck.html, labeled as observed results."
+}

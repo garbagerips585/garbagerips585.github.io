@@ -2866,6 +2866,9 @@ const urls = [
   // rather than monthly because the card prices on it are dated and Series 3
   // only came out on 7 August 2026, so its PSA 10 column is still filling in.
   { loc: `${SITE}/first-partner-illustration-collection.html`, freq: "weekly", pri: "0.9" },
+  // weekly rather than monthly: the master set on it moves whenever the owner
+  // adds cards, which for the rest of 2026 is expected to be most weeks.
+  { loc: `${SITE}/30th-celebration.html`, freq: "weekly", pri: "0.9" },
   // The beginner guide. Evergreen and the best long-tail search target on the
   // site: "pokemon card rarity symbols" is asked constantly and never expires.
   { loc: `${SITE}/rarity.html`, freq: "monthly", pri: "0.9" },

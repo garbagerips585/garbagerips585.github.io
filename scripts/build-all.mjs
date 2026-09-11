@@ -135,6 +135,27 @@ const STEPS = [
   // sitemap entry is a constant in that file, and all that has to be true is
   // that the page exists on disk by the time check-build.py runs.
   "node scripts/build-first-partner.mjs",
+  // The 30th Celebration guide and the owner's master set binder. Sits with
+  // build-first-partner.mjs because it is the same shape of page: one set, hand
+  // maintained data, no TCGdex behind it. It reads data/30th.json and
+  // data/30th-binder.json, both hand written, so it has no data dependency on
+  // any earlier step and nothing depends on its output.
+  //
+  // IT CANNOT BE A /sets/ PAGE AND THAT IS NOT A PREFERENCE. Those are
+  // generated from TCGdex, and TCGdex had no 2026 anniversary set at all when
+  // this was written: 218 sets, newest Pitch Black, and the only match for
+  // "celebration" was the 2021 one. If it turns up there the set can also be
+  // promoted the normal way (sync-sets.mjs + sync-cards.mjs) and this page
+  // keeps the master set, which a generated set guide has no place for.
+  //
+  // ORDER: the usual two. Before build-search.mjs, which walks public/*.html and
+  // fails the build on an indexable page missing from its PAGES list, and this
+  // page is indexable from its first build. Before build-pages.mjs puts it in
+  // the sitemap; that line sits above this one, which is fine for the reason
+  // build-base-set.mjs records beside the same arrangement: the sitemap entry is
+  // a constant in that file, and all that has to be true is that the page is on
+  // disk by the time check-build.py runs, and check-build.py is the last step.
+  "node scripts/build-30th.mjs",
   "node scripts/build-rarity.mjs",
   "node scripts/build-shows.mjs",
   "node scripts/build-card-show-101.mjs",

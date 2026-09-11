@@ -454,6 +454,7 @@ export const NAV = [
     // looking for what the thing IS, and the price is one section of that.
     // 14 characters, inside the 16 the menu column measures.
     ["/first-partner-illustration-collection.html", "First Partners"],
+    ["/30th-celebration.html", "30th Celebration"],
   ]],
 
   // What a thing costs and what it is worth. Recomputed from the nightly price
