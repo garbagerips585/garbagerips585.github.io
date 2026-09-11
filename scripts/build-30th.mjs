@@ -148,7 +148,8 @@ const shotImg = (stem, name) => {
   const d = shotDims[`${stem}.webp`];
   const img =
     `<img class="t30-card" src="/assets/30th-cards/${stem}.webp" ` +
-    `srcset="/assets/30th-cards/${stem}-sm.webp 245w, /assets/30th-cards/${stem}.webp 600w" ` +
+    `srcset="/assets/30th-cards/${stem}-sm.webp 245w, /assets/30th-cards/${stem}-md.webp 380w, ` +
+    `/assets/30th-cards/${stem}.webp 600w" ` +
     `sizes="(max-width:544px) 30vw, 163px" ` +
     `alt="${esc(name)}, photographed by Garbage Rips 585" loading="lazy" decoding="async"` +
     (d ? ` width="${d[0]}" height="${d[1]}"` : "") +

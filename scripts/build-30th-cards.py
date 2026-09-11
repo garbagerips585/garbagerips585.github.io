@@ -50,7 +50,19 @@ DIMS = ROOT / "data" / "30th-card-dims.json"
 # identical arithmetic and a pocket cannot pick a different rung depending on
 # which kind of picture it holds. A pocket is ~104px at 375 and 163px at the
 # grid's cap, so 245 covers DPR 1 and 2 and 600 covers DPR 3.
-WIDTHS = [("", 600), ("-sm", 245)]
+# THREE WIDTHS, AND THE MIDDLE ONE IS THE PHONE'S. Measured on the built page
+# 11 September 2026: with only 245 and 600 offered, a DPR 3 phone took the 600w
+# for a pocket it draws 117px wide -- it needs 351 device pixels and was handed
+# 600. Projected over a finished 199 card binder that is 9.4MB of AVIF fully
+# scrolled, against 2.6MB at DPR 1 and 2 and 2.1MB for /topps-card-values.html,
+# which is the heaviest page on this site. A 380w rung covers 351 exactly and
+# cuts the DPR 3 case to about 3.8MB.
+#
+# 600 STAYS, because the grid's own cap is 163px and 163 x 3 = 489, so a DPR 3
+# DESKTOP still needs it. That case is rare and the phone case is not, which is
+# the whole reason to have a middle rung rather than to pick one of the two.
+# Same fix and same reasoning as the 460w rendition /wanted.html took.
+WIDTHS = [("", 600), ("-md", 380), ("-sm", 245)]
 QUALITY = 82
 AVIF_QUALITY = 62
 
