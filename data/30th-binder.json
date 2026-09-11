@@ -42,5 +42,48 @@
     "September 2026 and this file was written on the 11th."
   ],
   "checked": "2026-09-11",
-  "owned": []
+  "owned": [
+    {
+      "name": "Hydreigon",
+      "n": "099",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Double rare",
+      "illus": "Ryuta Fuse",
+      "got": "2026-09-11",
+      "shot": "30c-099-hydreigon",
+      "note": "Read off the card: 099/128, set code 30C, regulation mark J, Stage 2 evolving from Zweilous, 170 HP. NOT in Japan's 176 card list at all, which is the clearest single proof that the English set is a different set and not a translation of it."
+    },
+    {
+      "name": "Igglybuff",
+      "n": "120",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "illus": "Kanomi Ogata",
+      "got": "2026-09-11",
+      "shot": "30c-120-igglybuff",
+      "note": "Read off the card: 120/128, set code 30C, regulation mark J, 30 HP. Japan prints this card too, at #096, so the same card sits at two different numbers in the two sets. That is the numbering mismatch this page keeps warning about, demonstrated on one card."
+    },
+    {
+      "name": "Basic Metal Energy",
+      "n": "016",
+      "setCode": "MEE",
+      "section": "energy",
+      "illus": "YOSHIROTTEN",
+      "got": "2026-09-11",
+      "shot": "mee-016-basic-metal-energy",
+      "note": "Read off the card: MEE 016, NOT a 30C number, with the rainbow 30th Pikachu stamp and YOSHIROTTEN's name on it, which matches TPCi saying he designed the Energy. So the set's eight foil Energy are numbered in the MEE Energy sheet rather than in the main set."
+    }
+  ],
+  "_shotNote": [
+    "EVERY `shot` IS THE OWNER'S OWN PHOTOGRAPH of the card in his hand, built by",
+    "scripts/build-30th-cards.py from a master in assets-source/30th-cards/.",
+    "The value is the master's stem; the builder resolves the renditions.",
+    "A card with no `shot` falls back to a TCGdex scan, and if TCGdex has no set",
+    "yet it draws as a pocket with no picture. See that script's header for why",
+    "photographs rather than scans: on 11 September 2026 no scan of this set",
+    "existed in any source this site may use."
+  ]
 }

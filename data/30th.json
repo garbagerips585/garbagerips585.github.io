@@ -52,7 +52,7 @@
       "classic": 30,
       "energy": 8,
       "source": "reported",
-      "note": "PokeBeach's count of the revealed English list, 10 September 2026. The 30 Pikachu are part of the 128 main set cards. Several secret rares were still unrevealed: PokeBeach's own English gallery runs to number 158 and has four blanks in it, so part of the 33 is slots rather than cards anyone has seen."
+      "note": "128 main set cards is CONFIRMED BY THE PRINTING: cards from this set read x/128. The rest of the 199 is PokeBeach's count of the revealed list, 10 September 2026 -- 33 secret rares, 30 Classic Collection and 8 basic Energy, with the 30 Pikachu part of the 128 and the Energy numbered outside it in the MEE sheet. Several secret rares were still unrevealed then: PokeBeach's English gallery runs to number 158 with four blanks in it, so part of the 33 is slots rather than cards anyone has seen."
     },
     "japan": {
       "count": 176,
@@ -1108,5 +1108,12 @@
     "series": null,
     "set": null,
     "checked": "2026-09-11"
+  },
+  "fromTheCards": {
+    "_note": "READ OFF THREE CARDS THE OWNER GOT EARLY, 11 September 2026, photographed on his own desk. This is PRIMARY evidence and it outranks every other source on this page: it is the publisher's own printing rather than a statement about it.",
+    "setCode": "30C, printed on both Pokemon cards next to the regulation mark J.",
+    "mainSetSize": "128. Both Pokemon read x/128 (Hydreigon 099/128, Igglybuff 120/128), which CONFIRMS PokeBeach's figure of 128 main set cards from the printing itself rather than from a count of revealed images.",
+    "energyNumbering": "The basic Energy is NOT numbered in the main set. It reads MEE 016, in the MEE Energy sheet, while carrying the rainbow 30th Pikachu stamp and YOSHIROTTEN's illustrator credit. So the eight foil Energy sit outside the 128.",
+    "japanMismatchProved": "Igglybuff is #096 in Japan and 120/128 in English, and Hydreigon is in the English set and NOWHERE in Japan's 176 card list. The two sets are genuinely different and their numbers do not correspond, which is why this page does not map one onto the other."
   }
 }

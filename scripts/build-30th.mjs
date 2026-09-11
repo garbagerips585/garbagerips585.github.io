@@ -62,6 +62,13 @@ const PATH = "/30th-celebration.html";
 
 const doc = JSON.parse(await readFile(join(ROOT, "data/30th.json"), "utf8"));
 const binder = JSON.parse(await readFile(join(ROOT, "data/30th-binder.json"), "utf8"));
+// Real intrinsic sizes for the owner's own card photographs, written by
+// scripts/build-30th-cards.py. Absent before that script has ever run, in which
+// case the pictures are declared without dimensions rather than not drawn.
+let shotDims = {};
+try {
+  shotDims = JSON.parse(await readFile(join(ROOT, "data/30th-card-dims.json"), "utf8"));
+} catch {}
 const owned = binder.owned || [];
 
 // THE FIVE BINDER SECTIONS AND WHERE THE NUMBERS COME FROM. PokeBeach's English
@@ -134,6 +141,21 @@ const scanBase = (localId) =>
 // capping the pocket at 81px would let 245 cover every density and is too small
 // to recognise a card in, which is the job. Every one is lazy, and 199 lazy card
 // scans is the same shape as /topps-card-values.html's 200.
+// THE OWNER'S OWN PHOTOGRAPH OF A CARD HE OWNS, preferred over a scan wherever
+// there is one. Same two rungs as the TCGdex ladder below so a pocket resolves
+// through identical arithmetic whichever kind of picture it holds.
+const shotImg = (stem, name) => {
+  const d = shotDims[`${stem}.webp`];
+  const img =
+    `<img class="t30-card" src="/assets/30th-cards/${stem}.webp" ` +
+    `srcset="/assets/30th-cards/${stem}-sm.webp 245w, /assets/30th-cards/${stem}.webp 600w" ` +
+    `sizes="(max-width:544px) 30vw, 163px" ` +
+    `alt="${esc(name)}, photographed by Garbage Rips 585" loading="lazy" decoding="async"` +
+    (d ? ` width="${d[0]}" height="${d[1]}"` : "") +
+    `>`;
+  return avifPicture(img);
+};
+
 const cardImg = (localId, name) => {
   const url = `${scanBase(localId)}/low.webp`;
   const d = imgDims(url);
@@ -152,9 +174,9 @@ const cardImg = (localId, name) => {
 const pocket = (c, i, slot) => {
   if (c) {
     return `<li class="t30-pk has" title="${esc(c.name)}">
-        ${HAVE_SCANS && c.n ? cardImg(c.n, c.name) : ""}
-        <span class="t30-pn">${esc(c.n ? "#" + c.n : "")}</span>
-        <span class="t30-nm">${esc(c.name)}</span>
+        ${c.shot ? shotImg(c.shot, c.name) : HAVE_SCANS && c.n ? cardImg(c.n, c.name) : ""}
+        <span class="t30-pn">${esc(c.n ? "#" + c.n : "")}${c.setCode ? " " + esc(c.setCode) : ""}</span>
+        ${c.shot ? "" : `<span class="t30-nm">${esc(c.name)}</span>`}
         ${c.got ? `<span class="t30-got">${esc(longDate(c.got))}</span>` : ""}
       </li>`;
   }
@@ -379,6 +401,17 @@ ${SECTIONS.map(binderSection).join("\n")}
       <li><span class="t30-tag off">Official</span>${esc(doc.set.tcgLive.split(".")[0])}.</li>
       <li><span class="t30-tag">No box</span>${esc(doc.set.noBox)}</li>
     </ul>
+    <h3>What the cards themselves settled</h3>
+    <p style="max-width:42em"><span class="t30-tag off">From the printing</span>${esc(
+      doc.fromTheCards._note
+    )}</p>
+    <ul class="t30-facts">
+      <li><span class="t30-tag off">Set code</span>${esc(doc.fromTheCards.setCode)}</li>
+      <li><span class="t30-tag off">128 confirmed</span>${esc(doc.fromTheCards.mainSetSize)}</li>
+      <li><span class="t30-tag off">Energy</span>${esc(doc.fromTheCards.energyNumbering)}</li>
+      <li><span class="t30-tag off">Japan differs</span>${esc(doc.fromTheCards.japanMismatchProved)}</li>
+    </ul>
+
     <h3>What every pack guarantees</h3>
     <p style="max-width:42em">${esc(doc.guaranteesNote)}</p>
     <ul class="t30-facts">

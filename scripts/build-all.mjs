@@ -155,6 +155,15 @@ const STEPS = [
   // build-base-set.mjs records beside the same arrangement: the sitemap entry is
   // a constant in that file, and all that has to be true is that the page is on
   // disk by the time check-build.py runs, and check-build.py is the last step.
+  // The owner's own photographs of the 30th cards he owns, resized into the two
+  // widths the binder's pockets ask for. AN IMAGE BUILDER, so it sits with the
+  // others under the GR_SKIP_IMAGE_BUILDERS gate and is skipped by the CI drift
+  // job, which is what keeps that job hermetic. It must run BEFORE
+  // build-30th.mjs, which reads data/30th-card-dims.json to declare real width
+  // and height on each picture; without those the pockets still draw and CLS is
+  // the only thing lost, so the order is a quality constraint rather than a
+  // crash one.
+  "python3 scripts/build-30th-cards.py",
   "node scripts/build-30th.mjs",
   "node scripts/build-rarity.mjs",
   "node scripts/build-shows.mjs",
@@ -464,6 +473,12 @@ const IMAGE_STEPS = new Set([
   // held for Trubbish" where the art should be. That is the whole of the last
   // drifted file, and it took --diff to see it.
   "node scripts/sync-dex-art.mjs",
+  // The owner's own 30th card photographs. Same arrangement as the symbols: the
+  // renditions AND data/30th-card-dims.json are committed, so build-30th.mjs
+  // reads a real manifest on a runner that never runs this. It refuses to write
+  // an empty manifest over a good one, which is the sync-dex-art.mjs fault
+  // above written into the script rather than trusted not to happen.
+  "python3 scripts/build-30th-cards.py",
 ]);
 const PLAN = SKIP_IMAGES ? STEPS.filter((s) => !IMAGE_STEPS.has(s)) : STEPS;
 if (SKIP_IMAGES) {
