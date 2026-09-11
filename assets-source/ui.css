@@ -5319,6 +5319,20 @@ span.cq-name{color:var(--ink)}
 /* ---------- local vendors and creators ---------- */
 .loc-list{list-style:none;display:grid;gap:var(--s4);margin-top:var(--s4);
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));width:100%;min-width:0}
+/* THE "list is still short" PANEL SAT FLUSH AGAINST THE LAST CARD. build-locals
+   writes it as a sibling AFTER </ul>, so the list's own `gap` -- which is what
+   holds the cards 16px apart -- does not reach it: a grid gap applies between
+   grid items, and this panel is not one. The seam read as a dashed box welded
+   to the bottom edge of a solid card, and on /creators.html, where three cards
+   make the list short enough for the panel to render, it was the only 0px join
+   on the page.
+   SCOPED TO THIS ADJACENCY ON PURPOSE. `.empty` is shared: app.js drops one
+   into the filtered grids on /videos.html and /search.html, where it carries
+   `grid-column:1/-1` and the GRID's gap already spaces it. A margin on bare
+   `.empty` would double-space every one of those. Only the sibling-after-a-list
+   case is short a gap, so only that case gets one, and --s4 is the same token
+   .loc-list gaps with rather than a 16 typed twice. */
+.loc-list + .empty{margin-top:var(--s4)}
 .loc{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s5);box-shadow:var(--lift);display:flex;flex-direction:column;gap:6px;
   /* THE CARD IS THE CONTAINER THE LOGO SIZES AGAINST, and it has to be, because
