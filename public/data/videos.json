@@ -1,13 +1,35 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 287202,
-    "subscribers": 370,
-    "videos": 339,
+    "views": 287751,
+    "subscribers": 371,
+    "videos": 340,
     "readAt": "2026-09-11"
   },
   "syncedAt": "2026-09-11",
   "videos": [
+    {
+      "id": "atxWiAe4iCU",
+      "title": "Phantasmal Flames Pack #13 👻 | Pack 13 Curse Strikes Again! 💀",
+      "path": "rip/phantasmal-flames-pack-13-pack-13-curse-strikes-again-atxWiAe4iCU.html",
+      "published": "2026-09-11",
+      "publishedAt": "2026-09-11T10:25:27Z",
+      "duration": 20,
+      "views": 315,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "phantasmal-flames"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "hasHit": false,
+      "packNumber": 13,
+      "packs": 1,
+      "label": "Phantasmal Flames Pack - Pack 13"
+    },
     {
       "id": "wRcmnOW-sSo",
       "title": "Ascended Heroes Pack #10 📉 | 10 Packs In and NO HITS?! 💀",
@@ -15,7 +37,7 @@
       "published": "2026-09-10",
       "publishedAt": "2026-09-10T10:21:32Z",
       "duration": 23,
-      "views": 624,
+      "views": 847,
       "vertical": true,
       "short": true,
       "sets": [
@@ -37,7 +59,7 @@
       "published": "2026-09-09",
       "publishedAt": "2026-09-09T10:13:37Z",
       "duration": 19,
-      "views": 36,
+      "views": 37,
       "vertical": true,
       "short": true,
       "sets": [
@@ -59,7 +81,7 @@
       "published": "2026-09-08",
       "publishedAt": "2026-09-08T10:10:05Z",
       "duration": 21,
-      "views": 1505,
+      "views": 1516,
       "vertical": true,
       "short": true,
       "sets": [
@@ -80,7 +102,7 @@
       "published": "2026-09-07",
       "publishedAt": "2026-09-07T10:03:11Z",
       "duration": 19,
-      "views": 1182,
+      "views": 1190,
       "vertical": true,
       "short": true,
       "sets": [
@@ -414,7 +436,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1164,
+      "views": 1166,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1277,7 +1299,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 931,
+      "views": 933,
       "vertical": true,
       "short": true,
       "sets": [
@@ -6756,7 +6778,7 @@
       "published": "2026-05-10",
       "publishedAt": "2026-05-10T00:37:00Z",
       "duration": 29,
-      "views": 925,
+      "views": 928,
       "vertical": true,
       "short": true,
       "sets": [
@@ -6793,7 +6815,7 @@
       "published": "2026-05-10",
       "publishedAt": "2026-05-10T12:48:00Z",
       "duration": 20,
-      "views": 1269,
+      "views": 1270,
       "vertical": true,
       "short": true,
       "sets": [
@@ -8867,7 +8889,7 @@
       "published": "2026-04-10",
       "publishedAt": "2026-04-10T23:46:00Z",
       "duration": 72,
-      "views": 835,
+      "views": 836,
       "vertical": true,
       "short": false,
       "sets": [
