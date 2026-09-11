@@ -1101,5 +1101,12 @@
     "where": "PokeBeach, 9 September 2026, describing one official Japanese box opening"
   },
   "englishRates": "NOT PUBLISHED YET. Checked 11 September 2026: PokeBeach's English set guide still reads \"We will have this information closer to the set's release next week\", and TPCi has published nothing. The set releases 16 September. ADD THEM HERE WHEN THEY LAND, and they clear the confirmed bar the moment the publisher or PokeBeach states them rather than a streamer estimating from a box.",
-  "pullRatesPolicy": "THE SITE-WIDE BAN WAS LIFTED BY THE OWNER ON 11 SEPTEMBER 2026: \"you can post any pull rates or anything thats confirmed.\" CLAUDE.md now carries it as a sourcing rule rather than a ban, under \"Pull rates: a SOURCING rule\". The bar is that the PUBLISHER stated it. A box somebody opened, a leak, a streamer's early case and another region's figure all fail that bar, which is why japanBoxOpening above is labeled as one opening in its own heading and englishRates is still empty."
+  "pullRatesPolicy": "THE SITE-WIDE BAN WAS LIFTED BY THE OWNER ON 11 SEPTEMBER 2026: \"you can post any pull rates or anything thats confirmed.\" CLAUDE.md now carries it as a sourcing rule rather than a ban, under \"Pull rates: a SOURCING rule\". The bar is that the PUBLISHER stated it. A box somebody opened, a leak, a streamer's early case and another region's figure all fail that bar, which is why japanBoxOpening above is labeled as one opening in its own heading and englishRates is still empty.",
+  "tcgdex": {
+    "_note": "THE CARD PICTURES ON THE BINDER COME FROM HERE AND THIS IS THE ONE FIELD THAT TURNS THEM ON. TCGdex had no 2026 anniversary set on 11 September 2026 (218 sets, newest Pitch Black), and the set releases on the 16th. Set `series` and `set` to TCGdex ids and every pocket draws its card; leave them null and the pockets draw as numbered placeholders. Nothing else has to change. The url shape is https://assets.tcgdex.net/{lang}/{series}/{set}/{localId}/{quality}.webp, which is the same shape the other 59,758 card images on this site use.",
+    "lang": "en",
+    "series": null,
+    "set": null,
+    "checked": "2026-09-11"
+  }
 }

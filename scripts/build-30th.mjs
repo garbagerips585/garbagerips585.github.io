@@ -55,7 +55,7 @@ import {
   APP_JS_NO_PACKPLAYER,
   footer,
 } from "../shared/chrome.mjs";
-import { esc, longDate, clipMeta } from "../shared/format.mjs";
+import { esc, longDate, clipMeta, imgDims, avifPicture } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const PATH = "/30th-celebration.html";
@@ -97,20 +97,95 @@ const pct = TOTAL ? Math.round((haveTotal / TOTAL) * 100) : 0;
 // 1,800 DOM nodes saying one sentence. The count is in the heading and in the
 // bar; the pockets show the shape.
 const POCKETS = 9;
-const pocket = (c, i) =>
-  c
-    ? `<li class="t30-pk has" title="${esc(c.name)}">
+
+// THE PICTURES, AND THE ONE FIELD THAT TURNS THEM ON. The owner asked for every
+// card shown and the ones he does not own yet grayed out, "so you can see what
+// cards we still need to collect". That needs 199 card scans, and on 11
+// September 2026 they did not exist in any source this site may use: TCGdex has
+// no 2026 anniversary set, and PokeBeach's English gallery is images with no
+// names attached. So the mechanism is built and `tcgdex.set` is null, which
+// draws numbered placeholders. Fill in the two ids after release and every
+// pocket draws its card with no other edit.
+const TD = doc.tcgdex || {};
+const HAVE_SCANS = Boolean(TD.series && TD.set);
+// LOCALID IS ZERO PADDED AND THAT COST A TEST RUN. TCGdex's own checklist for
+// these sets gives "001", not "1", and api.tcgdex.net/v2/en/sets/me02.5 returns
+// its sample image url as .../me02.5/001. Passing a bare number builds a url
+// that 404s, and because the pockets are lazy and the CDN was separately
+// unhealthy at the time, it looked exactly like a loading problem.
+// WHEN THE REAL CHECKLIST IS WIRED UP, PASS ITS localId STRING STRAIGHT THROUGH
+// rather than padding here: a future set could pad to a different width, and the
+// checklist always holds the true value. The pad below is for the owner's own
+// typed numbers in data/30th-binder.json, which are plain integers.
+const padId = (id) => (/^\d+$/.test(String(id)) ? String(id).padStart(3, "0") : String(id));
+const scanBase = (localId) =>
+  `https://assets.tcgdex.net/${TD.lang || "en"}/${TD.series}/${TD.set}/${padId(localId)}`;
+
+// GRAYING OUT IS A CSS FILTER AND THAT IS THE WHOLE POINT OF DOING IT THIS WAY.
+// A desaturated COPY of each card would be 199 derivative images to generate,
+// store and keep in step; `filter:grayscale()` is a display effect on the same
+// hotlinked file every other card image on this site already uses, so owning a
+// card changes one class name and nothing is ever rewritten.
+//
+// TWO RUNGS, AND THE DPR 3 ARITHMETIC IS WHY. TCGdex serves exactly two widths,
+// 245 and 600. A pocket is about 104px at 375 and 163px at the grid's 520px cap,
+// so DPR 1 and DPR 2 are covered by 245 (208 needed at worst) and DPR 3 wants
+// 312 to 489, which only 600 covers. Both are offered rather than picking one:
+// capping the pocket at 81px would let 245 cover every density and is too small
+// to recognise a card in, which is the job. Every one is lazy, and 199 lazy card
+// scans is the same shape as /topps-card-values.html's 200.
+const cardImg = (localId, name) => {
+  const url = `${scanBase(localId)}/low.webp`;
+  const d = imgDims(url);
+  const img =
+    `<img class="t30-card" src="${url}" ` +
+    `srcset="${scanBase(localId)}/low.webp 245w, ${scanBase(localId)}/high.webp 600w" ` +
+    `sizes="(max-width:544px) 30vw, 163px" ` +
+    `alt="${esc(name)}" loading="lazy" decoding="async"${d ? " " + d : ""}>`;
+  return avifPicture(img);
+};
+
+// A pocket is one of three states and they are visibly different from each
+// other, never by colour alone: owned draws the card in full colour with a
+// solid border, needed draws the same card desaturated and dimmed behind a
+// dashed border, and unknown draws a number because there is no picture to show.
+const pocket = (c, i, slot) => {
+  if (c) {
+    return `<li class="t30-pk has" title="${esc(c.name)}">
+        ${HAVE_SCANS && c.n ? cardImg(c.n, c.name) : ""}
         <span class="t30-pn">${esc(c.n ? "#" + c.n : "")}</span>
         <span class="t30-nm">${esc(c.name)}</span>
         ${c.got ? `<span class="t30-got">${esc(longDate(c.got))}</span>` : ""}
-      </li>`
-    : `<li class="t30-pk" aria-hidden="true"><span class="t30-pn">${i + 1}</span></li>`;
+      </li>`;
+  }
+  if (HAVE_SCANS && slot) {
+    return `<li class="t30-pk need"><span class="t30-sr">Not collected yet</span>
+        ${cardImg(slot.n, slot.name)}
+        <span class="t30-pn">${esc("#" + slot.n)}</span>
+      </li>`;
+  }
+  return `<li class="t30-pk" aria-hidden="true"><span class="t30-pn">${i + 1}</span></li>`;
+};
+
+// WHICH CARDS A SECTION'S EMPTY POCKETS SHOW. Once TCGdex holds the set this
+// reads its checklist; until then it returns nothing and the placeholders draw.
+// It is deliberately NOT the Japanese list on this page: those are Japan's
+// numbers and this binder is the English set, and the numbering does not line up
+// (128 English main set cards to Japan's 103), so borrowing them would put the
+// wrong picture in the wrong pocket, which looks right and is the worst kind of
+// wrong. Empty until there is an English checklist to read.
+const slotsFor = () => [];
 
 const binderSection = ([key, label, total, note]) => {
   const have = ownedIn(key);
-  const shown = Math.min(total, (Math.floor(have.length / POCKETS) + 1) * POCKETS);
+  // WITH PICTURES, EVERY POCKET IS DRAWN, because a grid of grayed out cards IS
+  // the feature: the owner asked to see which ones are still missing. Without
+  // pictures a full grid is 199 identical empty squares saying one sentence, so
+  // it stays capped at one page past the last card owned.
+  const shown = HAVE_SCANS ? total : Math.min(total, (Math.floor(have.length / POCKETS) + 1) * POCKETS);
+  const slots = HAVE_SCANS ? slotsFor(key) : [];
   const cells = [];
-  for (let i = 0; i < shown; i++) cells.push(pocket(have[i], i));
+  for (let i = 0; i < shown; i++) cells.push(pocket(have[i], i, slots[i]));
   const done = have.length >= total;
   return `      <section class="t30-bs">
         <h3>${esc(label)} <span class="t30-cnt${done ? " done" : ""}">${have.length} of ${total}</span></h3>
