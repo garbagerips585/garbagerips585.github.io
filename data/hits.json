@@ -70,7 +70,7 @@
     "is a different card; see that module for the rest of the reasoning."
   ],
   "source": "My Hits tab",
-  "checked": "2026-09-08",
+  "checked": "2026-09-12",
   "videos": {
     "kj7532tb0_I": [
       {
@@ -1268,7 +1268,7 @@
     ],
     "GK_IadR7G1g": [
       {
-        "card": "Team Rocket\u2019s Mewtwo ex",
+        "card": "Team Rocket’s Mewtwo ex",
         "set": "destined-rivals",
         "setName": "Destined Rivals",
         "rarity": "Hyper Rare",
@@ -1356,7 +1356,7 @@
     ],
     "EPqUqzrAc30": [
       {
-        "card": "Pok\u00e9 Pad",
+        "card": "Poké Pad",
         "set": "ja-nihil-zero",
         "setName": "Nihil Zero (JP)",
         "rarity": "Super Rare",
@@ -1380,7 +1380,7 @@
       {
         "card": "Bidoof",
         "set": "pokemon-go",
-        "setName": "Pok\u00e9mon GO",
+        "setName": "Pokémon GO",
         "number": "059",
         "rarity": "Common",
         "rawNm": 0.57,
@@ -1777,7 +1777,7 @@
       {
         "card": "Egg Incubator",
         "set": "pokemon-go",
-        "setName": "Pok\u00e9mon GO",
+        "setName": "Pokémon GO",
         "rarity": "Secret Rare",
         "number": "087",
         "rawNm": 3.22,
@@ -1922,7 +1922,7 @@
       {
         "card": "Radiant Charizard",
         "set": "pokemon-go",
-        "setName": "Pok\u00e9mon GO",
+        "setName": "Pokémon GO",
         "rarity": "Radiant Rare",
         "number": "011",
         "rawNm": 19.18,
@@ -1944,7 +1944,7 @@
       {
         "card": "Mewtwo V",
         "set": "pokemon-go",
-        "setName": "Pok\u00e9mon GO",
+        "setName": "Pokémon GO",
         "number": "030",
         "rarity": "Holo Rare V",
         "rawNm": 5,
@@ -2020,7 +2020,7 @@
       {
         "card": "Melmetal V",
         "set": "pokemon-go",
-        "setName": "Pok\u00e9mon GO",
+        "setName": "Pokémon GO",
         "number": "047",
         "rarity": "Holo Rare V",
         "rawNm": 0.68,
@@ -2031,7 +2031,7 @@
       {
         "card": "Dragonite V",
         "set": "pokemon-go",
-        "setName": "Pok\u00e9mon GO",
+        "setName": "Pokémon GO",
         "number": "049",
         "rarity": "Holo Rare V",
         "rawNm": 4.81,
@@ -2206,7 +2206,7 @@
     ],
     "b1B3Vbpsrh8": [
       {
-        "card": "Gladion\u2019s Final Battle",
+        "card": "Gladion’s Final Battle",
         "set": "pitch-black",
         "setName": "Pitch Black",
         "rarity": "Special Illustration Rare",
@@ -2304,6 +2304,17 @@
         "number": "181",
         "hallOfFame": false,
         "handNote": "The owner, 8 September 2026: \"Single Booster Pack, Pack #1, Hit yes, Trainer - Ruffian - Double Silver Star - Ultra Rare - Journey Together\". Journey Together prints Ruffian twice, 157 Uncommon and 181 Ultra Rare, and the rarity names exactly one, which is the rule pickPrinting follows. \"Double Silver Star\" is the same claim said twice: two silver stars IS the Ultra Rare symbol, so the symbol and the name agree and nothing here is inferred. \"Trainer\" agrees too -- both Ruffians are Trainers, so it corroborates the card without narrowing the printing. Journey Together is an English set, so Ultra Rare is the right vocabulary for it. This is the SECOND time this exact card has been pulled on camera: SOCAXif6Mzs carries Ruffian 181 as well, imported from the My Hits tab, and that row still holds a stale rawNm of 1 against the 0.93 the set file prices today -- which is the whole reason prices are not stored here. Hand-kept until the My Hits tab carries it."
+      }
+    ],
+    "eWnSpGWvKWI": [
+      {
+        "card": "Mega Absol ex",
+        "set": "mega-evolution",
+        "setName": "Mega Evolution",
+        "rarity": "Double rare",
+        "number": "086",
+        "hallOfFame": false,
+        "handNote": "The owner, 12 September 2026: \"Single Booster Pack, Pack #5, Hit yes, Mega Absol ex - Double Black Star - Double Rare\". Mega Evolution prints Mega Absol ex THREE times -- 086 Double rare, 161 Ultra Rare and 180 Special illustration rare -- and the rarity names exactly one of them, which is the rule pickPrinting follows and the reason the number is 086 rather than the dearest of the three. \"Double Black Star\" is the same claim said twice: two black stars IS the Double rare symbol, so the symbol he read and the tier he named agree, which is the check that matters. He did not name the set; it comes from the video's own tag and its title, both Mega Evolution, and Mega Absol ex is printed in no other set this site holds. The rarity is written \"Double rare\" to match the checklist's own casing exactly, because the renderers key off that string."
       }
     ]
   }
