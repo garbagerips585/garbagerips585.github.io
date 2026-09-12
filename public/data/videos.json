@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 287751,
-    "subscribers": 371,
-    "videos": 340,
-    "readAt": "2026-09-11"
+    "views": 288406,
+    "subscribers": 370,
+    "videos": 341,
+    "readAt": "2026-09-12"
   },
-  "syncedAt": "2026-09-11",
+  "syncedAt": "2026-09-12",
   "videos": [
+    {
+      "id": "eWnSpGWvKWI",
+      "title": "Mega Evolution Pack #5 ⚔️ | Back-to-Back MEGA HITS! 💥",
+      "path": "rip/mega-evolution-pack-5-back-to-back-mega-hits-eWnSpGWvKWI.html",
+      "published": "2026-09-12",
+      "publishedAt": "2026-09-12T10:37:02Z",
+      "duration": 24,
+      "views": 31,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "mega-evolution"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Mega Evolution Pack"
+    },
     {
       "id": "atxWiAe4iCU",
       "title": "Phantasmal Flames Pack #13 👻 | Pack 13 Curse Strikes Again! 💀",
@@ -15,7 +34,7 @@
       "published": "2026-09-11",
       "publishedAt": "2026-09-11T10:25:27Z",
       "duration": 20,
-      "views": 315,
+      "views": 925,
       "vertical": true,
       "short": true,
       "sets": [
@@ -37,7 +56,7 @@
       "published": "2026-09-10",
       "publishedAt": "2026-09-10T10:21:32Z",
       "duration": 23,
-      "views": 847,
+      "views": 896,
       "vertical": true,
       "short": true,
       "sets": [
@@ -59,7 +78,7 @@
       "published": "2026-09-09",
       "publishedAt": "2026-09-09T10:13:37Z",
       "duration": 19,
-      "views": 37,
+      "views": 44,
       "vertical": true,
       "short": true,
       "sets": [
@@ -81,7 +100,7 @@
       "published": "2026-09-08",
       "publishedAt": "2026-09-08T10:10:05Z",
       "duration": 21,
-      "views": 1516,
+      "views": 1572,
       "vertical": true,
       "short": true,
       "sets": [
@@ -102,7 +121,7 @@
       "published": "2026-09-07",
       "publishedAt": "2026-09-07T10:03:11Z",
       "duration": 19,
-      "views": 1190,
+      "views": 1189,
       "vertical": true,
       "short": true,
       "sets": [
@@ -124,7 +143,7 @@
       "published": "2026-09-06",
       "publishedAt": "2026-09-06T10:45:02Z",
       "duration": 25,
-      "views": 1132,
+      "views": 1134,
       "vertical": true,
       "short": true,
       "sets": [
@@ -436,7 +455,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1166,
+      "views": 1168,
       "vertical": true,
       "short": true,
       "sets": [
@@ -677,7 +696,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1045,
+      "views": 1046,
       "vertical": true,
       "short": true,
       "sets": [
@@ -710,7 +729,7 @@
       "published": "2026-08-18",
       "publishedAt": "2026-08-18T10:04:29Z",
       "duration": 28,
-      "views": 1200,
+      "views": 1201,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1226,7 +1245,7 @@
       "published": "2026-08-03",
       "publishedAt": "2026-08-03T11:52:35Z",
       "duration": 21,
-      "views": 661,
+      "views": 662,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1299,7 +1318,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 933,
+      "views": 935,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2497,7 +2516,7 @@
       "published": "2026-07-10",
       "publishedAt": "2026-07-10T11:58:20Z",
       "duration": 20,
-      "views": 724,
+      "views": 725,
       "vertical": true,
       "short": true,
       "sets": [
@@ -6815,7 +6834,7 @@
       "published": "2026-05-10",
       "publishedAt": "2026-05-10T12:48:00Z",
       "duration": 20,
-      "views": 1270,
+      "views": 1271,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7671,7 +7690,7 @@
       "published": "2026-04-27",
       "publishedAt": "2026-04-27T23:10:01Z",
       "duration": 23,
-      "views": 2616,
+      "views": 2617,
       "vertical": true,
       "short": true,
       "sets": [

@@ -1,10 +1,10 @@
 {
-  "checked": "2026-09-11",
+  "checked": "2026-09-12",
   "source": "TCGplayer market prices, cards from the Pokemon TCG API",
   "sets": {
     "151": {
       "tcgSet": "SV: Scarlet & Violet 151",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/502552",
         "2": "https://www.tcgplayer.com/product/502553",
@@ -217,7 +217,7 @@
     },
     "pitch-black": {
       "tcgSet": "ME05: Pitch Black",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/704758",
         "2": "https://www.tcgplayer.com/product/704759",
@@ -343,7 +343,7 @@
     },
     "chaos-rising": {
       "tcgSet": "ME04: Chaos Rising",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/693561",
         "2": "https://www.tcgplayer.com/product/693502",
@@ -471,7 +471,7 @@
     },
     "perfect-order": {
       "tcgSet": "ME03: Perfect Order",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/684397",
         "2": "https://www.tcgplayer.com/product/684398",
@@ -601,15 +601,15 @@
     },
     "ascended-heroes": {
       "tcgSet": "ME: Ascended Heroes",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/676852",
         "2": "https://www.tcgplayer.com/product/676853",
         "3": "https://www.tcgplayer.com/product/675815",
-        "4": "https://www.tcgplayer.com/product/676854",
+        "4": "https://www.tcgplayer.com/product/676994",
         "5": "https://www.tcgplayer.com/product/676995",
         "6": "https://www.tcgplayer.com/product/676996",
-        "7": "https://www.tcgplayer.com/product/676997",
+        "7": "https://www.tcgplayer.com/product/676857",
         "8": "https://www.tcgplayer.com/product/676998",
         "9": "https://www.tcgplayer.com/product/676999",
         "10": "https://www.tcgplayer.com/product/675822",
@@ -622,14 +622,14 @@
         "17": "https://www.tcgplayer.com/product/676866",
         "18": "https://www.tcgplayer.com/product/676867",
         "19": "https://www.tcgplayer.com/product/677008",
-        "20": "https://www.tcgplayer.com/product/677009",
+        "20": "https://www.tcgplayer.com/product/676869",
         "21": "https://www.tcgplayer.com/product/677010",
         "22": "https://www.tcgplayer.com/product/675834",
-        "23": "https://www.tcgplayer.com/product/677011",
+        "23": "https://www.tcgplayer.com/product/676871",
         "24": "https://www.tcgplayer.com/product/677012",
         "25": "https://www.tcgplayer.com/product/677013",
         "26": "https://www.tcgplayer.com/product/675838",
-        "27": "https://www.tcgplayer.com/product/677014",
+        "27": "https://www.tcgplayer.com/product/676874",
         "28": "https://www.tcgplayer.com/product/677015",
         "29": "https://www.tcgplayer.com/product/676876",
         "30": "https://www.tcgplayer.com/product/677017",
@@ -644,7 +644,7 @@
         "39": "https://www.tcgplayer.com/product/676884",
         "40": "https://www.tcgplayer.com/product/677025",
         "41": "https://www.tcgplayer.com/product/677026",
-        "42": "https://www.tcgplayer.com/product/677027",
+        "42": "https://www.tcgplayer.com/product/676887",
         "43": "https://www.tcgplayer.com/product/675855",
         "44": "https://www.tcgplayer.com/product/676888",
         "45": "https://www.tcgplayer.com/product/677029",
@@ -661,20 +661,20 @@
         "56": "https://www.tcgplayer.com/product/677038",
         "57": "https://www.tcgplayer.com/product/675869",
         "58": "https://www.tcgplayer.com/product/675870",
-        "59": "https://www.tcgplayer.com/product/676899",
+        "59": "https://www.tcgplayer.com/product/677039",
         "60": "https://www.tcgplayer.com/product/677040",
         "61": "https://www.tcgplayer.com/product/675873",
         "62": "https://www.tcgplayer.com/product/676901",
         "63": "https://www.tcgplayer.com/product/676902",
         "64": "https://www.tcgplayer.com/product/677043",
-        "65": "https://www.tcgplayer.com/product/677044",
+        "65": "https://www.tcgplayer.com/product/676904",
         "66": "https://www.tcgplayer.com/product/677045",
         "67": "https://www.tcgplayer.com/product/677046",
         "68": "https://www.tcgplayer.com/product/675880",
         "69": "https://www.tcgplayer.com/product/676907",
         "70": "https://www.tcgplayer.com/product/675882",
         "71": "https://www.tcgplayer.com/product/677048",
-        "72": "https://www.tcgplayer.com/product/677049",
+        "72": "https://www.tcgplayer.com/product/676909",
         "73": "https://www.tcgplayer.com/product/675885",
         "74": "https://www.tcgplayer.com/product/676910",
         "75": "https://www.tcgplayer.com/product/676911",
@@ -688,7 +688,7 @@
         "83": "https://www.tcgplayer.com/product/676917",
         "84": "https://www.tcgplayer.com/product/675896",
         "85": "https://www.tcgplayer.com/product/676918",
-        "86": "https://www.tcgplayer.com/product/677059",
+        "86": "https://www.tcgplayer.com/product/676919",
         "87": "https://www.tcgplayer.com/product/676920",
         "88": "https://www.tcgplayer.com/product/676921",
         "89": "https://www.tcgplayer.com/product/675901",
@@ -700,7 +700,7 @@
         "95": "https://www.tcgplayer.com/product/676927",
         "96": "https://www.tcgplayer.com/product/677068",
         "97": "https://www.tcgplayer.com/product/676929",
-        "98": "https://www.tcgplayer.com/product/677070",
+        "98": "https://www.tcgplayer.com/product/676930",
         "99": "https://www.tcgplayer.com/product/677071",
         "100": "https://www.tcgplayer.com/product/676932",
         "101": "https://www.tcgplayer.com/product/677073",
@@ -714,7 +714,7 @@
         "109": "https://www.tcgplayer.com/product/677080",
         "110": "https://www.tcgplayer.com/product/676941",
         "111": "https://www.tcgplayer.com/product/675923",
-        "112": "https://www.tcgplayer.com/product/677082",
+        "112": "https://www.tcgplayer.com/product/676942",
         "113": "https://www.tcgplayer.com/product/675925",
         "114": "https://www.tcgplayer.com/product/675926",
         "115": "https://www.tcgplayer.com/product/677083",
@@ -731,9 +731,9 @@
         "126": "https://www.tcgplayer.com/product/676951",
         "127": "https://www.tcgplayer.com/product/676952",
         "128": "https://www.tcgplayer.com/product/676953",
-        "129": "https://www.tcgplayer.com/product/676954",
+        "129": "https://www.tcgplayer.com/product/677094",
         "130": "https://www.tcgplayer.com/product/676955",
-        "131": "https://www.tcgplayer.com/product/677096",
+        "131": "https://www.tcgplayer.com/product/676956",
         "132": "https://www.tcgplayer.com/product/677097",
         "133": "https://www.tcgplayer.com/product/677098",
         "134": "https://www.tcgplayer.com/product/676959",
@@ -746,10 +746,10 @@
         "141": "https://www.tcgplayer.com/product/676963",
         "142": "https://www.tcgplayer.com/product/675954",
         "143": "https://www.tcgplayer.com/product/676964",
-        "144": "https://www.tcgplayer.com/product/676965",
+        "144": "https://www.tcgplayer.com/product/677105",
         "145": "https://www.tcgplayer.com/product/675957",
         "146": "https://www.tcgplayer.com/product/677106",
-        "147": "https://www.tcgplayer.com/product/676967",
+        "147": "https://www.tcgplayer.com/product/677107",
         "148": "https://www.tcgplayer.com/product/677108",
         "149": "https://www.tcgplayer.com/product/675961",
         "150": "https://www.tcgplayer.com/product/676969",
@@ -758,7 +758,7 @@
         "153": "https://www.tcgplayer.com/product/677111",
         "154": "https://www.tcgplayer.com/product/677112",
         "155": "https://www.tcgplayer.com/product/677113",
-        "156": "https://www.tcgplayer.com/product/677114",
+        "156": "https://www.tcgplayer.com/product/676974",
         "157": "https://www.tcgplayer.com/product/677115",
         "158": "https://www.tcgplayer.com/product/676976",
         "159": "https://www.tcgplayer.com/product/676977",
@@ -779,7 +779,7 @@
         "174": "https://www.tcgplayer.com/product/677127",
         "175": "https://www.tcgplayer.com/product/677128",
         "176": "https://www.tcgplayer.com/product/677129",
-        "177": "https://www.tcgplayer.com/product/677130",
+        "177": "https://www.tcgplayer.com/product/676990",
         "178": "https://www.tcgplayer.com/product/677131",
         "179": "https://www.tcgplayer.com/product/675991",
         "180": "https://www.tcgplayer.com/product/675992",
@@ -902,7 +902,7 @@
     },
     "black-bolt": {
       "tcgSet": "SV: Black Bolt",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/642624",
         "2": "https://www.tcgplayer.com/product/642625",
@@ -1080,7 +1080,7 @@
     },
     "celebrations": {
       "tcgSet": "Celebrations",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/250300",
         "2": "https://www.tcgplayer.com/product/250301",
@@ -1111,7 +1111,7 @@
     },
     "chilling-reign": {
       "tcgSet": "SWSH06: Chilling Reign",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/241648",
         "2": "https://www.tcgplayer.com/product/241649",
@@ -1350,7 +1350,7 @@
     },
     "crown-zenith": {
       "tcgSet": "SWSH: Crown Zenith",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/478033",
         "2": "https://www.tcgplayer.com/product/478042",
@@ -1516,7 +1516,7 @@
     },
     "destined-rivals": {
       "tcgSet": "SV10: Destined Rivals",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/632829",
         "2": "https://www.tcgplayer.com/product/632830",
@@ -1766,7 +1766,7 @@
     },
     "journey-together": {
       "tcgSet": "SV09: Journey Together",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/623428",
         "2": "https://www.tcgplayer.com/product/623429",
@@ -1962,7 +1962,7 @@
     },
     "mega-evolution": {
       "tcgSet": "ME01: Mega Evolution",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/654340",
         "2": "https://www.tcgplayer.com/product/654341",
@@ -2156,7 +2156,7 @@
     },
     "obsidian-flames": {
       "tcgSet": "SV03: Obsidian Flames",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/509637",
         "2": "https://www.tcgplayer.com/product/509653",
@@ -2175,7 +2175,6 @@
         "15": "https://www.tcgplayer.com/product/509719",
         "16": "https://www.tcgplayer.com/product/509734",
         "17": "https://www.tcgplayer.com/product/509748",
-        "18": "https://www.tcgplayer.com/product/509751",
         "19": "https://www.tcgplayer.com/product/509754",
         "20": "https://www.tcgplayer.com/product/509757",
         "21": "https://www.tcgplayer.com/product/509762",
@@ -2392,7 +2391,7 @@
     },
     "paldea-evolved": {
       "tcgSet": "SV02: Paldea Evolved",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/497412",
         "2": "https://www.tcgplayer.com/product/497413",
@@ -2677,7 +2676,7 @@
     },
     "paldean-fates": {
       "tcgSet": "SV: Paldean Fates",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/534132",
         "2": "https://www.tcgplayer.com/product/534133",
@@ -2864,7 +2863,6 @@
         "183": "https://www.tcgplayer.com/product/535118",
         "184": "https://www.tcgplayer.com/product/535122",
         "185": "https://www.tcgplayer.com/product/535126",
-        "186": "https://www.tcgplayer.com/product/535130",
         "187": "https://www.tcgplayer.com/product/535132",
         "188": "https://www.tcgplayer.com/product/535135",
         "189": "https://www.tcgplayer.com/product/535143",
@@ -2928,7 +2926,7 @@
     },
     "paradox-rift": {
       "tcgSet": "SV04: Paradox Rift",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/523584",
         "2": "https://www.tcgplayer.com/product/523585",
@@ -3200,7 +3198,7 @@
     },
     "phantasmal-flames": {
       "tcgSet": "ME02: Phantasmal Flames",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/662205",
         "2": "https://www.tcgplayer.com/product/662164",
@@ -3336,7 +3334,7 @@
     },
     "pokemon-go": {
       "tcgSet": "Pokemon GO",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/274433",
         "2": "https://www.tcgplayer.com/product/274434",
@@ -3430,7 +3428,7 @@
     },
     "prismatic-evolutions": {
       "tcgSet": "SV: Prismatic Evolutions",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/610637",
         "2": "https://www.tcgplayer.com/product/610638",
@@ -3616,7 +3614,7 @@
     },
     "rebel-clash": {
       "tcgSet": "SWSH02: Rebel Clash",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/213071",
         "2": "https://www.tcgplayer.com/product/213072",
@@ -3831,7 +3829,7 @@
     },
     "scarlet-violet": {
       "tcgSet": "SV01: Scarlet & Violet Base Set",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/487828",
         "2": "https://www.tcgplayer.com/product/487831",
@@ -4095,7 +4093,7 @@
     },
     "shining-fates": {
       "tcgSet": "Shining Fates",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/232348",
         "2": "https://www.tcgplayer.com/product/232349",
@@ -4174,7 +4172,7 @@
     },
     "shrouded-fable": {
       "tcgSet": "SV: Shrouded Fable",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/562155",
         "2": "https://www.tcgplayer.com/product/562160",
@@ -4279,7 +4277,7 @@
     },
     "stellar-crown": {
       "tcgSet": "SV07: Stellar Crown",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/567227",
         "2": "https://www.tcgplayer.com/product/567228",
@@ -4460,7 +4458,7 @@
     },
     "surging-sparks": {
       "tcgSet": "SV08: Surging Sparks",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/589939",
         "2": "https://www.tcgplayer.com/product/589940",
@@ -4718,7 +4716,7 @@
     },
     "temporal-forces": {
       "tcgSet": "SV05: Temporal Forces",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/542646",
         "2": "https://www.tcgplayer.com/product/542647",
@@ -4942,7 +4940,7 @@
     },
     "twilight-masquerade": {
       "tcgSet": "SV06: Twilight Masquerade",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/550045",
         "2": "https://www.tcgplayer.com/product/550046",
@@ -5174,7 +5172,7 @@
     },
     "white-flare": {
       "tcgSet": "SV: White Flare",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/642290",
         "2": "https://www.tcgplayer.com/product/642291",
@@ -5353,7 +5351,7 @@
     },
     "silver-tempest": {
       "tcgSet": "SWSH12: Silver Tempest",
-      "checked": "2026-09-11",
+      "checked": "2026-09-12",
       "links": {
         "1": "https://www.tcgplayer.com/product/451620",
         "2": "https://www.tcgplayer.com/product/451621",
