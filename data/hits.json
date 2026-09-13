@@ -70,7 +70,7 @@
     "is a different card; see that module for the rest of the reasoning."
   ],
   "source": "My Hits tab",
-  "checked": "2026-09-12",
+  "checked": "2026-09-13",
   "videos": {
     "kj7532tb0_I": [
       {
@@ -2315,6 +2315,17 @@
         "number": "086",
         "hallOfFame": false,
         "handNote": "The owner, 12 September 2026: \"Single Booster Pack, Pack #5, Hit yes, Mega Absol ex - Double Black Star - Double Rare\". Mega Evolution prints Mega Absol ex THREE times -- 086 Double rare, 161 Ultra Rare and 180 Special illustration rare -- and the rarity names exactly one of them, which is the rule pickPrinting follows and the reason the number is 086 rather than the dearest of the three. \"Double Black Star\" is the same claim said twice: two black stars IS the Double rare symbol, so the symbol he read and the tier he named agree, which is the check that matters. He did not name the set; it comes from the video's own tag and its title, both Mega Evolution, and Mega Absol ex is printed in no other set this site holds. The rarity is written \"Double rare\" to match the checklist's own casing exactly, because the renderers key off that string."
+      }
+    ],
+    "X7gs6hM1Oio": [
+      {
+        "card": "Team Rocket's Nidoking ex",
+        "set": "destined-rivals",
+        "setName": "Destined Rivals",
+        "rarity": "Double rare",
+        "number": "119",
+        "hallOfFame": false,
+        "handNote": "The owner, 13 September 2026: \"Single Booster Pack, Pack #14, Hit yes, Team Rocket's Nidoking ex - Double Black Star - Double Rare, Destined Rivals\". Destined Rivals prints this card THREE times -- 119 Double rare at $1.99, 216 Ultra Rare at $4.72 and 233 Special illustration rare at $92.50 -- and the rarity names exactly one, which is why the number is 119. The old dearest-printing rule would have published the $92.50 SIR, which is the same trap the Mega Absol ex row records from the day before. \"Double Black Star\" is the tier said a second way: two black stars IS the Double rare symbol, so the symbol he read and the tier he named agree, and that agreement is the check. He named the set himself this time, and it matches the video's own tag and title."
       }
     ]
   }

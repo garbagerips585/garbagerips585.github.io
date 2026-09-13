@@ -2,7 +2,7 @@
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
     "views": 289769,
-    "subscribers": 371,
+    "subscribers": 372,
     "videos": 342,
     "readAt": "2026-09-13"
   },
@@ -15,7 +15,7 @@
       "published": "2026-09-13",
       "publishedAt": "2026-09-13T10:47:07Z",
       "duration": 23,
-      "views": 201,
+      "views": 407,
       "vertical": true,
       "short": true,
       "sets": [
@@ -25,7 +25,9 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Destined Rivals Pack"
+      "packNumber": 14,
+      "packs": 1,
+      "label": "Destined Rivals Pack - Pack 14"
     },
     {
       "id": "eWnSpGWvKWI",
@@ -77,7 +79,7 @@
       "published": "2026-09-10",
       "publishedAt": "2026-09-10T10:21:32Z",
       "duration": 23,
-      "views": 968,
+      "views": 978,
       "vertical": true,
       "short": true,
       "sets": [
