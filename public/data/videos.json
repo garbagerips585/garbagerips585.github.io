@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 288810,
+    "views": 289769,
     "subscribers": 371,
-    "videos": 341,
-    "readAt": "2026-09-12"
+    "videos": 342,
+    "readAt": "2026-09-13"
   },
-  "syncedAt": "2026-09-12",
+  "syncedAt": "2026-09-13",
   "videos": [
+    {
+      "id": "X7gs6hM1Oio",
+      "title": "Destined Rivals Pack #14 🚀 | Team Rocket Takes Over! 💥",
+      "path": "rip/destined-rivals-pack-14-team-rocket-takes-over-X7gs6hM1Oio.html",
+      "published": "2026-09-13",
+      "publishedAt": "2026-09-13T10:47:07Z",
+      "duration": 23,
+      "views": 201,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "destined-rivals"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Destined Rivals Pack"
+    },
     {
       "id": "eWnSpGWvKWI",
       "title": "Mega Evolution Pack #5 ⚔️ | Back-to-Back MEGA HITS! 💥",
@@ -15,7 +34,7 @@
       "published": "2026-09-12",
       "publishedAt": "2026-09-12T10:37:02Z",
       "duration": 24,
-      "views": 741,
+      "views": 992,
       "vertical": true,
       "short": true,
       "sets": [
@@ -36,7 +55,7 @@
       "published": "2026-09-11",
       "publishedAt": "2026-09-11T10:25:27Z",
       "duration": 20,
-      "views": 925,
+      "views": 928,
       "vertical": true,
       "short": true,
       "sets": [
@@ -58,7 +77,7 @@
       "published": "2026-09-10",
       "publishedAt": "2026-09-10T10:21:32Z",
       "duration": 23,
-      "views": 899,
+      "views": 968,
       "vertical": true,
       "short": true,
       "sets": [
@@ -102,7 +121,7 @@
       "published": "2026-09-08",
       "publishedAt": "2026-09-08T10:10:05Z",
       "duration": 21,
-      "views": 1576,
+      "views": 1579,
       "vertical": true,
       "short": true,
       "sets": [
@@ -167,7 +186,7 @@
       "published": "2026-09-05",
       "publishedAt": "2026-09-05T10:30:30Z",
       "duration": 25,
-      "views": 974,
+      "views": 975,
       "vertical": true,
       "short": true,
       "sets": [
@@ -352,7 +371,7 @@
       "published": "2026-08-29",
       "publishedAt": "2026-08-29T12:09:23Z",
       "duration": 22,
-      "views": 1098,
+      "views": 1100,
       "vertical": true,
       "short": true,
       "sets": [
@@ -457,7 +476,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1168,
+      "views": 1170,
       "vertical": true,
       "short": true,
       "sets": [
@@ -698,7 +717,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1046,
+      "views": 1049,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1320,7 +1339,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 935,
+      "views": 937,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2266,7 +2285,7 @@
       "published": "2026-07-14",
       "publishedAt": "2026-07-14T23:35:19Z",
       "duration": 23,
-      "views": 783,
+      "views": 784,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7977,7 +7996,7 @@
       "published": "2026-04-23",
       "publishedAt": "2026-04-23T23:46:00Z",
       "duration": 34,
-      "views": 882,
+      "views": 881,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9357,7 +9376,7 @@
       "published": "2026-04-04",
       "publishedAt": "2026-04-04T10:46:00Z",
       "duration": 45,
-      "views": 779,
+      "views": 780,
       "vertical": true,
       "short": true,
       "sets": [
@@ -11265,7 +11284,7 @@
       "published": "2026-02-15",
       "publishedAt": "2026-02-15T15:00:39Z",
       "duration": 18,
-      "views": 455,
+      "views": 458,
       "vertical": true,
       "short": true,
       "sets": [
