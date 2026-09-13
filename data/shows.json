@@ -61,7 +61,7 @@
     "REGIONS drive the filter chips: roc, buffalo, syracuse.",
     "VENDORS. A show may carry `vendors`: [{ name, confirmed }]. `name` must match a vendor in data/vendors.json EXACTLY (trimmed, case-insensitive) -- it is a foreign key, so renaming a vendor there fails this build until the shows are updated too. `confirmed` is REQUIRED and must be a non-empty sentence saying who confirmed it and when; it prints under that vendor's name. A name with no listing, a missing or blank `confirmed`, a duplicate vendor or a null entry all FAIL the build, because a confirmed vendor that silently does not render is a typo shaped like a correct build."
   ],
-  "checked": "2026-09-10",
+  "checked": "2026-09-13",
   "sources": [
     {
       "name": "cardshows.io Western New York",
@@ -1251,7 +1251,7 @@
     },
     {
       "id": "rocpokecon-2026-10-31",
-      "name": "RocPok\u00e9Con",
+      "name": "RocPokéCon",
       "date": "2026-10-31",
       "start": "07:00",
       "end": "17:00",
@@ -1283,7 +1283,7 @@
       ],
       "blurb": "Centered on Pokemon but not only Pokemon, and it lands on Halloween.",
       "warn": "Presale prices go up $5 at 7pm on Friday October 30, so buy before then.",
-      "organiser": "RocPok\u00e9Con",
+      "organiser": "RocPokéCon",
       "organiserUrl": "https://www.rocpokecon.com",
       "ticketUrl": "https://www.rocpokecon.com/events/tickets",
       "url": "https://www.rocpokecon.com",
@@ -1295,7 +1295,7 @@
           "confirmed": "Named on the shop's own upcoming-dates flyer, sent to the channel 3 September 2026. Matched to this row by date AND street address, not by name alone."
         },
         {
-          "name": "RocPok\u00e9Con",
+          "name": "RocPokéCon",
           "confirmed": "The owner, 4 September 2026: \"Yes RocPokeCon are vendors at their own shows including the next one on Halloween\". They run the show and sell at it, which their vendor listing already says in its own words."
         },
         {
@@ -1604,6 +1604,23 @@
       ]
     },
     {
+      "id": "rocpoketour-2026-11-28",
+      "name": "RocPokéTour",
+      "date": "2026-11-28",
+      "venue": "RIT Inn & Conference Center",
+      "address": "5257 West Henrietta Road, Henrietta, NY 14467",
+      "city": "Henrietta",
+      "region": "roc",
+      "blurb": "A monthly RocPokéTour card show at the RIT Inn, run by the RocPokéCon team between their four big convention dates.",
+      "organiser": "RocPokéCon",
+      "organiserUrl": "https://www.rocpokecon.com",
+      "url": "https://www.rocpokecon.com",
+      "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
+      "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
+      "pkmn": "some",
+      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon."
+    },
+    {
       "id": "ec3con-2026-11-29",
       "name": "EC3CON: East Coast Collectibles Convention",
       "date": "2026-11-29",
@@ -1837,6 +1854,23 @@
       "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day."
     },
     {
+      "id": "rocpoketour-2027-01-02",
+      "name": "RocPokéTour",
+      "date": "2027-01-02",
+      "venue": "RIT Inn & Conference Center",
+      "address": "5257 West Henrietta Road, Henrietta, NY 14467",
+      "city": "Henrietta",
+      "region": "roc",
+      "blurb": "A monthly RocPokéTour card show at the RIT Inn, run by the RocPokéCon team between their four big convention dates.",
+      "organiser": "RocPokéCon",
+      "organiserUrl": "https://www.rocpokecon.com",
+      "url": "https://www.rocpokecon.com",
+      "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
+      "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
+      "pkmn": "some",
+      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon."
+    },
+    {
       "id": "pokekon-rochester-2027-01-09",
       "name": "PokeKon Fest Rochester",
       "date": "2027-01-09",
@@ -1895,6 +1929,23 @@
       "pkmnWhy": "The organizer confirmed it directly, and we are at this one most months: the same Pokemon vendors are there every time."
     },
     {
+      "id": "rocpoketour-2027-02-07",
+      "name": "RocPokéTour",
+      "date": "2027-02-07",
+      "venue": "RIT Inn & Conference Center",
+      "address": "5257 West Henrietta Road, Henrietta, NY 14467",
+      "city": "Henrietta",
+      "region": "roc",
+      "blurb": "A monthly RocPokéTour card show at the RIT Inn, run by the RocPokéCon team between their four big convention dates.",
+      "organiser": "RocPokéCon",
+      "organiserUrl": "https://www.rocpokecon.com",
+      "url": "https://www.rocpokecon.com",
+      "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
+      "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
+      "pkmn": "some",
+      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon."
+    },
+    {
       "id": "collectorfest-jcc-2027-02-14",
       "name": "CollectorFest Monthly",
       "date": "2027-02-14",
@@ -1934,6 +1985,22 @@
       "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
     },
     {
+      "id": "rocpokecon-2027-03-06",
+      "name": "RocPokéCon",
+      "date": "2027-03-06",
+      "venue": "Gordon Field House at RIT",
+      "address": "149 Lomb Memorial Drive, Rochester, NY 14623",
+      "city": "Rochester, NY",
+      "region": "roc",
+      "blurb": "One of the four big RocPokéCon convention dates on the RocPokéTour calendar, in an arena rather than the hotel. The October 2026 one runs 300+ tables, which is the closest thing there is to an idea of the scale.",
+      "organiser": "RocPokéCon",
+      "organiserUrl": "https://www.rocpokecon.com",
+      "url": "https://www.rocpokecon.com",
+      "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
+      "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
+      "pokemon": true
+    },
+    {
       "id": "northtowns-pkmn-2027-03-14",
       "name": "Northtowns Pokemon & TCG Card Show",
       "date": "2027-03-14",
@@ -1968,6 +2035,23 @@
       "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
     },
     {
+      "id": "rocpoketour-2027-04-18",
+      "name": "RocPokéTour",
+      "date": "2027-04-18",
+      "venue": "RIT Inn & Conference Center",
+      "address": "5257 West Henrietta Road, Henrietta, NY 14467",
+      "city": "Henrietta",
+      "region": "roc",
+      "blurb": "A monthly RocPokéTour card show at the RIT Inn, run by the RocPokéCon team between their four big convention dates.",
+      "organiser": "RocPokéCon",
+      "organiserUrl": "https://www.rocpokecon.com",
+      "url": "https://www.rocpokecon.com",
+      "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
+      "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
+      "pkmn": "some",
+      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon."
+    },
+    {
       "id": "northtowns-pkmn-2027-05-02",
       "name": "Northtowns Pokemon & TCG Card Show",
       "date": "2027-05-02",
@@ -1985,6 +2069,23 @@
       "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
     },
     {
+      "id": "rocpoketour-2027-05-29",
+      "name": "RocPokéTour",
+      "date": "2027-05-29",
+      "venue": "RIT Inn & Conference Center",
+      "address": "5257 West Henrietta Road, Henrietta, NY 14467",
+      "city": "Henrietta",
+      "region": "roc",
+      "blurb": "A monthly RocPokéTour card show at the RIT Inn, run by the RocPokéCon team between their four big convention dates.",
+      "organiser": "RocPokéCon",
+      "organiserUrl": "https://www.rocpokecon.com",
+      "url": "https://www.rocpokecon.com",
+      "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
+      "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
+      "pkmn": "some",
+      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon."
+    },
+    {
       "id": "northtowns-pkmn-2027-06-06",
       "name": "Northtowns Pokemon & TCG Card Show",
       "date": "2027-06-06",
@@ -2000,6 +2101,39 @@
       "source": "wnycardshows (Shake & Break 716), read 5 September 2026",
       "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day.",
       "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
+    },
+    {
+      "id": "rocpokecon-2027-06-12",
+      "name": "RocPokéCon",
+      "date": "2027-06-12",
+      "venue": "Gene Polisseni Center at RIT",
+      "address": "200 Lomb Memorial Drive, Rochester, NY 14623",
+      "city": "Rochester, NY",
+      "region": "roc",
+      "blurb": "One of the four big RocPokéCon convention dates on the RocPokéTour calendar, in an arena rather than the hotel. The October 2026 one runs 300+ tables, which is the closest thing there is to an idea of the scale.",
+      "organiser": "RocPokéCon",
+      "organiserUrl": "https://www.rocpokecon.com",
+      "url": "https://www.rocpokecon.com",
+      "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
+      "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
+      "pokemon": true
+    },
+    {
+      "id": "rocpoketour-2027-07-17",
+      "name": "RocPokéTour",
+      "date": "2027-07-17",
+      "venue": "RIT Inn & Conference Center",
+      "address": "5257 West Henrietta Road, Henrietta, NY 14467",
+      "city": "Henrietta",
+      "region": "roc",
+      "blurb": "A monthly RocPokéTour card show at the RIT Inn, run by the RocPokéCon team between their four big convention dates.",
+      "organiser": "RocPokéCon",
+      "organiserUrl": "https://www.rocpokecon.com",
+      "url": "https://www.rocpokecon.com",
+      "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
+      "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
+      "pkmn": "some",
+      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon."
     },
     {
       "id": "northtowns-pkmn-2027-07-18",
@@ -2036,6 +2170,23 @@
       "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
     },
     {
+      "id": "rocpoketour-2027-08-21",
+      "name": "RocPokéTour",
+      "date": "2027-08-21",
+      "venue": "RIT Inn & Conference Center",
+      "address": "5257 West Henrietta Road, Henrietta, NY 14467",
+      "city": "Henrietta",
+      "region": "roc",
+      "blurb": "A monthly RocPokéTour card show at the RIT Inn, run by the RocPokéCon team between their four big convention dates.",
+      "organiser": "RocPokéCon",
+      "organiserUrl": "https://www.rocpokecon.com",
+      "url": "https://www.rocpokecon.com",
+      "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
+      "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
+      "pkmn": "some",
+      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon."
+    },
+    {
       "id": "northtowns-pkmn-2027-09-12",
       "name": "Northtowns Pokemon & TCG Card Show",
       "date": "2027-09-12",
@@ -2051,6 +2202,23 @@
       "source": "wnycardshows (Shake & Break 716), read 5 September 2026",
       "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day.",
       "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
+    },
+    {
+      "id": "rocpoketour-2027-09-26",
+      "name": "RocPokéTour",
+      "date": "2027-09-26",
+      "venue": "RIT Inn & Conference Center",
+      "address": "5257 West Henrietta Road, Henrietta, NY 14467",
+      "city": "Henrietta",
+      "region": "roc",
+      "blurb": "A monthly RocPokéTour card show at the RIT Inn, run by the RocPokéCon team between their four big convention dates.",
+      "organiser": "RocPokéCon",
+      "organiserUrl": "https://www.rocpokecon.com",
+      "url": "https://www.rocpokecon.com",
+      "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
+      "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
+      "pkmn": "some",
+      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon."
     },
     {
       "id": "northtowns-pkmn-2027-10-03",
@@ -2070,6 +2238,22 @@
       "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
     },
     {
+      "id": "rocpokecon-2027-10-30",
+      "name": "RocPokéCon",
+      "date": "2027-10-30",
+      "venue": "Gordon Field House at RIT",
+      "address": "149 Lomb Memorial Drive, Rochester, NY 14623",
+      "city": "Rochester, NY",
+      "region": "roc",
+      "blurb": "One of the four big RocPokéCon convention dates on the RocPokéTour calendar, in an arena rather than the hotel. The October 2026 one runs 300+ tables, which is the closest thing there is to an idea of the scale.",
+      "organiser": "RocPokéCon",
+      "organiserUrl": "https://www.rocpokecon.com",
+      "url": "https://www.rocpokecon.com",
+      "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
+      "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
+      "pokemon": true
+    },
+    {
       "id": "northtowns-pkmn-2027-11-14",
       "name": "Northtowns Pokemon & TCG Card Show",
       "date": "2027-11-14",
@@ -2085,6 +2269,23 @@
       "source": "wnycardshows (Shake & Break 716), read 5 September 2026",
       "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day.",
       "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
+    },
+    {
+      "id": "rocpoketour-2027-11-27",
+      "name": "RocPokéTour",
+      "date": "2027-11-27",
+      "venue": "RIT Inn & Conference Center",
+      "address": "5257 West Henrietta Road, Henrietta, NY 14467",
+      "city": "Henrietta",
+      "region": "roc",
+      "blurb": "A monthly RocPokéTour card show at the RIT Inn, run by the RocPokéCon team between their four big convention dates.",
+      "organiser": "RocPokéCon",
+      "organiserUrl": "https://www.rocpokecon.com",
+      "url": "https://www.rocpokecon.com",
+      "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
+      "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
+      "pkmn": "some",
+      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon."
     },
     {
       "id": "northtowns-pkmn-2027-12-12",
