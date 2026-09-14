@@ -138,12 +138,12 @@
     "information does not exist in machine-readable form because it does not",
     "exist in advance at all. Nobody knows, including the retailers."
   ],
-  "weekOf": "2026-09-07",
-  "weekEnds": "2026-09-13",
-  "compiled": "2026-09-07",
+  "weekOf": "2026-09-14",
+  "weekEnds": "2026-09-20",
+  "compiled": "2026-09-14",
   "source": {
     "name": "Community restock trackers",
-    "read": "2026-09-07",
+    "read": "2026-09-14",
     "note": "Stock tracking communities the owner follows, passed on as they were written. Not an announcement from any retailer, and not this site's own findings.",
     "url": null
   },
@@ -193,31 +193,36 @@
       "what": "Be on alert for a Pokemon Center drop this week. The trackers say we are in the official window where 30th Celebration UPCs and Delta Reign preorders can go live, and that they will pass on any indication of a drop ahead of time.",
       "when": "The most common drop days are Monday to Wednesday, 11am to 2pm Eastern.",
       "window": {
-        "from": "2026-09-07",
-        "to": "2026-09-09"
+        "from": "2026-09-14",
+        "to": "2026-09-16"
       },
       "expires": null,
       "notes": null
     },
     {
-      "retailer": "target",
+      "retailer": "costco",
       "channel": "store",
-      "confidence": "pattern",
-      "what": "Expect to see Ascended Heroes Large Tins, select Chaos Rising and Pitch Black products, and First Partner Series 3 Collection Boxes.",
-      "when": null,
-      "window": null,
+      "confidence": "expected",
+      "what": "Expect to see Ascended Heroes Elite Trainer Boxes start stocking in store at select Costcos through the week, at $42.99 with a limit of 2 per membership.",
+      "when": "Throughout the week, store by store.",
+      "window": {
+        "from": "2026-09-14",
+        "to": "2026-09-20"
+      },
       "expires": null,
-      "notes": null
+      "notes": [
+        "The trackers also report rumours of a Costco ONLINE drop, and say nothing is loaded in their ecommerce system to confirm it. Passed on as a rumour, which is what they called it."
+      ]
     },
     {
-      "retailer": "target",
-      "channel": "online",
-      "confidence": "pattern",
-      "what": "Currently no products are loaded on the backend of Target. Expect this to change as the week progresses.",
-      "when": "Lately the trackers have been seeing online drops at 3am Eastern on both Tuesday and Thursday.",
+      "retailer": "best-buy",
+      "channel": "store",
+      "confidence": "expected",
+      "what": "30th Celebration Elite Trainer Boxes, Poster Collections, Tech Sticker Collections, ex Boxes and Knock Out Collections are expected to stock in store nationwide on the set's release day.",
+      "when": "Wednesday 16 September. That date is not a forecast: it is 30th Celebration's official worldwide release day from The Pokemon Company's own press release. What Best Buy has on the shelf that morning is the trackers' expectation.",
       "window": {
-        "from": "2026-09-08",
-        "to": "2026-09-10"
+        "from": "2026-09-16",
+        "to": "2026-09-20"
       },
       "expires": null,
       "notes": null
@@ -226,57 +231,38 @@
       "retailer": "best-buy",
       "channel": "store",
       "confidence": "pattern",
-      "what": "Primarily Pitch Black products and First Partner Series 3 in store this week.",
-      "when": null,
-      "window": null,
+      "what": "Destined Rivals Elite Trainer Boxes will continue to stock in store at select locations.",
+      "when": "No day given. Select locations, through the week.",
+      "window": {
+        "from": "2026-09-14",
+        "to": "2026-09-20"
+      },
       "expires": null,
-      "notes": [
-        "The trackers are pushing back on this one: a lot of social media accounts are claiming Ascended Heroes Booster Bundles and Large Tins, and they say those accounts are about three weeks behind, because not a single store had them in transit as of the night before this was written."
-      ]
+      "notes": null
     },
     {
-      "retailer": "sams-club",
+      "retailer": "target",
       "channel": "store",
       "confidence": "expected",
-      "what": "Select stores MAY randomly restock a second wave of Ascended Heroes Focused Fighters in store.",
-      "when": null,
-      "window": null,
+      "what": "Target should be taking part in the nationwide release of 30th Celebration products. Select stores are also expected to have Ascended Heroes Large Tins alongside Pitch Black and Chaos Rising product.",
+      "when": "Wednesday 16 September for the 30th Celebration launch, which is the set's official release day rather than a predicted restock. The Large Tins carry no day.",
+      "window": {
+        "from": "2026-09-16",
+        "to": "2026-09-20"
+      },
       "expires": null,
-      "notes": [
-        "Internal comms have asked all clubs to wait for an announced drop date. The trackers say a very few stores are going against that and restocking anyway, so this is a maybe rather than a plan."
-      ]
+      "notes": null
     },
     {
-      "retailer": "costco",
+      "retailer": "walmart",
       "channel": "store",
       "confidence": "expected",
-      "what": "Ascended Heroes ETBs are loaded on the Costco internal system, but are not expected in store until late September or early October.",
-      "when": "Depots are not expected to start receiving stock until 13 September at the earliest, and it still has to ship on to individual stores.",
-      "window": null,
-      "expires": null,
-      "notes": [
-        "The trackers call out social media accounts claiming these are dropping this week as false information used as engagement bait."
-      ]
-    },
-    {
-      "retailer": "walgreens",
-      "channel": "store",
-      "confidence": "pattern",
-      "what": "Select stores are still receiving Ascended Heroes 2 Pack Blisters and Darkrai, Tyranitar and Slaking Tins.",
-      "when": null,
-      "window": null,
-      "expires": null,
-      "notes": [
-        "No limits in store, so the trackers expect these to sell out fast."
-      ]
-    },
-    {
-      "retailer": "dollar-general",
-      "channel": "store",
-      "confidence": "pattern",
-      "what": "Select stores are still receiving Black Bolt and White Flare Unova Poster Collections.",
-      "when": null,
-      "window": null,
+      "what": "Walmart should be taking part in the nationwide release of 30th Celebration products. Select stores are also expected to have Ascended Heroes Large Tins alongside Pitch Black and Chaos Rising product.",
+      "when": "Wednesday 16 September for the 30th Celebration launch, which is the set's official release day rather than a predicted restock. The Large Tins carry no day.",
+      "window": {
+        "from": "2026-09-16",
+        "to": "2026-09-20"
+      },
       "expires": null,
       "notes": null
     },
@@ -284,26 +270,69 @@
       "retailer": "walmart",
       "channel": "online",
       "confidence": "window",
-      "what": "The Prismatic Evolutions ETB and Super Premium Collection raffle is due to open for entries on the Walmart site.",
+      "what": "30th Celebration products are due to be available to enter via raffle on the Walmart site.",
       "when": "Wednesday 2pm Pacific, which is 5pm Eastern.",
       "window": {
-        "from": "2026-09-09",
-        "to": "2026-09-09"
+        "from": "2026-09-16",
+        "to": "2026-09-16"
       },
-      "expires": "2026-09-09",
+      "expires": "2026-09-16",
+      "notes": [
+        "The trackers add that the usual Walmart Wednesday may also happen this week, and that if it does they will share the product list closer to the drop window. No products named yet."
+      ]
+    },
+    {
+      "retailer": "target",
+      "channel": "online",
+      "confidence": "pattern",
+      "what": "No products are loaded on the back end of Target at the moment. The trackers expect that to change as the week progresses.",
+      "when": "They say it will likely drop at 3am Eastern on a random day, and that their best guess is Wednesday 16 September at 3am Eastern. Their words: a best guess.",
+      "window": {
+        "from": "2026-09-14",
+        "to": "2026-09-20"
+      },
+      "expires": null,
       "notes": null
     },
     {
-      "retailer": "walmart",
-      "channel": "online",
+      "retailer": "sams-club",
+      "channel": "store",
       "confidence": "pattern",
-      "what": "The usual Walmart Wednesday may also happen this week. If it does, the trackers say a full product list will be shared ahead of the drop window.",
-      "when": "Wednesday.",
+      "what": "Select clubs are continuing to randomly restock their second wave of Ascended Heroes Focused Fighters in store.",
+      "when": "No day, and the trackers are explicit about why: it is a store level decision that goes against internal guidance asking clubs to wait for an announced drop date, so there is no way to predict it.",
       "window": {
-        "from": "2026-09-09",
-        "to": "2026-09-09"
+        "from": "2026-09-14",
+        "to": "2026-09-20"
       },
-      "expires": "2026-09-09",
+      "expires": null,
+      "notes": null
+    },
+    {
+      "retailer": "walgreens",
+      "channel": "store",
+      "confidence": "pattern",
+      "what": "Select stores are still receiving Ascended Heroes 2-Pack Blisters, and Darkrai, Tyranitar and Slaking tins.",
+      "when": "No day given, store by store.",
+      "window": {
+        "from": "2026-09-14",
+        "to": "2026-09-20"
+      },
+      "expires": null,
+      "notes": [
+        "There are no purchase limits in store on these, so the trackers expect them to sell out fast."
+      ]
+    },
+    {
+      "retailer": "dollar-general",
+      "channel": "store",
+      "confidence": "pattern",
+      "what": "Select stores are still receiving Black Bolt and White Flare Unova Poster Collections, and select stores are expected to receive 30th Celebration Elite Trainer Boxes, Poster Collections and Tech Sticker Collections.",
+      "when": "No day given. The trackers say specifically NOT to expect every store to stock 30th Celebration product on the 16th.",
+      "window": {
+        "from": "2026-09-14",
+        "to": "2026-09-20"
+      },
+      "expires": null,
       "notes": null
     }
   ]
