@@ -1448,6 +1448,46 @@ if _cov:
              f"{_g:>6} figures on {_p} of {_n} pages")
 
 
+# AN INLINE <style> IN A BUILT PAGE CARRIES NO CSS COMMENTS, AND THAT IS HOW YOU
+# CATCH A TREE FINISHED BY THE WRONG COMMAND.
+#
+# stamp-assets.mjs strips every inline <style> block and it runs LAST in
+# build-all.mjs, so any page builder run ON ITS OWN after build-all leaves its
+# comments in and the committed tree stops matching a fresh build of the same
+# HEAD. That is not a style nit: on 14 September 2026 `node
+# scripts/build-proto.mjs`, run alone to read its report about which drops rows
+# it was leaving off the home band, shipped **13,020 bytes of CSS prose into
+# public/index.html** -- the render-blocking document on the site's front door,
+# the one page where those bytes cost most. CI's drift job caught it AFTER the
+# push and after the deploy had already served it.
+#
+# THE INVARIANT IS EXACT, WHICH IS WHY IT IS CHECKABLE RATHER THAN ADVISORY:
+# measured across the built tree on 14 September 2026, 1,511 pages carry an
+# inline <style> and ZERO of them carry a `/*`. So one comment means one page
+# was written by something other than a finished build-all, and this check is
+# instant where check-tree-drift.mjs rebuilds HEAD in a scratch copy and takes
+# minutes. Use that one to prove the whole tree; use this one to fail fast.
+#
+# IT DOES NOT REPLACE RUNNING build-all: it replaces FINDING OUT FROM CI.
+_dirty_css = []
+for _f in sorted(glob.glob("public/**/*.html", recursive=True)):
+    _s = _read_page(_f)
+    _n = sum(len(_re.findall(r"/\*", _b))
+             for _b in _re.findall(r"(?s)<style[^>]*>(.*?)</style>", _s))
+    if _n:
+        _dirty_css.append((_f, _n))
+if _dirty_css:
+    _worst = sorted(_dirty_css, key=lambda kv: -kv[1])[:4]
+    _shout(
+        f"{len(_dirty_css)} page(s) ship CSS comments inside an inline <style>, "
+        f"so this tree was not finished by build-all.mjs: "
+        + ", ".join(f"{_p} ({_c})" for _p, _c in _worst)
+        + (" and more" if len(_dirty_css) > 4 else "")
+        + ". stamp-assets.mjs strips these and runs last in build-all, so a page "
+          "builder run on its own puts them back. Re-run: node scripts/build-all.mjs"
+    )
+
+
 # A DATE THE SITE SAYS IT READ SOMETHING ON CANNOT BE IN THE FUTURE.
 #
 # Thirty-eight scripts computed "today" as `new Date().toISOString().slice(0,10)`,

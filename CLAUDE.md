@@ -229,6 +229,31 @@ shared/chrome.mjs hashes the built stylesheet at import time to make the
 if the two files have drifted apart, which is what catches an edit made to the
 generated copy by habit.
 
+**ALWAYS FINISH WITH build-all.mjs. ANY SINGLE BUILDER YOU RUN AFTERWARDS PUTS
+THE TREE BACK, INCLUDING ONE YOU RAN ONLY TO READ ITS OUTPUT.** That last clause
+is the one that actually bites and it is why this paragraph exists. `stamp-assets
+.mjs` strips every inline `<style>` and runs LAST, so a page builder run alone
+leaves its comments in and the committed tree stops matching a fresh build of
+the same HEAD.
+
+**IT COST 13,020 BYTES ON THE HOME PAGE ON 14 SEPTEMBER 2026.** `node
+scripts/build-proto.mjs` was run on its own, after a clean build-all, purely to
+read its report about which drops rows it was leaving off the band. Nothing was
+edited. index.html went 107,050 -> 120,070 bytes and shipped, so the site's
+render-blocking front door served 13KB of CSS prose until CI's drift job caught
+it AFTER the push and after the deploy. Debugging is not a read-only act: the
+builder rewrote the page as a side effect of being asked to talk.
+
+**THERE IS A CHECK FOR IT NOW, so this is no longer advice.** check-build.py
+fails the build when any inline `<style>` in `public/` contains a `/*`. The
+invariant is exact rather than approximate: 1,511 built pages carry an inline
+`<style>` and zero carry a comment, so one comment means one page was written by
+something other than a finished build-all. It is instant, where
+`check-tree-drift.mjs` rebuilds HEAD in a scratch copy and takes minutes -- use
+drift to prove the WHOLE tree before a commit that touches `public/`, and this
+to fail fast. It was verified by reproducing the fault: run build-proto.mjs
+alone and check-build.py exits 1 naming the page and the count.
+
 Do NOT delete rules because coverage says they are unused. Only 6-15% of the
 file is used on any one page, but coverage cannot see :hover, :focus, print,
 media query or JS-toggled-class rules, and deleting those is how this site
