@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 289769,
-    "subscribers": 372,
-    "videos": 342,
-    "readAt": "2026-09-13"
+    "views": 290896,
+    "subscribers": 374,
+    "videos": 343,
+    "readAt": "2026-09-14"
   },
-  "syncedAt": "2026-09-13",
+  "syncedAt": "2026-09-14",
   "videos": [
+    {
+      "id": "ppYiPob4uZk",
+      "title": "Journey Together Pack #2 🍄 | 2 for 2 on Hits! 🔥",
+      "path": "rip/journey-together-pack-2-2-for-2-on-hits-ppYiPob4uZk.html",
+      "published": "2026-09-14",
+      "publishedAt": "2026-09-14T10:08:34Z",
+      "duration": 25,
+      "views": 737,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "journey-together"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Journey Together Pack"
+    },
     {
       "id": "X7gs6hM1Oio",
       "title": "Destined Rivals Pack #14 🚀 | Team Rocket Takes Over! 💥",
@@ -15,7 +34,7 @@
       "published": "2026-09-13",
       "publishedAt": "2026-09-13T10:47:07Z",
       "duration": 23,
-      "views": 407,
+      "views": 1011,
       "vertical": true,
       "short": true,
       "sets": [
@@ -36,7 +55,7 @@
       "published": "2026-09-12",
       "publishedAt": "2026-09-12T10:37:02Z",
       "duration": 24,
-      "views": 992,
+      "views": 1007,
       "vertical": true,
       "short": true,
       "sets": [
@@ -57,7 +76,7 @@
       "published": "2026-09-11",
       "publishedAt": "2026-09-11T10:25:27Z",
       "duration": 20,
-      "views": 928,
+      "views": 934,
       "vertical": true,
       "short": true,
       "sets": [
@@ -79,7 +98,7 @@
       "published": "2026-09-10",
       "publishedAt": "2026-09-10T10:21:32Z",
       "duration": 23,
-      "views": 978,
+      "views": 998,
       "vertical": true,
       "short": true,
       "sets": [
@@ -166,7 +185,7 @@
       "published": "2026-09-06",
       "publishedAt": "2026-09-06T10:45:02Z",
       "duration": 25,
-      "views": 1134,
+      "views": 1135,
       "vertical": true,
       "short": true,
       "sets": [
@@ -478,7 +497,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1170,
+      "views": 1171,
       "vertical": true,
       "short": true,
       "sets": [
@@ -719,7 +738,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1049,
+      "views": 1051,
       "vertical": true,
       "short": true,
       "sets": [
@@ -824,7 +843,7 @@
       "published": "2026-08-16",
       "publishedAt": "2026-08-16T13:13:06Z",
       "duration": 21,
-      "views": 921,
+      "views": 922,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2076,7 +2095,7 @@
       "published": "2026-07-17",
       "publishedAt": "2026-07-17T23:45:08Z",
       "duration": 23,
-      "views": 638,
+      "views": 640,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2179,7 +2198,7 @@
       "published": "2026-07-15",
       "publishedAt": "2026-07-15T12:25:26Z",
       "duration": 22,
-      "views": 925,
+      "views": 926,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7884,7 +7903,7 @@
       "published": "2026-04-24",
       "publishedAt": "2026-04-24T10:47:00Z",
       "duration": 75,
-      "views": 965,
+      "views": 966,
       "vertical": true,
       "short": false,
       "sets": [
@@ -7963,7 +7982,7 @@
       "published": "2026-04-23",
       "publishedAt": "2026-04-23T10:43:00Z",
       "duration": 48,
-      "views": 990,
+      "views": 991,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9378,7 +9397,7 @@
       "published": "2026-04-04",
       "publishedAt": "2026-04-04T10:46:00Z",
       "duration": 45,
-      "views": 780,
+      "views": 782,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9450,7 +9469,7 @@
       "published": "2026-04-03",
       "publishedAt": "2026-04-03T00:22:01Z",
       "duration": 46,
-      "views": 308,
+      "views": 309,
       "vertical": true,
       "short": true,
       "sets": [
