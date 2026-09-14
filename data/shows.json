@@ -1618,7 +1618,13 @@
       "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
       "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
       "pkmn": "some",
-      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon."
+      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon.",
+      "vendors": [
+        {
+          "name": "RocPokéCon",
+          "confirmed": "They run it. The owner, 4 September 2026: \"Yes RocPokeCon are vendors at their own shows including the next one on Halloween\" -- a statement about their own shows in general, made before these dates were announced, and these are their own shows. IT IS NOT A PER-DATE CONFIRMATION and nothing about the RocPokéTour format is published yet, so if the monthly ones turn out to run differently from the conventions this is the row to correct."
+        }
+      ]
     },
     {
       "id": "ec3con-2026-11-29",
@@ -1868,7 +1874,13 @@
       "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
       "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
       "pkmn": "some",
-      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon."
+      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon.",
+      "vendors": [
+        {
+          "name": "RocPokéCon",
+          "confirmed": "They run it. The owner, 4 September 2026: \"Yes RocPokeCon are vendors at their own shows including the next one on Halloween\" -- a statement about their own shows in general, made before these dates were announced, and these are their own shows. IT IS NOT A PER-DATE CONFIRMATION and nothing about the RocPokéTour format is published yet, so if the monthly ones turn out to run differently from the conventions this is the row to correct."
+        }
+      ]
     },
     {
       "id": "pokekon-rochester-2027-01-09",
@@ -1943,7 +1955,13 @@
       "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
       "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
       "pkmn": "some",
-      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon."
+      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon.",
+      "vendors": [
+        {
+          "name": "RocPokéCon",
+          "confirmed": "They run it. The owner, 4 September 2026: \"Yes RocPokeCon are vendors at their own shows including the next one on Halloween\" -- a statement about their own shows in general, made before these dates were announced, and these are their own shows. IT IS NOT A PER-DATE CONFIRMATION and nothing about the RocPokéTour format is published yet, so if the monthly ones turn out to run differently from the conventions this is the row to correct."
+        }
+      ]
     },
     {
       "id": "collectorfest-jcc-2027-02-14",
@@ -1998,7 +2016,13 @@
       "url": "https://www.rocpokecon.com",
       "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
       "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
-      "pokemon": true
+      "pokemon": true,
+      "vendors": [
+        {
+          "name": "RocPokéCon",
+          "confirmed": "They run it. The owner, 4 September 2026: \"Yes RocPokeCon are vendors at their own shows including the next one on Halloween\" -- a statement about their own shows in general, made before these dates were announced, and these are their own shows. IT IS NOT A PER-DATE CONFIRMATION and nothing about the RocPokéTour format is published yet, so if the monthly ones turn out to run differently from the conventions this is the row to correct."
+        }
+      ]
     },
     {
       "id": "northtowns-pkmn-2027-03-14",
@@ -2049,7 +2073,13 @@
       "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
       "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
       "pkmn": "some",
-      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon."
+      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon.",
+      "vendors": [
+        {
+          "name": "RocPokéCon",
+          "confirmed": "They run it. The owner, 4 September 2026: \"Yes RocPokeCon are vendors at their own shows including the next one on Halloween\" -- a statement about their own shows in general, made before these dates were announced, and these are their own shows. IT IS NOT A PER-DATE CONFIRMATION and nothing about the RocPokéTour format is published yet, so if the monthly ones turn out to run differently from the conventions this is the row to correct."
+        }
+      ]
     },
     {
       "id": "northtowns-pkmn-2027-05-02",
@@ -2083,7 +2113,13 @@
       "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
       "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
       "pkmn": "some",
-      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon."
+      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon.",
+      "vendors": [
+        {
+          "name": "RocPokéCon",
+          "confirmed": "They run it. The owner, 4 September 2026: \"Yes RocPokeCon are vendors at their own shows including the next one on Halloween\" -- a statement about their own shows in general, made before these dates were announced, and these are their own shows. IT IS NOT A PER-DATE CONFIRMATION and nothing about the RocPokéTour format is published yet, so if the monthly ones turn out to run differently from the conventions this is the row to correct."
+        }
+      ]
     },
     {
       "id": "northtowns-pkmn-2027-06-06",
@@ -2116,7 +2152,13 @@
       "url": "https://www.rocpokecon.com",
       "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
       "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
-      "pokemon": true
+      "pokemon": true,
+      "vendors": [
+        {
+          "name": "RocPokéCon",
+          "confirmed": "They run it. The owner, 4 September 2026: \"Yes RocPokeCon are vendors at their own shows including the next one on Halloween\" -- a statement about their own shows in general, made before these dates were announced, and these are their own shows. IT IS NOT A PER-DATE CONFIRMATION and nothing about the RocPokéTour format is published yet, so if the monthly ones turn out to run differently from the conventions this is the row to correct."
+        }
+      ]
     },
     {
       "id": "rocpoketour-2027-07-17",
@@ -2133,7 +2175,13 @@
       "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
       "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
       "pkmn": "some",
-      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon."
+      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon.",
+      "vendors": [
+        {
+          "name": "RocPokéCon",
+          "confirmed": "They run it. The owner, 4 September 2026: \"Yes RocPokeCon are vendors at their own shows including the next one on Halloween\" -- a statement about their own shows in general, made before these dates were announced, and these are their own shows. IT IS NOT A PER-DATE CONFIRMATION and nothing about the RocPokéTour format is published yet, so if the monthly ones turn out to run differently from the conventions this is the row to correct."
+        }
+      ]
     },
     {
       "id": "northtowns-pkmn-2027-07-18",
@@ -2184,7 +2232,13 @@
       "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
       "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
       "pkmn": "some",
-      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon."
+      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon.",
+      "vendors": [
+        {
+          "name": "RocPokéCon",
+          "confirmed": "They run it. The owner, 4 September 2026: \"Yes RocPokeCon are vendors at their own shows including the next one on Halloween\" -- a statement about their own shows in general, made before these dates were announced, and these are their own shows. IT IS NOT A PER-DATE CONFIRMATION and nothing about the RocPokéTour format is published yet, so if the monthly ones turn out to run differently from the conventions this is the row to correct."
+        }
+      ]
     },
     {
       "id": "northtowns-pkmn-2027-09-12",
@@ -2218,7 +2272,13 @@
       "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
       "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
       "pkmn": "some",
-      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon."
+      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon.",
+      "vendors": [
+        {
+          "name": "RocPokéCon",
+          "confirmed": "They run it. The owner, 4 September 2026: \"Yes RocPokeCon are vendors at their own shows including the next one on Halloween\" -- a statement about their own shows in general, made before these dates were announced, and these are their own shows. IT IS NOT A PER-DATE CONFIRMATION and nothing about the RocPokéTour format is published yet, so if the monthly ones turn out to run differently from the conventions this is the row to correct."
+        }
+      ]
     },
     {
       "id": "northtowns-pkmn-2027-10-03",
@@ -2251,7 +2311,13 @@
       "url": "https://www.rocpokecon.com",
       "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
       "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
-      "pokemon": true
+      "pokemon": true,
+      "vendors": [
+        {
+          "name": "RocPokéCon",
+          "confirmed": "They run it. The owner, 4 September 2026: \"Yes RocPokeCon are vendors at their own shows including the next one on Halloween\" -- a statement about their own shows in general, made before these dates were announced, and these are their own shows. IT IS NOT A PER-DATE CONFIRMATION and nothing about the RocPokéTour format is published yet, so if the monthly ones turn out to run differently from the conventions this is the row to correct."
+        }
+      ]
     },
     {
       "id": "northtowns-pkmn-2027-11-14",
@@ -2285,7 +2351,13 @@
       "source": "the promoter's own RocPokéTour flyer, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026",
       "sourceNote": "DATE AND VENUE ONLY, WHICH IS EVERYTHING THE FLYER SAYS. It is headed \"SAVE THE DATES! 2026/2027\" and ends \"More information coming soon!\", so there are no times, no admission, no table count and no vendor list for any of these yet, and none is invented here. ROCPOKECON.COM DOES NOT CARRY THEM: checked 13 September 2026, its home page still advertises June 13th 2026, which has been and gone, and its tickets page holds the 31 October show and nothing else. So this flyer is the only source that exists for these dates and the site is not a second one. THE YEARS ARE READ OFF THE SEQUENCE rather than printed on the flyer: it runs October 31 through November 27 in month order under a \"2026/2027\" heading, so October and November are 2026 and January through November are 2027. December is deliberately absent -- the flyer prints \"HAPPY HOLIDAYS\" in that row instead of a venue, so there is no December show to look for.",
       "pkmn": "some",
-      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon."
+      "pkmnWhy": "RocPokéCon run it and the series is branded RocPokéTour over Pokemon artwork, which is a Pokemon promoter's own monthly series. But the flyer's own words for these dates are \"monthly card shows\", not an all-Pokemon billing, and nothing else has been announced, so this is the evidence mark and not the all-Pokemon one. It moves to pokemon:true the moment they bill one as all-Pokemon.",
+      "vendors": [
+        {
+          "name": "RocPokéCon",
+          "confirmed": "They run it. The owner, 4 September 2026: \"Yes RocPokeCon are vendors at their own shows including the next one on Halloween\" -- a statement about their own shows in general, made before these dates were announced, and these are their own shows. IT IS NOT A PER-DATE CONFIRMATION and nothing about the RocPokéTour format is published yet, so if the monthly ones turn out to run differently from the conventions this is the row to correct."
+        }
+      ]
     },
     {
       "id": "northtowns-pkmn-2027-12-12",

@@ -28,7 +28,7 @@
     "`name` IS A FOREIGN KEY. data/shows.json joins confirmed vendors to this file on name, so it must be unique here (the build throws on a duplicate) and renaming a vendor breaks every show that names them until those are updated. A `logo` requires `logoW`/`logoH` and its built renditions under public/assets/creators/, or the build fails: a logo goes up only where its owner sent it for this use, and the show card is a second use of that same permission.",
     "THE ARRAY ORDER IS THE PAGE ORDER. build-locals.mjs renders this list as it stands and sorts it by nothing, so appending a vendor puts them last and reordering here is how the page is reordered. The owner set this order on 3 September 2026: TOAK Pulls, Legends Card Shop, RocPokeCon. Pok.eJoe Trading Cards was appended on 4 September 2026 and Skull & Bones Collectibles on 8 September 2026, which is what appending is supposed to do. ON 8 SEPTEMBER 2026 HE MOVED RocPokeCon TO LAST -- \"make roc pokemon the last vendor on this page\" -- so the order is now TOAK Pulls, Legends Card Shop, Pok.eJoe, Skull & Bones, RocPokeCon. The rule is still that the order here IS the page, and that it is his to set: do not re-sort this list by name, by date added, or by how many shows a vendor is confirmed at."
   ],
-  "updated": "2026-09-08",
+  "updated": "2026-09-14",
   "vendors": [
     {
       "name": "TOAK Pulls",
@@ -118,9 +118,13 @@
       "name": "RocPokéCon",
       "area": "Rochester, NY",
       "sells": "Vendors at their own show and at other local ones",
-      "blurb": "They run the biggest Pokemon card show in Rochester, NY, and they vend at it and at other shows around the area.",
-      "shows": "RocPokéCon, plus other local shows",
-      "links": "https://linktr.ee/rocpokecon"
+      "blurb": "They run the biggest Pokemon card show in Rochester, NY, and they vend at it and at other shows around the area. From October 2026 they add a monthly one, the RocPokéTour: four big convention dates a year in an RIT arena with the rest at the RIT Inn, thirteen dates out to November 2027 and every one of them on the card shows page.",
+      "shows": "RocPokéCon and the monthly RocPokéTour shows, plus other local ones",
+      "links": "https://linktr.ee/rocpokecon",
+      "flyer": "rocpokecon-rocpoketour.jpg",
+      "flyerW": 440,
+      "flyerH": 550,
+      "flyerNote": "Their RocPokéTour save-the-dates, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026. THIS IS THE CLEAN COPY OF IT: the first one that arrived was a screenshot of the post with the platform's own like, comment and share controls burned over the artwork, and this one is the flyer itself, full bleed, with all fourteen rows legible. DATE AND VENUE ONLY IS ALL IT CARRIES -- it ends \"More information coming soon!\", so there are no times, no admission and no table counts on it, and none are published anywhere else either: rocpokecon.com was checked on 13 September and its home page still advertised June 13th 2026. December is not a missing row, it reads HAPPY HOLIDAYS instead of a venue."
     }
   ]
 }
