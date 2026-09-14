@@ -98,29 +98,17 @@
 -->
 <!-- HOMECSS:START -->
 <style>.hofx-art .play{opacity:.95}
-/* The heading is ui.css's own .brk, the same object "Latest rips" and "Card
-   Pokedex" use further down the page, so the band arrives in the page's own
-   grammar rather than inventing a fifth heading treatment above the fold. It
-   also costs nothing: heading, rule, link, right aligned, already written. The
-   week label went into the lede instead, which is where a reader looking for
-   "is this current" reads next anyway. */
 .wdrop{border-bottom:3px solid var(--keyline);background:var(--paper-2);padding:var(--s4) 0}
 .wdrop-d{margin:0}
 .wdrop-sum{min-height:56px;margin:0;cursor:pointer;list-style:none;-webkit-tap-highlight-color:transparent}
 .wdrop-sum::-webkit-details-marker{display:none}
 .wdrop-sum::marker{content:""}
 .wdrop-n{flex:none;font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);letter-spacing:.04em;text-transform:uppercase}
-/* --chev-bleed: see the note above homeCss. */
 .wdrop-chev{flex:none;width:11px;height:11px;--chev-bleed:calc((11px * 1.41421356 - 11px) / 2);
   margin:0 var(--chev-bleed) 5px 0;border-right:3px solid var(--ketchup-deep);border-bottom:3px solid var(--ketchup-deep);transform:rotate(45deg)}
 .wdrop-d[open] .wdrop-chev{margin:5px var(--chev-bleed) 0 0;transform:rotate(-135deg)}
 .wdrop-body{padding-top:var(--s4)}
 .wdrop-more{margin-top:var(--s4)}
-/* TEAL, BECAUSE IT GOES SOMEWHERE. Nine section links on this page carry a
-   right arrow and eight of them are the teal route colour; this one was pink
-   and underlined, which is the site's own accent rule inverted -- teal is how
-   you get around, pink is what the site is saying. It is a link to
-   /drops.html and it should look like the other eight. */
 .wdrop-more a{display:inline-flex;align-items:center;min-height:44px;font:700 var(--t-sm)/1 var(--body);color:var(--sky-deep)}
 .wdrop-more a:hover{text-decoration:underline}
 .wdrop-lede{font-size:var(--t-sm);line-height:1.4;color:var(--ink-2);max-width:52em;margin-bottom:var(--s4)}
@@ -129,212 +117,53 @@
 .wdr{border-left:3px solid var(--keyline);padding-left:var(--s3);min-width:0}
 .wdr-top{display:flex;align-items:center;flex-wrap:wrap;gap:var(--s2)}
 .wdr-top b{font:700 var(--t-label)/1.1 var(--body);letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
-/* THE RETAILER MARK. shared/brands.mjs's box, the same one /drops.html draws in
-   its retailer chip, so the band and the page it links to are visibly one
-   feature rather than two takes on the same list. */
-
 .bmk{flex:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;
   height:34px;min-width:56px;max-width:124px;padding:4px 9px;box-sizing:border-box;
-  /* THE PLATE STAYS LIGHT AND THAT IS THE WHOLE POINT OF IT.
-     The comment at the top of this file predicted this exact failure: these are
-     third-party marks drawn as dark ink on transparent, with no light variant
-     in the file, and it said "both pages are light, so this is fine today".
-     The 18 August 2026 repaint made every page dark, --paper-2 went from
-     #FFFFFF to #2F4F39, the token NAME did not change so nothing flagged it,
-     and 21 logos across 14 pages dropped to between 1.68:1 and 2.30:1 at their
-     STRONGEST pixel. The Pokemon Company's mark rendered near-black on green.
-     A brand mark is somebody else's artwork and we do not get to recolour it,
-     so the plate it sits on has to stay the colour it was drawn for. This is
-     now a literal rather than a token, because the whole bug was a token whose
-     value moved out from under content that could not move with it. */
   background:#FFFFFF;border:1px solid var(--hair);border-radius:var(--r-sm)}
-/* ONE MARK IS DRAWN THE OTHER WAY ROUND. target.svg fills with #FFF and nothing
-   else, so it is the single mark in the set that would vanish on the white
-   plate the other twenty need. Checked by reading every fill in every file
-   rather than by eye: tcgplayer is five saturated colours, costco is blue, red
-   and white, pokemon-center is #231916 with a white counter, and all three read
-   on white. Only target is white-on-transparent. Its plate stays dark, which is
-   also what Target's own brand guidance asks for. */
 .bmk-onDark{background:var(--chrome-bg)}
 .bmk img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
-/* THE SITE'S OWN NO-ART HATCH, the same 45 degree one .set-noart uses for a set
-   with no logo and .op-cn uses for a product with no publishable photograph.
-   Reusing it rather than inventing a treatment is the point: a reader who has
-   seen it on /sets/ already knows it means "there is no picture of this", so
-   eight name tiles read as a stated absence instead of as eight bugs. */
 .bmk-n{background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8px 16px)}
 .bmk-n b{font:700 var(--t-micro)/1.15 var(--mono);letter-spacing:.01em;color:var(--ink);
   text-align:center;overflow-wrap:anywhere;background:var(--paper-2);
   box-shadow:0 0 0 3px var(--paper-2);border-radius:2px}
-
-/* A SHORTER BOX THAN THE 34px ONE THE LONG PAGES USE, and it is the only thing
-   about the mark this band changes. A drops card on /drops.html is 3px of
-   keyline around 200px of prose and the chip is its heading; a band row here is
-   four lines of text against a hairline, at a third of the width on a desktop,
-   and 34px of logo is then the tallest thing in the row. 26px keeps the mark
-   the second thing the eye lands on rather than the first, which is the correct
-   order for a row that is somebody's guess about a shop.
-
-   THE WIDTH CAP IS WHAT KEEPS THE CONFIDENCE CHIP WHERE IT IS. At 390 the row
-   has 326px to spend. 96px of mark leaves the retailer name beside it and puts
-   the channel and the chip together on the second line, directly under the
-   logo, at the size they already were. A 124px cap pushes the name onto its own
-   line and strands the chip two lines below the mark it is hedging. */
 .wdr .bmk{height:26px;min-width:44px;max-width:96px;padding:3px 7px;gap:8px}
-/* THE NAME TILE IS THE ONE THING ALLOWED TO BE TALLER, because it holds words
-   rather than a drawing and 26px of fixed height clips the second line of one
-   silently. No retailer in data/drops.json needs it today, every one of the six
-   resolves to a mirrored mark; this is here so that adding a seventh that
-   Commons has nothing for costs the band a slightly uneven row instead of half
-   a word. Clipping is the failure mode that looks intentional. */
 .wdr .bmk-n{height:auto;min-height:26px}
-/* 700, NOT 400, AND IT IS WORTH 9.4KB ABOVE THE FOLD. Every other Space Mono on
-   this page is bold, so a single 400 declaration here fetched a second weight
-   file, space-mono-Xi4EwQ.woff2, that nothing else on the home page wanted:
-   9.4KB and one request, seven times the whole band's 1.3KB of markup. Caught
-   by diffing the request log against the same page with the band stripped out,
-   which is the only way it shows up: the markup, the CSS and the rendering all
-   look correct. The channel reads as secondary through colour instead, which
-   costs nothing. CHECK THE WEIGHT BEFORE ADDING A FONT DECLARATION HERE. */
 .wdr-ch{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
-/* The confidence rung, in the hatch /drops.html gives its weakest tier. Every
-   row that reaches this band is 'expected' or weaker, so one treatment is
-   honest here; the four-rung ladder stays on the page that explains it. */
 .wdr-cf{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink);
   padding:3px 7px;border-radius:5px;border:1.5px dashed var(--ink-2);
   background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
 .wdr-when{font:700 var(--t-sm)/1.3 var(--body);color:var(--ink);margin-top:2px}
-/* THE CHANNEL LINES INSIDE ONE RETAILER'S CARD.
-   Two at most, in-store then online, each carrying its own channel word, its
-   own confidence chip and its own when -- see the argument beside the line
-   this file for why the chip is per line and not per card. The rule between
-   them is a hairline rather than a gap, so a card still reads as one shop. */
 .wdr-ls{list-style:none;margin:var(--s2) 0 0;padding:0;display:grid;gap:var(--s2)}
 .wdr-l+.wdr-l{border-top:1px solid var(--keyline);padding-top:var(--s2)}
 .wdr-lt{display:flex;align-items:center;flex-wrap:wrap;gap:var(--s2) 8px}
-/* Online reads as the accent so the two channels separate at a glance, which
-   is the whole point of the regrouping: "a high level way to see what
-   retailers are expecting to drop that week". */
-/* --ketchup-deep, NOT --brand-accent, AND THIS WAS MY OWN BUG FROM THIS
-   MORNING. The channel word is 11px at weight 700, which is nowhere near
-   WCAG's 24px large-text line, so it takes the SMALL pink. #E87EA1 measures
-   3.45:1 on --paper-2 and #EEA0B9 measures 4.51:1. CLAUDE.md states this
-   rule in as many words and says five rules were already caught by it;
-   this was the sixth, added the same day the rule was re-read. */
 .wdr-ch-on{color:var(--ketchup-deep)}
 .wdr-lt .wdr-when{margin-top:0;font-size:var(--t-micro);color:var(--ink-2);flex-basis:100%}
 .wdr-what{font-size:var(--t-sm);line-height:1.35;color:var(--ink-2)}
 .wdr-exp{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2)}
 .wdrop-src{font-size:var(--t-micro);line-height:1.45;color:var(--ink-2);margin-top:var(--s3);max-width:52em}
-/* THE .wdr-ch TRAP ABOVE, FIRING AGAIN. ui.css's .price-note is Space Mono 400,
-   the one weight this page does not already load, so the two sourcing notes
-   fetched a second cut: +11,352 bytes and a request for 1.1KB of prose,
-   measured. Body font instead, which is what .wdrop-src right above uses for
-   the same job. The rest of the component is ui.css's and is untouched.
-   Scoped, because .price-note is not a home-page-only selector. */
 .mwband .price-note,.pokedex .price-note{font-family:var(--body)}
-/* ---------------------------------------------------------------- RIPSTATS.
-   The counters band between Latest rips and Most wanted. What every figure is
-   and where it comes from is argued above ripStatsHtml in build-proto.mjs.
-
-   THE TILE IS /luck.html'S OWN .luck-stat, DELIBERATELY AND ALMOST TO THE
-   DECLARATION: same --card ground, same --hair hairline, same --lift, a Titan
-   One number over a Space Mono label at --t-micro in --ink-2. This band is a
-   doorway to that page, and a doorway that looks like the room it opens onto is
-   one less thing for a reader to learn. It is also the safe colour choice: that
-   exact pairing is inside the 0-AA-failures sweep of 18 August 2026.
-
-   THE NUMBER IS --t-l WHERE .luck-stat b IS --t-xl, AND THAT IS ARITHMETIC
-   RATHER THAN TASTE. --t-xl tops out at 44px. Six tiles across a 1,452px wrap
-   is a 242px tile and a 183px content box after padding and borders, and
-   "265,348" is seven Titan One glyphs, about 26px each at 44px, so 182 against
-   183. One pixel of headroom is not headroom, and an over-wide number in a grid
-   item sets the track's min-content width and pushes the page sideways, which
-   is the /topps-card-values.html <code> bug in a different costume. --t-l tops
-   out at 32px and the same string measures about 133px.
-
-   THE SECTION HAS NO BACKGROUND OF ITS OWN. .mwband directly below it is a
-   full-width --card band and these tiles are --card, so painting this band
-   --card too would run the two together and six cards would read as one slab.
-   The page green between them is the separation, which is what the bottom
-   padding is buying.
-
-   2 / 3 / 6 COLUMNS, FIXED COUNTS RATHER THAN auto-fit, AND EVERY ONE OF THEM
-   DIVIDES SIX EXACTLY. auto-fit with a 150px floor gives four and five columns
-   through the middle of the range, and five into six strands one tile alone on
-   a row: the same orphan .luck-head has to fix by spanning its last child. Six
-   across wants about 170px of content per tile for the widest number, so the
-   last step waits until 1200 instead of 1000. */
 .rstats{padding:var(--s6) 0}
 .rstats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s3)}
 @media(min-width:600px){.rstats-grid{grid-template-columns:repeat(3,1fr)}}
 @media(min-width:1200px){.rstats-grid{grid-template-columns:repeat(6,1fr)}}
 .rstat{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s4);box-shadow:var(--lift);min-width:0}
-/* THE NARROWEST PHONE IS WHERE THIS RUNS OUT AND HERE IS THE ARITHMETIC, so
-   nobody has to rediscover it the day the channel passes a million views.
-   Titan One digits measure about 0.581 x the font size, and --t-l floors at
-   22.4px, so a digit is 13.01px. At 320 the tile is 132px and 16px of padding
-   either side leaves 100, against 91.09px for "265,348". That is 8.91px of
-   headroom and ONE more character does not fit. Side padding drops to --s3 at
-   360 and under, which buys 8px and takes it to 16.91. A SEVEN FIGURE VIEW
-   COUNT STILL WILL NOT FIT AT 320: nine glyphs is 117px against 108, so when
-   this channel gets there the number wants --t-m below 360, not another 4px of
-   padding. */
 @media(max-width:360px){.rstat{padding:var(--s4) var(--s3)}}
-/* overflow-wrap IS THE FLOOR UNDER THAT, and it is not decoration: a grid
-   item's default minimum is its MIN-CONTENT width, so an unbreakable number
-   one pixel too wide does not clip, it widens the track and then the document,
-   which is the /topps-card-values.html <code> bug exactly. A number broken
-   across two lines looks wrong and can be seen; a page 12px wider than the
-   phone does not look like anything. */
 .rstat b{display:block;font:400 var(--t-l)/1 var(--display);color:var(--ink);
   margin-bottom:6px;overflow-wrap:anywhere}
 .rstat span{display:block;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
   letter-spacing:.06em;text-transform:uppercase}
-/* Body face, not .price-note's Space Mono 400. This page loads Space Mono at
-   700 only, and a single 400 declaration on it fetches a second weight file:
-   see the .wdr-ch note above, where that cost 9.4KB above the fold. */
 .rstats-src{font-size:var(--t-micro);line-height:1.5;color:var(--ink-2);
   margin-top:var(--s4);max-width:60em}
-/* 5. WHAT THIS SITE IS, SAID ON THE FIRST SCREEN. Argued in full above
-   siteSay in build-proto.mjs, which is where the fold arithmetic and the
-   two-element reason are written; the two rules that matter are here. There
-   are 9.52 above the trophy at 375, so the phone copy lives in .hof-head's
-   existing 44px row instead of taking a row of its own. */
 .hsay{margin:0;font:700 var(--t-micro)/1.25 var(--body);color:var(--chrome-dim)}
-/* THE COLUMN IS display:contents ABOVE 544 SO THE DESKTOP ROW IS THE ONE IT
-   ALWAYS WAS. The wrapper exists only to stack the heading and the sentence on
-   a phone; letting it be a real box at every width would put the h2 and .sub2
-   into a column on a desktop and grow that row. contents makes its children the
-   flex items of .hof-head directly, which is exactly the markup that shipped
-   before this change. .hof-head itself is NOT touched, deliberately: it is on
-   /hall.html as well, and that page slices its <head> out of index.html and so
-   carries this block verbatim. .hof-ht and .hsay are new names and match
-   nothing there. */
 .hof-ht{display:contents}
 .hsay-in{display:none}
-/* --ink AND NOT --ink-2 ABOVE 544. This is the page saying what it is, in
-   first position, and a caption colour reads as a caption. It measured 8.12:1
-   at --ink-2 and 9.29 at --ink off rendered pixels, so this is a legibility
-   gain as well. It stays --chrome-dim on the phone, where the same sentence
-   sits on .hof's dark band under a heading rather than alone on the page. */
 .hsay-top .hsay{color:var(--ink);font-size:var(--t-sm)}
 .hsay-top{padding-bottom:var(--s3)}
-/* 6. ROCHESTER. Argued above rocHtml in build-proto.mjs. .brk, .hl and .wrap
-   are ui.css's own, so the band arrives in the page's grammar; the new rules
-   are the counts
-   row, and it is a ROW rather than a second .rstat card grid on purpose. The
-   counters band 800px above it is six of those cards, and three more of the
-   same object under a different heading is how a page grows two navigation
-   systems that look alike (which is the tools band's own diagnosis). */
 .roc{padding:var(--s6) 0}
 .roc-lede{font-size:var(--t-sm);line-height:1.45;color:var(--ink-2);max-width:46em;margin:0}
 .roc-counts{list-style:none;margin:var(--s4) 0 0;padding:0;
   display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3)}
-/* min-width:0 IS THE FLOOR UNDER THE TRACKS, same rule the .rstat note above
-   gives: a grid item's default minimum is its MIN-CONTENT width, so a long
-   label widens the track and then the document rather than wrapping. */
 .roc-counts li{min-width:0}
 .roc-counts a{display:block;border-left:3px solid var(--keyline);padding-left:var(--s3)}
 .roc-counts b{display:block;font:400 var(--t-l)/1 var(--display);color:var(--ketchup-deep);
@@ -361,25 +190,13 @@
 .hof .shelf{display:none}
 .vcar-slide:not(:first-child){display:none}
 .vcar-bar{display:none}
-/* 4. THE FOLD. Argued in full in note 4 below this template. */
 main{padding-top:0}
 .wdrop{padding:6px 0}
 .wdrop-sum{min-height:44px;row-gap:6px}
-/* 5, the phone half. The column stacks the sentence under "Greatest Hits"
-   inside the 44px row that link's tap target already holds open: 22.41 + 4 +
-   13.75 = 40.16, so the row does not grow and the trophy does not move. The
-   .sub2 beside it is already display:none here (ui.css, max-width:560), so
-   exactly one line ever occupies this slot. Full argument above siteSay. */
 .hof-ht{display:flex;flex-direction:column;gap:4px;min-width:0}
 .hsay-in{display:block}
 .hsay-top{display:none}
 }
-/* ONE COLUMN ONLY AT 359 AND UNDER, NOT AT 544 AND UNDER, AND THE NUMBER IS
-   MEASURED. Three tracks at 390 is 110px each and the longest label, PLACES
-   SERVE A PLATE, is 146px at 11px mono with .06em of tracking, so it takes two
-   lines and the row is 57px. Stacked, the same three are 160.1px. Below 360 the
-   track is 85px and the same label goes to three lines with the words broken
-   oddly, which is where a row stops being a row. */
 @media(max-width:359px){
 .roc-counts{grid-template-columns:1fr;gap:var(--s4)}
 }</style>
