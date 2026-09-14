@@ -25,7 +25,9 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Journey Together Pack"
+      "packNumber": 2,
+      "packs": 1,
+      "label": "Journey Together Pack - Pack 2"
     },
     {
       "id": "X7gs6hM1Oio",
@@ -34,7 +36,7 @@
       "published": "2026-09-13",
       "publishedAt": "2026-09-13T10:47:07Z",
       "duration": 23,
-      "views": 1011,
+      "views": 1018,
       "vertical": true,
       "short": true,
       "sets": [

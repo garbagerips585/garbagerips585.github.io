@@ -2754,5 +2754,9 @@
   "X7gs6hM1Oio": {
     "packNumber": 14,
     "packNumberWhy": "The owner, 13 September 2026: \"Single Booster Pack, Pack #14, Hit yes, Team Rocket's Nidoking ex - Double Black Star - Double Rare, Destined Rivals\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. This title does read \"Pack #14\", and that is still not a source -- it is the same string the regex was banned from trusting. His sheet has not caught up with this rip yet, so it lives here rather than in manual.json, which the next CSV import would rebuild without it. NO hasHit HERE ON PURPOSE: this rip HAS a hit and a hit is answered by its data/hits.json row, so writing hasHit as well would be two sources for one fact."
+  },
+  "ppYiPob4uZk": {
+    "packNumber": 2,
+    "packNumberWhy": "The owner, 14 September 2026: \"Single Booster Pack, Pack #2, hit yes, Amoonguss ex - Double Black Star - Double Rare, Journey Together\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. This title does read \"Pack #2\", and that is still not a source -- it is the same string the regex was banned from trusting. His sheet has not caught up with this rip yet, so it lives here rather than in manual.json, which the next CSV import would rebuild without it. NO hasHit HERE ON PURPOSE: this rip HAS a hit and a hit is answered by its data/hits.json row, so writing hasHit as well would be two sources for one fact."
   }
 }
