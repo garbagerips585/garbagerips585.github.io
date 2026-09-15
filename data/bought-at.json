@@ -36,5 +36,9 @@
   "38yPPGnA7Vk": {
     "seller": "lingstergames",
     "why": "The owner, 6 September 2026: \"Todays video is Chaos Rising, ETB #3, Pack #7, Hit yes - Xerneas - Single Gold Star - Illustration Rare\", and separately \"todays rip is a pack bought from LingSter Games\". LingSterGames is the YouTube handle on their /shops.html listing, which is the key sourceIndex() maps on. No show and no city: this was bought over a shop counter on West Ridge Road, not at a card show, and those two fields are the show gate rather than an address."
+  },
+  "9TCFBLckSRs": {
+    "seller": "lingstergames",
+    "why": "The owner, 15 September 2026: \"This is also a box bought at LingSter Games so we can tag them on the page for it\". The eighth pack of the same Chaos Rising ETB #3 he bought from them, whose seventh is the entry above. THE AUTOMATIC JOIN GENUINELY MISSES THIS ONE and was tested rather than assumed: the description reads \"an awesome box from our friends at @lingstergames\", and \"from our friends at @\" is none of shared/pack-source.mjs's phrases -- its pattern wants \"from @\" directly, so packSource() returns null on this text and returns the shop the moment this pin exists. Loosening the regex to \"at @\" was the alternative and is refused for the reason written in that file: \"go follow @X\" and a real credit are the same string to a handle search, and his own word is the better source. No show and no city: bought over the counter on West Ridge Road, not at a card show, and those two fields are the show gate rather than an address."
   }
 }

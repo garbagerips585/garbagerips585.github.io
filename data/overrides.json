@@ -2758,5 +2758,12 @@
   "ppYiPob4uZk": {
     "packNumber": 2,
     "packNumberWhy": "The owner, 14 September 2026: \"Single Booster Pack, Pack #2, hit yes, Amoonguss ex - Double Black Star - Double Rare, Journey Together\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. This title does read \"Pack #2\", and that is still not a source -- it is the same string the regex was banned from trusting. His sheet has not caught up with this rip yet, so it lives here rather than in manual.json, which the next CSV import would rebuild without it. NO hasHit HERE ON PURPOSE: this rip HAS a hit and a hit is answered by its data/hits.json row, so writing hasHit as well would be two sources for one fact."
+  },
+  "9TCFBLckSRs": {
+    "packNumber": 8,
+    "boxNumber": 3,
+    "hasHit": false,
+    "packNumberWhy": "The owner, 15 September 2026: \"ETB 3, Pack 8, Hit no - Chaos Rising\", and then \"As in this is our 3rd Chaos Rising ETB and its Pack 8 from that ETB\". Both numbers are typed by him, which is the only way either may be set: riplabel.mjs refuses to read a pack number out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. This title says \"Pack #8\" and asks \"Can This ETB Finish Strong?!\" without naming which ETB, so the box is the half a reader cannot recover from it -- the same gap Pack #7 of this box had on 6 September. It follows that pack in the same run, which is corroboration and not evidence. His sheet has not caught up with this rip yet, so it lives here rather than in manual.json, which the next CSV import would rebuild without it.",
+    "hasHitWhy": "A rip WITH a hit is answered by its data/hits.json row; a rip with none has nothing to imply one, so without this it counts as not yet judged rather than as judged and empty, and /luck.html carries it in the shortfall. \"Hit no\" is his own word for it and is the whole source. The description agrees -- \"we came up empty, a classic Garbage Rip\" -- but that is corroboration, not the source."
   }
 }
