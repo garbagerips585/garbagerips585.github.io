@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 290896,
-    "subscribers": 374,
-    "videos": 343,
-    "readAt": "2026-09-14"
+    "views": 291019,
+    "subscribers": 376,
+    "videos": 344,
+    "readAt": "2026-09-15"
   },
-  "syncedAt": "2026-09-14",
+  "syncedAt": "2026-09-15",
   "videos": [
+    {
+      "id": "9TCFBLckSRs",
+      "title": "Chaos Rising Pack #8 📉 | Can This ETB Finish Strong?! 💀",
+      "path": "rip/chaos-rising-pack-8-can-this-etb-finish-strong-9TCFBLckSRs.html",
+      "published": "2026-09-15",
+      "publishedAt": "2026-09-15T10:15:21Z",
+      "duration": 19,
+      "views": 396,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "chaos-rising"
+      ],
+      "products": [
+        "etb"
+      ],
+      "pulls": [],
+      "label": "Chaos Rising ETB"
+    },
     {
       "id": "ppYiPob4uZk",
       "title": "Journey Together Pack #2 🍄 | 2 for 2 on Hits! 🔥",
@@ -15,7 +34,7 @@
       "published": "2026-09-14",
       "publishedAt": "2026-09-14T10:08:34Z",
       "duration": 25,
-      "views": 737,
+      "views": 992,
       "vertical": true,
       "short": true,
       "sets": [
@@ -36,7 +55,7 @@
       "published": "2026-09-13",
       "publishedAt": "2026-09-13T10:47:07Z",
       "duration": 23,
-      "views": 1018,
+      "views": 1131,
       "vertical": true,
       "short": true,
       "sets": [
@@ -57,7 +76,7 @@
       "published": "2026-09-12",
       "publishedAt": "2026-09-12T10:37:02Z",
       "duration": 24,
-      "views": 1007,
+      "views": 1021,
       "vertical": true,
       "short": true,
       "sets": [
@@ -78,7 +97,7 @@
       "published": "2026-09-11",
       "publishedAt": "2026-09-11T10:25:27Z",
       "duration": 20,
-      "views": 934,
+      "views": 933,
       "vertical": true,
       "short": true,
       "sets": [
@@ -144,7 +163,7 @@
       "published": "2026-09-08",
       "publishedAt": "2026-09-08T10:10:05Z",
       "duration": 21,
-      "views": 1579,
+      "views": 1576,
       "vertical": true,
       "short": true,
       "sets": [
@@ -499,7 +518,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1171,
+      "views": 1174,
       "vertical": true,
       "short": true,
       "sets": [
@@ -569,7 +588,7 @@
       "published": "2026-08-24",
       "publishedAt": "2026-08-24T12:22:06Z",
       "duration": 18,
-      "views": 1014,
+      "views": 1015,
       "vertical": true,
       "short": true,
       "sets": [
@@ -845,7 +864,7 @@
       "published": "2026-08-16",
       "publishedAt": "2026-08-16T13:13:06Z",
       "duration": 21,
-      "views": 922,
+      "views": 921,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1362,7 +1381,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 937,
+      "views": 938,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2875,7 +2894,7 @@
       "published": "2026-07-06",
       "publishedAt": "2026-07-06T23:40:40Z",
       "duration": 20,
-      "views": 496,
+      "views": 498,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4676,7 +4695,7 @@
       "published": "2026-06-10",
       "publishedAt": "2026-06-10T10:21:11Z",
       "duration": 19,
-      "views": 960,
+      "views": 961,
       "vertical": true,
       "short": true,
       "sets": [
