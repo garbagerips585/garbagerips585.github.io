@@ -2593,6 +2593,8 @@
     ]
   },
   "yiYrp7bo3PM": {
+    "boxNumber": 3,
+    "boxNumberWhy": "The owner, 15 September 2026: \"yes those are also from ETB #3 that is correct\", answering directly whether Pack #4 and its neighbour belonged to the same box as Pack #8. The box is typed by him, which is the only way it may be set: this title names no ETB at all, and riplabel.mjs refuses to read a number out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. IT WAS ALREADY OBVIOUS AND THAT WAS STILL NOT ENOUGH: packs 1 through 8 of this box sit in one unbroken run of uploads from 10 August, and all eight credit LingSter Games, who sold him the box. That is corroboration, and it is exactly the kind of near-certainty the typed-only rule exists to refuse, so it was put to him as a question instead of written. Before this, /openings/etb.html showed the series as packs 1, 2, 3, 5, 7, 8, with the two gaps being the two titles that happened not to say the box. His sheet has not caught up with these rips, so it lives here rather than in manual.json, which the next CSV import would rebuild without it.",
     "sets": [
       "chaos-rising"
     ],
@@ -2657,6 +2659,8 @@
     ]
   },
   "0mtM71JvFkc": {
+    "boxNumber": 3,
+    "boxNumberWhy": "The owner, 15 September 2026: \"yes those are also from ETB #3 that is correct\", answering directly whether Pack #6 and its neighbour belonged to the same box as Pack #8. The box is typed by him, which is the only way it may be set: this title names no ETB at all, and riplabel.mjs refuses to read a number out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. IT WAS ALREADY OBVIOUS AND THAT WAS STILL NOT ENOUGH: packs 1 through 8 of this box sit in one unbroken run of uploads from 10 August, and all eight credit LingSter Games, who sold him the box. That is corroboration, and it is exactly the kind of near-certainty the typed-only rule exists to refuse, so it was put to him as a question instead of written. Before this, /openings/etb.html showed the series as packs 1, 2, 3, 5, 7, 8, with the two gaps being the two titles that happened not to say the box. His sheet has not caught up with these rips, so it lives here rather than in manual.json, which the next CSV import would rebuild without it.",
     "sets": [
       "chaos-rising"
     ],

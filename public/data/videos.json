@@ -15,7 +15,7 @@
       "published": "2026-09-15",
       "publishedAt": "2026-09-15T10:15:21Z",
       "duration": 19,
-      "views": 455,
+      "views": 465,
       "vertical": true,
       "short": true,
       "sets": [
@@ -38,7 +38,7 @@
       "published": "2026-09-14",
       "publishedAt": "2026-09-14T10:08:34Z",
       "duration": 25,
-      "views": 994,
+      "views": 992,
       "vertical": true,
       "short": true,
       "sets": [
@@ -59,7 +59,7 @@
       "published": "2026-09-13",
       "publishedAt": "2026-09-13T10:47:07Z",
       "duration": 23,
-      "views": 1136,
+      "views": 1131,
       "vertical": true,
       "short": true,
       "sets": [
@@ -441,10 +441,11 @@
           "typed": false
         }
       ],
+      "boxNumber": 3,
       "packNumber": 6,
       "openingType": "ETB",
       "packs": 1,
-      "label": "Chaos Rising ETB - Pack 6"
+      "label": "Chaos Rising ETB 3 - Pack 6"
     },
     {
       "id": "rPElm7KrH_E",
@@ -682,10 +683,11 @@
           "typed": false
         }
       ],
+      "boxNumber": 3,
       "packNumber": 4,
       "openingType": "ETB",
       "packs": 1,
-      "label": "Chaos Rising ETB - Pack 4"
+      "label": "Chaos Rising ETB 3 - Pack 4"
     },
     {
       "id": "lRT8jgjO2HM",
