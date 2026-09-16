@@ -70,6 +70,14 @@ try {
   shotDims = JSON.parse(await readFile(join(ROOT, "data/30th-card-dims.json"), "utf8"));
 } catch {}
 const owned = binder.owned || [];
+/* THE ENGLISH CHECKLIST, written by scripts/sync-30th-tcgplayer.mjs. Absent
+   before that has ever run, in which case the pockets draw as numbers exactly
+   as they did before it existed. See that script's header for why TCGplayer is
+   the source and why this retires itself once TCGdex holds the set. */
+let checklist = { cards: [] };
+try {
+  checklist = JSON.parse(await readFile(join(ROOT, "data/30th-checklist.json"), "utf8"));
+} catch {}
 
 // THE FIVE BINDER SECTIONS AND WHERE THE NUMBERS COME FROM. PokeBeach's English
 // breakdown is 128 main / 33 secret / 30 Classic / 8 Energy = 199, and the 30
@@ -114,7 +122,42 @@ const POCKETS = 9;
 // draws numbered placeholders. Fill in the two ids after release and every
 // pocket draws its card with no other edit.
 const TD = doc.tcgdex || {};
-const HAVE_SCANS = Boolean(TD.series && TD.set);
+/* TCGDEX IS STILL THE PREFERRED SOURCE AND STILL ANSWERS FIRST. Filling in the
+   two ids in data/30th.json moves every pocket onto it and the TCGplayer tier
+   below goes quiet without an edit. */
+const HAVE_DEX = Boolean(TD.series && TD.set);
+
+/* THE CHECKLIST, INDEXED THE WAY A POCKET ASKS FOR IT.
+ *
+ * THE KEY IS NOT THE SAME SHAPE IN EVERY SECTION AND THAT IS NOT TIDINESS.
+ * The numbered sections are unique on their numerator -- 099/128 is the only
+ * 99 there is -- and the owner types those as bare padded numbers ("099") in
+ * data/30th-binder.json, so they have to meet on the numerator or they never
+ * meet at all. The CLASSIC COLLECTION CANNOT DO THAT: its cards are reprints
+ * that KEEP THEIR ORIGINAL numbering, so it holds 11/101 AND 11/113, and
+ * 106/160, 106/106 AND 106/105. Counted out of the file, not guessed at: two
+ * cards collide on 11 and three on 106. Keying that section on the numerator
+ * would have put Metagross in Genesect's pocket and shown two of the three
+ * 106s as the same card, which looks right and is the worst kind of wrong. */
+const clKey = (section, n) =>
+  section === "classic"
+    ? `classic|${String(n)}`
+    : `${section}|${String(n).split("/")[0].replace(/^0+/, "") || "0"}`;
+const CHECKLIST = new Map();
+for (const c of checklist.cards || []) CHECKLIST.set(clKey(c.section, c.n), c);
+const HAVE_SCANS = HAVE_DEX || CHECKLIST.size > 0;
+
+/* HOW MANY POCKETS EACH SOURCE ACTUALLY DRAWS, for the note under the binder.
+   COMPUTED, AND THE FIRST VERSION OF THIS PRINTED THE WRONG NUMBER by using
+   CHECKLIST.size for the hotlinked count. Two of the checklist's cards are
+   cards the owner owns AND has photographed, so they render as his photograph
+   and not as a hotlink: the hotlinked figure is the checklist MINUS those, or
+   the note credits TCGplayer for pictures it did not supply. */
+const OWN_PICS = owned.filter((c) => c.shot).length;
+const REMOTE_PICS =
+  CHECKLIST.size -
+  owned.filter((c) => c.shot && CHECKLIST.has(clKey(c.section, c.n || ""))).length;
+const NO_PICS = TOTAL - REMOTE_PICS - OWN_PICS;
 // LOCALID IS ZERO PADDED AND THAT COST A TEST RUN. TCGdex's own checklist for
 // these sets gives "001", not "1", and api.tcgdex.net/v2/en/sets/me02.5 returns
 // its sample image url as .../me02.5/001. Passing a bare number builds a url
@@ -157,6 +200,33 @@ const shotImg = (stem, name) => {
   return avifPicture(img);
 };
 
+/* A CARD PICTURE FROM TCGPLAYER, for the whole window where TCGdex has no set.
+ *
+ * TWO RUNGS, 200w AND 400w, AND THE LADDER WAS MEASURED RATHER THAN CHOSEN.
+ * tcgplayer-cdn serves _200w at 13.9KB and _400w at 43.5KB; _300w, _500w and
+ * _1000w all answer 403, so there is nothing between them and nothing above.
+ * A pocket is about 104px at 375 and 163px at the grid's 520px cap, so 200w
+ * covers DPR 1 and 400w covers DPR 2 and DPR 3 on a phone (312 needed at
+ * worst). A DPR 3 DESKTOP wants 489 and gets 400, which is the one soft case
+ * and the rare one -- the same trade the TCGdex ladder makes in the other
+ * direction. _in_1000x1000 exists at 100.5KB and is deliberately NOT offered:
+ * a browser at DPR 2 would pick it for all 188 pockets, which is 19MB of
+ * binder against 8.2MB for 400w.
+ *
+ * NO WIDTH OR HEIGHT, AND FOR ONCE THAT COSTS NOTHING. .t30-card is
+ * `position:absolute;inset:0;width:100%;height:100%;object-fit:cover`, so the
+ * pocket defines the box and the image cannot shift it. The renditions are
+ * card shaped anyway and not padded, which was worth checking because
+ * data/card-shots.json's note about this host padding to a fixed canvas is
+ * about its _in_ renditions: every _200w sampled across all four sections is
+ * exactly 200x279, a ratio of 0.717 against a real card's 0.714. */
+const tcgpBase = (pid) => `https://tcgplayer-cdn.tcgplayer.com/product/${pid}`;
+const tcgpImg = (pid, name) =>
+  `<img class="t30-card" src="${tcgpBase(pid)}_200w.jpg" ` +
+  `srcset="${tcgpBase(pid)}_200w.jpg 200w, ${tcgpBase(pid)}_400w.jpg 400w" ` +
+  `sizes="(max-width:544px) 30vw, 163px" ` +
+  `alt="${esc(name)}" loading="lazy" decoding="async">`;
+
 const cardImg = (localId, name) => {
   const url = `${scanBase(localId)}/low.webp`;
   const d = imgDims(url);
@@ -168,23 +238,40 @@ const cardImg = (localId, name) => {
   return avifPicture(img);
 };
 
+/* THE ONE PLACE THAT DECIDES WHICH PICTURE A POCKET GETS, so the owned and the
+   needed pocket can never disagree about it. Precedence is the owner's own
+   photograph, then TCGdex, then TCGplayer, then nothing -- his photo of the
+   copy in his hand is the better picture on a page about HIS binder, and
+   TCGdex is the canonical source the rest of the site's 59,758 card images
+   come from. `row` is the checklist row when there is one. */
+const pictureFor = (name, { shot, n, row }) => {
+  if (shot) return shotImg(shot, name);
+  if (HAVE_DEX && n) return cardImg(n, name);
+  if (row && row.pid) return avifPicture(tcgpImg(row.pid, name));
+  return "";
+};
+
 // A pocket is one of three states and they are visibly different from each
 // other, never by colour alone: owned draws the card in full colour with a
 // solid border, needed draws the same card desaturated and dimmed behind a
 // dashed border, and unknown draws a number because there is no picture to show.
 const pocket = (c, i, slot) => {
   if (c) {
+    const row = CHECKLIST.get(clKey(c.section, c.n || ""));
     return `<li class="t30-pk has" title="${esc(c.name)}">
-        ${c.shot ? shotImg(c.shot, c.name) : HAVE_SCANS && c.n ? cardImg(c.n, c.name) : ""}
+        ${pictureFor(c.name, { shot: c.shot, n: c.n, row })}
         <span class="t30-pn">${esc(c.n ? "#" + c.n : "")}${c.setCode ? " " + esc(c.setCode) : ""}</span>
         ${c.shot ? "" : `<span class="t30-nm">${esc(c.name)}</span>`}
         ${c.got ? `<span class="t30-got">${esc(longDate(c.got))}</span>` : ""}
       </li>`;
   }
   if (HAVE_SCANS && slot) {
-    return `<li class="t30-pk need"><span class="t30-sr">Not collected yet</span>
-        ${cardImg(slot.n, slot.name)}
-        <span class="t30-pn">${esc("#" + slot.n)}</span>
+    const pic = pictureFor(slot.name, { n: slot.n, row: slot });
+    return `<li class="t30-pk need" title="${esc(slot.name)}">
+        <span class="t30-sr">Not collected yet</span>
+        ${pic}
+        <span class="t30-pn">${esc("#" + String(slot.n).split("/")[0])}</span>
+        ${pic ? "" : `<span class="t30-nm">${esc(slot.name)}</span>`}
       </li>`;
   }
   return `<li class="t30-pk" aria-hidden="true"><span class="t30-pn">${i + 1}</span></li>`;
@@ -197,7 +284,7 @@ const pocket = (c, i, slot) => {
 // (128 English main set cards to Japan's 103), so borrowing them would put the
 // wrong picture in the wrong pocket, which looks right and is the worst kind of
 // wrong. Empty until there is an English checklist to read.
-const slotsFor = () => [];
+const slotsFor = (key) => (checklist.cards || []).filter((c) => c.section === key);
 
 const binderSection = ([key, label, total, note]) => {
   const have = ownedIn(key);
@@ -205,10 +292,40 @@ const binderSection = ([key, label, total, note]) => {
   // the feature: the owner asked to see which ones are still missing. Without
   // pictures a full grid is 199 identical empty squares saying one sentence, so
   // it stays capped at one page past the last card owned.
-  const shown = HAVE_SCANS ? total : Math.min(total, (Math.floor(have.length / POCKETS) + 1) * POCKETS);
+  /* EVERY POCKET IS A PARTICULAR CARD NOW, WHICH IT WAS NOT BEFORE.
+   *
+   * This loop used to be `pocket(have[i], i, slots[i])`: the owned cards filled
+   * the FIRST pockets of the section and the rest drew as placeholders. That was
+   * right while there was no checklist -- a pocket meant nothing but "a card
+   * belongs here" -- and it is wrong the moment each pocket is a named card,
+   * because it would have drawn Hydreigon 099 in the first pocket of the main
+   * set, on top of Chansey 001, and left 099's own pocket showing Hydreigon
+   * greyed out as though he did not own it. So a slot is matched to an owned
+   * card BY NUMBER through clKey, and the positional version survives only for
+   * a section the checklist cannot answer.
+   *
+   * AND AN OWNED CARD THE CHECKLIST DOES NOT HOLD STILL GETS A POCKET, appended
+   * after the slots. That is not hypothetical: the eight foil Energy are
+   * numbered in a different set entirely and TCGplayer lists none of them, and
+   * the owner already owns one of them -- Basic Metal Energy, MEE 016. Rendering
+   * only the checklist would have deleted a card he owns from his own binder. */
   const slots = HAVE_SCANS ? slotsFor(key) : [];
   const cells = [];
-  for (let i = 0; i < shown; i++) cells.push(pocket(have[i], i, slots[i]));
+  let shown;
+  if (slots.length) {
+    const byKey = new Map(have.map((c) => [clKey(c.section, c.n || ""), c]));
+    for (let i = 0; i < slots.length; i++) {
+      const mine = byKey.get(clKey(slots[i].section, slots[i].n));
+      if (mine) byKey.delete(clKey(slots[i].section, slots[i].n));
+      cells.push(pocket(mine, i, slots[i]));
+    }
+    // Whatever he owns that no slot claimed, in the order he recorded it.
+    for (const c of have) if (byKey.has(clKey(c.section, c.n || ""))) cells.push(pocket(c, cells.length, null));
+    shown = cells.length;
+  } else {
+    shown = Math.min(total, (Math.floor(have.length / POCKETS) + 1) * POCKETS);
+    for (let i = 0; i < shown; i++) cells.push(pocket(have[i], i, undefined));
+  }
   const done = have.length >= total;
   return `      <section class="t30-bs">
         <h3>${esc(label)} <span class="t30-cnt${done ? " done" : ""}">${have.length} of ${total}</span></h3>
@@ -219,9 +336,17 @@ const binderSection = ([key, label, total, note]) => {
 ${cells.join("\n")}
           </ol>
           <figcaption>${esc(label)}, ${have.length} of ${total} in the binder.${
-            shown < total
-              ? ` ${total - shown} further pocket${total - shown === 1 ? "" : "s"} in this section are not drawn until they are closer to being filled.`
-              : ""
+            shown >= total
+              ? ""
+              : slots.length
+                /* THE TWO REASONS A POCKET CAN BE MISSING ARE DIFFERENT AND THIS
+                   USED TO GIVE THE CAP'S REASON FOR BOTH. With a checklist, a
+                   short section means the CARD HAS NOT BEEN REVEALED: three
+                   secret rares were still blank on release day and PokeBeach's
+                   own guide says so. "Not drawn until they are closer to being
+                   filled" is the cap's reason and was simply untrue of those. */
+                ? ` ${total - shown} more ${total - shown === 1 ? "card" : "cards"} in this section ${total - shown === 1 ? "has" : "have"} not been revealed yet, so ${total - shown === 1 ? "it has" : "they have"} no pocket to show.`
+                : ` ${total - shown} further pocket${total - shown === 1 ? "" : "s"} in this section are not drawn until they are closer to being filled.`
           }</figcaption>
         </figure>
       </section>`;
@@ -373,7 +498,11 @@ const body = `<main id="main">
   <div class="wrap">
     <h2>The master set, pocket by pocket</h2>
     <p style="max-width:42em">Nine pockets to a page, the same as the set's own Binder Collection. A filled pocket
-      is a card actually in the binder. The empty ones are the job.</p>
+      is a card actually in the binder. The empty ones are the job.${
+        CHECKLIST.size
+          ? ` Every card is shown: the ones still to find are the grey ones.`
+          : ""
+      }</p>
     <div class="t30-hero">
       <h3 style="margin:0">${haveTotal} of ${TOTAL} cards <span class="t30-cnt">${pct}%</span></h3>
       <div class="t30-bar" style="margin-top:var(--s3)" role="img" aria-label="${haveTotal} of ${TOTAL} collected"><span style="width:${pct}%"></span></div>
@@ -389,6 +518,26 @@ ${SECTIONS.map(binderSection).join("\n")}
     <p class="price-note" style="margin-top:var(--s5)"><strong>199 is not an official number.</strong>
       ${esc(E.note)} The Pokemon Company has never published a card count for this set, so these bars run
       against PokeBeach's count and may move when the last secret rares are shown.</p>
+${
+  /* WHERE THE PICTURES CAME FROM, SAID ON THE PAGE. This site names the source
+     of every figure it prints and a card scan is no different -- and here it is
+     doubly worth saying, because these are NOT the source the other 59,758 card
+     images on this site come from. The count is computed, never typed, so it
+     cannot drift from the binder above it. */
+  CHECKLIST.size
+    ? `    <p class="price-note"><strong>Where the card pictures come from.</strong>
+      ${REMOTE_PICS} of the ${TOTAL} are hotlinked from TCGplayer, who listed this set before
+      TCGdex did &mdash; TCGdex is where the rest of this site's card scans come from, and on release
+      day it still held no 2026 anniversary set. ${OWN_PICS} are the owner's own photographs of the
+      copies in his hands, which is why they look different from the rest. Nothing here is rehosted
+      or resized.${
+        NO_PICS > 0
+          ? ` The remaining ${NO_PICS} have no picture yet: the eight foil Energy are numbered in a
+      different set and are not listed, and a few secret rares are still unrevealed.`
+          : ""
+      }</p>`
+    : ""
+}
   </div>
 </section>
 

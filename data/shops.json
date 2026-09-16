@@ -115,6 +115,8 @@
     "New releases"
    ],
    "visited": false,
+   "vouched": true,
+   "vouchedNote": "The owner, 6 September 2026: \"todays rip is a pack bought from LingSter Games\", and again on 15 September 2026: \"This is also a box bought at LingSter Games so we can tag them on the page for it\", reconfirmed on the 16th. Two purchases he reported himself, a single pack and a sealed Chaos Rising Elite Trainer Box, which is what this flag means and the only thing it means: he actually bought from them. Eight rips on this site open packs credited to them, packs 1 through 8 of that one ETB. NOT ADDED FROM THOSE CREDITS, which is the distinction worth keeping: a pack credit can come from a thank-you in a description, which is exactly why shared/pack-source.mjs prints \"Packs from\" and not \"Bought from\". This chip is the stronger claim and needed him to say the stronger thing, which he did, twice.",
    "at": [
     43.20621,
     -77.66565

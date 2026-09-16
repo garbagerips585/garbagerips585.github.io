@@ -272,6 +272,17 @@ const cards = shops
           </picture>${existsSync(join(ROOT, "public", `assets/shops/${s.logo}-lg.webp`)) ? "</button>" : "</span>"}` : ""}
           <h2>${esc(s.name)}</h2>
           ${s.visited ? `<span class="shop-flag">Filmed here</span>` : ""}
+          ${/* THE SAME CHIP /vendors.html HAS, AND THIS PAGE WAS THE ONE PLACE IT COULD NOT
+                APPEAR. `vouched` means the owner has actually bought from them -- not a rating,
+                and there is no scale -- and it already rendered in two places: on a vendor's
+                listing via build-locals.mjs, and on a rip page's credit block via
+                shared/pack-source.mjs. This builder had simply never heard of the field, so
+                marking LingSter Games vouched on 16 September 2026 put the chip on eight rip
+                pages and left it off the shop's OWN listing, which is the first place a reader
+                would look for it. `.loc-vouch` is reused deliberately and is not scoped to .loc
+                in ui.css, so the mark reads identically on both pages rather than becoming a
+                second style meaning the same thing. */ ""}${
+            s.vouched ? `<span class="loc-vouch">Bought from them</span>` : ""}
         </div>
         ${s.area ? `<p class="shop-area">${esc(s.area)}</p>` : ""}
         ${s.blurb ? `<p class="shop-blurb">${esc(s.blurb)}</p>` : ""}

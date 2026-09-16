@@ -1,0 +1,1366 @@
+{
+  "_readme": [
+    "THE ENGLISH 30th Celebration CHECKLIST, and the product ids its card",
+    "pictures are hotlinked from. Written by scripts/sync-30th-tcgplayer.mjs;",
+    "do not edit by hand, re-run that instead. It is NOT in build-all.mjs,",
+    "because that list only builds and pulls no fresh data.",
+    "",
+    "WHY TCGPLAYER AND NOT TCGDEX. On 16 September 2026, the set's release day,",
+    "TCGdex still held no 2026 anniversary set and pokemontcg.io's only",
+    "Celebrations is the 2021 one; both were checked that morning. TCGplayer had",
+    "the set. It is also the same host data/card-shots.json already hotlinks for",
+    "cards TCGdex has no scan for, so this is that arrangement for a whole set.",
+    "Nothing is resized or rehosted, so no derivative of anyone's artwork is",
+    "made, which is the license clause that stops this site hosting official",
+    "card images at all.",
+    "",
+    "THIS FILE RETIRES ITSELF. build-30th.mjs prefers the owner's own photograph",
+    "first, then TCGdex once data/30th.json's `tcgdex.series` and `tcgdex.set`",
+    "are filled in, then this. Filling those two ids moves all 199 pockets onto",
+    "the canonical source with no edit here.",
+    "",
+    "SECTIONS match the binder's five. `pikachu` is found by TCGplayer's own",
+    "\"Pikachu Rare\" rarity rather than by a number range, because the 30",
+    "Pikachu are inside the 128 and are not contiguous; `secret` is anything",
+    "numbered above 128, the set's own printed denominator; `classic` is a",
+    "separate TCGplayer set whose cards keep their ORIGINAL numbering, which is",
+    "why `n` is stored verbatim and never parsed.",
+    "",
+    "WHAT IS MISSING IS MISSING AT THE SOURCE, not dropped here. The eight foil",
+    "basic Energy are numbered in a different set entirely -- the owner's own",
+    "card reads MEE 016, not a 30C number -- and TCGplayer lists none of them",
+    "under either set name above. Some secret rares were still unrevealed on",
+    "release day, which PokeBeach's own guide says outright. Re-run this as they",
+    "appear; the script refuses to write a smaller file than the committed one."
+  ],
+  "source": "tcgplayer.com marketplace search, product ids for tcgplayer-cdn",
+  "sets": {
+    "main": "ME: 30th Celebration",
+    "classic": "ME: 30th Celebration Classic Collection"
+  },
+  "checked": "2026-09-16",
+  "counts": {
+    "pikachu": 30,
+    "main": 98,
+    "secret": 30,
+    "classic": 30
+  },
+  "cards": [
+    {
+      "section": "pikachu",
+      "n": "023/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 712934
+    },
+    {
+      "section": "pikachu",
+      "n": "024/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 716309
+    },
+    {
+      "section": "pikachu",
+      "n": "025/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 712935
+    },
+    {
+      "section": "pikachu",
+      "n": "026/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 712936
+    },
+    {
+      "section": "pikachu",
+      "n": "027/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 716310
+    },
+    {
+      "section": "pikachu",
+      "n": "028/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 712937
+    },
+    {
+      "section": "pikachu",
+      "n": "029/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 716311
+    },
+    {
+      "section": "pikachu",
+      "n": "030/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 712938
+    },
+    {
+      "section": "pikachu",
+      "n": "031/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 716312
+    },
+    {
+      "section": "pikachu",
+      "n": "032/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 712939
+    },
+    {
+      "section": "pikachu",
+      "n": "033/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 712940
+    },
+    {
+      "section": "pikachu",
+      "n": "034/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 712941
+    },
+    {
+      "section": "pikachu",
+      "n": "035/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 716313
+    },
+    {
+      "section": "pikachu",
+      "n": "036/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 696680
+    },
+    {
+      "section": "pikachu",
+      "n": "037/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 696681
+    },
+    {
+      "section": "pikachu",
+      "n": "038/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 712942
+    },
+    {
+      "section": "pikachu",
+      "n": "039/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 712943
+    },
+    {
+      "section": "pikachu",
+      "n": "040/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 712944
+    },
+    {
+      "section": "pikachu",
+      "n": "041/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 712945
+    },
+    {
+      "section": "pikachu",
+      "n": "042/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 712946
+    },
+    {
+      "section": "pikachu",
+      "n": "043/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 712947
+    },
+    {
+      "section": "pikachu",
+      "n": "044/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 712948
+    },
+    {
+      "section": "pikachu",
+      "n": "045/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 716314
+    },
+    {
+      "section": "pikachu",
+      "n": "046/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 716315
+    },
+    {
+      "section": "pikachu",
+      "n": "047/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 696682
+    },
+    {
+      "section": "pikachu",
+      "n": "048/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 716316
+    },
+    {
+      "section": "pikachu",
+      "n": "049/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 712949
+    },
+    {
+      "section": "pikachu",
+      "n": "050/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 712950
+    },
+    {
+      "section": "pikachu",
+      "n": "051/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 716317
+    },
+    {
+      "section": "pikachu",
+      "n": "052/128",
+      "name": "Pikachu",
+      "rarity": "Pikachu Rare",
+      "pid": 716318
+    },
+    {
+      "section": "main",
+      "n": "001/128",
+      "name": "Exeggcute",
+      "rarity": "Common",
+      "pid": 716435
+    },
+    {
+      "section": "main",
+      "n": "002/128",
+      "name": "Alolan Exeggutor",
+      "rarity": "Common",
+      "pid": 716436
+    },
+    {
+      "section": "main",
+      "n": "003/128",
+      "name": "Volbeat",
+      "rarity": "Common",
+      "pid": 716437
+    },
+    {
+      "section": "main",
+      "n": "004/128",
+      "name": "Illumise",
+      "rarity": "Common",
+      "pid": 716438
+    },
+    {
+      "section": "main",
+      "n": "005/128",
+      "name": "Tropius",
+      "rarity": "Common",
+      "pid": 716439
+    },
+    {
+      "section": "main",
+      "n": "006/128",
+      "name": "Cherubi",
+      "rarity": "Common",
+      "pid": 716440
+    },
+    {
+      "section": "main",
+      "n": "007/128",
+      "name": "Cherrim",
+      "rarity": "Common",
+      "pid": 716441
+    },
+    {
+      "section": "main",
+      "n": "008/128",
+      "name": "Vivillon",
+      "rarity": "Common",
+      "pid": 716442
+    },
+    {
+      "section": "main",
+      "n": "009/128",
+      "name": "Vulpix",
+      "rarity": "Common",
+      "pid": 716443
+    },
+    {
+      "section": "main",
+      "n": "010/128",
+      "name": "Ninetales",
+      "rarity": "Common",
+      "pid": 716444
+    },
+    {
+      "section": "main",
+      "n": "011/128",
+      "name": "Moltres",
+      "rarity": "Common",
+      "pid": 716445
+    },
+    {
+      "section": "main",
+      "n": "012/128",
+      "name": "Ho-Oh",
+      "rarity": "Rare",
+      "pid": 716446
+    },
+    {
+      "section": "main",
+      "n": "013/128",
+      "name": "Victini",
+      "rarity": "Common",
+      "pid": 696830
+    },
+    {
+      "section": "main",
+      "n": "014/128",
+      "name": "Reshiram",
+      "rarity": "Rare",
+      "pid": 716447
+    },
+    {
+      "section": "main",
+      "n": "015/128",
+      "name": "Fuecoco ex",
+      "rarity": "Double Rare",
+      "pid": 716448
+    },
+    {
+      "section": "main",
+      "n": "016/128",
+      "name": "Slowpoke",
+      "rarity": "Common",
+      "pid": 716449
+    },
+    {
+      "section": "main",
+      "n": "017/128",
+      "name": "Lapras",
+      "rarity": "Common",
+      "pid": 716450
+    },
+    {
+      "section": "main",
+      "n": "018/128",
+      "name": "Articuno",
+      "rarity": "Common",
+      "pid": 716451
+    },
+    {
+      "section": "main",
+      "n": "019/128",
+      "name": "Kyogre",
+      "rarity": "Rare",
+      "pid": 716452
+    },
+    {
+      "section": "main",
+      "n": "020/128",
+      "name": "Palkia",
+      "rarity": "Rare",
+      "pid": 716453
+    },
+    {
+      "section": "main",
+      "n": "021/128",
+      "name": "Greninja ex",
+      "rarity": "Double Rare",
+      "pid": 696676
+    },
+    {
+      "section": "main",
+      "n": "022/128",
+      "name": "Wishiwashi",
+      "rarity": "Common",
+      "pid": 716454
+    },
+    {
+      "section": "main",
+      "n": "053/128",
+      "name": "Pikachu ex",
+      "rarity": "Double Rare",
+      "pid": 712951
+    },
+    {
+      "section": "main",
+      "n": "054/128",
+      "name": "Pikachu ex",
+      "rarity": "Double Rare",
+      "pid": 712952
+    },
+    {
+      "section": "main",
+      "n": "055/128",
+      "name": "Zapdos",
+      "rarity": "Common",
+      "pid": 716455
+    },
+    {
+      "section": "main",
+      "n": "056/128",
+      "name": "Zekrom",
+      "rarity": "Rare",
+      "pid": 716456
+    },
+    {
+      "section": "main",
+      "n": "057/128",
+      "name": "Zeraora",
+      "rarity": "Common",
+      "pid": 696831
+    },
+    {
+      "section": "main",
+      "n": "058/128",
+      "name": "Toxel",
+      "rarity": "Common",
+      "pid": 716457
+    },
+    {
+      "section": "main",
+      "n": "059/128",
+      "name": "Toxtricity",
+      "rarity": "Common",
+      "pid": 716458
+    },
+    {
+      "section": "main",
+      "n": "060/128",
+      "name": "Toxtricity",
+      "rarity": "Common",
+      "pid": 716459
+    },
+    {
+      "section": "main",
+      "n": "061/128",
+      "name": "Morpeko",
+      "rarity": "Common",
+      "pid": 716460
+    },
+    {
+      "section": "main",
+      "n": "062/128",
+      "name": "Miraidon",
+      "rarity": "Rare",
+      "pid": 716461
+    },
+    {
+      "section": "main",
+      "n": "063/128",
+      "name": "Mewtwo",
+      "rarity": "Rare",
+      "pid": 716462
+    },
+    {
+      "section": "main",
+      "n": "064/128",
+      "name": "Mewtwo ex",
+      "rarity": "Double Rare",
+      "pid": 716463
+    },
+    {
+      "section": "main",
+      "n": "065/128",
+      "name": "Mew",
+      "rarity": "Rare",
+      "pid": 716464
+    },
+    {
+      "section": "main",
+      "n": "066/128",
+      "name": "Mew ex",
+      "rarity": "Double Rare",
+      "pid": 716465
+    },
+    {
+      "section": "main",
+      "n": "067/128",
+      "name": "Marill",
+      "rarity": "Common",
+      "pid": 716466
+    },
+    {
+      "section": "main",
+      "n": "068/128",
+      "name": "Azumarill",
+      "rarity": "Common",
+      "pid": 716467
+    },
+    {
+      "section": "main",
+      "n": "069/128",
+      "name": "Espeon",
+      "rarity": "Common",
+      "pid": 696678
+    },
+    {
+      "section": "main",
+      "n": "070/128",
+      "name": "Espeon ex",
+      "rarity": "Double Rare",
+      "pid": 696834
+    },
+    {
+      "section": "main",
+      "n": "071/128",
+      "name": "Sylveon ex",
+      "rarity": "Double Rare",
+      "pid": 696677
+    },
+    {
+      "section": "main",
+      "n": "072/128",
+      "name": "Unown",
+      "rarity": "Common",
+      "pid": 716468
+    },
+    {
+      "section": "main",
+      "n": "073/128",
+      "name": "Drifloon",
+      "rarity": "Common",
+      "pid": 716469
+    },
+    {
+      "section": "main",
+      "n": "074/128",
+      "name": "Cresselia",
+      "rarity": "Common",
+      "pid": 716470
+    },
+    {
+      "section": "main",
+      "n": "075/128",
+      "name": "Chandelure",
+      "rarity": "Common",
+      "pid": 716471
+    },
+    {
+      "section": "main",
+      "n": "076/128",
+      "name": "Xerneas",
+      "rarity": "Rare",
+      "pid": 716472
+    },
+    {
+      "section": "main",
+      "n": "077/128",
+      "name": "Comfey",
+      "rarity": "Common",
+      "pid": 716473
+    },
+    {
+      "section": "main",
+      "n": "078/128",
+      "name": "Cosmog",
+      "rarity": "Common",
+      "pid": 716474
+    },
+    {
+      "section": "main",
+      "n": "079/128",
+      "name": "Cosmoem",
+      "rarity": "Common",
+      "pid": 716475
+    },
+    {
+      "section": "main",
+      "n": "080/128",
+      "name": "Lunala",
+      "rarity": "Rare",
+      "pid": 716476
+    },
+    {
+      "section": "main",
+      "n": "081/128",
+      "name": "Gimmighoul",
+      "rarity": "Common",
+      "pid": 716477
+    },
+    {
+      "section": "main",
+      "n": "082/128",
+      "name": "Groudon",
+      "rarity": "Rare",
+      "pid": 716478
+    },
+    {
+      "section": "main",
+      "n": "083/128",
+      "name": "Lucario",
+      "rarity": "Common",
+      "pid": 716479
+    },
+    {
+      "section": "main",
+      "n": "084/128",
+      "name": "Seismitoad",
+      "rarity": "Common",
+      "pid": 716480
+    },
+    {
+      "section": "main",
+      "n": "085/128",
+      "name": "Lycanroc",
+      "rarity": "Common",
+      "pid": 716481
+    },
+    {
+      "section": "main",
+      "n": "086/128",
+      "name": "Koraidon",
+      "rarity": "Rare",
+      "pid": 716482
+    },
+    {
+      "section": "main",
+      "n": "087/128",
+      "name": "Nidoran F",
+      "rarity": "Common",
+      "pid": 716483
+    },
+    {
+      "section": "main",
+      "n": "088/128",
+      "name": "Nidorina",
+      "rarity": "Common",
+      "pid": 716484
+    },
+    {
+      "section": "main",
+      "n": "089/128",
+      "name": "Alolan Meowth",
+      "rarity": "Common",
+      "pid": 714359
+    },
+    {
+      "section": "main",
+      "n": "090/128",
+      "name": "Gengar ex",
+      "rarity": "Double Rare",
+      "pid": 716485
+    },
+    {
+      "section": "main",
+      "n": "091/128",
+      "name": "Umbreon",
+      "rarity": "Common",
+      "pid": 696679
+    },
+    {
+      "section": "main",
+      "n": "092/128",
+      "name": "Umbreon ex",
+      "rarity": "Double Rare",
+      "pid": 696835
+    },
+    {
+      "section": "main",
+      "n": "093/128",
+      "name": "Murkrow",
+      "rarity": "Common",
+      "pid": 716486
+    },
+    {
+      "section": "main",
+      "n": "094/128",
+      "name": "Scraggy",
+      "rarity": "Common",
+      "pid": 716487
+    },
+    {
+      "section": "main",
+      "n": "095/128",
+      "name": "Zorua",
+      "rarity": "Common",
+      "pid": 716488
+    },
+    {
+      "section": "main",
+      "n": "096/128",
+      "name": "Zoroark",
+      "rarity": "Common",
+      "pid": 716489
+    },
+    {
+      "section": "main",
+      "n": "097/128",
+      "name": "Deino",
+      "rarity": "Common",
+      "pid": 716490
+    },
+    {
+      "section": "main",
+      "n": "098/128",
+      "name": "Zweilous",
+      "rarity": "Common",
+      "pid": 716491
+    },
+    {
+      "section": "main",
+      "n": "099/128",
+      "name": "Hydreigon",
+      "rarity": "Common",
+      "pid": 716492
+    },
+    {
+      "section": "main",
+      "n": "100/128",
+      "name": "Yveltal",
+      "rarity": "Rare",
+      "pid": 716493
+    },
+    {
+      "section": "main",
+      "n": "101/128",
+      "name": "Galarian Meowth",
+      "rarity": "Common",
+      "pid": 716494
+    },
+    {
+      "section": "main",
+      "n": "102/128",
+      "name": "Jirachi ex",
+      "rarity": "Double Rare",
+      "pid": 716495
+    },
+    {
+      "section": "main",
+      "n": "103/128",
+      "name": "Dialga",
+      "rarity": "Rare",
+      "pid": 716496
+    },
+    {
+      "section": "main",
+      "n": "104/128",
+      "name": "Ferrothorn",
+      "rarity": "Common",
+      "pid": 716497
+    },
+    {
+      "section": "main",
+      "n": "105/128",
+      "name": "Solgaleo",
+      "rarity": "Rare",
+      "pid": 716498
+    },
+    {
+      "section": "main",
+      "n": "106/128",
+      "name": "Zacian",
+      "rarity": "Rare",
+      "pid": 716499
+    },
+    {
+      "section": "main",
+      "n": "107/128",
+      "name": "Zamazenta",
+      "rarity": "Rare",
+      "pid": 716500
+    },
+    {
+      "section": "main",
+      "n": "108/128",
+      "name": "Gholdengo",
+      "rarity": "Common",
+      "pid": 716501
+    },
+    {
+      "section": "main",
+      "n": "109/128",
+      "name": "Salamence ex",
+      "rarity": "Double Rare",
+      "pid": 716502
+    },
+    {
+      "section": "main",
+      "n": "110/128",
+      "name": "Jangmo-o",
+      "rarity": "Common",
+      "pid": 716503
+    },
+    {
+      "section": "main",
+      "n": "111/128",
+      "name": "Hakamo-o",
+      "rarity": "Common",
+      "pid": 716504
+    },
+    {
+      "section": "main",
+      "n": "112/128",
+      "name": "Kommo-o",
+      "rarity": "Common",
+      "pid": 716505
+    },
+    {
+      "section": "main",
+      "n": "113/128",
+      "name": "Meowth",
+      "rarity": "Common",
+      "pid": 714356
+    },
+    {
+      "section": "main",
+      "n": "114/128",
+      "name": "Kangaskhan",
+      "rarity": "Common",
+      "pid": 716506
+    },
+    {
+      "section": "main",
+      "n": "115/128",
+      "name": "Ditto",
+      "rarity": "Common",
+      "pid": 716507
+    },
+    {
+      "section": "main",
+      "n": "116/128",
+      "name": "Eevee",
+      "rarity": "Common",
+      "pid": 714357
+    },
+    {
+      "section": "main",
+      "n": "117/128",
+      "name": "Eevee",
+      "rarity": "Common",
+      "pid": 696832
+    },
+    {
+      "section": "main",
+      "n": "118/128",
+      "name": "Eevee",
+      "rarity": "Common",
+      "pid": 696833
+    },
+    {
+      "section": "main",
+      "n": "119/128",
+      "name": "Snorlax",
+      "rarity": "Common",
+      "pid": 716508
+    },
+    {
+      "section": "main",
+      "n": "120/128",
+      "name": "Igglybuff",
+      "rarity": "Common",
+      "pid": 716509
+    },
+    {
+      "section": "main",
+      "n": "121/128",
+      "name": "Lugia",
+      "rarity": "Rare",
+      "pid": 716510
+    },
+    {
+      "section": "main",
+      "n": "122/128",
+      "name": "Hisuian Zorua",
+      "rarity": "Common",
+      "pid": 716511
+    },
+    {
+      "section": "main",
+      "n": "123/128",
+      "name": "Hisuian Zoroark",
+      "rarity": "Common",
+      "pid": 716512
+    },
+    {
+      "section": "main",
+      "n": "124/128",
+      "name": "Minior",
+      "rarity": "Common",
+      "pid": 716513
+    },
+    {
+      "section": "main",
+      "n": "125/128",
+      "name": "Maushold",
+      "rarity": "Common",
+      "pid": 716514
+    },
+    {
+      "section": "main",
+      "n": "126/128",
+      "name": "Poke Pad",
+      "rarity": "Common",
+      "pid": 716515
+    },
+    {
+      "section": "main",
+      "n": "127/128",
+      "name": "Switch",
+      "rarity": "Common",
+      "pid": 716516
+    },
+    {
+      "section": "main",
+      "n": "128/128",
+      "name": "Ultra Ball",
+      "rarity": "Common",
+      "pid": 716517
+    },
+    {
+      "section": "secret",
+      "n": "129/128",
+      "name": "Alolan Exeggutor",
+      "rarity": "Illustration Rare",
+      "pid": 716218
+    },
+    {
+      "section": "secret",
+      "n": "130/128",
+      "name": "Moltres",
+      "rarity": "Illustration Rare",
+      "pid": 716219
+    },
+    {
+      "section": "secret",
+      "n": "131/128",
+      "name": "Lapras",
+      "rarity": "Illustration Rare",
+      "pid": 696683
+    },
+    {
+      "section": "secret",
+      "n": "132/128",
+      "name": "Articuno",
+      "rarity": "Illustration Rare",
+      "pid": 716220
+    },
+    {
+      "section": "secret",
+      "n": "133/128",
+      "name": "Zapdos",
+      "rarity": "Illustration Rare",
+      "pid": 716221
+    },
+    {
+      "section": "secret",
+      "n": "134/128",
+      "name": "Toxtricity",
+      "rarity": "Illustration Rare",
+      "pid": 716222
+    },
+    {
+      "section": "secret",
+      "n": "135/128",
+      "name": "Morpeko",
+      "rarity": "Illustration Rare",
+      "pid": 716223
+    },
+    {
+      "section": "secret",
+      "n": "136/128",
+      "name": "Drifloon",
+      "rarity": "Illustration Rare",
+      "pid": 696684
+    },
+    {
+      "section": "secret",
+      "n": "137/128",
+      "name": "Chandelure",
+      "rarity": "Illustration Rare",
+      "pid": 716224
+    },
+    {
+      "section": "secret",
+      "n": "138/128",
+      "name": "Lycanroc",
+      "rarity": "Illustration Rare",
+      "pid": 696685
+    },
+    {
+      "section": "secret",
+      "n": "139/128",
+      "name": "Alolan Meowth",
+      "rarity": "Illustration Rare",
+      "pid": 714360
+    },
+    {
+      "section": "secret",
+      "n": "140/128",
+      "name": "Scraggy",
+      "rarity": "Illustration Rare",
+      "pid": 716225
+    },
+    {
+      "section": "secret",
+      "n": "141/128",
+      "name": "Galarian Meowth",
+      "rarity": "Illustration Rare",
+      "pid": 716226
+    },
+    {
+      "section": "secret",
+      "n": "142/128",
+      "name": "Gholdengo",
+      "rarity": "Illustration Rare",
+      "pid": 716227
+    },
+    {
+      "section": "secret",
+      "n": "143/128",
+      "name": "Kommo-o",
+      "rarity": "Illustration Rare",
+      "pid": 717621
+    },
+    {
+      "section": "secret",
+      "n": "144/128",
+      "name": "Meowth",
+      "rarity": "Illustration Rare",
+      "pid": 714358
+    },
+    {
+      "section": "secret",
+      "n": "145/128",
+      "name": "Hisuian Zorua",
+      "rarity": "Illustration Rare",
+      "pid": 696686
+    },
+    {
+      "section": "secret",
+      "n": "146/128",
+      "name": "Maushold",
+      "rarity": "Illustration Rare",
+      "pid": 716228
+    },
+    {
+      "section": "secret",
+      "n": "147/128",
+      "name": "Fuecoco ex",
+      "rarity": "Special Illustration Rare",
+      "pid": 716229
+    },
+    {
+      "section": "secret",
+      "n": "148/128",
+      "name": "Greninja ex",
+      "rarity": "Special Illustration Rare",
+      "pid": 716230
+    },
+    {
+      "section": "secret",
+      "n": "149/128",
+      "name": "Pikachu ex",
+      "rarity": "Special Illustration Rare",
+      "pid": 712953
+    },
+    {
+      "section": "secret",
+      "n": "150/128",
+      "name": "Pikachu ex",
+      "rarity": "Special Illustration Rare",
+      "pid": 712954
+    },
+    {
+      "section": "secret",
+      "n": "151/128",
+      "name": "Mewtwo ex",
+      "rarity": "Special Illustration Rare",
+      "pid": 717603
+    },
+    {
+      "section": "secret",
+      "n": "152/128",
+      "name": "Mew ex",
+      "rarity": "Special Illustration Rare",
+      "pid": 717605
+    },
+    {
+      "section": "secret",
+      "n": "153/128",
+      "name": "Sylveon ex",
+      "rarity": "Special Illustration Rare",
+      "pid": 716231
+    },
+    {
+      "section": "secret",
+      "n": "154/128",
+      "name": "Gengar ex",
+      "rarity": "Special Illustration Rare",
+      "pid": 717610
+    },
+    {
+      "section": "secret",
+      "n": "155/128",
+      "name": "Jirachi ex",
+      "rarity": "Special Illustration Rare",
+      "pid": 716232
+    },
+    {
+      "section": "secret",
+      "n": "156/128",
+      "name": "Salamence ex",
+      "rarity": "Special Illustration Rare",
+      "pid": 716233
+    },
+    {
+      "section": "secret",
+      "n": "157/128",
+      "name": "Mewtwo ex",
+      "rarity": "Futuristic Rare",
+      "pid": 696687
+    },
+    {
+      "section": "secret",
+      "n": "158/128",
+      "name": "Mew ex",
+      "rarity": "Futuristic Rare",
+      "pid": 696688
+    },
+    {
+      "section": "classic",
+      "n": "4/102",
+      "name": "Charizard",
+      "rarity": "Classic Collection",
+      "pid": 714372
+    },
+    {
+      "section": "classic",
+      "n": "5/109",
+      "name": "Delcatty",
+      "rarity": "Classic Collection",
+      "pid": 716156
+    },
+    {
+      "section": "classic",
+      "n": "11/101",
+      "name": "Genesect EX (Team Plasma)",
+      "rarity": "Classic Collection",
+      "pid": 716158
+    },
+    {
+      "section": "classic",
+      "n": "11/113",
+      "name": "Metagross (Delta Species)",
+      "rarity": "Classic Collection",
+      "pid": 716157
+    },
+    {
+      "section": "classic",
+      "n": "18/132",
+      "name": "Misty",
+      "rarity": "Classic Collection",
+      "pid": 716159
+    },
+    {
+      "section": "classic",
+      "n": "19/109",
+      "name": "Dark Tyranitar",
+      "rarity": "Classic Collection",
+      "pid": 716160
+    },
+    {
+      "section": "classic",
+      "n": "25/111",
+      "name": "Sneasel",
+      "rarity": "Classic Collection",
+      "pid": 716161
+    },
+    {
+      "section": "classic",
+      "n": "33/181",
+      "name": "Pikachu & Zekrom GX",
+      "rarity": "Classic Collection",
+      "pid": 714373
+    },
+    {
+      "section": "classic",
+      "n": "41/122",
+      "name": "Greninja BREAK",
+      "rarity": "Classic Collection",
+      "pid": 716162
+    },
+    {
+      "section": "classic",
+      "n": "43/146",
+      "name": "Uxie",
+      "rarity": "Classic Collection",
+      "pid": 716163
+    },
+    {
+      "section": "classic",
+      "n": "47/127",
+      "name": "Crobat G",
+      "rarity": "Classic Collection",
+      "pid": 716191
+    },
+    {
+      "section": "classic",
+      "n": "050/185",
+      "name": "Raikou",
+      "rarity": "Classic Collection",
+      "pid": 716192
+    },
+    {
+      "section": "classic",
+      "n": "57/111",
+      "name": "Buzzwole GX",
+      "rarity": "Classic Collection",
+      "pid": 716193
+    },
+    {
+      "section": "classic",
+      "n": "58/102",
+      "name": "Pikachu",
+      "rarity": "Classic Collection",
+      "pid": 716194
+    },
+    {
+      "section": "classic",
+      "n": "69/132",
+      "name": "Erika's Jigglypuff",
+      "rarity": "Classic Collection",
+      "pid": 716195
+    },
+    {
+      "section": "classic",
+      "n": "85/124",
+      "name": "Rayquaza EX",
+      "rarity": "Classic Collection",
+      "pid": 716196
+    },
+    {
+      "section": "classic",
+      "n": "89/149",
+      "name": "Solgaleo GX",
+      "rarity": "Classic Collection",
+      "pid": 716197
+    },
+    {
+      "section": "classic",
+      "n": "94/102",
+      "name": "Gengar (Prime)",
+      "rarity": "Classic Collection",
+      "pid": 716198
+    },
+    {
+      "section": "classic",
+      "n": "99/102",
+      "name": "Darkrai & Cresselia Legend (Top)",
+      "rarity": "Classic Collection",
+      "pid": 716199
+    },
+    {
+      "section": "classic",
+      "n": "100/102",
+      "name": "Darkrai & Cresselia Legend (Bottom)",
+      "rarity": "Classic Collection",
+      "pid": 716200
+    },
+    {
+      "section": "classic",
+      "n": "101/101",
+      "name": "N",
+      "rarity": "Classic Collection",
+      "pid": 716202
+    },
+    {
+      "section": "classic",
+      "n": "106/160",
+      "name": "M Gardevoir EX",
+      "rarity": "Classic Collection",
+      "pid": 716204
+    },
+    {
+      "section": "classic",
+      "n": "106/106",
+      "name": "Palkia LV.X",
+      "rarity": "Classic Collection",
+      "pid": 716203
+    },
+    {
+      "section": "classic",
+      "n": "106/105",
+      "name": "Shining Celebi",
+      "rarity": "Classic Collection",
+      "pid": 716205
+    },
+    {
+      "section": "classic",
+      "n": "108/115",
+      "name": "Scizor ex",
+      "rarity": "Classic Collection",
+      "pid": 716206
+    },
+    {
+      "section": "classic",
+      "n": "114/264",
+      "name": "Mew VMAX",
+      "rarity": "Classic Collection",
+      "pid": 716207
+    },
+    {
+      "section": "classic",
+      "n": "123/172",
+      "name": "Arceus VSTAR",
+      "rarity": "Classic Collection",
+      "pid": 716208
+    },
+    {
+      "section": "classic",
+      "n": "138/202",
+      "name": "Zacian V",
+      "rarity": "Classic Collection",
+      "pid": 716209
+    },
+    {
+      "section": "classic",
+      "n": "149/147",
+      "name": "Lugia",
+      "rarity": "Classic Collection",
+      "pid": 714386
+    },
+    {
+      "section": "classic",
+      "n": "203/193",
+      "name": "Magikarp",
+      "rarity": "Classic Collection",
+      "pid": 716210
+    }
+  ]
+}
