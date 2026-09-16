@@ -2338,6 +2338,17 @@
         "hallOfFame": false,
         "handNote": "The owner, 14 September 2026: \"Single Booster Pack, Pack #2, hit yes, Amoonguss ex - Double Black Star - Double Rare, Journey Together\". UNLIKE THE LAST TWO DAYS THERE IS NOTHING TO DISAMBIGUATE: Journey Together prints Amoonguss ex exactly once, #011 Double rare at $0.78, so the number is not a choice between printings. The rarity still earns its place as a CHECK rather than a chooser -- the one printing's tier is Double rare and that is what he typed, so the card in his hand and the checklist agree. Had they disagreed, that is the row that would need looking at before anything was published. \"Double Black Star\" is the same tier said a second way: two black stars IS the Double rare symbol. He named the set and it matches the video's own tag and title."
       }
+    ],
+    "N02mLMwZSq0": [
+      {
+        "card": "Mega Skarmory ex",
+        "set": "perfect-order",
+        "setName": "Perfect Order",
+        "rarity": "Ultra Rare",
+        "number": "106",
+        "hallOfFame": false,
+        "handNote": "The owner, 16 September 2026: \"Single Booster Pack, Pack #13, Hit yes, Mega Skarmory ex - Double Silver Star - Ultra Rare\". Perfect Order prints this card TWICE -- 055 Double rare at $1.47 and 106 Ultra Rare at $4.77 -- and the rarity names exactly one, which is the rule pickPrinting follows and the reason the number is 106. THE DEAREST-PRINTING RULE WOULD HAVE AGREED TODAY, WHICH IS WORTH SAYING OUT LOUD: the Ultra Rare is also the pricier of the two, so this row is not evidence for the rarity-first rule the way the Mega Absol ex and Team Rocket's Nidoking ex rows of 12 and 13 September are, where the dearest printing was 28x and 46x wrong. It agrees by coincidence here. \"Double Silver Star\" is the same claim said twice: two silver stars IS the Ultra Rare symbol, so the symbol he read and the tier he named agree, and that agreement is the check that matters. He did not name the set; it comes from the video's own tag and its title, both Perfect Order, and Mega Skarmory ex is printed in no other set this site holds. The rarity is written \"Ultra Rare\" to match the checklist's own casing exactly, because the renderers key off that string. Hand-kept until the My Hits tab carries it."
+      }
     ]
   }
 }

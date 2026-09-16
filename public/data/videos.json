@@ -2,7 +2,7 @@
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
     "views": 292862,
-    "subscribers": 376,
+    "subscribers": 374,
     "videos": 345,
     "readAt": "2026-09-16"
   },
@@ -15,7 +15,7 @@
       "published": "2026-09-16",
       "publishedAt": "2026-09-16T10:35:22Z",
       "duration": 24,
-      "views": 195,
+      "views": 752,
       "vertical": true,
       "short": true,
       "sets": [
@@ -25,7 +25,9 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Perfect Order Pack"
+      "packNumber": 13,
+      "packs": 1,
+      "label": "Perfect Order Pack - Pack 13"
     },
     {
       "id": "9TCFBLckSRs",
