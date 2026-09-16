@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 291019,
+    "views": 292862,
     "subscribers": 376,
-    "videos": 344,
-    "readAt": "2026-09-15"
+    "videos": 345,
+    "readAt": "2026-09-16"
   },
-  "syncedAt": "2026-09-15",
+  "syncedAt": "2026-09-16",
   "videos": [
+    {
+      "id": "N02mLMwZSq0",
+      "title": "Perfect Order Pack #13 ✨ | Lucky #13 Brings The ULTRA RARE! 🔥",
+      "path": "rip/perfect-order-pack-13-lucky-13-brings-the-ultra-rare-N02mLMwZSq0.html",
+      "published": "2026-09-16",
+      "publishedAt": "2026-09-16T10:35:22Z",
+      "duration": 24,
+      "views": 195,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "perfect-order"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Perfect Order Pack"
+    },
     {
       "id": "9TCFBLckSRs",
       "title": "Chaos Rising Pack #8 📉 | Can This ETB Finish Strong?! 💀",
@@ -15,7 +34,7 @@
       "published": "2026-09-15",
       "publishedAt": "2026-09-15T10:15:21Z",
       "duration": 19,
-      "views": 465,
+      "views": 897,
       "vertical": true,
       "short": true,
       "sets": [
@@ -38,7 +57,7 @@
       "published": "2026-09-14",
       "publishedAt": "2026-09-14T10:08:34Z",
       "duration": 25,
-      "views": 992,
+      "views": 1051,
       "vertical": true,
       "short": true,
       "sets": [
@@ -59,7 +78,7 @@
       "published": "2026-09-13",
       "publishedAt": "2026-09-13T10:47:07Z",
       "duration": 23,
-      "views": 1131,
+      "views": 1233,
       "vertical": true,
       "short": true,
       "sets": [
@@ -80,7 +99,7 @@
       "published": "2026-09-12",
       "publishedAt": "2026-09-12T10:37:02Z",
       "duration": 24,
-      "views": 1024,
+      "views": 1071,
       "vertical": true,
       "short": true,
       "sets": [
@@ -101,7 +120,7 @@
       "published": "2026-09-11",
       "publishedAt": "2026-09-11T10:25:27Z",
       "duration": 20,
-      "views": 933,
+      "views": 934,
       "vertical": true,
       "short": true,
       "sets": [
@@ -167,7 +186,7 @@
       "published": "2026-09-08",
       "publishedAt": "2026-09-08T10:10:05Z",
       "duration": 21,
-      "views": 1576,
+      "views": 1579,
       "vertical": true,
       "short": true,
       "sets": [
@@ -210,7 +229,7 @@
       "published": "2026-09-06",
       "publishedAt": "2026-09-06T10:45:02Z",
       "duration": 25,
-      "views": 1135,
+      "views": 1136,
       "vertical": true,
       "short": true,
       "sets": [
@@ -417,7 +436,7 @@
       "published": "2026-08-29",
       "publishedAt": "2026-08-29T12:09:23Z",
       "duration": 22,
-      "views": 1100,
+      "views": 1101,
       "vertical": true,
       "short": true,
       "sets": [
@@ -626,7 +645,7 @@
       "published": "2026-08-23",
       "publishedAt": "2026-08-23T12:40:33Z",
       "duration": 21,
-      "views": 969,
+      "views": 970,
       "vertical": true,
       "short": true,
       "sets": [
@@ -662,7 +681,7 @@
       "published": "2026-08-22",
       "publishedAt": "2026-08-22T11:47:18Z",
       "duration": 20,
-      "views": 1129,
+      "views": 1131,
       "vertical": true,
       "short": true,
       "sets": [
@@ -798,7 +817,7 @@
       "published": "2026-08-18",
       "publishedAt": "2026-08-18T10:04:29Z",
       "duration": 28,
-      "views": 1201,
+      "views": 1202,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1702,7 +1721,7 @@
       "published": "2026-07-23",
       "publishedAt": "2026-07-23T12:23:31Z",
       "duration": 27,
-      "views": 1129,
+      "views": 1130,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3245,7 +3264,7 @@
       "published": "2026-07-01",
       "publishedAt": "2026-07-01T10:16:35Z",
       "duration": 23,
-      "views": 24,
+      "views": 25,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3866,7 +3885,7 @@
       "published": "2026-06-22",
       "publishedAt": "2026-06-22T10:05:09Z",
       "duration": 21,
-      "views": 594,
+      "views": 595,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7759,7 +7778,7 @@
       "published": "2026-04-27",
       "publishedAt": "2026-04-27T23:10:01Z",
       "duration": 23,
-      "views": 2617,
+      "views": 2618,
       "vertical": true,
       "short": true,
       "sets": [
