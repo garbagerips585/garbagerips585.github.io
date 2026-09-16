@@ -7052,6 +7052,14 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
    owned one is full colour with a solid border and a lift. Under a greyscale
    filter, or for anyone who cannot see colour, the border and the dimming still
    separate them. Same rule the Garbage Plate diagram's six layers follow. */
+/* THE SET LOGO IN THE 30th HERO. Same clamp as `.set-hero img.logo-big` on a
+   generated set guide, deliberately: this page IS a set guide, it just cannot
+   be generated from TCGdex because TCGdex has never held the set. The height
+   is the load bearing half -- build-30th.mjs derives the `sizes` attribute from
+   this clamp times the logo's 544/300 aspect, so if this number moves, that
+   one has to move with it. A separate class rather than reusing .logo-big
+   because that rule is scoped to `.set-hero` and this hero is `.band-sky`. */
+.t30-logo{display:block;height:clamp(56px,17vw,110px);width:auto;margin:0 0 var(--s3)}
 .t30-pk{position:relative;overflow:hidden}
 .t30-card{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .t30-pk.need .t30-card{filter:grayscale(1) contrast(.88) brightness(.82);opacity:.5}

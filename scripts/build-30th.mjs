@@ -42,6 +42,7 @@
 // line up and a mapped list would be fiction with a source attached.
 
 import { readFile, writeFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
@@ -55,7 +56,7 @@ import {
   APP_JS_NO_PACKPLAYER,
   footer,
 } from "../shared/chrome.mjs";
-import { esc, longDate, clipMeta, imgDims, avifPicture } from "../shared/format.mjs";
+import { esc, longDate, shortDate, clipMeta, imgDims, avifPicture } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const PATH = "/30th-celebration.html";
@@ -70,6 +71,58 @@ try {
   shotDims = JSON.parse(await readFile(join(ROOT, "data/30th-card-dims.json"), "utf8"));
 } catch {}
 const owned = binder.owned || [];
+
+/* THE SET'S OWN LOGO IN THE HERO. The owner sent the artwork on 16 September
+ * 2026 -- "30th logo now in the downloads folder" -- which closes the one gap
+ * this page had carried since it was built: the logo could not be obtained
+ * before then, because press.pokemon.com's CDN 404s a non-browser request and
+ * only exposed a 240x81 thumbnail.
+ *
+ * IT GOES THROUGH scripts/build-logos.py LIKE EVERY OTHER SET LOGO, dropped in
+ * assets-source/logos/ named by the set's slug, which that script's own header
+ * describes as the whole interface: "adding a set is just dropping a file in
+ * here". It crops to the alpha box and writes three heights in WebP and AVIF,
+ * so nothing is special-cased for this file.
+ *
+ * SIZES IS THE CSS CLAMP TIMES THE ASPECT, not a guess. `.t30-logo` is
+ * `height:clamp(56px,17vw,110px);width:auto`, so the WIDTH the browser needs is
+ * the height times 544/300. Getting this wrong is the documented oversizing
+ * trap in build-logos.py, where /sets/ shipped 937KB of logo into 110px boxes.
+ *
+ * AND THE AVIF SOURCE IS CONDITIONAL. build-logos.py drops an AVIF whenever the
+ * WebP came out smaller, and a <picture> that has committed to a <source> does
+ * not fall back to the <img> -- it paints a broken image. That is the exact bug
+ * shared/logo-srcset.mjs exists to end, in three other builders. So every
+ * rendition is checked on disk and the source is offered only if all of them
+ * have one. */
+const LOGO_STEM = `${doc.set.slug}-pokemon-tcg-set-logo`;
+const logoDims = await readFile(join(ROOT, "data/logo-dims.json"), "utf8")
+  .then((t) => JSON.parse(t)[`${LOGO_STEM}.webp`] || null)
+  .catch(() => null);
+const heroLogo = () => {
+  const base = `/assets/logos/${LOGO_STEM}`;
+  const master = join(ROOT, "public", `assets/logos/${LOGO_STEM}.webp`);
+  if (!logoDims || !existsSync(master)) return "";
+  const [mw, mh] = logoDims;
+  const aspect = mw / mh;
+  const cands = [[100, "-sm"], [150, "-md"], [mh, ""]]
+    .filter(([, sfx]) => sfx === "" || existsSync(join(ROOT, "public", `assets/logos/${LOGO_STEM}${sfx}.webp`)))
+    .map(([h, sfx]) => ({ w: Math.max(1, Math.round((mw * h) / mh)), sfx }))
+    .filter((c, i, a) => a.findIndex((x) => x.w === c.w) === i);
+  const px = (n) => Math.round(n * 10) / 10;
+  const sizes =
+    `(max-width:329px) ${px(56 * aspect)}px, ` +
+    `(max-width:647px) ${px(17 * aspect)}vw, ${px(110 * aspect)}px`;
+  const img =
+    `<img class="t30-logo" src="${base}.webp" width="${mw}" height="${mh}"` +
+    ` srcset="${cands.map((c) => `${base}${c.sfx}.webp ${c.w}w`).join(", ")}" sizes="${sizes}"` +
+    ` alt="" onerror="this.remove()">`;
+  const allAvif = cands.every((c) => existsSync(join(ROOT, "public", `assets/logos/${LOGO_STEM}${c.sfx}.avif`)));
+  if (!allAvif) return img;
+  return `<picture><source type="image/avif" srcset="${
+    cands.map((c) => `${base}${c.sfx}.avif ${c.w}w`).join(", ")
+  }" sizes="${sizes}">${img}</picture>`;
+};
 /* THE ENGLISH CHECKLIST, written by scripts/sync-30th-tcgplayer.mjs. Absent
    before that has ever run, in which case the pockets draw as numbers exactly
    as they did before it existed. See that script's header for why TCGplayer is
@@ -247,7 +300,12 @@ const cardImg = (localId, name) => {
 const pictureFor = (name, { shot, n, row }) => {
   if (shot) return shotImg(shot, name);
   if (HAVE_DEX && n) return cardImg(n, name);
-  if (row && row.pid) return avifPicture(tcgpImg(row.pid, name));
+  /* NO avifPicture() HERE, AND IT USED TO BE WRAPPED IN ONE. That helper
+     rewrites a .webp srcset to .avif for TCGdex and our own pack renditions
+     only, and returns its input untouched for anything else -- these are .jpg
+     off a third party, so the call was a no-op dressed as an optimisation.
+     TCGplayer publishes no AVIF. */
+  if (row && row.pid) return tcgpImg(row.pid, name);
   return "";
 };
 
@@ -481,12 +539,22 @@ const body = `<main id="main">
 <header class="band-sky tight">
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/sets/">Sets</a> / 30th Celebration</nav>
+    ${heroLogo()}
     <h1>Pokemon 30th Celebration</h1>
     <p class="lede" style="max-width:42em">${esc(doc.set.releaseNote.split(".")[0])}. It is all foil, there is
       no booster box, and every pack comes inside one of ${doc.products.length} products. This page is what is
       known about it, what is not, and how far along one master set is.</p>
     <div class="t30-sum">
-      <div><b>${esc(longDate(doc.set.release))}</b><span>Release, worldwide</span></div>
+      <!-- shortDate, NOT longDate, AND THE DIFFERENCE IS 53px OF CLIPPED TEXT.
+       These cells are 44px Titan One in a 209px box, which is roomy for the
+       other three values -- they are 199, 15 and 93 -- and far too narrow for
+       a month name: "September" alone measures 262px and was being cut off
+       mid-word, so the page's most prominent fact read "Septembe". Measured in
+       the browser against the real computed font rather than eyeballed, and
+       "Sep 16, 2026" has a longest word of 115px and wraps to two lines that
+       both fit. Any value that can be a word rather than a number needs this
+       check; the box does not grow. -->
+      <div><b>${esc(shortDate(doc.set.release))}</b><span>Release, worldwide</span></div>
       <div><b>${E.count}</b><span>Cards in English, per PokeBeach</span></div>
       <div><b>${doc.products.length}</b><span>Products, five waves</span></div>
       <div><b>${packTotal}</b><span>Packs across them all</span></div>

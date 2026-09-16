@@ -23,7 +23,7 @@
 <meta name="twitter:image" content="https://garbagerips.com/assets/og-image.jpg?v=c1eb6b4c">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=037cc7e7">
-<link rel="stylesheet" href="/assets/ui.css?v=1fab4dfb">
+<link rel="stylesheet" href="/assets/ui.css?v=2d74c28d">
 <style>.t30-hero{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);box-shadow:var(--lift)}
 .t30-facts{list-style:none;display:grid;gap:var(--s3);margin:var(--s4) 0 0}
 .t30-facts li{padding-left:1.15em;position:relative;line-height:1.45}
@@ -203,12 +203,22 @@
 <header class="band-sky tight">
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/sets/">Sets</a> / 30th Celebration</nav>
+    <picture><source type="image/avif" srcset="/assets/logos/30th-celebration-pokemon-tcg-set-logo-sm.avif 181w, /assets/logos/30th-celebration-pokemon-tcg-set-logo-md.avif 272w, /assets/logos/30th-celebration-pokemon-tcg-set-logo.avif 544w" sizes="(max-width:329px) 101.5px, (max-width:647px) 30.8vw, 199.5px"><img class="t30-logo" src="/assets/logos/30th-celebration-pokemon-tcg-set-logo.webp" width="544" height="300" srcset="/assets/logos/30th-celebration-pokemon-tcg-set-logo-sm.webp 181w, /assets/logos/30th-celebration-pokemon-tcg-set-logo-md.webp 272w, /assets/logos/30th-celebration-pokemon-tcg-set-logo.webp 544w" sizes="(max-width:329px) 101.5px, (max-width:647px) 30.8vw, 199.5px" alt="" onerror="this.remove()"></picture>
     <h1>Pokemon 30th Celebration</h1>
     <p class="lede" style="max-width:42em">The first Pokemon TCG expansion to launch on the same day worldwide in participating markets. It is all foil, there is
       no booster box, and every pack comes inside one of 15 products. This page is what is
       known about it, what is not, and how far along one master set is.</p>
     <div class="t30-sum">
-      <div><b>September 16, 2026</b><span>Release, worldwide</span></div>
+      <!-- shortDate, NOT longDate, AND THE DIFFERENCE IS 53px OF CLIPPED TEXT.
+       These cells are 44px Titan One in a 209px box, which is roomy for the
+       other three values -- they are 199, 15 and 93 -- and far too narrow for
+       a month name: "September" alone measures 262px and was being cut off
+       mid-word, so the page's most prominent fact read "Septembe". Measured in
+       the browser against the real computed font rather than eyeballed, and
+       "Sep 16, 2026" has a longest word of 115px and wraps to two lines that
+       both fit. Any value that can be a word rather than a number needs this
+       check; the box does not grow. -->
+      <div><b>Sep 16, 2026</b><span>Release, worldwide</span></div>
       <div><b>199</b><span>Cards in English, per PokeBeach</span></div>
       <div><b>15</b><span>Products, five waves</span></div>
       <div><b>93</b><span>Packs across them all</span></div>
