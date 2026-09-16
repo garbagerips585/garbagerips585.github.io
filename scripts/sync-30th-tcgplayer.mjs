@@ -161,6 +161,17 @@ for (const [setName, rows] of [[MAIN_SET, main], [CLASSIC_SET, classic]]) {
       name: String(r.productName || "").replace(/\s*-\s*\d+\/\d+$/, "").trim(),
       rarity: r.rarityName || null,
       pid: r.productId,
+      /* TCGPLAYER'S OWN MARKET PRICE, AND IT IS THE SECOND SOURCE HERE RATHER
+         THAN THE FIRST. Every price on this site is PriceCharting's guide value
+         -- the owner, 18 August 2026: "lets use pricecharting as the main
+         numbers for the entire site" -- and sync-30th-prices.mjs reads that.
+         This is kept because it arrives free in the same response, it covers
+         cards PriceCharting has not priced yet on a set this new, and a second
+         independent number is what catches a parse going wrong on the first.
+         It is ONE marketplace where the guide value spans several, so it is
+         never printed beside a PriceCharting figure as an alternative. */
+      tcgpMarket: typeof r.marketPrice === "number" ? r.marketPrice : null,
+      tcgpLow: typeof r.lowestPrice === "number" ? r.lowestPrice : null,
     });
   }
 }

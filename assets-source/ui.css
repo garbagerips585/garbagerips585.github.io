@@ -7069,6 +7069,62 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 .up-out p{margin:0;color:var(--ink-2)}
 .up-out-region{font:700 var(--t-micro)/1 var(--mono);text-transform:uppercase;
   letter-spacing:.06em;color:var(--ketchup-deep);margin:0 0 var(--s2)}
+/* THE CARD TILE on /30th-celebration.html, used by the value band and by the
+   full checklist. Same 0.717 card aspect the binder pockets use, so a card is
+   the same shape everywhere on the page. */
+.t30-cts{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s3);
+  grid-template-columns:repeat(auto-fill,minmax(min(100%,8.5rem),1fr))}
+.t30-ct{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:var(--s3);display:flex;flex-direction:column;gap:2px}
+.t30-ct picture,.t30-ct img{display:block;width:100%;height:auto;border-radius:var(--r-sm)}
+/* THE TILE AND THE BINDER POCKET SHARE ONE PICTURE BUILDER AND NEED OPPOSITE
+   POSITIONING, WHICH RENDERED AS A 1024x1431 CARD LYING OVER THE WHOLE PAGE.
+   pictureFor() in build-30th.mjs is deliberately the only thing that decides
+   which source a card's picture comes from, so both the pocket and this tile
+   get markup carrying `.t30-card` -- and that class is
+   `position:absolute;inset:0;height:100%;object-fit:cover`, which is right in a
+   pocket, because a pocket IS a fixed box and the card fills it. A tile is a
+   flex column that sizes to its contents and is not positioned, so the same
+   image escaped to the nearest positioned ancestor and painted over
+   everything. Nothing clipped and nothing overflowed, so the geometry checks
+   all came back clean; only a screenshot showed it.
+   Put back into flow HERE rather than changing .t30-card, because the pocket is
+   the case that needs the absolute fill. */
+.t30-ct .t30-card{position:static;inset:auto;height:auto;object-fit:initial;
+  filter:none;opacity:1}
+.t30-ct-n{margin:var(--s2) 0 0;font-weight:700;line-height:1.25}
+.t30-ct-m{margin:0;font:400 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.04em}
+.t30-ct-p{margin:var(--s2) 0 0;color:var(--ketchup-deep);font-weight:700}
+.t30-ct-p span{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.04em;margin-left:4px}
+.t30-ct-p.none{color:var(--ink-2);font-weight:400;font-size:var(--t-micro)}
+.t30-ct-g{margin:0;font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
+.t30-ct-g i{font-style:normal;text-transform:uppercase;letter-spacing:.04em}
+/* A tile with no picture keeps the card shape rather than collapsing, so a row
+   of them does not jump about as the pictured ones load. */
+.t30-ct.nopic::before{content:"";display:block;aspect-ratio:245/337;
+  background:var(--paper);border-radius:var(--r-sm)}
+
+/* The rarity tally. */
+.t30-rar{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s3);
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,10rem),1fr))}
+.t30-rar li{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:var(--s3)}
+.t30-rar b{display:block;font-family:var(--display);font-size:var(--t-l);line-height:1}
+.t30-rar span{display:block;margin-top:2px;font:400 var(--t-micro)/1.3 var(--mono);
+  color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
+
+/* The jump from the hero down to the master set. It carries the percentage
+   because that is the thing the owner wanted visible: "I want to have a
+   percentage shown of how close to 100% we are from completing the set." */
+.t30-msjump{margin:var(--s4) 0 0}
+.t30-msjump a{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2);
+  text-decoration:none;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--r);padding:var(--s3) var(--s4)}
+.t30-msjump b{color:var(--ketchup-deep);font-family:var(--display);font-size:var(--t-m);line-height:1}
+.t30-msjump span{font:400 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.04em}
+.t30-msjump a:hover span,.t30-msjump a:focus-visible span{color:var(--sky)}
 .t30-logo{display:block;height:clamp(56px,17vw,110px);width:auto;margin:0 0 var(--s3)}
 .t30-pk{position:relative;overflow:hidden}
 .t30-card{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}

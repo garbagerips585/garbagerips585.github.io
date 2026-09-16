@@ -56,7 +56,7 @@ import {
   APP_JS_NO_PACKPLAYER,
   footer,
 } from "../shared/chrome.mjs";
-import { esc, longDate, shortDate, clipMeta, imgDims, avifPicture } from "../shared/format.mjs";
+import { esc, longDate, shortDate, clipMeta, imgDims, avifPicture, moneyExact, moneyRound } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const PATH = "/30th-celebration.html";
@@ -146,6 +146,26 @@ const E = doc.structure.english;
    are simply unacknowledged by TPCi and listed by nobody, so there is no product
    id to draw a picture from. */
 const US = doc.unlistedSecrets || {};
+/* PRICECHARTING'S GUIDE VALUES, written by scripts/sync-30th-prices.mjs. The
+   same source every other set guide on this site prints, which is the whole
+   reason that script exists: the normal chain is keyed on TCGdex sets and
+   TCGdex has never held this one. Absent before it has run, in which case the
+   value bands simply do not render. */
+let prices = { cards: {} };
+try {
+  prices = JSON.parse(await readFile(join(ROOT, "data/30th-prices.json"), "utf8"));
+} catch {}
+const PRICE = new Map(Object.entries(prices.cards || {}));
+const priceOf = (c) => PRICE.get(`${c.section}|${c.n}`) || null;
+/* EVERY PRICED CARD, DEAREST FIRST. `raw` is PriceCharting's Ungraded figure,
+   which other pages on this site call raw NM. Sorting on raw and NOT on psa10
+   is build-pages.mjs's own recorded rule: a graded figure is a different number
+   about a different object, and ranking a set by it puts the cards somebody
+   happened to grade at the top. */
+const pricedCards = (checklist.cards || [])
+  .map((c) => ({ ...c, pr: priceOf(c) }))
+  .filter((c) => c.pr && typeof c.pr.raw === "number")
+  .sort((a, b) => b.pr.raw - a.pr.raw);
 const SECTIONS = [
   ["pikachu", "The 30 Pikachu", E.pikachu, "One in every pack, each by a different illustrator. Japan's first is Ken Sugimori redrawing his own Jungle Pikachu."],
   ["main", "Main set", E.main - E.pikachu, "Everything else in the numbered main set."],
@@ -302,21 +322,35 @@ const cardImg = (localId, name) => {
   return avifPicture(img);
 };
 
-/* THE ONE PLACE THAT DECIDES WHICH PICTURE A POCKET GETS, so the owned and the
-   needed pocket can never disagree about it. Precedence is the owner's own
-   photograph, then TCGdex, then TCGplayer, then nothing -- his photo of the
-   copy in his hand is the better picture on a page about HIS binder, and
-   TCGdex is the canonical source the rest of the site's 59,758 card images
-   come from. `row` is the checklist row when there is one. */
+/* THE ONE PLACE THAT DECIDES WHICH PICTURE ANY CARD ON THIS PAGE GETS, so the
+   checklist tile, the value band and the binder pocket can never disagree.
+ *
+ * A SOURCED SCAN NOW BEATS THE OWNER'S OWN PHOTOGRAPH, AND THAT IS A REVERSAL.
+ * It used to put his photo first, on the reasoning that a picture of the copy in
+ * his hand is the better picture on a page about HIS binder. He asked for the
+ * opposite on 16 September 2026: "I want to source the images, not use mine as my
+ * photos won't be as good". He is right, and the reason got stronger the moment
+ * this page grew a 188 card checklist: a photograph sitting in a grid of scans
+ * reads as a mistake, and every card he does not own can only ever be a scan.
+ * Consistency across 188 tiles beats provenance on three of them.
+ *
+ * HIS PHOTOGRAPHS ARE NOT DELETED, THEY ARE THE LAST RESORT, and that is load
+ * bearing rather than sentimental: the eight foil basic Energy are numbered in a
+ * different set and NOBODY lists them, so his own photograph of Basic Metal
+ * Energy MEE 016 is the only picture of that card this site can show. Dropping
+ * the fallback would blank a card he owns.
+ *
+ * Order: TCGdex if data/30th.json's two ids are filled in, then TCGplayer from
+ * the checklist, then his own photograph, then nothing. `row` is the checklist
+ * row when there is one. */
 const pictureFor = (name, { shot, n, row }) => {
-  if (shot) return shotImg(shot, name);
   if (HAVE_DEX && n) return cardImg(n, name);
-  /* NO avifPicture() HERE, AND IT USED TO BE WRAPPED IN ONE. That helper
-     rewrites a .webp srcset to .avif for TCGdex and our own pack renditions
-     only, and returns its input untouched for anything else -- these are .jpg
-     off a third party, so the call was a no-op dressed as an optimisation.
-     TCGplayer publishes no AVIF. */
+  /* NO avifPicture() AROUND THIS ONE. That helper rewrites a .webp srcset to
+     .avif for TCGdex and for our own pack renditions and returns its input
+     untouched for anything else, so on a third party's .jpg the call was a
+     no-op dressed as an optimisation. TCGplayer publishes no AVIF. */
   if (row && row.pid) return tcgpImg(row.pid, name);
+  if (shot) return shotImg(shot, name);
   return "";
 };
 
@@ -354,6 +388,32 @@ const pocket = (c, i, slot) => {
 // wrong picture in the wrong pocket, which looks right and is the worst kind of
 // wrong. Empty until there is an English checklist to read.
 const slotsFor = (key) => (checklist.cards || []).filter((c) => c.section === key);
+
+/* ONE TILE, USED BY THE VALUE BAND AND THE CHECKLIST, so a card cannot look
+   like two different things on one page. The picture comes from the same
+   pictureFor() the binder pockets use, which is what keeps the owner's own
+   photographs, TCGdex and TCGplayer in one precedence order across the page. */
+const cardTile = (c, { showPrice = true } = {}) => {
+  const pr = c.pr || priceOf(c);
+  const pic = pictureFor(c.name, { n: c.n, row: c });
+  return `        <li class="t30-ct${pic ? "" : " nopic"}">
+          ${pic}
+          <p class="t30-ct-n">${esc(c.name)}</p>
+          <p class="t30-ct-m">#${esc(String(c.n).split("/")[0])}${
+            c.rarity ? ` &bull; ${esc(c.rarity)}` : ""
+          }</p>${
+            showPrice
+              ? pr && typeof pr.raw === "number"
+                ? `\n          <p class="t30-ct-p">${moneyExact(pr.raw)}<span>raw NM</span></p>${
+                    typeof pr.psa10 === "number"
+                      ? `\n          <p class="t30-ct-g">${moneyRound(pr.psa10)} <i>PSA 10</i></p>`
+                      : ""
+                  }`
+                : `\n          <p class="t30-ct-p none">No price yet</p>`
+              : ""
+          }
+        </li>`;
+};
 
 const binderSection = ([key, label, total, note]) => {
   const have = ownedIn(key);
@@ -550,6 +610,115 @@ const ld = [
   },
 ];
 
+/* ---------------------------------------------------------- the value bands --
+ *
+ * The owner, 16 September 2026: "want to see what cards in the set are the most
+ * valuable", and "we can show the market prices for the NM singles, like the
+ * other sets". Like the other sets is the operative half: these are
+ * PriceCharting guide values, the same figure /sets/chaos-rising.html prints,
+ * so a number here can be compared with a number there.
+ *
+ * HE EXPECTED NO PSA 10 PRICES AND THERE ARE SOME. 25 of the 51 priced cards
+ * already carry one the day after release, so the line renders where it exists
+ * and is left off where it does not, which is the same rule build-pages.mjs
+ * uses on a rip page.
+ *
+ * THE SECTION SAYS HOW MUCH OF THE SET IT HAS PRICED. A set one day old is
+ * mostly unpriced -- 51 of 199 -- and a "most valuable" list that does not say
+ * so invites a reader to think the other 148 are worthless. They are unpriced.
+ */
+const TOP_N = 12;
+const valueBand = !pricedCards.length ? "" : `
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label">The ones you want</p>
+    <h2>Most valuable <span class="hl">30th Celebration</span> cards</h2>
+    <p class="lede" style="max-width:44em">Dearest first, by what an ungraded copy is worth. ${
+      pricedCards.length
+    } of the ${TOTAL} cards have a price so far${
+      prices.counts && prices.counts.psa10
+        ? `, and ${prices.counts.psa10} of those already have a PSA 10 figure`
+        : ""
+    }. The rest are not cheap, they are <strong>unpriced</strong>: the set came out ${esc(
+      shortDate(doc.set.release)
+    )} and a guide value needs sales to compute from.</p>
+    <ol class="t30-cts">
+${pricedCards.slice(0, TOP_N).map((c) => cardTile(c)).join("\n")}
+    </ol>
+    <p class="price-note">Raw NM and PSA 10 are pricecharting.com guide values, read ${esc(
+      longDate(prices.checked || doc.checked)
+    )}. A guide value is computed across the sales PriceCharting tracks, which is wider than any one
+      marketplace. The Classic Collection is not priced here at all: its 30 cards are reprints that keep
+      their original numbering, so there is no key that joins them to a price without guessing. We do not
+      sell cards.</p>
+  </div>
+</section>`;
+
+/* ------------------------------------------------------------ the rarities --
+ *
+ * WHAT IS ACTUALLY RARE, counted out of the checklist rather than typed. Every
+ * other set guide carries this band and it is the one a reader uses to work out
+ * what a pack can even contain. TCGplayer's own rarity names are used verbatim,
+ * including "Pikachu Rare", which is this set's own tier and not a name this
+ * site invented.
+ */
+const rarityRows = (() => {
+  const tally = new Map();
+  for (const c of checklist.cards || []) {
+    const k = c.rarity || "Not stated";
+    tally.set(k, (tally.get(k) || 0) + 1);
+  }
+  return [...tally.entries()].sort((a, b) => b[1] - a[1]);
+})();
+const rarityBand = !rarityRows.length ? "" : `
+<section class="tight">
+  <div class="wrap">
+    <p class="sec-label">What is actually rare</p>
+    <h2>Rarity breakdown</h2>
+    <p style="max-width:44em">Counted off the ${
+      (checklist.cards || []).length
+    } cards on the checklist, not typed in. <strong>Every card in this set is foil</strong>, basic Energy
+      included, so a rarity here is about how hard a card is to find rather than whether it shines.</p>
+    <ul class="t30-rar">
+${rarityRows
+  .map(
+    ([name, n]) => `      <li><b>${n}</b><span>${esc(name)}</span></li>`
+  )
+  .join("\n")}
+    </ul>
+  </div>
+</section>`;
+
+/* ------------------------------------------------------------ the checklist --
+ *
+ * EVERY CARD, WHICH IS THE SECTION THIS PAGE MOST OBVIOUSLY LACKED. Grouped by
+ * the same five sections the binder uses, so the page tells one story about how
+ * the set is put together. It is the whole checklist and not a sample: a set
+ * guide that shows twelve cards and calls itself a checklist is the thing a
+ * reader came here to avoid.
+ */
+const checklistBand = !(checklist.cards || []).length ? "" : `
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label">Every card</p>
+    <h2>Full ${TOTAL} card <span class="hl">checklist</span></h2>
+    <p class="lede" style="max-width:44em">${
+      (checklist.cards || []).length
+    } of the ${TOTAL} are listed and pictured. What is missing is missing at the source: the eight foil
+      basic Energy are numbered in a different set entirely and nobody lists them yet${
+        US.count ? `, and ${US.count} secret rares are the Mew RGB cards The Pokemon Company still has not acknowledged` : ""
+      }.</p>
+${SECTIONS.map(([key, label]) => {
+  const rows = (checklist.cards || []).filter((c) => c.section === key);
+  if (!rows.length) return "";
+  return `    <h3>${esc(label)} <span class="t30-cnt">${rows.length}</span></h3>
+    <ol class="t30-cts">
+${rows.map((c) => cardTile(c)).join("\n")}
+    </ol>`;
+}).filter(Boolean).join("\n")}
+  </div>
+</section>`;
+
 const body = `<main id="main">
 
 <header class="band-sky tight">
@@ -575,55 +744,11 @@ const body = `<main id="main">
       <div><b>${doc.products.length}</b><span>Products, five waves</span></div>
       <div><b>${packTotal}</b><span>Packs across them all</span></div>
     </div>
+    <p class="t30-msjump"><a href="#masterset"><b>${pct}% of the set collected</b>
+      <span>${haveTotal} of ${TOTAL} cards &mdash; see the master set binder &rarr;</span></a></p>
   </div>
 </header>
-
-<section class="tight">
-  <div class="wrap">
-    <h2>The master set, pocket by pocket</h2>
-    <p style="max-width:42em">Nine pockets to a page, the same as the set's own Binder Collection. A filled pocket
-      is a card actually in the binder. The empty ones are the job.${
-        CHECKLIST.size
-          ? ` Every card is shown: the ones still to find are the grey ones.`
-          : ""
-      }</p>
-    <div class="t30-hero">
-      <h3 style="margin:0">${haveTotal} of ${TOTAL} cards <span class="t30-cnt">${pct}%</span></h3>
-      <div class="t30-bar" style="margin-top:var(--s3)" role="img" aria-label="${haveTotal} of ${TOTAL} collected"><span style="width:${pct}%"></span></div>
-      <p class="t30-bn" style="margin-bottom:0">${
-        haveTotal === 0
-          ? `Nothing in it yet, which is correct rather than broken: the set does not release until ${esc(
-              longDate(doc.set.release)
-            )}. Cards get added here as they are opened.`
-          : `Last added ${esc(longDate(binder.checked))}.`
-      }</p>
-    </div>
-${SECTIONS.map(binderSection).join("\n")}
-    <p class="price-note" style="margin-top:var(--s5)"><strong>199 is not an official number.</strong>
-      ${esc(E.note)} The Pokemon Company has never published a card count for this set, so these bars run
-      against PokeBeach's count and may move when the last secret rares are shown.</p>
-${
-  /* WHERE THE PICTURES CAME FROM, SAID ON THE PAGE. This site names the source
-     of every figure it prints and a card scan is no different -- and here it is
-     doubly worth saying, because these are NOT the source the other 59,758 card
-     images on this site come from. The count is computed, never typed, so it
-     cannot drift from the binder above it. */
-  CHECKLIST.size
-    ? `    <p class="price-note"><strong>Where the card pictures come from.</strong>
-      ${REMOTE_PICS} of the ${TOTAL} are hotlinked from TCGplayer, who listed this set before
-      TCGdex did &mdash; TCGdex is where the rest of this site's card scans come from, and on release
-      day it still held no 2026 anniversary set. ${OWN_PICS} are the owner's own photographs of the
-      copies in his hands, which is why they look different from the rest. Nothing here is rehosted
-      or resized.${
-        NO_PICS > 0
-          ? ` The remaining ${NO_PICS} have no picture yet: the eight foil Energy are numbered in a
-      different set and are not listed, and a few secret rares are still unrevealed.`
-          : ""
-      }</p>`
-    : ""
-}
-  </div>
-</section>
+${valueBand}
 
 <section class="band tight">
   <div class="wrap">
@@ -684,6 +809,9 @@ ${doc.japanBoxOpening.rows
   </div>
 </section>
 
+${rarityBand}
+${checklistBand}
+
 <section class="tight">
   <div class="wrap">
     <h2>Every product, by release wave</h2>
@@ -714,6 +842,54 @@ ${jpRows}
         </tbody>
       </table>
     </div>
+  </div>
+</section>
+
+<section class="tight" id="masterset">
+  <div class="wrap">
+    <p class="sec-label">One collector's copy</p>
+    <h2>The master set, pocket by pocket</h2>
+    <p style="max-width:42em">Nine pockets to a page, the same as the set's own Binder Collection. A filled pocket
+      is a card actually in the binder. The empty ones are the job.${
+        CHECKLIST.size
+          ? ` Every card is shown: the ones still to find are the grey ones.`
+          : ""
+      }</p>
+    <div class="t30-hero">
+      <h3 style="margin:0">${haveTotal} of ${TOTAL} cards <span class="t30-cnt">${pct}%</span></h3>
+      <div class="t30-bar" style="margin-top:var(--s3)" role="img" aria-label="${haveTotal} of ${TOTAL} collected"><span style="width:${pct}%"></span></div>
+      <p class="t30-bn" style="margin-bottom:0">${
+        haveTotal === 0
+          ? `Nothing in it yet, which is correct rather than broken: the set does not release until ${esc(
+              longDate(doc.set.release)
+            )}. Cards get added here as they are opened.`
+          : `Last added ${esc(longDate(binder.checked))}.`
+      }</p>
+    </div>
+${SECTIONS.map(binderSection).join("\n")}
+    <p class="price-note" style="margin-top:var(--s5)"><strong>199 is not an official number.</strong>
+      ${esc(E.note)} The Pokemon Company has never published a card count for this set, so these bars run
+      against PokeBeach's count and may move when the last secret rares are shown.</p>
+${
+  /* WHERE THE PICTURES CAME FROM, SAID ON THE PAGE. This site names the source
+     of every figure it prints and a card scan is no different -- and here it is
+     doubly worth saying, because these are NOT the source the other 59,758 card
+     images on this site come from. The count is computed, never typed, so it
+     cannot drift from the binder above it. */
+  CHECKLIST.size
+    ? `    <p class="price-note"><strong>Where the card pictures come from.</strong>
+      ${REMOTE_PICS} of the ${TOTAL} are hotlinked from TCGplayer, who listed this set before
+      TCGdex did &mdash; TCGdex is where the rest of this site's card scans come from, and on release
+      day it still held no 2026 anniversary set. ${OWN_PICS} are the owner's own photographs of the
+      copies in his hands, which is why they look different from the rest. Nothing here is rehosted
+      or resized.${
+        NO_PICS > 0
+          ? ` The remaining ${NO_PICS} have no picture yet: the eight foil Energy are numbered in a
+      different set and are not listed, and a few secret rares are still unrevealed.`
+          : ""
+      }</p>`
+    : ""
+}
   </div>
 </section>
 
