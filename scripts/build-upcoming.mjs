@@ -286,6 +286,19 @@ const extraCard = (p) => `      <li class="up-extra" data-date="${esc(p.date || 
 // and no conversion is done. A dollar figure here would be a rate on the day
 // somebody typed it, frozen into a static file, on a page whose entire job is
 // not printing numbers that quietly stop being true.
+/* NAMED BUT NOT DATED. See data/upcoming.json's `outlook._note` for why this is
+   its own list and not a fourth confidence word: rows here have NO date field,
+   which is what lets a Japanese one sit beside an English one without breaking
+   the rule that Japanese dates never appear in the English lists. There is no
+   date on either. */
+const outlook = doc.outlook || {};
+const outlookItems = outlook.items || [];
+const outlookCard = (o) => `        <li class="up-out">
+          <p class="up-out-region">${esc(o.region || "")}</p>
+          <h3>${esc(o.name)}</h3>
+          <p>${esc(o.note)}</p>
+        </li>`;
+
 const japanCard = (r) => `      <li class="up-extra up-jp" data-date="${esc(r.date || "")}">
         <p class="up-when"><span class="up-jp-flag">Japan only</span>
           <b>${longDate(r.date)}</b> <span class="up-cd">${countdown(r.date)}</span></p>
@@ -628,11 +641,40 @@ ${jpSets.map(japanCard).join("\n")}
       : ""
   }
 
+  ${
+    outlookItems.length
+      ? `<section class="band-sky tight" id="upOutlookBand">
+    <div class="wrap">
+      <h2>Further out, <span class="hl">with no date</span></h2>
+      <p class="up-jp-lede">Named, shown, and not scheduled. Pokemon has said these exist and has
+        not said when, so there is no date here to slip &mdash; not a day, not a month, not a
+        quarter. They are kept apart from everything above for that reason rather than sorted in
+        among it, because a release with no date is a different kind of thing from one with a date
+        that might move. Each one says which market it belongs to.</p>
+      <ul class="up-outs">
+${outlookItems.map(outlookCard).join("\n")}
+      </ul>
+      <p class="up-jp-src">READ ${esc(longDate(outlook.checked || doc.checked).toUpperCase())}.
+        A SEASON OR A YEAR WORKED OUT BY A NEWS SITE IS NOT ON HERE: WHERE A DATE IS UNANNOUNCED
+        THIS PAGE SAYS SO RATHER THAN NARROWING IT.</p>
+    </div>
+  </section>`
+      : ""
+  }
+
   <section class="tight">
     <div class="wrap">
-      <p class="up-foot">CHECKED ${esc(longDate(doc.checked).toUpperCase())}. NOTHING BEYOND THE SETS
-        ABOVE HAS BEEN ANNOUNCED: NO ENGLISH SET AFTER THEM HAS BEEN NAMED OR DATED, SO THIS PAGE
-        DOES NOT LIST ONE. JAPANESE SETS OFTEN COME OUT MONTHS EARLIER AND ARE NOT THE SAME RELEASE,
+      <p class="up-foot">CHECKED ${esc(longDate(doc.checked).toUpperCase())}. ${
+        /* THIS USED TO SAY "NO ENGLISH SET AFTER THEM HAS BEEN NAMED OR DATED" UNCONDITIONALLY,
+           AND THE OUTLOOK LIST MAKES THAT FALSE. Pokemon named the series after Mega Evolution on
+           30 August 2026. The claim is still exactly right about SETS -- no set in that series has
+           been named -- so it is narrowed to the word it was always true of rather than deleted. */
+        outlookItems.length
+          ? `NO ENGLISH SET AFTER THE ONES ABOVE HAS BEEN NAMED OR DATED. WHAT HAS BEEN NAMED WITHOUT
+        A DATE IS IN ITS OWN SECTION AND IS NOT A SET YOU CAN PREORDER.`
+          : `NOTHING BEYOND THE SETS ABOVE HAS BEEN ANNOUNCED: NO ENGLISH SET AFTER THEM HAS BEEN
+        NAMED OR DATED, SO THIS PAGE DOES NOT LIST ONE.`
+      } JAPANESE SETS OFTEN COME OUT MONTHS EARLIER AND ARE NOT THE SAME RELEASE,
         SO THEY ${
           jpSets.length
             ? "GET THEIR OWN SECTION ABOVE AND ARE NEVER MIXED INTO THE ENGLISH LISTS"

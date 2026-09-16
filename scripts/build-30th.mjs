@@ -139,10 +139,21 @@ try {
 // dies on, so `main` below is the 98 that are not Pikachu. 98+30+33+30+8 = 199,
 // which is the same 199 and not a second opinion about it.
 const E = doc.structure.english;
+/* THE SECRET RARES NOTHING LISTS. See data/30th.json's `unlistedSecrets` readme:
+   PokeBeach counts 33 secret rares, the checklist holds 30, and these three Mew
+   are the difference. They are why the secret section's caption must not claim
+   the shortfall is unrevealed cards -- they were revealed on 15 September, they
+   are simply unacknowledged by TPCi and listed by nobody, so there is no product
+   id to draw a picture from. */
+const US = doc.unlistedSecrets || {};
 const SECTIONS = [
   ["pikachu", "The 30 Pikachu", E.pikachu, "One in every pack, each by a different illustrator. Japan's first is Ken Sugimori redrawing his own Jungle Pikachu."],
   ["main", "Main set", E.main - E.pikachu, "Everything else in the numbered main set."],
-  ["secret", "Secret rares", E.secret, "Illustration rares, special illustration rares, and the two Futuristic rares."],
+  ["secret", "Secret rares", E.secret, `Illustration rares, special illustration rares, and the two Futuristic rares.${
+    US.count
+      ? ` ${US.count} of them have no pocket here: ${US.blurb}`
+      : ""
+  }`],
   ["classic", "Classic Collection", E.classic, "Reprints on gold bordered sparkle foil, numbered outside the main set. Not Standard legal."],
   ["energy", "Basic Energy", E.energy, "All eight are foil and all eight count. One comes in every pack."],
 ];
@@ -398,12 +409,17 @@ ${cells.join("\n")}
               ? ""
               : slots.length
                 /* THE TWO REASONS A POCKET CAN BE MISSING ARE DIFFERENT AND THIS
-                   USED TO GIVE THE CAP'S REASON FOR BOTH. With a checklist, a
-                   short section means the CARD HAS NOT BEEN REVEALED: three
-                   secret rares were still blank on release day and PokeBeach's
-                   own guide says so. "Not drawn until they are closer to being
-                   filled" is the cap's reason and was simply untrue of those. */
-                ? ` ${total - shown} more ${total - shown === 1 ? "card" : "cards"} in this section ${total - shown === 1 ? "has" : "have"} not been revealed yet, so ${total - shown === 1 ? "it has" : "they have"} no pocket to show.`
+                   HAS NOW GIVEN THE WRONG ONE TWICE. First it gave the cap's
+                   reason -- "not drawn until they are closer to being filled" --
+                   for a section that was short because no source lists the card.
+                   Then it said those cards "have not been revealed yet", which
+                   was ALREADY FALSE when it was written on 16 September 2026:
+                   the three Mew RGB were revealed on the 15th through an
+                   internal Pokemon TCG Live update. So this no longer explains
+                   itself at all. It states the count, and the section's own note
+                   carries the reason, which is where there is room to be exact
+                   about it. A caption should not hold a claim that can rot. */
+                ? ` ${total - shown} more ${total - shown === 1 ? "card" : "cards"} in this section ${total - shown === 1 ? "has" : "have"} no pocket yet.`
                 : ` ${total - shown} further pocket${total - shown === 1 ? "" : "s"} in this section are not drawn until they are closer to being filled.`
           }</figcaption>
         </figure>

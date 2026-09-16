@@ -1115,5 +1115,68 @@
     "mainSetSize": "128. Both Pokemon read x/128 (Hydreigon 099/128, Igglybuff 120/128), which CONFIRMS PokeBeach's figure of 128 main set cards from the printing itself rather than from a count of revealed images.",
     "energyNumbering": "The basic Energy is NOT numbered in the main set. It reads MEE 016, in the MEE Energy sheet, while carrying the rainbow 30th Pikachu stamp and YOSHIROTTEN's illustrator credit. So the eight foil Energy sit outside the 128.",
     "japanMismatchProved": "Igglybuff is #096 in Japan and 120/128 in English, and Hydreigon is in the English set and NOWHERE in Japan's 176 card list. The two sets are genuinely different and their numbers do not correspond, which is why this page does not map one onto the other."
+  },
+  "unlistedSecrets": {
+    "_note": [
+      "THE THREE SECRET RARES NOTHING LISTS, AND WHY THE BINDER IS SHORT BY EXACTLY",
+      "THREE. PokeBeach counts 33 secret rares and data/30th-checklist.json holds 30,",
+      "and the gap is not an error in either: it is these cards. TPCi has never",
+      "publicly acknowledged them, they are ABSENT FROM THE CARD LIST BOOKLET inside",
+      "the Elite Trainer Box, and no retailer lists them, so there is no product id to",
+      "hotlink a picture from and no official checklist row to name them by.",
+      "",
+      "THEY ARE NOT UNREVEALED ANY MORE AND THAT WAS A CORRECTION. This page said",
+      "'have not been revealed yet' on 16 September 2026, which was already wrong when",
+      "it was written: PokeBeach updated its report on 15 September to say the three",
+      "had been revealed through an internal update to Pokemon TCG Live. Revealed and",
+      "unacknowledged are different things and only the second one is still true.",
+      "",
+      "PROVENANCE IS RECORDED BECAUSE IT IS NOT CLEAN. They first appeared about two",
+      "months before release when streamers opened product early, from what PokeBeach",
+      "reports was an unauthorised source in the distribution chain that may have been",
+      "stolen; eBay has since removed leaked 30th Celebration cards under its Stolen",
+      "Property Policy after notice from TPCi. Naming the cards is ordinary editorial",
+      "reporting and every card site has done it. This file does not link a leaked",
+      "image, does not price them, and states no pull rate: PokeBeach says the rates",
+      "'won't be known until more packs are opened', so there is nothing confirmed to",
+      "state and the sourcing rule in CLAUDE.md is what it is.",
+      "",
+      "NUMBERED OUT OF RGB, NOT OUT OF 128, which is why they could never have been",
+      "found by the checklist sync: it classifies a secret rare as anything numbered",
+      "above the set's 128, and these carry no number in that series at all."
+    ],
+    "checked": "2026-09-16",
+    "count": 3,
+    "illustrator": "YOSHIROTTEN",
+    "cards": [
+      {
+        "n": "R/RGB",
+        "name": "Mew",
+        "variants": [
+          "R/RGB",
+          "R/RGB (French)"
+        ]
+      },
+      {
+        "n": "G/RGB",
+        "name": "Mew",
+        "variants": [
+          "G/RGB",
+          "G/RGB (French)"
+        ]
+      },
+      {
+        "n": "B/RGB",
+        "name": "Mew",
+        "variants": [
+          "B/RGB",
+          "B/RGB (Japanese)"
+        ]
+      }
+    ],
+    "blurb": "Three Mew, one red, one green and one blue, for the original Red, Green and Blue games, illustrated by YOSHIROTTEN, who also designed the set's foil Energy. They are numbered out of RGB rather than out of 128, so they sit outside the main set's numbering entirely. The Pokemon Company has still not publicly acknowledged them and left them out of the Elite Trainer Box's card list booklet, which PokeBeach reads as deliberate: Mew was the schoolyard rumour of the original games and these are meant to be the same kind of rumour.",
+    "sources": [
+      "https://www.pokebeach.com/2026/09/mew-rgb-secret-rares-pulled-from-30th-celebration"
+    ]
   }
 }
