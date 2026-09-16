@@ -41,7 +41,7 @@
     "SO 0 OF 199 IS THE CORRECT STARTING STATE, not a bug. The set releases 16",
     "September 2026 and this file was written on the 11th."
   ],
-  "checked": "2026-09-11",
+  "checked": "2026-09-16",
   "owned": [
     {
       "name": "Hydreigon",
@@ -75,6 +75,86 @@
       "got": "2026-09-11",
       "shot": "mee-016-basic-metal-energy",
       "note": "Read off the card: MEE 016, NOT a 30C number, with the rainbow 30th Pikachu stamp and YOSHIROTTEN's name on it, which matches TPCi saying he designed the Energy. So the set's eight foil Energy are numbered in the MEE Energy sheet rather than in the main set."
+    },
+    {
+      "name": "Pikachu",
+      "n": "031",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 50, [C] Gnaw (10), which is #031 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture."
+    },
+    {
+      "name": "Pikachu",
+      "n": "047",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 70, [C] Play Rough (10+), which is #047 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture."
+    },
+    {
+      "name": "Pikachu",
+      "n": "046",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 60, [C] Get Some Air, second attack [CC] Smash Kick (20), which is #046 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture."
+    },
+    {
+      "name": "Pikachu",
+      "n": "039",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 70, [C] Iron Tail (20x), which is #039 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture."
+    },
+    {
+      "name": "Pikachu",
+      "n": "043",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 70, [CC] Tropical Vibes, which is #043 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture."
+    },
+    {
+      "name": "Pikachu",
+      "n": "028",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 60, [LC] Pika Ball (20), with the Lonely Gaze Ability above it, which is #028 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture."
+    },
+    {
+      "name": "Pikachu",
+      "n": "051",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 70, [LLL] Lightning Crash, which is #051 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture."
+    },
+    {
+      "name": "Pikachu",
+      "n": "033",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 60, [L] Tiny Charge (10), which is #033 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture."
     }
   ],
   "_shotNote": [
