@@ -88,6 +88,37 @@ import { corpusScan, noScanBox, NOSCAN_CSS } from "../shared/card-scan.mjs";
 import { esc, longDate, shortDate, rarityLabel, imgDims, avifPicture, moneyCompact,
   productSrcsetAttr, clipMeta, nat, natRuns} from "../shared/format.mjs";
 
+/* THE WIDTH OF A TITLE AS GOOGLE DRAWS IT, in px at 20px Arial.
+ *
+ * A CHARACTER COUNT IS NOT A SUBSTITUTE AND scripts/seo-sweep.py's own header
+ * says why: "Game From an App?" is exactly 60 characters and renders 622px.
+ * Proportional type means the count and the width disagree, and the width is
+ * the thing that gets cut.
+ *
+ * This is a per-character table rather than a font measurement because a
+ * builder must not depend on a font file being installed: seo-sweep.py degrades
+ * to a character rule when Arial is missing, and a BUILDER that did that would
+ * silently change what it published depending on the machine. The widths below
+ * are Arial's own advance widths at 20px for the characters these titles
+ * actually use, and it was CHECKED against the real font rather than asserted:
+ * over all thirteen intl titles it agrees to within 3px, worst case
+ * ja-ninja-spinner at 571 real against 574 here. It also errs HIGH in twelve of
+ * the thirteen, which is the safe direction for a test asking "is this past the
+ * cut": it can shorten a title that only just fits, and it will never leave one
+ * past the cut believing it fits.
+ */
+const TITLE_W = {" ":5.56,"!":5.56,"\"":7.1,"&":13.34,"'":3.82,"(":6.66,")":6.66,",":5.56,
+  "-":6.66,".":5.56,"/":5.56,":":5.56,"?":11.12,"A":13.34,"B":13.34,"C":14.44,"D":14.44,
+  "E":13.34,"F":12.22,"G":15.56,"H":14.44,"I":5.56,"J":10,"K":13.34,"L":11.12,"M":16.66,
+  "N":14.44,"O":15.56,"P":13.34,"Q":15.56,"R":14.44,"S":13.34,"T":12.22,"U":14.44,"V":13.34,
+  "W":18.88,"X":13.34,"Y":13.34,"Z":12.22,"a":11.12,"b":11.12,"c":10,"d":11.12,"e":11.12,
+  "f":5.56,"g":11.12,"h":11.12,"i":4.44,"j":4.44,"k":10,"l":4.44,"m":16.66,"n":11.12,
+  "o":11.12,"p":11.12,"q":11.12,"r":6.66,"s":10,"t":5.56,"u":11.12,"v":10,"w":14.44,
+  "x":10,"y":10,"z":10,"0":11.12,"1":11.12,"2":11.12,"3":11.12,"4":11.12,"5":11.12,
+  "6":11.12,"7":11.12,"8":11.12,"9":11.12};
+const titlePx = (t) =>
+  Math.round([...String(t).replace(/\s+/g, " ")].reduce((a, c) => a + (TITLE_W[c] ?? 11.12), 0));
+
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/sets");
 
@@ -1935,9 +1966,27 @@ function guidePage(g) {
     // Bare they run 523-609px. The sibling English guides in build-set-pages.mjs
     // KEEP their brand and should: setTitle drops the descriptor instead and 26
     // of 27 already fit, so there is nothing there for this change to buy.
-    title: g.equivalent
-      ? `${g.english} (${g.langName}) Set Guide: Cards & English Equivalent`
-      : `${g.english} (${g.langName}) Set Guide`,
+    /* AND "SET GUIDE" COMES OFF THE ONE THAT STILL DOES NOT FIT, which is the
+       same move setTitle makes on the English guides in build-set-pages.mjs:
+       drop the DESCRIPTOR, never the part a reader came for. The note above
+       records the bare range as 523-609px, so it was already known that one of
+       the thirteen would sit past the cut; measured 16 September 2026 it is
+       exactly one, /sets/ja-mega-symphonia.html at 608px, and what the cut eats
+       is still "English Equivalent". Dropping "Set Guide" takes it to 513px.
+       IT IS CONDITIONAL RATHER THAN A TEMPLATE CHANGE because the other twelve
+       run 523-579px and fit as they are; rewriting all thirteen to fix one
+       would cost the other twelve a phrase that is doing real work in a search
+       result. The h1 on the page still says Set Guide either way. */
+    title: (() => {
+      const full = g.equivalent
+        ? `${g.english} (${g.langName}) Set Guide: Cards & English Equivalent`
+        : `${g.english} (${g.langName}) Set Guide`;
+      // 20px Arial, Google's desktop result. Same measurement scripts/seo-sweep
+      // .py makes, and it agrees with headless Chrome to within 2px over a
+      // thousand pages, which is why a number can be trusted here at all.
+      if (titlePx(full) <= 580 || !g.equivalent) return full;
+      return `${g.english} (${g.langName}): Cards & English Equivalent`;
+    })(),
     desc, canonical: url, image: `${ogImage(g)}?v=2`, ld, noindex: thin,
     // Three blocks, each carried only where its markup exists. ART_CSS is the
     // pictures, PAGE_CSS is the card-for-card table, and RARITY_CSS is the
