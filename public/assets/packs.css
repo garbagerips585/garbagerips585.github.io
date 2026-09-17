@@ -17,6 +17,21 @@
 }
 .pack--151.pack--tile.pack--img .pack-art{background-image:none}
 
+.pack--30th-celebration .pack-art{
+  background-color:#161D26;
+  background-image:url('packs/30th-celebration-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/30th-celebration-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/30th-celebration-garbage-rips-585-booster-pack.webp') type('image/webp'));
+  background-size:cover;
+  background-position:center;
+}
+.pack--30th-celebration .pack-art::before,.pack--30th-celebration .pack-art::after{content:none}
+.pack--30th-celebration .pack-brand,.pack--30th-celebration .pack-mascot{display:none}
+.pack--30th-celebration.pack--tile .pack-art{
+  background-image:url('packs/30th-celebration-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/30th-celebration-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/30th-celebration-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
+}
+.pack--30th-celebration.pack--tile.pack--img .pack-art{background-image:none}
+
 .pack--ascended-heroes .pack-art{
   background-color:#161D26;
   background-image:url('packs/ascended-heroes-garbage-rips-585-booster-pack.webp');

@@ -1243,6 +1243,64 @@ const latestHtml = carousel(latestList, { dated: true });
 const hallHtml = carousel(hallList.slice(0, 5), { showSet: true });
 
 const ordered = [...sets].sort((a, b) => String(b.released).localeCompare(String(a.released)));
+/* THE 30th CELEBRATION TILE, AND IT HAS TO BE HAND BUILT.
+ *
+ * The owner, 17 September 2026: "please now add the 30th Celebration Set as the
+ * latest set featured on the home page on the set guides section".
+ *
+ * EVERY OTHER TILE COMES FROM public/data/sets.json AND THIS SET CAN NEVER BE IN
+ * IT. That file is written by sync-sets.mjs out of TCGdex, and TCGdex has never
+ * held the 2026 anniversary set -- checked again on release day, 218 English
+ * sets, newest Pitch Black. So there is no row for the rail to pick up and no
+ * /sets/<id>.html for it to link to either; the guide lives at
+ * /30th-celebration.html, with a noindex redirect parked at the /sets/ address
+ * because that is what people type.
+ *
+ * IT GOES FIRST BECAUSE THE RAIL IS NEWEST FIRST, not because it is being
+ * promoted. It released 16 September 2026 against Pitch Black's 17 July, so
+ * first IS its date order, and it will fall back naturally the moment a newer
+ * set lands in sets.json.
+ *
+ * EVERY FIGURE ON IT IS READ FROM THE SAME FILES THE PAGE ALREADY TRUSTS rather
+ * than typed: the card count from data/30th.json's structure block, which is
+ * PokeBeach's 199 and is attributed as theirs everywhere else on the site; the
+ * top card from data/30th-prices.json, which is PriceCharting's guide value,
+ * the same source every other tile's figure comes from; the rip count from the
+ * same setCounts map the other tiles use. If this set ever does appear in
+ * TCGdex, delete this block and the rail will build it the ordinary way.
+ */
+const t30Tile = await (async () => {
+  const ID = "30th-celebration";
+  let doc30, prices30;
+  try {
+    doc30 = JSON.parse(await readFile(join(ROOT, "data/30th.json"), "utf8"));
+    prices30 = JSON.parse(await readFile(join(ROOT, "data/30th-prices.json"), "utf8").catch(() => "null"));
+  } catch { return ""; }
+  if (!doc30) return "";
+  const n = setCounts[ID] || 0;
+  const bits = [
+    doc30.structure?.english?.count ? `${doc30.structure.english.count} cards` : null,
+    monthYear(doc30.set?.release) || null,
+  ].filter(Boolean);
+  const h = logos.has(ID) ? await logoHeight(ID) : null;
+  const face = h
+    ? `<img${await logoAttrs(ID, h)} alt="" loading="lazy" style="--lh:${h}px">`
+    : `<span class="set-noart" aria-hidden="true"></span>`;
+  /* DEAREST BY RAW, the same rule the tiles below use and for the same recorded
+     reason: a graded figure is a different number about a different object, and
+     ranking on it puts whichever card somebody happened to grade on top. */
+  const top = Object.values(prices30?.cards || {})
+    .filter((c) => typeof c.raw === "number")
+    .sort((a, b) => b.raw - a.raw)[0];
+  return `        <a class="set" href="/30th-celebration.html">
+          <span class="set-art">${face}</span>
+          <b>${esc(doc30.set?.name?.replace(/^Pokemon TCG:\s*/, "") || "30th Celebration")}</b>
+          <span class="set-meta">${esc(bits.join(" · "))}</span>
+          ${top ? `<span class="set-top">Top card ${moneyCompact(top.raw)}</span>` : ""}
+          ${n ? `<span class="set-rips">${n} rip${n === 1 ? "" : "s"}</span>` : ""}
+        </a>`;
+})();
+
 const setsHtml = (
   await Promise.all(
     ordered.map(async (s) => {
@@ -1311,6 +1369,12 @@ const setsHtml = (
     })
   )
 ).join("\n");
+
+// THE HAND BUILT TILE IS PREPENDED HERE rather than pushed into `ordered`,
+// because `ordered` is a list of sets.json rows and every later reader of it --
+// the ledger, the counts, the filter rail -- expects that shape. A tile is the
+// only thing this set can contribute to this band.
+const setsHtmlAll = [t30Tile, setsHtml].filter(Boolean).join("\n");
 
 // Most Wanted band. Shows a price only when there is one: the newest sets have
 // no market data, and no free feed carries PSA 10 at all, so a card with
@@ -3451,7 +3515,7 @@ const REGIONS = {
   // and the markers sit OUTSIDE the <section> for the same reason the two
   // bands above give.
   ROCHESTER: rocHtml,
-  SETS101: setsHtml,
+  SETS101: setsHtmlAll,
   // COUNT_ALL LEFT index.html AND STAYED ON videos.html, AND I ALMOST BROKE IT.
   // It filled "All 321" in the Latest rips header, which became "Watch All Rips"
   // on 23 August 2026, so I deleted the region -- and videos.html still carries

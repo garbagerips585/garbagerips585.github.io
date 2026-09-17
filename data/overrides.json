@@ -2780,5 +2780,9 @@
     "products": [
       "blister"
     ]
+  },
+  "IYh51hhJkL0": {
+    "packNumber": 11,
+    "packNumberWhy": "The owner, 17 September 2026: \"Single Booster Pack, Pack #11, Hit yes, Iono's Wattrel - Single Gold Star - Illustration Rare , Ascended Heroes\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. This title does not even say a pack number -- it reads \"Ascended Heroes Pack #11\" in the nightly's own slug but the site does not parse that -- so his message is the whole source. No hasHit override: this rip HAS a hit and a hit is answered by its data/hits.json row."
   }
 }

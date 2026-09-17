@@ -2360,6 +2360,17 @@
         "hallOfFame": false,
         "handNote": "The owner, 16 September 2026: \"3-Pack Blister, Pack #1, Hit yes, Fuecoco ex - Double Black Star - Double Rare, 30th Celebration\". 30th Celebration prints Fuecoco ex TWICE -- 015/128 Double Rare and 147/128 Special Illustration Rare -- and the two carry IDENTICAL card text, HP 210, Singe, Cheerful Flame (70x), so nothing readable separates them and the rarity is the only thing that can choose. Two black stars IS the Double rare symbol, so this is 015. CORROBORATED BY THE CARD ITSELF: he photographed this same pull earlier the same day and the close-up shows 015/128 with the 30C set code, which is why data/30th-binder.json already holds it. The symbol he typed and the number printed on the card agree. Hand kept until the My Hits tab carries it."
       }
+    ],
+    "IYh51hhJkL0": [
+      {
+        "card": "Iono's Wattrel",
+        "set": "ascended-heroes",
+        "setName": "Ascended Heroes",
+        "rarity": "Illustration rare",
+        "number": "231",
+        "hallOfFame": false,
+        "handNote": "The owner, 17 September 2026: \"Single Booster Pack, Pack #11, Hit yes, Iono's Wattrel - Single Gold Star - Illustration Rare , Ascended Heroes\". Ascended Heroes prints Iono's Wattrel TWICE -- 071 Common at $0.70 and 231 Illustration rare at $9.00 -- and the rarity names exactly one, which is the rule pickPrinting follows and the reason the number is 231. \"Single Gold Star\" is the same claim said twice: one gold star IS the Illustration rare symbol, so the symbol he read and the tier he named agree, and that agreement is the check. He named the set himself and it matches the video's own tag. NOT to be confused with Iono's Kilowattrel at 072, the evolution, which is a different card at a coincidentally identical $0.70. The rarity is written \"Illustration rare\" to match the checklist's own casing exactly, because the renderers key off that string. Hand kept until the My Hits tab carries it."
+      }
     ]
   }
 }

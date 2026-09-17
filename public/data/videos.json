@@ -15,7 +15,7 @@
       "published": "2026-09-17",
       "publishedAt": "2026-09-17T12:10:38Z",
       "duration": 23,
-      "views": 19,
+      "views": 31,
       "vertical": true,
       "short": true,
       "sets": [
@@ -25,7 +25,9 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Ascended Heroes Pack"
+      "packNumber": 11,
+      "packs": 1,
+      "label": "Ascended Heroes Pack - Pack 11"
     },
     {
       "id": "N02mLMwZSq0",
@@ -55,7 +57,7 @@
       "published": "2026-09-16",
       "publishedAt": "2026-09-16T23:20:06Z",
       "duration": 27,
-      "views": 1142,
+      "views": 1152,
       "vertical": true,
       "short": true,
       "sets": [
@@ -76,7 +78,7 @@
       "published": "2026-09-15",
       "publishedAt": "2026-09-15T10:15:21Z",
       "duration": 19,
-      "views": 938,
+      "views": 939,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1341,7 +1343,7 @@
       "published": "2026-08-04",
       "publishedAt": "2026-08-04T11:45:09Z",
       "duration": 21,
-      "views": 831,
+      "views": 830,
       "vertical": true,
       "short": true,
       "sets": [
