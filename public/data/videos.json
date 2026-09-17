@@ -3,11 +3,30 @@
   "channel": {
     "views": 294452,
     "subscribers": 376,
-    "videos": 346,
+    "videos": 347,
     "readAt": "2026-09-17"
   },
   "syncedAt": "2026-09-17",
   "videos": [
+    {
+      "id": "IYh51hhJkL0",
+      "title": "Ascended Heroes Pack #11 ✨ | We Pulled An IONO CARD! 🔥",
+      "path": "rip/ascended-heroes-pack-11-we-pulled-an-iono-card-IYh51hhJkL0.html",
+      "published": "2026-09-17",
+      "publishedAt": "2026-09-17T12:10:38Z",
+      "duration": 23,
+      "views": 19,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "ascended-heroes"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Ascended Heroes Pack"
+    },
     {
       "id": "N02mLMwZSq0",
       "title": "Perfect Order Pack #13 ✨ | Lucky #13 Brings The ULTRA RARE! 🔥",
@@ -36,7 +55,7 @@
       "published": "2026-09-16",
       "publishedAt": "2026-09-16T23:20:06Z",
       "duration": 27,
-      "views": 1141,
+      "views": 1142,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1322,7 +1341,7 @@
       "published": "2026-08-04",
       "publishedAt": "2026-08-04T11:45:09Z",
       "duration": 21,
-      "views": 830,
+      "views": 831,
       "vertical": true,
       "short": true,
       "sets": [
