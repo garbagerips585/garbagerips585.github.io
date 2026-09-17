@@ -179,6 +179,119 @@
       "rarity": "Classic Collection",
       "got": "2026-09-16",
       "note": "The owner, 16 September 2026: \"these were the hits from the packs I ripped today\", with a photograph of ten. IDENTIFIED BY CARD TEXT, NOT BY READING THE COLLECTOR NUMBER, for the reason the Pikachu rows record: a number read off a photograph is a digit away from putting the wrong card in the binder. The only Erika's Jigglypuff in the set. Classic Collection again, so the number is 69/132 off its original set. Group Therapy and Pulled Punch (40-) on the card match its listed text. No `shot`: sourced scans are preferred over his own photographs."
+    },
+    {
+      "name": "Poke Pad",
+      "n": "126",
+      "section": "main",
+      "setCode": "30C",
+      "rarity": "Common",
+      "got": "2026-09-16",
+      "note": "The Trainer in the same photograph, and the only one of the ten cards there that the checklist can confirm outright: it holds Poke Pad at 126/128 Common, and the card reads 126/128 with the 30C set code. Yuko Morii illustrated it. Printed \"Poke Pad\" here without the accent to match the checklist's own spelling, which is what the renderers key on."
+    },
+    {
+      "name": "Basic Grass Energy",
+      "n": "009",
+      "section": "energy",
+      "setCode": "MEE",
+      "rarity": "Basic Energy",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026, photographing them laid out. READ STRAIGHT OFF THE CARD, which is possible here and was not for the rotated Pikachu photograph: each one prints \"MEE EN\" and its number in the footer, large enough to read, alongside YOSHIROTTEN's name. THE MEE SET CODE IS THE WHOLE POINT OF THESE ROWS: the eight foil basic Energy are numbered in a DIFFERENT set from the 128 Pokemon and Trainers, which is why no /128 appears on them and why TCGplayer lists none of them under either 30th Celebration set name. data/30th-checklist.json holds zero Energy rows, so these eight can only ever be entered by hand from a card in front of him, and they draw no picture because no source this site may use has one. This one reads MEE EN 009."
+    },
+    {
+      "name": "Basic Fire Energy",
+      "n": "010",
+      "section": "energy",
+      "setCode": "MEE",
+      "rarity": "Basic Energy",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026, photographing them laid out. READ STRAIGHT OFF THE CARD, which is possible here and was not for the rotated Pikachu photograph: each one prints \"MEE EN\" and its number in the footer, large enough to read, alongside YOSHIROTTEN's name. THE MEE SET CODE IS THE WHOLE POINT OF THESE ROWS: the eight foil basic Energy are numbered in a DIFFERENT set from the 128 Pokemon and Trainers, which is why no /128 appears on them and why TCGplayer lists none of them under either 30th Celebration set name. data/30th-checklist.json holds zero Energy rows, so these eight can only ever be entered by hand from a card in front of him, and they draw no picture because no source this site may use has one. This one reads MEE EN 010."
+    },
+    {
+      "name": "Basic Water Energy",
+      "n": "011",
+      "section": "energy",
+      "setCode": "MEE",
+      "rarity": "Basic Energy",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026, photographing them laid out. READ STRAIGHT OFF THE CARD, which is possible here and was not for the rotated Pikachu photograph: each one prints \"MEE EN\" and its number in the footer, large enough to read, alongside YOSHIROTTEN's name. THE MEE SET CODE IS THE WHOLE POINT OF THESE ROWS: the eight foil basic Energy are numbered in a DIFFERENT set from the 128 Pokemon and Trainers, which is why no /128 appears on them and why TCGplayer lists none of them under either 30th Celebration set name. data/30th-checklist.json holds zero Energy rows, so these eight can only ever be entered by hand from a card in front of him, and they draw no picture because no source this site may use has one. This one reads MEE EN 011."
+    },
+    {
+      "name": "Basic Lightning Energy",
+      "n": "012",
+      "section": "energy",
+      "setCode": "MEE",
+      "rarity": "Basic Energy",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026, photographing them laid out. READ STRAIGHT OFF THE CARD, which is possible here and was not for the rotated Pikachu photograph: each one prints \"MEE EN\" and its number in the footer, large enough to read, alongside YOSHIROTTEN's name. THE MEE SET CODE IS THE WHOLE POINT OF THESE ROWS: the eight foil basic Energy are numbered in a DIFFERENT set from the 128 Pokemon and Trainers, which is why no /128 appears on them and why TCGplayer lists none of them under either 30th Celebration set name. data/30th-checklist.json holds zero Energy rows, so these eight can only ever be entered by hand from a card in front of him, and they draw no picture because no source this site may use has one. This one reads MEE EN 012."
+    },
+    {
+      "name": "Basic Psychic Energy",
+      "n": "013",
+      "section": "energy",
+      "setCode": "MEE",
+      "rarity": "Basic Energy",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026, photographing them laid out. READ STRAIGHT OFF THE CARD, which is possible here and was not for the rotated Pikachu photograph: each one prints \"MEE EN\" and its number in the footer, large enough to read, alongside YOSHIROTTEN's name. THE MEE SET CODE IS THE WHOLE POINT OF THESE ROWS: the eight foil basic Energy are numbered in a DIFFERENT set from the 128 Pokemon and Trainers, which is why no /128 appears on them and why TCGplayer lists none of them under either 30th Celebration set name. data/30th-checklist.json holds zero Energy rows, so these eight can only ever be entered by hand from a card in front of him, and they draw no picture because no source this site may use has one. THIS IS THE ONE NUMBER IN THE PHOTOGRAPH I AM INFERRING RATHER THAN READING, and it is recorded as such. Its footer is the least legible of the eight. Six others in the same photograph read cleanly -- Grass 009, Fire 010, Water 011, Lightning 012, Darkness 015, Metal 016 -- and those six sit in the standard Pokemon energy order (Grass, Fire, Water, Lightning, Psychic, Fighting, Darkness, Metal) with no gaps except 013 and 014. Psychic is fifth in that order, so it is 013 and Fighting is 014. Six confirmed readings pinning a sequence is a strong inference, but it is still an inference: if a Fighting Energy ever turns up reading 013, this row is the one to check first."
+    },
+    {
+      "name": "Basic Darkness Energy",
+      "n": "015",
+      "section": "energy",
+      "setCode": "MEE",
+      "rarity": "Basic Energy",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026, photographing them laid out. READ STRAIGHT OFF THE CARD, which is possible here and was not for the rotated Pikachu photograph: each one prints \"MEE EN\" and its number in the footer, large enough to read, alongside YOSHIROTTEN's name. THE MEE SET CODE IS THE WHOLE POINT OF THESE ROWS: the eight foil basic Energy are numbered in a DIFFERENT set from the 128 Pokemon and Trainers, which is why no /128 appears on them and why TCGplayer lists none of them under either 30th Celebration set name. data/30th-checklist.json holds zero Energy rows, so these eight can only ever be entered by hand from a card in front of him, and they draw no picture because no source this site may use has one. This one reads MEE EN 015."
+    },
+    {
+      "name": "Jirachi ex",
+      "n": "102",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Double rare",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"Jirachi ex is the double black star - double rare\". THE SYMBOL IS THE ANSWER AND THE TEXT COULD NEVER HAVE BEEN: this set prints Jirachi ex twice, 102/128 Double Rare and 155/128 Special Illustration Rare, and the two carry IDENTICAL card text -- HP 160, Wish Granter, Swift (150) -- so nothing readable separates them. Only the rarity mark and the artwork do. Two black stars IS the Double rare symbol, which is the same rule the rip log rows on this site follow, so this is 102. IT WAS WORTH ASKING RATHER THAN GUESSING: 102 is $5.63 raw and 155 is $580.00, so a coin flip here would have been wrong by a hundredfold while looking exactly as confident as being right."
+    },
+    {
+      "name": "Hisuian Zorua",
+      "n": "145",
+      "of": 128,
+      "setCode": "30C",
+      "section": "secret",
+      "rarity": "Illustration Rare",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"these 3 are all single gold star - illustration rare\", with a close-up of the three together. THE SYMBOL DECIDED IT AND NOTHING READABLE COULD HAVE: this set prints each of these twice, once in the main set and once as an Illustration Rare, and the two carry IDENTICAL card text -- same HP, same attacks, same everything -- so only the rarity mark and the full-bleed artwork separate them. One gold star IS the Illustration Rare symbol. The close-up also shows the number plainly, which the first photograph did not, and it agrees. HP 60, Scratch (20). The main set prints it at 122/128 Common."
+    },
+    {
+      "name": "Zapdos",
+      "n": "133",
+      "of": 128,
+      "setCode": "30C",
+      "section": "secret",
+      "rarity": "Illustration Rare",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"these 3 are all single gold star - illustration rare\", with a close-up of the three together. THE SYMBOL DECIDED IT AND NOTHING READABLE COULD HAVE: this set prints each of these twice, once in the main set and once as an Illustration Rare, and the two carry IDENTICAL card text -- same HP, same attacks, same everything -- so only the rarity mark and the full-bleed artwork separate them. One gold star IS the Illustration Rare symbol. The close-up also shows the number plainly, which the first photograph did not, and it agrees. HP 120, the Flash-Pop Flapping Ability and Thundering Lightning (210). The main set prints it at 055/128 Common, and the gap matters: 055 is $5.99 raw and 133 is $49.99."
+    },
+    {
+      "name": "Scraggy",
+      "n": "140",
+      "of": 128,
+      "setCode": "30C",
+      "section": "secret",
+      "rarity": "Illustration Rare",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"these 3 are all single gold star - illustration rare\", with a close-up of the three together. THE SYMBOL DECIDED IT AND NOTHING READABLE COULD HAVE: this set prints each of these twice, once in the main set and once as an Illustration Rare, and the two carry IDENTICAL card text -- same HP, same attacks, same everything -- so only the rarity mark and the full-bleed artwork separate them. One gold star IS the Illustration Rare symbol. The close-up also shows the number plainly, which the first photograph did not, and it agrees. HP 80, Nitpick and Corkscrew Punch (30). The main set prints it at 094/128 Common."
+    },
+    {
+      "name": "Fuecoco ex",
+      "n": "015",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Double rare",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"regular double black star - double rare\", with a close-up. This set prints Fuecoco ex twice, 015/128 Double Rare and 147/128 Special Illustration Rare, and the two carry IDENTICAL text -- HP 210, Singe, Cheerful Flame (70x) -- so only the rarity mark and the artwork separate them. Two black stars IS the Double rare symbol, and the close-up shows 015/128 with the 30C set code, so the symbol and the printed number agree. That agreement is the check: either alone would have been enough to act on, and having both means nothing here rests on my reading of a small number in a photograph."
     }
   ],
   "_shotNote": [
