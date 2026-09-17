@@ -420,6 +420,163 @@ const cardTile = (c, { showPrice = true } = {}) => {
         </li>`;
 };
 
+/* ======================================================================== *
+ * THE BINDER AS AN OBJECT YOU FLIP, NOT A LIST YOU SCROLL.
+ *
+ * The owner, 17 September 2026: "can we make it look more like an actual card
+ * binder, and have pages you flip through instead of just listing them all out
+ * under each other ... click a turn page button or click the page corner to
+ * turn the page ... so the page isn't as long and its more like a real card
+ * binder to virtually flip through".
+ *
+ * IT WAS 100KB OF THE PAGE'S 261KB AND 197 POCKETS STACKED VERTICALLY. Every
+ * section drew its whole grid, so the binder alone was 22 screens of scrolling
+ * and the sections below it were unreachable without passing all of them.
+ *
+ * NO JAVASCRIPT IS REQUIRED AND THAT IS THE DESIGN, NOT A CONCESSION. The
+ * leaves sit in a horizontal scroll-snap track and every control is a plain
+ * anchor to the next leaf's id, so turning a page is a native scroll a browser
+ * does on its own. The script at the bottom of the page only stops the WINDOW
+ * jumping while the track scrolls; with it blocked you still get a working
+ * binder, which is the same bargain the pack player and the lightbox already
+ * make on this site.
+ *
+ * A LEAF NEVER STRADDLES TWO SECTIONS. A real binder starts a new page for a
+ * new run of cards, and more practically: the leaf header names its section, so
+ * a leaf holding the end of the Pikachu and the start of the main set could not
+ * label itself honestly. That is why the page count is 25 rather than the 23
+ * you get from dividing 199 by 9 -- four of the five sections end mid-leaf.
+ * ====================================================================== */
+const leafOf = (cells, meta) => {
+  const held = cells.filter((c) => c.has).length;
+  return { ...meta, cells, held };
+};
+
+/* Every leaf in the binder, in order, across all five sections and the promos.
+   Built before anything renders so the leaf headers can say "page 4 of 25"
+   without a second pass. */
+const BINDER_LEAVES = (() => {
+  const out = [];
+  for (const [key, label, total] of SECTIONS) {
+    const have = ownedIn(key);
+    const slots = HAVE_SCANS ? slotsFor(key) : [];
+    const cards = [];
+    if (slots.length) {
+      const byKey = new Map(have.map((c) => [clKey(c.section, c.n || ""), c]));
+      for (const slot of slots) {
+        const k = clKey(slot.section, slot.n);
+        const mine = byKey.get(k);
+        if (mine) byKey.delete(k);
+        cards.push({ has: Boolean(mine), owned: mine, slot });
+      }
+      for (const c of have) if (byKey.has(clKey(c.section, c.n || ""))) cards.push({ has: true, owned: c, slot: null });
+    } else {
+      /* NO CHECKLIST FOR THIS SECTION, so it draws what he owns plus enough
+         empty pockets to finish the leaf. The Energy is this case: those eight
+         are numbered MEE and nobody lists them, so there are no slots to draw
+         and a full 199-pocket grid of numbered placeholders would be worse than
+         a short honest one. */
+      const shown = Math.min(total, Math.max(POCKETS, Math.ceil(have.length / POCKETS) * POCKETS));
+      for (let i = 0; i < shown; i++) cards.push({ has: Boolean(have[i]), owned: have[i], slot: null });
+    }
+    const pages = Math.max(1, Math.ceil(cards.length / POCKETS));
+    for (let p = 0; p < pages; p++)
+      out.push(leafOf(cards.slice(p * POCKETS, (p + 1) * POCKETS), {
+        key, label, total, page: p + 1, pages, of: cards.length,
+      }));
+  }
+  if (promos.length) {
+    const pages = Math.max(1, Math.ceil(promos.length / POCKETS));
+    for (let p = 0; p < pages; p++)
+      out.push(leafOf(promos.slice(p * POCKETS, (p + 1) * POCKETS).map((o) => ({ has: true, owned: o, slot: null, promo: true })),
+        { key: "promo", label: "Promos", total: promos.length, page: p + 1, pages, of: promos.length }));
+  }
+  return out.map((l, i) => ({ ...l, no: i + 1 }));
+})();
+const LEAF_N = BINDER_LEAVES.length;
+
+/* ONE LEAF. Nine pockets, a header that says which section and which page, and
+   a turn control in each bottom corner -- which is literally what he asked for:
+   "click the page corner to turn the page". The corners are anchors to the
+   neighbouring leaf's id, so they work before any script runs.
+   THEY WRAP AT BOTH ENDS rather than disappearing. A missing control on the
+   first and last leaf shifts the layout and leaves a dead corner; wrapping
+   keeps the object consistent and a binder you can flip round from the back is
+   not a wrong idea. */
+const leafHtml = (l) => {
+  const prev = BINDER_LEAVES[(l.no - 2 + LEAF_N) % LEAF_N];
+  const next = BINDER_LEAVES[l.no % LEAF_N];
+  const cellHtml = l.cells
+    .map((c, i) =>
+      c.has
+        ? pocket(c.owned, i, null)
+        : c.slot
+          ? pocket(undefined, i, c.slot)
+          : pocket(undefined, i, undefined)
+    )
+    .join("\n");
+  /* THE LEAF IS PADDED TO NINE SO EVERY PAGE IS THE SAME SHAPE. A real binder
+     page has nine pockets whether or not nine cards are in it, and without this
+     the last leaf of a section collapses to one row and the track's snap points
+     stop being the same height. These extras are aria-hidden: they are the
+     empty part of a physical page, not cards that exist. */
+  const pad = Array.from({ length: Math.max(0, POCKETS - l.cells.length) },
+    () => `            <li class="t30-pk pad" aria-hidden="true"></li>`).join("\n");
+  return `        <article class="t30-leaf" id="bl${l.no}" aria-label="${esc(l.label)}, page ${l.page} of ${l.pages}">
+          <div class="t30-leaf-h">
+            <b>${esc(l.label)}</b>
+            <span>Page ${l.no} of ${LEAF_N}${l.pages > 1 ? ` &middot; ${esc(l.label)} ${l.page}/${l.pages}` : ""}</span>
+          </div>
+          <ol class="t30-pkts">
+${cellHtml}${pad ? "\n" + pad : ""}
+          </ol>
+          <a class="t30-turn back" href="#bl${prev.no}" aria-label="Turn back to page ${prev.no}, ${esc(prev.label)}"><span aria-hidden="true">&lsaquo;</span></a>
+          <a class="t30-turn fwd" href="#bl${next.no}" aria-label="Turn to page ${next.no}, ${esc(next.label)}"><span aria-hidden="true">&rsaquo;</span></a>
+        </article>`;
+};
+
+/* THE RAIL IS THE ONLY WAY TO REACH LEAF 19 WITHOUT SEVENTEEN CLICKS, and it is
+   anchors again so it needs no script either. Grouped by section, because "page
+   14" means nothing to a reader and "main set 6" does. */
+const railHtml = (() => {
+  const groups = [];
+  for (const l of BINDER_LEAVES) {
+    const g = groups[groups.length - 1];
+    if (g && g.label === l.label) g.leaves.push(l);
+    else groups.push({ label: l.label, leaves: [l] });
+  }
+  return groups
+    .map(
+      (g) => `          <div class="t30-railg">
+            <span>${esc(g.label)}</span>
+            <p>${g.leaves
+              .map((l) => `<a href="#bl${l.no}"${l.held ? ' class="filled"' : ""} aria-label="${
+                esc(g.label)}, page ${l.page} of ${l.pages}, ${l.held} of ${l.cells.length} collected">${l.page}</a>`)
+              .join("")}</p>
+          </div>`
+    )
+    .join("\n");
+})();
+
+/* The per-section counts the old stacked layout carried in its headings. They
+   still matter -- he asked for the percentage in the first place -- so they
+   survive as a compact summary above the binder rather than being lost with the
+   headings they used to live on. */
+const sectionSummary = [...SECTIONS.map(([key, label, total]) => ({ key, label, total, have: ownedIn(key).length })),
+  ...(promos.length ? [{ key: "promo", label: "Promos", total: null, have: promos.length }] : [])]
+  .map(({ label, total, have }) => {
+    const pcLocal = total ? Math.round((have / total) * 100) : 0;
+    const first = BINDER_LEAVES.find((l) => l.label === label);
+    return `          <li>
+            <a href="#bl${first ? first.no : 1}">
+              <b>${have}${total ? ` <i>of ${total}</i>` : ""}</b>
+              <span>${esc(label)}</span>
+              ${total ? `<span class="t30-bar" role="img" aria-label="${have} of ${total} collected"><span style="width:${pcLocal}%"></span></span>` : ""}
+            </a>
+          </li>`;
+  })
+  .join("\n");
+
 const binderSection = ([key, label, total, note]) => {
   const have = ownedIn(key);
   // WITH PICTURES, EVERY POCKET IS DRAWN, because a grid of grayed out cards IS
@@ -562,7 +719,79 @@ const style = `
 .t30-bn{color:var(--ink-2);margin:6px 0 var(--s3)}
 .t30-bar{height:6px;border-radius:999px;background:var(--paper);border:1px solid var(--keyline);overflow:hidden;margin-bottom:var(--s4)}
 .t30-bar span{display:block;height:100%;background:var(--hl)}
-.t30-pkts{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3);margin:0;max-width:520px}
+/* ---------------------------------------------------------- the binder ---
+ * A HORIZONTAL SNAP TRACK, WHICH IS WHY THIS NEEDS NO SCRIPT. Each leaf is one
+ * full-width column of the track and a snap point, so a browser turns the page
+ * itself when an anchor points at the next leaf's id. The page-corner links are
+ * those anchors.
+ * overflow-x HERE AND NOWHERE ELSE: the site's rule is that the body never
+ * scrolls sideways and only a contained object may, which this is. */
+.t30-binder{margin:var(--s4) 0 0;max-width:560px}
+.t30-track{display:grid;grid-auto-flow:column;grid-auto-columns:100%;
+  overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;
+  scrollbar-width:none;border-radius:var(--r);background:var(--paper);
+  border:1px solid var(--keyline);box-shadow:var(--lift)}
+.t30-track::-webkit-scrollbar{display:none}
+.t30-track:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+/* THE RINGS. Three of them down the left edge, drawn rather than pictured:
+   a repeating-linear-gradient costs nothing, scales with the leaf and cannot
+   404. They sit in the leaf's own left padding so no pocket overlaps them. */
+.t30-leaf{scroll-snap-align:center;scroll-snap-stop:always;position:relative;
+  padding:var(--s4) var(--s5) calc(var(--s5) + var(--s4)) calc(var(--s5) + 10px);
+  min-width:0}
+.t30-leaf::before{content:"";position:absolute;left:10px;top:12%;bottom:12%;width:12px;
+  background:repeating-linear-gradient(to bottom,
+    var(--keyline) 0 18px, transparent 18px 34%);
+  border-radius:999px;opacity:.85}
+.t30-leaf-h{display:flex;align-items:baseline;justify-content:space-between;
+  gap:var(--s3);flex-wrap:wrap;margin:0 0 var(--s3)}
+.t30-leaf-h b{font:400 var(--t-m)/1.1 var(--display);color:var(--ink)}
+.t30-leaf-h span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.04em}
+/* THE PAGE CORNERS. 44px targets, which is the tap-target floor qa-sweep checks
+   and well over its 24px minimum, sitting in the padding the leaf reserved at
+   the bottom so they never cover a pocket. */
+.t30-turn{position:absolute;bottom:0;width:44px;height:44px;display:grid;
+  place-items:center;text-decoration:none;color:var(--ink-2);
+  font:400 var(--t-l)/1 var(--display);background:var(--card);
+  border:1px solid var(--keyline)}
+.t30-turn.back{left:0;border-radius:0 var(--r) 0 var(--r)}
+.t30-turn.fwd{right:0;border-radius:var(--r) 0 var(--r) 0}
+.t30-turn:hover,.t30-turn:focus-visible{color:var(--sky);border-color:var(--sky)}
+.t30-pkts{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3);margin:0}
+/* An empty pocket that only exists to keep the page nine pockets tall. Hatched
+   rather than blank so it reads as page, not as a missing card. */
+.t30-pk.pad{border-style:dashed;opacity:.35;background:var(--chrome-bg)}
+/* The per-section summary that replaced the old stacked headings. */
+.t30-secsum{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s3);
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,9rem),1fr))}
+.t30-secsum a{display:block;text-decoration:none;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--r);padding:var(--s3)}
+.t30-secsum a:hover,.t30-secsum a:focus-visible{border-color:var(--sky)}
+.t30-secsum b{display:block;font:400 var(--t-l)/1 var(--display);color:var(--ink)}
+.t30-secsum b i{font-style:normal;font-size:var(--t-sm);color:var(--ink-2)}
+.t30-secsum span{display:block;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
+.t30-secsum .t30-bar{margin:6px 0 0;height:4px}
+/* The page rail. Grouped by section, because "page 14" means nothing and
+   "main set 6" does. */
+.t30-rail{margin:var(--s4) 0 0;display:grid;gap:var(--s3)}
+.t30-railg{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap}
+.t30-railg>span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.04em;min-width:9rem}
+.t30-railg p{display:flex;gap:6px;flex-wrap:wrap;margin:0}
+.t30-railg a{display:grid;place-items:center;min-width:30px;min-height:30px;
+  padding:0 6px;text-decoration:none;border-radius:var(--r-sm);
+  background:var(--paper);border:1px solid var(--keyline);
+  font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
+.t30-railg a.filled{border-color:var(--hl);color:var(--ink)}
+.t30-railg a:hover,.t30-railg a:focus-visible{border-color:var(--sky);color:var(--sky)}
+/* SMOOTH ONLY WHERE MOTION IS WELCOME. Three other places on this site honour
+   this and a page that slides sideways is exactly the kind a reader who asked
+   for less motion does not want. */
+@media(prefers-reduced-motion:no-preference){
+  .t30-track{scroll-behavior:smooth}
+}
 .t30-pk{aspect-ratio:5/7;border:1px dashed var(--keyline);border-radius:var(--r-sm);background:var(--paper);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px;text-align:center;min-width:0}
 .t30-pk .t30-pn{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-3,var(--ink-2));opacity:.55}
@@ -871,36 +1100,22 @@ ${jpRows}
           : `Last added ${esc(longDate(binder.checked))}.`
       }</p>
     </div>
-${SECTIONS.map(binderSection).join("\n")}
-${
-  promos.length
-    ? `      <section class="t30-bs">
-        <h3>Promos <span class="t30-cnt">${promos.length}</span></h3>
-        <p class="t30-bn">Cards that came with 30th Celebration products and are <strong>not part of
-          the ${TOTAL}</strong>. A set card reads 30C or MEE on its footer; a promo reads MEP. They are
-          counted here and deliberately left out of the total above, so the percentage stays a
-          percentage of the set. Nobody has published how many promos there will be, so this says how
-          many are held and not how many exist.</p>
-        <figure class="t30-fig">
-          <ol class="t30-pkts">
-${promos
-  .map(
-    (p) => `            <li class="t30-pk has" title="${esc(p.name)}">
-              ${p.shot ? shotImg(p.shot, p.name) : ""}
-              <span class="t30-pn">${esc(p.n ? "#" + p.n : "")}${p.setCode ? " " + esc(p.setCode) : ""}</span>
-              ${p.shot ? "" : `<span class="t30-nm">${esc(p.name)}</span>`}
-              ${p.got ? `<span class="t30-got">${esc(longDate(p.got))}</span>` : ""}
-            </li>`
-  )
-  .join("\n")}
-          </ol>
-          <figcaption>Promos held, ${promos.length}. Not counted toward the ${TOTAL}.${
-            promos.some((p) => p.from) ? ` ${esc(promos.filter((p) => p.from).map((p) => `${p.name} from the ${p.from}`).join("; "))}.` : ""
-          }</figcaption>
-        </figure>
-      </section>`
-    : ""
-}
+    <ul class="t30-secsum">
+${sectionSummary}
+    </ul>
+
+    <figure class="t30-binder">
+      <div class="t30-track" id="binder" tabindex="0" role="group" aria-label="Binder pages, ${LEAF_N} of them. Scroll sideways or use the page corners.">
+${BINDER_LEAVES.map(leafHtml).join("\n")}
+      </div>
+      <figcaption>${haveTotal} of ${TOTAL} in the binder, across ${LEAF_N} pages of nine pockets.
+        Turn a page with either corner, or jump to one below. A grey card is one still to find.</figcaption>
+    </figure>
+
+    <nav class="t30-rail" aria-label="Jump to a binder page">
+${railHtml}
+    </nav>
+
     <p class="price-note" style="margin-top:var(--s5)"><strong>199 is not an official number.</strong>
       ${esc(E.note)} The Pokemon Company has never published a card count for this set, so these bars run
       against PokeBeach's count and may move when the last secret rares are shown.</p>
@@ -981,6 +1196,53 @@ ${footer(
   `Set facts read ${longDate(doc.checked)} from The Pokemon Company's press releases and product pages, and from PokeBeach where marked. The Pokemon Company has published no card count for this set; totals here are PokeBeach's.`
 )}
 ${APP_JS_NO_PACKPLAYER}
+<script>
+/* THE BINDER WORKS WITHOUT THIS. Every control is an anchor to a leaf id and the
+   track is a scroll-snap container, so a browser turns the page on its own. What
+   this adds is that the WINDOW stays put while the track scrolls: following a
+   plain #bl7 also scrolls the document to bring the track into view, which on a
+   page this tall means the binder jumps under your thumb every turn.
+   scrollIntoView with inline:"center" and block:"nearest" moves the track and
+   leaves the document alone.
+   It also restores the two things an anchor cannot do: left and right arrow keys
+   once the track has focus, and keeping the address bar free of 25 #bl hashes as
+   you flip. */
+(function () {
+  var t = document.getElementById("binder");
+  if (!t || !t.scrollIntoView) return;
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function show(el) {
+    if (!el) return;
+    el.scrollIntoView({ inline: "center", block: "nearest", behavior: reduce ? "auto" : "smooth" });
+  }
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#bl"]');
+    if (!a) return;
+    var el = document.getElementById(a.getAttribute("href").slice(1));
+    if (!el || !t.contains(el)) return;
+    e.preventDefault();
+    show(el);
+  });
+  /* WHICH LEAF IS NEAREST THE MIDDLE, not whichever the last click named: a
+     swipe changes the page without any click at all, so the arrow keys have to
+     read the track rather than remember. */
+  function current() {
+    var leaves = t.querySelectorAll(".t30-leaf"), mid = t.scrollLeft + t.clientWidth / 2, best = 0, d = Infinity;
+    for (var i = 0; i < leaves.length; i++) {
+      var c = leaves[i].offsetLeft + leaves[i].offsetWidth / 2, x = Math.abs(c - mid);
+      if (x < d) { d = x; best = i; }
+    }
+    return { leaves: leaves, i: best };
+  }
+  t.addEventListener("keydown", function (e) {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    var c = current(), step = e.key === "ArrowRight" ? 1 : -1;
+    var n = (c.i + step + c.leaves.length) % c.leaves.length;
+    e.preventDefault();
+    show(c.leaves[n]);
+  });
+})();
+</script>
 </body>
 </html>
 `;
