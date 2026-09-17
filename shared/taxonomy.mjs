@@ -96,6 +96,21 @@ export const PRODUCT_TYPES = [
 // ever accent one of those, give it a pattern in the same edit or it stops
 // matching the channel's own unaccented titles.
 export const CARD_SETS = [
+  /* THE SET NEEDS AN EXPLICIT PATTERN BECAUSE OF THE 2021 ONE BELOW IT, and the
+     two are one letter apart. "Celebrations" is the 25th anniversary set and
+     already has a hand written pattern guarding against bare-word matches; this
+     is "30th Celebration", singular, and a default regex built from the label
+     would be fine on its own but reads as a coincidence waiting to happen next
+     to its neighbour. Requiring the "30th" removes all doubt in both
+     directions: this cannot match a Celebrations video, and Celebrations'
+     pattern cannot match this one, because it wants the plural next to a
+     product noun or directly after "Pokemon" / "25th Anniversary".
+     ADDED 16 SEPTEMBER 2026, the night of the channel's first rip of the set.
+     It has no /sets/ page and cannot have one -- that family is generated from
+     TCGdex, which has never held this set -- so check-build.py will count it
+     among the sets ripped on camera with no guide page, exactly as it does for
+     lost-origin. The guide lives at /30th-celebration.html instead. */
+  { id: "30th-celebration", label: "30th Celebration", pattern: /\b30th\s+celebration\b/i },
   { id: "pitch-black", label: "Pitch Black" },
   { id: "ascended-heroes", label: "Ascended Heroes" },
   { id: "pokemon-go", label: "Pokémon GO", pattern: /pok[eé]mon\s+go\b/i },

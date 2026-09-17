@@ -1,9 +1,9 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 292862,
-    "subscribers": 374,
-    "videos": 345,
+    "views": 293213,
+    "subscribers": 375,
+    "videos": 346,
     "readAt": "2026-09-16"
   },
   "syncedAt": "2026-09-16",
@@ -15,7 +15,7 @@
       "published": "2026-09-16",
       "publishedAt": "2026-09-16T10:35:22Z",
       "duration": 24,
-      "views": 752,
+      "views": 1156,
       "vertical": true,
       "short": true,
       "sets": [
@@ -30,13 +30,34 @@
       "label": "Perfect Order Pack - Pack 13"
     },
     {
+      "id": "tD8klCySHn8",
+      "title": "30th Celebration Pack #1 ✨ | Launch Day HIT! Master Set Quest Begins! 🏆",
+      "path": "rip/30th-celebration-pack-1-launch-day-hit-master-set-quest-begi-tD8klCySHn8.html",
+      "published": "2026-09-16",
+      "publishedAt": "2026-09-16T23:20:06Z",
+      "duration": 27,
+      "views": 625,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "30th-celebration"
+      ],
+      "products": [
+        "collection-box"
+      ],
+      "pulls": [],
+      "packNumber": 1,
+      "packs": 1,
+      "label": "30th Celebration Collection Box - Pack 1"
+    },
+    {
       "id": "9TCFBLckSRs",
       "title": "Chaos Rising Pack #8 📉 | Can This ETB Finish Strong?! 💀",
       "path": "rip/chaos-rising-pack-8-can-this-etb-finish-strong-9TCFBLckSRs.html",
       "published": "2026-09-15",
       "publishedAt": "2026-09-15T10:15:21Z",
       "duration": 19,
-      "views": 897,
+      "views": 914,
       "vertical": true,
       "short": true,
       "sets": [
@@ -59,7 +80,7 @@
       "published": "2026-09-14",
       "publishedAt": "2026-09-14T10:08:34Z",
       "duration": 25,
-      "views": 1051,
+      "views": 1078,
       "vertical": true,
       "short": true,
       "sets": [
@@ -80,7 +101,7 @@
       "published": "2026-09-13",
       "publishedAt": "2026-09-13T10:47:07Z",
       "duration": 23,
-      "views": 1233,
+      "views": 1255,
       "vertical": true,
       "short": true,
       "sets": [
@@ -101,7 +122,7 @@
       "published": "2026-09-12",
       "publishedAt": "2026-09-12T10:37:02Z",
       "duration": 24,
-      "views": 1071,
+      "views": 1073,
       "vertical": true,
       "short": true,
       "sets": [
@@ -144,7 +165,7 @@
       "published": "2026-09-10",
       "publishedAt": "2026-09-10T10:21:32Z",
       "duration": 23,
-      "views": 998,
+      "views": 999,
       "vertical": true,
       "short": true,
       "sets": [
@@ -166,7 +187,7 @@
       "published": "2026-09-09",
       "publishedAt": "2026-09-09T10:13:37Z",
       "duration": 19,
-      "views": 44,
+      "views": 46,
       "vertical": true,
       "short": true,
       "sets": [
@@ -188,7 +209,7 @@
       "published": "2026-09-08",
       "publishedAt": "2026-09-08T10:10:05Z",
       "duration": 21,
-      "views": 1579,
+      "views": 1580,
       "vertical": true,
       "short": true,
       "sets": [
@@ -317,7 +338,7 @@
       "published": "2026-09-02",
       "publishedAt": "2026-09-02T10:10:23Z",
       "duration": 51,
-      "views": 992,
+      "views": 993,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1371,7 +1392,7 @@
       "published": "2026-08-02",
       "publishedAt": "2026-08-02T11:20:07Z",
       "duration": 22,
-      "views": 885,
+      "views": 886,
       "vertical": true,
       "short": true,
       "sets": [
@@ -6160,7 +6181,7 @@
       "published": "2026-05-20",
       "publishedAt": "2026-05-20T10:21:01Z",
       "duration": 19,
-      "views": 1099,
+      "views": 1100,
       "vertical": true,
       "short": true,
       "sets": [
@@ -6924,7 +6945,7 @@
       "published": "2026-05-10",
       "publishedAt": "2026-05-10T12:48:00Z",
       "duration": 20,
-      "views": 1271,
+      "views": 1272,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7780,7 +7801,7 @@
       "published": "2026-04-27",
       "publishedAt": "2026-04-27T23:10:01Z",
       "duration": 23,
-      "views": 2618,
+      "views": 2617,
       "vertical": true,
       "short": true,
       "sets": [
@@ -11048,7 +11069,7 @@
       "published": "2026-02-24",
       "publishedAt": "2026-02-24T12:06:00Z",
       "duration": 22,
-      "views": 394,
+      "views": 395,
       "vertical": true,
       "short": true,
       "sets": [
@@ -11417,7 +11438,7 @@
       "published": "2026-02-13",
       "publishedAt": "2026-02-13T13:30:09Z",
       "duration": 18,
-      "views": 632,
+      "views": 634,
       "vertical": true,
       "short": true,
       "sets": [

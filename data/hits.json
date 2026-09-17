@@ -2349,6 +2349,17 @@
         "hallOfFame": false,
         "handNote": "The owner, 16 September 2026: \"Single Booster Pack, Pack #13, Hit yes, Mega Skarmory ex - Double Silver Star - Ultra Rare\". Perfect Order prints this card TWICE -- 055 Double rare at $1.47 and 106 Ultra Rare at $4.77 -- and the rarity names exactly one, which is the rule pickPrinting follows and the reason the number is 106. THE DEAREST-PRINTING RULE WOULD HAVE AGREED TODAY, WHICH IS WORTH SAYING OUT LOUD: the Ultra Rare is also the pricier of the two, so this row is not evidence for the rarity-first rule the way the Mega Absol ex and Team Rocket's Nidoking ex rows of 12 and 13 September are, where the dearest printing was 28x and 46x wrong. It agrees by coincidence here. \"Double Silver Star\" is the same claim said twice: two silver stars IS the Ultra Rare symbol, so the symbol he read and the tier he named agree, and that agreement is the check that matters. He did not name the set; it comes from the video's own tag and its title, both Perfect Order, and Mega Skarmory ex is printed in no other set this site holds. The rarity is written \"Ultra Rare\" to match the checklist's own casing exactly, because the renderers key off that string. Hand-kept until the My Hits tab carries it."
       }
+    ],
+    "tD8klCySHn8": [
+      {
+        "card": "Fuecoco ex",
+        "set": "30th-celebration",
+        "setName": "30th Celebration",
+        "rarity": "Double rare",
+        "number": "015",
+        "hallOfFame": false,
+        "handNote": "The owner, 16 September 2026: \"3-Pack Blister, Pack #1, Hit yes, Fuecoco ex - Double Black Star - Double Rare, 30th Celebration\". 30th Celebration prints Fuecoco ex TWICE -- 015/128 Double Rare and 147/128 Special Illustration Rare -- and the two carry IDENTICAL card text, HP 210, Singe, Cheerful Flame (70x), so nothing readable separates them and the rarity is the only thing that can choose. Two black stars IS the Double rare symbol, so this is 015. CORROBORATED BY THE CARD ITSELF: he photographed this same pull earlier the same day and the close-up shows 015/128 with the 30C set code, which is why data/30th-binder.json already holds it. The symbol he typed and the number printed on the card agree. Hand kept until the My Hits tab carries it."
+      }
     ]
   }
 }

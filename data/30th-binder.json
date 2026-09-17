@@ -302,5 +302,35 @@
     "yet it draws as a pocket with no picture. See that script's header for why",
     "photographs rather than scans: on 11 September 2026 no scan of this set",
     "existed in any source this site may use."
+  ],
+  "_promoNote": [
+    "PROMOS ARE TRACKED AND ARE NOT PART OF THE 199. This is the whole reason they",
+    "live in their own key instead of a sixth section in `owned`: the five sections",
+    "add to 199 because that is what the set is -- 128 main, 33 secret, 30 Classic",
+    "Collection, 8 Energy -- and a promo is in none of them. Dropping one into a",
+    "section would count it toward the denominator and quietly make the percentage",
+    "on the page wrong, which is the one number the owner asked to see.",
+    "",
+    "THEY ARE STILL WORTH TRACKING AND HE ASKED FOR THEM. TPCi cut the Nidorina and",
+    "Ditto illustration rares from the English set and turned them into product",
+    "promos, and there is a Mew at MEP105, so this is a real run alongside the set",
+    "rather than a stray card. The set code on the card is the tell: a set card",
+    "reads 30C or MEE, a promo reads MEP.",
+    "",
+    "NO DENOMINATOR HERE, DELIBERATELY. Nobody has published how many 30th promos",
+    "there will be, and this file does not invent counts -- the same rule that",
+    "keeps 199 attributed to PokeBeach everywhere it appears. The page shows how",
+    "many he holds and does not imply how many exist."
+  ],
+  "promos": [
+    {
+      "name": "Greninja ex",
+      "n": "035",
+      "setCode": "MEP",
+      "rarity": "Double rare",
+      "from": "30th Celebration Greninja ex Tin",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"this is a promo card from the Greninja ex 30th Celebration Tin\". NOT one of the 199 and that is why it is here: the set prints Greninja ex at 021/128 Double Rare and 148/128 Special Illustration Rare, and this is neither -- its footer reads MEP, the promo set code, not 30C. Same card text as both, HP 300, Stealthy Slash and Aqua Edge (160), so text could never have told them apart; the set code did. THE NUMBER IS READ FROM HIS PHOTOGRAPH AND IS THE LEAST CERTAIN THING IN THIS ROW. TCGplayer lists no promo set for this run under any name tried, so there is no checklist to look it up in and nothing to check the reading against. Worth correcting if it turns out to be another number; nothing else in the file depends on it."
+    }
   ]
 }

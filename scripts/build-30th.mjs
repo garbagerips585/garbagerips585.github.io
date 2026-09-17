@@ -71,6 +71,11 @@ try {
   shotDims = JSON.parse(await readFile(join(ROOT, "data/30th-card-dims.json"), "utf8"));
 } catch {}
 const owned = binder.owned || [];
+/* PROMOS ARE COUNTED SEPARATELY AND NEVER ADDED TO `owned`. See the
+   `_promoNote` in data/30th-binder.json: the five sections add to 199 because
+   that is what the set is, and a promo is in none of them, so counting one
+   would make the percentage in the hero wrong. */
+const promos = binder.promos || [];
 
 /* THE SET'S OWN LOGO IN THE HERO. The owner sent the artwork on 16 September
  * 2026 -- "30th logo now in the downloads folder" -- which closes the one gap
@@ -867,6 +872,35 @@ ${jpRows}
       }</p>
     </div>
 ${SECTIONS.map(binderSection).join("\n")}
+${
+  promos.length
+    ? `      <section class="t30-bs">
+        <h3>Promos <span class="t30-cnt">${promos.length}</span></h3>
+        <p class="t30-bn">Cards that came with 30th Celebration products and are <strong>not part of
+          the ${TOTAL}</strong>. A set card reads 30C or MEE on its footer; a promo reads MEP. They are
+          counted here and deliberately left out of the total above, so the percentage stays a
+          percentage of the set. Nobody has published how many promos there will be, so this says how
+          many are held and not how many exist.</p>
+        <figure class="t30-fig">
+          <ol class="t30-pkts">
+${promos
+  .map(
+    (p) => `            <li class="t30-pk has" title="${esc(p.name)}">
+              ${p.shot ? shotImg(p.shot, p.name) : ""}
+              <span class="t30-pn">${esc(p.n ? "#" + p.n : "")}${p.setCode ? " " + esc(p.setCode) : ""}</span>
+              ${p.shot ? "" : `<span class="t30-nm">${esc(p.name)}</span>`}
+              ${p.got ? `<span class="t30-got">${esc(longDate(p.got))}</span>` : ""}
+            </li>`
+  )
+  .join("\n")}
+          </ol>
+          <figcaption>Promos held, ${promos.length}. Not counted toward the ${TOTAL}.${
+            promos.some((p) => p.from) ? ` ${esc(promos.filter((p) => p.from).map((p) => `${p.name} from the ${p.from}`).join("; "))}.` : ""
+          }</figcaption>
+        </figure>
+      </section>`
+    : ""
+}
     <p class="price-note" style="margin-top:var(--s5)"><strong>199 is not an official number.</strong>
       ${esc(E.note)} The Pokemon Company has never published a card count for this set, so these bars run
       against PokeBeach's count and may move when the last secret rares are shown.</p>
