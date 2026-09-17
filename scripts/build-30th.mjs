@@ -986,6 +986,57 @@ ${APP_JS_NO_PACKPLAYER}
 `;
 
 await writeFile(join(ROOT, "public" + PATH), html);
+
+/* ------------------------------------------------- /sets/30th-celebration.html
+ *
+ * A REDIRECT STUB, BECAUSE THE URL EVERY OTHER SET GUIDE USES IS THE ONE PEOPLE
+ * ACTUALLY TYPE. The owner's own launch-day video description linked to
+ * garbagerips.com/sets/30th-celebration.html, which answered 404: this guide
+ * cannot live in /sets/, because that family is generated from TCGdex and
+ * TCGdex has never held this set. He asked for the link to work rather than for
+ * the page to move, 17 September 2026.
+ *
+ * IT IS WORTH KEEPING EVEN AFTER HE EDITS THE DESCRIPTION. /sets/<slug>.html is
+ * the shape of all 43 other guides, so it is the address a reader guesses, the
+ * one already sitting in a published video, and the one anybody linking to this
+ * set from elsewhere will reach for.
+ *
+ * FOUR THINGS THIS PAGE MUST NOT DO, and each is a check that would otherwise
+ * fail. It is `noindex`, so it never competes with the real guide in search,
+ * and check-build.py fails the build on a noindex page that is in the sitemap,
+ * so it is deliberately not registered there. It carries NO canonical: pointing
+ * one at the real guide is the usual advice and here it would collide, because
+ * seo-sweep.py's DUPLICATE CANON check counts repeated canonicals across every
+ * page and the real guide already owns that value. It carries NO meta
+ * description, because the DESC OUTSIDE 70-165 check applies to every page
+ * whether indexable or not, and there is nothing to say in 70 characters that
+ * the redirect does not do faster. And it has EXACTLY ONE h1, because the NOT
+ * EXACTLY ONE H1 check is the one flag with no indexable exemption at all.
+ *
+ * THE LINK IS VISIBLE AND NOT ONLY A META REFRESH. A refresh covers the normal
+ * case; a reader with it disabled gets a sentence and a link rather than a
+ * blank page, which is the same reason the noscript paths elsewhere on this site
+ * exist. */
+const REDIRECT_TO = PATH;
+await writeFile(
+  join(ROOT, "public/sets/30th-celebration.html"),
+  `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,follow">
+<meta http-equiv="refresh" content="0; url=${REDIRECT_TO}">
+<title>30th Celebration set guide has moved</title>
+</head>
+<body>
+<h1>30th Celebration set guide</h1>
+<p>This guide lives at <a href="${REDIRECT_TO}">${SITE}${REDIRECT_TO}</a>. Taking you there now.</p>
+</body>
+</html>
+`
+);
+console.log(`Wrote public/sets/30th-celebration.html  redirect -> ${REDIRECT_TO}`);
 console.log(
   `Wrote public${PATH}  ${haveTotal}/${TOTAL} owned, ${doc.products.length} products, ${doc.japanList.length} Japanese cards`
 );
