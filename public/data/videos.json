@@ -1,12 +1,12 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 293213,
-    "subscribers": 375,
+    "views": 294452,
+    "subscribers": 376,
     "videos": 346,
-    "readAt": "2026-09-16"
+    "readAt": "2026-09-17"
   },
-  "syncedAt": "2026-09-16",
+  "syncedAt": "2026-09-17",
   "videos": [
     {
       "id": "N02mLMwZSq0",
@@ -15,7 +15,7 @@
       "published": "2026-09-16",
       "publishedAt": "2026-09-16T10:35:22Z",
       "duration": 24,
-      "views": 1156,
+      "views": 1169,
       "vertical": true,
       "short": true,
       "sets": [
@@ -36,19 +36,19 @@
       "published": "2026-09-16",
       "publishedAt": "2026-09-16T23:20:06Z",
       "duration": 27,
-      "views": 625,
+      "views": 1141,
       "vertical": true,
       "short": true,
       "sets": [
         "30th-celebration"
       ],
       "products": [
-        "collection-box"
+        "blister"
       ],
       "pulls": [],
       "packNumber": 1,
       "packs": 1,
-      "label": "30th Celebration Collection Box - Pack 1"
+      "label": "30th Celebration Blister - Pack 1"
     },
     {
       "id": "9TCFBLckSRs",
@@ -57,7 +57,7 @@
       "published": "2026-09-15",
       "publishedAt": "2026-09-15T10:15:21Z",
       "duration": 19,
-      "views": 914,
+      "views": 938,
       "vertical": true,
       "short": true,
       "sets": [
@@ -80,7 +80,7 @@
       "published": "2026-09-14",
       "publishedAt": "2026-09-14T10:08:34Z",
       "duration": 25,
-      "views": 1078,
+      "views": 1102,
       "vertical": true,
       "short": true,
       "sets": [
@@ -101,7 +101,7 @@
       "published": "2026-09-13",
       "publishedAt": "2026-09-13T10:47:07Z",
       "duration": 23,
-      "views": 1255,
+      "views": 1274,
       "vertical": true,
       "short": true,
       "sets": [
@@ -209,7 +209,7 @@
       "published": "2026-09-08",
       "publishedAt": "2026-09-08T10:10:05Z",
       "duration": 21,
-      "views": 1580,
+      "views": 1582,
       "vertical": true,
       "short": true,
       "sets": [
@@ -252,7 +252,7 @@
       "published": "2026-09-06",
       "publishedAt": "2026-09-06T10:45:02Z",
       "duration": 25,
-      "views": 1136,
+      "views": 1138,
       "vertical": true,
       "short": true,
       "sets": [
@@ -274,7 +274,7 @@
       "published": "2026-09-05",
       "publishedAt": "2026-09-05T10:30:30Z",
       "duration": 25,
-      "views": 975,
+      "views": 976,
       "vertical": true,
       "short": true,
       "sets": [
@@ -840,7 +840,7 @@
       "published": "2026-08-18",
       "publishedAt": "2026-08-18T10:04:29Z",
       "duration": 28,
-      "views": 1202,
+      "views": 1203,
       "vertical": true,
       "short": true,
       "sets": [
