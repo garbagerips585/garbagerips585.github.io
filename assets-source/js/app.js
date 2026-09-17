@@ -670,12 +670,18 @@
     }
 
     var SORTS = {
-      new: function (a, b) { return a.published < b.published ? 1 : -1; },
-      old: function (a, b) { return a.published > b.published ? 1 : -1; },
+      /* publishedAt, NOT published, AND THAT IS A FIX RATHER THAN A TIDY-UP.
+         `published` is a DATE, so two rips uploaded on the same day compared
+         equal and fell through to whatever order the array happened to be in.
+         232 of 347 rips share a day with another one, so this was most of the
+         library. `publishedAt` is the full UTC instant and sorts as a string
+         for the same reason every other date comparison here does. */
+      new: function (a, b) { return (b.publishedAt || "") < (a.publishedAt || "") ? -1 : 1; },
+      old: function (a, b) { return (b.publishedAt || "") > (a.publishedAt || "") ? -1 : 1; },
       views: function (a, b) { return (b.views || 0) - (a.views || 0); },
       // Newest wins ties, so an unranked list still reads chronologically.
       relevance: function (a, b) {
-        return score(b, parsed) - score(a, parsed) || (a.published < b.published ? 1 : -1);
+        return score(b, parsed) - score(a, parsed) || ((b.publishedAt || "") < (a.publishedAt || "") ? -1 : 1);
       }
     };
 

@@ -224,7 +224,14 @@ const startHere = (() => {
   };
   pick("The biggest pull", (x) => Boolean(x.hofRank), (a, b) => a.hofRank - b.hofRank);
   pick("Most watched", (x) => (x.views || 0) > 0, (a, b) => (b.views || 0) - (a.views || 0));
-  pick("Newest rip", (x) => Boolean(x.published), (a, b) => String(b.published).localeCompare(String(a.published)));
+  /* publishedAt, BECAUSE THIS NAMES ONE RIP AND CAN THEREFORE BE WRONG.
+     `published` is a date, so on any day the channel posts twice this picked
+     whichever of the two the array happened to hold first -- and 114 of 229 rip
+     days have more than one. It is right today only because today has one.
+     Same change as the home page rail and app.js's own sort, 17 September
+     2026. */
+  pick("Newest rip", (x) => Boolean(x.publishedAt || x.published),
+    (a, b) => String(b.publishedAt ?? b.published ?? "").localeCompare(String(a.publishedAt ?? a.published ?? "")));
   return out;
 })();
 const oldest = videos.map((v) => v.published).filter(Boolean).sort()[0] || null;

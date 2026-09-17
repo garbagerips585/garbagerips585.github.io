@@ -343,11 +343,11 @@
       return true;
     }
     var SORTS = {
-      new: function (a, b) { return a.published < b.published ? 1 : -1; },
-      old: function (a, b) { return a.published > b.published ? 1 : -1; },
+      new: function (a, b) { return (b.publishedAt || "") < (a.publishedAt || "") ? -1 : 1; },
+      old: function (a, b) { return (b.publishedAt || "") > (a.publishedAt || "") ? -1 : 1; },
       views: function (a, b) { return (b.views || 0) - (a.views || 0); },
       relevance: function (a, b) {
-        return score(b, parsed) - score(a, parsed) || (a.published < b.published ? 1 : -1);
+        return score(b, parsed) - score(a, parsed) || ((b.publishedAt || "") < (a.publishedAt || "") ? -1 : 1);
       }
     };
     var PAGE = 48;

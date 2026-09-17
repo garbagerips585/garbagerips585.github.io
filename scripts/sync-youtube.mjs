@@ -438,7 +438,30 @@ const videos = uploads
   // no sitemap entry. Dropping it here rather than at each generator means one
   // rule instead of six.
   .filter((v) => v.id && !v.hide)
-  .sort((a, b) => (a.published < b.published ? 1 : -1));
+  /* NEWEST FIRST ON THE FULL TIMESTAMP, NOT ON THE DATE.
+   *
+   * This sorted on `published`, which is a DATE -- "2026-09-16" -- so two rips
+   * uploaded on the same day compared equal and kept whatever order the API
+   * handed back. The owner spotted it on the home page, 17 September 2026: "move
+   * the 30th celebration rip to be the second video, it was posted after the
+   * perfect order video, same day, but different time". He was exactly right.
+   * Perfect Order went up at 10:35 and the 30th launch rip at 23:20 the same
+   * day, and the rail had them the wrong way round.
+   *
+   * `publishedAt` is the RFC 3339 instant and already on every record, so this
+   * is a one field change rather than a new field. It sorts lexically because
+   * the format is fixed-width UTC with a trailing Z; that is the same reason
+   * every date comparison on this site is a string compare.
+   *
+   * IT FIXES MORE THAN THE HOME PAGE. build-pages.mjs asserts this array is
+   * newest-first and throws if it is not, /videos.html pages in this order, the
+   * "Latest rips" rail reads the front of it, and every "previous rip" link
+   * walks it. All of them were a coin flip between two rips sharing a date --
+   * which is most days the channel posts twice.
+   *
+   * The `?? ""` keeps a record with no publishedAt from sorting unpredictably:
+   * it falls to the bottom rather than landing somewhere random. */
+  .sort((a, b) => String(b.publishedAt ?? "").localeCompare(String(a.publishedAt ?? "")));
 
 // Descriptions are only needed when generating the per-video pages, so they
 // live outside public/ rather than bloating the JSON every visitor downloads.

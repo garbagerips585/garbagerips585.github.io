@@ -600,9 +600,19 @@ function newestLabel(iso) {
 
 // "Feature" on the sheet pins a rip to the front of Latest, whatever its date:
 // a rip worth leading with is not always the newest one.
+/* THE TIEBREAK USED TO BE VIEWS AND IT PUT THE WRONG RIP SECOND. `published` is
+   a DATE, so two rips from the same day compared equal here and fell through to
+   view count -- which on 17 September 2026 ranked Perfect Order (10:35, 1.2K
+   views) ahead of the 30th Celebration launch rip (23:20, 1.2K views) on the
+   home page. The owner caught it: "it was posted after the perfect order video,
+   same day, but different time".
+   publishedAt is the full instant and settles it properly. Views stay as the
+   LAST resort, for two rips sharing a timestamp to the second, which has never
+   happened; feature still wins over everything, because a pinned rip is a
+   deliberate choice and not an accident of ordering. */
 const byNewest = [...videos].sort((a, b) =>
   (b.feature ? 1 : 0) - (a.feature ? 1 : 0) ||
-  String(b.published).localeCompare(String(a.published)) ||
+  String(b.publishedAt ?? "").localeCompare(String(a.publishedAt ?? "")) ||
   (b.views || 0) - (a.views || 0)
 );
 
@@ -1736,8 +1746,13 @@ function libCard(v) {
  */
 const LIB_TILES = 48;
 // app.js's default sort: newest first, and it compares the ISO strings rather
-// than parsing them. Same comparison here so the two orders cannot differ.
-const libVideos = [...videos].sort((a, b) => (a.published < b.published ? 1 : -1)).slice(0, LIB_TILES);
+// than parsing them. Same comparison here so the two orders cannot differ --
+// and BOTH moved from `published` to `publishedAt` together on 17 September
+// 2026, because a date-only compare left same-day rips in array order. If one
+// of these two changes again, the other has to change in the same commit.
+const libVideos = [...videos]
+  .sort((a, b) => String(b.publishedAt ?? "").localeCompare(String(a.publishedAt ?? "")))
+  .slice(0, LIB_TILES);
 const libHtml = libVideos.map(libCard).join("\n");
 
 /*
