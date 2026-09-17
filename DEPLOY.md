@@ -32,6 +32,46 @@ in the repo, stage the files you touched by name instead.
 `build-all.mjs` runs `check-build.py` as its last step, so a clean run has
 already been checked. Run it again by hand if you edited anything afterwards.
 
+### When the deploy fails but "Verify the committed tree" passes
+
+Seen 17 September 2026 and it is worth recognising rather than debugging. The
+deploy job failed on its LAST step with:
+
+```
+Failed to FinalizeArtifact: Received non-retryable error:
+Failed request: (403) Forbidden: Error from intermediary with HTTP status code 403
+```
+
+The artifact had already uploaded in full -- the log shows all 107,716,373 bytes
+and a SHA256 -- and the 403 came from finalising it. **Nothing is wrong with the
+commit.** The drift job passed on the same SHA, which is the tell: the tree is
+what the source builds, and only the publish leg failed.
+
+**THE SITE IS STALE UNTIL A DEPLOY SUCCEEDS, so confirm rather than assume.**
+A failed deploy is not a no-op, it is the previous version still being served:
+
+```bash
+rtk proxy curl -s https://garbagerips.com/ | grep -c 'the thing you just added'
+```
+
+**RECOVERY, AND THE OBVIOUS TWO ROUTES ARE BOTH CLOSED TO A NON-ADMIN.**
+`gh run rerun <id> --failed` and `gh workflow run pages.yml` BOTH answer
+`HTTP 403: Must have admin rights to Repository`, even though `pages.yml` does
+declare `workflow_dispatch`. From the owner's own account either works; from a
+token without admin on the repo, neither does.
+
+So the recovery available to everyone is **another push to `main`**, which is
+what `pages.yml` triggers on. If there is nothing to commit, say so plainly:
+
+```bash
+git commit --allow-empty -m "Redeploy: the previous deploy 403d on artifact finalize"
+git push
+```
+
+Do not manufacture a change to carry the push. An empty commit that names the
+reason is easier to read six months later than a cosmetic edit that pretends to
+be the point.
+
 ---
 
 ## The nightly refresh
