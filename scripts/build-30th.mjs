@@ -488,6 +488,19 @@ const NO_PICS = TOTAL - DEX_PICS - REMOTE_PICS - OWN_PICS;
 // other, never by colour alone: owned draws the card in full colour with a
 // solid border, needed draws the same card desaturated and dimmed behind a
 // dashed border, and unknown draws a number because there is no picture to show.
+// THE DENOMINATOR IS NOISE IN THREE SECTIONS AND IS THE IDENTIFIER IN THE
+// FOURTH, so this cannot be one rule. main, pikachu and secret are all one
+// set: "023/128" repeats "/128" down 158 pockets and says nothing, so it is
+// cut. The Classic Collection is 30 REPRINTS OF CARDS FROM 30 DIFFERENT SETS,
+// and the denominator is the only thing telling them apart -- "11/101" and
+// "11/113" are two different cards and both were printing as "#11". Cutting it
+// there merges two pockets into one label. Measured on the built page before
+// this: 194 of 197 pocket numbers were bare, so every classic empty pocket was
+// ambiguous while the OWNED classic pockets beside them printed the whole
+// number from data/30th-binder.json -- the same card, two labels, one row apart.
+const pocketNum = (section, n) =>
+  section === "classic" ? String(n) : String(n).split("/")[0];
+
 const pocket = (c, i, slot) => {
   if (c) {
     const row = CHECKLIST.get(clKey(c.section, c.n || ""));
@@ -503,7 +516,7 @@ const pocket = (c, i, slot) => {
     return `<li class="t30-pk need" title="${esc(slot.name)}">
         <span class="t30-sr">Not collected yet</span>
         ${pic}
-        <span class="t30-pn">${esc("#" + String(slot.n).split("/")[0])}</span>
+        <span class="t30-pn">${esc("#" + pocketNum(slot.section, slot.n))}</span>
         ${pic ? "" : `<span class="t30-nm">${esc(slot.name)}</span>`}
       </li>`;
   }
