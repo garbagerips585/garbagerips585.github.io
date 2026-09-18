@@ -101,16 +101,23 @@ export const CARD_SETS = [
      already has a hand written pattern guarding against bare-word matches; this
      is "30th Celebration", singular, and a default regex built from the label
      would be fine on its own but reads as a coincidence waiting to happen next
-     to its neighbour. Requiring the "30th" removes all doubt in both
-     directions: this cannot match a Celebrations video, and Celebrations'
-     pattern cannot match this one, because it wants the plural next to a
-     product noun or directly after "Pokemon" / "25th Anniversary".
+     Requiring the "30th" stops this matching a Celebrations video. THE OTHER
+     HALF OF THAT CLAIM WAS FALSE AND AN AUDIT CAUGHT IT: this pattern closed
+     with \b right after the SINGULAR, so "30th Celebrations" -- one stray
+     plural in a title or a generated description -- failed here and matched
+     the 2021 set instead, whose pattern happily takes "celebrations" beside a
+     product noun. Tested before the fix:
+       "Pokemon 30th Celebrations ETB Opening" -> celebrations
+       "30th Celebrations Booster Bundle"      -> celebrations
+     That rip would have been filed under a 2021 set, labelled "Celebrations
+     ETB", and lost from the set the channel opens daily. `s?` closes it, and
+     the 2021 pattern still cannot reach any string containing "30th".
      ADDED 16 SEPTEMBER 2026, the night of the channel's first rip of the set.
      It has no /sets/ page and cannot have one -- that family is generated from
      TCGdex, which has never held this set -- so check-build.py will count it
      among the sets ripped on camera with no guide page, exactly as it does for
      lost-origin. The guide lives at /30th-celebration.html instead. */
-  { id: "30th-celebration", label: "30th Celebration", pattern: /\b30th\s+celebration\b/i },
+  { id: "30th-celebration", label: "30th Celebration", pattern: /\b30th\s+celebrations?\b/i },
   { id: "pitch-black", label: "Pitch Black" },
   { id: "ascended-heroes", label: "Ascended Heroes" },
   { id: "pokemon-go", label: "Pokémon GO", pattern: /pok[eé]mon\s+go\b/i },
@@ -192,7 +199,16 @@ export const CARD_SETS = [
     id: "celebrations",
     label: "Celebrations",
     pattern:
-      /\bcelebrations\s+(?:booster|packs?\b|etb\b|elite\s+trainer|bundle|box\b|upc\b|ultra[- ]premium|binder|collection\b|tin\b|blister)|(?:pok[eé]mon|25th\s+anniversary)\s+celebrations\b/i,
+      /* THE LOOKBEHIND KEEPS THE 2021 SET OFF A 2026 VIDEO. Fixing the 30th's
+         own pattern to accept the plural made "30th Celebrations ETB" match
+         BOTH sets at once, which is a different wrong answer from the one it
+         replaced. "30th" never appears in a real Celebrations title -- that set
+         is the 25th anniversary -- so refusing the word when it is preceded by
+         it costs nothing and settles the pair for good. The second alternation
+         needs no guard: it requires "celebrations" directly after "Pokemon" or
+         "25th Anniversary", and "Pokemon 30th Celebrations" has the 30th in
+         between. */
+      /(?<!\b30th\s)\bcelebrations\s+(?:booster|packs?\b|etb\b|elite\s+trainer|bundle|box\b|upc\b|ultra[- ]premium|binder|collection\b|tin\b|blister)|(?:pok[eé]mon|25th\s+anniversary)\s+celebrations\b/i,
   },
   { id: "chilling-reign", label: "Chilling Reign" },
   { id: "shining-fates", label: "Shining Fates" },

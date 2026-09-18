@@ -814,7 +814,16 @@ async function resolveHits(vid) {
       // the file the row resolved out of wins -- and stops it meaning "the
       // English word wins".
       rarity: (m && (m.rarityJp || m.rarity)) || sub?.rarity || h.rarity || null,
-      n: m ? m.n : sub?.n || null,
+      /* h.number IS THE LAST RESORT AND IT WAS MISSING. `rarity` on the next
+         line falls back to the hit's own value and `price` falls back to
+         h.rawNm, but the NUMBER the owner typed was dropped whenever the
+         checklist join missed. Live example: the 30th Celebration Classic
+         Collection is deliberately absent from that set's cards file, so
+         Erika's Jigglypuff shipped with data-n="" while data/hits.json held
+         "69/132" -- the very number pinnedShot had just used to find the
+         picture. All 30 of that subset are structurally unresolvable, so this
+         was every future Classic hit, on its rip page and on /hall.html. */
+      n: m ? m.n : sub?.n || h.number || null,
       // THE GUIDE'S OWN SCAN FIRST, THEN THE CORPUS. Same precedence
       // build-hall.mjs uses: the file this row was resolved out of wins and the
       // second source stands behind it rather than over it.

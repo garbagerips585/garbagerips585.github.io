@@ -7137,6 +7137,17 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 .t30-pk.has .t30-card{filter:none;opacity:1}
 /* The number sits over the artwork, so it needs its own ground to stay legible
    against whatever the card happens to be. */
+/* THE NAME AND THE DATE WERE PAINTED UNDER THE CARD, on every owned pocket that
+   has a picture. .t30-card is position:absolute;inset:0, and only .t30-pn was
+   ever lifted above it -- so .t30-nm and .t30-got rendered, occupied their flex
+   height, and were completely invisible behind the artwork. 21 of the 27 owned
+   pockets were affected, which is every one the owner can actually see a card
+   in, and the date a card entered the binder is a thing he asked for by name.
+   Same z-index treatment as the number, same chip ground so it stays legible
+   over whatever the card happens to be. */
+.t30-pk .t30-card ~ .t30-nm,.t30-pk picture + .t30-nm,
+.t30-pk .t30-card ~ .t30-got,.t30-pk picture ~ .t30-got{position:relative;z-index:1;
+  background:var(--chrome-bg);border-radius:999px;padding:1px 6px;max-width:100%}
 .t30-pk .t30-card ~ .t30-pn,.t30-pk picture + .t30-pn{position:relative;z-index:1;
   background:var(--chrome-bg);color:var(--ink);border-radius:999px;padding:2px 6px}
 .t30-pk.need .t30-card ~ .t30-pn{opacity:.9}

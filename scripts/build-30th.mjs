@@ -220,6 +220,22 @@ const POCKETS = 9;
 // names attached. So the mechanism is built and `tcgdex.set` is null, which
 // draws numbered placeholders. Fill in the two ids after release and every
 // pocket draws its card with no other edit.
+/* THE NEWEST DATE ANY SOURCE THIS PAGE READS WAS CHECKED.
+   doc.checked is when the FACTS block was last reviewed -- 11 September -- and
+   it was being published as dateModified in the JSON-LD and as "Set facts read"
+   in the footer while the page carried a checklist from the 16th, prices from
+   the 16th, a binder from the 17th and a TCGdex switch from the 18th. A
+   dateModified is a machine-readable claim to a search engine that nothing has
+   changed since; it was a week wrong. The facts line still credits doc.checked,
+   because that IS when the facts were read -- only the page-level stamp moves. */
+const PAGE_CHECKED = [
+  doc.checked,
+  doc.tcgdex && doc.tcgdex.checked,
+  checklist.checked,
+  prices.checked,
+  binder.checked,
+].filter(Boolean).sort().pop();
+
 const TD = doc.tcgdex || {};
 /* TCGDEX IS STILL THE PREFERRED SOURCE AND STILL ANSWERS FIRST. Filling in the
    two ids in data/30th.json moves every pocket onto it and the TCGplayer tier
@@ -252,11 +268,7 @@ const HAVE_SCANS = HAVE_DEX || CHECKLIST.size > 0;
    cards the owner owns AND has photographed, so they render as his photograph
    and not as a hotlink: the hotlinked figure is the checklist MINUS those, or
    the note credits TCGplayer for pictures it did not supply. */
-const OWN_PICS = owned.filter((c) => c.shot).length;
-const REMOTE_PICS =
-  CHECKLIST.size -
-  owned.filter((c) => c.shot && CHECKLIST.has(clKey(c.section, c.n || ""))).length;
-const NO_PICS = TOTAL - REMOTE_PICS - OWN_PICS;
+
 // LOCALID IS ZERO PADDED AND THAT COST A TEST RUN. TCGdex's own checklist for
 // these sets gives "001", not "1", and api.tcgdex.net/v2/en/sets/me02.5 returns
 // its sample image url as .../me02.5/001. Passing a bare number builds a url
@@ -293,7 +305,7 @@ const shotImg = (stem, name) => {
     `srcset="/assets/30th-cards/${stem}-sm.webp 245w, /assets/30th-cards/${stem}-md.webp 380w, ` +
     `/assets/30th-cards/${stem}.webp 600w" ` +
     `sizes="(max-width:544px) 30vw, 163px" ` +
-    `alt="${esc(name)}, photographed by Garbage Rips 585" loading="lazy" decoding="async"` +
+    `alt="${esc(name)}, photographed by Garbage Rips 585" loading="lazy" decoding="async" onerror="this.remove()"` +
     (d ? ` width="${d[0]}" height="${d[1]}"` : "") +
     `>`;
   return avifPicture(img);
@@ -324,7 +336,20 @@ const tcgpImg = (pid, name) =>
   `<img class="t30-card" src="${tcgpBase(pid)}_200w.jpg" ` +
   `srcset="${tcgpBase(pid)}_200w.jpg 200w, ${tcgpBase(pid)}_400w.jpg 400w" ` +
   `sizes="(max-width:544px) 30vw, 163px" ` +
-  `alt="${esc(name)}" loading="lazy" decoding="async">`;
+  /* WIDTH AND HEIGHT, WHICH THIS USED TO OMIT ON PURPOSE AND SHOULD NOT HAVE.
+     The reasoning was imgDims()'s rule that tcgplayer-cdn pads to a fixed
+     canvas -- true of its _in_ renditions, NOT of _200w, which is exactly
+     200x279 on every card sampled across all four sections. In a binder pocket
+     it cost nothing because .t30-pk reserves the box with aspect-ratio; in a
+     .t30-ct tile the image is height:auto, so 30 Classic Collection tiles were
+     0px tall until they loaded. The Classic section is 100% TCGplayer, so that
+     is a whole 30-tile grid shifting down as it fills in.
+     onerror, BECAUSE EVERY OTHER CARD IMAGE ON THIS SITE HAS ONE. data/no-scan
+     .json's readme rests the site's whole graceful-failure story on it: a
+     withdrawn image removes itself instead of painting a broken glyph. This
+     page had 393 images and one onerror, on the logo. */
+  `alt="${esc(name)}" loading="lazy" decoding="async" width="200" height="279" ` +
+  `onerror="this.remove()">`;
 
 const cardImg = (localId, name) => {
   const url = `${scanBase(localId)}/low.webp`;
@@ -333,7 +358,7 @@ const cardImg = (localId, name) => {
     `<img class="t30-card" src="${url}" ` +
     `srcset="${scanBase(localId)}/low.webp 245w, ${scanBase(localId)}/high.webp 600w" ` +
     `sizes="(max-width:544px) 30vw, 163px" ` +
-    `alt="${esc(name)}" loading="lazy" decoding="async"${d ? " " + d : ""}>`;
+    `alt="${esc(name)}" loading="lazy" decoding="async"${d ? " " + d : ""} onerror="this.remove()">`;
   return avifPicture(img);
 };
 
@@ -410,6 +435,54 @@ const pictureFor = (name, { shot, n, row, section }) => {
   if (shot) return shotImg(shot, name);
   return "";
 };
+
+/* WHICH SOURCE ACTUALLY DRAWS EACH CARD, ASKED IN pictureFor's OWN ORDER.
+ *
+ * THIS NOTE HAS NOW BEEN WRONG THREE TIMES AND EACH WAS A DIFFERENT MISTAKE,
+ * which is why it is derived here rather than reasoned about:
+ *   1. It credited TCGplayer with 188 by counting CHECKLIST.size -- checklist
+ *      rows, not hotlinks.
+ *   2. Corrected to 186, then TCGdex took the set and 329 of the page's
+ *      pictures moved to it while the sentence still said 186 TCGplayer.
+ *   3. The first attempt at THIS block asked "own photograph?" first, which is
+ *      not the order pictureFor() resolves in -- it puts TCGdex first -- so it
+ *      claimed three photographs when only one is drawn. Hydreigon and
+ *      Igglybuff both HAVE a photo and neither renders it any more.
+ * So this walks the same cards the page draws and asks the same questions in
+ * the same order. A fourth wrong version has to get past a mirror of the real
+ * function to happen.
+ *
+ * THE UNION, NOT THE CHECKLIST. The eight Energy are in no checklist row, so
+ * counting CHECKLIST alone silently drops the one card whose only picture is
+ * his own photograph. */
+const ALL_CARDS = (() => {
+  const out = [...CHECKLIST.values()].map((c) => ({ section: c.section, n: c.n, pid: c.pid }));
+  const seen = new Set(out.map((c) => clKey(c.section, c.n)));
+  for (const o of owned) {
+    const k = clKey(o.section, o.n || "");
+    if (!seen.has(k)) { out.push({ section: o.section, n: o.n, pid: null }); seen.add(k); }
+  }
+  return out;
+})();
+const shotFor = (c) => {
+  const mine = owned.find((o) => clKey(o.section, o.n || "") === clKey(c.section, c.n));
+  return mine && mine.shot ? mine.shot : null;
+};
+const SRC_TALLY = ALL_CARDS.reduce((a, c) => {
+  /* pictureFor's order, exactly: TCGdex, then a TCGplayer product id, then his
+     own photograph, then nothing. */
+  const k = dexLocalId(c.section, c.n) ? "dex" : c.pid ? "tcgp" : shotFor(c) ? "own" : "none";
+  a[k] = (a[k] || 0) + 1;
+  return a;
+}, {});
+const DEX_PICS = SRC_TALLY.dex || 0;
+const REMOTE_PICS = SRC_TALLY.tcgp || 0;
+const OWN_PICS = SRC_TALLY.own || 0;
+const NO_PICS = TOTAL - DEX_PICS - REMOTE_PICS - OWN_PICS;
+/* Defined here, BELOW pictureFor, because it calls dexLocalId(): placed above
+   it this threw "Cannot access 'dexLocalId' before initialization" at build
+   time. Const declarations are hoisted into a temporal dead zone, so the
+   reference compiles and fails only when it runs. */
 
 // A pocket is one of three states and they are visibly different from each
 // other, never by colour alone: owned draws the card in full colour with a
@@ -872,7 +945,13 @@ const style = `
 const TITLE = "Pokemon 30th Celebration: Products, Dates and Card List";
 const DESC =
   "Every 30th Celebration product with its date and price, what is actually in a pack, " +
-  "Japan's full 176 card list, and a master set tracked pocket by pocket.";
+  `Japan's full ${doc.japanList.length} card list, and a master set tracked pocket by pocket.`;
+/* COMPUTED, BECAUSE THE TYPED VERSION SAID 176 WHILE THE PAGE SAID 173. Japan's
+   set is 176 cards and 173 of them are revealed; japanList holds the revealed
+   ones, and the H2 has always printed its length. The meta description and the
+   JSON-LD were the only places still claiming the full 176, which is a
+   machine-readable claim to a search engine that the page carries a list it
+   does not have. */
 
 const ld = [
   {
@@ -881,7 +960,7 @@ const ld = [
     headline: TITLE,
     description: clipMeta(DESC),
     url: SITE + PATH,
-    dateModified: doc.checked,
+    dateModified: PAGE_CHECKED,
     author: { "@type": "Organization", name: "Garbage Rips 585" },
     publisher: { "@type": "Organization", name: "Garbage Rips 585" },
   },
@@ -1028,8 +1107,22 @@ const setHits = (() => {
       const v = byId.get(vid);
       if (!v) continue;
       const n = String(h.number || "");
+      /* MATCH ON THE NUMERATOR, NOT ON A FABRICATED "main" KEY.
+         This compared clKey(c.section, c.n) -- "pikachu|23" for a Pikachu --
+         against clKey("main", n) -- "main|23" -- so the section prefix could
+         never agree unless the card happened to be in `main`. 60 of the 188
+         checklist cards, every Pikachu and every secret rare, were
+         unreachable: a hit on Mew ex 158 rendered "No price yet" and no
+         picture on this band while the value band 15 sections above printed
+         the same card at $1,075 with its scan. Classic keeps its exact-string
+         key because that subset reuses numerators. */
+      const numKey = String(n).split("/")[0].replace(/^0+/, "") || "0";
       const row = CHECKLIST.get(clKey("classic", n)) ||
-        [...CHECKLIST.values()].find((c) => c.section !== "classic" && clKey(c.section, c.n) === clKey("main", n)) ||
+        [...CHECKLIST.values()].find(
+          (c) =>
+            c.section !== "classic" &&
+            (String(c.n).split("/")[0].replace(/^0+/, "") || "0") === numKey
+        ) ||
         null;
       const pr = row ? priceOf(row) : null;
       rows.push({ h, v, row, pr, section: row ? row.section : null });
@@ -1104,7 +1197,7 @@ const body = `<main id="main">
        check; the box does not grow. -->
       <div><b>${esc(shortDate(doc.set.release))}</b><span>Release, worldwide</span></div>
       <div><b>${E.count}</b><span>Cards in English, per PokeBeach</span></div>
-      <div><b>${doc.products.length}</b><span>Products, five waves</span></div>
+      <div><b>${doc.products.length}</b><span>Products, ${waves.size} wave${waves.size === 1 ? "" : "s"}</span></div>
       <div><b>${packTotal}</b><span>Packs across them all</span></div>
     </div>
     <p class="t30-msjump"><a href="#masterset"><b>${pct}% of the set collected</b>
@@ -1194,7 +1287,8 @@ ${waveBlocks}
     <h2>Japan's card list, all ${doc.japanList.length} revealed</h2>
     <p style="max-width:42em"><strong>This is Japan's set and not the English one.</strong> ${esc(
       doc.structure.japan.note
-    )} It is here because it is the only full list of this set that exists in words anywhere:
+    )} It is here because Japan's set is a different set, not an early look at this one, and the
+      numbering does not line up card for card &mdash; the English checklist above is the list for words anywhere:
       the English card images have been revealed but their names have not been published, so an English
       checklist would have to be guessed from Japanese numbers that demonstrably do not line up.</p>
     <p class="price-note">${esc(doc.structure.derived)}</p>
@@ -1227,7 +1321,14 @@ ${jpRows}
           ? `Nothing in it yet, which is correct rather than broken: the set does not release until ${esc(
               longDate(doc.set.release)
             )}. Cards get added here as they are opened.`
-          : `Last added ${esc(longDate(binder.checked))}.`
+          : /* THE NEWEST `got`, NOT THE FILE'S `checked`. This printed the date the
+             binder was last REVIEWED as the date a card was last ADDED, so it
+             claimed a card entered on 17 September when the newest of all 27 is
+             the 16th. One is an event the data contains; the other is when
+             somebody looked at the file. */
+          `Last added ${esc(longDate(
+            owned.map((c) => c.got).filter(Boolean).sort().pop() || binder.checked
+          ))}.`
       }</p>
     </div>
     <ul class="t30-secsum">
@@ -1257,14 +1358,18 @@ ${
      cannot drift from the binder above it. */
   CHECKLIST.size
     ? `    <p class="price-note"><strong>Where the card pictures come from.</strong>
-      ${REMOTE_PICS} of the ${TOTAL} are hotlinked from TCGplayer, who listed this set before
-      TCGdex did &mdash; TCGdex is where the rest of this site's card scans come from, and on release
-      day it still held no 2026 anniversary set. ${OWN_PICS} are the owner's own photographs of the
-      copies in his hands, which is why they look different from the rest. Nothing here is rehosted
+      ${DEX_PICS} of the ${TOTAL} come from TCGdex, which is where the rest of this site's card
+      scans come from; it took this set two days after release. ${REMOTE_PICS} are hotlinked from
+      TCGplayer instead &mdash; the whole Classic Collection, because TCGdex holds those as a separate
+      set with no images at all. ${OWN_PICS} ${OWN_PICS === 1 ? "is" : "are"} the owner's own
+      ${OWN_PICS === 1 ? "photograph" : "photographs"} of a card in his hand. Nothing here is rehosted
       or resized.${
         NO_PICS > 0
-          ? ` The remaining ${NO_PICS} have no picture yet: the eight foil Energy are numbered in a
-      different set and are not listed, and a few secret rares are still unrevealed.`
+          ? ` The remaining ${NO_PICS} have no picture anywhere this site may use: ${
+            E.energy - (SRC_TALLY.own || 0)
+          } of the eight foil Energy, which are numbered in a different set and listed by nobody, and
+      the ${US.count || 0} Mew RGB secret rares, which were revealed but which The Pokemon Company
+      still has not acknowledged.`
           : ""
       }</p>`
     : ""
@@ -1279,7 +1384,14 @@ ${
       own words. Everything else is PokeBeach, named in the sentence that uses it. Nothing on this page comes
       from a leak, a comment thread or a set tracker's extrapolation.</p>
     <ul class="t30-src">
-${doc.sources.map((u) => `      <li><a href="${esc(u)}" rel="noopener nofollow" target="_blank">${esc(u.replace(/^https?:\/\//, ""))}</a></li>`).join("\n")}
+${[...doc.sources, ...((doc.unlistedSecrets || {}).sources || [])]
+  /* THE MEW RGB SOURCE WAS MISSING AND IT IS THE ONE CLAIM THAT MOST NEEDS IT.
+     This section promises "everything else is PokeBeach, named in the sentence
+     that uses it", and the sentence about three cards TPCi has never
+     acknowledged cited nobody. unlistedSecrets carries its source; it just was
+     not in the rendered list. */
+  .filter((u, i, a) => a.indexOf(u) === i)
+  .map((u) => `      <li><a href="${esc(u)}" rel="noopener nofollow" target="_blank">${esc(u.replace(/^https?:\/\//, ""))}</a></li>`).join("\n")}
     </ul>
   </div>
 </section>
@@ -1309,6 +1421,15 @@ const html = `<!DOCTYPE html>
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="${SITE}/assets/og-image.jpg">
+<!-- PRECONNECT, WHICH 1,039 OTHER PAGES HAVE AND THE HEAVIEST TCGDEX PAGE ON
+     THE SITE DID NOT. This page draws 158 distinct cards from assets.tcgdex.net
+     and 30 from tcgplayer-cdn, and every one is loading="lazy" -- so the
+     preload scanner never sees them and the FIRST request to either host is
+     issued at layout, paying DNS + TCP + TLS from cold at the moment a reader
+     starts scrolling. build-pokemon.mjs and build-intl-pages.mjs already do
+     this; this builder simply never got the line. -->
+<link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
+<link rel="preconnect" href="https://tcgplayer-cdn.tcgplayer.com" crossorigin>
 ${FONTS}
 ${STYLES_NO_PACKS_CSS}
 <style>${style}</style>
@@ -1323,7 +1444,7 @@ ${MENU}
 ${body}
 
 ${footer(
-  `Set facts read ${longDate(doc.checked)} from The Pokemon Company's press releases and product pages, and from PokeBeach where marked. The Pokemon Company has published no card count for this set; totals here are PokeBeach's.`
+  `Page last checked ${longDate(PAGE_CHECKED)}. Set facts read ${longDate(doc.checked)} from The Pokemon Company's press releases and product pages, and from PokeBeach where marked. The Pokemon Company has published no card count for this set; totals here are PokeBeach's.`
 )}
 ${APP_JS_NO_PACKPLAYER}
 <script>
