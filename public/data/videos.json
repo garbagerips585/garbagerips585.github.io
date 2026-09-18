@@ -15,17 +15,19 @@
       "published": "2026-09-18",
       "publishedAt": "2026-09-18T10:20:24Z",
       "duration": 23,
-      "views": 177,
+      "views": 256,
       "vertical": true,
       "short": true,
       "sets": [
         "30th-celebration"
       ],
       "products": [
-        "collection-box"
+        "blister"
       ],
       "pulls": [],
-      "label": "30th Celebration Collection Box"
+      "packNumber": 2,
+      "packs": 1,
+      "label": "30th Celebration Blister - Pack 2"
     },
     {
       "id": "IYh51hhJkL0",
@@ -120,7 +122,7 @@
       "published": "2026-09-14",
       "publishedAt": "2026-09-14T10:08:34Z",
       "duration": 25,
-      "views": 1138,
+      "views": 1140,
       "vertical": true,
       "short": true,
       "sets": [
@@ -499,7 +501,7 @@
       "published": "2026-08-29",
       "publishedAt": "2026-08-29T12:09:23Z",
       "duration": 22,
-      "views": 1104,
+      "views": 1105,
       "vertical": true,
       "short": true,
       "sets": [

@@ -2371,6 +2371,17 @@
         "hallOfFame": false,
         "handNote": "The owner, 17 September 2026: \"Single Booster Pack, Pack #11, Hit yes, Iono's Wattrel - Single Gold Star - Illustration Rare , Ascended Heroes\". Ascended Heroes prints Iono's Wattrel TWICE -- 071 Common at $0.70 and 231 Illustration rare at $9.00 -- and the rarity names exactly one, which is the rule pickPrinting follows and the reason the number is 231. \"Single Gold Star\" is the same claim said twice: one gold star IS the Illustration rare symbol, so the symbol he read and the tier he named agree, and that agreement is the check. He named the set himself and it matches the video's own tag. NOT to be confused with Iono's Kilowattrel at 072, the evolution, which is a different card at a coincidentally identical $0.70. The rarity is written \"Illustration rare\" to match the checklist's own casing exactly, because the renderers key off that string. Hand kept until the My Hits tab carries it."
       }
+    ],
+    "AOdqwSZFsGw": [
+      {
+        "card": "Erika's Jigglypuff",
+        "set": "30th-celebration",
+        "setName": "30th Celebration",
+        "rarity": "Classic Collection",
+        "number": "69/132",
+        "hallOfFame": false,
+        "handNote": "The owner, 18 September 2026: \"30th Celebration 3-Pack Blister, Pack #2, Hit yes, Erika's Jigglypuff - Classic Collection\". THE ONLY ERIKA'S JIGGLYPUFF IN THE SET, so nothing had to be disambiguated: data/30th-checklist.json holds exactly one, at 69/132. THE NUMBER IS 69/132 AND NOT AN /128 BECAUSE THE CLASSIC COLLECTION KEEPS ITS ORIGINAL NUMBERING. The card is a 30th Celebration card and prints 30C like the rest of the set -- confirmed off TCGplayer's own setCode for every card in that subset -- it just carries the number of the set it first appeared in. His title says \"Gold Glitter Border\", which is that subset's gold bordered sparkle foil and corroborates the tier he named. NO PRICE FIELD ON PURPOSE. Every price on this site is PriceCharting's guide value and data/30th-prices.json deliberately holds no Classic Collection rows: those cards are numbered by their original sets, so two of them are #11 and three are #106, and there is no key that joins them to a PriceCharting row without guessing. TCGplayer's market figure is $10.24 and is recorded here as context rather than as a published price, because it is one marketplace where the site's figure is a guide value across several. ALREADY IN THE BINDER since 16 September, added from a photograph of the cards he pulled that day. The two records are different things and both are right: data/30th-binder.json is what he owns, this is what came out of a rip on camera. Hand kept until the My Hits tab carries it."
+      }
     ]
   }
 }

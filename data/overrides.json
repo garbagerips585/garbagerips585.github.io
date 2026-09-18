@@ -2784,5 +2784,12 @@
   "IYh51hhJkL0": {
     "packNumber": 11,
     "packNumberWhy": "The owner, 17 September 2026: \"Single Booster Pack, Pack #11, Hit yes, Iono's Wattrel - Single Gold Star - Illustration Rare , Ascended Heroes\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. This title does not even say a pack number -- it reads \"Ascended Heroes Pack #11\" in the nightly's own slug but the site does not parse that -- so his message is the whole source. No hasHit override: this rip HAS a hit and a hit is answered by its data/hits.json row."
+  },
+  "AOdqwSZFsGw": {
+    "packNumber": 2,
+    "products": [
+      "blister"
+    ],
+    "packNumberWhy": "The owner, 18 September 2026: \"30th Celebration 3-Pack Blister, Pack #2, Hit yes, Erika's Jigglypuff - Classic Collection\". Pack 2 of the same three pack he opened Pack 1 of on the 16th. Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. `blister` FOR THE SAME REASON AS PACK 1, and it is still an override rather than the derived tag: the description says Tech Sticker Collection and the taxonomy reads \"Collection\" as collection-box. He settled that on the 17th -- TPCi's product NAME is the Tech Sticker Collection and its FORM is a three pack blister, so both of his descriptions are true of one object. Tagging it the same as Pack 1 is what keeps the three pack together as one run on /openings/ rather than splitting it across two product types."
   }
 }
