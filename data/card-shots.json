@@ -25,9 +25,189 @@
     "To add one: find the card on tcgplayer.com, take the number out of the",
     "/product/<id>/ path, and record why TCGdex has no scan for it."
   ],
-  "checked": "2026-08-23",
+  "checked": "2026-09-18",
   "source": "tcgplayer.com",
   "shots": {
+    "30th Celebration|050/185": {
+      "productId": 716192,
+      "card": "Raikou",
+      "url": "https://www.tcgplayer.com/product/716192",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|100/102": {
+      "productId": 716200,
+      "card": "Darkrai & Cresselia Legend (Bottom)",
+      "url": "https://www.tcgplayer.com/product/716200",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|101/101": {
+      "productId": 716202,
+      "card": "N",
+      "url": "https://www.tcgplayer.com/product/716202",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|106/105": {
+      "productId": 716205,
+      "card": "Shining Celebi",
+      "url": "https://www.tcgplayer.com/product/716205",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|106/106": {
+      "productId": 716203,
+      "card": "Palkia LV.X",
+      "url": "https://www.tcgplayer.com/product/716203",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|106/160": {
+      "productId": 716204,
+      "card": "M Gardevoir EX",
+      "url": "https://www.tcgplayer.com/product/716204",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|108/115": {
+      "productId": 716206,
+      "card": "Scizor ex",
+      "url": "https://www.tcgplayer.com/product/716206",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|11/101": {
+      "productId": 716158,
+      "card": "Genesect EX (Team Plasma)",
+      "url": "https://www.tcgplayer.com/product/716158",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|11/113": {
+      "productId": 716157,
+      "card": "Metagross (Delta Species)",
+      "url": "https://www.tcgplayer.com/product/716157",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|114/264": {
+      "productId": 716207,
+      "card": "Mew VMAX",
+      "url": "https://www.tcgplayer.com/product/716207",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|123/172": {
+      "productId": 716208,
+      "card": "Arceus VSTAR",
+      "url": "https://www.tcgplayer.com/product/716208",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|138/202": {
+      "productId": 716209,
+      "card": "Zacian V",
+      "url": "https://www.tcgplayer.com/product/716209",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|149/147": {
+      "productId": 714386,
+      "card": "Lugia",
+      "url": "https://www.tcgplayer.com/product/714386",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|18/132": {
+      "productId": 716159,
+      "card": "Misty",
+      "url": "https://www.tcgplayer.com/product/716159",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|19/109": {
+      "productId": 716160,
+      "card": "Dark Tyranitar",
+      "url": "https://www.tcgplayer.com/product/716160",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|203/193": {
+      "productId": 716210,
+      "card": "Magikarp",
+      "url": "https://www.tcgplayer.com/product/716210",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|25/111": {
+      "productId": 716161,
+      "card": "Sneasel",
+      "url": "https://www.tcgplayer.com/product/716161",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|33/181": {
+      "productId": 714373,
+      "card": "Pikachu & Zekrom GX",
+      "url": "https://www.tcgplayer.com/product/714373",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|4/102": {
+      "productId": 714372,
+      "card": "Charizard",
+      "url": "https://www.tcgplayer.com/product/714372",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|41/122": {
+      "productId": 716162,
+      "card": "Greninja BREAK",
+      "url": "https://www.tcgplayer.com/product/716162",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|43/146": {
+      "productId": 716163,
+      "card": "Uxie",
+      "url": "https://www.tcgplayer.com/product/716163",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|47/127": {
+      "productId": 716191,
+      "card": "Crobat G",
+      "url": "https://www.tcgplayer.com/product/716191",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|5/109": {
+      "productId": 716156,
+      "card": "Delcatty",
+      "url": "https://www.tcgplayer.com/product/716156",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|57/111": {
+      "productId": 716193,
+      "card": "Buzzwole GX",
+      "url": "https://www.tcgplayer.com/product/716193",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|58/102": {
+      "productId": 716194,
+      "card": "Pikachu",
+      "url": "https://www.tcgplayer.com/product/716194",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|69/132": {
+      "productId": 716195,
+      "card": "Erika's Jigglypuff",
+      "url": "https://www.tcgplayer.com/product/716195",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|85/124": {
+      "productId": 716196,
+      "card": "Rayquaza EX",
+      "url": "https://www.tcgplayer.com/product/716196",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|89/149": {
+      "productId": 716197,
+      "card": "Solgaleo GX",
+      "url": "https://www.tcgplayer.com/product/716197",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|94/102": {
+      "productId": 716198,
+      "card": "Gengar (Prime)",
+      "url": "https://www.tcgplayer.com/product/716198",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
+    "30th Celebration|99/102": {
+      "productId": 716199,
+      "card": "Darkrai & Cresselia Legend (Top)",
+      "url": "https://www.tcgplayer.com/product/716199",
+      "why": "TCGdex took 30th Celebration on 18 September 2026 but holds the Classic Collection as a SEPARATE set, `30th-c`, with NO images: every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked before these were added. It also renumbers those reprints 001-030 instead of keeping the original numbering the cards actually print, so even a working image could not be joined to a hit by number. These 30 are the whole subset, so a hit on any of them resolves rather than only the ones already pulled. THE PRODUCT IDS ARE NOT GUESSED, which is this file's standing rule. Each one is read off TCGplayer's own listing for the set \"ME: 30th Celebration Classic Collection\", filtered to that exact set name, and written into data/30th-checklist.json by scripts/sync-30th-tcgplayer.mjs -- the same ids the binder already draws its Classic Collection pockets from and has since 16 September."
+    },
     "Abyss Eye|084": {
       "productId": 695065,
       "card": "Goldeen",

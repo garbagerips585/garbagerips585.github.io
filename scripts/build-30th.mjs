@@ -156,6 +156,16 @@ const US = doc.unlistedSecrets || {};
    reason that script exists: the normal chain is keyed on TCGdex sets and
    TCGdex has never held this one. Absent before it has run, in which case the
    value bands simply do not render. */
+/* WHAT THE CHANNEL HAS ACTUALLY PULLED FROM THIS SET, which every generated set
+   guide carries as "Pulled on camera" and this page could not until the hits
+   resolved to pictures. Read from the same data/hits.json the rip pages use, so
+   the two can never disagree about what came out of a pack. */
+let HITS = {};
+let VIDS = [];
+try {
+  HITS = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
+  VIDS = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8")).videos || [];
+} catch {}
 let prices = { cards: {} };
 try {
   prices = JSON.parse(await readFile(join(ROOT, "data/30th-prices.json"), "utf8"));
@@ -348,8 +358,29 @@ const cardImg = (localId, name) => {
  * Order: TCGdex if data/30th.json's two ids are filled in, then TCGplayer from
  * the checklist, then his own photograph, then nothing. `row` is the checklist
  * row when there is one. */
-const pictureFor = (name, { shot, n, row }) => {
-  if (HAVE_DEX && n) return cardImg(n, name);
+/* WHICH SECTIONS TCGDEX CAN ANSWER FOR, AND IT IS NOT ALL OF THEM.
+ *
+ * TCGdex took the set on 18 September 2026 as two sets: `30th`, 158 cards with
+ * images, and `30th-c`, 30 Classic Collection cards with NO images at all --
+ * every 30th-c url answers 404, checked. So only the three sections numbered in
+ * the 30th's own sequence can use it.
+ *
+ * SWITCHING IT ON WITHOUT THIS GUARD DRAWS THE WRONG CARDS, and not subtly.
+ * The Energy is numbered in a DIFFERENT set: Basic Metal Energy is MEE 016, and
+ * localId 016 in the 30th main set is SLOWPOKE. All seven Energy he owns would
+ * have drawn somebody else's card while looking perfectly correct. The Classic
+ * Collection is worse-shaped: its numbers are its original sets', so 69/132
+ * builds .../30th/69/132, which is not a url at all.
+ *
+ * So: pikachu, main and secret get TCGdex; classic falls through to the
+ * TCGplayer product id on its checklist row; energy falls through to his own
+ * photograph, which is still the only picture of those eight anywhere. */
+const DEX_SECTIONS = new Set(["pikachu", "main", "secret"]);
+const dexOk = (section, n) =>
+  HAVE_DEX && DEX_SECTIONS.has(section) && /^\d{3}$/.test(String(n || ""));
+
+const pictureFor = (name, { shot, n, row, section }) => {
+  if (dexOk(section ?? row?.section, n)) return cardImg(n, name);
   /* NO avifPicture() AROUND THIS ONE. That helper rewrites a .webp srcset to
      .avif for TCGdex and for our own pack renditions and returns its input
      untouched for anything else, so on a third party's .jpg the call was a
@@ -367,14 +398,14 @@ const pocket = (c, i, slot) => {
   if (c) {
     const row = CHECKLIST.get(clKey(c.section, c.n || ""));
     return `<li class="t30-pk has" title="${esc(c.name)}">
-        ${pictureFor(c.name, { shot: c.shot, n: c.n, row })}
+        ${pictureFor(c.name, { shot: c.shot, n: c.n, row, section: c.section })}
         <span class="t30-pn">${esc(c.n ? "#" + c.n : "")}${c.setCode ? " " + esc(c.setCode) : ""}</span>
         ${c.shot ? "" : `<span class="t30-nm">${esc(c.name)}</span>`}
         ${c.got ? `<span class="t30-got">${esc(longDate(c.got))}</span>` : ""}
       </li>`;
   }
   if (HAVE_SCANS && slot) {
-    const pic = pictureFor(slot.name, { n: slot.n, row: slot });
+    const pic = pictureFor(slot.name, { n: slot.n, row: slot, section: slot.section });
     return `<li class="t30-pk need" title="${esc(slot.name)}">
         <span class="t30-sr">Not collected yet</span>
         ${pic}
@@ -400,7 +431,7 @@ const slotsFor = (key) => (checklist.cards || []).filter((c) => c.section === ke
    photographs, TCGdex and TCGplayer in one precedence order across the page. */
 const cardTile = (c, { showPrice = true } = {}) => {
   const pr = c.pr || priceOf(c);
-  const pic = pictureFor(c.name, { n: c.n, row: c });
+  const pic = pictureFor(c.name, { n: c.n, row: c, section: c.section });
   return `        <li class="t30-ct${pic ? "" : " nopic"}">
           ${pic}
           <p class="t30-ct-n">${esc(c.name)}</p>
@@ -953,6 +984,90 @@ ${rows.map((c) => cardTile(c)).join("\n")}
   </div>
 </section>`;
 
+/* ------------------------------------------------------------ pulled on camera --
+ *
+ * The owner, 18 September 2026: "also on the set page for what hits we have
+ * gotten from the set so far".
+ *
+ * ONE ROW PER HIT, NEWEST FIRST, each linking to the rip it came out of. The
+ * card picture comes from pictureFor() like everything else on this page, so a
+ * hit and its binder pocket cannot show different art. The NUMBER is the join:
+ * a hit row carries the collector number the owner typed, and that is what
+ * finds the checklist row that carries the product id.
+ *
+ * IT SAYS WHAT IT DOES NOT KNOW. A card PriceCharting has not priced yet shows
+ * no figure rather than a zero, and on a set two days old that is most of them.
+ */
+const setHits = (() => {
+  const byId = new Map(VIDS.map((v) => [v.id, v]));
+  const rows = [];
+  for (const [vid, list] of Object.entries(HITS)) {
+    for (const h of list || []) {
+      if (h.set !== doc.set.slug) continue;
+      const v = byId.get(vid);
+      if (!v) continue;
+      const n = String(h.number || "");
+      const row = CHECKLIST.get(clKey("classic", n)) ||
+        [...CHECKLIST.values()].find((c) => c.section !== "classic" && clKey(c.section, c.n) === clKey("main", n)) ||
+        null;
+      const pr = row ? priceOf(row) : null;
+      rows.push({ h, v, row, pr, section: row ? row.section : null });
+    }
+  }
+  rows.sort((a, b) => String(b.v.publishedAt ?? "").localeCompare(String(a.v.publishedAt ?? "")));
+  return rows;
+})();
+
+const hitsBand = !setHits.length ? "" : `
+<section class="tight">
+  <div class="wrap">
+    <p class="sec-label">Pulled on camera</p>
+    <h2>What we have hit from <span class="hl">this set</span></h2>
+    <p class="lede" style="max-width:44em">${setHits.length} card${setHits.length === 1 ? "" : "s"} out of
+      ${setHits.length === 1 ? "one rip" : `${new Set(setHits.map((r) => r.v.id)).size} rips`} so far. Every one
+      links to the pack it came out of. This is a different list from the binder below: the binder is every
+      card owned however it got there, and this is only what came out on camera.</p>
+    <ol class="t30-cts">
+${setHits
+  .map(({ h, v, row, pr }) => {
+    /* THE NUMBER TCGDEX WANTS IS THE BARE LOCALID, NOT THE CHECKLIST'S. This
+       passed row.n, which is "015/128", and dexOk() requires three digits -- so
+       Fuecoco ex silently fell through to its TCGplayer picture while its TCGdex
+       scan sat there unused. The checklist stores the printed number; TCGdex
+       keys on the numerator zero-padded to three. The Classic Collection keeps
+       its full number because its picture never comes from TCGdex anyway. */
+    const dexN = row && row.section !== "classic"
+      ? String(row.n).split("/")[0].padStart(3, "0")
+      : row ? row.n : h.number;
+    const pic = pictureFor(h.card, { n: dexN, row, section: row ? row.section : null });
+    return `        <li class="t30-ct${pic ? "" : " nopic"}">
+          <a href="/${esc(v.path)}">
+            ${pic}
+            <p class="t30-ct-n">${esc(h.card)}</p>
+            <p class="t30-ct-m">#${esc(
+              /* THE FULL NUMBER FOR A CLASSIC COLLECTION CARD, because "69" on
+                 its own is not what the card says and is not unique in that
+                 section -- it holds two 11s and three 106s. Everything else is
+                 numbered in the 30th's own sequence, where the numerator is the
+                 whole answer. */
+              row && row.section === "classic" ? String(h.number) : String(h.number).split("/")[0]
+            )}${
+              h.rarity ? ` &bull; ${esc(h.rarity)}` : ""
+            }</p>
+            ${
+              pr && typeof pr.raw === "number"
+                ? `<p class="t30-ct-p">${moneyExact(pr.raw)}<span>raw NM</span></p>`
+                : `<p class="t30-ct-p none">No price yet</p>`
+            }
+            <p class="t30-ct-v">${esc(shortDate(v.published))}</p>
+          </a>
+        </li>`;
+  })
+  .join("\n")}
+    </ol>
+  </div>
+</section>`;
+
 const body = `<main id="main">
 
 <header class="band-sky tight">
@@ -983,6 +1098,7 @@ const body = `<main id="main">
   </div>
 </header>
 ${valueBand}
+${hitsBand}
 
 <section class="band tight">
   <div class="wrap">

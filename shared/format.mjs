@@ -932,10 +932,39 @@ export const RARITY_ALIAS = {
  *   Holo Rare          takes the slot "Rare Holo" already held, one above Rare,
  *                      which its $0.43 median against Rare's $0.27 supports.
  */
+/* TWO RUNGS ADDED 18 SEPTEMBER 2026 FOR 30th CELEBRATION, AND THEIR PLACES WERE
+ * MEASURED RATHER THAN GUESSED. build-set-pages.mjs threw the moment
+ * cards/30th-celebration.json existed -- "2 rarity names with no rung in
+ * RARITY_ORDER, so they would sort below Common on every guide that prints
+ * them" -- which is that guard working exactly as intended.
+ *
+ * The set's own PriceCharting medians, over its 51 priced cards:
+ *     Futuristic Rare            2 cards   median $862.50   max $1,075.00
+ *     Special Illustration Rare  3         median $500.00
+ *     Illustration Rare          9         median $55.00
+ *     Double Rare                9         median $42.00
+ *     Pikachu Rare              15         median $30.76   max $51.30
+ *     Common                    10         median $5.00
+ *     Rare                       3         median $4.99
+ *
+ * So FUTURISTIC RARE is the set's apex and goes above Special Illustration
+ * Rare; it is deliberately NOT placed above Hyper Rare, a tier it never appears
+ * beside, because that would be a claim the prices cannot support.
+ * PIKACHU RARE sits just below Double Rare: it is a real chase subset with its
+ * own mark, and one is GUARANTEED in every pack, so it is the least scarce of
+ * the special tiers -- which is what the $30.76 against Double Rare's $42 says
+ * too. Above Rare and Common by a factor of six either way.
+ *
+ * The thrown error also suggests re-running sync-sets.mjs so sets.json carries
+ * the same ladder. Not done, and it would be a no-op: that file is built from
+ * api.pokemontcg.io, which has no 2026 anniversary set, so it holds no 30th row
+ * for a ladder to reach. */
 export const RARITY_ORDER = [
   "Black White Rare", "Mega Hyper Rare", "Hyper Rare", "Rainbow Rare", "Secret Rare",
+  "Futuristic Rare",
   "Special Illustration Rare", "Illustration Rare", "Shiny Rare", "Shiny Ultra Rare",
   "Ultra Rare", "Holo Rare VSTAR", "Holo Rare VMAX", "Holo Rare V", "Double Rare",
+  "Pikachu Rare",
   "ACE SPEC Rare", "Radiant Rare", "Amazing Rare", "Holo Rare", "Rare", "Uncommon", "Common",
 ];
 

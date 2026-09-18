@@ -2115,6 +2115,10 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 .t30-ct-p.none{color:var(--ink-2);font-weight:400;font-size:var(--t-micro)}
 .t30-ct-g{margin:0;font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
 .t30-ct-g i{font-style:normal;text-transform:uppercase;letter-spacing:.04em}
+.t30-ct>a{display:block;text-decoration:none;color:inherit}
+.t30-ct>a:hover .t30-ct-n,.t30-ct>a:focus-visible .t30-ct-n{color:var(--sky)}
+.t30-ct-v{margin:2px 0 0;font:400 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.04em}
 .t30-ct.nopic::before{content:"";display:block;aspect-ratio:245/337;
   background:var(--paper);border-radius:var(--r-sm)}
 .t30-rar{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s3);
