@@ -376,11 +376,32 @@ const cardImg = (localId, name) => {
  * TCGplayer product id on its checklist row; energy falls through to his own
  * photograph, which is still the only picture of those eight anywhere. */
 const DEX_SECTIONS = new Set(["pikachu", "main", "secret"]);
-const dexOk = (section, n) =>
-  HAVE_DEX && DEX_SECTIONS.has(section) && /^\d{3}$/.test(String(n || ""));
+
+/* THE LOCALID TCGDEX WANTS, DERIVED HERE RATHER THAN AT FOUR CALL SITES.
+ *
+ * The same number reaches this function in two shapes and that is not going to
+ * change: data/30th-binder.json stores what the owner types ("023"), and
+ * data/30th-checklist.json stores what the card prints ("023/128"). TCGdex keys
+ * on the numerator zero-padded to three.
+ *
+ * THE FIRST VERSION OF THIS TESTED /^\d{3}$/ AND FIXED ONE CALL SITE, WHICH IS
+ * WORSE THAN FIXING NONE because it looked finished. Counted off the built page:
+ * only the 17 OWNED main-section pockets passed, while all 186 needed pockets
+ * and every one of the 188 checklist tiles silently fell back to TCGplayer --
+ * 0 TCGdex references in the whole checklist section. Both sources draw the
+ * right card so nothing looked wrong; the canonical one was just unused.
+ *
+ * Returning null rather than a guess is what keeps the Energy safe: MEE 016 must
+ * never become .../30th/016, which is Slowpoke. */
+const dexLocalId = (section, n) => {
+  if (!HAVE_DEX || !DEX_SECTIONS.has(section)) return null;
+  const m = /^0*(\d{1,3})(?:\/\d+)?$/.exec(String(n || "").trim());
+  return m ? m[1].padStart(3, "0") : null;
+};
 
 const pictureFor = (name, { shot, n, row, section }) => {
-  if (dexOk(section ?? row?.section, n)) return cardImg(n, name);
+  const dex = dexLocalId(section ?? row?.section, n);
+  if (dex) return cardImg(dex, name);
   /* NO avifPicture() AROUND THIS ONE. That helper rewrites a .webp srcset to
      .avif for TCGdex and for our own pack renditions and returns its input
      untouched for anything else, so on a third party's .jpg the call was a
@@ -1030,16 +1051,9 @@ const hitsBand = !setHits.length ? "" : `
     <ol class="t30-cts">
 ${setHits
   .map(({ h, v, row, pr }) => {
-    /* THE NUMBER TCGDEX WANTS IS THE BARE LOCALID, NOT THE CHECKLIST'S. This
-       passed row.n, which is "015/128", and dexOk() requires three digits -- so
-       Fuecoco ex silently fell through to its TCGplayer picture while its TCGdex
-       scan sat there unused. The checklist stores the printed number; TCGdex
-       keys on the numerator zero-padded to three. The Classic Collection keeps
-       its full number because its picture never comes from TCGdex anyway. */
-    const dexN = row && row.section !== "classic"
-      ? String(row.n).split("/")[0].padStart(3, "0")
-      : row ? row.n : h.number;
-    const pic = pictureFor(h.card, { n: dexN, row, section: row ? row.section : null });
+    /* No normalising here any more: dexLocalId() inside pictureFor() takes the
+       number in either shape, which is the whole point of moving it there. */
+    const pic = pictureFor(h.card, { n: row ? row.n : h.number, row, section: row ? row.section : null });
     return `        <li class="t30-ct${pic ? "" : " nopic"}">
           <a href="/${esc(v.path)}">
             ${pic}
