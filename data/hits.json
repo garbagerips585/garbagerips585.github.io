@@ -2382,6 +2382,17 @@
         "hallOfFame": false,
         "handNote": "The owner, 18 September 2026: \"30th Celebration 3-Pack Blister, Pack #2, Hit yes, Erika's Jigglypuff - Classic Collection\". THE ONLY ERIKA'S JIGGLYPUFF IN THE SET, so nothing had to be disambiguated: data/30th-checklist.json holds exactly one, at 69/132. THE NUMBER IS 69/132 AND NOT AN /128 BECAUSE THE CLASSIC COLLECTION KEEPS ITS ORIGINAL NUMBERING. The card is a 30th Celebration card and prints 30C like the rest of the set -- confirmed off TCGplayer's own setCode for every card in that subset -- it just carries the number of the set it first appeared in. His title says \"Gold Glitter Border\", which is that subset's gold bordered sparkle foil and corroborates the tier he named. NO PRICE FIELD ON PURPOSE. Every price on this site is PriceCharting's guide value and data/30th-prices.json deliberately holds no Classic Collection rows: those cards are numbered by their original sets, so two of them are #11 and three are #106, and there is no key that joins them to a PriceCharting row without guessing. TCGplayer's market figure is $10.24 and is recorded here as context rather than as a published price, because it is one marketplace where the site's figure is a guide value across several. ALREADY IN THE BINDER since 16 September, added from a photograph of the cards he pulled that day. The two records are different things and both are right: data/30th-binder.json is what he owns, this is what came out of a rip on camera. Hand kept until the My Hits tab carries it."
       }
+    ],
+    "jJWVipd2sf0": [
+      {
+        "card": "Wigglytuff",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames",
+        "rarity": "Illustration rare",
+        "number": "105",
+        "hallOfFame": false,
+        "handNote": "The owner, 19 September 2026: \"Single Booster Pack, Pack#14, Hit yes, Wigglytuff - Single Gold Star - Illustration Rare , Phantasmal Flames\". Phantasmal Flames prints Wigglytuff TWICE -- 077 Uncommon at $0.70 and 105 Illustration rare at $6.46 -- and the rarity names exactly one, which is the rule pickPrinting follows and the reason the number is 105. THE DEAREST-PRINTING RULE WOULD HAVE AGREED TODAY and that is worth saying out loud rather than letting the row read as evidence: the Illustration rare is also the pricier of the two, so this agrees by coincidence, the way the Mega Skarmory ex row of 16 September does, and not the way the Mega Absol ex and Team Rocket's Nidoking ex rows of 12 and 13 September do, where the dearest printing was 28x and 46x wrong. \"Single Gold Star\" is the same claim said twice: one gold star IS the Illustration rare symbol, so the symbol he read and the tier he named agree, and that agreement is the check that matters. He named the set himself and it matches the video's own tag and its title. NOT the Jigglypuff at 076, which is a different card and the pre-evolution. His title calls it \"The CUTEST Hit in the Entire Set\", which is corroboration of the card rather than of the printing. The rarity is written \"Illustration rare\" to match the checklist's own casing exactly, because the renderers key off that string. Hand kept until the My Hits tab carries it."
+      }
     ]
   }
 }

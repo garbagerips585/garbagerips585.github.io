@@ -9,6 +9,19 @@
 // Used by sync-products.mjs (sealed boxes) and sync-chase.mjs (singles).
 // A new set needs one line here.
 export const TCG_SET = {
+  // PROBED, NOT GUESSED, 19 September 2026, which is what the error message in
+  // sync-chase.mjs asks for and is not ceremony: mp-search-api IGNORES a setName
+  // it does not know instead of rejecting it, so a wrong name comes back 200 with
+  // all 32,813 products and reads as a success. The probe asked for this name and
+  // got 218 products, every one of them carrying it and no other setName in the
+  // page. The set had a checklist since 16 September and no pin, so it was the one
+  // live set on the site whose cards and sealed products had no buy links.
+  // ONLY THE MAIN SET IS PINNED. "ME: 30th Celebration Classic Collection" is a
+  // separate TCGplayer set and one slug takes one name; a Classic card cannot
+  // reach a chase grid to be mislinked, because data/30th-prices.json deliberately
+  // holds no Classic rows (those cards keep their ORIGINAL sets' numbering, so two
+  // are #11 and three are #106 and nothing joins them without guessing).
+  "30th-celebration": "ME: 30th Celebration",
   "pitch-black": "ME05: Pitch Black",
   "chaos-rising": "ME04: Chaos Rising",
   "perfect-order": "ME03: Perfect Order",
