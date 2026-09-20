@@ -2795,5 +2795,12 @@
   "jJWVipd2sf0": {
     "packNumber": 14,
     "packNumberWhy": "The owner, 19 September 2026: \"Single Booster Pack, Pack#14, Hit yes, Wigglytuff - Single Gold Star - Illustration Rare , Phantasmal Flames\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. This title does read \"Pack #14\" and that is still not a source -- it is the same string the regex was banned from trusting. NO products OVERRIDE: the playlist \"Phantasmal Flames Booster Pack Openings\" already derives single-pack, which is what he typed, and no set override either for the same reason. No hasHit override: this rip HAS a hit and a hit is answered by its data/hits.json row, so writing hasHit as well would be two sources for one fact. His sheet has not caught up with this rip yet, so it lives here rather than in manual.json, which the next CSV import would rebuild without it."
+  },
+  "AebP2_eyvGI": {
+    "packNumber": 3,
+    "products": [
+      "blister"
+    ],
+    "packNumberWhy": "The owner, 20 September 2026: \"30th Celebration Tech Sticker Collection , Pack #3, hit yes, Zapdos - Single Gold Star - Illustration Rare\". THE THIRD AND LAST PACK of the same three pack he opened Pack #1 of on the 16th and Pack #2 of on the 18th. Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. `blister` FOR THE THIRD TIME AND FOR THE SAME REASON, and it is still an override rather than the derived tag: he wrote \"Tech Sticker Collection\" and the taxonomy reads \"Collection\" as collection-box, which is what the nightly tagged this rip before the override landed. He settled that on 17 September -- TPCi's product NAME is the Tech Sticker Collection and its FORM is a three pack blister, so both of his descriptions are true of one object. Tagging it the same as Packs 1 and 2 is what keeps the three pack together as one run on /openings/ rather than splitting the last pack of it off under a second product type. No hasHit override: this rip HAS a hit and a hit is answered by its data/hits.json row."
   }
 }

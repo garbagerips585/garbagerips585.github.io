@@ -10,7 +10,7 @@
 
 - It NEVER states pull rates or pack odds. The Pokemon Company does not publish
   them. Where it reports what came out of packs, those are one person's observed
-  results over 349 judged rips, labeled as luck and not as odds.
+  results over 350 judged rips, labeled as luck and not as odds.
 - Every price carries the source it came from and the date it was read.
 - Shop and restaurant hours appear only where the business states them about
   itself. Directories are not treated as evidence.
@@ -19,7 +19,7 @@
 
 ## The local scene, which is the part least well covered elsewhere
 
-- [Card shows calendar](https://garbagerips.com/card-shows.html): 77 upcoming shows around Rochester, NY, Buffalo and Syracuse. 27 are all Pokemon, 47 more are mixed shows where Pokemon vendors are confirmed, 43 are free. Each listing names the venue, the full street address, the admission and who confirmed the Pokemon
+- [Card shows calendar](https://garbagerips.com/card-shows.html): 78 upcoming shows around Rochester, NY, Buffalo and Syracuse. 27 are all Pokemon, 48 more are mixed shows where Pokemon vendors are confirmed, 44 are free. Each listing names the venue, the full street address, the admission and who confirmed the Pokemon
 - [Card show 101](https://garbagerips.com/card-show-101.html): what happens at a card show, what to bring, how vendors pay, and what percentage of market value they actually offer. The buy rates are other people's published figures, each one named and dated
 - [Card shops in Rochester, NY](https://garbagerips.com/shops.html): 7 shops with hours taken only from each shop's own site, plus where you can sit down and play
 - [Rochester Pokemon scene](https://garbagerips.com/rochester.html): the hub tying the shows, the shops and the local pages together
@@ -35,7 +35,7 @@
 - [Where to buy](https://garbagerips.com/buying.html): every retailer compared, with what each one actually costs
 - [Where to sell](https://garbagerips.com/selling.html): every venue compared, with the fees each one takes
 - [How to play](https://garbagerips.com/how-to-play.html): the rules, for a complete beginner
-- [Pack luck, measured](https://garbagerips.com/luck.html): what came out of 349 judged rips. Observed results, explicitly not odds
+- [Pack luck, measured](https://garbagerips.com/luck.html): what came out of 350 judged rips. Observed results, explicitly not odds
 
 ## The channel
 

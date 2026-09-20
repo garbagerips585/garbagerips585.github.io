@@ -397,11 +397,12 @@
       "region": "buffalo",
       "admission": "Free",
       "source": "wnycardshows (Shake & Break 716)",
-      "pkmnWhy": "The regional calendar's entry for THIS show reads \"Sports, Pokemon, non-sports, and TCG cards, toys, comics, funko pops, and more\". Single source.",
+      "pkmnWhy": "THE ORGANISER'S OWN FLYER NAMES POKEMON, which replaces a single-source aggregator citation with the promoter speaking. It lists \"Sports Cards, Non-Sports Cards, Pokemon, TCG, Toys, Comics, Funko Pops, Coins and more\", with Pokemon third in its own bullet. Flyer sent to the channel 20 September 2026. The regional calendar's wording, which is what this row used to rest on, agreed: \"Sports, Pokemon, non-sports, and TCG cards, toys, comics, funko pops, and more\". Two sources now, and they are genuinely independent of each other in a way the four in `sourceNote` are not.",
       "pokemon": false,
       "pkmn": "some",
       "blurb": "A free morning show in the church bingo hall, and an early one: doors 8:30am and done by 2pm. The listing asks, without requiring it, that you bring a non-perishable food item for the church's food pantry.",
-      "sourceNote": "THE OLD pkmnWhy CITED THE WRONG SHOW'S SENTENCE, and the conclusion was right for the wrong reason, which is worse than being wrong. It read \"The regional calendar lists 60+ tables of sports and Pokemon or TCG cards\". That \"60+ tables\" line belongs to the COLD FRONT CARD SHOW, the next entry down the same calendar, on 20 September at the Frontier Volunteer Fire Department. Niagara Vault's own entry carries no table count at all -- which is why this row has never had a `tables` field, and the prose was quietly claiming one the data did not. Re-read off the calendar on 8 September 2026.\nThe mark still stands, on this show's own words: its entry does name Pokemon. Only the citation moved.\nTHE FOUR SOURCES FOR THIS SHOW ARE ONE SOURCE. Shake & Break 716's Western New York calendar at sites.google.com/view/wnycardshows is the upstream, and TCDb, Treasure Hunter and tcgshowsnearme are all re-publishing it -- TCDb's own entry names that calendar as the show's web address, and tcgshowsnearme credits the show to \"WNY Card Shows\", which is the calendar rather than a promoter. So their agreement is NOT corroboration and must not be read as any. Checked 8 September 2026."
+      "sourceNote": "THE OLD pkmnWhy CITED THE WRONG SHOW'S SENTENCE, and the conclusion was right for the wrong reason, which is worse than being wrong. It read \"The regional calendar lists 60+ tables of sports and Pokemon or TCG cards\". That \"60+ tables\" line belongs to the COLD FRONT CARD SHOW, the next entry down the same calendar, on 20 September at the Frontier Volunteer Fire Department. Niagara Vault's own entry carries no table count at all -- which is why this row has never had a `tables` field, and the prose was quietly claiming one the data did not. Re-read off the calendar on 8 September 2026.\nThe mark still stands, on this show's own words: its entry does name Pokemon. Only the citation moved.\nTHE FOUR SOURCES FOR THIS SHOW ARE ONE SOURCE. Shake & Break 716's Western New York calendar at sites.google.com/view/wnycardshows is the upstream, and TCDb, Treasure Hunter and tcgshowsnearme are all re-publishing it -- TCDb's own entry names that calendar as the show's web address, and tcgshowsnearme credits the show to \"WNY Card Shows\", which is the calendar rather than a promoter. So their agreement is NOT corroboration and must not be read as any. Checked 8 September 2026.\nTHE FLYER ARRIVED 20 SEPTEMBER 2026, the day AFTER the show, and it corroborates every field already here: St. Leo's Bingo Hall, 2748 Military Road, Niagara Falls NY 14304, Saturday September 19th, 8:30am to 2pm, free admission, and the non-perishable food item for the church pantry asked for and not required. It adds TWO published table-enquiry numbers, 716-913-5219 and 716-870-1059. Only the first is in `phone`, because that field is a single string that feeds the organizer's structured data; the second is recorded here so it is not lost. Both are printed on the promoter's own flyer under \"FOR TABLE INFORMATION, PLEASE CONTACT\", which is the published -for-contact test this file's `phone` rule sets.",
+      "phone": "716-913-5219"
     },
     {
       "id": "cny-collectors-expo-2026-09-19",
@@ -2375,6 +2376,27 @@
       "source": "wnycardshows (Shake & Break 716), read 5 September 2026",
       "blurb": "A separate series from the same organizer's Saturday card and memorabilia show at the same hall. This one is the Pokemon and TCG day.",
       "dateNote": "Read straight off sites.google.com/view/wnycardshows on 5 September 2026, date by date. THE 2027 RUN WAS WRONG HERE UNTIL THEN and the shape of the error is why it is worth recording: every date this file held was the THIRD Sunday of its month, which is a pattern, not a schedule. The organiser's list is irregular -- first, second or third Sunday depending on the month -- so nine of the twelve were off by up to two weeks. Only December was not a third Sunday here, which suggests December was the one date somebody actually had and the other eleven were counted forward from it; February and July matched by coincidence, because the real date happened to fall on a third Sunday. Do not regenerate these from a rule. Re-read them."
+    },
+    {
+      "id": "collectors-clubhouse-2026-10-25",
+      "name": "The Collector's Clubhouse",
+      "date": "2026-10-25",
+      "start": "09:00",
+      "end": "15:00",
+      "venue": "Van Patten Golf Club",
+      "address": "924 Main Street, Clifton Park, NY",
+      "city": "Clifton Park",
+      "region": "away",
+      "farAfield": "THE OWNER SENT THE FLYER AND SAID TO ADD IT, 20 September 2026: \"got some new flyers to add to the shows page ... add to the shows page if its not there\". IT MEETS NEITHER OF THE TWO CODIFIED GROUNDS AND THAT IS WRITTEN DOWN RATHER THAN GLOSSED, because this file's own rule is that an exception gets argued in writing. It is not the DRIVE ground: Clifton Park is 139 road miles and 2h57m from Syracuse, its nearest anchor, against a DRIVE_HOURS of 2, and 221 miles and 4h29m from Rochester, NY (OSRM over OSM road data, measured 20 September 2026; times are free-flow, the miles are the solid figure). And it is not the VENDOR ground: no confirmed local vendor is listed for it, so there is no `vendors` entry to be the point of the row. It is here on his direct instruction, which is the same way The Big Show in Harmony, PA got in, and it carries region \"away\" so it shows under All and under none of the three area chips -- the honest placement for a show that is genuinely nearer Albany than any city this page covers.",
+      "admission": "Free",
+      "organiser": "Van Patten Golf Club",
+      "organiserUrl": "https://vanpattengolf.com/collector",
+      "pokemon": false,
+      "pkmn": "some",
+      "pkmnWhy": "The show's own flyer, which is the organiser speaking rather than an aggregator. Pokemon is the FIRST word of the badge round the logo, \"Pokemon - Sports Cards - TCG - Collectibles\", and the body reads \"Explore tables packed with Pokemon, Sports Cards, TCG, and awesome collectibles from vendors across the region\". So Pokemon is named by the promoter and named first, but the floor is explicitly mixed, which is \"some\" rather than an all-Pokemon show.",
+      "blurb": "The first card show at Van Patten Golf Club, in the clubhouse, free to get in and all ages. Food and drink are for sale from Mixed Breed Brewing's restaurant and bar on site, who are also sponsoring it. Vendors get up to two 6' tables free of charge, with more subject to floor space.",
+      "source": "the show's own flyers, both the public one and the vendor one, sent to the channel 20 September 2026",
+      "sourceNote": "BOTH FLYERS AGREE AND THE SECOND ONE IS WHERE THE VENDOR TIMES COME FROM: load-in and trade at 7:30am, break-down at 3:15pm, a vendor VIP lounge with food and drink included in registration, and the promoter's own claim of email marketing to over 22,000 subscribers plus paid social. None of that is on the row because none of it is a fact a READER of this page needs; it is recorded here so the next editor does not re-read the flyer to find it. THE DATE CHECKS OUT: the flyer says \"Sunday, October 25\" and 25 October 2026 is a Sunday. NO TABLE COUNT IS PUBLISHED -- \"FREE 6' Vendor Tables (Up to 2)\" is a per-vendor allowance and not a floor size, so this row carries no `tables` field rather than inventing one from it."
     }
   ],
   "_towns": {
@@ -2465,6 +2487,10 @@
     "Uncasville": [
       41.434664,
       -72.109987
+    ],
+    "Clifton Park": [
+      42.863037,
+      -73.774762
     ]
   },
   "_towns_note": [
@@ -2527,6 +2553,13 @@
       "miles": 297,
       "hours": 5.97,
       "label": "about 6 hours"
+    },
+    "Clifton Park": {
+      "anchor": "syracuse",
+      "anchorName": "Syracuse",
+      "miles": 139,
+      "hours": 2.95,
+      "label": "about 3 hours"
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 297874,
+    "views": 297689,
     "subscribers": 380,
     "videos": 350,
     "readAt": "2026-09-20"
@@ -15,17 +15,19 @@
       "published": "2026-09-20",
       "publishedAt": "2026-09-20T10:39:12Z",
       "duration": 25,
-      "views": 98,
+      "views": 513,
       "vertical": true,
       "short": true,
       "sets": [
         "30th-celebration"
       ],
       "products": [
-        "collection-box"
+        "blister"
       ],
       "pulls": [],
-      "label": "30th Celebration Collection Box"
+      "packNumber": 3,
+      "packs": 1,
+      "label": "30th Celebration Blister - Pack 3"
     },
     {
       "id": "jJWVipd2sf0",
@@ -55,7 +57,7 @@
       "published": "2026-09-18",
       "publishedAt": "2026-09-18T10:20:24Z",
       "duration": 23,
-      "views": 881,
+      "views": 897,
       "vertical": true,
       "short": true,
       "sets": [
